@@ -1,0 +1,6 @@
+{
+  "name": "Anointments",
+  "description": "",
+  "icon": "neovitae:smelting_anointment",
+  "parent": "neovitae:alchemy_table"
+}

@@ -1,0 +1,18 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "tag": "c:ores/iron"
+    },
+    {
+      "tag": "neovitae:arc_tool/cutting_fluids"
+    }
+  ],
+  "output": {
+    "count": 2,
+    "id": "neovitae:iron_sand"
+  },
+  "syphon": 400,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

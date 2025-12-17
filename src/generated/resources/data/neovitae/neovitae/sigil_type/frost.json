@@ -1,0 +1,7 @@
+{
+  "effect": {
+    "type": "neovitae:frost",
+    "range": 5
+  },
+  "lp_cost_active": 100
+}

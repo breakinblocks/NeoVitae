@@ -1,0 +1,17 @@
+{
+  "name": "Elytra",
+  "icon": "minecraft:elytra",
+  "category": "neovitae:alchemy_array/living_equipment/armor_upgrades",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Adds an Elytra to your Living Armor. Rather than being trained, the $(l:neovitae:alchemy_array/living_equipment/living_tomes)Upgrade Tome$() must be crafted. $(br2)This Elytra does drain durability from the Chestplate, but at half the speed of a normal Elytra. $(br2)It also looks pretty neat."
+    },
+    {
+      "type": "neovitae:crafting_upgrade_array",
+      "a.heading": "Elytra Tome",
+      "a.recipe": "neovitae:array/living_elytra_upgrade",
+      "b.upgrade": "neovitae:elytra"
+    }
+  ]
+}

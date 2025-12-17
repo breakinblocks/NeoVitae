@@ -1,0 +1,13 @@
+{
+  "name": "Filter Parts",
+  "icon": "neovitae:component_frame_parts",
+  "category": "neovitae:demon_will/item_routing",
+  "pages":[
+    {
+      "type": "neovitae:crafting_alchemy_table",
+      "heading": "Filter Parts",
+      "recipe": "neovitae:alchemytable/component_frame_parts",
+      "text": "$(item)Filter Parts$() are an integral component in all $(item)Filters$(). They have no use on their own."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "name": "Tiers of Slates",
+  "icon": "neovitae:blank_slate",
+  "category": "neovitae:altar",
+  "extra_recipe_mappings": {
+    "neovitae:blank_slate": 1,
+    "neovitae:reinforced_slate": 1,
+    "neovitae:imbued_slate": 2,
+    "neovitae:demonic_slate": 2
+  },
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(l:neovitae:altar/blood_altar)Blood Altar$(/l)'s main use is the production of $(item)Slates$(). Each tier of slate requires the previous tier and a more powerful altar than the last."
+    },
+    {
+      "type": "neovitae:2x_crafting_altar",
+      "a.heading": "Blank Slate",
+      "a.recipe": "neovitae:blood_altar/blank_slate",
+      "b.heading": "Reinforced Slate",
+      "b.recipe": "neovitae:blood_altar/reinforced_slate"
+    },
+    {
+      "type": "neovitae:2x_crafting_altar",
+      "a.heading": "Imbued Slate",
+      "a.recipe": "neovitae:blood_altar/imbued_slate",
+      "b.heading": "Demonic Slate",
+      "b.recipe": "neovitae:blood_altar/demonic_slate"
+    },
+    {
+      "type": "neovitae:crafting_altar",
+      "heading": "Ethereal Slate",
+      "recipe": "neovitae:blood_altar/ethereal_slate"
+    }
+
+  ]
+}
+
+

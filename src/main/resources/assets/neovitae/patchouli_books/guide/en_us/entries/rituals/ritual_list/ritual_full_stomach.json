@@ -1,0 +1,27 @@
+{
+  "name": "Ritual of the Satiated Stomach",
+  "icon": "minecraft:cake",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Ritual of the Satiated Stomach",
+      "multiblock_id": "neovitae:full_stomach",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "full_stomach"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "full_stomach",
+      "page_type": "fillRange"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "full_stomach",
+      "page_type": "chest"
+    }
+  ]
+}

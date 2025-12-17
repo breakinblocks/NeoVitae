@@ -1,0 +1,16 @@
+{
+  "type": "neovitae:alchemical_reaction_chamber",
+  "chance_outputs": [],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "neovitae:sand_hellforged"
+    }
+  ],
+  "input": {
+    "tag": "c:ingots/hellforged"
+  },
+  "tool": {
+    "tag": "neovitae:arc_tool/explosives"
+  }
+}

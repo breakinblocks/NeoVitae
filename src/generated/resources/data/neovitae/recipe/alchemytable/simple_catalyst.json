@@ -1,0 +1,27 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "tag": "c:dusts/redstone"
+    },
+    {
+      "tag": "c:dusts/glowstone"
+    },
+    {
+      "tag": "c:gunpowders"
+    },
+    {
+      "tag": "c:crops/nether_wart"
+    }
+  ],
+  "output": {
+    "count": 2,
+    "id": "neovitae:simple_catalyst"
+  },
+  "syphon": 200,
+  "ticks": 100,
+  "upgradeLevel": 2
+}

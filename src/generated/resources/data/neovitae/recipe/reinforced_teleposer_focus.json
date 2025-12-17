@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "neovitae:enhanced_teleposer_focus"
+    },
+    {
+      "item": "neovitae:weak_blood_shard"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:reinforced_teleposer_focus"
+  }
+}

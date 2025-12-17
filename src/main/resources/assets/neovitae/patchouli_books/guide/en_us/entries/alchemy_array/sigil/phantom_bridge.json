@@ -1,0 +1,19 @@
+{
+  "name": "Sigil of the Phantom Bridge",
+  "icon": "neovitae:sigil_phantom_bridge",
+  "category": "neovitae:alchemy_array/sigil",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(item)Sigil of the Phantom Bridge$(), when activated via pressing [$(k:use)], will create temporary phantom blocks beneath your feet as you walk. These ethereal platforms allow you to traverse chasms and voids with ease. The phantom blocks disappear shortly after you move away from them, so keep moving! Perfect for building in dangerous areas or crossing large gaps."
+    },
+    {
+      "type": "neovitae:crafting_2-step_sigil",
+      "alchemy_table.heading": "Phantom Bridge Reagent",
+      "alchemy_table.recipe": "neovitae:alchemytable/reagent_phantom_bridge",
+      "array.heading": "Sigil of the Phantom Bridge",
+      "array.recipe": "neovitae:array/phantom_bridge_sigil",
+      "array.text": "$(italic)Walk on air!"
+    }
+  ]
+}

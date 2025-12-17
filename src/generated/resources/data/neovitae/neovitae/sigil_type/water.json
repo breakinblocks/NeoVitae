@@ -1,0 +1,8 @@
+{
+  "effect": {
+    "type": "neovitae:place_fluid",
+    "fluid": "minecraft:water"
+  },
+  "lp_cost_air": 100,
+  "lp_cost_block": 100
+}

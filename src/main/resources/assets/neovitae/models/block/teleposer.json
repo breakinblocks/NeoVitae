@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "neovitae:block/teleposer_top",
+    "side": "neovitae:block/teleposer_side"
+  }
+}

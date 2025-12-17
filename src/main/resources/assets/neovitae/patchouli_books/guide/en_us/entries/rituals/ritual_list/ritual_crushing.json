@@ -1,0 +1,67 @@
+{
+  "name": "Ritual of the Crusher",
+  "icon": "minecraft:iron_pickaxe",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Ritual of the Crusher",
+      "multiblock_id": "neovitae:crushing",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner#dusk)Ritual Diviner [Dusk]$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "crushing"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "crushing",
+      "page_type": "raw",
+      "text_overrides": [
+        ["Raw Will", "raw"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "crushing",
+      "page_type": "corrosive",
+      "text_overrides": [
+        ["Cutting Fluid", "l:neovitae:alchemy_table/alchemy_table#cutting_fluid"],
+        ["Silk Touch", "item"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "crushing",
+      "page_type": "vengeful",
+      "text": "For example, it will turn Coal into Blocks of Coal, Redstone Dust into Blocks of Redstone, etc."
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "crushing",
+      "page_type": "destructive",
+      "text_overrides": [
+        ["Fortune III", "item"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "crushing",
+      "page_type": "steadfast",
+      "text_overrides": [
+        ["Silk Touch", "item"],
+        ["Fortune", "item"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "crushing",
+      "page_type": "chest"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "crushing",
+      "page_type": "crushingRange"
+    }
+  ]
+}

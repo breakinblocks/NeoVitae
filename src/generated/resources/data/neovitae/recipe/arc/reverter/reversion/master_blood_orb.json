@@ -1,0 +1,16 @@
+{
+  "type": "neovitae:alchemical_reaction_chamber",
+  "chance_outputs": [],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "neovitae:weak_blood_shard"
+    }
+  ],
+  "input": {
+    "item": "neovitae:blood_orb_master"
+  },
+  "tool": {
+    "tag": "neovitae:arc_tool/reverter"
+  }
+}

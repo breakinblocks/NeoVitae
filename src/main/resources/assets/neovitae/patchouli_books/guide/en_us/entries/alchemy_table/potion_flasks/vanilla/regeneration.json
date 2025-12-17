@@ -1,0 +1,31 @@
+{
+  "name": "Regeneration",
+  "icon": "minecraft:ghast_tear",
+  "category": "neovitae:alchemy_table/potion_flasks/vanilla",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(thing)Regeneration$() heals the target over time. Higher levels increase the rate of healing."
+    },
+    {
+      "type": "neovitae:3x_crafting_flask",
+      "a.heading": "Regeneration (3:00)",
+      "a.recipe": "neovitae:flask/regen",
+      "b.heading": "Regeneration (8:00)",
+      "b.recipe": "neovitae:flask/length_regen",
+      "c.heading": "Regeneration II (1:30)",
+      "c.recipe": "neovitae:flask/potency_regen"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "adding $(l:neovitae:alchemy_table/potions#average_potions)Standard Catalysts$() can further boost your potions."
+    },
+    {
+      "type": "neovitae:2x_crafting_flask",
+      "a.heading": "Regeneration III (0:45)",
+      "a.recipe": "neovitae:flask/potency_average_regen",
+      "b.heading": "Regeneration (21:20)",
+      "b.recipe": "neovitae:flask/length_average_regen"
+    }
+  ]
+}

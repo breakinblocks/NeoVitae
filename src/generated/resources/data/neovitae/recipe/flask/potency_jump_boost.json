@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:flask_potency",
+  "ampDurationMod": 0.5,
+  "amplifier": 1,
+  "effect": "minecraft:jump_boost",
+  "input": [
+    {
+      "item": "neovitae:mundane_power_catalyst"
+    }
+  ],
+  "syphon": 200,
+  "ticks": 100,
+  "upgradeLevel": 1
+}

@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:soul_forge",
+  "drain": 100.0,
+  "inputs": [
+    {
+      "item": "neovitae:steadfast_crystal"
+    },
+    {
+      "item": "neovitae:steadfast_crystal"
+    },
+    {
+      "item": "neovitae:steadfast_crystal"
+    },
+    {
+      "item": "neovitae:steadfast_crystal"
+    }
+  ],
+  "minDrain": 1200.0,
+  "output": {
+    "count": 1,
+    "id": "neovitae:steadfast_demon_crystal"
+  }
+}

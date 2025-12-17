@@ -1,0 +1,64 @@
+{
+  "values": {
+    "neovitae:rune_2_acceleration": {
+      "acceleration_mod": 2
+    },
+    "neovitae:rune_2_capacity": {
+      "capacity_mod": 0.4
+    },
+    "neovitae:rune_2_capacity_augmented": {
+      "augmented_capacity_power": 1.155625
+    },
+    "neovitae:rune_2_charging": {
+      "charge_amount_mod": 20
+    },
+    "neovitae:rune_2_dislocation": {
+      "dislocation_power": 1.44
+    },
+    "neovitae:rune_2_efficiency": {
+      "efficiency_power": 0.7224999999999999
+    },
+    "neovitae:rune_2_orb": {
+      "orb_capacity_mod": 0.4
+    },
+    "neovitae:rune_2_sacrifice": {
+      "sacrifice_mod": 0.2
+    },
+    "neovitae:rune_2_sacrifice_self": {
+      "self_sacrifice_mod": 0.2
+    },
+    "neovitae:rune_2_speed": {
+      "consumption_mod": 0.4
+    },
+    "neovitae:rune_acceleration": {
+      "acceleration_mod": 1
+    },
+    "neovitae:rune_capacity": {
+      "capacity_mod": 0.2
+    },
+    "neovitae:rune_capacity_augmented": {
+      "augmented_capacity_power": 1.075
+    },
+    "neovitae:rune_charging": {
+      "charge_amount_mod": 10
+    },
+    "neovitae:rune_dislocation": {
+      "dislocation_power": 1.2
+    },
+    "neovitae:rune_efficiency": {
+      "efficiency_power": 0.85
+    },
+    "neovitae:rune_orb": {
+      "orb_capacity_mod": 0.2
+    },
+    "neovitae:rune_sacrifice": {
+      "sacrifice_mod": 0.1
+    },
+    "neovitae:rune_sacrifice_self": {
+      "self_sacrifice_mod": 0.1
+    },
+    "neovitae:rune_speed": {
+      "consumption_mod": 0.2
+    }
+  }
+}

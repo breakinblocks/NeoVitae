@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:holy_water_anointment"
+    },
+    {
+      "item": "neovitae:strong_tau"
+    },
+    {
+      "item": "minecraft:glistering_melon_slice"
+    },
+    {
+      "tag": "c:gems/quartz"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:holy_water_anointment_2"
+  },
+  "syphon": 1000,
+  "ticks": 100,
+  "upgradeLevel": 3
+}

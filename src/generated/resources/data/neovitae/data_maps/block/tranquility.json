@@ -1,0 +1,289 @@
+{
+  "values": {
+    "#minecraft:dirt": {
+      "type": "earthen",
+      "value": 0.5
+    },
+    "#minecraft:flowers": {
+      "type": "plant"
+    },
+    "#minecraft:leaves": {
+      "type": "tree"
+    },
+    "#minecraft:logs": {
+      "type": "tree"
+    },
+    "#minecraft:small_flowers": {
+      "type": "plant"
+    },
+    "#minecraft:tall_flowers": {
+      "type": "plant"
+    },
+    "#neovitae:tranquility/crop": {
+      "type": "crop"
+    },
+    "#neovitae:tranquility/earthen": {
+      "type": "earthen"
+    },
+    "#neovitae:tranquility/fire": {
+      "type": "fire"
+    },
+    "#neovitae:tranquility/lava": {
+      "type": "lava"
+    },
+    "#neovitae:tranquility/plant": {
+      "type": "plant"
+    },
+    "#neovitae:tranquility/tree": {
+      "type": "tree"
+    },
+    "#neovitae:tranquility/water": {
+      "type": "water"
+    },
+    "minecraft:acacia_sapling": {
+      "type": "tree"
+    },
+    "minecraft:attached_melon_stem": {
+      "type": "crop"
+    },
+    "minecraft:attached_pumpkin_stem": {
+      "type": "crop"
+    },
+    "minecraft:azalea": {
+      "type": "tree"
+    },
+    "minecraft:bamboo": {
+      "type": "crop"
+    },
+    "minecraft:bamboo_sapling": {
+      "type": "crop"
+    },
+    "minecraft:beetroots": {
+      "type": "crop"
+    },
+    "minecraft:big_dripleaf": {
+      "type": "plant"
+    },
+    "minecraft:big_dripleaf_stem": {
+      "type": "plant"
+    },
+    "minecraft:birch_sapling": {
+      "type": "tree"
+    },
+    "minecraft:brown_mushroom": {
+      "type": "plant"
+    },
+    "minecraft:brown_mushroom_block": {
+      "type": "plant"
+    },
+    "minecraft:campfire": {
+      "type": "fire"
+    },
+    "minecraft:carrots": {
+      "type": "crop"
+    },
+    "minecraft:cave_vines": {
+      "type": "plant"
+    },
+    "minecraft:cave_vines_plant": {
+      "type": "plant"
+    },
+    "minecraft:cherry_sapling": {
+      "type": "tree"
+    },
+    "minecraft:clay": {
+      "type": "earthen",
+      "value": 0.5
+    },
+    "minecraft:cocoa": {
+      "type": "crop"
+    },
+    "minecraft:crimson_fungus": {
+      "type": "plant"
+    },
+    "minecraft:crimson_roots": {
+      "type": "plant"
+    },
+    "minecraft:dark_oak_sapling": {
+      "type": "tree"
+    },
+    "minecraft:farmland": {
+      "type": "earthen",
+      "value": 0.5
+    },
+    "minecraft:fern": {
+      "type": "plant"
+    },
+    "minecraft:fire": {
+      "type": "fire"
+    },
+    "minecraft:flowering_azalea": {
+      "type": "tree"
+    },
+    "minecraft:glow_lichen": {
+      "type": "plant"
+    },
+    "minecraft:grass_block": {
+      "type": "earthen",
+      "value": 0.5
+    },
+    "minecraft:gravel": {
+      "type": "earthen",
+      "value": 0.5
+    },
+    "minecraft:hanging_roots": {
+      "type": "plant"
+    },
+    "minecraft:jungle_sapling": {
+      "type": "tree"
+    },
+    "minecraft:kelp": {
+      "type": "crop"
+    },
+    "minecraft:kelp_plant": {
+      "type": "crop"
+    },
+    "minecraft:large_fern": {
+      "type": "plant"
+    },
+    "minecraft:lava": {
+      "type": "lava"
+    },
+    "minecraft:mangrove_propagule": {
+      "type": "tree"
+    },
+    "minecraft:melon": {
+      "type": "crop"
+    },
+    "minecraft:melon_stem": {
+      "type": "crop"
+    },
+    "minecraft:moss_block": {
+      "type": "plant"
+    },
+    "minecraft:moss_carpet": {
+      "type": "plant"
+    },
+    "minecraft:mud": {
+      "type": "earthen",
+      "value": 0.5
+    },
+    "minecraft:mushroom_stem": {
+      "type": "plant"
+    },
+    "minecraft:mycelium": {
+      "type": "earthen",
+      "value": 0.5
+    },
+    "minecraft:nether_sprouts": {
+      "type": "plant"
+    },
+    "minecraft:nether_wart": {
+      "type": "crop"
+    },
+    "minecraft:oak_sapling": {
+      "type": "tree"
+    },
+    "minecraft:pitcher_crop": {
+      "type": "crop"
+    },
+    "minecraft:podzol": {
+      "type": "earthen",
+      "value": 0.5
+    },
+    "minecraft:potatoes": {
+      "type": "crop"
+    },
+    "minecraft:pumpkin": {
+      "type": "crop"
+    },
+    "minecraft:pumpkin_stem": {
+      "type": "crop"
+    },
+    "minecraft:red_mushroom": {
+      "type": "plant"
+    },
+    "minecraft:red_mushroom_block": {
+      "type": "plant"
+    },
+    "minecraft:red_sand": {
+      "type": "earthen",
+      "value": 0.5
+    },
+    "minecraft:sand": {
+      "type": "earthen",
+      "value": 0.5
+    },
+    "minecraft:seagrass": {
+      "type": "plant"
+    },
+    "minecraft:short_grass": {
+      "type": "plant"
+    },
+    "minecraft:small_dripleaf": {
+      "type": "plant"
+    },
+    "minecraft:soul_campfire": {
+      "type": "fire"
+    },
+    "minecraft:soul_fire": {
+      "type": "fire"
+    },
+    "minecraft:soul_sand": {
+      "type": "earthen",
+      "value": 0.5
+    },
+    "minecraft:soul_soil": {
+      "type": "earthen",
+      "value": 0.5
+    },
+    "minecraft:spore_blossom": {
+      "type": "plant"
+    },
+    "minecraft:spruce_sapling": {
+      "type": "tree"
+    },
+    "minecraft:sugar_cane": {
+      "type": "crop"
+    },
+    "minecraft:sweet_berry_bush": {
+      "type": "crop"
+    },
+    "minecraft:tall_grass": {
+      "type": "plant"
+    },
+    "minecraft:tall_seagrass": {
+      "type": "plant"
+    },
+    "minecraft:torchflower_crop": {
+      "type": "crop"
+    },
+    "minecraft:twisting_vines": {
+      "type": "plant"
+    },
+    "minecraft:twisting_vines_plant": {
+      "type": "plant"
+    },
+    "minecraft:vine": {
+      "type": "plant"
+    },
+    "minecraft:warped_fungus": {
+      "type": "plant"
+    },
+    "minecraft:warped_roots": {
+      "type": "plant"
+    },
+    "minecraft:water": {
+      "type": "water"
+    },
+    "minecraft:weeping_vines": {
+      "type": "plant"
+    },
+    "minecraft:weeping_vines_plant": {
+      "type": "plant"
+    },
+    "minecraft:wheat": {
+      "type": "crop"
+    }
+  }
+}

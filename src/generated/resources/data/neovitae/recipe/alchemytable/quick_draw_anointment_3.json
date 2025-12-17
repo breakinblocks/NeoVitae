@@ -1,0 +1,27 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:quick_draw_anointment"
+    },
+    {
+      "item": "neovitae:strong_tau"
+    },
+    {
+      "item": "neovitae:sand_hellforged"
+    },
+    {
+      "item": "minecraft:glow_berries"
+    },
+    {
+      "item": "minecraft:spectral_arrow"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:quick_draw_anointment_3"
+  },
+  "syphon": 2000,
+  "ticks": 100,
+  "upgradeLevel": 4
+}

@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "a": {
+      "tag": "c:obsidians"
+    },
+    "b": {
+      "item": "neovitae:demonic_slate"
+    },
+    "c": {
+      "item": "minecraft:bucket"
+    },
+    "d": {
+      "item": "neovitae:rune_capacity"
+    },
+    "e": {
+      "type": "neovitae:orb_tier",
+      "tier": 4
+    }
+  },
+  "pattern": [
+    "aba",
+    "cdc",
+    "aea"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:rune_capacity_augmented"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "variants": {
+    "attached=down": {
+      "model": "neovitae:block/aug_shaped_charge",
+      "x": 180
+    },
+    "attached=east": {
+      "model": "neovitae:block/aug_shaped_charge",
+      "x": 90,
+      "y": 90
+    },
+    "attached=north": {
+      "model": "neovitae:block/aug_shaped_charge",
+      "x": 90
+    },
+    "attached=south": {
+      "model": "neovitae:block/aug_shaped_charge",
+      "x": 270
+    },
+    "attached=up": {
+      "model": "neovitae:block/aug_shaped_charge"
+    },
+    "attached=west": {
+      "model": "neovitae:block/aug_shaped_charge",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

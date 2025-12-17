@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": {
+      "tag": "c:ingots/gold"
+    },
+    "g": {
+      "tag": "c:glass_blocks"
+    },
+    "i": {
+      "tag": "c:ingots/iron"
+    }
+  },
+  "pattern": [
+    "ggg",
+    " Gg",
+    "i g"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:sacrificial_dagger"
+  }
+}

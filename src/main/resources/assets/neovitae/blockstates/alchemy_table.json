@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "direction=north,invisible=false": {
+      "model": "neovitae:block/alchemytable",
+      "y": 90
+    },
+    "direction=south,invisible=false": {
+      "model": "neovitae:block/alchemytable",
+      "y": 270
+    },
+    "direction=east,invisible=false": {
+      "model": "neovitae:block/alchemytable",
+      "y": 180
+    },
+    "direction=west,invisible=false": {
+      "model": "neovitae:block/alchemytable"
+    },
+    "direction=north,invisible=true": {
+      "model": "neovitae:block/alchemytable_invis"
+    },
+    "direction=south,invisible=true": {
+      "model": "neovitae:block/alchemytable_invis"
+    },
+    "direction=east,invisible=true": {
+      "model": "neovitae:block/alchemytable_invis"
+    },
+    "direction=west,invisible=true": {
+      "model": "neovitae:block/alchemytable_invis"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "neovitae:item/amethyst_throwing_dagger_partial",
+    "layer1": "neovitae:item/dagger_potion"
+  }
+}

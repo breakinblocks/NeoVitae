@@ -1,0 +1,20 @@
+{
+  "effects": {
+    "neovitae:tick": [
+      {
+        "effect": {
+          "type": "neovitae:repairing_living_exp",
+          "upgrade": "neovitae:repair"
+        }
+      }
+    ]
+  },
+  "levels": {
+    "exp_to_level": {
+      "1": 1
+    },
+    "level_to_cost": {
+      "1": 0
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "effect": {
+    "type": "neovitae:divination"
+  },
+  "lp_cost_air": 100,
+  "lp_cost_block": 100
+}

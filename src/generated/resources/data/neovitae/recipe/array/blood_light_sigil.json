@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "item": "neovitae:imbued_slate"
+  },
+  "baseinput": {
+    "item": "neovitae:reagent_blood_light"
+  },
+  "output": {
+    "count": 1,
+    "id": "neovitae:sigil_blood_light"
+  },
+  "texture": "neovitae:textures/models/alchemyarrays/bloodlightsigil.png"
+}

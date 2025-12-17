@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:weak_tau"
+    },
+    {
+      "item": "neovitae:strengthened_catalyst"
+    },
+    {
+      "tag": "c:dusts/redstone"
+    },
+    {
+      "tag": "c:dusts/hellforged"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:average_lengthening_catalyst"
+  },
+  "syphon": 2000,
+  "ticks": 100,
+  "upgradeLevel": 4
+}

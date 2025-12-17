@@ -1,0 +1,33 @@
+{
+  "parent": "neovitae:bloodmagic/soul_snare",
+  "display": {
+    "icon": {
+      "id": "neovitae:basemonstersoul"
+    },
+    "title": {
+      "translate": "advancements.neovitae.demon_will.title"
+    },
+    "description": {
+      "translate": "advancements.neovitae.demon_will.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "get_soul": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:basemonstersoul"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_soul"]
+  ]
+}

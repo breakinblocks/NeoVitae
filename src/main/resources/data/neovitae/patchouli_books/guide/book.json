@@ -1,0 +1,26 @@
+{
+  "name": "guide.neovitae.name",
+  "subtitle": "guide.neovitae.subtitle",
+  "landing_text": "guide.neovitae.landing_text",
+  "book_texture": "patchouli:textures/gui/book_red.png",
+  "filler_texture": "neovitae:textures/gui/patchouli_book/page_filler.png",
+  "creative_tab": "neovitae:main",
+  "model": "neovitae:book",
+  "show_progress": false,
+  "use_resource_pack": true,
+  "macros": {
+	"$(water)": "$(#0000AA)",
+	"$(air)": "$(#AAAA00)",
+	"$(fire)": "$(#AA0000)",
+	"$(earth)": "$(#00AA00)",
+	"$(blank)": "$(#888888)",
+	"$(dusk)": "$(#9400D3)",
+	"$(dawn)": "$(6)",
+	"$(steadfast)": "$(#0000AA)",
+	"$(destructive)": "$(#AAAA00)",
+	"$(vengeful)": "$(#AA0000)",
+	"$(corrosive)": "$(#00AA00)",
+	"$(raw)": "$(#36C6C6)",
+	"$(blood)": "$(#AA0000)"
+	}
+}

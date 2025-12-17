@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "item": "neovitae:reinforced_slate"
+  },
+  "baseinput": {
+    "item": "neovitae:reagent_void"
+  },
+  "output": {
+    "count": 1,
+    "id": "neovitae:sigil_void"
+  },
+  "texture": "neovitae:textures/models/alchemyarrays/voidsigil.png"
+}

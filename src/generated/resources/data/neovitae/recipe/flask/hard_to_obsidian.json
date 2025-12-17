@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:flask_effect_transform",
+  "input": [
+    {
+      "tag": "c:gems/diamond"
+    },
+    {
+      "item": "minecraft:crying_obsidian"
+    }
+  ],
+  "inputEffects": [
+    "neovitae:hard_cloak"
+  ],
+  "outputEffects": [
+    {
+      "duration": 3600,
+      "effect": "neovitae:obsidian_cloak"
+    }
+  ],
+  "syphon": 1000,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

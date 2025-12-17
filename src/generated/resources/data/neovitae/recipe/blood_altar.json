@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "f": {
+      "item": "minecraft:furnace"
+    },
+    "g": {
+      "tag": "c:ingots/gold"
+    },
+    "s": {
+      "tag": "c:stones"
+    }
+  },
+  "pattern": [
+    "s s",
+    "sfs",
+    "ggg"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:blood_altar"
+  }
+}

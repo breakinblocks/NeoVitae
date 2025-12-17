@@ -1,0 +1,16 @@
+{
+  "name": "Concrete Shoes",
+  "icon": "minecraft:water_bucket",
+  "category": "neovitae:alchemy_array/living_equipment/armor_downgrades",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Reduces your swim speed significantly. Caps out at an 80% reduction."
+    },
+    {
+      "type": "neovitae:living_armour_downgrade",
+      "a.recipe": "neovitae:downgrade/swim_decrease",
+      "b.upgrade": "neovitae:swim_decrease"
+    }
+  ]
+}

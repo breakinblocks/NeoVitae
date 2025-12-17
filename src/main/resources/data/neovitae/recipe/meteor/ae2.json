@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ae2"
+    }
+  ],
+  "type": "neovitae:meteor",
+  "input": {
+    "tag": "c:gems/certus_quartz"
+  },
+  "syphon": 500000,
+  "explosion": 24.0,
+  "layers": [
+    {
+      "radius": 2,
+      "fill": "ae2:fluix_block",
+      "shell": "ae2:sky_stone_block"
+    },
+    {
+      "radius": 7,
+      "additionalWeight": 200,
+      "minWeight": 0,
+      "fill": "ae2:sky_stone_block",
+      "shell": "ae2:sky_stone_block",
+      "weighted": [
+        {
+          "entry": "#c:ores/certus_quartz",
+          "weight": 100
+        },
+        {
+          "entry": "#c:storage_blocks/quartz",
+          "weight": 50
+        }
+      ]
+    }
+  ]
+}

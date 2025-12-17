@@ -1,0 +1,16 @@
+{
+  "overrides": [
+    {
+      "model": "neovitae:item/variant/sacrificial_dagger_normal",
+      "predicate": {
+        "neovitae:incense_type": 0.0
+      }
+    },
+    {
+      "model": "neovitae:item/variant/sacrificial_dagger_charged",
+      "predicate": {
+        "neovitae:incense_type": 1.0
+      }
+    }
+  ]
+}

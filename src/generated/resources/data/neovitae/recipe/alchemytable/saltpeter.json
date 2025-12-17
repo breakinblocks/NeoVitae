@@ -1,0 +1,21 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:plant_oil"
+    },
+    {
+      "item": "neovitae:plant_oil"
+    },
+    {
+      "tag": "c:dusts/coal"
+    }
+  ],
+  "output": {
+    "count": 3,
+    "id": "neovitae:saltpeter"
+  },
+  "syphon": 200,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

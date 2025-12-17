@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_capacity_rune": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:rune_capacity"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:rune_capacity_augmented"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_capacity_rune"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:rune_capacity_augmented"
+    ]
+  }
+}

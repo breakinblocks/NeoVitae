@@ -1,0 +1,6 @@
+{
+  "name": "Potion Flasks",
+  "description": "Many different Effects exist, so in the interests of organisation, you've tried to sort them by their source.",
+  "icon": "neovitae:alchemy_flask",
+  "parent": "neovitae:alchemy_table"
+}

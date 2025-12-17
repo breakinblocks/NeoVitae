@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_teleposer_focus": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:teleposer_focus"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:teleposer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_teleposer_focus"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:teleposer"
+    ]
+  }
+}

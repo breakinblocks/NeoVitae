@@ -1,0 +1,35 @@
+{
+  "name": "Dawn of the New Moon",
+  "icon": "minecraft:ender_pearl",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "patchouli:multiblock",
+      "name": "Dawn of the New Moon",
+      "multiblock_id": "neovitae:sphere",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner#dusk)Ritual Diviner [Dusk]$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "sphere",
+      "text_overrides": [
+        ["LP", "blood"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "sphere",
+      "page_type": "spheroidRange"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "neovitae:images/entries/ritual/sphere_above.png",
+        "neovitae:images/entries/ritual/sphere_below.png"
+      ],
+      "title": "Default Size",
+      "border": true,
+      "text": "The result of using the ritual with the default settings."
+    }
+  ]
+}

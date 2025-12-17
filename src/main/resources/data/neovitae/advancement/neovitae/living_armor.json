@@ -1,0 +1,33 @@
+{
+  "parent": "neovitae:bloodmagic/magician_blood_orb",
+  "display": {
+    "icon": {
+      "id": "neovitae:living_chestplate"
+    },
+    "title": {
+      "translate": "advancements.neovitae.living_armor.title"
+    },
+    "description": {
+      "translate": "advancements.neovitae.living_armor.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:living_chestplate"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_chest"]
+  ]
+}

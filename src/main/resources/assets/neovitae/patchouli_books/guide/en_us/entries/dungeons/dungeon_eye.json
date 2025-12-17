@@ -1,0 +1,25 @@
+{
+  "name": "Dungeon Eyes",
+  "icon": "neovitae:dungeon_eye",
+  "category": "neovitae:dungeons",
+  "extra_recipe_mappings": {
+    "neovitae:dungeon_eye": 0
+  },
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "neovitae:dungeon_eye",
+      "text": "A $(thing)Dungeon Eye$() is a light-emitting block often found within the depths of the $(l:neovitae:dungeons/endless_realm)Endless Realm$()."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "neovitae:dungeon_eye_c",
+      "recipe2": "neovitae:dungeon_eye_d"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "neovitae:dungeon_eye_s",
+      "recipe2": "neovitae:dungeon_eye_v"
+    }
+  ]
+}

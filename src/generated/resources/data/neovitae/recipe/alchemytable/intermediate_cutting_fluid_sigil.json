@@ -1,0 +1,30 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:tau_oil"
+    },
+    {
+      "tag": "c:dusts/glowstone"
+    },
+    {
+      "tag": "c:gunpowders"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "tag": "c:dusts/sulfur"
+    },
+    {
+      "item": "neovitae:sigil_water"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:intermediate_cutting_fluid"
+  },
+  "syphon": 2100,
+  "ticks": 200,
+  "upgradeLevel": 3
+}

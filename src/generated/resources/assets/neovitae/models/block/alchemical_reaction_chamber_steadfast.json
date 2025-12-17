@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "neovitae:block/arc_bottom",
+    "front": "neovitae:block/arc_front_steadfast",
+    "side": "neovitae:block/arc_side_steadfast",
+    "top": "neovitae:block/arc_top_steadfast"
+  }
+}

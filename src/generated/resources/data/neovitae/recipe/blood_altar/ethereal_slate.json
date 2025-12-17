@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:blood_altar_recipe",
+  "bloodNeeded": 30000,
+  "craftSpeed": 40,
+  "drainSpeed": 100,
+  "input": {
+    "item": "neovitae:demonic_slate"
+  },
+  "minTier": 4,
+  "output": {
+    "count": 1,
+    "id": "neovitae:ethereal_slate"
+  }
+}

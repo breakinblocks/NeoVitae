@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:soul_forge",
+  "drain": 1.0,
+  "inputs": [
+    {
+      "tag": "c:dusts/redstone"
+    },
+    {
+      "tag": "c:ingots/gold"
+    },
+    {
+      "tag": "c:glass_blocks"
+    },
+    {
+      "tag": "c:gems/lapis"
+    }
+  ],
+  "minDrain": 1.0,
+  "output": {
+    "count": 1,
+    "id": "neovitae:soul_gem_petty"
+  }
+}

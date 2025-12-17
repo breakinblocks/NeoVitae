@@ -1,0 +1,113 @@
+package com.breakinblocks.neovitae.datagen.provider;
+
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.tag.BMTags;
+
+import java.util.concurrent.CompletableFuture;
+
+public class BMItemTagProvider extends ItemTagsProvider {
+    public BMItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags) {
+        super(output, lookupProvider, blockTags, NeoVitae.MODID, null);
+    }
+
+    @Override
+    protected void addTags(HolderLookup.Provider provider) {
+        copy(BMTags.Blocks.STORAGE_BLOCKS_HELLFORGED, BMTags.Items.STORAGE_BLOCKS_HELLFORGED);
+
+        tag(BMTags.Items.LIVING_SET)
+                .add(BMItems.LIVING_HELMET.get(), BMItems.LIVING_PLATE.get(), BMItems.LIVING_LEGGINGS.get(), BMItems.LIVING_BOOTS.get());
+
+        tag(BMTags.Items.LIVING_UPGRADE_SET)
+                .addTag(BMTags.Items.LIVING_SET);
+
+        // Add living armor to vanilla armor tags for mod compatibility
+        tag(ItemTags.HEAD_ARMOR).add(BMItems.LIVING_HELMET.get());
+        tag(ItemTags.CHEST_ARMOR).add(BMItems.LIVING_PLATE.get());
+        tag(ItemTags.LEG_ARMOR).add(BMItems.LIVING_LEGGINGS.get());
+        tag(ItemTags.FOOT_ARMOR).add(BMItems.LIVING_BOOTS.get());
+
+        tag(BMTags.Items.DEMON_CRYSTALS)
+                .add(BMItems.RAW_CRYSTAL.get())
+                .add(BMItems.CORROSIVE_CRYSTAL.get())
+                .add(BMItems.DESTRUCTIVE_CRYSTAL.get())
+                .add(BMItems.STEADFAST_CRYSTAL.get())
+                .add(BMItems.VENGEFUL_CRYSTAL.get());
+
+        tag(BMTags.Items.REVERTER)
+                .add(BMItems.SANGUINE_REVERTER.get());
+
+        tag(BMTags.Items.EXPLOSIVES)
+                .add(BMItems.EXPLOSIVE_POWDER.get())
+                .add(BMItems.PRIMITIVE_EXPLOSIVE_CELL.get())
+                .add(BMItems.HELLFORGED_EXPLOSIVE_CELL.get());
+
+        tag(BMTags.Items.RESONATOR)
+                .add(BMItems.RESONATOR.get())
+                .add(BMItems.PRIMITIVE_CRYSTALLINE_RESONATOR.get())
+                .add(BMItems.HELLFORGED_RESONATOR.get());
+
+        tag(BMTags.Items.CUTTING_FLUIDS)
+                .add(BMItems.BASIC_CUTTING_FLUID.get());
+
+        tag(BMTags.Items.HYDRATION)
+                .add(BMItems.PRIMITIVE_HYDRATION_CELL.get());
+
+        tag(BMTags.Items.ARC_BLASTING);
+        tag(BMTags.Items.ARC_SMELTING)
+                .add(BMItems.PRIMITIVE_FURNACE_CELL.get())
+                .add(BMItems.LAVA_CRYSTAL.get());
+        tag(BMTags.Items.ARC_SMOKING);
+
+        tag(BMTags.Items.ARC_FURNACE)
+                .addTag(BMTags.Items.ARC_BLASTING)
+                .addTag(BMTags.Items.ARC_SMELTING)
+                .addTag(BMTags.Items.ARC_SMOKING);
+
+        tag(BMTags.Items.ARC_TOOL)
+                .addTag(BMTags.Items.REVERTER)
+                .addTag(BMTags.Items.EXPLOSIVES)
+                .addTag(BMTags.Items.RESONATOR)
+                .addTag(BMTags.Items.CUTTING_FLUIDS)
+                .addTag(BMTags.Items.HYDRATION)
+                .addTag(BMTags.Items.ARC_FURNACE)
+                .addTag(BMTags.Items.LINGERING_FLASK);
+
+        tag(BMTags.Items.LINGERING_FLASK)
+                .add(BMItems.ALCHEMY_FLASK_LINGERING.get());
+
+        // Processing item tags
+        tag(BMTags.Items.FRAGMENTS_IRON).add(BMItems.IRON_FRAGMENT.get());
+        tag(BMTags.Items.FRAGMENTS_GOLD).add(BMItems.GOLD_FRAGMENT.get());
+        tag(BMTags.Items.FRAGMENTS_COPPER).add(BMItems.COPPER_FRAGMENT.get());
+        tag(BMTags.Items.FRAGMENTS_NETHERITE_SCRAP).add(BMItems.NETHERITE_SCRAP_FRAGMENT.get());
+        tag(BMTags.Items.FRAGMENTS_HELLFORGED).add(BMItems.DEMONITE_FRAGMENT.get());
+
+        tag(BMTags.Items.GRAVELS_IRON).add(BMItems.IRON_GRAVEL.get());
+        tag(BMTags.Items.GRAVELS_GOLD).add(BMItems.GOLD_GRAVEL.get());
+        tag(BMTags.Items.GRAVELS_COPPER).add(BMItems.COPPER_GRAVEL.get());
+        tag(BMTags.Items.GRAVELS_NETHERITE_SCRAP).add(BMItems.NETHERITE_SCRAP_GRAVEL.get());
+        tag(BMTags.Items.GRAVELS_HELLFORGED).add(BMItems.DEMONITE_GRAVEL.get());
+
+        // Dust tags (sands)
+        tag(BMTags.Items.DUSTS_IRON).add(BMItems.IRON_SAND.get());
+        tag(BMTags.Items.DUSTS_GOLD).add(BMItems.GOLD_SAND.get());
+        tag(BMTags.Items.DUSTS_COPPER).add(BMItems.COPPER_SAND.get());
+        tag(BMTags.Items.DUSTS_COAL).add(BMItems.COAL_SAND.get());
+        tag(BMTags.Items.DUSTS_SULFUR).add(BMItems.SULFUR.get());
+        tag(BMTags.Items.DUSTS_SALTPETER).add(BMItems.SALTPETER.get());
+        tag(BMTags.Items.DUSTS_NETHERITE_SCRAP).add(BMItems.NETHERITE_SCRAP_SAND.get());
+        tag(BMTags.Items.DUSTS_HELLFORGED).add(BMItems.HELLFORGED_SAND.get());
+        tag(BMTags.Items.DUSTS_CORRUPTED).add(BMItems.CORRUPTED_DUST.get());
+        tag(BMTags.Items.TINY_DUSTS_CORRUPTED).add(BMItems.CORRUPTED_DUST_TINY.get());
+
+        // Ingot tags
+        tag(BMTags.Items.INGOTS_HELLFORGED).add(BMItems.HELLFORGED_INGOT.get());
+    }
+}

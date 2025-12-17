@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "id": "neovitae:blood_altar"
+    },
+    "title": {
+      "translate": "advancements.neovitae.root.title"
+    },
+    "description": {
+      "translate": "advancements.neovitae.root.description"
+    },
+    "background": "minecraft:textures/block/nether_bricks.png",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_blood_altar": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:blood_altar"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_blood_altar"]
+  ]
+}

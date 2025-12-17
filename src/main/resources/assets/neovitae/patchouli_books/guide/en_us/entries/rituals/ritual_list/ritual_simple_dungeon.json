@@ -1,0 +1,20 @@
+{
+  "name": "Edge of the Hidden Realm",
+  "icon": "neovitae:simple_key",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Edge of the Hidden Realm",
+      "multiblock_id": "neovitae:simple_dungeon",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "simple_dungeon",
+      "text_overrides": [
+        ["Demon Realm", "thing"]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Ritual of the High Jump",
+  "icon": "minecraft:diamond_boots",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "patchouli:multiblock",
+      "name": "Ritual of the High Jump",
+      "multiblock_id": "neovitae:jumping",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "jumping"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "jumping",
+      "page_type": "jumpRange"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "jumping",
+      "page_type": "jumpPower"
+    }
+  ]
+}

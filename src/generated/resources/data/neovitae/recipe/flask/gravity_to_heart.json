@@ -1,0 +1,21 @@
+{
+  "type": "neovitae:flask_effect_transform",
+  "input": [
+    {
+      "item": "neovitae:combinational_catalyst"
+    }
+  ],
+  "inputEffects": [
+    "neovitae:gravity",
+    "minecraft:instant_health"
+  ],
+  "outputEffects": [
+    {
+      "duration": 1800,
+      "effect": "neovitae:heavy_heart"
+    }
+  ],
+  "syphon": 1000,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

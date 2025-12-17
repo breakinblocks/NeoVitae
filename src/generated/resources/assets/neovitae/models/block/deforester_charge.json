@@ -1,0 +1,12 @@
+{
+  "parent": "neovitae:block/sub/shaped_charge",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "1": "minecraft:block/oak_log_top",
+    "3": "minecraft:block/oak_log_top",
+    "4": "neovitae:block/blankrune",
+    "5": "minecraft:block/oak_planks",
+    "6": "neovitae:block/defaultcrystal",
+    "particle": "neovitae:block/defaultcrystal"
+  }
+}

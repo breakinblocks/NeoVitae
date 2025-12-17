@@ -1,0 +1,26 @@
+{
+  "name": "Aura of Expulsion",
+  "icon": "minecraft:shield",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Aura of Expulsion",
+      "multiblock_id": "neovitae:expulsion",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "expulsion"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The opposite of containment, this ritual creates a repulsive force that pushes all mobs away from the Master Ritual Stone. Use it to keep your base safe from hostile creatures or to clear an area of unwanted visitors. Players are unaffected by the expulsion effect."
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "expulsion",
+      "page_type": "expelRange"
+    }
+  ]
+}

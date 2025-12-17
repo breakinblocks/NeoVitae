@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:component_frame_parts"
+    },
+    {
+      "tag": "c:dusts/glowstone"
+    },
+    {
+      "tag": "c:dusts/redstone"
+    },
+    {
+      "item": "neovitae:imbued_slate"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:item_router_filter_composite"
+  },
+  "syphon": 1000,
+  "ticks": 200,
+  "upgradeLevel": 3
+}

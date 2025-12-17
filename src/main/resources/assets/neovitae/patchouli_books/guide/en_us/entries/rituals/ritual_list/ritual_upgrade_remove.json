@@ -1,0 +1,21 @@
+{
+  "name": "Sound of the Cleansing Soul",
+  "icon": "neovitae:upgrade_tome",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Sound of the Cleansing Soul",
+      "multiblock_id": "neovitae:upgrade_remove",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner#dusk)Ritual Diviner [Dusk]$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "upgrade_remove",
+      "text_overrides": [
+        ["Living Armor", "l:neovitae:alchemy_array/living_equipment/living_basics"],
+        ["Upgrade Tomes", "l:neovitae:alchemy_array/living_equipment/living_tomes"]
+      ]
+    }
+  ]
+}

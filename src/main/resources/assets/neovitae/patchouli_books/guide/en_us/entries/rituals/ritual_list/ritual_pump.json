@@ -1,0 +1,26 @@
+{
+  "name": "Hymn of Siphoning",
+  "icon": "minecraft:bucket",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Hymn of Siphoning",
+      "multiblock_id": "neovitae:pump",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "pump"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "This ritual acts as a powerful fluid pump, extracting source blocks from the surrounding area and depositing them into a fluid tank placed directly above the Master Ritual Stone. It works with any fluid - water, lava, or modded liquids. Each source block pumped costs LP."
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "pump",
+      "page_type": "pumpRange"
+    }
+  ]
+}

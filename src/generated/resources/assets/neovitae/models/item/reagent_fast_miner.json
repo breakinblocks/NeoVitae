@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "neovitae:item/reagent_fast_miner"
+  }
+}

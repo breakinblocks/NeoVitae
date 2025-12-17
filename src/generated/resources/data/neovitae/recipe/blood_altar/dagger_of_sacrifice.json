@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:blood_altar_recipe",
+  "bloodNeeded": 3000,
+  "craftSpeed": 5,
+  "drainSpeed": 5,
+  "input": {
+    "item": "minecraft:iron_sword"
+  },
+  "minTier": 1,
+  "output": {
+    "count": 1,
+    "id": "neovitae:dagger_of_sacrifice"
+  }
+}

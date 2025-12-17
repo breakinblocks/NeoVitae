@@ -1,0 +1,29 @@
+{
+  "type": "neovitae:meteor",
+  "explosion": 8.0,
+  "input": {
+    "tag": "c:gems/diamond"
+  },
+  "layers": [
+    {
+      "fill": "minecraft:diamond_ore",
+      "radius": 2
+    },
+    {
+      "fill": "minecraft:cobblestone",
+      "minWeight": 1000,
+      "radius": 5,
+      "weighted": [
+        {
+          "entry": "minecraft:diamond_ore",
+          "weight": 100
+        },
+        {
+          "entry": "minecraft:emerald_ore",
+          "weight": 75
+        }
+      ]
+    }
+  ],
+  "syphon": 1000000
+}

@@ -1,0 +1,10 @@
+{
+  "parent": "block/block",
+  "loader": "neoforge:obj",
+  "flip_v": true,
+  "model": "neovitae:models/block/crystal/crystal5.obj",
+  "textures": {
+    "crystal": "neovitae:block/raw_demon_crystal",
+    "particle": "#crystal"
+  }
+}

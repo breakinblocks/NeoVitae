@@ -1,0 +1,33 @@
+{
+  "name": "Slowness",
+  "icon": "minecraft:soul_sand",
+  "category": "neovitae:alchemy_table/potion_flasks/vanilla",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(thing)Slowness$() decreases the target's movement speed by 15% per level. $(br2)It's made from a potion of either $(l:neovitae:alchemy_table/potion_flasks/vanilla/speed)Speed$() or $(l:neovitae:alchemy_table/potion_flasks/vanilla/jump_boost)Jump Boost$(). $(br2)See overleaf for Catalyst Combinations."
+    },
+    {
+      "type": "neovitae:2x_crafting_flask",
+      "a.heading": "Slowness from Speed",
+      "a.recipe": "neovitae:flask/speed_to_slow",
+      "b.heading": "Slowness from Jump Boost",
+      "b.recipe": "neovitae:flask/jump_to_slow"
+    },
+    {
+      "type": "neovitae:2x_crafting_flask",
+      "a.heading": "Slowness (8:00)",
+      "a.recipe": "neovitae:flask/length_slowness",
+      "b.heading": "Slowness II (1:30)",
+      "b.recipe": "neovitae:flask/potency_slowness"
+    },
+    {
+      "type": "neovitae:2x_crafting_flask",
+      "a.heading": "Slowness III (0:45)",
+      "a.recipe": "neovitae:flask/potency_average_slowness",
+      "b.heading": "Slowness (21:20)",
+      "b.recipe": "neovitae:flask/length_average_slowness"
+    }
+
+  ]
+}

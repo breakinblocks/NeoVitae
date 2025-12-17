@@ -1,0 +1,26 @@
+{
+  "name": "Ritual of Binding",
+  "icon": "minecraft:lead",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Ritual of Binding",
+      "multiblock_id": "neovitae:containment",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "containment"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "This ritual creates an invisible barrier that prevents mobs from leaving the defined area. Any creature that attempts to escape will be pushed back toward the center of the ritual. Players are unaffected by this containment field, allowing you to create pens for animals or traps for hostile mobs."
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "containment",
+      "page_type": "containRange"
+    }
+  ]
+}

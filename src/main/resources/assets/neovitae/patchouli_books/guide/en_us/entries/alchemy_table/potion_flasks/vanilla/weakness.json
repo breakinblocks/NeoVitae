@@ -1,0 +1,32 @@
+{
+  "name": "Weakness",
+  "icon": "minecraft:fermented_spider_eye",
+  "category": "neovitae:alchemy_table/potion_flasks/vanilla",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(thing)Weakness$() decreases the target's attack damage by 4 points per level."
+    },
+    {
+      "type": "neovitae:3x_crafting_flask",
+      "a.heading": "Weakness (3:00)",
+      "a.recipe": "neovitae:flask/weakness",
+      "b.heading": "Weakness (8:00)",
+      "b.recipe": "neovitae:flask/length_weakness",
+      "c.heading": "Weakness II (1:30)",
+      "c.recipe": "neovitae:flask/potency_weakness"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "adding $(l:neovitae:alchemy_table/potions#average_potions)Standard Catalysts$() can further boost your potions."
+    },
+    {
+      "type": "neovitae:2x_crafting_flask",
+      "a.heading": "Weakness III (0:45)",
+      "a.recipe": "neovitae:flask/potency_average_weakness",
+      "b.heading": "Weakness (21:20)",
+      "b.recipe": "neovitae:flask/length_average_weakness"
+    }
+
+  ]
+}

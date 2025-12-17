@@ -1,0 +1,16 @@
+{
+  "type": "neovitae:alchemical_reaction_chamber",
+  "chance_outputs": [],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "minecraft:diamond"
+    }
+  ],
+  "input": {
+    "item": "neovitae:blood_orb_weak"
+  },
+  "tool": {
+    "tag": "neovitae:arc_tool/reverter"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "tag": "c:dusts/redstone"
+  },
+  "baseinput": {
+    "tag": "c:slime_balls"
+  },
+  "effect_type": "bounce",
+  "texture": "neovitae:textures/models/alchemyarrays/bouncearray.png"
+}

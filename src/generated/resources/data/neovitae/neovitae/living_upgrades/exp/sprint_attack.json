@@ -1,0 +1,30 @@
+{
+  "effects": {
+    "neovitae:damage_dealt_exp": [
+      {
+        "effect": {
+          "type": "neovitae:living_exp",
+          "upgrade": "neovitae:sprint_attack",
+          "victim": false
+        },
+        "requirements": {
+          "condition": "minecraft:entity_properties",
+          "entity": "attacker",
+          "predicate": {
+            "flags": {
+              "is_sprinting": true
+            }
+          }
+        }
+      }
+    ]
+  },
+  "levels": {
+    "exp_to_level": {
+      "1": 1
+    },
+    "level_to_cost": {
+      "1": 0
+    }
+  }
+}

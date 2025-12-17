@@ -1,0 +1,185 @@
+{
+  "controllerOffset": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "descriptorList": [
+    {
+      "maximumOffset": {
+        "x": 17,
+        "y": 30,
+        "z": 17
+      },
+      "minimumOffset": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ],
+  "doorCoverMap": {},
+  "doorMap": {
+    "default": {
+      "east": [
+        {
+          "x": 16,
+          "y": 0,
+          "z": 8
+        },
+        {
+          "x": 16,
+          "y": 12,
+          "z": 8
+        },
+        {
+          "x": 16,
+          "y": 24,
+          "z": 8
+        }
+      ],
+      "north": [
+        {
+          "x": 8,
+          "y": 0,
+          "z": 0
+        },
+        {
+          "x": 8,
+          "y": 12,
+          "z": 0
+        },
+        {
+          "x": 8,
+          "y": 24,
+          "z": 0
+        }
+      ],
+      "south": [
+        {
+          "x": 8,
+          "y": 0,
+          "z": 16
+        },
+        {
+          "x": 8,
+          "y": 12,
+          "z": 16
+        },
+        {
+          "x": 8,
+          "y": 24,
+          "z": 16
+        }
+      ],
+      "west": [
+        {
+          "x": 0,
+          "y": 0,
+          "z": 8
+        },
+        {
+          "x": 0,
+          "y": 12,
+          "z": 8
+        },
+        {
+          "x": 0,
+          "y": 24,
+          "z": 8
+        }
+      ]
+    }
+  },
+  "dungeonWeight": 1,
+  "indexToDoorMap": {
+    "1": [
+      {
+        "x": 8,
+        "y": 0,
+        "z": 0
+      },
+      {
+        "x": 8,
+        "y": 12,
+        "z": 0
+      },
+      {
+        "x": 8,
+        "y": 24,
+        "z": 0
+      },
+      {
+        "x": 16,
+        "y": 0,
+        "z": 8
+      },
+      {
+        "x": 16,
+        "y": 12,
+        "z": 8
+      },
+      {
+        "x": 16,
+        "y": 24,
+        "z": 8
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "z": 8
+      },
+      {
+        "x": 0,
+        "y": 12,
+        "z": 8
+      },
+      {
+        "x": 0,
+        "y": 24,
+        "z": 8
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "z": 16
+      },
+      {
+        "x": 8,
+        "y": 12,
+        "z": 16
+      },
+      {
+        "x": 8,
+        "y": 24,
+        "z": 16
+      }
+    ]
+  },
+  "indexToRoomTypeMap": {
+    "1": [
+      "neovitae:room_pools/standard/standard_rooms",
+      "#neovitae:room_pools/special/mine_entrances",
+      "#neovitae:room_pools/standard/mine_key"
+    ]
+  },
+  "oreDensity": 0.0,
+  "portalOffset": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "requiredDoorMap": {},
+  "spawnLocation": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "structureMap": {
+    "neovitae:standard/tall_spiral_staircase": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  }
+}

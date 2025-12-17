@@ -1,0 +1,31 @@
+{
+  "type": "neovitae:alchemical_reaction_chamber",
+  "chance_outputs": [
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 1,
+        "id": "neovitae:hellforged_parts"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 4,
+        "id": "minecraft:netherite_scrap"
+      }
+    }
+  ],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "neovitae:rune_sacrifice_self"
+    }
+  ],
+  "input": {
+    "item": "neovitae:rune_2_sacrifice_self"
+  },
+  "tool": {
+    "tag": "neovitae:arc_tool/reverter"
+  }
+}

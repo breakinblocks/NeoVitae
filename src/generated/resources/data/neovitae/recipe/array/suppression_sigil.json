@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "item": "neovitae:demonic_slate"
+  },
+  "baseinput": {
+    "item": "neovitae:reagent_suppression"
+  },
+  "output": {
+    "count": 1,
+    "id": "neovitae:sigil_suppression"
+  },
+  "texture": "neovitae:textures/models/alchemyarrays/suppressionsigil.png"
+}

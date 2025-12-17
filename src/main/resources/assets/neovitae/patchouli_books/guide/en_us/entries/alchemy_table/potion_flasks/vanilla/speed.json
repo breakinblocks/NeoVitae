@@ -1,0 +1,32 @@
+{
+  "name": "Speed",
+  "icon": "minecraft:sugar",
+  "category": "neovitae:alchemy_table/potion_flasks/vanilla",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(thing)Speed$() increases the target's movement speed by 20% per level."
+    },
+    {
+      "type": "neovitae:3x_crafting_flask",
+      "a.heading": "Speed (3:00)",
+      "a.recipe": "neovitae:flask/speed_boost",
+      "b.heading": "Speed (8:00)",
+      "b.recipe": "neovitae:flask/length_speed_boost",
+      "c.heading": "Speed II (1:30)",
+      "c.recipe": "neovitae:flask/potency_speed_boost"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "adding $(l:neovitae:alchemy_table/potions#average_potions)Standard Catalysts$() can further boost your potions."
+    },
+    {
+      "type": "neovitae:2x_crafting_flask",
+      "a.heading": "Speed III (0:45)",
+      "a.recipe": "neovitae:flask/potency_average_speed_boost",
+      "b.heading": "Speed (21:20)",
+      "b.recipe": "neovitae:flask/length_average_speed_boost"
+    }
+
+  ]
+}

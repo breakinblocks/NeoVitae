@@ -1,0 +1,24 @@
+{
+  "values": [
+    "neovitae:dungeon_brick_slab",
+    "neovitae:dungeon_tile_slab",
+    "neovitae:dungeon_stone_slab",
+    "neovitae:dungeon_polished_slab",
+    "neovitae:dungeon_brick_slab_c",
+    "neovitae:dungeon_tile_slab_c",
+    "neovitae:dungeon_stone_slab_c",
+    "neovitae:dungeon_polished_slab_c",
+    "neovitae:dungeon_brick_slab_d",
+    "neovitae:dungeon_tile_slab_d",
+    "neovitae:dungeon_stone_slab_d",
+    "neovitae:dungeon_polished_slab_d",
+    "neovitae:dungeon_brick_slab_s",
+    "neovitae:dungeon_tile_slab_s",
+    "neovitae:dungeon_stone_slab_s",
+    "neovitae:dungeon_polished_slab_s",
+    "neovitae:dungeon_brick_slab_v",
+    "neovitae:dungeon_tile_slab_v",
+    "neovitae:dungeon_stone_slab_v",
+    "neovitae:dungeon_polished_slab_v"
+  ]
+}

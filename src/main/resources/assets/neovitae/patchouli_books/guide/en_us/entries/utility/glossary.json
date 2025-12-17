@@ -1,0 +1,39 @@
+{
+  "name": "Glossary of Terms",
+  "icon": "neovitae:guide",
+  "category": "neovitae:utility",
+  "priority": "true",
+  "sortnum": -1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Key Terms",
+      "text": "$(blood)Neo Vitae$() has a few key terms that are important to understand. This glossary will help clarify the terminology used throughout the mod and this guide."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Blood",
+      "text": "$(thing)Blood$() is the raw, unrefined substance found in living creatures. When you use a $(item)Sacrificial Knife$() or $(item)Dagger of Sacrifice$(), you are extracting this raw $(thing)blood$() and offering it to the $(l:neovitae:altar/blood_altar)Blood Altar$(/l) to be refined into something more useful."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Life Essence",
+      "text": "$(blood)Life Essence$() is refined $(thing)blood$() that has been sanctified within the $(l:neovitae:altar/blood_altar)Blood Altar$(/l). It is a physical liquid that can be stored in the Altar's basin, transferred using $(item)Dislocation Runes$(), collected in a bucket, or used for crafting recipes within the Altar.$(br2)When the guide refers to the Altar's capacity or contents, it is referring to $(blood)Life Essence$()."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "LP (Life Points)",
+      "text": "$(blood)LP$() ($(thing)Life Points$()) represents $(blood)Life Essence$() that has been further purified through a $(l:neovitae:altar/soul_network)Blood Orb$(/l) and stored within your $(thing)Soul Network$(). Think of it as a third 'state' for blood - a pure distillation of power that exists in an ethereal form.$(br2)$(blood)LP$() is consumed when using $(item)Sigils$(), activating $(thing)Rituals$(), and powering the $(l:neovitae:alchemy_table/alchemy_table)Alchemy Table$()."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Soul Network",
+      "text": "Your $(thing)Soul Network$() is a personal, invisible reservoir that stores your $(blood)LP$(). Each player has their own unique network, and items bound to you will draw from (or add to) this network.$(br2)The capacity of your $(thing)Soul Network$() is determined by your $(l:neovitae:altar/soul_network)Blood Orb$(/l) tier. Higher tier orbs can store more $(blood)LP$()."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "The Refinement Process",
+      "text": "To summarize the progression:$(br2)$(li)$(thing)Blood$() (raw) is extracted from living creatures$(li)$(blood)Life Essence$() (refined) is created when blood is processed in the $(item)Blood Altar$()$(li)$(blood)LP$() (pure) is created when $(blood)Life Essence$() is absorbed by a $(item)Blood Orb$() into your $(thing)Soul Network$()$(br2)Each stage represents a further purification of the life force."
+    }
+  ]
+}

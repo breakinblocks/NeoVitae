@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:blood_altar_recipe",
+  "bloodNeeded": 10000,
+  "craftSpeed": 20,
+  "drainSpeed": 10,
+  "input": {
+    "item": "neovitae:raw_demonite_block"
+  },
+  "minTier": 3,
+  "output": {
+    "count": 1,
+    "id": "neovitae:bleeding_edge"
+  }
+}

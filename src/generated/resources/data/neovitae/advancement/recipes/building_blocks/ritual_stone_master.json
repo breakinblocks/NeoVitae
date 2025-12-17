@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ritual_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:ritual_stone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:ritual_stone_master"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ritual_stone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:ritual_stone_master"
+    ]
+  }
+}

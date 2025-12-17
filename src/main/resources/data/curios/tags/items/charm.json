@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "neovitae:miningsigil",
+    "neovitae:growthsigil",
+    "neovitae:sigilofmagnetism",
+    "neovitae:icesigil",
+    "neovitae:sigilofholding",
+    "neovitae:divinationsigil",
+    "neovitae:seersigil",
+    "neovitae:sigilofsuppression",
+    "neovitae:experiencebook",
+    "neovitae:demonwillgauge"
+  ]
+}

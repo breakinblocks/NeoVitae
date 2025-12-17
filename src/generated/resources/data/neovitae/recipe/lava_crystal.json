@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "tag": "c:glass_blocks"
+    },
+    "b": {
+      "item": "minecraft:lava_bucket"
+    },
+    "c": {
+      "type": "neovitae:orb_tier",
+      "tier": 1
+    },
+    "d": {
+      "tag": "c:obsidians"
+    },
+    "e": {
+      "tag": "c:gems/diamond"
+    }
+  },
+  "pattern": [
+    "aba",
+    "bcb",
+    "ded"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:lava_crystal"
+  }
+}

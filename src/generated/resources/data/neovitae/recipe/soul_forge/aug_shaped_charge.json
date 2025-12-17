@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:soul_forge",
+  "drain": 2.5,
+  "inputs": [
+    {
+      "tag": "c:storage_blocks/copper"
+    },
+    {
+      "item": "minecraft:charcoal"
+    },
+    {
+      "tag": "c:sands"
+    },
+    {
+      "item": "minecraft:brick"
+    }
+  ],
+  "minDrain": 80.0,
+  "output": {
+    "count": 6,
+    "id": "neovitae:aug_shaped_charge"
+  }
+}

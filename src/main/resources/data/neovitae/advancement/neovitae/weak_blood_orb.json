@@ -1,0 +1,33 @@
+{
+  "parent": "neovitae:bloodmagic/root",
+  "display": {
+    "icon": {
+      "id": "neovitae:weak_blood_orb"
+    },
+    "title": {
+      "translate": "advancements.neovitae.weak_blood_orb.title"
+    },
+    "description": {
+      "translate": "advancements.neovitae.weak_blood_orb.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "get_orb": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:weak_blood_orb"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_orb"]
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:blood_altar_recipe",
+  "bloodNeeded": 25000,
+  "craftSpeed": 20,
+  "drainSpeed": 20,
+  "input": {
+    "tag": "c:storage_blocks/gold"
+  },
+  "minTier": 2,
+  "output": {
+    "count": 1,
+    "id": "neovitae:blood_orb_magician"
+  }
+}

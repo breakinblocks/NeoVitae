@@ -1,0 +1,220 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'net.neoforged.moddev' version "${mdg_version}"
+    id 'idea'
+}
+
+tasks.named('wrapper', Wrapper).configure {
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+version = mod_version
+group = mod_group_id
+
+repositories {
+    mavenLocal()
+    maven {
+        // location of the maven that hosts JEI files since January 2023
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
+    maven {
+        name = "Curios"
+        url = uri("https://maven.theillusivec4.top/")
+    }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+    maven {
+        name = "CurseMaven"
+        url = "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+    maven {
+        name = "Patchouli"
+        url = "https://maven.blamejared.com"
+    }
+}
+
+base {
+    archivesName = mod_id
+}
+
+sourceSets {
+    api {
+        // Will be configured below
+    }
+    datagen {
+        compileClasspath += main.output + main.compileClasspath
+        runtimeClasspath += main.output + main.runtimeClasspath
+    }
+}
+
+// API gets same dependencies as main (Minecraft, NeoForge, etc.)
+sourceSets.api.compileClasspath += configurations.compileClasspath
+sourceSets.api.runtimeClasspath += configurations.runtimeClasspath
+
+// Main depends on API output
+sourceSets.main.compileClasspath += sourceSets.api.output
+sourceSets.main.runtimeClasspath += sourceSets.api.output
+
+// Ensure API is compiled before main
+tasks.named('compileJava').configure {
+    dependsOn tasks.named('compileApiJava')
+}
+
+// Datagen also depends on API output
+sourceSets.datagen.compileClasspath += sourceSets.api.output
+sourceSets.datagen.runtimeClasspath += sourceSets.api.output
+
+task apiJar(type: Jar) {
+    from sourceSets.api.output
+    archiveClassifier = 'api'
+}
+
+// Include API classes in the main JAR
+tasks.named('jar', Jar).configure {
+    from sourceSets.api.output
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+artifacts {
+    archives apiJar
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+neoForge {
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    mods {
+        "mod" {
+            sourceSet(sourceSets.api)
+            sourceSet(sourceSets.main)
+        }
+        "data" {
+            sourceSet(sourceSets.api)
+            sourceSet(sourceSets.main)
+            sourceSet(sourceSets.datagen)
+        }
+    }
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            gameDirectory = project.file('run-server')
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        data {
+            data()
+            sourceSet = sourceSets.datagen // this makes the intellij configuration work
+            loadedMods = [ mods.data ] // this prevents from main loading on mod and data since default is all configured mods
+            gameDirectory = project.file('run-data')
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.INFO
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
+
+dependencies {
+    // Jade - WAILA fork for block/entity tooltips (optional dev dependency)
+    runtimeOnly("curse.maven:jade-324717:6853386")
+
+    // Patchouli - In-game documentation/guide book
+    implementation("vazkii.patchouli:Patchouli:${patchouli_version}")
+
+    compileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
+    compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api")
+
+    runtimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
+    runtimeOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}")
+}
+
+var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            neo_version_range      : neo_version_range,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from "src/main/templates"
+    into "build/generated/sources/modMetadata"
+}
+
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata
+
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            from components.java
+            // Include the API jar as an additional artifact
+            artifact(apiJar) {
+                classifier = 'api'
+            }
+        }
+    }
+    repositories {
+        maven {
+            url = "file://${project.projectDir}/repo"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+    options.compilerArgs << '-Xlint:deprecation'
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+        sourceDirs += sourceSets.api.java.srcDirs
+    }
+}

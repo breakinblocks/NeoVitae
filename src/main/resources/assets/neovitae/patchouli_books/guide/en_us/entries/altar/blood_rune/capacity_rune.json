@@ -1,0 +1,25 @@
+{
+  "name": "Rune of Capacity",
+  "icon": "neovitae:rune_capacity",
+  "category": "neovitae:altar/blood_rune",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(item)Rune of Capacity$() increases the capacity of the $(l:neovitae:altar/blood_altar)Blood Altar$(/l) by an additive +20% per rune."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "neovitae:blood_rune_capacity"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "neovitae:blood_rune_capacity_2",
+      "text":"With some $(item)Netherite Scrap$() and some $(item)Intricate Hellforged Parts$() looted from the $(l:neovitae:dungeons/endless_realm)Demon Realm$(), you can double the power of your $(item)Rune of Capacity$(), increasing the capacity of the $(l:neovitae:altar/blood_altar)Blood Altar$(/l) by an additive +40% per rune."
+    },
+    {
+      "type": "neovitae:crafting_arc",
+      "recipe": "neovitae:arc/reversion/capacity",
+      "text":"If you change your mind, you can undo the recipe in the ARC."
+    }
+  ]
+}

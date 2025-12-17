@@ -1,0 +1,20 @@
+{
+  "type": "neovitae:soul_forge",
+  "drain": 2.0,
+  "inputs": [
+    {
+      "tag": "c:ingots/copper"
+    },
+    {
+      "tag": "c:ingots/copper"
+    },
+    {
+      "tag": "c:gems/amethyst"
+    }
+  ],
+  "minDrain": 32.0,
+  "output": {
+    "count": 16,
+    "id": "neovitae:amethyst_throwing_dagger"
+  }
+}

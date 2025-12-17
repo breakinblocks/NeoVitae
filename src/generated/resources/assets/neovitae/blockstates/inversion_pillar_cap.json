@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "neovitae:block/inversion_pillar_bottom"
+    },
+    "type=top": {
+      "model": "neovitae:block/inversion_pillar_top"
+    }
+  }
+}

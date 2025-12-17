@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "lifespan=0": { "model": "neovitae:block/blood_light" },
+    "lifespan=1": { "model": "neovitae:block/blood_light" },
+    "lifespan=2": { "model": "neovitae:block/blood_light" },
+    "lifespan=3": { "model": "neovitae:block/blood_light" },
+    "lifespan=4": { "model": "neovitae:block/blood_light" },
+    "lifespan=5": { "model": "neovitae:block/blood_light" },
+    "lifespan=6": { "model": "neovitae:block/blood_light" },
+    "lifespan=7": { "model": "neovitae:block/blood_light" },
+    "lifespan=8": { "model": "neovitae:block/blood_light" },
+    "lifespan=9": { "model": "neovitae:block/blood_light" },
+    "lifespan=10": { "model": "neovitae:block/blood_light" },
+    "lifespan=11": { "model": "neovitae:block/blood_light" },
+    "lifespan=12": { "model": "neovitae:block/blood_light" },
+    "lifespan=13": { "model": "neovitae:block/blood_light" },
+    "lifespan=14": { "model": "neovitae:block/blood_light" },
+    "lifespan=15": { "model": "neovitae:block/blood_light" }
+  }
+}

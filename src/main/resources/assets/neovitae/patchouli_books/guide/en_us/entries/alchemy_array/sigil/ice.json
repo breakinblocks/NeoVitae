@@ -1,0 +1,14 @@
+{
+  "name": "Sigil of the Frozen Lake [NYI]",
+  "icon": "neovitae:sigil_frost",
+  "category": "neovitae:alchemy_array/sigil",
+  "extra_recipe_mappings": {
+    "neovitae:sigil_frost": 0
+  },
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "[WIP Notes]$(br)[Not Yet Implemented]$(br2)Frostwalker Enchantment as a Sigil."
+    }
+  ]
+}

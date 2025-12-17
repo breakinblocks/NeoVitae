@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:simple_catalyst"
+    },
+    {
+      "item": "minecraft:sugar_cane"
+    },
+    {
+      "item": "minecraft:crimson_fungus"
+    },
+    {
+      "item": "minecraft:warped_fungus"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:weak_filling_agent"
+  },
+  "syphon": 2000,
+  "ticks": 100,
+  "upgradeLevel": 2
+}

@@ -1,0 +1,29 @@
+{
+  "name": "Instant Damage",
+  "icon": "minecraft:iron_sword",
+  "category": "neovitae:alchemy_table/potion_flasks/vanilla",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(thing)Instant Damage$() inflicts 6 points of $(thing)Magic Damage$() to the target per level. If the target is $(thing)Undead$(), they will be healed for 6 points per level instead.$(br2)It's made from a potion of either $(l:neovitae:alchemy_table/potion_flasks/vanilla/instant_health)Instant Health$() or $(l:neovitae:alchemy_table/potion_flasks/vanilla/poison)Poison$()."
+    },
+    {
+      "type": "neovitae:3x_crafting_flask",
+      "a.heading": "Damage from Health",
+      "a.recipe": "neovitae:flask/health_to_harm",
+      "b.heading": "Damage from Poison",
+      "b.recipe": "neovitae:flask/poison_to_harm",
+      "c.heading": "Instant Damage II",
+      "c.recipe": "neovitae:flask/potency_harm"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "adding $(l:neovitae:alchemy_table/potions#average_potions)Standard Catalysts$() can further boost your potions."
+    },
+    {
+      "type": "neovitae:crafting_flask",
+      "heading": "Instant Damage III",
+      "recipe": "neovitae:flask/potency_average_harm"
+    }
+  ]
+}

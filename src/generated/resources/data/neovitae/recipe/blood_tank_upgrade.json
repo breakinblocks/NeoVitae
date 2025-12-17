@@ -1,0 +1,28 @@
+{
+  "type": "neovitae:fluid_tiered",
+  "category": "misc",
+  "pattern": {
+    "key": {
+      "g": {
+        "item": "minecraft:glass"
+      },
+      "s": {
+        "item": "neovitae:bloodstone"
+      },
+      "t": {
+        "item": "neovitae:blood_tank"
+      }
+    },
+    "pattern": [
+      "g g",
+      "tgt",
+      "gsg"
+    ]
+  },
+  "primary": 3,
+  "result": {
+    "count": 1,
+    "id": "neovitae:blood_tank"
+  },
+  "secondary": 5
+}

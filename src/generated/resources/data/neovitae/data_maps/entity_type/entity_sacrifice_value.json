@@ -1,0 +1,247 @@
+{
+  "values": {
+    "minecraft:allay": {
+      "lp_per_damage": 50
+    },
+    "minecraft:armadillo": {
+      "lp_per_damage": 25
+    },
+    "minecraft:axolotl": {
+      "lp_per_damage": 30
+    },
+    "minecraft:bat": {
+      "lp_per_damage": 10
+    },
+    "minecraft:bee": {
+      "lp_per_damage": 20
+    },
+    "minecraft:blaze": {
+      "lp_per_damage": 100
+    },
+    "minecraft:bogged": {
+      "lp_per_damage": 60
+    },
+    "minecraft:breeze": {
+      "lp_per_damage": 100
+    },
+    "minecraft:camel": {
+      "lp_per_damage": 50
+    },
+    "minecraft:cat": {
+      "lp_per_damage": 25
+    },
+    "minecraft:cave_spider": {
+      "lp_per_damage": 40
+    },
+    "minecraft:chicken": {
+      "lp_per_damage": 15
+    },
+    "minecraft:cod": {
+      "lp_per_damage": 10
+    },
+    "minecraft:cow": {
+      "lp_per_damage": 25
+    },
+    "minecraft:creeper": {
+      "lp_per_damage": 75
+    },
+    "minecraft:dolphin": {
+      "lp_per_damage": 50
+    },
+    "minecraft:donkey": {
+      "lp_per_damage": 40
+    },
+    "minecraft:drowned": {
+      "lp_per_damage": 50
+    },
+    "minecraft:elder_guardian": {
+      "lp_per_damage": 250
+    },
+    "minecraft:ender_dragon": {
+      "lp_per_damage": 1000,
+      "max_lp_per_hit": 5000
+    },
+    "minecraft:enderman": {
+      "lp_per_damage": 100
+    },
+    "minecraft:endermite": {
+      "lp_per_damage": 25
+    },
+    "minecraft:evoker": {
+      "lp_per_damage": 250
+    },
+    "minecraft:fox": {
+      "lp_per_damage": 30
+    },
+    "minecraft:frog": {
+      "lp_per_damage": 15
+    },
+    "minecraft:ghast": {
+      "lp_per_damage": 150
+    },
+    "minecraft:giant": {
+      "lp_per_damage": 250
+    },
+    "minecraft:glow_squid": {
+      "lp_per_damage": 30
+    },
+    "minecraft:goat": {
+      "lp_per_damage": 30
+    },
+    "minecraft:guardian": {
+      "lp_per_damage": 100
+    },
+    "minecraft:hoglin": {
+      "lp_per_damage": 100
+    },
+    "minecraft:horse": {
+      "lp_per_damage": 40
+    },
+    "minecraft:husk": {
+      "lp_per_damage": 50
+    },
+    "minecraft:illusioner": {
+      "lp_per_damage": 250
+    },
+    "minecraft:iron_golem": {
+      "lp_per_damage": 200
+    },
+    "minecraft:llama": {
+      "lp_per_damage": 35
+    },
+    "minecraft:magma_cube": {
+      "lp_per_damage": 40
+    },
+    "minecraft:mooshroom": {
+      "lp_per_damage": 40
+    },
+    "minecraft:mule": {
+      "lp_per_damage": 40
+    },
+    "minecraft:ocelot": {
+      "lp_per_damage": 30
+    },
+    "minecraft:panda": {
+      "lp_per_damage": 50
+    },
+    "minecraft:parrot": {
+      "lp_per_damage": 20
+    },
+    "minecraft:phantom": {
+      "lp_per_damage": 75
+    },
+    "minecraft:pig": {
+      "lp_per_damage": 25
+    },
+    "minecraft:piglin": {
+      "lp_per_damage": 75
+    },
+    "minecraft:piglin_brute": {
+      "lp_per_damage": 150
+    },
+    "minecraft:pillager": {
+      "lp_per_damage": 75
+    },
+    "minecraft:polar_bear": {
+      "lp_per_damage": 75
+    },
+    "minecraft:pufferfish": {
+      "lp_per_damage": 20
+    },
+    "minecraft:rabbit": {
+      "lp_per_damage": 15
+    },
+    "minecraft:ravager": {
+      "lp_per_damage": 250
+    },
+    "minecraft:salmon": {
+      "lp_per_damage": 10
+    },
+    "minecraft:sheep": {
+      "lp_per_damage": 25
+    },
+    "minecraft:shulker": {
+      "lp_per_damage": 150
+    },
+    "minecraft:silverfish": {
+      "lp_per_damage": 15
+    },
+    "minecraft:skeleton": {
+      "lp_per_damage": 50
+    },
+    "minecraft:skeleton_horse": {
+      "lp_per_damage": 50
+    },
+    "minecraft:slime": {
+      "lp_per_damage": 20
+    },
+    "minecraft:sniffer": {
+      "lp_per_damage": 75
+    },
+    "minecraft:snow_golem": {
+      "lp_per_damage": 50
+    },
+    "minecraft:spider": {
+      "lp_per_damage": 50
+    },
+    "minecraft:squid": {
+      "lp_per_damage": 20
+    },
+    "minecraft:stray": {
+      "lp_per_damage": 50
+    },
+    "minecraft:tadpole": {
+      "lp_per_damage": 5
+    },
+    "minecraft:tropical_fish": {
+      "lp_per_damage": 10
+    },
+    "minecraft:turtle": {
+      "lp_per_damage": 35
+    },
+    "minecraft:vex": {
+      "lp_per_damage": 40
+    },
+    "minecraft:villager": {
+      "lp_per_damage": 100
+    },
+    "minecraft:vindicator": {
+      "lp_per_damage": 100
+    },
+    "minecraft:wandering_trader": {
+      "lp_per_damage": 150
+    },
+    "minecraft:warden": {
+      "lp_per_damage": 500,
+      "max_lp_per_hit": 2500
+    },
+    "minecraft:witch": {
+      "lp_per_damage": 100
+    },
+    "minecraft:wither": {
+      "lp_per_damage": 500,
+      "max_lp_per_hit": 2500
+    },
+    "minecraft:wither_skeleton": {
+      "lp_per_damage": 150
+    },
+    "minecraft:wolf": {
+      "lp_per_damage": 35
+    },
+    "minecraft:zoglin": {
+      "lp_per_damage": 100
+    },
+    "minecraft:zombie": {
+      "lp_per_damage": 50
+    },
+    "minecraft:zombie_horse": {
+      "lp_per_damage": 50
+    },
+    "minecraft:zombie_villager": {
+      "lp_per_damage": 75
+    },
+    "minecraft:zombified_piglin": {
+      "lp_per_damage": 75
+    }
+  }
+}

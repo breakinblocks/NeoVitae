@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:blood_altar_recipe",
+  "bloodNeeded": 500,
+  "craftSpeed": 5,
+  "drainSpeed": 1,
+  "input": {
+    "tag": "c:strings"
+  },
+  "minTier": 0,
+  "output": {
+    "count": 1,
+    "id": "neovitae:soul_snare"
+  }
+}

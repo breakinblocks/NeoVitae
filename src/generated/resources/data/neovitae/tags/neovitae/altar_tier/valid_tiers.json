@@ -1,0 +1,10 @@
+{
+  "values": [
+    "neovitae:weak",
+    "neovitae:apprentice",
+    "neovitae:mage",
+    "neovitae:master",
+    "neovitae:archmage",
+    "neovitae:transcendent"
+  ]
+}

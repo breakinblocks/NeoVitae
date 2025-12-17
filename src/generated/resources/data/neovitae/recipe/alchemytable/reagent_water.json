@@ -1,0 +1,21 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:reagent_water"
+  },
+  "syphon": 300,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

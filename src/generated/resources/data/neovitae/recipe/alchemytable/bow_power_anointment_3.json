@@ -1,0 +1,27 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:bow_power_anointment"
+    },
+    {
+      "item": "neovitae:strong_tau"
+    },
+    {
+      "item": "neovitae:sand_hellforged"
+    },
+    {
+      "item": "minecraft:glow_berries"
+    },
+    {
+      "tag": "c:ingots/iron"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:bow_power_anointment_3"
+  },
+  "syphon": 2000,
+  "ticks": 100,
+  "upgradeLevel": 4
+}

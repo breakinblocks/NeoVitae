@@ -1,0 +1,16 @@
+{
+  "name": "Quenched",
+  "icon": "minecraft:glass_bottle",
+  "category": "neovitae:alchemy_array/living_equipment/armor_downgrades",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Prevents you from drinking any potions whilst wearing the armour."
+    },
+    {
+      "type": "neovitae:living_armour_downgrade",
+      "a.recipe": "neovitae:downgrade/quenched",
+      "b.upgrade": "neovitae:quenched"
+    }
+  ]
+}

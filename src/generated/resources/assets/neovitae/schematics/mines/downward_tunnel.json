@@ -1,0 +1,145 @@
+{
+  "controllerOffset": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "descriptorList": [
+    {
+      "maximumOffset": {
+        "x": 18,
+        "y": 9,
+        "z": 25
+      },
+      "minimumOffset": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "maximumOffset": {
+        "x": 17,
+        "y": 18,
+        "z": 18
+      },
+      "minimumOffset": {
+        "x": 0,
+        "y": 9,
+        "z": 2
+      }
+    }
+  ],
+  "doorCoverMap": {
+    "1": {
+      "maximumOffset": {
+        "x": 2,
+        "y": 2,
+        "z": 0
+      },
+      "minimumOffset": {
+        "x": -2,
+        "y": -2,
+        "z": 0
+      }
+    }
+  },
+  "doorMap": {
+    "mine": {
+      "east": [
+        {
+          "x": 17,
+          "y": 1,
+          "z": 16
+        }
+      ],
+      "north": [
+        {
+          "x": 8,
+          "y": 1,
+          "z": 0
+        }
+      ],
+      "south": [
+        {
+          "x": 8,
+          "y": 1,
+          "z": 24
+        }
+      ],
+      "west": [
+        {
+          "x": 0,
+          "y": 1,
+          "z": 4
+        },
+        {
+          "x": 0,
+          "y": 13,
+          "z": 5
+        }
+      ]
+    }
+  },
+  "dungeonWeight": 1,
+  "indexToDoorMap": {
+    "1": [
+      {
+        "x": 0,
+        "y": 1,
+        "z": 4
+      },
+      {
+        "x": 0,
+        "y": 13,
+        "z": 5
+      },
+      {
+        "x": 8,
+        "y": 1,
+        "z": 0
+      },
+      {
+        "x": 8,
+        "y": 1,
+        "z": 24
+      },
+      {
+        "x": 17,
+        "y": 1,
+        "z": 16
+      }
+    ]
+  },
+  "indexToRoomTypeMap": {
+    "1": [
+      "neovitae:room_pools/mines/mine_corridors",
+      "neovitae:room_pools/mines/mine_rooms",
+      "$neovitae:room_pools/mines/mine_deadend"
+    ]
+  },
+  "oreDensity": 0.1,
+  "portalOffset": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "requiredDoorMap": {},
+  "spawnLocation": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "structureMap": {
+    "neovitae:standard/mine_downward_tunnel_1": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "neovitae:standard/mine_downward_tunnel_2": {
+      "x": 0,
+      "y": 9,
+      "z": 2
+    }
+  }
+}

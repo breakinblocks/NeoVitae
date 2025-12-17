@@ -1,0 +1,31 @@
+{
+  "name": "Levitation",
+  "icon": "minecraft:shulker_shell",
+  "category": "neovitae:alchemy_table/potion_flasks/vanilla",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(thing)Levitation$() causes the target to float up into the air. Higher levels will make the target levitate faster.$(br2)It's made from a potion of $(l:neovitae:alchemy_table/potion_flasks/vanilla/slow_falling)Slow Falling$()."
+    },
+    {
+      "type": "neovitae:3x_crafting_flask",
+      "a.heading": "Levitation (3:00)",
+      "a.recipe": "neovitae:flask/fall_to_levitation",
+      "b.heading": "Levitation (8:00)",
+      "b.recipe": "neovitae:flask/length_levitation",
+      "c.heading": "Levitation II (1:30)",
+      "c.recipe": "neovitae:flask/potency_levitation"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "adding $(l:neovitae:alchemy_table/potions#average_potions)Standard Catalysts$() can further boost your potions."
+    },
+    {
+      "type": "neovitae:2x_crafting_flask",
+      "a.heading": "Levitation III (0:45)",
+      "a.recipe": "neovitae:flask/potency_average_levitation",
+      "b.heading": "Levitation (21:20)",
+      "b.recipe": "neovitae:flask/length_average_levitation"
+    }
+  ]
+}

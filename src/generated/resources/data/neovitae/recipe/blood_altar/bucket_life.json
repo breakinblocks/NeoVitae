@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:blood_altar_recipe",
+  "bloodNeeded": 1000,
+  "craftSpeed": 5,
+  "drainSpeed": 0,
+  "input": {
+    "item": "minecraft:bucket"
+  },
+  "minTier": 0,
+  "output": {
+    "count": 1,
+    "id": "neovitae:life_essence_bucket"
+  }
+}

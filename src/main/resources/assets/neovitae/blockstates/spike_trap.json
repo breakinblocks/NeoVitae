@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "facing=down":  { "model": "neovitae:block/spike_trap", "x": 90 },
+        "facing=up":    { "model": "neovitae:block/spike_trap", "x": 270 },
+        "facing=north": { "model": "neovitae:block/spike_trap" },
+        "facing=south": { "model": "neovitae:block/spike_trap", "y": 180 },
+        "facing=west":  { "model": "neovitae:block/spike_trap", "y": 270 },
+        "facing=east":  { "model": "neovitae:block/spike_trap", "y": 90 }
+    }
+}

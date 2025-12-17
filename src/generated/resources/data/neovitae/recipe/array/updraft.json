@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "tag": "c:dusts/glowstone"
+  },
+  "baseinput": {
+    "tag": "c:feathers"
+  },
+  "effect_type": "updraft",
+  "texture": "neovitae:textures/models/alchemyarrays/updraftarray.png"
+}

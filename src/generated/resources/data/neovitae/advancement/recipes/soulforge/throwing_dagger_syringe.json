@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_amethyst_dagger": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:amethyst_throwing_dagger"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:throwing_dagger_syringe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_amethyst_dagger"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:throwing_dagger_syringe"
+    ]
+  }
+}

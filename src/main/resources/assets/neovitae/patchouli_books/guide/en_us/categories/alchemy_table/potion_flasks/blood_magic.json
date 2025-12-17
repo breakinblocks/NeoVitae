@@ -1,0 +1,6 @@
+{
+  "name": "Neo Vitae Effects",
+  "description": "These effects can only be crafted with the touch of a true sanguimancer.",
+  "icon": "neovitae:simple_catalyst",
+  "parent": "neovitae:alchemy_table/potion_flasks"
+}

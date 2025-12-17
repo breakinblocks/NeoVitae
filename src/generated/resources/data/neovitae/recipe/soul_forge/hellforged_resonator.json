@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:soul_forge",
+  "drain": 400.0,
+  "inputs": [
+    {
+      "tag": "c:gems/amethyst"
+    },
+    {
+      "tag": "c:ingots/gold"
+    },
+    {
+      "item": "neovitae:default_crystal"
+    },
+    {
+      "item": "neovitae:ingot_hellforged"
+    }
+  ],
+  "minDrain": 1200.0,
+  "output": {
+    "count": 1,
+    "id": "neovitae:hellforged_resonator"
+  }
+}

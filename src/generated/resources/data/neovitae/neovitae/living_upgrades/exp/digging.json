@@ -1,0 +1,20 @@
+{
+  "effects": {
+    "neovitae:break_block": [
+      {
+        "effect": {
+          "type": "neovitae:living_exp",
+          "upgrade": "neovitae:digging"
+        }
+      }
+    ]
+  },
+  "levels": {
+    "exp_to_level": {
+      "1": 1
+    },
+    "level_to_cost": {
+      "1": 0
+    }
+  }
+}

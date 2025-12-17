@@ -1,0 +1,29 @@
+{
+  "type": "neovitae:soul_forge",
+  "drain": 4.0,
+  "inputs": [
+    {
+      "item": "neovitae:fungal_charge_2"
+    },
+    {
+      "item": "neovitae:fortune_anointment_2"
+    }
+  ],
+  "minDrain": 300.0,
+  "output": {
+    "components": {
+      "neovitae:anointment_holder": {
+        "anointments": [
+          {
+            "damage": 0,
+            "key": "neovitae:fortune",
+            "level": 2,
+            "max_damage": 1
+          }
+        ]
+      }
+    },
+    "count": 1,
+    "id": "neovitae:fungal_charge_2"
+  }
+}

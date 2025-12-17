@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "a": {
+      "tag": "c:stones"
+    },
+    "b": {
+      "type": "neovitae:orb_tier",
+      "tier": 1
+    },
+    "c": {
+      "item": "neovitae:rune_blank"
+    },
+    "d": {
+      "type": "neovitae:orb_tier",
+      "tier": 4
+    }
+  },
+  "pattern": [
+    "aba",
+    "cdc",
+    "aba"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:rune_orb"
+  }
+}

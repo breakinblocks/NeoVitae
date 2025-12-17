@@ -1,0 +1,27 @@
+{
+  "name": "Domain of the Filler",
+  "icon": "minecraft:dispenser",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "patchouli:multiblock",
+      "name": "Domain of the Filler",
+      "multiblock_id": "neovitae:placer",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "placer"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "placer",
+      "page_type": "placerRange"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "placer",
+      "page_type": "chest"
+    }
+  ]
+}

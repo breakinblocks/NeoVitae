@@ -1,0 +1,11 @@
+{
+  "values": [
+    "#neovitae:arc_tool/reverter",
+    "#neovitae:arc_tool/explosives",
+    "#neovitae:arc_tool/resonator",
+    "#neovitae:arc_tool/cutting_fluids",
+    "#neovitae:arc_tool/hydration",
+    "#neovitae:arc_tool/furnace",
+    "#neovitae:arc_tool/lingering_flask"
+  ]
+}

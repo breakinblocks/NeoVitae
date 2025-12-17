@@ -1,0 +1,33 @@
+{
+  "parent": "neovitae:bloodmagic/soul_gem_petty",
+  "display": {
+    "icon": {
+      "id": "neovitae:soul_gem_lesser"
+    },
+    "title": {
+      "translate": "advancements.neovitae.soul_gem_lesser.title"
+    },
+    "description": {
+      "translate": "advancements.neovitae.soul_gem_lesser.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "get_gem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:soul_gem_lesser"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_gem"]
+  ]
+}

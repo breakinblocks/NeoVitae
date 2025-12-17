@@ -1,0 +1,33 @@
+{
+  "parent": "neovitae:bloodmagic/master_blood_orb",
+  "display": {
+    "icon": {
+      "id": "neovitae:archmage_blood_orb"
+    },
+    "title": {
+      "translate": "advancements.neovitae.archmage_blood_orb.title"
+    },
+    "description": {
+      "translate": "advancements.neovitae.archmage_blood_orb.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_orb": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:archmage_blood_orb"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_orb"]
+  ]
+}

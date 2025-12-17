@@ -1,0 +1,10 @@
+{
+  "parent": "block/block",
+  "loader": "neoforge:obj",
+  "flip_v": true,
+  "model": "neovitae:models/block/blockincensealtar.obj",
+  "textures": {
+    "default": "neovitae:block/incense_altar",
+    "particle": "#default"
+  }
+}

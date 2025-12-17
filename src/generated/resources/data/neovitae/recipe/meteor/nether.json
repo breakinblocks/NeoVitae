@@ -1,0 +1,53 @@
+{
+  "type": "neovitae:meteor",
+  "explosion": 12.0,
+  "input": {
+    "tag": "c:dusts/glowstone"
+  },
+  "layers": [
+    {
+      "fill": "minecraft:netherrack",
+      "minWeight": 500,
+      "radius": 8,
+      "weighted": [
+        {
+          "entry": "minecraft:glowstone",
+          "weight": 100
+        },
+        {
+          "entry": "minecraft:nether_quartz_ore",
+          "weight": 150
+        },
+        {
+          "entry": "minecraft:nether_gold_ore",
+          "weight": 60
+        }
+      ]
+    },
+    {
+      "fill": "minecraft:blackstone",
+      "minWeight": 1000,
+      "radius": 5,
+      "shell": "minecraft:glowstone",
+      "weighted": [
+        {
+          "entry": "minecraft:ancient_debris",
+          "weight": 60
+        },
+        {
+          "entry": "minecraft:chiseled_polished_blackstone",
+          "weight": 300
+        },
+        {
+          "entry": "minecraft:gilded_blackstone",
+          "weight": 200
+        },
+        {
+          "entry": "minecraft:polished_blackstone",
+          "weight": 400
+        }
+      ]
+    }
+  ],
+  "syphon": 1000000
+}

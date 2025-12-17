@@ -1,0 +1,16 @@
+{
+  "type": "neovitae:alchemical_reaction_chamber",
+  "chance_outputs": [],
+  "guaranteed_outputs": [
+    {
+      "count": 4,
+      "id": "neovitae:gold_fragment"
+    }
+  ],
+  "input": {
+    "tag": "c:ores/gold"
+  },
+  "tool": {
+    "tag": "neovitae:arc_tool/explosives"
+  }
+}

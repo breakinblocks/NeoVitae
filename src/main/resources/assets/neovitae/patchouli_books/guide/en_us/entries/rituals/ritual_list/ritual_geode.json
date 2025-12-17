@@ -1,0 +1,62 @@
+{
+  "name": "Ritual of the Geode's Bounty",
+  "icon": "minecraft:amethyst_cluster",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Ritual of the Geode's Bounty",
+      "multiblock_id": "neovitae:geode",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "geode"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "geode",
+      "page_type": "raw"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "geode",
+      "page_type": "corrosive"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "geode",
+      "page_type": "vengeful"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "geode",
+      "page_type": "destructive"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "geode",
+      "page_type": "steadfast"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "geode",
+      "page_type": "chest"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "geode",
+      "page_type": "harvest"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "geode",
+      "page_type": "harm"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "geode",
+      "page_type": "acceleration"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:simple_catalyst"
+    },
+    {
+      "tag": "c:gems/lapis"
+    },
+    {
+      "tag": "c:gems/lapis"
+    },
+    {
+      "tag": "c:dyes/green"
+    },
+    {
+      "tag": "c:sands"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:cycling_catalyst"
+  },
+  "syphon": 1000,
+  "ticks": 100,
+  "upgradeLevel": 2
+}

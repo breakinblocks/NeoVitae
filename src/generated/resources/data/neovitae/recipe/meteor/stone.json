@@ -1,0 +1,26 @@
+{
+  "type": "neovitae:meteor",
+  "explosion": 30.0,
+  "input": {
+    "tag": "c:stones"
+  },
+  "layers": [
+    {
+      "fill": "minecraft:stone",
+      "minWeight": 400,
+      "radius": 16,
+      "shell": "minecraft:cobblestone",
+      "weighted": [
+        {
+          "entry": "minecraft:coal_ore",
+          "weight": 150
+        },
+        {
+          "entry": "minecraft:iron_ore",
+          "weight": 50
+        }
+      ]
+    }
+  ],
+  "syphon": 1000000
+}

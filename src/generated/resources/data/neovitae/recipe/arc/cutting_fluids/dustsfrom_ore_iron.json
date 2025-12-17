@@ -1,0 +1,16 @@
+{
+  "type": "neovitae:alchemical_reaction_chamber",
+  "chance_outputs": [],
+  "guaranteed_outputs": [
+    {
+      "count": 3,
+      "id": "neovitae:iron_sand"
+    }
+  ],
+  "input": {
+    "tag": "c:ores/iron"
+  },
+  "tool": {
+    "tag": "neovitae:arc_tool/cutting_fluids"
+  }
+}

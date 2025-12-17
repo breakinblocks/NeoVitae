@@ -1,0 +1,7 @@
+{
+  "name": "Sigils",
+  "description": "$(item)Sigils$() are formed using an $(l:neovitae:alchemy_array/functional_arrays/crafting_array)Alchemy Array$(), some form of $(item)Reagent$() and a $(l:neovitae:altar/slates)Slate$(). They draw $(blood)LP$() from your $(l:neovitae:altar/soul_network)Soul Network$() in order to perform all sorts of useful tasks.",
+  "icon": "neovitae:sigil_divination",
+  "parent": "neovitae:alchemy_array",
+  "sortnum": 1
+}

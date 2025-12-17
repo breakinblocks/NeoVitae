@@ -1,0 +1,13 @@
+{
+  "parent": "neovitae:block/sub/augment_shaped_charge",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "1": "minecraft:block/sandstone_bottom",
+    "2": "neovitae:block/defaultcrystal",
+    "3": "minecraft:block/sandstone_bottom",
+    "4": "neovitae:block/blankrune",
+    "5": "minecraft:block/sand",
+    "7": "neovitae:block/copper_trim",
+    "particle": "neovitae:block/defaultcrystal"
+  }
+}

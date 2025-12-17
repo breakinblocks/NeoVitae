@@ -1,0 +1,81 @@
+{
+  "controllerOffset": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "descriptorList": [
+    {
+      "maximumOffset": {
+        "x": 20,
+        "y": 11,
+        "z": 20
+      },
+      "minimumOffset": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ],
+  "doorCoverMap": {},
+  "doorMap": {
+    "default": {
+      "east": [
+        {
+          "x": 19,
+          "y": 0,
+          "z": 10
+        }
+      ],
+      "north": [
+        {
+          "x": 9,
+          "y": 0,
+          "z": 0
+        }
+      ]
+    }
+  },
+  "dungeonWeight": 1,
+  "indexToDoorMap": {
+    "1": [
+      {
+        "x": 9,
+        "y": 0,
+        "z": 0
+      },
+      {
+        "x": 19,
+        "y": 0,
+        "z": 10
+      }
+    ]
+  },
+  "indexToRoomTypeMap": {
+    "1": [
+      "neovitae:room_pools/standard/standard_rooms",
+      "#neovitae:room_pools/special/mine_entrances",
+      "#neovitae:room_pools/standard/mine_key"
+    ]
+  },
+  "oreDensity": 0.0,
+  "portalOffset": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "requiredDoorMap": {},
+  "spawnLocation": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "structureMap": {
+    "neovitae:standard/small_smithy": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  }
+}

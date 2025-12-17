@@ -1,0 +1,23 @@
+{
+  "name": "Ritual Stones",
+  "icon": "neovitae:water_ritual_stone",
+  "category": "neovitae:rituals",
+  "extra_recipe_mappings": {
+    "neovitae:air_ritual_stone": 0,
+    "neovitae:fire_ritual_stone": 0,
+    "neovitae:water_ritual_stone": 0,
+    "neovitae:earth_ritual_stone": 0,
+    "neovitae:dusk_ritual_stone": 0
+  },
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(item)Ritual Stones$() are the canvas upon which you will draw your $(item)Rituals$(). They also look quite nifty, and can be manually painted with the various $(l:neovitae:rituals/ritual_diviner)Elemental Inscription Tools$(). $(br2)Note that the Inscription Tools used to have durability, but now they last forever! Rejoice, you can decorate your base with $(fire)Fire Ritual Stones$() to your heart's content."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "neovitae:ritual_stone_blank",
+      "recipe2": "neovitae:ritual_stone_master"
+    }
+  ]
+}

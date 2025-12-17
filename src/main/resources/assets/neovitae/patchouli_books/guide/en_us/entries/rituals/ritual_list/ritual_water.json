@@ -1,0 +1,25 @@
+{
+  "name": "Ritual of the Full Spring",
+  "icon": "minecraft:water_bucket",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Ritual of the Full Spring",
+      "multiblock_id": "neovitae:water",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "water",
+      "text_overrides": [
+        ["Master Ritual Stone", "l:neovitae:rituals/ritual_stones"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "water",
+      "page_type": "waterRange"
+    }
+  ]
+}

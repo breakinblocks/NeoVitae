@@ -1,0 +1,22 @@
+{
+  "name": "Reverence of the Condor",
+  "icon": "minecraft:feather",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Reverence of the Condor",
+      "multiblock_id": "neovitae:condor",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner#dusk)Ritual Diviner [Dusk]$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "condor"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "condor",
+      "page_type": "flightRange"
+    }
+  ]
+}

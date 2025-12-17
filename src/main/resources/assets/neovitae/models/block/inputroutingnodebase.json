@@ -1,0 +1,10 @@
+{
+  "parent": "block/block",
+  "loader": "neoforge:obj",
+  "flip_v": true,
+  "model": "neovitae:models/block/routing/modelinputroutingnodebase.obj",
+  "textures": {
+    "default": "neovitae:block/modelinputroutingnode",
+    "particle": "#default"
+  }
+}

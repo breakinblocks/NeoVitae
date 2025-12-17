@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:flask_potency",
+  "ampDurationMod": 0.25,
+  "amplifier": 2,
+  "effect": "neovitae:heavy_heart",
+  "input": [
+    {
+      "item": "neovitae:average_power_catalyst"
+    }
+  ],
+  "syphon": 500,
+  "ticks": 100,
+  "upgradeLevel": 4
+}

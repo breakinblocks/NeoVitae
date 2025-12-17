@@ -1,0 +1,33 @@
+{
+  "name": "Ritual of Regeneration",
+  "icon": "minecraft:golden_apple",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Ritual of Regeneration",
+      "multiblock_id": "neovitae:regeneration",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner#dusk)Ritual Diviner [Dusk]$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "regeneration"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "regeneration",
+      "page_type": "corrosive"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "regeneration",
+      "page_type": "heal"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "regeneration",
+      "page_type": "vampire",
+      "text": "Requires $(corrosive)Corrosive Will$()."
+    }
+  ]
+}

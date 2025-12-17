@@ -1,0 +1,19 @@
+{
+  "name": "Void Sigil",
+  "icon": "neovitae:sigil_void",
+  "category": "neovitae:alchemy_array/sigil",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(item)Void sigil$(), when you press [$(k:use)] while looking at any fluid, will destroy it at a cost of 50LP per block. Good for clearing out irksome lava flows without all that tedious placing and breaking of individual blocks."
+    },
+    {
+      "type": "neovitae:crafting_2-step_sigil",
+      "alchemy_table.heading": "Void Reagent",
+      "alchemy_table.recipe": "neovitae:alchemytable/reagent_void",
+      "array.heading": "Void Sigil",
+      "array.recipe": "neovitae:array/voidsigil",
+      "array.text": "$(italic)Better than a Swiffer\u00AE!"
+    }
+  ]
+}

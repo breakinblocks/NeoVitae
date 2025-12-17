@@ -1,0 +1,33 @@
+{
+  "parent": "neovitae:bloodmagic/soul_gem_lesser",
+  "display": {
+    "icon": {
+      "id": "neovitae:soul_gem_common"
+    },
+    "title": {
+      "translate": "advancements.neovitae.soul_gem_common.title"
+    },
+    "description": {
+      "translate": "advancements.neovitae.soul_gem_common.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "get_gem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:soul_gem_common"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_gem"]
+  ]
+}

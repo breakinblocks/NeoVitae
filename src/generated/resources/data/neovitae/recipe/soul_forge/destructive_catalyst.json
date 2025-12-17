@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:soul_forge",
+  "drain": 20.0,
+  "inputs": [
+    {
+      "tag": "c:crops/nether_wart"
+    },
+    {
+      "item": "neovitae:tau_oil"
+    },
+    {
+      "tag": "c:dusts/sulfur"
+    },
+    {
+      "item": "minecraft:beetroot"
+    }
+  ],
+  "minDrain": 400.0,
+  "output": {
+    "count": 1,
+    "id": "neovitae:destructive_catalyst"
+  }
+}

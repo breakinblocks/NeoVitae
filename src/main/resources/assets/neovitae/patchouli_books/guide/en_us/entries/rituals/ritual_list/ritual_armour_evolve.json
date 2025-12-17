@@ -1,0 +1,21 @@
+{
+  "name": "Ritual of Living Evolution",
+  "icon": "neovitae:living_plate",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Ritual of Living Evolution",
+      "multiblock_id": "neovitae:armour_evolve",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner#dusk)Ritual Diviner [Dusk]$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "armour_evolve",
+      "text_overrides": [
+        ["Living Armor", "l:neovitae:alchemy_array/living_equipment/living_basics"]
+      ],
+      "text": "Stand on the $(l:neovitae:rituals/ritual_stones)Master Ritual Stone$() while wearing $(l:neovitae:alchemy_array/living_equipment/living_basics)Living Armor$() to use this $(thing)ritual$()."
+    }
+  ]
+}

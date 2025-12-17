@@ -1,0 +1,16 @@
+{
+  "name": "Limp Leg",
+  "icon": "minecraft:soul_sand",
+  "category": "neovitae:alchemy_array/living_equipment/armor_downgrades",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Effect: Reduces your movement speed significantly. Caps out at a 70% reduction. $(br2)Maximum level: 10"
+    },
+    {
+      "type": "neovitae:living_armour_downgrade",
+      "a.recipe": "neovitae:downgrade/speed_decrease",
+      "b.upgrade": "neovitae:speed_decrease"
+    }
+  ]
+}

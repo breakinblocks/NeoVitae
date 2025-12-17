@@ -1,0 +1,43 @@
+# Gradle
+gradle
+.gradle
+
+# IntelliJ
+.idea
+BloodMagic.iml
+BloodMagic.ipr
+BloodMagic.iws
+
+# general
+build
+run
+run-data
+run-server
+src/generated/resources/.cache
+
+# Visual Studio Code
+.vscode/
+docs/
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+# Ignore markdown files in root except README and CONTRIBUTING
+/*.md
+!/[Rr][Ee][Aa][Dd][Mm][Ee].[Mm][Dd]
+!/[Cc][Oo][Nn][Tt][Rr][Ii][Bb][Uu][Tt][Ii][Nn][Gg].[Mm][Dd]
+!BLOODMAGIC_API.md
+!WHY_FORK_BLOODMAGIC.md
+!MODPACK_MAKERS.md
+!README.md
+
+# Ignore Python files as they are generally untility scripts unrelated to the project
+*.py
+
+*.csv
+
+gradlew
+
+gradlew.bat

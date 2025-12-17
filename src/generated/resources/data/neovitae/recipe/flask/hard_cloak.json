@@ -1,0 +1,16 @@
+{
+  "type": "neovitae:flask_effect",
+  "baseDuration": 3600,
+  "effect": "neovitae:hard_cloak",
+  "input": [
+    {
+      "item": "neovitae:simple_catalyst"
+    },
+    {
+      "item": "minecraft:obsidian"
+    }
+  ],
+  "syphon": 500,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

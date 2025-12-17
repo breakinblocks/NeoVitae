@@ -1,0 +1,54 @@
+{
+  "name": "The Sinner's Burden",
+  "icon": "minecraft:dirt",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "The Sinner's Burden",
+      "multiblock_id": "neovitae:grounding",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "grounding"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "grounding",
+      "page_type": "raw"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "grounding",
+      "page_type": "corrosive",
+      "text":"Behaves similarly to the $(l:neovitae:alchemy_table/potion_flasks/blood_magic/suspended)Suspended$() effect."
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "grounding",
+      "page_type": "vengeful",
+      "text_overrides": [
+        ["Levitation", "l:neovitae:alchemy_table/potion_flasks/vanilla/levitation"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "grounding",
+      "page_type": "destructive",
+      "text_overrides": [
+        ["Heavy Heart", "l:neovitae:alchemy_table/potion_flasks/blood_magic/heavy_heart"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "grounding",
+      "page_type": "steadfast"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "grounding",
+      "page_type": "groundingRange"
+    }
+  ]
+}

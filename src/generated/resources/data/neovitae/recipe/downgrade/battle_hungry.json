@@ -1,0 +1,7 @@
+{
+  "type": "neovitae:livingdowngrade",
+  "input": {
+    "item": "minecraft:rotten_flesh"
+  },
+  "livingarmour": "neovitae:battle_hungry"
+}

@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:strong_tau"
+    },
+    {
+      "item": "neovitae:simple_catalyst"
+    },
+    {
+      "tag": "c:dusts/glowstone"
+    },
+    {
+      "tag": "c:dusts/glowstone"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:mundane_power_catalyst"
+  },
+  "syphon": 1000,
+  "ticks": 100,
+  "upgradeLevel": 4
+}

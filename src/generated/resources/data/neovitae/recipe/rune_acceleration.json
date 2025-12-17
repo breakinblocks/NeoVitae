@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "a": {
+      "item": "minecraft:bucket"
+    },
+    "b": {
+      "item": "neovitae:demonic_slate"
+    },
+    "c": {
+      "tag": "c:ingots/gold"
+    },
+    "d": {
+      "item": "neovitae:rune_speed"
+    },
+    "e": {
+      "type": "neovitae:orb_tier",
+      "tier": 4
+    }
+  },
+  "pattern": [
+    "aba",
+    "cdc",
+    "aea"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:rune_acceleration"
+  }
+}

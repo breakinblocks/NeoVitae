@@ -1,0 +1,31 @@
+{
+  "type": "neovitae:alchemical_reaction_chamber",
+  "chance_outputs": [
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 1,
+        "id": "neovitae:hellforged_parts"
+      }
+    },
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 4,
+        "id": "minecraft:netherite_scrap"
+      }
+    }
+  ],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "neovitae:rune_speed"
+    }
+  ],
+  "input": {
+    "item": "neovitae:rune_2_speed"
+  },
+  "tool": {
+    "tag": "neovitae:arc_tool/reverter"
+  }
+}

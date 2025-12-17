@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:soul_forge",
+  "drain": 200.0,
+  "inputs": [
+    {
+      "tag": "c:gems/amethyst"
+    },
+    {
+      "tag": "c:ingots"
+    },
+    {
+      "item": "neovitae:default_crystal"
+    },
+    {
+      "item": "neovitae:tau_oil"
+    }
+  ],
+  "minDrain": 1200.0,
+  "output": {
+    "count": 1,
+    "id": "neovitae:primitive_crystalline_resonator"
+  }
+}

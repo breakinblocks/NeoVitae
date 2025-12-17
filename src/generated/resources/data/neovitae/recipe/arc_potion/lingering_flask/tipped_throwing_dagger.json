@@ -1,0 +1,16 @@
+{
+  "type": "neovitae:arc_potion",
+  "chance_outputs": [],
+  "guaranteed_outputs": [
+    {
+      "count": 8,
+      "id": "neovitae:tipped_throwing_dagger"
+    }
+  ],
+  "input": {
+    "item": "neovitae:amethyst_throwing_dagger"
+  },
+  "tool": {
+    "tag": "neovitae:arc_tool/lingering_flask"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Call of the Zephyr",
+  "icon": "minecraft:hopper",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Call of the Zephyr",
+      "multiblock_id": "neovitae:zephyr",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "zephyr"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "zephyr",
+      "page_type": "zephyrRange"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "zephyr",
+      "page_type": "chest"
+    }
+  ]
+}

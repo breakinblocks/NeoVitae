@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "tag": "c:dusts/glowstone"
+    },
+    {
+      "tag": "c:dusts/redstone"
+    },
+    {
+      "tag": "c:gunpowders"
+    },
+    {
+      "tag": "c:nuggets/gold"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:reagent_binding"
+  },
+  "syphon": 1000,
+  "ticks": 200,
+  "upgradeLevel": 3
+}

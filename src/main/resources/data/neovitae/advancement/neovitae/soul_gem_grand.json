@@ -1,0 +1,33 @@
+{
+  "parent": "neovitae:bloodmagic/soul_gem_greater",
+  "display": {
+    "icon": {
+      "id": "neovitae:soul_gem_grand"
+    },
+    "title": {
+      "translate": "advancements.neovitae.soul_gem_grand.title"
+    },
+    "description": {
+      "translate": "advancements.neovitae.soul_gem_grand.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_gem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:soul_gem_grand"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_gem"]
+  ]
+}

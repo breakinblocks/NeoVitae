@@ -1,0 +1,24 @@
+{
+  "values": [
+    "neovitae:dungeon_brick_wall",
+    "neovitae:dungeon_tile_wall",
+    "neovitae:dungeon_polished_wall",
+    "neovitae:dungeon_stone_wall",
+    "neovitae:dungeon_brick_wall_c",
+    "neovitae:dungeon_tile_wall_c",
+    "neovitae:dungeon_polished_wall_c",
+    "neovitae:dungeon_stone_wall_c",
+    "neovitae:dungeon_brick_wall_d",
+    "neovitae:dungeon_tile_wall_d",
+    "neovitae:dungeon_polished_wall_d",
+    "neovitae:dungeon_stone_wall_d",
+    "neovitae:dungeon_brick_wall_s",
+    "neovitae:dungeon_tile_wall_s",
+    "neovitae:dungeon_polished_wall_s",
+    "neovitae:dungeon_stone_wall_s",
+    "neovitae:dungeon_brick_wall_v",
+    "neovitae:dungeon_tile_wall_v",
+    "neovitae:dungeon_polished_wall_v",
+    "neovitae:dungeon_stone_wall_v"
+  ]
+}

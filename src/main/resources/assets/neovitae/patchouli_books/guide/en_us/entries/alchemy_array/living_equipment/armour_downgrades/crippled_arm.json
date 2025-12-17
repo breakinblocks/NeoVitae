@@ -1,0 +1,16 @@
+{
+  "name": "Crippled Arm",
+  "icon": "minecraft:shield",
+  "category": "neovitae:alchemy_array/living_equipment/armor_downgrades",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Effect: Prevents you from using your offhand item. This includes placing torches, raising your shield, etc."
+    },
+    {
+      "type": "neovitae:living_armour_downgrade",
+      "a.recipe": "neovitae:downgrade/crippled_arm",
+      "b.upgrade": "neovitae:crippled_arm"
+    }
+  ]
+}

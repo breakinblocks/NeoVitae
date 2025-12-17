@@ -1,0 +1,21 @@
+{
+  "type": "neovitae:flask_effect_transform",
+  "input": [
+    {
+      "item": "neovitae:combinational_catalyst"
+    }
+  ],
+  "inputEffects": [
+    "neovitae:grounded",
+    "minecraft:slow_falling"
+  ],
+  "outputEffects": [
+    {
+      "duration": 1800,
+      "effect": "neovitae:gravity"
+    }
+  ],
+  "syphon": 1000,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

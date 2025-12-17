@@ -1,0 +1,31 @@
+{
+  "name": "Hard Cloak",
+  "icon": "minecraft:obsidian",
+  "category": "neovitae:alchemy_table/potion_flasks/blood_magic",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(thing)Hard Cloak$() provides 3 points of Armour Toughness per level when used."
+    },
+    {
+      "type": "neovitae:3x_crafting_flask",
+      "a.heading": "Hard Cloak (3:00)",
+      "a.recipe": "neovitae:flask/hard_cloak",
+      "b.heading": "Hard Cloak (8:00)",
+      "b.recipe": "neovitae:flask/length_hard_cloak",
+      "c.heading": "Hard Cloak II (1:30)",
+      "c.recipe": "neovitae:flask/potency_hard_cloak"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "adding $(l:neovitae:alchemy_table/potions#average_potions)Standard Catalysts$() can further boost your potions."
+    },
+    {
+      "type": "neovitae:2x_crafting_flask",
+      "a.heading": "Hard Cloak III (0:45)",
+      "a.recipe": "neovitae:flask/potency_average_hard_cloak",
+      "b.heading": "Hard Cloak (21:20)",
+      "b.recipe": "neovitae:flask/length_average_hard_cloak"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "neovitae:block/raw_demonite_block"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:rune_2_charging"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tier1_rune": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:rune_charging"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_tier1_rune"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:rune_2_charging"
+    ]
+  }
+}

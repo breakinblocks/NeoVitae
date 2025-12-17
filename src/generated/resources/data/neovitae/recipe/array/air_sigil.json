@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "item": "neovitae:reinforced_slate"
+  },
+  "baseinput": {
+    "item": "neovitae:reagent_air"
+  },
+  "output": {
+    "count": 1,
+    "id": "neovitae:sigil_air"
+  },
+  "texture": "neovitae:textures/models/alchemyarrays/airsigil.png"
+}

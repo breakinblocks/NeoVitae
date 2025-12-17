@@ -1,0 +1,16 @@
+{
+  "include": [
+    {
+      "template": "neovitae:crafting_array",
+      "as": "a",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "template": "neovitae:living_armour_upgrade_table",
+      "as": "b",
+      "x": 0,
+      "y": 65
+    }
+  ]
+}

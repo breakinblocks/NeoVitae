@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:soul_forge",
+  "drain": 100.0,
+  "inputs": [
+    {
+      "item": "neovitae:soul_gem_common"
+    },
+    {
+      "item": "neovitae:demonic_slate"
+    },
+    {
+      "item": "neovitae:weak_blood_shard"
+    },
+    {
+      "tag": "neovitae:crystals/demon"
+    }
+  ],
+  "minDrain": 1000.0,
+  "output": {
+    "count": 1,
+    "id": "neovitae:soul_gem_greater"
+  }
+}

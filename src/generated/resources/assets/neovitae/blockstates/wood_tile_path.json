@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "neovitae:block/wood_tile_path"
+    }
+  }
+}

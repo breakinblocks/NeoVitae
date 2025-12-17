@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:voiding",
+  "conditions": [
+    {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "predicates": {}
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "neovitae:flask_effect_transform",
+  "input": [
+    {
+      "item": "neovitae:combinational_catalyst"
+    }
+  ],
+  "inputEffects": [
+    "neovitae:suspended",
+    "minecraft:levitation"
+  ],
+  "outputEffects": [
+    {
+      "duration": 3600,
+      "effect": "neovitae:flight"
+    }
+  ],
+  "syphon": 1000,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

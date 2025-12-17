@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "i": {
+      "tag": "c:nuggets/iron"
+    },
+    "m": {
+      "tag": "minecraft:meat"
+    },
+    "r": {
+      "tag": "c:dusts/redstone"
+    }
+  },
+  "pattern": [
+    "imi",
+    "mrm",
+    "imi"
+  ],
+  "result": {
+    "count": 2,
+    "id": "neovitae:synthetic_point"
+  }
+}

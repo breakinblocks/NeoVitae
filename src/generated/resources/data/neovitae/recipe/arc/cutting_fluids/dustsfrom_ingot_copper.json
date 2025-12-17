@@ -1,0 +1,16 @@
+{
+  "type": "neovitae:alchemical_reaction_chamber",
+  "chance_outputs": [],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "neovitae:copper_sand"
+    }
+  ],
+  "input": {
+    "tag": "c:ingots/copper"
+  },
+  "tool": {
+    "tag": "neovitae:arc_tool/cutting_fluids"
+  }
+}

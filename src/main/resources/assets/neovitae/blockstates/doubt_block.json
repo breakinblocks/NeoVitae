@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "neovitae:block/doubt_block"
+    }
+  }
+}

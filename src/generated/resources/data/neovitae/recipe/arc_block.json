@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "S": {
+      "item": "neovitae:imbued_slate"
+    },
+    "f": {
+      "item": "minecraft:furnace"
+    },
+    "o": {
+      "type": "neovitae:orb_tier",
+      "tier": 3
+    },
+    "s": {
+      "tag": "c:stones"
+    }
+  },
+  "pattern": [
+    "sss",
+    "SoS",
+    "IfI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:arc"
+  }
+}

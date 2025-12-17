@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:dungeon",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "neovitae:dungeon_void",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "neovitae:dungeon_void"
+    }
+  }
+}

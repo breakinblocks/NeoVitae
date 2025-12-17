@@ -1,0 +1,35 @@
+{
+  "name": "Water Sigil",
+  "icon": "neovitae:sigil_water",
+  "category": "neovitae:alchemy_array/sigil",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(item)Water Sigil$() is a rather simple sigil. When you press [$(k:use)] while looking at a block, you can drain 100LP from your $(l:neovitae:altar/soul_network)Soul Network$(/l) to place a source block of water in the world. If there's not enough LP, it will instead drain the toll from your health. Crafted using a $(item)Water Reagent$() and a $(item)Blank Slate.$()"
+    },
+    {
+      "type": "neovitae:crafting_2-step_sigil",
+      "alchemy_table.heading": "Water Reagent",
+      "alchemy_table.recipe": "neovitae:alchemytable/reagent_water",
+      "array.heading": "Water Sigil",
+      "array.recipe": "neovitae:array/watersigil",
+      "array.text": "$(italic)Infinite water, anyone?"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "neovitae:images/entries/sigil/water_sigil1.png",
+        "neovitae:images/entries/sigil/water_sigil2.png"
+      ],
+      "title": "Water Sigil Array",
+      "border": true,
+      "text": "The Water Sigil, next to its crafting array, plus its primary use."
+    },
+    {
+      "type": "neovitae:crafting_alchemy_table",
+      "heading": "Water Bucket",
+      "recipe": "neovitae:alchemytable/sigil_water_bucket",
+      "text": "What's more, it can be used in the $(l:neovitae:alchemy_table/alchemy_table)Alchemy Table$() to automate the production of $(water)Water Buckets$(). The Sigil is not consumed in this recipe."
+    }
+  ]
+}

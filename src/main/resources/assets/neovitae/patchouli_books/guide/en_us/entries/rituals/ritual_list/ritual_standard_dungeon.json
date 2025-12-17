@@ -1,0 +1,21 @@
+{
+  "name": "Pathway to the Endless Realm",
+  "icon": "neovitae:ingot_hellforged",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Endless Realm",
+      "multiblock_id": "neovitae:standard_dungeon",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "standard_dungeon",
+      "text_overrides": [
+        ["Demon Realm", "thing"]
+      ],
+      "text": "Beware, the Demon Realm is highly dangerous. Come prepared!"
+    }
+  ]
+}

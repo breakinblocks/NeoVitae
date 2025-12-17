@@ -1,0 +1,97 @@
+{
+  "name": "Serenade of the Nether",
+  "icon": "minecraft:lava_bucket",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Serenade of the Nether",
+      "multiblock_id": "neovitae:lava",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "lava",
+      "text_overrides": [
+        ["master ritual stone", "l:neovitae:rituals/ritual_stones"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "lava",
+      "page_type": "raw",
+      "text_overrides": [
+        ["LP", "blood"],
+        ["tank", "item"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "lava",
+      "page_type": "corrosive",
+      "text": "Particularly useful against denizens of The Nether."
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "lava",
+      "page_type": "vengeful",
+      "text_overrides": [
+        ["Fire Fuse", "thing"]
+      ],
+      "text": "When the debuff ends, they will do a wonderful impression of a firework."
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "lava",
+      "page_type": "destructive",
+      "text_overrides": [
+        ["Destructive Will", "destructive"]
+      ]
+    },
+        {
+      "type": "neovitae:ritual_data",
+      "ritual": "lava",
+      "page_type": "steadfast",
+      "text_overrides": [
+        ["Fire Resistance", "thing"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "lava",
+      "page_type": "lavaRange"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "lava",
+      "page_type": "fireDamage",
+      "text_overrides": [
+        ["Corrosive Will", "corrosive"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "lava",
+      "page_type": "fireFuse",
+      "text_overrides": [
+        ["Fire Fuse", "thing"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "lava",
+      "page_type": "fireResist",
+      "text_overrides": [
+        ["Fire Resistance", "thing"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "lava",
+      "page_type": "lavaTank",
+      "text_overrides": [
+        ["tank", "item"]
+      ]
+    }
+  ]
+}

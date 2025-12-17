@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemical_reaction_chamber",
+  "chance_outputs": [
+    {
+      "chance": 0.5,
+      "item": {
+        "count": 1,
+        "id": "neovitae:corrupted_tiny_dust"
+      }
+    }
+  ],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "neovitae:iron_gravel"
+    }
+  ],
+  "input": {
+    "tag": "c:fragments/iron"
+  },
+  "tool": {
+    "tag": "neovitae:arc_tool/resonator"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "neovitae:block/alternator"
+    },
+    "active=true": {
+      "model": "neovitae:block/alternator"
+    }
+  }
+}

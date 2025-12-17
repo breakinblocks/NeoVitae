@@ -1,0 +1,53 @@
+{
+  "name": "Ritual of Speed",
+  "icon": "minecraft:sugar",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "patchouli:multiblock",
+      "name": "Ritual of Speed",
+      "multiblock_id": "neovitae:speed",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner#dusk)Ritual Diviner [Dusk]$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "speed"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "speed",
+      "page_type": "raw",
+      "text_overrides": [
+        ["Raw Will", "raw"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "speed",
+      "page_type": "corrosive"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "speed",
+      "page_type": "vengeful"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "speed",
+      "page_type": "destructive",
+      "text_overrides": [
+        ["Destructive Will", "destructive"]
+      ]
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "speed",
+      "page_type": "steadfast"
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "speed",
+      "page_type": "sanicRange"
+    }
+  ]
+}

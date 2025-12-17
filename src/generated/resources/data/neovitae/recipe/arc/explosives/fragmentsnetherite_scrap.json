@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemical_reaction_chamber",
+  "chance_outputs": [
+    {
+      "chance": 0.25,
+      "item": {
+        "count": 1,
+        "id": "neovitae:fragment_netherite_scrap"
+      }
+    }
+  ],
+  "guaranteed_outputs": [
+    {
+      "count": 3,
+      "id": "neovitae:fragment_netherite_scrap"
+    }
+  ],
+  "input": {
+    "item": "minecraft:netherite_scrap"
+  },
+  "tool": {
+    "tag": "neovitae:arc_tool/explosives"
+  }
+}

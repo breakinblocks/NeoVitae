@@ -1,0 +1,25 @@
+{
+  "name": "Editing Filters",
+  "icon": "minecraft:writable_book",
+  "category": "neovitae:demon_will/item_routing",
+  "pages":[
+    {
+      "type": "patchouli:text",
+      "text": "If you are configuring a large number of $(thing)filters$(), or want to expand your existing filter setups, simply place between two and 9 filters into a crafting table to copy the filter in slot one onto all the other filters."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Copying Filters",
+      "text": "Place a configured filter in slot 1 of a crafting table, then place empty filters of the same type in any other slots. The crafting result will be copies of the configured filter with all settings duplicated."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Similarly, if you want to clear a filter, place it in the crafting table on its own, like so."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Clearing Filters",
+      "text": "Place a single configured filter in a crafting table by itself. The result will be a blank filter with all settings reset to default."
+    }
+  ]
+}

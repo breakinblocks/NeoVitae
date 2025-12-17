@@ -1,0 +1,8 @@
+{
+  "sound_event": "neovitae:bleedingedge",
+  "description": {
+    "translate": "jukebox_song.neovitae.bleeding_edge"
+  },
+  "length_in_seconds": 180.0,
+  "comparator_output": 1
+}

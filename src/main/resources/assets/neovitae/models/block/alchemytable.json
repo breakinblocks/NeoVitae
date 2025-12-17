@@ -1,0 +1,10 @@
+{
+  "parent": "block/block",
+  "loader": "neoforge:obj",
+  "flip_v": true,
+  "model": "neovitae:models/block/modelalchemytable.obj",
+  "textures": {
+    "None": "neovitae:block/alchemytable",
+    "particle": "neovitae:block/alchemytable"
+  }
+}

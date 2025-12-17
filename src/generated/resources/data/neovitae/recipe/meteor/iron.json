@@ -1,0 +1,61 @@
+{
+  "type": "neovitae:meteor",
+  "explosion": 14.0,
+  "input": {
+    "tag": "c:storage_blocks/iron"
+  },
+  "layers": [
+    {
+      "fill": "minecraft:iron_ore",
+      "radius": 4,
+      "shell": "minecraft:cobblestone",
+      "weighted": [
+        {
+          "entry": "minecraft:gold_ore",
+          "weight": 30
+        },
+        {
+          "entry": "minecraft:copper_ore",
+          "weight": 200
+        },
+        {
+          "entry": "minecraft:lapis_ore",
+          "weight": 60
+        },
+        {
+          "entry": "minecraft:redstone_ore",
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "additionalWeight": 100,
+      "fill": "minecraft:stone",
+      "minWeight": 1000,
+      "radius": 7,
+      "weighted": [
+        {
+          "entry": "minecraft:iron_ore",
+          "weight": 400
+        },
+        {
+          "entry": "minecraft:gold_ore",
+          "weight": 30
+        },
+        {
+          "entry": "minecraft:copper_ore",
+          "weight": 200
+        },
+        {
+          "entry": "minecraft:lapis_ore",
+          "weight": 60
+        },
+        {
+          "entry": "minecraft:redstone_ore",
+          "weight": 100
+        }
+      ]
+    }
+  ],
+  "syphon": 1000000
+}

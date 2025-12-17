@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "neovitae:block/dungeon/dungeon_brick1_d"
+  }
+}

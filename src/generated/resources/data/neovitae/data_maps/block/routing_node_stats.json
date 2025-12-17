@@ -1,0 +1,23 @@
+{
+  "values": {
+    "neovitae:input_routing_node": {
+      "priority_bonus": 0
+    },
+    "neovitae:item_routing_node": {
+      "priority_bonus": 0
+    },
+    "neovitae:master_routing_node": {
+      "base_fluid_transfer": 1000,
+      "base_item_transfer": 16,
+      "base_tick_rate": 20,
+      "fluid_transfer_per_upgrade": 1000,
+      "item_transfer_per_upgrade": 16,
+      "max_speed_upgrades": 19,
+      "max_stack_upgrades": 64,
+      "priority_bonus": 0
+    },
+    "neovitae:output_routing_node": {
+      "priority_bonus": 0
+    }
+  }
+}

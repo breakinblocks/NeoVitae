@@ -1,0 +1,33 @@
+{
+  "parent": "neovitae:bloodmagic/root",
+  "display": {
+    "icon": {
+      "id": "neovitae:soul_snare"
+    },
+    "title": {
+      "translate": "advancements.neovitae.soul_snare.title"
+    },
+    "description": {
+      "translate": "advancements.neovitae.soul_snare.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "get_snare": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:soul_snare"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_snare"]
+  ]
+}

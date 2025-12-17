@@ -1,0 +1,40 @@
+{
+  "name": "Iron Tip",
+  "icon": "neovitae:bow_power_anointment",
+  "category": "neovitae:alchemy_table/anointments",
+  "extra_recipe_mappings": {
+    "neovitae:bow_power_anointment_strong": 0
+  },
+  "pages": [
+    {
+      "type": "neovitae:crafting_alchemy_table",
+      "heading": "Iron Tip",
+      "recipe": "neovitae:alchemytable/bow_power_anointment",
+      "text": "Increases the damage of fired arrows by 25%. Also stacks with Vanilla enchantments. $(br2)Valid items: Bows, Crossbows.$(br2)Applies: Heavy Shot I (256 shots)"
+    },
+    {
+      "type": "neovitae:crafting_alchemy_table",
+      "heading": "Iron Tip L",
+      "recipe": "neovitae:alchemytable/bow_power_anointment_l",
+      "text": "This upgraded version of the anointment lasts four times longer. $(br2)Applies: Heavy Shot I (1024 shots)"
+    },
+    {
+      "type": "neovitae:crafting_alchemy_table",
+      "heading": "Iron Tip II",
+      "recipe": "neovitae:alchemytable/bow_power_anointment_2",
+      "text": "This upgraded version of the anointment increases the damage by 50% instead. $(br2)Applies: Heavy Shot II (256 shots)"
+    },
+    {
+      "type": "neovitae:crafting_alchemy_table",
+      "heading": "Iron Tip XL",
+      "recipe": "neovitae:alchemytable/bow_power_anointment_xl",
+      "text": "This upgraded version of the anointment lasts sixteen times longer. $(br2)Applies: Heavy Shot I (4096 shots)"
+    },
+    {
+      "type": "neovitae:crafting_alchemy_table",
+      "heading": "Iron Tip III",
+      "recipe": "neovitae:alchemytable/bow_power_anointment_3",
+      "text": "This upgraded version of the anointment increases the damage by 75% instead. $(br2)Applies: Heavy Shot III (256 shots)"
+    }
+  ]
+}

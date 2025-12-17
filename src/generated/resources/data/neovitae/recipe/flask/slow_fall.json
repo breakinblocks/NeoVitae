@@ -1,0 +1,16 @@
+{
+  "type": "neovitae:flask_effect",
+  "baseDuration": 1800,
+  "effect": "minecraft:slow_falling",
+  "input": [
+    {
+      "item": "neovitae:simple_catalyst"
+    },
+    {
+      "item": "minecraft:phantom_membrane"
+    }
+  ],
+  "syphon": 500,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

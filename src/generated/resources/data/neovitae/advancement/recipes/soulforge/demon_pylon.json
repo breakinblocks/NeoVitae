@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_demon_crystal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:default_crystal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:demon_pylon"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_demon_crystal"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:demon_pylon"
+    ]
+  }
+}

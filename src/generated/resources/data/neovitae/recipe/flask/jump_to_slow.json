@@ -1,0 +1,20 @@
+{
+  "type": "neovitae:flask_effect_transform",
+  "input": [
+    {
+      "item": "minecraft:fermented_spider_eye"
+    }
+  ],
+  "inputEffects": [
+    "minecraft:jump_boost"
+  ],
+  "outputEffects": [
+    {
+      "duration": 1800,
+      "effect": "minecraft:slowness"
+    }
+  ],
+  "syphon": 500,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

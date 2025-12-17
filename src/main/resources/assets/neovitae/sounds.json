@@ -1,0 +1,11 @@
+{
+  "bleedingedge": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "neovitae:bleedingedge",
+        "stream": true
+      }
+    ]
+  }
+}

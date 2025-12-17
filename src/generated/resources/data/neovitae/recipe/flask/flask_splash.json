@@ -1,0 +1,18 @@
+{
+  "type": "neovitae:flask_item_transform",
+  "input": [
+    {
+      "item": "neovitae:simple_catalyst"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:alchemy_flask_throwable"
+  },
+  "syphon": 1000,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

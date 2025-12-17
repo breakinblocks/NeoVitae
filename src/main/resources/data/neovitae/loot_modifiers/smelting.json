@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:smelting",
+  "conditions": [
+    {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "predicates": {}
+      }
+    }
+  ]
+}

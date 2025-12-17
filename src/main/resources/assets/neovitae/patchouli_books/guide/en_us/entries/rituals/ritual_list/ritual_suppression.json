@@ -1,0 +1,26 @@
+{
+  "name": "Dome of Suppression",
+  "icon": "minecraft:sponge",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Dome of Suppression",
+      "multiblock_id": "neovitae:suppression",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "suppression"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "This ritual creates a hemispherical dome that temporarily removes all fluid source blocks within its range. The fluids are suppressed - not destroyed - and will return when the ritual is deactivated. Useful for underwater construction, draining lava lakes, or creating air pockets in flooded areas."
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "suppression",
+      "page_type": "suppressRange"
+    }
+  ]
+}

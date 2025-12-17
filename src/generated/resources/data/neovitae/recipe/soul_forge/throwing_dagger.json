@@ -1,0 +1,20 @@
+{
+  "type": "neovitae:soul_forge",
+  "drain": 5.0,
+  "inputs": [
+    {
+      "tag": "c:ingots/iron"
+    },
+    {
+      "tag": "c:ingots/iron"
+    },
+    {
+      "tag": "c:strings"
+    }
+  ],
+  "minDrain": 32.0,
+  "output": {
+    "count": 16,
+    "id": "neovitae:throwing_dagger"
+  }
+}

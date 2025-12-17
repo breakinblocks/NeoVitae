@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:component_frame_parts"
+    },
+    {
+      "tag": "c:leathers"
+    },
+    {
+      "tag": "c:dusts/redstone"
+    },
+    {
+      "tag": "c:dyes/red"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:item_router_filter_exact"
+  },
+  "syphon": 500,
+  "ticks": 100,
+  "upgradeLevel": 3
+}

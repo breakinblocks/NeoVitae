@@ -1,0 +1,26 @@
+{
+  "name": "Ritual of the Phantom Bridge",
+  "icon": "minecraft:glass",
+  "category": "neovitae:rituals/ritual_list",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Ritual of the Phantom Bridge",
+      "multiblock_id": "neovitae:phantom_bridge",
+      "text": "Use a $(l:neovitae:rituals/ritual_diviner)Ritual Diviner$(/l) for easier construction."
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "ritual": "phantom_bridge"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "This ritual creates temporary phantom bridge blocks beneath any players within its area of effect. The ethereal platforms allow players to walk across gaps and voids. When the ritual is deactivated, the phantom blocks fade away. Useful for traversing large chasms or building in dangerous areas."
+    },
+    {
+      "type": "neovitae:ritual_data",
+      "ritual": "phantom_bridge",
+      "page_type": "bridgeRange"
+    }
+  ]
+}

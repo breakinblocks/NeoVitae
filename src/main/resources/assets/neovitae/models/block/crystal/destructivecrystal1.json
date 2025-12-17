@@ -1,0 +1,6 @@
+{
+  "parent": "neovitae:block/crystal1",
+  "textures": {
+    "crystal": "neovitae:block/destructive_demon_crystal"
+  }
+}

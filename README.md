@@ -1,8 +1,6 @@
 # Neo Vitae
 
 [![Discord](https://img.shields.io/badge/Discord-Join%20Us-5865F2?logo=discord&logoColor=white)](https://discord.gg/TRxaXaYy42)
-[![CurseForge](https://img.shields.io/badge/CurseForge-Download-F16436?logo=curseforge&logoColor=white)](https://www.curseforge.com/minecraft/mc-mods/neo-vitae)
-[![Modrinth](https://img.shields.io/badge/Modrinth-Download-00AF5C?logo=modrinth&logoColor=white)](https://modrinth.com/mod/neo-vitae/)
 
 A magic mod centered around the power of blood and sacrifice for NeoForge 1.21.1.
 
@@ -44,7 +42,7 @@ Want to help? See our [Contributing Guidelines](https://github.com/breakinblocks
 
 Neo Vitae is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
-You are free to use, share, and adapt this work provided you give appropriate credit.
+You are free to use, share, and adapt this work provided you give appropriate credit.This rewrite will not most likely not be publicly posted on any modding platforms at the request of WayOfTime
 
 ## Disclaimer
 
@@ -54,6 +52,7 @@ You are free to use, share, and adapt this work provided you give appropriate cr
 
 - **Saereth** - Maintainer
 - All contributors who have helped develop and maintain the mod
+- WayOfTime for the original bloodmagic team
 - The NeoForge team for their continued development of the modding platform
 
 ## Links

@@ -57,6 +57,5 @@ You are free to use, share, and adapt this work provided you give appropriate cr
 
 ## Links
 
+- if you wish to support this project please instead support WayOfTime on their Patreon
 - [Discord](https://discord.gg/TRxaXaYy42)
-- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/neo-vitae)
-- [Modrinth](https://modrinth.com/mod/neo-vitae/)

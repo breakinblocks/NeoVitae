@@ -1,5 +1,5 @@
 {
-  "parent": "neovitae:bloodmagic/master_blood_orb",
+  "parent": "neovitae:neovitae/master_blood_orb",
   "display": {
     "icon": {
       "id": "neovitae:archmage_blood_orb"

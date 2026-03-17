@@ -39,7 +39,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Next, the Item Filter has to be placed on the ritual. In this image we've used an $(item)Item Frame$(), however a chest can be used instead. Note that if you put multiple $(item)filters$() in the chest, only the first one will be used. $(br2)By default, the Input chest and Output chest are in the same place; however, this can be changed with the $(l:bloodmagic/rituals/ritual_tinkerer)Ritual Tinkerer.$() This can be useful for recipes that re-use some components, such as your $(l:neovitae:altar/soul_network)Blood Orb.$()"
+      "text": "Next, the Item Filter has to be placed on the ritual. In this image we've used an $(item)Item Frame$(), however a chest can be used instead. Note that if you put multiple $(item)filters$() in the chest, only the first one will be used. $(br2)By default, the Input chest and Output chest are in the same place; however, this can be changed with the $(l:rituals/ritual_tinkerer)Ritual Tinkerer.$() This can be useful for recipes that re-use some components, such as your $(l:neovitae:altar/soul_network)Blood Orb.$()"
     },
     {
       "type": "patchouli:image",
@@ -49,7 +49,7 @@
       ],
       "title": "The Placed Filter",
       "border": true,
-      "text": "A filter and chest in normal locations, and a $(l:bloodmagic/rituals/ritual_tinkerer)Tinkered$() ritual with in and out chests"
+      "text": "A filter and chest in normal locations, and a $(l:rituals/ritual_tinkerer)Tinkered$() ritual with in and out chests"
     },
     {
       "type": "patchouli:text",

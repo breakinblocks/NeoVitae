@@ -1,5 +1,5 @@
 {
-  "parent": "neovitae:bloodmagic/demon_will",
+  "parent": "neovitae:neovitae/demon_will",
   "display": {
     "icon": {
       "id": "neovitae:soul_sword"

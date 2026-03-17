@@ -23,7 +23,7 @@ import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
 public class ItemStackMixin {
 
     @Inject(method = "getEnchantmentLevel(Lnet/minecraft/core/Holder;)I", at = @At("RETURN"), cancellable = true)
-    private void bloodmagic$applyAnointmentEnchantments(Holder<Enchantment> enchantment, CallbackInfoReturnable<Integer> cir) {
+    private void neovitae$applyAnointmentEnchantments(Holder<Enchantment> enchantment, CallbackInfoReturnable<Integer> cir) {
         ItemStack self = (ItemStack) (Object) this;
         AnointmentHolder holder = self.get(BMDataComponents.ANOINTMENT_HOLDER.get());
 

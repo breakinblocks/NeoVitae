@@ -214,7 +214,7 @@ public class BMLanguageProvider extends LanguageProvider {
         addTooltip("lavaCrystal.desc", "Place fire, bindable furnace fuel");
         add("chat.neovitae.notEnoughLP", "Not enough Life Points!");
 
-        // Crystal Items (bloodmagic crystals)
+        // Crystal Items
         add(BMItems.RAW_CRYSTAL.get(), "Demon Will Crystal");
         add(BMItems.CORROSIVE_CRYSTAL.get(), "Corrosive Will Crystal");
         add(BMItems.DESTRUCTIVE_CRYSTAL.get(), "Destructive Will Crystal");

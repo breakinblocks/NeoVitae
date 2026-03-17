@@ -1,5 +1,5 @@
 {
-  "parent": "neovitae:bloodmagic/hellfire_forge",
+  "parent": "neovitae:neovitae/hellfire_forge",
   "display": {
     "icon": {
       "id": "neovitae:demon_crucible"

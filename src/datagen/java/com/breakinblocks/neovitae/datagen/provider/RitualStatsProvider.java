@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Data provider that generates the ritual_stats datamap file.
  * NeoForge DataMaps require a single file per datamap type, so all rituals go in one file.
- * File is placed at data/bloodmagic/data_maps/bloodmagic/ritual/ritual_stats.json
+ * File is placed at data/neovitae/data_maps/neovitae/ritual/ritual_stats.json
  */
 public class RitualStatsProvider implements DataProvider {
     private final PackOutput packOutput;
@@ -120,7 +120,7 @@ public class RitualStatsProvider implements DataProvider {
             JsonObject root = new JsonObject();
             root.add("values", values);
 
-            // Output to data/bloodmagic/data_maps/bloodmagic/ritual/ritual_stats.json
+            // Output to data/neovitae/data_maps/neovitae/ritual/ritual_stats.json
             Path path = packOutput.getOutputFolder()
                     .resolve("data")
                     .resolve(NeoVitae.MODID)

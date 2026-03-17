@@ -1,5 +1,5 @@
 {
-  "processor": "wayoftime.bloodmagic.compat.patchouli.processors.AlchemyArrayProcessor",
+  "processor": "com.breakinblocks.neovitae.compat.patchouli.processors.AlchemyArrayProcessor",
   "components": [
     {
       "type": "patchouli:header",

@@ -53,7 +53,7 @@ public class BMBlockStateProvider extends BlockStateProvider {
             models().cubeAll("imperfect_ritual_stone", bm("block/ritual_stone")));
 
         // Incense altar, routing nodes - use manual OBJ models and blockstates
-        // (see src/main/resources/assets/bloodmagic/blockstates/ and models/)
+        // (see src/main/resources/assets/neovitae/blockstates/ and models/)
 
         VariantBlockStateBuilder builder = getVariantBuilder(BMBlocks.ARC_BLOCK.block().get());
         String bottom = "block/arc_bottom";

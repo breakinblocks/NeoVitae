@@ -1,5 +1,5 @@
 {
-  "parent": "neovitae:bloodmagic/weak_blood_orb",
+  "parent": "neovitae:neovitae/weak_blood_orb",
   "display": {
     "icon": {
       "id": "neovitae:apprentice_blood_orb"

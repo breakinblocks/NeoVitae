@@ -1,5 +1,5 @@
 {
-  "parent": "neovitae:bloodmagic/soul_snare",
+  "parent": "neovitae:neovitae/soul_snare",
   "display": {
     "icon": {
       "id": "neovitae:basemonstersoul"

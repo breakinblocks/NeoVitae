@@ -1,5 +1,5 @@
 {
-  "parent": "neovitae:bloodmagic/magician_blood_orb",
+  "parent": "neovitae:neovitae/magician_blood_orb",
   "display": {
     "icon": {
       "id": "neovitae:living_chestplate"

@@ -26,9 +26,9 @@ public class BMCommands {
         CommandNode<CommandSourceStack> auraNode = dispatcher.getRoot().getChild("bm-aura");
         CommandNode<CommandSourceStack> upgradeNode = dispatcher.getRoot().getChild("living-upgrade");
 
-        // Register /bloodmagic parent command with subcommand redirects
+        // Register /neovitae parent command with subcommand redirects
         dispatcher.register(
-                Commands.literal("bloodmagic")
+                Commands.literal("neovitae")
                         .then(Commands.literal("network").redirect(networkNode))
                         .then(Commands.literal("ritual").redirect(ritualNode))
                         .then(Commands.literal("imperfect").redirect(imperfectRitualNode))

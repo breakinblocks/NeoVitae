@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class BMSavedData extends SavedData {
-    public static final String ID = "bloodmagic";
+    public static final String ID = "neovitae";
 
     private Map<UUID, SoulNetwork> soulNetworks = new HashMap<>();
 

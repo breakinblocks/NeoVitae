@@ -1,5 +1,5 @@
 {
-  "parent": "neovitae:bloodmagic/apprentice_blood_orb",
+  "parent": "neovitae:neovitae/apprentice_blood_orb",
   "display": {
     "icon": {
       "id": "neovitae:ritual_diviner"

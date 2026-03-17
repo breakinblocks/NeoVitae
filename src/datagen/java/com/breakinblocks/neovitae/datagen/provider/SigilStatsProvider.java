@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 /**
  * Data provider that generates the sigil_stats datamap file.
  * NeoForge DataMaps require a single file per datamap type, so all sigils go in one file.
- * File is placed at data/bloodmagic/data_maps/item/sigil_stats.json
+ * File is placed at data/neovitae/data_maps/item/sigil_stats.json
  */
 public class SigilStatsProvider implements DataProvider {
     private final PackOutput packOutput;
@@ -92,7 +92,7 @@ public class SigilStatsProvider implements DataProvider {
             JsonObject root = new JsonObject();
             root.add("values", values);
 
-            // Output to data/bloodmagic/data_maps/item/sigil_stats.json
+            // Output to data/neovitae/data_maps/item/sigil_stats.json
             Path path = packOutput.getOutputFolder()
                     .resolve("data")
                     .resolve(NeoVitae.MODID)

@@ -6,7 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.saveddata.SavedData;
 
 public class DungeonSavedData extends SavedData {
-    public static final String ID = "bloodmagic_dungeons";
+    public static final String ID = "neovitae_dungeons";
     public static final int DUNGEON_DISPLACEMENT = 1000;
 
     private int numberOfDungeons = 0;

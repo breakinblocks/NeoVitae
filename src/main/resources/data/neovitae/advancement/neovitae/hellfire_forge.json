@@ -1,5 +1,5 @@
 {
-  "parent": "neovitae:bloodmagic/soul_gem_petty",
+  "parent": "neovitae:neovitae/soul_gem_petty",
   "display": {
     "icon": {
       "id": "neovitae:hellfire_forge"

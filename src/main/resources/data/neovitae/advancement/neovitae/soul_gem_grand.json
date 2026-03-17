@@ -1,5 +1,5 @@
 {
-  "parent": "neovitae:bloodmagic/soul_gem_greater",
+  "parent": "neovitae:neovitae/soul_gem_greater",
   "display": {
     "icon": {
       "id": "neovitae:soul_gem_grand"

@@ -10,7 +10,7 @@ import com.breakinblocks.neovitae.api.sigil.SigilType;
 
 /**
  * Registry for sigil types loaded from datapacks.
- * Sigil types are defined in: data/<namespace>/bloodmagic/sigil_type/<name>.json
+ * Sigil types are defined in: data/<namespace>/neovitae/sigil_type/<name>.json
  */
 public class SigilTypeRegistry {
     public static final ResourceKey<Registry<SigilType>> SIGIL_TYPE_KEY =
@@ -37,7 +37,7 @@ public class SigilTypeRegistry {
     }
 
     /**
-     * Creates a resource key for a sigil type in the bloodmagic namespace.
+     * Creates a resource key for a sigil type in the neovitae namespace.
      */
     public static ResourceKey<SigilType> key(String path) {
         return key(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, path));

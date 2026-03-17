@@ -27,7 +27,7 @@ import java.util.function.BiConsumer;
  * Note: mines/ loot tables are kept as manual JSON files because they use
  * SetLivingUpgrade which requires registry access not available at datagen time,
  * and reference items not fully accessible from the datagen sourceset.
- * Those files are in: src/main/resources/data/bloodmagic/loot_table/chests/mines/
+ * Those files are in: src/main/resources/data/neovitae/loot_table/chests/mines/
  */
 public class ChestLoot implements LootTableSubProvider {
 

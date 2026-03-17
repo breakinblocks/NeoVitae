@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
 import com.breakinblocks.neovitae.common.damagesource.BMDamageSources;
+import com.breakinblocks.neovitae.common.datamap.EntitySacrificeHelper;
 import com.breakinblocks.neovitae.util.AltarUtil;
 
 /**
@@ -20,11 +21,6 @@ import com.breakinblocks.neovitae.util.AltarUtil;
  * The amount of LP gained is based on the mob's max health and a configurable ratio.
  */
 public class DaggerOfSacrificeItem extends Item {
-
-    /**
-     * Default LP per health point for entities not explicitly configured.
-     */
-    private static final int DEFAULT_SACRIFICE_VALUE = 25;
 
     public DaggerOfSacrificeItem() {
         super(new Properties().stacksTo(1));
@@ -103,12 +99,10 @@ public class DaggerOfSacrificeItem extends Item {
     }
 
     /**
-     * Gets the LP-per-health-point value for an entity.
-     * Returns the default value for all entities. Can be extended to support
-     * per-entity configuration.
+     * Gets the LP-per-health-point value for an entity from the data map.
      */
     private int getSacrificeValue(LivingEntity entity) {
-        return DEFAULT_SACRIFICE_VALUE;
+        return EntitySacrificeHelper.getLpPerDamage(entity);
     }
 
     /**

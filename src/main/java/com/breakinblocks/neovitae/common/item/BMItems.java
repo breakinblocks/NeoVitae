@@ -216,12 +216,12 @@ public class BMItems {
     public static final DeferredHolder<Item, DemonCrystalItem> STEADFAST_CRYSTAL = BASIC_ITEMS.register("steadfast_crystal", () -> new DemonCrystalItem(EnumWillType.STEADFAST));
     public static final DeferredHolder<Item, DemonWillGaugeItem> DEMON_WILL_GAUGE = BASIC_ITEMS.register("demon_will_gauge", DemonWillGaugeItem::new);
 
-    // Crystal Catalysts (used in soul forge recipes)
-    public static final DeferredHolder<Item, Item> RAW_CRYSTAL_CATALYST = plainItem("raw_catalyst");
-    public static final DeferredHolder<Item, Item> CORROSIVE_CRYSTAL_CATALYST = plainItem("corrosive_catalyst");
-    public static final DeferredHolder<Item, Item> DESTRUCTIVE_CRYSTAL_CATALYST = plainItem("destructive_catalyst");
-    public static final DeferredHolder<Item, Item> VENGEFUL_CRYSTAL_CATALYST = plainItem("vengeful_catalyst");
-    public static final DeferredHolder<Item, Item> STEADFAST_CRYSTAL_CATALYST = plainItem("steadfast_catalyst");
+    // Crystal Catalysts (right-click demon crystal clusters to inject will and modify growth)
+    public static final DeferredHolder<Item, CrystalCatalystItem> RAW_CRYSTAL_CATALYST = BASIC_ITEMS.register("raw_catalyst", () -> new CrystalCatalystItem(EnumWillType.DEFAULT, 200, 10, 25, 400));
+    public static final DeferredHolder<Item, CrystalCatalystItem> CORROSIVE_CRYSTAL_CATALYST = BASIC_ITEMS.register("corrosive_catalyst", () -> new CrystalCatalystItem(EnumWillType.CORROSIVE, 200, 10, 25, 400));
+    public static final DeferredHolder<Item, CrystalCatalystItem> DESTRUCTIVE_CRYSTAL_CATALYST = BASIC_ITEMS.register("destructive_catalyst", () -> new CrystalCatalystItem(EnumWillType.DESTRUCTIVE, 200, 10, 25, 400));
+    public static final DeferredHolder<Item, CrystalCatalystItem> VENGEFUL_CRYSTAL_CATALYST = BASIC_ITEMS.register("vengeful_catalyst", () -> new CrystalCatalystItem(EnumWillType.VENGEFUL, 200, 10, 25, 400));
+    public static final DeferredHolder<Item, CrystalCatalystItem> STEADFAST_CRYSTAL_CATALYST = BASIC_ITEMS.register("steadfast_catalyst", () -> new CrystalCatalystItem(EnumWillType.STEADFAST, 200, 10, 25, 400));
 
     // Routing Node Items
     public static final DeferredHolder<Item, ItemNodeRouter> NODE_ROUTER = BASIC_ITEMS.register("node_router", ItemNodeRouter::new);

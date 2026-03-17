@@ -138,7 +138,7 @@ public class BMItems {
     // Misc items
     public static final DeferredHolder<Item, SoulSnareItem> SOUL_SNARE = BASIC_ITEMS.register("soul_snare", SoulSnareItem::new);
     public static final DeferredHolder<Item, Item> WEAK_BLOOD_SHARD = plainItem("weak_blood_shard");
-    public static final DeferredHolder<Item, Item> DAGGER_OF_SACRIFICE = ITEMS.register("dagger_of_sacrifice", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final DeferredHolder<Item, DaggerOfSacrificeItem> DAGGER_OF_SACRIFICE = ITEMS.register("dagger_of_sacrifice", DaggerOfSacrificeItem::new);
     public static final DeferredHolder<Item, ItemLavaCrystal> LAVA_CRYSTAL = ITEMS.register("lava_crystal", ItemLavaCrystal::new);
 
     // Teleposer Focus items

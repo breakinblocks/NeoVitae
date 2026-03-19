@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "tag": "c:stones"
+    },
+    {
+      "tag": "c:stones"
+    },
+    {
+      "tag": "c:stones"
+    },
+    {
+      "tag": "c:stones"
+    },
+    {
+      "type": "neovitae:orb_tier",
+      "tier": 3
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "neovitae:stone_brick_path"
+  }
+}

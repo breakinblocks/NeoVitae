@@ -18,6 +18,7 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.fluids.FluidStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.tag.NVTags;
@@ -370,6 +371,95 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('c', NVItems.ORB_WEAK.get())
                 .unlockedBy("has_weak_orb", has(NVItems.ORB_WEAK.get()))
                 .save(output, NeoVitae.rl("imperfect_ritual_stone"));
+
+        // Ritual Reader - demonic slate, glass, gold ingots, tier 4+ orb
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, NVItems.RITUAL_READER.get())
+                .pattern("gog")
+                .pattern("isi")
+                .pattern(" s ")
+                .define('s', NVItems.SLATE_DEMONIC.get())
+                .define('g', Tags.Items.GLASS_BLOCKS)
+                .define('i', Tags.Items.INGOTS_GOLD)
+                .define('o', OrbTierIngredient.of(4))
+                .unlockedBy("has_demonic_slate", has(NVItems.SLATE_DEMONIC.get()))
+                .save(output);
+
+        // Incense Path Blocks
+        // Wood Brick Path - 4x planks + tier 2+ orb
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, DungeonBlocks.WOOD_BRICK_PATH.block().get(), 4)
+                .requires(Ingredient.of(ItemTags.PLANKS))
+                .requires(Ingredient.of(ItemTags.PLANKS))
+                .requires(Ingredient.of(ItemTags.PLANKS))
+                .requires(Ingredient.of(ItemTags.PLANKS))
+                .requires(OrbTierIngredient.of(2))
+                .unlockedBy("has_apprentice_orb", has(NVItems.ORB_APPRENTICE.get()))
+                .save(output, NeoVitae.rl("path/path_wood_brick"));
+
+        // Wood Tile Path - 4x wood brick path
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, DungeonBlocks.WOOD_TILE_PATH.block().get(), 4)
+                .requires(DungeonBlocks.WOOD_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.WOOD_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.WOOD_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.WOOD_BRICK_PATH.block().get())
+                .unlockedBy("has_wood_brick_path", has(DungeonBlocks.WOOD_BRICK_PATH.block().get()))
+                .save(output, NeoVitae.rl("path/path_wood_tile"));
+
+        // Stone Brick Path - 4x stone + tier 3+ orb
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, DungeonBlocks.STONE_BRICK_PATH.block().get(), 4)
+                .requires(Ingredient.of(Tags.Items.STONES))
+                .requires(Ingredient.of(Tags.Items.STONES))
+                .requires(Ingredient.of(Tags.Items.STONES))
+                .requires(Ingredient.of(Tags.Items.STONES))
+                .requires(OrbTierIngredient.of(3))
+                .unlockedBy("has_magician_orb", has(NVItems.ORB_MAGICIAN.get()))
+                .save(output, NeoVitae.rl("path/path_stone_brick"));
+
+        // Stone Tile Path - 4x stone brick path
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, DungeonBlocks.STONE_TILE_PATH.block().get(), 4)
+                .requires(DungeonBlocks.STONE_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.STONE_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.STONE_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.STONE_BRICK_PATH.block().get())
+                .unlockedBy("has_stone_brick_path", has(DungeonBlocks.STONE_BRICK_PATH.block().get()))
+                .save(output, NeoVitae.rl("path/path_stone_tile"));
+
+        // Worn Stone Brick Path - 4x stone brick path + tier 4+ orb
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, DungeonBlocks.WORN_STONE_BRICK_PATH.block().get(), 4)
+                .requires(DungeonBlocks.STONE_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.STONE_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.STONE_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.STONE_BRICK_PATH.block().get())
+                .requires(OrbTierIngredient.of(4))
+                .unlockedBy("has_master_orb", has(NVItems.ORB_MASTER.get()))
+                .save(output, NeoVitae.rl("path/path_worn_stone_brick"));
+
+        // Worn Stone Tile Path - 4x worn stone brick path
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, DungeonBlocks.WORN_STONE_TILE_PATH.block().get(), 4)
+                .requires(DungeonBlocks.WORN_STONE_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.WORN_STONE_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.WORN_STONE_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.WORN_STONE_BRICK_PATH.block().get())
+                .unlockedBy("has_worn_stone_brick_path", has(DungeonBlocks.WORN_STONE_BRICK_PATH.block().get()))
+                .save(output, NeoVitae.rl("path/path_worn_stone_tile"));
+
+        // Obsidian Brick Path - 4x obsidian + tier 5+ orb
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, DungeonBlocks.OBSIDIAN_BRICK_PATH.block().get(), 4)
+                .requires(Blocks.OBSIDIAN)
+                .requires(Blocks.OBSIDIAN)
+                .requires(Blocks.OBSIDIAN)
+                .requires(Blocks.OBSIDIAN)
+                .requires(OrbTierIngredient.of(5))
+                .unlockedBy("has_archmage_orb", has(NVItems.ORB_ARCHMAGE.get()))
+                .save(output, NeoVitae.rl("path/path_obsidian_brick"));
+
+        // Obsidian Tile Path - 4x obsidian brick path
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, DungeonBlocks.OBSIDIAN_TILE_PATH.block().get(), 4)
+                .requires(DungeonBlocks.OBSIDIAN_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.OBSIDIAN_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.OBSIDIAN_BRICK_PATH.block().get())
+                .requires(DungeonBlocks.OBSIDIAN_BRICK_PATH.block().get())
+                .unlockedBy("has_obsidian_brick_path", has(DungeonBlocks.OBSIDIAN_BRICK_PATH.block().get()))
+                .save(output, NeoVitae.rl("path/path_obsidian_tile"));
     }
 
     private void addTieredRecipes(RecipeOutput output) {
@@ -1589,6 +1679,13 @@ public class NVRecipeProvider extends RecipeProvider {
                 .texture("textures/models/alchemyarrays/phantombridgesigil.png")
                 .save(output, "phantom_bridge_sigil");
 
+        // Frost Sigil - base: reagent_frost, added: reinforced slate
+        AlchemyArrayRecipeBuilder.build(NVItems.SIGIL_FROST.get())
+                .base(NVItems.REAGENT_FROST.get())
+                .added(NVItems.SLATE_REINFORCED.get())
+                .texture("textures/models/alchemyarrays/watersigil.png")
+                .save(output, "frost_sigil");
+
         // Living Armor - reagent_binding + iron armor pieces
         AlchemyArrayRecipeBuilder.build(NVItems.LIVING_HELMET.get())
                 .base(NVItems.REAGENT_BINDING.get())
@@ -1805,6 +1902,17 @@ public class NVRecipeProvider extends RecipeProvider {
                 .ticks(200)
                 .minimumTier(4)
                 .save(output, "reagent_teleposition");
+
+        // Reagent Frost - ice, snowball x2, water bucket
+        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_FROST.get())
+                .input(Blocks.ICE)
+                .input(Items.SNOWBALL)
+                .input(Items.SNOWBALL)
+                .input(Items.WATER_BUCKET)
+                .syphon(2000)
+                .ticks(200)
+                .minimumTier(2)
+                .save(output, "reagent_frost");
 
         // Reagent Phantom Bridge - feather, glass, soul sand, slime ball
         AlchemyTableRecipeBuilder.build(NVItems.REAGENT_PHANTOM_BRIDGE.get())

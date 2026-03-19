@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "neovitae:obsidian_brick_path"
+    },
+    {
+      "item": "neovitae:obsidian_brick_path"
+    },
+    {
+      "item": "neovitae:obsidian_brick_path"
+    },
+    {
+      "item": "neovitae:obsidian_brick_path"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "neovitae:obsidian_tile_path"
+  }
+}

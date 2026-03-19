@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:path/path_wood_tile"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wood_brick_path": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:wood_brick_path"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wood_brick_path"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:path/path_wood_tile"
+    ]
+  }
+}

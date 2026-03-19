@@ -18,7 +18,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "neovitae:dungeon_eye_s",
+      "recipe": "neovitae:dungeon_eye_st",
       "recipe2": "neovitae:dungeon_eye_v"
     }
   ]

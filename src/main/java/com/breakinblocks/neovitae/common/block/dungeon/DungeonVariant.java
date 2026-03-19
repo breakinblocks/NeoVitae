@@ -10,7 +10,7 @@ public enum DungeonVariant {
     RAW("", "raw", EnumWillType.DEFAULT),
     CORROSIVE("_c", "corrosive", EnumWillType.CORROSIVE),
     DESTRUCTIVE("_d", "destructive", EnumWillType.DESTRUCTIVE),
-    STEADFAST("_s", "steadfast", EnumWillType.STEADFAST),
+    STEADFAST("_st", "steadfast", EnumWillType.STEADFAST),
     VENGEFUL("_v", "vengeful", EnumWillType.VENGEFUL);
 
     private final String suffix;

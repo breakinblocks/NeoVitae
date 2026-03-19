@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import java.lang.reflect.Type;
 
 /**
- * Custom Gson serializers for Blood Magic data types.
+ * Custom Gson serializers for NeoVitae data types.
  */
 public final class Serializers {
 

@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.blockentity.PhantomBridgeTile;
+import com.breakinblocks.neovitae.common.blockentity.PhantomBridgeBlockEntity;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 
 import java.util.function.Supplier;
@@ -64,10 +64,10 @@ public record PhantomBridgeSigilEffect(int range) implements SigilEffect {
                     level.setBlockAndUpdate(checkPos, phantomState);
                     // Reset duration on the tile entity
                     BlockEntity be = level.getBlockEntity(checkPos);
-                    if (be instanceof PhantomBridgeTile phantomTile) {
+                    if (be instanceof PhantomBridgeBlockEntity phantomTile) {
                         phantomTile.resetDuration();
                     }
-                } else if (level.getBlockEntity(checkPos) instanceof PhantomBridgeTile existingPhantom) {
+                } else if (level.getBlockEntity(checkPos) instanceof PhantomBridgeBlockEntity existingPhantom) {
                     // Refresh existing phantom bridge blocks
                     existingPhantom.resetDuration();
                 }

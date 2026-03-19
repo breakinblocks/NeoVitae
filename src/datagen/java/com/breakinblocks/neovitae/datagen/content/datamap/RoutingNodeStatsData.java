@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * Generates default routing node stats for Blood Magic's built-in routing nodes.
+ * Generates default routing node stats for NeoVitae's built-in routing nodes.
  *
  * <p>These values can be overridden via datapacks at:
  * {@code data/<namespace>/data_maps/block/routing_node_stats.json}</p>

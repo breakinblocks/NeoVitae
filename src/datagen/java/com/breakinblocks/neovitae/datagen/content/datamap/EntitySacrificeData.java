@@ -10,7 +10,7 @@ import com.breakinblocks.neovitae.common.datamap.EntitySacrificeValue;
 import java.util.function.Function;
 
 /**
- * Generates default entity sacrifice LP values for Blood Magic.
+ * Generates default entity sacrifice LP values for NeoVitae.
  *
  * <p>These values determine how much LP is generated when entities are
  * damaged by sacrifice rituals like the Well of Suffering.</p>

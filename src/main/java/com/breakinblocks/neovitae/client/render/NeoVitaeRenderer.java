@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.Arrays;
 
 /**
- * Rendering helper utilities for Blood Magic.
+ * Rendering helper utilities for NeoVitae.
  * Provides Model3D for rendering textured cuboids.
  */
 public class NeoVitaeRenderer {

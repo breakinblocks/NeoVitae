@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.blockentity.SpectralBlockTile;
+import com.breakinblocks.neovitae.common.blockentity.SpectralBlockEntity;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
@@ -68,7 +68,7 @@ public record SuppressionSigilEffect(int range, int verticalRange) implements Si
                             // Replace with spectral block that will restore the fluid
                             BlockState originalState = state;
                             level.setBlockAndUpdate(checkPos, NVBlocks.SPECTRAL_BLOCK.get().defaultBlockState());
-                            if (level.getBlockEntity(checkPos) instanceof SpectralBlockTile spectral) {
+                            if (level.getBlockEntity(checkPos) instanceof SpectralBlockEntity spectral) {
                                 spectral.setContainedBlockState(originalState);
                                 spectral.resetDuration();
                             }

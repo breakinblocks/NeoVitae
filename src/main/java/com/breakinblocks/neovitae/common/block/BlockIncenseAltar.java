@@ -17,7 +17,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.IncenseAltarTile;
+import com.breakinblocks.neovitae.common.blockentity.IncenseAltarBlockEntity;
 
 /**
  * The Incense Altar boosts self-sacrifice when a player stands near it.
@@ -55,7 +55,7 @@ public class BlockIncenseAltar extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new IncenseAltarTile(pos, state);
+        return new IncenseAltarBlockEntity(pos, state);
     }
 
     @Nullable
@@ -64,6 +64,6 @@ public class BlockIncenseAltar extends BaseEntityBlock {
         if (level.isClientSide()) {
             return null;
         }
-        return createTickerHelper(blockEntityType, NVTiles.INCENSE_ALTAR_TYPE.get(), IncenseAltarTile::serverTick);
+        return createTickerHelper(blockEntityType, NVTiles.INCENSE_ALTAR_TYPE.get(), IncenseAltarBlockEntity::serverTick);
     }
 }

@@ -29,7 +29,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.blockentity.AlchemyTableTile;
+import com.breakinblocks.neovitae.common.blockentity.AlchemyTableBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
 public class AlchemyTableBlock extends BaseEntityBlock {
@@ -68,7 +68,7 @@ public class AlchemyTableBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new AlchemyTableTile(pos, state);
+        return new AlchemyTableBlockEntity(pos, state);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class AlchemyTableBlock extends BaseEntityBlock {
         if (state.getValue(INVISIBLE)) {
             return null;
         }
-        return createTickerHelper(type, NVTiles.ALCHEMY_TABLE_TYPE.get(), AlchemyTableTile::tick);
+        return createTickerHelper(type, NVTiles.ALCHEMY_TABLE_TYPE.get(), AlchemyTableBlockEntity::tick);
     }
 
     @Override
@@ -94,11 +94,11 @@ public class AlchemyTableBlock extends BaseEntityBlock {
         }
 
         BlockEntity tile = world.getBlockEntity(pos);
-        if (tile instanceof AlchemyTableTile tableTile) {
+        if (tile instanceof AlchemyTableBlockEntity tableTile) {
             if (tableTile.isSlave()) {
                 BlockPos masterPos = tableTile.getConnectedPos();
                 BlockEntity masterTile = world.getBlockEntity(masterPos);
-                if (masterTile instanceof AlchemyTableTile masterTable) {
+                if (masterTile instanceof AlchemyTableBlockEntity masterTable) {
                     serverPlayer.openMenu(masterTable, buf -> buf.writeBlockPos(masterPos));
                 }
             } else {
@@ -122,14 +122,14 @@ public class AlchemyTableBlock extends BaseEntityBlock {
 
     @Override
     public void onNeighborChange(BlockState state, LevelReader world, BlockPos pos, BlockPos neighbor) {
-        AlchemyTableTile tile = (AlchemyTableTile) world.getBlockEntity(pos);
+        AlchemyTableBlockEntity tile = (AlchemyTableBlockEntity) world.getBlockEntity(pos);
         if (tile != null) {
             BlockPos connectedPos = tile.getConnectedPos();
             if (connectedPos.equals(BlockPos.ZERO)) {
                 return;
             }
             BlockEntity connectedTile = world.getBlockEntity(connectedPos);
-            if (!(connectedTile instanceof AlchemyTableTile && ((AlchemyTableTile) connectedTile).getConnectedPos().equals(pos))) {
+            if (!(connectedTile instanceof AlchemyTableBlockEntity && ((AlchemyTableBlockEntity) connectedTile).getConnectedPos().equals(pos))) {
                 tile.getLevel().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
             }
         }
@@ -137,7 +137,7 @@ public class AlchemyTableBlock extends BaseEntityBlock {
 
     @Override
     public void destroy(LevelAccessor world, BlockPos blockPos, BlockState blockState) {
-        AlchemyTableTile tile = (AlchemyTableTile) world.getBlockEntity(blockPos);
+        AlchemyTableBlockEntity tile = (AlchemyTableBlockEntity) world.getBlockEntity(blockPos);
         if (tile != null && !tile.isSlave()) {
             tile.dropItems();
         }
@@ -148,7 +148,7 @@ public class AlchemyTableBlock extends BaseEntityBlock {
     protected void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof AlchemyTableTile alchemyTable && !alchemyTable.isSlave()) {
+            if (tileentity instanceof AlchemyTableBlockEntity alchemyTable && !alchemyTable.isSlave()) {
                 alchemyTable.dropItems();
                 worldIn.updateNeighbourForOutputSignal(pos, this);
             }

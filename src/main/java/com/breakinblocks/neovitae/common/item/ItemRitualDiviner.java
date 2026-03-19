@@ -35,7 +35,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.ClientHandler;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockRitualStone;
-import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneTile;
+import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.ritual.*;
 
@@ -120,7 +120,7 @@ public class ItemRitualDiviner extends Item {
 
         // Check if we're clicking on a Master Ritual Stone
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (!(blockEntity instanceof MasterRitualStoneTile)) {
+        if (!(blockEntity instanceof MasterRitualStoneBlockEntity)) {
             return InteractionResult.PASS;
         }
 
@@ -184,7 +184,7 @@ public class ItemRitualDiviner extends Item {
     public void trySetDisplayedRitual(ItemStack itemStack, Level level, BlockPos pos) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
 
-        if (blockEntity instanceof MasterRitualStoneTile masterRitualStone) {
+        if (blockEntity instanceof MasterRitualStoneBlockEntity masterRitualStone) {
             Ritual ritual = getCurrentRitual(itemStack);
 
             if (ritual != null) {
@@ -224,7 +224,7 @@ public class ItemRitualDiviner extends Item {
      */
     public boolean addRuneToRitual(ItemStack stack, Level level, BlockPos masterPos, Player player) {
         BlockEntity blockEntity = level.getBlockEntity(masterPos);
-        if (!(blockEntity instanceof MasterRitualStoneTile)) return false;
+        if (!(blockEntity instanceof MasterRitualStoneBlockEntity)) return false;
 
         Ritual ritual = getCurrentRitual(stack);
         if (ritual == null) return false;

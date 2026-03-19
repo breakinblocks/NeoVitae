@@ -17,7 +17,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.HellfireForgeTile;
+import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 public class HellfireForgeBlock extends Block implements EntityBlock {
@@ -33,7 +33,7 @@ public class HellfireForgeBlock extends Block implements EntityBlock {
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!state.is(newState.getBlock())) {
-            if (level.getBlockEntity(pos) instanceof HellfireForgeTile tile) {
+            if (level.getBlockEntity(pos) instanceof HellfireForgeBlockEntity tile) {
                 BlockEntityHelper.dropContents(level, pos, tile.inv);
             }
         }
@@ -51,7 +51,7 @@ public class HellfireForgeBlock extends Block implements EntityBlock {
         }
 
         BlockEntity tile = level.getBlockEntity(pos);
-        if (tile instanceof HellfireForgeTile forgeTile) {
+        if (tile instanceof HellfireForgeBlockEntity forgeTile) {
             serverPlayer.openMenu(forgeTile, buf -> buf.writeBlockPos(pos));
             return InteractionResult.SUCCESS;
         }
@@ -66,11 +66,11 @@ public class HellfireForgeBlock extends Block implements EntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new HellfireForgeTile(pos, state);
+        return new HellfireForgeBlockEntity(pos, state);
     }
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.HELLFIRE_FORGE_TYPE.get(), HellfireForgeTile::tick);
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.HELLFIRE_FORGE_TYPE.get(), HellfireForgeBlockEntity::tick);
     }
 }

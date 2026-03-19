@@ -7,7 +7,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayTile;
+import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 
 /**
  * Alchemy array effect that changes the time to night over a period.
@@ -24,7 +24,7 @@ public class AlchemyArrayEffectNight extends AlchemyArrayEffect {
     }
 
     @Override
-    public boolean update(AlchemyArrayTile tile, int ticksActive) {
+    public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
         if (level == null) return false;
 

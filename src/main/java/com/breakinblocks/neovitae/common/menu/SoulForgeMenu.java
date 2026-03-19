@@ -9,14 +9,14 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.blockentity.HellfireForgeTile;
+import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
-public class SoulForgeMenu extends AbstractTileMenu<HellfireForgeTile> {
+public class SoulForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBlockEntity> {
 
     private static final int TILE_SLOTS = 6; // 4 input + 1 gem + 1 output
 
-    public SoulForgeMenu(int containerId, Inventory playerInventory, HellfireForgeTile tile) {
+    public SoulForgeMenu(int containerId, Inventory playerInventory, HellfireForgeBlockEntity tile) {
         super(NVMenus.SOUL_FORGE.get(), containerId, tile, TILE_SLOTS);
 
         // Input slots (4 corners)
@@ -26,7 +26,7 @@ public class SoulForgeMenu extends AbstractTileMenu<HellfireForgeTile> {
         this.addSlot(new SlotItemHandler(tile.inv, 3, 80, 87));
 
         // Soul gem slot
-        this.addSlot(new SlotItemHandler(tile.inv, HellfireForgeTile.GEM_SLOT, 152, 51) {
+        this.addSlot(new SlotItemHandler(tile.inv, HellfireForgeBlockEntity.GEM_SLOT, 152, 51) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.has(NVDataComponents.DEMON_WILL_AMOUNT);
@@ -34,7 +34,7 @@ public class SoulForgeMenu extends AbstractTileMenu<HellfireForgeTile> {
         });
 
         // Output slot
-        this.addSlot(new SlotItemHandler(tile.inv, HellfireForgeTile.OUTPUT_SLOT, 44, 51) {
+        this.addSlot(new SlotItemHandler(tile.inv, HellfireForgeBlockEntity.OUTPUT_SLOT, 44, 51) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;
@@ -47,12 +47,12 @@ public class SoulForgeMenu extends AbstractTileMenu<HellfireForgeTile> {
     }
 
     public SoulForgeMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {
-        this(containerId, playerInventory, (HellfireForgeTile) playerInventory.player.level().getBlockEntity(buf.readBlockPos()));
+        this(containerId, playerInventory, (HellfireForgeBlockEntity) playerInventory.player.level().getBlockEntity(buf.readBlockPos()));
     }
 
     @Override
     protected boolean handleQuickMoveStack(int index, ItemStack slotStack, ItemStack originalCopy, Slot slot) {
-        if (index == HellfireForgeTile.OUTPUT_SLOT) {
+        if (index == HellfireForgeBlockEntity.OUTPUT_SLOT) {
             if (!moveToPlayer(slotStack, true)) {
                 return false;
             }

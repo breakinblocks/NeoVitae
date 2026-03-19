@@ -167,7 +167,7 @@ public class RitualFeatheredKnife extends Ritual {
         if (totalLP > 0) {
             ctx.syphon(getRefreshCost());
             // Feed LP directly to the altar
-            altar.sacrificialDaggerCall(totalLP, false);
+            altar.addSacrificeLP(totalLP, false);
         }
 
         // Drain consumed will

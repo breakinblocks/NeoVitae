@@ -6,17 +6,17 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import com.breakinblocks.neovitae.common.blockentity.TeleposerTile;
+import com.breakinblocks.neovitae.common.blockentity.TeleposerBlockEntity;
 import com.breakinblocks.neovitae.common.item.ITeleposerFocus;
 
-public class TeleposerMenu extends AbstractTileMenu<TeleposerTile> {
+public class TeleposerMenu extends AbstractBlockEntityMenu<TeleposerBlockEntity> {
 
     private static final int TILE_SLOTS = 1; // Just the focus slot
 
-    public TeleposerMenu(int containerId, Inventory playerInventory, TeleposerTile tile) {
+    public TeleposerMenu(int containerId, Inventory playerInventory, TeleposerBlockEntity tile) {
         super(NVMenus.TELEPOSER.get(), containerId, tile, TILE_SLOTS);
 
-        this.addSlot(new SlotItemHandler(tile.inv, TeleposerTile.FOCUS_SLOT, 80, 15) {
+        this.addSlot(new SlotItemHandler(tile.inv, TeleposerBlockEntity.FOCUS_SLOT, 80, 15) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() instanceof ITeleposerFocus;
@@ -28,7 +28,7 @@ public class TeleposerMenu extends AbstractTileMenu<TeleposerTile> {
     }
 
     public TeleposerMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {
-        this(containerId, playerInventory, (TeleposerTile) playerInventory.player.level().getBlockEntity(buf.readBlockPos()));
+        this(containerId, playerInventory, (TeleposerBlockEntity) playerInventory.player.level().getBlockEntity(buf.readBlockPos()));
     }
 
     @Override

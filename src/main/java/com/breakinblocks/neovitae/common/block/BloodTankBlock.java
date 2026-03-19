@@ -26,7 +26,7 @@ import net.neoforged.neoforge.fluids.FluidUtil;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.blockentity.BloodTankTile;
+import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
@@ -52,7 +52,7 @@ public class BloodTankBlock extends Block implements EntityBlock {
     @Override
     public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
         BlockEntity entity = level.getBlockEntity(pos);
-        if (entity instanceof BloodTankTile tank) {
+        if (entity instanceof BloodTankBlockEntity tank) {
             return tank.getFluidContained().getFluidType().getLightLevel();
         }
 
@@ -99,6 +99,6 @@ public class BloodTankBlock extends Block implements EntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new BloodTankTile(blockPos, blockState);
+        return new BloodTankBlockEntity(blockPos, blockState);
     }
 }

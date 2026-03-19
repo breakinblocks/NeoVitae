@@ -4,7 +4,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import com.breakinblocks.neovitae.common.blockentity.HellfireForgeTile;
+import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
@@ -70,7 +70,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
             return ItemStack.EMPTY;
         }
         ItemStack outStack = resultItem.copy();
-        if (outStack.is(NVTags.Items.SOUL_GEM) && input.getGemIndex() != HellfireForgeTile.GEM_SLOT) {
+        if (outStack.is(NVTags.Items.SOUL_GEM) && input.getGemIndex() != HellfireForgeBlockEntity.GEM_SLOT) {
             outStack.set(NVDataComponents.DEMON_WILL_AMOUNT, will - usedWill);
             outStack.set(NVDataComponents.DEMON_WILL_TYPE, gemStack.get(NVDataComponents.DEMON_WILL_TYPE));
         }

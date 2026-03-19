@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.blockentity.TileImperfectRitualStone;
+import com.breakinblocks.neovitae.common.blockentity.ImperfectRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
 import com.breakinblocks.neovitae.ritual.RitualResult;
 
@@ -39,7 +39,7 @@ public class BlockImperfectRitualStone extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new TileImperfectRitualStone(pos, state);
+        return new ImperfectRitualStoneBlockEntity(pos, state);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class BlockImperfectRitualStone extends Block implements EntityBlock {
         }
 
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (!(blockEntity instanceof TileImperfectRitualStone tile)) {
+        if (!(blockEntity instanceof ImperfectRitualStoneBlockEntity tile)) {
             return InteractionResult.PASS;
         }
 

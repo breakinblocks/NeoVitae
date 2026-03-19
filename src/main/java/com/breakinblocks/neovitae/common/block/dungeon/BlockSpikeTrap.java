@@ -70,7 +70,7 @@ public class BlockSpikeTrap extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new TileSpikeTrap(pos, state);
+        return new SpikeTrapBlockEntity(pos, state);
     }
 
     @Nullable
@@ -79,6 +79,6 @@ public class BlockSpikeTrap extends BaseEntityBlock {
         if (level.isClientSide) {
             return null;
         }
-        return createTickerHelper(type, NVTiles.SPIKE_TRAP_TYPE.get(), TileSpikeTrap::tick);
+        return createTickerHelper(type, NVTiles.SPIKE_TRAP_TYPE.get(), SpikeTrapBlockEntity::tick);
     }
 }

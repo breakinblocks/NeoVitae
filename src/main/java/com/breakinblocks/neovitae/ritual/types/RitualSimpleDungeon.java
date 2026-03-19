@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 /**
  * "Edge of the Hidden Realm" ritual - creates a simple dungeon instance.
  * This ritual activates once and creates a portal pillar to a mini-dungeon
- * in the Blood Magic dungeon dimension.
+ * in the NeoVitae dungeon dimension.
  */
 public class RitualSimpleDungeon extends DungeonRitualBase {
 

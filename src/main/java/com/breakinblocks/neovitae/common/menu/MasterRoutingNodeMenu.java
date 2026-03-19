@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeTile;
+import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.datamap.RoutingNodeHelper;
 import com.breakinblocks.neovitae.common.item.NVItems;
 
@@ -19,7 +19,7 @@ import com.breakinblocks.neovitae.common.item.NVItems;
  */
 public class MasterRoutingNodeMenu extends AbstractContainerMenu {
 
-    public final MasterRoutingNodeTile tile;
+    public final MasterRoutingNodeBlockEntity tile;
     private final ContainerData data;
 
     // Data indices
@@ -34,15 +34,15 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
         this(containerId, playerInventory, getBlockEntitySafe(playerInventory, buf.readBlockPos()));
     }
 
-    private static MasterRoutingNodeTile getBlockEntitySafe(Inventory playerInventory, net.minecraft.core.BlockPos pos) {
+    private static MasterRoutingNodeBlockEntity getBlockEntitySafe(Inventory playerInventory, net.minecraft.core.BlockPos pos) {
         if (playerInventory.player.level() == null) return null;
-        if (playerInventory.player.level().getBlockEntity(pos) instanceof MasterRoutingNodeTile tile) {
+        if (playerInventory.player.level().getBlockEntity(pos) instanceof MasterRoutingNodeBlockEntity tile) {
             return tile;
         }
         return null;
     }
 
-    public MasterRoutingNodeMenu(int containerId, Inventory playerInventory, MasterRoutingNodeTile tile) {
+    public MasterRoutingNodeMenu(int containerId, Inventory playerInventory, MasterRoutingNodeBlockEntity tile) {
         super(NVMenus.MASTER_ROUTING_NODE.get(), containerId);
         this.tile = tile;
 
@@ -57,7 +57,7 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
                         case DATA_MAX_TRANSFER -> tile.getMaxTransfer();
                         case DATA_TICK_RATE -> RoutingNodeHelper.getEffectiveTickRate(
                                 tile.getBlockState().getBlock(),
-                                tile.getItem(MasterRoutingNodeTile.SLOT_SPEED_UPGRADE).getCount()
+                                tile.getItem(MasterRoutingNodeBlockEntity.SLOT_SPEED_UPGRADE).getCount()
                         );
                         default -> 0;
                     };
@@ -81,8 +81,8 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
 
         // Add upgrade slots only if tile exists - positions match 1.20.1
         if (tile != null) {
-            this.addSlot(new UpgradeSlot(tile, MasterRoutingNodeTile.SLOT_STACK_UPGRADE, 62, 15));
-            this.addSlot(new UpgradeSlot(tile, MasterRoutingNodeTile.SLOT_SPEED_UPGRADE, 98, 15));
+            this.addSlot(new UpgradeSlot(tile, MasterRoutingNodeBlockEntity.SLOT_STACK_UPGRADE, 62, 15));
+            this.addSlot(new UpgradeSlot(tile, MasterRoutingNodeBlockEntity.SLOT_SPEED_UPGRADE, 98, 15));
         }
 
         // Player inventory and hotbar - positions match 1.20.1
@@ -150,7 +150,7 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
      * Slot that only accepts routing upgrade items.
      */
     private static class UpgradeSlot extends Slot {
-        public UpgradeSlot(MasterRoutingNodeTile container, int slot, int x, int y) {
+        public UpgradeSlot(MasterRoutingNodeBlockEntity container, int slot, int x, int y) {
             super(container, slot, x, y);
         }
 

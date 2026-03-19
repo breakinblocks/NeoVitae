@@ -14,11 +14,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4f;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayTile;
+import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.recipe.AlchemyArrayInput;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
-public class AlchemyArrayRenderer implements BlockEntityRenderer<AlchemyArrayTile> {
+public class AlchemyArrayRenderer implements BlockEntityRenderer<AlchemyArrayBlockEntity> {
 
     private static final ResourceLocation DEFAULT_TEXTURE = NeoVitae.rl("textures/models/alchemyarrays/basearray.png");
 
@@ -26,7 +26,7 @@ public class AlchemyArrayRenderer implements BlockEntityRenderer<AlchemyArrayTil
     }
 
     @Override
-    public void render(AlchemyArrayTile tile, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+    public void render(AlchemyArrayBlockEntity tile, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         if (tile.getLevel() == null) {
             return;
         }
@@ -69,7 +69,7 @@ public class AlchemyArrayRenderer implements BlockEntityRenderer<AlchemyArrayTil
         poseStack.popPose();
     }
 
-    private ResourceLocation getTextureForTile(AlchemyArrayTile tile) {
+    private ResourceLocation getTextureForTile(AlchemyArrayBlockEntity tile) {
         ItemStack base = tile.getItem(0);
         ItemStack added = tile.getItem(1);
 

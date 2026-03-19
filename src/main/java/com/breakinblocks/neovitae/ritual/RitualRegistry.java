@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Registry for Blood Magic rituals.
+ * Registry for NeoVitae rituals.
  * Uses NeoForge's DeferredRegister system for proper lifecycle management.
  */
 public final class RitualRegistry {

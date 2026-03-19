@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.blockentity.TileDungeonSeal;
+import com.breakinblocks.neovitae.common.blockentity.DungeonSealBlockEntity;
 import com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey;
 
 /**
@@ -37,7 +37,7 @@ public class BlockDungeonSeal extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new TileDungeonSeal(pos, state);
+        return new DungeonSealBlockEntity(pos, state);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class BlockDungeonSeal extends Block implements EntityBlock {
         }
 
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (!(blockEntity instanceof TileDungeonSeal seal)) {
+        if (!(blockEntity instanceof DungeonSealBlockEntity seal)) {
             return InteractionResult.PASS;
         }
 
@@ -79,7 +79,7 @@ public class BlockDungeonSeal extends Block implements EntityBlock {
             }
 
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (!(blockEntity instanceof TileDungeonSeal seal)) {
+            if (!(blockEntity instanceof DungeonSealBlockEntity seal)) {
                 return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
             }
 

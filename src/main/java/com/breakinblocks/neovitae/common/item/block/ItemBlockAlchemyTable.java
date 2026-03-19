@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.block.AlchemyTableBlock;
-import com.breakinblocks.neovitae.common.blockentity.AlchemyTableTile;
+import com.breakinblocks.neovitae.common.blockentity.AlchemyTableBlockEntity;
 
 public class ItemBlockAlchemyTable extends BlockItem {
     public ItemBlockAlchemyTable(Block block, Properties properties) {
@@ -52,13 +52,13 @@ public class ItemBlockAlchemyTable extends BlockItem {
         BlockState state = world.getBlockState(pos);
         if (state.getBlock() == this.getBlock()) {
             BlockEntity tile = world.getBlockEntity(pos);
-            if (tile instanceof AlchemyTableTile) {
-                ((AlchemyTableTile) tile).setInitialTableParameters(direction, false, pos.relative(direction));
+            if (tile instanceof AlchemyTableBlockEntity) {
+                ((AlchemyTableBlockEntity) tile).setInitialTableParameters(direction, false, pos.relative(direction));
             }
 
             BlockEntity slaveTile = world.getBlockEntity(pos.relative(direction));
-            if (slaveTile instanceof AlchemyTableTile) {
-                ((AlchemyTableTile) slaveTile).setInitialTableParameters(direction, true, pos);
+            if (slaveTile instanceof AlchemyTableBlockEntity) {
+                ((AlchemyTableBlockEntity) slaveTile).setInitialTableParameters(direction, true, pos);
             }
 
             updateCustomBlockEntityTag(world, context.getPlayer(), pos, context.getItemInHand());

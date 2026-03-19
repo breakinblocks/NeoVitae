@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 
 /**
  * Internal interface extending the API's ISigilEffect with codec support.
- * Use this interface when implementing sigil effects within Blood Magic.
+ * Use this interface when implementing sigil effects within NeoVitae.
  *
  * <p>External mods should implement {@link ISigilEffect} from the API package.</p>
  */

@@ -15,7 +15,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.PhantomBridgeTile;
+import com.breakinblocks.neovitae.common.blockentity.PhantomBridgeBlockEntity;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
@@ -48,7 +48,7 @@ public class PhantomBridgeBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new PhantomBridgeTile(pos, state);
+        return new PhantomBridgeBlockEntity(pos, state);
     }
 
     @Nullable
@@ -57,7 +57,7 @@ public class PhantomBridgeBlock extends BaseEntityBlock {
         if (level.isClientSide()) {
             return null;
         }
-        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.PHANTOM_BRIDGE_TYPE.get(), PhantomBridgeTile::tick);
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.PHANTOM_BRIDGE_TYPE.get(), PhantomBridgeBlockEntity::tick);
     }
 
     @Override

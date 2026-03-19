@@ -9,7 +9,7 @@ import java.util.UUID;
  *
  * <p>Each player has their own Soul Network that stores LP, which is generated
  * through self-sacrifice or the sacrifice of other entities. LP is consumed
- * by sigils, rituals, and other Blood Magic items.</p>
+ * by sigils, rituals, and other NeoVitae items.</p>
  *
  * <p>Access a player's network via {@link com.breakinblocks.neovitae.api.NeoVitaeAPI#getInstance()}
  * and then {@link com.breakinblocks.neovitae.api.INeoVitaeAPI#getSoulNetwork(UUID)}.</p>

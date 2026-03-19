@@ -25,7 +25,7 @@ import java.util.*;
 import java.util.function.Predicate;
 
 /**
- * Blood Magic multiblock management.
+ * NeoVitae multiblock management.
  * Uses custom validation instead of Patchouli dependency.
  */
 public class NVMultiblock {

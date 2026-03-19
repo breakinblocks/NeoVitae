@@ -8,7 +8,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 
 /**
- * Registry for Blood Magic loot functions.
+ * Registry for NeoVitae loot functions.
  */
 public class NVLootFunctions {
     public static final DeferredRegister<LootItemFunctionType<?>> LOOT_FUNCTIONS =

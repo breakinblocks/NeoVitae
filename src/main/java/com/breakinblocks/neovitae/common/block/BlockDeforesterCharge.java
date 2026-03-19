@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import com.breakinblocks.neovitae.common.blockentity.DeforesterChargeTile;
+import com.breakinblocks.neovitae.common.blockentity.DeforesterChargeBlockEntity;
 
 /**
  * Block for deforester charges.
@@ -19,7 +19,7 @@ public class BlockDeforesterCharge extends BlockShapedExplosive {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new DeforesterChargeTile(maxLogs, pos, state);
+        return new DeforesterChargeBlockEntity(maxLogs, pos, state);
     }
 
     public int getMaxLogs() {

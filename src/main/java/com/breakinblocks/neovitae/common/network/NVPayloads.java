@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
-import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeTile;
+import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.FilterInventory;
 import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.common.item.routing.ItemRouterFilter;
@@ -94,7 +94,7 @@ public class NVPayloads {
                 return; // Player too far away (> 8 blocks)
             }
             BlockEntity be = player.level().getBlockEntity(payload.pos());
-            if (be instanceof FilteredRoutingNodeTile tile) {
+            if (be instanceof FilteredRoutingNodeBlockEntity tile) {
                 // Verify player has the menu open for this tile
                 if (player.containerMenu instanceof com.breakinblocks.neovitae.common.menu.RoutingNodeMenu menu && menu.tile == tile) {
                     switch (payload.action()) {

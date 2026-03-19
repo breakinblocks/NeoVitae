@@ -15,10 +15,10 @@ import net.neoforged.neoforge.client.RenderTypeHelper;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.blockentity.BloodTankTile;
+import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.util.helper.RenderHelper;
 
-public class BloodTankRenderer implements BlockEntityRenderer<BloodTankTile> {
+public class BloodTankRenderer implements BlockEntityRenderer<BloodTankBlockEntity> {
     public BloodTankRenderer(BlockEntityRendererProvider.Context context) {}
 
     // Tank inside
@@ -28,7 +28,7 @@ public class BloodTankRenderer implements BlockEntityRenderer<BloodTankTile> {
     private static final float end = 12F/16F; // other inside corner
 
     @Override
-    public void render(BloodTankTile blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+    public void render(BloodTankBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         Minecraft minecraft = Minecraft.getInstance();
         FluidStack fluidStack = blockEntity.getFluidContained();
         if (fluidStack.isEmpty()) {

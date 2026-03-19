@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.DemonCrystallizerTile;
+import com.breakinblocks.neovitae.common.blockentity.DemonCrystallizerBlockEntity;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
@@ -39,13 +39,13 @@ public class DemonCrystallizerBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new DemonCrystallizerTile(pos, state);
+        return new DemonCrystallizerBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.DEMON_CRYSTALLIZER_TYPE.get(), DemonCrystallizerTile::tick);
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.DEMON_CRYSTALLIZER_TYPE.get(), DemonCrystallizerBlockEntity::tick);
     }
 
     @Override

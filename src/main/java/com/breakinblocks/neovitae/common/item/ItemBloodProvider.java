@@ -67,7 +67,7 @@ public class ItemBloodProvider extends Item {
 
                 if (!level.isClientSide) {
                     // Add LP directly without sacrifice modifiers (pass false for isSacrifice, use 0 mod)
-                    altar.sacrificialDaggerCall(lpProvided, false);
+                    altar.addSacrificeLP(lpProvided, false);
 
                     if (!player.getAbilities().instabuild) {
                         stack.shrink(1);

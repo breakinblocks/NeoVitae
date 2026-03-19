@@ -20,7 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import com.breakinblocks.neovitae.common.blockentity.TileImperfectRitualStone;
+import com.breakinblocks.neovitae.common.blockentity.ImperfectRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.ImperfectRitualStats;
 import com.breakinblocks.neovitae.ritual.ImperfectRitual;
@@ -67,12 +67,12 @@ public class ImperfectRitualCommand {
         );
     }
 
-    private static TileImperfectRitualStone getIRS(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+    private static ImperfectRitualStoneBlockEntity getIRS(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         BlockPos pos = BlockPosArgument.getLoadedBlockPos(context, "pos");
         ServerLevel level = context.getSource().getLevel();
         BlockEntity be = level.getBlockEntity(pos);
 
-        if (!(be instanceof TileImperfectRitualStone irs)) {
+        if (!(be instanceof ImperfectRitualStoneBlockEntity irs)) {
             throw ERROR_NOT_IRS.create();
         }
 
@@ -80,7 +80,7 @@ public class ImperfectRitualCommand {
     }
 
     private static int setRitual(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        TileImperfectRitualStone irs = getIRS(context);
+        ImperfectRitualStoneBlockEntity irs = getIRS(context);
         ResourceLocation ritualId = ResourceLocationArgument.getId(context, "ritual");
         ServerLevel level = context.getSource().getLevel();
 

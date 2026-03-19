@@ -49,7 +49,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class BloodAltarTile extends BaseTile implements IFluidHandler, IBloodAltar {
+public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IBloodAltar {
 
     private volatile boolean isActive = false;
     private volatile boolean canFill = false;
@@ -396,7 +396,7 @@ public class BloodAltarTile extends BaseTile implements IFluidHandler, IBloodAlt
         tile.setChanged();
     }
 
-    public void sacrificialDaggerCall(int lpAdded, boolean isSacrifice) {
+    public void addSacrificeLP(int lpAdded, boolean isSacrifice) {
         setMainTank(getMainTank() + Math.min((getMainCapacity() - getMainTank()), (int) ((isSacrifice ? 1 + sacrificeMod : 1 + selfSacMod) * lpAdded)));
         setChanged();
     }

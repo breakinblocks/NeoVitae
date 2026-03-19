@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.DemonPylonTile;
+import com.breakinblocks.neovitae.common.blockentity.DemonPylonBlockEntity;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
@@ -39,13 +39,13 @@ public class DemonPylonBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new DemonPylonTile(pos, state);
+        return new DemonPylonBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.DEMON_PYLON_TYPE.get(), DemonPylonTile::tick);
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.DEMON_PYLON_TYPE.get(), DemonPylonBlockEntity::tick);
     }
 
     @Override

@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.TeleposerTile;
+import com.breakinblocks.neovitae.common.blockentity.TeleposerBlockEntity;
 
 public class TeleposerBlock extends Block implements EntityBlock {
     public TeleposerBlock() {
@@ -25,13 +25,13 @@ public class TeleposerBlock extends Block implements EntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new TeleposerTile(pos, state);
+        return new TeleposerBlockEntity(pos, state);
     }
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return (level1, blockPos, blockState, tile) -> {
-            if (tile instanceof TeleposerTile teleposer) {
+            if (tile instanceof TeleposerBlockEntity teleposer) {
                 teleposer.tick();
             }
         };
@@ -39,7 +39,7 @@ public class TeleposerBlock extends Block implements EntityBlock {
 
     @Override
     public void destroy(LevelAccessor world, BlockPos blockPos, BlockState blockState) {
-        TeleposerTile teleposer = (TeleposerTile) world.getBlockEntity(blockPos);
+        TeleposerBlockEntity teleposer = (TeleposerBlockEntity) world.getBlockEntity(blockPos);
         if (teleposer != null) {
             teleposer.dropItems();
         }
@@ -50,7 +50,7 @@ public class TeleposerBlock extends Block implements EntityBlock {
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof TeleposerTile teleposer) {
+            if (tileentity instanceof TeleposerBlockEntity teleposer) {
                 teleposer.dropItems();
                 worldIn.updateNeighbourForOutputSignal(pos, this);
             }
@@ -65,7 +65,7 @@ public class TeleposerBlock extends Block implements EntityBlock {
         }
 
         BlockEntity tile = world.getBlockEntity(pos);
-        if (!(tile instanceof TeleposerTile)) {
+        if (!(tile instanceof TeleposerBlockEntity)) {
             return InteractionResult.FAIL;
         }
 

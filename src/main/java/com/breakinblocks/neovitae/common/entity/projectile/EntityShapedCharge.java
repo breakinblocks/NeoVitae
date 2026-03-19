@@ -24,7 +24,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import com.breakinblocks.neovitae.common.block.BlockShapedExplosive;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.blockentity.ExplosiveChargeTile;
+import com.breakinblocks.neovitae.common.blockentity.ExplosiveChargeBlockEntity;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
@@ -94,7 +94,7 @@ public class EntityShapedCharge extends ThrowableProjectile {
                 if (BlockProtectionHelper.tryPlaceBlock(this.level(), targetPos, stateToPlace, this.getOwner())) {
                     // Transfer owner to the tile entity
                     BlockEntity tile = this.level().getBlockEntity(targetPos);
-                    if (tile instanceof ExplosiveChargeTile explosiveCharge) {
+                    if (tile instanceof ExplosiveChargeBlockEntity explosiveCharge) {
                         Entity owner = this.getOwner();
                         if (owner instanceof Player player) {
                             explosiveCharge.setOwner(player.getUUID());

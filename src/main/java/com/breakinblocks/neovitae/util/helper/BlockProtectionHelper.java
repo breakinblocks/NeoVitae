@@ -27,7 +27,7 @@ import java.util.UUID;
  * prevent unauthorized block modifications in claimed chunks. This helper fires these
  * events before performing block operations, allowing protection mods to cancel them.
  * <p>
- * Use these methods whenever Blood Magic needs to:
+ * Use these methods whenever NeoVitae needs to:
  * - Break or remove blocks (rituals, sigils, explosives)
  * - Place blocks (rituals, sigils, diviner)
  * - Modify blocks (changing block state, replacing fluids)

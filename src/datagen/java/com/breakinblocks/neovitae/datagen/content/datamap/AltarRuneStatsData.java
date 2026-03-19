@@ -10,7 +10,7 @@ import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import java.util.function.Function;
 
 /**
- * Generates default altar rune stats for Blood Magic's built-in runes.
+ * Generates default altar rune stats for NeoVitae's built-in runes.
  *
  * <p>These values can be overridden via datapacks at:
  * {@code data/<namespace>/data_maps/block/altar_rune_stats.json}</p>

@@ -16,7 +16,7 @@ import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
 import javax.annotation.Nullable;
 
 /**
- * General utility methods for Blood Magic.
+ * General utility methods for NeoVitae.
  */
 public class Utils {
 

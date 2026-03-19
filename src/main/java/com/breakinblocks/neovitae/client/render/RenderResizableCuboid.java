@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 /**
  * Renders resizable textured cuboids.
- * Adapted from BuildCraft for Blood Magic ritual rendering.
+ * Adapted from BuildCraft for NeoVitae ritual rendering.
  */
 public class RenderResizableCuboid {
 

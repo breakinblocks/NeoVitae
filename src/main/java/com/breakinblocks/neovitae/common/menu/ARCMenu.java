@@ -9,23 +9,23 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.blockentity.ARCTile;
+import com.breakinblocks.neovitae.common.blockentity.ARCBlockEntity;
 
-public class ARCMenu extends AbstractTileMenu<ARCTile> {
+public class ARCMenu extends AbstractBlockEntityMenu<ARCBlockEntity> {
 
     // 4 input slots (bucket in, bucket out, tool, input) + 5 output slots
-    private static final int TILE_SLOTS = 4 + ARCTile.NUM_OUTPUTS;
+    private static final int TILE_SLOTS = 4 + ARCBlockEntity.NUM_OUTPUTS;
 
-    public ARCMenu(int containerId, Inventory playerInventory, ARCTile tile) {
+    public ARCMenu(int containerId, Inventory playerInventory, ARCBlockEntity tile) {
         super(NVMenus.ARC.get(), containerId, tile, TILE_SLOTS);
 
-        this.addSlot(new SlotItemHandler(ARCTile.getItemHandler(tile, null), ARCTile.INPUT_BUCKET_SLOT, 8, 18));
-        this.addSlot(new SlotItemHandler(ARCTile.getItemHandler(tile, null), ARCTile.OUTPUT_BUCKET_SLOT, 152, 90));
-        this.addSlot(new SlotItemHandler(ARCTile.getItemHandler(tile, null), ARCTile.TOOL_SLOT, 35, 54));
-        this.addSlot(new SlotItemHandler(ARCTile.getItemHandler(tile, null), ARCTile.INPUT_SLOT, 71, 18));
+        this.addSlot(new SlotItemHandler(ARCBlockEntity.getItemHandler(tile, null), ARCBlockEntity.INPUT_BUCKET_SLOT, 8, 18));
+        this.addSlot(new SlotItemHandler(ARCBlockEntity.getItemHandler(tile, null), ARCBlockEntity.OUTPUT_BUCKET_SLOT, 152, 90));
+        this.addSlot(new SlotItemHandler(ARCBlockEntity.getItemHandler(tile, null), ARCBlockEntity.TOOL_SLOT, 35, 54));
+        this.addSlot(new SlotItemHandler(ARCBlockEntity.getItemHandler(tile, null), ARCBlockEntity.INPUT_SLOT, 71, 18));
 
-        for (int i = 0; i < ARCTile.NUM_OUTPUTS; i++) {
-            this.addSlot(new SlotItemHandler(ARCTile.getItemHandler(tile, null), ARCTile.OUTPUT_SLOT + i, 116, 18 + i * 18) {
+        for (int i = 0; i < ARCBlockEntity.NUM_OUTPUTS; i++) {
+            this.addSlot(new SlotItemHandler(ARCBlockEntity.getItemHandler(tile, null), ARCBlockEntity.OUTPUT_SLOT + i, 116, 18 + i * 18) {
                 @Override
                 public boolean mayPlace(ItemStack stack) {
                     return false;
@@ -45,7 +45,7 @@ public class ARCMenu extends AbstractTileMenu<ARCTile> {
     }
 
     public ARCMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {
-        this(containerId, playerInventory, (ARCTile) playerInventory.player.level().getBlockEntity(buf.readBlockPos()));
+        this(containerId, playerInventory, (ARCBlockEntity) playerInventory.player.level().getBlockEntity(buf.readBlockPos()));
     }
 
     @Override

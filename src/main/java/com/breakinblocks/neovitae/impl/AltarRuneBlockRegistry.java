@@ -6,7 +6,7 @@ import com.breakinblocks.neovitae.api.altar.rune.IAltarRuneRegistry;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 
 /**
- * Registers Blood Magic's built-in rune blocks with the unified rune registry.
+ * Registers NeoVitae's built-in rune blocks with the unified rune registry.
  *
  * <p>This class is called during mod common setup to register all altar rune
  * blocks with their corresponding rune types and amounts.</p>

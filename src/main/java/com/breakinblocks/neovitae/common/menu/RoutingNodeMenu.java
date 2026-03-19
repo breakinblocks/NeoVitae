@@ -10,7 +10,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeTile;
+import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.item.routing.IItemFilterProvider;
 
 /**
@@ -18,7 +18,7 @@ import com.breakinblocks.neovitae.common.item.routing.IItemFilterProvider;
  * Provides 6 filter slots (one per direction) and priority controls.
  */
 public class RoutingNodeMenu extends AbstractContainerMenu {
-    public final FilteredRoutingNodeTile tile;
+    public final FilteredRoutingNodeBlockEntity tile;
     private final ContainerData data;
 
     // Data indices
@@ -31,7 +31,7 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
     public static final int DATA_PRIORITY_EAST = 6;
     public static final int DATA_SIZE = 7;
 
-    public RoutingNodeMenu(int containerId, Inventory playerInventory, FilteredRoutingNodeTile tile) {
+    public RoutingNodeMenu(int containerId, Inventory playerInventory, FilteredRoutingNodeBlockEntity tile) {
         super(NVMenus.ROUTING_NODE.get(), containerId);
         this.tile = tile;
 
@@ -81,9 +81,9 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
         this(containerId, playerInventory, getBlockEntitySafe(playerInventory, buf.readBlockPos()));
     }
 
-    private static FilteredRoutingNodeTile getBlockEntitySafe(Inventory playerInventory, BlockPos pos) {
+    private static FilteredRoutingNodeBlockEntity getBlockEntitySafe(Inventory playerInventory, BlockPos pos) {
         if (playerInventory.player.level() == null) return null;
-        if (playerInventory.player.level().getBlockEntity(pos) instanceof FilteredRoutingNodeTile tile) {
+        if (playerInventory.player.level().getBlockEntity(pos) instanceof FilteredRoutingNodeBlockEntity tile) {
             return tile;
         }
         return null;
@@ -180,9 +180,9 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
      * Dynamically maps to the current active direction slot in the tile.
      */
     private static class FilterSlot extends Slot {
-        private final FilteredRoutingNodeTile routingTile;
+        private final FilteredRoutingNodeBlockEntity routingTile;
 
-        public FilterSlot(FilteredRoutingNodeTile tile, int index, int x, int y) {
+        public FilterSlot(FilteredRoutingNodeBlockEntity tile, int index, int x, int y) {
             super(tile, index, x, y);
             this.routingTile = tile;
         }

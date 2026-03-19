@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.client;
 
 import net.minecraft.core.Direction;
-import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneTile;
+import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.ritual.Ritual;
 
 /**
@@ -9,18 +9,18 @@ import com.breakinblocks.neovitae.ritual.Ritual;
  */
 public class ClientHandler {
 
-    private static MasterRitualStoneTile mrsHoloTile;
+    private static MasterRitualStoneBlockEntity mrsHoloTile;
     private static Ritual mrsHoloRitual;
     private static Direction mrsHoloDirection;
     private static boolean mrsHoloDisplay;
 
-    private static MasterRitualStoneTile mrsRangeTile;
+    private static MasterRitualStoneBlockEntity mrsRangeTile;
     private static boolean mrsRangeDisplay;
 
     /**
      * Sets up ritual hologram display for the given master ritual stone.
      */
-    public static void setRitualHolo(MasterRitualStoneTile masterRitualStone, Ritual ritual, Direction direction, boolean displayed) {
+    public static void setRitualHolo(MasterRitualStoneBlockEntity masterRitualStone, Ritual ritual, Direction direction, boolean displayed) {
         mrsHoloDisplay = displayed;
         mrsHoloTile = masterRitualStone;
         mrsHoloRitual = ritual;
@@ -40,7 +40,7 @@ public class ClientHandler {
     /**
      * Sets up ritual range hologram display for the given master ritual stone.
      */
-    public static void setRitualRangeHolo(MasterRitualStoneTile masterRitualStone, boolean displayed) {
+    public static void setRitualRangeHolo(MasterRitualStoneBlockEntity masterRitualStone, boolean displayed) {
         mrsRangeDisplay = displayed;
         mrsRangeTile = masterRitualStone;
     }
@@ -54,7 +54,7 @@ public class ClientHandler {
     }
 
     // Getters for the renderer
-    public static MasterRitualStoneTile getHoloTile() {
+    public static MasterRitualStoneBlockEntity getHoloTile() {
         return mrsHoloTile;
     }
 
@@ -70,7 +70,7 @@ public class ClientHandler {
         return mrsHoloDisplay;
     }
 
-    public static MasterRitualStoneTile getRangeTile() {
+    public static MasterRitualStoneBlockEntity getRangeTile() {
         return mrsRangeTile;
     }
 

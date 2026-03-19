@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd;
 import com.breakinblocks.neovitae.common.block.type.PillarCapType;
-import com.breakinblocks.neovitae.common.blockentity.TileInversionPillar;
+import com.breakinblocks.neovitae.common.blockentity.InversionPillarBlockEntity;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.dataattachment.DungeonExitData;
 import com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper;
@@ -104,7 +104,7 @@ public abstract class DungeonRitualBase extends Ritual {
         spawnWorld.setBlockAndUpdate(pillarPos, NVBlocks.INVERSION_PILLAR.block().get().defaultBlockState());
 
         BlockEntity tile = spawnWorld.getBlockEntity(pillarPos);
-        if (tile instanceof TileInversionPillar tileInversion) {
+        if (tile instanceof InversionPillarBlockEntity tileInversion) {
             tileInversion.setDestination(destinationWorld, safePlayerPos);
 
             // Place caps

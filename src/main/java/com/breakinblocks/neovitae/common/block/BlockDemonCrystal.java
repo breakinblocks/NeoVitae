@@ -26,7 +26,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.DemonCrystalTile;
+import com.breakinblocks.neovitae.common.blockentity.DemonCrystalBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.DemonCrystalItem;
@@ -131,7 +131,7 @@ public class BlockDemonCrystal extends BaseEntityBlock {
         }
 
         BlockEntity be = level.getBlockEntity(pos);
-        if (!(be instanceof DemonCrystalTile crystal)) {
+        if (!(be instanceof DemonCrystalBlockEntity crystal)) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
@@ -167,7 +167,7 @@ public class BlockDemonCrystal extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new DemonCrystalTile(willType, pos, state);
+        return new DemonCrystalBlockEntity(willType, pos, state);
     }
 
     @Nullable
@@ -176,7 +176,7 @@ public class BlockDemonCrystal extends BaseEntityBlock {
         if (level.isClientSide) {
             return null;
         }
-        return createTickerHelper(type, NVTiles.DEMON_CRYSTAL_TYPE.get(), DemonCrystalTile::tick);
+        return createTickerHelper(type, NVTiles.DEMON_CRYSTAL_TYPE.get(), DemonCrystalBlockEntity::tick);
     }
 
     /**

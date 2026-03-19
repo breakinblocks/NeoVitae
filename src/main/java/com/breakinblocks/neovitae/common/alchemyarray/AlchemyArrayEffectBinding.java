@@ -9,7 +9,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayTile;
+import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 
 /**
  * Alchemy array effect for binding items (like creating sigils).
@@ -30,7 +30,7 @@ public class AlchemyArrayEffectBinding extends AlchemyArrayEffectCrafting {
     }
 
     @Override
-    public boolean update(AlchemyArrayTile tile, int ticksActive) {
+    public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
         if (level == null || level.isClientSide) {
             return false;
@@ -54,7 +54,7 @@ public class AlchemyArrayEffectBinding extends AlchemyArrayEffectCrafting {
         return false;
     }
 
-    private void spawnLightningEffect(AlchemyArrayTile tile, Level level, int ticksActive) {
+    private void spawnLightningEffect(AlchemyArrayBlockEntity tile, Level level, int ticksActive) {
         if (!(level instanceof ServerLevel serverLevel)) return;
 
         BlockPos pos = tile.getBlockPos();

@@ -22,8 +22,8 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.blockentity.ExplosiveChargeTile;
-import com.breakinblocks.neovitae.common.blockentity.ShapedExplosiveTile;
+import com.breakinblocks.neovitae.common.blockentity.ExplosiveChargeBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.ShapedExplosiveBlockEntity;
 
 /**
  * Block for shaped explosive charges.
@@ -48,13 +48,13 @@ public class BlockShapedExplosive extends Block implements EntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new ShapedExplosiveTile(explosionSize, explosionSize * 2 + 1, pos, state);
+        return new ShapedExplosiveBlockEntity(explosionSize, explosionSize * 2 + 1, pos, state);
     }
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return (level1, blockPos, blockState, tile) -> {
-            if (tile instanceof ExplosiveChargeTile explosiveCharge) {
+            if (tile instanceof ExplosiveChargeBlockEntity explosiveCharge) {
                 explosiveCharge.tick();
             }
         };
@@ -108,7 +108,7 @@ public class BlockShapedExplosive extends Block implements EntityBlock {
         super.setPlacedBy(level, pos, state, placer, stack);
         if (placer instanceof Player player) {
             BlockEntity tile = level.getBlockEntity(pos);
-            if (tile instanceof ExplosiveChargeTile explosiveCharge) {
+            if (tile instanceof ExplosiveChargeBlockEntity explosiveCharge) {
                 explosiveCharge.setOwner(player.getUUID());
             }
         }
@@ -117,7 +117,7 @@ public class BlockShapedExplosive extends Block implements EntityBlock {
     @Override
     public BlockState playerWillDestroy(Level world, BlockPos blockPos, BlockState blockState, Player player) {
         BlockEntity tile = world.getBlockEntity(blockPos);
-        if (tile instanceof ExplosiveChargeTile explosiveCharge && !world.isClientSide) {
+        if (tile instanceof ExplosiveChargeBlockEntity explosiveCharge && !world.isClientSide) {
             explosiveCharge.dropSelf();
         }
         return super.playerWillDestroy(world, blockPos, blockState, player);

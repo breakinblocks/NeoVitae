@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.util;
 
 /**
- * Constants used throughout Blood Magic.
+ * Constants used throughout NeoVitae.
  */
 public class Constants {
 

@@ -14,7 +14,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayTile;
+import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,7 +45,7 @@ public class ItemArcaneAshes extends Item {
                     return InteractionResult.FAIL;
                 }
                 BlockEntity tile = world.getBlockEntity(newPos);
-                if (tile instanceof AlchemyArrayTile arrayTile) {
+                if (tile instanceof AlchemyArrayBlockEntity arrayTile) {
                     arrayTile.setRotation(rotation);
                 }
 

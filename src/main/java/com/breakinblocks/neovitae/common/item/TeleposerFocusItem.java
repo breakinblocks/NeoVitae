@@ -15,7 +15,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.NeoForge;
-import com.breakinblocks.neovitae.common.blockentity.TeleposerTile;
+import com.breakinblocks.neovitae.common.blockentity.TeleposerBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.event.ItemBindEvent;
@@ -38,7 +38,7 @@ public class TeleposerFocusItem extends Item implements ITeleposerFocus {
         Level world = context.getLevel();
         Player player = context.getPlayer();
 
-        if (world.getBlockEntity(pos) instanceof TeleposerTile) {
+        if (world.getBlockEntity(pos) instanceof TeleposerBlockEntity) {
             setStoredPos(stack, pos);
             setWorld(stack, world);
 

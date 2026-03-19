@@ -75,7 +75,7 @@ public class DaggerOfSacrificeItem extends Item {
         }
 
         // Fill the altar with LP (true = mob sacrifice, uses sacrifice rune modifier)
-        altar.sacrificialDaggerCall(lifeEssence, true);
+        altar.addSacrificeLP(lifeEssence, true);
 
         // Kill the mob
         target.hurt(target.level().damageSources().source(NVDamageSources.SACRIFICE, player), Float.MAX_VALUE);

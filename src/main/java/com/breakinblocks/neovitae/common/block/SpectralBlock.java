@@ -15,7 +15,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.SpectralBlockTile;
+import com.breakinblocks.neovitae.common.blockentity.SpectralBlockEntity;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
@@ -46,7 +46,7 @@ public class SpectralBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new SpectralBlockTile(pos, state);
+        return new SpectralBlockEntity(pos, state);
     }
 
     @Nullable
@@ -55,7 +55,7 @@ public class SpectralBlock extends BaseEntityBlock {
         if (level.isClientSide()) {
             return null;
         }
-        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.SPECTRAL_BLOCK_TYPE.get(), SpectralBlockTile::tick);
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.SPECTRAL_BLOCK_TYPE.get(), SpectralBlockEntity::tick);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class SpectralBlock extends BaseEntityBlock {
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!state.is(newState.getBlock())) {
             BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof SpectralBlockTile spectral) {
+            if (be instanceof SpectralBlockEntity spectral) {
                 // If being replaced by something other than spectral, don't restore
                 // This handles cases where something else placed a block here
             }

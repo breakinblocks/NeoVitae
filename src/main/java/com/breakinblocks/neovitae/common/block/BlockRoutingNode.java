@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeTile;
+import com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.routing.IRoutingNode;
 
 import javax.annotation.Nullable;
@@ -123,7 +123,7 @@ public class BlockRoutingNode extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new RoutingNodeTile(pos, state);
+        return new RoutingNodeBlockEntity(pos, state);
     }
 
     @Nullable
@@ -131,7 +131,7 @@ public class BlockRoutingNode extends BaseEntityBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         if (level.isClientSide) return null;
         return (lvl, pos, st, be) -> {
-            if (be instanceof RoutingNodeTile tile) {
+            if (be instanceof RoutingNodeBlockEntity tile) {
                 tile.tick(lvl, pos, st);
             }
         };

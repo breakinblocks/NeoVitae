@@ -13,7 +13,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import javax.annotation.Nullable;
 
 /**
- * Utility class for working with the Blood Magic dungeon dimension.
+ * Utility class for working with the NeoVitae dungeon dimension.
  */
 public class DungeonDimensionHelper {
 

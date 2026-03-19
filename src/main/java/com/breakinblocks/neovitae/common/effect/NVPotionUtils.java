@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Utility methods for Blood Magic potion effects.
+ * Utility methods for NeoVitae potion effects.
  */
 public class NVPotionUtils {
 

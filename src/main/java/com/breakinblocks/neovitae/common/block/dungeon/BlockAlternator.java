@@ -64,7 +64,7 @@ public class BlockAlternator extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new TileDungeonAlternator(pos, state);
+        return new DungeonAlternatorBlockEntity(pos, state);
     }
 
     @Nullable
@@ -73,6 +73,6 @@ public class BlockAlternator extends BaseEntityBlock {
         if (level.isClientSide) {
             return null;
         }
-        return createTickerHelper(type, NVTiles.DUNGEON_ALTERNATOR_TYPE.get(), TileDungeonAlternator::tick);
+        return createTickerHelper(type, NVTiles.DUNGEON_ALTERNATOR_TYPE.get(), DungeonAlternatorBlockEntity::tick);
     }
 }

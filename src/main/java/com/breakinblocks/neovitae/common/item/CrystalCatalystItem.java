@@ -13,7 +13,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import com.breakinblocks.neovitae.common.block.BlockDemonCrystal;
-import com.breakinblocks.neovitae.common.blockentity.DemonCrystalTile;
+import com.breakinblocks.neovitae.common.blockentity.DemonCrystalBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 
 /**
@@ -44,7 +44,7 @@ public class CrystalCatalystItem extends Item {
         Level level = context.getLevel();
 
         BlockEntity tile = level.getBlockEntity(pos);
-        if (tile instanceof DemonCrystalTile crystalTile) {
+        if (tile instanceof DemonCrystalBlockEntity crystalTile) {
             if (!level.isClientSide) {
                 if (applyCatalyst(crystalTile)) {
                     ServerLevel server = (ServerLevel) level;
@@ -64,7 +64,7 @@ public class CrystalCatalystItem extends Item {
         return InteractionResult.PASS;
     }
 
-    private boolean applyCatalyst(DemonCrystalTile crystalTile) {
+    private boolean applyCatalyst(DemonCrystalBlockEntity crystalTile) {
         if (type.equals(crystalTile.getWillType()) && (crystalTile.injectedWill + injectedWill) <= maxInjectedWill) {
             crystalTile.applyCatalyst(injectedWill, speedModifier, conversionRate);
             return true;

@@ -90,7 +90,7 @@ public class SacrificialDaggerItem extends Item {
         }
         BlockEntity be = level.getBlockEntity(altarPos);
         if (be instanceof BloodAltarTile altar) {
-            altar.sacrificialDaggerCall(lpAdded, false);
+            altar.addSacrificeLP(lpAdded, false);
         }
 
         return super.use(level, player, hand);

@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneTile;
+import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.item.ItemActivationCrystal;
@@ -69,7 +69,7 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        MasterRitualStoneTile tile = new MasterRitualStoneTile(pos, state);
+        MasterRitualStoneBlockEntity tile = new MasterRitualStoneBlockEntity(pos, state);
         tile.setInverted(isInverted);
         return tile;
     }
@@ -79,7 +79,7 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         if (level.isClientSide()) return null;
         return type == NVTiles.MASTER_RITUAL_STONE_TYPE.get()
-                ? (lvl, pos, st, be) -> MasterRitualStoneTile.tick(lvl, pos, st, (MasterRitualStoneTile) be)
+                ? (lvl, pos, st, be) -> MasterRitualStoneBlockEntity.tick(lvl, pos, st, (MasterRitualStoneBlockEntity) be)
                 : null;
     }
 
@@ -87,7 +87,7 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
                                               Player player, InteractionHand hand, BlockHitResult hitResult) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (!(blockEntity instanceof MasterRitualStoneTile tile)) {
+        if (!(blockEntity instanceof MasterRitualStoneBlockEntity tile)) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
@@ -175,7 +175,7 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
         }
 
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (!(blockEntity instanceof MasterRitualStoneTile tile)) {
+        if (!(blockEntity instanceof MasterRitualStoneBlockEntity tile)) {
             return InteractionResult.PASS;
         }
 
@@ -202,7 +202,7 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!state.is(newState.getBlock())) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof MasterRitualStoneTile tile) {
+            if (blockEntity instanceof MasterRitualStoneBlockEntity tile) {
                 if (tile.isActive()) {
                     tile.stopRitual(Ritual.BreakType.BREAK_MRS);
                 }

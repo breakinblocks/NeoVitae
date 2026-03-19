@@ -12,7 +12,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 
 /**
- * Blood Magic mob effects registration.
+ * NeoVitae mob effects registration.
  */
 public class NVMobEffects {
 

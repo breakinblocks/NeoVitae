@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.NeoForge;
-import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayTile;
+import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.event.AlchemyArrayCraftEvent;
 
 public class AlchemyArrayEffectCrafting extends AlchemyArrayEffect {
@@ -22,7 +22,7 @@ public class AlchemyArrayEffectCrafting extends AlchemyArrayEffect {
     }
 
     @Override
-    public boolean update(AlchemyArrayTile tile, int ticksActive) {
+    public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         if (tile.getLevel().isClientSide) {
             return false;
         }

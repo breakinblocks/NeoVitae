@@ -7,7 +7,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayTile;
+import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 
 /**
  * Alchemy array effect that pushes entities in the direction the array is facing.
@@ -19,12 +19,12 @@ public class AlchemyArrayEffectMovement extends AlchemyArrayEffect {
     }
 
     @Override
-    public boolean update(AlchemyArrayTile tile, int ticksActive) {
+    public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         return false; // Doesn't complete on its own
     }
 
     @Override
-    public void onEntityCollidedWithBlock(AlchemyArrayTile tile, Level level, BlockPos pos, BlockState state, Entity entity) {
+    public void onEntityCollidedWithBlock(AlchemyArrayBlockEntity tile, Level level, BlockPos pos, BlockState state, Entity entity) {
         double verticalMotion = 0.5;
         double horizontalSpeed = 1.5;
 

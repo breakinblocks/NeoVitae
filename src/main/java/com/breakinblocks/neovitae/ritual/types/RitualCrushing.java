@@ -44,7 +44,7 @@ import java.util.function.Consumer;
  *
  * <p>Silk Touch overrides Fortune when both are present. Drops are inserted into
  * an adjacent chest if available, otherwise spawned in the world.
- * Processes 1 block per ritual tick, matching original Blood Magic behavior.
+ * Processes 1 block per ritual tick, matching original NeoVitae behavior.
  */
 public class RitualCrushing extends Ritual {
 

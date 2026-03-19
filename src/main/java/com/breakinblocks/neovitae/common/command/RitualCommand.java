@@ -18,7 +18,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneTile;
+import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
 
@@ -81,12 +81,12 @@ public class RitualCommand {
         );
     }
 
-    private static MasterRitualStoneTile getMRS(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+    private static MasterRitualStoneBlockEntity getMRS(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         BlockPos pos = BlockPosArgument.getLoadedBlockPos(context, "pos");
         ServerLevel level = context.getSource().getLevel();
         BlockEntity be = level.getBlockEntity(pos);
 
-        if (!(be instanceof MasterRitualStoneTile mrs)) {
+        if (!(be instanceof MasterRitualStoneBlockEntity mrs)) {
             throw ERROR_NOT_MRS.create();
         }
 
@@ -94,7 +94,7 @@ public class RitualCommand {
     }
 
     private static int showInfo(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        MasterRitualStoneTile mrs = getMRS(context);
+        MasterRitualStoneBlockEntity mrs = getMRS(context);
         CommandSourceStack source = context.getSource();
 
         if (!mrs.isActive() || mrs.getCurrentRitual() == null) {
@@ -123,7 +123,7 @@ public class RitualCommand {
     }
 
     private static int stopRitual(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        MasterRitualStoneTile mrs = getMRS(context);
+        MasterRitualStoneBlockEntity mrs = getMRS(context);
 
         if (!mrs.isActive() || mrs.getCurrentRitual() == null) {
             throw ERROR_NO_RITUAL.create();
@@ -139,7 +139,7 @@ public class RitualCommand {
     }
 
     private static int setRitual(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        MasterRitualStoneTile mrs = getMRS(context);
+        MasterRitualStoneBlockEntity mrs = getMRS(context);
         ResourceLocation ritualId = ResourceLocationArgument.getId(context, "ritual");
 
         Ritual ritual = RitualRegistry.getRitual(ritualId);
@@ -163,7 +163,7 @@ public class RitualCommand {
     }
 
     private static int setCooldown(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        MasterRitualStoneTile mrs = getMRS(context);
+        MasterRitualStoneBlockEntity mrs = getMRS(context);
         int ticks = IntegerArgumentType.getInteger(context, "ticks");
 
         mrs.setCooldown(ticks);

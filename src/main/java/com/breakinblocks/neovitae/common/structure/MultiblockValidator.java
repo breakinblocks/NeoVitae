@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 /**
- * Custom multiblock validation system for Blood Magic.
+ * Custom multiblock validation system for NeoVitae.
  * Replaces Patchouli's IMultiblock.validate() functionality.
  */
 public class MultiblockValidator {

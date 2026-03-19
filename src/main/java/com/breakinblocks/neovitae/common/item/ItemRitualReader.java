@@ -13,7 +13,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneTile;
+import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
@@ -85,7 +85,7 @@ public class ItemRitualReader extends Item {
 
         BlockEntity blockEntity = level.getBlockEntity(clickedPos);
 
-        if (blockEntity instanceof MasterRitualStoneTile mrsT) {
+        if (blockEntity instanceof MasterRitualStoneBlockEntity mrsT) {
             return handleMasterRitualStoneClick(stack, level, mrsT, player);
         }
 
@@ -100,7 +100,7 @@ public class ItemRitualReader extends Item {
     }
 
     private InteractionResult handleMasterRitualStoneClick(ItemStack stack, Level level,
-                                                            MasterRitualStoneTile mrs, Player player) {
+                                                            MasterRitualStoneBlockEntity mrs, Player player) {
         if (level.isClientSide()) return InteractionResult.SUCCESS;
 
         if (player.isShiftKeyDown()) {
@@ -172,7 +172,7 @@ public class ItemRitualReader extends Item {
             String rangeKey = getRangeKey(stack);
 
             // Find the master ritual stone - we need to look for it
-            MasterRitualStoneTile mrs = findNearbyMasterRitualStone(level, corner1, corner2, player);
+            MasterRitualStoneBlockEntity mrs = findNearbyMasterRitualStone(level, corner1, corner2, player);
             if (mrs == null) {
                 player.displayClientMessage(
                         Component.translatable("chat.neovitae.reader.noMRS").withStyle(ChatFormatting.RED), true);
@@ -274,7 +274,7 @@ public class ItemRitualReader extends Item {
 
     // ==================== Utilities ====================
 
-    private MasterRitualStoneTile findNearbyMasterRitualStone(Level level, BlockPos corner1, BlockPos corner2, Player player) {
+    private MasterRitualStoneBlockEntity findNearbyMasterRitualStone(Level level, BlockPos corner1, BlockPos corner2, Player player) {
         // Search in a reasonable area around the player and corners
         int searchRadius = 32;
         BlockPos center = player.blockPosition();
@@ -283,7 +283,7 @@ public class ItemRitualReader extends Item {
                 center.offset(-searchRadius, -searchRadius, -searchRadius),
                 center.offset(searchRadius, searchRadius, searchRadius))) {
             BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof MasterRitualStoneTile mrs) {
+            if (be instanceof MasterRitualStoneBlockEntity mrs) {
                 if (mrs.isActive()) {
                     return mrs;
                 }

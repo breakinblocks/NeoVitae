@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayTile;
+import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 
 public abstract class AlchemyArrayEffect {
     public abstract AlchemyArrayEffect getNewCopy();
@@ -14,8 +14,8 @@ public abstract class AlchemyArrayEffect {
 
     public abstract void writeToNBT(CompoundTag compound);
 
-    public abstract boolean update(AlchemyArrayTile array, int activeCounter);
+    public abstract boolean update(AlchemyArrayBlockEntity array, int activeCounter);
 
-    public void onEntityCollidedWithBlock(AlchemyArrayTile tile, Level world, BlockPos pos, BlockState state, Entity entity) {
+    public void onEntityCollidedWithBlock(AlchemyArrayBlockEntity tile, Level world, BlockPos pos, BlockState state, Entity entity) {
     }
 }

@@ -4,7 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import com.breakinblocks.neovitae.NeoVitae;
 
 /**
- * Built-in altar rune types provided by Blood Magic.
+ * Built-in altar rune types provided by NeoVitae.
  *
  * <p>These rune types are automatically registered with the rune registry
  * and provide the standard altar bonuses:</p>

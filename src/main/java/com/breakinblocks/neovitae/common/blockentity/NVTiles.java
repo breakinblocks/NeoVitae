@@ -45,51 +45,51 @@ public class NVTiles {
         ));
     }
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HellfireForgeTile>> HELLFIRE_FORGE_TYPE =
-            registerTile("hellfire_forge", HellfireForgeTile::new, NVBlocks.HELLFIRE_FORGE.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HellfireForgeBlockEntity>> HELLFIRE_FORGE_TYPE =
+            registerTile("hellfire_forge", HellfireForgeBlockEntity::new, NVBlocks.HELLFIRE_FORGE.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BloodAltarTile>> BLOOD_ALTAR_TYPE =
             registerTile("blood_altar", BloodAltarTile::new, NVBlocks.BLOOD_ALTAR.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ARCTile>> ARC_TYPE =
-            registerTile("arc", ARCTile::new, NVBlocks.ARC_BLOCK.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ARCBlockEntity>> ARC_TYPE =
+            registerTile("arc", ARCBlockEntity::new, NVBlocks.ARC_BLOCK.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BloodTankTile>> BLOOD_TANK_TYPE =
-            registerTile("blood_tank", BloodTankTile::new, NVBlocks.BLOOD_TANK.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BloodTankBlockEntity>> BLOOD_TANK_TYPE =
+            registerTile("blood_tank", BloodTankBlockEntity::new, NVBlocks.BLOOD_TANK.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlchemyArrayTile>> ALCHEMY_ARRAY_TYPE =
-            registerTile("alchemy_array", AlchemyArrayTile::new, NVBlocks.ALCHEMY_ARRAY);
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlchemyArrayBlockEntity>> ALCHEMY_ARRAY_TYPE =
+            registerTile("alchemy_array", AlchemyArrayBlockEntity::new, NVBlocks.ALCHEMY_ARRAY);
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlchemyTableTile>> ALCHEMY_TABLE_TYPE =
-            registerTile("alchemy_table", AlchemyTableTile::new, NVBlocks.ALCHEMY_TABLE.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlchemyTableBlockEntity>> ALCHEMY_TABLE_TYPE =
+            registerTile("alchemy_table", AlchemyTableBlockEntity::new, NVBlocks.ALCHEMY_TABLE.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TeleposerTile>> TELEPOSER_TYPE =
-            registerTile("teleposer", TeleposerTile::new, NVBlocks.TELEPOSER.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TeleposerBlockEntity>> TELEPOSER_TYPE =
+            registerTile("teleposer", TeleposerBlockEntity::new, NVBlocks.TELEPOSER.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MasterRitualStoneTile>> MASTER_RITUAL_STONE_TYPE =
-            registerTile("master_ritual_stone", MasterRitualStoneTile::new,
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MasterRitualStoneBlockEntity>> MASTER_RITUAL_STONE_TYPE =
+            registerTile("master_ritual_stone", MasterRitualStoneBlockEntity::new,
                     NVBlocks.MASTER_RITUAL_STONE.block(), NVBlocks.INVERTED_MASTER_RITUAL_STONE.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileImperfectRitualStone>> IMPERFECT_RITUAL_STONE_TYPE =
-            registerTile("imperfect_ritual_stone", TileImperfectRitualStone::new, NVBlocks.IMPERFECT_RITUAL_STONE.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ImperfectRitualStoneBlockEntity>> IMPERFECT_RITUAL_STONE_TYPE =
+            registerTile("imperfect_ritual_stone", ImperfectRitualStoneBlockEntity::new, NVBlocks.IMPERFECT_RITUAL_STONE.block());
 
     // Incense Altar - boosts self-sacrifice
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<IncenseAltarTile>> INCENSE_ALTAR_TYPE =
-            registerTile("incense_altar", IncenseAltarTile::new, NVBlocks.INCENSE_ALTAR.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<IncenseAltarBlockEntity>> INCENSE_ALTAR_TYPE =
+            registerTile("incense_altar", IncenseAltarBlockEntity::new, NVBlocks.INCENSE_ALTAR.block());
 
     // Demon Will Aura System
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DemonCrucibleTile>> DEMON_CRUCIBLE_TYPE =
-            registerTile("demon_crucible", DemonCrucibleTile::new, NVBlocks.DEMON_CRUCIBLE.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DemonCrucibleBlockEntity>> DEMON_CRUCIBLE_TYPE =
+            registerTile("demon_crucible", DemonCrucibleBlockEntity::new, NVBlocks.DEMON_CRUCIBLE.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DemonPylonTile>> DEMON_PYLON_TYPE =
-            registerTile("demon_pylon", DemonPylonTile::new, NVBlocks.DEMON_PYLON.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DemonPylonBlockEntity>> DEMON_PYLON_TYPE =
+            registerTile("demon_pylon", DemonPylonBlockEntity::new, NVBlocks.DEMON_PYLON.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DemonCrystallizerTile>> DEMON_CRYSTALLIZER_TYPE =
-            registerTile("demon_crystallizer", DemonCrystallizerTile::new, NVBlocks.DEMON_CRYSTALLIZER.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DemonCrystallizerBlockEntity>> DEMON_CRYSTALLIZER_TYPE =
+            registerTile("demon_crystallizer", DemonCrystallizerBlockEntity::new, NVBlocks.DEMON_CRYSTALLIZER.block());
 
     // Demon Crystal - growable crystals
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DemonCrystalTile>> DEMON_CRYSTAL_TYPE =
-            registerTile("demon_crystal", DemonCrystalTile::new,
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DemonCrystalBlockEntity>> DEMON_CRYSTAL_TYPE =
+            registerTile("demon_crystal", DemonCrystalBlockEntity::new,
                     NVBlocks.RAW_DEMON_CRYSTAL.block(),
                     NVBlocks.CORROSIVE_DEMON_CRYSTAL.block(),
                     NVBlocks.DESTRUCTIVE_DEMON_CRYSTAL.block(),
@@ -97,76 +97,76 @@ public class NVTiles {
                     NVBlocks.STEADFAST_DEMON_CRYSTAL.block());
 
     // Spectral Block - for fluid suppression
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SpectralBlockTile>> SPECTRAL_BLOCK_TYPE =
-            registerTile("spectral_block", SpectralBlockTile::new, NVBlocks.SPECTRAL_BLOCK);
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SpectralBlockEntity>> SPECTRAL_BLOCK_TYPE =
+            registerTile("spectral_block", SpectralBlockEntity::new, NVBlocks.SPECTRAL_BLOCK);
 
     // Phantom Bridge Block - solid walkable temporary block
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PhantomBridgeTile>> PHANTOM_BRIDGE_TYPE =
-            registerTile("phantom_bridge", PhantomBridgeTile::new, NVBlocks.PHANTOM_BRIDGE_BLOCK);
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PhantomBridgeBlockEntity>> PHANTOM_BRIDGE_TYPE =
+            registerTile("phantom_bridge", PhantomBridgeBlockEntity::new, NVBlocks.PHANTOM_BRIDGE_BLOCK);
 
     // Routing Nodes
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeTile>> ROUTING_NODE_TYPE =
-            registerTile("routing_node", com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeTile::new, NVBlocks.ROUTING_NODE.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity>> ROUTING_NODE_TYPE =
+            registerTile("routing_node", com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity::new, NVBlocks.ROUTING_NODE.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeTile>> INPUT_ROUTING_NODE_TYPE =
-            registerTile("input_routing_node", com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeTile::new, NVBlocks.INPUT_ROUTING_NODE.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlockEntity>> INPUT_ROUTING_NODE_TYPE =
+            registerTile("input_routing_node", com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlockEntity::new, NVBlocks.INPUT_ROUTING_NODE.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeTile>> OUTPUT_ROUTING_NODE_TYPE =
-            registerTile("output_routing_node", com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeTile::new, NVBlocks.OUTPUT_ROUTING_NODE.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity>> OUTPUT_ROUTING_NODE_TYPE =
+            registerTile("output_routing_node", com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity::new, NVBlocks.OUTPUT_ROUTING_NODE.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeTile>> MASTER_ROUTING_NODE_TYPE =
-            registerTile("master_routing_node", com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeTile::new, NVBlocks.MASTER_ROUTING_NODE.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity>> MASTER_ROUTING_NODE_TYPE =
+            registerTile("master_routing_node", com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity::new, NVBlocks.MASTER_ROUTING_NODE.block());
 
     // Explosive Charges
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ShapedExplosiveTile>> SHAPED_EXPLOSIVE_TYPE =
-            registerTile("shaped_explosive", ShapedExplosiveTile::new,
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ShapedExplosiveBlockEntity>> SHAPED_EXPLOSIVE_TYPE =
+            registerTile("shaped_explosive", ShapedExplosiveBlockEntity::new,
                     NVBlocks.SHAPED_CHARGE.block(),
                     NVBlocks.AUG_SHAPED_CHARGE.block(),
                     NVBlocks.SHAPED_CHARGE_DEEP.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DeforesterChargeTile>> DEFORESTER_CHARGE_TYPE =
-            registerTile("deforester_charge", DeforesterChargeTile::new,
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DeforesterChargeBlockEntity>> DEFORESTER_CHARGE_TYPE =
+            registerTile("deforester_charge", DeforesterChargeBlockEntity::new,
                     NVBlocks.DEFORESTER_CHARGE.block(), NVBlocks.DEFORESTER_CHARGE_2.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<VeinMineChargeTile>> VEINMINE_CHARGE_TYPE =
-            registerTile("veinmine_charge", VeinMineChargeTile::new,
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<VeinMineChargeBlockEntity>> VEINMINE_CHARGE_TYPE =
+            registerTile("veinmine_charge", VeinMineChargeBlockEntity::new,
                     NVBlocks.VEINMINE_CHARGE.block(), NVBlocks.VEINMINE_CHARGE_2.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FungalChargeTile>> FUNGAL_CHARGE_TYPE =
-            registerTile("fungal_charge", FungalChargeTile::new,
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FungalChargeBlockEntity>> FUNGAL_CHARGE_TYPE =
+            registerTile("fungal_charge", FungalChargeBlockEntity::new,
                     NVBlocks.FUNGAL_CHARGE.block(), NVBlocks.FUNGAL_CHARGE_2.block());
 
     // Mimic Block (both regular and ethereal mimic use the same tile entity)
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MimicTile>> MIMIC_TYPE =
-            registerTile("mimic", MimicTile::new,
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MimicBlockEntity>> MIMIC_TYPE =
+            registerTile("mimic", MimicBlockEntity::new,
                     NVBlocks.MIMIC.block(), NVBlocks.ETHEREAL_MIMIC.block());
 
     // Inversion Pillar - dungeon teleporter
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileInversionPillar>> INVERSION_PILLAR_TYPE =
-            registerTile("inversion_pillar", TileInversionPillar::new, NVBlocks.INVERSION_PILLAR.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<InversionPillarBlockEntity>> INVERSION_PILLAR_TYPE =
+            registerTile("inversion_pillar", InversionPillarBlockEntity::new, NVBlocks.INVERSION_PILLAR.block());
 
     // Dungeon functional blocks
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.block.dungeon.TileSpikeTrap>> SPIKE_TRAP_TYPE =
-            registerTile("spike_trap", com.breakinblocks.neovitae.common.block.dungeon.TileSpikeTrap::new,
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.block.dungeon.SpikeTrapBlockEntity>> SPIKE_TRAP_TYPE =
+            registerTile("spike_trap", com.breakinblocks.neovitae.common.block.dungeon.SpikeTrapBlockEntity::new,
                     com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks.SPIKE_TRAP.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.block.dungeon.TileDungeonAlternator>> DUNGEON_ALTERNATOR_TYPE =
-            registerTile("dungeon_alternator", com.breakinblocks.neovitae.common.block.dungeon.TileDungeonAlternator::new,
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.block.dungeon.DungeonAlternatorBlockEntity>> DUNGEON_ALTERNATOR_TYPE =
+            registerTile("dungeon_alternator", com.breakinblocks.neovitae.common.block.dungeon.DungeonAlternatorBlockEntity::new,
                     com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks.ALTERNATOR.block());
 
     // Dungeon Controller - manages procedural dungeon generation
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileDungeonController>> DUNGEON_CONTROLLER_TYPE =
-            registerTile("dungeon_controller", TileDungeonController::new, NVBlocks.DUNGEON_CONTROLLER.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DungeonControllerBlockEntity>> DUNGEON_CONTROLLER_TYPE =
+            registerTile("dungeon_controller", DungeonControllerBlockEntity::new, NVBlocks.DUNGEON_CONTROLLER.block());
 
     // Dungeon Seal - sealed doors in procedural dungeons
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileDungeonSeal>> DUNGEON_SEAL_TYPE =
-            registerTile("dungeon_seal", TileDungeonSeal::new, NVBlocks.DUNGEON_SEAL.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DungeonSealBlockEntity>> DUNGEON_SEAL_TYPE =
+            registerTile("dungeon_seal", DungeonSealBlockEntity::new, NVBlocks.DUNGEON_SEAL.block());
 
     private static void registerTileCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 HELLFIRE_FORGE_TYPE.get(),
-                HellfireForgeTile::getInventory
+                HellfireForgeBlockEntity::getInventory
         );
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
@@ -187,17 +187,17 @@ public class NVTiles {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 ARC_TYPE.get(),
-                ARCTile::getItemHandler
+                ARCBlockEntity::getItemHandler
         );
         event.registerBlockEntity(
                 Capabilities.FluidHandler.BLOCK,
                 ARC_TYPE.get(),
-                ARCTile::getFluidHandler
+                ARCBlockEntity::getFluidHandler
         );
         event.registerBlockEntity(
                 Capabilities.FluidHandler.BLOCK,
                 BLOOD_TANK_TYPE.get(),
-                BloodTankTile::getFluidHandler
+                BloodTankBlockEntity::getFluidHandler
         );
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,

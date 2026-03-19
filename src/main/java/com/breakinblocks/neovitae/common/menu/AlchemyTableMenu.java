@@ -9,14 +9,14 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.blockentity.AlchemyTableTile;
+import com.breakinblocks.neovitae.common.blockentity.AlchemyTableBlockEntity;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 
-public class AlchemyTableMenu extends AbstractTileMenu<AlchemyTableTile> {
+public class AlchemyTableMenu extends AbstractBlockEntityMenu<AlchemyTableBlockEntity> {
 
     private static final int TILE_SLOTS = 8; // 6 input + 1 orb + 1 output
 
-    public AlchemyTableMenu(int containerId, Inventory playerInventory, AlchemyTableTile tile) {
+    public AlchemyTableMenu(int containerId, Inventory playerInventory, AlchemyTableBlockEntity tile) {
         super(NVMenus.ALCHEMY_TABLE.get(), containerId, tile, TILE_SLOTS);
 
         this.addSlot(new SlotItemHandler(tile.inv, 0, 62, 15));
@@ -25,13 +25,13 @@ public class AlchemyTableMenu extends AbstractTileMenu<AlchemyTableTile> {
         this.addSlot(new SlotItemHandler(tile.inv, 3, 26, 87));
         this.addSlot(new SlotItemHandler(tile.inv, 4, 8, 51));
         this.addSlot(new SlotItemHandler(tile.inv, 5, 26, 15));
-        this.addSlot(new SlotItemHandler(tile.inv, AlchemyTableTile.ORB_SLOT, 143, 24) {
+        this.addSlot(new SlotItemHandler(tile.inv, AlchemyTableBlockEntity.ORB_SLOT, 143, 24) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() instanceof BloodOrbItem;
             }
         });
-        this.addSlot(new SlotItemHandler(tile.inv, AlchemyTableTile.OUTPUT_SLOT, 44, 51) {
+        this.addSlot(new SlotItemHandler(tile.inv, AlchemyTableBlockEntity.OUTPUT_SLOT, 44, 51) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;
@@ -44,12 +44,12 @@ public class AlchemyTableMenu extends AbstractTileMenu<AlchemyTableTile> {
     }
 
     public AlchemyTableMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {
-        this(containerId, playerInventory, (AlchemyTableTile) playerInventory.player.level().getBlockEntity(buf.readBlockPos()));
+        this(containerId, playerInventory, (AlchemyTableBlockEntity) playerInventory.player.level().getBlockEntity(buf.readBlockPos()));
     }
 
     @Override
     protected boolean handleQuickMoveStack(int index, ItemStack slotStack, ItemStack originalCopy, Slot slot) {
-        if (index == AlchemyTableTile.OUTPUT_SLOT) {
+        if (index == AlchemyTableBlockEntity.OUTPUT_SLOT) {
             if (!moveToPlayer(slotStack, true)) {
                 return false;
             }

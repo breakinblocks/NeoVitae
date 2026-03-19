@@ -8,7 +8,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import com.breakinblocks.neovitae.NeoVitae;
 
 /**
- * Registry for custom Blood Magic ingredient types.
+ * Registry for custom NeoVitae ingredient types.
  */
 public class NVIngredientTypes {
 

@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeTile;
+import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 
 import javax.annotation.Nullable;
 
@@ -36,7 +36,7 @@ public class BlockMasterRoutingNode extends BlockRoutingNode {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new MasterRoutingNodeTile(pos, state);
+        return new MasterRoutingNodeBlockEntity(pos, state);
     }
 
     @Nullable
@@ -44,7 +44,7 @@ public class BlockMasterRoutingNode extends BlockRoutingNode {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         if (level.isClientSide) return null;
         return (lvl, pos, st, be) -> {
-            if (be instanceof MasterRoutingNodeTile tile) {
+            if (be instanceof MasterRoutingNodeBlockEntity tile) {
                 tile.tick(lvl, pos, st);
             }
         };
@@ -55,7 +55,7 @@ public class BlockMasterRoutingNode extends BlockRoutingNode {
                                                 Player player, BlockHitResult hitResult) {
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
             BlockEntity tile = level.getBlockEntity(pos);
-            if (tile instanceof MasterRoutingNodeTile menuProvider) {
+            if (tile instanceof MasterRoutingNodeBlockEntity menuProvider) {
                 serverPlayer.openMenu(menuProvider, buf -> buf.writeBlockPos(pos));
             }
         }

@@ -9,7 +9,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 
 /**
- * Registers all custom sound events for Blood Magic.
+ * Registers all custom sound events for NeoVitae.
  */
 public class NVSounds {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, NeoVitae.MODID);

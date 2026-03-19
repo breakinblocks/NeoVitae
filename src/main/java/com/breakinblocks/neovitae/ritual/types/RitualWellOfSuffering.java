@@ -79,7 +79,7 @@ public class RitualWellOfSuffering extends Ritual {
 
             // Also feed LP directly to altar if found
             if (altar != null) {
-                altar.sacrificialDaggerCall(totalLP, true);
+                altar.addSacrificeLP(totalLP, true);
             }
         }
     }

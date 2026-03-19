@@ -22,7 +22,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayTile;
+import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
 public class AlchemyArrayBlock extends BaseEntityBlock {
@@ -49,12 +49,12 @@ public class AlchemyArrayBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new AlchemyArrayTile(pos, state);
+        return new AlchemyArrayBlockEntity(pos, state);
     }
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, NVTiles.ALCHEMY_ARRAY_TYPE.get(), AlchemyArrayTile::tick);
+        return createTickerHelper(type, NVTiles.ALCHEMY_ARRAY_TYPE.get(), AlchemyArrayBlockEntity::tick);
     }
 
     @Override
@@ -65,14 +65,14 @@ public class AlchemyArrayBlock extends BaseEntityBlock {
     @Override
     protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
         BlockEntity tile = world.getBlockEntity(pos);
-        if (tile instanceof AlchemyArrayTile arrayTile) {
+        if (tile instanceof AlchemyArrayBlockEntity arrayTile) {
             arrayTile.onEntityCollidedWithBlock(state, entity);
         }
     }
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        AlchemyArrayTile array = (AlchemyArrayTile) world.getBlockEntity(pos);
+        AlchemyArrayBlockEntity array = (AlchemyArrayBlockEntity) world.getBlockEntity(pos);
 
         if (array == null || player.isShiftKeyDown())
             return ItemInteractionResult.FAIL;
@@ -111,7 +111,7 @@ public class AlchemyArrayBlock extends BaseEntityBlock {
     @Override
     public void destroy(LevelAccessor world, BlockPos blockPos, BlockState blockState) {
         BlockEntity tile = world.getBlockEntity(blockPos);
-        if (tile instanceof AlchemyArrayTile alchemyArray) {
+        if (tile instanceof AlchemyArrayBlockEntity alchemyArray) {
             alchemyArray.dropItems();
         }
 
@@ -122,7 +122,7 @@ public class AlchemyArrayBlock extends BaseEntityBlock {
     protected void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof AlchemyArrayTile alchemyArray) {
+            if (tileentity instanceof AlchemyArrayBlockEntity alchemyArray) {
                 alchemyArray.dropItems();
                 worldIn.updateNeighbourForOutputSignal(pos, this);
             }

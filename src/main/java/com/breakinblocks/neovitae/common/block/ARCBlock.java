@@ -27,7 +27,7 @@ import net.neoforged.neoforge.fluids.FluidActionResult;
 import net.neoforged.neoforge.fluids.FluidUtil;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.blockentity.ARCTile;
+import com.breakinblocks.neovitae.common.blockentity.ARCBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
@@ -44,7 +44,7 @@ public class ARCBlock extends Block implements EntityBlock {
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!state.is(newState.getBlock())) {
-            if (level.getBlockEntity(pos) instanceof ARCTile arc) {
+            if (level.getBlockEntity(pos) instanceof ARCBlockEntity arc) {
                 BlockEntityHelper.dropContents(level, pos, arc.arcInv);
             }
         }
@@ -73,7 +73,7 @@ public class ARCBlock extends Block implements EntityBlock {
         }
 
         BlockEntity be = level.getBlockEntity(pos);
-        if (!(be instanceof ARCTile arc)) {
+        if (!(be instanceof ARCBlockEntity arc)) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
@@ -138,7 +138,7 @@ public class ARCBlock extends Block implements EntityBlock {
     @Override
     protected MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
         BlockEntity BE = level.getBlockEntity(pos);
-        if (!(BE instanceof ARCTile tile)) {
+        if (!(BE instanceof ARCBlockEntity tile)) {
             return null;
         }
         return tile;
@@ -147,12 +147,12 @@ public class ARCBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.ARC_TYPE.get(), ARCTile::tick);
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.ARC_TYPE.get(), ARCBlockEntity::tick);
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new ARCTile(pos, state);
+        return new ARCBlockEntity(pos, state);
     }
 }

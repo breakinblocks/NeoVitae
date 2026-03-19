@@ -8,10 +8,10 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.altar.IBloodAltar;
 
 /**
- * Blood Magic capability definitions.
+ * NeoVitae capability definitions.
  *
  * <p>Capabilities allow blocks and entities to expose functionality to other mods
- * in a standardized way. Blood Magic provides the following capabilities:</p>
+ * in a standardized way. NeoVitae provides the following capabilities:</p>
  *
  * <ul>
  *   <li>{@link #BLOOD_ALTAR} - Access to Blood Altar functionality</li>
@@ -29,7 +29,7 @@ import com.breakinblocks.neovitae.api.altar.IBloodAltar;
  * }</pre>
  *
  * <h2>Capability Registration</h2>
- * <p>These capabilities are automatically registered by Blood Magic during
+ * <p>These capabilities are automatically registered by NeoVitae during
  * the RegisterCapabilitiesEvent. Addon mods can query them via
  * {@code level.getCapability()} without any additional setup.</p>
  */

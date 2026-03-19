@@ -11,26 +11,26 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import com.breakinblocks.neovitae.common.blockentity.HellfireForgeTile;
+import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 
-public class HellfireForgeRenderer implements BlockEntityRenderer<HellfireForgeTile> {
+public class HellfireForgeRenderer implements BlockEntityRenderer<HellfireForgeBlockEntity> {
 
     public HellfireForgeRenderer(BlockEntityRendererProvider.Context context) {}
 
     private static final float CORNER_OFFSET = 1 + 3/16F;
     @Override
-    public void render(HellfireForgeTile forge, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+    public void render(HellfireForgeBlockEntity forge, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         Level level = forge.getLevel();
-        renderSlot(forge.inv.getStackInSlot(HellfireForgeTile.SOUTH), 1/16F, CORNER_OFFSET, 15/16F, level, poseStack, bufferSource, packedLight, packedOverlay);
-        renderSlot(forge.inv.getStackInSlot(HellfireForgeTile.WEST), 1/16F, CORNER_OFFSET, 1/16F, level, poseStack, bufferSource, packedLight, packedOverlay);
-        renderSlot(forge.inv.getStackInSlot(HellfireForgeTile.NORTH), 15/16F, CORNER_OFFSET, 1/16F, level, poseStack, bufferSource, packedLight, packedOverlay);
-        renderSlot(forge.inv.getStackInSlot(HellfireForgeTile.EAST), 15/16F, CORNER_OFFSET, 15/16F, level, poseStack, bufferSource, packedLight, packedOverlay);
+        renderSlot(forge.inv.getStackInSlot(HellfireForgeBlockEntity.SOUTH), 1/16F, CORNER_OFFSET, 15/16F, level, poseStack, bufferSource, packedLight, packedOverlay);
+        renderSlot(forge.inv.getStackInSlot(HellfireForgeBlockEntity.WEST), 1/16F, CORNER_OFFSET, 1/16F, level, poseStack, bufferSource, packedLight, packedOverlay);
+        renderSlot(forge.inv.getStackInSlot(HellfireForgeBlockEntity.NORTH), 15/16F, CORNER_OFFSET, 1/16F, level, poseStack, bufferSource, packedLight, packedOverlay);
+        renderSlot(forge.inv.getStackInSlot(HellfireForgeBlockEntity.EAST), 15/16F, CORNER_OFFSET, 15/16F, level, poseStack, bufferSource, packedLight, packedOverlay);
 
-        if (!forge.inv.getStackInSlot(HellfireForgeTile.GEM_SLOT).isEmpty()) {
-            renderSlot(forge.inv.getStackInSlot(HellfireForgeTile.GEM_SLOT), 0.5F, 1, 0.5F, level, poseStack, bufferSource, packedLight, packedOverlay);
+        if (!forge.inv.getStackInSlot(HellfireForgeBlockEntity.GEM_SLOT).isEmpty()) {
+            renderSlot(forge.inv.getStackInSlot(HellfireForgeBlockEntity.GEM_SLOT), 0.5F, 1, 0.5F, level, poseStack, bufferSource, packedLight, packedOverlay);
         }
-        if (!forge.inv.getStackInSlot(HellfireForgeTile.OUTPUT_SLOT).isEmpty()) {
-            renderSlot(forge.inv.getStackInSlot(HellfireForgeTile.OUTPUT_SLOT), 0.5F, 1.5F, 0.5F, level, poseStack, bufferSource, packedLight, packedOverlay);
+        if (!forge.inv.getStackInSlot(HellfireForgeBlockEntity.OUTPUT_SLOT).isEmpty()) {
+            renderSlot(forge.inv.getStackInSlot(HellfireForgeBlockEntity.OUTPUT_SLOT), 0.5F, 1.5F, 0.5F, level, poseStack, bufferSource, packedLight, packedOverlay);
         }
     }
 

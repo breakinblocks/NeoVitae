@@ -928,7 +928,7 @@ public class NVLanguageProvider extends LanguageProvider {
 
     public void addRitual(String key, String name) {
         add("ritual.neovitae." + key, name);
-        add("ritual.neovitae." + key + ".info", "A Blood Magic ritual.");
+        add("ritual.neovitae." + key + ".info", "A NeoVitae ritual.");
     }
 
     public void addCommand(String key, String value) {

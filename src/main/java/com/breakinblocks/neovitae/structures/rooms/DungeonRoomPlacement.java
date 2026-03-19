@@ -8,7 +8,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import org.apache.commons.lang3.tuple.Pair;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.blockentity.TileDungeonSeal;
+import com.breakinblocks.neovitae.common.blockentity.DungeonSealBlockEntity;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.structures.DungeonDoor;
 import com.breakinblocks.neovitae.structures.DungeonRoom;
@@ -162,7 +162,7 @@ public class DungeonRoomPlacement {
             world.setBlockAndUpdate(sealPos, NVBlocks.DUNGEON_SEAL.block().get().defaultBlockState());
 
             // Configure the seal
-            if (world.getBlockEntity(sealPos) instanceof TileDungeonSeal seal) {
+            if (world.getBlockEntity(sealPos) instanceof DungeonSealBlockEntity seal) {
                 List<ResourceLocation> potentialRooms = new ArrayList<>();
                 for (String roomType : door.getPotentialRoomTypes()) {
                     // Strip prefix characters (# for special, $ for deadend) before parsing

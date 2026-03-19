@@ -11,10 +11,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
-import com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeTile;
-import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeTile;
-import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeTile;
-import com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeTile;
+import com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.routing.IRoutingNode;
 
 import java.util.List;
@@ -114,11 +114,11 @@ public class RoutingNodeRenderer<T extends BlockEntity & IRoutingNode> implement
      * Gets the appropriate color for a routing node based on its type.
      */
     private int getColorForNode(T node) {
-        if (node instanceof MasterRoutingNodeTile) {
+        if (node instanceof MasterRoutingNodeBlockEntity) {
             return COLOR_MASTER;
-        } else if (node instanceof InputRoutingNodeTile) {
+        } else if (node instanceof InputRoutingNodeBlockEntity) {
             return COLOR_INPUT;
-        } else if (node instanceof OutputRoutingNodeTile) {
+        } else if (node instanceof OutputRoutingNodeBlockEntity) {
             return COLOR_OUTPUT;
         }
         return COLOR_GENERAL;

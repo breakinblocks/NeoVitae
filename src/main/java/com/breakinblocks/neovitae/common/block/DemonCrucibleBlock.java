@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.DemonCrucibleTile;
+import com.breakinblocks.neovitae.common.blockentity.DemonCrucibleBlockEntity;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
@@ -45,13 +45,13 @@ public class DemonCrucibleBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new DemonCrucibleTile(pos, state);
+        return new DemonCrucibleBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.DEMON_CRUCIBLE_TYPE.get(), DemonCrucibleTile::tick);
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.DEMON_CRUCIBLE_TYPE.get(), DemonCrucibleBlockEntity::tick);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class DemonCrucibleBlock extends BaseEntityBlock {
         }
 
         BlockEntity be = level.getBlockEntity(pos);
-        if (be instanceof DemonCrucibleTile crucible) {
+        if (be instanceof DemonCrucibleBlockEntity crucible) {
             ItemStack heldItem = player.getItemInHand(hand);
 
             if (heldItem.isEmpty()) {
@@ -98,7 +98,7 @@ public class DemonCrucibleBlock extends BaseEntityBlock {
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof DemonCrucibleTile crucible) {
+            if (be instanceof DemonCrucibleBlockEntity crucible) {
                 ItemStack stack = crucible.getInventory().getStackInSlot(0);
                 if (!stack.isEmpty()) {
                     Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), stack);

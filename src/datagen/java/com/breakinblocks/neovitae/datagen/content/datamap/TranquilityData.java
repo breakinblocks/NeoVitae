@@ -50,7 +50,7 @@ public class TranquilityData {
     public static void bootstrap(Function<DataMapType<Block, TranquilityValue>, DataMapProvider.Builder<TranquilityValue, Block>> setup) {
         var builder = setup.apply(NVDataMaps.TRANQUILITY);
 
-        // ===== Blood Magic Tranquility Tags =====
+        // ===== NeoVitae Tranquility Tags =====
         // These are the primary tags for modpack/datapack customization
         builder
             .add(NVTags.Blocks.TRANQUILITY_PLANT, TranquilityValue.of(EnumTranquilityType.PLANT, STANDARD_VALUE), false)

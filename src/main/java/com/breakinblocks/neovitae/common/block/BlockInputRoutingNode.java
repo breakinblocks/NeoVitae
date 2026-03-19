@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeTile;
+import com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlockEntity;
 
 import javax.annotation.Nullable;
 
@@ -34,7 +34,7 @@ public class BlockInputRoutingNode extends BlockRoutingNode {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new InputRoutingNodeTile(pos, state);
+        return new InputRoutingNodeBlockEntity(pos, state);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class BlockInputRoutingNode extends BlockRoutingNode {
                                                 Player player, BlockHitResult hitResult) {
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
             BlockEntity tile = level.getBlockEntity(pos);
-            if (tile instanceof InputRoutingNodeTile menuProvider) {
+            if (tile instanceof InputRoutingNodeBlockEntity menuProvider) {
                 serverPlayer.openMenu(menuProvider, buf -> buf.writeBlockPos(pos));
             }
         }

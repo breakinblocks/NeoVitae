@@ -26,7 +26,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneTile;
+import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import com.breakinblocks.neovitae.ritual.Ritual;
@@ -85,7 +85,7 @@ public class RitualRenderer {
         BlockPos mrsPos = blockHit.getBlockPos();
         BlockEntity be = level.getBlockEntity(mrsPos);
 
-        if (!(be instanceof MasterRitualStoneTile)) {
+        if (!(be instanceof MasterRitualStoneBlockEntity)) {
             return;
         }
 

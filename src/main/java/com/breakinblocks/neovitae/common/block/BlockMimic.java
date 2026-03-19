@@ -14,7 +14,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import com.breakinblocks.neovitae.common.blockentity.MimicTile;
+import com.breakinblocks.neovitae.common.blockentity.MimicBlockEntity;
 
 /**
  * Block that mimics the appearance of other blocks.
@@ -30,7 +30,7 @@ public class BlockMimic extends Block implements EntityBlock {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext context) {
         BlockEntity te = reader.getBlockEntity(pos);
-        if (te instanceof MimicTile mimic) {
+        if (te instanceof MimicBlockEntity mimic) {
             BlockState mimicState = mimic.getMimic();
             if (mimicState != null && !(mimicState.getBlock() instanceof BlockMimic)) {
                 return mimicState.getShape(reader, pos, context);
@@ -41,13 +41,13 @@ public class BlockMimic extends Block implements EntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new MimicTile(pos, state);
+        return new MimicBlockEntity(pos, state);
     }
 
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hitResult) {
         BlockEntity te = world.getBlockEntity(pos);
-        if (te instanceof MimicTile mimic) {
+        if (te instanceof MimicBlockEntity mimic) {
             if (mimic.onBlockActivated(world, pos, state, player, InteractionHand.MAIN_HAND,
                     player.getItemInHand(InteractionHand.MAIN_HAND), hitResult.getDirection())) {
                 return InteractionResult.SUCCESS;
@@ -59,7 +59,7 @@ public class BlockMimic extends Block implements EntityBlock {
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         BlockEntity te = level.getBlockEntity(pos);
-        if (te instanceof MimicTile mimic && !level.isClientSide) {
+        if (te instanceof MimicBlockEntity mimic && !level.isClientSide) {
             mimic.dropItems();
         }
         return super.playerWillDestroy(level, pos, state, player);

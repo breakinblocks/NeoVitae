@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.ritual.harvest;
 
 /**
- * Initializes all Blood Magic harvest handlers.
+ * Initializes all NeoVitae harvest handlers.
  */
 public class NVHarvestHandlers {
 

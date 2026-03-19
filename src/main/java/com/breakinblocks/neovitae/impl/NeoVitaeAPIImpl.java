@@ -14,8 +14,8 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 /**
- * Implementation of the Blood Magic API.
- * This class provides access to Blood Magic systems for addon mods.
+ * Implementation of the NeoVitae API.
+ * This class provides access to NeoVitae systems for addon mods.
  */
 public class NeoVitaeAPIImpl implements INeoVitaeAPI {
 

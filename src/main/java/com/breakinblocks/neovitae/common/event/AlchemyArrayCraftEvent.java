@@ -5,26 +5,26 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.ICancellableEvent;
-import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayTile;
+import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 
 /**
  * Events for Alchemy Array crafting.
  * Allows mods to hook into alchemy array crafting operations.
  */
 public abstract class AlchemyArrayCraftEvent extends Event {
-    private final AlchemyArrayTile array;
+    private final AlchemyArrayBlockEntity array;
     private final ItemStack baseInput;
     private final ItemStack addedInput;
     private ItemStack output;
 
-    public AlchemyArrayCraftEvent(AlchemyArrayTile array, ItemStack baseInput, ItemStack addedInput, ItemStack output) {
+    public AlchemyArrayCraftEvent(AlchemyArrayBlockEntity array, ItemStack baseInput, ItemStack addedInput, ItemStack output) {
         this.array = array;
         this.baseInput = baseInput.copy();
         this.addedInput = addedInput.copy();
         this.output = output.copy();
     }
 
-    public AlchemyArrayTile getArray() {
+    public AlchemyArrayBlockEntity getArray() {
         return array;
     }
 
@@ -58,7 +58,7 @@ public abstract class AlchemyArrayCraftEvent extends Event {
      * Modify output to change what is produced.
      */
     public static class Crafting extends AlchemyArrayCraftEvent implements ICancellableEvent {
-        public Crafting(AlchemyArrayTile array, ItemStack baseInput, ItemStack addedInput, ItemStack output) {
+        public Crafting(AlchemyArrayBlockEntity array, ItemStack baseInput, ItemStack addedInput, ItemStack output) {
             super(array, baseInput, addedInput, output);
         }
     }
@@ -68,7 +68,7 @@ public abstract class AlchemyArrayCraftEvent extends Event {
      * Not cancellable - use for notification purposes only.
      */
     public static class Crafted extends AlchemyArrayCraftEvent {
-        public Crafted(AlchemyArrayTile array, ItemStack baseInput, ItemStack addedInput, ItemStack output) {
+        public Crafted(AlchemyArrayBlockEntity array, ItemStack baseInput, ItemStack addedInput, ItemStack output) {
             super(array, baseInput, addedInput, output);
         }
     }

@@ -3659,7 +3659,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(500).ticks(200).minimumTier(1)
                 .save(output, NeoVitae.rl("night_vision"));
 
-        // Blood Magic custom effects
+        // NeoVitae custom effects
         FlaskRecipeBuilder.effect(NVMobEffects.PASSIVITY, 3600)
                 .addIngredient(NVItems.SIMPLE_CATALYST.get())
                 .addIngredient(Items.HONEYCOMB)

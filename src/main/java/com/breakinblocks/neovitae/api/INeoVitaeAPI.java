@@ -10,9 +10,9 @@ import com.breakinblocks.neovitae.api.will.IDemonWillHandler;
 import java.util.UUID;
 
 /**
- * Main interface for the Blood Magic API.
+ * Main interface for the NeoVitae API.
  *
- * <p>This interface provides access to Blood Magic's core systems for addon mods.
+ * <p>This interface provides access to NeoVitae's core systems for addon mods.
  * Access the implementation via {@link NeoVitaeAPI#getInstance()}.</p>
  *
  * <h2>Usage Example</h2>

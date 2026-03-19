@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import com.breakinblocks.neovitae.common.blockentity.FungalChargeTile;
+import com.breakinblocks.neovitae.common.blockentity.FungalChargeBlockEntity;
 
 /**
  * Block for fungal charges.
@@ -19,7 +19,7 @@ public class BlockFungalCharge extends BlockShapedExplosive {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new FungalChargeTile(maxBlocks, pos, state);
+        return new FungalChargeBlockEntity(maxBlocks, pos, state);
     }
 
     public int getMaxBlocks() {

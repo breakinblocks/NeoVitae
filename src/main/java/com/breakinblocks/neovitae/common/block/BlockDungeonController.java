@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.TileDungeonController;
+import com.breakinblocks.neovitae.common.blockentity.DungeonControllerBlockEntity;
 
 /**
  * Dungeon Controller block - the central control block for procedural dungeons.
@@ -30,7 +30,7 @@ public class BlockDungeonController extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new TileDungeonController(pos, state);
+        return new DungeonControllerBlockEntity(pos, state);
     }
 
     @Nullable
@@ -40,7 +40,7 @@ public class BlockDungeonController extends Block implements EntityBlock {
             return null;
         }
         return type == NVTiles.DUNGEON_CONTROLLER_TYPE.get()
-                ? (lvl, pos, st, be) -> TileDungeonController.tick(lvl, pos, st, (TileDungeonController) be)
+                ? (lvl, pos, st, be) -> DungeonControllerBlockEntity.tick(lvl, pos, st, (DungeonControllerBlockEntity) be)
                 : null;
     }
 }

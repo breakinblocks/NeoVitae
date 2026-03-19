@@ -129,10 +129,10 @@ public class ItemSigilHolding extends ItemSigilBase implements ISigil.Holding {
             }
         }
 
-        itemUsing.getItem().use(world, player, hand);
+        InteractionResultHolder<ItemStack> result = itemUsing.getItem().use(world, player, hand);
         saveInventory(stack, inv);
 
-        return InteractionResultHolder.consume(stack);
+        return result;
     }
 
     /**

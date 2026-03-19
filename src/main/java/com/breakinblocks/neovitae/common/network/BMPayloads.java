@@ -55,6 +55,18 @@ public class BMPayloads {
                 WillChunkSyncPayload.STREAM_CODEC,
                 BMPayloads::handleWillChunkSync
         );
+
+        registrar.playToClient(
+                SetClientVelocityPayload.TYPE,
+                SetClientVelocityPayload.STREAM_CODEC,
+                BMPayloads::handleSetClientVelocity
+        );
+    }
+
+    private static void handleSetClientVelocity(SetClientVelocityPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            context.player().setDeltaMovement(payload.motionX(), payload.motionY(), payload.motionZ());
+        });
     }
 
     private static void handleWillChunkSync(WillChunkSyncPayload payload, IPayloadContext context) {

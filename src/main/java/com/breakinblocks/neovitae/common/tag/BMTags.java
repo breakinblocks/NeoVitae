@@ -153,6 +153,7 @@ public class BMTags {
 
     public static class Entities {
         public static final TagKey<EntityType<?>> TELEPOSE_BLACKLIST = tag(bm("telepose_blacklist"));
+        public static final TagKey<EntityType<?>> WELL_OF_SUFFERING_BLACKLIST = tag(bm("well_of_suffering_blacklist"));
 
         private static TagKey<EntityType<?>> tag(ResourceLocation id) {
             return TagKey.create(Registries.ENTITY_TYPE, id);

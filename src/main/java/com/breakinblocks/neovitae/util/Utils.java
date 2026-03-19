@@ -1,9 +1,12 @@
 package com.breakinblocks.neovitae.util;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
 import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -131,6 +134,21 @@ public class Utils {
         }
 
         return slots;
+    }
+
+    /**
+     * Spawns an item stack as an entity near a block position, offset in the given direction.
+     */
+    public static void spawnStackAtBlock(Level level, BlockPos pos, Direction dir, ItemStack stack) {
+        if (stack.isEmpty() || level.isClientSide) return;
+
+        double x = pos.getX() + 0.5 + dir.getStepX() * 0.6;
+        double y = pos.getY() + 0.5 + dir.getStepY() * 0.6;
+        double z = pos.getZ() + 0.5 + dir.getStepZ() * 0.6;
+
+        ItemEntity entity = new ItemEntity(level, x, y, z, stack.copy());
+        entity.setDeltaMovement(dir.getStepX() * 0.05, dir.getStepY() * 0.05 + 0.1, dir.getStepZ() * 0.05);
+        level.addFreshEntity(entity);
     }
 
     /**

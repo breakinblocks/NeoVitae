@@ -125,6 +125,11 @@ public class BMTags {
         public static final TagKey<Block> MUSHROOM_HYPHAE = tag(bm("mushroom_hyphae"));
         public static final TagKey<Block> MUSHROOM_STEM = tag(bm("mushroom_stem"));
 
+        // Geode ritual - harvestable crystal blocks (clusters, buds)
+        public static final TagKey<Block> GEODE_HARVESTABLE = tag(bm("geode_harvestable"));
+        // Geode ritual - budding blocks that can be accelerated via random tick
+        public static final TagKey<Block> GEODE_ACCELERATABLE = tag(bm("geode_acceleratable"));
+
         // Mundane blocks - drops are voided by voiding anointment
         public static final TagKey<Block> MUNDANE_BLOCK = tag(bm("mundane_block"));
 

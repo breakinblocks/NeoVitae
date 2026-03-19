@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.datagen.provider;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
@@ -122,6 +123,17 @@ public class BMBlockTagProvider extends BlockTagsProvider {
         this.tag(BMTags.Blocks.TRANQUILITY_WATER);
         this.tag(BMTags.Blocks.TRANQUILITY_FIRE);
         this.tag(BMTags.Blocks.TRANQUILITY_LAVA);
+
+        // Geode ritual - harvestable crystal blocks (mature clusters)
+        // Other mods (AE2, GeoOres, etc.) can add their clusters via datapacks
+        this.tag(BMTags.Blocks.GEODE_HARVESTABLE)
+                .add(Blocks.AMETHYST_CLUSTER);
+
+        // Geode ritual - budding blocks that can be accelerated
+        // Includes c:budding tag for cross-mod compat (AE2 certus, GeoOres, etc.)
+        this.tag(BMTags.Blocks.GEODE_ACCELERATABLE)
+                .add(Blocks.BUDDING_AMETHYST)
+                .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "budding_blocks"));
 
         // Mushroom blocks for fungal charges
         this.tag(BMTags.Blocks.MUSHROOM_STEM)

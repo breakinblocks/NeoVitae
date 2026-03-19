@@ -13,7 +13,7 @@ import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 import vazkii.patchouli.api.PatchouliAPI.IPatchouliAPI;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualComponent;
@@ -65,14 +65,14 @@ public class RegisterPatchouliMultiblocks {
 
             IMultiblock multiblock = patAPI.makeMultiblock(
                     pattern,
-                    '0', BMBlocks.MASTER_RITUAL_STONE.block().get(),
-                    'B', BMBlocks.BLANK_RITUAL_STONE.block().get(),
-                    'W', BMBlocks.WATER_RITUAL_STONE.block().get(),
-                    'F', BMBlocks.FIRE_RITUAL_STONE.block().get(),
-                    'E', BMBlocks.EARTH_RITUAL_STONE.block().get(),
-                    'A', BMBlocks.AIR_RITUAL_STONE.block().get(),
-                    'D', BMBlocks.DUSK_RITUAL_STONE.block().get(),
-                    'd', BMBlocks.DAWN_RITUAL_STONE.block().get(),
+                    '0', NVBlocks.MASTER_RITUAL_STONE.block().get(),
+                    'B', NVBlocks.BLANK_RITUAL_STONE.block().get(),
+                    'W', NVBlocks.WATER_RITUAL_STONE.block().get(),
+                    'F', NVBlocks.FIRE_RITUAL_STONE.block().get(),
+                    'E', NVBlocks.EARTH_RITUAL_STONE.block().get(),
+                    'A', NVBlocks.AIR_RITUAL_STONE.block().get(),
+                    'D', NVBlocks.DUSK_RITUAL_STONE.block().get(),
+                    'd', NVBlocks.DAWN_RITUAL_STONE.block().get(),
                     'C', Blocks.CHEST
             );
 
@@ -89,16 +89,16 @@ public class RegisterPatchouliMultiblocks {
      */
     private void registerAltarMultiblocks(IPatchouliAPI patAPI) {
         IStateMatcher anyRune = new RuneStateMatcher();
-        IStateMatcher blankRune = patAPI.strictBlockMatcher(BMBlocks.RUNE_BLANK.block().get());
+        IStateMatcher blankRune = patAPI.strictBlockMatcher(NVBlocks.RUNE_BLANK.block().get());
         IStateMatcher notAir = patAPI.predicateMatcher(Blocks.STONE_BRICKS, state -> !state.isAir() && state.getFluidState().isEmpty());
         IStateMatcher glowstone = patAPI.strictBlockMatcher(Blocks.GLOWSTONE);
         IStateMatcher bloodstone = new BloodstoneStateMatcher();
-        IStateMatcher crystal = patAPI.strictBlockMatcher(BMBlocks.CRYSTAL_CLUSTER.block().get());
+        IStateMatcher crystal = patAPI.strictBlockMatcher(NVBlocks.CRYSTAL_CLUSTER.block().get());
 
         // Tier 1: Just the altar
         IMultiblock tier1 = patAPI.makeMultiblock(
                 new String[][]{{"0"}, {"_"}},
-                '0', BMBlocks.BLOOD_ALTAR.block().get()
+                '0', NVBlocks.BLOOD_ALTAR.block().get()
         );
         patAPI.registerMultiblock(NeoVitae.rl("altar_one"), tier1);
 
@@ -108,7 +108,7 @@ public class RegisterPatchouliMultiblocks {
                         {"___", "_0_", "___"},  // y=0: altar
                         {"RRR", "R_R", "RRR"}   // y=-1: 8 runes in square
                 },
-                '0', BMBlocks.BLOOD_ALTAR.block().get(),
+                '0', NVBlocks.BLOOD_ALTAR.block().get(),
                 'R', anyRune
         );
         patAPI.registerMultiblock(NeoVitae.rl("altar_two"), tier2);
@@ -122,7 +122,7 @@ public class RegisterPatchouliMultiblocks {
                         {"P_____P", "_______", "__RRR__", "__R_R__", "__RRR__", "_______", "P_____P"},  // y=-1: tier 2 inner runes + pillars
                         {"_RRRRR_", "R_____R", "R_____R", "R_____R", "R_____R", "R_____R", "_RRRRR_"}   // y=-2: tier 3 outer square
                 },
-                '0', BMBlocks.BLOOD_ALTAR.block().get(),
+                '0', NVBlocks.BLOOD_ALTAR.block().get(),
                 'R', anyRune,
                 'P', notAir,
                 'G', glowstone
@@ -145,7 +145,7 @@ public class RegisterPatchouliMultiblocks {
                         // y=-3: tier 4 outer square (11x11 with corner gaps)
                         {"_RRRRRRRRR_", "R_________R", "R_________R", "R_________R", "R_________R", "R_________R", "R_________R", "R_________R", "R_________R", "R_________R", "_RRRRRRRRR_"}
                 },
-                '0', BMBlocks.BLOOD_ALTAR.block().get(),
+                '0', NVBlocks.BLOOD_ALTAR.block().get(),
                 'R', anyRune,
                 'P', notAir,
                 'G', glowstone,
@@ -156,7 +156,7 @@ public class RegisterPatchouliMultiblocks {
         // Tier 5: Full structure including tiers 1-4 + outer ring at y=-4 with hellforged blocks
         // 17x17 grid (positions -8 to +8): center at index 8
         // Tier 5 ring: hellforged at corners (±8,±8), runes from ±6 (13 per edge), gaps at ±7
-        IStateMatcher hellforged = patAPI.strictBlockMatcher(BMBlocks.HELLFORGED_BLOCK.block().get());
+        IStateMatcher hellforged = patAPI.strictBlockMatcher(NVBlocks.HELLFORGED_BLOCK.block().get());
         IMultiblock tier5 = patAPI.makeMultiblock(
                 new String[][]{
                         // y=2: bloodstone caps at ±5 (indices 3 and 13)
@@ -174,7 +174,7 @@ public class RegisterPatchouliMultiblocks {
                         // y=-4: tier 5 ring (17x17, ±8) with hellforged at corners (±8,±8), gaps at ±7, runes from ±6
                         {"H_RRRRRRRRRRRRR_H", "_________________", "R_______________R", "R_______________R", "R_______________R", "R_______________R", "R_______________R", "R_______________R", "R_______________R", "R_______________R", "R_______________R", "R_______________R", "R_______________R", "R_______________R", "R_______________R", "_________________", "H_RRRRRRRRRRRRR_H"}
                 },
-                '0', BMBlocks.BLOOD_ALTAR.block().get(),
+                '0', NVBlocks.BLOOD_ALTAR.block().get(),
                 'R', anyRune,
                 'P', notAir,
                 'G', glowstone,
@@ -209,7 +209,7 @@ public class RegisterPatchouliMultiblocks {
                         // y=-5: tier 6 ring (23x23, ±11) with runes from ±9 (indices 2-20), gaps at ±10, NO corners
                         {"__RRRRRRRRRRRRRRRRRRR__", "_______________________", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "R_____________________R", "_______________________", "__RRRRRRRRRRRRRRRRRRR__"}
                 },
-                '0', BMBlocks.BLOOD_ALTAR.block().get(),
+                '0', NVBlocks.BLOOD_ALTAR.block().get(),
                 'R', anyRune,
                 'P', notAir,
                 'G', glowstone,
@@ -277,27 +277,27 @@ public class RegisterPatchouliMultiblocks {
      */
     private static class RuneStateMatcher implements IStateMatcher {
         private static final List<Block> RUNE_BLOCKS = List.of(
-                BMBlocks.RUNE_BLANK.block().get(),
-                BMBlocks.RUNE_SACRIFICE.block().get(),
-                BMBlocks.RUNE_SELF_SACRIFICE.block().get(),
-                BMBlocks.RUNE_CAPACITY.block().get(),
-                BMBlocks.RUNE_CAPACITY_AUGMENTED.block().get(),
-                BMBlocks.RUNE_CHARGING.block().get(),
-                BMBlocks.RUNE_SPEED.block().get(),
-                BMBlocks.RUNE_ACCELERATION.block().get(),
-                BMBlocks.RUNE_DISLOCATION.block().get(),
-                BMBlocks.RUNE_ORB.block().get(),
-                BMBlocks.RUNE_EFFICIENCY.block().get(),
-                BMBlocks.RUNE_2_SACRIFICE.block().get(),
-                BMBlocks.RUNE_2_SELF_SACRIFICE.block().get(),
-                BMBlocks.RUNE_2_CAPACITY.block().get(),
-                BMBlocks.RUNE_2_CAPACITY_AUGMENTED.block().get(),
-                BMBlocks.RUNE_2_CHARGING.block().get(),
-                BMBlocks.RUNE_2_SPEED.block().get(),
-                BMBlocks.RUNE_2_ACCELERATION.block().get(),
-                BMBlocks.RUNE_2_DISLOCATION.block().get(),
-                BMBlocks.RUNE_2_ORB.block().get(),
-                BMBlocks.RUNE_2_EFFICIENCY.block().get()
+                NVBlocks.RUNE_BLANK.block().get(),
+                NVBlocks.RUNE_SACRIFICE.block().get(),
+                NVBlocks.RUNE_SELF_SACRIFICE.block().get(),
+                NVBlocks.RUNE_CAPACITY.block().get(),
+                NVBlocks.RUNE_CAPACITY_AUGMENTED.block().get(),
+                NVBlocks.RUNE_CHARGING.block().get(),
+                NVBlocks.RUNE_SPEED.block().get(),
+                NVBlocks.RUNE_ACCELERATION.block().get(),
+                NVBlocks.RUNE_DISLOCATION.block().get(),
+                NVBlocks.RUNE_ORB.block().get(),
+                NVBlocks.RUNE_EFFICIENCY.block().get(),
+                NVBlocks.RUNE_2_SACRIFICE.block().get(),
+                NVBlocks.RUNE_2_SELF_SACRIFICE.block().get(),
+                NVBlocks.RUNE_2_CAPACITY.block().get(),
+                NVBlocks.RUNE_2_CAPACITY_AUGMENTED.block().get(),
+                NVBlocks.RUNE_2_CHARGING.block().get(),
+                NVBlocks.RUNE_2_SPEED.block().get(),
+                NVBlocks.RUNE_2_ACCELERATION.block().get(),
+                NVBlocks.RUNE_2_DISLOCATION.block().get(),
+                NVBlocks.RUNE_2_ORB.block().get(),
+                NVBlocks.RUNE_2_EFFICIENCY.block().get()
         );
 
         @Override
@@ -317,8 +317,8 @@ public class RegisterPatchouliMultiblocks {
      */
     private static class BloodstoneStateMatcher implements IStateMatcher {
         private static final List<Block> BLOODSTONE_BLOCKS = List.of(
-                BMBlocks.BLOODSTONE.block().get(),
-                BMBlocks.BLOODSTONE_BRICK.block().get()
+                NVBlocks.BLOODSTONE.block().get(),
+                NVBlocks.BLOODSTONE_BRICK.block().get()
         );
 
         @Override

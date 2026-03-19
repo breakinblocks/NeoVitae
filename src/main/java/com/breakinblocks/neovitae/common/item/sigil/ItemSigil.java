@@ -9,9 +9,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
-import com.breakinblocks.neovitae.common.datamap.BMDataMaps;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.SigilStats;
 import com.breakinblocks.neovitae.common.item.IBindable;
 import com.breakinblocks.neovitae.util.helper.PlayerHelper;
@@ -32,12 +32,12 @@ public class ItemSigil extends Item implements IBindable, ISigil {
 
     public boolean isUnusable(ItemStack stack) {
         if (stack.isEmpty()) return false;
-        return stack.getOrDefault(BMDataComponents.SIGIL_UNUSABLE.get(), false);
+        return stack.getOrDefault(NVDataComponents.SIGIL_UNUSABLE.get(), false);
     }
 
     public ItemStack setUnusable(ItemStack stack, boolean unusable) {
         if (!stack.isEmpty()) {
-            stack.set(BMDataComponents.SIGIL_UNUSABLE.get(), unusable);
+            stack.set(NVDataComponents.SIGIL_UNUSABLE.get(), unusable);
         }
         return stack;
     }
@@ -47,7 +47,7 @@ public class ItemSigil extends Item implements IBindable, ISigil {
      * Falls back to the default value if not in datamap.
      */
     public int getLpUsed() {
-        SigilStats stats = BuiltInRegistries.ITEM.wrapAsHolder(this).getData(BMDataMaps.SIGIL_STATS);
+        SigilStats stats = BuiltInRegistries.ITEM.wrapAsHolder(this).getData(NVDataMaps.SIGIL_STATS);
         if (stats != null) {
             return stats.lpCost();
         }
@@ -59,7 +59,7 @@ public class ItemSigil extends Item implements IBindable, ISigil {
      * @return SigilStats or null if not configured
      */
     public SigilStats getSigilStats() {
-        return BuiltInRegistries.ITEM.wrapAsHolder(this).getData(BMDataMaps.SIGIL_STATS);
+        return BuiltInRegistries.ITEM.wrapAsHolder(this).getData(NVDataMaps.SIGIL_STATS);
     }
 
     @Override

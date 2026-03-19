@@ -20,7 +20,7 @@ import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtension
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
-import com.breakinblocks.neovitae.common.fluid.BMFluids;
+import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.util.helper.RenderHelper;
 
 public class BloodAltarRenderer implements BlockEntityRenderer<BloodAltarTile> {
@@ -57,8 +57,8 @@ public class BloodAltarRenderer implements BlockEntityRenderer<BloodAltarTile> {
 
     private void renderFluid(float fluidLevel, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlay) {
         Minecraft minecraft = Minecraft.getInstance();
-        IClientFluidTypeExtensions fluidClientInfo = IClientFluidTypeExtensions.of(BMFluids.LIFE_ESSENCE_TYPE.get());
-        RenderType blockRenderType = ItemBlockRenderTypes.getRenderLayer(BMFluids.LIFE_ESSENCE_SOURCE.get().defaultFluidState());
+        IClientFluidTypeExtensions fluidClientInfo = IClientFluidTypeExtensions.of(NVFluids.LIFE_ESSENCE_TYPE.get());
+        RenderType blockRenderType = ItemBlockRenderTypes.getRenderLayer(NVFluids.LIFE_ESSENCE_SOURCE.get().defaultFluidState());
         TextureAtlasSprite texture = minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidClientInfo.getStillTexture());
         int tintColour = fluidClientInfo.getTintColor();
 

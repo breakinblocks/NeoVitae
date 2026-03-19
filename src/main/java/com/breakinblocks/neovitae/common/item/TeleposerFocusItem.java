@@ -17,7 +17,7 @@ import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.NeoForge;
 import com.breakinblocks.neovitae.common.blockentity.TeleposerTile;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.event.ItemBindEvent;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class TeleposerFocusItem extends Item implements ITeleposerFocus {
     public final int range;
 
     public TeleposerFocusItem(int range) {
-        super(new Item.Properties().stacksTo(1).component(BMDataComponents.BINDING, Binding.EMPTY));
+        super(new Item.Properties().stacksTo(1).component(NVDataComponents.BINDING, Binding.EMPTY));
         this.range = range;
     }
 
@@ -46,7 +46,7 @@ public class TeleposerFocusItem extends Item implements ITeleposerFocus {
             if (binding == null || binding.isEmpty()) {
                 ItemBindEvent toPost = new ItemBindEvent(player, stack);
                 if (!NeoForge.EVENT_BUS.post(toPost).isCanceled()) {
-                    stack.set(BMDataComponents.BINDING, new Binding(player.getUUID(), player.getName().getString()));
+                    stack.set(NVDataComponents.BINDING, new Binding(player.getUUID(), player.getName().getString()));
                 }
             }
         }
@@ -55,22 +55,22 @@ public class TeleposerFocusItem extends Item implements ITeleposerFocus {
     }
 
     public void setStoredPos(ItemStack stack, BlockPos pos) {
-        stack.set(BMDataComponents.TELEPOSER_POS, pos);
+        stack.set(NVDataComponents.TELEPOSER_POS, pos);
     }
 
     @Override
     public BlockPos getStoredPos(ItemStack stack) {
-        BlockPos pos = stack.get(BMDataComponents.TELEPOSER_POS);
+        BlockPos pos = stack.get(NVDataComponents.TELEPOSER_POS);
         return pos != null ? pos : BlockPos.ZERO;
     }
 
     public void setWorld(ItemStack stack, Level world) {
         String worldKey = world.dimension().location().toString();
-        stack.set(BMDataComponents.TELEPOSER_DIMENSION, worldKey);
+        stack.set(NVDataComponents.TELEPOSER_DIMENSION, worldKey);
     }
 
     public ResourceKey<Level> getStoredKey(ItemStack stack) {
-        String worldKey = stack.get(BMDataComponents.TELEPOSER_DIMENSION);
+        String worldKey = stack.get(NVDataComponents.TELEPOSER_DIMENSION);
         if (worldKey == null || worldKey.isEmpty()) {
             return null;
         }
@@ -88,7 +88,7 @@ public class TeleposerFocusItem extends Item implements ITeleposerFocus {
 
     @Override
     public Binding getBinding(ItemStack stack) {
-        return stack.get(BMDataComponents.BINDING);
+        return stack.get(NVDataComponents.BINDING);
     }
 
     @Override

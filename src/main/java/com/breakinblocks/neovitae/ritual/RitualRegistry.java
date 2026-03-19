@@ -12,7 +12,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datamap.BMDataMaps;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.ImperfectRitualStats;
 
 import javax.annotation.Nullable;
@@ -79,7 +79,7 @@ public final class RitualRegistry {
         IMPERFECT_RITUALS.makeRegistry(builder -> builder.sync(true));
 
         // Initialize ritual registrations
-        BMRituals.init();
+        NVRituals.init();
 
         // Register to the mod bus
         RITUALS.register(modBus);
@@ -192,14 +192,14 @@ public final class RitualRegistry {
         // O(1) lookup for specific block matches
         Holder<ImperfectRitual> holder = blockToRitualCache.get(block);
         if (holder != null) {
-            ImperfectRitualStats stats = holder.getData(BMDataMaps.IMPERFECT_RITUAL_STATS);
+            ImperfectRitualStats stats = holder.getData(NVDataMaps.IMPERFECT_RITUAL_STATS);
             return new ImperfectRitualLookupResult(holder.value(), stats);
         }
 
         // Check tag-based rituals (typically very few)
         for (TagRitualEntry entry : tagBasedRituals) {
             if (aboveState.is(entry.tag())) {
-                ImperfectRitualStats stats = entry.holder().getData(BMDataMaps.IMPERFECT_RITUAL_STATS);
+                ImperfectRitualStats stats = entry.holder().getData(NVDataMaps.IMPERFECT_RITUAL_STATS);
                 return new ImperfectRitualLookupResult(entry.holder().value(), stats);
             }
         }
@@ -240,7 +240,7 @@ public final class RitualRegistry {
 
         for (ImperfectRitual ritual : registry) {
             Holder<ImperfectRitual> holder = registry.wrapAsHolder(ritual);
-            ImperfectRitualStats stats = holder.getData(BMDataMaps.IMPERFECT_RITUAL_STATS);
+            ImperfectRitualStats stats = holder.getData(NVDataMaps.IMPERFECT_RITUAL_STATS);
 
             if (stats == null) {
                 // No DataMap - use predicate-based matching

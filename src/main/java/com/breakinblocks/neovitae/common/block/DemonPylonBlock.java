@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.blockentity.DemonPylonTile;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
@@ -45,7 +45,7 @@ public class DemonPylonBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return BlockEntityHelper.getTicker(blockEntityType, BMTiles.DEMON_PYLON_TYPE.get(), DemonPylonTile::tick);
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.DEMON_PYLON_TYPE.get(), DemonPylonTile::tick);
     }
 
     @Override

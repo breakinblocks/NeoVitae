@@ -57,7 +57,7 @@ public class TileDungeonSeal extends BaseTile {
     private SealData data = SealData.EMPTY;
 
     public TileDungeonSeal(BlockPos pos, BlockState state) {
-        super(BMTiles.DUNGEON_SEAL_TYPE.get(), pos, state);
+        super(NVTiles.DUNGEON_SEAL_TYPE.get(), pos, state);
     }
 
     /**

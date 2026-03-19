@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.IItemHandler;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.item.routing.IItemFilterProvider;
 import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
 import com.breakinblocks.neovitae.common.routing.IInputItemRoutingNode;
@@ -29,7 +29,7 @@ public class InputRoutingNodeTile extends FilteredRoutingNodeTile implements IIn
     }
 
     public InputRoutingNodeTile(BlockPos pos, BlockState state) {
-        this(BMTiles.INPUT_ROUTING_NODE_TYPE.get(), pos, state);
+        this(NVTiles.INPUT_ROUTING_NODE_TYPE.get(), pos, state);
     }
 
     @Override

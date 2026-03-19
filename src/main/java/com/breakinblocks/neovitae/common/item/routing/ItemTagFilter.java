@@ -8,7 +8,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.FilterInventory;
 import com.breakinblocks.neovitae.util.GhostItemHelper;
 
@@ -120,9 +120,9 @@ public class ItemTagFilter extends ItemRouterFilter implements INestableItemFilt
         // Store the selected tag name in the ghost stack
         if (index > 0 && index <= tags.size()) {
             TagKey<Item> selectedTag = tags.get(index - 1);
-            ghostStack.set(BMDataComponents.FILTER_TAG, selectedTag.location().toString());
+            ghostStack.set(NVDataComponents.FILTER_TAG, selectedTag.location().toString());
         } else {
-            ghostStack.remove(BMDataComponents.FILTER_TAG);
+            ghostStack.remove(NVDataComponents.FILTER_TAG);
         }
         inv = inv.setItem(slot, ghostStack);
         setFilterInventory(filterStack, inv);
@@ -140,7 +140,7 @@ public class ItemTagFilter extends ItemRouterFilter implements INestableItemFilt
             return null;
         }
 
-        String tagName = ghostStack.getOrDefault(BMDataComponents.FILTER_TAG, "");
+        String tagName = ghostStack.getOrDefault(NVDataComponents.FILTER_TAG, "");
         if (!tagName.isEmpty()) {
             ResourceLocation rl = ResourceLocation.tryParse(tagName);
             if (rl != null) {

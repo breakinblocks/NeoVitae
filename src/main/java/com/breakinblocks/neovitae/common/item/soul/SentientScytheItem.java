@@ -13,9 +13,9 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.item.BMMaterialsAndTiers;
+import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
 import com.breakinblocks.neovitae.will.PlayerDemonWillHandler;
 
 import java.util.List;
@@ -38,9 +38,9 @@ public class SentientScytheItem extends SwordItem implements ISentientTool {
     private static final double[] AREA_RANGE = {2.5, 3, 3.5, 4, 4.5, 5, 5.5};
 
     public SentientScytheItem() {
-        super(BMMaterialsAndTiers.SENTIENT, new Properties()
-                .attributes(SwordItem.createAttributes(BMMaterialsAndTiers.SENTIENT, 5, -2.6f))
-                .component(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT));
+        super(NVMaterialsAndTiers.SENTIENT, new Properties()
+                .attributes(SwordItem.createAttributes(NVMaterialsAndTiers.SENTIENT, 5, -2.6f))
+                .component(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT));
     }
 
     @Override

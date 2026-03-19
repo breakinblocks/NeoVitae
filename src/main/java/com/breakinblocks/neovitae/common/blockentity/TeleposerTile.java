@@ -25,11 +25,11 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
 import com.breakinblocks.neovitae.common.item.ITeleposerFocus;
 import com.breakinblocks.neovitae.common.menu.TeleposerMenu;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.api.soul.SoulTicket;
 import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
 
@@ -56,7 +56,7 @@ public class TeleposerTile extends BaseTile implements MenuProvider, CommandSour
     };
 
     public TeleposerTile(BlockPos pos, BlockState state) {
-        super(BMTiles.TELEPOSER_TYPE.get(), pos, state);
+        super(NVTiles.TELEPOSER_TYPE.get(), pos, state);
     }
 
     public void tick() {
@@ -128,7 +128,7 @@ public class TeleposerTile extends BaseTile implements MenuProvider, CommandSour
         ResourceKey<Level> linkedKey = linkedWorld.dimension();
 
         for (Entity entity : originalEntities) {
-            if (entity.getType().is(BMTags.Entities.TELEPOSE_BLACKLIST)) {
+            if (entity.getType().is(NVTags.Entities.TELEPOSE_BLACKLIST)) {
                 continue;
             }
 
@@ -144,7 +144,7 @@ public class TeleposerTile extends BaseTile implements MenuProvider, CommandSour
         }
 
         for (Entity entity : focusEntities) {
-            if (entity.getType().is(BMTags.Entities.TELEPOSE_BLACKLIST)) {
+            if (entity.getType().is(NVTags.Entities.TELEPOSE_BLACKLIST)) {
                 continue;
             }
 
@@ -172,7 +172,7 @@ public class TeleposerTile extends BaseTile implements MenuProvider, CommandSour
     private SoulNetwork getNetwork() {
         ItemStack focusStack = this.inv.getStackInSlot(FOCUS_SLOT);
         if (!focusStack.isEmpty() && focusStack.getItem() instanceof ITeleposerFocus) {
-            Binding binding = focusStack.get(BMDataComponents.BINDING);
+            Binding binding = focusStack.get(NVDataComponents.BINDING);
             if (binding != null && !binding.isEmpty()) {
                 return SoulNetworkHelper.getSoulNetwork(binding);
             }

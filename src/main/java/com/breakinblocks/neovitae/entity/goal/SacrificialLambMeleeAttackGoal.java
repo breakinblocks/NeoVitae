@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.entity.goal;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import com.breakinblocks.neovitae.common.effect.BMMobEffects;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 
 /**
  * Melee attack goal for the Sacrificial Lamb effect.
@@ -22,11 +22,11 @@ public class SacrificialLambMeleeAttackGoal extends MeleeAttackGoal {
 
     @Override
     public boolean canUse() {
-        return this.mob.hasEffect(BMMobEffects.SACRIFICIAL_LAMB) && super.canUse();
+        return this.mob.hasEffect(NVMobEffects.SACRIFICIAL_LAMB) && super.canUse();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return this.mob.hasEffect(BMMobEffects.SACRIFICIAL_LAMB) && super.canContinueToUse();
+        return this.mob.hasEffect(NVMobEffects.SACRIFICIAL_LAMB) && super.canContinueToUse();
     }
 }

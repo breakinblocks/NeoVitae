@@ -11,7 +11,7 @@ import net.neoforged.neoforge.common.extensions.IItemExtension;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.item.IUpgradeHolder;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.living.LivingEffectComponents;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
 
@@ -94,7 +94,7 @@ public interface UpgradeHolderBase extends IItemExtension, IUpgradeHolder {
             return 0;
         }
         // Get max points from component, defaulting to config value if not set
-        Integer maxPoints = stack.get(BMDataComponents.CURRENT_MAX_UPGRADE_POINTS.get());
+        Integer maxPoints = stack.get(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS.get());
         return maxPoints != null ? maxPoints : NeoVitae.SERVER_CONFIG.DEFAULT_UPGRADE_POINTS.get();
     }
 

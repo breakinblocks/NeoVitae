@@ -18,8 +18,9 @@ import com.breakinblocks.neovitae.api.altar.IBloodAltar;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
+import com.breakinblocks.neovitae.incense.IncenseHelper;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 import com.breakinblocks.neovitae.util.helper.NumeralHelper;
 import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
@@ -76,7 +77,7 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
     }
 
     private void showNetworkInfo(Player player, ItemStack stack) {
-        Binding binding = stack.get(BMDataComponents.BINDING.get());
+        Binding binding = stack.get(NVDataComponents.BINDING.get());
         if (binding != null) {
             SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
             if (network != null) {
@@ -125,6 +126,11 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
                 String.format("%.2f", altar.getEfficiency())).withStyle(ChatFormatting.AQUA));
         player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "creative.chargingRate",
                 altar.getChargingRate()).withStyle(ChatFormatting.AQUA));
+
+        // Show incense level
+        double incense = IncenseHelper.getCurrentIncense(player);
+        player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "creative.incense",
+                String.format("%.2f", incense)).withStyle(ChatFormatting.LIGHT_PURPLE));
 
         player.sendSystemMessage(Component.literal("--- End Stats ---").withStyle(ChatFormatting.GOLD));
     }

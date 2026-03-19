@@ -13,7 +13,7 @@ import net.minecraft.world.item.component.ItemContainerContents;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.sigil.ISigil;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 
@@ -28,7 +28,7 @@ public class SigilHoldingMenu extends AbstractContainerMenu {
     private int selectedSlot;
 
     public SigilHoldingMenu(int containerId, Inventory playerInventory, ItemStack holdingStack, int holdingSlot) {
-        super(BMMenus.SIGIL_HOLDING.get(), containerId);
+        super(NVMenus.SIGIL_HOLDING.get(), containerId);
         this.holdingStack = holdingStack;
         this.holdingSlot = holdingSlot;
         this.selectedSlot = ItemSigilHolding.getCurrentItemOrdinal(holdingStack);
@@ -111,7 +111,7 @@ public class SigilHoldingMenu extends AbstractContainerMenu {
     public void setSelectedSlot(int slot) {
         if (slot >= 0 && slot < ItemSigilHolding.INVENTORY_SIZE) {
             this.selectedSlot = slot;
-            holdingStack.set(BMDataComponents.READER_STATE.get(), slot);
+            holdingStack.set(NVDataComponents.READER_STATE.get(), slot);
         }
     }
 

@@ -28,7 +28,7 @@ import net.neoforged.neoforge.fluids.FluidUtil;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.ARCTile;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
@@ -147,7 +147,7 @@ public class ARCBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return BlockEntityHelper.getTicker(blockEntityType, BMTiles.ARC_TYPE.get(), ARCTile::tick);
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.ARC_TYPE.get(), ARCTile::tick);
     }
 
     @Nullable

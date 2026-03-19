@@ -9,7 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import java.util.List;
 public class ExperienceTomeItem extends Item {
 
     public ExperienceTomeItem() {
-        super(new Properties().stacksTo(1).component(BMDataComponents.STORED_XP, 0));
+        super(new Properties().stacksTo(1).component(NVDataComponents.STORED_XP, 0));
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ExperienceTomeItem extends Item {
             return InteractionResultHolder.success(stack);
         }
 
-        int storedXp = stack.getOrDefault(BMDataComponents.STORED_XP, 0);
+        int storedXp = stack.getOrDefault(NVDataComponents.STORED_XP, 0);
 
         if (player.isShiftKeyDown()) {
             // Store XP
@@ -44,7 +44,7 @@ public class ExperienceTomeItem extends Item {
 
                 if (playerXp >= xpToStore) {
                     addXpToPlayer(player, -xpToStore);
-                    stack.set(BMDataComponents.STORED_XP, storedXp + xpToStore);
+                    stack.set(NVDataComponents.STORED_XP, storedXp + xpToStore);
                     return InteractionResultHolder.success(stack);
                 }
             }
@@ -55,7 +55,7 @@ public class ExperienceTomeItem extends Item {
                 int xpToGive = Math.min(storedXp, Math.max(1, xpForNextLevel));
 
                 addXpToPlayer(player, xpToGive);
-                stack.set(BMDataComponents.STORED_XP, storedXp - xpToGive);
+                stack.set(NVDataComponents.STORED_XP, storedXp - xpToGive);
                 return InteractionResultHolder.success(stack);
             }
         }
@@ -65,7 +65,7 @@ public class ExperienceTomeItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        int storedXp = stack.getOrDefault(BMDataComponents.STORED_XP, 0);
+        int storedXp = stack.getOrDefault(NVDataComponents.STORED_XP, 0);
         tooltip.add(Component.translatable("tooltip.neovitae.experience_tome.stored", storedXp)
                 .withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.neovitae.experience_tome.sneak_use")
@@ -76,12 +76,12 @@ public class ExperienceTomeItem extends Item {
 
     @Override
     public boolean isBarVisible(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.STORED_XP, 0) > 0;
+        return stack.getOrDefault(NVDataComponents.STORED_XP, 0) > 0;
     }
 
     @Override
     public int getBarWidth(ItemStack stack) {
-        int storedXp = stack.getOrDefault(BMDataComponents.STORED_XP, 0);
+        int storedXp = stack.getOrDefault(NVDataComponents.STORED_XP, 0);
         // Max bar at 1000 XP, scales logarithmically for visibility
         int displayXp = Math.min(storedXp, 10000);
         return (int) (13.0 * Math.log10(displayXp + 1) / 4.0);
@@ -100,8 +100,8 @@ public class ExperienceTomeItem extends Item {
      */
     public static void addXpToTome(ItemStack stack, int xpAmount) {
         if (stack.getItem() instanceof ExperienceTomeItem) {
-            int current = stack.getOrDefault(BMDataComponents.STORED_XP, 0);
-            stack.set(BMDataComponents.STORED_XP, current + xpAmount);
+            int current = stack.getOrDefault(NVDataComponents.STORED_XP, 0);
+            stack.set(NVDataComponents.STORED_XP, current + xpAmount);
         }
     }
 
@@ -109,7 +109,7 @@ public class ExperienceTomeItem extends Item {
      * Gets the stored XP in the tome.
      */
     public static int getStoredXp(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.STORED_XP, 0);
+        return stack.getOrDefault(NVDataComponents.STORED_XP, 0);
     }
 
     // XP calculation helpers

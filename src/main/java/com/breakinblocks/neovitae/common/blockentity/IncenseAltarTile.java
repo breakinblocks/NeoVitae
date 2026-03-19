@@ -37,7 +37,7 @@ public class IncenseAltarTile extends BlockEntity {
     private int roadDistance = 0; // Number of road rings found
 
     public IncenseAltarTile(BlockPos pos, BlockState state) {
-        super(BMTiles.INCENSE_ALTAR_TYPE.get(), pos, state);
+        super(NVTiles.INCENSE_ALTAR_TYPE.get(), pos, state);
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, IncenseAltarTile tile) {

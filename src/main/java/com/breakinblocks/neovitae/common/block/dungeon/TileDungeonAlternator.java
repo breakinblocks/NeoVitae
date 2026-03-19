@@ -7,7 +7,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.BaseTile;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
 /**
  * Tile entity for the Dungeon Alternator block.
@@ -21,7 +21,7 @@ public class TileDungeonAlternator extends BaseTile {
     private int pulseRate = DEFAULT_PULSE_RATE;
 
     public TileDungeonAlternator(BlockPos pos, BlockState state) {
-        super(BMTiles.DUNGEON_ALTERNATOR_TYPE.get(), pos, state);
+        super(NVTiles.DUNGEON_ALTERNATOR_TYPE.get(), pos, state);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, TileDungeonAlternator tile) {

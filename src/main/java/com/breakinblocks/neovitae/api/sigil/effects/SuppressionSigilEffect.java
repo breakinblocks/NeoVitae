@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.SpectralBlockTile;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
@@ -57,6 +57,7 @@ public record SuppressionSigilEffect(int range, int verticalRange) implements Si
         for (int x = -range; x <= range; x++) {
             for (int y = -verticalRange; y <= verticalRange; y++) {
                 for (int z = -range; z <= range; z++) {
+                    if (x * x + y * y + z * z > range * range) continue;
                     BlockPos checkPos = playerPos.offset(x, y, z);
                     BlockState state = level.getBlockState(checkPos);
                     FluidState fluidState = state.getFluidState();
@@ -66,7 +67,7 @@ public record SuppressionSigilEffect(int range, int verticalRange) implements Si
                         if (BlockProtectionHelper.canBreakBlock(level, checkPos, player)) {
                             // Replace with spectral block that will restore the fluid
                             BlockState originalState = state;
-                            level.setBlockAndUpdate(checkPos, BMBlocks.SPECTRAL_BLOCK.get().defaultBlockState());
+                            level.setBlockAndUpdate(checkPos, NVBlocks.SPECTRAL_BLOCK.get().defaultBlockState());
                             if (level.getBlockEntity(checkPos) instanceof SpectralBlockTile spectral) {
                                 spectral.setContainedBlockState(originalState);
                                 spectral.resetDuration();

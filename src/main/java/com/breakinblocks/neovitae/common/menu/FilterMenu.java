@@ -12,7 +12,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.FilterInventory;
 import com.breakinblocks.neovitae.common.item.inventory.InventoryFilter;
 import com.breakinblocks.neovitae.common.item.routing.IRoutingFilterProvider;
@@ -40,7 +40,7 @@ public class FilterMenu extends AbstractContainerMenu {
     }
 
     public FilterMenu(int containerId, Inventory playerInventory, ItemStack filterStack, boolean isTag) {
-        super(BMMenus.FILTER.get(), containerId);
+        super(NVMenus.FILTER.get(), containerId);
         this.player = playerInventory.player;
         this.filterStack = filterStack;
         this.isTag = isTag;

@@ -27,17 +27,17 @@ import com.breakinblocks.neovitae.api.altar.rune.IAltarRuneType;
 import com.breakinblocks.neovitae.api.altar.rune.RuneInstance;
 import com.breakinblocks.neovitae.api.event.AltarRuneEvent;
 import com.breakinblocks.neovitae.common.datamap.AltarRuneStats;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
-import com.breakinblocks.neovitae.common.datamap.BMDataMaps;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.BloodOrb;
 import com.breakinblocks.neovitae.common.event.BloodAltarCraftEvent;
 import com.breakinblocks.neovitae.common.event.NeoVitaeCraftedEvent;
-import com.breakinblocks.neovitae.common.fluid.BMFluids;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.fluid.NVFluids;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.api.recipe.BloodAltarInput;
 import com.breakinblocks.neovitae.api.recipe.BloodAltarRecipe;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.api.altar.IBloodAltar;
 import com.breakinblocks.neovitae.util.AltarScanResult;
 import com.breakinblocks.neovitae.util.AltarUtil;
@@ -92,7 +92,7 @@ public class BloodAltarTile extends BaseTile implements IFluidHandler, IBloodAlt
     private float efficiencyMod = 1;
 
     public BloodAltarTile(BlockPos pos, BlockState blockState) {
-        super(BMTiles.BLOOD_ALTAR_TYPE.get(), pos, blockState);
+        super(NVTiles.BLOOD_ALTAR_TYPE.get(), pos, blockState);
     }
 
     /**
@@ -127,7 +127,7 @@ public class BloodAltarTile extends BaseTile implements IFluidHandler, IBloodAlt
 
         // Look up each rune block's stats from the datamap
         for (RuneInstance instance : runeInstances) {
-            AltarRuneStats stats = BuiltInRegistries.BLOCK.wrapAsHolder(instance.block()).getData(BMDataMaps.ALTAR_RUNE_STATS);
+            AltarRuneStats stats = BuiltInRegistries.BLOCK.wrapAsHolder(instance.block()).getData(NVDataMaps.ALTAR_RUNE_STATS);
             if (stats != null) {
                 // Additive stats
                 totalCapacityMod += stats.getCapacityMod(0);
@@ -364,7 +364,7 @@ public class BloodAltarTile extends BaseTile implements IFluidHandler, IBloodAlt
                 NeoForge.EVENT_BUS.post(legacyEvent);
                 tile.inv.setStackInSlot(0, legacyEvent.getOutput());
 
-                if (level.getBlockState(pos.below()).is(BMTags.Blocks.PULSE_ON_CRAFTING)) {
+                if (level.getBlockState(pos.below()).is(NVTags.Blocks.PULSE_ON_CRAFTING)) {
                     tile.setSignaling(true);
                 }
                 tile.setProgress(0);
@@ -378,8 +378,8 @@ public class BloodAltarTile extends BaseTile implements IFluidHandler, IBloodAlt
                         tile, recipe, inputStack, legacyEvent.getOutput()));
             }
         } else {
-            Binding binding = inputStack.getOrDefault(BMDataComponents.BINDING, Binding.EMPTY);
-            BloodOrb orb = inputStack.getItemHolder().getData(BMDataMaps.BLOOD_ORB_STATS);
+            Binding binding = inputStack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
+            BloodOrb orb = inputStack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
             if (binding.isEmpty() || orb == null) {
                 return;
             }
@@ -407,8 +407,8 @@ public class BloodAltarTile extends BaseTile implements IFluidHandler, IBloodAlt
         }
 
         ItemStack inputStack = inv.getStackInSlot(0);
-        Binding inputBinding = inputStack.get(BMDataComponents.BINDING);
-        Optional<RecipeHolder<com.breakinblocks.neovitae.api.recipe.BloodAltarRecipe>> optionalHolder = level.getRecipeManager().getRecipeFor(BMRecipes.BLOOD_ALTAR_TYPE.get(), new BloodAltarInput(inputStack, getTier()), level);
+        Binding inputBinding = inputStack.get(NVDataComponents.BINDING);
+        Optional<RecipeHolder<com.breakinblocks.neovitae.api.recipe.BloodAltarRecipe>> optionalHolder = level.getRecipeManager().getRecipeFor(NVRecipes.BLOOD_ALTAR_TYPE.get(), new BloodAltarInput(inputStack, getTier()), level);
         if (!(inputBinding == null || inputBinding.isEmpty())) {
             setCanFill(true);
             setActive(true);
@@ -424,10 +424,10 @@ public class BloodAltarTile extends BaseTile implements IFluidHandler, IBloodAlt
     }
 
     public int analogSignal() {
-        if (level.getBlockState(getBlockPos().below()).is(BMTags.Blocks.SOUL_NETWORK_COMPARATOR)) {
+        if (level.getBlockState(getBlockPos().below()).is(NVTags.Blocks.SOUL_NETWORK_COMPARATOR)) {
             ItemStack content = inv.getStackInSlot(0);
-            Binding binding = content.getOrDefault(BMDataComponents.BINDING, Binding.EMPTY);
-            BloodOrb orb = content.getItemHolder().getData(BMDataMaps.BLOOD_ORB_STATS);
+            Binding binding = content.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
+            BloodOrb orb = content.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
             if (binding.isEmpty() || orb == null) {
                 return 0;
             }
@@ -526,9 +526,9 @@ public class BloodAltarTile extends BaseTile implements IFluidHandler, IBloodAlt
     @Override
     public FluidStack getFluidInTank(int tank) {
         return switch (tank) {
-            case 0 -> new FluidStack(BMFluids.LIFE_ESSENCE_SOURCE, getMainTank());
-            case 1 -> new FluidStack(BMFluids.LIFE_ESSENCE_SOURCE, getInputTank());
-            case 2 -> new FluidStack(BMFluids.LIFE_ESSENCE_SOURCE, getOutputTank());
+            case 0 -> new FluidStack(NVFluids.LIFE_ESSENCE_SOURCE, getMainTank());
+            case 1 -> new FluidStack(NVFluids.LIFE_ESSENCE_SOURCE, getInputTank());
+            case 2 -> new FluidStack(NVFluids.LIFE_ESSENCE_SOURCE, getOutputTank());
             default -> FluidStack.EMPTY;
         };
     }
@@ -545,7 +545,7 @@ public class BloodAltarTile extends BaseTile implements IFluidHandler, IBloodAlt
     @Override
     public boolean isFluidValid(int tank, FluidStack stack) {
         // Use fluid tag for flexibility - allows other mods to add compatible fluids
-        return stack.is(BMTags.Fluids.LIFE_ESSENCE);
+        return stack.is(NVTags.Fluids.LIFE_ESSENCE);
     }
 
     @Override
@@ -582,7 +582,7 @@ public class BloodAltarTile extends BaseTile implements IFluidHandler, IBloodAlt
             this.setChanged();
         }
 
-        return new FluidStack(BMFluids.LIFE_ESSENCE_SOURCE, toDrain);
+        return new FluidStack(NVFluids.LIFE_ESSENCE_SOURCE, toDrain);
     }
 
     // Getters

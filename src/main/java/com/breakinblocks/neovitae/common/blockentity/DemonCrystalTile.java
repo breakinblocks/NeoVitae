@@ -65,7 +65,7 @@ public class DemonCrystalTile extends BaseTile {
     }
 
     public DemonCrystalTile(EnumWillType willType, BlockPos pos, BlockState state) {
-        super(BMTiles.DEMON_CRYSTAL_TYPE.get(), pos, state);
+        super(NVTiles.DEMON_CRYSTAL_TYPE.get(), pos, state);
         this.willType = willType;
     }
 

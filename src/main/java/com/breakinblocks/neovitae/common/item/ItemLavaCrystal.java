@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
 import com.breakinblocks.neovitae.api.soul.SoulTicket;
@@ -38,7 +38,7 @@ public class ItemLavaCrystal extends Item implements IBindable {
     public ItemLavaCrystal() {
         super(new Item.Properties()
                 .stacksTo(1)
-                .component(BMDataComponents.BINDING.get(), Binding.EMPTY));
+                .component(NVDataComponents.BINDING.get(), Binding.EMPTY));
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ItemLavaCrystal extends Item implements IBindable {
         }
 
         // Check binding
-        Binding binding = stack.get(BMDataComponents.BINDING.get());
+        Binding binding = stack.get(NVDataComponents.BINDING.get());
         if (binding == null || binding.isEmpty()) {
             if (!level.isClientSide()) {
                 player.displayClientMessage(
@@ -107,7 +107,7 @@ public class ItemLavaCrystal extends Item implements IBindable {
 
     @Override
     public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
-        Binding binding = itemStack.get(BMDataComponents.BINDING.get());
+        Binding binding = itemStack.get(NVDataComponents.BINDING.get());
         if (binding == null || binding.isEmpty()) {
             return 0;
         }
@@ -123,13 +123,13 @@ public class ItemLavaCrystal extends Item implements IBindable {
 
     @Override
     public boolean hasCraftingRemainingItem(ItemStack stack) {
-        Binding binding = stack.get(BMDataComponents.BINDING.get());
+        Binding binding = stack.get(NVDataComponents.BINDING.get());
         return binding != null && !binding.isEmpty();
     }
 
     @Override
     public ItemStack getCraftingRemainingItem(ItemStack stack) {
-        Binding binding = stack.get(BMDataComponents.BINDING.get());
+        Binding binding = stack.get(NVDataComponents.BINDING.get());
         if (binding == null || binding.isEmpty()) {
             return ItemStack.EMPTY;
         }

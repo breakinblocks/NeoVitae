@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
 
@@ -15,12 +15,12 @@ public class TrainerMenu extends AbstractGhostMenu<TrainerMenu> {
     // CLIENT constructor
     public TrainerMenu(int containerId, Inventory playerInv, RegistryFriendlyByteBuf buf) {
         // buf ->  int heldSlot
-        super(BMMenus.TRAINER.get(), containerId, playerInv, 3 + 16, 4, 4, 89, 15, 105, buf.readInt());
+        super(NVMenus.TRAINER.get(), containerId, playerInv, 3 + 16, 4, 4, 89, 15, 105, buf.readInt());
     }
 
     // SERVER constructor
     public TrainerMenu(int containerId, Inventory playerInv, GhostItemHandler handler, ContainerData trainerData, int heldSlot) {
-        super(BMMenus.TRAINER.get(), containerId, playerInv, trainerData, handler, 4, 4, 89, 15, 105, heldSlot);
+        super(NVMenus.TRAINER.get(), containerId, playerInv, trainerData, handler, 4, 4, 89, 15, 105, heldSlot);
     }
 
     @Override
@@ -32,11 +32,11 @@ public class TrainerMenu extends AbstractGhostMenu<TrainerMenu> {
         if (old.isEmpty()) {
             return;
         }
-        UpgradeTome tome = old.get(BMDataComponents.UPGRADE_TOME_DATA);
+        UpgradeTome tome = old.get(NVDataComponents.UPGRADE_TOME_DATA);
         if (tome == null) {
             return;
         }
-        old.set(BMDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(tome.upgrade(), LivingHelper.getExpForLevel(tome.upgrade(), getData(3 + previousSlot))));
+        old.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(tome.upgrade(), LivingHelper.getExpForLevel(tome.upgrade(), getData(3 + previousSlot))));
         this.slots.get(previousSlot).set(old);
     }
 

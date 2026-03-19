@@ -47,7 +47,7 @@ public class DemonCrucibleTile extends BaseTile {
     private int internalCounter = 0;
 
     public DemonCrucibleTile(BlockPos pos, BlockState state) {
-        super(BMTiles.DEMON_CRUCIBLE_TYPE.get(), pos, state);
+        super(NVTiles.DEMON_CRUCIBLE_TYPE.get(), pos, state);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, DemonCrucibleTile tile) {

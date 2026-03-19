@@ -16,8 +16,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 
 import javax.annotation.Nonnull;
@@ -38,7 +38,7 @@ public class SoulForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
     private final IDrawable icon;
 
     public SoulForgeRecipeCategory(IGuiHelper guiHelper) {
-        icon = guiHelper.createDrawableItemStack(new ItemStack(BMBlocks.HELLFIRE_FORGE.block().get()));
+        icon = guiHelper.createDrawableItemStack(new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()));
         background = guiHelper.createDrawable(NeoVitae.rl("gui/jei/soulforge.png"), 0, 0, WIDTH, HEIGHT);
     }
 
@@ -117,12 +117,12 @@ public class SoulForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
     }
 
     public enum DefaultWill {
-        RAW(new ItemStack(BMItems.RAW_WILL.get()), 16),
-        PETTY(new ItemStack(BMItems.SOUL_GEM_PETTY.get()), 64),
-        LESSER(new ItemStack(BMItems.SOUL_GEM_LESSER.get()), 256),
-        COMMON(new ItemStack(BMItems.SOUL_GEM_COMMON.get()), 1024),
-        GREATER(new ItemStack(BMItems.SOUL_GEM_GREATER.get()), 4096),
-        GRAND(new ItemStack(BMItems.SOUL_GEM_GRAND.get()), 16384);
+        RAW(new ItemStack(NVItems.RAW_WILL.get()), 16),
+        PETTY(new ItemStack(NVItems.SOUL_GEM_PETTY.get()), 64),
+        LESSER(new ItemStack(NVItems.SOUL_GEM_LESSER.get()), 256),
+        COMMON(new ItemStack(NVItems.SOUL_GEM_COMMON.get()), 1024),
+        GREATER(new ItemStack(NVItems.SOUL_GEM_GREATER.get()), 4096),
+        GRAND(new ItemStack(NVItems.SOUL_GEM_GRAND.get()), 16384);
 
         public final ItemStack willStack;
         public final double minSouls;

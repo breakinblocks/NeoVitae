@@ -13,7 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.arc.ARCRecipe;
 
 import java.util.Arrays;
@@ -41,7 +41,7 @@ public class ARCProcessor implements IComponentProcessor {
         this.registries = level.registryAccess();
         ResourceLocation id = ResourceLocation.parse(variables.get("recipe", registries).asString());
         Optional<RecipeHolder<ARCRecipe>> recipeHolder = Minecraft.getInstance().level.getRecipeManager()
-                .getAllRecipesFor(BMRecipes.ARC_TYPE.get())
+                .getAllRecipesFor(NVRecipes.ARC_TYPE.get())
                 .stream()
                 .filter(holder -> holder.id().equals(id))
                 .findFirst();

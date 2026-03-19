@@ -26,7 +26,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import com.breakinblocks.neovitae.common.entity.BMEntities;
+import com.breakinblocks.neovitae.common.entity.NVEntities;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -47,11 +47,11 @@ public class EntityPotionFlask extends ThrowableItemProjectile implements ItemSu
     }
 
     public EntityPotionFlask(Level level, LivingEntity thrower) {
-        super(BMEntities.POTION_FLASK.get(), thrower, level);
+        super(NVEntities.POTION_FLASK.get(), thrower, level);
     }
 
     public EntityPotionFlask(Level level, double x, double y, double z) {
-        super(BMEntities.POTION_FLASK.get(), x, y, z, level);
+        super(NVEntities.POTION_FLASK.get(), x, y, z, level);
     }
 
     @Override

@@ -6,43 +6,43 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageType;
-import com.breakinblocks.neovitae.common.damagesource.BMDamageSources;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import java.util.function.Function;
 
 public class BloodyDamageSources {
     public static void bootstrap(BootstrapContext<DamageType> context) {
-        context.register(BMDamageSources.SACRIFICE, new DamageType("sacrifice", DamageScaling.NEVER, 0F));
-        context.register(BMDamageSources.SELF_SACRIFICE, new DamageType("self_sacrifice", DamageScaling.NEVER, 0F));
-        context.register(BMDamageSources.SPIKES, new DamageType("spikes", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0F));
+        context.register(NVDamageSources.SACRIFICE, new DamageType("sacrifice", DamageScaling.NEVER, 0F));
+        context.register(NVDamageSources.SELF_SACRIFICE, new DamageType("self_sacrifice", DamageScaling.NEVER, 0F));
+        context.register(NVDamageSources.SPIKES, new DamageType("spikes", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0F));
     }
 
     public static void tags(Function<TagKey<DamageType>, TagsProvider.TagAppender<DamageType>> setter) {
         setter.apply(DamageTypeTags.BYPASSES_ARMOR)
-                .add(BMDamageSources.SELF_SACRIFICE)
-                .add(BMDamageSources.SACRIFICE);
+                .add(NVDamageSources.SELF_SACRIFICE)
+                .add(NVDamageSources.SACRIFICE);
 
         setter.apply(DamageTypeTags.BYPASSES_EFFECTS)
-                .add(BMDamageSources.SELF_SACRIFICE)
-                .add(BMDamageSources.SACRIFICE);
+                .add(NVDamageSources.SELF_SACRIFICE)
+                .add(NVDamageSources.SACRIFICE);
 
         setter.apply(DamageTypeTags.BYPASSES_INVULNERABILITY)
-                .add(BMDamageSources.SELF_SACRIFICE)
-                .add(BMDamageSources.SACRIFICE);
+                .add(NVDamageSources.SELF_SACRIFICE)
+                .add(NVDamageSources.SACRIFICE);
 
         setter.apply(DamageTypeTags.NO_IMPACT)
-                .add(BMDamageSources.SELF_SACRIFICE)
-                .add(BMDamageSources.SACRIFICE);
+                .add(NVDamageSources.SELF_SACRIFICE)
+                .add(NVDamageSources.SACRIFICE);
 
         setter.apply(DamageTypeTags.NO_KNOCKBACK)
-                .add(BMDamageSources.SELF_SACRIFICE)
-                .add(BMDamageSources.SACRIFICE);
+                .add(NVDamageSources.SELF_SACRIFICE)
+                .add(NVDamageSources.SACRIFICE);
 
-        setter.apply(BMTags.DamageTypes.SELF_SACRIFICE)
-                .add(BMDamageSources.SELF_SACRIFICE); // needed later for damage predicates
+        setter.apply(NVTags.DamageTypes.SELF_SACRIFICE)
+                .add(NVDamageSources.SELF_SACRIFICE); // needed later for damage predicates
 
-        setter.apply(BMTags.DamageTypes.TOUGH_IGNORED)
+        setter.apply(NVTags.DamageTypes.TOUGH_IGNORED)
                 .addTag(DamageTypeTags.IS_FIRE)
                 .addTag(DamageTypeTags.IS_EXPLOSION)
                 .addTag(DamageTypeTags.IS_FALL)

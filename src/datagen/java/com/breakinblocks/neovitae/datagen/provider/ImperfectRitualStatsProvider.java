@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datamap.ImperfectRitualStats;
-import com.breakinblocks.neovitae.ritual.BMRituals;
+import com.breakinblocks.neovitae.ritual.NVRituals;
 import com.breakinblocks.neovitae.ritual.ImperfectRitual;
 
 import java.nio.file.Path;
@@ -37,13 +37,13 @@ public class ImperfectRitualStatsProvider implements DataProvider {
 
     protected void addImperfectRituals() {
         // Make it Rain (Thunderstorm) - Water Source, 5000 LP, no lightning effect, does not consume block
-        add(BMRituals.IMPERFECT_RAIN, ImperfectRitualStats.simpleQuiet(5000, Blocks.WATER));
+        add(NVRituals.IMPERFECT_RAIN, ImperfectRitualStats.simpleQuiet(5000, Blocks.WATER));
 
         // Strong Zombie - Coal Block, 5000 LP, does not consume block
-        add(BMRituals.IMPERFECT_ZOMBIE, ImperfectRitualStats.simple(5000, Blocks.COAL_BLOCK));
+        add(NVRituals.IMPERFECT_ZOMBIE, ImperfectRitualStats.simple(5000, Blocks.COAL_BLOCK));
 
         // Fire Resistance - Bedrock, 5000 LP, no lightning effect (used in nether), does not consume block
-        add(BMRituals.IMPERFECT_RESISTANCE, ImperfectRitualStats.simpleQuiet(5000, Blocks.BEDROCK));
+        add(NVRituals.IMPERFECT_RESISTANCE, ImperfectRitualStats.simpleQuiet(5000, Blocks.BEDROCK));
     }
 
     protected void add(DeferredHolder<ImperfectRitual, ? extends ImperfectRitual> ritual, ImperfectRitualStats stats) {

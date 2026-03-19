@@ -18,7 +18,7 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 public class BloodTankTile extends BaseTile {
     private int tier;
@@ -34,7 +34,7 @@ public class BloodTankTile extends BaseTile {
     };
 
     public BloodTankTile(BlockPos pos, BlockState state) {
-        super(BMTiles.BLOOD_TANK_TYPE.get(), pos, state);
+        super(NVTiles.BLOOD_TANK_TYPE.get(), pos, state);
     }
 
     private void updateCapacity() {
@@ -78,8 +78,8 @@ public class BloodTankTile extends BaseTile {
     @Override
     protected void applyImplicitComponents(DataComponentInput componentInput) {
         super.applyImplicitComponents(componentInput);
-        this.tier = componentInput.getOrDefault(BMDataComponents.CONTAINER_TIER, 0);
-        FluidStack stack = componentInput.getOrDefault(BMDataComponents.FLUID_CONTENT, SimpleFluidContent.EMPTY).copy();
+        this.tier = componentInput.getOrDefault(NVDataComponents.CONTAINER_TIER, 0);
+        FluidStack stack = componentInput.getOrDefault(NVDataComponents.FLUID_CONTENT, SimpleFluidContent.EMPTY).copy();
         this.tank.setFluid(stack);
         updateCapacity();
     }
@@ -87,7 +87,7 @@ public class BloodTankTile extends BaseTile {
     @Override
     protected void collectImplicitComponents(DataComponentMap.Builder components) {
         super.collectImplicitComponents(components);
-        components.set(BMDataComponents.CONTAINER_TIER, this.tier);
-        components.set(BMDataComponents.FLUID_CONTENT, SimpleFluidContent.copyOf(this.tank.getFluid()));
+        components.set(NVDataComponents.CONTAINER_TIER, this.tier);
+        components.set(NVDataComponents.FLUID_CONTENT, SimpleFluidContent.copyOf(this.tank.getFluid()));
     }
 }

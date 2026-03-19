@@ -1,26 +1,60 @@
 package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
+import com.breakinblocks.neovitae.util.Utils;
+import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Ritual that accelerates the growth of baby animals.
+ * Ritual of Animal Growth - Accelerates baby animal growth with demon will enhancements.
+ *
+ * <p>Demon Will effects:
+ * <ul>
+ *   <li><b>Raw (Default)</b> - Reduces refresh time (20 ticks scaling down with will)</li>
+ *   <li><b>Steadfast</b> - Breeding mode: extracts food from chest, triggers breeding in adults</li>
+ *   <li><b>Destructive</b> - Applies Sacrificial Lamb effect to adult animals (1200 tick duration)</li>
+ *   <li><b>Vengeful</b> - Reduces adult breeding cooldown timer</li>
+ * </ul>
  */
 public class RitualAnimalGrowth extends Ritual {
 
     public static final String GROWTH_RANGE = "growthRange";
+    public static final String CHEST_RANGE = "chestRange";
+
+    private static final double MIN_DEFAULT = 10.0;
+    private static final double MIN_STEADFAST = 10.0;
+    private static final double MIN_DESTRUCTIVE = 10.0;
+    private static final double MIN_VENGEFUL = 10.0;
+
+    private static final double WILL_PER_BREED = 1.0;
+    private static final double WILL_PER_SACRIFICE = 0.5;
+    private static final double WILL_PER_COOLDOWN = 0.3;
+
+    private int refreshTime = 20;
 
     public RitualAnimalGrowth() {
         super("animal_growth", 0, 500, "ritual." + NeoVitae.MODID + ".animal_growth");
         addBlockRange(GROWTH_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-5, 0, -5), 11, 3, 11));
+        addBlockRange(CHEST_RANGE, new AreaDescriptor.Rectangle(new BlockPos(0, 1, 0), 1, 1, 1));
+
         setMaximumVolumeAndDistanceOfRange(GROWTH_RANGE, 1000, 10, 10);
+        setMaximumVolumeAndDistanceOfRange(CHEST_RANGE, 1, 5, 5);
     }
 
     @Override
@@ -28,35 +62,139 @@ public class RitualAnimalGrowth extends Ritual {
         RitualContext ctx = RitualHelper.createContext(masterRitualStone, getRefreshCost());
         if (ctx == null) return;
 
-        List<AgeableMob> animals = RitualHelper.getEntitiesInRange(ctx, this, GROWTH_RANGE,
-                AgeableMob.class, AgeableMob::isBaby);
+        BlockPos masterPos = ctx.masterPos();
+
+        // Query demon will
+        double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
+        double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
+        double destructiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE);
+        double vengefulWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.VENGEFUL);
+
+        // Determine available features
+        boolean hasRaw = rawWill >= MIN_DEFAULT;
+        boolean doBreed = steadfastWill >= MIN_STEADFAST;
+        boolean doSacrifice = destructiveWill >= MIN_DESTRUCTIVE;
+        boolean doVengeful = vengefulWill >= MIN_VENGEFUL;
+
+        // Dynamic refresh time based on raw will
+        refreshTime = hasRaw ? Math.max(5, 20 - (int) (rawWill / 10)) : 20;
+
+        // Track will consumption
+        double steadfastWillUsed = 0;
+        double destructiveWillUsed = 0;
+        double vengefulWillUsed = 0;
 
         int maxAnimals = ctx.maxOperations(getRefreshCost());
-        int animalsGrown = 0;
+        int animalsProcessed = 0;
 
-        for (AgeableMob animal : animals) {
-            if (animalsGrown >= maxAnimals) break;
+        // Get chest inventory for breeding food
+        BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, masterPos).getFirst();
+        BlockEntity chestTile = ctx.level().getBlockEntity(chestPos);
+        IItemHandler foodHandler = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
 
-            // Speed up growth by reducing age
+        // --- Baby Growth ---
+        List<Animal> babies = RitualHelper.getEntitiesInRange(ctx, this, GROWTH_RANGE,
+                Animal.class, Animal::isBaby);
+
+        for (Animal animal : babies) {
+            if (animalsProcessed >= maxAnimals) break;
+
             int age = animal.getAge();
             if (age < 0) {
-                // Baby animals have negative age
                 animal.setAge(Math.min(age + 200, 0));
-                animalsGrown++;
+                animalsProcessed++;
             }
         }
 
-        ctx.syphon(getRefreshCost() * animalsGrown);
+        // --- STEADFAST: Breeding using food from chest ---
+        if (doBreed && foodHandler != null) {
+            List<Animal> adults = RitualHelper.getEntitiesInRange(ctx, this, GROWTH_RANGE,
+                    Animal.class, animal -> !animal.isBaby() && animal.canFallInLove() && animal.getAge() == 0);
+
+            for (Animal animal : adults) {
+                if (animalsProcessed >= maxAnimals) break;
+                if ((steadfastWill - steadfastWillUsed) < WILL_PER_BREED) break;
+
+                // Try to find food in the chest
+                boolean fed = false;
+                for (int slot = 0; slot < foodHandler.getSlots(); slot++) {
+                    ItemStack foodStack = foodHandler.getStackInSlot(slot);
+                    if (!foodStack.isEmpty() && animal.isFood(foodStack)) {
+                        foodHandler.extractItem(slot, 1, false);
+                        animal.setInLove(null);
+                        steadfastWillUsed += WILL_PER_BREED;
+                        animalsProcessed++;
+                        fed = true;
+                        break;
+                    }
+                }
+                if (!fed) break; // No suitable food found
+            }
+        }
+
+        // --- DESTRUCTIVE: Apply Sacrificial Lamb to adults ---
+        if (doSacrifice) {
+            List<Animal> adults = RitualHelper.getEntitiesInRange(ctx, this, GROWTH_RANGE,
+                    Animal.class, animal -> !animal.isBaby() && animal.isAlive());
+
+            for (Animal animal : adults) {
+                if ((destructiveWill - destructiveWillUsed) < WILL_PER_SACRIFICE) break;
+
+                if (!animal.hasEffect(NVMobEffects.SACRIFICIAL_LAMB)) {
+                    animal.addEffect(new MobEffectInstance(NVMobEffects.SACRIFICIAL_LAMB, 1200, 0));
+                    destructiveWillUsed += WILL_PER_SACRIFICE;
+                }
+            }
+        }
+
+        // --- VENGEFUL: Reduce breeding cooldown on adults ---
+        if (doVengeful) {
+            List<Animal> cooldownAnimals = RitualHelper.getEntitiesInRange(ctx, this, GROWTH_RANGE,
+                    Animal.class, animal -> !animal.isBaby() && animal.getAge() > 0);
+
+            for (Animal animal : cooldownAnimals) {
+                if ((vengefulWill - vengefulWillUsed) < WILL_PER_COOLDOWN) break;
+
+                int age = animal.getAge();
+                int reduction = 10 + (int) (vengefulWill / 5);
+                animal.setAge(Math.max(0, age - reduction));
+                vengefulWillUsed += WILL_PER_COOLDOWN;
+            }
+        }
+
+        // Drain consumed will
+        if (steadfastWillUsed > 0) {
+            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.STEADFAST, steadfastWillUsed);
+        }
+        if (destructiveWillUsed > 0) {
+            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE, destructiveWillUsed);
+        }
+        if (vengefulWillUsed > 0) {
+            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.VENGEFUL, vengefulWillUsed);
+        }
+
+        ctx.syphon(getRefreshCost() * animalsProcessed);
     }
 
     @Override
     public int getRefreshTime() {
-        return 20;
+        return refreshTime;
     }
 
     @Override
     public int getRefreshCost() {
         return 30;
+    }
+
+    @Override
+    public Component[] provideInformationOfRitualToPlayer(Player player) {
+        return new Component[]{
+                Component.translatable(getTranslationKey() + ".info"),
+                Component.translatable(getTranslationKey() + ".will.default"),
+                Component.translatable(getTranslationKey() + ".will.steadfast"),
+                Component.translatable(getTranslationKey() + ".will.destructive"),
+                Component.translatable(getTranslationKey() + ".will.vengeful")
+        };
     }
 
     @Override

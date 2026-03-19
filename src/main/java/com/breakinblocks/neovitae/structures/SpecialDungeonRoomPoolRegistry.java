@@ -2,7 +2,7 @@ package com.breakinblocks.neovitae.structures;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 
 import java.util.*;
 import java.util.function.BiPredicate;
@@ -71,7 +71,7 @@ public final class SpecialDungeonRoomPoolRegistry {
             return stateMap.get(roomPool);
         }
         // Use the dungeon seal block as default
-        return BMBlocks.DUNGEON_SEAL.block().get().defaultBlockState();
+        return NVBlocks.DUNGEON_SEAL.block().get().defaultBlockState();
     }
 
     /**

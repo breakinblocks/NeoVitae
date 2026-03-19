@@ -16,7 +16,7 @@ import org.joml.Matrix4f;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayTile;
 import com.breakinblocks.neovitae.common.recipe.AlchemyArrayInput;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 public class AlchemyArrayRenderer implements BlockEntityRenderer<AlchemyArrayTile> {
 
@@ -88,7 +88,7 @@ public class AlchemyArrayRenderer implements BlockEntityRenderer<AlchemyArrayTil
 
         // Look up recipe
         return tile.getLevel().getRecipeManager()
-                .getRecipeFor(BMRecipes.ALCHEMY_ARRAY_TYPE.get(), input, tile.getLevel())
+                .getRecipeFor(NVRecipes.ALCHEMY_ARRAY_TYPE.get(), input, tile.getLevel())
                 .map(holder -> holder.value().getTexture())
                 .orElse(DEFAULT_TEXTURE);
     }

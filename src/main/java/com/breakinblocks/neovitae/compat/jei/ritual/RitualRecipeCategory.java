@@ -12,7 +12,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 
 import javax.annotation.Nonnull;
@@ -44,7 +44,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualJEIRecipe> {
     private final IDrawable icon;
 
     public RitualRecipeCategory(IGuiHelper guiHelper) {
-        this.icon = guiHelper.createDrawableItemStack(new ItemStack(BMBlocks.MASTER_RITUAL_STONE.block().get()));
+        this.icon = guiHelper.createDrawableItemStack(new ItemStack(NVBlocks.MASTER_RITUAL_STONE.block().get()));
         this.background = guiHelper.createBlankDrawable(WIDTH, HEIGHT);
     }
 

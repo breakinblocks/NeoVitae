@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.effect.BMMobEffects;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -41,7 +41,7 @@ public class RitualCondor extends Ritual {
         int totalCost = 0;
         for (Player player : players) {
             // Apply flight effect - lasts slightly longer than refresh time to prevent flickering
-            player.addEffect(new MobEffectInstance(BMMobEffects.FLIGHT, 40, 0, true, false));
+            player.addEffect(new MobEffectInstance(NVMobEffects.FLIGHT, 40, 0, true, false));
             totalCost += getRefreshCost();
         }
 
@@ -62,7 +62,7 @@ public class RitualCondor extends Ritual {
         AABB aabb = range.getAABB(masterPos);
         List<Player> players = level.getEntitiesOfClass(Player.class, aabb);
         for (Player player : players) {
-            player.removeEffect(BMMobEffects.FLIGHT);
+            player.removeEffect(NVMobEffects.FLIGHT);
             // Disable active flying when effect is removed (attribute modifier handles mayfly permission)
             if (!player.isCreative() && !player.isSpectator()) {
                 player.getAbilities().flying = false;

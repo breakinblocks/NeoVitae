@@ -23,7 +23,7 @@ public class PhantomBridgeTile extends BaseTile {
     private int duration = DEFAULT_DURATION;
 
     public PhantomBridgeTile(BlockPos pos, BlockState state) {
-        super(BMTiles.PHANTOM_BRIDGE_TYPE.get(), pos, state);
+        super(NVTiles.PHANTOM_BRIDGE_TYPE.get(), pos, state);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, PhantomBridgeTile tile) {

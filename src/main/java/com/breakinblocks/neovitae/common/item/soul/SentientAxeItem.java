@@ -12,9 +12,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.item.BMMaterialsAndTiers;
+import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
 import com.breakinblocks.neovitae.will.PlayerDemonWillHandler;
 
 import java.util.List;
@@ -33,9 +33,9 @@ public class SentientAxeItem extends AxeItem implements ISentientTool {
     private static final double[] STEADFAST_DAMAGE = {0, 0.5, 1, 1.5, 2, 2.5, 3};
 
     public SentientAxeItem() {
-        super(BMMaterialsAndTiers.SENTIENT, new Properties()
-                .attributes(AxeItem.createAttributes(BMMaterialsAndTiers.SENTIENT, 8, -3.1f))
-                .component(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT));
+        super(NVMaterialsAndTiers.SENTIENT, new Properties()
+                .attributes(AxeItem.createAttributes(NVMaterialsAndTiers.SENTIENT, 8, -3.1f))
+                .component(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT));
     }
 
     @Override

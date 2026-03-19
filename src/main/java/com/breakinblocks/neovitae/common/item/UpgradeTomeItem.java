@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.function.TriConsumer;
 import org.apache.commons.lang3.function.TriFunction;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
@@ -27,7 +27,7 @@ public class UpgradeTomeItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack tomeStack = player.getItemInHand(usedHand);
-        UpgradeTome tome = tomeStack.get(BMDataComponents.UPGRADE_TOME_DATA);
+        UpgradeTome tome = tomeStack.get(NVDataComponents.UPGRADE_TOME_DATA);
         if (tome == null) {
             return InteractionResultHolder.pass(tomeStack);
         }
@@ -46,7 +46,7 @@ public class UpgradeTomeItem extends Item {
             return InteractionResultHolder.sidedSuccess(ItemStack.EMPTY, level.isClientSide);
         }
 
-        tomeStack.set(BMDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(tome.upgrade(), tome.exp() - consumed));
+        tomeStack.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(tome.upgrade(), tome.exp() - consumed));
         return InteractionResultHolder.sidedSuccess(tomeStack, level.isClientSide);
     }
 
@@ -57,13 +57,13 @@ public class UpgradeTomeItem extends Item {
 
     @Override
     public String getDescriptionId(ItemStack stack) {
-        UpgradeTome tome = stack.get(BMDataComponents.UPGRADE_TOME_DATA);
+        UpgradeTome tome = stack.get(NVDataComponents.UPGRADE_TOME_DATA);
         return tome == null ? getDescriptionId() : getDescriptionId() + "." + tome.upgrade().getKey().location().getPath();
     }
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        UpgradeTome tome = stack.get(BMDataComponents.UPGRADE_TOME_DATA);
+        UpgradeTome tome = stack.get(NVDataComponents.UPGRADE_TOME_DATA);
         if (tome != null) {
             tome.addToTooltip(context, tooltipComponents::add, tooltipFlag);
         }
@@ -71,12 +71,12 @@ public class UpgradeTomeItem extends Item {
 
     @Override
     public boolean isBarVisible(ItemStack stack) {
-        return stack.has(BMDataComponents.UPGRADE_TOME_DATA);
+        return stack.has(NVDataComponents.UPGRADE_TOME_DATA);
     }
 
     @Override
     public int getBarWidth(ItemStack stack) {
-        UpgradeTome tome = stack.get(BMDataComponents.UPGRADE_TOME_DATA);
+        UpgradeTome tome = stack.get(NVDataComponents.UPGRADE_TOME_DATA);
         if (tome == null) {
             return 0;
         }

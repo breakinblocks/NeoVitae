@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
 
 import javax.annotation.Nonnull;
@@ -34,7 +34,7 @@ public class AlchemyArrayCraftingCategory implements IRecipeCategory<AlchemyArra
     private final IDrawable icon;
 
     public AlchemyArrayCraftingCategory(IGuiHelper guiHelper) {
-        icon = guiHelper.createDrawableItemStack(new ItemStack(BMItems.ARCANE_ASHES.get()));
+        icon = guiHelper.createDrawableItemStack(new ItemStack(NVItems.ARCANE_ASHES.get()));
         background = guiHelper.createDrawable(NeoVitae.rl("gui/jei/binding.png"), 0, 0, WIDTH, HEIGHT);
     }
 

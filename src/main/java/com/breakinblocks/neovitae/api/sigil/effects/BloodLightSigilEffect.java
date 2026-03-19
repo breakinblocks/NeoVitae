@@ -14,7 +14,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.common.block.BloodLightBlock;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityBloodLight;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
@@ -54,7 +54,7 @@ public record BloodLightSigilEffect(int lifespan) implements SigilEffect {
 
             if (level.isEmptyBlock(blockPos) || level.getBlockState(blockPos).canBeReplaced()) {
                 // Place blood light block directly when looking at a surface
-                BlockState lightState = BMBlocks.BLOOD_LIGHT.get().defaultBlockState()
+                BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState()
                         .setValue(BloodLightBlock.LIFESPAN, lifespan);
 
                 if (!BlockProtectionHelper.tryPlaceBlock(level, blockPos, lightState, player)) {

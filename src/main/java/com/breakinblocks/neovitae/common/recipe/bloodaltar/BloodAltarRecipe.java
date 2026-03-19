@@ -4,7 +4,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 /**
  * Concrete implementation of the Blood Altar recipe.
@@ -22,11 +22,11 @@ public class BloodAltarRecipe extends com.breakinblocks.neovitae.api.recipe.Bloo
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return BMRecipes.BLOOD_ALTAR_SERIALIZER.get();
+        return NVRecipes.BLOOD_ALTAR_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return BMRecipes.BLOOD_ALTAR_TYPE.get();
+        return NVRecipes.BLOOD_ALTAR_TYPE.get();
     }
 }

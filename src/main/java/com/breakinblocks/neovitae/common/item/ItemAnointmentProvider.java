@@ -19,7 +19,7 @@ import net.neoforged.neoforge.common.ItemAbility;
 import com.breakinblocks.neovitae.anointment.Anointment;
 import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
 import com.breakinblocks.neovitae.common.datacomponent.AnointmentHolder;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class ItemAnointmentProvider extends Item {
 
         if (!level.isClientSide) {
             if (!targetStack.isEmpty() && isItemValidForApplication(targetStack)) {
-                AnointmentHolder holder = targetStack.get(BMDataComponents.ANOINTMENT_HOLDER.get());
+                AnointmentHolder holder = targetStack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
                 if (holder == null) {
                     holder = AnointmentHolder.empty();
                 }
@@ -58,7 +58,7 @@ public class ItemAnointmentProvider extends Item {
                 if (canApplyAnointment(holder, anointment, this.level, this.maxDamage)) {
                     // Apply the anointment
                     AnointmentHolder newHolder = applyAnointment(holder, anointmentKey, this.level, this.maxDamage);
-                    targetStack.set(BMDataComponents.ANOINTMENT_HOLDER.get(), newHolder);
+                    targetStack.set(NVDataComponents.ANOINTMENT_HOLDER.get(), newHolder);
 
                     level.playSound(null, player.blockPosition(), SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     stack.shrink(1);
@@ -68,7 +68,7 @@ public class ItemAnointmentProvider extends Item {
         } else {
             // Client side - particles
             if (!targetStack.isEmpty() && isItemValidForApplication(targetStack)) {
-                AnointmentHolder holder = targetStack.get(BMDataComponents.ANOINTMENT_HOLDER.get());
+                AnointmentHolder holder = targetStack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
                 if (holder == null) {
                     holder = AnointmentHolder.empty();
                 }

@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datamap.RitualStats;
-import com.breakinblocks.neovitae.ritual.BMRituals;
+import com.breakinblocks.neovitae.ritual.NVRituals;
 import com.breakinblocks.neovitae.ritual.Ritual;
 
 import java.nio.file.Path;
@@ -36,66 +36,66 @@ public class RitualStatsProvider implements DataProvider {
         // ==================== Essential Rituals ====================
 
         // Water Ritual - fast refresh, low cost
-        add(BMRituals.WATER, RitualStats.timed(500, 25, 1, 0));
+        add(NVRituals.WATER, RitualStats.timed(500, 25, 1, 0));
 
         // Lava Ritual - higher cost than water
-        add(BMRituals.LAVA, RitualStats.timed(10000, 500, 1, 0));
+        add(NVRituals.LAVA, RitualStats.timed(10000, 500, 1, 0));
 
         // Green Grove Ritual - plant growth
-        add(BMRituals.GREEN_GROVE, RitualStats.timed(1000, 20, 20, 0));
+        add(NVRituals.GREEN_GROVE, RitualStats.timed(1000, 20, 20, 0));
 
         // Well of Suffering - mob damage for LP
-        add(BMRituals.WELL_OF_SUFFERING, RitualStats.timed(50000, 2, 20, 0));
+        add(NVRituals.WELL_OF_SUFFERING, RitualStats.timed(50000, 2, 20, 0));
 
         // Feathered Knife - player HP for LP
-        add(BMRituals.FEATHERED_KNIFE, RitualStats.timed(25000, 20, 20, 0));
+        add(NVRituals.FEATHERED_KNIFE, RitualStats.timed(25000, 20, 20, 0));
 
         // Harvest Ritual
-        add(BMRituals.HARVEST, RitualStats.timed(20000, 20, 20, 0));
+        add(NVRituals.HARVEST, RitualStats.timed(20000, 20, 20, 0));
 
         // ==================== Common Rituals ====================
 
-        add(BMRituals.REGENERATION, RitualStats.timed(25000, 100, 20, 0));
-        add(BMRituals.SPEED, RitualStats.timed(500, 25, 60, 0));
-        add(BMRituals.JUMPING, RitualStats.timed(500, 25, 60, 0));
-        add(BMRituals.MAGNETISM, RitualStats.timed(5000, 50, 20, 0));
-        add(BMRituals.ANIMAL_GROWTH, RitualStats.timed(10000, 25, 20, 0));
-        add(BMRituals.CRUSHING, RitualStats.timed(2500, 100, 40, 0));
-        add(BMRituals.FELLING, RitualStats.timed(20000, 20, 20, 0));
-        add(BMRituals.SUPPRESSION, RitualStats.timed(10000, 2, 1, 0));
-        add(BMRituals.CONTAINMENT, RitualStats.timed(2000, 1, 20, 0));
-        add(BMRituals.EXPULSION, RitualStats.timed(1000, 1, 20, 0));
-        add(BMRituals.ZEPHYR, RitualStats.timed(1000, 1, 20, 0));
-        add(BMRituals.PUMP, RitualStats.timed(10000, 25, 20, 0));
+        add(NVRituals.REGENERATION, RitualStats.timed(25000, 100, 20, 0));
+        add(NVRituals.SPEED, RitualStats.timed(500, 25, 60, 0));
+        add(NVRituals.JUMPING, RitualStats.timed(500, 25, 60, 0));
+        add(NVRituals.MAGNETISM, RitualStats.timed(5000, 50, 20, 0));
+        add(NVRituals.ANIMAL_GROWTH, RitualStats.timed(10000, 25, 20, 0));
+        add(NVRituals.CRUSHING, RitualStats.timed(2500, 100, 40, 0));
+        add(NVRituals.FELLING, RitualStats.timed(20000, 20, 20, 0));
+        add(NVRituals.SUPPRESSION, RitualStats.timed(10000, 2, 1, 0));
+        add(NVRituals.CONTAINMENT, RitualStats.timed(2000, 1, 20, 0));
+        add(NVRituals.EXPULSION, RitualStats.timed(1000, 1, 20, 0));
+        add(NVRituals.ZEPHYR, RitualStats.timed(1000, 1, 20, 0));
+        add(NVRituals.PUMP, RitualStats.timed(10000, 25, 20, 0));
 
         // ==================== Advanced Rituals ====================
 
-        add(BMRituals.PHANTOM_BRIDGE, RitualStats.timed(5000, 10, 1, 0));
-        add(BMRituals.CRYSTAL_HARVEST, RitualStats.timed(40000, 1000, 20, 1));
-        add(BMRituals.DOWNGRADE, RitualStats.timed(20000, 100, 20, 1));
+        add(NVRituals.PHANTOM_BRIDGE, RitualStats.timed(5000, 10, 1, 0));
+        add(NVRituals.CRYSTAL_HARVEST, RitualStats.timed(40000, 1000, 20, 1));
+        add(NVRituals.DOWNGRADE, RitualStats.timed(20000, 100, 20, 1));
 
         // Meteor Ritual - very expensive, one-time cost
-        add(BMRituals.METEOR, RitualStats.timed(1000000, 1000000, 20, 2));
+        add(NVRituals.METEOR, RitualStats.timed(1000000, 1000000, 20, 2));
 
-        add(BMRituals.FORSAKEN_SOUL, RitualStats.timed(50000, 1, 20, 1));
-        add(BMRituals.FULL_STOMACH, RitualStats.timed(100000, 100, 20, 1));
+        add(NVRituals.FORSAKEN_SOUL, RitualStats.timed(50000, 1, 20, 1));
+        add(NVRituals.FULL_STOMACH, RitualStats.timed(100000, 100, 20, 1));
 
         // ==================== Dusk Tier Rituals ====================
 
-        add(BMRituals.CONDOR, RitualStats.timed(1000000, 200, 20, 2));
-        add(BMRituals.ELLIPSE, RitualStats.timed(10000, 200, 1, 2));
-        add(BMRituals.SPHERE, RitualStats.timed(10000, 200, 1, 2));
-        add(BMRituals.ARMOUR_EVOLVE, RitualStats.timed(50000, 10, 1, 2));
-        add(BMRituals.UPGRADE_REMOVE, RitualStats.timed(20000, 100, 20, 2));
-        add(BMRituals.CRYSTAL_SPLIT, RitualStats.timed(100000, 50, 20, 2));
-        add(BMRituals.CRAFTING, RitualStats.timed(25000, 100, 40, 2));
-        add(BMRituals.YAWNING_VOID, RitualStats.timed(500000, 50, 1, 2));
+        add(NVRituals.CONDOR, RitualStats.timed(1000000, 200, 20, 2));
+        add(NVRituals.ELLIPSE, RitualStats.timed(10000, 200, 1, 2));
+        add(NVRituals.SPHERE, RitualStats.timed(10000, 200, 1, 2));
+        add(NVRituals.ARMOUR_EVOLVE, RitualStats.timed(50000, 10, 1, 2));
+        add(NVRituals.UPGRADE_REMOVE, RitualStats.timed(20000, 100, 20, 2));
+        add(NVRituals.CRYSTAL_SPLIT, RitualStats.timed(100000, 50, 20, 2));
+        add(NVRituals.CRAFTING, RitualStats.timed(25000, 100, 40, 2));
+        add(NVRituals.YAWNING_VOID, RitualStats.timed(500000, 50, 1, 2));
 
         // ==================== Utility Rituals ====================
 
-        add(BMRituals.PLACER, RitualStats.timed(5000, 10, 20, 0));
-        add(BMRituals.GROUNDING, RitualStats.timed(1000, 10, 20, 0));
-        add(BMRituals.GEODE, RitualStats.timed(100000, 100, 100, 1));
+        add(NVRituals.PLACER, RitualStats.timed(5000, 10, 20, 0));
+        add(NVRituals.GROUNDING, RitualStats.timed(1000, 10, 20, 0));
+        add(NVRituals.GEODE, RitualStats.timed(100000, 100, 100, 1));
     }
 
     protected void add(DeferredHolder<Ritual, ? extends Ritual> ritual, RitualStats stats) {

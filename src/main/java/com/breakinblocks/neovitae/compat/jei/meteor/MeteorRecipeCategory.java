@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.apache.commons.lang3.tuple.Pair;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.meteor.MeteorLayer;
 import com.breakinblocks.neovitae.common.meteor.RandomBlockContainer;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
@@ -46,7 +46,7 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
     private final IDrawable icon;
 
     public MeteorRecipeCategory(IGuiHelper guiHelper) {
-        icon = guiHelper.createDrawableItemStack(new ItemStack(BMBlocks.MASTER_RITUAL_STONE.block().get()));
+        icon = guiHelper.createDrawableItemStack(new ItemStack(NVBlocks.MASTER_RITUAL_STONE.block().get()));
     }
 
     @Override

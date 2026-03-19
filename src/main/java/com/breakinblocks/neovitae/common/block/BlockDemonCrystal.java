@@ -25,10 +25,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.blockentity.DemonCrystalTile;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.DemonCrystalItem;
 import com.breakinblocks.neovitae.will.PlayerDemonWillHandler;
 
@@ -176,7 +176,7 @@ public class BlockDemonCrystal extends BaseEntityBlock {
         if (level.isClientSide) {
             return null;
         }
-        return createTickerHelper(type, BMTiles.DEMON_CRYSTAL_TYPE.get(), DemonCrystalTile::tick);
+        return createTickerHelper(type, NVTiles.DEMON_CRYSTAL_TYPE.get(), DemonCrystalTile::tick);
     }
 
     /**
@@ -184,11 +184,11 @@ public class BlockDemonCrystal extends BaseEntityBlock {
      */
     public static ItemStack getItemStackDropped(EnumWillType type, int count) {
         ItemStack stack = switch (type) {
-            case CORROSIVE -> new ItemStack(BMItems.CORROSIVE_CRYSTAL.get());
-            case DESTRUCTIVE -> new ItemStack(BMItems.DESTRUCTIVE_CRYSTAL.get());
-            case VENGEFUL -> new ItemStack(BMItems.VENGEFUL_CRYSTAL.get());
-            case STEADFAST -> new ItemStack(BMItems.STEADFAST_CRYSTAL.get());
-            default -> new ItemStack(BMItems.RAW_CRYSTAL.get());
+            case CORROSIVE -> new ItemStack(NVItems.CORROSIVE_CRYSTAL.get());
+            case DESTRUCTIVE -> new ItemStack(NVItems.DESTRUCTIVE_CRYSTAL.get());
+            case VENGEFUL -> new ItemStack(NVItems.VENGEFUL_CRYSTAL.get());
+            case STEADFAST -> new ItemStack(NVItems.STEADFAST_CRYSTAL.get());
+            default -> new ItemStack(NVItems.RAW_CRYSTAL.get());
         };
         stack.setCount(count);
         return stack;

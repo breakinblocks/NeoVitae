@@ -23,7 +23,7 @@ public class DemonPylonTile extends BaseTile {
     public static final double DRAIN_RATE = 1.0;
 
     public DemonPylonTile(BlockPos pos, BlockState state) {
-        super(BMTiles.DEMON_PYLON_TYPE.get(), pos, state);
+        super(NVTiles.DEMON_PYLON_TYPE.get(), pos, state);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, DemonPylonTile tile) {

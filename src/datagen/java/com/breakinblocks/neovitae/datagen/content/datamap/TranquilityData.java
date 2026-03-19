@@ -6,9 +6,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.neoforged.neoforge.registries.datamaps.DataMapType;
-import com.breakinblocks.neovitae.common.datamap.BMDataMaps;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.TranquilityValue;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.incense.EnumTranquilityType;
 
 import java.util.function.Function;
@@ -22,7 +22,7 @@ import java.util.function.Function;
  *
  * <h2>Tag Priority</h2>
  * <p>When a block matches multiple tags, the entry with the highest value wins.
- * This is handled by the custom merger in {@link BMDataMaps#TRANQUILITY_MERGER}.</p>
+ * This is handled by the custom merger in {@link NVDataMaps#TRANQUILITY_MERGER}.</p>
  *
  * <p>Values can be overridden via datapacks at:
  * {@code data/<namespace>/data_maps/block/tranquility.json}</p>
@@ -48,18 +48,18 @@ public class TranquilityData {
     public static final double EARTHEN_VALUE = 0.5;
 
     public static void bootstrap(Function<DataMapType<Block, TranquilityValue>, DataMapProvider.Builder<TranquilityValue, Block>> setup) {
-        var builder = setup.apply(BMDataMaps.TRANQUILITY);
+        var builder = setup.apply(NVDataMaps.TRANQUILITY);
 
         // ===== Blood Magic Tranquility Tags =====
         // These are the primary tags for modpack/datapack customization
         builder
-            .add(BMTags.Blocks.TRANQUILITY_PLANT, TranquilityValue.of(EnumTranquilityType.PLANT, STANDARD_VALUE), false)
-            .add(BMTags.Blocks.TRANQUILITY_CROP, TranquilityValue.of(EnumTranquilityType.CROP, STANDARD_VALUE), false)
-            .add(BMTags.Blocks.TRANQUILITY_TREE, TranquilityValue.of(EnumTranquilityType.TREE, STANDARD_VALUE), false)
-            .add(BMTags.Blocks.TRANQUILITY_EARTHEN, TranquilityValue.of(EnumTranquilityType.EARTHEN, STANDARD_VALUE), false)
-            .add(BMTags.Blocks.TRANQUILITY_WATER, TranquilityValue.of(EnumTranquilityType.WATER, STANDARD_VALUE), false)
-            .add(BMTags.Blocks.TRANQUILITY_FIRE, TranquilityValue.of(EnumTranquilityType.FIRE, STANDARD_VALUE), false)
-            .add(BMTags.Blocks.TRANQUILITY_LAVA, TranquilityValue.of(EnumTranquilityType.LAVA, STANDARD_VALUE), false);
+            .add(NVTags.Blocks.TRANQUILITY_PLANT, TranquilityValue.of(EnumTranquilityType.PLANT, STANDARD_VALUE), false)
+            .add(NVTags.Blocks.TRANQUILITY_CROP, TranquilityValue.of(EnumTranquilityType.CROP, STANDARD_VALUE), false)
+            .add(NVTags.Blocks.TRANQUILITY_TREE, TranquilityValue.of(EnumTranquilityType.TREE, STANDARD_VALUE), false)
+            .add(NVTags.Blocks.TRANQUILITY_EARTHEN, TranquilityValue.of(EnumTranquilityType.EARTHEN, STANDARD_VALUE), false)
+            .add(NVTags.Blocks.TRANQUILITY_WATER, TranquilityValue.of(EnumTranquilityType.WATER, STANDARD_VALUE), false)
+            .add(NVTags.Blocks.TRANQUILITY_FIRE, TranquilityValue.of(EnumTranquilityType.FIRE, STANDARD_VALUE), false)
+            .add(NVTags.Blocks.TRANQUILITY_LAVA, TranquilityValue.of(EnumTranquilityType.LAVA, STANDARD_VALUE), false);
 
         // ===== Vanilla Tags for Tree Blocks =====
         builder

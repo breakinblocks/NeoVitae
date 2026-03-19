@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datamap.SigilStats;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -35,39 +35,39 @@ public class SigilStatsProvider implements DataProvider {
 
     protected void addSigils() {
         // Divination sigils - no LP cost (info only)
-        add(BMItems.SIGIL_DIVINATION, SigilStats.simple(0));
-        add(BMItems.SIGIL_SEER, SigilStats.simple(0));
+        add(NVItems.SIGIL_DIVINATION, SigilStats.simple(0));
+        add(NVItems.SIGIL_SEER, SigilStats.simple(0));
 
         // Fluid sigils - single-use activation cost
-        add(BMItems.SIGIL_WATER, SigilStats.simple(100));
-        add(BMItems.SIGIL_LAVA, SigilStats.simple(1000));
-        add(BMItems.SIGIL_VOID, SigilStats.simple(50));
+        add(NVItems.SIGIL_WATER, SigilStats.simple(100));
+        add(NVItems.SIGIL_LAVA, SigilStats.simple(1000));
+        add(NVItems.SIGIL_VOID, SigilStats.simple(50));
 
         // Movement sigils
-        add(BMItems.SIGIL_AIR, SigilStats.simple(50));
+        add(NVItems.SIGIL_AIR, SigilStats.simple(50));
 
         // Utility sigils
-        add(BMItems.SIGIL_BLOOD_LIGHT, SigilStats.simple(10));
-        add(BMItems.SIGIL_TELEPOSITION, SigilStats.simple(1000));
+        add(NVItems.SIGIL_BLOOD_LIGHT, SigilStats.simple(10));
+        add(NVItems.SIGIL_TELEPOSITION, SigilStats.simple(1000));
 
         // Toggleable sigils with ranges
         // Magnetism: range 5, vertical range 5
-        add(BMItems.SIGIL_MAGNETISM, SigilStats.ranged(50, 5, 5));
+        add(NVItems.SIGIL_MAGNETISM, SigilStats.ranged(50, 5, 5));
 
         // Fast Miner: LP per tick, array effect with radius 10, duration 600 ticks (30 sec), level 2
-        add(BMItems.SIGIL_FAST_MINER, SigilStats.full(100, 100, 10, 10, 600, 2));
+        add(NVItems.SIGIL_FAST_MINER, SigilStats.full(100, 100, 10, 10, 600, 2));
 
         // Green Grove: range 3, vertical range 2
-        add(BMItems.SIGIL_GREEN_GROVE, SigilStats.ranged(150, 3, 2));
+        add(NVItems.SIGIL_GREEN_GROVE, SigilStats.ranged(150, 3, 2));
 
         // Frost: horizontal radius 2
-        add(BMItems.SIGIL_FROST, SigilStats.ranged(100, 2, 2));
+        add(NVItems.SIGIL_FROST, SigilStats.ranged(100, 2, 2));
 
         // Suppression: radius 5 horizontal, 5 vertical
-        add(BMItems.SIGIL_SUPPRESSION, SigilStats.ranged(400, 5, 5));
+        add(NVItems.SIGIL_SUPPRESSION, SigilStats.ranged(400, 5, 5));
 
         // Holding: no LP cost (container only)
-        add(BMItems.SIGIL_HOLDING, SigilStats.simple(0));
+        add(NVItems.SIGIL_HOLDING, SigilStats.simple(0));
     }
 
     protected void add(Supplier<? extends Item> item, SigilStats stats) {

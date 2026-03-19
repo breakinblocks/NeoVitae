@@ -7,7 +7,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.neoforged.neoforge.network.PacketDistributor;
-import com.breakinblocks.neovitae.common.dataattachment.BMDataAttachments;
+import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.network.WillChunkSyncPayload;
 
@@ -62,7 +62,7 @@ public class WorldDemonWillHandler {
         }
 
         LevelChunk chunk = level.getChunkAt(pos);
-        return chunk.getData(BMDataAttachments.WILL_CHUNK);
+        return chunk.getData(NVDataAttachments.WILL_CHUNK);
     }
 
     /**
@@ -78,7 +78,7 @@ public class WorldDemonWillHandler {
         }
 
         LevelChunk chunk = level.getChunk(chunkPos.x, chunkPos.z);
-        return chunk.getData(BMDataAttachments.WILL_CHUNK);
+        return chunk.getData(NVDataAttachments.WILL_CHUNK);
     }
 
     /**
@@ -99,13 +99,13 @@ public class WorldDemonWillHandler {
         }
 
         LevelChunk chunk = level.getChunkAt(pos);
-        WillChunk willChunk = chunk.getData(BMDataAttachments.WILL_CHUNK);
+        WillChunk willChunk = chunk.getData(NVDataAttachments.WILL_CHUNK);
         double added = willChunk.addWill(type, amount);
 
         if (added > 0) {
             // Create a copy to ensure NeoForge detects the change
             WillChunk newWillChunk = willChunk.copy();
-            chunk.setData(BMDataAttachments.WILL_CHUNK, newWillChunk);
+            chunk.setData(NVDataAttachments.WILL_CHUNK, newWillChunk);
             chunk.setUnsaved(true);
         }
 
@@ -123,13 +123,13 @@ public class WorldDemonWillHandler {
         }
 
         LevelChunk chunk = level.getChunkAt(pos);
-        WillChunk willChunk = chunk.getData(BMDataAttachments.WILL_CHUNK);
+        WillChunk willChunk = chunk.getData(NVDataAttachments.WILL_CHUNK);
         double drained = willChunk.drainWill(type, amount);
 
         if (drained > 0) {
             // Create a copy to ensure NeoForge detects the change
             WillChunk newWillChunk = willChunk.copy();
-            chunk.setData(BMDataAttachments.WILL_CHUNK, newWillChunk);
+            chunk.setData(NVDataAttachments.WILL_CHUNK, newWillChunk);
             chunk.setUnsaved(true);
         }
 
@@ -226,8 +226,8 @@ public class WorldDemonWillHandler {
         LevelChunk from = level.getChunk(fromChunk.x, fromChunk.z);
         LevelChunk to = level.getChunk(toChunk.x, toChunk.z);
 
-        WillChunk fromWill = from.getData(BMDataAttachments.WILL_CHUNK);
-        WillChunk toWill = to.getData(BMDataAttachments.WILL_CHUNK);
+        WillChunk fromWill = from.getData(NVDataAttachments.WILL_CHUNK);
+        WillChunk toWill = to.getData(NVDataAttachments.WILL_CHUNK);
 
         double fromAmount = fromWill.getWill(type);
         double toAmount = toWill.getWill(type);
@@ -258,8 +258,8 @@ public class WorldDemonWillHandler {
         WillChunk newFromWill = fromWill.copy();
         WillChunk newToWill = toWill.copy();
 
-        from.setData(BMDataAttachments.WILL_CHUNK, newFromWill);
-        to.setData(BMDataAttachments.WILL_CHUNK, newToWill);
+        from.setData(NVDataAttachments.WILL_CHUNK, newFromWill);
+        to.setData(NVDataAttachments.WILL_CHUNK, newToWill);
         from.setUnsaved(true);
         to.setUnsaved(true);
 
@@ -308,12 +308,12 @@ public class WorldDemonWillHandler {
         }
 
         LevelChunk chunk = level.getChunkAt(pos);
-        WillChunk willChunk = chunk.getData(BMDataAttachments.WILL_CHUNK);
+        WillChunk willChunk = chunk.getData(NVDataAttachments.WILL_CHUNK);
         willChunk.setMaxBonus(type, bonus);
 
         // Create a copy to ensure NeoForge detects the change
         WillChunk newWillChunk = willChunk.copy();
-        chunk.setData(BMDataAttachments.WILL_CHUNK, newWillChunk);
+        chunk.setData(NVDataAttachments.WILL_CHUNK, newWillChunk);
         chunk.setUnsaved(true);
     }
 
@@ -335,12 +335,12 @@ public class WorldDemonWillHandler {
         }
 
         LevelChunk chunk = level.getChunkAt(pos);
-        WillChunk willChunk = chunk.getData(BMDataAttachments.WILL_CHUNK);
+        WillChunk willChunk = chunk.getData(NVDataAttachments.WILL_CHUNK);
         double newBonus = willChunk.addMaxBonus(type, amount);
 
         // Create a copy to ensure NeoForge detects the change
         WillChunk newWillChunk = willChunk.copy();
-        chunk.setData(BMDataAttachments.WILL_CHUNK, newWillChunk);
+        chunk.setData(NVDataAttachments.WILL_CHUNK, newWillChunk);
         chunk.setUnsaved(true);
 
         return newBonus;

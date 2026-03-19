@@ -14,7 +14,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneTile;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.ritual.*;
@@ -35,15 +35,15 @@ public class ItemRitualReader extends Item {
     public ItemRitualReader() {
         super(new Item.Properties()
                 .stacksTo(1)
-                .component(BMDataComponents.READER_STATE.get(), 0)
-                .component(BMDataComponents.READER_RANGE_KEY.get(), "")
-                .component(BMDataComponents.READER_CORNER1.get(), BlockPos.ZERO));
+                .component(NVDataComponents.READER_STATE.get(), 0)
+                .component(NVDataComponents.READER_RANGE_KEY.get(), "")
+                .component(NVDataComponents.READER_CORNER1.get(), BlockPos.ZERO));
     }
 
     // ==================== State Management ====================
 
     public EnumRitualReaderState getState(ItemStack stack) {
-        Integer stateOrdinal = stack.get(BMDataComponents.READER_STATE.get());
+        Integer stateOrdinal = stack.get(NVDataComponents.READER_STATE.get());
         if (stateOrdinal == null || stateOrdinal < 0 || stateOrdinal >= EnumRitualReaderState.values().length) {
             return EnumRitualReaderState.INFORMATION;
         }
@@ -51,25 +51,25 @@ public class ItemRitualReader extends Item {
     }
 
     public void setState(ItemStack stack, EnumRitualReaderState state) {
-        stack.set(BMDataComponents.READER_STATE.get(), state.ordinal());
+        stack.set(NVDataComponents.READER_STATE.get(), state.ordinal());
     }
 
     public String getRangeKey(ItemStack stack) {
-        String key = stack.get(BMDataComponents.READER_RANGE_KEY.get());
+        String key = stack.get(NVDataComponents.READER_RANGE_KEY.get());
         return key != null ? key : "";
     }
 
     public void setRangeKey(ItemStack stack, String key) {
-        stack.set(BMDataComponents.READER_RANGE_KEY.get(), key);
+        stack.set(NVDataComponents.READER_RANGE_KEY.get(), key);
     }
 
     public BlockPos getCorner1(ItemStack stack) {
-        BlockPos pos = stack.get(BMDataComponents.READER_CORNER1.get());
+        BlockPos pos = stack.get(NVDataComponents.READER_CORNER1.get());
         return pos != null ? pos : BlockPos.ZERO;
     }
 
     public void setCorner1(ItemStack stack, BlockPos pos) {
-        stack.set(BMDataComponents.READER_CORNER1.get(), pos);
+        stack.set(NVDataComponents.READER_CORNER1.get(), pos);
     }
 
     // ==================== Interaction ====================

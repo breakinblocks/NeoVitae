@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.entity.goal;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import com.breakinblocks.neovitae.common.effect.BMMobEffects;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 
 /**
  * A dummy goal used by the Passivity effect to replace hostile targeting.
@@ -22,11 +22,11 @@ public class NearestAttackableDummyGoal<T extends LivingEntity> extends NearestA
 
     @Override
     public boolean canUse() {
-        return this.mob.hasEffect(BMMobEffects.PASSIVITY);
+        return this.mob.hasEffect(NVMobEffects.PASSIVITY);
     }
 
     @Override
     public boolean canContinueToUse() {
-        return this.mob.hasEffect(BMMobEffects.PASSIVITY);
+        return this.mob.hasEffect(NVMobEffects.PASSIVITY);
     }
 }

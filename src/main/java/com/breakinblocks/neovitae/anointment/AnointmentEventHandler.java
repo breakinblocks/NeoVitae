@@ -32,7 +32,7 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.AnointmentHolder;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 /**
  * Handles anointment effects during gameplay events.
@@ -50,7 +50,7 @@ public class AnointmentEventHandler {
         }
 
         ItemStack heldStack = player.getMainHandItem();
-        AnointmentHolder holder = heldStack.get(BMDataComponents.ANOINTMENT_HOLDER.get());
+        AnointmentHolder holder = heldStack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
 
         if (holder == null || holder.isEmpty()) {
             return;
@@ -83,7 +83,7 @@ public class AnointmentEventHandler {
         }
 
         ItemStack heldStack = player.getMainHandItem();
-        AnointmentHolder holder = heldStack.get(BMDataComponents.ANOINTMENT_HOLDER.get());
+        AnointmentHolder holder = heldStack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
 
         if (holder == null || holder.isEmpty()) {
             return;
@@ -110,9 +110,9 @@ public class AnointmentEventHandler {
         // Update the item if anointments changed
         if (newHolder.anointments().size() != oldSize || !newHolder.equals(holder)) {
             if (newHolder.isEmpty()) {
-                heldStack.remove(BMDataComponents.ANOINTMENT_HOLDER.get());
+                heldStack.remove(NVDataComponents.ANOINTMENT_HOLDER.get());
             } else {
-                heldStack.set(BMDataComponents.ANOINTMENT_HOLDER.get(), newHolder);
+                heldStack.set(NVDataComponents.ANOINTMENT_HOLDER.get(), newHolder);
             }
 
             // Play effect when anointment expires
@@ -133,7 +133,7 @@ public class AnointmentEventHandler {
         }
 
         ItemStack heldStack = player.getMainHandItem();
-        AnointmentHolder holder = heldStack.get(BMDataComponents.ANOINTMENT_HOLDER.get());
+        AnointmentHolder holder = heldStack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
 
         if (holder == null || holder.isEmpty()) {
             return;
@@ -178,9 +178,9 @@ public class AnointmentEventHandler {
         // Update the item if anointments changed
         if (hasChanges) {
             if (newHolder.isEmpty()) {
-                heldStack.remove(BMDataComponents.ANOINTMENT_HOLDER.get());
+                heldStack.remove(NVDataComponents.ANOINTMENT_HOLDER.get());
             } else {
-                heldStack.set(BMDataComponents.ANOINTMENT_HOLDER.get(), newHolder);
+                heldStack.set(NVDataComponents.ANOINTMENT_HOLDER.get(), newHolder);
             }
 
             // Play effect when anointment expires
@@ -197,7 +197,7 @@ public class AnointmentEventHandler {
     @SubscribeEvent
     public static void onGetEnchantmentLevel(GetEnchantmentLevelEvent event) {
         ItemStack stack = event.getStack();
-        AnointmentHolder holder = stack.get(BMDataComponents.ANOINTMENT_HOLDER.get());
+        AnointmentHolder holder = stack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
 
         if (holder == null || holder.isEmpty()) {
             return;
@@ -243,7 +243,7 @@ public class AnointmentEventHandler {
             return;
         }
 
-        AnointmentHolder holder = stack.get(BMDataComponents.ANOINTMENT_HOLDER.get());
+        AnointmentHolder holder = stack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
         if (holder == null || holder.isEmpty()) {
             return;
         }
@@ -266,7 +266,7 @@ public class AnointmentEventHandler {
     @SubscribeEvent
     public static void onItemUseStop(LivingEntityUseItemEvent.Stop event) {
         ItemStack stack = event.getItem();
-        AnointmentHolder holder = stack.get(BMDataComponents.ANOINTMENT_HOLDER.get());
+        AnointmentHolder holder = stack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
 
         if (holder == null || holder.isEmpty()) {
             return;
@@ -277,9 +277,9 @@ public class AnointmentEventHandler {
 
         if (!newHolder.equals(holder)) {
             if (newHolder.isEmpty()) {
-                stack.remove(BMDataComponents.ANOINTMENT_HOLDER.get());
+                stack.remove(NVDataComponents.ANOINTMENT_HOLDER.get());
             } else {
-                stack.set(BMDataComponents.ANOINTMENT_HOLDER.get(), newHolder);
+                stack.set(NVDataComponents.ANOINTMENT_HOLDER.get(), newHolder);
             }
 
             if (newHolder.anointments().size() < oldSize && event.getEntity() instanceof Player player) {
@@ -308,7 +308,7 @@ public class AnointmentEventHandler {
 
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack heldStack = player.getItemInHand(hand);
-            AnointmentHolder holder = heldStack.get(BMDataComponents.ANOINTMENT_HOLDER.get());
+            AnointmentHolder holder = heldStack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
             if (holder == null || holder.isEmpty()) {
                 continue;
             }
@@ -349,7 +349,7 @@ public class AnointmentEventHandler {
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
-        AnointmentHolder holder = stack.get(BMDataComponents.ANOINTMENT_HOLDER.get());
+        AnointmentHolder holder = stack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
 
         if (holder == null || holder.isEmpty()) {
             return;

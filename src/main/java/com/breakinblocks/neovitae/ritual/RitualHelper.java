@@ -1,15 +1,22 @@
 package com.breakinblocks.neovitae.ritual;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
+import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
+import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Utility class providing common operations used by rituals.
@@ -158,7 +165,109 @@ public final class RitualHelper {
         return context.level().getEntitiesOfClass(entityClass, aabb, filter);
     }
 
-    // LP OPERATIONS 
+    // ALTAR OPERATIONS
+
+    /**
+     * Finds a BloodAltarTile within a ritual's range, using a cached offset if available.
+     * Used by rituals that need to feed LP directly to an altar (FeatheredKnife, WellOfSuffering).
+     *
+     * @param context the ritual context
+     * @param ritual the ritual
+     * @param rangeKey the key identifying the altar search range
+     * @param cachedOffset cached offset from a previous search, or null
+     * @return a result containing the altar (if found) and the updated offset
+     */
+    public static AltarSearchResult findAltar(RitualContext context, Ritual ritual,
+            String rangeKey, @Nullable BlockPos cachedOffset) {
+        BlockPos masterPos = context.masterPos();
+
+        // Try cached position first
+        if (cachedOffset != null) {
+            BlockPos altarPos = masterPos.offset(cachedOffset);
+            BlockEntity be = context.level().getBlockEntity(altarPos);
+            if (be instanceof BloodAltarTile altarTile) {
+                return new AltarSearchResult(altarTile, cachedOffset);
+            }
+        }
+
+        // Search for altar in range
+        List<BlockPos> positions = getRangePositions(context.master(), ritual, rangeKey, masterPos);
+        for (BlockPos pos : positions) {
+            BlockEntity be = context.level().getBlockEntity(pos);
+            if (be instanceof BloodAltarTile altarTile) {
+                return new AltarSearchResult(altarTile, pos.subtract(masterPos));
+            }
+        }
+
+        return new AltarSearchResult(null, null);
+    }
+
+    /**
+     * Result of an altar search, containing the found altar and its offset.
+     */
+    public record AltarSearchResult(@Nullable BloodAltarTile altar, @Nullable BlockPos offset) {}
+
+    /**
+     * Reads a cached altar offset from NBT.
+     */
+    @Nullable
+    public static BlockPos readAltarOffset(CompoundTag tag) {
+        if (tag.contains("altarOffsetX")) {
+            return new BlockPos(
+                    tag.getInt("altarOffsetX"),
+                    tag.getInt("altarOffsetY"),
+                    tag.getInt("altarOffsetZ")
+            );
+        }
+        return null;
+    }
+
+    /**
+     * Writes a cached altar offset to NBT.
+     */
+    public static void writeAltarOffset(CompoundTag tag, @Nullable BlockPos offset) {
+        if (offset != null) {
+            tag.putInt("altarOffsetX", offset.getX());
+            tag.putInt("altarOffsetY", offset.getY());
+            tag.putInt("altarOffsetZ", offset.getZ());
+        }
+    }
+
+    // DEMON WILL OPERATIONS
+
+    /**
+     * Queries all demon will types at once for a ritual position.
+     * Eliminates repeated getCurrentWill() calls across rituals.
+     *
+     * @param level the level
+     * @param pos the ritual master position
+     * @return map of will types to their current values
+     */
+    public static Map<EnumWillType, Double> queryAllWill(Level level, BlockPos pos) {
+        Map<EnumWillType, Double> will = new EnumMap<>(EnumWillType.class);
+        for (EnumWillType type : EnumWillType.values()) {
+            will.put(type, WorldDemonWillHandler.getCurrentWill(level, pos, type));
+        }
+        return will;
+    }
+
+    /**
+     * Drains accumulated will consumption from a ritual.
+     * Convenience method to avoid repeating the drain-if-positive pattern.
+     *
+     * @param level the level
+     * @param pos the ritual master position
+     * @param willUsed map of will types to amounts consumed
+     */
+    public static void drainAllWill(Level level, BlockPos pos, Map<EnumWillType, Double> willUsed) {
+        willUsed.forEach((type, amount) -> {
+            if (amount > 0) {
+                WorldDemonWillHandler.drainWillFromChunk(level, pos, type, amount);
+            }
+        });
+    }
+
+    // LP OPERATIONS
     
     /**
      * Syphons LP from the network, capping at the available essence.

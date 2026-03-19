@@ -9,8 +9,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +88,7 @@ public class ARCRecipe implements Recipe<ARCRecipeInput> {
         outputFluidStack = outputFluid.orElse(FluidStack.EMPTY);
         outputStacks.addAll(guaranteedOutput);
         ItemStack toolStack = input.getItem(0);
-        double bonusChance = toolStack.getOrDefault(BMDataComponents.ARC_CHANCE, 1D);
+        double bonusChance = toolStack.getOrDefault(NVDataComponents.ARC_CHANCE, 1D);
         for (Pair<ItemStack, Double> entry : chanceOutput) {
             if (Math.random() < entry.getSecond() * bonusChance) {
                 outputStacks.add(entry.getFirst());
@@ -121,11 +121,11 @@ public class ARCRecipe implements Recipe<ARCRecipeInput> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return BMRecipes.ARC_SERIALIZER.get();
+        return NVRecipes.ARC_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return BMRecipes.ARC_TYPE.get();
+        return NVRecipes.ARC_TYPE.get();
     }
 }

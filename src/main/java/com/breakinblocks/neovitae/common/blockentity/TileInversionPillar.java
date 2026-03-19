@@ -29,7 +29,7 @@ public class TileInversionPillar extends BaseTile {
     private ResourceLocation destinationKey;
 
     public TileInversionPillar(BlockPos pos, BlockState state) {
-        super(BMTiles.INVERSION_PILLAR_TYPE.get(), pos, state);
+        super(NVTiles.INVERSION_PILLAR_TYPE.get(), pos, state);
     }
 
     /**

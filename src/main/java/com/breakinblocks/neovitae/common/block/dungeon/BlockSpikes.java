@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import com.breakinblocks.neovitae.common.damagesource.BMDamageSources;
+import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 
 /**
  * Spikes block - damages entities that touch it and slows them down.
@@ -64,7 +64,7 @@ public class BlockSpikes extends Block {
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (entity.getType() != EntityType.ITEM) {
             entity.makeStuckInBlock(state, new Vec3(0.55D, 0.20D, 0.55D));
-            entity.hurt(BMDamageSources.spikes(level), 2.0F);
+            entity.hurt(NVDamageSources.spikes(level), 2.0F);
         }
     }
 

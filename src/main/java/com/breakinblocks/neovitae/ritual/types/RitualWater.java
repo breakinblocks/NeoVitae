@@ -2,11 +2,17 @@ package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.Fluids;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
+import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 import java.util.List;
 import java.util.UUID;
@@ -47,6 +53,29 @@ public class RitualWater extends Ritual {
                 if (BlockProtectionHelper.tryPlaceBlock(ctx.level(), pos, Blocks.WATER.defaultBlockState(), owner)) {
                     totalEffects++;
                 }
+            }
+        }
+
+        // Demon Will: Fill fluid tanks with water
+        double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), ctx.masterPos(), EnumWillType.DEFAULT);
+        if (rawWill >= 1.0) {
+            List<BlockPos> tankPositions = RitualHelper.getRangePositions(ctx.master(), this, TANK_RANGE, ctx.masterPos());
+            double willDrained = 0;
+
+            for (BlockPos tankPos : tankPositions) {
+                IFluidHandler fluidHandler = ctx.level().getCapability(Capabilities.FluidHandler.BLOCK, tankPos, null);
+                if (fluidHandler != null) {
+                    FluidStack waterStack = new FluidStack(Fluids.WATER, 1000);
+                    int filled = fluidHandler.fill(waterStack, IFluidHandler.FluidAction.EXECUTE);
+                    if (filled > 0) {
+                        willDrained += (double) filled / 1000.0;
+                        totalEffects++;
+                    }
+                }
+            }
+
+            if (willDrained > 0) {
+                WorldDemonWillHandler.drainWillFromChunk(ctx.level(), ctx.masterPos(), EnumWillType.DEFAULT, willDrained);
             }
         }
 

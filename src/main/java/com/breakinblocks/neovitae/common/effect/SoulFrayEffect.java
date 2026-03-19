@@ -26,7 +26,7 @@ public class SoulFrayEffect extends MobEffect {
      * Checks if the given entity has Soul Fray active.
      */
     public static boolean hasSoulFray(LivingEntity entity) {
-        return entity.hasEffect(BMMobEffects.SOUL_FRAY);
+        return entity.hasEffect(NVMobEffects.SOUL_FRAY);
     }
 
     /**

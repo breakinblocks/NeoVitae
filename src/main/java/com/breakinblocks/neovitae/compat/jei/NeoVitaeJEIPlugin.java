@@ -23,12 +23,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
-import com.breakinblocks.neovitae.common.datamap.BMDataMaps;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.ImperfectRitualStats;
 import com.breakinblocks.neovitae.common.datamap.RitualStats;
-import com.breakinblocks.neovitae.common.item.BMItems;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
 import com.breakinblocks.neovitae.common.recipe.alchemytable.AlchemyTableRecipe;
 import com.breakinblocks.neovitae.common.recipe.arc.ARCRecipe;
@@ -87,19 +87,19 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(BMBlocks.HELLFIRE_FORGE.block().get()), SoulForgeRecipeCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(BMBlocks.BLOOD_ALTAR.block().get()), BloodAltarRecipeCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(BMItems.ARCANE_ASHES.get()), AlchemyArrayCraftingCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(BMBlocks.ALCHEMY_TABLE.block().get()), AlchemyTableRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()), SoulForgeRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVBlocks.BLOOD_ALTAR.block().get()), BloodAltarRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVItems.ARCANE_ASHES.get()), AlchemyArrayCraftingCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVBlocks.ALCHEMY_TABLE.block().get()), AlchemyTableRecipeCategory.RECIPE_TYPE);
         // Meteor recipes are accessed via the catalyst item (U key on the ore/item), not the ritual stone
-        registration.addRecipeCatalyst(new ItemStack(BMBlocks.ARC_BLOCK.block().get()), ARCRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVBlocks.ARC_BLOCK.block().get()), ARCRecipeCategory.RECIPE_TYPE);
         // Flask recipes use the alchemy table with a flask
-        registration.addRecipeCatalyst(new ItemStack(BMItems.ALCHEMY_FLASK.get()), FlaskRecipeCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(BMBlocks.ALCHEMY_TABLE.block().get()), FlaskRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVItems.ALCHEMY_FLASK.get()), FlaskRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVBlocks.ALCHEMY_TABLE.block().get()), FlaskRecipeCategory.RECIPE_TYPE);
         // Imperfect ritual stone
-        registration.addRecipeCatalyst(new ItemStack(BMBlocks.IMPERFECT_RITUAL_STONE.block().get()), ImperfectRitualRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()), ImperfectRitualRecipeCategory.RECIPE_TYPE);
         // Master ritual stone for ritual recipes
-        registration.addRecipeCatalyst(new ItemStack(BMBlocks.MASTER_RITUAL_STONE.block().get()), RitualRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVBlocks.MASTER_RITUAL_STONE.block().get()), RitualRecipeCategory.RECIPE_TYPE);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
         // Soul Forge recipes
         List<ForgeRecipe> forgeRecipes = world.getRecipeManager()
-                .getAllRecipesFor(BMRecipes.SOUL_FORGE_TYPE.get())
+                .getAllRecipesFor(NVRecipes.SOUL_FORGE_TYPE.get())
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();
@@ -116,7 +116,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
         // Blood Altar recipes
         List<com.breakinblocks.neovitae.api.recipe.BloodAltarRecipe> altarRecipes = world.getRecipeManager()
-                .getAllRecipesFor(BMRecipes.BLOOD_ALTAR_TYPE.get())
+                .getAllRecipesFor(NVRecipes.BLOOD_ALTAR_TYPE.get())
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();
@@ -124,7 +124,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
         // Alchemy Array recipes
         List<AlchemyArrayRecipe> arrayRecipes = world.getRecipeManager()
-                .getAllRecipesFor(BMRecipes.ALCHEMY_ARRAY_TYPE.get())
+                .getAllRecipesFor(NVRecipes.ALCHEMY_ARRAY_TYPE.get())
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();
@@ -132,7 +132,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
         // Alchemy Table recipes
         List<AlchemyTableRecipe> tableRecipes = world.getRecipeManager()
-                .getAllRecipesFor(BMRecipes.ALCHEMY_TABLE_TYPE.get())
+                .getAllRecipesFor(NVRecipes.ALCHEMY_TABLE_TYPE.get())
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();
@@ -140,7 +140,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
         // Meteor recipes
         List<MeteorRecipe> meteorRecipes = world.getRecipeManager()
-                .getAllRecipesFor(BMRecipes.METEOR_TYPE.get())
+                .getAllRecipesFor(NVRecipes.METEOR_TYPE.get())
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();
@@ -148,7 +148,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
         // ARC recipes
         List<ARCRecipe> arcRecipes = world.getRecipeManager()
-                .getAllRecipesFor(BMRecipes.ARC_TYPE.get())
+                .getAllRecipesFor(NVRecipes.ARC_TYPE.get())
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();
@@ -156,7 +156,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
         // Flask recipes
         List<FlaskRecipe> flaskRecipes = world.getRecipeManager()
-                .getAllRecipesFor(BMRecipes.FLASK_TYPE.get())
+                .getAllRecipesFor(NVRecipes.FLASK_TYPE.get())
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();
@@ -197,7 +197,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
             // Get stats from DataMap
             Holder<ImperfectRitual> holder = registry.wrapAsHolder(ritual);
-            ImperfectRitualStats stats = holder.getData(BMDataMaps.IMPERFECT_RITUAL_STATS);
+            ImperfectRitualStats stats = holder.getData(NVDataMaps.IMPERFECT_RITUAL_STATS);
 
             // Determine catalyst block(s)
             List<ItemStack> catalystBlocks = new ArrayList<>();
@@ -313,7 +313,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
             // Check if ritual is disabled via DataMap
             Holder<Ritual> holder = registry.wrapAsHolder(ritual);
-            RitualStats stats = holder.getData(BMDataMaps.RITUAL_STATS);
+            RitualStats stats = holder.getData(NVDataMaps.RITUAL_STATS);
             if (stats != null && !stats.enabled()) {
                 LOGGER.debug("Skipping disabled ritual: {}", ritualId);
                 continue;

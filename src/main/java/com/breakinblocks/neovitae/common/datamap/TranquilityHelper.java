@@ -48,7 +48,7 @@ public final class TranquilityHelper {
     public static TranquilityValue getTranquilityValue(Block block) {
         return BuiltInRegistries.BLOCK
                 .wrapAsHolder(block)
-                .getData(BMDataMaps.TRANQUILITY);
+                .getData(NVDataMaps.TRANQUILITY);
     }
 
     /**

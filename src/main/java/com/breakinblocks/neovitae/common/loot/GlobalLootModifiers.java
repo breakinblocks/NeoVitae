@@ -20,8 +20,8 @@ import org.jetbrains.annotations.NotNull;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
 import com.breakinblocks.neovitae.common.datacomponent.AnointmentHolder;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import javax.annotation.Nonnull;
 
@@ -57,7 +57,7 @@ public class GlobalLootModifiers {
     private static boolean hasSmeltingAnointment(ItemStack tool) {
         if (tool.isEmpty()) return false;
 
-        AnointmentHolder holder = tool.get(BMDataComponents.ANOINTMENT_HOLDER.get());
+        AnointmentHolder holder = tool.get(NVDataComponents.ANOINTMENT_HOLDER.get());
         return holder != null && holder.getAnointmentLevel(AnointmentRegistrar.SMELTING) > 0;
     }
 
@@ -67,7 +67,7 @@ public class GlobalLootModifiers {
     private static boolean hasVoidingAnointment(ItemStack tool) {
         if (tool.isEmpty()) return false;
 
-        AnointmentHolder holder = tool.get(BMDataComponents.ANOINTMENT_HOLDER.get());
+        AnointmentHolder holder = tool.get(NVDataComponents.ANOINTMENT_HOLDER.get());
         return holder != null && holder.getAnointmentLevel(AnointmentRegistrar.VOIDING) > 0;
     }
 
@@ -98,7 +98,7 @@ public class GlobalLootModifiers {
             if (tool == null || tool.isEmpty()) return generatedLoot;
 
             // Skip explosive charges
-            if (tool.is(BMTags.Items.CHARGES)) return generatedLoot;
+            if (tool.is(NVTags.Items.CHARGES)) return generatedLoot;
 
             // Check for smelting anointment
             if (!hasSmeltingAnointment(tool)) return generatedLoot;
@@ -151,7 +151,7 @@ public class GlobalLootModifiers {
             if (tool == null || tool.isEmpty()) return generatedLoot;
 
             // Skip explosive charges
-            if (tool.is(BMTags.Items.CHARGES)) return generatedLoot;
+            if (tool.is(NVTags.Items.CHARGES)) return generatedLoot;
 
             // Check for voiding anointment
             if (!hasVoidingAnointment(tool)) return generatedLoot;
@@ -160,7 +160,7 @@ public class GlobalLootModifiers {
             if (blockState == null) return generatedLoot;
 
             // Only void mundane blocks
-            if (!blockState.is(BMTags.Blocks.MUNDANE_BLOCK)) return generatedLoot;
+            if (!blockState.is(NVTags.Blocks.MUNDANE_BLOCK)) return generatedLoot;
 
             // Return empty loot
             return new ObjectArrayList<>();

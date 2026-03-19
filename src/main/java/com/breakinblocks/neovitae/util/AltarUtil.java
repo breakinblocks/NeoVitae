@@ -13,11 +13,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.altar.rune.IAltarRuneType;
 import com.breakinblocks.neovitae.api.altar.rune.RuneInstance;
-import com.breakinblocks.neovitae.common.attribute.BMAttributes;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
-import com.breakinblocks.neovitae.common.damagesource.BMDamageSources;
+import com.breakinblocks.neovitae.common.attribute.NVAttributes;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.registry.AltarComponent;
-import com.breakinblocks.neovitae.common.structure.BMMultiblock;
+import com.breakinblocks.neovitae.common.structure.NVMultiblock;
 import com.breakinblocks.neovitae.common.structure.MultiblockValidator;
 import com.breakinblocks.neovitae.impl.AltarRuneRegistryImpl;
 
@@ -42,7 +42,7 @@ public class AltarUtil {
                 for (int z = -radius; z <= radius; z++) {
                     BlockPos testPos = pos.offset(x, y, z);
                     BlockState testState = level.getBlockState(testPos);
-                    if (testState.is(BMBlocks.BLOOD_ALTAR.block())) {
+                    if (testState.is(NVBlocks.BLOOD_ALTAR.block())) {
                         return testPos;
                     }
                 }
@@ -59,7 +59,7 @@ public class AltarUtil {
      */
     public static DamageSource sacrificeDamage(Player causer) {
         DamageSources sources = causer.level().damageSources();
-        return sources.source(BMDamageSources.SELF_SACRIFICE, causer);
+        return sources.source(NVDamageSources.SELF_SACRIFICE, causer);
     }
 
     /**
@@ -72,8 +72,8 @@ public class AltarUtil {
      */
     public static int getTier(Level level, BlockPos altarPos) {
         int tier = -1;
-        for (int i = 0; i < BMMultiblock.TIER_VALIDATORS.length; i++) {
-            MultiblockValidator validator = BMMultiblock.TIER_VALIDATORS[i];
+        for (int i = 0; i < NVMultiblock.TIER_VALIDATORS.length; i++) {
+            MultiblockValidator validator = NVMultiblock.TIER_VALIDATORS[i];
             if (validator != null) {
                 // Pass the altar position - the validator has its own offset configured
                 Rotation rot = validator.validate(level, altarPos);
@@ -120,18 +120,18 @@ public class AltarUtil {
         List<RuneInstance> instances = new ArrayList<>();
 
         // Tier -1 means no valid structure, so no upgrades
-        if (tier < 0 || tier >= BMMultiblock.TIER_LIST.length) {
-            NeoVitae.LOGGER.warn("scanForRunes: Invalid tier {} (TIER_LIST.length={})", tier, BMMultiblock.TIER_LIST.length);
+        if (tier < 0 || tier >= NVMultiblock.TIER_LIST.length) {
+            NeoVitae.LOGGER.warn("scanForRunes: Invalid tier {} (TIER_LIST.length={})", tier, NVMultiblock.TIER_LIST.length);
             return AltarScanResult.empty();
         }
 
         AltarRuneRegistryImpl registry = AltarRuneRegistryImpl.INSTANCE;
         NeoVitae.LOGGER.info("scanForRunes: Scanning tier {} with {} components",
-                tier, BMMultiblock.TIER_LIST[tier].components().size());
+                tier, NVMultiblock.TIER_LIST[tier].components().size());
 
         int upgradeCount = 0;
         int foundRunes = 0;
-        for (AltarComponent component : BMMultiblock.TIER_LIST[tier].components()) {
+        for (AltarComponent component : NVMultiblock.TIER_LIST[tier].components()) {
             if (component.isUpgrade()) {
                 upgradeCount++;
                 BlockPos runePos = altarPos.offset(component.pos());
@@ -181,7 +181,7 @@ public class AltarUtil {
      */
     public static int calculateSelfSacrificeLP(Player player, int healthSacrificed) {
         double conversion = NeoVitae.SERVER_CONFIG.SELF_SACRIFICE_CONVERSION.get();
-        AttributeInstance attribute = player.getAttribute(BMAttributes.SELF_SACRIFICE_MULTIPLIER);
+        AttributeInstance attribute = player.getAttribute(NVAttributes.SELF_SACRIFICE_MULTIPLIER);
         double multiplier = attribute != null ? attribute.getValue() : 1.0;
         return (int) (healthSacrificed * conversion * multiplier);
     }
@@ -197,7 +197,7 @@ public class AltarUtil {
     public static int calculateSelfSacrificeLP(Player player, int healthSacrificed, double incenseBonus) {
         double conversion = NeoVitae.SERVER_CONFIG.SELF_SACRIFICE_CONVERSION.get();
         conversion *= (1 + incenseBonus);
-        AttributeInstance attribute = player.getAttribute(BMAttributes.SELF_SACRIFICE_MULTIPLIER);
+        AttributeInstance attribute = player.getAttribute(NVAttributes.SELF_SACRIFICE_MULTIPLIER);
         double multiplier = attribute != null ? attribute.getValue() : 1.0;
         return (int) (healthSacrificed * conversion * multiplier);
     }

@@ -5,10 +5,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeTile;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
         if (input.size() != ingredients.size()) {
             return false;
         }
-        EnumWillType will = input.getGem().getOrDefault(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT);
+        EnumWillType will = input.getGem().getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT);
         if (willType.isPresent() && willType.get() != will) {
             return false;
         }
@@ -65,14 +65,14 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
     @Override
     public ItemStack assemble(ForgeInput input, HolderLookup.Provider registries) {
         ItemStack gemStack = input.getGem();
-        double will = gemStack.getOrDefault(BMDataComponents.DEMON_WILL_AMOUNT, 0D);
+        double will = gemStack.getOrDefault(NVDataComponents.DEMON_WILL_AMOUNT, 0D);
         if (will < minWill) {
             return ItemStack.EMPTY;
         }
         ItemStack outStack = resultItem.copy();
-        if (outStack.is(BMTags.Items.SOUL_GEM) && input.getGemIndex() != HellfireForgeTile.GEM_SLOT) {
-            outStack.set(BMDataComponents.DEMON_WILL_AMOUNT, will - usedWill);
-            outStack.set(BMDataComponents.DEMON_WILL_TYPE, gemStack.get(BMDataComponents.DEMON_WILL_TYPE));
+        if (outStack.is(NVTags.Items.SOUL_GEM) && input.getGemIndex() != HellfireForgeTile.GEM_SLOT) {
+            outStack.set(NVDataComponents.DEMON_WILL_AMOUNT, will - usedWill);
+            outStack.set(NVDataComponents.DEMON_WILL_TYPE, gemStack.get(NVDataComponents.DEMON_WILL_TYPE));
         }
 
         return outStack;
@@ -90,12 +90,12 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return BMRecipes.SOUL_FORGE_SERIALIZER.get();
+        return NVRecipes.SOUL_FORGE_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return BMRecipes.SOUL_FORGE_TYPE.get();
+        return NVRecipes.SOUL_FORGE_TYPE.get();
     }
 
     public Double getMinWill() {

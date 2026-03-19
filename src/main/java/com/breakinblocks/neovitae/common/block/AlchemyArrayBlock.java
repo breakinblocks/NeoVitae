@@ -23,7 +23,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayTile;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
 public class AlchemyArrayBlock extends BaseEntityBlock {
     public static final MapCodec<AlchemyArrayBlock> CODEC = simpleCodec(AlchemyArrayBlock::new);
@@ -54,7 +54,7 @@ public class AlchemyArrayBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, BMTiles.ALCHEMY_ARRAY_TYPE.get(), AlchemyArrayTile::tick);
+        return createTickerHelper(type, NVTiles.ALCHEMY_ARRAY_TYPE.get(), AlchemyArrayTile::tick);
     }
 
     @Override

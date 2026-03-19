@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Triple;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.datamap.RoutingNodeHelper;
 import com.breakinblocks.neovitae.common.routing.*;
 import com.breakinblocks.neovitae.util.Constants;
@@ -58,7 +58,7 @@ public class MasterRoutingNodeTile extends BlockEntity implements IMasterRouting
     }
 
     public MasterRoutingNodeTile(BlockPos pos, BlockState state) {
-        this(BMTiles.MASTER_ROUTING_NODE_TYPE.get(), pos, state);
+        this(NVTiles.MASTER_ROUTING_NODE_TYPE.get(), pos, state);
     }
 
     public void tick(Level level, BlockPos pos, BlockState state) {

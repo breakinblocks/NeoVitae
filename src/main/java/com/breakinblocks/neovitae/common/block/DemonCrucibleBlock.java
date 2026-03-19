@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.blockentity.DemonCrucibleTile;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
@@ -51,7 +51,7 @@ public class DemonCrucibleBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return BlockEntityHelper.getTicker(blockEntityType, BMTiles.DEMON_CRUCIBLE_TYPE.get(), DemonCrucibleTile::tick);
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.DEMON_CRUCIBLE_TYPE.get(), DemonCrucibleTile::tick);
     }
 
     @Override

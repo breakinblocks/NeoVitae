@@ -32,7 +32,7 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
     public static final int DATA_SIZE = 7;
 
     public RoutingNodeMenu(int containerId, Inventory playerInventory, FilteredRoutingNodeTile tile) {
-        super(BMMenus.ROUTING_NODE.get(), containerId);
+        super(NVMenus.ROUTING_NODE.get(), containerId);
         this.tile = tile;
 
         // Create container data for syncing - handle null tile for client-side construction

@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeTile;
 import com.breakinblocks.neovitae.common.datamap.RoutingNodeHelper;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 
 /**
  * Menu for the Master Routing Node.
@@ -43,7 +43,7 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
     }
 
     public MasterRoutingNodeMenu(int containerId, Inventory playerInventory, MasterRoutingNodeTile tile) {
-        super(BMMenus.MASTER_ROUTING_NODE.get(), containerId);
+        super(NVMenus.MASTER_ROUTING_NODE.get(), containerId);
         this.tile = tile;
 
         if (tile != null && !playerInventory.player.level().isClientSide) {
@@ -157,7 +157,7 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
         @Override
         public boolean mayPlace(ItemStack stack) {
             // Accept Node Router items as upgrades
-            return stack.is(BMItems.NODE_ROUTER.get());
+            return stack.is(NVItems.NODE_ROUTER.get());
         }
     }
 }

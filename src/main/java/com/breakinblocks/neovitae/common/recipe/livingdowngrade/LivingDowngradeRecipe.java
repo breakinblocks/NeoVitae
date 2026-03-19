@@ -9,7 +9,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import javax.annotation.Nonnull;
 
@@ -70,11 +70,11 @@ public class LivingDowngradeRecipe implements Recipe<LivingDowngradeInput> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return BMRecipes.LIVING_DOWNGRADE_SERIALIZER.get();
+        return NVRecipes.LIVING_DOWNGRADE_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return BMRecipes.LIVING_DOWNGRADE_TYPE.get();
+        return NVRecipes.LIVING_DOWNGRADE_TYPE.get();
     }
 }

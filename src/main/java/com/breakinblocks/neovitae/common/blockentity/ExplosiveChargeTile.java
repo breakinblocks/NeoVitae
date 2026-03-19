@@ -27,7 +27,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.common.blockentity.base.TickingTile;
 import com.breakinblocks.neovitae.common.datacomponent.AnointmentHolder;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.List;
@@ -72,7 +72,7 @@ public class ExplosiveChargeTile extends TickingTile {
     public ItemStack getHarvestingTool() {
         ItemStack stack = new ItemStack(Items.DIAMOND_PICKAXE);
         if (anointmentHolder != null && !anointmentHolder.isEmpty()) {
-            stack.set(BMDataComponents.ANOINTMENT_HOLDER, anointmentHolder);
+            stack.set(NVDataComponents.ANOINTMENT_HOLDER, anointmentHolder);
         }
         return stack;
     }
@@ -124,7 +124,7 @@ public class ExplosiveChargeTile extends TickingTile {
     public void dropSelf() {
         ItemStack stack = new ItemStack(getBlockState().getBlock());
         if (anointmentHolder != null && !anointmentHolder.isEmpty()) {
-            stack.set(BMDataComponents.ANOINTMENT_HOLDER, anointmentHolder);
+            stack.set(NVDataComponents.ANOINTMENT_HOLDER, anointmentHolder);
         }
         Containers.dropItemStack(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), stack);
     }

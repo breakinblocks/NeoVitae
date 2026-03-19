@@ -45,7 +45,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.will.PlayerDemonWillHandler;
 
 import javax.annotation.Nullable;
@@ -101,7 +101,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
 
     @Override
     protected Item getDefaultItem() {
-        return BMItems.THROWING_DAGGER.get();
+        return NVItems.THROWING_DAGGER.get();
     }
 
     @Override

@@ -7,8 +7,8 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -47,8 +47,8 @@ public class RitualForsakenSoul extends Ritual {
             double willAmount = getWillForEntity(entity);
             if (willAmount > 0) {
                 // Spawn will item with appropriate will amount
-                ItemStack willStack = new ItemStack(BMItems.RAW_WILL.get());
-                willStack.set(BMDataComponents.DEMON_WILL_AMOUNT, willAmount);
+                ItemStack willStack = new ItemStack(NVItems.RAW_WILL.get());
+                willStack.set(NVDataComponents.DEMON_WILL_AMOUNT, willAmount);
                 ItemEntity willEntity = new ItemEntity(ctx.level(),
                         entity.getX(), entity.getY() + 0.5, entity.getZ(), willStack);
                 ctx.level().addFreshEntity(willEntity);

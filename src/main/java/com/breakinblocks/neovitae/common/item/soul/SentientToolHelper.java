@@ -8,9 +8,9 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.will.PlayerDemonWillHandler;
 
 import java.util.ArrayList;
@@ -124,11 +124,11 @@ public final class SentientToolHelper {
      */
     public static MonsterSoulItem getSoulItemForType(EnumWillType type) {
         return switch (type) {
-            case CORROSIVE -> BMItems.MONSTER_SOUL_CORROSIVE.get();
-            case DESTRUCTIVE -> BMItems.MONSTER_SOUL_DESTRUCTIVE.get();
-            case VENGEFUL -> BMItems.MONSTER_SOUL_VENGEFUL.get();
-            case STEADFAST -> BMItems.MONSTER_SOUL_STEADFAST.get();
-            default -> BMItems.MONSTER_SOUL_RAW.get();
+            case CORROSIVE -> NVItems.MONSTER_SOUL_CORROSIVE.get();
+            case DESTRUCTIVE -> NVItems.MONSTER_SOUL_DESTRUCTIVE.get();
+            case VENGEFUL -> NVItems.MONSTER_SOUL_VENGEFUL.get();
+            case STEADFAST -> NVItems.MONSTER_SOUL_STEADFAST.get();
+            default -> NVItems.MONSTER_SOUL_RAW.get();
         };
     }
 
@@ -198,50 +198,50 @@ public final class SentientToolHelper {
     // ==================== DATA COMPONENT ACCESSORS ====================
 
     public static EnumWillType getCurrentType(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT);
+        return stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT);
     }
 
     public static void setCurrentType(ItemStack stack, EnumWillType type) {
-        stack.set(BMDataComponents.DEMON_WILL_TYPE, type);
+        stack.set(NVDataComponents.DEMON_WILL_TYPE, type);
     }
 
     public static double getDrainAmount(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.SENTIENT_SWORD_DRAIN, 0.0);
+        return stack.getOrDefault(NVDataComponents.SENTIENT_SWORD_DRAIN, 0.0);
     }
 
     public static void setDrainAmount(ItemStack stack, double drain) {
-        stack.set(BMDataComponents.SENTIENT_SWORD_DRAIN, drain);
+        stack.set(NVDataComponents.SENTIENT_SWORD_DRAIN, drain);
     }
 
     public static double getDamageBonus(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.SENTIENT_SWORD_DAMAGE, 0.0);
+        return stack.getOrDefault(NVDataComponents.SENTIENT_SWORD_DAMAGE, 0.0);
     }
 
     public static void setDamageBonus(ItemStack stack, double damage) {
-        stack.set(BMDataComponents.SENTIENT_SWORD_DAMAGE, damage);
+        stack.set(NVDataComponents.SENTIENT_SWORD_DAMAGE, damage);
     }
 
     public static double getStaticDrop(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.SENTIENT_SWORD_STATIC_DROP, 1.0);
+        return stack.getOrDefault(NVDataComponents.SENTIENT_SWORD_STATIC_DROP, 1.0);
     }
 
     public static void setStaticDrop(ItemStack stack, double drop) {
-        stack.set(BMDataComponents.SENTIENT_SWORD_STATIC_DROP, drop);
+        stack.set(NVDataComponents.SENTIENT_SWORD_STATIC_DROP, drop);
     }
 
     public static double getSoulDrop(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.SENTIENT_SWORD_DROP, 0.0);
+        return stack.getOrDefault(NVDataComponents.SENTIENT_SWORD_DROP, 0.0);
     }
 
     public static void setSoulDrop(ItemStack stack, double drop) {
-        stack.set(BMDataComponents.SENTIENT_SWORD_DROP, drop);
+        stack.set(NVDataComponents.SENTIENT_SWORD_DROP, drop);
     }
 
     public static double getDigSpeedBonus(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.SENTIENT_TOOL_SPEED, 0.0);
+        return stack.getOrDefault(NVDataComponents.SENTIENT_TOOL_SPEED, 0.0);
     }
 
     public static void setDigSpeedBonus(ItemStack stack, double speed) {
-        stack.set(BMDataComponents.SENTIENT_TOOL_SPEED, speed);
+        stack.set(NVDataComponents.SENTIENT_TOOL_SPEED, speed);
     }
 }

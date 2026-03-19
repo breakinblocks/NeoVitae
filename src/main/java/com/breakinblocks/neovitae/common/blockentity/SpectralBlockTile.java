@@ -24,7 +24,7 @@ public class SpectralBlockTile extends BaseTile {
     private int duration = DEFAULT_DURATION;
 
     public SpectralBlockTile(BlockPos pos, BlockState state) {
-        super(BMTiles.SPECTRAL_BLOCK_TYPE.get(), pos, state);
+        super(NVTiles.SPECTRAL_BLOCK_TYPE.get(), pos, state);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, SpectralBlockTile tile) {

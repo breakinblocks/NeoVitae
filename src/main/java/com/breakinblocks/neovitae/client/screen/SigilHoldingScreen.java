@@ -8,7 +8,7 @@ import net.minecraft.world.entity.player.Inventory;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
-import com.breakinblocks.neovitae.common.network.BMPayloads;
+import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.common.network.SigilHoldingSelectionPayload;
 
 /**
@@ -76,7 +76,7 @@ public class SigilHoldingScreen extends AbstractContainerScreen<SigilHoldingMenu
     private void selectSlot(int slot) {
         menu.setSelectedSlot(slot);
         // Send packet to server to update selection
-        BMPayloads.sendToServer(new SigilHoldingSelectionPayload(slot));
+        NVPayloads.sendToServer(new SigilHoldingSelectionPayload(slot));
     }
 
     @Override

@@ -1,0 +1,25 @@
+package com.breakinblocks.neovitae.datagen.provider;
+
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.FluidTagsProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.fluid.NVFluids;
+import com.breakinblocks.neovitae.common.tag.NVTags;
+
+import java.util.concurrent.CompletableFuture;
+
+public class NVFluidTagProvider extends FluidTagsProvider {
+
+    public NVFluidTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, ExistingFileHelper existingFileHelper) {
+        super(output, provider, NeoVitae.MODID, existingFileHelper);
+    }
+
+    @Override
+    protected void addTags(HolderLookup.Provider provider) {
+        tag(NVTags.Fluids.LIFE_ESSENCE)
+                .add(NVFluids.LIFE_ESSENCE_SOURCE.get())
+                .add(NVFluids.LIFE_ESSENCE_FLOWING.get());
+    }
+}

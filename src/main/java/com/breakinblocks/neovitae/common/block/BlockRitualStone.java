@@ -63,25 +63,25 @@ public class BlockRitualStone extends Block implements IRitualStone {
         Block runeBlock = this;
         switch (runeType) {
             case AIR:
-                runeBlock = BMBlocks.AIR_RITUAL_STONE.block().get();
+                runeBlock = NVBlocks.AIR_RITUAL_STONE.block().get();
                 break;
             case BLANK:
-                runeBlock = BMBlocks.BLANK_RITUAL_STONE.block().get();
+                runeBlock = NVBlocks.BLANK_RITUAL_STONE.block().get();
                 break;
             case DAWN:
-                runeBlock = BMBlocks.DAWN_RITUAL_STONE.block().get();
+                runeBlock = NVBlocks.DAWN_RITUAL_STONE.block().get();
                 break;
             case DUSK:
-                runeBlock = BMBlocks.DUSK_RITUAL_STONE.block().get();
+                runeBlock = NVBlocks.DUSK_RITUAL_STONE.block().get();
                 break;
             case EARTH:
-                runeBlock = BMBlocks.EARTH_RITUAL_STONE.block().get();
+                runeBlock = NVBlocks.EARTH_RITUAL_STONE.block().get();
                 break;
             case FIRE:
-                runeBlock = BMBlocks.FIRE_RITUAL_STONE.block().get();
+                runeBlock = NVBlocks.FIRE_RITUAL_STONE.block().get();
                 break;
             case WATER:
-                runeBlock = BMBlocks.WATER_RITUAL_STONE.block().get();
+                runeBlock = NVBlocks.WATER_RITUAL_STONE.block().get();
                 break;
         }
 

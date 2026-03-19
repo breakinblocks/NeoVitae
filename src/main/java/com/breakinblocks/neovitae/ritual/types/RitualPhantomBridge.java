@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.PhantomBridgeTile;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.ritual.*;
@@ -59,7 +59,7 @@ public class RitualPhantomBridge extends Ritual {
         // First, refresh duration on existing phantom blocks
         for (BlockPos pos : phantomBlocks.keySet()) {
             BlockState state = ctx.level().getBlockState(pos);
-            if (state.is(BMBlocks.PHANTOM_BRIDGE_BLOCK.get())) {
+            if (state.is(NVBlocks.PHANTOM_BRIDGE_BLOCK.get())) {
                 BlockEntity be = ctx.level().getBlockEntity(pos);
                 if (be instanceof PhantomBridgeTile phantomTile) {
                     phantomTile.resetDuration();
@@ -89,7 +89,7 @@ public class RitualPhantomBridge extends Ritual {
                         BlockState currentState = ctx.level().getBlockState(targetPos);
 
                         // If it's already a phantom bridge block, refresh it
-                        if (currentState.is(BMBlocks.PHANTOM_BRIDGE_BLOCK.get())) {
+                        if (currentState.is(NVBlocks.PHANTOM_BRIDGE_BLOCK.get())) {
                             BlockEntity be = ctx.level().getBlockEntity(targetPos);
                             if (be instanceof PhantomBridgeTile phantomTile) {
                                 phantomTile.resetDuration();
@@ -104,7 +104,7 @@ public class RitualPhantomBridge extends Ritual {
 
                         // Check block protection
                         if (!BlockProtectionHelper.tryReplaceBlock(ctx.level(), targetPos,
-                                BMBlocks.PHANTOM_BRIDGE_BLOCK.get().defaultBlockState(), owner)) {
+                                NVBlocks.PHANTOM_BRIDGE_BLOCK.get().defaultBlockState(), owner)) {
                             continue;
                         }
 
@@ -133,7 +133,7 @@ public class RitualPhantomBridge extends Ritual {
         for (Map.Entry<BlockPos, BlockState> entry : phantomBlocks.entrySet()) {
             BlockPos pos = entry.getKey();
             BlockState state = level.getBlockState(pos);
-            if (state.is(BMBlocks.PHANTOM_BRIDGE_BLOCK.get())) {
+            if (state.is(NVBlocks.PHANTOM_BRIDGE_BLOCK.get())) {
                 BlockEntity be = level.getBlockEntity(pos);
                 if (be instanceof PhantomBridgeTile phantomTile) {
                     phantomTile.removeBlock();

@@ -21,7 +21,7 @@ public class RoutingNodeHelper {
      */
     @Nullable
     public static RoutingNodeStats getStats(Block block) {
-        return BuiltInRegistries.BLOCK.wrapAsHolder(block).getData(BMDataMaps.ROUTING_NODE_STATS);
+        return BuiltInRegistries.BLOCK.wrapAsHolder(block).getData(NVDataMaps.ROUTING_NODE_STATS);
     }
 
     /**

@@ -11,9 +11,9 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -95,7 +95,7 @@ public abstract class FlaskRecipe implements Recipe<FlaskInput> {
      */
     @Nonnull
     public ItemStack getExampleFlask() {
-        ItemStack flaskStack = new ItemStack(BMItems.ALCHEMY_FLASK.get());
+        ItemStack flaskStack = new ItemStack(NVItems.ALCHEMY_FLASK.get());
         List<EffectHolder> exampleEffects = getExampleEffects();
         if (!exampleEffects.isEmpty()) {
             ItemAlchemyFlask.setFlaskEffects(flaskStack, new FlaskEffects(exampleEffects));
@@ -157,7 +157,7 @@ public abstract class FlaskRecipe implements Recipe<FlaskInput> {
 
     @Override
     public RecipeType<?> getType() {
-        return BMRecipes.FLASK_TYPE.get();
+        return NVRecipes.FLASK_TYPE.get();
     }
 
     /**

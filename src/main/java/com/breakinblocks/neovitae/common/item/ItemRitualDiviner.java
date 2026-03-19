@@ -33,10 +33,10 @@ import net.neoforged.api.distmarker.OnlyIn;
 import org.apache.commons.lang3.StringUtils;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.ClientHandler;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockRitualStone;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneTile;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.ritual.*;
 
 import java.util.*;
@@ -58,49 +58,49 @@ public class ItemRitualDiviner extends Item {
     public ItemRitualDiviner(int type) {
         super(new Item.Properties()
                 .stacksTo(1)
-                .component(BMDataComponents.CURRENT_RITUAL.get(), "")
-                .component(BMDataComponents.DIVINER_DIRECTION.get(), Direction.NORTH.get3DDataValue())
-                .component(BMDataComponents.DIVINER_ACTIVATED.get(), false)
-                .component(BMDataComponents.DIVINER_STORED_POS.get(), BlockPos.ZERO));
+                .component(NVDataComponents.CURRENT_RITUAL.get(), "")
+                .component(NVDataComponents.DIVINER_DIRECTION.get(), Direction.NORTH.get3DDataValue())
+                .component(NVDataComponents.DIVINER_ACTIVATED.get(), false)
+                .component(NVDataComponents.DIVINER_STORED_POS.get(), BlockPos.ZERO));
         this.type = type;
     }
 
     // ==================== State Management ====================
 
     public boolean isActivated(ItemStack stack) {
-        return Boolean.TRUE.equals(stack.get(BMDataComponents.DIVINER_ACTIVATED.get()));
+        return Boolean.TRUE.equals(stack.get(NVDataComponents.DIVINER_ACTIVATED.get()));
     }
 
     public void setActivated(ItemStack stack, boolean activated) {
-        stack.set(BMDataComponents.DIVINER_ACTIVATED.get(), activated);
+        stack.set(NVDataComponents.DIVINER_ACTIVATED.get(), activated);
     }
 
     public BlockPos getStoredPos(ItemStack stack) {
-        BlockPos pos = stack.get(BMDataComponents.DIVINER_STORED_POS.get());
+        BlockPos pos = stack.get(NVDataComponents.DIVINER_STORED_POS.get());
         return pos != null ? pos : BlockPos.ZERO;
     }
 
     public void setStoredPos(ItemStack stack, BlockPos pos) {
-        stack.set(BMDataComponents.DIVINER_STORED_POS.get(), pos);
+        stack.set(NVDataComponents.DIVINER_STORED_POS.get(), pos);
     }
 
     public Direction getDirection(ItemStack stack) {
-        Integer dir = stack.get(BMDataComponents.DIVINER_DIRECTION.get());
+        Integer dir = stack.get(NVDataComponents.DIVINER_DIRECTION.get());
         if (dir == null || dir == 0) return Direction.NORTH;
         return Direction.from3DDataValue(dir);
     }
 
     public void setDirection(ItemStack stack, Direction direction) {
-        stack.set(BMDataComponents.DIVINER_DIRECTION.get(), direction.get3DDataValue());
+        stack.set(NVDataComponents.DIVINER_DIRECTION.get(), direction.get3DDataValue());
     }
 
     public String getCurrentRitualId(ItemStack stack) {
-        String id = stack.get(BMDataComponents.CURRENT_RITUAL.get());
+        String id = stack.get(NVDataComponents.CURRENT_RITUAL.get());
         return id != null ? id : "";
     }
 
     public void setCurrentRitual(ItemStack stack, String ritualId) {
-        stack.set(BMDataComponents.CURRENT_RITUAL.get(), ritualId);
+        stack.set(NVDataComponents.CURRENT_RITUAL.get(), ritualId);
     }
 
     public Ritual getCurrentRitual(ItemStack stack) {
@@ -270,7 +270,7 @@ public class ItemRitualDiviner extends Item {
                 }
 
                 // Place the ritual stone (with protection check)
-                Block blankStone = BMBlocks.BLANK_RITUAL_STONE.block().get();
+                Block blankStone = NVBlocks.BLANK_RITUAL_STONE.block().get();
                 if (blankStone instanceof BlockRitualStone ritualStone) {
                     if (!ritualStone.setRuneType(level, runePos, component.runeType(), player)) {
                         notifyBlockedBuild(player, runePos);

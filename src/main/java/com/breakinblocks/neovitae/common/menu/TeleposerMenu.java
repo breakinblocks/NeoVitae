@@ -14,7 +14,7 @@ public class TeleposerMenu extends AbstractTileMenu<TeleposerTile> {
     private static final int TILE_SLOTS = 1; // Just the focus slot
 
     public TeleposerMenu(int containerId, Inventory playerInventory, TeleposerTile tile) {
-        super(BMMenus.TELEPOSER.get(), containerId, tile, TILE_SLOTS);
+        super(NVMenus.TELEPOSER.get(), containerId, tile, TILE_SLOTS);
 
         this.addSlot(new SlotItemHandler(tile.inv, TeleposerTile.FOCUS_SLOT, 80, 15) {
             @Override

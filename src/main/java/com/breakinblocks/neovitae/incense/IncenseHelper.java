@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.incense;
 
 import net.minecraft.world.entity.player.Player;
-import com.breakinblocks.neovitae.common.dataattachment.BMDataAttachments;
+import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 
 /**
  * Helper class for managing player incense levels.
@@ -16,14 +16,14 @@ public class IncenseHelper {
      * Gets the current incense level for a player.
      */
     public static double getCurrentIncense(Player player) {
-        return player.getData(BMDataAttachments.INCENSE);
+        return player.getData(NVDataAttachments.INCENSE);
     }
 
     /**
      * Sets the current incense level for a player.
      */
     public static void setCurrentIncense(Player player, double amount) {
-        player.setData(BMDataAttachments.INCENSE, amount);
+        player.setData(NVDataAttachments.INCENSE, amount);
     }
 
     /**

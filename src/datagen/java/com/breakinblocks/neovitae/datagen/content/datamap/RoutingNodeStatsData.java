@@ -3,8 +3,8 @@ package com.breakinblocks.neovitae.datagen.content.datamap;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.neoforged.neoforge.registries.datamaps.DataMapType;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
-import com.breakinblocks.neovitae.common.datamap.BMDataMaps;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.RoutingNodeStats;
 
 import java.util.Optional;
@@ -45,11 +45,11 @@ public class RoutingNodeStatsData {
     private static final int MAX_STACK_UPGRADES = 64;
 
     public static void bootstrap(Function<DataMapType<Block, RoutingNodeStats>, DataMapProvider.Builder<RoutingNodeStats, Block>> setup) {
-        var builder = setup.apply(BMDataMaps.ROUTING_NODE_STATS);
+        var builder = setup.apply(NVDataMaps.ROUTING_NODE_STATS);
 
         // Master routing node - the network controller
         builder.add(
-                BMBlocks.MASTER_ROUTING_NODE.block(),
+                NVBlocks.MASTER_ROUTING_NODE.block(),
                 new RoutingNodeStats(
                         Optional.empty(),                    // unlimited connections
                         Optional.empty(),                    // unlimited range
@@ -68,21 +68,21 @@ public class RoutingNodeStatsData {
         // Basic routing node - relay node (no special stats needed, uses defaults)
         // We still register it so it shows in the datamap for reference
         builder.add(
-                BMBlocks.ROUTING_NODE.block(),
+                NVBlocks.ROUTING_NODE.block(),
                 RoutingNodeStats.DEFAULT_NODE,
                 false
         );
 
         // Input routing node - pulls items from inventories
         builder.add(
-                BMBlocks.INPUT_ROUTING_NODE.block(),
+                NVBlocks.INPUT_ROUTING_NODE.block(),
                 RoutingNodeStats.DEFAULT_NODE,
                 false
         );
 
         // Output routing node - pushes items to inventories
         builder.add(
-                BMBlocks.OUTPUT_ROUTING_NODE.block(),
+                NVBlocks.OUTPUT_ROUTING_NODE.block(),
                 RoutingNodeStats.DEFAULT_NODE,
                 false
         );

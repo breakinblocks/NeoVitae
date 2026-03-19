@@ -30,7 +30,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyTableTile;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
 public class AlchemyTableBlock extends BaseEntityBlock {
     public static final MapCodec<AlchemyTableBlock> CODEC = simpleCodec(AlchemyTableBlock::new);
@@ -76,7 +76,7 @@ public class AlchemyTableBlock extends BaseEntityBlock {
         if (state.getValue(INVISIBLE)) {
             return null;
         }
-        return createTickerHelper(type, BMTiles.ALCHEMY_TABLE_TYPE.get(), AlchemyTableTile::tick);
+        return createTickerHelper(type, NVTiles.ALCHEMY_TABLE_TYPE.get(), AlchemyTableTile::tick);
     }
 
     @Override

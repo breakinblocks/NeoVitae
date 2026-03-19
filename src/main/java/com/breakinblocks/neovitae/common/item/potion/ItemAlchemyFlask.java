@@ -14,7 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.Level;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
 
@@ -135,14 +135,14 @@ public class ItemAlchemyFlask extends Item {
      * Get the FlaskEffects from this flask.
      */
     public static FlaskEffects getFlaskEffects(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.FLASK_EFFECTS.get(), FlaskEffects.EMPTY);
+        return stack.getOrDefault(NVDataComponents.FLASK_EFFECTS.get(), FlaskEffects.EMPTY);
     }
 
     /**
      * Set the FlaskEffects on this flask and sync to PotionContents for display.
      */
     public static void setFlaskEffects(ItemStack stack, FlaskEffects effects) {
-        stack.set(BMDataComponents.FLASK_EFFECTS.get(), effects);
+        stack.set(NVDataComponents.FLASK_EFFECTS.get(), effects);
         resyncPotionContents(stack);
     }
 
@@ -150,7 +150,7 @@ public class ItemAlchemyFlask extends Item {
      * Check if the flask has FlaskEffects.
      */
     public static boolean hasFlaskEffects(ItemStack stack) {
-        FlaskEffects effects = stack.get(BMDataComponents.FLASK_EFFECTS.get());
+        FlaskEffects effects = stack.get(NVDataComponents.FLASK_EFFECTS.get());
         return effects != null && !effects.isEmpty();
     }
 

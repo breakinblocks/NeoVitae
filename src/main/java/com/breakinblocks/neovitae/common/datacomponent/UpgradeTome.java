@@ -13,7 +13,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 import java.util.HashMap;
 import java.util.TreeMap;

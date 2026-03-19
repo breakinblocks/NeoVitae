@@ -11,8 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
-import com.breakinblocks.neovitae.common.item.BMItems;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.alchemytable.AlchemyTableRecipe;
 
 import java.util.Arrays;
@@ -39,7 +39,7 @@ public class AlchemyTableProcessor implements IComponentProcessor {
         this.registries = level.registryAccess();
         ResourceLocation id = ResourceLocation.parse(variables.get("recipe", registries).asString());
         Optional<RecipeHolder<AlchemyTableRecipe>> recipeHolder = Minecraft.getInstance().level.getRecipeManager()
-                .getAllRecipesFor(BMRecipes.ALCHEMY_TABLE_TYPE.get())
+                .getAllRecipesFor(NVRecipes.ALCHEMY_TABLE_TYPE.get())
                 .stream()
                 .filter(holder -> holder.id().equals(id))
                 .findFirst();
@@ -80,12 +80,12 @@ public class AlchemyTableProcessor implements IComponentProcessor {
 
     private IVariable getOrbForTier(int tier) {
         return switch (tier) {
-            case 0, 1 -> IVariable.from(new ItemStack(BMItems.ORB_WEAK.get()), registries);
-            case 2 -> IVariable.from(new ItemStack(BMItems.ORB_APPRENTICE.get()), registries);
-            case 3 -> IVariable.from(new ItemStack(BMItems.ORB_MAGICIAN.get()), registries);
-            case 4 -> IVariable.from(new ItemStack(BMItems.ORB_MASTER.get()), registries);
-            case 5 -> IVariable.from(new ItemStack(BMItems.ORB_ARCHMAGE.get()), registries);
-            case 6 -> IVariable.from(new ItemStack(BMItems.ORB_TRANSCENDENT.get()), registries);
+            case 0, 1 -> IVariable.from(new ItemStack(NVItems.ORB_WEAK.get()), registries);
+            case 2 -> IVariable.from(new ItemStack(NVItems.ORB_APPRENTICE.get()), registries);
+            case 3 -> IVariable.from(new ItemStack(NVItems.ORB_MAGICIAN.get()), registries);
+            case 4 -> IVariable.from(new ItemStack(NVItems.ORB_MASTER.get()), registries);
+            case 5 -> IVariable.from(new ItemStack(NVItems.ORB_ARCHMAGE.get()), registries);
+            case 6 -> IVariable.from(new ItemStack(NVItems.ORB_TRANSCENDENT.get()), registries);
             default -> {
                 LogManager.getLogger().warn("Guidebook unable to find large enough Blood Orb for tier {}", tier);
                 yield IVariable.from(new ItemStack(Items.BARRIER), registries);

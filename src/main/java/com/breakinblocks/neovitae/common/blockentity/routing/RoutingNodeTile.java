@@ -32,7 +32,7 @@ public class RoutingNodeTile extends BlockEntity implements IRoutingNode, IItemR
     }
 
     public RoutingNodeTile(BlockPos pos, BlockState state) {
-        this(com.breakinblocks.neovitae.common.blockentity.BMTiles.ROUTING_NODE_TYPE.get(), pos, state);
+        this(com.breakinblocks.neovitae.common.blockentity.NVTiles.ROUTING_NODE_TYPE.get(), pos, state);
     }
 
     public void tick(Level level, BlockPos pos, BlockState state) {

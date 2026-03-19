@@ -9,7 +9,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.TagsUpdatedEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 import java.util.function.Consumer;
 
@@ -48,13 +48,13 @@ public class TagsCache {
         RegistryAccess access = event.getRegistryAccess();
         datapackHelper(
                 access,
-                BMRegistries.Keys.LIVING_UPGRADES,
-                registry -> TOOLTIP_ORDER = registry.getOrCreateTag(BMTags.Living.TOOLTIP_ORDER)
+                NVRegistries.Keys.LIVING_UPGRADES,
+                registry -> TOOLTIP_ORDER = registry.getOrCreateTag(NVTags.Living.TOOLTIP_ORDER)
         );
         datapackHelper(
                 access,
-                BMRegistries.Keys.LIVING_UPGRADES,
-                registry -> UPGRADE_SCRAPPABLE = registry.getOrCreateTag(BMTags.Living.IS_SCRAPPABLE)
+                NVRegistries.Keys.LIVING_UPGRADES,
+                registry -> UPGRADE_SCRAPPABLE = registry.getOrCreateTag(NVTags.Living.IS_SCRAPPABLE)
         );
     }
 

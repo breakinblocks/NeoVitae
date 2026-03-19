@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.common.blockentity.TeleposerTile;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 
 import java.util.Set;
@@ -44,8 +44,8 @@ public record TelepositionSigilEffect() implements SigilEffect {
             return false;
         }
 
-        BlockPos boundPos = stack.get(BMDataComponents.TELEPOSER_POS.get());
-        String dimensionId = stack.get(BMDataComponents.TELEPOSER_DIMENSION.get());
+        BlockPos boundPos = stack.get(NVDataComponents.TELEPOSER_POS.get());
+        String dimensionId = stack.get(NVDataComponents.TELEPOSER_DIMENSION.get());
 
         if (boundPos == null || dimensionId == null) {
             player.sendSystemMessage(Component.translatable("tooltip.neovitae.sigil.teleposition.unbound"));
@@ -95,8 +95,8 @@ public record TelepositionSigilEffect() implements SigilEffect {
         BlockEntity tile = level.getBlockEntity(blockPos);
         if (tile instanceof TeleposerTile) {
             // Bind to this teleposer
-            stack.set(BMDataComponents.TELEPOSER_POS.get(), blockPos);
-            stack.set(BMDataComponents.TELEPOSER_DIMENSION.get(), level.dimension().location().toString());
+            stack.set(NVDataComponents.TELEPOSER_POS.get(), blockPos);
+            stack.set(NVDataComponents.TELEPOSER_DIMENSION.get(), level.dimension().location().toString());
             player.sendSystemMessage(Component.translatable("tooltip.neovitae.sigil.teleposition.bound",
                     blockPos.getX(), blockPos.getY(), blockPos.getZ()));
             return true;

@@ -16,7 +16,7 @@ import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
-import com.breakinblocks.neovitae.common.datamap.BMDataMaps;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.event.RitualEvent;
@@ -46,7 +46,7 @@ public class MasterRitualStoneTile extends BaseTile implements IMasterRitualSton
     private Map<String, AreaDescriptor> blockRanges = new HashMap<>();
 
     public MasterRitualStoneTile(BlockPos pos, BlockState state) {
-        super(BMTiles.MASTER_RITUAL_STONE_TYPE.get(), pos, state);
+        super(NVTiles.MASTER_RITUAL_STONE_TYPE.get(), pos, state);
         if (state.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
             direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
         }
@@ -137,7 +137,7 @@ public class MasterRitualStoneTile extends BaseTile implements IMasterRitualSton
 
         // Check if ritual is disabled via datapack
         var ritualHolder = RitualRegistry.getRitualRegistry().wrapAsHolder(ritual);
-        RitualStats stats = ritualHolder.getData(BMDataMaps.RITUAL_STATS);
+        RitualStats stats = ritualHolder.getData(NVDataMaps.RITUAL_STATS);
         if (stats != null && !stats.enabled()) {
             if (player != null) {
                 player.displayClientMessage(

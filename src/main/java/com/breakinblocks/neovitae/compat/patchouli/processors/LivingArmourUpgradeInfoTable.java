@@ -12,7 +12,7 @@ import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 import java.util.Map;
 import java.util.Optional;
@@ -40,7 +40,7 @@ public class LivingArmourUpgradeInfoTable implements IComponentProcessor {
 
         // Get the living upgrades registry
         Optional<Registry<LivingUpgrade>> registryOpt = level.registryAccess()
-                .registry(BMRegistries.Keys.LIVING_UPGRADES);
+                .registry(NVRegistries.Keys.LIVING_UPGRADES);
 
         if (registryOpt.isPresent()) {
             Registry<LivingUpgrade> registry = registryOpt.get();

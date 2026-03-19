@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.dataattachment.BMDataAttachments;
+import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.living.LivingEntityEffect;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
@@ -35,7 +35,7 @@ public record DistanceExpGain(Holder<LivingUpgrade> upgrade, Movement movement) 
         double y = wearer.getY();
         double z = wearer.getZ();
 
-        Map<ResourceLocation, Double> data = wearer.getData(BMDataAttachments.LIVING_ADDITIONAL);
+        Map<ResourceLocation, Double> data = wearer.getData(NVDataAttachments.LIVING_ADDITIONAL);
         double oldX = data.getOrDefault(X, x);
         double oldY = data.getOrDefault(Y, y);
         double oldZ = data.getOrDefault(Z, z);
@@ -44,7 +44,7 @@ public record DistanceExpGain(Holder<LivingUpgrade> upgrade, Movement movement) 
         data.put(Y, y);
         data.put(Z, z);
 
-        wearer.setData(BMDataAttachments.LIVING_ADDITIONAL, data);
+        wearer.setData(NVDataAttachments.LIVING_ADDITIONAL, data);
 
         double amount = switch (movement) {
             case HORIZONTAL -> Math.sqrt(Math.abs(x - oldX) * Math.abs(x - oldX) + Math.abs(z - oldZ) * Math.abs(z - oldZ));

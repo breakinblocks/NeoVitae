@@ -5,7 +5,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -59,11 +59,11 @@ public class RitualCrystalHarvest extends Ritual {
     }
 
     private boolean isDemonCrystal(Block block) {
-        return block == BMBlocks.RAW_DEMON_CRYSTAL.block().get() ||
-               block == BMBlocks.CORROSIVE_DEMON_CRYSTAL.block().get() ||
-               block == BMBlocks.DESTRUCTIVE_DEMON_CRYSTAL.block().get() ||
-               block == BMBlocks.VENGEFUL_DEMON_CRYSTAL.block().get() ||
-               block == BMBlocks.STEADFAST_DEMON_CRYSTAL.block().get();
+        return block == NVBlocks.RAW_DEMON_CRYSTAL.block().get() ||
+               block == NVBlocks.CORROSIVE_DEMON_CRYSTAL.block().get() ||
+               block == NVBlocks.DESTRUCTIVE_DEMON_CRYSTAL.block().get() ||
+               block == NVBlocks.VENGEFUL_DEMON_CRYSTAL.block().get() ||
+               block == NVBlocks.STEADFAST_DEMON_CRYSTAL.block().get();
     }
 
     @Override

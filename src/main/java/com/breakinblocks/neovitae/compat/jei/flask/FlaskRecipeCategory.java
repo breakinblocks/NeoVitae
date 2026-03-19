@@ -15,7 +15,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskRecipe;
 
 import javax.annotation.Nonnull;
@@ -40,7 +40,7 @@ public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
     private final IDrawable icon;
 
     public FlaskRecipeCategory(IGuiHelper guiHelper) {
-        icon = guiHelper.createDrawableItemStack(new ItemStack(BMItems.ALCHEMY_FLASK.get()));
+        icon = guiHelper.createDrawableItemStack(new ItemStack(NVItems.ALCHEMY_FLASK.get()));
         background = guiHelper.createDrawable(NeoVitae.rl("gui/jei/alchemytable.png"), 0, 0, WIDTH, HEIGHT);
     }
 
@@ -121,12 +121,12 @@ public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
     private List<ItemStack> getOrbsForTier(int tier) {
         List<ItemStack> orbs = new ArrayList<>();
         // Add all orbs at or above the required tier
-        if (tier <= 1) orbs.add(new ItemStack(BMItems.ORB_WEAK.get()));
-        if (tier <= 2) orbs.add(new ItemStack(BMItems.ORB_APPRENTICE.get()));
-        if (tier <= 3) orbs.add(new ItemStack(BMItems.ORB_MAGICIAN.get()));
-        if (tier <= 4) orbs.add(new ItemStack(BMItems.ORB_MASTER.get()));
-        if (tier <= 5) orbs.add(new ItemStack(BMItems.ORB_ARCHMAGE.get()));
-        if (tier <= 6) orbs.add(new ItemStack(BMItems.ORB_TRANSCENDENT.get()));
+        if (tier <= 1) orbs.add(new ItemStack(NVItems.ORB_WEAK.get()));
+        if (tier <= 2) orbs.add(new ItemStack(NVItems.ORB_APPRENTICE.get()));
+        if (tier <= 3) orbs.add(new ItemStack(NVItems.ORB_MAGICIAN.get()));
+        if (tier <= 4) orbs.add(new ItemStack(NVItems.ORB_MASTER.get()));
+        if (tier <= 5) orbs.add(new ItemStack(NVItems.ORB_ARCHMAGE.get()));
+        if (tier <= 6) orbs.add(new ItemStack(NVItems.ORB_TRANSCENDENT.get()));
         return orbs;
     }
 

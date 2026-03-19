@@ -20,12 +20,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.LivingStats;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeLimits;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 import javax.swing.text.html.CSS;
 import java.util.Optional;
@@ -44,11 +44,11 @@ public class LivingUpgradesCommand {
                                                         .then(
                                                                 Commands.literal("set")
                                                                         .then(
-                                                                                Commands.argument("id", ResourceArgument.resource(buildContext, BMRegistries.Keys.LIVING_UPGRADES))
+                                                                                Commands.argument("id", ResourceArgument.resource(buildContext, NVRegistries.Keys.LIVING_UPGRADES))
                                                                                         .then(
                                                                                                 Commands.argument("exp", IntegerArgumentType.integer(0))
                                                                                                         .executes(
-                                                                                                                context -> setUpgrade(context.getSource(), EntityArgument.getPlayer(context, "target"), ResourceArgument.getResource(context, "id", BMRegistries.Keys.LIVING_UPGRADES), IntegerArgumentType.getInteger(context, "exp"))
+                                                                                                                context -> setUpgrade(context.getSource(), EntityArgument.getPlayer(context, "target"), ResourceArgument.getResource(context, "id", NVRegistries.Keys.LIVING_UPGRADES), IntegerArgumentType.getInteger(context, "exp"))
                                                                                                         )
                                                                                         )
                                                                         )
@@ -59,9 +59,9 @@ public class LivingUpgradesCommand {
                                                                                 context -> getUpgrades(context.getSource(), EntityArgument.getPlayer(context, "target"), Optional.empty())
                                                                         )
                                                                         .then(
-                                                                                Commands.argument("id", ResourceArgument.resource(buildContext, BMRegistries.Keys.LIVING_UPGRADES))
+                                                                                Commands.argument("id", ResourceArgument.resource(buildContext, NVRegistries.Keys.LIVING_UPGRADES))
                                                                                         .executes(
-                                                                                                context -> getUpgrades(context.getSource(), EntityArgument.getPlayer(context, "target"), Optional.of(ResourceArgument.getResource(context, "id", BMRegistries.Keys.LIVING_UPGRADES)))
+                                                                                                context -> getUpgrades(context.getSource(), EntityArgument.getPlayer(context, "target"), Optional.of(ResourceArgument.getResource(context, "id", NVRegistries.Keys.LIVING_UPGRADES)))
                                                                                         )
                                                                         )
                                                         )
@@ -71,11 +71,11 @@ public class LivingUpgradesCommand {
                                                         .then(
                                                                 Commands.literal("set")
                                                                         .then(
-                                                                                Commands.argument("id", ResourceArgument.resource(buildContext, BMRegistries.Keys.LIVING_UPGRADES))
+                                                                                Commands.argument("id", ResourceArgument.resource(buildContext, NVRegistries.Keys.LIVING_UPGRADES))
                                                                                         .then(
                                                                                                 Commands.argument("exp", IntegerArgumentType.integer(0))
                                                                                                         .executes(
-                                                                                                                context -> setLimit(context.getSource(), EntityArgument.getPlayer(context, "target"), ResourceArgument.getResource(context, "id", BMRegistries.Keys.LIVING_UPGRADES), IntegerArgumentType.getInteger(context, "exp"))
+                                                                                                                context -> setLimit(context.getSource(), EntityArgument.getPlayer(context, "target"), ResourceArgument.getResource(context, "id", NVRegistries.Keys.LIVING_UPGRADES), IntegerArgumentType.getInteger(context, "exp"))
                                                                                                         )
                                                                                         )
                                                                         )
@@ -86,17 +86,17 @@ public class LivingUpgradesCommand {
                                                                                 context -> getLimit(context.getSource(), EntityArgument.getPlayer(context, "target"), Optional.empty())
                                                                         )
                                                                         .then(
-                                                                                Commands.argument("id", ResourceArgument.resource(buildContext, BMRegistries.Keys.LIVING_UPGRADES))
+                                                                                Commands.argument("id", ResourceArgument.resource(buildContext, NVRegistries.Keys.LIVING_UPGRADES))
                                                                                         .executes(
-                                                                                                context -> getLimit(context.getSource(), EntityArgument.getPlayer(context, "target"), Optional.of(ResourceArgument.getResource(context, "id", BMRegistries.Keys.LIVING_UPGRADES)))
+                                                                                                context -> getLimit(context.getSource(), EntityArgument.getPlayer(context, "target"), Optional.of(ResourceArgument.getResource(context, "id", NVRegistries.Keys.LIVING_UPGRADES)))
                                                                                         )
                                                                         )
                                                         )
                                                         .then(
                                                                 Commands.literal("remove")
                                                                         .then(
-                                                                                Commands.argument("id", ResourceArgument.resource(buildContext, BMRegistries.Keys.LIVING_UPGRADES))
-                                                                                        .executes(context -> removeLimit(context.getSource(), EntityArgument.getPlayer(context, "target"), ResourceArgument.getResource(context, "id", BMRegistries.Keys.LIVING_UPGRADES)))
+                                                                                Commands.argument("id", ResourceArgument.resource(buildContext, NVRegistries.Keys.LIVING_UPGRADES))
+                                                                                        .executes(context -> removeLimit(context.getSource(), EntityArgument.getPlayer(context, "target"), ResourceArgument.getResource(context, "id", NVRegistries.Keys.LIVING_UPGRADES)))
                                                                         )
                                                         )
                                                         .then(
@@ -142,8 +142,8 @@ public class LivingUpgradesCommand {
             throw ERROR_NO_LIVING_HOLDER.create(target.getName());
         }
         ItemStack chest = LivingHelper.getChest(target);
-        UpgradeLimits limits = chest.getOrDefault(BMDataComponents.LIMITS, UpgradeLimits.EMPTY);
-        chest.set(BMDataComponents.LIMITS, new UpgradeLimits(mode, limits.limits().clone()));
+        UpgradeLimits limits = chest.getOrDefault(NVDataComponents.LIMITS, UpgradeLimits.EMPTY);
+        chest.set(NVDataComponents.LIMITS, new UpgradeLimits(mode, limits.limits().clone()));
 
         return Command.SINGLE_SUCCESS;
     }
@@ -153,10 +153,10 @@ public class LivingUpgradesCommand {
             throw ERROR_NO_LIVING_HOLDER.create(target.getName());
         }
         ItemStack chest = LivingHelper.getChest(target);
-        UpgradeLimits limits = chest.getOrDefault(BMDataComponents.LIMITS, UpgradeLimits.EMPTY);
+        UpgradeLimits limits = chest.getOrDefault(NVDataComponents.LIMITS, UpgradeLimits.EMPTY);
         Object2FloatOpenHashMap<Holder<LivingUpgrade>> limitMap = limits.limits().clone();
         limitMap.removeFloat(id);
-        chest.set(BMDataComponents.LIMITS, new UpgradeLimits(limits.allowOthers(), limitMap));
+        chest.set(NVDataComponents.LIMITS, new UpgradeLimits(limits.allowOthers(), limitMap));
 
         return Command.SINGLE_SUCCESS;
     }
@@ -166,7 +166,7 @@ public class LivingUpgradesCommand {
             throw ERROR_NO_LIVING_HOLDER.create(target.getName());
         }
         ItemStack chest = LivingHelper.getChest(target);
-        chest.set(BMDataComponents.CURRENT_MAX_UPGRADE_POINTS, amount);
+        chest.set(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS, amount);
         source.sendSuccess(() -> Component.translatable("commands.neovitae.cap.success", amount), true);
 
         return Command.SINGLE_SUCCESS;
@@ -188,9 +188,9 @@ public class LivingUpgradesCommand {
         }
         ItemStack chest = LivingHelper.getChest(target);
         Object2FloatOpenHashMap<Holder<LivingUpgrade>> map = new Object2FloatOpenHashMap<>();
-        map.putAll(chest.getOrDefault(BMDataComponents.UPGRADES, LivingStats.EMPTY).upgrades());
+        map.putAll(chest.getOrDefault(NVDataComponents.UPGRADES, LivingStats.EMPTY).upgrades());
         map.put(id, exp);
-        chest.set(BMDataComponents.UPGRADES, new LivingStats(map));
+        chest.set(NVDataComponents.UPGRADES, new LivingStats(map));
 
         source.sendSuccess(() -> Component.translatable("commands.neovitae.upgrade.set", Component.translatable(LivingUpgrade.descriptionId(id.getKey())), exp, target.getName()), true);
 
@@ -203,7 +203,7 @@ public class LivingUpgradesCommand {
         }
 
         ItemStack chestStack = LivingHelper.getChest(target);
-        LivingStats stats = chestStack.getOrDefault(BMDataComponents.UPGRADES, LivingStats.EMPTY);
+        LivingStats stats = chestStack.getOrDefault(NVDataComponents.UPGRADES, LivingStats.EMPTY);
         MutableComponent result = Component.empty();
         if (filter.isEmpty()) {
             stats.object2FloatEntrySet().forEach(entry -> {
@@ -225,10 +225,10 @@ public class LivingUpgradesCommand {
         }
         ItemStack chest = LivingHelper.getChest(target);
         Object2FloatOpenHashMap<Holder<LivingUpgrade>> map = new Object2FloatOpenHashMap<>();
-        UpgradeLimits limits = chest.getOrDefault(BMDataComponents.LIMITS, UpgradeLimits.EMPTY);
+        UpgradeLimits limits = chest.getOrDefault(NVDataComponents.LIMITS, UpgradeLimits.EMPTY);
         map.putAll(limits.limits());
         map.put(id, exp);
-        chest.set(BMDataComponents.LIMITS, new UpgradeLimits(limits.allowOthers(), map));
+        chest.set(NVDataComponents.LIMITS, new UpgradeLimits(limits.allowOthers(), map));
 
         source.sendSuccess(() -> Component.translatable("commands.neovitae.limit.set", Component.translatable(LivingUpgrade.descriptionId(id.getKey())), exp, target.getName()), true);
 
@@ -241,7 +241,7 @@ public class LivingUpgradesCommand {
         }
 
         ItemStack chestStack = LivingHelper.getChest(target);
-        UpgradeLimits stats = chestStack.getOrDefault(BMDataComponents.LIMITS, UpgradeLimits.EMPTY);
+        UpgradeLimits stats = chestStack.getOrDefault(NVDataComponents.LIMITS, UpgradeLimits.EMPTY);
         MutableComponent result = Component.empty();
         Component mode = Component.translatable("commands.neovitae.limit.mode." + (stats.allowOthers() ? "allow" : "deny"));
         if (filter.isEmpty()) {

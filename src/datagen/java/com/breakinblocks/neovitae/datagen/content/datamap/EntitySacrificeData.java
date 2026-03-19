@@ -4,7 +4,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.neoforged.neoforge.registries.datamaps.DataMapType;
-import com.breakinblocks.neovitae.common.datamap.BMDataMaps;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.EntitySacrificeValue;
 
 import java.util.function.Function;
@@ -51,7 +51,7 @@ public class EntitySacrificeData {
     public static final int BOSS_CAP = 2500;
 
     public static void bootstrap(Function<DataMapType<EntityType<?>, EntitySacrificeValue>, DataMapProvider.Builder<EntitySacrificeValue, EntityType<?>>> setup) {
-        var builder = setup.apply(BMDataMaps.ENTITY_SACRIFICE_VALUE);
+        var builder = setup.apply(NVDataMaps.ENTITY_SACRIFICE_VALUE);
 
         // ===== Passive Mobs =====
         // Easy to farm, low LP value

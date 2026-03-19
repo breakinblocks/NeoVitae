@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
-import com.breakinblocks.neovitae.common.damagesource.BMDamageSources;
+import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 import com.breakinblocks.neovitae.util.helper.PlayerHelper;
 
@@ -67,7 +67,7 @@ public record FastMinerSigilEffect(int amplifier) implements SigilEffect {
                 player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, ticks, potionPotency));
                 if (!player.isCreative()) {
                     player.invulnerableTime = 0;
-                    player.hurt(level.damageSources().source(BMDamageSources.SACRIFICE), 1.0F);
+                    player.hurt(level.damageSources().source(NVDamageSources.SACRIFICE), 1.0F);
                 }
             }
         }

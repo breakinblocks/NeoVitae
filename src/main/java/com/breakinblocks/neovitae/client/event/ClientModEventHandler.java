@@ -13,7 +13,7 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
-import com.breakinblocks.neovitae.common.entity.BMEntities;
+import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.render.entity.BloodLightRenderer;
 import com.breakinblocks.neovitae.client.render.entity.EntityMeteorRenderer;
@@ -31,14 +31,14 @@ import com.breakinblocks.neovitae.client.screen.RoutingNodeScreen;
 import com.breakinblocks.neovitae.client.screen.SigilHoldingScreen;
 import com.breakinblocks.neovitae.client.screen.SoulForgeScreen;
 import com.breakinblocks.neovitae.client.screen.TrainerScreen;
-import com.breakinblocks.neovitae.common.menu.BMMenus;
+import com.breakinblocks.neovitae.common.menu.NVMenus;
 import com.breakinblocks.neovitae.client.render.entity.layer.LivingElytraLayer;
 import com.breakinblocks.neovitae.client.screen.ARCScreen;
 import com.breakinblocks.neovitae.client.screen.FilterScreen;
 import com.breakinblocks.neovitae.client.screen.TeleposerScreen;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
 public class ClientModEventHandler {
@@ -46,23 +46,23 @@ public class ClientModEventHandler {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            BMItems.WILL_ITEMS.getEntries().forEach(item -> {
-                ItemProperties.register(item.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
+            NVItems.WILL_ITEMS.getEntries().forEach(item -> {
+                ItemProperties.register(item.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
             });
-            ItemProperties.register(BMItems.SACRIFICIAL_DAGGER.get(), NeoVitae.INCENSE_PROPERTY, ((stack, level, entity, seed) -> stack.getOrDefault(BMDataComponents.INCENSE, false) ? 1 : 0));
+            ItemProperties.register(NVItems.SACRIFICIAL_DAGGER.get(), NeoVitae.INCENSE_PROPERTY, ((stack, level, entity, seed) -> stack.getOrDefault(NVDataComponents.INCENSE, false) ? 1 : 0));
 
             // Sentient tools - register type property for texture switching
-            ItemProperties.register(BMItems.SENTIENT_SWORD.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
-            ItemProperties.register(BMItems.SENTIENT_AXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
-            ItemProperties.register(BMItems.SENTIENT_PICKAXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
-            ItemProperties.register(BMItems.SENTIENT_SHOVEL.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
-            ItemProperties.register(BMItems.SENTIENT_SCYTHE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_SWORD.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_AXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_PICKAXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_SHOVEL.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_SCYTHE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
 
             // Sentient sword active state - shows different texture when will is available
-            ItemProperties.register(BMItems.SENTIENT_SWORD.get(), NeoVitae.rl("active"), (stack, level, entity, seed) -> {
+            ItemProperties.register(NVItems.SENTIENT_SWORD.get(), NeoVitae.rl("active"), (stack, level, entity, seed) -> {
                 if (!(entity instanceof net.minecraft.world.entity.player.Player player)) return 0;
                 double will = com.breakinblocks.neovitae.will.PlayerDemonWillHandler.getTotalDemonWill(
-                        stack.getOrDefault(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT), player);
+                        stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT), player);
                 return will > 0 ? 1 : 0;
             });
         });
@@ -71,18 +71,18 @@ public class ClientModEventHandler {
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         // Blood light projectile - uses NoopRenderer since it renders via particles in tick()
-        event.registerEntityRenderer(BMEntities.BLOOD_LIGHT.get(), NoopRenderer::new);
+        event.registerEntityRenderer(NVEntities.BLOOD_LIGHT.get(), NoopRenderer::new);
         // Soul snare - thrown item renderer
-        event.registerEntityRenderer(BMEntities.SOUL_SNARE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(NVEntities.SOUL_SNARE.get(), ThrownItemRenderer::new);
         // Meteor - custom billboard renderer
-        event.registerEntityRenderer(BMEntities.METEOR.get(), EntityMeteorRenderer::new);
+        event.registerEntityRenderer(NVEntities.METEOR.get(), EntityMeteorRenderer::new);
         // Potion flask - thrown item renderer
-        event.registerEntityRenderer(BMEntities.POTION_FLASK.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(NVEntities.POTION_FLASK.get(), ThrownItemRenderer::new);
         // Shaped charge - renders the block state
-        event.registerEntityRenderer(BMEntities.SHAPED_CHARGE.get(), EntityShapedChargeRenderer::new);
+        event.registerEntityRenderer(NVEntities.SHAPED_CHARGE.get(), EntityShapedChargeRenderer::new);
         // Throwing daggers - custom renderer for proper rotation when stuck in ground
-        event.registerEntityRenderer(BMEntities.THROWING_DAGGER.get(), EntityThrowingDaggerRenderer::new);
-        event.registerEntityRenderer(BMEntities.THROWING_DAGGER_SYRINGE.get(), EntityThrowingDaggerRenderer::new);
+        event.registerEntityRenderer(NVEntities.THROWING_DAGGER.get(), EntityThrowingDaggerRenderer::new);
+        event.registerEntityRenderer(NVEntities.THROWING_DAGGER_SYRINGE.get(), EntityThrowingDaggerRenderer::new);
     }
 
     @SubscribeEvent
@@ -98,31 +98,31 @@ public class ClientModEventHandler {
 
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
-        event.register(BMMenus.ARC.get(), ARCScreen::new);
-        event.register(BMMenus.TRAINER.get(), TrainerScreen::new);
-        event.register(BMMenus.TELEPOSER.get(), TeleposerScreen::new);
-        event.register(BMMenus.ALCHEMY_TABLE.get(), AlchemyTableScreen::new);
-        event.register(BMMenus.SOUL_FORGE.get(), SoulForgeScreen::new);
-        event.register(BMMenus.SIGIL_HOLDING.get(), SigilHoldingScreen::new);
-        event.register(BMMenus.ROUTING_NODE.get(), RoutingNodeScreen::new);
-        event.register(BMMenus.MASTER_ROUTING_NODE.get(), MasterRoutingNodeScreen::new);
-        event.register(BMMenus.FILTER.get(), FilterScreen::new);
+        event.register(NVMenus.ARC.get(), ARCScreen::new);
+        event.register(NVMenus.TRAINER.get(), TrainerScreen::new);
+        event.register(NVMenus.TELEPOSER.get(), TeleposerScreen::new);
+        event.register(NVMenus.ALCHEMY_TABLE.get(), AlchemyTableScreen::new);
+        event.register(NVMenus.SOUL_FORGE.get(), SoulForgeScreen::new);
+        event.register(NVMenus.SIGIL_HOLDING.get(), SigilHoldingScreen::new);
+        event.register(NVMenus.ROUTING_NODE.get(), RoutingNodeScreen::new);
+        event.register(NVMenus.MASTER_ROUTING_NODE.get(), MasterRoutingNodeScreen::new);
+        event.register(NVMenus.FILTER.get(), FilterScreen::new);
     }
 
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
         FlaskColor flaskColor = new FlaskColor();
         event.register(flaskColor,
-                BMItems.ALCHEMY_FLASK.get(),
-                BMItems.ALCHEMY_FLASK_THROWABLE.get(),
-                BMItems.ALCHEMY_FLASK_LINGERING.get());
+                NVItems.ALCHEMY_FLASK.get(),
+                NVItems.ALCHEMY_FLASK_THROWABLE.get(),
+                NVItems.ALCHEMY_FLASK_LINGERING.get());
 
         TippedDaggerColor tippedDaggerColor = new TippedDaggerColor();
-        event.register(tippedDaggerColor, BMItems.THROWING_DAGGER_TIPPED.get());
+        event.register(tippedDaggerColor, NVItems.THROWING_DAGGER_TIPPED.get());
 
         // Anointment items - tints layer 0 (alchemic_liquid) based on anointment color
         AnointmentColor anointmentColor = new AnointmentColor();
-        BMItems.BASIC_ITEMS.getEntries().stream()
+        NVItems.BASIC_ITEMS.getEntries().stream()
                 .filter(holder -> holder.get() instanceof ItemAnointmentProvider)
                 .forEach(holder -> event.register(anointmentColor, holder.get()));
     }

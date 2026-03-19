@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.livingdowngrade.LivingDowngradeRecipe;
 
 import java.util.Arrays;
@@ -38,7 +38,7 @@ public class LivingArmourDowngradeRecipeProcessor implements IComponentProcessor
         ResourceLocation id = ResourceLocation.parse(variables.get("recipe", registries).asString());
 
         Optional<RecipeHolder<LivingDowngradeRecipe>> recipeHolder = Minecraft.getInstance().level.getRecipeManager()
-                .getAllRecipesFor(BMRecipes.LIVING_DOWNGRADE_TYPE.get())
+                .getAllRecipesFor(NVRecipes.LIVING_DOWNGRADE_TYPE.get())
                 .stream()
                 .filter(holder -> holder.id().equals(id))
                 .findFirst();

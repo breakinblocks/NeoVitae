@@ -8,7 +8,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.ARCTile;
 
 public class ARCMenu extends AbstractTileMenu<ARCTile> {
@@ -17,7 +17,7 @@ public class ARCMenu extends AbstractTileMenu<ARCTile> {
     private static final int TILE_SLOTS = 4 + ARCTile.NUM_OUTPUTS;
 
     public ARCMenu(int containerId, Inventory playerInventory, ARCTile tile) {
-        super(BMMenus.ARC.get(), containerId, tile, TILE_SLOTS);
+        super(NVMenus.ARC.get(), containerId, tile, TILE_SLOTS);
 
         this.addSlot(new SlotItemHandler(ARCTile.getItemHandler(tile, null), ARCTile.INPUT_BUCKET_SLOT, 8, 18));
         this.addSlot(new SlotItemHandler(ARCTile.getItemHandler(tile, null), ARCTile.OUTPUT_BUCKET_SLOT, 152, 90));
@@ -66,6 +66,6 @@ public class ARCMenu extends AbstractTileMenu<ARCTile> {
 
     @Override
     public boolean stillValid(Player player) {
-        return AbstractContainerMenu.stillValid(ContainerLevelAccess.NULL, player, BMBlocks.ARC_BLOCK.block().get());
+        return AbstractContainerMenu.stillValid(ContainerLevelAccess.NULL, player, NVBlocks.ARC_BLOCK.block().get());
     }
 }

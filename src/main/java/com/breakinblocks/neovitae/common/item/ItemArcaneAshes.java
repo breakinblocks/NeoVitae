@@ -13,7 +13,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayTile;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 import org.jetbrains.annotations.Nullable;
@@ -41,7 +41,7 @@ public class ItemArcaneAshes extends Item {
             if (!world.isClientSide) {
                 Direction rotation = Direction.fromYRot(player.getYHeadRot());
                 // Check protection before placing alchemy array
-                if (!BlockProtectionHelper.tryPlaceBlock(world, newPos, BMBlocks.ALCHEMY_ARRAY.get().defaultBlockState(), player)) {
+                if (!BlockProtectionHelper.tryPlaceBlock(world, newPos, NVBlocks.ALCHEMY_ARRAY.get().defaultBlockState(), player)) {
                     return InteractionResult.FAIL;
                 }
                 BlockEntity tile = world.getBlockEntity(newPos);

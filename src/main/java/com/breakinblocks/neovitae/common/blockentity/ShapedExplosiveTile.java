@@ -44,7 +44,7 @@ public class ShapedExplosiveTile extends ExplosiveChargeTile {
     }
 
     public ShapedExplosiveTile(int explosionRadius, int explosionDepth, BlockPos pos, BlockState state) {
-        this(BMTiles.SHAPED_EXPLOSIVE_TYPE.get(), explosionRadius, explosionDepth, pos, state);
+        this(NVTiles.SHAPED_EXPLOSIVE_TYPE.get(), explosionRadius, explosionDepth, pos, state);
     }
 
     @Override

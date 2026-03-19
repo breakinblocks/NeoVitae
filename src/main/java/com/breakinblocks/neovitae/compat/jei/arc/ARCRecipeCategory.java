@@ -16,7 +16,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.recipe.arc.ARCRecipe;
 
 import javax.annotation.Nonnull;
@@ -39,7 +39,7 @@ public class ARCRecipeCategory implements IRecipeCategory<ARCRecipe> {
     private final IDrawable icon;
 
     public ARCRecipeCategory(IGuiHelper guiHelper) {
-        icon = guiHelper.createDrawableItemStack(new ItemStack(BMBlocks.ARC_BLOCK.block().get()));
+        icon = guiHelper.createDrawableItemStack(new ItemStack(NVBlocks.ARC_BLOCK.block().get()));
         background = guiHelper.createDrawable(NeoVitae.rl("gui/jei/arc.png"), 0, 0, WIDTH, HEIGHT);
     }
 

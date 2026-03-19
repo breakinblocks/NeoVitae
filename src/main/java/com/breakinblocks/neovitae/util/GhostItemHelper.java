@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.util;
 
 import net.minecraft.world.item.ItemStack;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 /**
  * Helper class for managing ghost items in filter slots.
@@ -10,15 +10,15 @@ import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
 public class GhostItemHelper {
 
     public static void setItemGhostAmount(ItemStack stack, int amount) {
-        stack.set(BMDataComponents.GHOST_STACK_SIZE, amount);
+        stack.set(NVDataComponents.GHOST_STACK_SIZE, amount);
     }
 
     public static int getItemGhostAmount(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.GHOST_STACK_SIZE, 0);
+        return stack.getOrDefault(NVDataComponents.GHOST_STACK_SIZE, 0);
     }
 
     public static boolean hasGhostAmount(ItemStack stack) {
-        return stack.has(BMDataComponents.GHOST_STACK_SIZE);
+        return stack.has(NVDataComponents.GHOST_STACK_SIZE);
     }
 
     public static void incrementGhostAmount(ItemStack stack, int value) {
@@ -36,14 +36,14 @@ public class GhostItemHelper {
     public static ItemStack getStackFromGhost(ItemStack ghostStack) {
         ItemStack newStack = ghostStack.copy();
         int amount = getItemGhostAmount(ghostStack);
-        newStack.remove(BMDataComponents.GHOST_STACK_SIZE);
+        newStack.remove(NVDataComponents.GHOST_STACK_SIZE);
         newStack.setCount(amount);
         return newStack;
     }
 
     public static ItemStack getSingleStackFromGhost(ItemStack ghostStack) {
         ItemStack newStack = ghostStack.copy();
-        newStack.remove(BMDataComponents.GHOST_STACK_SIZE);
+        newStack.remove(NVDataComponents.GHOST_STACK_SIZE);
         newStack.setCount(1);
         return newStack;
     }

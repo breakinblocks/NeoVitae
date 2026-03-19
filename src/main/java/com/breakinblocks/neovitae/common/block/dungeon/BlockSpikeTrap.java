@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
 /**
  * Spike Trap - extends/retracts a spike block when powered by redstone.
@@ -79,6 +79,6 @@ public class BlockSpikeTrap extends BaseEntityBlock {
         if (level.isClientSide) {
             return null;
         }
-        return createTickerHelper(type, BMTiles.SPIKE_TRAP_TYPE.get(), TileSpikeTrap::tick);
+        return createTickerHelper(type, NVTiles.SPIKE_TRAP_TYPE.get(), TileSpikeTrap::tick);
     }
 }

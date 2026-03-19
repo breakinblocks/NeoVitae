@@ -19,9 +19,9 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
-import com.breakinblocks.neovitae.common.effect.BMMobEffects;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +51,7 @@ public class CommonEventHandler {
             return;
         }
 
-        Binding binding = held.get(BMDataComponents.BINDING);
+        Binding binding = held.get(NVDataComponents.BINDING);
         GameProfile profile = event.getEntity().getGameProfile();
 
         // Bind if no binding exists or binding is empty
@@ -60,11 +60,11 @@ public class CommonEventHandler {
             if (NeoForge.EVENT_BUS.post(new ItemBindEvent(event.getEntity(), held)).isCanceled()) {
                 return;
             }
-            held.set(BMDataComponents.BINDING, newBinding);
+            held.set(NVDataComponents.BINDING, newBinding);
         } else if (binding.uuid().equals(profile.getId()) && !Objects.equals(binding.name(), profile.getName())) {
             // Update name if UUID matches but name changed
             binding = new Binding(profile.getId(), profile.getName());
-            held.set(BMDataComponents.BINDING, binding);
+            held.set(NVDataComponents.BINDING, binding);
         }
     }
 
@@ -89,14 +89,14 @@ public class CommonEventHandler {
         LivingEntity entity = event.getEntity();
 
         // Heavy Heart increases fall damage
-        if (entity.hasEffect(BMMobEffects.HEAVY_HEART)) {
-            int amp = entity.getEffect(BMMobEffects.HEAVY_HEART).getAmplifier() + 1;
+        if (entity.hasEffect(NVMobEffects.HEAVY_HEART)) {
+            int amp = entity.getEffect(NVMobEffects.HEAVY_HEART).getAmplifier() + 1;
             event.setDamageMultiplier(event.getDamageMultiplier() + amp);
             event.setDistance(event.getDistance() + amp);
         }
 
         // Bounce effect: cancel damage and apply upward velocity
-        if (entity.hasEffect(BMMobEffects.BOUNCE)) {
+        if (entity.hasEffect(NVMobEffects.BOUNCE)) {
             if (entity instanceof Player player) {
                 event.setDamageMultiplier(0);
                 if (!player.isShiftKeyDown() && event.getDistance() > 1.5) {
@@ -124,8 +124,8 @@ public class CommonEventHandler {
     @SubscribeEvent
     public static void onLivingIncomingDamage(LivingIncomingDamageEvent event) {
         LivingEntity living = event.getEntity();
-        if (!event.getSource().is(DamageTypes.MAGIC) && living.hasEffect(BMMobEffects.OBSIDIAN_CLOAK)) {
-            MobEffectInstance instance = living.getEffect(BMMobEffects.OBSIDIAN_CLOAK);
+        if (!event.getSource().is(DamageTypes.MAGIC) && living.hasEffect(NVMobEffects.OBSIDIAN_CLOAK)) {
+            MobEffectInstance instance = living.getEffect(NVMobEffects.OBSIDIAN_CLOAK);
             float modifier = (float) (1 - 0.2 * (1 + instance.getAmplifier()));
             event.setAmount(event.getAmount() * Math.max(0, modifier));
         }

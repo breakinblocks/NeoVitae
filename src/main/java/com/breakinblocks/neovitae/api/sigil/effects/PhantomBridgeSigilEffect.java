@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.PhantomBridgeTile;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 
@@ -60,7 +60,7 @@ public record PhantomBridgeSigilEffect(int range) implements SigilEffect {
 
                 // Only place phantom blocks in air or replaceable blocks
                 if (state.isAir() || state.canBeReplaced()) {
-                    BlockState phantomState = BMBlocks.PHANTOM_BRIDGE_BLOCK.get().defaultBlockState();
+                    BlockState phantomState = NVBlocks.PHANTOM_BRIDGE_BLOCK.get().defaultBlockState();
                     level.setBlockAndUpdate(checkPos, phantomState);
                     // Reset duration on the tile entity
                     BlockEntity be = level.getBlockEntity(checkPos);

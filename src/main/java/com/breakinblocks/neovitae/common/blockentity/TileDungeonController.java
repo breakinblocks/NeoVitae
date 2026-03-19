@@ -29,7 +29,7 @@ public class TileDungeonController extends BaseTile {
     private boolean initialized = false;
 
     public TileDungeonController(BlockPos pos, BlockState state) {
-        super(BMTiles.DUNGEON_CONTROLLER_TYPE.get(), pos, state);
+        super(NVTiles.DUNGEON_CONTROLLER_TYPE.get(), pos, state);
         this.dungeonSynthesizer = new DungeonSynthesizer();
     }
 

@@ -11,31 +11,31 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.NeoForge;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
-import com.breakinblocks.neovitae.common.menu.BMMenus;
-import com.breakinblocks.neovitae.common.entity.BMEntities;
-import com.breakinblocks.neovitae.common.attribute.BMAttributes;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.menu.NVMenus;
+import com.breakinblocks.neovitae.common.entity.NVEntities;
+import com.breakinblocks.neovitae.common.attribute.NVAttributes;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
-import com.breakinblocks.neovitae.common.command.BMCommands;
-import com.breakinblocks.neovitae.common.creativetab.BMTabs;
-import com.breakinblocks.neovitae.common.dataattachment.BMDataAttachments;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
-import com.breakinblocks.neovitae.common.datamap.BMDataMaps;
-import com.breakinblocks.neovitae.common.effect.BMMobEffects;
-import com.breakinblocks.neovitae.common.fluid.BMFluids;
-import com.breakinblocks.neovitae.common.BMSounds;
-import com.breakinblocks.neovitae.common.item.BMItems;
-import com.breakinblocks.neovitae.common.item.BMMaterialsAndTiers;
-import com.breakinblocks.neovitae.common.crafting.BMIngredientTypes;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
-import com.breakinblocks.neovitae.common.loot.BMLootFunctions;
-import com.breakinblocks.neovitae.common.structure.BMMultiblock;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
+import com.breakinblocks.neovitae.common.command.NVCommands;
+import com.breakinblocks.neovitae.common.creativetab.NVTabs;
+import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import com.breakinblocks.neovitae.common.fluid.NVFluids;
+import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
+import com.breakinblocks.neovitae.common.crafting.NVIngredientTypes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
+import com.breakinblocks.neovitae.common.loot.NVLootFunctions;
+import com.breakinblocks.neovitae.common.structure.NVMultiblock;
 import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
-import com.breakinblocks.neovitae.ritual.harvest.BMHarvestHandlers;
-import com.breakinblocks.neovitae.common.network.BMPayloads;
+import com.breakinblocks.neovitae.ritual.harvest.NVHarvestHandlers;
+import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 import com.breakinblocks.neovitae.compat.patchouli.RegisterPatchouliMultiblocks;
 import com.breakinblocks.neovitae.structures.ModRoomPools;
@@ -63,27 +63,27 @@ public class NeoVitae {
     }
 
     public NeoVitae(IEventBus modBus, ModContainer container) {
-        BMRegistries.register(modBus);
-        BMDataComponents.register(modBus);
-        BMFluids.register(modBus);
-        BMSounds.register(modBus);
-        BMBlocks.register(modBus);
+        NVRegistries.register(modBus);
+        NVDataComponents.register(modBus);
+        NVFluids.register(modBus);
+        NVSounds.register(modBus);
+        NVBlocks.register(modBus);
         DungeonBlocks.register(modBus);
-        BMTiles.register(modBus);
-        BMEntities.register(modBus);
-        BMMaterialsAndTiers.register(modBus);
-        BMItems.register(modBus);
-        modBus.addListener(BMDataMaps::register);
-        BMDataAttachments.register(modBus);
-        BMAttributes.register(modBus);
-        BMMobEffects.register(modBus);
-        BMRecipes.register(modBus);
-        BMIngredientTypes.register(modBus);
-        BMLootFunctions.register(modBus);
+        NVTiles.register(modBus);
+        NVEntities.register(modBus);
+        NVMaterialsAndTiers.register(modBus);
+        NVItems.register(modBus);
+        modBus.addListener(NVDataMaps::register);
+        NVDataAttachments.register(modBus);
+        NVAttributes.register(modBus);
+        NVMobEffects.register(modBus);
+        NVRecipes.register(modBus);
+        NVIngredientTypes.register(modBus);
+        NVLootFunctions.register(modBus);
         RitualRegistry.register(modBus);
-        BMMultiblock.register(NeoForge.EVENT_BUS);
-        BMMenus.register(modBus);
-        BMTabs.register(modBus);
+        NVMultiblock.register(NeoForge.EVENT_BUS);
+        NVMenus.register(modBus);
+        NVTabs.register(modBus);
 
         // Initialize Curios compatibility (if Curios is loaded)
         CuriosCompat.init(modBus);
@@ -91,13 +91,13 @@ public class NeoVitae {
         container.registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG_SPEC);
 
         modBus.addListener(this::commonSetup);
-        modBus.addListener(BMPayloads::register);
-        NeoForge.EVENT_BUS.addListener(BMCommands::register);
+        modBus.addListener(NVPayloads::register);
+        NeoForge.EVENT_BUS.addListener(NVCommands::register);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         NeoVitaeAPI.setInstance(NeoVitaeAPIImpl.INSTANCE);
-        event.enqueueWork(BMHarvestHandlers::init);
+        event.enqueueWork(NVHarvestHandlers::init);
         event.enqueueWork(AnointmentRegistrar::init);
         event.enqueueWork(ModRoomPools::init);
         event.enqueueWork(AltarRuneBlockRegistry::init);

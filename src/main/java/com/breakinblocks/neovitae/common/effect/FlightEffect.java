@@ -45,8 +45,8 @@ public class FlightEffect extends MobEffect {
             }
 
             // When effect is about to expire, restore default speed and stop flight
-            if (entity.getEffect(BMMobEffects.FLIGHT) != null
-                    && entity.getEffect(BMMobEffects.FLIGHT).getDuration() <= 1) {
+            if (entity.getEffect(NVMobEffects.FLIGHT) != null
+                    && entity.getEffect(NVMobEffects.FLIGHT).getDuration() <= 1) {
                 player.getAbilities().flying = player.isCreative();
                 player.getAbilities().setFlyingSpeed(0.05F);
                 player.onUpdateAbilities();

@@ -38,7 +38,7 @@ public final class EntitySacrificeHelper {
     public static EntitySacrificeValue getSacrificeValue(EntityType<?> entityType) {
         EntitySacrificeValue value = BuiltInRegistries.ENTITY_TYPE
                 .wrapAsHolder(entityType)
-                .getData(BMDataMaps.ENTITY_SACRIFICE_VALUE);
+                .getData(NVDataMaps.ENTITY_SACRIFICE_VALUE);
 
         return value != null ? value : EntitySacrificeValue.DEFAULT;
     }
@@ -94,6 +94,6 @@ public final class EntitySacrificeHelper {
     public static boolean hasCustomValue(EntityType<?> entityType) {
         return BuiltInRegistries.ENTITY_TYPE
                 .wrapAsHolder(entityType)
-                .getData(BMDataMaps.ENTITY_SACRIFICE_VALUE) != null;
+                .getData(NVDataMaps.ENTITY_SACRIFICE_VALUE) != null;
     }
 }

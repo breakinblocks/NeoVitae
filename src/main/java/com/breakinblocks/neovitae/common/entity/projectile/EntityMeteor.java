@@ -9,7 +9,7 @@ import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import com.breakinblocks.neovitae.common.entity.BMEntities;
+import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipeHelper;
 
@@ -26,11 +26,11 @@ public class EntityMeteor extends ThrowableProjectile {
     }
 
     public EntityMeteor(Level level, LivingEntity thrower) {
-        super(BMEntities.METEOR.get(), thrower, level);
+        super(NVEntities.METEOR.get(), thrower, level);
     }
 
     public EntityMeteor(Level level, double x, double y, double z) {
-        super(BMEntities.METEOR.get(), x, y, z, level);
+        super(NVEntities.METEOR.get(), x, y, z, level);
     }
 
     public void setContainedStack(ItemStack stack) {

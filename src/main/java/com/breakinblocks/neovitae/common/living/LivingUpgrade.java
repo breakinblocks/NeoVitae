@@ -27,7 +27,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import org.apache.logging.log4j.util.TriConsumer;
 import com.breakinblocks.neovitae.common.living.effects.AttributeEffect;
 import com.breakinblocks.neovitae.common.living.effects.ConditionalEffect;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -44,13 +44,13 @@ public record LivingUpgrade(Levels levels, DataComponentMap effects) {
             Codec.unit(DataComponentMap.EMPTY).fieldOf("effects").forGetter(LivingUpgrade::effects)
     ).apply(builder, LivingUpgrade::new));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<LivingUpgrade>> HOLDER_STREAM_CODEC = ByteBufCodecs.holderRegistry(BMRegistries.Keys.LIVING_UPGRADES);
+    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<LivingUpgrade>> HOLDER_STREAM_CODEC = ByteBufCodecs.holderRegistry(NVRegistries.Keys.LIVING_UPGRADES);
 
     public static String descriptionId(ResourceKey<LivingUpgrade> key) {
         return Util.makeDescriptionId("living_upgrade", key.location());
     }
 
-    public static final Codec<Holder<LivingUpgrade>> HOLDER_CODEC = RegistryFixedCodec.create(BMRegistries.Keys.LIVING_UPGRADES);
+    public static final Codec<Holder<LivingUpgrade>> HOLDER_CODEC = RegistryFixedCodec.create(NVRegistries.Keys.LIVING_UPGRADES);
 	
 	private float applyDamageFloatEffects(DataComponentType<List<ConditionalEffect<LivingValueEffect>>> type, int level, LivingEntity victim, DamageSource source, float initialValue) {
 		LootContext context = LivingContextParamSets.damageBased(victim, source, level);

@@ -5,7 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.util.ChatUtil;
 
@@ -29,9 +29,9 @@ public class ItemARCToolBase extends Item implements IARCTool {
         super(new Item.Properties()
                 .stacksTo(1)
                 .durability(maxDamage)
-                .component(BMDataComponents.ARC_SPEED.get(), craftingMultiplier)
-                .component(BMDataComponents.ARC_CHANCE.get(), additionalOutputChance)
-                .component(BMDataComponents.DEMON_WILL_TYPE.get(), type));
+                .component(NVDataComponents.ARC_SPEED.get(), craftingMultiplier)
+                .component(NVDataComponents.ARC_CHANCE.get(), additionalOutputChance)
+                .component(NVDataComponents.DEMON_WILL_TYPE.get(), type));
     }
 
     @Override
@@ -49,16 +49,16 @@ public class ItemARCToolBase extends Item implements IARCTool {
 
     @Override
     public double getCraftingSpeedMultiplier(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.ARC_SPEED.get(), 1.0);
+        return stack.getOrDefault(NVDataComponents.ARC_SPEED.get(), 1.0);
     }
 
     @Override
     public double getAdditionalOutputChanceMultiplier(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.ARC_CHANCE.get(), 1.0);
+        return stack.getOrDefault(NVDataComponents.ARC_CHANCE.get(), 1.0);
     }
 
     @Override
     public EnumWillType getDominantWillType(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.DEMON_WILL_TYPE.get(), EnumWillType.DEFAULT);
+        return stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE.get(), EnumWillType.DEFAULT);
     }
 }

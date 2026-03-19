@@ -27,9 +27,9 @@ import net.neoforged.neoforge.event.entity.player.PlayerXpEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
-import com.breakinblocks.neovitae.common.item.BMItems;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 
 import java.util.List;
@@ -212,10 +212,10 @@ public class LivingEventHandler {
         ItemStack fromStack = event.getFrom();
         ItemStack toStack = event.getTo();
         EquipmentSlot slot = event.getSlot();
-        boolean from = fromStack.is(BMTags.Items.LIVING_UPGRADE_SET);
-        boolean to = toStack.is(BMTags.Items.LIVING_UPGRADE_SET);
+        boolean from = fromStack.is(NVTags.Items.LIVING_UPGRADE_SET);
+        boolean to = toStack.is(NVTags.Items.LIVING_UPGRADE_SET);
 
-        if (!fromStack.is(BMTags.Items.LIVING_UPGRADE_SET) && !toStack.is(BMTags.Items.LIVING_UPGRADE_SET)) {
+        if (!fromStack.is(NVTags.Items.LIVING_UPGRADE_SET) && !toStack.is(NVTags.Items.LIVING_UPGRADE_SET)) {
             // no upgrades involved, bye
             return;
         }
@@ -242,8 +242,8 @@ public class LivingEventHandler {
     @SubscribeEvent
     public static void onAttributeNonsense(ItemAttributeModifierEvent event) {
         ItemStack chestStack = event.getItemStack();
-        if (chestStack.is(BMTags.Items.LIVING_UPGRADE_SET) && !LivingHelper.isNeverValid(chestStack)) {
-            if (chestStack.getOrDefault(BMDataComponents.FULL_SET_MARKER, false)) {
+        if (chestStack.is(NVTags.Items.LIVING_UPGRADE_SET) && !LivingHelper.isNeverValid(chestStack)) {
+            if (chestStack.getOrDefault(NVDataComponents.FULL_SET_MARKER, false)) {
                 // add all attributes
             }
         }

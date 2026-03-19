@@ -17,7 +17,7 @@ import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockTau;
 import com.breakinblocks.neovitae.util.helper.BlockWithItemHolder;
 
@@ -31,9 +31,9 @@ public class MineBlock extends BlockLootSubProvider {
     public MineBlock(HolderLookup.Provider registries) {
         super(Set.of(), FeatureFlags.DEFAULT_FLAGS, registries);
         this.registries = registries;
-        BMBlocks.BASIC_BLOCKS.getEntries().forEach(holder -> dropSelfList.add(holder.get()));
-        addDropSelf(BMBlocks.BLOOD_ALTAR);
-        addDropSelf(BMBlocks.HELLFIRE_FORGE);
+        NVBlocks.BASIC_BLOCKS.getEntries().forEach(holder -> dropSelfList.add(holder.get()));
+        addDropSelf(NVBlocks.BLOOD_ALTAR);
+        addDropSelf(NVBlocks.HELLFIRE_FORGE);
     }
 
     private void addDropSelf(BlockWithItemHolder<? extends Block, ? extends BlockItem> toAdd) {
@@ -41,11 +41,11 @@ public class MineBlock extends BlockLootSubProvider {
     }
 
     private final List<Block> specialDropList = List.of(
-            BMBlocks.BLOOD_TANK.block().get(),
-            BMBlocks.ARC_BLOCK.block().get(),
-            BMBlocks.WEAK_TAU.block().get(),
-            BMBlocks.STRONG_TAU.block().get(),
-            BMBlocks.INCENSE_ALTAR.block().get()
+            NVBlocks.BLOOD_TANK.block().get(),
+            NVBlocks.ARC_BLOCK.block().get(),
+            NVBlocks.WEAK_TAU.block().get(),
+            NVBlocks.STRONG_TAU.block().get(),
+            NVBlocks.INCENSE_ALTAR.block().get()
     );
     private List<Block> dropSelfList = new ArrayList<>();
 
@@ -62,15 +62,15 @@ public class MineBlock extends BlockLootSubProvider {
         dropSelfList.forEach(this::dropSelf);
 
         // Blocks that preserve their contents when broken
-        copyComponents(BMBlocks.BLOOD_TANK);
-        copyComponents(BMBlocks.ARC_BLOCK);
+        copyComponents(NVBlocks.BLOOD_TANK);
+        copyComponents(NVBlocks.ARC_BLOCK);
 
         // Tau crops - drop 1 seed always, plus bonus seeds at max age with fortune
-        generateTauLoot(BMBlocks.WEAK_TAU);
-        generateTauLoot(BMBlocks.STRONG_TAU);
+        generateTauLoot(NVBlocks.WEAK_TAU);
+        generateTauLoot(NVBlocks.STRONG_TAU);
 
         // Incense Altar - simple drop self
-        dropSelf(BMBlocks.INCENSE_ALTAR.block().get());
+        dropSelf(NVBlocks.INCENSE_ALTAR.block().get());
     }
 
     private void generateTauLoot(BlockWithItemHolder<BlockTau, BlockItem> holder) {

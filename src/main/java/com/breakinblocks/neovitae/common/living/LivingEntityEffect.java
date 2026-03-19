@@ -7,13 +7,13 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.living.effects.*;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 public interface LivingEntityEffect {
-    DeferredRegister<MapCodec<? extends LivingEntityEffect>> ENTITY_EFFECT_TYPE = DeferredRegister.create(BMRegistries.Keys.ENTITY_EFFECT_TYPE, NeoVitae.MODID);
+    DeferredRegister<MapCodec<? extends LivingEntityEffect>> ENTITY_EFFECT_TYPE = DeferredRegister.create(NVRegistries.Keys.ENTITY_EFFECT_TYPE, NeoVitae.MODID);
     Codec<LivingEntityEffect> CODEC = Codec.lazyInitialized(() -> ENTITY_EFFECT_TYPE
             .getRegistry()
             .get()

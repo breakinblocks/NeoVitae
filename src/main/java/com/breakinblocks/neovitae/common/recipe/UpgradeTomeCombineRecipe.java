@@ -8,9 +8,9 @@ import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 
 /**
  * Custom recipe that combines two Upgrade Tomes with the same upgrade type.
@@ -33,11 +33,11 @@ public class UpgradeTomeCombineRecipe extends CustomRecipe {
                 continue;
             }
 
-            if (!stack.is(BMItems.UPGRADE_TOME.get())) {
+            if (!stack.is(NVItems.UPGRADE_TOME.get())) {
                 return false; // Non-tome item in grid
             }
 
-            UpgradeTome tome = stack.get(BMDataComponents.UPGRADE_TOME_DATA);
+            UpgradeTome tome = stack.get(NVDataComponents.UPGRADE_TOME_DATA);
             if (tome == null) {
                 return false; // Tome without data
             }
@@ -65,7 +65,7 @@ public class UpgradeTomeCombineRecipe extends CustomRecipe {
                 continue;
             }
 
-            UpgradeTome tome = stack.get(BMDataComponents.UPGRADE_TOME_DATA);
+            UpgradeTome tome = stack.get(NVDataComponents.UPGRADE_TOME_DATA);
             if (tome != null) {
                 if (firstTome == null) {
                     firstTome = tome;
@@ -78,8 +78,8 @@ public class UpgradeTomeCombineRecipe extends CustomRecipe {
             return ItemStack.EMPTY;
         }
 
-        ItemStack result = new ItemStack(BMItems.UPGRADE_TOME.get());
-        result.set(BMDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(firstTome.upgrade(), totalExp));
+        ItemStack result = new ItemStack(NVItems.UPGRADE_TOME.get());
+        result.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(firstTome.upgrade(), totalExp));
         return result;
     }
 
@@ -90,6 +90,6 @@ public class UpgradeTomeCombineRecipe extends CustomRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return BMRecipes.UPGRADE_TOME_COMBINE_SERIALIZER.get();
+        return NVRecipes.UPGRADE_TOME_COMBINE_SERIALIZER.get();
     }
 }

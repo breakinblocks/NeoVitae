@@ -13,7 +13,7 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
  * <h2>Accessing the Altar</h2>
  * <p>The altar interface can be accessed via block entity capabilities:</p>
  * <pre>{@code
- * IBloodAltar altar = level.getCapability(BMCapabilities.BLOOD_ALTAR, pos, null);
+ * IBloodAltar altar = level.getCapability(NVCapabilities.BLOOD_ALTAR, pos, null);
  * if (altar != null) {
  *     int blood = altar.getCurrentBlood();
  *     int tier = altar.getTier();

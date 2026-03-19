@@ -19,8 +19,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -30,7 +30,7 @@ import java.util.function.Function;
 
 public record LivingStats(Object2FloatOpenHashMap<Holder<LivingUpgrade>> upgrades) implements TooltipProvider {
     public static final Codec<LivingStats> CODEC =
-    Codec.unboundedMap(RegistryFixedCodec.create(BMRegistries.Keys.LIVING_UPGRADES), Codec.FLOAT)
+    Codec.unboundedMap(RegistryFixedCodec.create(NVRegistries.Keys.LIVING_UPGRADES), Codec.FLOAT)
             .xmap(Object2FloatOpenHashMap::new, Function.identity())
             .xmap(LivingStats::new, LivingStats::upgrades);
 
@@ -51,7 +51,7 @@ public record LivingStats(Object2FloatOpenHashMap<Holder<LivingUpgrade>> upgrade
         }
 
         for (Object2FloatMap.Entry<Holder<LivingUpgrade>> entry : this.upgrades.object2FloatEntrySet()) {
-            if (!order.contains(entry.getKey()) && !entry.getKey().is(BMTags.Living.TOOLTIP_HIDE)) {
+            if (!order.contains(entry.getKey()) && !entry.getKey().is(NVTags.Living.TOOLTIP_HIDE)) {
                 tooltipAdder.accept(LivingHelper.getTooltip(entry.getKey(), entry.getFloatValue(), tooltipFlag.hasShiftDown()));
             }
         }
@@ -59,7 +59,7 @@ public record LivingStats(Object2FloatOpenHashMap<Holder<LivingUpgrade>> upgrade
 
     private static HolderSet<LivingUpgrade> getOrder(HolderLookup.Provider registries) {
         if (registries != null) {
-            Optional<HolderSet.Named<LivingUpgrade>> optional = registries.lookupOrThrow(BMRegistries.Keys.LIVING_UPGRADES).get(BMTags.Living.TOOLTIP_ORDER);
+            Optional<HolderSet.Named<LivingUpgrade>> optional = registries.lookupOrThrow(NVRegistries.Keys.LIVING_UPGRADES).get(NVTags.Living.TOOLTIP_ORDER);
             if (optional.isPresent()) {
                 return optional.get();
             }

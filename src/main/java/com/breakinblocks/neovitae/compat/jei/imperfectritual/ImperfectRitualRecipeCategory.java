@@ -14,7 +14,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,7 +39,7 @@ public class ImperfectRitualRecipeCategory implements IRecipeCategory<ImperfectR
     private final IDrawable slotDrawable;
 
     public ImperfectRitualRecipeCategory(IGuiHelper guiHelper) {
-        this.icon = guiHelper.createDrawableItemStack(new ItemStack(BMBlocks.IMPERFECT_RITUAL_STONE.block().get()));
+        this.icon = guiHelper.createDrawableItemStack(new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()));
         this.background = guiHelper.createBlankDrawable(WIDTH, HEIGHT);
         this.slotDrawable = guiHelper.getSlotDrawable();
     }
@@ -115,6 +115,6 @@ public class ImperfectRitualRecipeCategory implements IRecipeCategory<ImperfectR
         // Ritual stone slot (render only - clicking the stone should show crafting recipe, not rituals)
         // The stone is already registered as a recipe catalyst, so pressing U on it shows rituals
         IRecipeSlotBuilder ritualStoneSlot = builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 72, 34);
-        ritualStoneSlot.addItemStack(new ItemStack(BMBlocks.IMPERFECT_RITUAL_STONE.block().get()));
+        ritualStoneSlot.addItemStack(new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()));
     }
 }

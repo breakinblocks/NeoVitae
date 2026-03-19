@@ -11,7 +11,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.FilterInventory;
 import com.breakinblocks.neovitae.common.datacomponent.NestedFilterInventory;
 import com.breakinblocks.neovitae.common.routing.BasicItemFilter;
@@ -188,11 +188,11 @@ public class ItemCompositeFilter extends ItemRouterFilter implements ICompositeI
     }
 
     public static NestedFilterInventory getNestedFilterInventory(ItemStack filterStack) {
-        return filterStack.getOrDefault(BMDataComponents.NESTED_FILTERS, NestedFilterInventory.empty());
+        return filterStack.getOrDefault(NVDataComponents.NESTED_FILTERS, NestedFilterInventory.empty());
     }
 
     public static void setNestedFilterInventory(ItemStack filterStack, NestedFilterInventory inventory) {
-        filterStack.set(BMDataComponents.NESTED_FILTERS, inventory);
+        filterStack.set(NVDataComponents.NESTED_FILTERS, inventory);
     }
 
     public List<ItemStack> getNestedFilters(ItemStack mainFilterStack) {

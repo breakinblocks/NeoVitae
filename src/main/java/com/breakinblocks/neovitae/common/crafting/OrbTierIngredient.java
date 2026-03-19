@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.crafting.ICustomIngredient;
 import net.neoforged.neoforge.common.crafting.IngredientType;
-import com.breakinblocks.neovitae.common.datamap.BMDataMaps;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.BloodOrb;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class OrbTierIngredient implements ICustomIngredient {
         if (stack.isEmpty()) {
             return false;
         }
-        BloodOrb orb = stack.getItemHolder().getData(BMDataMaps.BLOOD_ORB_STATS);
+        BloodOrb orb = stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
         return orb != null && orb.tier() >= minimumTier;
     }
 
@@ -57,7 +57,7 @@ public class OrbTierIngredient implements ICustomIngredient {
         // Return all items from the registry that have blood orb data with tier >= minimumTier
         List<ItemStack> matchingOrbs = new ArrayList<>();
         for (var item : BuiltInRegistries.ITEM) {
-            BloodOrb orb = BuiltInRegistries.ITEM.wrapAsHolder(item).getData(BMDataMaps.BLOOD_ORB_STATS);
+            BloodOrb orb = BuiltInRegistries.ITEM.wrapAsHolder(item).getData(NVDataMaps.BLOOD_ORB_STATS);
             if (orb != null && orb.tier() >= minimumTier) {
                 matchingOrbs.add(new ItemStack(item));
             }
@@ -73,7 +73,7 @@ public class OrbTierIngredient implements ICustomIngredient {
 
     @Override
     public IngredientType<?> getType() {
-        return BMIngredientTypes.ORB_TIER.get();
+        return NVIngredientTypes.ORB_TIER.get();
     }
 
     /**

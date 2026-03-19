@@ -29,7 +29,7 @@ import java.util.UUID;
 public class TileImperfectRitualStone extends BlockEntity implements IImperfectRitualStone {
 
     public TileImperfectRitualStone(BlockPos pos, BlockState state) {
-        super(BMTiles.IMPERFECT_RITUAL_STONE_TYPE.get(), pos, state);
+        super(NVTiles.IMPERFECT_RITUAL_STONE_TYPE.get(), pos, state);
     }
 
     /**

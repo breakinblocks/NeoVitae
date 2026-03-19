@@ -14,8 +14,8 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 import com.breakinblocks.neovitae.common.block.BloodLightBlock;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
-import com.breakinblocks.neovitae.common.entity.BMEntities;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.UUID;
@@ -36,14 +36,14 @@ public class EntityBloodLight extends ThrowableProjectile {
     }
 
     public EntityBloodLight(Level level, LivingEntity shooter) {
-        super(BMEntities.BLOOD_LIGHT.get(), shooter, level);
+        super(NVEntities.BLOOD_LIGHT.get(), shooter, level);
         if (shooter != null) {
             this.ownerUUID = shooter.getUUID();
         }
     }
 
     public EntityBloodLight(Level level, double x, double y, double z) {
-        super(BMEntities.BLOOD_LIGHT.get(), x, y, z, level);
+        super(NVEntities.BLOOD_LIGHT.get(), x, y, z, level);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class EntityBloodLight extends ThrowableProjectile {
 
             // Try to place the blood light (with protection check)
             if (level().isEmptyBlock(placePos) || level().getBlockState(placePos).canBeReplaced()) {
-                BlockState lightState = BMBlocks.BLOOD_LIGHT.get().defaultBlockState()
+                BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState()
                         .setValue(BloodLightBlock.LIFESPAN, BloodLightBlock.DEFAULT_LIFESPAN);
                 BlockProtectionHelper.tryPlaceBlock(level(), placePos, lightState, ownerUUID);
             }
@@ -78,7 +78,7 @@ public class EntityBloodLight extends ThrowableProjectile {
         if (result.getType() == HitResult.Type.ENTITY && !level().isClientSide()) {
             BlockPos placePos = blockPosition();
             if (level().isEmptyBlock(placePos) || level().getBlockState(placePos).canBeReplaced()) {
-                BlockState lightState = BMBlocks.BLOOD_LIGHT.get().defaultBlockState()
+                BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState()
                         .setValue(BloodLightBlock.LIFESPAN, BloodLightBlock.DEFAULT_LIFESPAN);
                 BlockProtectionHelper.tryPlaceBlock(level(), placePos, lightState, ownerUUID);
             }
@@ -96,7 +96,7 @@ public class EntityBloodLight extends ThrowableProjectile {
                 // Place light at current position before expiring (with protection check)
                 BlockPos placePos = blockPosition();
                 if (level().isEmptyBlock(placePos) || level().getBlockState(placePos).canBeReplaced()) {
-                    BlockState lightState = BMBlocks.BLOOD_LIGHT.get().defaultBlockState()
+                    BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState()
                             .setValue(BloodLightBlock.LIFESPAN, BloodLightBlock.DEFAULT_LIFESPAN);
                     BlockProtectionHelper.tryPlaceBlock(level(), placePos, lightState, ownerUUID);
                 }

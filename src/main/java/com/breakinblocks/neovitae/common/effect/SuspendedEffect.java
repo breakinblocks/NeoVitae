@@ -23,8 +23,8 @@ public class SuspendedEffect extends MobEffect {
         if (!noGravityList.contains(entity)) {
             noGravityList.add(entity);
             entity.setNoGravity(true);
-        } else if (entity.getEffect(BMMobEffects.SUSPENDED) != null
-                && entity.getEffect(BMMobEffects.SUSPENDED).getDuration() <= 1) {
+        } else if (entity.getEffect(NVMobEffects.SUSPENDED) != null
+                && entity.getEffect(NVMobEffects.SUSPENDED).getDuration() <= 1) {
             noGravityList.remove(entity);
             entity.setNoGravity(false);
         }

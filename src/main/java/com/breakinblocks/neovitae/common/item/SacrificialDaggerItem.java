@@ -16,9 +16,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
-import com.breakinblocks.neovitae.common.dataattachment.BMDataAttachments;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
-import com.breakinblocks.neovitae.common.effect.BMMobEffects;
+import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.effect.SoulFrayEffect;
 import com.breakinblocks.neovitae.common.event.SacrificialDaggerEvent;
 import com.breakinblocks.neovitae.incense.IncenseHelper;
@@ -27,7 +27,7 @@ import com.breakinblocks.neovitae.util.AltarUtil;
 
 public class SacrificialDaggerItem extends Item {
     public SacrificialDaggerItem() {
-        super(new Properties().stacksTo(1).component(BMDataComponents.INCENSE, false));
+        super(new Properties().stacksTo(1).component(NVDataComponents.INCENSE, false));
     }
 
     @Override
@@ -36,7 +36,7 @@ public class SacrificialDaggerItem extends Item {
             return super.use(level, player, hand);
         }
 
-        boolean isCeremonial = player.getMainHandItem().getOrDefault(BMDataComponents.INCENSE, false);
+        boolean isCeremonial = player.getMainHandItem().getOrDefault(NVDataComponents.INCENSE, false);
         BlockPos altarPos = AltarUtil.findAltar(level, player.blockPosition(), 2);
         int healthSacrificed = 2;
         int lpAdded = AltarUtil.calculateSelfSacrificeLP(player, healthSacrificed);
@@ -51,7 +51,7 @@ public class SacrificialDaggerItem extends Item {
             if (isCeremonial) {
                 // Ceremonial sacrifice - sacrifice down to 10% health with incense bonus
                 healthSacrificed = (int) (player.getHealth() - player.getMaxHealth() / 10F);
-                double incenseBonus = player.getData(BMDataAttachments.INCENSE);
+                double incenseBonus = player.getData(NVDataAttachments.INCENSE);
                 lpAdded = AltarUtil.calculateSelfSacrificeLP(player, healthSacrificed, incenseBonus);
             }
             SacrificialDaggerEvent event = NeoForge.EVENT_BUS.post(new SacrificialDaggerEvent(player, true, true, healthSacrificed, lpAdded));
@@ -70,7 +70,7 @@ public class SacrificialDaggerItem extends Item {
             // After successful ceremonial sacrifice, apply Soul Fray and clear incense
             if (isCeremonial && !level.isClientSide()) {
                 IncenseHelper.clearIncense(player);
-                player.addEffect(new MobEffectInstance(BMMobEffects.SOUL_FRAY, SoulFrayEffect.DEFAULT_DURATION, 0));
+                player.addEffect(new MobEffectInstance(NVMobEffects.SOUL_FRAY, SoulFrayEffect.DEFAULT_DURATION, 0));
             }
         } else if (player.isShiftKeyDown()) {
             lpAdded = Integer.MAX_VALUE;
@@ -99,18 +99,18 @@ public class SacrificialDaggerItem extends Item {
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
         if (entity instanceof Player player) {
-            boolean state = stack.getOrDefault(BMDataComponents.INCENSE, false);
-            boolean playerState = player.getData(BMDataAttachments.INCENSE) > 0;
+            boolean state = stack.getOrDefault(NVDataComponents.INCENSE, false);
+            boolean playerState = player.getData(NVDataAttachments.INCENSE) > 0;
             if (playerState && !state) {
-                stack.set(BMDataComponents.INCENSE, true);
+                stack.set(NVDataComponents.INCENSE, true);
             } else if (!playerState && state) {
-                stack.set(BMDataComponents.INCENSE, false);
+                stack.set(NVDataComponents.INCENSE, false);
             }
         }
     }
 
     @Override
     public boolean isFoil(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.INCENSE, false);
+        return stack.getOrDefault(NVDataComponents.INCENSE, false);
     }
 }

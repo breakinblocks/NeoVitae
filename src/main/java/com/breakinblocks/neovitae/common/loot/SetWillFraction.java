@@ -38,7 +38,7 @@ public class SetWillFraction extends LootItemConditionalFunction {
 
     @Override
     public LootItemFunctionType<? extends LootItemConditionalFunction> getType() {
-        return BMLootFunctions.SET_WILL_FRACTION.get();
+        return NVLootFunctions.SET_WILL_FRACTION.get();
     }
 
     @Override

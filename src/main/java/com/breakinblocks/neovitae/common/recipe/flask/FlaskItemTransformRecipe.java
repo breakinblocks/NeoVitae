@@ -6,9 +6,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class FlaskItemTransformRecipe extends FlaskRecipe {
     @Nonnull
     @Override
     public ItemStack getExampleFlask() {
-        ItemStack flaskStack = new ItemStack(BMItems.ALCHEMY_FLASK.get());
+        ItemStack flaskStack = new ItemStack(NVItems.ALCHEMY_FLASK.get());
         List<EffectHolder> exampleEffects = getExampleEffects();
         if (!exampleEffects.isEmpty()) {
             ItemAlchemyFlask.setFlaskEffects(flaskStack, new FlaskEffects(exampleEffects));
@@ -78,6 +78,6 @@ public class FlaskItemTransformRecipe extends FlaskRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return BMRecipes.FLASK_ITEM_TRANSFORM_SERIALIZER.get();
+        return NVRecipes.FLASK_ITEM_TRANSFORM_SERIALIZER.get();
     }
 }

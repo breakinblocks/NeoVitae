@@ -5,7 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.util.ChatUtil;
 import com.breakinblocks.neovitae.will.IDemonWill;
@@ -23,8 +23,8 @@ public class MonsterSoulItem extends Item implements IDemonWill {
     public MonsterSoulItem(EnumWillType willType) {
         super(new Properties()
                 .stacksTo(1)
-                .component(BMDataComponents.DEMON_WILL_AMOUNT, 0.0)
-                .component(BMDataComponents.DEMON_WILL_TYPE, willType));
+                .component(NVDataComponents.DEMON_WILL_AMOUNT, 0.0)
+                .component(NVDataComponents.DEMON_WILL_TYPE, willType));
         this.willType = willType;
     }
 
@@ -48,7 +48,7 @@ public class MonsterSoulItem extends Item implements IDemonWill {
         if (type != willType) {
             return 0;
         }
-        return willStack.getOrDefault(BMDataComponents.DEMON_WILL_AMOUNT, 0.0);
+        return willStack.getOrDefault(NVDataComponents.DEMON_WILL_AMOUNT, 0.0);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class MonsterSoulItem extends Item implements IDemonWill {
         if (type != willType) {
             return false;
         }
-        willStack.set(BMDataComponents.DEMON_WILL_AMOUNT, will);
+        willStack.set(NVDataComponents.DEMON_WILL_AMOUNT, will);
         return true;
     }
 

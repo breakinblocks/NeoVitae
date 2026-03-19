@@ -1,19 +1,19 @@
 package com.breakinblocks.neovitae.common.item;
 
 import net.minecraft.world.item.ArmorItem;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
 public class LivingArmourItem extends ArmorItem implements UpgradeHolderBase {
 
     public LivingArmourItem() {
         super(
-                BMMaterialsAndTiers.LIVING_ARMOUR_MATERIAL,
+                NVMaterialsAndTiers.LIVING_ARMOUR_MATERIAL,
                 Type.CHESTPLATE,
                 new Properties()
                         .durability(Type.CHESTPLATE.getDurability(33))
-                        .component(BMDataComponents.REQUIRED_SET, BMTags.Items.LIVING_SET)
-                        .component(BMDataComponents.CURRENT_UPGRADE_POINTS, 0)
+                        .component(NVDataComponents.REQUIRED_SET, NVTags.Items.LIVING_SET)
+                        .component(NVDataComponents.CURRENT_UPGRADE_POINTS, 0)
                 );
     }
 }

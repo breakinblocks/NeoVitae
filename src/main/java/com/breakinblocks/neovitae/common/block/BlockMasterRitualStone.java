@@ -26,9 +26,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneTile;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.item.ItemActivationCrystal;
 import com.breakinblocks.neovitae.ritual.Ritual;
@@ -78,7 +78,7 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         if (level.isClientSide()) return null;
-        return type == BMTiles.MASTER_RITUAL_STONE_TYPE.get()
+        return type == NVTiles.MASTER_RITUAL_STONE_TYPE.get()
                 ? (lvl, pos, st, be) -> MasterRitualStoneTile.tick(lvl, pos, st, (MasterRitualStoneTile) be)
                 : null;
     }
@@ -127,7 +127,7 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
 
         // Handle activation crystal
         if (stack.getItem() instanceof ItemActivationCrystal crystal) {
-            Binding binding = stack.get(BMDataComponents.BINDING.get());
+            Binding binding = stack.get(NVDataComponents.BINDING.get());
             if (binding == null || binding.uuid() == null) {
                 player.displayClientMessage(
                         Component.translatable("chat.neovitae.crystal.notBound").withStyle(ChatFormatting.RED), true);

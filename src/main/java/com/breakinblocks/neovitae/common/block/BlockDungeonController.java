@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.blockentity.TileDungeonController;
 
 /**
@@ -39,7 +39,7 @@ public class BlockDungeonController extends Block implements EntityBlock {
         if (level.isClientSide()) {
             return null;
         }
-        return type == BMTiles.DUNGEON_CONTROLLER_TYPE.get()
+        return type == NVTiles.DUNGEON_CONTROLLER_TYPE.get()
                 ? (lvl, pos, st, be) -> TileDungeonController.tick(lvl, pos, st, (TileDungeonController) be)
                 : null;
     }

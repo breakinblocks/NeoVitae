@@ -32,7 +32,7 @@ public class FireFuseEffect extends MobEffect {
 
         int radius = amplifier + 1;
 
-        var effect = entity.getEffect(BMMobEffects.FIRE_FUSE);
+        var effect = entity.getEffect(NVMobEffects.FIRE_FUSE);
         if (effect != null && effect.getDuration() <= 3) {
             Level.ExplosionInteraction explosionMode = EventHooks.canEntityGrief(entity.level(), entity)
                     ? Level.ExplosionInteraction.TNT

@@ -23,14 +23,14 @@ import net.neoforged.neoforge.attachment.AttachmentHolder;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.attribute.BMAttributes;
-import com.breakinblocks.neovitae.common.dataattachment.BMDataAttachments;
+import com.breakinblocks.neovitae.common.attribute.NVAttributes;
+import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.living.effects.CauseExhaustionEffect;
 import com.breakinblocks.neovitae.common.living.LivingEffectComponents;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
 import com.breakinblocks.neovitae.common.living.effects.*;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -380,7 +380,7 @@ public class LivingUpgrades {
         LootItemCondition.Builder physicalDamage = DamageSourceCondition.hasDamageSource(
                 DamageSourcePredicate.Builder.damageType()
                         .tag(TagPredicate.isNot(DamageTypeTags.BYPASSES_INVULNERABILITY))
-                        .tag(TagPredicate.isNot(BMTags.DamageTypes.TOUGH_IGNORED))
+                        .tag(TagPredicate.isNot(NVTags.DamageTypes.TOUGH_IGNORED))
         );
         context.register(
                 PHYSICAL_PROTECT,
@@ -431,7 +431,7 @@ public class LivingUpgrades {
                         .level(2800, 180)
                         .level(3600, 250)
                         .level(5000, 350)
-                        .withEffect(LivingEffectComponents.ATTRIBUTES.get(), new AttributeEffect(SELF_SACRIFICE.location(), BMAttributes.SELF_SACRIFICE_MULTIPLIER.getDelegate(), Operation.ADD_MULTIPLIED_BASE, LevelBasedValue.lookup(List.of(0.15f, 0.3f, 0.45f, 0.6f, 0.75f, 0.9f, 1.05f, 1.2f, 1.35f, 1.5f), LevelBasedValue.constant(0f))))
+                        .withEffect(LivingEffectComponents.ATTRIBUTES.get(), new AttributeEffect(SELF_SACRIFICE.location(), NVAttributes.SELF_SACRIFICE_MULTIPLIER.getDelegate(), Operation.ADD_MULTIPLIED_BASE, LevelBasedValue.lookup(List.of(0.15f, 0.3f, 0.45f, 0.6f, 0.75f, 0.9f, 1.05f, 1.2f, 1.35f, 1.5f), LevelBasedValue.constant(0f))))
                         .build()
         );
         context.register(
@@ -476,7 +476,7 @@ public class LivingUpgrades {
                         .build()
         );
 
-        HolderGetter<LivingUpgrade> lookup = context.lookup(BMRegistries.Keys.LIVING_UPGRADES);
+        HolderGetter<LivingUpgrade> lookup = context.lookup(NVRegistries.Keys.LIVING_UPGRADES);
 
         context.register(
                 exp(ARROW_PROTECT),
@@ -565,7 +565,7 @@ public class LivingUpgrades {
                 exp(SELF_SACRIFICE),
                 new LivingUpgrade.Builder()
                         .level(1, 0)
-                        .withEffect(LivingEffectComponents.DAMAGE_TAKEN_EXP.get(), new ValueBasedExp(lookup.getOrThrow(SELF_SACRIFICE), ValueBasedExp.THIS_ENTITY), DamageSourceCondition.hasDamageSource(new DamageSourcePredicate.Builder().tag(TagPredicate.is(BMTags.DamageTypes.SELF_SACRIFICE))))
+                        .withEffect(LivingEffectComponents.DAMAGE_TAKEN_EXP.get(), new ValueBasedExp(lookup.getOrThrow(SELF_SACRIFICE), ValueBasedExp.THIS_ENTITY), DamageSourceCondition.hasDamageSource(new DamageSourcePredicate.Builder().tag(TagPredicate.is(NVTags.DamageTypes.SELF_SACRIFICE))))
                         .build()
         );
         context.register(
@@ -626,24 +626,24 @@ public class LivingUpgrades {
     );
 
     public static void tags(Function<TagKey<LivingUpgrade>, TagsProvider.TagAppender<LivingUpgrade>> adder) {
-        adder.apply(BMTags.Living.TRAINERS)
+        adder.apply(NVTags.Living.TRAINERS)
                 .addAll(expList);
 
-        adder.apply(BMTags.Living.LIVING_START)
-                .addTag(BMTags.Living.TRAINERS);
+        adder.apply(NVTags.Living.LIVING_START)
+                .addTag(NVTags.Living.TRAINERS);
 
-        adder.apply(BMTags.Living.IS_DOWNGRADE)
+        adder.apply(NVTags.Living.IS_DOWNGRADE)
                 .addAll(downgrades);
 
-        adder.apply(BMTags.Living.IS_SCRAPPABLE)
+        adder.apply(NVTags.Living.IS_SCRAPPABLE)
                         .addAll(upgrades);
 
-        adder.apply(BMTags.Living.TOOLTIP_ORDER)
+        adder.apply(NVTags.Living.TOOLTIP_ORDER)
                 .addAll(upgrades)
                 .addAll(downgrades);
 
-        adder.apply(BMTags.Living.TOOLTIP_HIDE)
-                .addTag(BMTags.Living.TRAINERS);
+        adder.apply(NVTags.Living.TOOLTIP_HIDE)
+                .addTag(NVTags.Living.TRAINERS);
     }
 
     public static void translations(BiConsumer<String, String> translator) {
@@ -694,13 +694,13 @@ public class LivingUpgrades {
         DataResult<Tag> res = Codec.unboundedMap(ResourceLocation.CODEC, Codec.DOUBLE).encodeStart(NbtOps.INSTANCE, Map.of(id, 0d));
         Tag resTag = res.getOrThrow();
         CompoundTag attachmentTag = new CompoundTag();
-        attachmentTag.put(BMDataAttachments.LIVING_ADDITIONAL.getId().toString(), resTag);
+        attachmentTag.put(NVDataAttachments.LIVING_ADDITIONAL.getId().toString(), resTag);
         CompoundTag playerTag = new CompoundTag();
         playerTag.put(AttachmentHolder.ATTACHMENTS_NBT_KEY, attachmentTag);
         return playerTag;
     }
 
     private static ResourceKey<LivingUpgrade> key(String path) {
-        return ResourceKey.create(BMRegistries.Keys.LIVING_UPGRADES, ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, path));
+        return ResourceKey.create(NVRegistries.Keys.LIVING_UPGRADES, ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, path));
     }
 }

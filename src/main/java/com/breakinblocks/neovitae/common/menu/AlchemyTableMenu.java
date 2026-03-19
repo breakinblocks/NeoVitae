@@ -8,7 +8,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyTableTile;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 
@@ -17,7 +17,7 @@ public class AlchemyTableMenu extends AbstractTileMenu<AlchemyTableTile> {
     private static final int TILE_SLOTS = 8; // 6 input + 1 orb + 1 output
 
     public AlchemyTableMenu(int containerId, Inventory playerInventory, AlchemyTableTile tile) {
-        super(BMMenus.ALCHEMY_TABLE.get(), containerId, tile, TILE_SLOTS);
+        super(NVMenus.ALCHEMY_TABLE.get(), containerId, tile, TILE_SLOTS);
 
         this.addSlot(new SlotItemHandler(tile.inv, 0, 62, 15));
         this.addSlot(new SlotItemHandler(tile.inv, 1, 80, 51));
@@ -70,6 +70,6 @@ public class AlchemyTableMenu extends AbstractTileMenu<AlchemyTableTile> {
 
     @Override
     public boolean stillValid(Player player) {
-        return AbstractContainerMenu.stillValid(ContainerLevelAccess.create(tile.getLevel(), tile.getBlockPos()), player, BMBlocks.ALCHEMY_TABLE.block().get());
+        return AbstractContainerMenu.stillValid(ContainerLevelAccess.create(tile.getLevel(), tile.getBlockPos()), player, NVBlocks.ALCHEMY_TABLE.block().get());
     }
 }

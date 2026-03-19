@@ -41,7 +41,7 @@ public class VeinMineChargeTile extends ExplosiveChargeTile {
     }
 
     public VeinMineChargeTile(int maxBlocks, BlockPos pos, BlockState state) {
-        this(BMTiles.VEINMINE_CHARGE_TYPE.get(), maxBlocks, pos, state);
+        this(NVTiles.VEINMINE_CHARGE_TYPE.get(), maxBlocks, pos, state);
     }
 
     @Override

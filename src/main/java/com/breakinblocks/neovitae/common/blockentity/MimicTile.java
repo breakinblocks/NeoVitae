@@ -23,7 +23,7 @@ import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.client.model.data.ModelProperty;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockMimic;
 import com.breakinblocks.neovitae.util.ChatUtil;
 
@@ -60,7 +60,7 @@ public class MimicTile extends BaseTile {
     }
 
     public MimicTile(BlockPos pos, BlockState state) {
-        this(BMTiles.MIMIC_TYPE.get(), pos, state);
+        this(NVTiles.MIMIC_TYPE.get(), pos, state);
     }
 
     public boolean onBlockActivated(Level world, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, Direction side) {

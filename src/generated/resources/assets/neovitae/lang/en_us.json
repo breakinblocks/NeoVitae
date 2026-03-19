@@ -916,6 +916,7 @@
   "tooltip.neovitae.sigil.divination.creative.chargingRate": "Charging Rate: %s Life Essence/tick",
   "tooltip.neovitae.sigil.divination.creative.dislocationMod": "Dislocation Multiplier: %sx",
   "tooltip.neovitae.sigil.divination.creative.efficiencyMod": "Efficiency: %sx",
+  "tooltip.neovitae.sigil.divination.creative.incense": "Incense: %s",
   "tooltip.neovitae.sigil.divination.creative.orbCapMod": "Orb Capacity Bonus: +%s",
   "tooltip.neovitae.sigil.divination.creative.sacrificeMod": "Sacrifice Bonus: +%s",
   "tooltip.neovitae.sigil.divination.creative.selfSacMod": "Self-Sacrifice Bonus: +%s",

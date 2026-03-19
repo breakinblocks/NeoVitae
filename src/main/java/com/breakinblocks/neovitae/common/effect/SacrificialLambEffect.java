@@ -34,7 +34,7 @@ public class SacrificialLambEffect extends MobEffect {
         animal.goalSelector.addGoal(2, attackGoal);
 
         if (animal.getTarget() != null && animal.distanceToSqr(animal.getTarget()) < 4) {
-            var effect = animal.getEffect(BMMobEffects.SACRIFICIAL_LAMB);
+            var effect = animal.getEffect(NVMobEffects.SACRIFICIAL_LAMB);
             float radius = effect != null ? 2 + effect.getAmplifier() * 1.5f : 2;
 
             animal.level().explode(null,

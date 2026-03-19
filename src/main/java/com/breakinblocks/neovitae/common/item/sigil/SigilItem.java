@@ -22,7 +22,7 @@ import com.breakinblocks.neovitae.api.sigil.ISigilEffect;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.api.sigil.SigilType;
 import com.breakinblocks.neovitae.api.soul.SoulTicket;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
 import com.breakinblocks.neovitae.common.item.IActivatable;
@@ -71,7 +71,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
      */
     @Nullable
     public SigilType getSigilType(ItemStack stack, Level level) {
-        Holder<SigilType> holder = stack.get(BMDataComponents.SIGIL_TYPE.get());
+        Holder<SigilType> holder = stack.get(NVDataComponents.SIGIL_TYPE.get());
         if (holder != null) {
             return holder.value();
         }
@@ -97,12 +97,12 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
     public boolean isUnusable(ItemStack stack) {
         if (stack.isEmpty()) return false;
-        return stack.getOrDefault(BMDataComponents.SIGIL_UNUSABLE.get(), false);
+        return stack.getOrDefault(NVDataComponents.SIGIL_UNUSABLE.get(), false);
     }
 
     public ItemStack setUnusable(ItemStack stack, boolean unusable) {
         if (!stack.isEmpty()) {
-            stack.set(BMDataComponents.SIGIL_UNUSABLE.get(), unusable);
+            stack.set(NVDataComponents.SIGIL_UNUSABLE.get(), unusable);
         }
         return stack;
     }

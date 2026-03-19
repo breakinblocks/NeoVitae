@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import com.breakinblocks.neovitae.common.datacomponent.AnointmentHolder;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 
@@ -97,7 +97,7 @@ public class SoulForgeRecipeBuilder extends BaseRecipeBuilder {
      * @param maxDamage The max uses before the anointment expires
      */
     public SoulForgeRecipeBuilder withAnointment(String key, int level, int maxDamage) {
-        this.result.set(BMDataComponents.ANOINTMENT_HOLDER.get(), AnointmentHolder.single(key, level, maxDamage));
+        this.result.set(NVDataComponents.ANOINTMENT_HOLDER.get(), AnointmentHolder.single(key, level, maxDamage));
         return this;
     }
 

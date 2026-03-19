@@ -9,12 +9,12 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.living.effects.*;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 import java.util.List;
 
 public class LivingEffectComponents {
-    public static final DeferredRegister.DataComponents LIVING_EFFECT_COMPONENTS = DeferredRegister.createDataComponents(BMRegistries.Keys.LIVING_EFFECT_COMPONENTS, NeoVitae.MODID);
+    public static final DeferredRegister.DataComponents LIVING_EFFECT_COMPONENTS = DeferredRegister.createDataComponents(NVRegistries.Keys.LIVING_EFFECT_COMPONENTS, NeoVitae.MODID);
     public static final Codec<DataComponentType<?>> COMPONENT_CODEC = Codec.lazyInitialized(() -> LIVING_EFFECT_COMPONENTS.getRegistry().get().byNameCodec());
     public static final Codec<DataComponentMap> CODEC = DataComponentMap.makeCodec(COMPONENT_CODEC);
 

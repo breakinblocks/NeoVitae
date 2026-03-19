@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.client.event;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -10,13 +12,16 @@ import net.minecraft.world.item.component.TooltipProvider;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
-import com.breakinblocks.neovitae.common.network.BMPayloads;
+import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
+import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.common.network.RitualDivinerCyclePayload;
+import com.breakinblocks.neovitae.common.network.SigilHoldingCyclePayload;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +44,41 @@ public class ClientEventHandler {
         ItemStack stack = event.getItemStack();
         if (stack.getItem() instanceof ItemRitualDiviner) {
             // Send packet to server to cycle ritual backwards (reverse=true)
-            BMPayloads.sendToServer(new RitualDivinerCyclePayload(true));
+            NVPayloads.sendToServer(new RitualDivinerCyclePayload(true));
         }
+    }
+
+    /**
+     * Handles scroll wheel input while sneaking and holding a Sigil of Holding
+     * to cycle through the contained sigils.
+     */
+    @SubscribeEvent
+    public static void onMouseScroll(InputEvent.MouseScrollingEvent event) {
+        LocalPlayer player = Minecraft.getInstance().player;
+        if (player == null || event.getScrollDeltaY() == 0 || !player.isShiftKeyDown()) {
+            return;
+        }
+
+        ItemStack stack = player.getMainHandItem();
+        if (stack.isEmpty() || !(stack.getItem() instanceof ItemSigilHolding)) {
+            return;
+        }
+
+        int direction = event.getScrollDeltaY() > 0 ? 1 : -1;
+
+        // Cycle locally for immediate feedback
+        ItemSigilHolding.cycleToNextSigil(stack, direction);
+
+        // Show the newly selected sigil name on the action bar
+        ItemStack newSelected = ItemSigilHolding.getInternalInventory(stack)
+                .get(ItemSigilHolding.getCurrentItemOrdinal(stack));
+        player.displayClientMessage(
+                newSelected.isEmpty() ? Component.literal("") : newSelected.getHoverName(), true);
+
+        // Send to server for authoritative update
+        NVPayloads.sendToServer(new SigilHoldingCyclePayload(player.getInventory().selected, direction));
+
+        event.setCanceled(true);
     }
 
     @SubscribeEvent
@@ -52,13 +90,13 @@ public class ClientEventHandler {
         TooltipFlag flags = event.getFlags();
         List<Component> toAdd = new ArrayList<>();
 
-        addToTooltip(BMDataComponents.BINDING.get(), context, toAdd::add, flags, stack);
-        int max = stack.getOrDefault(BMDataComponents.CURRENT_MAX_UPGRADE_POINTS, 0);
+        addToTooltip(NVDataComponents.BINDING.get(), context, toAdd::add, flags, stack);
+        int max = stack.getOrDefault(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS, 0);
         if (max > 0) {
-            int current = stack.getOrDefault(BMDataComponents.CURRENT_UPGRADE_POINTS, 0);
+            int current = stack.getOrDefault(NVDataComponents.CURRENT_UPGRADE_POINTS, 0);
             toAdd.add(Component.translatable("tooltip.neovitae.upgrade_points", current, max).withStyle(ChatFormatting.GOLD));
         }
-        addToTooltip(BMDataComponents.UPGRADES.get(), context, toAdd::add, flags, stack);
+        addToTooltip(NVDataComponents.UPGRADES.get(), context, toAdd::add, flags, stack);
 
         // add after name. idgaf
         tooltip.addAll(1, toAdd);

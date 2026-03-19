@@ -8,11 +8,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.ExtraCodecs.TagOrElementLocation;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.registry.AltarComponent;
 import com.breakinblocks.neovitae.common.registry.AltarTier;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class AltarTiers {
     }
 
     public static void tags(Function<TagKey<AltarTier>, TagsProvider.TagAppender<AltarTier>> setter) {
-        setter.apply(BMTags.Tiers.VALID_TIERS)
+        setter.apply(NVTags.Tiers.VALID_TIERS)
                 .add(Keys.WEAK)
                 .add(Keys.APPRENTICE)
                 .add(Keys.MAGE)
@@ -44,12 +44,12 @@ public class AltarTiers {
     }
 
     public static class Keys {
-        public static final ResourceKey<AltarTier> WEAK = ResourceKey.create(BMRegistries.Keys.ALTAR_TIER_KEY, Locs.WEAK);
-        public static final ResourceKey<AltarTier> APPRENTICE = ResourceKey.create(BMRegistries.Keys.ALTAR_TIER_KEY, Locs.APPRENTICE);
-        public static final ResourceKey<AltarTier> MAGE = ResourceKey.create(BMRegistries.Keys.ALTAR_TIER_KEY, Locs.MAGE);
-        public static final ResourceKey<AltarTier> MASTER = ResourceKey.create(BMRegistries.Keys.ALTAR_TIER_KEY, Locs.MASTER);
-        public static final ResourceKey<AltarTier> ARCHMAGE = ResourceKey.create(BMRegistries.Keys.ALTAR_TIER_KEY, Locs.ARCHMAGE);
-        public static final ResourceKey<AltarTier> TRANSCENDENT = ResourceKey.create(BMRegistries.Keys.ALTAR_TIER_KEY, Locs.TRANSCENDENT);
+        public static final ResourceKey<AltarTier> WEAK = ResourceKey.create(NVRegistries.Keys.ALTAR_TIER_KEY, Locs.WEAK);
+        public static final ResourceKey<AltarTier> APPRENTICE = ResourceKey.create(NVRegistries.Keys.ALTAR_TIER_KEY, Locs.APPRENTICE);
+        public static final ResourceKey<AltarTier> MAGE = ResourceKey.create(NVRegistries.Keys.ALTAR_TIER_KEY, Locs.MAGE);
+        public static final ResourceKey<AltarTier> MASTER = ResourceKey.create(NVRegistries.Keys.ALTAR_TIER_KEY, Locs.MASTER);
+        public static final ResourceKey<AltarTier> ARCHMAGE = ResourceKey.create(NVRegistries.Keys.ALTAR_TIER_KEY, Locs.ARCHMAGE);
+        public static final ResourceKey<AltarTier> TRANSCENDENT = ResourceKey.create(NVRegistries.Keys.ALTAR_TIER_KEY, Locs.TRANSCENDENT);
     }
 
     public static class Locs {
@@ -61,14 +61,14 @@ public class AltarTiers {
         public static final ResourceLocation TRANSCENDENT = bm("transcendent");
     }
 
-    private static final TagOrElementLocation ALTAR = new TagOrElementLocation(BMBlocks.BLOOD_ALTAR.block().getId(), false);
+    private static final TagOrElementLocation ALTAR = new TagOrElementLocation(NVBlocks.BLOOD_ALTAR.block().getId(), false);
 
-    private static final TagOrElementLocation PILLAR = new TagOrElementLocation(BMTags.Blocks.PILLARS.location(), true);
-    private static final TagOrElementLocation RUNE = new TagOrElementLocation(BMTags.Blocks.RUNES.location(), true);
-    private static final TagOrElementLocation T3_CAP = new TagOrElementLocation(BMTags.Blocks.T3_CAPSTONES.location(), true);
-    private static final TagOrElementLocation T4_CAP = new TagOrElementLocation(BMTags.Blocks.T4_CAPSTONES.location(), true);
-    private static final TagOrElementLocation T5_CAP = new TagOrElementLocation(BMTags.Blocks.T5_CAPSTONES.location(), true);
-    private static final TagOrElementLocation T6_CAP = new TagOrElementLocation(BMTags.Blocks.T6_CAPSTONES.location(), true);
+    private static final TagOrElementLocation PILLAR = new TagOrElementLocation(NVTags.Blocks.PILLARS.location(), true);
+    private static final TagOrElementLocation RUNE = new TagOrElementLocation(NVTags.Blocks.RUNES.location(), true);
+    private static final TagOrElementLocation T3_CAP = new TagOrElementLocation(NVTags.Blocks.T3_CAPSTONES.location(), true);
+    private static final TagOrElementLocation T4_CAP = new TagOrElementLocation(NVTags.Blocks.T4_CAPSTONES.location(), true);
+    private static final TagOrElementLocation T5_CAP = new TagOrElementLocation(NVTags.Blocks.T5_CAPSTONES.location(), true);
+    private static final TagOrElementLocation T6_CAP = new TagOrElementLocation(NVTags.Blocks.T6_CAPSTONES.location(), true);
 
     public static List<AltarComponent> WEAK = List.of(new AltarComponent(new BlockPos(0, 0, 0), ALTAR, false));
 

@@ -7,7 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import org.apache.commons.lang3.tuple.Pair;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.TileDungeonSeal;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.structures.DungeonDoor;
@@ -159,7 +159,7 @@ public class DungeonRoomPlacement {
 
             // Place seal block above the door
             BlockPos sealPos = door.doorPos().relative(door.doorDir()).above(2);
-            world.setBlockAndUpdate(sealPos, BMBlocks.DUNGEON_SEAL.block().get().defaultBlockState());
+            world.setBlockAndUpdate(sealPos, NVBlocks.DUNGEON_SEAL.block().get().defaultBlockState());
 
             // Configure the seal
             if (world.getBlockEntity(sealPos) instanceof TileDungeonSeal seal) {

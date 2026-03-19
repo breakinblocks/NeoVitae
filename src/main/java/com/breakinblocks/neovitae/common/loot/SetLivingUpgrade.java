@@ -17,10 +17,10 @@ import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.LivingStats;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,13 +51,13 @@ public class SetLivingUpgrade extends LootItemConditionalFunction {
 
     @Override
     public LootItemFunctionType<? extends LootItemConditionalFunction> getType() {
-        return BMLootFunctions.SET_LIVING_UPGRADE.get();
+        return NVLootFunctions.SET_LIVING_UPGRADE.get();
     }
 
     @Override
     protected ItemStack run(ItemStack stack, LootContext context) {
         // Check if item can have upgrades (living armor)
-        if (stack.has(BMDataComponents.UPGRADES) || stack.has(BMDataComponents.REQUIRED_SET)) {
+        if (stack.has(NVDataComponents.UPGRADES) || stack.has(NVDataComponents.REQUIRED_SET)) {
             if (upgrades.isEmpty()) {
                 LOGGER.warn("No upgrades specified for SetLivingUpgrade loot function");
                 return stack;
@@ -70,10 +70,10 @@ public class SetLivingUpgrade extends LootItemConditionalFunction {
             float points = pointsRange.getFloat(context);
 
             // Get or create living stats and add experience
-            LivingStats stats = stack.getOrDefault(BMDataComponents.UPGRADES, LivingStats.EMPTY);
+            LivingStats stats = stack.getOrDefault(NVDataComponents.UPGRADES, LivingStats.EMPTY);
             Object2FloatOpenHashMap<Holder<LivingUpgrade>> newUpgrades = stats.upgrades().clone();
             newUpgrades.addTo(upgrade, points);
-            stack.set(BMDataComponents.UPGRADES, new LivingStats(newUpgrades));
+            stack.set(NVDataComponents.UPGRADES, new LivingStats(newUpgrades));
         } else {
             LOGGER.warn("Couldn't set living upgrade on loot item {}", stack);
         }
@@ -105,7 +105,7 @@ public class SetLivingUpgrade extends LootItemConditionalFunction {
             HolderLookup.Provider registries,
             NumberProvider points,
             ResourceKey<LivingUpgrade>... upgradeKeys) {
-        HolderGetter<LivingUpgrade> lookup = registries.lookupOrThrow(BMRegistries.Keys.LIVING_UPGRADES);
+        HolderGetter<LivingUpgrade> lookup = registries.lookupOrThrow(NVRegistries.Keys.LIVING_UPGRADES);
         List<Holder<LivingUpgrade>> holders = Arrays.stream(upgradeKeys)
                 .map(lookup::getOrThrow)
                 .collect(Collectors.toList());

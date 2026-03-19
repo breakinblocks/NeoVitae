@@ -6,7 +6,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.living.LivingEntityEffect;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
@@ -20,17 +20,17 @@ public record ItemDamageBasedExpGain(Holder<LivingUpgrade> upgrade) implements L
     public void apply(int upgradeLevel, Entity entity) {
         Player wearer = (Player) entity;
         ItemStack chestStack = LivingHelper.getChest(wearer);
-        if (chestStack.has(BMDataComponents.PREVIOUS_DAMAGE)) {
-            Integer prev = chestStack.get(BMDataComponents.PREVIOUS_DAMAGE);
+        if (chestStack.has(NVDataComponents.PREVIOUS_DAMAGE)) {
+            Integer prev = chestStack.get(NVDataComponents.PREVIOUS_DAMAGE);
             int delta = prev - chestStack.getDamageValue();
             if (delta > 0) {
                 LivingHelper.applyExp(wearer, upgrade, delta);
             }
             if (delta != 0) {
-                chestStack.set(BMDataComponents.PREVIOUS_DAMAGE, chestStack.getDamageValue());
+                chestStack.set(NVDataComponents.PREVIOUS_DAMAGE, chestStack.getDamageValue());
             }
         } else {
-            chestStack.set(BMDataComponents.PREVIOUS_DAMAGE, chestStack.getDamageValue());
+            chestStack.set(NVDataComponents.PREVIOUS_DAMAGE, chestStack.getDamageValue());
         }
     }
 

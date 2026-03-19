@@ -9,7 +9,7 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.fluids.FluidStack;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public class ARCPotionRecipe extends ARCRecipe {
 
         // Process chanced outputs (without potion effects for simplicity)
         double bonusChance = input.getItem(0).getOrDefault(
-                com.breakinblocks.neovitae.common.datacomponent.BMDataComponents.ARC_CHANCE, 1D);
+                com.breakinblocks.neovitae.common.datacomponent.NVDataComponents.ARC_CHANCE, 1D);
         for (Pair<ItemStack, Double> entry : getChanceOutput()) {
             if (Math.random() < entry.getSecond() * bonusChance) {
                 outputStacks.add(entry.getFirst().copy());
@@ -81,6 +81,6 @@ public class ARCPotionRecipe extends ARCRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return BMRecipes.ARC_POTION_SERIALIZER.get();
+        return NVRecipes.ARC_POTION_SERIALIZER.get();
     }
 }

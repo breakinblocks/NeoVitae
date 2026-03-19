@@ -12,9 +12,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import com.breakinblocks.neovitae.common.effect.BMMobEffects;
-import com.breakinblocks.neovitae.common.entity.BMEntities;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import com.breakinblocks.neovitae.common.entity.NVEntities;
+import com.breakinblocks.neovitae.common.item.NVItems;
 
 /**
  * Soul Snare projectile - marks hostile mobs for demon will drops on death.
@@ -26,16 +26,16 @@ public class SoulSnareEntity extends ThrowableItemProjectile {
     }
 
     public SoulSnareEntity(Level level, LivingEntity shooter) {
-        super(BMEntities.SOUL_SNARE.get(), shooter, level);
+        super(NVEntities.SOUL_SNARE.get(), shooter, level);
     }
 
     public SoulSnareEntity(Level level, double x, double y, double z) {
-        super(BMEntities.SOUL_SNARE.get(), x, y, z, level);
+        super(NVEntities.SOUL_SNARE.get(), x, y, z, level);
     }
 
     @Override
     protected Item getDefaultItem() {
-        return BMItems.SOUL_SNARE.get();
+        return NVItems.SOUL_SNARE.get();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class SoulSnareEntity extends ThrowableItemProjectile {
             // Only affect hostile mobs
             if (target instanceof Enemy) {
                 // Apply the soul snare effect
-                target.addEffect(new MobEffectInstance(BMMobEffects.SOUL_SNARE, 1200, 0, false, true));
+                target.addEffect(new MobEffectInstance(NVMobEffects.SOUL_SNARE, 1200, 0, false, true));
 
                 // Spawn particles to indicate success
                 for (int i = 0; i < 8; i++) {

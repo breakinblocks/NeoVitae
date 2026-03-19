@@ -16,14 +16,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 import com.breakinblocks.neovitae.common.menu.AlchemyTableMenu;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.alchemytable.AlchemyTableInput;
 import com.breakinblocks.neovitae.common.recipe.alchemytable.AlchemyTableRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskInput;
@@ -73,7 +73,7 @@ public class AlchemyTableTile extends BaseTile implements MenuProvider {
     };
 
     public AlchemyTableTile(BlockPos pos, BlockState state) {
-        super(BMTiles.ALCHEMY_TABLE_TYPE.get(), pos, state);
+        super(NVTiles.ALCHEMY_TABLE_TYPE.get(), pos, state);
     }
 
     @Override
@@ -201,7 +201,7 @@ public class AlchemyTableTile extends BaseTile implements MenuProvider {
     private boolean syphonLP(ItemStack orbStack, int totalSyphon, int totalTicks) {
         int syphonPerTick = totalSyphon / Math.max(1, totalTicks);
         if (syphonPerTick > 0 && orbStack.getItem() instanceof BloodOrbItem) {
-            Binding binding = orbStack.getOrDefault(BMDataComponents.BINDING, Binding.EMPTY);
+            Binding binding = orbStack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
             if (!binding.isEmpty()) {
                 SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
                 if (network != null) {
@@ -324,7 +324,7 @@ public class AlchemyTableTile extends BaseTile implements MenuProvider {
         FlaskRecipe bestRecipe = null;
         int bestPriority = Integer.MIN_VALUE;
 
-        for (var holder : level.getRecipeManager().getAllRecipesFor(BMRecipes.FLASK_TYPE.get())) {
+        for (var holder : level.getRecipeManager().getAllRecipesFor(NVRecipes.FLASK_TYPE.get())) {
             FlaskRecipe recipe = holder.value();
             if (recipe.matches(input, level)) {
                 int priority = recipe.getPriority(flaskEffects);
@@ -369,7 +369,7 @@ public class AlchemyTableTile extends BaseTile implements MenuProvider {
 
         AlchemyTableInput input = createInput();
         Optional<AlchemyTableRecipe> recipe = level.getRecipeManager()
-                .getRecipeFor(BMRecipes.ALCHEMY_TABLE_TYPE.get(), input, level)
+                .getRecipeFor(NVRecipes.ALCHEMY_TABLE_TYPE.get(), input, level)
                 .map(holder -> holder.value());
 
         recipe.ifPresent(r -> cachedRecipe = r);

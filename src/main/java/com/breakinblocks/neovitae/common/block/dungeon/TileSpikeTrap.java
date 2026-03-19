@@ -6,7 +6,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.BaseTile;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
 /**
  * Tile entity for the Spike Trap block.
@@ -15,7 +15,7 @@ import com.breakinblocks.neovitae.common.blockentity.BMTiles;
 public class TileSpikeTrap extends BaseTile {
 
     public TileSpikeTrap(BlockPos pos, BlockState state) {
-        super(BMTiles.SPIKE_TRAP_TYPE.get(), pos, state);
+        super(NVTiles.SPIKE_TRAP_TYPE.get(), pos, state);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, TileSpikeTrap tile) {

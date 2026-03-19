@@ -9,7 +9,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.meteor.MeteorLayer;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import java.util.*;
 
@@ -83,12 +83,12 @@ public class MeteorRecipe implements Recipe<MeteorInput> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return BMRecipes.METEOR_SERIALIZER.get();
+        return NVRecipes.METEOR_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return BMRecipes.METEOR_TYPE.get();
+        return NVRecipes.METEOR_TYPE.get();
     }
 
     // Getters

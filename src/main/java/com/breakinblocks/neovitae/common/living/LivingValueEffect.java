@@ -7,13 +7,13 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.living.effects.*;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 public interface LivingValueEffect {
-    DeferredRegister<MapCodec<? extends LivingValueEffect>> VALUE_BASED_EFFECT_TYPE = DeferredRegister.create(BMRegistries.Keys.VALUE_BASED_EFFECT_TYPE, NeoVitae.MODID);
+    DeferredRegister<MapCodec<? extends LivingValueEffect>> VALUE_BASED_EFFECT_TYPE = DeferredRegister.create(NVRegistries.Keys.VALUE_BASED_EFFECT_TYPE, NeoVitae.MODID);
     Codec<LivingValueEffect> CODEC = Codec.lazyInitialized(() -> VALUE_BASED_EFFECT_TYPE
             .getRegistry()
             .get()

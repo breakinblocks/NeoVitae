@@ -8,7 +8,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.level.ChunkWatchEvent;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.dataattachment.BMDataAttachments;
+import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 
 /**
  * Handles chunk watch events to sync demon will data to players.
@@ -24,7 +24,7 @@ public class WillChunkEvents {
 
         // Get the chunk and its will data
         LevelChunk chunk = level.getChunk(chunkPos.x, chunkPos.z);
-        WillChunk willChunk = chunk.getData(BMDataAttachments.WILL_CHUNK);
+        WillChunk willChunk = chunk.getData(NVDataAttachments.WILL_CHUNK);
 
         // Only sync if the chunk has any will
         if (willChunk.hasWill()) {

@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.common.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
 /**
  * Block entity for fungal charges.
@@ -16,7 +16,7 @@ public class FungalChargeTile extends VeinMineChargeTile {
     }
 
     public FungalChargeTile(int maxBlocks, BlockPos pos, BlockState state) {
-        this(BMTiles.FUNGAL_CHARGE_TYPE.get(), maxBlocks, pos, state);
+        this(NVTiles.FUNGAL_CHARGE_TYPE.get(), maxBlocks, pos, state);
     }
 
     public FungalChargeTile(BlockPos pos, BlockState state) {
@@ -30,7 +30,7 @@ public class FungalChargeTile extends VeinMineChargeTile {
 
     @Override
     public boolean isValidStartingBlock(BlockState originalBlockState) {
-        return originalBlockState.is(BMTags.Blocks.MUSHROOM_HYPHAE) || originalBlockState.is(BMTags.Blocks.MUSHROOM_STEM);
+        return originalBlockState.is(NVTags.Blocks.MUSHROOM_HYPHAE) || originalBlockState.is(NVTags.Blocks.MUSHROOM_STEM);
     }
 
     @Override

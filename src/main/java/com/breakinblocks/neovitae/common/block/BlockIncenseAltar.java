@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.blockentity.IncenseAltarTile;
 
 /**
@@ -64,6 +64,6 @@ public class BlockIncenseAltar extends BaseEntityBlock {
         if (level.isClientSide()) {
             return null;
         }
-        return createTickerHelper(blockEntityType, BMTiles.INCENSE_ALTAR_TYPE.get(), IncenseAltarTile::serverTick);
+        return createTickerHelper(blockEntityType, NVTiles.INCENSE_ALTAR_TYPE.get(), IncenseAltarTile::serverTick);
     }
 }

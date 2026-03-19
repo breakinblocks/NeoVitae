@@ -9,17 +9,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.FakePlayer;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
-import com.breakinblocks.neovitae.common.datamap.BMDataMaps;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.api.soul.SoulTicket;
 import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
 
 public class BloodOrbItem extends Item implements IBindable {
 
     public BloodOrbItem() {
-        super(new Item.Properties().stacksTo(1).component(BMDataComponents.BINDING, Binding.EMPTY));
+        super(new Item.Properties().stacksTo(1).component(NVDataComponents.BINDING, Binding.EMPTY));
     }
 
     @Override
@@ -33,7 +33,7 @@ public class BloodOrbItem extends Item implements IBindable {
             return InteractionResultHolder.consume(stack);
 
 
-        Binding binding = stack.getOrDefault(BMDataComponents.BINDING, Binding.EMPTY);
+        Binding binding = stack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
         if (binding.isEmpty())
             return InteractionResultHolder.consume(stack);
 
@@ -57,15 +57,15 @@ public class BloodOrbItem extends Item implements IBindable {
     }
 
     public int getCapacity(ItemStack stack) {
-        return stack.getItemHolder().getData(BMDataMaps.BLOOD_ORB_STATS).capacity();
+        return stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS).capacity();
     }
 
     public int getFillRate(ItemStack stack) {
-        return stack.getItemHolder().getData(BMDataMaps.BLOOD_ORB_STATS).fillRate();
+        return stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS).fillRate();
     }
 
     public int getOrbTier(ItemStack stack) {
-        return stack.getItemHolder().getData(BMDataMaps.BLOOD_ORB_STATS).tier();
+        return stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS).tier();
     }
 
 }

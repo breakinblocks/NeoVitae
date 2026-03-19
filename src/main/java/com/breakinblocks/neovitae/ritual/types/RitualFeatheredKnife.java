@@ -1,29 +1,58 @@
 package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.damagesource.BMDamageSources;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
+import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
+import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import com.breakinblocks.neovitae.common.living.LivingHelper;
+import com.breakinblocks.neovitae.incense.IncenseHelper;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
+import com.breakinblocks.neovitae.util.AltarUtil;
+import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Ritual that damages nearby players (with consent) to generate LP.
+ * Ritual of the Feathered Knife - damages nearby players to generate LP for a Blood Altar.
+ *
+ * <p>Demon Will effects:
+ * <ul>
+ *   <li><b>Raw (Default)</b> - Reduces refresh time to 10 ticks, lowers health threshold to 30%</li>
+ *   <li><b>Steadfast</b> - Raises health threshold to 70% (safer for players)</li>
+ *   <li><b>Vengeful</b> - Lowers health threshold to 10% (more aggressive)</li>
+ *   <li><b>Corrosive</b> - Incense mode: consumes incense for massive LP, applies Soul Fray</li>
+ *   <li><b>Destructive</b> - LP multiplier based on will amount</li>
+ * </ul>
  */
 public class RitualFeatheredKnife extends Ritual {
 
     public static final String SACRIFICE_RANGE = "sacrificeRange";
+    public static final String ALTAR_RANGE = "altarRange";
 
-    private static final int LP_PER_HP = 100;
+    private static final double MIN_WILL = 0.5;
+    private static final double CORROSIVE_WILL_PER_USE = 5.0;
+    private static final double DESTRUCTIVE_WILL_PER_USE = 0.5;
+
+    /** Cached altar offset (relative to master pos). Persisted in NBT. */
+    private BlockPos altarOffsetPos = null;
+
+    /** Dynamic refresh time — 20 normally, 10 with raw will. */
+    private int refreshTime = 20;
 
     public RitualFeatheredKnife() {
         super("feathered_knife", 0, 25000, "ritual." + NeoVitae.MODID + ".feathered_knife");
         addBlockRange(SACRIFICE_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-5, -5, -5), 11, 11, 11));
+        addBlockRange(ALTAR_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-5, -10, -5), 11, 20, 11));
         setMaximumVolumeAndDistanceOfRange(SACRIFICE_RANGE, 0, 10, 10);
+        setMaximumVolumeAndDistanceOfRange(ALTAR_RANGE, 0, 15, 15);
     }
 
     @Override
@@ -31,39 +60,157 @@ public class RitualFeatheredKnife extends Ritual {
         RitualContext ctx = RitualHelper.createContext(masterRitualStone, getRefreshCost());
         if (ctx == null) return;
 
-        int maxLPGenerated = 1000000;
+        BlockPos masterPos = ctx.masterPos();
+
+        // Query demon will
+        double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
+        double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
+        double destructiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE);
+        double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
+        double vengefulWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.VENGEFUL);
+
+        boolean hasRawWill = rawWill >= MIN_WILL;
+        boolean hasCorrosive = corrosiveWill >= MIN_WILL;
+        boolean hasDestructive = destructiveWill >= MIN_WILL;
+        boolean hasSteadfast = steadfastWill >= MIN_WILL;
+        boolean hasVengeful = vengefulWill >= MIN_WILL;
+
+        // Dynamic refresh time
+        refreshTime = hasRawWill ? 10 : 20;
+
+        // Find the altar (use cached position first, fallback to search)
+        BloodAltarTile altar = findAltar(ctx);
+        if (altar == null) return;
+
+        // Determine health threshold based on will types
+        // Steadfast = safer (keep 70% health), Vengeful = aggressive (keep only 10%)
+        // Default without will: keep 30%
+        float healthThreshold;
+        if (hasSteadfast) {
+            healthThreshold = 0.7F;
+        } else if (hasVengeful) {
+            healthThreshold = 0.1F;
+        } else if (hasRawWill) {
+            healthThreshold = 0.3F;
+        } else {
+            healthThreshold = 0.3F;
+        }
+
+        // LP multiplier from destructive will
+        double lpMultiplier = 1.0;
+        if (hasDestructive) {
+            lpMultiplier = 1.0 + destructiveWill * 0.2 / 100.0;
+        }
 
         List<Player> players = RitualHelper.getEntitiesInRange(ctx, this, SACRIFICE_RANGE, Player.class,
-                player -> player.isAlive() && !player.isCreative() && !player.isSpectator() && player.getHealth() > 6.0F);
+                player -> player.isAlive() && !player.isCreative() && !player.isSpectator());
 
         int totalLP = 0;
+        double corrosiveUsed = 0;
+        double destructiveUsed = 0;
 
         for (Player player : players) {
             float health = player.getHealth();
-            if (health <= 6.0F) continue;
+            float maxHealth = player.getMaxHealth();
+            float threshold = maxHealth * healthThreshold;
 
-            float damage = Math.min(1.0F, health - 6.0F);
-            player.hurt(ctx.level().damageSources().source(BMDamageSources.SACRIFICE, player), damage);
+            if (health <= threshold) continue;
+
+            // CORROSIVE: Incense mode — consume accumulated incense for massive self-sacrifice
+            if (hasCorrosive && (corrosiveWill - corrosiveUsed) >= CORROSIVE_WILL_PER_USE) {
+                double incense = IncenseHelper.getCurrentIncense(player);
+                if (incense > 0) {
+                    // Sacrifice more health (down to threshold)
+                    float damage = health - threshold;
+                    if (damage > 0) {
+                        player.hurt(ctx.level().damageSources().source(NVDamageSources.SELF_SACRIFICE, player), damage);
+                        if (player.getHealth() < health) {
+                            int healthLost = (int) (health - player.getHealth());
+                            int lp = AltarUtil.calculateSelfSacrificeLP(player, healthLost, incense);
+                            lp = (int) (lp * lpMultiplier);
+                            totalLP += lp;
+                        }
+                        // Apply Soul Fray to prevent immediate re-sacrifice with incense
+                        player.addEffect(new MobEffectInstance(NVMobEffects.SOUL_FRAY, 400, 0, true, true));
+                        IncenseHelper.clearIncense(player);
+                        corrosiveUsed += CORROSIVE_WILL_PER_USE;
+                    }
+                    continue;
+                }
+            }
+
+            // Normal sacrifice — take 1 HP down to threshold
+            float damage = Math.min(1.0F, health - threshold);
+            if (damage <= 0) continue;
+
+            player.hurt(ctx.level().damageSources().source(NVDamageSources.SELF_SACRIFICE, player), damage);
 
             if (player.getHealth() < health) {
-                totalLP += (int) (damage * LP_PER_HP);
+                int healthLost = (int) Math.ceil(health - player.getHealth());
+                int lp = AltarUtil.calculateSelfSacrificeLP(player, healthLost);
+
+                // Living armor self-sacrifice bonus
+                if (LivingHelper.hasFullSet(player)) {
+                    lp = (int) (lp * 1.1);
+                }
+
+                // Destructive will LP multiplier
+                if (hasDestructive && (destructiveWill - destructiveUsed) >= DESTRUCTIVE_WILL_PER_USE) {
+                    lp = (int) (lp * lpMultiplier);
+                    destructiveUsed += DESTRUCTIVE_WILL_PER_USE;
+                }
+
+                totalLP += lp;
             }
         }
 
         if (totalLP > 0) {
             ctx.syphon(getRefreshCost());
-            ctx.network().add(ctx.master().ticket(totalLP), maxLPGenerated);
+            // Feed LP directly to the altar
+            altar.sacrificialDaggerCall(totalLP, false);
         }
+
+        // Drain consumed will
+        if (corrosiveUsed > 0) {
+            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.CORROSIVE, corrosiveUsed);
+        }
+        if (destructiveUsed > 0) {
+            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE, destructiveUsed);
+        }
+    }
+
+    /**
+     * Finds the blood altar, using the cached offset position if available.
+     */
+    private BloodAltarTile findAltar(RitualContext ctx) {
+        RitualHelper.AltarSearchResult result = RitualHelper.findAltar(ctx, this, ALTAR_RANGE, altarOffsetPos);
+        altarOffsetPos = result.offset();
+        return result.altar();
     }
 
     @Override
     public int getRefreshTime() {
-        return 20;
+        return refreshTime;
     }
 
     @Override
     public int getRefreshCost() {
         return 20;
+    }
+
+    @Override
+    public void readFromNBT(CompoundTag tag) {
+        super.readFromNBT(tag);
+        altarOffsetPos = RitualHelper.readAltarOffset(tag);
+        refreshTime = tag.getInt("refreshTime");
+        if (refreshTime == 0) refreshTime = 20;
+    }
+
+    @Override
+    public void writeToNBT(CompoundTag tag) {
+        super.writeToNBT(tag);
+        RitualHelper.writeAltarOffset(tag, altarOffsetPos);
+        tag.putInt("refreshTime", refreshTime);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class SetWillRange extends LootItemConditionalFunction {
 
     @Override
     public LootItemFunctionType<? extends LootItemConditionalFunction> getType() {
-        return BMLootFunctions.SET_WILL_RANGE.get();
+        return NVLootFunctions.SET_WILL_RANGE.get();
     }
 
     @Override

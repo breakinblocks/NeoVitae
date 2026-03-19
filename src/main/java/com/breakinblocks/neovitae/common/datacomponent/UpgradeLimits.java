@@ -10,7 +10,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.screen.TrainerScreen;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
 import com.breakinblocks.neovitae.common.menu.GhostItemHandler;
@@ -24,7 +24,7 @@ import java.util.function.BiConsumer;
 public record UpgradeLimits(boolean allowOthers, Object2FloatOpenHashMap<Holder<LivingUpgrade>> limits) {
     public static final Codec<UpgradeLimits> CODEC = RecordCodecBuilder.create(builder -> builder.group(
             Codec.BOOL.fieldOf("allow_others").forGetter(UpgradeLimits::allowOthers),
-            BMDataComponents.UPGRADE_HOLDER_CODEC.fieldOf("limits").forGetter(UpgradeLimits::limits)
+            NVDataComponents.UPGRADE_HOLDER_CODEC.fieldOf("limits").forGetter(UpgradeLimits::limits)
     ).apply(builder, UpgradeLimits::new));
 
     public static final UpgradeLimits EMPTY = new UpgradeLimits(false, LivingHelper.EMPTY_UPGRADE_MAP);
@@ -42,8 +42,8 @@ public record UpgradeLimits(boolean allowOthers, Object2FloatOpenHashMap<Holder<
             if (!(index < handler.getSlots())) {
                 break;
             }
-            ItemStack tomeStack = new ItemStack(BMItems.UPGRADE_TOME);
-            tomeStack.set(BMDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(entry.getKey(), entry.getValue()));
+            ItemStack tomeStack = new ItemStack(NVItems.UPGRADE_TOME);
+            tomeStack.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(entry.getKey(), entry.getValue()));
             int level = LivingHelper.getLevelFromXp(entry.getKey(), entry.getValue());
             start.add(Pair.of(3 + index, level));
             handler.setStackInSlot(index++, tomeStack);

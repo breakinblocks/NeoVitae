@@ -17,7 +17,7 @@ import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 import java.util.List;
 import java.util.Map;
@@ -37,7 +37,7 @@ public class CuriosCompat {
 
     // ResourceKey for the curios_socket upgrade (matches datagen LivingUpgrades.CURIOS_SOCKET)
     public static final ResourceKey<LivingUpgrade> CURIOS_SOCKET_UPGRADE = ResourceKey.create(
-            BMRegistries.Keys.LIVING_UPGRADES,
+            NVRegistries.Keys.LIVING_UPGRADES,
             NeoVitae.rl("curios_socket")
     );
 

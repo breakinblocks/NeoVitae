@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffect;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.AlchemyArrayInput;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
 
@@ -42,7 +42,7 @@ public class AlchemyArrayTile extends BaseTile {
     };
 
     public AlchemyArrayTile(BlockPos pos, BlockState state) {
-        super(BMTiles.ALCHEMY_ARRAY_TYPE.get(), pos, state);
+        super(NVTiles.ALCHEMY_ARRAY_TYPE.get(), pos, state);
     }
 
     public void onEntityCollidedWithBlock(BlockState state, Entity entity) {
@@ -132,7 +132,7 @@ public class AlchemyArrayTile extends BaseTile {
         AlchemyArrayInput input = new AlchemyArrayInput(base, added);
 
         return level.getRecipeManager()
-                .getRecipeFor(BMRecipes.ALCHEMY_ARRAY_TYPE.get(), input, level)
+                .getRecipeFor(NVRecipes.ALCHEMY_ARRAY_TYPE.get(), input, level)
                 .map(holder -> {
                     AlchemyArrayRecipe recipe = holder.value();
                     AlchemyArrayEffectType effectType = recipe.getEffectType();

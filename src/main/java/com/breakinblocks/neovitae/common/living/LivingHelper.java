@@ -22,13 +22,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.NeoForge;
 import org.apache.commons.lang3.mutable.MutableFloat;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.LivingStats;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeLimits;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
 import com.breakinblocks.neovitae.common.event.LivingArmourEvent;
-import com.breakinblocks.neovitae.common.registry.BMRegistries;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.util.ChatUtil;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class LivingHelper {
 
     public static boolean hasFullSet(Player player) {
         ItemStack chestStack = getChest(player);
-        TagKey<Item> set = chestStack.get(BMDataComponents.REQUIRED_SET);
+        TagKey<Item> set = chestStack.get(NVDataComponents.REQUIRED_SET);
         if (set == null) {
             return false;
         }
@@ -64,7 +64,7 @@ public class LivingHelper {
     }
 
     public static boolean isNeverValid(ItemStack plate) {
-        return !plate.has(BMDataComponents.REQUIRED_SET);
+        return !plate.has(NVDataComponents.REQUIRED_SET);
     }
 
     public static ItemStack getChest(Player player) {
@@ -104,7 +104,7 @@ public class LivingHelper {
 
 	public static List<UpgradeInstance> getUpgrades(ItemStack stack) {
 		List<UpgradeInstance> instances = new ArrayList<>();
-		Object2FloatOpenHashMap<Holder<LivingUpgrade>> upgrades = stack.getOrDefault(BMDataComponents.UPGRADES, LivingStats.EMPTY).upgrades();
+		Object2FloatOpenHashMap<Holder<LivingUpgrade>> upgrades = stack.getOrDefault(NVDataComponents.UPGRADES, LivingStats.EMPTY).upgrades();
 
 		for (Object2FloatMap.Entry<Holder<LivingUpgrade>> entry : upgrades.object2FloatEntrySet()) {
 			int level = getLevelFromXp(entry.getKey(), entry.getFloatValue());
@@ -122,7 +122,7 @@ public class LivingHelper {
 
     public static final Object2FloatOpenHashMap<Holder<LivingUpgrade>> EMPTY_UPGRADE_MAP = new Object2FloatOpenHashMap<>();
     public static void runIterationOnItem(ItemStack stack, BiConsumer<Holder<LivingUpgrade>, Integer> visitor) {
-        Object2FloatOpenHashMap<Holder<LivingUpgrade>> upgrades = stack.getOrDefault(BMDataComponents.UPGRADES, LivingStats.EMPTY).upgrades();
+        Object2FloatOpenHashMap<Holder<LivingUpgrade>> upgrades = stack.getOrDefault(NVDataComponents.UPGRADES, LivingStats.EMPTY).upgrades();
 
         for (Object2FloatMap.Entry<Holder<LivingUpgrade>> entry : upgrades.object2FloatEntrySet()) {
             int level = getLevelFromXp(entry.getKey(), entry.getFloatValue());
@@ -142,7 +142,7 @@ public class LivingHelper {
         if (tomeStack.isEmpty()) {
             return 0;
         }
-        UpgradeTome tome = tomeStack.get(BMDataComponents.UPGRADE_TOME_DATA);
+        UpgradeTome tome = tomeStack.get(NVDataComponents.UPGRADE_TOME_DATA);
         if (tome == null) {
             return 0;
         }
@@ -286,10 +286,10 @@ public class LivingHelper {
             return null;
         }
 
-        Object2FloatOpenHashMap<Holder<LivingUpgrade>> upgrades = chest.getOrDefault(BMDataComponents.UPGRADES, LivingStats.EMPTY).upgrades().clone();
-        UpgradeLimits limits = chest.getOrDefault(BMDataComponents.LIMITS, UpgradeLimits.EMPTY);
-        int maxPoints = chest.getOrDefault(BMDataComponents.CURRENT_MAX_UPGRADE_POINTS, 0);
-        int currentPoints = chest.getOrDefault(BMDataComponents.CURRENT_UPGRADE_POINTS, 0);
+        Object2FloatOpenHashMap<Holder<LivingUpgrade>> upgrades = chest.getOrDefault(NVDataComponents.UPGRADES, LivingStats.EMPTY).upgrades().clone();
+        UpgradeLimits limits = chest.getOrDefault(NVDataComponents.LIMITS, UpgradeLimits.EMPTY);
+        int maxPoints = chest.getOrDefault(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS, 0);
+        int currentPoints = chest.getOrDefault(NVDataComponents.CURRENT_UPGRADE_POINTS, 0);
 
         return new ExpContext(wearer, upgrade, eventAmount, fromTome, chest, upgrades, limits, maxPoints, currentPoints);
     }
@@ -338,10 +338,10 @@ public class LivingHelper {
 
     private static void applyExpChange(ExpContext context, ExpResult result) {
         context.upgrades.put(context.upgrade, result.newExp);
-        context.chest.set(BMDataComponents.UPGRADES, new LivingStats(context.upgrades));
+        context.chest.set(NVDataComponents.UPGRADES, new LivingStats(context.upgrades));
 
         if (result.leveledUp) {
-            context.chest.set(BMDataComponents.CURRENT_UPGRADE_POINTS, result.newTotalPoints);
+            context.chest.set(NVDataComponents.CURRENT_UPGRADE_POINTS, result.newTotalPoints);
             NeoForge.EVENT_BUS.post(new LivingArmourEvent.LevelUp(context.wearer, context.upgrade, result.oldLevel, result.newLevel));
             context.wearer.displayClientMessage(Component.translatable("chat.neovitae.living_upgrade.level_up", Component.translatable(LivingUpgrade.descriptionId(context.upgrade.getKey())), result.newLevel), true);
         }
@@ -357,7 +357,7 @@ public class LivingHelper {
         }
 
         ChatFormatting colour = ChatFormatting.YELLOW;
-        if (upgrade.is(BMTags.Living.IS_DOWNGRADE)) {
+        if (upgrade.is(NVTags.Living.IS_DOWNGRADE)) {
             colour = ChatFormatting.RED;
         }
 
@@ -389,21 +389,21 @@ public class LivingHelper {
     }
 
     public static void setDefaultLiving(ItemStack livingPlate, HolderLookup.Provider holders) {
-        HolderSet<LivingUpgrade> set = holders.lookupOrThrow(BMRegistries.Keys.LIVING_UPGRADES).get(BMTags.Living.LIVING_START).orElseThrow();
-        livingPlate.set(BMDataComponents.UPGRADES, new LivingStats(fromHolderSet(set)));
-        livingPlate.set(BMDataComponents.CURRENT_MAX_UPGRADE_POINTS, NeoVitae.SERVER_CONFIG.DEFAULT_UPGRADE_POINTS.get());
+        HolderSet<LivingUpgrade> set = holders.lookupOrThrow(NVRegistries.Keys.LIVING_UPGRADES).get(NVTags.Living.LIVING_START).orElseThrow();
+        livingPlate.set(NVDataComponents.UPGRADES, new LivingStats(fromHolderSet(set)));
+        livingPlate.set(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS, NeoVitae.SERVER_CONFIG.DEFAULT_UPGRADE_POINTS.get());
     }
 
     public static int recalcPoints(Player player) {
         ItemStack chest = getChest(player);
-        Object2FloatOpenHashMap<Holder<LivingUpgrade>> upgrades = chest.getOrDefault(BMDataComponents.UPGRADES, LivingStats.EMPTY).upgrades();
+        Object2FloatOpenHashMap<Holder<LivingUpgrade>> upgrades = chest.getOrDefault(NVDataComponents.UPGRADES, LivingStats.EMPTY).upgrades();
 
         int total = 0;
         for (Map.Entry<Holder<LivingUpgrade>, Float> entry : upgrades.object2FloatEntrySet()) {
             total += entry.getKey().value().levels().levelToCost().getOrDefault(getLevelFromXp(entry.getKey(), entry.getValue()), 0);
         }
 
-        chest.set(BMDataComponents.CURRENT_UPGRADE_POINTS, total);
+        chest.set(NVDataComponents.CURRENT_UPGRADE_POINTS, total);
 
         return total;
     }

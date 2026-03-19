@@ -4,8 +4,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 
@@ -38,12 +38,12 @@ public class RitualArmourEvolve extends Ritual {
         for (Player player : players) {
             // Check if wearing living armor (chestplate)
             ItemStack chestpiece = player.getInventory().armor.get(2);
-            if (chestpiece.isEmpty() || !chestpiece.is(BMTags.Items.LIVING_SET)) {
+            if (chestpiece.isEmpty() || !chestpiece.is(NVTags.Items.LIVING_SET)) {
                 continue;
             }
 
             // Get current max points
-            Integer currentMaxPoints = chestpiece.get(BMDataComponents.CURRENT_MAX_UPGRADE_POINTS.get());
+            Integer currentMaxPoints = chestpiece.get(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS.get());
             if (currentMaxPoints == null) {
                 currentMaxPoints = 100; // Default starting max
             }
@@ -56,7 +56,7 @@ public class RitualArmourEvolve extends Ritual {
             }
 
             // Evolve the armor
-            chestpiece.set(BMDataComponents.CURRENT_MAX_UPGRADE_POINTS.get(), newMaxPoints);
+            chestpiece.set(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS.get(), newMaxPoints);
 
             // Consume LP and deactivate
             ctx.syphon(getRefreshCost());

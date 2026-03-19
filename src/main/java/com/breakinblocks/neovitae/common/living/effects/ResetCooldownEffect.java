@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
-import com.breakinblocks.neovitae.common.dataattachment.BMDataAttachments;
+import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.living.LivingEntityEffect;
 
 import java.util.Map;
@@ -20,9 +20,9 @@ public record ResetCooldownEffect(ResourceLocation id, LevelBasedValue amounts, 
 
     @Override
     public void apply(int upgradeLevel, Entity entity) {
-        Map<ResourceLocation, Double> data = entity.getData(BMDataAttachments.LIVING_ADDITIONAL);
+        Map<ResourceLocation, Double> data = entity.getData(NVDataAttachments.LIVING_ADDITIONAL);
         data.compute(id, (key, amount) -> (double) amounts.calculate(upgradeLevel));
-        entity.setData(BMDataAttachments.LIVING_ADDITIONAL, data);
+        entity.setData(NVDataAttachments.LIVING_ADDITIONAL, data);
         effect.ifPresent(livingEntityEffect -> livingEntityEffect.apply(upgradeLevel, entity));
     }
 

@@ -4,10 +4,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.LivingStats;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -37,13 +37,13 @@ public class RitualDowngrade extends Ritual {
 
         for (ItemEntity itemEntity : items) {
             ItemStack stack = itemEntity.getItem();
-            LivingStats stats = stack.get(BMDataComponents.UPGRADES.get());
+            LivingStats stats = stack.get(NVDataComponents.UPGRADES.get());
 
             if (stats != null && !stats.upgrades().isEmpty()) {
                 // Remove all upgrades and spawn upgrade tomes
                 stats.upgrades().forEach((upgradeHolder, exp) -> {
-                    ItemStack tome = new ItemStack(BMItems.UPGRADE_TOME.get());
-                    tome.set(BMDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(upgradeHolder, exp));
+                    ItemStack tome = new ItemStack(NVItems.UPGRADE_TOME.get());
+                    tome.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(upgradeHolder, exp));
                     BlockPos spawnPos = ctx.masterPos().above();
                     ItemEntity droppedTome = new ItemEntity(ctx.level(), spawnPos.getX() + 0.5,
                             spawnPos.getY() + 0.5, spawnPos.getZ() + 0.5, tome);
@@ -51,7 +51,7 @@ public class RitualDowngrade extends Ritual {
                 });
 
                 // Clear upgrades from the item
-                stack.remove(BMDataComponents.UPGRADES.get());
+                stack.remove(NVDataComponents.UPGRADES.get());
                 ctx.syphon(getRefreshCost());
                 break; // Only process one item per ritual tick
             }

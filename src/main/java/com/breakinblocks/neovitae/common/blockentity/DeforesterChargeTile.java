@@ -33,7 +33,7 @@ public class DeforesterChargeTile extends ExplosiveChargeTile {
     }
 
     public DeforesterChargeTile(int maxLogs, BlockPos pos, BlockState state) {
-        this(BMTiles.DEFORESTER_CHARGE_TYPE.get(), maxLogs, pos, state);
+        this(NVTiles.DEFORESTER_CHARGE_TYPE.get(), maxLogs, pos, state);
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import com.breakinblocks.neovitae.common.dataattachment.BMDataAttachments;
+import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.living.LivingEntityEffect;
 
 import java.util.Map;
@@ -16,9 +16,9 @@ public record CooldownEffect(ResourceLocation id) implements LivingEntityEffect 
 
     @Override
     public void apply(int upgradeLevel, Entity entity) {
-        Map<ResourceLocation, Double> data = entity.getData(BMDataAttachments.LIVING_ADDITIONAL.get());
+        Map<ResourceLocation, Double> data = entity.getData(NVDataAttachments.LIVING_ADDITIONAL.get());
         data.compute(id, (key, amount) -> amount == null ? 20 * 60 : Math.max(amount - 1, 0));
-        entity.setData(BMDataAttachments.LIVING_ADDITIONAL.get(), data);
+        entity.setData(NVDataAttachments.LIVING_ADDITIONAL.get(), data);
     }
 
     @Override

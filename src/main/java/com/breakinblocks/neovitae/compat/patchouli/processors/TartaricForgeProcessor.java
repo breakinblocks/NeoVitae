@@ -11,8 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
-import com.breakinblocks.neovitae.common.item.BMItems;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 
 import java.util.Arrays;
@@ -39,7 +39,7 @@ public class TartaricForgeProcessor implements IComponentProcessor {
         this.registries = level.registryAccess();
         ResourceLocation id = ResourceLocation.parse(variables.get("recipe", registries).asString());
         Optional<RecipeHolder<ForgeRecipe>> recipeHolder = Minecraft.getInstance().level.getRecipeManager()
-                .getAllRecipesFor(BMRecipes.SOUL_FORGE_TYPE.get())
+                .getAllRecipesFor(NVRecipes.SOUL_FORGE_TYPE.get())
                 .stream()
                 .filter(holder -> holder.id().equals(id))
                 .findFirst();
@@ -79,15 +79,15 @@ public class TartaricForgeProcessor implements IComponentProcessor {
 
     private IVariable getGemForWillAmount(double minWill) {
         if (minWill <= 1) {
-            return IVariable.from(new ItemStack(BMItems.MONSTER_SOUL_RAW.get()), registries);
+            return IVariable.from(new ItemStack(NVItems.MONSTER_SOUL_RAW.get()), registries);
         } else if (minWill <= 64) {
-            return IVariable.from(new ItemStack(BMItems.SOUL_GEM_PETTY.get()), registries);
+            return IVariable.from(new ItemStack(NVItems.SOUL_GEM_PETTY.get()), registries);
         } else if (minWill <= 256) {
-            return IVariable.from(new ItemStack(BMItems.SOUL_GEM_LESSER.get()), registries);
+            return IVariable.from(new ItemStack(NVItems.SOUL_GEM_LESSER.get()), registries);
         } else if (minWill <= 1024) {
-            return IVariable.from(new ItemStack(BMItems.SOUL_GEM_COMMON.get()), registries);
+            return IVariable.from(new ItemStack(NVItems.SOUL_GEM_COMMON.get()), registries);
         } else if (minWill <= 4096) {
-            return IVariable.from(new ItemStack(BMItems.SOUL_GEM_GREATER.get()), registries);
+            return IVariable.from(new ItemStack(NVItems.SOUL_GEM_GREATER.get()), registries);
         } else {
             LogManager.getLogger().warn("Guidebook could not find a large enough Tartaric Gem for will amount {}", minWill);
             return IVariable.from(new ItemStack(Items.BARRIER), registries);

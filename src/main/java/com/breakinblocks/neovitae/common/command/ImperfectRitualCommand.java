@@ -21,7 +21,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.TileImperfectRitualStone;
-import com.breakinblocks.neovitae.common.datamap.BMDataMaps;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.ImperfectRitualStats;
 import com.breakinblocks.neovitae.ritual.ImperfectRitual;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
@@ -96,7 +96,7 @@ public class ImperfectRitualCommand {
         }
 
         Holder<ImperfectRitual> holder = registry.wrapAsHolder(ritual);
-        ImperfectRitualStats stats = holder.getData(BMDataMaps.IMPERFECT_RITUAL_STATS);
+        ImperfectRitualStats stats = holder.getData(NVDataMaps.IMPERFECT_RITUAL_STATS);
 
         Block blockToPlace = null;
         if (stats != null && stats.block().isPresent()) {
@@ -151,7 +151,7 @@ public class ImperfectRitualCommand {
             ImperfectRitual ritual = RitualRegistry.getImperfectRitual(id);
             if (ritual != null && registry != null) {
                 Holder<ImperfectRitual> holder = registry.wrapAsHolder(ritual);
-                ImperfectRitualStats stats = holder.getData(BMDataMaps.IMPERFECT_RITUAL_STATS);
+                ImperfectRitualStats stats = holder.getData(NVDataMaps.IMPERFECT_RITUAL_STATS);
 
                 String blockName = "unknown";
                 int cost = ritual.getActivationCost();

@@ -19,9 +19,9 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.damagesource.BMDamageSources;
+import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.util.Utils;
@@ -154,7 +154,7 @@ public class RitualGeode extends Ritual {
             if (totalCost + getRefreshCost() > ctx.currentEssence()) break;
 
             BlockState state = ctx.level().getBlockState(harvestPos);
-            if (!state.is(BMTags.Blocks.GEODE_HARVESTABLE)) continue;
+            if (!state.is(NVTags.Blocks.GEODE_HARVESTABLE)) continue;
 
             // Check will costs before harvesting
             if (doFortune && (destructiveWill - fortuneWillUsed) < WILL_PER_FORTUNE) continue;
@@ -205,7 +205,7 @@ public class RitualGeode extends Ritual {
                 if (harmTicks >= MAX_HARM) break;
                 if ((vengefulWill - harmWillUsed) < WILL_PER_HARM) break;
 
-                if (mob.hurt(ctx.level().damageSources().source(BMDamageSources.RITUAL), HURT_DAMAGE)) {
+                if (mob.hurt(ctx.level().damageSources().source(NVDamageSources.RITUAL), HURT_DAMAGE)) {
                     harmTicks++;
                     harmWillUsed += WILL_PER_HARM;
                 }
@@ -218,7 +218,7 @@ public class RitualGeode extends Ritual {
 
         for (BlockPos accelPos : accelPositions) {
             BlockState state = ctx.level().getBlockState(accelPos);
-            if (!state.is(BMTags.Blocks.GEODE_ACCELERATABLE)) continue;
+            if (!state.is(NVTags.Blocks.GEODE_ACCELERATABLE)) continue;
 
             // Bonus ticks from harming mobs (vengeful synergy)
             for (int i = 0; i < harmTicks; i++) {

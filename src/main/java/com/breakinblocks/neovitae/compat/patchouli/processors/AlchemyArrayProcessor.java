@@ -9,7 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
 
 import java.util.Arrays;
@@ -36,7 +36,7 @@ public class AlchemyArrayProcessor implements IComponentProcessor {
         this.registries = level.registryAccess();
         ResourceLocation id = ResourceLocation.parse(variables.get("recipe", registries).asString());
         Optional<RecipeHolder<AlchemyArrayRecipe>> recipeHolder = Minecraft.getInstance().level.getRecipeManager()
-                .getAllRecipesFor(BMRecipes.ALCHEMY_ARRAY_TYPE.get())
+                .getAllRecipesFor(NVRecipes.ALCHEMY_ARRAY_TYPE.get())
                 .stream()
                 .filter(holder -> holder.id().equals(id))
                 .findFirst();

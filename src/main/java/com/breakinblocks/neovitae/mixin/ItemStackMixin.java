@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
 import com.breakinblocks.neovitae.common.datacomponent.AnointmentHolder;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 /**
  * Mixin to make anointments behave like actual enchantments.
@@ -25,7 +25,7 @@ public class ItemStackMixin {
     @Inject(method = "getEnchantmentLevel(Lnet/minecraft/core/Holder;)I", at = @At("RETURN"), cancellable = true)
     private void neovitae$applyAnointmentEnchantments(Holder<Enchantment> enchantment, CallbackInfoReturnable<Integer> cir) {
         ItemStack self = (ItemStack) (Object) this;
-        AnointmentHolder holder = self.get(BMDataComponents.ANOINTMENT_HOLDER.get());
+        AnointmentHolder holder = self.get(NVDataComponents.ANOINTMENT_HOLDER.get());
 
         if (holder == null) {
             return;

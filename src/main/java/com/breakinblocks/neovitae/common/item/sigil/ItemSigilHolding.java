@@ -19,7 +19,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.item.IBindable;
 import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
@@ -186,7 +186,7 @@ public class ItemSigilHolding extends ItemSigilBase implements ISigil.Holding {
 
     public static int getCurrentItemOrdinal(ItemStack stack) {
         if (stack.getItem() instanceof ItemSigilHolding) {
-            int currentSigil = stack.getOrDefault(BMDataComponents.READER_STATE.get(), 0);
+            int currentSigil = stack.getOrDefault(NVDataComponents.READER_STATE.get(), 0);
             return Math.max(0, Math.min(currentSigil, INVENTORY_SIZE - 1));
         }
         return 0;
@@ -214,7 +214,7 @@ public class ItemSigilHolding extends ItemSigilBase implements ISigil.Holding {
                 attempts++;
             } while (inv.get(currentIndex).isEmpty() && attempts < INVENTORY_SIZE);
 
-            itemStack.set(BMDataComponents.READER_STATE.get(), currentIndex);
+            itemStack.set(NVDataComponents.READER_STATE.get(), currentIndex);
         }
     }
 }

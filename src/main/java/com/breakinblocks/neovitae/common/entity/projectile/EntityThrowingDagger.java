@@ -5,8 +5,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import com.breakinblocks.neovitae.common.entity.BMEntities;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.entity.NVEntities;
+import com.breakinblocks.neovitae.common.item.NVItems;
 
 /**
  * Standard throwing dagger projectile.
@@ -18,15 +18,15 @@ public class EntityThrowingDagger extends AbstractEntityThrowingDagger {
     }
 
     public EntityThrowingDagger(Level level, LivingEntity thrower, ItemStack stack) {
-        super(BMEntities.THROWING_DAGGER.get(), stack, level, thrower);
+        super(NVEntities.THROWING_DAGGER.get(), stack, level, thrower);
     }
 
     public EntityThrowingDagger(Level level, double x, double y, double z, ItemStack stack) {
-        super(BMEntities.THROWING_DAGGER.get(), stack, level, x, y, z);
+        super(NVEntities.THROWING_DAGGER.get(), stack, level, x, y, z);
     }
 
     @Override
     protected Item getDefaultItem() {
-        return BMItems.THROWING_DAGGER.get();
+        return NVItems.THROWING_DAGGER.get();
     }
 }

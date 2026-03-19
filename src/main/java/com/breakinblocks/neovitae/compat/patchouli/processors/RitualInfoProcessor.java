@@ -15,7 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import com.breakinblocks.neovitae.ritual.Ritual;
@@ -64,7 +64,7 @@ public class RitualInfoProcessor implements IComponentProcessor {
     @Override
     public void setup(Level level, IVariableProvider variables) {
         this.registries = level.registryAccess();
-        this.item = new ItemStack(BMItems.RITUAL_READER.get());
+        this.item = new ItemStack(NVItems.RITUAL_READER.get());
 
         String id = variables.get("ritual", registries).asString();
         ritual = RitualRegistry.getRitual(id);
@@ -91,20 +91,20 @@ public class RitualInfoProcessor implements IComponentProcessor {
             case "raw":
                 infoBlurb = I18n.get(ritual.getTranslationKey() + ".default.info");
                 heading = getAndRemoveLeadTitle();
-                item = new ItemStack(BMItems.RAW_CRYSTAL.get());
+                item = new ItemStack(NVItems.RAW_CRYSTAL.get());
                 infoAlreadySet = true;
                 break;
             case "corrosive":
-                item = new ItemStack(BMItems.CORROSIVE_CRYSTAL.get());
+                item = new ItemStack(NVItems.CORROSIVE_CRYSTAL.get());
                 break;
             case "destructive":
-                item = new ItemStack(BMItems.DESTRUCTIVE_CRYSTAL.get());
+                item = new ItemStack(NVItems.DESTRUCTIVE_CRYSTAL.get());
                 break;
             case "steadfast":
-                item = new ItemStack(BMItems.STEADFAST_CRYSTAL.get());
+                item = new ItemStack(NVItems.STEADFAST_CRYSTAL.get());
                 break;
             case "vengeful":
-                item = new ItemStack(BMItems.VENGEFUL_CRYSTAL.get());
+                item = new ItemStack(NVItems.VENGEFUL_CRYSTAL.get());
                 break;
             default:
                 int volume = ritual.getMaxVolumeForRange(pageType);

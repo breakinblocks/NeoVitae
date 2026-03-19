@@ -8,16 +8,16 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeTile;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 public class SoulForgeMenu extends AbstractTileMenu<HellfireForgeTile> {
 
     private static final int TILE_SLOTS = 6; // 4 input + 1 gem + 1 output
 
     public SoulForgeMenu(int containerId, Inventory playerInventory, HellfireForgeTile tile) {
-        super(BMMenus.SOUL_FORGE.get(), containerId, tile, TILE_SLOTS);
+        super(NVMenus.SOUL_FORGE.get(), containerId, tile, TILE_SLOTS);
 
         // Input slots (4 corners)
         this.addSlot(new SlotItemHandler(tile.inv, 0, 8, 15));
@@ -29,7 +29,7 @@ public class SoulForgeMenu extends AbstractTileMenu<HellfireForgeTile> {
         this.addSlot(new SlotItemHandler(tile.inv, HellfireForgeTile.GEM_SLOT, 152, 51) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.has(BMDataComponents.DEMON_WILL_AMOUNT);
+                return stack.has(NVDataComponents.DEMON_WILL_AMOUNT);
             }
         });
 
@@ -59,7 +59,7 @@ public class SoulForgeMenu extends AbstractTileMenu<HellfireForgeTile> {
             slot.onQuickCraft(slotStack, originalCopy);
         } else if (isPlayerSlot(index)) {
             // From player inventory
-            if (slotStack.has(BMDataComponents.DEMON_WILL_AMOUNT)) {
+            if (slotStack.has(NVDataComponents.DEMON_WILL_AMOUNT)) {
                 // Will items go to soul slot
                 if (!moveToTileSlots(slotStack, 4, 5)) {
                     return false;
@@ -76,6 +76,6 @@ public class SoulForgeMenu extends AbstractTileMenu<HellfireForgeTile> {
 
     @Override
     public boolean stillValid(Player player) {
-        return AbstractContainerMenu.stillValid(ContainerLevelAccess.create(tile.getLevel(), tile.getBlockPos()), player, BMBlocks.HELLFIRE_FORGE.block().get());
+        return AbstractContainerMenu.stillValid(ContainerLevelAccess.create(tile.getLevel(), tile.getBlockPos()), player, NVBlocks.HELLFIRE_FORGE.block().get());
     }
 }

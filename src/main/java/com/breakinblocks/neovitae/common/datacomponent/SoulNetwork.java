@@ -10,8 +10,8 @@ import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.api.soul.ISoulNetwork;
 import com.breakinblocks.neovitae.api.soul.SoulTicket;
 import com.breakinblocks.neovitae.api.soul.SyphonResult;
-import com.breakinblocks.neovitae.common.world.BMSavedData;
-import com.breakinblocks.neovitae.common.damagesource.BMDamageSources;
+import com.breakinblocks.neovitae.common.world.NVSavedData;
+import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.util.BooleanResult;
 
 import java.util.UUID;
@@ -24,9 +24,9 @@ public class SoulNetwork implements ISoulNetwork {
 
     private UUID playerId;
     private int currentEssence;
-    private BMSavedData parent;
+    private NVSavedData parent;
 
-    public static SoulNetwork newEmpty(UUID playerId, BMSavedData parent) {
+    public static SoulNetwork newEmpty(UUID playerId, NVSavedData parent) {
         SoulNetwork soulNetwork = new SoulNetwork(playerId, 0);
         soulNetwork.parent = parent;
         return soulNetwork;
@@ -57,7 +57,7 @@ public class SoulNetwork implements ISoulNetwork {
             parent.setDirty();
     }
 
-    public static SoulNetwork fromNBT(CompoundTag tag, BMSavedData parent) {
+    public static SoulNetwork fromNBT(CompoundTag tag, NVSavedData parent) {
         SoulNetwork soulNetwork = CODEC.decode(NbtOps.INSTANCE, tag).getOrThrow().getFirst();
 
         soulNetwork.parent = parent;
@@ -134,7 +134,7 @@ public class SoulNetwork implements ISoulNetwork {
                     int dmg = Math.ceilDiv((int) syphon, 100);
                     user.invulnerableTime = 0;
                     Level level = user.level();
-                    user.hurt(level.damageSources().source(BMDamageSources.SACRIFICE, user), dmg);
+                    user.hurt(level.damageSources().source(NVDamageSources.SACRIFICE, user), dmg);
                 }
             }
         }

@@ -16,8 +16,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.effect.BMMobEffects;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.soul.MonsterSoulItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientAxeItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientPickaxeItem;
@@ -48,7 +48,7 @@ public class WillEventHandler {
         }
 
         // Check for soul snare effect first (works with any damage source)
-        if (killed.hasEffect(BMMobEffects.SOUL_SNARE)) {
+        if (killed.hasEffect(NVMobEffects.SOUL_SNARE)) {
             handleSnareDrop(killed);
             return; // Snare drops don't stack with sentient weapon drops
         }
@@ -101,7 +101,7 @@ public class WillEventHandler {
                 * killed.getMaxHealth() / 20d;
 
         // Snared mobs always drop raw/default will
-        MonsterSoulItem soulItem = BMItems.MONSTER_SOUL_RAW.get();
+        MonsterSoulItem soulItem = NVItems.MONSTER_SOUL_RAW.get();
         ItemStack soulStack = soulItem.createWill(soulAmount);
 
         List<ItemStack> drops = new ArrayList<>();

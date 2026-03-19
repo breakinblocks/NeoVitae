@@ -10,7 +10,7 @@ import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 import com.breakinblocks.neovitae.api.recipe.BloodAltarRecipe;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -36,7 +36,7 @@ public class BloodAltarProcessor implements IComponentProcessor {
         this.registries = level.registryAccess();
         ResourceLocation id = ResourceLocation.parse(variables.get("recipe", registries).asString());
         Optional<RecipeHolder<BloodAltarRecipe>> recipeHolder = Minecraft.getInstance().level.getRecipeManager()
-                .getAllRecipesFor(BMRecipes.BLOOD_ALTAR_TYPE.get())
+                .getAllRecipesFor(NVRecipes.BLOOD_ALTAR_TYPE.get())
                 .stream()
                 .filter(holder -> holder.id().equals(id))
                 .findFirst();

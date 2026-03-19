@@ -19,14 +19,14 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.RangedWrapper;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.event.NeoVitaeCraftedEvent;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.menu.SoulForgeMenu;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeInput;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class HellfireForgeTile extends BaseTile implements MenuProvider {
                 return false;
             }
 
-            if (slot == GEM_SLOT && !stack.has(BMDataComponents.DEMON_WILL_AMOUNT)) {
+            if (slot == GEM_SLOT && !stack.has(NVDataComponents.DEMON_WILL_AMOUNT)) {
                 return false;
             }
 
@@ -68,7 +68,7 @@ public class HellfireForgeTile extends BaseTile implements MenuProvider {
     protected int progress = 0;
 
     public HellfireForgeTile(BlockPos pos, BlockState blockState) {
-        super(BMTiles.HELLFIRE_FORGE_TYPE.get(), pos, blockState);
+        super(NVTiles.HELLFIRE_FORGE_TYPE.get(), pos, blockState);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, HellfireForgeTile tile) {
@@ -77,7 +77,7 @@ public class HellfireForgeTile extends BaseTile implements MenuProvider {
         }
 
         ForgeInput input = tile.getInput();
-        Optional<RecipeHolder<ForgeRecipe>> recipeOptional = level.getRecipeManager().getRecipeFor(BMRecipes.SOUL_FORGE_TYPE.get(), input, level);
+        Optional<RecipeHolder<ForgeRecipe>> recipeOptional = level.getRecipeManager().getRecipeFor(NVRecipes.SOUL_FORGE_TYPE.get(), input, level);
         if (recipeOptional.isEmpty()) {
             if (tile.progress > 0) {
                 tile.progress = 0;
@@ -119,12 +119,12 @@ public class HellfireForgeTile extends BaseTile implements MenuProvider {
 
         ItemStack gemStack = tile.inv.getStackInSlot(GEM_SLOT);
         if (!gemStack.isEmpty()) {
-            double will = gemStack.getOrDefault(BMDataComponents.DEMON_WILL_AMOUNT, 0D);
+            double will = gemStack.getOrDefault(NVDataComponents.DEMON_WILL_AMOUNT, 0D);
             will -= recipe.usedWill;
-            if (will <= 0 && gemStack.is(BMItems.RAW_WILL)) {
+            if (will <= 0 && gemStack.is(NVItems.RAW_WILL)) {
                 tile.inv.setStackInSlot(GEM_SLOT, ItemStack.EMPTY);
             } else {
-                gemStack.set(BMDataComponents.DEMON_WILL_AMOUNT, Math.max(0, will));
+                gemStack.set(NVDataComponents.DEMON_WILL_AMOUNT, Math.max(0, will));
             }
         }
 
@@ -160,7 +160,7 @@ public class HellfireForgeTile extends BaseTile implements MenuProvider {
         for (int i = SOUTH; i < GEM_SLOT; i++) {
             ItemStack testStack = inv.getStackInSlot(i);
             stacks.add(testStack);
-            if (testStack.is(BMTags.Items.SOUL_GEM)) {
+            if (testStack.is(NVTags.Items.SOUL_GEM)) {
                 gemStack = testStack;
                 gemIndex = i;
             }

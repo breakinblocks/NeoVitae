@@ -9,11 +9,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd;
 import com.breakinblocks.neovitae.common.block.type.PillarCapType;
 import com.breakinblocks.neovitae.common.blockentity.TileInversionPillar;
-import com.breakinblocks.neovitae.common.dataattachment.BMDataAttachments;
+import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.dataattachment.DungeonExitData;
 import com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper;
 import com.breakinblocks.neovitae.ritual.*;
@@ -47,7 +47,7 @@ public abstract class DungeonRitualBase extends Ritual {
      */
     protected void storePlayerExitLocation(Player player) {
         DungeonExitData exitData = DungeonExitData.of(player.level(), player.blockPosition());
-        player.setData(BMDataAttachments.DUNGEON_EXIT.get(), exitData);
+        player.setData(NVDataAttachments.DUNGEON_EXIT.get(), exitData);
     }
 
     /**
@@ -101,7 +101,7 @@ public abstract class DungeonRitualBase extends Ritual {
     protected void spawnPortalPillar(Level spawnWorld, Level destinationWorld,
                                       BlockPos pillarPos, BlockPos safePlayerPos) {
         // Place the pillar body
-        spawnWorld.setBlockAndUpdate(pillarPos, BMBlocks.INVERSION_PILLAR.block().get().defaultBlockState());
+        spawnWorld.setBlockAndUpdate(pillarPos, NVBlocks.INVERSION_PILLAR.block().get().defaultBlockState());
 
         BlockEntity tile = spawnWorld.getBlockEntity(pillarPos);
         if (tile instanceof TileInversionPillar tileInversion) {
@@ -109,10 +109,10 @@ public abstract class DungeonRitualBase extends Ritual {
 
             // Place caps
             spawnWorld.setBlockAndUpdate(pillarPos.below(),
-                    BMBlocks.INVERSION_PILLAR_CAP.block().get().defaultBlockState()
+                    NVBlocks.INVERSION_PILLAR_CAP.block().get().defaultBlockState()
                             .setValue(BlockInversionPillarEnd.TYPE, PillarCapType.BOTTOM));
             spawnWorld.setBlockAndUpdate(pillarPos.above(),
-                    BMBlocks.INVERSION_PILLAR_CAP.block().get().defaultBlockState()
+                    NVBlocks.INVERSION_PILLAR_CAP.block().get().defaultBlockState()
                             .setValue(BlockInversionPillarEnd.TYPE, PillarCapType.TOP));
         }
     }

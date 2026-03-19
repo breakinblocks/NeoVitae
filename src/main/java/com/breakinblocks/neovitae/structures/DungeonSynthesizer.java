@@ -17,7 +17,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.blockentity.TileDungeonSeal;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
@@ -208,7 +208,7 @@ public class DungeonSynthesizer {
         initialRoom.placeStructureAtPosition(rand, settings, world, roomPlacementPosition);
 
         // Place controller block
-        world.setBlockAndUpdate(spawningPosition, BMBlocks.DUNGEON_CONTROLLER.block().get().defaultBlockState());
+        world.setBlockAndUpdate(spawningPosition, NVBlocks.DUNGEON_CONTROLLER.block().get().defaultBlockState());
 
         // Create door seal blocks for each potential connection
         List<DungeonDoor> doorTypeMap = initialRoom.getPotentialConnectedRoomTypes(settings, roomPlacementPosition);
@@ -258,7 +258,7 @@ public class DungeonSynthesizer {
         }
 
         // Place the seal block on top of the filled doorway
-        world.setBlockAndUpdate(sealPos, BMBlocks.DUNGEON_SEAL.block().get().defaultBlockState());
+        world.setBlockAndUpdate(sealPos, NVBlocks.DUNGEON_SEAL.block().get().defaultBlockState());
 
         // Configure the seal block entity
         if (world.getBlockEntity(sealPos) instanceof TileDungeonSeal seal) {

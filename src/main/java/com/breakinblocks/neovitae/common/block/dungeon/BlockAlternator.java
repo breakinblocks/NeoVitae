@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
 /**
  * Dungeon Alternator - a block that pulses redstone signal on and off.
@@ -73,6 +73,6 @@ public class BlockAlternator extends BaseEntityBlock {
         if (level.isClientSide) {
             return null;
         }
-        return createTickerHelper(type, BMTiles.DUNGEON_ALTERNATOR_TYPE.get(), TileDungeonAlternator::tick);
+        return createTickerHelper(type, NVTiles.DUNGEON_ALTERNATOR_TYPE.get(), TileDungeonAlternator::tick);
     }
 }

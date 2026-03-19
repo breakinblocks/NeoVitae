@@ -13,9 +13,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.datamap.BMDataMaps;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.util.ChatUtil;
 import com.breakinblocks.neovitae.will.IDemonWill;
 import com.breakinblocks.neovitae.will.IDemonWillGem;
@@ -28,8 +28,8 @@ public class SoulGemItem extends Item implements IDemonWillGem {
     public SoulGemItem() {
         super(new Properties()
                 .stacksTo(1)
-                .component(BMDataComponents.DEMON_WILL_AMOUNT, 0.0)
-                .component(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT));
+                .component(NVDataComponents.DEMON_WILL_AMOUNT, 0.0)
+                .component(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT));
     }
 
     @Override
@@ -46,7 +46,7 @@ public class SoulGemItem extends Item implements IDemonWillGem {
 
     @Override
     public boolean isBarVisible(ItemStack stack) {
-        return stack.getItemHolder().getData(BMDataMaps.TARTARIC_GEM_MAX_AMOUNTS) != null;
+        return stack.getItemHolder().getData(NVDataMaps.TARTARIC_GEM_MAX_AMOUNTS) != null;
     }
 
     @Override
@@ -87,11 +87,11 @@ public class SoulGemItem extends Item implements IDemonWillGem {
     // IDemonWillGem implementation
 
     public EnumWillType getCurrentType(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT);
+        return stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT);
     }
 
     public void setCurrentType(EnumWillType type, ItemStack stack) {
-        stack.set(BMDataComponents.DEMON_WILL_TYPE, type);
+        stack.set(NVDataComponents.DEMON_WILL_TYPE, type);
     }
 
     @Override
@@ -133,13 +133,13 @@ public class SoulGemItem extends Item implements IDemonWillGem {
         if (!type.equals(currentType)) {
             return 0;
         }
-        return soulGemStack.getOrDefault(BMDataComponents.DEMON_WILL_AMOUNT, 0.0);
+        return soulGemStack.getOrDefault(NVDataComponents.DEMON_WILL_AMOUNT, 0.0);
     }
 
     @Override
     public void setWill(EnumWillType type, ItemStack soulGemStack, double souls) {
         setCurrentType(type, soulGemStack);
-        soulGemStack.set(BMDataComponents.DEMON_WILL_AMOUNT, souls);
+        soulGemStack.set(NVDataComponents.DEMON_WILL_AMOUNT, souls);
     }
 
     @Override
@@ -147,13 +147,13 @@ public class SoulGemItem extends Item implements IDemonWillGem {
         EnumWillType currentType = getCurrentType(soulGemStack);
         // If gem has will stored, only allow max for that type
         // If gem is empty (no will), allow any type
-        double currentWill = soulGemStack.getOrDefault(BMDataComponents.DEMON_WILL_AMOUNT, 0.0);
+        double currentWill = soulGemStack.getOrDefault(NVDataComponents.DEMON_WILL_AMOUNT, 0.0);
         if (currentWill > 0 && !type.equals(currentType)) {
             return 0;
         }
 
         Holder<Item> holder = soulGemStack.getItemHolder();
-        Double maxWill = holder.getData(BMDataMaps.TARTARIC_GEM_MAX_AMOUNTS);
+        Double maxWill = holder.getData(NVDataMaps.TARTARIC_GEM_MAX_AMOUNTS);
         return maxWill != null ? maxWill.intValue() : 0;
     }
 
@@ -180,7 +180,7 @@ public class SoulGemItem extends Item implements IDemonWillGem {
     @Override
     public double fillWill(EnumWillType type, ItemStack stack, double fillAmount, boolean doFill) {
         EnumWillType currentType = getCurrentType(stack);
-        double currentWill = stack.getOrDefault(BMDataComponents.DEMON_WILL_AMOUNT, 0.0);
+        double currentWill = stack.getOrDefault(NVDataComponents.DEMON_WILL_AMOUNT, 0.0);
 
         // If gem has will stored, only allow filling with that same type
         if (currentWill > 0 && !type.equals(currentType)) {

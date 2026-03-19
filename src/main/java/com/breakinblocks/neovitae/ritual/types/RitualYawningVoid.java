@@ -1,35 +1,75 @@
 package com.breakinblocks.neovitae.ritual.types;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.capabilities.Capabilities;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
+import com.breakinblocks.neovitae.util.Utils;
+import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
+import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 /**
- * Yawning of the Void - Destroys items in the area or from adjacent inventories.
- * Can be filtered using item filters placed in a linked chest.
- * This is a Dusk tier ritual.
+ * Yawning of the Void - Block quarry ritual that destroys blocks and collects drops.
+ * Scans blocks sequentially with a persistent position tracker.
+ *
+ * <p>Demon Will effects:
+ * <ul>
+ *   <li><b>Raw (Default)</b> - Destroy blocks and collect drops into chest or spawn in world</li>
+ *   <li><b>Steadfast</b> - Replace mode: places blocks from quarry area into the placement area</li>
+ *   <li><b>Corrosive</b> - Filter mode: only destroys blocks matching items in the chest inventory</li>
+ * </ul>
+ *
+ * <p>This is a Dusk tier ritual. Processes 1 block per tick with persistent scan position.
  */
 public class RitualYawningVoid extends Ritual {
 
-    public static final String VOID_RANGE = "voidRange";
+    public static final String QUARRY_RANGE = "quarryRange";
     public static final String CHEST_RANGE = "chestRange";
+    public static final String PLACEMENT_RANGE = "placementRange";
+
+    private static final double MIN_DEFAULT = 10.0;
+    private static final double MIN_STEADFAST = 10.0;
+    private static final double MIN_CORROSIVE = 10.0;
+
+    private static final double WILL_PER_REPLACE = 0.5;
+    private static final double WILL_PER_FILTER = 0.2;
+
+    // Persistent scanning position
+    private int currentX = 0;
+    private int currentY = 0;
+    private int currentZ = 0;
+    private boolean scanInitialized = false;
 
     public RitualYawningVoid() {
         super("yawning_void", 1, 10000, "ritual." + NeoVitae.MODID + ".yawning_void");
-        addBlockRange(VOID_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-5, -5, -5), 11, 11, 11));
+        addBlockRange(QUARRY_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-5, -5, -5), 11, 11, 11));
         addBlockRange(CHEST_RANGE, new AreaDescriptor.Rectangle(new BlockPos(0, 1, 0), 1, 1, 1));
-        setMaximumVolumeAndDistanceOfRange(VOID_RANGE, 5000, 20, 20);
+        addBlockRange(PLACEMENT_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-5, -10, -5), 11, 5, 11));
+
+        setMaximumVolumeAndDistanceOfRange(QUARRY_RANGE, 5000, 20, 20);
+        setMaximumVolumeAndDistanceOfRange(CHEST_RANGE, 1, 5, 5);
+        setMaximumVolumeAndDistanceOfRange(PLACEMENT_RANGE, 5000, 20, 20);
     }
 
     @Override
@@ -40,83 +80,215 @@ public class RitualYawningVoid extends Ritual {
             return;
         }
 
-        AreaDescriptor range = RitualHelper.getEffectiveRange(ctx.master(), this, VOID_RANGE);
-        int totalCost = 0;
+        if (!(ctx.level() instanceof ServerLevel serverLevel)) return;
 
-        // Void items on the ground
-        AABB aabb = range.getAABB(ctx.masterPos());
-        List<ItemEntity> items = ctx.level().getEntitiesOfClass(ItemEntity.class, aabb);
+        BlockPos masterPos = ctx.masterPos();
+        UUID owner = ctx.master().getOwner();
 
-        // Get filter from chest above
-        BlockPos chestPos = ctx.masterPos().above();
-        IItemHandler filterInventory = ctx.level().getCapability(Capabilities.ItemHandler.BLOCK, chestPos, null);
+        // Query demon will
+        double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
+        double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
+        double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
 
-        for (ItemEntity itemEntity : items) {
-            if (totalCost + getRefreshCost() > ctx.currentEssence()) break;
+        boolean hasRaw = rawWill >= MIN_DEFAULT;
+        boolean doReplace = steadfastWill >= MIN_STEADFAST;
+        boolean doFilter = corrosiveWill >= MIN_CORROSIVE;
 
-            // Check against filter in chest above
-            if (!passesFilter(itemEntity.getItem(), filterInventory)) {
-                continue;
-            }
+        // Track will consumption
+        double steadfastWillUsed = 0;
+        double corrosiveWillUsed = 0;
 
-            itemEntity.discard();
-            totalCost += getRefreshCost();
+        // Get chest inventory
+        BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, masterPos).getFirst();
+        BlockEntity chestTile = ctx.level().getBlockEntity(chestPos);
+        IItemHandler chestHandler = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
+
+        // Get quarry positions
+        List<BlockPos> quarryPositions = RitualHelper.getRangePositions(ctx.master(), this, QUARRY_RANGE, masterPos);
+        if (quarryPositions.isEmpty()) return;
+
+        // Initialize scan position
+        if (!scanInitialized) {
+            BlockPos firstPos = quarryPositions.getFirst();
+            currentX = firstPos.getX();
+            currentY = firstPos.getY();
+            currentZ = firstPos.getZ();
+            scanInitialized = true;
         }
 
-        // Also void items from adjacent inventories
-        IItemHandler inventory = findAdjacentInventory(ctx.level(), ctx.masterPos());
-        if (inventory != null) {
-            for (int i = 0; i < inventory.getSlots(); i++) {
-                if (totalCost + getRefreshCost() > ctx.currentEssence()) break;
+        // Create fake player for loot context
+        FakePlayer fakePlayer = new FakePlayer(serverLevel, new GameProfile(owner, "[NeoVitae]"));
+        ItemStack toolStack = new ItemStack(Items.NETHERITE_PICKAXE);
 
-                ItemStack stack = inventory.extractItem(i, 64, false);
-                if (!stack.isEmpty()) {
-                    totalCost += getRefreshCost() * stack.getCount() / 64 + 1;
+        // Build filter list from chest (for corrosive mode)
+        java.util.Set<net.minecraft.world.item.Item> filterItems = new java.util.HashSet<>();
+        if (doFilter && chestHandler != null) {
+            for (int i = 0; i < chestHandler.getSlots(); i++) {
+                ItemStack filterStack = chestHandler.getStackInSlot(i);
+                if (!filterStack.isEmpty()) {
+                    filterItems.add(filterStack.getItem());
+                }
+            }
+            // If no filter items, disable filter mode
+            if (filterItems.isEmpty()) doFilter = false;
+        }
+
+        // --- QUARRY: Process 1 block ---
+        boolean processed = false;
+        int attempts = 0;
+        int maxAttempts = quarryPositions.size(); // Prevent infinite loop
+
+        while (!processed && attempts < maxAttempts) {
+            attempts++;
+
+            // Find next valid position
+            BlockPos targetPos = new BlockPos(currentX, currentY, currentZ);
+            advanceScanPosition(quarryPositions);
+
+            // Validate the position is in range
+            if (!quarryPositions.contains(targetPos)) continue;
+
+            BlockState state = ctx.level().getBlockState(targetPos);
+
+            // Skip air, liquids, unbreakable blocks
+            if (state.isAir()) continue;
+            if (!state.getFluidState().isEmpty() && state.getBlock().defaultBlockState().isAir()) continue;
+            float destroySpeed = state.getDestroySpeed(ctx.level(), targetPos);
+            if (destroySpeed < 0) continue; // Unbreakable
+            if (state.getBlock() instanceof com.breakinblocks.neovitae.common.block.BlockRitualStone) continue;
+            if (state.getBlock() instanceof com.breakinblocks.neovitae.common.block.BlockMasterRitualStone) continue;
+
+            // Check block protection
+            if (!BlockProtectionHelper.canBreakBlock(ctx.level(), targetPos, owner)) continue;
+
+            // CORROSIVE: Filter mode - only destroy blocks matching items in chest
+            if (doFilter) {
+                // Get the block's drop to check against filter
+                LootParams.Builder filterLootBuilder = new LootParams.Builder(serverLevel)
+                        .withParameter(LootContextParams.ORIGIN, targetPos.getCenter())
+                        .withParameter(LootContextParams.BLOCK_STATE, state)
+                        .withParameter(LootContextParams.TOOL, toolStack)
+                        .withOptionalParameter(LootContextParams.THIS_ENTITY, fakePlayer);
+                List<ItemStack> filterDrops = state.getDrops(filterLootBuilder);
+
+                boolean matchesFilter = false;
+                for (ItemStack drop : filterDrops) {
+                    if (filterItems.contains(drop.getItem())) {
+                        matchesFilter = true;
+                        break;
+                    }
+                }
+                // Also check if the block item itself matches
+                ItemStack blockItem = new ItemStack(state.getBlock().asItem());
+                if (!blockItem.isEmpty() && filterItems.contains(blockItem.getItem())) {
+                    matchesFilter = true;
+                }
+
+                if (!matchesFilter) continue;
+                corrosiveWillUsed += WILL_PER_FILTER;
+            }
+
+            // STEADFAST: Replace mode - place block in placement area instead of dropping
+            if (doReplace && (steadfastWill - steadfastWillUsed) >= WILL_PER_REPLACE) {
+                ItemStack blockAsItem = new ItemStack(state.getBlock().asItem());
+                if (!blockAsItem.isEmpty()) {
+                    // Try to place in the placement area
+                    boolean placed = tryPlaceInRange(ctx, masterPos, state);
+                    if (placed) {
+                        ctx.level().destroyBlock(targetPos, false);
+                        steadfastWillUsed += WILL_PER_REPLACE;
+                        processed = true;
+                        continue;
+                    }
+                }
+                // Fall through to normal destroy if placement failed
+            }
+
+            // Default: Destroy block and collect drops
+            LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel)
+                    .withParameter(LootContextParams.ORIGIN, targetPos.getCenter())
+                    .withParameter(LootContextParams.BLOCK_STATE, state)
+                    .withParameter(LootContextParams.TOOL, toolStack)
+                    .withOptionalParameter(LootContextParams.BLOCK_ENTITY, ctx.level().getBlockEntity(targetPos))
+                    .withOptionalParameter(LootContextParams.THIS_ENTITY, fakePlayer);
+
+            List<ItemStack> blockDrops = state.getDrops(lootBuilder);
+            ctx.level().destroyBlock(targetPos, false);
+            processed = true;
+
+            // Handle drops
+            for (ItemStack dropStack : blockDrops) {
+                if (chestTile != null) {
+                    dropStack = Utils.insertStackIntoTile(dropStack, chestTile, Direction.DOWN);
+                }
+                if (!dropStack.isEmpty()) {
+                    Utils.spawnStackAtBlock(ctx.level(), masterPos, Direction.UP, dropStack);
                 }
             }
         }
 
-        if (totalCost > 0) {
-            ctx.syphon(Math.min(totalCost, ctx.currentEssence()));
+        // Drain consumed will
+        if (steadfastWillUsed > 0) {
+            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.STEADFAST, steadfastWillUsed);
         }
-    }
+        if (corrosiveWillUsed > 0) {
+            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.CORROSIVE, corrosiveWillUsed);
+        }
 
-    private IItemHandler findAdjacentInventory(Level level, BlockPos pos) {
-        // Look for inventory NOT directly above (that's the filter chest)
-        for (BlockPos offset : new BlockPos[]{
-            pos.below(), pos.north(), pos.south(), pos.east(), pos.west()
-        }) {
-            IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, offset, null);
-            if (handler != null) {
-                return handler;
-            }
+        if (processed) {
+            ctx.syphon(getRefreshCost());
         }
-        return null;
     }
 
     /**
-     * Checks if an item should be voided based on the filter inventory.
-     * If filter is null or empty, all items pass.
-     * If filter has items, only matching items pass (whitelist).
+     * Advances the scan position to the next block in the quarry range.
      */
-    private boolean passesFilter(ItemStack stack, IItemHandler filterInventory) {
-        if (filterInventory == null) {
-            return true; // No filter chest, void everything
-        }
+    private void advanceScanPosition(List<BlockPos> quarryPositions) {
+        if (quarryPositions.isEmpty()) return;
 
-        boolean hasFilter = false;
-        for (int i = 0; i < filterInventory.getSlots(); i++) {
-            ItemStack filterStack = filterInventory.getStackInSlot(i);
-            if (!filterStack.isEmpty()) {
-                hasFilter = true;
-                if (ItemStack.isSameItemSameComponents(stack, filterStack)) {
-                    return true; // Matches filter
-                }
+        // Find current index
+        BlockPos current = new BlockPos(currentX, currentY, currentZ);
+        int index = quarryPositions.indexOf(current);
+
+        // Move to next position, wrapping around
+        int nextIndex = (index + 1) % quarryPositions.size();
+        BlockPos next = quarryPositions.get(nextIndex);
+        currentX = next.getX();
+        currentY = next.getY();
+        currentZ = next.getZ();
+    }
+
+    /**
+     * Tries to place a block state in the placement range at the first available air position.
+     */
+    private boolean tryPlaceInRange(RitualContext ctx, BlockPos masterPos, BlockState stateToPlace) {
+        List<BlockPos> placementPositions = RitualHelper.getRangePositions(ctx.master(), this, PLACEMENT_RANGE, masterPos);
+        for (BlockPos placePos : placementPositions) {
+            BlockState existing = ctx.level().getBlockState(placePos);
+            if (existing.isAir()) {
+                ctx.level().setBlock(placePos, stateToPlace, Block.UPDATE_ALL);
+                return true;
             }
         }
+        return false;
+    }
 
-        // If no items in filter, void everything; otherwise only void matching items
-        return !hasFilter;
+    @Override
+    public void readFromNBT(CompoundTag tag) {
+        super.readFromNBT(tag);
+        currentX = tag.getInt("currentX");
+        currentY = tag.getInt("currentY");
+        currentZ = tag.getInt("currentZ");
+        scanInitialized = tag.getBoolean("scanInitialized");
+    }
+
+    @Override
+    public void writeToNBT(CompoundTag tag) {
+        super.writeToNBT(tag);
+        tag.putInt("currentX", currentX);
+        tag.putInt("currentY", currentY);
+        tag.putInt("currentZ", currentZ);
+        tag.putBoolean("scanInitialized", scanInitialized);
     }
 
     @Override
@@ -127,6 +299,15 @@ public class RitualYawningVoid extends Ritual {
     @Override
     public int getRefreshCost() {
         return 5;
+    }
+
+    @Override
+    public Component[] provideInformationOfRitualToPlayer(Player player) {
+        return new Component[]{
+                Component.translatable(getTranslationKey() + ".info"),
+                Component.translatable(getTranslationKey() + ".will.steadfast"),
+                Component.translatable(getTranslationKey() + ".will.corrosive")
+        };
     }
 
     @Override

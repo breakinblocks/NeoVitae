@@ -15,7 +15,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.api.recipe.BloodAltarRecipe;
 
 import javax.annotation.Nonnull;
@@ -37,7 +37,7 @@ public class BloodAltarRecipeCategory implements IRecipeCategory<BloodAltarRecip
     private final IDrawable icon;
 
     public BloodAltarRecipeCategory(IGuiHelper guiHelper) {
-        icon = guiHelper.createDrawableItemStack(new ItemStack(BMBlocks.BLOOD_ALTAR.block().get()));
+        icon = guiHelper.createDrawableItemStack(new ItemStack(NVBlocks.BLOOD_ALTAR.block().get()));
         background = guiHelper.createDrawable(NeoVitae.rl("gui/jei/altar.png"), 3, 4, WIDTH, HEIGHT);
     }
 

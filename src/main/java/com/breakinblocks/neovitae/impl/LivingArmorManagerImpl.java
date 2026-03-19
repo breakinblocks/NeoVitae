@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.living.ILivingArmorManager;
 import com.breakinblocks.neovitae.api.living.ILivingArmorManager.UpgradeInfo;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.LivingStats;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
@@ -109,7 +109,7 @@ public class LivingArmorManagerImpl implements ILivingArmorManager {
             return 0;
         }
 
-        LivingStats stats = chest.get(BMDataComponents.UPGRADES.get());
+        LivingStats stats = chest.get(NVDataComponents.UPGRADES.get());
         if (stats == null) {
             return 0;
         }
@@ -155,7 +155,7 @@ public class LivingArmorManagerImpl implements ILivingArmorManager {
             return getMaxUpgradePoints();
         }
 
-        Integer maxPoints = chest.get(BMDataComponents.CURRENT_MAX_UPGRADE_POINTS.get());
+        Integer maxPoints = chest.get(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS.get());
         return maxPoints != null ? maxPoints : getMaxUpgradePoints();
     }
 

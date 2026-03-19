@@ -10,7 +10,7 @@ import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
-import com.breakinblocks.neovitae.common.world.BMSavedData;
+import com.breakinblocks.neovitae.common.world.NVSavedData;
 import com.breakinblocks.neovitae.common.world.DungeonSavedData;
 
 import javax.annotation.Nullable;
@@ -20,7 +20,7 @@ import java.util.UUID;
 @EventBusSubscriber
 public class SoulNetworkHelper {
     @Nullable
-    private static BMSavedData SD_INSTANCE;
+    private static NVSavedData SD_INSTANCE;
 
     @Nullable
     private static DungeonSavedData DUNGEON_SD_INSTANCE;
@@ -31,13 +31,13 @@ public class SoulNetworkHelper {
         DUNGEON_SD_INSTANCE = null;
     }
 
-    private static BMSavedData getSavedData() {
+    private static NVSavedData getSavedData() {
         if (SD_INSTANCE == null) {
             if (ServerLifecycleHooks.getCurrentServer() == null)
                 return null;
 
             DimensionDataStorage dimData = ServerLifecycleHooks.getCurrentServer().overworld().getDataStorage();
-            SD_INSTANCE = dimData.computeIfAbsent(new Factory<>(BMSavedData::new, BMSavedData::load), BMSavedData.ID);
+            SD_INSTANCE = dimData.computeIfAbsent(new Factory<>(NVSavedData::new, NVSavedData::load), NVSavedData.ID);
         }
         return SD_INSTANCE;
     }
@@ -54,7 +54,7 @@ public class SoulNetworkHelper {
     }
 
     public static SoulNetwork getSoulNetwork(UUID uuid) {
-        BMSavedData savedData = getSavedData();
+        NVSavedData savedData = getSavedData();
         if (savedData == null)
             return null;
 

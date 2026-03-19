@@ -4,7 +4,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 public abstract class BaseTieredRecipe extends CustomRecipe {
     protected final ShapedRecipePattern pattern;
@@ -48,8 +48,8 @@ public abstract class BaseTieredRecipe extends CustomRecipe {
         }
 
         // 0 means they dont have a tier
-        int a = input.getItem(primary).getOrDefault(BMDataComponents.CONTAINER_TIER, 0);
-        int b = input.getItem(secondary).getOrDefault(BMDataComponents.CONTAINER_TIER, 0);
+        int a = input.getItem(primary).getOrDefault(NVDataComponents.CONTAINER_TIER, 0);
+        int b = input.getItem(secondary).getOrDefault(NVDataComponents.CONTAINER_TIER, 0);
         if (a == 0 || a == 16 || a != b) { // 0 = default = doesnt have tier; 16 = max tier; a != b means not same tier
             return false;
         }

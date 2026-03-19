@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeLimits;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
@@ -45,11 +45,11 @@ public class TrainerItem extends Item {
             GhostItemHandler handler = new GhostItemHandler(16) {
                 @Override
                 public boolean isItemValid(int slot, ItemStack stack) {
-                    return stack.is(BMItems.UPGRADE_TOME) && stack.has(BMDataComponents.UPGRADE_TOME_DATA);
+                    return stack.is(NVItems.UPGRADE_TOME) && stack.has(NVDataComponents.UPGRADE_TOME_DATA);
                 }
             };
 
-            UpgradeLimits limits = chest.getOrDefault(BMDataComponents.LIMITS, UpgradeLimits.EMPTY);
+            UpgradeLimits limits = chest.getOrDefault(NVDataComponents.LIMITS, UpgradeLimits.EMPTY);
             SimpleContainerData data = new SimpleContainerData(19) {
                 @Override
                 public void set(int index, int value) {
@@ -60,13 +60,13 @@ public class TrainerItem extends Item {
                             if (ghostStack.isEmpty()) {
                                 continue;
                             }
-                            UpgradeTome tome = ghostStack.get(BMDataComponents.UPGRADE_TOME_DATA);
+                            UpgradeTome tome = ghostStack.get(NVDataComponents.UPGRADE_TOME_DATA);
                             if (tome == null) {
                                 continue;
                             }
                             map.put(tome.upgrade(), LivingHelper.getExpForLevel(tome.upgrade(), this.get(3 + i)));
                         }
-                        chest.set(BMDataComponents.LIMITS, new UpgradeLimits(this.get(1) == TrainerMenu.ALLOW, map));
+                        chest.set(NVDataComponents.LIMITS, new UpgradeLimits(this.get(1) == TrainerMenu.ALLOW, map));
                         return;
                     }
                     super.set(index, value);

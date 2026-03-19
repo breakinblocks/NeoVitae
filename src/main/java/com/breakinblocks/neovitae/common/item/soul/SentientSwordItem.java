@@ -17,9 +17,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.item.BMMaterialsAndTiers;
+import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
 import com.breakinblocks.neovitae.will.PlayerDemonWillHandler;
 
 import java.util.List;
@@ -47,10 +47,10 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
     private static final double[] MOVEMENT_SPEED = {0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4};
 
     public SentientSwordItem() {
-        super(BMMaterialsAndTiers.SENTIENT, new Properties()
-                .attributes(SwordItem.createAttributes(BMMaterialsAndTiers.SENTIENT, 6, -2.4f))
-                .component(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT)
-                .component(BMDataComponents.SIGIL_ACTIVATED, false));
+        super(NVMaterialsAndTiers.SENTIENT, new Properties()
+                .attributes(SwordItem.createAttributes(NVMaterialsAndTiers.SENTIENT, 6, -2.4f))
+                .component(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT)
+                .component(NVDataComponents.SIGIL_ACTIVATED, false));
     }
 
     @Override
@@ -197,10 +197,10 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
 
     // Sword-specific: activated state for sigil-like behavior
     private boolean getActivated(ItemStack stack) {
-        return stack.getOrDefault(BMDataComponents.SIGIL_ACTIVATED, false);
+        return stack.getOrDefault(NVDataComponents.SIGIL_ACTIVATED, false);
     }
 
     private void setActivatedState(ItemStack stack, boolean activated) {
-        stack.set(BMDataComponents.SIGIL_ACTIVATED, activated);
+        stack.set(NVDataComponents.SIGIL_ACTIVATED, activated);
     }
 }

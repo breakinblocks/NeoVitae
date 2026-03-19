@@ -31,12 +31,12 @@ import net.neoforged.neoforge.items.wrapper.RangedWrapper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.menu.ARCMenu;
 import com.breakinblocks.neovitae.common.block.ARCBlock;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.arc.ARCRecipe;
 import com.breakinblocks.neovitae.common.recipe.arc.ARCRecipeInput;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.util.ARCOutputHandler;
 
 import javax.annotation.Nullable;
@@ -66,11 +66,11 @@ public class ARCTile extends BaseTile implements MenuProvider {
     private final RecipeManager.CachedCheck<ARCRecipeInput, ARCRecipe> quickARC;
 
     public ARCTile(BlockPos pos, BlockState blockState) {
-        super(BMTiles.ARC_TYPE.get(), pos, blockState);
+        super(NVTiles.ARC_TYPE.get(), pos, blockState);
         quickSmelting = createCookingLookup(RecipeType.SMELTING);
         quickBlasting = createCookingLookup(RecipeType.BLASTING);
         quickSmoking = createCookingLookup(RecipeType.SMOKING);
-        quickARC = RecipeManager.createCheck(BMRecipes.ARC_TYPE.get());
+        quickARC = RecipeManager.createCheck(NVRecipes.ARC_TYPE.get());
     }
 
     private RecipeManager.CachedCheck<SingleRecipeInput, ? extends AbstractCookingRecipe> createCookingLookup(RecipeType<? extends AbstractCookingRecipe> recipeType) {
@@ -86,7 +86,7 @@ public class ARCTile extends BaseTile implements MenuProvider {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
             return switch (slot) {
-                case TOOL_SLOT -> stack.is(BMTags.Items.ARC_TOOL);
+                case TOOL_SLOT -> stack.is(NVTags.Items.ARC_TOOL);
                 case INPUT_BUCKET_SLOT, OUTPUT_BUCKET_SLOT -> FluidUtil.getFluidHandler(stack).isPresent();
                 case INPUT_SLOT -> true;
                 default -> false;
@@ -191,19 +191,19 @@ public class ARCTile extends BaseTile implements MenuProvider {
         ItemStack toolStack = arcTile.arcInv.getStackInSlot(TOOL_SLOT);
         ItemStack inputStack = arcTile.arcInv.getStackInSlot(INPUT_SLOT);
         boolean didProgress = false;
-        if (toolStack.is(BMTags.Items.ARC_TOOL)) {
-            if (toolStack.is(BMTags.Items.ARC_FURNACE)) {
+        if (toolStack.is(NVTags.Items.ARC_TOOL)) {
+            if (toolStack.is(NVTags.Items.ARC_FURNACE)) {
                 Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = Optional.empty();
                 SingleRecipeInput input = new SingleRecipeInput(inputStack);
-                if (toolStack.is(BMTags.Items.ARC_SMELTING)) {
+                if (toolStack.is(NVTags.Items.ARC_SMELTING)) {
                      recipe = arcTile.quickSmelting.getRecipeFor(input, level);
-                } else if (toolStack.is(BMTags.Items.ARC_BLASTING)) {
+                } else if (toolStack.is(NVTags.Items.ARC_BLASTING)) {
                     recipe = arcTile.quickBlasting.getRecipeFor(input, level);
-                } else if (toolStack.is(BMTags.Items.ARC_SMOKING)) {
+                } else if (toolStack.is(NVTags.Items.ARC_SMOKING)) {
                     recipe = arcTile.quickSmoking.getRecipeFor(input, level);
                 }
                 if (arcTile.canCraftFurnace(recipe, itemOutputHandler)) {
-                    arcTile.progress += DEFAULT_SPEED * ((double) recipe.get().value().getCookingTime() / 200D) * toolStack.getOrDefault(BMDataComponents.ARC_SPEED, 1D);
+                    arcTile.progress += DEFAULT_SPEED * ((double) recipe.get().value().getCookingTime() / 200D) * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D);
                     didProgress = true;
                     if (arcTile.progress >= 1) {
                         arcTile.craftFurnace(recipe.get().value(), input, itemOutputHandler);
@@ -214,7 +214,7 @@ public class ARCTile extends BaseTile implements MenuProvider {
                 ARCRecipeInput input = new ARCRecipeInput(toolStack, inputStack, arcTile.inputTank.getFluidInTank(0));
                 Optional<RecipeHolder<ARCRecipe>> recipe = arcTile.quickARC.getRecipeFor(input, level);
                 if (arcTile.canCraft(recipe, itemOutputHandler)) {
-                    arcTile.progress += DEFAULT_SPEED * toolStack.getOrDefault(BMDataComponents.ARC_SPEED, 1D);
+                    arcTile.progress += DEFAULT_SPEED * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D);
                     didProgress = true;
                     if (arcTile.progress >= 1) {
                         arcTile.craft(recipe.get().value(), input, itemOutputHandler);
@@ -310,7 +310,7 @@ public class ARCTile extends BaseTile implements MenuProvider {
     }
 
     public void updateType() {
-        EnumWillType type = arcInv.getStackInSlot(TOOL_SLOT).getOrDefault(BMDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT);
+        EnumWillType type = arcInv.getStackInSlot(TOOL_SLOT).getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT);
         if (getBlockState().getValue(ARCBlock.TYPE) != type) {
             level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState().setValue(ARCBlock.TYPE, type), Block.UPDATE_ALL);
         }

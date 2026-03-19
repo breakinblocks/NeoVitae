@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import com.breakinblocks.neovitae.common.datamap.TranquilityHelper;
-import com.breakinblocks.neovitae.common.tag.BMTags;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
 /**
  * Registry for determining tranquility values of blocks.
@@ -71,17 +71,17 @@ public class TranquilityRegistry {
      */
     public static int getPathLevel(BlockState state) {
         // Check from highest to lowest level
-        if (state.is(BMTags.Blocks.INCENSE_PATH_LEVEL_10)) return 10;
-        if (state.is(BMTags.Blocks.INCENSE_PATH_LEVEL_9)) return 9;
-        if (state.is(BMTags.Blocks.INCENSE_PATH_LEVEL_8)) return 8;
-        if (state.is(BMTags.Blocks.INCENSE_PATH_LEVEL_7)) return 7;
-        if (state.is(BMTags.Blocks.INCENSE_PATH_LEVEL_6)) return 6;
-        if (state.is(BMTags.Blocks.INCENSE_PATH_LEVEL_5)) return 5;
-        if (state.is(BMTags.Blocks.INCENSE_PATH_LEVEL_4)) return 4;
-        if (state.is(BMTags.Blocks.INCENSE_PATH_LEVEL_3)) return 3;
-        if (state.is(BMTags.Blocks.INCENSE_PATH_LEVEL_2)) return 2;
-        if (state.is(BMTags.Blocks.INCENSE_PATH_LEVEL_1)) return 1;
-        if (state.is(BMTags.Blocks.INCENSE_PATH_LEVEL_0)) return 0;
+        if (state.is(NVTags.Blocks.INCENSE_PATH_LEVEL_10)) return 10;
+        if (state.is(NVTags.Blocks.INCENSE_PATH_LEVEL_9)) return 9;
+        if (state.is(NVTags.Blocks.INCENSE_PATH_LEVEL_8)) return 8;
+        if (state.is(NVTags.Blocks.INCENSE_PATH_LEVEL_7)) return 7;
+        if (state.is(NVTags.Blocks.INCENSE_PATH_LEVEL_6)) return 6;
+        if (state.is(NVTags.Blocks.INCENSE_PATH_LEVEL_5)) return 5;
+        if (state.is(NVTags.Blocks.INCENSE_PATH_LEVEL_4)) return 4;
+        if (state.is(NVTags.Blocks.INCENSE_PATH_LEVEL_3)) return 3;
+        if (state.is(NVTags.Blocks.INCENSE_PATH_LEVEL_2)) return 2;
+        if (state.is(NVTags.Blocks.INCENSE_PATH_LEVEL_1)) return 1;
+        if (state.is(NVTags.Blocks.INCENSE_PATH_LEVEL_0)) return 0;
         return -1;
     }
 
@@ -91,17 +91,17 @@ public class TranquilityRegistry {
     public static TagKey<Block>[] getPathLevelTags() {
         @SuppressWarnings("unchecked")
         TagKey<Block>[] tags = new TagKey[]{
-                BMTags.Blocks.INCENSE_PATH_LEVEL_0,
-                BMTags.Blocks.INCENSE_PATH_LEVEL_1,
-                BMTags.Blocks.INCENSE_PATH_LEVEL_2,
-                BMTags.Blocks.INCENSE_PATH_LEVEL_3,
-                BMTags.Blocks.INCENSE_PATH_LEVEL_4,
-                BMTags.Blocks.INCENSE_PATH_LEVEL_5,
-                BMTags.Blocks.INCENSE_PATH_LEVEL_6,
-                BMTags.Blocks.INCENSE_PATH_LEVEL_7,
-                BMTags.Blocks.INCENSE_PATH_LEVEL_8,
-                BMTags.Blocks.INCENSE_PATH_LEVEL_9,
-                BMTags.Blocks.INCENSE_PATH_LEVEL_10
+                NVTags.Blocks.INCENSE_PATH_LEVEL_0,
+                NVTags.Blocks.INCENSE_PATH_LEVEL_1,
+                NVTags.Blocks.INCENSE_PATH_LEVEL_2,
+                NVTags.Blocks.INCENSE_PATH_LEVEL_3,
+                NVTags.Blocks.INCENSE_PATH_LEVEL_4,
+                NVTags.Blocks.INCENSE_PATH_LEVEL_5,
+                NVTags.Blocks.INCENSE_PATH_LEVEL_6,
+                NVTags.Blocks.INCENSE_PATH_LEVEL_7,
+                NVTags.Blocks.INCENSE_PATH_LEVEL_8,
+                NVTags.Blocks.INCENSE_PATH_LEVEL_9,
+                NVTags.Blocks.INCENSE_PATH_LEVEL_10
         };
         return tags;
     }

@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.apache.commons.lang3.tuple.Pair;
-import com.breakinblocks.neovitae.common.datacomponent.BMDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.FilterInventory;
 import com.breakinblocks.neovitae.common.menu.FilterMenu;
 import com.breakinblocks.neovitae.common.routing.BasicItemFilter;
@@ -87,19 +87,19 @@ public class ItemRouterFilter extends Item implements MenuProvider, IItemFilterP
     }
 
     public static int getBlacklistState(ItemStack filterStack) {
-        return filterStack.getOrDefault(BMDataComponents.FILTER_BLACKLIST, 0);
+        return filterStack.getOrDefault(NVDataComponents.FILTER_BLACKLIST, 0);
     }
 
     public static void setBlacklistState(ItemStack filterStack, int state) {
-        filterStack.set(BMDataComponents.FILTER_BLACKLIST, state);
+        filterStack.set(NVDataComponents.FILTER_BLACKLIST, state);
     }
 
     public static FilterInventory getFilterInventory(ItemStack filterStack) {
-        return filterStack.getOrDefault(BMDataComponents.FILTER_INVENTORY, FilterInventory.empty());
+        return filterStack.getOrDefault(NVDataComponents.FILTER_INVENTORY, FilterInventory.empty());
     }
 
     public static void setFilterInventory(ItemStack filterStack, FilterInventory inventory) {
-        filterStack.set(BMDataComponents.FILTER_INVENTORY, inventory);
+        filterStack.set(NVDataComponents.FILTER_INVENTORY, inventory);
     }
 
     @Override

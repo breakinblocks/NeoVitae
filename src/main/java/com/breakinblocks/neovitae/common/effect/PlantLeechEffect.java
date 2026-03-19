@@ -15,7 +15,7 @@ public class PlantLeechEffect extends MobEffect {
 
     @Override
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
-        BMPotionUtils.damageMobAndGrowSurroundingPlants(entity, 2 + amplifier, 1,
+        NVPotionUtils.damageMobAndGrowSurroundingPlants(entity, 2 + amplifier, 1,
                 0.5 * 3 / (amplifier + 3), 25 * (1 + amplifier));
         return true;
     }

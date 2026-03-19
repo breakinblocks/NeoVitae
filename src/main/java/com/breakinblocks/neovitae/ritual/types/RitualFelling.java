@@ -1,14 +1,23 @@
 package com.breakinblocks.neovitae.ritual.types;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
+import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.*;
@@ -16,16 +25,20 @@ import java.util.function.Consumer;
 
 /**
  * Ritual that cuts down trees in the configured area.
+ * Drops are inserted into a chest inventory if available, otherwise spawned in the world.
  */
 public class RitualFelling extends Ritual {
 
     public static final String FELL_RANGE = "fellRange";
+    public static final String CHEST_RANGE = "chestRange";
     private static final int MAX_BLOCKS_PER_OPERATION = 128;
 
     public RitualFelling() {
         super("felling", 0, 2000, "ritual." + NeoVitae.MODID + ".felling");
         addBlockRange(FELL_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-10, 0, -10), 21, 30, 21));
+        addBlockRange(CHEST_RANGE, new AreaDescriptor.Rectangle(new BlockPos(0, 1, 0), 1, 1, 1));
         setMaximumVolumeAndDistanceOfRange(FELL_RANGE, 15000, 15, 40);
+        setMaximumVolumeAndDistanceOfRange(CHEST_RANGE, 1, 5, 5);
     }
 
     @Override
@@ -33,12 +46,23 @@ public class RitualFelling extends Ritual {
         RitualContext ctx = RitualHelper.createContext(masterRitualStone, getRefreshCost());
         if (ctx == null) return;
 
-        if (!(ctx.level() instanceof ServerLevel)) return;
+        if (!(ctx.level() instanceof ServerLevel serverLevel)) return;
 
         List<BlockPos> positions = RitualHelper.getRangePositions(ctx.master(), this, FELL_RANGE, ctx.masterPos());
         UUID owner = ctx.master().getOwner();
         int blocksBroken = 0;
         int maxBlocks = Math.min(ctx.maxOperations(getRefreshCost()), MAX_BLOCKS_PER_OPERATION);
+
+        // Create a mock axe tool for loot context
+        ItemStack toolStack = new ItemStack(Items.NETHERITE_AXE);
+
+        // Create fake player for loot context
+        FakePlayer fakePlayer = new FakePlayer(serverLevel, new GameProfile(owner, "[NeoVitae]"));
+
+        // Check for storage inventory
+        BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, ctx.masterPos()).getFirst();
+        BlockEntity inv = ctx.level().getBlockEntity(chestPos);
+        boolean hasInv = inv != null && Utils.getNumberOfFreeSlots(inv, Direction.DOWN) >= 1;
 
         // Find and break logs first, then leaves
         for (BlockPos pos : positions) {
@@ -46,11 +70,8 @@ public class RitualFelling extends Ritual {
 
             BlockState state = ctx.level().getBlockState(pos);
             if (state.is(BlockTags.LOGS)) {
-                // Check protection before breaking
                 if (BlockProtectionHelper.canBreakBlock(ctx.level(), pos, owner)) {
-                    Block.dropResources(state, ctx.level(), pos);
-                    ctx.level().destroyBlock(pos, false);
-                    blocksBroken++;
+                    blocksBroken += breakAndCollect(ctx, serverLevel, pos, state, toolStack, fakePlayer, inv, hasInv);
                 }
             }
         }
@@ -62,17 +83,47 @@ public class RitualFelling extends Ritual {
 
                 BlockState state = ctx.level().getBlockState(pos);
                 if (state.is(BlockTags.LEAVES)) {
-                    // Check protection before breaking
                     if (BlockProtectionHelper.canBreakBlock(ctx.level(), pos, owner)) {
-                        Block.dropResources(state, ctx.level(), pos);
-                        ctx.level().destroyBlock(pos, false);
-                        blocksBroken++;
+                        blocksBroken += breakAndCollect(ctx, serverLevel, pos, state, toolStack, fakePlayer, inv, hasInv);
                     }
                 }
             }
         }
 
         ctx.syphon(getRefreshCost() * blocksBroken);
+    }
+
+    /**
+     * Breaks a block and collects its drops into an inventory or spawns them in the world.
+     * @return 1 if the block was broken, 0 otherwise
+     */
+    private int breakAndCollect(RitualContext ctx, ServerLevel serverLevel, BlockPos pos,
+                                BlockState state, ItemStack toolStack, FakePlayer fakePlayer,
+                                BlockEntity inv, boolean hasInv) {
+        // Get drops via loot table
+        LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel)
+                .withParameter(LootContextParams.ORIGIN, pos.getCenter())
+                .withParameter(LootContextParams.BLOCK_STATE, state)
+                .withParameter(LootContextParams.TOOL, toolStack)
+                .withOptionalParameter(LootContextParams.BLOCK_ENTITY, ctx.level().getBlockEntity(pos))
+                .withOptionalParameter(LootContextParams.THIS_ENTITY, fakePlayer);
+
+        List<ItemStack> drops = state.getDrops(lootBuilder);
+
+        // Break the block without natural drops
+        ctx.level().destroyBlock(pos, false);
+
+        // Handle drops: store in inventory or spawn in world
+        for (ItemStack dropStack : drops) {
+            if (hasInv) {
+                dropStack = Utils.insertStackIntoTile(dropStack, inv, Direction.DOWN);
+            }
+            if (!dropStack.isEmpty()) {
+                Block.popResource(ctx.level(), ctx.masterPos(), dropStack);
+            }
+        }
+
+        return 1;
     }
 
     @Override

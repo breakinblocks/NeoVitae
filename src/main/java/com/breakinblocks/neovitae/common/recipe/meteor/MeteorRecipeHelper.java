@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.common.recipe.meteor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import java.util.Optional;
 
@@ -26,7 +26,7 @@ public class MeteorRecipeHelper {
 
         MeteorInput input = new MeteorInput(catalyst);
         Optional<RecipeHolder<MeteorRecipe>> result = level.getRecipeManager()
-                .getRecipeFor(BMRecipes.METEOR_TYPE.get(), input, level);
+                .getRecipeFor(NVRecipes.METEOR_TYPE.get(), input, level);
 
         return result.map(RecipeHolder::value).orElse(null);
     }

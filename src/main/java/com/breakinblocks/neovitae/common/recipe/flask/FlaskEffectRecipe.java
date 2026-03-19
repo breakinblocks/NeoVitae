@@ -8,7 +8,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
-import com.breakinblocks.neovitae.common.recipe.BMRecipes;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -70,6 +70,6 @@ public class FlaskEffectRecipe extends FlaskRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return BMRecipes.FLASK_EFFECT_SERIALIZER.get();
+        return NVRecipes.FLASK_EFFECT_SERIALIZER.get();
     }
 }

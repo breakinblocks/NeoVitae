@@ -23,9 +23,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import com.breakinblocks.neovitae.common.block.BlockShapedExplosive;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.ExplosiveChargeTile;
-import com.breakinblocks.neovitae.common.entity.BMEntities;
+import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 /**
@@ -42,12 +42,12 @@ public class EntityShapedCharge extends ThrowableProjectile {
     }
 
     public EntityShapedCharge(Level level, Block block, LivingEntity thrower) {
-        super(BMEntities.SHAPED_CHARGE.get(), thrower, level);
+        super(NVEntities.SHAPED_CHARGE.get(), thrower, level);
         this.setFallTile(block.defaultBlockState());
     }
 
     public EntityShapedCharge(Level level, Block block, double x, double y, double z) {
-        super(BMEntities.SHAPED_CHARGE.get(), x, y, z, level);
+        super(NVEntities.SHAPED_CHARGE.get(), x, y, z, level);
         this.setFallTile(block.defaultBlockState());
     }
 
@@ -128,7 +128,7 @@ public class EntityShapedCharge extends ThrowableProjectile {
                 compound.getCompound("BlockState"));
 
         if (fallTile.isAir()) {
-            fallTile = BMBlocks.SHAPED_CHARGE.block().get().defaultBlockState();
+            fallTile = NVBlocks.SHAPED_CHARGE.block().get().defaultBlockState();
         }
 
         this.setFallTile(fallTile);

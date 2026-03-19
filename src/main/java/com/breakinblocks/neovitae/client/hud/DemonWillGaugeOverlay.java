@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.item.BMItems;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 import java.util.List;
@@ -105,7 +105,7 @@ public class DemonWillGaugeOverlay implements LayeredDraw.Layer {
     private boolean hasGaugeInInventory(LocalPlayer player) {
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
-            if (stack.is(BMItems.DEMON_WILL_GAUGE.get())) {
+            if (stack.is(NVItems.DEMON_WILL_GAUGE.get())) {
                 return true;
             }
         }

@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.block.BMBlocks;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockDemonCrystal;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
@@ -41,7 +41,7 @@ public class DemonCrystallizerTile extends BaseTile {
     private double internalCounter = 0;
 
     public DemonCrystallizerTile(BlockPos pos, BlockState state) {
-        super(BMTiles.DEMON_CRYSTALLIZER_TYPE.get(), pos, state);
+        super(NVTiles.DEMON_CRYSTALLIZER_TYPE.get(), pos, state);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, DemonCrystallizerTile tile) {
@@ -91,11 +91,11 @@ public class DemonCrystallizerTile extends BaseTile {
      */
     private boolean formCrystal(EnumWillType type, BlockPos position) {
         Block block = switch (type) {
-            case CORROSIVE -> BMBlocks.CORROSIVE_DEMON_CRYSTAL.block().get();
-            case DESTRUCTIVE -> BMBlocks.DESTRUCTIVE_DEMON_CRYSTAL.block().get();
-            case VENGEFUL -> BMBlocks.VENGEFUL_DEMON_CRYSTAL.block().get();
-            case STEADFAST -> BMBlocks.STEADFAST_DEMON_CRYSTAL.block().get();
-            default -> BMBlocks.RAW_DEMON_CRYSTAL.block().get();
+            case CORROSIVE -> NVBlocks.CORROSIVE_DEMON_CRYSTAL.block().get();
+            case DESTRUCTIVE -> NVBlocks.DESTRUCTIVE_DEMON_CRYSTAL.block().get();
+            case VENGEFUL -> NVBlocks.VENGEFUL_DEMON_CRYSTAL.block().get();
+            case STEADFAST -> NVBlocks.STEADFAST_DEMON_CRYSTAL.block().get();
+            default -> NVBlocks.RAW_DEMON_CRYSTAL.block().get();
         };
 
         // Place crystal with AGE 0 (1 crystal) and attached to UP direction

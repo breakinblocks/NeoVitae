@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import com.breakinblocks.neovitae.common.blockentity.BMTiles;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.blockentity.SpectralBlockTile;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
@@ -55,7 +55,7 @@ public class SpectralBlock extends BaseEntityBlock {
         if (level.isClientSide()) {
             return null;
         }
-        return BlockEntityHelper.getTicker(blockEntityType, BMTiles.SPECTRAL_BLOCK_TYPE.get(), SpectralBlockTile::tick);
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.SPECTRAL_BLOCK_TYPE.get(), SpectralBlockTile::tick);
     }
 
     @Override

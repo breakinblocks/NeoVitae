@@ -24,9 +24,9 @@ import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
+import com.breakinblocks.neovitae.api.will.WillState;
 import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 import java.util.List;
 import java.util.UUID;
@@ -79,20 +79,18 @@ public class RitualCrushing extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
-        double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
-        double destructiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE);
+        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
 
-        boolean hasRaw = rawWill >= MIN_DEFAULT;
-        boolean doSilk = steadfastWill >= MIN_STEADFAST;
-        boolean doFortune = destructiveWill >= MIN_DESTRUCTIVE;
+        boolean hasRaw = will.hasDefault();
+        boolean doSilk = will.hasSteadfast();
+        boolean doFortune = will.hasDestructive();
 
         // Silk touch overrides fortune
         if (doSilk) {
             doFortune = false;
         }
 
-        refreshTime = hasRaw ? Math.max(1, 40 - (int) (rawWill / 5)) : 40;
+        refreshTime = hasRaw ? Math.max(1, 40 - (int) (will.getDefault() / 5)) : 40;
 
         ItemStack toolStack = new ItemStack(Items.NETHERITE_PICKAXE);
         if (doFortune) {
@@ -133,12 +131,12 @@ public class RitualCrushing extends Ritual {
             if (state.getBlock() instanceof com.breakinblocks.neovitae.common.block.BlockMasterRitualStone) continue;
 
             // Check will costs before crushing
-            if (doSilk && (steadfastWill - silkWillUsed) < WILL_PER_SILK) {
+            if (doSilk && (will.getSteadfast() - silkWillUsed) < WILL_PER_SILK) {
                 doSilk = false;
                 // Rebuild tool without silk touch
                 toolStack = new ItemStack(Items.NETHERITE_PICKAXE);
             }
-            if (doFortune && (destructiveWill - fortuneWillUsed) < WILL_PER_FORTUNE) {
+            if (doFortune && (will.getDestructive() - fortuneWillUsed) < WILL_PER_FORTUNE) {
                 doFortune = false;
                 toolStack = new ItemStack(Items.NETHERITE_PICKAXE);
             }
@@ -173,12 +171,9 @@ public class RitualCrushing extends Ritual {
             }
         }
 
-        if (silkWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.STEADFAST, silkWillUsed);
-        }
-        if (fortuneWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE, fortuneWillUsed);
-        }
+        will.use(EnumWillType.STEADFAST, silkWillUsed);
+        will.use(EnumWillType.DESTRUCTIVE, fortuneWillUsed);
+        will.drain(ctx.level(), masterPos);
 
         if (crushed) {
             ctx.syphon(getRefreshCost());

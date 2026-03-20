@@ -25,21 +25,21 @@ import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
  *
  * <p>Access this handler via {@code NeoVitaeAPI.getInstance().getDemonWillHandler()}.</p>
  *
- * <h2>Usage Example</h2>
+ * <h2>Usage Examples</h2>
  * <pre>{@code
  * IDemonWillHandler handler = NeoVitaeAPI.getInstance().getDemonWillHandler();
  *
- * // Get current will amount
+ * // For rituals: query all will types at once with a threshold
+ * WillState will = handler.queryWill(level, pos, 0.5);
+ * if (will.hasDefault()) {
+ *     double scaling = will.getDefault() / 100.0;
+ *     will.use(EnumWillType.DEFAULT, 0.1);
+ * }
+ * will.drain(handler, level, pos);
+ *
+ * // For simple operations: individual will access
  * double raw = handler.getCurrentWill(level, pos, EnumWillType.DEFAULT);
- *
- * // Add will to chunk
  * double added = handler.addWill(level, pos, EnumWillType.CORROSIVE, 50.0);
- *
- * // Check maximum capacity
- * double max = handler.getMaxWill(level, pos, EnumWillType.DEFAULT);
- *
- * // Add a bonus to max capacity (for rituals)
- * handler.addMaxBonus(level, pos, EnumWillType.DEFAULT, 50.0);
  * }</pre>
  */
 public interface IDemonWillHandler {
@@ -187,6 +187,21 @@ public interface IDemonWillHandler {
      * @return Ratio from 0.0 to 1.0
      */
     double getFillRatio(Level level, BlockPos pos, EnumWillType type);
+
+    /**
+     * Queries all will types for a chunk and returns a {@link WillState} snapshot
+     * with threshold-based active flags and usage tracking.
+     *
+     * <p>This is the recommended way for rituals to interact with demon will.</p>
+     *
+     * @param level     The level
+     * @param pos       The position (chunk is determined from this)
+     * @param threshold Minimum will required for each type to be considered "active"
+     * @return A snapshot of current will amounts with usage tracking
+     */
+    default WillState queryWill(Level level, BlockPos pos, double threshold) {
+        return new WillState(this, level, pos, threshold);
+    }
 
     /**
      * Transfers will from one chunk to an adjacent chunk.

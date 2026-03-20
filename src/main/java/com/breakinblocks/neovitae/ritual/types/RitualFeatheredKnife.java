@@ -14,8 +14,8 @@ import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.incense.IncenseHelper;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
+import com.breakinblocks.neovitae.api.will.WillState;
 import com.breakinblocks.neovitae.util.AltarUtil;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -62,19 +62,9 @@ public class RitualFeatheredKnife extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
-        double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
-        double destructiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE);
-        double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
-        double vengefulWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.VENGEFUL);
+        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
 
-        boolean hasRawWill = rawWill >= MIN_WILL;
-        boolean hasCorrosive = corrosiveWill >= MIN_WILL;
-        boolean hasDestructive = destructiveWill >= MIN_WILL;
-        boolean hasSteadfast = steadfastWill >= MIN_WILL;
-        boolean hasVengeful = vengefulWill >= MIN_WILL;
-
-        refreshTime = hasRawWill ? 10 : 20;
+        refreshTime = will.hasDefault() ? 10 : 20;
 
         // Find the altar (use cached position first, fallback to search)
         BloodAltarTile altar = findAltar(ctx);
@@ -84,11 +74,11 @@ public class RitualFeatheredKnife extends Ritual {
         // Steadfast = safer (keep 70% health), Vengeful = aggressive (keep only 10%)
         // Default without will: keep 30%
         float healthThreshold;
-        if (hasSteadfast) {
+        if (will.hasSteadfast()) {
             healthThreshold = 0.7F;
-        } else if (hasVengeful) {
+        } else if (will.hasVengeful()) {
             healthThreshold = 0.1F;
-        } else if (hasRawWill) {
+        } else if (will.hasDefault()) {
             healthThreshold = 0.3F;
         } else {
             healthThreshold = 0.3F;
@@ -96,8 +86,8 @@ public class RitualFeatheredKnife extends Ritual {
 
         // LP multiplier from destructive will
         double lpMultiplier = 1.0;
-        if (hasDestructive) {
-            lpMultiplier = 1.0 + destructiveWill * 0.2 / 100.0;
+        if (will.hasDestructive()) {
+            lpMultiplier = 1.0 + will.getDestructive() * 0.2 / 100.0;
         }
 
         List<Player> players = RitualHelper.getEntitiesInRange(ctx, this, SACRIFICE_RANGE, Player.class,
@@ -115,7 +105,7 @@ public class RitualFeatheredKnife extends Ritual {
             if (health <= threshold) continue;
 
             // CORROSIVE: Incense mode — consume accumulated incense for massive self-sacrifice
-            if (hasCorrosive && (corrosiveWill - corrosiveUsed) >= CORROSIVE_WILL_PER_USE) {
+            if (will.hasCorrosive() && (will.getCorrosive() - corrosiveUsed) >= CORROSIVE_WILL_PER_USE) {
                 double incense = IncenseHelper.getCurrentIncense(player);
                 if (incense > 0) {
                     // Sacrifice more health (down to threshold)
@@ -153,7 +143,7 @@ public class RitualFeatheredKnife extends Ritual {
                 }
 
                 // Destructive will LP multiplier
-                if (hasDestructive && (destructiveWill - destructiveUsed) >= DESTRUCTIVE_WILL_PER_USE) {
+                if (will.hasDestructive() && (will.getDestructive() - destructiveUsed) >= DESTRUCTIVE_WILL_PER_USE) {
                     lp = (int) (lp * lpMultiplier);
                     destructiveUsed += DESTRUCTIVE_WILL_PER_USE;
                 }
@@ -168,12 +158,9 @@ public class RitualFeatheredKnife extends Ritual {
             altar.addSacrificeLP(totalLP, false);
         }
 
-        if (corrosiveUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.CORROSIVE, corrosiveUsed);
-        }
-        if (destructiveUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE, destructiveUsed);
-        }
+        will.use(EnumWillType.CORROSIVE, corrosiveUsed);
+        will.use(EnumWillType.DESTRUCTIVE, destructiveUsed);
+        will.drain(ctx.level(), masterPos);
     }
 
     private BloodAltarTile findAltar(RitualContext ctx) {

@@ -13,7 +13,7 @@ import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.common.network.SetClientVelocityPayload;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
+import com.breakinblocks.neovitae.api.will.WillState;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -54,23 +54,19 @@ public class RitualSpeed extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         Direction facing = masterRitualStone.getDirection();
 
-        double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
-        double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
-        double destructiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE);
-        double vengefulWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.VENGEFUL);
-        double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
+        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
 
-        boolean hasRawWill = rawWill >= MIN_WILL;
-        boolean hasCorrosive = corrosiveWill >= MIN_WILL;
-        boolean hasDestructive = destructiveWill >= MIN_WILL;
-        boolean hasVengeful = vengefulWill >= MIN_WILL;
-        boolean hasSteadfast = steadfastWill >= MIN_WILL;
+        boolean hasRawWill = will.hasDefault();
+        boolean hasCorrosive = will.hasCorrosive();
+        boolean hasDestructive = will.hasDestructive();
+        boolean hasVengeful = will.hasVengeful();
+        boolean hasSteadfast = will.hasSteadfast();
 
         double horizontalSpeed;
         double verticalSpeed;
         if (hasRawWill) {
-            horizontalSpeed = 3.0 + rawWill / 40.0;
-            verticalSpeed = 1.2 + rawWill / 200.0;
+            horizontalSpeed = 3.0 + will.getDefault() / 40.0;
+            verticalSpeed = 1.2 + will.getDefault() / 200.0;
         } else {
             horizontalSpeed = 1.5;
             verticalSpeed = 1.0;
@@ -78,18 +74,13 @@ public class RitualSpeed extends Ritual {
 
         // Corrosive: additional horizontal speed
         if (hasCorrosive) {
-            horizontalSpeed += corrosiveWill / 40.0;
+            horizontalSpeed += will.getCorrosive() / 40.0;
         }
 
         List<LivingEntity> entities = RitualHelper.getEntitiesInRange(ctx, this, SPEED_RANGE, LivingEntity.class,
                 entity -> entity.isAlive() && !entity.isShiftKeyDown());
 
         int cost = 0;
-        double rawUsed = 0;
-        double corrosiveUsed = 0;
-        double destructiveUsed = 0;
-        double vengefulUsed = 0;
-        double steadfastUsed = 0;
 
         for (LivingEntity entity : entities) {
             if (cost + getRefreshCost() > ctx.currentEssence()) break;
@@ -140,36 +131,22 @@ public class RitualSpeed extends Ritual {
             // Steadfast: apply Soft Fall
             if (hasSteadfast) {
                 entity.addEffect(new MobEffectInstance(NVMobEffects.SOFT_FALL, 100, 0, true, false));
-                steadfastUsed += WILL_PER_ENTITY;
+                will.use(EnumWillType.STEADFAST, WILL_PER_ENTITY);
             }
 
             cost += getRefreshCost();
 
-            if (hasRawWill) rawUsed += WILL_PER_ENTITY;
-            if (hasCorrosive) corrosiveUsed += WILL_PER_ENTITY;
-            if (hasDestructive) destructiveUsed += WILL_PER_ENTITY;
-            if (hasVengeful) vengefulUsed += WILL_PER_ENTITY;
+            if (hasRawWill) will.use(EnumWillType.DEFAULT, WILL_PER_ENTITY);
+            if (hasCorrosive) will.use(EnumWillType.CORROSIVE, WILL_PER_ENTITY);
+            if (hasDestructive) will.use(EnumWillType.DESTRUCTIVE, WILL_PER_ENTITY);
+            if (hasVengeful) will.use(EnumWillType.VENGEFUL, WILL_PER_ENTITY);
         }
 
         if (cost > 0) {
             ctx.syphon(cost);
         }
 
-        if (rawUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DEFAULT, rawUsed);
-        }
-        if (corrosiveUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.CORROSIVE, corrosiveUsed);
-        }
-        if (destructiveUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE, destructiveUsed);
-        }
-        if (vengefulUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.VENGEFUL, vengefulUsed);
-        }
-        if (steadfastUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.STEADFAST, steadfastUsed);
-        }
+        will.drain(ctx.level(), masterPos);
     }
 
     @Override

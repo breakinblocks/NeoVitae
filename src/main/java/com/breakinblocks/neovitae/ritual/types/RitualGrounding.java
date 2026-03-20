@@ -12,7 +12,7 @@ import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
+import com.breakinblocks.neovitae.api.will.WillState;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -59,17 +59,7 @@ public class RitualGrounding extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
-        double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
-        double destructiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE);
-        double vengefulWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.VENGEFUL);
-        double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
-
-        boolean hasRawWill = rawWill >= MIN_WILL;
-        boolean hasCorrosive = corrosiveWill >= MIN_WILL;
-        boolean hasDestructive = destructiveWill >= MIN_WILL;
-        boolean hasVengeful = vengefulWill >= MIN_WILL;
-        boolean hasSteadfast = steadfastWill >= MIN_WILL;
+        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
 
         double rawUsed = 0;
         double corrosiveUsed = 0;
@@ -79,7 +69,7 @@ public class RitualGrounding extends Ritual {
 
         int totalCost = 0;
 
-        if (hasDestructive) {
+        if (will.hasDestructive()) {
             // DESTRUCTIVE: Heavy Heart on ALL living entities
             List<LivingEntity> entities = RitualHelper.getEntitiesInRange(ctx, this, GROUNDING_RANGE, LivingEntity.class,
                     entity -> entity.isAlive());
@@ -89,31 +79,31 @@ public class RitualGrounding extends Ritual {
                 if (entity instanceof Player player && player.isCreative()) continue;
 
                 // Skip boss entities unless steadfast will is present
-                if (!hasSteadfast && !entity.canChangeDimensions(ctx.level(), ctx.level())) continue;
+                if (!will.hasSteadfast() && !entity.canChangeDimensions(ctx.level(), ctx.level())) continue;
 
-                if ((destructiveWill - destructiveUsed) < WILL_PER_ENTITY) break;
+                if ((will.getDestructive() - destructiveUsed) < WILL_PER_ENTITY) break;
 
                 entity.addEffect(new MobEffectInstance(NVMobEffects.HEAVY_HEART, 100, 1, true, true));
                 destructiveUsed += WILL_PER_ENTITY;
-                if (hasSteadfast && !entity.canChangeDimensions(ctx.level(), ctx.level())) {
+                if (will.hasSteadfast() && !entity.canChangeDimensions(ctx.level(), ctx.level())) {
                     steadfastUsed += WILL_PER_ENTITY;
                 }
                 totalCost += refreshCost;
             }
-        } else if (hasRawWill) {
+        } else if (will.hasDefault()) {
             // RAW WILL: Player-only targeting with will-based effects
             List<Player> players = RitualHelper.getEntitiesInRange(ctx, this, GROUNDING_RANGE, Player.class,
                     player -> player.isAlive() && !player.isCreative() && !player.isSpectator());
 
             for (Player player : players) {
-                if ((rawWill - rawUsed) < WILL_PER_ENTITY) break;
+                if ((will.getDefault() - rawUsed) < WILL_PER_ENTITY) break;
 
                 // Effect priority: Corrosive > Vengeful > Default
-                if (hasCorrosive && (corrosiveWill - corrosiveUsed) >= WILL_PER_ENTITY) {
+                if (will.hasCorrosive() && (will.getCorrosive() - corrosiveUsed) >= WILL_PER_ENTITY) {
                     // Corrosive: Suspended (floating)
                     player.addEffect(new MobEffectInstance(NVMobEffects.SUSPENDED, 20, 0, true, false));
                     corrosiveUsed += WILL_PER_ENTITY;
-                } else if (hasVengeful && (vengefulWill - vengefulUsed) >= WILL_PER_ENTITY) {
+                } else if (will.hasVengeful() && (will.getVengeful() - vengefulUsed) >= WILL_PER_ENTITY) {
                     // Vengeful: Levitation (amplifier 10 for strong upward force)
                     player.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 20, 10, true, false));
                     vengefulUsed += WILL_PER_ENTITY;
@@ -145,21 +135,12 @@ public class RitualGrounding extends Ritual {
             ctx.syphon(Math.min(totalCost, ctx.currentEssence()));
         }
 
-        if (rawUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DEFAULT, rawUsed);
-        }
-        if (corrosiveUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.CORROSIVE, corrosiveUsed);
-        }
-        if (destructiveUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE, destructiveUsed);
-        }
-        if (vengefulUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.VENGEFUL, vengefulUsed);
-        }
-        if (steadfastUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.STEADFAST, steadfastUsed);
-        }
+        will.use(EnumWillType.DEFAULT, rawUsed);
+        will.use(EnumWillType.CORROSIVE, corrosiveUsed);
+        will.use(EnumWillType.DESTRUCTIVE, destructiveUsed);
+        will.use(EnumWillType.VENGEFUL, vengefulUsed);
+        will.use(EnumWillType.STEADFAST, steadfastUsed);
+        will.drain(ctx.level(), masterPos);
     }
 
     @Override

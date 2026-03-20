@@ -11,7 +11,7 @@ import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
+import com.breakinblocks.neovitae.api.will.WillState;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -60,8 +60,8 @@ public class RitualRegeneration extends Ritual {
         }
 
         // Corrosive Will: Vampire syphon - drain HP from mobs to heal players
-        double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
-        if (corrosiveWill >= CORROSIVE_MIN_WILL) {
+        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, CORROSIVE_MIN_WILL);
+        if (will.hasCorrosive()) {
             List<LivingEntity> mobs = RitualHelper.getEntitiesInRange(ctx, this, HEAL_RANGE,
                     LivingEntity.class, e -> !(e instanceof Player) && e.isAlive());
             List<Player> hurtPlayers = players.stream()
@@ -73,7 +73,7 @@ public class RitualRegeneration extends Ritual {
                 int playerIndex = 0;
 
                 for (LivingEntity mob : mobs) {
-                    if ((corrosiveWill - willUsed) < CORROSIVE_WILL_PER_MOB) break;
+                    if ((will.getCorrosive() - willUsed) < CORROSIVE_WILL_PER_MOB) break;
 
                     float healthBefore = mob.getHealth();
                     mob.hurt(ctx.level().damageSources().source(NVDamageSources.RITUAL), 2.0F);
@@ -88,7 +88,8 @@ public class RitualRegeneration extends Ritual {
                 }
 
                 if (willUsed > 0) {
-                    WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.CORROSIVE, willUsed);
+                    will.use(EnumWillType.CORROSIVE, willUsed);
+                    will.drain(ctx.level(), masterPos);
                 }
             }
         }

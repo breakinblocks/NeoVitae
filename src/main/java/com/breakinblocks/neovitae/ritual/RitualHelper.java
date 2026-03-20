@@ -8,15 +8,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.api.will.DemonWillHandler;
+import com.breakinblocks.neovitae.api.will.WillState;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Utility class providing common operations used by rituals.
@@ -145,20 +143,12 @@ public final class RitualHelper {
         }
     }
 
-    public static Map<EnumWillType, Double> queryAllWill(Level level, BlockPos pos) {
-        Map<EnumWillType, Double> will = new EnumMap<>(EnumWillType.class);
-        for (EnumWillType type : EnumWillType.values()) {
-            will.put(type, WorldDemonWillHandler.getCurrentWill(level, pos, type));
-        }
-        return will;
-    }
-
-    public static void drainAllWill(Level level, BlockPos pos, Map<EnumWillType, Double> willUsed) {
-        willUsed.forEach((type, amount) -> {
-            if (amount > 0) {
-                WorldDemonWillHandler.drainWillFromChunk(level, pos, type, amount);
-            }
-        });
+    /**
+     * Queries all demon will types for a chunk and returns a snapshot with threshold checks.
+     * Convenience method delegating to {@link DemonWillHandler#queryWill(Level, BlockPos, double)}.
+     */
+    public static WillState queryWill(Level level, BlockPos pos, double threshold) {
+        return DemonWillHandler.INSTANCE.queryWill(level, pos, threshold);
     }
 
     public static void syphonLP(RitualContext context, int cost) {

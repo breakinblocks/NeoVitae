@@ -16,8 +16,8 @@ import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
+import com.breakinblocks.neovitae.api.will.WillState;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 import java.util.List;
 import java.util.UUID;
@@ -69,18 +69,10 @@ public class RitualLava extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
-        double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
-        double vengefulWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.VENGEFUL);
-        double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
-
-        boolean hasRawWill = rawWill >= MIN_WILL;
-        boolean hasCorrosive = corrosiveWill >= MIN_WILL;
-        boolean hasVengeful = vengefulWill >= MIN_WILL;
-        boolean hasSteadfast = steadfastWill >= MIN_WILL;
+        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
 
         // LP cost per lava placement — cheaper with more raw will
-        int lavaCost = hasRawWill ? Math.max(0, BASE_LAVA_COST - (int) rawWill) : BASE_LAVA_COST;
+        int lavaCost = will.hasDefault() ? Math.max(0, BASE_LAVA_COST - (int) will.getDefault()) : BASE_LAVA_COST;
         if (lavaCost == 0) lavaCost = 1; // Minimum 1 LP
 
         int maxEffects = ctx.maxOperations(lavaCost);
@@ -92,11 +84,11 @@ public class RitualLava extends Ritual {
         double steadfastUsed = 0;
 
         // --- TANK FILLING: Fill fluid tanks with lava when raw will is present ---
-        if (hasRawWill) {
+        if (will.hasDefault()) {
             List<BlockPos> tankPositions = RitualHelper.getRangePositions(ctx.master(), this, TANK_RANGE, masterPos);
             for (BlockPos tankPos : tankPositions) {
                 if (totalEffects >= maxEffects) break;
-                if ((rawWill - rawUsed) < WILL_PER_TANK_FILL) break;
+                if ((will.getDefault() - rawUsed) < WILL_PER_TANK_FILL) break;
 
                 IFluidHandler fluidHandler = ctx.level().getCapability(
                         Capabilities.FluidHandler.BLOCK, tankPos, null);
@@ -120,7 +112,7 @@ public class RitualLava extends Ritual {
             if (ctx.level().isEmptyBlock(pos)) {
                 if (BlockProtectionHelper.tryPlaceBlock(ctx.level(), pos, Blocks.LAVA.defaultBlockState(), owner)) {
                     totalEffects++;
-                    if (hasRawWill) {
+                    if (will.hasDefault()) {
                         rawUsed += WILL_PER_LAVA;
                     }
                 }
@@ -130,33 +122,33 @@ public class RitualLava extends Ritual {
         // --- FIRE EFFECTS: Apply effects to entities in fire range ---
 
         // Vengeful: Fire Fuse on non-player mobs
-        if (hasVengeful) {
+        if (will.hasVengeful()) {
             List<LivingEntity> mobs = RitualHelper.getEntitiesInRange(ctx, this, FIRE_RANGE, LivingEntity.class,
                     mob -> mob.isAlive() && !(mob instanceof Player));
             for (LivingEntity mob : mobs) {
-                if ((vengefulWill - vengefulUsed) < VENGEFUL_WILL_PER_MOB) break;
+                if ((will.getVengeful() - vengefulUsed) < VENGEFUL_WILL_PER_MOB) break;
                 mob.addEffect(new MobEffectInstance(NVMobEffects.FIRE_FUSE, 100, 0, true, true));
                 vengefulUsed += VENGEFUL_WILL_PER_MOB;
             }
         }
 
         // Steadfast: Fire Resistance on players
-        if (hasSteadfast) {
+        if (will.hasSteadfast()) {
             List<Player> players = RitualHelper.getEntitiesInRange(ctx, this, FIRE_RANGE, Player.class,
                     player -> player.isAlive() && !player.isSpectator());
             for (Player player : players) {
-                if ((steadfastWill - steadfastUsed) < STEADFAST_WILL_PER_PLAYER) break;
+                if ((will.getSteadfast() - steadfastUsed) < STEADFAST_WILL_PER_PLAYER) break;
                 player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 100, 0, true, false));
                 steadfastUsed += STEADFAST_WILL_PER_PLAYER;
             }
         }
 
         // Corrosive: Fire damage to entities (skip fire-immune)
-        if (hasCorrosive) {
+        if (will.hasCorrosive()) {
             List<LivingEntity> entities = RitualHelper.getEntitiesInRange(ctx, this, FIRE_RANGE, LivingEntity.class,
                     entity -> entity.isAlive() && !entity.fireImmune());
             for (LivingEntity entity : entities) {
-                if ((corrosiveWill - corrosiveUsed) < CORROSIVE_WILL_PER_HIT) break;
+                if ((will.getCorrosive() - corrosiveUsed) < CORROSIVE_WILL_PER_HIT) break;
                 entity.hurt(ctx.level().damageSources().onFire(), CORROSIVE_FIRE_DAMAGE);
                 entity.setRemainingFireTicks(60);
                 corrosiveUsed += CORROSIVE_WILL_PER_HIT;
@@ -167,18 +159,11 @@ public class RitualLava extends Ritual {
             ctx.syphon(lavaCost * totalEffects);
         }
 
-        if (rawUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DEFAULT, rawUsed);
-        }
-        if (corrosiveUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.CORROSIVE, corrosiveUsed);
-        }
-        if (vengefulUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.VENGEFUL, vengefulUsed);
-        }
-        if (steadfastUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.STEADFAST, steadfastUsed);
-        }
+        will.use(EnumWillType.DEFAULT, rawUsed);
+        will.use(EnumWillType.CORROSIVE, corrosiveUsed);
+        will.use(EnumWillType.VENGEFUL, vengefulUsed);
+        will.use(EnumWillType.STEADFAST, steadfastUsed);
+        will.drain(ctx.level(), masterPos);
     }
 
     @Override

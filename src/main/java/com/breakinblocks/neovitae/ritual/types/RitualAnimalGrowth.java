@@ -15,8 +15,8 @@ import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
+import com.breakinblocks.neovitae.api.will.WillState;
 import com.breakinblocks.neovitae.util.Utils;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -64,17 +64,14 @@ public class RitualAnimalGrowth extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
-        double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
-        double destructiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE);
-        double vengefulWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.VENGEFUL);
+        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
 
-        boolean hasRaw = rawWill >= MIN_DEFAULT;
-        boolean doBreed = steadfastWill >= MIN_STEADFAST;
-        boolean doSacrifice = destructiveWill >= MIN_DESTRUCTIVE;
-        boolean doVengeful = vengefulWill >= MIN_VENGEFUL;
+        boolean hasRaw = will.hasDefault();
+        boolean doBreed = will.hasSteadfast();
+        boolean doSacrifice = will.hasDestructive();
+        boolean doVengeful = will.hasVengeful();
 
-        refreshTime = hasRaw ? Math.max(5, 20 - (int) (rawWill / 10)) : 20;
+        refreshTime = hasRaw ? Math.max(5, 20 - (int) (will.getDefault() / 10)) : 20;
 
         double steadfastWillUsed = 0;
         double destructiveWillUsed = 0;
@@ -108,7 +105,7 @@ public class RitualAnimalGrowth extends Ritual {
 
             for (Animal animal : adults) {
                 if (animalsProcessed >= maxAnimals) break;
-                if ((steadfastWill - steadfastWillUsed) < WILL_PER_BREED) break;
+                if ((will.getSteadfast() - steadfastWillUsed) < WILL_PER_BREED) break;
 
                 // Try to find food in the chest
                 boolean fed = false;
@@ -133,7 +130,7 @@ public class RitualAnimalGrowth extends Ritual {
                     Animal.class, animal -> !animal.isBaby() && animal.isAlive());
 
             for (Animal animal : adults) {
-                if ((destructiveWill - destructiveWillUsed) < WILL_PER_SACRIFICE) break;
+                if ((will.getDestructive() - destructiveWillUsed) < WILL_PER_SACRIFICE) break;
 
                 if (!animal.hasEffect(NVMobEffects.SACRIFICIAL_LAMB)) {
                     animal.addEffect(new MobEffectInstance(NVMobEffects.SACRIFICIAL_LAMB, 1200, 0));
@@ -148,24 +145,19 @@ public class RitualAnimalGrowth extends Ritual {
                     Animal.class, animal -> !animal.isBaby() && animal.getAge() > 0);
 
             for (Animal animal : cooldownAnimals) {
-                if ((vengefulWill - vengefulWillUsed) < WILL_PER_COOLDOWN) break;
+                if ((will.getVengeful() - vengefulWillUsed) < WILL_PER_COOLDOWN) break;
 
                 int age = animal.getAge();
-                int reduction = 10 + (int) (vengefulWill / 5);
+                int reduction = 10 + (int) (will.getVengeful() / 5);
                 animal.setAge(Math.max(0, age - reduction));
                 vengefulWillUsed += WILL_PER_COOLDOWN;
             }
         }
 
-        if (steadfastWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.STEADFAST, steadfastWillUsed);
-        }
-        if (destructiveWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE, destructiveWillUsed);
-        }
-        if (vengefulWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.VENGEFUL, vengefulWillUsed);
-        }
+        will.use(EnumWillType.STEADFAST, steadfastWillUsed);
+        will.use(EnumWillType.DESTRUCTIVE, destructiveWillUsed);
+        will.use(EnumWillType.VENGEFUL, vengefulWillUsed);
+        will.drain(ctx.level(), masterPos);
 
         ctx.syphon(getRefreshCost() * animalsProcessed);
     }

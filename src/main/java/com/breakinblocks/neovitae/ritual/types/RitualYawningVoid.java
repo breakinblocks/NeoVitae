@@ -21,9 +21,9 @@ import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
+import com.breakinblocks.neovitae.api.will.WillState;
 import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 import java.util.List;
 import java.util.UUID;
@@ -85,16 +85,13 @@ public class RitualYawningVoid extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
-        double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
-        double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
+        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, Math.min(MIN_DEFAULT, Math.min(MIN_STEADFAST, MIN_CORROSIVE)));
 
-        boolean hasRaw = rawWill >= MIN_DEFAULT;
-        boolean doReplace = steadfastWill >= MIN_STEADFAST;
-        boolean doFilter = corrosiveWill >= MIN_CORROSIVE;
+        boolean hasRaw = will.hasDefault();
+        boolean doReplace = will.hasSteadfast();
+        boolean doFilter = will.hasCorrosive();
 
         double steadfastWillUsed = 0;
-        double corrosiveWillUsed = 0;
 
         BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, masterPos).getFirst();
         BlockEntity chestTile = ctx.level().getBlockEntity(chestPos);
@@ -179,17 +176,18 @@ public class RitualYawningVoid extends Ritual {
                 }
 
                 if (!matchesFilter) continue;
-                corrosiveWillUsed += WILL_PER_FILTER;
+                will.use(EnumWillType.CORROSIVE, WILL_PER_FILTER);
             }
 
             // STEADFAST: Replace mode - place block in placement area instead of dropping
-            if (doReplace && (steadfastWill - steadfastWillUsed) >= WILL_PER_REPLACE) {
+            if (doReplace && (will.getSteadfast() - steadfastWillUsed) >= WILL_PER_REPLACE) {
                 ItemStack blockAsItem = new ItemStack(state.getBlock().asItem());
                 if (!blockAsItem.isEmpty()) {
                     // Try to place in the placement area
                     boolean placed = tryPlaceInRange(ctx, masterPos, state);
                     if (placed) {
                         ctx.level().destroyBlock(targetPos, false);
+                        will.use(EnumWillType.STEADFAST, WILL_PER_REPLACE);
                         steadfastWillUsed += WILL_PER_REPLACE;
                         processed = true;
                         continue;
@@ -219,12 +217,7 @@ public class RitualYawningVoid extends Ritual {
             }
         }
 
-        if (steadfastWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.STEADFAST, steadfastWillUsed);
-        }
-        if (corrosiveWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.CORROSIVE, corrosiveWillUsed);
-        }
+        will.drain(ctx.level(), masterPos);
 
         if (processed) {
             ctx.syphon(getRefreshCost());

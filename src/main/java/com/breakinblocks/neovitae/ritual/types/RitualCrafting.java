@@ -20,7 +20,7 @@ import com.breakinblocks.neovitae.common.recipe.forge.ForgeInput;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
+import com.breakinblocks.neovitae.api.will.WillState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,14 +79,10 @@ public class RitualCrafting extends Ritual {
 
         if (inputHandler == null || outputHandler == null) return;
 
-        double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
-        double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
+        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, Math.min(MIN_STEADFAST, MIN_CORROSIVE));
 
-        boolean trySoulForge = steadfastWill >= MIN_STEADFAST;
-        boolean tryAlchemy = corrosiveWill >= MIN_CORROSIVE;
-
-        double steadfastWillUsed = 0;
-        double corrosiveWillUsed = 0;
+        boolean trySoulForge = will.hasSteadfast();
+        boolean tryAlchemy = will.hasCorrosive();
 
         List<ItemStack> inputItems = new ArrayList<>();
         for (int i = 0; i < Math.min(9, inputHandler.getSlots()); i++) {
@@ -110,8 +106,8 @@ public class RitualCrafting extends Ritual {
                         }
                     }
                     ItemHandlerHelper.insertItemStacked(outputHandler, result, false);
-                    steadfastWillUsed += WILL_PER_FORGE_CRAFT;
-                    WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.STEADFAST, steadfastWillUsed);
+                    will.use(EnumWillType.STEADFAST, WILL_PER_FORGE_CRAFT);
+                    will.drain(ctx.level(), masterPos);
                     ctx.syphon(getRefreshCost());
                     return;
                 }
@@ -133,8 +129,8 @@ public class RitualCrafting extends Ritual {
                         }
                     }
                     ItemHandlerHelper.insertItemStacked(outputHandler, result, false);
-                    corrosiveWillUsed += WILL_PER_ALCHEMY_CRAFT;
-                    WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.CORROSIVE, corrosiveWillUsed);
+                    will.use(EnumWillType.CORROSIVE, WILL_PER_ALCHEMY_CRAFT);
+                    will.drain(ctx.level(), masterPos);
                     ctx.syphon(getRefreshCost());
                     return;
                 }

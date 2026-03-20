@@ -24,9 +24,9 @@ import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
+import com.breakinblocks.neovitae.api.will.WillState;
 import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,17 +101,13 @@ public class RitualGeode extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
-        double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
-        double destructiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE);
-        double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
-        double vengefulWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.VENGEFUL);
+        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
 
-        boolean doStore = rawWill >= MIN_DEFAULT;
-        boolean doFortune = destructiveWill >= MIN_DESTRUCTIVE;
-        boolean doSilk = steadfastWill >= MIN_STEADFAST;
-        boolean doAccel = corrosiveWill >= MIN_CORROSIVE;
-        boolean doHarm = vengefulWill >= MIN_VENGEFUL;
+        boolean doStore = will.hasDefault();
+        boolean doFortune = will.hasDestructive();
+        boolean doSilk = will.hasSteadfast();
+        boolean doAccel = will.hasCorrosive();
+        boolean doHarm = will.hasVengeful();
 
         // Silk touch overrides fortune
         if (doSilk) {
@@ -152,8 +148,8 @@ public class RitualGeode extends Ritual {
             if (!state.is(NVTags.Blocks.GEODE_HARVESTABLE)) continue;
 
             // Check will costs before harvesting
-            if (doFortune && (destructiveWill - fortuneWillUsed) < WILL_PER_FORTUNE) continue;
-            if (doSilk && (steadfastWill - silkWillUsed) < WILL_PER_SILK) continue;
+            if (doFortune && (will.getDestructive() - fortuneWillUsed) < WILL_PER_FORTUNE) continue;
+            if (doSilk && (will.getSteadfast() - silkWillUsed) < WILL_PER_SILK) continue;
 
             // Check block protection
             if (!BlockProtectionHelper.canBreakBlock(ctx.level(), harvestPos, owner)) continue;
@@ -176,7 +172,7 @@ public class RitualGeode extends Ritual {
             if (doSilk) silkWillUsed += WILL_PER_SILK;
 
             for (ItemStack dropStack : blockDrops) {
-                if (doStore && (rawWill - storeWillUsed) >= WILL_PER_STORE) {
+                if (doStore && (will.getDefault() - storeWillUsed) >= WILL_PER_STORE) {
                     dropStack = Utils.insertStackIntoTile(dropStack, inv, Direction.DOWN);
                     storeWillUsed += WILL_PER_STORE;
                 }
@@ -196,7 +192,7 @@ public class RitualGeode extends Ritual {
 
             for (LivingEntity mob : mobs) {
                 if (harmTicks >= MAX_HARM) break;
-                if ((vengefulWill - harmWillUsed) < WILL_PER_HARM) break;
+                if ((will.getVengeful() - harmWillUsed) < WILL_PER_HARM) break;
 
                 if (mob.hurt(ctx.level().damageSources().source(NVDamageSources.RITUAL), HURT_DAMAGE)) {
                     harmTicks++;
@@ -219,28 +215,19 @@ public class RitualGeode extends Ritual {
             }
 
             // Extra ticks from corrosive will
-            if (doAccel && (corrosiveWill - accelWillUsed) >= WILL_PER_GROWTH) {
+            if (doAccel && (will.getCorrosive() - accelWillUsed) >= WILL_PER_GROWTH) {
                 state.randomTick(serverLevel, accelPos, ctx.level().getRandom());
                 state.randomTick(serverLevel, accelPos, ctx.level().getRandom());
                 accelWillUsed += WILL_PER_GROWTH;
             }
         }
 
-        if (storeWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DEFAULT, storeWillUsed);
-        }
-        if (fortuneWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE, fortuneWillUsed);
-        }
-        if (silkWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.STEADFAST, silkWillUsed);
-        }
-        if (accelWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.CORROSIVE, accelWillUsed);
-        }
-        if (harmWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.VENGEFUL, harmWillUsed);
-        }
+        will.use(EnumWillType.DEFAULT, storeWillUsed);
+        will.use(EnumWillType.DESTRUCTIVE, fortuneWillUsed);
+        will.use(EnumWillType.STEADFAST, silkWillUsed);
+        will.use(EnumWillType.CORROSIVE, accelWillUsed);
+        will.use(EnumWillType.VENGEFUL, harmWillUsed);
+        will.drain(ctx.level(), masterPos);
 
         ctx.syphon(totalCost > 0 ? totalCost : getRefreshCost());
     }

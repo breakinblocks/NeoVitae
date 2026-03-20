@@ -18,7 +18,7 @@ import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
+import com.breakinblocks.neovitae.api.will.WillState;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -72,17 +72,14 @@ public class RitualGreenGrove extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
-        double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
-        double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
-        double vengefulWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.VENGEFUL);
+        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
 
-        boolean hasRaw = rawWill >= MIN_DEFAULT;
-        boolean doHydrate = steadfastWill >= MIN_STEADFAST;
-        boolean doLeech = corrosiveWill >= MIN_CORROSIVE;
-        boolean doVengeful = vengefulWill >= MIN_VENGEFUL;
+        boolean hasRaw = will.hasDefault();
+        boolean doHydrate = will.hasSteadfast();
+        boolean doLeech = will.hasCorrosive();
+        boolean doVengeful = will.hasVengeful();
 
-        refreshTime = hasRaw ? Math.max(10, 20 - (int) (rawWill / 10)) : 20;
+        refreshTime = hasRaw ? Math.max(10, 20 - (int) (will.getDefault() / 10)) : 20;
 
         double rawWillUsed = 0;
         double steadfastWillUsed = 0;
@@ -101,8 +98,8 @@ public class RitualGreenGrove extends Ritual {
             Block block = state.getBlock();
 
             // Vengeful: scale growth chance
-            if (doVengeful && (vengefulWill - vengefulWillUsed) >= WILL_PER_VENGEFUL_GROWTH) {
-                double growthChance = 0.3 + vengefulWill / 200.0;
+            if (doVengeful && (will.getVengeful() - vengefulWillUsed) >= WILL_PER_VENGEFUL_GROWTH) {
+                double growthChance = 0.3 + will.getVengeful() / 200.0;
                 if (ctx.level().random.nextDouble() > growthChance) {
                     continue; // Skip this position based on chance
                 }
@@ -128,7 +125,7 @@ public class RitualGreenGrove extends Ritual {
 
             if (grew) {
                 totalGrowths++;
-                if (doVengeful && (vengefulWill - vengefulWillUsed) >= WILL_PER_VENGEFUL_GROWTH) {
+                if (doVengeful && (will.getVengeful() - vengefulWillUsed) >= WILL_PER_VENGEFUL_GROWTH) {
                     vengefulWillUsed += WILL_PER_VENGEFUL_GROWTH;
                 }
             }
@@ -138,7 +135,7 @@ public class RitualGreenGrove extends Ritual {
         if (doHydrate) {
             List<BlockPos> hydratePositions = RitualHelper.getRangePositions(ctx.master(), this, HYDRATE_RANGE, masterPos);
             for (BlockPos pos : hydratePositions) {
-                if ((steadfastWill - steadfastWillUsed) < WILL_PER_HYDRATE) break;
+                if ((will.getSteadfast() - steadfastWillUsed) < WILL_PER_HYDRATE) break;
 
                 BlockState state = ctx.level().getBlockState(pos);
                 if (state.is(Blocks.FARMLAND)) {
@@ -157,7 +154,7 @@ public class RitualGreenGrove extends Ritual {
                     mob -> mob.isAlive() && !(mob instanceof Player));
 
             for (LivingEntity mob : mobs) {
-                if ((corrosiveWill - corrosiveWillUsed) < WILL_PER_LEECH) break;
+                if ((will.getCorrosive() - corrosiveWillUsed) < WILL_PER_LEECH) break;
 
                 if (!mob.hasEffect(NVMobEffects.PLANT_LEECH)) {
                     mob.addEffect(new MobEffectInstance(NVMobEffects.PLANT_LEECH, 200, 0));
@@ -166,18 +163,11 @@ public class RitualGreenGrove extends Ritual {
             }
         }
 
-        if (rawWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DEFAULT, rawWillUsed);
-        }
-        if (steadfastWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.STEADFAST, steadfastWillUsed);
-        }
-        if (corrosiveWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.CORROSIVE, corrosiveWillUsed);
-        }
-        if (vengefulWillUsed > 0) {
-            WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.VENGEFUL, vengefulWillUsed);
-        }
+        will.use(EnumWillType.DEFAULT, rawWillUsed);
+        will.use(EnumWillType.STEADFAST, steadfastWillUsed);
+        will.use(EnumWillType.CORROSIVE, corrosiveWillUsed);
+        will.use(EnumWillType.VENGEFUL, vengefulWillUsed);
+        will.drain(ctx.level(), masterPos);
 
         ctx.syphon(getRefreshCost() * totalGrowths);
     }

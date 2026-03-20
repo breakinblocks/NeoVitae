@@ -11,8 +11,8 @@ import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
+import com.breakinblocks.neovitae.api.will.WillState;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 import java.util.List;
 import java.util.UUID;
@@ -57,10 +57,9 @@ public class RitualWater extends Ritual {
         }
 
         // Demon Will: Fill fluid tanks with water
-        double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), ctx.masterPos(), EnumWillType.DEFAULT);
-        if (rawWill >= 1.0) {
+        WillState will = RitualHelper.queryWill(ctx.level(), ctx.masterPos(), 1.0);
+        if (will.hasDefault()) {
             List<BlockPos> tankPositions = RitualHelper.getRangePositions(ctx.master(), this, TANK_RANGE, ctx.masterPos());
-            double willDrained = 0;
 
             for (BlockPos tankPos : tankPositions) {
                 IFluidHandler fluidHandler = ctx.level().getCapability(Capabilities.FluidHandler.BLOCK, tankPos, null);
@@ -68,15 +67,13 @@ public class RitualWater extends Ritual {
                     FluidStack waterStack = new FluidStack(Fluids.WATER, 1000);
                     int filled = fluidHandler.fill(waterStack, IFluidHandler.FluidAction.EXECUTE);
                     if (filled > 0) {
-                        willDrained += (double) filled / 1000.0;
+                        will.use(EnumWillType.DEFAULT, (double) filled / 1000.0);
                         totalEffects++;
                     }
                 }
             }
 
-            if (willDrained > 0) {
-                WorldDemonWillHandler.drainWillFromChunk(ctx.level(), ctx.masterPos(), EnumWillType.DEFAULT, willDrained);
-            }
+            will.drain(ctx.level(), ctx.masterPos());
         }
 
         ctx.syphon(getRefreshCost() * totalEffects);

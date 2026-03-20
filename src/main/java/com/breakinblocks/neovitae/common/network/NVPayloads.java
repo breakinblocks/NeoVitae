@@ -73,7 +73,7 @@ public class NVPayloads {
 
     private static void handleWillChunkSync(WillChunkSyncPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
-            WorldDemonWillHandler.updateClientCache(
+            com.breakinblocks.neovitae.client.ClientWillCache.update(
                     payload.chunkX(),
                     payload.chunkZ(),
                     payload.toWillChunk()

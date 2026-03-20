@@ -11,24 +11,11 @@ import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.network.WillChunkSyncPayload;
 
+import com.breakinblocks.neovitae.client.ClientWillCache;
+
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class WorldDemonWillHandler {
-    private static final Map<Long, WillChunk> clientCache = new ConcurrentHashMap<>();
-
-    private static long chunkKey(int x, int z) {
-        return ChunkPos.asLong(x, z);
-    }
-
-    public static void updateClientCache(int chunkX, int chunkZ, WillChunk willChunk) {
-        clientCache.put(chunkKey(chunkX, chunkZ), willChunk);
-    }
-
-    public static void clearClientCache() {
-        clientCache.clear();
-    }
 
     public static WillChunk getWillChunk(Level level, BlockPos pos) {
         if (level == null) {
@@ -38,7 +25,7 @@ public class WorldDemonWillHandler {
         ChunkPos chunkPos = new ChunkPos(pos);
 
         if (level.isClientSide()) {
-            return clientCache.getOrDefault(chunkKey(chunkPos.x, chunkPos.z), new WillChunk());
+            return ClientWillCache.get(chunkPos.x, chunkPos.z);
         }
 
         LevelChunk chunk = level.getChunkAt(pos);
@@ -51,7 +38,7 @@ public class WorldDemonWillHandler {
         }
 
         if (level.isClientSide()) {
-            return clientCache.getOrDefault(chunkKey(chunkPos.x, chunkPos.z), new WillChunk());
+            return ClientWillCache.get(chunkPos.x, chunkPos.z);
         }
 
         LevelChunk chunk = level.getChunk(chunkPos.x, chunkPos.z);

@@ -208,6 +208,20 @@ public abstract class Ritual {
         addRune(components, -offset, y, offset, rune);
     }
 
+    /**
+     * Calculates a scaled refresh time based on the amount of demon will present.
+     * Higher will amounts result in faster (lower) refresh times, clamped to a minimum.
+     *
+     * @param willAmount  The amount of demon will influencing the refresh time
+     * @param baseTime    The base refresh time in ticks (used when no will is present)
+     * @param minTime     The minimum refresh time in ticks (floor value)
+     * @param willDivisor The divisor applied to the will amount to determine tick reduction
+     * @return The scaled refresh time, no lower than {@code minTime}
+     */
+    protected static int scaleRefreshTime(double willAmount, int baseTime, int minTime, double willDivisor) {
+        return Math.max(minTime, baseTime - (int) (willAmount / willDivisor));
+    }
+
     protected final void addParallelRunes(Consumer<RitualComponent> components, int offset, int y, EnumRuneType rune) {
         addRune(components, offset, y, 0, rune);
         addRune(components, -offset, y, 0, rune);

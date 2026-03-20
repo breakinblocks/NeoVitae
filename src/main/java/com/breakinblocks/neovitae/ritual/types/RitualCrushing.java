@@ -85,7 +85,7 @@ public class RitualCrushing extends Ritual {
             doFortune = false;
         }
 
-        refreshTime = hasRaw ? Math.max(1, 40 - (int) (will.getDefault() / 5)) : 40;
+        refreshTime = hasRaw ? scaleRefreshTime(will.getDefault(), 40, 1, 5) : 40;
 
         ItemStack toolStack = RitualHelper.createMiningTool(serverLevel, doFortune, doSilk);
 

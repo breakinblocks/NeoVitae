@@ -123,8 +123,7 @@ public class RitualLava extends Ritual {
 
         // Vengeful: Fire Fuse on non-player mobs
         if (will.hasVengeful()) {
-            List<LivingEntity> mobs = RitualHelper.getEntitiesInRange(ctx, this, FIRE_RANGE, LivingEntity.class,
-                    mob -> mob.isAlive() && !(mob instanceof Player));
+            List<LivingEntity> mobs = RitualHelper.getAliveMobsInRange(ctx, this, FIRE_RANGE);
             for (LivingEntity mob : mobs) {
                 if ((will.getVengeful() - vengefulUsed) < VENGEFUL_WILL_PER_MOB) break;
                 mob.addEffect(new MobEffectInstance(NVMobEffects.FIRE_FUSE, 100, 0, true, true));
@@ -134,8 +133,7 @@ public class RitualLava extends Ritual {
 
         // Steadfast: Fire Resistance on players
         if (will.hasSteadfast()) {
-            List<Player> players = RitualHelper.getEntitiesInRange(ctx, this, FIRE_RANGE, Player.class,
-                    player -> player.isAlive() && !player.isSpectator());
+            List<Player> players = RitualHelper.getAlivePlayersInRange(ctx, this, FIRE_RANGE);
             for (Player player : players) {
                 if ((will.getSteadfast() - steadfastUsed) < STEADFAST_WILL_PER_PLAYER) break;
                 player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 100, 0, true, false));

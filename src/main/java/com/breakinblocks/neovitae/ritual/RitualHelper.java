@@ -6,6 +6,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -100,6 +102,20 @@ public final class RitualHelper {
             return Collections.emptyList();
         }
         return context.level().getEntitiesOfClass(entityClass, aabb, filter);
+    }
+
+    public static List<LivingEntity> getAliveLivingEntities(RitualContext context, Ritual ritual, String rangeKey) {
+        return getEntitiesInRange(context, ritual, rangeKey, LivingEntity.class, LivingEntity::isAlive);
+    }
+
+    public static List<LivingEntity> getAliveMobsInRange(RitualContext context, Ritual ritual, String rangeKey) {
+        return getEntitiesInRange(context, ritual, rangeKey, LivingEntity.class,
+                entity -> entity.isAlive() && !(entity instanceof Player));
+    }
+
+    public static List<Player> getAlivePlayersInRange(RitualContext context, Ritual ritual, String rangeKey) {
+        return getEntitiesInRange(context, ritual, rangeKey, Player.class,
+                player -> player.isAlive() && !player.isSpectator());
     }
 
     /**

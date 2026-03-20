@@ -71,7 +71,7 @@ public class RitualAnimalGrowth extends Ritual {
         boolean doSacrifice = will.hasDestructive();
         boolean doVengeful = will.hasVengeful();
 
-        refreshTime = hasRaw ? Math.max(5, 20 - (int) (will.getDefault() / 10)) : 20;
+        refreshTime = hasRaw ? scaleRefreshTime(will.getDefault(), 20, 5, 10) : 20;
 
         double steadfastWillUsed = 0;
         double destructiveWillUsed = 0;

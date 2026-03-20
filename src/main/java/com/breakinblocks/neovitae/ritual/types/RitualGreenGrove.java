@@ -79,7 +79,7 @@ public class RitualGreenGrove extends Ritual {
         boolean doLeech = will.hasCorrosive();
         boolean doVengeful = will.hasVengeful();
 
-        refreshTime = hasRaw ? Math.max(10, 20 - (int) (will.getDefault() / 10)) : 20;
+        refreshTime = hasRaw ? scaleRefreshTime(will.getDefault(), 20, 10, 10) : 20;
 
         double rawWillUsed = 0;
         double steadfastWillUsed = 0;
@@ -150,8 +150,7 @@ public class RitualGreenGrove extends Ritual {
 
         // --- CORROSIVE: Apply Plant Leech to nearby mobs ---
         if (doLeech) {
-            List<LivingEntity> mobs = RitualHelper.getEntitiesInRange(ctx, this, LEECH_RANGE, LivingEntity.class,
-                    mob -> mob.isAlive() && !(mob instanceof Player));
+            List<LivingEntity> mobs = RitualHelper.getAliveMobsInRange(ctx, this, LEECH_RANGE);
 
             for (LivingEntity mob : mobs) {
                 if ((will.getCorrosive() - corrosiveWillUsed) < WILL_PER_LEECH) break;

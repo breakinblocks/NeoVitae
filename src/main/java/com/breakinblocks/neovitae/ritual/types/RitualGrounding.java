@@ -71,8 +71,7 @@ public class RitualGrounding extends Ritual {
 
         if (will.hasDestructive()) {
             // DESTRUCTIVE: Heavy Heart on ALL living entities
-            List<LivingEntity> entities = RitualHelper.getEntitiesInRange(ctx, this, GROUNDING_RANGE, LivingEntity.class,
-                    entity -> entity.isAlive());
+            List<LivingEntity> entities = RitualHelper.getAliveLivingEntities(ctx, this, GROUNDING_RANGE);
 
             for (LivingEntity entity : entities) {
                 // Skip creative players

@@ -62,8 +62,7 @@ public class RitualRegeneration extends Ritual {
         // Corrosive Will: Vampire syphon - drain HP from mobs to heal players
         WillState will = RitualHelper.queryWill(ctx.level(), masterPos, CORROSIVE_MIN_WILL);
         if (will.hasCorrosive()) {
-            List<LivingEntity> mobs = RitualHelper.getEntitiesInRange(ctx, this, HEAL_RANGE,
-                    LivingEntity.class, e -> !(e instanceof Player) && e.isAlive());
+            List<LivingEntity> mobs = RitualHelper.getAliveMobsInRange(ctx, this, HEAL_RANGE);
             List<Player> hurtPlayers = players.stream()
                     .filter(p -> p.getHealth() < p.getMaxHealth())
                     .toList();

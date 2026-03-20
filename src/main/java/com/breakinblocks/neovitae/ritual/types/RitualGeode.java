@@ -173,8 +173,7 @@ public class RitualGeode extends Ritual {
         double harmWillUsed = 0;
 
         if (doHarm) {
-            List<LivingEntity> mobs = RitualHelper.getEntitiesInRange(ctx, this, HARM_RANGE, LivingEntity.class,
-                    mob -> mob.isAlive() && !(mob instanceof net.minecraft.world.entity.player.Player));
+            List<LivingEntity> mobs = RitualHelper.getAliveMobsInRange(ctx, this, HARM_RANGE);
 
             for (LivingEntity mob : mobs) {
                 if (harmTicks >= MAX_HARM) break;

@@ -13,6 +13,9 @@ import com.breakinblocks.neovitae.NeoVitae;
  * Flight effect - grants creative-style flight while active.
  * Uses the NeoForge CREATIVE_FLIGHT attribute to enable flight.
  * Also resets fall distance every tick and scales flying speed by amplifier.
+ *
+ * <p>Cleanup on removal (milk, /clear, expiry) is handled by
+ * {@link com.breakinblocks.neovitae.common.event.CommonEventHandler}.</p>
  */
 public class FlightEffect extends MobEffect {
 
@@ -41,14 +44,6 @@ public class FlightEffect extends MobEffect {
             float targetSpeed = 0.05F * (amplifier + 1);
             if (player.getAbilities().getFlyingSpeed() != targetSpeed) {
                 player.getAbilities().setFlyingSpeed(targetSpeed);
-                player.onUpdateAbilities();
-            }
-
-            // When effect is about to expire, restore default speed and stop flight
-            if (entity.getEffect(NVMobEffects.FLIGHT) != null
-                    && entity.getEffect(NVMobEffects.FLIGHT).getDuration() <= 1) {
-                player.getAbilities().flying = player.isCreative();
-                player.getAbilities().setFlyingSpeed(0.05F);
                 player.onUpdateAbilities();
             }
         }

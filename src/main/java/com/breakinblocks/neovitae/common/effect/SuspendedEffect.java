@@ -4,15 +4,13 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Suspended effect - makes entity float in place by disabling gravity.
+ *
+ * <p>Cleanup on removal (milk, /clear, expiry) is handled by
+ * {@link com.breakinblocks.neovitae.common.event.CommonEventHandler}.</p>
  */
 public class SuspendedEffect extends MobEffect {
-
-    public static List<LivingEntity> noGravityList = new ArrayList<>();
 
     public SuspendedEffect(MobEffectCategory category, int color) {
         super(category, color);
@@ -20,13 +18,8 @@ public class SuspendedEffect extends MobEffect {
 
     @Override
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
-        if (!noGravityList.contains(entity)) {
-            noGravityList.add(entity);
+        if (!entity.isNoGravity()) {
             entity.setNoGravity(true);
-        } else if (entity.getEffect(NVMobEffects.SUSPENDED) != null
-                && entity.getEffect(NVMobEffects.SUSPENDED).getDuration() <= 1) {
-            noGravityList.remove(entity);
-            entity.setNoGravity(false);
         }
         return true;
     }
@@ -38,9 +31,6 @@ public class SuspendedEffect extends MobEffect {
 
     @Override
     public void onEffectStarted(LivingEntity entity, int amplifier) {
-        if (!noGravityList.contains(entity)) {
-            noGravityList.add(entity);
-            entity.setNoGravity(true);
-        }
+        entity.setNoGravity(true);
     }
 }

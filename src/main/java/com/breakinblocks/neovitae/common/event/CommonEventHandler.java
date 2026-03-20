@@ -15,6 +15,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -117,6 +118,31 @@ public class CommonEventHandler {
         if (bounceMap.containsKey(player.getUUID())) {
             double motionY = bounceMap.remove(player.getUUID());
             player.setDeltaMovement(player.getDeltaMovement().multiply(1, 0, 1).add(0, motionY, 0));
+        }
+    }
+
+    // === Flight/Suspended effect cleanup on removal (milk, /clear, expiry) ===
+    @SubscribeEvent
+    public static void onEffectRemove(MobEffectEvent.Remove event) {
+        handleEffectRemoval(event.getEntity(), event.getEffectInstance());
+    }
+
+    @SubscribeEvent
+    public static void onEffectExpired(MobEffectEvent.Expired event) {
+        handleEffectRemoval(event.getEntity(), event.getEffectInstance());
+    }
+
+    private static void handleEffectRemoval(LivingEntity entity, MobEffectInstance instance) {
+        if (instance == null) return;
+
+        if (instance.is(NVMobEffects.FLIGHT) && entity instanceof Player player) {
+            player.getAbilities().flying = player.isCreative();
+            player.getAbilities().setFlyingSpeed(0.05F);
+            player.onUpdateAbilities();
+        }
+
+        if (instance.is(NVMobEffects.SUSPENDED)) {
+            entity.setNoGravity(false);
         }
     }
 

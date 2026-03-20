@@ -155,47 +155,46 @@ public class LivingHelper {
         return level == null ? 0 : level.getKey();
     }
 
+    @FunctionalInterface
+    public interface UpgradeModifier {
+        float apply(LivingUpgrade upgrade, int level, float currentValue);
+    }
+
+    private static float applyUpgradeModifiers(Player player, float initialValue, UpgradeModifier modifier) {
+        float value = initialValue;
+        for (UpgradeInstance instance : getUpgrades(player)) {
+            value = modifier.apply(instance.upgrade().value(), instance.level(), value);
+        }
+        return value;
+    }
+
     public static float modifyKnockback(Player player, LivingEntity victim, DamageSource damageSource, float knockback) {
-		float finalValue = knockback;
-		for (UpgradeInstance instance : getUpgrades(player)) {
-			finalValue = instance.upgrade().value().modifyKnockback(instance.level(), victim, damageSource, finalValue);
-		}
-		return finalValue;
+        return applyUpgradeModifiers(player, knockback,
+                (upgrade, level, value) -> upgrade.modifyKnockback(level, victim, damageSource, value));
     }
 
     public static int modifyExperience(Player player, int startingValue) {
-		float finalValue = startingValue;
-		for (UpgradeInstance instance : getUpgrades(player)) {
-			finalValue = instance.upgrade().value().modifyExperience(instance.level(), player, finalValue);
-		}
+        float finalValue = applyUpgradeModifiers(player, startingValue,
+                (upgrade, level, value) -> upgrade.modifyExperience(level, player, value));
 
-		float mod = finalValue % 1;
-		int toAdd = player.level().random.nextFloat() < mod ? 1 : 0;
-		return (int) Math.floor(finalValue) + toAdd;
+        float mod = finalValue % 1;
+        int toAdd = player.level().random.nextFloat() < mod ? 1 : 0;
+        return (int) Math.floor(finalValue) + toAdd;
     }
 
     public static float modifyHealing(Player player, float amount) {
-		float finalValue = amount;
-		for (UpgradeInstance instance : getUpgrades(player)) {
-			finalValue = instance.upgrade().value().modifyHealing(instance.level(), player, finalValue);
-		}
-		return finalValue;
+        return applyUpgradeModifiers(player, amount,
+                (upgrade, level, value) -> upgrade.modifyHealing(level, player, value));
     }
 
     public static float modifyDamageDealt(Player playerCauser, LivingEntity victim, DamageSource source, float originalDamage) {
-		float finalValue = originalDamage;
-		for (UpgradeInstance instance : getUpgrades(playerCauser)) {
-			finalValue = instance.upgrade().value().modifyDamageDealt(instance.level(), victim, source, finalValue);
-		}
-		return finalValue;
+        return applyUpgradeModifiers(playerCauser, originalDamage,
+                (upgrade, level, value) -> upgrade.modifyDamageDealt(level, victim, source, value));
     }
 
     public static float modifyDamageTaken(Player playerVictim, DamageSource source, float newDamage) {
-		float finalValue = newDamage;
-		for (UpgradeInstance instance : getUpgrades(playerVictim)) {
-			finalValue = instance.upgrade().value().modifyDamageTaken(instance.level(), playerVictim, source, finalValue);
-		}
-		return finalValue;
+        return applyUpgradeModifiers(playerVictim, newDamage,
+                (upgrade, level, value) -> upgrade.modifyDamageTaken(level, playerVictim, source, value));
     }
 
     public static void reactToDamageDealt(Player playerCauser, LivingEntity victim, DamageSource source, float newDamage) {

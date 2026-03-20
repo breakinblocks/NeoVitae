@@ -8,6 +8,7 @@ import com.breakinblocks.neovitae.api.living.ILivingArmorManager;
 import com.breakinblocks.neovitae.api.soul.ISoulNetwork;
 import com.breakinblocks.neovitae.api.will.DemonWillHandler;
 import com.breakinblocks.neovitae.api.will.IDemonWillHandler;
+import com.breakinblocks.neovitae.api.will.IPlayerDemonWillHandler;
 import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
 
 import javax.annotation.Nullable;
@@ -46,6 +47,11 @@ public class NeoVitaeAPIImpl implements INeoVitaeAPI {
     @Override
     public IDemonWillHandler getDemonWillHandler() {
         return DemonWillHandler.INSTANCE;
+    }
+
+    @Override
+    public IPlayerDemonWillHandler getPlayerWillHandler() {
+        return PlayerDemonWillHandlerImpl.INSTANCE;
     }
 
     @Override

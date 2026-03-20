@@ -6,6 +6,7 @@ import com.breakinblocks.neovitae.api.incense.ITranquilityHandler;
 import com.breakinblocks.neovitae.api.living.ILivingArmorManager;
 import com.breakinblocks.neovitae.api.soul.ISoulNetwork;
 import com.breakinblocks.neovitae.api.will.IDemonWillHandler;
+import com.breakinblocks.neovitae.api.will.IPlayerDemonWillHandler;
 
 import java.util.UUID;
 
@@ -98,6 +99,13 @@ public interface INeoVitaeAPI {
      * @return The demon will handler
      */
     IDemonWillHandler getDemonWillHandler();
+
+    /**
+     * Gets the handler for managing demon will items in player inventories.
+     *
+     * @return The player demon will handler
+     */
+    IPlayerDemonWillHandler getPlayerWillHandler();
 
     /**
      * Gets the current API version string.

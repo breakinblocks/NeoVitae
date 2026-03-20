@@ -40,6 +40,12 @@ public class NVLanguageProvider extends LanguageProvider {
         // Death messages
         add("death.attack.spikes", "%1$s was impaled by spikes");
         add("death.attack.spikes.player", "%1$s was impaled by spikes whilst fighting %2$s");
+        add("death.attack.sacrifice", "%1$s was sacrificed");
+        add("death.attack.sacrifice.player", "%1$s was sacrificed by %2$s");
+        add("death.attack.self_sacrifice", "%1$s sacrificed too much of their own blood");
+        add("death.attack.self_sacrifice.player", "%1$s sacrificed too much of their own blood whilst fighting %2$s");
+        add("death.attack.ritual", "%1$s was killed by dark ritual magic");
+        add("death.attack.ritual.player", "%1$s was killed by dark ritual magic whilst fighting %2$s");
 
         add(NVBlocks.BLOOD_ALTAR, "Blood Altar");
         add(NVItems.SACRIFICIAL_DAGGER.get(), "Sacrificial Dagger");

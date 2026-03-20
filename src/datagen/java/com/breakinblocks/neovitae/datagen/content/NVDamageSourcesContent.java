@@ -11,10 +11,11 @@ import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import java.util.function.Function;
 
-public class BloodyDamageSources {
+public class NVDamageSourcesContent {
     public static void bootstrap(BootstrapContext<DamageType> context) {
         context.register(NVDamageSources.SACRIFICE, new DamageType("sacrifice", DamageScaling.NEVER, 0F));
         context.register(NVDamageSources.SELF_SACRIFICE, new DamageType("self_sacrifice", DamageScaling.NEVER, 0F));
+        context.register(NVDamageSources.RITUAL, new DamageType("ritual", DamageScaling.NEVER, 0F));
         context.register(NVDamageSources.SPIKES, new DamageType("spikes", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0F));
     }
 

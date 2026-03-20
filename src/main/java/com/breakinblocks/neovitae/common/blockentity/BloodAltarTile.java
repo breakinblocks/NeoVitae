@@ -42,6 +42,7 @@ import com.breakinblocks.neovitae.api.altar.IBloodAltar;
 import com.breakinblocks.neovitae.util.AltarScanResult;
 import com.breakinblocks.neovitae.util.AltarUtil;
 import com.breakinblocks.neovitae.api.soul.SoulTicket;
+import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
 import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
 
 import java.util.HashMap;
@@ -431,7 +432,11 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
             if (binding.isEmpty() || orb == null) {
                 return 0;
             }
-            float current = SoulNetworkHelper.getSoulNetwork(binding).getCurrentEssence();
+            SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
+            if (network == null) {
+                return 0;
+            }
+            float current = network.getCurrentEssence();
             float max = (int) ((float) orb.capacity() * (1 + orbCapMod));
             return Mth.lerpDiscrete(current / max, 0, 15);
         }

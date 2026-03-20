@@ -64,27 +64,9 @@ public class ItemSigil extends Item implements IBindable, ISigil {
         }
     }
 
-    /**
-     * Resolves the sigil stack for use, handling Sigil of Holding.
-     * Returns null if the player is a fake player (automation not allowed).
-     *
-     * @param player The player using the sigil
-     * @param hand The hand holding the sigil
-     * @return The resolved ItemStack, or null if the action should fail
-     */
     @Nullable
     protected ItemStack resolveStackForUse(Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-
-        if (stack.getItem() instanceof ISigil.Holding holding) {
-            stack = holding.getHeldItem(stack, player);
-        }
-
-        if (PlayerHelper.isFakePlayer(player)) {
-            return null;
-        }
-
-        return stack;
+        return ISigil.resolveForUse(player, hand);
     }
 
     @Override

@@ -54,11 +54,7 @@ public class ItemSigilToggleable extends ItemSigil implements IActivatable {
         Level world = context.getLevel();
         BlockPos blockpos = context.getClickedPos();
         Player player = context.getPlayer();
-        ItemStack stack = context.getItemInHand();
-
-        if (stack.getItem() instanceof ISigil.Holding holding) {
-            stack = holding.getHeldItem(stack, player);
-        }
+        ItemStack stack = ISigil.resolveHeldStack(context.getItemInHand(), player);
 
         Binding binding = getBinding(stack);
         if (binding == null || player.isShiftKeyDown()) {

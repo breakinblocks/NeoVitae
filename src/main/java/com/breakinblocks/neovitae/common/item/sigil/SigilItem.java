@@ -169,11 +169,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         Level level = context.getLevel();
         BlockPos blockPos = context.getClickedPos();
         Player player = context.getPlayer();
-        ItemStack stack = context.getItemInHand();
-
-        if (stack.getItem() instanceof ISigil.Holding holding) {
-            stack = holding.getHeldItem(stack, player);
-        }
+        ItemStack stack = ISigil.resolveHeldStack(context.getItemInHand(), player);
 
         Binding binding = getBinding(stack);
         if (binding == null) {
@@ -204,10 +200,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, net.minecraft.world.entity.LivingEntity target, InteractionHand hand) {
-        ItemStack useStack = stack;
-        if (stack.getItem() instanceof ISigil.Holding holding) {
-            useStack = holding.getHeldItem(stack, player);
-        }
+        ItemStack useStack = ISigil.resolveHeldStack(stack, player);
 
         Binding binding = getBinding(useStack);
         if (binding == null) {
@@ -267,23 +260,9 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         }
     }
 
-    /**
-     * Resolves the sigil stack for use, handling Sigil of Holding.
-     * Returns null if the player is a fake player (automation not allowed).
-     */
     @Nullable
     protected ItemStack resolveStackForUse(Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-
-        if (stack.getItem() instanceof ISigil.Holding holding) {
-            stack = holding.getHeldItem(stack, player);
-        }
-
-        if (PlayerHelper.isFakePlayer(player)) {
-            return null;
-        }
-
-        return stack;
+        return ISigil.resolveForUse(player, hand);
     }
 
     public ResourceKey<SigilType> getDefaultSigilType() {

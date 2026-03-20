@@ -297,10 +297,12 @@ public class LivingHelper {
     private static ExpResult calculateExpChange(ExpContext context, float currentExp) {
         float xpToAdd = context.amount;
 
-        // 1. Apply upgrade XP cap
-        float maxExp = context.limits.getLimit(context.upgrade);
-        if (maxExp != -1) {
-            xpToAdd = Math.min(maxExp - currentExp, xpToAdd);
+        // 1. Apply upgrade XP cap (only for passive training, not explicit applications like tomes or rituals)
+        if (!context.fromTome) {
+            float maxExp = context.limits.getLimit(context.upgrade);
+            if (maxExp != -1) {
+                xpToAdd = Math.min(maxExp - currentExp, xpToAdd);
+            }
         }
 
         if (xpToAdd <= 0) {

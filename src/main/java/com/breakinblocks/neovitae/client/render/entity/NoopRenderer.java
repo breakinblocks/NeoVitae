@@ -23,11 +23,10 @@ public class NoopRenderer<T extends Entity> extends EntityRenderer<T> {
     @Override
     public void render(T entity, float entityYaw, float partialTicks, PoseStack poseStack,
                        MultiBufferSource buffer, int packedLight) {
-        // No rendering - entity handles its own visuals via particles
     }
 
     @Override
     public ResourceLocation getTextureLocation(T entity) {
-        return null; // No texture needed
+        return null;
     }
 }

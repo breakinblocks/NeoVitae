@@ -54,7 +54,6 @@ public class RitualSpeed extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         Direction facing = masterRitualStone.getDirection();
 
-        // Query demon will
         double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
         double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
         double destructiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE);
@@ -67,7 +66,6 @@ public class RitualSpeed extends Ritual {
         boolean hasVengeful = vengefulWill >= MIN_WILL;
         boolean hasSteadfast = steadfastWill >= MIN_WILL;
 
-        // Calculate speed based on will
         double horizontalSpeed;
         double verticalSpeed;
         if (hasRawWill) {
@@ -130,7 +128,6 @@ public class RitualSpeed extends Ritual {
                 motionY = verticalSpeed * 0.5;
             }
 
-            // Apply velocity
             entity.setDeltaMovement(motionX, motionY, motionZ);
             entity.hurtMarked = true;
             entity.fallDistance = 0;
@@ -148,7 +145,6 @@ public class RitualSpeed extends Ritual {
 
             cost += getRefreshCost();
 
-            // Track will usage
             if (hasRawWill) rawUsed += WILL_PER_ENTITY;
             if (hasCorrosive) corrosiveUsed += WILL_PER_ENTITY;
             if (hasDestructive) destructiveUsed += WILL_PER_ENTITY;
@@ -159,7 +155,6 @@ public class RitualSpeed extends Ritual {
             ctx.syphon(cost);
         }
 
-        // Drain consumed will
         if (rawUsed > 0) {
             WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DEFAULT, rawUsed);
         }

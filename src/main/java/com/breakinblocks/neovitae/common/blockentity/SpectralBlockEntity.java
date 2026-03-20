@@ -36,7 +36,6 @@ public class SpectralBlockEntity extends BaseBlockEntity {
         tile.duration--;
 
         if (tile.duration <= 0) {
-            // Restore the original block
             tile.restoreContainedBlock();
         }
     }
@@ -57,17 +56,11 @@ public class SpectralBlockEntity extends BaseBlockEntity {
         }
     }
 
-    /**
-     * Sets the block state that this spectral block is replacing.
-     */
     public void setContainedBlockState(BlockState state) {
         this.containedBlockState = state;
         setChanged();
     }
 
-    /**
-     * Gets the block state contained within this spectral block.
-     */
     public BlockState getContainedBlockState() {
         return containedBlockState;
     }
@@ -83,9 +76,6 @@ public class SpectralBlockEntity extends BaseBlockEntity {
         }
     }
 
-    /**
-     * Resets the duration with a specific value.
-     */
     public void resetDuration(int newDuration) {
         int clamped = Math.min(newDuration, MAX_DURATION);
         if (this.duration != clamped) {
@@ -107,9 +97,6 @@ public class SpectralBlockEntity extends BaseBlockEntity {
         setChanged();
     }
 
-    /**
-     * Gets the remaining duration.
-     */
     public int getDuration() {
         return duration;
     }

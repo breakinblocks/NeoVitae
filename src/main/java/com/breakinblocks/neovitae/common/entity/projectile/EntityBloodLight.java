@@ -25,10 +25,9 @@ import java.util.UUID;
  */
 public class EntityBloodLight extends ThrowableProjectile {
 
-    // Red color for particles
     private static final DustParticleOptions BLOOD_PARTICLE = new DustParticleOptions(new Vector3f(0.8f, 0.0f, 0.0f), 1.0f);
 
-    private int maxTicksInAir = 600; // 30 seconds max flight time
+    private int maxTicksInAir = 600;
     private UUID ownerUUID = null;
 
     public EntityBloodLight(EntityType<? extends EntityBloodLight> type, Level level) {
@@ -48,7 +47,6 @@ public class EntityBloodLight extends ThrowableProjectile {
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        // No additional synched data needed
     }
 
     @Override
@@ -59,7 +57,6 @@ public class EntityBloodLight extends ThrowableProjectile {
             BlockPos hitPos = result.getBlockPos();
             BlockPos placePos = hitPos.relative(result.getDirection());
 
-            // Try to place the blood light (with protection check)
             if (level().isEmptyBlock(placePos) || level().getBlockState(placePos).canBeReplaced()) {
                 BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState()
                         .setValue(BloodLightBlock.LIFESPAN, BloodLightBlock.DEFAULT_LIFESPAN);
@@ -74,7 +71,6 @@ public class EntityBloodLight extends ThrowableProjectile {
     protected void onHit(HitResult result) {
         super.onHit(result);
 
-        // If we hit an entity, try to place light at current position (with protection check)
         if (result.getType() == HitResult.Type.ENTITY && !level().isClientSide()) {
             BlockPos placePos = blockPosition();
             if (level().isEmptyBlock(placePos) || level().getBlockState(placePos).canBeReplaced()) {
@@ -90,10 +86,8 @@ public class EntityBloodLight extends ThrowableProjectile {
     public void tick() {
         super.tick();
 
-        // Check if we've been in the air too long
         if (tickCount > maxTicksInAir) {
             if (!level().isClientSide()) {
-                // Place light at current position before expiring (with protection check)
                 BlockPos placePos = blockPosition();
                 if (level().isEmptyBlock(placePos) || level().getBlockState(placePos).canBeReplaced()) {
                     BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState()
@@ -105,7 +99,6 @@ public class EntityBloodLight extends ThrowableProjectile {
             return;
         }
 
-        // Spawn trailing particles
         if (level().isClientSide()) {
             Vec3 motion = getDeltaMovement();
             for (int i = 0; i < 3; i++) {
@@ -118,7 +111,6 @@ public class EntityBloodLight extends ThrowableProjectile {
             }
         }
 
-        // Slow down over time (float gently)
         if (!isNoGravity()) {
             Vec3 motion = getDeltaMovement();
             setDeltaMovement(motion.x * 0.99, motion.y * 0.99, motion.z * 0.99);

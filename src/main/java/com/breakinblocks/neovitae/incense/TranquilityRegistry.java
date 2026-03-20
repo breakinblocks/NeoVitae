@@ -40,13 +40,11 @@ public class TranquilityRegistry {
      * @return TranquilityStack if the block provides tranquility, null otherwise
      */
     public static TranquilityStack getTranquility(Level level, BlockPos pos, BlockState state) {
-        // Primary lookup: DataMap (includes both direct blocks and tag-based entries)
         TranquilityStack fromDatamap = TranquilityHelper.getTranquilityStack(state);
         if (fromDatamap != null) {
             return fromDatamap;
         }
 
-        // Fallback: Fluid state detection for water/lava blocks not in datamap
         if (state.getFluidState().is(Fluids.WATER) || state.getFluidState().is(Fluids.FLOWING_WATER)) {
             return new TranquilityStack(EnumTranquilityType.WATER, 1.0);
         }
@@ -54,7 +52,6 @@ public class TranquilityRegistry {
             return new TranquilityStack(EnumTranquilityType.LAVA, 1.0);
         }
 
-        // Fallback: CropBlock instanceof for modded crops not in datamap
         if (state.getBlock() instanceof CropBlock) {
             return new TranquilityStack(EnumTranquilityType.CROP, 1.0);
         }
@@ -70,7 +67,6 @@ public class TranquilityRegistry {
      * @return The path level (0-10), or -1 if not a path block
      */
     public static int getPathLevel(BlockState state) {
-        // Check from highest to lowest level
         if (state.is(NVTags.Blocks.INCENSE_PATH_LEVEL_10)) return 10;
         if (state.is(NVTags.Blocks.INCENSE_PATH_LEVEL_9)) return 9;
         if (state.is(NVTags.Blocks.INCENSE_PATH_LEVEL_8)) return 8;

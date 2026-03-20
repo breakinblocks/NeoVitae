@@ -62,7 +62,6 @@ public class RitualFeatheredKnife extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        // Query demon will
         double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
         double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
         double destructiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE);
@@ -75,7 +74,6 @@ public class RitualFeatheredKnife extends Ritual {
         boolean hasSteadfast = steadfastWill >= MIN_WILL;
         boolean hasVengeful = vengefulWill >= MIN_WILL;
 
-        // Dynamic refresh time
         refreshTime = hasRawWill ? 10 : 20;
 
         // Find the altar (use cached position first, fallback to search)
@@ -170,7 +168,6 @@ public class RitualFeatheredKnife extends Ritual {
             altar.addSacrificeLP(totalLP, false);
         }
 
-        // Drain consumed will
         if (corrosiveUsed > 0) {
             WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.CORROSIVE, corrosiveUsed);
         }
@@ -179,9 +176,6 @@ public class RitualFeatheredKnife extends Ritual {
         }
     }
 
-    /**
-     * Finds the blood altar, using the cached offset position if available.
-     */
     private BloodAltarTile findAltar(RitualContext ctx) {
         RitualHelper.AltarSearchResult result = RitualHelper.findAltar(ctx, this, ALTAR_RANGE, altarOffsetPos);
         altarOffsetPos = result.offset();

@@ -18,10 +18,6 @@ import com.breakinblocks.neovitae.util.helper.PlayerHelper;
 import java.util.List;
 import java.util.function.Supplier;
 
-/**
- * Fast Miner Sigil effect - grants Haste effect while active.
- * Also has an alchemy array effect that grants stronger Haste to nearby players.
- */
 public record FastMinerSigilEffect(int amplifier) implements SigilEffect {
     public static final MapCodec<FastMinerSigilEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.INT.optionalFieldOf("amplifier", 0).forGetter(FastMinerSigilEffect::amplifier)
@@ -49,9 +45,6 @@ public record FastMinerSigilEffect(int amplifier) implements SigilEffect {
         player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 2, amplifier, true, false));
     }
 
-    /**
-     * Performs the alchemy array effect - grants Haste II to nearby players at the cost of 1 HP.
-     */
     public boolean performArrayEffect(Level level, BlockPos pos) {
         double radius = 10;
         int ticks = 600;

@@ -117,7 +117,6 @@ public class ItemTagFilter extends ItemRouterFilter implements INestableItemFilt
 
         setItemTagIndex(filterStack, slot, index);
 
-        // Store the selected tag name in the ghost stack
         if (index > 0 && index <= tags.size()) {
             TagKey<Item> selectedTag = tags.get(index - 1);
             ghostStack.set(NVDataComponents.FILTER_TAG, selectedTag.location().toString());
@@ -148,7 +147,6 @@ public class ItemTagFilter extends ItemRouterFilter implements INestableItemFilt
             }
         }
 
-        // Fallback to index-based lookup
         List<TagKey<Item>> tags = getAllItemTags(ghostStack);
         if (tags.size() >= index) {
             return tags.get(index - 1);

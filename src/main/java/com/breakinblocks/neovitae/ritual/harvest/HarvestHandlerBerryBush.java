@@ -15,15 +15,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Harvest handler for Sweet Berry Bushes.
- */
 public class HarvestHandlerBerryBush implements IHarvestHandler {
 
     @Override
     public boolean harvest(Level level, BlockPos pos, BlockState state, List<ItemStack> drops, @Nullable UUID ownerUUID) {
         if (test(level, pos, state)) {
-            // Check protection before modifying block
             BlockState newState = state.setValue(SweetBerryBushBlock.AGE, 1);
             if (!BlockProtectionHelper.tryReplaceBlock(level, pos, newState, ownerUUID)) {
                 return false;

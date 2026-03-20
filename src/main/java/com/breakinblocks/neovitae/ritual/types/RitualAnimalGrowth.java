@@ -64,22 +64,18 @@ public class RitualAnimalGrowth extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        // Query demon will
         double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
         double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
         double destructiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE);
         double vengefulWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.VENGEFUL);
 
-        // Determine available features
         boolean hasRaw = rawWill >= MIN_DEFAULT;
         boolean doBreed = steadfastWill >= MIN_STEADFAST;
         boolean doSacrifice = destructiveWill >= MIN_DESTRUCTIVE;
         boolean doVengeful = vengefulWill >= MIN_VENGEFUL;
 
-        // Dynamic refresh time based on raw will
         refreshTime = hasRaw ? Math.max(5, 20 - (int) (rawWill / 10)) : 20;
 
-        // Track will consumption
         double steadfastWillUsed = 0;
         double destructiveWillUsed = 0;
         double vengefulWillUsed = 0;
@@ -87,7 +83,6 @@ public class RitualAnimalGrowth extends Ritual {
         int maxAnimals = ctx.maxOperations(getRefreshCost());
         int animalsProcessed = 0;
 
-        // Get chest inventory for breeding food
         BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, masterPos).getFirst();
         BlockEntity chestTile = ctx.level().getBlockEntity(chestPos);
         IItemHandler foodHandler = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
@@ -162,7 +157,6 @@ public class RitualAnimalGrowth extends Ritual {
             }
         }
 
-        // Drain consumed will
         if (steadfastWillUsed > 0) {
             WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.STEADFAST, steadfastWillUsed);
         }

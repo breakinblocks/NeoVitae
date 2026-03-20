@@ -12,13 +12,10 @@ import com.breakinblocks.neovitae.common.living.LivingHelper;
 
 public class TrainerMenu extends AbstractGhostMenu<TrainerMenu> {
 
-    // CLIENT constructor
     public TrainerMenu(int containerId, Inventory playerInv, RegistryFriendlyByteBuf buf) {
-        // buf ->  int heldSlot
         super(NVMenus.TRAINER.get(), containerId, playerInv, 3 + 16, 4, 4, 89, 15, 105, buf.readInt());
     }
 
-    // SERVER constructor
     public TrainerMenu(int containerId, Inventory playerInv, GhostItemHandler handler, ContainerData trainerData, int heldSlot) {
         super(NVMenus.TRAINER.get(), containerId, playerInv, trainerData, handler, 4, 4, 89, 15, 105, heldSlot);
     }

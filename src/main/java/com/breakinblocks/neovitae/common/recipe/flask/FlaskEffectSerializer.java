@@ -13,9 +13,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
-/**
- * Serializer for flask effect recipes (adding new effects to flasks).
- */
 public class FlaskEffectSerializer implements RecipeSerializer<FlaskEffectRecipe> {
 
     public static final MapCodec<FlaskEffectRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(

@@ -1,20 +1,13 @@
 package com.breakinblocks.neovitae.ritual.harvest;
 
-/**
- * Initializes all NeoVitae harvest handlers.
- */
 public class NVHarvestHandlers {
 
     private static boolean initialized = false;
 
-    /**
-     * Initialize all harvest handlers. This should be called during FMLCommonSetupEvent.
-     */
     public static void init() {
         if (initialized) return;
         initialized = true;
 
-        // Register all default harvest handlers
         HarvestRegistry.registerHandler(new HarvestHandlerPlantable());
         HarvestRegistry.registerHandler(new HarvestHandlerNetherWart());
         HarvestRegistry.registerHandler(new HarvestHandlerBerryBush());

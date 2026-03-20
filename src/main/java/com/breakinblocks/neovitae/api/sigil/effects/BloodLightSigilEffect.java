@@ -21,11 +21,6 @@ import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.function.Supplier;
 
-/**
- * Sigil effect that creates blood light sources.
- * When looking at a block surface, places a blood light block.
- * When looking at air, throws a blood light projectile.
- */
 public record BloodLightSigilEffect(int lifespan) implements SigilEffect {
 
     public static final int DEFAULT_LIFESPAN = BloodLightBlock.DEFAULT_LIFESPAN;
@@ -53,7 +48,6 @@ public record BloodLightSigilEffect(int lifespan) implements SigilEffect {
             BlockPos blockPos = blockRayTrace.getBlockPos().relative(blockRayTrace.getDirection());
 
             if (level.isEmptyBlock(blockPos) || level.getBlockState(blockPos).canBeReplaced()) {
-                // Place blood light block directly when looking at a surface
                 BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState()
                         .setValue(BloodLightBlock.LIFESPAN, lifespan);
 
@@ -63,7 +57,6 @@ public record BloodLightSigilEffect(int lifespan) implements SigilEffect {
                 return true;
             }
         } else {
-            // Throw blood light projectile when not looking at a block
             if (!level.isClientSide) {
                 EntityBloodLight projectile = new EntityBloodLight(level, player);
                 projectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 0.75F, 1.0F);

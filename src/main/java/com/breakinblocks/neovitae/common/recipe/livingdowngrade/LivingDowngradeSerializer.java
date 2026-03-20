@@ -8,10 +8,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-/**
- * Serializer for Living Downgrade recipes.
- * Handles JSON parsing and network serialization.
- */
 public class LivingDowngradeSerializer implements RecipeSerializer<LivingDowngradeRecipe> {
 
     public static final MapCodec<LivingDowngradeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(

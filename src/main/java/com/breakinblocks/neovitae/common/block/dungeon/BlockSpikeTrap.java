@@ -19,10 +19,6 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
-/**
- * Spike Trap - extends/retracts a spike block when powered by redstone.
- * Placed in a direction and shoots spikes out that direction when powered.
- */
 public class BlockSpikeTrap extends BaseEntityBlock {
     public static final MapCodec<BlockSpikeTrap> CODEC = simpleCodec(BlockSpikeTrap::new);
 

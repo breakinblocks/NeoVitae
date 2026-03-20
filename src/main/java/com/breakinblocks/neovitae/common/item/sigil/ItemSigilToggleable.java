@@ -19,9 +19,6 @@ import com.breakinblocks.neovitae.common.item.IActivatable;
 import com.breakinblocks.neovitae.api.soul.SoulTicket;
 import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
 
-/**
- * Base class for all toggleable sigils.
- */
 public class ItemSigilToggleable extends ItemSigil implements IActivatable {
 
     public ItemSigilToggleable(Item.Properties property, int lpUsed) {
@@ -35,7 +32,6 @@ public class ItemSigilToggleable extends ItemSigil implements IActivatable {
             return InteractionResultHolder.fail(player.getItemInHand(hand));
         }
 
-        // Must be bound before use
         Binding binding = getBinding(stack);
         if (binding == null) {
             return InteractionResultHolder.consume(player.getItemInHand(hand));
@@ -60,13 +56,11 @@ public class ItemSigilToggleable extends ItemSigil implements IActivatable {
         Player player = context.getPlayer();
         ItemStack stack = context.getItemInHand();
 
-        // Handle Sigil of Holding
         if (stack.getItem() instanceof ISigil.Holding holding) {
             stack = holding.getHeldItem(stack, player);
         }
 
         Binding binding = getBinding(stack);
-        // Make sure Sigils are bound before handling. Also ignores while toggling state
         if (binding == null || player.isShiftKeyDown()) {
             return InteractionResult.CONSUME;
         }

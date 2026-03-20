@@ -24,10 +24,6 @@ import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.List;
 
-/**
- * JEI recipe category for the Alchemical Reaction Chamber (ARC).
- * Displays ARC recipes including tool, input, and multiple outputs with chance percentages.
- */
 public class ARCRecipeCategory implements IRecipeCategory<ARCRecipe> {
     public static final RecipeType<ARCRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "arc", ARCRecipe.class);
 
@@ -72,17 +68,14 @@ public class ARCRecipeCategory implements IRecipeCategory<ARCRecipe> {
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull ARCRecipe recipe, @Nonnull IFocusGroup focuses) {
-        // Input slot (top left)
         IRecipeSlotBuilder inputSlot = builder.addSlot(RecipeIngredientRole.INPUT, 1, 6);
         inputSlot.addIngredients(recipe.getInput());
         inputSlot.setSlotName("input");
 
-        // Tool slot (below input)
         IRecipeSlotBuilder toolSlot = builder.addSlot(RecipeIngredientRole.CATALYST, 22, 17);
         toolSlot.addIngredients(recipe.getTool());
         toolSlot.setSlotName("tool");
 
-        // Output slots - combine guaranteed and chanced outputs
         List<Pair<ItemStack, Double>> allOutputs = recipe.getAllListedOutputs();
         for (int i = 0; i < allOutputs.size() && i < 4; i++) {
             IRecipeSlotBuilder outputSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, 54 + i * 22, 17);
@@ -99,7 +92,6 @@ public class ARCRecipeCategory implements IRecipeCategory<ARCRecipe> {
         Minecraft mc = Minecraft.getInstance();
         List<Pair<ItemStack, Double>> allOutputs = recipe.getAllListedOutputs();
 
-        // Draw chance percentages above output slots
         for (int i = 0; i < allOutputs.size() && i < 4; i++) {
             double chance = allOutputs.get(i).getSecond();
             String chanceStr;
@@ -121,7 +113,6 @@ public class ARCRecipeCategory implements IRecipeCategory<ARCRecipe> {
 
     @Override
     public void getTooltip(ITooltipBuilder tooltip, ARCRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-        // Add tooltip for output chances when hovering over output area
         List<Pair<ItemStack, Double>> allOutputs = recipe.getAllListedOutputs();
         for (int i = 0; i < allOutputs.size() && i < 4; i++) {
             int slotX = 54 + i * 22;

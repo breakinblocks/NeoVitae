@@ -42,7 +42,6 @@ import java.util.List;
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
 public class RitualRenderer {
 
-    // Texture resource locations for each rune type
     private static final ResourceLocation RITUAL_STONE_BLANK = NeoVitae.rl("block/ritual_stone");
     private static final ResourceLocation RITUAL_STONE_WATER = NeoVitae.rl("block/water_ritual_stone");
     private static final ResourceLocation RITUAL_STONE_FIRE = NeoVitae.rl("block/fire_ritual_stone");
@@ -51,7 +50,6 @@ public class RitualRenderer {
     private static final ResourceLocation RITUAL_STONE_DAWN = NeoVitae.rl("block/dawn_ritual_stone");
     private static final ResourceLocation RITUAL_STONE_DUSK = NeoVitae.rl("block/dusk_ritual_stone");
 
-    // Translucent white with alpha for ghost effect
     private static final int GHOST_COLOR = 0xDDFFFFFF;
     private static final int FULL_BRIGHT = 0x00F000F0;
 
@@ -75,7 +73,6 @@ public class RitualRenderer {
             return;
         }
 
-        // Check if player is looking at an MRS
         HitResult hitResult = mc.hitResult;
         if (hitResult == null || hitResult.getType() != HitResult.Type.BLOCK) {
             return;
@@ -96,7 +93,6 @@ public class RitualRenderer {
 
         Direction direction = diviner.getDirection(heldItem);
 
-        // Get buffer source and render
         MultiBufferSource.BufferSource buffers = Minecraft.getInstance().renderBuffers().bufferSource();
         PoseStack poseStack = event.getPoseStack();
 
@@ -127,7 +123,6 @@ public class RitualRenderer {
 
             poseStack.translate(minX, minY, minZ);
 
-            // Only render if the position doesn't have a solid block
             if (!level.getBlockState(runePos).isSolidRender(level, runePos)) {
                 ResourceLocation textureRL = getRuneTexture(component.runeType());
                 NeoVitaeRenderer.Model3D model = getBlockModel(textureRL);

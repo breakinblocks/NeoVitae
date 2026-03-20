@@ -88,7 +88,6 @@ public class BloodAltarRecipeCategory implements IRecipeCategory<BloodAltarRecip
         guiGraphics.drawString(mc.font, tierText, 90 - mc.font.width(tierText) / 2, 0, Color.gray.getRGB(), false);
         guiGraphics.drawString(mc.font, lpText, 90 - mc.font.width(lpText) / 2, 10, Color.gray.getRGB(), false);
 
-        // Show component transfer indicator
         if (recipe.shouldCopyInputComponents()) {
             String transferText = Component.translatable("jei.neovitae.recipe.componentTransfer").getString();
             guiGraphics.drawString(mc.font, transferText, 90 - mc.font.width(transferText) / 2, 55, new Color(100, 180, 100).getRGB(), false);
@@ -97,11 +96,9 @@ public class BloodAltarRecipeCategory implements IRecipeCategory<BloodAltarRecip
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, BloodAltarRecipe recipe, IFocusGroup focuses) {
-        // Output
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 126, 31);
         output.addItemStack(recipe.getResult());
 
-        // Input
         IRecipeSlotBuilder input = builder.addSlot(RecipeIngredientRole.INPUT, 32, 1);
         input.addIngredients(recipe.getInput());
     }

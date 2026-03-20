@@ -45,10 +45,7 @@ public class ItemAlchemyFlaskThrowable extends ItemAlchemyFlask {
                 0.5F, 0.4F / (level.random.nextFloat() * 0.4F + 0.8F));
 
         if (!level.isClientSide) {
-            // Create a thrown potion entity using the flask's contents
             ThrownPotion thrownPotion = new ThrownPotion(level, player);
-
-            // Create a temporary splash potion stack with the same effects
             ItemStack potionStack = new ItemStack(net.minecraft.world.item.Items.SPLASH_POTION);
             potionStack.set(DataComponents.POTION_CONTENTS, contents);
             thrownPotion.setItem(potionStack);

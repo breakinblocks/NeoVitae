@@ -139,9 +139,6 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         updateColor();
     }
 
-    /**
-     * Sets effects from an ItemStack's PotionContents data component.
-     */
     public void setEffectsFromItem(ItemStack stack) {
         PotionContents contents = stack.get(net.minecraft.core.component.DataComponents.POTION_CONTENTS);
         if (contents != null) {
@@ -168,7 +165,6 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         boolean noClip = this.noPhysics;
         Vec3 movement = this.getDeltaMovement();
 
-        // Set initial rotation from movement
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
             double d0 = movement.horizontalDistance();
             this.setYRot((float) (Mth.atan2(movement.x, movement.z) * (180F / (float) Math.PI)));
@@ -177,7 +173,6 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
             this.xRotO = this.getXRot();
         }
 
-        // Check if we're inside a block
         BlockPos blockpos = this.blockPosition();
         BlockState blockstate = this.level().getBlockState(blockpos);
         if (!blockstate.isAir() && !noClip) {
@@ -193,18 +188,15 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
             }
         }
 
-        // Decrement arrowShake for pickup availability
         if (this.arrowShake > 0) {
             --this.arrowShake;
         }
 
-        // Clear fire if in water or powder snow
         if (this.isInWaterOrRain() || blockstate.is(Blocks.POWDER_SNOW)) {
             this.clearFire();
         }
 
         if (this.inGround && !noClip) {
-            // In ground - check if we should fall, otherwise just tick despawn
             if (this.inBlockState != blockstate && this.shouldFall()) {
                 this.startFalling();
             } else if (!this.level().isClientSide) {
@@ -212,18 +204,15 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
             }
             ++this.timeInGround;
         } else {
-            // Not in ground - apply physics
             this.timeInGround = 0;
             Vec3 currentPos = this.position();
             Vec3 nextPos = currentPos.add(movement);
 
-            // Ray trace for block collision
             HitResult hitresult = this.level().clip(new ClipContext(currentPos, nextPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
             if (hitresult.getType() != HitResult.Type.MISS) {
                 nextPos = hitresult.getLocation();
             }
 
-            // Check for entity collision
             while (!this.isRemoved()) {
                 EntityHitResult entityhitresult = this.rayTraceEntities(currentPos, nextPos);
                 if (entityhitresult != null) {
@@ -251,7 +240,6 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
                 hitresult = null;
             }
 
-            // Update movement and position
             movement = this.getDeltaMovement();
             double dx = movement.x;
             double dy = movement.y;
@@ -272,7 +260,6 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
             this.setXRot(lerpRotation(this.xRotO, this.getXRot()));
             this.setYRot(lerpRotation(this.yRotO, this.getYRot()));
 
-            // Apply drag
             float drag = 0.99F;
             if (this.isInWater()) {
                 drag = this.getWaterDrag();
@@ -280,7 +267,6 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
 
             this.setDeltaMovement(movement.scale(drag));
 
-            // Apply gravity
             if (!this.isNoGravity() && !noClip) {
                 Vec3 vel = this.getDeltaMovement();
                 this.setDeltaMovement(vel.x, vel.y - 0.05F, vel.z);

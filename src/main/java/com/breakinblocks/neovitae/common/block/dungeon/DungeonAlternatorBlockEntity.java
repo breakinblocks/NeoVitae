@@ -9,13 +9,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.BaseBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
-/**
- * Tile entity for the Dungeon Alternator block.
- * Toggles the active state at regular intervals to create a pulsing redstone signal.
- */
 public class DungeonAlternatorBlockEntity extends BaseBlockEntity {
 
-    public static final int DEFAULT_PULSE_RATE = 40; // 2 seconds (40 ticks)
+    public static final int DEFAULT_PULSE_RATE = 40;
 
     private int tickCounter = 0;
     private int pulseRate = DEFAULT_PULSE_RATE;

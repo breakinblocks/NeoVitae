@@ -8,9 +8,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.event.EventHooks;
 
-/**
- * Fire Fuse effect - explodes when duration expires.
- */
 public class FireFuseEffect extends MobEffect {
 
     public FireFuseEffect(MobEffectCategory category, int color) {

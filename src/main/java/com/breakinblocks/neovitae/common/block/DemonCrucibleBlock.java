@@ -22,9 +22,6 @@ import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
 
-/**
- * Demon Crucible - burns demon will items to release will into the chunk aura.
- */
 public class DemonCrucibleBlock extends BaseEntityBlock {
 
     public static final MapCodec<DemonCrucibleBlock> CODEC = simpleCodec(p -> new DemonCrucibleBlock());
@@ -70,7 +67,6 @@ public class DemonCrucibleBlock extends BaseEntityBlock {
             ItemStack heldItem = player.getItemInHand(hand);
 
             if (heldItem.isEmpty()) {
-                // Extract item
                 ItemStack contained = crucible.getInventory().getStackInSlot(0);
                 if (!contained.isEmpty()) {
                     ItemStack extracted = crucible.getInventory().extractItem(0, 1, false);
@@ -80,7 +76,6 @@ public class DemonCrucibleBlock extends BaseEntityBlock {
                     return ItemInteractionResult.SUCCESS;
                 }
             } else {
-                // Try to insert item
                 if (crucible.getInventory().isItemValid(0, heldItem)) {
                     ItemStack remainder = crucible.getInventory().insertItem(0, heldItem.copy(), false);
                     if (remainder.getCount() < heldItem.getCount()) {

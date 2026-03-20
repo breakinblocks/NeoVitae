@@ -23,9 +23,6 @@ public record ImperfectRitualJEIRecipe(
         Component description,
         boolean consumesBlock
 ) {
-    /**
-     * Gets the ritual name component for display.
-     */
     public Component getRitualName() {
         return Component.translatable("ritual.neovitae.imperfect." + ritualId.getPath());
     }

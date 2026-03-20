@@ -43,12 +43,9 @@ public class SoulSnareEntity extends ThrowableItemProjectile {
         super.onHitEntity(result);
 
         if (!level().isClientSide() && result.getEntity() instanceof LivingEntity target) {
-            // Only affect hostile mobs
             if (target instanceof Enemy) {
-                // Apply the soul snare effect
                 target.addEffect(new MobEffectInstance(NVMobEffects.SOUL_SNARE, 1200, 0, false, true));
 
-                // Spawn particles to indicate success
                 for (int i = 0; i < 8; i++) {
                     level().addParticle(ParticleTypes.ENCHANT,
                             target.getX() + (random.nextDouble() - 0.5) * target.getBbWidth(),
@@ -73,7 +70,6 @@ public class SoulSnareEntity extends ThrowableItemProjectile {
     public void tick() {
         super.tick();
 
-        // Spawn trailing particles
         if (level().isClientSide()) {
             level().addParticle(ParticleTypes.ENCHANT,
                     getX(), getY(), getZ(),

@@ -21,11 +21,10 @@ import com.breakinblocks.neovitae.util.helper.RenderHelper;
 public class BloodTankRenderer implements BlockEntityRenderer<BloodTankBlockEntity> {
     public BloodTankRenderer(BlockEntityRendererProvider.Context context) {}
 
-    // Tank inside
     private static final float minHeight = 1F/16F + 0.01F;
     private static final float maxHeight = 11F/16F;
-    private static final float start = 4F/16F; // inside corner
-    private static final float end = 12F/16F; // other inside corner
+    private static final float start = 4F/16F;
+    private static final float end = 12F/16F;
 
     @Override
     public void render(BloodTankBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {

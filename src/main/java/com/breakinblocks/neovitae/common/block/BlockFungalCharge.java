@@ -5,10 +5,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.FungalChargeBlockEntity;
 
-/**
- * Block for fungal charges.
- * Harvests connected nether mushroom blocks (stems and hyphae) when triggered.
- */
 public class BlockFungalCharge extends BlockShapedExplosive {
     private final int maxBlocks;
 

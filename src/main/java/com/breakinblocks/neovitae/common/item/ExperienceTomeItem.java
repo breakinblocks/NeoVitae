@@ -13,12 +13,6 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 import java.util.List;
 
-/**
- * Tome of Peritia - Allows players to store and retrieve experience.
- * Sneak + Use: Store one level of XP
- * Use: Retrieve one level of XP
- * Hold to store/retrieve multiple levels.
- */
 public class ExperienceTomeItem extends Item {
 
     public ExperienceTomeItem() {
@@ -36,7 +30,6 @@ public class ExperienceTomeItem extends Item {
         int storedXp = stack.getOrDefault(NVDataComponents.STORED_XP, 0);
 
         if (player.isShiftKeyDown()) {
-            // Store XP
             int playerXp = getPlayerTotalXp(player);
             if (playerXp > 0) {
                 int xpForCurrentLevel = getXpForLevel(player.experienceLevel);
@@ -49,7 +42,6 @@ public class ExperienceTomeItem extends Item {
                 }
             }
         } else {
-            // Retrieve XP
             if (storedXp > 0) {
                 int xpForNextLevel = getXpForLevel(player.experienceLevel + 1) - getPlayerTotalXp(player);
                 int xpToGive = Math.min(storedXp, Math.max(1, xpForNextLevel));
@@ -89,15 +81,9 @@ public class ExperienceTomeItem extends Item {
 
     @Override
     public int getBarColor(ItemStack stack) {
-        // Bright green for XP
         return 0x7FFF00;
     }
 
-    /**
-     * Adds XP to the tome from an external source (like a ritual).
-     * @param stack The tome stack
-     * @param xpAmount The amount of XP to add
-     */
     public static void addXpToTome(ItemStack stack, int xpAmount) {
         if (stack.getItem() instanceof ExperienceTomeItem) {
             int current = stack.getOrDefault(NVDataComponents.STORED_XP, 0);
@@ -105,14 +91,10 @@ public class ExperienceTomeItem extends Item {
         }
     }
 
-    /**
-     * Gets the stored XP in the tome.
-     */
     public static int getStoredXp(ItemStack stack) {
         return stack.getOrDefault(NVDataComponents.STORED_XP, 0);
     }
 
-    // XP calculation helpers
     private static int getPlayerTotalXp(Player player) {
         return getXpForLevel(player.experienceLevel) + (int) (player.experienceProgress * player.getXpNeededForNextLevel());
     }

@@ -45,7 +45,6 @@ public class BlockDemonCrystal extends BaseEntityBlock {
 
     public final EnumWillType willType;
 
-    // VoxelShapes for different attachment directions - simplified to a single shape per direction
     private static final VoxelShape SHAPE_UP = Block.box(2, 0, 2, 14, 14, 14);
     private static final VoxelShape SHAPE_DOWN = Block.box(2, 2, 2, 14, 16, 14);
     private static final VoxelShape SHAPE_NORTH = Block.box(2, 2, 3, 14, 14, 16);
@@ -138,7 +137,6 @@ public class BlockDemonCrystal extends BaseEntityBlock {
         boolean isCreative = player.isCreative();
         boolean holdsCrystal = stack.getItem() instanceof DemonCrystalItem;
 
-        // Creative players holding crystals can add crystals
         if (isCreative && holdsCrystal) {
             if (crystal.getCrystalCount() < 7) {
                 crystal.internalCounter = 0;
@@ -152,7 +150,6 @@ public class BlockDemonCrystal extends BaseEntityBlock {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
-        // Players with sufficient will can extract crystals
         double playerWill = PlayerDemonWillHandler.getTotalDemonWill(
                 PlayerDemonWillHandler.getLargestWillType(player), player);
         if (playerWill > 512) {
@@ -179,9 +176,6 @@ public class BlockDemonCrystal extends BaseEntityBlock {
         return createTickerHelper(type, NVTiles.DEMON_CRYSTAL_TYPE.get(), DemonCrystalBlockEntity::tick);
     }
 
-    /**
-     * Get the item dropped when a crystal is harvested.
-     */
     public static ItemStack getItemStackDropped(EnumWillType type, int count) {
         ItemStack stack = switch (type) {
             case CORROSIVE -> new ItemStack(NVItems.CORROSIVE_CRYSTAL.get());

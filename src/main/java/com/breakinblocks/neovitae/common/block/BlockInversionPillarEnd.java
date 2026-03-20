@@ -14,10 +14,6 @@ import com.breakinblocks.neovitae.common.block.type.PillarCapType;
 
 import javax.annotation.Nullable;
 
-/**
- * Inversion Pillar Cap block - decorative cap for the inversion pillar.
- * Can be placed in top or bottom orientation based on placement context.
- */
 public class BlockInversionPillarEnd extends Block {
 
     public static final EnumProperty<PillarCapType> TYPE = EnumProperty.create("type", PillarCapType.class);
@@ -41,14 +37,12 @@ public class BlockInversionPillarEnd extends Block {
         Direction clickedFace = context.getClickedFace();
         BlockPos clickedPos = context.getClickedPos();
 
-        // If clicking the top face or below midpoint, place bottom cap
         if (clickedFace == Direction.UP) {
             return this.defaultBlockState().setValue(TYPE, PillarCapType.BOTTOM);
         } else if (clickedFace == Direction.DOWN) {
             return this.defaultBlockState().setValue(TYPE, PillarCapType.TOP);
         }
 
-        // For side clicks, determine based on click location within the block
         double y = context.getClickLocation().y - clickedPos.getY();
         if (y < 0.5) {
             return this.defaultBlockState().setValue(TYPE, PillarCapType.BOTTOM);

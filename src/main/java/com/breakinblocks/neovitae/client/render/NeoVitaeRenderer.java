@@ -6,10 +6,6 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.Arrays;
 
-/**
- * Rendering helper utilities for NeoVitae.
- * Provides Model3D for rendering textured cuboids.
- */
 public class NeoVitaeRenderer {
 
     public static float getRed(int color) {

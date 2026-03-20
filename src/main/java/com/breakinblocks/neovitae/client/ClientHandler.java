@@ -4,9 +4,6 @@ import net.minecraft.core.Direction;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.ritual.Ritual;
 
-/**
- * Client-side handler for ritual hologram display and other client-only functionality.
- */
 public class ClientHandler {
 
     private static MasterRitualStoneBlockEntity mrsHoloTile;
@@ -17,9 +14,6 @@ public class ClientHandler {
     private static MasterRitualStoneBlockEntity mrsRangeTile;
     private static boolean mrsRangeDisplay;
 
-    /**
-     * Sets up ritual hologram display for the given master ritual stone.
-     */
     public static void setRitualHolo(MasterRitualStoneBlockEntity masterRitualStone, Ritual ritual, Direction direction, boolean displayed) {
         mrsHoloDisplay = displayed;
         mrsHoloTile = masterRitualStone;
@@ -27,9 +21,6 @@ public class ClientHandler {
         mrsHoloDirection = direction;
     }
 
-    /**
-     * Clears the ritual hologram display.
-     */
     public static void setRitualHoloToNull() {
         mrsHoloDisplay = false;
         mrsHoloTile = null;
@@ -37,23 +28,16 @@ public class ClientHandler {
         mrsHoloDirection = Direction.NORTH;
     }
 
-    /**
-     * Sets up ritual range hologram display for the given master ritual stone.
-     */
     public static void setRitualRangeHolo(MasterRitualStoneBlockEntity masterRitualStone, boolean displayed) {
         mrsRangeDisplay = displayed;
         mrsRangeTile = masterRitualStone;
     }
 
-    /**
-     * Clears the ritual range hologram display.
-     */
     public static void setRitualRangeHoloToNull() {
         mrsRangeDisplay = false;
         mrsRangeTile = null;
     }
 
-    // Getters for the renderer
     public static MasterRitualStoneBlockEntity getHoloTile() {
         return mrsHoloTile;
     }

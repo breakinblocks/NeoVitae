@@ -24,7 +24,7 @@ public abstract class AbstractGhostScreen<T extends AbstractGhostMenu<?>> extend
     @Override
     protected void init() {
         super.init();
-        this.inventoryLabelY = this.imageHeight - 94; // auto recalc
+        this.inventoryLabelY = this.imageHeight - 94;
     }
 
     private final List<Pair<MultiIconButton, Integer>> updateButtons = new ArrayList<>();

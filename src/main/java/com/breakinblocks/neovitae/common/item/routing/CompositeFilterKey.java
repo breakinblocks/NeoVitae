@@ -17,7 +17,6 @@ public class CompositeFilterKey implements IFilterKey {
     }
 
     public void addFilterKey(IFilterKey key) {
-        // Don't allow nested composite keys
         if (!(key instanceof CompositeFilterKey)) {
             keyList.add(key);
         }
@@ -29,7 +28,6 @@ public class CompositeFilterKey implements IFilterKey {
             return false;
         }
 
-        // All keys must match
         for (IFilterKey key : keyList) {
             if (!key.doesStackMatch(testStack)) {
                 return false;

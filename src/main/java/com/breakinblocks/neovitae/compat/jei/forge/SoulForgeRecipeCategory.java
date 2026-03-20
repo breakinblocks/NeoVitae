@@ -92,7 +92,6 @@ public class SoulForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, ForgeRecipe recipe, IFocusGroup focuses) {
-        // Soul gems that have enough will
         List<ItemStack> validGems = Lists.newArrayList();
         for (DefaultWill will : DefaultWill.values()) {
             if (will.minSouls >= recipe.getMinWill()) {
@@ -102,11 +101,9 @@ public class SoulForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
         IRecipeSlotBuilder gems = builder.addSlot(RecipeIngredientRole.CATALYST, 43, 1);
         gems.addItemStacks(validGems);
 
-        // Output
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 74, 14);
         output.addItemStack(recipe.getOutput());
 
-        // Inputs (up to 4 in a 2x2 grid)
         List<? extends net.minecraft.world.item.crafting.Ingredient> inputs = recipe.getCraftingIngredients();
         for (int index = 0; index < inputs.size(); index++) {
             int x = index % 2;

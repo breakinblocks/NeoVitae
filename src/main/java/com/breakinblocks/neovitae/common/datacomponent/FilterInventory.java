@@ -10,10 +10,6 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Data component for storing filter inventory contents.
- * Stores up to 9 ghost item stacks for item routing filters.
- */
 public record FilterInventory(List<ItemStack> items, List<Integer> tagIndices) {
     public static final int SIZE = 9;
 

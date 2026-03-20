@@ -40,7 +40,7 @@ public class RitualCondor extends Ritual {
 
         int totalCost = 0;
         for (Player player : players) {
-            // Apply flight effect - lasts slightly longer than refresh time to prevent flickering
+            // Duration slightly longer than refresh time to prevent flickering
             player.addEffect(new MobEffectInstance(NVMobEffects.FLIGHT, 40, 0, true, false));
             totalCost += getRefreshCost();
         }
@@ -58,12 +58,11 @@ public class RitualCondor extends Ritual {
         BlockPos masterPos = masterRitualStone.getBlockPos();
         AreaDescriptor range = RitualHelper.getEffectiveRange(masterRitualStone, this, FLIGHT_RANGE);
 
-        // Remove flight effect from players when ritual stops
         AABB aabb = range.getAABB(masterPos);
         List<Player> players = level.getEntitiesOfClass(Player.class, aabb);
         for (Player player : players) {
             player.removeEffect(NVMobEffects.FLIGHT);
-            // Disable active flying when effect is removed (attribute modifier handles mayfly permission)
+            // Attribute modifier handles mayfly permission; we just need to stop active flight
             if (!player.isCreative() && !player.isSpectator()) {
                 player.getAbilities().flying = false;
                 player.onUpdateAbilities();
@@ -83,7 +82,6 @@ public class RitualCondor extends Ritual {
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {
-        // Dusk tier ritual - complex rune pattern
         addCornerRunes(components, 1, 0, EnumRuneType.AIR);
         addParallelRunes(components, 2, 0, EnumRuneType.AIR);
         addCornerRunes(components, 2, 0, EnumRuneType.AIR);

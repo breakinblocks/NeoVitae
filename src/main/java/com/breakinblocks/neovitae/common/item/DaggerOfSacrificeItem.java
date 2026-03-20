@@ -16,10 +16,6 @@ import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.datamap.EntitySacrificeHelper;
 import com.breakinblocks.neovitae.util.AltarUtil;
 
-/**
- * Dagger of Sacrifice - kills mobs near a Blood Altar to fill it with LP.
- * The amount of LP gained is based on the mob's max health and a configurable ratio.
- */
 public class DaggerOfSacrificeItem extends Item {
 
     public DaggerOfSacrificeItem() {
@@ -40,17 +36,14 @@ public class DaggerOfSacrificeItem extends Item {
             return false;
         }
 
-        // Cannot sacrifice players
         if (target instanceof Player) {
             return false;
         }
 
-        // Target must be alive
         if (target.getHealth() < 0.5F) {
             return false;
         }
 
-        // Calculate LP from the mob's current health
         int sacrificeValue = getSacrificeValue(target);
         if (sacrificeValue <= 0) {
             return false;
@@ -58,12 +51,10 @@ public class DaggerOfSacrificeItem extends Item {
 
         int lifeEssence = (int) (sacrificeValue * target.getHealth());
 
-        // Baby mobs give half LP
         if (target.isBaby()) {
             lifeEssence = (int) (lifeEssence * 0.5F);
         }
 
-        // Find a nearby altar (search radius matches self-sacrifice dagger)
         BlockPos altarPos = findAltar(target.level(), target.blockPosition());
         if (altarPos == null) {
             return false;
@@ -74,13 +65,9 @@ public class DaggerOfSacrificeItem extends Item {
             return false;
         }
 
-        // Fill the altar with LP (true = mob sacrifice, uses sacrifice rune modifier)
         altar.addSacrificeLP(lifeEssence, true);
-
-        // Kill the mob
         target.hurt(target.level().damageSources().source(NVDamageSources.SACRIFICE, player), Float.MAX_VALUE);
 
-        // Effects
         Level level = target.level();
         double posX = target.getX();
         double posY = target.getY();
@@ -98,17 +85,10 @@ public class DaggerOfSacrificeItem extends Item {
         return true;
     }
 
-    /**
-     * Gets the LP-per-health-point value for an entity from the data map.
-     */
     private int getSacrificeValue(LivingEntity entity) {
         return EntitySacrificeHelper.getLpPerDamage(entity);
     }
 
-    /**
-     * Finds a Blood Altar near the given position.
-     * Searches a 5x5x4 area (±2 horizontal, -2 to +1 vertical) matching original behavior.
-     */
     private BlockPos findAltar(Level level, BlockPos pos) {
         for (int x = -2; x <= 2; x++) {
             for (int y = -2; y <= 1; y++) {

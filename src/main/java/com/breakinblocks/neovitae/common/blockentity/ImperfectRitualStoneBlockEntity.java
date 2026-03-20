@@ -22,10 +22,6 @@ import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-/**
- * Block entity for the Imperfect Ritual Stone.
- * Implements the logic for activating imperfect rituals.
- */
 public class ImperfectRitualStoneBlockEntity extends BlockEntity implements IImperfectRitualStone {
 
     public ImperfectRitualStoneBlockEntity(BlockPos pos, BlockState state) {
@@ -48,12 +44,10 @@ public class ImperfectRitualStoneBlockEntity extends BlockEntity implements IImp
             return RitualResult.failure(RitualResult.FailureReason.CLIENT_SIDE);
         }
 
-        // Check if ritual is disabled via datapack
         if (stats != null && !stats.enabled()) {
             return RitualResult.failure(RitualResult.FailureReason.RITUAL_DISABLED);
         }
 
-        // Get the player's soul network
         UUID playerUUID = player.getUUID();
         SoulNetwork network = SoulNetworkHelper.getSoulNetwork(playerUUID);
 
@@ -61,32 +55,25 @@ public class ImperfectRitualStoneBlockEntity extends BlockEntity implements IImp
             return RitualResult.failure(RitualResult.FailureReason.NO_SOUL_NETWORK);
         }
 
-        // Use data-driven cost or fall back to ritual default
         int activationCost = stats != null ? stats.activationCost() : imperfectRitual.getActivationCost();
 
-        // Check if player has enough LP
         if (network.getCurrentEssence() < activationCost) {
             return RitualResult.failure(RitualResult.FailureReason.NOT_ENOUGH_LP, activationCost);
         }
 
-        // Fire pre-activation event (cancellable)
         ImperfectRitualEvent.Activate activateEvent = new ImperfectRitualEvent.Activate(this, imperfectRitual, player, stats);
         if (NeoForge.EVENT_BUS.post(activateEvent).isCanceled()) {
             return RitualResult.failure(RitualResult.FailureReason.EVENT_CANCELLED);
         }
 
-        // Try to activate the ritual
         if (imperfectRitual.onActivate(this, player)) {
-            // Drain LP
             network.syphon(SoulTicket.create(activationCost));
 
-            // Handle block consumption if enabled in stats
             if (stats != null && stats.consumeBlock()) {
                 BlockPos abovePos = pos.above();
                 BlockProtectionHelper.tryBreakBlockNoDrops(world, abovePos, player);
             }
 
-            // Light show - spawn visual-only lightning
             boolean showLightning = stats != null ? stats.lightningEffect() : imperfectRitual.isLightShow();
             if (showLightning && world instanceof ServerLevel serverLevel) {
                 LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(serverLevel);
@@ -97,7 +84,6 @@ public class ImperfectRitualStoneBlockEntity extends BlockEntity implements IImp
                 }
             }
 
-            // Fire post-activation event (not cancellable)
             NeoForge.EVENT_BUS.post(new ImperfectRitualEvent.Activated(this, imperfectRitual, player, stats));
 
             return RitualResult.success();

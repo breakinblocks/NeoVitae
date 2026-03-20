@@ -38,7 +38,6 @@ public class ARCScreen extends AbstractContainerScreen<ARCMenu> {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
-        // fluids in tank
         if (!this.menu.tile.inputTank.isEmpty()) {
             int fluidHeight = 63 * this.menu.tile.inputTank.getFluidAmount() / this.menu.tile.inputTank.getCapacity();
             RenderHelper.renderGuiFluid(guiGraphics, this.menu.tile.inputTank.getFluid().getFluid(), inputX, inputY + (63 - fluidHeight), 16, fluidHeight);
@@ -47,7 +46,6 @@ public class ARCScreen extends AbstractContainerScreen<ARCMenu> {
             int fluidHeight = 63 * this.menu.tile.outputTank.getFluidAmount() / this.menu.tile.outputTank.getCapacity();
             RenderHelper.renderGuiFluid(guiGraphics, this.menu.tile.outputTank.getFluid().getFluid(), outputX, outputY + (63 - fluidHeight), 16, fluidHeight);
         }
-        // the little red indicator lines
         guiGraphics.blitSprite(gauge, inputX, inputY, 16, 57);
         guiGraphics.blitSprite(gauge, outputX, outputY, 16, 57);
 

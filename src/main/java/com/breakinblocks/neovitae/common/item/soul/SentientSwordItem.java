@@ -33,17 +33,14 @@ import static com.breakinblocks.neovitae.common.item.soul.SentientToolHelper.*;
  */
 public class SentientSwordItem extends SwordItem implements ISentientTool {
 
-    // Damage added per level for each will type
     private static final double[] DEFAULT_DAMAGE = {1, 1.5, 2, 2.5, 3, 3.5, 4};
     private static final double[] DESTRUCTIVE_DAMAGE = {1.5, 2.25, 3, 3.75, 4.5, 5.25, 6};
     private static final double[] VENGEFUL_DAMAGE = {0, 0.5, 1, 1.5, 2, 2.25, 2.5};
     private static final double[] STEADFAST_DAMAGE = {0, 0.5, 1, 1.5, 2, 2.25, 2.5};
 
-    // Attack speed modifiers (sword-specific)
     private static final double[] VENGEFUL_ATTACK_SPEED = {-2.1, -2.0, -1.8, -1.7, -1.6, -1.6, -1.5};
     private static final double[] DESTRUCTIVE_ATTACK_SPEED = {-2.6, -2.7, -2.8, -2.9, -3, -3, -3};
 
-    // Movement speed bonus (sword-specific, Vengeful only)
     private static final double[] MOVEMENT_SPEED = {0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4};
 
     public SentientSwordItem() {
@@ -71,7 +68,6 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
         if (!level.isClientSide && entity instanceof Player player && isSelected) {
-            // Recalculate powers every second (20 ticks) when selected
             if (level.getGameTime() % 20 == 0) {
                 recalculatePowers(stack, level, player);
             }
@@ -107,7 +103,7 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
         recalculatePowers(stack, player.level(), player);
         if (handleWillDrain(stack, player)) {
-            return false; // Cancel attack - not enough will
+            return false;
         }
         return super.onLeftClickEntity(stack, player, entity);
     }
@@ -131,13 +127,12 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
         setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] : 1);
         setSoulDrop(stack, level >= 0 ? SOUL_DROP[level] : 0);
 
-        // Update actual attribute modifiers on the item
         updateAttributeModifiers(stack, 5 + extraDamage, attackSpeed, movementSpeed);
     }
 
     private double getAttackSpeed(EnumWillType type, int willBracket) {
         if (willBracket < 0) {
-            return -2.4; // Base attack speed
+            return -2.4;
         }
         return switch (type) {
             case VENGEFUL -> VENGEFUL_ATTACK_SPEED[willBracket];
@@ -195,7 +190,6 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
         return oldStack.getItem() != newStack.getItem();
     }
 
-    // Sword-specific: activated state for sigil-like behavior
     private boolean getActivated(ItemStack stack) {
         return stack.getOrDefault(NVDataComponents.SIGIL_ACTIVATED, false);
     }

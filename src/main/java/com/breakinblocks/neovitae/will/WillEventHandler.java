@@ -28,14 +28,9 @@ import com.breakinblocks.neovitae.common.item.soul.SentientSwordItem;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Event handler for demon will system.
- * Handles soul drops when entities are killed with sentient weapons or soul snares.
- */
 @EventBusSubscriber(modid = NeoVitae.MODID)
 public class WillEventHandler {
 
-    // Base soul drop for snared mobs
     private static final double SNARE_BASE_DROP = 1.0;
     private static final double SNARE_RANDOM_DROP = 4.0;
 
@@ -47,13 +42,11 @@ public class WillEventHandler {
             return;
         }
 
-        // Check for soul snare effect first (works with any damage source)
         if (killed.hasEffect(NVMobEffects.SOUL_SNARE)) {
             handleSnareDrop(killed);
-            return; // Snare drops don't stack with sentient weapon drops
+            return;
         }
 
-        // Check if the source of damage was a player with a sentient weapon
         if (!(event.getSource().getEntity() instanceof Player player)) {
             return;
         }
@@ -63,14 +56,12 @@ public class WillEventHandler {
             return;
         }
 
-        // Get looting level for bonus drops
         Holder<Enchantment> lootingEnchant = killed.level().registryAccess()
                 .lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.LOOTING);
         int looting = weapon.getEnchantmentLevel(lootingEnchant);
 
         List<ItemStack> soulDrops = null;
 
-        // Check what type of sentient weapon is being used
         if (weapon.getItem() instanceof SentientSwordItem sword) {
             soulDrops = sword.getRandomDemonWillDrop(killed, player, weapon, looting);
         } else if (weapon.getItem() instanceof SentientAxeItem axe) {
@@ -83,15 +74,10 @@ public class WillEventHandler {
             soulDrops = scythe.getRandomDemonWillDrop(killed, player, weapon, looting);
         }
 
-        // Drop the souls
         dropSouls(killed, soulDrops);
     }
 
-    /**
-     * Handles soul drops from mobs killed while affected by Soul Snare.
-     */
     private static void handleSnareDrop(LivingEntity killed) {
-        // Only hostile mobs drop souls
         if (killed.level().getDifficulty() == Difficulty.PEACEFUL || !(killed instanceof Enemy)) {
             return;
         }
@@ -100,7 +86,6 @@ public class WillEventHandler {
         double soulAmount = willModifier * (SNARE_BASE_DROP + killed.level().random.nextDouble() * SNARE_RANDOM_DROP)
                 * killed.getMaxHealth() / 20d;
 
-        // Snared mobs always drop raw/default will
         MonsterSoulItem soulItem = NVItems.MONSTER_SOUL_RAW.get();
         ItemStack soulStack = soulItem.createWill(soulAmount);
 
@@ -109,9 +94,6 @@ public class WillEventHandler {
         dropSouls(killed, drops);
     }
 
-    /**
-     * Drops soul items at the killed entity's location.
-     */
     private static void dropSouls(LivingEntity killed, List<ItemStack> soulDrops) {
         if (soulDrops != null && !soulDrops.isEmpty()) {
             for (ItemStack soulStack : soulDrops) {
@@ -125,10 +107,6 @@ public class WillEventHandler {
         }
     }
 
-    /**
-     * Handles automatic absorption of monster souls into tartaric gems on pickup.
-     * When a player picks up a monster soul, it automatically fills gems in their inventory.
-     */
     @SubscribeEvent
     public static void onItemPickup(ItemEntityPickupEvent.Pre event) {
         ItemStack pickedUp = event.getItemEntity().getItem();
@@ -138,23 +116,17 @@ public class WillEventHandler {
             return;
         }
 
-        // Only handle monster soul items
         if (!(pickedUp.getItem() instanceof IDemonWill will)) {
             return;
         }
 
-        // Try to fill gems in player's inventory
         ItemStack remaining = PlayerDemonWillHandler.addDemonWill(player, pickedUp.copy());
 
         if (remaining.isEmpty()) {
-            // Fully absorbed into gems - consume the item entity
             event.getItemEntity().discard();
-            // The item entity is now gone, so pickup will naturally fail
         } else if (remaining.getItem() instanceof IDemonWill remainingWill &&
                    remainingWill.getWill(will.getType(remaining), remaining) < will.getWill(will.getType(pickedUp), pickedUp)) {
-            // Partially absorbed - update the item entity with remaining will amount
             event.getItemEntity().setItem(remaining);
         }
-        // If nothing was absorbed, let normal pickup proceed
     }
 }

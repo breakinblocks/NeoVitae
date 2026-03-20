@@ -28,10 +28,6 @@ import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.function.Supplier;
 
-/**
- * Sigil effect that places fluids in the world or fills fluid containers.
- * Used by Water Sigil and Lava Sigil.
- */
 public record PlaceFluidSigilEffect(Fluid fluid, int amount) implements SigilEffect {
     public static final MapCodec<PlaceFluidSigilEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             BuiltInRegistries.FLUID.byNameCodec().fieldOf("fluid").forGetter(PlaceFluidSigilEffect::fluid),
@@ -69,21 +65,18 @@ public record PlaceFluidSigilEffect(Fluid fluid, int amount) implements SigilEff
 
         FluidStack fluidStack = new FluidStack(fluid, amount);
 
-        // Try to insert into a tank first
         IFluidHandler destination = level.getCapability(Capabilities.FluidHandler.BLOCK, blockPos, null);
         if (destination != null && tryInsertFluid(destination, fluidStack, false)) {
             tryInsertFluid(destination, fluidStack, true);
             return true;
         }
 
-        // Try with side
         IFluidHandler destinationSide = level.getCapability(Capabilities.FluidHandler.BLOCK, blockPos, sideHit);
         if (destinationSide != null && tryInsertFluid(destinationSide, fluidStack, false)) {
             tryInsertFluid(destinationSide, fluidStack, true);
             return true;
         }
 
-        // Place fluid in world
         if (destination == null && destinationSide == null) {
             return tryPlaceFluid(player, level, targetPos, fluidStack);
         }
@@ -105,21 +98,18 @@ public record PlaceFluidSigilEffect(Fluid fluid, int amount) implements SigilEff
 
         FluidStack fluidStack = new FluidStack(fluid, amount);
 
-        // Try to insert into a tank first
         IFluidHandler destination = level.getCapability(Capabilities.FluidHandler.BLOCK, blockPos, null);
         if (destination != null && tryInsertFluid(destination, fluidStack, false)) {
             tryInsertFluid(destination, fluidStack, true);
             return true;
         }
 
-        // Try with side
         IFluidHandler destinationSide = level.getCapability(Capabilities.FluidHandler.BLOCK, blockPos, side);
         if (destinationSide != null && tryInsertFluid(destinationSide, fluidStack, false)) {
             tryInsertFluid(destinationSide, fluidStack, true);
             return true;
         }
 
-        // Place fluid in world at the adjacent position
         if (destination == null && destinationSide == null) {
             return tryPlaceFluid(player, level, targetPos, fluidStack);
         }
@@ -142,18 +132,15 @@ public record PlaceFluidSigilEffect(Fluid fluid, int amount) implements SigilEff
         Fluid fluid = fluidStack.getFluid();
         BlockState targetState = level.getBlockState(blockPos);
 
-        // Check if the position is valid for placing fluid
         if (!targetState.canBeReplaced(fluid)) {
             return false;
         }
 
-        // Handle nether vaporization
         if (level.dimensionType().ultraWarm() && fluid.getFluidType().isVaporizedOnPlacement(level, blockPos, fluidStack)) {
             fluid.getFluidType().onVaporize(player, level, blockPos, fluidStack);
             return true;
         }
 
-        // Place the fluid (with protection check)
         if (fluid instanceof FlowingFluid flowingFluid) {
             BlockState fluidState = flowingFluid.getSource().defaultFluidState().createLegacyBlock();
             return BlockProtectionHelper.tryPlaceBlock(level, blockPos, fluidState, player, 11);

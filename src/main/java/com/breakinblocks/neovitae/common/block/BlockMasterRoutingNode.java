@@ -17,9 +17,6 @@ import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBl
 
 import javax.annotation.Nullable;
 
-/**
- * Master routing node - coordinates the entire routing network.
- */
 public class BlockMasterRoutingNode extends BlockRoutingNode {
 
     public static final MapCodec<BlockMasterRoutingNode> CODEC = simpleCodec(BlockMasterRoutingNode::new);

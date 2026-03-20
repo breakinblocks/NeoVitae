@@ -45,7 +45,6 @@ public class RitualEllipse extends Ritual {
 
         AreaDescriptor range = RitualHelper.getEffectiveRange(ctx.master(), this, ELLIPSE_RANGE);
 
-        // Generate build positions if needed
         if (buildPositions == null || buildPositions.isEmpty()) {
             buildPositions = generateEllipsoidPositions(ctx.masterPos(), range);
             currentIndex = 0;
@@ -58,13 +57,11 @@ public class RitualEllipse extends Ritual {
             return;
         }
 
-        // Find adjacent inventory
         IItemHandler inventory = findAdjacentInventory(ctx.level(), ctx.masterPos());
         if (inventory == null) return;
 
         UUID owner = ctx.master().getOwner();
 
-        // Place blocks
         int blocksPlaced = 0;
         int maxBlocksPerTick = 5;
 
@@ -74,7 +71,6 @@ public class RitualEllipse extends Ritual {
 
             if (!ctx.level().isEmptyBlock(placePos)) continue;
 
-            // Get block from inventory
             ItemStack toPlace = ItemStack.EMPTY;
             int slotIndex = -1;
             for (int i = 0; i < inventory.getSlots(); i++) {
@@ -91,7 +87,6 @@ public class RitualEllipse extends Ritual {
             BlockItem blockItem = (BlockItem) toPlace.getItem();
             BlockState stateToPlace = blockItem.getBlock().defaultBlockState();
 
-            // Check protection before placing block
             if (BlockProtectionHelper.tryPlaceBlock(ctx.level(), placePos, stateToPlace, owner)) {
                 inventory.extractItem(slotIndex, 1, false);
                 blocksPlaced++;

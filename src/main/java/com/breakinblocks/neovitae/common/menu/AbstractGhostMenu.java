@@ -26,14 +26,12 @@ public abstract class AbstractGhostMenu<T extends AbstractContainerMenu> extends
             }
         }
 
-        // player inv
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
                 this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, invOff + i * 18));
             }
         }
 
-        // player hotbar
         for (int i = 0; i < 9; i++) {
             if (i == heldSlot) {
                 this.addSlot(new DisabledSlot(playerInventory, i, 8 + i * 18, invOff + 58));
@@ -60,11 +58,9 @@ public abstract class AbstractGhostMenu<T extends AbstractContainerMenu> extends
 
                     if (button == 0) { // Left mouse click-eth
                         if (heldStack.isEmpty() && !slotStack.isEmpty()) {
-                            // I clicked on the slot with an empty hand. Selecting!
                             updateGhostSelection(tracker.get(0), slotId);
                             // Debug: NeoVitae.LOGGER.info("selected ghost slot {} index {}", slotId, slot.getSlotIndex());
                             tracker.set(0, slot.getSlotIndex());
-                            // Return here to not save the server-side inventory
                             return;
                         } else if (!heldStack.isEmpty() && slotStack.isEmpty() && ghostSlot.isValid(heldStack)) {
                             ItemStack copyStack = heldStack.copy();
@@ -81,7 +77,6 @@ public abstract class AbstractGhostMenu<T extends AbstractContainerMenu> extends
         super.clicked(slotId, button, clickType, player);
     }
 
-    // override for callback on ghost slot reselection
     public void updateGhostSelection(int previousSlot, int currentSlot) {}
 
     @Override // dont do quickMove here

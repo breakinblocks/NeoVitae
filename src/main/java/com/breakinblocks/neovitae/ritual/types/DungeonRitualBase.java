@@ -35,25 +35,15 @@ public abstract class DungeonRitualBase extends Ritual {
 
     @Override
     public boolean activateRitual(IMasterRitualStone masterRitualStone, Player player, UUID owner) {
-        // Store the player's exit location before entering the dungeon
         storePlayerExitLocation(player);
         return true;
     }
 
-    /**
-     * Stores the player's current position as their dungeon exit location.
-     * This will be used to return them when they leave the dungeon.
-     * Uses modern NeoForge Data Attachments with Codec serialization.
-     */
     protected void storePlayerExitLocation(Player player) {
         DungeonExitData exitData = DungeonExitData.of(player.level(), player.blockPosition());
         player.setData(NVDataAttachments.DUNGEON_EXIT.get(), exitData);
     }
 
-    /**
-     * Performs common ritual cleanup: replaces ritual runes with smooth stone,
-     * spawns lightning effect, and removes the master ritual stone.
-     */
     protected void performRitualCleanup(IMasterRitualStone masterRitualStone, Level world) {
         BlockPos masterPos = masterRitualStone.getMasterBlockPos();
         Direction direction = masterRitualStone.getDirection();
@@ -68,19 +58,11 @@ public abstract class DungeonRitualBase extends Ritual {
             world.setBlockAndUpdate(newPos, Blocks.SMOOTH_STONE.defaultBlockState());
         }
 
-        // Spawn lightning effect
         spawnLightningEffect(world, masterPos);
-
-        // Increment dungeon counter
         SoulNetworkHelper.incrementDungeonCounter();
-
-        // Remove the master ritual stone
         world.setBlockAndUpdate(masterPos, Blocks.AIR.defaultBlockState());
     }
 
-    /**
-     * Spawns a visual-only lightning bolt at the specified position.
-     */
     protected void spawnLightningEffect(Level world, BlockPos pos) {
         LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(world);
         if (lightning != null) {
@@ -90,24 +72,14 @@ public abstract class DungeonRitualBase extends Ritual {
         }
     }
 
-    /**
-     * Spawns a portal pillar with caps and sets its destination.
-     *
-     * @param spawnWorld       The world to place the pillar in
-     * @param destinationWorld The world the pillar teleports to
-     * @param pillarPos        The position to place the pillar
-     * @param safePlayerPos    The safe destination position for the player
-     */
     protected void spawnPortalPillar(Level spawnWorld, Level destinationWorld,
                                       BlockPos pillarPos, BlockPos safePlayerPos) {
-        // Place the pillar body
         spawnWorld.setBlockAndUpdate(pillarPos, NVBlocks.INVERSION_PILLAR.block().get().defaultBlockState());
 
         BlockEntity tile = spawnWorld.getBlockEntity(pillarPos);
         if (tile instanceof InversionPillarBlockEntity tileInversion) {
             tileInversion.setDestination(destinationWorld, safePlayerPos);
 
-            // Place caps
             spawnWorld.setBlockAndUpdate(pillarPos.below(),
                     NVBlocks.INVERSION_PILLAR_CAP.block().get().defaultBlockState()
                             .setValue(BlockInversionPillarEnd.TYPE, PillarCapType.BOTTOM));
@@ -117,13 +89,6 @@ public abstract class DungeonRitualBase extends Ritual {
         }
     }
 
-    /**
-     * Rotates a block offset based on the facing direction of the ritual.
-     *
-     * @param offset    The original offset
-     * @param direction The facing direction
-     * @return The rotated offset
-     */
     protected BlockPos rotateOffset(BlockPos offset, Direction direction) {
         return switch (direction) {
             case NORTH -> offset;
@@ -134,12 +99,6 @@ public abstract class DungeonRitualBase extends Ritual {
         };
     }
 
-    /**
-     * Gets the dungeon dimension ServerLevel.
-     *
-     * @param world Any world to get the server from
-     * @return The dungeon ServerLevel, or null if not accessible
-     */
     protected ServerLevel getDungeonWorld(Level world) {
         return DungeonDimensionHelper.getDungeonWorld(world);
     }

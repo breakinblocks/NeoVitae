@@ -12,10 +12,6 @@ import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.structures.DungeonSynthesizer;
 
-/**
- * Developer/debug item for testing dungeon generation.
- * Right-click to generate a test dungeon room at the player's position.
- */
 public class ItemDungeonTester extends Item {
     public ItemDungeonTester() {
         super(new Item.Properties().stacksTo(1));
@@ -29,7 +25,6 @@ public class ItemDungeonTester extends Item {
             DungeonSynthesizer dungeon = new DungeonSynthesizer();
             ResourceLocation initialType = NeoVitae.rl("room_pools/entrances/mini_dungeon_entrances");
 
-            // Generate a test dungeon room 2 blocks in front of the player
             BlockPos targetPos = player.blockPosition().relative(player.getDirection(), 2);
             BlockPos[] result = dungeon.generateInitialRoom(initialType, serverLevel.random, serverLevel, targetPos);
 

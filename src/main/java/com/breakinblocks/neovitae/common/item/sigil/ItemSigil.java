@@ -19,9 +19,6 @@ import com.breakinblocks.neovitae.util.helper.PlayerHelper;
 import javax.annotation.Nullable;
 import java.util.List;
 
-/**
- * Base class for all (static) sigils.
- */
 public class ItemSigil extends Item implements IBindable, ISigil {
     private final int defaultLpUsed;
 
@@ -54,10 +51,6 @@ public class ItemSigil extends Item implements IBindable, ISigil {
         return defaultLpUsed;
     }
 
-    /**
-     * Gets the full SigilStats for this sigil from the datamap.
-     * @return SigilStats or null if not configured
-     */
     public SigilStats getSigilStats() {
         return BuiltInRegistries.ITEM.wrapAsHolder(this).getData(NVDataMaps.SIGIL_STATS);
     }
@@ -96,7 +89,6 @@ public class ItemSigil extends Item implements IBindable, ISigil {
 
     @Override
     public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
-        // Prevent the attack/swing animation when using sigils
         return true;
     }
 }

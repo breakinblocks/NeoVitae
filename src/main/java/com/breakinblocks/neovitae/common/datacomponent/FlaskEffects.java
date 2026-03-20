@@ -13,10 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Data component for storing alchemy flask effects.
- * Holds a list of EffectHolders with their duration modifiers.
- */
 public record FlaskEffects(List<EffectHolder> effects) {
 
     public static final FlaskEffects EMPTY = new FlaskEffects(List.of());
@@ -31,16 +27,10 @@ public record FlaskEffects(List<EffectHolder> effects) {
             FlaskEffects::new
     );
 
-    /**
-     * Creates a FlaskEffects with a single effect.
-     */
     public static FlaskEffects single(EffectHolder holder) {
         return new FlaskEffects(List.of(holder));
     }
 
-    /**
-     * Creates a FlaskEffects from multiple holders.
-     */
     public static FlaskEffects of(EffectHolder... holders) {
         return new FlaskEffects(List.of(holders));
     }
@@ -53,23 +43,14 @@ public record FlaskEffects(List<EffectHolder> effects) {
         return effects.size();
     }
 
-    /**
-     * Checks if this flask contains the given effect.
-     */
     public boolean hasEffect(Holder<MobEffect> effect) {
         return effects.stream().anyMatch(h -> h.matches(effect));
     }
 
-    /**
-     * Gets the effect holder for a specific effect, if present.
-     */
     public Optional<EffectHolder> getHolder(Holder<MobEffect> effect) {
         return effects.stream().filter(h -> h.matches(effect)).findFirst();
     }
 
-    /**
-     * Gets the index of an effect in the list, or -1 if not found.
-     */
     public int indexOf(Holder<MobEffect> effect) {
         for (int i = 0; i < effects.size(); i++) {
             if (effects.get(i).matches(effect)) {
@@ -79,18 +60,12 @@ public record FlaskEffects(List<EffectHolder> effects) {
         return -1;
     }
 
-    /**
-     * Returns a new FlaskEffects with an additional effect.
-     */
     public FlaskEffects withEffect(EffectHolder holder) {
         List<EffectHolder> newList = new ArrayList<>(effects);
         newList.add(holder);
         return new FlaskEffects(newList);
     }
 
-    /**
-     * Returns a new FlaskEffects with the effect at the given index replaced.
-     */
     public FlaskEffects withReplacedEffect(int index, EffectHolder holder) {
         if (index < 0 || index >= effects.size()) {
             return this;
@@ -100,9 +75,6 @@ public record FlaskEffects(List<EffectHolder> effects) {
         return new FlaskEffects(newList);
     }
 
-    /**
-     * Returns a new FlaskEffects with a specific effect updated.
-     */
     public FlaskEffects withUpdatedEffect(Holder<MobEffect> effect, EffectHolder newHolder) {
         List<EffectHolder> newList = new ArrayList<>();
         for (EffectHolder h : effects) {
@@ -115,9 +87,6 @@ public record FlaskEffects(List<EffectHolder> effects) {
         return new FlaskEffects(newList);
     }
 
-    /**
-     * Returns a new FlaskEffects with the effect at the given index removed.
-     */
     public FlaskEffects withRemovedEffect(int index) {
         if (index < 0 || index >= effects.size()) {
             return this;
@@ -127,9 +96,6 @@ public record FlaskEffects(List<EffectHolder> effects) {
         return new FlaskEffects(newList);
     }
 
-    /**
-     * Returns a new FlaskEffects with a specific effect removed.
-     */
     public FlaskEffects withRemovedEffect(Holder<MobEffect> effect) {
         List<EffectHolder> newList = new ArrayList<>();
         for (EffectHolder h : effects) {
@@ -140,9 +106,6 @@ public record FlaskEffects(List<EffectHolder> effects) {
         return new FlaskEffects(newList);
     }
 
-    /**
-     * Returns a new FlaskEffects with effects cycled (first becomes last).
-     */
     public FlaskEffects cycled(int times) {
         if (effects.size() < 2) {
             return this;
@@ -155,28 +118,19 @@ public record FlaskEffects(List<EffectHolder> effects) {
         return new FlaskEffects(newList);
     }
 
-    /**
-     * Converts all effect holders to MobEffectInstances for application.
-     */
     public List<MobEffectInstance> toEffectInstances(boolean ambient, boolean showParticles) {
         return effects.stream()
                 .map(h -> h.getEffectInstance(ambient, showParticles))
                 .toList();
     }
 
-    /**
-     * Gets a copy of the effects list for modification.
-     */
     public List<EffectHolder> toMutableList() {
         return new ArrayList<>(effects);
     }
 
-    /**
-     * Calculates the combined potion color for display purposes.
-     */
     public int getColor() {
         if (effects.isEmpty()) {
-            return 0x385DC6; // Default water color
+            return 0x385DC6;
         }
 
         float r = 0, g = 0, b = 0;

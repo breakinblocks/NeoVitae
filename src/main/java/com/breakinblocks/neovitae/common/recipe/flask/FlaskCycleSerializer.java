@@ -10,9 +10,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
-/**
- * Serializer for flask cycle recipes (reordering effects in flasks).
- */
 public class FlaskCycleSerializer implements RecipeSerializer<FlaskCycleRecipe> {
 
     public static final MapCodec<FlaskCycleRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(

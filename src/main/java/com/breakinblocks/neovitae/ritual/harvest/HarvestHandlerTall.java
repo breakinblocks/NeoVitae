@@ -29,7 +29,6 @@ public class HarvestHandlerTall implements IHarvestHandler {
     private static final ItemStack mockHoe = new ItemStack(Items.DIAMOND_HOE, 1);
 
     public HarvestHandlerTall() {
-        // Bottom block is set to age 0 when one grows above
         HarvestRegistry.registerTallCrop(Blocks.SUGAR_CANE.defaultBlockState().setValue(SugarCaneBlock.AGE, 0));
         HarvestRegistry.registerTallCrop(Blocks.CACTUS.defaultBlockState().setValue(CactusBlock.AGE, 0));
         HarvestRegistry.registerTallCrop(Blocks.BAMBOO.defaultBlockState()
@@ -44,7 +43,6 @@ public class HarvestHandlerTall implements IHarvestHandler {
 
         BlockState up = level.getBlockState(pos.above());
         if (up.getBlock() == state.getBlock()) {
-            // Check protection before breaking
             if (!BlockProtectionHelper.tryBreakBlockNoDrops(level, pos.above(), ownerUUID)) {
                 return false;
             }

@@ -9,10 +9,6 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Data component for storing nested filters in a composite filter.
- * Stores up to 4 filter item stacks.
- */
 public record NestedFilterInventory(List<ItemStack> filters) {
     public static final int SIZE = 4;
 

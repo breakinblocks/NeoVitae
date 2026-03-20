@@ -39,6 +39,20 @@ public class AltarRuneModifiers {
 
     /**
      * Creates a new modifier container with the given base values.
+     *
+     * <p>Multiplicative modifiers (capacity, dislocation, efficiency) should start at 1.0
+     * for no effect. Additive modifiers (consumption, sacrifice, etc.) should start at 0.0.</p>
+     *
+     * @param capacityMod      blood tank capacity multiplier (1.0 = base)
+     * @param tickRate          ticks between altar operations (lower = faster, minimum 1)
+     * @param consumptionMod   additive crafting speed bonus (0.0 = base)
+     * @param sacrificeMod     additive entity sacrifice LP bonus (0.0 = base)
+     * @param selfSacrificeMod additive self-sacrifice LP bonus (0.0 = base)
+     * @param dislocationMod   fluid I/O rate multiplier (1.0 = base)
+     * @param orbCapacityMod   additive soul network fill rate bonus (0.0 = base)
+     * @param chargeAmountMod  LP charged per tick when idle (0.0 = disabled)
+     * @param chargeCapacityMod maximum stored charge (0.0 = disabled)
+     * @param efficiencyMod    drain rate multiplier when crafting pauses (1.0 = base, lower = less drain)
      */
     public AltarRuneModifiers(
             float capacityMod,
@@ -64,10 +78,6 @@ public class AltarRuneModifiers {
         this.efficiencyMod = efficiencyMod;
     }
 
-    // ========================================
-    // Getters
-    // ========================================
-
     public float getCapacityMod() { return capacityMod; }
     public int getTickRate() { return tickRate; }
     public float getConsumptionMod() { return consumptionMod; }
@@ -78,10 +88,6 @@ public class AltarRuneModifiers {
     public float getChargeAmountMod() { return chargeAmountMod; }
     public float getChargeCapacityMod() { return chargeCapacityMod; }
     public float getEfficiencyMod() { return efficiencyMod; }
-
-    // ========================================
-    // Modifiers for event handlers
-    // ========================================
 
     /**
      * Adds to the capacity modifier.

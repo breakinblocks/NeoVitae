@@ -13,7 +13,6 @@ import com.breakinblocks.neovitae.common.blockentity.ARCBlockEntity;
 
 public class ARCMenu extends AbstractBlockEntityMenu<ARCBlockEntity> {
 
-    // 4 input slots (bucket in, bucket out, tool, input) + 5 output slots
     private static final int TILE_SLOTS = 4 + ARCBlockEntity.NUM_OUTPUTS;
 
     public ARCMenu(int containerId, Inventory playerInventory, ARCBlockEntity tile) {
@@ -39,7 +38,6 @@ public class ARCMenu extends AbstractBlockEntityMenu<ARCBlockEntity> {
             });
         }
 
-        // Player inventory and hotbar
         MenuSlotHelper.addPlayerInventory(this::addSlot, playerInventory,
                 MenuSlotHelper.INV_Y_208, MenuSlotHelper.HOTBAR_Y_208);
     }
@@ -51,12 +49,10 @@ public class ARCMenu extends AbstractBlockEntityMenu<ARCBlockEntity> {
     @Override
     protected boolean handleQuickMoveStack(int index, ItemStack slotStack, ItemStack originalCopy, Slot slot) {
         if (isTileSlot(index)) {
-            // From machine to player
             if (!moveToPlayer(slotStack, false)) {
                 return false;
             }
         } else {
-            // From player to machine
             if (!moveToTileSlots(slotStack, 0, playerSlotsStart)) {
                 return false;
             }

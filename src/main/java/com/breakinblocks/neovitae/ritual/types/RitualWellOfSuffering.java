@@ -84,9 +84,6 @@ public class RitualWellOfSuffering extends Ritual {
         }
     }
 
-    /**
-     * Finds the blood altar, using the cached offset position if available.
-     */
     private BloodAltarTile findAltar(RitualContext ctx) {
         RitualHelper.AltarSearchResult result = RitualHelper.findAltar(ctx, this, ALTAR_RANGE, altarOffsetPos);
         altarOffsetPos = result.offset();

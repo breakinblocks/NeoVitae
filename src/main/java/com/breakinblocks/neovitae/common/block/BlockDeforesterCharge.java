@@ -5,10 +5,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.DeforesterChargeBlockEntity;
 
-/**
- * Block for deforester charges.
- * Harvests connected logs and leaves when triggered.
- */
 public class BlockDeforesterCharge extends BlockShapedExplosive {
     private final int maxLogs;
 

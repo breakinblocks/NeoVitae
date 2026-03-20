@@ -67,12 +67,6 @@ public class RoutingNodeHelper {
         return getStatsOrDefault(block, RoutingNodeStats.DEFAULT_MASTER);
     }
 
-    // === Convenience methods for common lookups ===
-
-    /**
-     * Gets the maximum number of connections for a node block.
-     * @return max connections, or -1 for unlimited
-     */
     public static int getMaxConnections(Block block) {
         return getNodeStats(block).getMaxConnections();
     }

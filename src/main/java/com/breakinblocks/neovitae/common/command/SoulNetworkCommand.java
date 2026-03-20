@@ -13,9 +13,6 @@ import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
 import com.breakinblocks.neovitae.api.soul.SoulTicket;
 
 public class SoulNetworkCommand {
-    /**
-     * Registers the standalone /bm-network command and returns the node for aliasing.
-     */
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("bm-network")

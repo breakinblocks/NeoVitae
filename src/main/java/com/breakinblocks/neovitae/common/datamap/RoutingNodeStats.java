@@ -80,14 +80,11 @@ public record RoutingNodeStats(
         Optional<Integer> maxSpeedUpgrades,
         Optional<Integer> maxStackUpgrades
 ) {
-    /**
-     * Default stats for basic routing nodes.
-     */
     public static final RoutingNodeStats DEFAULT_NODE = new RoutingNodeStats(
-            Optional.empty(), // unlimited connections
-            Optional.empty(), // unlimited range
-            Optional.of(0),   // no priority bonus
-            Optional.empty(), // not a master node
+            Optional.empty(),
+            Optional.empty(),
+            Optional.of(0),
+            Optional.empty(),
             Optional.empty(),
             Optional.empty(),
             Optional.empty(),
@@ -96,20 +93,17 @@ public record RoutingNodeStats(
             Optional.empty()
     );
 
-    /**
-     * Default stats for master routing nodes.
-     */
     public static final RoutingNodeStats DEFAULT_MASTER = new RoutingNodeStats(
-            Optional.empty(),    // unlimited connections
-            Optional.empty(),    // unlimited range
-            Optional.of(0),      // no priority bonus
-            Optional.of(20),     // 20 ticks base
-            Optional.of(16),     // 16 items base
-            Optional.of(1000),   // 1000 mB base
-            Optional.of(16),     // +16 items per upgrade
-            Optional.of(1000),   // +1000 mB per upgrade
-            Optional.of(19),     // max 19 speed upgrades (to reach 1 tick)
-            Optional.of(64)      // max 64 stack upgrades
+            Optional.empty(),
+            Optional.empty(),
+            Optional.of(0),
+            Optional.of(20),
+            Optional.of(16),
+            Optional.of(1000),
+            Optional.of(16),
+            Optional.of(1000),
+            Optional.of(19),
+            Optional.of(64)
     );
 
     public static final Codec<RoutingNodeStats> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -125,12 +119,6 @@ public record RoutingNodeStats(
             Codec.INT.optionalFieldOf("max_stack_upgrades").forGetter(RoutingNodeStats::maxStackUpgrades)
     ).apply(instance, RoutingNodeStats::new));
 
-    // Accessor methods with defaults for all nodes
-
-    /**
-     * Gets the maximum number of connections allowed.
-     * @return max connections, or -1 for unlimited
-     */
     public int getMaxConnections() {
         return maxConnections.orElse(-1);
     }
@@ -151,12 +139,6 @@ public record RoutingNodeStats(
         return priorityBonus.orElse(0);
     }
 
-    // Accessor methods with defaults for master nodes
-
-    /**
-     * Gets the base tick rate for master nodes.
-     * @return tick rate (default 20)
-     */
     public int getBaseTickRate() {
         return baseTickRate.orElse(20);
     }

@@ -36,10 +36,6 @@ public class AltarRuneRegistryImpl implements IAltarRuneRegistry {
         NeoVitae.LOGGER.debug("Registered {} built-in altar rune types", EnumAltarRuneType.values().length);
     }
 
-    // ========================================
-    // Rune Type Registration
-    // ========================================
-
     @Override
     public void registerRuneType(IAltarRuneType runeType) {
         if (runeType == null) {
@@ -52,7 +48,6 @@ public class AltarRuneRegistryImpl implements IAltarRuneRegistry {
             throw new IllegalArgumentException("Rune type serialized name cannot be null or empty");
         }
 
-        // Check if this is a built-in type being re-registered (not an error, just skip)
         if (runeType instanceof EnumAltarRuneType) {
             NeoVitae.LOGGER.debug("Skipping registration of built-in rune type: {}", runeType.getId());
             return;
@@ -97,10 +92,6 @@ public class AltarRuneRegistryImpl implements IAltarRuneRegistry {
         return runeTypesById.containsKey(id);
     }
 
-    // ========================================
-    // Block Registration
-    // ========================================
-
     @Override
     public void registerRuneBlock(Block block, IAltarRuneType runeType, int amount) {
         if (block == null) {
@@ -113,7 +104,6 @@ public class AltarRuneRegistryImpl implements IAltarRuneRegistry {
             throw new IllegalArgumentException("Amount must be positive");
         }
 
-        // Verify the rune type is registered (should always pass for EnumAltarRuneType)
         if (!isRegistered(runeType.getId())) {
             NeoVitae.LOGGER.warn("Registering block {} with unregistered rune type {}. " +
                     "Consider registering the rune type first.", block, runeType.getId());
@@ -129,7 +119,6 @@ public class AltarRuneRegistryImpl implements IAltarRuneRegistry {
     public Map<IAltarRuneType, Integer> getRunesForBlock(Block block) {
         Map<IAltarRuneType, Integer> runes = blockToRunes.get(block);
         if (runes == null) {
-            // Only log at warn level if registry is non-empty (i.e. it should have been found)
             if (!blockToRunes.isEmpty()) {
                 NeoVitae.LOGGER.warn("getRunesForBlock: No runes found for {} (hash={}), registry has {} entries",
                         block, System.identityHashCode(block), blockToRunes.size());
@@ -145,10 +134,6 @@ public class AltarRuneRegistryImpl implements IAltarRuneRegistry {
         return runes != null && !runes.isEmpty();
     }
 
-    // ========================================
-    // Internal Methods
-    // ========================================
-
     /**
      * Gets all registered block-to-rune associations.
      * Used internally for structure scanning.
@@ -163,11 +148,7 @@ public class AltarRuneRegistryImpl implements IAltarRuneRegistry {
         return Collections.unmodifiableMap(result);
     }
 
-    /**
-     * Clears all registrations except built-in types. Used for testing purposes only.
-     */
     void clearCustomRegistrations() {
-        // Re-initialize with only built-in types
         runeTypesById.clear();
         runeTypesByName.clear();
         blockToRunes.clear();

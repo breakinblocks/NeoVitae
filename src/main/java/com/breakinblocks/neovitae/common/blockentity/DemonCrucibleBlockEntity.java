@@ -65,16 +65,13 @@ public class DemonCrucibleBlockEntity extends BaseBlockEntity {
             return;
         }
 
-        // Check for redstone signal
         boolean isPowered = level.hasNeighborSignal(worldPosition);
 
         if (isPowered) {
-            // With redstone: fill gem from internal buffer (not implemented yet - gems fill from aura)
             if (stack.getItem() instanceof IDemonWillGem gem) {
                 handleGemFill(gem, stack);
             }
         } else {
-            // Without redstone: drain to aura
             if (stack.getItem() instanceof IDemonWillGem gem) {
                 handleGemDrain(gem, stack);
             } else if (stack.getItem() instanceof IDemonWill will) {
@@ -85,18 +82,11 @@ public class DemonCrucibleBlockEntity extends BaseBlockEntity {
         }
     }
 
-    /**
-     * Handles tartaric gems - drains will from gem to aura (no redstone).
-     * Loops through all will types and drains each one.
-     * Respects the configurable max will per chunk.
-     */
     private void handleGemDrain(IDemonWillGem gem, ItemStack stack) {
-        // Loop through all will types like 1.20.1 does
         for (EnumWillType type : EnumWillType.values()) {
             double currentChunkWill = WorldDemonWillHandler.getCurrentWill(level, worldPosition, type);
             double maxWillInChunk = WorldDemonWillHandler.getMaxWill(level, worldPosition, type);
 
-            // Only drain if chunk isn't full
             if (currentChunkWill >= maxWillInChunk) {
                 continue;
             }
@@ -104,13 +94,10 @@ public class DemonCrucibleBlockEntity extends BaseBlockEntity {
             double spaceInChunk = maxWillInChunk - currentChunkWill;
             double drainAmount = Math.min(GEM_DRAIN_RATE, spaceInChunk);
 
-            // First check how much we can actually drain from the gem (simulate)
             double canDrain = gem.drainWill(type, stack, drainAmount, false);
             if (canDrain > 0) {
-                // Actually drain from gem
                 double drained = gem.drainWill(type, stack, canDrain, true);
                 if (drained > 0) {
-                    // Add to chunk aura
                     WorldDemonWillHandler.addWillToChunk(level, worldPosition, type, drained);
                     setChanged();
                 }
@@ -118,11 +105,7 @@ public class DemonCrucibleBlockEntity extends BaseBlockEntity {
         }
     }
 
-    /**
-     * Handles tartaric gems - absorbs will from aura into gem (with redstone).
-     */
     private void handleGemFill(IDemonWillGem gem, ItemStack stack) {
-        // Loop through all will types
         for (EnumWillType type : EnumWillType.values()) {
             double currentChunkWill = WorldDemonWillHandler.getCurrentWill(level, worldPosition, type);
             if (currentChunkWill <= 0) {
@@ -131,13 +114,10 @@ public class DemonCrucibleBlockEntity extends BaseBlockEntity {
 
             double fillAmount = Math.min(GEM_DRAIN_RATE, currentChunkWill);
 
-            // Check how much we can fill into the gem (simulate)
             double canFill = gem.fillWill(type, stack, fillAmount, false);
             if (canFill > 0) {
-                // Drain from aura
                 double drained = WorldDemonWillHandler.drainWillFromChunk(level, worldPosition, type, canFill);
                 if (drained > 0) {
-                    // Fill into gem
                     gem.fillWill(type, stack, drained, true);
                     setChanged();
                 }
@@ -145,15 +125,11 @@ public class DemonCrucibleBlockEntity extends BaseBlockEntity {
         }
     }
 
-    /**
-     * Handles monster souls and raw will - consumed when there's room in the aura.
-     */
     private void handleWillItem(IDemonWill will, ItemStack stack) {
         EnumWillType type = will.getType(stack);
         double currentChunkWill = WorldDemonWillHandler.getCurrentWill(level, worldPosition, type);
         double maxWillInChunk = WorldDemonWillHandler.getMaxWill(level, worldPosition, type);
 
-        // Only consume if chunk isn't full
         if (currentChunkWill >= maxWillInChunk) {
             return;
         }
@@ -161,7 +137,6 @@ public class DemonCrucibleBlockEntity extends BaseBlockEntity {
         double willAmount = will.getWill(type, stack);
         double spaceInChunk = maxWillInChunk - currentChunkWill;
 
-        // Only consume if we can fit the will amount
         if (spaceInChunk > 0 && willAmount > 0) {
             double toAdd = Math.min(willAmount, spaceInChunk);
             double drained = will.drainWill(type, stack, toAdd);
@@ -175,14 +150,10 @@ public class DemonCrucibleBlockEntity extends BaseBlockEntity {
         }
     }
 
-    /**
-     * Handles demon crystals - consumed when chunk will drops below threshold.
-     */
     private void handleCrystal(DemonCrystalItem crystal, ItemStack stack) {
         EnumWillType type = crystal.getWillType();
         double currentChunkWill = WorldDemonWillHandler.getCurrentWill(level, worldPosition, type);
 
-        // Only consume crystals when will drops below threshold
         if (currentChunkWill < CRYSTAL_CONSUME_THRESHOLD) {
             double added = WorldDemonWillHandler.addWillToChunk(level, worldPosition, type, WILL_PER_CRYSTAL);
             if (added > 0) {
@@ -196,21 +167,14 @@ public class DemonCrucibleBlockEntity extends BaseBlockEntity {
         return inventory;
     }
 
-    /**
-     * Called when a player interacts with the crucible.
-     * @return true if interaction was handled
-     */
     public boolean handleInteraction(ItemStack heldItem) {
         ItemStack currentItem = inventory.getStackInSlot(0);
 
         if (heldItem.isEmpty()) {
-            // Extract item
             if (!currentItem.isEmpty()) {
-                // Drop or give to player handled by block
                 return true;
             }
         } else {
-            // Insert item
             if (inventory.isItemValid(0, heldItem)) {
                 if (currentItem.isEmpty()) {
                     inventory.setStackInSlot(0, heldItem.split(1));

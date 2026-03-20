@@ -24,7 +24,6 @@ public class NVMaterialsAndTiers {
             List.of(new ArmorMaterial.Layer(bm("living"))), 0, 0
     ));
 
-    // Sentient tool tier (demon crystal repaired)
     public static final Tier SENTIENT = new Tier() {
         @Override
         public int getUses() {

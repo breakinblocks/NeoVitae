@@ -10,9 +10,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
-/**
- * Serializer for flask fill recipes (refilling depleted flasks).
- */
 public class FlaskFillSerializer implements RecipeSerializer<FlaskFillRecipe> {
 
     public static final MapCodec<FlaskFillRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(

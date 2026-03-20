@@ -17,9 +17,6 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.sigil.ISigil;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 
-/**
- * Menu for the Sigil of Holding - allows inserting/removing sigils and selecting which to use.
- */
 public class SigilHoldingMenu extends AbstractContainerMenu {
 
     private final ItemStack holdingStack;
@@ -33,11 +30,9 @@ public class SigilHoldingMenu extends AbstractContainerMenu {
         this.holdingSlot = holdingSlot;
         this.selectedSlot = ItemSigilHolding.getCurrentItemOrdinal(holdingStack);
 
-        // Create inventory from the holding sigil's contents
         this.sigilInventory = new ItemStackHandler(ItemSigilHolding.INVENTORY_SIZE) {
             @Override
             public boolean isItemValid(int slot, ItemStack stack) {
-                // Only allow sigils (but not other holding sigils)
                 return stack.getItem() instanceof ISigil && !(stack.getItem() instanceof ItemSigilHolding);
             }
 
@@ -47,10 +42,8 @@ public class SigilHoldingMenu extends AbstractContainerMenu {
             }
         };
 
-        // Load existing contents
         loadFromHoldingStack();
 
-        // Add the 5 sigil slots in a row (36 pixels apart, matching 1.20.1 texture)
         for (int i = 0; i < ItemSigilHolding.INVENTORY_SIZE; i++) {
             final int slotIndex = i;
             this.addSlot(new SlotItemHandler(sigilInventory, i, 8 + i * 36, 17) {
@@ -61,20 +54,17 @@ public class SigilHoldingMenu extends AbstractContainerMenu {
             });
         }
 
-        // Player inventory (y = 41)
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
                 this.addSlot(new Slot(playerInventory, col + row * 9 + 9, 8 + col * 18, 41 + row * 18));
             }
         }
 
-        // Player hotbar (y = 99) with special handling for holding sigil slot
         for (int i = 0; i < 9; i++) {
             final int hotbarSlot = i;
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 99) {
                 @Override
                 public boolean mayPickup(Player player) {
-                    // Prevent picking up the holding sigil itself
                     return hotbarSlot != holdingSlot;
                 }
             });
@@ -128,13 +118,11 @@ public class SigilHoldingMenu extends AbstractContainerMenu {
             ItemStack slotStack = slot.getItem();
             itemstack = slotStack.copy();
 
-            // From sigil slots to player inventory
             if (index < ItemSigilHolding.INVENTORY_SIZE) {
                 if (!this.moveItemStackTo(slotStack, ItemSigilHolding.INVENTORY_SIZE, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
-            // From player inventory to sigil slots
             else {
                 if (slotStack.getItem() instanceof ISigil && !(slotStack.getItem() instanceof ItemSigilHolding)) {
                     if (!this.moveItemStackTo(slotStack, 0, ItemSigilHolding.INVENTORY_SIZE, false)) {
@@ -157,7 +145,6 @@ public class SigilHoldingMenu extends AbstractContainerMenu {
 
     @Override
     public void clicked(int slotId, int button, ClickType clickType, Player player) {
-        // Prevent moving the holding sigil
         if (slotId >= 0 && slotId < this.slots.size()) {
             Slot slot = this.slots.get(slotId);
             if (slot.getItem().getItem() instanceof ItemSigilHolding) {
@@ -169,7 +156,6 @@ public class SigilHoldingMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        // Valid as long as the player still has the holding sigil
         ItemStack currentStack = player.getInventory().getItem(holdingSlot);
         return currentStack.getItem() instanceof ItemSigilHolding;
     }

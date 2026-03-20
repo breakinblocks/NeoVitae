@@ -81,7 +81,6 @@ public class AlchemyArrayBlock extends BaseEntityBlock {
 
         if (!playerItem.isEmpty()) {
             if (array.getItem(0).isEmpty()) {
-                // Insert into slot 0
                 ItemStack toInsert = playerItem.copy();
                 toInsert.setCount(1);
                 array.inv.setStackInSlot(0, toInsert);
@@ -90,7 +89,6 @@ public class AlchemyArrayBlock extends BaseEntityBlock {
                 }
                 world.sendBlockUpdated(pos, state, state, 3);
             } else if (array.getItem(1).isEmpty()) {
-                // Insert into slot 1 and attempt craft
                 ItemStack toInsert = playerItem.copy();
                 toInsert.setCount(1);
                 array.inv.setStackInSlot(1, toInsert);

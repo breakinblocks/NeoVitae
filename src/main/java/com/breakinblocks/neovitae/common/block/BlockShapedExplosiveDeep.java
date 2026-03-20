@@ -5,10 +5,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.ShapedExplosiveBlockEntity;
 
-/**
- * Block for deep shaped explosive charges.
- * Similar to regular shaped charges but with deeper penetration (3x9 instead of 3x7).
- */
 public class BlockShapedExplosiveDeep extends BlockShapedExplosive {
 
     public BlockShapedExplosiveDeep(int explosionSize, Properties properties) {

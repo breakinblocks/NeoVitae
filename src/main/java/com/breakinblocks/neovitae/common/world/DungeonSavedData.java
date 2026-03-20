@@ -11,9 +11,6 @@ public class DungeonSavedData extends SavedData {
 
     private int numberOfDungeons = 0;
 
-    /**
-     * Gets the current number of dungeons that have been spawned.
-     */
     public int getNumberOfDungeons() {
         return numberOfDungeons;
     }
@@ -36,8 +33,6 @@ public class DungeonSavedData extends SavedData {
     public BlockPos getNextDungeonSpawnPosition() {
         int dungeonIndex = numberOfDungeons + 1;
 
-        // Calculate grid position using spiral pattern
-        // Grid index size determines which "ring" we're on
         int gridIndexSize = (int) Math.ceil((Math.sqrt(dungeonIndex) - 1) / 2);
 
         int ringPlacementIndex = dungeonIndex;
@@ -46,10 +41,8 @@ public class DungeonSavedData extends SavedData {
             ringPlacementIndex = dungeonIndex - innerSquare;
         }
 
-        // Walk around the ring to find position
         for (int i = -gridIndexSize; i <= gridIndexSize; i++) {
             for (int j = -gridIndexSize; j <= gridIndexSize; j++) {
-                // Only count positions on the edge of the current ring
                 if (Math.abs(i) != gridIndexSize && Math.abs(j) != gridIndexSize) {
                     continue;
                 }
@@ -61,7 +54,6 @@ public class DungeonSavedData extends SavedData {
             }
         }
 
-        // Fallback - shouldn't reach here
         return new BlockPos(0, 64, 0);
     }
     

@@ -11,14 +11,12 @@ public class ServerConfig {
     public final ModConfigSpec.ConfigValue<Integer> DEFAULT_UPGRADE_POINTS;
     public final ModConfigSpec.ConfigValue<Integer> EVOLUTION_UPGRADE_POINTS;
 
-    // Demon Will System Configuration
     public final ModConfigSpec.DoubleValue WILL_MAX_DEFAULT;
     public final ModConfigSpec.DoubleValue WILL_MAX_CORROSIVE;
     public final ModConfigSpec.DoubleValue WILL_MAX_DESTRUCTIVE;
     public final ModConfigSpec.DoubleValue WILL_MAX_VENGEFUL;
     public final ModConfigSpec.DoubleValue WILL_MAX_STEADFAST;
 
-    // Demon Crystal Growth Configuration
     public final ModConfigSpec.DoubleValue CRYSTAL_WILL_TO_FORM;
     public final ModConfigSpec.DoubleValue CRYSTAL_FORMATION_TIME;
     public final ModConfigSpec.DoubleValue CRYSTAL_SAME_WILL_RATE;
@@ -90,12 +88,6 @@ public class ServerConfig {
         builder.pop();
     }
 
-    /**
-     * Gets the configured base maximum will for a specific type.
-     *
-     * @param type The will type
-     * @return The base maximum will for that type
-     */
     public double getBaseMaxWill(EnumWillType type) {
         return switch (type) {
             case DEFAULT -> WILL_MAX_DEFAULT.get();
@@ -106,11 +98,6 @@ public class ServerConfig {
         };
     }
 
-    /**
-     * Gets all base maximum will values as an EnumMap.
-     *
-     * @return EnumMap of will type to base maximum
-     */
     public EnumMap<EnumWillType, Double> getAllBaseMaxWill() {
         EnumMap<EnumWillType, Double> result = new EnumMap<>(EnumWillType.class);
         for (EnumWillType type : EnumWillType.values()) {

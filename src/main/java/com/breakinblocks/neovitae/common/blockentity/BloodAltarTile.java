@@ -113,7 +113,6 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
      * @param runeInstances List of individual rune instances for addon inspection
      */
     public void calculateStats(Map<IAltarRuneType, Integer> allRunes, List<RuneInstance> runeInstances) {
-        // Accumulate stats from datamap for each physical rune block
         double totalCapacityMod = 0;
         double augCapacityMultiplier = 1.0;
         double totalConsumptionMod = 0;
@@ -126,11 +125,9 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
         double efficiencyMultiplier = 1.0;
         int chargingRuneCount = 0;
 
-        // Look up each rune block's stats from the datamap
         for (RuneInstance instance : runeInstances) {
             AltarRuneStats stats = BuiltInRegistries.BLOCK.wrapAsHolder(instance.block()).getData(NVDataMaps.ALTAR_RUNE_STATS);
             if (stats != null) {
-                // Additive stats
                 totalCapacityMod += stats.getCapacityMod(0);
                 totalConsumptionMod += stats.getConsumptionMod(0);
                 totalSacrificeMod += stats.getSacrificeMod(0);
@@ -139,7 +136,6 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
                 totalAccelerationMod += stats.getAccelerationMod(0);
                 totalChargeAmountMod += stats.getChargeAmountMod(0);
 
-                // Multiplicative stats (compound)
                 double augPower = stats.getAugmentedCapacityPower(1.0);
                 if (augPower != 1.0) {
                     augCapacityMultiplier *= augPower;
@@ -155,14 +151,12 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
                     efficiencyMultiplier *= effPower;
                 }
 
-                // Track charging rune count for charge capacity calculation
                 if (stats.chargeAmountMod().isPresent()) {
                     chargingRuneCount++;
                 }
             }
         }
 
-        // Calculate final base stats
         float baseCapacityMod = (float) ((1.0 + totalCapacityMod) * augCapacityMultiplier);
         int baseTickRate = Math.max(AltarConstants.MIN_TICK_RATE, AltarConstants.BASE_TICK_RATE - totalAccelerationMod);
         float baseConsumptionMod = (float) totalConsumptionMod;
@@ -174,7 +168,6 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
         float baseChargeCapMod = (float) Math.max(AltarConstants.CHARGE_CAPACITY_MIN_FACTOR * baseCapacityMod, 1) * chargingRuneCount;
         float baseEfficiencyMod = (float) efficiencyMultiplier;
 
-        // Create modifiers container with base values
         AltarRuneModifiers modifiers = new AltarRuneModifiers(
                 baseCapacityMod, baseTickRate, baseConsumptionMod,
                 baseSacrificeMod, baseSelfSacMod, baseDislocationMod,
@@ -189,7 +182,6 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
         );
         NeoForge.EVENT_BUS.post(calculateEvent);
 
-        // Apply final values from the modifiers
         this.capacityMod = modifiers.getCapacityMod();
         this.tickRate = modifiers.getTickRate();
         this.consumptionMod = modifiers.getConsumptionMod();
@@ -201,7 +193,6 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
         this.chargeCapMod = modifiers.getChargeCapacityMod();
         this.efficiencyMod = modifiers.getEfficiencyMod();
 
-        // Fire PostCalculate event for informational purposes
         NeoForge.EVENT_BUS.post(new AltarRuneEvent.PostCalculate(
                 this, level, worldPosition, tier, modifiers, runeInstances
         ));
@@ -218,7 +209,6 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
 
         tile.incrementTicks();
 
-        // Decrement grace period
         if (tile.getCapacityGraceTicks() > 0) {
             tile.decrementCapacityGraceTicks();
         }
@@ -227,21 +217,17 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
             int newTier = AltarUtil.getTier(level, pos);
             tile.setTier(newTier); // Update the stored tier
 
-            // Scan for all runes in the structure (returns both counts and instances)
             AltarScanResult scanResult = AltarUtil.scanForRunes(newTier, level, pos);
             Map<IAltarRuneType, Integer> allRunes = new HashMap<>(scanResult.runeCounts());
             List<RuneInstance> runeInstances = scanResult.runeInstances();
 
-            // Fire GatherRunes event to allow mods to add additional runes
             AltarRuneEvent.GatherRunes gatherEvent = new AltarRuneEvent.GatherRunes(
                     tile, level, pos, newTier, allRunes, runeInstances
             );
             NeoForge.EVENT_BUS.post(gatherEvent);
 
-            // Calculate stats with the gathered runes (events are fired inside)
             tile.calculateStats(allRunes, runeInstances);
 
-            // Check if capacity decreased - if so, start grace period
             int newMainCapacity = tile.getMainCapacity();
             int newIOCapacity = tile.getIOCapacity();
             int newChargingCapacity = tile.getChargingCapacity();
@@ -256,7 +242,6 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
             tile.previousIOCapacity = newIOCapacity;
             tile.previousChargingCapacity = newChargingCapacity;
 
-            // Only enforce capacity limits when grace period is over
             if (tile.getCapacityGraceTicks() == 0) {
                 tile.setMainTank(Math.min(tile.getMainTank(), newMainCapacity));
                 tile.setInputTank(Math.min(tile.getInputTank(), newIOCapacity));
@@ -345,11 +330,9 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
                 ItemStack result = recipe.assemble(recipeInput, level.registryAccess());
                 result.setCount(inputSize);
 
-                // Fire pre-craft event (cancellable)
                 BloodAltarCraftEvent.Crafting craftingEvent = new BloodAltarCraftEvent.Crafting(
                         tile, recipe, inputStack, result);
                 if (NeoForge.EVENT_BUS.post(craftingEvent).isCanceled()) {
-                    // Cancelled - reset progress but don't produce output
                     tile.setProgress(0);
                     tile.setCooldownAfterCrafting(AltarConstants.CRAFTING_COOLDOWN_TICKS);
                     tile.setActive(false);
@@ -357,10 +340,8 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
                     return;
                 }
 
-                // Use potentially modified output from event
                 ItemStack finalOutput = craftingEvent.getOutput();
 
-                // Legacy event for backwards compatibility
                 NeoVitaeCraftedEvent.Altar legacyEvent = new NeoVitaeCraftedEvent.Altar(finalOutput, inputStack);
                 NeoForge.EVENT_BUS.post(legacyEvent);
                 tile.inv.setStackInSlot(0, legacyEvent.getOutput());
@@ -374,7 +355,6 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
                 tile.setCurrentRecipe(null);
                 ((ServerLevel) level).sendParticles(DustParticleOptions.REDSTONE, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 40, 0.3, 0.0, 0.3, 0);
 
-                // Fire post-craft event (not cancellable)
                 NeoForge.EVENT_BUS.post(new BloodAltarCraftEvent.Crafted(
                         tile, recipe, inputStack, legacyEvent.getOutput()));
             }
@@ -590,7 +570,6 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
         return new FluidStack(NVFluids.LIFE_ESSENCE_SOURCE, toDrain);
     }
 
-    // Getters
     public boolean isActive() { return isActive; }
     public boolean canFill() { return canFill; }
     public BloodAltarRecipe getCurrentRecipe() { return currentRecipe; }
@@ -608,7 +587,6 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
     public int getPreviousIOCapacity() { return previousIOCapacity; }
     public int getPreviousChargingCapacity() { return previousChargingCapacity; }
 
-    // Setters / Incremeters
     private void setSignaling(boolean signaling) { this.isSignaling = signaling; }
     private void incrementTicks() { this.ticks++; }
     private void decrementCapacityGraceTicks() { this.capacityGraceTicks--; }
@@ -622,8 +600,6 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
     private void setCanFill(boolean canFill) { this.canFill = canFill; }
     private void setCooldownAfterCrafting(int cooldown) { this.cooldownAfterCrafting = cooldown; }
     private void setTier(int tier) { this.tier = tier; }
-
-    // IBloodAltar interface implementation
 
     @Override
     public int getCurrentBlood() {
@@ -679,18 +655,15 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
             int newTier = AltarUtil.getTier(level, worldPosition);
             setTier(newTier);
 
-            // Scan for all runes in the structure
             AltarScanResult scanResult = AltarUtil.scanForRunes(newTier, level, worldPosition);
             Map<IAltarRuneType, Integer> allRunes = new HashMap<>(scanResult.runeCounts());
             List<RuneInstance> runeInstances = scanResult.runeInstances();
 
-            // Fire GatherRunes event
             AltarRuneEvent.GatherRunes gatherEvent = new AltarRuneEvent.GatherRunes(
                     this, level, worldPosition, newTier, allRunes, runeInstances
             );
             NeoForge.EVENT_BUS.post(gatherEvent);
 
-            // Calculate stats with events
             calculateStats(allRunes, runeInstances);
             setChanged();
         }

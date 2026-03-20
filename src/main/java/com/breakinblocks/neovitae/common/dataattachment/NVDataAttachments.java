@@ -23,12 +23,10 @@ public class NVDataAttachments {
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Map<ResourceLocation, Double>>> LIVING_ADDITIONAL = ATTACHMENT_TYPES.register("living_cooldown", () -> AttachmentType.<Map<ResourceLocation, Double>>builder(() -> new HashMap<>()).serialize(Codec.unboundedMap(ResourceLocation.CODEC, Codec.DOUBLE).xmap(HashMap::new, Function.identity())).build());
 
-    // Chunk-based demon will aura storage
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<WillChunk>> WILL_CHUNK = ATTACHMENT_TYPES.register(
             "will_chunk", () -> AttachmentType.builder(WillChunk::new).serialize(WillChunk.CODEC).build()
     );
 
-    // Player dungeon exit location storage
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<DungeonExitData>> DUNGEON_EXIT = ATTACHMENT_TYPES.register(
             "dungeon_exit", () -> AttachmentType.builder(() -> DungeonExitData.EMPTY)
                     .serialize(DungeonExitData.CODEC)

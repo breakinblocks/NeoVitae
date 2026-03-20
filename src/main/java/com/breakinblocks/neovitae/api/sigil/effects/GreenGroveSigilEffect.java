@@ -20,10 +20,6 @@ import com.breakinblocks.neovitae.util.helper.PlayerHelper;
 
 import java.util.function.Supplier;
 
-/**
- * Green Grove Sigil effect - applies bonemeal effect when used on a block
- * and passively grows nearby crops when activated.
- */
 public record GreenGroveSigilEffect(int range, int verticalRange) implements SigilEffect {
     public static final MapCodec<GreenGroveSigilEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.INT.optionalFieldOf("range", 3).forGetter(GreenGroveSigilEffect::range),

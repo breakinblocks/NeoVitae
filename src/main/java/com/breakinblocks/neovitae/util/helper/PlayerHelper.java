@@ -31,12 +31,6 @@ public class PlayerHelper {
         return player.getGameProfile().getId();
     }
 
-    /**
-     * Checks whether or not the given player is an "actual" player
-     *
-     * @param player - The player in question
-     * @return If the player is fake or not
-     */
     public static boolean isFakePlayer(Player player) {
         return player instanceof FakePlayer ||
                (player != null && knownFakePlayers.contains(player.getClass().getCanonicalName()));

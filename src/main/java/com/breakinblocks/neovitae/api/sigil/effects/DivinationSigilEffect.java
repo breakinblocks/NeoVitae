@@ -27,10 +27,6 @@ import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
 
 import java.util.function.Supplier;
 
-/**
- * Sigil effect that displays information about the player's soul network
- * or a blood altar they're looking at. The seer variant shows additional details.
- */
 public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
 
     private static final String TOOLTIP_BASE = "tooltip.neovitae.sigil.divination.";
@@ -58,7 +54,6 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
         HitResult rayTrace = Item.getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
 
         if (rayTrace == null || rayTrace.getType() == HitResult.Type.MISS) {
-            // No block hit - show soul network info
             showNetworkInfo(player, stack);
         } else if (rayTrace.getType() == HitResult.Type.BLOCK) {
             BlockHitResult blockHit = (BlockHitResult) rayTrace;
@@ -68,7 +63,6 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
             if (tile instanceof BloodAltarTile altar) {
                 showAltarInfo(player, altar);
             } else {
-                // Show soul network info
                 showNetworkInfo(player, stack);
             }
         }
@@ -99,7 +93,6 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
         player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "currentEssence", currentEssence));
         player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "currentAltarCapacity", capacity));
 
-        // Show detailed stats in creative mode or with seer variant
         if (isSeer || player.isCreative()) {
             showDetailedAltarStats(player, altar);
         }
@@ -127,7 +120,6 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
         player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "creative.chargingRate",
                 altar.getChargingRate()).withStyle(ChatFormatting.AQUA));
 
-        // Show incense level
         double incense = IncenseHelper.getCurrentIncense(player);
         player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "creative.incense",
                 String.format("%.2f", incense)).withStyle(ChatFormatting.LIGHT_PURPLE));

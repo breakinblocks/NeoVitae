@@ -8,10 +8,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.BaseBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
-/**
- * Tile entity for the Spike Trap block.
- * Extends and retracts spike blocks based on redstone signal.
- */
 public class SpikeTrapBlockEntity extends BaseBlockEntity {
 
     public SpikeTrapBlockEntity(BlockPos pos, BlockState state) {
@@ -28,10 +24,8 @@ public class SpikeTrapBlockEntity extends BaseBlockEntity {
         BlockPos spikePos = pos.relative(facing);
 
         if (active) {
-            // Extend spikes
             tile.extendSpikes(spikePos, facing);
         } else {
-            // Retract spikes
             tile.retractSpikes(spikePos);
         }
     }

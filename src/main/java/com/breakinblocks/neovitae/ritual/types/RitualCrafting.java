@@ -66,7 +66,6 @@ public class RitualCrafting extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        // Get input and output inventories
         List<BlockPos> inputPositions = RitualHelper.getRangePositions(ctx.master(), this, INPUT_RANGE, masterPos);
         if (inputPositions.isEmpty()) return;
         BlockPos inputPos = inputPositions.get(0);
@@ -80,18 +79,15 @@ public class RitualCrafting extends Ritual {
 
         if (inputHandler == null || outputHandler == null) return;
 
-        // Query demon will
         double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
         double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
 
         boolean trySoulForge = steadfastWill >= MIN_STEADFAST;
         boolean tryAlchemy = corrosiveWill >= MIN_CORROSIVE;
 
-        // Track will consumption
         double steadfastWillUsed = 0;
         double corrosiveWillUsed = 0;
 
-        // Collect items from input
         List<ItemStack> inputItems = new ArrayList<>();
         for (int i = 0; i < Math.min(9, inputHandler.getSlots()); i++) {
             ItemStack stack = inputHandler.getStackInSlot(i);
@@ -147,7 +143,6 @@ public class RitualCrafting extends Ritual {
         }
 
         // --- DEFAULT: Vanilla crafting ---
-        // Pad to 9 slots
         while (inputItems.size() < 9) {
             inputItems.add(ItemStack.EMPTY);
         }
@@ -169,17 +164,14 @@ public class RitualCrafting extends Ritual {
         ItemStack insertResult = ItemHandlerHelper.insertItemStacked(outputHandler, result.copy(), true);
         if (!insertResult.isEmpty()) return; // Output full
 
-        // Consume ingredients
         for (int i = 0; i < Math.min(9, inputHandler.getSlots()); i++) {
             if (!inputItems.get(i).isEmpty()) {
                 inputHandler.extractItem(i, 1, false);
             }
         }
 
-        // Insert result
         ItemHandlerHelper.insertItemStacked(outputHandler, result, false);
 
-        // Consume LP
         ctx.syphon(getRefreshCost());
     }
 

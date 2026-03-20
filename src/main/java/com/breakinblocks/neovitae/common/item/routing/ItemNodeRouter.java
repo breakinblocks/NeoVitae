@@ -67,7 +67,6 @@ public class ItemNodeRouter extends Item {
             return InteractionResult.SUCCESS;
         }
 
-        // Check distance
         if (containedPos.distSqr(pos) > 16 * 16) {
             player.displayClientMessage(Component.translatable("chat.neovitae.routing.distance"), true);
             return InteractionResult.SUCCESS;
@@ -84,14 +83,12 @@ public class ItemNodeRouter extends Item {
             return InteractionResult.FAIL;
         }
 
-        // Handle master node connections
         if (pastNode instanceof IMasterRoutingNode master) {
             return connectToMaster(level, player, stack, node, master, pos, containedPos);
         } else if (node instanceof IMasterRoutingNode master) {
             return connectToMaster(level, player, stack, pastNode, master, containedPos, pos);
         }
 
-        // Both are regular nodes
         return connectNodes(level, player, stack, node, pastNode, pos, containedPos);
     }
 

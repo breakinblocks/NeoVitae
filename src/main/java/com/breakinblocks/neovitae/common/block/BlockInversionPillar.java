@@ -17,10 +17,6 @@ import com.breakinblocks.neovitae.common.blockentity.InversionPillarBlockEntity;
 
 import javax.annotation.Nullable;
 
-/**
- * Inversion Pillar block - teleporter portal for the dungeon system.
- * When right-clicked, teleports the player to the configured destination.
- */
 public class BlockInversionPillar extends Block implements EntityBlock {
 
     protected static final VoxelShape BODY = Block.box(2, 1, 2, 14, 15, 14);

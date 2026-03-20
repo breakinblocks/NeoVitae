@@ -53,13 +53,10 @@ public class RitualFelling extends Ritual {
         int blocksBroken = 0;
         int maxBlocks = Math.min(ctx.maxOperations(getRefreshCost()), MAX_BLOCKS_PER_OPERATION);
 
-        // Create a mock axe tool for loot context
         ItemStack toolStack = new ItemStack(Items.NETHERITE_AXE);
 
-        // Create fake player for loot context
         FakePlayer fakePlayer = new FakePlayer(serverLevel, new GameProfile(owner, "[NeoVitae]"));
 
-        // Check for storage inventory
         BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, ctx.masterPos()).getFirst();
         BlockEntity inv = ctx.level().getBlockEntity(chestPos);
         boolean hasInv = inv != null && Utils.getNumberOfFreeSlots(inv, Direction.DOWN) >= 1;
@@ -100,7 +97,6 @@ public class RitualFelling extends Ritual {
     private int breakAndCollect(RitualContext ctx, ServerLevel serverLevel, BlockPos pos,
                                 BlockState state, ItemStack toolStack, FakePlayer fakePlayer,
                                 BlockEntity inv, boolean hasInv) {
-        // Get drops via loot table
         LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel)
                 .withParameter(LootContextParams.ORIGIN, pos.getCenter())
                 .withParameter(LootContextParams.BLOCK_STATE, state)
@@ -113,7 +109,6 @@ public class RitualFelling extends Ritual {
         // Break the block without natural drops
         ctx.level().destroyBlock(pos, false);
 
-        // Handle drops: store in inventory or spawn in world
         for (ItemStack dropStack : drops) {
             if (hasInv) {
                 dropStack = Utils.insertStackIntoTile(dropStack, inv, Direction.DOWN);

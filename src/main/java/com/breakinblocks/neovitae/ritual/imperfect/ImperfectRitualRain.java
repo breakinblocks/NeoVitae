@@ -8,11 +8,6 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.IImperfectRitualStone;
 import com.breakinblocks.neovitae.ritual.ImperfectRitual;
 
-/**
- * Imperfect ritual that summons a thunderstorm.
- * Requires a water source block above the ritual stone.
- * Costs 5000 LP.
- */
 public class ImperfectRitualRain extends ImperfectRitual {
 
     public ImperfectRitualRain() {
@@ -29,7 +24,6 @@ public class ImperfectRitualRain extends ImperfectRitual {
         if (level == null || level.isClientSide()) return false;
 
         if (level instanceof ServerLevel serverLevel) {
-            // Summon a thunderstorm
             serverLevel.setWeatherParameters(0, 6000, true, true);
             return true;
         }

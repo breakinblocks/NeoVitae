@@ -31,23 +31,18 @@ public class DemonPylonBlockEntity extends BaseBlockEntity {
             return;
         }
 
-        // For each will type, check all 4 cardinal directions
         for (EnumWillType type : EnumWillType.values()) {
             double currentAmount = WorldDemonWillHandler.getCurrentWill(level, pos, type);
 
-            // Check each cardinal direction (N, S, E, W)
             for (int i = 0; i < 4; i++) {
                 Direction side = Direction.from2DDataValue(i);
                 BlockPos offsetPos = pos.relative(side, PULL_DISTANCE);
 
                 double sideAmount = WorldDemonWillHandler.getCurrentWill(level, offsetPos, type);
 
-                // Only pull will if the remote position has more than our position
                 if (sideAmount > currentAmount) {
-                    // Calculate transfer amount: half the difference, capped by drain rate
                     double drainAmount = Math.min((sideAmount - currentAmount) / 2, DRAIN_RATE);
 
-                    // Drain from remote position and fill at pylon position
                     double drained = WorldDemonWillHandler.drainWillFromChunk(level, offsetPos, type, drainAmount);
                     if (drained > 0) {
                         WorldDemonWillHandler.addWillToChunk(level, pos, type, drained);

@@ -13,9 +13,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
-/**
- * Serializer for flask length recipes (increasing effect duration modifier).
- */
 public class FlaskLengthSerializer implements RecipeSerializer<FlaskLengthRecipe> {
 
     public static final MapCodec<FlaskLengthRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(

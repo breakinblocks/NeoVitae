@@ -12,10 +12,6 @@ import com.breakinblocks.neovitae.common.meteor.MeteorLayer;
 
 import java.util.List;
 
-/**
- * Serializer for meteor recipes.
- * Uses Codec for JSON and StreamCodec for network sync.
- */
 public class MeteorSerializer implements RecipeSerializer<MeteorRecipe> {
 
     public static final MapCodec<MeteorRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(

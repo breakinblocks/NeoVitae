@@ -51,14 +51,12 @@ public class ClientModEventHandler {
             });
             ItemProperties.register(NVItems.SACRIFICIAL_DAGGER.get(), NeoVitae.INCENSE_PROPERTY, ((stack, level, entity, seed) -> stack.getOrDefault(NVDataComponents.INCENSE, false) ? 1 : 0));
 
-            // Sentient tools - register type property for texture switching
             ItemProperties.register(NVItems.SENTIENT_SWORD.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
             ItemProperties.register(NVItems.SENTIENT_AXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
             ItemProperties.register(NVItems.SENTIENT_PICKAXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
             ItemProperties.register(NVItems.SENTIENT_SHOVEL.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
             ItemProperties.register(NVItems.SENTIENT_SCYTHE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
 
-            // Sentient sword active state - shows different texture when will is available
             ItemProperties.register(NVItems.SENTIENT_SWORD.get(), NeoVitae.rl("active"), (stack, level, entity, seed) -> {
                 if (!(entity instanceof net.minecraft.world.entity.player.Player player)) return 0;
                 double will = com.breakinblocks.neovitae.will.PlayerDemonWillHandler.getTotalDemonWill(
@@ -70,24 +68,17 @@ public class ClientModEventHandler {
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        // Blood light projectile - uses NoopRenderer since it renders via particles in tick()
         event.registerEntityRenderer(NVEntities.BLOOD_LIGHT.get(), NoopRenderer::new);
-        // Soul snare - thrown item renderer
         event.registerEntityRenderer(NVEntities.SOUL_SNARE.get(), ThrownItemRenderer::new);
-        // Meteor - custom billboard renderer
         event.registerEntityRenderer(NVEntities.METEOR.get(), EntityMeteorRenderer::new);
-        // Potion flask - thrown item renderer
         event.registerEntityRenderer(NVEntities.POTION_FLASK.get(), ThrownItemRenderer::new);
-        // Shaped charge - renders the block state
         event.registerEntityRenderer(NVEntities.SHAPED_CHARGE.get(), EntityShapedChargeRenderer::new);
-        // Throwing daggers - custom renderer for proper rotation when stuck in ground
         event.registerEntityRenderer(NVEntities.THROWING_DAGGER.get(), EntityThrowingDaggerRenderer::new);
         event.registerEntityRenderer(NVEntities.THROWING_DAGGER_SYRINGE.get(), EntityThrowingDaggerRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerRenderLayer(EntityRenderersEvent.AddLayers event) {
-        // Add custom elytra layer to all player skin variants
         for (PlayerSkin.Model model : event.getSkins()) {
             PlayerRenderer renderer = event.getSkin(model);
             if (renderer != null) {
@@ -120,7 +111,6 @@ public class ClientModEventHandler {
         TippedDaggerColor tippedDaggerColor = new TippedDaggerColor();
         event.register(tippedDaggerColor, NVItems.THROWING_DAGGER_TIPPED.get());
 
-        // Anointment items - tints layer 0 (alchemic_liquid) based on anointment color
         AnointmentColor anointmentColor = new AnointmentColor();
         NVItems.BASIC_ITEMS.getEntries().stream()
                 .filter(holder -> holder.get() instanceof ItemAnointmentProvider)

@@ -32,13 +32,11 @@ public class HarvestHandlerPlantable implements IHarvestHandler {
     private static final ItemStack mockHoe = new ItemStack(Items.DIAMOND_HOE, 1);
 
     public HarvestHandlerPlantable() {
-        // Register standard vanilla crops
         HarvestRegistry.registerStandardCrop(Blocks.CARROTS, 7);
         HarvestRegistry.registerStandardCrop(Blocks.WHEAT, 7);
         HarvestRegistry.registerStandardCrop(Blocks.POTATOES, 7);
         HarvestRegistry.registerStandardCrop(Blocks.BEETROOTS, 3);
 
-        // Third-party mod crops
         addThirdPartyCrop("actuallyadditions", "flax_block", 7);
         addThirdPartyCrop("actuallyadditions", "canola_block", 7);
         addThirdPartyCrop("actuallyadditions", "rice_block", 7);
@@ -70,7 +68,6 @@ public class HarvestHandlerPlantable implements IHarvestHandler {
         for (ItemStack stack : blockDrops) {
             if (stack.isEmpty()) continue;
 
-            // Find and consume one seed for replanting
             if (stack.getItem() instanceof BlockItem blockItem
                     && blockItem.getBlock() == state.getBlock()) {
                 stack.shrink(1);
@@ -80,7 +77,6 @@ public class HarvestHandlerPlantable implements IHarvestHandler {
         }
 
         if (foundSeed) {
-            // Replace block with protection check
             BlockState newState = state.getBlock().defaultBlockState();
             if (!BlockProtectionHelper.tryReplaceBlock(level, pos, newState, ownerUUID)) {
                 return false;

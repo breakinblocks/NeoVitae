@@ -7,10 +7,6 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 
-/**
- * Renderer for blood light projectiles.
- * Extends ThrownItemRenderer to render as a thrown item.
- */
 public class BloodLightRenderer<T extends Entity & ItemSupplier> extends ThrownItemRenderer<T> {
 
     public BloodLightRenderer(EntityRendererProvider.Context context) {

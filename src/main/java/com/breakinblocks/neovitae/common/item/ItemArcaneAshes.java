@@ -40,7 +40,6 @@ public class ItemArcaneAshes extends Item {
         if (world.isEmptyBlock(newPos)) {
             if (!world.isClientSide) {
                 Direction rotation = Direction.fromYRot(player.getYHeadRot());
-                // Check protection before placing alchemy array
                 if (!BlockProtectionHelper.tryPlaceBlock(world, newPos, NVBlocks.ALCHEMY_ARRAY.get().defaultBlockState(), player)) {
                     return InteractionResult.FAIL;
                 }

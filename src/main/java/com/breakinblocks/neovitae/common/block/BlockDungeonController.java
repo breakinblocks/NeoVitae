@@ -14,10 +14,6 @@ import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.blockentity.DungeonControllerBlockEntity;
 
-/**
- * Dungeon Controller block - the central control block for procedural dungeons.
- * Placed when a dungeon is generated and manages room placement.
- */
 public class BlockDungeonController extends Block implements EntityBlock {
 
     public BlockDungeonController() {

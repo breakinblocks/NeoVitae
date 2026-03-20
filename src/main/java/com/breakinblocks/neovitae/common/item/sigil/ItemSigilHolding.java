@@ -103,7 +103,6 @@ public class ItemSigilHolding extends ItemSigilBase implements ISigil.Holding {
             return InteractionResultHolder.fail(stack);
         }
 
-        // Shift-click opens the GUI
         if (player.isShiftKeyDown()) {
             if (!world.isClientSide && player instanceof ServerPlayer serverPlayer) {
                 int slot = hand == InteractionHand.MAIN_HAND
@@ -135,9 +134,6 @@ public class ItemSigilHolding extends ItemSigilBase implements ISigil.Holding {
         return result;
     }
 
-    /**
-     * Opens the Sigil of Holding GUI for the player.
-     */
     private void openGui(ServerPlayer player, ItemStack holdingStack, int slot) {
         player.openMenu(new MenuProvider() {
             @Override

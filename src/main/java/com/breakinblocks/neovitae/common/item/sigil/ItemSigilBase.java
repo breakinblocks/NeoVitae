@@ -8,9 +8,6 @@ import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
 
-/**
- * Base class for standard (non-toggleable) sigils with tooltip support.
- */
 public class ItemSigilBase extends ItemSigil {
     protected final String tooltipBase;
 

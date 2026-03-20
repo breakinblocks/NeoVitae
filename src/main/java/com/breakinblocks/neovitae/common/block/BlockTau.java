@@ -47,9 +47,6 @@ public class BlockTau extends CropBlock {
         this.isStrong = isStrong;
     }
 
-    /**
-     * Sets the supplier for the strong tau block (needed for weak -> strong transformation)
-     */
     public BlockTau setStrongTauSupplier(Supplier<Block> supplier) {
         this.strongTauSupplier = supplier;
         return this;
@@ -88,14 +85,10 @@ public class BlockTau extends CropBlock {
         }
     }
 
-    /**
-     * Attempts to grow the tau crop by damaging nearby entities.
-     */
     private void tryGrow(Level level, BlockPos pos, BlockState state, int currentAge, RandomSource random) {
         boolean doTransform = false;
         boolean doGrow = !isStrong; // Weak tau can grow without blood, strong tau needs blood
 
-        // Check for nearby living entities to damage
         AABB boundingBox = new AABB(pos).inflate(1, 0, 1);
         List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, boundingBox);
 
@@ -138,7 +131,6 @@ public class BlockTau extends CropBlock {
             boolean doTransform = false;
             boolean doGrow = !isStrong;
 
-            // Check for nearby living entities
             AABB boundingBox = new AABB(pos);
             List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, boundingBox);
 

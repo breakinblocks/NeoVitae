@@ -131,7 +131,6 @@ public class ExplosiveChargeBlockEntity extends TickingBlockEntity {
 
     @Override
     public void onUpdate() {
-        // Override in subclasses
     }
 
     /**
@@ -180,19 +179,16 @@ public class ExplosiveChargeBlockEntity extends TickingBlockEntity {
 
         ItemStack toolStack = getHarvestingTool();
 
-        // Play explosion sound
         level.playSound((Player) null, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5,
                 worldPosition.getZ() + 0.5, SoundEvents.GENERIC_EXPLODE.value(), SoundSource.BLOCKS,
                 4.0F, (1.0F + (level.random.nextFloat() - level.random.nextFloat()) * 0.2F) * 0.7F);
 
-        // Spawn explosion particles
         serverLevel.sendParticles(ParticleTypes.EXPLOSION,
                 worldPosition.getX() + 0.5 + explosiveDirection.getStepX(),
                 worldPosition.getY() + 0.5 + explosiveDirection.getStepY(),
                 worldPosition.getZ() + 0.5 + explosiveDirection.getStepZ(),
                 10, 1.0D, 1.0D, 1.0D, 0);
 
-        // Collect and merge drops
         ObjectArrayList<Pair<ItemStack, BlockPos>> dropList = new ObjectArrayList<>();
 
         for (BlockPos blockPos : blocksToBreak) {
@@ -202,7 +198,6 @@ public class ExplosiveChargeBlockEntity extends TickingBlockEntity {
                 continue;
             }
 
-            // Check protection before breaking
             if (!BlockProtectionHelper.canBreakBlockStrict(level, blockPos, ownerUUID)) {
                 continue;
             }
@@ -223,25 +218,17 @@ public class ExplosiveChargeBlockEntity extends TickingBlockEntity {
             level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 3);
         }
 
-        // Drop all collected items
         for (Pair<ItemStack, BlockPos> pair : dropList) {
             Block.popResource(level, pair.getSecond(), pair.getFirst());
         }
 
-        // Remove this explosive block
         level.setBlockAndUpdate(worldPosition, Blocks.AIR.defaultBlockState());
     }
 
-    /**
-     * Resets the countdown counter. Call this when starting a new countdown sequence.
-     */
     protected void resetCounter() {
         internalCounter = 0;
     }
 
-    /**
-     * Gets the current countdown value.
-     */
     protected double getCounter() {
         return internalCounter;
     }

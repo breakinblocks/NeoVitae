@@ -23,7 +23,6 @@ public class TeleposerMenu extends AbstractBlockEntityMenu<TeleposerBlockEntity>
             }
         });
 
-        // Player inventory and hotbar (compact layout)
         MenuSlotHelper.addPlayerInventory(this::addSlot, playerInventory, 39, 97);
     }
 
@@ -34,19 +33,16 @@ public class TeleposerMenu extends AbstractBlockEntityMenu<TeleposerBlockEntity>
     @Override
     protected boolean handleQuickMoveStack(int index, ItemStack slotStack, ItemStack originalCopy, Slot slot) {
         if (index == 0) {
-            // Focus slot to player
             if (!moveToPlayer(slotStack, true)) {
                 return false;
             }
             slot.onQuickCraft(slotStack, originalCopy);
         } else if (isPlayerSlot(index)) {
-            // Player to focus slot (only ITeleposerFocus items)
             if (slotStack.getItem() instanceof ITeleposerFocus) {
                 if (!moveToTileSlots(slotStack, 0, 1)) {
                     return false;
                 }
             }
-            // Non-focus items just don't move (return true to continue cleanup)
         }
         return true;
     }

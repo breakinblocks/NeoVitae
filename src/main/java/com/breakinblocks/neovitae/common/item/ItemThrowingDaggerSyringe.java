@@ -6,9 +6,6 @@ import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.entity.projectile.AbstractEntityThrowingDagger;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityThrowingDaggerSyringe;
 
-/**
- * Syringe throwing dagger - applies potion effects on hit.
- */
 public class ItemThrowingDaggerSyringe extends ItemThrowingDagger {
 
     public ItemThrowingDaggerSyringe() {

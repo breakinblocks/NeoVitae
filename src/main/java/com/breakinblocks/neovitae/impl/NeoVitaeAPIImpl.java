@@ -13,19 +13,14 @@ import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-/**
- * Implementation of the NeoVitae API.
- * This class provides access to NeoVitae systems for addon mods.
- */
 public class NeoVitaeAPIImpl implements INeoVitaeAPI {
 
     public static final NeoVitaeAPIImpl INSTANCE = new NeoVitaeAPIImpl();
 
     private static final String API_VERSION = "1.1.0";
 
-    private NeoVitaeAPIImpl() {
-        // Private constructor - use INSTANCE
-    }
+    private NeoVitaeAPIImpl() {}
+
 
     @Override
     @Nullable

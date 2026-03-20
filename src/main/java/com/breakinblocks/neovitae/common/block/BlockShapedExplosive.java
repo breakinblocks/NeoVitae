@@ -25,10 +25,6 @@ import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.ExplosiveChargeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.ShapedExplosiveBlockEntity;
 
-/**
- * Block for shaped explosive charges.
- * Attaches to surfaces and explodes in a directed pattern.
- */
 public class BlockShapedExplosive extends Block implements EntityBlock {
     private static final VoxelShape UP = Block.box(2, 0, 2, 14, 7, 14);
     private static final VoxelShape DOWN = Block.box(2, 9, 2, 14, 16, 14);

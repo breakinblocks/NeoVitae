@@ -11,9 +11,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
-/**
- * Serializer for flask item transform recipes (converting between flask types).
- */
 public class FlaskItemTransformSerializer implements RecipeSerializer<FlaskItemTransformRecipe> {
 
     public static final MapCodec<FlaskItemTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(

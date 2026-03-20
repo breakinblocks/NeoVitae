@@ -18,10 +18,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 
-/**
- * Spikes block - damages entities that touch it and slows them down.
- * Can be placed in any direction and retracts if the block behind it is removed.
- */
 public class BlockSpikes extends Block {
 
     public static final DirectionProperty FACING = BlockStateProperties.FACING;

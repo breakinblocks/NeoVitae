@@ -11,10 +11,6 @@ import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 
 import java.util.function.Supplier;
 
-/**
- * Air Sigil effect - launches the player in the direction they are looking.
- * Speed effect boosts horizontal velocity, Jump Boost effect boosts vertical velocity.
- */
 public record AirSigilEffect() implements SigilEffect {
     public static final MapCodec<AirSigilEffect> CODEC = MapCodec.unit(AirSigilEffect::new);
 
@@ -32,13 +28,11 @@ public record AirSigilEffect() implements SigilEffect {
             Vec3 vec = player.getLookAngle();
             double wantedVelocity = 1.7;
 
-            // Speed effect boosts horizontal velocity
             if (player.hasEffect(MobEffects.MOVEMENT_SPEED)) {
                 int amplifier = player.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier();
                 wantedVelocity += 0.3 * (amplifier + 1);
             }
 
-            // Jump Boost effect boosts vertical velocity
             double verticalBoost = 0;
             if (player.hasEffect(MobEffects.JUMP)) {
                 int amplifier = player.getEffect(MobEffects.JUMP).getAmplifier();

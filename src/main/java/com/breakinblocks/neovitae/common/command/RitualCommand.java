@@ -147,7 +147,6 @@ public class RitualCommand {
             throw ERROR_UNKNOWN_RITUAL.create(ritualId);
         }
 
-        // Stop any current ritual
         if (mrs.isActive() && mrs.getCurrentRitual() != null) {
             mrs.stopRitual(Ritual.BreakType.DEACTIVATE);
         }

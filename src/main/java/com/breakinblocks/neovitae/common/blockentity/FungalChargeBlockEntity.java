@@ -5,10 +5,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
-/**
- * Block entity for fungal charges.
- * Finds and breaks connected mushroom blocks (nether mushroom stems and hyphae).
- */
 public class FungalChargeBlockEntity extends VeinMineChargeBlockEntity {
 
     public FungalChargeBlockEntity(BlockEntityType<?> type, int maxBlocks, BlockPos pos, BlockState state) {

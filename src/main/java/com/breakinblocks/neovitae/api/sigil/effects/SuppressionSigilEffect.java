@@ -17,10 +17,6 @@ import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.function.Supplier;
 
-/**
- * Sigil effect that suppresses fluids in an area around the player,
- * replacing them with spectral blocks that restore the fluid when they expire.
- */
 public record SuppressionSigilEffect(int range, int verticalRange) implements SigilEffect {
 
     public static final int DEFAULT_RANGE = 5;
@@ -61,7 +57,6 @@ public record SuppressionSigilEffect(int range, int verticalRange) implements Si
                     BlockPos checkPos = playerPos.offset(x, y, z);
                     BlockState state = level.getBlockState(checkPos);
 
-                    // Refresh existing spectral blocks without marking chunk dirty unnecessarily
                     if (level.getBlockEntity(checkPos) instanceof SpectralBlockEntity spectral) {
                         spectral.resetDuration();
                         continue;
@@ -69,10 +64,8 @@ public record SuppressionSigilEffect(int range, int verticalRange) implements Si
 
                     FluidState fluidState = state.getFluidState();
 
-                    // Check if block contains fluid
                     if (!fluidState.isEmpty()) {
                         if (BlockProtectionHelper.canBreakBlock(level, checkPos, player)) {
-                            // Replace with spectral block that will restore the fluid
                             level.setBlockAndUpdate(checkPos, NVBlocks.SPECTRAL_BLOCK.get().defaultBlockState());
                             if (level.getBlockEntity(checkPos) instanceof SpectralBlockEntity spectral) {
                                 spectral.setContainedBlockState(state);

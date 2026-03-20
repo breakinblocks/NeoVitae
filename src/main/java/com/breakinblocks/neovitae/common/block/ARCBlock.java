@@ -77,12 +77,10 @@ public class ARCBlock extends Block implements EntityBlock {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
-        // Check if held item is a fluid container
         if (!FluidUtil.getFluidHandler(stack).isPresent()) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
-        // Try to fill input tank from held container
         FluidActionResult fillResult = FluidUtil.tryEmptyContainerAndStow(
                 stack, arc.inputTank, null, Integer.MAX_VALUE, player, true);
         if (fillResult.isSuccess()) {
@@ -91,7 +89,6 @@ public class ARCBlock extends Block implements EntityBlock {
             return ItemInteractionResult.SUCCESS;
         }
 
-        // Try to empty output tank into held container
         FluidActionResult drainOutputResult = FluidUtil.tryFillContainerAndStow(
                 stack, arc.outputTank, null, Integer.MAX_VALUE, player, true);
         if (drainOutputResult.isSuccess()) {
@@ -100,7 +97,6 @@ public class ARCBlock extends Block implements EntityBlock {
             return ItemInteractionResult.SUCCESS;
         }
 
-        // Try to empty input tank into held container
         FluidActionResult drainInputResult = FluidUtil.tryFillContainerAndStow(
                 stack, arc.inputTank, null, Integer.MAX_VALUE, player, true);
         if (drainInputResult.isSuccess()) {
@@ -109,7 +105,6 @@ public class ARCBlock extends Block implements EntityBlock {
             return ItemInteractionResult.SUCCESS;
         }
 
-        // No fluid interaction possible, fall through to open GUI
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 

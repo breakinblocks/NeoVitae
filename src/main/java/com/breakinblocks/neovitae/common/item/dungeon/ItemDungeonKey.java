@@ -21,26 +21,12 @@ public class ItemDungeonKey extends Item {
     private final String[] resourceKeys;
     private final String keyType;
 
-    /**
-     * Creates a new dungeon key item.
-     *
-     * @param keyType      Display name type for tooltip
-     * @param resourceKeys Room pool identifiers this key can open
-     */
     public ItemDungeonKey(String keyType, String... resourceKeys) {
         super(new Properties().stacksTo(16));
         this.keyType = keyType;
         this.resourceKeys = resourceKeys;
     }
 
-    /**
-     * Gets a valid resource location from the given list that matches this key.
-     * Randomly selects from matching entries.
-     * Uses streams for modern Java patterns.
-     *
-     * @param roomPools List of potential room pool locations
-     * @return A matching ResourceLocation, or null if none match
-     */
     public ResourceLocation getValidResourceLocation(List<ResourceLocation> roomPools) {
         if (roomPools == null || roomPools.isEmpty()) {
             return null;
@@ -59,13 +45,6 @@ public class ItemDungeonKey extends Item {
         return matchingPools.get(0);
     }
 
-    /**
-     * Checks if this key can open a door with the given room pools.
-     * Uses streams for modern Java patterns.
-     *
-     * @param roomPools List of potential room pool locations
-     * @return true if this key matches any of the room pools
-     */
     public boolean canOpenDoor(List<ResourceLocation> roomPools) {
         if (roomPools == null || roomPools.isEmpty()) {
             return false;
@@ -76,16 +55,10 @@ public class ItemDungeonKey extends Item {
                         .anyMatch(key -> pool.toString().contains(key)));
     }
 
-    /**
-     * Gets the resource key patterns this key matches.
-     */
     public String[] getResourceKeys() {
-        return resourceKeys.clone(); // Return defensive copy
+        return resourceKeys.clone();
     }
 
-    /**
-     * Gets the key type for display purposes.
-     */
     public String getKeyType() {
         return keyType;
     }

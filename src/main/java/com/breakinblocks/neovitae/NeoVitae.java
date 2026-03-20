@@ -85,7 +85,6 @@ public class NeoVitae {
         NVMenus.register(modBus);
         NVTabs.register(modBus);
 
-        // Initialize Curios compatibility (if Curios is loaded)
         CuriosCompat.init(modBus);
 
         container.registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG_SPEC);
@@ -102,7 +101,6 @@ public class NeoVitae {
         event.enqueueWork(ModRoomPools::init);
         event.enqueueWork(AltarRuneBlockRegistry::init);
 
-        // Initialize Patchouli multiblock registration if Patchouli is loaded
         if (ModList.get().isLoaded("patchouli")) {
             event.enqueueWork(RegisterPatchouliMultiblocks::new);
         }

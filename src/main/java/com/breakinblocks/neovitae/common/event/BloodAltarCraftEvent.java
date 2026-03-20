@@ -8,10 +8,6 @@ import net.neoforged.bus.api.ICancellableEvent;
 import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
 import com.breakinblocks.neovitae.api.recipe.BloodAltarRecipe;
 
-/**
- * Events for Blood Altar crafting.
- * Allows mods to hook into altar crafting operations.
- */
 public abstract class BloodAltarCraftEvent extends Event {
     private final BloodAltarTile altar;
     private final BloodAltarRecipe recipe;

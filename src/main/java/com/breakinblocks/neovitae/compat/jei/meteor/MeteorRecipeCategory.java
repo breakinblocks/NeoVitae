@@ -80,15 +80,12 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
     public void draw(MeteorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         Minecraft mc = Minecraft.getInstance();
 
-        // Draw header info
         String costText = "Cost: " + DECIMAL_FORMAT.format(recipe.getSyphon()) + " LP";
         guiGraphics.drawString(mc.font, costText, 30, 3, Color.GRAY.getRGB(), false);
 
-        // Draw explosion radius
         String explosionText = "Explosion: " + recipe.getExplosionRadius();
         guiGraphics.drawString(mc.font, explosionText, 30, 13, Color.GRAY.getRGB(), false);
 
-        // Calculate and display max radius
         int maxRadius = 0;
         for (MeteorLayer layer : recipe.getLayerList()) {
             maxRadius = Math.max(maxRadius, layer.getLayerRadius());
@@ -106,16 +103,13 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
 
     @Override
     public void getTooltip(ITooltipBuilder tooltip, MeteorRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-        // No additional tooltips needed beyond slot tooltips
     }
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, MeteorRecipe recipe, IFocusGroup focuses) {
-        // Add catalyst input slot - this enables "U" key lookup on the catalyst item
         builder.addSlot(RecipeIngredientRole.CATALYST, 50, 38)
                 .addIngredients(recipe.getInput());
 
-        // Process layers - calculate per-block estimates
         List<MeteorLayer> layers = recipe.getLayerList();
         int totalEstimatedBlocks = 0;
         Map<Block, Double> blockEstimates = new LinkedHashMap<>();
@@ -128,7 +122,6 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
             int layerVolume = estimateSphereVolume(radius) - (innerRadius >= 0 ? estimateSphereVolume(innerRadius) : 0);
             totalEstimatedBlocks += layerVolume;
 
-            // Calculate total weight for this layer
             int weightedTotal = 0;
             for (Pair<RandomBlockContainer, Integer> entry : layer.getWeightList()) {
                 weightedTotal += entry.getValue();
@@ -136,22 +129,18 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
             int totalWeight = layer.getAdditionalTotalWeight() + weightedTotal;
             totalWeight = Math.max(layer.getMinWeight(), totalWeight);
 
-            // Calculate fill block estimate for this layer
             Block fillBlock = getBlockFromContainer(layer.getFillBlock());
             if (fillBlock != null && fillBlock != Blocks.AIR) {
                 double fillEstimate;
                 if (totalWeight > 0) {
-                    // Fill gets the remainder after weighted blocks
                     double fillPortion = (double) (totalWeight - weightedTotal) / totalWeight;
                     fillEstimate = layerVolume * fillPortion;
                 } else {
-                    // No weighted blocks, fill gets entire layer
                     fillEstimate = layerVolume;
                 }
                 blockEstimates.merge(fillBlock, fillEstimate, Double::sum);
             }
 
-            // Calculate weighted block estimates for this layer
             if (totalWeight > 0) {
                 for (Pair<RandomBlockContainer, Integer> entry : layer.getWeightList()) {
                     Block block = getBlockFromContainer(entry.getKey());
@@ -163,7 +152,6 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
                 }
             }
 
-            // Shell blocks - rough estimate of surface area
             if (layer.getShellBlock() != null) {
                 Block shellBlock = getBlockFromContainer(layer.getShellBlock());
                 if (shellBlock != null && shellBlock != Blocks.AIR) {
@@ -175,7 +163,6 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
 
         final int finalTotalBlocks = totalEstimatedBlocks;
 
-        // Sort blocks by estimated count (highest first)
         List<Map.Entry<Block, Double>> sortedEntries = new ArrayList<>(blockEstimates.entrySet());
         sortedEntries.sort((a, b) -> Double.compare(b.getValue(), a.getValue()));
 
@@ -222,10 +209,6 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
     }
 
 
-    /**
-     * Attempts to get a representative block from a RandomBlockContainer.
-     * For tags, returns the first block in the tag, or null if empty.
-     */
     @Nullable
     private Block getBlockFromContainer(RandomBlockContainer container) {
         if (container == null) {
@@ -234,14 +217,12 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
 
         String entry = container.getEntry();
         if (entry.startsWith("#")) {
-            // It's a tag - try to get first block
             String tagName = entry.substring(1);
             if (tagName.contains("#")) {
                 tagName = tagName.substring(0, tagName.indexOf("#"));
             }
             try {
                 ResourceLocation tagLoc = ResourceLocation.parse(tagName);
-                // Return first block from tag
                 var tagKey = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK, tagLoc);
                 var optional = BuiltInRegistries.BLOCK.getTag(tagKey);
                 if (optional.isPresent()) {
@@ -254,7 +235,6 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
                 return null;
             }
         } else if (entry.startsWith(";")) {
-            // It's a fluid - get the block form
             String fluidName = entry.substring(1);
             try {
                 ResourceLocation fluidLoc = ResourceLocation.parse(fluidName);
@@ -266,7 +246,6 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
                 return null;
             }
         } else {
-            // Static block
             try {
                 ResourceLocation blockLoc = ResourceLocation.parse(entry);
                 return BuiltInRegistries.BLOCK.get(blockLoc);

@@ -15,40 +15,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Handler for managing demon will aura in the world.
- * Will is stored per-chunk using data attachments on the server.
- * Client-side cache is maintained via network sync.
- */
 public class WorldDemonWillHandler {
-    // Client-side cache for will data (keyed by chunk position as long)
     private static final Map<Long, WillChunk> clientCache = new ConcurrentHashMap<>();
 
-    /**
-     * Converts chunk coordinates to a single long key.
-     */
     private static long chunkKey(int x, int z) {
         return ChunkPos.asLong(x, z);
     }
 
-    /**
-     * Updates the client-side cache with synced data.
-     * Called from network handler.
-     */
     public static void updateClientCache(int chunkX, int chunkZ, WillChunk willChunk) {
         clientCache.put(chunkKey(chunkX, chunkZ), willChunk);
     }
 
-    /**
-     * Clears the client cache (called when disconnecting).
-     */
     public static void clearClientCache() {
         clientCache.clear();
     }
 
-    /**
-     * Gets the WillChunk for the chunk at the given position.
-     */
     public static WillChunk getWillChunk(Level level, BlockPos pos) {
         if (level == null) {
             return new WillChunk();
@@ -57,7 +38,6 @@ public class WorldDemonWillHandler {
         ChunkPos chunkPos = new ChunkPos(pos);
 
         if (level.isClientSide()) {
-            // Client side - read from cache
             return clientCache.getOrDefault(chunkKey(chunkPos.x, chunkPos.z), new WillChunk());
         }
 
@@ -65,9 +45,6 @@ public class WorldDemonWillHandler {
         return chunk.getData(NVDataAttachments.WILL_CHUNK);
     }
 
-    /**
-     * Gets the WillChunk for the given chunk position.
-     */
     public static WillChunk getWillChunk(Level level, ChunkPos chunkPos) {
         if (level == null) {
             return new WillChunk();
@@ -81,9 +58,6 @@ public class WorldDemonWillHandler {
         return chunk.getData(NVDataAttachments.WILL_CHUNK);
     }
 
-    /**
-     * Gets the amount of will of a specific type in the chunk at the given position.
-     */
     public static double getCurrentWill(Level level, BlockPos pos, EnumWillType type) {
         return getWillChunk(level, pos).getWill(type);
     }
@@ -103,7 +77,6 @@ public class WorldDemonWillHandler {
         double added = willChunk.addWill(type, amount);
 
         if (added > 0) {
-            // Create a copy to ensure NeoForge detects the change
             WillChunk newWillChunk = willChunk.copy();
             chunk.setData(NVDataAttachments.WILL_CHUNK, newWillChunk);
             chunk.setUnsaved(true);
@@ -112,11 +85,6 @@ public class WorldDemonWillHandler {
         return added;
     }
 
-    /**
-     * Drains will from the chunk at the given position.
-     * Note: This does NOT sync to clients immediately. Client sync happens via ItemDemonWillGauge.
-     * @return The amount actually drained
-     */
     public static double drainWillFromChunk(Level level, BlockPos pos, EnumWillType type, double amount) {
         if (level == null || level.isClientSide() || amount <= 0) {
             return 0;
@@ -127,7 +95,6 @@ public class WorldDemonWillHandler {
         double drained = willChunk.drainWill(type, amount);
 
         if (drained > 0) {
-            // Create a copy to ensure NeoForge detects the change
             WillChunk newWillChunk = willChunk.copy();
             chunk.setData(NVDataAttachments.WILL_CHUNK, newWillChunk);
             chunk.setUnsaved(true);
@@ -136,14 +103,8 @@ public class WorldDemonWillHandler {
         return drained;
     }
 
-    /**
-     * Syncs will chunk data to all players tracking that chunk.
-     * @return The number of players synced to
-     */
     public static int syncChunkToTrackingPlayers(ServerLevel level, ChunkPos chunkPos, WillChunk willChunk) {
         WillChunkSyncPayload payload = WillChunkSyncPayload.fromWillChunk(chunkPos.x, chunkPos.z, willChunk);
-
-        // Count players tracking this chunk
         List<ServerPlayer> trackingPlayers = level.getChunkSource().chunkMap.getPlayers(chunkPos, false);
         int playerCount = trackingPlayers.size();
 
@@ -152,10 +113,6 @@ public class WorldDemonWillHandler {
         return playerCount;
     }
 
-    /**
-     * Syncs will chunk data to a specific player.
-     * Used when a player starts tracking a chunk.
-     */
     public static void syncChunkToPlayer(ServerPlayer player, ChunkPos chunkPos, WillChunk willChunk) {
         WillChunkSyncPayload payload = WillChunkSyncPayload.fromWillChunk(chunkPos.x, chunkPos.z, willChunk);
         PacketDistributor.sendToPlayer(player, payload);
@@ -178,10 +135,6 @@ public class WorldDemonWillHandler {
         syncChunkToPlayer(player, chunkPos, willChunk);
     }
 
-    /**
-     * Fills will in the chunk up to the specified amount.
-     * @return The amount actually added
-     */
     public static double fillWillToAmount(Level level, BlockPos pos, EnumWillType type, double targetAmount) {
         double current = getCurrentWill(level, pos, type);
         if (current >= targetAmount) {
@@ -190,39 +143,23 @@ public class WorldDemonWillHandler {
         return addWillToChunk(level, pos, type, targetAmount - current);
     }
 
-    /**
-     * Gets the total will of all types in the chunk.
-     */
     public static double getTotalWill(Level level, BlockPos pos) {
         return getWillChunk(level, pos).getTotalWill();
     }
 
-    /**
-     * Gets the dominant will type in the chunk.
-     */
     public static EnumWillType getDominantWillType(Level level, BlockPos pos) {
         return getWillChunk(level, pos).getDominantType();
     }
 
-    /**
-     * Checks if the chunk has any will.
-     */
     public static boolean hasWill(Level level, BlockPos pos) {
         return getWillChunk(level, pos).hasWill();
     }
 
-    /**
-     * Transfers will from one chunk to an adjacent chunk.
-     * Used by demon pylons.
-     * Note: This does NOT sync to clients immediately. Client sync happens via ItemDemonWillGauge.
-     * @return The amount actually transferred
-     */
     public static double transferWill(Level level, ChunkPos fromChunk, ChunkPos toChunk, EnumWillType type, double maxTransfer) {
         if (level == null || level.isClientSide()) {
             return 0;
         }
 
-        // Get will amounts in both chunks
         LevelChunk from = level.getChunk(fromChunk.x, fromChunk.z);
         LevelChunk to = level.getChunk(toChunk.x, toChunk.z);
 
@@ -232,16 +169,13 @@ public class WorldDemonWillHandler {
         double fromAmount = fromWill.getWill(type);
         double toAmount = toWill.getWill(type);
 
-        // Only transfer if source has more than destination
         if (fromAmount <= toAmount) {
             return 0;
         }
 
-        // Calculate how much to transfer (equalize, but limited by maxTransfer)
         double difference = fromAmount - toAmount;
         double toTransfer = Math.min(maxTransfer, difference / 2);
 
-        // Also limited by destination capacity (uses configurable max)
         double toMaxWill = toWill.getMaxWill(type);
         double toCapacity = toMaxWill - toAmount;
         toTransfer = Math.min(toTransfer, toCapacity);
@@ -250,11 +184,9 @@ public class WorldDemonWillHandler {
             return 0;
         }
 
-        // Perform transfer
         fromWill.drainWill(type, toTransfer);
         toWill.addWill(type, toTransfer);
 
-        // Create copies to ensure NeoForge detects the changes
         WillChunk newFromWill = fromWill.copy();
         WillChunk newToWill = toWill.copy();
 
@@ -266,42 +198,14 @@ public class WorldDemonWillHandler {
         return toTransfer;
     }
 
-    /**
-     * Gets the maximum will capacity for a specific type in the chunk.
-     * This includes both the base config value and any per-chunk bonuses.
-     *
-     * @param level The level
-     * @param pos   The position (chunk is determined from this)
-     * @param type  The will type
-     * @return The maximum will capacity
-     */
     public static double getMaxWill(Level level, BlockPos pos, EnumWillType type) {
         return getWillChunk(level, pos).getMaxWill(type);
     }
 
-    /**
-     * Gets the per-chunk bonus to maximum will capacity for a specific type.
-     *
-     * @param level The level
-     * @param pos   The position (chunk is determined from this)
-     * @param type  The will type
-     * @return The bonus capacity (0 if none)
-     */
     public static double getMaxBonus(Level level, BlockPos pos, EnumWillType type) {
         return getWillChunk(level, pos).getMaxBonus(type);
     }
 
-    /**
-     * Sets the per-chunk bonus to maximum will capacity for a specific type.
-     * This is used by rituals to expand chunk capacity.
-     *
-     * <p>Server-side only. Does nothing on client.</p>
-     *
-     * @param level  The level
-     * @param pos    The position (chunk is determined from this)
-     * @param type   The will type
-     * @param bonus  The new bonus value (must be >= 0)
-     */
     public static void setMaxBonus(Level level, BlockPos pos, EnumWillType type, double bonus) {
         if (level == null || level.isClientSide()) {
             return;
@@ -310,25 +214,11 @@ public class WorldDemonWillHandler {
         LevelChunk chunk = level.getChunkAt(pos);
         WillChunk willChunk = chunk.getData(NVDataAttachments.WILL_CHUNK);
         willChunk.setMaxBonus(type, bonus);
-
-        // Create a copy to ensure NeoForge detects the change
         WillChunk newWillChunk = willChunk.copy();
         chunk.setData(NVDataAttachments.WILL_CHUNK, newWillChunk);
         chunk.setUnsaved(true);
     }
 
-    /**
-     * Adds to the per-chunk bonus to maximum will capacity for a specific type.
-     * This is used by rituals to expand chunk capacity.
-     *
-     * <p>Server-side only. Returns current bonus on client.</p>
-     *
-     * @param level  The level
-     * @param pos    The position (chunk is determined from this)
-     * @param type   The will type
-     * @param amount The amount to add (can be negative to reduce)
-     * @return The new bonus value
-     */
     public static double addMaxBonus(Level level, BlockPos pos, EnumWillType type, double amount) {
         if (level == null || level.isClientSide()) {
             return getMaxBonus(level, pos, type);
@@ -337,8 +227,6 @@ public class WorldDemonWillHandler {
         LevelChunk chunk = level.getChunkAt(pos);
         WillChunk willChunk = chunk.getData(NVDataAttachments.WILL_CHUNK);
         double newBonus = willChunk.addMaxBonus(type, amount);
-
-        // Create a copy to ensure NeoForge detects the change
         WillChunk newWillChunk = willChunk.copy();
         chunk.setData(NVDataAttachments.WILL_CHUNK, newWillChunk);
         chunk.setUnsaved(true);

@@ -7,10 +7,6 @@ import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.ICancellableEvent;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 
-/**
- * Events for Alchemy Array crafting.
- * Allows mods to hook into alchemy array crafting operations.
- */
 public abstract class AlchemyArrayCraftEvent extends Event {
     private final AlchemyArrayBlockEntity array;
     private final ItemStack baseInput;

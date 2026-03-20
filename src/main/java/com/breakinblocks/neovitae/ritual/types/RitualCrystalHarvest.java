@@ -48,7 +48,6 @@ public class RitualCrystalHarvest extends Ritual {
 
             // Check if it's a demon crystal block
             if (isDemonCrystal(block)) {
-                // Check protection before breaking
                 if (BlockProtectionHelper.tryBreakBlock(ctx.level(), pos, owner)) {
                     crystalsHarvested++;
                 }

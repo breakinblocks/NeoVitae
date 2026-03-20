@@ -99,7 +99,6 @@ public class BloodAltarBlock extends Block implements EntityBlock {
             return ItemInteractionResult.FAIL;
         }
         ItemStack altarStack = tile.inv.getStackInSlot(0);
-        //altarStack.getCapability(NeoVitaeCapabilities.ALTAR_READER);
         if (altarStack.isEmpty() && !stack.isEmpty()) {
             tile.inv.setStackInSlot(0, stack.copy());
             level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);

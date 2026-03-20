@@ -74,7 +74,6 @@ public class RitualCrystalSplit extends Ritual {
             BlockProtectionHelper.tryPlaceBlock(ctx.level(), outputPositions[i], aspectedCrystals[i].defaultBlockState(), owner);
         }
 
-        // Consume LP and deactivate (one-time ritual)
         ctx.syphon(getRefreshCost());
         masterRitualStone.stopRitual(BreakType.DEACTIVATE);
     }

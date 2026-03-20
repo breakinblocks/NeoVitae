@@ -12,10 +12,6 @@ import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Data component for storing anointments on items (charges, weapons, tools).
- * Replaces the old NBT-based anointment_holder system.
- */
 public record AnointmentHolder(List<AnointmentEntry> anointments) {
 
     public static final Codec<AnointmentHolder> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -73,10 +69,6 @@ public record AnointmentHolder(List<AnointmentEntry> anointments) {
         return new AnointmentHolder(newList);
     }
 
-    /**
-     * Consume durability for anointments that trigger on attack.
-     * Returns a new holder with updated durabilities and expired anointments removed.
-     */
     public AnointmentHolder consumeOnAttack() {
         List<AnointmentEntry> newList = new ArrayList<>();
         for (AnointmentEntry entry : anointments) {
@@ -93,10 +85,6 @@ public record AnointmentHolder(List<AnointmentEntry> anointments) {
         return new AnointmentHolder(newList);
     }
 
-    /**
-     * Consume durability for anointments that trigger on harvest.
-     * Returns a new holder with updated durabilities and expired anointments removed.
-     */
     public AnointmentHolder consumeOnHarvest() {
         List<AnointmentEntry> newList = new ArrayList<>();
         for (AnointmentEntry entry : anointments) {
@@ -113,10 +101,6 @@ public record AnointmentHolder(List<AnointmentEntry> anointments) {
         return new AnointmentHolder(newList);
     }
 
-    /**
-     * Consume durability for anointments that trigger on use finish.
-     * Returns a new holder with updated durabilities and expired anointments removed.
-     */
     public AnointmentHolder consumeOnUseFinish() {
         List<AnointmentEntry> newList = new ArrayList<>();
         for (AnointmentEntry entry : anointments) {
@@ -133,10 +117,6 @@ public record AnointmentHolder(List<AnointmentEntry> anointments) {
         return new AnointmentHolder(newList);
     }
 
-    /**
-     * Consume durability for a specific anointment.
-     * Returns a new holder with updated durability and the anointment removed if expired.
-     */
     public AnointmentHolder consumeAnointment(ResourceLocation key) {
         List<AnointmentEntry> newList = new ArrayList<>();
         for (AnointmentEntry entry : anointments) {
@@ -152,9 +132,6 @@ public record AnointmentHolder(List<AnointmentEntry> anointments) {
         return new AnointmentHolder(newList);
     }
 
-    /**
-     * A single anointment entry with its key, level, damage, and max damage.
-     */
     public record AnointmentEntry(ResourceLocation key, int level, int damage, int maxDamage) {
 
         public static final Codec<AnointmentEntry> CODEC = RecordCodecBuilder.create(instance -> instance.group(

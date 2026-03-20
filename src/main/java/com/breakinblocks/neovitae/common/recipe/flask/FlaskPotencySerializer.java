@@ -15,9 +15,6 @@ import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
 import java.util.List;
 
-/**
- * Serializer for flask potency recipes (increasing effect amplifier).
- */
 public class FlaskPotencySerializer implements RecipeSerializer<FlaskPotencyRecipe> {
 
     public static final MapCodec<FlaskPotencyRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(

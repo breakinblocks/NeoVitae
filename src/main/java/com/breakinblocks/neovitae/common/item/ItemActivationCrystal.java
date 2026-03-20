@@ -27,9 +27,7 @@ public class ItemActivationCrystal extends Item implements IBindable {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        // Only trigger on sneak+right-click for binding
         if (player.isShiftKeyDown()) {
-            // Swing arm for visual feedback
             player.swing(hand);
             return InteractionResultHolder.success(stack);
         }

@@ -5,10 +5,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.VeinMineChargeBlockEntity;
 
-/**
- * Block for vein mine charges.
- * Mines connected ore blocks of the same type when triggered.
- */
 public class BlockVeinMineCharge extends BlockShapedExplosive {
     private final int maxBlocks;
 

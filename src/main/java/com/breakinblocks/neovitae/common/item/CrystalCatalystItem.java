@@ -16,10 +16,6 @@ import com.breakinblocks.neovitae.common.block.BlockDemonCrystal;
 import com.breakinblocks.neovitae.common.blockentity.DemonCrystalBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 
-/**
- * Crystal catalyst items that inject will into demon crystal block entities
- * to modify their growth speed and conversion rate.
- */
 public class CrystalCatalystItem extends Item {
 
     private final EnumWillType type;

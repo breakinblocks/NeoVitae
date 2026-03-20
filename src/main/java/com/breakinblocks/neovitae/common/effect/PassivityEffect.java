@@ -8,9 +8,6 @@ import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import com.breakinblocks.neovitae.entity.goal.NearestAttackableDummyGoal;
 
-/**
- * Passivity effect - makes hostile mobs non-aggressive.
- */
 public class PassivityEffect extends MobEffect {
 
     public PassivityEffect(MobEffectCategory category, int color) {

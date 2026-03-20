@@ -3,10 +3,6 @@ package com.breakinblocks.neovitae.util;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
-/**
- * Helper class for managing ghost items in filter slots.
- * Ghost items track a desired count separately from the actual stack size.
- */
 public class GhostItemHelper {
 
     public static void setItemGhostAmount(ItemStack stack, int amount) {

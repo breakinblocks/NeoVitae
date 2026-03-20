@@ -54,7 +54,6 @@ public class BlockImperfectRitualStone extends Block implements EntityBlock {
             return InteractionResult.PASS;
         }
 
-        // Check for a block above
         BlockPos abovePos = pos.above();
         BlockState aboveState = level.getBlockState(abovePos);
 
@@ -64,7 +63,6 @@ public class BlockImperfectRitualStone extends Block implements EntityBlock {
             return InteractionResult.FAIL;
         }
 
-        // Find matching imperfect ritual using O(1) lookup cache
         RitualRegistry.ImperfectRitualLookupResult lookupResult = RitualRegistry.findRitualForBlock(aboveState);
 
         if (lookupResult == null) {
@@ -73,7 +71,6 @@ public class BlockImperfectRitualStone extends Block implements EntityBlock {
             return InteractionResult.FAIL;
         }
 
-        // Try to perform the ritual
         RitualResult result = tile.performRitual(level, pos, lookupResult.ritual(), lookupResult.stats(), player);
         if (result.successful()) {
             player.displayClientMessage(

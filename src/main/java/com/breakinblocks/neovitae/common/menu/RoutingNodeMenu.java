@@ -13,15 +13,10 @@ import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.item.routing.IItemFilterProvider;
 
-/**
- * Menu for Input/Output Routing Nodes.
- * Provides 6 filter slots (one per direction) and priority controls.
- */
 public class RoutingNodeMenu extends AbstractContainerMenu {
     public final FilteredRoutingNodeBlockEntity tile;
     private final ContainerData data;
 
-    // Data indices
     public static final int DATA_CURRENT_SLOT = 0;
     public static final int DATA_PRIORITY_DOWN = 1;
     public static final int DATA_PRIORITY_UP = 2;
@@ -35,7 +30,6 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
         super(NVMenus.ROUTING_NODE.get(), containerId);
         this.tile = tile;
 
-        // Create container data for syncing - handle null tile for client-side construction
         if (tile != null) {
             this.data = new ContainerData() {
                 @Override
@@ -67,13 +61,10 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
         }
         this.addDataSlots(data);
 
-        // Add single filter slot that swaps based on direction - matches 1.20.1
-        // Position (71, 33) from 1.20.1
         if (tile != null) {
             this.addSlot(new FilterSlot(tile, 0, 71, 33));
         }
 
-        // Player inventory and hotbar - positions match 1.20.1
         MenuSlotHelper.addPlayerInventory(this::addSlot, playerInventory, 87, 145);
     }
 
@@ -135,25 +126,20 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
             ItemStack slotStack = slot.getItem();
             itemstack = slotStack.copy();
 
-            // Filter slot is 0, player inventory is 1-36
             if (index == 0) {
-                // Moving from filter slot to player inventory
                 if (!this.moveItemStackTo(slotStack, 1, 37, true)) {
                     return ItemStack.EMPTY;
                 }
             } else {
-                // Moving from player inventory to filter slot
                 if (slotStack.getItem() instanceof IItemFilterProvider) {
                     if (!this.moveItemStackTo(slotStack, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (index < 28) {
-                    // From main inventory to hotbar
                     if (!this.moveItemStackTo(slotStack, 28, 37, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else {
-                    // From hotbar to main inventory
                     if (!this.moveItemStackTo(slotStack, 1, 28, false)) {
                         return ItemStack.EMPTY;
                     }
@@ -175,10 +161,6 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
         return tile != null && tile.stillValid(player);
     }
 
-    /**
-     * Custom slot that only accepts filter items.
-     * Dynamically maps to the current active direction slot in the tile.
-     */
     private static class FilterSlot extends Slot {
         private final FilteredRoutingNodeBlockEntity routingTile;
 
@@ -189,14 +171,12 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
 
         @Override
         public ItemStack getItem() {
-            // Return the filter for the currently selected direction
             int activeSlot = routingTile.getCurrentActiveSlot();
             return routingTile.getItem(activeSlot);
         }
 
         @Override
         public void set(ItemStack stack) {
-            // Set the filter for the currently selected direction
             int activeSlot = routingTile.getCurrentActiveSlot();
             routingTile.setItem(activeSlot, stack);
             this.setChanged();

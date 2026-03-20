@@ -12,9 +12,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.fluids.FluidStack;
 
-/**
- * Serializer for ARCPotionRecipe - same structure as ARCSerializer but creates ARCPotionRecipe instances.
- */
 public class ARCPotionSerializer implements RecipeSerializer<ARCPotionRecipe> {
 
     private static final StreamCodec<RegistryFriendlyByteBuf, Pair<ItemStack, Double>> CHANCE_PAIR_STREAM_CODEC = StreamCodec.composite(

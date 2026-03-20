@@ -58,7 +58,6 @@ public class NVMultiblock {
             keys[tier] = holder.getKey().location();
             tiers[tier] = holder.value();
             
-            // Build the multiblock validator for this tier
             MultiblockValidator.Builder builder = MultiblockValidator.builder();
             Registry<Block> blockRegistry = event.getServer().registryAccess().registryOrThrow(Registries.BLOCK);
             
@@ -83,14 +82,10 @@ public class NVMultiblock {
         TIER_VALIDATORS = new MultiblockValidator[]{};
     }
 
-    /**
-     * Creates a block state matcher predicate for an altar component.
-     */
     private static Predicate<BlockState> createMatcher(AltarComponent component, Registry<Block> blockRegistry) {
         if (component.material().tag()) {
             TagKey<Block> tag = TagKey.create(Registries.BLOCK, component.material().id());
             
-            // Special handling for pillars tag - allow any solid block if tag is empty
             if (component.material().id().equals(NVTags.Blocks.PILLARS.location())) {
                 List<Block> tagBlocks = blockRegistry.getOrCreateTag(tag).stream()
                         .map(Holder::value).toList();
@@ -106,9 +101,6 @@ public class NVMultiblock {
         }
     }
 
-    /**
-     * Gets display states for an altar component (for book visualization).
-     */
     public static List<BlockState> getDisplayStates(AltarComponent component, RegistryAccess registries) {
         Registry<Block> blockRegistry = registries.registryOrThrow(Registries.BLOCK);
         List<BlockState> stateList = new ArrayList<>();

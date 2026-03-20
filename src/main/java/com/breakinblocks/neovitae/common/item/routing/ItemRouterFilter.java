@@ -33,13 +33,11 @@ import java.util.List;
 public class ItemRouterFilter extends Item implements MenuProvider, IItemFilterProvider {
     public static final int INVENTORY_SIZE = 9;
 
-    // Data slot indices for the menu ContainerData
     public static final int DATA_SLOT = 0;
     public static final int DATA_BWLIST = DATA_SLOT + 1;
     public static final int DATA_TAG = DATA_BWLIST + 1; // + slot (0-8)
     public static final int DATA_COUNT = DATA_TAG + 9;
 
-    // Button IDs for clickMenuButton
     public static final int BUTTON_BWLIST = 0;
     public static final int BUTTON_TAG = 1;
 

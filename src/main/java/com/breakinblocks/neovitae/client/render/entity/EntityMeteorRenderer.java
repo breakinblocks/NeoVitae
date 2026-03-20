@@ -15,10 +15,6 @@ import org.joml.Matrix4f;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityMeteor;
 
-/**
- * Renderer for meteor entities.
- * Renders a simple fireball-like sphere.
- */
 @OnlyIn(Dist.CLIENT)
 public class EntityMeteorRenderer extends EntityRenderer<EntityMeteor> {
 
@@ -34,19 +30,15 @@ public class EntityMeteorRenderer extends EntityRenderer<EntityMeteor> {
                        PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
         poseStack.pushPose();
 
-        // Scale the meteor
         float scale = 2.0F;
         poseStack.scale(scale, scale, scale);
 
-        // Rotate for visual effect
         poseStack.mulPose(Axis.YP.rotationDegrees(entity.tickCount * 10.0F));
 
-        // Render as a simple quad (placeholder - could be replaced with a proper model)
         VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.entityCutout(getTextureLocation(entity)));
         PoseStack.Pose pose = poseStack.last();
         Matrix4f matrix4f = pose.pose();
 
-        // Simple billboard quad
         float size = 0.5F;
         vertex(vertexConsumer, matrix4f, pose, -size, -size, 0, 0, 1, packedLight);
         vertex(vertexConsumer, matrix4f, pose, size, -size, 0, 1, 1, packedLight);

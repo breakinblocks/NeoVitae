@@ -84,16 +84,12 @@ public interface UpgradeHolderBase extends IItemExtension, IUpgradeHolder {
         return LivingHelper.hasFullSet(player) && LivingHelper.has(player, LivingEffectComponents.IS_ENDER_MASK.get());
     }
 
-    // ========================================
-    // IUpgradeHolder API Implementation
-    // ========================================
 
     @Override
     default int getMaxUpgradePoints(ItemStack stack, Player player) {
         if (LivingHelper.isNeverValid(stack)) {
             return 0;
         }
-        // Get max points from component, defaulting to config value if not set
         Integer maxPoints = stack.get(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS.get());
         return maxPoints != null ? maxPoints : NeoVitae.SERVER_CONFIG.DEFAULT_UPGRADE_POINTS.get();
     }

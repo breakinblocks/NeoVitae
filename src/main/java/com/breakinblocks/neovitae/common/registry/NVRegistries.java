@@ -42,7 +42,6 @@ public class NVRegistries {
         LivingValueEffect.register(modBus);
         LivingEntityEffect.register(modBus);
 
-        // Sigil system registries
         SigilEffectRegistry.register(modBus);
         SigilTypeRegistry.register(modBus);
     }

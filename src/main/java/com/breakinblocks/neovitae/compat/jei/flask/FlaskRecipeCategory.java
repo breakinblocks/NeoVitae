@@ -24,10 +24,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * JEI recipe category for flask brewing recipes.
- * Displays recipes that modify alchemy flask effects in the alchemy table.
- */
 public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
     public static final RecipeType<FlaskRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "flask", FlaskRecipe.class);
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
@@ -92,15 +88,12 @@ public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, FlaskRecipe recipe, IFocusGroup focuses) {
-        // Output flask with modified effects
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 92, 14);
         output.addItemStack(recipe.getOutput(recipe.getExampleFlask(), recipe.getExampleEffects()));
 
-        // Add orbs that meet the tier requirement
         IRecipeSlotBuilder orb = builder.addSlot(RecipeIngredientRole.CATALYST, 61, 1);
         orb.addItemStacks(getOrbsForTier(recipe.getMinimumTier()));
 
-        // Add input ingredients
         for (int index = 0; index < recipe.getInput().size(); index++) {
             int x = index % 3;
             int y = index / 3;
@@ -108,9 +101,8 @@ public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
             input.addIngredients(recipe.getInput().get(index));
         }
 
-        // Add the input flask as an ingredient (first slot that's free after other inputs)
         int flaskSlot = recipe.getInput().size();
-        if (flaskSlot < 6) {  // Make sure we have room
+        if (flaskSlot < 6) {
             int x = flaskSlot % 3;
             int y = flaskSlot / 3;
             IRecipeSlotBuilder flaskInput = builder.addSlot(RecipeIngredientRole.INPUT, x * 18 + 1, y * 18 + 1);
@@ -120,7 +112,6 @@ public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
 
     private List<ItemStack> getOrbsForTier(int tier) {
         List<ItemStack> orbs = new ArrayList<>();
-        // Add all orbs at or above the required tier
         if (tier <= 1) orbs.add(new ItemStack(NVItems.ORB_WEAK.get()));
         if (tier <= 2) orbs.add(new ItemStack(NVItems.ORB_APPRENTICE.get()));
         if (tier <= 3) orbs.add(new ItemStack(NVItems.ORB_MAGICIAN.get()));

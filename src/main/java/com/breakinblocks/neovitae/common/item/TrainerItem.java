@@ -38,7 +38,6 @@ public class TrainerItem extends Item {
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
             ItemStack chest = LivingHelper.getChest(player);
             if (LivingHelper.isNeverValid(chest)) {
-                // cannot operate
                 return InteractionResultHolder.fail(stack);
             }
 

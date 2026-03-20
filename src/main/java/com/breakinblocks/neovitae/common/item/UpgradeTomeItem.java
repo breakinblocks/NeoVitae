@@ -86,25 +86,21 @@ public class UpgradeTomeItem extends Item {
         int currentLevel = LivingHelper.getLevelFromXp(upgrade, exp);
         int nextLevelExp = LivingHelper.nextLevelExp(upgrade, exp);
 
-        // At max level - show full bar
         if (nextLevelExp == 0) {
             return 13;
         }
 
-        // Get exp threshold for current level
         int currentLevelExp = LivingHelper.getExpForLevel(upgrade, currentLevel);
         if (currentLevelExp < 0) {
-            currentLevelExp = 0; // Level 0 has no entry
+            currentLevelExp = 0;
         }
 
-        // Calculate progress from current level to next level
         float progress = (exp - currentLevelExp) / (float) (nextLevelExp - currentLevelExp);
         return Math.round(progress * 13.0f);
     }
 
     @Override
     public int getBarColor(ItemStack stack) {
-        // Blood red color to match mod theme
         return 0xB00000;
     }
 }

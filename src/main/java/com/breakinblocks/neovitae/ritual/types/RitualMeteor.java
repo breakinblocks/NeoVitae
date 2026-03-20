@@ -59,7 +59,6 @@ public class RitualMeteor extends Ritual {
                     ctx.syphon(syphonAmount);
                 }
 
-                // Spawn meteor entity high above the ritual
                 EntityMeteor meteor = new EntityMeteor(ctx.level(),
                         ctx.masterPos().getX() + 0.5,
                         ctx.level().getMaxBuildHeight() + 10,

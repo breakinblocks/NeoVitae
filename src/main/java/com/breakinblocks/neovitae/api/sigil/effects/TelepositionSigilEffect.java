@@ -22,10 +22,6 @@ import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 import java.util.Set;
 import java.util.function.Supplier;
 
-/**
- * Sigil effect that teleports the player to a bound teleposer location.
- * The teleposer location must be set by right-clicking on a teleposer block.
- */
 public record TelepositionSigilEffect() implements SigilEffect {
 
     public static final MapCodec<TelepositionSigilEffect> CODEC = MapCodec.unit(TelepositionSigilEffect::new);
@@ -71,7 +67,6 @@ public record TelepositionSigilEffect() implements SigilEffect {
             return false;
         }
 
-        // Teleport the player to the teleposer location
         BlockPos teleportPos = boundPos.above();
         double x = teleportPos.getX() + 0.5;
         double y = teleportPos.getY();
@@ -94,7 +89,6 @@ public record TelepositionSigilEffect() implements SigilEffect {
 
         BlockEntity tile = level.getBlockEntity(blockPos);
         if (tile instanceof TeleposerBlockEntity) {
-            // Bind to this teleposer
             stack.set(NVDataComponents.TELEPOSER_POS.get(), blockPos);
             stack.set(NVDataComponents.TELEPOSER_DIMENSION.get(), level.dimension().location().toString());
             player.sendSystemMessage(Component.translatable("tooltip.neovitae.sigil.teleposition.bound",

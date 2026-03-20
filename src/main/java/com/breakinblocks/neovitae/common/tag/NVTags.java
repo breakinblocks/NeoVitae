@@ -36,13 +36,11 @@ public class NVTags {
 
         public static final TagKey<Item> LINGERING_FLASK = withParent(ARC_TOOL, bm("lingering_flask"));
 
-        // Explosive charges - excluded from loot modifier processing
         public static final TagKey<Item> CHARGES = tag(bm("charges"));
 
         public static final TagKey<Item> LIVING_UPGRADE_SET = tag(bm("living_upgrade_set"));
         public static final TagKey<Item> LIVING_SET = withParent(LIVING_UPGRADE_SET, NVMaterialsAndTiers.LIVING_ARMOUR_MATERIAL.getId());
 
-        // Processing item tags - use c: convention for cross-mod compatibility
         public static final TagKey<Item> FRAGMENTS_IRON = tag(c("fragments/iron"));
         public static final TagKey<Item> FRAGMENTS_GOLD = tag(c("fragments/gold"));
         public static final TagKey<Item> FRAGMENTS_COPPER = tag(c("fragments/copper"));
@@ -55,7 +53,6 @@ public class NVTags {
         public static final TagKey<Item> GRAVELS_NETHERITE_SCRAP = tag(c("gravels/netherite_scrap"));
         public static final TagKey<Item> GRAVELS_HELLFORGED = tag(c("gravels/hellforged"));
 
-        // Dust tags (sands)
         public static final TagKey<Item> DUSTS_IRON = tag(c("dusts/iron"));
         public static final TagKey<Item> DUSTS_GOLD = tag(c("dusts/gold"));
         public static final TagKey<Item> DUSTS_COPPER = tag(c("dusts/copper"));
@@ -67,9 +64,7 @@ public class NVTags {
         public static final TagKey<Item> DUSTS_CORRUPTED = tag(c("dusts/corrupted"));
         public static final TagKey<Item> TINY_DUSTS_CORRUPTED = tag(c("tiny_dusts/corrupted"));
 
-        // Ingot tags
         public static final TagKey<Item> INGOTS_HELLFORGED = tag(c("ingots/hellforged"));
-        // Raw material tags
         public static final TagKey<Item> RAW_MATERIALS_HELLFORGED = tag(c("raw_materials/hellforged"));
 
         private static TagKey<Item> fromBlock(TagKey<Block> input) {
@@ -98,8 +93,6 @@ public class NVTags {
 
         public static final TagKey<Block> STORAGE_BLOCKS_HELLFORGED = tag(c("storage_blocks/hellforged"));
 
-        // Incense Altar Path Blocks - blocks in higher level tags also work for lower levels
-        // Level 0 = innermost ring (distance 2), Level 10 = outermost ring (distance 12)
         public static final TagKey<Block> INCENSE_PATH_LEVEL_0 = tag(bm("incense_path/level_0"));
         public static final TagKey<Block> INCENSE_PATH_LEVEL_1 = tag(bm("incense_path/level_1"));
         public static final TagKey<Block> INCENSE_PATH_LEVEL_2 = tag(bm("incense_path/level_2"));
@@ -112,7 +105,6 @@ public class NVTags {
         public static final TagKey<Block> INCENSE_PATH_LEVEL_9 = tag(bm("incense_path/level_9"));
         public static final TagKey<Block> INCENSE_PATH_LEVEL_10 = tag(bm("incense_path/level_10"));
 
-        // Tranquility blocks - blocks that provide tranquility near an incense altar
         public static final TagKey<Block> TRANQUILITY_PLANT = tag(bm("tranquility/plant"));
         public static final TagKey<Block> TRANQUILITY_CROP = tag(bm("tranquility/crop"));
         public static final TagKey<Block> TRANQUILITY_TREE = tag(bm("tranquility/tree"));
@@ -121,16 +113,12 @@ public class NVTags {
         public static final TagKey<Block> TRANQUILITY_FIRE = tag(bm("tranquility/fire"));
         public static final TagKey<Block> TRANQUILITY_LAVA = tag(bm("tranquility/lava"));
 
-        // Fungal charge blocks - mushroom blocks to harvest
         public static final TagKey<Block> MUSHROOM_HYPHAE = tag(bm("mushroom_hyphae"));
         public static final TagKey<Block> MUSHROOM_STEM = tag(bm("mushroom_stem"));
 
-        // Geode ritual - harvestable crystal blocks (clusters, buds)
         public static final TagKey<Block> GEODE_HARVESTABLE = tag(bm("geode_harvestable"));
-        // Geode ritual - budding blocks that can be accelerated via random tick
         public static final TagKey<Block> GEODE_ACCELERATABLE = tag(bm("geode_acceleratable"));
 
-        // Mundane blocks - drops are voided by voiding anointment
         public static final TagKey<Block> MUNDANE_BLOCK = tag(bm("mundane_block"));
 
         private static TagKey<Block> tag(ResourceLocation id) {

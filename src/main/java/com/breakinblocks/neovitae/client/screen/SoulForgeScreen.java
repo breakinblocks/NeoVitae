@@ -41,7 +41,6 @@ public class SoulForgeScreen extends AbstractContainerScreen<SoulForgeMenu> {
         int j = (this.height - this.imageHeight) / 2;
         guiGraphics.blit(BACKGROUND, i, j, 0, 0, this.imageWidth, this.imageHeight);
 
-        // Progress bar
         int progress = getCookProgressScaled(90);
         guiGraphics.blit(BACKGROUND, i + 115, j + 14 + 90 - progress, 176, 90 - progress, 18, progress);
     }

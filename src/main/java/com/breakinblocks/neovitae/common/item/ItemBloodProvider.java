@@ -20,10 +20,6 @@ import com.breakinblocks.neovitae.util.AltarUtil;
 
 import java.util.List;
 
-/**
- * An item that provides LP directly to a nearby blood altar when used.
- * Used for items like the Slate Ampoule that add LP without requiring sacrifice.
- */
 public class ItemBloodProvider extends Item {
     protected final String tooltipBase;
     public final int lpProvided;
@@ -66,7 +62,6 @@ public class ItemBloodProvider extends Item {
                 }
 
                 if (!level.isClientSide) {
-                    // Add LP directly without sacrifice modifiers (pass false for isSacrifice, use 0 mod)
                     altar.addSacrificeLP(lpProvided, false);
 
                     if (!player.getAbilities().instabuild) {

@@ -24,9 +24,6 @@ import com.breakinblocks.neovitae.common.routing.IRoutingNode;
 
 import javax.annotation.Nullable;
 
-/**
- * Base block for routing nodes.
- */
 public class BlockRoutingNode extends BaseEntityBlock {
 
     public static final MapCodec<BlockRoutingNode> CODEC = simpleCodec(BlockRoutingNode::new);

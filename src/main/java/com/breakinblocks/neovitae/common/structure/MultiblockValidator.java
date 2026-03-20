@@ -41,12 +41,10 @@ public class MultiblockValidator {
      */
     @Nullable
     public Rotation validate(Level level, BlockPos anchor) {
-        // Try each rotation
         for (Rotation rotation : Rotation.values()) {
             if (validateWithRotation(level, anchor, rotation)) {
                 return rotation;
             }
-            // If symmetrical, we only need to check one rotation
             if (symmetrical) {
                 break;
             }
@@ -54,9 +52,6 @@ public class MultiblockValidator {
         return null;
     }
 
-    /**
-     * Validates the structure with a specific rotation.
-     */
     private boolean validateWithRotation(Level level, BlockPos anchor, Rotation rotation) {
         for (Map.Entry<BlockPos, Predicate<BlockState>> entry : matchers.entrySet()) {
             BlockPos relativePos = entry.getKey();
@@ -71,9 +66,6 @@ public class MultiblockValidator {
         return true;
     }
 
-    /**
-     * Rotates a position around the Y axis.
-     */
     private BlockPos rotatePos(BlockPos pos, Rotation rotation) {
         return switch (rotation) {
             case NONE -> pos;
@@ -83,9 +75,6 @@ public class MultiblockValidator {
         };
     }
 
-    /**
-     * Builder for creating multiblock validators.
-     */
     public static class Builder {
         private final java.util.HashMap<BlockPos, Predicate<BlockState>> matchers = new java.util.HashMap<>();
         private BlockPos offset = BlockPos.ZERO;

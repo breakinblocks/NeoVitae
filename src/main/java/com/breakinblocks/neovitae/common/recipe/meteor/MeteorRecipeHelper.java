@@ -7,18 +7,8 @@ import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import java.util.Optional;
 
-/**
- * Helper class for finding meteor recipes.
- */
 public class MeteorRecipeHelper {
 
-    /**
-     * Finds a meteor recipe that matches the given catalyst item.
-     *
-     * @param level The level to search in
-     * @param catalyst The catalyst item to match
-     * @return The matching recipe, or null if not found
-     */
     public static MeteorRecipe findRecipe(Level level, ItemStack catalyst) {
         if (catalyst.isEmpty()) {
             return null;

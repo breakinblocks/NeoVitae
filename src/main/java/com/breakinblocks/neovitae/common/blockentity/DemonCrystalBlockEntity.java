@@ -22,7 +22,6 @@ import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
  */
 public class DemonCrystalBlockEntity extends BaseBlockEntity {
 
-    // Config accessors for conversion rates
     private static double getSameWillConversionRate() {
         return NeoVitae.SERVER_CONFIG.CRYSTAL_SAME_WILL_RATE.get();
     }
@@ -47,17 +46,14 @@ public class DemonCrystalBlockEntity extends BaseBlockEntity {
         return NeoVitae.SERVER_CONFIG.CRYSTAL_MAX_COUNT.get();
     }
 
-    // Growth state
     public double progressToNextCrystal = 0;
     public int internalCounter = 0;
     public Direction placement = Direction.UP;
 
-    // Catalyst modifiers
     public double injectedWill = 0;
     public double speedModifier = 1;
     public double appliedConversionRate = 0; // 0 means use default from config
 
-    // Crystal type
     public EnumWillType willType;
 
     public DemonCrystalBlockEntity(BlockPos pos, BlockState state) {
@@ -76,7 +72,6 @@ public class DemonCrystalBlockEntity extends BaseBlockEntity {
 
         tile.internalCounter++;
 
-        // Check every 20 ticks (1 second)
         if (tile.internalCounter % 20 == 0) {
             int crystalCount = tile.getCrystalCount();
             int maxCrystals = getMaxCrystalCount();
@@ -130,9 +125,6 @@ public class DemonCrystalBlockEntity extends BaseBlockEntity {
         }
     }
 
-    /**
-     * Apply catalyst effects to speed up growth.
-     */
     public void applyCatalyst(double addedInjectedWill, double speedModifier, double conversionRate) {
         if (this.speedModifier < speedModifier) {
             this.speedModifier = speedModifier;
@@ -143,12 +135,6 @@ public class DemonCrystalBlockEntity extends BaseBlockEntity {
         injectedWill += addedInjectedWill;
     }
 
-    /**
-     * Grow crystal using will from the aura.
-     * @param willDrain Amount of will to drain
-     * @param progressPercentage Progress percentage per will
-     * @return Actual progress made
-     */
     public double growCrystalWithWillAmount(double willDrain, double progressPercentage) {
         int crystalCount = getCrystalCount();
         if (crystalCount >= getMaxCrystalCount()) {
@@ -174,9 +160,6 @@ public class DemonCrystalBlockEntity extends BaseBlockEntity {
         return willType;
     }
 
-    /**
-     * Check if progress is sufficient and grow the crystal.
-     */
     public void checkAndGrowCrystal() {
         int crystalCount = getCrystalCount();
         int maxCrystals = getMaxCrystalCount();
@@ -201,10 +184,6 @@ public class DemonCrystalBlockEntity extends BaseBlockEntity {
         return speed;
     }
 
-    /**
-     * Drop a single crystal item and reduce the count.
-     * @return true if a crystal was dropped
-     */
     public boolean dropSingleCrystal() {
         int crystalCount = getCrystalCount();
         if (!getLevel().isClientSide && crystalCount > 1) {
@@ -221,9 +200,6 @@ public class DemonCrystalBlockEntity extends BaseBlockEntity {
         return false;
     }
 
-    /**
-     * Get the current crystal count (1-7).
-     */
     public int getCrystalCount() {
         BlockState state = getLevel().getBlockState(getBlockPos());
         if (state.hasProperty(BlockDemonCrystal.AGE)) {
@@ -232,9 +208,6 @@ public class DemonCrystalBlockEntity extends BaseBlockEntity {
         return 1;
     }
 
-    /**
-     * Set the crystal count (1-7).
-     */
     public void setCrystalCount(int crystalCount) {
         BlockState state = getLevel().getBlockState(getBlockPos());
         if (state.hasProperty(BlockDemonCrystal.AGE)) {

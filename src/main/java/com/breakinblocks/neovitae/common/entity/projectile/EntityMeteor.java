@@ -78,7 +78,6 @@ public class EntityMeteor extends ThrowableProjectile {
         int k = Mth.floor(position().z);
         BlockPos blockpos = new BlockPos(i, j, k);
 
-        // Find and execute the meteor recipe
         MeteorRecipe recipe = MeteorRecipeHelper.findRecipe(level(), containedStack);
         if (recipe != null) {
             recipe.spawnMeteorInWorld(level(), blockpos);
@@ -89,7 +88,6 @@ public class EntityMeteor extends ThrowableProjectile {
 
     @Override
     protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
-        // No synched data needed for now
     }
 
     @Override

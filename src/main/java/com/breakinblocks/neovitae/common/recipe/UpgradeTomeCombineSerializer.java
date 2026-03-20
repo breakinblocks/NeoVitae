@@ -7,9 +7,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-/**
- * Serializer for the Upgrade Tome combining recipe.
- */
 public class UpgradeTomeCombineSerializer implements RecipeSerializer<UpgradeTomeCombineRecipe> {
 
     public static final MapCodec<UpgradeTomeCombineRecipe> CODEC = RecordCodecBuilder.mapCodec(builder -> builder.group(

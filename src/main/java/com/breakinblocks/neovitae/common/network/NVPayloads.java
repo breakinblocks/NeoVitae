@@ -17,15 +17,11 @@ import com.breakinblocks.neovitae.common.menu.FilterMenu;
 import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
 import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
-/**
- * Handles registration and processing of network payloads.
- */
 public class NVPayloads {
 
     public static void register(RegisterPayloadHandlersEvent event) {
         var registrar = event.registrar("1");
 
-        // Client -> Server
         registrar.playToServer(
                 SigilHoldingSelectionPayload.TYPE,
                 SigilHoldingSelectionPayload.STREAM_CODEC,
@@ -56,7 +52,6 @@ public class NVPayloads {
                 NVPayloads::handleFilterGhostSlot
         );
 
-        // Server -> Client
         registrar.playToClient(
                 WillChunkSyncPayload.TYPE,
                 WillChunkSyncPayload.STREAM_CODEC,
@@ -89,13 +84,11 @@ public class NVPayloads {
     private static void handleRoutingNode(RoutingNodePayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player = context.player();
-            // Security check: verify player is within interaction range of the block
             if (player.distanceToSqr(payload.pos().getX() + 0.5, payload.pos().getY() + 0.5, payload.pos().getZ() + 0.5) > 64.0) {
-                return; // Player too far away (> 8 blocks)
+                return;
             }
             BlockEntity be = player.level().getBlockEntity(payload.pos());
             if (be instanceof FilteredRoutingNodeBlockEntity tile) {
-                // Verify player has the menu open for this tile
                 if (player.containerMenu instanceof com.breakinblocks.neovitae.common.menu.RoutingNodeMenu menu && menu.tile == tile) {
                     switch (payload.action()) {
                         case RoutingNodePayload.ACTION_SELECT_SLOT -> tile.swapFilters(payload.value());
@@ -133,7 +126,6 @@ public class NVPayloads {
     private static void handleRitualDivinerCycle(RitualDivinerCyclePayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player = context.player();
-            // Check both hands for ritual diviner
             for (InteractionHand hand : InteractionHand.values()) {
                 ItemStack held = player.getItemInHand(hand);
                 if (held.getItem() instanceof ItemRitualDiviner diviner) {
@@ -161,26 +153,18 @@ public class NVPayloads {
                 return;
             }
 
-            // Update the ghost item in the filter inventory
             FilterInventory inv = ItemRouterFilter.getFilterInventory(filterStack);
             inv = inv.setItem(slot, payload.stack());
             ItemRouterFilter.setFilterInventory(filterStack, inv);
 
-            // Also update the menu's inventory
             menu.filterInventory.setStackInSlot(slot, payload.stack());
         });
     }
 
-    /**
-     * Sends a payload to the server.
-     */
     public static void sendToServer(Object payload) {
         PacketDistributor.sendToServer((net.minecraft.network.protocol.common.custom.CustomPacketPayload) payload);
     }
 
-    /**
-     * Sends a payload to a specific player.
-     */
     public static void sendToPlayer(ServerPlayer player, Object payload) {
         PacketDistributor.sendToPlayer(player, (net.minecraft.network.protocol.common.custom.CustomPacketPayload) payload);
     }

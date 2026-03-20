@@ -22,15 +22,6 @@ public abstract class ImperfectRitual implements IImperfectRitual {
     private final boolean lightShow;
     private final String translationKey;
 
-    /**
-     * Creates a new imperfect ritual.
-     *
-     * @param name             Unique identifier
-     * @param blockRequirement Predicate for the block that must be above the ritual stone (fallback if no DataMap)
-     * @param activationCost   LP cost to activate (fallback if no DataMap)
-     * @param lightShow        Whether to show lightning effects on activation (fallback if no DataMap)
-     * @param translationKey   Translation key prefix
-     */
     public ImperfectRitual(String name, Predicate<BlockState> blockRequirement, int activationCost,
                           boolean lightShow, String translationKey) {
         this.name = name;
@@ -40,20 +31,10 @@ public abstract class ImperfectRitual implements IImperfectRitual {
         this.translationKey = translationKey;
     }
 
-    /**
-     * Creates a new imperfect ritual without lightning effects.
-     */
     public ImperfectRitual(String name, Predicate<BlockState> blockRequirement, int activationCost, String translationKey) {
         this(name, blockRequirement, activationCost, false, translationKey);
     }
 
-    /**
-     * Called when a player activates this ritual.
-     *
-     * @param imperfectRitualStone The imperfect ritual stone
-     * @param player               The activating player
-     * @return true if activation was successful
-     */
     @Override
     public abstract boolean onActivate(com.breakinblocks.neovitae.api.ritual.IImperfectRitualStone imperfectRitualStone, Player player);
 

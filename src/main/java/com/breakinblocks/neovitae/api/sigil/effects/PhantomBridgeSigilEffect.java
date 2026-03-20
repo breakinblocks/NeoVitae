@@ -16,10 +16,6 @@ import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 
 import java.util.function.Supplier;
 
-/**
- * Sigil effect that creates a phantom platform of blocks below the player.
- * The phantom blocks disappear after a duration or when the player moves away.
- */
 public record PhantomBridgeSigilEffect(int range) implements SigilEffect {
 
     public static final int DEFAULT_RANGE = 2;
@@ -52,23 +48,19 @@ public record PhantomBridgeSigilEffect(int range) implements SigilEffect {
         BlockPos playerPos = player.blockPosition();
         int belowY = playerPos.getY() - 1;
 
-        // Create a platform below the player
         for (int x = -range; x <= range; x++) {
             for (int z = -range; z <= range; z++) {
                 BlockPos checkPos = new BlockPos(playerPos.getX() + x, belowY, playerPos.getZ() + z);
                 BlockState state = level.getBlockState(checkPos);
 
-                // Only place phantom blocks in air or replaceable blocks
                 if (state.isAir() || state.canBeReplaced()) {
                     BlockState phantomState = NVBlocks.PHANTOM_BRIDGE_BLOCK.get().defaultBlockState();
                     level.setBlockAndUpdate(checkPos, phantomState);
-                    // Reset duration on the tile entity
                     BlockEntity be = level.getBlockEntity(checkPos);
                     if (be instanceof PhantomBridgeBlockEntity phantomTile) {
                         phantomTile.resetDuration();
                     }
                 } else if (level.getBlockEntity(checkPos) instanceof PhantomBridgeBlockEntity existingPhantom) {
-                    // Refresh existing phantom bridge blocks
                     existingPhantom.resetDuration();
                 }
             }

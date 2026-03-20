@@ -11,16 +11,10 @@ import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
 import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.common.network.SigilHoldingSelectionPayload;
 
-/**
- * Screen for the Sigil of Holding GUI.
- * Shows 5 slots for sigils and allows selecting which one is active.
- * Clicking on a slot selects it as the active sigil.
- */
 public class SigilHoldingScreen extends AbstractContainerScreen<SigilHoldingMenu> {
 
     private static final ResourceLocation BACKGROUND = NeoVitae.rl("textures/gui/sigil_holding.png");
 
-    // Slot layout: 5 slots at y=17, spaced 36 pixels apart starting at x=8
     private static final int SLOT_START_X = 8;
     private static final int SLOT_Y = 17;
     private static final int SLOT_SPACING = 36;
@@ -45,7 +39,6 @@ public class SigilHoldingScreen extends AbstractContainerScreen<SigilHoldingMenu
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         guiGraphics.blit(BACKGROUND, leftPos, topPos, 0, 0, imageWidth, imageHeight);
 
-        // Draw selection indicator from texture (24x24 sprite at texture coordinates 0, 123)
         int selectedSlot = menu.getSelectedSlot();
         int selectionX = leftPos + 4 + selectedSlot * SLOT_SPACING;
         int selectionY = topPos + 13;
@@ -55,7 +48,6 @@ public class SigilHoldingScreen extends AbstractContainerScreen<SigilHoldingMenu
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button == 0) {
-            // Check if clicked on any of the 5 sigil slots
             for (int i = 0; i < ItemSigilHolding.INVENTORY_SIZE; i++) {
                 if (isMouseOverSlot((int) mouseX, (int) mouseY, i)) {
                     selectSlot(i);
@@ -75,7 +67,6 @@ public class SigilHoldingScreen extends AbstractContainerScreen<SigilHoldingMenu
 
     private void selectSlot(int slot) {
         menu.setSelectedSlot(slot);
-        // Send packet to server to update selection
         NVPayloads.sendToServer(new SigilHoldingSelectionPayload(slot));
     }
 

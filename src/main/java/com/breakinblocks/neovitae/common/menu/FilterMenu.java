@@ -20,10 +20,6 @@ import com.breakinblocks.neovitae.common.item.routing.ItemRouterFilter;
 import com.breakinblocks.neovitae.common.item.routing.ItemTagFilter;
 import com.breakinblocks.neovitae.util.GhostItemHelper;
 
-/**
- * Menu for configuring item routing filters.
- * Contains ghost item slots for setting up filter patterns.
- */
 public class FilterMenu extends AbstractContainerMenu {
     public final InventoryFilter filterInventory;
     public final Player player;
@@ -46,7 +42,6 @@ public class FilterMenu extends AbstractContainerMenu {
         this.isTag = isTag;
         this.currentSlotHeldIn = player.getInventory().selected;
 
-        // Create filter inventory from stack data
         this.filterInventory = new InventoryFilter(ItemRouterFilter.INVENTORY_SIZE) {
             @Override
             public void setStackInSlot(int slot, ItemStack stack) {
@@ -55,10 +50,8 @@ public class FilterMenu extends AbstractContainerMenu {
             }
         };
 
-        // Load existing inventory from filter stack
         loadFromFilterStack();
 
-        // Create data container for syncing button states
         this.data = new SimpleContainerData(ItemRouterFilter.DATA_COUNT) {
             @Override
             public int get(int index) {
@@ -111,21 +104,18 @@ public class FilterMenu extends AbstractContainerMenu {
     }
 
     private void setupSlots(Inventory playerInv) {
-        // Ghost item slots (3x3 grid)
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
                 this.addSlot(new SlotGhostItem(filterInventory, col + row * 3, 110 + col * 21, 15 + row * 21));
             }
         }
 
-        // Player inventory (3 rows)
         for (int row = 0; row < PLAYER_INVENTORY_ROWS; row++) {
             for (int col = 0; col < PLAYER_INVENTORY_COLUMNS; col++) {
                 this.addSlot(new Slot(playerInv, col + row * 9 + 9, 8 + col * 18, 105 + row * 18));
             }
         }
 
-        // Hotbar
         for (int col = 0; col < PLAYER_INVENTORY_COLUMNS; col++) {
             if (col == currentSlotHeldIn) {
                 this.addSlot(new SlotDisabled(playerInv, col, 8 + col * 18, 163));
@@ -146,8 +136,6 @@ public class FilterMenu extends AbstractContainerMenu {
             setData(ItemRouterFilter.DATA_BWLIST, state == 0 ? 1 : 0);
             return true;
         } else if (buttonId == ItemRouterFilter.BUTTON_TAG && isTag) {
-            // Cycle tag selection - need to find selected slot first
-            // This is handled via network packet from screen
             return true;
         }
         return false;
@@ -163,12 +151,10 @@ public class FilterMenu extends AbstractContainerMenu {
                     ItemStack slotStack = slot.getItem();
                     ItemStack heldStack = this.getCarried();
 
-                    if (dragType == 0) { // Left click
+                    if (dragType == 0) {
                         if (heldStack.isEmpty() && !slotStack.isEmpty()) {
-                            // Select slot (handled in screen)
                             return;
                         } else if (!heldStack.isEmpty() && slotStack.isEmpty()) {
-                            // Place ghost item
                             ItemStack copyStack = heldStack.copy();
                             GhostItemHelper.setItemGhostAmount(copyStack, 0);
                             copyStack.setCount(1);
@@ -197,13 +183,9 @@ public class FilterMenu extends AbstractContainerMenu {
 
     @Override
     public ItemStack quickMoveStack(Player player, int slotIndex) {
-        // No shift-clicking for ghost items
         return ItemStack.EMPTY;
     }
 
-    /**
-     * Ghost slot that doesn't actually store items - just references.
-     */
     public class SlotGhostItem extends SlotItemHandler {
         public SlotGhostItem(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
             super(itemHandler, index, xPosition, yPosition);
@@ -220,9 +202,6 @@ public class FilterMenu extends AbstractContainerMenu {
         }
     }
 
-    /**
-     * Disabled slot to prevent picking up the filter item itself.
-     */
     private class SlotDisabled extends Slot {
         public SlotDisabled(Container inventory, int slotIndex, int x, int y) {
             super(inventory, slotIndex, x, y);

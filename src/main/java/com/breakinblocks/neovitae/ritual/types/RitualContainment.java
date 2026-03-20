@@ -46,9 +46,7 @@ public class RitualContainment extends Ritual {
         for (LivingEntity entity : entities) {
             Vec3 entityPos = entity.position();
 
-            // If entity is outside the containment area but within detection range
             if (!aabb.contains(entityPos) && expandedAABB.contains(entityPos)) {
-                // Push entity back toward center
                 Vec3 direction = center.subtract(entityPos).normalize().scale(0.5);
                 entity.setDeltaMovement(direction);
                 entitiesContained++;

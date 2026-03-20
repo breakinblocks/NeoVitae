@@ -39,7 +39,6 @@ public class NVItems {
     public static final DeferredRegister<Item> WILL_ITEMS = DeferredRegister.createItems(NeoVitae.MODID);
     public static final DeferredRegister<Item> TAB_REQ = DeferredRegister.createItems(NeoVitae.MODID);
 
-    // these go first for creative tab order
     public static final DeferredHolder<Item, ArmorItem> LIVING_HELMET = BASIC_ITEMS.register("living_helmet", makeLivingArmour(ArmorItem.Type.HELMET));
     public static final DeferredHolder<Item, LivingArmourItem> LIVING_PLATE = TAB_REQ.register("living_plate", LivingArmourItem::new);
     public static final DeferredHolder<Item, ArmorItem> LIVING_LEGGINGS = BASIC_ITEMS.register("living_leggings", makeLivingArmour(ArmorItem.Type.LEGGINGS));
@@ -64,9 +63,6 @@ public class NVItems {
         return () -> new ArmorItem(NVMaterialsAndTiers.LIVING_ARMOUR_MATERIAL, type, new Item.Properties().durability(type.getDurability(33)));
     }
 
-    /**
-     * Helper to register a plain item with default properties.
-     */
     private static DeferredHolder<Item, Item> plainItem(String name) {
         return BASIC_ITEMS.register(name, () -> new Item(new Item.Properties()));
     }
@@ -81,21 +77,18 @@ public class NVItems {
     public static final DeferredHolder<Item, SoulGemItem> SOUL_GEM_GREATER = WILL_ITEMS.register("soul_gem_greater", SoulGemItem::new);
     public static final DeferredHolder<Item, SoulGemItem> SOUL_GEM_GRAND = WILL_ITEMS.register("soul_gem_grand", SoulGemItem::new);
 
-    // Monster Souls (dropped by mobs when killed with sentient weapons)
     public static final DeferredHolder<Item, MonsterSoulItem> MONSTER_SOUL_RAW = WILL_ITEMS.register("basemonstersoul", () -> new MonsterSoulItem(EnumWillType.DEFAULT));
     public static final DeferredHolder<Item, MonsterSoulItem> MONSTER_SOUL_CORROSIVE = WILL_ITEMS.register("basemonstersoul_corrosive", () -> new MonsterSoulItem(EnumWillType.CORROSIVE));
     public static final DeferredHolder<Item, MonsterSoulItem> MONSTER_SOUL_DESTRUCTIVE = WILL_ITEMS.register("basemonstersoul_destructive", () -> new MonsterSoulItem(EnumWillType.DESTRUCTIVE));
     public static final DeferredHolder<Item, MonsterSoulItem> MONSTER_SOUL_VENGEFUL = WILL_ITEMS.register("basemonstersoul_vengeful", () -> new MonsterSoulItem(EnumWillType.VENGEFUL));
     public static final DeferredHolder<Item, MonsterSoulItem> MONSTER_SOUL_STEADFAST = WILL_ITEMS.register("basemonstersoul_steadfast", () -> new MonsterSoulItem(EnumWillType.STEADFAST));
 
-    // Slates
     public static final DeferredHolder<Item, Item> SLATE_BLANK = plainItem("blank_slate");
     public static final DeferredHolder<Item, Item> SLATE_REINFORCED = plainItem("reinforced_slate");
     public static final DeferredHolder<Item, Item> SLATE_IMBUED = plainItem("imbued_slate");
     public static final DeferredHolder<Item, Item> SLATE_DEMONIC = plainItem("demonic_slate");
     public static final DeferredHolder<Item, Item> SLATE_ETHEREAL = plainItem("ethereal_slate");
 
-    // Sigils (data-driven via SigilType registry)
     public static final DeferredHolder<Item, SigilItem> SIGIL_DIVINATION = BASIC_ITEMS.register("sigil_divination", () -> new SigilItem(SigilTypeRegistry.key("divination")));
     public static final DeferredHolder<Item, SigilItem> SIGIL_SEER = BASIC_ITEMS.register("sigil_seer", () -> new SigilItem(SigilTypeRegistry.key("seer")));
     public static final DeferredHolder<Item, SigilItem> SIGIL_WATER = BASIC_ITEMS.register("sigil_water", () -> new SigilItem(SigilTypeRegistry.key("water")));
@@ -112,13 +105,10 @@ public class NVItems {
     public static final DeferredHolder<Item, SigilItem> SIGIL_TELEPOSITION = BASIC_ITEMS.register("sigil_teleposition", () -> new SigilItem(SigilTypeRegistry.key("teleposition")));
     public static final DeferredHolder<Item, SigilItem> SIGIL_PHANTOM_BRIDGE = BASIC_ITEMS.register("sigil_phantom_bridge", () -> new SigilItem(SigilTypeRegistry.key("phantom_bridge")));
 
-    // Alchemy items
     public static final DeferredHolder<Item, ItemArcaneAshes> ARCANE_ASHES = BASIC_ITEMS.register("arcane_ashes", ItemArcaneAshes::new);
 
-    // Tau items (alchemy reagent oils - found in dungeon loot)
     public static final DeferredHolder<Item, Item> TAU_OIL = plainItem("tau_oil");
 
-    // Reagents (used to make Sigils via Alchemy Array)
     public static final DeferredHolder<Item, Item> REAGENT_WATER = plainItem("reagent_water");
     public static final DeferredHolder<Item, Item> REAGENT_LAVA = plainItem("reagent_lava");
     public static final DeferredHolder<Item, Item> REAGENT_VOID = plainItem("reagent_void");
@@ -135,32 +125,27 @@ public class NVItems {
     public static final DeferredHolder<Item, Item> REAGENT_FROST = plainItem("reagent_frost");
     public static final DeferredHolder<Item, Item> REAGENT_PHANTOM_BRIDGE = plainItem("reagent_phantom_bridge");
 
-    // Misc items
     public static final DeferredHolder<Item, SoulSnareItem> SOUL_SNARE = BASIC_ITEMS.register("soul_snare", SoulSnareItem::new);
     public static final DeferredHolder<Item, Item> WEAK_BLOOD_SHARD = plainItem("weak_blood_shard");
     public static final DeferredHolder<Item, DaggerOfSacrificeItem> DAGGER_OF_SACRIFICE = ITEMS.register("dagger_of_sacrifice", DaggerOfSacrificeItem::new);
     public static final DeferredHolder<Item, ItemLavaCrystal> LAVA_CRYSTAL = ITEMS.register("lava_crystal", ItemLavaCrystal::new);
 
-    // Teleposer Focus items
     public static final DeferredHolder<Item, TeleposerFocusItem> TELEPOSER_FOCUS = ITEMS.register("teleposer_focus", () -> new TeleposerFocusItem(0));
     public static final DeferredHolder<Item, TeleposerFocusItem> TELEPOSER_FOCUS_ENHANCED = ITEMS.register("enhanced_teleposer_focus", () -> new TeleposerFocusItem(1));
     public static final DeferredHolder<Item, TeleposerFocusItem> TELEPOSER_FOCUS_REINFORCED = ITEMS.register("reinforced_teleposer_focus", () -> new TeleposerFocusItem(2));
 
-    // Fragments
     public static final DeferredHolder<Item, Item> IRON_FRAGMENT = plainItem("iron_fragment");
     public static final DeferredHolder<Item, Item> GOLD_FRAGMENT = plainItem("gold_fragment");
     public static final DeferredHolder<Item, Item> COPPER_FRAGMENT = plainItem("copper_fragment");
     public static final DeferredHolder<Item, Item> NETHERITE_SCRAP_FRAGMENT = plainItem("fragment_netherite_scrap");
     public static final DeferredHolder<Item, Item> DEMONITE_FRAGMENT = plainItem("demonite_fragment");
 
-    // Gravels
     public static final DeferredHolder<Item, Item> IRON_GRAVEL = plainItem("iron_gravel");
     public static final DeferredHolder<Item, Item> GOLD_GRAVEL = plainItem("gold_gravel");
     public static final DeferredHolder<Item, Item> COPPER_GRAVEL = plainItem("copper_gravel");
     public static final DeferredHolder<Item, Item> NETHERITE_SCRAP_GRAVEL = plainItem("gravel_netherite_scrap");
     public static final DeferredHolder<Item, Item> DEMONITE_GRAVEL = plainItem("demonite_gravel");
 
-    // Sands/Dusts
     public static final DeferredHolder<Item, Item> IRON_SAND = plainItem("iron_sand");
     public static final DeferredHolder<Item, Item> GOLD_SAND = plainItem("gold_sand");
     public static final DeferredHolder<Item, Item> COPPER_SAND = plainItem("copper_sand");
@@ -170,7 +155,6 @@ public class NVItems {
     public static final DeferredHolder<Item, Item> CORRUPTED_DUST = plainItem("corrupted_dust");
     public static final DeferredHolder<Item, Item> CORRUPTED_DUST_TINY = plainItem("corrupted_tiny_dust");
 
-    // ARC Tools
     public static final DeferredHolder<Item, ItemARCToolBase> BASIC_CUTTING_FLUID = BASIC_ITEMS.register("basic_cutting_fluid", () -> new ItemARCToolBase(64, 1, EnumWillType.CORROSIVE));
     public static final DeferredHolder<Item, ItemARCToolBase> INTERMEDIATE_CUTTING_FLUID = BASIC_ITEMS.register("intermediate_cutting_fluid", () -> new ItemARCToolBase(256, 1.5, EnumWillType.CORROSIVE));
     public static final DeferredHolder<Item, ItemARCToolBase> ADVANCED_CUTTING_FLUID = BASIC_ITEMS.register("advanced_cutting_fluid", () -> new ItemARCToolBase(1024, 2, 2, EnumWillType.CORROSIVE));
@@ -184,31 +168,26 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemARCToolBase> HELLFORGED_EXPLOSIVE_CELL = BASIC_ITEMS.register("hellforged_explosive_cell", () -> new ItemARCToolBase(1024, 2, EnumWillType.DESTRUCTIVE));
     public static final DeferredHolder<Item, ItemARCToolBase> HELLFORGED_RESONATOR = BASIC_ITEMS.register("hellforged_resonator", () -> new ItemARCToolBase(1024, 2, 2, EnumWillType.VENGEFUL));
 
-    // Activation Crystals
     public static final DeferredHolder<Item, ItemActivationCrystal> ACTIVATION_CRYSTAL_WEAK = BASIC_ITEMS.register("activation_crystal_weak", () -> new ItemActivationCrystal(ItemActivationCrystal.CrystalType.WEAK));
     public static final DeferredHolder<Item, ItemActivationCrystal> ACTIVATION_CRYSTAL_AWAKENED = BASIC_ITEMS.register("activation_crystal_awakened", () -> new ItemActivationCrystal(ItemActivationCrystal.CrystalType.AWAKENED));
     public static final DeferredHolder<Item, ItemActivationCrystal> ACTIVATION_CRYSTAL_CREATIVE = BASIC_ITEMS.register("activation_crystal_creative", () -> new ItemActivationCrystal(ItemActivationCrystal.CrystalType.CREATIVE));
 
-    // Inscription Tools
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_AIR = BASIC_ITEMS.register("air_scribe_tool", () -> new ItemInscriptionTool(EnumRuneType.AIR));
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_FIRE = BASIC_ITEMS.register("fire_scribe_tool", () -> new ItemInscriptionTool(EnumRuneType.FIRE));
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_WATER = BASIC_ITEMS.register("water_scribe_tool", () -> new ItemInscriptionTool(EnumRuneType.WATER));
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_EARTH = BASIC_ITEMS.register("earth_scribe_tool", () -> new ItemInscriptionTool(EnumRuneType.EARTH));
     public static final DeferredHolder<Item, ItemInscriptionTool> INSCRIPTION_TOOL_DUSK = BASIC_ITEMS.register("dusk_scribe_tool", () -> new ItemInscriptionTool(EnumRuneType.DUSK));
 
-    // Ritual Diviners
     public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER = BASIC_ITEMS.register("ritual_diviner", () -> new ItemRitualDiviner(0));
     public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER_DUSK = BASIC_ITEMS.register("ritual_diviner_dusk", () -> new ItemRitualDiviner(1));
     public static final DeferredHolder<Item, ItemRitualReader> RITUAL_READER = BASIC_ITEMS.register("ritual_reader", ItemRitualReader::new);
 
-    // Sentient Tools (will-powered weapons)
     public static final DeferredHolder<Item, SentientSwordItem> SENTIENT_SWORD = BASIC_ITEMS.register("soul_sword", SentientSwordItem::new);
     public static final DeferredHolder<Item, SentientAxeItem> SENTIENT_AXE = BASIC_ITEMS.register("soul_axe", SentientAxeItem::new);
     public static final DeferredHolder<Item, SentientPickaxeItem> SENTIENT_PICKAXE = BASIC_ITEMS.register("soul_pickaxe", SentientPickaxeItem::new);
     public static final DeferredHolder<Item, SentientShovelItem> SENTIENT_SHOVEL = BASIC_ITEMS.register("soul_shovel", SentientShovelItem::new);
     public static final DeferredHolder<Item, SentientScytheItem> SENTIENT_SCYTHE = BASIC_ITEMS.register("soul_scythe", SentientScytheItem::new);
 
-    // Demon Will Items (crystal items - same naming as 1.20.1)
     public static final DeferredHolder<Item, DemonCrystalItem> RAW_CRYSTAL = BASIC_ITEMS.register("default_crystal", () -> new DemonCrystalItem(EnumWillType.DEFAULT));
     public static final DeferredHolder<Item, DemonCrystalItem> CORROSIVE_CRYSTAL = BASIC_ITEMS.register("corrosive_crystal", () -> new DemonCrystalItem(EnumWillType.CORROSIVE));
     public static final DeferredHolder<Item, DemonCrystalItem> DESTRUCTIVE_CRYSTAL = BASIC_ITEMS.register("destructive_crystal", () -> new DemonCrystalItem(EnumWillType.DESTRUCTIVE));
@@ -216,26 +195,21 @@ public class NVItems {
     public static final DeferredHolder<Item, DemonCrystalItem> STEADFAST_CRYSTAL = BASIC_ITEMS.register("steadfast_crystal", () -> new DemonCrystalItem(EnumWillType.STEADFAST));
     public static final DeferredHolder<Item, DemonWillGaugeItem> DEMON_WILL_GAUGE = BASIC_ITEMS.register("demon_will_gauge", DemonWillGaugeItem::new);
 
-    // Crystal Catalysts (right-click demon crystal clusters to inject will and modify growth)
     public static final DeferredHolder<Item, CrystalCatalystItem> RAW_CRYSTAL_CATALYST = BASIC_ITEMS.register("raw_catalyst", () -> new CrystalCatalystItem(EnumWillType.DEFAULT, 200, 10, 25, 400));
     public static final DeferredHolder<Item, CrystalCatalystItem> CORROSIVE_CRYSTAL_CATALYST = BASIC_ITEMS.register("corrosive_catalyst", () -> new CrystalCatalystItem(EnumWillType.CORROSIVE, 200, 10, 25, 400));
     public static final DeferredHolder<Item, CrystalCatalystItem> DESTRUCTIVE_CRYSTAL_CATALYST = BASIC_ITEMS.register("destructive_catalyst", () -> new CrystalCatalystItem(EnumWillType.DESTRUCTIVE, 200, 10, 25, 400));
     public static final DeferredHolder<Item, CrystalCatalystItem> VENGEFUL_CRYSTAL_CATALYST = BASIC_ITEMS.register("vengeful_catalyst", () -> new CrystalCatalystItem(EnumWillType.VENGEFUL, 200, 10, 25, 400));
     public static final DeferredHolder<Item, CrystalCatalystItem> STEADFAST_CRYSTAL_CATALYST = BASIC_ITEMS.register("steadfast_catalyst", () -> new CrystalCatalystItem(EnumWillType.STEADFAST, 200, 10, 25, 400));
 
-    // Routing Node Items
     public static final DeferredHolder<Item, ItemNodeRouter> NODE_ROUTER = BASIC_ITEMS.register("node_router", ItemNodeRouter::new);
     public static final DeferredHolder<Item, Item> MASTER_NODE_UPGRADE = plainItem("master_core");
     public static final DeferredHolder<Item, Item> MASTER_NODE_UPGRADE_SPEED = plainItem("master_core_speed");
 
-    // Throwing Daggers
     public static final DeferredHolder<Item, ItemThrowingDagger> THROWING_DAGGER = BASIC_ITEMS.register("throwing_dagger", () -> new ItemThrowingDagger());
     public static final DeferredHolder<Item, ItemThrowingDagger> THROWING_DAGGER_AMETHYST = BASIC_ITEMS.register("amethyst_throwing_dagger", () -> new ItemThrowingDagger());
     public static final DeferredHolder<Item, ItemThrowingDaggerSyringe> THROWING_DAGGER_SYRINGE = BASIC_ITEMS.register("throwing_dagger_syringe", () -> new ItemThrowingDaggerSyringe());
     public static final DeferredHolder<Item, ItemTippedThrowingDagger> THROWING_DAGGER_TIPPED = BASIC_ITEMS.register("tipped_throwing_dagger", () -> new ItemTippedThrowingDagger());
 
-    // Dungeon/Key Items - unlock sealed doors in procedural dungeons
-    // Keys match against room pool paths, e.g. "mini_dungeon" matches "neovitae:room_pools/tier1/mini_dungeon"
     public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey> SIMPLE_KEY = BASIC_ITEMS.register("simple_key",
             () -> new com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey("Simple", "mini_dungeon", "corridor", "hallway"));
     public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey> MINE_KEY = BASIC_ITEMS.register("mine_key",
@@ -247,27 +221,21 @@ public class NVItems {
     public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey> BOSS_KEY = BASIC_ITEMS.register("boss_key",
             () -> new com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey("Boss", "boss", "special", "treasure"));
 
-    // Dungeon Tester (debug item for testing dungeon generation)
     public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonTester> DUNGEON_TESTER = BASIC_ITEMS.register("dungeon_tester",
             com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonTester::new);
 
-    // Misc WIP Items
     public static final DeferredHolder<Item, Item> DOUBT_SEED = plainItem("doubt_seed");
 
-    // Simple Recipe Ingredients
     public static final DeferredHolder<Item, Item> SULFUR = plainItem("sulfur");
     public static final DeferredHolder<Item, Item> SALTPETER = plainItem("saltpeter");
     public static final DeferredHolder<Item, Item> PLANT_OIL = plainItem("plant_oil");
     public static final DeferredHolder<Item, Item> HELLFORGED_INGOT = plainItem("ingot_hellforged");
 
-    // Alchemy Flask Items
     public static final DeferredHolder<Item, Item> SLATE_VIAL = BASIC_ITEMS.register("slate_vial", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final DeferredHolder<Item, ItemAlchemyFlask> ALCHEMY_FLASK = BASIC_ITEMS.register("alchemy_flask", () -> new ItemAlchemyFlask());
     public static final DeferredHolder<Item, ItemAlchemyFlaskThrowable> ALCHEMY_FLASK_THROWABLE = BASIC_ITEMS.register("alchemy_flask_throwable", () -> new ItemAlchemyFlaskThrowable());
     public static final DeferredHolder<Item, ItemAlchemyFlaskLingering> ALCHEMY_FLASK_LINGERING = BASIC_ITEMS.register("alchemy_flask_lingering", () -> new ItemAlchemyFlaskLingering());
 
-    // Anointment Items - weapon/tool coatings that provide temporary effects
-    // Color constants for particle effects
     private static final int COLOR_MELEE = 0xCC3333;      // Red
     private static final int COLOR_SILK = 0x33CCCC;       // Cyan
     private static final int COLOR_FORTUNE = 0xFFD700;    // Gold
@@ -282,17 +250,14 @@ public class NVItems {
     private static final int COLOR_BOW_VELOCITY = 0x66CCFF; // Light blue
     private static final int COLOR_REPAIR = 0x00FF66;     // Teal
 
-    // Duration constants (uses before anointment expires)
     private static final int USES_BASE = 256;
     private static final int USES_L = 1024;     // Long duration
     private static final int USES_XL = 4096;    // Extra long duration
 
-    /** Helper to reduce anointment registration boilerplate */
     private static DeferredHolder<Item, ItemAnointmentProvider> anointment(String name, String rlPath, int color, int level, int uses) {
         return BASIC_ITEMS.register(name, () -> new ItemAnointmentProvider(NeoVitae.rl(rlPath), color, level, uses));
     }
 
-    // Base tier anointments (level 1, 256 uses)
     public static final DeferredHolder<Item, ItemAnointmentProvider> MELEE_DAMAGE_ANOINTMENT = anointment("melee_anointment", "melee_damage", COLOR_MELEE, 1, USES_BASE);
     public static final DeferredHolder<Item, ItemAnointmentProvider> SILK_TOUCH_ANOINTMENT = anointment("silk_touch_anointment", "silk_touch", COLOR_SILK, 1, USES_BASE);
     public static final DeferredHolder<Item, ItemAnointmentProvider> FORTUNE_ANOINTMENT = anointment("fortune_anointment", "fortune", COLOR_FORTUNE, 1, USES_BASE);
@@ -307,7 +272,6 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemAnointmentProvider> BOW_VELOCITY_ANOINTMENT = anointment("bow_velocity_anointment", "bow_velocity", COLOR_BOW_VELOCITY, 1, USES_BASE);
     public static final DeferredHolder<Item, ItemAnointmentProvider> WEAPON_REPAIR_ANOINTMENT = anointment("weapon_repair_anointment", "repairing", COLOR_REPAIR, 1, USES_BASE);
 
-    // Anointment _L variants (level 1, 1024 uses - long duration)
     public static final DeferredHolder<Item, ItemAnointmentProvider> MELEE_DAMAGE_ANOINTMENT_L = anointment("melee_anointment_l", "melee_damage", COLOR_MELEE, 1, USES_L);
     public static final DeferredHolder<Item, ItemAnointmentProvider> SILK_TOUCH_ANOINTMENT_L = anointment("silk_touch_anointment_l", "silk_touch", COLOR_SILK, 1, USES_L);
     public static final DeferredHolder<Item, ItemAnointmentProvider> FORTUNE_ANOINTMENT_L = anointment("fortune_anointment_l", "fortune", COLOR_FORTUNE, 1, USES_L);
@@ -321,7 +285,6 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemAnointmentProvider> BOW_VELOCITY_ANOINTMENT_L = anointment("bow_velocity_anointment_l", "bow_velocity", COLOR_BOW_VELOCITY, 1, USES_L);
     public static final DeferredHolder<Item, ItemAnointmentProvider> WEAPON_REPAIR_ANOINTMENT_L = anointment("weapon_repair_anointment_l", "repairing", COLOR_REPAIR, 1, USES_L);
 
-    // Anointment _2 variants (level 2, 256 uses)
     public static final DeferredHolder<Item, ItemAnointmentProvider> MELEE_DAMAGE_ANOINTMENT_2 = anointment("melee_anointment_2", "melee_damage", COLOR_MELEE, 2, USES_BASE);
     public static final DeferredHolder<Item, ItemAnointmentProvider> FORTUNE_ANOINTMENT_2 = anointment("fortune_anointment_2", "fortune", COLOR_FORTUNE, 2, USES_BASE);
     public static final DeferredHolder<Item, ItemAnointmentProvider> HOLY_WATER_ANOINTMENT_2 = anointment("holy_water_anointment_2", "holy_water", COLOR_HOLY, 2, USES_BASE);
@@ -333,7 +296,6 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemAnointmentProvider> BOW_VELOCITY_ANOINTMENT_2 = anointment("bow_velocity_anointment_2", "bow_velocity", COLOR_BOW_VELOCITY, 2, USES_BASE);
     public static final DeferredHolder<Item, ItemAnointmentProvider> WEAPON_REPAIR_ANOINTMENT_2 = anointment("weapon_repair_anointment_2", "repairing", COLOR_REPAIR, 2, USES_BASE);
 
-    // Anointment _XL variants (level 1, 4096 uses - extra long duration)
     public static final DeferredHolder<Item, ItemAnointmentProvider> MELEE_DAMAGE_ANOINTMENT_XL = anointment("melee_anointment_xl", "melee_damage", COLOR_MELEE, 1, USES_XL);
     public static final DeferredHolder<Item, ItemAnointmentProvider> SILK_TOUCH_ANOINTMENT_XL = anointment("silk_touch_anointment_xl", "silk_touch", COLOR_SILK, 1, USES_XL);
     public static final DeferredHolder<Item, ItemAnointmentProvider> FORTUNE_ANOINTMENT_XL = anointment("fortune_anointment_xl", "fortune", COLOR_FORTUNE, 1, USES_XL);
@@ -347,7 +309,6 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemAnointmentProvider> BOW_VELOCITY_ANOINTMENT_XL = anointment("bow_velocity_anointment_xl", "bow_velocity", COLOR_BOW_VELOCITY, 1, USES_XL);
     public static final DeferredHolder<Item, ItemAnointmentProvider> WEAPON_REPAIR_ANOINTMENT_XL = anointment("weapon_repair_anointment_xl", "repairing", COLOR_REPAIR, 1, USES_XL);
 
-    // Anointment _3 variants (level 3, 256 uses)
     public static final DeferredHolder<Item, ItemAnointmentProvider> MELEE_DAMAGE_ANOINTMENT_3 = anointment("melee_anointment_3", "melee_damage", COLOR_MELEE, 3, USES_BASE);
     public static final DeferredHolder<Item, ItemAnointmentProvider> FORTUNE_ANOINTMENT_3 = anointment("fortune_anointment_3", "fortune", COLOR_FORTUNE, 3, USES_BASE);
     public static final DeferredHolder<Item, ItemAnointmentProvider> HOLY_WATER_ANOINTMENT_3 = anointment("holy_water_anointment_3", "holy_water", COLOR_HOLY, 3, USES_BASE);
@@ -358,16 +319,14 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemAnointmentProvider> BOW_VELOCITY_ANOINTMENT_3 = anointment("bow_velocity_anointment_3", "bow_velocity", COLOR_BOW_VELOCITY, 3, USES_BASE);
     public static final DeferredHolder<Item, ItemAnointmentProvider> WEAPON_REPAIR_ANOINTMENT_3 = anointment("weapon_repair_anointment_3", "repairing", COLOR_REPAIR, 3, USES_BASE);
 
-    // Routing/Filter Items
     public static final DeferredHolder<Item, Item> FRAME_PARTS = plainItem("component_frame_parts");
     public static final DeferredHolder<Item, ItemRouterFilter> ITEM_ROUTER_FILTER = BASIC_ITEMS.register("item_router_filter_exact", ItemRouterFilter::new);
     public static final DeferredHolder<Item, ItemTagFilter> ITEM_TAG_FILTER = BASIC_ITEMS.register("item_router_filter_tag", ItemTagFilter::new);
-    public static final DeferredHolder<Item, Item> ITEM_ENCHANT_FILTER = plainItem("item_router_filter_enchant"); // Placeholder - enchant filter not in original 1.20.1
+    public static final DeferredHolder<Item, Item> ITEM_ENCHANT_FILTER = plainItem("item_router_filter_enchant");
     public static final DeferredHolder<Item, ItemModFilter> ITEM_MOD_FILTER = BASIC_ITEMS.register("item_router_filter_mod", ItemModFilter::new);
     public static final DeferredHolder<Item, ItemCompositeFilter> ITEM_COMPOSITE_FILTER = BASIC_ITEMS.register("item_router_filter_composite", ItemCompositeFilter::new);
 
 
-    // Bleeding Edge Music Disc
     public static final DeferredHolder<Item, Item> BLEEDING_EDGE = BASIC_ITEMS.register("bleeding_edge", () -> new Item(
             new Item.Properties()
                     .stacksTo(1)
@@ -378,7 +337,6 @@ public class NVItems {
                     ))
     ));
 
-    // Alchemy Catalysts (used in potion brewing system)
     public static final DeferredHolder<Item, Item> SIMPLE_CATALYST = plainItem("simple_catalyst");
     public static final DeferredHolder<Item, Item> STRENGTHENED_CATALYST = plainItem("strengthened_catalyst");
     public static final DeferredHolder<Item, Item> CYCLING_CATALYST = plainItem("cycling_catalyst");
@@ -388,14 +346,11 @@ public class NVItems {
     public static final DeferredHolder<Item, Item> AVERAGE_LENGTHENING_CATALYST = plainItem("average_lengthening_catalyst");
     public static final DeferredHolder<Item, Item> AVERAGE_POWER_CATALYST = plainItem("average_power_catalyst");
 
-    // Filling Agents (used in potion brewing)
     public static final DeferredHolder<Item, Item> WEAK_FILLING_AGENT = plainItem("weak_filling_agent");
     public static final DeferredHolder<Item, Item> STANDARD_FILLING_AGENT = plainItem("standard_filling_agent");
 
-    // Hellforged Parts (dropped from rune reversion)
     public static final DeferredHolder<Item, Item> HELLFORGED_PARTS = plainItem("hellforged_parts");
 
-    // Blood Provider Items (provide LP directly to altar)
     public static final DeferredHolder<Item, ItemBloodProvider> SLATE_AMPOULE = BASIC_ITEMS.register("slate_ampoule", () -> new ItemBloodProvider("slate", 500));
 
     public static void register(IEventBus modBus) {

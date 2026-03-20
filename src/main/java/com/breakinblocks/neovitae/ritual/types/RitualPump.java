@@ -56,7 +56,6 @@ public class RitualPump extends Ritual {
             FluidState fluidState = state.getFluidState();
 
             if (!fluidState.isEmpty() && fluidState.isSource()) {
-                // Check protection before removing fluid
                 if (!BlockProtectionHelper.canBreakBlock(ctx.level(), pos, owner)) {
                     continue;
                 }

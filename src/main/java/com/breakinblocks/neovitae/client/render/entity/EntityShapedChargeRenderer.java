@@ -19,10 +19,6 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityShapedCharge;
 
-/**
- * Renderer for shaped charge projectiles.
- * Renders the block state of the charge as it flies through the air.
- */
 @OnlyIn(Dist.CLIENT)
 public class EntityShapedChargeRenderer extends EntityRenderer<EntityShapedCharge> {
 

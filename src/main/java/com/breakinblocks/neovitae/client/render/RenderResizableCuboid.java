@@ -136,7 +136,6 @@ public class RenderResizableCuboid {
         vertex = withValue(vertex, face.getAxis(), other);
 
         Vec3i normalForFace = face.getNormal();
-        // Adjustment for brightness
         float adjustment = 2.5F;
         Vector3f norm = new Vector3f(
                 normalForFace.getX() + adjustment,

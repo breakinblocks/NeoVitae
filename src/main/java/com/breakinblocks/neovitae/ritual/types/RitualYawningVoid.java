@@ -85,7 +85,6 @@ public class RitualYawningVoid extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        // Query demon will
         double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
         double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
         double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
@@ -94,20 +93,16 @@ public class RitualYawningVoid extends Ritual {
         boolean doReplace = steadfastWill >= MIN_STEADFAST;
         boolean doFilter = corrosiveWill >= MIN_CORROSIVE;
 
-        // Track will consumption
         double steadfastWillUsed = 0;
         double corrosiveWillUsed = 0;
 
-        // Get chest inventory
         BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, masterPos).getFirst();
         BlockEntity chestTile = ctx.level().getBlockEntity(chestPos);
         IItemHandler chestHandler = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
 
-        // Get quarry positions
         List<BlockPos> quarryPositions = RitualHelper.getRangePositions(ctx.master(), this, QUARRY_RANGE, masterPos);
         if (quarryPositions.isEmpty()) return;
 
-        // Initialize scan position
         if (!scanInitialized) {
             BlockPos firstPos = quarryPositions.getFirst();
             currentX = firstPos.getX();
@@ -116,7 +111,6 @@ public class RitualYawningVoid extends Ritual {
             scanInitialized = true;
         }
 
-        // Create fake player for loot context
         FakePlayer fakePlayer = new FakePlayer(serverLevel, new GameProfile(owner, "[NeoVitae]"));
         ItemStack toolStack = new ItemStack(Items.NETHERITE_PICKAXE);
 
@@ -204,7 +198,6 @@ public class RitualYawningVoid extends Ritual {
                 // Fall through to normal destroy if placement failed
             }
 
-            // Default: Destroy block and collect drops
             LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel)
                     .withParameter(LootContextParams.ORIGIN, targetPos.getCenter())
                     .withParameter(LootContextParams.BLOCK_STATE, state)
@@ -216,7 +209,6 @@ public class RitualYawningVoid extends Ritual {
             ctx.level().destroyBlock(targetPos, false);
             processed = true;
 
-            // Handle drops
             for (ItemStack dropStack : blockDrops) {
                 if (chestTile != null) {
                     dropStack = Utils.insertStackIntoTile(dropStack, chestTile, Direction.DOWN);
@@ -227,7 +219,6 @@ public class RitualYawningVoid extends Ritual {
             }
         }
 
-        // Drain consumed will
         if (steadfastWillUsed > 0) {
             WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.STEADFAST, steadfastWillUsed);
         }

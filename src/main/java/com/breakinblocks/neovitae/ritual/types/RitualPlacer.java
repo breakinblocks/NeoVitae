@@ -40,7 +40,6 @@ public class RitualPlacer extends Ritual {
 
         AreaDescriptor range = RitualHelper.getEffectiveRange(ctx.master(), this, PLACER_RANGE);
 
-        // Find adjacent inventory
         IItemHandler inventory = findAdjacentInventory(ctx.level(), ctx.masterPos());
         if (inventory == null) return;
 
@@ -63,11 +62,9 @@ public class RitualPlacer extends Ritual {
         BlockPos placePos = findNextPlaceablePosition(ctx.level(), ctx.masterPos(), range, owner);
         if (placePos == null) return;
 
-        // Place the block
         BlockItem blockItem = (BlockItem) toPlace.getItem();
         BlockState stateToPlace = blockItem.getBlock().defaultBlockState();
 
-        // Check protection before placing
         if (BlockProtectionHelper.tryPlaceBlock(ctx.level(), placePos, stateToPlace, owner)) {
             // Extract item from inventory
             inventory.extractItem(slotIndex, 1, false);

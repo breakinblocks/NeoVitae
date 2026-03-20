@@ -63,7 +63,6 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
             if (level != null && !level.isClientSide) {
                 level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
             }
-            // Invalidate cached recipe on input change
             if (slot != OUTPUT_SLOT) {
                 cachedRecipe = null;
                 cachedFlaskRecipe = null;
@@ -122,11 +121,9 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
     public void tick() {
         if (level == null || level.isClientSide || isSlave) return;
 
-        // Check orb tier for all recipes
         ItemStack orbStack = inv.getStackInSlot(ORB_SLOT);
         int orbTier = getOrbTier(orbStack);
 
-        // Check for flask recipes first (they take priority when a flask is present)
         Optional<FlaskRecipe> flaskRecipeOpt = getFlaskRecipe();
         if (flaskRecipeOpt.isPresent()) {
             FlaskRecipe flaskRecipe = flaskRecipeOpt.get();
@@ -137,14 +134,12 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
                 return;
             }
 
-            // Check if output slot is empty (flask recipes output to the slot where the flask was)
             ItemStack currentOutput = inv.getStackInSlot(OUTPUT_SLOT);
             if (!currentOutput.isEmpty()) {
                 burnTime = 0;
                 return;
             }
 
-            // Syphon LP per tick
             if (!syphonLP(orbStack, flaskRecipe.getSyphon(), flaskRecipe.getTicks())) {
                 return;
             }
@@ -160,7 +155,6 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
             return;
         }
 
-        // Check regular alchemy table recipes
         Optional<AlchemyTableRecipe> recipeOpt = getRecipe();
         if (recipeOpt.isEmpty()) {
             burnTime = 0;
@@ -175,7 +169,6 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
             return;
         }
 
-        // Check if output slot can accept result
         ItemStack output = recipe.getOutput();
         ItemStack currentOutput = inv.getStackInSlot(OUTPUT_SLOT);
         if (!currentOutput.isEmpty() && (!ItemStack.isSameItemSameComponents(currentOutput, output) || currentOutput.getCount() + output.getCount() > currentOutput.getMaxStackSize())) {
@@ -183,7 +176,6 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
             return;
         }
 
-        // Syphon LP per tick
         if (!syphonLP(orbStack, recipe.getSyphon(), recipe.getTicks())) {
             return;
         }
@@ -207,7 +199,6 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
                 if (network != null) {
                     int syphoned = network.syphon(SoulTicket.create(syphonPerTick));
                     if (syphoned < syphonPerTick) {
-                        // Not enough LP
                         return false;
                     }
                 }
@@ -217,7 +208,6 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
     }
 
     private void craftItem(AlchemyTableRecipe recipe) {
-        // Consume ingredients
         List<Ingredient> ingredients = new ArrayList<>(recipe.getInput());
         for (int i = 0; i < 6; i++) {
             ItemStack stack = inv.getStackInSlot(i);
@@ -225,7 +215,6 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
 
             for (int j = 0; j < ingredients.size(); j++) {
                 if (ingredients.get(j).test(stack)) {
-                    // Handle container items (like buckets)
                     ItemStack container = stack.getCraftingRemainingItem();
                     stack.shrink(1);
                     if (stack.isEmpty() && !container.isEmpty()) {
@@ -237,7 +226,6 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
             }
         }
 
-        // Add output
         ItemStack output = recipe.getOutput().copy();
         ItemStack currentOutput = inv.getStackInSlot(OUTPUT_SLOT);
         if (currentOutput.isEmpty()) {
@@ -257,10 +245,8 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
         ItemStack flaskStack = inv.getStackInSlot(flaskSlot);
         List<EffectHolder> flaskEffects = ItemAlchemyFlask.getEffectHolders(flaskStack);
 
-        // Get the output flask
         ItemStack output = recipe.getOutput(flaskStack, flaskEffects);
 
-        // Consume ingredients (not the flask)
         List<Ingredient> ingredients = new ArrayList<>(recipe.getInput());
         for (int i = 0; i < 6; i++) {
             if (i == flaskSlot) continue; // Skip the flask
@@ -281,7 +267,6 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
             }
         }
 
-        // Remove the flask and place output in output slot
         inv.setStackInSlot(flaskSlot, ItemStack.EMPTY);
         inv.setStackInSlot(OUTPUT_SLOT, output);
 
@@ -290,7 +275,6 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
     }
 
     private Optional<FlaskRecipe> getFlaskRecipe() {
-        // Find a flask in the input slots
         int foundFlaskSlot = -1;
         ItemStack flaskStack = ItemStack.EMPTY;
 
@@ -309,7 +293,6 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
             return Optional.empty();
         }
 
-        // Check cached recipe
         if (cachedFlaskRecipe != null && flaskSlot == foundFlaskSlot) {
             FlaskInput input = createFlaskInput(foundFlaskSlot, flaskStack);
             if (cachedFlaskRecipe.matches(input, level)) {
@@ -317,7 +300,6 @@ public class AlchemyTableBlockEntity extends BaseBlockEntity implements MenuProv
             }
         }
 
-        // Find matching flask recipe (choose highest priority)
         FlaskInput input = createFlaskInput(foundFlaskSlot, flaskStack);
         List<EffectHolder> flaskEffects = ItemAlchemyFlask.getEffectHolders(flaskStack);
 

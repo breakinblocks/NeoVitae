@@ -2,9 +2,6 @@ package com.breakinblocks.neovitae.common.block.type;
 
 import net.minecraft.util.StringRepresentable;
 
-/**
- * Enum representing pillar cap orientation (top or bottom).
- */
 public enum PillarCapType implements StringRepresentable {
     TOP("top"),
     BOTTOM("bottom");

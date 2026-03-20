@@ -11,10 +11,6 @@ import com.breakinblocks.neovitae.ritual.Ritual;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-/**
- * Base event for ritual-related events.
- * Allows mods to hook into ritual activation, performance, and deactivation.
- */
 public abstract class RitualEvent extends Event {
     private final MasterRitualStoneBlockEntity masterRitualStone;
     private final Ritual ritual;
@@ -59,9 +55,6 @@ public abstract class RitualEvent extends Event {
             this.crystalLevel = crystalLevel;
         }
 
-        /**
-         * The player attempting to activate the ritual.
-         */
         public Player getPlayer() {
             return player;
         }
@@ -103,9 +96,6 @@ public abstract class RitualEvent extends Event {
             this.breakType = breakType;
         }
 
-        /**
-         * The reason the ritual is stopping.
-         */
         public Ritual.BreakType getBreakType() {
             return breakType;
         }

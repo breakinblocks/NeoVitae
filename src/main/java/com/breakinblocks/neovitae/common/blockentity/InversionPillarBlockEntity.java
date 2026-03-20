@@ -16,9 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 
-/**
- * Block entity for the Inversion Pillar - handles teleportation within the dungeon system.
- */
 public class InversionPillarBlockEntity extends BaseBlockEntity {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InversionPillarBlockEntity.class);
@@ -32,9 +29,6 @@ public class InversionPillarBlockEntity extends BaseBlockEntity {
         super(NVTiles.INVERSION_PILLAR_TYPE.get(), pos, state);
     }
 
-    /**
-     * Sets the destination using a ResourceLocation for the dimension.
-     */
     public void setDestination(BlockPos pos, ResourceLocation dimension) {
         this.teleportPos = pos;
         this.destinationKey = dimension;
@@ -42,10 +36,6 @@ public class InversionPillarBlockEntity extends BaseBlockEntity {
         LOGGER.info("Pillar at {} set destination to {} in {}", worldPosition, pos, dimension);
     }
 
-    /**
-     * Sets the destination using a Level reference (convenience method).
-     * Extracts the dimension ResourceLocation from the level.
-     */
     public void setDestination(Level destinationWorld, BlockPos destinationPos) {
         setDestination(destinationPos, destinationWorld.dimension().location());
     }
@@ -77,7 +67,6 @@ public class InversionPillarBlockEntity extends BaseBlockEntity {
 
         ServerLevel serverLevel = (ServerLevel) level;
 
-        // Get the destination level
         ResourceKey<Level> destKey = ResourceKey.create(Registries.DIMENSION, destinationKey);
         ServerLevel destLevel = serverLevel.getServer().getLevel(destKey);
 
@@ -86,7 +75,6 @@ public class InversionPillarBlockEntity extends BaseBlockEntity {
             return;
         }
 
-        // Teleport the player using the proper API
         serverPlayer.teleportTo(
                 destLevel,
                 teleportPos.getX() + 0.5,

@@ -92,7 +92,6 @@ public class AlchemyTableRecipeCategory implements IRecipeCategory<AlchemyTableR
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 92, 14);
         output.addItemStack(recipe.getOutput());
 
-        // Add orbs that meet the tier requirement
         IRecipeSlotBuilder orb = builder.addSlot(RecipeIngredientRole.CATALYST, 61, 1);
         orb.addItemStacks(getOrbsForTier(recipe.getMinimumTier()));
 
@@ -106,7 +105,6 @@ public class AlchemyTableRecipeCategory implements IRecipeCategory<AlchemyTableR
 
     private List<ItemStack> getOrbsForTier(int tier) {
         List<ItemStack> orbs = new ArrayList<>();
-        // Add all orbs at or above the required tier
         if (tier <= 1) orbs.add(new ItemStack(NVItems.ORB_WEAK.get()));
         if (tier <= 2) orbs.add(new ItemStack(NVItems.ORB_APPRENTICE.get()));
         if (tier <= 3) orbs.add(new ItemStack(NVItems.ORB_MAGICIAN.get()));

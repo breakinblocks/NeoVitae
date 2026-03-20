@@ -17,10 +17,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
-/**
- * Dungeon Alternator - a block that pulses redstone signal on and off.
- * Outputs redstone signal in all directions when active.
- */
 public class BlockAlternator extends BaseEntityBlock {
     public static final MapCodec<BlockAlternator> CODEC = simpleCodec(BlockAlternator::new);
 

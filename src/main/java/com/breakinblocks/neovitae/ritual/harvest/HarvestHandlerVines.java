@@ -23,19 +23,17 @@ import java.util.UUID;
  */
 public class HarvestHandlerVines implements IHarvestHandler {
 
-    // Use shears for proper vine drops
     private static final ItemStack mockShears = new ItemStack(Items.SHEARS, 1);
 
     @Override
     public boolean harvest(Level level, BlockPos pos, BlockState state, List<ItemStack> drops, @Nullable UUID ownerUUID) {
         if (!(level instanceof ServerLevel serverLevel)) return false;
 
-        // Check protection before breaking
         if (!BlockProtectionHelper.tryBreakBlockNoDrops(level, pos, ownerUUID)) {
             return false;
         }
 
-        // Get drops using shears (vines require shears to drop)
+        // Vines require shears to drop
         LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel);
         Vec3 blockCenter = new Vec3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
         List<ItemStack> blockDrops = state.getDrops(lootBuilder
@@ -48,8 +46,7 @@ public class HarvestHandlerVines implements IHarvestHandler {
 
     @Override
     public boolean test(Level level, BlockPos pos, BlockState state) {
-        // Only harvest vines that have another vine above them
-        // This preserves the top vine for regrowth
+        // Only harvest vines with another vine above to preserve regrowth
         if (state.is(Blocks.VINE)) {
             BlockState above = level.getBlockState(pos.above());
             return above.is(Blocks.VINE);

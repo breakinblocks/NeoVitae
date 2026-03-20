@@ -20,11 +20,6 @@ import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
 
-/**
- * Phantom Bridge Block - A semi-transparent, solid block that players can walk on.
- * Created by the Sigil of the Phantom Bridge and the Ritual of the Phantom Bridge.
- * The block disappears after a set duration, reverting to air or the original block.
- */
 public class PhantomBridgeBlock extends BaseEntityBlock {
 
     public static final MapCodec<PhantomBridgeBlock> CODEC = simpleCodec(p -> new PhantomBridgeBlock());
@@ -88,7 +83,6 @@ public class PhantomBridgeBlock extends BaseEntityBlock {
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!state.is(newState.getBlock())) {
-            // Block is being replaced - tile entity will handle cleanup
         }
         super.onRemove(state, level, pos, newState, movedByPiston);
     }

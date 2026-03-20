@@ -16,10 +16,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import com.breakinblocks.neovitae.common.blockentity.MimicBlockEntity;
 
-/**
- * Block that mimics the appearance of other blocks.
- * Used for creating hidden passages or decorative purposes.
- */
 public class BlockMimic extends Block implements EntityBlock {
     private static final VoxelShape SHAPE = Shapes.box(0.01, 0, 0.01, 0.99, 1, 0.99);
 

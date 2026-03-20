@@ -72,22 +72,18 @@ public class RitualGreenGrove extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        // Query demon will
         double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
         double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
         double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
         double vengefulWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.VENGEFUL);
 
-        // Determine available features
         boolean hasRaw = rawWill >= MIN_DEFAULT;
         boolean doHydrate = steadfastWill >= MIN_STEADFAST;
         boolean doLeech = corrosiveWill >= MIN_CORROSIVE;
         boolean doVengeful = vengefulWill >= MIN_VENGEFUL;
 
-        // Dynamic refresh time based on raw will
         refreshTime = hasRaw ? Math.max(10, 20 - (int) (rawWill / 10)) : 20;
 
-        // Track will consumption
         double rawWillUsed = 0;
         double steadfastWillUsed = 0;
         double corrosiveWillUsed = 0;
@@ -170,7 +166,6 @@ public class RitualGreenGrove extends Ritual {
             }
         }
 
-        // Drain consumed will
         if (rawWillUsed > 0) {
             WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DEFAULT, rawWillUsed);
         }

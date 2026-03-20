@@ -11,10 +11,6 @@ import com.breakinblocks.neovitae.ritual.ImperfectRitual;
 
 import javax.annotation.Nullable;
 
-/**
- * Base event for imperfect ritual-related events.
- * Allows mods to hook into imperfect ritual activation.
- */
 public abstract class ImperfectRitualEvent extends Event {
     private final ImperfectRitualStoneBlockEntity ritualStone;
     private final ImperfectRitual ritual;
@@ -55,9 +51,6 @@ public abstract class ImperfectRitualEvent extends Event {
         return ritualStone.getBlockPos();
     }
 
-    /**
-     * Gets the activation cost, considering data-driven stats.
-     */
     public int getActivationCost() {
         return stats != null ? stats.activationCost() : ritual.getActivationCost();
     }

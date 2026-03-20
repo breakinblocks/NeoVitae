@@ -35,7 +35,6 @@ public class CuriosCompat {
     public static final String CURIOS_MODID = "curios";
     public static final String LIVING_ARMOUR_SOCKET_SLOT = "living_armour_socket";
 
-    // ResourceKey for the curios_socket upgrade (matches datagen LivingUpgrades.CURIOS_SOCKET)
     public static final ResourceKey<LivingUpgrade> CURIOS_SOCKET_UPGRADE = ResourceKey.create(
             NVRegistries.Keys.LIVING_UPGRADES,
             NeoVitae.rl("curios_socket")
@@ -43,17 +42,10 @@ public class CuriosCompat {
 
     private static boolean curiosLoaded = false;
 
-    /**
-     * Checks if Curios is loaded.
-     */
     public static boolean isCuriosLoaded() {
         return curiosLoaded;
     }
 
-    /**
-     * Initialize Curios compatibility.
-     * Call this during mod construction.
-     */
     public static void init(IEventBus modBus) {
         curiosLoaded = ModList.get().isLoaded(CURIOS_MODID);
         if (curiosLoaded) {
@@ -63,8 +55,6 @@ public class CuriosCompat {
     }
 
     private static void onInterModEnqueue(InterModEnqueueEvent event) {
-        // Curios 1.21+ uses data-driven slot registration via JSON
-        // No IMC needed for slot registration
     }
 
     /**
@@ -159,11 +149,9 @@ public class CuriosCompat {
         if (LivingHelper.hasFullSet(player)) {
             int curiosLevel = getCuriosSocketLevel(player);
 
-            // Remove existing modifier
             livingArmourSockets.removeModifier(modifierId);
 
             if (curiosLevel > 0) {
-                // Add slots based on upgrade level (1 slot per level, up to 5)
                 int bonusSlots = Math.min(curiosLevel, 5);
                 livingArmourSockets.addTransientModifier(
                         new AttributeModifier(modifierId, bonusSlots, AttributeModifier.Operation.ADD_VALUE)
@@ -171,7 +159,6 @@ public class CuriosCompat {
             }
             return curiosLevel;
         } else {
-            // No living armor - remove any bonus slots
             livingArmourSockets.removeModifier(modifierId);
             return 0;
         }

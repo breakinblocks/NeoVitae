@@ -33,7 +33,6 @@ import java.util.stream.Stream;
  */
 public class AuraCommand {
 
-    // Maximum argument value - actual max is per-chunk and configurable
     private static final double COMMAND_MAX = 10000.0;
 
     private static final SuggestionProvider<CommandSourceStack> WILL_TYPE_SUGGESTIONS = (context, builder) -> {
@@ -52,7 +51,6 @@ public class AuraCommand {
         dispatcher.register(
                 Commands.literal("bm-aura")
                         .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
-                        // Get will
                         .then(
                                 Commands.literal("get")
                                         .executes(AuraCommand::getAllWill)
@@ -62,7 +60,6 @@ public class AuraCommand {
                                                         .executes(context -> getWill(context, StringArgumentType.getString(context, "type")))
                                         )
                         )
-                        // Set will (clamped to 0-max for chunk)
                         .then(
                                 Commands.literal("set")
                                         .then(
@@ -76,7 +73,6 @@ public class AuraCommand {
                                                         )
                                         )
                         )
-                        // Add will (result clamped to 0-max for chunk)
                         .then(
                                 Commands.literal("add")
                                         .then(
@@ -90,7 +86,6 @@ public class AuraCommand {
                                                         )
                                         )
                         )
-                        // Clear all will
                         .then(
                                 Commands.literal("clear")
                                         .executes(AuraCommand::clearWill)
@@ -127,7 +122,6 @@ public class AuraCommand {
         ServerLevel level = source.getLevel();
         BlockPos pos = BlockPos.containing(source.getPosition());
 
-        // "all" shows all will types
         if (typeStr.equalsIgnoreCase("all")) {
             return getAllWill(context);
         }

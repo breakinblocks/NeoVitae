@@ -57,7 +57,6 @@ public class ARCBlockEntity extends BaseBlockEntity implements MenuProvider {
     private double progress = 0;
     public static final double DEFAULT_SPEED = 0.005;
 
-    // Reusable list for bucket handling to avoid allocations every tick
     private final List<ItemStack> tempBucketList = new ArrayList<>(1);
 
     private final RecipeManager.CachedCheck<SingleRecipeInput, ? extends AbstractCookingRecipe> quickSmelting;

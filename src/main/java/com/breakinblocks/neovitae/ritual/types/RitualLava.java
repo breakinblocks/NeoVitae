@@ -69,7 +69,6 @@ public class RitualLava extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        // Query demon will
         double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
         double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
         double vengefulWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.VENGEFUL);
@@ -164,12 +163,10 @@ public class RitualLava extends Ritual {
             }
         }
 
-        // Syphon LP
         if (totalEffects > 0) {
             ctx.syphon(lavaCost * totalEffects);
         }
 
-        // Drain consumed will
         if (rawUsed > 0) {
             WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DEFAULT, rawUsed);
         }

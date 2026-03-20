@@ -8,19 +8,14 @@ import net.minecraft.world.entity.player.Inventory;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu;
 
-/**
- * Screen for the Master Routing Node.
- * Displays network status and upgrade slots.
- */
 public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRoutingNodeMenu> {
-    // Use 1.20.1 texture filename (no underscores)
     private static final ResourceLocation BACKGROUND = NeoVitae.rl("textures/gui/masterroutingnode.png");
 
     public MasterRoutingNodeScreen(MasterRoutingNodeMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         this.imageWidth = 176;
-        this.imageHeight = 121;  // Match 1.20.1 (was 166)
-        this.inventoryLabelY = 27;  // Match 1.20.1 position
+        this.imageHeight = 121;
+        this.inventoryLabelY = 27;
     }
 
     @Override
@@ -49,12 +44,10 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
     protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         super.renderTooltip(guiGraphics, mouseX, mouseY);
 
-        // Tooltip for stack upgrade slot (slot index 0) - position matches 1.20.1
         if (isHovering(62, 15, 16, 16, mouseX, mouseY)) {
             guiGraphics.renderTooltip(font, Component.literal("Stack Upgrade Slot"), mouseX, mouseY);
         }
 
-        // Tooltip for speed upgrade slot (slot index 1) - position matches 1.20.1
         if (isHovering(98, 15, 16, 16, mouseX, mouseY)) {
             guiGraphics.renderTooltip(font, Component.literal("Speed Upgrade Slot"), mouseX, mouseY);
         }

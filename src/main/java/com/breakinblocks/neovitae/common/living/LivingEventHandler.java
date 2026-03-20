@@ -216,7 +216,6 @@ public class LivingEventHandler {
         boolean to = toStack.is(NVTags.Items.LIVING_UPGRADE_SET);
 
         if (!fromStack.is(NVTags.Items.LIVING_UPGRADE_SET) && !toStack.is(NVTags.Items.LIVING_UPGRADE_SET)) {
-            // no upgrades involved, bye
             return;
         }
 
@@ -226,16 +225,13 @@ public class LivingEventHandler {
         }
 
         ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
-        // include the armour points
         chestStack.getAttributeModifiers().forEach(EquipmentSlot.CHEST, (holder, modifier) -> builder.add(holder, modifier, EquipmentSlotGroup.CHEST));
         if (LivingHelper.hasFullSet(player)) {
-            // add from upgrades if full set
             LivingHelper.getAttributes(chestStack, builder);
         }
 
         chestStack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
 
-        // Recalculate Curios living armour socket slots when armor changes
         CuriosCompat.recalculateCuriosSlots(player);
     }
 
@@ -244,7 +240,6 @@ public class LivingEventHandler {
         ItemStack chestStack = event.getItemStack();
         if (chestStack.is(NVTags.Items.LIVING_UPGRADE_SET) && !LivingHelper.isNeverValid(chestStack)) {
             if (chestStack.getOrDefault(NVDataComponents.FULL_SET_MARKER, false)) {
-                // add all attributes
             }
         }
     }

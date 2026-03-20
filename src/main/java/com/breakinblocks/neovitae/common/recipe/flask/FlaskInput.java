@@ -6,10 +6,6 @@ import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 
 import java.util.List;
 
-/**
- * Recipe input for flask recipes, containing ingredient items, the flask stack,
- * and the current list of effects in the flask.
- */
 public record FlaskInput(
         List<ItemStack> items,
         ItemStack flaskStack,

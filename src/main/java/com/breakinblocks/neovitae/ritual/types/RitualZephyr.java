@@ -56,12 +56,10 @@ public class RitualZephyr extends Ritual {
         Vec3 target = ownerPlayer.position();
         Vec3 masterCenter = Vec3.atCenterOf(ctx.masterPos());
 
-        // Check for collection chest
         BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, ctx.masterPos()).getFirst();
         BlockEntity chestTile = ctx.level().getBlockEntity(chestPos);
         boolean hasChest = chestTile != null && Utils.getNumberOfFreeSlots(chestTile, Direction.DOWN) >= 1;
 
-        // Collect items
         List<ItemEntity> items = ctx.level().getEntitiesOfClass(ItemEntity.class, aabb);
         int entitiesMoved = 0;
 
@@ -71,7 +69,6 @@ public class RitualZephyr extends Ritual {
             Vec3 itemPos = item.position();
             double distanceToMaster = itemPos.distanceTo(masterCenter);
 
-            // If item is within 2 blocks of master stone and chest exists, collect directly
             if (distanceToMaster <= 2.0 && hasChest) {
                 ItemStack remainder = Utils.insertStackIntoTile(item.getItem().copy(), chestTile, Direction.DOWN);
                 if (remainder.isEmpty()) {
@@ -83,7 +80,7 @@ public class RitualZephyr extends Ritual {
                 continue;
             }
 
-            // Otherwise pull toward master stone position (so items converge on the chest)
+            // Pull toward master stone when chest exists so items converge on it
             Vec3 pullTarget = hasChest ? masterCenter : target;
             double distance = itemPos.distanceTo(pullTarget);
 
@@ -94,16 +91,13 @@ public class RitualZephyr extends Ritual {
             }
         }
 
-        // Check for Experience Tome in container above ritual
         IItemHandler inventory = ctx.level().getCapability(Capabilities.ItemHandler.BLOCK, chestPos, null);
         ItemStack experienceTome = findExperienceTome(inventory);
 
-        // Collect XP orbs
         List<ExperienceOrb> orbs = ctx.level().getEntitiesOfClass(ExperienceOrb.class, aabb);
         for (ExperienceOrb orb : orbs) {
             if (orb.isRemoved()) continue;
 
-            // If we have an Experience Tome, collect XP into it and remove the orb
             if (!experienceTome.isEmpty()) {
                 ExperienceTomeItem.addXpToTome(experienceTome, orb.getValue());
                 orb.discard();
@@ -111,7 +105,6 @@ public class RitualZephyr extends Ritual {
                 continue;
             }
 
-            // Otherwise, pull orbs toward the player
             Vec3 orbPos = orb.position();
             double distance = orbPos.distanceTo(target);
 
@@ -128,11 +121,6 @@ public class RitualZephyr extends Ritual {
         }
     }
 
-    /**
-     * Finds an Experience Tome in the first slot of the given inventory.
-     * @param inventory The inventory to check
-     * @return The Experience Tome stack, or ItemStack.EMPTY if not found
-     */
     private ItemStack findExperienceTome(IItemHandler inventory) {
         if (inventory == null || inventory.getSlots() == 0) {
             return ItemStack.EMPTY;

@@ -33,23 +33,17 @@ public class MeteorRecipe implements Recipe<MeteorInput> {
         this.layerList = new ArrayList<>(layerList);
     }
 
-    /**
-     * Spawns the meteor in the world at the given position.
-     * Creates an explosion if configured, then builds layers from inside out.
-     */
     public void spawnMeteorInWorld(Level level, BlockPos centerPos) {
         if (explosionRadius > 0) {
             level.explode(null, centerPos.getX(), centerPos.getY(), centerPos.getZ(),
                     explosionRadius, Level.ExplosionInteraction.TNT);
         }
 
-        // Build a map of layers by radius
         Map<Integer, MeteorLayer> layerMap = new HashMap<>();
         for (MeteorLayer layer : layerList) {
             layerMap.put(layer.getLayerRadius(), layer);
         }
 
-        // Sort radii and build from smallest to largest
         List<Integer> keyList = new ArrayList<>(layerMap.keySet());
         Collections.sort(keyList);
 
@@ -90,8 +84,6 @@ public class MeteorRecipe implements Recipe<MeteorInput> {
     public RecipeType<?> getType() {
         return NVRecipes.METEOR_TYPE.get();
     }
-
-    // Getters
 
     public Ingredient getInput() {
         return input;

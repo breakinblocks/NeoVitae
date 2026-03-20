@@ -19,9 +19,6 @@ import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 import java.util.List;
 import java.util.function.Supplier;
 
-/**
- * Sigil effect that pulls nearby items and experience orbs toward the player.
- */
 public record MagnetismSigilEffect(int range, double pullSpeed) implements SigilEffect {
 
     public static final int DEFAULT_RANGE = 5;
@@ -61,7 +58,6 @@ public record MagnetismSigilEffect(int range, double pullSpeed) implements Sigil
 
         Vec3 playerCenter = player.position().add(0, 0.5, 0);
 
-        // Pull items
         List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, searchArea);
         for (ItemEntity item : items) {
             if (item.isRemoved() || item.hasPickUpDelay()) {
@@ -72,7 +68,6 @@ public record MagnetismSigilEffect(int range, double pullSpeed) implements Sigil
             item.setDeltaMovement(item.getDeltaMovement().add(motion));
         }
 
-        // Pull experience orbs
         List<ExperienceOrb> orbs = level.getEntitiesOfClass(ExperienceOrb.class, searchArea);
         for (ExperienceOrb orb : orbs) {
             if (orb.isRemoved()) {

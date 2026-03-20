@@ -89,7 +89,6 @@ public class ImperfectRitualCommand {
             throw ERROR_UNKNOWN_RITUAL.create(ritualId);
         }
 
-        // Get the block requirement from DataMap
         var registry = RitualRegistry.getImperfectRitualRegistry();
         if (registry == null) {
             throw ERROR_UNKNOWN_RITUAL.create(ritualId);
@@ -107,20 +106,16 @@ public class ImperfectRitualCommand {
             throw ERROR_NO_BLOCK_REQUIREMENT.create(ritualId);
         }
 
-        // Place the required block above the imperfect ritual stone
         BlockPos abovePos = irs.getRitualPos().above();
         level.setBlockAndUpdate(abovePos, blockToPlace.defaultBlockState());
 
-        // Force activate the ritual bypassing LP checks (admin command)
         var player = context.getSource().getPlayer();
         boolean success = ritual.onActivate(irs, player);
 
-        // Handle block consumption if enabled in stats
         if (success && stats != null && stats.consumeBlock()) {
             level.removeBlock(abovePos, false);
         }
 
-        // Show lightning effect if enabled
         if (success) {
             boolean showLightning = stats != null ? stats.lightningEffect() : ritual.isLightShow();
             if (showLightning) {

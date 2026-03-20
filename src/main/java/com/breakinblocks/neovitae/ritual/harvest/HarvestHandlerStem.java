@@ -28,7 +28,6 @@ public class HarvestHandlerStem implements IHarvestHandler {
     private static final ItemStack mockHoe = new ItemStack(Items.DIAMOND_HOE, 1);
 
     public HarvestHandlerStem() {
-        // Register pumpkins and melons for all 4 directions
         for (int i = 0; i < 4; i++) {
             Direction facing = Direction.from2DDataValue(i);
             HarvestRegistry.registerStemCrop(
@@ -53,7 +52,6 @@ public class HarvestHandlerStem implements IHarvestHandler {
 
             for (BlockState registeredCrop : registeredCrops) {
                 if (registeredCrop.getBlock() == probableCrop.getBlock()) {
-                    // Check protection before breaking
                     if (!BlockProtectionHelper.tryBreakBlockNoDrops(level, cropPos, ownerUUID)) {
                         return false;
                     }

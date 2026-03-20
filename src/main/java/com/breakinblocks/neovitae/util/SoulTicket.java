@@ -67,9 +67,6 @@ public class SoulTicket {
         return amount < 0;
     }
 
-    /**
-     * Converts this ticket to an API SoulTicket.
-     */
     public com.breakinblocks.neovitae.api.soul.SoulTicket toApiTicket() {
         return com.breakinblocks.neovitae.api.soul.SoulTicket.create(amount);
     }

@@ -17,9 +17,6 @@ import com.breakinblocks.neovitae.common.entity.projectile.EntityThrowingDagger;
 
 import java.util.List;
 
-/**
- * Throwing dagger item - right-click to throw a single dagger.
- */
 public class ItemThrowingDagger extends Item {
 
     public ItemThrowingDagger() {

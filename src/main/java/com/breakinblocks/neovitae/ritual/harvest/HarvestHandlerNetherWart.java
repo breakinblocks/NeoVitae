@@ -18,9 +18,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Harvest handler for Nether Wart.
- */
 public class HarvestHandlerNetherWart implements IHarvestHandler {
 
     private static final ItemStack mockHoe = new ItemStack(Items.DIAMOND_HOE, 1);
@@ -39,7 +36,6 @@ public class HarvestHandlerNetherWart implements IHarvestHandler {
         for (ItemStack stack : blockDrops) {
             if (stack.isEmpty()) continue;
 
-            // Find and consume one seed for replanting
             if (stack.getItem() instanceof BlockItem blockItem
                     && blockItem.getBlock() == state.getBlock()) {
                 stack.shrink(1);
@@ -49,7 +45,6 @@ public class HarvestHandlerNetherWart implements IHarvestHandler {
         }
 
         if (foundSeed) {
-            // Replace block with protection check
             BlockState newState = state.getBlock().defaultBlockState();
             if (!BlockProtectionHelper.tryReplaceBlock(level, pos, newState, ownerUUID)) {
                 return false;

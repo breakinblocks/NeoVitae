@@ -79,12 +79,10 @@ public class RitualCrushing extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        // Query demon will
         double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
         double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
         double destructiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE);
 
-        // Determine available features
         boolean hasRaw = rawWill >= MIN_DEFAULT;
         boolean doSilk = steadfastWill >= MIN_STEADFAST;
         boolean doFortune = destructiveWill >= MIN_DESTRUCTIVE;
@@ -94,10 +92,8 @@ public class RitualCrushing extends Ritual {
             doFortune = false;
         }
 
-        // Dynamic refresh time based on raw will
         refreshTime = hasRaw ? Math.max(1, 40 - (int) (rawWill / 5)) : 40;
 
-        // Build the tool for loot context
         ItemStack toolStack = new ItemStack(Items.NETHERITE_PICKAXE);
         if (doFortune) {
             Holder<Enchantment> fortune = serverLevel.registryAccess()
@@ -109,15 +105,12 @@ public class RitualCrushing extends Ritual {
             toolStack.enchant(silkTouch, 1);
         }
 
-        // Check for storage inventory
         BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, masterPos).getFirst();
         BlockEntity inv = ctx.level().getBlockEntity(chestPos);
         boolean hasInv = inv != null && Utils.getNumberOfFreeSlots(inv, Direction.DOWN) >= 1;
 
-        // Create fake player for loot context
         FakePlayer fakePlayer = new FakePlayer(serverLevel, new GameProfile(owner, "[NeoVitae]"));
 
-        // Track will consumption
         double silkWillUsed = 0;
         double fortuneWillUsed = 0;
 
@@ -153,7 +146,6 @@ public class RitualCrushing extends Ritual {
             // Check block protection
             if (!BlockProtectionHelper.canBreakBlock(ctx.level(), pos, owner)) continue;
 
-            // Get drops with proper loot context
             LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel)
                     .withParameter(LootContextParams.ORIGIN, pos.getCenter())
                     .withParameter(LootContextParams.BLOCK_STATE, state)
@@ -171,7 +163,6 @@ public class RitualCrushing extends Ritual {
             if (doSilk) silkWillUsed += WILL_PER_SILK;
             if (doFortune) fortuneWillUsed += WILL_PER_FORTUNE;
 
-            // Handle drops: store in inventory or spawn in world
             for (ItemStack dropStack : blockDrops) {
                 if (hasInv) {
                     dropStack = Utils.insertStackIntoTile(dropStack, inv, Direction.DOWN);
@@ -182,7 +173,6 @@ public class RitualCrushing extends Ritual {
             }
         }
 
-        // Drain consumed will
         if (silkWillUsed > 0) {
             WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.STEADFAST, silkWillUsed);
         }
@@ -190,7 +180,6 @@ public class RitualCrushing extends Ritual {
             WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE, fortuneWillUsed);
         }
 
-        // Syphon LP only if we crushed something
         if (crushed) {
             ctx.syphon(getRefreshCost());
         }

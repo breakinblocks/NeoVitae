@@ -20,11 +20,6 @@ import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
 
-/**
- * Spectral Block - An invisible placeholder that temporarily replaces fluids.
- * Used by the Sigil of Suppression to suppress fluids in an area.
- * When it expires, it restores the original fluid block.
- */
 public class SpectralBlock extends BaseEntityBlock {
 
     public static final MapCodec<SpectralBlock> CODEC = simpleCodec(p -> new SpectralBlock());
@@ -83,8 +78,6 @@ public class SpectralBlock extends BaseEntityBlock {
         if (!state.is(newState.getBlock())) {
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof SpectralBlockEntity spectral) {
-                // If being replaced by something other than spectral, don't restore
-                // This handles cases where something else placed a block here
             }
         }
         super.onRemove(state, level, pos, newState, movedByPiston);

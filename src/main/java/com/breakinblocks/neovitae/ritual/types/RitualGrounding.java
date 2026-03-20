@@ -59,7 +59,6 @@ public class RitualGrounding extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        // Query demon will
         double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
         double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
         double destructiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE);
@@ -146,7 +145,6 @@ public class RitualGrounding extends Ritual {
             ctx.syphon(Math.min(totalCost, ctx.currentEssence()));
         }
 
-        // Drain consumed will
         if (rawUsed > 0) {
             WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DEFAULT, rawUsed);
         }

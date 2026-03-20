@@ -51,10 +51,6 @@ public abstract class LivingArmourEvent extends Event {
         }
     }
 
-    /**
-     * Fired when a living upgrade levels up.
-     * This event is not cancelable.
-     */
     public static class LevelUp extends LivingArmourEvent {
 
         private final int previousLevel;
@@ -66,16 +62,10 @@ public abstract class LivingArmourEvent extends Event {
             this.newLevel = newLevel;
         }
 
-        /**
-         * @return The level before this level up occurred
-         */
         public int getPreviousLevel() {
             return this.previousLevel;
         }
 
-        /**
-         * @return The new level after leveling up
-         */
         public int getNewLevel() {
             return this.newLevel;
         }

@@ -30,28 +30,14 @@ import java.util.function.Consumer;
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
 public class ClientEventHandler {
 
-    /**
-     * Handles left-click in air with ritual diviner to cycle rituals backwards.
-     * This event only fires on the client, so we send a packet to the server.
-     *
-     * Control scheme (matching 1.20.1):
-     * - Left-click in air: cycle rituals backwards
-     * - Shift+Right-click in air: cycle rituals forward
-     * - Right-click in air: cycle direction
-     */
     @SubscribeEvent
     public static void onLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
         ItemStack stack = event.getItemStack();
         if (stack.getItem() instanceof ItemRitualDiviner) {
-            // Send packet to server to cycle ritual backwards (reverse=true)
             NVPayloads.sendToServer(new RitualDivinerCyclePayload(true));
         }
     }
 
-    /**
-     * Handles scroll wheel input while sneaking and holding a Sigil of Holding
-     * to cycle through the contained sigils.
-     */
     @SubscribeEvent
     public static void onMouseScroll(InputEvent.MouseScrollingEvent event) {
         LocalPlayer player = Minecraft.getInstance().player;
@@ -66,16 +52,13 @@ public class ClientEventHandler {
 
         int direction = event.getScrollDeltaY() > 0 ? 1 : -1;
 
-        // Cycle locally for immediate feedback
         ItemSigilHolding.cycleToNextSigil(stack, direction);
 
-        // Show the newly selected sigil name on the action bar
         ItemStack newSelected = ItemSigilHolding.getInternalInventory(stack)
                 .get(ItemSigilHolding.getCurrentItemOrdinal(stack));
         player.displayClientMessage(
                 newSelected.isEmpty() ? Component.literal("") : newSelected.getHoverName(), true);
 
-        // Send to server for authoritative update
         NVPayloads.sendToServer(new SigilHoldingCyclePayload(player.getInventory().selected, direction));
 
         event.setCanceled(true);

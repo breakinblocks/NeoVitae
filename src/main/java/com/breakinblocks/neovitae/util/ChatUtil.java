@@ -14,10 +14,6 @@ public class ChatUtil {
     private static final Map<UUID, Long> lastMessageTime = new HashMap<>();
     private static final long SPAM_COOLDOWN = 500; // 500ms cooldown between messages
 
-    /**
-     * Sends a message to a player, preventing spam by limiting message frequency.
-     * Displays as action bar message.
-     */
     public static void sendNoSpam(Player player, Component message) {
         if (player == null || player.level().isClientSide) {
             return;
@@ -33,9 +29,6 @@ public class ChatUtil {
         }
     }
 
-    /**
-     * Sends a message to a player without spam prevention.
-     */
     public static void send(Player player, Component message) {
         if (player != null && !player.level().isClientSide) {
             player.displayClientMessage(message, false);

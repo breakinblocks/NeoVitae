@@ -51,13 +51,7 @@ public class BlockRitualStone extends Block implements IRitualStone {
     }
 
     /**
-     * Sets the rune type at the given position, with protection checks.
-     *
-     * @param world    The level
-     * @param pos      The block position
-     * @param runeType The rune type to set
-     * @param player   The player responsible (null skips protection checks)
-     * @return true if the rune was successfully placed
+     * @param player The player responsible (null skips protection checks)
      */
     public boolean setRuneType(Level world, BlockPos pos, EnumRuneType runeType, @Nullable Player player) {
         Block runeBlock = this;
@@ -87,7 +81,6 @@ public class BlockRitualStone extends Block implements IRitualStone {
 
         BlockState newState = runeBlock.defaultBlockState();
 
-        // If player is provided, check protection before placing
         if (player != null) {
             return BlockProtectionHelper.tryPlaceBlock(world, pos, newState, player);
         }

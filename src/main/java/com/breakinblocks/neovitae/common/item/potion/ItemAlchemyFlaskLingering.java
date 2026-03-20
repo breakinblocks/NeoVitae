@@ -19,7 +19,6 @@ import net.minecraft.world.level.Level;
 public class ItemAlchemyFlaskLingering extends ItemAlchemyFlaskThrowable {
 
     public ItemAlchemyFlaskLingering() {
-        // Calls ItemAlchemyFlask constructor via parent
     }
 
     @Override
@@ -40,10 +39,7 @@ public class ItemAlchemyFlaskLingering extends ItemAlchemyFlaskThrowable {
                 0.5F, 0.4F / (level.random.nextFloat() * 0.4F + 0.8F));
 
         if (!level.isClientSide) {
-            // Create a thrown potion entity using a lingering potion stack
             ThrownPotion thrownPotion = new ThrownPotion(level, player);
-
-            // Create a temporary lingering potion stack with the same effects
             ItemStack potionStack = new ItemStack(net.minecraft.world.item.Items.LINGERING_POTION);
             potionStack.set(DataComponents.POTION_CONTENTS, contents);
             thrownPotion.setItem(potionStack);

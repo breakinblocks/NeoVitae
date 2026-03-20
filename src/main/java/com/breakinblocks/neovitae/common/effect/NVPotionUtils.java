@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Utility methods for NeoVitae potion effects.
- */
 public class NVPotionUtils {
 
     public static Random rand = new Random();
@@ -55,7 +52,6 @@ public class NVPotionUtils {
                     rand.nextInt(horizontalRadius * 2 + 1) - horizontalRadius);
             BlockState state = level.getBlockState(blockPos);
 
-            // Check if block can be grown (using BonemealableBlock)
             if (state.getBlock() instanceof BonemealableBlock) {
                 growList.add(blockPos);
             }

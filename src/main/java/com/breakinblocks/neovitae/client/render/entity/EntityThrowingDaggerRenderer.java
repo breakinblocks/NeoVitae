@@ -16,10 +16,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import com.breakinblocks.neovitae.common.entity.projectile.AbstractEntityThrowingDagger;
 
-/**
- * Renderer for throwing dagger projectiles.
- * Renders the item spinning as it flies through the air.
- */
 @OnlyIn(Dist.CLIENT)
 public class EntityThrowingDaggerRenderer<T extends AbstractEntityThrowingDagger> extends EntityRenderer<T> {
 
@@ -49,11 +45,8 @@ public class EntityThrowingDaggerRenderer<T extends AbstractEntityThrowingDagger
         poseStack.pushPose();
         poseStack.scale(this.scale, this.scale, this.scale);
 
-        // Rotate based on entity's rotation
-        // Yaw rotation (horizontal aiming)
         poseStack.mulPose(Axis.YP.rotationDegrees(
                 Mth.lerp(partialTicks, entity.yRotO, entity.getYRot()) - 90.0F));
-        // Pitch rotation (vertical aiming) - offset so tip points forward/down
         poseStack.mulPose(Axis.ZP.rotationDegrees(
                 Mth.lerp(partialTicks, entity.xRotO, entity.getXRot()) - 75F));
 

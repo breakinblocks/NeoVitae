@@ -14,12 +14,6 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.IImperfectRitualStone;
 import com.breakinblocks.neovitae.ritual.ImperfectRitual;
 
-/**
- * Imperfect ritual that summons a strong zombie.
- * Requires a coal block above the ritual stone.
- * The zombie has 1 armor (leather chestplate).
- * Costs 5000 LP.
- */
 public class ImperfectRitualZombie extends ImperfectRitual {
 
     public ImperfectRitualZombie() {
@@ -36,15 +30,12 @@ public class ImperfectRitualZombie extends ImperfectRitual {
         if (level == null || level.isClientSide()) return false;
 
         if (level instanceof ServerLevel serverLevel) {
-            // Spawn a zombie above the ritual stone
             Zombie zombie = EntityType.ZOMBIE.spawn(serverLevel,
                     imperfectRitualStone.getRitualPos().above(2),
                     MobSpawnType.TRIGGERED);
 
             if (zombie != null) {
-                // Give it armor (leather chestplate = 1 armor point)
                 zombie.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));
-                // Make sure it doesn't despawn
                 zombie.setPersistenceRequired();
             }
             return true;

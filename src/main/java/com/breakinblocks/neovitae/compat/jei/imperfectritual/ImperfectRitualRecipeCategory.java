@@ -75,45 +75,36 @@ public class ImperfectRitualRecipeCategory implements IRecipeCategory<ImperfectR
     public void draw(ImperfectRitualJEIRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         Minecraft mc = Minecraft.getInstance();
 
-        // Draw ritual name at the top
         Component ritualName = recipe.getRitualName();
         int nameWidth = mc.font.width(ritualName);
         guiGraphics.drawString(mc.font, ritualName, (WIDTH - nameWidth) / 2, 2, Color.DARK_GRAY.getRGB(), false);
 
-        // Draw LP cost below the slots, with consumed indicator if applicable
         String lpCost = recipe.activationCost() + " LP";
         if (recipe.consumesBlock()) {
             lpCost += " (Consumed)";
         }
         int lpWidth = mc.font.width(lpCost);
-        int lpColor = recipe.consumesBlock() ? 0xCC4444 : Color.GRAY.getRGB(); // Red tint if consumed
+        int lpColor = recipe.consumesBlock() ? 0xCC4444 : Color.GRAY.getRGB();
         guiGraphics.drawString(mc.font, lpCost, (WIDTH - lpWidth) / 2, 53, lpColor, false);
 
-        // Draw description at the bottom (wrapped if needed)
         Component desc = recipe.description();
         int descY = 65;
-        // Simple centered text for description
         int descWidth = mc.font.width(desc);
         if (descWidth <= WIDTH - 4) {
             guiGraphics.drawString(mc.font, desc, (WIDTH - descWidth) / 2, descY, Color.DARK_GRAY.getRGB(), false);
         } else {
-            // Wrap text if too long
             guiGraphics.drawString(mc.font, desc, 2, descY, Color.DARK_GRAY.getRGB(), false);
         }
 
-        // Draw slot backgrounds
-        slotDrawable.draw(guiGraphics, 71, 15); // Catalyst block slot (above)
-        slotDrawable.draw(guiGraphics, 71, 33); // Ritual stone slot (below)
+        slotDrawable.draw(guiGraphics, 71, 15);
+        slotDrawable.draw(guiGraphics, 71, 33);
     }
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, ImperfectRitualJEIRecipe recipe, IFocusGroup focuses) {
-        // Catalyst block slot (above the ritual stone)
         IRecipeSlotBuilder catalystSlot = builder.addSlot(RecipeIngredientRole.INPUT, 72, 16);
         catalystSlot.addItemStacks(recipe.catalystBlock());
 
-        // Ritual stone slot (render only - clicking the stone should show crafting recipe, not rituals)
-        // The stone is already registered as a recipe catalyst, so pressing U on it shows rituals
         IRecipeSlotBuilder ritualStoneSlot = builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 72, 34);
         ritualStoneSlot.addItemStack(new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()));
     }

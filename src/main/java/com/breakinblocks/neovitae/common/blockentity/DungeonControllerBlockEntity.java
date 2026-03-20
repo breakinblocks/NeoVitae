@@ -17,10 +17,6 @@ import com.breakinblocks.neovitae.util.Constants;
 
 import javax.annotation.Nullable;
 
-/**
- * Block entity for the Dungeon Controller block.
- * Manages procedural dungeon generation via the DungeonSynthesizer.
- */
 public class DungeonControllerBlockEntity extends BaseBlockEntity {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DungeonControllerBlockEntity.class);
@@ -33,25 +29,16 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         this.dungeonSynthesizer = new DungeonSynthesizer();
     }
 
-    /**
-     * Gets the dungeon synthesizer for this controller.
-     */
     public DungeonSynthesizer getDungeonSynthesizer() {
         return dungeonSynthesizer;
     }
 
-    /**
-     * Sets the dungeon synthesizer, typically after generating an initial room.
-     */
     public void setDungeonSynthesizer(DungeonSynthesizer synthesizer) {
         this.dungeonSynthesizer = synthesizer;
         this.initialized = true;
         setChanged();
     }
 
-    /**
-     * Checks if this controller has been initialized with a dungeon.
-     */
     public boolean isInitialized() {
         return initialized;
     }
@@ -82,7 +69,6 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         LOGGER.info("Processing room placement request: doorPos={}, direction={}, doorType={}, potentialPools={}",
                 doorPos, doorDirection, doorType, potentialRooms.length);
 
-        // Try each potential room type until one succeeds
         for (ResourceLocation roomType : potentialRooms) {
             LOGGER.debug("Trying room pool: {}", roomType);
             DungeonRoomPlacement placement = dungeonSynthesizer.getRandomPlacement(
@@ -93,23 +79,17 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
                         roomType, placement.room.getKey(), placement.getRoomPosition());
 
                 try {
-                    // Place the room
                     placement.placeRoom(rand, serverLevel);
 
-                    // Add the room's area descriptors to prevent future collisions
                     dungeonSynthesizer.getDescriptorList().addAll(placement.getAreaDescriptors());
 
-                    // Update door tracking
                     dungeonSynthesizer.incrementActivatedDoors();
 
-                    // Check for special room requirements based on progression
                     dungeonSynthesizer.checkSpecialRoomRequirements(
                             dungeonSynthesizer.getDescriptorList().size());
 
-                    // Update available doors map
                     placement.updateDoorMasterMap(dungeonSynthesizer.getAvailableDoorMasterMap());
 
-                    // Place new door seals for the placed room
                     placement.placeNewDoorSeals(serverLevel, worldPosition, dungeonSynthesizer);
 
                     setChanged();
@@ -160,10 +140,6 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         }
     }
 
-    /**
-     * Server-side tick for the dungeon controller.
-     * Currently unused but available for future features like dungeon events.
-     */
     public static void tick(Level level, BlockPos pos, BlockState state, DungeonControllerBlockEntity tile) {
         if (level.isClientSide()) {
             return;

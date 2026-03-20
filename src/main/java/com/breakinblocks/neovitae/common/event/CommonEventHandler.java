@@ -32,7 +32,6 @@ import java.util.UUID;
 @EventBusSubscriber(modid = NeoVitae.MODID)
 public class CommonEventHandler {
 
-    // Used to apply bounce velocity after fall event is cancelled on server
     private static final Map<UUID, Double> bounceMap = new HashMap<>();
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -47,7 +46,6 @@ public class CommonEventHandler {
             return;
         }
 
-        // Only handle bindable items
         if (!(held.getItem() instanceof com.breakinblocks.neovitae.common.item.IBindable)) {
             return;
         }
@@ -55,7 +53,6 @@ public class CommonEventHandler {
         Binding binding = held.get(NVDataComponents.BINDING);
         GameProfile profile = event.getEntity().getGameProfile();
 
-        // Bind if no binding exists or binding is empty
         if (binding == null || binding.isEmpty()) {
             Binding newBinding = new Binding(profile.getId(), profile.getName());
             if (NeoForge.EVENT_BUS.post(new ItemBindEvent(event.getEntity(), held)).isCanceled()) {
@@ -63,13 +60,11 @@ public class CommonEventHandler {
             }
             held.set(NVDataComponents.BINDING, newBinding);
         } else if (binding.uuid().equals(profile.getId()) && !Objects.equals(binding.name(), profile.getName())) {
-            // Update name if UUID matches but name changed
             binding = new Binding(profile.getId(), profile.getName());
             held.set(NVDataComponents.BINDING, binding);
         }
     }
 
-    // Auto-op players in dev environment
     @SubscribeEvent
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (!FMLLoader.isProduction() && event.getEntity() instanceof ServerPlayer serverPlayer) {
@@ -81,22 +76,16 @@ public class CommonEventHandler {
         }
     }
 
-    // Note: Ritual diviner cycling is handled by ItemRitualDiviner.onEntitySwing()
-    // with proper cooldown to prevent duplicate triggers
-
-    // === Bounce Effect: cancel fall damage and reverse vertical momentum ===
     @SubscribeEvent
     public static void onLivingFall(LivingFallEvent event) {
         LivingEntity entity = event.getEntity();
 
-        // Heavy Heart increases fall damage
         if (entity.hasEffect(NVMobEffects.HEAVY_HEART)) {
             int amp = entity.getEffect(NVMobEffects.HEAVY_HEART).getAmplifier() + 1;
             event.setDamageMultiplier(event.getDamageMultiplier() + amp);
             event.setDistance(event.getDistance() + amp);
         }
 
-        // Bounce effect: cancel damage and apply upward velocity
         if (entity.hasEffect(NVMobEffects.BOUNCE)) {
             if (entity instanceof Player player) {
                 event.setDamageMultiplier(0);
@@ -121,7 +110,6 @@ public class CommonEventHandler {
         }
     }
 
-    // === Flight/Suspended effect cleanup on removal (milk, /clear, expiry) ===
     @SubscribeEvent
     public static void onEffectRemove(MobEffectEvent.Remove event) {
         handleEffectRemoval(event.getEntity(), event.getEffectInstance());
@@ -146,7 +134,6 @@ public class CommonEventHandler {
         }
     }
 
-    // === Obsidian Cloak: reduce non-magic damage by 20% per amplifier level ===
     @SubscribeEvent
     public static void onLivingIncomingDamage(LivingIncomingDamageEvent event) {
         LivingEntity living = event.getEntity();

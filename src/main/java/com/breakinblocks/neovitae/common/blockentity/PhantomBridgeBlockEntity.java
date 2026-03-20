@@ -34,37 +34,26 @@ public class PhantomBridgeBlockEntity extends BaseBlockEntity {
         tile.duration--;
 
         if (tile.duration <= 0) {
-            // Remove the phantom bridge block
             tile.removeBlock();
         }
     }
 
-    /**
-     * Removes this phantom bridge block and restores the original block if any.
-     */
     public void removeBlock() {
         if (level != null && !level.isClientSide()) {
             BlockState toRestore = containedBlockState;
             if (toRestore != null && !toRestore.isAir()) {
                 level.setBlock(worldPosition, toRestore, Block.UPDATE_ALL);
             } else {
-                // Replace with air
                 level.removeBlock(worldPosition, false);
             }
         }
     }
 
-    /**
-     * Sets the block state that this phantom bridge is replacing (usually air).
-     */
     public void setContainedBlockState(BlockState state) {
         this.containedBlockState = state;
         setChanged();
     }
 
-    /**
-     * Gets the block state contained within this phantom bridge block.
-     */
     public BlockState getContainedBlockState() {
         return containedBlockState;
     }
@@ -77,17 +66,11 @@ public class PhantomBridgeBlockEntity extends BaseBlockEntity {
         setChanged();
     }
 
-    /**
-     * Resets the duration with a specific value.
-     */
     public void resetDuration(int newDuration) {
         this.duration = Math.min(newDuration, MAX_DURATION);
         setChanged();
     }
 
-    /**
-     * Gets the remaining duration.
-     */
     public int getDuration() {
         return duration;
     }

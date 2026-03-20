@@ -16,9 +16,6 @@ import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
 
-/**
- * Demon Pylon - transfers will between adjacent chunks.
- */
 public class DemonPylonBlock extends BaseEntityBlock {
 
     public static final MapCodec<DemonPylonBlock> CODEC = simpleCodec(p -> new DemonPylonBlock());

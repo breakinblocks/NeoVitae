@@ -15,9 +15,6 @@ import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBl
 
 import javax.annotation.Nullable;
 
-/**
- * Output routing node - pushes items to adjacent inventories.
- */
 public class BlockOutputRoutingNode extends BlockRoutingNode {
 
     public static final MapCodec<BlockOutputRoutingNode> CODEC = simpleCodec(BlockOutputRoutingNode::new);

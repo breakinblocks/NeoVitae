@@ -14,10 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Block entity for vein mining charges.
- * Finds and breaks connected blocks of the same type (ores).
- */
 public class VeinMineChargeBlockEntity extends ExplosiveChargeBlockEntity {
     private Map<BlockPos, Boolean> veinPartsMap;
     private List<BlockPos> veinPartsCache;
@@ -71,7 +67,6 @@ public class VeinMineChargeBlockEntity extends ExplosiveChargeBlockEntity {
 
         for (BlockPos currentPos : veinPartsCache) {
             if (!veinPartsMap.getOrDefault(currentPos, false)) {
-                // Check cardinal directions
                 for (Direction dir : Direction.values()) {
                     BlockPos checkPos = currentPos.relative(dir);
                     if (veinPartsMap.containsKey(checkPos)) {
@@ -88,7 +83,6 @@ public class VeinMineChargeBlockEntity extends ExplosiveChargeBlockEntity {
                     }
                 }
 
-                // Check diagonals
                 if (checkDiagonals()) {
                     for (Vec3i vec : DIAGONALS) {
                         BlockPos checkPos = currentPos.offset(vec);
@@ -120,7 +114,6 @@ public class VeinMineChargeBlockEntity extends ExplosiveChargeBlockEntity {
             return;
         }
 
-        // Use base class countdown and explosion logic
         if (tickCountdown()) {
             explodeAndBreakBlocks(explosiveDirection, veinPartsCache);
         }

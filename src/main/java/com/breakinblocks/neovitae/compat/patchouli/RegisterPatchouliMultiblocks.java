@@ -38,7 +38,6 @@ public class RegisterPatchouliMultiblocks {
     public RegisterPatchouliMultiblocks() {
         IPatchouliAPI patAPI = PatchouliAPI.get();
 
-        // Register Ritual multiblocks
         for (Ritual ritual : RitualRegistry.getAllRituals()) {
             ResourceLocation ritualId = RitualRegistry.getId(ritual);
             if (ritualId == null) continue;
@@ -56,7 +55,6 @@ public class RegisterPatchouliMultiblocks {
 
             String[][] pattern = makePattern(ritualMap);
 
-            // Manual Overrides (to add things like Chests)
             if (ritualName.equals("downgrade")) {
                 if (pattern.length > 2 && pattern[2].length > 3) {
                     pattern[2][3] = "_FDC______";
@@ -79,7 +77,6 @@ public class RegisterPatchouliMultiblocks {
             patAPI.registerMultiblock(NeoVitae.rl(ritualName), multiblock);
         }
 
-        // Register Blood Altar multiblocks
         registerAltarMultiblocks(patAPI);
     }
 
@@ -95,14 +92,12 @@ public class RegisterPatchouliMultiblocks {
         IStateMatcher bloodstone = new BloodstoneStateMatcher();
         IStateMatcher crystal = patAPI.strictBlockMatcher(NVBlocks.CRYSTAL_CLUSTER.block().get());
 
-        // Tier 1: Just the altar
         IMultiblock tier1 = patAPI.makeMultiblock(
                 new String[][]{{"0"}, {"_"}},
                 '0', NVBlocks.BLOOD_ALTAR.block().get()
         );
         patAPI.registerMultiblock(NeoVitae.rl("altar_one"), tier1);
 
-        // Tier 2: 8 runes in a 3x3 square around the altar at y=-1
         IMultiblock tier2 = patAPI.makeMultiblock(
                 new String[][]{
                         {"___", "_0_", "___"},  // y=0: altar
@@ -267,14 +262,11 @@ public class RegisterPatchouliMultiblocks {
 
     private char checkEmptySpace(int x, int y, int z) {
         if (x == 0 && y == 0 && z == 0) {
-            return '0'; // Center of Multiblock
+            return '0';
         }
-        return '_'; // Patchouli's "Any Block" Symbol
+        return '_';
     }
 
-    /**
-     * State matcher that accepts any blood rune block.
-     */
     private static class RuneStateMatcher implements IStateMatcher {
         private static final List<Block> RUNE_BLOCKS = List.of(
                 NVBlocks.RUNE_BLANK.block().get(),
@@ -312,9 +304,6 @@ public class RegisterPatchouliMultiblocks {
         }
     }
 
-    /**
-     * State matcher that accepts bloodstone blocks.
-     */
     private static class BloodstoneStateMatcher implements IStateMatcher {
         private static final List<Block> BLOODSTONE_BLOCKS = List.of(
                 NVBlocks.BLOODSTONE.block().get(),

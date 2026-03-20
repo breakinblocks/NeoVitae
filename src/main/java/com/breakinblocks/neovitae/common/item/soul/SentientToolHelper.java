@@ -35,7 +35,6 @@ public final class SentientToolHelper {
 
     private SentientToolHelper() {} // Utility class - no instantiation
 
-    // ==================== SHARED CONSTANTS ====================
 
     /** Soul thresholds that determine power level (0-6). Each threshold unlocks stronger effects. */
     public static final int[] SOUL_BRACKET = {16, 60, 200, 400, 1000, 2000, 4000};
@@ -64,7 +63,6 @@ public final class SentientToolHelper {
     /** Dig speed bonus at each power level (for mining tools). */
     public static final double[] DEFAULT_DIG_SPEED_ADDED = {1, 1.5, 2, 3, 4, 5, 6};
 
-    // ==================== LEVEL CALCULATION ====================
 
     /**
      * Calculates the power level (0-6) based on available soul amount.
@@ -82,7 +80,6 @@ public final class SentientToolHelper {
         return lvl;
     }
 
-    // ==================== EFFECT APPLICATION ====================
 
     /**
      * Applies will-type-specific effects when hitting an enemy.
@@ -114,7 +111,6 @@ public final class SentientToolHelper {
         }
     }
 
-    // ==================== SOUL DROP GENERATION ====================
 
     /**
      * Gets the appropriate monster soul item for the given will type.
@@ -171,7 +167,6 @@ public final class SentientToolHelper {
         return soulList;
     }
 
-    // ==================== WILL DRAIN HANDLING ====================
 
     /**
      * Handles will drain when attacking with a sentient tool.
@@ -195,7 +190,6 @@ public final class SentientToolHelper {
         return false; // Continue with attack
     }
 
-    // ==================== DATA COMPONENT ACCESSORS ====================
 
     public static EnumWillType getCurrentType(ItemStack stack) {
         return stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT);

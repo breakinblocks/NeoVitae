@@ -100,11 +100,6 @@ public record AltarRuneStats(
             Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()
     );
 
-    // Builder methods for common rune types
-
-    /**
-     * Creates stats for a capacity rune.
-     */
     public static AltarRuneStats capacity(double capacityMod) {
         return new AltarRuneStats(
                 Optional.of(capacityMod), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(),
@@ -112,9 +107,6 @@ public record AltarRuneStats(
         );
     }
 
-    /**
-     * Creates stats for an augmented capacity rune (power-based).
-     */
     public static AltarRuneStats augmentedCapacity(double powerBase) {
         return new AltarRuneStats(
                 Optional.empty(), Optional.of(powerBase), Optional.empty(), Optional.empty(), Optional.empty(),
@@ -122,9 +114,6 @@ public record AltarRuneStats(
         );
     }
 
-    /**
-     * Creates stats for a speed rune.
-     */
     public static AltarRuneStats speed(double consumptionMod) {
         return new AltarRuneStats(
                 Optional.empty(), Optional.empty(), Optional.of(consumptionMod), Optional.empty(), Optional.empty(),
@@ -132,9 +121,6 @@ public record AltarRuneStats(
         );
     }
 
-    /**
-     * Creates stats for a sacrifice rune.
-     */
     public static AltarRuneStats sacrifice(double sacrificeMod) {
         return new AltarRuneStats(
                 Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(sacrificeMod), Optional.empty(),
@@ -142,9 +128,6 @@ public record AltarRuneStats(
         );
     }
 
-    /**
-     * Creates stats for a self-sacrifice rune.
-     */
     public static AltarRuneStats selfSacrifice(double selfSacrificeMod) {
         return new AltarRuneStats(
                 Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(selfSacrificeMod),
@@ -152,9 +135,6 @@ public record AltarRuneStats(
         );
     }
 
-    /**
-     * Creates stats for a displacement/dislocation rune (power-based).
-     */
     public static AltarRuneStats displacement(double powerBase) {
         return new AltarRuneStats(
                 Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(),
@@ -162,9 +142,6 @@ public record AltarRuneStats(
         );
     }
 
-    /**
-     * Creates stats for an orb rune.
-     */
     public static AltarRuneStats orb(double orbCapacityMod) {
         return new AltarRuneStats(
                 Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(),
@@ -172,9 +149,6 @@ public record AltarRuneStats(
         );
     }
 
-    /**
-     * Creates stats for an acceleration rune.
-     */
     public static AltarRuneStats acceleration(int accelerationMod) {
         return new AltarRuneStats(
                 Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(),
@@ -182,9 +156,6 @@ public record AltarRuneStats(
         );
     }
 
-    /**
-     * Creates stats for a charging rune.
-     */
     public static AltarRuneStats charging(int chargeAmountMod) {
         return new AltarRuneStats(
                 Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(),
@@ -192,17 +163,12 @@ public record AltarRuneStats(
         );
     }
 
-    /**
-     * Creates stats for an efficiency rune (power-based).
-     */
     public static AltarRuneStats efficiency(double powerBase) {
         return new AltarRuneStats(
                 Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(),
                 Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(powerBase)
         );
     }
-
-    // Convenience getters with defaults
 
     public double getCapacityMod(double defaultValue) {
         return capacityMod.orElse(defaultValue);

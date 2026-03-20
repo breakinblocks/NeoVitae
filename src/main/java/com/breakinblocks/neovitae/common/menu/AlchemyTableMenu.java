@@ -38,7 +38,6 @@ public class AlchemyTableMenu extends AbstractBlockEntityMenu<AlchemyTableBlockE
             }
         });
 
-        // Player inventory and hotbar
         MenuSlotHelper.addPlayerInventory(this::addSlot, playerInventory,
                 MenuSlotHelper.INV_Y_205, MenuSlotHelper.HOTBAR_Y_205);
     }

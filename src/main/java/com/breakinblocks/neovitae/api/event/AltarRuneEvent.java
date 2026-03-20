@@ -67,28 +67,38 @@ public abstract class AltarRuneEvent extends Event {
     }
 
     /**
-     * Gets the Blood Altar instance.
+     * Gets the Blood Altar that triggered this event.
+     *
+     * @return the altar interface for querying current altar state
      */
     public IBloodAltar getAltar() {
         return altar;
     }
 
     /**
-     * Gets the world level.
+     * Gets the level (world) the altar is in.
+     *
+     * @return the level containing the altar
      */
     public Level getLevel() {
         return level;
     }
 
     /**
-     * Gets the altar's position.
+     * Gets the block position of the altar.
+     *
+     * @return the altar's position in the world
      */
     public BlockPos getPos() {
         return pos;
     }
 
     /**
-     * Gets the altar's current tier.
+     * Gets the altar's current tier (0-indexed).
+     * Tier 0 means no valid multiblock structure; tiers 1-5 correspond to
+     * progressively larger altar builds.
+     *
+     * @return the current altar tier
      */
     public int getTier() {
         return tier;
@@ -121,7 +131,9 @@ public abstract class AltarRuneEvent extends Event {
 
         /**
          * Gets the mutable map of rune types to their counts.
-         * Modify this map to add or change rune counts.
+         * Modify this map directly or use {@link #addRunes} to inject virtual runes.
+         *
+         * @return mutable map of rune type to count
          */
         public Map<IAltarRuneType, Integer> getRuneCounts() {
             return runeCounts;
@@ -138,8 +150,10 @@ public abstract class AltarRuneEvent extends Event {
         }
 
         /**
-         * Gets all rune instances found during scanning.
-         * This list is read-only during GatherRunes.
+         * Gets all physical rune instances found during structure scanning.
+         * This list is read-only; to add virtual runes, use {@link #addRunes} instead.
+         *
+         * @return unmodifiable list of scanned rune instances
          */
         public List<RuneInstance> getRuneInstances() {
             return Collections.unmodifiableList(runeInstances);
@@ -191,14 +205,20 @@ public abstract class AltarRuneEvent extends Event {
         }
 
         /**
-         * Gets the modifiers container. Modify this to change altar stats.
+         * Gets the mutable modifiers container. Changes made here directly
+         * affect the altar's operational stats (speed, capacity, sacrifice bonuses, etc.).
+         *
+         * @return the modifiers to adjust
          */
         public AltarRuneModifiers getModifiers() {
             return modifiers;
         }
 
         /**
-         * Gets the read-only map of rune types to their counts.
+         * Gets the read-only map of rune types to their final counts
+         * (including any virtual runes added during {@link GatherRunes}).
+         *
+         * @return unmodifiable map of rune type to count
          */
         public Map<IAltarRuneType, Integer> getRuneCounts() {
             return Collections.unmodifiableMap(runeCounts);
@@ -215,7 +235,9 @@ public abstract class AltarRuneEvent extends Event {
         }
 
         /**
-         * Gets all rune instances found during scanning.
+         * Gets all physical rune instances found during structure scanning.
+         *
+         * @return unmodifiable list of scanned rune instances
          */
         public List<RuneInstance> getRuneInstances() {
             return Collections.unmodifiableList(runeInstances);
@@ -285,15 +307,22 @@ public abstract class AltarRuneEvent extends Event {
         }
 
         /**
-         * Gets the finalized modifiers that will be applied.
-         * Note: Modifications to this object will still affect the altar.
+         * Gets the finalized modifiers that will be applied to the altar.
+         *
+         * <p>While modifications to this object are technically possible and will
+         * still take effect, this event is intended for read-only observation.
+         * Use {@link CalculateStats} to make intentional modifications.</p>
+         *
+         * @return the final computed modifiers
          */
         public AltarRuneModifiers getFinalModifiers() {
             return finalModifiers;
         }
 
         /**
-         * Gets all rune instances found during scanning.
+         * Gets all physical rune instances found during structure scanning.
+         *
+         * @return unmodifiable list of scanned rune instances
          */
         public List<RuneInstance> getRuneInstances() {
             return Collections.unmodifiableList(runeInstances);

@@ -16,9 +16,6 @@ import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
 
-/**
- * Demon Crystallizer - consumes will from the aura to grow demon crystal clusters.
- */
 public class DemonCrystallizerBlock extends BaseEntityBlock {
 
     public static final MapCodec<DemonCrystallizerBlock> CODEC = simpleCodec(p -> new DemonCrystallizerBlock());

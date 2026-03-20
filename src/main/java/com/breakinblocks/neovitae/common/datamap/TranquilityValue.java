@@ -56,14 +56,8 @@ public record TranquilityValue(
         EnumTranquilityType type,
         double value
 ) {
-    /**
-     * Default tranquility value for standard blocks.
-     */
     public static final double DEFAULT_VALUE = 1.0;
 
-    /**
-     * Codec for EnumTranquilityType using lowercase names.
-     */
     public static final Codec<EnumTranquilityType> TYPE_CODEC = Codec.STRING.xmap(
             EnumTranquilityType::getType,
             type -> type.name().toLowerCase()
@@ -74,16 +68,10 @@ public record TranquilityValue(
             Codec.DOUBLE.optionalFieldOf("value", DEFAULT_VALUE).forGetter(TranquilityValue::value)
     ).apply(instance, TranquilityValue::new));
 
-    /**
-     * Creates a tranquility value with the default value of 1.0.
-     */
     public static TranquilityValue of(EnumTranquilityType type) {
         return new TranquilityValue(type, DEFAULT_VALUE);
     }
 
-    /**
-     * Creates a tranquility value with a specific value.
-     */
     public static TranquilityValue of(EnumTranquilityType type, double value) {
         return new TranquilityValue(type, value);
     }

@@ -20,9 +20,8 @@ public class DemonWillHandler implements IDemonWillHandler {
 
     public static final DemonWillHandler INSTANCE = new DemonWillHandler();
 
-    private DemonWillHandler() {
-        // Private constructor - use INSTANCE
-    }
+    private DemonWillHandler() {}
+
 
     @Override
     public double getCurrentWill(Level level, BlockPos pos, EnumWillType type) {
@@ -61,7 +60,6 @@ public class DemonWillHandler implements IDemonWillHandler {
         WillChunk willChunk = chunk.getData(NVDataAttachments.WILL_CHUNK);
         willChunk.setMaxBonus(type, bonus);
 
-        // Create a copy to ensure NeoForge detects the change
         WillChunk newWillChunk = willChunk.copy();
         chunk.setData(NVDataAttachments.WILL_CHUNK, newWillChunk);
         chunk.setUnsaved(true);
@@ -77,7 +75,6 @@ public class DemonWillHandler implements IDemonWillHandler {
         WillChunk willChunk = chunk.getData(NVDataAttachments.WILL_CHUNK);
         double newBonus = willChunk.addMaxBonus(type, amount);
 
-        // Create a copy to ensure NeoForge detects the change
         WillChunk newWillChunk = willChunk.copy();
         chunk.setData(NVDataAttachments.WILL_CHUNK, newWillChunk);
         chunk.setUnsaved(true);

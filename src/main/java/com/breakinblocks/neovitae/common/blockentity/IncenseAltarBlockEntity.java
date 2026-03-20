@@ -41,7 +41,6 @@ public class IncenseAltarBlockEntity extends BlockEntity {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, IncenseAltarBlockEntity tile) {
-        // Check for players in the incense area
         AABB playerArea = new AABB(pos).inflate(5, 5, 5);
         List<Player> players = level.getEntitiesOfClass(Player.class, playerArea);
 
@@ -49,21 +48,18 @@ public class IncenseAltarBlockEntity extends BlockEntity {
             return;
         }
 
-        // Periodically recheck the construction
         if (level.getGameTime() % 100 == 0) {
             tile.recheckConstruction();
         }
 
         boolean hasPerformed = false;
 
-        // Increment incense for all players in range
         for (Player player : players) {
             if (IncenseHelper.incrementIncense(player, 0, tile.incenseAddition, tile.incenseAddition / 100.0)) {
                 hasPerformed = true;
             }
         }
 
-        // Spawn flame particles when actively providing incense
         if (hasPerformed && level.random.nextInt(4) == 0 && level instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.FLAME,
                     pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5,
@@ -71,9 +67,6 @@ public class IncenseAltarBlockEntity extends BlockEntity {
         }
     }
 
-    /**
-     * Rescans the area around the altar to check for valid road rings and tranquility.
-     */
     public void recheckConstruction() {
         int maxLength = MAX_ROAD_DISTANCE - 1; // Max path rings to check
         int yOffset = 0;
@@ -81,7 +74,6 @@ public class IncenseAltarBlockEntity extends BlockEntity {
         Map<EnumTranquilityType, Double> newTranquilityMap = new HashMap<>();
         int foundRoads = 0;
 
-        // Start checking from distance 2 (first ring around the altar)
         for (int currentDistance = 2; currentDistance <= 2 + maxLength; currentDistance++) {
             boolean canFormRoad = false;
 
@@ -90,13 +82,11 @@ public class IncenseAltarBlockEntity extends BlockEntity {
                 BlockPos verticalPos = worldPosition.offset(0, i, 0);
 
                 canFormRoad = true;
-                // Check all 4 cardinal directions for a complete ring
                 directionLoop:
                 for (int dirIndex = 0; dirIndex < 4; dirIndex++) {
                     Direction horizontalFacing = Direction.from2DDataValue(dirIndex);
                     BlockPos facingOffsetPos = verticalPos.relative(horizontalFacing, currentDistance);
 
-                    // Each side of the ring needs 3 blocks
                     for (int j = -1; j <= 1; j++) {
                         BlockPos offsetPos = facingOffsetPos.relative(horizontalFacing.getClockWise(), j);
                         BlockState state = level.getBlockState(offsetPos);
@@ -120,15 +110,12 @@ public class IncenseAltarBlockEntity extends BlockEntity {
             if (canFormRoad) {
                 foundRoads++;
 
-                // Calculate tranquility from blocks at this distance
                 for (int i = -currentDistance; i <= currentDistance; i++) {
                     for (int j = -currentDistance; j <= currentDistance; j++) {
-                        // Only check the perimeter at this distance
                         if (Math.abs(i) != currentDistance && Math.abs(j) != currentDistance) {
                             continue;
                         }
 
-                        // Check 3 vertical levels above the road
                         for (int y = yOffset; y <= 2 + yOffset; y++) {
                             BlockPos offsetPos = worldPosition.offset(i, y, j);
                             BlockState state = level.getBlockState(offsetPos);
@@ -141,7 +128,6 @@ public class IncenseAltarBlockEntity extends BlockEntity {
                     }
                 }
             } else {
-                // Road ring broken - stop checking further
                 break;
             }
         }
@@ -149,7 +135,6 @@ public class IncenseAltarBlockEntity extends BlockEntity {
         this.roadDistance = foundRoads;
         this.tranquilityMap = newTranquilityMap;
 
-        // Calculate total and applied tranquility
         double totalTranquility = 0;
         for (Double value : tranquilityMap.values()) {
             totalTranquility += value;
@@ -159,13 +144,11 @@ public class IncenseAltarBlockEntity extends BlockEntity {
             return;
         }
 
-        // Applied tranquility uses sqrt of each type's total
         double appliedTranquility = 0;
         for (Double value : tranquilityMap.values()) {
             appliedTranquility += Math.sqrt(value);
         }
 
-        // Calculate the final bonus
         double bonus = IncenseAltarHandler.getIncenseBonus(appliedTranquility, roadDistance);
         this.incenseAddition = bonus;
         this.tranquility = appliedTranquility;

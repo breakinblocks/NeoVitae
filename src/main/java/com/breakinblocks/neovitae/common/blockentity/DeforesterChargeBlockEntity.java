@@ -12,10 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Block entity for deforester charges.
- * Finds and breaks connected logs and leaves.
- */
 public class DeforesterChargeBlockEntity extends ExplosiveChargeBlockEntity {
     private Map<BlockPos, Boolean> treePartsMap;
     private List<BlockPos> treePartsCache;
@@ -100,7 +96,6 @@ public class DeforesterChargeBlockEntity extends ExplosiveChargeBlockEntity {
             return;
         }
 
-        // Use base class countdown and explosion logic
         if (tickCountdown()) {
             explodeAndBreakBlocks(explosiveDirection, treePartsCache);
         }

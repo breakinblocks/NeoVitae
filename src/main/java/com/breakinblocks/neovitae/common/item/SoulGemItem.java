@@ -84,7 +84,6 @@ public class SoulGemItem extends Item implements IDemonWillGem {
         super.appendHoverText(stack, context, tooltip, tooltipFlag);
     }
 
-    // IDemonWillGem implementation
 
     public EnumWillType getCurrentType(ItemStack stack) {
         return stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT);

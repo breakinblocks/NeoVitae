@@ -47,50 +47,40 @@ public class NVDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> CURRENT_MAX_UPGRADE_POINTS = DATA_COMPONENTS.registerComponentType("max_upgrade_points", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> CURRENT_UPGRADE_POINTS = DATA_COMPONENTS.registerComponentType("current_upgrade_points", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> FULL_SET_MARKER = DATA_COMPONENTS.registerComponentType("full_set_marker", builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
-    // doesnt work with stream codec, doesnt work without
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<UpgradeTome>> UPGRADE_TOME_DATA = DATA_COMPONENTS.registerComponentType("upgrade_tome_data", builder -> builder.persistent(UpgradeTome.CODEC).networkSynchronized(UpgradeTome.STREAM_CODEC));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Object2FloatOpenHashMap<Holder<LivingUpgrade>>>> STORED_UPGRADES = DATA_COMPONENTS.registerComponentType("stored_upgrades", builder -> builder.persistent(UPGRADE_HOLDER_CODEC));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> UPGRADE_SCRAP = DATA_COMPONENTS.registerComponentType("upgrade_scrap", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> PREVIOUS_DAMAGE = DATA_COMPONENTS.registerComponentType("previous_damage", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
 
-    // Anointment data component (replaces NBT-based anointment_holder)
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<AnointmentHolder>> ANOINTMENT_HOLDER = DATA_COMPONENTS.registerComponentType("anointment_holder", builder -> builder.persistent(AnointmentHolder.CODEC).networkSynchronized(AnointmentHolder.STREAM_CODEC));
 
-    // Teleposer data components
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> TELEPOSER_POS = DATA_COMPONENTS.registerComponentType("teleposer_pos", builder -> builder.persistent(BlockPos.CODEC).networkSynchronized(BlockPos.STREAM_CODEC));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> TELEPOSER_DIMENSION = DATA_COMPONENTS.registerComponentType("teleposer_dimension", builder -> builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
 
-    // Ritual Diviner data components
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> CURRENT_RITUAL = DATA_COMPONENTS.registerComponentType("current_ritual", builder -> builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> DIVINER_DIRECTION = DATA_COMPONENTS.registerComponentType("diviner_direction", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> DIVINER_ACTIVATED = DATA_COMPONENTS.registerComponentType("diviner_activated", builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> DIVINER_STORED_POS = DATA_COMPONENTS.registerComponentType("diviner_stored_pos", builder -> builder.persistent(BlockPos.CODEC).networkSynchronized(BlockPos.STREAM_CODEC));
 
-    // Ritual Reader data components
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> READER_STATE = DATA_COMPONENTS.registerComponentType("reader_state", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> READER_RANGE_KEY = DATA_COMPONENTS.registerComponentType("reader_range_key", builder -> builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> READER_CORNER1 = DATA_COMPONENTS.registerComponentType("reader_corner1", builder -> builder.persistent(BlockPos.CODEC).networkSynchronized(BlockPos.STREAM_CODEC));
 
-    // Sigil data components
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> SIGIL_ACTIVATED = DATA_COMPONENTS.registerComponentType("sigil_activated", builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> SIGIL_UNUSABLE = DATA_COMPONENTS.registerComponentType("sigil_unusable", builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SigilType>>> SIGIL_TYPE = DATA_COMPONENTS.registerComponentType("sigil_type", builder -> builder.persistent(SigilType.HOLDER_CODEC).networkSynchronized(SigilType.HOLDER_STREAM_CODEC));
 
-    // Experience Tome data component (Tome of Peritia)
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> STORED_XP = DATA_COMPONENTS.registerComponentType("stored_xp", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
 
-    // Sentient tool data components
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Double>> SENTIENT_SWORD_DAMAGE = DATA_COMPONENTS.registerComponentType("sentient_sword_damage", builder -> builder.persistent(Codec.DOUBLE).networkSynchronized(ByteBufCodecs.DOUBLE));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Double>> SENTIENT_SWORD_DRAIN = DATA_COMPONENTS.registerComponentType("sentient_sword_drain", builder -> builder.persistent(Codec.DOUBLE).networkSynchronized(ByteBufCodecs.DOUBLE));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Double>> SENTIENT_SWORD_STATIC_DROP = DATA_COMPONENTS.registerComponentType("sentient_sword_static_drop", builder -> builder.persistent(Codec.DOUBLE).networkSynchronized(ByteBufCodecs.DOUBLE));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Double>> SENTIENT_SWORD_DROP = DATA_COMPONENTS.registerComponentType("sentient_sword_drop", builder -> builder.persistent(Codec.DOUBLE).networkSynchronized(ByteBufCodecs.DOUBLE));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Double>> SENTIENT_TOOL_SPEED = DATA_COMPONENTS.registerComponentType("sentient_tool_speed", builder -> builder.persistent(Codec.DOUBLE).networkSynchronized(ByteBufCodecs.DOUBLE));
 
-    // Flask effect data component (for alchemy flasks with custom duration modifiers)
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<FlaskEffects>> FLASK_EFFECTS = DATA_COMPONENTS.registerComponentType("flask_effects", builder -> builder.persistent(FlaskEffects.CODEC).networkSynchronized(FlaskEffects.STREAM_CODEC));
 
-    // Ghost item (filter) data components
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> GHOST_STACK_SIZE = DATA_COMPONENTS.registerComponentType("ghost_stack_size", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<FilterInventory>> FILTER_INVENTORY = DATA_COMPONENTS.registerComponentType("filter_inventory", builder -> builder.persistent(FilterInventory.CODEC).networkSynchronized(FilterInventory.STREAM_CODEC));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> FILTER_BLACKLIST = DATA_COMPONENTS.registerComponentType("filter_blacklist", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));

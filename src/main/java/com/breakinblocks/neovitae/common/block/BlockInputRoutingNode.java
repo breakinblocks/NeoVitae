@@ -15,9 +15,6 @@ import com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlo
 
 import javax.annotation.Nullable;
 
-/**
- * Input routing node - pulls items from adjacent inventories.
- */
 public class BlockInputRoutingNode extends BlockRoutingNode {
 
     public static final MapCodec<BlockInputRoutingNode> CODEC = simpleCodec(BlockInputRoutingNode::new);

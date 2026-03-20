@@ -23,8 +23,6 @@ public class NVSavedData extends SavedData {
         return soulNetworks.get(playerId);
     }
 
-    // ==================== Serialization ====================
-
     @Override
     public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
         ListTag networkData = new ListTag();

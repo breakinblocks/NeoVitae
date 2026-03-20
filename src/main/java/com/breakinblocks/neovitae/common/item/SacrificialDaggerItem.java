@@ -42,14 +42,11 @@ public class SacrificialDaggerItem extends Item {
         int lpAdded = AltarUtil.calculateSelfSacrificeLP(player, healthSacrificed);
 
         if (!player.getAbilities().instabuild) {
-            // Check if player can perform ceremonial sacrifice (Soul Fray blocks it)
             if (isCeremonial && !SoulFrayEffect.canPerformCeremonialSacrifice(player)) {
-                // Soul Fray is active - can only do normal sacrifice
                 isCeremonial = false;
             }
 
             if (isCeremonial) {
-                // Ceremonial sacrifice - sacrifice down to 10% health with incense bonus
                 healthSacrificed = (int) (player.getHealth() - player.getMaxHealth() / 10F);
                 double incenseBonus = player.getData(NVDataAttachments.INCENSE);
                 lpAdded = AltarUtil.calculateSelfSacrificeLP(player, healthSacrificed, incenseBonus);
@@ -67,7 +64,6 @@ public class SacrificialDaggerItem extends Item {
                 return super.use(level, player, hand);
             }
 
-            // After successful ceremonial sacrifice, apply Soul Fray and clear incense
             if (isCeremonial && !level.isClientSide()) {
                 IncenseHelper.clearIncense(player);
                 player.addEffect(new MobEffectInstance(NVMobEffects.SOUL_FRAY, SoulFrayEffect.DEFAULT_DURATION, 0));

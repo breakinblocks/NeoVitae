@@ -73,13 +73,6 @@ public class SoulNetworkHelper {
         return getSoulNetwork(UUID.fromString(uuid));
     }
 
-    // ==================== Dungeon Helper Methods ====================
-
-    /**
-     * Gets the spawn position for the next dungeon instance.
-     * Uses a spiral grid pattern to ensure dungeons don't overlap.
-     * @return The BlockPos for spawning the next dungeon, or null if server not available
-     */
     @Nullable
     public static BlockPos getSpawnPositionOfDungeon() {
         DungeonSavedData savedData = getDungeonSavedData();
@@ -89,10 +82,6 @@ public class SoulNetworkHelper {
         return savedData.getNextDungeonSpawnPosition();
     }
 
-    /**
-     * Increments the dungeon counter after spawning a dungeon.
-     * Call this after successfully creating a dungeon.
-     */
     public static void incrementDungeonCounter() {
         DungeonSavedData savedData = getDungeonSavedData();
         if (savedData != null) {
@@ -100,10 +89,6 @@ public class SoulNetworkHelper {
         }
     }
 
-    /**
-     * Gets the current number of dungeons that have been spawned.
-     * @return The dungeon count, or 0 if server not available
-     */
     public static int getNumberOfDungeons() {
         DungeonSavedData savedData = getDungeonSavedData();
         if (savedData == null)

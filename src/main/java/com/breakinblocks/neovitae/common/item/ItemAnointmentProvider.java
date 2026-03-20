@@ -24,10 +24,6 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Item that can be used to apply anointments to weapons and tools.
- * Right-click with the anointment in one hand and the tool in the other.
- */
 public class ItemAnointmentProvider extends Item {
     private final ResourceLocation anointmentKey;
     private final int color;
@@ -56,7 +52,6 @@ public class ItemAnointmentProvider extends Item {
 
                 Anointment anointment = AnointmentRegistrar.get(anointmentKey);
                 if (canApplyAnointment(holder, anointment, this.level, this.maxDamage)) {
-                    // Apply the anointment
                     AnointmentHolder newHolder = applyAnointment(holder, anointmentKey, this.level, this.maxDamage);
                     targetStack.set(NVDataComponents.ANOINTMENT_HOLDER.get(), newHolder);
 
@@ -66,7 +61,6 @@ public class ItemAnointmentProvider extends Item {
                 }
             }
         } else {
-            // Client side - particles
             if (!targetStack.isEmpty() && isItemValidForApplication(targetStack)) {
                 AnointmentHolder holder = targetStack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
                 if (holder == null) {
@@ -75,7 +69,6 @@ public class ItemAnointmentProvider extends Item {
 
                 Anointment anointment = AnointmentRegistrar.get(anointmentKey);
                 if (canApplyAnointment(holder, anointment, this.level, this.maxDamage)) {
-                    // Add colorful particles
                     for (int i = 0; i < 16; i++) {
                         level.addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, color),
                                 player.getRandomX(0.3D), player.getRandomY(), player.getRandomZ(0.3D),
@@ -92,7 +85,6 @@ public class ItemAnointmentProvider extends Item {
     private boolean canApplyAnointment(AnointmentHolder holder, Anointment anointment, int level, int maxDamage) {
         ResourceLocation key = anointment.getKey();
 
-        // Check incompatibilities
         for (AnointmentHolder.AnointmentEntry entry : holder.anointments()) {
             Anointment existing = AnointmentRegistrar.get(entry.key());
             if (!anointment.isCompatible(entry.key()) || !existing.isCompatible(key)) {
@@ -100,10 +92,8 @@ public class ItemAnointmentProvider extends Item {
             }
         }
 
-        // Check if upgrading existing anointment
         for (AnointmentHolder.AnointmentEntry entry : holder.anointments()) {
             if (entry.key().equals(key)) {
-                // Can upgrade if new level is higher or if same level but more uses
                 if (level < entry.level()) {
                     return false;
                 }
@@ -119,14 +109,12 @@ public class ItemAnointmentProvider extends Item {
     private AnointmentHolder applyAnointment(AnointmentHolder holder, ResourceLocation key, int level, int maxDamage) {
         List<AnointmentHolder.AnointmentEntry> newList = new ArrayList<>();
 
-        // Keep all anointments except the one being replaced
         for (AnointmentHolder.AnointmentEntry entry : holder.anointments()) {
             if (!entry.key().equals(key)) {
                 newList.add(entry);
             }
         }
 
-        // Add the new anointment
         newList.add(new AnointmentHolder.AnointmentEntry(key, level, 0, maxDamage));
 
         return new AnointmentHolder(newList);

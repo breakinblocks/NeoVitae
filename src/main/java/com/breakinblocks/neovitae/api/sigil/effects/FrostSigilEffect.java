@@ -16,9 +16,6 @@ import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.function.Supplier;
 
-/**
- * Sigil effect that freezes water blocks below the player into ice.
- */
 public record FrostSigilEffect(int range) implements SigilEffect {
 
     public static final int DEFAULT_RANGE = 2;
@@ -53,13 +50,11 @@ public record FrostSigilEffect(int range) implements SigilEffect {
         int playerY = playerPos.getY();
         int playerZ = playerPos.getZ();
 
-        // Check blocks below the player in a radius
         for (int x = -range; x <= range; x++) {
             for (int z = -range; z <= range; z++) {
                 BlockPos checkPos = new BlockPos(playerX + x, playerY - 1, playerZ + z);
                 BlockState state = level.getBlockState(checkPos);
 
-                // Check if it's a water source block
                 if (state.getBlock() == Blocks.WATER && state.getValue(LiquidBlock.LEVEL) == 0) {
                     if (BlockProtectionHelper.canBreakBlock(level, checkPos, player)) {
                         level.setBlockAndUpdate(checkPos, Blocks.ICE.defaultBlockState());

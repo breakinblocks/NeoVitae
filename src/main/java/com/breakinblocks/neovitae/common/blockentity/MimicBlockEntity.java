@@ -30,10 +30,6 @@ import com.breakinblocks.neovitae.util.ChatUtil;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-/**
- * Block entity for mimic blocks.
- * Stores the appearance of another block and can optionally store inventory.
- */
 public class MimicBlockEntity extends BaseBlockEntity {
     public static final ModelProperty<BlockState> MIMIC = new ModelProperty<>();
 
@@ -46,7 +42,6 @@ public class MimicBlockEntity extends BaseBlockEntity {
     public int potionSpawnRadius = 5;
     public int potionSpawnInterval = 40;
 
-    // Inventory: slot 0 = stored block item, slot 1 = potion item
     public ItemStackHandler inventory = new ItemStackHandler(2) {
         @Override
         protected void onContentsChanged(int slot) {

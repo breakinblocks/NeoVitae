@@ -101,14 +101,12 @@ public class RitualGeode extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        // Query demon will
         double rawWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DEFAULT);
         double steadfastWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.STEADFAST);
         double destructiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.DESTRUCTIVE);
         double corrosiveWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.CORROSIVE);
         double vengefulWill = WorldDemonWillHandler.getCurrentWill(ctx.level(), masterPos, EnumWillType.VENGEFUL);
 
-        // Determine available features
         boolean doStore = rawWill >= MIN_DEFAULT;
         boolean doFortune = destructiveWill >= MIN_DESTRUCTIVE;
         boolean doSilk = steadfastWill >= MIN_STEADFAST;
@@ -120,7 +118,6 @@ public class RitualGeode extends Ritual {
             doFortune = false;
         }
 
-        // Build the tool for loot context
         ItemStack toolStack = new ItemStack(Items.NETHERITE_PICKAXE);
         if (doFortune) {
             Holder<Enchantment> fortune = serverLevel.registryAccess()
@@ -132,7 +129,6 @@ public class RitualGeode extends Ritual {
             toolStack.enchant(silkTouch, 1);
         }
 
-        // Check for storage inventory
         BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, masterPos).getFirst();
         BlockEntity inv = ctx.level().getBlockEntity(chestPos);
         boolean hasInv = inv != null && Utils.getNumberOfFreeSlots(inv, Direction.DOWN) >= 1;
@@ -141,7 +137,6 @@ public class RitualGeode extends Ritual {
         // Create fake player for loot context (fixes drops for blocks that require THIS_ENTITY like certus quartz)
         FakePlayer fakePlayer = new FakePlayer(serverLevel, new GameProfile(owner, "[NeoVitae Geode]"));
 
-        // Track will consumption
         double fortuneWillUsed = 0;
         double silkWillUsed = 0;
         double storeWillUsed = 0;
@@ -163,7 +158,6 @@ public class RitualGeode extends Ritual {
             // Check block protection
             if (!BlockProtectionHelper.canBreakBlock(ctx.level(), harvestPos, owner)) continue;
 
-            // Get drops with proper loot context
             LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel)
                     .withParameter(LootContextParams.ORIGIN, harvestPos.getCenter())
                     .withParameter(LootContextParams.BLOCK_STATE, state)
@@ -181,7 +175,6 @@ public class RitualGeode extends Ritual {
             if (doFortune) fortuneWillUsed += WILL_PER_FORTUNE;
             if (doSilk) silkWillUsed += WILL_PER_SILK;
 
-            // Handle drops: store in inventory or spawn in world
             for (ItemStack dropStack : blockDrops) {
                 if (doStore && (rawWill - storeWillUsed) >= WILL_PER_STORE) {
                     dropStack = Utils.insertStackIntoTile(dropStack, inv, Direction.DOWN);
@@ -233,7 +226,6 @@ public class RitualGeode extends Ritual {
             }
         }
 
-        // Drain consumed will
         if (storeWillUsed > 0) {
             WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.DEFAULT, storeWillUsed);
         }
@@ -250,7 +242,6 @@ public class RitualGeode extends Ritual {
             WorldDemonWillHandler.drainWillFromChunk(ctx.level(), masterPos, EnumWillType.VENGEFUL, harmWillUsed);
         }
 
-        // Syphon LP
         ctx.syphon(totalCost > 0 ? totalCost : getRefreshCost());
     }
 

@@ -27,10 +27,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * Block entity for the Master Ritual Stone.
- * Manages ritual activation, execution, and state.
- */
 public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMasterRitualStone {
 
     private UUID owner;
@@ -135,7 +131,6 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     public boolean activateRitual(Ritual ritual, Player player, int crystalLevel) {
         if (level == null || level.isClientSide()) return false;
 
-        // Check if ritual is disabled via datapack
         var ritualHolder = RitualRegistry.getRitualRegistry().wrapAsHolder(ritual);
         RitualStats stats = ritualHolder.getData(NVDataMaps.RITUAL_STATS);
         if (stats != null && !stats.enabled()) {
@@ -171,39 +166,32 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
             return false;
         }
 
-        // Fire pre-activation event (cancellable)
         RitualEvent.Activate activateEvent = new RitualEvent.Activate(this, ritual, player, crystalLevel);
         if (NeoForge.EVENT_BUS.post(activateEvent).isCanceled()) {
             return false;
         }
 
-        // Check if ritual allows activation
         if (!ritual.activateRitual(this, player, player.getUUID())) {
             return false;
         }
 
-        // Stop current ritual if one is active
         if (active && currentRitual != null) {
             stopRitual(Ritual.BreakType.ACTIVATE);
         }
 
-        // Activate new ritual
         this.currentRitual = ritual.getNewCopy();
         this.currentRitualId = RitualRegistry.getId(ritual);  // Store ID from original, not the copy
         this.owner = player.getUUID();
         this.active = true;
         this.runningTime = 0;
 
-        // Copy default ranges
         blockRanges.clear();
         for (Map.Entry<String, AreaDescriptor> entry : ritual.getModifiableRanges().entrySet()) {
             blockRanges.put(entry.getKey(), entry.getValue().copy());
         }
 
-        // Consume activation cost
         network.syphon(ticket(ritual.getActivationCost()));
 
-        // Fire post-activation event (not cancellable)
         NeoForge.EVENT_BUS.post(new RitualEvent.Activated(this, currentRitual, player));
 
         setChanged();
@@ -213,32 +201,25 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     /**
      * Force activates a ritual without cost, structure check, or owner requirement.
      * Used for admin commands and testing.
-     *
-     * @param ritual The ritual to activate
-     * @param player The player to set as owner (can be null for server-initiated)
      */
     public void forceActivateRitual(Ritual ritual, @javax.annotation.Nullable Player player) {
         if (level == null || level.isClientSide()) return;
 
-        // Stop current ritual if one is active
         if (active && currentRitual != null) {
             stopRitual(Ritual.BreakType.ACTIVATE);
         }
 
-        // Activate new ritual
         this.currentRitual = ritual.getNewCopy();
         this.currentRitualId = RitualRegistry.getId(ritual);  // Store ID from original, not the copy
         this.owner = player != null ? player.getUUID() : null;
         this.active = true;
         this.runningTime = 0;
 
-        // Copy default ranges
         blockRanges.clear();
         for (Map.Entry<String, AreaDescriptor> entry : ritual.getModifiableRanges().entrySet()) {
             blockRanges.put(entry.getKey(), entry.getValue().copy());
         }
 
-        // Fire post-activation event
         if (player != null) {
             NeoForge.EVENT_BUS.post(new RitualEvent.Activated(this, currentRitual, player));
         }
@@ -250,7 +231,6 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     public void performRitual() {
         if (level == null || level.isClientSide() || !active || currentRitual == null) return;
 
-        // If owner is null, the ritual cannot function - stop it
         if (owner == null) {
             stopRitual(Ritual.BreakType.DEACTIVATE);
             return;
@@ -258,16 +238,13 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
 
         SoulNetwork network = getOwnerNetwork();
         if (network == null) {
-            // Network not available yet (server still loading) - skip this tick but don't stop
             return;
         }
 
         if (network.getCurrentEssence() < currentRitual.getRefreshCost()) {
-            // Optionally notify owner of insufficient LP
             return;
         }
 
-        // Fire perform event (cancellable to skip this cycle)
         RitualEvent.Perform performEvent = new RitualEvent.Perform(this, currentRitual);
         if (NeoForge.EVENT_BUS.post(performEvent).isCanceled()) {
             return;
@@ -279,7 +256,6 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     @Override
     public void stopRitual(Ritual.BreakType breakType) {
         if (currentRitual != null) {
-            // Fire stop event (not cancellable - for notification/cleanup)
             NeoForge.EVENT_BUS.post(new RitualEvent.Stop(this, currentRitual, breakType));
             currentRitual.stopRitual(this, breakType);
         }
@@ -295,10 +271,8 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     public boolean checkStructure(Ritual ritual) {
         if (level == null) return false;
 
-        // Try all four rotations to find a matching ritual structure
         for (Direction dir : new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST}) {
             if (checkStructureWithDirection(ritual, dir)) {
-                // Store the direction that matched so cleanup uses correct rotation
                 this.direction = dir;
                 setChanged();
                 return true;
@@ -307,9 +281,6 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         return false;
     }
 
-    /**
-     * Checks if the ritual structure matches with the given rotation direction.
-     */
     private boolean checkStructureWithDirection(Ritual ritual, Direction dir) {
         for (RitualComponent component : getRitualComponents(ritual)) {
             BlockPos rotatedOffset = rotateOffset(component.offset(), dir);
@@ -327,9 +298,6 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         return true;
     }
 
-    /**
-     * Rotates a block offset based on the facing direction.
-     */
     private BlockPos rotateOffset(BlockPos offset, Direction dir) {
         return switch (dir) {
             case NORTH -> offset;
@@ -419,8 +387,6 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         }
     }
 
-    // ==================== Serialization ====================
-
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
@@ -442,12 +408,10 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
             currentRitual.writeToNBT(ritualData);
             tag.put("ritualData", ritualData);
 
-            // Save block ranges
             CompoundTag rangesTag = new CompoundTag();
             for (Map.Entry<String, AreaDescriptor> entry : blockRanges.entrySet()) {
                 CompoundTag rangeTag = new CompoundTag();
                 AreaDescriptor desc = entry.getValue();
-                // Save type discriminator
                 if (desc instanceof AreaDescriptor.Rectangle) {
                     rangeTag.putString("type", "rectangle");
                 } else if (desc instanceof AreaDescriptor.HemiSphere) {
@@ -498,7 +462,6 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
                     currentRitual.readFromNBT(tag.getCompound("ritualData"));
                 }
 
-                // Restore block ranges - prefer saved ranges, fall back to defaults
                 blockRanges.clear();
                 if (tag.contains("blockRanges")) {
                     CompoundTag rangesTag = tag.getCompound("blockRanges");
@@ -512,25 +475,19 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
                         }
                     }
                 } else {
-                    // Fall back to default ranges from ritual
                     for (Map.Entry<String, AreaDescriptor> entry : currentRitual.getModifiableRanges().entrySet()) {
                         blockRanges.put(entry.getKey(), entry.getValue().copy());
                     }
                 }
             } else {
-                // Ritual not found in registry - clear active state
                 active = false;
                 currentRitualId = null;
             }
         } else if (active) {
-            // Active flag is true but no ritual saved - this is an error state
             active = false;
         }
     }
 
-    /**
-     * Creates an AreaDescriptor based on the type string.
-     */
     private AreaDescriptor createAreaDescriptor(String type) {
         return switch (type) {
             case "rectangle" -> new AreaDescriptor.Rectangle(BlockPos.ZERO, BlockPos.ZERO);

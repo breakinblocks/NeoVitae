@@ -17,12 +17,8 @@ import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Serializer for flask effect transform recipes (converting effects into other effects).
- */
 public class FlaskEffectTransformSerializer implements RecipeSerializer<FlaskEffectTransformRecipe> {
 
-    // Codec for effect + duration pair
     private static final Codec<Pair<Holder<MobEffect>, Integer>> EFFECT_PAIR_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             BuiltInRegistries.MOB_EFFECT.holderByNameCodec().fieldOf("effect").forGetter(Pair::getFirst),
             Codec.INT.fieldOf("duration").forGetter(Pair::getSecond)

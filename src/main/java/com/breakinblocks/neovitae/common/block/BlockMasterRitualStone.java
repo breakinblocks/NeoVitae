@@ -91,15 +91,12 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
-        // Handle ritual diviner - let the item handle placement
         if (stack.getItem() instanceof com.breakinblocks.neovitae.common.item.ItemRitualDiviner diviner) {
-            // Client-side: spawn particles and return success
             if (level.isClientSide()) {
                 com.breakinblocks.neovitae.common.item.ItemRitualDiviner.spawnParticles(level, pos.relative(hitResult.getDirection()), 15);
                 return ItemInteractionResult.SUCCESS;
             }
 
-            // Server-side: delegate to the diviner's logic
             String ritualId = diviner.getCurrentRitualId(stack);
             if (ritualId.isEmpty()) {
                 player.displayClientMessage(
@@ -107,25 +104,21 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
                 return ItemInteractionResult.FAIL;
             }
 
-            // Try to build ritual
             if (diviner.addRuneToRitual(stack, level, pos, player)) {
                 diviner.setStoredPos(stack, pos);
                 diviner.setActivated(stack, true);
                 return ItemInteractionResult.SUCCESS;
             }
 
-            // Ritual is complete or cannot progress
             player.displayClientMessage(
                     Component.translatable("chat.neovitae.diviner.ritualComplete").withStyle(ChatFormatting.GREEN), true);
             return ItemInteractionResult.SUCCESS;
         }
 
-        // Client-side early return for other items
         if (level.isClientSide()) {
             return ItemInteractionResult.SUCCESS;
         }
 
-        // Handle activation crystal
         if (stack.getItem() instanceof ItemActivationCrystal crystal) {
             Binding binding = stack.get(NVDataComponents.BINDING.get());
             if (binding == null || binding.uuid() == null) {
@@ -179,7 +172,6 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
             return InteractionResult.PASS;
         }
 
-        // Sneak-click to deactivate
         if (player.isShiftKeyDown() && tile.isActive()) {
             tile.stopRitual(Ritual.BreakType.DEACTIVATE);
             player.displayClientMessage(
@@ -187,7 +179,6 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
             return InteractionResult.SUCCESS;
         }
 
-        // Show ritual info
         if (tile.isActive() && tile.getCurrentRitual() != null) {
             tile.provideInformationOfRitualToPlayer(player);
         } else {
@@ -220,10 +211,6 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
         super.appendHoverText(stack, context, tooltip, flag);
     }
 
-    /**
-     * Counts the number of rune components in a ritual.
-     * Used for determining the most specific ritual match.
-     */
     private int countRitualComponents(Ritual ritual) {
         java.util.List<com.breakinblocks.neovitae.ritual.RitualComponent> components = new java.util.ArrayList<>();
         ritual.gatherComponents(components::add);

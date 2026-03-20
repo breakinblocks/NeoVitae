@@ -19,13 +19,11 @@ public class SoulForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBlockEnt
     public SoulForgeMenu(int containerId, Inventory playerInventory, HellfireForgeBlockEntity tile) {
         super(NVMenus.SOUL_FORGE.get(), containerId, tile, TILE_SLOTS);
 
-        // Input slots (4 corners)
         this.addSlot(new SlotItemHandler(tile.inv, 0, 8, 15));
         this.addSlot(new SlotItemHandler(tile.inv, 1, 80, 15));
         this.addSlot(new SlotItemHandler(tile.inv, 2, 8, 87));
         this.addSlot(new SlotItemHandler(tile.inv, 3, 80, 87));
 
-        // Soul gem slot
         this.addSlot(new SlotItemHandler(tile.inv, HellfireForgeBlockEntity.GEM_SLOT, 152, 51) {
             @Override
             public boolean mayPlace(ItemStack stack) {
@@ -33,7 +31,6 @@ public class SoulForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBlockEnt
             }
         });
 
-        // Output slot
         this.addSlot(new SlotItemHandler(tile.inv, HellfireForgeBlockEntity.OUTPUT_SLOT, 44, 51) {
             @Override
             public boolean mayPlace(ItemStack stack) {
@@ -41,7 +38,6 @@ public class SoulForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBlockEnt
             }
         });
 
-        // Player inventory and hotbar
         MenuSlotHelper.addPlayerInventory(this::addSlot, playerInventory,
                 MenuSlotHelper.INV_Y_205, MenuSlotHelper.HOTBAR_Y_205);
     }
@@ -58,14 +54,11 @@ public class SoulForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBlockEnt
             }
             slot.onQuickCraft(slotStack, originalCopy);
         } else if (isPlayerSlot(index)) {
-            // From player inventory
             if (slotStack.has(NVDataComponents.DEMON_WILL_AMOUNT)) {
-                // Will items go to soul slot
                 if (!moveToTileSlots(slotStack, 4, 5)) {
                     return false;
                 }
             } else if (!moveToTileSlots(slotStack, 0, 4)) {
-                // Other items go to input slots
                 return false;
             }
         } else if (!moveToPlayer(slotStack, false)) {

@@ -5,9 +5,6 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 import javax.annotation.Nonnull;
 
-/**
- * Interface for activatable Items (toggleable sigils, etc.)
- */
 public interface IActivatable {
 
     default boolean getActivated(ItemStack stack) {

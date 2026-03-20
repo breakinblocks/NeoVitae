@@ -4,9 +4,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-/**
- * Plant Leech effect - damages the entity to grow nearby plants.
- */
 public class PlantLeechEffect extends MobEffect {
 
     public PlantLeechEffect(MobEffectCategory category, int color) {

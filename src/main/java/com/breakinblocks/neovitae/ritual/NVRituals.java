@@ -5,10 +5,6 @@ import com.breakinblocks.neovitae.ritual.types.*;
 
 import java.util.function.Supplier;
 
-/**
- * Registration of all NeoVitae rituals.
- * Uses NeoForge's DeferredRegister system.
- */
 public final class NVRituals {
     private NVRituals() {}
 

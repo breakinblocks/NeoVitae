@@ -31,12 +31,10 @@ public class RitualArmourEvolve extends Ritual {
             return;
         }
 
-        // Check for player standing on the ritual
         AABB checkArea = new AABB(ctx.masterPos()).inflate(1, 2, 1);
         List<Player> players = ctx.level().getEntitiesOfClass(Player.class, checkArea);
 
         for (Player player : players) {
-            // Check if wearing living armor (chestplate)
             ItemStack chestpiece = player.getInventory().armor.get(2);
             if (chestpiece.isEmpty() || !chestpiece.is(NVTags.Items.LIVING_SET)) {
                 continue;
@@ -58,7 +56,6 @@ public class RitualArmourEvolve extends Ritual {
             // Evolve the armor
             chestpiece.set(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS.get(), newMaxPoints);
 
-            // Consume LP and deactivate
             ctx.syphon(getRefreshCost());
             masterRitualStone.stopRitual(BreakType.DEACTIVATE);
             return;

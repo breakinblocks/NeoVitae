@@ -24,7 +24,6 @@ public record SigilStats(
         Optional<Integer> effectDuration,
         Optional<Integer> effectLevel
 ) {
-    // Default drain interval (5 seconds)
     public static final int DEFAULT_DRAIN_INTERVAL = 100;
 
     public static final Codec<SigilStats> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -64,7 +63,6 @@ public record SigilStats(
         return new SigilStats(lpCost, drainInterval, Optional.of(range), Optional.of(verticalRange), Optional.of(effectDuration), Optional.of(effectLevel));
     }
 
-    // Convenience getters with defaults
     public int getRange(int defaultValue) {
         return range.orElse(defaultValue);
     }

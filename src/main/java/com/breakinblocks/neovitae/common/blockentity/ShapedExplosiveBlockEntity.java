@@ -24,10 +24,6 @@ import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.common.block.BlockShapedExplosive;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
-/**
- * Block entity for shaped explosive charges.
- * Creates a rectangular explosion in the direction the charge is attached.
- */
 public class ShapedExplosiveBlockEntity extends ExplosiveChargeBlockEntity {
     public double internalCounter = 0;
     public int explosionRadius;
@@ -112,8 +108,6 @@ public class ShapedExplosiveBlockEntity extends ExplosiveChargeBlockEntity {
                         BlockState blockstate = this.level.getBlockState(blockpos);
 
                         if (!blockstate.isAir() && blockstate.getDestroySpeed(level, blockpos) != -1.0F) {
-                            // Check protection before breaking - use strict mode to prevent breaking
-                            // if owner is unknown (e.g., placed by dispenser) or offline
                             if (!BlockProtectionHelper.canBreakBlockStrict(level, blockpos, ownerUUID)) {
                                 continue;
                             }

@@ -22,9 +22,8 @@ import net.minecraft.world.entity.LivingEntity;
  */
 public final class EntitySacrificeHelper {
 
-    private EntitySacrificeHelper() {
-        // Utility class
-    }
+    private EntitySacrificeHelper() {}
+
 
     /**
      * Gets the sacrifice value for an entity type.

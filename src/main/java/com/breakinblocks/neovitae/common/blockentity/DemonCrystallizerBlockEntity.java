@@ -24,16 +24,10 @@ import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
  */
 public class DemonCrystallizerBlockEntity extends BaseBlockEntity {
 
-    /**
-     * Gets the configured will required to form a crystal.
-     */
     private static double getWillToFormCrystal() {
         return NeoVitae.SERVER_CONFIG.CRYSTAL_WILL_TO_FORM.get();
     }
 
-    /**
-     * Gets the configured total formation time in ticks.
-     */
     private static double getTotalFormationTime() {
         return NeoVitae.SERVER_CONFIG.CRYSTAL_FORMATION_TIME.get();
     }
@@ -66,7 +60,6 @@ public class DemonCrystallizerBlockEntity extends BaseBlockEntity {
                 internalCounter += formationRate;
 
                 if (internalCounter >= getTotalFormationTime()) {
-                    // Try to drain will and form crystal
                     double drained = WorldDemonWillHandler.drainWillFromChunk(level, worldPosition, highestType, willToForm);
                     if (drained >= willToForm) {
                         if (formCrystal(highestType, offsetPos)) {
@@ -77,7 +70,6 @@ public class DemonCrystallizerBlockEntity extends BaseBlockEntity {
                 }
             }
         } else {
-            // Reset counter if there's something above
             if (internalCounter > 0) {
                 internalCounter = 0;
                 setChanged();
@@ -85,10 +77,6 @@ public class DemonCrystallizerBlockEntity extends BaseBlockEntity {
         }
     }
 
-    /**
-     * Forms a crystal of the given type at the given position.
-     * @return true if successful
-     */
     private boolean formCrystal(EnumWillType type, BlockPos position) {
         Block block = switch (type) {
             case CORROSIVE -> NVBlocks.CORROSIVE_DEMON_CRYSTAL.block().get();
@@ -98,14 +86,12 @@ public class DemonCrystallizerBlockEntity extends BaseBlockEntity {
             default -> NVBlocks.RAW_DEMON_CRYSTAL.block().get();
         };
 
-        // Place crystal with AGE 0 (1 crystal) and attached to UP direction
         BlockState crystalState = block.defaultBlockState()
                 .setValue(BlockDemonCrystal.AGE, 0)
                 .setValue(BlockDemonCrystal.ATTACHED, Direction.UP);
 
         level.setBlock(position, crystalState, Block.UPDATE_ALL);
 
-        // Set up the tile entity
         BlockEntity tile = level.getBlockEntity(position);
         if (tile instanceof DemonCrystalBlockEntity crystalTile) {
             crystalTile.placement = Direction.UP;
@@ -116,10 +102,6 @@ public class DemonCrystallizerBlockEntity extends BaseBlockEntity {
         return false;
     }
 
-    /**
-     * Get the formation rate based on available will.
-     * Currently returns 1, but can be modified for different formation speeds.
-     */
     private double getCrystalFormationRate(double currentWill) {
         return 1.0;
     }

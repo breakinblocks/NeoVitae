@@ -55,10 +55,8 @@ public class NVRecipes {
     public static final DeferredHolder<RecipeType<?>, RecipeType<MeteorRecipe>> METEOR_TYPE = TYPES.register(MeteorRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(MeteorRecipe.RECIPE_TYPE_NAME)));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<MeteorRecipe>> METEOR_SERIALIZER = SERIALIZERS.register(MeteorRecipe.RECIPE_TYPE_NAME, MeteorSerializer::new);
 
-    // Flask recipe type (alchemy table flask modifications)
     public static final DeferredHolder<RecipeType<?>, RecipeType<FlaskRecipe>> FLASK_TYPE = TYPES.register(FlaskRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(FlaskRecipe.RECIPE_TYPE_NAME)));
 
-    // Flask recipe serializers
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<FlaskEffectRecipe>> FLASK_EFFECT_SERIALIZER = SERIALIZERS.register("flask_effect", FlaskEffectSerializer::new);
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<FlaskFillRecipe>> FLASK_FILL_SERIALIZER = SERIALIZERS.register("flask_fill", FlaskFillSerializer::new);
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<FlaskCycleRecipe>> FLASK_CYCLE_SERIALIZER = SERIALIZERS.register("flask_cycle", FlaskCycleSerializer::new);
@@ -67,11 +65,9 @@ public class NVRecipes {
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<FlaskPotencyRecipe>> FLASK_POTENCY_SERIALIZER = SERIALIZERS.register("flask_potency", FlaskPotencySerializer::new);
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<FlaskEffectTransformRecipe>> FLASK_EFFECT_TRANSFORM_SERIALIZER = SERIALIZERS.register("flask_effect_transform", FlaskEffectTransformSerializer::new);
 
-    // Living Downgrade recipes
     public static final DeferredHolder<RecipeType<?>, RecipeType<LivingDowngradeRecipe>> LIVING_DOWNGRADE_TYPE = TYPES.register(LivingDowngradeRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(LivingDowngradeRecipe.RECIPE_TYPE_NAME)));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<LivingDowngradeRecipe>> LIVING_DOWNGRADE_SERIALIZER = SERIALIZERS.register(LivingDowngradeRecipe.RECIPE_TYPE_NAME, LivingDowngradeSerializer::new);
 
-    // Special crafting recipes
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<UpgradeTomeCombineRecipe>> UPGRADE_TOME_COMBINE_SERIALIZER = SERIALIZERS.register("upgrade_tome_combine", UpgradeTomeCombineSerializer::new);
 
     public static void register(IEventBus modBus) {

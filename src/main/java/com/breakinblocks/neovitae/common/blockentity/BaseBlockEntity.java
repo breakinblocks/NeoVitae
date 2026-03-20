@@ -17,10 +17,6 @@ public abstract class BaseBlockEntity extends BlockEntity {
         super(type, pos, blockState);
     }
 
-    /**
-     * Override setChanged to automatically sync block entity data to clients.
-     * This is a common pattern for tiles that need client-side rendering updates.
-     */
     @Override
     public void setChanged() {
         super.setChanged();

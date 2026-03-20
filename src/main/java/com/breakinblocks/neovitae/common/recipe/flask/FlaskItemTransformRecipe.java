@@ -1,5 +1,11 @@
 package com.breakinblocks.neovitae.common.recipe.flask;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -9,6 +15,7 @@ import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
+import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -19,6 +26,23 @@ import java.util.List;
  * Effects and durability are preserved on the new flask type.
  */
 public class FlaskItemTransformRecipe extends FlaskRecipe {
+
+    public static final MapCodec<FlaskItemTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            Ingredient.CODEC_NONEMPTY.listOf().fieldOf("input").forGetter(FlaskItemTransformRecipe::getInput),
+            ItemStack.CODEC.fieldOf("output").forGetter(FlaskItemTransformRecipe::getOutputItem),
+            Codec.INT.fieldOf("syphon").forGetter(FlaskItemTransformRecipe::getSyphon),
+            Codec.INT.fieldOf("ticks").forGetter(FlaskItemTransformRecipe::getTicks),
+            Codec.INT.optionalFieldOf("upgradeLevel", 0).forGetter(FlaskItemTransformRecipe::getMinimumTier)
+    ).apply(instance, FlaskItemTransformRecipe::new));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, FlaskItemTransformRecipe> STREAM_CODEC = StreamCodec.composite(
+            RecipeSerializerUtils.INGREDIENT_LIST_CODEC, FlaskItemTransformRecipe::getInput,
+            ItemStack.STREAM_CODEC, FlaskItemTransformRecipe::getOutputItem,
+            ByteBufCodecs.INT, FlaskItemTransformRecipe::getSyphon,
+            ByteBufCodecs.INT, FlaskItemTransformRecipe::getTicks,
+            ByteBufCodecs.INT, FlaskItemTransformRecipe::getMinimumTier,
+            FlaskItemTransformRecipe::new
+    );
 
     private final ItemStack outputItem;
 

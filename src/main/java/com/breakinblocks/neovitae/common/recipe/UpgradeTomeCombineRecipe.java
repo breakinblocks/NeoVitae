@@ -1,7 +1,11 @@
 package com.breakinblocks.neovitae.common.recipe;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -17,6 +21,15 @@ import com.breakinblocks.neovitae.common.item.NVItems;
  * The resulting tome has the combined exp of both input tomes.
  */
 public class UpgradeTomeCombineRecipe extends CustomRecipe {
+
+    public static final MapCodec<UpgradeTomeCombineRecipe> CODEC = RecordCodecBuilder.mapCodec(builder -> builder.group(
+            CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(r -> CraftingBookCategory.MISC)
+    ).apply(builder, UpgradeTomeCombineRecipe::new));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, UpgradeTomeCombineRecipe> STREAM_CODEC = StreamCodec.composite(
+            CraftingBookCategory.STREAM_CODEC, r -> CraftingBookCategory.MISC,
+            UpgradeTomeCombineRecipe::new
+    );
 
     public UpgradeTomeCombineRecipe(CraftingBookCategory category) {
         super(category);

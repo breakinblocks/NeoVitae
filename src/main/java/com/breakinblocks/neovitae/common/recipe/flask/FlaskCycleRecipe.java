@@ -1,5 +1,11 @@
 package com.breakinblocks.neovitae.common.recipe.flask;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -7,6 +13,7 @@ import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
+import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -16,6 +23,23 @@ import java.util.List;
  * This moves the first effect(s) to the end of the list.
  */
 public class FlaskCycleRecipe extends FlaskRecipe {
+
+    public static final MapCodec<FlaskCycleRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            Ingredient.CODEC_NONEMPTY.listOf().fieldOf("input").forGetter(FlaskCycleRecipe::getInput),
+            Codec.INT.fieldOf("count").forGetter(FlaskCycleRecipe::getNumCycles),
+            Codec.INT.fieldOf("syphon").forGetter(FlaskCycleRecipe::getSyphon),
+            Codec.INT.fieldOf("ticks").forGetter(FlaskCycleRecipe::getTicks),
+            Codec.INT.fieldOf("upgradeLevel").forGetter(FlaskCycleRecipe::getMinimumTier)
+    ).apply(instance, FlaskCycleRecipe::new));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, FlaskCycleRecipe> STREAM_CODEC = StreamCodec.composite(
+            RecipeSerializerUtils.INGREDIENT_LIST_CODEC, FlaskCycleRecipe::getInput,
+            ByteBufCodecs.INT, FlaskCycleRecipe::getNumCycles,
+            ByteBufCodecs.INT, FlaskCycleRecipe::getSyphon,
+            ByteBufCodecs.INT, FlaskCycleRecipe::getTicks,
+            ByteBufCodecs.INT, FlaskCycleRecipe::getMinimumTier,
+            FlaskCycleRecipe::new
+    );
 
     private final int numCycles;
 

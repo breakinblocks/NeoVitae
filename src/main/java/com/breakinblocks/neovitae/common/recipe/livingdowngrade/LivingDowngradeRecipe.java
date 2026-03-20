@@ -1,7 +1,11 @@
 package com.breakinblocks.neovitae.common.recipe.livingdowngrade;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -19,6 +23,17 @@ import javax.annotation.Nonnull;
  */
 public class LivingDowngradeRecipe implements Recipe<LivingDowngradeInput> {
     public static final String RECIPE_TYPE_NAME = "livingdowngrade";
+
+    public static final MapCodec<LivingDowngradeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            Ingredient.CODEC_NONEMPTY.fieldOf("input").forGetter(LivingDowngradeRecipe::getInput),
+            ResourceLocation.CODEC.fieldOf("livingarmour").forGetter(LivingDowngradeRecipe::getLivingUpgradeId)
+    ).apply(instance, LivingDowngradeRecipe::new));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, LivingDowngradeRecipe> STREAM_CODEC = StreamCodec.composite(
+            Ingredient.CONTENTS_STREAM_CODEC, LivingDowngradeRecipe::getInput,
+            ResourceLocation.STREAM_CODEC, LivingDowngradeRecipe::getLivingUpgradeId,
+            LivingDowngradeRecipe::new
+    );
 
     @Nonnull
     private final Ingredient input;

@@ -11,10 +11,16 @@ import com.breakinblocks.neovitae.will.WillChunk;
 import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 /**
- * Implementation of {@link IDemonWillHandler} that delegates to {@link WorldDemonWillHandler}.
+ * Default implementation of {@link IDemonWillHandler} that delegates to
+ * {@link WorldDemonWillHandler} and chunk data attachments.
  *
- * <p>This class provides the API implementation for addon mods to interact with
- * the demon will system.</p>
+ * <p>This is an internal singleton used by the API. Addon mods should not
+ * instantiate this class directly; instead, use
+ * {@link com.breakinblocks.neovitae.api.NeoVitaeAPI#getInstance()}{@code .getDemonWillHandler()}
+ * to obtain the handler.</p>
+ *
+ * <p>All mutating operations (add, drain, transfer, setMaxBonus) are server-side only
+ * and will silently no-op on the client.</p>
  */
 public class DemonWillHandler implements IDemonWillHandler {
 

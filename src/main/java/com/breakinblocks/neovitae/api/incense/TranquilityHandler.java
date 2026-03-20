@@ -9,8 +9,17 @@ import com.breakinblocks.neovitae.incense.EnumTranquilityType;
 import javax.annotation.Nullable;
 
 /**
- * Default implementation of {@link ITranquilityHandler} that uses the
+ * Default implementation of {@link ITranquilityHandler} backed by the
  * datamap-based tranquility system.
+ *
+ * <p>This is an internal singleton used by the API. Addon mods should not
+ * instantiate this class directly; instead, use
+ * {@link com.breakinblocks.neovitae.api.NeoVitaeAPI#getInstance()}{@code .getTranquilityHandler()}
+ * to obtain the handler.</p>
+ *
+ * <p>Tranquility values are loaded from datapacks at
+ * {@code data/<namespace>/data_maps/block/tranquility.json}. Changes to
+ * the datapack take effect after a {@code /reload} or server restart.</p>
  */
 public class TranquilityHandler implements ITranquilityHandler {
 

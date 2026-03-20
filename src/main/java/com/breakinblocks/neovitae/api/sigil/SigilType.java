@@ -139,6 +139,12 @@ public record SigilType(
         return effect.map(ISigilEffect::isToggleable).orElse(false);
     }
 
+    /**
+     * Returns the LP cost for the given usage context.
+     *
+     * @param context the context in which the sigil is being used
+     * @return the LP cost, or 0 if no cost is defined for that context
+     */
     public int getCostForContext(UseContext context) {
         return switch (context) {
             case AIR -> lpCostAir;
@@ -148,6 +154,9 @@ public record SigilType(
         };
     }
 
+    /**
+     * The context in which a sigil is being used, determining which LP cost applies.
+     */
     public enum UseContext {
         AIR,
         BLOCK,

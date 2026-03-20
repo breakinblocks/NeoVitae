@@ -43,7 +43,7 @@ public class NVMobEffects {
 
     // Sacrificial Lamb - makes passive mobs attack monsters and explode
     public static final DeferredHolder<MobEffect, SacrificialLambEffect> SACRIFICIAL_LAMB =
-            MOB_EFFECTS.register("sacrificallamb", () -> new SacrificialLambEffect(MobEffectCategory.HARMFUL, 0xFFFFFF));
+            MOB_EFFECTS.register("sacrificiallamb", () -> new SacrificialLambEffect(MobEffectCategory.HARMFUL, 0xFFFFFF));
 
     // Passivity - makes hostile mobs non-aggressive
     public static final DeferredHolder<MobEffect, PassivityEffect> PASSIVITY =

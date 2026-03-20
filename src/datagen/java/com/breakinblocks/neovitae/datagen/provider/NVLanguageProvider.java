@@ -864,7 +864,7 @@ public class NVLanguageProvider extends LanguageProvider {
         add("effect.neovitae.firefuse", "Fire Fuse");
         add("effect.neovitae.soulfray", "Soul Fray");
         add("effect.neovitae.plantleech", "Plant Leech");
-        add("effect.neovitae.sacrificallamb", "Sacrificial Lamb");
+        add("effect.neovitae.sacrificiallamb", "Sacrificial Lamb");
         add("effect.neovitae.passivity", "Passivity");
         add("effect.neovitae.flight", "Flight");
         add("effect.neovitae.spectral_sight", "Spectral Sight");

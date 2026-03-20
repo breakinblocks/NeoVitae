@@ -7,6 +7,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
@@ -72,12 +73,13 @@ public class RitualSuppression extends Ritual {
         Level level = masterRitualStone.getLevel();
         if (level == null || level.isClientSide()) return;
 
-        // Restore all suppressed fluids
+        // Restore all suppressed fluids using lighter update flags to avoid
+        // cascading neighbor updates that cause lag with large fluid volumes
         for (Map.Entry<BlockPos, BlockState> entry : suppressedBlocks.entrySet()) {
             BlockPos pos = entry.getKey();
             BlockState state = entry.getValue();
             if (level.getBlockState(pos).isAir()) {
-                level.setBlock(pos, state, 3);
+                level.setBlock(pos, state, Block.UPDATE_KNOWN_SHAPE | Block.UPDATE_CLIENTS);
             }
         }
         suppressedBlocks.clear();

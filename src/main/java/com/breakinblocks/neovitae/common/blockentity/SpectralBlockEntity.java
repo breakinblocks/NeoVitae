@@ -19,6 +19,7 @@ public class SpectralBlockEntity extends BaseBlockEntity {
 
     public static final int DEFAULT_DURATION = 40; // 2 seconds default
     public static final int MAX_DURATION = 100; // 5 seconds max
+    private static final int STAGGER_RANGE = 10; // max random jitter ticks on expiry
 
     private BlockState containedBlockState = Blocks.WATER.defaultBlockState();
     private int duration = DEFAULT_DURATION;
@@ -42,14 +43,15 @@ public class SpectralBlockEntity extends BaseBlockEntity {
 
     /**
      * Restores the original fluid block and removes this spectral block.
+     * Uses UPDATE_KNOWN_SHAPE to avoid expensive neighbor shape recalculations
+     * that cause lag cascades when many spectral blocks expire at once.
      */
     public void restoreContainedBlock() {
         if (level != null && !level.isClientSide()) {
             BlockState toRestore = containedBlockState;
             if (toRestore != null && !toRestore.isAir()) {
-                level.setBlock(worldPosition, toRestore, Block.UPDATE_ALL);
+                level.setBlock(worldPosition, toRestore, Block.UPDATE_KNOWN_SHAPE | Block.UPDATE_CLIENTS);
             } else {
-                // If no contained state, just remove
                 level.removeBlock(worldPosition, false);
             }
         }
@@ -72,17 +74,36 @@ public class SpectralBlockEntity extends BaseBlockEntity {
 
     /**
      * Resets the duration timer. Called by the sigil to keep the block suppressed.
+     * Only marks dirty if the duration actually changed to avoid unnecessary chunk saves.
      */
     public void resetDuration() {
-        this.duration = DEFAULT_DURATION;
-        setChanged();
+        if (this.duration < DEFAULT_DURATION) {
+            this.duration = DEFAULT_DURATION;
+            setChanged();
+        }
     }
 
     /**
      * Resets the duration with a specific value.
      */
     public void resetDuration(int newDuration) {
-        this.duration = Math.min(newDuration, MAX_DURATION);
+        int clamped = Math.min(newDuration, MAX_DURATION);
+        if (this.duration != clamped) {
+            this.duration = clamped;
+            setChanged();
+        }
+    }
+
+    /**
+     * Sets an initial duration with random jitter to stagger expiry times.
+     * Prevents hundreds of spectral blocks from restoring fluid on the same tick.
+     */
+    public void setInitialDuration() {
+        if (level != null) {
+            this.duration = DEFAULT_DURATION + level.getRandom().nextInt(STAGGER_RANGE);
+        } else {
+            this.duration = DEFAULT_DURATION;
+        }
         setChanged();
     }
 

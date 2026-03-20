@@ -60,17 +60,23 @@ public record SuppressionSigilEffect(int range, int verticalRange) implements Si
                     if (x * x + y * y + z * z > range * range) continue;
                     BlockPos checkPos = playerPos.offset(x, y, z);
                     BlockState state = level.getBlockState(checkPos);
+
+                    // Refresh existing spectral blocks without marking chunk dirty unnecessarily
+                    if (level.getBlockEntity(checkPos) instanceof SpectralBlockEntity spectral) {
+                        spectral.resetDuration();
+                        continue;
+                    }
+
                     FluidState fluidState = state.getFluidState();
 
                     // Check if block contains fluid
                     if (!fluidState.isEmpty()) {
                         if (BlockProtectionHelper.canBreakBlock(level, checkPos, player)) {
                             // Replace with spectral block that will restore the fluid
-                            BlockState originalState = state;
                             level.setBlockAndUpdate(checkPos, NVBlocks.SPECTRAL_BLOCK.get().defaultBlockState());
                             if (level.getBlockEntity(checkPos) instanceof SpectralBlockEntity spectral) {
-                                spectral.setContainedBlockState(originalState);
-                                spectral.resetDuration();
+                                spectral.setContainedBlockState(state);
+                                spectral.setInitialDuration();
                             }
                         }
                     }

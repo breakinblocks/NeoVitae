@@ -88,7 +88,8 @@ public class TeleposerFocusItem extends Item implements ITeleposerFocus {
 
     @Override
     public Binding getBinding(ItemStack stack) {
-        return stack.get(NVDataComponents.BINDING);
+        Binding binding = stack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
+        return binding.isEmpty() ? null : binding;
     }
 
     @Override

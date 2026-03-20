@@ -11,8 +11,8 @@ public interface IBindable {
     @Nullable
     default Binding getBinding(ItemStack stack) {
         if (stack.isEmpty()) return null;
-        Binding binding = stack.get(NVDataComponents.BINDING.get());
-        return binding != null && !binding.isEmpty() ? binding : null;
+        Binding binding = stack.getOrDefault(NVDataComponents.BINDING.get(), Binding.EMPTY);
+        return binding.isEmpty() ? null : binding;
     }
 
     default boolean onBind(Player player, ItemStack stack) {

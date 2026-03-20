@@ -172,8 +172,8 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
     private SoulNetwork getNetwork() {
         ItemStack focusStack = this.inv.getStackInSlot(FOCUS_SLOT);
         if (!focusStack.isEmpty() && focusStack.getItem() instanceof ITeleposerFocus) {
-            Binding binding = focusStack.get(NVDataComponents.BINDING);
-            if (binding != null && !binding.isEmpty()) {
+            Binding binding = focusStack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
+            if (!binding.isEmpty()) {
                 return SoulNetworkHelper.getSoulNetwork(binding);
             }
         }

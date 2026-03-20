@@ -388,9 +388,9 @@ public class BloodAltarTile extends BaseBlockEntity implements IFluidHandler, IB
         }
 
         ItemStack inputStack = inv.getStackInSlot(0);
-        Binding inputBinding = inputStack.get(NVDataComponents.BINDING);
+        Binding inputBinding = inputStack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
         Optional<RecipeHolder<com.breakinblocks.neovitae.api.recipe.BloodAltarRecipe>> optionalHolder = level.getRecipeManager().getRecipeFor(NVRecipes.BLOOD_ALTAR_TYPE.get(), new BloodAltarInput(inputStack, getTier()), level);
-        if (!(inputBinding == null || inputBinding.isEmpty())) {
+        if (!inputBinding.isEmpty()) {
             setCanFill(true);
             setActive(true);
             setCurrentRecipe(null);

@@ -50,10 +50,10 @@ public class CommonEventHandler {
             return;
         }
 
-        Binding binding = held.get(NVDataComponents.BINDING);
+        Binding binding = held.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
         GameProfile profile = event.getEntity().getGameProfile();
 
-        if (binding == null || binding.isEmpty()) {
+        if (binding.isEmpty()) {
             Binding newBinding = new Binding(profile.getId(), profile.getName());
             if (NeoForge.EVENT_BUS.post(new ItemBindEvent(event.getEntity(), held)).isCanceled()) {
                 return;

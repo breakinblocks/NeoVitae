@@ -3,15 +3,10 @@ package com.breakinblocks.neovitae.ritual.types;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -92,16 +87,7 @@ public class RitualCrushing extends Ritual {
 
         refreshTime = hasRaw ? Math.max(1, 40 - (int) (will.getDefault() / 5)) : 40;
 
-        ItemStack toolStack = new ItemStack(Items.NETHERITE_PICKAXE);
-        if (doFortune) {
-            Holder<Enchantment> fortune = serverLevel.registryAccess()
-                    .lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE);
-            toolStack.enchant(fortune, 3);
-        } else if (doSilk) {
-            Holder<Enchantment> silkTouch = serverLevel.registryAccess()
-                    .lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
-            toolStack.enchant(silkTouch, 1);
-        }
+        ItemStack toolStack = RitualHelper.createMiningTool(serverLevel, doFortune, doSilk);
 
         BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, masterPos).getFirst();
         BlockEntity inv = ctx.level().getBlockEntity(chestPos);
@@ -133,12 +119,11 @@ public class RitualCrushing extends Ritual {
             // Check will costs before crushing
             if (doSilk && (will.getSteadfast() - silkWillUsed) < WILL_PER_SILK) {
                 doSilk = false;
-                // Rebuild tool without silk touch
-                toolStack = new ItemStack(Items.NETHERITE_PICKAXE);
+                toolStack = RitualHelper.createMiningTool(serverLevel, false, false);
             }
             if (doFortune && (will.getDestructive() - fortuneWillUsed) < WILL_PER_FORTUNE) {
                 doFortune = false;
-                toolStack = new ItemStack(Items.NETHERITE_PICKAXE);
+                toolStack = RitualHelper.createMiningTool(serverLevel, false, false);
             }
 
             // Check block protection

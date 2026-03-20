@@ -1,8 +1,15 @@
 package com.breakinblocks.neovitae.ritual;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
@@ -149,6 +156,24 @@ public final class RitualHelper {
      */
     public static WillState queryWill(Level level, BlockPos pos, double threshold) {
         return DemonWillHandler.INSTANCE.queryWill(level, pos, threshold);
+    }
+
+    /**
+     * Creates a netherite pickaxe with optional Fortune or Silk Touch enchantment.
+     * Used by block-breaking rituals for loot table context.
+     */
+    public static ItemStack createMiningTool(ServerLevel level, boolean fortune, boolean silkTouch) {
+        ItemStack tool = new ItemStack(Items.NETHERITE_PICKAXE);
+        if (fortune) {
+            Holder<Enchantment> ench = level.registryAccess()
+                    .lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE);
+            tool.enchant(ench, 3);
+        } else if (silkTouch) {
+            Holder<Enchantment> ench = level.registryAccess()
+                    .lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
+            tool.enchant(ench, 1);
+        }
+        return tool;
     }
 
     public static void syphonLP(RitualContext context, int cost) {

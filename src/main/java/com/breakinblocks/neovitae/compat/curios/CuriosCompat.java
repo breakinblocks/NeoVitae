@@ -8,7 +8,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModList;
-import net.neoforged.fml.event.lifecycle.InterModEnqueueEvent;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
@@ -50,11 +49,7 @@ public class CuriosCompat {
         curiosLoaded = ModList.get().isLoaded(CURIOS_MODID);
         if (curiosLoaded) {
             NeoVitae.LOGGER.info("Curios detected - enabling compatibility");
-            modBus.addListener(CuriosCompat::onInterModEnqueue);
         }
-    }
-
-    private static void onInterModEnqueue(InterModEnqueueEvent event) {
     }
 
     /**

@@ -61,14 +61,6 @@ public class AltarUtil {
     }
 
     /**
-     * @deprecated Use {@link #scanForRunes(int, Level, BlockPos)} instead for access to rune instances
-     */
-    @Deprecated
-    public static Map<IAltarRuneType, Integer> getUpgrades(int tier, Level level, BlockPos altarPos) {
-        return scanForRunes(tier, level, altarPos).runeCounts();
-    }
-
-    /**
      * Scans the altar structure for all runes and returns both aggregated counts
      * and individual rune instances, enabling addon mods with dynamic runes to
      * inspect rune state without re-scanning.

@@ -29,18 +29,23 @@ public class NVFluids {
     public static final DeferredRegister<Item> BUCKETS = DeferredRegister.createItems(NeoVitae.MODID);
     public static final DeferredRegister<Block> SOURCE_BLOCKS = DeferredRegister.createBlocks(NeoVitae.MODID);
 
-    public static final DeferredHolder<FluidType, FluidType> LIFE_ESSENCE_TYPE = FLUID_TYPES.register("life_essence_fluid_type", () -> new FluidType(FluidType.Properties.create()
-            .descriptionId("fluid.neovitae.life_essence_fluid")
-            .fallDistanceModifier(0F)
-            .canExtinguish(false)
-            .canConvertToSource(false)
-            .supportsBoating(false)
-            .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY)
-            .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
-            .sound(SoundActions.FLUID_VAPORIZE, SoundEvents.FIRE_EXTINGUISH)
-            .canHydrate(false)
-            .viscosity(1000)
-    ));
+    private static FluidType createFluidType(String descriptionId) {
+        return new FluidType(FluidType.Properties.create()
+                .descriptionId(descriptionId)
+                .fallDistanceModifier(0F)
+                .canExtinguish(false)
+                .canConvertToSource(false)
+                .supportsBoating(false)
+                .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY)
+                .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
+                .sound(SoundActions.FLUID_VAPORIZE, SoundEvents.FIRE_EXTINGUISH)
+                .canHydrate(false)
+                .viscosity(1000)
+        );
+    }
+
+    public static final DeferredHolder<FluidType, FluidType> LIFE_ESSENCE_TYPE =
+            FLUID_TYPES.register("life_essence_fluid_type", () -> createFluidType("fluid.neovitae.life_essence_fluid"));
 
     public static final DeferredHolder<Fluid, FlowingFluid> LIFE_ESSENCE_SOURCE = FLUIDS.register("life_essence_fluid_source", () -> new BaseFlowingFluid.Source(lifeEssenceProperties()));
     public static final DeferredHolder<Fluid, FlowingFluid> LIFE_ESSENCE_FLOWING = FLUIDS.register("life_essence_fluid_flowing", () -> new BaseFlowingFluid.Flowing(lifeEssenceProperties()));
@@ -51,18 +56,8 @@ public class NVFluids {
         return new BaseFlowingFluid.Properties(LIFE_ESSENCE_TYPE, LIFE_ESSENCE_SOURCE, LIFE_ESSENCE_FLOWING).bucket(LIFE_ESSENCE_BUCKET).block(LIFE_ESSENCE_BLOCK);
     }
 
-    public static final DeferredHolder<FluidType, FluidType> DOUBT_TYPE = FLUID_TYPES.register("doubt_fluid_type", () -> new FluidType(FluidType.Properties.create()
-            .descriptionId("fluid.neovitae.doubt_fluid")
-            .fallDistanceModifier(0F)
-            .canExtinguish(false)
-            .canConvertToSource(false)
-            .supportsBoating(false)
-            .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY)
-            .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
-            .sound(SoundActions.FLUID_VAPORIZE, SoundEvents.FIRE_EXTINGUISH)
-            .canHydrate(false)
-            .viscosity(1000)
-    ));
+    public static final DeferredHolder<FluidType, FluidType> DOUBT_TYPE =
+            FLUID_TYPES.register("doubt_fluid_type", () -> createFluidType("fluid.neovitae.doubt_fluid"));
 
     public static final DeferredHolder<Fluid, FlowingFluid> DOUBT_FLUID_SOURCE = FLUIDS.register("doubt_fluid_source", () -> new BaseFlowingFluid.Source(doubtProperties()));
     public static final DeferredHolder<Fluid, FlowingFluid> DOUBT_FLUID_FLOWING = FLUIDS.register("doubt_fluid_flowing", () -> new BaseFlowingFluid.Flowing(doubtProperties()));

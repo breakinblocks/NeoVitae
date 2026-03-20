@@ -68,44 +68,28 @@ public class PlayerDemonWillHandler {
 
     public static double consumeDemonWill(EnumWillType type, Player player, double amount) {
         double consumed = 0;
-        NonNullList<ItemStack> inventory = player.getInventory().items;
+        consumed += consumeFromList(type, player.getInventory().items, amount - consumed);
+        consumed += consumeFromList(type, player.getInventory().offhand, amount - consumed);
+        return consumed;
+    }
 
-        for (int i = 0; i < inventory.size(); i++) {
-            if (consumed >= amount) {
-                return consumed;
-            }
+    private static double consumeFromList(EnumWillType type, NonNullList<ItemStack> list, double amount) {
+        double consumed = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if (consumed >= amount) break;
 
-            ItemStack stack = inventory.get(i);
+            ItemStack stack = list.get(i);
             if (stack.isEmpty()) continue;
 
             if (stack.getItem() instanceof IDemonWill will && will.getType(stack) == type) {
                 consumed += will.drainWill(type, stack, amount - consumed);
                 if (will.getWill(type, stack) <= 0) {
-                    inventory.set(i, ItemStack.EMPTY);
+                    list.set(i, ItemStack.EMPTY);
                 }
             } else if (stack.getItem() instanceof IDemonWillGem gem) {
                 consumed += gem.drainWill(type, stack, amount - consumed, true);
             }
         }
-
-        for (int i = 0; i < player.getInventory().offhand.size(); i++) {
-            if (consumed >= amount) {
-                return consumed;
-            }
-
-            ItemStack stack = player.getInventory().offhand.get(i);
-            if (stack.isEmpty()) continue;
-
-            if (stack.getItem() instanceof IDemonWill will && will.getType(stack) == type) {
-                consumed += will.drainWill(type, stack, amount - consumed);
-                if (will.getWill(type, stack) <= 0) {
-                    player.getInventory().offhand.set(i, ItemStack.EMPTY);
-                }
-            } else if (stack.getItem() instanceof IDemonWillGem gem) {
-                consumed += gem.drainWill(type, stack, amount - consumed, true);
-            }
-        }
-
         return consumed;
     }
 
@@ -132,21 +116,7 @@ public class PlayerDemonWillHandler {
     }
 
     public static double addDemonWill(EnumWillType type, Player player, double amount) {
-        NonNullList<ItemStack> inventory = getAllInventories(player);
-        double remaining = amount;
-
-        for (ItemStack stack : inventory) {
-            if (stack.isEmpty()) continue;
-
-            if (stack.getItem() instanceof IDemonWillGem gem) {
-                remaining -= gem.fillWill(type, stack, remaining, true);
-                if (remaining <= 0) {
-                    break;
-                }
-            }
-        }
-
-        return amount - remaining;
+        return addDemonWill(type, player, amount, ItemStack.EMPTY);
     }
 
     public static double addDemonWill(EnumWillType type, Player player, double amount, ItemStack ignored) {

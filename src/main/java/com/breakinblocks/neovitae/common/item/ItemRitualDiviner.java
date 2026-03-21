@@ -190,10 +190,10 @@ public class ItemRitualDiviner extends Item {
 
         if (entity.tickCount % 4 == 0) {
             BlockPos pos = getStoredPos(stack);
-            if (!addRuneToRitual(stack, level, pos, player)) {
-                setActivated(stack, false);
-            } else if (level.isClientSide()) {
+            if (level.isClientSide()) {
                 spawnParticles(level, pos, 30);
+            } else if (!addRuneToRitual(stack, level, pos, player)) {
+                setActivated(stack, false);
             }
         }
     }

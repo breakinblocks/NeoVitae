@@ -110,8 +110,11 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
                 return ItemInteractionResult.SUCCESS;
             }
 
-            player.displayClientMessage(
-                    Component.translatable("chat.neovitae.diviner.ritualComplete").withStyle(ChatFormatting.GREEN), true);
+            Ritual ritual = diviner.getCurrentRitual(stack);
+            if (ritual != null && tile.checkStructure(ritual)) {
+                player.displayClientMessage(
+                        Component.translatable("chat.neovitae.diviner.ritualComplete").withStyle(ChatFormatting.GREEN), true);
+            }
             return ItemInteractionResult.SUCCESS;
         }
 

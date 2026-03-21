@@ -1,15 +1,20 @@
 package com.breakinblocks.neovitae.structures;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.SectionPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -50,7 +55,21 @@ public class DungeonStructure {
         BlockPos offset = StructureTemplate.calculateRelativePosition(settings, BlockPos.ZERO);
         BlockPos finalPos = pos.offset(offset);
 
+        BoundingBox bb = template.get().getBoundingBox(settings, finalPos);
+        List<ChunkPos> chunks = new ArrayList<>();
+        for (int x = SectionPos.blockToSectionCoord(bb.minX()); x <= SectionPos.blockToSectionCoord(bb.maxX()); x++) {
+            for (int z = SectionPos.blockToSectionCoord(bb.minZ()); z <= SectionPos.blockToSectionCoord(bb.maxZ()); z++) {
+                chunks.add(new ChunkPos(x, z));
+                world.setChunkForced(x, z, true);
+            }
+        }
+
         template.get().placeInWorld(world, finalPos, finalPos, settings, rand, 2);
+
+        for (ChunkPos chunk : chunks) {
+            world.setChunkForced(chunk.x, chunk.z, false);
+        }
+
         return true;
     }
 

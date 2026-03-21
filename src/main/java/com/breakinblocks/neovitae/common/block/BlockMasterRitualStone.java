@@ -151,6 +151,7 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
                                     Component.translatable(bestMatch.getTranslationKey())).withStyle(ChatFormatting.GREEN), true);
                     return ItemInteractionResult.SUCCESS;
                 }
+                return ItemInteractionResult.FAIL;
             }
 
             player.displayClientMessage(

@@ -7,9 +7,11 @@
       "priority_bonus": 0
     },
     "neovitae:master_routing_node": {
+      "base_energy_transfer": 10000,
       "base_fluid_transfer": 1000,
       "base_item_transfer": 16,
       "base_tick_rate": 20,
+      "energy_transfer_per_upgrade": 10000,
       "fluid_transfer_per_upgrade": 1000,
       "item_transfer_per_upgrade": 16,
       "max_speed_upgrades": 19,

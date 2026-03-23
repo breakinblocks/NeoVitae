@@ -1,6 +1,6 @@
 {
-  "name": "Item Routing",
-  "description": "Who needs hoppers? Blood magic has a versatile and flexible item routing network, with a variety of filters to sort every need.",
+  "name": "Routing Network",
+  "description": "Who needs hoppers? Neo Vitae has a versatile routing network capable of transferring items, fluids, and Forge Energy, with a variety of filters to sort every need.",
   "icon": "neovitae:node_router",
   "parent": "neovitae:demon_will"
 }

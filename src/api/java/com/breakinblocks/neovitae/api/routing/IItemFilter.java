@@ -1,9 +1,8 @@
-package com.breakinblocks.neovitae.common.routing;
+package com.breakinblocks.neovitae.api.routing;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
-import com.breakinblocks.neovitae.common.item.routing.IFilterKey;
 
 import java.util.List;
 

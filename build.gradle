@@ -57,6 +57,10 @@ sourceSets {
         compileClasspath += main.output + main.compileClasspath
         runtimeClasspath += main.output + main.runtimeClasspath
     }
+    test {
+        compileClasspath += main.output + main.compileClasspath
+        runtimeClasspath += main.output + main.runtimeClasspath
+    }
 }
 
 // API gets same dependencies as main (Minecraft, NeoForge, etc.)
@@ -75,6 +79,10 @@ tasks.named('compileJava').configure {
 // Datagen also depends on API output
 sourceSets.datagen.compileClasspath += sourceSets.api.output
 sourceSets.datagen.runtimeClasspath += sourceSets.api.output
+
+// Test depends on API output
+sourceSets.test.compileClasspath += sourceSets.api.output
+sourceSets.test.runtimeClasspath += sourceSets.api.output
 
 task apiJar(type: Jar) {
     from sourceSets.api.output
@@ -105,6 +113,7 @@ neoForge {
         "mod" {
             sourceSet(sourceSets.api)
             sourceSet(sourceSets.main)
+            sourceSet(sourceSets.test)
         }
         "data" {
             sourceSet(sourceSets.api)
@@ -129,6 +138,7 @@ neoForge {
         gameTestServer {
             type = "gameTestServer"
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            gameDirectory = project.file('run-gametest')
         }
 
         data {

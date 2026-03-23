@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity;
-import com.breakinblocks.neovitae.common.routing.IRoutingNode;
+import com.breakinblocks.neovitae.api.routing.*;
 
 import javax.annotation.Nullable;
 

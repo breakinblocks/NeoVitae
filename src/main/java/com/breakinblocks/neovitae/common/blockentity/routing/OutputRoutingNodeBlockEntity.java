@@ -11,18 +11,24 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.item.routing.IItemFilterProvider;
+import com.breakinblocks.neovitae.api.routing.*;
 import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
-import com.breakinblocks.neovitae.common.routing.IItemFilter;
-import com.breakinblocks.neovitae.common.routing.IOutputItemRoutingNode;
+import com.breakinblocks.neovitae.api.routing.*;
+import com.breakinblocks.neovitae.common.routing.*;
 import com.breakinblocks.neovitae.util.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Output routing node - pushes items to connected inventories.
  */
-public class OutputRoutingNodeBlockEntity extends FilteredRoutingNodeBlockEntity implements IOutputItemRoutingNode, MenuProvider {
+public class OutputRoutingNodeBlockEntity extends FilteredRoutingNodeBlockEntity implements IOutputItemRoutingNode, IOutputFluidRoutingNode, MenuProvider {
 
     public OutputRoutingNodeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, 6, pos, state);
@@ -53,6 +59,70 @@ public class OutputRoutingNodeBlockEntity extends FilteredRoutingNodeBlockEntity
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean isTankConnectedToSide(Direction side) {
+        return true;
+    }
+
+    @Override
+    public int getFluidPriority(Direction side) {
+        return priorities[side.get3DDataValue()];
+    }
+
+    @Override
+    public boolean isFluidOutput(Direction side) {
+        return true;
+    }
+
+    @Override
+    public IFluidFilter getOutputFluidFilterForSide(Direction side) {
+        BlockPos neighborPos = worldPosition.relative(side);
+        IFluidHandler handler = getLevel().getCapability(Capabilities.FluidHandler.BLOCK, neighborPos, side.getOpposite());
+        if (handler == null) return null;
+
+        ItemStack filterStack = this.getFilterStack(side);
+        if (filterStack.isEmpty() || !(filterStack.getItem() instanceof IRoutingFilterProvider)) return null;
+
+        BlockEntity tile = getLevel().getBlockEntity(neighborPos);
+        List<FluidStack> passAll = new ArrayList<>();
+        for (int tank = 0; tank < handler.getTanks(); tank++) {
+            FluidStack fluid = handler.getFluidInTank(tank);
+            if (!fluid.isEmpty()) {
+                FluidStack copy = fluid.copy();
+                copy.setAmount(handler.getTankCapacity(tank));
+                passAll.add(copy);
+            } else {
+                // Empty tank — accept any fluid up to capacity
+                // Can't create a meaningful FluidStack without knowing what fluid will come,
+                // so we skip empty tanks (they'll be filled once fluid arrives via the filter)
+            }
+        }
+
+        if (passAll.isEmpty()) {
+            // Tank is empty — bypass whitelist matching and just fill directly
+            BasicFluidFilter filter = new BasicFluidFilter() {
+                @Override
+                public FluidStack transferFluidThroughOutputFilter(FluidStack inputFluid) {
+                    int filled = fluidHandler.fill(inputFluid.copy(), IFluidHandler.FluidAction.EXECUTE);
+                    if (filled > 0 && accessedTile != null) {
+                        net.minecraft.world.level.Level level = accessedTile.getLevel();
+                        BlockPos pos = accessedTile.getBlockPos();
+                        level.sendBlockUpdated(pos, level.getBlockState(pos), level.getBlockState(pos), 3);
+                    }
+                    FluidStack remainder = inputFluid.copy();
+                    remainder.shrink(filled);
+                    return remainder.isEmpty() ? FluidStack.EMPTY : remainder;
+                }
+            };
+            filter.initializeFilter(List.of(), tile, handler, true);
+            return filter;
+        }
+
+        BasicFluidFilter filter = new BasicFluidFilter();
+        filter.initializeFilter(passAll, tile, handler, true);
+        return filter;
     }
 
     @Override

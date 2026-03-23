@@ -11,7 +11,7 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
-import com.breakinblocks.neovitae.common.item.routing.IItemFilterProvider;
+import com.breakinblocks.neovitae.api.routing.*;
 
 public class RoutingNodeMenu extends AbstractContainerMenu {
     public final FilteredRoutingNodeBlockEntity tile;

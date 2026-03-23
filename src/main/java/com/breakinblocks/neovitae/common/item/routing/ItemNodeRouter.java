@@ -12,8 +12,7 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import com.breakinblocks.neovitae.common.routing.IMasterRoutingNode;
-import com.breakinblocks.neovitae.common.routing.IRoutingNode;
+import com.breakinblocks.neovitae.api.routing.*;
 import com.breakinblocks.neovitae.util.Constants;
 
 import java.util.LinkedList;

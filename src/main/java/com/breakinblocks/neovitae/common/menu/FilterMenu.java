@@ -15,7 +15,7 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.FilterInventory;
 import com.breakinblocks.neovitae.common.item.inventory.InventoryFilter;
-import com.breakinblocks.neovitae.common.item.routing.IRoutingFilterProvider;
+import com.breakinblocks.neovitae.api.routing.*;
 import com.breakinblocks.neovitae.common.item.routing.ItemRouterFilter;
 import com.breakinblocks.neovitae.common.item.routing.ItemTagFilter;
 import com.breakinblocks.neovitae.util.GhostItemHelper;

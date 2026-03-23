@@ -1,16 +1,18 @@
-package com.breakinblocks.neovitae.common.item.routing;
+package com.breakinblocks.neovitae.api.routing;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.apache.commons.lang3.tuple.Pair;
-import com.breakinblocks.neovitae.common.routing.IItemFilter;
 
 import java.util.List;
 
 /**
- * Interface for items that provide item filters for the routing system.
+ * Interface for items that provide configurable item filters for the routing system.
+ * <p>
+ * Extend this to create custom filter items that can be placed in routing node
+ * filter slots. The filter item controls which items pass through and in what quantities.
  */
 public interface IItemFilterProvider extends IRoutingFilterProvider {
 

@@ -63,6 +63,18 @@ public class NeoVitae {
     }
 
     public NeoVitae(IEventBus modBus, ModContainer container) {
+        com.breakinblocks.neovitae.api.routing.RoutingChannelRegistry.register(new com.breakinblocks.neovitae.common.routing.ItemRoutingChannel());
+        com.breakinblocks.neovitae.api.routing.RoutingChannelRegistry.register(new com.breakinblocks.neovitae.common.routing.FluidRoutingChannel());
+        com.breakinblocks.neovitae.api.routing.RoutingChannelRegistry.register(new com.breakinblocks.neovitae.common.routing.EnergyRoutingChannel());
+
+        try {
+            Class<?> testSetup = Class.forName("com.breakinblocks.neovitae.gametest.NVGameTestSetup");
+            testSetup.getMethod("register", IEventBus.class).invoke(null, modBus);
+        } catch (ClassNotFoundException ignored) {
+        } catch (ReflectiveOperationException e) {
+            LOGGER.error("Failed to register game test setup", e);
+        }
+
         NVRegistries.register(modBus);
         NVDataComponents.register(modBus);
         NVFluids.register(modBus);

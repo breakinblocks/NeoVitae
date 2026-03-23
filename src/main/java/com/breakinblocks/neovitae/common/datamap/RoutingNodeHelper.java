@@ -189,4 +189,13 @@ public class RoutingNodeHelper {
         int effectiveUpgrades = Math.min(stackUpgrades, maxUpgrades);
         return baseTransfer + (effectiveUpgrades * perUpgrade);
     }
+
+    public static int getEffectiveEnergyTransfer(Block block, int stackUpgrades) {
+        RoutingNodeStats stats = getMasterStats(block);
+        int baseTransfer = stats.getBaseEnergyTransfer();
+        int perUpgrade = stats.getEnergyTransferPerUpgrade();
+        int maxUpgrades = stats.getMaxStackUpgrades();
+        int effectiveUpgrades = Math.min(stackUpgrades, maxUpgrades);
+        return baseTransfer + (effectiveUpgrades * perUpgrade);
+    }
 }

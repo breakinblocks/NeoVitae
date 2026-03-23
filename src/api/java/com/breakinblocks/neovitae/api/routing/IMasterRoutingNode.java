@@ -1,4 +1,4 @@
-package com.breakinblocks.neovitae.common.routing;
+package com.breakinblocks.neovitae.api.routing;
 
 import net.minecraft.core.BlockPos;
 

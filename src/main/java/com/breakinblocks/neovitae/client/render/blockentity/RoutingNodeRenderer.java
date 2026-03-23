@@ -15,7 +15,7 @@ import com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlo
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity;
-import com.breakinblocks.neovitae.common.routing.IRoutingNode;
+import com.breakinblocks.neovitae.api.routing.*;
 
 import java.util.List;
 

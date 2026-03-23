@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
-import com.breakinblocks.neovitae.common.item.routing.IFilterKey;
+import com.breakinblocks.neovitae.api.routing.*;
 import com.breakinblocks.neovitae.util.Utils;
 
 import java.util.Iterator;

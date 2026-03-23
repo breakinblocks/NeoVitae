@@ -1,4 +1,5 @@
 package com.breakinblocks.neovitae.common.routing;
+import com.breakinblocks.neovitae.api.routing.*;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -51,23 +52,19 @@ public class BasicFluidFilter implements IFluidFilter {
                 }
             }
         } else {
-            // Input filter: invert counts
+            // Input filter: set amounts to what's available to extract, capped by filter max
             for (FluidStack filterFluid : requestList) {
-                filterFluid.setAmount(filterFluid.getAmount() * -1);
-            }
+                int maxPull = filterFluid.getAmount();
+                int available = 0;
 
-            // Add back what's in the tanks
-            for (int tank = 0; tank < fluidHandler.getTanks(); tank++) {
-                FluidStack checkedFluid = fluidHandler.getFluidInTank(tank);
-                if (checkedFluid.isEmpty()) continue;
-
-                int fluidAmount = checkedFluid.getAmount();
-
-                for (FluidStack filterFluid : requestList) {
-                    if (doFluidsMatch(filterFluid, checkedFluid)) {
-                        filterFluid.grow(fluidAmount);
+                for (int tank = 0; tank < fluidHandler.getTanks(); tank++) {
+                    FluidStack checkedFluid = fluidHandler.getFluidInTank(tank);
+                    if (!checkedFluid.isEmpty() && doFluidsMatch(filterFluid, checkedFluid)) {
+                        available += checkedFluid.getAmount();
                     }
                 }
+
+                filterFluid.setAmount(Math.min(maxPull, available));
             }
         }
 

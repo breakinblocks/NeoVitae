@@ -10,9 +10,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Triple;
-import com.breakinblocks.neovitae.common.routing.IItemRoutingNode;
-import com.breakinblocks.neovitae.common.routing.IMasterRoutingNode;
-import com.breakinblocks.neovitae.common.routing.IRoutingNode;
+import com.breakinblocks.neovitae.api.routing.*;
+import com.breakinblocks.neovitae.api.routing.*;
 import com.breakinblocks.neovitae.util.Constants;
 
 import java.util.ArrayList;

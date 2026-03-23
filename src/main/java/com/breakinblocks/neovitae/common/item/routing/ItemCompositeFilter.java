@@ -16,7 +16,7 @@ import com.breakinblocks.neovitae.common.datacomponent.FilterInventory;
 import com.breakinblocks.neovitae.common.datacomponent.NestedFilterInventory;
 import com.breakinblocks.neovitae.common.routing.BasicItemFilter;
 import com.breakinblocks.neovitae.common.routing.BlacklistItemFilter;
-import com.breakinblocks.neovitae.common.routing.IItemFilter;
+import com.breakinblocks.neovitae.api.routing.*;
 import com.breakinblocks.neovitae.util.GhostItemHelper;
 
 import java.util.ArrayList;

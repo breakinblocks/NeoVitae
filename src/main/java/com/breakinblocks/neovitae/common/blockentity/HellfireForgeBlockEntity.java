@@ -204,6 +204,8 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         return new SoulForgeMenu(containerId, playerInventory, this);
     }
 
+    public int getProgress() { return progress; }
+
     public double getProgressForGui() {
         return (double) progress / (double) MAX_PROGRESS;
     }

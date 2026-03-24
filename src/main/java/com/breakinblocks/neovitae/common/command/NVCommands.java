@@ -17,12 +17,14 @@ public class NVCommands {
         RitualCommand.register(dispatcher);
         ImperfectRitualCommand.register(dispatcher);
         AuraCommand.register(dispatcher);
+        DungeonShowcaseCommand.register(dispatcher);
 
         CommandNode<CommandSourceStack> networkNode = dispatcher.getRoot().getChild("bm-network");
         CommandNode<CommandSourceStack> ritualNode = dispatcher.getRoot().getChild("bm-ritual");
         CommandNode<CommandSourceStack> imperfectRitualNode = dispatcher.getRoot().getChild("bm-imperfectritual");
         CommandNode<CommandSourceStack> auraNode = dispatcher.getRoot().getChild("bm-aura");
         CommandNode<CommandSourceStack> upgradeNode = dispatcher.getRoot().getChild("living-upgrade");
+        CommandNode<CommandSourceStack> showcaseNode = dispatcher.getRoot().getChild("nv-dungeon-showcase");
 
         dispatcher.register(
                 Commands.literal("neovitae")
@@ -31,6 +33,7 @@ public class NVCommands {
                         .then(Commands.literal("imperfect").redirect(imperfectRitualNode))
                         .then(Commands.literal("aura").redirect(auraNode))
                         .then(Commands.literal("upgrade").redirect(upgradeNode))
+                        .then(Commands.literal("dungeon-showcase").redirect(showcaseNode))
         );
     }
 }

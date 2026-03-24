@@ -358,6 +358,11 @@ public class NVItems {
                     com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_IGNIS, 0x2D0A0A, 0xFF4500,
                     new Item.Properties()));
 
+    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_GLACIARIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_glaciaris_spawn_egg",
+            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
+                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_GLACIARIS, 0xA0D4E8, 0x4FC3F7,
+                    new Item.Properties()));
+
     public static void register(IEventBus modBus) {
         BASIC_ITEMS.register(modBus);
         ITEMS.register(modBus);

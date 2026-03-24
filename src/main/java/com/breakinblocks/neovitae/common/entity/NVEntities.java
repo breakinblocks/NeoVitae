@@ -8,6 +8,7 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.entity.mob.DaemoniumGlaciarisEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumIgnisEntity;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityBloodLight;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityMeteor;
@@ -77,8 +78,16 @@ public class NVEntities {
                     .fireImmune()
                     .build("daemonium_ignis"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<DaemoniumGlaciarisEntity>> DAEMONIUM_GLACIARIS = ENTITIES.register("daemonium_glaciaris",
+            () -> EntityType.Builder.<DaemoniumGlaciarisEntity>of(DaemoniumGlaciarisEntity::new, MobCategory.MONSTER)
+                    .sized(0.8F, 2.2F)
+                    .clientTrackingRange(10)
+                    .updateInterval(3)
+                    .build("daemonium_glaciaris"));
+
     private static void registerEntityAttributes(EntityAttributeCreationEvent event) {
         event.put(DAEMONIUM_IGNIS.get(), DaemoniumIgnisEntity.createAttributes().build());
+        event.put(DAEMONIUM_GLACIARIS.get(), DaemoniumGlaciarisEntity.createAttributes().build());
     }
 
     public static void register(IEventBus modBus) {

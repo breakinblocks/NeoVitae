@@ -4,9 +4,11 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.entity.mob.DaemoniumIgnisEntity;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityBloodLight;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityMeteor;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityPotionFlask;
@@ -67,7 +69,20 @@ public class NVEntities {
                     .updateInterval(10)
                     .build("throwing_dagger_syringe"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<DaemoniumIgnisEntity>> DAEMONIUM_IGNIS = ENTITIES.register("daemonium_ignis",
+            () -> EntityType.Builder.<DaemoniumIgnisEntity>of(DaemoniumIgnisEntity::new, MobCategory.MONSTER)
+                    .sized(1.2F, 2.8F)
+                    .clientTrackingRange(10)
+                    .updateInterval(3)
+                    .fireImmune()
+                    .build("daemonium_ignis"));
+
+    private static void registerEntityAttributes(EntityAttributeCreationEvent event) {
+        event.put(DAEMONIUM_IGNIS.get(), DaemoniumIgnisEntity.createAttributes().build());
+    }
+
     public static void register(IEventBus modBus) {
         ENTITIES.register(modBus);
+        modBus.addListener(NVEntities::registerEntityAttributes);
     }
 }

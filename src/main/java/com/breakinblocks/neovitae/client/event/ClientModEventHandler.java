@@ -16,6 +16,7 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.render.entity.BloodLightRenderer;
+import com.breakinblocks.neovitae.client.render.entity.DaemoniumIgnisRenderer;
 import com.breakinblocks.neovitae.client.render.entity.EntityMeteorRenderer;
 import com.breakinblocks.neovitae.client.render.entity.EntityShapedChargeRenderer;
 import com.breakinblocks.neovitae.client.render.entity.EntityThrowingDaggerRenderer;
@@ -75,6 +76,7 @@ public class ClientModEventHandler {
         event.registerEntityRenderer(NVEntities.SHAPED_CHARGE.get(), EntityShapedChargeRenderer::new);
         event.registerEntityRenderer(NVEntities.THROWING_DAGGER.get(), EntityThrowingDaggerRenderer::new);
         event.registerEntityRenderer(NVEntities.THROWING_DAGGER_SYRINGE.get(), EntityThrowingDaggerRenderer::new);
+        event.registerEntityRenderer(NVEntities.DAEMONIUM_IGNIS.get(), DaemoniumIgnisRenderer::new);
     }
 
     @SubscribeEvent

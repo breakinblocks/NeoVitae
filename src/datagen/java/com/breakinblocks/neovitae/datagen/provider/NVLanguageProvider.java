@@ -276,6 +276,10 @@ public class NVLanguageProvider extends LanguageProvider {
         add("entity.neovitae.throwing_dagger", "Throwing Dagger");
         add("entity.neovitae.throwing_dagger_syringe", "Syringe Throwing Dagger");
 
+        // Daemonium Ignis
+        add("entity.neovitae.daemonium_ignis", "Daemonium Ignis");
+        add(NVItems.DAEMONIUM_IGNIS_SPAWN_EGG.get(), "Daemonium Ignis Spawn Egg");
+
         // Misc WIP Items
         add(NVItems.DOUBT_SEED.get(), "Seeds of Doubt");
 

@@ -27,9 +27,5 @@
 
 ## Links
 
-- **Issues/Bugs**: https://github.com/breakinblocks/NeoVitae/issues
-- **Source**: https://github.com/breakinblocks/NeoVitae
-
----
-
-*For the full rewrite details, see metadata/changelogs/3.0.4.md in the repository.*
+- **Issues/Bugs**: <https://github.com/breakinblocks/NeoVitae/issues>
+- **Source**: <https://github.com/breakinblocks/NeoVitae>

@@ -1,0 +1,26 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "neovitae:blood_altar"
+    },
+    "R": {
+      "type": "modonomicon:tag",
+      "display": "neovitae:rune_blank",
+      "tag": "#neovitae:altar/runes"
+    }
+  },
+  "pattern": [
+    [
+      "___",
+      "_0_",
+      "___"
+    ],
+    [
+      "RRR",
+      "R_R",
+      "RRR"
+    ]
+  ]
+}

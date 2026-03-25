@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "neovitae:blood_altar"
+    }
+  },
+  "pattern": [
+    [
+      "0"
+    ]
+  ]
+}

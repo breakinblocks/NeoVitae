@@ -29,6 +29,9 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .addAll(BlockGroups.RUNE_T1)
                 .addAll(BlockGroups.RUNE_T2);
 
+        this.tag(NVTags.Blocks.BLOODSTONES)
+                .addAll(BlockGroups.BLOODSTONE);
+
         this.tag(NVTags.Blocks.T3_CAPSTONES)
                 .add(Blocks.GLOWSTONE, Blocks.SHROOMLIGHT, Blocks.SEA_LANTERN)
                 .add(Blocks.OCHRE_FROGLIGHT, Blocks.PEARLESCENT_FROGLIGHT, Blocks.VERDANT_FROGLIGHT);

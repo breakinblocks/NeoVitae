@@ -26,8 +26,15 @@ public class NVItemModelProvider extends ItemModelProvider {
                 .filter(holder -> holder != NVItems.ALCHEMY_FLASK_THROWABLE)
                 .filter(holder -> holder != NVItems.ALCHEMY_FLASK_LINGERING)
                 .filter(holder -> !(holder.get() instanceof ItemAnointmentProvider))
+                .filter(holder -> !(holder.get() instanceof net.minecraft.world.item.SpawnEggItem))
                 .map(Supplier::get)
                 .forEach(this::basicItem);
+
+        // Spawn eggs use the vanilla template_spawn_egg parent model (tinted by egg colors)
+        NVItems.BASIC_ITEMS.getEntries().stream()
+                .filter(holder -> holder.get() instanceof net.minecraft.world.item.SpawnEggItem)
+                .forEach(holder -> getBuilder(holder.getId().getPath())
+                        .parent(new ModelFile.UncheckedModelFile("minecraft:item/template_spawn_egg")));
         NVItems.TAB_REQ.getEntries().stream().map(Supplier::get).forEach(this::basicItem);
 
         // Tipped throwing dagger - 2 layers for potion tint effect

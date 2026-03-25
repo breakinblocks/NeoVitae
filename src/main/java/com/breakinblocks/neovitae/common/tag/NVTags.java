@@ -82,6 +82,7 @@ public class NVTags {
 
     public static class Blocks {
         public static final TagKey<Block> RUNES = tag(bm("altar/runes"));
+        public static final TagKey<Block> BLOODSTONES = tag(bm("altar/bloodstones"));
         public static final TagKey<Block> PILLARS = tag(bm("altar/pillars"));
         public static final TagKey<Block> T3_CAPSTONES = tag(bm("altar/t3_capstones"));
         public static final TagKey<Block> T4_CAPSTONES = tag(bm("altar/t4_capstones"));

@@ -179,6 +179,9 @@ dependencies {
     // Patchouli - In-game documentation/guide book
     implementation("vazkii.patchouli:Patchouli:${patchouli_version}")
 
+    // Modonomicon - In-game documentation (migration target)
+    implementation "curse.maven:modonomicon-538392:7771524"
+
     compileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
     compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api")
 

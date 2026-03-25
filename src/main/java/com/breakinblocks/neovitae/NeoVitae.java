@@ -116,6 +116,16 @@ public class NeoVitae {
         if (ModList.get().isLoaded("patchouli")) {
             event.enqueueWork(RegisterPatchouliMultiblocks::new);
         }
+
+        if (ModList.get().isLoaded("modonomicon")) {
+            event.enqueueWork(() -> {
+                com.klikli_dev.modonomicon.data.LoaderRegistry.registerPredicate(
+                        rl("non_air_solid"),
+                        (blockGetter, blockPos, blockState) ->
+                                !blockState.isAir() && blockState.getFluidState().isEmpty()
+                );
+            });
+        }
     }
 
     public static ResourceLocation rl(String path) {

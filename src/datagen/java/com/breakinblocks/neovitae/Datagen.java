@@ -18,6 +18,10 @@ import com.breakinblocks.neovitae.datagen.content.SigilTypes;
 import com.breakinblocks.neovitae.datagen.provider.*;
 import com.breakinblocks.neovitae.registry.SigilTypeRegistry;
 
+import com.klikli_dev.modonomicon.api.datagen.BookProvider;
+import com.breakinblocks.neovitae.datagen.book.NVBookProvider;
+
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @EventBusSubscriber(modid = NeoVitae.MODID)
@@ -70,5 +74,13 @@ public class Datagen {
 
         // Modonomicon multiblock definitions (altar tiers + ritual layouts)
         generator.addProvider(event.includeServer(), new NVModonomiconMultiblockProvider(output));
+
+        // Modonomicon book (language provider must be registered AFTER BookProvider)
+        var modonomiconLang = new NVModonomiconLangProvider(output);
+        generator.addProvider(event.includeServer(), new BookProvider(
+                output, event.getLookupProvider(), NeoVitae.MODID,
+                List.of(new NVBookProvider(modonomiconLang))
+        ));
+        generator.addProvider(event.includeClient(), modonomiconLang);
     }
 }

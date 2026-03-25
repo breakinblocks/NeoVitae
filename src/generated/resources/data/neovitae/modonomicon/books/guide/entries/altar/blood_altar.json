@@ -1,0 +1,94 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "altar",
+  "description": "book.neovitae.guide.altar.blood_altar.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:blood_altar"
+  },
+  "name": "book.neovitae.guide.altar.blood_altar.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.blood_altar.intro.text",
+      "title": "book.neovitae.guide.altar.blood_altar.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "altar_one",
+      "multiblock_name": "book.neovitae.guide.altar.blood_altar.tier1.title",
+      "show_visualize_button": true,
+      "text": "book.neovitae.guide.altar.blood_altar.tier1.text"
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "altar_two",
+      "multiblock_name": "book.neovitae.guide.altar.blood_altar.tier2.title",
+      "show_visualize_button": true,
+      "text": "book.neovitae.guide.altar.blood_altar.tier2.text"
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "altar_three",
+      "multiblock_name": "book.neovitae.guide.altar.blood_altar.tier3.title",
+      "show_visualize_button": true,
+      "text": "book.neovitae.guide.altar.blood_altar.tier3.text"
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "altar_four",
+      "multiblock_name": "book.neovitae.guide.altar.blood_altar.tier4.title",
+      "show_visualize_button": true,
+      "text": "book.neovitae.guide.altar.blood_altar.tier4.text"
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "altar_five",
+      "multiblock_name": "book.neovitae.guide.altar.blood_altar.tier5.title",
+      "show_visualize_button": true,
+      "text": "book.neovitae.guide.altar.blood_altar.tier5.text"
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "altar_six",
+      "multiblock_name": "book.neovitae.guide.altar.blood_altar.tier6.title",
+      "show_visualize_button": true,
+      "text": "book.neovitae.guide.altar.blood_altar.tier6.text"
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 0,
+  "x": -1,
+  "y": 0
+}

@@ -20,7 +20,7 @@ public class UpgradesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Routing Upgrades");
-        this.pageText("There are two upgrades currently available for the Routing Network.\n\n"
+        this.pageText("There are two upgrades currently available for the Routing Network.\\\n\\\n"
                 + "Firstly, the **Basic Routing Logic Upgrade** increases the total amount of resources "
                 + "transferred per operation. By default, the network transfers 16 items, 1000 mB of fluid, "
                 + "and 10,000 FE per cycle. Each upgrade raises all three caps simultaneously.");
@@ -29,7 +29,7 @@ public class UpgradesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Basic Routing Logic Upgrade");
-        this.pageText("Craft the Basic Routing Logic Upgrade in the Hellfire Forge.\n\n"
+        this.pageText("Craft the Basic Routing Logic Upgrade in the Hellfire Forge.\\\n\\\n"
                 + "These upgrades stack to 64, boosting item, fluid, and energy transfer rates. The increased "
                 + "throughput is split across all active transfers in the network.");
 
@@ -44,7 +44,7 @@ public class UpgradesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Basic Routing Speed Upgrade");
-        this.pageText("Craft the Basic Routing Speed Upgrade in the Hellfire Forge.\n\n"
+        this.pageText("Craft the Basic Routing Speed Upgrade in the Hellfire Forge.\\\n\\\n"
                 + "*They stack to 19? That feels... wrong, somehow, but it was this or alter the universe such "
                 + "that everything ticks 65 times a second, and that would have made people even more upset.*");
     }

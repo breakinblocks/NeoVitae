@@ -21,7 +21,7 @@ public class CrystallizedWillEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Crystallized Will");
         this.pageText("Now that you have plenty of **Demon Will** in your **Tartaric Gem**, it's time to explore "
-                + "what happens when you unleash it upon the world.\n\n"
+                + "what happens when you unleash it upon the world.\\\n\\\n"
                 + "First off, you'll need to get Will into the **Aura**. Next, you'll need to make a "
                 + "**Demon Crystallizer**.");
 
@@ -29,7 +29,7 @@ public class CrystallizedWillEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Crystallizer");
-        this.pageText("Craft the Demon Crystallizer in the Hellfire Forge.\n\n"
+        this.pageText("Craft the Demon Crystallizer in the Hellfire Forge.\\\n\\\n"
                 + "This will slowly consume **Demon Will** from the **Aura** to produce **Will Crystals**. "
                 + "The first spire costs 100 Will to form, and all subsequent spires cost 45 each, but can be "
                 + "burned for 50 in the **Demon Crucible**, for a net gain of 5. The largest **Crystal Cluster** "
@@ -39,7 +39,7 @@ public class CrystallizedWillEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("If you have more than 512 total Will in your inventory (across any number of **Tartaric "
                 + "Gems** and of any one type), you can harvest these crystals by right-clicking the spire with "
-                + "an empty hand. This will remove all but the central spire.\n\n"
+                + "an empty hand. This will remove all but the central spire.\\\n\\\n"
                 + "However, if you do not have enough will, *really* need that central spire's Crystal, or are "
                 + "just in a hurry, you can harvest the whole lot with a pickaxe.");
 

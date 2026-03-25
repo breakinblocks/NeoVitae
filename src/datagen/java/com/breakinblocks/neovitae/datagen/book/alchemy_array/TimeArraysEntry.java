@@ -21,13 +21,13 @@ public class TimeArraysEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Day/Night Arrays");
         this.pageText("Time-based arrays are straight-forward arrays that control the time of day. The items "
-                + "will be consumed once the array starts changing the time.\n\n"
+                + "will be consumed once the array starts changing the time.\\\n\\\n"
                 + "The **Day** array will change the time of day to the next sunrise. "
                 + "The **Night** array will change the time of day to the next sunset.");
 
         this.page("recipes", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("**New Dawn**: Created via an Alchemy Array. Sets the time to the next sunrise.\n\n"
+        this.pageText("**New Dawn**: Created via an Alchemy Array. Sets the time to the next sunrise.\\\n\\\n"
                 + "**True Twilight**: Created via an Alchemy Array. Sets the time to the next sunset.");
     }
 

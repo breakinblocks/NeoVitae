@@ -26,9 +26,9 @@ public class LavaSigilEntry extends EntryProvider {
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Lava Reagent** in the Alchemy Table.\n\n"
+        this.pageText("Step 1: Craft the **Lava Reagent** in the Alchemy Table.\\\n\\\n"
                 + "Step 2: Create the **Lava Sigil** in an Alchemy Array using the Lava Reagent "
-                + "as the base and a **Blank Slate** as the catalyst.\n\n*HOT! DO NOT EAT*");
+                + "as the base and a **Blank Slate** as the catalyst.\\\n\\\n*HOT! DO NOT EAT*");
 
         this.page("alchemy_table", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

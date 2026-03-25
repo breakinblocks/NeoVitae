@@ -20,7 +20,7 @@ public class LimpLegDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Limp Leg");
-        this.pageText("Effect: Reduces your movement speed significantly. Caps out at a 70% reduction.\n\n"
+        this.pageText("Effect: Reduces your movement speed significantly. Caps out at a 70% reduction.\\\n\\\n"
                 + "Maximum level: 10");
     }
 

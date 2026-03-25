@@ -30,8 +30,8 @@ public class LifeEssenceBucketEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Blood Altar Recipe");
-        this.pageText("Place a Bucket in the Blood Altar with at least 1,000 LP to receive a Bucket of Life Essence.\n\n"
-                + "*It's definitely not blood. Blood would have coagulated by now.\n\n"
+        this.pageText("Place a Bucket in the Blood Altar with at least 1,000 LP to receive a Bucket of Life Essence.\\\n\\\n"
+                + "*It's definitely not blood. Blood would have coagulated by now.\\\n\\\n"
                 + "... Why are you looking at me like that?*");
     }
 

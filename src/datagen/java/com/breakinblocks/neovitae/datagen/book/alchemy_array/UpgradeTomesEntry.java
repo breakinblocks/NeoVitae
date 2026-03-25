@@ -21,7 +21,7 @@ public class UpgradeTomesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Upgrade Tomes");
         this.pageText("Upon activating the **Sound of the Cleansing Soul** ritual, a series of magical "
-                + "**Tomes** will manifest around you.\n\n"
+                + "**Tomes** will manifest around you.\\\n\\\n"
                 + "By pressing [Use] whilst holding one of these, you can 'teach' your chestplate one level "
                 + "of this skill (assuming it has enough spare points to learn it). Holding sneak and pressing "
                 + "[Use] will instead consume as much XP from the tome as possible.");
@@ -29,14 +29,14 @@ public class UpgradeTomesEntry extends EntryProvider {
         this.page("consumption", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Doing so will consume the **Tome** and apply all EXP from it to your chestplate - "
-                + "unless there are not enough **Upgrade Points** available.\n\n"
+                + "unless there are not enough **Upgrade Points** available.\\\n\\\n"
                 + "In this case, the Tome will apply as much EXP as it can and store the remainder - unless "
                 + "there's less than 1 level's worth left, in which case the tome will be destroyed.");
 
         this.page("strategy", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("This is an excellent way to focus training on abilities you wish to see more of, "
-                + "whilst conveniently forgetting ones you find less useful.\n\n"
+                + "whilst conveniently forgetting ones you find less useful.\\\n\\\n"
                 + "Alternately, you can teach different chestplates different skills, so you can have one "
                 + "chestplate for mining, one for combat, and yet another for exploration.");
     }

@@ -32,7 +32,7 @@ public class JumpBoostFlaskEntry extends EntryProvider {
 
         this.page("advanced", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\n\n"
+        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
                 + "- **Jump Boost III (0:45)** - neovitae:flask/potency_average_jump_boost\n"
                 + "- **Jump Boost (21:20)** - neovitae:flask/length_average_jump_boost");
     }

@@ -31,8 +31,8 @@ public class ChargingRuneEntry extends EntryProvider {
         this.page("formula", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The Blood Altar does a charging tick once per 20 in-game ticks, which is reduced by 1 "
-                + "per **Acceleration Rune**.\n\nThe speed that the Blood Altar charges at per charging tick is: "
-                + "[**10LP** x **Charging Runes** x (1 + **Speed Runes**/10)]\n\nThe maximum charge that a Blood "
+                + "per **Acceleration Rune**.\\\n\\\nThe speed that the Blood Altar charges at per charging tick is: "
+                + "[**10LP** x **Charging Runes** x (1 + **Speed Runes**/10)]\\\n\\\nThe maximum charge that a Blood "
                 + "Altar can hold is **1000 LP** per **Charging Rune**, which is then multiplied by: "
                 + "[(capacity of the main Blood Altar tank)/20000] if that value is above 1.");
 

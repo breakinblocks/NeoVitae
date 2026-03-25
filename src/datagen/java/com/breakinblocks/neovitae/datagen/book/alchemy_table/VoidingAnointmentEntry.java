@@ -21,22 +21,22 @@ public class VoidingAnointmentEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Void Essence");
         this.pageText("Craft **Void Essence** in the Alchemy Table (recipe: neovitae:alchemytable/voiding_anointment). "
-                + "Deletes simple blocks on mining, such as stone, dirt, and netherrack.\n\n"
-                + "Valid items: Tools, Swords, Charges.\n\nApplies: Voiding I (256 blocks)");
+                + "Deletes simple blocks on mining, such as stone, dirt, and netherrack.\\\n\\\n"
+                + "Valid items: Tools, Swords, Charges.\\\n\\\nApplies: Voiding I (256 blocks)");
 
         this.page("long", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Void Essence L");
         this.pageText("Craft **Void Essence L** in the Alchemy Table (recipe: neovitae:alchemytable/voiding_anointment_l). "
-                + "This upgraded version of the anointment lasts four times longer.\n\nApplies: Voiding I (1024 blocks)");
+                + "This upgraded version of the anointment lasts four times longer.\\\n\\\nApplies: Voiding I (1024 blocks)");
 
         this.page("extra_long", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Void Essence XL");
         this.pageText("Craft **Void Essence XL** in the Alchemy Table (recipe: neovitae:alchemytable/voiding_anointment_xl). "
-                + "This upgraded version of the anointment lasts sixteen times longer.\n\nApplies: Voiding I (4096 blocks)");
+                + "This upgraded version of the anointment lasts sixteen times longer.\\\n\\\nApplies: Voiding I (4096 blocks)");
     }
 
     @Override

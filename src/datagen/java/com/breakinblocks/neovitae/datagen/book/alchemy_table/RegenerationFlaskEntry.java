@@ -31,7 +31,7 @@ public class RegenerationFlaskEntry extends EntryProvider {
 
         this.page("advanced", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\n\n"
+        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
                 + "- **Regeneration III (0:45)** - neovitae:flask/potency_average_regen\n"
                 + "- **Regeneration (21:20)** - neovitae:flask/length_average_regen");
     }

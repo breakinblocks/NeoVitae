@@ -36,7 +36,7 @@ public class Datagen {
         generator.addProvider(event.includeClient(), new NVItemModelProvider(output, fileHelper));
         generator.addProvider(event.includeClient(), new NVBlockStateProvider(output, fileHelper));
 
-        event.createProvider(NVLanguageProvider::new);
+        var langProvider = new NVLanguageProvider(output);
 
         event.createDatapackRegistryObjects(new RegistrySetBuilder()
             .add(Registries.DAMAGE_TYPE, NVDamageSourcesContent::bootstrap)
@@ -75,12 +75,10 @@ public class Datagen {
         // Modonomicon multiblock definitions (altar tiers + ritual layouts)
         generator.addProvider(event.includeServer(), new NVModonomiconMultiblockProvider(output));
 
-        // Modonomicon book (language provider must be registered AFTER BookProvider)
-        var modonomiconLang = new NVModonomiconLangProvider(output);
         generator.addProvider(event.includeServer(), new BookProvider(
                 output, event.getLookupProvider(), NeoVitae.MODID,
-                List.of(new NVBookProvider(modonomiconLang))
+                List.of(new NVBookProvider(langProvider))
         ));
-        generator.addProvider(event.includeClient(), modonomiconLang);
+        generator.addProvider(event.includeClient(), langProvider);
     }
 }

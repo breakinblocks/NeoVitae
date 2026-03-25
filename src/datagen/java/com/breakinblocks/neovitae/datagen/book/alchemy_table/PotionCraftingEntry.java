@@ -31,7 +31,7 @@ public class PotionCraftingEntry extends EntryProvider {
         this.page("intro2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The addition of **Life Essence** and some frankly ingenious Sanguimancy has allowed you "
-                + "to turbocharge the practice, however.\n\n"
+                + "to turbocharge the practice, however.\\\n\\\n"
                 + "By imbuing ordinary **Glass Bottles** with your powers, you are able to hold far more than a "
                 + "single swig of liquid, and with the use of various **Catalysts** you have figured out how to "
                 + "combine multiple effects in one flask without them muddying together and cancelling out.");
@@ -46,7 +46,7 @@ public class PotionCraftingEntry extends EntryProvider {
         this.page("effects", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Of course, a bottle, no matter how advanced, is all but useless without something to fill it."
-                + "\n\nAlongside all the usual well known **Effects** such as **Water Breathing**, **Regeneration**, "
+                + "\\\n\\\nAlongside all the usual well known **Effects** such as **Water Breathing**, **Regeneration**, "
                 + "or **Night Vision**, we have also perfected a variety of other, more specialised recipes, such as "
                 + "**Flight**, **Obsidian Cloak**, or even **Passive**. These potions and many more are documented "
                 + "further on in the book.");
@@ -59,9 +59,9 @@ public class PotionCraftingEntry extends EntryProvider {
 
         this.page("splash_linger", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Flasks also have their equivalent to **Splash** and **Lingering Potions**.\n\n"
+        this.pageText("Flasks also have their equivalent to **Splash** and **Lingering Potions**.\\\n\\\n"
                 + "**Splash Alchemy Flask** (recipe: neovitae:flask/flask_splash)\n"
-                + "**Lingering Alchemy Flask** (recipe: neovitae:flask/flask_lingering)\n\n"
+                + "**Lingering Alchemy Flask** (recipe: neovitae:flask/flask_lingering)\\\n\\\n"
                 + "**Lingering Potions** can be combined with 8 **Amethyst Throwing Daggers** in the "
                 + "**Alchemical Reaction Chamber** to create **Tipped Amethyst Throwing Daggers**. "
                 + "Any entity hit by one of these daggers will have the potion's effects transferred to it.");
@@ -70,7 +70,8 @@ public class PotionCraftingEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("You may recall the ability to make multiple **effects** in a single **Flask**. "
                 + "Luckily, this process couldn't be easier. Simply brew up a potion, and use the resulting "
-                + "Flask in place of your empty Flask in the second brewing. For example, if you made a Flask "
+                + "Flask in place of your empty Flask in the second brewing.\\\n\\\n"
+                + "For example, if you made a Flask "
                 + "of **Bounce**, then took that flask and used it as an ingredient in a flask of **Night Vision**, "
                 + "you'd end up with an 8-dose Flask that gives you **Bounce** and **Night Vision** with every swig!");
 
@@ -94,7 +95,7 @@ public class PotionCraftingEntry extends EntryProvider {
         this.pageTitle("Small Power Catalyst");
         this.pageText("Craft the **Small Power Catalyst** in the Alchemy Table (recipe: neovitae:alchemytable/mundane_power). "
                 + "Power Catalysts increase the potency of the topmost effect inside the Flask, while decreasing the "
-                + "duration of the effect. It is roughly analogous to **Glowstone** in more standard potions. "
+                + "duration of the effect. It is roughly analogous to **Glowstone** in more standard potions.\\\n\\\n"
                 + "If the most recently applied effect cannot accept the catalyst, it will attempt to boost the "
                 + "second topmost, and so on.");
 
@@ -104,7 +105,8 @@ public class PotionCraftingEntry extends EntryProvider {
         this.pageTitle("Small Lengthening Catalyst");
         this.pageText("Craft the **Small Lengthening Catalyst** in the Alchemy Table (recipe: neovitae:alchemytable/mundane_lengthening). "
                 + "Lengthening Catalysts increase the duration of the topmost effect inside the Flask. It is roughly "
-                + "analogous to **Redstone** in more standard potions. If the most recently applied effect cannot "
+                + "analogous to **Redstone** in more standard potions.\\\n\\\n"
+                + "If the most recently applied effect cannot "
                 + "accept the catalyst, it will attempt to boost the second topmost, and so on.");
 
         this.page("combinational_catalyst", () -> BookTextPageModel.create()

@@ -20,8 +20,8 @@ public class SoftFallUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Soft Fall");
-        this.pageText("Effect: Reduces fall damage, up to complete immunity.\n\n"
-                + "Trained by: Getting hurt from falls.\n\nMaximum level: 5");
+        this.pageText("Effect: Reduces fall damage, up to complete immunity.\\\n\\\n"
+                + "Trained by: Getting hurt from falls.\\\n\\\nMaximum level: 5");
     }
 
     @Override

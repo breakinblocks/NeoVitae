@@ -124,6 +124,7 @@ public class NeoVitae {
                         (blockGetter, blockPos, blockState) ->
                                 !blockState.isAir() && blockState.getFluidState().isEmpty()
                 );
+                com.breakinblocks.neovitae.compat.modonomicon.NVModonomiconCompat.registerPageLoaders();
             });
         }
     }

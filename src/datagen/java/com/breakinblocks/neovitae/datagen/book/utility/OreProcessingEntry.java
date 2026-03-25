@@ -31,7 +31,8 @@ public class OreProcessingEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Basic Cutting Fluid");
         this.pageText("Cutting Fluid is crafted in the Alchemy Table. It is the penultimate step in all forms of "
-                + "Ore Processing. It can be used in the Alchemical Reaction Chamber to get 3 Ore Sand from one "
+                + "Ore Processing.\\\n\\\n"
+                + "It can be used in the Alchemical Reaction Chamber to get 3 Ore Sand from one "
                 + "Ore Block, or 1.5 Ore Sand from one Raw Ore (on average). While a Water Sigil is used in the "
                 + "recipe, a simple Bottle of Water may be used.");
 
@@ -79,7 +80,8 @@ public class OreProcessingEntry extends EntryProvider {
         this.pageTitle("Explosive Powder");
         this.pageText("Explosive Powder is crafted in the Alchemy Table. In the ARC, it is used to turn Ores into "
                 + "4.5 Ore Fragments on average, or Raw Ores into 2.25 fragments on average, or turn Ingots into "
-                + "their Sand variant. It can also turn Netherrack into Sulfur and 50mb of Lava. It has 2 improved variants.");
+                + "their Sand variant.\\\n\\\n"
+                + "It can also turn Netherrack into Sulfur and 50mb of Lava. It has 2 improved variants.");
 
         this.page("explosive_cells", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

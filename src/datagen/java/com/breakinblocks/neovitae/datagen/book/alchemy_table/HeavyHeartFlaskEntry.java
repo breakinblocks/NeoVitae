@@ -21,7 +21,7 @@ public class HeavyHeartFlaskEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Heavy Heart");
         this.pageText("**Heavy Heart** drags the target steadily downwards, making flying and swimming "
-                + "significantly more difficult.\n\n"
+                + "significantly more difficult.\\\n\\\n"
                 + "It's created from a flask containing both the **Gravity** and **Instant Health** effects.");
 
         this.page("recipes", () -> BookTextPageModel.create()
@@ -33,7 +33,7 @@ public class HeavyHeartFlaskEntry extends EntryProvider {
 
         this.page("advanced", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\n\n"
+        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
                 + "- **Heavy Heart III (0:45)** - neovitae:flask/potency_average_heavy_heart\n"
                 + "- **Heavy Heart (21:20)** - neovitae:flask/length_average_heavy_heart");
     }

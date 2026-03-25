@@ -20,9 +20,9 @@ public class BrillianceUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Brilliance");
-        this.pageText("Effect: Improves your armour defence. Caps out at +5 Armour and +8 Toughness.\n\n"
+        this.pageText("Effect: Improves your armour defence. Caps out at +5 Armour and +8 Toughness.\\\n\\\n"
                 + "Trained by: Crafting a living tome in the Alchemy Table. Each tome adds 1 level of "
-                + "Brilliance.\n\nMaximum level: 5");
+                + "Brilliance.\\\n\\\nMaximum level: 5");
     }
 
     @Override

@@ -21,15 +21,15 @@ public class WeaponRepairAnointmentEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Repairing Salve");
         this.pageText("Craft **Repairing Salve** in the Alchemy Table (recipe: neovitae:alchemytable/weapon_repair_anointment). "
-                + "Repairs damaged tools by 1 point when tool is used.\n\n"
-                + "Valid items: Tools, Swords.\n\nApplies: Regular Maintenance I (256 blocks)");
+                + "Repairs damaged tools by 1 point when tool is used.\\\n\\\n"
+                + "Valid items: Tools, Swords.\\\n\\\nApplies: Regular Maintenance I (256 blocks)");
 
         this.page("long", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Repairing Salve L");
         this.pageText("Craft **Repairing Salve L** in the Alchemy Table (recipe: neovitae:alchemytable/weapon_repair_anointment_l). "
-                + "This upgraded version of the anointment lasts four times longer.\n\n"
+                + "This upgraded version of the anointment lasts four times longer.\\\n\\\n"
                 + "Applies: Regular Maintenance I (1024 blocks)");
 
         this.page("tier2", () -> BookTextPageModel.create()
@@ -38,7 +38,7 @@ public class WeaponRepairAnointmentEntry extends EntryProvider {
         this.pageTitle("Repairing Salve II");
         this.pageText("Craft **Repairing Salve II** in the Alchemy Table (recipe: neovitae:alchemytable/weapon_repair_anointment_2). "
                 + "This upgraded version of the anointment repairs the tool by 2 points for every point of damage "
-                + "taken. Does not activate if doing so would waste some of the repair bonus.\n\n"
+                + "taken. Does not activate if doing so would waste some of the repair bonus.\\\n\\\n"
                 + "Applies: Regular Maintenance II (256 blocks)");
 
         this.page("extra_long", () -> BookTextPageModel.create()
@@ -46,7 +46,7 @@ public class WeaponRepairAnointmentEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Repairing Salve XL");
         this.pageText("Craft **Repairing Salve XL** in the Alchemy Table (recipe: neovitae:alchemytable/weapon_repair_anointment_xl). "
-                + "This upgraded version of the anointment lasts sixteen times longer.\n\n"
+                + "This upgraded version of the anointment lasts sixteen times longer.\\\n\\\n"
                 + "Applies: Regular Maintenance I (4096 blocks)");
 
         this.page("tier3", () -> BookTextPageModel.create()
@@ -55,7 +55,7 @@ public class WeaponRepairAnointmentEntry extends EntryProvider {
         this.pageTitle("Repairing Salve III");
         this.pageText("Craft **Repairing Salve III** in the Alchemy Table (recipe: neovitae:alchemytable/weapon_repair_anointment_3). "
                 + "This upgraded version of the anointment repairs the tool by 3 points for every point of damage "
-                + "taken. Does not activate if doing so would waste some of the repair bonus.\n\n"
+                + "taken. Does not activate if doing so would waste some of the repair bonus.\\\n\\\n"
                 + "Applies: Regular Maintenance III (256 blocks)");
     }
 

@@ -27,8 +27,8 @@ public class TrainingBraceletEntry extends EntryProvider {
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("**Training Bracelet**: Created in an Alchemy Array.\n\n"
-                + "*Insert Rocky Training Montage here*\n\n"
+        this.pageText("**Training Bracelet**: Created in an Alchemy Array.\\\n\\\n"
+                + "*Insert Rocky Training Montage here*\\\n\\\n"
                 + "Only one of these bracelets will work at a time. Off-hand > Curios (if available) > "
                 + "Main Inventory (including main hand) > add-on inventories.");
 
@@ -36,7 +36,7 @@ public class TrainingBraceletEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("The bracelet can specify a limit for any given upgrade (assuming you have a copy of "
                 + "the **Tome** to hand). For example, you could tell it to limit Strong Legs to level 3 - "
-                + "once you reach this level, Strong Legs will no longer gain experience.\n\n"
+                + "once you reach this level, Strong Legs will no longer gain experience.\\\n\\\n"
                 + "It can also prevent or allow the training of all other skills that you haven't otherwise "
                 + "specified. If you want to allow all upgrades except one, you can add that one to the "
                 + "bracelet in 'allow others' mode and set its level cap to 0.");

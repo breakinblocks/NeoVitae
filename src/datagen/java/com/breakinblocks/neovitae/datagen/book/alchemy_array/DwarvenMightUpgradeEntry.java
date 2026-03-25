@@ -21,7 +21,7 @@ public class DwarvenMightUpgradeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Dwarven Might");
         this.pageText("Effect: Increases mining speed while mining identical blocks. After a certain level, "
-                + "gives a Haste buff after breaking blocks.\n\nTrained by: Mining.\n\nMaximum level: 10");
+                + "gives a Haste buff after breaking blocks.\\\n\\\nTrained by: Mining.\\\n\\\nMaximum level: 10");
     }
 
     @Override

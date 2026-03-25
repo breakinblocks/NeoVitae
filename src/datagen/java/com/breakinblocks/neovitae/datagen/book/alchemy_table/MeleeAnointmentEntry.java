@@ -21,36 +21,36 @@ public class MeleeAnointmentEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Honing Oil");
         this.pageText("Craft **Honing Oil** in the Alchemy Table (recipe: neovitae:alchemytable/melee_damage_anointment). "
-                + "Temporarily increases the melee damage dealt by +3.\n\n"
-                + "Valid items: Tools, Swords.\n\nApplies: Whetstone I (256 hits)");
+                + "Temporarily increases the melee damage dealt by +3.\\\n\\\n"
+                + "Valid items: Tools, Swords.\\\n\\\nApplies: Whetstone I (256 hits)");
 
         this.page("long", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Honing Oil L");
         this.pageText("Craft **Honing Oil L** in the Alchemy Table (recipe: neovitae:alchemytable/melee_damage_anointment_l). "
-                + "This upgraded version of the anointment lasts four times longer.\n\nApplies: Whetstone I (1024 hits)");
+                + "This upgraded version of the anointment lasts four times longer.\\\n\\\nApplies: Whetstone I (1024 hits)");
 
         this.page("tier2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Honing Oil II");
         this.pageText("Craft **Honing Oil II** in the Alchemy Table (recipe: neovitae:alchemytable/melee_damage_anointment_2). "
-                + "This upgraded version of the anointment increases melee damage dealt by +6.\n\nApplies: Whetstone II (256 hits)");
+                + "This upgraded version of the anointment increases melee damage dealt by +6.\\\n\\\nApplies: Whetstone II (256 hits)");
 
         this.page("extra_long", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Honing Oil XL");
         this.pageText("Craft **Honing Oil XL** in the Alchemy Table (recipe: neovitae:alchemytable/melee_damage_anointment_xl). "
-                + "This upgraded version of the anointment lasts sixteen times longer.\n\nApplies: Whetstone I (4096 hits)");
+                + "This upgraded version of the anointment lasts sixteen times longer.\\\n\\\nApplies: Whetstone I (4096 hits)");
 
         this.page("tier3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Honing Oil III");
         this.pageText("Craft **Honing Oil III** in the Alchemy Table (recipe: neovitae:alchemytable/melee_damage_anointment_3). "
-                + "This upgraded version of the anointment increases melee damage dealt by +9.\n\nApplies: Whetstone III (256 hits)");
+                + "This upgraded version of the anointment increases melee damage dealt by +9.\\\n\\\nApplies: Whetstone III (256 hits)");
     }
 
     @Override

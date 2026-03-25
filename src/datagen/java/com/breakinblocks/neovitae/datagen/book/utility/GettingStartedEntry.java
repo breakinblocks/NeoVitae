@@ -21,7 +21,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Tiers & Getting Started");
         this.pageText("Neo Vitae 3's progression is still being reworked, and the first few steps are "
-                + "significantly different from Neo Vitae 2's.\n\n"
+                + "significantly different from Neo Vitae 2's.\\\n\\\n"
                 + "We are still retooling our guidance, but we are waiting until the progression is locked down. "
                 + "In the meantime, here is a quick overview on how to progress in Neo Vitae 3.");
 
@@ -30,7 +30,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Blood Altar (Tier-1)");
         this.pageText("The first step of Neo Vitae is to build a Blood Altar and Sacrificial Knife. "
-                + "Use these to generate Life Essence from Self-Sacrificing.\n\n"
+                + "Use these to generate Life Essence from Self-Sacrificing.\\\n\\\n"
                 + "Use this Life Essence to craft a Weak Blood Orb, several Blank Slates, and a few Soul Snares.");
 
         this.page("tier1_alchemy", () -> BookTextPageModel.create()
@@ -83,7 +83,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Tier Three");
         this.pageText("By this point, you will have the ability to create some basic Rituals and Living Armour as well. "
-                + "This armour is very versatile, though you'll have to work hard to unlock its full potential. "
+                + "This armour is very versatile, though you'll have to work hard to unlock its full potential.\\\n\\\n"
                 + "At this point you should look into upgrading your Altar and your Ritual Diviner to unlock "
                 + "more powerful Rituals. How, you say?");
 
@@ -120,7 +120,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.pageTitle("Upgrade Management");
         this.pageText("If that's not enough, you can use the Sound of the Cleansing Soul to strip your armour "
                 + "of its upgrades. These tomes can be copied into a Training Bracelet, or re-applied to your "
-                + "armour to ensure you only train Upgrades that you actually want.\n\n"
+                + "armour to ensure you only train Upgrades that you actually want.\\\n\\\n"
                 + "Any leftover Upgrade Tomes can be kept as fuel for the Penance of the Leaden Soul. "
                 + "This ritual allows you to apply Downgrades to your Armour.");
 
@@ -129,7 +129,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Downgrade Combos");
         this.pageText("While these are expensive (and each comes with a hefty penalty), their negative point-cost "
-                + "will give you more room to further improve your upgrades.\n\n"
+                + "will give you more room to further improve your upgrades.\\\n\\\n"
                 + "Want to be incredibly tough and healthy, and don't mind being slow? Try combining "
                 + "Body Builder V, Brilliance V, Healthy X, and Tough X with Leadened Pick X and Limp Leg X.");
 
@@ -138,7 +138,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Mix and Match");
         this.pageText("Feel more like exploring and going fast? Perhaps you don't care about your offhand? "
-                + "Maybe Strong Legs X, Quick Feet X, and Crippled Arm would be more your speed.\n\n"
+                + "Maybe Strong Legs X, Quick Feet X, and Crippled Arm would be more your speed.\\\n\\\n"
                 + "Feel like having both at different times? Make multiple chestplates and swap between them! "
                 + "There are dozens of upgrades and downgrades, so mix and match to find your favourite combinations.");
 
@@ -173,7 +173,8 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier Six?");
-        this.pageText("What? No. Look, even in 1.12, this only existed as a favor to pack makers and was otherwise "
+        this.pageText("What? No.\\\n\\\n"
+                + "Look, even in 1.12, this only existed as a favor to pack makers and was otherwise "
                 + "unimplemented. You've come too far. Go back a page.");
     }
 

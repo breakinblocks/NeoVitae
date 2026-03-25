@@ -23,7 +23,7 @@ public class TauFruitEntry extends EntryProvider {
         this.pageTitle("Tau Fruit");
         this.pageText("Tau Fruit can be found within **Simple Dungeons**, after which it can be farmed. Being a "
                 + "native denizen of the **Demon Realm**, its lifecycle is unfortunately a tad more complex than that "
-                + "of the humble **Potato**.\n\n"
+                + "of the humble **Potato**.\\\n\\\n"
                 + "The Tau Fruit will mature into one of two varieties, depending on the conditions in which it was "
                 + "raised. By default, it will grow into **Tau Fruit**, which can be converted into **Tau Oil**.");
 

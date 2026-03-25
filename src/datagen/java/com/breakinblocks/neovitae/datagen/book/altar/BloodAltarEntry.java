@@ -49,7 +49,8 @@ public class BloodAltarEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("In order to add **Life Essence** to the Altar, you first have to craft a **Sacrificial Knife**. "
                 + "By right-clicking while aiming at air with the knife, you can extract **200 Life Essence** for the "
-                + "cost of one heart, placing it into a nearby Altar. The Altar starts with a maximum capacity of "
+                + "cost of one heart, placing it into a nearby Altar.\\\n\\\n"
+                + "The Altar starts with a maximum capacity of "
                 + "**10,000 Life Essence**, and the blood level in the basin indicates the percentage filled. "
                 + "The **Divination Sigil** allows more detailed information about the Altar.");
 
@@ -63,7 +64,8 @@ public class BloodAltarEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("The Blood Altar will attempt to start to craft as soon as an item is placed inside by a "
                 + "player (or after a periodic 5 seconds). The **Life Essence** inside of the Altar will slowly "
-                + "drain (indicated by red particles), transforming the item. If there is no **Life Essence** in "
+                + "drain (indicated by red particles), transforming the item.\\\n\\\n"
+                + "If there is no **Life Essence** in "
                 + "the Altar, gray smoke will appear to indicate that the Altar is losing progress instead. Once "
                 + "enough **Life Essence** is consumed (cost multiplied by number in the item stack), the full "
                 + "stack will be transformed into a new item.");
@@ -102,14 +104,15 @@ public class BloodAltarEntry extends EntryProvider {
         this.pageText("Now that you have a Tier 2 Altar, you can look into getting **Life Essence** from "
                 + "somewhere other than yourself. The **Dagger of Sacrifice** will allow you to sacrifice any "
                 + "mob (monster or passive) that stands within 2 blocks of your Altar, instantly killing them "
-                + "and granting you a decent sum of **Life Essence**. You can increase the amount you get per "
+                + "and granting you a decent sum of **Life Essence**.\\\n\\\n"
+                + "You can increase the amount you get per "
                 + "kill with **Runes of Sacrifice**. Different entities give different amounts of **Life Essence**.");
 
         this.page("dagger_recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Dagger of Sacrifice");
-        this.pageText("Craft the Dagger of Sacrifice in the Blood Altar (Tier 2, cost: 3000 LP).\n\n"
+        this.pageText("Craft the Dagger of Sacrifice in the Blood Altar (Tier 2, cost: 3000 LP).\\\n\\\n"
                 + "Slaughtering villagers for fun and profit!");
 
         this.page("tier3_text", () -> BookTextPageModel.create()
@@ -117,7 +120,7 @@ public class BloodAltarEntry extends EntryProvider {
         this.pageText("To upgrade the Blood Altar to Tier 3, place 5 **Blood Runes** one block down and two "
                 + "blocks away from the previous set of runes along each edge. Then place two blocks (indicated "
                 + "by the **Stone Bricks**) in each corner, starting above the new ring of runes, and then cap "
-                + "each pillar with **Glowstone Blocks**.\n\nTo check that it is successfully upgraded, use a "
+                + "each pillar with **Glowstone Blocks**.\\\n\\\nTo check that it is successfully upgraded, use a "
                 + "**Divination Sigil** to check the tier. Note that any non-air block can be used for the "
                 + "pillars below the Glowstone.");
 

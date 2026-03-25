@@ -22,14 +22,14 @@ public class ModFilterEntry extends EntryProvider {
         this.pageTitle("Mod Item Filter");
         this.pageText("The **Mod Item Filter** lets you select up to 9 items from different mods. Similarly to "
                 + "the **Standard Item Filter**, it has a quantity selector and an allow/deny function. Leaving "
-                + "the quantity blank defaults to 'all'.\n\n"
+                + "the quantity blank defaults to 'all'.\\\n\\\n"
                 + "For each item that you put into this filter, **any item from the same mod** will be matched.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Mod Item Filter");
-        this.pageText("Craft the Mod Item Filter in the Alchemy Table.\n\n"
+        this.pageText("Craft the Mod Item Filter in the Alchemy Table.\\\n\\\n"
                 + "This allows you to deny/permit entire swathes of items. Handy for sorting all of your "
                 + "Neo Vitae items into their own super-special chest, to name an example at random.");
     }

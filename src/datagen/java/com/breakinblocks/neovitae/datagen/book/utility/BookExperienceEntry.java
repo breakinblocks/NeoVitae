@@ -22,7 +22,7 @@ public class BookExperienceEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tome of Peritia");
-        this.pageText("The **Tome of Peritia** allows you to safely store your experience.\n\n"
+        this.pageText("The **Tome of Peritia** allows you to safely store your experience.\\\n\\\n"
                 + "Pressing Sneak and Use with the Tome in hand stores one level of XP. "
                 + "Pressing Use retrieves a level. Hold Use to store/retrieve multiple levels.");
 

@@ -20,8 +20,8 @@ public class FierceStrikeUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fierce Strike");
-        this.pageText("Effect: Melee attacks do additional damage.\n\n"
-                + "Trained by: Performing melee attacks.\n\nMaximum level: 10");
+        this.pageText("Effect: Melee attacks do additional damage.\\\n\\\n"
+                + "Trained by: Performing melee attacks.\\\n\\\nMaximum level: 10");
     }
 
     @Override

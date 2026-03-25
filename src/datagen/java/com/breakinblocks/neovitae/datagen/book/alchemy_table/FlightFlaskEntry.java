@@ -21,7 +21,7 @@ public class FlightFlaskEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Flight");
         this.pageText("**Flight** gives the target a temporary dose of creative-style Flight. Higher levels "
-                + "increase flight speed.\n\n"
+                + "increase flight speed.\\\n\\\n"
                 + "It's created from a flask containing both the **Suspended** and **Levitation** effects.");
 
         this.page("recipes", () -> BookTextPageModel.create()
@@ -33,7 +33,7 @@ public class FlightFlaskEntry extends EntryProvider {
 
         this.page("advanced", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\n\n"
+        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
                 + "- **Flight III (0:45)** - neovitae:flask/potency_average_flight\n"
                 + "- **Flight (21:20)** - neovitae:flask/length_average_flight");
     }

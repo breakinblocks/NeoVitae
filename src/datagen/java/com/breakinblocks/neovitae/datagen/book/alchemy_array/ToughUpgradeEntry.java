@@ -20,8 +20,8 @@ public class ToughUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tough");
-        this.pageText("Effect: Protects you from non-projectile harm.\n\n"
-                + "Trained by: Taking damage from anything but projectiles.\n\nMaximum level: 10");
+        this.pageText("Effect: Protects you from non-projectile harm.\\\n\\\n"
+                + "Trained by: Taking damage from anything but projectiles.\\\n\\\nMaximum level: 10");
     }
 
     @Override

@@ -21,22 +21,22 @@ public class LootingAnointmentEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Plunderer's Glint");
         this.pageText("Craft **Plunderer's Glint** in the Alchemy Table (recipe: neovitae:alchemytable/looting_anointment). "
-                + "Increases the drops from killed mobs. Also stacks with the Looting enchantment.\n\n"
-                + "Valid items: Tools, Swords.\n\nApplies: Plundering I (256 hits)");
+                + "Increases the drops from killed mobs. Also stacks with the Looting enchantment.\\\n\\\n"
+                + "Valid items: Tools, Swords.\\\n\\\nApplies: Plundering I (256 hits)");
 
         this.page("long", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Plunderer's Glint L");
         this.pageText("Craft **Plunderer's Glint L** in the Alchemy Table (recipe: neovitae:alchemytable/looting_anointment_l). "
-                + "This upgraded version of the anointment lasts four times longer.\n\nApplies: Plundering I (1024 hits)");
+                + "This upgraded version of the anointment lasts four times longer.\\\n\\\nApplies: Plundering I (1024 hits)");
 
         this.page("tier2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Plunderer's Glint II");
         this.pageText("Craft **Plunderer's Glint II** in the Alchemy Table (recipe: neovitae:alchemytable/looting_anointment_2). "
-                + "This upgraded version of the anointment further increases the drops from killed mobs.\n\n"
+                + "This upgraded version of the anointment further increases the drops from killed mobs.\\\n\\\n"
                 + "Applies: Plundering II (256 hits)");
 
         this.page("extra_long", () -> BookTextPageModel.create()
@@ -44,14 +44,14 @@ public class LootingAnointmentEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Plunderer's Glint XL");
         this.pageText("Craft **Plunderer's Glint XL** in the Alchemy Table (recipe: neovitae:alchemytable/looting_anointment_xl). "
-                + "This upgraded version of the anointment lasts sixteen times longer.\n\nApplies: Plundering I (4096 hits)");
+                + "This upgraded version of the anointment lasts sixteen times longer.\\\n\\\nApplies: Plundering I (4096 hits)");
 
         this.page("tier3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Plunderer's Glint III");
         this.pageText("Craft **Plunderer's Glint III** in the Alchemy Table (recipe: neovitae:alchemytable/looting_anointment_3). "
-                + "This upgraded version of the anointment further increases the drops from killed mobs.\n\n"
+                + "This upgraded version of the anointment further increases the drops from killed mobs.\\\n\\\n"
                 + "Applies: Plundering III (256 hits)");
     }
 

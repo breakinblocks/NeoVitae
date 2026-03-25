@@ -29,7 +29,8 @@ public class RitualPhantomBridgeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("This ritual creates temporary phantom bridge blocks beneath any players within its area of effect. The ethereal platforms allow players to walk across gaps and voids. When the ritual is deactivated, the phantom blocks fade away. Useful for traversing large chasms or building in dangerous areas.");
+        this.pageText("This ritual creates temporary phantom bridge blocks beneath any players within its area of effect. The ethereal platforms allow players to walk across gaps and voids.\\\n\\\n"
+                + "When the ritual is deactivated, the phantom blocks fade away. Useful for traversing large chasms or building in dangerous areas.");
     }
 
     @Override

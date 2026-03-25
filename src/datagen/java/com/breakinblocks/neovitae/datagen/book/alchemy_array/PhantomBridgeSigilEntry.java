@@ -22,14 +22,15 @@ public class PhantomBridgeSigilEntry extends EntryProvider {
         this.pageTitle("Sigil of the Phantom Bridge");
         this.pageText("The **Sigil of the Phantom Bridge**, when activated via pressing [Use], will create "
                 + "temporary phantom blocks beneath your feet as you walk. These ethereal platforms allow you "
-                + "to traverse chasms and voids with ease. The phantom blocks disappear shortly after you move "
+                + "to traverse chasms and voids with ease.\\\n\\\n"
+                + "The phantom blocks disappear shortly after you move "
                 + "away from them, so keep moving! Perfect for building in dangerous areas or crossing large gaps.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Phantom Bridge Reagent** in the Alchemy Table.\n\n"
+        this.pageText("Step 1: Craft the **Phantom Bridge Reagent** in the Alchemy Table.\\\n\\\n"
                 + "Step 2: Create the **Sigil of the Phantom Bridge** in an Alchemy Array using the "
-                + "Phantom Bridge Reagent as the base and a slate as the catalyst.\n\n*Walk on air!*");
+                + "Phantom Bridge Reagent as the base and a slate as the catalyst.\\\n\\\n*Walk on air!*");
     }
 
     @Override

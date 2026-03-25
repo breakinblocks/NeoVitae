@@ -24,7 +24,7 @@ public class RitualDivinerEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("The Ritual Diviner");
         this.pageText("Crafting rituals is an intricate business; even if you have the correct **Inscription Tools**, you can't just slap runic inscriptions down any old how and expect things to happen. Luckily, the **Ritual Diviner** is here to help."
-                + "\n\nHold Sneak and press Use or Attack while looking at empty air to cycle through the available rituals in either direction.");
+                + "\\\n\\\nHold Sneak and press Use or Attack while looking at empty air to cycle through the available rituals in either direction.");
 
         this.page("direction", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -38,7 +38,7 @@ public class RitualDivinerEntry extends EntryProvider {
         this.page("clearing", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The Ritual Diviner can break replaceable blocks (like tall grass, snow, etc), but not solid ones such as stone or dirt, so make sure the area is clear before you commence construction, or the **Activation Crystal** will be unable to do its job."
-                + "\n\nIt's also worth noting that the base ritual diviner can only create some of the more basic rituals. If you want the most out of your diviner, you'll have to upgrade it with **Dusk Inscription Tools**.");
+                + "\\\n\\\nIt's also worth noting that the base ritual diviner can only create some of the more basic rituals. If you want the most out of your diviner, you'll have to upgrade it with **Dusk Inscription Tools**.");
 
         this.page("dusk_crafting", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_diviner_1"))
@@ -48,8 +48,8 @@ public class RitualDivinerEntry extends EntryProvider {
         this.page("inscription_tools", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The base Ritual Diviner requires one of each **Elemental Inscription Tool** for its construction, and thus a tier 3 **Blood Altar**."
-                + "\n\nThe four base Elemental Inscription Tools can be crafted in your Altar for **1,000 Life Essence** each. The Ritual Diviner [Dusk] similarly requires a Tier 4 Altar to make two Dusk Elemental Inscription Tools, at a cost of **2,000 Life Essence** each."
-                + "\n\nYou can also use these tools to inscribe runes by hand, but this should only seriously be used for decorative purposes, as it is both slow and inaccurate.");
+                + "\\\n\\\nThe four base Elemental Inscription Tools can be crafted in your Altar for **1,000 Life Essence** each. The Ritual Diviner [Dusk] similarly requires a Tier 4 Altar to make two Dusk Elemental Inscription Tools, at a cost of **2,000 Life Essence** each."
+                + "\\\n\\\nYou can also use these tools to inscribe runes by hand, but this should only seriously be used for decorative purposes, as it is both slow and inaccurate.");
     }
 
     @Override

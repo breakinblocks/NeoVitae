@@ -21,9 +21,9 @@ public class CuriosSocketsUpgradeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Socketed");
         this.pageText("Adds **Living Armour Socket** Curios Slots to the player that are able to hold "
-                + "compatible Neo Vitae items.\n\n"
+                + "compatible Neo Vitae items.\\\n\\\n"
                 + "This upgrade can't be trained, only crafted. By default, each **Upgrade Tome** adds "
-                + "one additional slot.\n\nRequires the Curios API to be installed.");
+                + "one additional slot.\\\n\\\nRequires the Curios API to be installed.");
     }
 
     @Override

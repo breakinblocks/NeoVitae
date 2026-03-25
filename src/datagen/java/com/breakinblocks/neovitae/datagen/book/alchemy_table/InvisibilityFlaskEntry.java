@@ -22,7 +22,7 @@ public class InvisibilityFlaskEntry extends EntryProvider {
         this.pageTitle("Invisibility");
         this.pageText("**Invisibility** causes the target to disappear from view, making it harder for them "
                 + "to be spotted. This effect does not extend to any **Armour** or held items, any of which "
-                + "may be a give-away as to the target's location.\n\n"
+                + "may be a give-away as to the target's location.\\\n\\\n"
                 + "It's made from a potion of **Night Vision**.");
 
         this.page("recipes", () -> BookTextPageModel.create()

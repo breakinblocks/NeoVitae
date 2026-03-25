@@ -21,22 +21,22 @@ public class QuickDrawAnointmentEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Dexterity Alkahest");
         this.pageText("Craft **Dexterity Alkahest** in the Alchemy Table (recipe: neovitae:alchemytable/quick_draw_anointment). "
-                + "Lowers the draw time of bows and crossbows by 33%.\n\n"
-                + "Valid items: Bows, Crossbows.\n\nApplies: Deft Hands I (256 shots)");
+                + "Lowers the draw time of bows and crossbows by 33%.\\\n\\\n"
+                + "Valid items: Bows, Crossbows.\\\n\\\nApplies: Deft Hands I (256 shots)");
 
         this.page("long", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Dexterity Alkahest L");
         this.pageText("Craft **Dexterity Alkahest L** in the Alchemy Table (recipe: neovitae:alchemytable/quick_draw_anointment_l). "
-                + "This upgraded version of the anointment lasts four times longer.\n\nApplies: Deft Hands I (1024 shots)");
+                + "This upgraded version of the anointment lasts four times longer.\\\n\\\nApplies: Deft Hands I (1024 shots)");
 
         this.page("tier2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Dexterity Alkahest II");
         this.pageText("Craft **Dexterity Alkahest II** in the Alchemy Table (recipe: neovitae:alchemytable/quick_draw_anointment_2). "
-                + "This upgraded version of the anointment lowers the draw time of bows and crossbows by 50%.\n\n"
+                + "This upgraded version of the anointment lowers the draw time of bows and crossbows by 50%.\\\n\\\n"
                 + "Applies: Deft Hands II (256 shots)");
 
         this.page("extra_long", () -> BookTextPageModel.create()
@@ -44,14 +44,14 @@ public class QuickDrawAnointmentEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Dexterity Alkahest XL");
         this.pageText("Craft **Dexterity Alkahest XL** in the Alchemy Table (recipe: neovitae:alchemytable/quick_draw_anointment_xl). "
-                + "This upgraded version of the anointment lasts sixteen times longer.\n\nApplies: Deft Hands I (4096 shots)");
+                + "This upgraded version of the anointment lasts sixteen times longer.\\\n\\\nApplies: Deft Hands I (4096 shots)");
 
         this.page("tier3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Dexterity Alkahest III");
         this.pageText("Craft **Dexterity Alkahest III** in the Alchemy Table (recipe: neovitae:alchemytable/quick_draw_anointment_3). "
-                + "This upgraded version of the anointment lowers the draw time of bows and crossbows by 67%.\n\n"
+                + "This upgraded version of the anointment lowers the draw time of bows and crossbows by 67%.\\\n\\\n"
                 + "Applies: Deft Hands III (256 shots)");
     }
 

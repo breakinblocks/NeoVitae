@@ -112,8 +112,15 @@ public class SparseMultiblockBuilder {
      * Build the sparse multiblock as a JsonObject ready for file output.
      */
     public JsonObject build() {
+        return build(true);
+    }
+
+    public JsonObject build(boolean symmetrical) {
         JsonObject root = new JsonObject();
         root.addProperty("type", "modonomicon:sparse");
+        if (symmetrical) {
+            root.addProperty("symmetrical", true);
+        }
 
         // Pattern: { "B": [[x,y,z], ...], "W": [[x,y,z], ...] }
         JsonObject pattern = new JsonObject();

@@ -20,7 +20,7 @@ public class FilterPartsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Filter Parts");
-        this.pageText("Craft Filter Parts in the Alchemy Table.\n\n"
+        this.pageText("Craft Filter Parts in the Alchemy Table.\\\n\\\n"
                 + "**Filter Parts** are an integral component in all **Filters**. They have no use on their own.");
     }
 

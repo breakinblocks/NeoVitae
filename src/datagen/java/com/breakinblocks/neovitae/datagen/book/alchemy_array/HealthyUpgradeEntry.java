@@ -20,9 +20,9 @@ public class HealthyUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Healthy");
-        this.pageText("Effect: Grants additional health, up to 50 half-hearts.\n\n"
+        this.pageText("Effect: Grants additional health, up to 50 half-hearts.\\\n\\\n"
                 + "Trained by: Restoring health (ordinary healing, or via **Potions of Healing** "
-                + "or **Potions of Regeneration**).\n\nMaximum level: 10");
+                + "or **Potions of Regeneration**).\\\n\\\nMaximum level: 10");
     }
 
     @Override

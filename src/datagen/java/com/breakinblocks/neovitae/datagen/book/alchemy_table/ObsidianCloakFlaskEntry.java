@@ -20,7 +20,7 @@ public class ObsidianCloakFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Obsidian Cloak");
-        this.pageText("**Obsidian Cloak** reduces all damage taken from non-magical sources by 20% per level.\n\n"
+        this.pageText("**Obsidian Cloak** reduces all damage taken from non-magical sources by 20% per level.\\\n\\\n"
                 + "It's created from a flask of **Hard Cloak**, not an **Empty Flask** like most other **potions**.");
 
         this.page("recipes", () -> BookTextPageModel.create()
@@ -32,7 +32,7 @@ public class ObsidianCloakFlaskEntry extends EntryProvider {
 
         this.page("advanced", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\n\n"
+        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
                 + "- **Obsidian Cloak III (0:45)** - neovitae:flask/potency_average_obsidian_cloak\n"
                 + "- **Obsidian Cloak (21:20)** - neovitae:flask/length_average_obsidian_cloak");
     }

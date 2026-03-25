@@ -46,7 +46,7 @@ public class EnchantFilterEntry extends EntryProvider {
         this.pageText("The first button allows you to select whether to match **Every Enchantment** on an "
                 + "enchanted item, **Any Enchantment**, or **one particular enchantment**. The second button "
                 + "allows you to specify whether to pay attention to the level or not. (E.G. 'Protection III' "
-                + "versus 'Protection').\n\n"
+                + "versus 'Protection').\\\n\\\n"
                 + "If you insert **an unenchanted item** into the filter, you can effectively Allow or Deny "
                 + "**any sort of enchantment** to be inserted into or removed from the specified inventory.");
     }

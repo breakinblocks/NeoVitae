@@ -21,16 +21,16 @@ public class HoldingSigilEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of Holding");
         this.pageText("This Sigil can hold up to 5 other **Sigils** at a time, providing you with their "
-                + "passive effects and allowing you to activate them on a whim.\n\n"
+                + "passive effects and allowing you to activate them on a whim.\\\n\\\n"
                 + "Press the Open Holding keybind while holding the Sigil to open its inventory. "
                 + "Use the cycle keybinds to cycle forward or backward through held sigils. "
                 + "Holding sneak and using your mousewheel also works.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Holding Reagent** in the Alchemy Table.\n\n"
+        this.pageText("Step 1: Craft the **Holding Reagent** in the Alchemy Table.\\\n\\\n"
                 + "Step 2: Create the **Sigil of Holding** in an Alchemy Array using the "
-                + "Holding Reagent as the base and a slate as the catalyst.\n\n*Sigil-ception*");
+                + "Holding Reagent as the base and a slate as the catalyst.\\\n\\\n*Sigil-ception*");
     }
 
     @Override

@@ -25,7 +25,7 @@ public class AspectedWillEntry extends EntryProvider {
         this.pageTitle("Demon Will Aspects");
         this.pageText("Unleashing **Demon Will** into the atmosphere was definitely an excellent idea. Not only "
                 + "has it proven most useful in empowering **Rituals**, you have also successfully condensed it "
-                + "into a **Crystal Cluster**, and are wondering what to turn your eye to next.\n\n"
+                + "into a **Crystal Cluster**, and are wondering what to turn your eye to next.\\\n\\\n"
                 + "These **Crystals** feel somehow... conflicted, to you. A certain **Ritual** may help coax "
                 + "them out into purer forms...");
 
@@ -40,7 +40,7 @@ public class AspectedWillEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Now we have **Crystallized Will** in four spicy new flavours! On the Water Rune we have "
                 + "**Steadfast Will**, on the Air Rune we get **Destructive Will**, on the Fire Rune comes "
-                + "**Vengeful Will** and on the Earth Rune we find **Corrosive Will**.\n\n"
+                + "**Vengeful Will** and on the Earth Rune we find **Corrosive Will**.\\\n\\\n"
                 + "These various new types of Will can be burned in the **Demon Crucible** just like Raw Will, "
                 + "and from there can be fed into various Rituals to great and fascinating effect.");
 
@@ -70,7 +70,7 @@ public class AspectedWillEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Note that your **Sentient Tools** will take on the aspect of the largest amount of Will "
                 + "in your inventory. If you're carrying 10 Corrosive Will in one **Tartaric Gem**, and 1,000 "
-                + "Raw Will in another, then your sword will remain Raw.\n\n"
+                + "Raw Will in another, then your sword will remain Raw.\\\n\\\n"
                 + "The **Hellfire Forge** can accept any kind of will for crafting with, so don't worry about "
                 + "having to juggle multiple types of will across different **Tartaric Gems**.");
     }

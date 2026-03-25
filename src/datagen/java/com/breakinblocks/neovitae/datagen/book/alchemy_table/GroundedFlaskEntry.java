@@ -20,7 +20,7 @@ public class GroundedFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Grounded");
-        this.pageText("**Grounded** prevents the target from jumping. Swimming is unaffected, however.\n\n"
+        this.pageText("**Grounded** prevents the target from jumping. Swimming is unaffected, however.\\\n\\\n"
                 + "It's made from a potion of **Jump Boost**.");
 
         this.page("recipes", () -> BookTextPageModel.create()

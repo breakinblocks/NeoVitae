@@ -21,12 +21,12 @@ public class MagnetismSigilEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of Magnetism");
         this.pageText("Increases the player's item pickup range to 7 blocks when active. Toggle on/off by "
-                + "holding the Sigil in your hand, and then holding sneak and pressing [Use].\n\n"
+                + "holding the Sigil in your hand, and then holding sneak and pressing [Use].\\\n\\\n"
                 + "Consumes 50 LP every 5 seconds while active.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Magnetism Reagent** in the Alchemy Table.\n\n"
+        this.pageText("Step 1: Craft the **Magnetism Reagent** in the Alchemy Table.\\\n\\\n"
                 + "Step 2: Create the **Sigil of Magnetism** in an Alchemy Array using the "
                 + "Magnetism Reagent as the base and a slate as the catalyst.");
     }

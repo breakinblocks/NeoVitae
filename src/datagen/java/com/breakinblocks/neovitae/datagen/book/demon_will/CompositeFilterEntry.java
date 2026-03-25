@@ -21,7 +21,7 @@ public class CompositeFilterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Composite Item Filter");
         this.pageText("The **Composite Item Filter** does nothing on its own, but when combined with another type "
-                + "of **Filter**, it allows you to apply that filter's rules to it.\n\n"
+                + "of **Filter**, it allows you to apply that filter's rules to it.\\\n\\\n"
                 + "This means you can, for example, use the Enchantment Filter's 'Any Enchantments' and the "
                 + "Tag Filter's 'forge:swords' to only allow enchanted swords to pass through.");
 
@@ -35,7 +35,7 @@ public class CompositeFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Composite Item Filter");
-        this.pageText("Craft the Composite Item Filter in the Alchemy Table.\n\n"
+        this.pageText("Craft the Composite Item Filter in the Alchemy Table.\\\n\\\n"
                 + "You can add a Tag Filter, Enchantment Filter, or Mod Filter to a Composite Filter by "
                 + "combining them in the Alchemy Table.");
     }

@@ -24,7 +24,7 @@ public class AlchemicalReactionChamberEntry extends EntryProvider {
         this.pageTitle("Alchemical Reaction Chamber");
         this.pageText("The **Alchemical Reaction Chamber**, or ARC for short, can function as a Furnace, "
                 + "offers a form of Ore-Tripling, can revert Blood Orbs, Netherite and Reinforced Runes, "
-                + "and is currently the only way to get Weak Blood Shards, specifically from a Saturated Tau.\n\n"
+                + "and is currently the only way to get Weak Blood Shards, specifically from a Saturated Tau.\\\n\\\n"
                 + "Most tools used within the ARC degrade over time, but can be enchanted with unbreaking or "
                 + "mending to compensate.");
 

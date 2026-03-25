@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "c": {
+      "tag": "c:cobblestones"
+    },
+    "f": {
+      "tag": "c:storage_blocks/coal"
+    },
+    "o": {
+      "type": "neovitae:orb_tier",
+      "tier": 3
+    },
+    "s": {
+      "item": "neovitae:blank_slate"
+    }
+  },
+  "pattern": [
+    "csc",
+    "cfc",
+    "coc"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:furnacecell_primitive"
+  }
+}

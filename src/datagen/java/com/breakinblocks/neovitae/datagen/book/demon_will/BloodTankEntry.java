@@ -26,7 +26,7 @@ public class BloodTankEntry extends EntryProvider {
         this.pageText("The **Blood Tank** is a portable fluid storage block capable of holding **Life Essence** "
                 + "and other fluids. It can be filled and emptied by right-clicking with a bucket or other fluid "
                 + "container. The tank retains its contents when broken, making it easy to transport large "
-                + "quantities of **Life Essence** between locations.\n\n"
+                + "quantities of **Life Essence** between locations.\\\n\\\n"
                 + "The tank emits light based on the fluid it contains, and each tier doubles the capacity of "
                 + "the previous one, starting at **16 Buckets** and reaching a maximum of **524,288 Buckets** "
                 + "at tier 16.");
@@ -43,7 +43,7 @@ public class BloodTankEntry extends EntryProvider {
         this.pageTitle("Upgrading");
         this.pageText("To increase its capacity, combine two **Blood Tanks** with **Glass** and a **Bloodstone** "
                 + "in a crafting table. The resulting tank will be one tier higher than the primary input, and the "
-                + "fluid contents of both tanks will be merged together.\n\n"
+                + "fluid contents of both tanks will be merged together.\\\n\\\n"
                 + "If both tanks hold the same fluid, their amounts are added together. If only one contains "
                 + "fluid, the result keeps that fluid. If they hold different fluids, the primary tank's fluid "
                 + "is kept.");

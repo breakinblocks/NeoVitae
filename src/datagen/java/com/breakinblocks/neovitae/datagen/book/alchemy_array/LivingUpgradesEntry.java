@@ -21,14 +21,14 @@ public class LivingUpgradesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Living Equipment Upgrades");
         this.pageText("While wearing this new armour, you have felt it growing, trying to assist you with "
-                + "various tasks it has seen you perform.\n\n"
+                + "various tasks it has seen you perform.\\\n\\\n"
                 + "It seems to be able to perform in a number of areas, but its growth is limited, and trying "
                 + "to do everything at once is quite fruitless.");
 
         this.page("specialization", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Perhaps multiple specialised sets may be a good idea? Of course, you'll have to train "
-                + "it carefully if you want more than a smattering of poorly-directed benefits.\n\n"
+                + "it carefully if you want more than a smattering of poorly-directed benefits.\\\n\\\n"
                 + "Fortunately, you have devised a **Ritual** that will assist with training, and another one "
                 + "that will imbue your armour with a greater ability to grow.");
     }

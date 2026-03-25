@@ -30,7 +30,7 @@ public class RitualEllipseEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
         this.pageText("This ritual is purely aesthetic in nature, designed for the budding, yet lazy, builder that resides in all of us. It's particularly good for building complicated shapes, such as the mighty gold dome above your Evil Lair. ...You do have one of those, right?"
-                + "\n\nThe ritual takes blocks from a nearby chest and places them in an ellipsoidal shape.");
+                + "\\\n\\\nThe ritual takes blocks from a nearby chest and places them in an ellipsoidal shape.");
     }
 
     @Override

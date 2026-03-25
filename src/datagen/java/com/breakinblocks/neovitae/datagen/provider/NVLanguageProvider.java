@@ -15,10 +15,15 @@ import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.datagen.content.LivingUpgrades;
 import com.breakinblocks.neovitae.util.helper.BlockWithItemHolder;
 
-public class NVLanguageProvider extends LanguageProvider {
+public class NVLanguageProvider extends LanguageProvider implements com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider {
 
     public NVLanguageProvider(PackOutput output) {
         super(output, NeoVitae.MODID, "en_us");
+    }
+
+    @Override
+    public void accept(String key, String value) {
+        this.add(key, value);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class SuspendedFlaskEntry extends EntryProvider {
         this.pageTitle("Suspended");
         this.pageText("**Suspended** prevents the target from jumping, falling, or being affected by gravity "
                 + "in any way whatsoever. They can still move, however, sliding about as though on a flat, "
-                + "never-ending plane of ice.\n\n"
+                + "never-ending plane of ice.\\\n\\\n"
                 + "It's made from a potion of **Gravity**.");
 
         this.page("recipes", () -> BookTextPageModel.create()

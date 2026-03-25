@@ -47,6 +47,10 @@ public class ClientModEventHandler {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
+        if (net.neoforged.fml.ModList.get().isLoaded("modonomicon")) {
+            event.enqueueWork(com.breakinblocks.neovitae.compat.modonomicon.NVModonomiconClientCompat::registerPageRenderers);
+        }
+
         event.enqueueWork(() -> {
             NVItems.WILL_ITEMS.getEntries().forEach(item -> {
                 ItemProperties.register(item.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());

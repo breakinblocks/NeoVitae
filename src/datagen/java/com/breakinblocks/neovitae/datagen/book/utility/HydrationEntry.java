@@ -23,7 +23,7 @@ public class HydrationEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("ARC Hydration");
         this.pageText("With a Primitive Hydration Cell, the ARC can aggressively hydrate and moisturize all sorts "
-                + "of substances. Don't forget to supply it with Water!\n\n"
+                + "of substances. Don't forget to supply it with Water!\\\n\\\n"
                 + "As with most tools used within the ARC, Hydration Cells degrade over time, but can be enchanted "
                 + "with unbreaking or mending to compensate.");
 
@@ -49,7 +49,7 @@ public class HydrationEntry extends EntryProvider {
                 + "- Wool (any color to white)\n"
                 + "- Carpet (any color to white)\n"
                 + "- Glass (stained to clear)\n"
-                + "- Glass Panes (stained to clear)\n\n"
+                + "- Glass Panes (stained to clear)\\\n\\\n"
                 + "All dye removal recipes require Water.");
 
         this.page("mud", () -> BookTextPageModel.create()
@@ -65,7 +65,7 @@ public class HydrationEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Concrete Production");
         this.pageText("All 16 colors of Concrete Powder can be solidified into Concrete using the Hydration Cell "
-                + "with Water. This is a convenient alternative to the usual water-placement method:\n\n"
+                + "with Water. This is a convenient alternative to the usual water-placement method:\\\n\\\n"
                 + "White, Light Gray, Gray, Black, Brown, Red, Orange, Yellow, Lime, Green, Cyan, Light Blue, "
                 + "Blue, Purple, Magenta, and Pink.");
 
@@ -91,7 +91,7 @@ public class HydrationEntry extends EntryProvider {
                 + "- Copper Block to Exposed, Exposed to Weathered, Weathered to Oxidized\n"
                 + "- Cut Copper through all oxidation stages\n"
                 + "- Cut Copper Stairs through all oxidation stages\n"
-                + "- Cut Copper Slab through all oxidation stages\n\n"
+                + "- Cut Copper Slab through all oxidation stages\\\n\\\n"
                 + "All copper oxidation recipes require Water.");
     }
 

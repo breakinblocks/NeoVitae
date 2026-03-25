@@ -30,7 +30,7 @@ public class SoulNetworkEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("being \"owned\" by you. As such, any action that the item does that has an **LP cost** "
                 + "will drain from your **Soul Network**. In some cases, if the item cannot get its **LP** from "
-                + "the **Soul Network**, it will instead directly take the **LP** cost from your health.\n\n"
+                + "the **Soul Network**, it will instead directly take the **LP** cost from your health.\\\n\\\n"
                 + "In other cases (such as when an ongoing **Ritual** drains your network completely), they will "
                 + "merely cause unceasing nausea until either the Ritual is deactivated or your **Soul Network** "
                 + "is re-filled.");
@@ -38,7 +38,7 @@ public class SoulNetworkEntry extends EntryProvider {
         this.page("filling", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("In order to fill your **Soul Network**, you will need to construct a **Blood Orb**."
-                + "\n\nBlood Orbs can be charged with **LP** in one of two ways."
+                + "\\\n\\\nBlood Orbs can be charged with **LP** in one of two ways."
                 + "\n- A player can sacrifice 1 heart of health by right-clicking with the **Blood Orb**, "
                 + "providing the bound **Soul Network** with **200 LP**."
                 + "\n- The **Blood Orb** can be placed inside a **Blood Altar** with some **Life Essence** in "
@@ -57,17 +57,17 @@ public class SoulNetworkEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Blood Orb Recipes");
-        this.pageText("Craft the **Weak Blood Orb** in the Blood Altar (Tier 1, cost: 2,000 LP).\n\n"
+        this.pageText("Craft the **Weak Blood Orb** in the Blood Altar (Tier 1, cost: 2,000 LP).\\\n\\\n"
                 + "Craft the **Apprentice Blood Orb** in the Blood Altar (Tier 2, cost: 5,000 LP).");
 
         this.page("magician_master", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Craft the **Magician Blood Orb** in the Blood Altar (Tier 3, cost: 25,000 LP).\n\n"
+        this.pageText("Craft the **Magician Blood Orb** in the Blood Altar (Tier 3, cost: 25,000 LP).\\\n\\\n"
                 + "Craft the **Master Blood Orb** in the Blood Altar (Tier 4, cost: 50,000 LP).");
 
         this.page("archmage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Craft the **Archmage Blood Orb** in the Blood Altar (Tier 5, cost: 80,000 LP).\n\n"
+        this.pageText("Craft the **Archmage Blood Orb** in the Blood Altar (Tier 5, cost: 80,000 LP).\\\n\\\n"
                 + "If that's still not enough **LP storage** for you, consider using **Runes of the Orb**.");
     }
 

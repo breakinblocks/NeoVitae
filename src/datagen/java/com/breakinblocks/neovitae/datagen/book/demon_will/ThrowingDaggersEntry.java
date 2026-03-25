@@ -30,7 +30,7 @@ public class ThrowingDaggersEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Iron Throwing Dagger");
-        this.pageText("Craft the Iron Throwing Dagger in the Hellfire Forge.\n\n"
+        this.pageText("Craft the Iron Throwing Dagger in the Hellfire Forge.\\\n\\\n"
                 + "The **Iron Throwing Dagger** is a fast-hitting attack, dealing 10 damage with a decent "
                 + "cooldown. Not only that, but if you have some **Demon Will** on you (be it in its raw form, "
                 + "or stored within a **Tartaric Gem**), it will drop Will as a **Sentient Sword** would.");
@@ -39,7 +39,7 @@ public class ThrowingDaggersEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Syringe Throwing Dagger");
-        this.pageText("Craft the Syringe Throwing Dagger in the Hellfire Forge.\n\n"
+        this.pageText("Craft the Syringe Throwing Dagger in the Hellfire Forge.\\\n\\\n"
                 + "The **Syringe Throwing Dagger** is for the Sanguimancer more interested in the acquisition "
                 + "of **Life Essence** than Will. While it deals slightly less damage, it is noticeably cheaper, "
                 + "and enemies killed by this weapon have a chance of dropping a **Slate Ampoule** - or more, "
@@ -57,7 +57,7 @@ public class ThrowingDaggersEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Amethyst Throwing Dagger");
-        this.pageText("Craft the Amethyst Throwing Dagger in the Hellfire Forge.\n\n"
+        this.pageText("Craft the Amethyst Throwing Dagger in the Hellfire Forge.\\\n\\\n"
                 + "The **Amethyst Throwing Dagger** does as much damage as an **Iron Throwing Dagger**, but "
                 + "mobs do not drop Will when killed. Instead, eight of them can be crafted with a **Lingering "
                 + "Alchemy Flask** in the **Alchemical Reaction Chamber** to create **Tipped Amethyst Throwing "
@@ -67,7 +67,7 @@ public class ThrowingDaggersEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tipped Throwing Dagger");
-        this.pageText("Craft Tipped Throwing Daggers in the Alchemical Reaction Chamber.\n\n"
+        this.pageText("Craft Tipped Throwing Daggers in the Alchemical Reaction Chamber.\\\n\\\n"
                 + "These will transmit their effect to any mob they hit, the same as if they'd walked into the "
                 + "cloud left by a **Lingering Alchemy Flask**. Experiment with combined effects to find the "
                 + "most debilitating, diabolical daggers you can make!");

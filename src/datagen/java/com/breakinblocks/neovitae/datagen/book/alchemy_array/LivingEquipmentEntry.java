@@ -26,7 +26,7 @@ public class LivingEquipmentEntry extends EntryProvider {
 
         this.page("reagent", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Craft the **Binding Reagent** in the Alchemy Table.\n\n*It clings to me tightly...*\n\n"
+        this.pageText("Craft the **Binding Reagent** in the Alchemy Table.\\\n\\\n*It clings to me tightly...*\\\n\\\n"
                 + "**Living Equipment** is equivalent in durability to **Diamond Armour**, and can be repaired "
                 + "in an **Anvil** with more **Binding Reagent**.");
 
@@ -34,7 +34,7 @@ public class LivingEquipmentEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("As with any other Alchemy Array, press [Use] while looking at a block with the **Arcane "
                 + "Ashes** in hand, then apply the **Binding Reagent**. Then place in your **Iron Helmet**, "
-                + "**Iron Chestplate**, **Iron Leggings** or **Iron Boots**, stand back, and watch the show.\n\n"
+                + "**Iron Chestplate**, **Iron Leggings** or **Iron Boots**, stand back, and watch the show.\\\n\\\n"
                 + "Living Equipment starts off equivalent to Iron, but it has **Upgrade Points** that can, "
                 + "with care, be spent to train it in specific ways. It starts with 100, but there may be "
                 + "ways to surpass this limitation...");
@@ -42,7 +42,7 @@ public class LivingEquipmentEntry extends EntryProvider {
         this.page("binding", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("**Ritual of Binding**: Created in an Alchemy Array with **Binding Reagent** (base) "
-                + "and an Iron armor piece (catalyst).\n\n"
+                + "and an Iron armor piece (catalyst).\\\n\\\n"
                 + "It's alive, all right... and it's learning from you. You'd best be careful what you teach "
                 + "it. You can keep a closer eye on what it's learned so far by holding sneak when you look at it.");
     }

@@ -32,7 +32,7 @@ public class EndlessRealmEntry extends EntryProvider {
 
         this.page("intro2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("another Inversion Pillar to return you home.\n\n"
+        this.pageText("another Inversion Pillar to return you home.\\\n\\\n"
                 + "These dungeon rooms will be filled with more fearsome foes than you found in the antechamber, "
                 + "and will have loot to match. Be sure to keep your eyes peeled for any **Spatial Distortions**, "
                 + "as well as rare keys such as the **Foreman's Key**.");

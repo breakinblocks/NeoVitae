@@ -30,14 +30,14 @@ public class RitualMeteorEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
         this.pageText("Using the vast powers at your disposal, the most logical conclusion is that it is a good idea to summon a meteor from outer space to crash upon the world."
-                + "\n\nBy dropping an appropriate offering on top of the MRS, the ritual will consume the item (plus a large amount of LP, default of a million LP) and summon a meteor at the build height of the map. Once the meteor hits something, it will detonate and leave behind many resources to mine and process.");
+                + "\\\n\\\nBy dropping an appropriate offering on top of the MRS, the ritual will consume the item (plus a large amount of LP, default of a million LP) and summon a meteor at the build height of the map. Once the meteor hits something, it will detonate and leave behind many resources to mine and process.");
 
         this.page("offerings", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Meteor Offerings");
         this.pageText("The size and resources gained vary based on the offering given. Normal offerings include: **Diamond**, **Block of Iron**, **Glowstone Dust**, and **Stone**."
-                + "\n\nMod items include: Ice and Fire **Dragon Bones**, AE2 **Certus Quartz**, Create **Andesite Alloy**, IE **Copper Wire Coil**, Mystical Agriculture **Prosperity Shard**, Thermal **RF Coil**, and Mekanism **Advanced Alloy**.");
+                + "\\\n\\\nMod items include: Ice and Fire **Dragon Bones**, AE2 **Certus Quartz**, Create **Andesite Alloy**, IE **Copper Wire Coil**, Mystical Agriculture **Prosperity Shard**, Thermal **RF Coil**, and Mekanism **Advanced Alloy**.");
     }
 
     @Override

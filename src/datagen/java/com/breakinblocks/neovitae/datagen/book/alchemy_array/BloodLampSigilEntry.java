@@ -27,9 +27,9 @@ public class BloodLampSigilEntry extends EntryProvider {
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Blood Lamp Reagent** in the Alchemy Table.\n\n"
+        this.pageText("Step 1: Craft the **Blood Lamp Reagent** in the Alchemy Table.\\\n\\\n"
                 + "Step 2: Create the **Sigil of the Blood Lamp** in an Alchemy Array using the "
-                + "Blood Lamp Reagent as the base and a slate as the catalyst.\n\n*I see a light!*");
+                + "Blood Lamp Reagent as the base and a slate as the catalyst.\\\n\\\n*I see a light!*");
     }
 
     @Override

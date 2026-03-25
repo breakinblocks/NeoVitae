@@ -22,7 +22,7 @@ public class StrongLegsUpgradeEntry extends EntryProvider {
         this.pageTitle("Strong Legs");
         this.pageText("Effect: Increases jump height and reduces fall damage, up to a maximum of an "
                 + "additional 7.5 blocks and 83% fall resistance. Can be negated by holding sneak while "
-                + "jumping.\n\nTrained by: Jumping around.\n\nMaximum level: 10");
+                + "jumping.\\\n\\\nTrained by: Jumping around.\\\n\\\nMaximum level: 10");
     }
 
     @Override

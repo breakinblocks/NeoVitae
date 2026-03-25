@@ -26,9 +26,9 @@ public class WaterSigilEntry extends EntryProvider {
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Water Reagent** in the Alchemy Table.\n\n"
+        this.pageText("Step 1: Craft the **Water Reagent** in the Alchemy Table.\\\n\\\n"
                 + "Step 2: Create the **Water Sigil** in an Alchemy Array using the Water Reagent "
-                + "as the base and a **Blank Slate** as the catalyst.\n\n*Infinite water, anyone?*");
+                + "as the base and a **Blank Slate** as the catalyst.\\\n\\\n*Infinite water, anyone?*");
 
         this.page("alchemy_table", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

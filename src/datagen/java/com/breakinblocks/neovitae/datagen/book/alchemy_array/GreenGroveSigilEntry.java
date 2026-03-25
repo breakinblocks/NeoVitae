@@ -26,14 +26,14 @@ public class GreenGroveSigilEntry extends EntryProvider {
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Growth Reagent** in the Alchemy Table.\n\n"
+        this.pageText("Step 1: Craft the **Growth Reagent** in the Alchemy Table.\\\n\\\n"
                 + "Step 2: Create the **Sigil of the Green Grove** in an Alchemy Array using the "
                 + "Growth Reagent as the base and a Reinforced Slate as the catalyst.");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("If you use the sigil on a block that is growable, it will apply the bonemeal effect "
-                + "while consuming 150 LP.\n\n"
+                + "while consuming 150 LP.\\\n\\\n"
                 + "However, if you hold sneak and use while aiming at the air, it will activate and consume "
                 + "150 LP every 5 seconds until deactivated. Every block in a 7x7x5 high volume centered "
                 + "on the player will have a growth tick applied to it.");

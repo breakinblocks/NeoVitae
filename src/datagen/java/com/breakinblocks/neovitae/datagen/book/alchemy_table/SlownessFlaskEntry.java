@@ -20,7 +20,7 @@ public class SlownessFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Slowness");
-        this.pageText("**Slowness** decreases the target's movement speed by 15% per level.\n\n"
+        this.pageText("**Slowness** decreases the target's movement speed by 15% per level.\\\n\\\n"
                 + "It's made from a potion of either **Speed** or **Jump Boost**.");
 
         this.page("recipes", () -> BookTextPageModel.create()
@@ -33,7 +33,7 @@ public class SlownessFlaskEntry extends EntryProvider {
 
         this.page("advanced", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\n\n"
+        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
                 + "- **Slowness III (0:45)** - neovitae:flask/potency_average_slowness\n"
                 + "- **Slowness (21:20)** - neovitae:flask/length_average_slowness");
     }

@@ -21,15 +21,15 @@ public class AirSigilEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Air Sigil");
         this.pageText("Throws you in the direction you're facing, at a cost of 50 LP per use. Note that this "
-                + "does not provide any sort of Feather Falling effect, so be careful when landing! A good way "
-                + "to get around quickly, albeit with some risk. Many an unwary mage has met their end by "
+                + "does not provide any sort of Feather Falling effect, so be careful when landing!\\\n\\\n"
+                + "A good way to get around quickly, albeit with some risk. Many an unwary mage has met their end by "
                 + "running out of LP in their **Soul Network** while flying miles above the countryside.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Air Reagent** in the Alchemy Table.\n\n"
+        this.pageText("Step 1: Craft the **Air Reagent** in the Alchemy Table.\\\n\\\n"
                 + "Step 2: Create the **Air Sigil** in an Alchemy Array using the Air Reagent as "
-                + "the base and a slate as the catalyst.\n\n*I feel lighter already...*");
+                + "the base and a slate as the catalyst.\\\n\\\n*I feel lighter already...*");
     }
 
     @Override

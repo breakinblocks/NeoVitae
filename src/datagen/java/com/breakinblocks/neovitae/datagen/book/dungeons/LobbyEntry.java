@@ -31,13 +31,13 @@ public class LobbyEntry extends EntryProvider {
         this.pageText("- Secondly, a number of **Doorways**, each locked with a **Dungeon Seal.** Use a **Key** "
                 + "on these seals to unlock the next room.\n"
                 + "- Thirdly, an **Inversion Pillar**, a mirror of the one you summoned previously. Use this to "
-                + "return to your world.\n\n"
+                + "return to your world.\\\n\\\n"
                 + "There's also a large number of decorative blocks here, should you feel your home base needs some pizazz.");
 
         this.page("rooms", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Any additional rooms you open from this antechamber will contain some combination of loot, "
-                + "monsters, traps and possibly some unactivated rituals. Keep your eyes peeled!\n\n"
+                + "monsters, traps and possibly some unactivated rituals. Keep your eyes peeled!\\\n\\\n"
                 + "A few examples of loot that you might find:\n"
                 + "- Enchanted Books\n"
                 + "- Enchanted Weapons and Armour\n"
@@ -49,7 +49,7 @@ public class LobbyEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("- Tau Fruit\n"
                 + "- Saturated Tau\n"
-                + "- Tau Oil\n\n"
+                + "- Tau Oil\\\n\\\n"
                 + "So get hunting and keep an eye out for treasure and traps alike!");
     }
 

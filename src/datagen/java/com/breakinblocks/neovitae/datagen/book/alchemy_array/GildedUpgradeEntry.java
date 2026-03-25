@@ -20,9 +20,9 @@ public class GildedUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Gilded");
-        this.pageText("Effect: Passivises Piglins as if you were wearing Golden Armor.\n\n"
+        this.pageText("Effect: Passivises Piglins as if you were wearing Golden Armor.\\\n\\\n"
                 + "Trained by: Giving a Piglin a **Gold Ingot**. You must give it to them directly, "
-                + "it cannot be dropped on the ground.\n\nMaximum level: 1");
+                + "it cannot be dropped on the ground.\\\n\\\nMaximum level: 1");
     }
 
     @Override

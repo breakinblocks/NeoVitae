@@ -21,22 +21,22 @@ public class SmeltingAnointmentEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Slow-burning Oil");
         this.pageText("Craft **Slow-burning Oil** in the Alchemy Table (recipe: neovitae:alchemytable/smelting_anointment). "
-                + "Uses heat to smelt harvested blocks.\n\n"
-                + "Valid items: Tools, Swords, Charges.\n\nApplies: Heated Tool I (256 blocks)");
+                + "Uses heat to smelt harvested blocks.\\\n\\\n"
+                + "Valid items: Tools, Swords, Charges.\\\n\\\nApplies: Heated Tool I (256 blocks)");
 
         this.page("long", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Slow-burning Oil L");
         this.pageText("Craft **Slow-burning Oil L** in the Alchemy Table (recipe: neovitae:alchemytable/smelting_anointment_l). "
-                + "This upgraded version of the anointment lasts four times longer.\n\nApplies: Heated Tool I (1024 blocks)");
+                + "This upgraded version of the anointment lasts four times longer.\\\n\\\nApplies: Heated Tool I (1024 blocks)");
 
         this.page("extra_long", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Slow-burning Oil XL");
         this.pageText("Craft **Slow-burning Oil XL** in the Alchemy Table (recipe: neovitae:alchemytable/smelting_anointment_xl). "
-                + "This upgraded version of the anointment lasts sixteen times longer.\n\nApplies: Heated Tool I (4096 blocks)");
+                + "This upgraded version of the anointment lasts sixteen times longer.\\\n\\\nApplies: Heated Tool I (4096 blocks)");
     }
 
     @Override

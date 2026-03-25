@@ -25,7 +25,7 @@ public class AlchemyTableEntry extends EntryProvider {
         this.pageTitle("Alchemy Table");
         this.pageText("The **Alchemy Table** crafts items using **LP** from a **Soul Network**. "
                 + "The **Soul Network** used and Tier of recipes available are determined by the **Blood Orb** "
-                + "inserted on the right side of the GUI.\n\n"
+                + "inserted on the right side of the GUI.\\\n\\\n"
                 + "The **Alchemy Table** is used to craft a handful of **Neo Vitae** components, "
                 + "and provides alternate recipes for some vanilla items as well.");
 
@@ -40,7 +40,7 @@ public class AlchemyTableEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Alchemy Table GUI");
         this.pageText("The **Alchemy Table** has a number of buttons on its right hand side. "
-                + "These are, in order, **D**own, **U**p, **N**orth, **S**outh, **W**est, and **E**ast. "
+                + "These are, in order, **D**own, **U**p, **N**orth, **S**outh, **W**est, and **E**ast.\\\n\\\n"
                 + "To use them, first click on any slot in the Alchemy Table. Next, click on one of these "
                 + "six buttons to toggle whether or not the **Alchemy Table** should allow **Hoppers**, pipes, "
                 + "or other such external interference from this face. To return to the table's normal function, "
@@ -59,7 +59,7 @@ public class AlchemyTableEntry extends EntryProvider {
                 + "you are trying to use is not a high enough level for this recipe."
                 + "\n- **Soul Network Error**: The orb is of a valid level, but either you have not bound it to "
                 + "yourself (right click while holding it), or your Soul Network does not have enough LP in it."
-                + "\n\nThe following pages document a number of recipes currently available for the Alchemy Table.");
+                + "\\\n\\\nThe following pages document a number of recipes currently available for the Alchemy Table.");
 
         this.page("recipes1", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

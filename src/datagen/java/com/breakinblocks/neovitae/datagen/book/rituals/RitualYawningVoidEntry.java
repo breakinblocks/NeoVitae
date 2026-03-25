@@ -35,9 +35,9 @@ public class RitualYawningVoidEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
-        this.pageText("- **Raw Will**: Increases quarrying speed."
-                + "\n- **Corrosive Will**: Enables a block filter. To set a filter, place any form of **Item Filter** into the linked chest. The ritual will only use the first filter it finds, but will accept Standard, Tag, Mod, and Composite Item Filters. Blacklisting works too!"
-                + "\n- **Steadfast Will**: Mined blocks are placed above the ritual instead of being destroyed, creating a surface-level copy of the mined area.");
+        this.pageText("- **Raw Will**: Increases quarrying speed.\\\n\\\n"
+                + "- **Corrosive Will**: Enables a block filter. To set a filter, place any form of **Item Filter** into the linked chest. The ritual will only use the first filter it finds, but will accept Standard, Tag, Mod, and Composite Item Filters. Blacklisting works too!\\\n\\\n"
+                + "- **Steadfast Will**: Mined blocks are placed above the ritual instead of being destroyed, creating a surface-level copy of the mined area.");
     }
 
     @Override

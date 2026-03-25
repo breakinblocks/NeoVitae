@@ -21,7 +21,7 @@ public class GravityFlaskEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Gravity");
         this.pageText("**Gravity** causes the target to fall faster and take more damage on landing. "
-                + "It does not reduce jump height, however.\n\n"
+                + "It does not reduce jump height, however.\\\n\\\n"
                 + "It's created from a flask containing both the **Grounded** and **Slow Falling** effects.");
 
         this.page("recipes", () -> BookTextPageModel.create()
@@ -33,7 +33,7 @@ public class GravityFlaskEntry extends EntryProvider {
 
         this.page("advanced", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\n\n"
+        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
                 + "- **Gravity III (0:45)** - neovitae:flask/potency_average_gravity\n"
                 + "- **Gravity (21:20)** - neovitae:flask/length_average_gravity");
     }

@@ -25,7 +25,7 @@ public class RoutingNodesEntry extends EntryProvider {
         this.pageTitle("Routing Nodes");
         this.pageText("Hauling items around by hand may be all right for some people, but we are a Sanguimancer. "
                 + "What's more, we have access to **Demon Will**! Surely there's a better way to go about "
-                + "things.\n\n"
+                + "things.\\\n\\\n"
                 + "As such, you've managed to come up with **Routing Nodes**. These offer a powerful way to "
                 + "transport, sort, and filter **items**, **fluids**, and **Forge Energy**, sending them "
                 + "magically through the air as you decree.");
@@ -33,9 +33,9 @@ public class RoutingNodesEntry extends EntryProvider {
         this.page("components", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("**Routing Node Networks** have 3 main components: **Input Nodes**, **Output Nodes**, and "
-                + "the **Master Routing Node**.\n\n"
+                + "the **Master Routing Node**.\\\n\\\n"
                 + "Every network requires exactly 1 **Master Routing Node**, and every other Node in the network "
-                + "must be able to trace a route back to the Master, whether directly, or via other Nodes.\n\n"
+                + "must be able to trace a route back to the Master, whether directly, or via other Nodes.\\\n\\\n"
                 + "Input and Output nodes can transfer items, fluids, and energy from any adjacent block that "
                 + "supports them.");
 
@@ -43,14 +43,14 @@ public class RoutingNodesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Master Routing Node");
-        this.pageText("Craft the Master Routing Node in the Hellfire Forge.\n\n"
+        this.pageText("Craft the Master Routing Node in the Hellfire Forge.\\\n\\\n"
                 + "The Master Node will be able to accept upgrades in the future, but for now it only serves to "
                 + "control and direct the network, acting as its 'Brain'.");
 
         this.page("other_nodes", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("A **Master Routing Node** is all well and good, but without the other two node types, "
-                + "it's not particularly useful on its own, so let's get on to those next.\n\n"
+                + "it's not particularly useful on its own, so let's get on to those next.\\\n\\\n"
                 + "**Input Routing Nodes** draw items in to the network, **Output Routing Nodes** export them "
                 + "out again, and plain old **Routing Nodes** serve to extend the reach of your network. As "
                 + "Input and Output nodes are currently otherwise identical, we will be focusing on the Input "
@@ -60,7 +60,7 @@ public class RoutingNodesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Routing Node");
-        this.pageText("Craft the Routing Node in the Hellfire Forge.\n\n"
+        this.pageText("Craft the Routing Node in the Hellfire Forge.\\\n\\\n"
                 + "Doesn't do a whole lot on its own, but can be used to extend **Routing Networks** beyond "
                 + "the 16-block reach of a single connection.");
 
@@ -94,7 +94,8 @@ public class RoutingNodesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Over on the right, we have our cardinal directions - **D**own, **U**p, **N**orth, "
                 + "**S**outh, **W**est, and **E**ast. You'll notice that a little picture of a block appears "
-                + "on some buttons, representing what's on that side of the node. The GUI will open up on the "
+                + "on some buttons, representing what's on that side of the node.\\\n\\\n"
+                + "The GUI will open up on the "
                 + "side facing an attached inventory, or Down if no inventory is present. The buttons themselves "
                 + "follow the direction the player is facing, so the top button is 'forwards', the left button "
                 + "is 'left', etcetera.");
@@ -106,7 +107,7 @@ public class RoutingNodesEntry extends EntryProvider {
         this.page("gui_filter", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Over on the left, you'll see a space for us to insert a Filter for the selected side, "
-                + "and a Priority. Bigger numbers = more important.\n\n"
+                + "and a Priority. Bigger numbers = more important.\\\n\\\n"
                 + "Nodes can have one filter per side - so we'll select the side we want, and put our filter "
                 + "in it.");
 
@@ -130,7 +131,7 @@ public class RoutingNodesEntry extends EntryProvider {
         this.pageTitle("Fluid & Energy Routing");
         this.pageText("Routing nodes don't just move items - they also transfer **fluids** and **Forge Energy** "
                 + "(FE/RF). Any side with a filter installed will automatically route all three resource types "
-                + "to adjacent blocks that support them.\n\n"
+                + "to adjacent blocks that support them.\\\n\\\n"
                 + "For example, placing a filter on the side facing a **Blood Tank** will allow **Life Essence** "
                 + "to flow through the network, while a filter facing a machine's power input will transfer energy.");
 
@@ -138,7 +139,7 @@ public class RoutingNodesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Fluid and energy routing share the same priority system as items - higher priority sides "
                 + "are served first. The **Stack Upgrade** increases the transfer rate for all three resource "
-                + "types simultaneously.\n\n"
+                + "types simultaneously.\\\n\\\n"
                 + "No special filter configuration is needed for fluids or energy - any routing filter in the "
                 + "slot will enable transfer on that side for all resource types.");
     }

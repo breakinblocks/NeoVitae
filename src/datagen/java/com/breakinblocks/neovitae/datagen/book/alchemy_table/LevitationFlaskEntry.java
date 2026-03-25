@@ -21,7 +21,7 @@ public class LevitationFlaskEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Levitation");
         this.pageText("**Levitation** causes the target to float up into the air. Higher levels will make the "
-                + "target levitate faster.\n\n"
+                + "target levitate faster.\\\n\\\n"
                 + "It's made from a potion of **Slow Falling**.");
 
         this.page("recipes", () -> BookTextPageModel.create()
@@ -33,7 +33,7 @@ public class LevitationFlaskEntry extends EntryProvider {
 
         this.page("advanced", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\n\n"
+        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
                 + "- **Levitation III (0:45)** - neovitae:flask/potency_average_levitation\n"
                 + "- **Levitation (21:20)** - neovitae:flask/length_average_levitation");
     }

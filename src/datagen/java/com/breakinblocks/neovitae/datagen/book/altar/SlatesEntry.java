@@ -26,14 +26,14 @@ public class SlatesEntry extends EntryProvider {
         this.page("blank_reinforced", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Craft the **Blank Slate** in the Blood Altar (Tier 1, cost: 1,000 LP). "
-                + "Uses a Smooth Stone as the input.\n\n"
+                + "Uses a Smooth Stone as the input.\\\n\\\n"
                 + "Craft the **Reinforced Slate** in the Blood Altar (Tier 2, cost: 2,000 LP). "
                 + "Uses a Blank Slate as the input.");
 
         this.page("imbued_demonic", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Craft the **Imbued Slate** in the Blood Altar (Tier 3, cost: 5,000 LP). "
-                + "Uses a Reinforced Slate as the input.\n\n"
+                + "Uses a Reinforced Slate as the input.\\\n\\\n"
                 + "Craft the **Demonic Slate** in the Blood Altar (Tier 4, cost: 15,000 LP). "
                 + "Uses an Imbued Slate as the input.");
 

@@ -23,7 +23,7 @@ public class AnointmentsEntry extends EntryProvider {
         this.pageText("**Anointments** are essentially **potions** for your tools, weapons, and even your "
                 + "**Charges**. By pressing the Use key with the **anointment** in one hand, it will be applied "
                 + "to the item in your other hand, if possible. Not all anointments work on all equipment!"
-                + "\n\nUnlike **potions**, **anointments** aren't timed; rather, they wear off a bit at a time "
+                + "\\\n\\\nUnlike **potions**, **anointments** aren't timed; rather, they wear off a bit at a time "
                 + "as your tool or weapon is used.");
 
         this.page("slate_vial", () -> BookTextPageModel.create()

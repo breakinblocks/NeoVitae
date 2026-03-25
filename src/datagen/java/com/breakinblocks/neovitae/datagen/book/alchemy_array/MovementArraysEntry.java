@@ -26,7 +26,7 @@ public class MovementArraysEntry extends EntryProvider {
         this.page("recipes", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("**Speed Array**: Launches entities horizontally in the direction they are facing. "
-                + "Created with an Alchemy Array.\n\n"
+                + "Created with an Alchemy Array.\\\n\\\n"
                 + "**Updraft Array**: Launches entities vertically upward. "
                 + "Created with an Alchemy Array.");
     }

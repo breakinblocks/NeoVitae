@@ -48,7 +48,7 @@ public class RitualLivingDowngradeEntry extends EntryProvider {
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Each item that matches a particular downgrade will increase the desired downgrade's level by one. Multiple downgrades can be applied at once. For example, Battle Hungry level 3 requires 3 **Rotten Flesh** and items worth 35 **Upgrade Points**."
-                + "\n\nThe ritual respects your **Living Armour Training Bracelet** settings. Excess points are returned as **Living Armour Upgrade Scraps**.");
+                + "\\\n\\\nThe ritual respects your **Living Armour Training Bracelet** settings. Excess points are returned as **Living Armour Upgrade Scraps**.");
     }
 
     @Override

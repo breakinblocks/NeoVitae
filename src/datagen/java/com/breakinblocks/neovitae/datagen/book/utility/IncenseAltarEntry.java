@@ -35,7 +35,7 @@ public class IncenseAltarEntry extends EntryProvider {
         this.pageTitle("Basic Setup");
         this.pageText("The basic Tier 1 setup of an Incense Altar is the Altar itself; place it down anywhere "
                 + "(you may want to set up a 3x3 block platform, this will be helpful later) and stay within a "
-                + "5 block radius of the Altar.\n\n"
+                + "5 block radius of the Altar.\\\n\\\n"
                 + "While the Altar is working, it will emit flame particles from its top and transform your "
                 + "Sacrificial Knife. Once your knife starts to shine, holding and releasing right click near a "
                 + "Blood Altar will sacrifice 90% of your health all at once.");
@@ -102,7 +102,7 @@ public class IncenseAltarEntry extends EntryProvider {
         this.pageTitle("Path Distance");
         this.pageText("The efficacy of each type of path block only lasts a certain distance: wooden paths can "
                 + "only go three rings out from the centre, stone paths for up to five rings, worn stone paths "
-                + "for seven rings, and obsidian paths for nine rings.\n\n"
+                + "for seven rings, and obsidian paths for nine rings.\\\n\\\n"
                 + "Not every type of block will count towards your Tranquility. We need crops, dirt, and even... lava?");
 
         this.page("tranquility_types", () -> BookTextPageModel.create()

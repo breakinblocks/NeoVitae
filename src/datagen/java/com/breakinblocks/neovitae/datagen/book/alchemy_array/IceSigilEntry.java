@@ -20,7 +20,7 @@ public class IceSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of the Frozen Lake [NYI]");
-        this.pageText("[Not Yet Implemented]\n\nFrostwalker Enchantment as a Sigil.");
+        this.pageText("[Not Yet Implemented]\\\n\\\nFrostwalker Enchantment as a Sigil.");
     }
 
     @Override

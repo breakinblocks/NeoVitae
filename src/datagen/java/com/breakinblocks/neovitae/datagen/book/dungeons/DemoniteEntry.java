@@ -26,7 +26,7 @@ public class DemoniteEntry extends EntryProvider {
         this.pageTitle("Demonite");
         this.pageText("**Demonite Ore** can only be found within **Dungeons**, specifically in **The Mines**, "
                 + "accessed by finding a **Foreman's Key** somewhere within the mazelike structure and using it to unlock "
-                + "a **Spatial Distortion**. It can be used to make **Hellforged Ingots** or **Hellforged Sand**.\n\n"
+                + "a **Spatial Distortion**. It can be used to make **Hellforged Ingots** or **Hellforged Sand**.\\\n\\\n"
                 + "When mined with Silk Touch, the ore can be harvested directly, but otherwise, it will drop clumps of **Raw Demonite**.");
 
         this.page("smelting", () -> BookSmeltingRecipePageModel.create()
@@ -60,7 +60,7 @@ public class DemoniteEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Decorative Variants");
         this.pageText("Several decorative variants of this block exist, being faintly tainted with Corrosive, "
-                + "Destructive, Steadfast, or Vengeful Will in a **stonecutter**.\n\n"
+                + "Destructive, Steadfast, or Vengeful Will in a **stonecutter**.\\\n\\\n"
                 + "They can each be directly crafted back into 9 **Hellforged Ingots**.");
     }
 

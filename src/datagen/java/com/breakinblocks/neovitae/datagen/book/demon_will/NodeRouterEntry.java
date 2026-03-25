@@ -22,7 +22,8 @@ public class NodeRouterEntry extends EntryProvider {
         this.pageTitle("Node Router");
         this.pageText("The **Node Router** is used to link Nodes together into a Network. Its functionality "
                 + "is straightforward - Simply hold sneak and right-click while aiming at a node, then do "
-                + "the same to another node within 16 blocks. These two nodes are now linked. If you want "
+                + "the same to another node within 16 blocks. These two nodes are now linked.\\\n\\\n"
+                + "If you want "
                 + "to de-select a node, right-click on any other block. See the entry on **Routing Nodes** "
                 + "for more information.");
 
@@ -30,7 +31,7 @@ public class NodeRouterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Node Router");
-        this.pageText("Craft the Node Router in the Hellfire Forge.\n\n*A slightly magical stick.*");
+        this.pageText("Craft the Node Router in the Hellfire Forge.\\\n\\\n*A slightly magical stick.*");
     }
 
     @Override

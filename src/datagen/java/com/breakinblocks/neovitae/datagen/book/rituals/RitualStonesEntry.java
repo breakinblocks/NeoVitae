@@ -24,7 +24,7 @@ public class RitualStonesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Stones");
         this.pageText("**Ritual Stones** are the canvas upon which you will draw your **Rituals**. They also look quite nifty, and can be manually painted with the various **Elemental Inscription Tools**."
-                + "\n\nNote that the Inscription Tools used to have durability, but now they last forever! Rejoice, you can decorate your base with **Fire Ritual Stones** to your heart's content.");
+                + "\\\n\\\nNote that the Inscription Tools used to have durability, but now they last forever! Rejoice, you can decorate your base with **Fire Ritual Stones** to your heart's content.");
 
         this.page("recipes", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_stone_blank"))

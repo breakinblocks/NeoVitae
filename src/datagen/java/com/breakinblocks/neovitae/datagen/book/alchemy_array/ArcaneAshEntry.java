@@ -27,7 +27,7 @@ public class ArcaneAshEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("In order to create an Alchemy Array, press [Use] while looking at a block with the "
                 + "**Arcane Ashes** in hand. This will consume 1 durability out of 20 from the **Arcane Ashes** "
-                + "and draw a simple **Alchemy Array**, that by itself has no effects.\n\n"
+                + "and draw a simple **Alchemy Array**, that by itself has no effects.\\\n\\\n"
                 + "When you click on the **Alchemy Array**, it will consume a single **item** from the stack "
                 + "in your hand and hold it in the array. These items are then used to determine the "
                 + "**Alchemy Array**'s effect.");

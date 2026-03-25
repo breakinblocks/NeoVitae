@@ -747,6 +747,28 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_magician_orb", has(NVItems.ORB_MAGICIAN.get()))
                 .save(output, NeoVitae.rl("arc_block"));
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, NVItems.PRIMITIVE_HYDRATION_CELL.get())
+                .pattern("csc")
+                .pattern("cBc")
+                .pattern("coc")
+                .define('c', Tags.Items.COBBLESTONES)
+                .define('s', NVItems.SLATE_BLANK.get())
+                .define('B', Items.WATER_BUCKET)
+                .define('o', OrbTierIngredient.of(3))
+                .unlockedBy("has_magician_orb", has(NVItems.ORB_MAGICIAN.get()))
+                .save(output);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, NVItems.PRIMITIVE_FURNACE_CELL.get())
+                .pattern("csc")
+                .pattern("cfc")
+                .pattern("coc")
+                .define('c', Tags.Items.COBBLESTONES)
+                .define('s', NVItems.SLATE_BLANK.get())
+                .define('f', Tags.Items.STORAGE_BLOCKS_COAL)
+                .define('o', OrbTierIngredient.of(3))
+                .unlockedBy("has_magician_orb", has(NVItems.ORB_MAGICIAN.get()))
+                .save(output);
+
         // Blood Tank
         SoulForgeRecipeBuilder.build(NVBlocks.BLOOD_TANK.block().get())
                 .requires(Items.GLASS, 3)

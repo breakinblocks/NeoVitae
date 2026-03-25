@@ -22,7 +22,7 @@ public class SpectralSightFlaskEntry extends EntryProvider {
         this.pageTitle("Spectral Sight");
         this.pageText("**Spectral Sight** illuminates nearby creatures as though they had the Glowing buff. "
                 + "The base range is 24 blocks, and higher levels increase the range by an additional 32 blocks "
-                + "per level.\n\n"
+                + "per level.\\\n\\\n"
                 + "It's made from a potion of **Night Vision**.");
 
         this.page("recipes", () -> BookTextPageModel.create()
@@ -34,7 +34,7 @@ public class SpectralSightFlaskEntry extends EntryProvider {
 
         this.page("advanced", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\n\n"
+        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
                 + "- **Spectral Sight III (0:45)** - neovitae:flask/potency_average_spectral_sight\n"
                 + "- **Spectral Sight (21:20)** - neovitae:flask/length_average_spectral_sight");
     }

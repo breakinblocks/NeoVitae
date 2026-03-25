@@ -20,8 +20,8 @@ public class PinCushionUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Pin Cushion");
-        this.pageText("Effect: Offers protection from arrows.\n\n"
-                + "Trained by: Being shot.\n\nMaximum level: 10");
+        this.pageText("Effect: Offers protection from arrows.\\\n\\\n"
+                + "Trained by: Being shot.\\\n\\\nMaximum level: 10");
     }
 
     @Override

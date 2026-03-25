@@ -22,14 +22,14 @@ public class SeerSigilEntry extends EntryProvider {
         this.pageTitle("Seer's Sigil");
         this.pageText("The **Seer's Sigil** is a more advanced form of the **Divination Sigil**. Alongside "
                 + "showing the amount of LP in the bound player's **Soul Network**, it also shows more "
-                + "information when looking at a **Blood Altar**.\n\n"
+                + "information when looking at a **Blood Altar**.\\\n\\\n"
                 + "Like the Divination Sigil, it can also be used to edit your GUI.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Sight Reagent** in the Alchemy Table.\n\n"
+        this.pageText("Step 1: Craft the **Sight Reagent** in the Alchemy Table.\\\n\\\n"
                 + "Step 2: Create the **Seer's Sigil** in an Alchemy Array using the "
-                + "Sight Reagent as the base and a slate as the catalyst.\n\n*When seeing all is not enough*");
+                + "Sight Reagent as the base and a slate as the catalyst.\\\n\\\n*When seeing all is not enough*");
 
         this.page("hud", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

@@ -21,36 +21,36 @@ public class FortuneAnointmentEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Fortuna Extract");
         this.pageText("Craft **Fortuna Extract** in the Alchemy Table (recipe: neovitae:alchemytable/fortune_anointment). "
-                + "Increases the yield of some harvested blocks. Also stacks with the Fortune enchantment.\n\n"
-                + "Valid items: Tools, Swords, Charges.\n\nApplies: Fortunate I (256 blocks)");
+                + "Increases the yield of some harvested blocks. Also stacks with the Fortune enchantment.\\\n\\\n"
+                + "Valid items: Tools, Swords, Charges.\\\n\\\nApplies: Fortunate I (256 blocks)");
 
         this.page("long", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fortuna Extract L");
         this.pageText("Craft **Fortuna Extract L** in the Alchemy Table (recipe: neovitae:alchemytable/fortune_anointment_l). "
-                + "This upgraded version of the anointment lasts four times longer.\n\nApplies: Fortunate I (1024 blocks)");
+                + "This upgraded version of the anointment lasts four times longer.\\\n\\\nApplies: Fortunate I (1024 blocks)");
 
         this.page("tier2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fortuna Extract II");
         this.pageText("Craft **Fortuna Extract II** in the Alchemy Table (recipe: neovitae:alchemytable/fortune_anointment_2). "
-                + "This upgraded version of the anointment increases the yield.\n\nApplies: Fortunate II (256 blocks)");
+                + "This upgraded version of the anointment increases the yield.\\\n\\\nApplies: Fortunate II (256 blocks)");
 
         this.page("extra_long", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fortuna Extract XL");
         this.pageText("Craft **Fortuna Extract XL** in the Alchemy Table (recipe: neovitae:alchemytable/fortune_anointment_xl). "
-                + "This upgraded version of the anointment lasts sixteen times longer.\n\nApplies: Fortunate I (4096 blocks)");
+                + "This upgraded version of the anointment lasts sixteen times longer.\\\n\\\nApplies: Fortunate I (4096 blocks)");
 
         this.page("tier3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fortuna Extract III");
         this.pageText("Craft **Fortuna Extract III** in the Alchemy Table (recipe: neovitae:alchemytable/fortune_anointment_3). "
-                + "This upgraded version of the anointment increases the yield.\n\nApplies: Fortunate III (256 blocks)");
+                + "This upgraded version of the anointment increases the yield.\\\n\\\nApplies: Fortunate III (256 blocks)");
     }
 
     @Override

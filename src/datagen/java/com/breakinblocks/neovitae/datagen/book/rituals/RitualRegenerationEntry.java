@@ -30,7 +30,7 @@ public class RitualRegenerationEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
         this.pageText("This ritual heals all living entities within its area of effect at the cost of LP from the activator's Soul Network."
-                + "\n\n**Corrosive Will**: Enables a vampiric mode that damages hostile mobs and uses the stolen health to heal players. Requires **Corrosive Will**.");
+                + "\\\n\\\n**Corrosive Will**: Enables a vampiric mode that damages hostile mobs and uses the stolen health to heal players. Requires **Corrosive Will**.");
     }
 
     @Override

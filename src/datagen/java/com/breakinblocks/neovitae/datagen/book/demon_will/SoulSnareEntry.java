@@ -30,7 +30,8 @@ public class SoulSnareEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Using the **Snare** is simple enough - craft a good quantity of them and throw them at "
                 + "**hostile mobs**. White particle effects will appear around them; then it's time to go in "
-                + "for the kill. On death, they will drop a **Demon Will**. Before you ask, yes, the Looting "
+                + "for the kill. On death, they will drop a **Demon Will**.\\\n\\\n"
+                + "Before you ask, yes, the Looting "
                 + "enchantment will increase the amount of Will dropped. Once you've gathered a couple, you can "
                 + "get to work on crafting yourself a **Sentient Sword** and a **Tartaric Gem** - these will "
                 + "make collecting **Demon Will** much easier.");

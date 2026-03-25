@@ -22,14 +22,14 @@ public class TelepositionSigilEntry extends EntryProvider {
         this.pageTitle("Teleposition Sigil");
         this.pageText("Teleports the user to a linked Teleposer at a cost of 1000 LP per use. By "
                 + "shift-clicking on a Teleposer with the sigil in hand, the location and dimension of "
-                + "the Teleposer can be recorded, allowing for a quick escape back home.\n\n"
+                + "the Teleposer can be recorded, allowing for a quick escape back home.\\\n\\\n"
                 + "Just don't move the Teleposer by accident...");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Teleposition Reagent** in the Alchemy Table.\n\n"
+        this.pageText("Step 1: Craft the **Teleposition Reagent** in the Alchemy Table.\\\n\\\n"
                 + "Step 2: Create the **Teleposition Sigil** in an Alchemy Array using the "
-                + "Teleposition Reagent as the base and a slate as the catalyst.\n\n*Now you see me...!*");
+                + "Teleposition Reagent as the base and a slate as the catalyst.\\\n\\\n*Now you see me...!*");
     }
 
     @Override

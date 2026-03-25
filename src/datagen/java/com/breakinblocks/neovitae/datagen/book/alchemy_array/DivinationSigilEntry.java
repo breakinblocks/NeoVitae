@@ -27,7 +27,7 @@ public class DivinationSigilEntry extends EntryProvider {
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("**Divination Sigil**: Created in an Alchemy Array with **Redstone Dust** (base) and "
-                + "**Blank Slate** (catalyst).\n\n*Peer into the soul.*");
+                + "**Blank Slate** (catalyst).\\\n\\\n*Peer into the soul.*");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

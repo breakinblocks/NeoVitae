@@ -20,8 +20,8 @@ public class PoisonResistanceUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Poison Resistance");
-        this.pageText("Effect: Cures Poison. Has a cooldown which shortens with additional levels.\n\n"
-                + "Trained by: Being Poisoned.\n\nMaximum level: 5");
+        this.pageText("Effect: Cures Poison. Has a cooldown which shortens with additional levels.\\\n\\\n"
+                + "Trained by: Being Poisoned.\\\n\\\nMaximum level: 5");
     }
 
     @Override

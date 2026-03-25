@@ -21,7 +21,7 @@ public class InstantDamageFlaskEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Instant Damage");
         this.pageText("**Instant Damage** inflicts 6 points of **Magic Damage** to the target per level. "
-                + "If the target is **Undead**, they will be healed for 6 points per level instead.\n\n"
+                + "If the target is **Undead**, they will be healed for 6 points per level instead.\\\n\\\n"
                 + "It's made from a potion of either **Instant Health** or **Poison**.");
 
         this.page("recipes", () -> BookTextPageModel.create()
@@ -33,7 +33,7 @@ public class InstantDamageFlaskEntry extends EntryProvider {
 
         this.page("advanced", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\n\n"
+        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
                 + "- **Instant Damage III** - neovitae:flask/potency_average_harm");
     }
 

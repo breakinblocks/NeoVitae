@@ -25,7 +25,7 @@ public class TagFilterEntry extends EntryProvider {
         this.pageTitle("Tag Item Filter");
         this.pageText("The **Tag Item Filter** lets you select up to 9 items and filter by their associated "
                 + "**Tags**. Similarly to the **Standard Item Filter**, it has a quantity selector and an "
-                + "allow/deny function. Leaving the quantity blank defaults to 'all'.\n\n"
+                + "allow/deny function. Leaving the quantity blank defaults to 'all'.\\\n\\\n"
                 + "For each item that you put into this filter, you can select whether to match items based on "
                 + "**one specific tag**, or **any of its tags**.");
 
@@ -33,7 +33,7 @@ public class TagFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tag Item Filter");
-        this.pageText("Craft the Tag Item Filter in the Alchemy Table.\n\n"
+        this.pageText("Craft the Tag Item Filter in the Alchemy Table.\\\n\\\n"
                 + "This allows you to deny/permit categories of items, so you can specify that all items with "
                 + "the tag **forge:ores** get sent to your furnace, for example.");
 

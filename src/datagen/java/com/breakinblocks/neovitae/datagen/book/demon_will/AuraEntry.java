@@ -32,7 +32,7 @@ public class AuraEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Crucible");
-        this.pageText("Craft the Demon Crucible in the Hellfire Forge.\n\n"
+        this.pageText("Craft the Demon Crucible in the Hellfire Forge.\\\n\\\n"
                 + "Put a charged **Tartaric Gem** or any aspect of **Demon Will** or **Demon Crystal** into "
                 + "it and let it run. **Crystals** will be consumed once the chunk's Will dips below 50, "
                 + "whereas Demon Will (in item form or from the Tartaric Gem) will be consumed a bit at a "
@@ -47,9 +47,9 @@ public class AuraEntry extends EntryProvider {
 
         this.page("uses", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Now we have Raw Will in the atmosphere. Great, now what?\n\n"
+        this.pageText("Now we have Raw Will in the atmosphere. Great, now what?\\\n\\\n"
                 + "Some **Rituals** benefit from Raw Will, but the main benefit from this is the ability to "
-                + "create refined **Demon Will Crystals** and from there, split them into their **Aspects**.\n\n"
+                + "create refined **Demon Will Crystals** and from there, split them into their **Aspects**.\\\n\\\n"
                 + "Once you have some of these **Aspected Will Crystals**, you can burn them once more in the "
                 + "**Crucible** to unleash them into the **Aura** for your rituals to benefit from.");
 
@@ -57,7 +57,7 @@ public class AuraEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("It's important to mention that the **Aura** is chunk-based. That is, any Will you burn "
                 + "will fill up the chunk that you burn it in, up to a total cap of 100 for each type. You can "
-                + "measure this using a **Demon Will Aura Gauge**.\n\n"
+                + "measure this using a **Demon Will Aura Gauge**.\\\n\\\n"
                 + "To move Demon Will around, simply place a **Demon Pylon** in any adjacent chunk, and Will "
                 + "will be drawn towards it.");
 
@@ -65,16 +65,16 @@ public class AuraEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Pylon");
-        this.pageText("Craft the Demon Pylon in the Hellfire Forge.\n\n"
+        this.pageText("Craft the Demon Pylon in the Hellfire Forge.\\\n\\\n"
                 + "The Pylon will draw in all kinds of will from all adjacent chunks (not including diagonals). "
                 + "Multiple Pylons can be chained in order to transfer Will over larger distances.");
 
         this.page("forge_absorption", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Placing a **Tartaric Gem** inside a **Hellfire Forge** will cause it to rapidly absorb "
-                + "Will from the chunk it's in.\n\n"
+                + "Will from the chunk it's in.\\\n\\\n"
                 + "With an Aspect of Will in the chunk, such as Raw or Corrosive, and an empty **Tartaric Gem**, "
-                + "it's possible to fill the Gem with that Aspect.\n\n"
+                + "it's possible to fill the Gem with that Aspect.\\\n\\\n"
                 + "This lets you modify your **Sentient Tools** and **Sword** accordingly. The effects are "
                 + "defined in the **Demon Will Aspects** entry.");
     }

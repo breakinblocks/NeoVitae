@@ -22,7 +22,7 @@ public class SentientSwordEntry extends EntryProvider {
         this.pageTitle("Sentient Sword");
         this.pageText("The **Sentient Sword** is a much more effective tool for collecting **Demon Will** than "
                 + "**Soul Snares** could ever hope to be. It may seem weak at first, but it is powered by the "
-                + "Wills you carry, so crafting a **Tartaric Gem** is a must.\n\n"
+                + "Wills you carry, so crafting a **Tartaric Gem** is a must.\\\n\\\n"
                 + "Note that the sword, as with all **Sentient Tools**, can be repaired with **Crystallized "
                 + "Will** in an Anvil.");
 
@@ -30,8 +30,8 @@ public class SentientSwordEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sentient Sword");
-        this.pageText("Craft the Sentient Sword in the Hellfire Forge.\n\n"
-                + "This sword will serve you well.\n\n"
+        this.pageText("Craft the Sentient Sword in the Hellfire Forge.\\\n\\\n"
+                + "This sword will serve you well.\\\n\\\n"
                 + "Note that you can update the sword's stats by pressing right-click when you have it equipped "
                 + "- if you have recently acquired a large amount of Will, or perhaps are trying out a new "
                 + "Aspect of Will for the first time, then this may be a good idea.");

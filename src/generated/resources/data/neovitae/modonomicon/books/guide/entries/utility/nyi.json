@@ -1,0 +1,28 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "utility",
+  "description": "book.neovitae.guide.utility.nyi.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:barrier"
+  },
+  "name": "book.neovitae.guide.utility.nyi.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.nyi.placeholder.text",
+      "title": "book.neovitae.guide.utility.nyi.placeholder.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 13,
+  "x": 6,
+  "y": 3
+}

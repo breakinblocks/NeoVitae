@@ -1,0 +1,61 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "demon_will",
+  "description": "book.neovitae.guide.demon_will.soul_snare.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:soul_snare"
+  },
+  "name": "book.neovitae.guide.demon_will.soul_snare.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.soul_snare.intro.text",
+      "title": "book.neovitae.guide.demon_will.soul_snare.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.soul_snare.usage.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "images": [
+        "neovitae:images/entries/demon_will/snare_particles.png"
+      ],
+      "text": "book.neovitae.guide.demon_will.soul_snare.image.text",
+      "title": "Snare on Skeleton",
+      "use_legacy_rendering": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "demon_will/demon_will",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 1,
+  "x": -4,
+  "y": -4
+}

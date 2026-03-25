@@ -1,0 +1,64 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "demon_will",
+  "description": "book.neovitae.guide.demon_will.demon_will.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:basemonstersoul"
+  },
+  "name": "book.neovitae.guide.demon_will.demon_will.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.demon_will.intro.text",
+      "title": "book.neovitae.guide.demon_will.demon_will.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.demon_will.usage.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "images": [
+        "neovitae:images/entries/demon_will/demon_will.png"
+      ],
+      "text": "",
+      "title": "Demon Will",
+      "use_legacy_rendering": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.demon_will.next_steps.text",
+      "title": "",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 0,
+  "x": -8,
+  "y": -4
+}

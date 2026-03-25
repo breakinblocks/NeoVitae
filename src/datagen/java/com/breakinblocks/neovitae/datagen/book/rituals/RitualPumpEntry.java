@@ -1,0 +1,59 @@
+package com.breakinblocks.neovitae.datagen.book.rituals;
+
+import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
+import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
+import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
+import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.NeoVitae;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
+import com.mojang.datafixers.util.Pair;
+
+public class RitualPumpEntry extends EntryProvider {
+
+    public RitualPumpEntry(CategoryProviderBase parent) {
+        super(parent);
+    }
+
+    @Override
+    protected void generatePages() {
+        this.page("multiblock", () -> BookMultiblockPageModel.create()
+                .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/pump"))
+                .withMultiblockName("Hymn of Siphoning")
+                .withText(this.context().pageText()));
+        this.pageText("Use a **Ritual Diviner** for easier construction.");
+
+        this.page("info", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Ritual Info");
+        this.pageText("This ritual acts as a powerful fluid pump, extracting source blocks from the surrounding area and depositing them into a fluid tank placed directly above the Master Ritual Stone. It works with any fluid - water, lava, or modded liquids. Each source block pumped costs LP.");
+    }
+
+    @Override
+    protected String entryName() {
+        return "Hymn of Siphoning";
+    }
+
+    @Override
+    protected String entryDescription() {
+        return "Pumps fluid source blocks into a tank.";
+    }
+
+    @Override
+    protected Pair<Integer, Integer> entryBackground() {
+        return EntryBackground.DEFAULT;
+    }
+
+    @Override
+    protected BookIconModel entryIcon() {
+        return BookIconModel.create(Items.BUCKET);
+    }
+
+    @Override
+    protected String entryId() {
+        return "ritual_pump";
+    }
+}

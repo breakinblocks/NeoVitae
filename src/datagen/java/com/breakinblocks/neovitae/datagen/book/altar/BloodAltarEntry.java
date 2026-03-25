@@ -4,6 +4,7 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -19,69 +20,161 @@ public class BloodAltarEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        // Intro page
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Blood Altar");
-        this.pageText("The Blood Altar is the central crafting station of Neo Vitae. "
-                + "It converts Life Points into powerful items and serves as the foundation "
-                + "for increasingly complex multiblock structures.\n\n"
-                + "Each tier unlocks new crafting recipes and increases the altar's capacity and power.");
+        this.pageText("The **Blood Altar** is the central block of the mod, able to convert raw "
+                + "blood into pure **Life Essence**. While it may start off small and insignificant, "
+                + "its strength and size grows throughout the mod, acting as a cornerstone for most of your power.");
 
-        // Tier 1
+        this.page("crafting", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_altar")));
+
+        this.page("usage", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("When placed into the world, the **Blood Altar** converts blood into **Life Essence**, "
+                + "which it then uses to transfigure items placed into it. By right-clicking while looking at "
+                + "the Altar, you may insert one item from your hand into the Altar's internal inventory. "
+                + "Right-clicking with an empty hand will extract the item.");
+
         this.page("tier1", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_one"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier 1");
-        this.pageText("The base altar. Place it down and right-click with a Sacrificial Dagger to begin.");
+        this.pageTitle("Tier 1 Blood Altar");
+        this.pageText("The Tier 1 Blood Altar, which has no runes.");
 
-        // Tier 2
+        this.page("knife", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("In order to add **Life Essence** to the Altar, you first have to craft a **Sacrificial Knife**. "
+                + "By right-clicking while aiming at air with the knife, you can extract **200 Life Essence** for the "
+                + "cost of one heart, placing it into a nearby Altar. The Altar starts with a maximum capacity of "
+                + "**10,000 Life Essence**, and the blood level in the basin indicates the percentage filled. "
+                + "The **Divination Sigil** allows more detailed information about the Altar.");
+
+        this.page("knife_recipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "sacrificial_dagger"))
+                .withText(this.context().pageText()));
+        this.pageText("Keep in mind that 10% of the total **Life Essence** the altar can hold will be absorbed "
+                + "into an invisible internal 'tank' used for extracting and inserting **Life Essence** into the Altar.");
+
+        this.page("crafting_process", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("The Blood Altar will attempt to start to craft as soon as an item is placed inside by a "
+                + "player (or after a periodic 5 seconds). The **Life Essence** inside of the Altar will slowly "
+                + "drain (indicated by red particles), transforming the item. If there is no **Life Essence** in "
+                + "the Altar, gray smoke will appear to indicate that the Altar is losing progress instead. Once "
+                + "enough **Life Essence** is consumed (cost multiplied by number in the item stack), the full "
+                + "stack will be transformed into a new item.");
+
+        this.page("first_craft", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("The first item that you will want to craft is a **Weak Blood Orb**, which by default "
+                + "is a diamond plus **2000 Life Essence** inside of a Tier 1 Blood Altar. All items that can "
+                + "be crafted by the Blood Altar can be found using Just Enough Items (JEI).");
+
+        this.page("blank_rune", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("To upgrade the Blood Altar, you need to craft **Blood Runes** and place them around "
+                + "the Altar. Blood Runes act as upgrades to the Altar, and by using more advanced versions "
+                + "of the Blood Runes you can confer different effects on the Altar. The basic version, the "
+                + "**Blank Rune**, does not give any upgrades - it's only use is to upgrade the Tier of the Altar.");
+
+        this.page("blank_rune_recipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_blank")));
+
+        this.page("tier2_text", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("In order to upgrade the Blood Altar to Tier 2, you must place 8 **Blood Runes** around "
+                + "the Altar. The runes in the cardinals can be upgraded, but the corner runes cannot act as "
+                + "upgrade runes until Tier 3.");
+
         this.page("tier2", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_two"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier 2");
-        this.pageText("Surround the altar with 8 Blood Runes one block below. Any rune type works for the structure.");
+        this.pageTitle("Tier 2 Blood Altar");
+        this.pageText("The Tier 2 Blood Altar, which has 8 total runes.");
 
-        // Tier 3
+        this.page("dagger_of_sacrifice", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("Now that you have a Tier 2 Altar, you can look into getting **Life Essence** from "
+                + "somewhere other than yourself. The **Dagger of Sacrifice** will allow you to sacrifice any "
+                + "mob (monster or passive) that stands within 2 blocks of your Altar, instantly killing them "
+                + "and granting you a decent sum of **Life Essence**. You can increase the amount you get per "
+                + "kill with **Runes of Sacrifice**. Different entities give different amounts of **Life Essence**.");
+
+        this.page("dagger_recipe", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Dagger of Sacrifice");
+        this.pageText("Craft the Dagger of Sacrifice in the Blood Altar (Tier 2, cost: 3000 LP).\n\n"
+                + "Slaughtering villagers for fun and profit!");
+
+        this.page("tier3_text", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("To upgrade the Blood Altar to Tier 3, place 5 **Blood Runes** one block down and two "
+                + "blocks away from the previous set of runes along each edge. Then place two blocks (indicated "
+                + "by the **Stone Bricks**) in each corner, starting above the new ring of runes, and then cap "
+                + "each pillar with **Glowstone Blocks**.\n\nTo check that it is successfully upgraded, use a "
+                + "**Divination Sigil** to check the tier. Note that any non-air block can be used for the "
+                + "pillars below the Glowstone.");
+
         this.page("tier3", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_three"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier 3");
-        this.pageText("Add an outer ring of runes, four pillars of any solid block, and glowstone caps on each pillar.");
+        this.pageTitle("Tier 3 Blood Altar");
+        this.pageText("The Tier 3 Blood Altar, which has 28 total runes, 20 more than a Tier 2, 5 on each side.");
 
-        // Tier 4
+        this.page("tier4_text", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("To upgrade the Blood Altar to Tier 4, place 7 **Blood Runes** one block down and two "
+                + "blocks away from the previous set of runes along each edge. Then place four solid blocks in "
+                + "each corner, starting above the new ring of runes, and then cap each pillar with **Bloodstone "
+                + "Bricks** and/or **Large Bloodstone Bricks**. For these, you'll need **Tau Fruit**, found via "
+                + "the **Edge of the Hidden Realm** ritual.");
+
         this.page("tier4", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_four"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier 4");
-        this.pageText("Extend the pillars upward with Bloodstone caps. Add a larger outer ring of runes at a lower level.");
+        this.pageTitle("Tier 4 Blood Altar");
+        this.pageText("The Tier 4 Blood Altar, which has 56 total runes, 28 more than a Tier 3, 7 on each side.");
 
-        // Tier 5
+        this.page("tier5_text", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("To upgrade the Blood Altar to Tier 5, place 13 **Blood Runes** one block down and three "
+                + "blocks away from the previous set of runes along each edge. Leave a one-block gap on either "
+                + "end, then place a **Hellforged Block** at each corner. You'll have to go delving deep into "
+                + "the **Demon Realm** for this rare and exotic metal.");
+
         this.page("tier5", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_five"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier 5");
-        this.pageText("The largest rune ring yet, with Hellforged Blocks at the four corners.");
+        this.pageTitle("Tier 5 Blood Altar");
+        this.pageText("The Tier 5 Blood Altar, which has 108 total runes, 52 more than a Tier 4, 13 on each side.");
 
-        // Tier 6
+        this.page("tier6_text", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("To upgrade the Blood Altar to Tier 6, place 19 **Blood Runes** one block down and three "
+                + "blocks away from the previous set of runes along each edge. Leave a one-block gap on either "
+                + "end, but do not place corner blocks at this level. Instead, build pillars at each corner "
+                + "starting one level up, topped with **Crystal Clusters** at the very top.");
+
         this.page("tier6", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_six"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier 6");
-        this.pageText("The ultimate altar. Four corner pillars topped with Crystal Clusters, "
-                + "and the largest rune ring spanning 23 blocks across.");
+        this.pageTitle("Tier 6 Blood Altar");
+        this.pageText("The Tier 6 Blood Altar, which has 184 total runes, 76 more than a Tier 5, 19 on each side.");
     }
 
     @Override
     protected String entryName() {
-        return "Blood Altar";
+        return "The Blood Altar";
     }
 
     @Override

@@ -1,0 +1,80 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "alchemy_table",
+  "description": "book.neovitae.guide.alchemy_table.holy_water_anointment.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:holy_water_anointment"
+  },
+  "name": "book.neovitae.guide.alchemy_table.holy_water_anointment.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.holy_water_anointment.base.text",
+      "title": "book.neovitae.guide.alchemy_table.holy_water_anointment.base.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.holy_water_anointment.long.text",
+      "title": "book.neovitae.guide.alchemy_table.holy_water_anointment.long.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.holy_water_anointment.tier2.text",
+      "title": "book.neovitae.guide.alchemy_table.holy_water_anointment.tier2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.holy_water_anointment.extra_long.text",
+      "title": "book.neovitae.guide.alchemy_table.holy_water_anointment.extra_long.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.holy_water_anointment.tier3.text",
+      "title": "book.neovitae.guide.alchemy_table.holy_water_anointment.tier3.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "alchemy_table/anointments",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 6,
+  "x": -3,
+  "y": -2
+}

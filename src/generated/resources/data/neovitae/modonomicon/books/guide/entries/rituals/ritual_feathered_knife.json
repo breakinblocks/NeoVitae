@@ -1,0 +1,58 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "rituals",
+  "description": "book.neovitae.guide.rituals.ritual_feathered_knife.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:sacrificial_dagger"
+  },
+  "name": "book.neovitae.guide.rituals.ritual_feathered_knife.name",
+  "pages": [
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "ritual/feathered_knife",
+      "multiblock_name": "Ritual of the Feathered Knife",
+      "show_visualize_button": true,
+      "text": "book.neovitae.guide.rituals.ritual_feathered_knife.multiblock.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_feathered_knife.info.text",
+      "title": "book.neovitae.guide.rituals.ritual_feathered_knife.info.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_feathered_knife.will_effects.text",
+      "title": "book.neovitae.guide.rituals.ritual_feathered_knife.will_effects.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "rituals/ritual_basics",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 12,
+  "x": -1,
+  "y": -1
+}

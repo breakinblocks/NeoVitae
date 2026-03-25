@@ -1,0 +1,105 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "demon_will",
+  "description": "book.neovitae.guide.demon_will.aura.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:demon_crucible"
+  },
+  "name": "book.neovitae.guide.demon_will.aura.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.aura.intro.text",
+      "title": "book.neovitae.guide.demon_will.aura.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.aura.crucible.text",
+      "title": "book.neovitae.guide.demon_will.aura.crucible.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "images": [
+        "neovitae:images/entries/demon_will/demon_crucible.png"
+      ],
+      "text": "book.neovitae.guide.demon_will.aura.crucible_image.text",
+      "title": "Demon Crucible",
+      "use_legacy_rendering": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.aura.uses.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.aura.chunk_based.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.aura.pylon.text",
+      "title": "book.neovitae.guide.demon_will.aura.pylon.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.aura.forge_absorption.text",
+      "title": "",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "demon_will/aspected_will",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 6,
+  "x": -4,
+  "y": -2
+}

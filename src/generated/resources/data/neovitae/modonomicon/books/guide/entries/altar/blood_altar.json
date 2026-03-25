@@ -21,6 +21,28 @@
       "use_markdown_in_title": false
     },
     {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:blood_altar",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.blood_altar.usage.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
       "type": "modonomicon:multiblock",
       "anchor": "",
       "condition": {
@@ -30,6 +52,83 @@
       "multiblock_name": "book.neovitae.guide.altar.blood_altar.tier1.title",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.altar.blood_altar.tier1.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.blood_altar.knife.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:sacrificial_dagger",
+      "text": "book.neovitae.guide.altar.blood_altar.knife_recipe.text",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.blood_altar.crafting_process.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.blood_altar.first_craft.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.blood_altar.blank_rune.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:blood_rune_blank",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.blood_altar.tier2_text.text",
+      "title": "",
+      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:multiblock",
@@ -43,6 +142,39 @@
       "text": "book.neovitae.guide.altar.blood_altar.tier2.text"
     },
     {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.blood_altar.dagger_of_sacrifice.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.blood_altar.dagger_recipe.text",
+      "title": "book.neovitae.guide.altar.blood_altar.dagger_recipe.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.blood_altar.tier3_text.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
       "type": "modonomicon:multiblock",
       "anchor": "",
       "condition": {
@@ -52,6 +184,17 @@
       "multiblock_name": "book.neovitae.guide.altar.blood_altar.tier3.title",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.altar.blood_altar.tier3.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.blood_altar.tier4_text.text",
+      "title": "",
+      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:multiblock",
@@ -65,6 +208,17 @@
       "text": "book.neovitae.guide.altar.blood_altar.tier4.text"
     },
     {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.blood_altar.tier5_text.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
       "type": "modonomicon:multiblock",
       "anchor": "",
       "condition": {
@@ -74,6 +228,17 @@
       "multiblock_name": "book.neovitae.guide.altar.blood_altar.tier5.title",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.altar.blood_altar.tier5.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.blood_altar.tier6_text.text",
+      "title": "",
+      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:multiblock",
@@ -89,6 +254,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": 0,
-  "x": -1,
-  "y": 0
+  "x": -6,
+  "y": -1
 }

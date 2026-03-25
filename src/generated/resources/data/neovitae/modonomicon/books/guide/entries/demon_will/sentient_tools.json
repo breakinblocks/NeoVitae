@@ -1,0 +1,113 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "demon_will",
+  "description": "book.neovitae.guide.demon_will.sentient_tools.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:soul_pickaxe"
+  },
+  "name": "book.neovitae.guide.demon_will.sentient_tools.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.sentient_tools.intro.text",
+      "title": "book.neovitae.guide.demon_will.sentient_tools.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.sentient_tools.pickaxe.text",
+      "title": "book.neovitae.guide.demon_will.sentient_tools.pickaxe.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.sentient_tools.scythe_intro.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.sentient_tools.scythe.text",
+      "title": "book.neovitae.guide.demon_will.sentient_tools.scythe.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.sentient_tools.axe_intro.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.sentient_tools.axe.text",
+      "title": "book.neovitae.guide.demon_will.sentient_tools.axe.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.sentient_tools.shovel_intro.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.sentient_tools.shovel.text",
+      "title": "book.neovitae.guide.demon_will.sentient_tools.shovel.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "demon_will/sentient_sword",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 10,
+  "x": -4,
+  "y": 0
+}

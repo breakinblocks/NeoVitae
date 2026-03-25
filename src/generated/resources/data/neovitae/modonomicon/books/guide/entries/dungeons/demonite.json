@@ -1,0 +1,96 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "dungeons",
+  "description": "book.neovitae.guide.dungeons.demonite.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:dungeon_ore"
+  },
+  "name": "book.neovitae.guide.dungeons.demonite.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demonite.intro.text",
+      "title": "book.neovitae.guide.dungeons.demonite.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:smelting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:smelting/ingot_from_demonite",
+      "recipe_id_2": "neovitae:smelting/ingot_from_raw_hellforged",
+      "text": "",
+      "title1": "Hellforged Ingot",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:smelting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:smelting/ingot_hellforged",
+      "text": "",
+      "title1": "Hellforged Ingot",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demonite.arc_dust.text",
+      "title": "book.neovitae.guide.dungeons.demonite.arc_dust.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demonite.arc_processing.text",
+      "title": "book.neovitae.guide.dungeons.demonite.arc_processing.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:hellforged_block",
+      "recipe_id_2": "neovitae:raw_hellforged_block",
+      "text": "",
+      "title1": "Hellforged Block",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demonite.decorative.text",
+      "title": "book.neovitae.guide.dungeons.demonite.decorative.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 4,
+  "x": 0,
+  "y": -2
+}

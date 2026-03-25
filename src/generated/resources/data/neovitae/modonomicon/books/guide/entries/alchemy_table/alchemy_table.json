@@ -1,0 +1,105 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "alchemy_table",
+  "description": "book.neovitae.guide.alchemy_table.alchemy_table.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:alchemy_table"
+  },
+  "name": "book.neovitae.guide.alchemy_table.alchemy_table.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.alchemy_table.intro.text",
+      "title": "book.neovitae.guide.alchemy_table.alchemy_table.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:alchemy_table",
+      "text": "book.neovitae.guide.alchemy_table.alchemy_table.crafting.text",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.alchemy_table.gui.text",
+      "title": "book.neovitae.guide.alchemy_table.alchemy_table.gui.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.alchemy_table.gui2.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.alchemy_table.errors.text",
+      "title": "book.neovitae.guide.alchemy_table.alchemy_table.errors.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.alchemy_table.recipes1.text",
+      "title": "book.neovitae.guide.alchemy_table.alchemy_table.recipes1.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.alchemy_table.recipes2.text",
+      "title": "book.neovitae.guide.alchemy_table.alchemy_table.recipes2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.alchemy_table.sigil_recipes.text",
+      "title": "",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 0,
+  "x": 0,
+  "y": -4
+}

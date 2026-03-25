@@ -1,0 +1,83 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "utility",
+  "description": "book.neovitae.guide.utility.alchemical_reaction_chamber.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:arc"
+  },
+  "name": "book.neovitae.guide.utility.alchemical_reaction_chamber.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.alchemical_reaction_chamber.intro.text",
+      "title": "book.neovitae.guide.utility.alchemical_reaction_chamber.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:arc",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.alchemical_reaction_chamber.sanguine_reverter.text",
+      "title": "book.neovitae.guide.utility.alchemical_reaction_chamber.sanguine_reverter.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.alchemical_reaction_chamber.arc_recipes.text",
+      "title": "book.neovitae.guide.utility.alchemical_reaction_chamber.arc_recipes.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.alchemical_reaction_chamber.reversion.text",
+      "title": "book.neovitae.guide.utility.alchemical_reaction_chamber.reversion.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.alchemical_reaction_chamber.automation.text",
+      "title": "book.neovitae.guide.utility.alchemical_reaction_chamber.automation.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 5,
+  "x": -5,
+  "y": 0
+}

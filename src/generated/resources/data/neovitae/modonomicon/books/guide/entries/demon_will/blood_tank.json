@@ -1,0 +1,69 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "demon_will",
+  "description": "book.neovitae.guide.demon_will.blood_tank.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:blood_tank"
+  },
+  "name": "book.neovitae.guide.demon_will.blood_tank.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.blood_tank.intro.text",
+      "title": "book.neovitae.guide.demon_will.blood_tank.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.blood_tank.recipe.text",
+      "title": "book.neovitae.guide.demon_will.blood_tank.recipe.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.blood_tank.upgrading.text",
+      "title": "book.neovitae.guide.demon_will.blood_tank.upgrading.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:blood_tank_upgrade",
+      "text": "book.neovitae.guide.demon_will.blood_tank.upgrade_recipe.text",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "demon_will/demon_will",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 12,
+  "x": 4,
+  "y": 0
+}

@@ -1,0 +1,47 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "alchemy_table",
+  "description": "book.neovitae.guide.alchemy_table.flask_invisibility.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:glass_pane"
+  },
+  "name": "book.neovitae.guide.alchemy_table.flask_invisibility.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.flask_invisibility.intro.text",
+      "title": "book.neovitae.guide.alchemy_table.flask_invisibility.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.flask_invisibility.recipes.text",
+      "title": "",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "alchemy_table/potion_crafting",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 22,
+  "x": -2,
+  "y": 1
+}

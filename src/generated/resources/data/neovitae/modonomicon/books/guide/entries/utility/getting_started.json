@@ -1,0 +1,215 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 1,
+  "category": "utility",
+  "description": "book.neovitae.guide.utility.getting_started.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:sacrificial_dagger"
+  },
+  "name": "book.neovitae.guide.utility.getting_started.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.intro.text",
+      "title": "book.neovitae.guide.utility.getting_started.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier1_altar.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier1_altar.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier1_alchemy.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier1_alchemy.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier1_array.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier1_array.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier1_forge.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier1_forge.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier2.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier2_potions.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier2_potions.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier3.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier3.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier3_dungeon.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier3_dungeon.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier4.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier4.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier4_armour.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier4_armour.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier4_armour2.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier4_armour2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier4_armour3.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier4_armour3.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier4_armour4.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier4_armour4.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier4_will.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier4_will.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier4_demon.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier4_demon.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier5.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier5.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.getting_started.tier6.text",
+      "title": "book.neovitae.guide.utility.getting_started.tier6.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 0,
+  "x": -6,
+  "y": -2
+}

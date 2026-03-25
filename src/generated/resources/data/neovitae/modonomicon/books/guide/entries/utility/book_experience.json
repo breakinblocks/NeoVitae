@@ -1,0 +1,50 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "utility",
+  "description": "book.neovitae.guide.utility.book_experience.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:experience_tome"
+  },
+  "name": "book.neovitae.guide.utility.book_experience.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.book_experience.intro.text",
+      "title": "book.neovitae.guide.utility.book_experience.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:experience_tome",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.book_experience.curios.text",
+      "title": "book.neovitae.guide.utility.book_experience.curios.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 2,
+  "x": -3,
+  "y": -1
+}

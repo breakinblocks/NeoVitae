@@ -1,0 +1,58 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "rituals",
+  "description": "book.neovitae.guide.rituals.ritual_yawning_void.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:black_stained_glass"
+  },
+  "name": "book.neovitae.guide.rituals.ritual_yawning_void.name",
+  "pages": [
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "ritual/yawning_void",
+      "multiblock_name": "Yawning of the Void",
+      "show_visualize_button": true,
+      "text": "book.neovitae.guide.rituals.ritual_yawning_void.multiblock.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_yawning_void.info.text",
+      "title": "book.neovitae.guide.rituals.ritual_yawning_void.info.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_yawning_void.will_effects.text",
+      "title": "book.neovitae.guide.rituals.ritual_yawning_void.will_effects.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "rituals/ritual_basics",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 34,
+  "x": -1,
+  "y": 3
+}

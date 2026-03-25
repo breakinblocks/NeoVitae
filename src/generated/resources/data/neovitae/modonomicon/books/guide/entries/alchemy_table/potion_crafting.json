@@ -1,0 +1,223 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "alchemy_table",
+  "description": "book.neovitae.guide.alchemy_table.potion_crafting.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:alchemy_flask"
+  },
+  "name": "book.neovitae.guide.alchemy_table.potion_crafting.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.intro.text",
+      "title": "book.neovitae.guide.alchemy_table.potion_crafting.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.intro2.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.flask.text",
+      "title": "book.neovitae.guide.alchemy_table.potion_crafting.flask.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.effects.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:alchemy_flask",
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.refill.text",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.splash_linger.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.multi_effects.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.catalysts_intro.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.simple_catalyst.text",
+      "title": "book.neovitae.guide.alchemy_table.potion_crafting.simple_catalyst.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.power_catalyst.text",
+      "title": "book.neovitae.guide.alchemy_table.potion_crafting.power_catalyst.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.lengthening_catalyst.text",
+      "title": "book.neovitae.guide.alchemy_table.potion_crafting.lengthening_catalyst.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.combinational_catalyst.text",
+      "title": "book.neovitae.guide.alchemy_table.potion_crafting.combinational_catalyst.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.filling_agent.text",
+      "title": "book.neovitae.guide.alchemy_table.potion_crafting.filling_agent.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.cycling_catalyst.text",
+      "title": "book.neovitae.guide.alchemy_table.potion_crafting.cycling_catalyst.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.advanced_intro.text",
+      "title": "book.neovitae.guide.alchemy_table.potion_crafting.advanced_intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.strengthened_catalyst.text",
+      "title": "book.neovitae.guide.alchemy_table.potion_crafting.strengthened_catalyst.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.avg_lengthening.text",
+      "title": "book.neovitae.guide.alchemy_table.potion_crafting.avg_lengthening.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_table.potion_crafting.avg_power.text",
+      "title": "book.neovitae.guide.alchemy_table.potion_crafting.avg_power.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "alchemy_table/alchemy_table",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 2,
+  "x": 5,
+  "y": -3
+}

@@ -1,0 +1,47 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "rituals",
+  "description": "book.neovitae.guide.rituals.ritual_felling.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:oak_sapling"
+  },
+  "name": "book.neovitae.guide.rituals.ritual_felling.name",
+  "pages": [
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "ritual/felling",
+      "multiblock_name": "Crash of the Timberman",
+      "show_visualize_button": true,
+      "text": "book.neovitae.guide.rituals.ritual_felling.multiblock.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_felling.info.text",
+      "title": "book.neovitae.guide.rituals.ritual_felling.info.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "rituals/ritual_basics",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 9,
+  "x": -7,
+  "y": -1
+}

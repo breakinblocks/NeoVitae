@@ -1,0 +1,51 @@
+package com.breakinblocks.neovitae.datagen.book.alchemy_array;
+
+import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
+import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
+import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
+import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.world.item.Items;
+
+public class BattleHungryDowngradeEntry extends EntryProvider {
+
+    public BattleHungryDowngradeEntry(CategoryProviderBase parent) {
+        super(parent);
+    }
+
+    @Override
+    protected void generatePages() {
+        this.page("intro", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Battle Hungry");
+        this.pageText("Gives you hunger if you haven't attacked something recently. Higher levels give you "
+                + "a shorter cooldown window and make the hunger worse.");
+    }
+
+    @Override
+    protected String entryName() {
+        return "Battle Hungry";
+    }
+
+    @Override
+    protected String entryDescription() {
+        return "Downgrade: hunger when not attacking.";
+    }
+
+    @Override
+    protected Pair<Integer, Integer> entryBackground() {
+        return EntryBackground.DEFAULT;
+    }
+
+    @Override
+    protected BookIconModel entryIcon() {
+        return BookIconModel.create(Items.ROTTEN_FLESH);
+    }
+
+    @Override
+    protected String entryId() {
+        return "downgrade_battle_hungry";
+    }
+}

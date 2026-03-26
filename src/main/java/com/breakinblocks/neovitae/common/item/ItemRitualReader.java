@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.*;
 
 import java.util.List;
@@ -129,13 +129,13 @@ public class ItemRitualReader extends Item {
                 mrs.provideInformationOfRangeToPlayer(player, rangeKey);
             }
             case SET_WILL_CONFIG -> {
-                EnumWillType currentType = mrs.getActiveWillConfig();
-                EnumWillType nextType = switch (currentType) {
-                    case DEFAULT -> EnumWillType.CORROSIVE;
-                    case CORROSIVE -> EnumWillType.DESTRUCTIVE;
-                    case DESTRUCTIVE -> EnumWillType.VENGEFUL;
-                    case VENGEFUL -> EnumWillType.STEADFAST;
-                    case STEADFAST -> EnumWillType.DEFAULT;
+                SpiritusType currentType = mrs.getActiveWillConfig();
+                SpiritusType nextType = switch (currentType) {
+                    case DEFAULT -> SpiritusType.CORROSIVE;
+                    case CORROSIVE -> SpiritusType.DESTRUCTIVE;
+                    case DESTRUCTIVE -> SpiritusType.VENGEFUL;
+                    case VENGEFUL -> SpiritusType.STEADFAST;
+                    case STEADFAST -> SpiritusType.DEFAULT;
                 };
                 mrs.setActiveWillConfig(nextType);
                 player.displayClientMessage(

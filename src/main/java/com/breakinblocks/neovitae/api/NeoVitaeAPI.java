@@ -7,7 +7,7 @@ import org.jetbrains.annotations.ApiStatus;
  *
  * <p>Addon mods should call {@link #getInstance()} to obtain the {@link INeoVitaeAPI}
  * implementation, which provides access to all NeoVitae subsystems (soul networks,
- * altar runes, demon will, tranquility, etc.).</p>
+ * altar runes, spiritus, tranquility, etc.).</p>
  *
  * <p>The API instance is set by NeoVitae during mod loading. It is safe to call
  * {@link #getInstance()} from {@code FMLCommonSetupEvent} or later. Calling it

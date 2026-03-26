@@ -23,7 +23,7 @@ public class ToughPalmsUpgradeEntry extends EntryProvider {
         this.pageText("The armour toughens your hands against the bite of the sacrificial blade, yielding "
                 + "more [#](4A0080)Essentia Vitae[#]() from each offering. Grants up to 150%% bonus to "
                 + "self-sacrifice.\\\n\\\n"
-                + "[#](B8860B)Trained by[#](): Offering blood with the [#](8B0000)Lamina Maleficus[#]().\\\n\\\n"
+                + "[#](B8860B)Trained by[#](): Offering blood with the [#](8B0000)Sacrificial Dagger[#]().\\\n\\\n"
                 + "[#](B8860B)Maximum level[#](): 10");
     }
 
@@ -44,7 +44,7 @@ public class ToughPalmsUpgradeEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.LAMINA_MALEFICUS.get());
+        return BookIconModel.create(NVItems.SACRIFICIAL_DAGGER.get());
     }
 
     @Override

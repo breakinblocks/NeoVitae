@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.common.item.athanor;
 
 import net.minecraft.world.item.ItemStack;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 public interface IAthanorTool {
     default double getCraftingSpeedMultiplier(ItemStack stack) {
@@ -12,7 +12,7 @@ public interface IAthanorTool {
         return 1;
     }
 
-    default EnumWillType getDominantWillType(ItemStack stack) {
-        return EnumWillType.DEFAULT;
+    default SpiritusType getDominantWillType(ItemStack stack) {
+        return SpiritusType.DEFAULT;
     }
 }

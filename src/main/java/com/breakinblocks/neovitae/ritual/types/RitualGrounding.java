@@ -8,11 +8,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.WillState;
+import com.breakinblocks.neovitae.api.will.SpiritusState;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 /**
  * The Sinner's Burden - Prevents flight and grounds entities in the area.
  *
- * <p>Demon Will effects:
+ * <p>Spiritus effects:
  * <ul>
  *   <li><b>Raw (Default)</b> - Player-only targeting with Grounded + Gravity effects</li>
  *   <li><b>Destructive</b> - Apply Heavy Heart to ALL entities (including non-players), amplifier 1</li>
@@ -59,7 +59,7 @@ public class RitualGrounding extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
+        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
 
         double rawUsed = 0;
         double corrosiveUsed = 0;
@@ -134,11 +134,11 @@ public class RitualGrounding extends Ritual {
             ctx.syphon(Math.min(totalCost, ctx.currentEV()));
         }
 
-        will.use(EnumWillType.DEFAULT, rawUsed);
-        will.use(EnumWillType.CORROSIVE, corrosiveUsed);
-        will.use(EnumWillType.DESTRUCTIVE, destructiveUsed);
-        will.use(EnumWillType.VENGEFUL, vengefulUsed);
-        will.use(EnumWillType.STEADFAST, steadfastUsed);
+        will.use(SpiritusType.DEFAULT, rawUsed);
+        will.use(SpiritusType.CORROSIVE, corrosiveUsed);
+        will.use(SpiritusType.DESTRUCTIVE, destructiveUsed);
+        will.use(SpiritusType.VENGEFUL, vengefulUsed);
+        will.use(SpiritusType.STEADFAST, steadfastUsed);
         will.drain(ctx.level(), masterPos);
     }
 

@@ -42,7 +42,7 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
                 return false;
             }
 
-            if (slot == GEM_SLOT && !stack.has(NVDataComponents.DEMON_WILL_AMOUNT)) {
+            if (slot == GEM_SLOT && !stack.has(NVDataComponents.SPIRITUS_AMOUNT)) {
                 return false;
             }
 
@@ -137,12 +137,12 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
 
         ItemStack gemStack = tile.inv.getStackInSlot(GEM_SLOT);
         if (!gemStack.isEmpty()) {
-            double will = gemStack.getOrDefault(NVDataComponents.DEMON_WILL_AMOUNT, 0D);
+            double will = gemStack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
             will -= recipe.usedWill;
-            if (will <= 0 && gemStack.is(NVItems.RAW_WILL)) {
+            if (will <= 0 && gemStack.is(NVItems.RAW_SPIRITUS)) {
                 tile.inv.setStackInSlot(GEM_SLOT, ItemStack.EMPTY);
             } else {
-                gemStack.set(NVDataComponents.DEMON_WILL_AMOUNT, Math.max(0, will));
+                gemStack.set(NVDataComponents.SPIRITUS_AMOUNT, Math.max(0, will));
             }
         }
 
@@ -178,7 +178,7 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         for (int i = SOUTH; i < GEM_SLOT; i++) {
             ItemStack testStack = inv.getStackInSlot(i);
             stacks.add(testStack);
-            if (testStack.is(NVTags.Items.SOUL_GEM)) {
+            if (testStack.is(NVTags.Items.SPIRITUS_GEM)) {
                 gemStack = testStack;
                 gemIndex = i;
             }

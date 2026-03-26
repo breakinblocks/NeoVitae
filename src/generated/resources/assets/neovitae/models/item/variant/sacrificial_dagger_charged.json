@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "neovitae:item/sacrificial_dagger_charged"
+  }
+}

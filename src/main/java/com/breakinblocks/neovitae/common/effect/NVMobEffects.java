@@ -16,8 +16,8 @@ public class NVMobEffects {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS =
             DeferredRegister.create(Registries.MOB_EFFECT, NeoVitae.MODID);
 
-    public static final DeferredHolder<MobEffect, SoulSnareEffect> SOUL_SNARE =
-            MOB_EFFECTS.register("soulsnare", () -> new SoulSnareEffect(MobEffectCategory.NEUTRAL, 0xFFFFFF));
+    public static final DeferredHolder<MobEffect, SpiritusSnareEffect> SPIRITUS_SNARE =
+            MOB_EFFECTS.register("soulsnare", () -> new SpiritusSnareEffect(MobEffectCategory.NEUTRAL, 0xFFFFFF));
 
     public static final DeferredHolder<MobEffect, FireFuseEffect> FIRE_FUSE =
             MOB_EFFECTS.register("firefuse", () -> new FireFuseEffect(MobEffectCategory.HARMFUL, 0xFF0000));

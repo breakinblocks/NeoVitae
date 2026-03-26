@@ -47,7 +47,7 @@ public class RitualCrystalHarvest extends Ritual {
             Block block = state.getBlock();
 
             // Check if it's a demon crystal block
-            if (isDemonCrystal(block)) {
+            if (isSpiritusCrystal(block)) {
                 if (BlockProtectionHelper.tryBreakBlock(ctx.level(), pos, owner)) {
                     crystalsHarvested++;
                 }
@@ -57,12 +57,12 @@ public class RitualCrystalHarvest extends Ritual {
         ctx.syphon(getRefreshCost() * crystalsHarvested);
     }
 
-    private boolean isDemonCrystal(Block block) {
-        return block == NVBlocks.RAW_DEMON_CRYSTAL.block().get() ||
-               block == NVBlocks.CORROSIVE_DEMON_CRYSTAL.block().get() ||
-               block == NVBlocks.DESTRUCTIVE_DEMON_CRYSTAL.block().get() ||
-               block == NVBlocks.VENGEFUL_DEMON_CRYSTAL.block().get() ||
-               block == NVBlocks.STEADFAST_DEMON_CRYSTAL.block().get();
+    private boolean isSpiritusCrystal(Block block) {
+        return block == NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get() ||
+               block == NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block().get() ||
+               block == NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block().get() ||
+               block == NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().get() ||
+               block == NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().get();
     }
 
     @Override

@@ -18,10 +18,10 @@ import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.SpiraInfernalisBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.TeleposerBlockEntity;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
-import com.breakinblocks.neovitae.will.WillChunk;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
+import com.breakinblocks.neovitae.will.SpiritusChunk;
+import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
 
 @GameTestHolder("neovitae")
 @PrefixGameTestTemplate(false)

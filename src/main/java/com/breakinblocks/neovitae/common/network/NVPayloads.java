@@ -15,7 +15,7 @@ import com.breakinblocks.neovitae.common.item.routing.ItemRouterFilter;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.common.menu.FilterMenu;
 import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
+import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
 
 public class NVPayloads {
 
@@ -53,9 +53,9 @@ public class NVPayloads {
         );
 
         registrar.playToClient(
-                WillChunkSyncPayload.TYPE,
-                WillChunkSyncPayload.STREAM_CODEC,
-                NVPayloads::handleWillChunkSync
+                SpiritusSyncPayload.TYPE,
+                SpiritusSyncPayload.STREAM_CODEC,
+                NVPayloads::handleSpiritusChunkSync
         );
 
         registrar.playToClient(
@@ -71,12 +71,12 @@ public class NVPayloads {
         });
     }
 
-    private static void handleWillChunkSync(WillChunkSyncPayload payload, IPayloadContext context) {
+    private static void handleSpiritusChunkSync(SpiritusSyncPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
-            com.breakinblocks.neovitae.client.ClientWillCache.update(
+            com.breakinblocks.neovitae.client.ClientSpiritusCache.update(
                     payload.chunkX(),
                     payload.chunkZ(),
-                    payload.toWillChunk()
+                    payload.toSpiritusChunk()
             );
         });
     }

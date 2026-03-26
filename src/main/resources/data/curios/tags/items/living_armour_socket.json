@@ -10,12 +10,12 @@
     "neovitae:sigil_seer",
     "neovitae:sigil_suppression",
     "neovitae:experience_tome",
-    "neovitae:soul_gem_petty",
-    "neovitae:soul_gem_lesser",
-    "neovitae:soul_gem_common",
-    "neovitae:soul_gem_greater",
-    "neovitae:soul_gem_grand",
+    "neovitae:spiritus_gem_petty",
+    "neovitae:spiritus_gem_lesser",
+    "neovitae:spiritus_gem_common",
+    "neovitae:spiritus_gem_greater",
+    "neovitae:spiritus_gem_grand",
     "neovitae:upgrade_tome",
-    "neovitae:demon_will_gauge"
+    "neovitae:spiritus_gauge"
   ]
 }

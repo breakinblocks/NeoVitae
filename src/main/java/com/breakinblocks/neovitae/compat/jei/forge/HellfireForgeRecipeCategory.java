@@ -113,12 +113,12 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
     }
 
     public enum DefaultWill {
-        RAW(new ItemStack(NVItems.RAW_WILL.get()), 16),
-        PETTY(new ItemStack(NVItems.SOUL_GEM_PETTY.get()), 64),
-        LESSER(new ItemStack(NVItems.SOUL_GEM_LESSER.get()), 256),
-        COMMON(new ItemStack(NVItems.SOUL_GEM_COMMON.get()), 1024),
-        GREATER(new ItemStack(NVItems.SOUL_GEM_GREATER.get()), 4096),
-        GRAND(new ItemStack(NVItems.SOUL_GEM_GRAND.get()), 16384);
+        RAW(new ItemStack(NVItems.RAW_SPIRITUS.get()), 16),
+        PETTY(new ItemStack(NVItems.SPIRITUS_GEM_PETTY.get()), 64),
+        LESSER(new ItemStack(NVItems.SPIRITUS_GEM_LESSER.get()), 256),
+        COMMON(new ItemStack(NVItems.SPIRITUS_GEM_COMMON.get()), 1024),
+        GREATER(new ItemStack(NVItems.SPIRITUS_GEM_GREATER.get()), 4096),
+        GRAND(new ItemStack(NVItems.SPIRITUS_GEM_GRAND.get()), 16384);
 
         public final ItemStack willStack;
         public final double minSouls;

@@ -20,7 +20,7 @@ public class NVMaterialsAndTiers {
 
     public static final DeferredHolder<ArmorMaterial, ArmorMaterial> LIVING_ARMOUR_MATERIAL = ARMOUR_MATERIALS.register("living", () -> new ArmorMaterial(
             ArmorMaterials.IRON.value().defense(), ArmorMaterials.IRON.value().enchantmentValue(),
-            ArmorMaterials.IRON.value().equipSound(), () -> Ingredient.of(NVItems.RAW_WILL.get()),
+            ArmorMaterials.IRON.value().equipSound(), () -> Ingredient.of(NVItems.RAW_SPIRITUS.get()),
             List.of(new ArmorMaterial.Layer(bm("living"))), 0, 0
     ));
 
@@ -52,7 +52,7 @@ public class NVMaterialsAndTiers {
 
         @Override
         public Ingredient getRepairIngredient() {
-            return Ingredient.of(NVTags.Items.DEMON_CRYSTALS);
+            return Ingredient.of(NVTags.Items.SPIRITUS_CRYSTALS);
         }
     };
 

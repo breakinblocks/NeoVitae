@@ -18,10 +18,10 @@ import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.WillState;
+import com.breakinblocks.neovitae.api.will.SpiritusState;
 import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
@@ -33,7 +33,7 @@ import java.util.function.Consumer;
  * Yawning of the Void - Block quarry ritual that destroys blocks and collects drops.
  * Scans blocks sequentially with a persistent position tracker.
  *
- * <p>Demon Will effects:
+ * <p>Spiritus effects:
  * <ul>
  *   <li><b>Raw (Default)</b> - Destroy blocks and collect drops into chest or spawn in world</li>
  *   <li><b>Steadfast</b> - Replace mode: places blocks from quarry area into the placement area</li>
@@ -85,7 +85,7 @@ public class RitualYawningVoid extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, Math.min(MIN_DEFAULT, Math.min(MIN_STEADFAST, MIN_CORROSIVE)));
+        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, Math.min(MIN_DEFAULT, Math.min(MIN_STEADFAST, MIN_CORROSIVE)));
 
         boolean hasRaw = will.hasDefault();
         boolean doReplace = will.hasSteadfast();
@@ -176,7 +176,7 @@ public class RitualYawningVoid extends Ritual {
                 }
 
                 if (!matchesFilter) continue;
-                will.use(EnumWillType.CORROSIVE, WILL_PER_FILTER);
+                will.use(SpiritusType.CORROSIVE, WILL_PER_FILTER);
             }
 
             // STEADFAST: Replace mode - place block in placement area instead of dropping
@@ -187,7 +187,7 @@ public class RitualYawningVoid extends Ritual {
                     boolean placed = tryPlaceInRange(ctx, masterPos, state);
                     if (placed) {
                         ctx.level().destroyBlock(targetPos, false);
-                        will.use(EnumWillType.STEADFAST, WILL_PER_REPLACE);
+                        will.use(SpiritusType.STEADFAST, WILL_PER_REPLACE);
                         steadfastWillUsed += WILL_PER_REPLACE;
                         processed = true;
                         continue;

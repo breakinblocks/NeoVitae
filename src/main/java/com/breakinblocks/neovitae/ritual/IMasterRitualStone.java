@@ -7,7 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
@@ -62,9 +62,9 @@ public interface IMasterRitualStone {
 
     void setBlockRanges(Map<String, AreaDescriptor> ranges);
 
-    EnumWillType getActiveWillConfig();
+    SpiritusType getActiveWillConfig();
 
-    void setActiveWillConfig(EnumWillType type);
+    void setActiveWillConfig(SpiritusType type);
 
     void provideInformationOfRitualToPlayer(Player player);
 

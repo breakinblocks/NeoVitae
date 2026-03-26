@@ -52,7 +52,7 @@ public class DivinationSigilEntry extends EntryProvider {
                 + "- The Incense Altar (light grey)\n\n"
                 + "- The Seer's Sigil (purple)\n\n"
                 + "- The Divination Sigil (lavender)\n\n"
-                + "- The Demon Will Aura Gauge (orange)\n\n"
+                + "- The Spiritus Aura Gauge (orange)\n\n"
                 + "- The Sigil of Holding (green)");
     }
 

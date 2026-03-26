@@ -1,0 +1,117 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "spiritus",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "spiritus/sentient_sword"
+  },
+  "description": "book.neovitae.guide.spiritus.sentient_tools.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:sentient_pickaxe"
+  },
+  "name": "book.neovitae.guide.spiritus.sentient_tools.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.sentient_tools.intro.text",
+      "title": "book.neovitae.guide.spiritus.sentient_tools.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.sentient_tools.pickaxe.text",
+      "title": "book.neovitae.guide.spiritus.sentient_tools.pickaxe.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.sentient_tools.scythe_intro.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.sentient_tools.scythe.text",
+      "title": "book.neovitae.guide.spiritus.sentient_tools.scythe.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.sentient_tools.axe_intro.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.sentient_tools.axe.text",
+      "title": "book.neovitae.guide.spiritus.sentient_tools.axe.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.sentient_tools.shovel_intro.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.sentient_tools.shovel.text",
+      "title": "book.neovitae.guide.spiritus.sentient_tools.shovel.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "spiritus/sentient_sword",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 10,
+  "x": -2,
+  "y": -2
+}

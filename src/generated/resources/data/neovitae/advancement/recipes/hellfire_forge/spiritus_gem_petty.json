@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_raw_will": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:raw_spiritus"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:spiritus_gem_petty"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_raw_will"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:spiritus_gem_petty"
+    ]
+  }
+}

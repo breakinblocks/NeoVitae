@@ -92,7 +92,7 @@ public class AnointmentRegistrar {
             })
             .setConsumeOnUseFinish());
 
-    // Will Power - Increases demon will drops, consumed on attack
+    // Will Power - Increases spiritus drops, consumed on attack
     public static final Anointment WILL_POWER = register(new Anointment(NeoVitae.rl("will_power"))
             .withBonusSet("bonus", list -> {
                 list.add(0.5); // Level 1: +50% will drops

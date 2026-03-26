@@ -4,7 +4,7 @@
   "flip_v": true,
   "model": "neovitae:models/block/crystal/crystal2.obj",
   "textures": {
-    "crystal": "neovitae:block/raw_demon_crystal",
+    "crystal": "neovitae:block/raw_spiritus_crystal",
     "particle": "#crystal"
   }
 }

@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 import java.util.EnumMap;
 
@@ -36,26 +36,26 @@ public class ServerConfig {
         DEFAULT_UPGRADE_POINTS = builder.define("default_upgrade_points", 100);
         EVOLUTION_UPGRADE_POINTS = builder.define("evolution_upgrade_points", 300);
 
-        builder.comment("Demon Will System Configuration",
-                "These values define the base maximum demon will that can be stored per chunk.",
+        builder.comment("Spiritus System Configuration",
+                "These values define the base maximum spiritus that can be stored per chunk.",
                 "Different will types can have different maximum capacities.",
                 "Rituals and other effects can add bonuses on top of these base values.");
-        builder.push("demon_will");
+        builder.push("spiritus");
 
         WILL_MAX_DEFAULT = builder
-                .comment("Base maximum Raw (Default) demon will per chunk")
+                .comment("Base maximum Raw (Default) spiritus per chunk")
                 .defineInRange("max_default_will", 100.0, 1.0, 10000.0);
         WILL_MAX_CORROSIVE = builder
-                .comment("Base maximum Corrosive demon will per chunk")
+                .comment("Base maximum Corrosive spiritus per chunk")
                 .defineInRange("max_corrosive_will", 100.0, 1.0, 10000.0);
         WILL_MAX_DESTRUCTIVE = builder
-                .comment("Base maximum Destructive demon will per chunk")
+                .comment("Base maximum Destructive spiritus per chunk")
                 .defineInRange("max_destructive_will", 100.0, 1.0, 10000.0);
         WILL_MAX_VENGEFUL = builder
-                .comment("Base maximum Vengeful demon will per chunk")
+                .comment("Base maximum Vengeful spiritus per chunk")
                 .defineInRange("max_vengeful_will", 100.0, 1.0, 10000.0);
         WILL_MAX_STEADFAST = builder
-                .comment("Base maximum Steadfast demon will per chunk")
+                .comment("Base maximum Steadfast spiritus per chunk")
                 .defineInRange("max_steadfast_will", 100.0, 1.0, 10000.0);
 
         builder.pop();
@@ -63,10 +63,10 @@ public class ServerConfig {
         builder.comment("Demon Crystal Growth Configuration",
                 "These values control how demon crystals form and grow.",
                 "Crystals are created by Crystallarium Maleficums and grow based on chunk will.");
-        builder.push("demon_crystal");
+        builder.push("spiritus_crystal");
 
         CRYSTAL_WILL_TO_FORM = builder
-                .comment("Amount of demon will required to form a new crystal")
+                .comment("Amount of spiritus required to form a new crystal")
                 .defineInRange("will_to_form", 99.0, 1.0, 1000.0);
         CRYSTAL_FORMATION_TIME = builder
                 .comment("Total time (in ticks) for crystal formation in the Crystallizer")
@@ -109,7 +109,7 @@ public class ServerConfig {
         builder.pop();
     }
 
-    public double getBaseMaxWill(EnumWillType type) {
+    public double getBaseMaxWill(SpiritusType type) {
         return switch (type) {
             case DEFAULT -> WILL_MAX_DEFAULT.get();
             case CORROSIVE -> WILL_MAX_CORROSIVE.get();
@@ -119,9 +119,9 @@ public class ServerConfig {
         };
     }
 
-    public EnumMap<EnumWillType, Double> getAllBaseMaxWill() {
-        EnumMap<EnumWillType, Double> result = new EnumMap<>(EnumWillType.class);
-        for (EnumWillType type : EnumWillType.values()) {
+    public EnumMap<SpiritusType, Double> getAllBaseMaxWill() {
+        EnumMap<SpiritusType, Double> result = new EnumMap<>(SpiritusType.class);
+        for (SpiritusType type : SpiritusType.values()) {
             result.put(type, getBaseMaxWill(type));
         }
         return result;

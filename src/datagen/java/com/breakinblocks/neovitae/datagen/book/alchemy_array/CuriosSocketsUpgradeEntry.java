@@ -44,7 +44,7 @@ public class CuriosSocketsUpgradeEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.SOUL_SNARE.get());
+        return BookIconModel.create(NVItems.SPIRITUS_SNARE.get());
     }
 
     @Override

@@ -38,8 +38,8 @@ public class RitualAnimalGrowthEntry extends EntryProvider {
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Resonance");
-        this.pageText("- [#](8B0000)Raw Will[#](): Further accelerates the growth of young creatures."
+        this.pageTitle("Spiritus Resonance");
+        this.pageText("- [#](8B0000)Raw Spiritus[#](): Further accelerates the growth of young creatures."
                 + "\n\n- [#](8B0000)Vengeful Will[#](): Compels adult animals to breed without intervention."
                 + "\n\n- [#](8B0000)Destructive Will[#](): Increases the frequency of growth pulses."
                 + "\n\n- [#](8B0000)Steadfast Will[#](): Collects products from sheared or milked animals into a nearby chest.");

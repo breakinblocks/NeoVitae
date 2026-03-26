@@ -29,8 +29,8 @@ public class HellfireForgeTests {
     }
 
     private static ItemStack createGemWithWill(double will) {
-        ItemStack gem = new ItemStack(NVItems.SOUL_GEM_PETTY.get());
-        gem.set(NVDataComponents.DEMON_WILL_AMOUNT, will);
+        ItemStack gem = new ItemStack(NVItems.SPIRITUS_GEM_PETTY.get());
+        gem.set(NVDataComponents.SPIRITUS_AMOUNT, will);
         return gem;
     }
 
@@ -69,7 +69,7 @@ public class HellfireForgeTests {
                 if (output.isEmpty()) {
                     helper.fail("Forge should have crafted petty gem, output is empty (progress=" + forge.getProgress() + ")");
                 }
-                if (!output.is(NVItems.SOUL_GEM_PETTY.get())) {
+                if (!output.is(NVItems.SPIRITUS_GEM_PETTY.get())) {
                     helper.fail("Expected petty gem, got " + output);
                 }
                 helper.succeed();
@@ -94,7 +94,7 @@ public class HellfireForgeTests {
             helper.runAfterDelay(150, () -> {
                 ItemStack output = forge.inv.getStackInSlot(HellfireForgeBlockEntity.OUTPUT_SLOT);
                 if (!output.isEmpty()) {
-                    helper.fail("Forge should not craft without demon will gem, got " + output);
+                    helper.fail("Forge should not craft without spiritus gem, got " + output);
                 }
                 helper.succeed();
             });
@@ -125,7 +125,7 @@ public class HellfireForgeTests {
 
                 ItemStack gem = forge.inv.getStackInSlot(HellfireForgeBlockEntity.GEM_SLOT);
                 if (!gem.isEmpty()) {
-                    double remainingWill = gem.getOrDefault(NVDataComponents.DEMON_WILL_AMOUNT, 0D);
+                    double remainingWill = gem.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
                     if (remainingWill >= 10.0) {
                         helper.fail("Gem should have less will after crafting, has " + remainingWill);
                     }

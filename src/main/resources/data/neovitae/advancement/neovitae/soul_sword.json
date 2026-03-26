@@ -1,14 +1,14 @@
 {
-  "parent": "neovitae:neovitae/demon_will",
+  "parent": "neovitae:neovitae/spiritus",
   "display": {
     "icon": {
-      "id": "neovitae:soul_sword"
+      "id": "neovitae:sentient_sword"
     },
     "title": {
-      "translate": "advancements.neovitae.soul_sword.title"
+      "translate": "advancements.neovitae.sentient_sword.title"
     },
     "description": {
-      "translate": "advancements.neovitae.soul_sword.description"
+      "translate": "advancements.neovitae.sentient_sword.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": "neovitae:soul_sword"
+            "items": "neovitae:sentient_sword"
           }
         ]
       }

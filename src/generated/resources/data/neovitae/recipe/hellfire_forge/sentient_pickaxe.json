@@ -3,7 +3,7 @@
   "drain": 0.0,
   "inputs": [
     {
-      "item": "neovitae:soul_gem_petty"
+      "item": "neovitae:spiritus_gem_petty"
     },
     {
       "item": "minecraft:iron_pickaxe"
@@ -12,6 +12,6 @@
   "minDrain": 0.0,
   "output": {
     "count": 1,
-    "id": "neovitae:soul_pickaxe"
+    "id": "neovitae:sentient_pickaxe"
   }
 }

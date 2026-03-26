@@ -15,11 +15,11 @@ import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.WillState;
+import com.breakinblocks.neovitae.api.will.SpiritusState;
 import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
@@ -37,7 +37,7 @@ import java.util.function.Consumer;
  *   <li>{@code neovitae:geode_acceleratable} - Budding blocks to accelerate (includes c:budding_blocks)</li>
  * </ul>
  *
- * <p>Demon Will effects:
+ * <p>Spiritus effects:
  * <ul>
  *   <li><b>Raw (Default)</b> - Store harvested drops into adjacent inventory</li>
  *   <li><b>Steadfast</b> - Harvest with Silk Touch</li>
@@ -96,7 +96,7 @@ public class RitualGeode extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
+        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
 
         boolean doStore = will.hasDefault();
         boolean doFortune = will.hasDestructive();
@@ -207,11 +207,11 @@ public class RitualGeode extends Ritual {
             }
         }
 
-        will.use(EnumWillType.DEFAULT, storeWillUsed);
-        will.use(EnumWillType.DESTRUCTIVE, fortuneWillUsed);
-        will.use(EnumWillType.STEADFAST, silkWillUsed);
-        will.use(EnumWillType.CORROSIVE, accelWillUsed);
-        will.use(EnumWillType.VENGEFUL, harmWillUsed);
+        will.use(SpiritusType.DEFAULT, storeWillUsed);
+        will.use(SpiritusType.DESTRUCTIVE, fortuneWillUsed);
+        will.use(SpiritusType.STEADFAST, silkWillUsed);
+        will.use(SpiritusType.CORROSIVE, accelWillUsed);
+        will.use(SpiritusType.VENGEFUL, harmWillUsed);
         will.drain(ctx.level(), masterPos);
 
         ctx.syphon(totalCost > 0 ? totalCost : getRefreshCost());

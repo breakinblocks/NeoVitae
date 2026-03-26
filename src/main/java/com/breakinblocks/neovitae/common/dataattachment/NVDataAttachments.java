@@ -8,7 +8,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.will.WillChunk;
+import com.breakinblocks.neovitae.will.SpiritusChunk;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,8 +23,8 @@ public class NVDataAttachments {
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Map<ResourceLocation, Double>>> LIVING_ADDITIONAL = ATTACHMENT_TYPES.register("living_cooldown", () -> AttachmentType.<Map<ResourceLocation, Double>>builder(() -> new HashMap<>()).serialize(Codec.unboundedMap(ResourceLocation.CODEC, Codec.DOUBLE).xmap(HashMap::new, Function.identity())).build());
 
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<WillChunk>> WILL_CHUNK = ATTACHMENT_TYPES.register(
-            "will_chunk", () -> AttachmentType.builder(WillChunk::new).serialize(WillChunk.CODEC).build()
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<SpiritusChunk>> SPIRITUS_CHUNK = ATTACHMENT_TYPES.register(
+            "will_chunk", () -> AttachmentType.builder(SpiritusChunk::new).serialize(SpiritusChunk.CODEC).build()
     );
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<DungeonExitData>> DUNGEON_EXIT = ATTACHMENT_TYPES.register(

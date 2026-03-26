@@ -13,9 +13,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
-import com.breakinblocks.neovitae.will.PlayerDemonWillHandler;
+import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
 
 import java.util.List;
 import java.util.Locale;
@@ -35,11 +35,11 @@ public class SentientPickaxeItem extends PickaxeItem implements ISentientTool {
     public SentientPickaxeItem() {
         super(NVMaterialsAndTiers.SENTIENT, new Properties()
                 .attributes(PickaxeItem.createAttributes(NVMaterialsAndTiers.SENTIENT, 1, -2.8f))
-                .component(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT));
+                .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT));
     }
 
     @Override
-    public double[] getDamageForWillType(EnumWillType type) {
+    public double[] getDamageForWillType(SpiritusType type) {
         return switch (type) {
             case DESTRUCTIVE -> DESTRUCTIVE_DAMAGE;
             case VENGEFUL -> VENGEFUL_DAMAGE;
@@ -73,8 +73,8 @@ public class SentientPickaxeItem extends PickaxeItem implements ISentientTool {
         if (super.hurtEnemy(stack, target, attacker)) {
             if (attacker instanceof Player player) {
                 recalculatePowers(stack, player.level(), player);
-                EnumWillType type = getCurrentType(stack);
-                double will = PlayerDemonWillHandler.getTotalDemonWill(type, player);
+                SpiritusType type = getCurrentType(stack);
+                double will = PlayerSpiritusHandler.getTotalSpiritus(type, player);
                 int willBracket = getLevel(will);
 
                 if (willBracket >= 0) {
@@ -97,10 +97,10 @@ public class SentientPickaxeItem extends PickaxeItem implements ISentientTool {
 
     @Override
     public void recalculatePowers(ItemStack stack, Level world, Player player) {
-        EnumWillType type = PlayerDemonWillHandler.getLargestWillType(player);
-        double soulsRemaining = PlayerDemonWillHandler.getTotalDemonWill(type, player);
+        SpiritusType type = PlayerSpiritusHandler.getLargestSpiritusType(player);
+        double soulsRemaining = PlayerSpiritusHandler.getTotalSpiritus(type, player);
 
-        setCurrentType(stack, soulsRemaining > 0 ? type : EnumWillType.DEFAULT);
+        setCurrentType(stack, soulsRemaining > 0 ? type : SpiritusType.DEFAULT);
         int level = getLevel(soulsRemaining);
 
         setDrainAmount(stack, level >= 0 ? SOUL_DRAIN_PER_SWING[level] : 0);

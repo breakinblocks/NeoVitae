@@ -79,11 +79,11 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .add(NVBlocks.CRYSTALLARIUM_MALEFICUM.block().getKey())
                 .add(NVBlocks.SPIRA_INFERNALIS.block().getKey())
                 // Demon crystals
-                .add(NVBlocks.RAW_DEMON_CRYSTAL.block().getKey())
-                .add(NVBlocks.CORROSIVE_DEMON_CRYSTAL.block().getKey())
-                .add(NVBlocks.DESTRUCTIVE_DEMON_CRYSTAL.block().getKey())
-                .add(NVBlocks.VENGEFUL_DEMON_CRYSTAL.block().getKey())
-                .add(NVBlocks.STEADFAST_DEMON_CRYSTAL.block().getKey())
+                .add(NVBlocks.RAW_SPIRITUS_CRYSTAL.block().getKey())
+                .add(NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block().getKey())
+                .add(NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block().getKey())
+                .add(NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().getKey())
+                .add(NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().getKey())
                 // Routing nodes
                 .add(NVBlocks.ROUTING_NODE.block().getKey())
                 .add(NVBlocks.INPUT_ROUTING_NODE.block().getKey())
@@ -120,11 +120,11 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .add(NVBlocks.CRYSTALLARIUM_MALEFICUM.block().getKey())
                 .add(NVBlocks.SPIRA_INFERNALIS.block().getKey())
                 // Demon crystals
-                .add(NVBlocks.RAW_DEMON_CRYSTAL.block().getKey())
-                .add(NVBlocks.CORROSIVE_DEMON_CRYSTAL.block().getKey())
-                .add(NVBlocks.DESTRUCTIVE_DEMON_CRYSTAL.block().getKey())
-                .add(NVBlocks.VENGEFUL_DEMON_CRYSTAL.block().getKey())
-                .add(NVBlocks.STEADFAST_DEMON_CRYSTAL.block().getKey())
+                .add(NVBlocks.RAW_SPIRITUS_CRYSTAL.block().getKey())
+                .add(NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block().getKey())
+                .add(NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block().getKey())
+                .add(NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().getKey())
+                .add(NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().getKey())
                 // Routing nodes
                 .add(NVBlocks.ROUTING_NODE.block().getKey())
                 .add(NVBlocks.INPUT_ROUTING_NODE.block().getKey())

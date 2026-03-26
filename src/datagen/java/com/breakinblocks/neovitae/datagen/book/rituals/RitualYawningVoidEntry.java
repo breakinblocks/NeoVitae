@@ -38,8 +38,8 @@ public class RitualYawningVoidEntry extends EntryProvider {
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Resonance");
-        this.pageText("- [#](8B0000)Raw Will[#](): Accelerates the excavation rate.\\\n\\\n"
+        this.pageTitle("Spiritus Resonance");
+        this.pageText("- [#](8B0000)Raw Spiritus[#](): Accelerates the excavation rate.\\\n\\\n"
                 + "- [#](8B0000)Corrosive Will[#](): Enables block filtering. Place an [#](8B0000)Item Filter[#]() in the linked chest to restrict what is mined. Standard, Tag, Mod, and Composite filters are all accepted. Blacklisting works as well.\\\n\\\n"
                 + "- [#](8B0000)Steadfast Will[#](): Rather than destroying blocks, relocates them above the ritual — creating a surface copy of the excavated terrain.");
     }

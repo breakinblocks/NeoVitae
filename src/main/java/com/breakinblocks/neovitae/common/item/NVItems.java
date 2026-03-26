@@ -8,7 +8,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.athanor.ItemAthanorToolBase;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlaskLingering;
@@ -21,14 +21,14 @@ import com.breakinblocks.neovitae.common.item.routing.ItemTagFilter;
 import com.breakinblocks.neovitae.common.item.sigil.ISigil;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.common.item.sigil.SigilItem;
-import com.breakinblocks.neovitae.common.item.soul.MonsterSoulItem;
+import com.breakinblocks.neovitae.common.item.soul.SpiritusEssenceItem;
 import com.breakinblocks.neovitae.registry.SigilTypeRegistry;
 import com.breakinblocks.neovitae.common.item.soul.SentientAxeItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientPickaxeItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientScytheItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientShovelItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientSwordItem;
-import com.breakinblocks.neovitae.common.item.soul.SoulSnareItem;
+import com.breakinblocks.neovitae.common.item.soul.SpiritusSnareItem;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 
 import java.util.function.Supplier;
@@ -67,21 +67,21 @@ public class NVItems {
         return BASIC_ITEMS.register(name, () -> new Item(new Item.Properties()));
     }
 
-    public static final DeferredHolder<Item, LaminaMaleficusItem> LAMINA_MALEFICUS = ITEMS.register("lamina_maleficus", LaminaMaleficusItem::new);
+    public static final DeferredHolder<Item, SacrificialDaggerItem> SACRIFICIAL_DAGGER = ITEMS.register("sacrificial_dagger", SacrificialDaggerItem::new);
 
-    public static final DeferredHolder<Item, RawSoulItem> RAW_WILL = WILL_ITEMS.register("raw_will", RawSoulItem::new);
+    public static final DeferredHolder<Item, RawSpiritusItem> RAW_SPIRITUS = WILL_ITEMS.register("raw_spiritus", RawSpiritusItem::new);
 
-    public static final DeferredHolder<Item, SoulGemItem> SOUL_GEM_PETTY = WILL_ITEMS.register("soul_gem_petty", SoulGemItem::new);
-    public static final DeferredHolder<Item, SoulGemItem> SOUL_GEM_LESSER = WILL_ITEMS.register("soul_gem_lesser", SoulGemItem::new);
-    public static final DeferredHolder<Item, SoulGemItem> SOUL_GEM_COMMON = WILL_ITEMS.register("soul_gem_common", SoulGemItem::new);
-    public static final DeferredHolder<Item, SoulGemItem> SOUL_GEM_GREATER = WILL_ITEMS.register("soul_gem_greater", SoulGemItem::new);
-    public static final DeferredHolder<Item, SoulGemItem> SOUL_GEM_GRAND = WILL_ITEMS.register("soul_gem_grand", SoulGemItem::new);
+    public static final DeferredHolder<Item, SpiritusGemItem> SPIRITUS_GEM_PETTY = WILL_ITEMS.register("spiritus_gem_petty", SpiritusGemItem::new);
+    public static final DeferredHolder<Item, SpiritusGemItem> SPIRITUS_GEM_LESSER = WILL_ITEMS.register("spiritus_gem_lesser", SpiritusGemItem::new);
+    public static final DeferredHolder<Item, SpiritusGemItem> SPIRITUS_GEM_COMMON = WILL_ITEMS.register("spiritus_gem_common", SpiritusGemItem::new);
+    public static final DeferredHolder<Item, SpiritusGemItem> SPIRITUS_GEM_GREATER = WILL_ITEMS.register("spiritus_gem_greater", SpiritusGemItem::new);
+    public static final DeferredHolder<Item, SpiritusGemItem> SPIRITUS_GEM_GRAND = WILL_ITEMS.register("spiritus_gem_grand", SpiritusGemItem::new);
 
-    public static final DeferredHolder<Item, MonsterSoulItem> MONSTER_SOUL_RAW = WILL_ITEMS.register("basemonstersoul", () -> new MonsterSoulItem(EnumWillType.DEFAULT));
-    public static final DeferredHolder<Item, MonsterSoulItem> MONSTER_SOUL_CORROSIVE = WILL_ITEMS.register("basemonstersoul_corrosive", () -> new MonsterSoulItem(EnumWillType.CORROSIVE));
-    public static final DeferredHolder<Item, MonsterSoulItem> MONSTER_SOUL_DESTRUCTIVE = WILL_ITEMS.register("basemonstersoul_destructive", () -> new MonsterSoulItem(EnumWillType.DESTRUCTIVE));
-    public static final DeferredHolder<Item, MonsterSoulItem> MONSTER_SOUL_VENGEFUL = WILL_ITEMS.register("basemonstersoul_vengeful", () -> new MonsterSoulItem(EnumWillType.VENGEFUL));
-    public static final DeferredHolder<Item, MonsterSoulItem> MONSTER_SOUL_STEADFAST = WILL_ITEMS.register("basemonstersoul_steadfast", () -> new MonsterSoulItem(EnumWillType.STEADFAST));
+    public static final DeferredHolder<Item, SpiritusEssenceItem> MONSTER_SOUL_RAW = WILL_ITEMS.register("base_spiritus_soul", () -> new SpiritusEssenceItem(SpiritusType.DEFAULT));
+    public static final DeferredHolder<Item, SpiritusEssenceItem> MONSTER_SOUL_CORROSIVE = WILL_ITEMS.register("base_spiritus_soul_corrosive", () -> new SpiritusEssenceItem(SpiritusType.CORROSIVE));
+    public static final DeferredHolder<Item, SpiritusEssenceItem> MONSTER_SOUL_DESTRUCTIVE = WILL_ITEMS.register("base_spiritus_soul_destructive", () -> new SpiritusEssenceItem(SpiritusType.DESTRUCTIVE));
+    public static final DeferredHolder<Item, SpiritusEssenceItem> MONSTER_SOUL_VENGEFUL = WILL_ITEMS.register("base_spiritus_soul_vengeful", () -> new SpiritusEssenceItem(SpiritusType.VENGEFUL));
+    public static final DeferredHolder<Item, SpiritusEssenceItem> MONSTER_SOUL_STEADFAST = WILL_ITEMS.register("base_spiritus_soul_steadfast", () -> new SpiritusEssenceItem(SpiritusType.STEADFAST));
 
     public static final DeferredHolder<Item, Item> SLATE_BLANK = plainItem("blank_slate");
     public static final DeferredHolder<Item, Item> SLATE_REINFORCED = plainItem("reinforced_slate");
@@ -125,9 +125,9 @@ public class NVItems {
     public static final DeferredHolder<Item, Item> REAGENT_FROST = plainItem("reagent_frost");
     public static final DeferredHolder<Item, Item> REAGENT_PHANTOM_BRIDGE = plainItem("reagent_phantom_bridge");
 
-    public static final DeferredHolder<Item, SoulSnareItem> SOUL_SNARE = BASIC_ITEMS.register("soul_snare", SoulSnareItem::new);
+    public static final DeferredHolder<Item, SpiritusSnareItem> SPIRITUS_SNARE = BASIC_ITEMS.register("spiritus_snare", SpiritusSnareItem::new);
     public static final DeferredHolder<Item, Item> WEAK_BLOOD_SHARD = plainItem("weak_blood_shard");
-    public static final DeferredHolder<Item, LaminaExhauriensItem> LAMINA_EXHAURIENS = ITEMS.register("lamina_exhauriens", LaminaExhauriensItem::new);
+    public static final DeferredHolder<Item, DaggerOfSacrificeItem> DAGGER_OF_SACRIFICE = ITEMS.register("dagger_of_sacrifice", DaggerOfSacrificeItem::new);
     public static final DeferredHolder<Item, ItemLavaCrystal> LAVA_CRYSTAL = ITEMS.register("lava_crystal", ItemLavaCrystal::new);
 
     public static final DeferredHolder<Item, TeleposerFocusItem> TELEPOSER_FOCUS = ITEMS.register("teleposer_focus", () -> new TeleposerFocusItem(0));
@@ -156,19 +156,19 @@ public class NVItems {
     public static final DeferredHolder<Item, Item> CORRUPTED_DUST = plainItem("corrupted_dust");
     public static final DeferredHolder<Item, Item> CORRUPTED_DUST_TINY = plainItem("corrupted_tiny_dust");
 
-    public static final DeferredHolder<Item, ItemAthanorToolBase> BASIC_CUTTING_FLUID = BASIC_ITEMS.register("basic_cutting_fluid", () -> new ItemAthanorToolBase(64, 1, EnumWillType.CORROSIVE));
-    public static final DeferredHolder<Item, ItemAthanorToolBase> INTERMEDIATE_CUTTING_FLUID = BASIC_ITEMS.register("intermediate_cutting_fluid", () -> new ItemAthanorToolBase(256, 1.5, EnumWillType.CORROSIVE));
-    public static final DeferredHolder<Item, ItemAthanorToolBase> ADVANCED_CUTTING_FLUID = BASIC_ITEMS.register("advanced_cutting_fluid", () -> new ItemAthanorToolBase(1024, 2, 2, EnumWillType.CORROSIVE));
-    public static final DeferredHolder<Item, ItemAthanorToolBase> EXPLOSIVE_POWDER = BASIC_ITEMS.register("explosive_powder", () -> new ItemAthanorToolBase(64, 1, EnumWillType.DESTRUCTIVE));
-    public static final DeferredHolder<Item, ItemAthanorToolBase> RESONATOR = BASIC_ITEMS.register("resonator", () -> new ItemAthanorToolBase(64, 1, EnumWillType.VENGEFUL));
+    public static final DeferredHolder<Item, ItemAthanorToolBase> BASIC_CUTTING_FLUID = BASIC_ITEMS.register("basic_cutting_fluid", () -> new ItemAthanorToolBase(64, 1, SpiritusType.CORROSIVE));
+    public static final DeferredHolder<Item, ItemAthanorToolBase> INTERMEDIATE_CUTTING_FLUID = BASIC_ITEMS.register("intermediate_cutting_fluid", () -> new ItemAthanorToolBase(256, 1.5, SpiritusType.CORROSIVE));
+    public static final DeferredHolder<Item, ItemAthanorToolBase> ADVANCED_CUTTING_FLUID = BASIC_ITEMS.register("advanced_cutting_fluid", () -> new ItemAthanorToolBase(1024, 2, 2, SpiritusType.CORROSIVE));
+    public static final DeferredHolder<Item, ItemAthanorToolBase> EXPLOSIVE_POWDER = BASIC_ITEMS.register("explosive_powder", () -> new ItemAthanorToolBase(64, 1, SpiritusType.DESTRUCTIVE));
+    public static final DeferredHolder<Item, ItemAthanorToolBase> RESONATOR = BASIC_ITEMS.register("resonator", () -> new ItemAthanorToolBase(64, 1, SpiritusType.VENGEFUL));
     public static final DeferredHolder<Item, NVGuideBookItem> GUIDE_BOOK = BASIC_ITEMS.register("guide_book", NVGuideBookItem::new);
-    public static final DeferredHolder<Item, ItemAthanorToolBase> SANGUINE_REVERTER = BASIC_ITEMS.register("sanguine_reverter", () -> new ItemAthanorToolBase(32, 2, EnumWillType.STEADFAST));
+    public static final DeferredHolder<Item, ItemAthanorToolBase> SANGUINE_REVERTER = BASIC_ITEMS.register("sanguine_reverter", () -> new ItemAthanorToolBase(32, 2, SpiritusType.STEADFAST));
     public static final DeferredHolder<Item, ItemAthanorToolBase> PRIMITIVE_FURNACE_CELL = BASIC_ITEMS.register("furnacecell_primitive", () -> new ItemAthanorToolBase(128, 3));
-    public static final DeferredHolder<Item, ItemAthanorToolBase> PRIMITIVE_EXPLOSIVE_CELL = BASIC_ITEMS.register("primitive_explosive_cell", () -> new ItemAthanorToolBase(256, 1.5, EnumWillType.DESTRUCTIVE));
+    public static final DeferredHolder<Item, ItemAthanorToolBase> PRIMITIVE_EXPLOSIVE_CELL = BASIC_ITEMS.register("primitive_explosive_cell", () -> new ItemAthanorToolBase(256, 1.5, SpiritusType.DESTRUCTIVE));
     public static final DeferredHolder<Item, ItemAthanorToolBase> PRIMITIVE_HYDRATION_CELL = BASIC_ITEMS.register("primitive_hydration_cell", () -> new ItemAthanorToolBase(128, 1.5));
-    public static final DeferredHolder<Item, ItemAthanorToolBase> PRIMITIVE_CRYSTALLINE_RESONATOR = BASIC_ITEMS.register("primitive_crystalline_resonator", () -> new ItemAthanorToolBase(256, 1.5, EnumWillType.VENGEFUL));
-    public static final DeferredHolder<Item, ItemAthanorToolBase> HELLFORGED_EXPLOSIVE_CELL = BASIC_ITEMS.register("hellforged_explosive_cell", () -> new ItemAthanorToolBase(1024, 2, EnumWillType.DESTRUCTIVE));
-    public static final DeferredHolder<Item, ItemAthanorToolBase> HELLFORGED_RESONATOR = BASIC_ITEMS.register("hellforged_resonator", () -> new ItemAthanorToolBase(1024, 2, 2, EnumWillType.VENGEFUL));
+    public static final DeferredHolder<Item, ItemAthanorToolBase> PRIMITIVE_CRYSTALLINE_RESONATOR = BASIC_ITEMS.register("primitive_crystalline_resonator", () -> new ItemAthanorToolBase(256, 1.5, SpiritusType.VENGEFUL));
+    public static final DeferredHolder<Item, ItemAthanorToolBase> HELLFORGED_EXPLOSIVE_CELL = BASIC_ITEMS.register("hellforged_explosive_cell", () -> new ItemAthanorToolBase(1024, 2, SpiritusType.DESTRUCTIVE));
+    public static final DeferredHolder<Item, ItemAthanorToolBase> HELLFORGED_RESONATOR = BASIC_ITEMS.register("hellforged_resonator", () -> new ItemAthanorToolBase(1024, 2, 2, SpiritusType.VENGEFUL));
 
     public static final DeferredHolder<Item, ItemActivationCrystal> ACTIVATION_CRYSTAL_WEAK = BASIC_ITEMS.register("activation_crystal_weak", () -> new ItemActivationCrystal(ItemActivationCrystal.CrystalType.WEAK));
     public static final DeferredHolder<Item, ItemActivationCrystal> ACTIVATION_CRYSTAL_AWAKENED = BASIC_ITEMS.register("activation_crystal_awakened", () -> new ItemActivationCrystal(ItemActivationCrystal.CrystalType.AWAKENED));
@@ -184,24 +184,24 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER_DUSK = BASIC_ITEMS.register("ritual_diviner_dusk", () -> new ItemRitualDiviner(1));
     public static final DeferredHolder<Item, ItemRitualReader> RITUAL_READER = BASIC_ITEMS.register("ritual_reader", ItemRitualReader::new);
 
-    public static final DeferredHolder<Item, SentientSwordItem> SENTIENT_SWORD = BASIC_ITEMS.register("soul_sword", SentientSwordItem::new);
-    public static final DeferredHolder<Item, SentientAxeItem> SENTIENT_AXE = BASIC_ITEMS.register("soul_axe", SentientAxeItem::new);
-    public static final DeferredHolder<Item, SentientPickaxeItem> SENTIENT_PICKAXE = BASIC_ITEMS.register("soul_pickaxe", SentientPickaxeItem::new);
-    public static final DeferredHolder<Item, SentientShovelItem> SENTIENT_SHOVEL = BASIC_ITEMS.register("soul_shovel", SentientShovelItem::new);
-    public static final DeferredHolder<Item, SentientScytheItem> SENTIENT_SCYTHE = BASIC_ITEMS.register("soul_scythe", SentientScytheItem::new);
+    public static final DeferredHolder<Item, SentientSwordItem> SENTIENT_SWORD = BASIC_ITEMS.register("sentient_sword", SentientSwordItem::new);
+    public static final DeferredHolder<Item, SentientAxeItem> SENTIENT_AXE = BASIC_ITEMS.register("sentient_axe", SentientAxeItem::new);
+    public static final DeferredHolder<Item, SentientPickaxeItem> SENTIENT_PICKAXE = BASIC_ITEMS.register("sentient_pickaxe", SentientPickaxeItem::new);
+    public static final DeferredHolder<Item, SentientShovelItem> SENTIENT_SHOVEL = BASIC_ITEMS.register("sentient_shovel", SentientShovelItem::new);
+    public static final DeferredHolder<Item, SentientScytheItem> SENTIENT_SCYTHE = BASIC_ITEMS.register("sentient_scythe", SentientScytheItem::new);
 
-    public static final DeferredHolder<Item, DemonCrystalItem> RAW_CRYSTAL = BASIC_ITEMS.register("default_crystal", () -> new DemonCrystalItem(EnumWillType.DEFAULT));
-    public static final DeferredHolder<Item, DemonCrystalItem> CORROSIVE_CRYSTAL = BASIC_ITEMS.register("corrosive_crystal", () -> new DemonCrystalItem(EnumWillType.CORROSIVE));
-    public static final DeferredHolder<Item, DemonCrystalItem> DESTRUCTIVE_CRYSTAL = BASIC_ITEMS.register("destructive_crystal", () -> new DemonCrystalItem(EnumWillType.DESTRUCTIVE));
-    public static final DeferredHolder<Item, DemonCrystalItem> VENGEFUL_CRYSTAL = BASIC_ITEMS.register("vengeful_crystal", () -> new DemonCrystalItem(EnumWillType.VENGEFUL));
-    public static final DeferredHolder<Item, DemonCrystalItem> STEADFAST_CRYSTAL = BASIC_ITEMS.register("steadfast_crystal", () -> new DemonCrystalItem(EnumWillType.STEADFAST));
-    public static final DeferredHolder<Item, DemonWillGaugeItem> DEMON_WILL_GAUGE = BASIC_ITEMS.register("demon_will_gauge", DemonWillGaugeItem::new);
+    public static final DeferredHolder<Item, SpiritusCrystalItem> RAW_CRYSTAL = BASIC_ITEMS.register("default_crystal", () -> new SpiritusCrystalItem(SpiritusType.DEFAULT));
+    public static final DeferredHolder<Item, SpiritusCrystalItem> CORROSIVE_CRYSTAL = BASIC_ITEMS.register("corrosive_crystal", () -> new SpiritusCrystalItem(SpiritusType.CORROSIVE));
+    public static final DeferredHolder<Item, SpiritusCrystalItem> DESTRUCTIVE_CRYSTAL = BASIC_ITEMS.register("destructive_crystal", () -> new SpiritusCrystalItem(SpiritusType.DESTRUCTIVE));
+    public static final DeferredHolder<Item, SpiritusCrystalItem> VENGEFUL_CRYSTAL = BASIC_ITEMS.register("vengeful_crystal", () -> new SpiritusCrystalItem(SpiritusType.VENGEFUL));
+    public static final DeferredHolder<Item, SpiritusCrystalItem> STEADFAST_CRYSTAL = BASIC_ITEMS.register("steadfast_crystal", () -> new SpiritusCrystalItem(SpiritusType.STEADFAST));
+    public static final DeferredHolder<Item, SpiritusGaugeItem> SPIRITUS_GAUGE = BASIC_ITEMS.register("spiritus_gauge", SpiritusGaugeItem::new);
 
-    public static final DeferredHolder<Item, CrystalCatalystItem> RAW_CRYSTAL_CATALYST = BASIC_ITEMS.register("raw_catalyst", () -> new CrystalCatalystItem(EnumWillType.DEFAULT, 200, 10, 25, 400));
-    public static final DeferredHolder<Item, CrystalCatalystItem> CORROSIVE_CRYSTAL_CATALYST = BASIC_ITEMS.register("corrosive_catalyst", () -> new CrystalCatalystItem(EnumWillType.CORROSIVE, 200, 10, 25, 400));
-    public static final DeferredHolder<Item, CrystalCatalystItem> DESTRUCTIVE_CRYSTAL_CATALYST = BASIC_ITEMS.register("destructive_catalyst", () -> new CrystalCatalystItem(EnumWillType.DESTRUCTIVE, 200, 10, 25, 400));
-    public static final DeferredHolder<Item, CrystalCatalystItem> VENGEFUL_CRYSTAL_CATALYST = BASIC_ITEMS.register("vengeful_catalyst", () -> new CrystalCatalystItem(EnumWillType.VENGEFUL, 200, 10, 25, 400));
-    public static final DeferredHolder<Item, CrystalCatalystItem> STEADFAST_CRYSTAL_CATALYST = BASIC_ITEMS.register("steadfast_catalyst", () -> new CrystalCatalystItem(EnumWillType.STEADFAST, 200, 10, 25, 400));
+    public static final DeferredHolder<Item, CrystalCatalystItem> RAW_CRYSTAL_CATALYST = BASIC_ITEMS.register("raw_catalyst", () -> new CrystalCatalystItem(SpiritusType.DEFAULT, 200, 10, 25, 400));
+    public static final DeferredHolder<Item, CrystalCatalystItem> CORROSIVE_CRYSTAL_CATALYST = BASIC_ITEMS.register("corrosive_catalyst", () -> new CrystalCatalystItem(SpiritusType.CORROSIVE, 200, 10, 25, 400));
+    public static final DeferredHolder<Item, CrystalCatalystItem> DESTRUCTIVE_CRYSTAL_CATALYST = BASIC_ITEMS.register("destructive_catalyst", () -> new CrystalCatalystItem(SpiritusType.DESTRUCTIVE, 200, 10, 25, 400));
+    public static final DeferredHolder<Item, CrystalCatalystItem> VENGEFUL_CRYSTAL_CATALYST = BASIC_ITEMS.register("vengeful_catalyst", () -> new CrystalCatalystItem(SpiritusType.VENGEFUL, 200, 10, 25, 400));
+    public static final DeferredHolder<Item, CrystalCatalystItem> STEADFAST_CRYSTAL_CATALYST = BASIC_ITEMS.register("steadfast_catalyst", () -> new CrystalCatalystItem(SpiritusType.STEADFAST, 200, 10, 25, 400));
 
     public static final DeferredHolder<Item, ItemNodeRouter> NODE_ROUTER = BASIC_ITEMS.register("node_router", ItemNodeRouter::new);
     public static final DeferredHolder<Item, Item> MASTER_NODE_UPGRADE = plainItem("master_core");
@@ -226,7 +226,7 @@ public class NVItems {
     public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonTester> DUNGEON_TESTER = BASIC_ITEMS.register("dungeon_tester",
             com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonTester::new);
 
-    public static final DeferredHolder<Item, Item> DOUBT_SEED = plainItem("doubt_seed");
+    public static final DeferredHolder<Item, Item> ANIMATED_SPIRITUS = plainItem("animated_spiritus");
 
     public static final DeferredHolder<Item, Item> SULFUR = plainItem("sulfur");
     public static final DeferredHolder<Item, Item> SALTPETER = plainItem("saltpeter");

@@ -10,15 +10,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.block.BlockDemonCrystal;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
+import com.breakinblocks.neovitae.common.block.BlockSpiritusCrystal;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
 
 /**
  * Crystallarium Maleficum - forms the initial demon crystal from will aura.
  *
  * <p>The crystallizer's only job is to form the FIRST crystal when there's air above it.
- * All further crystal growth is handled by the DemonCrystalBlockEntity itself.</p>
+ * All further crystal growth is handled by the SpiritusCrystalBlockEntity itself.</p>
  *
  * <p>Configurable via server config (default: 99 will to form, 1000 ticks formation time).</p>
  */
@@ -51,8 +51,8 @@ public class CrystallariumMaleficumBlockEntity extends BaseBlockEntity {
 
         // Only form a crystal when there's air above - crystal growth is handled by the crystal itself
         if (level.isEmptyBlock(offsetPos)) {
-            EnumWillType highestType = WorldDemonWillHandler.getDominantWillType(level, worldPosition);
-            double amount = WorldDemonWillHandler.getCurrentWill(level, worldPosition, highestType);
+            SpiritusType highestType = WorldSpiritusHandler.getDominantWillType(level, worldPosition);
+            double amount = WorldSpiritusHandler.getCurrentWill(level, worldPosition, highestType);
 
             double willToForm = getWillToFormCrystal();
             if (amount >= willToForm) {
@@ -60,7 +60,7 @@ public class CrystallariumMaleficumBlockEntity extends BaseBlockEntity {
                 internalCounter += formationRate;
 
                 if (internalCounter >= getTotalFormationTime()) {
-                    double drained = WorldDemonWillHandler.drainWillFromChunk(level, worldPosition, highestType, willToForm);
+                    double drained = WorldSpiritusHandler.drainWillFromChunk(level, worldPosition, highestType, willToForm);
                     if (drained >= willToForm) {
                         if (formCrystal(highestType, offsetPos)) {
                             internalCounter = 0;
@@ -77,23 +77,23 @@ public class CrystallariumMaleficumBlockEntity extends BaseBlockEntity {
         }
     }
 
-    private boolean formCrystal(EnumWillType type, BlockPos position) {
+    private boolean formCrystal(SpiritusType type, BlockPos position) {
         Block block = switch (type) {
-            case CORROSIVE -> NVBlocks.CORROSIVE_DEMON_CRYSTAL.block().get();
-            case DESTRUCTIVE -> NVBlocks.DESTRUCTIVE_DEMON_CRYSTAL.block().get();
-            case VENGEFUL -> NVBlocks.VENGEFUL_DEMON_CRYSTAL.block().get();
-            case STEADFAST -> NVBlocks.STEADFAST_DEMON_CRYSTAL.block().get();
-            default -> NVBlocks.RAW_DEMON_CRYSTAL.block().get();
+            case CORROSIVE -> NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block().get();
+            case DESTRUCTIVE -> NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block().get();
+            case VENGEFUL -> NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().get();
+            case STEADFAST -> NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().get();
+            default -> NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get();
         };
 
         BlockState crystalState = block.defaultBlockState()
-                .setValue(BlockDemonCrystal.AGE, 0)
-                .setValue(BlockDemonCrystal.ATTACHED, Direction.UP);
+                .setValue(BlockSpiritusCrystal.AGE, 0)
+                .setValue(BlockSpiritusCrystal.ATTACHED, Direction.UP);
 
         level.setBlock(position, crystalState, Block.UPDATE_ALL);
 
         BlockEntity tile = level.getBlockEntity(position);
-        if (tile instanceof DemonCrystalBlockEntity crystalTile) {
+        if (tile instanceof SpiritusCrystalBlockEntity crystalTile) {
             crystalTile.placement = Direction.UP;
             crystalTile.setChanged();
             return true;

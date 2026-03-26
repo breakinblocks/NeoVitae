@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.RitualStats;
@@ -37,7 +37,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     private boolean inverted = false;
     private int cooldown = 0;
     private long runningTime = 0;
-    private EnumWillType activeWillConfig = EnumWillType.DEFAULT;
+    private SpiritusType activeWillConfig = SpiritusType.DEFAULT;
 
     private Map<String, AreaDescriptor> blockRanges = new HashMap<>();
 
@@ -337,12 +337,12 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     }
 
     @Override
-    public EnumWillType getActiveWillConfig() {
+    public SpiritusType getActiveWillConfig() {
         return activeWillConfig;
     }
 
     @Override
-    public void setActiveWillConfig(EnumWillType type) {
+    public void setActiveWillConfig(SpiritusType type) {
         this.activeWillConfig = type;
         setChanged();
     }
@@ -445,9 +445,9 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
 
         if (tag.contains("willConfig")) {
             try {
-                activeWillConfig = EnumWillType.valueOf(tag.getString("willConfig").toUpperCase());
+                activeWillConfig = SpiritusType.valueOf(tag.getString("willConfig").toUpperCase());
             } catch (IllegalArgumentException e) {
-                activeWillConfig = EnumWillType.DEFAULT;
+                activeWillConfig = SpiritusType.DEFAULT;
             }
         }
 

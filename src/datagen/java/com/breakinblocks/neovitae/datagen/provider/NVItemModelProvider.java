@@ -6,7 +6,7 @@ import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.ItemAnointmentProvider;
 
@@ -97,21 +97,21 @@ public class NVItemModelProvider extends ItemModelProvider {
         NVItems.WILL_ITEMS.getEntries().forEach(item -> {
             String path = item.getId().getPath();
             // Monster souls are already typed, just use basic item model
-            if (path.startsWith("basemonstersoul")) {
+            if (path.startsWith("base_spiritus_soul")) {
                 basicItem(item.get());
                 return;
             }
             // Other will items get variants for each will type
             ItemModelBuilder builder = getBuilder(path);
-            for (EnumWillType type : EnumWillType.values()) {
+            for (SpiritusType type : SpiritusType.values()) {
                 ModelFile modelFile = singleTexture(String.format("item/variant/%s_%s", path, type.getSerializedName()), mcLoc("item/handheld"), "layer0", modLoc(String.format("item/%s_%s", path, type.getSerializedName())));
                 builder.override().predicate(NeoVitae.TYPE_PROPERTY, type.ordinal()).model(modelFile).end();
             }
         });
 
-        ItemModelBuilder builder = getBuilder(NVItems.LAMINA_MALEFICUS.getId().getPath());
-        ModelFile normalDagger = singleTexture("item/variant/lamina_maleficus_normal", mcLoc("item/handheld"), "layer0", modLoc("item/lamina_maleficus"));
-        ModelFile chargedDagger = singleTexture("item/variant/lamina_maleficus_charged", mcLoc("item/handheld"), "layer0", modLoc("item/lamina_maleficus_charged"));
+        ItemModelBuilder builder = getBuilder(NVItems.SACRIFICIAL_DAGGER.getId().getPath());
+        ModelFile normalDagger = singleTexture("item/variant/sacrificial_dagger_normal", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger"));
+        ModelFile chargedDagger = singleTexture("item/variant/sacrificial_dagger_charged", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger_charged"));
         builder.override().predicate(NeoVitae.INCENSE_PROPERTY, 0).model(normalDagger).end();
         builder.override().predicate(NeoVitae.INCENSE_PROPERTY, 1).model(chargedDagger).end();
     }

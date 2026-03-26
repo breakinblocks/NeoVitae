@@ -8,7 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -209,10 +209,10 @@ public abstract class Ritual {
     }
 
     /**
-     * Calculates a scaled refresh time based on the amount of demon will present.
+     * Calculates a scaled refresh time based on the amount of spiritus present.
      * Higher will amounts result in faster (lower) refresh times, clamped to a minimum.
      *
-     * @param willAmount  The amount of demon will influencing the refresh time
+     * @param willAmount  The amount of spiritus influencing the refresh time
      * @param baseTime    The base refresh time in ticks (used when no will is present)
      * @param minTime     The minimum refresh time in ticks (floor value)
      * @param willDivisor The divisor applied to the will amount to determine tick reduction

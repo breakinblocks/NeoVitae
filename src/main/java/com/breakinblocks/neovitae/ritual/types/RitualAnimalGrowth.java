@@ -11,20 +11,20 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.WillState;
+import com.breakinblocks.neovitae.api.will.SpiritusState;
 import com.breakinblocks.neovitae.util.Utils;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Ritual of Animal Growth - Accelerates baby animal growth with demon will enhancements.
+ * Ritual of Animal Growth - Accelerates baby animal growth with spiritus enhancements.
  *
- * <p>Demon Will effects:
+ * <p>Spiritus effects:
  * <ul>
  *   <li><b>Raw (Default)</b> - Reduces refresh time (20 ticks scaling down with will)</li>
  *   <li><b>Steadfast</b> - Breeding mode: extracts food from chest, triggers breeding in adults</li>
@@ -64,7 +64,7 @@ public class RitualAnimalGrowth extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
+        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
 
         boolean hasRaw = will.hasDefault();
         boolean doBreed = will.hasSteadfast();
@@ -154,9 +154,9 @@ public class RitualAnimalGrowth extends Ritual {
             }
         }
 
-        will.use(EnumWillType.STEADFAST, steadfastWillUsed);
-        will.use(EnumWillType.DESTRUCTIVE, destructiveWillUsed);
-        will.use(EnumWillType.VENGEFUL, vengefulWillUsed);
+        will.use(SpiritusType.STEADFAST, steadfastWillUsed);
+        will.use(SpiritusType.DESTRUCTIVE, destructiveWillUsed);
+        will.use(SpiritusType.VENGEFUL, vengefulWillUsed);
         will.drain(ctx.level(), masterPos);
 
         ctx.syphon(getRefreshCost() * animalsProcessed);

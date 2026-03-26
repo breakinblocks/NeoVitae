@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Curios API integration for NeoVitae.
  * Provides:
- * - Curio slots for sigils, tartaric gems, and training bracelet
+ * - Curio slots for sigils, Spiritus Gems, and training bracelet
  * - Living Armor socket slots that scale with the Curios Socket upgrade
  */
 public class CuriosCompat {

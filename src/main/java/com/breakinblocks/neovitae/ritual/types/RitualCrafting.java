@@ -12,7 +12,7 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeInput;
 import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
@@ -20,7 +20,7 @@ import com.breakinblocks.neovitae.common.recipe.forge.ForgeInput;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.WillState;
+import com.breakinblocks.neovitae.api.will.SpiritusState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +28,9 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
- * Rhythm of the Beating Anvil - Automated crafting ritual with demon will recipe modes.
+ * Rhythm of the Beating Anvil - Automated crafting ritual with spiritus recipe modes.
  *
- * <p>Demon Will effects:
+ * <p>Spiritus effects:
  * <ul>
  *   <li><b>Raw (Default)</b> - Standard vanilla crafting table recipes</li>
  *   <li><b>Steadfast</b> - Soul Forge recipe mode (tries soul forge recipes first, falls back to vanilla)</li>
@@ -79,7 +79,7 @@ public class RitualCrafting extends Ritual {
 
         if (inputHandler == null || outputHandler == null) return;
 
-        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, Math.min(MIN_STEADFAST, MIN_CORROSIVE));
+        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, Math.min(MIN_STEADFAST, MIN_CORROSIVE));
 
         boolean tryHellfireForge = will.hasSteadfast();
         boolean tryAlchemy = will.hasCorrosive();
@@ -106,7 +106,7 @@ public class RitualCrafting extends Ritual {
                         }
                     }
                     ItemHandlerHelper.insertItemStacked(outputHandler, result, false);
-                    will.use(EnumWillType.STEADFAST, WILL_PER_FORGE_CRAFT);
+                    will.use(SpiritusType.STEADFAST, WILL_PER_FORGE_CRAFT);
                     will.drain(ctx.level(), masterPos);
                     ctx.syphon(getRefreshCost());
                     return;
@@ -129,7 +129,7 @@ public class RitualCrafting extends Ritual {
                         }
                     }
                     ItemHandlerHelper.insertItemStacked(outputHandler, result, false);
-                    will.use(EnumWillType.CORROSIVE, WILL_PER_ALCHEMY_CRAFT);
+                    will.use(SpiritusType.CORROSIVE, WILL_PER_ALCHEMY_CRAFT);
                     will.drain(ctx.level(), masterPos);
                     ctx.syphon(getRefreshCost());
                     return;

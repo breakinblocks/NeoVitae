@@ -21,7 +21,7 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.client.ClientHandler;
-import com.breakinblocks.neovitae.client.ClientWillCache;
+import com.breakinblocks.neovitae.client.ClientSpiritusCache;
 import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.common.network.RitualDivinerCyclePayload;
 import com.breakinblocks.neovitae.common.network.SigilHoldingCyclePayload;
@@ -35,7 +35,7 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public static void onClientDisconnect(ClientPlayerNetworkEvent.LoggingOut event) {
-        ClientWillCache.clear();
+        ClientSpiritusCache.clear();
         ClientHandler.setRitualHoloToNull();
         ClientHandler.setRitualRangeHoloToNull();
     }

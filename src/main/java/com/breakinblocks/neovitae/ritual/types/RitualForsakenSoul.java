@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Ritual that generates Demon Will from nearby mob deaths.
+ * Ritual that generates Spiritus from nearby mob deaths.
  * The more mobs die in the area, the more will is generated.
  */
 public class RitualForsakenSoul extends Ritual {
@@ -47,8 +47,8 @@ public class RitualForsakenSoul extends Ritual {
             double willAmount = getWillForEntity(entity);
             if (willAmount > 0) {
                 // Spawn will item with appropriate will amount
-                ItemStack willStack = new ItemStack(NVItems.RAW_WILL.get());
-                willStack.set(NVDataComponents.DEMON_WILL_AMOUNT, willAmount);
+                ItemStack willStack = new ItemStack(NVItems.RAW_SPIRITUS.get());
+                willStack.set(NVDataComponents.SPIRITUS_AMOUNT, willAmount);
                 ItemEntity willEntity = new ItemEntity(ctx.level(),
                         entity.getX(), entity.getY() + 0.5, entity.getZ(), willStack);
                 ctx.level().addFreshEntity(willEntity);

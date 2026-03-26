@@ -18,9 +18,9 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
-import com.breakinblocks.neovitae.will.PlayerDemonWillHandler;
+import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
 
 import java.util.List;
 import java.util.Locale;
@@ -28,7 +28,7 @@ import java.util.Locale;
 import static com.breakinblocks.neovitae.common.item.soul.SentientToolHelper.*;
 
 /**
- * Sentient Sword - a will-powered weapon that scales with demon will in the player's inventory.
+ * Sentient Sword - a will-powered weapon that scales with spiritus in the player's inventory.
  * Kills enemies to collect will based on the current will type.
  */
 public class SentientSwordItem extends SwordItem implements ISentientTool {
@@ -46,12 +46,12 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
     public SentientSwordItem() {
         super(NVMaterialsAndTiers.SENTIENT, new Properties()
                 .attributes(SwordItem.createAttributes(NVMaterialsAndTiers.SENTIENT, 6, -2.4f))
-                .component(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT)
+                .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT)
                 .component(NVDataComponents.SIGIL_ACTIVATED, false));
     }
 
     @Override
-    public double[] getDamageForWillType(EnumWillType type) {
+    public double[] getDamageForWillType(SpiritusType type) {
         return switch (type) {
             case DESTRUCTIVE -> DESTRUCTIVE_DAMAGE;
             case VENGEFUL -> VENGEFUL_DAMAGE;
@@ -86,8 +86,8 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
         if (super.hurtEnemy(stack, target, attacker)) {
             if (attacker instanceof Player player) {
                 recalculatePowers(stack, player.level(), player);
-                EnumWillType type = getCurrentType(stack);
-                double will = PlayerDemonWillHandler.getTotalDemonWill(type, player);
+                SpiritusType type = getCurrentType(stack);
+                double will = PlayerSpiritusHandler.getTotalSpiritus(type, player);
                 int willBracket = getLevel(will);
 
                 if (willBracket >= 0) {
@@ -110,10 +110,10 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
 
     @Override
     public void recalculatePowers(ItemStack stack, Level world, Player player) {
-        EnumWillType type = PlayerDemonWillHandler.getLargestWillType(player);
-        double soulsRemaining = PlayerDemonWillHandler.getTotalDemonWill(type, player);
+        SpiritusType type = PlayerSpiritusHandler.getLargestSpiritusType(player);
+        double soulsRemaining = PlayerSpiritusHandler.getTotalSpiritus(type, player);
 
-        setCurrentType(stack, soulsRemaining > 0 ? type : EnumWillType.DEFAULT);
+        setCurrentType(stack, soulsRemaining > 0 ? type : SpiritusType.DEFAULT);
         int level = getLevel(soulsRemaining);
 
         double drain = level >= 0 ? SOUL_DRAIN_PER_SWING[level] : 0;
@@ -130,7 +130,7 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
         updateAttributeModifiers(stack, 5 + extraDamage, attackSpeed, movementSpeed);
     }
 
-    private double getAttackSpeed(EnumWillType type, int willBracket) {
+    private double getAttackSpeed(SpiritusType type, int willBracket) {
         if (willBracket < 0) {
             return -2.4;
         }
@@ -141,8 +141,8 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
         };
     }
 
-    private double getMovementSpeed(EnumWillType type, int willBracket) {
-        if (willBracket < 0 || type != EnumWillType.VENGEFUL) {
+    private double getMovementSpeed(SpiritusType type, int willBracket) {
+        if (willBracket < 0 || type != SpiritusType.VENGEFUL) {
             return 0;
         }
         return MOVEMENT_SPEED[willBracket];

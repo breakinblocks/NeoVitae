@@ -38,7 +38,7 @@ public class RitualCrystalSplitEntry extends EntryProvider {
         this.page("setup", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The spacing is designed to accommodate a [#](8B0000)Crystallarium Maleficum[#]() atop the [#](8B0000)Master Ritual Stone[#]()."
-                + "\\\n\\\n[#](2E8B57)For details on cultivating Demon Will Crystals, consult the Crystallized Will entry in the Demon Will chapter.[#]()");
+                + "\\\n\\\n[#](2E8B57)For details on cultivating Spiritus Crystals, consult the Crystallized Will entry in the Spiritus chapter.[#]()");
     }
 
     @Override
@@ -48,7 +48,7 @@ public class RitualCrystalSplitEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Fractures raw will into its aspected components.";
+        return "Fractures raw Spiritus into its aspected components.";
     }
 
     @Override

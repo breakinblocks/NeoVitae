@@ -1,14 +1,14 @@
 {
-  "parent": "neovitae:neovitae/soul_gem_petty",
+  "parent": "neovitae:neovitae/spiritus_gem_petty",
   "display": {
     "icon": {
-      "id": "neovitae:soul_gem_lesser"
+      "id": "neovitae:spiritus_gem_lesser"
     },
     "title": {
-      "translate": "advancements.neovitae.soul_gem_lesser.title"
+      "translate": "advancements.neovitae.spiritus_gem_lesser.title"
     },
     "description": {
-      "translate": "advancements.neovitae.soul_gem_lesser.description"
+      "translate": "advancements.neovitae.spiritus_gem_lesser.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": "neovitae:soul_gem_lesser"
+            "items": "neovitae:spiritus_gem_lesser"
           }
         ]
       }

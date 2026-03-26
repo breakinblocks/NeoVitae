@@ -38,8 +38,8 @@ public class RitualLavaEntry extends EntryProvider {
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Resonance");
-        this.pageText("- [#](8B0000)Raw Will[#](): Channels lava directly into a tank placed above the ritual, reducing [#](8B0000)Essentia Vitae[#]() cost."
+        this.pageTitle("Spiritus Resonance");
+        this.pageText("- [#](8B0000)Raw Spiritus[#](): Channels lava directly into a tank placed above the ritual, reducing [#](8B0000)Essentia Vitae[#]() cost."
                 + "\n\n- [#](8B0000)Corrosive Will[#](): Sets nearby hostile creatures ablaze."
                 + "\n\n- [#](8B0000)Vengeful Will[#](): Marks hostile mobs with [#](8B0000)Fire Fuse[#](). When it expires, they detonate spectacularly."
                 + "\n\n- [#](8B0000)Destructive Will[#](): Accelerates the rate of lava conjuration."

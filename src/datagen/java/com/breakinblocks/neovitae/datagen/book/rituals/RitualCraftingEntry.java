@@ -53,7 +53,7 @@ public class RitualCraftingEntry extends EntryProvider {
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Resonance");
+        this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Steadfast Will[#](): Redirects crafting to a linked [#](8B0000)Hellfire Forge[#]()."
                 + "\n\n- [#](8B0000)Corrosive Will[#](): Redirects crafting to a linked [#](8B0000)Tabula Vitae[#]()."
                 + "\\\n\\\n[#](2E8B57)All recipes are treated as shapeless. If two of the same item are needed, specify it twice in the filter.[#]()");

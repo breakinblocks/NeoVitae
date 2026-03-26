@@ -17,8 +17,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
-import com.breakinblocks.neovitae.api.will.DemonWillHandler;
-import com.breakinblocks.neovitae.api.will.WillState;
+import com.breakinblocks.neovitae.api.will.SpiritusHandler;
+import com.breakinblocks.neovitae.api.will.SpiritusState;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 
 import javax.annotation.Nullable;
@@ -167,11 +167,11 @@ public final class RitualHelper {
     }
 
     /**
-     * Queries all demon will types for a chunk and returns a snapshot with threshold checks.
-     * Convenience method delegating to {@link DemonWillHandler#queryWill(Level, BlockPos, double)}.
+     * Queries all spiritus types for a chunk and returns a snapshot with threshold checks.
+     * Convenience method delegating to {@link SpiritusHandler#queryWill(Level, BlockPos, double)}.
      */
-    public static WillState queryWill(Level level, BlockPos pos, double threshold) {
-        return DemonWillHandler.INSTANCE.queryWill(level, pos, threshold);
+    public static SpiritusState queryWill(Level level, BlockPos pos, double threshold) {
+        return SpiritusHandler.INSTANCE.queryWill(level, pos, threshold);
     }
 
     /**

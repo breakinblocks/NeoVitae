@@ -12,7 +12,7 @@ import com.breakinblocks.neovitae.common.block.AthanorBlock;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 public class NVBlockStateProvider extends BlockStateProvider {
     public NVBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -28,7 +28,7 @@ public class NVBlockStateProvider extends BlockStateProvider {
                 return;
             }
             // Demon crystals need cutout render type for transparency
-            if (path.contains("demon_crystal")) {
+            if (path.contains("spiritus_crystal")) {
                 ModelFile model = models().cubeAll(path, bm("block/" + path))
                     .renderType("cutout");
                 simpleBlockWithItem(block.get(), model);
@@ -58,14 +58,14 @@ public class NVBlockStateProvider extends BlockStateProvider {
         VariantBlockStateBuilder builder = getVariantBuilder(NVBlocks.ATHANOR_BLOCK.block().get());
         String bottom = "block/athanor_bottom";
         String lit = "_lit";
-        for (EnumWillType type : EnumWillType.values()) {
+        for (SpiritusType type : SpiritusType.values()) {
             String willName = type.getSerializedName();
             String side = "block/athanor_side_" + willName;
             String front = "block/athanor_front_" + willName;
             String top = "block/athanor_top_" + willName;
             ModelFile on = models().orientableWithBottom("athanor_" + willName + "_lit", bm(side + lit), bm(front + lit), bm(bottom), bm(top));
             ModelFile off = models().orientableWithBottom("athanor_" + willName, bm(side), bm(front), bm(bottom), bm(top));
-            if (type == EnumWillType.DEFAULT) {
+            if (type == SpiritusType.DEFAULT) {
                 simpleBlockItem(NVBlocks.ATHANOR_BLOCK.block().get(), off);
             }
 

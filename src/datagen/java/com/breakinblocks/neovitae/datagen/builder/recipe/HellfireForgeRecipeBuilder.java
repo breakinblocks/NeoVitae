@@ -11,7 +11,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import com.breakinblocks.neovitae.common.datacomponent.AnointmentHolder;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
     protected double drainedWill;
     protected List<Ingredient> ingredients = new ArrayList<>();
     protected boolean requireWillType = false;
-    protected Optional<EnumWillType> willType = Optional.empty();
+    protected Optional<SpiritusType> willType = Optional.empty();
 
     protected HellfireForgeRecipeBuilder(ItemStack result) {
         super(result);
@@ -85,7 +85,7 @@ public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
         return this;
     }
 
-    public HellfireForgeRecipeBuilder requiredWillType(EnumWillType type) {
+    public HellfireForgeRecipeBuilder requiredWillType(SpiritusType type) {
         this.willType = Optional.of(type);
         return this;
     }

@@ -6,7 +6,7 @@ import net.neoforged.neoforge.common.data.DataMapProvider;
 import com.breakinblocks.neovitae.datagen.content.datamap.AltarRuneStatsData;
 import com.breakinblocks.neovitae.datagen.content.datamap.BloodOrbStats;
 import com.breakinblocks.neovitae.datagen.content.datamap.EntitySacrificeData;
-import com.breakinblocks.neovitae.datagen.content.datamap.TartaricGemMax;
+import com.breakinblocks.neovitae.datagen.content.datamap.SpiritusGemMax;
 import com.breakinblocks.neovitae.datagen.content.datamap.TranquilityData;
 import com.breakinblocks.neovitae.datagen.content.datamap.RoutingNodeStatsData;
 
@@ -19,7 +19,7 @@ public class NVDataMapProvider extends DataMapProvider {
 
     @Override
     protected void gather(HolderLookup.Provider provider) {
-        TartaricGemMax.bootstrap(this::builder);
+        SpiritusGemMax.bootstrap(this::builder);
         BloodOrbStats.bootstrap(this::builder);
         AltarRuneStatsData.bootstrap(this::builder);
         EntitySacrificeData.bootstrap(this::builder);

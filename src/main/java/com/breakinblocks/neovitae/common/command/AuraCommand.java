@@ -11,14 +11,14 @@ import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
- * Command to get/set demon will in the chunk aura.
+ * Command to get/set spiritus in the chunk aura.
  * Usage:
  *   /bm-aura get                     - Get all will types (shows current and max)
  *   /bm-aura get all                 - Get all will types (explicit)
@@ -36,14 +36,14 @@ public class AuraCommand {
     private static final double COMMAND_MAX = 10000.0;
 
     private static final SuggestionProvider<CommandSourceStack> WILL_TYPE_SUGGESTIONS = (context, builder) -> {
-        Stream<String> types = Arrays.stream(EnumWillType.values())
-                .map(EnumWillType::getSerializedName);
+        Stream<String> types = Arrays.stream(SpiritusType.values())
+                .map(SpiritusType::getSerializedName);
         return SharedSuggestionProvider.suggest(Stream.concat(types, Stream.of("all")), builder);
     };
 
     private static final SuggestionProvider<CommandSourceStack> WILL_TYPE_ONLY_SUGGESTIONS = (context, builder) -> {
-        Stream<String> types = Arrays.stream(EnumWillType.values())
-                .map(EnumWillType::getSerializedName);
+        Stream<String> types = Arrays.stream(SpiritusType.values())
+                .map(SpiritusType::getSerializedName);
         return SharedSuggestionProvider.suggest(Stream.concat(types, Stream.of("all")), builder);
     };
 
@@ -98,13 +98,13 @@ public class AuraCommand {
         ServerLevel level = source.getLevel();
         BlockPos pos = BlockPos.containing(source.getPosition());
 
-        StringBuilder sb = new StringBuilder("Demon Will in chunk at ");
+        StringBuilder sb = new StringBuilder("Spiritus in chunk at ");
         sb.append(pos.toShortString()).append(":\n");
 
-        for (EnumWillType type : EnumWillType.values()) {
-            double amount = WorldDemonWillHandler.getCurrentWill(level, pos, type);
-            double max = WorldDemonWillHandler.getMaxWill(level, pos, type);
-            double bonus = WorldDemonWillHandler.getMaxBonus(level, pos, type);
+        for (SpiritusType type : SpiritusType.values()) {
+            double amount = WorldSpiritusHandler.getCurrentWill(level, pos, type);
+            double max = WorldSpiritusHandler.getMaxWill(level, pos, type);
+            double bonus = WorldSpiritusHandler.getMaxBonus(level, pos, type);
             sb.append("  ").append(type.getSerializedName()).append(": ")
                     .append(String.format("%.2f", amount)).append(" / ").append(String.format("%.2f", max));
             if (bonus > 0) {
@@ -126,15 +126,15 @@ public class AuraCommand {
             return getAllWill(context);
         }
 
-        EnumWillType type = parseWillType(typeStr);
+        SpiritusType type = parseWillType(typeStr);
         if (type == null) {
             source.sendFailure(Component.literal("Invalid will type: " + typeStr));
             return 0;
         }
 
-        double amount = WorldDemonWillHandler.getCurrentWill(level, pos, type);
-        double max = WorldDemonWillHandler.getMaxWill(level, pos, type);
-        double bonus = WorldDemonWillHandler.getMaxBonus(level, pos, type);
+        double amount = WorldSpiritusHandler.getCurrentWill(level, pos, type);
+        double max = WorldSpiritusHandler.getMaxWill(level, pos, type);
+        double bonus = WorldSpiritusHandler.getMaxBonus(level, pos, type);
         StringBuilder msg = new StringBuilder(type.getSerializedName() + " will in chunk: " +
                 String.format("%.2f", amount) + " / " + String.format("%.2f", max));
         if (bonus > 0) {
@@ -150,19 +150,19 @@ public class AuraCommand {
         BlockPos pos = BlockPos.containing(source.getPosition());
 
         if (typeStr.equalsIgnoreCase("all")) {
-            for (EnumWillType type : EnumWillType.values()) {
-                double max = WorldDemonWillHandler.getMaxWill(level, pos, type);
+            for (SpiritusType type : SpiritusType.values()) {
+                double max = WorldSpiritusHandler.getMaxWill(level, pos, type);
                 double clampedAmount = Math.max(0, Math.min(max, amount));
                 setWillForType(level, pos, type, clampedAmount);
             }
             source.sendSuccess(() -> Component.literal("Set all will types to " + String.format("%.2f", amount) + " (clamped to max)"), true);
         } else {
-            EnumWillType type = parseWillType(typeStr);
+            SpiritusType type = parseWillType(typeStr);
             if (type == null) {
                 source.sendFailure(Component.literal("Invalid will type: " + typeStr));
                 return 0;
             }
-            double max = WorldDemonWillHandler.getMaxWill(level, pos, type);
+            double max = WorldSpiritusHandler.getMaxWill(level, pos, type);
             double clampedAmount = Math.max(0, Math.min(max, amount));
             setWillForType(level, pos, type, clampedAmount);
             source.sendSuccess(() -> Component.literal("Set " + type.getSerializedName() + " will to " + String.format("%.2f", clampedAmount)), true);
@@ -177,31 +177,31 @@ public class AuraCommand {
 
         if (typeStr.equalsIgnoreCase("all")) {
             StringBuilder results = new StringBuilder("Added will to all types:\n");
-            for (EnumWillType type : EnumWillType.values()) {
-                double before = WorldDemonWillHandler.getCurrentWill(level, pos, type);
+            for (SpiritusType type : SpiritusType.values()) {
+                double before = WorldSpiritusHandler.getCurrentWill(level, pos, type);
                 if (amount >= 0) {
-                    WorldDemonWillHandler.addWillToChunk(level, pos, type, amount);
+                    WorldSpiritusHandler.addWillToChunk(level, pos, type, amount);
                 } else {
-                    WorldDemonWillHandler.drainWillFromChunk(level, pos, type, -amount);
+                    WorldSpiritusHandler.drainWillFromChunk(level, pos, type, -amount);
                 }
-                double after = WorldDemonWillHandler.getCurrentWill(level, pos, type);
+                double after = WorldSpiritusHandler.getCurrentWill(level, pos, type);
                 results.append("  ").append(type.getSerializedName()).append(": ")
                         .append(String.format("%.2f", before)).append(" -> ").append(String.format("%.2f", after)).append("\n");
             }
             source.sendSuccess(() -> Component.literal(results.toString()), true);
         } else {
-            EnumWillType type = parseWillType(typeStr);
+            SpiritusType type = parseWillType(typeStr);
             if (type == null) {
                 source.sendFailure(Component.literal("Invalid will type: " + typeStr));
                 return 0;
             }
-            double before = WorldDemonWillHandler.getCurrentWill(level, pos, type);
+            double before = WorldSpiritusHandler.getCurrentWill(level, pos, type);
             if (amount >= 0) {
-                WorldDemonWillHandler.addWillToChunk(level, pos, type, amount);
+                WorldSpiritusHandler.addWillToChunk(level, pos, type, amount);
             } else {
-                WorldDemonWillHandler.drainWillFromChunk(level, pos, type, -amount);
+                WorldSpiritusHandler.drainWillFromChunk(level, pos, type, -amount);
             }
-            double after = WorldDemonWillHandler.getCurrentWill(level, pos, type);
+            double after = WorldSpiritusHandler.getCurrentWill(level, pos, type);
             source.sendSuccess(() -> Component.literal(type.getSerializedName() + " will: " +
                     String.format("%.2f", before) + " -> " + String.format("%.2f", after)), true);
         }
@@ -213,25 +213,25 @@ public class AuraCommand {
         ServerLevel level = source.getLevel();
         BlockPos pos = BlockPos.containing(source.getPosition());
 
-        for (EnumWillType type : EnumWillType.values()) {
+        for (SpiritusType type : SpiritusType.values()) {
             setWillForType(level, pos, type, 0);
         }
 
-        source.sendSuccess(() -> Component.literal("Cleared all demon will from chunk"), true);
+        source.sendSuccess(() -> Component.literal("Cleared all spiritus from chunk"), true);
         return 1;
     }
 
-    private static void setWillForType(ServerLevel level, BlockPos pos, EnumWillType type, double amount) {
-        double current = WorldDemonWillHandler.getCurrentWill(level, pos, type);
+    private static void setWillForType(ServerLevel level, BlockPos pos, SpiritusType type, double amount) {
+        double current = WorldSpiritusHandler.getCurrentWill(level, pos, type);
         if (amount > current) {
-            WorldDemonWillHandler.addWillToChunk(level, pos, type, amount - current);
+            WorldSpiritusHandler.addWillToChunk(level, pos, type, amount - current);
         } else if (amount < current) {
-            WorldDemonWillHandler.drainWillFromChunk(level, pos, type, current - amount);
+            WorldSpiritusHandler.drainWillFromChunk(level, pos, type, current - amount);
         }
     }
 
-    private static EnumWillType parseWillType(String str) {
-        for (EnumWillType type : EnumWillType.values()) {
+    private static SpiritusType parseWillType(String str) {
+        for (SpiritusType type : SpiritusType.values()) {
             if (type.getSerializedName().equalsIgnoreCase(str)) {
                 return type;
             }

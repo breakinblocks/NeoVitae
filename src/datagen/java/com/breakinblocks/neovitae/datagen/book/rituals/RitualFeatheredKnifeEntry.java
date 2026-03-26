@@ -38,8 +38,8 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Resonance");
-        this.pageText("- [#](8B0000)Raw Will[#](): Increases the [#](8B0000)Essentia Vitae[#]() gained per health sacrificed."
+        this.pageTitle("Spiritus Resonance");
+        this.pageText("- [#](8B0000)Raw Spiritus[#](): Increases the [#](8B0000)Essentia Vitae[#]() gained per health sacrificed."
                 + "\n\n- [#](8B0000)Corrosive Will[#](): Channels the [#](8B0000)Incense Bonus[#]() from a nearby [#](8B0000)Incense Altar[#]()."
                 + "\n\n- [#](8B0000)Vengeful Will[#](): When paired with [#](8B0000)Steadfast[#](), increases the drain rate."
                 + "\n\n- [#](8B0000)Destructive Will[#](): Raises the maximum vitality drained per tick."
@@ -63,7 +63,7 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.LAMINA_MALEFICUS.get());
+        return BookIconModel.create(NVItems.SACRIFICIAL_DAGGER.get());
     }
 
     @Override

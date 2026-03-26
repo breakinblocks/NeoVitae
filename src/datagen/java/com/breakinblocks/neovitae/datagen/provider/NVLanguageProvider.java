@@ -9,7 +9,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.datagen.content.LivingUpgrades;
@@ -56,13 +56,13 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("attribute.neovitae.player.self_sacrifice", "Self Sacrifice Multiplier");
         add("attribute.neovitae.bonus_sacrifice", "Bonus Sacrifice");
         add("attribute.neovitae.bonus_self_sacrifice", "Bonus Self Sacrifice");
-        add("attribute.neovitae.bonus_demon_will", "Bonus Demon Will");
+        add("attribute.neovitae.bonus_spiritus", "Bonus Spiritus");
         add("attribute.neovitae.sigil_cost_reduction", "Sigil Cost Reduction");
         add("attribute.neovitae.blood_siphon", "Blood Siphon");
         add("attribute.neovitae.blood_shield", "Blood Shield");
 
         add(NVBlocks.ARA_VITAE, "Ara Vitae");
-        add(NVItems.LAMINA_MALEFICUS.get(), "Lamina Maleficus");
+        add(NVItems.SACRIFICIAL_DAGGER.get(), "Sacrificial Dagger");
 
         add(NVBlocks.RUNE_BLANK, "Blank Rune");
 
@@ -96,17 +96,17 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVBlocks.CRYSTAL_CLUSTER, "Crystal Cluster");
         add(NVBlocks.CRYSTAL_CLUSTER_BRICK, "Crystal Cluster Brick");
 
-        // Demon Will Blocks
+        // Spiritus Blocks
         add(NVBlocks.VAS_MALEFICUM, "Vas Maleficum");
         add(NVBlocks.CRYSTALLARIUM_MALEFICUM, "Crystallarium Maleficum");
         add(NVBlocks.SPIRA_INFERNALIS, "Spira Infernalis");
 
         // Demon Crystal Blocks
-        add(NVBlocks.RAW_DEMON_CRYSTAL, "Raw Crystal Cluster");
-        add(NVBlocks.CORROSIVE_DEMON_CRYSTAL, "Corrosive Crystal Cluster");
-        add(NVBlocks.DESTRUCTIVE_DEMON_CRYSTAL, "Destructive Crystal Cluster");
-        add(NVBlocks.VENGEFUL_DEMON_CRYSTAL, "Vengeful Crystal Cluster");
-        add(NVBlocks.STEADFAST_DEMON_CRYSTAL, "Steadfast Crystal Cluster");
+        add(NVBlocks.RAW_SPIRITUS_CRYSTAL, "Raw Crystal Cluster");
+        add(NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL, "Corrosive Crystal Cluster");
+        add(NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL, "Destructive Crystal Cluster");
+        add(NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL, "Vengeful Crystal Cluster");
+        add(NVBlocks.STEADFAST_SPIRITUS_CRYSTAL, "Steadfast Crystal Cluster");
 
         // Routing Node Blocks
         add(NVBlocks.ROUTING_NODE, "Item Routing Node");
@@ -136,9 +136,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         addTooltip("save_for_decoration", "Save for Decoration");
 
-        add(NVFluids.DOUBT_TYPE.get().getDescriptionId(), "Liquid Doubt");
-        add(NVFluids.DOUBT_BUCKET.get(), "Doubt Bucket");
-        add(NVFluids.DOUBT_BLOCK.get(), "Liquid Doubt");
+        add(NVFluids.ANIMATED_SPIRITUS_TYPE.get().getDescriptionId(), "Animated Spiritus Essence");
+        add(NVFluids.ANIMATED_SPIRITUS_BUCKET.get(), "Bucket of Animated Spiritus");
+        add(NVFluids.ANIMATED_SPIRITUS_BLOCK.get(), "Animated Spiritus Essence");
 
         add(NVBlocks.ATHANOR_BLOCK, "Athanor");
 
@@ -149,25 +149,25 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("fluid_content", "Contains: %smB of %s");
 
         add(NVBlocks.HELLFIRE_FORGE, "Hellfire Forge");
-        add(NVItems.RAW_WILL.get(), "Raw Will");
+        add(NVItems.RAW_SPIRITUS.get(), "Raw Spiritus");
 
-        // Monster Souls (dropped from mobs with sentient weapons)
-        add(NVItems.MONSTER_SOUL_RAW.get(), "Monster Soul");
-        add(NVItems.MONSTER_SOUL_CORROSIVE.get(), "Corrosive Monster Soul");
-        add(NVItems.MONSTER_SOUL_DESTRUCTIVE.get(), "Destructive Monster Soul");
-        add(NVItems.MONSTER_SOUL_VENGEFUL.get(), "Vengeful Monster Soul");
-        add(NVItems.MONSTER_SOUL_STEADFAST.get(), "Steadfast Monster Soul");
+        // Spiritus Essence (dropped from mobs with sentient weapons)
+        add(NVItems.MONSTER_SOUL_RAW.get(), "Spiritus Essence");
+        add(NVItems.MONSTER_SOUL_CORROSIVE.get(), "Corrosive Spiritus Essence");
+        add(NVItems.MONSTER_SOUL_DESTRUCTIVE.get(), "Destructive Spiritus Essence");
+        add(NVItems.MONSTER_SOUL_VENGEFUL.get(), "Vengeful Spiritus Essence");
+        add(NVItems.MONSTER_SOUL_STEADFAST.get(), "Steadfast Spiritus Essence");
 
-        add(NVItems.SOUL_GEM_PETTY.get(), "Petty Tartaric Gem");
-        add(NVItems.SOUL_GEM_LESSER.get(), "Lesser Tartaric Gem");
-        add(NVItems.SOUL_GEM_COMMON.get(), "Common Tartaric Gem");
-        add(NVItems.SOUL_GEM_GREATER.get(), "Greater Tartaric Gem");
-        add(NVItems.SOUL_GEM_GRAND.get(), "Grand Tartaric Gem");
-        addGemDesc(NVItems.SOUL_GEM_PETTY, "a little");
-        addGemDesc(NVItems.SOUL_GEM_LESSER, "some");
-        addGemDesc(NVItems.SOUL_GEM_COMMON, "more");
-        addGemDesc(NVItems.SOUL_GEM_GREATER, "a greater amount of");
-        addGemDesc(NVItems.SOUL_GEM_GRAND, "a large amount of");
+        add(NVItems.SPIRITUS_GEM_PETTY.get(), "Petty Spiritus Gem");
+        add(NVItems.SPIRITUS_GEM_LESSER.get(), "Lesser Spiritus Gem");
+        add(NVItems.SPIRITUS_GEM_COMMON.get(), "Common Spiritus Gem");
+        add(NVItems.SPIRITUS_GEM_GREATER.get(), "Greater Spiritus Gem");
+        add(NVItems.SPIRITUS_GEM_GRAND.get(), "Grand Spiritus Gem");
+        addGemDesc(NVItems.SPIRITUS_GEM_PETTY, "a little");
+        addGemDesc(NVItems.SPIRITUS_GEM_LESSER, "some");
+        addGemDesc(NVItems.SPIRITUS_GEM_COMMON, "more");
+        addGemDesc(NVItems.SPIRITUS_GEM_GREATER, "a greater amount of");
+        addGemDesc(NVItems.SPIRITUS_GEM_GRAND, "a large amount of");
 
         // Slates
         add(NVItems.SLATE_BLANK.get(), "Blank Slate");
@@ -226,22 +226,22 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Incense Altar
         add(NVBlocks.INCENSE_ALTAR, "Incense Altar");
 
-        add(NVItems.SOUL_SNARE.get(), "Soul Snare");
+        add(NVItems.SPIRITUS_SNARE.get(), "Soul Snare");
         addTooltip("soulSnare.desc", "Throw at weakened mobs to extract their soul");
         add(NVItems.WEAK_BLOOD_SHARD.get(), "Weak Blood Shard");
-        add(NVItems.LAMINA_EXHAURIENS.get(), "Lamina Exhauriens");
+        add(NVItems.DAGGER_OF_SACRIFICE.get(), "Dagger of Sacrifice");
         add(NVItems.LAVA_CRYSTAL.get(), "Lava Crystal");
         addTooltip("lavaCrystal.desc", "Place fire, bindable furnace fuel");
         add("chat.neovitae.notEnoughLP", "Not enough Essentia Vitae!");
 
         // Crystal Items
-        add(NVItems.RAW_CRYSTAL.get(), "Demon Will Crystal");
+        add(NVItems.RAW_CRYSTAL.get(), "Spiritus Crystal");
         add(NVItems.CORROSIVE_CRYSTAL.get(), "Corrosive Will Crystal");
         add(NVItems.DESTRUCTIVE_CRYSTAL.get(), "Destructive Will Crystal");
         add(NVItems.VENGEFUL_CRYSTAL.get(), "Vengeful Will Crystal");
         add(NVItems.STEADFAST_CRYSTAL.get(), "Steadfast Will Crystal");
-        add(NVItems.DEMON_WILL_GAUGE.get(), "Demon Will Aura Gauge");
-        addTooltip("demon_will_gauge", "Shows the current demon will level in the area");
+        add(NVItems.SPIRITUS_GAUGE.get(), "Spiritus Aura Gauge");
+        addTooltip("spiritus_gauge", "Shows the current spiritus level in the area");
 
         // Crystal Catalysts
         add(NVItems.RAW_CRYSTAL_CATALYST.get(), "Raw Crystal Catalyst");
@@ -263,11 +263,11 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.SENTIENT_PICKAXE.get(), "Sentient Pickaxe");
         add(NVItems.SENTIENT_SHOVEL.get(), "Sentient Shovel");
         add(NVItems.SENTIENT_SCYTHE.get(), "Sentient Scythe");
-        addTooltip("sentientSword.desc", "Empowered by demon will in your inventory");
-        addTooltip("sentientAxe.desc", "Empowered by demon will in your inventory");
-        addTooltip("sentientPickaxe.desc", "Empowered by demon will in your inventory");
-        addTooltip("sentientShovel.desc", "Empowered by demon will in your inventory");
-        addTooltip("sentientScythe.desc", "Area damage empowered by demon will");
+        addTooltip("sentientSword.desc", "Empowered by spiritus in your inventory");
+        addTooltip("sentientAxe.desc", "Empowered by spiritus in your inventory");
+        addTooltip("sentientPickaxe.desc", "Empowered by spiritus in your inventory");
+        addTooltip("sentientShovel.desc", "Empowered by spiritus in your inventory");
+        addTooltip("sentientScythe.desc", "Area damage empowered by spiritus");
 
         // Routing Items
         add(NVItems.NODE_ROUTER.get(), "Node Router");
@@ -299,7 +299,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.DAEMONIUM_GLACIARIS_SPAWN_EGG.get(), "Daemonium Glaciaris Spawn Egg");
 
         // Misc WIP Items
-        add(NVItems.DOUBT_SEED.get(), "Seeds of Doubt");
+        add(NVItems.ANIMATED_SPIRITUS.get(), "Animated Spiritus");
 
         // Simple Recipe Ingredients
         add(NVItems.SULFUR.get(), "Sulfur");
@@ -617,7 +617,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("anointment.quick_draw.desc", "Decreases bow draw time");
         addTooltip("anointment.looting.desc", "Increases mob drops (Looting)");
         addTooltip("anointment.bow_power.desc", "Increases arrow damage");
-        addTooltip("anointment.will_power.desc", "Arrows drain Demon Will on hit");
+        addTooltip("anointment.will_power.desc", "Arrows drain Spiritus on hit");
         addTooltip("anointment.smelting.desc", "Auto-smelts drops from mining");
         addTooltip("anointment.voiding.desc", "Destroys unwanted drops from mining");
         addTooltip("anointment.bow_velocity.desc", "Increases arrow velocity");
@@ -638,9 +638,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.SANGUINE_REVERTER.get(), "Sanguine Reverter");
         add(NVItems.GUIDE_BOOK.get(), "Scriptura Vitae");
 
-        // Lamina tooltips
-        addTooltip("lamina_maleficus.desc", "Sacrifice your own health to fill a nearby Ara Vitae with Essentia Vitae");
-        addTooltip("lamina_exhauriens.desc", "Slay a living creature to fill a nearby Ara Vitae with Essentia Vitae");
+        // Dagger tooltips
+        addTooltip("sacrificial_dagger.desc", "The Gift of Vitae");
+        addTooltip("dagger_of_sacrifice.desc", "Theft of Vitae");
 
         // Rune tooltips
         addTooltip("rune.blank", "A basic rune with no special effect");
@@ -686,7 +686,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.CORRUPTED_DUST_TINY.get(), "Tiny Corrupted Dust");
 
         addTooltip("will", "Will Quality: %s");
-        for (EnumWillType type : EnumWillType.values()) {
+        for (SpiritusType type : SpiritusType.values()) {
             addTooltip("current_type." + type.getSerializedName(), String.format("Contains: %s Will", type.toCapitalized()));
         }
         add("item_group.neovitae.main", "Neo Vitae");
@@ -958,14 +958,14 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("magician_blood_orb", "Magician Blood Orb", "Upgrade to a Tier 3 orb");
         addAdvancement("master_blood_orb", "Master Blood Orb", "Upgrade to a Tier 4 orb");
         addAdvancement("archmage_blood_orb", "Archmage Blood Orb", "Upgrade to a Tier 5 orb");
-        addAdvancement("soul_snare", "Soul Snare", "Craft a Soul Snare");
-        addAdvancement("demon_will", "Demon Will", "Obtain a Demon Will");
-        addAdvancement("soul_sword", "Sentient Sword", "Craft a Sentient Sword");
-        addAdvancement("soul_gem_petty", "Petty Tartaric Gem", "Craft a Petty Tartaric Gem");
-        addAdvancement("soul_gem_lesser", "Lesser Tartaric Gem", "Upgrade to a Lesser Gem");
-        addAdvancement("soul_gem_common", "Common Tartaric Gem", "Upgrade to a Common Gem");
-        addAdvancement("soul_gem_greater", "Greater Tartaric Gem", "Upgrade to a Greater Gem");
-        addAdvancement("soul_gem_grand", "Grand Tartaric Gem", "Upgrade to a Grand Gem");
+        addAdvancement("spiritus_snare", "Soul Snare", "Craft a Soul Snare");
+        addAdvancement("spiritus", "Spiritus", "Obtain a Spiritus");
+        addAdvancement("sentient_sword", "Sentient Sword", "Craft a Sentient Sword");
+        addAdvancement("spiritus_gem_petty", "Petty Spiritus Gem", "Craft a Petty Spiritus Gem");
+        addAdvancement("spiritus_gem_lesser", "Lesser Spiritus Gem", "Upgrade to a Lesser Gem");
+        addAdvancement("spiritus_gem_common", "Common Spiritus Gem", "Upgrade to a Common Gem");
+        addAdvancement("spiritus_gem_greater", "Greater Spiritus Gem", "Upgrade to a Greater Gem");
+        addAdvancement("spiritus_gem_grand", "Grand Spiritus Gem", "Upgrade to a Grand Gem");
         addAdvancement("ritual_diviner", "Ritual Diviner", "Craft a Ritual Diviner");
         addAdvancement("living_armor", "Living Armor", "Craft a Living Chestplate");
         addAdvancement("hellfire_forge", "Hellfire Forge", "Craft a Hellfire Forge");
@@ -982,7 +982,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
     }
 
     public void addGemDesc(DeferredHolder holder, String desc) {
-        addTooltip("soul_gem." + holder.getId().getPath(), String.format("A gem used to contain %s will.", desc));
+        addTooltip("spiritus_gem." + holder.getId().getPath(), String.format("A gem used to contain %s Spiritus.", desc));
     }
 
     public void add(BlockWithItemHolder<? extends Block, ? extends BlockItem> block, String name) {

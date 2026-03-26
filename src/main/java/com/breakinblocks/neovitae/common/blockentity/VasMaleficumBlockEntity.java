@@ -7,22 +7,22 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.item.DemonCrystalItem;
-import com.breakinblocks.neovitae.will.IDemonWill;
-import com.breakinblocks.neovitae.will.IDemonWillGem;
-import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.item.SpiritusCrystalItem;
+import com.breakinblocks.neovitae.will.ISpiritus;
+import com.breakinblocks.neovitae.will.ISpiritusGem;
+import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
 
 /**
- * Vas Maleficum - manages demon will between items and chunk aura.
+ * Vas Maleficum - manages spiritus between items and chunk aura.
  *
  * Without redstone signal (default):
- * - Tartaric Gems: drains will gradually into chunk aura (caps at configured max)
+ * - Spiritus Gems: drains will gradually into chunk aura (caps at configured max)
  * - Monster Souls: consumed immediately, will released to aura
  * - Demon Crystals: consumed when chunk will drops below threshold
  *
  * With redstone signal:
- * - Tartaric Gems: absorbs will from chunk aura into the gem
+ * - Spiritus Gems: absorbs will from chunk aura into the gem
  * - Monster Souls/Crystals: not affected (output only)
  */
 public class VasMaleficumBlockEntity extends BaseBlockEntity {
@@ -38,9 +38,9 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return stack.getItem() instanceof IDemonWillGem ||
-                   stack.getItem() instanceof IDemonWill ||
-                   stack.getItem() instanceof DemonCrystalItem;
+            return stack.getItem() instanceof ISpiritusGem ||
+                   stack.getItem() instanceof ISpiritus ||
+                   stack.getItem() instanceof SpiritusCrystalItem;
         }
     };
 
@@ -68,24 +68,24 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
         boolean isPowered = level.hasNeighborSignal(worldPosition);
 
         if (isPowered) {
-            if (stack.getItem() instanceof IDemonWillGem gem) {
+            if (stack.getItem() instanceof ISpiritusGem gem) {
                 handleGemFill(gem, stack);
             }
         } else {
-            if (stack.getItem() instanceof IDemonWillGem gem) {
+            if (stack.getItem() instanceof ISpiritusGem gem) {
                 handleGemDrain(gem, stack);
-            } else if (stack.getItem() instanceof IDemonWill will) {
+            } else if (stack.getItem() instanceof ISpiritus will) {
                 handleWillItem(will, stack);
-            } else if (stack.getItem() instanceof DemonCrystalItem crystal) {
+            } else if (stack.getItem() instanceof SpiritusCrystalItem crystal) {
                 handleCrystal(crystal, stack);
             }
         }
     }
 
-    private void handleGemDrain(IDemonWillGem gem, ItemStack stack) {
-        for (EnumWillType type : EnumWillType.values()) {
-            double currentChunkWill = WorldDemonWillHandler.getCurrentWill(level, worldPosition, type);
-            double maxWillInChunk = WorldDemonWillHandler.getMaxWill(level, worldPosition, type);
+    private void handleGemDrain(ISpiritusGem gem, ItemStack stack) {
+        for (SpiritusType type : SpiritusType.values()) {
+            double currentChunkWill = WorldSpiritusHandler.getCurrentWill(level, worldPosition, type);
+            double maxWillInChunk = WorldSpiritusHandler.getMaxWill(level, worldPosition, type);
 
             if (currentChunkWill >= maxWillInChunk) {
                 continue;
@@ -98,16 +98,16 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
             if (canDrain > 0) {
                 double drained = gem.drainWill(type, stack, canDrain, true);
                 if (drained > 0) {
-                    WorldDemonWillHandler.addWillToChunk(level, worldPosition, type, drained);
+                    WorldSpiritusHandler.addWillToChunk(level, worldPosition, type, drained);
                     setChanged();
                 }
             }
         }
     }
 
-    private void handleGemFill(IDemonWillGem gem, ItemStack stack) {
-        for (EnumWillType type : EnumWillType.values()) {
-            double currentChunkWill = WorldDemonWillHandler.getCurrentWill(level, worldPosition, type);
+    private void handleGemFill(ISpiritusGem gem, ItemStack stack) {
+        for (SpiritusType type : SpiritusType.values()) {
+            double currentChunkWill = WorldSpiritusHandler.getCurrentWill(level, worldPosition, type);
             if (currentChunkWill <= 0) {
                 continue;
             }
@@ -116,7 +116,7 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
 
             double canFill = gem.fillWill(type, stack, fillAmount, false);
             if (canFill > 0) {
-                double drained = WorldDemonWillHandler.drainWillFromChunk(level, worldPosition, type, canFill);
+                double drained = WorldSpiritusHandler.drainWillFromChunk(level, worldPosition, type, canFill);
                 if (drained > 0) {
                     gem.fillWill(type, stack, drained, true);
                     setChanged();
@@ -125,10 +125,10 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
         }
     }
 
-    private void handleWillItem(IDemonWill will, ItemStack stack) {
-        EnumWillType type = will.getType(stack);
-        double currentChunkWill = WorldDemonWillHandler.getCurrentWill(level, worldPosition, type);
-        double maxWillInChunk = WorldDemonWillHandler.getMaxWill(level, worldPosition, type);
+    private void handleWillItem(ISpiritus will, ItemStack stack) {
+        SpiritusType type = will.getType(stack);
+        double currentChunkWill = WorldSpiritusHandler.getCurrentWill(level, worldPosition, type);
+        double maxWillInChunk = WorldSpiritusHandler.getMaxWill(level, worldPosition, type);
 
         if (currentChunkWill >= maxWillInChunk) {
             return;
@@ -141,7 +141,7 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
             double toAdd = Math.min(willAmount, spaceInChunk);
             double drained = will.drainWill(type, stack, toAdd);
             if (drained > 0) {
-                WorldDemonWillHandler.addWillToChunk(level, worldPosition, type, drained);
+                WorldSpiritusHandler.addWillToChunk(level, worldPosition, type, drained);
                 if (stack.isEmpty() || stack.getCount() <= 0) {
                     inventory.setStackInSlot(0, ItemStack.EMPTY);
                 }
@@ -150,12 +150,12 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
         }
     }
 
-    private void handleCrystal(DemonCrystalItem crystal, ItemStack stack) {
-        EnumWillType type = crystal.getWillType();
-        double currentChunkWill = WorldDemonWillHandler.getCurrentWill(level, worldPosition, type);
+    private void handleCrystal(SpiritusCrystalItem crystal, ItemStack stack) {
+        SpiritusType type = crystal.getWillType();
+        double currentChunkWill = WorldSpiritusHandler.getCurrentWill(level, worldPosition, type);
 
         if (currentChunkWill < CRYSTAL_CONSUME_THRESHOLD) {
-            double added = WorldDemonWillHandler.addWillToChunk(level, worldPosition, type, WILL_PER_CRYSTAL);
+            double added = WorldSpiritusHandler.addWillToChunk(level, worldPosition, type, WILL_PER_CRYSTAL);
             if (added > 0) {
                 stack.shrink(1);
                 setChanged();

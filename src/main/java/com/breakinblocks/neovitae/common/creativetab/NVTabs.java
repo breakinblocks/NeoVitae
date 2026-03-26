@@ -13,7 +13,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
@@ -54,29 +54,29 @@ public class NVTabs {
                         NVItems.WILL_ITEMS.getEntries().forEach(holder -> {
                             String path = holder.getId().getPath();
                             // Monster souls are already typed (basemonstersoul_*), don't create variants
-                            if (path.startsWith("basemonstersoul")) {
+                            if (path.startsWith("base_spiritus_soul")) {
                                 // Just add the item with 5 will amount
                                 ItemStack stack = new ItemStack(holder.get());
-                                stack.set(NVDataComponents.DEMON_WILL_AMOUNT, 5.0);
+                                stack.set(NVDataComponents.SPIRITUS_AMOUNT, 5.0);
                                 output.accept(stack);
                             } else {
-                                // Soul gems and raw will get variants for each will type, filled with max will
+                                // Soul gems and raw Spiritus get variants for each will type, filled with max will
                                 double maxWill = getMaxWillForItem(path);
-                                for (EnumWillType type : EnumWillType.values()) {
+                                for (SpiritusType type : SpiritusType.values()) {
                                     ItemStack stack = new ItemStack(holder.get());
-                                    stack.set(NVDataComponents.DEMON_WILL_TYPE, type);
-                                    stack.set(NVDataComponents.DEMON_WILL_AMOUNT, maxWill);
+                                    stack.set(NVDataComponents.SPIRITUS_TYPE, type);
+                                    stack.set(NVDataComponents.SPIRITUS_AMOUNT, maxWill);
                                     output.accept(stack);
                                 }
                             }
                         });
 
-                        // Add empty default will variants for tartaric gems
-                        addEmptyGem(output::accept, NVItems.SOUL_GEM_PETTY.get());
-                        addEmptyGem(output::accept, NVItems.SOUL_GEM_LESSER.get());
-                        addEmptyGem(output::accept, NVItems.SOUL_GEM_COMMON.get());
-                        addEmptyGem(output::accept, NVItems.SOUL_GEM_GREATER.get());
-                        addEmptyGem(output::accept, NVItems.SOUL_GEM_GRAND.get());
+                        // Add empty default will variants for Spiritus Gems
+                        addEmptyGem(output::accept, NVItems.SPIRITUS_GEM_PETTY.get());
+                        addEmptyGem(output::accept, NVItems.SPIRITUS_GEM_LESSER.get());
+                        addEmptyGem(output::accept, NVItems.SPIRITUS_GEM_COMMON.get());
+                        addEmptyGem(output::accept, NVItems.SPIRITUS_GEM_GREATER.get());
+                        addEmptyGem(output::accept, NVItems.SPIRITUS_GEM_GRAND.get());
 
                         addBloodTankVariants(output::accept);
                         addAll(NVBlocks.BASIC_BLOCK_ITEMS, output::accept);
@@ -186,20 +186,20 @@ public class NVTabs {
 
     private static void addEmptyGem(Consumer<ItemStack> tab, Item gem) {
         ItemStack stack = new ItemStack(gem);
-        stack.set(NVDataComponents.DEMON_WILL_AMOUNT, 0.0);
-        stack.set(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT);
+        stack.set(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
+        stack.set(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT);
         tab.accept(stack);
     }
 
     private static double getMaxWillForItem(String path) {
         // Max will amounts for each gem tier (from data maps)
         return switch (path) {
-            case "soul_gem_petty" -> 64.0;
-            case "soul_gem_lesser" -> 256.0;
-            case "soul_gem_common" -> 1024.0;
-            case "soul_gem_greater" -> 4096.0;
-            case "soul_gem_grand" -> 16384.0;
-            case "raw_will" -> 50.0; // Raw will max amount
+            case "spiritus_gem_petty" -> 64.0;
+            case "spiritus_gem_lesser" -> 256.0;
+            case "spiritus_gem_common" -> 1024.0;
+            case "spiritus_gem_greater" -> 4096.0;
+            case "spiritus_gem_grand" -> 16384.0;
+            case "raw_spiritus" -> 50.0; // Raw Spiritus max amount
             default -> 0.0;
         };
     }

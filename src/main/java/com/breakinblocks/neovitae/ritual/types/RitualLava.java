@@ -12,11 +12,11 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.WillState;
+import com.breakinblocks.neovitae.api.will.SpiritusState;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.function.Consumer;
 /**
  * Ritual of Lava - generates lava in a configurable area.
  *
- * <p>Demon Will effects:
+ * <p>Spiritus effects:
  * <ul>
  *   <li><b>Raw (Default)</b> - Reduced LP cost for lava placement, enables tank filling</li>
  *   <li><b>Vengeful</b> - Apply Fire Fuse to non-player mobs in fire range</li>
@@ -69,9 +69,9 @@ public class RitualLava extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
+        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
 
-        // LP cost per lava placement — cheaper with more raw will
+        // LP cost per lava placement — cheaper with more raw Spiritus
         int lavaCost = will.hasDefault() ? Math.max(0, BASE_LAVA_COST - (int) will.getDefault()) : BASE_LAVA_COST;
         if (lavaCost == 0) lavaCost = 1; // Minimum 1 LP
 
@@ -83,7 +83,7 @@ public class RitualLava extends Ritual {
         double vengefulUsed = 0;
         double steadfastUsed = 0;
 
-        // --- TANK FILLING: Fill fluid tanks with lava when raw will is present ---
+        // --- TANK FILLING: Fill fluid tanks with lava when raw Spiritus is present ---
         if (will.hasDefault()) {
             List<BlockPos> tankPositions = RitualHelper.getRangePositions(ctx.master(), this, TANK_RANGE, masterPos);
             for (BlockPos tankPos : tankPositions) {
@@ -157,10 +157,10 @@ public class RitualLava extends Ritual {
             ctx.syphon(lavaCost * totalEffects);
         }
 
-        will.use(EnumWillType.DEFAULT, rawUsed);
-        will.use(EnumWillType.CORROSIVE, corrosiveUsed);
-        will.use(EnumWillType.VENGEFUL, vengefulUsed);
-        will.use(EnumWillType.STEADFAST, steadfastUsed);
+        will.use(SpiritusType.DEFAULT, rawUsed);
+        will.use(SpiritusType.CORROSIVE, corrosiveUsed);
+        will.use(SpiritusType.VENGEFUL, vengefulUsed);
+        will.use(SpiritusType.STEADFAST, steadfastUsed);
         will.drain(ctx.level(), masterPos);
     }
 

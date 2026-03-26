@@ -12,7 +12,7 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
@@ -29,7 +29,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
             Codec.DOUBLE.fieldOf("drain").forGetter(ForgeRecipe::getDrain),
             Codec.list(Ingredient.CODEC_NONEMPTY).fieldOf("inputs").forGetter(ForgeRecipe::getCraftingIngredients),
             ItemStack.CODEC.fieldOf("output").forGetter(ForgeRecipe::getOutput),
-            EnumWillType.CODEC.optionalFieldOf("willType").forGetter(ForgeRecipe::getWillType)
+            SpiritusType.CODEC.optionalFieldOf("willType").forGetter(ForgeRecipe::getWillType)
     ).apply(instance, ForgeRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ForgeRecipe> STREAM_CODEC = StreamCodec.composite(
@@ -37,15 +37,15 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
             ByteBufCodecs.DOUBLE, ForgeRecipe::getDrain,
             Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), ForgeRecipe::getCraftingIngredients,
             ItemStack.STREAM_CODEC, ForgeRecipe::getOutput,
-            EnumWillType.STREAM_CODEC.apply(ByteBufCodecs::optional), ForgeRecipe::getWillType,
+            SpiritusType.STREAM_CODEC.apply(ByteBufCodecs::optional), ForgeRecipe::getWillType,
             ForgeRecipe::new
     );
     public final double minWill;
     public final double usedWill;
     public final List<Ingredient> ingredients;
     public final ItemStack resultItem;
-    public final Optional<EnumWillType> willType;
-    public ForgeRecipe(double minWill, double usedWill, List<Ingredient> ingredients, ItemStack resultItem, Optional<EnumWillType> willType) {
+    public final Optional<SpiritusType> willType;
+    public ForgeRecipe(double minWill, double usedWill, List<Ingredient> ingredients, ItemStack resultItem, Optional<SpiritusType> willType) {
         this.minWill = minWill;
         this.usedWill = usedWill;
         this.ingredients = ingredients;
@@ -58,7 +58,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
         if (input.size() != ingredients.size()) {
             return false;
         }
-        EnumWillType will = input.getGem().getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT);
+        SpiritusType will = input.getGem().getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT);
         if (willType.isPresent() && willType.get() != will) {
             return false;
         }
@@ -88,14 +88,14 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
     @Override
     public ItemStack assemble(ForgeInput input, HolderLookup.Provider registries) {
         ItemStack gemStack = input.getGem();
-        double will = gemStack.getOrDefault(NVDataComponents.DEMON_WILL_AMOUNT, 0D);
+        double will = gemStack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
         if (will < minWill) {
             return ItemStack.EMPTY;
         }
         ItemStack outStack = resultItem.copy();
-        if (outStack.is(NVTags.Items.SOUL_GEM) && input.getGemIndex() != HellfireForgeBlockEntity.GEM_SLOT) {
-            outStack.set(NVDataComponents.DEMON_WILL_AMOUNT, will - usedWill);
-            outStack.set(NVDataComponents.DEMON_WILL_TYPE, gemStack.get(NVDataComponents.DEMON_WILL_TYPE));
+        if (outStack.is(NVTags.Items.SPIRITUS_GEM) && input.getGemIndex() != HellfireForgeBlockEntity.GEM_SLOT) {
+            outStack.set(NVDataComponents.SPIRITUS_AMOUNT, will - usedWill);
+            outStack.set(NVDataComponents.SPIRITUS_TYPE, gemStack.get(NVDataComponents.SPIRITUS_TYPE));
         }
 
         return outStack;
@@ -137,7 +137,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
         return resultItem;
     }
 
-    public Optional<EnumWillType> getWillType() {
+    public Optional<SpiritusType> getWillType() {
         return willType;
     }
 }

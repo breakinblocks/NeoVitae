@@ -7,7 +7,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.datagen.book.alchemy_array.AlchemyArraysCategory;
 import com.breakinblocks.neovitae.datagen.book.tabula_vitae.TabulaVitaeCategory;
 import com.breakinblocks.neovitae.datagen.book.altar.AltarCategory;
-import com.breakinblocks.neovitae.datagen.book.demon_will.DemonWillCategory;
+import com.breakinblocks.neovitae.datagen.book.spiritus.SpiritusCategory;
 import com.breakinblocks.neovitae.datagen.book.dungeons.DungeonsCategory;
 import com.breakinblocks.neovitae.datagen.book.rituals.RitualsCategory;
 import com.breakinblocks.neovitae.datagen.book.utility.UtilityCategory;
@@ -39,7 +39,7 @@ public class NVBookProvider extends SingleBookSubProvider {
         this.add(new AlchemyArraysCategory(this).generate());
         this.add(new TabulaVitaeCategory(this).generate());
         this.add(new AltarCategory(this).generate());
-        this.add(new DemonWillCategory(this).generate());
+        this.add(new SpiritusCategory(this).generate());
         this.add(new DungeonsCategory(this).generate());
         this.add(new RitualsCategory(this).generate());
         this.add(new UtilityCategory(this).generate());

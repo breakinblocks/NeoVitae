@@ -33,7 +33,7 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.LEG_ARMOR).add(NVItems.LIVING_LEGGINGS.get());
         tag(ItemTags.FOOT_ARMOR).add(NVItems.LIVING_BOOTS.get());
 
-        tag(NVTags.Items.DEMON_CRYSTALS)
+        tag(NVTags.Items.SPIRITUS_CRYSTALS)
                 .add(NVItems.RAW_CRYSTAL.get())
                 .add(NVItems.CORROSIVE_CRYSTAL.get())
                 .add(NVItems.DESTRUCTIVE_CRYSTAL.get())

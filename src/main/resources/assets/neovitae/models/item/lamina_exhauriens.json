@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "neovitae:item/lamina_exhauriens"
+    "layer0": "neovitae:item/dagger_of_sacrifice"
   }
 }

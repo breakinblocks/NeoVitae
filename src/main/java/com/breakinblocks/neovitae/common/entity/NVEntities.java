@@ -16,17 +16,17 @@ import com.breakinblocks.neovitae.common.entity.projectile.EntityPotionFlask;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityShapedCharge;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityThrowingDagger;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityThrowingDaggerSyringe;
-import com.breakinblocks.neovitae.common.entity.projectile.SoulSnareEntity;
+import com.breakinblocks.neovitae.common.entity.projectile.SpiritusSnareEntity;
 
 public class NVEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Registries.ENTITY_TYPE, NeoVitae.MODID);
 
-    public static final DeferredHolder<EntityType<?>, EntityType<SoulSnareEntity>> SOUL_SNARE = ENTITIES.register("soul_snare",
-            () -> EntityType.Builder.<SoulSnareEntity>of(SoulSnareEntity::new, MobCategory.MISC)
+    public static final DeferredHolder<EntityType<?>, EntityType<SpiritusSnareEntity>> SPIRITUS_SNARE = ENTITIES.register("spiritus_snare",
+            () -> EntityType.Builder.<SpiritusSnareEntity>of(SpiritusSnareEntity::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .updateInterval(10)
-                    .build("soul_snare"));
+                    .build("spiritus_snare"));
 
     public static final DeferredHolder<EntityType<?>, EntityType<EntityBloodLight>> BLOOD_LIGHT = ENTITIES.register("blood_light",
             () -> EntityType.Builder.<EntityBloodLight>of(EntityBloodLight::new, MobCategory.MISC)

@@ -45,9 +45,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
-import com.breakinblocks.neovitae.will.PlayerDemonWillHandler;
+import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -55,7 +55,7 @@ import java.util.Set;
 
 /**
  * Base class for throwing dagger projectiles.
- * Handles arrow-like behavior with potion effects and demon will collection.
+ * Handles arrow-like behavior with potion effects and spiritus collection.
  */
 @OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
 public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjectile implements ItemSupplier {
@@ -77,7 +77,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
     private List<Entity> hitEntities;
 
     private double willDrop = 0;
-    private EnumWillType willType = EnumWillType.DEFAULT;
+    private SpiritusType willType = SpiritusType.DEFAULT;
 
     private final Set<MobEffectInstance> effects = Sets.newHashSet();
 
@@ -127,7 +127,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         return this.willDrop * hp / 20D;
     }
 
-    public void setWillType(EnumWillType type) {
+    public void setWillType(SpiritusType type) {
         this.willType = type;
     }
 
@@ -333,12 +333,12 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         if (entity.hurt(damageSource, (float) dmg)) {
             if (!entity.isAlive() && owner instanceof Player playerOwner && entity instanceof LivingEntity living) {
                 double willAmount = this.getWillDropForMobHealth(living.getMaxHealth());
-                double bonusDemonWill = playerOwner.getAttributeValue(NVAttributes.BONUS_DEMON_WILL);
-                if (bonusDemonWill > 0) {
-                    willAmount *= (1 + bonusDemonWill / 100);
+                double bonusSpiritus = playerOwner.getAttributeValue(NVAttributes.BONUS_SPIRITUS);
+                if (bonusSpiritus > 0) {
+                    willAmount *= (1 + bonusSpiritus / 100);
                 }
                 if (willAmount > 0) {
-                    PlayerDemonWillHandler.addDemonWill(willType, playerOwner, willAmount);
+                    PlayerSpiritusHandler.addSpiritus(willType, playerOwner, willAmount);
                 }
             }
 
@@ -510,7 +510,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         }
         this.willDrop = compound.getDouble("willDrop");
         String willTypeName = compound.getString("willType");
-        this.willType = willTypeName.isEmpty() ? EnumWillType.DEFAULT : EnumWillType.valueOf(willTypeName.toUpperCase());
+        this.willType = willTypeName.isEmpty() ? SpiritusType.DEFAULT : SpiritusType.valueOf(willTypeName.toUpperCase());
 
         if (compound.contains("CustomPotionEffects", 9)) {
             ListTag effectList = compound.getList("CustomPotionEffects", 10);

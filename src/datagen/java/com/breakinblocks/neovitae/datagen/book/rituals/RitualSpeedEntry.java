@@ -38,8 +38,8 @@ public class RitualSpeedEntry extends EntryProvider {
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Resonance");
-        this.pageText("- [#](8B0000)Raw Will[#](): Heightens the swiftness granted."
+        this.pageTitle("Spiritus Resonance");
+        this.pageText("- [#](8B0000)Raw Spiritus[#](): Heightens the swiftness granted."
                 + "\n\n- [#](8B0000)Corrosive Will[#](): Afflicts hostile creatures with Slowness."
                 + "\n\n- [#](8B0000)Vengeful Will[#](): Bestows Haste upon practitioners."
                 + "\n\n- [#](8B0000)Destructive Will[#](): Amplifies the effect at higher will concentrations."

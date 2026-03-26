@@ -6,9 +6,9 @@ import com.breakinblocks.neovitae.api.incense.ITranquilityHandler;
 import com.breakinblocks.neovitae.api.incense.TranquilityHandler;
 import com.breakinblocks.neovitae.api.living.ILivingArmorManager;
 import com.breakinblocks.neovitae.api.soul.IAnima;
-import com.breakinblocks.neovitae.api.will.DemonWillHandler;
-import com.breakinblocks.neovitae.api.will.IDemonWillHandler;
-import com.breakinblocks.neovitae.api.will.IPlayerDemonWillHandler;
+import com.breakinblocks.neovitae.api.will.SpiritusHandler;
+import com.breakinblocks.neovitae.api.will.ISpiritusHandler;
+import com.breakinblocks.neovitae.api.will.IPlayerSpiritusHandler;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import javax.annotation.Nullable;
@@ -45,13 +45,13 @@ public class NeoVitaeAPIImpl implements INeoVitaeAPI {
     }
 
     @Override
-    public IDemonWillHandler getDemonWillHandler() {
-        return DemonWillHandler.INSTANCE;
+    public ISpiritusHandler getSpiritusHandler() {
+        return SpiritusHandler.INSTANCE;
     }
 
     @Override
-    public IPlayerDemonWillHandler getPlayerWillHandler() {
-        return PlayerDemonWillHandlerImpl.INSTANCE;
+    public IPlayerSpiritusHandler getPlayerWillHandler() {
+        return PlayerSpiritusHandlerImpl.INSTANCE;
     }
 
     @Override

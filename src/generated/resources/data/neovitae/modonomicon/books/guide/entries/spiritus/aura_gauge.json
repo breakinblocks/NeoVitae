@@ -1,0 +1,76 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "spiritus",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "spiritus/aura"
+  },
+  "description": "book.neovitae.guide.spiritus.aura_gauge.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:spiritus_gauge"
+  },
+  "name": "book.neovitae.guide.spiritus.aura_gauge.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.aura_gauge.intro.text",
+      "title": "book.neovitae.guide.spiritus.aura_gauge.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.aura_gauge.recipe.text",
+      "title": "book.neovitae.guide.spiritus.aura_gauge.recipe.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "images": [
+        "neovitae:images/entries/spiritus/spiritus_aura_gauge.png"
+      ],
+      "text": "",
+      "title": "Aura Gauge Overlay",
+      "use_legacy_rendering": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.aura_gauge.details.text",
+      "title": "",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "spiritus/aura",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 7,
+  "x": -10,
+  "y": 2
+}

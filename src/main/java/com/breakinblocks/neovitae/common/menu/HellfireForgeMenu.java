@@ -27,7 +27,7 @@ public class HellfireForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBloc
         this.addSlot(new SlotItemHandler(tile.inv, HellfireForgeBlockEntity.GEM_SLOT, 152, 51) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.has(NVDataComponents.DEMON_WILL_AMOUNT);
+                return stack.has(NVDataComponents.SPIRITUS_AMOUNT);
             }
         });
 
@@ -56,7 +56,7 @@ public class HellfireForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBloc
             }
             slot.onQuickCraft(slotStack, originalCopy);
         } else if (isPlayerSlot(index)) {
-            if (slotStack.has(NVDataComponents.DEMON_WILL_AMOUNT)) {
+            if (slotStack.has(NVDataComponents.SPIRITUS_AMOUNT)) {
                 if (!moveToTileSlots(slotStack, 4, 5)) {
                     return false;
                 }

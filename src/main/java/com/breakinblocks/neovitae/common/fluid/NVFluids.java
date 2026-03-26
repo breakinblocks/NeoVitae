@@ -56,16 +56,16 @@ public class NVFluids {
         return new BaseFlowingFluid.Properties(ESSENTIA_VITAE_TYPE, ESSENTIA_VITAE_SOURCE, ESSENTIA_VITAE_FLOWING).bucket(ESSENTIA_VITAE_BUCKET).block(ESSENTIA_VITAE_BLOCK);
     }
 
-    public static final DeferredHolder<FluidType, FluidType> DOUBT_TYPE =
-            FLUID_TYPES.register("doubt_fluid_type", () -> createFluidType("fluid.neovitae.doubt_fluid"));
+    public static final DeferredHolder<FluidType, FluidType> ANIMATED_SPIRITUS_TYPE =
+            FLUID_TYPES.register("animated_spiritus_type", () -> createFluidType("fluid.neovitae.animated_spiritus"));
 
-    public static final DeferredHolder<Fluid, FlowingFluid> DOUBT_FLUID_SOURCE = FLUIDS.register("doubt_fluid_source", () -> new BaseFlowingFluid.Source(doubtProperties()));
-    public static final DeferredHolder<Fluid, FlowingFluid> DOUBT_FLUID_FLOWING = FLUIDS.register("doubt_fluid_flowing", () -> new BaseFlowingFluid.Flowing(doubtProperties()));
-    public static final DeferredHolder<Item, BucketItem> DOUBT_BUCKET = BUCKETS.register("doubt_bucket", () -> new BucketItem(DOUBT_FLUID_SOURCE.get(), new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
-    public static final DeferredHolder<Block, LiquidBlock> DOUBT_BLOCK = SOURCE_BLOCKS.register("doubt_block", () -> new LiquidBlock(DOUBT_FLUID_SOURCE.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
+    public static final DeferredHolder<Fluid, FlowingFluid> ANIMATED_SPIRITUS_SOURCE = FLUIDS.register("animated_spiritus_source", () -> new BaseFlowingFluid.Source(animatedSpiritusProperties()));
+    public static final DeferredHolder<Fluid, FlowingFluid> ANIMATED_SPIRITUS_FLOWING = FLUIDS.register("animated_spiritus_flowing", () -> new BaseFlowingFluid.Flowing(animatedSpiritusProperties()));
+    public static final DeferredHolder<Item, BucketItem> ANIMATED_SPIRITUS_BUCKET = BUCKETS.register("animated_spiritus_bucket", () -> new BucketItem(ANIMATED_SPIRITUS_SOURCE.get(), new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final DeferredHolder<Block, LiquidBlock> ANIMATED_SPIRITUS_BLOCK = SOURCE_BLOCKS.register("animated_spiritus_block", () -> new LiquidBlock(ANIMATED_SPIRITUS_SOURCE.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
 
-    private static BaseFlowingFluid.Properties doubtProperties() {
-        return new BaseFlowingFluid.Properties(DOUBT_TYPE, DOUBT_FLUID_SOURCE, DOUBT_FLUID_FLOWING).bucket(DOUBT_BUCKET).block(DOUBT_BLOCK);
+    private static BaseFlowingFluid.Properties animatedSpiritusProperties() {
+        return new BaseFlowingFluid.Properties(ANIMATED_SPIRITUS_TYPE, ANIMATED_SPIRITUS_SOURCE, ANIMATED_SPIRITUS_FLOWING).bucket(ANIMATED_SPIRITUS_BUCKET).block(ANIMATED_SPIRITUS_BLOCK);
     }
 
     private static void registerClientExtensions(RegisterClientExtensionsEvent event) {
@@ -84,14 +84,14 @@ public class NVFluids {
         event.registerFluidType(new IClientFluidTypeExtensions() {
             @Override
             public ResourceLocation getStillTexture() {
-                return ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "block/liquid_doubt_still");
+                return ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "block/animated_spiritus_still");
             }
 
             @Override
             public ResourceLocation getFlowingTexture() {
-                return ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "block/liquid_doubt_flowing");
+                return ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "block/animated_spiritus_flowing");
             }
-        }, DOUBT_TYPE);
+        }, ANIMATED_SPIRITUS_TYPE);
     }
 
     public static void register(IEventBus modBus) {

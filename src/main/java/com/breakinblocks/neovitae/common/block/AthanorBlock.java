@@ -29,13 +29,13 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.AthanorBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 public class AthanorBlock extends Block implements EntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
-    public static final EnumProperty<EnumWillType> TYPE = EnumProperty.create("type", EnumWillType.class);
+    public static final EnumProperty<SpiritusType> TYPE = EnumProperty.create("type", SpiritusType.class);
 
     public AthanorBlock() {
         super(Properties.ofFullCopy(Blocks.FURNACE));
@@ -54,7 +54,7 @@ public class AthanorBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(LIT, false).setValue(TYPE, EnumWillType.DEFAULT).setValue(FACING, context.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState().setValue(LIT, false).setValue(TYPE, SpiritusType.DEFAULT).setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override

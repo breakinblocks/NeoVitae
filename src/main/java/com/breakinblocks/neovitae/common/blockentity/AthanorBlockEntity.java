@@ -32,7 +32,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.menu.AthanorMenu;
 import com.breakinblocks.neovitae.common.block.AthanorBlock;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipeInput;
@@ -309,7 +309,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     }
 
     public void updateType() {
-        EnumWillType type = arcInv.getStackInSlot(TOOL_SLOT).getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT);
+        SpiritusType type = arcInv.getStackInSlot(TOOL_SLOT).getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT);
         if (getBlockState().getValue(AthanorBlock.TYPE) != type) {
             level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState().setValue(AthanorBlock.TYPE, type), Block.UPDATE_ALL);
         }

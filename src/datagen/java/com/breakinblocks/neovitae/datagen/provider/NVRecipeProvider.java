@@ -74,8 +74,8 @@ public class NVRecipeProvider extends RecipeProvider {
     }
 
     private void addVanillaCraftingRecipes(RecipeOutput output) {
-        // Lamina Maleficus - diagonal dagger shape
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, NVItems.LAMINA_MALEFICUS.get())
+        // Sacrificial Dagger - diagonal dagger shape
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, NVItems.SACRIFICIAL_DAGGER.get())
                 .pattern("ggg")
                 .pattern(" Gg")
                 .pattern("i g")
@@ -686,23 +686,23 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("ethereal_slate"));
 
         // Additional Ara Vitae recipes
-        AltarRecipeBuilder.build(NVItems.SOUL_SNARE.get())
+        AltarRecipeBuilder.build(NVItems.SPIRITUS_SNARE.get())
                 .from(Tags.Items.STRINGS)
                 .minTier(0)
                 .bloodNeeded(500)
                 .consumption(5)
                 .drain(1)
                 .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
-                .save(output, NeoVitae.rl("soul_snare"));
+                .save(output, NeoVitae.rl("spiritus_snare"));
 
-        AltarRecipeBuilder.build(NVItems.LAMINA_EXHAURIENS.get())
+        AltarRecipeBuilder.build(NVItems.DAGGER_OF_SACRIFICE.get())
                 .from(Items.IRON_SWORD)
                 .minTier(1)
                 .bloodNeeded(3000)
                 .consumption(5)
                 .drain(5)
                 .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
-                .save(output, NeoVitae.rl("lamina_exhauriens"));
+                .save(output, NeoVitae.rl("dagger_of_sacrifice"));
 
         AltarRecipeBuilder.build(NVFluids.ESSENTIA_VITAE_BUCKET.get())
                 .from(Items.BUCKET)
@@ -802,48 +802,48 @@ public class NVRecipeProvider extends RecipeProvider {
 
     private void addHellfireForgeRecipes(RecipeOutput output) {
         // Petty Soul Gem - redstone dust, gold ingot, glass, lapis gem
-        HellfireForgeRecipeBuilder.build(NVItems.SOUL_GEM_PETTY.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SPIRITUS_GEM_PETTY.get())
                 .requires(Tags.Items.DUSTS_REDSTONE)
                 .requires(Tags.Items.INGOTS_GOLD)
                 .requires(Tags.Items.GLASS_BLOCKS)
                 .requires(Tags.Items.GEMS_LAPIS)
                 .minWill(1)
                 .drain(1)
-                .unlockedBy("has_raw_will", has(NVItems.RAW_WILL.get()))
-                .save(output, NeoVitae.rl("soul_gem_petty"));
+                .unlockedBy("has_raw_will", has(NVItems.RAW_SPIRITUS.get()))
+                .save(output, NeoVitae.rl("spiritus_gem_petty"));
 
         // Lesser Soul Gem - petty gem, diamond, redstone block, lapis block
-        HellfireForgeRecipeBuilder.build(NVItems.SOUL_GEM_LESSER.get())
-                .requires(NVItems.SOUL_GEM_PETTY.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SPIRITUS_GEM_LESSER.get())
+                .requires(NVItems.SPIRITUS_GEM_PETTY.get())
                 .requires(Tags.Items.GEMS_DIAMOND)
                 .requires(Tags.Items.STORAGE_BLOCKS_REDSTONE)
                 .requires(Tags.Items.STORAGE_BLOCKS_LAPIS)
                 .minWill(60)
                 .drain(20)
-                .unlockedBy("has_petty_gem", has(NVItems.SOUL_GEM_PETTY.get()))
-                .save(output, NeoVitae.rl("soul_gem_lesser"));
+                .unlockedBy("has_petty_gem", has(NVItems.SPIRITUS_GEM_PETTY.get()))
+                .save(output, NeoVitae.rl("spiritus_gem_lesser"));
 
         // Common Soul Gem - lesser gem, diamond, gold block, imbued slate
-        HellfireForgeRecipeBuilder.build(NVItems.SOUL_GEM_COMMON.get())
-                .requires(NVItems.SOUL_GEM_LESSER.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SPIRITUS_GEM_COMMON.get())
+                .requires(NVItems.SPIRITUS_GEM_LESSER.get())
                 .requires(Tags.Items.GEMS_DIAMOND)
                 .requires(Tags.Items.STORAGE_BLOCKS_GOLD)
                 .requires(NVItems.SLATE_IMBUED.get())
                 .minWill(240)
                 .drain(50)
-                .unlockedBy("has_lesser_gem", has(NVItems.SOUL_GEM_LESSER.get()))
-                .save(output, NeoVitae.rl("soul_gem_common"));
+                .unlockedBy("has_lesser_gem", has(NVItems.SPIRITUS_GEM_LESSER.get()))
+                .save(output, NeoVitae.rl("spiritus_gem_common"));
 
         // Greater Soul Gem - common gem, demonic slate, weak blood shard, demon crystal
-        HellfireForgeRecipeBuilder.build(NVItems.SOUL_GEM_GREATER.get())
-                .requires(NVItems.SOUL_GEM_COMMON.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SPIRITUS_GEM_GREATER.get())
+                .requires(NVItems.SPIRITUS_GEM_COMMON.get())
                 .requires(NVItems.SLATE_DEMONIC.get())
                 .requires(NVItems.WEAK_BLOOD_SHARD.get())
-                .requires(NVTags.Items.DEMON_CRYSTALS)
+                .requires(NVTags.Items.SPIRITUS_CRYSTALS)
                 .minWill(1000)
                 .drain(100)
-                .unlockedBy("has_common_gem", has(NVItems.SOUL_GEM_COMMON.get()))
-                .save(output, NeoVitae.rl("soul_gem_greater"));
+                .unlockedBy("has_common_gem", has(NVItems.SPIRITUS_GEM_COMMON.get()))
+                .save(output, NeoVitae.rl("spiritus_gem_greater"));
 
         // Note: Grand Soul Gem doesn't exist in 1.20.1 - removed
 
@@ -904,54 +904,54 @@ public class NVRecipeProvider extends RecipeProvider {
         HellfireForgeRecipeBuilder.build(NVItems.TRAINING_BRACELET.get())
                 .requires(Items.GOLD_INGOT, 2)
                 .requires(Items.STRING)
-                .requires(NVItems.RAW_WILL.get())
+                .requires(NVItems.RAW_SPIRITUS.get())
                 .minWill(10)
                 .drain(5)
-                .unlockedBy("has_raw_will", has(NVItems.RAW_WILL.get()))
+                .unlockedBy("has_raw_will", has(NVItems.RAW_SPIRITUS.get()))
                 .save(output, NeoVitae.rl("training_bracelet"));
 
         // Sentient Tools
         HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_SWORD.get())
-                .requires(NVItems.SOUL_GEM_PETTY.get())
+                .requires(NVItems.SPIRITUS_GEM_PETTY.get())
                 .requires(Items.IRON_SWORD)
                 .minWill(0)
                 .drain(0)
-                .unlockedBy("has_petty_gem", has(NVItems.SOUL_GEM_PETTY.get()))
+                .unlockedBy("has_petty_gem", has(NVItems.SPIRITUS_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_sword"));
 
         HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_AXE.get())
-                .requires(NVItems.SOUL_GEM_PETTY.get())
+                .requires(NVItems.SPIRITUS_GEM_PETTY.get())
                 .requires(Items.IRON_AXE)
                 .minWill(0)
                 .drain(0)
-                .unlockedBy("has_petty_gem", has(NVItems.SOUL_GEM_PETTY.get()))
+                .unlockedBy("has_petty_gem", has(NVItems.SPIRITUS_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_axe"));
 
         HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_PICKAXE.get())
-                .requires(NVItems.SOUL_GEM_PETTY.get())
+                .requires(NVItems.SPIRITUS_GEM_PETTY.get())
                 .requires(Items.IRON_PICKAXE)
                 .minWill(0)
                 .drain(0)
-                .unlockedBy("has_petty_gem", has(NVItems.SOUL_GEM_PETTY.get()))
+                .unlockedBy("has_petty_gem", has(NVItems.SPIRITUS_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_pickaxe"));
 
         HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_SHOVEL.get())
-                .requires(NVItems.SOUL_GEM_PETTY.get())
+                .requires(NVItems.SPIRITUS_GEM_PETTY.get())
                 .requires(Items.IRON_SHOVEL)
                 .minWill(0)
                 .drain(0)
-                .unlockedBy("has_petty_gem", has(NVItems.SOUL_GEM_PETTY.get()))
+                .unlockedBy("has_petty_gem", has(NVItems.SPIRITUS_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_shovel"));
 
         HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_SCYTHE.get())
-                .requires(NVItems.SOUL_GEM_PETTY.get())
+                .requires(NVItems.SPIRITUS_GEM_PETTY.get())
                 .requires(Items.IRON_HOE)
                 .minWill(0)
                 .drain(0)
-                .unlockedBy("has_petty_gem", has(NVItems.SOUL_GEM_PETTY.get()))
+                .unlockedBy("has_petty_gem", has(NVItems.SPIRITUS_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_scythe"));
 
-        // Demon Will Blocks
+        // Spiritus Blocks
         HellfireForgeRecipeBuilder.build(NVBlocks.VAS_MALEFICUM.block().get())
                 .requires(Items.CAULDRON)
                 .requires(Tags.Items.STONES)
@@ -959,7 +959,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(Tags.Items.GEMS_DIAMOND)
                 .minWill(400)
                 .drain(100)
-                .unlockedBy("has_common_gem", has(NVItems.SOUL_GEM_COMMON.get()))
+                .unlockedBy("has_common_gem", has(NVItems.SPIRITUS_GEM_COMMON.get()))
                 .save(output, NeoVitae.rl("vas_maleficum"));
 
         HellfireForgeRecipeBuilder.build(NVBlocks.CRYSTALLARIUM_MALEFICUM.block().get())
@@ -973,50 +973,50 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("crystallarium_maleficum"));
 
         HellfireForgeRecipeBuilder.build(NVBlocks.SPIRA_INFERNALIS.block().get())
-                .requires(NVTags.Items.DEMON_CRYSTALS)
+                .requires(NVTags.Items.SPIRITUS_CRYSTALS)
                 .requires(Tags.Items.STONES)
                 .requires(Tags.Items.GEMS_LAPIS)
                 .requires(Tags.Items.STORAGE_BLOCKS_IRON)
                 .minWill(400)
                 .drain(50)
-                .unlockedBy("has_demon_crystal", has(NVItems.RAW_CRYSTAL.get()))
+                .unlockedBy("has_spiritus_crystal", has(NVItems.RAW_CRYSTAL.get()))
                 .save(output, NeoVitae.rl("spira_infernalis"));
 
         // Crystal Blocks
-        HellfireForgeRecipeBuilder.build(NVBlocks.RAW_DEMON_CRYSTAL.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get())
                 .requires(NVItems.RAW_CRYSTAL.get(), 4)
                 .minWill(1200)
                 .drain(100)
                 .unlockedBy("has_raw_crystal", has(NVItems.RAW_CRYSTAL.get()))
-                .save(output, NeoVitae.rl("raw_demon_crystal"));
+                .save(output, NeoVitae.rl("raw_spiritus_crystal"));
 
-        HellfireForgeRecipeBuilder.build(NVBlocks.CORROSIVE_DEMON_CRYSTAL.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block().get())
                 .requires(NVItems.CORROSIVE_CRYSTAL.get(), 4)
                 .minWill(1200)
                 .drain(100)
                 .unlockedBy("has_corrosive_crystal", has(NVItems.CORROSIVE_CRYSTAL.get()))
-                .save(output, NeoVitae.rl("corrosive_demon_crystal"));
+                .save(output, NeoVitae.rl("corrosive_spiritus_crystal"));
 
-        HellfireForgeRecipeBuilder.build(NVBlocks.DESTRUCTIVE_DEMON_CRYSTAL.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block().get())
                 .requires(NVItems.DESTRUCTIVE_CRYSTAL.get(), 4)
                 .minWill(1200)
                 .drain(100)
                 .unlockedBy("has_destructive_crystal", has(NVItems.DESTRUCTIVE_CRYSTAL.get()))
-                .save(output, NeoVitae.rl("destructive_demon_crystal"));
+                .save(output, NeoVitae.rl("destructive_spiritus_crystal"));
 
-        HellfireForgeRecipeBuilder.build(NVBlocks.VENGEFUL_DEMON_CRYSTAL.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().get())
                 .requires(NVItems.VENGEFUL_CRYSTAL.get(), 4)
                 .minWill(1200)
                 .drain(100)
                 .unlockedBy("has_vengeful_crystal", has(NVItems.VENGEFUL_CRYSTAL.get()))
-                .save(output, NeoVitae.rl("vengeful_demon_crystal"));
+                .save(output, NeoVitae.rl("vengeful_spiritus_crystal"));
 
-        HellfireForgeRecipeBuilder.build(NVBlocks.STEADFAST_DEMON_CRYSTAL.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().get())
                 .requires(NVItems.STEADFAST_CRYSTAL.get(), 4)
                 .minWill(1200)
                 .drain(100)
                 .unlockedBy("has_steadfast_crystal", has(NVItems.STEADFAST_CRYSTAL.get()))
-                .save(output, NeoVitae.rl("steadfast_demon_crystal"));
+                .save(output, NeoVitae.rl("steadfast_spiritus_crystal"));
 
         // Routing Nodes
         HellfireForgeRecipeBuilder.build(NVBlocks.ROUTING_NODE.block().get())
@@ -1025,7 +1025,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(Tags.Items.GLASS_BLOCKS)
                 .minWill(100)
                 .drain(5)
-                .unlockedBy("has_lesser_gem", has(NVItems.SOUL_GEM_LESSER.get()))
+                .unlockedBy("has_lesser_gem", has(NVItems.SPIRITUS_GEM_LESSER.get()))
                 .save(output, NeoVitae.rl("routing_node"));
 
         HellfireForgeRecipeBuilder.build(NVBlocks.INPUT_ROUTING_NODE.block().get())
@@ -1082,16 +1082,16 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_routing_node", has(NVBlocks.ROUTING_NODE.block().get()))
                 .save(output, NeoVitae.rl("node_router"));
 
-        // Demon Will Gauge
-        HellfireForgeRecipeBuilder.build(NVItems.DEMON_WILL_GAUGE.get())
+        // Spiritus Gauge
+        HellfireForgeRecipeBuilder.build(NVItems.SPIRITUS_GAUGE.get())
                 .requires(Tags.Items.INGOTS_GOLD)
                 .requires(Tags.Items.DUSTS_REDSTONE)
                 .requires(Tags.Items.GLASS_BLOCKS)
-                .requires(NVTags.Items.DEMON_CRYSTALS)
+                .requires(NVTags.Items.SPIRITUS_CRYSTALS)
                 .minWill(400)
                 .drain(50)
-                .unlockedBy("has_demon_crystal", has(NVItems.RAW_CRYSTAL.get()))
-                .save(output, NeoVitae.rl("demon_will_gauge"));
+                .unlockedBy("has_spiritus_crystal", has(NVItems.RAW_CRYSTAL.get()))
+                .save(output, NeoVitae.rl("spiritus_gauge"));
 
         // Sanguine Reverter (soul forge recipe)
         HellfireForgeRecipeBuilder.build(NVItems.SANGUINE_REVERTER.get())
@@ -1143,7 +1143,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(Tags.Items.STRINGS)
                 .minWill(32)
                 .drain(5)
-                .unlockedBy("has_lesser_gem", has(NVItems.SOUL_GEM_LESSER.get()))
+                .unlockedBy("has_lesser_gem", has(NVItems.SPIRITUS_GEM_LESSER.get()))
                 .save(output, NeoVitae.rl("throwing_dagger"));
 
         // Amethyst throwing dagger: 2 copper + 1 amethyst, 32 will min, 2 drain, makes 16
@@ -1152,7 +1152,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(Tags.Items.GEMS_AMETHYST)
                 .minWill(32)
                 .drain(2)
-                .unlockedBy("has_lesser_gem", has(NVItems.SOUL_GEM_LESSER.get()))
+                .unlockedBy("has_lesser_gem", has(NVItems.SPIRITUS_GEM_LESSER.get()))
                 .save(output, NeoVitae.rl("throwing_dagger_amethyst"));
 
         // Syringe throwing dagger: 1 amethyst dagger + 1 bottle, 200 will min, 10 drain, makes 1
@@ -1170,7 +1170,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(Tags.Items.NUGGETS_GOLD)
                 .minWill(100)
                 .drain(10)
-                .unlockedBy("has_lesser_gem", has(NVItems.SOUL_GEM_LESSER.get()))
+                .unlockedBy("has_lesser_gem", has(NVItems.SPIRITUS_GEM_LESSER.get()))
                 .save(output, NeoVitae.rl("simple_key"));
 
         HellfireForgeRecipeBuilder.build(NVItems.MINE_KEY.get())
@@ -1178,7 +1178,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(Tags.Items.GEMS_DIAMOND)
                 .minWill(200)
                 .drain(25)
-                .unlockedBy("has_common_gem", has(NVItems.SOUL_GEM_COMMON.get()))
+                .unlockedBy("has_common_gem", has(NVItems.SPIRITUS_GEM_COMMON.get()))
                 .save(output, NeoVitae.rl("mine_key"));
 
         // Crystal Catalysts - nether_wart + tau_oil + sulfur + unique_seed

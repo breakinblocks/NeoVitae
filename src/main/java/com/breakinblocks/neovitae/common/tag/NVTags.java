@@ -16,8 +16,8 @@ import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 public class NVTags {
     public static class Items {
-        public static final TagKey<Item> SOUL_GEM = tag(bm("soul_gems"));
-        public static final TagKey<Item> DEMON_CRYSTALS = tag(bm("crystals/demon"));
+        public static final TagKey<Item> SPIRITUS_GEM = tag(bm("spiritus_gems"));
+        public static final TagKey<Item> SPIRITUS_CRYSTALS = tag(bm("crystals/demon"));
 
         public static final TagKey<Item> STORAGE_BLOCKS_HELLFORGED = fromBlock(Blocks.STORAGE_BLOCKS_HELLFORGED);
 

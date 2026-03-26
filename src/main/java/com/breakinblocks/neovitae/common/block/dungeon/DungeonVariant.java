@@ -1,19 +1,19 @@
 package com.breakinblocks.neovitae.common.block.dungeon;
 
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 public enum DungeonVariant {
-    RAW("", "raw", EnumWillType.DEFAULT),
-    CORROSIVE("_c", "corrosive", EnumWillType.CORROSIVE),
-    DESTRUCTIVE("_d", "destructive", EnumWillType.DESTRUCTIVE),
-    STEADFAST("_st", "steadfast", EnumWillType.STEADFAST),
-    VENGEFUL("_v", "vengeful", EnumWillType.VENGEFUL);
+    RAW("", "raw", SpiritusType.DEFAULT),
+    CORROSIVE("_c", "corrosive", SpiritusType.CORROSIVE),
+    DESTRUCTIVE("_d", "destructive", SpiritusType.DESTRUCTIVE),
+    STEADFAST("_st", "steadfast", SpiritusType.STEADFAST),
+    VENGEFUL("_v", "vengeful", SpiritusType.VENGEFUL);
 
     private final String suffix;
     private final String name;
-    private final EnumWillType willType;
+    private final SpiritusType willType;
 
-    DungeonVariant(String suffix, String name, EnumWillType willType) {
+    DungeonVariant(String suffix, String name, SpiritusType willType) {
         this.suffix = suffix;
         this.name = name;
         this.willType = willType;
@@ -27,7 +27,7 @@ public enum DungeonVariant {
         return name;
     }
 
-    public EnumWillType getWillType() {
+    public SpiritusType getWillType() {
         return willType;
     }
 

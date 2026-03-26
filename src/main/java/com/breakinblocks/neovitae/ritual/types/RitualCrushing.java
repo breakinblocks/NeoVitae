@@ -16,10 +16,10 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.WillState;
+import com.breakinblocks.neovitae.api.will.SpiritusState;
 import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
@@ -30,7 +30,7 @@ import java.util.function.Consumer;
 /**
  * Ritual of the Crusher - Destroys blocks and collects their drops via loot tables.
  *
- * <p>Demon Will effects:
+ * <p>Spiritus effects:
  * <ul>
  *   <li><b>Raw (Default)</b> - Reduces refresh time (40 ticks scaling down with will)</li>
  *   <li><b>Steadfast</b> - Harvest with Silk Touch</li>
@@ -74,7 +74,7 @@ public class RitualCrushing extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
+        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
 
         boolean hasRaw = will.hasDefault();
         boolean doSilk = will.hasSteadfast();
@@ -156,8 +156,8 @@ public class RitualCrushing extends Ritual {
             }
         }
 
-        will.use(EnumWillType.STEADFAST, silkWillUsed);
-        will.use(EnumWillType.DESTRUCTIVE, fortuneWillUsed);
+        will.use(SpiritusType.STEADFAST, silkWillUsed);
+        will.use(SpiritusType.DESTRUCTIVE, fortuneWillUsed);
         will.drain(ctx.level(), masterPos);
 
         if (crushed) {

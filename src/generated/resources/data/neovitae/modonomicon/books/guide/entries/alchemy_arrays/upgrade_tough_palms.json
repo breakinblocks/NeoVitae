@@ -9,7 +9,7 @@
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_tough_palms.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "neovitae:lamina_maleficus"
+    "item": "neovitae:sacrificial_dagger"
   },
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_tough_palms.name",
   "pages": [

@@ -13,7 +13,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 /**
- * Resonance of the Faceted Crystal - Splits raw demon will crystals into aspected crystals.
+ * Resonance of the Faceted Crystal - Splits raw spiritus crystals into aspected crystals.
  * Takes a raw crystal 2 blocks above the MRS and creates 4 aspected crystals above elemental runes.
  * This is a Dusk tier ritual.
  */
@@ -35,7 +35,7 @@ public class RitualCrystalSplit extends Ritual {
         BlockPos crystalPos = ctx.masterPos().above(2);
         BlockState crystalState = ctx.level().getBlockState(crystalPos);
 
-        if (!crystalState.is(NVBlocks.RAW_DEMON_CRYSTAL.block().get())) {
+        if (!crystalState.is(NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get())) {
             // No raw crystal to split
             return;
         }
@@ -49,10 +49,10 @@ public class RitualCrystalSplit extends Ritual {
         };
 
         Block[] aspectedCrystals = {
-            NVBlocks.CORROSIVE_DEMON_CRYSTAL.block().get(),
-            NVBlocks.DESTRUCTIVE_DEMON_CRYSTAL.block().get(),
-            NVBlocks.VENGEFUL_DEMON_CRYSTAL.block().get(),
-            NVBlocks.STEADFAST_DEMON_CRYSTAL.block().get()
+            NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block().get(),
+            NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block().get(),
+            NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().get(),
+            NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().get()
         };
 
         // Check if all output positions are empty

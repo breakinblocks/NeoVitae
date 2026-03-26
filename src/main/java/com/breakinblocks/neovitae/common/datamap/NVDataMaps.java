@@ -13,8 +13,8 @@ import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
 
 public class NVDataMaps {
-    public static final DataMapType<Item, Double> TARTARIC_GEM_MAX_AMOUNTS = DataMapType.builder(
-            NeoVitae.rl("tartaric_gem_max"),
+    public static final DataMapType<Item, Double> SPIRITUS_GEM_MAX_AMOUNTS = DataMapType.builder(
+            NeoVitae.rl("spiritus_gem_max"),
             Registries.ITEM,
             Codec.DOUBLE
     ).synced(Codec.DOUBLE, true).build();
@@ -176,7 +176,7 @@ public class NVDataMaps {
     ).synced(RoutingNodeStats.CODEC, true).build();
 
     public static void register(RegisterDataMapTypesEvent event) {
-        event.register(TARTARIC_GEM_MAX_AMOUNTS);
+        event.register(SPIRITUS_GEM_MAX_AMOUNTS);
         event.register(BLOOD_ORB_STATS);
         event.register(ALTAR_RUNE_STATS);
         event.register(SIGIL_STATS);

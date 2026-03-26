@@ -8,13 +8,13 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.incense.IncenseHelper;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.WillState;
+import com.breakinblocks.neovitae.api.will.SpiritusState;
 import com.breakinblocks.neovitae.util.AltarUtil;
 
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 /**
  * Ritual of the Feathered Knife - damages nearby players to generate LP for a Ara Vitae.
  *
- * <p>Demon Will effects:
+ * <p>Spiritus effects:
  * <ul>
  *   <li><b>Raw (Default)</b> - Reduces refresh time to 10 ticks, lowers health threshold to 30%</li>
  *   <li><b>Steadfast</b> - Raises health threshold to 70% (safer for players)</li>
@@ -44,7 +44,7 @@ public class RitualFeatheredKnife extends Ritual {
     /** Cached altar offset (relative to master pos). Persisted in NBT. */
     private BlockPos altarOffsetPos = null;
 
-    /** Dynamic refresh time — 20 normally, 10 with raw will. */
+    /** Dynamic refresh time — 20 normally, 10 with raw Spiritus. */
     private int refreshTime = 20;
 
     public RitualFeatheredKnife() {
@@ -62,7 +62,7 @@ public class RitualFeatheredKnife extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
+        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
 
         refreshTime = will.hasDefault() ? 10 : 20;
 
@@ -158,8 +158,8 @@ public class RitualFeatheredKnife extends Ritual {
             altar.addSacrificeEV(totalEV, false);
         }
 
-        will.use(EnumWillType.CORROSIVE, corrosiveUsed);
-        will.use(EnumWillType.DESTRUCTIVE, destructiveUsed);
+        will.use(SpiritusType.CORROSIVE, corrosiveUsed);
+        will.use(SpiritusType.DESTRUCTIVE, destructiveUsed);
         will.drain(ctx.level(), masterPos);
     }
 

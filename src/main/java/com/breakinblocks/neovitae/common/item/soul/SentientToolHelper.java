@@ -10,9 +10,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
-import com.breakinblocks.neovitae.will.PlayerDemonWillHandler;
+import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ import java.util.List;
  *   <li>Effect duration and intensity arrays</li>
  *   <li>Soul drain and drop calculations</li>
  *   <li>On-hit effect application logic</li>
- *   <li>Demon will drop generation</li>
+ *   <li>Spiritus drop generation</li>
  *   <li>Data component access methods</li>
  * </ul>
  */
@@ -68,7 +68,7 @@ public final class SentientToolHelper {
     /**
      * Calculates the power level (0-6) based on available soul amount.
      *
-     * @param soulsRemaining the amount of demon will available
+     * @param soulsRemaining the amount of spiritus available
      * @return power level from 0-6, or -1 if below minimum threshold
      */
     public static int getLevel(double soulsRemaining) {
@@ -95,7 +95,7 @@ public final class SentientToolHelper {
      * @param target the entity being hit
      * @param attacker the attacking entity
      */
-    public static void applyEffectToEntity(EnumWillType type, int willBracket, LivingEntity target, LivingEntity attacker) {
+    public static void applyEffectToEntity(SpiritusType type, int willBracket, LivingEntity target, LivingEntity attacker) {
         if (willBracket < 0 || willBracket >= POISON_TIME.length) return;
 
         switch (type) {
@@ -117,9 +117,9 @@ public final class SentientToolHelper {
      * Gets the appropriate monster soul item for the given will type.
      *
      * @param type the will type
-     * @return the MonsterSoulItem for that type
+     * @return the SpiritusEssenceItem for that type
      */
-    public static MonsterSoulItem getSoulItemForType(EnumWillType type) {
+    public static SpiritusEssenceItem getSoulItemForType(SpiritusType type) {
         return switch (type) {
             case CORROSIVE -> NVItems.MONSTER_SOUL_CORROSIVE.get();
             case DESTRUCTIVE -> NVItems.MONSTER_SOUL_DESTRUCTIVE.get();
@@ -130,7 +130,7 @@ public final class SentientToolHelper {
     }
 
     /**
-     * Generates random demon will drops when an entity is killed with a sentient tool.
+     * Generates random spiritus drops when an entity is killed with a sentient tool.
      *
      * @param killedEntity the entity that was killed
      * @param attackingEntity the entity that made the kill
@@ -138,7 +138,7 @@ public final class SentientToolHelper {
      * @param looting the looting enchantment level
      * @return list of monster soul item stacks to drop
      */
-    public static List<ItemStack> getRandomDemonWillDrop(LivingEntity killedEntity, LivingEntity attackingEntity,
+    public static List<ItemStack> getRandomSpiritusDrop(LivingEntity killedEntity, LivingEntity attackingEntity,
             ItemStack stack, int looting) {
         List<ItemStack> soulList = new ArrayList<>();
 
@@ -151,17 +151,17 @@ public final class SentientToolHelper {
         }
 
         double willModifier = killedEntity instanceof Slime ? 0.67 : 1;
-        EnumWillType type = getCurrentType(stack);
-        MonsterSoulItem soulItem = getSoulItemForType(type);
+        SpiritusType type = getCurrentType(stack);
+        SpiritusEssenceItem soulItem = getSoulItemForType(type);
 
         double soulDropAmount = getSoulDrop(stack);
         double staticDropAmount = getStaticDrop(stack);
 
         double willBonus = 1;
         if (attackingEntity instanceof Player player) {
-            double bonusDemonWill = player.getAttributeValue(NVAttributes.BONUS_DEMON_WILL);
-            if (bonusDemonWill > 0) {
-                willBonus = 1 + bonusDemonWill / 100;
+            double bonusSpiritus = player.getAttributeValue(NVAttributes.BONUS_SPIRITUS);
+            if (bonusSpiritus > 0) {
+                willBonus = 1 + bonusSpiritus / 100;
             }
         }
 
@@ -187,25 +187,25 @@ public final class SentientToolHelper {
     public static boolean handleWillDrain(ItemStack stack, Player player) {
         double drain = getDrainAmount(stack);
         if (drain > 0) {
-            EnumWillType type = getCurrentType(stack);
-            double soulsRemaining = PlayerDemonWillHandler.getTotalDemonWill(type, player);
+            SpiritusType type = getCurrentType(stack);
+            double soulsRemaining = PlayerSpiritusHandler.getTotalSpiritus(type, player);
 
             if (drain > soulsRemaining) {
                 return true; // Cancel attack - not enough will
             } else {
-                PlayerDemonWillHandler.consumeDemonWill(type, player, drain);
+                PlayerSpiritusHandler.consumeSpiritus(type, player, drain);
             }
         }
         return false; // Continue with attack
     }
 
 
-    public static EnumWillType getCurrentType(ItemStack stack) {
-        return stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT);
+    public static SpiritusType getCurrentType(ItemStack stack) {
+        return stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT);
     }
 
-    public static void setCurrentType(ItemStack stack, EnumWillType type) {
-        stack.set(NVDataComponents.DEMON_WILL_TYPE, type);
+    public static void setCurrentType(ItemStack stack, SpiritusType type) {
+        stack.set(NVDataComponents.SPIRITUS_TYPE, type);
     }
 
     public static double getDrainAmount(ItemStack stack) {

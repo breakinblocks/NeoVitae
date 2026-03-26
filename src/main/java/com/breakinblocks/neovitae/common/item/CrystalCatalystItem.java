@@ -12,19 +12,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import com.breakinblocks.neovitae.common.block.BlockDemonCrystal;
-import com.breakinblocks.neovitae.common.blockentity.DemonCrystalBlockEntity;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.block.BlockSpiritusCrystal;
+import com.breakinblocks.neovitae.common.blockentity.SpiritusCrystalBlockEntity;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 public class CrystalCatalystItem extends Item {
 
-    private final EnumWillType type;
+    private final SpiritusType type;
     private final double injectedWill;
     private final double speedModifier;
     private final double conversionRate;
     private final double maxInjectedWill;
 
-    public CrystalCatalystItem(EnumWillType type, double injectedWill, double speedModifier, double conversionRate, double maxInjectedWill) {
+    public CrystalCatalystItem(SpiritusType type, double injectedWill, double speedModifier, double conversionRate, double maxInjectedWill) {
         super(new Properties());
         this.type = type;
         this.injectedWill = injectedWill;
@@ -40,11 +40,11 @@ public class CrystalCatalystItem extends Item {
         Level level = context.getLevel();
 
         BlockEntity tile = level.getBlockEntity(pos);
-        if (tile instanceof DemonCrystalBlockEntity crystalTile) {
+        if (tile instanceof SpiritusCrystalBlockEntity crystalTile) {
             if (!level.isClientSide) {
                 if (applyCatalyst(crystalTile)) {
                     ServerLevel server = (ServerLevel) level;
-                    ItemStack crystalStack = BlockDemonCrystal.getItemStackDropped(type, 1);
+                    ItemStack crystalStack = BlockSpiritusCrystal.getItemStackDropped(type, 1);
 
                     ItemParticleOption particleData = new ItemParticleOption(ParticleTypes.ITEM, crystalStack);
                     for (int i = 0; i < 8; ++i) {
@@ -60,7 +60,7 @@ public class CrystalCatalystItem extends Item {
         return InteractionResult.PASS;
     }
 
-    private boolean applyCatalyst(DemonCrystalBlockEntity crystalTile) {
+    private boolean applyCatalyst(SpiritusCrystalBlockEntity crystalTile) {
         if (type.equals(crystalTile.getWillType()) && (crystalTile.injectedWill + injectedWill) <= maxInjectedWill) {
             crystalTile.applyCatalyst(injectedWill, speedModifier, conversionRate);
             return true;

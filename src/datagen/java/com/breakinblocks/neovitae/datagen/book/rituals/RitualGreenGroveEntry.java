@@ -38,8 +38,8 @@ public class RitualGreenGroveEntry extends EntryProvider {
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Resonance");
-        this.pageText("- [#](8B0000)Raw Will[#](): Hastens the growth rate further."
+        this.pageTitle("Spiritus Resonance");
+        this.pageText("- [#](8B0000)Raw Spiritus[#](): Hastens the growth rate further."
                 + "\n\n- [#](8B0000)Corrosive Will[#](): Hydrates nearby farmland, ensuring fertile soil."
                 + "\n\n- [#](8B0000)Vengeful Will[#](): Causes nearby plants to spread and propagate."
                 + "\n\n- [#](8B0000)Destructive Will[#](): Intensifies the effect at higher will concentrations."

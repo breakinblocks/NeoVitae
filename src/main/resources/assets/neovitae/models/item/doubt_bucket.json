@@ -1,5 +1,5 @@
 {
   "parent": "neoforge:item/bucket_drip",
   "loader": "neoforge:fluid_container",
-  "fluid": "neovitae:doubt_fluid_type"
+  "fluid": "neovitae:animated_spiritus_type"
 }

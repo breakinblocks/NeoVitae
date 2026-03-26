@@ -38,8 +38,8 @@ public class RitualGeodeEntry extends EntryProvider {
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Resonance");
-        this.pageText("- [#](8B0000)Raw Will[#](): Hastens crystal growth."
+        this.pageTitle("Spiritus Resonance");
+        this.pageText("- [#](8B0000)Raw Spiritus[#](): Hastens crystal growth."
                 + "\n\n- [#](8B0000)Corrosive Will[#](): Enables automatic harvest of mature clusters."
                 + "\n\n- [#](8B0000)Vengeful Will[#](): Lashes out at nearby creatures."
                 + "\n\n- [#](8B0000)Destructive Will[#](): Applies a Fortune effect to harvested clusters."

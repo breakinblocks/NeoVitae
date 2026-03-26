@@ -12,13 +12,13 @@ import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.will.IDemonWillGem;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.will.ISpiritusGem;
 
 import java.util.List;
 
 /**
- * Loot function that sets the will fraction (percentage of max) on demon will gems.
+ * Loot function that sets the will fraction (percentage of max) on spiritus gems.
  */
 public class SetWillFraction extends LootItemConditionalFunction {
     private static final Logger LOGGER = LoggerFactory.getLogger(SetWillFraction.class);
@@ -43,10 +43,10 @@ public class SetWillFraction extends LootItemConditionalFunction {
 
     @Override
     protected ItemStack run(ItemStack stack, LootContext context) {
-        if (stack.getItem() instanceof IDemonWillGem gem) {
-            int maxWill = gem.getMaxWill(EnumWillType.DEFAULT, stack);
+        if (stack.getItem() instanceof ISpiritusGem gem) {
+            int maxWill = gem.getMaxWill(SpiritusType.DEFAULT, stack);
             float fraction = 1.0F - fractionRange.getFloat(context);
-            gem.setWill(EnumWillType.DEFAULT, stack, maxWill * fraction);
+            gem.setWill(SpiritusType.DEFAULT, stack, maxWill * fraction);
         } else {
             LOGGER.warn("Couldn't set will fraction of loot item {}", stack);
         }

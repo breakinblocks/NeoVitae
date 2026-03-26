@@ -40,7 +40,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "neovitae:basemonstersoul",
+          "name": "neovitae:base_spiritus_soul",
           "functions": [
             {
               "function": "minecraft:set_count",

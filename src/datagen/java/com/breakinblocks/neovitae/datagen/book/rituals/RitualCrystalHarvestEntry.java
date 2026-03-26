@@ -33,7 +33,7 @@ public class RitualCrystalHarvestEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Crystalline Reaping");
-        this.pageText("This ritual carefully shears excess spires from [#](8B0000)Demon Will Crystal Clusters[#]() within its reach, collecting the harvested shards. It works with all [#](4A0080)aspects[#]() of will — raw, corrosive, destructive, vengeful, and steadfast alike.");
+        this.pageText("This ritual carefully shears excess spires from [#](8B0000)Spiritus Crystal Clusters[#]() within its reach, collecting the harvested shards. It works with all [#](4A0080)aspects[#]() of will — raw, corrosive, destructive, vengeful, and steadfast alike.");
     }
 
     @Override

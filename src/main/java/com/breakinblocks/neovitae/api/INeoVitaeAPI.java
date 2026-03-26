@@ -5,8 +5,8 @@ import com.breakinblocks.neovitae.api.altar.rune.IAltarRuneRegistry;
 import com.breakinblocks.neovitae.api.incense.ITranquilityHandler;
 import com.breakinblocks.neovitae.api.living.ILivingArmorManager;
 import com.breakinblocks.neovitae.api.soul.IAnima;
-import com.breakinblocks.neovitae.api.will.IDemonWillHandler;
-import com.breakinblocks.neovitae.api.will.IPlayerDemonWillHandler;
+import com.breakinblocks.neovitae.api.will.ISpiritusHandler;
+import com.breakinblocks.neovitae.api.will.IPlayerSpiritusHandler;
 
 import java.util.UUID;
 
@@ -30,9 +30,9 @@ import java.util.UUID;
  * api.getRuneRegistry().registerRuneType(myCustomRuneType);
  * api.getRuneRegistry().registerRuneBlock(myRuneBlock, myCustomRuneType, 1);
  *
- * // Interact with demon will in a chunk
- * IDemonWillHandler willHandler = api.getDemonWillHandler();
- * double rawWill = willHandler.getCurrentWill(level, pos, EnumWillType.DEFAULT);
+ * // Interact with spiritus in a chunk
+ * ISpiritusHandler willHandler = api.getSpiritusHandler();
+ * double rawSpiritus = willHandler.getCurrentWill(level, pos, SpiritusType.DEFAULT);
  * }</pre>
  */
 public interface INeoVitaeAPI {
@@ -83,12 +83,12 @@ public interface INeoVitaeAPI {
     ITranquilityHandler getTranquilityHandler();
 
     /**
-     * Gets the Demon Will handler for interacting with chunk-based demon will aura.
+     * Gets the Spiritus handler for interacting with chunk-based spiritus aura.
      *
      * <p>Use this to:</p>
      * <ul>
-     *   <li>Query current demon will amounts in chunks</li>
-     *   <li>Add or drain demon will from chunks</li>
+     *   <li>Query current spiritus amounts in chunks</li>
+     *   <li>Add or drain spiritus from chunks</li>
      *   <li>Check or modify maximum will capacity (including per-chunk bonuses)</li>
      *   <li>Transfer will between chunks</li>
      * </ul>
@@ -96,16 +96,16 @@ public interface INeoVitaeAPI {
      * <p>Maximum will capacity per chunk is configurable in the server config,
      * and can be increased per-chunk via rituals or other effects.</p>
      *
-     * @return The demon will handler
+     * @return The spiritus handler
      */
-    IDemonWillHandler getDemonWillHandler();
+    ISpiritusHandler getSpiritusHandler();
 
     /**
-     * Gets the handler for managing demon will items in player inventories.
+     * Gets the handler for managing spiritus items in player inventories.
      *
-     * @return The player demon will handler
+     * @return The player spiritus handler
      */
-    IPlayerDemonWillHandler getPlayerWillHandler();
+    IPlayerSpiritusHandler getPlayerWillHandler();
 
     /**
      * Gets the current API version string.

@@ -61,17 +61,17 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Hellfire Forge (Tier I)");
-        this.pageText("The [#](8B0000)Hellfire Forge[#]() is fueled by [#](4A0080)Demon Will[#]() - "
+        this.pageText("The [#](8B0000)Hellfire Forge[#]() is fueled by [#](4A0080)Spiritus[#]() - "
                 + "that strange substance torn from slain creatures with your Soul Snares. A "
                 + "[#](8B0000)Sentient Sword[#]() harvests it far more efficiently.\\\n\\\n"
-                + "From this forge spring [#](8B0000)Tartaric Gems[#](), Sentient Tools, "
+                + "From this forge spring [#](8B0000)Spiritus Gems[#](), Sentient Tools, "
                 + "Explosive Charges, and Throwing Daggers.");
 
         this.page("tier2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Second Tier");
-        this.pageText("[#](B8860B)Tier II[#]() grants the [#](8B0000)Lamina Exhauriens[#](), a blade that lets you "
+        this.pageText("[#](B8860B)Tier II[#]() grants the [#](8B0000)Dagger of Sacrifice[#](), a blade that lets you "
                 + "harvest [#](4A0080)Essentia Vitae[#]() from slain creatures, sparing your own veins. "
                 + "Upgrade Runes become available for the Ara Vitae, and new Sigils emerge.\\\n\\\n"
                 + "As always, continue expanding and upgrading your altar. Its hunger grows with your ambition.");
@@ -158,7 +158,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Aspected Will (Tier IV)");
         this.pageText("Investigate the [#](8B0000)Ritual Tinkerer[#]() and the various "
-                + "[#](4A0080)Aspects of Demon Will[#]() now available. These aspects can refine your rituals "
+                + "[#](4A0080)Aspects of Spiritus[#]() now available. These aspects can refine your rituals "
                 + "and reshape how your Sentient Tools behave.\\\n\\\n"
                 + "To progress beyond this threshold, however, a deeper plunge into the "
                 + "[#](4A0080)Demon Realm[#]() awaits...");
@@ -211,7 +211,7 @@ public class GettingStartedEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.LAMINA_MALEFICUS.get());
+        return BookIconModel.create(NVItems.SACRIFICIAL_DAGGER.get());
     }
 
     @Override

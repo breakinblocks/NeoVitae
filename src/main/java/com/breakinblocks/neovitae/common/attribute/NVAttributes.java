@@ -23,8 +23,8 @@ public class NVAttributes {
     public static final DeferredHolder<Attribute, Attribute> BONUS_SELF_SACRIFICE = ATTRIBUTES.register("bonus_self_sacrifice",
             () -> new RangedAttribute("attribute.neovitae.bonus_self_sacrifice", 0.0D, 0.0D, 1000.0D).setSyncable(true));
 
-    public static final DeferredHolder<Attribute, Attribute> BONUS_DEMON_WILL = ATTRIBUTES.register("bonus_demon_will",
-            () -> new RangedAttribute("attribute.neovitae.bonus_demon_will", 0.0D, 0.0D, 1000.0D).setSyncable(true));
+    public static final DeferredHolder<Attribute, Attribute> BONUS_SPIRITUS = ATTRIBUTES.register("bonus_spiritus",
+            () -> new RangedAttribute("attribute.neovitae.bonus_spiritus", 0.0D, 0.0D, 1000.0D).setSyncable(true));
 
     public static final DeferredHolder<Attribute, Attribute> SIGIL_COST_REDUCTION = ATTRIBUTES.register("sigil_cost_reduction",
             () -> new RangedAttribute("attribute.neovitae.sigil_cost_reduction", 0.0D, 0.0D, 100.0D).setSyncable(true));
@@ -39,7 +39,7 @@ public class NVAttributes {
         event.add(EntityType.PLAYER, SELF_SACRIFICE_MULTIPLIER, 1);
         event.add(EntityType.PLAYER, BONUS_SACRIFICE, 0);
         event.add(EntityType.PLAYER, BONUS_SELF_SACRIFICE, 0);
-        event.add(EntityType.PLAYER, BONUS_DEMON_WILL, 0);
+        event.add(EntityType.PLAYER, BONUS_SPIRITUS, 0);
         event.add(EntityType.PLAYER, SIGIL_COST_REDUCTION, 0);
         event.add(EntityType.PLAYER, BLOOD_SIPHON, 0);
         event.add(EntityType.PLAYER, BLOOD_SHIELD, 0);

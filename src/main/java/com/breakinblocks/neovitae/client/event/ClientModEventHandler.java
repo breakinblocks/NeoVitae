@@ -25,7 +25,7 @@ import com.breakinblocks.neovitae.client.render.entity.EntityMeteorRenderer;
 import com.breakinblocks.neovitae.client.render.entity.EntityShapedChargeRenderer;
 import com.breakinblocks.neovitae.client.render.entity.EntityThrowingDaggerRenderer;
 import com.breakinblocks.neovitae.client.render.entity.NoopRenderer;
-import com.breakinblocks.neovitae.client.hud.DemonWillGaugeOverlay;
+import com.breakinblocks.neovitae.client.hud.SpiritusGaugeOverlay;
 import com.breakinblocks.neovitae.common.item.AnointmentColor;
 import com.breakinblocks.neovitae.common.item.ItemAnointmentProvider;
 import com.breakinblocks.neovitae.common.item.potion.FlaskColor;
@@ -42,7 +42,7 @@ import com.breakinblocks.neovitae.client.screen.AthanorScreen;
 import com.breakinblocks.neovitae.client.screen.FilterScreen;
 import com.breakinblocks.neovitae.client.screen.TeleposerScreen;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
@@ -56,20 +56,20 @@ public class ClientModEventHandler {
 
         event.enqueueWork(() -> {
             NVItems.WILL_ITEMS.getEntries().forEach(item -> {
-                ItemProperties.register(item.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
+                ItemProperties.register(item.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());
             });
-            ItemProperties.register(NVItems.LAMINA_MALEFICUS.get(), NeoVitae.INCENSE_PROPERTY, ((stack, level, entity, seed) -> stack.getOrDefault(NVDataComponents.INCENSE, false) ? 1 : 0));
+            ItemProperties.register(NVItems.SACRIFICIAL_DAGGER.get(), NeoVitae.INCENSE_PROPERTY, ((stack, level, entity, seed) -> stack.getOrDefault(NVDataComponents.INCENSE, false) ? 1 : 0));
 
-            ItemProperties.register(NVItems.SENTIENT_SWORD.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
-            ItemProperties.register(NVItems.SENTIENT_AXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
-            ItemProperties.register(NVItems.SENTIENT_PICKAXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
-            ItemProperties.register(NVItems.SENTIENT_SHOVEL.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
-            ItemProperties.register(NVItems.SENTIENT_SCYTHE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_SWORD.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_AXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_PICKAXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_SHOVEL.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_SCYTHE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());
 
             ItemProperties.register(NVItems.SENTIENT_SWORD.get(), NeoVitae.rl("active"), (stack, level, entity, seed) -> {
                 if (!(entity instanceof net.minecraft.world.entity.player.Player player)) return 0;
-                double will = com.breakinblocks.neovitae.will.PlayerDemonWillHandler.getTotalDemonWill(
-                        stack.getOrDefault(NVDataComponents.DEMON_WILL_TYPE, EnumWillType.DEFAULT), player);
+                double will = com.breakinblocks.neovitae.will.PlayerSpiritusHandler.getTotalSpiritus(
+                        stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT), player);
                 return will > 0 ? 1 : 0;
             });
         });
@@ -78,7 +78,7 @@ public class ClientModEventHandler {
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(NVEntities.BLOOD_LIGHT.get(), NoopRenderer::new);
-        event.registerEntityRenderer(NVEntities.SOUL_SNARE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(NVEntities.SPIRITUS_SNARE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(NVEntities.METEOR.get(), EntityMeteorRenderer::new);
         event.registerEntityRenderer(NVEntities.POTION_FLASK.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(NVEntities.SHAPED_CHARGE.get(), EntityShapedChargeRenderer::new);
@@ -130,7 +130,7 @@ public class ClientModEventHandler {
 
     @SubscribeEvent
     public static void registerGuiLayers(RegisterGuiLayersEvent event) {
-        event.registerAbove(VanillaGuiLayers.HOTBAR, NeoVitae.rl("demon_will_gauge"), new DemonWillGaugeOverlay());
+        event.registerAbove(VanillaGuiLayers.HOTBAR, NeoVitae.rl("spiritus_gauge"), new SpiritusGaugeOverlay());
     }
 
 }

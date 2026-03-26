@@ -8,10 +8,10 @@ import net.minecraft.world.entity.player.Player;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.WillState;
+import com.breakinblocks.neovitae.api.will.SpiritusState;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 /**
  * Ritual that provides regeneration to nearby players.
  *
- * <p>Demon Will effects:
+ * <p>Spiritus effects:
  * <ul>
  *   <li><b>Corrosive</b> - Vampire syphon: drains HP from mobs to heal players</li>
  * </ul>
@@ -60,7 +60,7 @@ public class RitualRegeneration extends Ritual {
         }
 
         // Corrosive Will: Vampire syphon - drain HP from mobs to heal players
-        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, CORROSIVE_MIN_WILL);
+        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, CORROSIVE_MIN_WILL);
         if (will.hasCorrosive()) {
             List<LivingEntity> mobs = RitualHelper.getAliveMobsInRange(ctx, this, HEAL_RANGE);
             List<Player> hurtPlayers = players.stream()
@@ -87,7 +87,7 @@ public class RitualRegeneration extends Ritual {
                 }
 
                 if (willUsed > 0) {
-                    will.use(EnumWillType.CORROSIVE, willUsed);
+                    will.use(SpiritusType.CORROSIVE, willUsed);
                     will.drain(ctx.level(), masterPos);
                 }
             }

@@ -70,7 +70,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:lamina_maleficus",
+      "recipe_id_1": "neovitae:sacrificial_dagger",
       "text": "book.neovitae.guide.altar.ara_vitae.knife_recipe.text",
       "title1": "",
       "title2": ""
@@ -148,7 +148,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.ara_vitae.lamina_exhauriens.text",
+      "text": "book.neovitae.guide.altar.ara_vitae.dagger_of_sacrifice.text",
       "title": "",
       "use_markdown_in_title": false
     },

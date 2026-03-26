@@ -43,7 +43,7 @@ public class LobbyEntry extends EntryProvider {
                 + "- Enchanted Books\n\n"
                 + "- Enchanted Weapons and Armour\n\n"
                 + "- Various Anointments\n\n"
-                + "- Demon Will\n\n"
+                + "- Spiritus\n\n"
                 + "- Potion Ingredients");
 
         this.page("rooms2", () -> BookTextPageModel.create()

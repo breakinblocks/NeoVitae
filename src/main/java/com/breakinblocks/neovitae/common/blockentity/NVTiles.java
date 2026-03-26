@@ -78,13 +78,13 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CrystallariumMaleficumBlockEntity>> CRYSTALLARIUM_MALEFICUM_TYPE =
             registerTile("crystallarium_maleficum", CrystallariumMaleficumBlockEntity::new, NVBlocks.CRYSTALLARIUM_MALEFICUM.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DemonCrystalBlockEntity>> DEMON_CRYSTAL_TYPE =
-            registerTile("demon_crystal", DemonCrystalBlockEntity::new,
-                    NVBlocks.RAW_DEMON_CRYSTAL.block(),
-                    NVBlocks.CORROSIVE_DEMON_CRYSTAL.block(),
-                    NVBlocks.DESTRUCTIVE_DEMON_CRYSTAL.block(),
-                    NVBlocks.VENGEFUL_DEMON_CRYSTAL.block(),
-                    NVBlocks.STEADFAST_DEMON_CRYSTAL.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SpiritusCrystalBlockEntity>> SPIRITUS_CRYSTAL_TYPE =
+            registerTile("spiritus_crystal", SpiritusCrystalBlockEntity::new,
+                    NVBlocks.RAW_SPIRITUS_CRYSTAL.block(),
+                    NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block(),
+                    NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block(),
+                    NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block(),
+                    NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SpectralBlockEntity>> SPECTRAL_BLOCK_TYPE =
             registerTile("spectral_block", SpectralBlockEntity::new, NVBlocks.SPECTRAL_BLOCK);

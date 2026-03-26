@@ -14,11 +14,11 @@ import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.WillState;
+import com.breakinblocks.neovitae.api.will.SpiritusState;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -26,7 +26,7 @@ import java.util.function.Consumer;
 /**
  * Ritual of the Green Grove - Accelerates plant growth in a configurable area.
  *
- * <p>Demon Will effects:
+ * <p>Spiritus effects:
  * <ul>
  *   <li><b>Raw (Default)</b> - Reduces refresh time from 20 to 10 ticks</li>
  *   <li><b>Steadfast</b> - Hydrates farmland and plants seeds from ground items</li>
@@ -72,7 +72,7 @@ public class RitualGreenGrove extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
+        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
 
         boolean hasRaw = will.hasDefault();
         boolean doHydrate = will.hasSteadfast();
@@ -81,7 +81,7 @@ public class RitualGreenGrove extends Ritual {
 
         refreshTime = hasRaw ? scaleRefreshTime(will.getDefault(), 20, 10, 10) : 20;
 
-        double rawWillUsed = 0;
+        double rawSpiritusUsed = 0;
         double steadfastWillUsed = 0;
         double corrosiveWillUsed = 0;
         double vengefulWillUsed = 0;
@@ -162,10 +162,10 @@ public class RitualGreenGrove extends Ritual {
             }
         }
 
-        will.use(EnumWillType.DEFAULT, rawWillUsed);
-        will.use(EnumWillType.STEADFAST, steadfastWillUsed);
-        will.use(EnumWillType.CORROSIVE, corrosiveWillUsed);
-        will.use(EnumWillType.VENGEFUL, vengefulWillUsed);
+        will.use(SpiritusType.DEFAULT, rawSpiritusUsed);
+        will.use(SpiritusType.STEADFAST, steadfastWillUsed);
+        will.use(SpiritusType.CORROSIVE, corrosiveWillUsed);
+        will.use(SpiritusType.VENGEFUL, vengefulWillUsed);
         will.drain(ctx.level(), masterPos);
 
         ctx.syphon(getRefreshCost() * totalGrowths);

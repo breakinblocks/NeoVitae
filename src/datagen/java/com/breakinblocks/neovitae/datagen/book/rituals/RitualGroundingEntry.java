@@ -38,8 +38,8 @@ public class RitualGroundingEntry extends EntryProvider {
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Resonance");
-        this.pageText("- [#](8B0000)Raw Will[#](): Strengthens the grounding effect."
+        this.pageTitle("Spiritus Resonance");
+        this.pageText("- [#](8B0000)Raw Spiritus[#](): Strengthens the grounding effect."
                 + "\n\n- [#](8B0000)Corrosive Will[#](): Applies the [#](8B0000)Suspended[#]() effect, halting vertical movement entirely."
                 + "\n\n- [#](8B0000)Vengeful Will[#](): Inflicts [#](8B0000)Levitation[#]() — a cruel irony, dragging entities skyward against their will."
                 + "\n\n- [#](8B0000)Destructive Will[#](): Applies the [#](8B0000)Heavy Heart[#]() affliction."

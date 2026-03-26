@@ -7,13 +7,13 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.common.network.SetClientVelocityPayload;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.WillState;
+import com.breakinblocks.neovitae.api.will.SpiritusState;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -21,9 +21,9 @@ import java.util.function.Consumer;
 /**
  * Ritual of Speed - propels entities in the direction the master ritual stone faces.
  *
- * <p>Demon Will effects:
+ * <p>Spiritus effects:
  * <ul>
- *   <li><b>Raw (Default)</b> - Increased speed scaling: horizontal=3+rawWill/40, vertical=1.2+rawWill/200</li>
+ *   <li><b>Raw (Default)</b> - Increased speed scaling: horizontal=3+rawSpiritus/40, vertical=1.2+rawSpiritus/200</li>
  *   <li><b>Corrosive</b> - Additional horizontal speed bonus: corrosiveWill/40</li>
  *   <li><b>Destructive</b> - Only transport baby entities (skip adults)</li>
  *   <li><b>Vengeful</b> - Only transport adult entities (skip babies)</li>
@@ -54,7 +54,7 @@ public class RitualSpeed extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         Direction facing = masterRitualStone.getDirection();
 
-        WillState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
+        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
 
         boolean hasRawWill = will.hasDefault();
         boolean hasCorrosive = will.hasCorrosive();
@@ -131,15 +131,15 @@ public class RitualSpeed extends Ritual {
             // Steadfast: apply Soft Fall
             if (hasSteadfast) {
                 entity.addEffect(new MobEffectInstance(NVMobEffects.SOFT_FALL, 100, 0, true, false));
-                will.use(EnumWillType.STEADFAST, WILL_PER_ENTITY);
+                will.use(SpiritusType.STEADFAST, WILL_PER_ENTITY);
             }
 
             cost += getRefreshCost();
 
-            if (hasRawWill) will.use(EnumWillType.DEFAULT, WILL_PER_ENTITY);
-            if (hasCorrosive) will.use(EnumWillType.CORROSIVE, WILL_PER_ENTITY);
-            if (hasDestructive) will.use(EnumWillType.DESTRUCTIVE, WILL_PER_ENTITY);
-            if (hasVengeful) will.use(EnumWillType.VENGEFUL, WILL_PER_ENTITY);
+            if (hasRawWill) will.use(SpiritusType.DEFAULT, WILL_PER_ENTITY);
+            if (hasCorrosive) will.use(SpiritusType.CORROSIVE, WILL_PER_ENTITY);
+            if (hasDestructive) will.use(SpiritusType.DESTRUCTIVE, WILL_PER_ENTITY);
+            if (hasVengeful) will.use(SpiritusType.VENGEFUL, WILL_PER_ENTITY);
         }
 
         if (cost > 0) {

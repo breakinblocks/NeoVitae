@@ -43,8 +43,12 @@ public class NVBlocks {
     private static final BlockBehaviour.Properties rune_properties = BlockBehaviour.Properties.of().strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops();
     private static final Item.Properties rune_item_properties = new Item.Properties();
 
-    private static RuneBlockItem runeItem(Block block, String tooltipSuffix) {
-        return new RuneBlockItem(block, rune_item_properties, "tooltip.neovitae.rune." + tooltipSuffix);
+    private static RuneBlockItem runeItem(Block block, String... tooltipSuffixes) {
+        String[] keys = new String[tooltipSuffixes.length];
+        for (int i = 0; i < tooltipSuffixes.length; i++) {
+            keys[i] = "tooltip.neovitae.rune." + tooltipSuffixes[i];
+        }
+        return new RuneBlockItem(block, rune_item_properties, keys);
     }
 
     public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_BLANK = BASIC_REG.register("rune_blank", rune_properties, b -> runeItem(b, "blank"));
@@ -60,16 +64,16 @@ public class NVBlocks {
     public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_ORB = BASIC_REG.register("rune_orb", rune_properties, b -> runeItem(b, "orb"));
     public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_EFFICIENCY = BASIC_REG.register("rune_efficiency", rune_properties, b -> runeItem(b, "efficiency"));
 
-    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_SACRIFICE = BASIC_REG.register("rune_2_sacrifice", rune_properties, b -> runeItem(b, "reinforced"));
-    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_SELF_SACRIFICE = BASIC_REG.register("rune_2_sacrifice_self", rune_properties, b -> runeItem(b, "reinforced"));
-    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_CAPACITY = BASIC_REG.register("rune_2_capacity", rune_properties, b -> runeItem(b, "reinforced"));
-    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_CAPACITY_AUGMENTED = BASIC_REG.register("rune_2_capacity_augmented", rune_properties, b -> runeItem(b, "reinforced"));
-    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_CHARGING = BASIC_REG.register("rune_2_charging", rune_properties, b -> runeItem(b, "reinforced"));
-    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_SPEED = BASIC_REG.register("rune_2_speed", rune_properties, b -> runeItem(b, "reinforced"));
-    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_ACCELERATION = BASIC_REG.register("rune_2_acceleration", rune_properties, b -> runeItem(b, "reinforced"));
-    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_DISLOCATION = BASIC_REG.register("rune_2_dislocation", rune_properties, b -> runeItem(b, "reinforced"));
-    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_ORB = BASIC_REG.register("rune_2_orb", rune_properties, b -> runeItem(b, "reinforced"));
-    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_EFFICIENCY = BASIC_REG.register("rune_2_efficiency", rune_properties, b -> runeItem(b, "reinforced"));
+    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_SACRIFICE = BASIC_REG.register("rune_2_sacrifice", rune_properties, b -> runeItem(b, "sacrifice", "reinforced"));
+    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_SELF_SACRIFICE = BASIC_REG.register("rune_2_sacrifice_self", rune_properties, b -> runeItem(b, "self_sacrifice", "reinforced"));
+    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_CAPACITY = BASIC_REG.register("rune_2_capacity", rune_properties, b -> runeItem(b, "capacity", "reinforced"));
+    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_CAPACITY_AUGMENTED = BASIC_REG.register("rune_2_capacity_augmented", rune_properties, b -> runeItem(b, "capacity_augmented", "reinforced"));
+    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_CHARGING = BASIC_REG.register("rune_2_charging", rune_properties, b -> runeItem(b, "charging", "reinforced"));
+    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_SPEED = BASIC_REG.register("rune_2_speed", rune_properties, b -> runeItem(b, "speed", "reinforced"));
+    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_ACCELERATION = BASIC_REG.register("rune_2_acceleration", rune_properties, b -> runeItem(b, "acceleration", "reinforced"));
+    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_DISLOCATION = BASIC_REG.register("rune_2_dislocation", rune_properties, b -> runeItem(b, "dislocation", "reinforced"));
+    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_ORB = BASIC_REG.register("rune_2_orb", rune_properties, b -> runeItem(b, "orb", "reinforced"));
+    public static final BlockWithItemHolder<Block, RuneBlockItem> RUNE_2_EFFICIENCY = BASIC_REG.register("rune_2_efficiency", rune_properties, b -> runeItem(b, "efficiency", "reinforced"));
 
     public static final BlockWithItemHolder<Block, BlockItem> BLOODSTONE = BASIC_REG.register("bloodstone", rune_properties, rune_item_properties);
     public static final BlockWithItemHolder<Block, BlockItem> BLOODSTONE_BRICK = BASIC_REG.register("bloodstone_brick", rune_properties, rune_item_properties);

@@ -11,15 +11,17 @@ import java.util.List;
 
 public class RuneBlockItem extends BlockItem {
 
-    private final String tooltipKey;
+    private final String[] tooltipKeys;
 
-    public RuneBlockItem(Block block, Properties properties, String tooltipKey) {
+    public RuneBlockItem(Block block, Properties properties, String... tooltipKeys) {
         super(block, properties);
-        this.tooltipKey = tooltipKey;
+        this.tooltipKeys = tooltipKeys;
     }
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable(tooltipKey).withStyle(ChatFormatting.GRAY));
+        for (String key : tooltipKeys) {
+            tooltip.add(Component.translatable(key).withStyle(ChatFormatting.GRAY));
+        }
     }
 }

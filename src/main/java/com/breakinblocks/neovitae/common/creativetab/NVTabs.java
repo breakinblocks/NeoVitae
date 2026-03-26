@@ -15,13 +15,21 @@ import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
+import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
+import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.common.tag.NVTags;
+import net.minecraft.core.Holder;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class NVTabs {
@@ -40,6 +48,7 @@ public class NVTabs {
                         output.accept(living_plate);
 
                         addAll(NVItems.BASIC_ITEMS, output::accept);
+                        addFlaskVariants(output::accept);
                         addAll(NVItems.ITEMS, output::accept);
                         addAll(NVFluids.BUCKETS, output::accept);
                         NVItems.WILL_ITEMS.getEntries().forEach(holder -> {
@@ -105,6 +114,43 @@ public class NVTabs {
                 tab.accept(tome.copy());
             });
         });
+    }
+
+    private static void addFlaskVariants(Consumer<ItemStack> tab) {
+        List<Holder<MobEffect>> flaskEffects = List.of(
+                MobEffects.MOVEMENT_SPEED,
+                MobEffects.DAMAGE_BOOST,
+                MobEffects.REGENERATION,
+                MobEffects.HEAL,
+                MobEffects.HARM,
+                MobEffects.POISON,
+                MobEffects.NIGHT_VISION,
+                MobEffects.INVISIBILITY,
+                MobEffects.FIRE_RESISTANCE,
+                MobEffects.WATER_BREATHING,
+                MobEffects.JUMP,
+                MobEffects.SLOW_FALLING,
+                MobEffects.MOVEMENT_SLOWDOWN,
+                MobEffects.WEAKNESS,
+                MobEffects.LEVITATION,
+                NVMobEffects.BOUNCE.getDelegate(),
+                NVMobEffects.FLIGHT.getDelegate(),
+                NVMobEffects.GROUNDED.getDelegate(),
+                NVMobEffects.GRAVITY.getDelegate(),
+                NVMobEffects.SUSPENDED.getDelegate(),
+                NVMobEffects.HARD_CLOAK.getDelegate(),
+                NVMobEffects.OBSIDIAN_CLOAK.getDelegate(),
+                NVMobEffects.HEAVY_HEART.getDelegate(),
+                NVMobEffects.PASSIVITY.getDelegate(),
+                NVMobEffects.SPECTRAL_SIGHT.getDelegate()
+        );
+
+        for (Holder<MobEffect> effect : flaskEffects) {
+            ItemStack flask = new ItemStack(NVItems.ALCHEMY_FLASK.get());
+            FlaskEffects effects = FlaskEffects.single(EffectHolder.create(effect, 3600, 0));
+            ItemAlchemyFlask.setFlaskEffects(flask, effects);
+            tab.accept(flask);
+        }
     }
 
     private static void addAll(DeferredRegister<Item> register, Consumer<ItemStack> tab) {

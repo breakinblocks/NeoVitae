@@ -6,6 +6,7 @@ import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
@@ -41,6 +42,7 @@ import com.breakinblocks.neovitae.compat.jei.altar.BloodAltarRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.arc.ARCRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.array.AlchemyArrayCraftingCategory;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskRecipeCategory;
+import com.breakinblocks.neovitae.compat.jei.flask.FlaskSubtypeInterpreter;
 import com.breakinblocks.neovitae.compat.jei.forge.SoulForgeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.imperfectritual.ImperfectRitualJEIRecipe;
 import com.breakinblocks.neovitae.compat.jei.imperfectritual.ImperfectRitualRecipeCategory;
@@ -69,6 +71,13 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
     @Override
     public ResourceLocation getPluginUid() {
         return ID;
+    }
+
+    @Override
+    public void registerItemSubtypes(ISubtypeRegistration registration) {
+        registration.registerSubtypeInterpreter(NVItems.ALCHEMY_FLASK.get(), FlaskSubtypeInterpreter.INSTANCE);
+        registration.registerSubtypeInterpreter(NVItems.ALCHEMY_FLASK_THROWABLE.get(), FlaskSubtypeInterpreter.INSTANCE);
+        registration.registerSubtypeInterpreter(NVItems.ALCHEMY_FLASK_LINGERING.get(), FlaskSubtypeInterpreter.INSTANCE);
     }
 
     @Override

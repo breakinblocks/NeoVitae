@@ -16,6 +16,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.soul.MonsterSoulItem;
@@ -25,6 +26,7 @@ import com.breakinblocks.neovitae.common.item.soul.SentientScytheItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientShovelItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientSwordItem;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +45,8 @@ public class WillEventHandler {
         }
 
         if (killed.hasEffect(NVMobEffects.SOUL_SNARE)) {
-            handleSnareDrop(killed);
+            Player snareKiller = event.getSource().getEntity() instanceof Player p ? p : null;
+            handleSnareDrop(killed, snareKiller);
             return;
         }
 
@@ -77,7 +80,7 @@ public class WillEventHandler {
         dropSouls(killed, soulDrops);
     }
 
-    private static void handleSnareDrop(LivingEntity killed) {
+    private static void handleSnareDrop(LivingEntity killed, @Nullable Player killer) {
         if (killed.level().getDifficulty() == Difficulty.PEACEFUL || !(killed instanceof Enemy)) {
             return;
         }
@@ -85,6 +88,13 @@ public class WillEventHandler {
         double willModifier = killed instanceof Slime ? 0.67 : 1;
         double soulAmount = willModifier * (SNARE_BASE_DROP + killed.level().random.nextDouble() * SNARE_RANDOM_DROP)
                 * killed.getMaxHealth() / 20d;
+
+        if (killer != null) {
+            double bonusDemonWill = killer.getAttributeValue(NVAttributes.BONUS_DEMON_WILL);
+            if (bonusDemonWill > 0) {
+                soulAmount *= (1 + bonusDemonWill / 100);
+            }
+        }
 
         MonsterSoulItem soulItem = NVItems.MONSTER_SOUL_RAW.get();
         ItemStack soulStack = soulItem.createWill(soulAmount);

@@ -44,6 +44,7 @@ import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.will.PlayerDemonWillHandler;
@@ -330,10 +331,14 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         }
 
         if (entity.hurt(damageSource, (float) dmg)) {
-            if (!entity.isAlive() && owner instanceof Player && entity instanceof LivingEntity living) {
+            if (!entity.isAlive() && owner instanceof Player playerOwner && entity instanceof LivingEntity living) {
                 double willAmount = this.getWillDropForMobHealth(living.getMaxHealth());
+                double bonusDemonWill = playerOwner.getAttributeValue(NVAttributes.BONUS_DEMON_WILL);
+                if (bonusDemonWill > 0) {
+                    willAmount *= (1 + bonusDemonWill / 100);
+                }
                 if (willAmount > 0) {
-                    PlayerDemonWillHandler.addDemonWill(willType, (Player) owner, willAmount);
+                    PlayerDemonWillHandler.addDemonWill(willType, playerOwner, willAmount);
                 }
             }
 

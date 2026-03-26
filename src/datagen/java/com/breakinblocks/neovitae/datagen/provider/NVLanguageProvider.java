@@ -52,6 +52,13 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("death.attack.ritual", "%1$s was killed by dark ritual magic");
         add("death.attack.ritual.player", "%1$s was killed by dark ritual magic whilst fighting %2$s");
 
+        // Attributes
+        add("attribute.neovitae.player.self_sacrifice", "Self Sacrifice Multiplier");
+        add("attribute.neovitae.bonus_sacrifice", "Bonus Sacrifice");
+        add("attribute.neovitae.bonus_self_sacrifice", "Bonus Self Sacrifice");
+        add("attribute.neovitae.bonus_demon_will", "Bonus Demon Will");
+        add("attribute.neovitae.sigil_cost_reduction", "Sigil Cost Reduction");
+
         add(NVBlocks.BLOOD_ALTAR, "Blood Altar");
         add(NVItems.SACRIFICIAL_DAGGER.get(), "Sacrificial Dagger");
 

@@ -8,6 +8,7 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.item.NVItems;
@@ -156,10 +157,18 @@ public final class SentientToolHelper {
         double soulDropAmount = getSoulDrop(stack);
         double staticDropAmount = getStaticDrop(stack);
 
+        double willBonus = 1;
+        if (attackingEntity instanceof Player player) {
+            double bonusDemonWill = player.getAttributeValue(NVAttributes.BONUS_DEMON_WILL);
+            if (bonusDemonWill > 0) {
+                willBonus = 1 + bonusDemonWill / 100;
+            }
+        }
+
         for (int i = 0; i <= looting; i++) {
             if (i == 0 || attackingEntity.level().random.nextDouble() < 0.4) {
                 double soulAmount = willModifier * (soulDropAmount * attackingEntity.level().random.nextDouble()
-                    + staticDropAmount) * killedEntity.getMaxHealth() / 20d;
+                    + staticDropAmount) * killedEntity.getMaxHealth() / 20d * willBonus;
                 soulList.add(soulItem.createWill(soulAmount));
             }
         }

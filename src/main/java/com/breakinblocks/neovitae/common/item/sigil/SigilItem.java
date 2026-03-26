@@ -22,6 +22,7 @@ import com.breakinblocks.neovitae.api.sigil.ISigilEffect;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.api.sigil.SigilType;
 import com.breakinblocks.neovitae.api.soul.SoulTicket;
+import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
@@ -149,7 +150,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
             ISigilEffect effect = getSigilEffect(stack, level);
             if (effect != null && effect.useOnAir(level, player, stack)) {
                 if (!level.isClientSide && !player.isCreative()) {
-                    int cost = getLpCost(stack, level, SigilType.UseContext.AIR);
+                    int cost = getReducedCost(getLpCost(stack, level, SigilType.UseContext.AIR), player);
                     if (cost > 0) {
                         SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
                         if (network != null) {
@@ -183,7 +184,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
             if (effect.useOnBlock(level, player, stack, blockPos, side, hitVec)) {
                 if (!level.isClientSide && player != null && !player.isCreative()) {
-                    int cost = getLpCost(stack, level, SigilType.UseContext.BLOCK);
+                    int cost = getReducedCost(getLpCost(stack, level, SigilType.UseContext.BLOCK), player);
                     if (cost > 0) {
                         SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
                         if (network != null) {
@@ -211,7 +212,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         ISigilEffect effect = getSigilEffect(useStack, level);
         if (effect != null && effect.useOnEntity(level, player, useStack, target)) {
             if (!level.isClientSide && !player.isCreative()) {
-                int cost = getLpCost(useStack, level, SigilType.UseContext.ENTITY);
+                int cost = getReducedCost(getLpCost(useStack, level, SigilType.UseContext.ENTITY), player);
                 if (cost > 0) {
                     SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
                     if (network != null) {
@@ -242,7 +243,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
         int drainInterval = getDrainInterval(stack, level);
         if (entity.tickCount % drainInterval == 0) {
-            int cost = getLpCost(stack, level, SigilType.UseContext.ACTIVE);
+            int cost = getReducedCost(getLpCost(stack, level, SigilType.UseContext.ACTIVE), player);
             if (cost > 0) {
                 SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
                 if (network != null) {
@@ -271,6 +272,15 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
     public String getTooltipBase() {
         return tooltipBase;
+    }
+
+    private static int getReducedCost(int baseCost, Player player) {
+        if (baseCost <= 0) return baseCost;
+        double reduction = player.getAttributeValue(NVAttributes.SIGIL_COST_REDUCTION);
+        if (reduction > 0) {
+            return Math.max(1, (int) (baseCost * (1 - reduction / 100)));
+        }
+        return baseCost;
     }
 
     @Override

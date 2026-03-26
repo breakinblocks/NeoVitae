@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.FakePlayer;
+import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.datamap.EntitySacrificeHelper;
@@ -53,6 +54,11 @@ public class DaggerOfSacrificeItem extends Item {
 
         if (target.isBaby()) {
             lifeEssence = (int) (lifeEssence * 0.5F);
+        }
+
+        double bonusSacrifice = player.getAttributeValue(NVAttributes.BONUS_SACRIFICE);
+        if (bonusSacrifice > 0) {
+            lifeEssence = (int) (lifeEssence * (1 + bonusSacrifice / 100));
         }
 
         BlockPos altarPos = findAltar(target.level(), target.blockPosition());

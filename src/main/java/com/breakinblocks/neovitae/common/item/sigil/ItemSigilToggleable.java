@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
 import com.breakinblocks.neovitae.common.datamap.SigilStats;
@@ -90,7 +91,8 @@ public class ItemSigilToggleable extends ItemSigil implements IActivatable {
                 if (binding != null) {
                     SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
                     if (network != null) {
-                        if (!network.syphonAndDamage(player, SoulTicket.create(getLpUsed())).success()) {
+                        int cost = getReducedCost(getLpUsed(), player);
+                        if (!network.syphonAndDamage(player, SoulTicket.create(cost)).success()) {
                             setActivatedState(stack, false);
                         }
                     }
@@ -123,5 +125,14 @@ public class ItemSigilToggleable extends ItemSigil implements IActivatable {
      * @param isSelected Whether the sigil is currently selected
      */
     public void onSigilUpdate(ItemStack stack, Level world, Player player, int itemSlot, boolean isSelected) {
+    }
+
+    private static int getReducedCost(int baseCost, Player player) {
+        if (baseCost <= 0) return baseCost;
+        double reduction = player.getAttributeValue(NVAttributes.SIGIL_COST_REDUCTION);
+        if (reduction > 0) {
+            return Math.max(1, (int) (baseCost * (1 - reduction / 100)));
+        }
+        return baseCost;
     }
 }

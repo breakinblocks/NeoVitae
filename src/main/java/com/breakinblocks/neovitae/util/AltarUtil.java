@@ -121,7 +121,9 @@ public class AltarUtil {
         double conversion = NeoVitae.SERVER_CONFIG.SELF_SACRIFICE_CONVERSION.get();
         AttributeInstance attribute = player.getAttribute(NVAttributes.SELF_SACRIFICE_MULTIPLIER);
         double multiplier = attribute != null ? attribute.getValue() : 1.0;
-        return (int) (healthSacrificed * conversion * multiplier);
+        double bonusSelfSacrifice = player.getAttributeValue(NVAttributes.BONUS_SELF_SACRIFICE);
+        double bonus = bonusSelfSacrifice > 0 ? (1 + bonusSelfSacrifice / 100) : 1;
+        return (int) (healthSacrificed * conversion * multiplier * bonus);
     }
 
     public static int calculateSelfSacrificeLP(Player player, int healthSacrificed, double incenseBonus) {
@@ -129,6 +131,8 @@ public class AltarUtil {
         conversion *= (1 + incenseBonus);
         AttributeInstance attribute = player.getAttribute(NVAttributes.SELF_SACRIFICE_MULTIPLIER);
         double multiplier = attribute != null ? attribute.getValue() : 1.0;
-        return (int) (healthSacrificed * conversion * multiplier);
+        double bonusSelfSacrifice = player.getAttributeValue(NVAttributes.BONUS_SELF_SACRIFICE);
+        double bonus = bonusSelfSacrifice > 0 ? (1 + bonusSelfSacrifice / 100) : 1;
+        return (int) (healthSacrificed * conversion * multiplier * bonus);
     }
 }

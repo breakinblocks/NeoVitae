@@ -22,6 +22,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     public int activeCounter = 0;
     public Direction rotation = Direction.NORTH;
     public int rotateCooldown = 0;
+    private boolean craftComplete = false;
 
     public AlchemyArrayEffect arrayEffect;
     private boolean doDropIngredients = true;
@@ -84,6 +85,9 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     }
 
     public void tick() {
+        if (craftComplete) {
+            return;
+        }
         if (isActive && attemptCraft()) {
             activeCounter++;
         } else {
@@ -97,6 +101,10 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     }
 
     public boolean attemptCraft() {
+        if (craftComplete) {
+            return false;
+        }
+
         if (arrayEffect != null) {
             isActive = true;
         } else {
@@ -111,6 +119,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
         if (arrayEffect != null) {
             isActive = true;
             if (arrayEffect.update(this, this.activeCounter)) {
+                craftComplete = true;
                 inv.extractItem(0, 1, false);
                 inv.extractItem(1, 1, false);
                 this.getLevel().setBlockAndUpdate(getBlockPos(), Blocks.AIR.defaultBlockState());

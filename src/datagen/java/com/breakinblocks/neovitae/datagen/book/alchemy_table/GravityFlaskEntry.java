@@ -26,9 +26,11 @@ public class GravityFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Gravity");
-        this.pageText("**Gravity** causes the target to fall faster and take more damage on landing. "
+        this.pageText("[#](8B0000)Gravity[#]() causes the target to fall faster and take more damage on landing. "
                 + "It does not reduce jump height, however.\\\n\\\n"
-                + "It's created from a flask containing both the **Grounded** and **Slow Falling** effects.");
+                + "To create it, first brew a flask with both [#](8B0000)Grounded[#]() and [#](8B0000)Slow Falling[#]() effects "
+                + "(apply each effect separately to the same flask). Then combine with a "
+                + "[#](8B0000)Combinational Catalyst[#]() in the Alchemy Table.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/gravity")

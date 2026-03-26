@@ -88,8 +88,10 @@ public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, FlaskRecipe recipe, IFocusGroup focuses) {
+        ItemStack outputStack = recipe.getOutput(recipe.getExampleFlask(), recipe.getExampleEffects());
+
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 92, 14);
-        output.addItemStack(recipe.getOutput(recipe.getExampleFlask(), recipe.getExampleEffects()));
+        output.addItemStack(outputStack);
 
         IRecipeSlotBuilder orb = builder.addSlot(RecipeIngredientRole.CATALYST, 61, 1);
         orb.addItemStacks(getOrbsForTier(recipe.getMinimumTier()));

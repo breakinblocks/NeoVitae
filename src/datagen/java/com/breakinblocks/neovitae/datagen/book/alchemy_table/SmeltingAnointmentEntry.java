@@ -21,7 +21,7 @@ public class SmeltingAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Slow-burning Oil");
-        this.pageText("Craft **Slow-burning Oil** in the Alchemy Table. "
+        this.pageText("Craft [#](8B0000)Slow-burning Oil[#]() in the Alchemy Table. "
                 + "Uses heat to smelt harvested blocks.\\\n\\\n"
                 + "Valid items: Tools, Swords, Charges.\\\n\\\nApplies: Heated Tool I (256 blocks)");
 

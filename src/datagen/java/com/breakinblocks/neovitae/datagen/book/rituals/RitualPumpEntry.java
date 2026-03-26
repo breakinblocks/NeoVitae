@@ -23,7 +23,7 @@ public class RitualPumpEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/pump"))
                 .withMultiblockName("Hymn of Siphoning")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

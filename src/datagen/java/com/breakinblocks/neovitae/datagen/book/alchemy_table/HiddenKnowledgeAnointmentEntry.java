@@ -21,7 +21,7 @@ public class HiddenKnowledgeAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Miner's Secrets");
-        this.pageText("**Miner's Secrets** causes exp-dropping blocks to drop extra exp on successful harvest. Drops +2exp per block. "
+        this.pageText("[#](8B0000)Miner's Secrets[#]() causes exp-dropping blocks to drop extra exp on successful harvest. Drops +2exp per block. "
                 + "Consumed when extra exp dropped."
                 + "\\\n\\\nValid items: Tools, Swords.\\\n\\\nApplies: Miner's Secrets (256 exp-dropping blocks)");
 

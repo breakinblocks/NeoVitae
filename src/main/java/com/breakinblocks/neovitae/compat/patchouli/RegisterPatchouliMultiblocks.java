@@ -28,6 +28,7 @@ import java.util.Map;
  * Call during FMLCommonSetupEvent if Patchouli is loaded.
  */
 public class RegisterPatchouliMultiblocks {
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(RegisterPatchouliMultiblocks.class);
     private int maxX;
     private int minX;
     private int maxY;
@@ -74,7 +75,7 @@ public class RegisterPatchouliMultiblocks {
                     'C', Blocks.CHEST
             );
 
-            patAPI.registerMultiblock(NeoVitae.rl(ritualName), multiblock);
+            safeRegister(patAPI, NeoVitae.rl(ritualName), multiblock);
         }
 
         registerAltarMultiblocks(patAPI);
@@ -96,7 +97,7 @@ public class RegisterPatchouliMultiblocks {
                 new String[][]{{"0"}, {"_"}},
                 '0', NVBlocks.BLOOD_ALTAR.block().get()
         );
-        patAPI.registerMultiblock(NeoVitae.rl("altar_one"), tier1);
+        safeRegister(patAPI, NeoVitae.rl("altar_one"), tier1);
 
         IMultiblock tier2 = patAPI.makeMultiblock(
                 new String[][]{
@@ -106,7 +107,7 @@ public class RegisterPatchouliMultiblocks {
                 '0', NVBlocks.BLOOD_ALTAR.block().get(),
                 'R', anyRune
         );
-        patAPI.registerMultiblock(NeoVitae.rl("altar_two"), tier2);
+        safeRegister(patAPI, NeoVitae.rl("altar_two"), tier2);
 
         // Tier 3: Builds on tier 2 + adds outer 7x7 ring at y=-2 + pillars with glowstone
         // '0' must be at y=0 (altar level) so tier 2 runes at y=-1 render correctly
@@ -122,7 +123,7 @@ public class RegisterPatchouliMultiblocks {
                 'P', notAir,
                 'G', glowstone
         );
-        patAPI.registerMultiblock(NeoVitae.rl("altar_three"), tier3);
+        safeRegister(patAPI, NeoVitae.rl("altar_three"), tier3);
 
         // Tier 4: Builds on tier 3 + adds outer 11x11 ring at y=-3 + taller pillars with bloodstone
         IMultiblock tier4 = patAPI.makeMultiblock(
@@ -146,7 +147,7 @@ public class RegisterPatchouliMultiblocks {
                 'G', glowstone,
                 'S', bloodstone
         );
-        patAPI.registerMultiblock(NeoVitae.rl("altar_four"), tier4);
+        safeRegister(patAPI, NeoVitae.rl("altar_four"), tier4);
 
         // Tier 5: Full structure including tiers 1-4 + outer ring at y=-4 with hellforged blocks
         // 17x17 grid (positions -8 to +8): center at index 8
@@ -176,7 +177,7 @@ public class RegisterPatchouliMultiblocks {
                 'S', bloodstone,
                 'H', hellforged
         );
-        patAPI.registerMultiblock(NeoVitae.rl("altar_five"), tier5);
+        safeRegister(patAPI, NeoVitae.rl("altar_five"), tier5);
 
         // Tier 6: Full structure including tiers 1-5 + outer ring at y=-5 + pillars and capstones
         // 23x23 grid (positions -11 to +11): center at index 11
@@ -212,7 +213,7 @@ public class RegisterPatchouliMultiblocks {
                 'H', hellforged,
                 'C', crystal
         );
-        patAPI.registerMultiblock(NeoVitae.rl("altar_six"), tier6);
+        safeRegister(patAPI, NeoVitae.rl("altar_six"), tier6);
     }
 
     private void resetMinMaxValues() {
@@ -265,6 +266,14 @@ public class RegisterPatchouliMultiblocks {
             return '0';
         }
         return '_';
+    }
+
+    private static void safeRegister(IPatchouliAPI api, ResourceLocation id, IMultiblock multiblock) {
+        try {
+            api.registerMultiblock(id, multiblock);
+        } catch (IllegalArgumentException e) {
+            LOGGER.debug("Patchouli multiblock {} already registered, skipping", id);
+        }
     }
 
     private static class RuneStateMatcher implements IStateMatcher {

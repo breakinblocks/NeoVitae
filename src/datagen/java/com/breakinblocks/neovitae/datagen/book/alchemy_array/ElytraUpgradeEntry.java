@@ -21,14 +21,14 @@ public class ElytraUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Elytra");
-        this.pageText("Adds an Elytra to your Living Armor. Rather than being trained, the **Upgrade Tome** "
+        this.pageText("Adds an Elytra to your Living Armor. Rather than being trained, the [#](8B0000)Upgrade Tome[#]() "
                 + "must be crafted.\\\n\\\n"
                 + "This Elytra does drain durability from the Chestplate, but at half the speed of a normal "
                 + "Elytra.\\\n\\\nIt also looks pretty neat.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("**Elytra Tome**: Created in an Alchemy Array. Apply it to your Living Chestplate "
+        this.pageText("[#](8B0000)Elytra Tome[#](): Created in an Alchemy Array. Apply it to your Living Chestplate "
                 + "to gain flight capabilities.");
     }
 

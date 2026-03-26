@@ -23,7 +23,7 @@ public class RitualHarvestEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/harvest"))
                 .withMultiblockName("Reap of the Harvest Moon")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

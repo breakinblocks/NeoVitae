@@ -26,7 +26,7 @@ public class PoisonFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Poison");
-        this.pageText("**Poison** deals damage over time to the target, but cannot kill them on its own. "
+        this.pageText("[#](8B0000)Poison[#]() deals damage over time to the target, but cannot kill them on its own. "
                 + "Higher levels deal faster damage.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()

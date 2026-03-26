@@ -29,7 +29,7 @@ public class LivingUpgradesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Perhaps multiple specialised sets may be a good idea? Of course, you'll have to train "
                 + "it carefully if you want more than a smattering of poorly-directed benefits.\\\n\\\n"
-                + "Fortunately, you have devised a **Ritual** that will assist with training, and another one "
+                + "Fortunately, you have devised a [#](8B0000)Ritual[#]() that will assist with training, and another one "
                 + "that will imbue your armour with a greater ability to grow.");
     }
 

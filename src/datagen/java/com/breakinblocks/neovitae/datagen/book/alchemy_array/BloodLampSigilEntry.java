@@ -20,15 +20,15 @@ public class BloodLampSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of the Blood Lamp");
-        this.pageText("The **Sigil of the Blood Lamp** is a handy tool for any miner, dungeon delver, or "
+        this.pageText("The [#](8B0000)Sigil of the Blood Lamp[#]() is a handy tool for any miner, dungeon delver, or "
                 + "simply any Sanguimancer that doesn't like dark patches and feels that torches and glowstone "
                 + "blocks get in the way. When used, this sigil launches a Blood Light in the direction you "
                 + "are facing. When it hits a block, it spawns a nearly-invisible light source at a cost of 10 LP.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Blood Lamp Reagent** in the Alchemy Table.\\\n\\\n"
-                + "Step 2: Create the **Sigil of the Blood Lamp** in an Alchemy Array using the "
+        this.pageText("Step 1: Craft the [#](8B0000)Blood Lamp Reagent[#]() in the Alchemy Table.\\\n\\\n"
+                + "Step 2: Create the [#](8B0000)Sigil of the Blood Lamp[#]() in an Alchemy Array using the "
                 + "Blood Lamp Reagent as the base and a slate as the catalyst.\\\n\\\n*I see a light!*");
     }
 

@@ -23,8 +23,8 @@ public class AuraGaugeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Aura Gauge");
-        this.pageText("While in the player's inventory, the **Demon Will Aura Gauge** will display a HUD element "
-                + "to show how much Demon Will is in the local **Aura**.\\\n\\\n"
+        this.pageText("While in the player's inventory, the [#](8B0000)Demon Will Aura Gauge[#]() will display a HUD element "
+                + "to show how much Demon Will is in the local [#](8B0000)Aura[#]().\\\n\\\n"
                 + "From top to bottom, the measured Will aspects are:\n"
                 + "- Raw\n"
                 + "- Corrosive\n"
@@ -47,7 +47,7 @@ public class AuraGaugeEntry extends EntryProvider {
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("This gauge will appear in the top left of your screen. The coloured bars will give you "
-                + "a good estimate of how much of each **Will Aspect** is in the current chunk.\\\n\\\n"
+                + "a good estimate of how much of each [#](8B0000)Will Aspect[#]() is in the current chunk.\\\n\\\n"
                 + "You can hold sneak to get a numerical value for each Aspect, between 1 and 100 Will for "
                 + "each. 100 is the maximum amount of any one aspect of Will that a chunk can have in it.");
     }

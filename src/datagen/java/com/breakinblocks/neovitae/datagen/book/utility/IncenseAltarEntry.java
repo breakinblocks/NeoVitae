@@ -22,7 +22,7 @@ public class IncenseAltarEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Incense Altar");
-        this.pageText("The **Incense Altar** is a multiblock structure that can be used to boost your self-sacrificing "
+        this.pageText("The [#](8B0000)Incense Altar[#]() is a multiblock structure that can be used to boost your self-sacrificing "
                 + "at a Blood Altar. By standing near your setup, the Incense Altar will calm your soul based on "
                 + "the area's total Tranquility, allowing you to significantly increase your LP gains.");
 

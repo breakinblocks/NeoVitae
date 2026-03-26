@@ -24,17 +24,17 @@ public class RitualLivingDowngradeEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/downgrade"))
                 .withMultiblockName("Penance of the Leaden Soul")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("This ritual consumes excess **Upgrade Points** (in the form of **Tomes**, **Scraps**, and **Synthetic Upgrade Points**) alongside one **Key Item** per level, in order to apply Downgrades to your worn **Living Armour**. The key item is different for each downgrade.");
+        this.pageText("This ritual consumes excess [#](8B0000)Upgrade Points[#]() (in the form of [#](8B0000)Tomes[#](), [#](8B0000)Scraps[#](), and [#](8B0000)Synthetic Upgrade Points[#]()) alongside one [#](8B0000)Key Item[#]() per level, in order to apply Downgrades to your worn [#](8B0000)Living Armour[#](). The key item is different for each downgrade.");
 
         this.page("downgrades", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("These downgrades will harshly limit your abilities, but will provide you with a wealth of additional **Upgrade Points** to play around with, allowing for much more specialisation than was previously available to you.");
+        this.pageText("These downgrades will harshly limit your abilities, but will provide you with a wealth of additional [#](8B0000)Upgrade Points[#]() to play around with, allowing for much more specialisation than was previously available to you.");
 
         this.page("synthetic", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "synthetic_point"))
@@ -43,12 +43,12 @@ public class RitualLivingDowngradeEntry extends EntryProvider {
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("To use the ritual, place your tomes (or other sources of Upgrade Points) and the required Item(s) for the particular downgrade into the attached chest, while wearing your Living Armour. The ritual will consume the points and apply the downgrade. The order of consumption is **Living Armour Upgrade Scraps**, then **Living Armour Upgrade Tomes**, and finally **Synthetic Upgrade Points**.");
+        this.pageText("To use the ritual, place your tomes (or other sources of Upgrade Points) and the required Item(s) for the particular downgrade into the attached chest, while wearing your Living Armour. The ritual will consume the points and apply the downgrade. The order of consumption is [#](8B0000)Living Armour Upgrade Scraps[#](), then [#](8B0000)Living Armour Upgrade Tomes[#](), and finally [#](8B0000)Synthetic Upgrade Points[#]().");
 
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Each item that matches a particular downgrade will increase the desired downgrade's level by one. Multiple downgrades can be applied at once. For example, Battle Hungry level 3 requires 3 **Rotten Flesh** and items worth 35 **Upgrade Points**."
-                + "\\\n\\\nThe ritual respects your **Living Armour Training Bracelet** settings. Excess points are returned as **Living Armour Upgrade Scraps**.");
+        this.pageText("Each item that matches a particular downgrade will increase the desired downgrade's level by one. Multiple downgrades can be applied at once. For example, Battle Hungry level 3 requires 3 [#](8B0000)Rotten Flesh[#]() and items worth 35 [#](8B0000)Upgrade Points[#]()."
+                + "\\\n\\\nThe ritual respects your [#](8B0000)Living Armour Training Bracelet[#]() settings. Excess points are returned as [#](8B0000)Living Armour Upgrade Scraps[#]().");
     }
 
     @Override

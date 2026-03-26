@@ -160,6 +160,8 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 .toList();
         registration.addRecipes(FlaskRecipeCategory.RECIPE_TYPE, flaskRecipes);
 
+        LOGGER.info("Registered {} flask recipes with JEI", flaskRecipes.size());
+
         List<ImperfectRitualJEIRecipe> imperfectRitualRecipes = createImperfectRitualRecipes();
         registration.addRecipes(ImperfectRitualRecipeCategory.RECIPE_TYPE, imperfectRitualRecipes);
 

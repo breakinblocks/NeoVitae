@@ -23,10 +23,10 @@ public class HellfireForgeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Hellfire Forge");
-        this.pageText("The **Hellfire Forge** is one of the core crafting mechanics of Neo Vitae, alongside the "
-                + "**Blood Altar** itself. Here, you can work with the **Demon Will** you have harvested from "
-                + "mobs, to allow you to create **Sentient Tools**, including the **Sentient Sword**, "
-                + "**Tartaric Gems**, various reagents, **Arcane Ash**, and many things besides.");
+        this.pageText("The [#](8B0000)Hellfire Forge[#]() is one of the core crafting mechanics of Neo Vitae, alongside the "
+                + "[#](8B0000)Blood Altar[#]() itself. Here, you can work with the [#](8B0000)Demon Will[#]() you have harvested from "
+                + "mobs, to allow you to create [#](8B0000)Sentient Tools[#](), including the [#](8B0000)Sentient Sword[#](), "
+                + "[#](8B0000)Tartaric Gems[#](), various reagents, [#](8B0000)Arcane Ash[#](), and many things besides.");
 
         this.page("crafting", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "hellfire_forge")));

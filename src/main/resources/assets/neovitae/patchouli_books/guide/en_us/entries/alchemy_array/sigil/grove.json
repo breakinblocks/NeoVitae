@@ -12,7 +12,7 @@
       "alchemy_table.heading": "Growth Reagent",
       "alchemy_table.recipe": "neovitae:alchemytable/reagent_growth",
       "array.heading": "Sigil of the Green Grove",
-      "array.recipe": "neovitae:array/growthsigil"
+      "array.recipe": "neovitae:array/green_grove_sigil"
     },
     {
       "type": "patchouli:image",

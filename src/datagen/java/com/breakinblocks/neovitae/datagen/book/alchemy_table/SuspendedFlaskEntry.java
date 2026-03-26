@@ -26,10 +26,10 @@ public class SuspendedFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Suspended");
-        this.pageText("**Suspended** prevents the target from jumping, falling, or being affected by gravity "
+        this.pageText("[#](8B0000)Suspended[#]() prevents the target from jumping, falling, or being affected by gravity "
                 + "in any way whatsoever. They can still move, however, sliding about as though on a flat, "
                 + "never-ending plane of ice.\\\n\\\n"
-                + "It's made from a potion of **Gravity**.");
+                + "It's made from a potion of [#](8B0000)Gravity[#]().");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/gravity_to_suspended")

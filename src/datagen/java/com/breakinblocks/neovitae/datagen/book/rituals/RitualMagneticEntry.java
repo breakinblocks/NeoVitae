@@ -23,16 +23,16 @@ public class RitualMagneticEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/magnetism"))
                 .withMultiblockName("Ritual of Magnetism")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("By default, the **Ritual of Magnetism** searches down to bedrock in a radius of 3 blocks out from the **Master Ritual Stone** for ores to collect. This can be augmented by placing an expensive block directly underneath the MRS, as follows:"
-                + "\n- **Block of Iron** - 7 blocks."
-                + "\n- **Block of Gold** - 15 blocks."
-                + "\n- **Block of Diamond** - 31 blocks.");
+        this.pageText("By default, the [#](8B0000)Ritual of Magnetism[#]() searches down to bedrock in a radius of 3 blocks out from the [#](8B0000)Master Ritual Stone[#]() for ores to collect. This can be augmented by placing an expensive block directly underneath the MRS, as follows:"
+                + "\n- [#](8B0000)Block of Iron[#]() - 7 blocks."
+                + "\n- [#](8B0000)Block of Gold[#]() - 15 blocks."
+                + "\n- [#](8B0000)Block of Diamond[#]() - 31 blocks.");
     }
 
     @Override

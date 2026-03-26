@@ -23,7 +23,7 @@ public class RitualAnimalGrowthEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/animal_growth"))
                 .withMultiblockName("Ritual of the Shepherd")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -35,10 +35,10 @@ public class RitualAnimalGrowthEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
-        this.pageText("- **Raw Will**: Increases the growth rate of baby animals."
-                + "\n- **Vengeful Will**: Causes adult animals to breed automatically."
-                + "\n- **Destructive Will**: Increases the frequency of growth ticks."
-                + "\n- **Steadfast Will**: Outputs items from sheared/milked animals into a nearby chest.");
+        this.pageText("- [#](8B0000)Raw Will[#](): Increases the growth rate of baby animals."
+                + "\n- [#](8B0000)Vengeful Will[#](): Causes adult animals to breed automatically."
+                + "\n- [#](8B0000)Destructive Will[#](): Increases the frequency of growth ticks."
+                + "\n- [#](8B0000)Steadfast Will[#](): Outputs items from sheared/milked animals into a nearby chest.");
     }
 
     @Override

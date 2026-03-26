@@ -13,7 +13,7 @@
       "a.recipe": "neovitae:array/movement",
       "a.image": "movementarray.png",
       "b.heading": "Updraft Array",
-      "b.recipe": "neovitae:array/updraft",
+      "b.recipe": "neovitae:array/bounce",
       "b.image": "updraftarray.png"
     }
   ]

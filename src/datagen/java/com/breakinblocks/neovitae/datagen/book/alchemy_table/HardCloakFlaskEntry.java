@@ -26,7 +26,7 @@ public class HardCloakFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Hard Cloak");
-        this.pageText("**Hard Cloak** provides 3 points of Armour Toughness per level when used.");
+        this.pageText("[#](8B0000)Hard Cloak[#]() provides 3 points of Armour Toughness per level when used.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/hard_cloak")

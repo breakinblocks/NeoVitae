@@ -23,7 +23,7 @@ public class RitualMeteorEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/meteor"))
                 .withMultiblockName("Mark of the Falling Tower")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -36,8 +36,8 @@ public class RitualMeteorEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Meteor Offerings");
-        this.pageText("The size and resources gained vary based on the offering given. Normal offerings include: **Diamond**, **Block of Iron**, **Glowstone Dust**, and **Stone**."
-                + "\\\n\\\nMod items include: Ice and Fire **Dragon Bones**, AE2 **Certus Quartz**, Create **Andesite Alloy**, IE **Copper Wire Coil**, Mystical Agriculture **Prosperity Shard**, Thermal **RF Coil**, and Mekanism **Advanced Alloy**.");
+        this.pageText("The size and resources gained vary based on the offering given. Normal offerings include: [#](8B0000)Diamond[#](), [#](8B0000)Block of Iron[#](), [#](8B0000)Glowstone Dust[#](), and [#](8B0000)Stone[#]()."
+                + "\\\n\\\nMod items include: Ice and Fire [#](8B0000)Dragon Bones[#](), AE2 [#](8B0000)Certus Quartz[#](), Create [#](8B0000)Andesite Alloy[#](), IE [#](8B0000)Copper Wire Coil[#](), Mystical Agriculture [#](8B0000)Prosperity Shard[#](), Thermal [#](8B0000)RF Coil[#](), and Mekanism [#](8B0000)Advanced Alloy[#]().");
     }
 
     @Override

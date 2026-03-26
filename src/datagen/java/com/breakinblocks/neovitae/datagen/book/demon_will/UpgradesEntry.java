@@ -21,7 +21,7 @@ public class UpgradesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Routing Upgrades");
         this.pageText("There are two upgrades currently available for the Routing Network.\\\n\\\n"
-                + "Firstly, the **Basic Routing Logic Upgrade** increases the total amount of resources "
+                + "Firstly, the [#](8B0000)Basic Routing Logic Upgrade[#]() increases the total amount of resources "
                 + "transferred per operation. By default, the network transfers 16 items, 1000 mB of fluid, "
                 + "and 10,000 FE per cycle. Each upgrade raises all three caps simultaneously.");
 
@@ -35,7 +35,7 @@ public class UpgradesEntry extends EntryProvider {
 
         this.page("speed_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The second upgrade is the **Basic Routing Speed Upgrade**, which increases the rate at "
+        this.pageText("The second upgrade is the [#](8B0000)Basic Routing Speed Upgrade[#](), which increases the rate at "
                 + "which all resources are transferred. The default rate is one operation every 20 ticks (1 "
                 + "second), but each speed upgrade will bring this down by 1 tick, to a maximum of every tick "
                 + "with 19 upgrades.");

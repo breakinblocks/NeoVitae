@@ -24,7 +24,7 @@ public class DemonStoneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Stone");
-        this.pageText("The **Demon Realm** is primarily built of an odd pale-blue material unknown in the rest of reality, "
+        this.pageText("The [#](8B0000)Demon Realm[#]() is primarily built of an odd pale-blue material unknown in the rest of reality, "
                 + "aptly dubbed \"Demon Stone\" for what one would hope are self-evident reasons. Its construction seems quite "
                 + "simple, being an infusion of stone with a small amount of Will.");
 

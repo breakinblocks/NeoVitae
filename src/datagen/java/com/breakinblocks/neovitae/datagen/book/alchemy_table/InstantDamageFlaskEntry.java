@@ -26,9 +26,9 @@ public class InstantDamageFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Instant Damage");
-        this.pageText("**Instant Damage** inflicts 6 points of **Magic Damage** to the target per level. "
-                + "If the target is **Undead**, they will be healed for 6 points per level instead.\\\n\\\n"
-                + "It's made from a potion of either **Instant Health** or **Poison**.");
+        this.pageText("[#](8B0000)Instant Damage[#]() inflicts 6 points of [#](8B0000)Magic Damage[#]() to the target per level. "
+                + "If the target is [#](8B0000)Undead[#](), they will be healed for 6 points per level instead.\\\n\\\n"
+                + "It's made from a potion of either [#](8B0000)Instant Health[#]() or [#](8B0000)Poison[#]().");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/health_to_harm")

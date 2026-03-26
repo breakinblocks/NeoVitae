@@ -26,9 +26,11 @@ public class HeavyHeartFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Heavy Heart");
-        this.pageText("**Heavy Heart** drags the target steadily downwards, making flying and swimming "
+        this.pageText("[#](8B0000)Heavy Heart[#]() drags the target steadily downwards, making flying and swimming "
                 + "significantly more difficult.\\\n\\\n"
-                + "It's created from a flask containing both the **Gravity** and **Instant Health** effects.");
+                + "To create it, first brew a flask with both [#](8B0000)Gravity[#]() and [#](8B0000)Instant Health[#]() effects "
+                + "(apply each effect separately to the same flask). Then combine with a "
+                + "[#](8B0000)Combinational Catalyst[#]() in the Alchemy Table.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/gravity_to_heart")

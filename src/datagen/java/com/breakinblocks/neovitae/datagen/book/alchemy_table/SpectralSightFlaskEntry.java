@@ -26,10 +26,10 @@ public class SpectralSightFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spectral Sight");
-        this.pageText("**Spectral Sight** illuminates nearby creatures as though they had the Glowing buff. "
+        this.pageText("[#](8B0000)Spectral Sight[#]() illuminates nearby creatures as though they had the Glowing buff. "
                 + "The base range is 24 blocks, and higher levels increase the range by an additional 32 blocks "
                 + "per level.\\\n\\\n"
-                + "It's made from a potion of **Night Vision**.");
+                + "It's made from a potion of [#](8B0000)Night Vision[#]().");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/night_to_spectral")

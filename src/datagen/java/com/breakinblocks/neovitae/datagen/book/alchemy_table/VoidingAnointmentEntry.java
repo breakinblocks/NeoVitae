@@ -21,7 +21,7 @@ public class VoidingAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Void Essence");
-        this.pageText("Craft **Void Essence** in the Alchemy Table. "
+        this.pageText("Craft [#](8B0000)Void Essence[#]() in the Alchemy Table. "
                 + "Deletes simple blocks on mining, such as stone, dirt, and netherrack.\\\n\\\n"
                 + "Valid items: Tools, Swords, Charges.\\\n\\\nApplies: Voiding I (256 blocks)");
 

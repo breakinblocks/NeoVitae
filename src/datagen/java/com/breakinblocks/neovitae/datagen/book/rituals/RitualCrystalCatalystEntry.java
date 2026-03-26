@@ -23,13 +23,13 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/forsaken_soul"))
                 .withMultiblockName("Gathering of the Forsaken Souls")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("This ritual generates **Demon Will Catalysts** by gathering the forsaken souls of slain creatures. The catalysts can be used to grow and enhance Demon Will crystals. Drops are deposited into a nearby chest.");
+        this.pageText("This ritual generates [#](8B0000)Demon Will Catalysts[#]() by gathering the forsaken souls of slain creatures. The catalysts can be used to grow and enhance Demon Will crystals. Drops are deposited into a nearby chest.");
     }
 
     @Override

@@ -21,7 +21,7 @@ public class SilkTouchAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Soft Coating");
-        this.pageText("Craft **Soft Coating** in the Alchemy Table. "
+        this.pageText("Craft [#](8B0000)Soft Coating[#]() in the Alchemy Table. "
                 + "Applies Silk Touch to blocks harvested. Does not stack with the vanilla enchantment.\\\n\\\n"
                 + "Valid items: Tools, Swords, Charges.\\\n\\\nApplies: Soft Touch I (256 blocks)");
 

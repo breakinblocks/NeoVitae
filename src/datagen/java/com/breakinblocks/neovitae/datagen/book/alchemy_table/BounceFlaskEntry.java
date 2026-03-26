@@ -26,7 +26,7 @@ public class BounceFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Bounce");
-        this.pageText("If the target would take fall damage, **Bounce** will instead cause them to spring "
+        this.pageText("If the target would take fall damage, [#](8B0000)Bounce[#]() will instead cause them to spring "
                 + "harmlessly off the ground. Whee!\\\n\\\nCrouching before impact will prevent you from bouncing.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()

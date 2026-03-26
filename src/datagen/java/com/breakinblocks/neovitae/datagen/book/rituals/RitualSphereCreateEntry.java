@@ -23,13 +23,13 @@ public class RitualSphereCreateEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/sphere"))
                 .withMultiblockName("Dawn of the New Moon")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("This ritual creates a hollow sphere of Phantom Blocks centered above the Master Ritual Stone. The size of the sphere can be configured with the **Ritual Tinkerer**. The cost in **LP** scales with the size of the sphere.");
+        this.pageText("This ritual creates a hollow sphere of Phantom Blocks centered above the Master Ritual Stone. The size of the sphere can be configured with the [#](8B0000)Ritual Tinkerer[#](). The cost in [#](8B0000)LP[#]() scales with the size of the sphere.");
     }
 
     @Override

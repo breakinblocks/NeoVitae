@@ -9,11 +9,11 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "neovitae:blood_rune_acceleration"
+      "recipe": "neovitae:rune_acceleration"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "neovitae:blood_rune_acceleration_2",
+      "recipe": "neovitae:rune_2_acceleration",
       "text":"With some $(item)Netherite Scrap$() and some $(item)Intricate Hellforged Parts$() looted from the $(l:neovitae:dungeons/endless_realm)Demon Realm$(), you can double the power of your $(item)Acceleration Rune$(), removing two ticks per rune instead of one, freeing up other slots around your altar."
     },
     {

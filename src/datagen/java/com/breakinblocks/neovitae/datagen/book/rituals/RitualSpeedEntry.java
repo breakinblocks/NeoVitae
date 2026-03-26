@@ -23,7 +23,7 @@ public class RitualSpeedEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/speed"))
                 .withMultiblockName("Ritual of Speed")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -35,11 +35,11 @@ public class RitualSpeedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
-        this.pageText("- **Raw Will**: Increases the speed boost potency."
-                + "\n- **Corrosive Will**: Applies Slowness to hostile mobs."
-                + "\n- **Vengeful Will**: Grants Haste to players."
-                + "\n- **Destructive Will**: Increases effect strength at higher will levels."
-                + "\n- **Steadfast Will**: Grants resistance to knockback.");
+        this.pageText("- [#](8B0000)Raw Will[#](): Increases the speed boost potency."
+                + "\n- [#](8B0000)Corrosive Will[#](): Applies Slowness to hostile mobs."
+                + "\n- [#](8B0000)Vengeful Will[#](): Grants Haste to players."
+                + "\n- [#](8B0000)Destructive Will[#](): Increases effect strength at higher will levels."
+                + "\n- [#](8B0000)Steadfast Will[#](): Grants resistance to knockback.");
     }
 
     @Override

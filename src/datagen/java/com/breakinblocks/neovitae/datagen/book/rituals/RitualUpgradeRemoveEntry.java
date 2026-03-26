@@ -23,13 +23,13 @@ public class RitualUpgradeRemoveEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/upgrade_remove"))
                 .withMultiblockName("Sound of the Cleansing Soul")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("This ritual removes upgrades from your **Living Armor**, returning them as **Upgrade Tomes** that can be re-applied later. Useful for respeccing your armor when you want to change your upgrade loadout.");
+        this.pageText("This ritual removes upgrades from your [#](8B0000)Living Armor[#](), returning them as [#](8B0000)Upgrade Tomes[#]() that can be re-applied later. Useful for respeccing your armor when you want to change your upgrade loadout.");
     }
 
     @Override

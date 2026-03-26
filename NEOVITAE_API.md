@@ -29,9 +29,11 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.breakinblocks.neovitae:neovitae-api:VERSION")
+    compileOnly("com.breakinblocks.neovitae:neovitae:VERSION")
 }
 ```
+
+> **Note:** The API classes are in the main mod JAR under `com.breakinblocks.neovitae.api`. There is no separate api artifact.
 
 ### Accessing the API
 
@@ -41,12 +43,12 @@ The Neo Vitae API is accessed through the static `NeoVitaeAPI` class:
 import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 import com.breakinblocks.neovitae.api.INeoVitaeAPI;
 
-// Check if Neo Vitae is loaded
-if (NeoVitaeAPI.isAvailable()) {
-    INeoVitaeAPI api = NeoVitaeAPI.get();
-    // Use the API...
-}
+// Get the API instance (safe to call from FMLCommonSetupEvent or later)
+INeoVitaeAPI api = NeoVitaeAPI.getInstance();
+// Use the API...
 ```
+
+> **Note:** Calling `getInstance()` before Neo Vitae has initialized will throw `IllegalStateException`.
 
 ---
 

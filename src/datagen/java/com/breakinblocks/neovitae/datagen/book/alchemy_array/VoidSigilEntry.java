@@ -20,14 +20,14 @@ public class VoidSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Void Sigil");
-        this.pageText("The **Void Sigil**, when you use it while looking at any fluid, will destroy it at "
+        this.pageText("The [#](8B0000)Void Sigil[#](), when you use it while looking at any fluid, will destroy it at "
                 + "a cost of 50 LP per block. Good for clearing out irksome lava flows without all that "
                 + "tedious placing and breaking of individual blocks.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Void Reagent** in the Alchemy Table.\\\n\\\n"
-                + "Step 2: Create the **Void Sigil** in an Alchemy Array using the Void Reagent "
+        this.pageText("Step 1: Craft the [#](8B0000)Void Reagent[#]() in the Alchemy Table.\\\n\\\n"
+                + "Step 2: Create the [#](8B0000)Void Sigil[#]() in an Alchemy Array using the Void Reagent "
                 + "as the base and a slate as the catalyst.\\\n\\\n*Better than a Swiffer!*");
     }
 

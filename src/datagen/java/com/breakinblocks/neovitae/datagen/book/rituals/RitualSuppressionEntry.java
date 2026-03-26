@@ -23,7 +23,7 @@ public class RitualSuppressionEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/suppression"))
                 .withMultiblockName("Dome of Suppression")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

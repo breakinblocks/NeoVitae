@@ -26,8 +26,9 @@ public class ObsidianCloakFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Obsidian Cloak");
-        this.pageText("**Obsidian Cloak** reduces all damage taken from non-magical sources by 20%% per level.\\\n\\\n"
-                + "It's created from a flask of **Hard Cloak**, not an **Empty Flask** like most other **potions**.");
+        this.pageText("[#](8B0000)Obsidian Cloak[#]() reduces all damage taken from non-magical sources by 20%% per level.\\\n\\\n"
+                + "To create it, combine a flask of [#](8B0000)Hard Cloak[#]() with a [#](8B0000)Diamond[#]() and [#](8B0000)Crying Obsidian[#]() "
+                + "in the Alchemy Table.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/hard_to_obsidian")

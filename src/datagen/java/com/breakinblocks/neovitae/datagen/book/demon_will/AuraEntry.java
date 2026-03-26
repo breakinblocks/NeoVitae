@@ -23,9 +23,9 @@ public class AuraEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Aura");
-        this.pageText("As we have established, **Demonic Will** coalesces around certain creatures and propels "
+        this.pageText("As we have established, [#](8B0000)Demonic Will[#]() coalesces around certain creatures and propels "
                 + "them with malevolent force. However, this is not the only place that Will can exist. By "
-                + "burning Will in a **Demon Crucible**, it is possible to unleash the will into the **Aura**, "
+                + "burning Will in a [#](8B0000)Demon Crucible[#](), it is possible to unleash the will into the [#](8B0000)Aura[#](), "
                 + "to great and fascinating effect.");
 
         this.page("crucible", () -> BookTextPageModel.create()
@@ -33,8 +33,8 @@ public class AuraEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Crucible");
         this.pageText("Craft the Demon Crucible in the Hellfire Forge.\\\n\\\n"
-                + "Put a charged **Tartaric Gem** or any aspect of **Demon Will** or **Demon Crystal** into "
-                + "it and let it run. **Crystals** will be consumed once the chunk's Will dips below 50, "
+                + "Put a charged [#](8B0000)Tartaric Gem[#]() or any aspect of [#](8B0000)Demon Will[#]() or [#](8B0000)Demon Crystal[#]() into "
+                + "it and let it run. [#](8B0000)Crystals[#]() will be consumed once the chunk's Will dips below 50, "
                 + "whereas Demon Will (in item form or from the Tartaric Gem) will be consumed a bit at a "
                 + "time, as needed.");
 
@@ -43,22 +43,22 @@ public class AuraEntry extends EntryProvider {
                 .withTitle("Demon Crucible")
                 .withBorder(true)
                 .withText(this.context().pageText()));
-        this.pageText("The **Demon Crucible**, with a **Tartaric Gem** inside it.");
+        this.pageText("The [#](8B0000)Demon Crucible[#](), with a [#](8B0000)Tartaric Gem[#]() inside it.");
 
         this.page("uses", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Now we have Raw Will in the atmosphere. Great, now what?\\\n\\\n"
-                + "Some **Rituals** benefit from Raw Will, but the main benefit from this is the ability to "
-                + "create refined **Demon Will Crystals** and from there, split them into their **Aspects**.\\\n\\\n"
-                + "Once you have some of these **Aspected Will Crystals**, you can burn them once more in the "
-                + "**Crucible** to unleash them into the **Aura** for your rituals to benefit from.");
+                + "Some [#](8B0000)Rituals[#]() benefit from Raw Will, but the main benefit from this is the ability to "
+                + "create refined [#](8B0000)Demon Will Crystals[#]() and from there, split them into their [#](8B0000)Aspects[#]().\\\n\\\n"
+                + "Once you have some of these [#](8B0000)Aspected Will Crystals[#](), you can burn them once more in the "
+                + "[#](8B0000)Crucible[#]() to unleash them into the [#](8B0000)Aura[#]() for your rituals to benefit from.");
 
         this.page("chunk_based", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("It's important to mention that the **Aura** is chunk-based. That is, any Will you burn "
+        this.pageText("It's important to mention that the [#](8B0000)Aura[#]() is chunk-based. That is, any Will you burn "
                 + "will fill up the chunk that you burn it in, up to a total cap of 100 for each type. You can "
-                + "measure this using a **Demon Will Aura Gauge**.\\\n\\\n"
-                + "To move Demon Will around, simply place a **Demon Pylon** in any adjacent chunk, and Will "
+                + "measure this using a [#](8B0000)Demon Will Aura Gauge[#]().\\\n\\\n"
+                + "To move Demon Will around, simply place a [#](8B0000)Demon Pylon[#]() in any adjacent chunk, and Will "
                 + "will be drawn towards it.");
 
         this.page("pylon", () -> BookTextPageModel.create()
@@ -71,12 +71,12 @@ public class AuraEntry extends EntryProvider {
 
         this.page("forge_absorption", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Placing a **Tartaric Gem** inside a **Hellfire Forge** will cause it to rapidly absorb "
+        this.pageText("Placing a [#](8B0000)Tartaric Gem[#]() inside a [#](8B0000)Hellfire Forge[#]() will cause it to rapidly absorb "
                 + "Will from the chunk it's in.\\\n\\\n"
-                + "With an Aspect of Will in the chunk, such as Raw or Corrosive, and an empty **Tartaric Gem**, "
+                + "With an Aspect of Will in the chunk, such as Raw or Corrosive, and an empty [#](8B0000)Tartaric Gem[#](), "
                 + "it's possible to fill the Gem with that Aspect.\\\n\\\n"
-                + "This lets you modify your **Sentient Tools** and **Sword** accordingly. The effects are "
-                + "defined in the **Demon Will Aspects** entry.");
+                + "This lets you modify your [#](8B0000)Sentient Tools[#]() and [#](8B0000)Sword[#]() accordingly. The effects are "
+                + "defined in the [#](8B0000)Demon Will Aspects[#]() entry.");
     }
 
     @Override

@@ -21,7 +21,7 @@ public class GiftOfIgnisUpgradeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Gift of Ignis");
         this.pageText("Effect: Provides Fire Resistance. Higher levels last longer and recharge faster.\\\n\\\n"
-                + "Trained by: Being on Fire. (**Potions of Fire Resistance** may be your friend here.)\\\n\\\n"
+                + "Trained by: Being on Fire. ([#](8B0000)Potions of Fire Resistance[#]() may be your friend here.)\\\n\\\n"
                 + "Maximum level: 5");
     }
 

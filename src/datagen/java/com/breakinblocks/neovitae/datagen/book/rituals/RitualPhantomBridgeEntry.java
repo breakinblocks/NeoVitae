@@ -23,7 +23,7 @@ public class RitualPhantomBridgeEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/phantom_bridge"))
                 .withMultiblockName("Ritual of the Phantom Bridge")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

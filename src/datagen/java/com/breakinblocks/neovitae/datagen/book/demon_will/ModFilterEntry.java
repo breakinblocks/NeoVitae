@@ -20,10 +20,10 @@ public class ModFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Mod Item Filter");
-        this.pageText("The **Mod Item Filter** lets you select up to 9 items from different mods. Similarly to "
-                + "the **Standard Item Filter**, it has a quantity selector and an allow/deny function. Leaving "
+        this.pageText("The [#](8B0000)Mod Item Filter[#]() lets you select up to 9 items from different mods. Similarly to "
+                + "the [#](8B0000)Standard Item Filter[#](), it has a quantity selector and an allow/deny function. Leaving "
                 + "the quantity blank defaults to 'all'.\\\n\\\n"
-                + "For each item that you put into this filter, **any item from the same mod** will be matched.");
+                + "For each item that you put into this filter, [#](8B0000)any item from the same mod[#]() will be matched.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

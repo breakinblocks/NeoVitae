@@ -21,7 +21,7 @@ public class FilterPartsEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Filter Parts");
         this.pageText("Craft Filter Parts in the Alchemy Table.\\\n\\\n"
-                + "**Filter Parts** are an integral component in all **Filters**. They have no use on their own.");
+                + "[#](8B0000)Filter Parts[#]() are an integral component in all [#](8B0000)Filters[#](). They have no use on their own.");
     }
 
     @Override

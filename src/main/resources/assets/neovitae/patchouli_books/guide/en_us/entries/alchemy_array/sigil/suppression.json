@@ -12,7 +12,7 @@
       "alchemy_table.heading": "Suppression Reagent",
       "alchemy_table.recipe": "neovitae:alchemytable/reagent_suppression",
       "array.heading": "Sigil of Suppression",
-      "array.recipe": "neovitae:array/suppressionsigil",
+      "array.recipe": "neovitae:array/suppression_sigil",
       "array.text": "$(italic)Better than a Void Sigil\u00AE!"
     }
   ]

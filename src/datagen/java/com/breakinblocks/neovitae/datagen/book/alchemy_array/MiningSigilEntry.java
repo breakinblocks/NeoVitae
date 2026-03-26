@@ -20,15 +20,15 @@ public class MiningSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of the Fast Miner");
-        this.pageText("The **Sigil of the Fast Miner** is a Sigil that, when activated using sneak and [Use], "
+        this.pageText("The [#](8B0000)Sigil of the Fast Miner[#]() is a Sigil that, when activated using sneak and [Use], "
                 + "will consume 100 LP every 5 seconds and apply the Haste potion effect. Thus, it increases "
                 + "your mining, digging, and cutting speeds.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Mining Reagent** in the Alchemy Table.\\\n\\\n"
-                + "Step 2: Create the **Sigil of the Fast Miner** in an Alchemy Array using the "
-                + "Mining Reagent as the base and a **Reinforced Slate** as the catalyst.");
+        this.pageText("Step 1: Craft the [#](8B0000)Mining Reagent[#]() in the Alchemy Table.\\\n\\\n"
+                + "Step 2: Create the [#](8B0000)Sigil of the Fast Miner[#]() in an Alchemy Array using the "
+                + "Mining Reagent as the base and a [#](8B0000)Reinforced Slate[#]() as the catalyst.");
     }
 
     @Override

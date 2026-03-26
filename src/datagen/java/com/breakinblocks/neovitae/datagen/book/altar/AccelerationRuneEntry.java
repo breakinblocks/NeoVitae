@@ -23,8 +23,8 @@ public class AccelerationRuneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Acceleration Rune");
-        this.pageText("The **Acceleration Rune** increases the rate of a couple operations. While normally "
-                + "the operations of the **Charging Rune** and **Displacement Rune** occur every 20 ticks, "
+        this.pageText("The [#](8B0000)Acceleration Rune[#]() increases the rate of a couple operations. While normally "
+                + "the operations of the [#](8B0000)Charging Rune[#]() and [#](8B0000)Displacement Rune[#]() occur every 20 ticks, "
                 + "one tick of the delay is removed per rune, down to a minimum of 1 operation per tick.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
@@ -33,8 +33,8 @@ public class AccelerationRuneEntry extends EntryProvider {
         this.page("recipe2", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_acceleration"))
                 .withText(this.context().pageText()));
-        this.pageText("With some **Netherite Scrap** and some **Intricate Hellforged Parts** looted from the "
-                + "**Demon Realm**, you can double the power of your **Acceleration Rune**, removing two ticks "
+        this.pageText("With some [#](8B0000)Netherite Scrap[#]() and some [#](8B0000)Intricate Hellforged Parts[#]() looted from the "
+                + "[#](8B0000)Demon Realm[#](), you can double the power of your [#](8B0000)Acceleration Rune[#](), removing two ticks "
                 + "per rune instead of one, freeing up other slots around your altar.");
 
         this.page("reversion", () -> BookTextPageModel.create()

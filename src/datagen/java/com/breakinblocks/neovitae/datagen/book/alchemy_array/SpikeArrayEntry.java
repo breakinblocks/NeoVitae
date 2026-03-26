@@ -26,7 +26,7 @@ public class SpikeArrayEntry extends EntryProvider {
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Create the **Spike Array** by drawing an Alchemy Array and applying the appropriate "
+        this.pageText("Create the [#](8B0000)Spike Array[#]() by drawing an Alchemy Array and applying the appropriate "
                 + "base and catalyst items.");
     }
 

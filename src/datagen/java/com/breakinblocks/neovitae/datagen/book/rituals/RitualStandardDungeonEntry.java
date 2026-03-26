@@ -23,13 +23,13 @@ public class RitualStandardDungeonEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/standard_dungeon"))
                 .withMultiblockName("Pathway to the Endless Realm")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("This ritual opens a pathway to the full **Demon Realm**. Beware, the Demon Realm is highly dangerous. Come prepared!");
+        this.pageText("This ritual opens a pathway to the full [#](8B0000)Demon Realm[#](). Beware, the Demon Realm is highly dangerous. Come prepared!");
     }
 
     @Override

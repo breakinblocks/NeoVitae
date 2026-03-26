@@ -21,16 +21,16 @@ public class LobbyEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("The Antechamber");
         this.pageText("Upon performing the Edge of the Hidden Realm ritual, you will find yourself looking at "
-                + "an **Inversion Pillar**. Right click this pillar to be transported to the Antechamber, your "
-                + "first foray into the **Demon Realm.**\n"
+                + "an [#](8B0000)Inversion Pillar[#](). Right click this pillar to be transported to the Antechamber, your "
+                + "first foray into the [#](8B0000)Demon Realm.[#]()\n"
                 + "There are a few things of note in this first room:\n"
-                + "- A single treasure chest containing some basic loot and, if you are lucky, a few **Iron Keys**.");
+                + "- A single treasure chest containing some basic loot and, if you are lucky, a few [#](8B0000)Iron Keys[#]().");
 
         this.page("intro2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("- Secondly, a number of **Doorways**, each locked with a **Dungeon Seal.** Use a **Key** "
+        this.pageText("- Secondly, a number of [#](8B0000)Doorways[#](), each locked with a [#](8B0000)Dungeon Seal.[#]() Use a [#](8B0000)Key[#]() "
                 + "on these seals to unlock the next room.\n"
-                + "- Thirdly, an **Inversion Pillar**, a mirror of the one you summoned previously. Use this to "
+                + "- Thirdly, an [#](8B0000)Inversion Pillar[#](), a mirror of the one you summoned previously. Use this to "
                 + "return to your world.\\\n\\\n"
                 + "There's also a large number of decorative blocks here, should you feel your home base needs some pizazz.");
 

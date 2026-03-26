@@ -23,19 +23,19 @@ public class RitualTinkererEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Tinkerer");
-        this.pageText("The **Ritual Tinkerer** is an essential tool for the advanced sanguimancer who is looking for all they can get out of their **Rituals**. It has three main modes, as described overleaf. You can cycle between them by pressing Sneak and Use.");
+        this.pageText("The [#](8B0000)Ritual Tinkerer[#]() is an essential tool for the advanced sanguimancer who is looking for all they can get out of their [#](8B0000)Rituals[#](). It has three main modes, as described overleaf. You can cycle between them by pressing Sneak and Use.");
 
         this.page("crafting", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_reader")));
 
         this.page("modes", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("- **Information**: Describes the function of the **Ritual**, similar to the **Ritual Diviner**."
-                + "\n- **Set Will Consumed**: Tells the **Ritual** which kinds of **Demon Will** (if any) to consume from the Aura. Specify this by carrying **Demon Will Crystals** in your hotbar, one for each type of will you wish the **Ritual** to consume. Further information about the effects of **Demon Will** upon **Rituals** can be found on each **Ritual**'s respective page in this book.");
+        this.pageText("- [#](8B0000)Information[#](): Describes the function of the [#](8B0000)Ritual[#](), similar to the [#](8B0000)Ritual Diviner[#]()."
+                + "\n- [#](8B0000)Set Will Consumed[#](): Tells the [#](8B0000)Ritual[#]() which kinds of [#](8B0000)Demon Will[#]() (if any) to consume from the Aura. Specify this by carrying [#](8B0000)Demon Will Crystals[#]() in your hotbar, one for each type of will you wish the [#](8B0000)Ritual[#]() to consume. Further information about the effects of [#](8B0000)Demon Will[#]() upon [#](8B0000)Rituals[#]() can be found on each [#](8B0000)Ritual[#]()'s respective page in this book.");
 
         this.page("define_area", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("- **Define Area**: Specifies the zone that the **Ritual** should work in, and displays the current zone. If multiple zones can be specified, pressing Sneak and Use on the **Master Ritual Stone** will cycle through them. Some **Rituals** can be expanded far beyond their default areas, but keep in mind that this will increase the **LP** cost to match...");
+        this.pageText("- [#](8B0000)Define Area[#](): Specifies the zone that the [#](8B0000)Ritual[#]() should work in, and displays the current zone. If multiple zones can be specified, pressing Sneak and Use on the [#](8B0000)Master Ritual Stone[#]() will cycle through them. Some [#](8B0000)Rituals[#]() can be expanded far beyond their default areas, but keep in mind that this will increase the [#](8B0000)LP[#]() cost to match...");
     }
 
     @Override

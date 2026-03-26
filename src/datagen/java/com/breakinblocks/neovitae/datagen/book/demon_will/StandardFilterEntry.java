@@ -24,7 +24,7 @@ public class StandardFilterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Standard Item Filter");
         this.pageText("The Standard Item Filter lets you select up to 9 items to withdraw from, or insert into, "
-                + "the adjacent inventory when inserted into a **Routing Node**.\\\n\\\n"
+                + "the adjacent inventory when inserted into a [#](8B0000)Routing Node[#]().\\\n\\\n"
                 + "Each item has a quantity - leaving this blank will default to 'all'.\\\n\\\n"
                 + "The Filter also has an Allow and Deny function. In Deny mode, quantities are ignored.");
 
@@ -33,13 +33,13 @@ public class StandardFilterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Standard Item Filter");
         this.pageText("Craft the Standard Item Filter in the Alchemy Table.\\\n\\\n"
-                + "When used in an **Input Routing Node**, the quantity tells the node how many of that item "
+                + "When used in an [#](8B0000)Input Routing Node[#](), the quantity tells the node how many of that item "
                 + "to leave in the selected inventory. Anything above this amount will be imported into the "
                 + "network.");
 
         this.page("output_usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("When used in an **Output Routing Node**, the quantity tells the node how many of that "
+        this.pageText("When used in an [#](8B0000)Output Routing Node[#](), the quantity tells the node how many of that "
                 + "item to fill in the selected inventory with. Anything above this amount will be left in "
                 + "the network - either passed into another valid inventory, or left where it is.");
 

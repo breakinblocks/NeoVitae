@@ -23,13 +23,13 @@ public class RitualSimpleDungeonEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/simple_dungeon"))
                 .withMultiblockName("Edge of the Hidden Realm")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("This ritual opens a gateway to the **Demon Realm**, a dangerous dimension full of hostile creatures and valuable resources. The simple dungeon provides an introductory challenge.");
+        this.pageText("This ritual opens a gateway to the [#](8B0000)Demon Realm[#](), a dangerous dimension full of hostile creatures and valuable resources. The simple dungeon provides an introductory challenge.");
     }
 
     @Override

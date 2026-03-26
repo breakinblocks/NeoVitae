@@ -37,7 +37,7 @@ public final class NeoVitaeAPI {
 
     @ApiStatus.Internal
     public static void setInstance(INeoVitaeAPI instance) {
-        if (INSTANCE != null) {
+        if (INSTANCE != null && INSTANCE != instance) {
             throw new IllegalStateException("NeoVitae API already initialized!");
         }
         INSTANCE = instance;

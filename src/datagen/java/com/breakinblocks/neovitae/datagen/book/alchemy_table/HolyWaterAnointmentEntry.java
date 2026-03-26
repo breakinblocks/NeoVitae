@@ -21,7 +21,7 @@ public class HolyWaterAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Holy Water");
-        this.pageText("**Holy Water** temporarily increases the melee damage dealt to undead mobs by +5."
+        this.pageText("[#](8B0000)Holy Water[#]() temporarily increases the melee damage dealt to undead mobs by +5."
                 + "\\\n\\\nValid items: Tools, Swords.\\\n\\\nApplies: Holy Light (256 hits)");
 
         this.page("recipe1", () -> BookAlchemyTableRecipePageModel.create()

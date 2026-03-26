@@ -12,7 +12,7 @@
       "alchemy_table.heading": "Blood Lamp Reagent",
       "alchemy_table.recipe": "neovitae:alchemytable/reagent_blood_light",
       "array.heading": "Sigil of the Blood Lamp",
-      "array.recipe": "neovitae:array/bloodlightsigil",
+      "array.recipe": "neovitae:array/blood_light_sigil",
       "array.text": "$(italic)I see a light!"
     }
   ]

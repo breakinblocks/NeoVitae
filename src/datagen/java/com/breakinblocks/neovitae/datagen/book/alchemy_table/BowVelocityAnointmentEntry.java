@@ -21,7 +21,7 @@ public class BowVelocityAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Archer's Polish");
-        this.pageText("**Archer's Polish** increases the velocity of fired arrows by 50%%. This also increases the damage dealt by your "
+        this.pageText("[#](8B0000)Archer's Polish[#]() increases the velocity of fired arrows by 50%%. This also increases the damage dealt by your "
                 + "arrows proportionally. Also stacks with Vanilla enchantments."
                 + "\\\n\\\nValid items: Bows, Crossbows.\\\n\\\nApplies: Sniping (256 shots)");
 

@@ -21,7 +21,7 @@ public class BowPowerAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Iron Tip");
-        this.pageText("**Iron Tip** increases the damage of fired arrows by 25%%. Also stacks with Vanilla enchantments."
+        this.pageText("[#](8B0000)Iron Tip[#]() increases the damage of fired arrows by 25%%. Also stacks with Vanilla enchantments."
                 + "\\\n\\\nValid items: Bows, Crossbows.\\\n\\\nApplies: Heavy Shot (256 shots)");
 
         this.page("recipe1", () -> BookAlchemyTableRecipePageModel.create()

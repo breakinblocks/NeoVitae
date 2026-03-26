@@ -20,7 +20,7 @@ public class SuppressionSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of Suppression");
-        this.pageText("The **Sigil of Suppression**, when activated via pressing [Use], will temporarily "
+        this.pageText("The [#](8B0000)Sigil of Suppression[#](), when activated via pressing [Use], will temporarily "
                 + "remove all fluids in a roughly 6-block radius of its holder. A short while after moving "
                 + "away from the liquid in question, it will return as though it never left. While this will "
                 + "make exploring the lava oceans of the Nether much easier, beware of jumping into any deep "
@@ -28,8 +28,8 @@ public class SuppressionSigilEntry extends EntryProvider {
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Suppression Reagent** in the Alchemy Table.\\\n\\\n"
-                + "Step 2: Create the **Sigil of Suppression** in an Alchemy Array using the "
+        this.pageText("Step 1: Craft the [#](8B0000)Suppression Reagent[#]() in the Alchemy Table.\\\n\\\n"
+                + "Step 2: Create the [#](8B0000)Sigil of Suppression[#]() in an Alchemy Array using the "
                 + "Suppression Reagent as the base and a slate as the catalyst.\\\n\\\n"
                 + "*Better than a Void Sigil!*");
     }

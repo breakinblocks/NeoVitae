@@ -26,10 +26,10 @@ public class InvisibilityFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Invisibility");
-        this.pageText("**Invisibility** causes the target to disappear from view, making it harder for them "
-                + "to be spotted. This effect does not extend to any **Armour** or held items, any of which "
+        this.pageText("[#](8B0000)Invisibility[#]() causes the target to disappear from view, making it harder for them "
+                + "to be spotted. This effect does not extend to any [#](8B0000)Armour[#]() or held items, any of which "
                 + "may be a give-away as to the target's location.\\\n\\\n"
-                + "It's made from a potion of **Night Vision**.");
+                + "It's made from a potion of [#](8B0000)Night Vision[#]().");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/night_to_invis")

@@ -26,7 +26,7 @@ public class InstantHealthFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Instant Health");
-        this.pageText("**Instant Health** heals the target for 4 points per level. If the target is **Undead**, "
+        this.pageText("[#](8B0000)Instant Health[#]() heals the target for 4 points per level. If the target is [#](8B0000)Undead[#](), "
                 + "they will be harmed for 4 points per level instead.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()

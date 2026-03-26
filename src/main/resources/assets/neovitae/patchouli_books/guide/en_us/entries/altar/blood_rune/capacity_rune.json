@@ -9,11 +9,11 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "neovitae:blood_rune_capacity"
+      "recipe": "neovitae:rune_capacity"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "neovitae:blood_rune_capacity_2",
+      "recipe": "neovitae:rune_2_capacity",
       "text":"With some $(item)Netherite Scrap$() and some $(item)Intricate Hellforged Parts$() looted from the $(l:neovitae:dungeons/endless_realm)Demon Realm$(), you can double the power of your $(item)Rune of Capacity$(), increasing the capacity of the $(l:neovitae:altar/blood_altar)Blood Altar$(/l) by an additive +40% per rune."
     },
     {

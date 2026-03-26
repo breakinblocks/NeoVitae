@@ -9,11 +9,11 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "neovitae:blood_rune_displacement"
+      "recipe": "neovitae:rune_dislocation"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "neovitae:blood_rune_displacement_2",
+      "recipe": "neovitae:rune_2_dislocation",
       "text":"With some $(item)Netherite Scrap$() and some $(item)Intricate Hellforged Parts$() looted from the $(l:neovitae:dungeons/endless_realm)Demon Realm$(), you can double the power of your $(item)Displacement Rune$(), increasing the flow rate by a multiplicative +40% per rune."
     },
     {

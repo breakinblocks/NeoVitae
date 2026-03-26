@@ -23,13 +23,13 @@ public class RitualCondorEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/condor"))
                 .withMultiblockName("Reverence of the Condor")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("This ritual grants creative-style flight to all players within its area of effect. The flight range can be configured with the **Ritual Tinkerer**.");
+        this.pageText("This ritual grants creative-style flight to all players within its area of effect. The flight range can be configured with the [#](8B0000)Ritual Tinkerer[#]().");
     }
 
     @Override

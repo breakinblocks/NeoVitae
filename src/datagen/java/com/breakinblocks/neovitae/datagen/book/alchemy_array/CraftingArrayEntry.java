@@ -20,8 +20,8 @@ public class CraftingArrayEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Crafting with Arrays");
-        this.pageText("**Alchemy Arrays of Crafting** are one of the simplest forms of array. These arrays "
-                + "inscribe the **base item** onto the **catalyst**, transforming them both into a useful item "
+        this.pageText("[#](8B0000)Alchemy Arrays of Crafting[#]() are one of the simplest forms of array. These arrays "
+                + "inscribe the [#](8B0000)base item[#]() onto the [#](8B0000)catalyst[#](), transforming them both into a useful item "
                 + "(after a small, pretty animation).");
 
         this.page("details", () -> BookTextPageModel.create()

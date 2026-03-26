@@ -23,7 +23,7 @@ public class RitualGeodeEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/geode"))
                 .withMultiblockName("Ritual of the Geode's Bounty")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -35,11 +35,11 @@ public class RitualGeodeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
-        this.pageText("- **Raw Will**: Increases growth speed."
-                + "\n- **Corrosive Will**: Enables harvest of mature clusters."
-                + "\n- **Vengeful Will**: Damages nearby mobs."
-                + "\n- **Destructive Will**: Increases Fortune effect on harvested clusters."
-                + "\n- **Steadfast Will**: Deposits items into a nearby chest.");
+        this.pageText("- [#](8B0000)Raw Will[#](): Increases growth speed."
+                + "\n- [#](8B0000)Corrosive Will[#](): Enables harvest of mature clusters."
+                + "\n- [#](8B0000)Vengeful Will[#](): Damages nearby mobs."
+                + "\n- [#](8B0000)Destructive Will[#](): Increases Fortune effect on harvested clusters."
+                + "\n- [#](8B0000)Steadfast Will[#](): Deposits items into a nearby chest.");
     }
 
     @Override

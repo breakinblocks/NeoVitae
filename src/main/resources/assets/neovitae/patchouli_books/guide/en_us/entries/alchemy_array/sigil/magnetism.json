@@ -12,7 +12,7 @@
       "alchemy_table.heading": "Magnetism Reagent",
       "alchemy_table.recipe": "neovitae:alchemytable/reagent_magnetism",
       "array.heading": "Sigil of Magnetism",
-      "array.recipe": "neovitae:array/magnetismsigil"
+      "array.recipe": "neovitae:array/magnetism_sigil"
     },
     {
       "type": "patchouli:text",

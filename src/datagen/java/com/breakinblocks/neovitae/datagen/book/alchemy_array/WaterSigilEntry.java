@@ -20,20 +20,20 @@ public class WaterSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Water Sigil");
-        this.pageText("The **Water Sigil** is a rather simple sigil. When you use it while looking at a "
-                + "block, you can drain 100 LP from your **Soul Network** to place a source block of water "
+        this.pageText("The [#](8B0000)Water Sigil[#]() is a rather simple sigil. When you use it while looking at a "
+                + "block, you can drain 100 LP from your [#](8B0000)Soul Network[#]() to place a source block of water "
                 + "in the world. If there's not enough LP, it will instead drain the toll from your health.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Water Reagent** in the Alchemy Table.\\\n\\\n"
-                + "Step 2: Create the **Water Sigil** in an Alchemy Array using the Water Reagent "
-                + "as the base and a **Blank Slate** as the catalyst.\\\n\\\n*Infinite water, anyone?*");
+        this.pageText("Step 1: Craft the [#](8B0000)Water Reagent[#]() in the Alchemy Table.\\\n\\\n"
+                + "Step 2: Create the [#](8B0000)Water Sigil[#]() in an Alchemy Array using the Water Reagent "
+                + "as the base and a [#](8B0000)Blank Slate[#]() as the catalyst.\\\n\\\n*Infinite water, anyone?*");
 
         this.page("alchemy_table", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The Water Sigil can also be used in the **Alchemy Table** to automate the production "
-                + "of **Water Buckets**. The Sigil is not consumed in this recipe.");
+        this.pageText("The Water Sigil can also be used in the [#](8B0000)Alchemy Table[#]() to automate the production "
+                + "of [#](8B0000)Water Buckets[#](). The Sigil is not consumed in this recipe.");
     }
 
     @Override

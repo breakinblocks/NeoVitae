@@ -23,7 +23,7 @@ public class OrbRuneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Rune of The Orb");
-        this.pageText("The **Rune of The Orb** increases the capacity of the **Blood Orb** that is inside "
+        this.pageText("The [#](8B0000)Rune of The Orb[#]() increases the capacity of the [#](8B0000)Blood Orb[#]() that is inside "
                 + "of the Altar by +2%% additively per rune while it is inside of the Altar.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
@@ -32,8 +32,8 @@ public class OrbRuneEntry extends EntryProvider {
         this.page("recipe2", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_orb"))
                 .withText(this.context().pageText()));
-        this.pageText("With some **Netherite Scrap** and some **Intricate Hellforged Parts** looted from the "
-                + "**Demon Realm**, you can double the power of your **Rune of the Orb**, increasing the "
+        this.pageText("With some [#](8B0000)Netherite Scrap[#]() and some [#](8B0000)Intricate Hellforged Parts[#]() looted from the "
+                + "[#](8B0000)Demon Realm[#](), you can double the power of your [#](8B0000)Rune of the Orb[#](), increasing the "
                 + "orb's capacity by an additive +4%% per rune.");
 
         this.page("reversion", () -> BookTextPageModel.create()

@@ -26,7 +26,7 @@ public class SlowFallingFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Slow Falling");
-        this.pageText("**Slow Falling** causes the target to fall slowly and take no fall damage, akin to a chicken.");
+        this.pageText("[#](8B0000)Slow Falling[#]() causes the target to fall slowly and take no fall damage, akin to a chicken.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/slow_fall")

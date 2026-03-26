@@ -20,10 +20,10 @@ public class TartaricGemsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tartaric Gems");
-        this.pageText("**Demon Will** is a very useful resource, but the fragments you have been getting so far "
-                + "are decidedly lacking in power. What you need is a storage item; A **Tartaric Gem** seems "
+        this.pageText("[#](8B0000)Demon Will[#]() is a very useful resource, but the fragments you have been getting so far "
+                + "are decidedly lacking in power. What you need is a storage item; A [#](8B0000)Tartaric Gem[#]() seems "
                 + "just the thing.\\\n\\\n"
-                + "What's more, it can absorb any leftover **Demon Will** you might have lying "
+                + "What's more, it can absorb any leftover [#](8B0000)Demon Will[#]() you might have lying "
                 + "around. Just drop them onto the floor and your shiny new gem will absorb them.");
 
         this.page("petty", () -> BookTextPageModel.create()
@@ -38,8 +38,8 @@ public class TartaricGemsEntry extends EntryProvider {
 
         this.page("lesser_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Your **Petty Tartaric Gem** is a useful tool, but it's clearly lacking in power. By "
-                + "carefully working it with **Diamond**, **Lapis**, and **Redstone**, you have found a way "
+        this.pageText("Your [#](8B0000)Petty Tartaric Gem[#]() is a useful tool, but it's clearly lacking in power. By "
+                + "carefully working it with [#](8B0000)Diamond[#](), [#](8B0000)Lapis[#](), and [#](8B0000)Redstone[#](), you have found a way "
                 + "to quadruple its storage capabilities.");
 
         this.page("lesser", () -> BookTextPageModel.create()
@@ -54,10 +54,10 @@ public class TartaricGemsEntry extends EntryProvider {
 
         this.page("common_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Your **Lesser Tartaric Gem** is a noted improvement, but once more you chafe under its "
-                + "limitations. To progress further will involve focusing on your **Blood Altar**, as you "
-                + "require the powers of an **Imbued Slate**. Combining this slate with your gem and further "
-                + "refining it with another **Diamond** and a **Block of Gold**, you have found a way to once "
+        this.pageText("Your [#](8B0000)Lesser Tartaric Gem[#]() is a noted improvement, but once more you chafe under its "
+                + "limitations. To progress further will involve focusing on your [#](8B0000)Blood Altar[#](), as you "
+                + "require the powers of an [#](8B0000)Imbued Slate[#](). Combining this slate with your gem and further "
+                + "refining it with another [#](8B0000)Diamond[#]() and a [#](8B0000)Block of Gold[#](), you have found a way to once "
                 + "again quadruple its storage capabilities.");
 
         this.page("common", () -> BookTextPageModel.create()
@@ -69,12 +69,12 @@ public class TartaricGemsEntry extends EntryProvider {
 
         this.page("greater_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("You have clearly outdone yourself with the creation of the **Common Tartaric Gem**, "
+        this.pageText("You have clearly outdone yourself with the creation of the [#](8B0000)Common Tartaric Gem[#](), "
                 + "but you feel there is still more you can do. However, getting more out of your gem will "
                 + "involve the culmination of all your work so far.\\\n\\\n"
-                + "Not only do you need a **Demonic Slate**, "
-                + "you also require a **Weak Blood Shard** and a **Demon Will Crystal**. Of course, it will "
-                + "come with rewards to match, powering your **Sentient Tools** like nothing you have seen before...");
+                + "Not only do you need a [#](8B0000)Demonic Slate[#](), "
+                + "you also require a [#](8B0000)Weak Blood Shard[#]() and a [#](8B0000)Demon Will Crystal[#](). Of course, it will "
+                + "come with rewards to match, powering your [#](8B0000)Sentient Tools[#]() like nothing you have seen before...");
 
         this.page("greater", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

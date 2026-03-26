@@ -12,7 +12,7 @@
       "alchemy_table.heading": "Teleposition Reagent",
       "alchemy_table.recipe": "neovitae:alchemytable/reagent_teleposition",
       "array.heading": "Teleposition Sigil",
-      "array.recipe": "neovitae:array/telepositionsigil",
+      "array.recipe": "neovitae:array/teleposition_sigil",
       "array.text": "$(italic)Now you see me...!$()"
     }
   ]

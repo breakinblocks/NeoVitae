@@ -23,16 +23,16 @@ public class DemonWillEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will");
-        this.pageText("Once you have a **Blood Altar**, you'll need to gather a few **Demon Wills**. "
+        this.pageText("Once you have a [#](8B0000)Blood Altar[#](), you'll need to gather a few [#](8B0000)Demon Wills[#](). "
                 + "There are two ways to get Demon Will:\n"
-                + "- Killing a mob that has been hit with a **Soul Snare** and is killed when white particle effects appear.\n"
-                + "- By killing a hostile mob with a **Sentient Sword**.\\\n\\\n"
-                + "Since you are just beginning to use the mod, you will not yet have a **Sentient Sword**,");
+                + "- Killing a mob that has been hit with a [#](8B0000)Soul Snare[#]() and is killed when white particle effects appear.\n"
+                + "- By killing a hostile mob with a [#](8B0000)Sentient Sword[#]().\\\n\\\n"
+                + "Since you are just beginning to use the mod, you will not yet have a [#](8B0000)Sentient Sword[#](),");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("and thus will need to use a **Soul Snare**.\\\n\\\n"
-                + "**Demon Will** is a recurring resource in Neo Vitae, and is used to power the **Hellfire Forge**.\\\n\\\n"
+        this.pageText("and thus will need to use a [#](8B0000)Soul Snare[#]().\\\n\\\n"
+                + "[#](8B0000)Demon Will[#]() is a recurring resource in Neo Vitae, and is used to power the [#](8B0000)Hellfire Forge[#]().\\\n\\\n"
                 + "In the lore of Neo Vitae, Demon Will is the residual effect of when a demon imbues its will "
                 + "into the bodies of the dead or other monsters.");
 
@@ -43,8 +43,8 @@ public class DemonWillEntry extends EntryProvider {
 
         this.page("next_steps", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Once you have some Will, you can use it to craft useful tools in the **Hellfire Forge**. "
-                + "If you find them cluttering up your inventory, perhaps a **Tartaric Gem** may help.");
+        this.pageText("Once you have some Will, you can use it to craft useful tools in the [#](8B0000)Hellfire Forge[#](). "
+                + "If you find them cluttering up your inventory, perhaps a [#](8B0000)Tartaric Gem[#]() may help.");
     }
 
     @Override

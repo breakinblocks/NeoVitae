@@ -23,14 +23,14 @@ public class RitualRegenerationEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/regeneration"))
                 .withMultiblockName("Ritual of Regeneration")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
         this.pageText("This ritual heals all living entities within its area of effect at the cost of LP from the activator's Soul Network."
-                + "\\\n\\\n**Corrosive Will**: Enables a vampiric mode that damages hostile mobs and uses the stolen health to heal players. Requires **Corrosive Will**.");
+                + "\\\n\\\n[#](8B0000)Corrosive Will[#](): Enables a vampiric mode that damages hostile mobs and uses the stolen health to heal players. Requires [#](8B0000)Corrosive Will[#]().");
     }
 
     @Override

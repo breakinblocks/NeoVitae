@@ -22,7 +22,7 @@ public class DungeonEyeEntry extends EntryProvider {
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "dungeon_eye"))
                 .withText(this.context().pageText()));
-        this.pageText("A **Dungeon Eye** is a light-emitting block often found within the depths of the **Endless Realm**.");
+        this.pageText("A [#](8B0000)Dungeon Eye[#]() is a light-emitting block often found within the depths of the [#](8B0000)Endless Realm[#]().");
 
         this.page("recipe_c_d", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "dungeon_eye_c"))

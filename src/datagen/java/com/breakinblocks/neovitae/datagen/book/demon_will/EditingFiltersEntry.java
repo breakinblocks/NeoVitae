@@ -20,7 +20,7 @@ public class EditingFiltersEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Editing Filters");
-        this.pageText("If you are configuring a large number of **filters**, or want to expand your existing "
+        this.pageText("If you are configuring a large number of [#](8B0000)filters[#](), or want to expand your existing "
                 + "filter setups, simply place between two and 9 filters into a crafting table to copy the "
                 + "filter in slot one onto all the other filters.");
 

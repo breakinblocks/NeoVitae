@@ -26,7 +26,7 @@ public class RegenerationFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Regeneration");
-        this.pageText("**Regeneration** heals the target over time. Higher levels increase the rate of healing.");
+        this.pageText("[#](8B0000)Regeneration[#]() heals the target over time. Higher levels increase the rate of healing.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/regen")

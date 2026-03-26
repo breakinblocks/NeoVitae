@@ -23,13 +23,13 @@ public class RitualWaterEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/water"))
                 .withMultiblockName("Ritual of the Full Spring")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("This ritual places water source blocks above the **Master Ritual Stone**. A simple but useful ritual for creating infinite water sources or filling pools.");
+        this.pageText("This ritual places water source blocks above the [#](8B0000)Master Ritual Stone[#](). A simple but useful ritual for creating infinite water sources or filling pools.");
     }
 
     @Override

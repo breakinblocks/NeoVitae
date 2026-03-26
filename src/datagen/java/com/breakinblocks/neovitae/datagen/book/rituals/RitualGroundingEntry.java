@@ -23,7 +23,7 @@ public class RitualGroundingEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/grounding"))
                 .withMultiblockName("The Sinner's Burden")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -35,11 +35,11 @@ public class RitualGroundingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
-        this.pageText("- **Raw Will**: Increases the grounding effect potency."
-                + "\n- **Corrosive Will**: Behaves similarly to the **Suspended** potion effect."
-                + "\n- **Vengeful Will**: Applies **Levitation** to entities."
-                + "\n- **Destructive Will**: Applies the **Heavy Heart** effect."
-                + "\n- **Steadfast Will**: Increases the area of effect.");
+        this.pageText("- [#](8B0000)Raw Will[#](): Increases the grounding effect potency."
+                + "\n- [#](8B0000)Corrosive Will[#](): Behaves similarly to the [#](8B0000)Suspended[#]() potion effect."
+                + "\n- [#](8B0000)Vengeful Will[#](): Applies [#](8B0000)Levitation[#]() to entities."
+                + "\n- [#](8B0000)Destructive Will[#](): Applies the [#](8B0000)Heavy Heart[#]() effect."
+                + "\n- [#](8B0000)Steadfast Will[#](): Increases the area of effect.");
     }
 
     @Override

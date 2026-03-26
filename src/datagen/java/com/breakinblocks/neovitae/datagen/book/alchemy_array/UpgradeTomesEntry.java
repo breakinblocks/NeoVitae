@@ -20,16 +20,16 @@ public class UpgradeTomesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Upgrade Tomes");
-        this.pageText("Upon activating the **Sound of the Cleansing Soul** ritual, a series of magical "
-                + "**Tomes** will manifest around you.\\\n\\\n"
+        this.pageText("Upon activating the [#](8B0000)Sound of the Cleansing Soul[#]() ritual, a series of magical "
+                + "[#](8B0000)Tomes[#]() will manifest around you.\\\n\\\n"
                 + "By pressing [Use] whilst holding one of these, you can 'teach' your chestplate one level "
                 + "of this skill (assuming it has enough spare points to learn it). Holding sneak and pressing "
                 + "[Use] will instead consume as much XP from the tome as possible.");
 
         this.page("consumption", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Doing so will consume the **Tome** and apply all EXP from it to your chestplate - "
-                + "unless there are not enough **Upgrade Points** available.\\\n\\\n"
+        this.pageText("Doing so will consume the [#](8B0000)Tome[#]() and apply all EXP from it to your chestplate - "
+                + "unless there are not enough [#](8B0000)Upgrade Points[#]() available.\\\n\\\n"
                 + "In this case, the Tome will apply as much EXP as it can and store the remainder - unless "
                 + "there's less than 1 level's worth left, in which case the tome will be destroyed.");
 

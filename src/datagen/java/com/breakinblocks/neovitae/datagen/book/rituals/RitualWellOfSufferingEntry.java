@@ -23,13 +23,13 @@ public class RitualWellOfSufferingEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/well_of_suffering"))
                 .withMultiblockName("Well of Suffering")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("This ritual attacks mobs within its damage zone and puts the harvested **Life Essence** into a nearby **Blood Altar**. Put a **Blood Orb** in the Altar, maybe add a few **Runes of Sacrifice** for good measure and you'll never have to worry about your LP supplies again... as long as you can supply enough mobs.");
+        this.pageText("This ritual attacks mobs within its damage zone and puts the harvested [#](8B0000)Life Essence[#]() into a nearby [#](8B0000)Blood Altar[#](). Put a [#](8B0000)Blood Orb[#]() in the Altar, maybe add a few [#](8B0000)Runes of Sacrifice[#]() for good measure and you'll never have to worry about your LP supplies again... as long as you can supply enough mobs.");
 
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

@@ -12,7 +12,7 @@
       "alchemy_table.heading": "Water Reagent",
       "alchemy_table.recipe": "neovitae:alchemytable/reagent_water",
       "array.heading": "Water Sigil",
-      "array.recipe": "neovitae:array/watersigil",
+      "array.recipe": "neovitae:array/water_sigil",
       "array.text": "$(italic)Infinite water, anyone?"
     },
     {

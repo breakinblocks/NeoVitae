@@ -16,13 +16,7 @@ public class HeavyHeartEffect extends MobEffect {
 
     public HeavyHeartEffect(MobEffectCategory category, int color) {
         super(category, color);
-        // MULTIPLY_TOTAL with 0 zeroes the attribute, forcibly disabling flight
-        addAttributeModifier(
-                NeoForgeMod.CREATIVE_FLIGHT,
-                HEAVY_HEART_MODIFIER_ID,
-                0.0,
-                AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
-        );
+        // Flight cancellation is handled in applyEffectTick and onEffectAdded
     }
 
     @Override

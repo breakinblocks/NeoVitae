@@ -26,7 +26,7 @@ public class WaterBreathingFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Water Breathing");
-        this.pageText("**Water Breathing** allows the target to breathe underwater.");
+        this.pageText("[#](8B0000)Water Breathing[#]() allows the target to breathe underwater.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/water_breathing")

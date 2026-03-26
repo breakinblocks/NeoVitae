@@ -12,7 +12,7 @@
       "alchemy_table.heading": "Sight Reagent",
       "alchemy_table.recipe": "neovitae:alchemytable/reagent_sight",
       "array.heading": "Seer's Sigil",
-      "array.recipe": "neovitae:array/seersigil",
+      "array.recipe": "neovitae:array/seer_sigil",
       "array.text": "$(italic)When seeing all is not enough"
     },
     {

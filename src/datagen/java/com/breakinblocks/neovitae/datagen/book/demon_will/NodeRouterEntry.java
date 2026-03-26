@@ -20,11 +20,11 @@ public class NodeRouterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Node Router");
-        this.pageText("The **Node Router** is used to link Nodes together into a Network. Its functionality "
+        this.pageText("The [#](8B0000)Node Router[#]() is used to link Nodes together into a Network. Its functionality "
                 + "is straightforward - Simply hold sneak and right-click while aiming at a node, then do "
                 + "the same to another node within 16 blocks. These two nodes are now linked.\\\n\\\n"
                 + "If you want "
-                + "to de-select a node, right-click on any other block. See the entry on **Routing Nodes** "
+                + "to de-select a node, right-click on any other block. See the entry on [#](8B0000)Routing Nodes[#]() "
                 + "for more information.");
 
         this.page("recipe", () -> BookTextPageModel.create()

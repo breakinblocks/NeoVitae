@@ -20,20 +20,20 @@ public class LavaSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Lava Sigil");
-        this.pageText("The sister sigil to the **Water Sigil**. Use the **Lava Sigil** to create a source "
+        this.pageText("The sister sigil to the [#](8B0000)Water Sigil[#](). Use the [#](8B0000)Lava Sigil[#]() to create a source "
                 + "block of lava on the ground, for the cost of 1000 LP. It'll drain 5 hearts from you if "
-                + "you don't have enough LP in your **Soul Network**.");
+                + "you don't have enough LP in your [#](8B0000)Soul Network[#]().");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Lava Reagent** in the Alchemy Table.\\\n\\\n"
-                + "Step 2: Create the **Lava Sigil** in an Alchemy Array using the Lava Reagent "
-                + "as the base and a **Blank Slate** as the catalyst.\\\n\\\n*HOT! DO NOT EAT*");
+        this.pageText("Step 1: Craft the [#](8B0000)Lava Reagent[#]() in the Alchemy Table.\\\n\\\n"
+                + "Step 2: Create the [#](8B0000)Lava Sigil[#]() in an Alchemy Array using the Lava Reagent "
+                + "as the base and a [#](8B0000)Blank Slate[#]() as the catalyst.\\\n\\\n*HOT! DO NOT EAT*");
 
         this.page("alchemy_table", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The Lava Sigil can also be used in the **Alchemy Table** to automate the production "
-                + "of **Lava Buckets**. The Sigil is not consumed in this recipe.");
+        this.pageText("The Lava Sigil can also be used in the [#](8B0000)Alchemy Table[#]() to automate the production "
+                + "of [#](8B0000)Lava Buckets[#](). The Sigil is not consumed in this recipe.");
     }
 
     @Override

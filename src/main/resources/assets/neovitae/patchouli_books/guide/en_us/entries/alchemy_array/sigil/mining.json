@@ -12,7 +12,7 @@
       "alchemy_table.heading": "Mining Reagent",
       "alchemy_table.recipe": "neovitae:alchemytable/reagent_fastminer",
       "array.heading": "Sigil of the Fast Miner",
-      "array.recipe": "neovitae:array/fastminersigil"
+      "array.recipe": "neovitae:array/fast_miner_sigil"
     },
     {
       "type": "patchouli:image",

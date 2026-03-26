@@ -23,7 +23,7 @@ public class RitualYawningVoidEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/yawning_void"))
                 .withMultiblockName("Yawning of the Void")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -35,9 +35,9 @@ public class RitualYawningVoidEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
-        this.pageText("- **Raw Will**: Increases quarrying speed.\\\n\\\n"
-                + "- **Corrosive Will**: Enables a block filter. To set a filter, place any form of **Item Filter** into the linked chest. The ritual will only use the first filter it finds, but will accept Standard, Tag, Mod, and Composite Item Filters. Blacklisting works too!\\\n\\\n"
-                + "- **Steadfast Will**: Mined blocks are placed above the ritual instead of being destroyed, creating a surface-level copy of the mined area.");
+        this.pageText("- [#](8B0000)Raw Will[#](): Increases quarrying speed.\\\n\\\n"
+                + "- [#](8B0000)Corrosive Will[#](): Enables a block filter. To set a filter, place any form of [#](8B0000)Item Filter[#]() into the linked chest. The ritual will only use the first filter it finds, but will accept Standard, Tag, Mod, and Composite Item Filters. Blacklisting works too!\\\n\\\n"
+                + "- [#](8B0000)Steadfast Will[#](): Mined blocks are placed above the ritual instead of being destroyed, creating a surface-level copy of the mined area.");
     }
 
     @Override

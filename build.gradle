@@ -57,9 +57,6 @@ base {
 }
 
 sourceSets {
-    api {
-        // Will be configured below
-    }
     datagen {
         compileClasspath += main.output + main.compileClasspath
         runtimeClasspath += main.output + main.runtimeClasspath
@@ -70,41 +67,7 @@ sourceSets {
     }
 }
 
-// API gets same dependencies as main (Minecraft, NeoForge, etc.)
-sourceSets.api.compileClasspath += configurations.compileClasspath
-sourceSets.api.runtimeClasspath += configurations.runtimeClasspath
-
-// Main depends on API output
-sourceSets.main.compileClasspath += sourceSets.api.output
-sourceSets.main.runtimeClasspath += sourceSets.api.output
-
-// Ensure API is compiled before main
-tasks.named('compileJava').configure {
-    dependsOn tasks.named('compileApiJava')
-}
-
-// Datagen also depends on API output
-sourceSets.datagen.compileClasspath += sourceSets.api.output
-sourceSets.datagen.runtimeClasspath += sourceSets.api.output
-
-// Test depends on API output
-sourceSets.test.compileClasspath += sourceSets.api.output
-sourceSets.test.runtimeClasspath += sourceSets.api.output
-
-task apiJar(type: Jar) {
-    from sourceSets.api.output
-    archiveClassifier = 'api'
-}
-
-// Include API classes in the main JAR
-tasks.named('jar', Jar).configure {
-    from sourceSets.api.output
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
-
-artifacts {
-    archives apiJar
-}
+// API classes are now in the main source set
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
@@ -118,12 +81,10 @@ neoForge {
 
     mods {
         "mod" {
-            sourceSet(sourceSets.api)
             sourceSet(sourceSets.main)
             sourceSet(sourceSets.test)
         }
         "data" {
-            sourceSet(sourceSets.api)
             sourceSet(sourceSets.main)
             sourceSet(sourceSets.datagen)
         }
@@ -216,10 +177,6 @@ publishing {
     publications {
         register('mavenJava', MavenPublication) {
             from components.java
-            // Include the API jar as an additional artifact
-            artifact(apiJar) {
-                classifier = 'api'
-            }
         }
     }
     repositories {
@@ -245,6 +202,5 @@ idea {
     module {
         downloadSources = true
         downloadJavadoc = true
-        sourceDirs += sourceSets.api.java.srcDirs
     }
 }

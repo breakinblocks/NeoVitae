@@ -23,13 +23,13 @@ public class RitualCrystalHarvestEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/crystal_harvest"))
                 .withMultiblockName("Crack of the Fractured Crystal")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("This ritual harvests **Demon Will Crystal Clusters** within its area of effect, breaking off excess spires and collecting the resulting **Demon Will** crystals. It works with all **aspects** of Demon Will crystals.");
+        this.pageText("This ritual harvests [#](8B0000)Demon Will Crystal Clusters[#]() within its area of effect, breaking off excess spires and collecting the resulting [#](8B0000)Demon Will[#]() crystals. It works with all [#](8B0000)aspects[#]() of Demon Will crystals.");
     }
 
     @Override

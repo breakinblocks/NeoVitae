@@ -23,8 +23,8 @@ public class EnchantFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Enchantments Item Filter");
-        this.pageText("The **Enchantments Item Filter** lets you sort items via any **Enchantments** that they "
-                + "may (or may not) have. It operates similarly to the **Standard Item Filter**, particularly "
+        this.pageText("The [#](8B0000)Enchantments Item Filter[#]() lets you sort items via any [#](8B0000)Enchantments[#]() that they "
+                + "may (or may not) have. It operates similarly to the [#](8B0000)Standard Item Filter[#](), particularly "
                 + "with regards to the quantity and allow/deny functions, but with a few extra buttons.");
 
         this.page("recipe", () -> BookTextPageModel.create()
@@ -43,12 +43,12 @@ public class EnchantFilterEntry extends EntryProvider {
 
         this.page("options", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The first button allows you to select whether to match **Every Enchantment** on an "
-                + "enchanted item, **Any Enchantment**, or **one particular enchantment**. The second button "
+        this.pageText("The first button allows you to select whether to match [#](8B0000)Every Enchantment[#]() on an "
+                + "enchanted item, [#](8B0000)Any Enchantment[#](), or [#](8B0000)one particular enchantment[#](). The second button "
                 + "allows you to specify whether to pay attention to the level or not. (E.G. 'Protection III' "
                 + "versus 'Protection').\\\n\\\n"
-                + "If you insert **an unenchanted item** into the filter, you can effectively Allow or Deny "
-                + "**any sort of enchantment** to be inserted into or removed from the specified inventory.");
+                + "If you insert [#](8B0000)an unenchanted item[#]() into the filter, you can effectively Allow or Deny "
+                + "[#](8B0000)any sort of enchantment[#]() to be inserted into or removed from the specified inventory.");
     }
 
     @Override

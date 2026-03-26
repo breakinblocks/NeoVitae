@@ -23,7 +23,7 @@ public class RitualGreenGroveEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/green_grove"))
                 .withMultiblockName("Ritual of the Green Grove")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -35,11 +35,11 @@ public class RitualGreenGroveEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
-        this.pageText("- **Raw Will**: Increases the growth rate."
-                + "\n- **Corrosive Will**: Hydrates nearby farmland."
-                + "\n- **Vengeful Will**: Causes nearby plants to spread."
-                + "\n- **Destructive Will**: Increases effect potency at higher will concentrations."
-                + "\n- **Steadfast Will**: Causes nearby saplings to grow into trees.");
+        this.pageText("- [#](8B0000)Raw Will[#](): Increases the growth rate."
+                + "\n- [#](8B0000)Corrosive Will[#](): Hydrates nearby farmland."
+                + "\n- [#](8B0000)Vengeful Will[#](): Causes nearby plants to spread."
+                + "\n- [#](8B0000)Destructive Will[#](): Increases effect potency at higher will concentrations."
+                + "\n- [#](8B0000)Steadfast Will[#](): Causes nearby saplings to grow into trees.");
     }
 
     @Override

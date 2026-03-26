@@ -20,14 +20,14 @@ public class GreenGroveSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of the Green Grove");
-        this.pageText("The **Sigil of the Green Grove** is an item that has multiple uses. Crafted in an "
-                + "array with a **Growth Reagent** and a **Reinforced Slate**, the sigil can use your "
-                + "**Soul Network**'s LP to nourish and grow nearby plants.");
+        this.pageText("The [#](8B0000)Sigil of the Green Grove[#]() is an item that has multiple uses. Crafted in an "
+                + "array with a [#](8B0000)Growth Reagent[#]() and a [#](8B0000)Reinforced Slate[#](), the sigil can use your "
+                + "[#](8B0000)Soul Network[#]()'s LP to nourish and grow nearby plants.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the **Growth Reagent** in the Alchemy Table.\\\n\\\n"
-                + "Step 2: Create the **Sigil of the Green Grove** in an Alchemy Array using the "
+        this.pageText("Step 1: Craft the [#](8B0000)Growth Reagent[#]() in the Alchemy Table.\\\n\\\n"
+                + "Step 2: Create the [#](8B0000)Sigil of the Green Grove[#]() in an Alchemy Array using the "
                 + "Growth Reagent as the base and a Reinforced Slate as the catalyst.");
 
         this.page("usage", () -> BookTextPageModel.create()

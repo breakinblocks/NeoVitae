@@ -20,14 +20,14 @@ public class CompositeFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Composite Item Filter");
-        this.pageText("The **Composite Item Filter** does nothing on its own, but when combined with another type "
-                + "of **Filter**, it allows you to apply that filter's rules to it.\\\n\\\n"
+        this.pageText("The [#](8B0000)Composite Item Filter[#]() does nothing on its own, but when combined with another type "
+                + "of [#](8B0000)Filter[#](), it allows you to apply that filter's rules to it.\\\n\\\n"
                 + "This means you can, for example, use the Enchantment Filter's 'Any Enchantments' and the "
                 + "Tag Filter's 'forge:swords' to only allow enchanted swords to pass through.");
 
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Similarly to the **Standard Item Filter**, it has a quantity selector and an allow/deny "
+        this.pageText("Similarly to the [#](8B0000)Standard Item Filter[#](), it has a quantity selector and an allow/deny "
                 + "function. Leaving the quantity blank defaults to 'all'. Other buttons will appear on the GUI "
                 + "as you combine it with other filters.");
 

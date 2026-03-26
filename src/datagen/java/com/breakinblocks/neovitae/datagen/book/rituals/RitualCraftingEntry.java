@@ -23,36 +23,36 @@ public class RitualCraftingEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/crafting"))
                 .withMultiblockName("Rhythm of the Beating Anvil")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("The **Rhythm of the Beating Anvil** is a powerful and versatile ritual, allowing you to autocraft standard crafting recipes alongside recipes using your **Alchemy Table** or **Hellfire Forge** (if properly augmented). However, it can be a little complex, so what follows is a tutorial for setting it up."
+        this.pageText("The [#](8B0000)Rhythm of the Beating Anvil[#]() is a powerful and versatile ritual, allowing you to autocraft standard crafting recipes alongside recipes using your [#](8B0000)Alchemy Table[#]() or [#](8B0000)Hellfire Forge[#]() (if properly augmented). However, it can be a little complex, so what follows is a tutorial for setting it up."
                 + "\\\n\\\nEach ritual can handle exactly one recipe.");
 
         this.page("filter_setup", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Setting the Recipe");
-        this.pageText("First, we need to specify the recipe using an **Item Filter**. Multiple types of Item Filter can be used, however the ritual will only ever accept one filter at a time."
+        this.pageText("First, we need to specify the recipe using an [#](8B0000)Item Filter[#](). Multiple types of Item Filter can be used, however the ritual will only ever accept one filter at a time."
                 + "\\\n\\\nThe following filters are accepted:"
-                + "\n- **Standard Item Filter**: specifies exactly which item to use in each slot."
-                + "\n- **Tag Item Filter**: Uses Tags to specify what items to use."
-                + "\n- **Mod Item Filter**: Tries to use any item from the specified mod in this slot.");
+                + "\n- [#](8B0000)Standard Item Filter[#](): specifies exactly which item to use in each slot."
+                + "\n- [#](8B0000)Tag Item Filter[#](): Uses Tags to specify what items to use."
+                + "\n- [#](8B0000)Mod Item Filter[#](): Tries to use any item from the specified mod in this slot.");
 
         this.page("placement", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The Item Filter must be placed on the ritual using an **Item Frame** or placed in a chest. If multiple filters are in the chest, only the first one will be used."
-                + "\\\n\\\nBy default, the Input chest and Output chest are in the same place; however, this can be changed with the **Ritual Tinkerer**.");
+        this.pageText("The Item Filter must be placed on the ritual using an [#](8B0000)Item Frame[#]() or placed in a chest. If multiple filters are in the chest, only the first one will be used."
+                + "\\\n\\\nBy default, the Input chest and Output chest are in the same place; however, this can be changed with the [#](8B0000)Ritual Tinkerer[#]().");
 
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
-        this.pageText("- **Steadfast Will**: The ritual will instead try to autocraft with a linked **Hellfire Forge**."
-                + "\n- **Corrosive Will**: The ritual will instead try to autocraft with a linked **Alchemy Table**."
+        this.pageText("- [#](8B0000)Steadfast Will[#](): The ritual will instead try to autocraft with a linked [#](8B0000)Hellfire Forge[#]()."
+                + "\n- [#](8B0000)Corrosive Will[#](): The ritual will instead try to autocraft with a linked [#](8B0000)Alchemy Table[#]()."
                 + "\\\n\\\nThese recipes are all shapeless, but if you need 2 of an item, you'll have to specify it twice in the filter.");
     }
 

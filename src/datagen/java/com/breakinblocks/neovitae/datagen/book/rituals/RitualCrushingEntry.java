@@ -23,7 +23,7 @@ public class RitualCrushingEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/crushing"))
                 .withMultiblockName("Ritual of the Crusher")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -35,11 +35,11 @@ public class RitualCrushingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
-        this.pageText("- **Raw Will**: Increases the number of blocks broken per tick."
-                + "\n- **Corrosive Will**: Applies **Silk Touch** to broken blocks. Requires **Cutting Fluid** in the input chest."
-                + "\n- **Vengeful Will**: Compresses items - turns Coal into Blocks of Coal, Redstone Dust into Blocks of Redstone, etc."
-                + "\n- **Destructive Will**: Applies **Fortune III** to broken blocks."
-                + "\n- **Steadfast Will**: Applies both **Silk Touch** and **Fortune** simultaneously.");
+        this.pageText("- [#](8B0000)Raw Will[#](): Increases the number of blocks broken per tick."
+                + "\n- [#](8B0000)Corrosive Will[#](): Applies [#](8B0000)Silk Touch[#]() to broken blocks. Requires [#](8B0000)Cutting Fluid[#]() in the input chest."
+                + "\n- [#](8B0000)Vengeful Will[#](): Compresses items - turns Coal into Blocks of Coal, Redstone Dust into Blocks of Redstone, etc."
+                + "\n- [#](8B0000)Destructive Will[#](): Applies [#](8B0000)Fortune III[#]() to broken blocks."
+                + "\n- [#](8B0000)Steadfast Will[#](): Applies both [#](8B0000)Silk Touch[#]() and [#](8B0000)Fortune[#]() simultaneously.");
     }
 
     @Override

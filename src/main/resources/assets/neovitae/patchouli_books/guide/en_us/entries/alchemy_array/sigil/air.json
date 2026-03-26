@@ -12,7 +12,7 @@
       "alchemy_table.heading": "Air Reagent",
       "alchemy_table.recipe": "neovitae:alchemytable/reagent_air",
       "array.heading": "Air Sigil",
-      "array.recipe": "neovitae:array/airsigil",
+      "array.recipe": "neovitae:array/air_sigil",
       "array.text": "$(italic)I feel lighter already...$()"
     }
   ]

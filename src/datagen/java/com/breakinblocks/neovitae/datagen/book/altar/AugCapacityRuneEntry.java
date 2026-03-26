@@ -23,9 +23,9 @@ public class AugCapacityRuneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Rune of Aug. Capacity");
-        this.pageText("The **Rune of Augmented Capacity** increases the capacity of the **Blood Altar** by "
+        this.pageText("The [#](8B0000)Rune of Augmented Capacity[#]() increases the capacity of the [#](8B0000)Blood Altar[#]() by "
                 + "a multiplicative +7.5%% per rune. The Augmented Capacity runes apply after the regular "
-                + "**Capacity runes**.");
+                + "[#](8B0000)Capacity runes[#]().");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_capacity_augmented"))
@@ -34,9 +34,9 @@ public class AugCapacityRuneEntry extends EntryProvider {
         this.page("recipe2", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_capacity_augmented"))
                 .withText(this.context().pageText()));
-        this.pageText("With some **Netherite Scrap** and some **Intricate Hellforged Parts** looted from the "
-                + "**Demon Realm**, you can double the power of your **Rune of Augmented Capacity**, increasing "
-                + "the capacity of the **Blood Altar** by a multiplicative +15%% per rune.");
+        this.pageText("With some [#](8B0000)Netherite Scrap[#]() and some [#](8B0000)Intricate Hellforged Parts[#]() looted from the "
+                + "[#](8B0000)Demon Realm[#](), you can double the power of your [#](8B0000)Rune of Augmented Capacity[#](), increasing "
+                + "the capacity of the [#](8B0000)Blood Altar[#]() by a multiplicative +15%% per rune.");
 
         this.page("reversion", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

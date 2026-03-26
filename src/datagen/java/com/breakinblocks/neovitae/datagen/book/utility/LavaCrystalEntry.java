@@ -22,7 +22,7 @@ public class LavaCrystalEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Lava Crystal");
-        this.pageText("The **Lava Crystal** is a source of great heat. Between the lava used in its creation "
+        this.pageText("The [#](8B0000)Lava Crystal[#]() is a source of great heat. Between the lava used in its creation "
                 + "and the power of your Soul Network, you feel confident that it will never cool.\\\n\\\n"
                 + "Pressing Use while looking at any block in the world will ignite it, at a cost of 100 LP.");
 

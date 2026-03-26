@@ -20,13 +20,13 @@ public class ActivationCrystalsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Activation Crystals");
-        this.pageText("Your rituals require more than simply the correct arrangement of blocks and Sigils. An effort of will is required to open a channel from your Soul Network to the ritual, and the **Activation Crystal** will allow you to focus yourself enough to activate your rituals.");
+        this.pageText("Your rituals require more than simply the correct arrangement of blocks and Sigils. An effort of will is required to open a channel from your Soul Network to the ritual, and the [#](8B0000)Activation Crystal[#]() will allow you to focus yourself enough to activate your rituals.");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Weak Activation Crystal");
-        this.pageText("The **Weak Activation Crystal** is crafted in the Blood Altar. Simply press Use with a bound Activation Crystal on a Master Ritual Stone to activate the ritual it's part of - assuming it's suitably assembled, that is.");
+        this.pageText("The [#](8B0000)Weak Activation Crystal[#]() is crafted in the Blood Altar. Simply press Use with a bound Activation Crystal on a Master Ritual Stone to activate the ritual it's part of - assuming it's suitably assembled, that is.");
     }
 
     @Override

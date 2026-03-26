@@ -12,7 +12,7 @@
       "alchemy_table.heading": "Holding Reagent",
       "alchemy_table.recipe": "neovitae:alchemytable/reagent_holding",
       "array.heading": "Sigil of Holding",
-      "array.recipe": "neovitae:array/holdingsigil",
+      "array.recipe": "neovitae:array/holding_sigil",
       "array.text": "$(italic)Sigil-ception"
     },
     {

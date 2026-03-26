@@ -21,7 +21,7 @@ public class MeleeAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Honing Oil");
-        this.pageText("Craft **Honing Oil** in the Alchemy Table. "
+        this.pageText("Craft [#](8B0000)Honing Oil[#]() in the Alchemy Table. "
                 + "Temporarily increases the melee damage dealt by +3.\\\n\\\n"
                 + "Valid items: Tools, Swords.\\\n\\\nApplies: Whetstone I (256 hits)");
 

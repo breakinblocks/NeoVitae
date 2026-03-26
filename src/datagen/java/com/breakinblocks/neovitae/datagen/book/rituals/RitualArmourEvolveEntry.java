@@ -23,13 +23,13 @@ public class RitualArmourEvolveEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/armour_evolve"))
                 .withMultiblockName("Ritual of Living Evolution")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("Stand on the **Master Ritual Stone** while wearing **Living Armor** to use this ritual. The ritual will evolve your Living Armor, unlocking additional upgrade potential and capabilities.");
+        this.pageText("Stand on the [#](8B0000)Master Ritual Stone[#]() while wearing [#](8B0000)Living Armor[#]() to use this ritual. The ritual will evolve your Living Armor, unlocking additional upgrade potential and capabilities.");
     }
 
     @Override

@@ -20,24 +20,24 @@ public class AnointmentsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Anointments");
-        this.pageText("**Anointments** are essentially **potions** for your tools, weapons, and even your "
-                + "**Charges**. By pressing the Use key with the **anointment** in one hand, it will be applied "
+        this.pageText("[#](8B0000)Anointments[#]() are essentially [#](8B0000)potions[#]() for your tools, weapons, and even your "
+                + "[#](8B0000)Charges[#](). By pressing the Use key with the [#](8B0000)anointment[#]() in one hand, it will be applied "
                 + "to the item in your other hand, if possible. Not all anointments work on all equipment!"
-                + "\\\n\\\nUnlike **potions**, **anointments** aren't timed; rather, they wear off a bit at a time "
+                + "\\\n\\\nUnlike [#](8B0000)potions[#](), [#](8B0000)anointments[#]() aren't timed; rather, they wear off a bit at a time "
                 + "as your tool or weapon is used.");
 
         this.page("slate_vial", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Slate-infused Vial");
-        this.pageText("Craft the **Slate-infused Vial** in the Alchemy Table (recipe: neovitae:alchemytable/slate_vial). "
+        this.pageText("Craft the [#](8B0000)Slate-infused Vial[#]() in the Alchemy Table (recipe: neovitae:alchemytable/slate_vial). "
                 + "A sturdy Vial that can contain otherwise uncontainable mixtures.");
 
         this.page("smithing", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("It is also possible to apply an **anointment** to an applicable item using a smithing table. "
+        this.pageText("It is also possible to apply an [#](8B0000)anointment[#]() to an applicable item using a smithing table. "
                 + "This is particularly useful for two-handed weapons or other situations where you might find "
-                + "yourself not having enough hands. The **anointment** takes the role of a smithing template "
+                + "yourself not having enough hands. The [#](8B0000)anointment[#]() takes the role of a smithing template "
                 + "in this process.");
     }
 

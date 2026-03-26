@@ -21,13 +21,13 @@ public class KeysEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Dungeon Keys");
-        this.pageText("**Keys** are the initial way of navigating **Dungeons**. They can be found inside Dungeon "
-                + "chests within the **Demon Realm**, or they can be crafted. The most basic kind are **Iron Keys**, "
-                + "which spawn inside **The Antechamber** as well as within the closest levels of the **Demon Realm** proper.");
+        this.pageText("[#](8B0000)Keys[#]() are the initial way of navigating [#](8B0000)Dungeons[#](). They can be found inside Dungeon "
+                + "chests within the [#](8B0000)Demon Realm[#](), or they can be crafted. The most basic kind are [#](8B0000)Iron Keys[#](), "
+                + "which spawn inside [#](8B0000)The Antechamber[#]() as well as within the closest levels of the [#](8B0000)Demon Realm[#]() proper.");
 
         this.page("distortions", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Eventually, you may come across a **Spatial Distortion** when searching through a Dungeon. "
+        this.pageText("Eventually, you may come across a [#](8B0000)Spatial Distortion[#]() when searching through a Dungeon. "
                 + "These will either lead you to a unique, uncraftable key, or to a door that only said key can open. "
                 + "Spatial Distortions only form within the Demon Realm proper, and you will never find them within an Antechamber.");
 
@@ -35,9 +35,9 @@ public class KeysEntry extends EntryProvider {
                 .withItem(NVItems.MINE_ENTRANCE_KEY.get())
                 .withTitle("The Mines")
                 .withText(this.context().pageText()));
-        this.pageText("The entrance to **The Mines** can only be opened with the uncraftable **Foreman's Key**, "
-                + "while all other doors beyond that can be opened with **Miner's Keys**. The mines will grant you "
-                + "access to **Demonite ore** alongside some rarer loot, but comes with challenges to match.");
+        this.pageText("The entrance to [#](8B0000)The Mines[#]() can only be opened with the uncraftable [#](8B0000)Foreman's Key[#](), "
+                + "while all other doors beyond that can be opened with [#](8B0000)Miner's Keys[#](). The mines will grant you "
+                + "access to [#](8B0000)Demonite ore[#]() alongside some rarer loot, but comes with challenges to match.");
 
         this.page("iron_key", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

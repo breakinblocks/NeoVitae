@@ -24,17 +24,17 @@ public class RoutingNodesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Routing Nodes");
         this.pageText("Hauling items around by hand may be all right for some people, but we are a Sanguimancer. "
-                + "What's more, we have access to **Demon Will**! Surely there's a better way to go about "
+                + "What's more, we have access to [#](8B0000)Demon Will[#]()! Surely there's a better way to go about "
                 + "things.\\\n\\\n"
-                + "As such, you've managed to come up with **Routing Nodes**. These offer a powerful way to "
-                + "transport, sort, and filter **items**, **fluids**, and **Forge Energy**, sending them "
+                + "As such, you've managed to come up with [#](8B0000)Routing Nodes[#](). These offer a powerful way to "
+                + "transport, sort, and filter [#](8B0000)items[#](), [#](8B0000)fluids[#](), and [#](8B0000)Forge Energy[#](), sending them "
                 + "magically through the air as you decree.");
 
         this.page("components", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("**Routing Node Networks** have 3 main components: **Input Nodes**, **Output Nodes**, and "
-                + "the **Master Routing Node**.\\\n\\\n"
-                + "Every network requires exactly 1 **Master Routing Node**, and every other Node in the network "
+        this.pageText("[#](8B0000)Routing Node Networks[#]() have 3 main components: [#](8B0000)Input Nodes[#](), [#](8B0000)Output Nodes[#](), and "
+                + "the [#](8B0000)Master Routing Node[#]().\\\n\\\n"
+                + "Every network requires exactly 1 [#](8B0000)Master Routing Node[#](), and every other Node in the network "
                 + "must be able to trace a route back to the Master, whether directly, or via other Nodes.\\\n\\\n"
                 + "Input and Output nodes can transfer items, fluids, and energy from any adjacent block that "
                 + "supports them.");
@@ -49,10 +49,10 @@ public class RoutingNodesEntry extends EntryProvider {
 
         this.page("other_nodes", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("A **Master Routing Node** is all well and good, but without the other two node types, "
+        this.pageText("A [#](8B0000)Master Routing Node[#]() is all well and good, but without the other two node types, "
                 + "it's not particularly useful on its own, so let's get on to those next.\\\n\\\n"
-                + "**Input Routing Nodes** draw items in to the network, **Output Routing Nodes** export them "
-                + "out again, and plain old **Routing Nodes** serve to extend the reach of your network. As "
+                + "[#](8B0000)Input Routing Nodes[#]() draw items in to the network, [#](8B0000)Output Routing Nodes[#]() export them "
+                + "out again, and plain old [#](8B0000)Routing Nodes[#]() serve to extend the reach of your network. As "
                 + "Input and Output nodes are currently otherwise identical, we will be focusing on the Input "
                 + "Routing Node unless otherwise specified.");
 
@@ -61,7 +61,7 @@ public class RoutingNodesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Routing Node");
         this.pageText("Craft the Routing Node in the Hellfire Forge.\\\n\\\n"
-                + "Doesn't do a whole lot on its own, but can be used to extend **Routing Networks** beyond "
+                + "Doesn't do a whole lot on its own, but can be used to extend [#](8B0000)Routing Networks[#]() beyond "
                 + "the 16-block reach of a single connection.");
 
         this.page("io_recipes", () -> BookTextPageModel.create()
@@ -73,9 +73,9 @@ public class RoutingNodesEntry extends EntryProvider {
         this.page("filters", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("When you place an Input or Output Node down, it will automatically connect to **all "
-                + "adjacent inventories**, but it won't do anything without a **Filter** of some kind in at "
-                + "least one of its side's slots. For example, you could use a **Standard Item Filter** set to "
-                + "**Iron Ore** on top of a **Furnace**, a second filter set to coal on the side of the "
+                + "adjacent inventories[#](8B0000), but it won't do anything without a [#]()Filter** of some kind in at "
+                + "least one of its side's slots. For example, you could use a [#](8B0000)Standard Item Filter[#]() set to "
+                + "[#](8B0000)Iron Ore[#]() on top of a [#](8B0000)Furnace[#](), a second filter set to coal on the side of the "
                 + "furnace, and an Input Node underneath set to Iron Ingots.");
 
         this.page("node_image", () -> BookImagePageModel.create()
@@ -92,8 +92,8 @@ public class RoutingNodesEntry extends EntryProvider {
 
         this.page("gui_directions", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Over on the right, we have our cardinal directions - **D**own, **U**p, **N**orth, "
-                + "**S**outh, **W**est, and **E**ast. You'll notice that a little picture of a block appears "
+        this.pageText("Over on the right, we have our cardinal directions - [#](8B0000)D[#]()own, [#](8B0000)U[#]()p, [#](8B0000)N[#]()orth, "
+                + "[#](8B0000)S[#]()outh, [#](8B0000)W[#]()est, and [#](8B0000)E[#]()ast. You'll notice that a little picture of a block appears "
                 + "on some buttons, representing what's on that side of the node.\\\n\\\n"
                 + "The GUI will open up on the "
                 + "side facing an attached inventory, or Down if no inventory is present. The buttons themselves "
@@ -114,7 +114,7 @@ public class RoutingNodesEntry extends EntryProvider {
         this.page("setup", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Once your Input and Output Nodes have been set up, have been linked together with the "
-                + "help of a **Node Router** in a network that includes exactly one **Master Routing Node**, "
+                + "help of a [#](8B0000)Node Router[#]() in a network that includes exactly one [#](8B0000)Master Routing Node[#](), "
                 + "and both have item filters inserted to the correct sides, you should be good to go! Items "
                 + "will be routed according to the priorities and the rules contained within your filters.");
 
@@ -122,23 +122,23 @@ public class RoutingNodesEntry extends EntryProvider {
                 .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/network_demo.png"))
                 .withBorder(true)
                 .withText(this.context().pageText()));
-        this.pageText("Nodes do not have to be linked directly to the **Master Routing Node**, merely to any "
+        this.pageText("Nodes do not have to be linked directly to the [#](8B0000)Master Routing Node[#](), merely to any "
                 + "node on the network.");
 
         this.page("fluid_energy", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fluid & Energy Routing");
-        this.pageText("Routing nodes don't just move items - they also transfer **fluids** and **Forge Energy** "
+        this.pageText("Routing nodes don't just move items - they also transfer [#](8B0000)fluids[#]() and [#](8B0000)Forge Energy[#]() "
                 + "(FE/RF). Any side with a filter installed will automatically route all three resource types "
                 + "to adjacent blocks that support them.\\\n\\\n"
-                + "For example, placing a filter on the side facing a **Blood Tank** will allow **Life Essence** "
+                + "For example, placing a filter on the side facing a [#](8B0000)Blood Tank[#]() will allow [#](8B0000)Life Essence[#]() "
                 + "to flow through the network, while a filter facing a machine's power input will transfer energy.");
 
         this.page("fluid_energy2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Fluid and energy routing share the same priority system as items - higher priority sides "
-                + "are served first. The **Stack Upgrade** increases the transfer rate for all three resource "
+                + "are served first. The [#](8B0000)Stack Upgrade[#]() increases the transfer rate for all three resource "
                 + "types simultaneously.\\\n\\\n"
                 + "No special filter configuration is needed for fluids or energy - any routing filter in the "
                 + "slot will enable transfer on that side for all resource types.");

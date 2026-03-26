@@ -50,7 +50,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "neovitae:blood_rune_blank"
+      "recipe": "neovitae:rune_blank"
     },
     {
       "type": "patchouli:text",

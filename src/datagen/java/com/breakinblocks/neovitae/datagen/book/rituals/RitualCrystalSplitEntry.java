@@ -23,17 +23,17 @@ public class RitualCrystalSplitEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/crystal_split"))
                 .withMultiblockName("Resonance of the Faceted Crystal")
                 .withText(this.context().pageText()));
-        this.pageText("Use a **Ritual Diviner [Dusk]** for easier construction.");
+        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("This ritual takes a well grown (at least 5 spires) **Raw Crystal Cluster** located 2 blocks above the **Master Ritual Stone**, and splits it into new single spires of each **Aspected Will** Crystal Cluster located directly above the 4 elemental Ritual Stones.");
+        this.pageText("This ritual takes a well grown (at least 5 spires) [#](8B0000)Raw Crystal Cluster[#]() located 2 blocks above the [#](8B0000)Master Ritual Stone[#](), and splits it into new single spires of each [#](8B0000)Aspected Will[#]() Crystal Cluster located directly above the 4 elemental Ritual Stones.");
 
         this.page("setup", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("This spacing is designed to accommodate a **Demon Crystallizer** on top of the **Master Ritual Stone**."
+        this.pageText("This spacing is designed to accommodate a [#](8B0000)Demon Crystallizer[#]() on top of the [#](8B0000)Master Ritual Stone[#]()."
                 + "\\\n\\\nFor information on growing Demon Will Crystals, please see the Crystallized Will entry in the Demon Will section of this book.");
     }
 

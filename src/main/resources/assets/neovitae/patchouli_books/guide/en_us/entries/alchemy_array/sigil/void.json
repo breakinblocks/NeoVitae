@@ -12,7 +12,7 @@
       "alchemy_table.heading": "Void Reagent",
       "alchemy_table.recipe": "neovitae:alchemytable/reagent_void",
       "array.heading": "Void Sigil",
-      "array.recipe": "neovitae:array/voidsigil",
+      "array.recipe": "neovitae:array/void_sigil",
       "array.text": "$(italic)Better than a Swiffer\u00AE!"
     }
   ]

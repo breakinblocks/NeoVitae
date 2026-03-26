@@ -22,7 +22,7 @@ public class TeleposerEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Teleposers");
-        this.pageText("**Teleposers** allow for a form of redstone-controlled teleportation. Simply craft a "
+        this.pageText("[#](8B0000)Teleposers[#]() allow for a form of redstone-controlled teleportation. Simply craft a "
                 + "Teleposition Focus (overleaf), bind it to your target teleposer, place it in another teleposer, "
                 + "and apply a redstone signal to the teleposer with a focus in it. Anything - blocks, items, "
                 + "entities, players - in a defined area above the two teleposers will be swapped.");

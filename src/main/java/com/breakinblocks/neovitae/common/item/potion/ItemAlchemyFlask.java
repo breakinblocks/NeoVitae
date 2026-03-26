@@ -50,6 +50,12 @@ public class ItemAlchemyFlask extends Item {
         if (contents != null) {
             contents.addPotionTooltip(tooltip::add, 1.0F, context.tickRate());
         }
+
+        FlaskEffects effects = getFlaskEffects(stack);
+        if (effects.effects().size() > 1) {
+            tooltip.add(Component.translatable("tooltip.neovitae.flask.combination")
+                    .withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC));
+        }
     }
 
     public int getRemainingUses(ItemStack stack) {

@@ -26,7 +26,7 @@ public class WeaknessFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Weakness");
-        this.pageText("**Weakness** decreases the target's attack damage by 4 points per level.");
+        this.pageText("[#](8B0000)Weakness[#]() decreases the target's attack damage by 4 points per level.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/weakness")

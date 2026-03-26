@@ -26,9 +26,11 @@ public class FlightFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Flight");
-        this.pageText("**Flight** gives the target a temporary dose of creative-style Flight. Higher levels "
+        this.pageText("[#](8B0000)Flight[#]() gives the target a temporary dose of creative-style Flight. Higher levels "
                 + "increase flight speed.\\\n\\\n"
-                + "It's created from a flask containing both the **Suspended** and **Levitation** effects.");
+                + "To create it, first brew a flask with both [#](8B0000)Suspended[#]() and [#](8B0000)Levitation[#]() effects "
+                + "(apply each effect separately to the same flask). Then combine with a "
+                + "[#](8B0000)Combinational Catalyst[#]() in the Alchemy Table.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/suspended_to_flight")

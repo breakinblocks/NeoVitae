@@ -9,11 +9,11 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "neovitae:blood_rune_self_sacrifice"
+      "recipe": "neovitae:rune_sacrifice_self"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "neovitae:blood_rune_self_sac_2",
+      "recipe": "neovitae:rune_2_sacrifice_self",
       "text":"With some $(item)Netherite Scrap$() and some $(item)Intricate Hellforged Parts$() looted from the $(l:neovitae:dungeons/endless_realm)Demon Realm$(), you can double the power of your $(item)Rune of Self Sacrifice$(), increasing bonus to an additive +20% per rune."
     },
     {

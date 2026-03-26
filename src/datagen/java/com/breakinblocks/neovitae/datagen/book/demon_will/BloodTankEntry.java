@@ -23,12 +23,12 @@ public class BloodTankEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Blood Tank");
-        this.pageText("The **Blood Tank** is a portable fluid storage block capable of holding **Life Essence** "
+        this.pageText("The [#](8B0000)Blood Tank[#]() is a portable fluid storage block capable of holding [#](8B0000)Life Essence[#]() "
                 + "and other fluids. It can be filled and emptied by right-clicking with a bucket or other fluid "
                 + "container. The tank retains its contents when broken, making it easy to transport large "
-                + "quantities of **Life Essence** between locations.\\\n\\\n"
+                + "quantities of [#](8B0000)Life Essence[#]() between locations.\\\n\\\n"
                 + "The tank emits light based on the fluid it contains, and each tier doubles the capacity of "
-                + "the previous one, starting at **16 Buckets** and reaching a maximum of **524,288 Buckets** "
+                + "the previous one, starting at [#](8B0000)16 Buckets[#]() and reaching a maximum of [#](8B0000)524,288 Buckets[#]() "
                 + "at tier 16.");
 
         this.page("recipe", () -> BookSoulForgeRecipePageModel.create()
@@ -38,7 +38,7 @@ public class BloodTankEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Upgrading");
-        this.pageText("To increase its capacity, combine two **Blood Tanks** with **Glass** and a **Bloodstone** "
+        this.pageText("To increase its capacity, combine two [#](8B0000)Blood Tanks[#]() with [#](8B0000)Glass[#]() and a [#](8B0000)Bloodstone[#]() "
                 + "in a crafting table. The resulting tank will be one tier higher than the primary input, and the "
                 + "fluid contents of both tanks will be merged together.\\\n\\\n"
                 + "If both tanks hold the same fluid, their amounts are added together. If only one contains "
@@ -49,7 +49,7 @@ public class BloodTankEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Upgrade Recipe");
-        this.pageText("Place two **Blood Tanks**, **Glass**, and a **Bloodstone** in a crafting table to upgrade. "
+        this.pageText("Place two [#](8B0000)Blood Tanks[#](), [#](8B0000)Glass[#](), and a [#](8B0000)Bloodstone[#]() in a crafting table to upgrade. "
                 + "Each tier doubles the previous tier's capacity, so upgrading early and often is worthwhile.");
     }
 

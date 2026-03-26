@@ -9,11 +9,11 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "neovitae:blood_rune_speed"
+      "recipe": "neovitae:rune_speed"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "neovitae:blood_rune_speed_2",
+      "recipe": "neovitae:rune_2_speed",
       "text":"With some $(item)Netherite Scrap$() and some $(item)Intricate Hellforged Parts$() looted from the $(l:neovitae:dungeons/endless_realm)Demon Realm$(), you can double the power of your $(item)Speed Rune$(), increasing the crafting rate by an additive +40% per rune."
     },
     {

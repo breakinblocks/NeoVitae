@@ -26,7 +26,7 @@ public class PassiveFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Passive");
-        this.pageText("**Passive** prevents the affected target from attacking. Players are unaffected, however.");
+        this.pageText("[#](8B0000)Passive[#]() prevents the affected target from attacking. Players are unaffected, however.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/passivity")

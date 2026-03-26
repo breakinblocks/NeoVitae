@@ -23,9 +23,9 @@ public class MimicsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ethereal Mimics");
-        this.pageText("**Ethereal Mimics** are a block that can easily take on the appearance of any other, while "
+        this.pageText("[#](8B0000)Ethereal Mimics[#]() are a block that can easily take on the appearance of any other, while "
                 + "being completely intangible. These can make them quite handy for concealing pitfall traps and secret "
-                + "entrances. Keep your eye out and you may find these in the **Endless Realm**.");
+                + "entrances. Keep your eye out and you may find these in the [#](8B0000)Endless Realm[#]().");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ethereal_mimic"))

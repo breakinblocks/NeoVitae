@@ -26,8 +26,8 @@ public class GroundedFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Grounded");
-        this.pageText("**Grounded** prevents the target from jumping. Swimming is unaffected, however.\\\n\\\n"
-                + "It's made from a potion of **Jump Boost**.");
+        this.pageText("[#](8B0000)Grounded[#]() prevents the target from jumping. Swimming is unaffected, however.\\\n\\\n"
+                + "It's made from a potion of [#](8B0000)Jump Boost[#]().");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/jump_to_grounded")

@@ -21,7 +21,7 @@ public class FortuneAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fortuna Extract");
-        this.pageText("**Fortuna Extract** increases the yield of some harvested blocks. Also stacks with the Fortune enchantment."
+        this.pageText("[#](8B0000)Fortuna Extract[#]() increases the yield of some harvested blocks. Also stacks with the Fortune enchantment."
                 + "\\\n\\\nValid items: Tools, Swords, Charges.\\\n\\\nApplies: Fortunate (256 blocks)");
 
         this.page("recipe1", () -> BookAlchemyTableRecipePageModel.create()

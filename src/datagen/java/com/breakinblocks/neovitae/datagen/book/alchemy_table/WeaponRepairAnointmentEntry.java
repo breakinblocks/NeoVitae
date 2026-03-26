@@ -21,7 +21,7 @@ public class WeaponRepairAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Repairing Salve");
-        this.pageText("Craft **Repairing Salve** in the Alchemy Table. "
+        this.pageText("Craft [#](8B0000)Repairing Salve[#]() in the Alchemy Table. "
                 + "Repairs damaged tools by 1 point when tool is used.\\\n\\\n"
                 + "Valid items: Tools, Swords.\\\n\\\nApplies: Regular Maintenance I (256 blocks)");
 

@@ -26,9 +26,9 @@ public class LevitationFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Levitation");
-        this.pageText("**Levitation** causes the target to float up into the air. Higher levels will make the "
+        this.pageText("[#](8B0000)Levitation[#]() causes the target to float up into the air. Higher levels will make the "
                 + "target levitate faster.\\\n\\\n"
-                + "It's made from a potion of **Slow Falling**.");
+                + "It's made from a potion of [#](8B0000)Slow Falling[#]().");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/fall_to_levitation")

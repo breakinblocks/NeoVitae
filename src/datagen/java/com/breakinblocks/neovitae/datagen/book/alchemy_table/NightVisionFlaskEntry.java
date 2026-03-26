@@ -26,7 +26,7 @@ public class NightVisionFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Night Vision");
-        this.pageText("**Night Vision** increases the target's ability to see in darkness and underwater.");
+        this.pageText("[#](8B0000)Night Vision[#]() increases the target's ability to see in darkness and underwater.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/night_vision")

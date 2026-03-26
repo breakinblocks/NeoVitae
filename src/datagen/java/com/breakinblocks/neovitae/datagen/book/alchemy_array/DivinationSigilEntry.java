@@ -20,22 +20,22 @@ public class DivinationSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Divination Sigil");
-        this.pageText("The **Divination Sigil** is probably the first of many sigils that you would like to "
-                + "craft in Neo Vitae. In order to craft the sigil, you need to create an **Alchemy Array** "
-                + "and use **Redstone Dust** and a **Blank Slate** as the base and catalyst items, respectively.");
+        this.pageText("The [#](8B0000)Divination Sigil[#]() is probably the first of many sigils that you would like to "
+                + "craft in Neo Vitae. In order to craft the sigil, you need to create an [#](8B0000)Alchemy Array[#]() "
+                + "and use [#](8B0000)Redstone Dust[#]() and a [#](8B0000)Blank Slate[#]() as the base and catalyst items, respectively.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("**Divination Sigil**: Created in an Alchemy Array with **Redstone Dust** (base) and "
-                + "**Blank Slate** (catalyst).\\\n\\\n*Peer into the soul.*");
+        this.pageText("[#](8B0000)Divination Sigil[#](): Created in an Alchemy Array with [#](8B0000)Redstone Dust[#]() (base) and "
+                + "[#](8B0000)Blank Slate[#]() (catalyst).\\\n\\\n*Peer into the soul.*");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The Divination Sigil has two primary uses:\n"
                 + "- When any player uses the sigil while aiming at the air, it will display the amount of "
-                + "LP that is in the owner's **Soul Network**.\n"
-                + "- When using the sigil on a **Blood Altar**, it will tell the player the altar's current "
-                + "Tier, the amount of **Life Essence** stored in the altar, as well as its current max capacity.");
+                + "LP that is in the owner's [#](8B0000)Soul Network[#]().\n"
+                + "- When using the sigil on a [#](8B0000)Blood Altar[#](), it will tell the player the altar's current "
+                + "Tier, the amount of [#](8B0000)Life Essence[#]() stored in the altar, as well as its current max capacity.");
 
         this.page("gui_editing", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

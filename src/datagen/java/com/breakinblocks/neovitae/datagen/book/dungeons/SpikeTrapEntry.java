@@ -21,7 +21,7 @@ public class SpikeTrapEntry extends EntryProvider {
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "spike_trap"))
                 .withText(this.context().pageText()));
-        this.pageText("**Spike traps** look only mildly suspicious until they receive a redstone signal, whereupon "
+        this.pageText("[#](8B0000)Spike traps[#]() look only mildly suspicious until they receive a redstone signal, whereupon "
                 + "vicious blades jam out into whatever is in their way. Whoever (or perhaps whatever) designed these "
                 + "clearly wanted to keep out intruders.");
     }

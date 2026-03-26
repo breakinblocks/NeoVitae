@@ -133,10 +133,4 @@ public class ClientModEventHandler {
         event.registerAbove(VanillaGuiLayers.HOTBAR, NeoVitae.rl("demon_will_gauge"), new DemonWillGaugeOverlay());
     }
 
-    @SubscribeEvent
-    public static void registerAdditionalModels(ModelEvent.RegisterAdditional event) {
-        // Register the Modonomicon book model so it can be resolved by the BookModelLoader
-        // Modonomicon resolves via new ModelResourceLocation(rl, "inventory")
-        event.register(new ModelResourceLocation(NeoVitae.rl("book"), "inventory"));
-    }
 }

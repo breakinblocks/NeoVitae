@@ -160,6 +160,7 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemARCToolBase> ADVANCED_CUTTING_FLUID = BASIC_ITEMS.register("advanced_cutting_fluid", () -> new ItemARCToolBase(1024, 2, 2, EnumWillType.CORROSIVE));
     public static final DeferredHolder<Item, ItemARCToolBase> EXPLOSIVE_POWDER = BASIC_ITEMS.register("explosive_powder", () -> new ItemARCToolBase(64, 1, EnumWillType.DESTRUCTIVE));
     public static final DeferredHolder<Item, ItemARCToolBase> RESONATOR = BASIC_ITEMS.register("resonator", () -> new ItemARCToolBase(64, 1, EnumWillType.VENGEFUL));
+    public static final DeferredHolder<Item, NVGuideBookItem> GUIDE_BOOK = BASIC_ITEMS.register("guide_book", NVGuideBookItem::new);
     public static final DeferredHolder<Item, ItemARCToolBase> SANGUINE_REVERTER = BASIC_ITEMS.register("sanguine_reverter", () -> new ItemARCToolBase(32, 2, EnumWillType.STEADFAST));
     public static final DeferredHolder<Item, ItemARCToolBase> PRIMITIVE_FURNACE_CELL = BASIC_ITEMS.register("furnacecell_primitive", () -> new ItemARCToolBase(128, 3));
     public static final DeferredHolder<Item, ItemARCToolBase> PRIMITIVE_EXPLOSIVE_CELL = BASIC_ITEMS.register("primitive_explosive_cell", () -> new ItemARCToolBase(256, 1.5, EnumWillType.DESTRUCTIVE));

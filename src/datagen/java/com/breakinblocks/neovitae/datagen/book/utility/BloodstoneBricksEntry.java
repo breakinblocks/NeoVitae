@@ -22,7 +22,7 @@ public class BloodstoneBricksEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Bloodstone Bricks");
-        this.pageText("**Bloodstone Bricks** are a decorative block, and used as the capstones for the "
+        this.pageText("[#](8B0000)Bloodstone Bricks[#]() are a decorative block, and used as the capstones for the "
                 + "Tier-4 Blood Altar. They require Weak Blood Shards, which can be made by putting a "
                 + "Saturated Tau into an Alchemical Reaction Chamber with a Sanguine Reverter in it.");
 

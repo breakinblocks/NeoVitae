@@ -21,7 +21,7 @@ public class RepairUpgradeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Repair");
         this.pageText("Effect: Repairs a random piece of worn armour every 100 ticks.\\\n\\\n"
-                + "Trained by: Repairing your chestplate (in an anvil, with the **Mending** enchantment, "
+                + "Trained by: Repairing your chestplate (in an anvil, with the [#](8B0000)Mending[#]() enchantment, "
                 + "etc).\\\n\\\nMaximum level: 1");
     }
 

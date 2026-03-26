@@ -21,7 +21,7 @@ public class LootingAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Plunderer's Glint");
-        this.pageText("Craft **Plunderer's Glint** in the Alchemy Table. "
+        this.pageText("Craft [#](8B0000)Plunderer's Glint[#]() in the Alchemy Table. "
                 + "Increases the drops from killed mobs. Also stacks with the Looting enchantment.\\\n\\\n"
                 + "Valid items: Tools, Swords.\\\n\\\nApplies: Plundering I (256 hits)");
 

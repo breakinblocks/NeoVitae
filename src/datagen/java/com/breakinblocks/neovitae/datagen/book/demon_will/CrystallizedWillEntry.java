@@ -20,19 +20,19 @@ public class CrystallizedWillEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Crystallized Will");
-        this.pageText("Now that you have plenty of **Demon Will** in your **Tartaric Gem**, it's time to explore "
+        this.pageText("Now that you have plenty of [#](8B0000)Demon Will[#]() in your [#](8B0000)Tartaric Gem[#](), it's time to explore "
                 + "what happens when you unleash it upon the world.\\\n\\\n"
-                + "First off, you'll need to get Will into the **Aura**. Next, you'll need to make a "
-                + "**Demon Crystallizer**.");
+                + "First off, you'll need to get Will into the [#](8B0000)Aura[#](). Next, you'll need to make a "
+                + "[#](8B0000)Demon Crystallizer[#]().");
 
         this.page("crystallizer", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Crystallizer");
         this.pageText("Craft the Demon Crystallizer in the Hellfire Forge.\\\n\\\n"
-                + "This will slowly consume **Demon Will** from the **Aura** to produce **Will Crystals**. "
+                + "This will slowly consume [#](8B0000)Demon Will[#]() from the [#](8B0000)Aura[#]() to produce [#](8B0000)Will Crystals[#](). "
                 + "The first spire costs 100 Will to form, and all subsequent spires cost 45 each, but can be "
-                + "burned for 50 in the **Demon Crucible**, for a net gain of 5. The largest **Crystal Cluster** "
+                + "burned for 50 in the [#](8B0000)Demon Crucible[#](), for a net gain of 5. The largest [#](8B0000)Crystal Cluster[#]() "
                 + "can be up to 7 spires.");
 
         this.page("harvesting", () -> BookTextPageModel.create()
@@ -46,8 +46,8 @@ public class CrystallizedWillEntry extends EntryProvider {
         this.page("related", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("5 will per harvested crystal isn't a particularly impressive haul, but rituals such as "
-                + "**Resonance of the Faceted Crystal**, **Catalyst of the Forsaken Souls**, and **Crack of the "
-                + "Fractured Crystal** (alongside **Will Catalysts**) should allow you to boost and automate "
+                + "[#](8B0000)Resonance of the Faceted Crystal[#](), [#](8B0000)Catalyst of the Forsaken Souls[#](), and **Crack of the "
+                + "Fractured Crystal[#](8B0000) (alongside [#]()Will Catalysts**) should allow you to boost and automate "
                 + "their production for some impressive gains.");
     }
 

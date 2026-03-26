@@ -21,8 +21,8 @@ public class DungeonAlternatorEntry extends EntryProvider {
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "alternator"))
                 .withText(this.context().pageText()));
-        this.pageText("The **Dungeon Alternator** emits a constantly changing redstone signal, alternating between "
-                + "powered and unpowered at set intervals, similar to a **Redstone Clock**.");
+        this.pageText("The [#](8B0000)Dungeon Alternator[#]() emits a constantly changing redstone signal, alternating between "
+                + "powered and unpowered at set intervals, similar to a [#](8B0000)Redstone Clock[#]().");
     }
 
     @Override

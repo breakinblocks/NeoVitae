@@ -21,7 +21,7 @@ public class QuickDrawAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Dexterity Alkahest");
-        this.pageText("Craft **Dexterity Alkahest** in the Alchemy Table. "
+        this.pageText("Craft [#](8B0000)Dexterity Alkahest[#]() in the Alchemy Table. "
                 + "Lowers the draw time of bows and crossbows by 33%%.\\\n\\\n"
                 + "Valid items: Bows, Crossbows.\\\n\\\nApplies: Deft Hands I (256 shots)");
 

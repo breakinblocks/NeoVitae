@@ -12,7 +12,7 @@
       "alchemy_table.heading": "Lava Reagent",
       "alchemy_table.recipe": "neovitae:alchemytable/reagent_lava",
       "array.heading": "Lava Sigil",
-      "array.recipe": "neovitae:array/lavasigil",
+      "array.recipe": "neovitae:array/lava_sigil",
       "array.text": "$(italic)HOT! DO NOT EAT$()"
     },
     {

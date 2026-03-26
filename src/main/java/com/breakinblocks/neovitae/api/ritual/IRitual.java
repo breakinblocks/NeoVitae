@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.api.ritual;
 
+import com.breakinblocks.neovitae.ritual.IMasterRitualStone;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

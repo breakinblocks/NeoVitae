@@ -62,7 +62,7 @@ public class ServerConfig {
 
         builder.comment("Demon Crystal Growth Configuration",
                 "These values control how demon crystals form and grow.",
-                "Crystals are created by Demon Crystallizers and grow based on chunk will.");
+                "Crystals are created by Crystallarium Maleficums and grow based on chunk will.");
         builder.push("demon_crystal");
 
         CRYSTAL_WILL_TO_FORM = builder

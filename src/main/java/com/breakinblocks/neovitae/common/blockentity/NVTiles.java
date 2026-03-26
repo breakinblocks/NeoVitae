@@ -75,8 +75,8 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DemonPylonBlockEntity>> DEMON_PYLON_TYPE =
             registerTile("demon_pylon", DemonPylonBlockEntity::new, NVBlocks.DEMON_PYLON.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DemonCrystallizerBlockEntity>> DEMON_CRYSTALLIZER_TYPE =
-            registerTile("demon_crystallizer", DemonCrystallizerBlockEntity::new, NVBlocks.DEMON_CRYSTALLIZER.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CrystallariumMaleficumBlockEntity>> CRYSTALLARIUM_MALEFICUM_TYPE =
+            registerTile("crystallarium_maleficum", CrystallariumMaleficumBlockEntity::new, NVBlocks.CRYSTALLARIUM_MALEFICUM.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DemonCrystalBlockEntity>> DEMON_CRYSTAL_TYPE =
             registerTile("demon_crystal", DemonCrystalBlockEntity::new,

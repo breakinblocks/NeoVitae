@@ -23,13 +23,13 @@ public class CrystallizedWillEntry extends EntryProvider {
         this.pageText("Now that you have plenty of [#](8B0000)Demon Will[#]() in your [#](8B0000)Tartaric Gem[#](), it's time to explore "
                 + "what happens when you unleash it upon the world.\\\n\\\n"
                 + "First off, you'll need to get Will into the [#](8B0000)Aura[#](). Next, you'll need to make a "
-                + "[#](8B0000)Demon Crystallizer[#]().");
+                + "[#](8B0000)Crystallarium Maleficum[#]().");
 
         this.page("crystallizer", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Crystallizer");
-        this.pageText("Craft the Demon Crystallizer in the Hellfire Forge.\\\n\\\n"
+        this.pageTitle("Crystallarium Maleficum");
+        this.pageText("Craft the Crystallarium Maleficum in the Hellfire Forge.\\\n\\\n"
                 + "This will slowly consume [#](8B0000)Demon Will[#]() from the [#](8B0000)Aura[#]() to produce [#](8B0000)Will Crystals[#](). "
                 + "The first spire costs 100 Will to form, and all subsequent spires cost 45 each, but can be "
                 + "burned for 50 in the [#](8B0000)Vas Maleficum[#](), for a net gain of 5. The largest [#](8B0000)Crystal Cluster[#]() "

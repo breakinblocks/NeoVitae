@@ -41,7 +41,7 @@ public class WillCatalystsEntry extends EntryProvider {
                 + "in the Hellfire Forge using 4 crystals of the matching type.\\\n\\\n"
                 + "Once you have a cluster, simply place it down in any chunk, supply the chunk with will of "
                 + "the matching type, and wait. Eventually, new spires will grow, just like clusters growing "
-                + "atop a [#](8B0000)Demon Crystallizer[#]().");
+                + "atop a [#](8B0000)Crystallarium Maleficum[#]().");
 
         this.page("harvesting", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

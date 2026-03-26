@@ -37,7 +37,7 @@ public class RitualCrystalSplitEntry extends EntryProvider {
 
         this.page("setup", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("This spacing is designed to accommodate a [#](8B0000)Demon Crystallizer[#]() on top of the [#](8B0000)Master Ritual Stone[#]()."
+        this.pageText("This spacing is designed to accommodate a [#](8B0000)Crystallarium Maleficum[#]() on top of the [#](8B0000)Master Ritual Stone[#]()."
                 + "\\\n\\\nFor information on growing Demon Will Crystals, please see the Crystallized Will entry in the Demon Will section of this book.");
     }
 

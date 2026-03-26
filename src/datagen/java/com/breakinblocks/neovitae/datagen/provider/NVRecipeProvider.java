@@ -849,7 +849,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_common_gem", has(NVItems.SOUL_GEM_COMMON.get()))
                 .save(output, NeoVitae.rl("vas_maleficum"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.DEMON_CRYSTALLIZER.block().get())
+        SoulForgeRecipeBuilder.build(NVBlocks.CRYSTALLARIUM_MALEFICUM.block().get())
                 .requires(NVBlocks.HELLFIRE_FORGE.block().get())
                 .requires(Tags.Items.STONES)
                 .requires(Tags.Items.GEMS_LAPIS)
@@ -857,7 +857,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minWill(500)
                 .drain(100)
                 .unlockedBy("has_hellfire_forge", has(NVBlocks.HELLFIRE_FORGE.block().get()))
-                .save(output, NeoVitae.rl("demon_crystallizer"));
+                .save(output, NeoVitae.rl("crystallarium_maleficum"));
 
         SoulForgeRecipeBuilder.build(NVBlocks.DEMON_PYLON.block().get())
                 .requires(NVTags.Items.DEMON_CRYSTALS)

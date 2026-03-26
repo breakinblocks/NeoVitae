@@ -1,0 +1,10 @@
+{
+  "parent": "block/block",
+  "loader": "neoforge:obj",
+  "flip_v": true, 
+  "model": "neovitae:models/block/block_crystallarium_maleficum.obj",
+  "textures": {
+    "default": "neovitae:block/crystallarium_maleficum",
+    "particle": "#default"
+  }
+}

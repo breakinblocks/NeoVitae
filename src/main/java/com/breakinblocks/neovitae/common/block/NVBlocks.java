@@ -109,7 +109,7 @@ public class NVBlocks {
     public static final BlockWithItemHolder<BlockImperfectRitualStone, BlockItem> IMPERFECT_RITUAL_STONE = BLOCK_REG.register("imperfect_ritual_stone", BlockImperfectRitualStone::new);
 
     public static final BlockWithItemHolder<VasMaleficumBlock, BlockItem> VAS_MALEFICUM = BLOCK_REG.register("vas_maleficum", VasMaleficumBlock::new);
-    public static final BlockWithItemHolder<DemonCrystallizerBlock, BlockItem> DEMON_CRYSTALLIZER = BLOCK_REG.register("demon_crystallizer", DemonCrystallizerBlock::new);
+    public static final BlockWithItemHolder<CrystallariumMaleficumBlock, BlockItem> CRYSTALLARIUM_MALEFICUM = BLOCK_REG.register("crystallarium_maleficum", CrystallariumMaleficumBlock::new);
     public static final BlockWithItemHolder<DemonPylonBlock, BlockItem> DEMON_PYLON = BLOCK_REG.register("demon_pylon", DemonPylonBlock::new);
 
     private static final BlockBehaviour.Properties crystal_block_properties = BlockBehaviour.Properties.of().strength(3.0F, 3.0F).sound(SoundType.AMETHYST).requiresCorrectToolForDrops().lightLevel(state -> 7).noOcclusion();

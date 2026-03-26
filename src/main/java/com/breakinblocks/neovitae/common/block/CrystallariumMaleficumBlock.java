@@ -11,16 +11,16 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.DemonCrystallizerBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.CrystallariumMaleficumBlockEntity;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
 
-public class DemonCrystallizerBlock extends BaseEntityBlock {
+public class CrystallariumMaleficumBlock extends BaseEntityBlock {
 
-    public static final MapCodec<DemonCrystallizerBlock> CODEC = simpleCodec(p -> new DemonCrystallizerBlock());
+    public static final MapCodec<CrystallariumMaleficumBlock> CODEC = simpleCodec(p -> new CrystallariumMaleficumBlock());
 
-    public DemonCrystallizerBlock() {
+    public CrystallariumMaleficumBlock() {
         super(Properties.of()
                 .strength(5.0F, 6.0F)
                 .sound(SoundType.METAL)
@@ -36,13 +36,13 @@ public class DemonCrystallizerBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new DemonCrystallizerBlockEntity(pos, state);
+        return new CrystallariumMaleficumBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.DEMON_CRYSTALLIZER_TYPE.get(), DemonCrystallizerBlockEntity::tick);
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.CRYSTALLARIUM_MALEFICUM_TYPE.get(), CrystallariumMaleficumBlockEntity::tick);
     }
 
     @Override

@@ -15,14 +15,14 @@ import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 /**
- * Demon Crystallizer - forms the initial demon crystal from will aura.
+ * Crystallarium Maleficum - forms the initial demon crystal from will aura.
  *
  * <p>The crystallizer's only job is to form the FIRST crystal when there's air above it.
  * All further crystal growth is handled by the DemonCrystalBlockEntity itself.</p>
  *
  * <p>Configurable via server config (default: 99 will to form, 1000 ticks formation time).</p>
  */
-public class DemonCrystallizerBlockEntity extends BaseBlockEntity {
+public class CrystallariumMaleficumBlockEntity extends BaseBlockEntity {
 
     private static double getWillToFormCrystal() {
         return NeoVitae.SERVER_CONFIG.CRYSTAL_WILL_TO_FORM.get();
@@ -34,11 +34,11 @@ public class DemonCrystallizerBlockEntity extends BaseBlockEntity {
 
     private double internalCounter = 0;
 
-    public DemonCrystallizerBlockEntity(BlockPos pos, BlockState state) {
-        super(NVTiles.DEMON_CRYSTALLIZER_TYPE.get(), pos, state);
+    public CrystallariumMaleficumBlockEntity(BlockPos pos, BlockState state) {
+        super(NVTiles.CRYSTALLARIUM_MALEFICUM_TYPE.get(), pos, state);
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, DemonCrystallizerBlockEntity tile) {
+    public static void tick(Level level, BlockPos pos, BlockState state, CrystallariumMaleficumBlockEntity tile) {
         if (level.isClientSide()) {
             return;
         }

@@ -2,7 +2,9 @@ package com.breakinblocks.neovitae.datagen.book.rituals;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase;
+import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 
 public class RitualsCategory extends CategoryProvider {
@@ -118,6 +120,14 @@ public class RitualsCategory extends CategoryProvider {
         upgradeRemove.withParent(this.parent(basics));
         var livingDowngrade = this.add(new RitualLivingDowngradeEntry(this).generate('A'));
         livingDowngrade.withParent(this.parent(basics));
+    }
+
+    @Override
+    protected BookCategoryModel additionalSetup(BookCategoryModel category) {
+        return super.additionalSetup(category)
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/rituals_base.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/rituals_layer_1.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/rituals_layer_2.png"));
     }
 
     @Override

@@ -3,13 +3,13 @@
   "background_height": 512,
   "background_parallax_layers": [
     {
-      "background": "neovitae:textures/gui/parallax/base.png"
+      "background": "neovitae:textures/gui/parallax/demon_will_base.png"
     },
     {
-      "background": "neovitae:textures/gui/parallax/layer_1.png"
+      "background": "neovitae:textures/gui/parallax/demon_will_layer_1.png"
     },
     {
-      "background": "neovitae:textures/gui/parallax/layer_2.png"
+      "background": "neovitae:textures/gui/parallax/demon_will_layer_2.png"
     }
   ],
   "background_texture_zoom_multiplier": 1.0,

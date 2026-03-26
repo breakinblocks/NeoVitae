@@ -2,7 +2,9 @@ package com.breakinblocks.neovitae.datagen.book.alchemy_array;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase;
+import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 
 public class AlchemyArraysCategory extends CategoryProvider {
@@ -181,6 +183,14 @@ public class AlchemyArraysCategory extends CategoryProvider {
 
         var concreteShoes = this.add(new ConcreteShoesDowngradeEntry(this).generate('Z'));
         concreteShoes.withParent(this.parent(livingUpgrades));
+    }
+
+    @Override
+    protected BookCategoryModel additionalSetup(BookCategoryModel category) {
+        return super.additionalSetup(category)
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/alchemy_array_base.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/alchemy_array_layer_1.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/alchemy_array_layer_2.png"));
     }
 
     @Override

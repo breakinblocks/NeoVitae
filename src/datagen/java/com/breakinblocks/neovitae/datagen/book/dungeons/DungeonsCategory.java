@@ -2,7 +2,9 @@ package com.breakinblocks.neovitae.datagen.book.dungeons;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase;
+import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 
 public class DungeonsCategory extends CategoryProvider {
@@ -35,6 +37,14 @@ public class DungeonsCategory extends CategoryProvider {
         var tauFruit = this.add(new TauFruitEntry(this).generate('t'));
         var mimics = this.add(new MimicsEntry(this).generate('m'));
         var spikeTrap = this.add(new SpikeTrapEntry(this).generate('p'));
+    }
+
+    @Override
+    protected BookCategoryModel additionalSetup(BookCategoryModel category) {
+        return super.additionalSetup(category)
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/dungeons_base.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/dungeons_layer_1.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/dungeons_layer_2.png"));
     }
 
     @Override

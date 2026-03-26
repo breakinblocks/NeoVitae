@@ -2,7 +2,9 @@ package com.breakinblocks.neovitae.datagen.book.utility;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase;
+import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 
 public class UtilityCategory extends CategoryProvider {
@@ -37,6 +39,14 @@ public class UtilityCategory extends CategoryProvider {
         var lavaCrystal = this.add(new LavaCrystalEntry(this).generate('l'));
         var lifeEssenceBucket = this.add(new LifeEssenceBucketEntry(this).generate('r'));
         var teleposer = this.add(new TeleposerEntry(this).generate('t'));
+    }
+
+    @Override
+    protected BookCategoryModel additionalSetup(BookCategoryModel category) {
+        return super.additionalSetup(category)
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/utility_base.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/utility_layer_1.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/utility_layer_2.png"));
     }
 
     @Override

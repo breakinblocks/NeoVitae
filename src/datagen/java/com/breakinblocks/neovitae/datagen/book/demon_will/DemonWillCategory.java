@@ -104,9 +104,9 @@ public class DemonWillCategory extends CategoryProvider {
     @Override
     protected BookCategoryModel additionalSetup(BookCategoryModel category) {
         return super.additionalSetup(category)
-                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/base.png"))
-                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/layer_1.png"))
-                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/layer_2.png"));
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/demon_will_base.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/demon_will_layer_1.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/demon_will_layer_2.png"));
     }
 
     @Override

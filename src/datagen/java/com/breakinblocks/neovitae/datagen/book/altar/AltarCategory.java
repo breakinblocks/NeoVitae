@@ -2,7 +2,9 @@ package com.breakinblocks.neovitae.datagen.book.altar;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase;
+import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 
 public class AltarCategory extends CategoryProvider {
@@ -61,6 +63,14 @@ public class AltarCategory extends CategoryProvider {
 
         var augCapacity = this.add(new AugCapacityRuneEntry(this).generate('m'));
         augCapacity.withParent(this.parent(capacity));
+    }
+
+    @Override
+    protected BookCategoryModel additionalSetup(BookCategoryModel category) {
+        return super.additionalSetup(category)
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/altar_base.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/altar_layer_1.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/altar_layer_2.png"));
     }
 
     @Override

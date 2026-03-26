@@ -2,7 +2,9 @@ package com.breakinblocks.neovitae.datagen.book.alchemy_table;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase;
+import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 
 public class AlchemyTableCategory extends CategoryProvider {
@@ -13,25 +15,19 @@ public class AlchemyTableCategory extends CategoryProvider {
 
     @Override
     protected String[] generateEntryMap() {
-        // Left-to-right tree: AlchemyTable → branches → children → derived
+        // Top-down: AlchemyTable at top, anointments left, potions right
         return new String[]{
-                "a_______d_e_f__________________________________",
-                "________g_h_i__________________________________",
-                "____b___j_k_l__________________________________",
-                "________m_n_o__________________________________",
-                "________p_______B______________________________",
-                "________q______________________________________",
-                "________r______________________________________",
-                "____c___s_______t______________________________",
-                "________u______________________________________",
-                "________v_______w______________________________",
-                "________x_______N______________________________",
-                "________y______________________________________",
-                "________z_______G_______H_______I_______F______",
-                "________A_______C_______L______________________",
-                "________D_E____________________________________",
-                "________J_______K______________________________",
-                "________M______________________________________"
+                "______a__________",
+                "__b_________c____",
+                "_d_e_f__p_q_r_s_u",
+                "_g_h_i__v_x_y_z_A",
+                "_j_k_l__D_E_J_M__",
+                "_m_n_o__B_t______",
+                "________w_N______",
+                "________G_C_K____",
+                "________H________",
+                "________I_L______",
+                "________F________"
         };
     }
 
@@ -162,6 +158,14 @@ public class AlchemyTableCategory extends CategoryProvider {
         var flight = this.add(new FlightFlaskEntry(this).generate('F'));
         flight.withParent(this.parent(suspended));
         flight.withParent(this.parent(levitation));
+    }
+
+    @Override
+    protected BookCategoryModel additionalSetup(BookCategoryModel category) {
+        return super.additionalSetup(category)
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/alchemy_table_base.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/alchemy_table_layer_1.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/alchemy_table_layer_2.png"));
     }
 
     @Override

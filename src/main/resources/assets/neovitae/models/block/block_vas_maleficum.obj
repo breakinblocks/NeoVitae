@@ -1,6 +1,6 @@
 # Blender v2.76 (sub 0) OBJ File: ''
 # www.blender.org
-mtllib blockdemoncrucible.mtl
+mtllib block_vas_maleficum.mtl
 o BlockDemonCrucible
 v 0.125000 0.125000 0.875000
 v 0.125000 -0.000000 0.875000

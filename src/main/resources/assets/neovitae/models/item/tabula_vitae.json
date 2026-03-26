@@ -1,5 +1,5 @@
 {
-  "parent": "neovitae:block/alchemytable",
+  "parent": "neovitae:block/tabula_vitae_block",
   "display": {
     "gui": {
             "rotation": [ 30, 225, 0 ],

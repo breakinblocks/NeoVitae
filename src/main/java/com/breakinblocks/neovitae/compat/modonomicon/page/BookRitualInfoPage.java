@@ -65,6 +65,17 @@ public class BookRitualInfoPage extends BookPage {
     }
 
     @Override
+    public void prerenderMarkdown(com.klikli_dev.modonomicon.client.gui.book.markdown.BookTextRenderer textRenderer) {
+        super.prerenderMarkdown(textRenderer);
+        if (!text.hasComponent()) {
+            text = new com.klikli_dev.modonomicon.book.RenderedBookTextHolder(text, textRenderer.render(text.getString()));
+        }
+        if (!title.hasComponent()) {
+            title = new com.klikli_dev.modonomicon.book.RenderedBookTextHolder(title, textRenderer.render(title.getString()));
+        }
+    }
+
+    @Override
     public ResourceLocation getType() {
         return NVPageTypes.RITUAL_INFO;
     }

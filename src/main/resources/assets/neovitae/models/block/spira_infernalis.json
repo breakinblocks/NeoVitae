@@ -2,9 +2,9 @@
   "parent": "block/block",
   "loader": "neoforge:obj",
   "flip_v": true, 
-  "model": "neovitae:models/block/blockdemonpylon.obj",
+  "model": "neovitae:models/block/block_spira_infernalis.obj",
   "textures": {
-    "default": "neovitae:block/demonpylon",
+    "default": "neovitae:block/spira_infernalis",
     "particle": "#default"
   }
 }

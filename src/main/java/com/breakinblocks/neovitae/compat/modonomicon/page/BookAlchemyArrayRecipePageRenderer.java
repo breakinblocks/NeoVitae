@@ -36,21 +36,22 @@ public class BookAlchemyArrayRecipePageRenderer extends BookRecipePageRenderer<A
 
         recipeY += 8;
 
-        int totalWidth = 22 + 9 + 22 + 18 + 22;
-        int startX = recipeX + (BookEntryScreen.PAGE_WIDTH - totalWidth) / 2;
+        // [base 22] [+gap 7] [added 22] [arrow 16] [output 22] = 89
+        int totalWidth = 22 + 7 + 22 + 16 + 22;
+        int startX = recipeX + (BookEntryScreen.PAGE_WIDTH - totalWidth) / 2 - 4;
 
         guiGraphics.blit(CRAFTING_TEXTURES, startX, recipeY, 84, 198, 22, 22, 128, 256);
         this.parentScreen.renderIngredient(guiGraphics, startX + 3, recipeY + 3, mouseX, mouseY, recipe.getBaseInput());
 
         Component plus = Component.literal("+");
-        this.drawCenteredStringNoShadow(guiGraphics, plus.getVisualOrderText(), startX + 26, recipeY + 6, 0x555555, 1.0f);
+        this.drawCenteredStringNoShadow(guiGraphics, plus.getVisualOrderText(), startX + 25, recipeY + 6, 0x555555, 1.0f);
 
-        guiGraphics.blit(CRAFTING_TEXTURES, startX + 31, recipeY, 84, 198, 22, 22, 128, 256);
-        this.parentScreen.renderIngredient(guiGraphics, startX + 34, recipeY + 3, mouseX, mouseY, recipe.getAddedInput());
+        guiGraphics.blit(CRAFTING_TEXTURES, startX + 29, recipeY, 84, 198, 22, 22, 128, 256);
+        this.parentScreen.renderIngredient(guiGraphics, startX + 32, recipeY + 3, mouseX, mouseY, recipe.getAddedInput());
 
-        guiGraphics.blit(CRAFTING_TEXTURES, startX + 57, recipeY + 2, 35, 198, 18, 18, 128, 256);
+        guiGraphics.blit(CRAFTING_TEXTURES, startX + 53, recipeY + 2, 35, 198, 18, 18, 128, 256);
 
-        guiGraphics.blit(CRAFTING_TEXTURES, startX + 71, recipeY, 84, 198, 22, 22, 128, 256);
-        this.parentScreen.renderItemStack(guiGraphics, startX + 74, recipeY + 3, mouseX, mouseY, recipe.getOutput());
+        guiGraphics.blit(CRAFTING_TEXTURES, startX + 67, recipeY, 84, 198, 22, 22, 128, 256);
+        this.parentScreen.renderItemStack(guiGraphics, startX + 70, recipeY + 3, mouseX, mouseY, recipe.getOutput());
     }
 }

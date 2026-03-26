@@ -6,6 +6,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookAraVitaeRecipePageModel;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
@@ -48,8 +49,8 @@ public class TeleposerEntry extends EntryProvider {
         this.pageText("The Enhanced Teleposer Focus is also crafted in the Ara Vitae. "
                 + "It will swap anything in a 3x3x3 block area centred directly above the two teleposers.");
 
-        this.page("reinforced_focus", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "enhanced_teleposer_focus"))
+        this.page("reinforced_focus", () -> BookAraVitaeRecipePageModel.create()
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "ara_vitae/enhanced_teleposer_focus"))
                 .withText(this.context().pageText()));
         this.pageText("The Reinforced Teleposer Focus will swap anything in a 5x5x5 block area centred "
                 + "directly above the two teleposers.");

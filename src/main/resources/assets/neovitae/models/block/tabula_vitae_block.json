@@ -1,0 +1,10 @@
+{
+  "parent": "block/block",
+  "loader": "neoforge:obj",
+  "flip_v": true,
+  "model": "neovitae:models/block/model_tabula_vitae.obj",
+  "textures": {
+    "None": "neovitae:block/tabula_vitae",
+    "particle": "neovitae:block/tabula_vitae"
+  }
+}

@@ -24,7 +24,7 @@ public class RitualGroundingEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/grounding"))
                 .withMultiblockName("The Sinner's Burden")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("grounding")));
@@ -32,18 +32,18 @@ public class RitualGroundingEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual prevents flight within its area, grounding any flying entities.");
+        this.pageTitle("The Weight of Guilt");
+        this.pageText("This circle enforces a cruel gravity upon all within its domain. Wings fail. Enchantments falter. Any entity that dares take flight is dragged back to the earth, as though the world itself refuses to release them.");
 
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Effects");
-        this.pageText("- [#](8B0000)Raw Will[#](): Increases the grounding effect potency."
-                + "\n\n- [#](8B0000)Corrosive Will[#](): Behaves similarly to the [#](8B0000)Suspended[#]() potion effect."
-                + "\n\n- [#](8B0000)Vengeful Will[#](): Applies [#](8B0000)Levitation[#]() to entities."
-                + "\n\n- [#](8B0000)Destructive Will[#](): Applies the [#](8B0000)Heavy Heart[#]() effect."
-                + "\n\n- [#](8B0000)Steadfast Will[#](): Increases the area of effect.");
+        this.pageTitle("Demon Will Resonance");
+        this.pageText("- [#](8B0000)Raw Will[#](): Strengthens the grounding effect."
+                + "\n\n- [#](8B0000)Corrosive Will[#](): Applies the [#](8B0000)Suspended[#]() effect, halting vertical movement entirely."
+                + "\n\n- [#](8B0000)Vengeful Will[#](): Inflicts [#](8B0000)Levitation[#]() — a cruel irony, dragging entities skyward against their will."
+                + "\n\n- [#](8B0000)Destructive Will[#](): Applies the [#](8B0000)Heavy Heart[#]() affliction."
+                + "\n\n- [#](8B0000)Steadfast Will[#](): Expands the area of influence.");
     }
 
     @Override
@@ -53,7 +53,7 @@ public class RitualGroundingEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Prevents flight within the ritual area.";
+        return "Denies the sky to all within its domain.";
     }
 
     @Override

@@ -26,10 +26,10 @@ public class InvisibilityFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Invisibility");
-        this.pageText("[#](8B0000)Invisibility[#]() causes the target to disappear from view, making it harder for them "
-                + "to be spotted. This effect does not extend to any [#](8B0000)Armour[#]() or held items, any of which "
-                + "may be a give-away as to the target's location.\\\n\\\n"
-                + "It's made from a potion of [#](8B0000)Night Vision[#]().");
+        this.pageText("The [#](8B0000)Invisibility[#]() elixir bends light around the drinker's flesh, rendering them "
+                + "unseen. Be warned: armour and held items remain stubbornly visible. A floating sword "
+                + "is hardly subtle.\\\n\\\n"
+                + "Derived from a flask of [#](8B0000)Night Vision[#]().");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/night_to_invis")
@@ -45,7 +45,7 @@ public class InvisibilityFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Disappear from view.";
+        return "Bends light to conceal the flesh from sight.";
     }
 
     @Override

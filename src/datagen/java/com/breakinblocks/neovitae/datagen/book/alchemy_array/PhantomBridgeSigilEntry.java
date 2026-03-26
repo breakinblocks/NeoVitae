@@ -20,17 +20,17 @@ public class PhantomBridgeSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of the Phantom Bridge");
-        this.pageText("The [#](8B0000)Sigil of the Phantom Bridge[#](), when activated via pressing [Use], will create "
-                + "temporary phantom blocks beneath your feet as you walk. These ethereal platforms allow you "
-                + "to traverse chasms and voids with ease.\\\n\\\n"
-                + "The phantom blocks disappear shortly after you move "
-                + "away from them, so keep moving! Perfect for building in dangerous areas or crossing large gaps.");
+        this.pageText("The [#](8B0000)Sigil of the Phantom Bridge[#]() crystallizes [#](4A0080)Essentia Vitae[#]() into "
+                + "temporary platforms beneath your feet as you walk. These spectral surfaces allow you to "
+                + "traverse chasms, voids, and open sky with the confidence of solid ground.\\\n\\\n"
+                + "The phantom blocks dissolve shortly after you leave them behind. "
+                + "[#](2E8B57)Keep moving -- hesitation over the abyss is unwise.[#]()");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Phantom Bridge Reagent[#]() in the Tabula Vitae.\\\n\\\n"
-                + "Step 2: Create the [#](8B0000)Sigil of the Phantom Bridge[#]() in an Alchemy Array using the "
-                + "Phantom Bridge Reagent as the base and a slate as the catalyst.\\\n\\\n*Walk on air!*");
+        this.pageText("Forge the [#](8B0000)Phantom Bridge Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a slate as catalyst.\\\n\\\n"
+                + "[#](4A0080)Between you and the void, blood is the only bridge you need.[#]()");
     }
 
     @Override
@@ -40,7 +40,7 @@ public class PhantomBridgeSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A sigil that creates temporary blocks beneath your feet.";
+        return "Walk upon crystallized EV -- a bridge born of blood beneath your feet.";
     }
 
     @Override

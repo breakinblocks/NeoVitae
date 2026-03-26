@@ -24,7 +24,7 @@ public class RitualPhantomBridgeEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/phantom_bridge"))
                 .withMultiblockName("Ritual of the Phantom Bridge")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("phantom_bridge")));
@@ -32,9 +32,9 @@ public class RitualPhantomBridgeEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual creates temporary phantom bridge blocks beneath any players within its area of effect. The ethereal platforms allow players to walk across gaps and voids.\\\n\\\n"
-                + "When the ritual is deactivated, the phantom blocks fade away. Useful for traversing large chasms or building in dangerous areas.");
+        this.pageTitle("Spectral Pathways");
+        this.pageText("This ritual weaves [#](4A0080)phantom matter[#]() beneath the feet of any practitioner within its reach — translucent platforms that solidify only when stepped upon, allowing passage across chasms and voids.\\\n\\\n"
+                + "When the ritual falls silent, the phantom bridges dissolve like morning mist. Invaluable for traversing dangerous terrain or constructing in treacherous places.");
     }
 
     @Override
@@ -44,7 +44,7 @@ public class RitualPhantomBridgeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Creates temporary walkable platforms.";
+        return "Weaves spectral platforms beneath your feet.";
     }
 
     @Override

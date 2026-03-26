@@ -1,11 +1,11 @@
 package com.breakinblocks.neovitae.api.soul;
 
 /**
- * Result of a syphon operation on a Soul Network.
+ * Result of a syphon operation on an Anima.
  *
  * <p>A successful result indicates the full requested amount was available in the
- * network. A failed result means the network did not have enough LP; the player
- * may have been damaged to compensate (see {@link ISoulNetwork#syphonAndDamage}).</p>
+ * anima. A failed result means the anima did not have enough EV; the player
+ * may have been damaged to compensate (see {@link IAnima#syphonAndDamage}).</p>
  *
  * @param success {@code true} if the network had enough LP to cover the full request
  * @param amount  the amount of LP actually syphoned from the network

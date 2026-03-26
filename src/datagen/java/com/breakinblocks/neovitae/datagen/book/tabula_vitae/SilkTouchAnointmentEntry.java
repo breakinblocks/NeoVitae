@@ -21,8 +21,8 @@ public class SilkTouchAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Soft Coating");
-        this.pageText("Craft [#](8B0000)Soft Coating[#]() in the Tabula Vitae. "
-                + "Applies Silk Touch to blocks harvested. Does not stack with the vanilla enchantment.\\\n\\\n"
+        this.pageText("[#](8B0000)Soft Coating[#]() wraps the tool's edge in a preserving membrane, allowing blocks "
+                + "to be harvested whole rather than shattered. Does not stack with the Silk Touch enchantment.\\\n\\\n"
                 + "Valid items: Tools, Swords, Charges.\\\n\\\nApplies: Soft Touch I (256 blocks)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
@@ -39,7 +39,7 @@ public class SilkTouchAnointmentEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Applies Silk Touch to harvested blocks.";
+        return "Preserves blocks whole upon harvest.";
     }
 
     @Override

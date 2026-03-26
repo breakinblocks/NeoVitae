@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "neovitae:block/essentia_vitae_block"
+    }
+  }
+}

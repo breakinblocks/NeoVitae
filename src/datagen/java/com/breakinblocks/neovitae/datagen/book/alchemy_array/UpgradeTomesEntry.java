@@ -20,25 +20,27 @@ public class UpgradeTomesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Upgrade Tomes");
-        this.pageText("Upon activating the [#](8B0000)Sound of the Cleansing Soul[#]() ritual, a series of magical "
-                + "[#](8B0000)Tomes[#]() will manifest around you.\\\n\\\n"
-                + "By pressing [Use] whilst holding one of these, you can 'teach' your chestplate one level "
-                + "of this skill (assuming it has enough spare points to learn it). Holding sneak and pressing "
-                + "[Use] will instead consume as much XP from the tome as possible.");
+        this.pageText("Upon completing the [#](8B0000)Sound of the Cleansing Soul[#]() ritual, a collection "
+                + "of [#](4A0080)Tomes[#]() manifests around you -- each one a crystallized record of a "
+                + "particular skill.\\\n\\\n"
+                + "Press [Use] while holding a tome to inscribe one level of that skill onto your "
+                + "chestplate, assuming sufficient [#](B8860B)Upgrade Points[#]() remain. Hold sneak and "
+                + "press [Use] to inscribe as much as possible at once.");
 
         this.page("consumption", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Doing so will consume the [#](8B0000)Tome[#]() and apply all EXP from it to your chestplate - "
-                + "unless there are not enough [#](8B0000)Upgrade Points[#]() available.\\\n\\\n"
-                + "In this case, the Tome will apply as much EXP as it can and store the remainder - unless "
-                + "there's less than 1 level's worth left, in which case the tome will be destroyed.");
+        this.pageText("The [#](4A0080)Tome[#]() is consumed in the process, transferring all stored experience "
+                + "to the chestplate. If insufficient [#](B8860B)Upgrade Points[#]() remain, the tome applies "
+                + "what it can and retains the rest -- unless less than one level's worth remains, in which "
+                + "case the tome crumbles to nothing.");
 
         this.page("strategy", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("This is an excellent way to focus training on abilities you wish to see more of, "
-                + "whilst conveniently forgetting ones you find less useful.\\\n\\\n"
-                + "Alternately, you can teach different chestplates different skills, so you can have one "
-                + "chestplate for mining, one for combat, and yet another for exploration.");
+        this.pageText("Tomes are the key to deliberate specialization. Focus your training on the abilities "
+                + "that serve you best, and discard the rest.\\\n\\\n"
+                + "[#](2E8B57)Consider maintaining separate chestplates for different purposes -- one for "
+                + "mining, another for combat, a third for exploration. Each can be trained with its own "
+                + "set of tomes.[#]()");
     }
 
     @Override
@@ -48,7 +50,7 @@ public class UpgradeTomesEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Using tomes to train specific Living Equipment skills.";
+        return "Crystallized knowledge -- inscribe specific skills onto your living armour.";
     }
 
     @Override

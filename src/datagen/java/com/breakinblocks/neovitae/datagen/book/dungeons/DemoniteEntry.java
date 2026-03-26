@@ -23,42 +23,48 @@ public class DemoniteEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demonite");
-        this.pageText("[#](8B0000)Demonite Ore[#]() can only be found within [#](8B0000)Dungeons[#](), specifically in [#](8B0000)The Mines[#](), "
-                + "accessed by finding a [#](8B0000)Foreman's Key[#]() somewhere within the mazelike structure and using it to unlock "
-                + "a [#](8B0000)Spatial Distortion[#](). It can be used to make [#](8B0000)Hellforged Ingots[#]() or [#](8B0000)Hellforged Sand[#]().\\\n\\\n"
-                + "When mined with Silk Touch, the ore can be harvested directly, but otherwise, it will drop clumps of [#](8B0000)Raw Demonite[#]().");
+        this.pageText("[#](8B0000)Demonite Ore[#]() exists only within [#](8B0000)The Mines[#]() of the Endless Realm, "
+                + "accessible after locating a [#](8B0000)Foreman's Key[#]() and unsealing the [#](4A0080)Spatial Distortion[#]() "
+                + "that guards the passage. This ore yields [#](8B0000)Hellforged Ingots[#]() or "
+                + "[#](8B0000)Hellforged Sand[#]() through various processing methods.\\\n\\\n"
+                + "[#](2E8B57)A Silk Touch enchantment harvests the ore block itself. Without it, you receive "
+                + "clumps of Raw Demonite.[#]()");
 
         this.page("smelting", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Hellforged Ingot");
-        this.pageText("Demonite Ore and Raw Demonite can be smelted into Hellforged Ingots. View these recipes in JEI.");
+        this.pageText("Both the raw ore and its mined clumps can be smelted into [#](8B0000)Hellforged Ingots[#](), "
+                + "the refined essence of demonic metallurgy. Consult JEI for these smelting recipes.");
 
         this.page("athanor_dust", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Hellforged Sand");
-        this.pageText("Hellforged Sand can be produced in the Athanor from gravel, ore, or raw demonite.");
+        this.pageText("[#](8B0000)Hellforged Sand[#]() can be produced within the [#](8B0000)Athanor[#]() from gravel, "
+                + "ore, or raw demonite. This powdered form is essential for advanced potion-craft.");
 
         this.page("athanor_processing", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demonite Processing");
-        this.pageText("Demonite can also be processed through the Athanor to produce fragments and gravel.");
+        this.pageText("The [#](8B0000)Athanor[#]() can further process demonite into fragments and gravel, "
+                + "offering multiple avenues to extract value from each piece of ore you wrest from the mines.");
 
         this.page("hellforged_block", () -> BookCraftingRecipePageModel.create()
                 .withTitle1("Hellforged Block")
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "hellforged_block_from_ingots"))
                 .withText(this.context().pageText()));
-        this.pageText("View the Raw Hellforged Block recipe in JEI.");
+        this.pageText("Consult JEI for the Raw Hellforged Block recipe.");
 
         this.page("decorative", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Decorative Variants");
-        this.pageText("Several decorative variants of this block exist, being faintly tainted with Corrosive, "
-                + "Destructive, Steadfast, or Vengeful Will in a [#](8B0000)stonecutter[#]().\\\n\\\n"
-                + "They can each be directly crafted back into 9 [#](8B0000)Hellforged Ingots[#]().");
+        this.pageText("Hellforged Blocks can be shaped in a [#](8B0000)stonecutter[#]() into variants faintly "
+                + "tainted with [#](4A0080)Corrosive[#](), [#](4A0080)Destructive[#](), [#](4A0080)Steadfast[#](), "
+                + "or [#](4A0080)Vengeful[#]() Will. Each decorative variant can be deconstructed back into "
+                + "9 [#](8B0000)Hellforged Ingots[#]().");
     }
 
     @Override
@@ -68,7 +74,7 @@ public class DemoniteEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Ore found within the Demon Realm mines.";
+        return "A dark ore found only in the deepest tunnels of the Demon Realm.";
     }
 
     @Override

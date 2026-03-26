@@ -26,11 +26,11 @@ public class GravityFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Gravity");
-        this.pageText("[#](8B0000)Gravity[#]() causes the target to fall faster and take more damage on landing. "
-                + "It does not reduce jump height, however.\\\n\\\n"
-                + "To create it, first brew a flask with both [#](8B0000)Grounded[#]() and [#](8B0000)Slow Falling[#]() effects "
-                + "(apply each effect separately to the same flask). Then combine with a "
-                + "[#](8B0000)Combinational Catalyst[#]() in the Tabula Vitae.");
+        this.pageText("The [#](8B0000)Gravity[#]() elixir intensifies the earth's pull upon the drinker, "
+                + "causing them to plummet faster and suffer greater harm on impact. Jump height "
+                + "remains unchanged -- small comfort on the way down.\\\n\\\n"
+                + "To synthesize it, brew both [#](8B0000)Grounded[#]() and [#](8B0000)Slow Falling[#]() into a single flask, "
+                + "then fuse them with a [#](8B0000)Combinational Catalyst[#]() at the Tabula Vitae.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/gravity")
@@ -49,7 +49,7 @@ public class GravityFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Fall faster and take more fall damage.";
+        return "Intensifies the earth's pull to crushing force.";
     }
 
     @Override

@@ -93,7 +93,7 @@ public class RitualFeatheredKnife extends Ritual {
         List<Player> players = RitualHelper.getEntitiesInRange(ctx, this, SACRIFICE_RANGE, Player.class,
                 player -> player.isAlive() && !player.isCreative() && !player.isSpectator());
 
-        int totalLP = 0;
+        int totalEV = 0;
         double corrosiveUsed = 0;
         double destructiveUsed = 0;
 
@@ -116,7 +116,7 @@ public class RitualFeatheredKnife extends Ritual {
                             int healthLost = (int) (health - player.getHealth());
                             int lp = AltarUtil.calculateSelfSacrificeLP(player, healthLost, incense);
                             lp = (int) (lp * lpMultiplier);
-                            totalLP += lp;
+                            totalEV += lp;
                         }
                         // Apply Soul Fray to prevent immediate re-sacrifice with incense
                         player.addEffect(new MobEffectInstance(NVMobEffects.SOUL_FRAY, 400, 0, true, true));
@@ -148,14 +148,14 @@ public class RitualFeatheredKnife extends Ritual {
                     destructiveUsed += DESTRUCTIVE_WILL_PER_USE;
                 }
 
-                totalLP += lp;
+                totalEV += lp;
             }
         }
 
-        if (totalLP > 0) {
+        if (totalEV > 0) {
             ctx.syphon(getRefreshCost());
             // Feed LP directly to the altar
-            altar.addSacrificeLP(totalLP, false);
+            altar.addSacrificeEV(totalEV, false);
         }
 
         will.use(EnumWillType.CORROSIVE, corrosiveUsed);

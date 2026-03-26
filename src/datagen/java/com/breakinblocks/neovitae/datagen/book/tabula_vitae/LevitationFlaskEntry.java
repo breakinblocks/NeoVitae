@@ -26,9 +26,10 @@ public class LevitationFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Levitation");
-        this.pageText("[#](8B0000)Levitation[#]() causes the target to float up into the air. Higher levels will make the "
-                + "target levitate faster.\\\n\\\n"
-                + "It's made from a potion of [#](8B0000)Slow Falling[#]().");
+        this.pageText("The [#](8B0000)Levitation[#]() elixir reverses the pull of the earth, causing the drinker "
+                + "to rise helplessly skyward. Higher levels accelerate the ascent. Use with care -- what "
+                + "goes up must eventually come down.\\\n\\\n"
+                + "Derived from a flask of [#](8B0000)Slow Falling[#]().");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/fall_to_levitation")
@@ -47,7 +48,7 @@ public class LevitationFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Float up into the air.";
+        return "Reverses gravity's pull, sending the body skyward.";
     }
 
     @Override

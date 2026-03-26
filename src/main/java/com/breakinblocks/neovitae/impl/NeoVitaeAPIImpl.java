@@ -5,11 +5,11 @@ import com.breakinblocks.neovitae.api.altar.rune.IAltarRuneRegistry;
 import com.breakinblocks.neovitae.api.incense.ITranquilityHandler;
 import com.breakinblocks.neovitae.api.incense.TranquilityHandler;
 import com.breakinblocks.neovitae.api.living.ILivingArmorManager;
-import com.breakinblocks.neovitae.api.soul.ISoulNetwork;
+import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.api.will.DemonWillHandler;
 import com.breakinblocks.neovitae.api.will.IDemonWillHandler;
 import com.breakinblocks.neovitae.api.will.IPlayerDemonWillHandler;
-import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
+import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -25,8 +25,8 @@ public class NeoVitaeAPIImpl implements INeoVitaeAPI {
 
     @Override
     @Nullable
-    public ISoulNetwork getSoulNetwork(UUID uuid) {
-        return SoulNetworkHelper.getSoulNetwork(uuid);
+    public IAnima getAnima(UUID uuid) {
+        return AnimaHelper.getAnima(uuid);
     }
 
     @Override

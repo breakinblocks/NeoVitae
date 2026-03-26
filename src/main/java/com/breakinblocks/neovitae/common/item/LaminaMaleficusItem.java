@@ -45,7 +45,7 @@ public class LaminaMaleficusItem extends Item {
         boolean isCeremonial = player.getMainHandItem().getOrDefault(NVDataComponents.INCENSE, false);
         BlockPos altarPos = AltarUtil.findAltar(level, player.blockPosition(), 2);
         int healthSacrificed = 2;
-        int lpAdded = AltarUtil.calculateSelfSacrificeLP(player, healthSacrificed);
+        int evAdded = AltarUtil.calculateSelfSacrificeLP(player, healthSacrificed);
 
         if (!player.getAbilities().instabuild) {
             if (isCeremonial && !SoulFrayEffect.canPerformCeremonialSacrifice(player)) {
@@ -55,9 +55,9 @@ public class LaminaMaleficusItem extends Item {
             if (isCeremonial) {
                 healthSacrificed = (int) (player.getHealth() - player.getMaxHealth() / 10F);
                 double incenseBonus = player.getData(NVDataAttachments.INCENSE);
-                lpAdded = AltarUtil.calculateSelfSacrificeLP(player, healthSacrificed, incenseBonus);
+                evAdded = AltarUtil.calculateSelfSacrificeLP(player, healthSacrificed, incenseBonus);
             }
-            LaminaMaleficusEvent event = NeoForge.EVENT_BUS.post(new LaminaMaleficusEvent(player, true, true, healthSacrificed, lpAdded));
+            LaminaMaleficusEvent event = NeoForge.EVENT_BUS.post(new LaminaMaleficusEvent(player, true, true, healthSacrificed, evAdded));
             if (event.isCanceled()) {
                 return super.use(level, player, hand);
             }
@@ -65,7 +65,7 @@ public class LaminaMaleficusItem extends Item {
                 player.invulnerableTime = 0;
                 player.hurt(AltarUtil.sacrificeDamage(player), event.hpLost);
             }
-            lpAdded = event.lpAdded;
+            evAdded = event.evAdded;
             if (!event.shouldFillAltar) {
                 return super.use(level, player, hand);
             }
@@ -75,7 +75,7 @@ public class LaminaMaleficusItem extends Item {
                 player.addEffect(new MobEffectInstance(NVMobEffects.SOUL_FRAY, SoulFrayEffect.DEFAULT_DURATION, 0));
             }
         } else if (player.isShiftKeyDown()) {
-            lpAdded = Integer.MAX_VALUE;
+            evAdded = Integer.MAX_VALUE;
         }
 
         double posX = player.getX();
@@ -92,7 +92,7 @@ public class LaminaMaleficusItem extends Item {
         }
         BlockEntity be = level.getBlockEntity(altarPos);
         if (be instanceof AraVitaeTile altar) {
-            altar.addSacrificeLP(lpAdded, false);
+            altar.addSacrificeEV(evAdded, false);
         }
 
         return super.use(level, player, hand);

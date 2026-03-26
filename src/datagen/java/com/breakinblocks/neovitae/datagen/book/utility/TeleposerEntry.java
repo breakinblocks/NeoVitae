@@ -22,58 +22,60 @@ public class TeleposerEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Teleposers");
-        this.pageText("[#](8B0000)Teleposers[#]() allow for a form of redstone-controlled teleportation. Simply craft a "
-                + "Teleposition Focus (overleaf), bind it to your target teleposer, place it in another teleposer, "
-                + "and apply a redstone signal to the teleposer with a focus in it. Anything - blocks, items, "
-                + "entities, players - in a defined area above the two teleposers will be swapped.");
+        this.pageTitle("The Teleposer");
+        this.pageText("[#](8B0000)Teleposers[#]() bend space through the power of blood, swapping everything "
+                + "above two linked points - blocks, items, entities, even you - in the blink of an eye.\\\n\\\n"
+                + "Craft a [#](8B0000)Teleposition Focus[#](), bind it to a target Teleposer, "
+                + "place it in a second, and apply a redstone signal. The exchange is instantaneous.");
 
         this.page("recipe_teleposer", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "teleposer"))
                 .withText(this.context().pageText()));
-        this.pageText("Nothing comes for free, however; transporting blocks or entities via the teleposer will cost "
-                + "1 LP each for every two blocks traversed, to a maximum of 1,000 LP per block/entity, "
-                + "or 10,000 LP total.");
+        this.pageText("Nothing in [#](4A0080)Vitaemancy[#]() is free. Each block or entity transported costs "
+                + "1 [#](4A0080)Essentia Vitae[#]() per two blocks of distance, up to 1,000 per object "
+                + "and 10,000 total per activation.");
 
         this.page("focus", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Teleposition Focus");
-        this.pageText("The basic Teleposer Focus is crafted in the Ara Vitae. "
-                + "It will swap anything in a 1x1x1 block area above the two teleposers.");
+        this.pageText("The basic [#](8B0000)Teleposition Focus[#]() is crafted in the Ara Vitae. "
+                + "It commands a modest 1x1x1 exchange zone directly above each Teleposer - enough to "
+                + "transport a single entity or block with precision.");
 
         this.page("enhanced_focus", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Enhanced Focus");
-        this.pageText("The Enhanced Teleposer Focus is also crafted in the Ara Vitae. "
-                + "It will swap anything in a 3x3x3 block area centred directly above the two teleposers.");
+        this.pageText("The [#](8B0000)Enhanced Teleposition Focus[#](), also forged in the Ara Vitae, "
+                + "widens the exchange to a 3x3x3 volume centred above the Teleposer. "
+                + "Entire small structures can be relocated in a single pulse.");
 
         this.page("reinforced_focus", () -> BookAraVitaeRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "ara_vitae/enhanced_teleposer_focus"))
                 .withText(this.context().pageText()));
-        this.pageText("The Reinforced Teleposer Focus will swap anything in a 5x5x5 block area centred "
-                + "directly above the two teleposers.");
+        this.pageText("The [#](8B0000)Reinforced Teleposition Focus[#]() commands a 5x5x5 volume - "
+                + "a formidable displacement field.");
 
         this.page("linking", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Linking Teleposers");
-        this.pageText("Teleposers can be linked one-way (such that a redstone signal to the exiting Teleposer "
-                + "does nothing), two-way (such that each Teleposer has a Focus in it linking to the other, "
-                + "making you teleport back and forth at a redstone signal from either end), or they can even "
-                + "be chained - A to B to C and back to A. From base-traversing elevator systems to complex "
-                + "underground labyrinths, go nuts!");
+        this.pageTitle("Topologies of Transport");
+        this.pageText("Teleposers may be linked in many configurations: one-way (the receiving end stays inert), "
+                + "two-way (a Focus in each, swapping on either signal), or chained in sequence - "
+                + "A to B to C and back to A.\\\n\\\n"
+                + "From vertical elevators threading your tower to labyrinthine transit networks beneath the earth, "
+                + "the possibilities are boundless. Be creative, apprentice.");
 
         this.page("redstone", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Redstone Power");
-        this.pageText("If you're having difficulty getting your Teleposer to work, make sure that it is being "
-                + "strongly redstone powered. This means that placing a redstone block next to the block won't "
-                + "power it - you'll need redstone dust or a repeater pointing into the side of the Teleposer, "
-                + "or a lever or button directly on it. Life Essence isn't free after all, so the Teleposer is "
-                + "designed to minimize accidental misfires.");
+        this.pageTitle("A Note on Redstone");
+        this.pageText("[#](2E8B57)The Teleposer requires strong redstone power to activate. A redstone block "
+                + "placed adjacent will not suffice - you need redstone dust or a repeater pointing into "
+                + "its side, or a lever or button placed directly upon it.[#]()\\\n\\\n"
+                + "[#](4A0080)Essentia Vitae[#]() is not free, and the Teleposer is deliberately designed "
+                + "to minimize accidental misfires. Precision in all things.");
     }
 
     @Override
@@ -83,7 +85,7 @@ public class TeleposerEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Redstone-controlled teleportation via block swapping.";
+        return "Bend space with blood - redstone-controlled spatial exchange.";
     }
 
     @Override

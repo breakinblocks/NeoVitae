@@ -20,9 +20,12 @@ public class BrillianceUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Brilliance");
-        this.pageText("Effect: Improves your armour defence. Caps out at +5 Armour and +8 Toughness.\\\n\\\n"
-                + "Trained by: Crafting a living tome in the Tabula Vitae. Each tome adds 1 level of "
-                + "Brilliance.\\\n\\\nMaximum level: 5");
+        this.pageText("The armour responds to the knowledge you inscribe upon living tomes, hardening "
+                + "its lattice with each lesson. Grants up to +5 [#](4A0080)Armour[#]() and +8 "
+                + "[#](4A0080)Toughness[#]().\\\n\\\n"
+                + "[#](B8860B)Trained by[#](): Crafting a living tome in the Tabula Vitae. Each tome grants "
+                + "1 level.\\\n\\\n"
+                + "[#](B8860B)Maximum level[#](): 5");
     }
 
     @Override
@@ -32,7 +35,7 @@ public class BrillianceUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Improved armour defence from crafting tomes.";
+        return "Inscribe knowledge upon tomes, and the armour crystallizes into diamond-like hardness.";
     }
 
     @Override

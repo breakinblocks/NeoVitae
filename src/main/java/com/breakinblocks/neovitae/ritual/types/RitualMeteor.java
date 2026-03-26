@@ -51,7 +51,7 @@ public class RitualMeteor extends Ritual {
             if (recipe != null) {
                 int syphonAmount = recipe.getSyphon();
 
-                if (ctx.currentEssence() < syphonAmount) {
+                if (ctx.currentEV() < syphonAmount) {
                     return;
                 }
 

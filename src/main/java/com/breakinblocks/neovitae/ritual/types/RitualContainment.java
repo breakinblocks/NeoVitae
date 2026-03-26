@@ -54,7 +54,7 @@ public class RitualContainment extends Ritual {
         }
 
         if (entitiesContained > 0) {
-            ctx.syphon(Math.min(getRefreshCost() * entitiesContained, ctx.currentEssence()));
+            ctx.syphon(Math.min(getRefreshCost() * entitiesContained, ctx.currentEV()));
         }
     }
 

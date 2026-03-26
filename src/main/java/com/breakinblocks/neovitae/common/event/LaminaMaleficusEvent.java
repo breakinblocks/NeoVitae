@@ -10,13 +10,13 @@ public class LaminaMaleficusEvent extends Event implements ICancellableEvent {
     public boolean shouldDrainHealth;
     public boolean shouldFillAltar;
     public int hpLost;
-    public int lpAdded;
+    public int evAdded;
 
-    public LaminaMaleficusEvent(Player player, boolean shouldDrainHealth, boolean shouldFillAltar, int hpLost, int lpAdded) {
+    public LaminaMaleficusEvent(Player player, boolean shouldDrainHealth, boolean shouldFillAltar, int hpLost, int evAdded) {
         this.player = player;
         this.shouldDrainHealth = shouldDrainHealth;
         this.shouldFillAltar = shouldFillAltar;
         this.hpLost = hpLost;
-        this.lpAdded = lpAdded;
+        this.evAdded = evAdded;
     }
 }

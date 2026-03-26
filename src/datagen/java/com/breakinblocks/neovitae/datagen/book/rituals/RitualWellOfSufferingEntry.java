@@ -24,7 +24,7 @@ public class RitualWellOfSufferingEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/well_of_suffering"))
                 .withMultiblockName("Well of Suffering")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("well_of_suffering")));
@@ -32,12 +32,12 @@ public class RitualWellOfSufferingEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual attacks mobs within its damage zone and puts the harvested [#](8B0000)Life Essence[#]() into a nearby [#](8B0000)Ara Vitae[#](). Put a [#](8B0000)Blood Orb[#]() in the Altar, maybe add a few [#](8B0000)Runes of Sacrifice[#]() for good measure and you'll never have to worry about your LP supplies again... as long as you can supply enough mobs.");
+        this.pageTitle("The Crimson Tithe");
+        this.pageText("Perhaps the most infamous ritual in all of [#](4A0080)Vitaemancy[#](). The circle inflicts suffering upon every creature within its reach, siphoning [#](4A0080)Essentia Vitae[#]() from their agony and channeling it into a nearby [#](8B0000)Ara Vitae[#](). Place a [#](8B0000)Blood Orb[#]() in the altar and line its walls with [#](8B0000)Runes of Sacrifice[#]() — provided you can supply enough victims, your reserves will never run dry.");
 
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The Ritual can only link to one altar at a time. Mobs will still drop non-Player Kill mob drops.");
+        this.pageText("[#](2E8B57)The ritual links to only one altar at a time. Slain creatures still yield their normal non-player-kill drops.[#]()");
     }
 
     @Override
@@ -47,7 +47,7 @@ public class RitualWellOfSufferingEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Damages mobs and fills a Ara Vitae with LP.";
+        return "Harvests Essentia Vitae from the suffering of others.";
     }
 
     @Override
@@ -57,7 +57,7 @@ public class RitualWellOfSufferingEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVFluids.LIFE_ESSENCE_BUCKET.get());
+        return BookIconModel.create(NVFluids.ESSENTIA_VITAE_BUCKET.get());
     }
 
     @Override

@@ -21,8 +21,9 @@ public class BowVelocityAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Archer's Polish");
-        this.pageText("[#](8B0000)Archer's Polish[#]() increases the velocity of fired arrows by 50%%. This also increases the damage dealt by your "
-                + "arrows proportionally. Also stacks with Vanilla enchantments."
+        this.pageText("[#](8B0000)Archer's Polish[#]() reduces friction along the bowstring and arrow shaft, launching "
+                + "projectiles at 50%% greater velocity. The increased speed translates directly into "
+                + "proportionally greater damage. Stacks with existing enchantments."
                 + "\\\n\\\nValid items: Bows, Crossbows.\\\n\\\nApplies: Sniping (256 shots)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
@@ -42,7 +43,7 @@ public class BowVelocityAnointmentEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increases arrow velocity.";
+        return "Propels arrows with unnatural swiftness.";
     }
 
     @Override

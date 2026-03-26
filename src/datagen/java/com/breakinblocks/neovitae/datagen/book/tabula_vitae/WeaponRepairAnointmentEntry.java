@@ -21,8 +21,8 @@ public class WeaponRepairAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Repairing Salve");
-        this.pageText("Craft [#](8B0000)Repairing Salve[#]() in the Tabula Vitae. "
-                + "Repairs damaged tools by 1 point when tool is used.\\\n\\\n"
+        this.pageText("[#](8B0000)Repairing Salve[#]() mends as it works. Each use of the coated tool restores 1 "
+                + "point of durability, allowing favoured instruments to endure far longer than nature intended.\\\n\\\n"
                 + "Valid items: Tools, Swords.\\\n\\\nApplies: Regular Maintenance I (256 blocks)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
@@ -42,7 +42,7 @@ public class WeaponRepairAnointmentEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Repairs damaged tools during use.";
+        return "Mends the tool with every stroke.";
     }
 
     @Override

@@ -24,7 +24,7 @@ public class RitualContainmentEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/containment"))
                 .withMultiblockName("Ritual of Binding")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("containment")));
@@ -32,8 +32,8 @@ public class RitualContainmentEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual creates an invisible barrier that prevents mobs from leaving the defined area. Any creature that attempts to escape will be pushed back toward the center of the ritual. Players are unaffected by this containment field, allowing you to create pens for animals or traps for hostile mobs.");
+        this.pageTitle("The Invisible Cage");
+        this.pageText("An unseen barrier of [#](4A0080)vitaemantic force[#]() encircles the ritual, preventing any creature from escaping its boundaries. Those that try are pushed inexorably back toward the center. Practitioners pass through freely, making this ideal for penning livestock or trapping hostile entities for your purposes.");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RitualContainmentEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Contains mobs within an area.";
+        return "Imprisons creatures within an invisible barrier.";
     }
 
     @Override

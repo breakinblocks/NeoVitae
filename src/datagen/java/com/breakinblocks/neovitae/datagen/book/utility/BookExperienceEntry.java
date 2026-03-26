@@ -20,21 +20,23 @@ public class BookExperienceEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tome of Peritia");
-        this.pageText("The [#](8B0000)Tome of Peritia[#]() allows you to safely store your experience.\\\n\\\n"
-                + "Pressing Sneak and Use with the Tome in hand stores one level of XP. "
-                + "Pressing Use retrieves a level. Hold Use to store/retrieve multiple levels.");
+        this.pageText("The [#](8B0000)Tome of Peritia[#]() is a vessel for captured wisdom. Within its pages, "
+                + "your accumulated experience crystallizes into a form that cannot be lost to death.\\\n\\\n"
+                + "[#](2E8B57)Sneak and Use to store one level. Use alone to retrieve. "
+                + "Hold either action to transfer multiple levels rapidly.[#]()");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("View the Tome of Peritia recipe in JEI.");
+        this.pageText("Consult JEI for the recipe of the [#](8B0000)Tome of Peritia[#]().");
 
         this.page("curios", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Curios Integration");
-        this.pageText("If you have the Curios API installed, you can equip the Tome of Peritia as a charm. "
-                + "If you want to wear more curios at once, consider using a Sigil of Holding, "
-                + "or the Socketed Upgrade for your Living Armour.");
+        this.pageTitle("Wearing the Tome");
+        this.pageText("With the Curios API present, you may equip the Tome as a charm upon your person, "
+                + "freeing your hands for more pressing matters.\\\n\\\n"
+                + "[#](2E8B57)If you find yourself wanting more charm slots, the Sigil of Holding "
+                + "or the Socketed Upgrade for Living Armour may serve you well.[#]()");
     }
 
     @Override
@@ -44,7 +46,7 @@ public class BookExperienceEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Store and retrieve experience levels.";
+        return "A repository for experience, safe from the grasp of death.";
     }
 
     @Override

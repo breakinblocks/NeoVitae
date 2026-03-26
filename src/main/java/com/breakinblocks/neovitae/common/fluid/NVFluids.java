@@ -44,16 +44,16 @@ public class NVFluids {
         );
     }
 
-    public static final DeferredHolder<FluidType, FluidType> LIFE_ESSENCE_TYPE =
-            FLUID_TYPES.register("life_essence_fluid_type", () -> createFluidType("fluid.neovitae.life_essence_fluid"));
+    public static final DeferredHolder<FluidType, FluidType> ESSENTIA_VITAE_TYPE =
+            FLUID_TYPES.register("essentia_vitae_type", () -> createFluidType("fluid.neovitae.essentia_vitae"));
 
-    public static final DeferredHolder<Fluid, FlowingFluid> LIFE_ESSENCE_SOURCE = FLUIDS.register("life_essence_fluid_source", () -> new BaseFlowingFluid.Source(lifeEssenceProperties()));
-    public static final DeferredHolder<Fluid, FlowingFluid> LIFE_ESSENCE_FLOWING = FLUIDS.register("life_essence_fluid_flowing", () -> new BaseFlowingFluid.Flowing(lifeEssenceProperties()));
-    public static final DeferredHolder<Item, BucketItem> LIFE_ESSENCE_BUCKET = BUCKETS.register("life_essence_bucket", () -> new BucketItem(LIFE_ESSENCE_SOURCE.get(), new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
-    public static final DeferredHolder<Block, LiquidBlock> LIFE_ESSENCE_BLOCK = SOURCE_BLOCKS.register("life_essence_block", () -> new LiquidBlock(LIFE_ESSENCE_SOURCE.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
+    public static final DeferredHolder<Fluid, FlowingFluid> ESSENTIA_VITAE_SOURCE = FLUIDS.register("essentia_vitae_source", () -> new BaseFlowingFluid.Source(essentiaVitaeProperties()));
+    public static final DeferredHolder<Fluid, FlowingFluid> ESSENTIA_VITAE_FLOWING = FLUIDS.register("essentia_vitae_flowing", () -> new BaseFlowingFluid.Flowing(essentiaVitaeProperties()));
+    public static final DeferredHolder<Item, BucketItem> ESSENTIA_VITAE_BUCKET = BUCKETS.register("essentia_vitae_bucket", () -> new BucketItem(ESSENTIA_VITAE_SOURCE.get(), new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
+    public static final DeferredHolder<Block, LiquidBlock> ESSENTIA_VITAE_BLOCK = SOURCE_BLOCKS.register("essentia_vitae_block", () -> new LiquidBlock(ESSENTIA_VITAE_SOURCE.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
 
-    private static BaseFlowingFluid.Properties lifeEssenceProperties() {
-        return new BaseFlowingFluid.Properties(LIFE_ESSENCE_TYPE, LIFE_ESSENCE_SOURCE, LIFE_ESSENCE_FLOWING).bucket(LIFE_ESSENCE_BUCKET).block(LIFE_ESSENCE_BLOCK);
+    private static BaseFlowingFluid.Properties essentiaVitaeProperties() {
+        return new BaseFlowingFluid.Properties(ESSENTIA_VITAE_TYPE, ESSENTIA_VITAE_SOURCE, ESSENTIA_VITAE_FLOWING).bucket(ESSENTIA_VITAE_BUCKET).block(ESSENTIA_VITAE_BLOCK);
     }
 
     public static final DeferredHolder<FluidType, FluidType> DOUBT_TYPE =
@@ -72,14 +72,14 @@ public class NVFluids {
         event.registerFluidType(new IClientFluidTypeExtensions() {
             @Override
             public ResourceLocation getStillTexture() {
-                return ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "block/life_essence_still");
+                return ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "block/essentia_vitae_still");
             }
 
             @Override
             public ResourceLocation getFlowingTexture() {
-                return ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "block/life_essence_flowing");
+                return ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "block/essentia_vitae_flowing");
             }
-        }, LIFE_ESSENCE_TYPE);
+        }, ESSENTIA_VITAE_TYPE);
 
         event.registerFluidType(new IClientFluidTypeExtensions() {
             @Override

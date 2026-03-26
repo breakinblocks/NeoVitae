@@ -131,7 +131,7 @@ public class RitualGrounding extends Ritual {
         }
 
         if (totalCost > 0) {
-            ctx.syphon(Math.min(totalCost, ctx.currentEssence()));
+            ctx.syphon(Math.min(totalCost, ctx.currentEV()));
         }
 
         will.use(EnumWillType.DEFAULT, rawUsed);

@@ -10,14 +10,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.NeoForge;
 import com.breakinblocks.neovitae.api.ritual.IImperfectRitualStone;
-import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datamap.ImperfectRitualStats;
 import com.breakinblocks.neovitae.common.event.ImperfectRitualEvent;
 import com.breakinblocks.neovitae.ritual.ImperfectRitual;
 import com.breakinblocks.neovitae.ritual.RitualResult;
-import com.breakinblocks.neovitae.api.soul.SoulTicket;
+import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
-import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
+import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -49,15 +49,15 @@ public class ImperfectRitualStoneBlockEntity extends BlockEntity implements IImp
         }
 
         UUID playerUUID = player.getUUID();
-        SoulNetwork network = SoulNetworkHelper.getSoulNetwork(playerUUID);
+        Anima network = AnimaHelper.getAnima(playerUUID);
 
         if (network == null) {
-            return RitualResult.failure(RitualResult.FailureReason.NO_SOUL_NETWORK);
+            return RitualResult.failure(RitualResult.FailureReason.NO_ANIMA);
         }
 
         int activationCost = stats != null ? stats.activationCost() : imperfectRitual.getActivationCost();
 
-        if (network.getCurrentEssence() < activationCost) {
+        if (network.getCurrentEV() < activationCost) {
             return RitualResult.failure(RitualResult.FailureReason.NOT_ENOUGH_LP, activationCost);
         }
 
@@ -67,7 +67,7 @@ public class ImperfectRitualStoneBlockEntity extends BlockEntity implements IImp
         }
 
         if (imperfectRitual.onActivate(this, player)) {
-            network.syphon(SoulTicket.create(activationCost));
+            network.syphon(AnimaTicket.create(activationCost));
 
             if (stats != null && stats.consumeBlock()) {
                 BlockPos abovePos = pos.above();

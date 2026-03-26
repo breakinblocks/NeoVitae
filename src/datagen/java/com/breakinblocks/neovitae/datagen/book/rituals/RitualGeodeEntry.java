@@ -24,7 +24,7 @@ public class RitualGeodeEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/geode"))
                 .withMultiblockName("Ritual of the Geode's Bounty")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("geode")));
@@ -32,18 +32,18 @@ public class RitualGeodeEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual interacts with amethyst geodes, accelerating crystal growth and harvesting mature clusters.");
+        this.pageTitle("Crystal Communion");
+        this.pageText("This ritual resonates with amethyst geodes, coaxing their crystals to grow at an accelerated pace and harvesting the mature clusters when they ripen. A patient circle that rewards the practitioner with a steady supply of precious shards.");
 
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Effects");
-        this.pageText("- [#](8B0000)Raw Will[#](): Increases growth speed."
-                + "\n\n- [#](8B0000)Corrosive Will[#](): Enables harvest of mature clusters."
-                + "\n\n- [#](8B0000)Vengeful Will[#](): Damages nearby mobs."
-                + "\n\n- [#](8B0000)Destructive Will[#](): Increases Fortune effect on harvested clusters."
-                + "\n\n- [#](8B0000)Steadfast Will[#](): Deposits items into a nearby chest.");
+        this.pageTitle("Demon Will Resonance");
+        this.pageText("- [#](8B0000)Raw Will[#](): Hastens crystal growth."
+                + "\n\n- [#](8B0000)Corrosive Will[#](): Enables automatic harvest of mature clusters."
+                + "\n\n- [#](8B0000)Vengeful Will[#](): Lashes out at nearby creatures."
+                + "\n\n- [#](8B0000)Destructive Will[#](): Applies a Fortune effect to harvested clusters."
+                + "\n\n- [#](8B0000)Steadfast Will[#](): Deposits harvested shards into a nearby chest.");
     }
 
     @Override
@@ -53,7 +53,7 @@ public class RitualGeodeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Grows and harvests amethyst clusters.";
+        return "Communes with geodes to cultivate and reap crystals.";
     }
 
     @Override

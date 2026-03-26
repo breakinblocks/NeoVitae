@@ -18,7 +18,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
-import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 import com.breakinblocks.neovitae.common.menu.TabulaVitaeMenu;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
@@ -28,8 +28,8 @@ import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeInput;
 import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskInput;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskRecipe;
-import com.breakinblocks.neovitae.api.soul.SoulTicket;
-import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
+import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,7 +140,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
                 return;
             }
 
-            if (!syphonLP(orbStack, flaskRecipe.getSyphon(), flaskRecipe.getTicks())) {
+            if (!syphonEV(orbStack, flaskRecipe.getSyphon(), flaskRecipe.getTicks())) {
                 return;
             }
 
@@ -176,7 +176,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             return;
         }
 
-        if (!syphonLP(orbStack, recipe.getSyphon(), recipe.getTicks())) {
+        if (!syphonEV(orbStack, recipe.getSyphon(), recipe.getTicks())) {
             return;
         }
 
@@ -190,14 +190,14 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         setChanged();
     }
 
-    private boolean syphonLP(ItemStack orbStack, int totalSyphon, int totalTicks) {
+    private boolean syphonEV(ItemStack orbStack, int totalSyphon, int totalTicks) {
         int syphonPerTick = totalSyphon / Math.max(1, totalTicks);
         if (syphonPerTick > 0 && orbStack.getItem() instanceof BloodOrbItem) {
             Binding binding = orbStack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
             if (!binding.isEmpty()) {
-                SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
+                Anima network = AnimaHelper.getAnima(binding);
                 if (network != null) {
-                    int syphoned = network.syphon(SoulTicket.create(syphonPerTick));
+                    int syphoned = network.syphon(AnimaTicket.create(syphonPerTick));
                     if (syphoned < syphonPerTick) {
                         return false;
                     }

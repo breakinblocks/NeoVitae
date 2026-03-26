@@ -14,11 +14,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
-import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datamap.SigilStats;
 import com.breakinblocks.neovitae.common.item.IActivatable;
-import com.breakinblocks.neovitae.api.soul.SoulTicket;
-import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
+import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 public class ItemSigilToggleable extends ItemSigil implements IActivatable {
 
@@ -89,10 +89,10 @@ public class ItemSigilToggleable extends ItemSigil implements IActivatable {
             if (entityIn.tickCount % drainInterval == 0) {
                 Binding binding = getBinding(stack);
                 if (binding != null) {
-                    SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
+                    Anima network = AnimaHelper.getAnima(binding);
                     if (network != null) {
                         int cost = getReducedCost(getLpUsed(), player);
-                        if (!network.syphonAndDamage(player, SoulTicket.create(cost)).success()) {
+                        if (!network.syphonAndDamage(player, AnimaTicket.create(cost)).success()) {
                             setActivatedState(stack, false);
                         }
                     }

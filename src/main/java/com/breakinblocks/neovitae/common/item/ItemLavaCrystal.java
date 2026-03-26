@@ -19,9 +19,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
-import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
-import com.breakinblocks.neovitae.api.soul.SoulTicket;
-import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
+import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.List;
 
@@ -76,14 +76,14 @@ public class ItemLavaCrystal extends Item implements IBindable {
         }
 
         if (!level.isClientSide()) {
-            SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding.uuid());
+            Anima network = AnimaHelper.getAnima(binding.uuid());
             if (network == null) {
                 player.displayClientMessage(
                         Component.translatable("chat.neovitae.notEnoughLP").withStyle(ChatFormatting.RED), true);
                 return InteractionResult.FAIL;
             }
 
-            int drained = network.syphon(SoulTicket.create(FIRE_COST));
+            int drained = network.syphon(AnimaTicket.create(FIRE_COST));
             if (drained < FIRE_COST) {
                 network.hurtPlayer(player, FIRE_COST - drained);
             }
@@ -102,8 +102,8 @@ public class ItemLavaCrystal extends Item implements IBindable {
             return 0;
         }
 
-        SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding.uuid());
-        if (network == null || network.getCurrentEssence() < FUEL_COST) {
+        Anima network = AnimaHelper.getAnima(binding.uuid());
+        if (network == null || network.getCurrentEV() < FUEL_COST) {
             return 0;
         }
 
@@ -123,9 +123,9 @@ public class ItemLavaCrystal extends Item implements IBindable {
             return ItemStack.EMPTY;
         }
 
-        SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding.uuid());
+        Anima network = AnimaHelper.getAnima(binding.uuid());
         if (network != null) {
-            network.syphon(SoulTicket.create(FUEL_COST));
+            network.syphon(AnimaTicket.create(FUEL_COST));
         }
 
         return stack.copy();

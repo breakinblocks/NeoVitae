@@ -26,11 +26,11 @@ public class HeavyHeartFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Heavy Heart");
-        this.pageText("[#](8B0000)Heavy Heart[#]() drags the target steadily downwards, making flying and swimming "
-                + "significantly more difficult.\\\n\\\n"
-                + "To create it, first brew a flask with both [#](8B0000)Gravity[#]() and [#](8B0000)Instant Health[#]() effects "
-                + "(apply each effect separately to the same flask). Then combine with a "
-                + "[#](8B0000)Combinational Catalyst[#]() in the Tabula Vitae.");
+        this.pageText("The [#](8B0000)Heavy Heart[#]() elixir fills the chest with a leaden weight that drags the "
+                + "victim steadily downward. Flight becomes a desperate struggle. Swimming becomes "
+                + "a slow drowning.\\\n\\\n"
+                + "To synthesize it, brew both [#](8B0000)Gravity[#]() and [#](8B0000)Instant Health[#]() into a single flask, "
+                + "then fuse them with a [#](8B0000)Combinational Catalyst[#]() at the Tabula Vitae.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/gravity_to_heart")
@@ -49,7 +49,7 @@ public class HeavyHeartFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Drags the target downwards.";
+        return "A leaden weight that drags the victim earthward.";
     }
 
     @Override

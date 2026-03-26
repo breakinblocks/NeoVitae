@@ -21,59 +21,61 @@ public class HydrationEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Athanor Hydration");
-        this.pageText("With a Primitive Hydration Cell, the Athanor can aggressively hydrate and moisturize all sorts "
-                + "of substances. Don't forget to supply it with Water!\\\n\\\n"
-                + "As with most tools used within the Athanor, Hydration Cells degrade over time, but can be enchanted "
-                + "with unbreaking or mending to compensate.");
+        this.pageTitle("The Hydration Cell");
+        this.pageText("Fitted with a [#](8B0000)Primitive Hydration Cell[#](), the Athanor becomes a font of "
+                + "elemental water, saturating and transforming matter at the molecular level. "
+                + "Ensure you supply it with Water, or the cell thirsts in vain.\\\n\\\n"
+                + "[#](2E8B57)Hydration Cells degrade with use, but Unbreaking or Mending enchantments "
+                + "extend their service considerably.[#]()");
 
         this.page("recipe_hydration", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "primitive_hydration_cell"))
                 .withText(this.context().pageText()));
-        this.pageText("Among other things, the Hydration Cell can be used to make Clay, the Cornerstone of Balance.");
+        this.pageText("Among its many uses, the Hydration Cell can produce Clay - the [#](4A0080)Cornerstone of Balance[#]().");
 
         this.page("clay", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Clay and Terracotta");
-        this.pageText("Athanor Hydration Recipes:\n"
-                + "- Clay from Sand (requires Water)\n"
-                + "- Clay from Terracotta (requires Water)");
+        this.pageText("The cell's waters can coax clay from the driest materials:\n\n"
+                + "- Sand to Clay (requires Water)\n"
+                + "- Terracotta to Clay (requires Water)");
 
         this.page("dye_removal", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Removing Dye");
-        this.pageText("The Hydration Cell can wash dye from various blocks:\n"
-                + "- Beds (any color to white)\n"
-                + "- Wool (any color to white)\n"
-                + "- Carpet (any color to white)\n"
+        this.pageTitle("Washing Away Colour");
+        this.pageText("The Hydration Cell's waters can strip dye from woven and vitreous materials:\n\n"
+                + "- Beds (any colour to white)\n"
+                + "- Wool (any colour to white)\n"
+                + "- Carpet (any colour to white)\n"
                 + "- Glass (stained to clear)\n"
                 + "- Glass Panes (stained to clear)\\\n\\\n"
-                + "All dye removal recipes require Water.");
+                + "All dye removal requires Water.");
 
         this.page("mud", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Dirt and Tau");
-        this.pageText("Additional Hydration recipes:\n"
-                + "- Dirt into Mud (requires Water)\n"
-                + "- Saturated Tau into Weak Blood Shard (requires Life Essence)");
+        this.pageTitle("Earth and Essence");
+        this.pageText("Further transmutations the cell enables:\n\n"
+                + "- Dirt to Mud (requires Water)\n"
+                + "- [#](8B0000)Saturated Tau[#]() to [#](8B0000)Weak Blood Shard[#]() "
+                + "(requires [#](4A0080)Essentia Vitae[#]())");
 
         this.page("concrete", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Concrete Production");
-        this.pageText("All 16 colors of Concrete Powder can be solidified into Concrete using the Hydration Cell "
-                + "with Water. This is a convenient alternative to the usual water-placement method:\\\n\\\n"
+        this.pageTitle("Setting Concrete");
+        this.pageText("All sixteen hues of Concrete Powder can be solidified into Concrete within the Athanor "
+                + "using the Hydration Cell and Water - a far tidier method than dumping powder into a stream.\\\n\\\n"
                 + "White, Light Gray, Gray, Black, Brown, Red, Orange, Yellow, Lime, Green, Cyan, Light Blue, "
                 + "Blue, Purple, Magenta, and Pink.");
 
         this.page("moss", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Spreading Moss");
-        this.pageText("The Hydration Cell can spread moss to various stone blocks:\n"
+        this.pageTitle("Cultivating Moss");
+        this.pageText("The cell's persistent moisture encourages moss growth upon worked stone:\n\n"
                 + "- Cobblestone to Mossy Cobblestone\n"
                 + "- Cobblestone Stairs to Mossy Cobblestone Stairs\n"
                 + "- Cobblestone Slab to Mossy Cobblestone Slab\n"
@@ -86,13 +88,13 @@ public class HydrationEntry extends EntryProvider {
         this.page("copper", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Oxidising Copper");
-        this.pageText("The Hydration Cell can accelerate copper oxidation through each stage:\n"
+        this.pageTitle("Hastening Patina");
+        this.pageText("The cell accelerates the slow breath of oxidation upon copper, advancing it through each stage:\n\n"
                 + "- Copper Block to Exposed, Exposed to Weathered, Weathered to Oxidized\n"
                 + "- Cut Copper through all oxidation stages\n"
-                + "- Cut Copper Stairs through all oxidation stages\n"
-                + "- Cut Copper Slab through all oxidation stages\\\n\\\n"
-                + "All copper oxidation recipes require Water.");
+                + "- Cut Copper Stairs through all stages\n"
+                + "- Cut Copper Slab through all stages\\\n\\\n"
+                + "All copper oxidation requires Water.");
     }
 
     @Override
@@ -102,7 +104,7 @@ public class HydrationEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Hydration Cell recipes for the Athanor.";
+        return "The Hydration Cell saturates, dissolves, and transforms within the Athanor.";
     }
 
     @Override

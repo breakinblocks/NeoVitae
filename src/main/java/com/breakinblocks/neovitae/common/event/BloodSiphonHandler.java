@@ -2,8 +2,8 @@ package com.breakinblocks.neovitae.common.event;
 
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.NeoVitaeAPI;
-import com.breakinblocks.neovitae.api.soul.ISoulNetwork;
-import com.breakinblocks.neovitae.api.soul.SoulTicket;
+import com.breakinblocks.neovitae.api.soul.IAnima;
+import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -43,18 +43,18 @@ public class BloodSiphonHandler {
         int lpAmount = (int) (lpBase * multiplier);
         if (lpAmount <= 0) return;
 
-        ISoulNetwork attackerNetwork = NeoVitaeAPI.getInstance().getSoulNetwork(attacker.getUUID());
+        IAnima attackerNetwork = NeoVitaeAPI.getInstance().getAnima(attacker.getUUID());
         if (attackerNetwork == null) return;
 
         if (targetIsPlayer) {
             Player targetPlayer = (Player) event.getEntity();
-            ISoulNetwork targetNetwork = NeoVitaeAPI.getInstance().getSoulNetwork(targetPlayer.getUUID());
+            IAnima targetNetwork = NeoVitaeAPI.getInstance().getAnima(targetPlayer.getUUID());
             if (targetNetwork != null) {
-                targetNetwork.syphon(SoulTicket.create(lpAmount));
+                targetNetwork.syphon(AnimaTicket.create(lpAmount));
             }
         }
 
-        attackerNetwork.add(SoulTicket.create(lpAmount), Integer.MAX_VALUE);
+        attackerNetwork.add(AnimaTicket.create(lpAmount), Integer.MAX_VALUE);
     }
 
     /**
@@ -77,21 +77,21 @@ public class BloodSiphonHandler {
 
         if (damagePrevented <= 0) return;
 
-        ISoulNetwork network = NeoVitaeAPI.getInstance().getSoulNetwork(defender.getUUID());
+        IAnima network = NeoVitaeAPI.getInstance().getAnima(defender.getUUID());
         if (network == null) return;
 
         int lpCost = (int) (damagePrevented * NeoVitae.SERVER_CONFIG.BLOOD_SHIELD_LP_COST_MULTIPLIER.get());
 
         // Only apply the shield if we can afford the LP cost
-        int currentLP = network.getCurrentEssence();
+        int currentLP = network.getCurrentEV();
         if (currentLP >= lpCost) {
-            network.syphon(SoulTicket.create(lpCost));
+            network.syphon(AnimaTicket.create(lpCost));
             event.setNewDamage(reducedDamage);
         } else if (currentLP > 0) {
             // Partial shield — use whatever LP we have
             double affordableReduction = (double) currentLP / NeoVitae.SERVER_CONFIG.BLOOD_SHIELD_LP_COST_MULTIPLIER.get();
             float partialReduced = originalDamage - (float) affordableReduction;
-            network.syphon(SoulTicket.create(currentLP));
+            network.syphon(AnimaTicket.create(currentLP));
             event.setNewDamage(Math.max(partialReduced, 0.1f));
         }
     }

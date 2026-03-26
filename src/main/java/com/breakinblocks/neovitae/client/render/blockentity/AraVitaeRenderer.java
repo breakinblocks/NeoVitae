@@ -57,8 +57,8 @@ public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile> {
 
     private void renderFluid(float fluidLevel, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlay) {
         Minecraft minecraft = Minecraft.getInstance();
-        IClientFluidTypeExtensions fluidClientInfo = IClientFluidTypeExtensions.of(NVFluids.LIFE_ESSENCE_TYPE.get());
-        RenderType blockRenderType = ItemBlockRenderTypes.getRenderLayer(NVFluids.LIFE_ESSENCE_SOURCE.get().defaultFluidState());
+        IClientFluidTypeExtensions fluidClientInfo = IClientFluidTypeExtensions.of(NVFluids.ESSENTIA_VITAE_TYPE.get());
+        RenderType blockRenderType = ItemBlockRenderTypes.getRenderLayer(NVFluids.ESSENTIA_VITAE_SOURCE.get().defaultFluidState());
         TextureAtlasSprite texture = minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidClientInfo.getStillTexture());
         int tintColour = fluidClientInfo.getTintColor();
 

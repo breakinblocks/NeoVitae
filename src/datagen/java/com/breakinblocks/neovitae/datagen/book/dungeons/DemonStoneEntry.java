@@ -21,26 +21,30 @@ public class DemonStoneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Stone");
-        this.pageText("The [#](8B0000)Demon Realm[#]() is primarily built of an odd pale-blue material unknown in the rest of reality, "
-                + "aptly dubbed \"Demon Stone\" for what one would hope are self-evident reasons. Its construction seems quite "
-                + "simple, being an infusion of stone with a small amount of Will.");
+        this.pageText("The [#](4A0080)Demon Realm[#]() is built from a pale-blue material unknown to our "
+                + "world, a substance practitioners have taken to calling [#](8B0000)Demon Stone[#](). "
+                + "Its creation is deceptively simple: an infusion of ordinary stone with a measure "
+                + "of [#](4A0080)Will[#](). Yet the result is something fundamentally alien.");
 
         this.page("recipe_stone", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("View the Demon Stone recipe in JEI.");
+        this.pageText("Consult JEI for the Demon Stone recipe.");
 
         this.page("recipe_spread", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("This stone appears uniquely aggressive to material from our world; any attempt to mix "
-                + "Demon Stone and regular stone simply results in more Demon Stone. View the spread recipes in JEI.");
+        this.pageText("A troubling property of this material: it is [#](4A0080)aggressively transmutative[#](). "
+                + "Any attempt to combine Demon Stone with ordinary stone simply yields more Demon Stone, "
+                + "as though the material hungers to convert all it touches. Consult JEI for the spread recipes.");
 
         this.page("variants_info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Coloured Variants");
-        this.pageText("Various coloured variants of this stone can be created by introducing stone to Corrosive, "
-                + "Destructive, Steadfast, or Vengeful Will, as one may expect. As with Raw will, they can be crafted "
-                + "in a stone cutter to all varieties of pattern. View all variant and spread recipes in JEI.");
+        this.pageText("Introducing stone to [#](4A0080)Corrosive[#](), [#](4A0080)Destructive[#](), "
+                + "[#](4A0080)Steadfast[#](), or [#](4A0080)Vengeful[#]() Will produces coloured variants "
+                + "of Demon Stone, each carrying the faintest resonance of its aspect. All variants "
+                + "can be shaped in a stonecutter into various decorative patterns. Consult JEI for "
+                + "variant and spread recipes.");
     }
 
     @Override
@@ -50,7 +54,7 @@ public class DemonStoneEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The building blocks of the Demon Realm.";
+        return "The pale foundation of a realm not meant for mortal eyes.";
     }
 
     @Override

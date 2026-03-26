@@ -81,9 +81,9 @@ public class NVDataMaps {
      * <pre>{@code
      * {
      *   "values": {
-     *     "minecraft:zombie": { "lp_per_damage": 30 },
-     *     "#minecraft:undead": { "lp_per_damage": 25 },
-     *     "#c:bosses": { "lp_per_damage": 1000, "max_lp_per_hit": 5000 }
+     *     "minecraft:zombie": { "ev_per_damage": 30 },
+     *     "#minecraft:undead": { "ev_per_damage": 25 },
+     *     "#c:bosses": { "ev_per_damage": 1000, "max_lp_per_hit": 5000 }
      *   }
      * }
      * }</pre>

@@ -23,32 +23,32 @@ public class StandardFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Standard Item Filter");
-        this.pageText("The Standard Item Filter lets you select up to 9 items to withdraw from, or insert into, "
-                + "the adjacent inventory when inserted into a [#](8B0000)Routing Node[#]().\\\n\\\n"
-                + "Each item has a quantity - leaving this blank will default to 'all'.\\\n\\\n"
-                + "The Filter also has an Allow and Deny function. In Deny mode, quantities are ignored.");
+        this.pageText("The [#](8B0000)Standard Item Filter[#]() allows you to designate up to 9 specific items for a "
+                + "[#](8B0000)Routing Node[#]() to interact with. Each slot accepts a quantity -- leave it blank to "
+                + "default to 'all.'\\\n\\\n"
+                + "The filter also toggles between [#](B8860B)Allow[#]() and [#](B8860B)Deny[#]() modes. In Deny mode, quantities "
+                + "are ignored.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Standard Item Filter");
-        this.pageText("Craft the Standard Item Filter in the Tabula Vitae.\\\n\\\n"
-                + "When used in an [#](8B0000)Input Routing Node[#](), the quantity tells the node how many of that item "
-                + "to leave in the selected inventory. Anything above this amount will be imported into the "
-                + "network.");
+        this.pageText("When installed in an [#](8B0000)Input Routing Node[#](), the quantity determines how many of each "
+                + "item to leave behind in the adjacent inventory. Anything above that threshold is drawn into "
+                + "the network.");
 
         this.page("output_usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("When used in an [#](8B0000)Output Routing Node[#](), the quantity tells the node how many of that "
-                + "item to fill in the selected inventory with. Anything above this amount will be left in "
-                + "the network - either passed into another valid inventory, or left where it is.");
+        this.pageText("When installed in an [#](8B0000)Output Routing Node[#](), the quantity sets how many of each item "
+                + "to fill into the adjacent inventory. Surplus remains in the network -- passed onward to "
+                + "another valid destination, or held in place.");
 
         this.page("gui_image", () -> BookImagePageModel.create()
                 .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/standard_item_filter_gui.png"))
-                .withTitle("Standard Item Filter GUI")
+                .withTitle("Standard Item Filter")
                 .withBorder(true)
                 .withText(this.context().pageText()));
-        this.pageText("The GUI and the mouseover text of a configured filter.");
+        this.pageText("The filter interface, showing a configured layout and its tooltip.");
     }
 
     @Override
@@ -58,7 +58,7 @@ public class StandardFilterEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A basic filter for selecting specific items in routing nodes.";
+        return "Precise control over which items flow through your network.";
     }
 
     @Override

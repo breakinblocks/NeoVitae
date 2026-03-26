@@ -4,7 +4,7 @@ import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.api.altar.rune.IAltarRuneRegistry;
 import com.breakinblocks.neovitae.api.incense.ITranquilityHandler;
 import com.breakinblocks.neovitae.api.living.ILivingArmorManager;
-import com.breakinblocks.neovitae.api.soul.ISoulNetwork;
+import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.api.will.IDemonWillHandler;
 import com.breakinblocks.neovitae.api.will.IPlayerDemonWillHandler;
 
@@ -20,10 +20,10 @@ import java.util.UUID;
  * <pre>{@code
  * INeoVitaeAPI api = NeoVitaeAPI.getInstance();
  *
- * // Get a player's soul network
- * ISoulNetwork network = api.getSoulNetwork(playerUUID);
- * if (network != null) {
- *     int lp = network.getCurrentEssence();
+ * // Get a player's anima
+ * IAnima anima = api.getAnima(playerUUID);
+ * if (anima != null) {
+ *     int ev = anima.getCurrentEV();
  * }
  *
  * // Register a custom altar rune type
@@ -38,13 +38,13 @@ import java.util.UUID;
 public interface INeoVitaeAPI {
 
     /**
-     * Gets the Soul Network for a player by their UUID.
+     * Gets the Anima for a player by their UUID.
      *
      * @param uuid The player's UUID
-     * @return The soul network, or null if none exists for this player
+     * @return The anima, or null if none exists for this player
      */
     @Nullable
-    ISoulNetwork getSoulNetwork(UUID uuid);
+    IAnima getAnima(UUID uuid);
 
     /**
      * Gets the Living Armor upgrade manager.

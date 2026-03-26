@@ -50,7 +50,7 @@ public class AraVitaeTests {
             if (altar == null) return;
             int filled = altar.fill(
                     new net.neoforged.neoforge.fluids.FluidStack(
-                            com.breakinblocks.neovitae.common.fluid.NVFluids.LIFE_ESSENCE_SOURCE.get(), 500),
+                            com.breakinblocks.neovitae.common.fluid.NVFluids.ESSENTIA_VITAE_SOURCE.get(), 500),
                     net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);
             if (filled <= 0) {
                 helper.fail("Altar should accept Life Essence, but fill returned " + filled);
@@ -66,7 +66,7 @@ public class AraVitaeTests {
 
         helper.runAfterDelay(5, () -> {
             if (altar == null) return;
-            altar.addSacrificeLP(2000, false);
+            altar.addSacrificeEV(2000, false);
             altar.inv.setStackInSlot(0, new ItemStack(Items.STONE));
 
             helper.runAfterDelay(250, () -> {
@@ -105,7 +105,7 @@ public class AraVitaeTests {
 
         helper.runAfterDelay(5, () -> {
             if (altar == null) return;
-            altar.addSacrificeLP(2000, false);
+            altar.addSacrificeEV(2000, false);
 
             helper.runAfterDelay(40, () -> {
                 if (altar.isActive()) {

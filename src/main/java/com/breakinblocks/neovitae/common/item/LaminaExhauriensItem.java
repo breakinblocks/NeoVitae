@@ -56,15 +56,15 @@ public class LaminaExhauriensItem extends Item {
             return false;
         }
 
-        int lifeEssence = (int) (sacrificeValue * target.getHealth());
+        int ev = (int) (sacrificeValue * target.getHealth());
 
         if (target.isBaby()) {
-            lifeEssence = (int) (lifeEssence * 0.5F);
+            ev = (int) (ev * 0.5F);
         }
 
         double bonusSacrifice = player.getAttributeValue(NVAttributes.BONUS_SACRIFICE);
         if (bonusSacrifice > 0) {
-            lifeEssence = (int) (lifeEssence * (1 + bonusSacrifice / 100));
+            ev = (int) (ev * (1 + bonusSacrifice / 100));
         }
 
         BlockPos altarPos = findAltar(target.level(), target.blockPosition());
@@ -77,7 +77,7 @@ public class LaminaExhauriensItem extends Item {
             return false;
         }
 
-        altar.addSacrificeLP(lifeEssence, true);
+        altar.addSacrificeEV(ev, true);
         target.hurt(target.level().damageSources().source(NVDamageSources.SACRIFICE, player), Float.MAX_VALUE);
 
         Level level = target.level();
@@ -98,7 +98,7 @@ public class LaminaExhauriensItem extends Item {
     }
 
     private int getSacrificeValue(LivingEntity entity) {
-        return EntitySacrificeHelper.getLpPerDamage(entity);
+        return EntitySacrificeHelper.getEvPerDamage(entity);
     }
 
     private BlockPos findAltar(Level level, BlockPos pos) {

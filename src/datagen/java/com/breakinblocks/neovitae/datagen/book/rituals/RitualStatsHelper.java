@@ -21,7 +21,7 @@ public class RitualStatsHelper {
 
         // Activation cost
         int activationCost = ritual.getActivationCost();
-        sb.append("[#](8B0000)Activation Cost:[#]() ").append(String.format("%,d", activationCost)).append(" LP\\\n");
+        sb.append("[#](8B0000)Activation Cost:[#]() ").append(String.format("%,d", activationCost)).append(" EV\\\n");
 
         // Crystal level
         int crystalLevel = ritual.getCrystalLevel();
@@ -37,7 +37,7 @@ public class RitualStatsHelper {
         int refreshCost = ritual.getRefreshCost();
         int refreshTime = ritual.getRefreshTime();
         if (refreshCost > 0) {
-            sb.append("[#](8B0000)Upkeep:[#]() ").append(String.format("%,d", refreshCost)).append(" LP");
+            sb.append("[#](8B0000)Upkeep:[#]() ").append(String.format("%,d", refreshCost)).append(" EV");
             if (refreshTime != 20) {
                 sb.append(" every ").append(refreshTime).append(" ticks");
             } else {

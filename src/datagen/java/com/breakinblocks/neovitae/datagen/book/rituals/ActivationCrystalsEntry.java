@@ -23,17 +23,17 @@ public class ActivationCrystalsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Activation Crystals");
-        this.pageText("Your rituals require more than simply the correct arrangement of blocks and Sigils. An effort of will is required to open a channel from your Soul Network to the ritual, and the [#](8B0000)Activation Crystal[#]() will allow you to focus yourself enough to activate your rituals.");
+        this.pageText("A properly inscribed circle is inert without the spark of will to awaken it. The [#](8B0000)Activation Crystal[#]() serves as that spark — a focus through which you open a conduit between your [#](4A0080)Anima[#]() and the waiting runes, breathing purpose into stone.");
 
         this.page("weak_recipe", () -> BookAraVitaeRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae/weak_activation_crystal"))
                 .withText(this.context().pageText()));
-        this.pageText("The [#](8B0000)Weak Activation Crystal[#]() is crafted in the Ara Vitae from a Lava Crystal. Simply press Use with a bound Activation Crystal on a Master Ritual Stone to activate the ritual.");
+        this.pageText("The [#](8B0000)Weak Activation Crystal[#]() is forged within the [#](8B0000)Ara Vitae[#]() from a [#](8B0000)Lava Crystal[#](). Press Use with a bound crystal upon the [#](8B0000)Master Ritual Stone[#]() to ignite the circle.");
 
         this.page("awakened_recipe", () -> BookAraVitaeRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae/awakened_activation_crystal"))
                 .withText(this.context().pageText()));
-        this.pageText("The [#](8B0000)Awakened Activation Crystal[#]() is a more powerful crystal required to activate advanced rituals. It is crafted in the Ara Vitae from a Weak Activation Crystal.");
+        this.pageText("The [#](8B0000)Awakened Activation Crystal[#]() resonates with deeper currents of power, required to activate [#](B8860B)advanced rituals[#]() beyond the Weak Crystal's reach. It is forged within the [#](8B0000)Ara Vitae[#]() from its lesser counterpart.");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ActivationCrystalsEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Focus your will to activate rituals.";
+        return "The spark that awakens sleeping runes.";
     }
 
     @Override

@@ -20,20 +20,22 @@ public class LavaSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Lava Sigil");
-        this.pageText("The sister sigil to the [#](8B0000)Water Sigil[#](). Use the [#](8B0000)Lava Sigil[#]() to create a source "
-                + "block of lava on the ground, for the cost of 1000 LP. It'll drain 5 hearts from you if "
-                + "you don't have enough LP in your [#](8B0000)Soul Network[#]().");
+        this.pageText("Sister to the [#](8B0000)Water Sigil[#](), the [#](8B0000)Lava Sigil[#]() draws molten stone "
+                + "from the depths of your [#](8B0000)Anima[#]() at a cost of 1,000 [#](4A0080)Essentia Vitae[#](). "
+                + "The price reflects the violence of the element -- and if your reserves cannot bear it, "
+                + "five hearts are torn from your flesh instead.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Lava Reagent[#]() in the Tabula Vitae.\\\n\\\n"
-                + "Step 2: Create the [#](8B0000)Lava Sigil[#]() in an Alchemy Array using the Lava Reagent "
-                + "as the base and a [#](8B0000)Blank Slate[#]() as the catalyst.\\\n\\\n*HOT! DO NOT EAT*");
+        this.pageText("Forge the [#](8B0000)Lava Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a [#](8B0000)Blank Slate[#]() as "
+                + "catalyst.\\\n\\\n[#](4A0080)Handle with the reverence due to hellfire.[#]()");
 
         this.page("tabula_vitae", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The Lava Sigil can also be used in the [#](8B0000)Tabula Vitae[#]() to automate the production "
-                + "of [#](8B0000)Lava Buckets[#](). The Sigil is not consumed in this recipe.");
+        this.pageText("Like its cooler counterpart, the [#](8B0000)Lava Sigil[#]() may serve as a component in the "
+                + "[#](8B0000)Tabula Vitae[#]() to automate the production of [#](8B0000)Lava Buckets[#](). "
+                + "The sigil is not consumed.");
     }
 
     @Override
@@ -43,7 +45,7 @@ public class LavaSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A sigil that places lava source blocks.";
+        return "Summon molten stone at a steep cost to your Anima.";
     }
 
     @Override

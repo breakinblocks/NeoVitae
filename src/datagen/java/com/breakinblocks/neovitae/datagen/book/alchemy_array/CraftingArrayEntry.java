@@ -20,14 +20,17 @@ public class CraftingArrayEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Crafting with Arrays");
-        this.pageText("[#](8B0000)Alchemy Arrays of Crafting[#]() are one of the simplest forms of array. These arrays "
-                + "inscribe the [#](8B0000)base item[#]() onto the [#](8B0000)catalyst[#](), transforming them both into a useful item "
-                + "(after a small, pretty animation).");
+        this.pageText("[#](8B0000)Crafting Arrays[#]() are among the simplest expressions of the art. The array "
+                + "inscribes the essence of the [#](8B0000)base[#]() onto the [#](8B0000)catalyst[#](), transmuting "
+                + "both into something new. A brief, elegant animation accompanies the transformation.");
 
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("While some of these resulting items can be crafted using very simple ingredients, "
-                + "others require additional steps to create useful items.");
+        this.pageText("Some crafting arrays require only common materials. Others demand reagents forged "
+                + "through more advanced means -- the complexity of the product mirrors the complexity of "
+                + "the path to reach it.\\\n\\\n"
+                + "[#](2E8B57)Most sigils, reagents, and bindings begin their existence within a crafting "
+                + "array. Master this foundation well.[#]()");
     }
 
     @Override
@@ -37,7 +40,7 @@ public class CraftingArrayEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Using Alchemy Arrays to transform items.";
+        return "The simplest array -- inscribe essence onto matter and reshape it.";
     }
 
     @Override

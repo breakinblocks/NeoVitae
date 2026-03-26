@@ -64,6 +64,6 @@ public class NVBookProvider extends SingleBookSubProvider {
 
     @Override
     protected String bookTooltip() {
-        return "Neo Vitae Edition";
+        return "A Grimoire of Vitaemancy";
     }
 }

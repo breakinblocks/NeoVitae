@@ -24,7 +24,7 @@ public class RitualCrystalHarvestEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/crystal_harvest"))
                 .withMultiblockName("Crack of the Fractured Crystal")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("crystal_harvest")));
@@ -32,8 +32,8 @@ public class RitualCrystalHarvestEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual harvests [#](8B0000)Demon Will Crystal Clusters[#]() within its area of effect, breaking off excess spires and collecting the resulting [#](8B0000)Demon Will[#]() crystals. It works with all [#](8B0000)aspects[#]() of Demon Will crystals.");
+        this.pageTitle("Crystalline Reaping");
+        this.pageText("This ritual carefully shears excess spires from [#](8B0000)Demon Will Crystal Clusters[#]() within its reach, collecting the harvested shards. It works with all [#](4A0080)aspects[#]() of will — raw, corrosive, destructive, vengeful, and steadfast alike.");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RitualCrystalHarvestEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Harvests Demon Will crystal clusters.";
+        return "Reaps crystallized will from mature clusters.";
     }
 
     @Override

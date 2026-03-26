@@ -26,7 +26,8 @@ public class WeaknessFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Weakness");
-        this.pageText("[#](8B0000)Weakness[#]() decreases the target's attack damage by 4 points per level.");
+        this.pageText("The [#](8B0000)Weakness[#]() elixir saps the muscles of their vigour, reducing attack damage "
+                + "by 4 points per level. A creature so afflicted strikes with all the force of a child.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/weakness")
@@ -45,7 +46,7 @@ public class WeaknessFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Decreases attack damage.";
+        return "Saps the muscles, rendering strikes feeble.";
     }
 
     @Override

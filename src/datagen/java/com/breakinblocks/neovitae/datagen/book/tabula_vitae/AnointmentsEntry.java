@@ -20,25 +20,26 @@ public class AnointmentsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Anointments");
-        this.pageText("[#](8B0000)Anointments[#]() are essentially [#](8B0000)potions[#]() for your tools, weapons, and even your "
-                + "[#](8B0000)Charges[#](). By pressing the Use key with the [#](8B0000)anointment[#]() in one hand, it will be applied "
-                + "to the item in your other hand, if possible. Not all anointments work on all equipment!"
-                + "\\\n\\\nUnlike [#](8B0000)potions[#](), [#](8B0000)anointments[#]() aren't timed; rather, they wear off a bit at a time "
-                + "as your tool or weapon is used.");
+        this.pageText("Where flasks empower the body, [#](8B0000)Anointments[#]() empower the hand. These are "
+                + "[#](4A0080)alchemical coatings[#]() for your tools, weapons, and [#](8B0000)Charges[#](). Hold the anointment "
+                + "in one hand and press Use to apply it to the item in your other hand. Not every coating "
+                + "suits every instrument -- choose wisely."
+                + "\\\n\\\nUnlike elixirs, anointments are not governed by time. They diminish with each use of "
+                + "the coated tool, fading stroke by stroke until spent.");
 
         this.page("slate_vial", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Slate-infused Vial");
-        this.pageText("Craft the [#](8B0000)Slate-infused Vial[#]() in the Tabula Vitae (recipe: neovitae:alchemytable/slate_vial). "
-                + "A sturdy Vial that can contain otherwise uncontainable mixtures.");
+        this.pageText("The [#](8B0000)Slate-infused Vial[#]() is prepared at the Tabula Vitae (recipe: neovitae:alchemytable/slate_vial). "
+                + "Ordinary glass cannot withstand the reactive compounds within an anointment. This vial, "
+                + "reinforced with powdered slate, contains what lesser vessels cannot.");
 
         this.page("smithing", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("It is also possible to apply an [#](8B0000)anointment[#]() to an applicable item using a smithing table. "
-                + "This is particularly useful for two-handed weapons or other situations where you might find "
-                + "yourself not having enough hands. The [#](8B0000)anointment[#]() takes the role of a smithing template "
-                + "in this process.");
+        this.pageText("An [#](8B0000)anointment[#]() may also be applied via a smithing table, where it takes the place "
+                + "of a smithing template. This proves especially useful for two-handed weapons and other "
+                + "situations where one's hands are otherwise occupied.");
     }
 
     @Override
@@ -48,7 +49,7 @@ public class AnointmentsEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Potions for your tools and weapons.";
+        return "Alchemical coatings for tools and weapons.";
     }
 
     @Override

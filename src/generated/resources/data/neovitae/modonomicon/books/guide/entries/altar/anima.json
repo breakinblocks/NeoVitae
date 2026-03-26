@@ -6,12 +6,12 @@
     "type": "modonomicon:entry_read",
     "entry_id": "altar/ara_vitae"
   },
-  "description": "book.neovitae.guide.altar.soul_network.description",
+  "description": "book.neovitae.guide.altar.anima.description",
   "hide_while_locked": false,
   "icon": {
     "item": "neovitae:blood_orb_weak"
   },
-  "name": "book.neovitae.guide.altar.soul_network.name",
+  "name": "book.neovitae.guide.altar.anima.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -20,8 +20,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.soul_network.intro.text",
-      "title": "book.neovitae.guide.altar.soul_network.intro.title",
+      "text": "book.neovitae.guide.altar.anima.intro.text",
+      "title": "book.neovitae.guide.altar.anima.intro.title",
       "use_markdown_in_title": false
     },
     {
@@ -31,7 +31,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.soul_network.binding.text",
+      "text": "book.neovitae.guide.altar.anima.binding.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -42,7 +42,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.soul_network.filling.text",
+      "text": "book.neovitae.guide.altar.anima.filling.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -53,7 +53,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.soul_network.orb_tiers.text",
+      "text": "book.neovitae.guide.altar.anima.orb_tiers.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -64,8 +64,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.soul_network.weak_apprentice.text",
-      "title": "book.neovitae.guide.altar.soul_network.weak_apprentice.title",
+      "text": "book.neovitae.guide.altar.anima.weak_apprentice.text",
+      "title": "book.neovitae.guide.altar.anima.weak_apprentice.title",
       "use_markdown_in_title": false
     },
     {
@@ -75,7 +75,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.soul_network.magician_master.text",
+      "text": "book.neovitae.guide.altar.anima.magician_master.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -86,7 +86,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.soul_network.archmage.text",
+      "text": "book.neovitae.guide.altar.anima.archmage.text",
       "title": "",
       "use_markdown_in_title": false
     }

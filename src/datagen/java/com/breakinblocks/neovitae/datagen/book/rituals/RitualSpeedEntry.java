@@ -24,7 +24,7 @@ public class RitualSpeedEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/speed"))
                 .withMultiblockName("Ritual of Speed")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("speed")));
@@ -32,17 +32,17 @@ public class RitualSpeedEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual grants a speed boost to all players within its area of effect.");
+        this.pageTitle("Quickened Blood");
+        this.pageText("The circle hums with kinetic potential, infusing all practitioners within its reach with unnatural swiftness. Your blood runs hot and your limbs move as though unburdened by mortal weight.");
 
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Effects");
-        this.pageText("- [#](8B0000)Raw Will[#](): Increases the speed boost potency."
-                + "\n\n- [#](8B0000)Corrosive Will[#](): Applies Slowness to hostile mobs."
-                + "\n\n- [#](8B0000)Vengeful Will[#](): Grants Haste to players."
-                + "\n\n- [#](8B0000)Destructive Will[#](): Increases effect strength at higher will levels."
+        this.pageTitle("Demon Will Resonance");
+        this.pageText("- [#](8B0000)Raw Will[#](): Heightens the swiftness granted."
+                + "\n\n- [#](8B0000)Corrosive Will[#](): Afflicts hostile creatures with Slowness."
+                + "\n\n- [#](8B0000)Vengeful Will[#](): Bestows Haste upon practitioners."
+                + "\n\n- [#](8B0000)Destructive Will[#](): Amplifies the effect at higher will concentrations."
                 + "\n\n- [#](8B0000)Steadfast Will[#](): Grants resistance to knockback.");
     }
 
@@ -53,7 +53,7 @@ public class RitualSpeedEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Grants speed to nearby players.";
+        return "Infuses practitioners with unnatural swiftness.";
     }
 
     @Override

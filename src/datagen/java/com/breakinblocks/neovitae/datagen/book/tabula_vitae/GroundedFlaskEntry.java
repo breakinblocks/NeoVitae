@@ -26,8 +26,9 @@ public class GroundedFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Grounded");
-        this.pageText("[#](8B0000)Grounded[#]() prevents the target from jumping. Swimming is unaffected, however.\\\n\\\n"
-                + "It's made from a potion of [#](8B0000)Jump Boost[#]().");
+        this.pageText("The [#](8B0000)Grounded[#]() elixir anchors the body to the earth, utterly suppressing the "
+                + "ability to jump. Swimming remains unaffected -- the binding is to stone, not water.\\\n\\\n"
+                + "Derived from a flask of [#](8B0000)Jump Boost[#]().");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/jump_to_grounded")
@@ -43,7 +44,7 @@ public class GroundedFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Prevents the target from jumping.";
+        return "Anchors the body, suppressing all jumping.";
     }
 
     @Override

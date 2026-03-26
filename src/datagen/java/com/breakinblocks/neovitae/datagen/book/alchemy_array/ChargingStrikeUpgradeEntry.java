@@ -20,8 +20,10 @@ public class ChargingStrikeUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Charging Strike");
-        this.pageText("Effect: Increases damage and knockback from sprinting attacks, up to +50%%.\\\n\\\n"
-                + "Trained by: Dealing damage while sprinting.\\\n\\\nMaximum level: 5");
+        this.pageText("The armour learns to channel your momentum into devastating force. Sprinting attacks "
+                + "deal increased damage and knockback, up to +50%%.\\\n\\\n"
+                + "[#](B8860B)Trained by[#](): Dealing damage while sprinting.\\\n\\\n"
+                + "[#](B8860B)Maximum level[#](): 5");
     }
 
     @Override
@@ -31,7 +33,7 @@ public class ChargingStrikeUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Bonus damage from sprinting attacks.";
+        return "Your momentum becomes a weapon -- the faster you charge, the harder you strike.";
     }
 
     @Override

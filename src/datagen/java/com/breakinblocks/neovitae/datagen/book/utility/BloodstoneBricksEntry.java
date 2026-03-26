@@ -22,9 +22,11 @@ public class BloodstoneBricksEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Bloodstone Bricks");
-        this.pageText("[#](8B0000)Bloodstone Bricks[#]() are a decorative block, and used as the capstones for the "
-                + "Tier-4 Ara Vitae. They require Weak Blood Shards, which can be made by putting a "
-                + "Saturated Tau into an Athanor with a Sanguine Reverter in it.");
+        this.pageText("[#](8B0000)Bloodstone Bricks[#]() are stone saturated with crystallized life force, "
+                + "dark and warm to the touch. Beyond their unsettling beauty, they serve as the "
+                + "[#](B8860B)capstones for the Tier IV Ara Vitae[#]().\\\n\\\n"
+                + "Their creation requires [#](8B0000)Weak Blood Shards[#](), obtained by placing "
+                + "[#](8B0000)Saturated Tau[#]() into the Athanor with a Sanguine Reverter.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "bloodstone_brick")));
@@ -37,7 +39,7 @@ public class BloodstoneBricksEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Decorative blocks and Tier-4 altar capstones.";
+        return "Stone steeped in life force - decorative, and essential for the fourth altar.";
     }
 
     @Override

@@ -158,7 +158,7 @@ public class DemonWillCategory extends CategoryProvider {
 
     @Override
     protected String categoryName() {
-        return "Demon Will";
+        return "Demon Will & Artifice";
     }
 
     @Override

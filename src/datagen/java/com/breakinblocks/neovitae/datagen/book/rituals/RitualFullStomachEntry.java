@@ -24,7 +24,7 @@ public class RitualFullStomachEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/full_stomach"))
                 .withMultiblockName("Ritual of the Satiated Stomach")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("full_stomach")));
@@ -32,8 +32,8 @@ public class RitualFullStomachEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual feeds players within its area of effect using food from a nearby chest, restoring hunger and saturation automatically.");
+        this.pageTitle("The Inexhaustible Feast");
+        this.pageText("This ritual draws sustenance from a nearby chest and feeds it to every practitioner within its reach, restoring hunger and saturation without pause. A blood mage who never hungers is one who never falters — keep the larder stocked, and the circle will handle the rest.");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RitualFullStomachEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Automatically feeds players from a chest.";
+        return "Feeds all practitioners from a nearby larder.";
     }
 
     @Override

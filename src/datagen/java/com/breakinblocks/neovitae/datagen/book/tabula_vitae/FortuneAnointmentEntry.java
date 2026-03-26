@@ -21,7 +21,8 @@ public class FortuneAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fortuna Extract");
-        this.pageText("[#](8B0000)Fortuna Extract[#]() increases the yield of some harvested blocks. Also stacks with the Fortune enchantment."
+        this.pageText("[#](8B0000)Fortuna Extract[#]() coaxes the earth into yielding more than it should. The coating "
+                + "stacks with the Fortune enchantment for truly bountiful harvests."
                 + "\\\n\\\nValid items: Tools, Swords, Charges.\\\n\\\nApplies: Fortunate (256 blocks)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
@@ -41,7 +42,7 @@ public class FortuneAnointmentEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increases yield from harvested blocks.";
+        return "Coaxes greater yield from harvested blocks.";
     }
 
     @Override

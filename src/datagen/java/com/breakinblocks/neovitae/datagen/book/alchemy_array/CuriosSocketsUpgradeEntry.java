@@ -20,10 +20,11 @@ public class CuriosSocketsUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Socketed");
-        this.pageText("Adds [#](8B0000)Living Armour Socket[#]() Curios Slots to the player that are able to hold "
-                + "compatible Neo Vitae items.\\\n\\\n"
-                + "This upgrade can't be trained, only crafted. By default, each [#](8B0000)Upgrade Tome[#]() adds "
-                + "one additional slot.\\\n\\\nRequires the Curios API to be installed.");
+        this.pageText("The armour opens hidden recesses within itself, forming [#](8B0000)Living Armour "
+                + "Socket[#]() slots that can hold compatible [#](4A0080)Vitaemancy[#]() trinkets.\\\n\\\n"
+                + "This upgrade cannot be trained -- only inscribed via [#](8B0000)Upgrade Tome[#](). "
+                + "Each tome adds one additional socket.\\\n\\\n"
+                + "[#](2E8B57)Requires the Curios API.[#]()");
     }
 
     @Override
@@ -33,7 +34,7 @@ public class CuriosSocketsUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Adds Curios slots for Neo Vitae items.";
+        return "The armour grows sockets to hold your vitaemantic trinkets.";
     }
 
     @Override

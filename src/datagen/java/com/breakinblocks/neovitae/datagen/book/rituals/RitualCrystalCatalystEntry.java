@@ -24,7 +24,7 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/forsaken_soul"))
                 .withMultiblockName("Gathering of the Forsaken Souls")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("forsaken_soul")));
@@ -32,8 +32,8 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual generates [#](8B0000)Demon Will Catalysts[#]() by gathering the forsaken souls of slain creatures. The catalysts can be used to grow and enhance Demon Will crystals. Drops are deposited into a nearby chest.");
+        this.pageTitle("Souls Unmoored");
+        this.pageText("When creatures perish within this ritual's domain, their departing essence is intercepted — not the vital spark, but the lingering [#](4A0080)demonic residue[#]() that clings to all mortal things. The circle distills this into [#](8B0000)Demon Will Catalysts[#](), potent reagents for cultivating and enhancing will crystals. The resulting catalysts are deposited into a nearby chest.");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Generates Demon Will catalysts.";
+        return "Distills forsaken essence into will catalysts.";
     }
 
     @Override

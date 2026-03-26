@@ -21,55 +21,55 @@ public class IncenseAltarEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Incense Altar");
-        this.pageText("The [#](8B0000)Incense Altar[#]() is a multiblock structure that can be used to boost your self-sacrificing "
-                + "at a Ara Vitae. By standing near your setup, the Incense Altar will calm your soul based on "
-                + "the area's total Tranquility, allowing you to significantly increase your LP gains.");
+        this.pageTitle("The Incense Altar");
+        this.pageText("The [#](8B0000)Incense Altar[#]() is a meditative focus - a multiblock apparatus that "
+                + "stills the mind and opens the veins. When you stand within its calming aura and draw your blade, "
+                + "the surrounding [#](4A0080)Tranquility[#]() deepens the sacrifice, multiplying the "
+                + "[#](4A0080)Essentia Vitae[#]() gained from self-offering.");
 
         this.page("recipe_incense", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("View the Incense Altar recipe in JEI.");
+        this.pageText("Consult JEI for the [#](8B0000)Incense Altar[#]() recipe.");
 
         this.page("basic_setup", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Basic Setup");
-        this.pageText("The basic Tier 1 setup of an Incense Altar is the Altar itself; place it down anywhere "
-                + "(you may want to set up a 3x3 block platform, this will be helpful later) and stay within a "
-                + "5 block radius of the Altar.\\\n\\\n"
-                + "While the Altar is working, it will emit flame particles from its top and transform your "
-                + "Sacrificial Knife. Once your knife starts to shine, holding and releasing right click near a "
-                + "Ara Vitae will sacrifice 90%% of your health all at once.");
+        this.pageTitle("Constructing the Focus");
+        this.pageText("[#](2E8B57)Place the altar upon a 3x3 platform of solid blocks (this foundation is important "
+                + "for later expansion). Remain within five blocks of the altar to receive its blessing.[#]()\\\n\\\n"
+                + "When the altar awakens, flame particles dance from its crown and your "
+                + "[#](8B0000)Sacrificial Knife[#]() begins to shimmer. Holding and releasing the blade near an "
+                + "Ara Vitae will then sacrifice 90%% of your health in a single, potent offering.");
 
         this.page("setup_image", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Basic Setup Layout");
+        this.pageTitle("Foundation Layout");
         this.pageText("[Image: Basic setup showing the 3x3 square of blocks before the path blocks.]");
 
         this.page("tranquility", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tranquility Bonus");
-        this.pageText("Based on the total Tranquility of the area, you will receive a bonus to the LP added to "
-                + "the Ara Vitae. Hovering over the Incense Altar with either a Divination Sigil or Seer's Sigil "
-                + "will display the total Tranquility (top number) and the percentage bonus received when sacrificing "
-                + "(bottom number). When you sacrifice, it will take the LP that you would normally get and multiply "
-                + "it by (1 + bonus/100).");
+        this.pageTitle("The Weight of Tranquility");
+        this.pageText("The strength of your enhanced sacrifice scales with the area's total "
+                + "[#](4A0080)Tranquility[#](). Hover over the Incense Altar with a "
+                + "[#](8B0000)Divination Sigil[#]() or [#](8B0000)Seer's Sigil[#]() to reveal two readings: "
+                + "the total Tranquility above, and the percentage bonus below.\\\n\\\n"
+                + "When you sacrifice, your normal yield is multiplied by (1 + bonus/100).");
 
         this.page("hud_image", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Incense HUD");
+        this.pageTitle("Reading the Signs");
         this.pageText("[Image: Incense HUD, default in top left corner, showing a self-sacrifice bonus of +20%%.]");
 
         this.page("paths_intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Increasing Tranquility");
-        this.pageText("To increase the Tranquility of the area, you must place paths leading out from your Incense "
-                + "Altar. These paths need to be constructed from a three wide set of Path blocks, such as the "
-                + "Wooden Path, that extend from the 3x3 set of solid reference blocks in all four cardinal directions.");
+        this.pageTitle("Walking Paths of Peace");
+        this.pageText("To deepen the area's [#](4A0080)Tranquility[#](), you must lay sacred paths radiating outward "
+                + "from the altar in all four cardinal directions. Each path is three blocks wide and constructed from "
+                + "consecrated [#](8B0000)Path blocks[#](), extending from the 3x3 foundation.");
 
         this.page("path_wood", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_wood_brick"))
@@ -90,56 +90,58 @@ public class IncenseAltarEntry extends EntryProvider {
         this.page("path_rules", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Path Ring Rules");
-        this.pageText("Each new \"ring\" of path blocks follow a set of rules:\n"
-                + "- All path blocks on the same ring have to be on the same y-level.\n"
-                + "- The next ring of path blocks may not be more than 5 blocks higher/lower than the previous ring.\n"
-                + "- The blocks that are the same level or up to two blocks above the path blocks' ring count "
-                + "towards the total Tranquility.");
+        this.pageTitle("Laws of the Path Rings");
+        this.pageText("Each successive ring of path blocks obeys ancient geometric constraints:\n\n"
+                + "- All path blocks in a single ring must share the same elevation.\n"
+                + "- The next ring may differ by no more than five blocks in height from the previous.\n"
+                + "- Blocks at ring level or up to two blocks above it contribute their "
+                + "[#](4A0080)Tranquility[#]() to the total.");
 
         this.page("path_distance", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Path Distance");
-        this.pageText("The efficacy of each type of path block only lasts a certain distance: wooden paths can "
-                + "only go three rings out from the centre, stone paths for up to five rings, worn stone paths "
-                + "for seven rings, and obsidian paths for nine rings.\\\n\\\n"
-                + "Not every type of block will count towards your Tranquility. We need crops, dirt, and even... lava?");
+        this.pageTitle("Path Reach");
+        this.pageText("Each path material carries its influence only so far: [#](8B0000)Wooden[#]() paths extend "
+                + "three rings, [#](8B0000)Stone[#]() paths five, [#](8B0000)Worn Stone[#]() paths seven, "
+                + "and [#](8B0000)Obsidian[#]() paths nine rings from the centre.\\\n\\\n"
+                + "Not every block contributes Tranquility. You require growing things, earth, "
+                + "and even... lava?");
 
         this.page("tranquility_types", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tranquility Types");
-        this.pageText("There are multiple block categories that count towards the total Tranquility: Plants, Crops, "
-                + "Trees, Earthen, Water, Fire, and Lava. The Incense Altar will look at all of the blocks within "
-                + "its range and tabulate the total Tranquility of each type. It then calculates the total by "
-                + "square-rooting the Tranquility of each type and adding them together.");
+        this.pageTitle("Sources of Tranquility");
+        this.pageText("Seven categories of [#](4A0080)Tranquility[#]() exist: "
+                + "[#](2E8B57)Plants, Crops, Trees, Earthen, Water, Fire, and Lava[#]().\\\n\\\n"
+                + "The altar surveys all blocks within its range, tallies each type, "
+                + "then takes the square root of each category's total and sums them. "
+                + "Diversity, not mere volume, is the key to great Tranquility.");
 
         this.page("tranquility_blocks", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tranquility Blocks");
-        this.pageText("For later-game setups, it is best to have many different types of Tranquility. "
-                + "The blocks that contribute are: Lava, Water (including most Waterlogged blocks), Life Essence, "
-                + "Netherrack, Dirt, Farmland, Potatoes, Carrots, Wheat, Nether Wart, Beetroots, Leaves, Logs, "
-                + "Fire, and Grass.");
+        this.pageTitle("Contributing Blocks");
+        this.pageText("Blocks that resonate with [#](4A0080)Tranquility[#](): "
+                + "Lava, Water (including most waterlogged blocks), Essentia Vitae, "
+                + "Netherrack, Dirt, Farmland, Potatoes, Carrots, Wheat, Nether Wart, "
+                + "Beetroots, Leaves, Logs, Fire, and Grass.\\\n\\\n"
+                + "[#](2E8B57)For advanced setups, cultivate as many different types as possible.[#]()");
 
         this.page("caps", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tranquility Caps");
-        this.pageText("The Tranquility bonus is capped by the size of your Altar (and thus, the tier of path "
-                + "you are using). The caps are as follows:\n"
-                + "- No Path: 20%%\n"
-                + "- Wooden Path: 60%%\n"
-                + "- Stone Path: 120%%\n"
-                + "- Worn Stone Path: 200%%\n"
-                + "- Obsidian Path: 300%%");
+        this.pageTitle("Ceiling of Serenity");
+        this.pageText("The Tranquility bonus is bounded by the path tier you employ:\n\n"
+                + "- [#](B8860B)No Path:[#]() 20%%\n"
+                + "- [#](B8860B)Wooden Path:[#]() 60%%\n"
+                + "- [#](B8860B)Stone Path:[#]() 120%%\n"
+                + "- [#](B8860B)Worn Stone Path:[#]() 200%%\n"
+                + "- [#](B8860B)Obsidian Path:[#]() 300%%");
 
         this.page("example_image", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Example Setup");
+        this.pageTitle("A Garden of Calm");
         this.pageText("[Image: A simple Incense Altar setup. Note the optional mixing of different path blocks.]");
     }
 
@@ -150,7 +152,7 @@ public class IncenseAltarEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Boost self-sacrifice LP gains with Tranquility.";
+        return "A meditative focus that deepens the sacrifice through Tranquility.";
     }
 
     @Override

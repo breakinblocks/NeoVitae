@@ -56,7 +56,7 @@ public class RitualRegeneration extends Ritual {
         }
 
         if (cost > 0) {
-            ctx.syphon(Math.min(cost, ctx.currentEssence()));
+            ctx.syphon(Math.min(cost, ctx.currentEV()));
         }
 
         // Corrosive Will: Vampire syphon - drain HP from mobs to heal players

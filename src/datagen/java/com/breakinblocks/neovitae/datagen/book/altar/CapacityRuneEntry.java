@@ -23,8 +23,10 @@ public class CapacityRuneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Rune of Capacity");
-        this.pageText("The [#](8B0000)Rune of Capacity[#]() increases the capacity of the [#](8B0000)Ara Vitae[#]() by an "
-                + "additive +20%% per rune.");
+        this.pageText("The [#](8B0000)Rune of Capacity[#]() deepens the altar's basin, allowing the [#](8B0000)Ara Vitae[#]() "
+                + "to hold more [#](4A0080)Essentia Vitae[#]() before overflowing. Each rune expands the reservoir "
+                + "by [#](8B0000)+20%%[#](), stacking additively. A deeper well means fewer interruptions during "
+                + "costly transmutations.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_capacity")));
@@ -38,7 +40,7 @@ public class CapacityRuneEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increases the Ara Vitae's Life Essence capacity.";
+        return "Deepens the altar's reservoir to hold more Essentia Vitae.";
     }
 
     @Override

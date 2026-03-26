@@ -20,16 +20,17 @@ public class AirSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Air Sigil");
-        this.pageText("Throws you in the direction you're facing, at a cost of 50 LP per use. Note that this "
-                + "does not provide any sort of Feather Falling effect, so be careful when landing!\\\n\\\n"
-                + "A good way to get around quickly, albeit with some risk. Many an unwary mage has met their end by "
-                + "running out of LP in their [#](8B0000)Soul Network[#]() while flying miles above the countryside.");
+        this.pageText("The [#](8B0000)Air Sigil[#]() hurls you through the sky in whatever direction you face, "
+                + "trading 50 [#](4A0080)Essentia Vitae[#]() for each burst of momentum. The wind obeys, but gravity does "
+                + "not -- this sigil offers no protection from the landing.\\\n\\\n"
+                + "[#](2E8B57)More than one overconfident apprentice has drained their [#](8B0000)Anima[#]() mid-flight. "
+                + "Know your reserves before you leap.[#]()");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Air Reagent[#]() in the Tabula Vitae.\\\n\\\n"
-                + "Step 2: Create the [#](8B0000)Air Sigil[#]() in an Alchemy Array using the Air Reagent as "
-                + "the base and a slate as the catalyst.\\\n\\\n*I feel lighter already...*");
+        this.pageText("Forge the [#](8B0000)Air Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a slate as catalyst.\\\n\\\n"
+                + "[#](4A0080)The sky remembers every mage who forgot to look down.[#]()");
     }
 
     @Override
@@ -39,7 +40,7 @@ public class AirSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A sigil that launches you in the direction you face.";
+        return "Command the wind to hurl you skyward -- at your own peril.";
     }
 
     @Override

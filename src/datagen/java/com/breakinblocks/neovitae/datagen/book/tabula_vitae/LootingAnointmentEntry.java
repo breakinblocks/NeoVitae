@@ -21,8 +21,8 @@ public class LootingAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Plunderer's Glint");
-        this.pageText("Craft [#](8B0000)Plunderer's Glint[#]() in the Tabula Vitae. "
-                + "Increases the drops from killed mobs. Also stacks with the Looting enchantment.\\\n\\\n"
+        this.pageText("[#](8B0000)Plunderer's Glint[#]() draws forth spoils from the slain that would otherwise remain "
+                + "hidden. The coating stacks with the Looting enchantment.\\\n\\\n"
                 + "Valid items: Tools, Swords.\\\n\\\nApplies: Plundering I (256 hits)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
@@ -42,7 +42,7 @@ public class LootingAnointmentEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increases drops from killed mobs.";
+        return "Draws greater spoils from the slain.";
     }
 
     @Override

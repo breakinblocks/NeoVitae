@@ -128,7 +128,7 @@ public class RitualGeode extends Ritual {
         int totalCost = 0;
 
         for (BlockPos harvestPos : harvestPositions) {
-            if (totalCost + getRefreshCost() > ctx.currentEssence()) break;
+            if (totalCost + getRefreshCost() > ctx.currentEV()) break;
 
             BlockState state = ctx.level().getBlockState(harvestPos);
             if (!state.is(NVTags.Blocks.GEODE_HARVESTABLE)) continue;

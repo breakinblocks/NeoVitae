@@ -24,7 +24,7 @@ public class RitualSuppressionEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/suppression"))
                 .withMultiblockName("Dome of Suppression")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("suppression")));
@@ -32,8 +32,9 @@ public class RitualSuppressionEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual creates a hemispherical dome that temporarily removes all fluid source blocks within its range. The fluids are suppressed - not destroyed - and will return when the ritual is deactivated. Useful for underwater construction, draining lava lakes, or creating air pockets in flooded areas.");
+        this.pageTitle("The Parted Tide");
+        this.pageText("This ritual projects a hemispherical ward that holds all fluids at bay — water, lava, and stranger liquids alike are temporarily suppressed, not destroyed. When the circle falls silent, the tide returns as though nothing happened.\\\n\\\n"
+                + "[#](2E8B57)Invaluable for underwater construction, draining lava lakes, or carving safe pockets in flooded depths.[#]()");
     }
 
     @Override
@@ -43,7 +44,7 @@ public class RitualSuppressionEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Temporarily suppresses fluids in an area.";
+        return "Holds all fluids at bay within a warded dome.";
     }
 
     @Override

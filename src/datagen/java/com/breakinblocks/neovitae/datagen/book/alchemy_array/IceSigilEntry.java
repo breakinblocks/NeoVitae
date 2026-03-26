@@ -23,10 +23,11 @@ public class IceSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of the Frozen Lake");
-        this.pageText("The [#](8B0000)Sigil of the Frozen Lake[#]() is a toggleable sigil that freezes water "
-                + "beneath your feet as you walk, similar to the Frost Walker enchantment.\\\n\\\n"
-                + "While active, any water source blocks within a 2-block radius below you will be "
-                + "converted to ice. This drains LP from your soul network while active.");
+        this.pageText("The [#](8B0000)Sigil of the Frozen Lake[#]() chills the water beneath your feet as you walk, "
+                + "crystallizing it into solid ice within a two-block radius. The effect is reminiscent of "
+                + "ancient frost enchantments, but drawn from [#](4A0080)Essentia Vitae[#]() rather than arcane "
+                + "inscriptions.\\\n\\\n"
+                + "Toggle it with sneak and [Use]. The ice endures only as long as you remain near.");
 
         this.page("recipe", () -> BookAlchemyArrayRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "array/frost_sigil")));
@@ -39,7 +40,7 @@ public class IceSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Freeze water beneath your feet.";
+        return "Walk upon water made solid by the chill of your Anima.";
     }
 
     @Override

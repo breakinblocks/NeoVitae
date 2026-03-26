@@ -20,8 +20,11 @@ public class DwarvenMightUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Dwarven Might");
-        this.pageText("Effect: Increases mining speed while mining identical blocks. After a certain level, "
-                + "gives a Haste buff after breaking blocks.\\\n\\\nTrained by: Mining.\\\n\\\nMaximum level: 10");
+        this.pageText("The armour recognizes the rhythm of the pick. Mining identical blocks in succession "
+                + "accelerates your speed, and at higher levels a surge of [#](4A0080)Haste[#]() follows each "
+                + "broken block.\\\n\\\n"
+                + "[#](B8860B)Trained by[#](): Mining blocks.\\\n\\\n"
+                + "[#](B8860B)Maximum level[#](): 10");
     }
 
     @Override
@@ -31,7 +34,7 @@ public class DwarvenMightUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increased mining speed from mining blocks.";
+        return "The deeper you dig, the faster the armour drives your arms.";
     }
 
     @Override

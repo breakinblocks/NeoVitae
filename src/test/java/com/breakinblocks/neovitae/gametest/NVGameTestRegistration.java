@@ -17,7 +17,7 @@ public class NVGameTestRegistration {
         event.register(DemonWillTests.class);
         event.register(AlchemyArrayTests.class);
         event.register(ImperfectRitualTests.class);
-        event.register(SoulNetworkTests.class);
+        event.register(AnimaTests.class);
         event.register(MinorSystemTests.class);
         event.register(MultiblockTests.class);
         event.register(DataValidationTests.class);

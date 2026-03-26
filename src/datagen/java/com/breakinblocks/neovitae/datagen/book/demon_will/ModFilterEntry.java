@@ -20,18 +20,18 @@ public class ModFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Mod Item Filter");
-        this.pageText("The [#](8B0000)Mod Item Filter[#]() lets you select up to 9 items from different mods. Similarly to "
-                + "the [#](8B0000)Standard Item Filter[#](), it has a quantity selector and an allow/deny function. Leaving "
-                + "the quantity blank defaults to 'all'.\\\n\\\n"
-                + "For each item that you put into this filter, [#](8B0000)any item from the same mod[#]() will be matched.");
+        this.pageText("The [#](8B0000)Mod Item Filter[#]() accepts up to 9 representative items. For each item you "
+                + "place within it, [#](B8860B)every item from the same origin[#]() is matched -- allowing you to "
+                + "permit or deny entire collections at once.\\\n\\\n"
+                + "Quantity limits and Allow/Deny modes function as with the Standard Filter.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Mod Item Filter");
-        this.pageText("Craft the Mod Item Filter in the Tabula Vitae.\\\n\\\n"
-                + "This allows you to deny/permit entire swathes of items. Handy for sorting all of your "
-                + "Neo Vitae items into their own super-special chest, to name an example at random.");
+        this.pageText("Particularly useful for directing all artifacts of a given discipline into their own "
+                + "dedicated vault -- ensuring your [#](4A0080)Vitaemantic[#]() instruments never mingle with "
+                + "lesser materials.");
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ModFilterEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A filter that matches all items from a specific mod.";
+        return "A broad filter that matches all items sharing a common origin.";
     }
 
     @Override

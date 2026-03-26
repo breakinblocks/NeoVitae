@@ -24,7 +24,7 @@ public class RitualRegenerationEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/regeneration"))
                 .withMultiblockName("Ritual of Regeneration")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("regeneration")));
@@ -32,9 +32,9 @@ public class RitualRegenerationEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual heals all living entities within its area of effect at the cost of LP from the activator's Soul Network."
-                + "\\\n\\\n[#](8B0000)Corrosive Will[#](): Enables a vampiric mode that damages hostile mobs and uses the stolen health to heal players. Requires [#](8B0000)Corrosive Will[#]().");
+        this.pageTitle("The Mending Circle");
+        this.pageText("This ritual suffuses the area with restorative energy, mending the wounds of all living entities within reach at the cost of [#](8B0000)Essentia Vitae[#]() from the activator's [#](4A0080)Anima[#]()."
+                + "\\\n\\\n[#](8B0000)Corrosive Will[#](): Enables a vampiric mode — hostile creatures are drained of vitality, and their stolen life force is used to heal nearby practitioners.");
     }
 
     @Override
@@ -44,7 +44,7 @@ public class RitualRegenerationEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Heals entities within range.";
+        return "Mends the wounds of all within its reach.";
     }
 
     @Override

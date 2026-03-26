@@ -20,9 +20,11 @@ public class StrongLegsUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Strong Legs");
-        this.pageText("Effect: Increases jump height and reduces fall damage, up to a maximum of an "
-                + "additional 7.5 blocks and 83%% fall resistance. Can be negated by holding sneak while "
-                + "jumping.\\\n\\\nTrained by: Jumping around.\\\n\\\nMaximum level: 10");
+        this.pageText("The armour amplifies the power of your legs, propelling you higher with each leap. "
+                + "Grants up to 7.5 additional blocks of jump height and 83%% fall resistance.\\\n\\\n"
+                + "[#](2E8B57)Hold sneak while jumping to suppress the boost.[#]()\\\n\\\n"
+                + "[#](B8860B)Trained by[#](): Jumping.\\\n\\\n"
+                + "[#](B8860B)Maximum level[#](): 10");
     }
 
     @Override
@@ -32,7 +34,7 @@ public class StrongLegsUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increased jump height from jumping.";
+        return "The armour coils like a spring beneath you, launching you skyward.";
     }
 
     @Override

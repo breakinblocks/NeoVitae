@@ -18,8 +18,8 @@ public class NVFluidTagProvider extends FluidTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(NVTags.Fluids.LIFE_ESSENCE)
-                .add(NVFluids.LIFE_ESSENCE_SOURCE.get())
-                .add(NVFluids.LIFE_ESSENCE_FLOWING.get());
+        tag(NVTags.Fluids.ESSENTIA_VITAE)
+                .add(NVFluids.ESSENTIA_VITAE_SOURCE.get())
+                .add(NVFluids.ESSENTIA_VITAE_FLOWING.get());
     }
 }

@@ -24,7 +24,7 @@ public class RitualCrystalSplitEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/crystal_split"))
                 .withMultiblockName("Resonance of the Faceted Crystal")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("crystal_split")));
@@ -32,13 +32,13 @@ public class RitualCrystalSplitEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual takes a well grown (at least 5 spires) [#](8B0000)Raw Crystal Cluster[#]() located 2 blocks above the [#](8B0000)Master Ritual Stone[#](), and splits it into new single spires of each [#](8B0000)Aspected Will[#]() Crystal Cluster located directly above the 4 elemental Ritual Stones.");
+        this.pageTitle("Prismatic Fracture");
+        this.pageText("This ritual shatters a mature [#](8B0000)Raw Crystal Cluster[#]() (at least 5 spires) positioned 2 blocks above the [#](8B0000)Master Ritual Stone[#](), refining it into individual spires of each [#](8B0000)Aspected Will[#]() Crystal Cluster. These new crystals appear above the four elemental [#](8B0000)Ritual Stones[#]().");
 
         this.page("setup", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("This spacing is designed to accommodate a [#](8B0000)Crystallarium Maleficum[#]() on top of the [#](8B0000)Master Ritual Stone[#]()."
-                + "\\\n\\\nFor information on growing Demon Will Crystals, please see the Crystallized Will entry in the Demon Will section of this book.");
+        this.pageText("The spacing is designed to accommodate a [#](8B0000)Crystallarium Maleficum[#]() atop the [#](8B0000)Master Ritual Stone[#]()."
+                + "\\\n\\\n[#](2E8B57)For details on cultivating Demon Will Crystals, consult the Crystallized Will entry in the Demon Will chapter.[#]()");
     }
 
     @Override
@@ -48,7 +48,7 @@ public class RitualCrystalSplitEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Splits raw crystals into aspected crystals.";
+        return "Fractures raw will into its aspected components.";
     }
 
     @Override

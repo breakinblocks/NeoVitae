@@ -31,10 +31,10 @@ public class AltarCategory extends CategoryProvider {
     @Override
     protected void generateEntries() {
         var bloodAltar = this.add(new AraVitaeEntry(this).generate('a'));
-        var soulNetwork = this.add(new SoulNetworkEntry(this).generate('b'));
-        soulNetwork.withParent(this.parent(bloodAltar));
-        soulNetwork.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/ara_vitae"));
-        soulNetwork.hideWhileLocked(false);
+        var anima = this.add(new AnimaEntry(this).generate('b'));
+        anima.withParent(this.parent(bloodAltar));
+        anima.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/ara_vitae"));
+        anima.hideWhileLocked(false);
 
         var slates = this.add(new SlatesEntry(this).generate('c'));
         slates.withParent(this.parent(bloodAltar));
@@ -57,8 +57,8 @@ public class AltarCategory extends CategoryProvider {
         sacrifice.hideWhileLocked(false);
 
         var orbRune = this.add(new OrbRuneEntry(this).generate('g'));
-        orbRune.withParent(this.parent(soulNetwork));
-        orbRune.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/soul_network"));
+        orbRune.withParent(this.parent(anima));
+        orbRune.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/anima"));
         orbRune.hideWhileLocked(false);
 
         var speed = this.add(new SpeedRuneEntry(this).generate('h'));

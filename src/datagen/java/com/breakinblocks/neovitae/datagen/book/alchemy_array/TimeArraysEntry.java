@@ -20,15 +20,19 @@ public class TimeArraysEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Day/Night Arrays");
-        this.pageText("Time-based arrays are straight-forward arrays that control the time of day. The items "
-                + "will be consumed once the array starts changing the time.\\\n\\\n"
-                + "The [#](8B0000)Day[#]() array will change the time of day to the next sunrise. "
-                + "The [#](8B0000)Night[#]() array will change the time of day to the next sunset.");
+        this.pageText("Among the most audacious workings in [#](4A0080)Vitaemancy[#]() are these arrays that "
+                + "bend the passage of time itself. Once activated, the inscribed components are consumed "
+                + "as the sky obeys.\\\n\\\n"
+                + "The [#](8B0000)Day[#]() array advances the world to the next sunrise. "
+                + "The [#](8B0000)Night[#]() array draws it forward to the next sunset.");
 
         this.page("recipes", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](8B0000)New Dawn[#](): Created via an Alchemy Array. Sets the time to the next sunrise.\\\n\\\n"
-                + "[#](8B0000)True Twilight[#](): Created via an Alchemy Array. Sets the time to the next sunset.");
+        this.pageText("[#](8B0000)New Dawn[#](): Inscribed via [#](8B0000)Alchemy Array[#](). Commands the sun "
+                + "to rise.\\\n\\\n"
+                + "[#](8B0000)True Twilight[#](): Inscribed via [#](8B0000)Alchemy Array[#](). Beckons the fall "
+                + "of night.\\\n\\\n"
+                + "[#](4A0080)Time is not yours to own, only to borrow.[#]()");
     }
 
     @Override
@@ -38,7 +42,7 @@ public class TimeArraysEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Arrays that control the time of day.";
+        return "Bend the sky's clock -- summon dawn or hasten dusk.";
     }
 
     @Override

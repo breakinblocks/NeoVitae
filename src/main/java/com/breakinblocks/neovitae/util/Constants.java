@@ -12,7 +12,7 @@ public class Constants {
 
         public static final String ACTIVATED = "activated";
 
-        public static final String CURRENT_ESSENCE = "currentEssence";
+        public static final String CURRENT_EV = "currentEV";
 
         public static final String CURRENT_RITUAL = "currentRitual";
         public static final String CURRENT_RITUAL_TAG = "currentRitualTag";

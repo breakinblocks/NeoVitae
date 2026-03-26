@@ -23,8 +23,10 @@ public class DislocationRuneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Displacement Rune");
-        this.pageText("The [#](8B0000)Displacement Rune[#]() increases the flow rate of [#](8B0000)Life Essence[#]() into and out "
-                + "of the altar when pumping to and from an external tank multiplicatively by +20%%.");
+        this.pageText("The [#](8B0000)Displacement Rune[#]() widens the unseen channels through which "
+                + "[#](4A0080)Essentia Vitae[#]() flows between the altar and external vessels. Each rune "
+                + "increases the fluid transfer rate by a multiplicative [#](8B0000)+20%%[#](). Essential for any "
+                + "Vitaemancer who stores essence in outside tanks.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_dislocation")));
@@ -38,7 +40,7 @@ public class DislocationRuneEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increases the fluid transfer rate of the Ara Vitae.";
+        return "Widens the flow of Essentia Vitae to and from external vessels.";
     }
 
     @Override

@@ -21,8 +21,8 @@ public class MeleeAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Honing Oil");
-        this.pageText("Craft [#](8B0000)Honing Oil[#]() in the Tabula Vitae. "
-                + "Temporarily increases the melee damage dealt by +3.\\\n\\\n"
+        this.pageText("[#](8B0000)Honing Oil[#]() sharpens the edge of any blade it touches to a lethal keenness, "
+                + "adding 3 points of melee damage per strike.\\\n\\\n"
                 + "Valid items: Tools, Swords.\\\n\\\nApplies: Whetstone I (256 hits)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
@@ -42,7 +42,7 @@ public class MeleeAnointmentEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increases melee damage dealt.";
+        return "Hones the blade to a lethal keenness.";
     }
 
     @Override

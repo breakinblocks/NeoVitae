@@ -21,31 +21,35 @@ public class TauFruitEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tau Fruit");
-        this.pageText("Tau Fruit can be found within [#](8B0000)Simple Dungeons[#](), after which it can be farmed. Being a "
-                + "native denizen of the [#](8B0000)Demon Realm[#](), its lifecycle is unfortunately a tad more complex than that "
-                + "of the humble [#](8B0000)Potato[#]().\\\n\\\n"
-                + "The Tau Fruit will mature into one of two varieties, depending on the conditions in which it was "
-                + "raised. By default, it will grow into [#](8B0000)Tau Fruit[#](), which can be converted into [#](8B0000)Tau Oil[#]().");
+        this.pageText("[#](8B0000)Tau Fruit[#]() is first encountered growing wild in the [#](4A0080)Simple Dungeons[#]() "
+                + "of the Demon Realm. Once harvested, it can be cultivated, though as a native growth of "
+                + "that accursed place, its lifecycle is far more demanding than any mundane crop.\\\n\\\n"
+                + "Left to mature under ordinary conditions, it ripens into common [#](8B0000)Tau Fruit[#](), "
+                + "which can be refined into [#](8B0000)Tau Oil[#]().");
 
         this.page("tau_oil", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tau Oil");
-        this.pageText("Tau Oil can be created in the Tabula Vitae. *Tastes like a Blood Orange, except different.*");
+        this.pageText("[#](8B0000)Tau Oil[#]() is rendered from its fruit upon the [#](8B0000)Tabula Vitae[#](). "
+                + "It carries a scent reminiscent of blood oranges, though with an unmistakable undertone "
+                + "of something decidedly otherworldly.");
 
         this.page("tau_oil_uses", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Tau Oil currently has two main uses. It can extend the duration of any [#](8B0000)anointment[#]() by a "
-                + "factor of four, or it can be used to craft [#](8B0000)Intermediate Cutting Fluid[#](), which functions similarly "
-                + "to Basic Cutting Fluid, but lasts eight times longer and provides a 25%% speed boost.");
+        this.pageText("Tau Oil serves two principal purposes in Vitaemancy:\n\n"
+                + "- It extends the duration of any [#](8B0000)anointment[#]() by a factor of four.\n\n"
+                + "- It is a key ingredient in [#](8B0000)Intermediate Cutting Fluid[#](), which functions "
+                + "like its basic counterpart but endures eight times longer and provides a 25%% speed boost.");
 
         this.page("saturated_tau", () -> BookSpotlightPageModel.create()
                 .withItem(NVBlocks.STRONG_TAU.asItem())
                 .withTitle("Saturated Tau")
                 .withText(this.context().pageText()));
-        this.pageText("However, [#](8B0000)Tau Fruit[#]() has an alternate, more challenging route of growth. If the plant "
-                + "matures while a [#](8B0000)Mob[#]() (a cow, for example) is standing atop it, it will leach health from the "
-                + "entity to satiate its dark hungers. In this way, [#](8B0000)Saturated Tau[#]() can be grown.");
+        this.pageText("There exists a darker method of cultivation. If a [#](4A0080)living creature[#]() stands "
+                + "atop the plant as it matures, the Tau vine will draw upon the creature's vitality to "
+                + "feed its own growth. The result is [#](8B0000)Saturated Tau[#](), a far more potent variant "
+                + "born from stolen life.");
     }
 
     @Override
@@ -55,7 +59,7 @@ public class TauFruitEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A demonic fruit with unique growth mechanics.";
+        return "A parasitic fruit of the Demon Realm, nourished by the living.";
     }
 
     @Override

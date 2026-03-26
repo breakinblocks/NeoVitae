@@ -20,17 +20,17 @@ public class HoldingSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of Holding");
-        this.pageText("This Sigil can hold up to 5 other [#](8B0000)Sigils[#]() at a time, providing you with their "
-                + "passive effects and allowing you to activate them on a whim.\\\n\\\n"
-                + "Press the Open Holding keybind while holding the Sigil to open its inventory. "
-                + "Use the cycle keybinds to cycle forward or backward through held sigils. "
-                + "Holding sneak and using your mousewheel also works.");
+        this.pageText("The [#](8B0000)Sigil of Holding[#]() is a vessel within a vessel -- capable of containing "
+                + "up to five other [#](8B0000)Sigils[#]() simultaneously. While held, it channels their passive "
+                + "effects and allows you to activate any of them at will.\\\n\\\n"
+                + "Press the Open Holding keybind to access its inventory. Use the cycle keybinds or hold "
+                + "sneak and scroll to switch between stored sigils.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Holding Reagent[#]() in the Tabula Vitae.\\\n\\\n"
-                + "Step 2: Create the [#](8B0000)Sigil of Holding[#]() in an Alchemy Array using the "
-                + "Holding Reagent as the base and a slate as the catalyst.\\\n\\\n*Sigil-ception*");
+        this.pageText("Forge the [#](8B0000)Holding Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a slate as catalyst.\\\n\\\n"
+                + "[#](4A0080)One hand to hold the world's power.[#]()");
     }
 
     @Override
@@ -40,7 +40,7 @@ public class HoldingSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A sigil that holds up to 5 other sigils.";
+        return "Carry five sigils in one -- their power at your fingertips.";
     }
 
     @Override

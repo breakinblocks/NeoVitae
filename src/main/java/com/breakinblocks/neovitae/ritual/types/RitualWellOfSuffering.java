@@ -42,7 +42,7 @@ public class RitualWellOfSuffering extends Ritual {
         RitualContext ctx = RitualHelper.createContext(masterRitualStone, getRefreshCost());
         if (ctx == null) return;
 
-        int maxLPGenerated = 1000000; // Max LP capacity check would go here
+        int maxEVGenerated = 1000000; // Max LP capacity check would go here
 
         List<LivingEntity> entities = RitualHelper.getEntitiesInRange(ctx, this, DAMAGE_RANGE,
                 LivingEntity.class, e -> !(e instanceof Player) && e.isAlive() && !e.isInvulnerable()
@@ -51,7 +51,7 @@ public class RitualWellOfSuffering extends Ritual {
         // Find the altar for direct LP feeding
         AraVitaeTile altar = findAltar(ctx);
 
-        int totalLP = 0;
+        int totalEV = 0;
 
         for (LivingEntity entity : entities) {
             float damage = 1.0F;
@@ -68,18 +68,18 @@ public class RitualWellOfSuffering extends Ritual {
                         lp = (int) (lp * 0.5);
                     }
 
-                    totalLP += lp;
+                    totalEV += lp;
                 }
             }
         }
 
-        if (totalLP > 0) {
+        if (totalEV > 0) {
             ctx.syphon(getRefreshCost());
-            ctx.network().add(ctx.master().ticket(totalLP), maxLPGenerated);
+            ctx.network().add(ctx.master().ticket(totalEV), maxEVGenerated);
 
             // Also feed LP directly to altar if found
             if (altar != null) {
-                altar.addSacrificeLP(totalLP, true);
+                altar.addSacrificeEV(totalEV, true);
             }
         }
     }

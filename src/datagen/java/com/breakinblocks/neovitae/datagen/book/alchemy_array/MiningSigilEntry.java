@@ -20,15 +20,18 @@ public class MiningSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of the Fast Miner");
-        this.pageText("The [#](8B0000)Sigil of the Fast Miner[#]() is a Sigil that, when activated using sneak and [Use], "
-                + "will consume 100 LP every 5 seconds and apply the Haste potion effect. Thus, it increases "
-                + "your mining, digging, and cutting speeds.");
+        this.pageText("The [#](8B0000)Sigil of the Fast Miner[#]() infuses your muscles with vitaemantic vigor, "
+                + "granting the Haste effect while active. Stone yields faster, timber falls quicker, earth "
+                + "parts more readily.\\\n\\\n"
+                + "Toggle with sneak and [Use]. Drains 100 [#](4A0080)Essentia Vitae[#]() every 5 seconds while "
+                + "the effect persists.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Mining Reagent[#]() in the Tabula Vitae.\\\n\\\n"
-                + "Step 2: Create the [#](8B0000)Sigil of the Fast Miner[#]() in an Alchemy Array using the "
-                + "Mining Reagent as the base and a [#](8B0000)Reinforced Slate[#]() as the catalyst.");
+        this.pageText("Forge the [#](8B0000)Mining Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a [#](8B0000)Reinforced Slate[#]() "
+                + "as catalyst.\\\n\\\n"
+                + "[#](4A0080)The earth parts before the blood-quickened hand.[#]()");
     }
 
     @Override
@@ -38,7 +41,7 @@ public class MiningSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A sigil that grants Haste when active.";
+        return "Blood-fueled haste for those who delve deep.";
     }
 
     @Override

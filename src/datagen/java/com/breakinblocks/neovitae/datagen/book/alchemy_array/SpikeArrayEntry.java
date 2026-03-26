@@ -20,14 +20,15 @@ public class SpikeArrayEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spike Array");
-        this.pageText("The Spike Array is a rather simple array with a single purpose. When a living entity "
-                + "steps into the array, they are hit with a full heart of damage. This is good for mob traps, "
-                + "or for making your base a bit spikier for players.");
+        this.pageText("The [#](8B0000)Spike Array[#]() is a cruel but effective ward. Any living creature that "
+                + "steps onto it suffers a full heart of damage. The array is nearly invisible once inscribed, "
+                + "making it ideal for defending passages or feeding certain... automated arrangements.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Create the [#](8B0000)Spike Array[#]() by drawing an Alchemy Array and applying the appropriate "
-                + "base and catalyst items.");
+        this.pageText("Inscribe an [#](8B0000)Alchemy Array[#]() and apply the appropriate base and catalyst "
+                + "to form the spike glyph.\\\n\\\n"
+                + "[#](4A0080)The floor remembers every trespass.[#]()");
     }
 
     @Override
@@ -37,7 +38,7 @@ public class SpikeArrayEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "An array that damages entities that step on it.";
+        return "An invisible ward that punishes those who tread upon it.";
     }
 
     @Override

@@ -41,9 +41,9 @@ import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.api.altar.IAraVitae;
 import com.breakinblocks.neovitae.util.AltarScanResult;
 import com.breakinblocks.neovitae.util.AltarUtil;
-import com.breakinblocks.neovitae.api.soul.SoulTicket;
-import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
-import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
+import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
+import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -327,7 +327,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
 
         if (getMainTank() > 0) {
             int available = Math.min(getMainTank(), (int) (orb.fillRate() * (1 + modifiers.getConsumptionMod())));
-            int drained = SoulNetworkHelper.getSoulNetwork(binding.uuid()).add(SoulTicket.create(available), (int) (orb.capacity() * (1 + modifiers.getOrbCapacityMod())));
+            int drained = AnimaHelper.getAnima(binding.uuid()).add(AnimaTicket.create(available), (int) (orb.capacity() * (1 + modifiers.getOrbCapacityMod())));
             setMainTank(getMainTank() - drained);
             if (drained > 0) {
                 ((ServerLevel) level).sendParticles(ParticleTypes.WITCH, worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 1, 0, 0, 0, 0.001);
@@ -335,8 +335,8 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         }
     }
 
-    public void addSacrificeLP(int lpAdded, boolean isSacrifice) {
-        setMainTank(getMainTank() + Math.min((getMainCapacity() - getMainTank()), (int) ((isSacrifice ? 1 + modifiers.getSacrificeMod() : 1 + modifiers.getSelfSacrificeMod()) * lpAdded)));
+    public void addSacrificeEV(int evAdded, boolean isSacrifice) {
+        setMainTank(getMainTank() + Math.min((getMainCapacity() - getMainTank()), (int) ((isSacrifice ? 1 + modifiers.getSacrificeMod() : 1 + modifiers.getSelfSacrificeMod()) * evAdded)));
         setChanged();
     }
 
@@ -363,18 +363,18 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     }
 
     public int analogSignal() {
-        if (level.getBlockState(getBlockPos().below()).is(NVTags.Blocks.SOUL_NETWORK_COMPARATOR)) {
+        if (level.getBlockState(getBlockPos().below()).is(NVTags.Blocks.ANIMA_COMPARATOR)) {
             ItemStack content = inv.getStackInSlot(0);
             Binding binding = content.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
             BloodOrb orb = content.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
             if (binding.isEmpty() || orb == null) {
                 return 0;
             }
-            SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
+            Anima network = AnimaHelper.getAnima(binding);
             if (network == null) {
                 return 0;
             }
-            float current = network.getCurrentEssence();
+            float current = network.getCurrentEV();
             float max = (int) ((float) orb.capacity() * (1 + modifiers.getOrbCapacityMod()));
             return Mth.lerpDiscrete(current / max, 0, 15);
         }
@@ -471,9 +471,9 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     @Override
     public FluidStack getFluidInTank(int tank) {
         return switch (tank) {
-            case 0 -> new FluidStack(NVFluids.LIFE_ESSENCE_SOURCE, getMainTank());
-            case 1 -> new FluidStack(NVFluids.LIFE_ESSENCE_SOURCE, getInputTank());
-            case 2 -> new FluidStack(NVFluids.LIFE_ESSENCE_SOURCE, getOutputTank());
+            case 0 -> new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE, getMainTank());
+            case 1 -> new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE, getInputTank());
+            case 2 -> new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE, getOutputTank());
             default -> FluidStack.EMPTY;
         };
     }
@@ -489,7 +489,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
 
     @Override
     public boolean isFluidValid(int tank, FluidStack stack) {
-        return stack.is(NVTags.Fluids.LIFE_ESSENCE);
+        return stack.is(NVTags.Fluids.ESSENTIA_VITAE);
     }
 
     @Override
@@ -526,7 +526,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
             this.setChanged();
         }
 
-        return new FluidStack(NVFluids.LIFE_ESSENCE_SOURCE, toDrain);
+        return new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE, toDrain);
     }
 
     public boolean isActive() { return isActive; }

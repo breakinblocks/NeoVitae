@@ -20,18 +20,17 @@ public class NodeRouterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Node Router");
-        this.pageText("The [#](8B0000)Node Router[#]() is used to link Nodes together into a Network. Its functionality "
-                + "is straightforward - Simply hold sneak and right-click while aiming at a node, then do "
-                + "the same to another node within 16 blocks. These two nodes are now linked.\\\n\\\n"
-                + "If you want "
-                + "to de-select a node, right-click on any other block. See the entry on [#](8B0000)Routing Nodes[#]() "
-                + "for more information.");
+        this.pageText("The [#](8B0000)Node Router[#]() is the weaver's needle that stitches your [#](8B0000)Routing Nodes[#]() into "
+                + "a coherent network. Its use is straightforward -- hold sneak and right-click on one node, "
+                + "then do the same to another within 16 blocks. The two are now linked.\\\n\\\n"
+                + "[#](2E8B57)Right-click any other block to deselect. See the Routing Nodes entry for the full "
+                + "picture.[#]()");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Node Router");
-        this.pageText("Craft the Node Router in the Hellfire Forge.\\\n\\\n*A slightly magical stick.*");
+        this.pageText("A slender wand of bound Will. Unremarkable in appearance, indispensable in practice.");
     }
 
     @Override
@@ -41,7 +40,7 @@ public class NodeRouterEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A tool for linking routing nodes into networks.";
+        return "The binding wand that weaves Routing Nodes into networks.";
     }
 
     @Override

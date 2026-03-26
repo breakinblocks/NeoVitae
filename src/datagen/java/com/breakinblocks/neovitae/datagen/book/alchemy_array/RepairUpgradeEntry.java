@@ -20,9 +20,11 @@ public class RepairUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Repair");
-        this.pageText("Effect: Repairs a random piece of worn armour every 100 ticks.\\\n\\\n"
-                + "Trained by: Repairing your chestplate (in an anvil, with the [#](8B0000)Mending[#]() enchantment, "
-                + "etc).\\\n\\\nMaximum level: 1");
+        this.pageText("The armour develops a regenerative instinct, periodically mending a random piece of "
+                + "worn equipment every 100 ticks.\\\n\\\n"
+                + "[#](B8860B)Trained by[#](): Repairing the chestplate through any means -- anvil, "
+                + "[#](8B0000)Mending[#]() enchantment, or otherwise.\\\n\\\n"
+                + "[#](B8860B)Maximum level[#](): 1");
     }
 
     @Override
@@ -32,7 +34,7 @@ public class RepairUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Auto-repairs worn armour periodically.";
+        return "The armour knits its own wounds shut, slowly restoring worn equipment.";
     }
 
     @Override

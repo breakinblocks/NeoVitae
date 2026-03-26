@@ -19,8 +19,12 @@ public class DungeonEyeEntry extends EntryProvider {
     protected void generatePages() {
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("A [#](8B0000)Dungeon Eye[#]() is a light-emitting block often found within the depths of the [#](8B0000)Endless Realm[#](). "
-                + "Dungeon Eyes come in Raw, Corrosive, Destructive, Steadfast, and Vengeful variants. View these recipes in JEI.");
+        this.pageText("Set into the walls of the [#](4A0080)Endless Realm[#](), the [#](8B0000)Dungeon Eye[#]() "
+                + "emits a pale, unwavering light. Whether these serve as sentinels or mere decoration "
+                + "is unclear; what is certain is that they illuminate the darkness with no fuel or flame.\\\n\\\n"
+                + "Variants exist tinted by [#](4A0080)Raw[#](), [#](4A0080)Corrosive[#](), "
+                + "[#](4A0080)Destructive[#](), [#](4A0080)Steadfast[#](), and [#](4A0080)Vengeful[#]() Will. "
+                + "Consult JEI for crafting recipes.");
     }
 
     @Override
@@ -30,7 +34,7 @@ public class DungeonEyeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Light-emitting blocks from the Demon Realm.";
+        return "Luminous sentinels embedded in the walls of the Demon Realm.";
     }
 
     @Override

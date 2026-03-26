@@ -26,8 +26,9 @@ public class JumpBoostFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Jump Boost");
-        this.pageText("[#](8B0000)Jump Boost[#]() increases the target's jump height by 50%% per level. "
-                + "It also reduces fall damage by 1 point per level.");
+        this.pageText("The [#](8B0000)Jump Boost[#]() elixir coils the legs with stored energy, increasing "
+                + "jump height by 50%% per level. The same force cushions landings, reducing fall damage "
+                + "by 1 point per level.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/jump_boost")
@@ -46,7 +47,7 @@ public class JumpBoostFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Jump higher and take less fall damage.";
+        return "Coils the legs to leap beyond mortal limits.";
     }
 
     @Override

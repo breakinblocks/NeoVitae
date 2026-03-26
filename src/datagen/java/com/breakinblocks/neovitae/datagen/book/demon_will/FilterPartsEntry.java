@@ -20,8 +20,8 @@ public class FilterPartsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Filter Parts");
-        this.pageText("Craft Filter Parts in the Tabula Vitae.\\\n\\\n"
-                + "[#](8B0000)Filter Parts[#]() are an integral component in all [#](8B0000)Filters[#](). They have no use on their own.");
+        this.pageText("[#](8B0000)Filter Parts[#]() are the skeletal framework upon which every [#](8B0000)Filter[#]() is constructed. "
+                + "They serve no purpose alone, but no filter can be forged without them.");
     }
 
     @Override
@@ -31,7 +31,7 @@ public class FilterPartsEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A crafting component used in all routing filters.";
+        return "The essential framework upon which all routing filters are built.";
     }
 
     @Override

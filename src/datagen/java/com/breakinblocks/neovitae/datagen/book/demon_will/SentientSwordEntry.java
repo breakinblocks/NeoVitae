@@ -20,21 +20,19 @@ public class SentientSwordEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sentient Sword");
-        this.pageText("The [#](8B0000)Sentient Sword[#]() is a much more effective tool for collecting [#](8B0000)Demon Will[#]() than "
-                + "[#](8B0000)Soul Snares[#]() could ever hope to be. It may seem weak at first, but it is powered by the "
-                + "Wills you carry, so crafting a [#](8B0000)Tartaric Gem[#]() is a must.\\\n\\\n"
-                + "Note that the sword, as with all [#](8B0000)Sentient Tools[#](), can be repaired with [#](8B0000)Crystallized "
-                + "Will[#]() in an Anvil.");
+        this.pageText("The [#](8B0000)Sentient Sword[#]() is a far more elegant instrument of Will collection than the "
+                + "[#](8B0000)Soul Snare[#]() could ever aspire to be. It may feel sluggish when first drawn -- the blade "
+                + "feeds on the Will you carry, growing sharper with every fragment. A [#](8B0000)Tartaric Gem[#]() brimming "
+                + "with Will is essential to unlocking its true potential.\\\n\\\n"
+                + "[#](2E8B57)As with all Sentient equipment, the sword may be repaired with Crystallized Will in an Anvil.[#]()");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Sentient Sword");
-        this.pageText("Craft the Sentient Sword in the Hellfire Forge.\\\n\\\n"
-                + "This sword will serve you well.\\\n\\\n"
-                + "Note that you can update the sword's stats by pressing right-click when you have it equipped "
-                + "- if you have recently acquired a large amount of Will, or perhaps are trying out a new "
-                + "Aspect of Will for the first time, then this may be a good idea.");
+        this.pageTitle("Forging the Blade");
+        this.pageText("This weapon shall serve you well in the hunts to come.\\\n\\\n"
+                + "[#](2E8B57)Right-click to recalibrate the blade's attunement. Do this after acquiring a large quantity "
+                + "of Will, or when experimenting with a new Aspect for the first time.[#]()");
     }
 
     @Override
@@ -44,7 +42,7 @@ public class SentientSwordEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A Demon Will-powered sword that harvests Will from slain enemies.";
+        return "A Will-devouring blade that reaps essence from the slain.";
     }
 
     @Override

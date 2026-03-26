@@ -28,9 +28,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
     @Override
     protected void addTranslations() {
-        add(NVFluids.LIFE_ESSENCE_TYPE.get().getDescriptionId(), "Life Essence");
-        add(NVFluids.LIFE_ESSENCE_BUCKET.get(), "Bucket of Life");
-        add(NVFluids.LIFE_ESSENCE_BLOCK.get(), "Life Essence");
+        add(NVFluids.ESSENTIA_VITAE_TYPE.get().getDescriptionId(), "Essentia Vitae");
+        add(NVFluids.ESSENTIA_VITAE_BUCKET.get(), "Bucket of Essentia Vitae");
+        add(NVFluids.ESSENTIA_VITAE_BLOCK.get(), "Essentia Vitae");
 
         add(NVItems.ORB_WEAK.get(), "Weak Blood Orb");
         add(NVItems.ORB_APPRENTICE.get(), "Apprentice Blood Orb");
@@ -232,7 +232,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.LAMINA_EXHAURIENS.get(), "Lamina Exhauriens");
         add(NVItems.LAVA_CRYSTAL.get(), "Lava Crystal");
         addTooltip("lavaCrystal.desc", "Place fire, bindable furnace fuel");
-        add("chat.neovitae.notEnoughLP", "Not enough Life Points!");
+        add("chat.neovitae.notEnoughLP", "Not enough Essentia Vitae!");
 
         // Crystal Items
         add(NVItems.RAW_CRYSTAL.get(), "Demon Will Crystal");
@@ -342,7 +342,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Blood Provider Items
         add(NVItems.SLATE_AMPOULE.get(), "Slate Ampoule");
-        add("tooltip.neovitae.blood_provider.slate.desc", "A simple ampoule containing 500LP.");
+        add("tooltip.neovitae.blood_provider.slate.desc", "A simple ampoule containing 500 EV.");
 
         // Anointment Items - Base tier (using 1.20.1 thematic names)
         add(NVItems.MELEE_DAMAGE_ANOINTMENT.get(), "Honing Oil");
@@ -543,7 +543,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Imperfect Ritual Stone messages
         add("chat.neovitae.imperfect.noBlock", "Place a block above the ritual stone!");
         add("chat.neovitae.imperfect.activated", "%s activated!");
-        add("chat.neovitae.imperfect.notEnoughLP", "Not enough LP! Requires %d LP.");
+        add("chat.neovitae.imperfect.notEnoughLP", "Not enough Essentia Vitae! Requires %d EV.");
         add("chat.neovitae.imperfect.noMatch", "No imperfect ritual matches that block.");
 
         // Master Ritual Stone activation messages
@@ -554,8 +554,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.ritual.notActive", "No ritual is currently active.");
 
         // Ritual failure messages
-        add("chat.neovitae.ritual.notEnoughLP", "Not enough LP! Requires %d LP.");
-        add("chat.neovitae.ritual.noSoulNetwork", "You must bind a Blood Orb first!");
+        add("chat.neovitae.ritual.notEnoughLP", "Not enough Essentia Vitae! Requires %d EV.");
+        add("chat.neovitae.ritual.noAnima", "You must bind a Blood Orb first!");
         add("chat.neovitae.ritual.eventCancelled", "Ritual activation was blocked.");
         add("chat.neovitae.ritual.activationFailed", "Ritual activation failed.");
         add("chat.neovitae.ritual.missingItem", "Required item not found.");
@@ -584,7 +584,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Ritual activation status messages
         add("ritual.neovitae.crystalLevel.insufficient", "Crystal tier is too low to activate this ritual.");
         add("ritual.neovitae.structure.invalid", "Ritual structure is incomplete or invalid.");
-        add("ritual.neovitae.activation.insufficient", "Not enough LP to activate this ritual.");
+        add("ritual.neovitae.activation.insufficient", "Not enough Essentia Vitae to activate this ritual.");
         add("ritual.neovitae.offset.info", "Offset: X=%d, Y=%d, Z=%d");
 
         // Tau Oil
@@ -639,21 +639,21 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.GUIDE_BOOK.get(), "Scriptura Vitae");
 
         // Lamina tooltips
-        addTooltip("lamina_maleficus.desc", "Sacrifice your own health to fill a nearby Ara Vitae with Life Essence");
-        addTooltip("lamina_exhauriens.desc", "Slay a living creature to fill a nearby Ara Vitae with Life Essence");
+        addTooltip("lamina_maleficus.desc", "Sacrifice your own health to fill a nearby Ara Vitae with Essentia Vitae");
+        addTooltip("lamina_exhauriens.desc", "Slay a living creature to fill a nearby Ara Vitae with Essentia Vitae");
 
         // Rune tooltips
         addTooltip("rune.blank", "A basic rune with no special effect");
         addTooltip("rune.speed", "Increases Ara Vitae crafting speed");
-        addTooltip("rune.sacrifice", "Increases LP gained from mob sacrifice");
-        addTooltip("rune.self_sacrifice", "Increases LP gained from self-sacrifice");
-        addTooltip("rune.capacity", "Increases Ara Vitae LP capacity");
-        addTooltip("rune.capacity_augmented", "Multiplicative increase to Ara Vitae LP capacity");
+        addTooltip("rune.sacrifice", "Increases EV gained from mob sacrifice");
+        addTooltip("rune.self_sacrifice", "Increases EV gained from self-sacrifice");
+        addTooltip("rune.capacity", "Increases Ara Vitae EV capacity");
+        addTooltip("rune.capacity_augmented", "Multiplicative increase to Ara Vitae EV capacity");
         addTooltip("rune.dislocation", "Increases fluid transfer rate to/from the Ara Vitae");
         addTooltip("rune.orb", "Increases Blood Orb capacity while in the Ara Vitae");
-        addTooltip("rune.charging", "Pre-charges LP for faster crafting");
+        addTooltip("rune.charging", "Pre-charges EV for faster crafting");
         addTooltip("rune.acceleration", "Reduces ticks between Ara Vitae operations");
-        addTooltip("rune.efficiency", "Reduces LP loss when the Ara Vitae runs out mid-craft");
+        addTooltip("rune.efficiency", "Reduces EV loss when the Ara Vitae runs out mid-craft");
         addTooltip("rune.reinforced", "Reinforced: double the effect of the base rune");
 
         // Flask tooltips
@@ -735,7 +735,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addCommand("ritual.info.running_time", "Running Time: %d ticks");
         addCommand("ritual.info.cooldown", "Cooldown: %d ticks");
         addCommand("ritual.info.owner", "Owner: %s");
-        addCommand("ritual.info.refresh_cost", "Refresh Cost: %d LP");
+        addCommand("ritual.info.refresh_cost", "Refresh Cost: %d EV");
         addCommand("ritual.info.direction", "Direction: %s");
         addCommand("ritual.stopped", "Ritual %s has been stopped.");
         addCommand("ritual.set", "Ritual set to %s.");
@@ -754,8 +754,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("upgrade_points", "Upgrade Points: %s/%s");
 
         // Sigil descriptions
-        addTooltip("sigil.divination.desc", "Use on altar for info, or in the air for network LP");
-        addTooltip("sigil.seer.desc", "Use on altar for detailed info, or in the air for network LP");
+        addTooltip("sigil.divination.desc", "Reveals the state of an Ara Vitae or your Anima");
+        addTooltip("sigil.seer.desc", "Reveals detailed knowledge of an Ara Vitae or your Anima");
         addTooltip("sigil.air.desc", "Launches you into the air");
         addTooltip("sigil.bloodlight.desc", "Creates a light source where you click");
         addTooltip("sigil.fast_miner.desc", "Increases mining speed while active");
@@ -772,16 +772,16 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Sigil tooltips - Divination/Seer info messages
         addTooltip("sigil.divination.currentAltarTier", "Current Altar Tier: %s");
-        addTooltip("sigil.divination.currentEssence", "Current Life Essence: %s");
-        addTooltip("sigil.divination.currentAltarCapacity", "Altar Capacity: %s Life Essence");
-        addTooltip("sigil.divination.currentNetworkLP", "Current LP: %s");
+        addTooltip("sigil.divination.currentEV", "Current Essentia Vitae: %s");
+        addTooltip("sigil.divination.currentAltarCapacity", "Altar Capacity: %s EV");
+        addTooltip("sigil.divination.currentNetworkLP", "Anima: %s EV");
         addTooltip("sigil.divination.otherNetwork", "Viewing network of: %s");
         addTooltip("sigil.seer.currentAltarTier", "Current Altar Tier: %s");
-        addTooltip("sigil.seer.currentEssence", "Current Life Essence: %s");
-        addTooltip("sigil.seer.currentAltarCapacity", "Altar Capacity: %s Life Essence");
+        addTooltip("sigil.seer.currentEV", "Current Essentia Vitae: %s");
+        addTooltip("sigil.seer.currentAltarCapacity", "Altar Capacity: %s EV");
         addTooltip("sigil.seer.otherNetwork", "Viewing network of: %s");
         addTooltip("sigil.seer.currentAltarProgress", "Crafting Progress: %s%%");
-        addTooltip("sigil.seer.currentAltarConsumption", "Consumption Rate: %s Life Essence/t");
+        addTooltip("sigil.seer.currentAltarConsumption", "Consumption Rate: %s EV/t");
 
         // Creative mode detailed altar stats
         addTooltip("sigil.divination.creative.capacityMod", "Capacity Multiplier: %sx");
@@ -792,7 +792,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("sigil.divination.creative.dislocationMod", "Dislocation Multiplier: %sx");
         addTooltip("sigil.divination.creative.orbCapMod", "Orb Capacity Bonus: +%s");
         addTooltip("sigil.divination.creative.efficiencyMod", "Efficiency: %sx");
-        addTooltip("sigil.divination.creative.chargingRate", "Charging Rate: %s Life Essence/tick");
+        addTooltip("sigil.divination.creative.chargingRate", "Charging Rate: %s EV/tick");
         addTooltip("sigil.divination.creative.incense", "Incense: %s");
 
         // Sigil activated/deactivated states
@@ -822,16 +822,16 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("recipe.alchemyarraycrafting", "Alchemy Array");
         addJei("recipe.tabulavitae", "Tabula Vitae");
         addJei("recipe.requiredtier", "Required Tier: %s");
-        addJei("recipe.requiredlp", "Required Life Essence: %s");
-        addJei("recipe.consumptionrate", "Consumption Rate: %s Life Essence/t");
-        addJei("recipe.drainrate", "Drain Rate: %s LP/t");
+        addJei("recipe.requiredlp", "Required Essentia Vitae: %s");
+        addJei("recipe.consumptionrate", "Consumption Rate: %s EV/t");
+        addJei("recipe.drainrate", "Drain Rate: %s EV/t");
         addJei("recipe.componentTransfer", "Preserves Components");
         addJei("recipe.minimumsouls", "Minimum Souls: %s");
         addJei("recipe.soulsdrained", "Souls Drained: %s");
         addJei("recipe.will", "Will");
         addJei("recipe.info", "Hover for info");
-        addJei("recipe.lp", "LP");
-        addJei("recipe.lpDrained", "LP Drained: %s");
+        addJei("recipe.lp", "EV");
+        addJei("recipe.lpDrained", "EV Drained: %s");
         addJei("recipe.ticksRequired", "Ticks: %s");
         addJei("recipe.meteor", "Meteor Ritual");
         addJei("recipe.meteor.fill", "Fill Block");

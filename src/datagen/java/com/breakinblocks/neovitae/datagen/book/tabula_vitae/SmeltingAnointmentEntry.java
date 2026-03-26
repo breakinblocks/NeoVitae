@@ -21,8 +21,8 @@ public class SmeltingAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Slow-burning Oil");
-        this.pageText("Craft [#](8B0000)Slow-burning Oil[#]() in the Tabula Vitae. "
-                + "Uses heat to smelt harvested blocks.\\\n\\\n"
+        this.pageText("[#](8B0000)Slow-burning Oil[#]() infuses the tool with a smouldering heat that smelts blocks "
+                + "the instant they are broken. Ore becomes ingot in a single swing.\\\n\\\n"
                 + "Valid items: Tools, Swords, Charges.\\\n\\\nApplies: Heated Tool I (256 blocks)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
@@ -39,7 +39,7 @@ public class SmeltingAnointmentEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Smelts harvested blocks automatically.";
+        return "Smelts blocks on contact through residual heat.";
     }
 
     @Override

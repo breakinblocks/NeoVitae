@@ -21,8 +21,9 @@ public class QuickDrawAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Dexterity Alkahest");
-        this.pageText("Craft [#](8B0000)Dexterity Alkahest[#]() in the Tabula Vitae. "
-                + "Lowers the draw time of bows and crossbows by 33%%.\\\n\\\n"
+        this.pageText("[#](8B0000)Dexterity Alkahest[#]() loosens the mechanism and limbs of ranged weapons, reducing "
+                + "draw time by 33%%. In the heat of battle, those fractions of a second are the difference "
+                + "between life and death.\\\n\\\n"
                 + "Valid items: Bows, Crossbows.\\\n\\\nApplies: Deft Hands I (256 shots)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
@@ -42,7 +43,7 @@ public class QuickDrawAnointmentEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Reduces bow and crossbow draw time.";
+        return "Hastens the draw of ranged weapons.";
     }
 
     @Override

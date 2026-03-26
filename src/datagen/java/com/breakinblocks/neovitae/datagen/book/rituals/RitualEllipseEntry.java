@@ -24,7 +24,7 @@ public class RitualEllipseEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/ellipse"))
                 .withMultiblockName("Focus of the Ellipsoid")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("ellipse")));
@@ -32,9 +32,9 @@ public class RitualEllipseEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual is purely aesthetic in nature, designed for the budding, yet lazy, builder that resides in all of us. It's particularly good for building complicated shapes, such as the mighty gold dome above your Evil Lair. ...You do have one of those, right?"
-                + "\\\n\\\nThe ritual takes blocks from a nearby chest and places them in an ellipsoidal shape.");
+        this.pageTitle("The Architect's Eye");
+        this.pageText("A ritual for the blood mage who appreciates elegant geometry. This circle draws blocks from a nearby chest and arranges them into a perfect ellipsoidal form — domes, arches, vaults, and other shapes that would take a mortal builder considerable time to calculate by hand."
+                + "\\\n\\\nEvery practitioner needs a proper sanctum. This ritual helps you build one worthy of the art.");
     }
 
     @Override
@@ -44,7 +44,7 @@ public class RitualEllipseEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Builds ellipsoidal shapes from blocks.";
+        return "Constructs perfect geometric forms from raw materials.";
     }
 
     @Override

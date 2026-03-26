@@ -19,28 +19,27 @@ public class LivingUpgradesEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Living Equipment Upgrades");
-        this.pageText("While wearing this new armour, you have felt it growing, trying to assist you with "
-                + "various tasks it has seen you perform.\\\n\\\n"
-                + "It seems to be able to perform in a number of areas, but its growth is limited, and trying "
-                + "to do everything at once is quite fruitless.");
+        this.pageTitle("Living Upgrades");
+        this.pageText("You have felt it -- the armour shifting, adapting, straining to assist you in whatever "
+                + "task it observes. It grows in many directions at once, but its capacity is finite. "
+                + "Trying to master everything yields mastery of nothing.");
 
         this.page("specialization", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Perhaps multiple specialised sets may be a good idea? Of course, you'll have to train "
-                + "it carefully if you want more than a smattering of poorly-directed benefits.\\\n\\\n"
-                + "Fortunately, you have devised a [#](8B0000)Ritual[#]() that will assist with training, and another one "
-                + "that will imbue your armour with a greater ability to grow.");
+        this.pageText("Consider forging multiple sets, each trained for a specific purpose. A miner's set, "
+                + "a warrior's set, an explorer's set -- specialization is the path to true power.\\\n\\\n"
+                + "You have devised [#](8B0000)Rituals[#]() to assist with focused training, and another "
+                + "to imbue your armour with a greater capacity for growth.");
     }
 
     @Override
     protected String entryName() {
-        return "Living Equipment Upgrades";
+        return "Living Upgrades";
     }
 
     @Override
     protected String entryDescription() {
-        return "Overview of the Living Equipment upgrade system.";
+        return "The armour learns from your deeds -- guide its growth with care.";
     }
 
     @Override

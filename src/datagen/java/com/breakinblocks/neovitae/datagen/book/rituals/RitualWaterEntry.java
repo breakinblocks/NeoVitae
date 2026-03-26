@@ -24,7 +24,7 @@ public class RitualWaterEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/water"))
                 .withMultiblockName("Ritual of the Full Spring")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("water")));
@@ -32,8 +32,8 @@ public class RitualWaterEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual places water source blocks above the [#](8B0000)Master Ritual Stone[#](). A simple but useful ritual for creating infinite water sources or filling pools.");
+        this.pageTitle("The Spring Eternal");
+        this.pageText("Among the first rituals a young Vitaemancer learns, this circle conjures water from nothing, placing source blocks above the [#](8B0000)Master Ritual Stone[#](). Though humble in its purpose, a spring that never runs dry is a gift not to be underestimated.");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RitualWaterEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Generates water source blocks.";
+        return "Conjures water from the aether itself.";
     }
 
     @Override

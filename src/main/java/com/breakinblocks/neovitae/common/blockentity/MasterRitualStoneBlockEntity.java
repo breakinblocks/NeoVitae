@@ -15,13 +15,13 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.event.RitualEvent;
 import com.breakinblocks.neovitae.ritual.*;
-import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
+import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -157,8 +157,8 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
             return false;
         }
 
-        SoulNetwork network = SoulNetworkHelper.getSoulNetwork(player.getUUID());
-        if (network == null || network.getCurrentEssence() < ritual.getActivationCost()) {
+        Anima network = AnimaHelper.getAnima(player.getUUID());
+        if (network == null || network.getCurrentEV() < ritual.getActivationCost()) {
             if (player != null) {
                 player.displayClientMessage(
                         Component.translatable("ritual.neovitae.activation.insufficient"), true);
@@ -236,12 +236,12 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
             return;
         }
 
-        SoulNetwork network = getOwnerNetwork();
+        Anima network = getOwnerNetwork();
         if (network == null) {
             return;
         }
 
-        if (network.getCurrentEssence() < currentRitual.getRefreshCost()) {
+        if (network.getCurrentEV() < currentRitual.getRefreshCost()) {
             return;
         }
 

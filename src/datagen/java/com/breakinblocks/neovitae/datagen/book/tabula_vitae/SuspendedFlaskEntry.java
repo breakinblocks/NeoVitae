@@ -26,10 +26,10 @@ public class SuspendedFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Suspended");
-        this.pageText("[#](8B0000)Suspended[#]() prevents the target from jumping, falling, or being affected by gravity "
-                + "in any way whatsoever. They can still move, however, sliding about as though on a flat, "
-                + "never-ending plane of ice.\\\n\\\n"
-                + "It's made from a potion of [#](8B0000)Gravity[#]().");
+        this.pageText("The [#](8B0000)Suspended[#]() elixir severs the drinker's connection to gravity entirely. "
+                + "You cannot jump. You cannot fall. You simply exist at whatever height you currently occupy, "
+                + "sliding along an invisible plane as though the world were made of glass.\\\n\\\n"
+                + "Derived from a flask of [#](8B0000)Gravity[#]().");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/gravity_to_suspended")
@@ -45,7 +45,7 @@ public class SuspendedFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Unaffected by gravity in any way.";
+        return "Severs the body from gravity's dominion.";
     }
 
     @Override

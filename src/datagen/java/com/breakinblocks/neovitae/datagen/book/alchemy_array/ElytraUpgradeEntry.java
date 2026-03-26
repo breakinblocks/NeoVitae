@@ -21,15 +21,16 @@ public class ElytraUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Elytra");
-        this.pageText("Adds an Elytra to your Living Armor. Rather than being trained, the [#](8B0000)Upgrade Tome[#]() "
-                + "must be crafted.\\\n\\\n"
-                + "This Elytra does drain durability from the Chestplate, but at half the speed of a normal "
-                + "Elytra.\\\n\\\nIt also looks pretty neat.");
+        this.pageText("The armour sprouts membranes of living tissue, granting true flight. This upgrade "
+                + "cannot be trained -- it must be inscribed via [#](8B0000)Upgrade Tome[#]().\\\n\\\n"
+                + "The wings consume durability from the chestplate, though at half the rate of conventional "
+                + "elytra. The aesthetic is, admittedly, rather striking.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](8B0000)Elytra Tome[#](): Created in an Alchemy Array. Apply it to your Living Chestplate "
-                + "to gain flight capabilities.");
+        this.pageText("The [#](8B0000)Elytra Tome[#]() is forged in an [#](8B0000)Alchemy Array[#](). Apply it "
+                + "to your [#](8B0000)Living Chestplate[#]() to unfurl the wings.\\\n\\\n"
+                + "[#](4A0080)Blood gave you life. Now it gives you the sky.[#]()");
     }
 
     @Override
@@ -39,7 +40,7 @@ public class ElytraUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Adds Elytra flight to Living Armor.";
+        return "Wings of living tissue unfurl from the chestplate -- take to the sky.";
     }
 
     @Override

@@ -24,7 +24,7 @@ public class RitualSphereCreateEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/sphere"))
                 .withMultiblockName("Dawn of the New Moon")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("sphere")));
@@ -32,8 +32,8 @@ public class RitualSphereCreateEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual creates a hollow sphere of Phantom Blocks centered above the Master Ritual Stone. The size of the sphere can be configured with the [#](8B0000)Ritual Tinkerer[#](). The cost in [#](8B0000)LP[#]() scales with the size of the sphere.");
+        this.pageTitle("The Phantom Moon");
+        this.pageText("This ritual conjures a hollow sphere of [#](4A0080)phantom matter[#]() centered above the [#](8B0000)Master Ritual Stone[#]() — a translucent shell that hangs in the air like a captured moon. The sphere's radius can be adjusted with the [#](8B0000)Ritual Tinkerer[#](), though the [#](8B0000)Essentia Vitae[#]() cost scales accordingly.");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RitualSphereCreateEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Creates a hollow sphere of phantom blocks.";
+        return "Conjures a hollow sphere of spectral matter.";
     }
 
     @Override

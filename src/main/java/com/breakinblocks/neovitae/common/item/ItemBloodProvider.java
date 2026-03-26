@@ -22,12 +22,12 @@ import java.util.List;
 
 public class ItemBloodProvider extends Item {
     protected final String tooltipBase;
-    public final int lpProvided;
+    public final int evProvided;
 
-    public ItemBloodProvider(String name, int lpProvided) {
+    public ItemBloodProvider(String name, int evProvided) {
         super(new Item.Properties().stacksTo(64));
         this.tooltipBase = "tooltip.neovitae.blood_provider." + name + ".";
-        this.lpProvided = lpProvided;
+        this.evProvided = evProvided;
     }
 
     public ItemBloodProvider(String name) {
@@ -62,7 +62,7 @@ public class ItemBloodProvider extends Item {
                 }
 
                 if (!level.isClientSide) {
-                    altar.addSacrificeLP(lpProvided, false);
+                    altar.addSacrificeEV(evProvided, false);
 
                     if (!player.getAbilities().instabuild) {
                         stack.shrink(1);

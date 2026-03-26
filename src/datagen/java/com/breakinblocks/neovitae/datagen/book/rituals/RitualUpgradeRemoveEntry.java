@@ -24,7 +24,7 @@ public class RitualUpgradeRemoveEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/upgrade_remove"))
                 .withMultiblockName("Sound of the Cleansing Soul")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("upgrade_remove")));
@@ -32,8 +32,8 @@ public class RitualUpgradeRemoveEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual removes upgrades from your [#](8B0000)Living Armor[#](), returning them as [#](8B0000)Upgrade Tomes[#]() that can be re-applied later. Useful for respeccing your armor when you want to change your upgrade loadout.");
+        this.pageTitle("Purification of Form");
+        this.pageText("This ritual carefully excises upgrades from your [#](8B0000)Living Armor[#](), crystallizing the extracted knowledge into [#](8B0000)Upgrade Tomes[#]() that can be reapplied later. Nothing is truly lost — only rearranged. Use this when you wish to reshape your armor's capabilities for a new purpose.");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RitualUpgradeRemoveEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Removes Living Armor upgrades as tomes.";
+        return "Excises upgrades from Living Armor as reusable tomes.";
     }
 
     @Override

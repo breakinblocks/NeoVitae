@@ -12,14 +12,14 @@ public class NVCommands {
         CommandDispatcher<CommandSourceStack> dispatcher = event.getDispatcher();
         CommandBuildContext buildContext = event.getBuildContext();
 
-        SoulNetworkCommand.register(dispatcher);
+        AnimaCommand.register(dispatcher);
         LivingUpgradesCommand.register(dispatcher, buildContext);
         RitualCommand.register(dispatcher);
         ImperfectRitualCommand.register(dispatcher);
         AuraCommand.register(dispatcher);
         DungeonShowcaseCommand.register(dispatcher);
 
-        CommandNode<CommandSourceStack> networkNode = dispatcher.getRoot().getChild("bm-network");
+        CommandNode<CommandSourceStack> networkNode = dispatcher.getRoot().getChild("anima");
         CommandNode<CommandSourceStack> ritualNode = dispatcher.getRoot().getChild("bm-ritual");
         CommandNode<CommandSourceStack> imperfectRitualNode = dispatcher.getRoot().getChild("bm-imperfectritual");
         CommandNode<CommandSourceStack> auraNode = dispatcher.getRoot().getChild("bm-aura");

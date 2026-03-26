@@ -20,9 +20,12 @@ public class GiftOfIgnisUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Gift of Ignis");
-        this.pageText("Effect: Provides Fire Resistance. Higher levels last longer and recharge faster.\\\n\\\n"
-                + "Trained by: Being on Fire. ([#](8B0000)Potions of Fire Resistance[#]() may be your friend here.)\\\n\\\n"
-                + "Maximum level: 5");
+        this.pageText("The armour absorbs the memory of flame and learns to shield you from it. Grants "
+                + "[#](4A0080)Fire Resistance[#](). Higher levels extend the duration and reduce the cooldown "
+                + "between activations.\\\n\\\n"
+                + "[#](B8860B)Trained by[#](): Being on fire. [#](2E8B57)A Potion of Fire Resistance is "
+                + "highly recommended during training.[#]()\\\n\\\n"
+                + "[#](B8860B)Maximum level[#](): 5");
     }
 
     @Override
@@ -32,7 +35,7 @@ public class GiftOfIgnisUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Fire resistance from being on fire.";
+        return "The armour remembers the flame and learns to refuse it.";
     }
 
     @Override

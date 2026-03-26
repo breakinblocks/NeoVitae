@@ -23,8 +23,8 @@ public class RitualStonesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Stones");
-        this.pageText("[#](8B0000)Ritual Stones[#]() are the canvas upon which you will draw your [#](8B0000)Rituals[#](). They also look quite nifty, and can be manually painted with the various [#](8B0000)Elemental Inscription Tools[#]()."
-                + "\\\n\\\nNote that the Inscription Tools used to have durability, but now they last forever! Rejoice, you can decorate your base with [#](8B0000)Fire Ritual Stones[#]() to your heart's content.");
+        this.pageText("[#](8B0000)Ritual Stones[#]() are the foundation upon which every [#](4A0080)ritual circle[#]() is inscribed. Each stone serves as a vessel for elemental resonance, channeling the forces that give your rituals form."
+                + "\\\n\\\nThe [#](8B0000)Elemental Inscription Tools[#]() can be used to paint stones by hand — they never break, so feel free to use them for decoration as well as function.");
 
         this.page("recipes", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_stone_blank"))
@@ -38,7 +38,7 @@ public class RitualStonesEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The building blocks for all rituals.";
+        return "The foundation of every ritual circle.";
     }
 
     @Override

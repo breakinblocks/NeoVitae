@@ -39,7 +39,7 @@ public class RitualJumping extends Ritual {
         }
 
         if (cost > 0) {
-            ctx.syphon(Math.min(cost, ctx.currentEssence()));
+            ctx.syphon(Math.min(cost, ctx.currentEV()));
         }
     }
 

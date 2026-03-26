@@ -19,171 +19,189 @@ public class GettingStartedEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tiers & Getting Started");
-        this.pageText("Welcome to Neo Vitae! This guide provides a quick overview of the mod's progression, "
-                + "from your first Ara Vitae all the way to the highest tiers of power.");
+        this.pageTitle("The Path Before You");
+        this.pageText("So you wish to walk the path of [#](4A0080)Vitaemancy[#](). Very well. "
+                + "This grimoire shall guide you from your first tentative cuts to the mastery of forces "
+                + "that reshape reality itself.\\\n\\\n"
+                + "What follows is an overview of the journey ahead, tier by tier, so that you may orient yourself "
+                + "amid the mysteries to come.");
 
         this.page("tier1_altar", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ara Vitae (Tier-1)");
-        this.pageText("The first step of Neo Vitae is to build a Ara Vitae and Sacrificial Knife. "
-                + "Use these to generate Life Essence from Self-Sacrificing.\\\n\\\n"
-                + "Use this Life Essence to craft a Weak Blood Orb, several Blank Slates, and a few Soul Snares.");
+        this.pageTitle("The Ara Vitae (Tier I)");
+        this.pageText("Your first act as a Vitaemancer is to construct an [#](8B0000)Ara Vitae[#]() and a "
+                + "[#](8B0000)Sacrificial Knife[#](). With blade in hand, you offer your own blood to the altar, "
+                + "and it drinks deeply, refining it into [#](4A0080)Essentia Vitae[#]().\\\n\\\n"
+                + "Use this to forge a [#](8B0000)Weak Blood Orb[#](), several [#](8B0000)Blank Slates[#](), "
+                + "and a handful of [#](8B0000)Soul Snares[#]().");
 
         this.page("tier1_alchemy", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tabula Vitae (Tier-1)");
-        this.pageText("The Tabula Vitae uses LP from a player's Soul Network (drawn from the bound Blood Orb in it) "
-                + "to craft various different objects, such as:\n"
-                + "- Arcane Ashes\n"
-                + "- Reagents for Sigils\n"
-                + "- Anointments\n"
+        this.pageTitle("The Tabula Vitae (Tier I)");
+        this.pageText("The [#](8B0000)Tabula Vitae[#]() draws [#](4A0080)Essentia Vitae[#]() from your "
+                + "[#](4A0080)Anima[#]() through the Blood Orb placed within, channeling it into a myriad of creations:\n\n"
+                + "- [#](8B0000)Arcane Ashes[#]() for array work\n"
+                + "- Reagents for Sigil crafting\n"
+                + "- Anointments for your blades\n"
                 + "- 2x Ore Processing\n"
-                + "- and various other odds and ends.");
+                + "- Various esoteric sundries");
 
         this.page("tier1_array", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Alchemy Array (Tier-1)");
-        this.pageText("An Alchemy Array is made by placing some Arcane Ashes on the ground. "
-                + "The Alchemy Array can have 2 items inserted into it via Use, and will either craft an item "
-                + "(such as a Divination Sigil) or perform some kind of function (such as turning day into night).");
+        this.pageTitle("Alchemy Arrays (Tier I)");
+        this.pageText("Scatter [#](8B0000)Arcane Ashes[#]() upon the ground, and a circle of power awakens. "
+                + "This is the [#](8B0000)Alchemy Array[#]() - a versatile glyph that accepts two offerings.\\\n\\\n"
+                + "Some combinations yield crafted objects, such as the [#](8B0000)Divination Sigil[#](). "
+                + "Others invoke immediate effects upon the world, bending time or light to your will.");
 
         this.page("tier1_forge", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Hellfire Forge (Tier-1)");
-        this.pageText("The Hellfire Forge crafts using Demon Will. You get your first Will by using Soul Snares, "
-                + "though upgrading to a Sentient Sword is recommended. The Hellfire Forge is used for stuff directly "
-                + "related to Demon Will (like Tartaric Gems and Sentient Tools), and consumables (like Explosive "
-                + "Charges and Throwing Daggers).");
+        this.pageTitle("The Hellfire Forge (Tier I)");
+        this.pageText("The [#](8B0000)Hellfire Forge[#]() is fueled by [#](4A0080)Demon Will[#]() - "
+                + "that strange substance torn from slain creatures with your Soul Snares. A "
+                + "[#](8B0000)Sentient Sword[#]() harvests it far more efficiently.\\\n\\\n"
+                + "From this forge spring [#](8B0000)Tartaric Gems[#](), Sentient Tools, "
+                + "Explosive Charges, and Throwing Daggers.");
 
         this.page("tier2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier Two");
-        this.pageText("At this point, you will be able to craft a Lamina Exhauriens in order to slaughter mobs "
-                + "for more Life Essence. Various Upgrade Runes should be available for your Ara Vitae, "
-                + "and some more Sigils will be available. As before, you should focus on further upgrading your Altar.");
+        this.pageTitle("The Second Tier");
+        this.pageText("[#](B8860B)Tier II[#]() grants the [#](8B0000)Lamina Exhauriens[#](), a blade that lets you "
+                + "harvest [#](4A0080)Essentia Vitae[#]() from slain creatures, sparing your own veins. "
+                + "Upgrade Runes become available for the Ara Vitae, and new Sigils emerge.\\\n\\\n"
+                + "As always, continue expanding and upgrading your altar. Its hunger grows with your ambition.");
 
         this.page("tier2_potions", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Potioncrafting (Tier-2)");
-        this.pageText("If building your Altar is getting tiresome and you feel in need of a distraction, "
-                + "why not try out the newly available Potioncrafting system? You will be able to craft "
-                + "Alchemy Flasks or Tipped Amethyst Throwing Daggers and imbue them with literally dozens of effects.");
+        this.pageTitle("Potioncrafting (Tier II)");
+        this.pageText("Should the altar's construction grow tiresome, a welcome diversion awaits. "
+                + "The potioncrafting system opens at [#](B8860B)Tier II[#](), allowing you to prepare "
+                + "[#](8B0000)Alchemy Flasks[#]() or tip your [#](8B0000)Amethyst Throwing Daggers[#]() "
+                + "with dozens of potent effects.\\\n\\\n"
+                + "A Vitaemancer with a well-stocked flask belt is never truly in danger.");
 
         this.page("tier3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier Three");
-        this.pageText("By this point, you will have the ability to create some basic Rituals and Living Armour as well. "
-                + "This armour is very versatile, though you'll have to work hard to unlock its full potential.\\\n\\\n"
-                + "At this point you should look into upgrading your Altar and your Ritual Diviner to unlock "
-                + "more powerful Rituals. How, you say?");
+        this.pageTitle("The Third Tier");
+        this.pageText("At [#](B8860B)Tier III[#](), the true scope of Vitaemancy reveals itself. "
+                + "You gain the ability to inscribe [#](4A0080)Rituals[#]() and forge "
+                + "[#](8B0000)Living Armour[#]() - equipment that grows stronger through the trials you endure.\\\n\\\n"
+                + "Turn your attention to upgrading both the Ara Vitae and your "
+                + "[#](8B0000)Ritual Diviner[#]() to unlock more potent rites. But how?");
 
         this.page("tier3_dungeon", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Dungeoneering (Tier-3)");
-        this.pageText("By performing the Edge of the Hidden Realm, that's how! This will allow you limited access "
-                + "to the Demon Realm, and hopefully to Tau Fruit, which can be cultivated into Saturated Tau and "
-                + "then converted into Weak Blood Shards in the Athanor. These can be used to "
-                + "make the Tier IV Altar, more powerful Anointments, and Potion Catalysts.");
+        this.pageTitle("Dungeoneering (Tier III)");
+        this.pageText("By performing the [#](4A0080)Edge of the Hidden Realm[#](), you tear a wound in the veil "
+                + "and gain limited passage into the [#](4A0080)Demon Realm[#](). There, among the horrors, "
+                + "you may find [#](8B0000)Tau Fruit[#]().\\\n\\\n"
+                + "Cultivate it into [#](8B0000)Saturated Tau[#](), then refine it within the Athanor to produce "
+                + "[#](8B0000)Weak Blood Shards[#]() - the key to the fourth tier, stronger Anointments, and Potion Catalysts.");
 
         this.page("tier4", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier Four");
-        this.pageText("At Tier 4, you will gain access to the Ritual Diviner [Dusk], and with it, a plethora "
-                + "of more advanced Rituals, allowing such feats as automating your Life Essence supply, "
-                + "unlimited creative flight within your base, and even summoning a devastating meteor from "
-                + "the heavens, chock full of goodies!");
+        this.pageTitle("The Fourth Tier");
+        this.pageText("[#](B8860B)Tier IV[#]() unlocks the [#](8B0000)Ritual Diviner [Dusk][#](), and with it, "
+                + "a vast repertoire of advanced rites. Automate your [#](4A0080)Essentia Vitae[#]() supply, "
+                + "soar in unfettered flight within your sanctum, or call down a devastating "
+                + "[#](4A0080)meteor[#]() laden with precious bounty from the heavens above.");
 
         this.page("tier4_armour", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Better Armour (Tier-4)");
-        this.pageText("You may have tinkered around with Living Armour by this point, but the relatively low cap "
-                + "of points may have started to chafe. With the Ritual Diviner [Dusk], you are now free to augment "
-                + "your armour like never before. The Ritual of Living Evolution will allow you to raise your points "
-                + "cap from 100 to 300.");
+        this.pageTitle("Living Evolution (Tier IV)");
+        this.pageText("Your [#](8B0000)Living Armour[#]() may have begun to feel constrained by its modest "
+                + "point cap. With the Dusk Diviner, you may now perform the "
+                + "[#](4A0080)Ritual of Living Evolution[#](), raising your armour's capacity from "
+                + "[#](B8860B)100[#]() to [#](B8860B)300[#]() points.");
 
         this.page("tier4_armour2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Upgrade Management");
-        this.pageText("If that's not enough, you can use the Sound of the Cleansing Soul to strip your armour "
-                + "of its upgrades. These tomes can be copied into a Training Bracelet, or re-applied to your "
-                + "armour to ensure you only train Upgrades that you actually want.\\\n\\\n"
-                + "Any leftover Upgrade Tomes can be kept as fuel for the Penance of the Leaden Soul. "
-                + "This ritual allows you to apply Downgrades to your Armour.");
+        this.pageTitle("Mastering Upgrades");
+        this.pageText("The [#](4A0080)Sound of the Cleansing Soul[#]() strips upgrades from your armour, "
+                + "producing [#](8B0000)Upgrade Tomes[#]() that may be copied into a "
+                + "[#](8B0000)Training Bracelet[#](), or re-applied to ensure you train only the upgrades you desire.\\\n\\\n"
+                + "Surplus tomes serve as fuel for the [#](4A0080)Penance of the Leaden Soul[#](), "
+                + "a rite that inscribes [#](4A0080)Downgrades[#]() onto your armour.");
 
         this.page("tier4_armour3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Downgrade Combos");
-        this.pageText("While these are expensive (and each comes with a hefty penalty), their negative point-cost "
-                + "will give you more room to further improve your upgrades.\\\n\\\n"
-                + "Want to be incredibly tough and healthy, and don't mind being slow? Try combining "
-                + "Body Builder V, Brilliance V, Healthy X, and Tough X with Leadened Pick X and Limp Leg X.");
+        this.pageTitle("The Price of Power");
+        this.pageText("Downgrades are costly, and each exacts a heavy toll upon the body. Yet their negative "
+                + "point cost frees room for greater upgrades.\\\n\\\n"
+                + "[#](2E8B57)Favour resilience over agility? Try Body Builder V, Brilliance V, Healthy X, "
+                + "and Tough X combined with Leadened Pick X and Limp Leg X.[#]()");
 
         this.page("tier4_armour4", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Mix and Match");
-        this.pageText("Feel more like exploring and going fast? Perhaps you don't care about your offhand? "
-                + "Maybe Strong Legs X, Quick Feet X, and Crippled Arm would be more your speed.\\\n\\\n"
-                + "Feel like having both at different times? Make multiple chestplates and swap between them! "
-                + "There are dozens of upgrades and downgrades, so mix and match to find your favourite combinations.");
+        this.pageTitle("Many Configurations");
+        this.pageText("[#](2E8B57)Prefer speed and exploration? Perhaps Strong Legs X, Quick Feet X, "
+                + "and Crippled Arm suit you better.[#]()\\\n\\\n"
+                + "Craft multiple chestplates and swap between them as the situation demands. "
+                + "Dozens of upgrades and downgrades exist - experiment freely, apprentice. "
+                + "The armour responds to your will.");
 
         this.page("tier4_will", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Aspected Will (Tier-4)");
-        this.pageText("You may want to look into the Ritual Tinkerer and the various kinds of Will Aspects "
-                + "available to you, and consider how they may be used to refine your existing rituals and alter "
-                + "how your Sentient Tools and Weapons work. To progress beyond this point, however, a delve "
-                + "into the Demon Realm will be needed...");
+        this.pageTitle("Aspected Will (Tier IV)");
+        this.pageText("Investigate the [#](8B0000)Ritual Tinkerer[#]() and the various "
+                + "[#](4A0080)Aspects of Demon Will[#]() now available. These aspects can refine your rituals "
+                + "and reshape how your Sentient Tools behave.\\\n\\\n"
+                + "To progress beyond this threshold, however, a deeper plunge into the "
+                + "[#](4A0080)Demon Realm[#]() awaits...");
 
         this.page("tier4_demon", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("The Demon Realm (Tier-4)");
-        this.pageText("By performing the Pathway to the Endless Realm, you can gain access to the Demon Realm "
-                + "proper, along with all of its treasures and terrors. Come equipped for a fight! Delve deep, "
-                + "and you may find a rich source of Demonite Ore, which can be combined into block form and used "
-                + "for the capstones on your altar, along with the Archmage's Blood Orb.");
+        this.pageTitle("The Demon Realm (Tier IV)");
+        this.pageText("The [#](4A0080)Pathway to the Endless Realm[#]() tears open a permanent gate into "
+                + "the demon dimension. Come armed and armoured - the realm does not suffer the unprepared.\\\n\\\n"
+                + "Delve deep enough, and you may unearth [#](8B0000)Demonite Ore[#](), "
+                + "which in block form serves as capstone for the ultimate altar tiers, alongside the "
+                + "[#](8B0000)Archmage's Blood Orb[#]().");
 
         this.page("tier5", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier Five");
-        this.pageText("At Tier 5, you have access to the most powerful rituals and crafting recipes. "
-                + "Continue to delve into the Demon Realm to hunt for rare treasures, and you may be lucky enough "
-                + "to find Intricate Hellforged Parts, which can be used alongside some Netherite Scrap to double "
-                + "the power of each of your altar's Runes!");
+        this.pageTitle("The Fifth Tier");
+        this.pageText("[#](B8860B)Tier V[#]() grants access to the most devastating rituals and the "
+                + "most potent crafting recipes in all of Vitaemancy.\\\n\\\n"
+                + "Continue your expeditions into the Demon Realm. With fortune, you may recover "
+                + "[#](8B0000)Intricate Hellforged Parts[#](), which, combined with Netherite Scrap, "
+                + "can double the power of every rune upon your altar.");
 
         this.page("tier6", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier Six");
-        this.pageText("The ultimate Ara Vitae. Tier 6 requires Crystal Clusters at the peaks of its pillars "
-                + "and an enormous ring of 19 runes per side. At this level, the altar reaches its maximum potential "
-                + "with unparalleled LP storage and crafting capabilities.");
+        this.pageTitle("The Sixth Tier");
+        this.pageText("The [#](B8860B)ultimate Ara Vitae[#](). [#](4A0080)Crystal Clusters[#]() crown its pillars, "
+                + "and an immense ring of nineteen runes per side girds its foundation.\\\n\\\n"
+                + "At this zenith, the altar's capacity for [#](4A0080)Essentia Vitae[#]() and its crafting "
+                + "power are without equal. You stand at the pinnacle of Vitaemancy, apprentice. "
+                + "What you do with that power is yours to decide.");
     }
 
     @Override
     protected String entryName() {
-        return "Tiers & Getting Started";
+        return "The Path of Ascension";
     }
 
     @Override
     protected String entryDescription() {
-        return "A quick overview of Neo Vitae progression.";
+        return "A map of the Vitaemancer's journey, from first blood to final mastery.";
     }
 
     @Override

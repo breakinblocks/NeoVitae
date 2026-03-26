@@ -20,25 +20,26 @@ public class SeerSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Seer's Sigil");
-        this.pageText("The [#](8B0000)Seer's Sigil[#]() is a more advanced form of the [#](8B0000)Divination Sigil[#](). Alongside "
-                + "showing the amount of LP in the bound player's [#](8B0000)Soul Network[#](), it also shows more "
-                + "information when looking at a [#](8B0000)Ara Vitae[#]().\\\n\\\n"
-                + "Like the Divination Sigil, it can also be used to edit your GUI.");
+        this.pageText("Where the [#](8B0000)Divination Sigil[#]() offers a glimpse, the [#](8B0000)Seer's Sigil[#]() "
+                + "opens your perception wide. It reveals not only the [#](4A0080)Essentia Vitae[#]() within your "
+                + "[#](8B0000)Anima[#](), but lays bare the inner workings of the [#](8B0000)Ara Vitae[#]() itself "
+                + "-- crafting progress, consumption rates, and more.\\\n\\\n"
+                + "It also provides the same display configuration as its lesser counterpart.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Sight Reagent[#]() in the Tabula Vitae.\\\n\\\n"
-                + "Step 2: Create the [#](8B0000)Seer's Sigil[#]() in an Alchemy Array using the "
-                + "Sight Reagent as the base and a slate as the catalyst.\\\n\\\n*When seeing all is not enough*");
+        this.pageText("First, forge the [#](8B0000)Sight Reagent[#]() in the [#](8B0000)Tabula Vitae[#](). "
+                + "Then inscribe an [#](8B0000)Alchemy Array[#]() with the reagent as base and a slate as "
+                + "catalyst.\\\n\\\n[#](4A0080)When mere sight is no longer sufficient.[#]()");
 
         this.page("hud", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("From top to bottom, the Seer's Sigil HUD shows:\n"
-                + "- The current Tier of the Ara Vitae\n"
-                + "- The amount of blood currently inside the Altar, and the current total capacity\n"
-                + "- The current crafting progress, if any\n"
-                + "- LP Consumption/Tick - how much LP the Altar will use per tick when crafting\n"
-                + "- Current LP Storage of any Charging Runes you may have");
+        this.pageText("When aimed at an [#](8B0000)Ara Vitae[#](), the Seer's display reveals, from top to bottom:\n\n"
+                + "- The altar's current [#](B8860B)Tier[#]()\n\n"
+                + "- Current [#](4A0080)EV[#]() volume and total capacity\n\n"
+                + "- Active crafting progress, if any\n\n"
+                + "- [#](4A0080)Essentia Vitae[#]() consumed per tick during crafting\n\n"
+                + "- Current [#](4A0080)Essentia Vitae[#]() reserve held by Charging Runes");
     }
 
     @Override
@@ -48,7 +49,7 @@ public class SeerSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "An advanced divination sigil with more detailed altar information.";
+        return "A deeper sight -- reveals the full workings of the Ara Vitae.";
     }
 
     @Override

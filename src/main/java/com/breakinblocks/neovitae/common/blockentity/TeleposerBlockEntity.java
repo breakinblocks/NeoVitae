@@ -26,12 +26,12 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.item.ITeleposerFocus;
 import com.breakinblocks.neovitae.common.menu.TeleposerMenu;
 import com.breakinblocks.neovitae.common.tag.NVTags;
-import com.breakinblocks.neovitae.api.soul.SoulTicket;
-import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
+import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.List;
 
@@ -120,8 +120,8 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
         int maxUses = offsetList.size() + originalEntities.size() + focusEntities.size();
 
         int maxDrain = Math.min((int) (transportCost * maxUses), MAX_TOTAL_COST);
-        SoulNetwork network = getNetwork();
-        if (network == null || network.getCurrentEssence() < maxDrain) {
+        Anima network = getNetwork();
+        if (network == null || network.getCurrentEV() < maxDrain) {
             return;
         }
 
@@ -162,19 +162,19 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
         level.playSound(null, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.BLOCKS, 1, 1);
         linkedWorld.playSound(null, linkedPos.getX(), linkedPos.getY(), linkedPos.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.BLOCKS, 1, 1);
 
-        network.syphon(SoulTicket.create(Math.min((int) (uses * transportCost), MAX_TOTAL_COST)));
+        network.syphon(AnimaTicket.create(Math.min((int) (uses * transportCost), MAX_TOTAL_COST)));
     }
 
     public boolean canTeleport() {
         return getNetwork() != null;
     }
 
-    private SoulNetwork getNetwork() {
+    private Anima getNetwork() {
         ItemStack focusStack = this.inv.getStackInSlot(FOCUS_SLOT);
         if (!focusStack.isEmpty() && focusStack.getItem() instanceof ITeleposerFocus) {
             Binding binding = focusStack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
             if (!binding.isEmpty()) {
-                return SoulNetworkHelper.getSoulNetwork(binding);
+                return AnimaHelper.getAnima(binding);
             }
         }
         return null;

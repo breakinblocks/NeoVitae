@@ -24,7 +24,7 @@ public class RitualStandardDungeonEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/standard_dungeon"))
                 .withMultiblockName("Pathway to the Endless Realm")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("standard_dungeon")));
@@ -32,8 +32,8 @@ public class RitualStandardDungeonEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual opens a pathway to the full [#](8B0000)Demon Realm[#](). Beware, the Demon Realm is highly dangerous. Come prepared!");
+        this.pageTitle("Beyond the Threshold");
+        this.pageText("This ritual rends the veil wide, opening a full passage into the depths of the [#](4A0080)Demon Realm[#](). What awaits is not a trial — it is a war. The creatures within are far more dangerous than those encountered through the lesser gateway. Arm yourself well, apprentice. Many who step through do not return.");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RitualStandardDungeonEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Opens the full Demon Realm dungeon.";
+        return "Rends the veil wide into the Demon Realm's depths.";
     }
 
     @Override

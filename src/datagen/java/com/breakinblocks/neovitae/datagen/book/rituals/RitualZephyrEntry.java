@@ -24,7 +24,7 @@ public class RitualZephyrEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/zephyr"))
                 .withMultiblockName("Call of the Zephyr")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("zephyr")));
@@ -32,8 +32,8 @@ public class RitualZephyrEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual collects dropped items within its area of effect and deposits them into a nearby chest. Acts as an area-of-effect item vacuum.");
+        this.pageTitle("The Gathering Wind");
+        this.pageText("A gentle but persistent wind sweeps through the ritual's domain, gathering every loose item it finds and carrying them into a nearby chest. No dropped treasure escapes its notice — an invaluable companion to mob farms, tree felling rituals, or any operation that scatters its bounty across the ground.");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RitualZephyrEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Collects dropped items into a chest.";
+        return "A persistent wind that gathers all loose items.";
     }
 
     @Override

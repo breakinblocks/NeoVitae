@@ -21,56 +21,60 @@ public class OreProcessingEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ore Processing");
-        this.pageText("The Tabula Vitae can be used, amongst other things, for ore doubling, whilst the "
-                + "Athanor can give you 2.5 ingots per piece of Raw Ore, or 4.5 ingots "
-                + "per Ore Block. Get more ore out of your mining expeditions with the power of blood!");
+        this.pageTitle("The Alchemy of Ore");
+        this.pageText("Blood has many uses, and among the most practical is the multiplication of mineral wealth. "
+                + "The [#](8B0000)Tabula Vitae[#]() doubles your ore, while the [#](8B0000)Athanor[#]() "
+                + "can yield 2.5 ingots per raw ore, or 4.5 ingots per ore block.\\\n\\\n"
+                + "Every vein you mine becomes a bounty when viewed through the lens of [#](4A0080)Vitaemancy[#]().");
 
         this.page("basic_cutting", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Basic Cutting Fluid");
-        this.pageText("Cutting Fluid is crafted in the Tabula Vitae. It is the penultimate step in all forms of "
-                + "Ore Processing.\\\n\\\n"
-                + "It can be used in the Athanor to get 3 Ore Sand from one "
-                + "Ore Block, or 1.5 Ore Sand from one Raw Ore (on average). While a Water Sigil is used in the "
-                + "recipe, a simple Bottle of Water may be used.");
+        this.pageText("[#](8B0000)Cutting Fluid[#]() is prepared in the Tabula Vitae and serves as the penultimate "
+                + "reagent in all ore processing chains.\\\n\\\n"
+                + "Within the Athanor, it dissolves an ore block into 3 portions of Ore Sand, "
+                + "or a raw ore into 1.5 on average. [#](2E8B57)A simple Bottle of Water may substitute "
+                + "for the Water Sigil in the recipe.[#]()");
 
         this.page("intermediate_cutting", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Intermediate Cutting Fluid");
-        this.pageText("Intermediate Cutting Fluid is an improved version that lasts eight times as long and "
-                + "increases crafting speed by 50%%. You'll have to go Dungeon Delving for the Tau Oil, though.");
+        this.pageText("A refined variant that endures eight times as long and hastens the Athanor's work "
+                + "by 50%%. The [#](8B0000)Tau Oil[#]() it demands, however, can only be found by those "
+                + "brave enough to [#](4A0080)delve into the demon realm[#]().");
 
         this.page("advanced_cutting", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Advanced Cutting Fluid");
-        this.pageText("Advanced Cutting Fluid lasts sixteen times as long, doubles crafting speed, and doubles "
-                + "the chance of getting bonus outputs from any recipes it's used in. You'll have to do some deep "
-                + "Dungeon Delving for the Hellforged Sand it needs.");
+        this.pageText("The apex of dissolution. This fluid persists sixteen times longer, doubles crafting speed, "
+                + "and doubles the probability of bonus yields. The [#](8B0000)Hellforged Sand[#]() "
+                + "it requires lies buried in the deepest reaches of the [#](4A0080)Demon Realm[#]().");
 
         this.page("sand_recipes", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Metal Sand");
-        this.pageText("The Tabula Vitae can produce Metal Sand from Raw Ore for ore doubling:\n"
+        this.pageText("The Tabula Vitae can grind raw ore into metallic sand, effectively doubling your yield:\n\n"
                 + "- Iron Sand from Raw Iron\n"
                 + "- Gold Sand from Raw Gold");
 
         this.page("athanor_ore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Athanor Ore Processing");
-        this.pageText("Once you have access to the Athanor, you can get 3 sand from every "
-                + "ore you mine using a Cutting Fluid. Metal Sand can then be smelted into ingots.");
+        this.pageTitle("The Athanor's Yield");
+        this.pageText("With access to the Athanor and a Cutting Fluid, every mined ore block yields three "
+                + "portions of sand. This sand is then smelted into ingots as normal.\\\n\\\n"
+                + "The discipline rewards patience, apprentice. Refine in stages, and the earth gives up "
+                + "far more than it would to a common furnace.");
 
         this.page("smelting", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Smelting Metal Sand");
-        this.pageText("Metal Sand can be smelted in a furnace to produce ingots:\n"
+        this.pageText("Metal Sand yields ingots in a standard furnace:\n\n"
                 + "- Iron Sand smelts into Iron Ingots\n"
                 + "- Gold Sand smelts into Gold Ingots");
 
@@ -78,23 +82,25 @@ public class OreProcessingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Explosive Powder");
-        this.pageText("Explosive Powder is crafted in the Tabula Vitae. In the Athanor, it is used to turn Ores into "
-                + "4.5 Ore Fragments on average, or Raw Ores into 2.25 fragments on average, or turn Ingots into "
-                + "their Sand variant.\\\n\\\n"
-                + "It can also turn Netherrack into Sulfur and 50mb of Lava. It has 2 improved variants.");
+        this.pageText("[#](8B0000)Explosive Powder[#](), prepared in the Tabula Vitae, shatters ore into fragments "
+                + "within the Athanor: 4.5 fragments per ore block, 2.25 per raw ore on average. "
+                + "It can also reduce ingots to their sand form.\\\n\\\n"
+                + "Netherrack, too, crumbles before it, yielding Sulfur and 50mb of Lava. "
+                + "Two improved variants exist.");
 
         this.page("explosive_cells", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Explosive Cells");
-        this.pageText("The Reinforced and Hellforged Explosive Cells are improved versions crafted in the Tabula Vitae. "
-                + "They last longer and craft faster than the basic Explosive Powder variant.");
+        this.pageText("The [#](8B0000)Reinforced[#]() and [#](8B0000)Hellforged Explosive Cells[#]() are "
+                + "superior variants prepared in the Tabula Vitae. Each outlasts and outpaces the "
+                + "humble Explosive Powder, making them essential for sustained processing operations.");
 
         this.page("fragments", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Fragments and Processing");
-        this.pageText("Athanor recipes with Explosive Powder:\n"
+        this.pageTitle("Fragments and Yields");
+        this.pageText("Athanor recipes using Explosive Powder:\n\n"
                 + "- Raw Ore to Ore Fragments (2.25 average)\n"
                 + "- Ore Block to Ore Fragments (4.5 average)\n"
                 + "- Netherrack to Sulfur + 50mb Lava");
@@ -102,57 +108,59 @@ public class OreProcessingEntry extends EntryProvider {
         this.page("resonator", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Resonator");
-        this.pageText("The Resonator is crafted in the Hellfire Forge. It is used to turn Ore Fragments into the "
-                + "relevant Gravel for continued ore processing, and creates Tiny Corrupted Dust. The Reinforced "
-                + "Resonator has 4x durability, and the Hellforged Resonator has 16x durability and doubles any "
-                + "bonus outputs.");
+        this.pageTitle("The Resonator");
+        this.pageText("Forged in the Hellfire Forge, the [#](8B0000)Resonator[#]() vibrates ore fragments into "
+                + "gravel for further refinement, producing [#](8B0000)Tiny Corrupted Dust[#]() as a byproduct. "
+                + "The [#](B8860B)Reinforced[#]() variant has 4x durability, and the "
+                + "[#](B8860B)Hellforged[#]() variant has 16x durability with doubled bonus outputs.");
 
         this.page("gravel_sand", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Fragment to Sand");
-        this.pageText("Athanor recipes for further processing:\n"
+        this.pageTitle("The Refinement Chain");
+        this.pageText("The full processing chain within the Athanor:\n\n"
                 + "- Ore Fragment to Ore Gravel (using Resonator)\n"
                 + "- Ore Gravel to Ore Sand (using Cutting Fluid)");
 
         this.page("corrupted_dust", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Tiny Corrupted Dust can be combined into Corrupted Dust, which can be used to further "
-                + "boost the yield of other ores. View this recipe in JEI.");
+        this.pageText("[#](8B0000)Tiny Corrupted Dust[#]() can be combined into full "
+                + "[#](8B0000)Corrupted Dust[#](), a potent catalyst that further amplifies ore yields. "
+                + "Consult JEI for the combination recipe.");
 
         this.page("corrupted_recipes", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Corrupted Recipes");
-        this.pageText("Corrupted Dust can be combined in the Tabula Vitae with various materials:\n"
-                + "- Corrupted Coal\n"
-                + "- Corrupted Iron\n"
-                + "- Corrupted Debris");
+        this.pageTitle("Corrupted Catalysts");
+        this.pageText("Corrupted Dust merges with various materials in the Tabula Vitae to produce:\n\n"
+                + "- [#](8B0000)Corrupted Coal[#]()\n"
+                + "- [#](8B0000)Corrupted Iron[#]()\n"
+                + "- [#](8B0000)Corrupted Debris[#]()");
 
         this.page("fuel_cell", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "furnacecell_primitive"))
                 .withText(this.context().pageText()));
-        this.pageText("The Athanor also functions as a Furnace, but the only fuel sources it accepts are the "
-                + "Primitive Fuel Cell or a Lava Crystal.");
+        this.pageText("The Athanor functions as a furnace, but accepts only two fuel sources: the "
+                + "[#](8B0000)Primitive Fuel Cell[#]() or a [#](8B0000)Lava Crystal[#]().");
 
         this.page("fuel_info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Fuel Cell Details");
-        this.pageText("The Primitive Fuel Cell is good for 128 individual uses. That's more than the Block of Coal "
-                + "used to craft it (60 items), and since it only loses durability when the crafting is finished "
-                + "it will not waste fuel.");
+        this.pageTitle("On Fuel Efficiency");
+        this.pageText("The Primitive Fuel Cell endures for 128 individual operations - more than double what "
+                + "the Block of Coal in its recipe would yield in a furnace. Better still, it consumes durability "
+                + "only upon completing a craft, wasting nothing.\\\n\\\n"
+                + "[#](2E8B57)An efficient Vitaemancer wastes neither blood nor fuel.[#]()");
     }
 
     @Override
     protected String entryName() {
-        return "Ore Processing";
+        return "The Alchemy of Ore";
     }
 
     @Override
     protected String entryDescription() {
-        return "Multiply your ore yields with cutting fluids and the Athanor.";
+        return "Multiply your mineral wealth through cutting fluids, resonators, and the Athanor.";
     }
 
     @Override

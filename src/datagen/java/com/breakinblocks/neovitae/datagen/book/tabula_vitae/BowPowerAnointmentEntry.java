@@ -21,7 +21,8 @@ public class BowPowerAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Iron Tip");
-        this.pageText("[#](8B0000)Iron Tip[#]() increases the damage of fired arrows by 25%%. Also stacks with Vanilla enchantments."
+        this.pageText("[#](8B0000)Iron Tip[#]() weights each arrow with an alchemical density, increasing its damage "
+                + "by 25%%. The effect stacks with existing enchantments."
                 + "\\\n\\\nValid items: Bows, Crossbows.\\\n\\\nApplies: Heavy Shot (256 shots)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
@@ -41,7 +42,7 @@ public class BowPowerAnointmentEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increases arrow damage.";
+        return "Weights arrows with alchemical density.";
     }
 
     @Override

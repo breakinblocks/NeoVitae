@@ -21,8 +21,9 @@ public class CrippledArmDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Crippled Arm");
-        this.pageText("Effect: Prevents you from using your offhand item. This includes placing torches, "
-                + "raising your shield, etc.");
+        this.pageText("The armour seizes your off-hand in a rigid grip, preventing you from using whatever "
+                + "you hold there. No torches, no shields, no secondary tools.\\\n\\\n"
+                + "[#](4A0080)The armour demands your undivided attention.[#]()");
 
         this.page("recipe", () -> BookLivingDowngradeRecipePageModel.create()
                 .withRecipeId1("neovitae:downgrade/crippled_arm"));
@@ -35,7 +36,7 @@ public class CrippledArmDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Downgrade: disables offhand use.";
+        return "The armour locks your off-hand -- one arm must suffice.";
     }
 
     @Override

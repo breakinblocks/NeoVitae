@@ -20,16 +20,18 @@ public class BloodLampSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of the Blood Lamp");
-        this.pageText("The [#](8B0000)Sigil of the Blood Lamp[#]() is a handy tool for any miner, dungeon delver, or "
-                + "simply any Sanguimancer that doesn't like dark patches and feels that torches and glowstone "
-                + "blocks get in the way. When used, this sigil launches a Blood Light in the direction you "
-                + "are facing. When it hits a block, it spawns a nearly-invisible light source at a cost of 10 LP.");
+        this.pageText("The [#](8B0000)Sigil of the Blood Lamp[#]() launches a mote of crystallized "
+                + "[#](4A0080)Essentia Vitae[#]() in the direction you face. When it strikes a surface, it "
+                + "anchors itself as a near-invisible light source at a cost of merely 10 "
+                + "[#](4A0080)Essentia Vitae[#]().\\\n\\\n"
+                + "Indispensable for miners, dungeon-delvers, and any blood mage who refuses to suffer "
+                + "darkness in their domain.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Blood Lamp Reagent[#]() in the Tabula Vitae.\\\n\\\n"
-                + "Step 2: Create the [#](8B0000)Sigil of the Blood Lamp[#]() in an Alchemy Array using the "
-                + "Blood Lamp Reagent as the base and a slate as the catalyst.\\\n\\\n*I see a light!*");
+        this.pageText("Forge the [#](8B0000)Blood Lamp Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a slate as catalyst.\\\n\\\n"
+                + "[#](4A0080)A small light to banish the deepest dark.[#]()");
     }
 
     @Override
@@ -39,7 +41,7 @@ public class BloodLampSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A sigil that shoots invisible light sources.";
+        return "Cast motes of blood-light into the darkness ahead of you.";
     }
 
     @Override

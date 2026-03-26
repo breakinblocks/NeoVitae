@@ -20,71 +20,65 @@ public class WillCatalystsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Will Catalysts");
-        this.pageText("If Demon Will has one drawback, it's that collecting it is a slow, tedious process. "
-                + "Even with an almost full [#](8B0000)Tartaric Gem[#]() and a [#](8B0000)Sentient Sword[#]() enchanted with "
-                + "[#](8B0000)Looting III[#]() and further buffed with [#](8B0000)Plunderer's Glint II[#](), it's still a manual "
-                + "process, and you have better things to do with your genius than scramble about splatting "
-                + "spiders and slaying skeletons.");
+        this.pageText("If [#](8B0000)Demon Will[#]() has one flaw, it is the tedium of collection. Even armed with a "
+                + "nearly full [#](8B0000)Tartaric Gem[#](), a [#](8B0000)Sentient Sword[#]() bearing [#](8B0000)Looting III[#]() and "
+                + "[#](8B0000)Plunderer's Glint II[#](), the harvest remains a manual labor -- and you have far "
+                + "grander designs to attend to.");
 
         this.page("automation", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Fortunately, it's possible to completely automate this procedure, leaving you with more "
-                + "time on your hands to expand your evil empire.\\\n\\\n"
-                + "The first step is to get some [#](8B0000)Will Crystals[#](). We can use any kind - Raw, Steadfast, "
-                + "Destructive, Vengeful or Corrosive Will, as long as we have 4 of the same kind of crystal.");
+        this.pageText("Fortunately, the entire process can be automated, freeing your hands for worthier "
+                + "pursuits.\\\n\\\n"
+                + "Begin with four [#](8B0000)Will Crystals[#]() of the same type -- Raw, Steadfast, Destructive, "
+                + "Vengeful, or Corrosive.");
 
         this.page("clusters", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Crystal Clusters");
-        this.pageText("Craft the Crystal Clusters (Raw, Steadfast, Destructive, Vengeful, and Corrosive) "
-                + "in the Hellfire Forge using 4 crystals of the matching type.\\\n\\\n"
-                + "Once you have a cluster, simply place it down in any chunk, supply the chunk with will of "
-                + "the matching type, and wait. Eventually, new spires will grow, just like clusters growing "
-                + "atop a [#](8B0000)Crystallarium Maleficum[#]().");
+        this.pageText("Forge a cluster from four matching crystals in the [#](8B0000)Hellfire Forge[#](), then place "
+                + "it in any chunk suffused with Will of the same Aspect. In time, new spires crystallize "
+                + "and grow -- just as they do atop a [#](8B0000)Crystallarium Maleficum[#]().");
 
         this.page("harvesting", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("You can even automate the breaking of these additional spires with the [#](8B0000)Crack of the "
-                + "Fractured Crystal[#](8B0000) ritual, and the collection of the resulting crystals with the [#]()Call of "
-                + "the Zephyr[#]().\\\n\\\n"
-                + "With a basic [#](8B0000)Routing Node system[#](), you can even feed these excess crystals back into a "
-                + "[#](8B0000)Vas Maleficum[#]() for a totally automatic, net-positive loop.\\\n\\\n"
-                + "You may have noticed a bit of a problem, however - this setup is slow. Very, very slow. "
-                + "Each crystal only sprouts a new spire once every few minutes, and takes almost as much will "
-                + "to spawn as you gain from burning it - on average, it comes out to about 1 will / minute / spire.");
+        this.pageText("The [#](8B0000)Crack of the Fractured Crystal[#]() ritual automates the breaking of excess "
+                + "spires, and the [#](8B0000)Call of the Zephyr[#]() gathers the dropped crystals.\\\n\\\n"
+                + "With a basic [#](8B0000)Routing Node[#]() system, you can even feed surplus crystals back into a "
+                + "[#](8B0000)Vas Maleficum[#]() for a self-sustaining loop.\\\n\\\n"
+                + "There is, however, a drawback: this process is slow. Each crystal sprouts a new spire once "
+                + "every few minutes, consuming nearly as much Will as it yields -- roughly [#](B8860B)1 Will per minute "
+                + "per spire[#]().");
 
         this.page("catalyst_recipes", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Will Catalysts");
-        this.pageText("Craft the Will Catalysts (Raw, Steadfast, Destructive, Vengeful, and Corrosive) in "
-                + "the Hellfire Forge.");
+        this.pageText("Five variants exist -- one for each Aspect of Will. Forge them in the "
+                + "[#](8B0000)Hellfire Forge[#]().");
 
         this.page("catalyst_usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Fortunately, this is where our new friends, [#](8B0000)Will Catalysts[#]() step in. While holding "
-                + "one of these Catalysts, simply right-click on a [#](8B0000)Crystal Cluster[#]() of the same type to "
-                + "turbocharge its growth!\\\n\\\n"
-                + "Each catalyst reduces the amount of will required to grow a spire "
-                + "from 45 to just 25, and it speeds the growth up tenfold. Every dose is good for ten spires "
-                + "worth of growth, which makes for a net bonus of 200 will per Catalyst.");
+        this.pageText("While holding a [#](8B0000)Will Catalyst[#]() of the matching Aspect, right-click a "
+                + "[#](8B0000)Crystal Cluster[#]() to supercharge its growth.\\\n\\\n"
+                + "Each catalyst reduces the Will cost per spire from 45 to just [#](B8860B)25[#](), and accelerates "
+                + "growth tenfold. One dose fuels ten spires of growth, yielding a net bonus of "
+                + "[#](B8860B)200 Will per Catalyst[#]().");
 
         this.page("double_dosing", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("You can even double-dose your clusters - though this only makes the effect last for 20 "
-                + "growths instead of 10 and has no other benefit.\\\n\\\n"
-                + "Of course, the canny Sanguimancer will have realised that this has replaced one manual "
-                + "problem - running around and bopping monsters with a sword - with another one - running "
-                + "around and bopping crystals with a catalyst.");
+        this.pageText("A second application extends the effect to 20 growths rather than 10, though it "
+                + "provides no other benefit.\\\n\\\n"
+                + "The astute blood mage will note this merely trades one manual task -- slaying monsters -- "
+                + "for another -- anointing crystals.");
 
         this.page("full_automation", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Fortunately, there's a ritual for that too! The [#](8B0000)Gathering of the Forsaken Souls[#]() "
-                + "will automatically apply catalysts to any crystals in its area of effect.\\\n\\\n"
-                + "With a few farms "
-                + "and a very, very clever [#](8B0000)Routing Node[#]() setup, you can automate the whole thing, top to "
-                + "bottom... But as they say, that's left as an exercise for the reader.");
+        this.pageText("Naturally, there is a ritual for that. The [#](8B0000)Gathering of the Forsaken Souls[#]() "
+                + "automatically applies catalysts to any clusters within its reach.\\\n\\\n"
+                + "With the right farms and a sufficiently ingenious [#](8B0000)Routing Node[#]() configuration, "
+                + "the entire apparatus runs itself -- top to bottom. The precise arrangement, however, "
+                + "is left as an exercise for the ambitious.");
     }
 
     @Override
@@ -94,7 +88,7 @@ public class WillCatalystsEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Turbocharging crystal growth for automated Demon Will production.";
+        return "Supercharging crystal growth for automated Will production.";
     }
 
     @Override

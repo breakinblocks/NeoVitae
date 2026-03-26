@@ -20,24 +20,23 @@ public class CompositeFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Composite Item Filter");
-        this.pageText("The [#](8B0000)Composite Item Filter[#]() does nothing on its own, but when combined with another type "
-                + "of [#](8B0000)Filter[#](), it allows you to apply that filter's rules to it.\\\n\\\n"
-                + "This means you can, for example, use the Enchantment Filter's 'Any Enchantments' and the "
-                + "Tag Filter's 'forge:swords' to only allow enchanted swords to pass through.");
+        this.pageText("The [#](8B0000)Composite Item Filter[#]() is inert on its own -- a blank canvas awaiting "
+                + "instruction. Combine it with another filter type in the [#](8B0000)Tabula Vitae[#]() to layer "
+                + "that filter's rules onto this one.\\\n\\\n"
+                + "This allows you to weave complex conditions: use the Enchantment Filter's 'any enchantment' "
+                + "rule alongside the Tag Filter's 'forge:swords' to permit only enchanted blades through.");
 
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Similarly to the [#](8B0000)Standard Item Filter[#](), it has a quantity selector and an allow/deny "
-                + "function. Leaving the quantity blank defaults to 'all'. Other buttons will appear on the GUI "
-                + "as you combine it with other filters.");
+        this.pageText("Quantity limits and Allow/Deny modes function as with the Standard Filter. Additional "
+                + "controls appear in the interface as you layer more filter types onto the composite.");
 
         this.page("recipes", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Composite Item Filter");
-        this.pageText("Craft the Composite Item Filter in the Tabula Vitae.\\\n\\\n"
-                + "You can add a Tag Filter, Enchantment Filter, or Mod Filter to a Composite Filter by "
-                + "combining them in the Tabula Vitae.");
+        this.pageText("Combine a Tag, Enchantment, or Mod Filter with the Composite in the [#](8B0000)Tabula Vitae[#]() "
+                + "to merge their logic together.");
     }
 
     @Override
@@ -47,7 +46,7 @@ public class CompositeFilterEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A filter that combines rules from multiple filter types.";
+        return "A layered filter that weaves multiple sorting rules into one.";
     }
 
     @Override

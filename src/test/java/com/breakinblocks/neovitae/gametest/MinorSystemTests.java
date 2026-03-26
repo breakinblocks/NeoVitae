@@ -46,7 +46,7 @@ public class MinorSystemTests {
             IFluidHandler handler = helper.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, absPos, null);
             if (handler == null) { helper.fail("No fluid handler"); return; }
 
-            int filled = handler.fill(new FluidStack(NVFluids.LIFE_ESSENCE_SOURCE.get(), 5000), IFluidHandler.FluidAction.EXECUTE);
+            int filled = handler.fill(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 5000), IFluidHandler.FluidAction.EXECUTE);
             if (filled != 5000) { helper.fail("Should fill 5000mB, filled " + filled); return; }
 
             FluidStack drained = handler.drain(2000, IFluidHandler.FluidAction.EXECUTE);
@@ -79,7 +79,7 @@ public class MinorSystemTests {
             BlockPos absPos = helper.absolutePos(pos);
             IFluidHandler handler = helper.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, absPos, null);
 
-            int filled = handler.fill(new FluidStack(NVFluids.LIFE_ESSENCE_SOURCE.get(), capacity + 5000), IFluidHandler.FluidAction.EXECUTE);
+            int filled = handler.fill(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), capacity + 5000), IFluidHandler.FluidAction.EXECUTE);
             if (filled > capacity) {
                 helper.fail("Should not exceed capacity " + capacity + ", filled " + filled);
                 return;

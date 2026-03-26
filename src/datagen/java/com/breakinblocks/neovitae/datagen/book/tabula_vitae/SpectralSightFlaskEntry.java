@@ -26,10 +26,10 @@ public class SpectralSightFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spectral Sight");
-        this.pageText("[#](8B0000)Spectral Sight[#]() illuminates nearby creatures as though they had the Glowing buff. "
-                + "The base range is 24 blocks, and higher levels increase the range by an additional 32 blocks "
-                + "per level.\\\n\\\n"
-                + "It's made from a potion of [#](8B0000)Night Vision[#]().");
+        this.pageText("The [#](8B0000)Spectral Sight[#]() elixir opens the [#](4A0080)inner eye[#](), revealing the outline of "
+                + "every living creature within 24 blocks as a luminous silhouette. Higher levels extend "
+                + "this perception by an additional 32 blocks per level. Nothing hides from such sight.\\\n\\\n"
+                + "Derived from a flask of [#](8B0000)Night Vision[#]().");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/night_to_spectral")
@@ -48,7 +48,7 @@ public class SpectralSightFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Illuminates nearby creatures with Glowing.";
+        return "Opens the inner eye to perceive all nearby life.";
     }
 
     @Override

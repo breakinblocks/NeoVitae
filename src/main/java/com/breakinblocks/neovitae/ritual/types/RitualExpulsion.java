@@ -52,7 +52,7 @@ public class RitualExpulsion extends Ritual {
         }
 
         if (entitiesExpelled > 0) {
-            ctx.syphon(Math.min(getRefreshCost() * entitiesExpelled, ctx.currentEssence()));
+            ctx.syphon(Math.min(getRefreshCost() * entitiesExpelled, ctx.currentEV()));
         }
     }
 

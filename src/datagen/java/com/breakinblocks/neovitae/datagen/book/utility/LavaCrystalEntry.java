@@ -22,15 +22,17 @@ public class LavaCrystalEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Lava Crystal");
-        this.pageText("The [#](8B0000)Lava Crystal[#]() is a source of great heat. Between the lava used in its creation "
-                + "and the power of your Soul Network, you feel confident that it will never cool.\\\n\\\n"
-                + "Pressing Use while looking at any block in the world will ignite it, at a cost of 100 LP.");
+        this.pageText("The [#](8B0000)Lava Crystal[#]() is a shard of imprisoned heat, born from molten rock "
+                + "and sustained by the power of your [#](4A0080)Anima[#](). So long as "
+                + "[#](4A0080)Essentia Vitae[#]() flows, it will never cool.\\\n\\\n"
+                + "[#](2E8B57)Use on any block in the world to ignite it, at a cost of 100 EV.[#]()");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "lava_crystal"))
                 .withText(this.context().pageText()));
-        this.pageText("Furthermore, if placed in the fuel slot of a Furnace, it will act as a never-ending "
-                + "fuel source, consuming 50 LP to burn for 10 seconds, or long enough to cook one item.");
+        this.pageText("Place a Lava Crystal in the fuel slot of any furnace, and it becomes an "
+                + "inexhaustible flame, drawing 50 [#](4A0080)Essentia Vitae[#]() per item smelted. "
+                + "Ten seconds of burn time per operation - exactly enough for one item.");
     }
 
     @Override
@@ -40,7 +42,7 @@ public class LavaCrystalEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "An infinite fuel source powered by LP.";
+        return "A shard of eternal heat, fueled by the Anima.";
     }
 
     @Override

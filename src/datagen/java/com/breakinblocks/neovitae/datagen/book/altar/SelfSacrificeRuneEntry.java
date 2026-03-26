@@ -22,10 +22,11 @@ public class SelfSacrificeRuneEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Rune of Self Sacrifice");
-        this.pageText("The [#](8B0000)Rune of Self Sacrifice[#]() increases the amount of [#](8B0000)Life Essence[#]() gained in the "
-                + "Ara Vitae through means that use a player's health. Each rune gives a bonus of +10%% "
-                + "additively per rune.");
+        this.pageTitle("Rune of Self-Sacrifice");
+        this.pageText("The [#](8B0000)Rune of Self-Sacrifice[#]() honors the practitioner who spills their own blood "
+                + "for the art. Each rune carved into the altar's ring increases the [#](4A0080)Essentia Vitae[#]() "
+                + "yielded from your own wounds by [#](8B0000)+10%%[#](), stacking additively. The Sacrificial Knife "
+                + "and similar self-harming instruments all benefit from this rune's blessing.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_sacrifice_self")));
@@ -34,12 +35,12 @@ public class SelfSacrificeRuneEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Rune of Self Sacrifice";
+        return "Rune of Self-Sacrifice";
     }
 
     @Override
     protected String entryDescription() {
-        return "Increases LP gained from self-sacrifice with the Sacrificial Knife.";
+        return "Rewards your own pain with greater Essentia Vitae from self-inflicted wounds.";
     }
 
     @Override

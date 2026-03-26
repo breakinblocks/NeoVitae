@@ -83,7 +83,7 @@ public class RitualSpeed extends Ritual {
         int cost = 0;
 
         for (LivingEntity entity : entities) {
-            if (cost + getRefreshCost() > ctx.currentEssence()) break;
+            if (cost + getRefreshCost() > ctx.currentEV()) break;
 
             // Entity filtering based on destructive/vengeful will
             boolean isBaby = entity.isBaby();

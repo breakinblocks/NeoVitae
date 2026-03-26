@@ -23,8 +23,8 @@ import java.util.function.Function;
  * <pre>{@code
  * {
  *   "values": {
- *     "#minecraft:undead": { "lp_per_damage": 30 },
- *     "#c:bosses": { "lp_per_damage": 500, "max_lp_per_hit": 2500 }
+ *     "#minecraft:undead": { "ev_per_damage": 30 },
+ *     "#c:bosses": { "ev_per_damage": 500, "max_lp_per_hit": 2500 }
  *   }
  * }
  * }</pre>

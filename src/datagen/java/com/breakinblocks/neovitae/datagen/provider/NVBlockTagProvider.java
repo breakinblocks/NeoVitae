@@ -47,7 +47,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
 
         this.tag(NVTags.Blocks.PILLARS); // means all solid blocks are viable, has to be added otherwise the tag isnt generated
 
-        this.tag(NVTags.Blocks.SOUL_NETWORK_COMPARATOR)
+        this.tag(NVTags.Blocks.ANIMA_COMPARATOR)
                 .addAll(BlockGroups.BLOODSTONE);
 
         this.tag(NVTags.Blocks.PULSE_ON_CRAFTING)

@@ -116,7 +116,7 @@ public class RitualZephyr extends Ritual {
         }
 
         if (entitiesMoved > 0) {
-            int cost = Math.min(getRefreshCost() + (entitiesMoved / 10), ctx.currentEssence());
+            int cost = Math.min(getRefreshCost() + (entitiesMoved / 10), ctx.currentEV());
             ctx.syphon(cost);
         }
     }

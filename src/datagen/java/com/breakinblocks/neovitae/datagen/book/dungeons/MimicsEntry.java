@@ -20,13 +20,18 @@ public class MimicsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ethereal Mimics");
-        this.pageText("[#](8B0000)Ethereal Mimics[#]() are a block that can easily take on the appearance of any other, while "
-                + "being completely intangible. These can make them quite handy for concealing pitfall traps and secret "
-                + "entrances. Keep your eye out and you may find these in the [#](8B0000)Endless Realm[#]().");
+        this.pageText("[#](8B0000)Ethereal Mimics[#]() are blocks of a curious [#](4A0080)liminal[#]() nature. "
+                + "They adopt the appearance of any block presented to them, yet remain completely "
+                + "intangible, as though they exist only partially in our reality. This makes them "
+                + "ideal for concealing pitfall traps, hidden passages, and secret chambers.\\\n\\\n"
+                + "You may encounter them within the [#](8B0000)Endless Realm[#](), where they were "
+                + "clearly put to devious use.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Simply right-click the placed mimic with any other block to encourage it to take on its form. View this recipe in JEI.");
+        this.pageText("[#](2E8B57)Right-click a placed Ethereal Mimic with any block to assign it that "
+                + "block's appearance. It will look solid to the eye but offer no resistance to passage.[#]()\\\n\\\n"
+                + "Consult JEI for the crafting recipe.");
     }
 
     @Override
@@ -36,7 +41,7 @@ public class MimicsEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Shape-shifting intangible blocks.";
+        return "Phantom blocks that wear the faces of others.";
     }
 
     @Override

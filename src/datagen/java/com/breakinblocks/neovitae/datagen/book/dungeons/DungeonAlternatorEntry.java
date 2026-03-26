@@ -18,8 +18,12 @@ public class DungeonAlternatorEntry extends EntryProvider {
     protected void generatePages() {
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The [#](8B0000)Dungeon Alternator[#]() emits a constantly changing redstone signal, alternating between "
-                + "powered and unpowered at set intervals, similar to a [#](8B0000)Redstone Clock[#](). View this recipe in JEI.");
+        this.pageText("The [#](8B0000)Dungeon Alternator[#]() pulses with a ceaseless rhythm, emitting a "
+                + "redstone signal that oscillates between powered and dormant states at fixed intervals. "
+                + "It is the heartbeat of the realm's trap mechanisms, a [#](4A0080)demonic clockwork[#]() "
+                + "device of elegant simplicity.\\\n\\\n"
+                + "[#](2E8B57)These can be repurposed as compact redstone clocks in your own constructions. "
+                + "Consult JEI for the crafting recipe.[#]()");
     }
 
     @Override
@@ -29,7 +33,7 @@ public class DungeonAlternatorEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A redstone clock block found in dungeons.";
+        return "A tireless redstone pulse, born of demonic clockwork.";
     }
 
     @Override

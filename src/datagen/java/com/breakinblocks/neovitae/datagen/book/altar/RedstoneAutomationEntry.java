@@ -20,50 +20,49 @@ public class RedstoneAutomationEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Redstone and Automation");
-        this.pageText("The [#](8B0000)Ara Vitae[#]() is a fantastic tool, but standing around and waiting for slates to "
-                + "craft is not your idea of a good time. Luckily, items and [#](8B0000)LP[#]() can be automatically piped "
-                + "in and out of the altar, albeit with a few caveats.\\\n\\\nWhile a simple [#](8B0000)Hopper[#]() lets you "
-                + "pipe items in, the Altar won't stop it from inputting more than 1 at a time. It will happily "
-                + "craft 64 slates in one");
+        this.pageText("The [#](8B0000)Ara Vitae[#]() is a marvel, but even a devoted Vitaemancer tires of standing "
+                + "vigil over every slate. Fortunately, the altar accepts mechanical servants -- items and "
+                + "[#](4A0080)Essentia Vitae[#]() can be piped in and out, though the altar's hunger has its own "
+                + "peculiarities.\\\n\\\nA simple [#](8B0000)Hopper[#]() feeds items into the basin, but it knows no restraint. "
+                + "It will happily deposit an entire stack, and the altar will");
 
         this.page("stacking", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("go, consuming 64 times as much [#](8B0000)LP[#]() as usual to do so - but if you can't supply said "
-                + "[#](8B0000)LP[#]() fast enough, you're going to run into trouble.\\\n\\\nAdditionally, the altar makes no "
-                + "distinction between input and output, so without some sort of filter, items will be pulled in "
-                + "and out as fast as your item transfer system can handle. Perhaps a look at the [#](8B0000)Routing Nodes[#]() "
-                + "will be helpful...");
+        this.pageText("attempt to transmute all of them at once -- consuming [#](8B0000)Essentia Vitae[#]() for every item in "
+                + "the stack. If you cannot supply that much [#](4A0080)Essentia Vitae[#]() quickly enough, the working "
+                + "will stall and progress will bleed away.\\\n\\\nThe altar also makes no distinction between input "
+                + "and output. Without a filter, items will cycle in and out as fast as your transfer system allows. "
+                + "The [#](8B0000)Routing Nodes[#]() may serve you well here.");
 
         this.page("fluid_transfer", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The altar also supports the transfer of [#](8B0000)Life Essence[#](), both to and from an external "
-                + "tank. Simply hook up your fluid pipe of choice and you can store excess [#](8B0000)Life Essence[#]() for "
-                + "later crafts.\\\n\\\nNote that the transfer speed is very slow by default. If you want to speed it "
-                + "up, you'd best look into [#](8B0000)Acceleration Runes[#]() and [#](8B0000)Displacement Runes[#]().");
+        this.pageText("The altar also permits the transfer of [#](4A0080)Essentia Vitae[#]() to and from external tanks. "
+                + "Connect your fluid conduit of choice and you can stockpile excess essence for later workings."
+                + "\\\n\\\n[#](2E8B57)The flow is sluggish by default. Acceleration Runes quicken the altar's pulse, "
+                + "while Displacement Runes widen the channel through which essence flows.[#]()");
 
         this.page("internal_tank", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Don't forget that this [#](8B0000)Life Essence[#]() isn't taken directly from the altar itself, but "
-                + "rather from a second, secret internal tank. This tank can hold [#](8B0000)up to 10%%[#]() of the [#](8B0000)Life "
-                + "Essence[#]() that the altar itself can, so if the numbers don't appear to be adding up exactly "
-                + "right, or if [#](8B0000)Life Essence[#]() appears to be vanishing from your altar, this is probably where "
-                + "it's going. The same limitations apply to [#](8B0000)Life Essence[#]() being piped in.");
+        this.pageText("Remember: the [#](4A0080)Essentia Vitae[#]() piped in or out does not come directly from the "
+                + "altar's main basin. A hidden secondary reservoir -- holding [#](8B0000)up to 10%%[#]() of the altar's "
+                + "total capacity -- acts as the intermediary. If essence seems to vanish from the basin without "
+                + "explanation, or the numbers never quite add up, this phantom vessel is the culprit.");
 
         this.page("comparator", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The amount of [#](8B0000)Life Essence[#]() in the [#](8B0000)Ara Vitae[#]() can be read via a comparator on "
-                + "the side, similarly to a vanilla chest.\\\n\\\nIf you place a [#](8B0000)Bloodstone Brick[#]() underneath the "
-                + "altar, the comparator will instead read the value of the [#](8B0000)Soul Network[#]() of the owner of any "
-                + "orb that is placed into the Altar.\\\n\\\nThe signal strength depends on the size of the orb in "
-                + "the altar, not the maximum [#](8B0000)LP[#]() of the network.");
+        this.pageText("A comparator placed beside the [#](8B0000)Ara Vitae[#]() reads the level of "
+                + "[#](4A0080)Essentia Vitae[#]() within, much like a chest.\\\n\\\nPlace a [#](8B0000)Bloodstone Brick[#]() "
+                + "beneath the altar, and the comparator instead reads the [#](4A0080)Anima[#]() of whoever owns the "
+                + "orb resting inside. The signal strength scales to the orb's tier, not the maximum capacity "
+                + "of the network.");
 
         this.page("comparator_examples", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("For example, if you have [#](8B0000)500,000 LP[#](), a Weak Blood Orb would show as completely full, "
-                + "but a Master Blood Orb would show as only half full. This can be used to, for example, "
-                + "deactivate certain rituals when you are running low on [#](8B0000)LP[#](), to ensure you don't run out."
-                + "\\\n\\\nLastly, placing a [#](8B0000)Redstone Lamp[#]() underneath the altar will make it output a redstone "
-                + "signal upon finishing a crafting operation.");
+        this.pageText("For example, [#](8B0000)500,000 EV[#]() would register as overflowing through a Weak "
+                + "Blood Orb, but only half-strength through a Master Blood Orb. Clever use of this lets you "
+                + "shut down costly rituals before your [#](4A0080)Anima[#]() runs dry.\\\n\\\n"
+                + "[#](2E8B57)Place a Redstone Lamp beneath the altar and it will emit a redstone pulse the instant "
+                + "a transmutation completes -- useful for chained automation.[#]()");
     }
 
     @Override
@@ -73,7 +72,7 @@ public class RedstoneAutomationEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Automating the Ara Vitae with hoppers, pipes, and comparators.";
+        return "Mechanical servants for the Ara Vitae -- hoppers, pipes, and comparators.";
     }
 
     @Override

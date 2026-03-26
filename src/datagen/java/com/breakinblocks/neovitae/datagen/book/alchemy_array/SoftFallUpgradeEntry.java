@@ -20,8 +20,10 @@ public class SoftFallUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Soft Fall");
-        this.pageText("Effect: Reduces fall damage, up to complete immunity.\\\n\\\n"
-                + "Trained by: Getting hurt from falls.\\\n\\\nMaximum level: 5");
+        this.pageText("The armour absorbs the shock of descent, cushioning your landing with increasing "
+                + "skill. At its peak, fall damage is negated entirely.\\\n\\\n"
+                + "[#](B8860B)Trained by[#](): Suffering fall damage.\\\n\\\n"
+                + "[#](B8860B)Maximum level[#](): 5");
     }
 
     @Override
@@ -31,7 +33,7 @@ public class SoftFallUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Fall damage reduction from falling.";
+        return "The armour learns to absorb impact -- the ground softens beneath you.";
     }
 
     @Override

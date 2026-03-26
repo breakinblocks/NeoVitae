@@ -23,9 +23,10 @@ public class AccelerationRuneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Acceleration Rune");
-        this.pageText("The [#](8B0000)Acceleration Rune[#]() increases the rate of a couple operations. While normally "
-                + "the operations of the [#](8B0000)Charging Rune[#]() and [#](8B0000)Displacement Rune[#]() occur every 20 ticks, "
-                + "one tick of the delay is removed per rune, down to a minimum of 1 operation per tick.");
+        this.pageText("The [#](8B0000)Acceleration Rune[#]() collapses time around certain altar operations. "
+                + "The [#](8B0000)Charging Rune[#]() and [#](8B0000)Displacement Rune[#]() normally pulse once every 20 ticks; "
+                + "each Acceleration Rune shaves one tick from that delay, down to a minimum of a single tick "
+                + "between pulses. The altar's secondary rhythms become a frantic heartbeat.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_acceleration")));
@@ -39,7 +40,7 @@ public class AccelerationRuneEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Reduces the tick delay for Charging and Displacement Rune operations.";
+        return "Collapses the interval between Charging and Displacement pulses.";
     }
 
     @Override

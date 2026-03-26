@@ -24,7 +24,7 @@ public class RitualFellingEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/felling"))
                 .withMultiblockName("Crash of the Timberman")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("felling")));
@@ -32,8 +32,8 @@ public class RitualFellingEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual chops down trees within its area of effect, breaking logs and leaves. Drops are placed into a nearby chest if one is available.");
+        this.pageTitle("The Silent Axe");
+        this.pageText("An invisible lumberjack stalks the ritual's domain, felling every tree it finds — logs shatter, leaves scatter, and the timber is gathered into a nearby chest if one is available. Pair this with a grove ritual and saplings for an endless supply of wood.");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RitualFellingEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Automatically fells trees.";
+        return "An unseen force that fells every tree in its domain.";
     }
 
     @Override

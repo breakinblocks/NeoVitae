@@ -19,40 +19,43 @@ public class ArcaneAshEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Alchemy Array Basics");
-        this.pageText("[#](8B0000)Arcane Ashes[#]() are an item that is pivotal in the creation of Alchemy Arrays. "
-                + "[#](8B0000)Arcane Ashes[#]() can be crafted in the [#](8B0000)Tabula Vitae[#]() using some early game items.");
+        this.pageTitle("The Alchemy Array");
+        this.pageText("Before sigils, before rituals, before the great workings of [#](4A0080)Vitaemancy[#]() "
+                + "were ever conceived, there was the [#](8B0000)Alchemy Array[#](). Drawn in [#](8B0000)Arcane Ashes[#]() "
+                + "upon bare stone or earth, the array is the most fundamental expression of the art "
+                + "-- a circle of intent, waiting to be given purpose.");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("In order to create an Alchemy Array, press [Use] while looking at a block with the "
-                + "[#](8B0000)Arcane Ashes[#]() in hand. This will consume 1 durability out of 20 from the [#](8B0000)Arcane Ashes[#]() "
-                + "and draw a simple [#](8B0000)Alchemy Array[#](), that by itself has no effects.\\\n\\\n"
-                + "When you click on the [#](8B0000)Alchemy Array[#](), it will consume a single [#](8B0000)item[#]() from the stack "
-                + "in your hand and hold it in the array. These items are then used to determine the "
-                + "[#](8B0000)Alchemy Array[#]()'s effect.");
+        this.pageText("To inscribe an array, hold [#](8B0000)Arcane Ashes[#]() and press [Use] upon a solid surface. "
+                + "Each inscription consumes one charge from the ashes, which hold twenty uses before crumbling "
+                + "to dust.\\\n\\\n"
+                + "The empty array is inert. Click it with an item to place the [#](8B0000)base[#]() component. "
+                + "The design shifts if the base is recognized.");
 
         this.page("inputs", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Each effect requires two items: a [#](8B0000)base[#]() and a [#](8B0000)catalyst[#](). The [#](8B0000)base[#]() is the "
-                + "first item that you click the array with after it is drawn, and the [#](8B0000)catalyst[#]() is the "
-                + "second item. When you apply the base item, the design of the array will change if it is "
-                + "valid, and the array will activate once you apply the catalyst.");
+        this.pageText("A second item placed becomes the [#](8B0000)catalyst[#](). If both are valid, "
+                + "the array awakens and its working begins. Base and catalyst together define the array's "
+                + "effect -- a transmutation, an enchantment, a binding.\\\n\\\n"
+                + "[#](2E8B57)Watch the pattern carefully when you place the base. If the glyph changes form, "
+                + "you are on the right path.[#]()");
 
         this.page("arrays", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Although only a few arrays are currently implemented, eventually you will have arrays "
-                + "that range from simple [#](8B0000)crafting arrays[#]() to even teleportation arrays.");
+        this.pageText("The arrays catalogued in this chapter range from simple [#](8B0000)crafting arrays[#]() that reshape "
+                + "matter, to complex inscriptions that forge [#](4A0080)sigils[#](), bind [#](4A0080)living armour[#](), "
+                + "and even bend the passage of time. Master the fundamentals, and the rest shall follow.");
     }
 
     @Override
     protected String entryName() {
-        return "Alchemy Array Basics";
+        return "The Alchemy Array";
     }
 
     @Override
     protected String entryDescription() {
-        return "The fundamentals of creating and using Alchemy Arrays.";
+        return "The foundation of all vitaemantic craft -- circles drawn in ash, awaiting purpose.";
     }
 
     @Override

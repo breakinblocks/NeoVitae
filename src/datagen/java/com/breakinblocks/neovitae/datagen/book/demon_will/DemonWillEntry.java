@@ -23,18 +23,20 @@ public class DemonWillEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will");
-        this.pageText("Once you have a [#](8B0000)Ara Vitae[#](), you'll need to gather a few [#](8B0000)Demon Wills[#](). "
-                + "There are two ways to get Demon Will:\n"
-                + "- Killing a mob that has been hit with a [#](8B0000)Soul Snare[#]() and is killed when white particle effects appear.\n"
-                + "- By killing a hostile mob with a [#](8B0000)Sentient Sword[#]().\\\n\\\n"
-                + "Since you are just beginning to use the mod, you will not yet have a [#](8B0000)Sentient Sword[#](),");
+        this.pageText("Every creature that walks, crawls, or slithers through the dark carries within it a shard of "
+                + "[#](4A0080)demonic intent[#]() -- a residue left when entities of the lower planes imbue their malice "
+                + "into mortal flesh. This essence is known as [#](8B0000)Demon Will[#](), and it is yours to harvest.\\\n\\\n"
+                + "There are two methods of extraction:\n\n"
+                + "- Strike a hostile creature with a [#](8B0000)Soul Snare[#](), then slay it while spectral motes still cling to its form.\n\n"
+                + "- Fell it outright with a [#](8B0000)Sentient Sword[#]().");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("and thus will need to use a [#](8B0000)Soul Snare[#]().\\\n\\\n"
-                + "[#](8B0000)Demon Will[#]() is a recurring resource in Neo Vitae, and is used to power the [#](8B0000)Hellfire Forge[#]().\\\n\\\n"
-                + "In the lore of Neo Vitae, Demon Will is the residual effect of when a demon imbues its will "
-                + "into the bodies of the dead or other monsters.");
+        this.pageText("As a fledgling Vitaemancer, you will not yet possess a [#](8B0000)Sentient Sword[#](), so the "
+                + "[#](8B0000)Soul Snare[#]() shall serve as your first instrument of collection.\\\n\\\n"
+                + "[#](8B0000)Demon Will[#]() is a cornerstone of [#](4A0080)Vitaemancy[#](), fueling the [#](8B0000)Hellfire Forge[#]() "
+                + "and the creation of ever more potent artifacts. Where [#](4A0080)Essentia Vitae[#]() is the currency "
+                + "of the blood, [#](4A0080)Demon Will[#]() is the currency of the soul.");
 
         this.page("image", () -> BookImagePageModel.create()
                 .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/demon_will/demon_will.png"))
@@ -43,8 +45,9 @@ public class DemonWillEntry extends EntryProvider {
 
         this.page("next_steps", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Once you have some Will, you can use it to craft useful tools in the [#](8B0000)Hellfire Forge[#](). "
-                + "If you find them cluttering up your inventory, perhaps a [#](8B0000)Tartaric Gem[#]() may help.");
+        this.pageText("Once you have gathered some Will, the [#](8B0000)Hellfire Forge[#]() awaits -- eager to transmute "
+                + "this raw malice into instruments of power. Should loose fragments begin to clutter your person, "
+                + "a [#](8B0000)Tartaric Gem[#]() will serve as a most convenient receptacle.");
     }
 
     @Override
@@ -54,7 +57,7 @@ public class DemonWillEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The demonic essence harvested from slain monsters.";
+        return "The malevolent essence bound within all mortal creatures.";
     }
 
     @Override

@@ -20,8 +20,11 @@ public class ToughPalmsUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tough Palms");
-        this.pageText("Effect: Grants a bonus to Self Sacrifice, up to an additional 150%%.\\\n\\\n"
-                + "Trained by: Sacrificing Blood with the Sacrificial Knife.\\\n\\\nMaximum level: 10");
+        this.pageText("The armour toughens your hands against the bite of the sacrificial blade, yielding "
+                + "more [#](4A0080)Essentia Vitae[#]() from each offering. Grants up to 150%% bonus to "
+                + "self-sacrifice.\\\n\\\n"
+                + "[#](B8860B)Trained by[#](): Offering blood with the [#](8B0000)Lamina Maleficus[#]().\\\n\\\n"
+                + "[#](B8860B)Maximum level[#](): 10");
     }
 
     @Override
@@ -31,7 +34,7 @@ public class ToughPalmsUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Self sacrifice bonus from using the Sacrificial Knife.";
+        return "Calloused hands yield more Essentia Vitae with each sacrifice.";
     }
 
     @Override

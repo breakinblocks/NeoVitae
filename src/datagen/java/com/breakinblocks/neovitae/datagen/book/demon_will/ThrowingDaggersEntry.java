@@ -21,56 +21,50 @@ public class ThrowingDaggersEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Throwing Daggers");
-        this.pageText("[#](8B0000)Bows[#]() and [#](8B0000)Crossbows[#]() are fine enough in their way, but sifting through [#](8B0000)Gravel[#]() "
-                + "for [#](8B0000)Flint[#]() and plucking chickens for their [#](8B0000)Feathers[#]() is, frankly, beneath you. These "
-                + "shiny (and extremely sharp) [#](8B0000)Throwing Daggers[#]() also have some quite devious effects, if you "
-                + "do say so yourself.");
+        this.pageText("Bows and crossbows serve their purpose well enough, but sifting through gravel for flint "
+                + "and plucking chickens for feathers is, frankly, beneath a Vitaemancer of your caliber. "
+                + "These razor-edged [#](8B0000)Throwing Daggers[#]() require no ammunition and carry some rather "
+                + "devious secondary effects.");
 
         this.page("iron_dagger", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Iron Throwing Dagger");
-        this.pageText("Craft the Iron Throwing Dagger in the Hellfire Forge.\\\n\\\n"
-                + "The [#](8B0000)Iron Throwing Dagger[#]() is a fast-hitting attack, dealing 10 damage with a decent "
-                + "cooldown. Not only that, but if you have some [#](8B0000)Demon Will[#]() on you (be it in its raw form, "
-                + "or stored within a [#](8B0000)Tartaric Gem[#]()), it will drop Will as a [#](8B0000)Sentient Sword[#]() would.");
+        this.pageText("A swift, precise strike dealing [#](B8860B)10 damage[#]() with a moderate cooldown. If you "
+                + "carry [#](8B0000)Demon Will[#]() -- loose or within a [#](8B0000)Tartaric Gem[#]() -- slain creatures drop Will "
+                + "as though felled by a [#](8B0000)Sentient Sword[#]().");
 
         this.page("syringe_dagger", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Syringe Throwing Dagger");
-        this.pageText("Craft the Syringe Throwing Dagger in the Hellfire Forge.\\\n\\\n"
-                + "The [#](8B0000)Syringe Throwing Dagger[#]() is for the Sanguimancer more interested in the acquisition "
-                + "of [#](8B0000)Life Essence[#]() than Will. While it deals slightly less damage, it is noticeably cheaper, "
-                + "and enemies killed by this weapon have a chance of dropping a [#](8B0000)Slate Ampoule[#]() - or more, "
-                + "if they're hearty enough.");
+        this.pageText("For the practitioner more interested in [#](4A0080)Essentia Vitae[#]() than Will. Slightly less "
+                + "damaging and noticeably cheaper to forge, creatures slain by this weapon have a chance of "
+                + "yielding a [#](8B0000)Slate Ampoule[#]() -- or more, if the quarry is sufficiently hearty.");
 
         this.page("slate_ampoule", () -> BookSpotlightPageModel.create()
                 .withItem(NVItems.SLATE_AMPOULE.get())
                 .withTitle("Slate Ampoule")
                 .withText(this.context().pageText()));
-        this.pageText("These delightful little vials can be crushed when near a [#](8B0000)Ara Vitae[#]() in order to "
-                + "transfer [#](8B0000)500 LP[#]() into it, destroying the [#](8B0000)Ampoule[#]() in the process. These gains are "
-                + "unaffected by any [#](8B0000)Runes[#]() you may have.");
+        this.pageText("Crush these delicate vials near an [#](8B0000)Ara Vitae[#]() to transfer [#](B8860B)500 EV[#]() "
+                + "directly into the altar, destroying the ampoule in the process. "
+                + "[#](2E8B57)This infusion is unaffected by Runes.[#]()");
 
         this.page("amethyst_dagger", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Amethyst Throwing Dagger");
-        this.pageText("Craft the Amethyst Throwing Dagger in the Hellfire Forge.\\\n\\\n"
-                + "The [#](8B0000)Amethyst Throwing Dagger[#]() does as much damage as an [#](8B0000)Iron Throwing Dagger[#](), but "
-                + "mobs do not drop Will when killed. Instead, eight of them can be crafted with a [#](8B0000)Lingering "
-                + "Alchemy Flask[#](8B0000) in the [#]()Athanor[#](8B0000) to create [#]()Tipped Amethyst Throwing "
-                + "Daggers[#]().");
+        this.pageText("Matches the Iron dagger in damage but yields no Will from kills. Its true purpose lies "
+                + "elsewhere: eight Amethyst daggers combined with a [#](8B0000)Lingering Alchemy Flask[#]() in the "
+                + "[#](8B0000)Athanor[#]() produce [#](8B0000)Tipped Amethyst Throwing Daggers[#]().");
 
         this.page("tipped_dagger", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tipped Throwing Dagger");
-        this.pageText("Craft Tipped Throwing Daggers in the Athanor.\\\n\\\n"
-                + "These will transmit their effect to any mob they hit, the same as if they'd walked into the "
-                + "cloud left by a [#](8B0000)Lingering Alchemy Flask[#](). Experiment with combined effects to find the "
-                + "most debilitating, diabolical daggers you can make!");
+        this.pageText("Each strike delivers the flask's effect to the target, as though it had walked through "
+                + "a lingering cloud. Experiment with combined alchemical effects to craft the most debilitating "
+                + "projectiles your ingenuity allows.");
     }
 
     @Override
@@ -80,7 +74,7 @@ public class ThrowingDaggersEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Ranged weapons with unique Will-harvesting and potion effects.";
+        return "Razor-edged projectiles that harvest Will, Essence, or deliver alchemical ruin.";
     }
 
     @Override

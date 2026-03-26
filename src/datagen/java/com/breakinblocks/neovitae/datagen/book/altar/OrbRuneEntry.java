@@ -22,9 +22,11 @@ public class OrbRuneEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Rune of The Orb");
-        this.pageText("The [#](8B0000)Rune of The Orb[#]() increases the capacity of the [#](8B0000)Blood Orb[#]() that is inside "
-                + "of the Altar by +2%% additively per rune while it is inside of the Altar.");
+        this.pageTitle("Rune of the Orb");
+        this.pageText("The [#](8B0000)Rune of the Orb[#]() resonates with the [#](8B0000)Blood Orb[#]() resting within the "
+                + "altar, stretching the boundaries of your [#](4A0080)Anima[#](). While the orb sits in the basin, "
+                + "each rune increases its capacity by [#](8B0000)+2%%[#]() additively. The orb must remain within "
+                + "the altar to benefit -- remove it, and the expansion fades.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_orb")));
@@ -33,12 +35,12 @@ public class OrbRuneEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Rune of The Orb";
+        return "Rune of the Orb";
     }
 
     @Override
     protected String entryDescription() {
-        return "Increases the capacity of Blood Orbs while in the Altar.";
+        return "Stretches the Blood Orb's capacity while it rests in the altar.";
     }
 
     @Override

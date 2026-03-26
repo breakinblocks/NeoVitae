@@ -17,7 +17,7 @@ import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.dataattachment.DungeonExitData;
 import com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper;
 import com.breakinblocks.neovitae.ritual.*;
-import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
+import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public abstract class DungeonRitualBase extends Ritual {
         }
 
         spawnLightningEffect(world, masterPos);
-        SoulNetworkHelper.incrementDungeonCounter();
+        AnimaHelper.incrementDungeonCounter();
         world.setBlockAndUpdate(masterPos, Blocks.AIR.defaultBlockState());
     }
 

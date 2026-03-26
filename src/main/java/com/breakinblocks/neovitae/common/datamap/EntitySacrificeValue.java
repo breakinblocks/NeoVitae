@@ -24,10 +24,10 @@ import java.util.Optional;
  * // data/neovitae/data_maps/entity_type/entity_sacrifice_value.json
  * {
  *   "values": {
- *     "minecraft:zombie": { "lp_per_damage": 30 },
- *     "minecraft:wither": { "lp_per_damage": 500, "max_lp_per_hit": 2500 },
- *     "#minecraft:undead": { "lp_per_damage": 25 },
- *     "#c:bosses": { "lp_per_damage": 1000 }
+ *     "minecraft:zombie": { "ev_per_damage": 30 },
+ *     "minecraft:wither": { "ev_per_damage": 500, "max_lp_per_hit": 2500 },
+ *     "#minecraft:undead": { "ev_per_damage": 25 },
+ *     "#c:bosses": { "ev_per_damage": 1000 }
  *   }
  * }
  * }</pre>
@@ -36,12 +36,12 @@ import java.util.Optional;
  * <p>Entity tags are automatically supported by NeoForge datamaps. Use the
  * {@code #tag_name} syntax in the JSON to apply values to all entities in a tag.</p>
  *
- * @param lpPerDamage LP generated per point of damage dealt to this entity
- * @param maxLpPerHit Optional cap on LP generated per hit (for balancing boss mobs)
+ * @param evPerDamage LP generated per point of damage dealt to this entity
+ * @param maxEvPerHit Optional cap on LP generated per hit (for balancing boss mobs)
  */
 public record EntitySacrificeValue(
-        int lpPerDamage,
-        Optional<Integer> maxLpPerHit
+        int evPerDamage,
+        Optional<Integer> maxEvPerHit
 ) {
     /**
      * Default LP per damage for entities without a specific value.
@@ -54,39 +54,39 @@ public record EntitySacrificeValue(
     public static final EntitySacrificeValue DEFAULT = new EntitySacrificeValue(DEFAULT_LP_PER_DAMAGE, Optional.empty());
 
     public static final Codec<EntitySacrificeValue> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.INT.fieldOf("lp_per_damage").forGetter(EntitySacrificeValue::lpPerDamage),
-            Codec.INT.optionalFieldOf("max_lp_per_hit").forGetter(EntitySacrificeValue::maxLpPerHit)
+            Codec.INT.fieldOf("ev_per_damage").forGetter(EntitySacrificeValue::evPerDamage),
+            Codec.INT.optionalFieldOf("max_lp_per_hit").forGetter(EntitySacrificeValue::maxEvPerHit)
     ).apply(instance, EntitySacrificeValue::new));
 
     /**
      * Creates a simple sacrifice value with just LP per damage.
      */
-    public static EntitySacrificeValue of(int lpPerDamage) {
-        return new EntitySacrificeValue(lpPerDamage, Optional.empty());
+    public static EntitySacrificeValue of(int evPerDamage) {
+        return new EntitySacrificeValue(evPerDamage, Optional.empty());
     }
 
     /**
      * Creates a sacrifice value with LP per damage and a max cap.
      */
-    public static EntitySacrificeValue withCap(int lpPerDamage, int maxLpPerHit) {
-        return new EntitySacrificeValue(lpPerDamage, Optional.of(maxLpPerHit));
+    public static EntitySacrificeValue withCap(int evPerDamage, int maxEvPerHit) {
+        return new EntitySacrificeValue(evPerDamage, Optional.of(maxEvPerHit));
     }
 
     /**
      * Calculates the LP generated for a given amount of damage.
      *
      * @param damage The damage dealt to the entity
-     * @return The LP generated, capped by maxLpPerHit if present
+     * @return The LP generated, capped by maxEvPerHit if present
      */
     public int calculateLP(float damage) {
-        int baseLP = (int) (lpPerDamage * damage);
-        return maxLpPerHit.map(cap -> Math.min(baseLP, cap)).orElse(baseLP);
+        int baseEV = (int) (evPerDamage * damage);
+        return maxEvPerHit.map(cap -> Math.min(baseEV, cap)).orElse(baseEV);
     }
 
     /**
      * Gets the max LP per hit, or Integer.MAX_VALUE if uncapped.
      */
     public int getMaxLpPerHit() {
-        return maxLpPerHit.orElse(Integer.MAX_VALUE);
+        return maxEvPerHit.orElse(Integer.MAX_VALUE);
     }
 }

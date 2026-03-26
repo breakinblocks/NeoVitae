@@ -23,9 +23,10 @@ public class SacrificeRuneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Rune of Sacrifice");
-        this.pageText("The [#](8B0000)Rune of Sacrifice[#]() increases the amount of [#](8B0000)Life Essence[#]() gained in the Blood "
-                + "Altar through means that take health from non-player entities. Each rune gives a bonus of "
-                + "+10%% additively per rune.");
+        this.pageText("The [#](8B0000)Rune of Sacrifice[#]() deepens the altar's thirst for the blood of others. "
+                + "When a creature is slain upon the [#](8B0000)Ara Vitae[#]() -- by the [#](8B0000)Lamina Exhauriens[#]() or "
+                + "similar means -- each rune amplifies the [#](4A0080)Essentia Vitae[#]() harvested by [#](8B0000)+10%%[#](), "
+                + "stacking additively. The altar remembers every offering.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_sacrifice")));
@@ -39,7 +40,7 @@ public class SacrificeRuneEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increases LP gained from sacrificing non-player entities.";
+        return "Amplifies the Essentia Vitae harvested from sacrificed creatures.";
     }
 
     @Override

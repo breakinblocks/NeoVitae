@@ -26,7 +26,8 @@ public class StrengthFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Strength");
-        this.pageText("[#](8B0000)Strength[#]() increases the target's attack damage by 3 points per level.");
+        this.pageText("The [#](8B0000)Strength[#]() elixir floods the muscles with [#](4A0080)Essentia Vitae[#](), adding 3 points "
+                + "of attack damage per level. What was once an even fight becomes decidedly one-sided.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/strength")
@@ -45,7 +46,7 @@ public class StrengthFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increases attack damage.";
+        return "Surges the body with unnatural might.";
     }
 
     @Override

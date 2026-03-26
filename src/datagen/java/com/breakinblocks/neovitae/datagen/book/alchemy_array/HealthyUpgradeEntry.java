@@ -20,9 +20,11 @@ public class HealthyUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Healthy");
-        this.pageText("Effect: Grants additional health, up to 50 half-hearts.\\\n\\\n"
-                + "Trained by: Restoring health (ordinary healing, or via [#](8B0000)Potions of Healing[#]() "
-                + "or [#](8B0000)Potions of Regeneration[#]()).\\\n\\\nMaximum level: 10");
+        this.pageText("The armour learns from each wound mended and expands your vitality in turn. Grants "
+                + "additional health up to 50 half-hearts.\\\n\\\n"
+                + "[#](B8860B)Trained by[#](): Restoring health through any means -- natural regeneration, "
+                + "potions, or vitaemantic healing.\\\n\\\n"
+                + "[#](B8860B)Maximum level[#](): 10");
     }
 
     @Override
@@ -32,7 +34,7 @@ public class HealthyUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Additional health from healing.";
+        return "Every wound healed teaches the armour to strengthen your life force.";
     }
 
     @Override

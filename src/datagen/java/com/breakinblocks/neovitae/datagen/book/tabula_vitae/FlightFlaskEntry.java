@@ -26,11 +26,11 @@ public class FlightFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Flight");
-        this.pageText("[#](8B0000)Flight[#]() gives the target a temporary dose of creative-style Flight. Higher levels "
-                + "increase flight speed.\\\n\\\n"
-                + "To create it, first brew a flask with both [#](8B0000)Suspended[#]() and [#](8B0000)Levitation[#]() effects "
-                + "(apply each effect separately to the same flask). Then combine with a "
-                + "[#](8B0000)Combinational Catalyst[#]() in the Tabula Vitae.");
+        this.pageText("The [#](8B0000)Flight[#]() elixir is the crowning achievement of [#](4A0080)gravitational alchemy[#]() -- "
+                + "true, unfettered flight, as free as the wind itself. Higher levels grant greater speed "
+                + "through the air.\\\n\\\n"
+                + "To synthesize it, brew both [#](8B0000)Suspended[#]() and [#](8B0000)Levitation[#]() into a single flask, "
+                + "then fuse them with a [#](8B0000)Combinational Catalyst[#]() at the Tabula Vitae.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/suspended_to_flight")
@@ -49,7 +49,7 @@ public class FlightFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Creative-style flight from a flask.";
+        return "The pinnacle of gravitational alchemy -- true flight.";
     }
 
     @Override

@@ -24,7 +24,7 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/feathered_knife"))
                 .withMultiblockName("Ritual of the Feathered Knife")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("feathered_knife")));
@@ -32,18 +32,18 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual drains health from nearby players and converts it into [#](8B0000)LP[#]() deposited into a nearby [#](8B0000)Ara Vitae[#](). The efficiency is affected by [#](8B0000)Runes of Self Sacrifice[#]() and the [#](8B0000)Tough Palms[#]() Living Armor upgrade.");
+        this.pageTitle("The Willing Sacrifice");
+        this.pageText("Where the Well of Suffering takes from unwilling victims, this ritual draws from the practitioner's own vitality — a more honorable, if painful, path. It drains health from nearby blood mages and converts it into [#](8B0000)Essentia Vitae[#](), depositing the [#](4A0080)Essentia Vitae[#]() into a nearby [#](8B0000)Ara Vitae[#](). Efficiency improves with [#](8B0000)Runes of Self Sacrifice[#]() and the [#](8B0000)Tough Palms[#]() upgrade.");
 
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Effects");
-        this.pageText("- [#](8B0000)Raw Will[#](): Increases the LP gained per health point."
-                + "\n\n- [#](8B0000)Corrosive Will[#](): Applies the [#](8B0000)Incense Bonus[#]() from a nearby [#](8B0000)Incense Altar[#]()."
-                + "\n\n- [#](8B0000)Vengeful Will[#](): When combined with [#](8B0000)Steadfast[#]() will, increases drain rate."
-                + "\n\n- [#](8B0000)Destructive Will[#](): Increases the maximum health that can be drained per tick."
-                + "\n\n- [#](8B0000)Steadfast Will[#](): Prevents the ritual from killing the player.");
+        this.pageTitle("Demon Will Resonance");
+        this.pageText("- [#](8B0000)Raw Will[#](): Increases the [#](8B0000)Essentia Vitae[#]() gained per health sacrificed."
+                + "\n\n- [#](8B0000)Corrosive Will[#](): Channels the [#](8B0000)Incense Bonus[#]() from a nearby [#](8B0000)Incense Altar[#]()."
+                + "\n\n- [#](8B0000)Vengeful Will[#](): When paired with [#](8B0000)Steadfast[#](), increases the drain rate."
+                + "\n\n- [#](8B0000)Destructive Will[#](): Raises the maximum vitality drained per tick."
+                + "\n\n- [#](8B0000)Steadfast Will[#](): Prevents the ritual from draining you to death.");
     }
 
     @Override
@@ -53,7 +53,7 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Drains player health for LP.";
+        return "Converts the practitioner's own vitality into EV.";
     }
 
     @Override

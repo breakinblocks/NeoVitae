@@ -20,37 +20,39 @@ public class LobbyEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Antechamber");
-        this.pageText("Upon performing the Edge of the Hidden Realm ritual, you will find yourself looking at "
-                + "an [#](8B0000)Inversion Pillar[#](). Right click this pillar to be transported to the Antechamber, your "
-                + "first foray into the [#](8B0000)Demon Realm.[#]()\n"
-                + "There are a few things of note in this first room:\n"
-                + "- A single treasure chest containing some basic loot and, if you are lucky, a few [#](8B0000)Iron Keys[#]().");
+        this.pageText("When the [#](8B0000)Edge of the Hidden Realm[#]() ritual completes, you will find yourself "
+                + "standing before an [#](8B0000)Inversion Pillar[#](). Touch it, and you are drawn across the threshold "
+                + "into the [#](4A0080)Antechamber[#](), the outermost vestibule of the [#](4A0080)Demon Realm[#]().\\\n\\\n"
+                + "Take stock of your surroundings:\n\n"
+                + "- A solitary chest, sometimes containing [#](8B0000)Iron Keys[#]().");
 
         this.page("intro2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("- Secondly, a number of [#](8B0000)Doorways[#](), each locked with a [#](8B0000)Dungeon Seal.[#]() Use a [#](8B0000)Key[#]() "
-                + "on these seals to unlock the next room.\n"
-                + "- Thirdly, an [#](8B0000)Inversion Pillar[#](), a mirror of the one you summoned previously. Use this to "
-                + "return to your world.\\\n\\\n"
-                + "There's also a large number of decorative blocks here, should you feel your home base needs some pizazz.");
+        this.pageText("- Several [#](8B0000)Doorways[#](), each barred by a [#](8B0000)Dungeon Seal[#](). Present a key "
+                + "to a seal to unseal the chamber beyond.\n\n"
+                + "- A second [#](8B0000)Inversion Pillar[#](), mirroring the one that summoned you. This is your "
+                + "lifeline home.\\\n\\\n"
+                + "[#](2E8B57)The stonework here is unique to the Demon Realm. If its aesthetics appeal to you, "
+                + "help yourself.[#]()");
 
         this.page("rooms", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Any additional rooms you open from this antechamber will contain some combination of loot, "
-                + "monsters, traps and possibly some unactivated rituals. Keep your eyes peeled!\\\n\\\n"
-                + "A few examples of loot that you might find:\n"
-                + "- Enchanted Books\n"
-                + "- Enchanted Weapons and Armour\n"
-                + "- Various Anointments\n"
-                + "- Demon Will\n"
+        this.pageText("Each sealed chamber you open may contain treasure, hostile denizens, traps, or "
+                + "dormant rituals. Vigilance is the price of survival here.\\\n\\\n"
+                + "Among the spoils you may claim:\n\n"
+                + "- Enchanted Books\n\n"
+                + "- Enchanted Weapons and Armour\n\n"
+                + "- Various Anointments\n\n"
+                + "- Demon Will\n\n"
                 + "- Potion Ingredients");
 
         this.page("rooms2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("- Tau Fruit\n"
-                + "- Saturated Tau\n"
+        this.pageText("- Tau Fruit\n\n"
+                + "- Saturated Tau\n\n"
                 + "- Tau Oil\\\n\\\n"
-                + "So get hunting and keep an eye out for treasure and traps alike!");
+                + "[#](2E8B57)The Antechamber is merely a foretaste. Prove yourself here, and the deeper "
+                + "reaches of the realm will open to you in time.[#]()");
     }
 
     @Override
@@ -60,7 +62,7 @@ public class LobbyEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Your first foray into the Demon Realm.";
+        return "The threshold between worlds, where the Demon Realm first reveals itself.";
     }
 
     @Override

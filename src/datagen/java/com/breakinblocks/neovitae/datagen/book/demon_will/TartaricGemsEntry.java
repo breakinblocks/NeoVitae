@@ -20,68 +20,63 @@ public class TartaricGemsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tartaric Gems");
-        this.pageText("[#](8B0000)Demon Will[#]() is a very useful resource, but the fragments you have been getting so far "
-                + "are decidedly lacking in power. What you need is a storage item; A [#](8B0000)Tartaric Gem[#]() seems "
-                + "just the thing.\\\n\\\n"
-                + "What's more, it can absorb any leftover [#](8B0000)Demon Will[#]() you might have lying "
-                + "around. Just drop them onto the floor and your shiny new gem will absorb them.");
+        this.pageText("The fragments of [#](8B0000)Demon Will[#]() you have gathered thus far are potent, yet unwieldy. "
+                + "What you require is a vessel -- a crystalline prison to contain and compress that malice into "
+                + "something manageable. The [#](8B0000)Tartaric Gem[#]() is precisely such an artifact.\\\n\\\n"
+                + "Better still, the gem hungers. Drop loose Will upon the ground nearby, and the gem will "
+                + "devour it of its own accord.");
 
         this.page("petty", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Petty Tartaric Gem");
-        this.pageText("Craft the Petty Tartaric Gem in the Hellfire Forge.\\\n\\\n"
-                + "Your first gem will hold a maximum of 64 Will. Much more compact than before!\\\n\\\n"
-                + "If you ever want to transfer Will from one gem to another, simply right-click while holding "
-                + "the gem you want to empty, and it will transfer its will into the first valid gem it finds "
-                + "in your inventory.");
+        this.pageText("Your first vessel holds a modest [#](B8860B)64 Will[#]() -- crude, but far more practical than "
+                + "loose fragments rattling about your pack.\\\n\\\n"
+                + "[#](2E8B57)To transfer Will between gems, right-click while holding the gem you wish to empty. "
+                + "Its contents flow into the first valid gem in your inventory.[#]()");
 
         this.page("lesser_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Your [#](8B0000)Petty Tartaric Gem[#]() is a useful tool, but it's clearly lacking in power. By "
-                + "carefully working it with [#](8B0000)Diamond[#](), [#](8B0000)Lapis[#](), and [#](8B0000)Redstone[#](), you have found a way "
-                + "to quadruple its storage capabilities.");
+        this.pageText("Your [#](8B0000)Petty Tartaric Gem[#]() has served its purpose, but its capacity chafes against "
+                + "your ambitions. By working it with [#](8B0000)Diamond[#](), [#](8B0000)Lapis[#](), and [#](8B0000)Redstone[#]() within "
+                + "the Forge, you have discovered a method to quadruple its containment.");
 
         this.page("lesser", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Lesser Tartaric Gem");
-        this.pageText("Craft the Lesser Tartaric Gem in the Hellfire Forge.\\\n\\\n"
-                + "This reinforced gem can hold up to 256 Will.\\\n\\\n"
-                + "Note: You only need one gem when upgrading - the Hellfire Forge will draw Will from the "
-                + "gem it's crafting before trying to use will from the gem in its Gem Slot. Don't worry, "
-                + "the newly crafted gem will hold any leftover Will from the process.");
+        this.pageText("This reinforced gem holds up to [#](B8860B)256 Will[#]().\\\n\\\n"
+                + "[#](2E8B57)When upgrading, the Forge draws Will from the gem being crafted before tapping "
+                + "the gem in its Gem Slot. The newly forged gem retains any leftover Will from the "
+                + "process.[#]()");
 
         this.page("common_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Your [#](8B0000)Lesser Tartaric Gem[#]() is a noted improvement, but once more you chafe under its "
-                + "limitations. To progress further will involve focusing on your [#](8B0000)Ara Vitae[#](), as you "
-                + "require the powers of an [#](8B0000)Imbued Slate[#](). Combining this slate with your gem and further "
-                + "refining it with another [#](8B0000)Diamond[#]() and a [#](8B0000)Block of Gold[#](), you have found a way to once "
-                + "again quadruple its storage capabilities.");
+        this.pageText("Your [#](8B0000)Lesser Tartaric Gem[#]() is a noted improvement, yet once more you press against "
+                + "its limits. Further refinement demands an [#](8B0000)Imbued Slate[#]() from the [#](8B0000)Ara Vitae[#](), "
+                + "combined with another [#](8B0000)Diamond[#]() and a [#](8B0000)Block of Gold[#]() -- quadrupling capacity once again.");
 
         this.page("common", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Common Tartaric Gem");
-        this.pageText("Craft the Common Tartaric Gem in the Hellfire Forge.\\\n\\\n"
-                + "This intricate gem can hold an impressive 1,024 Will.");
+        this.pageText("This intricate gem holds an impressive [#](B8860B)1,024 Will[#](). A worthy vessel for a "
+                + "practitioner of growing renown.");
 
         this.page("greater_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("You have clearly outdone yourself with the creation of the [#](8B0000)Common Tartaric Gem[#](), "
-                + "but you feel there is still more you can do. However, getting more out of your gem will "
-                + "involve the culmination of all your work so far.\\\n\\\n"
-                + "Not only do you need a [#](8B0000)Demonic Slate[#](), "
-                + "you also require a [#](8B0000)Weak Blood Shard[#]() and a [#](8B0000)Demon Will Crystal[#](). Of course, it will "
-                + "come with rewards to match, powering your [#](8B0000)Sentient Tools[#]() like nothing you have seen before...");
+        this.pageText("The [#](8B0000)Common Tartaric Gem[#]() is a fine achievement, yet you sense the limits of mortal "
+                + "craft closing in. To break through demands the culmination of all you have learned -- "
+                + "a [#](8B0000)Demonic Slate[#](), a [#](8B0000)Weak Blood Shard[#](), and a [#](8B0000)Demon Will Crystal[#]().\\\n\\\n"
+                + "The rewards, however, shall be commensurate. Your [#](8B0000)Sentient Tools[#]() will reach potencies "
+                + "you have only dreamed of...");
 
         this.page("greater", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Greater Tartaric Gem");
-        this.pageText("Craft the Greater Tartaric Gem in the Hellfire Forge.\\\n\\\n"
-                + "This masterpiece of artifice can hold an astounding 4,096 Will.");
+        this.pageText("This masterwork of [#](4A0080)vitaemantic[#]() artifice holds an astounding [#](B8860B)4,096 Will[#](). "
+                + "Few vessels in existence can rival its containment.");
     }
 
     @Override
@@ -91,7 +86,7 @@ public class TartaricGemsEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Storage vessels for Demon Will in increasing capacities.";
+        return "Crystalline vessels that imprison and compress Demon Will.";
     }
 
     @Override

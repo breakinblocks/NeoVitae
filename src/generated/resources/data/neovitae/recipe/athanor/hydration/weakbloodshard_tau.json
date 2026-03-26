@@ -12,7 +12,7 @@
   },
   "input_fluid": {
     "amount": 3200,
-    "id": "neovitae:life_essence_fluid_source"
+    "id": "neovitae:essentia_vitae_source"
   },
   "tool": {
     "tag": "neovitae:athanor_tool/hydration"

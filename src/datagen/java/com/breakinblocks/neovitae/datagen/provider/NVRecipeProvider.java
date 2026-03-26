@@ -114,8 +114,8 @@ public class NVRecipeProvider extends RecipeProvider {
                 .pattern("sbs")
                 .pattern("sss")
                 .define('s', Items.STONE)
-                .define('b', NVFluids.LIFE_ESSENCE_BUCKET.get())
-                .unlockedBy("has_life_essence", has(NVFluids.LIFE_ESSENCE_BUCKET.get()))
+                .define('b', NVFluids.ESSENTIA_VITAE_BUCKET.get())
+                .unlockedBy("has_essentia_vitae", has(NVFluids.ESSENTIA_VITAE_BUCKET.get()))
                 .save(output);
 
         // Bloodstone Brick (from stone + weak blood shard)
@@ -704,7 +704,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
                 .save(output, NeoVitae.rl("lamina_exhauriens"));
 
-        AltarRecipeBuilder.build(NVFluids.LIFE_ESSENCE_BUCKET.get())
+        AltarRecipeBuilder.build(NVFluids.ESSENTIA_VITAE_BUCKET.get())
                 .from(Items.BUCKET)
                 .minTier(0)
                 .bloodNeeded(1000)
@@ -3367,7 +3367,7 @@ public class NVRecipeProvider extends RecipeProvider {
         // Weak blood shard from tau + life essence
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(NVBlocks.STRONG_TAU.item().get())
-                .fluidInput(new FluidStack(NVFluids.LIFE_ESSENCE_SOURCE.get(), 3200))
+                .fluidInput(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 3200))
                 .guaranteedOutput(new ItemStack(NVItems.WEAK_BLOOD_SHARD.get()))
                 .save(output, NeoVitae.rl("weakbloodshard_tau"));
 

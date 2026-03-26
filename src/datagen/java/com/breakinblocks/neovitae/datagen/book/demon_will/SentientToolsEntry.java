@@ -20,66 +20,58 @@ public class SentientToolsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sentient Tools");
-        this.pageText("The [#](8B0000)Sentient Sword[#]() has proven to be a resounding success. You find yourself wondering "
-                + "how other tools may react to a similar treatment...\\\n\\\n"
-                + "Note that these tools, as with the [#](8B0000)Sentient Sword[#](), can be repaired with [#](8B0000)Crystallized "
-                + "Will[#]() in an Anvil.\\\n\\\n"
-                + "Did we mention that Sentient Tools and Weapons are all highly enchantable?");
+        this.pageText("The success of the [#](8B0000)Sentient Sword[#]() has inspired further experimentation. If a blade "
+                + "can be imbued with [#](4A0080)demonic will[#](), why not a pickaxe? An axe? A shovel?\\\n\\\n"
+                + "[#](2E8B57)All Sentient equipment can be repaired with Crystallized Will in an Anvil, and all are "
+                + "highly receptive to enchantment.[#]()");
 
         this.page("pickaxe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sentient Pickaxe");
-        this.pageText("Craft the Sentient Pickaxe in the Hellfire Forge.\\\n\\\n"
-                + "This pickaxe improves with Will, cutting through stone with ease. With no Will to power it, "
-                + "it is only slightly better than the [#](8B0000)Iron Pickaxe[#]() it was crafted from; However, with a full "
-                + "enough [#](8B0000)Tartaric Gem[#](), you foresee it surpassing even a [#](8B0000)Netherite Pickaxe[#]().");
+        this.pageText("Without Will to sustain it, this pick is scarcely better than the [#](8B0000)Iron Pickaxe[#]() "
+                + "from which it was wrought. Feed it, however -- fill your [#](8B0000)Tartaric Gem[#]() to the brim -- "
+                + "and it shall surpass even [#](8B0000)Netherite[#](), cleaving through stone as though it were clay.");
 
         this.page("scythe_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The [#](8B0000)Sentient Scythe[#]() is a slightly different tool to its iron counterpart. Infusing it "
-                + "with will has transmuted it into a fearsome weapon. While slow and not as powerful as the other "
-                + "weapons, its great swings will deal full damage to all enemies in its range, making it an "
-                + "excellent choice for crowd control.");
+        this.pageText("The [#](8B0000)Sentient Scythe[#]() is a beast of a different nature. The infusion of Will has "
+                + "transmuted it from a humble farming tool into a fearsome weapon. Though slower and less "
+                + "devastating per blow than the sword, its sweeping arc delivers full damage to every creature "
+                + "caught within its reach -- ideal for carving through hordes.");
 
         this.page("scythe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sentient Scythe");
-        this.pageText("Craft the Sentient Scythe in the Hellfire Forge.\\\n\\\n"
-                + "As with the pickaxe, with no Will to power your scythe, it is comparatively blunt and "
-                + "unwieldy; However, with a full enough [#](8B0000)Tartaric Gem[#](), you foresee it becoming a devastating "
-                + "tool.\n"
-                + "Did we mention that it still functions as a hoe?");
+        this.pageText("Starved of Will, the scythe is blunt and unwieldy. Fed generously from a full "
+                + "[#](8B0000)Tartaric Gem[#](), it becomes a devastating instrument of reaping.\\\n\\\n"
+                + "[#](2E8B57)It still functions as a hoe, for the practical-minded.[#]()");
 
         this.page("axe_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Much like the [#](8B0000)Sentient Pickaxe[#](), the [#](8B0000)Sentient Axe[#]() is a noticeable improvement over "
-                + "its Iron counterpart. Additionally, it gets a significant buff in its damage output, making it "
-                + "a fearsome weapon for those who don't mind its unwieldy nature.");
+        this.pageText("Much like the pickaxe, the [#](8B0000)Sentient Axe[#]() scales dramatically with the Will you carry. "
+                + "It also receives a significant boost to its damage, making it a formidable weapon for those who "
+                + "do not mind its heft.");
 
         this.page("axe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sentient Axe");
-        this.pageText("Craft the Sentient Axe in the Hellfire Forge.\\\n\\\n"
-                + "As with the pickaxe, with no Will to power your axe, it is only slightly better than the "
-                + "[#](8B0000)Iron Axe[#]() it was crafted from; However, with a full enough [#](8B0000)Tartaric Gem[#](), you foresee "
-                + "it surpassing even a [#](8B0000)Netherite Axe[#]().");
+        this.pageText("Without Will, merely a step above its [#](8B0000)Iron[#]() ancestor. With a brimming "
+                + "[#](8B0000)Tartaric Gem[#](), it rivals -- and surpasses -- [#](8B0000)Netherite[#]().");
 
         this.page("shovel_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Much like the [#](8B0000)Sentient Pickaxe[#](), the [#](8B0000)Sentient Shovel[#]() is a noticeable improvement "
-                + "over its Iron counterpart, even without additional [#](8B0000)Demon Will[#]() to power it.");
+        this.pageText("The [#](8B0000)Sentient Shovel[#]() follows the same pattern as its kin -- a noticeable "
+                + "improvement over iron even without additional [#](8B0000)Demon Will[#]() to empower it.");
 
         this.page("shovel", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sentient Shovel");
-        this.pageText("Craft the Sentient Shovel in the Hellfire Forge.\\\n\\\n"
-                + "As with the pickaxe, with no Will to power your shovel, it is only slightly better than the "
-                + "[#](8B0000)Iron Shovel[#]() it was crafted from; However, with a full enough [#](8B0000)Tartaric Gem[#](), you "
-                + "foresee it surpassing even a [#](8B0000)Netherite Shovel[#]().");
+        this.pageText("Humble in its unpowered state, transcendent when gorged on Will. With a full "
+                + "[#](8B0000)Tartaric Gem[#](), earth and gravel part before it like water.");
     }
 
     @Override
@@ -89,7 +81,7 @@ public class SentientToolsEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Demon Will-powered tools that scale with your Will reserves.";
+        return "Will-hungry implements that grow stronger as your reserves deepen.";
     }
 
     @Override

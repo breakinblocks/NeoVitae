@@ -20,15 +20,17 @@ public class VoidSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Void Sigil");
-        this.pageText("The [#](8B0000)Void Sigil[#](), when you use it while looking at any fluid, will destroy it at "
-                + "a cost of 50 LP per block. Good for clearing out irksome lava flows without all that "
-                + "tedious placing and breaking of individual blocks.");
+        this.pageText("The [#](8B0000)Void Sigil[#]() annihilates fluid on contact, consuming 50 "
+                + "[#](4A0080)Essentia Vitae[#]() per block erased. Aim at any liquid and press [Use] to watch it "
+                + "vanish without a trace.\\\n\\\n"
+                + "Invaluable for clearing treacherous lava flows or unwanted floods without the tedium "
+                + "of conventional methods.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Void Reagent[#]() in the Tabula Vitae.\\\n\\\n"
-                + "Step 2: Create the [#](8B0000)Void Sigil[#]() in an Alchemy Array using the Void Reagent "
-                + "as the base and a slate as the catalyst.\\\n\\\n*Better than a Swiffer!*");
+        this.pageText("Forge the [#](8B0000)Void Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a slate as catalyst.\\\n\\\n"
+                + "[#](4A0080)What the void takes, it does not return.[#]()");
     }
 
     @Override
@@ -38,7 +40,7 @@ public class VoidSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A sigil that destroys fluid blocks.";
+        return "Erase fluid from existence with a single gesture.";
     }
 
     @Override

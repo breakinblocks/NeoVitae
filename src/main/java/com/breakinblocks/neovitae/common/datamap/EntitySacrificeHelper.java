@@ -80,8 +80,8 @@ public final class EntitySacrificeHelper {
      * @param entity The entity
      * @return LP generated per point of damage
      */
-    public static int getLpPerDamage(LivingEntity entity) {
-        return getSacrificeValue(entity).lpPerDamage();
+    public static int getEvPerDamage(LivingEntity entity) {
+        return getSacrificeValue(entity).evPerDamage();
     }
 
     /**

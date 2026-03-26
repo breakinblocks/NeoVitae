@@ -21,7 +21,9 @@ public class ConcreteShoesDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Concrete Shoes");
-        this.pageText("Reduces your swim speed significantly. Caps out at an 80%% reduction.");
+        this.pageText("The armour grows dense and waterlogged, dragging you down through liquid like "
+                + "an anchor. Reduces swim speed by up to 80%%.\\\n\\\n"
+                + "[#](4A0080)The depths call, and the armour answers on your behalf.[#]()");
 
         this.page("recipe", () -> BookLivingDowngradeRecipePageModel.create()
                 .withRecipeId1("neovitae:downgrade/swim_decrease"));
@@ -34,7 +36,7 @@ public class ConcreteShoesDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Downgrade: reduced swim speed.";
+        return "The armour drags you down -- water becomes a grave.";
     }
 
     @Override

@@ -22,36 +22,36 @@ public class SoulSnareEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Your First Will");
-        this.pageText("[#](8B0000)Soul Snares[#]() are your gateway into the [#](8B0000)Demon Will[#]() portion of Neo Vitae. "
-                + "Craft the Soul Snare in the Ara Vitae (Tier 1).");
+        this.pageTitle("The First Harvest");
+        this.pageText("[#](8B0000)Soul Snares[#]() are your gateway into the deeper mysteries of [#](4A0080)Demon Will[#](). "
+                + "These delicate constructs of thread and intent are forged upon the [#](8B0000)Ara Vitae[#]() at its "
+                + "most basic tier.");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Using the [#](8B0000)Snare[#]() is simple enough - craft a good quantity of them and throw them at "
-                + "[#](8B0000)hostile mobs[#](). White particle effects will appear around them; then it's time to go in "
-                + "for the kill. On death, they will drop a [#](8B0000)Demon Will[#]().\\\n\\\n"
-                + "Before you ask, yes, the Looting "
-                + "enchantment will increase the amount of Will dropped. Once you've gathered a couple, you can "
-                + "get to work on crafting yourself a [#](8B0000)Sentient Sword[#]() and a [#](8B0000)Tartaric Gem[#]() - these will "
-                + "make collecting [#](8B0000)Demon Will[#]() much easier.");
+        this.pageText("The method is simple enough -- prepare a generous supply of [#](8B0000)Snares[#]() and hurl them at "
+                + "[#](8B0000)hostile creatures[#](). Pale, spectral motes will gather around the afflicted target; this is "
+                + "the moment to strike. Upon death, the creature yields its [#](8B0000)Demon Will[#]().\\\n\\\n"
+                + "[#](2E8B57)The Looting enchantment increases the Will dropped.[#]() Once you have collected a few fragments, "
+                + "turn your attention to forging a [#](8B0000)Sentient Sword[#]() and a [#](8B0000)Tartaric Gem[#]() -- these will make "
+                + "the harvest far more efficient.");
 
         this.page("image", () -> BookImagePageModel.create()
                 .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/demon_will/snare_particles.png"))
-                .withTitle("Snare on Skeleton")
+                .withTitle("Snared Quarry")
                 .withBorder(true)
                 .withText(this.context().pageText()));
-        this.pageText("A skeleton with white particles after hit by a snare.");
+        this.pageText("A skeleton wreathed in spectral motes after being struck by a Snare.");
     }
 
     @Override
     protected String entryName() {
-        return "Your First Will";
+        return "The First Harvest";
     }
 
     @Override
     protected String entryDescription() {
-        return "Using Soul Snares to harvest Demon Will from hostile mobs.";
+        return "Binding spectral thread to pry Demon Will from hostile creatures.";
     }
 
     @Override

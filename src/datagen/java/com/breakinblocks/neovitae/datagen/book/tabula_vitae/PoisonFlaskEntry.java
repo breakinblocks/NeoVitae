@@ -26,8 +26,9 @@ public class PoisonFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Poison");
-        this.pageText("[#](8B0000)Poison[#]() deals damage over time to the target, but cannot kill them on its own. "
-                + "Higher levels deal faster damage.");
+        this.pageText("The [#](8B0000)Poison[#]() elixir introduces a wasting venom that gnaws at the target's vitality. "
+                + "It cannot kill on its own -- the victim will linger at death's threshold, weakened "
+                + "and vulnerable. Higher levels hasten the decay.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/poison")
@@ -46,7 +47,7 @@ public class PoisonFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Deals damage over time.";
+        return "A wasting venom that gnaws but does not kill.";
     }
 
     @Override

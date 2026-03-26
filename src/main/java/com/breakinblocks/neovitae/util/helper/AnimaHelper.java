@@ -9,7 +9,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
-import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.world.NVSavedData;
 import com.breakinblocks.neovitae.common.world.DungeonSavedData;
 
@@ -18,7 +18,7 @@ import java.util.UUID;
 
 
 @EventBusSubscriber
-public class SoulNetworkHelper {
+public class AnimaHelper {
     @Nullable
     private static NVSavedData SD_INSTANCE;
 
@@ -53,7 +53,7 @@ public class SoulNetworkHelper {
         return DUNGEON_SD_INSTANCE;
     }
 
-    public static SoulNetwork getSoulNetwork(UUID uuid) {
+    public static Anima getAnima(UUID uuid) {
         NVSavedData savedData = getSavedData();
         if (savedData == null)
             return null;
@@ -61,16 +61,16 @@ public class SoulNetworkHelper {
         return savedData.getNetwork(uuid);
     }
 
-    public static SoulNetwork getSoulNetwork(Binding binding) {
-        return getSoulNetwork(binding.uuid());
+    public static Anima getAnima(Binding binding) {
+        return getAnima(binding.uuid());
     }
 
-    public static SoulNetwork getSoulNetwork(Player player) {
-        return getSoulNetwork(player.getUUID());
+    public static Anima getAnima(Player player) {
+        return getAnima(player.getUUID());
     }
 
-    public static SoulNetwork getSoulNetwork(String uuid) {
-        return getSoulNetwork(UUID.fromString(uuid));
+    public static Anima getAnima(String uuid) {
+        return getAnima(UUID.fromString(uuid));
     }
 
     @Nullable

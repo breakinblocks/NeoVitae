@@ -23,17 +23,18 @@ public class ReinforcedSacrificeRuneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Reinforced Rune of Sacrifice");
-        this.pageText("With some [#](8B0000)Netherite Scrap[#]() and some [#](8B0000)Intricate Hellforged Parts[#]() looted from the "
-                + "[#](8B0000)Demon Realm[#](), you can double the power of your [#](8B0000)Rune of Sacrifice[#](), increasing the "
-                + "bonus to an additive +20%% per rune.");
+        this.pageText("Tempered with [#](8B0000)Netherite Scrap[#]() and [#](8B0000)Intricate Hellforged Parts[#]() from "
+                + "the [#](4A0080)Demon Realm[#](), the reinforced rune wrings twice the essence from every "
+                + "offering -- [#](8B0000)+20%%[#]() per rune, additively. The altar's appetite for sacrifice "
+                + "grows ever more insatiable.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_sacrifice")));
 
         this.page("reversion", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("If you change your mind, you can revert the upgraded rune back to its base version "
-                + "in the Athanor .");
+        this.pageText("[#](2E8B57)Should you have need of the base rune again, the Athanor can strip the "
+                + "reinforcement and return it to its original form.[#]()");
     }
 
     @Override
@@ -43,7 +44,7 @@ public class ReinforcedSacrificeRuneEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A more powerful Rune of Sacrifice.";
+        return "A rune tempered in hellfire, doubling the harvest from slain creatures.";
     }
 
     @Override

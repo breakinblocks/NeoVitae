@@ -20,8 +20,10 @@ public class QuickFeetUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Quick Feet");
-        this.pageText("Effect: Increases player movement speed up to 150%%.\\\n\\\n"
-                + "Trained by: Running around.\\\n\\\nMaximum level: 10");
+        this.pageText("The armour attunes itself to the cadence of your stride, propelling you ever faster. "
+                + "Increases movement speed up to 150%%.\\\n\\\n"
+                + "[#](B8860B)Trained by[#](): Running.\\\n\\\n"
+                + "[#](B8860B)Maximum level[#](): 10");
     }
 
     @Override
@@ -31,7 +33,7 @@ public class QuickFeetUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increased movement speed from running.";
+        return "The armour quickens your step with every mile traveled.";
     }
 
     @Override

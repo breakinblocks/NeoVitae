@@ -5,44 +5,44 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.saveddata.SavedData;
-import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class NVSavedData extends SavedData {
-    public static final String ID = "neovitae";
+    public static final String ID = "neovitae_anima";
 
-    private Map<UUID, SoulNetwork> soulNetworks = new HashMap<>();
+    private Map<UUID, Anima> animaMap = new HashMap<>();
 
-    public SoulNetwork getNetwork(UUID playerId) {
-        if (!soulNetworks.containsKey(playerId))
-            soulNetworks.put(playerId, SoulNetwork.newEmpty(playerId, this));
+    public Anima getNetwork(UUID playerId) {
+        if (!animaMap.containsKey(playerId))
+            animaMap.put(playerId, Anima.newEmpty(playerId, this));
 
-        return soulNetworks.get(playerId);
+        return animaMap.get(playerId);
     }
 
     @Override
     public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
-        ListTag networkData = new ListTag();
-        for (SoulNetwork soulNetwork : soulNetworks.values()) {
-            networkData.add(soulNetwork.toNBT());
+        ListTag animaData = new ListTag();
+        for (Anima anima : animaMap.values()) {
+            animaData.add(anima.toNBT());
         }
 
-        tag.put("networkData", networkData);
+        tag.put("animaData", animaData);
 
         return tag;
     }
 
     public static NVSavedData load(CompoundTag tag, HolderLookup.Provider registries) {
         NVSavedData savedData = new NVSavedData();
-        ListTag networkData = tag.getList("networkData", Tag.TAG_COMPOUND);
+        ListTag animaData = tag.getList("animaData", Tag.TAG_COMPOUND);
 
-        for (int i = 0; i < networkData.size(); i++) {
-            CompoundTag data = networkData.getCompound(i);
-            SoulNetwork network = SoulNetwork.fromNBT(data, savedData);
-            savedData.soulNetworks.put(network.getPlayerId(), network);
+        for (int i = 0; i < animaData.size(); i++) {
+            CompoundTag data = animaData.getCompound(i);
+            Anima anima = Anima.fromNBT(data, savedData);
+            savedData.animaMap.put(anima.getPlayerId(), anima);
         }
 
         return savedData;

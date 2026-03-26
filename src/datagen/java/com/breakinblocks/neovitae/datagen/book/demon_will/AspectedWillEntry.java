@@ -22,12 +22,11 @@ public class AspectedWillEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Aspects");
-        this.pageText("Unleashing [#](8B0000)Demon Will[#]() into the atmosphere was definitely an excellent idea. Not only "
-                + "has it proven most useful in empowering [#](8B0000)Rituals[#](), you have also successfully condensed it "
-                + "into a [#](8B0000)Crystal Cluster[#](), and are wondering what to turn your eye to next.\\\n\\\n"
-                + "These [#](8B0000)Crystals[#]() feel somehow... conflicted, to you. A certain [#](8B0000)Ritual[#]() may help coax "
-                + "them out into purer forms...");
+        this.pageTitle("Aspects of Will");
+        this.pageText("Unleashing [#](8B0000)Demon Will[#]() into the atmosphere has proven most fruitful -- empowering "
+                + "[#](8B0000)Rituals[#]() and producing [#](8B0000)Crystal Clusters[#]() of satisfying geometry. Yet these raw crystals "
+                + "feel somehow... [#](4A0080)conflicted[#](), as though warring natures strain against one another within.\\\n\\\n"
+                + "A certain [#](8B0000)Ritual[#]() may coax these hidden facets into purer forms...");
 
         this.page("image", () -> BookImagePageModel.create()
                 .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/demon_will/will_splitting.png"))
@@ -38,51 +37,55 @@ public class AspectedWillEntry extends EntryProvider {
 
         this.page("aspects", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Now we have [#](8B0000)Crystallized Will[#]() in four spicy new flavours! On the Water Rune we have "
-                + "[#](8B0000)Steadfast Will[#](), on the Air Rune we get [#](8B0000)Destructive Will[#](), on the Fire Rune comes "
-                + "[#](8B0000)Vengeful Will[#]() and on the Earth Rune we find [#](8B0000)Corrosive Will[#]().\\\n\\\n"
-                + "These various new types of Will can be burned in the [#](8B0000)Vas Maleficum[#]() just like Raw Will, "
-                + "and from there can be fed into various Rituals to great and fascinating effect.");
+        this.pageText("The ritual fractures raw Will into four distinct [#](4A0080)Aspects[#]():\n\n"
+                + "- [#](8B0000)Steadfast Will[#]() -- upon the Water Rune\n\n"
+                + "- [#](8B0000)Destructive Will[#]() -- upon the Air Rune\n\n"
+                + "- [#](8B0000)Vengeful Will[#]() -- upon the Fire Rune\n\n"
+                + "- [#](8B0000)Corrosive Will[#]() -- upon the Earth Rune\\\n\\\n"
+                + "Each Aspect can be burned in the [#](8B0000)Vas Maleficum[#]() just as Raw Will can, feeding the "
+                + "[#](8B0000)Aura[#]() with its particular resonance for your Rituals to draw upon.");
 
         this.page("sentient_aspects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sentient Tool Aspects");
-        this.pageText("However, they also change how your Sentient Tools behave, making them more powerful.\n"
-                + "- [#](8B0000)Raw Will[#](): Increases damage.\n"
-                + "- [#](8B0000)Corrosive Will[#](): Attacks have a chance to apply poison or wither to your foes, otherwise same as Raw.\n"
-                + "- [#](8B0000)Vengeful Will[#](): Increases damage, but not as much as Raw. Increases attack speed. Gives a movement speed buff that increases with higher amounts of Will.");
+        this.pageText("Each Aspect also transforms the behavior of your [#](8B0000)Sentient Tools[#]():\n\n"
+                + "- [#](8B0000)Raw Will[#](): Pure damage increase.\n\n"
+                + "- [#](8B0000)Corrosive Will[#](): Strikes may inflict poison or wither. Otherwise identical to Raw.\n\n"
+                + "- [#](8B0000)Vengeful Will[#](): Moderate damage increase, heightened attack speed, and a movement speed "
+                + "boon that intensifies with greater Will reserves.");
 
         this.page("sentient_aspects2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("- [#](8B0000)Steadfast Will[#](): Increases damage (but not as much as Raw) and grants Absorption after a kill.\n"
-                + "- [#](8B0000)Destructive Will[#](): Increases damage more than any other will type, but decreases attack speed.");
+        this.pageText("- [#](8B0000)Steadfast Will[#](): Moderate damage increase, and slaying a foe grants you a protective "
+                + "shield of Absorption.\n\n"
+                + "- [#](8B0000)Destructive Will[#](): The greatest raw damage of any Aspect, at the cost of reduced attack speed.");
 
         this.page("filling_gems", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("You may be wondering: \"How on earth do I get this will into a usable form?\" Well, the "
-                + "answer is simple. Just place an EMPTY [#](8B0000)Tartaric Gem[#]() into a [#](8B0000)Hellfire Forge[#]() in the same "
-                + "chunk as a [#](8B0000)Vas Maleficum[#](), then feed the Vas Maleficum with Will Crystals of the desired "
-                + "aspect. Your [#](8B0000)Tartaric Gem[#]() will fill with that aspect of will. You can change which kind of "
-                + "will your Sentient Tools use by pressing right-click while holding them.");
+        this.pageText("To fill a [#](8B0000)Tartaric Gem[#]() with a specific Aspect, place an empty gem into a "
+                + "[#](8B0000)Hellfire Forge[#]() situated in the same chunk as a [#](8B0000)Vas Maleficum[#](). Feed the Vas "
+                + "Maleficum with Will Crystals of the desired Aspect, and the gem will drink deeply.\\\n\\\n"
+                + "[#](2E8B57)Right-click while holding a Sentient Tool to recalibrate it to the dominant Aspect "
+                + "in your inventory.[#]()");
 
         this.page("notes", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Note that your [#](8B0000)Sentient Tools[#]() will take on the aspect of the largest amount of Will "
-                + "in your inventory. If you're carrying 10 Corrosive Will in one [#](8B0000)Tartaric Gem[#](), and 1,000 "
-                + "Raw Will in another, then your sword will remain Raw.\\\n\\\n"
-                + "The [#](8B0000)Hellfire Forge[#]() can accept any kind of will for crafting with, so don't worry about "
-                + "having to juggle multiple types of will across different [#](8B0000)Tartaric Gems[#]().");
+        this.pageText("Your [#](8B0000)Sentient Tools[#]() attune to whichever Aspect you carry in greatest quantity. "
+                + "Ten Corrosive Will in one [#](8B0000)Tartaric Gem[#]() and a thousand Raw in another means the blade "
+                + "remains Raw.\\\n\\\n"
+                + "[#](2E8B57)The Hellfire Forge accepts any Aspect of Will for crafting, so there is no need to "
+                + "juggle multiple gems between stations.[#]()");
     }
 
     @Override
     protected String entryName() {
-        return "Demon Will Aspects";
+        return "Aspects of Will";
     }
 
     @Override
     protected String entryDescription() {
-        return "Splitting Demon Will into its four aspected forms.";
+        return "Fracturing raw Demon Will into four elemental temperaments.";
     }
 
     @Override

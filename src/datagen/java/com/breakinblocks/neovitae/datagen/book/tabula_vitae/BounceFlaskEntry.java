@@ -26,8 +26,9 @@ public class BounceFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Bounce");
-        this.pageText("If the target would take fall damage, [#](8B0000)Bounce[#]() will instead cause them to spring "
-                + "harmlessly off the ground. Whee!\\\n\\\nCrouching before impact will prevent you from bouncing.");
+        this.pageText("The [#](8B0000)Bounce[#]() elixir transforms the body into a living spring. Where you would "
+                + "shatter against stone, you instead rebound skyward, unharmed and exhilarated.\\\n\\\n"
+                + "[#](2E8B57)Crouch before impact to suppress the bounce and land normally.[#]()");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/bounce")
@@ -43,7 +44,7 @@ public class BounceFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Spring off the ground instead of taking fall damage.";
+        return "Transforms falls into harmless rebounds.";
     }
 
     @Override

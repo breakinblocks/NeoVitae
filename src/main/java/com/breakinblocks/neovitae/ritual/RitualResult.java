@@ -28,7 +28,7 @@ public record RitualResult(boolean successful, @Nullable FailureReason failureRe
 
     public enum FailureReason {
         NOT_ENOUGH_LP("chat.neovitae.ritual.notEnoughLP"),
-        NO_SOUL_NETWORK("chat.neovitae.ritual.noSoulNetwork"),
+        NO_ANIMA("chat.neovitae.ritual.noAnima"),
         EVENT_CANCELLED("chat.neovitae.ritual.eventCancelled"),
         ACTIVATION_FAILED("chat.neovitae.ritual.activationFailed"),
         MISSING_ITEM("chat.neovitae.ritual.missingItem"),

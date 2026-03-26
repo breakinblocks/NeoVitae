@@ -16,7 +16,7 @@ import org.jetbrains.annotations.ApiStatus;
  * <h2>Usage</h2>
  * <pre>{@code
  * INeoVitaeAPI api = NeoVitaeAPI.getInstance();
- * ISoulNetwork network = api.getSoulNetwork(playerUUID);
+ * IAnima anima = api.getAnima(playerUUID);
  * }</pre>
  */
 public final class NeoVitaeAPI {

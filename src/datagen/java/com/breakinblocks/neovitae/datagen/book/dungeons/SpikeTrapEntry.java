@@ -18,9 +18,12 @@ public class SpikeTrapEntry extends EntryProvider {
     protected void generatePages() {
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](8B0000)Spike traps[#]() look only mildly suspicious until they receive a redstone signal, whereupon "
-                + "vicious blades jam out into whatever is in their way. Whoever (or perhaps whatever) designed these "
-                + "clearly wanted to keep out intruders. View this recipe in JEI.");
+        this.pageText("[#](8B0000)Spike Traps[#]() sit dormant and deceptively innocuous until a redstone signal "
+                + "reaches them, whereupon serrated blades erupt from their housing with lethal intent. "
+                + "Whatever [#](4A0080)intelligence[#]() designed these was clearly determined to discourage "
+                + "uninvited guests.\\\n\\\n"
+                + "[#](2E8B57)Clever practitioners have repurposed these for their own defenses. "
+                + "Consult JEI for the crafting recipe.[#]()");
     }
 
     @Override
@@ -30,7 +33,7 @@ public class SpikeTrapEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Redstone-activated deadly traps.";
+        return "Dormant blades that awaken at a redstone whisper.";
     }
 
     @Override

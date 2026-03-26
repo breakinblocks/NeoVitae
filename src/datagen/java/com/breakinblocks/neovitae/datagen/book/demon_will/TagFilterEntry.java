@@ -23,26 +23,26 @@ public class TagFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tag Item Filter");
-        this.pageText("The [#](8B0000)Tag Item Filter[#]() lets you select up to 9 items and filter by their associated "
-                + "[#](8B0000)Tags[#](). Similarly to the [#](8B0000)Standard Item Filter[#](), it has a quantity selector and an "
-                + "allow/deny function. Leaving the quantity blank defaults to 'all'.\\\n\\\n"
-                + "For each item that you put into this filter, you can select whether to match items based on "
-                + "[#](8B0000)one specific tag[#](), or [#](8B0000)any of its tags[#]().");
+        this.pageText("The [#](8B0000)Tag Item Filter[#]() sorts items by their associated [#](B8860B)Tags[#]() -- the invisible "
+                + "categories that bind similar materials together. As with the Standard Filter, it supports "
+                + "up to 9 entries, quantity limits, and Allow/Deny modes.\\\n\\\n"
+                + "For each item placed into this filter, you may choose to match [#](8B0000)one specific tag[#]() "
+                + "or [#](8B0000)any of its tags[#]().");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tag Item Filter");
-        this.pageText("Craft the Tag Item Filter in the Tabula Vitae.\\\n\\\n"
-                + "This allows you to deny/permit categories of items, so you can specify that all items with "
-                + "the tag [#](8B0000)forge:ores[#]() get sent to your furnace, for example.");
+        this.pageText("This enables broad categorical sorting. Specify that all items tagged as "
+                + "[#](8B0000)forge:ores[#]() flow to your furnace, for instance, and never manually sort another "
+                + "pebble again.");
 
         this.page("gui_image", () -> BookImagePageModel.create()
                 .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/tag_item_filter_gui.png"))
-                .withTitle("Tag Item Filter GUI")
+                .withTitle("Tag Item Filter")
                 .withBorder(true)
                 .withText(this.context().pageText()));
-        this.pageText("The GUI and the mouseover text of a configured filter.");
+        this.pageText("The filter interface, showing tag selection and tooltip.");
     }
 
     @Override
@@ -52,7 +52,7 @@ public class TagFilterEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A filter that matches items by their data tags.";
+        return "Sorting items by their hidden categorical bindings.";
     }
 
     @Override

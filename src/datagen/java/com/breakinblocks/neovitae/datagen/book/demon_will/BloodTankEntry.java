@@ -23,13 +23,12 @@ public class BloodTankEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Blood Tank");
-        this.pageText("The [#](8B0000)Blood Tank[#]() is a portable fluid storage block capable of holding [#](8B0000)Life Essence[#]() "
-                + "and other fluids. It can be filled and emptied by right-clicking with a bucket or other fluid "
-                + "container. The tank retains its contents when broken, making it easy to transport large "
-                + "quantities of [#](8B0000)Life Essence[#]() between locations.\\\n\\\n"
-                + "The tank emits light based on the fluid it contains, and each tier doubles the capacity of "
-                + "the previous one, starting at [#](8B0000)16 Buckets[#]() and reaching a maximum of [#](8B0000)524,288 Buckets[#]() "
-                + "at tier 16.");
+        this.pageText("The [#](8B0000)Blood Tank[#]() is a portable reservoir, capable of holding [#](4A0080)Essentia Vitae[#]() "
+                + "and other fluids. Fill or drain it by right-clicking with a bucket or similar vessel. "
+                + "The tank faithfully retains its contents when broken, making it ideal for transporting "
+                + "large volumes between locations.\\\n\\\n"
+                + "It glows faintly according to its contents. Each tier doubles the previous capacity, "
+                + "beginning at [#](B8860B)16 Buckets[#]() and reaching a staggering [#](B8860B)524,288 Buckets[#]() at tier 16.");
 
         this.page("recipe", () -> BookHellfireForgeRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "hellfire_forge/blood_tank")));
@@ -37,20 +36,19 @@ public class BloodTankEntry extends EntryProvider {
         this.page("upgrading", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Upgrading");
-        this.pageText("To increase its capacity, combine two [#](8B0000)Blood Tanks[#]() with [#](8B0000)Glass[#]() and a [#](8B0000)Bloodstone[#]() "
-                + "in a crafting table. The resulting tank will be one tier higher than the primary input, and the "
-                + "fluid contents of both tanks will be merged together.\\\n\\\n"
-                + "If both tanks hold the same fluid, their amounts are added together. If only one contains "
-                + "fluid, the result keeps that fluid. If they hold different fluids, the primary tank's fluid "
-                + "is kept.");
+        this.pageTitle("Reinforcing the Vessel");
+        this.pageText("Combine two [#](8B0000)Blood Tanks[#]() with [#](8B0000)Glass[#]() and a [#](8B0000)Bloodstone[#]() in a crafting "
+                + "table. The resulting tank rises one tier above the primary input, and both tanks' fluid "
+                + "contents merge together.\\\n\\\n"
+                + "If both tanks hold the same fluid, volumes are added. If only one contains fluid, the "
+                + "result retains it. If they hold different fluids, the primary tank's contents take precedence.");
 
         this.page("upgrade_recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Upgrade Recipe");
-        this.pageText("Place two [#](8B0000)Blood Tanks[#](), [#](8B0000)Glass[#](), and a [#](8B0000)Bloodstone[#]() in a crafting table to upgrade. "
-                + "Each tier doubles the previous tier's capacity, so upgrading early and often is worthwhile.");
+        this.pageText("[#](2E8B57)Each tier doubles the previous tier's capacity, so reinforce early and often. "
+                + "A few tiers of upgrading can mean the difference between a trickle and a torrent.[#]()");
     }
 
     @Override
@@ -60,7 +58,7 @@ public class BloodTankEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A portable fluid storage block for Life Essence.";
+        return "A portable reservoir for Essentia Vitae and other vital fluids.";
     }
 
     @Override

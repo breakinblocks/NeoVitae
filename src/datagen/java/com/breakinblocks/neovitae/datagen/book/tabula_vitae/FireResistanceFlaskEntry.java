@@ -26,7 +26,9 @@ public class FireResistanceFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fire Resistance");
-        this.pageText("[#](8B0000)Fire Resistance[#]() makes the target immune to most fire-based damage.");
+        this.pageText("The [#](8B0000)Fire Resistance[#]() elixir wraps the drinker in an invisible ward that "
+                + "repels flame and heat. Lava itself becomes no more threatening than lukewarm water -- "
+                + "though one should not grow complacent.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/fire_resist")
@@ -42,7 +44,7 @@ public class FireResistanceFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Immunity to fire damage.";
+        return "A ward against flame and heat.";
     }
 
     @Override

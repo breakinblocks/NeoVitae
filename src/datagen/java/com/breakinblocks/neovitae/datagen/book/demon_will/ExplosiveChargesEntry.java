@@ -20,110 +20,96 @@ public class ExplosiveChargesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Explosive Charges");
-        this.pageText("Mining and foresting is all well and good for those who refuse to dream big, but what "
-                + "self-respecting sanguimancer would ever stoop to that?\\\n\\\n"
-                + "With this in mind, you have devised some devious little devices. Simply throw them at some "
-                + "pesky trees, rocks, or whatever else you wish to cease to be and wait for them to self-ignite.");
+        this.pageText("Mining by hand and felling trees one swing at a time -- such drudgery is beneath a "
+                + "practitioner of [#](4A0080)Vitaemancy[#](). You have devised something far more elegant: compact "
+                + "charges of compressed Will that detonate on contact. Hurl them at offending stone, timber, "
+                + "or anything else you wish unmade, and wait for the satisfying ignition.");
 
         this.page("anointments", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Not only that, you can improve their functionality by [#](8B0000)Anointing[#]() them with certain "
-                + "ingredients and a little Will, as described after each entry.\\\n\\\n"
-                + "The currently available anointments are as follows:\n"
-                + "- Fortunate - broken blocks are affected by [#](8B0000)Fortune[#]().\n"
-                + "- Heated Tool - Broken blocks are [#](8B0000)Smelted[#]().\n"
-                + "- Soft Touch - Broken blocks are affected by [#](8B0000)Silk Touch[#]().\n"
-                + "- Voiding - 'Junk' blocks are voided rather than dropping as items.");
+        this.pageText("Each charge can be further enhanced by [#](8B0000)Anointing[#]() it with certain reagents and "
+                + "a measure of Will:\n\n"
+                + "- [#](B8860B)Fortunate[#]() -- broken blocks yield Fortune loot.\n\n"
+                + "- [#](B8860B)Heated Tool[#]() -- broken blocks are smelted on the spot.\n\n"
+                + "- [#](B8860B)Soft Touch[#]() -- broken blocks are affected by Silk Touch.\n\n"
+                + "- [#](B8860B)Voiding[#]() -- worthless debris is annihilated rather than dropped.");
 
         this.page("shaped_charge", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Shaped Charge");
-        this.pageText("Craft the Shaped Charge in the Hellfire Forge.\\\n\\\n"
-                + "The [#](8B0000)Shaped Charge[#]() will destroy a 5x5x5 cube facing whichever side of a block it lands "
-                + "on, dropping all blocks as though mined with a pickaxe. It even works on Obsidian, and "
-                + "provides a most satisfying KABOOM whilst doing so.\\\n\\\n"
-                + "Anointable variants: Voiding, Heated Tool, Soft Touch, Fortunate.");
+        this.pageText("Obliterates a [#](B8860B)5x5x5[#]() cube on the face it strikes, dropping all blocks as though "
+                + "mined with a pickaxe. It cuts through Obsidian with ease and provides a most gratifying "
+                + "concussion.\\\n\\\n"
+                + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate.");
 
         this.page("aug_shaped_charge", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Augmented Shaped Charge");
-        this.pageText("Craft the Augmented Shaped Charge in the Hellfire Forge.\\\n\\\n"
-                + "The [#](8B0000)Augmented Shaped Charge[#]() is a direct upgrade from the standard Shaped Charge. It "
-                + "will destroy a 7x7x7 cube facing whichever side of a block it lands on, dropping all blocks "
-                + "as though mined with a pickaxe. It can also be anointed with [#](8B0000)Fortune II[#]().\\\n\\\n"
-                + "Anointable variants: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
+        this.pageText("A direct improvement. Destroys a [#](B8860B)7x7x7[#]() cube on the impacted face, and may "
+                + "be anointed with [#](B8860B)Fortune II[#]() as well.\\\n\\\n"
+                + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
 
         this.page("tunnelling", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tunnelling Shaped Charge");
-        this.pageText("Craft the Tunnelling Shaped Charge in the Hellfire Forge.\\\n\\\n"
-                + "The [#](8B0000)Tunnelling Shaped Charge[#]() will destroy a 5x5x20 tunnel facing whichever side of a "
-                + "block it lands on, dropping all blocks as though mined with a pickaxe. Good for mining.\\\n\\\n"
-                + "Anointable variants: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
+        this.pageText("Bores a [#](B8860B)5x5x20[#]() corridor straight through whatever it strikes. An invaluable "
+                + "companion for deep excavation.\\\n\\\n"
+                + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
 
         this.page("deforester", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Deforester Charge");
-        this.pageText("Craft the Deforester Charge in the Hellfire Forge.\\\n\\\n"
-                + "The [#](8B0000)Deforester Charge[#]() is for felling trees. It can be used on logs or leaves, and will "
-                + "fell all but the mightiest of trees, breaking up to [#](8B0000)two stacks[#]() of logs at a time (and "
-                + "neatly stripping away any leaves it encounters in the process!) Even the giant trees of the "
-                + "Jungle will fall in a matter of seconds.\\\n\\\n"
-                + "Anointable variants: Voiding, Heated Tool, Soft Touch, Fortunate.");
+        this.pageText("Purpose-built for timber. Strike a log or leaf block, and up to [#](B8860B)two stacks[#]() of wood "
+                + "come crashing down, with leaves stripped away in the process. Even the mightiest jungle "
+                + "giants fall in moments.\\\n\\\n"
+                + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate.");
 
         this.page("deforester2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Deforester Charge II");
-        this.pageText("Craft the Deforester Charge II in the Hellfire Forge.\\\n\\\n"
-                + "The [#](8B0000)Deforester Charge II[#](), much like the standard Deforester Charge, is for breaking wood "
-                + "and trees. It can break up to 8x64 logs, clearing away any connecting leaves. Excellent for "
-                + "making yourself a nice clearing in any Dark Oak Forest or Jungle you might happen to like the "
-                + "look of.\\\n\\\n"
-                + "Anointable variants: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
+        this.pageText("The greater variant. Fells up to [#](B8860B)8 stacks[#]() of logs, shearing away all connecting "
+                + "leaves. Ideal for carving clearings in Dark Oak forests or dense jungles.\\\n\\\n"
+                + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
 
         this.page("controlled", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Controlled Charge");
-        this.pageText("Craft the Controlled Charge in the Hellfire Forge.\\\n\\\n"
-                + "The [#](8B0000)Controlled Charge[#]() only destroys blocks [#](8B0000)identical to the block it lands on[#](). It "
-                + "will destroy up to 3 stacks of blocks, seeking out from the original point. As with other "
-                + "charges, all mined blocks will be dropped.\\\n\\\n"
-                + "Anointable variants: Voiding, Heated Tool, Soft Touch, Fortunate.");
+        this.pageText("Destroys only blocks [#](B8860B)identical to the block it strikes[#](), seeking outward from "
+                + "the point of impact. Consumes up to 3 stacks of matching blocks.\\\n\\\n"
+                + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate.");
 
         this.page("controlled2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Controlled Charge II");
-        this.pageText("Craft the Controlled Charge II in the Hellfire Forge.\\\n\\\n"
-                + "The [#](8B0000)Controlled Charge II[#]() behaves identically to the [#](8B0000)Controlled Charge[#](), however it "
-                + "will destroy up to 8 stacks of blocks at a time.\\\n\\\n"
-                + "Anointable variants: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
+        this.pageText("Functions identically to the standard Controlled Charge, but devours up to "
+                + "[#](B8860B)8 stacks[#]() of matching blocks.\\\n\\\n"
+                + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
 
         this.page("fungal", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fungal Charge");
-        this.pageText("Craft the Fungal Charge in the Hellfire Forge.\\\n\\\n"
-                + "The [#](8B0000)Fungal Charge[#]() is for felling giant mushrooms, both in the Overworld and the Nether. "
-                + "Although doubtful that you will ever reach this in a single charge, it can break up to "
-                + "[#](8B0000)three stacks of blocks[#]().\\\n\\\n"
-                + "Anointable variants: Voiding, Heated Tool, Soft Touch, Fortunate.");
+        this.pageText("Designed for the great mushrooms of the Overworld and the Nether. Capable of consuming "
+                + "up to [#](B8860B)three stacks[#]() of fungal material, though you would be hard-pressed to find a "
+                + "specimen that large.\\\n\\\n"
+                + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate.");
 
         this.page("fungal2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fungal Charge II");
-        this.pageText("Craft the Fungal Charge II in the Hellfire Forge.\\\n\\\n"
-                + "The [#](8B0000)Fungal Charge II[#]() is for felling giant mushrooms, both in the Overworld and the "
-                + "Nether. It can destroy up to 8 stacks of mushroomy goodness per charge.\\\n\\\n"
-                + "Why would you ever need this?\\\n\\\n"
-                + "Anointable variants: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
+        this.pageText("The greater fungal variant. Annihilates up to [#](B8860B)8 stacks[#]() of mushroom material "
+                + "in a single detonation.\\\n\\\n"
+                + "Why you would ever need such overkill is a question best left to the practitioner's "
+                + "conscience.\\\n\\\n"
+                + "Anointable: Voiding, Heated Tool, Soft Touch, Fortunate, Fortunate II.");
     }
 
     @Override
@@ -133,7 +119,7 @@ public class ExplosiveChargesEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Throwable demolition devices with anointment support.";
+        return "Compact demolition devices fueled by Will and enhanced by anointment.";
     }
 
     @Override

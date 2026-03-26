@@ -24,7 +24,7 @@ public class RitualMeteorEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/meteor"))
                 .withMultiblockName("Mark of the Falling Tower")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("meteor")));
@@ -32,16 +32,15 @@ public class RitualMeteorEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("Using the vast powers at your disposal, the most logical conclusion is that it is a good idea to summon a meteor from outer space to crash upon the world."
-                + "\\\n\\\nBy dropping an appropriate offering on top of the MRS, the ritual will consume the item (plus a large amount of LP, default of a million LP) and summon a meteor at the build height of the map. Once the meteor hits something, it will detonate and leave behind many resources to mine and process.");
+        this.pageTitle("Heaven's Wrath");
+        this.pageText("With enough [#](8B0000)Essentia Vitae[#]() and ambition, you can tear a celestial body from the void above and hurl it earthward. Drop a suitable offering atop the [#](8B0000)Master Ritual Stone[#]() — the ritual consumes it along with an enormous expenditure of [#](8B0000)Essentia Vitae[#](), then calls down a meteor from the sky. When it strikes, it detonates, leaving a crater rich with resources to mine and process.");
 
         this.page("offerings", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Meteor Offerings");
-        this.pageText("The size and resources gained vary based on the offering given. Normal offerings include: [#](8B0000)Diamond[#](), [#](8B0000)Block of Iron[#](), [#](8B0000)Glowstone Dust[#](), and [#](8B0000)Stone[#]()."
-                + "\\\n\\\nMod items include: Ice and Fire [#](8B0000)Dragon Bones[#](), AE2 [#](8B0000)Certus Quartz[#](), Create [#](8B0000)Andesite Alloy[#](), IE [#](8B0000)Copper Wire Coil[#](), Mystical Agriculture [#](8B0000)Prosperity Shard[#](), Thermal [#](8B0000)RF Coil[#](), and Mekanism [#](8B0000)Advanced Alloy[#]().");
+        this.pageTitle("Offerings to the Sky");
+        this.pageText("The composition and scale of the meteor vary with the offering. Standard offerings include [#](8B0000)Diamond[#](), [#](8B0000)Block of Iron[#](), [#](8B0000)Glowstone Dust[#](), and [#](8B0000)Stone[#]()."
+                + "\\\n\\\nExotic offerings from other disciplines are also recognized: [#](8B0000)Dragon Bones[#](), [#](8B0000)Certus Quartz[#](), [#](8B0000)Andesite Alloy[#](), [#](8B0000)Copper Wire Coil[#](), [#](8B0000)Prosperity Shard[#](), [#](8B0000)RF Coil[#](), and [#](8B0000)Advanced Alloy[#](), among others.");
     }
 
     @Override
@@ -51,7 +50,7 @@ public class RitualMeteorEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Summons a resource-filled meteor.";
+        return "Tears a celestial body from the void above.";
     }
 
     @Override

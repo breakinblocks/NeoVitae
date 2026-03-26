@@ -20,20 +20,23 @@ public class WaterSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Water Sigil");
-        this.pageText("The [#](8B0000)Water Sigil[#]() is a rather simple sigil. When you use it while looking at a "
-                + "block, you can drain 100 LP from your [#](8B0000)Soul Network[#]() to place a source block of water "
-                + "in the world. If there's not enough LP, it will instead drain the toll from your health.");
+        this.pageText("The [#](8B0000)Water Sigil[#]() conjures a source of water from nothing, drawn from "
+                + "the currents of your [#](8B0000)Anima[#]() at a cost of 100 [#](4A0080)Essentia Vitae[#]() per use. "
+                + "Aim at any solid surface and press [Use].\\\n\\\n"
+                + "Should your reserves prove insufficient, the sigil draws the toll from your own blood "
+                + "instead.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Water Reagent[#]() in the Tabula Vitae.\\\n\\\n"
-                + "Step 2: Create the [#](8B0000)Water Sigil[#]() in an Alchemy Array using the Water Reagent "
-                + "as the base and a [#](8B0000)Blank Slate[#]() as the catalyst.\\\n\\\n*Infinite water, anyone?*");
+        this.pageText("Forge the [#](8B0000)Water Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a [#](8B0000)Blank Slate[#]() as "
+                + "catalyst.\\\n\\\n[#](4A0080)An endless spring, born of sacrifice.[#]()");
 
         this.page("tabula_vitae", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The Water Sigil can also be used in the [#](8B0000)Tabula Vitae[#]() to automate the production "
-                + "of [#](8B0000)Water Buckets[#](). The Sigil is not consumed in this recipe.");
+        this.pageText("The [#](8B0000)Water Sigil[#]() may also serve as a component in the "
+                + "[#](8B0000)Tabula Vitae[#](), automating the production of [#](8B0000)Water Buckets[#](). "
+                + "The sigil itself is not consumed in this process.");
     }
 
     @Override
@@ -43,7 +46,7 @@ public class WaterSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A sigil that places water source blocks.";
+        return "Conjure water from the currents of your Anima.";
     }
 
     @Override

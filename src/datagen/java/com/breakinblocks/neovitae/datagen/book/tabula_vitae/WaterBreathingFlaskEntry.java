@@ -26,7 +26,8 @@ public class WaterBreathingFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Water Breathing");
-        this.pageText("[#](8B0000)Water Breathing[#]() allows the target to breathe underwater.");
+        this.pageText("The [#](8B0000)Water Breathing[#]() elixir grants the lungs the ability to draw air from "
+                + "water itself. Depths that would drown a lesser soul become your domain.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/water_breathing")
@@ -42,7 +43,7 @@ public class WaterBreathingFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Breathe underwater.";
+        return "Grants the lungs dominion over water.";
     }
 
     @Override

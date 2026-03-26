@@ -26,8 +26,9 @@ public class InstantHealthFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Instant Health");
-        this.pageText("[#](8B0000)Instant Health[#]() heals the target for 4 points per level. If the target is [#](8B0000)Undead[#](), "
-                + "they will be harmed for 4 points per level instead.");
+        this.pageText("The [#](8B0000)Instant Health[#]() elixir is no gentle salve -- it floods the body with raw "
+                + "vitality, restoring 4 health per level in an instant. Against the [#](8B0000)undead[#](), "
+                + "this same vitality becomes anathema, dealing 4 points of harm per level instead.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/health")
@@ -43,7 +44,7 @@ public class InstantHealthFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Instantly heals the target.";
+        return "A surge of raw vitality, instant and potent.";
     }
 
     @Override

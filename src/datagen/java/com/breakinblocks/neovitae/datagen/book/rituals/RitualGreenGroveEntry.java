@@ -24,7 +24,7 @@ public class RitualGreenGroveEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/green_grove"))
                 .withMultiblockName("Ritual of the Green Grove")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("green_grove")));
@@ -32,18 +32,18 @@ public class RitualGreenGroveEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual accelerates the growth of crops and plants within its area of effect, similar to using bone meal repeatedly.");
+        this.pageTitle("Verdant Awakening");
+        this.pageText("Blood is the wellspring of all life, and this ritual proves it. The circle suffuses the surrounding soil with [#](4A0080)Essentia Vitae[#](), accelerating the growth of crops and plants within its reach as though seasons passed in moments.");
 
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Effects");
-        this.pageText("- [#](8B0000)Raw Will[#](): Increases the growth rate."
-                + "\n\n- [#](8B0000)Corrosive Will[#](): Hydrates nearby farmland."
-                + "\n\n- [#](8B0000)Vengeful Will[#](): Causes nearby plants to spread."
-                + "\n\n- [#](8B0000)Destructive Will[#](): Increases effect potency at higher will concentrations."
-                + "\n\n- [#](8B0000)Steadfast Will[#](): Causes nearby saplings to grow into trees.");
+        this.pageTitle("Demon Will Resonance");
+        this.pageText("- [#](8B0000)Raw Will[#](): Hastens the growth rate further."
+                + "\n\n- [#](8B0000)Corrosive Will[#](): Hydrates nearby farmland, ensuring fertile soil."
+                + "\n\n- [#](8B0000)Vengeful Will[#](): Causes nearby plants to spread and propagate."
+                + "\n\n- [#](8B0000)Destructive Will[#](): Intensifies the effect at higher will concentrations."
+                + "\n\n- [#](8B0000)Steadfast Will[#](): Coaxes nearby saplings into full-grown trees.");
     }
 
     @Override
@@ -53,7 +53,7 @@ public class RitualGreenGroveEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Accelerates plant growth.";
+        return "Suffuses the earth with life, hastening all growth.";
     }
 
     @Override

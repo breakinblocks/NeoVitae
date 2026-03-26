@@ -26,7 +26,8 @@ public class SlowFallingFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Slow Falling");
-        this.pageText("[#](8B0000)Slow Falling[#]() causes the target to fall slowly and take no fall damage, akin to a chicken.");
+        this.pageText("The [#](8B0000)Slow Falling[#]() elixir loosens gravity's grip, allowing the drinker to drift "
+                + "gently earthward like a feather on still air. All fall damage is negated entirely.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/slow_fall")
@@ -42,7 +43,7 @@ public class SlowFallingFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Fall slowly with no fall damage.";
+        return "Loosens gravity's grip to a gentle drift.";
     }
 
     @Override

@@ -22,43 +22,41 @@ public class EnchantFilterEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Enchantments Item Filter");
-        this.pageText("The [#](8B0000)Enchantments Item Filter[#]() lets you sort items via any [#](8B0000)Enchantments[#]() that they "
-                + "may (or may not) have. It operates similarly to the [#](8B0000)Standard Item Filter[#](), particularly "
-                + "with regards to the quantity and allow/deny functions, but with a few extra buttons.");
+        this.pageTitle("Enchantment Item Filter");
+        this.pageText("The [#](8B0000)Enchantment Item Filter[#]() sorts items by the magical bindings wrought upon "
+                + "them. It shares the Standard Filter's quantity and Allow/Deny functions, augmented with "
+                + "additional controls for enchantment matching.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Enchantments Item Filter");
-        this.pageText("Craft the Enchantments Item Filter in the Tabula Vitae. Any enchanted book will work "
-                + "for this recipe.");
+        this.pageTitle("Enchantment Item Filter");
+        this.pageText("Any enchanted book suffices as a crafting component for this filter.");
 
         this.page("gui_image", () -> BookImagePageModel.create()
                 .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/enchant_item_filter_gui.png"))
-                .withTitle("Enchantments Filter GUI")
+                .withTitle("Enchantment Filter")
                 .withBorder(true)
                 .withText(this.context().pageText()));
-        this.pageText("Note the two new buttons to the right of the 'Allow' button.");
+        this.pageText("Note the two additional buttons beside the Allow toggle.");
 
         this.page("options", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The first button allows you to select whether to match [#](8B0000)Every Enchantment[#]() on an "
-                + "enchanted item, [#](8B0000)Any Enchantment[#](), or [#](8B0000)one particular enchantment[#](). The second button "
-                + "allows you to specify whether to pay attention to the level or not. (E.G. 'Protection III' "
-                + "versus 'Protection').\\\n\\\n"
-                + "If you insert [#](8B0000)an unenchanted item[#]() into the filter, you can effectively Allow or Deny "
-                + "[#](8B0000)any sort of enchantment[#]() to be inserted into or removed from the specified inventory.");
+        this.pageText("The first button selects whether to match [#](B8860B)every enchantment[#]() on an item, "
+                + "[#](B8860B)any enchantment[#](), or [#](B8860B)one particular enchantment[#](). The second determines "
+                + "whether level matters (e.g. 'Protection III' vs 'Protection' at any level).\\\n\\\n"
+                + "[#](2E8B57)Insert an unenchanted item to create a blanket rule for any sort of enchantment -- "
+                + "useful for separating enchanted gear from mundane.[#]()");
     }
 
     @Override
     protected String entryName() {
-        return "Enchantments Item Filter";
+        return "Enchantment Item Filter";
     }
 
     @Override
     protected String entryDescription() {
-        return "A filter that sorts items based on their enchantments.";
+        return "Sorting items by the magical bindings wrought upon them.";
     }
 
     @Override

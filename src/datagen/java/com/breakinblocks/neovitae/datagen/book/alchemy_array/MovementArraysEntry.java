@@ -20,15 +20,18 @@ public class MovementArraysEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Movement Arrays");
-        this.pageText("The Movement Arrays are a pair of arrays that throw players, mobs, items, etc in a "
-                + "specific direction. One will throw them horizontally, while the other will throw them vertically.");
+        this.pageText("A pair of arrays designed to hurl anything that crosses their threshold -- players, "
+                + "creatures, loose items alike. One propels horizontally in the direction the entity faces; "
+                + "the other launches straight upward.");
 
         this.page("recipes", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](8B0000)Speed Array[#](): Launches entities horizontally in the direction they are facing. "
-                + "Created with an Alchemy Array.\\\n\\\n"
-                + "[#](8B0000)Updraft Array[#](): Launches entities vertically upward. "
-                + "Created with an Alchemy Array.");
+        this.pageText("[#](8B0000)Speed Array[#](): Launches entities horizontally in the direction they face. "
+                + "Inscribed via [#](8B0000)Alchemy Array[#]().\\\n\\\n"
+                + "[#](8B0000)Updraft Array[#](): Hurls entities skyward with considerable force. "
+                + "Inscribed via [#](8B0000)Alchemy Array[#]().\\\n\\\n"
+                + "[#](2E8B57)Useful for rapid transit systems, mob processing, or simply entertaining "
+                + "oneself at a guest's expense.[#]()");
     }
 
     @Override
@@ -38,7 +41,7 @@ public class MovementArraysEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Arrays that launch entities horizontally or vertically.";
+        return "Arrays of force -- hurl creatures and objects with vitaemantic velocity.";
     }
 
     @Override

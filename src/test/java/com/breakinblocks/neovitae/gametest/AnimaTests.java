@@ -13,70 +13,70 @@ import com.breakinblocks.neovitae.common.blockentity.TabulaVitaeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.item.NVItems;
-import com.breakinblocks.neovitae.api.soul.SoulTicket;
-import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
+import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.UUID;
 
 @GameTestHolder("neovitae")
 @PrefixGameTestTemplate(false)
-public class SoulNetworkTests {
+public class AnimaTests {
 
     private static final UUID TEST_UUID = UUID.fromString("4ecf6284-b1e8-45bb-b2b3-151c95c3b10f");
     private static final UUID TEST_UUID_2 = UUID.fromString("4ecf6284-b1e8-45bb-b2b3-151c95c3b10e");
     private static final Binding TEST_BINDING = new Binding(TEST_UUID, "TestPlayer");
     private static final Binding TEST_BINDING_2 = new Binding(TEST_UUID_2, "TestPlayer2");
 
-    private static SoulNetwork getOrCreateNetwork() {
-        return SoulNetworkHelper.getSoulNetwork(TEST_UUID);
+    private static Anima getOrCreateNetwork() {
+        return AnimaHelper.getAnima(TEST_UUID);
     }
 
     private static ItemStack createBoundOrb(int lpToAdd) {
         ItemStack orb = new ItemStack(NVItems.ORB_WEAK.get());
         orb.set(NVDataComponents.BINDING, TEST_BINDING);
-        SoulNetwork network = getOrCreateNetwork();
+        Anima anima = getOrCreateNetwork();
         if (lpToAdd > 0) {
-            network.add(SoulTicket.create(lpToAdd), 1000000);
+            anima.add(AnimaTicket.create(lpToAdd), 1000000);
         }
         return orb;
     }
 
-    // ==================== Soul Network ====================
+    // ==================== Anima ====================
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
-    public void soulNetworkCreatesForUUID(GameTestHelper helper) {
+    public void animaCreatesForUUID(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
-            SoulNetwork network = getOrCreateNetwork();
-            if (network == null) {
-                helper.fail("Soul network should auto-create for UUID");
+            Anima anima = getOrCreateNetwork();
+            if (anima == null) {
+                helper.fail("Anima should auto-create for UUID");
             }
             helper.succeed();
         });
     }
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
-    public void soulNetworkAddAndSyphon(GameTestHelper helper) {
+    public void animaAddAndSyphon(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
-            SoulNetwork network = getOrCreateNetwork();
-            network.add(SoulTicket.create(5000), 100000);
+            Anima anima = getOrCreateNetwork();
+            anima.add(AnimaTicket.create(5000), 100000);
 
-            int before = network.getCurrentEssence();
+            int before = anima.getCurrentEV();
             if (before < 5000) {
-                helper.fail("Network should have at least 5000 LP, has " + before);
+                helper.fail("Anima should have at least 5000 EV, has " + before);
                 return;
             }
 
-            int syphoned = network.syphon(SoulTicket.create(2000));
+            int syphoned = anima.syphon(AnimaTicket.create(2000));
             if (syphoned != 2000) {
-                helper.fail("Should syphon 2000 LP, got " + syphoned);
+                helper.fail("Should syphon 2000 EV, got " + syphoned);
                 return;
             }
 
-            int after = network.getCurrentEssence();
+            int after = anima.getCurrentEV();
             if (after != before - 2000) {
-                helper.fail("Expected " + (before - 2000) + " LP after syphon, got " + after);
+                helper.fail("Expected " + (before - 2000) + " EV after syphon, got " + after);
                 return;
             }
             helper.succeed();
@@ -84,16 +84,15 @@ public class SoulNetworkTests {
     }
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
-    public void soulNetworkCannotOverSyphon(GameTestHelper helper) {
+    public void animaCannotOverSyphon(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
-            SoulNetwork network = getOrCreateNetwork();
-            // Reset to known state
-            while (network.getCurrentEssence() > 0) {
-                network.syphon(SoulTicket.create(network.getCurrentEssence()));
+            Anima anima = getOrCreateNetwork();
+            while (anima.getCurrentEV() > 0) {
+                anima.syphon(AnimaTicket.create(anima.getCurrentEV()));
             }
-            network.add(SoulTicket.create(100), 100000);
+            anima.add(AnimaTicket.create(100), 100000);
 
-            int syphoned = network.syphon(SoulTicket.create(500));
+            int syphoned = anima.syphon(AnimaTicket.create(500));
             if (syphoned > 100) {
                 helper.fail("Should not syphon more than available, got " + syphoned);
                 return;
@@ -113,21 +112,20 @@ public class SoulNetworkTests {
         helper.runAfterDelay(5, () -> {
             if (altar == null) { helper.fail("No altar"); return; }
 
-            // Reset network LP
-            SoulNetwork network = getOrCreateNetwork();
-            while (network.getCurrentEssence() > 0) {
-                network.syphon(SoulTicket.create(network.getCurrentEssence()));
+            Anima anima = getOrCreateNetwork();
+            while (anima.getCurrentEV() > 0) {
+                anima.syphon(AnimaTicket.create(anima.getCurrentEV()));
             }
 
-            altar.addSacrificeLP(5000, false);
+            altar.addSacrificeEV(5000, false);
             altar.inv.setStackInSlot(0, createBoundOrb(0));
 
-            int lpBefore = network.getCurrentEssence();
+            int lpBefore = anima.getCurrentEV();
 
             helper.runAfterDelay(250, () -> {
-                int lpAfter = network.getCurrentEssence();
+                int lpAfter = anima.getCurrentEV();
                 if (lpAfter <= lpBefore) {
-                    helper.fail("Orb filling should add LP to soul network (before=" + lpBefore + " after=" + lpAfter + ")");
+                    helper.fail("Orb filling should add EV to anima (before=" + lpBefore + " after=" + lpAfter + ")");
                     return;
                 }
                 helper.succeed();
@@ -146,7 +144,6 @@ public class SoulNetworkTests {
         helper.runAfterDelay(5, () -> {
             if (table == null) { helper.fail("No table"); return; }
 
-            // Flint recipe: gravel + flint = 2 flint, tier 0, 50 LP syphon, 20 ticks
             table.inv.setStackInSlot(0, new ItemStack(Items.GRAVEL));
             table.inv.setStackInSlot(1, new ItemStack(Items.FLINT));
             table.inv.setStackInSlot(TabulaVitaeBlockEntity.ORB_SLOT, createBoundOrb(10000));
@@ -175,9 +172,8 @@ public class SoulNetworkTests {
         helper.runAfterDelay(5, () -> {
             if (table == null) { helper.fail("No table"); return; }
 
-            // Use a separate UUID to avoid interference from concurrent tests
-            SoulNetwork network2 = SoulNetworkHelper.getSoulNetwork(TEST_UUID_2);
-            network2.add(SoulTicket.create(10000), 100000);
+            Anima anima2 = AnimaHelper.getAnima(TEST_UUID_2);
+            anima2.add(AnimaTicket.create(10000), 100000);
 
             ItemStack orb = new ItemStack(NVItems.ORB_WEAK.get());
             orb.set(NVDataComponents.BINDING, TEST_BINDING_2);
@@ -186,12 +182,12 @@ public class SoulNetworkTests {
             table.inv.setStackInSlot(1, new ItemStack(Items.FLINT));
             table.inv.setStackInSlot(TabulaVitaeBlockEntity.ORB_SLOT, orb);
 
-            int lpBefore = network2.getCurrentEssence();
+            int lpBefore = anima2.getCurrentEV();
 
             helper.runAfterDelay(50, () -> {
-                int lpAfter = network2.getCurrentEssence();
+                int lpAfter = anima2.getCurrentEV();
                 if (lpAfter >= lpBefore) {
-                    helper.fail("Alchemy table should syphon LP (before=" + lpBefore + " after=" + lpAfter + ")");
+                    helper.fail("Alchemy table should syphon EV (before=" + lpBefore + " after=" + lpAfter + ")");
                     return;
                 }
                 helper.succeed();

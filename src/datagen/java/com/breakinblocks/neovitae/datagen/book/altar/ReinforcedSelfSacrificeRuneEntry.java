@@ -22,28 +22,29 @@ public class ReinforcedSelfSacrificeRuneEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Reinforced Rune of Self Sacrifice");
-        this.pageText("With some [#](8B0000)Netherite Scrap[#]() and some [#](8B0000)Intricate Hellforged Parts[#]() looted from the "
-                + "[#](8B0000)Demon Realm[#](), you can double the power of your [#](8B0000)Rune of Self Sacrifice[#](), increasing "
-                + "bonus to an additive +20%% per rune.");
+        this.pageTitle("Reinforced Rune of Self-Sacrifice");
+        this.pageText("Strengthened with [#](8B0000)Netherite Scrap[#]() and [#](8B0000)Intricate Hellforged Parts[#]() "
+                + "from the [#](4A0080)Demon Realm[#](), this rune doubles the reward for your own blood -- "
+                + "[#](8B0000)+20%%[#]() per rune, additively. Each wound you inflict upon yourself yields twice "
+                + "the [#](4A0080)Essentia Vitae[#]() of the lesser inscription.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_sacrifice_self")));
 
         this.page("reversion", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("If you change your mind, you can revert the upgraded rune back to its base version "
-                + "in the Athanor .");
+        this.pageText("[#](2E8B57)Should you have need of the base rune again, the Athanor can strip the "
+                + "reinforcement and return it to its original form.[#]()");
     }
 
     @Override
     protected String entryName() {
-        return "Reinforced Rune of Self Sacrifice";
+        return "Reinforced Rune of Self-Sacrifice";
     }
 
     @Override
     protected String entryDescription() {
-        return "A more powerful Rune of Self Sacrifice.";
+        return "A rune tempered in hellfire, doubling the yield of your own spilled blood.";
     }
 
     @Override

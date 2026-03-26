@@ -24,7 +24,7 @@ public class RitualPumpEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/pump"))
                 .withMultiblockName("Hymn of Siphoning")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("pump")));
@@ -32,8 +32,8 @@ public class RitualPumpEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual acts as a powerful fluid pump, extracting source blocks from the surrounding area and depositing them into a fluid tank placed directly above the Master Ritual Stone. It works with any fluid - water, lava, or modded liquids. Each source block pumped costs LP.");
+        this.pageTitle("The Thirsting Stone");
+        this.pageText("This ritual draws fluid source blocks from the surrounding terrain and channels them into a tank placed directly above the [#](8B0000)Master Ritual Stone[#](). Water, lava, or stranger liquids — it drinks them all with equal thirst. Each source block extracted costs [#](8B0000)Essentia Vitae[#]().");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RitualPumpEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Pumps fluid source blocks into a tank.";
+        return "Draws surrounding fluids into a waiting vessel.";
     }
 
     @Override

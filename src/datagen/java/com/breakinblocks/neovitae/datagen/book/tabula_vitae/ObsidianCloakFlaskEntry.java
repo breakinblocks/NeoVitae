@@ -26,9 +26,11 @@ public class ObsidianCloakFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Obsidian Cloak");
-        this.pageText("[#](8B0000)Obsidian Cloak[#]() reduces all damage taken from non-magical sources by 20%% per level.\\\n\\\n"
-                + "To create it, combine a flask of [#](8B0000)Hard Cloak[#]() with a [#](8B0000)Diamond[#]() and [#](8B0000)Crying Obsidian[#]() "
-                + "in the Tabula Vitae.");
+        this.pageText("The [#](8B0000)Obsidian Cloak[#]() elixir sheathes the body in an invisible mantle of volcanic "
+                + "hardness, reducing all non-magical damage by 20%% per level. Arrows glance. Blades "
+                + "skid. Only [#](4A0080)arcane forces[#]() bypass it.\\\n\\\n"
+                + "Brewed by combining a flask of [#](8B0000)Hard Cloak[#]() with [#](8B0000)Diamond[#]() and [#](8B0000)Crying Obsidian[#]() "
+                + "at the Tabula Vitae.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/hard_to_obsidian")
@@ -47,7 +49,7 @@ public class ObsidianCloakFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Reduces non-magical damage taken.";
+        return "A mantle of volcanic hardness against physical harm.";
     }
 
     @Override

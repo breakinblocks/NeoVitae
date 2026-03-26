@@ -21,12 +21,13 @@ public class AthanorEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Athanor");
-        this.pageText("The [#](8B0000)Athanor[#]() can function as a Furnace, "
-                + "offers a form of Ore-Tripling, can revert Blood Orbs, Netherite and Reinforced Runes, "
-                + "and is currently the only way to get Weak Blood Shards, specifically from a Saturated Tau.\\\n\\\n"
-                + "Most tools used within the Athanor degrade over time, but can be enchanted with unbreaking or "
-                + "mending to compensate.");
+        this.pageTitle("The Athanor");
+        this.pageText("The [#](8B0000)Athanor[#]() is the alchemist's furnace, "
+                + "a vessel of transmutation that transcends mere smelting. Within its crucible you may triple ore yields, "
+                + "revert Blood Orbs, unmake Netherite and Reinforced Runes, and - most critically - distill "
+                + "[#](8B0000)Weak Blood Shards[#]() from [#](8B0000)Saturated Tau[#]().\\\n\\\n"
+                + "[#](2E8B57)Most tools placed in the Athanor degrade over time, but Unbreaking or Mending "
+                + "enchantments will slow or halt their decay.[#]()");
 
         this.page("recipe_arc", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "athanor_block")));
@@ -34,47 +35,51 @@ public class AthanorEntry extends EntryProvider {
         this.page("sanguine_reverter", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Sanguine Reverter");
-        this.pageText("The Sanguine Reverter is crafted in the Hellfire Forge. It is used to create Weak Blood Shards, "
-                + "and revert Blood Orbs, Netherite and Reinforced Runes to their input crafting item.");
+        this.pageTitle("The Sanguine Reverter");
+        this.pageText("Forged within the Hellfire Forge, the [#](8B0000)Sanguine Reverter[#]() is a tool of "
+                + "[#](4A0080)unmaking[#](). It peels away the enchantments of creation, reducing Blood Orbs, "
+                + "Netherite, and Reinforced Runes back to their constituent materials. It is also the instrument "
+                + "by which Weak Blood Shards are born from Saturated Tau.");
 
         this.page("athanor_recipes", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Athanor Recipes");
-        this.pageText("The Athanor can produce Weak Blood Shards from Saturated Tau, and revert various items:\n"
-                + "- Weak Blood Orb\n"
-                + "- Apprentice Blood Orb\n"
-                + "- Magician Blood Orb\n"
-                + "- Master Blood Orb\n"
+        this.pageTitle("Recipes of Reversion");
+        this.pageText("With the Sanguine Reverter, the Athanor can unmake:\n\n"
+                + "- [#](8B0000)Weak Blood Orb[#]()\n"
+                + "- [#](8B0000)Apprentice Blood Orb[#]()\n"
+                + "- [#](8B0000)Magician Blood Orb[#]()\n"
+                + "- [#](8B0000)Master Blood Orb[#]()\n"
                 + "- Netherite Ingot\n"
-                + "- Any Reinforced Rune (back to base materials)");
+                + "- Any Reinforced Rune (to base materials)");
 
         this.page("reversion", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Rune Reversion");
-        this.pageText("All Reinforced Runes can be reverted in the Athanor with a Sanguine Reverter. "
-                + "This is useful if you want to reclaim the materials from runes you no longer need.");
+        this.pageTitle("Reclaiming Runes");
+        this.pageText("Every Reinforced Rune placed in the Athanor alongside the Sanguine Reverter surrenders "
+                + "its form and returns to base materials. This is invaluable when restructuring your altar, "
+                + "apprentice - no investment need be permanent.");
 
         this.page("automation", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Automation");
-        this.pageText("Should you wish to automate the Athanor, perhaps as part of an Ore-Tripling chain, "
-                + "you may want to know that it is sided, much like a furnace. Tools can only be inserted or "
-                + "extracted from the top, inputs from the sides, and outputs from the bottom. Keep this in mind "
-                + "when placing your Hoppers or Routing Nodes.");
+        this.pageTitle("Automating the Athanor");
+        this.pageText("[#](2E8B57)The Athanor is sided, much like a common furnace. "
+                + "Tools may only enter or exit from the top. Inputs are accepted from the sides. "
+                + "Outputs emerge from the bottom.[#]()\\\n\\\n"
+                + "Keep this geometry in mind when placing your Hoppers or Routing Nodes. "
+                + "An automated Athanor is the heart of any serious ore-processing chain.");
     }
 
     @Override
     protected String entryName() {
-        return "Athanor";
+        return "The Athanor";
     }
 
     @Override
     protected String entryDescription() {
-        return "The Athanor: furnace, ore tripler, and item reverter.";
+        return "The alchemist's crucible: smelter, ore tripler, and instrument of unmaking.";
     }
 
     @Override

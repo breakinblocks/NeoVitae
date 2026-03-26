@@ -24,7 +24,7 @@ public class RitualSimpleDungeonEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/simple_dungeon"))
                 .withMultiblockName("Edge of the Hidden Realm")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("simple_dungeon")));
@@ -32,8 +32,8 @@ public class RitualSimpleDungeonEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual opens a gateway to the [#](8B0000)Demon Realm[#](), a dangerous dimension full of hostile creatures and valuable resources. The simple dungeon provides an introductory challenge.");
+        this.pageTitle("A Crack in the Veil");
+        this.pageText("This ritual tears a narrow fissure in the fabric of reality, opening a gateway to the [#](4A0080)Demon Realm[#]() — a treacherous dimension teeming with hostile entities and coveted resources. This lesser portal provides an introductory trial for those who dare to test their strength against what lurks beyond.");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RitualSimpleDungeonEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Opens a gateway to the Demon Realm.";
+        return "Tears a narrow fissure into the Demon Realm.";
     }
 
     @Override

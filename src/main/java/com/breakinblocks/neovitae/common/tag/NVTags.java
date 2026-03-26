@@ -90,7 +90,7 @@ public class NVTags {
         public static final TagKey<Block> T6_CAPSTONES = tag(bm("altar/t6_capstones"));
 
         public static final TagKey<Block> PULSE_ON_CRAFTING = tag(bm("altar/pulse_on_crafting"));
-        public static final TagKey<Block> SOUL_NETWORK_COMPARATOR = tag(bm("altar/soul_network_comparator"));
+        public static final TagKey<Block> ANIMA_COMPARATOR = tag(bm("altar/anima_comparator"));
 
         public static final TagKey<Block> STORAGE_BLOCKS_HELLFORGED = tag(c("storage_blocks/hellforged"));
 
@@ -128,7 +128,7 @@ public class NVTags {
     }
 
     public static class Fluids {
-        public static final TagKey<Fluid> LIFE_ESSENCE = tag(bm("life_essence"));
+        public static final TagKey<Fluid> ESSENTIA_VITAE = tag(bm("essentia_vitae"));
 
         private static TagKey<Fluid> tag(ResourceLocation id) {
             return TagKey.create(Registries.FLUID, id);

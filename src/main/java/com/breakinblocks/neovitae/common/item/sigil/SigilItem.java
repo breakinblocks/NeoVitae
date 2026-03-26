@@ -21,16 +21,16 @@ import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.api.sigil.ISigilEffect;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.api.sigil.SigilType;
-import com.breakinblocks.neovitae.api.soul.SoulTicket;
+import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
-import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.item.IActivatable;
 import com.breakinblocks.neovitae.common.item.IBindable;
 import com.breakinblocks.neovitae.registry.SigilTypeRegistry;
 import com.breakinblocks.neovitae.util.helper.PlayerHelper;
-import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
+import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -152,9 +152,9 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
                 if (!level.isClientSide && !player.isCreative()) {
                     int cost = getReducedCost(getLpCost(stack, level, SigilType.UseContext.AIR), player);
                     if (cost > 0) {
-                        SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
+                        Anima network = AnimaHelper.getAnima(binding);
                         if (network != null) {
-                            setUnusable(stack, !network.syphonAndDamage(player, SoulTicket.create(cost)).success());
+                            setUnusable(stack, !network.syphonAndDamage(player, AnimaTicket.create(cost)).success());
                         }
                     }
                 }
@@ -186,9 +186,9 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
                 if (!level.isClientSide && player != null && !player.isCreative()) {
                     int cost = getReducedCost(getLpCost(stack, level, SigilType.UseContext.BLOCK), player);
                     if (cost > 0) {
-                        SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
+                        Anima network = AnimaHelper.getAnima(binding);
                         if (network != null) {
-                            setUnusable(stack, !network.syphonAndDamage(player, SoulTicket.create(cost)).success());
+                            setUnusable(stack, !network.syphonAndDamage(player, AnimaTicket.create(cost)).success());
                         }
                     }
                 }
@@ -214,9 +214,9 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
             if (!level.isClientSide && !player.isCreative()) {
                 int cost = getReducedCost(getLpCost(useStack, level, SigilType.UseContext.ENTITY), player);
                 if (cost > 0) {
-                    SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
+                    Anima network = AnimaHelper.getAnima(binding);
                     if (network != null) {
-                        setUnusable(useStack, !network.syphonAndDamage(player, SoulTicket.create(cost)).success());
+                        setUnusable(useStack, !network.syphonAndDamage(player, AnimaTicket.create(cost)).success());
                     }
                 }
             }
@@ -245,9 +245,9 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         if (entity.tickCount % drainInterval == 0) {
             int cost = getReducedCost(getLpCost(stack, level, SigilType.UseContext.ACTIVE), player);
             if (cost > 0) {
-                SoulNetwork network = SoulNetworkHelper.getSoulNetwork(binding);
+                Anima network = AnimaHelper.getAnima(binding);
                 if (network != null) {
-                    if (!network.syphonAndDamage(player, SoulTicket.create(cost)).success()) {
+                    if (!network.syphonAndDamage(player, AnimaTicket.create(cost)).success()) {
                         setActivatedState(stack, false);
                         return;
                     }

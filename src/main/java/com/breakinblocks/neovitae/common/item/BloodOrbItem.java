@@ -11,10 +11,10 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
-import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
-import com.breakinblocks.neovitae.api.soul.SoulTicket;
-import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
+import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 public class BloodOrbItem extends Item implements IBindable {
 
@@ -48,8 +48,8 @@ public class BloodOrbItem extends Item implements IBindable {
             if (capacity == 0)
                 return InteractionResultHolder.fail(stack);
 
-            SoulNetwork ownerNetwork = SoulNetworkHelper.getSoulNetwork(binding);
-            ownerNetwork.add(SoulTicket.create(200), capacity);
+            Anima ownerNetwork = AnimaHelper.getAnima(binding);
+            ownerNetwork.add(AnimaTicket.create(200), capacity);
             ownerNetwork.hurtPlayer(player, 200);
         }
 

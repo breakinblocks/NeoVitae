@@ -20,18 +20,17 @@ public class SuppressionSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of Suppression");
-        this.pageText("The [#](8B0000)Sigil of Suppression[#](), when activated via pressing [Use], will temporarily "
-                + "remove all fluids in a roughly 6-block radius of its holder. A short while after moving "
-                + "away from the liquid in question, it will return as though it never left. While this will "
-                + "make exploring the lava oceans of the Nether much easier, beware of jumping into any deep "
-                + "pools of water with this active!");
+        this.pageText("The [#](8B0000)Sigil of Suppression[#]() exerts your will upon the elements themselves, "
+                + "temporarily banishing all fluids within roughly six blocks of you. The liquid vanishes as "
+                + "though it never existed, returning only after you move away.\\\n\\\n"
+                + "[#](2E8B57)A powerful tool for traversing Nether lava oceans. But be wary of deep "
+                + "water -- deactivating above a chasm invites a swift end.[#]()");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Suppression Reagent[#]() in the Tabula Vitae.\\\n\\\n"
-                + "Step 2: Create the [#](8B0000)Sigil of Suppression[#]() in an Alchemy Array using the "
-                + "Suppression Reagent as the base and a slate as the catalyst.\\\n\\\n"
-                + "*Better than a Void Sigil!*");
+        this.pageText("Forge the [#](8B0000)Suppression Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a slate as catalyst.\\\n\\\n"
+                + "[#](4A0080)The elements themselves bow before sufficient will.[#]()");
     }
 
     @Override
@@ -41,7 +40,7 @@ public class SuppressionSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A sigil that temporarily removes nearby fluids.";
+        return "Command the elements to part -- fluid yields to your presence.";
     }
 
     @Override

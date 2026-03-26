@@ -26,7 +26,9 @@ public class RegenerationFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Regeneration");
-        this.pageText("[#](8B0000)Regeneration[#]() heals the target over time. Higher levels increase the rate of healing.");
+        this.pageText("The [#](8B0000)Regeneration[#]() elixir knits torn flesh and mends broken bone, restoring health "
+                + "steadily over time. Higher levels hasten the mending -- wounds close almost as fast as "
+                + "they are inflicted.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/regen")
@@ -45,7 +47,7 @@ public class RegenerationFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Heals over time.";
+        return "Knits wounds closed over time.";
     }
 
     @Override

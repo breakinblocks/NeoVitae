@@ -26,7 +26,8 @@ public class SpeedFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Speed");
-        this.pageText("[#](8B0000)Speed[#]() increases the target's movement speed by 20%% per level.");
+        this.pageText("The [#](8B0000)Speed[#]() elixir quickens the drinker's stride, increasing movement speed "
+                + "by 20%% per level. Even a single dose transforms a cautious walk into a predator's lope.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/speed_boost")
@@ -45,7 +46,7 @@ public class SpeedFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increases movement speed.";
+        return "Quickens the stride beyond mortal pace.";
     }
 
     @Override

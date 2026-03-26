@@ -19,7 +19,7 @@ import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.api.will.DemonWillHandler;
 import com.breakinblocks.neovitae.api.will.WillState;
-import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -44,17 +44,17 @@ public final class RitualHelper {
             return null;
         }
 
-        SoulNetwork network = masterRitualStone.getOwnerNetwork();
+        Anima network = masterRitualStone.getOwnerNetwork();
         if (network == null) {
             return null;
         }
 
-        int currentEssence = network.getCurrentEssence();
-        if (currentEssence < minEssence) {
+        int currentEV = network.getCurrentEV();
+        if (currentEV < minEssence) {
             return null;
         }
 
-        return new RitualContext(level, network, currentEssence, masterRitualStone.getBlockPos(), masterRitualStone);
+        return new RitualContext(level, network, currentEV, masterRitualStone.getBlockPos(), masterRitualStone);
     }
 
     @Nullable
@@ -192,27 +192,27 @@ public final class RitualHelper {
         return tool;
     }
 
-    public static void syphonLP(RitualContext context, int cost) {
+    public static void syphonEV(RitualContext context, int cost) {
         if (cost > 0) {
-            int actualCost = Math.min(cost, context.currentEssence());
+            int actualCost = Math.min(cost, context.currentEV());
             context.network().syphon(context.master().ticket(actualCost));
         }
     }
 
     public static int getMaxOperations(RitualContext context, int costPerOperation) {
         if (costPerOperation <= 0) return Integer.MAX_VALUE;
-        return context.currentEssence() / costPerOperation;
+        return context.currentEV() / costPerOperation;
     }
 
     public record RitualContext(
             Level level,
-            SoulNetwork network,
-            int currentEssence,
+            Anima network,
+            int currentEV,
             BlockPos masterPos,
             IMasterRitualStone master
     ) {
         public void syphon(int cost) {
-            RitualHelper.syphonLP(this, cost);
+            RitualHelper.syphonEV(this, cost);
         }
 
         public int maxOperations(int costPerOperation) {

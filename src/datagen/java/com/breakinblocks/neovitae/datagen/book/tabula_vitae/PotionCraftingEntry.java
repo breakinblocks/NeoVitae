@@ -19,159 +19,162 @@ public class PotionCraftingEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Potion Crafting");
-        this.pageText("The basics of [#](8B0000)Potion Crafting[#]() are known to all and sundry throughout the land. "
-                + "Even common Clerics and Witches have a firm grasp of the basics of brewing - take a handful "
-                + "of semi-rare ingredients, mix them together in the correct proportions, and consume the result "
-                + "(while holding your nose, if needed), or throw it at your foes.");
+        this.pageTitle("The Alchemist's Craft");
+        this.pageText("Potion-brewing is a pedestrian art. Any hedge-witch with a cauldron can boil nether wart "
+                + "into a serviceable tincture. But a [#](4A0080)Vitaemancer[#]() does not settle for serviceable.\\\n\\\n"
+                + "By weaving [#](4A0080)Essentia Vitae[#]() into the brewing process, you transcend the crude limitations "
+                + "of conventional alchemy entirely.");
 
         this.page("intro2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The addition of [#](8B0000)Life Essence[#]() and some frankly ingenious Sanguimancy has allowed you "
-                + "to turbocharge the practice, however.\\\n\\\n"
-                + "By imbuing ordinary [#](8B0000)Glass Bottles[#]() with your powers, you are able to hold far more than a "
-                + "single swig of liquid, and with the use of various [#](8B0000)Catalysts[#]() you have figured out how to "
-                + "combine multiple effects in one flask without them muddying together and cancelling out.");
+        this.pageText("Through ingenious [#](4A0080)Vitaemancy[#](), you have learned to imbue common glass with far greater "
+                + "capacity than any bottle should rightly hold. More remarkable still, the use of specialized "
+                + "[#](8B0000)Catalysts[#]() allows you to layer multiple effects within a single flask without them "
+                + "muddying together or cancelling one another out.\\\n\\\n"
+                + "The result is an elixir worthy of the name.");
 
         this.page("flask", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Alchemy Flask");
-        this.pageText("Craft the [#](8B0000)Alchemy Flask[#]() in the Ara Vitae (recipe: neovitae:ara_vitae/alchemy_flask). "
-                + "A sturdy Flask that is far more capacious than any measly bottle!");
+        this.pageText("The [#](8B0000)Alchemy Flask[#]() is forged upon the [#](8B0000)Ara Vitae[#]() (recipe: neovitae:ara_vitae/alchemy_flask). "
+                + "Far sturdier and more capacious than any common bottle, it holds eight doses of whatever "
+                + "elixir you fill it with -- a vessel truly befitting the art.");
 
         this.page("effects", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Of course, a bottle, no matter how advanced, is all but useless without something to fill it."
-                + "\\\n\\\nAlongside all the usual well known [#](8B0000)Effects[#]() such as [#](8B0000)Water Breathing[#](), [#](8B0000)Regeneration[#](), "
-                + "or [#](8B0000)Night Vision[#](), we have also perfected a variety of other, more specialised recipes, such as "
-                + "[#](8B0000)Flight[#](), [#](8B0000)Obsidian Cloak[#](), or even [#](8B0000)Passive[#](). These potions and many more are documented "
-                + "further on in the book.");
+        this.pageText("A vessel, however fine, is nothing without something to fill it.\\\n\\\n"
+                + "Beyond the familiar elixirs -- [#](8B0000)Water Breathing[#](), [#](8B0000)Regeneration[#](), [#](8B0000)Night Vision[#]() "
+                + "-- the discipline offers far stranger brews: [#](8B0000)Flight[#](), [#](8B0000)Obsidian Cloak[#](), even "
+                + "[#](8B0000)Passive[#](). Each is documented in the pages that follow.");
 
         this.page("refill", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Once you have used up any kind of alchemy flask, simply wash out and refill it with water, "
-                + "to get a fresh new flask ready for use. View the Alchemy Flask recipe in JEI.");
+        this.pageText("Once you have drained a flask to its dregs, simply rinse it with water to prepare a fresh "
+                + "vessel for your next concoction. [#](2E8B57)Consult JEI for the refilling recipe.[#]()");
 
         this.page("splash_linger", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Flasks also have their equivalent to [#](8B0000)Splash[#]() and [#](8B0000)Lingering Potions[#]().\\\n\\\n"
+        this.pageText("Not every elixir need be sipped. Flasks may be transmuted into projectile forms:\\\n\\\n"
                 + "[#](8B0000)Splash Alchemy Flask[#]() (recipe: neovitae:flask/flask_splash)\n"
                 + "[#](8B0000)Lingering Alchemy Flask[#]() (recipe: neovitae:flask/flask_lingering)\\\n\\\n"
-                + "[#](8B0000)Lingering Potions[#]() can be combined with 8 [#](8B0000)Amethyst Throwing Daggers[#]() in the "
-                + "[#](8B0000)Athanor[#]() to create [#](8B0000)Tipped Amethyst Throwing Daggers[#](). "
-                + "Any entity hit by one of these daggers will have the potion's effects transferred to it.");
+                + "A [#](8B0000)Lingering Flask[#]() may be combined with 8 [#](8B0000)Amethyst Throwing Daggers[#]() in the "
+                + "[#](8B0000)Athanor[#]() to forge [#](8B0000)Tipped Amethyst Throwing Daggers[#](). "
+                + "Any creature struck by such a dagger suffers the flask's effects on impact.");
 
         this.page("multi_effects", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("You may recall the ability to make multiple [#](8B0000)effects[#]() in a single [#](8B0000)Flask[#](). "
-                + "Luckily, this process couldn't be easier. Simply brew up a potion, and use the resulting "
-                + "Flask in place of your empty Flask in the second brewing.\\\n\\\n"
-                + "For example, if you made a Flask "
-                + "of [#](8B0000)Bounce[#](), then took that flask and used it as an ingredient in a flask of [#](8B0000)Night Vision[#](), "
-                + "you'd end up with an 8-dose Flask that gives you [#](8B0000)Bounce[#]() and [#](8B0000)Night Vision[#]() with every swig!");
+        this.pageText("Layering multiple effects within a single flask is elegantly simple. Brew your first "
+                + "elixir, then use the resulting flask in place of an empty one for the second brewing.\\\n\\\n"
+                + "For example, brew a flask of [#](8B0000)Bounce[#](), then use that same flask as the base for a "
+                + "[#](8B0000)Night Vision[#]() recipe. The result: an 8-dose flask bestowing both "
+                + "[#](8B0000)Bounce[#]() and [#](8B0000)Night Vision[#]() with every sip.");
 
         this.page("catalysts_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Next up, we have [#](8B0000)Catalysts[#](). There are a few kinds of catalyst, with a few different "
-                + "effects, so let's start off with the simplest three - [#](8B0000)Simple Catalyst[#](), [#](8B0000)Small Power Catalyst[#](), "
-                + "and [#](8B0000)Small Lengthening Catalyst[#](). Of these, the first is the most straightforward - it provides "
-                + "a base to almost every Alchemical Potion, much as [#](8B0000)Nether Wart[#]() does for standard Potions.");
+        this.pageText("Central to the art of flask-brewing are [#](8B0000)Catalysts[#]() -- reagents that shape and "
+                + "amplify your elixirs. Begin with these three: the [#](8B0000)Simple Catalyst[#](), the "
+                + "[#](8B0000)Small Power Catalyst[#](), and the [#](8B0000)Small Lengthening Catalyst[#](). The first serves "
+                + "as the foundation for nearly every alchemical brew, much as [#](8B0000)Nether Wart[#]() anchors "
+                + "lesser potions.");
 
         this.page("simple_catalyst", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Simple Catalyst");
-        this.pageText("Craft the [#](8B0000)Simple Catalyst[#]() in the Tabula Vitae (recipe: neovitae:alchemytable/simple_catalyst). "
-                + "A good base for nearly any effect. Stock up, you'll want a lot of these.");
+        this.pageText("The [#](8B0000)Simple Catalyst[#]() is brewed at the Tabula Vitae (recipe: neovitae:alchemytable/simple_catalyst). "
+                + "It forms the alchemical bedrock of nearly every flask recipe. "
+                + "[#](2E8B57)Prepare these in quantity -- you will consume them ceaselessly.[#]()");
 
         this.page("power_catalyst", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Small Power Catalyst");
-        this.pageText("Craft the [#](8B0000)Small Power Catalyst[#]() in the Tabula Vitae (recipe: neovitae:alchemytable/mundane_power). "
-                + "Power Catalysts increase the potency of the topmost effect inside the Flask, while decreasing the "
-                + "duration of the effect. It is roughly analogous to [#](8B0000)Glowstone[#]() in more standard potions.\\\n\\\n"
-                + "If the most recently applied effect cannot accept the catalyst, it will attempt to boost the "
-                + "second topmost, and so on.");
+        this.pageText("The [#](8B0000)Small Power Catalyst[#]() is brewed at the Tabula Vitae (recipe: neovitae:alchemytable/mundane_power). "
+                + "It intensifies the topmost effect within a flask at the cost of shortened duration -- "
+                + "analogous to what [#](8B0000)Glowstone[#]() achieves in cruder potions.\\\n\\\n"
+                + "If the topmost effect cannot accept further potency, the catalyst reaches deeper, "
+                + "boosting the next eligible effect in sequence.");
 
         this.page("lengthening_catalyst", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Small Lengthening Catalyst");
-        this.pageText("Craft the [#](8B0000)Small Lengthening Catalyst[#]() in the Tabula Vitae (recipe: neovitae:alchemytable/mundane_lengthening). "
-                + "Lengthening Catalysts increase the duration of the topmost effect inside the Flask. It is roughly "
-                + "analogous to [#](8B0000)Redstone[#]() in more standard potions.\\\n\\\n"
-                + "If the most recently applied effect cannot "
-                + "accept the catalyst, it will attempt to boost the second topmost, and so on.");
+        this.pageText("The [#](8B0000)Small Lengthening Catalyst[#]() is brewed at the Tabula Vitae (recipe: neovitae:alchemytable/mundane_lengthening). "
+                + "It stretches the duration of the topmost effect within a flask -- much as [#](8B0000)Redstone[#]() "
+                + "prolongs a common potion.\\\n\\\n"
+                + "As with Power Catalysts, if the topmost effect cannot be further extended, the catalyst "
+                + "seeks the next eligible effect below it.");
 
         this.page("combinational_catalyst", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Combinational Catalyst");
-        this.pageText("Craft the [#](8B0000)Combinational Catalyst[#]() in the Tabula Vitae (recipe: neovitae:alchemytable/combinational). "
-                + "[#](8B0000)Combinational Catalysts[#]() are a little more niche - they take two defined effects and "
-                + "synthesise a third, related effect from them. For example, a Flask with [#](8B0000)Suspended[#]() and "
-                + "[#](8B0000)Levitation[#]() would, when brewed with this catalyst, produce a Flask of [#](8B0000)Flight[#]().");
+        this.pageText("The [#](8B0000)Combinational Catalyst[#]() is brewed at the Tabula Vitae (recipe: neovitae:alchemytable/combinational). "
+                + "This is the reagent of [#](4A0080)synthesis[#]() -- it fuses two existing effects within a flask into "
+                + "an entirely new one. A flask bearing both [#](8B0000)Suspended[#]() and [#](8B0000)Levitation[#](), when treated "
+                + "with this catalyst, yields the coveted elixir of [#](8B0000)Flight[#]().");
 
         this.page("filling_agent", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Weak Filling Agent");
-        this.pageText("Craft the [#](8B0000)Weak Filling Agent[#]() in the Tabula Vitae (recipe: neovitae:alchemytable/weak_filling). "
-                + "Filling Agents can be used to refresh the contents of a Flask, at the cost of losing some of "
-                + "the effects - the Weak Filling Agent can only preserve the topmost effect on the Flask. "
-                + "If you wish to preserve a different effect, consider using the [#](8B0000)Simple Cycling Catalyst[#]().");
+        this.pageText("The [#](8B0000)Weak Filling Agent[#]() is brewed at the Tabula Vitae (recipe: neovitae:alchemytable/weak_filling). "
+                + "It replenishes a partially drained flask, though at a cost -- only the topmost effect survives "
+                + "the restoration. All others are lost.\\\n\\\n"
+                + "[#](2E8B57)If you wish to preserve a deeper effect, first reorder the flask with a "
+                + "Simple Cycling Catalyst.[#]()");
 
         this.page("cycling_catalyst", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Simple Cycling Catalyst");
-        this.pageText("Craft the [#](8B0000)Simple Cycling Catalyst[#]() in the Tabula Vitae (recipe: neovitae:alchemytable/cycling_catalyst). "
-                + "The Cycling Catalyst can be used to alter the order of effects inside the Flask, and thus "
-                + "change which effect is altered by another Catalyst or Agent.");
+        this.pageText("The [#](8B0000)Simple Cycling Catalyst[#]() is brewed at the Tabula Vitae (recipe: neovitae:alchemytable/cycling_catalyst). "
+                + "It rotates the order of effects layered within a flask, bringing a different effect to the "
+                + "top position -- and thus changing which effect is targeted by subsequent catalysts or agents.");
 
         this.page("advanced_intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Potion Crafting 201");
-        this.pageText("If the potions you've crafted so far just aren't enough for you, then perhaps you need "
-                + "to do a little exploring? With some [#](8B0000)Glow berries[#](), some [#](8B0000)Cobbled Deepslate[#]() and a sprinkling "
-                + "of [#](8B0000)Hellforged Sand[#](), you can boost the duration and power of your flasks significantly.");
+        this.pageTitle("Advanced Catalysis");
+        this.pageText("Should your current brews prove insufficient, the answer lies in deeper materials. "
+                + "With [#](8B0000)Glow Berries[#](), [#](8B0000)Cobbled Deepslate[#](), and a measure of "
+                + "[#](8B0000)Hellforged Sand[#](), you may forge catalysts of considerably greater potency -- "
+                + "pushing both duration and power well beyond their former limits.");
 
         this.page("strengthened_catalyst", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Strengthened Catalyst");
-        this.pageText("Craft the [#](8B0000)Strengthened Catalyst[#]() in the Tabula Vitae (recipe: neovitae:alchemytable/strengthened_catalyst). "
-                + "A more potent base for more potent catalysts.");
+        this.pageText("The [#](8B0000)Strengthened Catalyst[#]() is brewed at the Tabula Vitae (recipe: neovitae:alchemytable/strengthened_catalyst). "
+                + "A refined alchemical substrate that serves as the foundation for all advanced-tier catalysts.");
 
         this.page("avg_lengthening", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Standard Lengthening");
-        this.pageText("Craft the [#](8B0000)Standard Lengthening Catalyst[#]() in the Tabula Vitae (recipe: neovitae:alchemytable/average_lengthening). "
-                + "The Standard Lengthening Catalyst will increase the duration of the topmost effect from 3:00 to "
-                + "21:20. Multiply that by the 8 doses each flask provides, and that's a heck of a long time!");
+        this.pageText("The [#](8B0000)Standard Lengthening Catalyst[#]() is brewed at the Tabula Vitae (recipe: neovitae:alchemytable/average_lengthening). "
+                + "It extends the topmost effect's duration from a mere 3:00 to a formidable 21:20. "
+                + "Across eight doses, that is a truly staggering span of sustained power.");
 
         this.page("avg_power", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Standard Power Catalyst");
-        this.pageText("Craft the [#](8B0000)Standard Power Catalyst[#]() in the Tabula Vitae (recipe: neovitae:alchemytable/average_power). "
-                + "The Standard Power Catalyst is a souped-up version of the Small Power Catalyst, allowing you "
-                + "to get up to level III potion effects in your flask, while reducing the duration to just "
-                + "45 seconds per dose.");
+        this.pageText("The [#](8B0000)Standard Power Catalyst[#]() is brewed at the Tabula Vitae (recipe: neovitae:alchemytable/average_power). "
+                + "A concentrated refinement of its lesser counterpart, it drives effects to [#](B8860B)level III[#]() "
+                + "potency -- though the duration contracts to a brief 45 seconds per dose. "
+                + "Devastating, but fleeting.");
     }
 
     @Override
     protected String entryName() {
-        return "Potion Crafting";
+        return "The Alchemist's Craft";
     }
 
     @Override
     protected String entryDescription() {
-        return "Advanced potion brewing with Alchemy Flasks and Catalysts.";
+        return "Flask-brewing, catalysts, and the layering of effects.";
     }
 
     @Override

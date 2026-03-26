@@ -24,7 +24,7 @@ public class RitualAnimalGrowthEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/animal_growth"))
                 .withMultiblockName("Ritual of the Shepherd")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("animal_growth")));
@@ -32,17 +32,17 @@ public class RitualAnimalGrowthEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual accelerates the growth of baby animals within its area of effect.");
+        this.pageTitle("Nurturing Pulse");
+        this.pageText("The circle radiates a warm vitality that seeps into the bones of young creatures, hastening their maturation. Baby animals within its influence grow to adulthood at an accelerated rate, as though seasons passed in mere moments.");
 
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Effects");
-        this.pageText("- [#](8B0000)Raw Will[#](): Increases the growth rate of baby animals."
-                + "\n\n- [#](8B0000)Vengeful Will[#](): Causes adult animals to breed automatically."
-                + "\n\n- [#](8B0000)Destructive Will[#](): Increases the frequency of growth ticks."
-                + "\n\n- [#](8B0000)Steadfast Will[#](): Outputs items from sheared/milked animals into a nearby chest.");
+        this.pageTitle("Demon Will Resonance");
+        this.pageText("- [#](8B0000)Raw Will[#](): Further accelerates the growth of young creatures."
+                + "\n\n- [#](8B0000)Vengeful Will[#](): Compels adult animals to breed without intervention."
+                + "\n\n- [#](8B0000)Destructive Will[#](): Increases the frequency of growth pulses."
+                + "\n\n- [#](8B0000)Steadfast Will[#](): Collects products from sheared or milked animals into a nearby chest.");
     }
 
     @Override
@@ -52,7 +52,7 @@ public class RitualAnimalGrowthEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Accelerates animal growth.";
+        return "Hastens the maturation of young creatures.";
     }
 
     @Override

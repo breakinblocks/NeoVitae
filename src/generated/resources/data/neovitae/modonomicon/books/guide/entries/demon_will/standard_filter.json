@@ -57,7 +57,7 @@
         "neovitae:images/entries/routing/standard_item_filter_gui.png"
       ],
       "text": "book.neovitae.guide.demon_will.standard_filter.gui_image.text",
-      "title": "Standard Item Filter GUI",
+      "title": "Standard Item Filter",
       "use_legacy_rendering": false
     }
   ],

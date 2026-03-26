@@ -26,9 +26,10 @@ public class InstantDamageFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Instant Damage");
-        this.pageText("[#](8B0000)Instant Damage[#]() inflicts 6 points of [#](8B0000)Magic Damage[#]() to the target per level. "
-                + "If the target is [#](8B0000)Undead[#](), they will be healed for 6 points per level instead.\\\n\\\n"
-                + "It's made from a potion of either [#](8B0000)Instant Health[#]() or [#](8B0000)Poison[#]().");
+        this.pageText("The [#](8B0000)Instant Damage[#]() elixir is vitality inverted -- a concentrated bolt of "
+                + "[#](4A0080)arcane harm[#]() that inflicts 6 points of magic damage per level. The [#](8B0000)undead[#](), "
+                + "paradoxically, find succour in it, healing 6 points per level instead.\\\n\\\n"
+                + "Derived from a flask of either [#](8B0000)Instant Health[#]() or [#](8B0000)Poison[#]().");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/health_to_harm")
@@ -45,7 +46,7 @@ public class InstantDamageFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Inflicts magic damage instantly.";
+        return "Vitality inverted into a bolt of arcane harm.";
     }
 
     @Override

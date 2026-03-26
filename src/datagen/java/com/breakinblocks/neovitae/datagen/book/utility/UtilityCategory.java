@@ -37,7 +37,7 @@ public class UtilityCategory extends CategoryProvider {
         var oreProcessing = this.add(new OreProcessingEntry(this).generate('o'));
         var bloodstoneBricks = this.add(new BloodstoneBricksEntry(this).generate('b'));
         var lavaCrystal = this.add(new LavaCrystalEntry(this).generate('l'));
-        var lifeEssenceBucket = this.add(new LifeEssenceBucketEntry(this).generate('r'));
+        var essentiaVitaeBucket = this.add(new EssentiaVitaeBucketEntry(this).generate('r'));
         var teleposer = this.add(new TeleposerEntry(this).generate('t'));
     }
 

@@ -20,15 +20,16 @@ public class MagnetismSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of Magnetism");
-        this.pageText("Increases the player's item pickup range to 7 blocks when active. Toggle on/off by "
-                + "holding the Sigil in your hand, and then holding sneak and pressing [Use].\\\n\\\n"
-                + "Consumes 50 LP every 5 seconds while active.");
+        this.pageText("The [#](8B0000)Sigil of Magnetism[#]() bends the subtle forces between you and nearby objects, "
+                + "extending your item pickup range to 7 blocks while active. Hold the sigil, then hold "
+                + "sneak and press [Use] to toggle the effect.\\\n\\\n"
+                + "The sigil drains 50 [#](4A0080)Essentia Vitae[#]() every 5 seconds while its pull persists.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Magnetism Reagent[#]() in the Tabula Vitae.\\\n\\\n"
-                + "Step 2: Create the [#](8B0000)Sigil of Magnetism[#]() in an Alchemy Array using the "
-                + "Magnetism Reagent as the base and a slate as the catalyst.");
+        this.pageText("Forge the [#](8B0000)Magnetism Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a slate as catalyst.\\\n\\\n"
+                + "[#](4A0080)The world draws near to those who command it.[#]()");
     }
 
     @Override
@@ -38,7 +39,7 @@ public class MagnetismSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A sigil that increases item pickup range.";
+        return "Extend your reach -- items drift toward you unbidden.";
     }
 
     @Override

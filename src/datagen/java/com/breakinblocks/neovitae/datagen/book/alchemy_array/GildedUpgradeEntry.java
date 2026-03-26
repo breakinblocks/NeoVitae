@@ -20,9 +20,11 @@ public class GildedUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Gilded");
-        this.pageText("Effect: Passivises Piglins as if you were wearing Golden Armor.\\\n\\\n"
-                + "Trained by: Giving a Piglin a [#](8B0000)Gold Ingot[#](). You must give it to them directly, "
-                + "it cannot be dropped on the ground.\\\n\\\nMaximum level: 1");
+        this.pageText("The armour takes on a subtle golden sheen, marking you as an ally to the Piglins "
+                + "of the Nether. They regard you as they would any creature wearing gold.\\\n\\\n"
+                + "[#](B8860B)Trained by[#](): Handing a [#](8B0000)Gold Ingot[#]() directly to a Piglin. "
+                + "It must be given by hand, not dropped.\\\n\\\n"
+                + "[#](B8860B)Maximum level[#](): 1");
     }
 
     @Override
@@ -32,7 +34,7 @@ public class GildedUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Piglins treat you as friendly.";
+        return "A golden sheen earns the Piglins' grudging respect.";
     }
 
     @Override

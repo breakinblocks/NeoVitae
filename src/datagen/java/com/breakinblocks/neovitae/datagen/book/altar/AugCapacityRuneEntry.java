@@ -23,9 +23,11 @@ public class AugCapacityRuneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Rune of Aug. Capacity");
-        this.pageText("The [#](8B0000)Rune of Augmented Capacity[#]() increases the capacity of the [#](8B0000)Ara Vitae[#]() by "
-                + "a multiplicative +7.5%% per rune. The Augmented Capacity runes apply after the regular "
-                + "[#](8B0000)Capacity runes[#]().");
+        this.pageText("Where the standard [#](8B0000)Rune of Capacity[#]() widens the basin, the "
+                + "[#](8B0000)Rune of Augmented Capacity[#]() reshapes the altar's very nature. Each rune "
+                + "multiplies the total reservoir by [#](8B0000)+7.5%%[#](), applied after all additive Capacity "
+                + "Runes have taken effect. The difference between the two is subtle at first, but "
+                + "devastating at scale.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_capacity_augmented"))
@@ -40,7 +42,7 @@ public class AugCapacityRuneEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Multiplicatively increases the Ara Vitae's capacity after regular Capacity runes.";
+        return "Multiplicatively expands the altar's reservoir beyond what additive runes can achieve.";
     }
 
     @Override

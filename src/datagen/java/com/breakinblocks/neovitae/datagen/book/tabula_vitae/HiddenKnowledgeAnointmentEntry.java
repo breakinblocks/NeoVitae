@@ -21,8 +21,9 @@ public class HiddenKnowledgeAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Miner's Secrets");
-        this.pageText("[#](8B0000)Miner's Secrets[#]() causes exp-dropping blocks to drop extra exp on successful harvest. Drops +2exp per block. "
-                + "Consumed when extra exp dropped."
+        this.pageText("[#](8B0000)Miner's Secrets[#]() draws forth hidden knowledge from the stone. Blocks that normally "
+                + "release experience yield an additional 2 points per harvest. The coating is consumed only "
+                + "when this bonus experience is actually extracted."
                 + "\\\n\\\nValid items: Tools, Swords.\\\n\\\nApplies: Miner's Secrets (256 exp-dropping blocks)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
@@ -42,7 +43,7 @@ public class HiddenKnowledgeAnointmentEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Extra experience from mining blocks.";
+        return "Draws hidden experience from the earth.";
     }
 
     @Override

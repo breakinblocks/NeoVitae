@@ -20,28 +20,27 @@ public class EditingFiltersEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Editing Filters");
-        this.pageText("If you are configuring a large number of [#](8B0000)filters[#](), or want to expand your existing "
-                + "filter setups, simply place between two and 9 filters into a crafting table to copy the "
-                + "filter in slot one onto all the other filters.");
+        this.pageText("When configuring many [#](8B0000)Filters[#]() to identical specifications, the tedium of "
+                + "hand-setting each one grows tiresome. Instead, place between two and nine filters into a "
+                + "crafting table -- the filter in slot one imprints its configuration onto all the rest.");
 
         this.page("copying", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Copying Filters");
-        this.pageText("Place a configured filter in slot 1 of a crafting table, then place empty filters of "
-                + "the same type in any other slots. The crafting result will be copies of the configured "
-                + "filter with all settings duplicated.");
+        this.pageTitle("Duplicating Configurations");
+        this.pageText("Place one configured filter in the first slot, and blank filters of the same type in any "
+                + "remaining slots. The result: perfect copies with all settings faithfully duplicated.");
 
         this.page("clearing", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Similarly, if you want to clear a filter, place it in the crafting table on its own.");
+        this.pageText("Should you wish to wipe a filter clean and start anew, place it alone in a crafting table.");
 
         this.page("clearing_details", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Clearing Filters");
-        this.pageText("Place a single configured filter in a crafting table by itself. The result will be a "
-                + "blank filter with all settings reset to default.");
+        this.pageText("A single configured filter placed alone in a crafting table yields a blank filter with all "
+                + "settings restored to their defaults.");
     }
 
     @Override
@@ -51,7 +50,7 @@ public class EditingFiltersEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Copying and clearing filter configurations.";
+        return "Duplicating and clearing filter configurations with ease.";
     }
 
     @Override

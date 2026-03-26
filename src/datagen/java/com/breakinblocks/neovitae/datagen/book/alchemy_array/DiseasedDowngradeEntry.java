@@ -21,8 +21,10 @@ public class DiseasedDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Diseased");
-        this.pageText("Reduces the effectiveness of all healing sources. Caps out at 80%%, so a source "
-                + "that would normally heal 10 hearts will only heal 2.");
+        this.pageText("The armour's living tissue sickens, suppressing your body's ability to mend. "
+                + "All healing is reduced by up to 80%% -- a wound that should restore ten hearts "
+                + "barely returns two.\\\n\\\n"
+                + "[#](4A0080)What lives can also sicken.[#]()");
 
         this.page("recipe", () -> BookLivingDowngradeRecipePageModel.create()
                 .withRecipeId1("neovitae:downgrade/slow_heal"));
@@ -35,7 +37,7 @@ public class DiseasedDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Downgrade: reduced healing effectiveness.";
+        return "The armour festers, choking your body's ability to heal.";
     }
 
     @Override

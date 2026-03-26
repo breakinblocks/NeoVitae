@@ -24,7 +24,7 @@ public class RitualExpulsionEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/expulsion"))
                 .withMultiblockName("Aura of Expulsion")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("expulsion")));
@@ -32,8 +32,8 @@ public class RitualExpulsionEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("The opposite of containment, this ritual creates a repulsive force that pushes all mobs away from the Master Ritual Stone. Use it to keep your base safe from hostile creatures or to clear an area of unwanted visitors. Players are unaffected by the expulsion effect.");
+        this.pageTitle("The Warding Gale");
+        this.pageText("Where the Ritual of Binding imprisons, this circle repels. A wave of [#](4A0080)vitaemantic force[#]() radiates outward from the [#](8B0000)Master Ritual Stone[#](), driving all creatures beyond its boundaries. Practitioners remain unaffected, allowing you to ward your sanctum against uninvited guests.");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RitualExpulsionEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Pushes mobs away from the ritual.";
+        return "Drives all creatures from your sanctum.";
     }
 
     @Override

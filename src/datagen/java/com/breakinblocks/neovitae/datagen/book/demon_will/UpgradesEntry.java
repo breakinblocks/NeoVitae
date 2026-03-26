@@ -20,33 +20,30 @@ public class UpgradesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Routing Upgrades");
-        this.pageText("There are two upgrades currently available for the Routing Network.\\\n\\\n"
-                + "Firstly, the [#](8B0000)Basic Routing Logic Upgrade[#]() increases the total amount of resources "
-                + "transferred per operation. By default, the network transfers 16 items, 1000 mB of fluid, "
-                + "and 10,000 FE per cycle. Each upgrade raises all three caps simultaneously.");
+        this.pageText("Two enhancements are currently available for the [#](4A0080)Routing Network[#]().\\\n\\\n"
+                + "The [#](8B0000)Basic Routing Logic Upgrade[#]() increases the volume of resources moved per "
+                + "operation. By default, the network transfers [#](B8860B)16 items[#](), [#](B8860B)1,000 mB of fluid[#](), "
+                + "and [#](B8860B)10,000 FE[#]() per cycle. Each upgrade raises all three caps simultaneously.");
 
         this.page("logic_recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Basic Routing Logic Upgrade");
-        this.pageText("Craft the Basic Routing Logic Upgrade in the Hellfire Forge.\\\n\\\n"
-                + "These upgrades stack to 64, boosting item, fluid, and energy transfer rates. The increased "
-                + "throughput is split across all active transfers in the network.");
+        this.pageText("Stacks to 64. The increased throughput is distributed across all active transfers "
+                + "in the network.");
 
         this.page("speed_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The second upgrade is the [#](8B0000)Basic Routing Speed Upgrade[#](), which increases the rate at "
-                + "which all resources are transferred. The default rate is one operation every 20 ticks (1 "
-                + "second), but each speed upgrade will bring this down by 1 tick, to a maximum of every tick "
-                + "with 19 upgrades.");
+        this.pageText("The second enhancement is the [#](8B0000)Basic Routing Speed Upgrade[#](), which quickens the "
+                + "network's pulse. The default rate is one operation every [#](B8860B)20 ticks[#]() (one second). "
+                + "Each upgrade reduces this by one tick, to a minimum of every single tick with 19 upgrades.");
 
         this.page("speed_recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Basic Routing Speed Upgrade");
-        this.pageText("Craft the Basic Routing Speed Upgrade in the Hellfire Forge.\\\n\\\n"
-                + "*They stack to 19? That feels... wrong, somehow, but it was this or alter the universe such "
-                + "that everything ticks 65 times a second, and that would have made people even more upset.*");
+        this.pageText("Stacks to 19 -- one for each tick that can be shaved from the cycle. "
+                + "A peculiar limit, perhaps, but the fabric of reality can only be bent so far.");
     }
 
     @Override
@@ -56,7 +53,7 @@ public class UpgradesEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Logic and speed upgrades for routing node networks.";
+        return "Enhancing the throughput and tempo of your arcane logistics.";
     }
 
     @Override

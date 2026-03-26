@@ -21,7 +21,8 @@ public class HolyWaterAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Holy Water");
-        this.pageText("[#](8B0000)Holy Water[#]() temporarily increases the melee damage dealt to undead mobs by +5."
+        this.pageText("[#](8B0000)Holy Water[#]() sears the profane. Blades anointed with it strike the undead with an "
+                + "additional 5 points of searing damage -- a purifying flame they cannot endure."
                 + "\\\n\\\nValid items: Tools, Swords.\\\n\\\nApplies: Holy Light (256 hits)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
@@ -41,7 +42,7 @@ public class HolyWaterAnointmentEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increases damage dealt to undead mobs.";
+        return "Sears the undead with purifying radiance.";
     }
 
     @Override

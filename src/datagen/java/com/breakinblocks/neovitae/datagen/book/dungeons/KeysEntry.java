@@ -21,35 +21,42 @@ public class KeysEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Dungeon Keys");
-        this.pageText("[#](8B0000)Keys[#]() are the initial way of navigating [#](8B0000)Dungeons[#](). They can be found inside Dungeon "
-                + "chests within the [#](8B0000)Demon Realm[#](), or they can be crafted. The most basic kind are [#](8B0000)Iron Keys[#](), "
-                + "which spawn inside [#](8B0000)The Antechamber[#]() as well as within the closest levels of the [#](8B0000)Demon Realm[#]() proper.");
+        this.pageText("The [#](4A0080)Demon Realm[#]() does not yield its secrets freely. Passage through "
+                + "its sealed corridors demands [#](8B0000)Keys[#](), forged or found. The simplest variety, "
+                + "[#](8B0000)Iron Keys[#](), can be discovered in the [#](8B0000)Antechamber[#]() chests or "
+                + "scattered throughout the nearer chambers of the Endless Realm. They can also be forged "
+                + "by your own hand.");
 
         this.page("distortions", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Eventually, you may come across a [#](8B0000)Spatial Distortion[#]() when searching through a Dungeon. "
-                + "These will either lead you to a unique, uncraftable key, or to a door that only said key can open. "
-                + "Spatial Distortions only form within the Demon Realm proper, and you will never find them within an Antechamber.");
+        this.pageText("As you delve deeper, you may encounter [#](4A0080)Spatial Distortions[#](), anomalies "
+                + "that conceal either a unique, uncraftable key or a door that only such a key can open. "
+                + "These fractures manifest only within the Endless Realm proper; you will never find one "
+                + "in the Antechamber.");
 
         this.page("mines_key", () -> BookSpotlightPageModel.create()
                 .withItem(NVItems.MINE_ENTRANCE_KEY.get())
                 .withTitle("The Mines")
                 .withText(this.context().pageText()));
-        this.pageText("The entrance to [#](8B0000)The Mines[#]() can only be opened with the uncraftable [#](8B0000)Foreman's Key[#](), "
-                + "while all other doors beyond that can be opened with [#](8B0000)Miner's Keys[#](). The mines will grant you "
-                + "access to [#](8B0000)Demonite ore[#]() alongside some rarer loot, but comes with challenges to match.");
+        this.pageText("The passage to [#](8B0000)The Mines[#]() can only be breached with the "
+                + "[#](8B0000)Foreman's Key[#](), a relic that cannot be crafted and must be found. Beyond "
+                + "that threshold, [#](8B0000)Miner's Keys[#]() open the remaining sealed doors. The mines "
+                + "offer [#](8B0000)Demonite Ore[#]() and rare plunder, though the dangers there are "
+                + "commensurate with the rewards.");
 
         this.page("iron_key", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Iron Key");
-        this.pageText("Iron Keys can be crafted in the Hellfire Forge. *If it's so simple, why can't we just pick the lock?*");
+        this.pageText("Iron Keys can be forged in the [#](8B0000)Hellfire Forge[#](). One wonders why the "
+                + "demons never thought to simply pick the locks.");
 
         this.page("miners_key", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Miner's Key");
-        this.pageText("Miner's Keys can be crafted in the Hellfire Forge. *It's off to work we go..!*");
+        this.pageText("Miner's Keys can be forged in the [#](8B0000)Hellfire Forge[#](). The mines await, "
+                + "practitioner. Steel your nerves.");
     }
 
     @Override
@@ -59,7 +66,7 @@ public class KeysEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Keys used to navigate the Demon Realm.";
+        return "The means by which the sealed corridors of the Demon Realm are opened.";
     }
 
     @Override

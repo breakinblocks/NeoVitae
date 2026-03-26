@@ -6,10 +6,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.api.soul.SoulTicket;
+import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
-import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
-import com.breakinblocks.neovitae.util.helper.SoulNetworkHelper;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
+import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.Map;
 import java.util.UUID;
@@ -72,17 +72,17 @@ public interface IMasterRitualStone {
 
     void provideInformationOfOffsetToPlayer(Player player, AreaDescriptor.Rectangle descriptor);
 
-    default SoulTicket ticket() {
-        return SoulTicket.create(0);
+    default AnimaTicket ticket() {
+        return AnimaTicket.create(0);
     }
 
-    default SoulTicket ticket(int amount) {
-        return SoulTicket.create(amount);
+    default AnimaTicket ticket(int amount) {
+        return AnimaTicket.create(amount);
     }
 
-    default SoulNetwork getOwnerNetwork() {
+    default Anima getOwnerNetwork() {
         UUID owner = getOwner();
-        return owner != null ? SoulNetworkHelper.getSoulNetwork(owner) : null;
+        return owner != null ? AnimaHelper.getAnima(owner) : null;
     }
 
     void notifyOwner(Component message);

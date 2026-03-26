@@ -23,17 +23,18 @@ public class ReinforcedAccelerationRuneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Reinforced Acceleration Rune");
-        this.pageText("With some [#](8B0000)Netherite Scrap[#]() and some [#](8B0000)Intricate Hellforged Parts[#]() looted from the "
-                + "[#](8B0000)Demon Realm[#](), you can double the power of your [#](8B0000)Acceleration Rune[#](), removing two ticks "
-                + "per rune instead of one, freeing up other slots around your altar.");
+        this.pageText("Tempered with [#](8B0000)Netherite Scrap[#]() and [#](8B0000)Intricate Hellforged Parts[#]() from "
+                + "the [#](4A0080)Demon Realm[#](), this rune warps time twice as aggressively -- removing "
+                + "[#](8B0000)two ticks[#]() from the pulse delay instead of one. Fewer rune slots consumed, more "
+                + "room for other enchantments around the altar.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_acceleration")));
 
         this.page("reversion", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("If you change your mind, you can revert the upgraded rune back to its base version "
-                + "in the Athanor .");
+        this.pageText("[#](2E8B57)Should you have need of the base rune again, the Athanor can strip the "
+                + "reinforcement and return it to its original form.[#]()");
     }
 
     @Override
@@ -43,7 +44,7 @@ public class ReinforcedAccelerationRuneEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A more powerful Acceleration Rune.";
+        return "A rune tempered in hellfire, collapsing time twice as fast.";
     }
 
     @Override

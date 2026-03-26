@@ -20,8 +20,11 @@ public class BodyBuilderUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Body Builder");
-        this.pageText("Effect: Grants Knockback Resistance and bonus Health. Caps out at 100%% Resistance "
-                + "and 10 half-hearts of health.\\\n\\\nTrained by: Eating food.\\\n\\\nMaximum level: 5");
+        this.pageText("The armour observes your habits of nourishment and responds in kind, hardening your "
+                + "frame against impact. Grants [#](4A0080)Knockback Resistance[#]() up to 100%% and bonus "
+                + "health up to 10 half-hearts.\\\n\\\n"
+                + "[#](B8860B)Trained by[#](): Eating food.\\\n\\\n"
+                + "[#](B8860B)Maximum level[#](): 5");
     }
 
     @Override
@@ -31,7 +34,7 @@ public class BodyBuilderUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Knockback resistance and bonus health from eating.";
+        return "Feed yourself well and the armour fortifies your body in turn.";
     }
 
     @Override

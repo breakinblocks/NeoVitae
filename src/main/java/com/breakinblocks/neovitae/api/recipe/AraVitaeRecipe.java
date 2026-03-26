@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 /**
  * Abstract base class for Ara Vitae recipes.
  * <p>
- * Ara Vitae recipes transform items using Life Essence (LP) at various altar tiers.
+ * Ara Vitae recipes transform items using Essentia Vitae (EV) at various altar tiers.
  * The altar tier determines which recipes are available, and runes affect crafting speed
  * and efficiency.
  * </p>

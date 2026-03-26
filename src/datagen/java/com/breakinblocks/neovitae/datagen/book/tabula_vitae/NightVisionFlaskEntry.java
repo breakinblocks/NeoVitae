@@ -26,7 +26,9 @@ public class NightVisionFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Night Vision");
-        this.pageText("[#](8B0000)Night Vision[#]() increases the target's ability to see in darkness and underwater.");
+        this.pageText("The [#](8B0000)Night Vision[#]() elixir attunes the eyes to the faintest glimmers of light, "
+                + "rendering darkness and murky water as clear as a sunlit meadow. An indispensable "
+                + "companion for the practitioner who ventures deep.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/night_vision")
@@ -42,7 +44,7 @@ public class NightVisionFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "See in darkness and underwater.";
+        return "Attunes the eyes to pierce any darkness.";
     }
 
     @Override

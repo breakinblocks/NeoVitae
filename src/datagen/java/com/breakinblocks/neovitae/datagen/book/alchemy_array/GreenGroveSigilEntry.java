@@ -20,23 +20,23 @@ public class GreenGroveSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of the Green Grove");
-        this.pageText("The [#](8B0000)Sigil of the Green Grove[#]() is an item that has multiple uses. Crafted in an "
-                + "array with a [#](8B0000)Growth Reagent[#]() and a [#](8B0000)Reinforced Slate[#](), the sigil can use your "
-                + "[#](8B0000)Soul Network[#]()'s LP to nourish and grow nearby plants.");
+        this.pageText("The [#](8B0000)Sigil of the Green Grove[#]() channels [#](4A0080)Essentia Vitae[#]() into the "
+                + "living earth, coaxing plants to grow with unnatural speed. A marriage of blood and botany "
+                + "that any practitioner with a garden will find indispensable.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Growth Reagent[#]() in the Tabula Vitae.\\\n\\\n"
-                + "Step 2: Create the [#](8B0000)Sigil of the Green Grove[#]() in an Alchemy Array using the "
-                + "Growth Reagent as the base and a Reinforced Slate as the catalyst.");
+        this.pageText("Forge the [#](8B0000)Growth Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a [#](8B0000)Reinforced Slate[#]() "
+                + "as catalyst.");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("If you use the sigil on a block that is growable, it will apply the bonemeal effect "
-                + "while consuming 150 LP.\\\n\\\n"
-                + "However, if you hold sneak and use while aiming at the air, it will activate and consume "
-                + "150 LP every 5 seconds until deactivated. Every block in a 7x7x5 high volume centered "
-                + "on the player will have a growth tick applied to it.");
+        this.pageText("Aim at a growable block and press [Use] to apply a burst of growth for 150 "
+                + "[#](4A0080)Essentia Vitae[#]().\\\n\\\n"
+                + "Alternatively, hold sneak and press [Use] to toggle a persistent aura. While active, "
+                + "every block within a 7x7x5 volume centered on you receives a growth pulse every 5 seconds, "
+                + "at a cost of 150 [#](4A0080)Essentia Vitae[#]() per cycle.");
     }
 
     @Override
@@ -46,7 +46,7 @@ public class GreenGroveSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A sigil that accelerates plant growth.";
+        return "Feed life into the soil and watch the world bloom around you.";
     }
 
     @Override

@@ -24,7 +24,7 @@ public class RitualCondorEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/condor"))
                 .withMultiblockName("Reverence of the Condor")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("condor")));
@@ -32,8 +32,9 @@ public class RitualCondorEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual grants creative-style flight to all players within its area of effect. The flight range can be configured with the [#](8B0000)Ritual Tinkerer[#]().");
+        this.pageTitle("Wings of the Condor");
+        this.pageText("The circle bestows the gift of true flight upon all practitioners within its reach — not the crude hop of enchanted boots, but the unfettered freedom of a soaring bird. You may fly as freely as though gravity itself has been revoked.\\\n\\\n"
+                + "[#](2E8B57)The flight range can be configured with the Ritual Tinkerer.[#]()");
     }
 
     @Override
@@ -43,7 +44,7 @@ public class RitualCondorEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Grants flight to nearby players.";
+        return "Bestows true flight upon all within the circle.";
     }
 
     @Override

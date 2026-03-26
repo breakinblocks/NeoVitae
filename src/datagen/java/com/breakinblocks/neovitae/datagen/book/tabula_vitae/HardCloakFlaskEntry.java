@@ -26,7 +26,9 @@ public class HardCloakFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Hard Cloak");
-        this.pageText("[#](8B0000)Hard Cloak[#]() provides 3 points of Armour Toughness per level when used.");
+        this.pageText("The [#](8B0000)Hard Cloak[#]() elixir stiffens the wearer's skin and armour alike, granting "
+                + "3 points of Armour Toughness per level. Blows that would pierce through find "
+                + "an unexpected resilience beneath.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/hard_cloak")
@@ -45,7 +47,7 @@ public class HardCloakFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Provides Armour Toughness.";
+        return "Stiffens flesh and armour with alchemical rigidity.";
     }
 
     @Override

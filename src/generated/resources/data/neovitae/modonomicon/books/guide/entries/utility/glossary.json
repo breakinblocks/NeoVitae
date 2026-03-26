@@ -38,8 +38,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.glossary.life_essence.text",
-      "title": "book.neovitae.guide.utility.glossary.life_essence.title",
+      "text": "book.neovitae.guide.utility.glossary.essentia_vitae.text",
+      "title": "book.neovitae.guide.utility.glossary.essentia_vitae.title",
       "use_markdown_in_title": false
     },
     {
@@ -60,8 +60,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.glossary.soul_network.text",
-      "title": "book.neovitae.guide.utility.glossary.soul_network.title",
+      "text": "book.neovitae.guide.utility.glossary.anima.text",
+      "title": "book.neovitae.guide.utility.glossary.anima.title",
       "use_markdown_in_title": false
     },
     {

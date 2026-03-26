@@ -20,16 +20,18 @@ public class TelepositionSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Teleposition Sigil");
-        this.pageText("Teleports the user to a linked Teleposer at a cost of 1000 LP per use. By "
-                + "shift-clicking on a Teleposer with the sigil in hand, the location and dimension of "
-                + "the Teleposer can be recorded, allowing for a quick escape back home.\\\n\\\n"
-                + "Just don't move the Teleposer by accident...");
+        this.pageText("The [#](8B0000)Teleposition Sigil[#]() tears a momentary rift between you and a linked "
+                + "[#](8B0000)Teleposer[#](), pulling you across any distance -- even between dimensions -- for "
+                + "1,000 [#](4A0080)Essentia Vitae[#]().\\\n\\\n"
+                + "Sneak-click on a [#](8B0000)Teleposer[#]() to bind its location to the sigil. "
+                + "[#](2E8B57)Do not move the Teleposer afterward, or you may find yourself arriving "
+                + "somewhere... unexpected.[#]()");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Teleposition Reagent[#]() in the Tabula Vitae.\\\n\\\n"
-                + "Step 2: Create the [#](8B0000)Teleposition Sigil[#]() in an Alchemy Array using the "
-                + "Teleposition Reagent as the base and a slate as the catalyst.\\\n\\\n*Now you see me...!*");
+        this.pageText("Forge the [#](8B0000)Teleposition Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a slate as catalyst.\\\n\\\n"
+                + "[#](4A0080)The distance between here and there is merely a matter of blood.[#]()");
     }
 
     @Override
@@ -39,7 +41,7 @@ public class TelepositionSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A sigil that teleports you to a linked Teleposer.";
+        return "Tear through space itself to reach a bound Teleposer.";
     }
 
     @Override

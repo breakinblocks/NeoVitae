@@ -2,47 +2,47 @@ package com.breakinblocks.neovitae.api.event;
 
 import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.ICancellableEvent;
-import com.breakinblocks.neovitae.api.soul.ISoulNetwork;
-import com.breakinblocks.neovitae.api.soul.SoulTicket;
+import com.breakinblocks.neovitae.api.soul.IAnima;
+import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 
 import java.util.UUID;
 
 /**
- * Events fired when LP is added or syphoned from a Soul Network.
- * Listen to these events to track or modify LP transactions.
+ * Events fired when EV is added or syphoned from an Anima.
+ * Listen to these events to track or modify EV transactions.
  */
-public abstract class SoulNetworkEvent extends Event {
-    private final ISoulNetwork network;
-    private final SoulTicket ticket;
+public abstract class AnimaEvent extends Event {
+    private final IAnima network;
+    private final AnimaTicket ticket;
 
-    protected SoulNetworkEvent(ISoulNetwork network, SoulTicket ticket) {
+    protected AnimaEvent(IAnima network, AnimaTicket ticket) {
         this.network = network;
         this.ticket = ticket;
     }
 
     /**
-     * Gets the soul network involved in this event.
+     * Gets the anima involved in this event.
      */
-    public ISoulNetwork getNetwork() {
+    public IAnima getNetwork() {
         return network;
     }
 
     /**
-     * Gets the UUID of the network owner.
+     * Gets the UUID of the anima owner.
      */
     public UUID getOwnerId() {
         return network.getPlayerId();
     }
 
     /**
-     * Gets the soul ticket for this transaction.
+     * Gets the anima ticket for this transaction.
      */
-    public SoulTicket getTicket() {
+    public AnimaTicket getTicket() {
         return ticket;
     }
 
     /**
-     * Gets the LP amount being transacted.
+     * Gets the EV amount being transacted.
      */
     public int getAmount() {
         return ticket.getAmount();
@@ -51,22 +51,22 @@ public abstract class SoulNetworkEvent extends Event {
     // ==================== Syphon Events ====================
 
     /**
-     * Base class for syphon (LP removal) events.
+     * Base class for syphon (EV removal) events.
      */
-    public abstract static class Syphon extends SoulNetworkEvent {
-        protected Syphon(ISoulNetwork network, SoulTicket ticket) {
+    public abstract static class Syphon extends AnimaEvent {
+        protected Syphon(IAnima network, AnimaTicket ticket) {
             super(network, ticket);
         }
     }
 
     /**
-     * Fired before LP is syphoned from a network.
+     * Fired before EV is syphoned from an anima.
      * Cancel to prevent the syphon entirely.
      */
     public static class PreSyphon extends Syphon implements ICancellableEvent {
         private int modifiedAmount;
 
-        public PreSyphon(ISoulNetwork network, SoulTicket ticket) {
+        public PreSyphon(IAnima network, AnimaTicket ticket) {
             super(network, ticket);
             this.modifiedAmount = ticket.getAmount();
         }
@@ -87,20 +87,20 @@ public abstract class SoulNetworkEvent extends Event {
     }
 
     /**
-     * Fired after LP has been syphoned from a network.
+     * Fired after EV has been syphoned from an anima.
      * Not cancellable - use for notification/tracking only.
      */
     public static class PostSyphon extends Syphon {
         private final int actualAmount;
 
-        public PostSyphon(ISoulNetwork network, SoulTicket ticket, int actualAmount) {
+        public PostSyphon(IAnima network, AnimaTicket ticket, int actualAmount) {
             super(network, ticket);
             this.actualAmount = actualAmount;
         }
 
         /**
-         * Gets the actual amount of LP that was syphoned.
-         * May be less than requested if the network didn't have enough.
+         * Gets the actual amount of EV that was syphoned.
+         * May be less than requested if the anima didn't have enough.
          */
         public int getActualAmount() {
             return actualAmount;
@@ -110,18 +110,18 @@ public abstract class SoulNetworkEvent extends Event {
     // ==================== Add Events ====================
 
     /**
-     * Base class for add (LP gain) events.
+     * Base class for add (EV gain) events.
      */
-    public abstract static class Add extends SoulNetworkEvent {
+    public abstract static class Add extends AnimaEvent {
         private final int maximum;
 
-        protected Add(ISoulNetwork network, SoulTicket ticket, int maximum) {
+        protected Add(IAnima network, AnimaTicket ticket, int maximum) {
             super(network, ticket);
             this.maximum = maximum;
         }
 
         /**
-         * Gets the maximum LP the network can hold.
+         * Gets the maximum EV the anima can hold.
          */
         public int getMaximum() {
             return maximum;
@@ -129,13 +129,13 @@ public abstract class SoulNetworkEvent extends Event {
     }
 
     /**
-     * Fired before LP is added to a network.
+     * Fired before EV is added to an anima.
      * Cancel to prevent the addition entirely.
      */
     public static class PreAdd extends Add implements ICancellableEvent {
         private int modifiedAmount;
 
-        public PreAdd(ISoulNetwork network, SoulTicket ticket, int maximum) {
+        public PreAdd(IAnima network, AnimaTicket ticket, int maximum) {
             super(network, ticket, maximum);
             this.modifiedAmount = ticket.getAmount();
         }
@@ -156,20 +156,20 @@ public abstract class SoulNetworkEvent extends Event {
     }
 
     /**
-     * Fired after LP has been added to a network.
+     * Fired after EV has been added to an anima.
      * Not cancellable - use for notification/tracking only.
      */
     public static class PostAdd extends Add {
         private final int actualAmount;
 
-        public PostAdd(ISoulNetwork network, SoulTicket ticket, int maximum, int actualAmount) {
+        public PostAdd(IAnima network, AnimaTicket ticket, int maximum, int actualAmount) {
             super(network, ticket, maximum);
             this.actualAmount = actualAmount;
         }
 
         /**
-         * Gets the actual amount of LP that was added.
-         * May be less than requested if the network was near capacity.
+         * Gets the actual amount of EV that was added.
+         * May be less than requested if the anima was near capacity.
          */
         public int getActualAmount() {
             return actualAmount;

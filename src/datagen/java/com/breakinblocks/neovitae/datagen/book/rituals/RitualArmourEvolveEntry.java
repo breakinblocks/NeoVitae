@@ -24,7 +24,7 @@ public class RitualArmourEvolveEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/armour_evolve"))
                 .withMultiblockName("Ritual of Living Evolution")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("armour_evolve")));
@@ -32,8 +32,8 @@ public class RitualArmourEvolveEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("Stand on the [#](8B0000)Master Ritual Stone[#]() while wearing [#](8B0000)Living Armor[#]() to use this ritual. The ritual will evolve your Living Armor, unlocking additional upgrade potential and capabilities.");
+        this.pageTitle("The Crucible of Becoming");
+        this.pageText("Stand upon the [#](8B0000)Master Ritual Stone[#]() while clad in [#](8B0000)Living Armor[#](), and the circle will pour its power into the symbiotic plates. The armor evolves — its capacity for upgrades deepens, its potential expands. This is the crucible through which your armor transcends its former limits.");
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RitualArmourEvolveEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Evolves Living Armor to unlock potential.";
+        return "Evolves Living Armor beyond its former limits.";
     }
 
     @Override

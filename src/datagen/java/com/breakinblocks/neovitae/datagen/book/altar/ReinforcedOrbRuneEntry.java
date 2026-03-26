@@ -22,28 +22,29 @@ public class ReinforcedOrbRuneEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Reinforced Rune of The Orb");
-        this.pageText("With some [#](8B0000)Netherite Scrap[#]() and some [#](8B0000)Intricate Hellforged Parts[#]() looted from the "
-                + "[#](8B0000)Demon Realm[#](), you can double the power of your [#](8B0000)Rune of the Orb[#](), increasing the "
-                + "orb's capacity by an additive +4%% per rune.");
+        this.pageTitle("Reinforced Rune of the Orb");
+        this.pageText("Augmented with [#](8B0000)Netherite Scrap[#]() and [#](8B0000)Intricate Hellforged Parts[#]() from "
+                + "the [#](4A0080)Demon Realm[#](), this rune resonates more deeply with the Blood Orb within. "
+                + "Each rune expands the orb's capacity by [#](8B0000)+4%%[#]() additively -- twice the reach of "
+                + "the lesser inscription, stretching your [#](4A0080)Anima[#]() further.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_orb")));
 
         this.page("reversion", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("If you change your mind, you can revert the upgraded rune back to its base version "
-                + "in the Athanor .");
+        this.pageText("[#](2E8B57)Should you have need of the base rune again, the Athanor can strip the "
+                + "reinforcement and return it to its original form.[#]()");
     }
 
     @Override
     protected String entryName() {
-        return "Reinforced Rune of The Orb";
+        return "Reinforced Rune of the Orb";
     }
 
     @Override
     protected String entryDescription() {
-        return "A more powerful Rune of The Orb.";
+        return "A rune tempered in hellfire, doubling the orb's capacity expansion.";
     }
 
     @Override

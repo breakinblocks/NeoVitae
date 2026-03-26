@@ -24,7 +24,7 @@ public class RitualYawningVoidEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/yawning_void"))
                 .withMultiblockName("Yawning of the Void")
                 .withText(this.context().pageText()));
-        this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
+        this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
                 .withText(RitualStatsHelper.generateStats("yawning_void")));
@@ -32,16 +32,16 @@ public class RitualYawningVoidEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Info");
-        this.pageText("This ritual acts as a quarry, breaking blocks within its area and collecting the drops.");
+        this.pageTitle("The Devouring Maw");
+        this.pageText("This ritual opens an insatiable hunger in the earth, consuming blocks layer by layer and collecting their drops — a quarry driven not by pistons and gears, but by [#](4A0080)vitaemantic will[#]().");
 
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Will Effects");
-        this.pageText("- [#](8B0000)Raw Will[#](): Increases quarrying speed.\\\n\\\n"
-                + "- [#](8B0000)Corrosive Will[#](): Enables a block filter. To set a filter, place any form of [#](8B0000)Item Filter[#]() into the linked chest. The ritual will only use the first filter it finds, but will accept Standard, Tag, Mod, and Composite Item Filters. Blacklisting works too!\\\n\\\n"
-                + "- [#](8B0000)Steadfast Will[#](): Mined blocks are placed above the ritual instead of being destroyed, creating a surface-level copy of the mined area.");
+        this.pageTitle("Demon Will Resonance");
+        this.pageText("- [#](8B0000)Raw Will[#](): Accelerates the excavation rate.\\\n\\\n"
+                + "- [#](8B0000)Corrosive Will[#](): Enables block filtering. Place an [#](8B0000)Item Filter[#]() in the linked chest to restrict what is mined. Standard, Tag, Mod, and Composite filters are all accepted. Blacklisting works as well.\\\n\\\n"
+                + "- [#](8B0000)Steadfast Will[#](): Rather than destroying blocks, relocates them above the ritual — creating a surface copy of the excavated terrain.");
     }
 
     @Override
@@ -51,7 +51,7 @@ public class RitualYawningVoidEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Quarries blocks from underground.";
+        return "Devours the earth, layer by insatiable layer.";
     }
 
     @Override

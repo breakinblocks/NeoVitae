@@ -252,6 +252,9 @@ public class DungeonRoom {
                 for (Entry<Integer, List<BlockPos>> rotatedIndexEntry : indexToDoorMap.entrySet()) {
                     int index = rotatedIndexEntry.getKey();
                     List<String> roomTypeList = indexToRoomTypeMap.get(index);
+                    if (roomTypeList == null) {
+                        roomTypeList = new ArrayList<>();
+                    }
                     List<BlockPos> indexedDoorList = rotatedIndexEntry.getValue();
 
                     for (BlockPos indexPos : indexedDoorList) {

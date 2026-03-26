@@ -64,10 +64,15 @@ public class DungeonStructure {
             }
         }
 
-        template.get().placeInWorld(world, finalPos, finalPos, settings, rand, 2);
-
-        for (ChunkPos chunk : chunks) {
-            world.setChunkForced(chunk.x, chunk.z, false);
+        try {
+            template.get().placeInWorld(world, finalPos, finalPos, settings, rand, 2);
+        } catch (Exception e) {
+            LOGGER.error("Exception placing structure {} at {}: {}", resource, finalPos, e.getMessage(), e);
+            return false;
+        } finally {
+            for (ChunkPos chunk : chunks) {
+                world.setChunkForced(chunk.x, chunk.z, false);
+            }
         }
 
         return true;

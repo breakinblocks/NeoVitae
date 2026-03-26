@@ -26,7 +26,7 @@ public record DungeonDoor(
      * Compact constructor to ensure roomList is immutable.
      */
     public DungeonDoor {
-        roomList = List.copyOf(roomList);
+        roomList = roomList != null ? List.copyOf(roomList) : List.of();
     }
 
     /**

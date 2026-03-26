@@ -71,8 +71,16 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
 
         for (ResourceLocation roomType : potentialRooms) {
             LOGGER.debug("Trying room pool: {}", roomType);
-            DungeonRoomPlacement placement = dungeonSynthesizer.getRandomPlacement(
-                    serverLevel, roomType, rand, doorPos, doorDirection, doorType);
+
+            DungeonRoomPlacement placement;
+            try {
+                placement = dungeonSynthesizer.getRandomPlacement(
+                        serverLevel, roomType, rand, doorPos, doorDirection, doorType);
+            } catch (Exception e) {
+                LOGGER.error("Exception while finding placement from pool {} at door {}: {}",
+                        roomType, doorPos, e.getMessage(), e);
+                continue;
+            }
 
             if (placement != null) {
                 LOGGER.info("Found valid placement from pool {}, placing room {} at {}",
@@ -98,9 +106,8 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
                             placement.room.getKey(), roomType, placement.getRoomPosition());
                     return true;
                 } catch (Exception e) {
-                    LOGGER.error("Failed to place room {} from pool {} at {}: {}",
-                            placement.room.getKey(), roomType, placement.getRoomPosition(), e.getMessage());
-                    LOGGER.debug("Room placement exception details:", e);
+                    LOGGER.error("Failed to place room {} from pool {} at {}",
+                            placement.room.getKey(), roomType, placement.getRoomPosition(), e);
                     // Continue to try other room pools
                 }
             } else {

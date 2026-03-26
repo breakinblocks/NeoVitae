@@ -22,13 +22,13 @@ public class RitualBasicsEntry extends EntryProvider {
         this.pageTitle("Rituals - Getting Started");
         this.pageText("Once you have gotten your [#](8B0000)Blood Altar[#]() to Tier 3, you can delve into the wonderful world of Rituals."
                 + "\\\n\\\nFor working with rituals, you will require the following:"
-                + "\n- An [#](8B0000)Activation Crystal[#](). At tier 3 only the [#](8B0000)Weak Crystal[#]() is available."
-                + "\n- A [#](8B0000)Master Ritual Stone[#](). Every ritual requires exactly one of these at its centre.");
+                + "\n\n- An [#](8B0000)Activation Crystal[#](). At tier 3 only the [#](8B0000)Weak Crystal[#]() is available."
+                + "\n\n- A [#](8B0000)Master Ritual Stone[#](). Every ritual requires exactly one of these at its centre.");
 
         this.page("requirements", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("- Enough Ritual Stones to build the Ritual."
-                + "\n- (Recommended) A [#](8B0000)Ritual Diviner[#](). Although not required, it will make ritual construction significantly easier."
+                + "\n\n- (Recommended) A [#](8B0000)Ritual Diviner[#](). Although not required, it will make ritual construction significantly easier."
                 + "\\\n\\\nBuilding a ritual is relatively straightforward. Simply press Sneak + Use with the Ritual Diviner in hand until it displays the name of the desired ritual. Check the number of runes required by mousing over it in your inventory while sneaking.");
 
         this.page("building", () -> BookTextPageModel.create()

@@ -59,9 +59,9 @@ public class ThrowingDaggersEntry extends EntryProvider {
         this.pageTitle("Amethyst Throwing Dagger");
         this.pageText("Craft the Amethyst Throwing Dagger in the Hellfire Forge.\\\n\\\n"
                 + "The [#](8B0000)Amethyst Throwing Dagger[#]() does as much damage as an [#](8B0000)Iron Throwing Dagger[#](), but "
-                + "mobs do not drop Will when killed. Instead, eight of them can be crafted with a **Lingering "
+                + "mobs do not drop Will when killed. Instead, eight of them can be crafted with a [#](8B0000)Lingering "
                 + "Alchemy Flask[#](8B0000) in the [#]()Alchemical Reaction Chamber[#](8B0000) to create [#]()Tipped Amethyst Throwing "
-                + "Daggers**.");
+                + "Daggers[#]().");
 
         this.page("tipped_dagger", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

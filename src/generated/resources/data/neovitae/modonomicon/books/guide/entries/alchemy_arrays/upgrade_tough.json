@@ -4,7 +4,7 @@
   "category": "alchemy_arrays",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "minecraft:alchemy_arrays/living_upgrades"
+    "entry_id": "alchemy_arrays/living_upgrades"
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_tough.description",
   "hide_while_locked": false,

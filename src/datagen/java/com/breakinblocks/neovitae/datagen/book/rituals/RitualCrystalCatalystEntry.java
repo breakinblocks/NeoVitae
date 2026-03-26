@@ -27,7 +27,6 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
         this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
-                .withTitle("Ritual Stats")
                 .withText(RitualStatsHelper.generateStats("forsaken_soul")));
 
         this.page("info", () -> BookTextPageModel.create()

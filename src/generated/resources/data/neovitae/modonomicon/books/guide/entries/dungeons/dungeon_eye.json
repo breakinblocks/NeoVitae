@@ -10,39 +10,15 @@
   "name": "book.neovitae.guide.dungeons.dungeon_eye.name",
   "pages": [
     {
-      "type": "modonomicon:crafting_recipe",
+      "type": "modonomicon:text",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:dungeon_eye",
+      "show_title_separator": true,
       "text": "book.neovitae.guide.dungeons.dungeon_eye.recipe.text",
-      "title1": "",
-      "title2": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "neovitae:dungeon_eye_c",
-      "recipe_id_2": "neovitae:dungeon_eye_d",
-      "text": "",
-      "title1": "",
-      "title2": ""
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "neovitae:dungeon_eye_st",
-      "recipe_id_2": "neovitae:dungeon_eye_v",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "title": "",
+      "use_markdown_in_title": false
     }
   ],
   "show_when_any_parent_unlocked": false,

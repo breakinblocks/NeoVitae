@@ -32,8 +32,8 @@ public class LivingEquipmentEntry extends EntryProvider {
 
         this.page("crafting", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("As with any other Alchemy Array, press [Use] while looking at a block with the **Arcane "
-                + "Ashes[#](8B0000) in hand, then apply the [#]()Binding Reagent[#](8B0000). Then place in your [#]()Iron Helmet**, "
+        this.pageText("As with any other Alchemy Array, press [Use] while looking at a block with the [#](8B0000)Arcane "
+                + "Ashes[#](8B0000) in hand, then apply the [#]()Binding Reagent[#](8B0000). Then place in your [#]()Iron Helmet[#](), "
                 + "[#](8B0000)Iron Chestplate[#](), [#](8B0000)Iron Leggings[#]() or [#](8B0000)Iron Boots[#](), stand back, and watch the show.\\\n\\\n"
                 + "Living Equipment starts off equivalent to Iron, but it has [#](8B0000)Upgrade Points[#]() that can, "
                 + "with care, be spent to train it in specific ways. It starts with 100, but there may be "

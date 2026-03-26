@@ -39,19 +39,19 @@ public class SoulNetworkEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("In order to fill your [#](8B0000)Soul Network[#](), you will need to construct a [#](8B0000)Blood Orb[#]()."
                 + "\\\n\\\nBlood Orbs can be charged with [#](8B0000)LP[#]() in one of two ways."
-                + "\n- A player can sacrifice 1 heart of health by right-clicking with the [#](8B0000)Blood Orb[#](), "
+                + "\n\n- A player can sacrifice 1 heart of health by right-clicking with the [#](8B0000)Blood Orb[#](), "
                 + "providing the bound [#](8B0000)Soul Network[#]() with [#](8B0000)200 LP[#]()."
-                + "\n- The [#](8B0000)Blood Orb[#]() can be placed inside a [#](8B0000)Blood Altar[#]() with some [#](8B0000)Life Essence[#]() in "
+                + "\n\n- The [#](8B0000)Blood Orb[#]() can be placed inside a [#](8B0000)Blood Altar[#]() with some [#](8B0000)Life Essence[#]() in "
                 + "it. The Orb will absorb it as fast as it can, limited by your Altar's [#](8B0000)Speed Runes[#]().");
 
         this.page("orb_tiers", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("There is a separate [#](8B0000)Blood Orb[#]() that can be created for each Tier of the [#](8B0000)Blood Altar[#]()."
-                + "\n- [#](8B0000)Weak Blood Orb[#]() - Max capacity: [#](8B0000)5k LP[#]()."
-                + "\n- [#](8B0000)Apprentice Blood Orb[#]() - Max capacity: [#](8B0000)25k LP[#]()."
-                + "\n- [#](8B0000)Magician Blood Orb[#]() - Max capacity: [#](8B0000)150k LP[#]()."
-                + "\n- [#](8B0000)Master Blood Orb[#]() - Max capacity: [#](8B0000)1M LP[#]()."
-                + "\n- [#](8B0000)Archmage Blood Orb[#]() - Max capacity: [#](8B0000)10M LP[#]().");
+                + "\n\n- [#](8B0000)Weak Blood Orb[#]() - Max capacity: [#](8B0000)5k LP[#]()."
+                + "\n\n- [#](8B0000)Apprentice Blood Orb[#]() - Max capacity: [#](8B0000)25k LP[#]()."
+                + "\n\n- [#](8B0000)Magician Blood Orb[#]() - Max capacity: [#](8B0000)150k LP[#]()."
+                + "\n\n- [#](8B0000)Master Blood Orb[#]() - Max capacity: [#](8B0000)1M LP[#]()."
+                + "\n\n- [#](8B0000)Archmage Blood Orb[#]() - Max capacity: [#](8B0000)10M LP[#]().");
 
         this.page("weak_apprentice", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

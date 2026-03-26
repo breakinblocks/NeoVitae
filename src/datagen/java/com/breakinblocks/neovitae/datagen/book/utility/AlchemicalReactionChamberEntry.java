@@ -29,7 +29,7 @@ public class AlchemicalReactionChamberEntry extends EntryProvider {
                 + "mending to compensate.");
 
         this.page("recipe_arc", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "arc")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "arc_block")));
 
         this.page("sanguine_reverter", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

@@ -31,7 +31,7 @@ public class RitualTinkererEntry extends EntryProvider {
         this.page("modes", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("- [#](8B0000)Information[#](): Describes the function of the [#](8B0000)Ritual[#](), similar to the [#](8B0000)Ritual Diviner[#]()."
-                + "\n- [#](8B0000)Set Will Consumed[#](): Tells the [#](8B0000)Ritual[#]() which kinds of [#](8B0000)Demon Will[#]() (if any) to consume from the Aura. Specify this by carrying [#](8B0000)Demon Will Crystals[#]() in your hotbar, one for each type of will you wish the [#](8B0000)Ritual[#]() to consume. Further information about the effects of [#](8B0000)Demon Will[#]() upon [#](8B0000)Rituals[#]() can be found on each [#](8B0000)Ritual[#]()'s respective page in this book.");
+                + "\n\n- [#](8B0000)Set Will Consumed[#](): Tells the [#](8B0000)Ritual[#]() which kinds of [#](8B0000)Demon Will[#]() (if any) to consume from the Aura. Specify this by carrying [#](8B0000)Demon Will Crystals[#]() in your hotbar, one for each type of will you wish the [#](8B0000)Ritual[#]() to consume. Further information about the effects of [#](8B0000)Demon Will[#]() upon [#](8B0000)Rituals[#]() can be found on each [#](8B0000)Ritual[#]()'s respective page in this book.");
 
         this.page("define_area", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

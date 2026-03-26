@@ -72,8 +72,8 @@ public class RoutingNodesEntry extends EntryProvider {
 
         this.page("filters", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("When you place an Input or Output Node down, it will automatically connect to **all "
-                + "adjacent inventories[#](8B0000), but it won't do anything without a [#]()Filter** of some kind in at "
+        this.pageText("When you place an Input or Output Node down, it will automatically connect to [#](8B0000)all "
+                + "adjacent inventories[#](8B0000), but it won't do anything without a [#]()Filter[#]() of some kind in at "
                 + "least one of its side's slots. For example, you could use a [#](8B0000)Standard Item Filter[#]() set to "
                 + "[#](8B0000)Iron Ore[#]() on top of a [#](8B0000)Furnace[#](), a second filter set to coal on the side of the "
                 + "furnace, and an Input Node underneath set to Iron Ingots.");

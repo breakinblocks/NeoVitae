@@ -5,8 +5,11 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.datagen.book.page.BookAlchemyArrayRecipePageModel;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.resources.ResourceLocation;
 
 public class IceSigilEntry extends EntryProvider {
 
@@ -19,8 +22,14 @@ public class IceSigilEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Sigil of the Frozen Lake [NYI]");
-        this.pageText("[Not Yet Implemented]\\\n\\\nFrostwalker Enchantment as a Sigil.");
+        this.pageTitle("Sigil of the Frozen Lake");
+        this.pageText("The [#](8B0000)Sigil of the Frozen Lake[#]() is a toggleable sigil that freezes water "
+                + "beneath your feet as you walk, similar to the Frost Walker enchantment.\\\n\\\n"
+                + "While active, any water source blocks within a 2-block radius below you will be "
+                + "converted to ice. This drains LP from your soul network while active.");
+
+        this.page("recipe", () -> BookAlchemyArrayRecipePageModel.create()
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "array/frost_sigil")));
     }
 
     @Override
@@ -30,7 +39,7 @@ public class IceSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Not yet implemented.";
+        return "Freeze water beneath your feet.";
     }
 
     @Override

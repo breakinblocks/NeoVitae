@@ -27,7 +27,6 @@ public class RitualAnimalGrowthEntry extends EntryProvider {
         this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
-                .withTitle("Ritual Stats")
                 .withText(RitualStatsHelper.generateStats("animal_growth")));
 
         this.page("info", () -> BookTextPageModel.create()
@@ -41,9 +40,9 @@ public class RitualAnimalGrowthEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
         this.pageText("- [#](8B0000)Raw Will[#](): Increases the growth rate of baby animals."
-                + "\n- [#](8B0000)Vengeful Will[#](): Causes adult animals to breed automatically."
-                + "\n- [#](8B0000)Destructive Will[#](): Increases the frequency of growth ticks."
-                + "\n- [#](8B0000)Steadfast Will[#](): Outputs items from sheared/milked animals into a nearby chest.");
+                + "\n\n- [#](8B0000)Vengeful Will[#](): Causes adult animals to breed automatically."
+                + "\n\n- [#](8B0000)Destructive Will[#](): Increases the frequency of growth ticks."
+                + "\n\n- [#](8B0000)Steadfast Will[#](): Outputs items from sheared/milked animals into a nearby chest.");
     }
 
     @Override

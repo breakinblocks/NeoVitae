@@ -135,8 +135,8 @@ public class BloodAltarEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("To upgrade the Blood Altar to Tier 4, place 7 [#](8B0000)Blood Runes[#]() one block down and two "
                 + "blocks away from the previous set of runes along each edge. Then place four solid blocks in "
-                + "each corner, starting above the new ring of runes, and then cap each pillar with **Bloodstone "
-                + "Bricks[#](8B0000) and/or [#]()Large Bloodstone Bricks[#](8B0000). For these, you'll need [#]()Tau Fruit**, found via "
+                + "each corner, starting above the new ring of runes, and then cap each pillar with [#](8B0000)Bloodstone "
+                + "Bricks[#](8B0000) and/or [#]()Large Bloodstone Bricks[#](8B0000). For these, you'll need [#]()Tau Fruit[#](), found via "
                 + "the [#](8B0000)Edge of the Hidden Realm[#]() ritual.");
 
         this.page("tier4", () -> BookMultiblockPageModel.create()

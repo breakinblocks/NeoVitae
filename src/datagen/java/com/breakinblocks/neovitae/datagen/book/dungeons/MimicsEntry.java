@@ -4,12 +4,9 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
 
 public class MimicsEntry extends EntryProvider {
 
@@ -27,10 +24,9 @@ public class MimicsEntry extends EntryProvider {
                 + "being completely intangible. These can make them quite handy for concealing pitfall traps and secret "
                 + "entrances. Keep your eye out and you may find these in the [#](8B0000)Endless Realm[#]().");
 
-        this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ethereal_mimic"))
+        this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Simply right-click the placed mimic with any other block to encourage it to take on its form.");
+        this.pageText("Simply right-click the placed mimic with any other block to encourage it to take on its form. View this recipe in JEI.");
     }
 
     @Override

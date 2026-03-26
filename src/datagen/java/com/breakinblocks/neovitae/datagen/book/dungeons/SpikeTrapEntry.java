@@ -4,11 +4,9 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
-import com.breakinblocks.neovitae.NeoVitae;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
 
 public class SpikeTrapEntry extends EntryProvider {
 
@@ -18,12 +16,11 @@ public class SpikeTrapEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "spike_trap"))
+        this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("[#](8B0000)Spike traps[#]() look only mildly suspicious until they receive a redstone signal, whereupon "
                 + "vicious blades jam out into whatever is in their way. Whoever (or perhaps whatever) designed these "
-                + "clearly wanted to keep out intruders.");
+                + "clearly wanted to keep out intruders. View this recipe in JEI.");
     }
 
     @Override

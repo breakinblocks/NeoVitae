@@ -5,7 +5,6 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookSmeltingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
@@ -29,14 +28,11 @@ public class DemoniteEntry extends EntryProvider {
                 + "a [#](8B0000)Spatial Distortion[#](). It can be used to make [#](8B0000)Hellforged Ingots[#]() or [#](8B0000)Hellforged Sand[#]().\\\n\\\n"
                 + "When mined with Silk Touch, the ore can be harvested directly, but otherwise, it will drop clumps of [#](8B0000)Raw Demonite[#]().");
 
-        this.page("smelting", () -> BookSmeltingRecipePageModel.create()
-                .withTitle1("Hellforged Ingot")
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "smelting/ingot_from_demonite"))
-                .withRecipeId2(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "smelting/ingot_from_raw_hellforged")));
-
-        this.page("smelting2", () -> BookSmeltingRecipePageModel.create()
-                .withTitle1("Hellforged Ingot")
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "smelting/ingot_hellforged")));
+        this.page("smelting", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Hellforged Ingot");
+        this.pageText("Demonite Ore and Raw Demonite can be smelted into Hellforged Ingots. View these recipes in JEI.");
 
         this.page("arc_dust", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -52,8 +48,9 @@ public class DemoniteEntry extends EntryProvider {
 
         this.page("hellforged_block", () -> BookCraftingRecipePageModel.create()
                 .withTitle1("Hellforged Block")
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "hellforged_block"))
-                .withRecipeId2(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "raw_hellforged_block")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "hellforged_block_from_ingots"))
+                .withText(this.context().pageText()));
+        this.pageText("View the Raw Hellforged Block recipe in JEI.");
 
         this.page("decorative", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

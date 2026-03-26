@@ -4,12 +4,10 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
-import com.breakinblocks.neovitae.NeoVitae;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
 
 public class DungeonEyeEntry extends EntryProvider {
 
@@ -19,18 +17,10 @@ public class DungeonEyeEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "dungeon_eye"))
+        this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("A [#](8B0000)Dungeon Eye[#]() is a light-emitting block often found within the depths of the [#](8B0000)Endless Realm[#]().");
-
-        this.page("recipe_c_d", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "dungeon_eye_c"))
-                .withRecipeId2(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "dungeon_eye_d")));
-
-        this.page("recipe_st_v", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "dungeon_eye_st"))
-                .withRecipeId2(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "dungeon_eye_v")));
+        this.pageText("A [#](8B0000)Dungeon Eye[#]() is a light-emitting block often found within the depths of the [#](8B0000)Endless Realm[#](). "
+                + "Dungeon Eyes come in Raw, Corrosive, Destructive, Steadfast, and Vengeful variants. View these recipes in JEI.");
     }
 
     @Override

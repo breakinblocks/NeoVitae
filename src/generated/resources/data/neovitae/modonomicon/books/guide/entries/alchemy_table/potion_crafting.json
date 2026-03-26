@@ -4,7 +4,7 @@
   "category": "alchemy_table",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "minecraft:alchemy_table/alchemy_table"
+    "entry_id": "alchemy_table/alchemy_table"
   },
   "description": "book.neovitae.guide.alchemy_table.potion_crafting.description",
   "hide_while_locked": false,
@@ -58,15 +58,15 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:crafting_recipe",
+      "type": "modonomicon:text",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:alchemy_flask",
+      "show_title_separator": true,
       "text": "book.neovitae.guide.alchemy_table.potion_crafting.refill.text",
-      "title1": "",
-      "title2": ""
+      "title": "",
+      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:text",

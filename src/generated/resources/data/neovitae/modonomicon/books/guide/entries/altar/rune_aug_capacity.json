@@ -4,7 +4,7 @@
   "category": "altar",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "minecraft:altar/rune_capacity"
+    "entry_id": "altar/rune_capacity"
   },
   "description": "book.neovitae.guide.altar.rune_aug_capacity.description",
   "hide_while_locked": false,

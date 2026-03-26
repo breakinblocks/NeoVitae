@@ -116,11 +116,10 @@ public class OreProcessingEntry extends EntryProvider {
                 + "- Ore Fragment to Ore Gravel (using Resonator)\n"
                 + "- Ore Gravel to Ore Sand (using Cutting Fluid)");
 
-        this.page("corrupted_dust", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "corrupted_dust"))
+        this.page("corrupted_dust", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Tiny Corrupted Dust can be combined into Corrupted Dust, which can be used to further "
-                + "boost the yield of other ores.");
+                + "boost the yield of other ores. View this recipe in JEI.");
 
         this.page("corrupted_recipes", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -132,7 +131,7 @@ public class OreProcessingEntry extends EntryProvider {
                 + "- Corrupted Debris");
 
         this.page("fuel_cell", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "primitive_furnace_cell"))
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "furnacecell_primitive"))
                 .withText(this.context().pageText()));
         this.pageText("The ARC also functions as a Furnace, but the only fuel sources it accepts are the "
                 + "Primitive Fuel Cell or a Lava Crystal.");

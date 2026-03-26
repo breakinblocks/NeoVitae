@@ -20,10 +20,8 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tiers & Getting Started");
-        this.pageText("Neo Vitae 3's progression is still being reworked, and the first few steps are "
-                + "significantly different from Neo Vitae 2's.\\\n\\\n"
-                + "We are still retooling our guidance, but we are waiting until the progression is locked down. "
-                + "In the meantime, here is a quick overview on how to progress in Neo Vitae 3.");
+        this.pageText("Welcome to Neo Vitae! This guide provides a quick overview of the mod's progression, "
+                + "from your first Blood Altar all the way to the highest tiers of power.");
 
         this.page("tier1_altar", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -164,7 +162,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier Five");
-        this.pageText("This is the top tier. At this point you have access to everything that Neo Vitae has to offer. "
+        this.pageText("At Tier 5, you have access to the most powerful rituals and crafting recipes. "
                 + "Continue to delve into the Demon Realm to hunt for rare treasures, and you may be lucky enough "
                 + "to find Intricate Hellforged Parts, which can be used alongside some Netherite Scrap to double "
                 + "the power of each of your altar's Runes!");
@@ -172,10 +170,10 @@ public class GettingStartedEntry extends EntryProvider {
         this.page("tier6", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier Six?");
-        this.pageText("What? No.\\\n\\\n"
-                + "Look, even in 1.12, this only existed as a favor to pack makers and was otherwise "
-                + "unimplemented. You've come too far. Go back a page.");
+        this.pageTitle("Tier Six");
+        this.pageText("The ultimate Blood Altar. Tier 6 requires Crystal Clusters at the peaks of its pillars "
+                + "and an enormous ring of 19 runes per side. At this level, the altar reaches its maximum potential "
+                + "with unparalleled LP storage and crafting capabilities.");
     }
 
     @Override

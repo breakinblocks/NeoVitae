@@ -34,117 +34,117 @@ public class DemonWillCategory extends CategoryProvider {
 
         var soulSnare = this.add(new SoulSnareEntry(this).generate('b'));
         soulSnare.withParent(this.parent(demonWill));
-        soulSnare.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/demon_will"));
+        soulSnare.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/demon_will"));
         soulSnare.hideWhileLocked(false);
 
         var hellfireForge = this.add(new HellfireForgeEntry(this).generate('c'));
         hellfireForge.withParent(this.parent(demonWill));
-        hellfireForge.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/demon_will"));
+        hellfireForge.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/demon_will"));
         hellfireForge.hideWhileLocked(false);
 
         var tartaricGems = this.add(new TartaricGemsEntry(this).generate('d'));
         tartaricGems.withParent(this.parent(soulSnare));
-        tartaricGems.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/soul_snare"));
+        tartaricGems.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/soul_snare"));
         tartaricGems.hideWhileLocked(false);
 
         var crystallizedWill = this.add(new CrystallizedWillEntry(this).generate('e'));
         crystallizedWill.withParent(this.parent(tartaricGems));
-        crystallizedWill.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/tartaric_gems"));
+        crystallizedWill.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/tartaric_gems"));
         crystallizedWill.hideWhileLocked(false);
 
         var aspectedWill = this.add(new AspectedWillEntry(this).generate('f'));
         aspectedWill.withParent(this.parent(crystallizedWill));
-        aspectedWill.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/crystallized_will"));
+        aspectedWill.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/crystallized_will"));
         aspectedWill.hideWhileLocked(false);
 
         var aura = this.add(new AuraEntry(this).generate('g'));
         aura.withParent(this.parent(aspectedWill));
-        aura.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/aspected_will"));
+        aura.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/aspected_will"));
         aura.hideWhileLocked(false);
 
         var auraGauge = this.add(new AuraGaugeEntry(this).generate('h'));
         auraGauge.withParent(this.parent(aura));
-        auraGauge.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/aura"));
+        auraGauge.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/aura"));
         auraGauge.hideWhileLocked(false);
 
         var willCatalysts = this.add(new WillCatalystsEntry(this).generate('i'));
         willCatalysts.withParent(this.parent(aspectedWill));
-        willCatalysts.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/aspected_will"));
+        willCatalysts.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/aspected_will"));
         willCatalysts.hideWhileLocked(false);
 
         var sentientSword = this.add(new SentientSwordEntry(this).generate('j'));
         sentientSword.withParent(this.parent(demonWill));
-        sentientSword.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/demon_will"));
+        sentientSword.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/demon_will"));
         sentientSword.hideWhileLocked(false);
 
         var sentientTools = this.add(new SentientToolsEntry(this).generate('k'));
         sentientTools.withParent(this.parent(sentientSword));
-        sentientTools.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/sentient_sword"));
+        sentientTools.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/sentient_sword"));
         sentientTools.hideWhileLocked(false);
 
         var throwingDaggers = this.add(new ThrowingDaggersEntry(this).generate('l'));
         throwingDaggers.withParent(this.parent(demonWill));
-        throwingDaggers.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/demon_will"));
+        throwingDaggers.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/demon_will"));
         throwingDaggers.hideWhileLocked(false);
 
         var bloodTank = this.add(new BloodTankEntry(this).generate('m'));
         bloodTank.withParent(this.parent(demonWill));
-        bloodTank.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/demon_will"));
+        bloodTank.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/demon_will"));
         bloodTank.hideWhileLocked(false);
 
         var explosiveCharges = this.add(new ExplosiveChargesEntry(this).generate('n'));
         explosiveCharges.withParent(this.parent(demonWill));
-        explosiveCharges.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/demon_will"));
+        explosiveCharges.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/demon_will"));
         explosiveCharges.hideWhileLocked(false);
 
         var nodeRouter = this.add(new NodeRouterEntry(this).generate('o'));
         nodeRouter.withParent(this.parent(hellfireForge));
-        nodeRouter.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/hellfire_forge"));
+        nodeRouter.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/hellfire_forge"));
         nodeRouter.hideWhileLocked(false);
 
         var routingNodes = this.add(new RoutingNodesEntry(this).generate('p'));
         routingNodes.withParent(this.parent(nodeRouter));
-        routingNodes.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/node_router"));
+        routingNodes.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/node_router"));
         routingNodes.hideWhileLocked(false);
 
         var standardFilter = this.add(new StandardFilterEntry(this).generate('q'));
         standardFilter.withParent(this.parent(routingNodes));
-        standardFilter.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/routing_nodes"));
+        standardFilter.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/routing_nodes"));
         standardFilter.hideWhileLocked(false);
 
         var tagFilter = this.add(new TagFilterEntry(this).generate('r'));
         tagFilter.withParent(this.parent(standardFilter));
-        tagFilter.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/standard_filter"));
+        tagFilter.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/standard_filter"));
         tagFilter.hideWhileLocked(false);
 
         var modFilter = this.add(new ModFilterEntry(this).generate('s'));
         modFilter.withParent(this.parent(standardFilter));
-        modFilter.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/standard_filter"));
+        modFilter.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/standard_filter"));
         modFilter.hideWhileLocked(false);
 
         var enchantFilter = this.add(new EnchantFilterEntry(this).generate('t'));
         enchantFilter.withParent(this.parent(standardFilter));
-        enchantFilter.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/standard_filter"));
+        enchantFilter.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/standard_filter"));
         enchantFilter.hideWhileLocked(false);
 
         var compositeFilter = this.add(new CompositeFilterEntry(this).generate('u'));
         compositeFilter.withParent(this.parent(standardFilter));
-        compositeFilter.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/standard_filter"));
+        compositeFilter.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/standard_filter"));
         compositeFilter.hideWhileLocked(false);
 
         var filterParts = this.add(new FilterPartsEntry(this).generate('v'));
         filterParts.withParent(this.parent(standardFilter));
-        filterParts.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/standard_filter"));
+        filterParts.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/standard_filter"));
         filterParts.hideWhileLocked(false);
 
         var editingFilters = this.add(new EditingFiltersEntry(this).generate('w'));
         editingFilters.withParent(this.parent(standardFilter));
-        editingFilters.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/standard_filter"));
+        editingFilters.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/standard_filter"));
         editingFilters.hideWhileLocked(false);
 
         var upgrades = this.add(new UpgradesEntry(this).generate('x'));
         upgrades.withParent(this.parent(routingNodes));
-        upgrades.withCondition(BookEntryReadConditionModel.create().withEntry("demon_will/routing_nodes"));
+        upgrades.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:demon_will/routing_nodes"));
         upgrades.hideWhileLocked(false);
     }
 

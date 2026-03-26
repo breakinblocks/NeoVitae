@@ -27,7 +27,6 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
         this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
-                .withTitle("Ritual Stats")
                 .withText(RitualStatsHelper.generateStats("feathered_knife")));
 
         this.page("info", () -> BookTextPageModel.create()
@@ -41,10 +40,10 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
         this.pageText("- [#](8B0000)Raw Will[#](): Increases the LP gained per health point."
-                + "\n- [#](8B0000)Corrosive Will[#](): Applies the [#](8B0000)Incense Bonus[#]() from a nearby [#](8B0000)Incense Altar[#]()."
-                + "\n- [#](8B0000)Vengeful Will[#](): When combined with [#](8B0000)Steadfast[#]() will, increases drain rate."
-                + "\n- [#](8B0000)Destructive Will[#](): Increases the maximum health that can be drained per tick."
-                + "\n- [#](8B0000)Steadfast Will[#](): Prevents the ritual from killing the player.");
+                + "\n\n- [#](8B0000)Corrosive Will[#](): Applies the [#](8B0000)Incense Bonus[#]() from a nearby [#](8B0000)Incense Altar[#]()."
+                + "\n\n- [#](8B0000)Vengeful Will[#](): When combined with [#](8B0000)Steadfast[#]() will, increases drain rate."
+                + "\n\n- [#](8B0000)Destructive Will[#](): Increases the maximum health that can be drained per tick."
+                + "\n\n- [#](8B0000)Steadfast Will[#](): Prevents the ritual from killing the player.");
     }
 
     @Override

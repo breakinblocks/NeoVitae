@@ -37,8 +37,8 @@ public class CrystallizedWillEntry extends EntryProvider {
 
         this.page("harvesting", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("If you have more than 512 total Will in your inventory (across any number of **Tartaric "
-                + "Gems** and of any one type), you can harvest these crystals by right-clicking the spire with "
+        this.pageText("If you have more than 512 total Will in your inventory (across any number of [#](8B0000)Tartaric "
+                + "Gems[#]() and of any one type), you can harvest these crystals by right-clicking the spire with "
                 + "an empty hand. This will remove all but the central spire.\\\n\\\n"
                 + "However, if you do not have enough will, *really* need that central spire's Crystal, or are "
                 + "just in a hurry, you can harvest the whole lot with a pickaxe.");
@@ -46,8 +46,8 @@ public class CrystallizedWillEntry extends EntryProvider {
         this.page("related", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("5 will per harvested crystal isn't a particularly impressive haul, but rituals such as "
-                + "[#](8B0000)Resonance of the Faceted Crystal[#](), [#](8B0000)Catalyst of the Forsaken Souls[#](), and **Crack of the "
-                + "Fractured Crystal[#](8B0000) (alongside [#]()Will Catalysts**) should allow you to boost and automate "
+                + "[#](8B0000)Resonance of the Faceted Crystal[#](), [#](8B0000)Catalyst of the Forsaken Souls[#](), and [#](8B0000)Crack of the "
+                + "Fractured Crystal[#](8B0000) (alongside [#]()Will Catalysts[#]()) should allow you to boost and automate "
                 + "their production for some impressive gains.");
     }
 

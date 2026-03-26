@@ -4,11 +4,9 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
-import com.breakinblocks.neovitae.NeoVitae;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
 
 public class DungeonAlternatorEntry extends EntryProvider {
 
@@ -18,11 +16,10 @@ public class DungeonAlternatorEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "alternator"))
+        this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The [#](8B0000)Dungeon Alternator[#]() emits a constantly changing redstone signal, alternating between "
-                + "powered and unpowered at set intervals, similar to a [#](8B0000)Redstone Clock[#]().");
+                + "powered and unpowered at set intervals, similar to a [#](8B0000)Redstone Clock[#](). View this recipe in JEI.");
     }
 
     @Override

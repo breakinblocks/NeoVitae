@@ -4,7 +4,7 @@
   "category": "alchemy_table",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "minecraft:alchemy_table/flask_speed"
+    "entry_id": "alchemy_table/flask_speed"
   },
   "description": "book.neovitae.guide.alchemy_table.flask_slowness.description",
   "hide_while_locked": false,
@@ -16,8 +16,8 @@
             "duration": 3600,
             "id": "minecraft:slowness",
             "neoforge:cures": [
-              "milk",
-              "protected_by_totem"
+              "protected_by_totem",
+              "milk"
             ],
             "show_icon": true
           }

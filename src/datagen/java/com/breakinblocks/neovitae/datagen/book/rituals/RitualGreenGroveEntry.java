@@ -27,7 +27,6 @@ public class RitualGreenGroveEntry extends EntryProvider {
         this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
-                .withTitle("Ritual Stats")
                 .withText(RitualStatsHelper.generateStats("green_grove")));
 
         this.page("info", () -> BookTextPageModel.create()
@@ -41,10 +40,10 @@ public class RitualGreenGroveEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
         this.pageText("- [#](8B0000)Raw Will[#](): Increases the growth rate."
-                + "\n- [#](8B0000)Corrosive Will[#](): Hydrates nearby farmland."
-                + "\n- [#](8B0000)Vengeful Will[#](): Causes nearby plants to spread."
-                + "\n- [#](8B0000)Destructive Will[#](): Increases effect potency at higher will concentrations."
-                + "\n- [#](8B0000)Steadfast Will[#](): Causes nearby saplings to grow into trees.");
+                + "\n\n- [#](8B0000)Corrosive Will[#](): Hydrates nearby farmland."
+                + "\n\n- [#](8B0000)Vengeful Will[#](): Causes nearby plants to spread."
+                + "\n\n- [#](8B0000)Destructive Will[#](): Increases effect potency at higher will concentrations."
+                + "\n\n- [#](8B0000)Steadfast Will[#](): Causes nearby saplings to grow into trees.");
     }
 
     @Override

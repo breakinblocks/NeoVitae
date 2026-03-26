@@ -27,7 +27,6 @@ public class RitualGroundingEntry extends EntryProvider {
         this.pageText("Use a [#](8B0000)Ritual Diviner[#]() for easier construction.");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
-                .withTitle("Ritual Stats")
                 .withText(RitualStatsHelper.generateStats("grounding")));
 
         this.page("info", () -> BookTextPageModel.create()
@@ -41,10 +40,10 @@ public class RitualGroundingEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
         this.pageText("- [#](8B0000)Raw Will[#](): Increases the grounding effect potency."
-                + "\n- [#](8B0000)Corrosive Will[#](): Behaves similarly to the [#](8B0000)Suspended[#]() potion effect."
-                + "\n- [#](8B0000)Vengeful Will[#](): Applies [#](8B0000)Levitation[#]() to entities."
-                + "\n- [#](8B0000)Destructive Will[#](): Applies the [#](8B0000)Heavy Heart[#]() effect."
-                + "\n- [#](8B0000)Steadfast Will[#](): Increases the area of effect.");
+                + "\n\n- [#](8B0000)Corrosive Will[#](): Behaves similarly to the [#](8B0000)Suspended[#]() potion effect."
+                + "\n\n- [#](8B0000)Vengeful Will[#](): Applies [#](8B0000)Levitation[#]() to entities."
+                + "\n\n- [#](8B0000)Destructive Will[#](): Applies the [#](8B0000)Heavy Heart[#]() effect."
+                + "\n\n- [#](8B0000)Steadfast Will[#](): Increases the area of effect.");
     }
 
     @Override

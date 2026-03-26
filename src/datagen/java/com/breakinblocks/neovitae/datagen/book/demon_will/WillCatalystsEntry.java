@@ -45,9 +45,9 @@ public class WillCatalystsEntry extends EntryProvider {
 
         this.page("harvesting", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("You can even automate the breaking of these additional spires with the **Crack of the "
+        this.pageText("You can even automate the breaking of these additional spires with the [#](8B0000)Crack of the "
                 + "Fractured Crystal[#](8B0000) ritual, and the collection of the resulting crystals with the [#]()Call of "
-                + "the Zephyr**.\\\n\\\n"
+                + "the Zephyr[#]().\\\n\\\n"
                 + "With a basic [#](8B0000)Routing Node system[#](), you can even feed these excess crystals back into a "
                 + "[#](8B0000)Demon Crucible[#]() for a totally automatic, net-positive loop.\\\n\\\n"
                 + "You may have noticed a bit of a problem, however - this setup is slow. Very, very slow. "

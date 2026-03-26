@@ -4,11 +4,8 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
-import net.minecraft.resources.ResourceLocation;
 import com.mojang.datafixers.util.Pair;
 
 public class PotionCraftingEntry extends EntryProvider {
@@ -51,11 +48,10 @@ public class PotionCraftingEntry extends EntryProvider {
                 + "[#](8B0000)Flight[#](), [#](8B0000)Obsidian Cloak[#](), or even [#](8B0000)Passive[#](). These potions and many more are documented "
                 + "further on in the book.");
 
-        this.page("refill", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "alchemy_flask"))
+        this.page("refill", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Once you have used up any kind of alchemy flask, simply wash out and refill it with water, "
-                + "to get a fresh new flask ready for use.");
+                + "to get a fresh new flask ready for use. View the Alchemy Flask recipe in JEI.");
 
         this.page("splash_linger", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

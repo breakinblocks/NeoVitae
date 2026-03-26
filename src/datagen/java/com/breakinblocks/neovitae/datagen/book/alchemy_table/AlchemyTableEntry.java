@@ -55,9 +55,9 @@ public class AlchemyTableEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Alchemy Table Errors");
         this.pageText("The two most common reasons for a recipe to not work in the Alchemy Table are as follows:"
-                + "\n- [#](8B0000)Orb Error[#](): Either there is no Blood Orb present in the relevant slot, or the Orb "
+                + "\n\n- [#](8B0000)Orb Error[#](): Either there is no Blood Orb present in the relevant slot, or the Orb "
                 + "you are trying to use is not a high enough level for this recipe."
-                + "\n- [#](8B0000)Soul Network Error[#](): The orb is of a valid level, but either you have not bound it to "
+                + "\n\n- [#](8B0000)Soul Network Error[#](): The orb is of a valid level, but either you have not bound it to "
                 + "yourself (right click while holding it), or your Soul Network does not have enough LP in it."
                 + "\\\n\\\nThe following pages document a number of recipes currently available for the Alchemy Table.");
 
@@ -66,24 +66,24 @@ public class AlchemyTableEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Basic Recipes");
         this.pageText("The Alchemy Table provides the following basic recipes:"
-                + "\n- [#](8B0000)Grass Block[#]() (neovitae:alchemytable/grass_block)"
-                + "\n- [#](8B0000)Leather[#]() from Rotten Flesh (neovitae:alchemytable/leather_from_flesh)"
-                + "\n- [#](8B0000)Bread[#]() (neovitae:alchemytable/bread)"
-                + "\n- [#](8B0000)Clay[#]() from Sand (neovitae:alchemytable/clay_from_sand)"
-                + "\n- [#](8B0000)String[#]() (neovitae:alchemytable/string)"
-                + "\n- [#](8B0000)Cobweb[#]() (neovitae:alchemytable/cobweb)");
+                + "\n\n- [#](8B0000)Grass Block[#]() (neovitae:alchemytable/grass_block)"
+                + "\n\n- [#](8B0000)Leather[#]() from Rotten Flesh (neovitae:alchemytable/leather_from_flesh)"
+                + "\n\n- [#](8B0000)Bread[#]() (neovitae:alchemytable/bread)"
+                + "\n\n- [#](8B0000)Clay[#]() from Sand (neovitae:alchemytable/clay_from_sand)"
+                + "\n\n- [#](8B0000)String[#]() (neovitae:alchemytable/string)"
+                + "\n\n- [#](8B0000)Cobweb[#]() (neovitae:alchemytable/cobweb)");
 
         this.page("recipes2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("More Recipes");
         this.pageText("Additional Alchemy Table recipes include:"
-                + "\n- [#](8B0000)Plant Oil[#]() from Wheat, Carrots, Potatoes, or Beets"
-                + "\n- [#](8B0000)Coal Sand[#]() (neovitae:alchemytable/sand_coal)"
-                + "\n- [#](8B0000)Explosive Powder[#]() (neovitae:alchemytable/explosive_powder)"
-                + "\n- [#](8B0000)Flint[#]() from Gravel (neovitae:alchemytable/flint_from_gravel)"
-                + "\n- [#](8B0000)Saltpeter[#]() (neovitae:alchemytable/saltpeter)"
-                + "\n- [#](8B0000)Gunpowder[#]() (neovitae:alchemytable/gunpowder)");
+                + "\n\n- [#](8B0000)Plant Oil[#]() from Wheat, Carrots, Potatoes, or Beets"
+                + "\n\n- [#](8B0000)Coal Sand[#]() (neovitae:alchemytable/sand_coal)"
+                + "\n\n- [#](8B0000)Explosive Powder[#]() (neovitae:alchemytable/explosive_powder)"
+                + "\n\n- [#](8B0000)Flint[#]() from Gravel (neovitae:alchemytable/flint_from_gravel)"
+                + "\n\n- [#](8B0000)Saltpeter[#]() (neovitae:alchemytable/saltpeter)"
+                + "\n\n- [#](8B0000)Gunpowder[#]() (neovitae:alchemytable/gunpowder)");
 
         this.page("sigil_recipes", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

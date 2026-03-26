@@ -4,7 +4,7 @@
   "category": "rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "minecraft:rituals/ritual_basics"
+    "entry_id": "rituals/ritual_basics"
   },
   "description": "book.neovitae.guide.rituals.ritual_sphere_create.description",
   "hide_while_locked": false,
@@ -31,7 +31,7 @@
         "type": "modonomicon:none"
       },
       "text": "[#](8B0000)Activation Cost:[#]() 25,000 LP\\\n[#](8B0000)Crystal:[#]() Awakened Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 25 LP every 1 ticks\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  12x Earth Ritual Stone\\\n  4x Air Ritual Stone\\\n  8x Dusk Ritual Stone\\\n  4x Fire Ritual Stone\\\n  [#](8B0000)Total:[#]() 28 runes",
-      "title": "Ritual Stats"
+      "title": ""
     },
     {
       "type": "modonomicon:text",

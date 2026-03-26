@@ -23,8 +23,8 @@ public class SentientSwordEntry extends EntryProvider {
         this.pageText("The [#](8B0000)Sentient Sword[#]() is a much more effective tool for collecting [#](8B0000)Demon Will[#]() than "
                 + "[#](8B0000)Soul Snares[#]() could ever hope to be. It may seem weak at first, but it is powered by the "
                 + "Wills you carry, so crafting a [#](8B0000)Tartaric Gem[#]() is a must.\\\n\\\n"
-                + "Note that the sword, as with all [#](8B0000)Sentient Tools[#](), can be repaired with **Crystallized "
-                + "Will** in an Anvil.");
+                + "Note that the sword, as with all [#](8B0000)Sentient Tools[#](), can be repaired with [#](8B0000)Crystallized "
+                + "Will[#]() in an Anvil.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

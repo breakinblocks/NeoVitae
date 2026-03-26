@@ -142,15 +142,15 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:crafting_recipe",
+      "type": "modonomicon:text",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:corrupted_dust",
+      "show_title_separator": true,
       "text": "book.neovitae.guide.utility.ore_processing.corrupted_dust.text",
-      "title1": "",
-      "title2": ""
+      "title": "",
+      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:text",
@@ -169,7 +169,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:primitive_furnace_cell",
+      "recipe_id_1": "neovitae:furnacecell_primitive",
       "text": "book.neovitae.guide.utility.ore_processing.fuel_cell.text",
       "title1": "",
       "title2": ""

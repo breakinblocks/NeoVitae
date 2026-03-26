@@ -26,8 +26,9 @@ public class IncenseAltarEntry extends EntryProvider {
                 + "at a Blood Altar. By standing near your setup, the Incense Altar will calm your soul based on "
                 + "the area's total Tranquility, allowing you to significantly increase your LP gains.");
 
-        this.page("recipe_incense", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "incense_altar")));
+        this.page("recipe_incense", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("View the Incense Altar recipe in JEI.");
 
         this.page("basic_setup", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -71,20 +72,20 @@ public class IncenseAltarEntry extends EntryProvider {
                 + "Wooden Path, that extend from the 3x3 set of solid reference blocks in all four cardinal directions.");
 
         this.page("path_wood", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_wood"))
-                .withRecipeId2(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_woodtile")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_wood_brick"))
+                .withRecipeId2(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_wood_tile")));
 
         this.page("path_stone", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_stone"))
-                .withRecipeId2(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_stonetile")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_stone_brick"))
+                .withRecipeId2(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_stone_tile")));
 
         this.page("path_wornstone", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_wornstone"))
-                .withRecipeId2(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_wornstonetile")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_worn_stone_brick"))
+                .withRecipeId2(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_worn_stone_tile")));
 
         this.page("path_obsidian", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_obsidian"))
-                .withRecipeId2(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_obsidiantile")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_obsidian_brick"))
+                .withRecipeId2(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_obsidian_tile")));
 
         this.page("path_rules", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

@@ -27,7 +27,6 @@ public class RitualSpeedEntry extends EntryProvider {
         this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
-                .withTitle("Ritual Stats")
                 .withText(RitualStatsHelper.generateStats("speed")));
 
         this.page("info", () -> BookTextPageModel.create()
@@ -41,10 +40,10 @@ public class RitualSpeedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
         this.pageText("- [#](8B0000)Raw Will[#](): Increases the speed boost potency."
-                + "\n- [#](8B0000)Corrosive Will[#](): Applies Slowness to hostile mobs."
-                + "\n- [#](8B0000)Vengeful Will[#](): Grants Haste to players."
-                + "\n- [#](8B0000)Destructive Will[#](): Increases effect strength at higher will levels."
-                + "\n- [#](8B0000)Steadfast Will[#](): Grants resistance to knockback.");
+                + "\n\n- [#](8B0000)Corrosive Will[#](): Applies Slowness to hostile mobs."
+                + "\n\n- [#](8B0000)Vengeful Will[#](): Grants Haste to players."
+                + "\n\n- [#](8B0000)Destructive Will[#](): Increases effect strength at higher will levels."
+                + "\n\n- [#](8B0000)Steadfast Will[#](): Grants resistance to knockback.");
     }
 
     @Override

@@ -4,7 +4,7 @@
   "category": "rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "minecraft:rituals/ritual_basics"
+    "entry_id": "rituals/ritual_basics"
   },
   "description": "book.neovitae.guide.rituals.ritual_diviner.description",
   "hide_while_locked": false,
@@ -36,15 +36,15 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:crafting_recipe",
+      "type": "modonomicon:text",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:ritual_diviner_0",
+      "show_title_separator": true,
       "text": "book.neovitae.guide.rituals.ritual_diviner.crafting.text",
-      "title1": "",
-      "title2": ""
+      "title": "",
+      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:text",
@@ -58,15 +58,15 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:crafting_recipe",
+      "type": "modonomicon:text",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:ritual_diviner_1",
+      "show_title_separator": true,
       "text": "book.neovitae.guide.rituals.ritual_diviner.dusk_crafting.text",
-      "title1": "",
-      "title2": ""
+      "title": "",
+      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:text",

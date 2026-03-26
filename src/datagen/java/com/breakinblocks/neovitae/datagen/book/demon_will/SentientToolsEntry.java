@@ -22,8 +22,8 @@ public class SentientToolsEntry extends EntryProvider {
         this.pageTitle("Sentient Tools");
         this.pageText("The [#](8B0000)Sentient Sword[#]() has proven to be a resounding success. You find yourself wondering "
                 + "how other tools may react to a similar treatment...\\\n\\\n"
-                + "Note that these tools, as with the [#](8B0000)Sentient Sword[#](), can be repaired with **Crystallized "
-                + "Will** in an Anvil.\\\n\\\n"
+                + "Note that these tools, as with the [#](8B0000)Sentient Sword[#](), can be repaired with [#](8B0000)Crystallized "
+                + "Will[#]() in an Anvil.\\\n\\\n"
                 + "Did we mention that Sentient Tools and Weapons are all highly enchantable?");
 
         this.page("pickaxe", () -> BookTextPageModel.create()

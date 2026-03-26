@@ -4,11 +4,9 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
 
 public class BookExperienceEntry extends EntryProvider {
 
@@ -26,8 +24,9 @@ public class BookExperienceEntry extends EntryProvider {
                 + "Pressing Sneak and Use with the Tome in hand stores one level of XP. "
                 + "Pressing Use retrieves a level. Hold Use to store/retrieve multiple levels.");
 
-        this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "experience_tome")));
+        this.page("recipe", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("View the Tome of Peritia recipe in JEI.");
 
         this.page("curios", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

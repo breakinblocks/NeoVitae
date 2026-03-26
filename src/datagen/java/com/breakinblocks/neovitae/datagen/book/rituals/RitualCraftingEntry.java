@@ -27,7 +27,6 @@ public class RitualCraftingEntry extends EntryProvider {
         this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
-                .withTitle("Ritual Stats")
                 .withText(RitualStatsHelper.generateStats("crafting")));
 
         this.page("info", () -> BookTextPageModel.create()
@@ -43,9 +42,9 @@ public class RitualCraftingEntry extends EntryProvider {
         this.pageTitle("Setting the Recipe");
         this.pageText("First, we need to specify the recipe using an [#](8B0000)Item Filter[#](). Multiple types of Item Filter can be used, however the ritual will only ever accept one filter at a time."
                 + "\\\n\\\nThe following filters are accepted:"
-                + "\n- [#](8B0000)Standard Item Filter[#](): specifies exactly which item to use in each slot."
-                + "\n- [#](8B0000)Tag Item Filter[#](): Uses Tags to specify what items to use."
-                + "\n- [#](8B0000)Mod Item Filter[#](): Tries to use any item from the specified mod in this slot.");
+                + "\n\n- [#](8B0000)Standard Item Filter[#](): specifies exactly which item to use in each slot."
+                + "\n\n- [#](8B0000)Tag Item Filter[#](): Uses Tags to specify what items to use."
+                + "\n\n- [#](8B0000)Mod Item Filter[#](): Tries to use any item from the specified mod in this slot.");
 
         this.page("placement", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -57,7 +56,7 @@ public class RitualCraftingEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
         this.pageText("- [#](8B0000)Steadfast Will[#](): The ritual will instead try to autocraft with a linked [#](8B0000)Hellfire Forge[#]()."
-                + "\n- [#](8B0000)Corrosive Will[#](): The ritual will instead try to autocraft with a linked [#](8B0000)Alchemy Table[#]()."
+                + "\n\n- [#](8B0000)Corrosive Will[#](): The ritual will instead try to autocraft with a linked [#](8B0000)Alchemy Table[#]()."
                 + "\\\n\\\nThese recipes are all shapeless, but if you need 2 of an item, you'll have to specify it twice in the filter.");
     }
 

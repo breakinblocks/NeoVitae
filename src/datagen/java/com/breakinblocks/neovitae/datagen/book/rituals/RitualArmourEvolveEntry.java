@@ -27,7 +27,6 @@ public class RitualArmourEvolveEntry extends EntryProvider {
         this.pageText("Use a [#](8B0000)Ritual Diviner [Dusk][#]() for easier construction.");
 
         this.page("stats", () -> BookRitualInfoPageModel.create()
-                .withTitle("Ritual Stats")
                 .withText(RitualStatsHelper.generateStats("armour_evolve")));
 
         this.page("info", () -> BookTextPageModel.create()

@@ -4,7 +4,7 @@
   "category": "demon_will",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "minecraft:demon_will/aspected_will"
+    "entry_id": "demon_will/aspected_will"
   },
   "description": "book.neovitae.guide.demon_will.will_catalysts.description",
   "hide_while_locked": false,

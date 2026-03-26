@@ -24,7 +24,7 @@ public class BookRitualInfoPage extends BookPage {
 
     public static BookRitualInfoPage fromJson(JsonObject json, HolderLookup.Provider provider) {
         var title = json.has("title")
-                ? new BookTextHolder(GsonHelper.getAsString(json, "title"))
+                ? new BookTextHolder(net.minecraft.network.chat.Component.translatable(GsonHelper.getAsString(json, "title")))
                 : BookTextHolder.EMPTY;
         var text = json.has("text")
                 ? new BookTextHolder(GsonHelper.getAsString(json, "text"))

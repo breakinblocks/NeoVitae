@@ -119,10 +119,6 @@ public class AltarRuneRegistryImpl implements IAltarRuneRegistry {
     public Map<IAltarRuneType, Integer> getRunesForBlock(Block block) {
         Map<IAltarRuneType, Integer> runes = blockToRunes.get(block);
         if (runes == null) {
-            if (!blockToRunes.isEmpty()) {
-                NeoVitae.LOGGER.warn("getRunesForBlock: No runes found for {} (hash={}), registry has {} entries",
-                        block, System.identityHashCode(block), blockToRunes.size());
-            }
             return Collections.emptyMap();
         }
         return Collections.unmodifiableMap(runes);

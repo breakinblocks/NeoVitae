@@ -76,42 +76,23 @@ public class AltarUtil {
         }
 
         AltarRuneRegistryImpl registry = AltarRuneRegistryImpl.INSTANCE;
-        NeoVitae.LOGGER.info("scanForRunes: Scanning tier {} with {} components",
-                tier, NVMultiblock.TIER_LIST[tier].components().size());
 
-        int upgradeCount = 0;
-        int foundRunes = 0;
         for (AltarComponent component : NVMultiblock.TIER_LIST[tier].components()) {
             if (component.isUpgrade()) {
-                upgradeCount++;
                 BlockPos runePos = altarPos.offset(component.pos());
                 BlockState state = level.getBlockState(runePos);
                 Block block = state.getBlock();
 
                 Map<IAltarRuneType, Integer> blockRunes = registry.getRunesForBlock(block);
                 if (!blockRunes.isEmpty()) {
-                    foundRunes++;
                     for (Map.Entry<IAltarRuneType, Integer> entry : blockRunes.entrySet()) {
-                        NeoVitae.LOGGER.debug("scanForRunes: Block {} contributes {} {} runes",
-                                block, entry.getValue(), entry.getKey().getSerializedName());
                         upgrades.merge(entry.getKey(), entry.getValue(), Integer::sum);
                     }
 
                     BlockEntity blockEntity = level.getBlockEntity(runePos);
                     instances.add(new RuneInstance(runePos, block, blockEntity));
-                } else {
-                    NeoVitae.LOGGER.warn("scanForRunes: Block {} (hash={}) at {} has no runes registered (hasRunes={})",
-                            block, System.identityHashCode(block), runePos, registry.hasRunes(block));
                 }
             }
-        }
-
-        NeoVitae.LOGGER.info("scanForRunes: Found {} runes out of {} upgrade positions, total rune types: {}",
-                foundRunes, upgradeCount, upgrades.size());
-
-        for (Map.Entry<IAltarRuneType, Integer> entry : upgrades.entrySet()) {
-            NeoVitae.LOGGER.info("scanForRunes: Total {} = {} (amounts accumulated)",
-                    entry.getKey().getSerializedName(), entry.getValue());
         }
 
         return new AltarScanResult(upgrades, instances);

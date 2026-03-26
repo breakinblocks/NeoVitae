@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "neovitae:item/soul_gem_greater_corrosive"
-  }
-}

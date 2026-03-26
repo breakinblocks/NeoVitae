@@ -1,8 +1,0 @@
-{
-  "effect": {
-    "type": "neovitae:suppression",
-    "range": 10,
-    "vertical_range": 10
-  },
-  "lp_cost_active": 400
-}

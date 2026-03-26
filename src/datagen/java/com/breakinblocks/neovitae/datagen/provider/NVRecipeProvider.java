@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.datagen.provider;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
@@ -73,8 +74,8 @@ public class NVRecipeProvider extends RecipeProvider {
     }
 
     private void addVanillaCraftingRecipes(RecipeOutput output) {
-        // Sacrificial Dagger - diagonal dagger shape
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, NVItems.SACRIFICIAL_DAGGER.get())
+        // Lamina Maleficus - diagonal dagger shape
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, NVItems.LAMINA_MALEFICUS.get())
                 .pattern("ggg")
                 .pattern(" Gg")
                 .pattern("i g")
@@ -582,14 +583,14 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
                 .save(output, NeoVitae.rl("soul_snare"));
 
-        AltarRecipeBuilder.build(NVItems.DAGGER_OF_SACRIFICE.get())
+        AltarRecipeBuilder.build(NVItems.LAMINA_EXHAURIENS.get())
                 .from(Items.IRON_SWORD)
                 .minTier(1)
                 .bloodNeeded(3000)
                 .consumption(5)
                 .drain(5)
                 .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
-                .save(output, NeoVitae.rl("dagger_of_sacrifice"));
+                .save(output, NeoVitae.rl("lamina_exhauriens"));
 
         AltarRecipeBuilder.build(NVFluids.LIFE_ESSENCE_BUCKET.get())
                 .from(Items.BUCKET)
@@ -1592,12 +1593,13 @@ public class NVRecipeProvider extends RecipeProvider {
 
     private void addTier2RuneRecipe(RecipeOutput output, ItemLike result, ItemLike tier1Rune) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, result)
-                .pattern("nbn")
-                .pattern("brb")
-                .pattern("nbn")
+                .pattern("nhn")
+                .pattern("srs")
+                .pattern("nsn")
                 .define('n', Items.NETHERITE_SCRAP)
-                .define('b', NVBlocks.BLOODSTONE.block().get())
+                .define('h', NVItems.HELLFORGED_PARTS.get())
                 .define('r', tier1Rune)
+                .define('s', net.minecraft.tags.ItemTags.STONE_CRAFTING_MATERIALS)
                 .unlockedBy("has_tier1_rune", has(tier1Rune))
                 .save(output);
     }

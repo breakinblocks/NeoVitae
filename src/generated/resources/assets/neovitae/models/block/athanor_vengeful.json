@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/orientable_with_bottom",
-  "textures": {
-    "bottom": "neovitae:block/athanor_bottom",
-    "front": "neovitae:block/athanor_front_vengeful",
-    "side": "neovitae:block/athanor_side_vengeful",
-    "top": "neovitae:block/athanor_top_vengeful"
-  }
-}

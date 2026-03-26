@@ -836,7 +836,7 @@ NeoForgeEvents.onEvent('com.breakinblocks.neovitae.common.event.AraVitaeCraftEve
 | `AraVitaeCraftEvent$Crafting` | Yes | Before altar craft completes |
 | `AraVitaeCraftEvent$Crafted` | No | After altar craft completes |
 | `ItemBindEvent` | Yes | When binding item to player |
-| `SacrificialDaggerEvent` | Yes | When dagger drains health |
+| `LaminaMaleficusEvent` | Yes | When dagger drains health |
 | `LivingArmourEvent` | Varies | Living armor upgrade events |
 | `AlchemyArrayCraftEvent` | Yes | Alchemy array crafting |
 
@@ -863,8 +863,8 @@ Neo Vitae registers several custom player attributes that can be modified via eq
 | Attribute | Registry ID | Default | Max | Description |
 |-----------|------------|---------|-----|-------------|
 | Self Sacrifice Multiplier | `neovitae:player.self_sacrifice_multiplier` | 1.0 | 100.0 | Multiplier for LP gained from self-sacrifice (PercentageAttribute) |
-| Bonus Sacrifice | `neovitae:bonus_sacrifice` | 0.0 | 1000.0 | % bonus to LP gained from Dagger of Sacrifice mob kills |
-| Bonus Self Sacrifice | `neovitae:bonus_self_sacrifice` | 0.0 | 1000.0 | % bonus to LP gained from Sacrificial Dagger self-sacrifice |
+| Bonus Sacrifice | `neovitae:bonus_sacrifice` | 0.0 | 1000.0 | % bonus to LP gained from Lamina Exhauriens mob kills |
+| Bonus Self Sacrifice | `neovitae:bonus_self_sacrifice` | 0.0 | 1000.0 | % bonus to LP gained from Lamina Maleficus self-sacrifice |
 | Bonus Demon Will | `neovitae:bonus_demon_will` | 0.0 | 1000.0 | % bonus to Demon Will drops from sentient weapons and soul snares |
 | Sigil Cost Reduction | `neovitae:sigil_cost_reduction` | 0.0 | 100.0 | % reduction to all sigil LP costs (capped at near-zero, minimum 1 LP) |
 | Blood Siphon | `neovitae:blood_siphon` | 0.0 | 1024.0 | Converts damage dealt into LP. Base LP = min(attribute, damage), then multiplied |

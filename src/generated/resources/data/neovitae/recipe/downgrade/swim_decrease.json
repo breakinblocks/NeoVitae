@@ -1,7 +1,0 @@
-{
-  "type": "neovitae:livingdowngrade",
-  "input": {
-    "item": "minecraft:water_bucket"
-  },
-  "livingarmour": "neovitae:swim_decrease"
-}

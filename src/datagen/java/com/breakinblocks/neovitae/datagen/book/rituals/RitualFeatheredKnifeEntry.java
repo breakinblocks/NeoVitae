@@ -63,7 +63,7 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.SACRIFICIAL_DAGGER.get());
+        return BookIconModel.create(NVItems.LAMINA_MALEFICUS.get());
     }
 
     @Override

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "neovitae:block/dungeon/dungeon_brick1_st",
-    "side": "neovitae:block/dungeon/dungeon_brick1_st",
-    "top": "neovitae:block/dungeon/dungeon_brick1_st"
-  }
-}

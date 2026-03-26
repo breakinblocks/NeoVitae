@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "neovitae:item/potionflask_underlay",
-    "layer1": "neovitae:item/potionflask_outline_throwable",
-    "layer2": "neovitae:item/potionflask_overlay_throwable"
-  }
-}

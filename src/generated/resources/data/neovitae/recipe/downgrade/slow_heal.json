@@ -1,7 +1,0 @@
-{
-  "type": "neovitae:livingdowngrade",
-  "input": {
-    "item": "minecraft:ghast_tear"
-  },
-  "livingarmour": "neovitae:slow_heal"
-}

@@ -62,7 +62,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("attribute.neovitae.blood_shield", "Blood Shield");
 
         add(NVBlocks.ARA_VITAE, "Ara Vitae");
-        add(NVItems.SACRIFICIAL_DAGGER.get(), "Sacrificial Dagger");
+        add(NVItems.LAMINA_MALEFICUS.get(), "Lamina Maleficus");
 
         add(NVBlocks.RUNE_BLANK, "Blank Rune");
 
@@ -229,7 +229,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.SOUL_SNARE.get(), "Soul Snare");
         addTooltip("soulSnare.desc", "Throw at weakened mobs to extract their soul");
         add(NVItems.WEAK_BLOOD_SHARD.get(), "Weak Blood Shard");
-        add(NVItems.DAGGER_OF_SACRIFICE.get(), "Dagger of Sacrifice");
+        add(NVItems.LAMINA_EXHAURIENS.get(), "Lamina Exhauriens");
         add(NVItems.LAVA_CRYSTAL.get(), "Lava Crystal");
         addTooltip("lavaCrystal.desc", "Place fire, bindable furnace fuel");
         add("chat.neovitae.notEnoughLP", "Not enough Life Points!");

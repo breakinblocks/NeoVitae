@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "neovitae:block/dungeon/dungeon_tile",
-    "side": "neovitae:block/dungeon/dungeon_tile",
-    "top": "neovitae:block/dungeon/dungeon_tile"
-  }
-}

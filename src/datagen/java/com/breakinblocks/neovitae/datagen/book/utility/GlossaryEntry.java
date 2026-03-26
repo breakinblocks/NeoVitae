@@ -28,7 +28,7 @@ public class GlossaryEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Blood");
         this.pageText("[#](8B0000)Blood[#]() is the raw, unrefined substance found in living creatures. "
-                + "When you use a Sacrificial Knife or Dagger of Sacrifice, you are extracting this raw blood "
+                + "When you use a Sacrificial Knife or Lamina Exhauriens, you are extracting this raw blood "
                 + "and offering it to the Ara Vitae to be refined into something more useful.");
 
         this.page("life_essence", () -> BookTextPageModel.create()

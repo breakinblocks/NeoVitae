@@ -55,7 +55,7 @@ public class AraVitaeEntry extends EntryProvider {
                 + "The [#](8B0000)Divination Sigil[#]() allows more detailed information about the Altar.");
 
         this.page("knife_recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "sacrificial_dagger"))
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "lamina_maleficus"))
                 .withText(this.context().pageText()));
         this.pageText("Keep in mind that 10%% of the total [#](8B0000)Life Essence[#]() the altar can hold will be absorbed "
                 + "into an invisible internal 'tank' used for extracting and inserting [#](8B0000)Life Essence[#]() into the Altar.");
@@ -99,10 +99,10 @@ public class AraVitaeEntry extends EntryProvider {
         this.pageTitle("Tier 2 Ara Vitae");
         this.pageText("The Tier 2 Ara Vitae, which has 8 total runes.");
 
-        this.page("dagger_of_sacrifice", () -> BookTextPageModel.create()
+        this.page("lamina_exhauriens", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Now that you have a Tier 2 Altar, you can look into getting [#](8B0000)Life Essence[#]() from "
-                + "somewhere other than yourself. The [#](8B0000)Dagger of Sacrifice[#]() will allow you to sacrifice any "
+                + "somewhere other than yourself. The [#](8B0000)Lamina Exhauriens[#]() will allow you to sacrifice any "
                 + "mob (monster or passive) that stands within 2 blocks of your Altar, instantly killing them "
                 + "and granting you a decent sum of [#](8B0000)Life Essence[#]().\\\n\\\n"
                 + "You can increase the amount you get per "
@@ -111,8 +111,8 @@ public class AraVitaeEntry extends EntryProvider {
         this.page("dagger_recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Dagger of Sacrifice");
-        this.pageText("Craft the Dagger of Sacrifice in the Ara Vitae (Tier 2, cost: 3000 LP).\\\n\\\n"
+        this.pageTitle("Lamina Exhauriens");
+        this.pageText("Craft the Lamina Exhauriens in the Ara Vitae (Tier 2, cost: 3000 LP).\\\n\\\n"
                 + "Slaughtering villagers for fun and profit!");
 
         this.page("tier3_text", () -> BookTextPageModel.create()

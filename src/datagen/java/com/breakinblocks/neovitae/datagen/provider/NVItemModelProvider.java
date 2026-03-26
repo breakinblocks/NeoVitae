@@ -109,9 +109,9 @@ public class NVItemModelProvider extends ItemModelProvider {
             }
         });
 
-        ItemModelBuilder builder = getBuilder(NVItems.SACRIFICIAL_DAGGER.getId().getPath());
-        ModelFile normalDagger = singleTexture("item/variant/sacrificial_dagger_normal", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger"));
-        ModelFile chargedDagger = singleTexture("item/variant/sacrificial_dagger_charged", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger_charged"));
+        ItemModelBuilder builder = getBuilder(NVItems.LAMINA_MALEFICUS.getId().getPath());
+        ModelFile normalDagger = singleTexture("item/variant/lamina_maleficus_normal", mcLoc("item/handheld"), "layer0", modLoc("item/lamina_maleficus"));
+        ModelFile chargedDagger = singleTexture("item/variant/lamina_maleficus_charged", mcLoc("item/handheld"), "layer0", modLoc("item/lamina_maleficus_charged"));
         builder.override().predicate(NeoVitae.INCENSE_PROPERTY, 0).model(normalDagger).end();
         builder.override().predicate(NeoVitae.INCENSE_PROPERTY, 1).model(chargedDagger).end();
     }

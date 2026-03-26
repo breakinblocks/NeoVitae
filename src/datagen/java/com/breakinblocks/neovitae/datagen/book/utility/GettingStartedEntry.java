@@ -64,7 +64,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier Two");
-        this.pageText("At this point, you will be able to craft a Dagger of Sacrifice in order to slaughter mobs "
+        this.pageText("At this point, you will be able to craft a Lamina Exhauriens in order to slaughter mobs "
                 + "for more Life Essence. Various Upgrade Runes should be available for your Ara Vitae, "
                 + "and some more Sigils will be available. As before, you should focus on further upgrading your Altar.");
 
@@ -193,7 +193,7 @@ public class GettingStartedEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.SACRIFICIAL_DAGGER.get());
+        return BookIconModel.create(NVItems.LAMINA_MALEFICUS.get());
     }
 
     @Override

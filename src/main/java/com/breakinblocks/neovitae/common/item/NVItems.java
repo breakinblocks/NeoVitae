@@ -67,7 +67,7 @@ public class NVItems {
         return BASIC_ITEMS.register(name, () -> new Item(new Item.Properties()));
     }
 
-    public static final DeferredHolder<Item, SacrificialDaggerItem> SACRIFICIAL_DAGGER = ITEMS.register("sacrificial_dagger", SacrificialDaggerItem::new);
+    public static final DeferredHolder<Item, LaminaMaleficusItem> LAMINA_MALEFICUS = ITEMS.register("lamina_maleficus", LaminaMaleficusItem::new);
 
     public static final DeferredHolder<Item, RawSoulItem> RAW_WILL = WILL_ITEMS.register("raw_will", RawSoulItem::new);
 
@@ -127,7 +127,7 @@ public class NVItems {
 
     public static final DeferredHolder<Item, SoulSnareItem> SOUL_SNARE = BASIC_ITEMS.register("soul_snare", SoulSnareItem::new);
     public static final DeferredHolder<Item, Item> WEAK_BLOOD_SHARD = plainItem("weak_blood_shard");
-    public static final DeferredHolder<Item, DaggerOfSacrificeItem> DAGGER_OF_SACRIFICE = ITEMS.register("dagger_of_sacrifice", DaggerOfSacrificeItem::new);
+    public static final DeferredHolder<Item, LaminaExhauriensItem> LAMINA_EXHAURIENS = ITEMS.register("lamina_exhauriens", LaminaExhauriensItem::new);
     public static final DeferredHolder<Item, ItemLavaCrystal> LAVA_CRYSTAL = ITEMS.register("lava_crystal", ItemLavaCrystal::new);
 
     public static final DeferredHolder<Item, TeleposerFocusItem> TELEPOSER_FOCUS = ITEMS.register("teleposer_focus", () -> new TeleposerFocusItem(0));

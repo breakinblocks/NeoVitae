@@ -1405,8 +1405,8 @@ Neo Vitae registers custom player attributes that addon mods can apply modifiers
 | Holder Field | Registry ID | Default | Max | Description |
 |-------------|------------|---------|-----|-------------|
 | `SELF_SACRIFICE_MULTIPLIER` | `neovitae:player.self_sacrifice_multiplier` | 1.0 | 100.0 | Multiplier for LP from self-sacrifice (PercentageAttribute) |
-| `BONUS_SACRIFICE` | `neovitae:bonus_sacrifice` | 0.0 | 1000.0 | % bonus LP from Dagger of Sacrifice mob kills |
-| `BONUS_SELF_SACRIFICE` | `neovitae:bonus_self_sacrifice` | 0.0 | 1000.0 | % bonus LP from Sacrificial Dagger self-sacrifice |
+| `BONUS_SACRIFICE` | `neovitae:bonus_sacrifice` | 0.0 | 1000.0 | % bonus LP from Lamina Exhauriens mob kills |
+| `BONUS_SELF_SACRIFICE` | `neovitae:bonus_self_sacrifice` | 0.0 | 1000.0 | % bonus LP from Lamina Maleficus self-sacrifice |
 | `BONUS_DEMON_WILL` | `neovitae:bonus_demon_will` | 0.0 | 1000.0 | % bonus Demon Will drops |
 | `SIGIL_COST_REDUCTION` | `neovitae:sigil_cost_reduction` | 0.0 | 100.0 | % reduction to sigil LP costs |
 | `BLOOD_SIPHON` | `neovitae:blood_siphon` | 0.0 | 1024.0 | Converts damage dealt into LP |

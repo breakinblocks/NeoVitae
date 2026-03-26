@@ -101,7 +101,7 @@ public class ClientModEventHandler {
         event.register(NVMenus.TRAINER.get(), TrainerScreen::new);
         event.register(NVMenus.TELEPOSER.get(), TeleposerScreen::new);
         event.register(NVMenus.ALCHEMY_TABLE.get(), AlchemyTableScreen::new);
-        event.register(NVMenus.SOUL_FORGE.get(), SoulForgeScreen::new);
+        event.register(NVMenus.HELLFIRE_FORGE.get(), SoulForgeScreen::new);
         event.register(NVMenus.SIGIL_HOLDING.get(), SigilHoldingScreen::new);
         event.register(NVMenus.ROUTING_NODE.get(), RoutingNodeScreen::new);
         event.register(NVMenus.MASTER_ROUTING_NODE.get(), MasterRoutingNodeScreen::new);

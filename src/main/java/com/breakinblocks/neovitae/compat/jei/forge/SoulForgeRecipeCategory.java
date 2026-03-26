@@ -27,7 +27,7 @@ import java.util.List;
 
 public class SoulForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
 
-    public static final RecipeType<ForgeRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "soul_forge", ForgeRecipe.class);
+    public static final RecipeType<ForgeRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "hellfire_forge", ForgeRecipe.class);
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
 
     private static final int WIDTH = 100;
@@ -39,7 +39,7 @@ public class SoulForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
 
     public SoulForgeRecipeCategory(IGuiHelper guiHelper) {
         icon = guiHelper.createDrawableItemStack(new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()));
-        background = guiHelper.createDrawable(NeoVitae.rl("gui/jei/soulforge.png"), 0, 0, WIDTH, HEIGHT);
+        background = guiHelper.createDrawable(NeoVitae.rl("gui/jei/hellfire_forge.png"), 0, 0, WIDTH, HEIGHT);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SoulForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
     @Nonnull
     @Override
     public Component getTitle() {
-        return Component.translatable("jei.neovitae.recipe.soulforge");
+        return Component.translatable("jei.neovitae.recipe.hellfire_forge");
     }
 
     @Override

@@ -9,7 +9,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.menu.SoulForgeMenu;
 
 public class SoulForgeScreen extends AbstractContainerScreen<SoulForgeMenu> {
-    private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "textures/gui/soulforge.png");
+    private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "textures/gui/hellfire_forge.png");
 
     public SoulForgeScreen(SoulForgeMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);

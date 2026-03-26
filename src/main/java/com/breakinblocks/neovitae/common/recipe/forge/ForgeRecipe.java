@@ -22,7 +22,7 @@ import java.util.Optional;
 
 public class ForgeRecipe implements Recipe<ForgeInput> {
 
-    public static final String RECIPE_TYPE_NAME = "soul_forge";
+    public static final String RECIPE_TYPE_NAME = "hellfire_forge";
 
     public static final MapCodec<ForgeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.DOUBLE.fieldOf("minDrain").forGetter(ForgeRecipe::getMinWill),
@@ -113,12 +113,12 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return NVRecipes.SOUL_FORGE_SERIALIZER.get();
+        return NVRecipes.HELLFIRE_FORGE_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return NVRecipes.SOUL_FORGE_TYPE.get();
+        return NVRecipes.HELLFIRE_FORGE_TYPE.get();
     }
 
     public Double getMinWill() {

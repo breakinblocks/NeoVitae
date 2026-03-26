@@ -12,8 +12,8 @@
             "duration": 3600,
             "id": "neovitae:heavy_heart",
             "neoforge:cures": [
-              "milk",
-              "protected_by_totem"
+              "protected_by_totem",
+              "milk"
             ],
             "show_icon": true
           }
@@ -98,6 +98,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": 38,
-  "x": 4,
-  "y": 3
+  "x": 1,
+  "y": 5
 }

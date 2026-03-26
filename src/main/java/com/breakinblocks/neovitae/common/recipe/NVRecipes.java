@@ -22,8 +22,8 @@ public class NVRecipes {
     public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(BuiltInRegistries.RECIPE_SERIALIZER, NeoVitae.MODID);
     public static final DeferredRegister<RecipeType<?>> TYPES = DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, NeoVitae.MODID);
 
-    public static final DeferredHolder<RecipeType<?>, RecipeType<ForgeRecipe>> SOUL_FORGE_TYPE = TYPES.register(ForgeRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(ForgeRecipe.RECIPE_TYPE_NAME)));
-    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ForgeRecipe>> SOUL_FORGE_SERIALIZER = SERIALIZERS.register(ForgeRecipe.RECIPE_TYPE_NAME, () -> new NVRecipeSerializer<>(ForgeRecipe.CODEC, ForgeRecipe.STREAM_CODEC));
+    public static final DeferredHolder<RecipeType<?>, RecipeType<ForgeRecipe>> HELLFIRE_FORGE_TYPE = TYPES.register(ForgeRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(ForgeRecipe.RECIPE_TYPE_NAME)));
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ForgeRecipe>> HELLFIRE_FORGE_SERIALIZER = SERIALIZERS.register(ForgeRecipe.RECIPE_TYPE_NAME, () -> new NVRecipeSerializer<>(ForgeRecipe.CODEC, ForgeRecipe.STREAM_CODEC));
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<com.breakinblocks.neovitae.api.recipe.BloodAltarRecipe>> BLOOD_ALTAR_TYPE = TYPES.register(com.breakinblocks.neovitae.api.recipe.BloodAltarRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(com.breakinblocks.neovitae.api.recipe.BloodAltarRecipe.RECIPE_TYPE_NAME)));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<com.breakinblocks.neovitae.api.recipe.BloodAltarRecipe>> BLOOD_ALTAR_SERIALIZER = SERIALIZERS.register(com.breakinblocks.neovitae.api.recipe.BloodAltarRecipe.RECIPE_TYPE_NAME, () -> new NVRecipeSerializer<>(com.breakinblocks.neovitae.common.recipe.bloodaltar.BloodAltarRecipe.CODEC, com.breakinblocks.neovitae.common.recipe.bloodaltar.BloodAltarRecipe.STREAM_CODEC));

@@ -12,8 +12,8 @@
             "duration": 3600,
             "id": "neovitae:hard_cloak",
             "neoforge:cures": [
-              "milk",
-              "protected_by_totem"
+              "protected_by_totem",
+              "milk"
             ],
             "show_icon": true
           }
@@ -92,6 +92,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": 22,
-  "x": 11,
-  "y": -1
+  "x": -15,
+  "y": 7
 }

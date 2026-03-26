@@ -103,7 +103,7 @@ public class DataValidationTests {
     public void soulForgeRecipesExist(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
             var recipes = helper.getLevel().getRecipeManager()
-                    .getAllRecipesFor(com.breakinblocks.neovitae.common.recipe.NVRecipes.SOUL_FORGE_TYPE.get());
+                    .getAllRecipesFor(com.breakinblocks.neovitae.common.recipe.NVRecipes.HELLFIRE_FORGE_TYPE.get());
             if (recipes.isEmpty()) {
                 helper.fail("No soul forge recipes found");
                 return;

@@ -12,7 +12,7 @@ public class NVModonomiconCompat {
                 BookBloodAltarRecipePage::fromNetwork
         );
         LoaderRegistry.registerPageLoader(
-                NVPageTypes.SOUL_FORGE,
+                NVPageTypes.HELLFIRE_FORGE,
                 BookSoulForgeRecipePage::fromJson,
                 BookSoulForgeRecipePage::fromNetwork
         );

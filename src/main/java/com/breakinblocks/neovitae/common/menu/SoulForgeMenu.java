@@ -17,7 +17,7 @@ public class SoulForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBlockEnt
     private static final int TILE_SLOTS = 6; // 4 input + 1 gem + 1 output
 
     public SoulForgeMenu(int containerId, Inventory playerInventory, HellfireForgeBlockEntity tile) {
-        super(NVMenus.SOUL_FORGE.get(), containerId, tile, TILE_SLOTS);
+        super(NVMenus.HELLFIRE_FORGE.get(), containerId, tile, TILE_SLOTS);
 
         this.addSlot(new SlotItemHandler(tile.inv, 0, 8, 15));
         this.addSlot(new SlotItemHandler(tile.inv, 1, 80, 15));

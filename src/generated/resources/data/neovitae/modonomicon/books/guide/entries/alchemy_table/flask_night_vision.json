@@ -12,8 +12,8 @@
             "duration": 3600,
             "id": "minecraft:night_vision",
             "neoforge:cures": [
-              "milk",
-              "protected_by_totem"
+              "protected_by_totem",
+              "milk"
             ],
             "show_icon": true
           }
@@ -80,6 +80,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": 24,
-  "x": -3,
-  "y": 0
+  "x": -15,
+  "y": 1
 }

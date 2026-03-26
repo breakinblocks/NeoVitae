@@ -20,7 +20,7 @@ public class NVMenus {
 
     public static final DeferredHolder<MenuType<?>, MenuType<AlchemyTableMenu>> ALCHEMY_TABLE = MENUS.register("alchemy_table", () -> IMenuTypeExtension.create(AlchemyTableMenu::new));
 
-    public static final DeferredHolder<MenuType<?>, MenuType<SoulForgeMenu>> SOUL_FORGE = MENUS.register("soul_forge", () -> IMenuTypeExtension.create(SoulForgeMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<SoulForgeMenu>> HELLFIRE_FORGE = MENUS.register("hellfire_forge", () -> IMenuTypeExtension.create(SoulForgeMenu::new));
 
     public static final DeferredHolder<MenuType<?>, MenuType<SigilHoldingMenu>> SIGIL_HOLDING = MENUS.register("sigil_holding", () -> IMenuTypeExtension.create(SigilHoldingMenu::new));
 

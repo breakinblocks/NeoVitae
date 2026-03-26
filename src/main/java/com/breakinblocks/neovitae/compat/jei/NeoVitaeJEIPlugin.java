@@ -112,7 +112,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         ClientLevel world = Objects.requireNonNull(Minecraft.getInstance().level);
 
         List<ForgeRecipe> forgeRecipes = world.getRecipeManager()
-                .getAllRecipesFor(NVRecipes.SOUL_FORGE_TYPE.get())
+                .getAllRecipesFor(NVRecipes.HELLFIRE_FORGE_TYPE.get())
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();

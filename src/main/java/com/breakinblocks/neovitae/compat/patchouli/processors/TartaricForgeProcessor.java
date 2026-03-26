@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  *
  * Example Page:
  * {
- *   "type": "neovitae:crafting_soulforge",
+ *   "type": "neovitae:crafting_hellfire_forge",
  *   "heading": "Title",
  *   "recipe": "recipe_id",
  *   "text": "Extra text."
@@ -39,7 +39,7 @@ public class TartaricForgeProcessor implements IComponentProcessor {
         this.registries = level.registryAccess();
         ResourceLocation id = ResourceLocation.parse(variables.get("recipe", registries).asString());
         Optional<RecipeHolder<ForgeRecipe>> recipeHolder = Minecraft.getInstance().level.getRecipeManager()
-                .getAllRecipesFor(NVRecipes.SOUL_FORGE_TYPE.get())
+                .getAllRecipesFor(NVRecipes.HELLFIRE_FORGE_TYPE.get())
                 .stream()
                 .filter(holder -> holder.id().equals(id))
                 .findFirst();

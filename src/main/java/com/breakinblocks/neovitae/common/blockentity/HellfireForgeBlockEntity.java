@@ -77,7 +77,7 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         }
 
         ForgeInput input = tile.getInput();
-        Optional<RecipeHolder<ForgeRecipe>> recipeOptional = level.getRecipeManager().getRecipeFor(NVRecipes.SOUL_FORGE_TYPE.get(), input, level);
+        Optional<RecipeHolder<ForgeRecipe>> recipeOptional = level.getRecipeManager().getRecipeFor(NVRecipes.HELLFIRE_FORGE_TYPE.get(), input, level);
         if (recipeOptional.isEmpty()) {
             if (tile.progress > 0) {
                 tile.progress = 0;

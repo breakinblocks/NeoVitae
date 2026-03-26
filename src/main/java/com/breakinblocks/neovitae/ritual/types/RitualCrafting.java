@@ -190,7 +190,7 @@ public class RitualCrafting extends Ritual {
         ForgeInput forgeInput = new ForgeInput(forgeItems, ItemStack.EMPTY, -1);
 
         Optional<ForgeRecipe> recipeOpt = ctx.level().getRecipeManager()
-                .getRecipeFor(NVRecipes.SOUL_FORGE_TYPE.get(), forgeInput, ctx.level())
+                .getRecipeFor(NVRecipes.HELLFIRE_FORGE_TYPE.get(), forgeInput, ctx.level())
                 .map(holder -> holder.value());
 
         if (recipeOpt.isPresent()) {

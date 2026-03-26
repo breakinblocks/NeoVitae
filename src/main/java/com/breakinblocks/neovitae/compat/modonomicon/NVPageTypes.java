@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class NVPageTypes {
     public static final ResourceLocation BLOOD_ALTAR = NeoVitae.rl("blood_altar_recipe");
-    public static final ResourceLocation SOUL_FORGE = NeoVitae.rl("soul_forge_recipe");
+    public static final ResourceLocation HELLFIRE_FORGE = NeoVitae.rl("hellfire_forge_recipe");
     public static final ResourceLocation ALCHEMY_TABLE = NeoVitae.rl("alchemy_table_recipe");
     public static final ResourceLocation ALCHEMY_ARRAY = NeoVitae.rl("alchemy_array_recipe");
     public static final ResourceLocation ARC = NeoVitae.rl("arc_recipe");

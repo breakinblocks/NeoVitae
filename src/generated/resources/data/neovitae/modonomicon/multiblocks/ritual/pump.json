@@ -29,6 +29,10 @@
       "type": "modonomicon:block",
       "block": "neovitae:water_ritual_stone"
     },
+    "_": {
+      "type": "modonomicon:block",
+      "block": "minecraft:air"
+    },
     "d": {
       "type": "modonomicon:block",
       "block": "neovitae:dawn_ritual_stone"
@@ -146,6 +150,18 @@
         0,
         0,
         -3
+      ]
+    ],
+    "_": [
+      [
+        0,
+        3,
+        0
+      ],
+      [
+        0,
+        -1,
+        0
       ]
     ]
   },

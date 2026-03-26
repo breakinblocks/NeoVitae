@@ -12,8 +12,8 @@
             "duration": 3600,
             "id": "minecraft:instant_damage",
             "neoforge:cures": [
-              "milk",
-              "protected_by_totem"
+              "protected_by_totem",
+              "milk"
             ],
             "show_icon": true
           }
@@ -87,6 +87,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": 30,
-  "x": 5,
+  "x": -7,
   "y": -1
 }

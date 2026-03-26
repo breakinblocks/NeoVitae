@@ -21,7 +21,7 @@ public class BookAlchemyTableRecipePageRenderer extends BookRecipePageRenderer<A
 
     @Override
     protected int getRecipeHeight() {
-        return 78;
+        return 68;
     }
 
     @Override
@@ -42,27 +42,32 @@ public class BookAlchemyTableRecipePageRenderer extends BookRecipePageRenderer<A
         List<Ingredient> ingredients = recipe.getInput();
         int cols = Math.min(ingredients.size(), 3);
         int rows = (ingredients.size() + 2) / 3;
-        int totalWidth = (cols * 22) + 18 + 22 + 8;
-        int gridStartX = recipeX + (BookEntryScreen.PAGE_WIDTH - totalWidth) / 2;
+
+        // Use 18px slot spacing for compact grid + horizontal arrow + output
+        int slotSize = 18;
+        int gridWidth = cols * slotSize;
+        int totalWidth = gridWidth + 2 + 16 + 2 + 22;
+        int startX = recipeX + (BookEntryScreen.PAGE_WIDTH - totalWidth) / 2;
 
         for (int i = 0; i < ingredients.size(); i++) {
             int col = i % 3;
             int row = i / 3;
-            int slotX = gridStartX + (col * 22);
-            int slotY = recipeY + (row * 22);
+            int slotX = startX + (col * slotSize);
+            int slotY = recipeY + (row * slotSize);
             guiGraphics.blit(CRAFTING_TEXTURES, slotX, slotY, 84, 198, 22, 22, 128, 256);
             this.parentScreen.renderIngredient(guiGraphics, slotX + 3, slotY + 3, mouseX, mouseY, ingredients.get(i));
         }
 
-        int arrowX = gridStartX + (cols * 22) + 4;
-        int arrowY = recipeY + ((rows - 1) * 11);
-        guiGraphics.blit(CRAFTING_TEXTURES, arrowX, arrowY + 2, 35, 198, 18, 18, 128, 256);
+        int arrowX = startX + gridWidth + 2;
+        int arrowY = recipeY + ((rows * slotSize - 16) / 2);
+        guiGraphics.blit(CRAFTING_TEXTURES, arrowX, arrowY, 35, 198, 18, 18, 128, 256);
 
         int outputX = arrowX + 20;
-        guiGraphics.blit(CRAFTING_TEXTURES, outputX, arrowY, 84, 198, 22, 22, 128, 256);
-        this.parentScreen.renderItemStack(guiGraphics, outputX + 3, arrowY + 3, mouseX, mouseY, recipe.getOutput());
+        int outputY = recipeY + ((rows * slotSize - 22) / 2);
+        guiGraphics.blit(CRAFTING_TEXTURES, outputX, outputY, 84, 198, 22, 22, 128, 256);
+        this.parentScreen.renderItemStack(guiGraphics, outputX + 3, outputY + 3, mouseX, mouseY, recipe.getOutput());
 
-        int textY = recipeY + (rows * 24) + 4;
+        int textY = recipeY + (rows * slotSize) + 4;
         String lpFormatted = String.format("%,d", recipe.getSyphon());
         Component info = Component.literal(lpFormatted + " LP | " + (recipe.getTicks() / 20) + "s");
         this.drawCenteredStringNoShadow(guiGraphics, info.getVisualOrderText(),

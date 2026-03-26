@@ -11,7 +11,7 @@ public class NVModonomiconClientCompat {
                 p -> new BookBloodAltarRecipePageRenderer((BookBloodAltarRecipePage) p)
         );
         PageRendererRegistry.registerPageRenderer(
-                NVPageTypes.SOUL_FORGE,
+                NVPageTypes.HELLFIRE_FORGE,
                 p -> new BookSoulForgeRecipePageRenderer((BookSoulForgeRecipePage) p)
         );
         PageRendererRegistry.registerPageRenderer(

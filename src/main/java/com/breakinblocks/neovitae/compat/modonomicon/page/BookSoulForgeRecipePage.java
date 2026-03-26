@@ -21,7 +21,7 @@ public class BookSoulForgeRecipePage extends BookRecipePage<ForgeRecipe> {
     public BookSoulForgeRecipePage(BookTextHolder title1, ResourceLocation recipeId1,
                                    BookTextHolder title2, ResourceLocation recipeId2,
                                    BookTextHolder text, String anchor, BookCondition condition) {
-        super(NVRecipes.SOUL_FORGE_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
+        super(NVRecipes.HELLFIRE_FORGE_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
     }
 
     public static BookSoulForgeRecipePage fromJson(JsonObject json, HolderLookup.Provider provider) {
@@ -49,6 +49,6 @@ public class BookSoulForgeRecipePage extends BookRecipePage<ForgeRecipe> {
 
     @Override
     public ResourceLocation getType() {
-        return NVPageTypes.SOUL_FORGE;
+        return NVPageTypes.HELLFIRE_FORGE;
     }
 }

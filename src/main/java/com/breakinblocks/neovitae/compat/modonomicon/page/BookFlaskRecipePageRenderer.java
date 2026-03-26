@@ -21,7 +21,7 @@ public class BookFlaskRecipePageRenderer extends BookRecipePageRenderer<FlaskRec
 
     @Override
     protected int getRecipeHeight() {
-        return 78;
+        return 58;
     }
 
     @Override
@@ -39,31 +39,27 @@ public class BookFlaskRecipePageRenderer extends BookRecipePageRenderer<FlaskRec
 
         recipeY += 8;
 
+        // Flask recipes have 1-2 ingredients — use compact horizontal layout
         List<Ingredient> ingredients = recipe.getInput();
-        int cols = Math.min(ingredients.size(), 3);
-        int rows = (ingredients.size() + 2) / 3;
-        int totalWidth = (cols * 22) + 18 + 22 + 8;
-        int gridStartX = recipeX + (BookEntryScreen.PAGE_WIDTH - totalWidth) / 2;
+        int count = ingredients.size();
+        int totalWidth = (count * 22) + 4 + 18 + 2 + 22;
+        int startX = recipeX + (BookEntryScreen.PAGE_WIDTH - totalWidth) / 2;
 
-        for (int i = 0; i < ingredients.size(); i++) {
-            int col = i % 3;
-            int row = i / 3;
-            int slotX = gridStartX + (col * 22);
-            int slotY = recipeY + (row * 22);
-            guiGraphics.blit(CRAFTING_TEXTURES, slotX, slotY, 84, 198, 22, 22, 128, 256);
-            this.parentScreen.renderIngredient(guiGraphics, slotX + 3, slotY + 3, mouseX, mouseY, ingredients.get(i));
+        for (int i = 0; i < count; i++) {
+            int slotX = startX + (i * 22);
+            guiGraphics.blit(CRAFTING_TEXTURES, slotX, recipeY, 84, 198, 22, 22, 128, 256);
+            this.parentScreen.renderIngredient(guiGraphics, slotX + 3, recipeY + 3, mouseX, mouseY, ingredients.get(i));
         }
 
-        int arrowX = gridStartX + (cols * 22) + 4;
-        int arrowY = recipeY + ((rows - 1) * 11);
-        guiGraphics.blit(CRAFTING_TEXTURES, arrowX, arrowY + 2, 35, 198, 18, 18, 128, 256);
+        int arrowX = startX + (count * 22) + 4;
+        guiGraphics.blit(CRAFTING_TEXTURES, arrowX, recipeY + 2, 35, 198, 18, 18, 128, 256);
 
         int outputX = arrowX + 20;
-        guiGraphics.blit(CRAFTING_TEXTURES, outputX, arrowY, 84, 198, 22, 22, 128, 256);
+        guiGraphics.blit(CRAFTING_TEXTURES, outputX, recipeY, 84, 198, 22, 22, 128, 256);
         var output = recipe.getOutput(recipe.getExampleFlask(), recipe.getExampleEffects());
-        this.parentScreen.renderItemStack(guiGraphics, outputX + 3, arrowY + 3, mouseX, mouseY, output);
+        this.parentScreen.renderItemStack(guiGraphics, outputX + 3, recipeY + 3, mouseX, mouseY, output);
 
-        int textY = recipeY + (rows * 24) + 4;
+        int textY = recipeY + 26;
         int tier = recipe.getMinimumTier() + 1;
         String lpFormatted = String.format("%,d", recipe.getSyphon());
         Component info = Component.literal("Tier " + tier + " | " + lpFormatted + " LP | " + (recipe.getTicks() / 20) + "s");

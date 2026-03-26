@@ -131,7 +131,7 @@ public class DataValidationTests {
                 "ara_vitae", "hellfire_forge", "tabula_vitae", "arc",
                 "master_routing_node", "input_routing_node", "output_routing_node",
                 "master_ritual_stone", "imperfect_ritual_stone",
-                "vas_maleficum", "demon_pylon", "blood_tank", "teleposer",
+                "vas_maleficum", "spira_infernalis", "blood_tank", "teleposer",
                 "incense_altar"
             };
 

@@ -58,14 +58,14 @@ public class AuraEntry extends EntryProvider {
         this.pageText("It's important to mention that the [#](8B0000)Aura[#]() is chunk-based. That is, any Will you burn "
                 + "will fill up the chunk that you burn it in, up to a total cap of 100 for each type. You can "
                 + "measure this using a [#](8B0000)Demon Will Aura Gauge[#]().\\\n\\\n"
-                + "To move Demon Will around, simply place a [#](8B0000)Demon Pylon[#]() in any adjacent chunk, and Will "
+                + "To move Demon Will around, simply place a [#](8B0000)Spira Infernalis[#]() in any adjacent chunk, and Will "
                 + "will be drawn towards it.");
 
         this.page("pylon", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Pylon");
-        this.pageText("Craft the Demon Pylon in the Hellfire Forge.\\\n\\\n"
+        this.pageTitle("Spira Infernalis");
+        this.pageText("Craft the Spira Infernalis in the Hellfire Forge.\\\n\\\n"
                 + "The Pylon will draw in all kinds of will from all adjacent chunks (not including diagonals). "
                 + "Multiple Pylons can be chained in order to transfer Will over larger distances.");
 

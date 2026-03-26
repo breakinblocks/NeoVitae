@@ -99,7 +99,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Demon Will Blocks
         add(NVBlocks.VAS_MALEFICUM, "Vas Maleficum");
         add(NVBlocks.CRYSTALLARIUM_MALEFICUM, "Crystallarium Maleficum");
-        add(NVBlocks.DEMON_PYLON, "Demon Pylon");
+        add(NVBlocks.SPIRA_INFERNALIS, "Spira Infernalis");
 
         // Demon Crystal Blocks
         add(NVBlocks.RAW_DEMON_CRYSTAL, "Raw Crystal Cluster");

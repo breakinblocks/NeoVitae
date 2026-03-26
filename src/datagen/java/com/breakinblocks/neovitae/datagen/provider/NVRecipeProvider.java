@@ -859,7 +859,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_hellfire_forge", has(NVBlocks.HELLFIRE_FORGE.block().get()))
                 .save(output, NeoVitae.rl("crystallarium_maleficum"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.DEMON_PYLON.block().get())
+        SoulForgeRecipeBuilder.build(NVBlocks.SPIRA_INFERNALIS.block().get())
                 .requires(NVTags.Items.DEMON_CRYSTALS)
                 .requires(Tags.Items.STONES)
                 .requires(Tags.Items.GEMS_LAPIS)
@@ -867,7 +867,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minWill(400)
                 .drain(50)
                 .unlockedBy("has_demon_crystal", has(NVItems.RAW_CRYSTAL.get()))
-                .save(output, NeoVitae.rl("demon_pylon"));
+                .save(output, NeoVitae.rl("spira_infernalis"));
 
         // Crystal Blocks
         SoulForgeRecipeBuilder.build(NVBlocks.RAW_DEMON_CRYSTAL.block().get())

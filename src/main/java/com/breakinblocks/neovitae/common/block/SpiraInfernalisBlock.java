@@ -11,16 +11,16 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.DemonPylonBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.SpiraInfernalisBlockEntity;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
 
-public class DemonPylonBlock extends BaseEntityBlock {
+public class SpiraInfernalisBlock extends BaseEntityBlock {
 
-    public static final MapCodec<DemonPylonBlock> CODEC = simpleCodec(p -> new DemonPylonBlock());
+    public static final MapCodec<SpiraInfernalisBlock> CODEC = simpleCodec(p -> new SpiraInfernalisBlock());
 
-    public DemonPylonBlock() {
+    public SpiraInfernalisBlock() {
         super(Properties.of()
                 .strength(5.0F, 6.0F)
                 .sound(SoundType.METAL)
@@ -36,13 +36,13 @@ public class DemonPylonBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new DemonPylonBlockEntity(pos, state);
+        return new SpiraInfernalisBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.DEMON_PYLON_TYPE.get(), DemonPylonBlockEntity::tick);
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.SPIRA_INFERNALIS_TYPE.get(), SpiraInfernalisBlockEntity::tick);
     }
 
     @Override

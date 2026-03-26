@@ -8,7 +8,7 @@ import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 /**
- * Demon Pylon - pulls will from 16 blocks away in each cardinal direction.
+ * Spira Infernalis - pulls will from 16 blocks away in each cardinal direction.
  * Will flows from areas with higher will to the pylon's position.
  * Multiple pylons can be used to transfer will over larger distances.
  *
@@ -17,16 +17,16 @@ import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
  * - Transfer rate: min((remoteAmount - localAmount) / 2, drainRate)
  * - drainRate = 1.0 per tick
  */
-public class DemonPylonBlockEntity extends BaseBlockEntity {
+public class SpiraInfernalisBlockEntity extends BaseBlockEntity {
 
     public static final int PULL_DISTANCE = 16;
     public static final double DRAIN_RATE = 1.0;
 
-    public DemonPylonBlockEntity(BlockPos pos, BlockState state) {
-        super(NVTiles.DEMON_PYLON_TYPE.get(), pos, state);
+    public SpiraInfernalisBlockEntity(BlockPos pos, BlockState state) {
+        super(NVTiles.SPIRA_INFERNALIS_TYPE.get(), pos, state);
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, DemonPylonBlockEntity tile) {
+    public static void tick(Level level, BlockPos pos, BlockState state, SpiraInfernalisBlockEntity tile) {
         if (level.isClientSide()) {
             return;
         }

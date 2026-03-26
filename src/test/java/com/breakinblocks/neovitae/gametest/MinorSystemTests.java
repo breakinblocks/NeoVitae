@@ -15,7 +15,7 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
-import com.breakinblocks.neovitae.common.blockentity.DemonPylonBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.SpiraInfernalisBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.TeleposerBlockEntity;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
@@ -88,17 +88,17 @@ public class MinorSystemTests {
         });
     }
 
-    // ==================== Demon Pylon ====================
+    // ==================== Spira Infernalis ====================
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
     public void pylonPlacesAndInitializes(GameTestHelper helper) {
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
-        helper.setBlock(new BlockPos(3, 1, 2), NVBlocks.DEMON_PYLON.block().get().defaultBlockState());
+        helper.setBlock(new BlockPos(3, 1, 2), NVBlocks.SPIRA_INFERNALIS.block().get().defaultBlockState());
 
         helper.runAfterDelay(5, () -> {
             BlockEntity be = helper.getBlockEntity(new BlockPos(3, 1, 2));
-            if (!(be instanceof DemonPylonBlockEntity)) {
-                helper.fail("Expected DemonPylonBlockEntity");
+            if (!(be instanceof SpiraInfernalisBlockEntity)) {
+                helper.fail("Expected SpiraInfernalisBlockEntity");
                 return;
             }
             helper.succeed();

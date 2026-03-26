@@ -4,10 +4,10 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.datagen.book.page.BookSoulForgeRecipePageModel;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 
@@ -31,11 +31,8 @@ public class BloodTankEntry extends EntryProvider {
                 + "the previous one, starting at **16 Buckets** and reaching a maximum of **524,288 Buckets** "
                 + "at tier 16.");
 
-        this.page("recipe", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Blood Tank");
-        this.pageText("Craft the base Blood Tank in the Hellfire Forge.");
+        this.page("recipe", () -> BookSoulForgeRecipePageModel.create()
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "hellfire_forge/blood_tank")));
 
         this.page("upgrading", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -48,10 +45,12 @@ public class BloodTankEntry extends EntryProvider {
                 + "fluid, the result keeps that fluid. If they hold different fluids, the primary tank's fluid "
                 + "is kept.");
 
-        this.page("upgrade_recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_tank_upgrade"))
+        this.page("upgrade_recipe", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageText("Each tier doubles the previous tier's capacity, so upgrading early and often is worthwhile.");
+        this.pageTitle("Upgrade Recipe");
+        this.pageText("Place two **Blood Tanks**, **Glass**, and a **Bloodstone** in a crafting table to upgrade. "
+                + "Each tier doubles the previous tier's capacity, so upgrading early and often is worthwhile.");
     }
 
     @Override

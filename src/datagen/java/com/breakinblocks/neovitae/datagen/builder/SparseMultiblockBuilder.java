@@ -97,6 +97,17 @@ public class SparseMultiblockBuilder {
     }
 
     /**
+     * Map a character to an air matcher (invisible, used for bounding box padding).
+     */
+    public SparseMultiblockBuilder air(char key) {
+        JsonObject matcher = new JsonObject();
+        matcher.addProperty("type", "modonomicon:block");
+        matcher.addProperty("block", "minecraft:air");
+        matchers.put(key, matcher);
+        return this;
+    }
+
+    /**
      * Map a character to a predicate matcher (custom Java predicate registered by ID).
      */
     public SparseMultiblockBuilder predicate(char key, ResourceLocation predicateId, Supplier<? extends Block> display) {

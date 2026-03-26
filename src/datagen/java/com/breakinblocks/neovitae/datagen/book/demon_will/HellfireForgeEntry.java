@@ -29,7 +29,7 @@ public class HellfireForgeEntry extends EntryProvider {
                 + "**Tartaric Gems**, various reagents, **Arcane Ash**, and many things besides.");
 
         this.page("crafting", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "soul_forge")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "hellfire_forge")));
     }
 
     @Override

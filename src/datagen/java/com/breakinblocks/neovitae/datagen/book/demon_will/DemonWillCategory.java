@@ -2,7 +2,9 @@ package com.breakinblocks.neovitae.datagen.book.demon_will;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase;
+import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 
 public class DemonWillCategory extends CategoryProvider {
@@ -14,15 +16,14 @@ public class DemonWillCategory extends CategoryProvider {
     @Override
     protected String[] generateEntryMap() {
         return new String[]{
-                "___a___b___c___d___e___",
-                "_______________________",
-                "___f___g___h___i_______",
-                "_______________________",
-                "___j___k___l___m___n___",
-                "_______________________",
-                "___o___p___q___r___s___",
-                "_______________________",
-                "___t___u___v___w___x___"
+                "_____________a_____________",
+                "___b___c___j_l_m_n_________",
+                "___d___o___k_______________",
+                "___e___p___________________",
+                "___f___q___x_______________",
+                "___g_i_t_u_v_w_____________",
+                "___h_______________________",
+                "_________r_s_______________"
         };
     }
 
@@ -98,6 +99,14 @@ public class DemonWillCategory extends CategoryProvider {
 
         var upgrades = this.add(new UpgradesEntry(this).generate('x'));
         upgrades.withParent(this.parent(routingNodes));
+    }
+
+    @Override
+    protected BookCategoryModel additionalSetup(BookCategoryModel category) {
+        return super.additionalSetup(category)
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/base.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/layer_1.png"))
+                .withBackgroundParallaxLayer(NeoVitae.rl("textures/gui/parallax/layer_2.png"));
     }
 
     @Override

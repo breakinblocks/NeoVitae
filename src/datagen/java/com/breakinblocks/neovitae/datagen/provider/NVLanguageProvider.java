@@ -786,7 +786,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // JEI Integration
         addJei("recipe.altar", "Blood Altar");
-        addJei("recipe.soulforge", "Hellfire Forge");
+        addJei("recipe.hellfire_forge", "Hellfire Forge");
         addJei("recipe.alchemyarraycrafting", "Alchemy Array");
         addJei("recipe.alchemytable", "Alchemy Table");
         addJei("recipe.requiredtier", "Required Tier: %s");

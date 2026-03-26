@@ -588,6 +588,11 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
             builder.at('0', 0, 0, 0);
             builder.block('0', () -> NVBlocks.MASTER_RITUAL_STONE.block().get());
 
+            // Add invisible padding above and below to give height for rotation scaling
+            builder.at('_', 0, 3, 0);
+            builder.at('_', 0, -1, 0);
+            builder.air('_');
+
             for (RitualComponent comp : components) {
                 char runeChar = getRuneChar(comp.runeType());
                 builder.at(runeChar, comp.offset().getX(), comp.offset().getY(), comp.offset().getZ());

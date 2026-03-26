@@ -50,7 +50,11 @@ public class NVBookProvider extends SingleBookSubProvider {
         return super.additionalSetup(book)
                 .withGenerateBookItem(true)
                 .withModel(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "book"))
-                .withCreativeTab(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "main"));
+                .withCreativeTab(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "main"))
+                .withBookContentTexture(NeoVitae.rl("textures/gui/book_content.png"))
+                .withFrameTexture(NeoVitae.rl("textures/gui/book_frame.png"))
+                .withBookOverviewTexture(NeoVitae.rl("textures/gui/book_overview.png"))
+                .withCraftingTexture(NeoVitae.rl("textures/gui/crafting_textures.png"));
     }
 
     @Override

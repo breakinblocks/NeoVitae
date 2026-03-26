@@ -1,9 +1,10 @@
 {
   "replace": false,
   "values": [
-    "neovitae:soulgempetty",
-    "neovitae:soulgemlesser",
-    "neovitae:soulgemcommon",
-    "neovitae:soulgemgreater"
+    "neovitae:soul_gem_petty",
+    "neovitae:soul_gem_lesser",
+    "neovitae:soul_gem_common",
+    "neovitae:soul_gem_greater",
+    "neovitae:soul_gem_grand"
   ]
 }

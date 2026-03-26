@@ -94,15 +94,22 @@ public class AraVitaeBlock extends Block implements EntityBlock {
         if (hand != InteractionHand.MAIN_HAND) {
             return ItemInteractionResult.CONSUME;
         }
+
+        // Let sigils handle their own interaction - don't place them into the altar
+        if (stack.getItem() instanceof com.breakinblocks.neovitae.common.item.sigil.ISigil) {
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
         BlockEntity be = level.getBlockEntity(pos);
         if (!(be instanceof AraVitaeTile tile)) {
             return ItemInteractionResult.FAIL;
         }
         ItemStack altarStack = tile.inv.getStackInSlot(0);
         if (altarStack.isEmpty() && !stack.isEmpty()) {
-            tile.inv.setStackInSlot(0, stack.copy());
+            ItemStack toPlace = stack.copyWithCount(1);
+            tile.inv.setStackInSlot(0, toPlace);
+            stack.shrink(1);
             level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
-            player.setItemInHand(hand, ItemStack.EMPTY);
             return ItemInteractionResult.sidedSuccess(level.isClientSide);
         } else if (!altarStack.isEmpty() && stack.isEmpty()) {
             player.setItemInHand(hand, altarStack.copy());

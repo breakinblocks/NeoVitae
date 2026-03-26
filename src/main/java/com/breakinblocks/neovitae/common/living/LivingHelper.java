@@ -287,7 +287,7 @@ public class LivingHelper {
 
         Object2FloatOpenHashMap<Holder<LivingUpgrade>> upgrades = chest.getOrDefault(NVDataComponents.UPGRADES, LivingStats.EMPTY).upgrades().clone();
         UpgradeLimits limits = chest.getOrDefault(NVDataComponents.LIMITS, UpgradeLimits.EMPTY);
-        int maxPoints = chest.getOrDefault(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS, 0);
+        int maxPoints = chest.getOrDefault(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS, NeoVitae.SERVER_CONFIG.DEFAULT_UPGRADE_POINTS.get());
         int currentPoints = chest.getOrDefault(NVDataComponents.CURRENT_UPGRADE_POINTS, 0);
 
         return new ExpContext(wearer, upgrade, eventAmount, fromTome, chest, upgrades, limits, maxPoints, currentPoints);
@@ -387,6 +387,22 @@ public class LivingHelper {
         Object2FloatOpenHashMap<Holder<LivingUpgrade>> ret = new Object2FloatOpenHashMap<>();
         template.forEach(holder -> ret.put(holder, val));
         return ret;
+    }
+
+    public static void ensureInitialized(Player player) {
+        ItemStack chest = getChest(player);
+        if (chest.isEmpty() || isNeverValid(chest)) {
+            return;
+        }
+
+        LivingStats stats = chest.get(NVDataComponents.UPGRADES);
+        if (stats == null || stats.upgrades().isEmpty()) {
+            setDefaultLiving(chest, player.registryAccess());
+        }
+
+        if (!chest.has(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS)) {
+            chest.set(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS, NeoVitae.SERVER_CONFIG.DEFAULT_UPGRADE_POINTS.get());
+        }
     }
 
     public static void setDefaultLiving(ItemStack livingPlate, HolderLookup.Provider holders) {

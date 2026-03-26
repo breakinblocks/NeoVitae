@@ -189,6 +189,7 @@ public class LivingEventHandler {
         }
 
         if (LivingHelper.hasFullSet(event.getEntity())) {
+            LivingHelper.ensureInitialized(event.getEntity());
             LivingHelper.runTick(event.getEntity());
 
             // Quenched downgrade - extinguish fire on the player

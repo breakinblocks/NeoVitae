@@ -7,7 +7,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.datagen.book.page.BookSoulForgeRecipePageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookHellfireForgeRecipePageModel;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 
@@ -31,7 +31,7 @@ public class BloodTankEntry extends EntryProvider {
                 + "the previous one, starting at [#](8B0000)16 Buckets[#]() and reaching a maximum of [#](8B0000)524,288 Buckets[#]() "
                 + "at tier 16.");
 
-        this.page("recipe", () -> BookSoulForgeRecipePageModel.create()
+        this.page("recipe", () -> BookHellfireForgeRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "hellfire_forge/blood_tank")));
 
         this.page("upgrading", () -> BookTextPageModel.create()

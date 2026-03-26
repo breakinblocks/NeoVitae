@@ -11,11 +11,11 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.List;
 
-public class BookSoulForgeRecipePageRenderer extends BookRecipePageRenderer<ForgeRecipe, BookSoulForgeRecipePage> {
+public class BookHellfireForgeRecipePageRenderer extends BookRecipePageRenderer<ForgeRecipe, BookHellfireForgeRecipePage> {
 
     private static final ResourceLocation CRAFTING_TEXTURES = ResourceLocation.fromNamespaceAndPath("modonomicon", "textures/gui/crafting_textures.png");
 
-    public BookSoulForgeRecipePageRenderer(BookSoulForgeRecipePage page) {
+    public BookHellfireForgeRecipePageRenderer(BookHellfireForgeRecipePage page) {
         super(page);
     }
 

@@ -12,11 +12,11 @@ import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
-public class SoulForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBlockEntity> {
+public class HellfireForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBlockEntity> {
 
     private static final int TILE_SLOTS = 6; // 4 input + 1 gem + 1 output
 
-    public SoulForgeMenu(int containerId, Inventory playerInventory, HellfireForgeBlockEntity tile) {
+    public HellfireForgeMenu(int containerId, Inventory playerInventory, HellfireForgeBlockEntity tile) {
         super(NVMenus.HELLFIRE_FORGE.get(), containerId, tile, TILE_SLOTS);
 
         this.addSlot(new SlotItemHandler(tile.inv, 0, 8, 15));
@@ -40,9 +40,11 @@ public class SoulForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBlockEnt
 
         MenuSlotHelper.addPlayerInventory(this::addSlot, playerInventory,
                 MenuSlotHelper.INV_Y_205, MenuSlotHelper.HOTBAR_Y_205);
+
+        this.addDataSlots(tile.dataAccess);
     }
 
-    public SoulForgeMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {
+    public HellfireForgeMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {
         this(containerId, playerInventory, (HellfireForgeBlockEntity) playerInventory.player.level().getBlockEntity(buf.readBlockPos()));
     }
 

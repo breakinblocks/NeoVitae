@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class SoulForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
+public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
 
     public static final RecipeType<ForgeRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "hellfire_forge", ForgeRecipe.class);
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
@@ -37,7 +37,7 @@ public class SoulForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
     private final IDrawable background;
     private final IDrawable icon;
 
-    public SoulForgeRecipeCategory(IGuiHelper guiHelper) {
+    public HellfireForgeRecipeCategory(IGuiHelper guiHelper) {
         icon = guiHelper.createDrawableItemStack(new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()));
         background = guiHelper.createDrawable(NeoVitae.rl("gui/jei/hellfire_forge.png"), 0, 0, WIDTH, HEIGHT);
     }
@@ -79,7 +79,6 @@ public class SoulForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
 
     @Override
     public void draw(ForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        // Draw background
         background.draw(guiGraphics);
 
         var poseStack = guiGraphics.pose();

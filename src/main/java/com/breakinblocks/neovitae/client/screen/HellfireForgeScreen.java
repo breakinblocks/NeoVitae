@@ -6,12 +6,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.menu.SoulForgeMenu;
+import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
+import com.breakinblocks.neovitae.common.menu.HellfireForgeMenu;
 
-public class SoulForgeScreen extends AbstractContainerScreen<SoulForgeMenu> {
+public class HellfireForgeScreen extends AbstractContainerScreen<HellfireForgeMenu> {
     private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "textures/gui/hellfire_forge.png");
 
-    public SoulForgeScreen(SoulForgeMenu menu, Inventory playerInventory, Component title) {
+    public HellfireForgeScreen(HellfireForgeMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         this.imageWidth = 176;
         this.imageHeight = 205;
@@ -46,7 +47,7 @@ public class SoulForgeScreen extends AbstractContainerScreen<SoulForgeMenu> {
     }
 
     private int getCookProgressScaled(int scale) {
-        double progress = menu.tile.getProgressForGui();
-        return (int) (progress * scale);
+        int progress = menu.tile.dataAccess.get(0);
+        return progress * scale / HellfireForgeBlockEntity.MAX_PROGRESS;
     }
 }

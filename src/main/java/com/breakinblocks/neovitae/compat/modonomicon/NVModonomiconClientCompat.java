@@ -12,7 +12,7 @@ public class NVModonomiconClientCompat {
         );
         PageRendererRegistry.registerPageRenderer(
                 NVPageTypes.HELLFIRE_FORGE,
-                p -> new BookSoulForgeRecipePageRenderer((BookSoulForgeRecipePage) p)
+                p -> new BookHellfireForgeRecipePageRenderer((BookHellfireForgeRecipePage) p)
         );
         PageRendererRegistry.registerPageRenderer(
                 NVPageTypes.TABULA_VITAE,

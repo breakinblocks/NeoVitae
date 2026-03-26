@@ -100,12 +100,12 @@ public class DataValidationTests {
     }
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
-    public void soulForgeRecipesExist(GameTestHelper helper) {
+    public void hellfireForgeRecipesExist(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
             var recipes = helper.getLevel().getRecipeManager()
                     .getAllRecipesFor(com.breakinblocks.neovitae.common.recipe.NVRecipes.HELLFIRE_FORGE_TYPE.get());
             if (recipes.isEmpty()) {
-                helper.fail("No soul forge recipes found");
+                helper.fail("No hellfire forge recipes found");
                 return;
             }
             helper.succeed();

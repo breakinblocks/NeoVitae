@@ -16,29 +16,29 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 
-public class BookSoulForgeRecipePage extends BookRecipePage<ForgeRecipe> {
+public class BookHellfireForgeRecipePage extends BookRecipePage<ForgeRecipe> {
 
-    public BookSoulForgeRecipePage(BookTextHolder title1, ResourceLocation recipeId1,
+    public BookHellfireForgeRecipePage(BookTextHolder title1, ResourceLocation recipeId1,
                                    BookTextHolder title2, ResourceLocation recipeId2,
                                    BookTextHolder text, String anchor, BookCondition condition) {
         super(NVRecipes.HELLFIRE_FORGE_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
     }
 
-    public static BookSoulForgeRecipePage fromJson(JsonObject json, HolderLookup.Provider provider) {
+    public static BookHellfireForgeRecipePage fromJson(JsonObject json, HolderLookup.Provider provider) {
         var common = BookRecipePage.commonFromJson(json, provider);
         var anchor = GsonHelper.getAsString(json, "anchor", "");
         var condition = json.has("condition")
                 ? BookCondition.fromJson(json.getAsJsonObject("condition"), provider)
                 : new BookNoneCondition();
-        return new BookSoulForgeRecipePage(common.title1(), common.recipeId1(),
+        return new BookHellfireForgeRecipePage(common.title1(), common.recipeId1(),
                 common.title2(), common.recipeId2(), common.text(), anchor, condition);
     }
 
-    public static BookSoulForgeRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
+    public static BookHellfireForgeRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
         var common = BookRecipePage.commonFromNetwork(buffer);
         var anchor = buffer.readUtf();
         var condition = BookCondition.fromNetwork(buffer);
-        return new BookSoulForgeRecipePage(common.title1(), common.recipeId1(),
+        return new BookHellfireForgeRecipePage(common.title1(), common.recipeId1(),
                 common.title2(), common.recipeId2(), common.text(), anchor, condition);
     }
 

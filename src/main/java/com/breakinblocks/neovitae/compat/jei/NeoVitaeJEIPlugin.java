@@ -47,7 +47,7 @@ import com.breakinblocks.neovitae.compat.jei.array.AlchemyArrayCraftingCategory;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.bloodtank.BloodTankSubtypeInterpreter;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskSubtypeInterpreter;
-import com.breakinblocks.neovitae.compat.jei.forge.SoulForgeRecipeCategory;
+import com.breakinblocks.neovitae.compat.jei.forge.HellfireForgeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.imperfectritual.ImperfectRitualJEIRecipe;
 import com.breakinblocks.neovitae.compat.jei.imperfectritual.ImperfectRitualRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.meteor.MeteorRecipeCategory;
@@ -88,7 +88,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         jeiHelper = registration.getJeiHelpers();
-        registration.addRecipeCategories(new SoulForgeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new HellfireForgeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new AraVitaeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new AlchemyArrayCraftingCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new TabulaVitaeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
@@ -101,7 +101,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()), SoulForgeRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()), HellfireForgeRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.ARA_VITAE.block().get()), AraVitaeRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVItems.ARCANE_ASHES.get()), AlchemyArrayCraftingCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.TABULA_VITAE.block().get()), TabulaVitaeRecipeCategory.RECIPE_TYPE);
@@ -121,7 +121,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();
-        registration.addRecipes(SoulForgeRecipeCategory.RECIPE_TYPE, forgeRecipes);
+        registration.addRecipes(HellfireForgeRecipeCategory.RECIPE_TYPE, forgeRecipes);
 
         List<com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe> altarRecipes = world.getRecipeManager()
                 .getAllRecipesFor(NVRecipes.ARA_VITAE_TYPE.get())

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class SoulForgeRecipeBuilder extends BaseRecipeBuilder {
+public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
     public static final int MAX_INGREDIENTS = 4;
 
     protected double minWill;
@@ -27,39 +27,39 @@ public class SoulForgeRecipeBuilder extends BaseRecipeBuilder {
     protected boolean requireWillType = false;
     protected Optional<EnumWillType> willType = Optional.empty();
 
-    protected SoulForgeRecipeBuilder(ItemStack result) {
+    protected HellfireForgeRecipeBuilder(ItemStack result) {
         super(result);
         if (result == null || result.isEmpty()) {
             throw new IllegalArgumentException("ForgeRecipe result cannot be null or empty");
         }
     }
 
-    public static SoulForgeRecipeBuilder build(ItemLike result) {
-        return new SoulForgeRecipeBuilder(new ItemStack(result));
+    public static HellfireForgeRecipeBuilder build(ItemLike result) {
+        return new HellfireForgeRecipeBuilder(new ItemStack(result));
     }
 
-    public static SoulForgeRecipeBuilder build(ItemLike result, int count) {
-        return new SoulForgeRecipeBuilder(new ItemStack(result, count));
+    public static HellfireForgeRecipeBuilder build(ItemLike result, int count) {
+        return new HellfireForgeRecipeBuilder(new ItemStack(result, count));
     }
 
-    public SoulForgeRecipeBuilder requires(TagKey<Item> tag) {
+    public HellfireForgeRecipeBuilder requires(TagKey<Item> tag) {
         return this.requires(Ingredient.of(tag));
     }
 
-    public SoulForgeRecipeBuilder requires(ItemLike item) {
+    public HellfireForgeRecipeBuilder requires(ItemLike item) {
         return this.requires(item, 1);
     }
 
-    public SoulForgeRecipeBuilder requires(ItemLike item, int quantity) {
+    public HellfireForgeRecipeBuilder requires(ItemLike item, int quantity) {
         this.requires(Ingredient.of(item), quantity);
         return this;
     }
 
-    public SoulForgeRecipeBuilder requires(Ingredient ingredient) {
+    public HellfireForgeRecipeBuilder requires(Ingredient ingredient) {
         return this.requires(ingredient, 1);
     }
 
-    public SoulForgeRecipeBuilder requires(Ingredient ingredient, int quantity) {
+    public HellfireForgeRecipeBuilder requires(Ingredient ingredient, int quantity) {
         if (ingredients.size() + quantity > MAX_INGREDIENTS) {
             throw new IllegalStateException("ForgeRecipe cannot have more than " + MAX_INGREDIENTS + " ingredients");
         }
@@ -69,7 +69,7 @@ public class SoulForgeRecipeBuilder extends BaseRecipeBuilder {
         return this;
     }
 
-    public SoulForgeRecipeBuilder minWill(double minWill) {
+    public HellfireForgeRecipeBuilder minWill(double minWill) {
         if (minWill < 0) {
             throw new IllegalArgumentException("minWill cannot be negative");
         }
@@ -77,7 +77,7 @@ public class SoulForgeRecipeBuilder extends BaseRecipeBuilder {
         return this;
     }
 
-    public SoulForgeRecipeBuilder drain(double drain) {
+    public HellfireForgeRecipeBuilder drain(double drain) {
         if (drain < 0) {
             throw new IllegalArgumentException("drain cannot be negative");
         }
@@ -85,26 +85,17 @@ public class SoulForgeRecipeBuilder extends BaseRecipeBuilder {
         return this;
     }
 
-    public SoulForgeRecipeBuilder requiredWillType(EnumWillType type) {
+    public HellfireForgeRecipeBuilder requiredWillType(EnumWillType type) {
         this.willType = Optional.of(type);
         return this;
     }
 
-    /**
-     * Adds an anointment to the result item.
-     * @param key The anointment key (e.g., "neovitae:fortune")
-     * @param level The anointment level
-     * @param maxDamage The max uses before the anointment expires
-     */
-    public SoulForgeRecipeBuilder withAnointment(String key, int level, int maxDamage) {
+    public HellfireForgeRecipeBuilder withAnointment(String key, int level, int maxDamage) {
         this.result.set(NVDataComponents.ANOINTMENT_HOLDER.get(), AnointmentHolder.single(key, level, maxDamage));
         return this;
     }
 
-    /**
-     * Adds a data component to the result item.
-     */
-    public <T> SoulForgeRecipeBuilder withComponent(DataComponentType<T> component, T value) {
+    public <T> HellfireForgeRecipeBuilder withComponent(DataComponentType<T> component, T value) {
         this.result.set(component, value);
         return this;
     }

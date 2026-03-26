@@ -13,8 +13,8 @@ public class NVModonomiconCompat {
         );
         LoaderRegistry.registerPageLoader(
                 NVPageTypes.HELLFIRE_FORGE,
-                BookSoulForgeRecipePage::fromJson,
-                BookSoulForgeRecipePage::fromNetwork
+                BookHellfireForgeRecipePage::fromJson,
+                BookHellfireForgeRecipePage::fromNetwork
         );
         LoaderRegistry.registerPageLoader(
                 NVPageTypes.TABULA_VITAE,

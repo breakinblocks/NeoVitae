@@ -11,6 +11,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
@@ -22,7 +23,7 @@ import net.neoforged.neoforge.items.wrapper.RangedWrapper;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.event.NeoVitaeCraftedEvent;
 import com.breakinblocks.neovitae.common.item.NVItems;
-import com.breakinblocks.neovitae.common.menu.SoulForgeMenu;
+import com.breakinblocks.neovitae.common.menu.HellfireForgeMenu;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeInput;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
@@ -66,6 +67,23 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
 
     public static final int MAX_PROGRESS = 100;
     protected int progress = 0;
+
+    public final ContainerData dataAccess = new ContainerData() {
+        @Override
+        public int get(int index) {
+            return progress;
+        }
+
+        @Override
+        public void set(int index, int value) {
+            progress = value;
+        }
+
+        @Override
+        public int getCount() {
+            return 1;
+        }
+    };
 
     public HellfireForgeBlockEntity(BlockPos pos, BlockState blockState) {
         super(NVTiles.HELLFIRE_FORGE_TYPE.get(), pos, blockState);
@@ -201,7 +219,7 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new SoulForgeMenu(containerId, playerInventory, this);
+        return new HellfireForgeMenu(containerId, playerInventory, this);
     }
 
     public int getProgress() { return progress; }

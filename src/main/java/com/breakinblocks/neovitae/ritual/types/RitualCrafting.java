@@ -81,7 +81,7 @@ public class RitualCrafting extends Ritual {
 
         WillState will = RitualHelper.queryWill(ctx.level(), masterPos, Math.min(MIN_STEADFAST, MIN_CORROSIVE));
 
-        boolean trySoulForge = will.hasSteadfast();
+        boolean tryHellfireForge = will.hasSteadfast();
         boolean tryAlchemy = will.hasCorrosive();
 
         List<ItemStack> inputItems = new ArrayList<>();
@@ -91,8 +91,8 @@ public class RitualCrafting extends Ritual {
         }
 
         // --- STEADFAST: Try Soul Forge recipes first ---
-        if (trySoulForge) {
-            ItemStack result = trySoulForgeRecipe(ctx, inputHandler, inputItems);
+        if (tryHellfireForge) {
+            ItemStack result = tryHellfireForgeRecipe(ctx, inputHandler, inputItems);
             if (!result.isEmpty()) {
                 // Check if output can accept the result
                 ItemStack insertResult = ItemHandlerHelper.insertItemStacked(outputHandler, result.copy(), true);
@@ -175,7 +175,7 @@ public class RitualCrafting extends Ritual {
      * Tries to find and assemble a Soul Forge recipe from the input items.
      * Soul Forge recipes use up to 4 ingredients plus a gem.
      */
-    private ItemStack trySoulForgeRecipe(RitualContext ctx, IItemHandler inputHandler, List<ItemStack> inputItems) {
+    private ItemStack tryHellfireForgeRecipe(RitualContext ctx, IItemHandler inputHandler, List<ItemStack> inputItems) {
         // Build input stacks (up to 4 items)
         List<ItemStack> forgeItems = new ArrayList<>();
         for (int i = 0; i < Math.min(4, inputItems.size()); i++) {

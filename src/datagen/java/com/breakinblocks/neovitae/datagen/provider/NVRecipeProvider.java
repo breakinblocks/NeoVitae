@@ -30,7 +30,7 @@ import com.breakinblocks.neovitae.datagen.builder.TabulaVitaeRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.AthanorRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.AthanorPotionRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.AltarRecipeBuilder;
-import com.breakinblocks.neovitae.datagen.builder.recipe.SoulForgeRecipeBuilder;
+import com.breakinblocks.neovitae.datagen.builder.recipe.HellfireForgeRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.TieredRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.MeteorRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.FlaskRecipeBuilder;
@@ -64,7 +64,7 @@ public class NVRecipeProvider extends RecipeProvider {
         addVanillaCraftingRecipes(output);
         addTieredRecipes(output);
         addAraVitaeRecipes(output);
-        addSoulForgeRecipes(output);
+        addHellfireForgeRecipes(output);
         addAlchemyArrayRecipes(output);
         addTabulaVitaeRecipes(output);
         addAthanorRecipes(output);
@@ -800,9 +800,9 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("bleeding_edge_music"));
     }
 
-    private void addSoulForgeRecipes(RecipeOutput output) {
+    private void addHellfireForgeRecipes(RecipeOutput output) {
         // Petty Soul Gem - redstone dust, gold ingot, glass, lapis gem
-        SoulForgeRecipeBuilder.build(NVItems.SOUL_GEM_PETTY.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SOUL_GEM_PETTY.get())
                 .requires(Tags.Items.DUSTS_REDSTONE)
                 .requires(Tags.Items.INGOTS_GOLD)
                 .requires(Tags.Items.GLASS_BLOCKS)
@@ -813,7 +813,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("soul_gem_petty"));
 
         // Lesser Soul Gem - petty gem, diamond, redstone block, lapis block
-        SoulForgeRecipeBuilder.build(NVItems.SOUL_GEM_LESSER.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SOUL_GEM_LESSER.get())
                 .requires(NVItems.SOUL_GEM_PETTY.get())
                 .requires(Tags.Items.GEMS_DIAMOND)
                 .requires(Tags.Items.STORAGE_BLOCKS_REDSTONE)
@@ -824,7 +824,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("soul_gem_lesser"));
 
         // Common Soul Gem - lesser gem, diamond, gold block, imbued slate
-        SoulForgeRecipeBuilder.build(NVItems.SOUL_GEM_COMMON.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SOUL_GEM_COMMON.get())
                 .requires(NVItems.SOUL_GEM_LESSER.get())
                 .requires(Tags.Items.GEMS_DIAMOND)
                 .requires(Tags.Items.STORAGE_BLOCKS_GOLD)
@@ -835,7 +835,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("soul_gem_common"));
 
         // Greater Soul Gem - common gem, demonic slate, weak blood shard, demon crystal
-        SoulForgeRecipeBuilder.build(NVItems.SOUL_GEM_GREATER.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SOUL_GEM_GREATER.get())
                 .requires(NVItems.SOUL_GEM_COMMON.get())
                 .requires(NVItems.SLATE_DEMONIC.get())
                 .requires(NVItems.WEAK_BLOOD_SHARD.get())
@@ -883,7 +883,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output);
 
         // Blood Tank
-        SoulForgeRecipeBuilder.build(NVBlocks.BLOOD_TANK.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.BLOOD_TANK.block().get())
                 .requires(Items.GLASS, 3)
                 .requires(NVBlocks.BLOODSTONE.block().get())
                 .minWill(30)
@@ -892,7 +892,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("blood_tank"));
 
         // TODO: Living Station - block not yet implemented
-        // SoulForgeRecipeBuilder.build(NVBlocks.LIVING_STATION.block().get())
+        // HellfireForgeRecipeBuilder.build(NVBlocks.LIVING_STATION.block().get())
         //         .requires(NVBlocks.BLOODSTONE.block().get(), 2)
         //         .requires(Items.STONE, 2)
         //         .minWill(50)
@@ -901,7 +901,7 @@ public class NVRecipeProvider extends RecipeProvider {
         //         .save(output, NeoVitae.rl("living_station"));
 
         // Training Bracelet
-        SoulForgeRecipeBuilder.build(NVItems.TRAINING_BRACELET.get())
+        HellfireForgeRecipeBuilder.build(NVItems.TRAINING_BRACELET.get())
                 .requires(Items.GOLD_INGOT, 2)
                 .requires(Items.STRING)
                 .requires(NVItems.RAW_WILL.get())
@@ -911,7 +911,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("training_bracelet"));
 
         // Sentient Tools
-        SoulForgeRecipeBuilder.build(NVItems.SENTIENT_SWORD.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_SWORD.get())
                 .requires(NVItems.SOUL_GEM_PETTY.get())
                 .requires(Items.IRON_SWORD)
                 .minWill(0)
@@ -919,7 +919,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_petty_gem", has(NVItems.SOUL_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_sword"));
 
-        SoulForgeRecipeBuilder.build(NVItems.SENTIENT_AXE.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_AXE.get())
                 .requires(NVItems.SOUL_GEM_PETTY.get())
                 .requires(Items.IRON_AXE)
                 .minWill(0)
@@ -927,7 +927,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_petty_gem", has(NVItems.SOUL_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_axe"));
 
-        SoulForgeRecipeBuilder.build(NVItems.SENTIENT_PICKAXE.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_PICKAXE.get())
                 .requires(NVItems.SOUL_GEM_PETTY.get())
                 .requires(Items.IRON_PICKAXE)
                 .minWill(0)
@@ -935,7 +935,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_petty_gem", has(NVItems.SOUL_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_pickaxe"));
 
-        SoulForgeRecipeBuilder.build(NVItems.SENTIENT_SHOVEL.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_SHOVEL.get())
                 .requires(NVItems.SOUL_GEM_PETTY.get())
                 .requires(Items.IRON_SHOVEL)
                 .minWill(0)
@@ -943,7 +943,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_petty_gem", has(NVItems.SOUL_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_shovel"));
 
-        SoulForgeRecipeBuilder.build(NVItems.SENTIENT_SCYTHE.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_SCYTHE.get())
                 .requires(NVItems.SOUL_GEM_PETTY.get())
                 .requires(Items.IRON_HOE)
                 .minWill(0)
@@ -952,7 +952,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("sentient_scythe"));
 
         // Demon Will Blocks
-        SoulForgeRecipeBuilder.build(NVBlocks.VAS_MALEFICUM.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.VAS_MALEFICUM.block().get())
                 .requires(Items.CAULDRON)
                 .requires(Tags.Items.STONES)
                 .requires(Tags.Items.GEMS_LAPIS)
@@ -962,7 +962,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_common_gem", has(NVItems.SOUL_GEM_COMMON.get()))
                 .save(output, NeoVitae.rl("vas_maleficum"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.CRYSTALLARIUM_MALEFICUM.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.CRYSTALLARIUM_MALEFICUM.block().get())
                 .requires(NVBlocks.HELLFIRE_FORGE.block().get())
                 .requires(Tags.Items.STONES)
                 .requires(Tags.Items.GEMS_LAPIS)
@@ -972,7 +972,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_hellfire_forge", has(NVBlocks.HELLFIRE_FORGE.block().get()))
                 .save(output, NeoVitae.rl("crystallarium_maleficum"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.SPIRA_INFERNALIS.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.SPIRA_INFERNALIS.block().get())
                 .requires(NVTags.Items.DEMON_CRYSTALS)
                 .requires(Tags.Items.STONES)
                 .requires(Tags.Items.GEMS_LAPIS)
@@ -983,35 +983,35 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("spira_infernalis"));
 
         // Crystal Blocks
-        SoulForgeRecipeBuilder.build(NVBlocks.RAW_DEMON_CRYSTAL.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.RAW_DEMON_CRYSTAL.block().get())
                 .requires(NVItems.RAW_CRYSTAL.get(), 4)
                 .minWill(1200)
                 .drain(100)
                 .unlockedBy("has_raw_crystal", has(NVItems.RAW_CRYSTAL.get()))
                 .save(output, NeoVitae.rl("raw_demon_crystal"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.CORROSIVE_DEMON_CRYSTAL.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.CORROSIVE_DEMON_CRYSTAL.block().get())
                 .requires(NVItems.CORROSIVE_CRYSTAL.get(), 4)
                 .minWill(1200)
                 .drain(100)
                 .unlockedBy("has_corrosive_crystal", has(NVItems.CORROSIVE_CRYSTAL.get()))
                 .save(output, NeoVitae.rl("corrosive_demon_crystal"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.DESTRUCTIVE_DEMON_CRYSTAL.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.DESTRUCTIVE_DEMON_CRYSTAL.block().get())
                 .requires(NVItems.DESTRUCTIVE_CRYSTAL.get(), 4)
                 .minWill(1200)
                 .drain(100)
                 .unlockedBy("has_destructive_crystal", has(NVItems.DESTRUCTIVE_CRYSTAL.get()))
                 .save(output, NeoVitae.rl("destructive_demon_crystal"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.VENGEFUL_DEMON_CRYSTAL.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.VENGEFUL_DEMON_CRYSTAL.block().get())
                 .requires(NVItems.VENGEFUL_CRYSTAL.get(), 4)
                 .minWill(1200)
                 .drain(100)
                 .unlockedBy("has_vengeful_crystal", has(NVItems.VENGEFUL_CRYSTAL.get()))
                 .save(output, NeoVitae.rl("vengeful_demon_crystal"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.STEADFAST_DEMON_CRYSTAL.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.STEADFAST_DEMON_CRYSTAL.block().get())
                 .requires(NVItems.STEADFAST_CRYSTAL.get(), 4)
                 .minWill(1200)
                 .drain(100)
@@ -1019,7 +1019,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("steadfast_demon_crystal"));
 
         // Routing Nodes
-        SoulForgeRecipeBuilder.build(NVBlocks.ROUTING_NODE.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.ROUTING_NODE.block().get())
                 .requires(Ingredient.of(Tags.Items.STONES), 2)
                 .requires(Tags.Items.INGOTS_IRON)
                 .requires(Tags.Items.GLASS_BLOCKS)
@@ -1028,7 +1028,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_lesser_gem", has(NVItems.SOUL_GEM_LESSER.get()))
                 .save(output, NeoVitae.rl("routing_node"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.INPUT_ROUTING_NODE.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.INPUT_ROUTING_NODE.block().get())
                 .requires(NVBlocks.ROUTING_NODE.block().get())
                 .requires(Items.HOPPER)
                 .minWill(200)
@@ -1036,7 +1036,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_routing_node", has(NVBlocks.ROUTING_NODE.block().get()))
                 .save(output, NeoVitae.rl("input_routing_node"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.OUTPUT_ROUTING_NODE.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.OUTPUT_ROUTING_NODE.block().get())
                 .requires(NVBlocks.ROUTING_NODE.block().get())
                 .requires(Items.DISPENSER)
                 .minWill(200)
@@ -1044,7 +1044,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_routing_node", has(NVBlocks.ROUTING_NODE.block().get()))
                 .save(output, NeoVitae.rl("output_routing_node"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.MASTER_ROUTING_NODE.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.MASTER_ROUTING_NODE.block().get())
                 .requires(NVBlocks.ROUTING_NODE.block().get())
                 .requires(Tags.Items.GEMS_DIAMOND)
                 .requires(Tags.Items.STORAGE_BLOCKS_LAPIS)
@@ -1054,7 +1054,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("master_routing_node"));
 
         // Node Upgrades
-        SoulForgeRecipeBuilder.build(NVItems.MASTER_NODE_UPGRADE.get())
+        HellfireForgeRecipeBuilder.build(NVItems.MASTER_NODE_UPGRADE.get())
                 .requires(Ingredient.of(Tags.Items.INGOTS_IRON), 2)
                 .requires(Tags.Items.GLASS_BLOCKS)
                 .requires(Tags.Items.STORAGE_BLOCKS_LAPIS)
@@ -1063,7 +1063,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_master_routing_node", has(NVBlocks.MASTER_ROUTING_NODE.block().get()))
                 .save(output, NeoVitae.rl("master_node_upgrade"));
 
-        SoulForgeRecipeBuilder.build(NVItems.MASTER_NODE_UPGRADE_SPEED.get())
+        HellfireForgeRecipeBuilder.build(NVItems.MASTER_NODE_UPGRADE_SPEED.get())
                 .requires(Ingredient.of(Tags.Items.INGOTS_GOLD), 2)
                 .requires(Tags.Items.GLASS_BLOCKS)
                 .requires(Tags.Items.STORAGE_BLOCKS_REDSTONE)
@@ -1073,7 +1073,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("master_node_upgrade_speed"));
 
         // Node Router
-        SoulForgeRecipeBuilder.build(NVItems.NODE_ROUTER.get())
+        HellfireForgeRecipeBuilder.build(NVItems.NODE_ROUTER.get())
                 .requires(Ingredient.of(Tags.Items.STONES), 2)
                 .requires(Tags.Items.INGOTS_IRON)
                 .requires(Tags.Items.DUSTS_REDSTONE)
@@ -1083,7 +1083,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("node_router"));
 
         // Demon Will Gauge
-        SoulForgeRecipeBuilder.build(NVItems.DEMON_WILL_GAUGE.get())
+        HellfireForgeRecipeBuilder.build(NVItems.DEMON_WILL_GAUGE.get())
                 .requires(Tags.Items.INGOTS_GOLD)
                 .requires(Tags.Items.DUSTS_REDSTONE)
                 .requires(Tags.Items.GLASS_BLOCKS)
@@ -1094,7 +1094,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("demon_will_gauge"));
 
         // Sanguine Reverter (soul forge recipe)
-        SoulForgeRecipeBuilder.build(NVItems.SANGUINE_REVERTER.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SANGUINE_REVERTER.get())
                 .requires(Items.SHEARS)
                 .requires(Tags.Items.STONES)
                 .requires(NVItems.SLATE_IMBUED.get())
@@ -1105,7 +1105,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("sanguine_reverter"));
 
         // Resonator (soul forge recipe)
-        SoulForgeRecipeBuilder.build(NVItems.RESONATOR.get())
+        HellfireForgeRecipeBuilder.build(NVItems.RESONATOR.get())
                 .requires(Tags.Items.STONES)
                 .requires(Tags.Items.INGOTS_COPPER)
                 .requires(NVItems.RAW_CRYSTAL.get())
@@ -1115,7 +1115,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("resonator"));
 
         // Primitive Crystalline Resonator
-        SoulForgeRecipeBuilder.build(NVItems.PRIMITIVE_CRYSTALLINE_RESONATOR.get())
+        HellfireForgeRecipeBuilder.build(NVItems.PRIMITIVE_CRYSTALLINE_RESONATOR.get())
                 .requires(Tags.Items.GEMS_AMETHYST)
                 .requires(Tags.Items.INGOTS)
                 .requires(NVItems.RAW_CRYSTAL.get())
@@ -1126,7 +1126,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("primitive_resonator"));
 
         // Hellforged Resonator
-        SoulForgeRecipeBuilder.build(NVItems.HELLFORGED_RESONATOR.get())
+        HellfireForgeRecipeBuilder.build(NVItems.HELLFORGED_RESONATOR.get())
                 .requires(Tags.Items.GEMS_AMETHYST)
                 .requires(Tags.Items.INGOTS_GOLD)
                 .requires(NVItems.RAW_CRYSTAL.get())
@@ -1138,7 +1138,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // Throwing Daggers
         // Iron throwing dagger: 2 iron + 1 string, 32 will min, 5 drain, makes 16
-        SoulForgeRecipeBuilder.build(NVItems.THROWING_DAGGER.get(), 16)
+        HellfireForgeRecipeBuilder.build(NVItems.THROWING_DAGGER.get(), 16)
                 .requires(Ingredient.of(Tags.Items.INGOTS_IRON), 2)
                 .requires(Tags.Items.STRINGS)
                 .minWill(32)
@@ -1147,7 +1147,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("throwing_dagger"));
 
         // Amethyst throwing dagger: 2 copper + 1 amethyst, 32 will min, 2 drain, makes 16
-        SoulForgeRecipeBuilder.build(NVItems.THROWING_DAGGER_AMETHYST.get(), 16)
+        HellfireForgeRecipeBuilder.build(NVItems.THROWING_DAGGER_AMETHYST.get(), 16)
                 .requires(Ingredient.of(Tags.Items.INGOTS_COPPER), 2)
                 .requires(Tags.Items.GEMS_AMETHYST)
                 .minWill(32)
@@ -1156,7 +1156,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("throwing_dagger_amethyst"));
 
         // Syringe throwing dagger: 1 amethyst dagger + 1 bottle, 200 will min, 10 drain, makes 1
-        SoulForgeRecipeBuilder.build(NVItems.THROWING_DAGGER_SYRINGE.get())
+        HellfireForgeRecipeBuilder.build(NVItems.THROWING_DAGGER_SYRINGE.get())
                 .requires(NVItems.THROWING_DAGGER_AMETHYST.get())
                 .requires(Items.GLASS_BOTTLE)
                 .minWill(200)
@@ -1165,7 +1165,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("throwing_dagger_syringe"));
 
         // Keys
-        SoulForgeRecipeBuilder.build(NVItems.SIMPLE_KEY.get())
+        HellfireForgeRecipeBuilder.build(NVItems.SIMPLE_KEY.get())
                 .requires(Ingredient.of(Tags.Items.INGOTS_IRON), 2)
                 .requires(Tags.Items.NUGGETS_GOLD)
                 .minWill(100)
@@ -1173,7 +1173,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_lesser_gem", has(NVItems.SOUL_GEM_LESSER.get()))
                 .save(output, NeoVitae.rl("simple_key"));
 
-        SoulForgeRecipeBuilder.build(NVItems.MINE_KEY.get())
+        HellfireForgeRecipeBuilder.build(NVItems.MINE_KEY.get())
                 .requires(Ingredient.of(Tags.Items.INGOTS_GOLD), 2)
                 .requires(Tags.Items.GEMS_DIAMOND)
                 .minWill(200)
@@ -1183,7 +1183,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // Crystal Catalysts - nether_wart + tau_oil + sulfur + unique_seed
         // Raw catalyst uses potato
-        SoulForgeRecipeBuilder.build(NVItems.RAW_CRYSTAL_CATALYST.get())
+        HellfireForgeRecipeBuilder.build(NVItems.RAW_CRYSTAL_CATALYST.get())
                 .requires(Tags.Items.CROPS_NETHER_WART)
                 .requires(NVItems.TAU_OIL.get())
                 .requires(NVTags.Items.DUSTS_SULFUR)
@@ -1194,7 +1194,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("raw_catalyst"));
 
         // Corrosive catalyst uses wheat_seeds
-        SoulForgeRecipeBuilder.build(NVItems.CORROSIVE_CRYSTAL_CATALYST.get())
+        HellfireForgeRecipeBuilder.build(NVItems.CORROSIVE_CRYSTAL_CATALYST.get())
                 .requires(Tags.Items.CROPS_NETHER_WART)
                 .requires(NVItems.TAU_OIL.get())
                 .requires(NVTags.Items.DUSTS_SULFUR)
@@ -1205,7 +1205,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("corrosive_catalyst"));
 
         // Destructive catalyst uses beetroot
-        SoulForgeRecipeBuilder.build(NVItems.DESTRUCTIVE_CRYSTAL_CATALYST.get())
+        HellfireForgeRecipeBuilder.build(NVItems.DESTRUCTIVE_CRYSTAL_CATALYST.get())
                 .requires(Tags.Items.CROPS_NETHER_WART)
                 .requires(NVItems.TAU_OIL.get())
                 .requires(NVTags.Items.DUSTS_SULFUR)
@@ -1216,7 +1216,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("destructive_catalyst"));
 
         // Vengeful catalyst uses melon_seeds
-        SoulForgeRecipeBuilder.build(NVItems.VENGEFUL_CRYSTAL_CATALYST.get())
+        HellfireForgeRecipeBuilder.build(NVItems.VENGEFUL_CRYSTAL_CATALYST.get())
                 .requires(Tags.Items.CROPS_NETHER_WART)
                 .requires(NVItems.TAU_OIL.get())
                 .requires(NVTags.Items.DUSTS_SULFUR)
@@ -1227,7 +1227,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("vengeful_catalyst"));
 
         // Steadfast catalyst uses pumpkin_seeds
-        SoulForgeRecipeBuilder.build(NVItems.STEADFAST_CRYSTAL_CATALYST.get())
+        HellfireForgeRecipeBuilder.build(NVItems.STEADFAST_CRYSTAL_CATALYST.get())
                 .requires(Tags.Items.CROPS_NETHER_WART)
                 .requires(NVItems.TAU_OIL.get())
                 .requires(NVTags.Items.DUSTS_SULFUR)
@@ -1238,7 +1238,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("steadfast_catalyst"));
 
         // Explosive Charges
-        SoulForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE.item().get(), 8)
+        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE.item().get(), 8)
                 .requires(Tags.Items.COBBLESTONES)
                 .requires(Items.CHARCOAL)
                 .requires(Tags.Items.SANDS)
@@ -1248,7 +1248,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_charcoal", has(Items.CHARCOAL))
                 .save(output, NeoVitae.rl("shaped_charge"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE.item().get(), 8)
+        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE.item().get(), 8)
                 .requires(Tags.Items.COBBLESTONES)
                 .requires(Items.CHARCOAL)
                 .requires(ItemTags.LOGS)
@@ -1258,7 +1258,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_charcoal", has(Items.CHARCOAL))
                 .save(output, NeoVitae.rl("deforester_charge"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE.item().get(), 8)
+        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE.item().get(), 8)
                 .requires(Tags.Items.COBBLESTONES)
                 .requires(Items.CHARCOAL)
                 .requires(Tags.Items.SANDSTONE_BLOCKS)
@@ -1268,7 +1268,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_charcoal", has(Items.CHARCOAL))
                 .save(output, NeoVitae.rl("veinmine_charge"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE.item().get(), 8)
+        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE.item().get(), 8)
                 .requires(Tags.Items.COBBLESTONES)
                 .requires(Items.CHARCOAL)
                 .requires(ItemTags.CRIMSON_STEMS)
@@ -1279,7 +1279,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("fungal_charge"));
 
         // Tier 2 charges
-        SoulForgeRecipeBuilder.build(NVBlocks.AUG_SHAPED_CHARGE.item().get(), 6)
+        HellfireForgeRecipeBuilder.build(NVBlocks.AUG_SHAPED_CHARGE.item().get(), 6)
                 .requires(Tags.Items.STORAGE_BLOCKS_COPPER)
                 .requires(Items.CHARCOAL)
                 .requires(Tags.Items.SANDS)
@@ -1289,7 +1289,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER))
                 .save(output, NeoVitae.rl("aug_shaped_charge"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get(), 4)
+        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get(), 4)
                 .requires(Tags.Items.STORAGE_BLOCKS_COPPER)
                 .requires(Items.CHARCOAL)
                 .requires(ItemTags.LOGS)
@@ -1299,7 +1299,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER))
                 .save(output, NeoVitae.rl("deforester_charge_2"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get(), 4)
+        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get(), 4)
                 .requires(Tags.Items.STORAGE_BLOCKS_COPPER)
                 .requires(Items.CHARCOAL)
                 .requires(Tags.Items.SANDSTONE_BLOCKS)
@@ -1309,7 +1309,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER))
                 .save(output, NeoVitae.rl("veinmine_charge_2"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get(), 4)
+        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get(), 4)
                 .requires(Tags.Items.STORAGE_BLOCKS_COPPER)
                 .requires(Items.CHARCOAL)
                 .requires(ItemTags.CRIMSON_STEMS)
@@ -1319,7 +1319,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_copper_block", has(Tags.Items.STORAGE_BLOCKS_COPPER))
                 .save(output, NeoVitae.rl("fungal_charge_2"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get(), 4)
+        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get(), 4)
                 .requires(Tags.Items.STORAGE_BLOCKS_COPPER)
                 .requires(Items.CHARCOAL)
                 .requires(Tags.Items.SANDS)
@@ -1331,7 +1331,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // Charge upgrade recipes - Tier 1 charges with basic anointments
         // Shaped Charge variants
-        SoulForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE.item().get())
                 .requires(NVBlocks.SHAPED_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -1341,7 +1341,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_shaped_charge", has(NVBlocks.SHAPED_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("shaped_charge_fortune_1"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE.item().get())
                 .requires(NVBlocks.SHAPED_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Items.COBWEB)
@@ -1351,7 +1351,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_shaped_charge", has(NVBlocks.SHAPED_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("shaped_charge_silk_touch"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE.item().get())
                 .requires(NVBlocks.SHAPED_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Items.FURNACE)
@@ -1361,7 +1361,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_shaped_charge", has(NVBlocks.SHAPED_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("shaped_charge_smelting"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE.item().get())
                 .requires(NVBlocks.SHAPED_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Items.NETHERRACK)
@@ -1372,7 +1372,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("shaped_charge_voiding"));
 
         // Deforester Charge variants
-        SoulForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE.item().get())
                 .requires(NVBlocks.DEFORESTER_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -1382,7 +1382,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_deforester_charge", has(NVBlocks.DEFORESTER_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("deforester_charge_fortune_1"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE.item().get())
                 .requires(NVBlocks.DEFORESTER_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Items.COBWEB)
@@ -1392,7 +1392,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_deforester_charge", has(NVBlocks.DEFORESTER_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("deforester_charge_silk_touch"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE.item().get())
                 .requires(NVBlocks.DEFORESTER_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Items.FURNACE)
@@ -1402,7 +1402,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_deforester_charge", has(NVBlocks.DEFORESTER_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("deforester_charge_smelting"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE.item().get())
                 .requires(NVBlocks.DEFORESTER_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Items.NETHERRACK)
@@ -1413,7 +1413,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("deforester_charge_voiding"));
 
         // Veinmine Charge variants
-        SoulForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE.item().get())
                 .requires(NVBlocks.VEINMINE_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -1423,7 +1423,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_veinmine_charge", has(NVBlocks.VEINMINE_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("veinmine_charge_fortune_1"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE.item().get())
                 .requires(NVBlocks.VEINMINE_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Items.COBWEB)
@@ -1433,7 +1433,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_veinmine_charge", has(NVBlocks.VEINMINE_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("veinmine_charge_silk_touch"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE.item().get())
                 .requires(NVBlocks.VEINMINE_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Items.FURNACE)
@@ -1443,7 +1443,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_veinmine_charge", has(NVBlocks.VEINMINE_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("veinmine_charge_smelting"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE.item().get())
                 .requires(NVBlocks.VEINMINE_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Items.NETHERRACK)
@@ -1454,7 +1454,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("veinmine_charge_voiding"));
 
         // Fungal Charge variants
-        SoulForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE.item().get())
                 .requires(NVBlocks.FUNGAL_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -1464,7 +1464,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_fungal_charge", has(NVBlocks.FUNGAL_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("fungal_charge_fortune_1"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE.item().get())
                 .requires(NVBlocks.FUNGAL_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Items.COBWEB)
@@ -1474,7 +1474,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_fungal_charge", has(NVBlocks.FUNGAL_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("fungal_charge_silk_touch"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE.item().get())
                 .requires(NVBlocks.FUNGAL_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Items.FURNACE)
@@ -1484,7 +1484,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_fungal_charge", has(NVBlocks.FUNGAL_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("fungal_charge_smelting"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE.item().get())
                 .requires(NVBlocks.FUNGAL_CHARGE.item().get())
                 .requires(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .requires(Items.NETHERRACK)
@@ -1496,7 +1496,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // Tier 2 charges - using anointment items directly
         // Aug Shaped Charge variants (uses _l anointments)
-        SoulForgeRecipeBuilder.build(NVBlocks.AUG_SHAPED_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.AUG_SHAPED_CHARGE.item().get())
                 .requires(NVBlocks.AUG_SHAPED_CHARGE.item().get())
                 .requires(NVItems.FORTUNE_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1504,7 +1504,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_aug_shaped_charge", has(NVBlocks.AUG_SHAPED_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("aug_shaped_charge_fortune_1_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.AUG_SHAPED_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.AUG_SHAPED_CHARGE.item().get())
                 .requires(NVBlocks.AUG_SHAPED_CHARGE.item().get())
                 .requires(NVItems.FORTUNE_ANOINTMENT_2.get())
                 .minWill(300).drain(4.0)
@@ -1512,7 +1512,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_aug_shaped_charge", has(NVBlocks.AUG_SHAPED_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("aug_shaped_charge_fortune_2_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.AUG_SHAPED_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.AUG_SHAPED_CHARGE.item().get())
                 .requires(NVBlocks.AUG_SHAPED_CHARGE.item().get())
                 .requires(NVItems.SILK_TOUCH_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1520,7 +1520,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_aug_shaped_charge", has(NVBlocks.AUG_SHAPED_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("aug_shaped_charge_silk_touch_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.AUG_SHAPED_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.AUG_SHAPED_CHARGE.item().get())
                 .requires(NVBlocks.AUG_SHAPED_CHARGE.item().get())
                 .requires(NVItems.SMELTING_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1528,7 +1528,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_aug_shaped_charge", has(NVBlocks.AUG_SHAPED_CHARGE.item().get()))
                 .save(output, NeoVitae.rl("aug_shaped_charge_smelting_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.AUG_SHAPED_CHARGE.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.AUG_SHAPED_CHARGE.item().get())
                 .requires(NVBlocks.AUG_SHAPED_CHARGE.item().get())
                 .requires(NVItems.VOIDING_ANOINTMENT.get())
                 .minWill(300).drain(4.0)
@@ -1537,7 +1537,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("aug_shaped_charge_voiding"));
 
         // Shaped Charge Deep variants (uses _l anointments)
-        SoulForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
                 .requires(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
                 .requires(NVItems.FORTUNE_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1545,7 +1545,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_shaped_charge_deep", has(NVBlocks.SHAPED_CHARGE_DEEP.item().get()))
                 .save(output, NeoVitae.rl("shaped_charge_deep_fortune_1_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
                 .requires(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
                 .requires(NVItems.FORTUNE_ANOINTMENT_2.get())
                 .minWill(300).drain(4.0)
@@ -1553,7 +1553,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_shaped_charge_deep", has(NVBlocks.SHAPED_CHARGE_DEEP.item().get()))
                 .save(output, NeoVitae.rl("shaped_charge_deep_fortune_2_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
                 .requires(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
                 .requires(NVItems.SILK_TOUCH_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1561,7 +1561,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_shaped_charge_deep", has(NVBlocks.SHAPED_CHARGE_DEEP.item().get()))
                 .save(output, NeoVitae.rl("shaped_charge_deep_silk_touch_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
                 .requires(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
                 .requires(NVItems.SMELTING_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1569,7 +1569,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_shaped_charge_deep", has(NVBlocks.SHAPED_CHARGE_DEEP.item().get()))
                 .save(output, NeoVitae.rl("shaped_charge_deep_smelting_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
                 .requires(NVBlocks.SHAPED_CHARGE_DEEP.item().get())
                 .requires(NVItems.VOIDING_ANOINTMENT.get())
                 .minWill(300).drain(4.0)
@@ -1578,7 +1578,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("shaped_charge_deep_voiding"));
 
         // Deforester Charge 2 variants
-        SoulForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
                 .requires(NVBlocks.DEFORESTER_CHARGE_2.item().get())
                 .requires(NVItems.FORTUNE_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1586,7 +1586,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_deforester_charge_2", has(NVBlocks.DEFORESTER_CHARGE_2.item().get()))
                 .save(output, NeoVitae.rl("deforester_charge_2_fortune_1_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
                 .requires(NVBlocks.DEFORESTER_CHARGE_2.item().get())
                 .requires(NVItems.FORTUNE_ANOINTMENT_2.get())
                 .minWill(300).drain(4.0)
@@ -1594,7 +1594,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_deforester_charge_2", has(NVBlocks.DEFORESTER_CHARGE_2.item().get()))
                 .save(output, NeoVitae.rl("deforester_charge_2_fortune_2_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
                 .requires(NVBlocks.DEFORESTER_CHARGE_2.item().get())
                 .requires(NVItems.SILK_TOUCH_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1602,7 +1602,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_deforester_charge_2", has(NVBlocks.DEFORESTER_CHARGE_2.item().get()))
                 .save(output, NeoVitae.rl("deforester_charge_2_silk_touch_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
                 .requires(NVBlocks.DEFORESTER_CHARGE_2.item().get())
                 .requires(NVItems.SMELTING_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1610,7 +1610,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_deforester_charge_2", has(NVBlocks.DEFORESTER_CHARGE_2.item().get()))
                 .save(output, NeoVitae.rl("deforester_charge_2_smelting_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.DEFORESTER_CHARGE_2.item().get())
                 .requires(NVBlocks.DEFORESTER_CHARGE_2.item().get())
                 .requires(NVItems.VOIDING_ANOINTMENT.get())
                 .minWill(300).drain(4.0)
@@ -1619,7 +1619,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("deforester_charge_2_voiding"));
 
         // Veinmine Charge 2 variants
-        SoulForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
                 .requires(NVBlocks.VEINMINE_CHARGE_2.item().get())
                 .requires(NVItems.FORTUNE_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1627,7 +1627,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_veinmine_charge_2", has(NVBlocks.VEINMINE_CHARGE_2.item().get()))
                 .save(output, NeoVitae.rl("veinmine_charge_2_fortune_1_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
                 .requires(NVBlocks.VEINMINE_CHARGE_2.item().get())
                 .requires(NVItems.FORTUNE_ANOINTMENT_2.get())
                 .minWill(300).drain(4.0)
@@ -1635,7 +1635,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_veinmine_charge_2", has(NVBlocks.VEINMINE_CHARGE_2.item().get()))
                 .save(output, NeoVitae.rl("veinmine_charge_2_fortune_2_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
                 .requires(NVBlocks.VEINMINE_CHARGE_2.item().get())
                 .requires(NVItems.SILK_TOUCH_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1643,7 +1643,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_veinmine_charge_2", has(NVBlocks.VEINMINE_CHARGE_2.item().get()))
                 .save(output, NeoVitae.rl("veinmine_charge_2_silk_touch_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
                 .requires(NVBlocks.VEINMINE_CHARGE_2.item().get())
                 .requires(NVItems.SMELTING_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1651,7 +1651,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_veinmine_charge_2", has(NVBlocks.VEINMINE_CHARGE_2.item().get()))
                 .save(output, NeoVitae.rl("veinmine_charge_2_smelting_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.VEINMINE_CHARGE_2.item().get())
                 .requires(NVBlocks.VEINMINE_CHARGE_2.item().get())
                 .requires(NVItems.VOIDING_ANOINTMENT.get())
                 .minWill(300).drain(4.0)
@@ -1660,7 +1660,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("veinmine_charge_2_voiding"));
 
         // Fungal Charge 2 variants
-        SoulForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
                 .requires(NVBlocks.FUNGAL_CHARGE_2.item().get())
                 .requires(NVItems.FORTUNE_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1668,7 +1668,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_fungal_charge_2", has(NVBlocks.FUNGAL_CHARGE_2.item().get()))
                 .save(output, NeoVitae.rl("fungal_charge_2_fortune_1_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
                 .requires(NVBlocks.FUNGAL_CHARGE_2.item().get())
                 .requires(NVItems.FORTUNE_ANOINTMENT_2.get())
                 .minWill(300).drain(4.0)
@@ -1676,7 +1676,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_fungal_charge_2", has(NVBlocks.FUNGAL_CHARGE_2.item().get()))
                 .save(output, NeoVitae.rl("fungal_charge_2_fortune_2_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
                 .requires(NVBlocks.FUNGAL_CHARGE_2.item().get())
                 .requires(NVItems.SILK_TOUCH_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1684,7 +1684,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_fungal_charge_2", has(NVBlocks.FUNGAL_CHARGE_2.item().get()))
                 .save(output, NeoVitae.rl("fungal_charge_2_silk_touch_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
                 .requires(NVBlocks.FUNGAL_CHARGE_2.item().get())
                 .requires(NVItems.SMELTING_ANOINTMENT_L.get())
                 .minWill(300).drain(4.0)
@@ -1692,7 +1692,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_fungal_charge_2", has(NVBlocks.FUNGAL_CHARGE_2.item().get()))
                 .save(output, NeoVitae.rl("fungal_charge_2_smelting_l"));
 
-        SoulForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.FUNGAL_CHARGE_2.item().get())
                 .requires(NVBlocks.FUNGAL_CHARGE_2.item().get())
                 .requires(NVItems.VOIDING_ANOINTMENT.get())
                 .minWill(300).drain(4.0)

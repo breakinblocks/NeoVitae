@@ -39,27 +39,32 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
     protected void init() {
         super.init();
 
+        // Cross pattern matching Blood Magic layout:
+        //          [U]
+        //   [W]    [N]    [E]
+        //          [S]    [D]
         directionButtons[0] = createDirectionButton(129, 11, 0, "U");
-        directionButtons[1] = createDirectionButton(129, 31, 1, "D");
-        directionButtons[2] = createDirectionButton(149, 31, 2, "N");
+        directionButtons[1] = createDirectionButton(149, 51, 1, "D");
+        directionButtons[2] = createDirectionButton(129, 31, 2, "N");
         directionButtons[3] = createDirectionButton(129, 51, 3, "S");
-        directionButtons[4] = createDirectionButton(149, 51, 4, "E");
-        directionButtons[5] = createDirectionButton(109, 51, 5, "W");
+        directionButtons[4] = createDirectionButton(149, 31, 4, "E");
+        directionButtons[5] = createDirectionButton(109, 31, 5, "W");
 
         for (Button btn : directionButtons) {
             this.addRenderableWidget(btn);
         }
 
+        // Priority buttons centered below filter slot (filter at x=71, center x=80)
         priorityDownButton = Button.builder(Component.literal("-"), btn -> {
             menu.decrementPriority();
             PacketDistributor.sendToServer(new RoutingNodePayload(menu.tile.getBlockPos(), RoutingNodePayload.ACTION_DECREMENT_PRIORITY, 0));
-        }).bounds(leftPos + 61, topPos + 50, 16, 16).build();
+        }).bounds(leftPos + 57, topPos + 53, 16, 16).build();
         this.addRenderableWidget(priorityDownButton);
 
         priorityUpButton = Button.builder(Component.literal("+"), btn -> {
             menu.incrementPriority();
             PacketDistributor.sendToServer(new RoutingNodePayload(menu.tile.getBlockPos(), RoutingNodePayload.ACTION_INCREMENT_PRIORITY, 0));
-        }).bounds(leftPos + 89, topPos + 50, 16, 16).build();
+        }).bounds(leftPos + 87, topPos + 53, 16, 16).build();
         this.addRenderableWidget(priorityUpButton);
     }
 
@@ -94,7 +99,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             int priority = menu.getCurrentPriority();
             String priorityStr = String.valueOf(priority);
             int textWidth = font.width(priorityStr);
-            guiGraphics.drawString(font, priorityStr, 79 - textWidth / 2, 54, 0x404040, false);
+            guiGraphics.drawString(font, priorityStr, 80 - textWidth / 2, 57, 0x404040, false);
 
             if (menu.tile != null) {
                 Direction dir = Direction.from3DDataValue(currentSlot);

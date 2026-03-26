@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayer;
-import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
+import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
@@ -85,7 +85,7 @@ public class SacrificialDaggerItem extends Item {
             return super.use(level, player, hand);
         }
         BlockEntity be = level.getBlockEntity(altarPos);
-        if (be instanceof BloodAltarTile altar) {
+        if (be instanceof AraVitaeTile altar) {
             altar.addSacrificeLP(lpAdded, false);
         }
 

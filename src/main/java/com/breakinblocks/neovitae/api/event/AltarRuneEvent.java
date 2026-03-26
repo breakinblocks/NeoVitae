@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.bus.api.Event;
-import com.breakinblocks.neovitae.api.altar.IBloodAltar;
+import com.breakinblocks.neovitae.api.altar.IAraVitae;
 import com.breakinblocks.neovitae.api.altar.rune.AltarRuneModifiers;
 import com.breakinblocks.neovitae.api.altar.rune.IAltarRuneType;
 import com.breakinblocks.neovitae.api.altar.rune.RuneInstance;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Events fired during Blood Altar rune scanning and stat calculation.
+ * Events fired during Ara Vitae rune scanning and stat calculation.
  *
  * <p>These events allow addon mods to:</p>
  * <ul>
@@ -54,12 +54,12 @@ import java.util.Map;
  */
 public abstract class AltarRuneEvent extends Event {
 
-    private final IBloodAltar altar;
+    private final IAraVitae altar;
     private final Level level;
     private final BlockPos pos;
     private final int tier;
 
-    protected AltarRuneEvent(IBloodAltar altar, Level level, BlockPos pos, int tier) {
+    protected AltarRuneEvent(IAraVitae altar, Level level, BlockPos pos, int tier) {
         this.altar = altar;
         this.level = level;
         this.pos = pos;
@@ -67,11 +67,11 @@ public abstract class AltarRuneEvent extends Event {
     }
 
     /**
-     * Gets the Blood Altar that triggered this event.
+     * Gets the Ara Vitae that triggered this event.
      *
      * @return the altar interface for querying current altar state
      */
-    public IBloodAltar getAltar() {
+    public IAraVitae getAltar() {
         return altar;
     }
 
@@ -122,7 +122,7 @@ public abstract class AltarRuneEvent extends Event {
         private final Map<IAltarRuneType, Integer> runeCounts;
         private final List<RuneInstance> runeInstances;
 
-        public GatherRunes(IBloodAltar altar, Level level, BlockPos pos, int tier,
+        public GatherRunes(IAraVitae altar, Level level, BlockPos pos, int tier,
                           Map<IAltarRuneType, Integer> runeCounts, List<RuneInstance> runeInstances) {
             super(altar, level, pos, tier);
             this.runeCounts = runeCounts;
@@ -195,7 +195,7 @@ public abstract class AltarRuneEvent extends Event {
         private final Map<IAltarRuneType, Integer> runeCounts;
         private final List<RuneInstance> runeInstances;
 
-        public CalculateStats(IBloodAltar altar, Level level, BlockPos pos, int tier,
+        public CalculateStats(IAraVitae altar, Level level, BlockPos pos, int tier,
                              AltarRuneModifiers modifiers, Map<IAltarRuneType, Integer> runeCounts,
                              List<RuneInstance> runeInstances) {
             super(altar, level, pos, tier);
@@ -299,7 +299,7 @@ public abstract class AltarRuneEvent extends Event {
         private final AltarRuneModifiers finalModifiers;
         private final List<RuneInstance> runeInstances;
 
-        public PostCalculate(IBloodAltar altar, Level level, BlockPos pos, int tier,
+        public PostCalculate(IAraVitae altar, Level level, BlockPos pos, int tier,
                             AltarRuneModifiers finalModifiers, List<RuneInstance> runeInstances) {
             super(altar, level, pos, tier);
             this.finalModifiers = finalModifiers;

@@ -331,13 +331,13 @@ Sigil types define the behavior of sigils using a codec-based effect system. Eac
 
 Neo Vitae adds several recipe types that can be customized via datapacks.
 
-### Blood Altar Recipes
+### Ara Vitae Recipes
 
 **Location:** `data/neovitae/recipes/altar/`
 
 ```json
 {
-  "type": "neovitae:blood_altar",
+  "type": "neovitae:ara_vitae",
   "ingredient": {
     "item": "minecraft:diamond"
   },
@@ -788,7 +788,7 @@ NeoForgeEvents.onEvent('com.breakinblocks.neovitae.common.event.ImperfectRitualE
 })
 ```
 
-### Blood Altar Craft Events
+### Ara Vitae Craft Events
 
 Hook into altar crafting to modify outputs or add side effects:
 
@@ -796,7 +796,7 @@ Hook into altar crafting to modify outputs or add side effects:
 // server_scripts/blood_magic_altar.js
 
 // Modify or cancel altar crafting
-NeoForgeEvents.onEvent('com.breakinblocks.neovitae.common.event.BloodAltarCraftEvent$Crafting', event => {
+NeoForgeEvents.onEvent('com.breakinblocks.neovitae.common.event.AraVitaeCraftEvent$Crafting', event => {
     const input = event.getInput()
     const output = event.getOutput()
     const tier = event.getTier()
@@ -817,7 +817,7 @@ NeoForgeEvents.onEvent('com.breakinblocks.neovitae.common.event.BloodAltarCraftE
 })
 
 // React after successful craft
-NeoForgeEvents.onEvent('com.breakinblocks.neovitae.common.event.BloodAltarCraftEvent$Crafted', event => {
+NeoForgeEvents.onEvent('com.breakinblocks.neovitae.common.event.AraVitaeCraftEvent$Crafted', event => {
     const output = event.getOutput()
     console.log(`Crafted: ${output.getId()}`)
 })
@@ -833,8 +833,8 @@ NeoForgeEvents.onEvent('com.breakinblocks.neovitae.common.event.BloodAltarCraftE
 | `RitualEvent$Stop` | No | When ritual stops |
 | `ImperfectRitualEvent$Activate` | Yes | Before imperfect ritual |
 | `ImperfectRitualEvent$Activated` | No | After imperfect ritual |
-| `BloodAltarCraftEvent$Crafting` | Yes | Before altar craft completes |
-| `BloodAltarCraftEvent$Crafted` | No | After altar craft completes |
+| `AraVitaeCraftEvent$Crafting` | Yes | Before altar craft completes |
+| `AraVitaeCraftEvent$Crafted` | No | After altar craft completes |
 | `ItemBindEvent` | Yes | When binding item to player |
 | `SacrificialDaggerEvent` | Yes | When dagger drains health |
 | `LivingArmourEvent` | Varies | Living armor upgrade events |
@@ -874,9 +874,10 @@ Neo Vitae registers several custom player attributes that can be modified via eq
 
 When a player with Blood Siphon deals damage:
 - **LP gained** = min(blood_siphon_value, damage_dealt) x multiplier
-- **vs Players**: Drains LP from the target's soul network. Multiplier = configurable (default: 100)
-- **vs Mobs**: LP generated from nothing. Multiplier = configurable (default: 10)
-- Example: Blood Siphon 5, deal 10 damage to a mob = 5 x 10 = 50 LP gained
+- **vs Players (PvP)**: LP is drained directly from the target player's soul network and added to the attacker's. This is a true LP transfer — the victim loses the same amount the attacker gains. Multiplier = configurable (default: 100)
+- **vs Mobs (PvE)**: LP is generated from nothing and added to the attacker's network. Multiplier = configurable (default: 10)
+- Example (PvE): Blood Siphon 5, deal 10 damage to a mob = 5 x 10 = 50 LP gained
+- Example (PvP): Blood Siphon 5, deal 10 damage to a player = 5 x 100 = 500 LP stolen from their network
 
 ### Blood Shield Details
 

@@ -29,17 +29,6 @@ public class DislocationRuneEntry extends EntryProvider {
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_dislocation")));
 
-        this.page("recipe2", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_dislocation"))
-                .withText(this.context().pageText()));
-        this.pageText("With some [#](8B0000)Netherite Scrap[#]() and some [#](8B0000)Intricate Hellforged Parts[#]() looted from the "
-                + "[#](8B0000)Demon Realm[#](), you can double the power of your [#](8B0000)Displacement Rune[#](), increasing the "
-                + "flow rate by a multiplicative +40%% per rune.");
-
-        this.page("reversion", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("If you change your mind, you can revert the upgraded rune back to its base version "
-                + "in the Alchemical Reaction Chamber (ARC).");
     }
 
     @Override
@@ -49,7 +38,7 @@ public class DislocationRuneEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increases the fluid transfer rate of the Blood Altar.";
+        return "Increases the fluid transfer rate of the Ara Vitae.";
     }
 
     @Override

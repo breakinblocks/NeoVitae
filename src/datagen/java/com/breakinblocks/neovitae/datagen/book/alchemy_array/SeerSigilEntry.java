@@ -22,7 +22,7 @@ public class SeerSigilEntry extends EntryProvider {
         this.pageTitle("Seer's Sigil");
         this.pageText("The [#](8B0000)Seer's Sigil[#]() is a more advanced form of the [#](8B0000)Divination Sigil[#](). Alongside "
                 + "showing the amount of LP in the bound player's [#](8B0000)Soul Network[#](), it also shows more "
-                + "information when looking at a [#](8B0000)Blood Altar[#]().\\\n\\\n"
+                + "information when looking at a [#](8B0000)Ara Vitae[#]().\\\n\\\n"
                 + "Like the Divination Sigil, it can also be used to edit your GUI.");
 
         this.page("recipe", () -> BookTextPageModel.create()
@@ -34,7 +34,7 @@ public class SeerSigilEntry extends EntryProvider {
         this.page("hud", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("From top to bottom, the Seer's Sigil HUD shows:\n"
-                + "- The current Tier of the Blood Altar\n"
+                + "- The current Tier of the Ara Vitae\n"
                 + "- The amount of blood currently inside the Altar, and the current total capacity\n"
                 + "- The current crafting progress, if any\n"
                 + "- LP Consumption/Tick - how much LP the Altar will use per tick when crafting\n"

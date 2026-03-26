@@ -42,7 +42,7 @@ public class RitualDivinerEntry extends EntryProvider {
 
         this.page("inscription_tools", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The base Ritual Diviner requires one of each [#](8B0000)Elemental Inscription Tool[#]() for its construction, and thus a tier 3 [#](8B0000)Blood Altar[#]()."
+        this.pageText("The base Ritual Diviner requires one of each [#](8B0000)Elemental Inscription Tool[#]() for its construction, and thus a tier 3 [#](8B0000)Ara Vitae[#]()."
                 + "\\\n\\\nThe four base Elemental Inscription Tools can be crafted in your Altar for [#](8B0000)1,000 Life Essence[#]() each. The Ritual Diviner [Dusk] similarly requires a Tier 4 Altar to make two Dusk Elemental Inscription Tools, at a cost of [#](8B0000)2,000 Life Essence[#]() each."
                 + "\\\n\\\nYou can also use these tools to inscribe runes by hand, but this should only seriously be used for decorative purposes, as it is both slow and inaccurate.");
     }

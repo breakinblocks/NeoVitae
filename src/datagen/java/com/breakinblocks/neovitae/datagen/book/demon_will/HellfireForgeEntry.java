@@ -24,7 +24,7 @@ public class HellfireForgeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Hellfire Forge");
         this.pageText("The [#](8B0000)Hellfire Forge[#]() is one of the core crafting mechanics of Neo Vitae, alongside the "
-                + "[#](8B0000)Blood Altar[#]() itself. Here, you can work with the [#](8B0000)Demon Will[#]() you have harvested from "
+                + "[#](8B0000)Ara Vitae[#]() itself. Here, you can work with the [#](8B0000)Demon Will[#]() you have harvested from "
                 + "mobs, to allow you to create [#](8B0000)Sentient Tools[#](), including the [#](8B0000)Sentient Sword[#](), "
                 + "[#](8B0000)Tartaric Gems[#](), various reagents, [#](8B0000)Arcane Ash[#](), and many things besides.");
 

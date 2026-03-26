@@ -30,17 +30,6 @@ public class AccelerationRuneEntry extends EntryProvider {
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_acceleration")));
 
-        this.page("recipe2", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_acceleration"))
-                .withText(this.context().pageText()));
-        this.pageText("With some [#](8B0000)Netherite Scrap[#]() and some [#](8B0000)Intricate Hellforged Parts[#]() looted from the "
-                + "[#](8B0000)Demon Realm[#](), you can double the power of your [#](8B0000)Acceleration Rune[#](), removing two ticks "
-                + "per rune instead of one, freeing up other slots around your altar.");
-
-        this.page("reversion", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("If you change your mind, you can revert the upgraded rune back to its base version "
-                + "in the Alchemical Reaction Chamber (ARC).");
     }
 
     @Override

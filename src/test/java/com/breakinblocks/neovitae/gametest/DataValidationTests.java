@@ -90,7 +90,7 @@ public class DataValidationTests {
     public void bloodAltarRecipesExist(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
             var recipes = helper.getLevel().getRecipeManager()
-                    .getAllRecipesFor(com.breakinblocks.neovitae.common.recipe.NVRecipes.BLOOD_ALTAR_TYPE.get());
+                    .getAllRecipesFor(com.breakinblocks.neovitae.common.recipe.NVRecipes.ARA_VITAE_TYPE.get());
             if (recipes.isEmpty()) {
                 helper.fail("No blood altar recipes found");
                 return;
@@ -128,7 +128,7 @@ public class DataValidationTests {
     public void neovitaeBlocksRegistered(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
             String[] expectedBlocks = {
-                "blood_altar", "hellfire_forge", "alchemy_table", "arc",
+                "ara_vitae", "hellfire_forge", "alchemy_table", "arc",
                 "master_routing_node", "input_routing_node", "output_routing_node",
                 "master_ritual_stone", "imperfect_ritual_stone",
                 "demon_crucible", "demon_pylon", "blood_tank", "teleposer",

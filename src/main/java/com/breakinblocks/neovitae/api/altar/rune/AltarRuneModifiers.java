@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.api.altar.rune;
 
 /**
- * Container for Blood Altar stat modifiers calculated from runes.
+ * Container for Ara Vitae stat modifiers calculated from runes.
  *
  * <p>This class holds all the modifier values that runes provide to the altar.
  * It is populated during altar structure scanning and can be modified by

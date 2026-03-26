@@ -15,7 +15,7 @@ import java.util.function.Predicate;
 
 /**
  * Custom multiblock validation system for NeoVitae.
- * Validates multiblock structures for Blood Altar tiers.
+ * Validates multiblock structures for Ara Vitae tiers.
  */
 public class MultiblockValidator {
 

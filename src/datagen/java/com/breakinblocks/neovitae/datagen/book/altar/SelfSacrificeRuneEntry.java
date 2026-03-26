@@ -24,7 +24,7 @@ public class SelfSacrificeRuneEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Rune of Self Sacrifice");
         this.pageText("The [#](8B0000)Rune of Self Sacrifice[#]() increases the amount of [#](8B0000)Life Essence[#]() gained in the "
-                + "Blood Altar through means that use a player's health. Each rune gives a bonus of +10%% "
+                + "Ara Vitae through means that use a player's health. Each rune gives a bonus of +10%% "
                 + "additively per rune.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()

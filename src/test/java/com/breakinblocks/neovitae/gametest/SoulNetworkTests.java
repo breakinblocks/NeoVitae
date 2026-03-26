@@ -10,7 +10,7 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyTableBlockEntity;
-import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
+import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
@@ -102,13 +102,13 @@ public class SoulNetworkTests {
         });
     }
 
-    // ==================== Blood Altar Orb Filling ====================
+    // ==================== Ara Vitae Orb Filling ====================
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 300)
     public void altarFillsBoundOrb(GameTestHelper helper) {
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
-        helper.setBlock(new BlockPos(3, 1, 2), NVBlocks.BLOOD_ALTAR.block().get().defaultBlockState());
-        BloodAltarTile altar = (BloodAltarTile) helper.getBlockEntity(new BlockPos(3, 1, 2));
+        helper.setBlock(new BlockPos(3, 1, 2), NVBlocks.ARA_VITAE.block().get().defaultBlockState());
+        AraVitaeTile altar = (AraVitaeTile) helper.getBlockEntity(new BlockPos(3, 1, 2));
 
         helper.runAfterDelay(5, () -> {
             if (altar == null) { helper.fail("No altar"); return; }

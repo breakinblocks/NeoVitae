@@ -33,7 +33,7 @@ public class RitualWellOfSufferingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("This ritual attacks mobs within its damage zone and puts the harvested [#](8B0000)Life Essence[#]() into a nearby [#](8B0000)Blood Altar[#](). Put a [#](8B0000)Blood Orb[#]() in the Altar, maybe add a few [#](8B0000)Runes of Sacrifice[#]() for good measure and you'll never have to worry about your LP supplies again... as long as you can supply enough mobs.");
+        this.pageText("This ritual attacks mobs within its damage zone and puts the harvested [#](8B0000)Life Essence[#]() into a nearby [#](8B0000)Ara Vitae[#](). Put a [#](8B0000)Blood Orb[#]() in the Altar, maybe add a few [#](8B0000)Runes of Sacrifice[#]() for good measure and you'll never have to worry about your LP supplies again... as long as you can supply enough mobs.");
 
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -47,7 +47,7 @@ public class RitualWellOfSufferingEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Damages mobs and fills a Blood Altar with LP.";
+        return "Damages mobs and fills a Ara Vitae with LP.";
     }
 
     @Override

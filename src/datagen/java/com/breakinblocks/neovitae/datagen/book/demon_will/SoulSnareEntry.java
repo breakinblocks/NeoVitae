@@ -24,7 +24,7 @@ public class SoulSnareEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Your First Will");
         this.pageText("[#](8B0000)Soul Snares[#]() are your gateway into the [#](8B0000)Demon Will[#]() portion of Neo Vitae. "
-                + "Craft the Soul Snare in the Blood Altar (Tier 1).");
+                + "Craft the Soul Snare in the Ara Vitae (Tier 1).");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

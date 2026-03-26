@@ -49,7 +49,7 @@ public class ThrowingDaggersEntry extends EntryProvider {
                 .withItem(NVItems.SLATE_AMPOULE.get())
                 .withTitle("Slate Ampoule")
                 .withText(this.context().pageText()));
-        this.pageText("These delightful little vials can be crushed when near a [#](8B0000)Blood Altar[#]() in order to "
+        this.pageText("These delightful little vials can be crushed when near a [#](8B0000)Ara Vitae[#]() in order to "
                 + "transfer [#](8B0000)500 LP[#]() into it, destroying the [#](8B0000)Ampoule[#]() in the process. These gains are "
                 + "unaffected by any [#](8B0000)Runes[#]() you may have.");
 

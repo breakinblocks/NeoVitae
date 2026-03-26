@@ -31,7 +31,7 @@ public class AltarUtil {
                 for (int z = -radius; z <= radius; z++) {
                     BlockPos testPos = pos.offset(x, y, z);
                     BlockState testState = level.getBlockState(testPos);
-                    if (testState.is(NVBlocks.BLOOD_ALTAR.block())) {
+                    if (testState.is(NVBlocks.ARA_VITAE.block())) {
                         return testPos;
                     }
                 }

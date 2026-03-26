@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
-import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
+import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.datamap.EntitySacrificeHelper;
 import com.breakinblocks.neovitae.util.AltarUtil;
@@ -67,7 +67,7 @@ public class DaggerOfSacrificeItem extends Item {
         }
 
         BlockEntity be = target.level().getBlockEntity(altarPos);
-        if (!(be instanceof BloodAltarTile altar)) {
+        if (!(be instanceof AraVitaeTile altar)) {
             return false;
         }
 
@@ -101,7 +101,7 @@ public class DaggerOfSacrificeItem extends Item {
                 for (int z = -2; z <= 2; z++) {
                     BlockPos testPos = pos.offset(x, y, z);
                     BlockEntity be = level.getBlockEntity(testPos);
-                    if (be instanceof BloodAltarTile) {
+                    if (be instanceof AraVitaeTile) {
                         return testPos;
                     }
                 }

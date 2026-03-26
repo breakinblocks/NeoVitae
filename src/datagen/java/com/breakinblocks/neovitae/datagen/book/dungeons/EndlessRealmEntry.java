@@ -65,7 +65,7 @@ public class EndlessRealmEntry extends EntryProvider {
         this.pageTitle("The Mines");
         this.pageText("The Foreman's Key will allow entrance into [#](8B0000)The Mines[#](), which is another step up in "
                 + "both difficulty and rewards. Along with [#](8B0000)Demonite Ore[#](), which is essential for high tier "
-                + "potioncrafting and the [#](8B0000)Tier-5 Blood Altar[#]() and its accompanying Orb, you'll find scads of "
+                + "potioncrafting and the [#](8B0000)Tier-5 Ara Vitae[#]() and its accompanying Orb, you'll find scads of "
                 + "more mundane loot, enchanted weapons and tools, anointments, potions, and more.");
 
         this.page("hellforged_parts", () -> BookSpotlightPageModel.create()
@@ -74,7 +74,7 @@ public class EndlessRealmEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Explore enough, and you may be lucky enough to find [#](8B0000)Intricate Hellforged Parts[#](), "
                 + "which can be used to double the power of your existing [#](8B0000)Runes[#](). It's like having two "
-                + "Blood Altars in one!");
+                + "Ara Vitaes in one!");
     }
 
     @Override

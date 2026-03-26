@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
+import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import com.breakinblocks.neovitae.ritual.Ritual;
@@ -34,7 +34,7 @@ public class MultiblockTests {
         };
     }
 
-    // ==================== Blood Altar Tier Tests ====================
+    // ==================== Ara Vitae Tier Tests ====================
 
     // Apprentice altar: 4 rune blocks at cardinal directions + 4 at diagonals, all at y=-1
     @GameTest(template = "empty_5x5x7", timeoutTicks = 200)
@@ -42,7 +42,7 @@ public class MultiblockTests {
         BlockPos altarPos = new BlockPos(3, 2, 2);
         BlockState rune = NVBlocks.RUNE_BLANK.block().get().defaultBlockState();
 
-        helper.setBlock(altarPos, NVBlocks.BLOOD_ALTAR.block().get().defaultBlockState());
+        helper.setBlock(altarPos, NVBlocks.ARA_VITAE.block().get().defaultBlockState());
 
         // 4 cardinal runes at y-1
         helper.setBlock(altarPos.offset(1, -1, 0), rune);
@@ -58,7 +58,7 @@ public class MultiblockTests {
 
         // Wait for structure check (every 100 ticks)
         helper.runAfterDelay(150, () -> {
-            BloodAltarTile altar = (BloodAltarTile) helper.getBlockEntity(altarPos);
+            AraVitaeTile altar = (AraVitaeTile) helper.getBlockEntity(altarPos);
             if (altar.getTier() < 1) {
                 helper.fail("Apprentice altar should be tier 1+, got " + altar.getTier());
                 return;
@@ -72,7 +72,7 @@ public class MultiblockTests {
         BlockPos altarPos = new BlockPos(3, 2, 2);
         BlockState rune = NVBlocks.RUNE_BLANK.block().get().defaultBlockState();
 
-        helper.setBlock(altarPos, NVBlocks.BLOOD_ALTAR.block().get().defaultBlockState());
+        helper.setBlock(altarPos, NVBlocks.ARA_VITAE.block().get().defaultBlockState());
 
         // Only 3 of 4 cardinal runes — incomplete
         helper.setBlock(altarPos.offset(1, -1, 0), rune);
@@ -81,7 +81,7 @@ public class MultiblockTests {
         // Missing: (0, -1, -1)
 
         helper.runAfterDelay(150, () -> {
-            BloodAltarTile altar = (BloodAltarTile) helper.getBlockEntity(altarPos);
+            AraVitaeTile altar = (AraVitaeTile) helper.getBlockEntity(altarPos);
             if (altar.getTier() > 0) {
                 helper.fail("Incomplete altar should be tier 0, got " + altar.getTier());
                 return;

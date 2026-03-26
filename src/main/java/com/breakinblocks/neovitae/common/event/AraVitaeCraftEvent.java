@@ -1,0 +1,76 @@
+package com.breakinblocks.neovitae.common.event;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.neoforged.bus.api.Event;
+import net.neoforged.bus.api.ICancellableEvent;
+import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
+import com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe;
+
+public abstract class AraVitaeCraftEvent extends Event {
+    private final AraVitaeTile altar;
+    private final AraVitaeRecipe recipe;
+    private final ItemStack input;
+    private ItemStack output;
+
+    public AraVitaeCraftEvent(AraVitaeTile altar, AraVitaeRecipe recipe, ItemStack input, ItemStack output) {
+        this.altar = altar;
+        this.recipe = recipe;
+        this.input = input.copy();
+        this.output = output.copy();
+    }
+
+    public AraVitaeTile getAltar() {
+        return altar;
+    }
+
+    public AraVitaeRecipe getRecipe() {
+        return recipe;
+    }
+
+    public ItemStack getInput() {
+        return input.copy();
+    }
+
+    public ItemStack getOutput() {
+        return output.copy();
+    }
+
+    public void setOutput(ItemStack output) {
+        this.output = output.copy();
+    }
+
+    public Level getLevel() {
+        return altar.getLevel();
+    }
+
+    public BlockPos getPos() {
+        return altar.getBlockPos();
+    }
+
+    public int getTier() {
+        return altar.getTier();
+    }
+
+    /**
+     * Fired when the altar is about to complete a craft.
+     * Cancel to prevent the craft from completing (LP is still consumed).
+     * Modify output to change what is produced.
+     */
+    public static class Crafting extends AraVitaeCraftEvent implements ICancellableEvent {
+        public Crafting(AraVitaeTile altar, AraVitaeRecipe recipe, ItemStack input, ItemStack output) {
+            super(altar, recipe, input, output);
+        }
+    }
+
+    /**
+     * Fired after a craft has been completed successfully.
+     * Not cancellable - use for notification purposes only.
+     */
+    public static class Crafted extends AraVitaeCraftEvent {
+        public Crafted(AraVitaeTile altar, AraVitaeRecipe recipe, ItemStack input, ItemStack output) {
+            super(altar, recipe, input, output);
+        }
+    }
+}

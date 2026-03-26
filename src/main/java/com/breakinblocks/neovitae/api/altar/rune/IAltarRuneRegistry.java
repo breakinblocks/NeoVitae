@@ -11,7 +11,7 @@ import java.util.Map;
  * Registry for altar rune types and block associations.
  *
  * <p>This registry manages both built-in and custom rune types, as well as
- * the associations between blocks and rune types. When the Blood Altar scans
+ * the associations between blocks and rune types. When the Ara Vitae scans
  * its structure, it uses this registry to determine what bonuses each block provides.</p>
  *
  * <h2>Registration Timing</h2>

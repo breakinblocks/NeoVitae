@@ -21,13 +21,13 @@ public class GettingStartedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Tiers & Getting Started");
         this.pageText("Welcome to Neo Vitae! This guide provides a quick overview of the mod's progression, "
-                + "from your first Blood Altar all the way to the highest tiers of power.");
+                + "from your first Ara Vitae all the way to the highest tiers of power.");
 
         this.page("tier1_altar", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Blood Altar (Tier-1)");
-        this.pageText("The first step of Neo Vitae is to build a Blood Altar and Sacrificial Knife. "
+        this.pageTitle("Ara Vitae (Tier-1)");
+        this.pageText("The first step of Neo Vitae is to build a Ara Vitae and Sacrificial Knife. "
                 + "Use these to generate Life Essence from Self-Sacrificing.\\\n\\\n"
                 + "Use this Life Essence to craft a Weak Blood Orb, several Blank Slates, and a few Soul Snares.");
 
@@ -65,7 +65,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Tier Two");
         this.pageText("At this point, you will be able to craft a Dagger of Sacrifice in order to slaughter mobs "
-                + "for more Life Essence. Various Upgrade Runes should be available for your Blood Altar, "
+                + "for more Life Essence. Various Upgrade Runes should be available for your Ara Vitae, "
                 + "and some more Sigils will be available. As before, you should focus on further upgrading your Altar.");
 
         this.page("tier2_potions", () -> BookTextPageModel.create()
@@ -171,7 +171,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier Six");
-        this.pageText("The ultimate Blood Altar. Tier 6 requires Crystal Clusters at the peaks of its pillars "
+        this.pageText("The ultimate Ara Vitae. Tier 6 requires Crystal Clusters at the peaks of its pillars "
                 + "and an enormous ring of 19 runes per side. At this level, the altar reaches its maximum potential "
                 + "with unparalleled LP storage and crafting capabilities.");
     }

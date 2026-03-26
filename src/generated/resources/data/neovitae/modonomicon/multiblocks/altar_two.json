@@ -3,7 +3,7 @@
   "mapping": {
     "0": {
       "type": "modonomicon:block",
-      "block": "neovitae:blood_altar"
+      "block": "neovitae:ara_vitae"
     },
     "R": {
       "type": "modonomicon:tag",

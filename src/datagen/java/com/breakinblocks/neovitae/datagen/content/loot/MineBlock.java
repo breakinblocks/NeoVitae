@@ -32,7 +32,7 @@ public class MineBlock extends BlockLootSubProvider {
         super(Set.of(), FeatureFlags.DEFAULT_FLAGS, registries);
         this.registries = registries;
         NVBlocks.BASIC_BLOCKS.getEntries().forEach(holder -> dropSelfList.add(holder.get()));
-        addDropSelf(NVBlocks.BLOOD_ALTAR);
+        addDropSelf(NVBlocks.ARA_VITAE);
         addDropSelf(NVBlocks.HELLFIRE_FORGE);
     }
 

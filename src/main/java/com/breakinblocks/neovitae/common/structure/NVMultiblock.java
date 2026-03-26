@@ -26,7 +26,7 @@ import java.util.function.Predicate;
 
 /**
  * NeoVitae multiblock management.
- * Handles Blood Altar tier validation and structure scanning.
+ * Handles Ara Vitae tier validation and structure scanning.
  */
 public class NVMultiblock {
 

@@ -13,7 +13,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.capability.NVCapabilities;
 import com.breakinblocks.neovitae.client.render.blockentity.AlchemyArrayRenderer;
-import com.breakinblocks.neovitae.client.render.blockentity.BloodAltarRenderer;
+import com.breakinblocks.neovitae.client.render.blockentity.AraVitaeRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.BloodTankRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.HellfireForgeRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.RoutingNodeRenderer;
@@ -41,8 +41,8 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HellfireForgeBlockEntity>> HELLFIRE_FORGE_TYPE =
             registerTile("hellfire_forge", HellfireForgeBlockEntity::new, NVBlocks.HELLFIRE_FORGE.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BloodAltarTile>> BLOOD_ALTAR_TYPE =
-            registerTile("blood_altar", BloodAltarTile::new, NVBlocks.BLOOD_ALTAR.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AraVitaeTile>> ARA_VITAE_TYPE =
+            registerTile("ara_vitae", AraVitaeTile::new, NVBlocks.ARA_VITAE.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ARCBlockEntity>> ARC_TYPE =
             registerTile("arc", ARCBlockEntity::new, NVBlocks.ARC_BLOCK.block());
@@ -151,17 +151,17 @@ public class NVTiles {
         );
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
-                BLOOD_ALTAR_TYPE.get(),
+                ARA_VITAE_TYPE.get(),
                 (tile, side) -> tile.inv
         );
         event.registerBlockEntity(
                 Capabilities.FluidHandler.BLOCK,
-                BLOOD_ALTAR_TYPE.get(),
+                ARA_VITAE_TYPE.get(),
                 (tile, side) -> tile
         );
         event.registerBlockEntity(
-                NVCapabilities.BLOOD_ALTAR,
-                BLOOD_ALTAR_TYPE.get(),
+                NVCapabilities.ARA_VITAE,
+                ARA_VITAE_TYPE.get(),
                 (tile, side) -> tile
         );
         event.registerBlockEntity(
@@ -188,7 +188,7 @@ public class NVTiles {
 
     private static void registerBlockEntityRenderer(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(HELLFIRE_FORGE_TYPE.get(), HellfireForgeRenderer::new);
-        event.registerBlockEntityRenderer(BLOOD_ALTAR_TYPE.get(), BloodAltarRenderer::new);
+        event.registerBlockEntityRenderer(ARA_VITAE_TYPE.get(), AraVitaeRenderer::new);
         event.registerBlockEntityRenderer(BLOOD_TANK_TYPE.get(), BloodTankRenderer::new);
         event.registerBlockEntityRenderer(ALCHEMY_ARRAY_TYPE.get(), AlchemyArrayRenderer::new);
 

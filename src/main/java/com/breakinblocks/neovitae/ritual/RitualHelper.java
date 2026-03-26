@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
+import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.api.will.DemonWillHandler;
 import com.breakinblocks.neovitae.api.will.WillState;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
@@ -119,7 +119,7 @@ public final class RitualHelper {
     }
 
     /**
-     * Finds a BloodAltarTile within a ritual's range, using a cached offset if available.
+     * Finds a AraVitaeTile within a ritual's range, using a cached offset if available.
      */
     public static AltarSearchResult findAltar(RitualContext context, Ritual ritual,
             String rangeKey, @Nullable BlockPos cachedOffset) {
@@ -128,7 +128,7 @@ public final class RitualHelper {
         if (cachedOffset != null) {
             BlockPos altarPos = masterPos.offset(cachedOffset);
             BlockEntity be = context.level().getBlockEntity(altarPos);
-            if (be instanceof BloodAltarTile altarTile) {
+            if (be instanceof AraVitaeTile altarTile) {
                 return new AltarSearchResult(altarTile, cachedOffset);
             }
         }
@@ -136,7 +136,7 @@ public final class RitualHelper {
         List<BlockPos> positions = getRangePositions(context.master(), ritual, rangeKey, masterPos);
         for (BlockPos pos : positions) {
             BlockEntity be = context.level().getBlockEntity(pos);
-            if (be instanceof BloodAltarTile altarTile) {
+            if (be instanceof AraVitaeTile altarTile) {
                 return new AltarSearchResult(altarTile, pos.subtract(masterPos));
             }
         }
@@ -144,7 +144,7 @@ public final class RitualHelper {
         return new AltarSearchResult(null, null);
     }
 
-    public record AltarSearchResult(@Nullable BloodAltarTile altar, @Nullable BlockPos offset) {}
+    public record AltarSearchResult(@Nullable AraVitaeTile altar, @Nullable BlockPos offset) {}
 
     @Nullable
     public static BlockPos readAltarOffset(CompoundTag tag) {

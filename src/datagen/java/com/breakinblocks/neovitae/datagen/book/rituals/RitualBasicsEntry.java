@@ -20,7 +20,7 @@ public class RitualBasicsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Rituals - Getting Started");
-        this.pageText("Once you have gotten your [#](8B0000)Blood Altar[#]() to Tier 3, you can delve into the wonderful world of Rituals."
+        this.pageText("Once you have gotten your [#](8B0000)Ara Vitae[#]() to Tier 3, you can delve into the wonderful world of Rituals."
                 + "\\\n\\\nFor working with rituals, you will require the following:"
                 + "\n\n- An [#](8B0000)Activation Crystal[#](). At tier 3 only the [#](8B0000)Weak Crystal[#]() is available."
                 + "\n\n- A [#](8B0000)Master Ritual Stone[#](). Every ritual requires exactly one of these at its centre.");

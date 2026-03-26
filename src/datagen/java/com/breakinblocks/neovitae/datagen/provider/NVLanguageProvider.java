@@ -61,7 +61,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("attribute.neovitae.blood_siphon", "Blood Siphon");
         add("attribute.neovitae.blood_shield", "Blood Shield");
 
-        add(NVBlocks.BLOOD_ALTAR, "Blood Altar");
+        add(NVBlocks.ARA_VITAE, "Ara Vitae");
         add(NVItems.SACRIFICIAL_DAGGER.get(), "Sacrificial Dagger");
 
         add(NVBlocks.RUNE_BLANK, "Blank Rune");
@@ -798,7 +798,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         LivingUpgrades.translations(this::add);
 
         // JEI Integration
-        addJei("recipe.altar", "Blood Altar");
+        addJei("recipe.altar", "Ara Vitae");
         addJei("recipe.hellfire_forge", "Hellfire Forge");
         addJei("recipe.alchemyarraycrafting", "Alchemy Array");
         addJei("recipe.alchemytable", "Alchemy Table");
@@ -930,7 +930,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addDungeonBlocks();
 
         // Advancements
-        addAdvancement("root", "Neo Vitae", "Obtain a Blood Altar");
+        addAdvancement("root", "Neo Vitae", "Obtain a Ara Vitae");
         addAdvancement("weak_blood_orb", "Weak Blood Orb", "Craft your first Blood Orb");
         addAdvancement("apprentice_blood_orb", "Apprentice Blood Orb", "Upgrade to a Tier 2 orb");
         addAdvancement("magician_blood_orb", "Magician Blood Orb", "Upgrade to a Tier 3 orb");

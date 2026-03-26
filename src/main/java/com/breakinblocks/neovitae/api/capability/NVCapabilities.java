@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.api.altar.IBloodAltar;
+import com.breakinblocks.neovitae.api.altar.IAraVitae;
 
 /**
  * NeoVitae capability definitions.
@@ -14,13 +14,13 @@ import com.breakinblocks.neovitae.api.altar.IBloodAltar;
  * in a standardized way. NeoVitae provides the following capabilities:</p>
  *
  * <ul>
- *   <li>{@link #BLOOD_ALTAR} - Access to Blood Altar functionality</li>
+ *   <li>{@link #ARA_VITAE} - Access to Ara Vitae functionality</li>
  * </ul>
  *
  * <h2>Usage Example</h2>
  * <pre>{@code
  * // Get blood altar capability from a block position
- * IBloodAltar altar = level.getCapability(NVCapabilities.BLOOD_ALTAR, pos, null);
+ * IAraVitae altar = level.getCapability(NVCapabilities.ARA_VITAE, pos, null);
  * if (altar != null) {
  *     int blood = altar.getCurrentBlood();
  *     int capacity = altar.getCapacity();
@@ -38,7 +38,7 @@ public final class NVCapabilities {
     private NVCapabilities() {} // Prevent instantiation
 
     /**
-     * Capability for accessing Blood Altar functionality.
+     * Capability for accessing Ara Vitae functionality.
      *
      * <p>Provides read access to altar state including:</p>
      * <ul>
@@ -52,9 +52,9 @@ public final class NVCapabilities {
      * side of the altar is being accessed, though the default altar
      * implementation returns the same data regardless of side.</p>
      */
-    public static final BlockCapability<IBloodAltar, @Nullable Direction> BLOOD_ALTAR =
+    public static final BlockCapability<IAraVitae, @Nullable Direction> ARA_VITAE =
             BlockCapability.createSided(
-                    ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_altar"),
-                    IBloodAltar.class
+                    ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae"),
+                    IAraVitae.class
             );
 }

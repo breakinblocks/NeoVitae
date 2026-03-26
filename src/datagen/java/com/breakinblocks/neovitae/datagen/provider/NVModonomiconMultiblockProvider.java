@@ -36,7 +36,7 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
                         "_0_",
                         "___"
                 )
-                .block('0', () -> NVBlocks.BLOOD_ALTAR.block().get())
+                .block('0', () -> NVBlocks.ARA_VITAE.block().get())
                 .build(false)
         );
 
@@ -52,7 +52,7 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
                         "R_R",
                         "RRR"
                 )
-                .block('0', () -> NVBlocks.BLOOD_ALTAR.block().get())
+                .block('0', () -> NVBlocks.ARA_VITAE.block().get())
                 .tag('R', NVTags.Blocks.RUNES, () -> NVBlocks.RUNE_BLANK.block().get())
                 .build(false)
         );
@@ -95,7 +95,7 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
                         "R_____R",
                         "_RRRRR_"
                 )
-                .block('0', () -> NVBlocks.BLOOD_ALTAR.block().get())
+                .block('0', () -> NVBlocks.ARA_VITAE.block().get())
                 .tag('R', NVTags.Blocks.RUNES, () -> NVBlocks.RUNE_BLANK.block().get())
                 .block('G', () -> Blocks.GLOWSTONE)
                 .predicate('P', NeoVitae.rl("non_air_solid"), true, () -> Blocks.STONE_BRICKS)
@@ -182,7 +182,7 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
                         "R_________R",
                         "_RRRRRRRRR_"
                 )
-                .block('0', () -> NVBlocks.BLOOD_ALTAR.block().get())
+                .block('0', () -> NVBlocks.ARA_VITAE.block().get())
                 .tag('R', NVTags.Blocks.RUNES, () -> NVBlocks.RUNE_BLANK.block().get())
                 .block('G', () -> Blocks.GLOWSTONE)
                 .tag('S', NVTags.Blocks.BLOODSTONES, () -> NVBlocks.BLOODSTONE.block().get())
@@ -325,7 +325,7 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
                         "_________________",
                         "H_RRRRRRRRRRRRR_H"
                 )
-                .block('0', () -> NVBlocks.BLOOD_ALTAR.block().get())
+                .block('0', () -> NVBlocks.ARA_VITAE.block().get())
                 .tag('R', NVTags.Blocks.RUNES, () -> NVBlocks.RUNE_BLANK.block().get())
                 .block('G', () -> Blocks.GLOWSTONE)
                 .tag('S', NVTags.Blocks.BLOODSTONES, () -> NVBlocks.BLOODSTONE.block().get())
@@ -561,7 +561,7 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
                         "_______________________",
                         "__RRRRRRRRRRRRRRRRRRR__"
                 )
-                .block('0', () -> NVBlocks.BLOOD_ALTAR.block().get())
+                .block('0', () -> NVBlocks.ARA_VITAE.block().get())
                 .tag('R', NVTags.Blocks.RUNES, () -> NVBlocks.RUNE_BLANK.block().get())
                 .block('G', () -> Blocks.GLOWSTONE)
                 .tag('S', NVTags.Blocks.BLOODSTONES, () -> NVBlocks.BLOODSTONE.block().get())

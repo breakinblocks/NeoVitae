@@ -34,7 +34,7 @@ public class DivinationSigilEntry extends EntryProvider {
         this.pageText("The Divination Sigil has two primary uses:\n"
                 + "- When any player uses the sigil while aiming at the air, it will display the amount of "
                 + "LP that is in the owner's [#](8B0000)Soul Network[#]().\n"
-                + "- When using the sigil on a [#](8B0000)Blood Altar[#](), it will tell the player the altar's current "
+                + "- When using the sigil on a [#](8B0000)Ara Vitae[#](), it will tell the player the altar's current "
                 + "Tier, the amount of [#](8B0000)Life Essence[#]() stored in the altar, as well as its current max capacity.");
 
         this.page("gui_editing", () -> BookTextPageModel.create()
@@ -61,7 +61,7 @@ public class DivinationSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A sigil that reveals information about your Soul Network and Blood Altar.";
+        return "A sigil that reveals information about your Soul Network and Ara Vitae.";
     }
 
     @Override

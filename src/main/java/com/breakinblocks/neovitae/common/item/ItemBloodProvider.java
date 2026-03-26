@@ -15,7 +15,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.FakePlayer;
-import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
+import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.util.AltarUtil;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class ItemBloodProvider extends Item {
         BlockPos altarPos = AltarUtil.findAltar(level, player.blockPosition(), 2);
         if (altarPos != null) {
             BlockEntity be = level.getBlockEntity(altarPos);
-            if (be instanceof BloodAltarTile altar) {
+            if (be instanceof AraVitaeTile altar) {
                 double posX = player.getX();
                 double posY = player.getY();
                 double posZ = player.getZ();

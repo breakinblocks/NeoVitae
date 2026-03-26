@@ -14,9 +14,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import com.breakinblocks.neovitae.api.altar.IBloodAltar;
+import com.breakinblocks.neovitae.api.altar.IAraVitae;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
-import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
+import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SoulNetwork;
@@ -60,7 +60,7 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
             BlockPos blockPos = blockHit.getBlockPos();
             BlockEntity tile = level.getBlockEntity(blockPos);
 
-            if (tile instanceof BloodAltarTile altar) {
+            if (tile instanceof AraVitaeTile altar) {
                 showAltarInfo(player, altar);
             } else {
                 showNetworkInfo(player, stack);
@@ -84,7 +84,7 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
         }
     }
 
-    private void showAltarInfo(Player player, BloodAltarTile altar) {
+    private void showAltarInfo(Player player, AraVitaeTile altar) {
         int tier = altar.getTier();
         int currentEssence = altar.getMainTank();
         int capacity = altar.getTankCapacity(0);
@@ -98,7 +98,7 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
         }
     }
 
-    private void showDetailedAltarStats(Player player, IBloodAltar altar) {
+    private void showDetailedAltarStats(Player player, IAraVitae altar) {
         player.sendSystemMessage(Component.literal("--- Altar Stats ---").withStyle(ChatFormatting.GOLD));
 
         player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "creative.capacityMod",

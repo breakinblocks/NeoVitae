@@ -38,7 +38,7 @@ public class NVTabs {
     public static final Holder<CreativeModeTab> MAIN = TABS.register(
             "main",
             () -> CreativeModeTab.builder()
-                    .icon(() -> new ItemStack(NVBlocks.BLOOD_ALTAR))
+                    .icon(() -> new ItemStack(NVBlocks.ARA_VITAE))
                     .title(Component.translatable("item_group.neovitae.main"))
                     .displayItems((parameters, output) -> {
                         addAll(NVBlocks.BLOCK_ITEMS, output::accept);

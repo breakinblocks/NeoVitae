@@ -20,26 +20,26 @@ public class SlatesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tiers of Slates");
-        this.pageText("The [#](8B0000)Blood Altar[#]()'s main use is the production of [#](8B0000)Slates[#](). Each tier of slate "
+        this.pageText("The [#](8B0000)Ara Vitae[#]()'s main use is the production of [#](8B0000)Slates[#](). Each tier of slate "
                 + "requires the previous tier and a more powerful altar than the last.");
 
         this.page("blank_reinforced", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Craft the [#](8B0000)Blank Slate[#]() in the Blood Altar (Tier 1, cost: 1,000 LP). "
+        this.pageText("Craft the [#](8B0000)Blank Slate[#]() in the Ara Vitae (Tier 1, cost: 1,000 LP). "
                 + "Uses a Smooth Stone as the input.\\\n\\\n"
-                + "Craft the [#](8B0000)Reinforced Slate[#]() in the Blood Altar (Tier 2, cost: 2,000 LP). "
+                + "Craft the [#](8B0000)Reinforced Slate[#]() in the Ara Vitae (Tier 2, cost: 2,000 LP). "
                 + "Uses a Blank Slate as the input.");
 
         this.page("imbued_demonic", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Craft the [#](8B0000)Imbued Slate[#]() in the Blood Altar (Tier 3, cost: 5,000 LP). "
+        this.pageText("Craft the [#](8B0000)Imbued Slate[#]() in the Ara Vitae (Tier 3, cost: 5,000 LP). "
                 + "Uses a Reinforced Slate as the input.\\\n\\\n"
-                + "Craft the [#](8B0000)Demonic Slate[#]() in the Blood Altar (Tier 4, cost: 15,000 LP). "
+                + "Craft the [#](8B0000)Demonic Slate[#]() in the Ara Vitae (Tier 4, cost: 15,000 LP). "
                 + "Uses an Imbued Slate as the input.");
 
         this.page("ethereal", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Craft the [#](8B0000)Ethereal Slate[#]() in the Blood Altar (Tier 5, cost: 30,000 LP). "
+        this.pageText("Craft the [#](8B0000)Ethereal Slate[#]() in the Ara Vitae (Tier 5, cost: 30,000 LP). "
                 + "Uses a Demonic Slate as the input.");
     }
 
@@ -50,7 +50,7 @@ public class SlatesEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Crafting components produced in the Blood Altar at increasing tiers.";
+        return "Crafting components produced in the Ara Vitae at increasing tiers.";
     }
 
     @Override

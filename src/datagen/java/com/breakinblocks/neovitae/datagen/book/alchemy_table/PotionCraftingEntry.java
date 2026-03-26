@@ -37,7 +37,7 @@ public class PotionCraftingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Alchemy Flask");
-        this.pageText("Craft the [#](8B0000)Alchemy Flask[#]() in the Blood Altar (recipe: neovitae:blood_altar/alchemy_flask). "
+        this.pageText("Craft the [#](8B0000)Alchemy Flask[#]() in the Ara Vitae (recipe: neovitae:ara_vitae/alchemy_flask). "
                 + "A sturdy Flask that is far more capacious than any measly bottle!");
 
         this.page("effects", () -> BookTextPageModel.create()

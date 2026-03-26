@@ -55,7 +55,7 @@ public class TartaricGemsEntry extends EntryProvider {
         this.page("common_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Your [#](8B0000)Lesser Tartaric Gem[#]() is a noted improvement, but once more you chafe under its "
-                + "limitations. To progress further will involve focusing on your [#](8B0000)Blood Altar[#](), as you "
+                + "limitations. To progress further will involve focusing on your [#](8B0000)Ara Vitae[#](), as you "
                 + "require the powers of an [#](8B0000)Imbued Slate[#](). Combining this slate with your gem and further "
                 + "refining it with another [#](8B0000)Diamond[#]() and a [#](8B0000)Block of Gold[#](), you have found a way to once "
                 + "again quadruple its storage capabilities.");

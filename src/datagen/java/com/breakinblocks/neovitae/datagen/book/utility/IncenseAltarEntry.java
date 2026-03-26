@@ -23,7 +23,7 @@ public class IncenseAltarEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Incense Altar");
         this.pageText("The [#](8B0000)Incense Altar[#]() is a multiblock structure that can be used to boost your self-sacrificing "
-                + "at a Blood Altar. By standing near your setup, the Incense Altar will calm your soul based on "
+                + "at a Ara Vitae. By standing near your setup, the Incense Altar will calm your soul based on "
                 + "the area's total Tranquility, allowing you to significantly increase your LP gains.");
 
         this.page("recipe_incense", () -> BookTextPageModel.create()
@@ -39,7 +39,7 @@ public class IncenseAltarEntry extends EntryProvider {
                 + "5 block radius of the Altar.\\\n\\\n"
                 + "While the Altar is working, it will emit flame particles from its top and transform your "
                 + "Sacrificial Knife. Once your knife starts to shine, holding and releasing right click near a "
-                + "Blood Altar will sacrifice 90%% of your health all at once.");
+                + "Ara Vitae will sacrifice 90%% of your health all at once.");
 
         this.page("setup_image", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -52,7 +52,7 @@ public class IncenseAltarEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Tranquility Bonus");
         this.pageText("Based on the total Tranquility of the area, you will receive a bonus to the LP added to "
-                + "the Blood Altar. Hovering over the Incense Altar with either a Divination Sigil or Seer's Sigil "
+                + "the Ara Vitae. Hovering over the Incense Altar with either a Divination Sigil or Seer's Sigil "
                 + "will display the total Tranquility (top number) and the percentage bonus received when sacrificing "
                 + "(bottom number). When you sacrifice, it will take the LP that you would normally get and multiply "
                 + "it by (1 + bonus/100).");

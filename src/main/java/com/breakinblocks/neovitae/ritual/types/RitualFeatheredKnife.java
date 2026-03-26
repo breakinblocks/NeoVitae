@@ -6,7 +6,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
+import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Ritual of the Feathered Knife - damages nearby players to generate LP for a Blood Altar.
+ * Ritual of the Feathered Knife - damages nearby players to generate LP for a Ara Vitae.
  *
  * <p>Demon Will effects:
  * <ul>
@@ -67,7 +67,7 @@ public class RitualFeatheredKnife extends Ritual {
         refreshTime = will.hasDefault() ? 10 : 20;
 
         // Find the altar (use cached position first, fallback to search)
-        BloodAltarTile altar = findAltar(ctx);
+        AraVitaeTile altar = findAltar(ctx);
         if (altar == null) return;
 
         // Determine health threshold based on will types
@@ -163,7 +163,7 @@ public class RitualFeatheredKnife extends Ritual {
         will.drain(ctx.level(), masterPos);
     }
 
-    private BloodAltarTile findAltar(RitualContext ctx) {
+    private AraVitaeTile findAltar(RitualContext ctx) {
         RitualHelper.AltarSearchResult result = RitualHelper.findAltar(ctx, this, ALTAR_RANGE, altarOffsetPos);
         altarOffsetPos = result.offset();
         return result.altar();

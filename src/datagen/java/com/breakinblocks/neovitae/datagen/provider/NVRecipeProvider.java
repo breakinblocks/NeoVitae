@@ -62,7 +62,7 @@ public class NVRecipeProvider extends RecipeProvider {
     protected void buildRecipes(RecipeOutput output) {
         addVanillaCraftingRecipes(output);
         addTieredRecipes(output);
-        addBloodAltarRecipes(output);
+        addAraVitaeRecipes(output);
         addSoulForgeRecipes(output);
         addAlchemyArrayRecipes(output);
         addAlchemyTableRecipes(output);
@@ -84,8 +84,8 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_gold", has(Tags.Items.INGOTS_GOLD))
                 .save(output);
 
-        // Blood Altar - stone frame with furnace, gold ingots on bottom
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, NVBlocks.BLOOD_ALTAR.block().get())
+        // Ara Vitae - stone frame with furnace, gold ingots on bottom
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, NVBlocks.ARA_VITAE.block().get())
                 .pattern("s s")
                 .pattern("sfs")
                 .pattern("ggg")
@@ -477,7 +477,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("blood_tank_upgrade"));
     }
 
-    private void addBloodAltarRecipes(RecipeOutput output) {
+    private void addAraVitaeRecipes(RecipeOutput output) {
         // Blood Orb progression - each orb is made from different materials, NOT from previous orb
         AltarRecipeBuilder.build(NVItems.ORB_WEAK.get())
                 .from(Tags.Items.GEMS_DIAMOND)
@@ -485,7 +485,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .bloodNeeded(2000)
                 .consumption(5)
                 .drain(1)
-                .unlockedBy("has_altar", has(NVBlocks.BLOOD_ALTAR.block().get()))
+                .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
                 .save(output, NeoVitae.rl("weak_blood_orb"));
 
         AltarRecipeBuilder.build(NVItems.ORB_APPRENTICE.get())
@@ -533,7 +533,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .bloodNeeded(1000)
                 .consumption(5)
                 .drain(5)
-                .unlockedBy("has_altar", has(NVBlocks.BLOOD_ALTAR.block().get()))
+                .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
                 .save(output, NeoVitae.rl("blank_slate"));
 
         AltarRecipeBuilder.build(NVItems.SLATE_REINFORCED.get())
@@ -572,14 +572,14 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_demonic_slate", has(NVItems.SLATE_DEMONIC.get()))
                 .save(output, NeoVitae.rl("ethereal_slate"));
 
-        // Additional Blood Altar recipes
+        // Additional Ara Vitae recipes
         AltarRecipeBuilder.build(NVItems.SOUL_SNARE.get())
                 .from(Tags.Items.STRINGS)
                 .minTier(0)
                 .bloodNeeded(500)
                 .consumption(5)
                 .drain(1)
-                .unlockedBy("has_altar", has(NVBlocks.BLOOD_ALTAR.block().get()))
+                .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
                 .save(output, NeoVitae.rl("soul_snare"));
 
         AltarRecipeBuilder.build(NVItems.DAGGER_OF_SACRIFICE.get())
@@ -588,7 +588,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .bloodNeeded(3000)
                 .consumption(5)
                 .drain(5)
-                .unlockedBy("has_altar", has(NVBlocks.BLOOD_ALTAR.block().get()))
+                .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
                 .save(output, NeoVitae.rl("dagger_of_sacrifice"));
 
         AltarRecipeBuilder.build(NVFluids.LIFE_ESSENCE_BUCKET.get())
@@ -597,7 +597,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .bloodNeeded(1000)
                 .consumption(5)
                 .drain(0)
-                .unlockedBy("has_altar", has(NVBlocks.BLOOD_ALTAR.block().get()))
+                .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
                 .save(output, NeoVitae.rl("bucket_life"));
 
         // Teleposer Focus - ender pearl on tier 3 altar

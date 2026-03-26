@@ -29,13 +29,13 @@ public class GlossaryEntry extends EntryProvider {
         this.pageTitle("Blood");
         this.pageText("[#](8B0000)Blood[#]() is the raw, unrefined substance found in living creatures. "
                 + "When you use a Sacrificial Knife or Dagger of Sacrifice, you are extracting this raw blood "
-                + "and offering it to the Blood Altar to be refined into something more useful.");
+                + "and offering it to the Ara Vitae to be refined into something more useful.");
 
         this.page("life_essence", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Life Essence");
-        this.pageText("[#](8B0000)Life Essence[#]() is refined blood that has been sanctified within the Blood Altar. "
+        this.pageText("[#](8B0000)Life Essence[#]() is refined blood that has been sanctified within the Ara Vitae. "
                 + "It is a physical liquid that can be stored in the Altar's basin, transferred using Dislocation Runes, "
                 + "collected in a bucket, or used for crafting recipes within the Altar.\\\n\\\n"
                 + "When the guide refers to the Altar's capacity or contents, it is referring to Life Essence.");
@@ -64,7 +64,7 @@ public class GlossaryEntry extends EntryProvider {
         this.pageTitle("The Refinement Process");
         this.pageText("To summarize the progression:\\\n\\\n"
                 + "- [#](8B0000)Blood[#]() (raw) is extracted from living creatures\n"
-                + "- [#](8B0000)Life Essence[#]() (refined) is created when blood is processed in the Blood Altar\n"
+                + "- [#](8B0000)Life Essence[#]() (refined) is created when blood is processed in the Ara Vitae\n"
                 + "- [#](8B0000)LP[#]() (pure) is created when Life Essence is absorbed by a Blood Orb into your Soul Network\\\n\\\n"
                 + "Each stage represents a further purification of the life force.");
     }

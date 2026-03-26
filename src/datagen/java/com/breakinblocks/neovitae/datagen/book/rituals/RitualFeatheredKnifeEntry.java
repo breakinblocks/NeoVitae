@@ -33,7 +33,7 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("This ritual drains health from nearby players and converts it into [#](8B0000)LP[#]() deposited into a nearby [#](8B0000)Blood Altar[#](). The efficiency is affected by [#](8B0000)Runes of Self Sacrifice[#]() and the [#](8B0000)Tough Palms[#]() Living Armor upgrade.");
+        this.pageText("This ritual drains health from nearby players and converts it into [#](8B0000)LP[#]() deposited into a nearby [#](8B0000)Ara Vitae[#](). The efficiency is affected by [#](8B0000)Runes of Self Sacrifice[#]() and the [#](8B0000)Tough Palms[#]() Living Armor upgrade.");
 
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

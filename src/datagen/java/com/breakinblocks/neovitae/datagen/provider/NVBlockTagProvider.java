@@ -60,10 +60,10 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .addAll(BlockGroups.HELLFORGED_BLOCK);
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(NVBlocks.BLOOD_ALTAR.block().getKey(), NVBlocks.BLOOD_TANK.block().getKey());
+                .add(NVBlocks.ARA_VITAE.block().getKey(), NVBlocks.BLOOD_TANK.block().getKey());
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
-                .add(NVBlocks.BLOOD_ALTAR.block().getKey(), NVBlocks.BLOOD_TANK.block().getKey());
+                .add(NVBlocks.ARA_VITAE.block().getKey(), NVBlocks.BLOOD_TANK.block().getKey());
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .addAll(BlockGroups.BLOODSTONE)

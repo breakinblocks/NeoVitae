@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "id": "neovitae:blood_altar"
+      "id": "neovitae:ara_vitae"
     },
     "title": {
       "translate": "advancements.neovitae.root.title"
@@ -16,18 +16,18 @@
     "hidden": false
   },
   "criteria": {
-    "get_blood_altar": {
+    "get_ara_vitae": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "neovitae:blood_altar"
+            "items": "neovitae:ara_vitae"
           }
         ]
       }
     }
   },
   "requirements": [
-    ["get_blood_altar"]
+    ["get_ara_vitae"]
   ]
 }

@@ -26,7 +26,7 @@ public class ActivationCrystalsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Weak Activation Crystal");
-        this.pageText("The [#](8B0000)Weak Activation Crystal[#]() is crafted in the Blood Altar. Simply press Use with a bound Activation Crystal on a Master Ritual Stone to activate the ritual it's part of - assuming it's suitably assembled, that is.");
+        this.pageText("The [#](8B0000)Weak Activation Crystal[#]() is crafted in the Ara Vitae. Simply press Use with a bound Activation Crystal on a Master Ritual Stone to activate the ritual it's part of - assuming it's suitably assembled, that is.");
     }
 
     @Override

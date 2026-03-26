@@ -23,23 +23,12 @@ public class CapacityRuneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Rune of Capacity");
-        this.pageText("The [#](8B0000)Rune of Capacity[#]() increases the capacity of the [#](8B0000)Blood Altar[#]() by an "
+        this.pageText("The [#](8B0000)Rune of Capacity[#]() increases the capacity of the [#](8B0000)Ara Vitae[#]() by an "
                 + "additive +20%% per rune.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_capacity")));
 
-        this.page("recipe2", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_capacity"))
-                .withText(this.context().pageText()));
-        this.pageText("With some [#](8B0000)Netherite Scrap[#]() and some [#](8B0000)Intricate Hellforged Parts[#]() looted from the "
-                + "[#](8B0000)Demon Realm[#](), you can double the power of your [#](8B0000)Rune of Capacity[#](), increasing the "
-                + "capacity of the [#](8B0000)Blood Altar[#]() by an additive +40%% per rune.");
-
-        this.page("reversion", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("If you change your mind, you can revert the upgraded rune back to its base version "
-                + "in the Alchemical Reaction Chamber (ARC).");
     }
 
     @Override
@@ -49,7 +38,7 @@ public class CapacityRuneEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increases the Blood Altar's Life Essence capacity.";
+        return "Increases the Ara Vitae's Life Essence capacity.";
     }
 
     @Override

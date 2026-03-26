@@ -61,7 +61,7 @@ public class AltarTiers {
         public static final ResourceLocation TRANSCENDENT = bm("transcendent");
     }
 
-    private static final TagOrElementLocation ALTAR = new TagOrElementLocation(NVBlocks.BLOOD_ALTAR.block().getId(), false);
+    private static final TagOrElementLocation ALTAR = new TagOrElementLocation(NVBlocks.ARA_VITAE.block().getId(), false);
 
     private static final TagOrElementLocation PILLAR = new TagOrElementLocation(NVTags.Blocks.PILLARS.location(), true);
     private static final TagOrElementLocation RUNE = new TagOrElementLocation(NVTags.Blocks.RUNES.location(), true);

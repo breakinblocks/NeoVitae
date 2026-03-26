@@ -23,7 +23,7 @@ public class DemonWillEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will");
-        this.pageText("Once you have a [#](8B0000)Blood Altar[#](), you'll need to gather a few [#](8B0000)Demon Wills[#](). "
+        this.pageText("Once you have a [#](8B0000)Ara Vitae[#](), you'll need to gather a few [#](8B0000)Demon Wills[#](). "
                 + "There are two ways to get Demon Will:\n"
                 + "- Killing a mob that has been hit with a [#](8B0000)Soul Snare[#]() and is killed when white particle effects appear.\n"
                 + "- By killing a hostile mob with a [#](8B0000)Sentient Sword[#]().\\\n\\\n"

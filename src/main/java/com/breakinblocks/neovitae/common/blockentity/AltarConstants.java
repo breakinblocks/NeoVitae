@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
 /**
- * Constants for Blood Altar balance calculations.
+ * Constants for Ara Vitae balance calculations.
  * Extracted for easier configuration and balance tuning.
  */
 public final class AltarConstants {

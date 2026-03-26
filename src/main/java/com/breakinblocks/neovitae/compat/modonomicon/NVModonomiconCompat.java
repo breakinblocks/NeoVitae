@@ -7,9 +7,9 @@ public class NVModonomiconCompat {
 
     public static void registerPageLoaders() {
         LoaderRegistry.registerPageLoader(
-                NVPageTypes.BLOOD_ALTAR,
-                BookBloodAltarRecipePage::fromJson,
-                BookBloodAltarRecipePage::fromNetwork
+                NVPageTypes.ARA_VITAE,
+                BookAraVitaeRecipePage::fromJson,
+                BookAraVitaeRecipePage::fromNetwork
         );
         LoaderRegistry.registerPageLoader(
                 NVPageTypes.HELLFIRE_FORGE,

@@ -20,7 +20,7 @@ public class RedstoneAutomationEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Redstone and Automation");
-        this.pageText("The [#](8B0000)Blood Altar[#]() is a fantastic tool, but standing around and waiting for slates to "
+        this.pageText("The [#](8B0000)Ara Vitae[#]() is a fantastic tool, but standing around and waiting for slates to "
                 + "craft is not your idea of a good time. Luckily, items and [#](8B0000)LP[#]() can be automatically piped "
                 + "in and out of the altar, albeit with a few caveats.\\\n\\\nWhile a simple [#](8B0000)Hopper[#]() lets you "
                 + "pipe items in, the Altar won't stop it from inputting more than 1 at a time. It will happily "
@@ -51,7 +51,7 @@ public class RedstoneAutomationEntry extends EntryProvider {
 
         this.page("comparator", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The amount of [#](8B0000)Life Essence[#]() in the [#](8B0000)Blood Altar[#]() can be read via a comparator on "
+        this.pageText("The amount of [#](8B0000)Life Essence[#]() in the [#](8B0000)Ara Vitae[#]() can be read via a comparator on "
                 + "the side, similarly to a vanilla chest.\\\n\\\nIf you place a [#](8B0000)Bloodstone Brick[#]() underneath the "
                 + "altar, the comparator will instead read the value of the [#](8B0000)Soul Network[#]() of the owner of any "
                 + "orb that is placed into the Altar.\\\n\\\nThe signal strength depends on the size of the orb in "
@@ -73,7 +73,7 @@ public class RedstoneAutomationEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Automating the Blood Altar with hoppers, pipes, and comparators.";
+        return "Automating the Ara Vitae with hoppers, pipes, and comparators.";
     }
 
     @Override

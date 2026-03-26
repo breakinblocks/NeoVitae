@@ -33,7 +33,7 @@ public class NVBlocks {
     public static final DeferredRegister<Item> BLOCK_ITEMS = DeferredRegister.createItems(NeoVitae.MODID);
     public static final BlockWithItemRegister BLOCK_REG = new BlockWithItemRegister(BLOCKS, BLOCK_ITEMS);
 
-    public static final BlockWithItemHolder<BloodAltarBlock, BlockItem> BLOOD_ALTAR = BLOCK_REG.register("blood_altar", BloodAltarBlock::new);
+    public static final BlockWithItemHolder<AraVitaeBlock, BlockItem> ARA_VITAE = BLOCK_REG.register("ara_vitae", AraVitaeBlock::new);
     public static final BlockWithItemHolder<BloodTankBlock, BlockItem> BLOOD_TANK = BLOCK_REG.register("blood_tank", BloodTankBlock::new, block -> new BlockItem(block, new Item.Properties().component(NVDataComponents.CONTAINER_TIER, 1)));
     public static final BlockWithItemHolder<HellfireForgeBlock, BlockItem> HELLFIRE_FORGE = BLOCK_REG.register("hellfire_forge", HellfireForgeBlock::new);
     public static final BlockWithItemHolder<ARCBlock, BlockItem> ARC_BLOCK = BLOCK_REG.register("arc", ARCBlock::new);

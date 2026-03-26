@@ -7,8 +7,8 @@ public class NVModonomiconClientCompat {
 
     public static void registerPageRenderers() {
         PageRendererRegistry.registerPageRenderer(
-                NVPageTypes.BLOOD_ALTAR,
-                p -> new BookBloodAltarRecipePageRenderer((BookBloodAltarRecipePage) p)
+                NVPageTypes.ARA_VITAE,
+                p -> new BookAraVitaeRecipePageRenderer((BookAraVitaeRecipePage) p)
         );
         PageRendererRegistry.registerPageRenderer(
                 NVPageTypes.HELLFIRE_FORGE,

@@ -23,7 +23,7 @@ public class SpeedRuneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Speed Rune");
-        this.pageText("The [#](8B0000)Speed Rune[#]() increases all of the crafting operations of the Blood Altar. "
+        this.pageText("The [#](8B0000)Speed Rune[#]() increases all of the crafting operations of the Ara Vitae. "
                 + "The crafting speed (and speed that the progress is lost when empty) increases by an "
                 + "additive +20%% per rune.");
 
@@ -39,7 +39,7 @@ public class SpeedRuneEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Increases the Blood Altar's crafting speed.";
+        return "Increases the Ara Vitae's crafting speed.";
     }
 
     @Override

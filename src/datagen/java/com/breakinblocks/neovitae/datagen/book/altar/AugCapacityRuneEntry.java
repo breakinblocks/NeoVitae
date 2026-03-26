@@ -23,7 +23,7 @@ public class AugCapacityRuneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Rune of Aug. Capacity");
-        this.pageText("The [#](8B0000)Rune of Augmented Capacity[#]() increases the capacity of the [#](8B0000)Blood Altar[#]() by "
+        this.pageText("The [#](8B0000)Rune of Augmented Capacity[#]() increases the capacity of the [#](8B0000)Ara Vitae[#]() by "
                 + "a multiplicative +7.5%% per rune. The Augmented Capacity runes apply after the regular "
                 + "[#](8B0000)Capacity runes[#]().");
 
@@ -31,17 +31,6 @@ public class AugCapacityRuneEntry extends EntryProvider {
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_capacity_augmented"))
                 .withTitle1("Rune of Aug. Capacity"));
 
-        this.page("recipe2", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_capacity_augmented"))
-                .withText(this.context().pageText()));
-        this.pageText("With some [#](8B0000)Netherite Scrap[#]() and some [#](8B0000)Intricate Hellforged Parts[#]() looted from the "
-                + "[#](8B0000)Demon Realm[#](), you can double the power of your [#](8B0000)Rune of Augmented Capacity[#](), increasing "
-                + "the capacity of the [#](8B0000)Blood Altar[#]() by a multiplicative +15%% per rune.");
-
-        this.page("reversion", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("If you change your mind, you can revert the upgraded rune back to its base version "
-                + "in the Alchemical Reaction Chamber (ARC).");
     }
 
     @Override
@@ -51,7 +40,7 @@ public class AugCapacityRuneEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Multiplicatively increases the Blood Altar's capacity after regular Capacity runes.";
+        return "Multiplicatively increases the Ara Vitae's capacity after regular Capacity runes.";
     }
 
     @Override

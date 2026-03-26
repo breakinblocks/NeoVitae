@@ -10,7 +10,7 @@ public class NVGameTestRegistration {
     @SubscribeEvent
     public static void registerTests(RegisterGameTestsEvent event) {
         event.register(RoutingNodeTests.class);
-        event.register(BloodAltarTests.class);
+        event.register(AraVitaeTests.class);
         event.register(HellfireForgeTests.class);
         event.register(ARCTests.class);
         event.register(AlchemyTableTests.class);

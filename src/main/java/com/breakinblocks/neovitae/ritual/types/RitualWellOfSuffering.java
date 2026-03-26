@@ -6,7 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.blockentity.BloodAltarTile;
+import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.datamap.EntitySacrificeHelper;
 import com.breakinblocks.neovitae.common.tag.NVTags;
@@ -49,7 +49,7 @@ public class RitualWellOfSuffering extends Ritual {
                         && !e.getType().is(NVTags.Entities.WELL_OF_SUFFERING_BLACKLIST));
 
         // Find the altar for direct LP feeding
-        BloodAltarTile altar = findAltar(ctx);
+        AraVitaeTile altar = findAltar(ctx);
 
         int totalLP = 0;
 
@@ -84,7 +84,7 @@ public class RitualWellOfSuffering extends Ritual {
         }
     }
 
-    private BloodAltarTile findAltar(RitualContext ctx) {
+    private AraVitaeTile findAltar(RitualContext ctx) {
         RitualHelper.AltarSearchResult result = RitualHelper.findAltar(ctx, this, ALTAR_RANGE, altarOffsetPos);
         altarOffsetPos = result.offset();
         return result.altar();

@@ -8,7 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import com.breakinblocks.neovitae.common.recipe.bloodaltar.BloodAltarRecipe;
+import com.breakinblocks.neovitae.common.recipe.aravitae.AraVitaeRecipe;
 
 public class AltarRecipeBuilder extends BaseRecipeBuilder {
 
@@ -94,7 +94,7 @@ public class AltarRecipeBuilder extends BaseRecipeBuilder {
             throw new IllegalStateException("AltarRecipe requires bloodNeeded > 0");
         }
         Advancement.Builder advBuilder = getBuilder(output, id);
-        BloodAltarRecipe recipe = new BloodAltarRecipe(input, result, minTier, totalBlood, craftingSpeed, drainSpeed, copyInputComponents);
-        output.accept(id.withPrefix("blood_altar/"), recipe, advBuilder.build(advancementId(id, "blood_altar")));
+        AraVitaeRecipe recipe = new AraVitaeRecipe(input, result, minTier, totalBlood, craftingSpeed, drainSpeed, copyInputComponents);
+        output.accept(id.withPrefix("ara_vitae/"), recipe, advBuilder.build(advancementId(id, "ara_vitae")));
     }
 }

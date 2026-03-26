@@ -38,14 +38,14 @@ public class TeleposerEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Teleposition Focus");
-        this.pageText("The basic Teleposer Focus is crafted in the Blood Altar. "
+        this.pageText("The basic Teleposer Focus is crafted in the Ara Vitae. "
                 + "It will swap anything in a 1x1x1 block area above the two teleposers.");
 
         this.page("enhanced_focus", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Enhanced Focus");
-        this.pageText("The Enhanced Teleposer Focus is also crafted in the Blood Altar. "
+        this.pageText("The Enhanced Teleposer Focus is also crafted in the Ara Vitae. "
                 + "It will swap anything in a 3x3x3 block area centred directly above the two teleposers.");
 
         this.page("reinforced_focus", () -> BookCraftingRecipePageModel.create()

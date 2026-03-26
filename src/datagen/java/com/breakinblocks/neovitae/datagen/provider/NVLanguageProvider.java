@@ -675,6 +675,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.COPPER_GRAVEL.get(), "Copper Gravel");
         add(NVItems.COPPER_SAND.get(), "Copper Sand");
         add(NVItems.COAL_SAND.get(), "Coal Sand");
+        add(NVItems.DEMONITE_RAW.get(), "Raw Demonite");
         add(NVItems.DEMONITE_FRAGMENT.get(), "Demonite Fragment");
         add(NVItems.DEMONITE_GRAVEL.get(), "Demonite Gravel");
         add(NVItems.NETHERITE_SCRAP_FRAGMENT.get(), "Ancient Debris Fragment");

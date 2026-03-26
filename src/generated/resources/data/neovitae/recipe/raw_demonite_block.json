@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "d": {
+      "item": "neovitae:raw_demonite"
+    }
+  },
+  "pattern": [
+    "ddd",
+    "ddd",
+    "ddd"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:raw_demonite_block"
+  }
+}

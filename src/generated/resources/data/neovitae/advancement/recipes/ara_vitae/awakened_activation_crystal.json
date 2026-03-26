@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:awakened_activation_crystal"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_weak_crystal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:activation_crystal_weak"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_weak_crystal"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:awakened_activation_crystal"
+    ]
+  }
+}

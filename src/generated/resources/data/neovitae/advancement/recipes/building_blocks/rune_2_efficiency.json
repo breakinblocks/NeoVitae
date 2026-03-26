@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_efficiency_rune": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:rune_efficiency"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:rune_2_efficiency"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_efficiency_rune"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:rune_2_efficiency"
+    ]
+  }
+}

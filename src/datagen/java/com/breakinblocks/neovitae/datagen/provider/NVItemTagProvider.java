@@ -109,5 +109,8 @@ public class NVItemTagProvider extends ItemTagsProvider {
 
         // Ingot tags
         tag(NVTags.Items.INGOTS_HELLFORGED).add(NVItems.HELLFORGED_INGOT.get());
+
+        // Raw material tags
+        tag(NVTags.Items.RAW_MATERIALS_HELLFORGED).add(NVItems.DEMONITE_RAW.get());
     }
 }

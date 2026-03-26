@@ -138,6 +138,7 @@ public class NVItems {
     public static final DeferredHolder<Item, Item> GOLD_FRAGMENT = plainItem("gold_fragment");
     public static final DeferredHolder<Item, Item> COPPER_FRAGMENT = plainItem("copper_fragment");
     public static final DeferredHolder<Item, Item> NETHERITE_SCRAP_FRAGMENT = plainItem("fragment_netherite_scrap");
+    public static final DeferredHolder<Item, Item> DEMONITE_RAW = plainItem("raw_demonite");
     public static final DeferredHolder<Item, Item> DEMONITE_FRAGMENT = plainItem("demonite_fragment");
 
     public static final DeferredHolder<Item, Item> IRON_GRAVEL = plainItem("iron_gravel");

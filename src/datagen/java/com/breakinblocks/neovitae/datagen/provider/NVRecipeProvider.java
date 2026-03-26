@@ -142,6 +142,31 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(NVBlocks.HELLFORGED_BLOCK.block().get()), has(NVBlocks.HELLFORGED_BLOCK.block().get()))
                 .save(output, NeoVitae.rl("hellforged_ingot_from_block"));
 
+        // Raw Demonite Block from Raw Demonite (9 -> 1 block)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, NVBlocks.RAW_DEMONITE_BLOCK.block().get())
+                .pattern("ddd")
+                .pattern("ddd")
+                .pattern("ddd")
+                .define('d', NVItems.DEMONITE_RAW.get())
+                .unlockedBy("has_raw_demonite", has(NVItems.DEMONITE_RAW.get()))
+                .save(output, NeoVitae.rl("raw_demonite_block"));
+
+        // Raw Demonite from Block (1 block -> 9)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, NVItems.DEMONITE_RAW.get(), 9)
+                .requires(NVBlocks.RAW_DEMONITE_BLOCK.block().get())
+                .unlockedBy("has_raw_demonite_block", has(NVBlocks.RAW_DEMONITE_BLOCK.block().get()))
+                .save(output, NeoVitae.rl("raw_demonite_from_block"));
+
+        // Raw Demonite smelting -> Hellforged Ingot
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.DEMONITE_RAW.get()), RecipeCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0, 200)
+                .unlockedBy("has_raw_demonite", has(NVItems.DEMONITE_RAW.get()))
+                .save(output, NeoVitae.rl("smelting/hellforged_ingot_from_raw"));
+
+        // Raw Demonite blasting -> Hellforged Ingot
+        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.DEMONITE_RAW.get()), RecipeCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0, 100)
+                .unlockedBy("has_raw_demonite", has(NVItems.DEMONITE_RAW.get()))
+                .save(output, NeoVitae.rl("blasting/hellforged_ingot_from_raw"));
+
         // Synthetic Point - iron nuggets corners, meat edges, redstone center
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, NVItems.SYNTHETIC_POINT.get(), 2)
                 .pattern("imi")
@@ -287,6 +312,20 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_blank_rune", has(NVBlocks.RUNE_BLANK.block().get()))
                 .save(output);
 
+        // Efficiency Rune - endgame recipe with hellforged parts
+        // Pattern: RsR / hrh / ReR
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, NVBlocks.RUNE_EFFICIENCY.block().get())
+                .pattern("RsR")
+                .pattern("hrh")
+                .pattern("ReR")
+                .define('R', Tags.Items.DUSTS_REDSTONE)
+                .define('s', NVItems.SLATE_ETHEREAL.get())
+                .define('h', NVItems.HELLFORGED_PARTS.get())
+                .define('r', NVBlocks.RUNE_BLANK.block().get())
+                .define('e', OrbTierIngredient.of(5))
+                .unlockedBy("has_hellforged_parts", has(NVItems.HELLFORGED_PARTS.get()))
+                .save(output);
+
         // Tier 2 Runes (require bloodstone and netherite)
         addTier2RuneRecipe(output, NVBlocks.RUNE_2_SPEED.block().get(), NVBlocks.RUNE_SPEED.block().get());
         addTier2RuneRecipe(output, NVBlocks.RUNE_2_SACRIFICE.block().get(), NVBlocks.RUNE_SACRIFICE.block().get());
@@ -297,6 +336,16 @@ public class NVRecipeProvider extends RecipeProvider {
         addTier2RuneRecipe(output, NVBlocks.RUNE_2_ACCELERATION.block().get(), NVBlocks.RUNE_ACCELERATION.block().get());
         addTier2RuneRecipe(output, NVBlocks.RUNE_2_CAPACITY_AUGMENTED.block().get(), NVBlocks.RUNE_CAPACITY_AUGMENTED.block().get());
         addTier2RuneRecipe(output, NVBlocks.RUNE_2_ORB.block().get(), NVBlocks.RUNE_ORB.block().get());
+        // Reinforced Efficiency Rune - special recipe: 2 base efficiency runes + netherite scraps
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, NVBlocks.RUNE_2_EFFICIENCY.block().get())
+                .pattern("nrn")
+                .pattern("nsn")
+                .pattern("nrn")
+                .define('n', Items.NETHERITE_SCRAP)
+                .define('r', NVBlocks.RUNE_EFFICIENCY.block().get())
+                .define('s', net.minecraft.tags.ItemTags.STONE_CRAFTING_MATERIALS)
+                .unlockedBy("has_efficiency_rune", has(NVBlocks.RUNE_EFFICIENCY.block().get()))
+                .save(output);
 
         // Crystal Cluster - NO CRAFTING RECIPE (obtained from rituals/other means)
 
@@ -525,7 +574,33 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_master_orb", has(NVItems.ORB_MASTER.get()))
                 .save(output, NeoVitae.rl("archmage_blood_orb"));
 
-        // Note: Transcendent orb doesn't exist in 1.20.1 - removed
+        AltarRecipeBuilder.build(NVItems.ORB_TRANSCENDENT.get())
+                .from(NVItems.SLATE_ETHEREAL.get())
+                .minTier(5)
+                .bloodNeeded(200000)
+                .consumption(100)
+                .drain(200)
+                .unlockedBy("has_archmage_orb", has(NVItems.ORB_ARCHMAGE.get()))
+                .save(output, NeoVitae.rl("transcendent_blood_orb"));
+
+        // Activation Crystals
+        AltarRecipeBuilder.build(NVItems.ACTIVATION_CRYSTAL_WEAK.get())
+                .from(NVItems.LAVA_CRYSTAL.get())
+                .minTier(2)
+                .bloodNeeded(10000)
+                .consumption(20)
+                .drain(10)
+                .unlockedBy("has_lava_crystal", has(NVItems.LAVA_CRYSTAL.get()))
+                .save(output, NeoVitae.rl("weak_activation_crystal"));
+
+        AltarRecipeBuilder.build(NVItems.ACTIVATION_CRYSTAL_AWAKENED.get())
+                .from(NVItems.ACTIVATION_CRYSTAL_WEAK.get())
+                .minTier(4)
+                .bloodNeeded(40000)
+                .consumption(30)
+                .drain(50)
+                .unlockedBy("has_weak_crystal", has(NVItems.ACTIVATION_CRYSTAL_WEAK.get()))
+                .save(output, NeoVitae.rl("awakened_activation_crystal"));
 
         // Slates
         AltarRecipeBuilder.build(NVItems.SLATE_BLANK.get())
@@ -3597,6 +3672,13 @@ public class NVRecipeProvider extends RecipeProvider {
                 .chancedOutput(new ItemStack(NVItems.HELLFORGED_PARTS.get()), 1.0)
                 .chancedOutput(new ItemStack(Items.NETHERITE_SCRAP, 4), 1.0)
                 .save(output, NeoVitae.rl("reversion/self_sac"));
+
+        // Efficiency Rune 2 -> Efficiency Rune
+        AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
+                .input(NVBlocks.RUNE_2_EFFICIENCY.item().get())
+                .guaranteedOutput(new ItemStack(NVBlocks.RUNE_EFFICIENCY.item().get()))
+                .chancedOutput(new ItemStack(Items.NETHERITE_SCRAP, 6), 1.0)
+                .save(output, NeoVitae.rl("reversion/efficiency"));
 
         // === BLOOD ORB REVERSION ===
         // Weak Blood Orb -> Diamond

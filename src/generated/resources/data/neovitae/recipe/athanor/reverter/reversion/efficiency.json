@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:athanor",
+  "chance_outputs": [
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 6,
+        "id": "minecraft:netherite_scrap"
+      }
+    }
+  ],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "neovitae:rune_efficiency"
+    }
+  ],
+  "input": {
+    "item": "neovitae:rune_2_efficiency"
+  },
+  "tool": {
+    "tag": "neovitae:athanor_tool/reverter"
+  }
+}

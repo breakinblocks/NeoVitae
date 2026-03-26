@@ -78,7 +78,11 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .addAll(BlockGroups.RUNE_T1);
 
         this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .addAll(BlockGroups.HELLFORGED_BLOCK);
+                .addAll(BlockGroups.HELLFORGED_BLOCK)
+                .add(NVBlocks.RAW_DEMONITE_BLOCK.block().getKey());
+
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(NVBlocks.RAW_DEMONITE_BLOCK.block().getKey());
 
         this.tag(Tags.Blocks.NEEDS_NETHERITE_TOOL)
                 .addAll(BlockGroups.RUNE_T2);

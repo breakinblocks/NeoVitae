@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "neovitae:item/soul_gem_grand_default"
+  }
+}

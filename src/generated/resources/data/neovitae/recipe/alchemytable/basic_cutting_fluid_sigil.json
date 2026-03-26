@@ -1,0 +1,30 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:plant_oil"
+    },
+    {
+      "tag": "c:dusts/redstone"
+    },
+    {
+      "tag": "c:gunpowders"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "tag": "c:dusts/coal"
+    },
+    {
+      "item": "neovitae:sigil_water"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:basic_cutting_fluid"
+  },
+  "syphon": 1100,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

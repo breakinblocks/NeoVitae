@@ -638,6 +638,24 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.SANGUINE_REVERTER.get(), "Sanguine Reverter");
         add(NVItems.GUIDE_BOOK.get(), "Scriptura Vitae");
 
+        // Lamina tooltips
+        addTooltip("lamina_maleficus.desc", "Sacrifice your own health to fill a nearby Ara Vitae with Life Essence");
+        addTooltip("lamina_exhauriens.desc", "Slay a living creature to fill a nearby Ara Vitae with Life Essence");
+
+        // Rune tooltips
+        addTooltip("rune.blank", "A basic rune with no special effect");
+        addTooltip("rune.speed", "Increases Ara Vitae crafting speed");
+        addTooltip("rune.sacrifice", "Increases LP gained from mob sacrifice");
+        addTooltip("rune.self_sacrifice", "Increases LP gained from self-sacrifice");
+        addTooltip("rune.capacity", "Increases Ara Vitae LP capacity");
+        addTooltip("rune.capacity_augmented", "Multiplicative increase to Ara Vitae LP capacity");
+        addTooltip("rune.dislocation", "Increases fluid transfer rate to/from the Ara Vitae");
+        addTooltip("rune.orb", "Increases Blood Orb capacity while in the Ara Vitae");
+        addTooltip("rune.charging", "Pre-charges LP for faster crafting");
+        addTooltip("rune.acceleration", "Reduces ticks between Ara Vitae operations");
+        addTooltip("rune.efficiency", "Reduces LP loss when the Ara Vitae runs out mid-craft");
+        addTooltip("rune.reinforced", "Reinforced: double the effect of the base rune");
+
         // Flask tooltips
         addTooltip("flask.combination", "Combination potion - see the Scriptura Vitae for details");
 

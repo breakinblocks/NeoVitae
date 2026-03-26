@@ -1,0 +1,19 @@
+{
+  "values": [
+    "neovitae:exp/arrow_protect",
+    "neovitae:exp/physical_protect",
+    "neovitae:exp/fall_protect",
+    "neovitae:exp/digging",
+    "neovitae:exp/experienced",
+    "neovitae:exp/fire_resist",
+    "neovitae:exp/health",
+    "neovitae:exp/jump",
+    "neovitae:exp/knockback_resist",
+    "neovitae:exp/melee_damage",
+    "neovitae:exp/poison_resist",
+    "neovitae:exp/repair",
+    "neovitae:exp/self_sacrifice",
+    "neovitae:exp/speed",
+    "neovitae:exp/sprint_attack"
+  ]
+}

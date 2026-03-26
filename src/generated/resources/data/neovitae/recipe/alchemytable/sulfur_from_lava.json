@@ -1,0 +1,18 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "minecraft:lava_bucket"
+    },
+    {
+      "tag": "c:cobblestones"
+    }
+  ],
+  "output": {
+    "count": 4,
+    "id": "neovitae:sulfur"
+  },
+  "syphon": 200,
+  "ticks": 100,
+  "upgradeLevel": 0
+}

@@ -1,0 +1,38 @@
+{
+  "effects": {
+    "neovitae:tick": [
+      {
+        "effect": {
+          "type": "neovitae:cooldown",
+          "id": "neovitae:repair"
+        }
+      },
+      {
+        "effect": {
+          "type": "neovitae:reset_cooldown",
+          "amounts": 100.0,
+          "id": "neovitae:repair",
+          "reset_effect": {
+            "type": "neovitae:random_armour_damage",
+            "amounts": -2.0
+          }
+        },
+        "requirements": {
+          "condition": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "nbt": "{\"neoforge:attachments\":{\"neovitae:living_cooldown\":{\"neovitae:repair\":0.0d}}}"
+          }
+        }
+      }
+    ]
+  },
+  "levels": {
+    "exp_to_level": {
+      "10": 1
+    },
+    "level_to_cost": {
+      "1": 25
+    }
+  }
+}

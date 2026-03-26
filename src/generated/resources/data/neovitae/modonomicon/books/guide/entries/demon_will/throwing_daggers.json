@@ -1,0 +1,97 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "demon_will",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "demon_will/demon_will"
+  },
+  "description": "book.neovitae.guide.demon_will.throwing_daggers.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:throwing_dagger"
+  },
+  "name": "book.neovitae.guide.demon_will.throwing_daggers.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.throwing_daggers.intro.text",
+      "title": "book.neovitae.guide.demon_will.throwing_daggers.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.throwing_daggers.iron_dagger.text",
+      "title": "book.neovitae.guide.demon_will.throwing_daggers.iron_dagger.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.throwing_daggers.syringe_dagger.text",
+      "title": "book.neovitae.guide.demon_will.throwing_daggers.syringe_dagger.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "count": 1,
+        "item": "neovitae:slate_ampoule"
+      },
+      "text": "book.neovitae.guide.demon_will.throwing_daggers.slate_ampoule.text",
+      "title": "Slate Ampoule"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.throwing_daggers.amethyst_dagger.text",
+      "title": "book.neovitae.guide.demon_will.throwing_daggers.amethyst_dagger.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.demon_will.throwing_daggers.tipped_dagger.text",
+      "title": "book.neovitae.guide.demon_will.throwing_daggers.tipped_dagger.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "demon_will/demon_will",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 11,
+  "x": 0,
+  "y": -3
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "h": {
+      "item": "neovitae:hellforged_parts"
+    },
+    "n": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "r": {
+      "item": "neovitae:rune_sacrifice_self"
+    },
+    "s": {
+      "tag": "minecraft:stone_crafting_materials"
+    }
+  },
+  "pattern": [
+    "nhn",
+    "srs",
+    "nsn"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:rune_2_sacrifice_self"
+  }
+}

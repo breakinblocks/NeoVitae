@@ -1,0 +1,7 @@
+{
+  "effect": {
+    "type": "neovitae:teleposition"
+  },
+  "lp_cost_air": 1000,
+  "lp_cost_block": 1000
+}

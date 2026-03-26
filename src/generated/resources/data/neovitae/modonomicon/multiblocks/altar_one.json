@@ -1,0 +1,16 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "0": {
+      "type": "modonomicon:block",
+      "block": "neovitae:ara_vitae"
+    }
+  },
+  "pattern": [
+    [
+      "___",
+      "_0_",
+      "___"
+    ]
+  ]
+}

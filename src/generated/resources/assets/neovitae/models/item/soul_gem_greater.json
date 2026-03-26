@@ -1,0 +1,34 @@
+{
+  "overrides": [
+    {
+      "model": "neovitae:item/variant/soul_gem_greater_default",
+      "predicate": {
+        "neovitae:will_type": 0.0
+      }
+    },
+    {
+      "model": "neovitae:item/variant/soul_gem_greater_corrosive",
+      "predicate": {
+        "neovitae:will_type": 1.0
+      }
+    },
+    {
+      "model": "neovitae:item/variant/soul_gem_greater_destructive",
+      "predicate": {
+        "neovitae:will_type": 2.0
+      }
+    },
+    {
+      "model": "neovitae:item/variant/soul_gem_greater_steadfast",
+      "predicate": {
+        "neovitae:will_type": 3.0
+      }
+    },
+    {
+      "model": "neovitae:item/variant/soul_gem_greater_vengeful",
+      "predicate": {
+        "neovitae:will_type": 4.0
+      }
+    }
+  ]
+}

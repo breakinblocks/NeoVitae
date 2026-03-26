@@ -1,0 +1,39 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "utility",
+  "description": "book.neovitae.guide.utility.life_essence_bucket.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:life_essence_bucket"
+  },
+  "name": "book.neovitae.guide.utility.life_essence_bucket.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.life_essence_bucket.intro.text",
+      "title": "book.neovitae.guide.utility.life_essence_bucket.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.life_essence_bucket.recipe.text",
+      "title": "book.neovitae.guide.utility.life_essence_bucket.recipe.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 9,
+  "x": 3,
+  "y": 1
+}

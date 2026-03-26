@@ -1,0 +1,27 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:hidden_knowledge_anointment"
+    },
+    {
+      "item": "neovitae:strong_tau"
+    },
+    {
+      "item": "neovitae:sand_hellforged"
+    },
+    {
+      "item": "minecraft:glow_berries"
+    },
+    {
+      "item": "minecraft:enchanted_book"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:hidden_knowledge_anointment_3"
+  },
+  "syphon": 2000,
+  "ticks": 100,
+  "upgradeLevel": 4
+}

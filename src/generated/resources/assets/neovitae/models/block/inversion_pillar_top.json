@@ -1,0 +1,6 @@
+{
+  "parent": "neovitae:block/pillar_top",
+  "textures": {
+    "texture": "neovitae:block/pillar_base"
+  }
+}

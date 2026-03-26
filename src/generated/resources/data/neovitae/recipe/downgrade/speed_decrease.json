@@ -1,0 +1,7 @@
+{
+  "type": "neovitae:livingdowngrade",
+  "input": {
+    "item": "minecraft:soul_sand"
+  },
+  "livingarmour": "neovitae:speed_decrease"
+}

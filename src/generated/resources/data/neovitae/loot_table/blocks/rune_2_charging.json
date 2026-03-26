@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "neovitae:rune_2_charging"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "neovitae:blocks/rune_2_charging"
+}

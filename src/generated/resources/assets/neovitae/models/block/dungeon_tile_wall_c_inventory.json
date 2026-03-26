@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "neovitae:block/dungeon/dungeon_tile_c"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "rituals/ritual_basics"
+  },
+  "description": "book.neovitae.guide.rituals.ritual_magnetic.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:iron_ore"
+  },
+  "name": "book.neovitae.guide.rituals.ritual_magnetic.name",
+  "pages": [
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "ritual/magnetism",
+      "multiblock_name": "Ritual of Magnetism",
+      "show_visualize_button": true,
+      "text": "book.neovitae.guide.rituals.ritual_magnetic.multiblock.text"
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "text": "[#](8B0000)Activation Cost:[#]() 500 LP\\\n[#](8B0000)Crystal:[#]() Weak Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 2 LP every 5 ticks\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  4x Earth Ritual Stone\\\n  8x Air Ritual Stone\\\n  4x Fire Ritual Stone\\\n  [#](8B0000)Total:[#]() 16 runes",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_magnetic.info.text",
+      "title": "book.neovitae.guide.rituals.ritual_magnetic.info.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "rituals/ritual_basics",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 21,
+  "x": 3,
+  "y": -1
+}

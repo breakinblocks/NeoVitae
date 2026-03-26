@@ -1,0 +1,21 @@
+{
+  "values": {
+    "neovitae:rain": {
+      "activation_cost": 5000,
+      "block": "minecraft:water",
+      "consume_block": false,
+      "lightning_effect": false
+    },
+    "neovitae:resistance": {
+      "activation_cost": 5000,
+      "block": "minecraft:bedrock",
+      "consume_block": false,
+      "lightning_effect": false
+    },
+    "neovitae:zombie": {
+      "activation_cost": 5000,
+      "block": "minecraft:coal_block",
+      "consume_block": false
+    }
+  }
+}

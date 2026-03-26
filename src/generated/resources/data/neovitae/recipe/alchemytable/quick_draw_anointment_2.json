@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:quick_draw_anointment"
+    },
+    {
+      "item": "neovitae:strong_tau"
+    },
+    {
+      "tag": "c:strings"
+    },
+    {
+      "item": "minecraft:spectral_arrow"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:quick_draw_anointment_2"
+  },
+  "syphon": 1000,
+  "ticks": 100,
+  "upgradeLevel": 3
+}

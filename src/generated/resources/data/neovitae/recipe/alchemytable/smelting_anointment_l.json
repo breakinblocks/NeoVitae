@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:smelting_anointment"
+    },
+    {
+      "item": "neovitae:tau_oil"
+    },
+    {
+      "item": "minecraft:furnace"
+    },
+    {
+      "tag": "minecraft:coals"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:smelting_anointment_l"
+  },
+  "syphon": 1000,
+  "ticks": 100,
+  "upgradeLevel": 3
+}

@@ -1,0 +1,12 @@
+{
+  "type": "neovitae:flask_fill",
+  "input": [
+    {
+      "item": "neovitae:standard_filling_agent"
+    }
+  ],
+  "max": 3,
+  "syphon": 3000,
+  "ticks": 200,
+  "upgradeLevel": 0
+}

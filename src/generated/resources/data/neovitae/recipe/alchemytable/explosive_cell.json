@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "tag": "c:gunpowders"
+    },
+    {
+      "tag": "c:dusts/redstone"
+    },
+    {
+      "item": "neovitae:weak_tau"
+    },
+    {
+      "tag": "c:dusts/coal"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:primitive_explosive_cell"
+  },
+  "syphon": 1000,
+  "ticks": 200,
+  "upgradeLevel": 3
+}

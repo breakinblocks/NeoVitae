@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:weapon_repair_anointment"
+    },
+    {
+      "item": "neovitae:strong_tau"
+    },
+    {
+      "tag": "c:ingots/copper"
+    },
+    {
+      "tag": "c:dusts/gold"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:weapon_repair_anointment_2"
+  },
+  "syphon": 1000,
+  "ticks": 100,
+  "upgradeLevel": 3
+}

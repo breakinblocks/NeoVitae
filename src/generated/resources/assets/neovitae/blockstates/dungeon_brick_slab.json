@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "neovitae:block/dungeon_brick_slab"
+    },
+    "type=double": {
+      "model": "neovitae:block/dungeon_brick1"
+    },
+    "type=top": {
+      "model": "neovitae:block/dungeon_brick_slab_top"
+    }
+  }
+}

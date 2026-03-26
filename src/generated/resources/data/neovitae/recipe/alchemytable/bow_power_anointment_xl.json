@@ -1,0 +1,27 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:bow_power_anointment"
+    },
+    {
+      "item": "neovitae:tau_oil"
+    },
+    {
+      "tag": "c:ingots/iron"
+    },
+    {
+      "item": "neovitae:sand_hellforged"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:bow_power_anointment_xl"
+  },
+  "syphon": 2000,
+  "ticks": 100,
+  "upgradeLevel": 4
+}

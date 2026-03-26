@@ -1,0 +1,20 @@
+{
+  "type": "neovitae:athanor",
+  "chance_outputs": [],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "minecraft:mossy_stone_bricks"
+    }
+  ],
+  "input": {
+    "item": "minecraft:stone_bricks"
+  },
+  "input_fluid": {
+    "amount": 200,
+    "id": "minecraft:water"
+  },
+  "tool": {
+    "tag": "neovitae:athanor_tool/hydration"
+  }
+}

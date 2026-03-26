@@ -1,0 +1,8 @@
+{
+  "drain_interval": 1,
+  "effect": {
+    "type": "neovitae:phantom_bridge",
+    "range": 5
+  },
+  "lp_cost_active": 100
+}

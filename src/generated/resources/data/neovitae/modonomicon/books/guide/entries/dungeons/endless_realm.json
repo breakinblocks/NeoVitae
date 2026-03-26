@@ -1,0 +1,102 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "dungeons",
+  "description": "book.neovitae.guide.dungeons.endless_realm.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:inversion_pillar"
+  },
+  "name": "book.neovitae.guide.dungeons.endless_realm.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.endless_realm.intro.text",
+      "title": "book.neovitae.guide.dungeons.endless_realm.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.endless_realm.intro2.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.endless_realm.distortions.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "images": [
+        "neovitae:images/entries/dungeon/mine_key.png"
+      ],
+      "text": "book.neovitae.guide.dungeons.endless_realm.foreman_key_img.text",
+      "title": "The Foreman's Key",
+      "use_legacy_rendering": false
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "images": [
+        "neovitae:images/entries/dungeon/mine_entrance.png"
+      ],
+      "text": "book.neovitae.guide.dungeons.endless_realm.mine_entrance_img.text",
+      "title": "The Mine Entrance",
+      "use_legacy_rendering": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.endless_realm.mines.text",
+      "title": "book.neovitae.guide.dungeons.endless_realm.mines.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "count": 1,
+        "item": "neovitae:hellforged_parts"
+      },
+      "text": "book.neovitae.guide.dungeons.endless_realm.hellforged_parts.text",
+      "title": "Intricate Hellforged Parts"
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 1,
+  "x": 3,
+  "y": -2
+}

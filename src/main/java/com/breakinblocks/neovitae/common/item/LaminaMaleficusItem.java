@@ -31,6 +31,12 @@ public class LaminaMaleficusItem extends Item {
     }
 
     @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, java.util.List<net.minecraft.network.chat.Component> tooltip, net.minecraft.world.item.TooltipFlag flag) {
+        tooltip.add(net.minecraft.network.chat.Component.translatable("tooltip.neovitae.lamina_maleficus.desc")
+                .withStyle(net.minecraft.ChatFormatting.GRAY));
+    }
+
+    @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if (player instanceof FakePlayer) {
             return super.use(level, player, hand);

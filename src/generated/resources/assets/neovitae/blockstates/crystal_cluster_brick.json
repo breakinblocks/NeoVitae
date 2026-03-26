@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "neovitae:block/crystal_cluster_brick"
+    }
+  }
+}

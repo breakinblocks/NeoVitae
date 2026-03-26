@@ -1,0 +1,29 @@
+{
+  "variants": {
+    "attached=down": {
+      "model": "neovitae:block/shaped_charge_deep",
+      "x": 180
+    },
+    "attached=east": {
+      "model": "neovitae:block/shaped_charge_deep",
+      "x": 90,
+      "y": 90
+    },
+    "attached=north": {
+      "model": "neovitae:block/shaped_charge_deep",
+      "x": 90
+    },
+    "attached=south": {
+      "model": "neovitae:block/shaped_charge_deep",
+      "x": 270
+    },
+    "attached=up": {
+      "model": "neovitae:block/shaped_charge_deep"
+    },
+    "attached=west": {
+      "model": "neovitae:block/shaped_charge_deep",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

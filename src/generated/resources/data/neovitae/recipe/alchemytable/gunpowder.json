@@ -1,0 +1,21 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "tag": "c:dusts/sulfur"
+    },
+    {
+      "tag": "c:dusts/saltpeter"
+    },
+    {
+      "tag": "minecraft:coals"
+    }
+  ],
+  "output": {
+    "count": 3,
+    "id": "minecraft:gunpowder"
+  },
+  "syphon": 0,
+  "ticks": 100,
+  "upgradeLevel": 0
+}

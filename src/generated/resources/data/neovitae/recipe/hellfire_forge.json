@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "neovitae:blank_slate"
+    },
+    "i": {
+      "tag": "c:ingots/iron"
+    },
+    "o": {
+      "tag": "c:storage_blocks/iron"
+    },
+    "s": {
+      "tag": "c:stones"
+    }
+  },
+  "pattern": [
+    "i i",
+    "sSs",
+    "sos"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:hellfire_forge"
+  }
+}

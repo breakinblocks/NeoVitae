@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "item": "neovitae:blank_slate"
+  },
+  "baseinput": {
+    "item": "neovitae:reagent_lava"
+  },
+  "output": {
+    "count": 1,
+    "id": "neovitae:sigil_lava"
+  },
+  "texture": "neovitae:textures/models/alchemyarrays/lavasigil.png"
+}

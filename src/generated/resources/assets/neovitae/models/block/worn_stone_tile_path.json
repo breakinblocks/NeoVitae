@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "neovitae:block/worn_stone_tile_path"
+  }
+}

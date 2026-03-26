@@ -1,0 +1,20 @@
+{
+  "type": "neovitae:flask_effect_transform",
+  "input": [
+    {
+      "item": "minecraft:fermented_spider_eye"
+    }
+  ],
+  "inputEffects": [
+    "minecraft:poison"
+  ],
+  "outputEffects": [
+    {
+      "duration": 0,
+      "effect": "minecraft:instant_damage"
+    }
+  ],
+  "syphon": 500,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

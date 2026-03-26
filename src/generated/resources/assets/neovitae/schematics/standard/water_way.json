@@ -1,0 +1,148 @@
+{
+  "controllerOffset": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "descriptorList": [
+    {
+      "maximumOffset": {
+        "x": 12,
+        "y": 8,
+        "z": 11
+      },
+      "minimumOffset": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ],
+  "doorCoverMap": {
+    "2": {
+      "maximumOffset": {
+        "x": 1,
+        "y": 3,
+        "z": 0
+      },
+      "minimumOffset": {
+        "x": -6,
+        "y": -4,
+        "z": 0
+      }
+    },
+    "3": {
+      "maximumOffset": {
+        "x": 6,
+        "y": 3,
+        "z": 0
+      },
+      "minimumOffset": {
+        "x": -1,
+        "y": -4,
+        "z": 0
+      }
+    }
+  },
+  "doorMap": {
+    "default": {
+      "east": [
+        {
+          "x": 11,
+          "y": 3,
+          "z": 5
+        }
+      ]
+    },
+    "waterway_l": {
+      "south": [
+        {
+          "x": 6,
+          "y": 3,
+          "z": 10
+        }
+      ]
+    },
+    "waterway_r": {
+      "north": [
+        {
+          "x": 6,
+          "y": 3,
+          "z": 0
+        }
+      ]
+    }
+  },
+  "dungeonWeight": 1,
+  "indexToDoorMap": {
+    "1": [
+      {
+        "x": 11,
+        "y": 3,
+        "z": 5
+      }
+    ],
+    "2": [
+      {
+        "x": 6,
+        "y": 3,
+        "z": 0
+      }
+    ],
+    "3": [
+      {
+        "x": 6,
+        "y": 3,
+        "z": 10
+      }
+    ]
+  },
+  "indexToRoomTypeMap": {
+    "1": [
+      "neovitae:room_pools/standard/standard_rooms",
+      "#neovitae:room_pools/special/mine_entrances"
+    ],
+    "2": [
+      "neovitae:room_pools/standard/standard_rooms",
+      "#neovitae:room_pools/special/mine_entrances"
+    ],
+    "3": [
+      "neovitae:room_pools/standard/standard_rooms",
+      "#neovitae:room_pools/special/mine_entrances"
+    ]
+  },
+  "oreDensity": 0.0,
+  "portalOffset": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "requiredDoorMap": {
+    "waterway_l": [
+      {
+        "x": 6,
+        "y": 3,
+        "z": 0
+      }
+    ],
+    "waterway_r": [
+      {
+        "x": 6,
+        "y": 3,
+        "z": 10
+      }
+    ]
+  },
+  "spawnLocation": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "structureMap": {
+    "neovitae:standard/test_waterway": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  }
+}

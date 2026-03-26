@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "c": {
+      "item": "neovitae:blood_orb_weak"
+    },
+    "o": {
+      "tag": "c:obsidians"
+    },
+    "s": {
+      "tag": "c:stones"
+    }
+  },
+  "pattern": [
+    "oso",
+    "scs",
+    "oso"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:imperfect_ritual_stone"
+  }
+}

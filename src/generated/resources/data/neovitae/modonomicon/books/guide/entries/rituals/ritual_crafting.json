@@ -1,0 +1,93 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "rituals/ritual_basics"
+  },
+  "description": "book.neovitae.guide.rituals.ritual_crafting.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:crafting_table"
+  },
+  "name": "book.neovitae.guide.rituals.ritual_crafting.name",
+  "pages": [
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "ritual/crafting",
+      "multiblock_name": "Rhythm of the Beating Anvil",
+      "show_visualize_button": true,
+      "text": "book.neovitae.guide.rituals.ritual_crafting.multiblock.text"
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "text": "[#](8B0000)Activation Cost:[#]() 25,000 LP\\\n[#](8B0000)Crystal:[#]() Awakened Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 100 LP every 40 ticks\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  12x Dusk Ritual Stone\\\n  8x Fire Ritual Stone\\\n  8x Earth Ritual Stone\\\n  [#](8B0000)Total:[#]() 28 runes",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_crafting.info.text",
+      "title": "book.neovitae.guide.rituals.ritual_crafting.info.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_crafting.filter_setup.text",
+      "title": "book.neovitae.guide.rituals.ritual_crafting.filter_setup.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_crafting.placement.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_crafting.will_effects.text",
+      "title": "book.neovitae.guide.rituals.ritual_crafting.will_effects.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "rituals/ritual_basics",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 30,
+  "x": -3,
+  "y": 3
+}

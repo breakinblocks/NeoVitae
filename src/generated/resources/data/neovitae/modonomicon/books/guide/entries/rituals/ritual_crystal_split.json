@@ -1,0 +1,71 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "rituals/ritual_basics"
+  },
+  "description": "book.neovitae.guide.rituals.ritual_crystal_split.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:vengeful_crystal"
+  },
+  "name": "book.neovitae.guide.rituals.ritual_crystal_split.name",
+  "pages": [
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "ritual/crystal_split",
+      "multiblock_name": "Resonance of the Faceted Crystal",
+      "show_visualize_button": true,
+      "text": "book.neovitae.guide.rituals.ritual_crystal_split.multiblock.text"
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "text": "[#](8B0000)Activation Cost:[#]() 50,000 LP\\\n[#](8B0000)Crystal:[#]() Awakened Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 25,000 LP/sec\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  5x Fire Ritual Stone\\\n  1x Water Ritual Stone\\\n  5x Earth Ritual Stone\\\n  1x Air Ritual Stone\\\n  4x Dusk Ritual Stone\\\n  [#](8B0000)Total:[#]() 16 runes",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_crystal_split.info.text",
+      "title": "book.neovitae.guide.rituals.ritual_crystal_split.info.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_crystal_split.setup.text",
+      "title": "",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "rituals/ritual_basics",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 37,
+  "x": -5,
+  "y": 5
+}

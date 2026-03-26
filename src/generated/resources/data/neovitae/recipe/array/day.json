@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "item": "minecraft:coal"
+  },
+  "baseinput": {
+    "item": "minecraft:coal"
+  },
+  "effect_type": "day",
+  "texture": "neovitae:textures/models/alchemyarrays/sunarray.png"
+}

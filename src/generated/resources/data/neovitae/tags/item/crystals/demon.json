@@ -1,0 +1,9 @@
+{
+  "values": [
+    "neovitae:default_crystal",
+    "neovitae:corrosive_crystal",
+    "neovitae:destructive_crystal",
+    "neovitae:steadfast_crystal",
+    "neovitae:vengeful_crystal"
+  ]
+}

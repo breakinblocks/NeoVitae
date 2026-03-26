@@ -1,0 +1,99 @@
+{
+  "controllerOffset": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "descriptorList": [
+    {
+      "maximumOffset": {
+        "x": 11,
+        "y": 1,
+        "z": 11
+      },
+      "minimumOffset": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ],
+  "doorCoverMap": {},
+  "doorMap": {
+    "default": {
+      "east": [
+        {
+          "x": 10,
+          "y": 5,
+          "z": 5
+        }
+      ],
+      "north": [
+        {
+          "x": 5,
+          "y": 5,
+          "z": 0
+        }
+      ],
+      "south": [
+        {
+          "x": 5,
+          "y": 5,
+          "z": 10
+        }
+      ],
+      "west": [
+        {
+          "x": 0,
+          "y": 5,
+          "z": 5
+        }
+      ]
+    }
+  },
+  "dungeonWeight": 1,
+  "indexToDoorMap": {
+    "1": [
+      {
+        "x": 5,
+        "y": 5,
+        "z": 0
+      },
+      {
+        "x": 5,
+        "y": 5,
+        "z": 10
+      },
+      {
+        "x": 0,
+        "y": 5,
+        "z": 5
+      },
+      {
+        "x": 10,
+        "y": 5,
+        "z": 5
+      }
+    ]
+  },
+  "indexToRoomTypeMap": {},
+  "oreDensity": 0.0,
+  "portalOffset": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "requiredDoorMap": {},
+  "spawnLocation": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "structureMap": {
+    "neovitae:four_way_corridor_loot": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  }
+}

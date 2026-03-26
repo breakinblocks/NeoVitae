@@ -1,0 +1,91 @@
+{
+  "controllerOffset": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "descriptorList": [
+    {
+      "maximumOffset": {
+        "x": 21,
+        "y": 18,
+        "z": 43
+      },
+      "minimumOffset": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ],
+  "doorCoverMap": {},
+  "doorMap": {
+    "default": {
+      "west": [
+        {
+          "x": 0,
+          "y": 12,
+          "z": 38
+        }
+      ]
+    },
+    "mine": {
+      "north": [
+        {
+          "x": 22,
+          "y": 1,
+          "z": 0
+        }
+      ]
+    }
+  },
+  "dungeonWeight": 1,
+  "indexToDoorMap": {
+    "1": [
+      {
+        "x": 0,
+        "y": 12,
+        "z": 38
+      }
+    ],
+    "2": [
+      {
+        "x": 22,
+        "y": 1,
+        "z": 0
+      }
+    ]
+  },
+  "indexToRoomTypeMap": {
+    "1": [
+      "neovitae:room_pools/standard/standard_rooms"
+    ],
+    "2": [
+      "neovitae:room_pools/mines/mine_corridors"
+    ]
+  },
+  "oreDensity": 0.0,
+  "portalOffset": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "requiredDoorMap": {},
+  "spawnLocation": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "structureMap": {
+    "neovitae:standard/mine_entrance": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "neovitae:standard/mine_entrance2": {
+      "x": 0,
+      "y": 0,
+      "z": 32
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "item": "minecraft:diamond"
+  },
+  "baseinput": {
+    "item": "neovitae:reagent_binding"
+  },
+  "output": {
+    "count": 1,
+    "id": "neovitae:training_bracelet"
+  },
+  "texture": "neovitae:textures/models/alchemyarrays/bindingarray.png"
+}

@@ -1,0 +1,8 @@
+{
+  "effect": {
+    "type": "neovitae:green_grove",
+    "range": 15,
+    "vertical_range": 4
+  },
+  "lp_cost_active": 150
+}

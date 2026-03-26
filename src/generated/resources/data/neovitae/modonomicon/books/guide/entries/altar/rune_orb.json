@@ -1,0 +1,51 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "altar",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "altar/soul_network"
+  },
+  "description": "book.neovitae.guide.altar.rune_orb.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:rune_orb"
+  },
+  "name": "book.neovitae.guide.altar.rune_orb.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.rune_orb.intro.text",
+      "title": "book.neovitae.guide.altar.rune_orb.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:rune_orb",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "altar/soul_network",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 6,
+  "x": -3,
+  "y": 0
+}

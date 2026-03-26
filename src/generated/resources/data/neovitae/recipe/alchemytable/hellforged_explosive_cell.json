@@ -1,0 +1,30 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "tag": "c:gunpowders"
+    },
+    {
+      "tag": "c:dusts/sulfur"
+    },
+    {
+      "tag": "c:dusts/redstone"
+    },
+    {
+      "tag": "c:gems/quartz"
+    },
+    {
+      "tag": "c:dusts/hellforged"
+    },
+    {
+      "tag": "c:dusts/coal"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:hellforged_explosive_cell"
+  },
+  "syphon": 4000,
+  "ticks": 200,
+  "upgradeLevel": 4
+}

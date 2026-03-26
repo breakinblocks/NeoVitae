@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "tag": "c:fragments/netherite_scrap"
+    },
+    {
+      "item": "neovitae:corrupted_dust"
+    },
+    {
+      "item": "neovitae:corrupted_dust"
+    },
+    {
+      "item": "neovitae:corrupted_dust"
+    }
+  ],
+  "output": {
+    "count": 2,
+    "id": "neovitae:gravel_netherite_scrap"
+  },
+  "syphon": 1000,
+  "ticks": 50,
+  "upgradeLevel": 3
+}

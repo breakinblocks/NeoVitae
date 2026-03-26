@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "item": "neovitae:imbued_slate"
+  },
+  "baseinput": {
+    "item": "neovitae:reagent_magnetism"
+  },
+  "output": {
+    "count": 1,
+    "id": "neovitae:sigil_magnetism"
+  },
+  "texture": "neovitae:textures/models/alchemyarrays/magnetismsigil.png"
+}

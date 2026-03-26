@@ -1,0 +1,58 @@
+{
+  "values": {
+    "neovitae:sigil_air": {
+      "lp_cost": 50
+    },
+    "neovitae:sigil_blood_light": {
+      "lp_cost": 10
+    },
+    "neovitae:sigil_divination": {
+      "lp_cost": 0
+    },
+    "neovitae:sigil_fast_miner": {
+      "effect_duration": 600,
+      "effect_level": 2,
+      "lp_cost": 100,
+      "range": 10,
+      "vertical_range": 10
+    },
+    "neovitae:sigil_frost": {
+      "lp_cost": 100,
+      "range": 2,
+      "vertical_range": 2
+    },
+    "neovitae:sigil_green_grove": {
+      "lp_cost": 150,
+      "range": 3,
+      "vertical_range": 2
+    },
+    "neovitae:sigil_holding": {
+      "lp_cost": 0
+    },
+    "neovitae:sigil_lava": {
+      "lp_cost": 1000
+    },
+    "neovitae:sigil_magnetism": {
+      "lp_cost": 50,
+      "range": 5,
+      "vertical_range": 5
+    },
+    "neovitae:sigil_seer": {
+      "lp_cost": 0
+    },
+    "neovitae:sigil_suppression": {
+      "lp_cost": 400,
+      "range": 5,
+      "vertical_range": 5
+    },
+    "neovitae:sigil_teleposition": {
+      "lp_cost": 1000
+    },
+    "neovitae:sigil_void": {
+      "lp_cost": 50
+    },
+    "neovitae:sigil_water": {
+      "lp_cost": 100
+    }
+  }
+}

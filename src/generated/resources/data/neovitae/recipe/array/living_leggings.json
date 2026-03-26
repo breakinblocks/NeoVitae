@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "item": "minecraft:iron_leggings"
+  },
+  "baseinput": {
+    "item": "neovitae:reagent_binding"
+  },
+  "output": {
+    "count": 1,
+    "id": "neovitae:living_leggings"
+  },
+  "texture": "neovitae:textures/models/alchemyarrays/bindingarray.png"
+}

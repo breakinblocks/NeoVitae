@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_destructive_crystal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:destructive_crystal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:destructive_demon_crystal"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_destructive_crystal"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:destructive_demon_crystal"
+    ]
+  }
+}

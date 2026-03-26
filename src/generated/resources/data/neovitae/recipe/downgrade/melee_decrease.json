@@ -1,0 +1,7 @@
+{
+  "type": "neovitae:livingdowngrade",
+  "input": {
+    "item": "minecraft:stone_sword"
+  },
+  "livingarmour": "neovitae:melee_decrease"
+}

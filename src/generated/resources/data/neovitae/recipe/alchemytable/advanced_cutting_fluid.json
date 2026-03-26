@@ -1,0 +1,46 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:tau_oil"
+    },
+    {
+      "tag": "c:dusts/hellforged"
+    },
+    {
+      "item": "minecraft:glow_berries"
+    },
+    {
+      "item": "neovitae:saltpeter"
+    },
+    {
+      "tag": "c:dusts/sulfur"
+    },
+    {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:attribute_modifiers": {
+          "modifiers": []
+        },
+        "minecraft:enchantments": {
+          "levels": {}
+        },
+        "minecraft:lore": [],
+        "minecraft:max_stack_size": 1,
+        "minecraft:potion_contents": {
+          "potion": "minecraft:water"
+        },
+        "minecraft:rarity": "common",
+        "minecraft:repair_cost": 0
+      },
+      "items": "minecraft:potion"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:advanced_cutting_fluid"
+  },
+  "syphon": 4000,
+  "ticks": 200,
+  "upgradeLevel": 4
+}

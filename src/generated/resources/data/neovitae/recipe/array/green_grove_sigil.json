@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "item": "neovitae:reinforced_slate"
+  },
+  "baseinput": {
+    "item": "neovitae:reagent_growth"
+  },
+  "output": {
+    "count": 1,
+    "id": "neovitae:sigil_green_grove"
+  },
+  "texture": "neovitae:textures/models/alchemyarrays/growthsigil.png"
+}

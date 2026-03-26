@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:athanor",
+  "chance_outputs": [
+    {
+      "chance": 0.25,
+      "item": {
+        "count": 1,
+        "id": "neovitae:iron_fragment"
+      }
+    }
+  ],
+  "guaranteed_outputs": [
+    {
+      "count": 2,
+      "id": "neovitae:iron_fragment"
+    }
+  ],
+  "input": {
+    "tag": "c:raw_materials/iron"
+  },
+  "tool": {
+    "tag": "neovitae:athanor_tool/explosives"
+  }
+}

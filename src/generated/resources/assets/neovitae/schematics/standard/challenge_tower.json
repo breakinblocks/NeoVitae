@@ -1,0 +1,167 @@
+{
+  "controllerOffset": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "descriptorList": [
+    {
+      "maximumOffset": {
+        "x": 25,
+        "y": 55,
+        "z": 25
+      },
+      "minimumOffset": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ],
+  "doorCoverMap": {},
+  "doorMap": {
+    "default": {
+      "east": [
+        {
+          "x": 24,
+          "y": 0,
+          "z": 12
+        }
+      ]
+    },
+    "none": {
+      "east": [
+        {
+          "x": 24,
+          "y": 25,
+          "z": 12
+        }
+      ],
+      "north": [
+        {
+          "x": 12,
+          "y": 0,
+          "z": 0
+        },
+        {
+          "x": 12,
+          "y": 29,
+          "z": 0
+        }
+      ],
+      "south": [
+        {
+          "x": 12,
+          "y": 5,
+          "z": 24
+        }
+      ],
+      "west": [
+        {
+          "x": 0,
+          "y": 17,
+          "z": 12
+        }
+      ]
+    }
+  },
+  "dungeonWeight": 1,
+  "indexToDoorMap": {
+    "1": [
+      {
+        "x": 24,
+        "y": 0,
+        "z": 12
+      }
+    ],
+    "2": [
+      {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      {
+        "x": 12,
+        "y": 5,
+        "z": 24
+      },
+      {
+        "x": 0,
+        "y": 17,
+        "z": 12
+      },
+      {
+        "x": 24,
+        "y": 25,
+        "z": 12
+      },
+      {
+        "x": 12,
+        "y": 29,
+        "z": 0
+      }
+    ]
+  },
+  "indexToRoomTypeMap": {
+    "1": [
+      "neovitae:room_pools/standard/standard_rooms"
+    ],
+    "2": [
+      "neovitae:room_pools/standard/standard_rooms",
+      "#neovitae:room_pools/special/mine_entrances",
+      "#neovitae:room_pools/standard/mine_key"
+    ]
+  },
+  "oreDensity": 0.0,
+  "portalOffset": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "requiredDoorMap": {
+    "default": [
+      {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      {
+        "x": 12,
+        "y": 5,
+        "z": 24
+      },
+      {
+        "x": 0,
+        "y": 17,
+        "z": 12
+      },
+      {
+        "x": 24,
+        "y": 25,
+        "z": 12
+      },
+      {
+        "x": 12,
+        "y": 29,
+        "z": 0
+      }
+    ]
+  },
+  "spawnLocation": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "structureMap": {
+    "neovitae:standard/challenge_tower_1": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "neovitae:standard/challenge_tower_2": {
+      "x": 0,
+      "y": 32,
+      "z": 0
+    }
+  }
+}

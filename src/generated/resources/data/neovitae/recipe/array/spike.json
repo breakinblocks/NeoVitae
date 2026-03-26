@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "tag": "c:ingots/iron"
+  },
+  "baseinput": {
+    "tag": "c:cobblestones"
+  },
+  "effect_type": "spike",
+  "texture": "neovitae:textures/models/alchemyarrays/spikearray.png"
+}

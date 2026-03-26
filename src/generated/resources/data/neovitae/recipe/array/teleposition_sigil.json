@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "item": "neovitae:demonic_slate"
+  },
+  "baseinput": {
+    "item": "neovitae:reagent_teleposition"
+  },
+  "output": {
+    "count": 1,
+    "id": "neovitae:sigil_teleposition"
+  },
+  "texture": "neovitae:textures/models/alchemyarrays/telepositionsigil.png"
+}

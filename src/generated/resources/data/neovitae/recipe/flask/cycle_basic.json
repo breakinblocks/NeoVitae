@@ -1,0 +1,12 @@
+{
+  "type": "neovitae:flask_cycle",
+  "count": 1,
+  "input": [
+    {
+      "item": "neovitae:cycling_catalyst"
+    }
+  ],
+  "syphon": 500,
+  "ticks": 50,
+  "upgradeLevel": 1
+}

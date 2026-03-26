@@ -1,0 +1,171 @@
+{
+  "values": {
+    "neovitae:animal_growth": {
+      "activation_cost": 10000,
+      "refresh_cost": 25
+    },
+    "neovitae:armour_evolve": {
+      "activation_cost": 50000,
+      "crystal_level": 2,
+      "refresh_cost": 10,
+      "refresh_time": 1
+    },
+    "neovitae:condor": {
+      "activation_cost": 1000000,
+      "crystal_level": 2,
+      "refresh_cost": 200
+    },
+    "neovitae:containment": {
+      "activation_cost": 2000,
+      "refresh_cost": 1
+    },
+    "neovitae:crafting": {
+      "activation_cost": 25000,
+      "crystal_level": 2,
+      "refresh_cost": 100,
+      "refresh_time": 40
+    },
+    "neovitae:crushing": {
+      "activation_cost": 2500,
+      "refresh_cost": 100,
+      "refresh_time": 40
+    },
+    "neovitae:crystal_harvest": {
+      "activation_cost": 40000,
+      "crystal_level": 1,
+      "refresh_cost": 1000
+    },
+    "neovitae:crystal_split": {
+      "activation_cost": 100000,
+      "crystal_level": 2,
+      "refresh_cost": 50
+    },
+    "neovitae:downgrade": {
+      "activation_cost": 20000,
+      "crystal_level": 1,
+      "refresh_cost": 100
+    },
+    "neovitae:ellipse": {
+      "activation_cost": 10000,
+      "crystal_level": 2,
+      "refresh_cost": 200,
+      "refresh_time": 1
+    },
+    "neovitae:expulsion": {
+      "activation_cost": 1000,
+      "refresh_cost": 1
+    },
+    "neovitae:feathered_knife": {
+      "activation_cost": 25000,
+      "refresh_cost": 20
+    },
+    "neovitae:felling": {
+      "activation_cost": 20000,
+      "refresh_cost": 20
+    },
+    "neovitae:forsaken_soul": {
+      "activation_cost": 50000,
+      "crystal_level": 1,
+      "refresh_cost": 1
+    },
+    "neovitae:full_stomach": {
+      "activation_cost": 100000,
+      "crystal_level": 1,
+      "refresh_cost": 100
+    },
+    "neovitae:geode": {
+      "activation_cost": 100000,
+      "crystal_level": 1,
+      "refresh_cost": 100,
+      "refresh_time": 100
+    },
+    "neovitae:green_grove": {
+      "activation_cost": 1000,
+      "refresh_cost": 20
+    },
+    "neovitae:grounding": {
+      "activation_cost": 1000,
+      "refresh_cost": 10
+    },
+    "neovitae:harvest": {
+      "activation_cost": 20000,
+      "refresh_cost": 20
+    },
+    "neovitae:jumping": {
+      "activation_cost": 500,
+      "refresh_cost": 25,
+      "refresh_time": 60
+    },
+    "neovitae:lava": {
+      "activation_cost": 10000,
+      "refresh_cost": 500,
+      "refresh_time": 1
+    },
+    "neovitae:magnetism": {
+      "activation_cost": 5000,
+      "refresh_cost": 50
+    },
+    "neovitae:meteor": {
+      "activation_cost": 1000000,
+      "crystal_level": 2,
+      "refresh_cost": 1000000
+    },
+    "neovitae:phantom_bridge": {
+      "activation_cost": 5000,
+      "refresh_cost": 10,
+      "refresh_time": 1
+    },
+    "neovitae:placer": {
+      "activation_cost": 5000,
+      "refresh_cost": 10
+    },
+    "neovitae:pump": {
+      "activation_cost": 10000,
+      "refresh_cost": 25
+    },
+    "neovitae:regeneration": {
+      "activation_cost": 25000,
+      "refresh_cost": 100
+    },
+    "neovitae:speed": {
+      "activation_cost": 500,
+      "refresh_cost": 25,
+      "refresh_time": 60
+    },
+    "neovitae:sphere": {
+      "activation_cost": 10000,
+      "crystal_level": 2,
+      "refresh_cost": 200,
+      "refresh_time": 1
+    },
+    "neovitae:suppression": {
+      "activation_cost": 10000,
+      "refresh_cost": 2,
+      "refresh_time": 1
+    },
+    "neovitae:upgrade_remove": {
+      "activation_cost": 20000,
+      "crystal_level": 2,
+      "refresh_cost": 100
+    },
+    "neovitae:water": {
+      "activation_cost": 500,
+      "refresh_cost": 25,
+      "refresh_time": 1
+    },
+    "neovitae:well_of_suffering": {
+      "activation_cost": 50000,
+      "refresh_cost": 2
+    },
+    "neovitae:yawning_void": {
+      "activation_cost": 500000,
+      "crystal_level": 2,
+      "refresh_cost": 50,
+      "refresh_time": 1
+    },
+    "neovitae:zephyr": {
+      "activation_cost": 1000,
+      "refresh_cost": 1
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:silk_touch_anointment"
+    },
+    {
+      "item": "neovitae:tau_oil"
+    },
+    {
+      "item": "minecraft:cobweb"
+    },
+    {
+      "tag": "c:nuggets/gold"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:silk_touch_anointment_l"
+  },
+  "syphon": 1000,
+  "ticks": 100,
+  "upgradeLevel": 3
+}

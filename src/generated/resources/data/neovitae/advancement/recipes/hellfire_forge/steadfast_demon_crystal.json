@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_steadfast_crystal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:steadfast_crystal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:steadfast_demon_crystal"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_steadfast_crystal"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:steadfast_demon_crystal"
+    ]
+  }
+}

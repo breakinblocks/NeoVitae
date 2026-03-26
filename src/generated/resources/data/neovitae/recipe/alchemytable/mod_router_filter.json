@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:component_frame_parts"
+    },
+    {
+      "item": "neovitae:reinforced_slate"
+    },
+    {
+      "tag": "c:dusts/redstone"
+    },
+    {
+      "tag": "c:dyes/yellow"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:item_router_filter_mod"
+  },
+  "syphon": 500,
+  "ticks": 100,
+  "upgradeLevel": 3
+}

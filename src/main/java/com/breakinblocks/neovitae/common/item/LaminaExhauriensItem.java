@@ -24,6 +24,12 @@ public class LaminaExhauriensItem extends Item {
     }
 
     @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, java.util.List<net.minecraft.network.chat.Component> tooltip, net.minecraft.world.item.TooltipFlag flag) {
+        tooltip.add(net.minecraft.network.chat.Component.translatable("tooltip.neovitae.lamina_exhauriens.desc")
+                .withStyle(net.minecraft.ChatFormatting.GRAY));
+    }
+
+    @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (!(attacker instanceof Player player)) {
             return false;

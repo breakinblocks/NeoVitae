@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "neovitae:block/dungeon_pillar_special_v",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "neovitae:block/dungeon_pillar_special_v"
+    },
+    "axis=z": {
+      "model": "neovitae:block/dungeon_pillar_special_v",
+      "x": 90
+    }
+  }
+}

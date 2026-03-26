@@ -208,7 +208,6 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae.decoration.safe").withStyle(ChatFormatting.GRAY));
         if (isInverted) {
             tooltip.add(Component.translatable("tooltip.neovitae.masterRitualStone.inverted").withStyle(ChatFormatting.DARK_PURPLE));
         }

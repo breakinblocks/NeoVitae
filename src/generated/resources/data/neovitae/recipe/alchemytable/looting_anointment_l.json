@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:looting_anointment"
+    },
+    {
+      "item": "neovitae:tau_oil"
+    },
+    {
+      "tag": "c:gems/lapis"
+    },
+    {
+      "tag": "c:bones"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:looting_anointment_l"
+  },
+  "syphon": 1000,
+  "ticks": 100,
+  "upgradeLevel": 3
+}

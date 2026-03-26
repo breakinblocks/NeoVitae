@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "neovitae:hellforged_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "neovitae:ingot_hellforged"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    {
+      "item": "neovitae:bow_velocity_anointment"
+    },
+    {
+      "item": "neovitae:tau_oil"
+    },
+    {
+      "tag": "c:nuggets/gold"
+    },
+    {
+      "item": "neovitae:sand_hellforged"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "neovitae:bow_velocity_anointment_xl"
+  },
+  "syphon": 2000,
+  "ticks": 100,
+  "upgradeLevel": 4
+}

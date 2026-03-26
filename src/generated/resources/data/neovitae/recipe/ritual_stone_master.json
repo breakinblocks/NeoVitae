@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "c": {
+      "type": "neovitae:orb_tier",
+      "tier": 3
+    },
+    "o": {
+      "tag": "c:obsidians"
+    },
+    "s": {
+      "item": "neovitae:ritual_stone"
+    }
+  },
+  "pattern": [
+    "oso",
+    "scs",
+    "oso"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:master_ritual_stone"
+  }
+}

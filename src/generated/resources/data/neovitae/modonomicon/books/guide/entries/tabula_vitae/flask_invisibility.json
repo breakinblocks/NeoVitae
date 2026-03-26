@@ -1,0 +1,89 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "tabula_vitae",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "tabula_vitae/flask_night_vision"
+  },
+  "description": "book.neovitae.guide.tabula_vitae.flask_invisibility.description",
+  "hide_while_locked": false,
+  "icon": {
+    "components": {
+      "minecraft:potion_contents": {
+        "custom_effects": [
+          {
+            "duration": 3600,
+            "id": "minecraft:invisibility",
+            "neoforge:cures": [
+              "milk",
+              "protected_by_totem"
+            ],
+            "show_icon": true
+          }
+        ]
+      },
+      "neovitae:flask_effects": {
+        "effects": [
+          {
+            "amp_duration_mod": 1.0,
+            "amplifier": 0,
+            "base_duration": 3600,
+            "effect": "minecraft:invisibility",
+            "length_duration_mod": 1.0
+          }
+        ]
+      }
+    },
+    "item": "neovitae:alchemy_flask"
+  },
+  "name": "book.neovitae.guide.tabula_vitae.flask_invisibility.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.tabula_vitae.flask_invisibility.intro.text",
+      "title": "book.neovitae.guide.tabula_vitae.flask_invisibility.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "neovitae:flask_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:flask/night_to_invis",
+      "recipe_id_2": "neovitae:flask/length_invisibility",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "neovitae:flask_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:flask/length_average_invisibility",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "tabula_vitae/flask_night_vision",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 31,
+  "x": 0,
+  "y": 1
+}

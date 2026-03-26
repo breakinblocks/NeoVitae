@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "tag": "c:dusts/redstone"
+  },
+  "baseinput": {
+    "tag": "c:feathers"
+  },
+  "effect_type": "movement",
+  "texture": "neovitae:textures/models/alchemyarrays/movementarray.png"
+}

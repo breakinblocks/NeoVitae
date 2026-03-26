@@ -1,0 +1,60 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "rituals/ritual_basics"
+  },
+  "description": "book.neovitae.guide.rituals.ritual_crystal_harvest.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:default_crystal"
+  },
+  "name": "book.neovitae.guide.rituals.ritual_crystal_harvest.name",
+  "pages": [
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "ritual/crystal_harvest",
+      "multiblock_name": "Crack of the Fractured Crystal",
+      "show_visualize_button": true,
+      "text": "book.neovitae.guide.rituals.ritual_crystal_harvest.multiblock.text"
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "text": "[#](8B0000)Activation Cost:[#]() 10,000 LP\\\n[#](8B0000)Crystal:[#]() Awakened Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 500 LP every 100 ticks\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  8x Fire Ritual Stone\\\n  8x Dusk Ritual Stone\\\n  4x Earth Ritual Stone\\\n  [#](8B0000)Total:[#]() 20 runes",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_crystal_harvest.info.text",
+      "title": "book.neovitae.guide.rituals.ritual_crystal_harvest.info.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "rituals/ritual_basics",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 36,
+  "x": -7,
+  "y": 5
+}

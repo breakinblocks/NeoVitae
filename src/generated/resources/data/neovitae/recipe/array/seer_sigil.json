@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "item": "neovitae:reinforced_slate"
+  },
+  "baseinput": {
+    "item": "neovitae:reagent_sight"
+  },
+  "output": {
+    "count": 1,
+    "id": "neovitae:sigil_seer"
+  },
+  "texture": "neovitae:textures/models/alchemyarrays/sightsigil.png"
+}

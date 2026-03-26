@@ -1,0 +1,51 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "alchemy_arrays",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "alchemy_arrays/living_upgrades"
+  },
+  "description": "book.neovitae.guide.alchemy_arrays.downgrade_battle_hungry.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:rotten_flesh"
+  },
+  "name": "book.neovitae.guide.alchemy_arrays.downgrade_battle_hungry.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_arrays.downgrade_battle_hungry.intro.text",
+      "title": "book.neovitae.guide.alchemy_arrays.downgrade_battle_hungry.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "neovitae:living_downgrade_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:downgrade/battle_hungry",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "alchemy_arrays/living_upgrades",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 43,
+  "x": -7,
+  "y": 4
+}

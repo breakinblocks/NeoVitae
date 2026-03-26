@@ -1,0 +1,23 @@
+{
+  "values": [
+    "neovitae:knockback_resist",
+    "neovitae:sprint_attack",
+    "neovitae:digging",
+    "neovitae:elytra",
+    "neovitae:experienced",
+    "neovitae:melee_damage",
+    "neovitae:netherite_protect",
+    "neovitae:fire_resist",
+    "neovitae:gilded",
+    "neovitae:health",
+    "neovitae:arrow_protect",
+    "neovitae:poison_resist",
+    "neovitae:speed",
+    "neovitae:repair",
+    "neovitae:luck",
+    "neovitae:fall_protect",
+    "neovitae:jump",
+    "neovitae:physical_protect",
+    "neovitae:self_sacrifice"
+  ]
+}

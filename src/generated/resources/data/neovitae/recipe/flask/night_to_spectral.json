@@ -1,0 +1,20 @@
+{
+  "type": "neovitae:flask_effect_transform",
+  "input": [
+    {
+      "item": "minecraft:glowstone_dust"
+    }
+  ],
+  "inputEffects": [
+    "minecraft:night_vision"
+  ],
+  "outputEffects": [
+    {
+      "duration": 3600,
+      "effect": "neovitae:spectral_sight"
+    }
+  ],
+  "syphon": 500,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

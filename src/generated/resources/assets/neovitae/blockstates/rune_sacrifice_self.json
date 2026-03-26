@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "neovitae:block/rune_sacrifice_self"
+    }
+  }
+}

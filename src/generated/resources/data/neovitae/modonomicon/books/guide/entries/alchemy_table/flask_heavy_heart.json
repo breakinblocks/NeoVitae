@@ -21,26 +21,39 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:text",
+      "type": "neovitae:flask_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_table.flask_heavy_heart.recipes.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "recipe_id_1": "neovitae:flask/gravity_to_heart",
+      "recipe_id_2": "neovitae:flask/length_heavy_heart",
+      "text": "",
+      "title1": "",
+      "title2": ""
     },
     {
-      "type": "modonomicon:text",
+      "type": "neovitae:flask_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_table.flask_heavy_heart.advanced.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "recipe_id_1": "neovitae:flask/potency_heavy_heart",
+      "recipe_id_2": "neovitae:flask/potency_average_heavy_heart",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "neovitae:flask_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:flask/length_average_heavy_heart",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

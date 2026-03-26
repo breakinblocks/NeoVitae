@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -23,18 +24,14 @@ public class PoisonFlaskEntry extends EntryProvider {
         this.pageText("**Poison** deals damage over time to the target, but cannot kill them on its own. "
                 + "Higher levels deal faster damage.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Poison (3:00)** - neovitae:flask/poison\n"
-                + "- **Poison (8:00)** - neovitae:flask/length_poison\n"
-                + "- **Poison II (1:30)** - neovitae:flask/potency_poison");
-
-        this.page("advanced", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
-                + "- **Poison III (0:45)** - neovitae:flask/potency_average_poison\n"
-                + "- **Poison (21:20)** - neovitae:flask/length_average_poison");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/poison")
+                .withRecipeId2("neovitae:flask/length_poison"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/potency_poison")
+                .withRecipeId2("neovitae:flask/potency_average_poison"));
+        this.page("recipe3", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/length_average_poison"));
     }
 
     @Override

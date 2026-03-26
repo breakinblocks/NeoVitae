@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -22,12 +23,11 @@ public class NightVisionFlaskEntry extends EntryProvider {
         this.pageTitle("Night Vision");
         this.pageText("**Night Vision** increases the target's ability to see in darkness and underwater.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Night Vision (3:00)** - neovitae:flask/night_vision\n"
-                + "- **Night Vision (8:00)** - neovitae:flask/length_night_vision\n"
-                + "- **Night Vision (21:20)** - neovitae:flask/length_average_night_vision");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/night_vision")
+                .withRecipeId2("neovitae:flask/length_night_vision"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/length_average_night_vision"));
     }
 
     @Override

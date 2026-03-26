@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -25,18 +26,14 @@ public class SpectralSightFlaskEntry extends EntryProvider {
                 + "per level.\\\n\\\n"
                 + "It's made from a potion of **Night Vision**.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Spectral Sight (3:00)** - neovitae:flask/night_to_spectral\n"
-                + "- **Spectral Sight (8:00)** - neovitae:flask/length_spectral_sight\n"
-                + "- **Spectral Sight II (1:30)** - neovitae:flask/potency_spectral_sight");
-
-        this.page("advanced", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
-                + "- **Spectral Sight III (0:45)** - neovitae:flask/potency_average_spectral_sight\n"
-                + "- **Spectral Sight (21:20)** - neovitae:flask/length_average_spectral_sight");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/night_to_spectral")
+                .withRecipeId2("neovitae:flask/length_spectral_sight"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/potency_spectral_sight")
+                .withRecipeId2("neovitae:flask/potency_average_spectral_sight"));
+        this.page("recipe3", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/length_average_spectral_sight"));
     }
 
     @Override

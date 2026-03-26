@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -23,19 +24,15 @@ public class SlownessFlaskEntry extends EntryProvider {
         this.pageText("**Slowness** decreases the target's movement speed by 15% per level.\\\n\\\n"
                 + "It's made from a potion of either **Speed** or **Jump Boost**.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Slowness from Speed** - neovitae:flask/speed_to_slow\n"
-                + "- **Slowness from Jump Boost** - neovitae:flask/jump_to_slow\n"
-                + "- **Slowness (8:00)** - neovitae:flask/length_slowness\n"
-                + "- **Slowness II (1:30)** - neovitae:flask/potency_slowness");
-
-        this.page("advanced", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
-                + "- **Slowness III (0:45)** - neovitae:flask/potency_average_slowness\n"
-                + "- **Slowness (21:20)** - neovitae:flask/length_average_slowness");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/speed_to_slow")
+                .withRecipeId2("neovitae:flask/jump_to_slow"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/length_slowness")
+                .withRecipeId2("neovitae:flask/potency_slowness"));
+        this.page("recipe3", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/potency_average_slowness")
+                .withRecipeId2("neovitae:flask/length_average_slowness"));
     }
 
     @Override

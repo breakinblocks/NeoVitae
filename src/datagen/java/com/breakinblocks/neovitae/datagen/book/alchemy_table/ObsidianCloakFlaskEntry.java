@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -23,18 +24,14 @@ public class ObsidianCloakFlaskEntry extends EntryProvider {
         this.pageText("**Obsidian Cloak** reduces all damage taken from non-magical sources by 20% per level.\\\n\\\n"
                 + "It's created from a flask of **Hard Cloak**, not an **Empty Flask** like most other **potions**.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Obsidian Cloak (3:00)** - neovitae:flask/hard_to_obsidian\n"
-                + "- **Obsidian Cloak (8:00)** - neovitae:flask/length_obsidian_cloak\n"
-                + "- **Obsidian Cloak II (1:30)** - neovitae:flask/potency_obsidian_cloak");
-
-        this.page("advanced", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
-                + "- **Obsidian Cloak III (0:45)** - neovitae:flask/potency_average_obsidian_cloak\n"
-                + "- **Obsidian Cloak (21:20)** - neovitae:flask/length_average_obsidian_cloak");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/hard_to_obsidian")
+                .withRecipeId2("neovitae:flask/length_obsidian_cloak"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/potency_obsidian_cloak")
+                .withRecipeId2("neovitae:flask/potency_average_obsidian_cloak"));
+        this.page("recipe3", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/length_average_obsidian_cloak"));
     }
 
     @Override

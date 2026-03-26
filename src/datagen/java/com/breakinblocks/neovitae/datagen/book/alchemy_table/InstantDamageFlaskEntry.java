@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -24,17 +25,12 @@ public class InstantDamageFlaskEntry extends EntryProvider {
                 + "If the target is **Undead**, they will be healed for 6 points per level instead.\\\n\\\n"
                 + "It's made from a potion of either **Instant Health** or **Poison**.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Damage from Health** - neovitae:flask/health_to_harm\n"
-                + "- **Damage from Poison** - neovitae:flask/poison_to_harm\n"
-                + "- **Instant Damage II** - neovitae:flask/potency_harm");
-
-        this.page("advanced", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
-                + "- **Instant Damage III** - neovitae:flask/potency_average_harm");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/health_to_harm")
+                .withRecipeId2("neovitae:flask/poison_to_harm"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/potency_harm")
+                .withRecipeId2("neovitae:flask/potency_average_harm"));
     }
 
     @Override

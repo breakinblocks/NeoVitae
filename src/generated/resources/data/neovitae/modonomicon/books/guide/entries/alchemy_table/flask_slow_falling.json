@@ -21,15 +21,27 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:text",
+      "type": "neovitae:flask_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_table.flask_slow_falling.recipes.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "recipe_id_1": "neovitae:flask/slow_fall",
+      "recipe_id_2": "neovitae:flask/length_slow_fall",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "neovitae:flask_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:flask/length_average_slow_fall",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

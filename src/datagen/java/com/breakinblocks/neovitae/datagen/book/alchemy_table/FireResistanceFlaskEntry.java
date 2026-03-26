@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -22,12 +23,11 @@ public class FireResistanceFlaskEntry extends EntryProvider {
         this.pageTitle("Fire Resistance");
         this.pageText("**Fire Resistance** makes the target immune to most fire-based damage.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Fire Resistance (3:00)** - neovitae:flask/fire_resist\n"
-                + "- **Fire Resistance (8:00)** - neovitae:flask/length_fire_resist\n"
-                + "- **Fire Resistance (21:20)** - neovitae:flask/length_average_fire_resist");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/fire_resist")
+                .withRecipeId2("neovitae:flask/length_fire_resist"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/length_average_fire_resist"));
     }
 
     @Override

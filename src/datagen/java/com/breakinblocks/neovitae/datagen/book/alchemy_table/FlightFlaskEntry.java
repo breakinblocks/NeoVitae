@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -24,18 +25,14 @@ public class FlightFlaskEntry extends EntryProvider {
                 + "increase flight speed.\\\n\\\n"
                 + "It's created from a flask containing both the **Suspended** and **Levitation** effects.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Flight (3:00)** - neovitae:flask/suspended_to_flight\n"
-                + "- **Flight (8:00)** - neovitae:flask/length_flight\n"
-                + "- **Flight II (1:30)** - neovitae:flask/potency_flight");
-
-        this.page("advanced", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
-                + "- **Flight III (0:45)** - neovitae:flask/potency_average_flight\n"
-                + "- **Flight (21:20)** - neovitae:flask/length_average_flight");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/suspended_to_flight")
+                .withRecipeId2("neovitae:flask/length_flight"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/potency_flight")
+                .withRecipeId2("neovitae:flask/potency_average_flight"));
+        this.page("recipe3", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/length_average_flight"));
     }
 
     @Override

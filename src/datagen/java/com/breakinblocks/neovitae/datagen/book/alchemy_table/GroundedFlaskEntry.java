@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -23,12 +24,11 @@ public class GroundedFlaskEntry extends EntryProvider {
         this.pageText("**Grounded** prevents the target from jumping. Swimming is unaffected, however.\\\n\\\n"
                 + "It's made from a potion of **Jump Boost**.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Grounded (3:00)** - neovitae:flask/jump_to_grounded\n"
-                + "- **Grounded (8:00)** - neovitae:flask/length_grounded\n"
-                + "- **Grounded (21:20)** - neovitae:flask/length_average_grounded");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/jump_to_grounded")
+                .withRecipeId2("neovitae:flask/length_grounded"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/length_average_grounded"));
     }
 
     @Override

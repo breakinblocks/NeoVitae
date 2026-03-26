@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookLivingDowngradeRecipePageModel;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
 
@@ -22,6 +23,9 @@ public class BattleHungryDowngradeEntry extends EntryProvider {
         this.pageTitle("Battle Hungry");
         this.pageText("Gives you hunger if you haven't attacked something recently. Higher levels give you "
                 + "a shorter cooldown window and make the hunger worse.");
+
+        this.page("recipe", () -> BookLivingDowngradeRecipePageModel.create()
+                .withRecipeId1("neovitae:downgrade/battle_hungry"));
     }
 
     @Override

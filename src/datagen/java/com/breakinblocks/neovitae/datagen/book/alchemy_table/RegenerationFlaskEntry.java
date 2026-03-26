@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -22,18 +23,14 @@ public class RegenerationFlaskEntry extends EntryProvider {
         this.pageTitle("Regeneration");
         this.pageText("**Regeneration** heals the target over time. Higher levels increase the rate of healing.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Regeneration (3:00)** - neovitae:flask/regen\n"
-                + "- **Regeneration (8:00)** - neovitae:flask/length_regen\n"
-                + "- **Regeneration II (1:30)** - neovitae:flask/potency_regen");
-
-        this.page("advanced", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
-                + "- **Regeneration III (0:45)** - neovitae:flask/potency_average_regen\n"
-                + "- **Regeneration (21:20)** - neovitae:flask/length_average_regen");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/regen")
+                .withRecipeId2("neovitae:flask/length_regen"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/potency_regen")
+                .withRecipeId2("neovitae:flask/potency_average_regen"));
+        this.page("recipe3", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/length_average_regen"));
     }
 
     @Override

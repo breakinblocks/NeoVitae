@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -24,18 +25,14 @@ public class HeavyHeartFlaskEntry extends EntryProvider {
                 + "significantly more difficult.\\\n\\\n"
                 + "It's created from a flask containing both the **Gravity** and **Instant Health** effects.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Heavy Heart (3:00)** - neovitae:flask/gravity_to_heart\n"
-                + "- **Heavy Heart (8:00)** - neovitae:flask/length_heavy_heart\n"
-                + "- **Heavy Heart II (1:30)** - neovitae:flask/potency_heavy_heart");
-
-        this.page("advanced", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
-                + "- **Heavy Heart III (0:45)** - neovitae:flask/potency_average_heavy_heart\n"
-                + "- **Heavy Heart (21:20)** - neovitae:flask/length_average_heavy_heart");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/gravity_to_heart")
+                .withRecipeId2("neovitae:flask/length_heavy_heart"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/potency_heavy_heart")
+                .withRecipeId2("neovitae:flask/potency_average_heavy_heart"));
+        this.page("recipe3", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/length_average_heavy_heart"));
     }
 
     @Override

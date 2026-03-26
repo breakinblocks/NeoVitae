@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -24,18 +25,14 @@ public class GravityFlaskEntry extends EntryProvider {
                 + "It does not reduce jump height, however.\\\n\\\n"
                 + "It's created from a flask containing both the **Grounded** and **Slow Falling** effects.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Gravity (3:00)** - neovitae:flask/gravity\n"
-                + "- **Gravity (8:00)** - neovitae:flask/length_gravity\n"
-                + "- **Gravity II (1:30)** - neovitae:flask/potency_gravity");
-
-        this.page("advanced", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Adding Standard Catalysts can further boost your potions.\\\n\\\n"
-                + "- **Gravity III (0:45)** - neovitae:flask/potency_average_gravity\n"
-                + "- **Gravity (21:20)** - neovitae:flask/length_average_gravity");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/gravity")
+                .withRecipeId2("neovitae:flask/length_gravity"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/potency_gravity")
+                .withRecipeId2("neovitae:flask/potency_average_gravity"));
+        this.page("recipe3", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/length_average_gravity"));
     }
 
     @Override

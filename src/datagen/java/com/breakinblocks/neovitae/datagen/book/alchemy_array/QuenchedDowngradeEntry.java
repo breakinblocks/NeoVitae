@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookLivingDowngradeRecipePageModel;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
 
@@ -21,6 +22,9 @@ public class QuenchedDowngradeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Quenched");
         this.pageText("Prevents you from drinking any potions whilst wearing the armour.");
+
+        this.page("recipe", () -> BookLivingDowngradeRecipePageModel.create()
+                .withRecipeId1("neovitae:downgrade/quenched"));
     }
 
     @Override

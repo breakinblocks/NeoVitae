@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -25,12 +26,11 @@ public class SuspendedFlaskEntry extends EntryProvider {
                 + "never-ending plane of ice.\\\n\\\n"
                 + "It's made from a potion of **Gravity**.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Suspended (3:00)** - neovitae:flask/gravity_to_suspended\n"
-                + "- **Suspended (8:00)** - neovitae:flask/length_suspended\n"
-                + "- **Suspended (21:20)** - neovitae:flask/length_average_suspended");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/gravity_to_suspended")
+                .withRecipeId2("neovitae:flask/length_suspended"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/length_average_suspended"));
     }
 
     @Override

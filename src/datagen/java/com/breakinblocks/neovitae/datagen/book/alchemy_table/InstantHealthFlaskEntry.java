@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -23,12 +24,11 @@ public class InstantHealthFlaskEntry extends EntryProvider {
         this.pageText("**Instant Health** heals the target for 4 points per level. If the target is **Undead**, "
                 + "they will be harmed for 4 points per level instead.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Instant Health** - neovitae:flask/health\n"
-                + "- **Instant Health II** - neovitae:flask/potency_health\n"
-                + "- **Instant Health III** - neovitae:flask/potency_average_health");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/health")
+                .withRecipeId2("neovitae:flask/potency_health"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/potency_average_health"));
     }
 
     @Override

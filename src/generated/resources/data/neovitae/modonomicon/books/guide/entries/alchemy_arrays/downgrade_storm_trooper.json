@@ -19,6 +19,17 @@
       "text": "book.neovitae.guide.alchemy_arrays.downgrade_storm_trooper.intro.text",
       "title": "book.neovitae.guide.alchemy_arrays.downgrade_storm_trooper.intro.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "neovitae:living_downgrade_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:downgrade/storm_trooper",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

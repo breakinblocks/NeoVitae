@@ -10,15 +10,13 @@
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_tough_palms.name",
   "pages": [
     {
-      "type": "modonomicon:text",
+      "type": "neovitae:living_upgrade_table",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
       "text": "book.neovitae.guide.alchemy_arrays.upgrade_tough_palms.intro.text",
-      "title": "book.neovitae.guide.alchemy_arrays.upgrade_tough_palms.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.neovitae.guide.alchemy_arrays.upgrade_tough_palms.intro.title"
     }
   ],
   "parents": [

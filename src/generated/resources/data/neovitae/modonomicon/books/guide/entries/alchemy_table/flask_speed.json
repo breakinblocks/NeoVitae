@@ -21,26 +21,39 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:text",
+      "type": "neovitae:flask_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_table.flask_speed.recipes.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "recipe_id_1": "neovitae:flask/speed_boost",
+      "recipe_id_2": "neovitae:flask/length_speed_boost",
+      "text": "",
+      "title1": "",
+      "title2": ""
     },
     {
-      "type": "modonomicon:text",
+      "type": "neovitae:flask_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_table.flask_speed.advanced.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "recipe_id_1": "neovitae:flask/potency_speed_boost",
+      "recipe_id_2": "neovitae:flask/potency_average_speed_boost",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "neovitae:flask_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:flask/length_average_speed_boost",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -25,12 +26,11 @@ public class InvisibilityFlaskEntry extends EntryProvider {
                 + "may be a give-away as to the target's location.\\\n\\\n"
                 + "It's made from a potion of **Night Vision**.");
 
-        this.page("recipes", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Flask recipes:\n"
-                + "- **Invisibility (3:00)** - neovitae:flask/night_to_invis\n"
-                + "- **Invisibility (8:00)** - neovitae:flask/length_invisibility\n"
-                + "- **Invisibility (21:20)** - neovitae:flask/length_average_invisibility");
+        this.page("recipe1", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/night_to_invis")
+                .withRecipeId2("neovitae:flask/length_invisibility"));
+        this.page("recipe2", () -> BookFlaskRecipePageModel.create()
+                .withRecipeId1("neovitae:flask/length_average_invisibility"));
     }
 
     @Override

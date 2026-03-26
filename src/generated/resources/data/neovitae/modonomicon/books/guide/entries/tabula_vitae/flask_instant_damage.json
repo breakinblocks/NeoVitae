@@ -1,0 +1,96 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "tabula_vitae",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "tabula_vitae/flask_instant_health"
+  },
+  "description": "book.neovitae.guide.tabula_vitae.flask_instant_damage.description",
+  "hide_while_locked": false,
+  "icon": {
+    "components": {
+      "minecraft:potion_contents": {
+        "custom_effects": [
+          {
+            "duration": 3600,
+            "id": "minecraft:instant_damage",
+            "neoforge:cures": [
+              "protected_by_totem",
+              "milk"
+            ],
+            "show_icon": true
+          }
+        ]
+      },
+      "neovitae:flask_effects": {
+        "effects": [
+          {
+            "amp_duration_mod": 1.0,
+            "amplifier": 0,
+            "base_duration": 3600,
+            "effect": "minecraft:instant_damage",
+            "length_duration_mod": 1.0
+          }
+        ]
+      }
+    },
+    "item": "neovitae:alchemy_flask"
+  },
+  "name": "book.neovitae.guide.tabula_vitae.flask_instant_damage.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.tabula_vitae.flask_instant_damage.intro.text",
+      "title": "book.neovitae.guide.tabula_vitae.flask_instant_damage.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "neovitae:flask_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:flask/health_to_harm",
+      "recipe_id_2": "neovitae:flask/poison_to_harm",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "neovitae:flask_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:flask/potency_harm",
+      "recipe_id_2": "neovitae:flask/potency_average_harm",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "tabula_vitae/flask_instant_health",
+      "line_enabled": true,
+      "line_reversed": false
+    },
+    {
+      "draw_arrow": true,
+      "entry": "tabula_vitae/flask_poison",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": true,
+  "sort_number": 30,
+  "x": 2,
+  "y": 0
+}

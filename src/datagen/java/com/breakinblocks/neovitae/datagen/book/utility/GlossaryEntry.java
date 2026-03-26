@@ -47,7 +47,7 @@ public class GlossaryEntry extends EntryProvider {
         this.pageText("[#](8B0000)LP[#]() (Life Points) represents Life Essence that has been further purified through a Blood Orb "
                 + "and stored within your Soul Network. Think of it as a third 'state' for blood - a pure distillation "
                 + "of power that exists in an ethereal form.\\\n\\\n"
-                + "LP is consumed when using Sigils, activating Rituals, and powering the Alchemy Table.");
+                + "LP is consumed when using Sigils, activating Rituals, and powering the Tabula Vitae.");
 
         this.page("soul_network", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

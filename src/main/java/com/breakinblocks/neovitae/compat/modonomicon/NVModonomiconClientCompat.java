@@ -15,8 +15,8 @@ public class NVModonomiconClientCompat {
                 p -> new BookSoulForgeRecipePageRenderer((BookSoulForgeRecipePage) p)
         );
         PageRendererRegistry.registerPageRenderer(
-                NVPageTypes.ALCHEMY_TABLE,
-                p -> new BookAlchemyTableRecipePageRenderer((BookAlchemyTableRecipePage) p)
+                NVPageTypes.TABULA_VITAE,
+                p -> new BookTabulaVitaeRecipePageRenderer((BookTabulaVitaeRecipePage) p)
         );
         PageRendererRegistry.registerPageRenderer(
                 NVPageTypes.ALCHEMY_ARRAY,

@@ -33,7 +33,7 @@ public class TagFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tag Item Filter");
-        this.pageText("Craft the Tag Item Filter in the Alchemy Table.\\\n\\\n"
+        this.pageText("Craft the Tag Item Filter in the Tabula Vitae.\\\n\\\n"
                 + "This allows you to deny/permit categories of items, so you can specify that all items with "
                 + "the tag [#](8B0000)forge:ores[#]() get sent to your furnace, for example.");
 

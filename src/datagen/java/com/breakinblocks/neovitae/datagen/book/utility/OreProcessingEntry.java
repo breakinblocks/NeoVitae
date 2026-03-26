@@ -22,7 +22,7 @@ public class OreProcessingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ore Processing");
-        this.pageText("The Alchemy Table can be used, amongst other things, for ore doubling, whilst the "
+        this.pageText("The Tabula Vitae can be used, amongst other things, for ore doubling, whilst the "
                 + "Alchemical Reaction Chamber can give you 2.5 ingots per piece of Raw Ore, or 4.5 ingots "
                 + "per Ore Block. Get more ore out of your mining expeditions with the power of blood!");
 
@@ -30,7 +30,7 @@ public class OreProcessingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Basic Cutting Fluid");
-        this.pageText("Cutting Fluid is crafted in the Alchemy Table. It is the penultimate step in all forms of "
+        this.pageText("Cutting Fluid is crafted in the Tabula Vitae. It is the penultimate step in all forms of "
                 + "Ore Processing.\\\n\\\n"
                 + "It can be used in the Alchemical Reaction Chamber to get 3 Ore Sand from one "
                 + "Ore Block, or 1.5 Ore Sand from one Raw Ore (on average). While a Water Sigil is used in the "
@@ -55,7 +55,7 @@ public class OreProcessingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Metal Sand");
-        this.pageText("The Alchemy Table can produce Metal Sand from Raw Ore for ore doubling:\n"
+        this.pageText("The Tabula Vitae can produce Metal Sand from Raw Ore for ore doubling:\n"
                 + "- Iron Sand from Raw Iron\n"
                 + "- Gold Sand from Raw Gold");
 
@@ -78,7 +78,7 @@ public class OreProcessingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Explosive Powder");
-        this.pageText("Explosive Powder is crafted in the Alchemy Table. In the ARC, it is used to turn Ores into "
+        this.pageText("Explosive Powder is crafted in the Tabula Vitae. In the ARC, it is used to turn Ores into "
                 + "4.5 Ore Fragments on average, or Raw Ores into 2.25 fragments on average, or turn Ingots into "
                 + "their Sand variant.\\\n\\\n"
                 + "It can also turn Netherrack into Sulfur and 50mb of Lava. It has 2 improved variants.");
@@ -87,7 +87,7 @@ public class OreProcessingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Explosive Cells");
-        this.pageText("The Reinforced and Hellforged Explosive Cells are improved versions crafted in the Alchemy Table. "
+        this.pageText("The Reinforced and Hellforged Explosive Cells are improved versions crafted in the Tabula Vitae. "
                 + "They last longer and craft faster than the basic Explosive Powder variant.");
 
         this.page("fragments", () -> BookTextPageModel.create()
@@ -125,7 +125,7 @@ public class OreProcessingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Corrupted Recipes");
-        this.pageText("Corrupted Dust can be combined in the Alchemy Table with various materials:\n"
+        this.pageText("Corrupted Dust can be combined in the Tabula Vitae with various materials:\n"
                 + "- Corrupted Coal\n"
                 + "- Corrupted Iron\n"
                 + "- Corrupted Debris");

@@ -15,7 +15,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.item.block.ItemBlockAlchemyTable;
+import com.breakinblocks.neovitae.common.item.block.ItemBlockTabulaVitae;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 import com.breakinblocks.neovitae.util.helper.BlockWithItemHolder;
@@ -85,7 +85,7 @@ public class NVBlocks {
 
     public static final DeferredHolder<Block, PhantomBridgeBlock> PHANTOM_BRIDGE_BLOCK = BLOCKS.register("phantom_bridge", PhantomBridgeBlock::new);
 
-    public static final BlockWithItemHolder<AlchemyTableBlock, ItemBlockAlchemyTable> ALCHEMY_TABLE = BLOCK_REG.register("alchemy_table", AlchemyTableBlock::new, block -> new ItemBlockAlchemyTable(block, new Item.Properties()));
+    public static final BlockWithItemHolder<TabulaVitaeBlock, ItemBlockTabulaVitae> TABULA_VITAE = BLOCK_REG.register("tabula_vitae", TabulaVitaeBlock::new, block -> new ItemBlockTabulaVitae(block, new Item.Properties()));
 
     public static final BlockWithItemHolder<BlockIncenseAltar, BlockItem> INCENSE_ALTAR = BLOCK_REG.register("incense_altar", BlockIncenseAltar::new);
 

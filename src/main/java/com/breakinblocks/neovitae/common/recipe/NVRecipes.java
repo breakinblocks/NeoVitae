@@ -11,7 +11,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.recipe.arc.ARCRecipe;
 import com.breakinblocks.neovitae.common.recipe.arc.ARCPotionRecipe;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
-import com.breakinblocks.neovitae.common.recipe.alchemytable.AlchemyTableRecipe;
+import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.*;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
@@ -39,8 +39,8 @@ public class NVRecipes {
     public static final DeferredHolder<RecipeType<?>, RecipeType<AlchemyArrayRecipe>> ALCHEMY_ARRAY_TYPE = TYPES.register(AlchemyArrayRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(AlchemyArrayRecipe.RECIPE_TYPE_NAME)));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<AlchemyArrayRecipe>> ALCHEMY_ARRAY_SERIALIZER = SERIALIZERS.register(AlchemyArrayRecipe.RECIPE_TYPE_NAME, () -> new NVRecipeSerializer<>(AlchemyArrayRecipe.CODEC, AlchemyArrayRecipe.STREAM_CODEC));
 
-    public static final DeferredHolder<RecipeType<?>, RecipeType<AlchemyTableRecipe>> ALCHEMY_TABLE_TYPE = TYPES.register(AlchemyTableRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(AlchemyTableRecipe.RECIPE_TYPE_NAME)));
-    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<AlchemyTableRecipe>> ALCHEMY_TABLE_SERIALIZER = SERIALIZERS.register(AlchemyTableRecipe.RECIPE_TYPE_NAME, () -> new NVRecipeSerializer<>(AlchemyTableRecipe.CODEC, AlchemyTableRecipe.STREAM_CODEC));
+    public static final DeferredHolder<RecipeType<?>, RecipeType<TabulaVitaeRecipe>> TABULA_VITAE_TYPE = TYPES.register(TabulaVitaeRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(TabulaVitaeRecipe.RECIPE_TYPE_NAME)));
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<TabulaVitaeRecipe>> TABULA_VITAE_SERIALIZER = SERIALIZERS.register(TabulaVitaeRecipe.RECIPE_TYPE_NAME, () -> new NVRecipeSerializer<>(TabulaVitaeRecipe.CODEC, TabulaVitaeRecipe.STREAM_CODEC));
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<MeteorRecipe>> METEOR_TYPE = TYPES.register(MeteorRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(MeteorRecipe.RECIPE_TYPE_NAME)));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<MeteorRecipe>> METEOR_SERIALIZER = SERIALIZERS.register(MeteorRecipe.RECIPE_TYPE_NAME, () -> new NVRecipeSerializer<>(MeteorRecipe.CODEC, MeteorRecipe.STREAM_CODEC));

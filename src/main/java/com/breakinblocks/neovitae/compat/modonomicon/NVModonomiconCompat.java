@@ -17,9 +17,9 @@ public class NVModonomiconCompat {
                 BookSoulForgeRecipePage::fromNetwork
         );
         LoaderRegistry.registerPageLoader(
-                NVPageTypes.ALCHEMY_TABLE,
-                BookAlchemyTableRecipePage::fromJson,
-                BookAlchemyTableRecipePage::fromNetwork
+                NVPageTypes.TABULA_VITAE,
+                BookTabulaVitaeRecipePage::fromJson,
+                BookTabulaVitaeRecipePage::fromNetwork
         );
         LoaderRegistry.registerPageLoader(
                 NVPageTypes.ALCHEMY_ARRAY,

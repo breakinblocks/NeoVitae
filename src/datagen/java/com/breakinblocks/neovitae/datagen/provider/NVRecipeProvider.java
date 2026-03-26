@@ -25,7 +25,7 @@ import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
 import com.breakinblocks.neovitae.datagen.builder.AlchemyArrayEffectRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.AlchemyArrayRecipeBuilder;
-import com.breakinblocks.neovitae.datagen.builder.AlchemyTableRecipeBuilder;
+import com.breakinblocks.neovitae.datagen.builder.TabulaVitaeRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.ARCRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.ARCPotionRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.AltarRecipeBuilder;
@@ -65,7 +65,7 @@ public class NVRecipeProvider extends RecipeProvider {
         addAraVitaeRecipes(output);
         addSoulForgeRecipes(output);
         addAlchemyArrayRecipes(output);
-        addAlchemyTableRecipes(output);
+        addTabulaVitaeRecipes(output);
         addARCRecipes(output);
         addMeteorRecipes(output);
         addFlaskRecipes(output);
@@ -1784,9 +1784,9 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "night");
     }
 
-    private void addAlchemyTableRecipes(RecipeOutput output) {
+    private void addTabulaVitaeRecipes(RecipeOutput output) {
         // Reagent Water - sugar, water bucket x2
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_WATER.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_WATER.get())
                 .input(Items.SUGAR)
                 .input(Items.WATER_BUCKET)
                 .input(Items.WATER_BUCKET)
@@ -1796,7 +1796,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_water");
 
         // Reagent Lava - lava bucket, redstone dust, cobblestone, coal block
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_LAVA.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_LAVA.get())
                 .input(Items.LAVA_BUCKET)
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
                 .input(Ingredient.of(Tags.Items.COBBLESTONES))
@@ -1807,7 +1807,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_lava");
 
         // Reagent Air - ghast tear, feather x2
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_AIR.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_AIR.get())
                 .input(Items.GHAST_TEAR)
                 .input(Items.FEATHER)
                 .input(Items.FEATHER)
@@ -1817,7 +1817,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_air");
 
         // Reagent Void - bucket, string x2, gunpowder
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_VOID.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_VOID.get())
                 .input(Items.BUCKET)
                 .input(Ingredient.of(Tags.Items.STRINGS))
                 .input(Ingredient.of(Tags.Items.STRINGS))
@@ -1828,7 +1828,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_void");
 
         // Reagent Growth - saplings x2, sugar_cane, sugar
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_GROWTH.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_GROWTH.get())
                 .input(Ingredient.of(ItemTags.SAPLINGS))
                 .input(Ingredient.of(ItemTags.SAPLINGS))
                 .input(Items.SUGAR_CANE)
@@ -1839,7 +1839,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_growth");
 
         // Reagent Fast Miner - gold nugget, iron pickaxe, iron shovel
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_FAST_MINER.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_FAST_MINER.get())
                 .input(Ingredient.of(Tags.Items.NUGGETS_GOLD))
                 .input(Items.IRON_PICKAXE)
                 .input(Items.IRON_SHOVEL)
@@ -1849,7 +1849,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_fast_miner");
 
         // Reagent Magnetism - string, gold_ingot x2, iron_block
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_MAGNETISM.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_MAGNETISM.get())
                 .input(Ingredient.of(Tags.Items.STRINGS))
                 .input(Ingredient.of(Tags.Items.INGOTS_GOLD))
                 .input(Ingredient.of(Tags.Items.INGOTS_GOLD))
@@ -1860,7 +1860,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_magnetism");
 
         // Reagent Blood Light - glowstone dust, torch, redstone x2
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_BLOOD_LIGHT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_BLOOD_LIGHT.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_GLOWSTONE))
                 .input(Items.TORCH)
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -1871,7 +1871,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_blood_light");
 
         // Reagent Sight - glowstone_dust, glass x2, divination sigil
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_SIGHT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_SIGHT.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_GLOWSTONE))
                 .input(Ingredient.of(Tags.Items.GLASS_BLOCKS))
                 .input(Ingredient.of(Tags.Items.GLASS_BLOCKS))
@@ -1882,7 +1882,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_sight");
 
         // Reagent Binding - glowstone_dust, redstone_dust, gunpowder, gold_nugget
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_BINDING.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_BINDING.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_GLOWSTONE))
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
                 .input(Ingredient.of(Tags.Items.GUNPOWDERS))
@@ -1893,7 +1893,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_binding");
 
         // Reagent Holding - chest, leather, string x2
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_HOLDING.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_HOLDING.get())
                 .input(Ingredient.of(Tags.Items.CHESTS))
                 .input(Ingredient.of(Tags.Items.LEATHERS))
                 .input(Ingredient.of(Tags.Items.STRINGS))
@@ -1904,7 +1904,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_holding");
 
         // Reagent Suppression - teleposer, void sigil, gold ingot, bucket
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_SUPPRESSION.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_SUPPRESSION.get())
                 .input(NVBlocks.TELEPOSER.item().get())
                 .input(NVItems.SIGIL_VOID.get())
                 .input(Ingredient.of(Tags.Items.INGOTS_GOLD))
@@ -1915,7 +1915,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_suppression");
 
         // Reagent Teleposition - teleposer, gold ingot, ender pearl, chorus fruit
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_TELEPOSITION.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_TELEPOSITION.get())
                 .input(NVBlocks.TELEPOSER.item().get())
                 .input(Ingredient.of(Tags.Items.INGOTS_GOLD))
                 .input(Items.ENDER_PEARL)
@@ -1926,7 +1926,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_teleposition");
 
         // Reagent Frost - ice, snowball x2, water bucket
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_FROST.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_FROST.get())
                 .input(Blocks.ICE)
                 .input(Items.SNOWBALL)
                 .input(Items.SNOWBALL)
@@ -1937,7 +1937,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_frost");
 
         // Reagent Phantom Bridge - feather, glass, soul sand, slime ball
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_PHANTOM_BRIDGE.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_PHANTOM_BRIDGE.get())
                 .input(Items.FEATHER)
                 .input(Ingredient.of(Tags.Items.GLASS_BLOCKS))
                 .input(Items.SOUL_SAND)
@@ -1948,7 +1948,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_phantom_bridge");
 
         // Arcane Ash - redstone, white dye (bone meal), gunpowder, coal
-        AlchemyTableRecipeBuilder.build(NVItems.ARCANE_ASHES.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.ARCANE_ASHES.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
                 .input(Ingredient.of(Tags.Items.DYES_WHITE))
                 .input(Ingredient.of(Tags.Items.GUNPOWDERS))
@@ -1959,7 +1959,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "arcane_ash");
 
         // Tau Oil - 3x weak tau + bone meal
-        AlchemyTableRecipeBuilder.build(NVItems.TAU_OIL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.TAU_OIL.get())
                 .input(NVBlocks.WEAK_TAU.item().get())
                 .input(NVBlocks.WEAK_TAU.item().get())
                 .input(NVBlocks.WEAK_TAU.item().get())
@@ -1971,7 +1971,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // Utility recipes
         // Leather from rotten flesh
-        AlchemyTableRecipeBuilder.build(new ItemStack(Items.LEATHER, 4))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(Items.LEATHER, 4))
                 .input(Items.ROTTEN_FLESH)
                 .input(Items.ROTTEN_FLESH)
                 .input(Items.ROTTEN_FLESH)
@@ -1984,7 +1984,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "leather_from_flesh");
 
         // String from wool
-        AlchemyTableRecipeBuilder.build(new ItemStack(Items.STRING, 4))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(Items.STRING, 4))
                 .input(Ingredient.of(ItemTags.WOOL))
                 .input(Items.FLINT)
                 .syphon(100)
@@ -1993,7 +1993,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "string");
 
         // Flint duplication
-        AlchemyTableRecipeBuilder.build(new ItemStack(Items.FLINT, 2))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(Items.FLINT, 2))
                 .input(Items.GRAVEL)
                 .input(Items.FLINT)
                 .syphon(50)
@@ -2002,7 +2002,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "flint_from_gravel");
 
         // Bread from wheat
-        AlchemyTableRecipeBuilder.build(Items.BREAD)
+        TabulaVitaeRecipeBuilder.build(Items.BREAD)
                 .input(Ingredient.of(Tags.Items.CROPS_WHEAT))
                 .input(Items.SUGAR)
                 .syphon(100)
@@ -2011,7 +2011,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "bread");
 
         // Explosive Powder - gunpowder x2 + coal dust
-        AlchemyTableRecipeBuilder.build(NVItems.EXPLOSIVE_POWDER.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.EXPLOSIVE_POWDER.get())
                 .input(Ingredient.of(Tags.Items.GUNPOWDERS))
                 .input(Ingredient.of(Tags.Items.GUNPOWDERS))
                 .input(Ingredient.of(NVTags.Items.DUSTS_COAL))
@@ -2021,7 +2021,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "explosive_powder");
 
         // Sulfur from lava bucket + cobblestone
-        AlchemyTableRecipeBuilder.build(new ItemStack(NVItems.SULFUR.get(), 4))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.SULFUR.get(), 4))
                 .input(Items.LAVA_BUCKET)
                 .input(Ingredient.of(Tags.Items.COBBLESTONES))
                 .syphon(200)
@@ -2030,7 +2030,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "sulfur_from_lava");
 
         // Saltpeter from plant oil x2 + coal dust
-        AlchemyTableRecipeBuilder.build(new ItemStack(NVItems.SALTPETER.get(), 3))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.SALTPETER.get(), 3))
                 .input(NVItems.PLANT_OIL.get())
                 .input(NVItems.PLANT_OIL.get())
                 .input(Ingredient.of(NVTags.Items.DUSTS_COAL))
@@ -2040,7 +2040,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "saltpeter");
 
         // Gunpowder from sulfur + saltpeter + coal
-        AlchemyTableRecipeBuilder.build(new ItemStack(Items.GUNPOWDER, 3))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(Items.GUNPOWDER, 3))
                 .input(Ingredient.of(NVTags.Items.DUSTS_SULFUR))
                 .input(Ingredient.of(NVTags.Items.DUSTS_SALTPETER))
                 .input(Ingredient.of(ItemTags.COALS))
@@ -2050,7 +2050,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "gunpowder");
 
         // Plant Oil recipes - from various crops
-        AlchemyTableRecipeBuilder.build(NVItems.PLANT_OIL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.PLANT_OIL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_CARROT))
                 .input(Ingredient.of(Tags.Items.CROPS_CARROT))
                 .input(Ingredient.of(Tags.Items.CROPS_CARROT))
@@ -2060,7 +2060,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "plantoil_from_carrots");
 
-        AlchemyTableRecipeBuilder.build(NVItems.PLANT_OIL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.PLANT_OIL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_POTATO))
                 .input(Ingredient.of(Tags.Items.CROPS_POTATO))
                 .input(Items.BONE_MEAL)
@@ -2069,7 +2069,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "plantoil_from_potatoes");
 
-        AlchemyTableRecipeBuilder.build(NVItems.PLANT_OIL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.PLANT_OIL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_WHEAT))
                 .input(Ingredient.of(Tags.Items.CROPS_WHEAT))
                 .input(Items.BONE_MEAL)
@@ -2078,7 +2078,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "plantoil_from_wheat");
 
-        AlchemyTableRecipeBuilder.build(NVItems.PLANT_OIL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.PLANT_OIL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_BEETROOT))
                 .input(Ingredient.of(Tags.Items.CROPS_BEETROOT))
                 .input(Ingredient.of(Tags.Items.CROPS_BEETROOT))
@@ -2089,7 +2089,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "plantoil_from_beets");
 
         // Basic Cutting Fluid - plant oil + redstone + gunpowder + sugar + coal dust + water bottle
-        AlchemyTableRecipeBuilder.build(NVItems.BASIC_CUTTING_FLUID.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.BASIC_CUTTING_FLUID.get())
                 .input(NVItems.PLANT_OIL.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
                 .input(Items.GUNPOWDER)
@@ -2102,7 +2102,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "basic_cutting_fluid");
 
         // Slate Vial - blank slate + 5 glass
-        AlchemyTableRecipeBuilder.build(new ItemStack(NVItems.SLATE_VIAL.get(), 8))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.SLATE_VIAL.get(), 8))
                 .input(NVItems.SLATE_BLANK.get())
                 .input(Ingredient.of(Tags.Items.GLASS_BLOCKS))
                 .input(Ingredient.of(Tags.Items.GLASS_BLOCKS))
@@ -2115,7 +2115,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "slate_vial");
 
         // Anointment Recipes
-        AlchemyTableRecipeBuilder.build(NVItems.FORTUNE_ANOINTMENT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.FORTUNE_ANOINTMENT.get())
                 .input(NVItems.SLATE_VIAL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -2125,7 +2125,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "fortune_anointment");
 
-        AlchemyTableRecipeBuilder.build(NVItems.SILK_TOUCH_ANOINTMENT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.SILK_TOUCH_ANOINTMENT.get())
                 .input(NVItems.SLATE_VIAL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .input(Items.COBWEB)
@@ -2135,7 +2135,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "silk_touch_anointment");
 
-        AlchemyTableRecipeBuilder.build(NVItems.MELEE_DAMAGE_ANOINTMENT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.MELEE_DAMAGE_ANOINTMENT.get())
                 .input(NVItems.SLATE_VIAL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .input(Items.BLAZE_POWDER)
@@ -2145,7 +2145,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "melee_damage_anointment");
 
-        AlchemyTableRecipeBuilder.build(NVItems.HOLY_WATER_ANOINTMENT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.HOLY_WATER_ANOINTMENT.get())
                 .input(NVItems.SLATE_VIAL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .input(Items.GLISTERING_MELON_SLICE)
@@ -2155,7 +2155,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "holy_water_anointment");
 
-        AlchemyTableRecipeBuilder.build(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT.get())
                 .input(NVItems.SLATE_VIAL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .input(Items.GLASS_BOTTLE)
@@ -2165,7 +2165,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "hidden_knowledge_anointment");
 
-        AlchemyTableRecipeBuilder.build(NVItems.QUICK_DRAW_ANOINTMENT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.QUICK_DRAW_ANOINTMENT.get())
                 .input(NVItems.SLATE_VIAL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .input(Ingredient.of(Tags.Items.STRINGS))
@@ -2175,7 +2175,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "quick_draw_anointment");
 
-        AlchemyTableRecipeBuilder.build(NVItems.LOOTING_ANOINTMENT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.LOOTING_ANOINTMENT.get())
                 .input(NVItems.SLATE_VIAL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .input(Ingredient.of(Tags.Items.GEMS_LAPIS))
@@ -2185,7 +2185,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "looting_anointment");
 
-        AlchemyTableRecipeBuilder.build(NVItems.BOW_POWER_ANOINTMENT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.BOW_POWER_ANOINTMENT.get())
                 .input(NVItems.SLATE_VIAL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .input(Ingredient.of(Tags.Items.INGOTS_IRON))
@@ -2195,7 +2195,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "bow_power_anointment");
 
-        AlchemyTableRecipeBuilder.build(NVItems.SMELTING_ANOINTMENT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.SMELTING_ANOINTMENT.get())
                 .input(NVItems.SLATE_VIAL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .input(Items.FURNACE)
@@ -2205,7 +2205,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "smelting_anointment");
 
-        AlchemyTableRecipeBuilder.build(NVItems.VOIDING_ANOINTMENT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.VOIDING_ANOINTMENT.get())
                 .input(NVItems.SLATE_VIAL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .input(Items.NETHERRACK)
@@ -2215,7 +2215,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "voiding_anointment");
 
-        AlchemyTableRecipeBuilder.build(NVItems.BOW_VELOCITY_ANOINTMENT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.BOW_VELOCITY_ANOINTMENT.get())
                 .input(NVItems.SLATE_VIAL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .input(Ingredient.of(Tags.Items.NUGGETS_GOLD))
@@ -2225,7 +2225,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "bow_velocity_anointment");
 
-        AlchemyTableRecipeBuilder.build(NVItems.WEAPON_REPAIR_ANOINTMENT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.WEAPON_REPAIR_ANOINTMENT.get())
                 .input(NVItems.SLATE_VIAL.get())
                 .input(Ingredient.of(Tags.Items.CROPS_NETHER_WART))
                 .input(Ingredient.of(Tags.Items.INGOTS_COPPER))
@@ -2236,7 +2236,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "weapon_repair_anointment");
 
         // Frame Parts and Filter Recipes
-        AlchemyTableRecipeBuilder.build(new ItemStack(NVItems.FRAME_PARTS.get(), 2))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.FRAME_PARTS.get(), 2))
                 .input(Ingredient.of(Tags.Items.GLASS_BLOCKS))
                 .input(Ingredient.of(Tags.Items.STONES))
                 .input(NVItems.SLATE_BLANK.get())
@@ -2245,7 +2245,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(3)
                 .save(output, "component_frame_parts");
 
-        AlchemyTableRecipeBuilder.build(NVItems.ITEM_ROUTER_FILTER.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.ITEM_ROUTER_FILTER.get())
                 .input(NVItems.FRAME_PARTS.get())
                 .input(Ingredient.of(Tags.Items.LEATHERS))
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -2255,7 +2255,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(3)
                 .save(output, "router_filter");
 
-        AlchemyTableRecipeBuilder.build(NVItems.ITEM_TAG_FILTER.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.ITEM_TAG_FILTER.get())
                 .input(NVItems.FRAME_PARTS.get())
                 .input(Ingredient.of(Tags.Items.INGOTS))
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -2265,7 +2265,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(3)
                 .save(output, "tag_router_filter");
 
-        AlchemyTableRecipeBuilder.build(NVItems.ITEM_MOD_FILTER.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.ITEM_MOD_FILTER.get())
                 .input(NVItems.FRAME_PARTS.get())
                 .input(NVItems.SLATE_REINFORCED.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -2275,7 +2275,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(3)
                 .save(output, "mod_router_filter");
 
-        AlchemyTableRecipeBuilder.build(NVItems.ITEM_ENCHANT_FILTER.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.ITEM_ENCHANT_FILTER.get())
                 .input(NVItems.FRAME_PARTS.get())
                 .input(Items.ENCHANTED_BOOK)
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -2285,7 +2285,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(3)
                 .save(output, "enchant_router_filter");
 
-        AlchemyTableRecipeBuilder.build(NVItems.ITEM_COMPOSITE_FILTER.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.ITEM_COMPOSITE_FILTER.get())
                 .input(NVItems.FRAME_PARTS.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_GLOWSTONE))
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -2296,7 +2296,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "composite_router_filter");
 
         // Intermediate Cutting Fluid - tau oil + glowstone + gunpowder + sugar + sulfur + water bottle
-        AlchemyTableRecipeBuilder.build(NVItems.INTERMEDIATE_CUTTING_FLUID.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.INTERMEDIATE_CUTTING_FLUID.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_GLOWSTONE))
                 .input(Items.GUNPOWDER)
@@ -2309,7 +2309,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "intermediate_cutting_fluid");
 
         // Advanced Cutting Fluid - tau oil + hellforged dust + glow berries + saltpeter + sulfur + water bottle
-        AlchemyTableRecipeBuilder.build(NVItems.ADVANCED_CUTTING_FLUID.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.ADVANCED_CUTTING_FLUID.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(NVTags.Items.DUSTS_HELLFORGED))
                 .input(Items.GLOW_BERRIES)
@@ -2322,7 +2322,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "advanced_cutting_fluid");
 
         // Anointment _L variants (extended duration - use tau oil)
-        AlchemyTableRecipeBuilder.build(NVItems.FORTUNE_ANOINTMENT_L.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.FORTUNE_ANOINTMENT_L.get())
                 .input(NVItems.FORTUNE_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -2330,7 +2330,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "fortune_anointment_l");
 
-        AlchemyTableRecipeBuilder.build(NVItems.SILK_TOUCH_ANOINTMENT_L.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.SILK_TOUCH_ANOINTMENT_L.get())
                 .input(NVItems.SILK_TOUCH_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.COBWEB)
@@ -2338,7 +2338,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "silk_touch_anointment_l");
 
-        AlchemyTableRecipeBuilder.build(NVItems.MELEE_DAMAGE_ANOINTMENT_L.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.MELEE_DAMAGE_ANOINTMENT_L.get())
                 .input(NVItems.MELEE_DAMAGE_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.BLAZE_POWDER)
@@ -2346,7 +2346,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "melee_damage_anointment_l");
 
-        AlchemyTableRecipeBuilder.build(NVItems.HOLY_WATER_ANOINTMENT_L.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.HOLY_WATER_ANOINTMENT_L.get())
                 .input(NVItems.HOLY_WATER_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.GLISTERING_MELON_SLICE)
@@ -2354,7 +2354,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "holy_water_anointment_l");
 
-        AlchemyTableRecipeBuilder.build(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT_L.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT_L.get())
                 .input(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.GLASS_BOTTLE)
@@ -2362,7 +2362,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "hidden_knowledge_anointment_l");
 
-        AlchemyTableRecipeBuilder.build(NVItems.QUICK_DRAW_ANOINTMENT_L.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.QUICK_DRAW_ANOINTMENT_L.get())
                 .input(NVItems.QUICK_DRAW_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.STRINGS))
@@ -2370,7 +2370,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "quick_draw_anointment_l");
 
-        AlchemyTableRecipeBuilder.build(NVItems.LOOTING_ANOINTMENT_L.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.LOOTING_ANOINTMENT_L.get())
                 .input(NVItems.LOOTING_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.GEMS_LAPIS))
@@ -2378,7 +2378,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "looting_anointment_l");
 
-        AlchemyTableRecipeBuilder.build(NVItems.BOW_POWER_ANOINTMENT_L.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.BOW_POWER_ANOINTMENT_L.get())
                 .input(NVItems.BOW_POWER_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.INGOTS_IRON))
@@ -2386,7 +2386,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "bow_power_anointment_l");
 
-        AlchemyTableRecipeBuilder.build(NVItems.SMELTING_ANOINTMENT_L.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.SMELTING_ANOINTMENT_L.get())
                 .input(NVItems.SMELTING_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.FURNACE)
@@ -2394,7 +2394,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "smelting_anointment_l");
 
-        AlchemyTableRecipeBuilder.build(NVItems.VOIDING_ANOINTMENT_L.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.VOIDING_ANOINTMENT_L.get())
                 .input(NVItems.VOIDING_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.NETHERRACK)
@@ -2402,7 +2402,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "voiding_anointment_l");
 
-        AlchemyTableRecipeBuilder.build(NVItems.BOW_VELOCITY_ANOINTMENT_L.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.BOW_VELOCITY_ANOINTMENT_L.get())
                 .input(NVItems.BOW_VELOCITY_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.NUGGETS_GOLD))
@@ -2410,7 +2410,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "bow_velocity_anointment_l");
 
-        AlchemyTableRecipeBuilder.build(NVItems.WEAPON_REPAIR_ANOINTMENT_L.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.WEAPON_REPAIR_ANOINTMENT_L.get())
                 .input(NVItems.WEAPON_REPAIR_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.INGOTS_COPPER))
@@ -2419,7 +2419,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "weapon_repair_anointment_l");
 
         // Anointment _2 variants (level 2 - use strong tau)
-        AlchemyTableRecipeBuilder.build(NVItems.FORTUNE_ANOINTMENT_2.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.FORTUNE_ANOINTMENT_2.get())
                 .input(NVItems.FORTUNE_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -2427,7 +2427,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "fortune_anointment_2");
 
-        AlchemyTableRecipeBuilder.build(NVItems.MELEE_DAMAGE_ANOINTMENT_2.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.MELEE_DAMAGE_ANOINTMENT_2.get())
                 .input(NVItems.MELEE_DAMAGE_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(Items.BLAZE_POWDER)
@@ -2435,7 +2435,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "melee_damage_anointment_2");
 
-        AlchemyTableRecipeBuilder.build(NVItems.HOLY_WATER_ANOINTMENT_2.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.HOLY_WATER_ANOINTMENT_2.get())
                 .input(NVItems.HOLY_WATER_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(Items.GLISTERING_MELON_SLICE)
@@ -2443,7 +2443,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "holy_water_anointment_2");
 
-        AlchemyTableRecipeBuilder.build(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT_2.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT_2.get())
                 .input(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(Items.GLASS_BOTTLE)
@@ -2451,7 +2451,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "hidden_knowledge_anointment_2");
 
-        AlchemyTableRecipeBuilder.build(NVItems.QUICK_DRAW_ANOINTMENT_2.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.QUICK_DRAW_ANOINTMENT_2.get())
                 .input(NVItems.QUICK_DRAW_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(Ingredient.of(Tags.Items.STRINGS))
@@ -2459,7 +2459,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "quick_draw_anointment_2");
 
-        AlchemyTableRecipeBuilder.build(NVItems.LOOTING_ANOINTMENT_2.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.LOOTING_ANOINTMENT_2.get())
                 .input(NVItems.LOOTING_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(Ingredient.of(Tags.Items.GEMS_LAPIS))
@@ -2467,7 +2467,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "looting_anointment_2");
 
-        AlchemyTableRecipeBuilder.build(NVItems.BOW_POWER_ANOINTMENT_2.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.BOW_POWER_ANOINTMENT_2.get())
                 .input(NVItems.BOW_POWER_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(Ingredient.of(Tags.Items.INGOTS_IRON))
@@ -2475,7 +2475,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "bow_power_anointment_2");
 
-        AlchemyTableRecipeBuilder.build(NVItems.BOW_VELOCITY_ANOINTMENT_2.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.BOW_VELOCITY_ANOINTMENT_2.get())
                 .input(NVItems.BOW_VELOCITY_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(Ingredient.of(Tags.Items.NUGGETS_GOLD))
@@ -2483,7 +2483,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(1000).ticks(100).minimumTier(3)
                 .save(output, "bow_velocity_anointment_2");
 
-        AlchemyTableRecipeBuilder.build(NVItems.WEAPON_REPAIR_ANOINTMENT_2.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.WEAPON_REPAIR_ANOINTMENT_2.get())
                 .input(NVItems.WEAPON_REPAIR_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(Ingredient.of(Tags.Items.INGOTS_COPPER))
@@ -2492,7 +2492,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "weapon_repair_anointment_2");
 
         // Anointment _XL variants (extra long - use tau oil + hellforged sand + amethyst)
-        AlchemyTableRecipeBuilder.build(NVItems.FORTUNE_ANOINTMENT_XL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.FORTUNE_ANOINTMENT_XL.get())
                 .input(NVItems.FORTUNE_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(NVTags.Items.DUSTS_COAL))
@@ -2501,7 +2501,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "fortune_anointment_xl");
 
-        AlchemyTableRecipeBuilder.build(NVItems.SILK_TOUCH_ANOINTMENT_XL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.SILK_TOUCH_ANOINTMENT_XL.get())
                 .input(NVItems.SILK_TOUCH_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.COBWEB)
@@ -2510,7 +2510,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "silk_touch_anointment_xl");
 
-        AlchemyTableRecipeBuilder.build(NVItems.MELEE_DAMAGE_ANOINTMENT_XL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.MELEE_DAMAGE_ANOINTMENT_XL.get())
                 .input(NVItems.MELEE_DAMAGE_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.GEMS_QUARTZ))
@@ -2519,7 +2519,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "melee_damage_anointment_xl");
 
-        AlchemyTableRecipeBuilder.build(NVItems.HOLY_WATER_ANOINTMENT_XL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.HOLY_WATER_ANOINTMENT_XL.get())
                 .input(NVItems.HOLY_WATER_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.GLISTERING_MELON_SLICE)
@@ -2528,7 +2528,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "holy_water_anointment_xl");
 
-        AlchemyTableRecipeBuilder.build(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT_XL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT_XL.get())
                 .input(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.ENCHANTED_BOOK)
@@ -2537,7 +2537,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "hidden_knowledge_anointment_xl");
 
-        AlchemyTableRecipeBuilder.build(NVItems.QUICK_DRAW_ANOINTMENT_XL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.QUICK_DRAW_ANOINTMENT_XL.get())
                 .input(NVItems.QUICK_DRAW_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.SPECTRAL_ARROW)
@@ -2546,7 +2546,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "quick_draw_anointment_xl");
 
-        AlchemyTableRecipeBuilder.build(NVItems.LOOTING_ANOINTMENT_XL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.LOOTING_ANOINTMENT_XL.get())
                 .input(NVItems.LOOTING_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.GEMS_LAPIS))
@@ -2555,7 +2555,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "looting_anointment_xl");
 
-        AlchemyTableRecipeBuilder.build(NVItems.BOW_POWER_ANOINTMENT_XL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.BOW_POWER_ANOINTMENT_XL.get())
                 .input(NVItems.BOW_POWER_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.INGOTS_IRON))
@@ -2564,7 +2564,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "bow_power_anointment_xl");
 
-        AlchemyTableRecipeBuilder.build(NVItems.SMELTING_ANOINTMENT_XL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.SMELTING_ANOINTMENT_XL.get())
                 .input(NVItems.SMELTING_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(ItemTags.COALS))
@@ -2573,7 +2573,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "smelting_anointment_xl");
 
-        AlchemyTableRecipeBuilder.build(NVItems.VOIDING_ANOINTMENT_XL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.VOIDING_ANOINTMENT_XL.get())
                 .input(NVItems.VOIDING_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.COBBLED_DEEPSLATE)
@@ -2582,7 +2582,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "voiding_anointment_xl");
 
-        AlchemyTableRecipeBuilder.build(NVItems.BOW_VELOCITY_ANOINTMENT_XL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.BOW_VELOCITY_ANOINTMENT_XL.get())
                 .input(NVItems.BOW_VELOCITY_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.NUGGETS_GOLD))
@@ -2591,7 +2591,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "bow_velocity_anointment_xl");
 
-        AlchemyTableRecipeBuilder.build(NVItems.WEAPON_REPAIR_ANOINTMENT_XL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.WEAPON_REPAIR_ANOINTMENT_XL.get())
                 .input(NVItems.WEAPON_REPAIR_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.INGOTS_COPPER))
@@ -2601,7 +2601,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "weapon_repair_anointment_xl");
 
         // Anointment _3 variants (level 3 - use strong tau + hellforged sand + glow berries)
-        AlchemyTableRecipeBuilder.build(NVItems.FORTUNE_ANOINTMENT_3.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.FORTUNE_ANOINTMENT_3.get())
                 .input(NVItems.FORTUNE_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(NVItems.HELLFORGED_SAND.get())
@@ -2610,7 +2610,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "fortune_anointment_3");
 
-        AlchemyTableRecipeBuilder.build(NVItems.MELEE_DAMAGE_ANOINTMENT_3.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.MELEE_DAMAGE_ANOINTMENT_3.get())
                 .input(NVItems.MELEE_DAMAGE_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(NVItems.HELLFORGED_SAND.get())
@@ -2619,7 +2619,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "melee_damage_anointment_3");
 
-        AlchemyTableRecipeBuilder.build(NVItems.HOLY_WATER_ANOINTMENT_3.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.HOLY_WATER_ANOINTMENT_3.get())
                 .input(NVItems.HOLY_WATER_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(NVItems.HELLFORGED_SAND.get())
@@ -2628,7 +2628,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "holy_water_anointment_3");
 
-        AlchemyTableRecipeBuilder.build(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT_3.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT_3.get())
                 .input(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(NVItems.HELLFORGED_SAND.get())
@@ -2637,7 +2637,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "hidden_knowledge_anointment_3");
 
-        AlchemyTableRecipeBuilder.build(NVItems.QUICK_DRAW_ANOINTMENT_3.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.QUICK_DRAW_ANOINTMENT_3.get())
                 .input(NVItems.QUICK_DRAW_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(NVItems.HELLFORGED_SAND.get())
@@ -2646,7 +2646,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "quick_draw_anointment_3");
 
-        AlchemyTableRecipeBuilder.build(NVItems.LOOTING_ANOINTMENT_3.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.LOOTING_ANOINTMENT_3.get())
                 .input(NVItems.LOOTING_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(NVItems.HELLFORGED_SAND.get())
@@ -2655,7 +2655,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "looting_anointment_3");
 
-        AlchemyTableRecipeBuilder.build(NVItems.BOW_POWER_ANOINTMENT_3.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.BOW_POWER_ANOINTMENT_3.get())
                 .input(NVItems.BOW_POWER_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(NVItems.HELLFORGED_SAND.get())
@@ -2664,7 +2664,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "bow_power_anointment_3");
 
-        AlchemyTableRecipeBuilder.build(NVItems.BOW_VELOCITY_ANOINTMENT_3.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.BOW_VELOCITY_ANOINTMENT_3.get())
                 .input(NVItems.BOW_VELOCITY_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(NVItems.HELLFORGED_SAND.get())
@@ -2673,7 +2673,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "bow_velocity_anointment_3");
 
-        AlchemyTableRecipeBuilder.build(NVItems.WEAPON_REPAIR_ANOINTMENT_3.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.WEAPON_REPAIR_ANOINTMENT_3.get())
                 .input(NVItems.WEAPON_REPAIR_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(NVItems.HELLFORGED_SAND.get())
@@ -2685,7 +2685,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // === CATALYST RECIPES ===
         // Simple Catalyst - sugar, redstone, glowstone, gunpowder, nether wart
-        AlchemyTableRecipeBuilder.build(new ItemStack(NVItems.SIMPLE_CATALYST.get(), 2))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.SIMPLE_CATALYST.get(), 2))
                 .input(Items.SUGAR)
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
                 .input(Ingredient.of(Tags.Items.DUSTS_GLOWSTONE))
@@ -2697,7 +2697,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "simple_catalyst");
 
         // Strengthened Catalyst - simple catalyst, copper dust, glow berries, cobbled deepslate
-        AlchemyTableRecipeBuilder.build(NVItems.STRENGTHENED_CATALYST.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.STRENGTHENED_CATALYST.get())
                 .input(NVItems.SIMPLE_CATALYST.get())
                 .input(Ingredient.of(NVTags.Items.DUSTS_COPPER))
                 .input(Items.GLOW_BERRIES)
@@ -2708,7 +2708,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "strengthened_catalyst");
 
         // Cycling Catalyst - simple catalyst, lapis x2, green dye, sand
-        AlchemyTableRecipeBuilder.build(NVItems.CYCLING_CATALYST.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.CYCLING_CATALYST.get())
                 .input(NVItems.SIMPLE_CATALYST.get())
                 .input(Ingredient.of(Tags.Items.GEMS_LAPIS))
                 .input(Ingredient.of(Tags.Items.GEMS_LAPIS))
@@ -2720,7 +2720,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "cycling_catalyst");
 
         // Combinational Catalyst - simple catalyst, brown mushroom, red mushroom, slime ball, coal dust
-        AlchemyTableRecipeBuilder.build(NVItems.COMBINATIONAL_CATALYST.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.COMBINATIONAL_CATALYST.get())
                 .input(NVItems.SIMPLE_CATALYST.get())
                 .input(Items.BROWN_MUSHROOM)
                 .input(Items.RED_MUSHROOM)
@@ -2732,7 +2732,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "combinational");
 
         // Mundane Lengthening Catalyst - weak tau, simple catalyst, redstone x2
-        AlchemyTableRecipeBuilder.build(NVItems.MUNDANE_LENGTHENING_CATALYST.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.MUNDANE_LENGTHENING_CATALYST.get())
                 .input(NVBlocks.WEAK_TAU.item().get())
                 .input(NVItems.SIMPLE_CATALYST.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -2743,7 +2743,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "mundane_lengthening");
 
         // Mundane Power Catalyst - strong tau, simple catalyst, glowstone x2
-        AlchemyTableRecipeBuilder.build(NVItems.MUNDANE_POWER_CATALYST.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.MUNDANE_POWER_CATALYST.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(NVItems.SIMPLE_CATALYST.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_GLOWSTONE))
@@ -2754,7 +2754,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "mundane_power");
 
         // Average Lengthening Catalyst - weak tau, strengthened catalyst, redstone, hellforged dust
-        AlchemyTableRecipeBuilder.build(NVItems.AVERAGE_LENGTHENING_CATALYST.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.AVERAGE_LENGTHENING_CATALYST.get())
                 .input(NVBlocks.WEAK_TAU.item().get())
                 .input(NVItems.STRENGTHENED_CATALYST.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -2765,7 +2765,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "average_lengthening");
 
         // Average Power Catalyst - strong tau, strengthened catalyst, glowstone, hellforged dust
-        AlchemyTableRecipeBuilder.build(NVItems.AVERAGE_POWER_CATALYST.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.AVERAGE_POWER_CATALYST.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
                 .input(NVItems.STRENGTHENED_CATALYST.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_GLOWSTONE))
@@ -2777,7 +2777,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // === SIGIL-POWERED RECIPES ===
         // Water Bucket from Water Sigil
-        AlchemyTableRecipeBuilder.build(Items.WATER_BUCKET)
+        TabulaVitaeRecipeBuilder.build(Items.WATER_BUCKET)
                 .input(NVItems.SIGIL_WATER.get())
                 .input(Items.BUCKET)
                 .syphon(300)
@@ -2786,7 +2786,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "sigil_water_bucket");
 
         // Lava Bucket from Lava Sigil
-        AlchemyTableRecipeBuilder.build(Items.LAVA_BUCKET)
+        TabulaVitaeRecipeBuilder.build(Items.LAVA_BUCKET)
                 .input(NVItems.SIGIL_LAVA.get())
                 .input(Items.BUCKET)
                 .syphon(1000)
@@ -2795,7 +2795,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "sigil_lava_bucket");
 
         // Clay from Sand with Water Sigil
-        AlchemyTableRecipeBuilder.build(new ItemStack(Items.CLAY_BALL, 2))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(Items.CLAY_BALL, 2))
                 .input(Ingredient.of(Tags.Items.SANDS))
                 .input(Ingredient.of(Tags.Items.SANDS))
                 .input(NVItems.SIGIL_WATER.get())
@@ -2805,7 +2805,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "clay_from_sand_sigil");
 
         // Leather from Rotten Flesh with Water Sigil
-        AlchemyTableRecipeBuilder.build(new ItemStack(Items.LEATHER, 4))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(Items.LEATHER, 4))
                 .input(Items.ROTTEN_FLESH)
                 .input(Items.ROTTEN_FLESH)
                 .input(Items.ROTTEN_FLESH)
@@ -2818,7 +2818,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "leather_from_flesh_sigil");
 
         // Sulfur from Lava Sigil
-        AlchemyTableRecipeBuilder.build(new ItemStack(NVItems.SULFUR.get(), 4))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.SULFUR.get(), 4))
                 .input(NVItems.SIGIL_LAVA.get())
                 .input(Ingredient.of(Tags.Items.COBBLESTONES))
                 .syphon(1200)
@@ -2827,7 +2827,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "sulfur_from_sigil");
 
         // Basic Cutting Fluid with Water Sigil
-        AlchemyTableRecipeBuilder.build(NVItems.BASIC_CUTTING_FLUID.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.BASIC_CUTTING_FLUID.get())
                 .input(NVItems.PLANT_OIL.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
                 .input(Ingredient.of(Tags.Items.GUNPOWDERS))
@@ -2840,7 +2840,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "basic_cutting_fluid_sigil");
 
         // Intermediate Cutting Fluid with Water Sigil
-        AlchemyTableRecipeBuilder.build(NVItems.INTERMEDIATE_CUTTING_FLUID.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.INTERMEDIATE_CUTTING_FLUID.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_GLOWSTONE))
                 .input(Ingredient.of(Tags.Items.GUNPOWDERS))
@@ -2853,7 +2853,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "intermediate_cutting_fluid_sigil");
 
         // Advanced Cutting Fluid with Water Sigil
-        AlchemyTableRecipeBuilder.build(NVItems.ADVANCED_CUTTING_FLUID.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.ADVANCED_CUTTING_FLUID.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(NVTags.Items.DUSTS_HELLFORGED))
                 .input(Items.GLOW_BERRIES)
@@ -2867,7 +2867,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // === CORRUPTED DUST RECIPES ===
         // Corrupted Coal -> Coal Sand x3
-        AlchemyTableRecipeBuilder.build(new ItemStack(NVItems.COAL_SAND.get(), 3))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.COAL_SAND.get(), 3))
                 .input(Ingredient.of(NVTags.Items.DUSTS_COAL))
                 .input(NVItems.CORRUPTED_DUST.get())
                 .syphon(50)
@@ -2876,7 +2876,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "corrupted_coal");
 
         // Corrupted Copper -> Copper Gravel x2
-        AlchemyTableRecipeBuilder.build(new ItemStack(NVItems.COPPER_GRAVEL.get(), 2))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.COPPER_GRAVEL.get(), 2))
                 .input(Ingredient.of(NVTags.Items.FRAGMENTS_COPPER))
                 .input(NVItems.CORRUPTED_DUST.get())
                 .syphon(50)
@@ -2885,7 +2885,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "corrupted_copper");
 
         // Corrupted Gold -> Gold Gravel x2
-        AlchemyTableRecipeBuilder.build(new ItemStack(NVItems.GOLD_GRAVEL.get(), 2))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.GOLD_GRAVEL.get(), 2))
                 .input(Ingredient.of(NVTags.Items.FRAGMENTS_GOLD))
                 .input(NVItems.CORRUPTED_DUST.get())
                 .syphon(300)
@@ -2894,7 +2894,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "corrupted_gold");
 
         // Corrupted Iron -> Iron Gravel x2
-        AlchemyTableRecipeBuilder.build(new ItemStack(NVItems.IRON_GRAVEL.get(), 2))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.IRON_GRAVEL.get(), 2))
                 .input(Ingredient.of(NVTags.Items.FRAGMENTS_IRON))
                 .input(NVItems.CORRUPTED_DUST.get())
                 .syphon(100)
@@ -2903,7 +2903,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "corrupted_iron");
 
         // Corrupted Netherite -> Netherite Gravel x2
-        AlchemyTableRecipeBuilder.build(new ItemStack(NVItems.NETHERITE_SCRAP_GRAVEL.get(), 2))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.NETHERITE_SCRAP_GRAVEL.get(), 2))
                 .input(Ingredient.of(NVTags.Items.FRAGMENTS_NETHERITE_SCRAP))
                 .input(NVItems.CORRUPTED_DUST.get())
                 .input(NVItems.CORRUPTED_DUST.get())
@@ -2915,7 +2915,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // === SAND RECIPES ===
         // Coal Sand from Coal
-        AlchemyTableRecipeBuilder.build(new ItemStack(NVItems.COAL_SAND.get(), 4))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.COAL_SAND.get(), 4))
                 .input(Items.COAL)
                 .input(Items.COAL)
                 .input(Items.FLINT)
@@ -2925,7 +2925,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "sand_coal");
 
         // Gold Sand from Gold Ore
-        AlchemyTableRecipeBuilder.build(new ItemStack(NVItems.GOLD_SAND.get(), 2))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.GOLD_SAND.get(), 2))
                 .input(Ingredient.of(Tags.Items.ORES_GOLD))
                 .input(Ingredient.of(NVTags.Items.CUTTING_FLUIDS))
                 .syphon(400)
@@ -2934,7 +2934,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "sand_gold");
 
         // Iron Sand from Iron Ore
-        AlchemyTableRecipeBuilder.build(new ItemStack(NVItems.IRON_SAND.get(), 2))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.IRON_SAND.get(), 2))
                 .input(Ingredient.of(Tags.Items.ORES_IRON))
                 .input(Ingredient.of(NVTags.Items.CUTTING_FLUIDS))
                 .syphon(400)
@@ -2944,7 +2944,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // === OTHER UTILITY RECIPES ===
         // Cobweb from String
-        AlchemyTableRecipeBuilder.build(Items.COBWEB)
+        TabulaVitaeRecipeBuilder.build(Items.COBWEB)
                 .input(Ingredient.of(Tags.Items.STRINGS))
                 .input(Ingredient.of(Tags.Items.STRINGS))
                 .input(Ingredient.of(Tags.Items.STRINGS))
@@ -2954,7 +2954,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "cobweb");
 
         // Explosive Cell (primitive)
-        AlchemyTableRecipeBuilder.build(NVItems.PRIMITIVE_EXPLOSIVE_CELL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.PRIMITIVE_EXPLOSIVE_CELL.get())
                 .input(Ingredient.of(Tags.Items.GUNPOWDERS))
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
                 .input(NVBlocks.WEAK_TAU.item().get())
@@ -2965,7 +2965,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "explosive_cell");
 
         // Hellforged Explosive Cell
-        AlchemyTableRecipeBuilder.build(NVItems.HELLFORGED_EXPLOSIVE_CELL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.HELLFORGED_EXPLOSIVE_CELL.get())
                 .input(Ingredient.of(Tags.Items.GUNPOWDERS))
                 .input(Ingredient.of(NVTags.Items.DUSTS_SULFUR))
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
@@ -2978,7 +2978,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "hellforged_explosive_cell");
 
         // Gold Nuggets from Gilded Blackstone
-        AlchemyTableRecipeBuilder.build(new ItemStack(Items.GOLD_NUGGET, 9))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(Items.GOLD_NUGGET, 9))
                 .input(Items.GILDED_BLACKSTONE)
                 .syphon(200)
                 .ticks(100)
@@ -2986,7 +2986,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "gold_ore_from_gilded");
 
         // Grass Block from Dirt
-        AlchemyTableRecipeBuilder.build(Items.GRASS_BLOCK)
+        TabulaVitaeRecipeBuilder.build(Items.GRASS_BLOCK)
                 .input(Items.DIRT)
                 .input(Items.BONE_MEAL)
                 .input(Items.WHEAT_SEEDS)
@@ -2996,7 +2996,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "grass_block");
 
         // Nether Wart from Nether Wart Block
-        AlchemyTableRecipeBuilder.build(Items.NETHER_WART)
+        TabulaVitaeRecipeBuilder.build(Items.NETHER_WART)
                 .input(Items.NETHER_WART_BLOCK)
                 .syphon(50)
                 .ticks(40)
@@ -3004,7 +3004,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "nether_wart_from_block");
 
         // Plant Oil from Potatoes
-        AlchemyTableRecipeBuilder.build(NVItems.PLANT_OIL.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.PLANT_OIL.get())
                 .input(Items.POTATO)
                 .input(Items.POTATO)
                 .input(Items.BONE_MEAL)
@@ -3014,7 +3014,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "plantoil_from_taters");
 
         // Reagent Fast Miner (alt recipe with tools)
-        AlchemyTableRecipeBuilder.build(NVItems.REAGENT_FAST_MINER.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_FAST_MINER.get())
                 .input(Items.IRON_PICKAXE)
                 .input(Items.IRON_AXE)
                 .input(Items.IRON_SHOVEL)
@@ -3025,7 +3025,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "reagent_fastminer");
 
         // Weak Filling Agent
-        AlchemyTableRecipeBuilder.build(NVItems.WEAK_FILLING_AGENT.get())
+        TabulaVitaeRecipeBuilder.build(NVItems.WEAK_FILLING_AGENT.get())
                 .input(NVItems.SIMPLE_CATALYST.get())
                 .input(Items.SUGAR_CANE)
                 .input(Items.CRIMSON_FUNGUS)
@@ -3034,8 +3034,8 @@ public class NVRecipeProvider extends RecipeProvider {
                 .ticks(100)
                 .minimumTier(2)
                 .save(output, "weak_filling");
-        // Alchemy Table recipe (crafting recipe for the table itself)
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, NVBlocks.ALCHEMY_TABLE.block().get())
+        // Tabula Vitae recipe (crafting recipe for the table itself)
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, NVBlocks.TABULA_VITAE.block().get())
                 .pattern("sss")
                 .pattern("wbw")
                 .pattern("gog")
@@ -3045,7 +3045,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('g', Tags.Items.INGOTS_GOLD)
                 .define('o', NVItems.SLATE_BLANK.get())
                 .unlockedBy("has_blank_slate", has(NVItems.SLATE_BLANK.get()))
-                .save(output, NeoVitae.rl("alchemy_table"));
+                .save(output, NeoVitae.rl("tabula_vitae"));
     }
 
     private void addARCRecipes(RecipeOutput output) {

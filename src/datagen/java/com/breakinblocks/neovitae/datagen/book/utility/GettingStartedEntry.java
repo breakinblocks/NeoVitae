@@ -34,8 +34,8 @@ public class GettingStartedEntry extends EntryProvider {
         this.page("tier1_alchemy", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Alchemy Table (Tier-1)");
-        this.pageText("The Alchemy Table uses LP from a player's Soul Network (drawn from the bound Blood Orb in it) "
+        this.pageTitle("Tabula Vitae (Tier-1)");
+        this.pageText("The Tabula Vitae uses LP from a player's Soul Network (drawn from the bound Blood Orb in it) "
                 + "to craft various different objects, such as:\n"
                 + "- Arcane Ashes\n"
                 + "- Reagents for Sigils\n"

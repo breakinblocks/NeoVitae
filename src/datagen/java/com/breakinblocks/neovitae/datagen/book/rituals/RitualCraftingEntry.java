@@ -33,7 +33,7 @@ public class RitualCraftingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Info");
-        this.pageText("The [#](8B0000)Rhythm of the Beating Anvil[#]() is a powerful and versatile ritual, allowing you to autocraft standard crafting recipes alongside recipes using your [#](8B0000)Alchemy Table[#]() or [#](8B0000)Hellfire Forge[#]() (if properly augmented). However, it can be a little complex, so what follows is a tutorial for setting it up."
+        this.pageText("The [#](8B0000)Rhythm of the Beating Anvil[#]() is a powerful and versatile ritual, allowing you to autocraft standard crafting recipes alongside recipes using your [#](8B0000)Tabula Vitae[#]() or [#](8B0000)Hellfire Forge[#]() (if properly augmented). However, it can be a little complex, so what follows is a tutorial for setting it up."
                 + "\\\n\\\nEach ritual can handle exactly one recipe.");
 
         this.page("filter_setup", () -> BookTextPageModel.create()
@@ -56,7 +56,7 @@ public class RitualCraftingEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Demon Will Effects");
         this.pageText("- [#](8B0000)Steadfast Will[#](): The ritual will instead try to autocraft with a linked [#](8B0000)Hellfire Forge[#]()."
-                + "\n\n- [#](8B0000)Corrosive Will[#](): The ritual will instead try to autocraft with a linked [#](8B0000)Alchemy Table[#]()."
+                + "\n\n- [#](8B0000)Corrosive Will[#](): The ritual will instead try to autocraft with a linked [#](8B0000)Tabula Vitae[#]()."
                 + "\\\n\\\nThese recipes are all shapeless, but if you need 2 of an item, you'll have to specify it twice in the filter.");
     }
 

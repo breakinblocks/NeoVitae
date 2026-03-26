@@ -35,9 +35,9 @@ public class CompositeFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Composite Item Filter");
-        this.pageText("Craft the Composite Item Filter in the Alchemy Table.\\\n\\\n"
+        this.pageText("Craft the Composite Item Filter in the Tabula Vitae.\\\n\\\n"
                 + "You can add a Tag Filter, Enchantment Filter, or Mod Filter to a Composite Filter by "
-                + "combining them in the Alchemy Table.");
+                + "combining them in the Tabula Vitae.");
     }
 
     @Override

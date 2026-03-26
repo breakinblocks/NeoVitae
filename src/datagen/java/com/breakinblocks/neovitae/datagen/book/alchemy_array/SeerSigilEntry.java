@@ -27,7 +27,7 @@ public class SeerSigilEntry extends EntryProvider {
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Sight Reagent[#]() in the Alchemy Table.\\\n\\\n"
+        this.pageText("Step 1: Craft the [#](8B0000)Sight Reagent[#]() in the Tabula Vitae.\\\n\\\n"
                 + "Step 2: Create the [#](8B0000)Seer's Sigil[#]() in an Alchemy Array using the "
                 + "Sight Reagent as the base and a slate as the catalyst.\\\n\\\n*When seeing all is not enough*");
 

@@ -31,7 +31,7 @@ public class TauFruitEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tau Oil");
-        this.pageText("Tau Oil can be created in the Alchemy Table. *Tastes like a Blood Orange, except different.*");
+        this.pageText("Tau Oil can be created in the Tabula Vitae. *Tastes like a Blood Orange, except different.*");
 
         this.page("tau_oil_uses", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

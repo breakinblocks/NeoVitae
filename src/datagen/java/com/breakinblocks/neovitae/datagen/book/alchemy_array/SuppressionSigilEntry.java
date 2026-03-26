@@ -28,7 +28,7 @@ public class SuppressionSigilEntry extends EntryProvider {
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Suppression Reagent[#]() in the Alchemy Table.\\\n\\\n"
+        this.pageText("Step 1: Craft the [#](8B0000)Suppression Reagent[#]() in the Tabula Vitae.\\\n\\\n"
                 + "Step 2: Create the [#](8B0000)Sigil of Suppression[#]() in an Alchemy Array using the "
                 + "Suppression Reagent as the base and a slate as the catalyst.\\\n\\\n"
                 + "*Better than a Void Sigil!*");

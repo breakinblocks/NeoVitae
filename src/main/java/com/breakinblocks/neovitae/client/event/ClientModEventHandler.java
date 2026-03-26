@@ -30,7 +30,7 @@ import com.breakinblocks.neovitae.common.item.AnointmentColor;
 import com.breakinblocks.neovitae.common.item.ItemAnointmentProvider;
 import com.breakinblocks.neovitae.common.item.potion.FlaskColor;
 import com.breakinblocks.neovitae.common.item.potion.TippedDaggerColor;
-import com.breakinblocks.neovitae.client.screen.AlchemyTableScreen;
+import com.breakinblocks.neovitae.client.screen.TabulaVitaeScreen;
 import com.breakinblocks.neovitae.client.screen.MasterRoutingNodeScreen;
 import com.breakinblocks.neovitae.client.screen.RoutingNodeScreen;
 import com.breakinblocks.neovitae.client.screen.SigilHoldingScreen;
@@ -103,7 +103,7 @@ public class ClientModEventHandler {
         event.register(NVMenus.ARC.get(), ARCScreen::new);
         event.register(NVMenus.TRAINER.get(), TrainerScreen::new);
         event.register(NVMenus.TELEPOSER.get(), TeleposerScreen::new);
-        event.register(NVMenus.ALCHEMY_TABLE.get(), AlchemyTableScreen::new);
+        event.register(NVMenus.TABULA_VITAE.get(), TabulaVitaeScreen::new);
         event.register(NVMenus.HELLFIRE_FORGE.get(), SoulForgeScreen::new);
         event.register(NVMenus.SIGIL_HOLDING.get(), SigilHoldingScreen::new);
         event.register(NVMenus.ROUTING_NODE.get(), RoutingNodeScreen::new);

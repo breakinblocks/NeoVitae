@@ -26,13 +26,13 @@ public class LavaSigilEntry extends EntryProvider {
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Lava Reagent[#]() in the Alchemy Table.\\\n\\\n"
+        this.pageText("Step 1: Craft the [#](8B0000)Lava Reagent[#]() in the Tabula Vitae.\\\n\\\n"
                 + "Step 2: Create the [#](8B0000)Lava Sigil[#]() in an Alchemy Array using the Lava Reagent "
                 + "as the base and a [#](8B0000)Blank Slate[#]() as the catalyst.\\\n\\\n*HOT! DO NOT EAT*");
 
-        this.page("alchemy_table", () -> BookTextPageModel.create()
+        this.page("tabula_vitae", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The Lava Sigil can also be used in the [#](8B0000)Alchemy Table[#]() to automate the production "
+        this.pageText("The Lava Sigil can also be used in the [#](8B0000)Tabula Vitae[#]() to automate the production "
                 + "of [#](8B0000)Lava Buckets[#](). The Sigil is not consumed in this recipe.");
     }
 

@@ -21,7 +21,7 @@ public class ArcaneAshEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Alchemy Array Basics");
         this.pageText("[#](8B0000)Arcane Ashes[#]() are an item that is pivotal in the creation of Alchemy Arrays. "
-                + "[#](8B0000)Arcane Ashes[#]() can be crafted in the [#](8B0000)Alchemy Table[#]() using some early game items.");
+                + "[#](8B0000)Arcane Ashes[#]() can be crafted in the [#](8B0000)Tabula Vitae[#]() using some early game items.");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

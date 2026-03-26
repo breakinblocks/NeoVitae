@@ -32,7 +32,7 @@ public class StandardFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Standard Item Filter");
-        this.pageText("Craft the Standard Item Filter in the Alchemy Table.\\\n\\\n"
+        this.pageText("Craft the Standard Item Filter in the Tabula Vitae.\\\n\\\n"
                 + "When used in an [#](8B0000)Input Routing Node[#](), the quantity tells the node how many of that item "
                 + "to leave in the selected inventory. Anything above this amount will be imported into the "
                 + "network.");

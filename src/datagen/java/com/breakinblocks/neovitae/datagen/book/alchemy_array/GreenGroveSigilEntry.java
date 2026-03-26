@@ -26,7 +26,7 @@ public class GreenGroveSigilEntry extends EntryProvider {
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Growth Reagent[#]() in the Alchemy Table.\\\n\\\n"
+        this.pageText("Step 1: Craft the [#](8B0000)Growth Reagent[#]() in the Tabula Vitae.\\\n\\\n"
                 + "Step 2: Create the [#](8B0000)Sigil of the Green Grove[#]() in an Alchemy Array using the "
                 + "Growth Reagent as the base and a Reinforced Slate as the catalyst.");
 

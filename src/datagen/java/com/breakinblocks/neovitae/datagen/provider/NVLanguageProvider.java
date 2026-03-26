@@ -216,7 +216,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Alchemy Array and Table Blocks
         add(NVBlocks.ALCHEMY_ARRAY.get(), "Alchemy Array");
-        add(NVBlocks.ALCHEMY_TABLE, "Alchemy Table");
+        add(NVBlocks.TABULA_VITAE, "Tabula Vitae");
 
         // Blood Light, Spectral Blocks, and Phantom Bridge (placed by sigils, no block item)
         add(NVBlocks.BLOOD_LIGHT.get().getDescriptionId(), "Blood Light");
@@ -801,7 +801,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("recipe.altar", "Ara Vitae");
         addJei("recipe.hellfire_forge", "Hellfire Forge");
         addJei("recipe.alchemyarraycrafting", "Alchemy Array");
-        addJei("recipe.alchemytable", "Alchemy Table");
+        addJei("recipe.tabulavitae", "Tabula Vitae");
         addJei("recipe.requiredtier", "Required Tier: %s");
         addJei("recipe.requiredlp", "Required Life Essence: %s");
         addJei("recipe.consumptionrate", "Consumption Rate: %s Life Essence/t");

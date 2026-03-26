@@ -31,13 +31,13 @@ import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
-import com.breakinblocks.neovitae.common.recipe.alchemytable.AlchemyTableRecipe;
+import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
 import com.breakinblocks.neovitae.common.recipe.arc.ARCRecipe;
 import com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
-import com.breakinblocks.neovitae.compat.jei.alchemytable.AlchemyTableRecipeCategory;
+import com.breakinblocks.neovitae.compat.jei.tabulavitae.TabulaVitaeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.altar.AraVitaeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.arc.ARCRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.array.AlchemyArrayCraftingCategory;
@@ -86,7 +86,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipeCategories(new SoulForgeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new AraVitaeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new AlchemyArrayCraftingCategory(registration.getJeiHelpers().getGuiHelper()));
-        registration.addRecipeCategories(new AlchemyTableRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new TabulaVitaeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new MeteorRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ARCRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new FlaskRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
@@ -99,10 +99,10 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()), SoulForgeRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.ARA_VITAE.block().get()), AraVitaeRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVItems.ARCANE_ASHES.get()), AlchemyArrayCraftingCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVBlocks.ALCHEMY_TABLE.block().get()), AlchemyTableRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVBlocks.TABULA_VITAE.block().get()), TabulaVitaeRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.ARC_BLOCK.block().get()), ARCRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVItems.ALCHEMY_FLASK.get()), FlaskRecipeCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVBlocks.ALCHEMY_TABLE.block().get()), FlaskRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVBlocks.TABULA_VITAE.block().get()), FlaskRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()), ImperfectRitualRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.MASTER_RITUAL_STONE.block().get()), RitualRecipeCategory.RECIPE_TYPE);
     }
@@ -132,12 +132,12 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 .toList();
         registration.addRecipes(AlchemyArrayCraftingCategory.RECIPE_TYPE, arrayRecipes);
 
-        List<AlchemyTableRecipe> tableRecipes = world.getRecipeManager()
-                .getAllRecipesFor(NVRecipes.ALCHEMY_TABLE_TYPE.get())
+        List<TabulaVitaeRecipe> tableRecipes = world.getRecipeManager()
+                .getAllRecipesFor(NVRecipes.TABULA_VITAE_TYPE.get())
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();
-        registration.addRecipes(AlchemyTableRecipeCategory.RECIPE_TYPE, tableRecipes);
+        registration.addRecipes(TabulaVitaeRecipeCategory.RECIPE_TYPE, tableRecipes);
 
         List<MeteorRecipe> meteorRecipes = world.getRecipeManager()
                 .getAllRecipesFor(NVRecipes.METEOR_TYPE.get())

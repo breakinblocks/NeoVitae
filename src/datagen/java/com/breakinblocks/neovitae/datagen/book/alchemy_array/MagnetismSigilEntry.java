@@ -26,7 +26,7 @@ public class MagnetismSigilEntry extends EntryProvider {
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Magnetism Reagent[#]() in the Alchemy Table.\\\n\\\n"
+        this.pageText("Step 1: Craft the [#](8B0000)Magnetism Reagent[#]() in the Tabula Vitae.\\\n\\\n"
                 + "Step 2: Create the [#](8B0000)Sigil of Magnetism[#]() in an Alchemy Array using the "
                 + "Magnetism Reagent as the base and a slate as the catalyst.");
     }

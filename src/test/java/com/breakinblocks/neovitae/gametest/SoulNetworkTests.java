@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.blockentity.AlchemyTableBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.TabulaVitaeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -135,13 +135,13 @@ public class SoulNetworkTests {
         });
     }
 
-    // ==================== Alchemy Table Crafting ====================
+    // ==================== Tabula Vitae Crafting ====================
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 100)
     public void alchemyTableCraftsWithBoundOrb(GameTestHelper helper) {
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
-        helper.setBlock(new BlockPos(3, 1, 2), NVBlocks.ALCHEMY_TABLE.block().get().defaultBlockState());
-        AlchemyTableBlockEntity table = (AlchemyTableBlockEntity) helper.getBlockEntity(new BlockPos(3, 1, 2));
+        helper.setBlock(new BlockPos(3, 1, 2), NVBlocks.TABULA_VITAE.block().get().defaultBlockState());
+        TabulaVitaeBlockEntity table = (TabulaVitaeBlockEntity) helper.getBlockEntity(new BlockPos(3, 1, 2));
 
         helper.runAfterDelay(5, () -> {
             if (table == null) { helper.fail("No table"); return; }
@@ -149,10 +149,10 @@ public class SoulNetworkTests {
             // Flint recipe: gravel + flint = 2 flint, tier 0, 50 LP syphon, 20 ticks
             table.inv.setStackInSlot(0, new ItemStack(Items.GRAVEL));
             table.inv.setStackInSlot(1, new ItemStack(Items.FLINT));
-            table.inv.setStackInSlot(AlchemyTableBlockEntity.ORB_SLOT, createBoundOrb(10000));
+            table.inv.setStackInSlot(TabulaVitaeBlockEntity.ORB_SLOT, createBoundOrb(10000));
 
             helper.runAfterDelay(60, () -> {
-                ItemStack output = table.inv.getStackInSlot(AlchemyTableBlockEntity.OUTPUT_SLOT);
+                ItemStack output = table.inv.getStackInSlot(TabulaVitaeBlockEntity.OUTPUT_SLOT);
                 if (output.isEmpty()) {
                     helper.fail("Alchemy table should have crafted flint (burnTime=" + table.burnTime + ", ticksReq=" + table.ticksRequired + ")");
                     return;
@@ -169,8 +169,8 @@ public class SoulNetworkTests {
     @GameTest(template = "empty_5x5x7", timeoutTicks = 100)
     public void alchemyTableSyphonsLP(GameTestHelper helper) {
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
-        helper.setBlock(new BlockPos(3, 1, 2), NVBlocks.ALCHEMY_TABLE.block().get().defaultBlockState());
-        AlchemyTableBlockEntity table = (AlchemyTableBlockEntity) helper.getBlockEntity(new BlockPos(3, 1, 2));
+        helper.setBlock(new BlockPos(3, 1, 2), NVBlocks.TABULA_VITAE.block().get().defaultBlockState());
+        TabulaVitaeBlockEntity table = (TabulaVitaeBlockEntity) helper.getBlockEntity(new BlockPos(3, 1, 2));
 
         helper.runAfterDelay(5, () -> {
             if (table == null) { helper.fail("No table"); return; }
@@ -184,7 +184,7 @@ public class SoulNetworkTests {
 
             table.inv.setStackInSlot(0, new ItemStack(Items.GRAVEL));
             table.inv.setStackInSlot(1, new ItemStack(Items.FLINT));
-            table.inv.setStackInSlot(AlchemyTableBlockEntity.ORB_SLOT, orb);
+            table.inv.setStackInSlot(TabulaVitaeBlockEntity.ORB_SLOT, orb);
 
             int lpBefore = network2.getCurrentEssence();
 

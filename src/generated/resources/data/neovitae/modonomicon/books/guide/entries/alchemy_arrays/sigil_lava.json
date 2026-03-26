@@ -42,7 +42,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_arrays.sigil_lava.alchemy_table.text",
+      "text": "book.neovitae.guide.alchemy_arrays.sigil_lava.tabula_vitae.text",
       "title": "",
       "use_markdown_in_title": false
     }

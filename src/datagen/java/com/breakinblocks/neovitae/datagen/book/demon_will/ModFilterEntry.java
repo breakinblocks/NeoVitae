@@ -29,7 +29,7 @@ public class ModFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Mod Item Filter");
-        this.pageText("Craft the Mod Item Filter in the Alchemy Table.\\\n\\\n"
+        this.pageText("Craft the Mod Item Filter in the Tabula Vitae.\\\n\\\n"
                 + "This allows you to deny/permit entire swathes of items. Handy for sorting all of your "
                 + "Neo Vitae items into their own super-special chest, to name an example at random.");
     }

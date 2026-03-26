@@ -26,7 +26,7 @@ public class MiningSigilEntry extends EntryProvider {
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Mining Reagent[#]() in the Alchemy Table.\\\n\\\n"
+        this.pageText("Step 1: Craft the [#](8B0000)Mining Reagent[#]() in the Tabula Vitae.\\\n\\\n"
                 + "Step 2: Create the [#](8B0000)Sigil of the Fast Miner[#]() in an Alchemy Array using the "
                 + "Mining Reagent as the base and a [#](8B0000)Reinforced Slate[#]() as the catalyst.");
     }

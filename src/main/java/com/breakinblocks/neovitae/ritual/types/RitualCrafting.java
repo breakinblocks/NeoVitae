@@ -14,8 +14,8 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.datacomponent.EnumWillType;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
-import com.breakinblocks.neovitae.common.recipe.alchemytable.AlchemyTableInput;
-import com.breakinblocks.neovitae.common.recipe.alchemytable.AlchemyTableRecipe;
+import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeInput;
+import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeInput;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.breakinblocks.neovitae.ritual.*;
@@ -34,7 +34,7 @@ import java.util.function.Consumer;
  * <ul>
  *   <li><b>Raw (Default)</b> - Standard vanilla crafting table recipes</li>
  *   <li><b>Steadfast</b> - Soul Forge recipe mode (tries soul forge recipes first, falls back to vanilla)</li>
- *   <li><b>Corrosive</b> - Alchemy Table recipe mode (tries alchemy table recipes first, falls back to vanilla)</li>
+ *   <li><b>Corrosive</b> - Tabula Vitae recipe mode (tries alchemy table recipes first, falls back to vanilla)</li>
  * </ul>
  *
  * <p>This is a Dusk tier ritual.
@@ -115,9 +115,9 @@ public class RitualCrafting extends Ritual {
             // Fall through to vanilla crafting
         }
 
-        // --- CORROSIVE: Try Alchemy Table recipes first ---
+        // --- CORROSIVE: Try Tabula Vitae recipes first ---
         if (tryAlchemy) {
-            ItemStack result = tryAlchemyTableRecipe(ctx, inputHandler, inputItems);
+            ItemStack result = tryTabulaVitaeRecipe(ctx, inputHandler, inputItems);
             if (!result.isEmpty()) {
                 // Check if output can accept the result
                 ItemStack insertResult = ItemHandlerHelper.insertItemStacked(outputHandler, result.copy(), true);
@@ -202,12 +202,12 @@ public class RitualCrafting extends Ritual {
     }
 
     /**
-     * Tries to find and assemble an Alchemy Table recipe from the input items.
-     * Alchemy Table recipes use up to 6 ingredients.
+     * Tries to find and assemble an Tabula Vitae recipe from the input items.
+     * Tabula Vitae recipes use up to 6 ingredients.
      */
-    private ItemStack tryAlchemyTableRecipe(RitualContext ctx, IItemHandler inputHandler, List<ItemStack> inputItems) {
+    private ItemStack tryTabulaVitaeRecipe(RitualContext ctx, IItemHandler inputHandler, List<ItemStack> inputItems) {
         List<ItemStack> alchemyItems = new ArrayList<>();
-        for (int i = 0; i < Math.min(AlchemyTableRecipe.MAX_INPUTS, inputItems.size()); i++) {
+        for (int i = 0; i < Math.min(TabulaVitaeRecipe.MAX_INPUTS, inputItems.size()); i++) {
             if (!inputItems.get(i).isEmpty()) {
                 alchemyItems.add(inputItems.get(i).copy());
             }
@@ -216,14 +216,14 @@ public class RitualCrafting extends Ritual {
         if (alchemyItems.isEmpty()) return ItemStack.EMPTY;
 
         // Use orb tier 0 since the ritual has no orb
-        AlchemyTableInput alchemyInput = new AlchemyTableInput(alchemyItems, 0);
+        TabulaVitaeInput alchemyInput = new TabulaVitaeInput(alchemyItems, 0);
 
-        Optional<AlchemyTableRecipe> recipeOpt = ctx.level().getRecipeManager()
-                .getRecipeFor(NVRecipes.ALCHEMY_TABLE_TYPE.get(), alchemyInput, ctx.level())
+        Optional<TabulaVitaeRecipe> recipeOpt = ctx.level().getRecipeManager()
+                .getRecipeFor(NVRecipes.TABULA_VITAE_TYPE.get(), alchemyInput, ctx.level())
                 .map(holder -> holder.value());
 
         if (recipeOpt.isPresent()) {
-            AlchemyTableRecipe recipe = recipeOpt.get();
+            TabulaVitaeRecipe recipe = recipeOpt.get();
             return recipe.assemble(alchemyInput, ctx.level().registryAccess());
         }
 

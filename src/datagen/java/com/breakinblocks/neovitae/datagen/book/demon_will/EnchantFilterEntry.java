@@ -31,7 +31,7 @@ public class EnchantFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Enchantments Item Filter");
-        this.pageText("Craft the Enchantments Item Filter in the Alchemy Table. Any enchanted book will work "
+        this.pageText("Craft the Enchantments Item Filter in the Tabula Vitae. Any enchanted book will work "
                 + "for this recipe.");
 
         this.page("gui_image", () -> BookImagePageModel.create()

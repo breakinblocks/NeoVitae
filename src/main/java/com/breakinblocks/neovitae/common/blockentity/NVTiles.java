@@ -53,8 +53,8 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlchemyArrayBlockEntity>> ALCHEMY_ARRAY_TYPE =
             registerTile("alchemy_array", AlchemyArrayBlockEntity::new, NVBlocks.ALCHEMY_ARRAY);
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlchemyTableBlockEntity>> ALCHEMY_TABLE_TYPE =
-            registerTile("alchemy_table", AlchemyTableBlockEntity::new, NVBlocks.ALCHEMY_TABLE.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TabulaVitaeBlockEntity>> TABULA_VITAE_TYPE =
+            registerTile("tabula_vitae", TabulaVitaeBlockEntity::new, NVBlocks.TABULA_VITAE.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TeleposerBlockEntity>> TELEPOSER_TYPE =
             registerTile("teleposer", TeleposerBlockEntity::new, NVBlocks.TELEPOSER.block());

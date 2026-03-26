@@ -380,13 +380,13 @@ Neo Vitae adds several recipe types that can be customized via datapacks.
 }
 ```
 
-### Alchemy Table Recipes
+### Tabula Vitae Recipes
 
-**Location:** `data/neovitae/recipes/alchemy_table/`
+**Location:** `data/neovitae/recipes/tabula_vitae/`
 
 ```json
 {
-  "type": "neovitae:alchemy_table",
+  "type": "neovitae:tabula_vitae",
   "ingredients": [
     { "item": "minecraft:glass_bottle" },
     { "item": "neovitae:reagent_water" }

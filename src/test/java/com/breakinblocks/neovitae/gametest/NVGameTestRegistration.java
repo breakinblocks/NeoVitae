@@ -13,7 +13,7 @@ public class NVGameTestRegistration {
         event.register(AraVitaeTests.class);
         event.register(HellfireForgeTests.class);
         event.register(ARCTests.class);
-        event.register(AlchemyTableTests.class);
+        event.register(TabulaVitaeTests.class);
         event.register(DemonWillTests.class);
         event.register(AlchemyArrayTests.class);
         event.register(ImperfectRitualTests.class);

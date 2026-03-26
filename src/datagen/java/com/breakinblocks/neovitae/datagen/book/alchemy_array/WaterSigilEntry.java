@@ -26,13 +26,13 @@ public class WaterSigilEntry extends EntryProvider {
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Step 1: Craft the [#](8B0000)Water Reagent[#]() in the Alchemy Table.\\\n\\\n"
+        this.pageText("Step 1: Craft the [#](8B0000)Water Reagent[#]() in the Tabula Vitae.\\\n\\\n"
                 + "Step 2: Create the [#](8B0000)Water Sigil[#]() in an Alchemy Array using the Water Reagent "
                 + "as the base and a [#](8B0000)Blank Slate[#]() as the catalyst.\\\n\\\n*Infinite water, anyone?*");
 
-        this.page("alchemy_table", () -> BookTextPageModel.create()
+        this.page("tabula_vitae", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The Water Sigil can also be used in the [#](8B0000)Alchemy Table[#]() to automate the production "
+        this.pageText("The Water Sigil can also be used in the [#](8B0000)Tabula Vitae[#]() to automate the production "
                 + "of [#](8B0000)Water Buckets[#](). The Sigil is not consumed in this recipe.");
     }
 

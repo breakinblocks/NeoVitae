@@ -5,7 +5,33 @@
   "description": "book.neovitae.guide.alchemy_table.flask_grounded.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:string"
+    "components": {
+      "minecraft:potion_contents": {
+        "custom_effects": [
+          {
+            "duration": 3600,
+            "id": "neovitae:grounded",
+            "neoforge:cures": [
+              "milk",
+              "protected_by_totem"
+            ],
+            "show_icon": true
+          }
+        ]
+      },
+      "neovitae:flask_effects": {
+        "effects": [
+          {
+            "amp_duration_mod": 1.0,
+            "amplifier": 0,
+            "base_duration": 3600,
+            "effect": "neovitae:grounded",
+            "length_duration_mod": 1.0
+          }
+        ]
+      }
+    },
+    "item": "neovitae:alchemy_flask"
   },
   "name": "book.neovitae.guide.alchemy_table.flask_grounded.name",
   "pages": [
@@ -47,13 +73,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "alchemy_table/potion_crafting",
+      "entry": "alchemy_table/flask_jump_boost",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 32,
-  "x": 7,
-  "y": 2
+  "sort_number": 34,
+  "x": 3,
+  "y": 1
 }

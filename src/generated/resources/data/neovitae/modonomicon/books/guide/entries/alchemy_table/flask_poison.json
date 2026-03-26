@@ -5,7 +5,34 @@
   "description": "book.neovitae.guide.alchemy_table.flask_poison.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:spider_eye"
+    "components": {
+      "minecraft:potion_contents": {
+        "custom_effects": [
+          {
+            "duration": 3600,
+            "id": "minecraft:poison",
+            "neoforge:cures": [
+              "milk",
+              "protected_by_totem",
+              "honey"
+            ],
+            "show_icon": true
+          }
+        ]
+      },
+      "neovitae:flask_effects": {
+        "effects": [
+          {
+            "amp_duration_mod": 1.0,
+            "amplifier": 0,
+            "base_duration": 3600,
+            "effect": "minecraft:poison",
+            "length_duration_mod": 1.0
+          }
+        ]
+      }
+    },
+    "item": "neovitae:alchemy_flask"
   },
   "name": "book.neovitae.guide.alchemy_table.flask_poison.name",
   "pages": [
@@ -65,7 +92,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 20,
-  "x": 7,
-  "y": 0
+  "sort_number": 19,
+  "x": 9,
+  "y": -2
 }

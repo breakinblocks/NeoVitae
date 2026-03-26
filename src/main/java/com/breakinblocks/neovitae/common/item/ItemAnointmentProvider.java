@@ -153,7 +153,8 @@ public class ItemAnointmentProvider extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        Anointment anointment = AnointmentRegistrar.get(anointmentKey);
+        tooltip.add(Component.translatable("tooltip.neovitae.anointment." + anointmentKey.getPath() + ".desc")
+                .withStyle(net.minecraft.ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.neovitae.anointment.level", level));
         tooltip.add(Component.translatable("tooltip.neovitae.anointment.uses", maxDamage));
         super.appendHoverText(stack, context, tooltip, flag);

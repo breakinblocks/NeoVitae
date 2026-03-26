@@ -600,6 +600,19 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("anointment.level", "Level: %s");
         addTooltip("anointment.uses", "Uses: %s");
         addTooltip("anointment.shift_for_details", "Hold Shift for details");
+        addTooltip("anointment.melee_damage.desc", "Increases melee damage dealt");
+        addTooltip("anointment.silk_touch.desc", "Harvests blocks with Silk Touch");
+        addTooltip("anointment.fortune.desc", "Increases block drops (Fortune)");
+        addTooltip("anointment.holy_water.desc", "Deals extra damage to undead");
+        addTooltip("anointment.hidden_knowledge.desc", "Increases XP from mining blocks");
+        addTooltip("anointment.quick_draw.desc", "Decreases bow draw time");
+        addTooltip("anointment.looting.desc", "Increases mob drops (Looting)");
+        addTooltip("anointment.bow_power.desc", "Increases arrow damage");
+        addTooltip("anointment.will_power.desc", "Arrows drain Demon Will on hit");
+        addTooltip("anointment.smelting.desc", "Auto-smelts drops from mining");
+        addTooltip("anointment.voiding.desc", "Destroys unwanted drops from mining");
+        addTooltip("anointment.bow_velocity.desc", "Increases arrow velocity");
+        addTooltip("anointment.repairing.desc", "Repairs weapon using XP on hit");
 
         // ARC Items
         add(NVItems.BASIC_CUTTING_FLUID.get(), "Basic Cutting Fluid");

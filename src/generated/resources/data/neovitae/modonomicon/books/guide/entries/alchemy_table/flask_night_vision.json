@@ -5,7 +5,33 @@
   "description": "book.neovitae.guide.alchemy_table.flask_night_vision.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:golden_carrot"
+    "components": {
+      "minecraft:potion_contents": {
+        "custom_effects": [
+          {
+            "duration": 3600,
+            "id": "minecraft:night_vision",
+            "neoforge:cures": [
+              "milk",
+              "protected_by_totem"
+            ],
+            "show_icon": true
+          }
+        ]
+      },
+      "neovitae:flask_effects": {
+        "effects": [
+          {
+            "amp_duration_mod": 1.0,
+            "amplifier": 0,
+            "base_duration": 3600,
+            "effect": "minecraft:night_vision",
+            "length_duration_mod": 1.0
+          }
+        ]
+      }
+    },
+    "item": "neovitae:alchemy_flask"
   },
   "name": "book.neovitae.guide.alchemy_table.flask_night_vision.name",
   "pages": [
@@ -53,7 +79,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 21,
-  "x": -4,
-  "y": 1
+  "sort_number": 24,
+  "x": -3,
+  "y": 0
 }

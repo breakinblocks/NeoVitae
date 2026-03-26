@@ -5,7 +5,33 @@
   "description": "book.neovitae.guide.alchemy_table.flask_instant_health.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:glistering_melon_slice"
+    "components": {
+      "minecraft:potion_contents": {
+        "custom_effects": [
+          {
+            "duration": 3600,
+            "id": "minecraft:instant_health",
+            "neoforge:cures": [
+              "milk",
+              "protected_by_totem"
+            ],
+            "show_icon": true
+          }
+        ]
+      },
+      "neovitae:flask_effects": {
+        "effects": [
+          {
+            "amp_duration_mod": 1.0,
+            "amplifier": 0,
+            "base_duration": 3600,
+            "effect": "minecraft:instant_health",
+            "length_duration_mod": 1.0
+          }
+        ]
+      }
+    },
+    "item": "neovitae:alchemy_flask"
   },
   "name": "book.neovitae.guide.alchemy_table.flask_instant_health.name",
   "pages": [
@@ -54,6 +80,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": 18,
-  "x": 3,
-  "y": 0
+  "x": 7,
+  "y": -2
 }

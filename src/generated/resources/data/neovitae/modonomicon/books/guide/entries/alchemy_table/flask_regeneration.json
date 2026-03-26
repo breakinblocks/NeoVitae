@@ -5,7 +5,33 @@
   "description": "book.neovitae.guide.alchemy_table.flask_regeneration.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:ghast_tear"
+    "components": {
+      "minecraft:potion_contents": {
+        "custom_effects": [
+          {
+            "duration": 3600,
+            "id": "minecraft:regeneration",
+            "neoforge:cures": [
+              "milk",
+              "protected_by_totem"
+            ],
+            "show_icon": true
+          }
+        ]
+      },
+      "neovitae:flask_effects": {
+        "effects": [
+          {
+            "amp_duration_mod": 1.0,
+            "amplifier": 0,
+            "base_duration": 3600,
+            "effect": "minecraft:regeneration",
+            "length_duration_mod": 1.0
+          }
+        ]
+      }
+    },
+    "item": "neovitae:alchemy_flask"
   },
   "name": "book.neovitae.guide.alchemy_table.flask_regeneration.name",
   "pages": [
@@ -66,6 +92,6 @@
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": 17,
-  "x": 1,
-  "y": 0
+  "x": 5,
+  "y": -2
 }

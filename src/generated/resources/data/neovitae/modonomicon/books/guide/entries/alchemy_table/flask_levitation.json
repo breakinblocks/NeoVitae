@@ -5,7 +5,33 @@
   "description": "book.neovitae.guide.alchemy_table.flask_levitation.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:shulker_shell"
+    "components": {
+      "minecraft:potion_contents": {
+        "custom_effects": [
+          {
+            "duration": 3600,
+            "id": "minecraft:levitation",
+            "neoforge:cures": [
+              "milk",
+              "protected_by_totem"
+            ],
+            "show_icon": true
+          }
+        ]
+      },
+      "neovitae:flask_effects": {
+        "effects": [
+          {
+            "amp_duration_mod": 1.0,
+            "amplifier": 0,
+            "base_duration": 3600,
+            "effect": "minecraft:levitation",
+            "length_duration_mod": 1.0
+          }
+        ]
+      }
+    },
+    "item": "neovitae:alchemy_flask"
   },
   "name": "book.neovitae.guide.alchemy_table.flask_levitation.name",
   "pages": [
@@ -59,13 +85,13 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "alchemy_table/potion_crafting",
+      "entry": "alchemy_table/flask_slow_falling",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 28,
-  "x": -1,
-  "y": 2
+  "sort_number": 33,
+  "x": 5,
+  "y": 1
 }

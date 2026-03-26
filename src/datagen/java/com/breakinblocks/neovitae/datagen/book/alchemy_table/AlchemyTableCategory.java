@@ -14,15 +14,15 @@ public class AlchemyTableCategory extends CategoryProvider {
     @Override
     protected String[] generateEntryMap() {
         return new String[]{
-                "__________a__________",
-                "_____b_________c_____",
-                "_d_e_f_g_h_i_________",
-                "_j_k_l_______________",
-                "_m_n_o_p_q_r_s_t_u___",
-                "______v_w_x_y_z_A_B__",
-                "_________C_D_E_F_G___",
-                "________H_I_J_K_L____",
-                "__________M_N________"
+                "__________a__________________",
+                "_____b_____________c_________",
+                "_d_e_f_g_h_i___p_q_r_s_u_D__",
+                "_j_k_l_________B___t___E_J_M_",
+                "_m_n_o_____v_x_y_z_A________",
+                "___________w_N___G_C________",
+                "_________________H_K________",
+                "________________I_L_________",
+                "________________F___________"
         };
     }
 
@@ -72,6 +72,7 @@ public class AlchemyTableCategory extends CategoryProvider {
         var quickDraw = this.add(new QuickDrawAnointmentEntry(this).generate('o'));
         quickDraw.withParent(this.parent(anointments));
 
+        // Base flasks - parent is potions
         var speed = this.add(new SpeedFlaskEntry(this).generate('p'));
         speed.withParent(this.parent(potions));
 
@@ -84,17 +85,23 @@ public class AlchemyTableCategory extends CategoryProvider {
         var health = this.add(new InstantHealthFlaskEntry(this).generate('s'));
         health.withParent(this.parent(potions));
 
-        var damage = this.add(new InstantDamageFlaskEntry(this).generate('t'));
-        damage.withParent(this.parent(potions));
-
         var poison = this.add(new PoisonFlaskEntry(this).generate('u'));
         poison.withParent(this.parent(potions));
 
+        var weakness = this.add(new WeaknessFlaskEntry(this).generate('D'));
+        weakness.withParent(this.parent(potions));
+
+        var bounce = this.add(new BounceFlaskEntry(this).generate('E'));
+        bounce.withParent(this.parent(potions));
+
+        var hardCloak = this.add(new HardCloakFlaskEntry(this).generate('J'));
+        hardCloak.withParent(this.parent(potions));
+
+        var passive = this.add(new PassiveFlaskEntry(this).generate('M'));
+        passive.withParent(this.parent(potions));
+
         var nightVision = this.add(new NightVisionFlaskEntry(this).generate('v'));
         nightVision.withParent(this.parent(potions));
-
-        var invisibility = this.add(new InvisibilityFlaskEntry(this).generate('w'));
-        invisibility.withParent(this.parent(potions));
 
         var fireResistance = this.add(new FireResistanceFlaskEntry(this).generate('x'));
         fireResistance.withParent(this.parent(potions));
@@ -108,44 +115,44 @@ public class AlchemyTableCategory extends CategoryProvider {
         var slowFalling = this.add(new SlowFallingFlaskEntry(this).generate('A'));
         slowFalling.withParent(this.parent(potions));
 
+        // Derived flasks - parent is the flask they're crafted from
         var slowness = this.add(new SlownessFlaskEntry(this).generate('B'));
-        slowness.withParent(this.parent(potions));
+        slowness.withParent(this.parent(speed));
+        slowness.withParent(this.parent(jumpBoost));
+
+        var damage = this.add(new InstantDamageFlaskEntry(this).generate('t'));
+        damage.withParent(this.parent(health));
+        damage.withParent(this.parent(poison));
+
+        var invisibility = this.add(new InvisibilityFlaskEntry(this).generate('w'));
+        invisibility.withParent(this.parent(nightVision));
+
+        var spectralSight = this.add(new SpectralSightFlaskEntry(this).generate('N'));
+        spectralSight.withParent(this.parent(nightVision));
 
         var levitation = this.add(new LevitationFlaskEntry(this).generate('C'));
-        levitation.withParent(this.parent(potions));
-
-        var weakness = this.add(new WeaknessFlaskEntry(this).generate('D'));
-        weakness.withParent(this.parent(potions));
-
-        var bounce = this.add(new BounceFlaskEntry(this).generate('E'));
-        bounce.withParent(this.parent(potions));
-
-        var flight = this.add(new FlightFlaskEntry(this).generate('F'));
-        flight.withParent(this.parent(potions));
+        levitation.withParent(this.parent(slowFalling));
 
         var grounded = this.add(new GroundedFlaskEntry(this).generate('G'));
-        grounded.withParent(this.parent(potions));
+        grounded.withParent(this.parent(jumpBoost));
 
         var gravity = this.add(new GravityFlaskEntry(this).generate('H'));
-        gravity.withParent(this.parent(potions));
-
-        var suspended = this.add(new SuspendedFlaskEntry(this).generate('I'));
-        suspended.withParent(this.parent(potions));
-
-        var hardCloak = this.add(new HardCloakFlaskEntry(this).generate('J'));
-        hardCloak.withParent(this.parent(potions));
+        gravity.withParent(this.parent(grounded));
+        gravity.withParent(this.parent(slowFalling));
 
         var obsidianCloak = this.add(new ObsidianCloakFlaskEntry(this).generate('K'));
         obsidianCloak.withParent(this.parent(hardCloak));
 
+        var suspended = this.add(new SuspendedFlaskEntry(this).generate('I'));
+        suspended.withParent(this.parent(gravity));
+
         var heavyHeart = this.add(new HeavyHeartFlaskEntry(this).generate('L'));
         heavyHeart.withParent(this.parent(gravity));
+        heavyHeart.withParent(this.parent(health));
 
-        var passive = this.add(new PassiveFlaskEntry(this).generate('M'));
-        passive.withParent(this.parent(potions));
-
-        var spectralSight = this.add(new SpectralSightFlaskEntry(this).generate('N'));
-        spectralSight.withParent(this.parent(potions));
+        var flight = this.add(new FlightFlaskEntry(this).generate('F'));
+        flight.withParent(this.parent(suspended));
+        flight.withParent(this.parent(levitation));
     }
 
     @Override

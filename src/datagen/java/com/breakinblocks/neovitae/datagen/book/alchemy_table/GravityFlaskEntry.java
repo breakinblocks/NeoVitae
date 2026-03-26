@@ -6,7 +6,12 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.datagen.book.page.BookFlaskRecipePageModel;
-import net.minecraft.world.item.Items;
+import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
+import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
+import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import net.minecraft.world.item.ItemStack;
 import com.mojang.datafixers.util.Pair;
 
 public class GravityFlaskEntry extends EntryProvider {
@@ -52,7 +57,9 @@ public class GravityFlaskEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(Items.TROPICAL_FISH);
+        ItemStack flask = new ItemStack(NVItems.ALCHEMY_FLASK.get());
+        ItemAlchemyFlask.setFlaskEffects(flask, FlaskEffects.single(EffectHolder.create(NVMobEffects.GRAVITY.getDelegate(), 3600, 0)));
+        return BookIconModel.create(flask);
     }
 
     @Override

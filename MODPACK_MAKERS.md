@@ -18,7 +18,8 @@ This guide covers all the data-driven systems in Neo Vitae that modpack makers c
 7. [Living Armor Upgrades](#living-armor-upgrades)
 8. [Curios Integration](#curios-integration)
 9. [KubeJS Event Hooks](#kubejs-event-hooks)
-10. [Examples](#examples)
+10. [Custom Player Attributes](#custom-player-attributes)
+11. [Examples](#examples)
 
 ---
 
@@ -359,13 +360,13 @@ Neo Vitae adds several recipe types that can be customized via datapacks.
 | `craftSpeed` | LP consumed per craft tick |
 | `drainSpeed` | Max LP drained from altar per tick |
 
-### Tartaric Forge (Hellfire Forge) Recipes
+### Hellfire Forge Recipes
 
-**Location:** `data/neovitae/recipes/soul_forge/`
+**Location:** `data/neovitae/recipes/hellfire_forge/`
 
 ```json
 {
-  "type": "neovitae:soul_forge",
+  "type": "neovitae:hellfire_forge",
   "ingredients": [
     { "item": "minecraft:iron_ingot" },
     { "item": "minecraft:redstone" }
@@ -850,6 +851,72 @@ Neo Vitae's event system provides several advantages for modpack customization:
 5. **Flexible**: Combine with other KubeJS features (quests, rewards, etc.)
 
 For truly new ritual types (new effects, new multiblock structures), those require Java mods. But for 90% of modpack needs, events provide sufficient customization.
+
+---
+
+## Custom Player Attributes
+
+Neo Vitae registers several custom player attributes that can be modified via equipment, effects, data packs, or addon mods using standard Minecraft attribute modifiers.
+
+### Attribute Reference
+
+| Attribute | Registry ID | Default | Max | Description |
+|-----------|------------|---------|-----|-------------|
+| Self Sacrifice Multiplier | `neovitae:player.self_sacrifice_multiplier` | 1.0 | 100.0 | Multiplier for LP gained from self-sacrifice (PercentageAttribute) |
+| Bonus Sacrifice | `neovitae:bonus_sacrifice` | 0.0 | 1000.0 | % bonus to LP gained from Dagger of Sacrifice mob kills |
+| Bonus Self Sacrifice | `neovitae:bonus_self_sacrifice` | 0.0 | 1000.0 | % bonus to LP gained from Sacrificial Dagger self-sacrifice |
+| Bonus Demon Will | `neovitae:bonus_demon_will` | 0.0 | 1000.0 | % bonus to Demon Will drops from sentient weapons and soul snares |
+| Sigil Cost Reduction | `neovitae:sigil_cost_reduction` | 0.0 | 100.0 | % reduction to all sigil LP costs (capped at near-zero, minimum 1 LP) |
+| Blood Siphon | `neovitae:blood_siphon` | 0.0 | 1024.0 | Converts damage dealt into LP. Base LP = min(attribute, damage), then multiplied |
+| Blood Shield | `neovitae:blood_shield` | 0.0 | 10.0 | Reduces incoming damage by 10% per point (capped at 99%), drains LP for prevented damage |
+
+### Blood Siphon Details
+
+When a player with Blood Siphon deals damage:
+- **LP gained** = min(blood_siphon_value, damage_dealt) x multiplier
+- **vs Players**: Drains LP from the target's soul network. Multiplier = configurable (default: 100)
+- **vs Mobs**: LP generated from nothing. Multiplier = configurable (default: 10)
+- Example: Blood Siphon 5, deal 10 damage to a mob = 5 x 10 = 50 LP gained
+
+### Blood Shield Details
+
+When a player with Blood Shield takes damage:
+- **Damage reduction** = 10% per attribute point (e.g., Blood Shield 5 = 50% reduction)
+- **Hard cap**: 99% maximum reduction (at Blood Shield 10)
+- **LP cost** = damage_prevented x configurable multiplier (default: 100)
+- If insufficient LP: partial shield uses available LP, remaining damage passes through
+- Example: Blood Shield 3, take 20 damage = 6 damage prevented, costs 600 LP, take 14 damage
+
+### Server Configuration
+
+**File:** `config/neovitae-server.toml`
+
+Blood attribute multipliers under `[blood_attributes]`:
+
+| Config Key | Default | Description |
+|-----------|---------|-------------|
+| `siphon_player_multiplier` | 100 | LP multiplier for Blood Siphon vs players |
+| `siphon_mob_multiplier` | 10 | LP multiplier for Blood Siphon vs mobs |
+| `shield_lp_cost_multiplier` | 100 | LP cost per damage point prevented by Blood Shield |
+
+### Applying Attributes via Data Packs
+
+Use standard NeoForge attribute modifier syntax on items or equipment:
+
+```json
+{
+  "type": "minecraft:attribute_modifiers",
+  "modifiers": [
+    {
+      "type": "neovitae:blood_siphon",
+      "id": "mypack:blood_siphon_bonus",
+      "amount": 2.0,
+      "operation": "add_value",
+      "slot": "mainhand"
+    }
+  ]
+}
+```
 
 ---
 

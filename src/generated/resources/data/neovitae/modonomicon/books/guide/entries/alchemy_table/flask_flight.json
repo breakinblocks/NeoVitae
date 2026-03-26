@@ -12,8 +12,8 @@
             "duration": 3600,
             "id": "neovitae:flight",
             "neoforge:cures": [
-              "milk",
-              "protected_by_totem"
+              "protected_by_totem",
+              "milk"
             ],
             "show_icon": true
           }

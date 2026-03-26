@@ -29,12 +29,20 @@ public class NVAttributes {
     public static final DeferredHolder<Attribute, Attribute> SIGIL_COST_REDUCTION = ATTRIBUTES.register("sigil_cost_reduction",
             () -> new RangedAttribute("attribute.neovitae.sigil_cost_reduction", 0.0D, 0.0D, 100.0D).setSyncable(true));
 
+    public static final DeferredHolder<Attribute, Attribute> BLOOD_SIPHON = ATTRIBUTES.register("blood_siphon",
+            () -> new RangedAttribute("attribute.neovitae.blood_siphon", 0.0D, 0.0D, 1024.0D).setSyncable(true));
+
+    public static final DeferredHolder<Attribute, Attribute> BLOOD_SHIELD = ATTRIBUTES.register("blood_shield",
+            () -> new RangedAttribute("attribute.neovitae.blood_shield", 0.0D, 0.0D, 10.0D).setSyncable(true));
+
     private static void addToPlayer(EntityAttributeModificationEvent event) {
         event.add(EntityType.PLAYER, SELF_SACRIFICE_MULTIPLIER, 1);
         event.add(EntityType.PLAYER, BONUS_SACRIFICE, 0);
         event.add(EntityType.PLAYER, BONUS_SELF_SACRIFICE, 0);
         event.add(EntityType.PLAYER, BONUS_DEMON_WILL, 0);
         event.add(EntityType.PLAYER, SIGIL_COST_REDUCTION, 0);
+        event.add(EntityType.PLAYER, BLOOD_SIPHON, 0);
+        event.add(EntityType.PLAYER, BLOOD_SHIELD, 0);
     }
 
     public static void register(IEventBus modBus) {

@@ -58,6 +58,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("attribute.neovitae.bonus_self_sacrifice", "Bonus Self Sacrifice");
         add("attribute.neovitae.bonus_demon_will", "Bonus Demon Will");
         add("attribute.neovitae.sigil_cost_reduction", "Sigil Cost Reduction");
+        add("attribute.neovitae.blood_siphon", "Blood Siphon");
+        add("attribute.neovitae.blood_shield", "Blood Shield");
 
         add(NVBlocks.BLOOD_ALTAR, "Blood Altar");
         add(NVItems.SACRIFICIAL_DAGGER.get(), "Sacrificial Dagger");

@@ -26,6 +26,11 @@ public class ServerConfig {
     public final ModConfigSpec.DoubleValue CRYSTAL_GROWTH_THRESHOLD;
     public final ModConfigSpec.IntValue CRYSTAL_MAX_COUNT;
 
+    // Blood Siphon / Blood Shield config
+    public final ModConfigSpec.IntValue BLOOD_SIPHON_PLAYER_MULTIPLIER;
+    public final ModConfigSpec.IntValue BLOOD_SIPHON_MOB_MULTIPLIER;
+    public final ModConfigSpec.IntValue BLOOD_SHIELD_LP_COST_MULTIPLIER;
+
     protected ServerConfig(ModConfigSpec.Builder builder) {
         SELF_SACRIFICE_CONVERSION = builder.define("self_sacrifice_conversion", 100);
         DEFAULT_UPGRADE_POINTS = builder.define("default_upgrade_points", 100);
@@ -84,6 +89,22 @@ public class ServerConfig {
         CRYSTAL_MAX_COUNT = builder
                 .comment("Maximum number of crystal segments per cluster")
                 .defineInRange("max_count", 7, 1, 20);
+
+        builder.pop();
+
+        builder.comment("Blood Attribute Configuration",
+                "Configure LP multipliers for Blood Siphon and Blood Shield attributes.");
+        builder.push("blood_attributes");
+
+        BLOOD_SIPHON_PLAYER_MULTIPLIER = builder
+                .comment("LP multiplier when Blood Siphon drains from a player target")
+                .defineInRange("siphon_player_multiplier", 100, 1, 10000);
+        BLOOD_SIPHON_MOB_MULTIPLIER = builder
+                .comment("LP multiplier when Blood Siphon drains from a non-player target")
+                .defineInRange("siphon_mob_multiplier", 10, 1, 10000);
+        BLOOD_SHIELD_LP_COST_MULTIPLIER = builder
+                .comment("LP cost per point of damage prevented by Blood Shield")
+                .defineInRange("shield_lp_cost_multiplier", 100, 1, 10000);
 
         builder.pop();
     }

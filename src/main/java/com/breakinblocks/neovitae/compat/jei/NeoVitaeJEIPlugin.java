@@ -7,6 +7,9 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
+import mezz.jei.api.constants.VanillaTypes;
+import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
@@ -42,6 +45,7 @@ import com.breakinblocks.neovitae.compat.jei.altar.AraVitaeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.athanor.AthanorRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.array.AlchemyArrayCraftingCategory;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskRecipeCategory;
+import com.breakinblocks.neovitae.compat.jei.bloodtank.BloodTankSubtypeInterpreter;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskSubtypeInterpreter;
 import com.breakinblocks.neovitae.compat.jei.forge.SoulForgeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.imperfectritual.ImperfectRitualJEIRecipe;
@@ -78,6 +82,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.registerSubtypeInterpreter(NVItems.ALCHEMY_FLASK.get(), FlaskSubtypeInterpreter.INSTANCE);
         registration.registerSubtypeInterpreter(NVItems.ALCHEMY_FLASK_THROWABLE.get(), FlaskSubtypeInterpreter.INSTANCE);
         registration.registerSubtypeInterpreter(NVItems.ALCHEMY_FLASK_LINGERING.get(), FlaskSubtypeInterpreter.INSTANCE);
+        registration.registerSubtypeInterpreter(NVBlocks.BLOOD_TANK.item().get(), BloodTankSubtypeInterpreter.INSTANCE);
     }
 
     @Override
@@ -167,6 +172,16 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
         List<RitualJEIRecipe> ritualRecipes = createRitualRecipes();
         registration.addRecipes(RitualRecipeCategory.RECIPE_TYPE, ritualRecipes);
+
+        // Blood tank upgrade info
+        List<ItemStack> bloodTankStacks = new ArrayList<>();
+        for (int tier = 1; tier <= 16; tier++) {
+            ItemStack stack = new ItemStack(NVBlocks.BLOOD_TANK.block().get());
+            stack.set(NVDataComponents.CONTAINER_TIER, tier);
+            bloodTankStacks.add(stack);
+        }
+        registration.addIngredientInfo(bloodTankStacks, VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.neovitae.blood_tank.upgrade_info"));
     }
 
     private List<ImperfectRitualJEIRecipe> createImperfectRitualRecipes() {

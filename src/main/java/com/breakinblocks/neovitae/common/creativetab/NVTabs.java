@@ -78,6 +78,7 @@ public class NVTabs {
                         addEmptyGem(output::accept, NVItems.SOUL_GEM_GREATER.get());
                         addEmptyGem(output::accept, NVItems.SOUL_GEM_GRAND.get());
 
+                        addBloodTankVariants(output::accept);
                         addAll(NVBlocks.BASIC_BLOCK_ITEMS, output::accept);
                         addAll(DungeonBlocks.ITEMS, output::accept);
                     })
@@ -167,6 +168,14 @@ public class NVTabs {
         }
         ItemAlchemyFlask.setFlaskEffects(flask, new FlaskEffects(holders));
         tab.accept(flask);
+    }
+
+    private static void addBloodTankVariants(Consumer<ItemStack> tab) {
+        for (int tier = 1; tier <= 16; tier++) {
+            ItemStack stack = new ItemStack(NVBlocks.BLOOD_TANK.block().get());
+            stack.set(NVDataComponents.CONTAINER_TIER, tier);
+            tab.accept(stack);
+        }
     }
 
     private static void addAll(DeferredRegister<Item> register, Consumer<ItemStack> tab) {

@@ -1984,6 +1984,7 @@
   "item_group.neovitae.main": "Neo Vitae",
   "item_group.neovitae.tomes": "Neo Vitae Upgrade Tomes",
   "item_group.neovitae.trainers": "Neo Vitae Trainer Tomes",
+  "jei.neovitae.blood_tank.upgrade_info": "Blood Tanks can be upgraded by placing them in a crafting grid surrounded by Glass and Bloodstone. Each upgrade doubles the tank's capacity. Tanks retain their stored fluid when upgraded. The initial tier holds 16,000 mB and tier 16 holds 524,288,000 mB.",
   "jei.neovitae.effect.binding.desc": "Binds items to the owner's soul network",
   "jei.neovitae.effect.binding.name": "Binding Array",
   "jei.neovitae.effect.bounce.desc": "Bounces entities high into the air",

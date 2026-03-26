@@ -25,15 +25,26 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:text",
+      "type": "neovitae:ara_vitae_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.activation_crystals.usage.text",
-      "title": "book.neovitae.guide.rituals.activation_crystals.usage.title",
-      "use_markdown_in_title": false
+      "recipe_id_1": "neovitae:ara_vitae/weak_activation_crystal",
+      "text": "book.neovitae.guide.rituals.activation_crystals.weak_recipe.text",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "neovitae:ara_vitae_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:ara_vitae/awakened_activation_crystal",
+      "text": "book.neovitae.guide.rituals.activation_crystals.awakened_recipe.text",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

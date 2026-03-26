@@ -375,6 +375,18 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_enhanced_focus", has(NVItems.TELEPOSER_FOCUS_ENHANCED.get()))
                 .save(output);
 
+        // Incense Altar
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, NVBlocks.INCENSE_ALTAR.block().get())
+                .pattern("s s")
+                .pattern("shs")
+                .pattern("coc")
+                .define('s', Tags.Items.STONES)
+                .define('h', Items.CHARCOAL)
+                .define('c', Tags.Items.COBBLESTONES)
+                .define('o', OrbTierIngredient.of(1))
+                .unlockedBy("has_weak_orb", has(NVItems.ORB_WEAK.get()))
+                .save(output);
+
         // Lava Crystal - tier 1+ orb center
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, NVItems.LAVA_CRYSTAL.get())
                 .pattern("aba")
@@ -431,6 +443,31 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('g', Tags.Items.GLASS_BLOCKS)
                 .define('i', Tags.Items.INGOTS_GOLD)
                 .define('o', OrbTierIngredient.of(4))
+                .unlockedBy("has_demonic_slate", has(NVItems.SLATE_DEMONIC.get()))
+                .save(output);
+
+        // Ritual Diviner (base) - diamonds, inscription tools, stick
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, NVItems.RITUAL_DIVINER.get())
+                .pattern("dfd")
+                .pattern("ase")
+                .pattern("dwd")
+                .define('d', Tags.Items.GEMS_DIAMOND)
+                .define('f', NVItems.INSCRIPTION_TOOL_FIRE.get())
+                .define('a', NVItems.INSCRIPTION_TOOL_AIR.get())
+                .define('s', Tags.Items.RODS_WOODEN)
+                .define('e', NVItems.INSCRIPTION_TOOL_EARTH.get())
+                .define('w', NVItems.INSCRIPTION_TOOL_WATER.get())
+                .unlockedBy("has_inscription_tool", has(NVItems.INSCRIPTION_TOOL_AIR.get()))
+                .save(output);
+
+        // Ritual Diviner (dusk) - demonic slates, dusk inscription tool, base diviner
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, NVItems.RITUAL_DIVINER_DUSK.get())
+                .pattern(" S ")
+                .pattern("tdt")
+                .pattern(" S ")
+                .define('S', NVItems.SLATE_DEMONIC.get())
+                .define('t', NVItems.INSCRIPTION_TOOL_DUSK.get())
+                .define('d', NVItems.RITUAL_DIVINER.get())
                 .unlockedBy("has_demonic_slate", has(NVItems.SLATE_DEMONIC.get()))
                 .save(output);
 

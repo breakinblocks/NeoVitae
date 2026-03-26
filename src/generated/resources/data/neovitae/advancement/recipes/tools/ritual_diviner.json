@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_inscription_tool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:air_scribe_tool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:ritual_diviner"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_inscription_tool"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:ritual_diviner"
+    ]
+  }
+}

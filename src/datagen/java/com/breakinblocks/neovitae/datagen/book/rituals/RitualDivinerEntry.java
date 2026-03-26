@@ -4,9 +4,12 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.resources.ResourceLocation;
 
 public class RitualDivinerEntry extends EntryProvider {
 
@@ -27,18 +30,20 @@ public class RitualDivinerEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("You can also change the direction that the completed ritual will face by pressing Use. This will only affect a small number of rituals, such as the [#](8B0000)Ritual of Speed[#](), as most rituals are symmetrical.");
 
-        this.page("crafting", () -> BookTextPageModel.create()
+        this.page("crafting", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_diviner"))
                 .withText(this.context().pageText()));
-        this.pageText("Simply tap Use while looking at a [#](8B0000)Master Ritual Stone[#]() to make the Diviner build the currently selected ritual out of any [#](8B0000)Ritual Stones[#]() you may be carrying. It's almost like magic! View the Ritual Diviner recipe in JEI.");
+        this.pageText("Simply tap Use while looking at a [#](8B0000)Master Ritual Stone[#]() to make the Diviner build the currently selected ritual out of any [#](8B0000)Ritual Stones[#]() you may be carrying.");
 
         this.page("clearing", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The Ritual Diviner can break replaceable blocks (like tall grass, snow, etc), but not solid ones such as stone or dirt, so make sure the area is clear before you commence construction, or the [#](8B0000)Activation Crystal[#]() will be unable to do its job."
                 + "\\\n\\\nIt's also worth noting that the base ritual diviner can only create some of the more basic rituals. If you want the most out of your diviner, you'll have to upgrade it with [#](8B0000)Dusk Inscription Tools[#]().");
 
-        this.page("dusk_crafting", () -> BookTextPageModel.create()
+        this.page("dusk_crafting", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_diviner_dusk"))
                 .withText(this.context().pageText()));
-        this.pageText("Unlike the Elemental Inscription Tools, the Ritual Diviner and Ritual Diviner [Dusk] will never run out. View the Ritual Diviner [Dusk] recipe in JEI.");
+        this.pageText("Unlike the Elemental Inscription Tools, the Ritual Diviner and Ritual Diviner [Dusk] will never run out.");
 
         this.page("inscription_tools", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

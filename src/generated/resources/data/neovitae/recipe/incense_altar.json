@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": {
+      "tag": "c:cobblestones"
+    },
+    "h": {
+      "item": "minecraft:charcoal"
+    },
+    "o": {
+      "type": "neovitae:orb_tier",
+      "tier": 1
+    },
+    "s": {
+      "tag": "c:stones"
+    }
+  },
+  "pattern": [
+    "s s",
+    "shs",
+    "coc"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:incense_altar"
+  }
+}

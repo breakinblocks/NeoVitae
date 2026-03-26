@@ -12,7 +12,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 public class NVMenus {
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(BuiltInRegistries.MENU, NeoVitae.MODID);
 
-    public static final DeferredHolder<MenuType<?>, MenuType<ARCMenu>> ARC = MENUS.register("arc_menu", () -> IMenuTypeExtension.create(ARCMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<AthanorMenu>> ARC = MENUS.register("arc_menu", () -> IMenuTypeExtension.create(AthanorMenu::new));
 
     public static final DeferredHolder<MenuType<?>, MenuType<TrainerMenu>> TRAINER = MENUS.register("trainer", () -> IMenuTypeExtension.create(TrainerMenu::new));
 

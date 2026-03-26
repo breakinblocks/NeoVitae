@@ -23,8 +23,8 @@ public class NVModonomiconClientCompat {
                 p -> new BookAlchemyArrayRecipePageRenderer((BookAlchemyArrayRecipePage) p)
         );
         PageRendererRegistry.registerPageRenderer(
-                NVPageTypes.ARC,
-                p -> new BookARCRecipePageRenderer((BookARCRecipePage) p)
+                NVPageTypes.ATHANOR,
+                p -> new BookAthanorRecipePageRenderer((BookAthanorRecipePage) p)
         );
         PageRendererRegistry.registerPageRenderer(
                 NVPageTypes.FLASK,

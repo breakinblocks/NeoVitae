@@ -24,7 +24,7 @@ public class BloodstoneBricksEntry extends EntryProvider {
         this.pageTitle("Bloodstone Bricks");
         this.pageText("[#](8B0000)Bloodstone Bricks[#]() are a decorative block, and used as the capstones for the "
                 + "Tier-4 Ara Vitae. They require Weak Blood Shards, which can be made by putting a "
-                + "Saturated Tau into an Alchemical Reaction Chamber with a Sanguine Reverter in it.");
+                + "Saturated Tau into an Athanor with a Sanguine Reverter in it.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "bloodstone_brick")));

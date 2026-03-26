@@ -8,8 +8,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.recipe.arc.ARCRecipe;
-import com.breakinblocks.neovitae.common.recipe.arc.ARCPotionRecipe;
+import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
+import com.breakinblocks.neovitae.common.recipe.athanor.AthanorPotionRecipe;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
 import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
@@ -28,10 +28,10 @@ public class NVRecipes {
     public static final DeferredHolder<RecipeType<?>, RecipeType<com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe>> ARA_VITAE_TYPE = TYPES.register(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe.RECIPE_TYPE_NAME)));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe>> ARA_VITAE_SERIALIZER = SERIALIZERS.register(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe.RECIPE_TYPE_NAME, () -> new NVRecipeSerializer<>(com.breakinblocks.neovitae.common.recipe.aravitae.AraVitaeRecipe.CODEC, com.breakinblocks.neovitae.common.recipe.aravitae.AraVitaeRecipe.STREAM_CODEC));
 
-    public static final DeferredHolder<RecipeType<?>, RecipeType<ARCRecipe>> ARC_TYPE = TYPES.register(ARCRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(ARCRecipe.RECIPE_TYPE_NAME)));
-    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ARCRecipe>> ARC_SERIALIZER = SERIALIZERS.register(ARCRecipe.RECIPE_TYPE_NAME, () -> new NVRecipeSerializer<>(ARCRecipe.CODEC, ARCRecipe.STREAM_CODEC));
+    public static final DeferredHolder<RecipeType<?>, RecipeType<AthanorRecipe>> ATHANOR_TYPE = TYPES.register(AthanorRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(AthanorRecipe.RECIPE_TYPE_NAME)));
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<AthanorRecipe>> ATHANOR_SERIALIZER = SERIALIZERS.register(AthanorRecipe.RECIPE_TYPE_NAME, () -> new NVRecipeSerializer<>(AthanorRecipe.CODEC, AthanorRecipe.STREAM_CODEC));
 
-    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ARCPotionRecipe>> ARC_POTION_SERIALIZER = SERIALIZERS.register("arc_potion", () -> new NVRecipeSerializer<>(ARCPotionRecipe.CODEC, ARCPotionRecipe.STREAM_CODEC));
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<AthanorPotionRecipe>> ATHANOR_POTION_SERIALIZER = SERIALIZERS.register("athanor_potion", () -> new NVRecipeSerializer<>(AthanorPotionRecipe.CODEC, AthanorPotionRecipe.STREAM_CODEC));
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<FluidTieredRecipe>> FLUID_TIERED_TYPE = TYPES.register(FluidTieredRecipe.NAME, () -> RecipeType.simple(bm(FluidTieredRecipe.NAME)));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<FluidTieredRecipe>> FLUID_TIERED_SERIALIZER = SERIALIZERS.register(FluidTieredRecipe.NAME, () -> new NVRecipeSerializer<>(FluidTieredRecipe.CODEC, FluidTieredRecipe.STREAM_CODEC));

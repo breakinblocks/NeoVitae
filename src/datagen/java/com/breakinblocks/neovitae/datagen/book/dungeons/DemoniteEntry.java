@@ -34,17 +34,17 @@ public class DemoniteEntry extends EntryProvider {
         this.pageTitle("Hellforged Ingot");
         this.pageText("Demonite Ore and Raw Demonite can be smelted into Hellforged Ingots. View these recipes in JEI.");
 
-        this.page("arc_dust", () -> BookTextPageModel.create()
+        this.page("athanor_dust", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Hellforged Sand");
-        this.pageText("Hellforged Sand can be produced in the Alchemical Reaction Chamber from gravel, ore, or raw demonite.");
+        this.pageText("Hellforged Sand can be produced in the Athanor from gravel, ore, or raw demonite.");
 
-        this.page("arc_processing", () -> BookTextPageModel.create()
+        this.page("athanor_processing", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Demonite Processing");
-        this.pageText("Demonite can also be processed through the Alchemical Reaction Chamber to produce fragments and gravel.");
+        this.pageText("Demonite can also be processed through the Athanor to produce fragments and gravel.");
 
         this.page("hellforged_block", () -> BookCraftingRecipePageModel.create()
                 .withTitle1("Hellforged Block")

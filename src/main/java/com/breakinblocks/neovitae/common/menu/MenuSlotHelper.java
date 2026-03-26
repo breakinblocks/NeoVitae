@@ -38,10 +38,10 @@ public final class MenuSlotHelper {
     public static final int INV_Y_166 = 84;   // Standard 166-height GUI
     public static final int INV_Y_187 = 105;  // 187-height GUI (routing nodes)
     public static final int INV_Y_205 = 123;  // 205-height GUI (alchemy table, soul forge)
-    public static final int INV_Y_208 = 126;  // 208-height GUI (ARC)
+    public static final int INV_Y_208 = 126;  // 208-height GUI 
 
     public static final int HOTBAR_Y_166 = 142;  // Standard 166-height GUI
     public static final int HOTBAR_Y_187 = 163;  // 187-height GUI (routing nodes)
     public static final int HOTBAR_Y_205 = 181;  // 205-height GUI (alchemy table, soul forge)
-    public static final int HOTBAR_Y_208 = 184;  // 208-height GUI (ARC)
+    public static final int HOTBAR_Y_208 = 184;  // 208-height GUI 
 }

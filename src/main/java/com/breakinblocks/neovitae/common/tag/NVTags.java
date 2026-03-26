@@ -21,20 +21,20 @@ public class NVTags {
 
         public static final TagKey<Item> STORAGE_BLOCKS_HELLFORGED = fromBlock(Blocks.STORAGE_BLOCKS_HELLFORGED);
 
-        public static final TagKey<Item> ARC_TOOL = tag(bm("arc_tool"));
+        public static final TagKey<Item> ATHANOR_TOOL = tag(bm("athanor_tool"));
 
-        public static final TagKey<Item> REVERTER = withParent(ARC_TOOL, bm("reverter"));
-        public static final TagKey<Item> RESONATOR = withParent(ARC_TOOL, bm("resonator"));
-        public static final TagKey<Item> EXPLOSIVES = withParent(ARC_TOOL, bm("explosives"));
-        public static final TagKey<Item> CUTTING_FLUIDS = withParent(ARC_TOOL, bm("cutting_fluids"));
-        public static final TagKey<Item> HYDRATION = withParent(ARC_TOOL, bm("hydration"));
+        public static final TagKey<Item> REVERTER = withParent(ATHANOR_TOOL, bm("reverter"));
+        public static final TagKey<Item> RESONATOR = withParent(ATHANOR_TOOL, bm("resonator"));
+        public static final TagKey<Item> EXPLOSIVES = withParent(ATHANOR_TOOL, bm("explosives"));
+        public static final TagKey<Item> CUTTING_FLUIDS = withParent(ATHANOR_TOOL, bm("cutting_fluids"));
+        public static final TagKey<Item> HYDRATION = withParent(ATHANOR_TOOL, bm("hydration"));
 
-        public static final TagKey<Item> ARC_FURNACE = withParent(ARC_TOOL, bm("furnace"));
-        public static final TagKey<Item> ARC_BLASTING = withParent(ARC_FURNACE, bm("blasting"));
-        public static final TagKey<Item> ARC_SMELTING = withParent(ARC_FURNACE, bm("smelting"));
-        public static final TagKey<Item> ARC_SMOKING = withParent(ARC_FURNACE, bm("smoking"));
+        public static final TagKey<Item> ATHANOR_FURNACE = withParent(ATHANOR_TOOL, bm("furnace"));
+        public static final TagKey<Item> ARC_BLASTING = withParent(ATHANOR_FURNACE, bm("blasting"));
+        public static final TagKey<Item> ARC_SMELTING = withParent(ATHANOR_FURNACE, bm("smelting"));
+        public static final TagKey<Item> ARC_SMOKING = withParent(ATHANOR_FURNACE, bm("smoking"));
 
-        public static final TagKey<Item> LINGERING_FLASK = withParent(ARC_TOOL, bm("lingering_flask"));
+        public static final TagKey<Item> LINGERING_FLASK = withParent(ATHANOR_TOOL, bm("lingering_flask"));
 
         public static final TagKey<Item> CHARGES = tag(bm("charges"));
 

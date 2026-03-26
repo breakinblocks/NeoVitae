@@ -1,0 +1,16 @@
+{
+  "type": "neovitae:athanor",
+  "chance_outputs": [],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "neovitae:coal_sand"
+    }
+  ],
+  "input": {
+    "item": "minecraft:coal"
+  },
+  "tool": {
+    "tag": "neovitae:athanor_tool/cutting_fluids"
+  }
+}

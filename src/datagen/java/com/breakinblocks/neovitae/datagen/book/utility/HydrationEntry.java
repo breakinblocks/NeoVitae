@@ -21,10 +21,10 @@ public class HydrationEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("ARC Hydration");
-        this.pageText("With a Primitive Hydration Cell, the ARC can aggressively hydrate and moisturize all sorts "
+        this.pageTitle("Athanor Hydration");
+        this.pageText("With a Primitive Hydration Cell, the Athanor can aggressively hydrate and moisturize all sorts "
                 + "of substances. Don't forget to supply it with Water!\\\n\\\n"
-                + "As with most tools used within the ARC, Hydration Cells degrade over time, but can be enchanted "
+                + "As with most tools used within the Athanor, Hydration Cells degrade over time, but can be enchanted "
                 + "with unbreaking or mending to compensate.");
 
         this.page("recipe_hydration", () -> BookCraftingRecipePageModel.create()
@@ -36,7 +36,7 @@ public class HydrationEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Clay and Terracotta");
-        this.pageText("ARC Hydration Recipes:\n"
+        this.pageText("Athanor Hydration Recipes:\n"
                 + "- Clay from Sand (requires Water)\n"
                 + "- Clay from Terracotta (requires Water)");
 
@@ -97,12 +97,12 @@ public class HydrationEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "ARC Hydration";
+        return "Athanor Hydration";
     }
 
     @Override
     protected String entryDescription() {
-        return "Hydration Cell recipes for the ARC.";
+        return "Hydration Cell recipes for the Athanor.";
     }
 
     @Override

@@ -27,9 +27,9 @@ public class NVModonomiconCompat {
                 BookAlchemyArrayRecipePage::fromNetwork
         );
         LoaderRegistry.registerPageLoader(
-                NVPageTypes.ARC,
-                BookARCRecipePage::fromJson,
-                BookARCRecipePage::fromNetwork
+                NVPageTypes.ATHANOR,
+                BookAthanorRecipePage::fromJson,
+                BookAthanorRecipePage::fromNetwork
         );
         LoaderRegistry.registerPageLoader(
                 NVPageTypes.FLASK,

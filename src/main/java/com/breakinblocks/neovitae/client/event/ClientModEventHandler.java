@@ -38,7 +38,7 @@ import com.breakinblocks.neovitae.client.screen.SoulForgeScreen;
 import com.breakinblocks.neovitae.client.screen.TrainerScreen;
 import com.breakinblocks.neovitae.common.menu.NVMenus;
 import com.breakinblocks.neovitae.client.render.entity.layer.LivingElytraLayer;
-import com.breakinblocks.neovitae.client.screen.ARCScreen;
+import com.breakinblocks.neovitae.client.screen.AthanorScreen;
 import com.breakinblocks.neovitae.client.screen.FilterScreen;
 import com.breakinblocks.neovitae.client.screen.TeleposerScreen;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -100,7 +100,7 @@ public class ClientModEventHandler {
 
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
-        event.register(NVMenus.ARC.get(), ARCScreen::new);
+        event.register(NVMenus.ARC.get(), AthanorScreen::new);
         event.register(NVMenus.TRAINER.get(), TrainerScreen::new);
         event.register(NVMenus.TELEPOSER.get(), TeleposerScreen::new);
         event.register(NVMenus.TABULA_VITAE.get(), TabulaVitaeScreen::new);

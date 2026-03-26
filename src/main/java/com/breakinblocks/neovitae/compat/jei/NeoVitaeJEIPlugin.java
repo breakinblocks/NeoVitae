@@ -32,14 +32,14 @@ import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
 import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
-import com.breakinblocks.neovitae.common.recipe.arc.ARCRecipe;
+import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
 import com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
 import com.breakinblocks.neovitae.compat.jei.tabulavitae.TabulaVitaeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.altar.AraVitaeRecipeCategory;
-import com.breakinblocks.neovitae.compat.jei.arc.ARCRecipeCategory;
+import com.breakinblocks.neovitae.compat.jei.athanor.AthanorRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.array.AlchemyArrayCraftingCategory;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskSubtypeInterpreter;
@@ -88,7 +88,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipeCategories(new AlchemyArrayCraftingCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new TabulaVitaeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new MeteorRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
-        registration.addRecipeCategories(new ARCRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new AthanorRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new FlaskRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ImperfectRitualRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new RitualRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
@@ -100,7 +100,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.ARA_VITAE.block().get()), AraVitaeRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVItems.ARCANE_ASHES.get()), AlchemyArrayCraftingCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.TABULA_VITAE.block().get()), TabulaVitaeRecipeCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVBlocks.ARC_BLOCK.block().get()), ARCRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVBlocks.ATHANOR_BLOCK.block().get()), AthanorRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVItems.ALCHEMY_FLASK.get()), FlaskRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.TABULA_VITAE.block().get()), FlaskRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()), ImperfectRitualRecipeCategory.RECIPE_TYPE);
@@ -146,12 +146,12 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 .toList();
         registration.addRecipes(MeteorRecipeCategory.RECIPE_TYPE, meteorRecipes);
 
-        List<ARCRecipe> arcRecipes = world.getRecipeManager()
-                .getAllRecipesFor(NVRecipes.ARC_TYPE.get())
+        List<AthanorRecipe> arcRecipes = world.getRecipeManager()
+                .getAllRecipesFor(NVRecipes.ATHANOR_TYPE.get())
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();
-        registration.addRecipes(ARCRecipeCategory.RECIPE_TYPE, arcRecipes);
+        registration.addRecipes(AthanorRecipeCategory.RECIPE_TYPE, arcRecipes);
 
         List<FlaskRecipe> flaskRecipes = world.getRecipeManager()
                 .getAllRecipesFor(NVRecipes.FLASK_TYPE.get())

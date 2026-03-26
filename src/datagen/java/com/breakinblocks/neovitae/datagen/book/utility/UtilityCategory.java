@@ -33,7 +33,7 @@ public class UtilityCategory extends CategoryProvider {
         var bookExperience = this.add(new BookExperienceEntry(this).generate('e'));
         var incenseAltar = this.add(new IncenseAltarEntry(this).generate('i'));
         var hydration = this.add(new HydrationEntry(this).generate('h'));
-        var arc = this.add(new AlchemicalReactionChamberEntry(this).generate('a'));
+        var arc = this.add(new AthanorEntry(this).generate('a'));
         var oreProcessing = this.add(new OreProcessingEntry(this).generate('o'));
         var bloodstoneBricks = this.add(new BloodstoneBricksEntry(this).generate('b'));
         var lavaCrystal = this.add(new LavaCrystalEntry(this).generate('l'));

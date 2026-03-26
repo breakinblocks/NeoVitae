@@ -44,8 +44,8 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AraVitaeTile>> ARA_VITAE_TYPE =
             registerTile("ara_vitae", AraVitaeTile::new, NVBlocks.ARA_VITAE.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ARCBlockEntity>> ARC_TYPE =
-            registerTile("arc", ARCBlockEntity::new, NVBlocks.ARC_BLOCK.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AthanorBlockEntity>> ATHANOR_TYPE =
+            registerTile("athanor", AthanorBlockEntity::new, NVBlocks.ATHANOR_BLOCK.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BloodTankBlockEntity>> BLOOD_TANK_TYPE =
             registerTile("blood_tank", BloodTankBlockEntity::new, NVBlocks.BLOOD_TANK.block());
@@ -166,13 +166,13 @@ public class NVTiles {
         );
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
-                ARC_TYPE.get(),
-                ARCBlockEntity::getItemHandler
+                ATHANOR_TYPE.get(),
+                AthanorBlockEntity::getItemHandler
         );
         event.registerBlockEntity(
                 Capabilities.FluidHandler.BLOCK,
-                ARC_TYPE.get(),
-                ARCBlockEntity::getFluidHandler
+                ATHANOR_TYPE.get(),
+                AthanorBlockEntity::getFluidHandler
         );
         event.registerBlockEntity(
                 Capabilities.FluidHandler.BLOCK,

@@ -140,7 +140,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVFluids.DOUBT_BUCKET.get(), "Doubt Bucket");
         add(NVFluids.DOUBT_BLOCK.get(), "Liquid Doubt");
 
-        add(NVBlocks.ARC_BLOCK, "Alchemical Reaction Chamber");
+        add(NVBlocks.ATHANOR_BLOCK, "Athanor");
 
         add(NVBlocks.BLOOD_TANK, "Blood Tank");
         addTooltip("container_tier_missing", "No Tier found!");
@@ -623,7 +623,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("anointment.bow_velocity.desc", "Increases arrow velocity");
         addTooltip("anointment.repairing.desc", "Repairs weapon using XP on hit");
 
-        // ARC Items
+        // Athanor Items
         add(NVItems.BASIC_CUTTING_FLUID.get(), "Basic Cutting Fluid");
         add(NVItems.INTERMEDIATE_CUTTING_FLUID.get(), "Intermediate Cutting Fluid");
         add(NVItems.ADVANCED_CUTTING_FLUID.get(), "Advanced Cutting Fluid");
@@ -641,7 +641,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Flask tooltips
         addTooltip("flask.combination", "Combination potion - see the Sanguine Scientiem for details");
 
-        // ARC Tool tooltips
+        // Athanor Tool tooltips
         addTooltip("arctool.uses", "Uses Remaining: %s");
         addTooltip("arctool.craftspeed", "Crafting Speed: %sx");
         addTooltip("arctool.additionaldrops", "Additional Output Chance: %sx");
@@ -818,8 +818,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("recipe.meteor.fill", "Fill Block");
         addJei("recipe.meteor.weight", "Weight: %s");
         addJei("recipe.meteor.estimate", "Est: %s blocks (~%s%%)");
-        addJei("recipe.arc", "Alchemical Reaction Chamber");
-        addJei("recipe.arc.chance", "Chance: %s%%");
+        addJei("recipe.arc", "Athanor");
+        addJei("recipe.athanor.chance", "Chance: %s%%");
         addJei("recipe.flask", "Flask Brewing");
         addJei("recipe.imperfect_ritual", "Imperfect Ritual");
         addJei("recipe.ritual", "Ritual");

@@ -400,15 +400,15 @@ Neo Vitae adds several recipe types that can be customized via datapacks.
 }
 ```
 
-### Alchemical Reaction Chamber (ARC) Recipes
+### Athanor (ARC) Recipes
 
-**Location:** `data/neovitae/recipes/arc/`
+**Location:** `data/neovitae/recipes/athanor/`
 
 ```json
 {
-  "type": "neovitae:arc",
+  "type": "neovitae:athanor",
   "input": { "item": "minecraft:iron_ore" },
-  "tool": { "tag": "neovitae:arc_tool/explosives" },
+  "tool": { "tag": "neovitae:athanor_tool/explosives" },
   "output": {
     "id": "neovitae:iron_fragment",
     "count": 3
@@ -478,10 +478,10 @@ Tags control various gameplay mechanics. Override or extend these in your datapa
 | Tag | Purpose |
 |-----|---------|
 | `soul_gems` | Items that hold Demon Will |
-| `arc_tool` | Tools usable in the ARC |
-| `arc_tool/explosives` | Explosive tools (ore doubling) |
-| `arc_tool/cutting_fluids` | Cutting tools |
-| `arc_tool/furnace` | Smelting tools |
+| `athanor_tool` | Tools usable in the Athanor |
+| `athanor_tool/explosives` | Explosive tools (ore doubling) |
+| `athanor_tool/cutting_fluids` | Cutting tools |
+| `athanor_tool/furnace` | Smelting tools |
 | `crystals/demon` | Demon crystal items |
 | `charges` | Explosive charges |
 

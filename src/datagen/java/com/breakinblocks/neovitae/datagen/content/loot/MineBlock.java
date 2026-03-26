@@ -42,7 +42,7 @@ public class MineBlock extends BlockLootSubProvider {
 
     private final List<Block> specialDropList = List.of(
             NVBlocks.BLOOD_TANK.block().get(),
-            NVBlocks.ARC_BLOCK.block().get(),
+            NVBlocks.ATHANOR_BLOCK.block().get(),
             NVBlocks.WEAK_TAU.block().get(),
             NVBlocks.STRONG_TAU.block().get(),
             NVBlocks.INCENSE_ALTAR.block().get()
@@ -63,7 +63,7 @@ public class MineBlock extends BlockLootSubProvider {
 
         // Blocks that preserve their contents when broken
         copyComponents(NVBlocks.BLOOD_TANK);
-        copyComponents(NVBlocks.ARC_BLOCK);
+        copyComponents(NVBlocks.ATHANOR_BLOCK);
 
         // Tau crops - drop 1 seed always, plus bonus seeds at max age with fortune
         generateTauLoot(NVBlocks.WEAK_TAU);

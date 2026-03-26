@@ -23,7 +23,7 @@ public class OreProcessingEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Ore Processing");
         this.pageText("The Tabula Vitae can be used, amongst other things, for ore doubling, whilst the "
-                + "Alchemical Reaction Chamber can give you 2.5 ingots per piece of Raw Ore, or 4.5 ingots "
+                + "Athanor can give you 2.5 ingots per piece of Raw Ore, or 4.5 ingots "
                 + "per Ore Block. Get more ore out of your mining expeditions with the power of blood!");
 
         this.page("basic_cutting", () -> BookTextPageModel.create()
@@ -32,7 +32,7 @@ public class OreProcessingEntry extends EntryProvider {
         this.pageTitle("Basic Cutting Fluid");
         this.pageText("Cutting Fluid is crafted in the Tabula Vitae. It is the penultimate step in all forms of "
                 + "Ore Processing.\\\n\\\n"
-                + "It can be used in the Alchemical Reaction Chamber to get 3 Ore Sand from one "
+                + "It can be used in the Athanor to get 3 Ore Sand from one "
                 + "Ore Block, or 1.5 Ore Sand from one Raw Ore (on average). While a Water Sigil is used in the "
                 + "recipe, a simple Bottle of Water may be used.");
 
@@ -59,11 +59,11 @@ public class OreProcessingEntry extends EntryProvider {
                 + "- Iron Sand from Raw Iron\n"
                 + "- Gold Sand from Raw Gold");
 
-        this.page("arc_ore", () -> BookTextPageModel.create()
+        this.page("athanor_ore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("ARC Ore Processing");
-        this.pageText("Once you have access to the Alchemical Reaction Chamber, you can get 3 sand from every "
+        this.pageTitle("Athanor Ore Processing");
+        this.pageText("Once you have access to the Athanor, you can get 3 sand from every "
                 + "ore you mine using a Cutting Fluid. Metal Sand can then be smelted into ingots.");
 
         this.page("smelting", () -> BookTextPageModel.create()
@@ -78,7 +78,7 @@ public class OreProcessingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Explosive Powder");
-        this.pageText("Explosive Powder is crafted in the Tabula Vitae. In the ARC, it is used to turn Ores into "
+        this.pageText("Explosive Powder is crafted in the Tabula Vitae. In the Athanor, it is used to turn Ores into "
                 + "4.5 Ore Fragments on average, or Raw Ores into 2.25 fragments on average, or turn Ingots into "
                 + "their Sand variant.\\\n\\\n"
                 + "It can also turn Netherrack into Sulfur and 50mb of Lava. It has 2 improved variants.");
@@ -94,7 +94,7 @@ public class OreProcessingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fragments and Processing");
-        this.pageText("ARC recipes with Explosive Powder:\n"
+        this.pageText("Athanor recipes with Explosive Powder:\n"
                 + "- Raw Ore to Ore Fragments (2.25 average)\n"
                 + "- Ore Block to Ore Fragments (4.5 average)\n"
                 + "- Netherrack to Sulfur + 50mb Lava");
@@ -112,7 +112,7 @@ public class OreProcessingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fragment to Sand");
-        this.pageText("ARC recipes for further processing:\n"
+        this.pageText("Athanor recipes for further processing:\n"
                 + "- Ore Fragment to Ore Gravel (using Resonator)\n"
                 + "- Ore Gravel to Ore Sand (using Cutting Fluid)");
 
@@ -133,7 +133,7 @@ public class OreProcessingEntry extends EntryProvider {
         this.page("fuel_cell", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "furnacecell_primitive"))
                 .withText(this.context().pageText()));
-        this.pageText("The ARC also functions as a Furnace, but the only fuel sources it accepts are the "
+        this.pageText("The Athanor also functions as a Furnace, but the only fuel sources it accepts are the "
                 + "Primitive Fuel Cell or a Lava Crystal.");
 
         this.page("fuel_info", () -> BookTextPageModel.create()
@@ -152,7 +152,7 @@ public class OreProcessingEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Multiply your ore yields with cutting fluids and the ARC.";
+        return "Multiply your ore yields with cutting fluids and the Athanor.";
     }
 
     @Override

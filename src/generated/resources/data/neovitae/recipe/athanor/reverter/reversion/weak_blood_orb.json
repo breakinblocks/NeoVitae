@@ -1,0 +1,16 @@
+{
+  "type": "neovitae:athanor",
+  "chance_outputs": [],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "minecraft:diamond"
+    }
+  ],
+  "input": {
+    "item": "neovitae:blood_orb_weak"
+  },
+  "tool": {
+    "tag": "neovitae:athanor_tool/reverter"
+  }
+}

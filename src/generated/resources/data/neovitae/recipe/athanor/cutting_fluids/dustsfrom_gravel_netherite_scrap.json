@@ -1,0 +1,16 @@
+{
+  "type": "neovitae:athanor",
+  "chance_outputs": [],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "neovitae:sand_netherite"
+    }
+  ],
+  "input": {
+    "tag": "c:gravels/netherite_scrap"
+  },
+  "tool": {
+    "tag": "neovitae:athanor_tool/cutting_fluids"
+  }
+}

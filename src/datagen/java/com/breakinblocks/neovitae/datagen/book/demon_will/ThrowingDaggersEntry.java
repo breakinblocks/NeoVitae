@@ -60,14 +60,14 @@ public class ThrowingDaggersEntry extends EntryProvider {
         this.pageText("Craft the Amethyst Throwing Dagger in the Hellfire Forge.\\\n\\\n"
                 + "The [#](8B0000)Amethyst Throwing Dagger[#]() does as much damage as an [#](8B0000)Iron Throwing Dagger[#](), but "
                 + "mobs do not drop Will when killed. Instead, eight of them can be crafted with a [#](8B0000)Lingering "
-                + "Alchemy Flask[#](8B0000) in the [#]()Alchemical Reaction Chamber[#](8B0000) to create [#]()Tipped Amethyst Throwing "
+                + "Alchemy Flask[#](8B0000) in the [#]()Athanor[#](8B0000) to create [#]()Tipped Amethyst Throwing "
                 + "Daggers[#]().");
 
         this.page("tipped_dagger", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tipped Throwing Dagger");
-        this.pageText("Craft Tipped Throwing Daggers in the Alchemical Reaction Chamber.\\\n\\\n"
+        this.pageText("Craft Tipped Throwing Daggers in the Athanor.\\\n\\\n"
                 + "These will transmit their effect to any mob they hit, the same as if they'd walked into the "
                 + "cloud left by a [#](8B0000)Lingering Alchemy Flask[#](). Experiment with combined effects to find the "
                 + "most debilitating, diabolical daggers you can make!");

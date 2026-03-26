@@ -91,7 +91,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.pageTitle("Dungeoneering (Tier-3)");
         this.pageText("By performing the Edge of the Hidden Realm, that's how! This will allow you limited access "
                 + "to the Demon Realm, and hopefully to Tau Fruit, which can be cultivated into Saturated Tau and "
-                + "then converted into Weak Blood Shards in the Alchemical Reaction Chamber. These can be used to "
+                + "then converted into Weak Blood Shards in the Athanor. These can be used to "
                 + "make the Tier IV Altar, more powerful Anointments, and Potion Catalysts.");
 
         this.page("tier4", () -> BookTextPageModel.create()

@@ -59,7 +59,7 @@ public class PotionCraftingEntry extends EntryProvider {
                 + "[#](8B0000)Splash Alchemy Flask[#]() (recipe: neovitae:flask/flask_splash)\n"
                 + "[#](8B0000)Lingering Alchemy Flask[#]() (recipe: neovitae:flask/flask_lingering)\\\n\\\n"
                 + "[#](8B0000)Lingering Potions[#]() can be combined with 8 [#](8B0000)Amethyst Throwing Daggers[#]() in the "
-                + "[#](8B0000)Alchemical Reaction Chamber[#]() to create [#](8B0000)Tipped Amethyst Throwing Daggers[#](). "
+                + "[#](8B0000)Athanor[#]() to create [#](8B0000)Tipped Amethyst Throwing Daggers[#](). "
                 + "Any entity hit by one of these daggers will have the potion's effects transferred to it.");
 
         this.page("multi_effects", () -> BookTextPageModel.create()

@@ -38,8 +38,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.demonite.arc_dust.text",
-      "title": "book.neovitae.guide.dungeons.demonite.arc_dust.title",
+      "text": "book.neovitae.guide.dungeons.demonite.athanor_dust.text",
+      "title": "book.neovitae.guide.dungeons.demonite.athanor_dust.title",
       "use_markdown_in_title": false
     },
     {
@@ -49,8 +49,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.demonite.arc_processing.text",
-      "title": "book.neovitae.guide.dungeons.demonite.arc_processing.title",
+      "text": "book.neovitae.guide.dungeons.demonite.athanor_processing.text",
+      "title": "book.neovitae.guide.dungeons.demonite.athanor_processing.title",
       "use_markdown_in_title": false
     },
     {

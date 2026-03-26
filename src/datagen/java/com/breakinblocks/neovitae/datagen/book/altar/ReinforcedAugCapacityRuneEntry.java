@@ -33,7 +33,7 @@ public class ReinforcedAugCapacityRuneEntry extends EntryProvider {
         this.page("reversion", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("If you change your mind, you can revert the upgraded rune back to its base version "
-                + "in the Alchemical Reaction Chamber (ARC).");
+                + "in the Athanor .");
     }
 
     @Override

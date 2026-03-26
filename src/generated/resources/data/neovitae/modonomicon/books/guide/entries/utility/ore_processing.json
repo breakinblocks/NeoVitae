@@ -71,8 +71,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.arc_ore.text",
-      "title": "book.neovitae.guide.utility.ore_processing.arc_ore.title",
+      "text": "book.neovitae.guide.utility.ore_processing.athanor_ore.text",
+      "title": "book.neovitae.guide.utility.ore_processing.athanor_ore.title",
       "use_markdown_in_title": false
     },
     {

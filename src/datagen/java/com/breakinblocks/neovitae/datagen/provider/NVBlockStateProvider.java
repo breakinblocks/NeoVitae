@@ -8,7 +8,7 @@ import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.client.model.generators.VariantBlockStateBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.block.ARCBlock;
+import com.breakinblocks.neovitae.common.block.AthanorBlock;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant;
@@ -55,23 +55,23 @@ public class NVBlockStateProvider extends BlockStateProvider {
         // Incense altar, routing nodes - use manual OBJ models and blockstates
         // (see src/main/resources/assets/neovitae/blockstates/ and models/)
 
-        VariantBlockStateBuilder builder = getVariantBuilder(NVBlocks.ARC_BLOCK.block().get());
-        String bottom = "block/arc_bottom";
+        VariantBlockStateBuilder builder = getVariantBuilder(NVBlocks.ATHANOR_BLOCK.block().get());
+        String bottom = "block/athanor_bottom";
         String lit = "_lit";
         for (EnumWillType type : EnumWillType.values()) {
             String willName = type.getSerializedName();
-            String side = "block/arc_side_" + willName;
-            String front = "block/arc_front_" + willName;
-            String top = "block/arc_top_" + willName;
-            ModelFile on = models().orientableWithBottom("alchemical_reaction_chamber_" + willName + "_lit", bm(side + lit), bm(front + lit), bm(bottom), bm(top));
-            ModelFile off = models().orientableWithBottom("alchemical_reaction_chamber_" + willName, bm(side), bm(front), bm(bottom), bm(top));
+            String side = "block/athanor_side_" + willName;
+            String front = "block/athanor_front_" + willName;
+            String top = "block/athanor_top_" + willName;
+            ModelFile on = models().orientableWithBottom("athanor_" + willName + "_lit", bm(side + lit), bm(front + lit), bm(bottom), bm(top));
+            ModelFile off = models().orientableWithBottom("athanor_" + willName, bm(side), bm(front), bm(bottom), bm(top));
             if (type == EnumWillType.DEFAULT) {
-                simpleBlockItem(NVBlocks.ARC_BLOCK.block().get(), off);
+                simpleBlockItem(NVBlocks.ATHANOR_BLOCK.block().get(), off);
             }
 
             for (Direction facing : Direction.Plane.HORIZONTAL) {
-                builder.partialState().with(ARCBlock.LIT, false).with(ARCBlock.FACING, facing).with(ARCBlock.TYPE, type).modelForState().modelFile(off).rotationY((int) facing.getOpposite().toYRot()).addModel();
-                builder.partialState().with(ARCBlock.LIT, true).with(ARCBlock.FACING, facing).with(ARCBlock.TYPE, type).modelForState().modelFile(on).rotationY((int) facing.getOpposite().toYRot()).addModel();
+                builder.partialState().with(AthanorBlock.LIT, false).with(AthanorBlock.FACING, facing).with(AthanorBlock.TYPE, type).modelForState().modelFile(off).rotationY((int) facing.getOpposite().toYRot()).addModel();
+                builder.partialState().with(AthanorBlock.LIT, true).with(AthanorBlock.FACING, facing).with(AthanorBlock.TYPE, type).modelForState().modelFile(on).rotationY((int) facing.getOpposite().toYRot()).addModel();
             }
         }
 

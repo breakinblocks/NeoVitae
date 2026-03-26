@@ -65,18 +65,18 @@ public class NVItemTagProvider extends ItemTagsProvider {
                 .add(NVItems.LAVA_CRYSTAL.get());
         tag(NVTags.Items.ARC_SMOKING);
 
-        tag(NVTags.Items.ARC_FURNACE)
+        tag(NVTags.Items.ATHANOR_FURNACE)
                 .addTag(NVTags.Items.ARC_BLASTING)
                 .addTag(NVTags.Items.ARC_SMELTING)
                 .addTag(NVTags.Items.ARC_SMOKING);
 
-        tag(NVTags.Items.ARC_TOOL)
+        tag(NVTags.Items.ATHANOR_TOOL)
                 .addTag(NVTags.Items.REVERTER)
                 .addTag(NVTags.Items.EXPLOSIVES)
                 .addTag(NVTags.Items.RESONATOR)
                 .addTag(NVTags.Items.CUTTING_FLUIDS)
                 .addTag(NVTags.Items.HYDRATION)
-                .addTag(NVTags.Items.ARC_FURNACE)
+                .addTag(NVTags.Items.ATHANOR_FURNACE)
                 .addTag(NVTags.Items.LINGERING_FLASK);
 
         tag(NVTags.Items.LINGERING_FLASK)

@@ -128,7 +128,7 @@ public class DataValidationTests {
     public void neovitaeBlocksRegistered(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
             String[] expectedBlocks = {
-                "ara_vitae", "hellfire_forge", "tabula_vitae", "arc",
+                "ara_vitae", "hellfire_forge", "tabula_vitae", "athanor",
                 "master_routing_node", "input_routing_node", "output_routing_node",
                 "master_ritual_stone", "imperfect_ritual_stone",
                 "vas_maleficum", "spira_infernalis", "blood_tank", "teleposer",

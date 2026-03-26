@@ -59,7 +59,7 @@ public class NVBookProvider extends SingleBookSubProvider {
 
     @Override
     protected String bookName() {
-        return "Sanguine Scientiem";
+        return "Scriptura Vitae";
     }
 
     @Override

@@ -636,10 +636,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.PRIMITIVE_EXPLOSIVE_CELL.get(), "Reinforced Explosive Cell");
         add(NVItems.HELLFORGED_EXPLOSIVE_CELL.get(), "Hellforged Explosive Cell");
         add(NVItems.SANGUINE_REVERTER.get(), "Sanguine Reverter");
-        add(NVItems.GUIDE_BOOK.get(), "Sanguine Scientiem");
+        add(NVItems.GUIDE_BOOK.get(), "Scriptura Vitae");
 
         // Flask tooltips
-        addTooltip("flask.combination", "Combination potion - see the Sanguine Scientiem for details");
+        addTooltip("flask.combination", "Combination potion - see the Scriptura Vitae for details");
 
         // Athanor Tool tooltips
         addTooltip("arctool.uses", "Uses Remaining: %s");

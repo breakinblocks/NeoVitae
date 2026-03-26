@@ -15,14 +15,14 @@ public class UtilityCategory extends CategoryProvider {
 
     @Override
     protected String[] generateEntryMap() {
+        // Organized: reference at top, crafting stations middle, materials/items bottom
         return new String[]{
-                "______________",
-                "_g__s_________",
-                "____e___b_l___",
-                "__a___h_______",
-                "______o___t___",
-                "____i_________",
-                "______r_______"
+                "____g__________",
+                "__s___e________",
+                "____a__________",
+                "__h___o___i____",
+                "__b___l___r____",
+                "____t__________"
         };
     }
 

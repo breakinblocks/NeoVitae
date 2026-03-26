@@ -3629,12 +3629,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .chancedOutput(new ItemStack(NVItems.DEMONITE_FRAGMENT.get()), 0.25)
                 .save(output, NeoVitae.rl("fragmentshellforged"));
 
-        // Hellforged Sand from raw hellforged (cutting fluid)
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(NVTags.Items.RAW_MATERIALS_HELLFORGED))
-                .guaranteedOutput(new ItemStack(NVItems.HELLFORGED_SAND.get()))
-                .chancedOutput(new ItemStack(NVItems.HELLFORGED_SAND.get()), 0.33)
-                .save(output, NeoVitae.rl("dustsfrom_raw_hellforged"));
+        // Raw hellforged processing removed - no raw hellforged item exists
 
         // === OTHER UTILITY ===
         // Netherrack to Sulfur + Lava

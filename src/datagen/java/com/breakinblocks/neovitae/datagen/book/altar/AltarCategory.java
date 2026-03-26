@@ -16,15 +16,15 @@ public class AltarCategory extends CategoryProvider {
 
     @Override
     protected String[] generateEntryMap() {
+        // Ara Vitae centered, Soul Network & Slates branching, Runes grouped, Reinforced below
         return new String[]{
-                "_______________d___",
-                "_______b_c_________",
-                "___a_______________",
-                "_______e_f_________",
-                "_______________g___",
-                "_h_i_j_k_l_m______",
-                "_______u_v_____n___",
-                "_o_p_q_r_s_t______"
+                "______a____________",
+                "__b___c___d________",
+                "______e___f________",
+                "______g____________",
+                "__h_i_j_k_l_m______",
+                "______u_v__________",
+                "__n_o_p_q_r_s_t____"
         };
     }
 

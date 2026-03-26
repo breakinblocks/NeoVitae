@@ -15,13 +15,14 @@ public class DungeonsCategory extends CategoryProvider {
 
     @Override
     protected String[] generateEntryMap() {
+        // Flow: Lobby → access → realm → materials & hazards
         return new String[]{
-                "_____d____s___",
-                "__l____e______",
-                "____k_________",
-                "_______a__m___",
-                "__r___________",
-                "______t____p__"
+                "______l________",
+                "__k_______r____",
+                "______d________",
+                "__e___t________",
+                "______s________",
+                "__a___m___p____"
         };
     }
 

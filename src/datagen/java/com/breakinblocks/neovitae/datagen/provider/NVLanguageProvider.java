@@ -929,27 +929,6 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Dungeon Blocks
         addDungeonBlocks();
 
-        // Patchouli Guidebook
-        add("guide.neovitae.name", "Sanguine Scientiem");
-        add("guide.neovitae.subtitle", "Neo Vitae Edition");
-        add("guide.neovitae.landing_text", "Welcome to $(6)Neo Vitae$()! $(br2)$(l:neovitae:utility/nyi)A lot of stuff$() isn't yet implemented, so please excuse our dust. $(br2)Click $(l:neovitae:utility/getting_started)HERE$() to get started. If you find any bugs, please report them on our $(l:https://github.com/breakinblocks/NeoVitae/issues)Github$().");
-
-        // Patchouli page components
-        add("guide.patchouli.neovitae.common.double_new_line", "$(br2)%s");
-        add("guide.patchouli.neovitae.arc_processor.fluid", "%dmb of %s");
-        add("guide.patchouli.neovitae.arc_processor.no_fluid", "None");
-        add("guide.patchouli.neovitae.living_armour_upgrade_table.level", "Level");
-        add("guide.patchouli.neovitae.living_armour_upgrade_table.upgrade_points", "Upgrade Points");
-        add("guide.patchouli.neovitae.ritual_info.activation_cost", "$(br)Activation Cost: $(blood)%d LP$()");
-        add("guide.patchouli.neovitae.ritual_info.upkeep_cost", "$(br)Base Usage Cost: $(blood)%d LP$()$(br)Base Interval: %d Ticks");
-        add("guide.patchouli.neovitae.ritual_info.weak_activation_crystal_link", "$(l:neovitae:rituals/activation_crystals#weak)%s$(/l)");
-        add("guide.patchouli.neovitae.ritual_info.awakened_activation_crystal_link", "$(l:neovitae:rituals/activation_crystals#awakened)%s$(/l)");
-        add("guide.patchouli.neovitae.ritual_info.counter_formatter", "$(br)%s%s$()");
-        add("guide.patchouli.neovitae.ritual_info.text_override_formatter", "\\$(%s)%s\\$()");
-        add("guide.patchouli.neovitae.ritual_info.info_formatter", "%s$(br)%s$(br2)%s$(br)%s%s%s");
-        add("guide.patchouli.neovitae.ritual_info.range_formatter", "$(br) $(li)Max Volume: %s$(li)Horizontal Radius: %s$(li)Vertical Radius: %s");
-        add("guide.patchouli.neovitae.ritual_info.full_range", "Full Range");
-
         // Advancements
         addAdvancement("root", "Neo Vitae", "Obtain a Blood Altar");
         addAdvancement("weak_blood_orb", "Weak Blood Orb", "Craft your first Blood Orb");

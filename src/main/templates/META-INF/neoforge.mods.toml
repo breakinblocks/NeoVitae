@@ -86,13 +86,6 @@ ordering="NONE"
 side="BOTH"
 
 [[dependencies.${mod_id}]]
-modId="patchouli"
-type="required"
-versionRange="*"
-ordering="NONE"
-side="BOTH"
-
-[[dependencies.${mod_id}]]
 modId="geckolib"
 type="required"
 versionRange="*"

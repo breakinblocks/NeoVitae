@@ -46,10 +46,6 @@ repositories {
             includeGroup "curse.maven"
         }
     }
-    maven {
-        name = "Patchouli"
-        url = "https://maven.blamejared.com"
-    }
 }
 
 base {
@@ -137,10 +133,7 @@ dependencies {
     // Jade - WAILA fork for block/entity tooltips (optional dev dependency)
     runtimeOnly("curse.maven:jade-324717:6853386")
 
-    // Patchouli - In-game documentation/guide book
-    implementation("vazkii.patchouli:Patchouli:${patchouli_version}")
-
-    // Modonomicon - In-game documentation (migration target)
+    // Modonomicon - In-game documentation
     implementation "curse.maven:modonomicon-538392:7771524"
 
     compileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")

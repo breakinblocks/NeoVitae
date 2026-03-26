@@ -37,7 +37,7 @@ import com.breakinblocks.neovitae.ritual.RitualRegistry;
 import com.breakinblocks.neovitae.ritual.harvest.NVHarvestHandlers;
 import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
-import com.breakinblocks.neovitae.compat.patchouli.RegisterPatchouliMultiblocks;
+
 import com.breakinblocks.neovitae.structures.ModRoomPools;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
@@ -112,10 +112,6 @@ public class NeoVitae {
         event.enqueueWork(AnointmentRegistrar::init);
         event.enqueueWork(ModRoomPools::init);
         event.enqueueWork(AltarRuneBlockRegistry::init);
-
-        if (ModList.get().isLoaded("patchouli")) {
-            event.enqueueWork(RegisterPatchouliMultiblocks::new);
-        }
 
         if (ModList.get().isLoaded("modonomicon")) {
             event.enqueueWork(() -> {

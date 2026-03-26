@@ -151,6 +151,22 @@ public class NVTabs {
             ItemAlchemyFlask.setFlaskEffects(flask, effects);
             tab.accept(flask);
         }
+
+        // Combination flasks (multi-effect precursors for advanced potions)
+        addCombinationFlask(tab, NVMobEffects.GROUNDED.getDelegate(), MobEffects.SLOW_FALLING);       // → Gravity
+        addCombinationFlask(tab, NVMobEffects.GRAVITY.getDelegate(), MobEffects.HEAL);                 // → Heavy Heart
+        addCombinationFlask(tab, NVMobEffects.SUSPENDED.getDelegate(), MobEffects.LEVITATION);         // → Flight
+    }
+
+    @SafeVarargs
+    private static void addCombinationFlask(Consumer<ItemStack> tab, Holder<MobEffect>... effects) {
+        ItemStack flask = new ItemStack(NVItems.ALCHEMY_FLASK.get());
+        List<EffectHolder> holders = new java.util.ArrayList<>();
+        for (Holder<MobEffect> effect : effects) {
+            holders.add(EffectHolder.create(effect, 3600, 0));
+        }
+        ItemAlchemyFlask.setFlaskEffects(flask, new FlaskEffects(holders));
+        tab.accept(flask);
     }
 
     private static void addAll(DeferredRegister<Item> register, Consumer<ItemStack> tab) {

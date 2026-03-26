@@ -73,7 +73,7 @@ public class BlockRoutingNode extends BaseEntityBlock {
             BlockPos attachedPos = pos.relative(dir);
             BlockState attachedState = level.getBlockState(attachedPos);
             BooleanProperty prop = getPropertyForDirection(dir);
-            state = state.setValue(prop, canConnect(attachedState));
+            state = state.setValue(prop, canConnect(attachedState, level, attachedPos, dir));
         }
 
         return state;
@@ -83,11 +83,12 @@ public class BlockRoutingNode extends BaseEntityBlock {
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
                                    LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         BooleanProperty prop = getPropertyForDirection(direction);
-        return state.setValue(prop, canConnect(neighborState));
+        return state.setValue(prop, canConnect(neighborState, level, neighborPos, direction));
     }
 
-    protected boolean canConnect(BlockState state) {
-        return state.getBlock() instanceof BlockRoutingNode;
+    protected boolean canConnect(BlockState state, BlockGetter level, BlockPos neighborPos, Direction direction) {
+        if (state.getBlock() instanceof BlockRoutingNode) return true;
+        return state.isFaceSturdy(level, neighborPos, direction.getOpposite());
     }
 
     private BooleanProperty getPropertyForDirection(Direction dir) {

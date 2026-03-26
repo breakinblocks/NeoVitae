@@ -25,6 +25,15 @@
       "text": "book.neovitae.guide.rituals.ritual_feathered_knife.multiblock.text"
     },
     {
+      "type": "neovitae:ritual_info",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "text": "[#](8B0000)Activation Cost:[#]() 25,000 LP\\\n[#](8B0000)Crystal:[#]() Weak Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 20 LP/sec\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  4x Dusk Ritual Stone\\\n  8x Air Ritual Stone\\\n  [#](8B0000)Total:[#]() 12 runes",
+      "title": "Ritual Stats"
+    },
+    {
       "type": "modonomicon:text",
       "anchor": "",
       "condition": {

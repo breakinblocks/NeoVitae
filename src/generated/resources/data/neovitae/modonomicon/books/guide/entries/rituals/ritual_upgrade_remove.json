@@ -25,6 +25,15 @@
       "text": "book.neovitae.guide.rituals.ritual_upgrade_remove.multiblock.text"
     },
     {
+      "type": "neovitae:ritual_info",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "text": "[#](8B0000)Activation Cost:[#]() 20,000 LP\\\n[#](8B0000)Crystal:[#]() Awakened Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 10,000 LP/sec\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  8x Dusk Ritual Stone\\\n  4x Water Ritual Stone\\\n  4x Fire Ritual Stone\\\n  4x Earth Ritual Stone\\\n  [#](8B0000)Total:[#]() 20 runes",
+      "title": "Ritual Stats"
+    },
+    {
       "type": "modonomicon:text",
       "anchor": "",
       "condition": {

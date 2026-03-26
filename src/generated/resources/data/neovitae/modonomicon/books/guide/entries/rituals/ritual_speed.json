@@ -25,6 +25,15 @@
       "text": "book.neovitae.guide.rituals.ritual_speed.multiblock.text"
     },
     {
+      "type": "neovitae:ritual_info",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "text": "[#](8B0000)Activation Cost:[#]() 500 LP\\\n[#](8B0000)Crystal:[#]() Weak Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 5 LP every 1 ticks\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  8x Air Ritual Stone\\\n  4x Fire Ritual Stone\\\n  [#](8B0000)Total:[#]() 12 runes",
+      "title": "Ritual Stats"
+    },
+    {
       "type": "modonomicon:text",
       "anchor": "",
       "condition": {

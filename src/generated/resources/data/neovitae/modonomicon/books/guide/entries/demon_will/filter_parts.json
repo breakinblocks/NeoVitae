@@ -2,6 +2,10 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "demon_will",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "minecraft:demon_will/standard_filter"
+  },
   "description": "book.neovitae.guide.demon_will.filter_parts.description",
   "hide_while_locked": false,
   "icon": {

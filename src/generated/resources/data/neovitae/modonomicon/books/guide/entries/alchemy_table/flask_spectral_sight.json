@@ -2,6 +2,10 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "alchemy_table",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "minecraft:alchemy_table/flask_night_vision"
+  },
   "description": "book.neovitae.guide.alchemy_table.flask_spectral_sight.description",
   "hide_while_locked": false,
   "icon": {
@@ -12,8 +16,8 @@
             "duration": 3600,
             "id": "neovitae:spectral_sight",
             "neoforge:cures": [
-              "protected_by_totem",
-              "milk"
+              "milk",
+              "protected_by_totem"
             ],
             "show_icon": true
           }

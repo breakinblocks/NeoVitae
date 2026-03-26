@@ -14,7 +14,7 @@ import com.breakinblocks.neovitae.will.IDemonWillGem;
 import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
 
 /**
- * Demon Crucible - manages demon will between items and chunk aura.
+ * Vas Maleficum - manages demon will between items and chunk aura.
  *
  * Without redstone signal (default):
  * - Tartaric Gems: drains will gradually into chunk aura (caps at configured max)
@@ -25,7 +25,7 @@ import com.breakinblocks.neovitae.will.WorldDemonWillHandler;
  * - Tartaric Gems: absorbs will from chunk aura into the gem
  * - Monster Souls/Crystals: not affected (output only)
  */
-public class DemonCrucibleBlockEntity extends BaseBlockEntity {
+public class VasMaleficumBlockEntity extends BaseBlockEntity {
     public static final double GEM_DRAIN_RATE = 10.0; // Will drained from gems per tick
     public static final double CRYSTAL_CONSUME_THRESHOLD = 50.0;
     public static final double WILL_PER_CRYSTAL = 50.0;
@@ -46,11 +46,11 @@ public class DemonCrucibleBlockEntity extends BaseBlockEntity {
 
     private int internalCounter = 0;
 
-    public DemonCrucibleBlockEntity(BlockPos pos, BlockState state) {
-        super(NVTiles.DEMON_CRUCIBLE_TYPE.get(), pos, state);
+    public VasMaleficumBlockEntity(BlockPos pos, BlockState state) {
+        super(NVTiles.VAS_MALEFICUM_TYPE.get(), pos, state);
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, DemonCrucibleBlockEntity tile) {
+    public static void tick(Level level, BlockPos pos, BlockState state, VasMaleficumBlockEntity tile) {
         if (level.isClientSide()) {
             return;
         }

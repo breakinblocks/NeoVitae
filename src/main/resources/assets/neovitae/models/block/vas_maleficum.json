@@ -2,9 +2,9 @@
   "parent": "block/block",
   "loader": "neoforge:obj",
   "flip_v": true, 
-  "model": "neovitae:models/block/block_demon_crucible.obj",
+  "model": "neovitae:models/block/block_vas_maleficum.obj",
   "textures": {
-    "default": "neovitae:block/demon_crucible",
+    "default": "neovitae:block/vas_maleficum",
     "particle": "#default"
   }
 }

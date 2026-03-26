@@ -49,7 +49,7 @@ public class WillCatalystsEntry extends EntryProvider {
                 + "Fractured Crystal[#](8B0000) ritual, and the collection of the resulting crystals with the [#]()Call of "
                 + "the Zephyr[#]().\\\n\\\n"
                 + "With a basic [#](8B0000)Routing Node system[#](), you can even feed these excess crystals back into a "
-                + "[#](8B0000)Demon Crucible[#]() for a totally automatic, net-positive loop.\\\n\\\n"
+                + "[#](8B0000)Vas Maleficum[#]() for a totally automatic, net-positive loop.\\\n\\\n"
                 + "You may have noticed a bit of a problem, however - this setup is slow. Very, very slow. "
                 + "Each crystal only sprouts a new spire once every few minutes, and takes almost as much will "
                 + "to spawn as you gain from burning it - on average, it comes out to about 1 will / minute / spire.");

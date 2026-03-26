@@ -97,7 +97,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVBlocks.CRYSTAL_CLUSTER_BRICK, "Crystal Cluster Brick");
 
         // Demon Will Blocks
-        add(NVBlocks.DEMON_CRUCIBLE, "Demon Crucible");
+        add(NVBlocks.VAS_MALEFICUM, "Vas Maleficum");
         add(NVBlocks.DEMON_CRYSTALLIZER, "Demon Crystallizer");
         add(NVBlocks.DEMON_PYLON, "Demon Pylon");
 
@@ -947,7 +947,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("ritual_diviner", "Ritual Diviner", "Craft a Ritual Diviner");
         addAdvancement("living_armor", "Living Armor", "Craft a Living Chestplate");
         addAdvancement("hellfire_forge", "Hellfire Forge", "Craft a Hellfire Forge");
-        addAdvancement("demon_crucible", "Demon Crucible", "Craft a Demon Crucible");
+        addAdvancement("vas_maleficum", "Vas Maleficum", "Craft a Vas Maleficum");
     }
 
     public void addRitual(String key, String name) {

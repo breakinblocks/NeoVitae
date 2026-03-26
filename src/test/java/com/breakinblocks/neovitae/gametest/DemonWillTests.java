@@ -12,7 +12,7 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import com.breakinblocks.neovitae.common.block.BlockDemonCrystal;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.blockentity.DemonCrucibleBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.VasMaleficumBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.DemonCrystalBlockEntity;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.will.WillChunk;
@@ -106,12 +106,12 @@ public class DemonWillTests {
     @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
     public void cruciblePlacesAndInitializes(GameTestHelper helper) {
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
-        helper.setBlock(new BlockPos(3, 1, 2), NVBlocks.DEMON_CRUCIBLE.block().get().defaultBlockState());
+        helper.setBlock(new BlockPos(3, 1, 2), NVBlocks.VAS_MALEFICUM.block().get().defaultBlockState());
 
         helper.runAfterDelay(5, () -> {
             BlockEntity be = helper.getBlockEntity(new BlockPos(3, 1, 2));
-            if (!(be instanceof DemonCrucibleBlockEntity)) {
-                helper.fail("Expected DemonCrucibleBlockEntity");
+            if (!(be instanceof VasMaleficumBlockEntity)) {
+                helper.fail("Expected VasMaleficumBlockEntity");
                 return;
             }
             helper.succeed();
@@ -122,10 +122,10 @@ public class DemonWillTests {
     public void crucibleDrainsGemToChunk(GameTestHelper helper) {
         BlockPos cruciblePos = new BlockPos(3, 1, 2);
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
-        helper.setBlock(cruciblePos, NVBlocks.DEMON_CRUCIBLE.block().get().defaultBlockState());
+        helper.setBlock(cruciblePos, NVBlocks.VAS_MALEFICUM.block().get().defaultBlockState());
 
         helper.runAfterDelay(1, () -> {
-            DemonCrucibleBlockEntity crucible = (DemonCrucibleBlockEntity) helper.getBlockEntity(cruciblePos);
+            VasMaleficumBlockEntity crucible = (VasMaleficumBlockEntity) helper.getBlockEntity(cruciblePos);
 
             ItemStack gem = new ItemStack(NVItems.SOUL_GEM_PETTY.get());
             gem.set(NVDataComponents.DEMON_WILL_AMOUNT, 50.0);

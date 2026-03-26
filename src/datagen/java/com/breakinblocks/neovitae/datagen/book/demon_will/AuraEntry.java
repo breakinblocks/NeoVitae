@@ -25,25 +25,25 @@ public class AuraEntry extends EntryProvider {
         this.pageTitle("Demon Will Aura");
         this.pageText("As we have established, [#](8B0000)Demonic Will[#]() coalesces around certain creatures and propels "
                 + "them with malevolent force. However, this is not the only place that Will can exist. By "
-                + "burning Will in a [#](8B0000)Demon Crucible[#](), it is possible to unleash the will into the [#](8B0000)Aura[#](), "
+                + "burning Will in a [#](8B0000)Vas Maleficum[#](), it is possible to unleash the will into the [#](8B0000)Aura[#](), "
                 + "to great and fascinating effect.");
 
         this.page("crucible", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Demon Crucible");
-        this.pageText("Craft the Demon Crucible in the Hellfire Forge.\\\n\\\n"
+        this.pageTitle("Vas Maleficum");
+        this.pageText("Craft the Vas Maleficum in the Hellfire Forge.\\\n\\\n"
                 + "Put a charged [#](8B0000)Tartaric Gem[#]() or any aspect of [#](8B0000)Demon Will[#]() or [#](8B0000)Demon Crystal[#]() into "
                 + "it and let it run. [#](8B0000)Crystals[#]() will be consumed once the chunk's Will dips below 50, "
                 + "whereas Demon Will (in item form or from the Tartaric Gem) will be consumed a bit at a "
                 + "time, as needed.");
 
         this.page("crucible_image", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/demon_will/demon_crucible.png"))
-                .withTitle("Demon Crucible")
+                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/demon_will/vas_maleficum.png"))
+                .withTitle("Vas Maleficum")
                 .withBorder(true)
                 .withText(this.context().pageText()));
-        this.pageText("The [#](8B0000)Demon Crucible[#](), with a [#](8B0000)Tartaric Gem[#]() inside it.");
+        this.pageText("The [#](8B0000)Vas Maleficum[#](), with a [#](8B0000)Tartaric Gem[#]() inside it.");
 
         this.page("uses", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -96,7 +96,7 @@ public class AuraEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVBlocks.DEMON_CRUCIBLE.asItem());
+        return BookIconModel.create(NVBlocks.VAS_MALEFICUM.asItem());
     }
 
     @Override

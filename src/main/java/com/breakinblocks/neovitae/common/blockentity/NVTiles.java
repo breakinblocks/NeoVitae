@@ -69,8 +69,8 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<IncenseAltarBlockEntity>> INCENSE_ALTAR_TYPE =
             registerTile("incense_altar", IncenseAltarBlockEntity::new, NVBlocks.INCENSE_ALTAR.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DemonCrucibleBlockEntity>> DEMON_CRUCIBLE_TYPE =
-            registerTile("demon_crucible", DemonCrucibleBlockEntity::new, NVBlocks.DEMON_CRUCIBLE.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<VasMaleficumBlockEntity>> VAS_MALEFICUM_TYPE =
+            registerTile("vas_maleficum", VasMaleficumBlockEntity::new, NVBlocks.VAS_MALEFICUM.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DemonPylonBlockEntity>> DEMON_PYLON_TYPE =
             registerTile("demon_pylon", DemonPylonBlockEntity::new, NVBlocks.DEMON_PYLON.block());
@@ -181,7 +181,7 @@ public class NVTiles {
         );
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
-                DEMON_CRUCIBLE_TYPE.get(),
+                VAS_MALEFICUM_TYPE.get(),
                 (tile, side) -> tile.getInventory()
         );
     }

@@ -2,13 +2,13 @@
   "parent": "neovitae:neovitae/hellfire_forge",
   "display": {
     "icon": {
-      "id": "neovitae:demon_crucible"
+      "id": "neovitae:vas_maleficum"
     },
     "title": {
-      "translate": "advancements.neovitae.demon_crucible.title"
+      "translate": "advancements.neovitae.vas_maleficum.title"
     },
     "description": {
-      "translate": "advancements.neovitae.demon_crucible.description"
+      "translate": "advancements.neovitae.vas_maleficum.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": "neovitae:demon_crucible"
+            "items": "neovitae:vas_maleficum"
           }
         ]
       }

@@ -9,7 +9,7 @@
   "description": "book.neovitae.guide.demon_will.aura.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "neovitae:demon_crucible"
+    "item": "neovitae:vas_maleficum"
   },
   "name": "book.neovitae.guide.demon_will.aura.name",
   "pages": [
@@ -43,10 +43,10 @@
         "type": "modonomicon:none"
       },
       "images": [
-        "neovitae:images/entries/demon_will/demon_crucible.png"
+        "neovitae:images/entries/demon_will/vas_maleficum.png"
       ],
       "text": "book.neovitae.guide.demon_will.aura.crucible_image.text",
-      "title": "Demon Crucible",
+      "title": "Vas Maleficum",
       "use_legacy_rendering": false
     },
     {

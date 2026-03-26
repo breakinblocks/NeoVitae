@@ -108,7 +108,7 @@ public class NVBlocks {
     public static final BlockWithItemHolder<BlockMasterRitualStone, BlockItem> INVERTED_MASTER_RITUAL_STONE = BLOCK_REG.register("inverted_master_ritual_stone", () -> new BlockMasterRitualStone(true));
     public static final BlockWithItemHolder<BlockImperfectRitualStone, BlockItem> IMPERFECT_RITUAL_STONE = BLOCK_REG.register("imperfect_ritual_stone", BlockImperfectRitualStone::new);
 
-    public static final BlockWithItemHolder<DemonCrucibleBlock, BlockItem> DEMON_CRUCIBLE = BLOCK_REG.register("demon_crucible", DemonCrucibleBlock::new);
+    public static final BlockWithItemHolder<VasMaleficumBlock, BlockItem> VAS_MALEFICUM = BLOCK_REG.register("vas_maleficum", VasMaleficumBlock::new);
     public static final BlockWithItemHolder<DemonCrystallizerBlock, BlockItem> DEMON_CRYSTALLIZER = BLOCK_REG.register("demon_crystallizer", DemonCrystallizerBlock::new);
     public static final BlockWithItemHolder<DemonPylonBlock, BlockItem> DEMON_PYLON = BLOCK_REG.register("demon_pylon", DemonPylonBlock::new);
 

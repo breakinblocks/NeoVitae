@@ -32,7 +32,7 @@ public class CrystallizedWillEntry extends EntryProvider {
         this.pageText("Craft the Demon Crystallizer in the Hellfire Forge.\\\n\\\n"
                 + "This will slowly consume [#](8B0000)Demon Will[#]() from the [#](8B0000)Aura[#]() to produce [#](8B0000)Will Crystals[#](). "
                 + "The first spire costs 100 Will to form, and all subsequent spires cost 45 each, but can be "
-                + "burned for 50 in the [#](8B0000)Demon Crucible[#](), for a net gain of 5. The largest [#](8B0000)Crystal Cluster[#]() "
+                + "burned for 50 in the [#](8B0000)Vas Maleficum[#](), for a net gain of 5. The largest [#](8B0000)Crystal Cluster[#]() "
                 + "can be up to 7 spires.");
 
         this.page("harvesting", () -> BookTextPageModel.create()

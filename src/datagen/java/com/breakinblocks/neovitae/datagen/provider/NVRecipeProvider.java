@@ -839,7 +839,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("sentient_scythe"));
 
         // Demon Will Blocks
-        SoulForgeRecipeBuilder.build(NVBlocks.DEMON_CRUCIBLE.block().get())
+        SoulForgeRecipeBuilder.build(NVBlocks.VAS_MALEFICUM.block().get())
                 .requires(Items.CAULDRON)
                 .requires(Tags.Items.STONES)
                 .requires(Tags.Items.GEMS_LAPIS)
@@ -847,7 +847,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minWill(400)
                 .drain(100)
                 .unlockedBy("has_common_gem", has(NVItems.SOUL_GEM_COMMON.get()))
-                .save(output, NeoVitae.rl("demon_crucible"));
+                .save(output, NeoVitae.rl("vas_maleficum"));
 
         SoulForgeRecipeBuilder.build(NVBlocks.DEMON_CRYSTALLIZER.block().get())
                 .requires(NVBlocks.HELLFIRE_FORGE.block().get())

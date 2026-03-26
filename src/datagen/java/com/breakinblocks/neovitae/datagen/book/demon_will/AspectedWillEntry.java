@@ -41,7 +41,7 @@ public class AspectedWillEntry extends EntryProvider {
         this.pageText("Now we have [#](8B0000)Crystallized Will[#]() in four spicy new flavours! On the Water Rune we have "
                 + "[#](8B0000)Steadfast Will[#](), on the Air Rune we get [#](8B0000)Destructive Will[#](), on the Fire Rune comes "
                 + "[#](8B0000)Vengeful Will[#]() and on the Earth Rune we find [#](8B0000)Corrosive Will[#]().\\\n\\\n"
-                + "These various new types of Will can be burned in the [#](8B0000)Demon Crucible[#]() just like Raw Will, "
+                + "These various new types of Will can be burned in the [#](8B0000)Vas Maleficum[#]() just like Raw Will, "
                 + "and from there can be fed into various Rituals to great and fascinating effect.");
 
         this.page("sentient_aspects", () -> BookTextPageModel.create()
@@ -62,7 +62,7 @@ public class AspectedWillEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("You may be wondering: \"How on earth do I get this will into a usable form?\" Well, the "
                 + "answer is simple. Just place an EMPTY [#](8B0000)Tartaric Gem[#]() into a [#](8B0000)Hellfire Forge[#]() in the same "
-                + "chunk as a [#](8B0000)Demon Crucible[#](), then feed the Demon Crucible with Will Crystals of the desired "
+                + "chunk as a [#](8B0000)Vas Maleficum[#](), then feed the Vas Maleficum with Will Crystals of the desired "
                 + "aspect. Your [#](8B0000)Tartaric Gem[#]() will fill with that aspect of will. You can change which kind of "
                 + "will your Sentient Tools use by pressing right-click while holding them.");
 

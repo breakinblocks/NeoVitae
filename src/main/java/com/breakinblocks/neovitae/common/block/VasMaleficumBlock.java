@@ -17,16 +17,16 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import com.breakinblocks.neovitae.common.blockentity.DemonCrucibleBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.VasMaleficumBlockEntity;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
 
-public class DemonCrucibleBlock extends BaseEntityBlock {
+public class VasMaleficumBlock extends BaseEntityBlock {
 
-    public static final MapCodec<DemonCrucibleBlock> CODEC = simpleCodec(p -> new DemonCrucibleBlock());
+    public static final MapCodec<VasMaleficumBlock> CODEC = simpleCodec(p -> new VasMaleficumBlock());
 
-    public DemonCrucibleBlock() {
+    public VasMaleficumBlock() {
         super(Properties.of()
                 .strength(5.0F, 6.0F)
                 .sound(SoundType.METAL)
@@ -42,13 +42,13 @@ public class DemonCrucibleBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new DemonCrucibleBlockEntity(pos, state);
+        return new VasMaleficumBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.DEMON_CRUCIBLE_TYPE.get(), DemonCrucibleBlockEntity::tick);
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.VAS_MALEFICUM_TYPE.get(), VasMaleficumBlockEntity::tick);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class DemonCrucibleBlock extends BaseEntityBlock {
         }
 
         BlockEntity be = level.getBlockEntity(pos);
-        if (be instanceof DemonCrucibleBlockEntity crucible) {
+        if (be instanceof VasMaleficumBlockEntity crucible) {
             ItemStack heldItem = player.getItemInHand(hand);
 
             if (heldItem.isEmpty()) {
@@ -93,7 +93,7 @@ public class DemonCrucibleBlock extends BaseEntityBlock {
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof DemonCrucibleBlockEntity crucible) {
+            if (be instanceof VasMaleficumBlockEntity crucible) {
                 ItemStack stack = crucible.getInventory().getStackInSlot(0);
                 if (!stack.isEmpty()) {
                     Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), stack);

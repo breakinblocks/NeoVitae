@@ -21,7 +21,7 @@ public class JumpBoostFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Jump Boost");
-        this.pageText("**Jump Boost** increases the target's jump height by 50% per level. "
+        this.pageText("**Jump Boost** increases the target's jump height by 50%% per level. "
                 + "It also reduces fall damage by 1 point per level.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()

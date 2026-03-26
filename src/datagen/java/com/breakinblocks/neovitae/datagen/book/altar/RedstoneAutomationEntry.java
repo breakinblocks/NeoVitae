@@ -44,7 +44,7 @@ public class RedstoneAutomationEntry extends EntryProvider {
         this.page("internal_tank", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Don't forget that this **Life Essence** isn't taken directly from the altar itself, but "
-                + "rather from a second, secret internal tank. This tank can hold **up to 10%** of the **Life "
+                + "rather from a second, secret internal tank. This tank can hold **up to 10%%** of the **Life "
                 + "Essence** that the altar itself can, so if the numbers don't appear to be adding up exactly "
                 + "right, or if **Life Essence** appears to be vanishing from your altar, this is probably where "
                 + "it's going. The same limitations apply to **Life Essence** being piped in.");

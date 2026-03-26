@@ -20,7 +20,7 @@ public class QuickFeetUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Quick Feet");
-        this.pageText("Effect: Increases player movement speed up to 150%.\\\n\\\n"
+        this.pageText("Effect: Increases player movement speed up to 150%%.\\\n\\\n"
                 + "Trained by: Running around.\\\n\\\nMaximum level: 10");
     }
 

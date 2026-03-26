@@ -20,7 +20,7 @@ public class ExperiencedUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Experienced");
-        this.pageText("Effect: Increases XP drops from killing mobs, up to 150%.\\\n\\\n"
+        this.pageText("Effect: Increases XP drops from killing mobs, up to 150%%.\\\n\\\n"
                 + "Trained by: Collecting XP.\\\n\\\nMaximum level: 10");
     }
 

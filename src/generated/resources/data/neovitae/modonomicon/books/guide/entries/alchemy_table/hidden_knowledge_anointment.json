@@ -16,53 +16,44 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_table.hidden_knowledge_anointment.base.text",
-      "title": "book.neovitae.guide.alchemy_table.hidden_knowledge_anointment.base.title",
+      "text": "book.neovitae.guide.alchemy_table.hidden_knowledge_anointment.intro.text",
+      "title": "book.neovitae.guide.alchemy_table.hidden_knowledge_anointment.intro.title",
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:text",
+      "type": "neovitae:alchemy_table_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_table.hidden_knowledge_anointment.long.text",
-      "title": "book.neovitae.guide.alchemy_table.hidden_knowledge_anointment.long.title",
-      "use_markdown_in_title": false
+      "recipe_id_1": "neovitae:alchemytable/hidden_knowledge_anointment",
+      "recipe_id_2": "neovitae:alchemytable/hidden_knowledge_anointment_l",
+      "text": "",
+      "title1": "",
+      "title2": ""
     },
     {
-      "type": "modonomicon:text",
+      "type": "neovitae:alchemy_table_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_table.hidden_knowledge_anointment.tier2.text",
-      "title": "book.neovitae.guide.alchemy_table.hidden_knowledge_anointment.tier2.title",
-      "use_markdown_in_title": false
+      "recipe_id_1": "neovitae:alchemytable/hidden_knowledge_anointment_2",
+      "recipe_id_2": "neovitae:alchemytable/hidden_knowledge_anointment_xl",
+      "text": "",
+      "title1": "",
+      "title2": ""
     },
     {
-      "type": "modonomicon:text",
+      "type": "neovitae:alchemy_table_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_table.hidden_knowledge_anointment.extra_long.text",
-      "title": "book.neovitae.guide.alchemy_table.hidden_knowledge_anointment.extra_long.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_table.hidden_knowledge_anointment.tier3.text",
-      "title": "book.neovitae.guide.alchemy_table.hidden_knowledge_anointment.tier3.title",
-      "use_markdown_in_title": false
+      "recipe_id_1": "neovitae:alchemytable/hidden_knowledge_anointment_3",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

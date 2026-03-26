@@ -37,7 +37,7 @@ public class TauFruitEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Tau Oil currently has two main uses. It can extend the duration of any **anointment** by a "
                 + "factor of four, or it can be used to craft **Intermediate Cutting Fluid**, which functions similarly "
-                + "to Basic Cutting Fluid, but lasts eight times longer and provides a 25% speed boost.");
+                + "to Basic Cutting Fluid, but lasts eight times longer and provides a 25%% speed boost.");
 
         this.page("saturated_tau", () -> BookSpotlightPageModel.create()
                 .withItem(NVBlocks.STRONG_TAU.asItem())

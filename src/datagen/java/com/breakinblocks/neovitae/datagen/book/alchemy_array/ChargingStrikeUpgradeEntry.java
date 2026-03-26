@@ -20,7 +20,7 @@ public class ChargingStrikeUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Charging Strike");
-        this.pageText("Effect: Increases damage and knockback from sprinting attacks, up to +50%.\\\n\\\n"
+        this.pageText("Effect: Increases damage and knockback from sprinting attacks, up to +50%%.\\\n\\\n"
                 + "Trained by: Dealing damage while sprinting.\\\n\\\nMaximum level: 5");
     }
 

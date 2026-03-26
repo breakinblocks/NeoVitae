@@ -25,17 +25,17 @@ public class SpeedRuneEntry extends EntryProvider {
         this.pageTitle("Speed Rune");
         this.pageText("The **Speed Rune** increases all of the crafting operations of the Blood Altar. "
                 + "The crafting speed (and speed that the progress is lost when empty) increases by an "
-                + "additive +20% per rune.");
+                + "additive +20%% per rune.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_speed")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_speed")));
 
         this.page("recipe2", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_speed_2"))
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_speed"))
                 .withText(this.context().pageText()));
         this.pageText("With some **Netherite Scrap** and some **Intricate Hellforged Parts** looted from the "
                 + "**Demon Realm**, you can double the power of your **Speed Rune**, increasing the crafting "
-                + "rate by an additive +40% per rune.");
+                + "rate by an additive +40%% per rune.");
 
         this.page("reversion", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

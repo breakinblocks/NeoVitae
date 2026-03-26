@@ -21,7 +21,7 @@ public class SlownessFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Slowness");
-        this.pageText("**Slowness** decreases the target's movement speed by 15% per level.\\\n\\\n"
+        this.pageText("**Slowness** decreases the target's movement speed by 15%% per level.\\\n\\\n"
                 + "It's made from a potion of either **Speed** or **Jump Boost**.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()

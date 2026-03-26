@@ -24,17 +24,17 @@ public class DislocationRuneEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Displacement Rune");
         this.pageText("The **Displacement Rune** increases the flow rate of **Life Essence** into and out "
-                + "of the altar when pumping to and from an external tank multiplicatively by +20%.");
+                + "of the altar when pumping to and from an external tank multiplicatively by +20%%.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_displacement")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_dislocation")));
 
         this.page("recipe2", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_displacement_2"))
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_dislocation"))
                 .withText(this.context().pageText()));
         this.pageText("With some **Netherite Scrap** and some **Intricate Hellforged Parts** looted from the "
                 + "**Demon Realm**, you can double the power of your **Displacement Rune**, increasing the "
-                + "flow rate by a multiplicative +40% per rune.");
+                + "flow rate by a multiplicative +40%% per rune.");
 
         this.page("reversion", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

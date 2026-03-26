@@ -16,31 +16,32 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_table.silk_touch_anointment.base.text",
-      "title": "book.neovitae.guide.alchemy_table.silk_touch_anointment.base.title",
+      "text": "book.neovitae.guide.alchemy_table.silk_touch_anointment.intro.text",
+      "title": "book.neovitae.guide.alchemy_table.silk_touch_anointment.intro.title",
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:text",
+      "type": "neovitae:alchemy_table_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_table.silk_touch_anointment.long.text",
-      "title": "book.neovitae.guide.alchemy_table.silk_touch_anointment.long.title",
-      "use_markdown_in_title": false
+      "recipe_id_1": "neovitae:alchemytable/silk_touch_anointment",
+      "recipe_id_2": "neovitae:alchemytable/silk_touch_anointment_l",
+      "text": "",
+      "title1": "",
+      "title2": ""
     },
     {
-      "type": "modonomicon:text",
+      "type": "neovitae:alchemy_table_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_table.silk_touch_anointment.extra_long.text",
-      "title": "book.neovitae.guide.alchemy_table.silk_touch_anointment.extra_long.title",
-      "use_markdown_in_title": false
+      "recipe_id_1": "neovitae:alchemytable/silk_touch_anointment_xl",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

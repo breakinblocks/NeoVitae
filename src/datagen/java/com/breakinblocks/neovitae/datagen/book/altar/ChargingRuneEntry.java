@@ -37,10 +37,10 @@ public class ChargingRuneEntry extends EntryProvider {
                 + "[(capacity of the main Blood Altar tank)/20000] if that value is above 1.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_charging")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_charging")));
 
         this.page("recipe2", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_charging_2"))
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_charging"))
                 .withText(this.context().pageText()));
         this.pageText("With some **Netherite Scrap** and some **Intricate Hellforged Parts** looted from the "
                 + "**Demon Realm**, you can double the power of your **Charging Rune**, both in terms of "

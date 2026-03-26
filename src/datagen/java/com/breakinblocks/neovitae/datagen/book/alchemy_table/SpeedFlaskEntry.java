@@ -21,7 +21,7 @@ public class SpeedFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Speed");
-        this.pageText("**Speed** increases the target's movement speed by 20% per level.");
+        this.pageText("**Speed** increases the target's movement speed by 20%% per level.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/speed_boost")

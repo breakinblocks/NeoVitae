@@ -24,17 +24,17 @@ public class OrbRuneEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Rune of The Orb");
         this.pageText("The **Rune of The Orb** increases the capacity of the **Blood Orb** that is inside "
-                + "of the Altar by +2% additively per rune while it is inside of the Altar.");
+                + "of the Altar by +2%% additively per rune while it is inside of the Altar.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_orb")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_orb")));
 
         this.page("recipe2", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_orb_2"))
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_orb"))
                 .withText(this.context().pageText()));
         this.pageText("With some **Netherite Scrap** and some **Intricate Hellforged Parts** looted from the "
                 + "**Demon Realm**, you can double the power of your **Rune of the Orb**, increasing the "
-                + "orb's capacity by an additive +4% per rune.");
+                + "orb's capacity by an additive +4%% per rune.");
 
         this.page("reversion", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

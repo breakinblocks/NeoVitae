@@ -21,7 +21,7 @@ public class ObsidianCloakFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Obsidian Cloak");
-        this.pageText("**Obsidian Cloak** reduces all damage taken from non-magical sources by 20% per level.\\\n\\\n"
+        this.pageText("**Obsidian Cloak** reduces all damage taken from non-magical sources by 20%% per level.\\\n\\\n"
                 + "It's created from a flask of **Hard Cloak**, not an **Empty Flask** like most other **potions**.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()

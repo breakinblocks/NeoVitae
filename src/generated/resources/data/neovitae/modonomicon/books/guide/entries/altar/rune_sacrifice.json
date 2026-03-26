@@ -26,7 +26,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:blood_rune_sacrifice",
+      "recipe_id_1": "neovitae:rune_sacrifice",
       "text": "",
       "title1": "",
       "title2": ""
@@ -37,7 +37,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:blood_rune_sac_2",
+      "recipe_id_1": "neovitae:rune_2_sacrifice",
       "text": "book.neovitae.guide.altar.rune_sacrifice.recipe2.text",
       "title1": "",
       "title2": ""

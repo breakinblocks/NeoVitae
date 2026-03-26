@@ -21,7 +21,7 @@ public class DulledBladeDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Dulled Blade");
-        this.pageText("Reduces your melee damage. Caps out at an 80% reduction.");
+        this.pageText("Reduces your melee damage. Caps out at an 80%% reduction.");
 
         this.page("recipe", () -> BookLivingDowngradeRecipePageModel.create()
                 .withRecipeId1("neovitae:downgrade/melee_decrease"));

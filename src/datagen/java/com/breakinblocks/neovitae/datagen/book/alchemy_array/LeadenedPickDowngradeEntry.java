@@ -21,7 +21,7 @@ public class LeadenedPickDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Leadened Pick");
-        this.pageText("Effect: Reduces your dig speed. Caps out at an 80% reduction.");
+        this.pageText("Effect: Reduces your dig speed. Caps out at an 80%% reduction.");
 
         this.page("recipe", () -> BookLivingDowngradeRecipePageModel.create()
                 .withRecipeId1("neovitae:downgrade/dig_slowdown"));

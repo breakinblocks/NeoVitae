@@ -38,7 +38,7 @@ public class IncenseAltarEntry extends EntryProvider {
                 + "5 block radius of the Altar.\\\n\\\n"
                 + "While the Altar is working, it will emit flame particles from its top and transform your "
                 + "Sacrificial Knife. Once your knife starts to shine, holding and releasing right click near a "
-                + "Blood Altar will sacrifice 90% of your health all at once.");
+                + "Blood Altar will sacrifice 90%% of your health all at once.");
 
         this.page("setup_image", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -60,7 +60,7 @@ public class IncenseAltarEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Incense HUD");
-        this.pageText("[Image: Incense HUD, default in top left corner, showing a self-sacrifice bonus of +20%.]");
+        this.pageText("[Image: Incense HUD, default in top left corner, showing a self-sacrifice bonus of +20%%.]");
 
         this.page("paths_intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -129,11 +129,11 @@ public class IncenseAltarEntry extends EntryProvider {
         this.pageTitle("Tranquility Caps");
         this.pageText("The Tranquility bonus is capped by the size of your Altar (and thus, the tier of path "
                 + "you are using). The caps are as follows:\n"
-                + "- No Path: 20%\n"
-                + "- Wooden Path: 60%\n"
-                + "- Stone Path: 120%\n"
-                + "- Worn Stone Path: 200%\n"
-                + "- Obsidian Path: 300%");
+                + "- No Path: 20%%\n"
+                + "- Wooden Path: 60%%\n"
+                + "- Stone Path: 120%%\n"
+                + "- Worn Stone Path: 200%%\n"
+                + "- Obsidian Path: 300%%");
 
         this.page("example_image", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

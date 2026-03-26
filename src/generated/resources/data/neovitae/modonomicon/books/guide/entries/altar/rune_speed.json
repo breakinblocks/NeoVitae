@@ -26,7 +26,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:blood_rune_speed",
+      "recipe_id_1": "neovitae:rune_speed",
       "text": "",
       "title1": "",
       "title2": ""
@@ -37,7 +37,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:blood_rune_speed_2",
+      "recipe_id_1": "neovitae:rune_2_speed",
       "text": "book.neovitae.guide.altar.rune_speed.recipe2.text",
       "title1": "",
       "title2": ""

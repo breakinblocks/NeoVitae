@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookAlchemyTableRecipePageModel;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
 
@@ -16,27 +17,19 @@ public class VoidingAnointmentEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("base", () -> BookTextPageModel.create()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Void Essence");
-        this.pageText("Craft **Void Essence** in the Alchemy Table (recipe: neovitae:alchemytable/voiding_anointment). "
+        this.pageText("Craft **Void Essence** in the Alchemy Table. "
                 + "Deletes simple blocks on mining, such as stone, dirt, and netherrack.\\\n\\\n"
                 + "Valid items: Tools, Swords, Charges.\\\n\\\nApplies: Voiding I (256 blocks)");
 
-        this.page("long", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Void Essence L");
-        this.pageText("Craft **Void Essence L** in the Alchemy Table (recipe: neovitae:alchemytable/voiding_anointment_l). "
-                + "This upgraded version of the anointment lasts four times longer.\\\n\\\nApplies: Voiding I (1024 blocks)");
-
-        this.page("extra_long", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Void Essence XL");
-        this.pageText("Craft **Void Essence XL** in the Alchemy Table (recipe: neovitae:alchemytable/voiding_anointment_xl). "
-                + "This upgraded version of the anointment lasts sixteen times longer.\\\n\\\nApplies: Voiding I (4096 blocks)");
+        this.page("recipe1", () -> BookAlchemyTableRecipePageModel.create()
+                .withRecipeId1("neovitae:alchemytable/voiding_anointment")
+                .withRecipeId2("neovitae:alchemytable/voiding_anointment_l"));
+        this.page("recipe2", () -> BookAlchemyTableRecipePageModel.create()
+                .withRecipeId1("neovitae:alchemytable/voiding_anointment_xl"));
     }
 
     @Override

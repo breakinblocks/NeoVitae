@@ -21,7 +21,7 @@ public class DiseasedDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Diseased");
-        this.pageText("Reduces the effectiveness of all healing sources. Caps out at 80%, so a source "
+        this.pageText("Reduces the effectiveness of all healing sources. Caps out at 80%%, so a source "
                 + "that would normally heal 10 hearts will only heal 2.");
 
         this.page("recipe", () -> BookLivingDowngradeRecipePageModel.create()

@@ -29,9 +29,13 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
     }
 
     private void buildAltarMultiblocks() {
-        // Tier 1: Just the altar
+        // Tier 1: Just the altar (padded to 3x1x3 so Modonomicon doesn't over-scale)
         this.add(this.modLoc("altar_one"), new DenseMultiblockBuilder()
-                .layer("0")
+                .layer(
+                        "___",
+                        "_0_",
+                        "___"
+                )
                 .block('0', () -> NVBlocks.BLOOD_ALTAR.block().get())
                 .build(false)
         );

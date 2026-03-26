@@ -20,7 +20,7 @@ public class BodyBuilderUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Body Builder");
-        this.pageText("Effect: Grants Knockback Resistance and bonus Health. Caps out at 100% Resistance "
+        this.pageText("Effect: Grants Knockback Resistance and bonus Health. Caps out at 100%% Resistance "
                 + "and 10 half-hearts of health.\\\n\\\nTrained by: Eating food.\\\n\\\nMaximum level: 5");
     }
 

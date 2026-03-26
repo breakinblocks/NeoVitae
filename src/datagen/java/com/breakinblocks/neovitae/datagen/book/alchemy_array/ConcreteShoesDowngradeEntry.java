@@ -21,7 +21,7 @@ public class ConcreteShoesDowngradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Concrete Shoes");
-        this.pageText("Reduces your swim speed significantly. Caps out at an 80% reduction.");
+        this.pageText("Reduces your swim speed significantly. Caps out at an 80%% reduction.");
 
         this.page("recipe", () -> BookLivingDowngradeRecipePageModel.create()
                 .withRecipeId1("neovitae:downgrade/swim_decrease"));

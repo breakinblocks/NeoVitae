@@ -26,7 +26,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:blood_rune_capacity",
+      "recipe_id_1": "neovitae:rune_capacity",
       "text": "",
       "title1": "",
       "title2": ""
@@ -37,7 +37,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:blood_rune_capacity_2",
+      "recipe_id_1": "neovitae:rune_2_capacity",
       "text": "book.neovitae.guide.altar.rune_capacity.recipe2.text",
       "title1": "",
       "title2": ""

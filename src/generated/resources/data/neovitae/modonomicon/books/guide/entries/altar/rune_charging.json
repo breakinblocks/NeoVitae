@@ -37,7 +37,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:blood_rune_charging",
+      "recipe_id_1": "neovitae:rune_charging",
       "text": "",
       "title1": "",
       "title2": ""
@@ -48,7 +48,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:blood_rune_charging_2",
+      "recipe_id_1": "neovitae:rune_2_charging",
       "text": "book.neovitae.guide.altar.rune_charging.recipe2.text",
       "title1": "",
       "title2": ""

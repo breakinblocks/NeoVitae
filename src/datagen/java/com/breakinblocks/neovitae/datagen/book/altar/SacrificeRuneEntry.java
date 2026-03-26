@@ -25,17 +25,17 @@ public class SacrificeRuneEntry extends EntryProvider {
         this.pageTitle("Rune of Sacrifice");
         this.pageText("The **Rune of Sacrifice** increases the amount of **Life Essence** gained in the Blood "
                 + "Altar through means that take health from non-player entities. Each rune gives a bonus of "
-                + "+10% additively per rune.");
+                + "+10%% additively per rune.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_sacrifice")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_sacrifice")));
 
         this.page("recipe2", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_sac_2"))
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_sacrifice"))
                 .withText(this.context().pageText()));
         this.pageText("With some **Netherite Scrap** and some **Intricate Hellforged Parts** looted from the "
                 + "**Demon Realm**, you can double the power of your **Rune of Sacrifice**, increasing the "
-                + "bonus to an additive +20% per rune.");
+                + "bonus to an additive +20%% per rune.");
 
         this.page("reversion", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

@@ -41,7 +41,7 @@ public class OreProcessingEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Intermediate Cutting Fluid");
         this.pageText("Intermediate Cutting Fluid is an improved version that lasts eight times as long and "
-                + "increases crafting speed by 50%. You'll have to go Dungeon Delving for the Tau Oil, though.");
+                + "increases crafting speed by 50%%. You'll have to go Dungeon Delving for the Tau Oil, though.");
 
         this.page("advanced_cutting", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

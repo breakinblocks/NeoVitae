@@ -57,7 +57,7 @@ public class BloodAltarEntry extends EntryProvider {
         this.page("knife_recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "sacrificial_dagger"))
                 .withText(this.context().pageText()));
-        this.pageText("Keep in mind that 10% of the total **Life Essence** the altar can hold will be absorbed "
+        this.pageText("Keep in mind that 10%% of the total **Life Essence** the altar can hold will be absorbed "
                 + "into an invisible internal 'tank' used for extracting and inserting **Life Essence** into the Altar.");
 
         this.page("crafting_process", () -> BookTextPageModel.create()
@@ -84,7 +84,7 @@ public class BloodAltarEntry extends EntryProvider {
                 + "**Blank Rune**, does not give any upgrades - it's only use is to upgrade the Tier of the Altar.");
 
         this.page("blank_rune_recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_blank")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_blank")));
 
         this.page("tier2_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

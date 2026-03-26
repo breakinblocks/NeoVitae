@@ -24,17 +24,17 @@ public class CapacityRuneEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Rune of Capacity");
         this.pageText("The **Rune of Capacity** increases the capacity of the **Blood Altar** by an "
-                + "additive +20% per rune.");
+                + "additive +20%% per rune.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_capacity")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_capacity")));
 
         this.page("recipe2", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_capacity_2"))
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_capacity"))
                 .withText(this.context().pageText()));
         this.pageText("With some **Netherite Scrap** and some **Intricate Hellforged Parts** looted from the "
                 + "**Demon Realm**, you can double the power of your **Rune of Capacity**, increasing the "
-                + "capacity of the **Blood Altar** by an additive +40% per rune.");
+                + "capacity of the **Blood Altar** by an additive +40%% per rune.");
 
         this.page("reversion", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

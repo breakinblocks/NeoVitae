@@ -24,19 +24,19 @@ public class AugCapacityRuneEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Rune of Aug. Capacity");
         this.pageText("The **Rune of Augmented Capacity** increases the capacity of the **Blood Altar** by "
-                + "a multiplicative +7.5% per rune. The Augmented Capacity runes apply after the regular "
+                + "a multiplicative +7.5%% per rune. The Augmented Capacity runes apply after the regular "
                 + "**Capacity runes**.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_aug_capacity"))
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_capacity_augmented"))
                 .withTitle1("Rune of Aug. Capacity"));
 
         this.page("recipe2", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_aug_capacity_2"))
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_capacity_augmented"))
                 .withText(this.context().pageText()));
         this.pageText("With some **Netherite Scrap** and some **Intricate Hellforged Parts** looted from the "
                 + "**Demon Realm**, you can double the power of your **Rune of Augmented Capacity**, increasing "
-                + "the capacity of the **Blood Altar** by a multiplicative +15% per rune.");
+                + "the capacity of the **Blood Altar** by a multiplicative +15%% per rune.");
 
         this.page("reversion", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

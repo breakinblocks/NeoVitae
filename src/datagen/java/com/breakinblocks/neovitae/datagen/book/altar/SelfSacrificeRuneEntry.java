@@ -24,18 +24,18 @@ public class SelfSacrificeRuneEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Rune of Self Sacrifice");
         this.pageText("The **Rune of Self Sacrifice** increases the amount of **Life Essence** gained in the "
-                + "Blood Altar through means that use a player's health. Each rune gives a bonus of +10% "
+                + "Blood Altar through means that use a player's health. Each rune gives a bonus of +10%% "
                 + "additively per rune.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_self_sacrifice")));
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_sacrifice_self")));
 
         this.page("recipe2", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "blood_rune_self_sac_2"))
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_2_sacrifice_self"))
                 .withText(this.context().pageText()));
         this.pageText("With some **Netherite Scrap** and some **Intricate Hellforged Parts** looted from the "
                 + "**Demon Realm**, you can double the power of your **Rune of Self Sacrifice**, increasing "
-                + "bonus to an additive +20% per rune.");
+                + "bonus to an additive +20%% per rune.");
 
         this.page("reversion", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

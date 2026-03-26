@@ -20,7 +20,7 @@ public class ToughPalmsUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tough Palms");
-        this.pageText("Effect: Grants a bonus to Self Sacrifice, up to an additional 150%.\\\n\\\n"
+        this.pageText("Effect: Grants a bonus to Self Sacrifice, up to an additional 150%%.\\\n\\\n"
                 + "Trained by: Sacrificing Blood with the Sacrificial Knife.\\\n\\\nMaximum level: 10");
     }
 

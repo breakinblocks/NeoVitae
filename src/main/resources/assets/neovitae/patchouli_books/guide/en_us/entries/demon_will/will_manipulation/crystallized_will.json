@@ -14,9 +14,9 @@
       "text": "Now that you have plenty of $(l:neovitae:demon_will/will_manipulation/demon_will)Demon Will$() in your $(l:neovitae:demon_will/will_manipulation/soul_gem)Tartaric Gem$(), it's time to explore what happens when you unleash it upon the world. $(br2)First off, you'll need to get $(raw)Will$() into the $(l:neovitae:demon_will/will_manipulation/aura)Aura$().  Next, you'll need to make a $(thing)Demon Crystallizer$()."
     },
     {
-      "type": "neovitae:crafting_soulforge",
+      "type": "neovitae:crafting_hellfire_forge",
       "heading": "Demon Crystallizer",
-      "recipe": "neovitae:soulforge/demon_crystallizer",
+      "recipe": "neovitae:hellfire_forge/demon_crystallizer",
       "text": "This will slowly consume $(l:neovitae:demon_will/will_manipulation/demon_will)Demon Will$() from the $(l:neovitae:demon_will/will_manipulation/aura)Aura$() to produce $(item)Will Crystals$(). The first spire costs 100 $(raw)Will$() to form, and all subsequent spires cost 45 each, but can be burned for 50 in the $(item)Demon Crucible$(), for a net gain of 5. The largest $(item)Crystal Cluster$() can be up to 7 spires."
     },
     {

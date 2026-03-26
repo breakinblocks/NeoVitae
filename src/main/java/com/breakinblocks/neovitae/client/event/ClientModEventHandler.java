@@ -136,6 +136,7 @@ public class ClientModEventHandler {
     @SubscribeEvent
     public static void registerAdditionalModels(ModelEvent.RegisterAdditional event) {
         // Register the Modonomicon book model so it can be resolved by the BookModelLoader
-        event.register(ModelResourceLocation.standalone(NeoVitae.rl("book")));
+        // Modonomicon resolves via new ModelResourceLocation(rl, "inventory")
+        event.register(new ModelResourceLocation(NeoVitae.rl("book"), "inventory"));
     }
 }

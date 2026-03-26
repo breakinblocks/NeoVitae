@@ -21,15 +21,15 @@
       "text": "The entrance to $(thing)The Mines$() can only be opened with the uncraftable $(thing)Foreman's Key$(), while all other doors beyond that can be opened with $(thing)Miner's Keys$(). The mines will grant you access to $(l:neovitae:dungeons/demonite)Demonite ore$() alongside some rarer loot, but comes with challenges to match."
     },
     {
-      "type": "neovitae:crafting_soulforge",
+      "type": "neovitae:crafting_hellfire_forge",
       "heading": "Iron Key",
-      "recipe": "neovitae:soulforge/simple_key",
+      "recipe": "neovitae:hellfire_forge/simple_key",
       "text": "$(italic)If it's so simple, why can't we just pick the lock?$()"
     },
     {
-      "type": "neovitae:crafting_soulforge",
+      "type": "neovitae:crafting_hellfire_forge",
       "heading": "Miner's Key",
-      "recipe": "neovitae:soulforge/mine_key",
+      "recipe": "neovitae:hellfire_forge/mine_key",
       "text": "$(italic)It's off to work we go..!$()"
     }
   ]

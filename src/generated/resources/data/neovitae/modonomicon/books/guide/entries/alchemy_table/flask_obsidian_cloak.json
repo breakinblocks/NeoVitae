@@ -12,8 +12,8 @@
             "duration": 3600,
             "id": "neovitae:obsidian_cloak",
             "neoforge:cures": [
-              "protected_by_totem",
-              "milk"
+              "milk",
+              "protected_by_totem"
             ],
             "show_icon": true
           }

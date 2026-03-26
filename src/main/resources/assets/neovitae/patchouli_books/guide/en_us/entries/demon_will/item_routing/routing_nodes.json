@@ -13,9 +13,9 @@
       "text": "$(thing)Routing Node Networks$() have 3 main components: $(item)Input Nodes$(), $(item)Output Nodes$(), and the $(item)Master Routing Node$(). $(br2)Every network requires exactly 1 $(item)Master Routing Node$(), and every other Node in the network must be able to trace a route back to the Master, whether directly, or via other Nodes. $(br2)Input and Output nodes can transfer items, fluids, and energy from any adjacent block that supports them."
     },
     {
-      "type": "neovitae:crafting_soulforge",
+      "type": "neovitae:crafting_hellfire_forge",
       "heading": "Master Routing Node",
-      "recipe": "neovitae:soulforge/master_routing_node",
+      "recipe": "neovitae:hellfire_forge/master_routing_node",
       "text": "The Master Node will be able to accept upgrades in the future, but for now it only serves to control and direct the network, acting as its 'Brain'."
     },
     {
@@ -23,17 +23,17 @@
       "text": "A $(item)Master Routing Node$() is all well and good, but without the other two node types, it's not particularly useful on its own, so let's get on to those next. $(br2)$(item)Input Routing Nodes$() draw items in to the network, $(item)Output Routing Nodes$() export them out again, and plain old $(item)Routing Nodes$() serve to extend the reach of your network. As Input and Output nodes are currently otherwise identical, we will be focusing on the Input Routing Node unless otherwise specified."
     },
     {
-      "type": "neovitae:crafting_soulforge",
+      "type": "neovitae:crafting_hellfire_forge",
       "heading": "Routing Node",
-      "recipe": "neovitae:soulforge/routing_node",
+      "recipe": "neovitae:hellfire_forge/routing_node",
       "text": "Doesn't do a whole lot on its own, but can be used to extend $(thing)Routing Networks$() beyond the 16-block reach of a single connection."
     },
     {
-      "type": "neovitae:2x_crafting_soulforge",
+      "type": "neovitae:2x_crafting_hellfire_forge",
       "a.heading": "Input Routing Node",
-      "a.recipe": "neovitae:soulforge/input_routing_node",
+      "a.recipe": "neovitae:hellfire_forge/input_routing_node",
       "b.heading": "Output Routing Node",
-      "b.recipe": "neovitae:soulforge/output_routing_node"
+      "b.recipe": "neovitae:hellfire_forge/output_routing_node"
     },
     {
       "type": "patchouli:text",

@@ -12,9 +12,9 @@
       "recipe": "neovitae:arc"
     },
     {
-      "type": "neovitae:crafting_soulforge",
+      "type": "neovitae:crafting_hellfire_forge",
       "heading": "Sanguine Reverter",
-      "recipe": "neovitae:soulforge/sanguine_reverter",
+      "recipe": "neovitae:hellfire_forge/sanguine_reverter",
 	  "anchor": "blood_shard",
       "text": "The $(item)Sanguine Reverter$() is used to create $(blood)Weak Blood Shards$(), and revert $(l:neovitae:altar/soul_network)Blood Orbs$(), $(item)Netherrite$() and $(item)Reinforced Runes$() to their input crafting item."
     },

@@ -8,7 +8,7 @@
       "text": "The $(item)Blood Tank$() is a portable fluid storage block capable of holding $(blood)Life Essence$() and other fluids. It can be filled and emptied by right-clicking with a bucket or other fluid container. The tank retains its contents when broken, making it easy to transport large quantities of $(blood)Life Essence$() between locations.$(br2)The tank emits light based on the fluid it contains, and each tier doubles the capacity of the previous one, starting at $(thing)16 Buckets$() and reaching a maximum of $(thing)524,288 Buckets$() at tier 16."
     },
     {
-      "type": "neovitae:crafting_soulforge",
+      "type": "neovitae:crafting_hellfire_forge",
       "heading": "Blood Tank",
       "recipe": "neovitae:soul_forge/blood_tank",
       "text": "The base $(item)Blood Tank$() is crafted in the $(l:neovitae:demon_will/will_manipulation/soul_forge)Hellfire Forge$()."

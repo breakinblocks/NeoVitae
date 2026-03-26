@@ -82,18 +82,18 @@
       "c.fluid_output": "minecraft:lava_bucket"
     },
     {
-      "type": "neovitae:crafting_soulforge",
+      "type": "neovitae:crafting_hellfire_forge",
       "heading": "Resonator",
-      "recipe": "neovitae:soulforge/resonator",
+      "recipe": "neovitae:hellfire_forge/resonator",
       "anchor": "resonator",
       "text": "The $(item)Resonator$() is used to turn $(item)Ore Fragments$() into the relevant $(item)Gravel$() for continued ore processing, and creates $(item)Tiny Corrupted Dust$(). The Reinforced Resonator has 4x durability, and the Hellforged resonator has 16x durability and doubles any bonus outputs."
     },
     {
-    "type": "neovitae:2x_crafting_soulforge",
+    "type": "neovitae:2x_crafting_hellfire_forge",
     "a.heading": "Reinforced Resonator",
-    "a.recipe": "neovitae:soulforge/primitive_resonator",
+    "a.recipe": "neovitae:hellfire_forge/primitive_resonator",
     "b.heading": "Hellforged Resonator",
-    "b.recipe": "neovitae:soulforge/hellforged_resonator"
+    "b.recipe": "neovitae:hellfire_forge/hellforged_resonator"
     },
     {
       "type": "neovitae:2x_crafting_arc",

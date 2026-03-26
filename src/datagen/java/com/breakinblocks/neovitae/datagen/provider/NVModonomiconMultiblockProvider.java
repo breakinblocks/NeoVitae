@@ -622,7 +622,6 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
 
     private void addDowngradeChest(SparseMultiblockBuilder builder, List<RitualComponent> components) {
         // The downgrade ritual expects a chest at a specific position
-        // In the Patchouli version this was manually injected into the pattern
         // Find the appropriate position (typically offset from master stone)
         builder.block('X', () -> Blocks.CHEST);
     }

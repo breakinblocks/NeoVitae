@@ -15,7 +15,7 @@ import java.util.function.Predicate;
 
 /**
  * Custom multiblock validation system for NeoVitae.
- * Replaces Patchouli's IMultiblock.validate() functionality.
+ * Validates multiblock structures for Blood Altar tiers.
  */
 public class MultiblockValidator {
 

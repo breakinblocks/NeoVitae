@@ -12,8 +12,9 @@ This document describes the Neo Vitae API for NeoForge 1.21.1. The API allows ad
 6. [Ritual System](#ritual-system)
 7. [Sigil System](#sigil-system)
 8. [Living Armor System](#living-armor-system)
-9. [Events](#events)
-10. [Registry Keys](#registry-keys)
+9. [Custom Player Attributes](#custom-player-attributes)
+10. [Events](#events)
+11. [Registry Keys](#registry-keys)
 
 ---
 
@@ -25,11 +26,21 @@ Add Neo Vitae as a dependency in your `build.gradle`:
 
 ```groovy
 repositories {
-    // Add Neo Vitae maven here when available
+    maven {
+        name = "BreakInBlocks"
+        url = "https://maven.breakinblocks.com/releases"
+    }
+    // Geckolib is a transitive dependency of NeoVitae
+    maven {
+        name = "Geckolib"
+        url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/"
+        content { includeGroup "software.bernie.geckolib" }
+    }
 }
 
 dependencies {
-    compileOnly("com.breakinblocks.neovitae:neovitae:VERSION")
+    compileOnly("com.breakinblocks.neovitae:neovitae:1.21.1-1.0.0")
+    runtimeOnly("com.breakinblocks.neovitae:neovitae:1.21.1-1.0.0")
 }
 ```
 
@@ -1383,6 +1394,66 @@ if (manager.hasFullSet(player)) {
 
 ---
 
+## Custom Player Attributes
+
+Neo Vitae registers custom player attributes that addon mods can apply modifiers to via equipment, effects, or data packs.
+
+**Package:** `com.breakinblocks.neovitae.common.attribute.NVAttributes`
+
+### Attribute Reference
+
+| Holder Field | Registry ID | Default | Max | Description |
+|-------------|------------|---------|-----|-------------|
+| `SELF_SACRIFICE_MULTIPLIER` | `neovitae:player.self_sacrifice_multiplier` | 1.0 | 100.0 | Multiplier for LP from self-sacrifice (PercentageAttribute) |
+| `BONUS_SACRIFICE` | `neovitae:bonus_sacrifice` | 0.0 | 1000.0 | % bonus LP from Dagger of Sacrifice mob kills |
+| `BONUS_SELF_SACRIFICE` | `neovitae:bonus_self_sacrifice` | 0.0 | 1000.0 | % bonus LP from Sacrificial Dagger self-sacrifice |
+| `BONUS_DEMON_WILL` | `neovitae:bonus_demon_will` | 0.0 | 1000.0 | % bonus Demon Will drops |
+| `SIGIL_COST_REDUCTION` | `neovitae:sigil_cost_reduction` | 0.0 | 100.0 | % reduction to sigil LP costs |
+| `BLOOD_SIPHON` | `neovitae:blood_siphon` | 0.0 | 1024.0 | Converts damage dealt into LP |
+| `BLOOD_SHIELD` | `neovitae:blood_shield` | 0.0 | 10.0 | Reduces incoming damage, drains LP |
+
+All attributes are registered to the Player entity type and are syncable to clients.
+
+### Using Attributes from Addon Mods
+
+```java
+import com.breakinblocks.neovitae.common.attribute.NVAttributes;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+
+// Read a player's attribute value
+double siphon = player.getAttributeValue(NVAttributes.BLOOD_SIPHON);
+
+// Add a modifier (e.g., on equipment)
+player.getAttribute(NVAttributes.BONUS_SACRIFICE).addTransientModifier(
+    new AttributeModifier(
+        ResourceLocation.fromNamespaceAndPath("mymod", "sacrifice_bonus"),
+        25.0, // +25% sacrifice bonus
+        AttributeModifier.Operation.ADD_VALUE
+    )
+);
+```
+
+### Blood Siphon Details
+
+LP gained = min(attribute_value, damage_dealt) × multiplier
+- vs Players: multiplier = configurable (default 100), drains from target's soul network
+- vs Mobs: multiplier = configurable (default 10), LP generated from nothing
+
+### Blood Shield Details
+
+Damage reduction = 10% per attribute point (hard cap 99%)
+LP cost = damage_prevented × configurable multiplier (default 100)
+If insufficient LP: partial shield, remaining damage passes through
+
+### Server Configuration
+
+Multipliers are configurable in `config/neovitae-server.toml` under `[blood_attributes]`:
+- `siphon_player_multiplier` (default: 100)
+- `siphon_mob_multiplier` (default: 10)
+- `shield_lp_cost_multiplier` (default: 100)
+
+---
+
 ## Events
 
 Neo Vitae fires NeoForge events that addon mods can listen to.
@@ -1553,9 +1624,11 @@ public static final DeferredHolder<ImperfectRitual, MyImperfectRitual> MY_RITUAL
 
 ## API Package Structure
 
+All API classes are in the main source set at `src/main/java/com/breakinblocks/neovitae/api/`. There is no separate API artifact or source set.
+
 ```
 com.breakinblocks.neovitae.api/
-├── NeoVitaeAPI.java          # Static accessor
+├── NeoVitaeAPI.java          # Static accessor (getInstance())
 ├── INeoVitaeAPI.java         # Main API interface
 ├── altar/
 │   ├── IBloodAltar.java        # Blood Altar interface
@@ -1566,12 +1639,14 @@ com.breakinblocks.neovitae.api/
 │       ├── IAltarRuneType.java       # Custom rune type interface
 │       └── RuneInstance.java         # Rune position/block entity data
 ├── capability/
-│   └── BMCapabilities.java     # Block capabilities (BLOOD_ALTAR)
+│   └── NVCapabilities.java    # Block capabilities (BLOOD_ALTAR)
 ├── event/
 │   ├── AltarRuneEvent.java     # Rune calculation events (with RuneInstance access)
-│   ├── BloodAltarCraftEvent.java
 │   ├── LivingArmorEvent.java
 │   └── SoulNetworkEvent.java
+├── incense/
+│   ├── ITranquilityHandler.java
+│   └── TranquilityHandler.java
 ├── item/
 │   └── IUpgradeHolder.java     # Living Armor item interface
 ├── living/
@@ -1587,16 +1662,52 @@ com.breakinblocks.neovitae.api/
 │   ├── EnumRuneType.java
 │   ├── IImperfectRitual.java
 │   ├── IImperfectRitualStone.java
-│   ├── IMasterRitualStone.java
 │   ├── IRitual.java
 │   └── RitualComponent.java
+├── routing/                    # Item/Fluid routing node interfaces
+│   ├── IRoutingNode.java
+│   ├── IFluidRoutingNode.java
+│   ├── IItemRoutingNode.java
+│   ├── IMasterRoutingNode.java
+│   └── ...                     # Filter interfaces, channel registry
 ├── sigil/
-│   └── ISigilEffect.java       # Custom sigil effect interface
-└── soul/
-    ├── ISoulNetwork.java
-    ├── SoulTicket.java
-    └── SyphonResult.java       # Syphon operation result
+│   ├── ISigilEffect.java       # Custom sigil effect interface
+│   ├── SigilEffect.java
+│   ├── SigilType.java
+│   └── effects/                # Built-in sigil effect implementations
+├── soul/
+│   ├── ISoulNetwork.java
+│   ├── SoulTicket.java
+│   └── SyphonResult.java
+└── will/
+    ├── DemonWillHandler.java
+    ├── IDemonWillHandler.java
+    ├── IPlayerDemonWillHandler.java
+    └── WillState.java
 ```
+
+### Key Non-API Classes for Addon Use
+
+These are in `com.breakinblocks.neovitae.common` (not the API package) but commonly used by addons:
+
+| Class | Package | Purpose |
+|-------|---------|---------|
+| `NVAttributes` | `common.attribute` | Custom player attributes (Blood Siphon, Blood Shield, etc.) |
+| `NVItems` | `common.item` | Item registry |
+| `NVBlocks` | `common.block` | Block registry |
+| `NVMobEffects` | `common.effect` | Custom mob effects (Flight, Bounce, Gravity, etc.) |
+| `EnumWillType` | `common.datacomponent` | Demon Will type enum |
+| `NVDataComponents` | `common.datacomponent` | Data component registry |
+| `ForgeRecipe` | `common.recipe.forge` | Hellfire Forge recipe class |
+| `FlaskRecipe` | `common.recipe.flask` | Flask recipe base class |
+
+---
+
+## Important Notes
+
+- **Hellfire Forge** — Recipe type is `neovitae:hellfire_forge`, recipe directory is `hellfire_forge/`
+- **API classes in main JAR** — there is no separate API artifact or source set
+- **Modonomicon transitive dependency** — addons that compile against NeoVitae may need Modonomicon on the classpath (for `NVGuideBookItem`)
 
 ---
 

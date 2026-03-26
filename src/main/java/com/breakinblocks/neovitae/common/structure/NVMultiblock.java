@@ -26,7 +26,7 @@ import java.util.function.Predicate;
 
 /**
  * NeoVitae multiblock management.
- * Uses custom validation instead of Patchouli dependency.
+ * Handles Blood Altar tier validation and structure scanning.
  */
 public class NVMultiblock {
 

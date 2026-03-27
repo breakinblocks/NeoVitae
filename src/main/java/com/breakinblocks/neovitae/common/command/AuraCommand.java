@@ -20,13 +20,13 @@ import java.util.stream.Stream;
 /**
  * Command to get/set spiritus in the chunk aura.
  * Usage:
- *   /bm-aura get                     - Get all will types (shows current and max)
- *   /bm-aura get all                 - Get all will types (explicit)
- *   /bm-aura get <type>              - Get will amount for specific type
- *   /bm-aura set <type> <amount>     - Set will amount for a type (clamped to 0-max)
- *   /bm-aura set all <amount>        - Set all types to the same amount (clamped to 0-max)
- *   /bm-aura add <type> <amount>     - Add will to a type (result clamped to 0-max)
- *   /bm-aura clear                   - Clear all will from chunk
+ *   /nv-aura get                     - Get all will types (shows current and max)
+ *   /nv-aura get all                 - Get all will types (explicit)
+ *   /nv-aura get <type>              - Get will amount for specific type
+ *   /nv-aura set <type> <amount>     - Set will amount for a type (clamped to 0-max)
+ *   /nv-aura set all <amount>        - Set all types to the same amount (clamped to 0-max)
+ *   /nv-aura add <type> <amount>     - Add will to a type (result clamped to 0-max)
+ *   /nv-aura clear                   - Clear all will from chunk
  *
  * <p>Maximum will per chunk is configurable in server config and can be
  * increased per-chunk via rituals.</p>
@@ -49,7 +49,7 @@ public class AuraCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
-                Commands.literal("bm-aura")
+                Commands.literal("nv-aura")
                         .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .then(
                                 Commands.literal("get")

@@ -20,9 +20,9 @@ public class NVCommands {
         DungeonShowcaseCommand.register(dispatcher);
 
         CommandNode<CommandSourceStack> networkNode = dispatcher.getRoot().getChild("anima");
-        CommandNode<CommandSourceStack> ritualNode = dispatcher.getRoot().getChild("bm-ritual");
-        CommandNode<CommandSourceStack> imperfectRitualNode = dispatcher.getRoot().getChild("bm-imperfectritual");
-        CommandNode<CommandSourceStack> auraNode = dispatcher.getRoot().getChild("bm-aura");
+        CommandNode<CommandSourceStack> ritualNode = dispatcher.getRoot().getChild("nv-ritual");
+        CommandNode<CommandSourceStack> imperfectRitualNode = dispatcher.getRoot().getChild("nv-imperfectritual");
+        CommandNode<CommandSourceStack> auraNode = dispatcher.getRoot().getChild("nv-aura");
         CommandNode<CommandSourceStack> upgradeNode = dispatcher.getRoot().getChild("living-upgrade");
         CommandNode<CommandSourceStack> showcaseNode = dispatcher.getRoot().getChild("nv-dungeon-showcase");
 

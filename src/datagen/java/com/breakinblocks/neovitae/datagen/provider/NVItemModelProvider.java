@@ -45,29 +45,26 @@ public class NVItemModelProvider extends ItemModelProvider {
                 .texture("layer0", modLoc("item/amethyst_throwing_dagger_partial"))
                 .texture("layer1", modLoc("item/dagger_potion"));
 
-        // Alchemy flask - 3 layers for potion tint effect
-        // Layer 0: underlay (tinted by FlaskColor)
-        // Layer 1: outline (untinted)
-        // Layer 2: overlay (untinted)
         getBuilder("alchemy_flask")
                 .parent(new ModelFile.UncheckedModelFile("minecraft:item/generated"))
                 .texture("layer0", modLoc("item/potionflask_underlay"))
-                .texture("layer1", modLoc("item/potionflask_outline"))
-                .texture("layer2", modLoc("item/potionflask_overlay"));
+                .texture("layer1", modLoc("item/potionflask_underlay_top"))
+                .texture("layer2", modLoc("item/potionflask_outline"))
+                .texture("layer3", modLoc("item/potionflask_overlay"));
 
-        // Throwable flask - same 3 layer pattern with throwable variants
         getBuilder("alchemy_flask_throwable")
                 .parent(new ModelFile.UncheckedModelFile("minecraft:item/generated"))
                 .texture("layer0", modLoc("item/potionflask_underlay"))
-                .texture("layer1", modLoc("item/potionflask_outline_throwable"))
-                .texture("layer2", modLoc("item/potionflask_overlay_throwable"));
+                .texture("layer1", modLoc("item/potionflask_underlay_top"))
+                .texture("layer2", modLoc("item/potionflask_outline_throwable"))
+                .texture("layer3", modLoc("item/potionflask_overlay_throwable"));
 
-        // Lingering flask - same 3 layer pattern with lingering variants
         getBuilder("alchemy_flask_lingering")
                 .parent(new ModelFile.UncheckedModelFile("minecraft:item/generated"))
                 .texture("layer0", modLoc("item/potionflask_underlay"))
-                .texture("layer1", modLoc("item/potionflask_outline_lingering"))
-                .texture("layer2", modLoc("item/potionflask_overlay_lingering"));
+                .texture("layer1", modLoc("item/potionflask_underlay_top"))
+                .texture("layer2", modLoc("item/potionflask_outline_lingering"))
+                .texture("layer3", modLoc("item/potionflask_overlay_lingering"));
 
         // Anointment items - 3 layers for colored liquid effect
         // Layer 0: alchemic_liquid (tinted by AnointmentColor based on anointment type)

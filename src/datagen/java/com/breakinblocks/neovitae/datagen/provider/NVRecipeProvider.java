@@ -621,7 +621,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("archmage_blood_orb"));
 
         AltarRecipeBuilder.build(NVItems.ORB_TRANSCENDENT.get())
-                .from(NVItems.SLATE_ETHEREAL.get())
+                .from(NVBlocks.CRYSTAL_CLUSTER.block().get())
                 .minTier(5)
                 .bloodNeeded(200000)
                 .consumption(100)

@@ -1,29 +1,58 @@
 package com.breakinblocks.neovitae.common.item.potion;
 
 import net.minecraft.client.color.item.ItemColor;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionContents;
+import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
+import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+
+import java.util.List;
 
 /**
- * Tints the flask texture based on its potion contents.
+ * Tints the flask texture based on its effects.
+ * Single-effect flasks show one solid color.
+ * Multi-effect flasks split the color: bottom half shows the first effect,
+ * top half shows the second effect.
  */
 public class FlaskColor implements ItemColor {
 
-    // Default tint color when no potion effects (slight blue tint)
     private static final int DEFAULT_COLOR = 0xFF385DC6;
 
     @Override
     public int getColor(ItemStack stack, int layer) {
         if (layer == 0) {
-            PotionContents contents = stack.get(DataComponents.POTION_CONTENTS);
-            if (contents != null && contents.hasEffects()) {
-                int color = contents.getColor();
-                return 0xFF000000 | color;
-            }
+            return getBottomColor(stack);
+        }
+        if (layer == 1) {
+            return getTopColor(stack);
+        }
+        return 0xFFFFFFFF;
+    }
+
+    private int getBottomColor(ItemStack stack) {
+        FlaskEffects effects = stack.get(NVDataComponents.FLASK_EFFECTS.get());
+        if (effects == null || effects.effects().isEmpty()) {
             return DEFAULT_COLOR;
         }
+        List<EffectHolder> holders = effects.effects();
+        if (holders.size() == 1) {
+            return 0xFF000000 | holders.get(0).effect().value().getColor();
+        }
+        // Bottom half shows the first effect color
+        return 0xFF000000 | holders.get(0).effect().value().getColor();
+    }
 
-        return 0xFFFFFFFF;
+    private int getTopColor(ItemStack stack) {
+        FlaskEffects effects = stack.get(NVDataComponents.FLASK_EFFECTS.get());
+        if (effects == null || effects.effects().isEmpty()) {
+            return DEFAULT_COLOR;
+        }
+        List<EffectHolder> holders = effects.effects();
+        if (holders.size() == 1) {
+            // Single effect: top matches bottom
+            return 0xFF000000 | holders.get(0).effect().value().getColor();
+        }
+        // Top half shows the second effect color
+        return 0xFF000000 | holders.get(1).effect().value().getColor();
     }
 }

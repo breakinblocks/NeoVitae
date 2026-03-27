@@ -25,11 +25,11 @@ import com.breakinblocks.neovitae.ritual.RitualRegistry;
 /**
  * Admin command for managing rituals.
  * Usage:
- * - /bm-ritual <pos> info - Show ritual info at position
- * - /bm-ritual <pos> stop - Force stop the ritual
- * - /bm-ritual <pos> set <ritual_id> - Force set a ritual (without activation cost)
- * - /bm-ritual <pos> cooldown <ticks> - Set cooldown
- * - /bm-ritual list - List all registered rituals
+ * - /nv-ritual <pos> info - Show ritual info at position
+ * - /nv-ritual <pos> stop - Force stop the ritual
+ * - /nv-ritual <pos> set <ritual_id> - Force set a ritual (without activation cost)
+ * - /nv-ritual <pos> cooldown <ticks> - Set cooldown
+ * - /nv-ritual list - List all registered rituals
  */
 public class RitualCommand {
 
@@ -46,7 +46,7 @@ public class RitualCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
-                Commands.literal("bm-ritual")
+                Commands.literal("nv-ritual")
                         .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .then(
                                 Commands.argument("pos", BlockPosArgument.blockPos())

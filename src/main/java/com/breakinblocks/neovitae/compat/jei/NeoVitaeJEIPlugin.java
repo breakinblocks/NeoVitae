@@ -13,6 +13,7 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -28,15 +29,20 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
+import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.ImperfectRitualStats;
 import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
 import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
 import com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe;
+import com.breakinblocks.neovitae.common.recipe.flask.FlaskEffectRecipe;
+import com.breakinblocks.neovitae.common.recipe.flask.FlaskEffectTransformRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
@@ -44,6 +50,8 @@ import com.breakinblocks.neovitae.compat.jei.tabulavitae.TabulaVitaeRecipeCatego
 import com.breakinblocks.neovitae.compat.jei.altar.AraVitaeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.athanor.AthanorRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.array.AlchemyArrayCraftingCategory;
+import com.breakinblocks.neovitae.compat.jei.flask.FlaskCombinationCategory;
+import com.breakinblocks.neovitae.compat.jei.flask.FlaskCombinationJEIRecipe;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.bloodtank.BloodTankSubtypeInterpreter;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskSubtypeInterpreter;
@@ -95,6 +103,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipeCategories(new MeteorRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new AthanorRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new FlaskRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new FlaskCombinationCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ImperfectRitualRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new RitualRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
@@ -108,6 +117,8 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.ATHANOR_BLOCK.block().get()), AthanorRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVItems.ALCHEMY_FLASK.get()), FlaskRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.TABULA_VITAE.block().get()), FlaskRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVItems.ALCHEMY_FLASK.get()), FlaskCombinationCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVBlocks.TABULA_VITAE.block().get()), FlaskCombinationCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()), ImperfectRitualRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.MASTER_RITUAL_STONE.block().get()), RitualRecipeCategory.RECIPE_TYPE);
     }
@@ -167,6 +178,10 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
         LOGGER.info("Registered {} flask recipes with JEI", flaskRecipes.size());
 
+        List<FlaskCombinationJEIRecipe> combinationRecipes = createFlaskCombinationRecipes(flaskRecipes);
+        registration.addRecipes(FlaskCombinationCategory.RECIPE_TYPE, combinationRecipes);
+        LOGGER.info("Registered {} flask combination recipes with JEI", combinationRecipes.size());
+
         List<ImperfectRitualJEIRecipe> imperfectRitualRecipes = createImperfectRitualRecipes();
         registration.addRecipes(ImperfectRitualRecipeCategory.RECIPE_TYPE, imperfectRitualRecipes);
 
@@ -182,6 +197,55 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         }
         registration.addIngredientInfo(bloodTankStacks, VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.neovitae.blood_tank.upgrade_info"));
+    }
+
+    private List<FlaskCombinationJEIRecipe> createFlaskCombinationRecipes(List<FlaskRecipe> allFlaskRecipes) {
+        List<FlaskCombinationJEIRecipe> combinations = new ArrayList<>();
+
+        List<FlaskEffectRecipe> effectRecipes = allFlaskRecipes.stream()
+                .filter(r -> r instanceof FlaskEffectRecipe)
+                .map(r -> (FlaskEffectRecipe) r)
+                .toList();
+
+        // Collect all effects that can exist in a flask from all recipe types
+        java.util.Set<Holder<MobEffect>> allEffects = new java.util.LinkedHashSet<>();
+        for (FlaskRecipe recipe : allFlaskRecipes) {
+            if (recipe instanceof FlaskEffectRecipe er) {
+                allEffects.add(er.getOutputEffect());
+            } else if (recipe instanceof FlaskEffectTransformRecipe tr) {
+                for (com.mojang.datafixers.util.Pair<Holder<MobEffect>, Integer> pair : tr.getOutputEffects()) {
+                    allEffects.add(pair.getFirst());
+                }
+            }
+        }
+
+        for (FlaskEffectRecipe recipe : effectRecipes) {
+            for (Holder<MobEffect> baseEffect : allEffects) {
+                if (baseEffect.equals(recipe.getOutputEffect())) continue;
+
+                EffectHolder baseHolder = EffectHolder.create(baseEffect, 3600, 0);
+
+                ItemStack inputFlask = new ItemStack(NVItems.ALCHEMY_FLASK.get());
+                ItemAlchemyFlask.setFlaskEffects(inputFlask, new FlaskEffects(List.of(baseHolder)));
+
+                List<EffectHolder> combinedEffects = new ArrayList<>();
+                combinedEffects.add(baseHolder);
+                combinedEffects.add(EffectHolder.create(recipe.getOutputEffect(), recipe.getBaseDuration(), 0));
+                ItemStack outputFlask = new ItemStack(NVItems.ALCHEMY_FLASK.get());
+                ItemAlchemyFlask.setFlaskEffects(outputFlask, new FlaskEffects(combinedEffects));
+
+                combinations.add(new FlaskCombinationJEIRecipe(
+                        inputFlask,
+                        recipe.getInput(),
+                        outputFlask,
+                        recipe.getSyphon(),
+                        recipe.getTicks(),
+                        recipe.getMinimumTier()
+                ));
+            }
+        }
+
+        return combinations;
     }
 
     private List<ImperfectRitualJEIRecipe> createImperfectRitualRecipes() {

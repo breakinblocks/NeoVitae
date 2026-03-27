@@ -249,6 +249,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.DESTRUCTIVE_CRYSTAL_CATALYST.get(), "Destructive Crystal Catalyst");
         add(NVItems.VENGEFUL_CRYSTAL_CATALYST.get(), "Vengeful Crystal Catalyst");
         add(NVItems.STEADFAST_CRYSTAL_CATALYST.get(), "Steadfast Crystal Catalyst");
+        add("tooltip.neovitae.crystal_catalyst.desc", "Right-click a Spiritus Crystal to accelerate its growth");
+        add("tooltip.neovitae.crystal_catalyst.aspect", "Aspect: %s");
 
         // Will Type Names
         add("will.neovitae.default", "Raw");
@@ -840,6 +842,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("recipe.arc", "Athanor");
         addJei("recipe.athanor.chance", "Chance: %s%%");
         addJei("recipe.flask", "Flask Brewing");
+        addJei("recipe.flask_combination", "Flask Combinations");
         addJei("recipe.imperfect_ritual", "Imperfect Ritual");
         addJei("recipe.ritual", "Ritual");
 

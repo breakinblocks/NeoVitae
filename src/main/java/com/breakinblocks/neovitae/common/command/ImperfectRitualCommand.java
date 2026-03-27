@@ -29,8 +29,8 @@ import com.breakinblocks.neovitae.ritual.RitualRegistry;
 /**
  * Admin command for managing imperfect rituals.
  * Usage:
- * - /bm-imperfectritual <pos> set <ritual_id> - Place required block and activate ritual
- * - /bm-imperfectritual list - List all registered imperfect rituals with their requirements
+ * - /nv-imperfectritual <pos> set <ritual_id> - Place required block and activate ritual
+ * - /nv-imperfectritual list - List all registered imperfect rituals with their requirements
  */
 public class ImperfectRitualCommand {
 
@@ -47,7 +47,7 @@ public class ImperfectRitualCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
-                Commands.literal("bm-imperfectritual")
+                Commands.literal("nv-imperfectritual")
                         .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .then(
                                 Commands.argument("pos", BlockPosArgument.blockPos())

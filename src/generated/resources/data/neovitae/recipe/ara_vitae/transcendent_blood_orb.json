@@ -4,7 +4,7 @@
   "craftSpeed": 100,
   "drainSpeed": 200,
   "input": {
-    "item": "neovitae:ethereal_slate"
+    "item": "neovitae:crystal_cluster"
   },
   "minTier": 5,
   "output": {

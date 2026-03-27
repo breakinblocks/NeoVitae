@@ -1,24 +1,22 @@
 package com.breakinblocks.neovitae.common.item;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.FakePlayer;
-import com.breakinblocks.neovitae.common.network.NVPayloads;
-import com.breakinblocks.neovitae.common.network.StreamPayload;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.datamap.EntitySacrificeHelper;
-import com.breakinblocks.neovitae.util.AltarUtil;
 
 public class DaggerOfSacrificeItem extends Item {
 
@@ -30,6 +28,29 @@ public class DaggerOfSacrificeItem extends Item {
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, java.util.List<net.minecraft.network.chat.Component> tooltip, net.minecraft.world.item.TooltipFlag flag) {
         tooltip.add(net.minecraft.network.chat.Component.translatable("tooltip.neovitae.dagger_of_sacrifice.desc")
                 .withStyle(net.minecraft.ChatFormatting.ITALIC, net.minecraft.ChatFormatting.DARK_RED));
+    }
+
+    /**
+     * Called BEFORE Player.attack() processes. If sacrifice conditions are met,
+     * silence the entity so the melee hit doesn't play a hurt sound.
+     */
+    @Override
+    public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
+        if (player.level().isClientSide()) return false;
+        if (!(entity instanceof LivingEntity target)) return false;
+        if (player instanceof FakePlayer) return false;
+        if (target instanceof Player) return false;
+        if (target.getHealth() < 0.5F) return false;
+
+        int sacrificeValue = getSacrificeValue(target);
+        if (sacrificeValue <= 0) return false;
+
+        BlockPos altarPos = findAltar(target.level(), target.blockPosition());
+        if (altarPos == null) return false;
+
+        // Sacrifice conditions met - silence before the melee damage processes
+        target.setSilent(true);
+        return false; // let the attack proceed (hurtEnemy will handle the sacrifice)
     }
 
     @Override
@@ -72,37 +93,32 @@ public class DaggerOfSacrificeItem extends Item {
 
         BlockPos altarPos = findAltar(target.level(), target.blockPosition());
         if (altarPos == null) {
+            target.setSilent(false); // restore if we silenced in onLeftClickEntity
+            player.displayClientMessage(Component.translatable("message.neovitae.too_far_from_altar"), true);
             return false;
         }
 
         BlockEntity be = target.level().getBlockEntity(altarPos);
         if (!(be instanceof AraVitaeTile altar)) {
+            target.setSilent(false);
             return false;
         }
 
         altar.addSacrificeEV(ev, true);
 
-        // Send stream visual from player to altar (upper chest height)
-        if (player instanceof ServerPlayer serverPlayer) {
-            double srcY = player.getY() + player.getBbHeight() * 0.75;
-            NVPayloads.sendToPlayer(serverPlayer, new StreamPayload(player.getX(), srcY, player.getZ(), altarPos, 0xBB0000));
+        // Send blood tendril from the sacrificed entity to the altar
+        if (player.level() instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+            StreamPresets.bloodTendril(target, altarPos)
+                    .build()
+                    .sendToNearby(serverLevel, altarPos, 128);
         }
 
+        // Kill the entity (still silent from onLeftClickEntity, suppresses death sound too)
+        Level level = target.level();
         target.hurt(target.level().damageSources().source(NVDamageSources.SACRIFICE, player), Float.MAX_VALUE);
 
-        Level level = target.level();
-        double posX = target.getX();
-        double posY = target.getY();
-        double posZ = target.getZ();
-
-        level.playSound(null, target.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
-        for (int i = 0; i < 8; i++) {
-            level.addParticle(DustParticleOptions.REDSTONE,
-                    posX + level.random.nextDouble() - level.random.nextDouble(),
-                    posY + level.random.nextDouble() - level.random.nextDouble(),
-                    posZ + level.random.nextDouble() - level.random.nextDouble(),
-                    0, 0, 0);
-        }
+        level.playSound(null, target.blockPosition(), SoundEvents.WARDEN_HEARTBEAT, SoundSource.BLOCKS, 0.3F, 1.0F);
+        level.playSound(null, target.blockPosition(), SoundEvents.BEEHIVE_DRIP, SoundSource.BLOCKS, 0.6F, 0.8F + level.random.nextFloat() * 0.4F);
 
         return true;
     }

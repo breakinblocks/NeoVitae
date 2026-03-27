@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.common.item;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -12,12 +12,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayer;
-import com.breakinblocks.neovitae.common.network.NVPayloads;
-import com.breakinblocks.neovitae.common.network.StreamPayload;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -89,26 +87,22 @@ public class SacrificialDaggerItem extends Item {
             evAdded = Integer.MAX_VALUE;
         }
 
-        double posX = player.getX();
-        double posY = player.getY();
-        double posZ = player.getZ();
-
-        level.playSound(player, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.5F, 2.6F + (level.random.nextFloat() - level.random.nextFloat() * 0.8F));
-        for (int i = 0; i < 8; i++) {
-            level.addParticle(DustParticleOptions.REDSTONE, posX + level.random.nextDouble() - level.random.nextDouble(), posY + level.random.nextDouble() - level.random.nextDouble(), posZ + level.random.nextDouble() - level.random.nextDouble(), 0, 0, 0);
-        }
-
         if (altarPos == null) {
+            if (!level.isClientSide()) {
+                player.displayClientMessage(Component.translatable("message.neovitae.too_far_from_altar"), true);
+            }
             return super.use(level, player, hand);
         }
         BlockEntity be = level.getBlockEntity(altarPos);
         if (be instanceof AraVitaeTile altar) {
             altar.addSacrificeEV(evAdded, false);
 
+            level.playSound(player, player.blockPosition(), SoundEvents.BEEHIVE_DRIP, SoundSource.PLAYERS, 0.6F, 0.8F + level.random.nextFloat() * 0.4F);
+
             // Send stream visual from player to altar (cooldown based on travel time)
-            if (player instanceof ServerPlayer serverPlayer) {
+            if (level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
                 long gameTime = level.getGameTime();
-                UUID playerId = serverPlayer.getUUID();
+                UUID playerId = player.getUUID();
                 long cooldownEnd = streamCooldowns.getOrDefault(playerId, 0L);
 
                 if (gameTime >= cooldownEnd) {
@@ -118,7 +112,9 @@ public class SacrificialDaggerItem extends Item {
                     double dz = player.getZ() - (altarPos.getZ() + 0.5);
                     int travelTicks = Math.max(20, (int) (Math.sqrt(dx * dx + dy * dy + dz * dz) * 18));
 
-                    NVPayloads.sendToPlayer(serverPlayer, new StreamPayload(player.getX(), srcY, player.getZ(), altarPos, 0xBB0000));
+                    StreamPresets.bloodTendril(player, altarPos)
+                            .build()
+                            .sendToNearby(serverLevel, altarPos, 128);
                     streamCooldowns.put(playerId, gameTime + travelTicks);
                 }
             }

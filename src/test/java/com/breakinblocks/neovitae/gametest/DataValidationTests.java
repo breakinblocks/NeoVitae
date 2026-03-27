@@ -145,4 +145,42 @@ public class DataValidationTests {
             helper.succeed();
         });
     }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
+    public void neovitaeItemsRegistered(GameTestHelper helper) {
+        helper.runAfterDelay(1, () -> {
+            String[] expectedItems = {
+                "sacrificial_dagger", "dagger_of_sacrifice",
+                "orb_weak", "orb_apprentice",
+                "slate_blank", "slate_reinforced",
+                "divination_sigil", "alchemy_flask",
+                "ritual_diviner_dawn"
+            };
+
+            for (String name : expectedItems) {
+                ResourceLocation rl = NeoVitae.rl(name);
+                if (!BuiltInRegistries.ITEM.containsKey(rl)) {
+                    helper.fail("Expected item " + rl + " not registered");
+                    return;
+                }
+            }
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
+    public void streamPayloadTypeRegistered(GameTestHelper helper) {
+        helper.runAfterDelay(1, () -> {
+            ResourceLocation id = com.breakinblocks.neovitae.common.network.StreamPayload.TYPE.id();
+            if (id == null) {
+                helper.fail("StreamPayload TYPE should have a valid id");
+                return;
+            }
+            if (!id.getNamespace().equals("neovitae")) {
+                helper.fail("StreamPayload TYPE namespace should be neovitae, got " + id.getNamespace());
+                return;
+            }
+            helper.succeed();
+        });
+    }
 }

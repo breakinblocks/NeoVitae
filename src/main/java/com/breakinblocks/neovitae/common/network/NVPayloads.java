@@ -80,8 +80,7 @@ public class NVPayloads {
     private static void handleStreamFX(StreamPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             com.breakinblocks.neovitae.client.render.stream.StreamManager.getInstance()
-                    .addStream(payload.sourceX(), payload.sourceY(), payload.sourceZ(),
-                            payload.target(), payload.color());
+                    .addStream(payload.effect());
         });
     }
 
@@ -181,5 +180,21 @@ public class NVPayloads {
 
     public static void sendToPlayer(ServerPlayer player, Object payload) {
         PacketDistributor.sendToPlayer(player, (net.minecraft.network.protocol.common.custom.CustomPacketPayload) payload);
+    }
+
+    /**
+     * Send a payload to all players within a radius of a block position.
+     */
+    public static void sendToNearby(net.minecraft.server.level.ServerLevel level, net.minecraft.core.BlockPos pos,
+                                    double radius, Object payload) {
+        net.minecraft.network.protocol.common.custom.CustomPacketPayload p =
+                (net.minecraft.network.protocol.common.custom.CustomPacketPayload) payload;
+        double radiusSq = radius * radius;
+        double cx = pos.getX() + 0.5, cy = pos.getY() + 0.5, cz = pos.getZ() + 0.5;
+        for (ServerPlayer player : level.players()) {
+            if (player.distanceToSqr(cx, cy, cz) <= radiusSq) {
+                PacketDistributor.sendToPlayer(player, p);
+            }
+        }
     }
 }

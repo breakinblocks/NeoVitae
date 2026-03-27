@@ -12,9 +12,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayer;
+import com.breakinblocks.neovitae.common.network.NVPayloads;
+import com.breakinblocks.neovitae.common.network.StreamPayload;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -26,6 +33,10 @@ import com.breakinblocks.neovitae.util.AltarUtil;
 
 
 public class SacrificialDaggerItem extends Item {
+    // Cooldown tracking for stream visuals per player (server-side only).
+    // Value is the game tick when the next stream can be sent.
+    private static final Map<UUID, Long> streamCooldowns = new HashMap<>();
+
     public SacrificialDaggerItem() {
         super(new Properties().stacksTo(1).component(NVDataComponents.INCENSE, false));
     }
@@ -43,7 +54,7 @@ public class SacrificialDaggerItem extends Item {
         }
 
         boolean isCeremonial = player.getMainHandItem().getOrDefault(NVDataComponents.INCENSE, false);
-        BlockPos altarPos = AltarUtil.findAltar(level, player.blockPosition(), 2);
+        BlockPos altarPos = AltarUtil.findAltar(level, player.blockPosition(), 3);
         int healthSacrificed = 2;
         int evAdded = AltarUtil.calculateSelfSacrificeLP(player, healthSacrificed);
 
@@ -93,6 +104,24 @@ public class SacrificialDaggerItem extends Item {
         BlockEntity be = level.getBlockEntity(altarPos);
         if (be instanceof AraVitaeTile altar) {
             altar.addSacrificeEV(evAdded, false);
+
+            // Send stream visual from player to altar (cooldown based on travel time)
+            if (player instanceof ServerPlayer serverPlayer) {
+                long gameTime = level.getGameTime();
+                UUID playerId = serverPlayer.getUUID();
+                long cooldownEnd = streamCooldowns.getOrDefault(playerId, 0L);
+
+                if (gameTime >= cooldownEnd) {
+                    double srcY = player.getY() + player.getBbHeight() * 0.75;
+                    double dx = player.getX() - (altarPos.getX() + 0.5);
+                    double dy = srcY - (altarPos.getY() + 0.5);
+                    double dz = player.getZ() - (altarPos.getZ() + 0.5);
+                    int travelTicks = Math.max(20, (int) (Math.sqrt(dx * dx + dy * dy + dz * dz) * 18));
+
+                    NVPayloads.sendToPlayer(serverPlayer, new StreamPayload(player.getX(), srcY, player.getZ(), altarPos, 0xBB0000));
+                    streamCooldowns.put(playerId, gameTime + travelTicks);
+                }
+            }
         }
 
         return super.use(level, player, hand);

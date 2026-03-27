@@ -9,8 +9,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.FakePlayer;
+import com.breakinblocks.neovitae.common.network.NVPayloads;
+import com.breakinblocks.neovitae.common.network.StreamPayload;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
@@ -78,6 +81,13 @@ public class DaggerOfSacrificeItem extends Item {
         }
 
         altar.addSacrificeEV(ev, true);
+
+        // Send stream visual from player to altar (upper chest height)
+        if (player instanceof ServerPlayer serverPlayer) {
+            double srcY = player.getY() + player.getBbHeight() * 0.75;
+            NVPayloads.sendToPlayer(serverPlayer, new StreamPayload(player.getX(), srcY, player.getZ(), altarPos, 0xBB0000));
+        }
+
         target.hurt(target.level().damageSources().source(NVDamageSources.SACRIFICE, player), Float.MAX_VALUE);
 
         Level level = target.level();

@@ -63,11 +63,25 @@ public class NVPayloads {
                 SetClientVelocityPayload.STREAM_CODEC,
                 NVPayloads::handleSetClientVelocity
         );
+
+        registrar.playToClient(
+                StreamPayload.TYPE,
+                StreamPayload.STREAM_CODEC,
+                NVPayloads::handleStreamFX
+        );
     }
 
     private static void handleSetClientVelocity(SetClientVelocityPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             context.player().setDeltaMovement(payload.motionX(), payload.motionY(), payload.motionZ());
+        });
+    }
+
+    private static void handleStreamFX(StreamPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            com.breakinblocks.neovitae.client.render.stream.StreamManager.getInstance()
+                    .addStream(payload.sourceX(), payload.sourceY(), payload.sourceZ(),
+                            payload.target(), payload.color());
         });
     }
 

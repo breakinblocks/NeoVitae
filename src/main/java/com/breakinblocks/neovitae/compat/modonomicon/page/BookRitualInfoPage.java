@@ -49,7 +49,7 @@ public class BookRitualInfoPage extends BookPage {
         title.toNetwork(buffer);
         text.toNetwork(buffer);
         buffer.writeUtf(getAnchor());
-        getCondition().toNetwork(buffer);
+        BookCondition.toNetwork(getCondition(), buffer);
     }
 
     public BookTextHolder getTitle() {

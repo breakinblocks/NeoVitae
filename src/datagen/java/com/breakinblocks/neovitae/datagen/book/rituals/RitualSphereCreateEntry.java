@@ -33,7 +33,7 @@ public class RitualSphereCreateEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Phantom Moon");
-        this.pageText("This ritual conjures a hollow sphere of [#](4A0080)phantom matter[#]() centered above the [#](8B0000)Master Ritual Stone[#]() — a translucent shell that hangs in the air like a captured moon. The sphere's radius can be adjusted with the [#](8B0000)Ritual Tinkerer[#](), though the [#](8B0000)Essentia Vitae[#]() cost scales accordingly.");
+        this.pageText("This ritual conjures a hollow sphere of [#](4A0080)phantom matter[#]() centered above the [#](8B0000)Master Ritual Stone[#](), a translucent shell that hangs in the air like a captured moon. The sphere's radius can be adjusted with the [#](8B0000)Ritual Tinkerer[#](), though the [#](8B0000)Essentia Vitae[#]() cost scales accordingly.");
     }
 
     @Override

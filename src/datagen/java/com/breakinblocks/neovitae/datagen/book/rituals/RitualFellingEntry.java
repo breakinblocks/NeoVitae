@@ -33,7 +33,7 @@ public class RitualFellingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Silent Axe");
-        this.pageText("An invisible lumberjack stalks the ritual's domain, felling every tree it finds — logs shatter, leaves scatter, and the timber is gathered into a nearby chest if one is available. Pair this with a grove ritual and saplings for an endless supply of wood.");
+        this.pageText("An invisible lumberjack stalks the ritual's domain, felling every tree it finds; logs shatter, leaves scatter, and the timber is gathered into a nearby chest if one is available. Pair this with a grove ritual and saplings for an endless supply of wood.");
     }
 
     @Override

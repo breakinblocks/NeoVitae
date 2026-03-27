@@ -33,7 +33,7 @@ public class RitualArmourEvolveEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Crucible of Becoming");
-        this.pageText("Stand upon the [#](8B0000)Master Ritual Stone[#]() while clad in [#](8B0000)Living Armor[#](), and the circle will pour its power into the symbiotic plates. The armor evolves — its capacity for upgrades deepens, its potential expands. This is the crucible through which your armor transcends its former limits.");
+        this.pageText("Stand upon the [#](8B0000)Master Ritual Stone[#]() while clad in [#](8B0000)Living Armor[#](), and the circle will pour its power into the symbiotic plates. The armor evolves; its capacity for upgrades deepens, its potential expands. This is the crucible through which your armor transcends its former limits.");
     }
 
     @Override

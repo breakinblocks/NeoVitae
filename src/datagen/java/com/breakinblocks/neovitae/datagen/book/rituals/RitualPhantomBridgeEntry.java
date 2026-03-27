@@ -33,7 +33,7 @@ public class RitualPhantomBridgeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spectral Pathways");
-        this.pageText("This ritual weaves [#](4A0080)phantom matter[#]() beneath the feet of any practitioner within its reach — translucent platforms that solidify only when stepped upon, allowing passage across chasms and voids.\\\n\\\n"
+        this.pageText("This ritual weaves [#](4A0080)phantom matter[#]() beneath the feet of any practitioner within its reach, translucent platforms that solidify only when stepped upon, allowing passage across chasms and voids.\\\n\\\n"
                 + "When the ritual falls silent, the phantom bridges dissolve like morning mist. Invaluable for traversing dangerous terrain or constructing in treacherous places.");
     }
 

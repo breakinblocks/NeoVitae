@@ -25,7 +25,7 @@ public class ReinforcedDislocationRuneEntry extends EntryProvider {
         this.pageTitle("Reinforced Displacement Rune");
         this.pageText("Bolstered with [#](8B0000)Netherite Scrap[#]() and [#](8B0000)Intricate Hellforged Parts[#]() from "
                 + "the [#](4A0080)Demon Realm[#](), this rune tears the channels between altar and vessel wide open. "
-                + "Each rune increases the flow rate by a multiplicative [#](8B0000)+40%%[#]() -- essence surges "
+                + "Each rune increases the flow rate by a multiplicative [#](8B0000)+40%%[#](); essence surges "
                 + "rather than trickles.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()

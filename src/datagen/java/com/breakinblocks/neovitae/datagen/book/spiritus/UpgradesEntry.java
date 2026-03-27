@@ -42,7 +42,7 @@ public class UpgradesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Basic Routing Speed Upgrade");
-        this.pageText("Stacks to 19 -- one for each tick that can be shaved from the cycle. "
+        this.pageText("Stacks to 19, one for each tick that can be shaved from the cycle. "
                 + "A peculiar limit, perhaps, but the fabric of reality can only be bent so far.");
     }
 

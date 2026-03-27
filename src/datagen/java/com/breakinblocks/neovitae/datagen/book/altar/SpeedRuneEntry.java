@@ -24,8 +24,8 @@ public class SpeedRuneEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Speed Rune");
         this.pageText("The [#](8B0000)Speed Rune[#]() quickens the altar's heartbeat. Every transmutation the "
-                + "[#](8B0000)Ara Vitae[#]() performs -- the consumption of [#](4A0080)Essentia Vitae[#](), the slow "
-                + "reshaping of matter -- accelerates by [#](8B0000)+20%%[#]() per rune, stacking additively. "
+                + "[#](8B0000)Ara Vitae[#]() performs, the consumption of [#](4A0080)Essentia Vitae[#](), the slow "
+                + "reshaping of matter, accelerates by [#](8B0000)+20%%[#]() per rune, stacking additively. "
                 + "Be warned: an empty altar also loses progress faster with these runes in place.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()

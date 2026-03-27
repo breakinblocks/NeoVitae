@@ -42,7 +42,7 @@ public class TabulaVitaeEntry extends EntryProvider {
         this.pageText("Along the right edge of the [#](8B0000)Tabula Vitae[#]() interface, you will find six directional "
                 + "glyphs: [#](8B0000)D[#]()own, [#](8B0000)U[#]()p, [#](8B0000)N[#]()orth, [#](8B0000)S[#]()outh, [#](8B0000)W[#]()est, and [#](8B0000)E[#]()ast.\\\n\\\n"
                 + "Select any slot within the table, then toggle these glyphs to permit or deny external "
-                + "conduits -- hoppers, pipes, and the like -- access from that face. Click the slot once more "
+                + "conduits, hoppers, pipes, and the like, access from that face. Click the slot once more "
                 + "to deselect it and return to normal operation.");
 
         this.page("gui2", () -> BookTextPageModel.create()
@@ -87,7 +87,7 @@ public class TabulaVitaeEntry extends EntryProvider {
         this.pageText("A cunning Vitaemancer may place a [#](8B0000)Lava Sigil[#]() or [#](8B0000)Water Sigil[#]() within the "
                 + "Tabula Vitae to conjure [#](8B0000)Lava Buckets[#]() or [#](8B0000)Water Buckets[#]() without consuming the sigil. "
                 + "Furthermore, a [#](8B0000)Water Sigil[#]() may substitute for a [#](8B0000)Water Bucket[#]() in any recipe the "
-                + "table accepts -- a small convenience that saves many trips to the well.");
+                + "table accepts, a small convenience that saves many trips to the well.");
     }
 
     @Override

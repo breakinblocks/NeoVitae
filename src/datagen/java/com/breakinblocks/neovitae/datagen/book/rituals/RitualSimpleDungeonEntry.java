@@ -33,7 +33,7 @@ public class RitualSimpleDungeonEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("A Crack in the Veil");
-        this.pageText("This ritual tears a narrow fissure in the fabric of reality, opening a gateway to the [#](4A0080)Demon Realm[#]() — a treacherous dimension teeming with hostile entities and coveted resources. This lesser portal provides an introductory trial for those who dare to test their strength against what lurks beyond.");
+        this.pageText("This ritual tears a narrow fissure in the fabric of reality, opening a gateway to the [#](4A0080)Demon Realm[#](), a treacherous dimension teeming with hostile entities and coveted resources. This lesser portal provides an introductory trial for those who dare to test their strength against what lurks beyond.");
     }
 
     @Override

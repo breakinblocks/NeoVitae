@@ -30,7 +30,7 @@ public class CrystallizedWillEntry extends EntryProvider {
         this.pageTitle("Crystallarium Maleficum");
         this.pageText("This device slowly draws [#](8B0000)Spiritus[#]() from the [#](8B0000)Aura[#]() and condenses it into physical "
                 + "[#](8B0000)Will Crystals[#](). The first spire demands 100 Will to form; each subsequent growth costs "
-                + "45, yet yields 50 when burned in a [#](8B0000)Vas Maleficum[#]() -- a net gain of 5 per spire. "
+                + "45, yet yields 50 when burned in a [#](8B0000)Vas Maleficum[#](), a net gain of 5 per spire. "
                 + "A cluster may grow up to 7 spires tall.");
 
         this.page("harvesting", () -> BookTextPageModel.create()
@@ -45,7 +45,7 @@ public class CrystallizedWillEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Five Will per harvest is a modest return, but rituals such as the "
                 + "[#](8B0000)Resonance of the Faceted Crystal[#](), the [#](8B0000)Catalyst of the Forsaken Souls[#](), and the "
-                + "[#](8B0000)Crack of the Fractured Crystal[#]() -- alongside [#](8B0000)Will Catalysts[#]() -- can accelerate and "
+                + "[#](8B0000)Crack of the Fractured Crystal[#](), alongside [#](8B0000)Will Catalysts[#](), can accelerate and "
                 + "automate crystal production to impressive effect.");
     }
 

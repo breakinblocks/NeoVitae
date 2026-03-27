@@ -37,7 +37,7 @@ public class LimpLegDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour hobbles your stride -- each step heavier than the last.";
+        return "The armour hobbles your stride; each step heavier than the last.";
     }
 
     @Override

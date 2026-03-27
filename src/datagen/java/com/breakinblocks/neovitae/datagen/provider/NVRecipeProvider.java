@@ -347,7 +347,16 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_efficiency_rune", has(NVBlocks.RUNE_EFFICIENCY.block().get()))
                 .save(output);
 
-        // Crystal Cluster - NO CRAFTING RECIPE (obtained from rituals/other means)
+        // Crystal Cluster (Hellfire Forge)
+        HellfireForgeRecipeBuilder.build(NVBlocks.CRYSTAL_CLUSTER.block().get())
+                .requires(Items.SCULK)
+                .requires(NVItems.SLATE_ETHEREAL.get())
+                .requires(NVItems.WEAK_BLOOD_SHARD.get())
+                .requires(Items.NETHER_STAR)
+                .minWill(2048)
+                .drain(1024)
+                .unlockedBy("has_ethereal_slate", has(NVItems.SLATE_ETHEREAL.get()))
+                .save(output, NeoVitae.rl("crystal_cluster"));
 
         // Crystal Cluster Brick (from crystal cluster)
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, NVBlocks.CRYSTAL_CLUSTER_BRICK.block().get(), 4)

@@ -33,7 +33,7 @@ public class RitualPlacerEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Mason's Will");
-        this.pageText("This ritual draws blocks from a nearby chest and places them into empty spaces within its domain — filling voids, building foundations, and shaping terrain with tireless precision. Where the [#](8B0000)Yawning of the Void[#]() devours, this circle creates.");
+        this.pageText("This ritual draws blocks from a nearby chest and places them into empty spaces within its domain, filling voids, building foundations, and shaping terrain with tireless precision. Where the [#](8B0000)Yawning of the Void[#]() devours, this circle creates.");
     }
 
     @Override

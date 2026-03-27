@@ -23,12 +23,12 @@ public class RitualDivinerEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Ritual Diviner");
-        this.pageText("Ritual circles demand precision — you cannot simply scatter inscriptions at random and expect the currents of [#](4A0080)Essentia Vitae[#]() to flow correctly. The [#](8B0000)Ritual Diviner[#]() is the master architect's tool, a wand that knows every pattern by heart."
+        this.pageText("Ritual circles demand precision; you cannot simply scatter inscriptions at random and expect the currents of [#](4A0080)Essentia Vitae[#]() to flow correctly. The [#](8B0000)Ritual Diviner[#]() is the master architect's tool, a wand that knows every pattern by heart."
                 + "\\\n\\\n[#](2E8B57)Hold Sneak and press Use or Attack while looking at empty air to cycle through available rituals in either direction.[#]()");
 
         this.page("direction", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("You can also change the facing of the completed ritual by pressing Use in the air. This only matters for asymmetrical rituals such as the [#](8B0000)Ritual of Speed[#]() — most patterns are perfectly symmetrical.");
+        this.pageText("You can also change the facing of the completed ritual by pressing Use in the air. This only matters for asymmetrical rituals such as the [#](8B0000)Ritual of Speed[#](); most patterns are perfectly symmetrical.");
 
         this.page("crafting", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_diviner"))
@@ -43,13 +43,13 @@ public class RitualDivinerEntry extends EntryProvider {
         this.page("dusk_crafting", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_diviner_dusk"))
                 .withText(this.context().pageText()));
-        this.pageText("Unlike the [#](8B0000)Elemental Inscription Tools[#](), the Ritual Diviner and its [#](B8860B)Dusk[#]() variant are inexhaustible — they will never wear out.");
+        this.pageText("Unlike the [#](8B0000)Elemental Inscription Tools[#](), the Ritual Diviner and its [#](B8860B)Dusk[#]() variant are inexhaustible; they will never wear out.");
 
         this.page("inscription_tools", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The base Diviner requires one of each [#](8B0000)Elemental Inscription Tool[#](), and thus a [#](B8860B)Tier 3[#]() [#](8B0000)Ara Vitae[#]()."
                 + "\\\n\\\nThe four elemental tools each cost [#](8B0000)1,000 EV[#]() to craft. The [#](B8860B)Dusk[#]() variant requires a [#](B8860B)Tier 4[#]() Altar and two [#](8B0000)Dusk Inscription Tools[#]() at [#](8B0000)2,000 EV[#]() each."
-                + "\\\n\\\n[#](2E8B57)You can use inscription tools to inscribe runes by hand, but this is slow and imprecise — best reserved for decoration.[#]()");
+                + "\\\n\\\n[#](2E8B57)You can use inscription tools to inscribe runes by hand, but this is slow and imprecise, best reserved for decoration.[#]()");
     }
 
     @Override

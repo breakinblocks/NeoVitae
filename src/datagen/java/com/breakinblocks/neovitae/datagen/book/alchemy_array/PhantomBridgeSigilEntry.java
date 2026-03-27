@@ -24,7 +24,7 @@ public class PhantomBridgeSigilEntry extends EntryProvider {
                 + "temporary platforms beneath your feet as you walk. These spectral surfaces allow you to "
                 + "traverse chasms, voids, and open sky with the confidence of solid ground.\\\n\\\n"
                 + "The phantom blocks dissolve shortly after you leave them behind. "
-                + "[#](2E8B57)Keep moving -- hesitation over the abyss is unwise.[#]()");
+                + "[#](2E8B57)Keep moving; hesitation over the abyss is unwise.[#]()");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -40,7 +40,7 @@ public class PhantomBridgeSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Walk upon crystallized EV -- a bridge born of blood beneath your feet.";
+        return "Walk upon crystallized EV, a bridge born of blood beneath your feet.";
     }
 
     @Override

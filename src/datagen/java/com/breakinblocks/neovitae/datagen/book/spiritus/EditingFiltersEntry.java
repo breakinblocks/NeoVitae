@@ -22,7 +22,7 @@ public class EditingFiltersEntry extends EntryProvider {
         this.pageTitle("Editing Filters");
         this.pageText("When configuring many [#](8B0000)Filters[#]() to identical specifications, the tedium of "
                 + "hand-setting each one grows tiresome. Instead, place between two and nine filters into a "
-                + "crafting table -- the filter in slot one imprints its configuration onto all the rest.");
+                + "crafting table; the filter in slot one imprints its configuration onto all the rest.");
 
         this.page("copying", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

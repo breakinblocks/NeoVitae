@@ -23,7 +23,7 @@ public class AnointmentsEntry extends EntryProvider {
         this.pageText("Where flasks empower the body, [#](8B0000)Anointments[#]() empower the hand. These are "
                 + "[#](4A0080)alchemical coatings[#]() for your tools, weapons, and [#](8B0000)Charges[#](). Hold the anointment "
                 + "in one hand and press Use to apply it to the item in your other hand. Not every coating "
-                + "suits every instrument -- choose wisely."
+                + "suits every instrument; choose wisely."
                 + "\\\n\\\nUnlike elixirs, anointments are not governed by time. They diminish with each use of "
                 + "the coated tool, fading stroke by stroke until spent.");
 

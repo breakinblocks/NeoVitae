@@ -22,7 +22,7 @@ public class DiseasedDowngradeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Diseased");
         this.pageText("The armour's living tissue sickens, suppressing your body's ability to mend. "
-                + "All healing is reduced by up to 80%% -- a wound that should restore ten hearts "
+                + "All healing is reduced by up to 80%%; a wound that should restore ten hearts "
                 + "barely returns two.\\\n\\\n"
                 + "[#](4A0080)What lives can also sicken.[#]()");
 

@@ -42,7 +42,7 @@ public class TimeArraysEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Bend the sky's clock -- summon dawn or hasten dusk.";
+        return "Bend the sky's clock, summon dawn or hasten dusk.";
     }
 
     @Override

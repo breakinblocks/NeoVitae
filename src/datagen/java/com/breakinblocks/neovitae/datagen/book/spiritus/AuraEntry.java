@@ -25,7 +25,7 @@ public class AuraEntry extends EntryProvider {
         this.pageTitle("The Spiritus Aura");
         this.pageText("[#](4A0080)Demonic Will[#]() coalesces naturally around certain creatures, but it can also "
                 + "exist in a diffused state throughout the very air. By burning Will in a "
-                + "[#](8B0000)Vas Maleficum[#](), you release it into the [#](4A0080)Aura[#]() -- an invisible miasma that "
+                + "[#](8B0000)Vas Maleficum[#](), you release it into the [#](4A0080)Aura[#](), an invisible miasma that "
                 + "permeates each chunk of the world, ripe for exploitation.");
 
         this.page("crucible", () -> BookTextPageModel.create()
@@ -71,7 +71,7 @@ public class AuraEntry extends EntryProvider {
         this.pageText("Placing a [#](8B0000)Spiritus Gem[#]() inside a [#](8B0000)Hellfire Forge[#]() causes it to rapidly "
                 + "siphon Will from the surrounding Aura.\\\n\\\n"
                 + "With an Aspected Will present in the chunk and an empty gem in the Forge, you can fill "
-                + "that gem with a specific Aspect -- allowing you to reshape the behavior of your "
+                + "that gem with a specific Aspect, allowing you to reshape the behavior of your "
                 + "[#](8B0000)Sentient Tools[#]() and [#](8B0000)Sword[#]() accordingly. The effects of each Aspect are detailed "
                 + "in the [#](8B0000)Aspects of Will[#]() entry.");
     }

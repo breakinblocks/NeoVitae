@@ -20,10 +20,10 @@ public class AnimaEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Anima");
-        this.pageText("Beneath the surface of the world lies an invisible lattice of living energy -- your "
+        this.pageText("Beneath the surface of the world lies an invisible lattice of living energy, your "
                 + "[#](4A0080)Anima[#](). This is the network that binds your soul to every sigil you wield, every "
                 + "ritual you ignite, every vitaemantic instrument you have ever touched. Think of it as a vast, "
-                + "hidden reservoir of [#](8B0000)Essentia Vitae[#]() -- life-force refined and stored beyond the physical realm, "
+                + "hidden reservoir of [#](8B0000)Essentia Vitae[#](), life-force refined and stored beyond the physical realm, "
                 + "unique to you alone.");
 
         this.page("binding", () -> BookTextPageModel.create()
@@ -31,13 +31,13 @@ public class AnimaEntry extends EntryProvider {
         this.pageText("When you first grip a bindable item and will it to life, it imprints upon your "
                 + "[#](4A0080)Anima[#](). From that moment forward, any [#](8B0000)Essentia Vitae[#]() cost the item demands is drawn "
                 + "from your network. Should the [#](4A0080)Anima[#]() run dry, some items will take payment directly "
-                + "from your flesh instead.\\\n\\\nOther workings -- such as a hungry [#](8B0000)Ritual[#]() that has "
-                + "drained you completely -- inflict unceasing nausea until the ritual is silenced or your "
+                + "from your flesh instead.\\\n\\\nOther workings, such as a hungry [#](8B0000)Ritual[#]() that has "
+                + "drained you completely, inflict unceasing nausea until the ritual is silenced or your "
                 + "[#](4A0080)Anima[#]() is replenished.");
 
         this.page("filling", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("To fill your [#](4A0080)Anima[#](), you require a [#](8B0000)Blood Orb[#]() -- a crystallized anchor "
+        this.pageText("To fill your [#](4A0080)Anima[#](), you require a [#](8B0000)Blood Orb[#](), a crystallized anchor "
                 + "between your soul and the altar's power."
                 + "\n\n- Right-click with the orb in hand to sacrifice one heart, channeling [#](8B0000)200 EV[#]() "
                 + "into your [#](4A0080)Anima[#]()."
@@ -48,11 +48,11 @@ public class AnimaEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Each tier of the [#](8B0000)Ara Vitae[#]() unlocks a more potent orb, expanding the boundaries "
                 + "of your [#](4A0080)Anima[#]()."
-                + "\n\n- [#](B8860B)Weak Blood Orb[#]() -- Capacity: [#](8B0000)5,000 EV[#]()."
-                + "\n\n- [#](B8860B)Apprentice Blood Orb[#]() -- Capacity: [#](8B0000)25,000 EV[#]()."
-                + "\n\n- [#](B8860B)Magician Blood Orb[#]() -- Capacity: [#](8B0000)150,000 EV[#]()."
-                + "\n\n- [#](B8860B)Master Blood Orb[#]() -- Capacity: [#](8B0000)1,000,000 EV[#]()."
-                + "\n\n- [#](B8860B)Archmage Blood Orb[#]() -- Capacity: [#](8B0000)10,000,000 EV[#]().");
+                + "\n\n- [#](B8860B)Weak Blood Orb[#](): Capacity: [#](8B0000)5,000 EV[#]()."
+                + "\n\n- [#](B8860B)Apprentice Blood Orb[#](): Capacity: [#](8B0000)25,000 EV[#]()."
+                + "\n\n- [#](B8860B)Magician Blood Orb[#](): Capacity: [#](8B0000)150,000 EV[#]()."
+                + "\n\n- [#](B8860B)Master Blood Orb[#](): Capacity: [#](8B0000)1,000,000 EV[#]()."
+                + "\n\n- [#](B8860B)Archmage Blood Orb[#](): Capacity: [#](8B0000)10,000,000 EV[#]().");
 
         this.page("weak_apprentice", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

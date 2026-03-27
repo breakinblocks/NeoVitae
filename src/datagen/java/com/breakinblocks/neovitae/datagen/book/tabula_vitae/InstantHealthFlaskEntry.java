@@ -26,7 +26,7 @@ public class InstantHealthFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Instant Health");
-        this.pageText("The [#](8B0000)Instant Health[#]() elixir is no gentle salve -- it floods the body with raw "
+        this.pageText("The [#](8B0000)Instant Health[#]() elixir is no gentle salve; it floods the body with raw "
                 + "vitality, restoring 4 health per level in an instant. Against the [#](8B0000)undead[#](), "
                 + "this same vitality becomes anathema, dealing 4 points of harm per level instead.");
 

@@ -33,7 +33,7 @@ public class RitualUpgradeRemoveEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Purification of Form");
-        this.pageText("This ritual carefully excises upgrades from your [#](8B0000)Living Armor[#](), crystallizing the extracted knowledge into [#](8B0000)Upgrade Tomes[#]() that can be reapplied later. Nothing is truly lost — only rearranged. Use this when you wish to reshape your armor's capabilities for a new purpose.");
+        this.pageText("This ritual carefully excises upgrades from your [#](8B0000)Living Armor[#](), crystallizing the extracted knowledge into [#](8B0000)Upgrade Tomes[#]() that can be reapplied later. Nothing is truly lost, only rearranged. Use this when you wish to reshape your armor's capabilities for a new purpose.");
     }
 
     @Override

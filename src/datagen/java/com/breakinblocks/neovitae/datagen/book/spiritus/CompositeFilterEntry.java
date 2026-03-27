@@ -20,7 +20,7 @@ public class CompositeFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Composite Item Filter");
-        this.pageText("The [#](8B0000)Composite Item Filter[#]() is inert on its own -- a blank canvas awaiting "
+        this.pageText("The [#](8B0000)Composite Item Filter[#]() is inert on its own, a blank canvas awaiting "
                 + "instruction. Combine it with another filter type in the [#](8B0000)Tabula Vitae[#]() to layer "
                 + "that filter's rules onto this one.\\\n\\\n"
                 + "This allows you to weave complex conditions: use the Enchantment Filter's 'any enchantment' "

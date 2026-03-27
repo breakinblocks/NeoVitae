@@ -37,7 +37,7 @@ public class BattleHungryDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour craves combat -- starve it of violence, and it starves you.";
+        return "The armour craves combat; starve it of violence, and it starves you.";
     }
 
     @Override

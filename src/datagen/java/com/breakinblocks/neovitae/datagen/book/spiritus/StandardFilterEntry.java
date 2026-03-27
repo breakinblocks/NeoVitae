@@ -24,7 +24,7 @@ public class StandardFilterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Standard Item Filter");
         this.pageText("The [#](8B0000)Standard Item Filter[#]() allows you to designate up to 9 specific items for a "
-                + "[#](8B0000)Routing Node[#]() to interact with. Each slot accepts a quantity -- leave it blank to "
+                + "[#](8B0000)Routing Node[#]() to interact with. Each slot accepts a quantity; leave it blank to "
                 + "default to 'all.'\\\n\\\n"
                 + "The filter also toggles between [#](B8860B)Allow[#]() and [#](B8860B)Deny[#]() modes. In Deny mode, quantities "
                 + "are ignored.");
@@ -40,7 +40,7 @@ public class StandardFilterEntry extends EntryProvider {
         this.page("output_usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("When installed in an [#](8B0000)Output Routing Node[#](), the quantity sets how many of each item "
-                + "to fill into the adjacent inventory. Surplus remains in the network -- passed onward to "
+                + "to fill into the adjacent inventory. Surplus remains in the network, passed onward to "
                 + "another valid destination, or held in place.");
 
         this.page("gui_image", () -> BookImagePageModel.create()

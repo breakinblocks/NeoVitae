@@ -36,7 +36,7 @@ public class CrippledArmDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour locks your off-hand -- one arm must suffice.";
+        return "The armour locks your off-hand; one arm must suffice.";
     }
 
     @Override

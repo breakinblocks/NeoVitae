@@ -25,7 +25,7 @@ public class ReinforcedChargingRuneEntry extends EntryProvider {
         this.pageTitle("Reinforced Charging Rune");
         this.pageText("Hardened with [#](8B0000)Netherite Scrap[#]() and [#](8B0000)Intricate Hellforged Parts[#]() from "
                 + "the [#](4A0080)Demon Realm[#](), this rune doubles the Charging Rune's potency in every regard "
-                + "-- both the rate at which [#](4A0080)Essentia Vitae[#]() is stored during idle moments and the "
+                + ", both the rate at which [#](4A0080)Essentia Vitae[#]() is stored during idle moments and the "
                 + "maximum charge the rune can hold.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()

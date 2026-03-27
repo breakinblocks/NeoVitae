@@ -33,7 +33,7 @@ public class RitualPumpEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Thirsting Stone");
-        this.pageText("This ritual draws fluid source blocks from the surrounding terrain and channels them into a tank placed directly above the [#](8B0000)Master Ritual Stone[#](). Water, lava, or stranger liquids — it drinks them all with equal thirst. Each source block extracted costs [#](8B0000)Essentia Vitae[#]().");
+        this.pageText("This ritual draws fluid source blocks from the surrounding terrain and channels them into a tank placed directly above the [#](8B0000)Master Ritual Stone[#](). Water, lava, or stranger liquids; it drinks them all with equal thirst. Each source block extracted costs [#](8B0000)Essentia Vitae[#]().");
     }
 
     @Override

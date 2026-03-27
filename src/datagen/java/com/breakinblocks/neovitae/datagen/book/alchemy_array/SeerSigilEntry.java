@@ -23,7 +23,7 @@ public class SeerSigilEntry extends EntryProvider {
         this.pageText("Where the [#](8B0000)Divination Sigil[#]() offers a glimpse, the [#](8B0000)Seer's Sigil[#]() "
                 + "opens your perception wide. It reveals not only the [#](4A0080)Essentia Vitae[#]() within your "
                 + "[#](8B0000)Anima[#](), but lays bare the inner workings of the [#](8B0000)Ara Vitae[#]() itself "
-                + "-- crafting progress, consumption rates, and more.\\\n\\\n"
+                + ", crafting progress, consumption rates, and more.\\\n\\\n"
                 + "It also provides the same display configuration as its lesser counterpart.");
 
         this.page("recipe", () -> BookTextPageModel.create()
@@ -49,7 +49,7 @@ public class SeerSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A deeper sight -- reveals the full workings of the Ara Vitae.";
+        return "A deeper sight, reveals the full workings of the Ara Vitae.";
     }
 
     @Override

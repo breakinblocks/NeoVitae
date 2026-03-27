@@ -45,7 +45,7 @@ public class EnchantFilterEntry extends EntryProvider {
         this.pageText("The first button selects whether to match [#](B8860B)every enchantment[#]() on an item, "
                 + "[#](B8860B)any enchantment[#](), or [#](B8860B)one particular enchantment[#](). The second determines "
                 + "whether level matters (e.g. 'Protection III' vs 'Protection' at any level).\\\n\\\n"
-                + "[#](2E8B57)Insert an unenchanted item to create a blanket rule for any sort of enchantment -- "
+                + "[#](2E8B57)Insert an unenchanted item to create a blanket rule for any sort of enchantment, "
                 + "useful for separating enchanted gear from mundane.[#]()");
     }
 

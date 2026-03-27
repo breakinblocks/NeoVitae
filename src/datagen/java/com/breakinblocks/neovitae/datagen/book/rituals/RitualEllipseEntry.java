@@ -33,7 +33,7 @@ public class RitualEllipseEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Architect's Eye");
-        this.pageText("A ritual for the blood mage who appreciates elegant geometry. This circle draws blocks from a nearby chest and arranges them into a perfect ellipsoidal form — domes, arches, vaults, and other shapes that would take a mortal builder considerable time to calculate by hand."
+        this.pageText("A ritual for the blood mage who appreciates elegant geometry. This circle draws blocks from a nearby chest and arranges them into a perfect ellipsoidal form, domes, arches, vaults, and other shapes that would take a mortal builder considerable time to calculate by hand."
                 + "\\\n\\\nEvery practitioner needs a proper sanctum. This ritual helps you build one worthy of the art.");
     }
 

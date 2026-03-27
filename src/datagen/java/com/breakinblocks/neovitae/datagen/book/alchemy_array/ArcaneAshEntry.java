@@ -23,7 +23,7 @@ public class ArcaneAshEntry extends EntryProvider {
         this.pageText("Before sigils, before rituals, before the great workings of [#](4A0080)Vitaemancy[#]() "
                 + "were ever conceived, there was the [#](8B0000)Alchemy Array[#](). Drawn in [#](8B0000)Arcane Ashes[#]() "
                 + "upon bare stone or earth, the array is the most fundamental expression of the art "
-                + "-- a circle of intent, waiting to be given purpose.");
+                + ", a circle of intent, waiting to be given purpose.");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -37,7 +37,7 @@ public class ArcaneAshEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("A second item placed becomes the [#](8B0000)catalyst[#](). If both are valid, "
                 + "the array awakens and its working begins. Base and catalyst together define the array's "
-                + "effect -- a transmutation, an enchantment, a binding.\\\n\\\n"
+                + "effect: a transmutation, an enchantment, a binding.\\\n\\\n"
                 + "[#](2E8B57)Watch the pattern carefully when you place the base. If the glyph changes form, "
                 + "you are on the right path.[#]()");
 
@@ -55,7 +55,7 @@ public class ArcaneAshEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The foundation of all vitaemantic craft -- circles drawn in ash, awaiting purpose.";
+        return "The foundation of all vitaemantic craft, circles drawn in ash, awaiting purpose.";
     }
 
     @Override

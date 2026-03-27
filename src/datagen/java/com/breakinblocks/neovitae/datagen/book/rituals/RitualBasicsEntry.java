@@ -20,7 +20,7 @@ public class RitualBasicsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Art of Ritual");
-        this.pageText("When your [#](8B0000)Ara Vitae[#]() reaches [#](B8860B)Tier 3[#](), the boundaries of [#](4A0080)Vitaemancy[#]() expand dramatically. You gain access to [#](4A0080)Rituals[#]() — vast sigil-circles that channel your [#](4A0080)Anima[#]() into sustained, powerful effects upon the world itself."
+        this.pageText("When your [#](8B0000)Ara Vitae[#]() reaches [#](B8860B)Tier 3[#](), the boundaries of [#](4A0080)Vitaemancy[#]() expand dramatically. You gain access to [#](4A0080)Rituals[#](), vast sigil-circles that channel your [#](4A0080)Anima[#]() into sustained, powerful effects upon the world itself."
                 + "\\\n\\\nTo perform a ritual, you require:"
                 + "\n\n- An [#](8B0000)Activation Crystal[#](). At [#](B8860B)Tier 3[#](), only the [#](8B0000)Weak Crystal[#]() is available."
                 + "\n\n- A [#](8B0000)Master Ritual Stone[#](). Every ritual demands exactly one at its heart.");
@@ -34,7 +34,7 @@ public class RitualBasicsEntry extends EntryProvider {
         this.page("building", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Place a [#](8B0000)Master Ritual Stone[#](), then hold Use with the Diviner aimed at it until every stone has been placed and inscribed with the correct element.\\\n\\\n"
-                + "Finally, press Use on the [#](8B0000)Master Ritual Stone[#]() with your [#](8B0000)Activation Crystal[#]() in hand. If the circle is complete, you will feel a rush of energy — the ritual awakens.");
+                + "Finally, press Use on the [#](8B0000)Master Ritual Stone[#]() with your [#](8B0000)Activation Crystal[#]() in hand. If the circle is complete, you will feel a rush of energy; the ritual awakens.");
 
         this.page("troubleshooting", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -43,7 +43,7 @@ public class RitualBasicsEntry extends EntryProvider {
 
         this.page("binding", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Remember that some rituals extend several blocks above and below the [#](8B0000)Master Ritual Stone[#](). If nothing happens at all, ensure the crystal is bound to an [#](4A0080)Anima[#]() — press Use while holding it to bind it to yours."
+        this.pageText("Remember that some rituals extend several blocks above and below the [#](8B0000)Master Ritual Stone[#](). If nothing happens at all, ensure the crystal is bound to an [#](4A0080)Anima[#](); press Use while holding it to bind it to yours."
                 + "\\\n\\\n[#](2E8B57)A crystal need not be bound to your own Anima. If you acquire another Vitaemancer's crystal, you can activate rituals using their EV. Guard yours well.[#]()");
 
         this.page("redstone", () -> BookTextPageModel.create()

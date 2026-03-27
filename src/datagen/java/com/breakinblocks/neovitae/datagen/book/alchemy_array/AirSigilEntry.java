@@ -22,7 +22,7 @@ public class AirSigilEntry extends EntryProvider {
         this.pageTitle("Air Sigil");
         this.pageText("The [#](8B0000)Air Sigil[#]() hurls you through the sky in whatever direction you face, "
                 + "trading 50 [#](4A0080)Essentia Vitae[#]() for each burst of momentum. The wind obeys, but gravity does "
-                + "not -- this sigil offers no protection from the landing.\\\n\\\n"
+                + "not; this sigil offers no protection from the landing.\\\n\\\n"
                 + "[#](2E8B57)More than one overconfident apprentice has drained their [#](8B0000)Anima[#]() mid-flight. "
                 + "Know your reserves before you leap.[#]()");
 
@@ -40,7 +40,7 @@ public class AirSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Command the wind to hurl you skyward -- at your own peril.";
+        return "Command the wind to hurl you skyward, at your own peril.";
     }
 
     @Override

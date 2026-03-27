@@ -41,9 +41,9 @@ public class RitualCrushingEntry extends EntryProvider {
         this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Raw Spiritus[#](): Increases the number of blocks shattered per tick."
                 + "\n\n- [#](8B0000)Corrosive Will[#](): Applies [#](8B0000)Silk Touch[#]() to broken blocks. Requires [#](8B0000)Cutting Fluid[#]() in the input chest."
-                + "\n\n- [#](8B0000)Vengeful Will[#](): Compresses drops — coal becomes blocks, dust becomes ingots."
+                + "\n\n- [#](8B0000)Vengeful Will[#](): Compresses drops; coal becomes blocks, dust becomes ingots."
                 + "\n\n- [#](8B0000)Destructive Will[#](): Applies [#](8B0000)Fortune III[#]() to all broken blocks."
-                + "\n\n- [#](8B0000)Steadfast Will[#](): Applies both [#](8B0000)Silk Touch[#]() and [#](8B0000)Fortune[#]() simultaneously — a potent combination.");
+                + "\n\n- [#](8B0000)Steadfast Will[#](): Applies both [#](8B0000)Silk Touch[#]() and [#](8B0000)Fortune[#]() simultaneously, a potent combination.");
     }
 
     @Override

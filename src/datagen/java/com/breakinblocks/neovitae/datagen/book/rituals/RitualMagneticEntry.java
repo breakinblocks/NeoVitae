@@ -34,9 +34,9 @@ public class RitualMagneticEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Deep Earth Communion");
         this.pageText("This ritual reaches deep beneath the earth, calling ores upward from the stone to the surface. By default it searches a 3-block radius down to bedrock. Place a precious block beneath the [#](8B0000)Master Ritual Stone[#]() to widen its grasp:"
-                + "\n\n- [#](8B0000)Block of Iron[#]() — 7 blocks."
-                + "\n\n- [#](8B0000)Block of Gold[#]() — 15 blocks."
-                + "\n\n- [#](8B0000)Block of Diamond[#]() — 31 blocks.");
+                + "\n\n- [#](8B0000)Block of Iron[#](): 7 blocks."
+                + "\n\n- [#](8B0000)Block of Gold[#](): 15 blocks."
+                + "\n\n- [#](8B0000)Block of Diamond[#](): 31 blocks.");
     }
 
     @Override

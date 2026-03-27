@@ -48,7 +48,7 @@ public class GlossaryEntry extends EntryProvider {
         this.pageText("Throughout this grimoire and in conversation among practitioners, "
                 + "[#](4A0080)Essentia Vitae[#]() is often shortened to [#](4A0080)EV[#](). "
                 + "Whether it pools in the basin of your Ara Vitae or flows invisibly through your "
-                + "[#](4A0080)Anima[#](), it is the same substance — the refined essence of life.\\\n\\\n"
+                + "[#](4A0080)Anima[#](), it is the same substance, the refined essence of life.\\\n\\\n"
                 + "EV is consumed when activating Sigils, empowering Rituals, and fueling the Tabula Vitae.");
 
         this.page("anima", () -> BookTextPageModel.create()
@@ -66,8 +66,8 @@ public class GlossaryEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("The Path of Refinement");
         this.pageText("To distill the essence of this lexicon:\\\n\\\n"
-                + "- [#](8B0000)Blood[#]() (raw) — torn from living flesh by blade or sacrifice\n"
-                + "- [#](4A0080)Essentia Vitae[#]() (refined) — sanctified within the [#](8B0000)Ara Vitae[#](), "
+                + "- [#](8B0000)Blood[#]() (raw): torn from living flesh by blade or sacrifice\n"
+                + "- [#](4A0080)Essentia Vitae[#]() (refined): sanctified within the [#](8B0000)Ara Vitae[#](), "
                 + "pooling as luminous crimson fluid\\\n\\\n"
                 + "The Ara Vitae transmutes blood into EV. A [#](8B0000)Blood Orb[#]() placed within draws that EV "
                 + "into your [#](4A0080)Anima[#](), where it fuels your instruments across any distance.");

@@ -33,7 +33,7 @@ public class RitualCondorEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Wings of the Condor");
-        this.pageText("The circle bestows the gift of true flight upon all practitioners within its reach — not the crude hop of enchanted boots, but the unfettered freedom of a soaring bird. You may fly as freely as though gravity itself has been revoked.\\\n\\\n"
+        this.pageText("The circle bestows the gift of true flight upon all practitioners within its reach, not the crude hop of enchanted boots, but the unfettered freedom of a soaring bird. You may fly as freely as though gravity itself has been revoked.\\\n\\\n"
                 + "[#](2E8B57)The flight range can be configured with the Ritual Tinkerer.[#]()");
     }
 

@@ -24,7 +24,7 @@ public class SuppressionSigilEntry extends EntryProvider {
                 + "temporarily banishing all fluids within roughly six blocks of you. The liquid vanishes as "
                 + "though it never existed, returning only after you move away.\\\n\\\n"
                 + "[#](2E8B57)A powerful tool for traversing Nether lava oceans. But be wary of deep "
-                + "water -- deactivating above a chasm invites a swift end.[#]()");
+                + "water; deactivating above a chasm invites a swift end.[#]()");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -40,7 +40,7 @@ public class SuppressionSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Command the elements to part -- fluid yields to your presence.";
+        return "Command the elements to part; fluid yields to your presence.";
     }
 
     @Override

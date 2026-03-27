@@ -24,8 +24,8 @@ public class SacrificeRuneEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Rune of Sacrifice");
         this.pageText("The [#](8B0000)Rune of Sacrifice[#]() deepens the altar's thirst for the blood of others. "
-                + "When a creature is slain upon the [#](8B0000)Ara Vitae[#]() -- by the [#](8B0000)Dagger of Sacrifice[#]() or "
-                + "similar means -- each rune amplifies the [#](4A0080)Essentia Vitae[#]() harvested by [#](8B0000)+10%%[#](), "
+                + "When a creature is slain upon the [#](8B0000)Ara Vitae[#](), by the [#](8B0000)Dagger of Sacrifice[#]() or "
+                + "similar means, each rune amplifies the [#](4A0080)Essentia Vitae[#]() harvested by [#](8B0000)+10%%[#](), "
                 + "stacking additively. The altar remembers every offering.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()

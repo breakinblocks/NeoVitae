@@ -21,7 +21,7 @@ public class TelepositionSigilEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Teleposition Sigil");
         this.pageText("The [#](8B0000)Teleposition Sigil[#]() tears a momentary rift between you and a linked "
-                + "[#](8B0000)Teleposer[#](), pulling you across any distance -- even between dimensions -- for "
+                + "[#](8B0000)Teleposer[#](), pulling you across any distance, even between dimensions, for "
                 + "1,000 [#](4A0080)Essentia Vitae[#]().\\\n\\\n"
                 + "Sneak-click on a [#](8B0000)Teleposer[#]() to bind its location to the sigil. "
                 + "[#](2E8B57)Do not move the Teleposer afterward, or you may find yourself arriving "

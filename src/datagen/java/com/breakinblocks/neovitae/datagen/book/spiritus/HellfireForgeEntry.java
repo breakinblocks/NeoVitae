@@ -25,7 +25,7 @@ public class HellfireForgeEntry extends EntryProvider {
         this.pageTitle("Hellfire Forge");
         this.pageText("The [#](8B0000)Hellfire Forge[#]() stands as a second pillar of the art, twin to the "
                 + "[#](8B0000)Ara Vitae[#]() itself. Where the altar works with [#](4A0080)Essentia Vitae[#](), the Forge "
-                + "consumes [#](8B0000)Spiritus[#]() -- reshaping raw malice into [#](8B0000)Sentient Tools[#](), "
+                + "consumes [#](8B0000)Spiritus[#](), reshaping raw malice into [#](8B0000)Sentient Tools[#](), "
                 + "[#](8B0000)Spiritus Gems[#](), [#](8B0000)Arcane Ash[#](), reagents, and many things besides.\\\n\\\n"
                 + "No practitioner of [#](4A0080)Vitaemancy[#]() can progress far without one.");
 

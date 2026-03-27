@@ -36,7 +36,7 @@ public class DulledBladeDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour bleeds your strength -- every strike lands softer.";
+        return "The armour bleeds your strength; every strike lands softer.";
     }
 
     @Override

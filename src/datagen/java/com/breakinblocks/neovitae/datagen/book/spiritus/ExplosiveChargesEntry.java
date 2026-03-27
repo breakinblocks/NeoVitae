@@ -20,7 +20,7 @@ public class ExplosiveChargesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Explosive Charges");
-        this.pageText("Mining by hand and felling trees one swing at a time -- such drudgery is beneath a "
+        this.pageText("Mining by hand and felling trees one swing at a time; such drudgery is beneath a "
                 + "practitioner of [#](4A0080)Vitaemancy[#](). You have devised something far more elegant: compact "
                 + "charges of compressed Will that detonate on contact. Hurl them at offending stone, timber, "
                 + "or anything else you wish unmade, and wait for the satisfying ignition.");
@@ -29,10 +29,10 @@ public class ExplosiveChargesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Each charge can be further enhanced by [#](8B0000)Anointing[#]() it with certain reagents and "
                 + "a measure of Will:\n\n"
-                + "- [#](B8860B)Fortunate[#]() -- broken blocks yield Fortune loot.\n\n"
-                + "- [#](B8860B)Heated Tool[#]() -- broken blocks are smelted on the spot.\n\n"
-                + "- [#](B8860B)Soft Touch[#]() -- broken blocks are affected by Silk Touch.\n\n"
-                + "- [#](B8860B)Voiding[#]() -- worthless debris is annihilated rather than dropped.");
+                + "- [#](B8860B)Fortunate[#](): broken blocks yield Fortune loot.\n\n"
+                + "- [#](B8860B)Heated Tool[#](): broken blocks are smelted on the spot.\n\n"
+                + "- [#](B8860B)Soft Touch[#](): broken blocks are affected by Silk Touch.\n\n"
+                + "- [#](B8860B)Voiding[#](): worthless debris is annihilated rather than dropped.");
 
         this.page("shaped_charge", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

@@ -26,7 +26,7 @@ public class FlightFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Flight");
-        this.pageText("The [#](8B0000)Flight[#]() elixir is the crowning achievement of [#](4A0080)gravitational alchemy[#]() -- "
+        this.pageText("The [#](8B0000)Flight[#]() elixir is the crowning achievement of [#](4A0080)gravitational alchemy[#](), "
                 + "true, unfettered flight, as free as the wind itself. Higher levels grant greater speed "
                 + "through the air.\\\n\\\n"
                 + "To synthesize it, brew both [#](8B0000)Suspended[#]() and [#](8B0000)Levitation[#]() into a single flask, "
@@ -49,7 +49,7 @@ public class FlightFlaskEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The pinnacle of gravitational alchemy -- true flight.";
+        return "The pinnacle of gravitational alchemy, true flight.";
     }
 
     @Override

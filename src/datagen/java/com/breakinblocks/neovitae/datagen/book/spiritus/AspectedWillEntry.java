@@ -23,7 +23,7 @@ public class AspectedWillEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Aspects of Will");
-        this.pageText("Unleashing [#](8B0000)Spiritus[#]() into the atmosphere has proven most fruitful -- empowering "
+        this.pageText("Unleashing [#](8B0000)Spiritus[#]() into the atmosphere has proven most fruitful, empowering "
                 + "[#](8B0000)Rituals[#]() and producing [#](8B0000)Crystal Clusters[#]() of satisfying geometry. Yet these raw crystals "
                 + "feel somehow... [#](4A0080)conflicted[#](), as though warring natures strain against one another within.\\\n\\\n"
                 + "A certain [#](8B0000)Ritual[#]() may coax these hidden facets into purer forms...");
@@ -38,10 +38,10 @@ public class AspectedWillEntry extends EntryProvider {
         this.page("aspects", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The ritual fractures raw Will into four distinct [#](4A0080)Aspects[#]():\n\n"
-                + "- [#](8B0000)Steadfast Will[#]() -- upon the Water Rune\n\n"
-                + "- [#](8B0000)Destructive Will[#]() -- upon the Air Rune\n\n"
-                + "- [#](8B0000)Vengeful Will[#]() -- upon the Fire Rune\n\n"
-                + "- [#](8B0000)Corrosive Will[#]() -- upon the Earth Rune\\\n\\\n"
+                + "- [#](8B0000)Steadfast Will[#](): upon the Water Rune\n\n"
+                + "- [#](8B0000)Destructive Will[#](): upon the Air Rune\n\n"
+                + "- [#](8B0000)Vengeful Will[#](): upon the Fire Rune\n\n"
+                + "- [#](8B0000)Corrosive Will[#](): upon the Earth Rune\\\n\\\n"
                 + "Each Aspect can be burned in the [#](8B0000)Vas Maleficum[#]() just as Raw Spiritus can, feeding the "
                 + "[#](8B0000)Aura[#]() with its particular resonance for your Rituals to draw upon.");
 

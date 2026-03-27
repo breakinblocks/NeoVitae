@@ -33,7 +33,7 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Souls Unmoored");
-        this.pageText("When creatures perish within this ritual's domain, their departing essence is intercepted — not the vital spark, but the lingering [#](4A0080)demonic residue[#]() that clings to all mortal things. The circle distills this into [#](8B0000)Spiritus Catalysts[#](), potent reagents for cultivating and enhancing will crystals. The resulting catalysts are deposited into a nearby chest.");
+        this.pageText("When creatures perish within this ritual's domain, their departing essence is intercepted, not the vital spark, but the lingering [#](4A0080)demonic residue[#]() that clings to all mortal things. The circle distills this into [#](8B0000)Spiritus Catalysts[#](), potent reagents for cultivating and enhancing will crystals. The resulting catalysts are deposited into a nearby chest.");
     }
 
     @Override

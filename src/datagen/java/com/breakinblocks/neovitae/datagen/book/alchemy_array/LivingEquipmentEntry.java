@@ -23,7 +23,7 @@ public class LivingEquipmentEntry extends EntryProvider {
         this.pageText("To create [#](8B0000)Living Equipment[#](), you require [#](8B0000)Iron Armour[#](), "
                 + "[#](8B0000)Arcane Ashes[#](), a [#](8B0000)Binding Reagent[#](), and at least a "
                 + "[#](8B0000)Common Spiritus Gem[#]() charged with sufficient [#](4A0080)Spiritus[#](). "
-                + "What emerges is no longer mere metal -- it is alive, and it learns from you.");
+                + "What emerges is no longer mere metal; it is alive, and it learns from you.");
 
         this.page("reagent", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

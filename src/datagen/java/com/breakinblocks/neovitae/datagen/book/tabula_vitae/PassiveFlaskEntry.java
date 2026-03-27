@@ -28,7 +28,7 @@ public class PassiveFlaskEntry extends EntryProvider {
         this.pageTitle("Passive");
         this.pageText("The [#](8B0000)Passive[#]() elixir extinguishes aggression from a creature's mind, rendering it "
                 + "docile and harmless. Even the most savage beast becomes as meek as a lamb.\\\n\\\n"
-                + "[#](2E8B57)This effect does not work on players -- their will is too strong to be so easily quelled.[#]()");
+                + "[#](2E8B57)This effect does not work on players; their will is too strong to be so easily quelled.[#]()");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()
                 .withRecipeId1("neovitae:flask/passivity")

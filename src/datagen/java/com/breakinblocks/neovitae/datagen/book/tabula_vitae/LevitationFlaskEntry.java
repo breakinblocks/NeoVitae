@@ -27,7 +27,7 @@ public class LevitationFlaskEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Levitation");
         this.pageText("The [#](8B0000)Levitation[#]() elixir reverses the pull of the earth, causing the drinker "
-                + "to rise helplessly skyward. Higher levels accelerate the ascent. Use with care -- what "
+                + "to rise helplessly skyward. Higher levels accelerate the ascent. Use with care; what "
                 + "goes up must eventually come down.\\\n\\\n"
                 + "Derived from a flask of [#](8B0000)Slow Falling[#]().");
 

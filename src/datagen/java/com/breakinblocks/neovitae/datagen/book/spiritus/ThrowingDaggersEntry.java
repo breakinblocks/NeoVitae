@@ -31,7 +31,7 @@ public class ThrowingDaggersEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Iron Throwing Dagger");
         this.pageText("A swift, precise strike dealing [#](B8860B)10 damage[#]() with a moderate cooldown. If you "
-                + "carry [#](8B0000)Spiritus[#]() -- loose or within a [#](8B0000)Spiritus Gem[#]() -- slain creatures drop Will "
+                + "carry [#](8B0000)Spiritus[#](), loose or within a [#](8B0000)Spiritus Gem[#](), slain creatures drop Will "
                 + "as though felled by a [#](8B0000)Sentient Sword[#]().");
 
         this.page("syringe_dagger", () -> BookTextPageModel.create()
@@ -40,7 +40,7 @@ public class ThrowingDaggersEntry extends EntryProvider {
         this.pageTitle("Syringe Throwing Dagger");
         this.pageText("For the practitioner more interested in [#](4A0080)Essentia Vitae[#]() than Will. Slightly less "
                 + "damaging and noticeably cheaper to forge, creatures slain by this weapon have a chance of "
-                + "yielding a [#](8B0000)Slate Ampoule[#]() -- or more, if the quarry is sufficiently hearty.");
+                + "yielding a [#](8B0000)Slate Ampoule[#](), or more, if the quarry is sufficiently hearty.");
 
         this.page("slate_ampoule", () -> BookSpotlightPageModel.create()
                 .withItem(NVItems.SLATE_AMPOULE.get())

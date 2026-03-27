@@ -39,7 +39,7 @@ public class MagnetismSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Extend your reach -- items drift toward you unbidden.";
+        return "Extend your reach; items drift toward you unbidden.";
     }
 
     @Override

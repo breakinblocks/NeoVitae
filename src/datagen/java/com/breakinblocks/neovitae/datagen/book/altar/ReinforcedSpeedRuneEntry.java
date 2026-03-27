@@ -25,7 +25,7 @@ public class ReinforcedSpeedRuneEntry extends EntryProvider {
         this.pageTitle("Reinforced Speed Rune");
         this.pageText("Forged with [#](8B0000)Netherite Scrap[#]() and [#](8B0000)Intricate Hellforged Parts[#]() plundered "
                 + "from the [#](4A0080)Demon Realm[#](), this rune doubles the tempo of its lesser counterpart. "
-                + "The altar's transmutations quicken by [#](8B0000)+40%%[#]() per rune, additively -- the basin "
+                + "The altar's transmutations quicken by [#](8B0000)+40%%[#]() per rune, additively; the basin "
                 + "practically hums with impatience.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()

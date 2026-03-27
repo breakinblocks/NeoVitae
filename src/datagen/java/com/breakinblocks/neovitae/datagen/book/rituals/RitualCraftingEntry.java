@@ -33,7 +33,7 @@ public class RitualCraftingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Tireless Smith");
-        this.pageText("A versatile and powerful ritual, the [#](8B0000)Rhythm of the Beating Anvil[#]() automates crafting — standard recipes by default, or [#](8B0000)Tabula Vitae[#]() and [#](8B0000)Hellfire Forge[#]() recipes with the proper augmentation. Its configuration is more involved than most, so study the following pages carefully."
+        this.pageText("A versatile and powerful ritual, the [#](8B0000)Rhythm of the Beating Anvil[#]() automates crafting, standard recipes by default, or [#](8B0000)Tabula Vitae[#]() and [#](8B0000)Hellfire Forge[#]() recipes with the proper augmentation. Its configuration is more involved than most, so study the following pages carefully."
                 + "\\\n\\\nEach ritual handles exactly one recipe at a time.");
 
         this.page("filter_setup", () -> BookTextPageModel.create()

@@ -27,7 +27,7 @@ public class RegenerationFlaskEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Regeneration");
         this.pageText("The [#](8B0000)Regeneration[#]() elixir knits torn flesh and mends broken bone, restoring health "
-                + "steadily over time. Higher levels hasten the mending -- wounds close almost as fast as "
+                + "steadily over time. Higher levels hasten the mending; wounds close almost as fast as "
                 + "they are inflicted.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()

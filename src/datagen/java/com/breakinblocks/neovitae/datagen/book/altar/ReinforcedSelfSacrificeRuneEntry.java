@@ -24,7 +24,7 @@ public class ReinforcedSelfSacrificeRuneEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Reinforced Rune of Self-Sacrifice");
         this.pageText("Strengthened with [#](8B0000)Netherite Scrap[#]() and [#](8B0000)Intricate Hellforged Parts[#]() "
-                + "from the [#](4A0080)Demon Realm[#](), this rune doubles the reward for your own blood -- "
+                + "from the [#](4A0080)Demon Realm[#](), this rune doubles the reward for your own blood, "
                 + "[#](8B0000)+20%%[#]() per rune, additively. Each wound you inflict upon yourself yields twice "
                 + "the [#](4A0080)Essentia Vitae[#]() of the lesser inscription.");
 

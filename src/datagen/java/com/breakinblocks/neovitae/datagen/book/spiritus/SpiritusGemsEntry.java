@@ -21,7 +21,7 @@ public class SpiritusGemsEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Gems");
         this.pageText("The fragments of [#](8B0000)Spiritus[#]() you have gathered thus far are potent, yet unwieldy. "
-                + "What you require is a vessel -- a crystalline prison to contain and compress that malice into "
+                + "What you require is a vessel, a crystalline prison to contain and compress that malice into "
                 + "something manageable. The [#](8B0000)Spiritus Gem[#]() is precisely such an artifact.\\\n\\\n"
                 + "Better still, the gem hungers. Drop loose Will upon the ground nearby, and the gem will "
                 + "devour it of its own accord.");
@@ -30,7 +30,7 @@ public class SpiritusGemsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Petty Spiritus Gem");
-        this.pageText("Your first vessel holds a modest [#](B8860B)64 Will[#]() -- crude, but far more practical than "
+        this.pageText("Your first vessel holds a modest [#](B8860B)64 Will[#](), crude, but far more practical than "
                 + "loose fragments rattling about your pack.\\\n\\\n"
                 + "[#](2E8B57)To transfer Will between gems, right-click while holding the gem you wish to empty. "
                 + "Its contents flow into the first valid gem in your inventory.[#]()");
@@ -54,7 +54,7 @@ public class SpiritusGemsEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Your [#](8B0000)Lesser Spiritus Gem[#]() is a noted improvement, yet once more you press against "
                 + "its limits. Further refinement demands an [#](8B0000)Imbued Slate[#]() from the [#](8B0000)Ara Vitae[#](), "
-                + "combined with another [#](8B0000)Diamond[#]() and a [#](8B0000)Block of Gold[#]() -- quadrupling capacity once again.");
+                + "combined with another [#](8B0000)Diamond[#]() and a [#](8B0000)Block of Gold[#](), quadrupling capacity once again.");
 
         this.page("common", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -66,7 +66,7 @@ public class SpiritusGemsEntry extends EntryProvider {
         this.page("greater_intro", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The [#](8B0000)Common Spiritus Gem[#]() is a fine achievement, yet you sense the limits of mortal "
-                + "craft closing in. To break through demands the culmination of all you have learned -- "
+                + "craft closing in. To break through demands the culmination of all you have learned; "
                 + "a [#](8B0000)Demonic Slate[#](), a [#](8B0000)Weak Blood Shard[#](), and a [#](8B0000)Spiritus Crystal[#]().\\\n\\\n"
                 + "The rewards, however, shall be commensurate. Your [#](8B0000)Sentient Tools[#]() will reach potencies "
                 + "you have only dreamed of...");

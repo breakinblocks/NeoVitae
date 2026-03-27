@@ -21,7 +21,7 @@ public class NodeRouterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Node Router");
         this.pageText("The [#](8B0000)Node Router[#]() is the weaver's needle that stitches your [#](8B0000)Routing Nodes[#]() into "
-                + "a coherent network. Its use is straightforward -- hold sneak and right-click on one node, "
+                + "a coherent network. Its use is straightforward; hold sneak and right-click on one node, "
                 + "then do the same to another within 16 blocks. The two are now linked.\\\n\\\n"
                 + "[#](2E8B57)Right-click any other block to deselect. See the Routing Nodes entry for the full "
                 + "picture.[#]()");

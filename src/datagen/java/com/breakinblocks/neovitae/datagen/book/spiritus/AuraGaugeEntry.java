@@ -48,7 +48,7 @@ public class AuraGaugeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("The overlay appears at the top-left of your vision. The colored bars offer a quick "
                 + "estimate of each [#](4A0080)Aspect's[#]() concentration in the current chunk.\\\n\\\n"
-                + "[#](2E8B57)Hold sneak for a precise numerical reading -- values range from 0 to 100 for each "
+                + "[#](2E8B57)Hold sneak for a precise numerical reading; values range from 0 to 100 for each "
                 + "Aspect. 100 is the maximum a single chunk can contain.[#]()");
     }
 

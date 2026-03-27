@@ -23,7 +23,7 @@ public class ActivationCrystalsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Activation Crystals");
-        this.pageText("A properly inscribed circle is inert without the spark of will to awaken it. The [#](8B0000)Activation Crystal[#]() serves as that spark — a focus through which you open a conduit between your [#](4A0080)Anima[#]() and the waiting runes, breathing purpose into stone.");
+        this.pageText("A properly inscribed circle is inert without the spark of will to awaken it. The [#](8B0000)Activation Crystal[#]() serves as that spark, a focus through which you open a conduit between your [#](4A0080)Anima[#]() and the waiting runes, breathing purpose into stone.");
 
         this.page("weak_recipe", () -> BookAraVitaeRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae/weak_activation_crystal"))

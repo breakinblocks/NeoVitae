@@ -24,7 +24,7 @@ public class RoutingNodesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Routing Nodes");
         this.pageText("Hauling materials by hand is beneath a blood mage of your stature. With [#](8B0000)Spiritus[#]() "
-                + "at your command, you have devised [#](8B0000)Routing Nodes[#]() -- an arcane logistics network "
+                + "at your command, you have devised [#](8B0000)Routing Nodes[#](), an arcane logistics network "
                 + "that transports, sorts, and filters [#](8B0000)items[#](), [#](8B0000)fluids[#](), and [#](8B0000)Forge Energy[#]() "
                 + "through invisible channels at your decree.");
 
@@ -62,7 +62,7 @@ public class RoutingNodesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Input & Output Routing Nodes");
-        this.pageText("The working hands of the network -- one draws in, the other sends forth.");
+        this.pageText("The working hands of the network; one draws in, the other sends forth.");
 
         this.page("filters", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -85,11 +85,11 @@ public class RoutingNodesEntry extends EntryProvider {
 
         this.page("gui_directions", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("On the right: directional buttons -- [#](8B0000)D[#]()own, [#](8B0000)U[#]()p, [#](8B0000)N[#]()orth, "
+        this.pageText("On the right: directional buttons: [#](8B0000)D[#]()own, [#](8B0000)U[#]()p, [#](8B0000)N[#]()orth, "
                 + "[#](8B0000)S[#]()outh, [#](8B0000)W[#]()est, [#](8B0000)E[#]()ast. A small block icon appears on sides facing "
                 + "attached inventories.\\\n\\\n"
                 + "The interface opens to the side facing an inventory, or Down if none is present. "
-                + "Button orientation follows your facing direction -- the top button is always 'forward.'");
+                + "Button orientation follows your facing direction; the top button is always 'forward.'");
 
         this.page("gui_left", () -> BookImagePageModel.create()
                 .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/node_gui_left.png"))
@@ -105,19 +105,19 @@ public class RoutingNodesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Once your Input and Output Nodes are placed, linked via a [#](8B0000)Node Router[#]() to a network "
                 + "containing exactly one [#](8B0000)Master Routing Node[#](), and each has a filter installed to the "
-                + "correct side -- the network awakens. Resources flow according to priority and filter rules.");
+                + "correct side, the network awakens. Resources flow according to priority and filter rules.");
 
         this.page("network_image", () -> BookImagePageModel.create()
                 .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/network_demo.png"))
                 .withBorder(true)
                 .withText(this.context().pageText()));
-        this.pageText("Nodes need not connect directly to the Master -- only to some node on the network.");
+        this.pageText("Nodes need not connect directly to the Master; only to some node on the network.");
 
         this.page("fluid_energy", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Fluid & Energy Routing");
-        this.pageText("Routing Nodes move more than items -- they transfer [#](8B0000)fluids[#]() and [#](8B0000)Forge Energy[#]() "
+        this.pageText("Routing Nodes move more than items; they transfer [#](8B0000)fluids[#]() and [#](8B0000)Forge Energy[#]() "
                 + "as well. Any side with a filter installed automatically routes all three resource types "
                 + "to compatible adjacent blocks.\\\n\\\n"
                 + "A filter facing a [#](8B0000)Blood Tank[#]() allows [#](4A0080)Essentia Vitae[#]() to flow through the network; "
@@ -127,7 +127,7 @@ public class RoutingNodesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Fluid and energy routing share the same priority system as items. The "
                 + "[#](8B0000)Stack Upgrade[#]() increases transfer rates for all three simultaneously.\\\n\\\n"
-                + "[#](2E8B57)No special filter configuration is needed for fluids or energy -- any routing "
+                + "[#](2E8B57)No special filter configuration is needed for fluids or energy; any routing "
                 + "filter in the slot enables transfer for all resource types on that side.[#]()");
     }
 

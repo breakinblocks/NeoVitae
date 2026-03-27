@@ -33,7 +33,7 @@ public class RitualYawningVoidEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Devouring Maw");
-        this.pageText("This ritual opens an insatiable hunger in the earth, consuming blocks layer by layer and collecting their drops — a quarry driven not by pistons and gears, but by [#](4A0080)vitaemantic will[#]().");
+        this.pageText("This ritual opens an insatiable hunger in the earth, consuming blocks layer by layer and collecting their drops, a quarry driven not by pistons and gears, but by [#](4A0080)vitaemantic will[#]().");
 
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -41,7 +41,7 @@ public class RitualYawningVoidEntry extends EntryProvider {
         this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Raw Spiritus[#](): Accelerates the excavation rate.\\\n\\\n"
                 + "- [#](8B0000)Corrosive Will[#](): Enables block filtering. Place an [#](8B0000)Item Filter[#]() in the linked chest to restrict what is mined. Standard, Tag, Mod, and Composite filters are all accepted. Blacklisting works as well.\\\n\\\n"
-                + "- [#](8B0000)Steadfast Will[#](): Rather than destroying blocks, relocates them above the ritual — creating a surface copy of the excavated terrain.");
+                + "- [#](8B0000)Steadfast Will[#](): Rather than destroying blocks, relocates them above the ritual, creating a surface copy of the excavated terrain.");
     }
 
     @Override

@@ -24,7 +24,7 @@ public class RitualStonesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Ritual Stones");
         this.pageText("[#](8B0000)Ritual Stones[#]() are the foundation upon which every [#](4A0080)ritual circle[#]() is inscribed. Each stone serves as a vessel for elemental resonance, channeling the forces that give your rituals form."
-                + "\\\n\\\nThe [#](8B0000)Elemental Inscription Tools[#]() can be used to paint stones by hand — they never break, so feel free to use them for decoration as well as function.");
+                + "\\\n\\\nThe [#](8B0000)Elemental Inscription Tools[#]() can be used to paint stones by hand; they never break, so feel free to use them for decoration as well as function.");
 
         this.page("recipes", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_stone_blank"))

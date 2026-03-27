@@ -21,7 +21,7 @@ public class SentientSwordEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Sentient Sword");
         this.pageText("The [#](8B0000)Sentient Sword[#]() is a far more elegant instrument of Will collection than the "
-                + "[#](8B0000)Soul Snare[#]() could ever aspire to be. It may feel sluggish when first drawn -- the blade "
+                + "[#](8B0000)Soul Snare[#]() could ever aspire to be. It may feel sluggish when first drawn; the blade "
                 + "feeds on the Will you carry, growing sharper with every fragment. A [#](8B0000)Spiritus Gem[#]() brimming "
                 + "with Will is essential to unlocking its true potential.\\\n\\\n"
                 + "[#](2E8B57)As with all Sentient equipment, the sword may be repaired with Crystallized Will in an Anvil.[#]()");

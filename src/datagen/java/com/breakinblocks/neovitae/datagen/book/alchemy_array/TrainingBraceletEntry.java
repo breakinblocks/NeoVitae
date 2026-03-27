@@ -21,7 +21,7 @@ public class TrainingBraceletEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Training Bracelet");
         this.pageText("The armour's undirected growth can be maddening. To impose order upon it, you "
-                + "have devised the [#](8B0000)Training Bracelet[#]() -- a focus that allows you to dictate "
+                + "have devised the [#](8B0000)Training Bracelet[#](), a focus that allows you to dictate "
                 + "which abilities the armour should pursue and which it should ignore.\\\n\\\n"
                 + "Press [Use] to open its configuration menu.");
 
@@ -46,7 +46,7 @@ public class TrainingBraceletEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A focus of discipline -- control what your living armour learns.";
+        return "A focus of discipline, control what your living armour learns.";
     }
 
     @Override

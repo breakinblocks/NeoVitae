@@ -29,11 +29,11 @@ public class SpiritusSnareEntry extends EntryProvider {
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The method is simple enough -- prepare a generous supply of [#](8B0000)Snares[#]() and hurl them at "
+        this.pageText("The method is simple enough; prepare a generous supply of [#](8B0000)Snares[#]() and hurl them at "
                 + "[#](8B0000)hostile creatures[#](). Pale, spectral motes will gather around the afflicted target; this is "
                 + "the moment to strike. Upon death, the creature yields its [#](8B0000)Spiritus[#]().\\\n\\\n"
                 + "[#](2E8B57)The Looting enchantment increases the Will dropped.[#]() Once you have collected a few fragments, "
-                + "turn your attention to forging a [#](8B0000)Sentient Sword[#]() and a [#](8B0000)Spiritus Gem[#]() -- these will make "
+                + "turn your attention to forging a [#](8B0000)Sentient Sword[#]() and a [#](8B0000)Spiritus Gem[#](); these will make "
                 + "the harvest far more efficient.");
 
         this.page("image", () -> BookImagePageModel.create()

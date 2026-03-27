@@ -24,7 +24,7 @@ public class ChargingRuneEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Charging Rune");
         this.pageText("The [#](8B0000)Charging Rune[#]() inscribes a pattern of [#](4A0080)anticipation[#]() into the altar. "
-                + "When the [#](8B0000)Ara Vitae[#]() lies idle -- neither crafting nor filling a Blood Orb -- "
+                + "When the [#](8B0000)Ara Vitae[#]() lies idle, neither crafting nor filling a Blood Orb, "
                 + "it siphons [#](4A0080)Essentia Vitae[#]() into a hidden reserve within the rune itself. The moment an "
                 + "item is placed upon the altar, this stored charge floods into the transmutation instantly, "
                 + "at a perfect 1:1 ratio.");

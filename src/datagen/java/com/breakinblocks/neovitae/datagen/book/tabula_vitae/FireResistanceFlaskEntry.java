@@ -27,7 +27,7 @@ public class FireResistanceFlaskEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Fire Resistance");
         this.pageText("The [#](8B0000)Fire Resistance[#]() elixir wraps the drinker in an invisible ward that "
-                + "repels flame and heat. Lava itself becomes no more threatening than lukewarm water -- "
+                + "repels flame and heat. Lava itself becomes no more threatening than lukewarm water, "
                 + "though one should not grow complacent.");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()

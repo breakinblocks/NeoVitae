@@ -20,14 +20,14 @@ public class LivingUpgradesEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Living Upgrades");
-        this.pageText("You have felt it -- the armour shifting, adapting, straining to assist you in whatever "
+        this.pageText("You have felt it, the armour shifting, adapting, straining to assist you in whatever "
                 + "task it observes. It grows in many directions at once, but its capacity is finite. "
                 + "Trying to master everything yields mastery of nothing.");
 
         this.page("specialization", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Consider forging multiple sets, each trained for a specific purpose. A miner's set, "
-                + "a warrior's set, an explorer's set -- specialization is the path to true power.\\\n\\\n"
+                + "a warrior's set, an explorer's set; specialization is the path to true power.\\\n\\\n"
                 + "You have devised [#](8B0000)Rituals[#]() to assist with focused training, and another "
                 + "to imbue your armour with a greater capacity for growth.");
     }
@@ -39,7 +39,7 @@ public class LivingUpgradesEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour learns from your deeds -- guide its growth with care.";
+        return "The armour learns from your deeds; guide its growth with care.";
     }
 
     @Override

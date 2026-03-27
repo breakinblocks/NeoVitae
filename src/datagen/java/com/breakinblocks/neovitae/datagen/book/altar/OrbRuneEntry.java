@@ -26,7 +26,7 @@ public class OrbRuneEntry extends EntryProvider {
         this.pageText("The [#](8B0000)Rune of the Orb[#]() resonates with the [#](8B0000)Blood Orb[#]() resting within the "
                 + "altar, stretching the boundaries of your [#](4A0080)Anima[#](). While the orb sits in the basin, "
                 + "each rune increases its capacity by [#](8B0000)+2%%[#]() additively. The orb must remain within "
-                + "the altar to benefit -- remove it, and the expansion fades.");
+                + "the altar to benefit; remove it, and the expansion fades.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_orb")));

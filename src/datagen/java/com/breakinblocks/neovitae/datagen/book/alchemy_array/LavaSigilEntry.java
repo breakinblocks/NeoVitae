@@ -22,7 +22,7 @@ public class LavaSigilEntry extends EntryProvider {
         this.pageTitle("Lava Sigil");
         this.pageText("Sister to the [#](8B0000)Water Sigil[#](), the [#](8B0000)Lava Sigil[#]() draws molten stone "
                 + "from the depths of your [#](8B0000)Anima[#]() at a cost of 1,000 [#](4A0080)Essentia Vitae[#](). "
-                + "The price reflects the violence of the element -- and if your reserves cannot bear it, "
+                + "The price reflects the violence of the element, and if your reserves cannot bear it, "
                 + "five hearts are torn from your flesh instead.");
 
         this.page("recipe", () -> BookTextPageModel.create()

@@ -23,7 +23,7 @@ public class TagFilterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tag Item Filter");
-        this.pageText("The [#](8B0000)Tag Item Filter[#]() sorts items by their associated [#](B8860B)Tags[#]() -- the invisible "
+        this.pageText("The [#](8B0000)Tag Item Filter[#]() sorts items by their associated [#](B8860B)Tags[#](), the invisible "
                 + "categories that bind similar materials together. As with the Standard Filter, it supports "
                 + "up to 9 entries, quantity limits, and Allow/Deny modes.\\\n\\\n"
                 + "For each item placed into this filter, you may choose to match [#](8B0000)one specific tag[#]() "

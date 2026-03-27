@@ -26,7 +26,7 @@ public class InstantDamageFlaskEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Instant Damage");
-        this.pageText("The [#](8B0000)Instant Damage[#]() elixir is vitality inverted -- a concentrated bolt of "
+        this.pageText("The [#](8B0000)Instant Damage[#]() elixir is vitality inverted, a concentrated bolt of "
                 + "[#](4A0080)arcane harm[#]() that inflicts 6 points of magic damage per level. The [#](8B0000)undead[#](), "
                 + "paradoxically, find succour in it, healing 6 points per level instead.\\\n\\\n"
                 + "Derived from a flask of either [#](8B0000)Instant Health[#]() or [#](8B0000)Poison[#]().");

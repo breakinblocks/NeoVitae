@@ -109,6 +109,8 @@ public class NVItemModelProvider extends ItemModelProvider {
             }
         });
 
+        basicItem(NVItems.DAGGER_OF_SACRIFICE.get());
+
         ItemModelBuilder builder = getBuilder(NVItems.SACRIFICIAL_DAGGER.getId().getPath());
         ModelFile normalDagger = singleTexture("item/variant/sacrificial_dagger_normal", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger"));
         ModelFile chargedDagger = singleTexture("item/variant/sacrificial_dagger_charged", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger_charged"));

@@ -20,7 +20,7 @@ public class MovementArraysEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Movement Arrays");
-        this.pageText("A pair of arrays designed to hurl anything that crosses their threshold -- players, "
+        this.pageText("A pair of arrays designed to hurl anything that crosses their threshold, players, "
                 + "creatures, loose items alike. One propels horizontally in the direction the entity faces; "
                 + "the other launches straight upward.");
 
@@ -41,7 +41,7 @@ public class MovementArraysEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Arrays of force -- hurl creatures and objects with vitaemantic velocity.";
+        return "Arrays of force, hurl creatures and objects with vitaemantic velocity.";
     }
 
     @Override

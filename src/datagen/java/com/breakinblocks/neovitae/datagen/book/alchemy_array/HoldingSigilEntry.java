@@ -20,7 +20,7 @@ public class HoldingSigilEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sigil of Holding");
-        this.pageText("The [#](8B0000)Sigil of Holding[#]() is a vessel within a vessel -- capable of containing "
+        this.pageText("The [#](8B0000)Sigil of Holding[#]() is a vessel within a vessel, capable of containing "
                 + "up to five other [#](8B0000)Sigils[#]() simultaneously. While held, it channels their passive "
                 + "effects and allows you to activate any of them at will.\\\n\\\n"
                 + "Press the Open Holding keybind to access its inventory. Use the cycle keybinds or hold "
@@ -40,7 +40,7 @@ public class HoldingSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Carry five sigils in one -- their power at your fingertips.";
+        return "Carry five sigils in one, their power at your fingertips.";
     }
 
     @Override

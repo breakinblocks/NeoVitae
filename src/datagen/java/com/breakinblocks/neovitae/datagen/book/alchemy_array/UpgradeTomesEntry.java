@@ -21,7 +21,7 @@ public class UpgradeTomesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Upgrade Tomes");
         this.pageText("Upon completing the [#](8B0000)Sound of the Cleansing Soul[#]() ritual, a collection "
-                + "of [#](4A0080)Tomes[#]() manifests around you -- each one a crystallized record of a "
+                + "of [#](4A0080)Tomes[#]() manifests around you, each one a crystallized record of a "
                 + "particular skill.\\\n\\\n"
                 + "Press [Use] while holding a tome to inscribe one level of that skill onto your "
                 + "chestplate, assuming sufficient [#](B8860B)Upgrade Points[#]() remain. Hold sneak and "
@@ -31,14 +31,14 @@ public class UpgradeTomesEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("The [#](4A0080)Tome[#]() is consumed in the process, transferring all stored experience "
                 + "to the chestplate. If insufficient [#](B8860B)Upgrade Points[#]() remain, the tome applies "
-                + "what it can and retains the rest -- unless less than one level's worth remains, in which "
+                + "what it can and retains the rest, unless less than one level's worth remains, in which "
                 + "case the tome crumbles to nothing.");
 
         this.page("strategy", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Tomes are the key to deliberate specialization. Focus your training on the abilities "
                 + "that serve you best, and discard the rest.\\\n\\\n"
-                + "[#](2E8B57)Consider maintaining separate chestplates for different purposes -- one for "
+                + "[#](2E8B57)Consider maintaining separate chestplates for different purposes, one for "
                 + "mining, another for combat, a third for exploration. Each can be trained with its own "
                 + "set of tomes.[#]()");
     }
@@ -50,7 +50,7 @@ public class UpgradeTomesEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Crystallized knowledge -- inscribe specific skills onto your living armour.";
+        return "Crystallized knowledge, inscribe specific skills onto your living armour.";
     }
 
     @Override

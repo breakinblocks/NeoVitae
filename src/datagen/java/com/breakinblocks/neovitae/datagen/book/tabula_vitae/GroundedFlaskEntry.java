@@ -27,7 +27,7 @@ public class GroundedFlaskEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Grounded");
         this.pageText("The [#](8B0000)Grounded[#]() elixir anchors the body to the earth, utterly suppressing the "
-                + "ability to jump. Swimming remains unaffected -- the binding is to stone, not water.\\\n\\\n"
+                + "ability to jump. Swimming remains unaffected; the binding is to stone, not water.\\\n\\\n"
                 + "Derived from a flask of [#](8B0000)Jump Boost[#]().");
 
         this.page("recipe1", () -> BookFlaskRecipePageModel.create()

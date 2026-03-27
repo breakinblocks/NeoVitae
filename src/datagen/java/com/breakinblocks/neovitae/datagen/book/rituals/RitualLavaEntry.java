@@ -33,7 +33,7 @@ public class RitualLavaEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Infernal Invocation");
-        this.pageText("This ritual tears open a seam to the molten depths, conjuring lava source blocks above the [#](8B0000)Master Ritual Stone[#](). The heat it radiates is palpable — handle with the respect due to the Nether's own blood.");
+        this.pageText("This ritual tears open a seam to the molten depths, conjuring lava source blocks above the [#](8B0000)Master Ritual Stone[#](). The heat it radiates is palpable; handle with the respect due to the Nether's own blood.");
 
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

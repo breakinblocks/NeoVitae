@@ -35,7 +35,7 @@ public class DivinationSigilEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("The sigil serves two vital purposes:\n\n"
                 + "- Activate it toward open air to reveal the [#](4A0080)Essentia Vitae[#]() stored within your "
-                + "[#](8B0000)Anima[#]() -- the measure of your reserves.\n\n"
+                + "[#](8B0000)Anima[#](), the measure of your reserves.\n\n"
                 + "- Aim it at an [#](8B0000)Ara Vitae[#]() to reveal the altar's current tier, the volume of "
                 + "[#](4A0080)Essentia Vitae[#]() within, and its maximum capacity.");
 
@@ -63,7 +63,7 @@ public class DivinationSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A lens into the unseen -- reveals the state of your Anima and Ara Vitae.";
+        return "A lens into the unseen, reveals the state of your Anima and Ara Vitae.";
     }
 
     @Override

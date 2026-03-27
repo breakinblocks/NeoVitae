@@ -24,7 +24,7 @@ public class SpiritusEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus");
         this.pageText("Every creature that walks, crawls, or slithers through the dark carries within it a shard of "
-                + "[#](4A0080)demonic intent[#]() -- a residue left when entities of the lower planes imbue their malice "
+                + "[#](4A0080)demonic intent[#](), a residue left when entities of the lower planes imbue their malice "
                 + "into mortal flesh. This essence is known as [#](8B0000)Spiritus[#](), and it is yours to harvest.\\\n\\\n"
                 + "There are two methods of extraction:\n\n"
                 + "- Strike a hostile creature with a [#](8B0000)Soul Snare[#](), then slay it while spectral motes still cling to its form.\n\n"
@@ -45,7 +45,7 @@ public class SpiritusEntry extends EntryProvider {
 
         this.page("next_steps", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Once you have gathered some Will, the [#](8B0000)Hellfire Forge[#]() awaits -- eager to transmute "
+        this.pageText("Once you have gathered some Will, the [#](8B0000)Hellfire Forge[#]() awaits, eager to transmute "
                 + "this raw malice into instruments of power. Should loose fragments begin to clutter your person, "
                 + "a [#](8B0000)Spiritus Gem[#]() will serve as a most convenient receptacle.");
     }

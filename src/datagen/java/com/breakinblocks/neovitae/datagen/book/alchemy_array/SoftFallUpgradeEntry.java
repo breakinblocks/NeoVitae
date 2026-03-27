@@ -33,7 +33,7 @@ public class SoftFallUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour learns to absorb impact -- the ground softens beneath you.";
+        return "The armour learns to absorb impact; the ground softens beneath you.";
     }
 
     @Override

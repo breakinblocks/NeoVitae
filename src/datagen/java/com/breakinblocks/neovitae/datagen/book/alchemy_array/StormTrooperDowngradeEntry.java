@@ -36,7 +36,7 @@ public class StormTrooperDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour ruins your aim -- every shot goes astray.";
+        return "The armour ruins your aim; every shot goes astray.";
     }
 
     @Override

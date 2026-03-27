@@ -27,7 +27,7 @@ public class CraftingArrayEntry extends EntryProvider {
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Some crafting arrays require only common materials. Others demand reagents forged "
-                + "through more advanced means -- the complexity of the product mirrors the complexity of "
+                + "through more advanced means; the complexity of the product mirrors the complexity of "
                 + "the path to reach it.\\\n\\\n"
                 + "[#](2E8B57)Most sigils, reagents, and bindings begin their existence within a crafting "
                 + "array. Master this foundation well.[#]()");
@@ -40,7 +40,7 @@ public class CraftingArrayEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The simplest array -- inscribe essence onto matter and reshape it.";
+        return "The simplest array, inscribe essence onto matter and reshape it.";
     }
 
     @Override

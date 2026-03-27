@@ -24,7 +24,7 @@ public class ReinforcedAccelerationRuneEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Reinforced Acceleration Rune");
         this.pageText("Tempered with [#](8B0000)Netherite Scrap[#]() and [#](8B0000)Intricate Hellforged Parts[#]() from "
-                + "the [#](4A0080)Demon Realm[#](), this rune warps time twice as aggressively -- removing "
+                + "the [#](4A0080)Demon Realm[#](), this rune warps time twice as aggressively, removing "
                 + "[#](8B0000)two ticks[#]() from the pulse delay instead of one. Fewer rune slots consumed, more "
                 + "room for other enchantments around the altar.");
 

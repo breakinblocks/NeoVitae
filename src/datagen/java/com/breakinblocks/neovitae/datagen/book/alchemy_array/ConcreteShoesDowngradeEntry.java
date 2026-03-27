@@ -36,7 +36,7 @@ public class ConcreteShoesDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour drags you down -- water becomes a grave.";
+        return "The armour drags you down; water becomes a grave.";
     }
 
     @Override

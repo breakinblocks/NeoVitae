@@ -33,7 +33,7 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Willing Sacrifice");
-        this.pageText("Where the Well of Suffering takes from unwilling victims, this ritual draws from the practitioner's own vitality — a more honorable, if painful, path. It drains health from nearby blood mages and converts it into [#](8B0000)Essentia Vitae[#](), depositing the [#](4A0080)Essentia Vitae[#]() into a nearby [#](8B0000)Ara Vitae[#](). Efficiency improves with [#](8B0000)Runes of Self Sacrifice[#]() and the [#](8B0000)Tough Palms[#]() upgrade.");
+        this.pageText("Where the Well of Suffering takes from unwilling victims, this ritual draws from the practitioner's own vitality, a more honorable, if painful, path. It drains health from nearby blood mages and converts it into [#](8B0000)Essentia Vitae[#](), depositing the [#](4A0080)Essentia Vitae[#]() into a nearby [#](8B0000)Ara Vitae[#](). Efficiency improves with [#](8B0000)Runes of Self Sacrifice[#]() and the [#](8B0000)Tough Palms[#]() upgrade.");
 
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

@@ -33,7 +33,7 @@ public class RitualSuppressionEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Parted Tide");
-        this.pageText("This ritual projects a hemispherical ward that holds all fluids at bay — water, lava, and stranger liquids alike are temporarily suppressed, not destroyed. When the circle falls silent, the tide returns as though nothing happened.\\\n\\\n"
+        this.pageText("This ritual projects a hemispherical ward that holds all fluids at bay; water, lava, and stranger liquids alike are temporarily suppressed, not destroyed. When the circle falls silent, the tide returns as though nothing happened.\\\n\\\n"
                 + "[#](2E8B57)Invaluable for underwater construction, draining lava lakes, or carving safe pockets in flooded depths.[#]()");
     }
 

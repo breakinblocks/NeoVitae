@@ -38,12 +38,12 @@ public class RitualLivingDowngradeEntry extends EntryProvider {
 
         this.page("downgrades", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Downgrades are harsh — they cripple specific abilities in exchange for a wealth of additional [#](8B0000)Upgrade Points[#](). This is the path of [#](4A0080)specialization[#](): sacrifice breadth to sharpen your edge in the areas that matter most.");
+        this.pageText("Downgrades are harsh; they cripple specific abilities in exchange for a wealth of additional [#](8B0000)Upgrade Points[#](). This is the path of [#](4A0080)specialization[#](): sacrifice breadth to sharpen your edge in the areas that matter most.");
 
         this.page("synthetic", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "synthetic_point"))
                 .withText(this.context().pageText()));
-        this.pageText("If you lack sufficient points, you can craft [#](8B0000)Synthetic Upgrade Points[#](). Each is worth a single point — crude, but functional.");
+        this.pageText("If you lack sufficient points, you can craft [#](8B0000)Synthetic Upgrade Points[#](). Each is worth a single point, crude, but functional.");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -51,7 +51,7 @@ public class RitualLivingDowngradeEntry extends EntryProvider {
 
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Each matching key item increases that downgrade by one level. Multiple downgrades can be applied at once — for example, Battle Hungry III requires 3 [#](8B0000)Rotten Flesh[#]() and items worth 35 [#](8B0000)Upgrade Points[#]()."
+        this.pageText("Each matching key item increases that downgrade by one level. Multiple downgrades can be applied at once; for example, Battle Hungry III requires 3 [#](8B0000)Rotten Flesh[#]() and items worth 35 [#](8B0000)Upgrade Points[#]()."
                 + "\\\n\\\n[#](2E8B57)The ritual respects your Training Bracelet settings. Excess points are returned as Upgrade Scraps.[#]()");
     }
 

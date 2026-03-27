@@ -33,7 +33,7 @@ public class ToughUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Pain is the teacher -- each blow hardens the armour's resolve.";
+        return "Pain is the teacher; each blow hardens the armour's resolve.";
     }
 
     @Override

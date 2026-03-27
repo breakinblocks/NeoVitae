@@ -36,7 +36,7 @@ public class LeadenedPickDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The armour drags at your arms -- mining becomes a crawl.";
+        return "The armour drags at your arms; mining becomes a crawl.";
     }
 
     @Override

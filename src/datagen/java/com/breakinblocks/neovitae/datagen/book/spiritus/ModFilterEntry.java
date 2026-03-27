@@ -21,7 +21,7 @@ public class ModFilterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Mod Item Filter");
         this.pageText("The [#](8B0000)Mod Item Filter[#]() accepts up to 9 representative items. For each item you "
-                + "place within it, [#](B8860B)every item from the same origin[#]() is matched -- allowing you to "
+                + "place within it, [#](B8860B)every item from the same origin[#]() is matched, allowing you to "
                 + "permit or deny entire collections at once.\\\n\\\n"
                 + "Quantity limits and Allow/Deny modes function as with the Standard Filter.");
 
@@ -30,7 +30,7 @@ public class ModFilterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Mod Item Filter");
         this.pageText("Particularly useful for directing all artifacts of a given discipline into their own "
-                + "dedicated vault -- ensuring your [#](4A0080)Vitaemantic[#]() instruments never mingle with "
+                + "dedicated vault, ensuring your [#](4A0080)Vitaemantic[#]() instruments never mingle with "
                 + "lesser materials.");
     }
 

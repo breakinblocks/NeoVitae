@@ -22,7 +22,7 @@ public class RepairUpgradeEntry extends EntryProvider {
         this.pageTitle("Repair");
         this.pageText("The armour develops a regenerative instinct, periodically mending a random piece of "
                 + "worn equipment every 100 ticks.\\\n\\\n"
-                + "[#](B8860B)Trained by[#](): Repairing the chestplate through any means -- anvil, "
+                + "[#](B8860B)Trained by[#](): Repairing the chestplate through any means, anvil, "
                 + "[#](8B0000)Mending[#]() enchantment, or otherwise.\\\n\\\n"
                 + "[#](B8860B)Maximum level[#](): 1");
     }

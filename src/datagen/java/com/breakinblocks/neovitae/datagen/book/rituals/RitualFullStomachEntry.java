@@ -33,7 +33,7 @@ public class RitualFullStomachEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Inexhaustible Feast");
-        this.pageText("This ritual draws sustenance from a nearby chest and feeds it to every practitioner within its reach, restoring hunger and saturation without pause. A blood mage who never hungers is one who never falters — keep the larder stocked, and the circle will handle the rest.");
+        this.pageText("This ritual draws sustenance from a nearby chest and feeds it to every practitioner within its reach, restoring hunger and saturation without pause. A blood mage who never hungers is one who never falters; keep the larder stocked, and the circle will handle the rest.");
     }
 
     @Override

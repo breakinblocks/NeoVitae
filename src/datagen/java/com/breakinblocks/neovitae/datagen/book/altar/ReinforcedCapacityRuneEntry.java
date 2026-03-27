@@ -25,7 +25,7 @@ public class ReinforcedCapacityRuneEntry extends EntryProvider {
         this.pageTitle("Reinforced Rune of Capacity");
         this.pageText("Infused with [#](8B0000)Netherite Scrap[#]() and [#](8B0000)Intricate Hellforged Parts[#]() from "
                 + "the [#](4A0080)Demon Realm[#](), this rune carves a far deeper basin into the altar's soul. "
-                + "Each rune adds [#](8B0000)+40%%[#]() to the reservoir, additively -- twice the depth of its "
+                + "Each rune adds [#](8B0000)+40%%[#]() to the reservoir, additively, twice the depth of its "
                 + "lesser kin.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()

@@ -21,8 +21,8 @@ public class VoidingAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Void Essence");
-        this.pageText("[#](8B0000)Void Essence[#]() consigns worthless materials to oblivion the instant they are broken "
-                + "-- stone, dirt, netherrack, and other mundane refuse simply cease to exist.\\\n\\\n"
+        this.pageText("[#](8B0000)Void Essence[#]() consigns worthless materials to oblivion the instant they are broken, "
+                + "stone, dirt, netherrack, and other mundane refuse simply cease to exist.\\\n\\\n"
                 + "Valid items: Tools, Swords, Charges.\\\n\\\nApplies: Voiding I (256 blocks)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()

@@ -25,7 +25,7 @@ public class ReinforcedSacrificeRuneEntry extends EntryProvider {
         this.pageTitle("Reinforced Rune of Sacrifice");
         this.pageText("Tempered with [#](8B0000)Netherite Scrap[#]() and [#](8B0000)Intricate Hellforged Parts[#]() from "
                 + "the [#](4A0080)Demon Realm[#](), the reinforced rune wrings twice the essence from every "
-                + "offering -- [#](8B0000)+20%%[#]() per rune, additively. The altar's appetite for sacrifice "
+                + "offering, [#](8B0000)+20%%[#]() per rune, additively. The altar's appetite for sacrifice "
                 + "grows ever more insatiable.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()

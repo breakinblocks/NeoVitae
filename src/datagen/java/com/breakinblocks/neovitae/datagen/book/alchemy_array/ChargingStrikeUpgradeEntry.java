@@ -33,7 +33,7 @@ public class ChargingStrikeUpgradeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Your momentum becomes a weapon -- the faster you charge, the harder you strike.";
+        return "Your momentum becomes a weapon; the faster you charge, the harder you strike.";
     }
 
     @Override

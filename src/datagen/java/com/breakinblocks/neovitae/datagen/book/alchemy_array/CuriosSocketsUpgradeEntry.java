@@ -22,7 +22,7 @@ public class CuriosSocketsUpgradeEntry extends EntryProvider {
         this.pageTitle("Socketed");
         this.pageText("The armour opens hidden recesses within itself, forming [#](8B0000)Living Armour "
                 + "Socket[#]() slots that can hold compatible [#](4A0080)Vitaemancy[#]() trinkets.\\\n\\\n"
-                + "This upgrade cannot be trained -- only inscribed via [#](8B0000)Upgrade Tome[#](). "
+                + "This upgrade cannot be trained; only inscribed via [#](8B0000)Upgrade Tome[#](). "
                 + "Each tome adds one additional socket.\\\n\\\n"
                 + "[#](2E8B57)Requires the Curios API.[#]()");
     }

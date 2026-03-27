@@ -33,7 +33,7 @@ public class RitualStandardDungeonEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Beyond the Threshold");
-        this.pageText("This ritual rends the veil wide, opening a full passage into the depths of the [#](4A0080)Demon Realm[#](). What awaits is not a trial — it is a war. The creatures within are far more dangerous than those encountered through the lesser gateway. Arm yourself well, apprentice. Many who step through do not return.");
+        this.pageText("This ritual rends the veil wide, opening a full passage into the depths of the [#](4A0080)Demon Realm[#](). What awaits is not a trial; it is a war. The creatures within are far more dangerous than those encountered through the lesser gateway. Arm yourself well, apprentice. Many who step through do not return.");
     }
 
     @Override

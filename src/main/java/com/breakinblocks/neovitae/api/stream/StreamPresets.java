@@ -71,7 +71,7 @@ public final class StreamPresets {
     private static StreamEffect.Builder applyBloodTendril(StreamEffect.Builder b) {
         return b.color(0x990011)
                 .scale(0.1f)
-                .speed(1.0f)
+                .speed(2.0f)
                 .gravity(0.25f)
                 .wobble(0.03f)
                 .wobbleFrequency(0.8f)

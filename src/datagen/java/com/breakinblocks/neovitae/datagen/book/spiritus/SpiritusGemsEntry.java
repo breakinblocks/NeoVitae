@@ -101,6 +101,6 @@ public class SpiritusGemsEntry extends EntryProvider {
 
     @Override
     protected String entryId() {
-        return "tartaric_gems";
+        return "spiritus_gems";
     }
 }

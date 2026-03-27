@@ -4,14 +4,14 @@
   "category": "spiritus",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "spiritus/soul_snare"
+    "entry_id": "spiritus/spiritus_snare"
   },
-  "description": "book.neovitae.guide.spiritus.tartaric_gems.description",
+  "description": "book.neovitae.guide.spiritus.spiritus_gems.description",
   "hide_while_locked": false,
   "icon": {
     "item": "neovitae:spiritus_gem_greater"
   },
-  "name": "book.neovitae.guide.spiritus.tartaric_gems.name",
+  "name": "book.neovitae.guide.spiritus.spiritus_gems.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -20,8 +20,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.tartaric_gems.intro.text",
-      "title": "book.neovitae.guide.spiritus.tartaric_gems.intro.title",
+      "text": "book.neovitae.guide.spiritus.spiritus_gems.intro.text",
+      "title": "book.neovitae.guide.spiritus.spiritus_gems.intro.title",
       "use_markdown_in_title": false
     },
     {
@@ -31,8 +31,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.tartaric_gems.petty.text",
-      "title": "book.neovitae.guide.spiritus.tartaric_gems.petty.title",
+      "text": "book.neovitae.guide.spiritus.spiritus_gems.petty.text",
+      "title": "book.neovitae.guide.spiritus.spiritus_gems.petty.title",
       "use_markdown_in_title": false
     },
     {
@@ -42,7 +42,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.tartaric_gems.lesser_intro.text",
+      "text": "book.neovitae.guide.spiritus.spiritus_gems.lesser_intro.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -53,8 +53,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.tartaric_gems.lesser.text",
-      "title": "book.neovitae.guide.spiritus.tartaric_gems.lesser.title",
+      "text": "book.neovitae.guide.spiritus.spiritus_gems.lesser.text",
+      "title": "book.neovitae.guide.spiritus.spiritus_gems.lesser.title",
       "use_markdown_in_title": false
     },
     {
@@ -64,7 +64,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.tartaric_gems.common_intro.text",
+      "text": "book.neovitae.guide.spiritus.spiritus_gems.common_intro.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -75,8 +75,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.tartaric_gems.common.text",
-      "title": "book.neovitae.guide.spiritus.tartaric_gems.common.title",
+      "text": "book.neovitae.guide.spiritus.spiritus_gems.common.text",
+      "title": "book.neovitae.guide.spiritus.spiritus_gems.common.title",
       "use_markdown_in_title": false
     },
     {
@@ -86,7 +86,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.tartaric_gems.greater_intro.text",
+      "text": "book.neovitae.guide.spiritus.spiritus_gems.greater_intro.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -97,8 +97,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.tartaric_gems.greater.text",
-      "title": "book.neovitae.guide.spiritus.tartaric_gems.greater.title",
+      "text": "book.neovitae.guide.spiritus.spiritus_gems.greater.text",
+      "title": "book.neovitae.guide.spiritus.spiritus_gems.greater.title",
       "use_markdown_in_title": false
     }
   ],

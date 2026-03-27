@@ -42,14 +42,14 @@ public class SpiritusCategory extends CategoryProvider {
         hellfireForge.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/spiritus"));
         hellfireForge.hideWhileLocked(false);
 
-        var tartaricGems = this.add(new SpiritusGemsEntry(this).generate('d'));
-        tartaricGems.withParent(this.parent(soulSnare));
-        tartaricGems.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/soul_snare"));
-        tartaricGems.hideWhileLocked(false);
+        var spiritusGems = this.add(new SpiritusGemsEntry(this).generate('d'));
+        spiritusGems.withParent(this.parent(soulSnare));
+        spiritusGems.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/spiritus_snare"));
+        spiritusGems.hideWhileLocked(false);
 
         var crystallizedWill = this.add(new CrystallizedWillEntry(this).generate('e'));
-        crystallizedWill.withParent(this.parent(tartaricGems));
-        crystallizedWill.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/tartaric_gems"));
+        crystallizedWill.withParent(this.parent(spiritusGems));
+        crystallizedWill.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/spiritus_gems"));
         crystallizedWill.hideWhileLocked(false);
 
         var aspectedWill = this.add(new AspectedWillEntry(this).generate('f'));

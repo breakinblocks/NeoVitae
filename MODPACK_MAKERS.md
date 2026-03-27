@@ -10,7 +10,7 @@ This guide covers all the data-driven systems in Neo Vitae that modpack makers c
    - [Sigil Stats](#sigil-stats)
    - [Ritual Stats](#ritual-stats)
    - [Imperfect Ritual Stats](#imperfect-ritual-stats)
-   - [Tartaric Gem Capacities](#tartaric-gem-capacities)
+   - [Spiritus Gem Capacities](#spiritus-gem-capacities)
 3. [Sigil Types (Effect Definitions)](#sigil-types-effect-definitions)
 4. [Recipe Types](#recipe-types)
 5. [Tags](#tags)
@@ -42,7 +42,7 @@ your_datapack/
         │   ├── item/
         │   │   ├── blood_orb_stats.json
         │   │   ├── sigil_stats.json
-        │   │   └── tartaric_gem_max.json
+        │   │   └── spiritus_gem_max.json
         │   └── neovitae/
         │       ├── ritual/
         │       │   └── ritual_stats.json
@@ -256,9 +256,9 @@ Customize imperfect rituals - simple one-time effects triggered by placing a blo
 
 ---
 
-### Tartaric Gem Capacities
+### Spiritus Gem Capacities
 
-**Location:** `data/neovitae/data_maps/item/tartaric_gem_max.json`
+**Location:** `data/neovitae/data_maps/item/spiritus_gem_max.json`
 
 Customize how much Demon Will each soul gem tier can hold.
 

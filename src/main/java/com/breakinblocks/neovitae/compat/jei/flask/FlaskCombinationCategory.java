@@ -10,7 +10,6 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -52,15 +51,6 @@ public class FlaskCombinationCategory implements IRecipeCategory<FlaskCombinatio
     @Override
     public void draw(FlaskCombinationJEIRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
-
-        var poseStack = guiGraphics.pose();
-        poseStack.pushPose();
-        poseStack.translate(64, 23, 0);
-        poseStack.scale(0.5f, 0.5f, 1f);
-        guiGraphics.drawString(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.lp"), 0, 0, 0x8b8b8b, false);
-        poseStack.translate(-8, 15, 0);
-        guiGraphics.drawString(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.info"), 0, 0, 0x8b8b8b, false);
-        poseStack.popPose();
     }
 
     @Nonnull

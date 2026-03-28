@@ -22,16 +22,38 @@ public class BloodLampSigilEntry extends EntryProvider {
         this.pageTitle("Sigil of the Blood Lamp");
         this.pageText("The [#](8B0000)Sigil of the Blood Lamp[#]() launches a mote of crystallized "
                 + "[#](4A0080)Essentia Vitae[#]() in the direction you face. When it strikes a surface, it "
-                + "anchors itself as a near-invisible light source at a cost of merely 10 "
+                + "anchors itself as a permanent floating light source at a cost of merely 10 "
                 + "[#](4A0080)Essentia Vitae[#]().\\\n\\\n"
-                + "Indispensable for miners, dungeon-delvers, and any blood mage who refuses to suffer "
-                + "darkness in their domain.");
+                + "Alternatively, right-clicking a nearby surface places the light directly without "
+                + "launching a projectile.");
+
+        this.page("brightness", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Brightness Control");
+        this.pageText("The sigil remembers a [#](8B0000)brightness level[#]() from 1 to 15. "
+                + "Left-click the air to cycle the brightness upward. Sneak and left-click to "
+                + "cycle it downward. The current setting is shown in the sigil's tooltip.\\\n\\\n"
+                + "Once a blood light has been placed, you can also adjust it directly. "
+                + "Right-click an existing blood light with the sigil to increase its brightness, "
+                + "or sneak and right-click to dim it. Adjusting an existing light costs no "
+                + "[#](4A0080)Essentia Vitae[#]().");
+
+        this.page("dyeing", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Color Dyeing");
+        this.pageText("Blood lights are not limited to their natural crimson. Combine the sigil with "
+                + "any vanilla [#](8B0000)dye[#]() in a shapeless craft to change its color. All other "
+                + "data on the sigil, including its binding and brightness setting, is preserved.\\\n\\\n"
+                + "Lights placed after dyeing will glow in the chosen color. To restore the default "
+                + "red, simply place the sigil alone in a crafting grid.");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Forge the [#](8B0000)Blood Lamp Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
                 + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a slate as catalyst.\\\n\\\n"
-                + "[#](4A0080)A small light to banish the deepest dark.[#]()");
+                + "[#](4A0080)A small light to banish the deepest dark, in any color you desire.[#]()");
     }
 
     @Override
@@ -41,7 +63,7 @@ public class BloodLampSigilEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Cast motes of blood-light into the darkness ahead of you.";
+        return "Cast colored motes of blood-light into the darkness ahead of you.";
     }
 
     @Override

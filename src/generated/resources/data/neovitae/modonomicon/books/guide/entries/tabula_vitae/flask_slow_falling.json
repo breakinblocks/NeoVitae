@@ -16,8 +16,8 @@
             "duration": 3600,
             "id": "minecraft:slow_falling",
             "neoforge:cures": [
-              "milk",
-              "protected_by_totem"
+              "protected_by_totem",
+              "milk"
             ],
             "show_icon": true
           }

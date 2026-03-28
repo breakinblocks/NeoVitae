@@ -76,7 +76,7 @@
       },
       "show_title_separator": true,
       "text": "book.neovitae.guide.rituals.ritual_diviner.inscription_tools.text",
-      "title": "",
+      "title": "book.neovitae.guide.rituals.ritual_diviner.inscription_tools.title",
       "use_markdown_in_title": false
     }
   ],

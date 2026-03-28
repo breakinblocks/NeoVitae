@@ -4,8 +4,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -21,24 +19,19 @@ public class ItemInscriptionTool extends Item {
     private final EnumRuneType type;
 
     public ItemInscriptionTool(EnumRuneType type) {
-        super(new Item.Properties().stacksTo(1).durability(40));
+        super(new Item.Properties().stacksTo(1));
         this.type = type;
     }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        ItemStack stack = context.getItemInHand();
         BlockPos pos = context.getClickedPos();
         Level world = context.getLevel();
-        Player player = context.getPlayer();
         BlockState state = world.getBlockState(pos);
 
         if (state.getBlock() instanceof BlockRitualStone ritualStone
                 && !ritualStone.isRuneType(world, pos, type)) {
             ritualStone.setRuneType(world, pos, type);
-            if (player != null && !player.isCreative()) {
-                stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
-            }
             return InteractionResult.sidedSuccess(world.isClientSide);
         }
 

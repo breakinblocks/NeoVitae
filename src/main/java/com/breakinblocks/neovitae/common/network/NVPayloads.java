@@ -11,13 +11,14 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.FilterInventory;
 import net.minecraft.network.chat.Component;
-import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.routing.ItemRouterFilter;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.menu.FilterMenu;
 import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
+import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
 import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
 
 public class NVPayloads {
@@ -152,12 +153,7 @@ public class NVPayloads {
                 ItemStack held = player.getItemInHand(hand);
                 if (held.is(NVItems.SIGIL_BLOOD_LIGHT.get())) {
                     int current = held.getOrDefault(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get(), 15);
-                    int newBrightness;
-                    if (payload.reverse()) {
-                        newBrightness = current <= 1 ? 15 : current - 1;
-                    } else {
-                        newBrightness = current >= 15 ? 1 : current + 1;
-                    }
+                    int newBrightness = BloodLightHelper.cycleBrightness(current, payload.reverse());
                     held.set(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get(), newBrightness);
                     player.displayClientMessage(Component.translatable("message.neovitae.sigil.blood_light.brightness", newBrightness), true);
                     return;

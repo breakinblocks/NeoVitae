@@ -36,6 +36,7 @@ import com.breakinblocks.neovitae.common.item.ItemAnointmentProvider;
 import com.breakinblocks.neovitae.common.item.MaterialItem;
 import com.breakinblocks.neovitae.common.item.MaterialItemColor;
 import com.breakinblocks.neovitae.common.material.MaterialRegistry;
+import com.breakinblocks.neovitae.util.helper.ColorHelper;
 import com.breakinblocks.neovitae.common.item.potion.FlaskColor;
 import com.breakinblocks.neovitae.common.item.potion.TippedDaggerColor;
 import com.breakinblocks.neovitae.client.screen.TabulaVitaeScreen;
@@ -52,6 +53,7 @@ import com.breakinblocks.neovitae.client.screen.TeleposerScreen;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
 public class ClientModEventHandler {
@@ -137,6 +139,13 @@ public class ClientModEventHandler {
 
         MaterialItemColor materialColor = new MaterialItemColor();
         MaterialRegistry.getAllItems().forEach(holder -> event.register(materialColor, holder.get()));
+
+        event.register((stack, layer) -> {
+            if (layer == 1) {
+                return 0xFF000000 | ColorHelper.fromDye(BloodLightHelper.getColor(stack));
+            }
+            return 0xFFFFFFFF;
+        }, NVItems.SIGIL_BLOOD_LIGHT.get());
     }
 
     @SubscribeEvent

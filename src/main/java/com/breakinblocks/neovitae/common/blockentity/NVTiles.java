@@ -143,6 +143,9 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DungeonSealBlockEntity>> DUNGEON_SEAL_TYPE =
             registerTile("dungeon_seal", DungeonSealBlockEntity::new, NVBlocks.DUNGEON_SEAL.block());
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BloodLightBlockEntity>> BLOOD_LIGHT =
+            registerTile("blood_light", BloodLightBlockEntity::new, NVBlocks.BLOOD_LIGHT);
+
     private static void registerTileCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,

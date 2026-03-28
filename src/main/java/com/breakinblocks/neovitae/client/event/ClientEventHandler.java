@@ -22,6 +22,8 @@ import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.client.ClientHandler;
 import com.breakinblocks.neovitae.client.ClientSpiritusCache;
+import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.network.BloodLightCyclePayload;
 import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.common.network.RitualDivinerCyclePayload;
 import com.breakinblocks.neovitae.common.network.SigilHoldingCyclePayload;
@@ -45,6 +47,10 @@ public class ClientEventHandler {
         ItemStack stack = event.getItemStack();
         if (stack.getItem() instanceof ItemRitualDiviner) {
             NVPayloads.sendToServer(new RitualDivinerCyclePayload(true));
+        } else if (stack.is(NVItems.SIGIL_BLOOD_LIGHT.get())) {
+            LocalPlayer player = Minecraft.getInstance().player;
+            boolean reverse = player != null && player.isShiftKeyDown();
+            NVPayloads.sendToServer(new BloodLightCyclePayload(reverse));
         }
     }
 

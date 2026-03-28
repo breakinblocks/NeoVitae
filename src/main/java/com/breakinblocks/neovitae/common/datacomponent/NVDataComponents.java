@@ -16,6 +16,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.sigil.SigilType;
+import net.minecraft.world.item.DyeColor;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.registry.SigilTypeRegistry;
@@ -86,6 +87,9 @@ public class NVDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> FILTER_BLACKLIST = DATA_COMPONENTS.registerComponentType("filter_blacklist", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> FILTER_TAG = DATA_COMPONENTS.registerComponentType("filter_tag", builder -> builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<NestedFilterInventory>> NESTED_FILTERS = DATA_COMPONENTS.registerComponentType("nested_filters", builder -> builder.persistent(NestedFilterInventory.CODEC).networkSynchronized(NestedFilterInventory.STREAM_CODEC));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> BLOOD_LIGHT_BRIGHTNESS = DATA_COMPONENTS.registerComponentType("blood_light_brightness", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<DyeColor>> BLOOD_LIGHT_COLOR = DATA_COMPONENTS.registerComponentType("blood_light_color", builder -> builder.persistent(DyeColor.CODEC).networkSynchronized(DyeColor.STREAM_CODEC));
 
     public static void register(IEventBus modBus) {
         DATA_COMPONENTS.register(modBus);

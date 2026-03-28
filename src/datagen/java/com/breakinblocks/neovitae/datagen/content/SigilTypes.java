@@ -55,7 +55,7 @@ public class SigilTypes {
 
         // Single-use sigils
         context.register(AIR, simple(50, new AirSigilEffect()));
-        context.register(BLOOD_LIGHT, simple(10, new BloodLightSigilEffect(6000)));
+        context.register(BLOOD_LIGHT, simple(10, new BloodLightSigilEffect(15)));
         context.register(TELEPOSITION, simple(1000, new TelepositionSigilEffect()));
     }
 

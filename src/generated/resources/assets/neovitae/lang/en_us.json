@@ -1894,6 +1894,8 @@
   "item.neovitae.sentient_sword": "Sentient Sword",
   "item.neovitae.sigil_air": "Air Sigil",
   "item.neovitae.sigil_blood_light": "Sigil of the Blood Lamp",
+  "tooltip.neovitae.sigil.blood_light.brightness": "Light Level: %s",
+  "tooltip.neovitae.sigil.blood_light.color": "Color: %s",
   "item.neovitae.sigil_divination": "Divination Sigil",
   "item.neovitae.sigil_fast_miner": "Sigil of the Fast Miner",
   "item.neovitae.sigil_frost": "Sigil of the Frost Walker",

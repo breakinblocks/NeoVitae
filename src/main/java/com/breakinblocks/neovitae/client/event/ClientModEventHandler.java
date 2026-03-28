@@ -15,6 +15,11 @@ import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
+import com.breakinblocks.neovitae.client.particle.BloodFlameParticle;
+import com.breakinblocks.neovitae.client.particle.BloodGlowParticle;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -126,6 +131,12 @@ public class ClientModEventHandler {
         NVItems.BASIC_ITEMS.getEntries().stream()
                 .filter(holder -> holder.get() instanceof ItemAnointmentProvider)
                 .forEach(holder -> event.register(anointmentColor, holder.get()));
+    }
+
+    @SubscribeEvent
+    public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(NVParticles.BLOOD_FLAME.get(), BloodFlameParticle.Provider::new);
+        event.registerSpriteSet(NVParticles.BLOOD_GLOW.get(), BloodGlowParticle.Provider::new);
     }
 
     @SubscribeEvent

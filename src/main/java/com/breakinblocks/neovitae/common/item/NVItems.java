@@ -96,7 +96,10 @@ public class NVItems {
     public static final DeferredHolder<Item, SigilItem> SIGIL_VOID = BASIC_ITEMS.register("sigil_void", () -> new SigilItem(SigilTypeRegistry.key("void")));
     public static final DeferredHolder<Item, SigilItem> SIGIL_GREEN_GROVE = BASIC_ITEMS.register("sigil_green_grove", () -> new SigilItem(SigilTypeRegistry.key("green_grove")));
     public static final DeferredHolder<Item, SigilItem> SIGIL_AIR = BASIC_ITEMS.register("sigil_air", () -> new SigilItem(SigilTypeRegistry.key("air")));
-    public static final DeferredHolder<Item, SigilItem> SIGIL_BLOOD_LIGHT = BASIC_ITEMS.register("sigil_blood_light", () -> new SigilItem(SigilTypeRegistry.key("blood_light")));
+    public static final DeferredHolder<Item, SigilItem> SIGIL_BLOOD_LIGHT = BASIC_ITEMS.register("sigil_blood_light", () -> new SigilItem(SigilTypeRegistry.key("blood_light"),
+            new Item.Properties()
+                    .component(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get(), 15)
+                    .component(NVDataComponents.BLOOD_LIGHT_COLOR.get(), net.minecraft.world.item.DyeColor.RED)));
     public static final DeferredHolder<Item, SigilItem> SIGIL_FAST_MINER = BASIC_ITEMS.register("sigil_fast_miner", () -> new SigilItem(SigilTypeRegistry.key("fast_miner")));
     public static final DeferredHolder<Item, SigilItem> SIGIL_MAGNETISM = BASIC_ITEMS.register("sigil_magnetism", () -> new SigilItem(SigilTypeRegistry.key("magnetism")));
     public static final DeferredHolder<Item, SigilItem> SIGIL_FROST = BASIC_ITEMS.register("sigil_frost", () -> new SigilItem(SigilTypeRegistry.key("frost")));

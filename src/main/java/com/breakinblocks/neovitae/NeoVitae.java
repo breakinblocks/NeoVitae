@@ -36,6 +36,7 @@ import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
 import com.breakinblocks.neovitae.ritual.harvest.NVHarvestHandlers;
 import com.breakinblocks.neovitae.common.network.NVPayloads;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 
 import com.breakinblocks.neovitae.structures.ModRoomPools;
@@ -83,6 +84,7 @@ public class NeoVitae {
         DungeonBlocks.register(modBus);
         NVTiles.register(modBus);
         NVEntities.register(modBus);
+        NVParticles.register(modBus);
         NVMaterialsAndTiers.register(modBus);
         NVItems.register(modBus);
         modBus.addListener(NVDataMaps::register);

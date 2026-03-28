@@ -2,53 +2,54 @@ package com.breakinblocks.neovitae.common.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.joml.Vector3f;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.blockentity.BloodLightBlockEntity;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
+import com.breakinblocks.neovitae.util.helper.ColorHelper;
+import org.jetbrains.annotations.Nullable;
 
-public class BloodLightBlock extends Block {
+public class BloodLightBlock extends BaseEntityBlock {
 
     public static final MapCodec<BloodLightBlock> CODEC = simpleCodec(p -> new BloodLightBlock());
 
-    public static final IntegerProperty LIFESPAN = IntegerProperty.create("lifespan", 0, 15);
+    public static final IntegerProperty BRIGHTNESS = IntegerProperty.create("brightness", 1, 15);
 
     protected static final VoxelShape BODY = Block.box(7, 7, 7, 9, 9, 9);
 
-    private static final DustParticleOptions BLOOD_PARTICLE = new DustParticleOptions(new Vector3f(1.0f, 0.0f, 0.0f), 1.0f);
-
-    public static final int DEFAULT_LIFESPAN = 15;
-    public static final int TICKS_PER_DECREMENT = 400;
+    public static final int DEFAULT_BRIGHTNESS = 15;
 
     public BloodLightBlock() {
         super(Properties.of()
                 .noCollission()
                 .noOcclusion()
                 .instabreak()
-                .lightLevel(state -> state.getValue(LIFESPAN) + 1)
+                .lightLevel(state -> state.getValue(BRIGHTNESS))
                 .replaceable()
                 .noLootTable());
-        registerDefaultState(stateDefinition.any().setValue(LIFESPAN, DEFAULT_LIFESPAN));
+        registerDefaultState(stateDefinition.any().setValue(BRIGHTNESS, DEFAULT_BRIGHTNESS));
     }
 
     @Override
-    protected MapCodec<? extends Block> codec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(LIFESPAN);
+        builder.add(BRIGHTNESS);
     }
 
     @Override
@@ -67,36 +68,40 @@ public class BloodLightBlock extends Block {
     }
 
     @Override
-    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
-        if (!level.isClientSide()) {
-            level.scheduleTick(pos, this, TICKS_PER_DECREMENT);
-        }
-    }
-
-    @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        int currentLifespan = state.getValue(LIFESPAN);
-
-        if (currentLifespan <= 0) {
-            level.removeBlock(pos, false);
-        } else {
-            level.setBlock(pos, state.setValue(LIFESPAN, currentLifespan - 1), Block.UPDATE_ALL);
-            level.scheduleTick(pos, this, TICKS_PER_DECREMENT);
-        }
-    }
-
-    @Override
     public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
         return true;
     }
 
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new BloodLightBlockEntity(pos, state);
+    }
+
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (random.nextInt(3) != 0) {
-            double x = pos.getX() + 0.5 + random.nextGaussian() / 8;
-            double y = pos.getY() + 0.5;
-            double z = pos.getZ() + 0.5 + random.nextGaussian() / 8;
-            level.addParticle(BLOOD_PARTICLE, x, y, z, 0, 0, 0);
+        int color = ColorHelper.fromDye(net.minecraft.world.item.DyeColor.RED);
+        BlockEntity be = level.getBlockEntity(pos);
+        if (be instanceof BloodLightBlockEntity ble) {
+            color = ColorHelper.fromDye(ble.getColor());
+        }
+
+        for (int i = 0; i < 2; i++) {
+            double x = pos.getX() + 0.5 + random.nextGaussian() * 0.03;
+            double y = pos.getY() + 0.45 + random.nextGaussian() * 0.03;
+            double z = pos.getZ() + 0.5 + random.nextGaussian() * 0.03;
+
+            double vx = random.nextGaussian() * 0.003;
+            double vy = random.nextFloat() * 0.008;
+            double vz = random.nextGaussian() * 0.003;
+
+            level.addParticle(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), color), x, y, z, vx, vy, vz);
+        }
+
+        if (random.nextInt(3) == 0) {
+            level.addParticle(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), color),
+                    pos.getX() + 0.5, pos.getY() + 0.49, pos.getZ() + 0.5,
+                    0, 0, 0);
         }
     }
 }

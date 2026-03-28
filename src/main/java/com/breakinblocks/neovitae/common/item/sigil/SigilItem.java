@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.common.item.sigil;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -124,6 +125,19 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         if (level != null && isToggleable(stack, level)) {
             String stateKey = getActivated(stack) ? "tooltip.neovitae.activated" : "tooltip.neovitae.deactivated";
             tooltip.add(Component.translatable(stateKey).withStyle(ChatFormatting.GRAY));
+        }
+
+        Integer brightness = stack.get(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get());
+        if (brightness != null) {
+            tooltip.add(Component.translatable("tooltip.neovitae.sigil.blood_light.brightness", brightness)
+                    .withStyle(ChatFormatting.GOLD));
+        }
+
+        DyeColor color = stack.get(NVDataComponents.BLOOD_LIGHT_COLOR.get());
+        if (color != null) {
+            tooltip.add(Component.translatable("tooltip.neovitae.sigil.blood_light.color",
+                    Component.translatable("color.minecraft." + color.getSerializedName()))
+                    .withStyle(ChatFormatting.GRAY));
         }
     }
 

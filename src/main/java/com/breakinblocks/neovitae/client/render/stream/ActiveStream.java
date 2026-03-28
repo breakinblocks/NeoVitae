@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import net.minecraft.util.Mth;
 import com.breakinblocks.neovitae.api.stream.StreamEffect;
+import com.breakinblocks.neovitae.util.helper.ColorHelper;
 
 /**
  * Client-side instance of an active stream or blob effect, driven by a {@link StreamEffect} config.
@@ -86,10 +87,9 @@ public class ActiveStream {
 
         this.currentScale = (float) (effect.scale * (1.0 + RANDOM.nextGaussian() * 0.15));
 
-        int color = effect.color;
-        this.red = ((color >> 16) & 0xFF) / 255.0f;
-        this.green = ((color >> 8) & 0xFF) / 255.0f;
-        this.blue = (color & 0xFF) / 255.0f;
+        this.red = ColorHelper.red(effect.color);
+        this.green = ColorHelper.green(effect.color);
+        this.blue = ColorHelper.blue(effect.color);
 
         if (effect.lifetime > 0) {
             this.maxAge = effect.lifetime + 200; // safety cap

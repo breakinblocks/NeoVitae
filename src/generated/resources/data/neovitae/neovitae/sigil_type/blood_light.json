@@ -1,7 +1,6 @@
 {
   "effect": {
-    "type": "neovitae:blood_light",
-    "lifespan": 6000
+    "type": "neovitae:blood_light"
   },
   "lp_cost_air": 10,
   "lp_cost_block": 10

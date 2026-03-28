@@ -4,24 +4,26 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
+import com.breakinblocks.neovitae.util.helper.ColorHelper;
+
 import java.util.Arrays;
 
 public class NeoVitaeRenderer {
 
     public static float getRed(int color) {
-        return (color >> 16 & 0xFF) / 255.0F;
+        return ColorHelper.red(color);
     }
 
     public static float getGreen(int color) {
-        return (color >> 8 & 0xFF) / 255.0F;
+        return ColorHelper.green(color);
     }
 
     public static float getBlue(int color) {
-        return (color & 0xFF) / 255.0F;
+        return ColorHelper.blue(color);
     }
 
     public static float getAlpha(int color) {
-        return (color >> 24 & 0xFF) / 255.0F;
+        return ColorHelper.alpha(color);
     }
 
     /**

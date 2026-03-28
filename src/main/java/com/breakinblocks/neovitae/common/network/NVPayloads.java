@@ -10,7 +10,9 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.FilterInventory;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.routing.ItemRouterFilter;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.common.menu.FilterMenu;
@@ -50,6 +52,12 @@ public class NVPayloads {
                 FilterGhostSlotPayload.TYPE,
                 FilterGhostSlotPayload.STREAM_CODEC,
                 NVPayloads::handleFilterGhostSlot
+        );
+
+        registrar.playToServer(
+                BloodLightCyclePayload.TYPE,
+                BloodLightCyclePayload.STREAM_CODEC,
+                NVPayloads::handleBloodLightCycle
         );
 
         registrar.playToClient(
@@ -132,6 +140,26 @@ public class NVPayloads {
             Player player = context.player();
             if (player.containerMenu instanceof SigilHoldingMenu menu) {
                 menu.setSelectedSlot(payload.selectedSlot());
+            }
+        });
+    }
+
+    private static void handleBloodLightCycle(BloodLightCyclePayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player player = context.player();
+            for (InteractionHand hand : InteractionHand.values()) {
+                ItemStack held = player.getItemInHand(hand);
+                if (held.is(NVItems.SIGIL_BLOOD_LIGHT.get())) {
+                    int current = held.getOrDefault(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get(), 15);
+                    int newBrightness;
+                    if (payload.reverse()) {
+                        newBrightness = current <= 1 ? 15 : current - 1;
+                    } else {
+                        newBrightness = current >= 15 ? 1 : current + 1;
+                    }
+                    held.set(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get(), newBrightness);
+                    return;
+                }
             }
         });
     }

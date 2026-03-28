@@ -14,12 +14,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
-import com.breakinblocks.neovitae.common.block.BloodLightBlock;
-import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.blockentity.BloodLightBlockEntity;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
+import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
 
 import java.util.UUID;
 
@@ -27,7 +25,7 @@ public class EntityBloodLight extends ThrowableProjectile {
 
     private int maxTicksInAir = 600;
     private UUID ownerUUID = null;
-    private int brightness = BloodLightBlock.DEFAULT_BRIGHTNESS;
+    private int brightness = com.breakinblocks.neovitae.common.block.BloodLightBlock.DEFAULT_BRIGHTNESS;
     private DyeColor color = DyeColor.RED;
 
     public EntityBloodLight(EntityType<? extends EntityBloodLight> type, Level level) {
@@ -57,13 +55,9 @@ public class EntityBloodLight extends ThrowableProjectile {
 
     private void placeLight(BlockPos placePos) {
         if (level().isEmptyBlock(placePos) || level().getBlockState(placePos).canBeReplaced()) {
-            BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState()
-                    .setValue(BloodLightBlock.BRIGHTNESS, brightness)
-                    .setValue(BloodLightBlock.POWERED, true);
+            BlockState lightState = BloodLightHelper.createBlockState(brightness);
             if (BlockProtectionHelper.tryPlaceBlock(level(), placePos, lightState, ownerUUID)) {
-                if (level().getBlockEntity(placePos) instanceof BloodLightBlockEntity ble) {
-                    ble.setColor(color);
-                }
+                BloodLightHelper.setBlockEntityColor(level(), placePos, color);
             }
         }
     }

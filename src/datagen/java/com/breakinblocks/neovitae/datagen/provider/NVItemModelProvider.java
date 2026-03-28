@@ -30,6 +30,7 @@ public class NVItemModelProvider extends ItemModelProvider {
                 .filter(holder -> holder != NVItems.ALCHEMY_FLASK_LINGERING)
                 .filter(holder -> !(holder.get() instanceof ItemAnointmentProvider))
                 .filter(holder -> !(holder.get() instanceof MaterialItem))
+                .filter(holder -> holder != NVItems.SIGIL_BLOOD_LIGHT)
                 .filter(holder -> !(holder.get() instanceof net.minecraft.world.item.SpawnEggItem))
                 .map(Supplier::get)
                 .forEach(this::basicItem);
@@ -93,6 +94,12 @@ public class NVItemModelProvider extends ItemModelProvider {
                             .texture("layer1", modLoc(vialTexture))
                             .texture("layer2", modLoc("item/alchemic_ribbon"));
                 });
+
+        // Blood lamp sigil - layer0 is base sigil (untinted), layer1 is symbol (tinted by dye color)
+        getBuilder("sigil_blood_light")
+                .parent(new ModelFile.UncheckedModelFile("minecraft:item/generated"))
+                .texture("layer0", modLoc("item/base_sigil"))
+                .texture("layer1", modLoc("item/base_blood_lamp"));
 
         // Material items - tinted greyscale base textures from MaterialRegistry
         for (MaterialDefinition mat : MaterialRegistry.getAllMaterials()) {

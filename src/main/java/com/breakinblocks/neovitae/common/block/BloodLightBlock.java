@@ -27,6 +27,7 @@ import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.blockentity.BloodLightBlockEntity;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
+import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
 import org.jetbrains.annotations.Nullable;
 
 public class BloodLightBlock extends BaseEntityBlock {
@@ -110,6 +111,7 @@ public class BloodLightBlock extends BaseEntityBlock {
         int newBrightness = sneaking ? Math.max(1, current - 1) : Math.min(15, current + 1);
         if (current != newBrightness && !level.isClientSide) {
             level.setBlock(pos, state.setValue(BRIGHTNESS, newBrightness), Block.UPDATE_ALL);
+            BloodLightHelper.playSound(level, pos);
         }
         player.displayClientMessage(Component.translatable("message.neovitae.blood_light.brightness", newBrightness), true);
         return InteractionResult.sidedSuccess(level.isClientSide);

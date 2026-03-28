@@ -17,12 +17,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.common.block.BloodLightBlock;
-import com.breakinblocks.neovitae.common.block.NVBlocks;
-import com.breakinblocks.neovitae.common.blockentity.BloodLightBlockEntity;
-import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityBloodLight;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
+import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
 
 import java.util.function.Supplier;
 
@@ -43,19 +41,17 @@ public record BloodLightSigilEffect(int defaultBrightness) implements SigilEffec
     }
 
     private boolean tryPlace(Level level, Player player, ItemStack stack, BlockPos placePos) {
+        if (level.getBlockState(placePos).getBlock() instanceof BloodLightBlock) return false;
         if (!level.isEmptyBlock(placePos) && !level.getBlockState(placePos).canBeReplaced()) return false;
 
-        int brightness = stack.getOrDefault(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get(), defaultBrightness);
-        DyeColor color = stack.getOrDefault(NVDataComponents.BLOOD_LIGHT_COLOR.get(), DyeColor.RED);
+        int brightness = BloodLightHelper.getBrightness(stack, defaultBrightness);
+        DyeColor color = BloodLightHelper.getColor(stack);
 
         if (!level.isClientSide) {
-            BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState()
-                    .setValue(BloodLightBlock.BRIGHTNESS, brightness)
-                    .setValue(BloodLightBlock.POWERED, true);
+            BlockState lightState = BloodLightHelper.createBlockState(brightness);
             if (BlockProtectionHelper.tryPlaceBlock(level, placePos, lightState, player)) {
-                if (level.getBlockEntity(placePos) instanceof BloodLightBlockEntity ble) {
-                    ble.setColor(color);
-                }
+                BloodLightHelper.setBlockEntityColor(level, placePos, color);
+                BloodLightHelper.playSound(level, placePos);
             }
         }
         return true;
@@ -77,8 +73,8 @@ public record BloodLightSigilEffect(int defaultBrightness) implements SigilEffec
         }
 
         if (!level.isClientSide) {
-            int brightness = stack.getOrDefault(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get(), defaultBrightness);
-            DyeColor color = stack.getOrDefault(NVDataComponents.BLOOD_LIGHT_COLOR.get(), DyeColor.RED);
+            int brightness = BloodLightHelper.getBrightness(stack, defaultBrightness);
+            DyeColor color = BloodLightHelper.getColor(stack);
             EntityBloodLight projectile = new EntityBloodLight(level, player, brightness, color);
             projectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 0.75F, 1.0F);
             level.addFreshEntity(projectile);

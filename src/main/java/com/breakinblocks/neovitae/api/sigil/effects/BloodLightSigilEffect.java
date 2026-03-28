@@ -45,7 +45,7 @@ public record BloodLightSigilEffect(int defaultBrightness) implements SigilEffec
         if (!level.isEmptyBlock(placePos) && !level.getBlockState(placePos).canBeReplaced()) return false;
 
         int brightness = BloodLightHelper.getBrightness(stack, defaultBrightness);
-        DyeColor color = BloodLightHelper.getColor(stack);
+        DyeColor color = BloodLightHelper.getColorAndCycleIfRainbow(stack);
 
         if (!level.isClientSide) {
             BlockState lightState = BloodLightHelper.createBlockState(brightness);
@@ -74,7 +74,7 @@ public record BloodLightSigilEffect(int defaultBrightness) implements SigilEffec
 
         if (!level.isClientSide) {
             int brightness = BloodLightHelper.getBrightness(stack, defaultBrightness);
-            DyeColor color = BloodLightHelper.getColor(stack);
+            DyeColor color = BloodLightHelper.getColorAndCycleIfRainbow(stack);
             EntityBloodLight projectile = new EntityBloodLight(level, player, brightness, color);
             projectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 0.75F, 1.0F);
             level.addFreshEntity(projectile);

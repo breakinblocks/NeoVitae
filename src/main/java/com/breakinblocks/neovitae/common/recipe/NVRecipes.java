@@ -62,6 +62,7 @@ public class NVRecipes {
 
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<SigilDyeRecipe>> SIGIL_DYE_SERIALIZER = SERIALIZERS.register("sigil_dye", () -> new NVRecipeSerializer<>(SigilDyeRecipe.CODEC, SigilDyeRecipe.STREAM_CODEC));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<SigilColorResetRecipe>> SIGIL_COLOR_RESET_SERIALIZER = SERIALIZERS.register("sigil_color_reset", () -> new NVRecipeSerializer<>(SigilColorResetRecipe.CODEC, SigilColorResetRecipe.STREAM_CODEC));
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<SigilRainbowRecipe>> SIGIL_RAINBOW_SERIALIZER = SERIALIZERS.register("sigil_rainbow", () -> new NVRecipeSerializer<>(SigilRainbowRecipe.CODEC, SigilRainbowRecipe.STREAM_CODEC));
 
     public static void register(IEventBus modBus) {
         SERIALIZERS.register(modBus);

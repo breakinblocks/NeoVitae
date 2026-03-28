@@ -135,9 +135,16 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
         DyeColor color = stack.get(NVDataComponents.BLOOD_LIGHT_COLOR.get());
         if (color != null) {
-            tooltip.add(Component.translatable("tooltip.neovitae.sigil.blood_light.color",
-                    Component.translatable("color.minecraft." + color.getSerializedName()))
-                    .withStyle(ChatFormatting.GRAY));
+            boolean rainbow = stack.getOrDefault(NVDataComponents.BLOOD_LIGHT_RAINBOW.get(), false);
+            if (rainbow) {
+                tooltip.add(Component.translatable("tooltip.neovitae.sigil.blood_light.color",
+                        Component.translatable("tooltip.neovitae.sigil.blood_light.rainbow"))
+                        .withStyle(ChatFormatting.GRAY));
+            } else {
+                tooltip.add(Component.translatable("tooltip.neovitae.sigil.blood_light.color",
+                        Component.translatable("color.minecraft." + color.getSerializedName()))
+                        .withStyle(ChatFormatting.GRAY));
+            }
         }
     }
 

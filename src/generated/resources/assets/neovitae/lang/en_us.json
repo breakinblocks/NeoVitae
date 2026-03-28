@@ -2292,6 +2292,7 @@
   "tooltip.neovitae.sigil.blood_light.brightness": "Light Level: %s",
   "tooltip.neovitae.sigil.blood_light.color": "Color: %s",
   "tooltip.neovitae.sigil.blood_light.desc": "Creates a configurable colored light source",
+  "tooltip.neovitae.sigil.blood_light.rainbow": "Rainbow",
   "tooltip.neovitae.sigil.divination.creative.capacityMod": "Capacity Multiplier: %sx",
   "tooltip.neovitae.sigil.divination.creative.chargingRate": "Charging Rate: %s EV/tick",
   "tooltip.neovitae.sigil.divination.creative.dislocationMod": "Dislocation Multiplier: %sx",

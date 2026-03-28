@@ -56,6 +56,7 @@ public class SigilColorResetRecipe extends CustomRecipe {
             if (stack.is(NVItems.SIGIL_BLOOD_LIGHT.get())) {
                 ItemStack result = stack.copy();
                 result.set(NVDataComponents.BLOOD_LIGHT_COLOR.get(), DyeColor.RED);
+                result.remove(NVDataComponents.BLOOD_LIGHT_RAINBOW.get());
                 return result;
             }
         }

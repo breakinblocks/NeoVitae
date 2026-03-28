@@ -5,8 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -16,25 +14,25 @@ import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.NVItems;
 
-public class SigilDyeRecipe extends CustomRecipe {
+public class SigilRainbowRecipe extends CustomRecipe {
 
-    public static final MapCodec<SigilDyeRecipe> CODEC = RecordCodecBuilder.mapCodec(builder -> builder.group(
+    public static final MapCodec<SigilRainbowRecipe> CODEC = RecordCodecBuilder.mapCodec(builder -> builder.group(
             CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(r -> CraftingBookCategory.MISC)
-    ).apply(builder, SigilDyeRecipe::new));
+    ).apply(builder, SigilRainbowRecipe::new));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, SigilDyeRecipe> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<RegistryFriendlyByteBuf, SigilRainbowRecipe> STREAM_CODEC = StreamCodec.composite(
             CraftingBookCategory.STREAM_CODEC, r -> CraftingBookCategory.MISC,
-            SigilDyeRecipe::new
+            SigilRainbowRecipe::new
     );
 
-    public SigilDyeRecipe(CraftingBookCategory category) {
+    public SigilRainbowRecipe(CraftingBookCategory category) {
         super(category);
     }
 
     @Override
     public boolean matches(CraftingInput input, Level level) {
         boolean foundSigil = false;
-        boolean foundDye = false;
+        boolean foundCatalyst = false;
 
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getItem(i);
@@ -43,39 +41,28 @@ public class SigilDyeRecipe extends CustomRecipe {
             if (stack.is(NVItems.SIGIL_BLOOD_LIGHT.get())) {
                 if (foundSigil) return false;
                 foundSigil = true;
-            } else if (stack.getItem() instanceof DyeItem) {
-                if (foundDye) return false;
-                foundDye = true;
+            } else if (stack.is(NVItems.CYCLING_CATALYST.get())) {
+                if (foundCatalyst) return false;
+                foundCatalyst = true;
             } else {
                 return false;
             }
         }
 
-        return foundSigil && foundDye;
+        return foundSigil && foundCatalyst;
     }
 
     @Override
     public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
-        ItemStack sigilStack = ItemStack.EMPTY;
-        DyeColor dyeColor = null;
-
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getItem(i);
-            if (stack.isEmpty()) continue;
-
             if (stack.is(NVItems.SIGIL_BLOOD_LIGHT.get())) {
-                sigilStack = stack;
-            } else if (stack.getItem() instanceof DyeItem dyeItem) {
-                dyeColor = dyeItem.getDyeColor();
+                ItemStack result = stack.copy();
+                result.set(NVDataComponents.BLOOD_LIGHT_RAINBOW.get(), true);
+                return result;
             }
         }
-
-        if (sigilStack.isEmpty() || dyeColor == null) return ItemStack.EMPTY;
-
-        ItemStack result = sigilStack.copy();
-        result.set(NVDataComponents.BLOOD_LIGHT_COLOR.get(), dyeColor);
-        result.remove(NVDataComponents.BLOOD_LIGHT_RAINBOW.get());
-        return result;
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -85,6 +72,6 @@ public class SigilDyeRecipe extends CustomRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return NVRecipes.SIGIL_DYE_SERIALIZER.get();
+        return NVRecipes.SIGIL_RAINBOW_SERIALIZER.get();
     }
 }

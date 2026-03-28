@@ -698,6 +698,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Blood light messages
         add("tooltip.neovitae.sigil.blood_light.brightness", "Light Level: %s");
         add("tooltip.neovitae.sigil.blood_light.color", "Color: %s");
+        add("tooltip.neovitae.sigil.blood_light.rainbow", "Rainbow");
         add("message.neovitae.blood_light.brightness", "Blood Light: Brightness %s");
         add("message.neovitae.blood_light.redstone_on", "Redstone Control: Enabled");
         add("message.neovitae.blood_light.redstone_off", "Redstone Control: Disabled");

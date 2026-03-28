@@ -90,6 +90,7 @@ public class NVDataComponents {
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> BLOOD_LIGHT_BRIGHTNESS = DATA_COMPONENTS.registerComponentType("blood_light_brightness", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<DyeColor>> BLOOD_LIGHT_COLOR = DATA_COMPONENTS.registerComponentType("blood_light_color", builder -> builder.persistent(DyeColor.CODEC).networkSynchronized(DyeColor.STREAM_CODEC));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> BLOOD_LIGHT_RAINBOW = DATA_COMPONENTS.registerComponentType("blood_light_rainbow", builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
 
     public static void register(IEventBus modBus) {
         DATA_COMPONENTS.register(modBus);

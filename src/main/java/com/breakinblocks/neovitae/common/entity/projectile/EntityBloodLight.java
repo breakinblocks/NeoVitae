@@ -2,6 +2,8 @@ package com.breakinblocks.neovitae.common.entity.projectile;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,6 +25,8 @@ import java.util.UUID;
 
 public class EntityBloodLight extends ThrowableProjectile {
 
+    private static final EntityDataAccessor<Integer> DATA_COLOR = SynchedEntityData.defineId(EntityBloodLight.class, EntityDataSerializers.INT);
+
     private int maxTicksInAir = 600;
     private UUID ownerUUID = null;
     private int brightness = com.breakinblocks.neovitae.common.block.BloodLightBlock.DEFAULT_BRIGHTNESS;
@@ -43,6 +47,7 @@ public class EntityBloodLight extends ThrowableProjectile {
         this(level, shooter);
         this.brightness = brightness;
         this.color = color;
+        this.entityData.set(DATA_COLOR, color.getId());
     }
 
     public EntityBloodLight(Level level, double x, double y, double z) {
@@ -51,6 +56,7 @@ public class EntityBloodLight extends ThrowableProjectile {
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DATA_COLOR, DyeColor.RED.getId());
     }
 
     private void placeLight(BlockPos placePos) {
@@ -93,7 +99,7 @@ public class EntityBloodLight extends ThrowableProjectile {
         }
 
         if (level().isClientSide()) {
-            int packedColor = ColorHelper.fromDye(color);
+            int packedColor = ColorHelper.fromDye(DyeColor.byId(this.entityData.get(DATA_COLOR)));
             Vec3 motion = getDeltaMovement();
             for (int i = 0; i < 3; i++) {
                 double offsetX = (random.nextDouble() - 0.5) * 0.1;
@@ -138,6 +144,7 @@ public class EntityBloodLight extends ThrowableProjectile {
         }
         if (tag.contains("Color")) {
             color = DyeColor.byId(tag.getInt("Color"));
+            this.entityData.set(DATA_COLOR, color.getId());
         }
         if (tag.hasUUID("ownerUUID")) {
             ownerUUID = tag.getUUID("ownerUUID");

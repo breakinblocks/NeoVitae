@@ -10,6 +10,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.FilterInventory;
+import net.minecraft.network.chat.Component;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.common.item.NVItems;
@@ -158,6 +159,7 @@ public class NVPayloads {
                         newBrightness = current >= 15 ? 1 : current + 1;
                     }
                     held.set(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get(), newBrightness);
+                    player.displayClientMessage(Component.translatable("message.neovitae.sigil.blood_light.brightness", newBrightness), true);
                     return;
                 }
             }

@@ -2,7 +2,13 @@ package com.breakinblocks.neovitae.common.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -11,7 +17,9 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -26,8 +34,9 @@ public class BloodLightBlock extends BaseEntityBlock {
     public static final MapCodec<BloodLightBlock> CODEC = simpleCodec(p -> new BloodLightBlock());
 
     public static final IntegerProperty BRIGHTNESS = IntegerProperty.create("brightness", 1, 15);
+    public static final BooleanProperty POWERED = BooleanProperty.create("powered");
 
-    protected static final VoxelShape BODY = Block.box(7, 7, 7, 9, 9, 9);
+    protected static final VoxelShape BODY = Block.box(5, 5, 5, 11, 11, 11);
 
     public static final int DEFAULT_BRIGHTNESS = 15;
 
@@ -36,10 +45,19 @@ public class BloodLightBlock extends BaseEntityBlock {
                 .noCollission()
                 .noOcclusion()
                 .instabreak()
-                .lightLevel(state -> state.getValue(BRIGHTNESS))
+                .lightLevel(BloodLightBlock::getLightLevel)
                 .replaceable()
                 .noLootTable());
-        registerDefaultState(stateDefinition.any().setValue(BRIGHTNESS, DEFAULT_BRIGHTNESS));
+        registerDefaultState(stateDefinition.any()
+                .setValue(BRIGHTNESS, DEFAULT_BRIGHTNESS)
+                .setValue(POWERED, false));
+    }
+
+    private static int getLightLevel(BlockState state) {
+        if (state.getValue(POWERED)) {
+            return state.getValue(BRIGHTNESS);
+        }
+        return 0;
     }
 
     @Override
@@ -49,7 +67,7 @@ public class BloodLightBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(BRIGHTNESS);
+        builder.add(BRIGHTNESS, POWERED);
     }
 
     @Override
@@ -68,6 +86,68 @@ public class BloodLightBlock extends BaseEntityBlock {
     }
 
     @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, net.minecraft.world.InteractionHand hand, BlockHitResult hitResult) {
+        if (stack.is(Items.REDSTONE)) {
+            if (!level.isClientSide) {
+                BlockEntity be = level.getBlockEntity(pos);
+                if (be instanceof BloodLightBlockEntity ble) {
+                    boolean newState = !ble.isRedstoneControlled();
+                    ble.setRedstoneControlled(newState);
+                    updatePoweredState(level, pos, state, ble);
+                    String key = newState ? "message.neovitae.blood_light.redstone_on" : "message.neovitae.blood_light.redstone_off";
+                    player.displayClientMessage(Component.translatable(key), true);
+                }
+            }
+            return ItemInteractionResult.sidedSuccess(level.isClientSide);
+        }
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        int current = state.getValue(BRIGHTNESS);
+        boolean sneaking = player.isShiftKeyDown();
+        int newBrightness = sneaking ? Math.max(1, current - 1) : Math.min(15, current + 1);
+        if (current != newBrightness && !level.isClientSide) {
+            level.setBlock(pos, state.setValue(BRIGHTNESS, newBrightness), Block.UPDATE_ALL);
+        }
+        player.displayClientMessage(Component.translatable("message.neovitae.blood_light.brightness", newBrightness), true);
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    @Override
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+        if (!level.isClientSide) {
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof BloodLightBlockEntity ble && ble.isRedstoneControlled()) {
+                updatePoweredState(level, pos, state, ble);
+            }
+        }
+    }
+
+    @Override
+    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        if (!level.isClientSide && !oldState.is(this)) {
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof BloodLightBlockEntity ble) {
+                updatePoweredState(level, pos, state, ble);
+            }
+        }
+    }
+
+    private void updatePoweredState(Level level, BlockPos pos, BlockState state, BloodLightBlockEntity ble) {
+        boolean shouldBeOn;
+        if (ble.isRedstoneControlled()) {
+            shouldBeOn = level.hasNeighborSignal(pos);
+        } else {
+            shouldBeOn = true;
+        }
+        if (state.getValue(POWERED) != shouldBeOn) {
+            level.setBlock(pos, state.setValue(POWERED, shouldBeOn), Block.UPDATE_ALL);
+        }
+    }
+
+    @Override
     public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
         return true;
     }
@@ -80,6 +160,8 @@ public class BloodLightBlock extends BaseEntityBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (!state.getValue(POWERED)) return;
+
         int color = ColorHelper.fromDye(net.minecraft.world.item.DyeColor.RED);
         BlockEntity be = level.getBlockEntity(pos);
         if (be instanceof BloodLightBlockEntity ble) {

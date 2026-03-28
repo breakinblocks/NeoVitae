@@ -35,9 +35,18 @@ public class BloodLampSigilEntry extends EntryProvider {
                 + "Left-click the air to cycle the brightness upward. Sneak and left-click to "
                 + "cycle it downward. The current setting is shown in the sigil's tooltip.\\\n\\\n"
                 + "Once a blood light has been placed, you can also adjust it directly. "
-                + "Right-click an existing blood light with the sigil to increase its brightness, "
-                + "or sneak and right-click to dim it. Adjusting an existing light costs no "
-                + "[#](4A0080)Essentia Vitae[#]().");
+                + "Right-click an existing blood light with an empty hand to increase its brightness, "
+                + "or sneak and right-click to dim it.");
+
+        this.page("redstone", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Redstone Control");
+        this.pageText("Right-click a blood light with [#](8B0000)Redstone Dust[#]() to toggle "
+                + "redstone sensitivity. When enabled, the light will only emit light and particles "
+                + "while receiving a redstone signal. Without a signal, it goes dark.\\\n\\\n"
+                + "Right-click with redstone again to disable redstone control and return the light "
+                + "to its always-on state.");
 
         this.page("dyeing", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

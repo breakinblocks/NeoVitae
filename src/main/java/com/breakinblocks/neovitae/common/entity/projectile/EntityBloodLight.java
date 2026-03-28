@@ -58,7 +58,8 @@ public class EntityBloodLight extends ThrowableProjectile {
     private void placeLight(BlockPos placePos) {
         if (level().isEmptyBlock(placePos) || level().getBlockState(placePos).canBeReplaced()) {
             BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState()
-                    .setValue(BloodLightBlock.BRIGHTNESS, brightness);
+                    .setValue(BloodLightBlock.BRIGHTNESS, brightness)
+                    .setValue(BloodLightBlock.POWERED, true);
             if (BlockProtectionHelper.tryPlaceBlock(level(), placePos, lightState, ownerUUID)) {
                 if (level().getBlockEntity(placePos) instanceof BloodLightBlockEntity ble) {
                     ble.setColor(color);

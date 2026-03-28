@@ -11,7 +11,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -43,19 +42,6 @@ public record BloodLightSigilEffect(int defaultBrightness) implements SigilEffec
         return CODEC;
     }
 
-    private boolean tryAdjustExisting(Level level, Player player, BlockPos blockPos) {
-        BlockState state = level.getBlockState(blockPos);
-        if (!(state.getBlock() instanceof BloodLightBlock)) return false;
-
-        int current = state.getValue(BloodLightBlock.BRIGHTNESS);
-        boolean sneaking = player.isShiftKeyDown();
-        int newBrightness = sneaking ? Math.max(1, current - 1) : Math.min(15, current + 1);
-        if (current != newBrightness && !level.isClientSide) {
-            level.setBlock(blockPos, state.setValue(BloodLightBlock.BRIGHTNESS, newBrightness), Block.UPDATE_ALL);
-        }
-        return true;
-    }
-
     private boolean tryPlace(Level level, Player player, ItemStack stack, BlockPos placePos) {
         if (!level.isEmptyBlock(placePos) && !level.getBlockState(placePos).canBeReplaced()) return false;
 
@@ -64,7 +50,8 @@ public record BloodLightSigilEffect(int defaultBrightness) implements SigilEffec
 
         if (!level.isClientSide) {
             BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState()
-                    .setValue(BloodLightBlock.BRIGHTNESS, brightness);
+                    .setValue(BloodLightBlock.BRIGHTNESS, brightness)
+                    .setValue(BloodLightBlock.POWERED, true);
             if (BlockProtectionHelper.tryPlaceBlock(level, placePos, lightState, player)) {
                 if (level.getBlockEntity(placePos) instanceof BloodLightBlockEntity ble) {
                     ble.setColor(color);
@@ -76,7 +63,6 @@ public record BloodLightSigilEffect(int defaultBrightness) implements SigilEffec
 
     @Override
     public boolean useOnBlock(Level level, Player player, ItemStack stack, BlockPos blockPos, Direction side, Vec3 hitVec) {
-        if (tryAdjustExisting(level, player, blockPos)) return false;
         return tryPlace(level, player, stack, blockPos.relative(side));
     }
 
@@ -87,8 +73,6 @@ public record BloodLightSigilEffect(int defaultBrightness) implements SigilEffec
         if (rayTrace != null && rayTrace.getType() == HitResult.Type.BLOCK) {
             BlockHitResult blockRayTrace = (BlockHitResult) rayTrace;
             BlockPos hitPos = blockRayTrace.getBlockPos();
-
-            if (tryAdjustExisting(level, player, hitPos)) return false;
             return tryPlace(level, player, stack, hitPos.relative(blockRayTrace.getDirection()));
         }
 

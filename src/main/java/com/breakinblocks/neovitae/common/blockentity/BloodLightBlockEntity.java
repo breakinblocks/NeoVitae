@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class BloodLightBlockEntity extends BaseBlockEntity {
 
     private DyeColor color = DyeColor.RED;
+    private boolean redstoneControlled = false;
 
     public BloodLightBlockEntity(BlockPos pos, BlockState blockState) {
         super(NVTiles.BLOOD_LIGHT.get(), pos, blockState);
@@ -23,10 +24,20 @@ public class BloodLightBlockEntity extends BaseBlockEntity {
         setChanged();
     }
 
+    public boolean isRedstoneControlled() {
+        return redstoneControlled;
+    }
+
+    public void setRedstoneControlled(boolean redstoneControlled) {
+        this.redstoneControlled = redstoneControlled;
+        setChanged();
+    }
+
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         tag.putInt("Color", color.getId());
+        tag.putBoolean("RedstoneControlled", redstoneControlled);
     }
 
     @Override
@@ -34,6 +45,9 @@ public class BloodLightBlockEntity extends BaseBlockEntity {
         super.loadAdditional(tag, registries);
         if (tag.contains("Color")) {
             color = DyeColor.byId(tag.getInt("Color"));
+        }
+        if (tag.contains("RedstoneControlled")) {
+            redstoneControlled = tag.getBoolean("RedstoneControlled");
         }
     }
 }

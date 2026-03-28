@@ -42,6 +42,17 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_arrays.sigil_blood_lamp.redstone.text",
+      "title": "book.neovitae.guide.alchemy_arrays.sigil_blood_lamp.redstone.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
       "text": "book.neovitae.guide.alchemy_arrays.sigil_blood_lamp.dyeing.text",
       "title": "book.neovitae.guide.alchemy_arrays.sigil_blood_lamp.dyeing.title",
       "use_markdown_in_title": false

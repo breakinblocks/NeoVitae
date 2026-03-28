@@ -7,8 +7,11 @@ import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.item.MaterialItem;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.ItemAnointmentProvider;
+import com.breakinblocks.neovitae.common.material.MaterialDefinition;
+import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 
 import java.util.function.Supplier;
 
@@ -26,6 +29,7 @@ public class NVItemModelProvider extends ItemModelProvider {
                 .filter(holder -> holder != NVItems.ALCHEMY_FLASK_THROWABLE)
                 .filter(holder -> holder != NVItems.ALCHEMY_FLASK_LINGERING)
                 .filter(holder -> !(holder.get() instanceof ItemAnointmentProvider))
+                .filter(holder -> !(holder.get() instanceof MaterialItem))
                 .filter(holder -> !(holder.get() instanceof net.minecraft.world.item.SpawnEggItem))
                 .map(Supplier::get)
                 .forEach(this::basicItem);
@@ -89,6 +93,21 @@ public class NVItemModelProvider extends ItemModelProvider {
                             .texture("layer1", modLoc(vialTexture))
                             .texture("layer2", modLoc("item/alchemic_ribbon"));
                 });
+
+        // Material items - tinted greyscale base textures from MaterialRegistry
+        for (MaterialDefinition mat : MaterialRegistry.getAllMaterials()) {
+            for (String stage : mat.getStages()) {
+                String itemId = mat.getItemId(stage);
+                String baseTexture = switch (stage) {
+                    case "fragment" -> "item/base_fragment";
+                    case "gravel" -> "item/base_gravel";
+                    default -> "item/base_dust";
+                };
+                getBuilder(itemId)
+                        .parent(new ModelFile.UncheckedModelFile("minecraft:item/generated"))
+                        .texture("layer0", modLoc(baseTexture));
+            }
+        }
 
         // Process WILL_ITEMS - only items that need will type variants (not already-typed monster souls)
         NVItems.WILL_ITEMS.getEntries().forEach(item -> {

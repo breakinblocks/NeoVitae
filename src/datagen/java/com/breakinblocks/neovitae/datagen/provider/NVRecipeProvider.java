@@ -167,6 +167,46 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_raw_demonite", has(NVItems.DEMONITE_RAW.get()))
                 .save(output, NeoVitae.rl("blasting/hellforged_ingot_from_raw"));
 
+        // Dust smelting recipes
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.IRON_DUST.get()), RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 200)
+                .unlockedBy("has_iron_dust", has(NVItems.IRON_DUST.get()))
+                .save(output, NeoVitae.rl("smelting/iron_ingot_from_dust"));
+        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.IRON_DUST.get()), RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 100)
+                .unlockedBy("has_iron_dust", has(NVItems.IRON_DUST.get()))
+                .save(output, NeoVitae.rl("blasting/iron_ingot_from_dust"));
+
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.GOLD_DUST.get()), RecipeCategory.MISC, Items.GOLD_INGOT, 1.0f, 200)
+                .unlockedBy("has_gold_dust", has(NVItems.GOLD_DUST.get()))
+                .save(output, NeoVitae.rl("smelting/gold_ingot_from_dust"));
+        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.GOLD_DUST.get()), RecipeCategory.MISC, Items.GOLD_INGOT, 1.0f, 100)
+                .unlockedBy("has_gold_dust", has(NVItems.GOLD_DUST.get()))
+                .save(output, NeoVitae.rl("blasting/gold_ingot_from_dust"));
+
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.COPPER_DUST.get()), RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 200)
+                .unlockedBy("has_copper_dust", has(NVItems.COPPER_DUST.get()))
+                .save(output, NeoVitae.rl("smelting/copper_ingot_from_dust"));
+        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.COPPER_DUST.get()), RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 100)
+                .unlockedBy("has_copper_dust", has(NVItems.COPPER_DUST.get()))
+                .save(output, NeoVitae.rl("blasting/copper_ingot_from_dust"));
+
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.COAL_DUST.get()), RecipeCategory.MISC, Items.COAL, 0.1f, 200)
+                .unlockedBy("has_coal_dust", has(NVItems.COAL_DUST.get()))
+                .save(output, NeoVitae.rl("smelting/coal_from_dust"));
+
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.NETHERITE_SCRAP_DUST.get()), RecipeCategory.MISC, Items.NETHERITE_SCRAP, 2.0f, 200)
+                .unlockedBy("has_netherite_scrap_dust", has(NVItems.NETHERITE_SCRAP_DUST.get()))
+                .save(output, NeoVitae.rl("smelting/netherite_scrap_from_dust"));
+        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.NETHERITE_SCRAP_DUST.get()), RecipeCategory.MISC, Items.NETHERITE_SCRAP, 2.0f, 100)
+                .unlockedBy("has_netherite_scrap_dust", has(NVItems.NETHERITE_SCRAP_DUST.get()))
+                .save(output, NeoVitae.rl("blasting/netherite_scrap_from_dust"));
+
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.HELLFORGED_DUST.get()), RecipeCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 1.0f, 200)
+                .unlockedBy("has_hellforged_dust", has(NVItems.HELLFORGED_DUST.get()))
+                .save(output, NeoVitae.rl("smelting/hellforged_ingot_from_dust"));
+        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.HELLFORGED_DUST.get()), RecipeCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 1.0f, 100)
+                .unlockedBy("has_hellforged_dust", has(NVItems.HELLFORGED_DUST.get()))
+                .save(output, NeoVitae.rl("blasting/hellforged_ingot_from_dust"));
+
         // Synthetic Point - iron nuggets corners, meat edges, redstone center
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, NVItems.SYNTHETIC_POINT.get(), 2)
                 .pattern("imi")
@@ -2619,7 +2659,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(NVItems.FORTUNE_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(NVTags.Items.DUSTS_COAL))
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.AMETHYST_SHARD)
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "fortune_anointment_xl");
@@ -2628,7 +2668,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(NVItems.SILK_TOUCH_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.COBWEB)
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.AMETHYST_SHARD)
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "silk_touch_anointment_xl");
@@ -2637,7 +2677,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(NVItems.MELEE_DAMAGE_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.GEMS_QUARTZ))
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.AMETHYST_SHARD)
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "melee_damage_anointment_xl");
@@ -2646,7 +2686,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(NVItems.HOLY_WATER_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.GLISTERING_MELON_SLICE)
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.AMETHYST_SHARD)
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "holy_water_anointment_xl");
@@ -2655,7 +2695,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.ENCHANTED_BOOK)
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.AMETHYST_SHARD)
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "hidden_knowledge_anointment_xl");
@@ -2664,7 +2704,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(NVItems.QUICK_DRAW_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.SPECTRAL_ARROW)
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.AMETHYST_SHARD)
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "quick_draw_anointment_xl");
@@ -2673,7 +2713,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(NVItems.LOOTING_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.GEMS_LAPIS))
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.AMETHYST_SHARD)
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "looting_anointment_xl");
@@ -2682,7 +2722,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(NVItems.BOW_POWER_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.INGOTS_IRON))
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.AMETHYST_SHARD)
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "bow_power_anointment_xl");
@@ -2691,7 +2731,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(NVItems.SMELTING_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(ItemTags.COALS))
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.AMETHYST_SHARD)
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "smelting_anointment_xl");
@@ -2700,7 +2740,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(NVItems.VOIDING_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Items.COBBLED_DEEPSLATE)
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.AMETHYST_SHARD)
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "voiding_anointment_xl");
@@ -2709,7 +2749,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(NVItems.BOW_VELOCITY_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.NUGGETS_GOLD))
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.AMETHYST_SHARD)
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "bow_velocity_anointment_xl");
@@ -2718,7 +2758,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(NVItems.WEAPON_REPAIR_ANOINTMENT.get())
                 .input(NVItems.TAU_OIL.get())
                 .input(Ingredient.of(Tags.Items.INGOTS_COPPER))
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.AMETHYST_SHARD)
                 .syphon(2000).ticks(100).minimumTier(4)
                 .save(output, "weapon_repair_anointment_xl");
@@ -2727,7 +2767,7 @@ public class NVRecipeProvider extends RecipeProvider {
         TabulaVitaeRecipeBuilder.build(NVItems.FORTUNE_ANOINTMENT_3.get())
                 .input(NVItems.FORTUNE_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.GLOW_BERRIES)
                 .input(Ingredient.of(NVTags.Items.DUSTS_COAL))
                 .syphon(2000).ticks(100).minimumTier(4)
@@ -2736,7 +2776,7 @@ public class NVRecipeProvider extends RecipeProvider {
         TabulaVitaeRecipeBuilder.build(NVItems.MELEE_DAMAGE_ANOINTMENT_3.get())
                 .input(NVItems.MELEE_DAMAGE_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.GLOW_BERRIES)
                 .input(Ingredient.of(Tags.Items.GEMS_QUARTZ))
                 .syphon(2000).ticks(100).minimumTier(4)
@@ -2745,7 +2785,7 @@ public class NVRecipeProvider extends RecipeProvider {
         TabulaVitaeRecipeBuilder.build(NVItems.HOLY_WATER_ANOINTMENT_3.get())
                 .input(NVItems.HOLY_WATER_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.GLOW_BERRIES)
                 .input(Items.GLISTERING_MELON_SLICE)
                 .syphon(2000).ticks(100).minimumTier(4)
@@ -2754,7 +2794,7 @@ public class NVRecipeProvider extends RecipeProvider {
         TabulaVitaeRecipeBuilder.build(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT_3.get())
                 .input(NVItems.HIDDEN_KNOWLEDGE_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.GLOW_BERRIES)
                 .input(Items.ENCHANTED_BOOK)
                 .syphon(2000).ticks(100).minimumTier(4)
@@ -2763,7 +2803,7 @@ public class NVRecipeProvider extends RecipeProvider {
         TabulaVitaeRecipeBuilder.build(NVItems.QUICK_DRAW_ANOINTMENT_3.get())
                 .input(NVItems.QUICK_DRAW_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.GLOW_BERRIES)
                 .input(Items.SPECTRAL_ARROW)
                 .syphon(2000).ticks(100).minimumTier(4)
@@ -2772,7 +2812,7 @@ public class NVRecipeProvider extends RecipeProvider {
         TabulaVitaeRecipeBuilder.build(NVItems.LOOTING_ANOINTMENT_3.get())
                 .input(NVItems.LOOTING_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.GLOW_BERRIES)
                 .input(Ingredient.of(Tags.Items.GEMS_LAPIS))
                 .syphon(2000).ticks(100).minimumTier(4)
@@ -2781,7 +2821,7 @@ public class NVRecipeProvider extends RecipeProvider {
         TabulaVitaeRecipeBuilder.build(NVItems.BOW_POWER_ANOINTMENT_3.get())
                 .input(NVItems.BOW_POWER_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.GLOW_BERRIES)
                 .input(Ingredient.of(Tags.Items.INGOTS_IRON))
                 .syphon(2000).ticks(100).minimumTier(4)
@@ -2790,7 +2830,7 @@ public class NVRecipeProvider extends RecipeProvider {
         TabulaVitaeRecipeBuilder.build(NVItems.BOW_VELOCITY_ANOINTMENT_3.get())
                 .input(NVItems.BOW_VELOCITY_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.GLOW_BERRIES)
                 .input(Ingredient.of(Tags.Items.NUGGETS_GOLD))
                 .syphon(2000).ticks(100).minimumTier(4)
@@ -2799,7 +2839,7 @@ public class NVRecipeProvider extends RecipeProvider {
         TabulaVitaeRecipeBuilder.build(NVItems.WEAPON_REPAIR_ANOINTMENT_3.get())
                 .input(NVItems.WEAPON_REPAIR_ANOINTMENT.get())
                 .input(NVBlocks.STRONG_TAU.item().get())
-                .input(NVItems.HELLFORGED_SAND.get())
+                .input(NVItems.HELLFORGED_DUST.get())
                 .input(Items.GLOW_BERRIES)
                 .input(Ingredient.of(Tags.Items.INGOTS_COPPER))
                 .syphon(2000).ticks(100).minimumTier(4)
@@ -2925,7 +2965,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(350)
                 .ticks(100)
                 .minimumTier(2)
-                .save(output, "clay_from_sand_sigil");
+                .save(output, "clay_from_dust_sigil");
 
         // Leather from Rotten Flesh with Water Sigil
         TabulaVitaeRecipeBuilder.build(new ItemStack(Items.LEATHER, 4))
@@ -2990,7 +3030,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // === CORRUPTED DUST RECIPES ===
         // Corrupted Coal -> Coal Sand x3
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.COAL_SAND.get(), 3))
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.COAL_DUST.get(), 3))
                 .input(Ingredient.of(NVTags.Items.DUSTS_COAL))
                 .input(NVItems.CORRUPTED_DUST.get())
                 .syphon(50)
@@ -3037,33 +3077,33 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "corrupted_netherite");
 
         // === SAND RECIPES ===
-        // Coal Sand from Coal
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.COAL_SAND.get(), 4))
+        // Coal Dust from Coal
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.COAL_DUST.get(), 4))
                 .input(Items.COAL)
                 .input(Items.COAL)
                 .input(Items.FLINT)
                 .syphon(400)
                 .ticks(200)
                 .minimumTier(1)
-                .save(output, "sand_coal");
+                .save(output, "dust_coal");
 
-        // Gold Sand from Gold Ore
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.GOLD_SAND.get(), 2))
+        // Gold Dust from Gold Ore
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.GOLD_DUST.get(), 2))
                 .input(Ingredient.of(Tags.Items.ORES_GOLD))
                 .input(Ingredient.of(NVTags.Items.CUTTING_FLUIDS))
                 .syphon(400)
                 .ticks(200)
                 .minimumTier(1)
-                .save(output, "sand_gold");
+                .save(output, "dust_gold");
 
-        // Iron Sand from Iron Ore
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.IRON_SAND.get(), 2))
+        // Iron Dust from Iron Ore
+        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.IRON_DUST.get(), 2))
                 .input(Ingredient.of(Tags.Items.ORES_IRON))
                 .input(Ingredient.of(NVTags.Items.CUTTING_FLUIDS))
                 .syphon(400)
                 .ticks(200)
                 .minimumTier(1)
-                .save(output, "sand_iron");
+                .save(output, "dust_iron");
 
         // === OTHER UTILITY RECIPES ===
         // Cobweb from String
@@ -3176,7 +3216,7 @@ public class NVRecipeProvider extends RecipeProvider {
         // Ore -> Sand (3x) with cutting fluid
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Tags.Items.ORES_IRON))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_SAND.get(), 3))
+                .guaranteedOutput(new ItemStack(NVItems.IRON_DUST.get(), 3))
                 .save(output, NeoVitae.rl("dustsfrom_ore_iron"));
 
         // Raw material -> Fragment (2x + 25% extra) with explosive
@@ -3202,26 +3242,26 @@ public class NVRecipeProvider extends RecipeProvider {
         // Gravel -> Sand (1x) with cutting fluid
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(NVTags.Items.GRAVELS_IRON))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_SAND.get()))
+                .guaranteedOutput(new ItemStack(NVItems.IRON_DUST.get()))
                 .save(output, NeoVitae.rl("dustsfrom_gravel_iron"));
 
         // Ingot -> Sand (1x) with cutting fluid
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Tags.Items.INGOTS_IRON))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_SAND.get()))
+                .guaranteedOutput(new ItemStack(NVItems.IRON_DUST.get()))
                 .save(output, NeoVitae.rl("dustsfrom_ingot_iron"));
 
         // Raw material -> Sand (1x + 17% extra, 33% for 2nd extra) with cutting fluid
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Tags.Items.RAW_MATERIALS_IRON))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_SAND.get()))
-                .chancedOutput(new ItemStack(NVItems.IRON_SAND.get()), 0.33)
+                .guaranteedOutput(new ItemStack(NVItems.IRON_DUST.get()))
+                .chancedOutput(new ItemStack(NVItems.IRON_DUST.get()), 0.33)
                 .save(output, NeoVitae.rl("dustsfrom_raw_iron"));
 
         // Gold processing chain
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Tags.Items.ORES_GOLD))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_SAND.get(), 3))
+                .guaranteedOutput(new ItemStack(NVItems.GOLD_DUST.get(), 3))
                 .save(output, NeoVitae.rl("dustsfrom_ore_gold"));
 
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
@@ -3243,24 +3283,24 @@ public class NVRecipeProvider extends RecipeProvider {
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(NVTags.Items.GRAVELS_GOLD))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_SAND.get()))
+                .guaranteedOutput(new ItemStack(NVItems.GOLD_DUST.get()))
                 .save(output, NeoVitae.rl("dustsfrom_gravel_gold"));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Tags.Items.INGOTS_GOLD))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_SAND.get()))
+                .guaranteedOutput(new ItemStack(NVItems.GOLD_DUST.get()))
                 .save(output, NeoVitae.rl("dustsfrom_ingot_gold"));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Tags.Items.RAW_MATERIALS_GOLD))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_SAND.get()))
-                .chancedOutput(new ItemStack(NVItems.GOLD_SAND.get()), 0.33)
+                .guaranteedOutput(new ItemStack(NVItems.GOLD_DUST.get()))
+                .chancedOutput(new ItemStack(NVItems.GOLD_DUST.get()), 0.33)
                 .save(output, NeoVitae.rl("dustsfrom_raw_gold"));
 
         // Copper processing chain
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Tags.Items.ORES_COPPER))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_SAND.get(), 3))
+                .guaranteedOutput(new ItemStack(NVItems.COPPER_DUST.get(), 3))
                 .save(output, NeoVitae.rl("dustsfrom_ore_copper"));
 
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
@@ -3282,24 +3322,24 @@ public class NVRecipeProvider extends RecipeProvider {
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(NVTags.Items.GRAVELS_COPPER))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_SAND.get()))
+                .guaranteedOutput(new ItemStack(NVItems.COPPER_DUST.get()))
                 .save(output, NeoVitae.rl("dustsfrom_gravel_copper"));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Tags.Items.INGOTS_COPPER))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_SAND.get()))
+                .guaranteedOutput(new ItemStack(NVItems.COPPER_DUST.get()))
                 .save(output, NeoVitae.rl("dustsfrom_ingot_copper"));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Tags.Items.RAW_MATERIALS_COPPER))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_SAND.get()))
-                .chancedOutput(new ItemStack(NVItems.COPPER_SAND.get()), 0.33)
+                .guaranteedOutput(new ItemStack(NVItems.COPPER_DUST.get()))
+                .chancedOutput(new ItemStack(NVItems.COPPER_DUST.get()), 0.33)
                 .save(output, NeoVitae.rl("dustsfrom_raw_copper"));
 
         // Netherite scrap processing chain
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Items.ANCIENT_DEBRIS))
-                .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_SAND.get(), 2))
+                .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_DUST.get(), 2))
                 .save(output, NeoVitae.rl("dustsfrom_ore_netherite_scrap"));
 
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
@@ -3316,15 +3356,15 @@ public class NVRecipeProvider extends RecipeProvider {
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(NVTags.Items.GRAVELS_NETHERITE_SCRAP))
-                .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_SAND.get()))
+                .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_DUST.get()))
                 .save(output, NeoVitae.rl("dustsfrom_gravel_netherite_scrap"));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Items.NETHERITE_SCRAP))
-                .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_SAND.get()))
+                .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_DUST.get()))
                 .save(output, NeoVitae.rl("dustsfrom_ingot_netherite_scrap"));
 
-        // Hellforged/Demonite processing (only gravel->sand, others need hellforged ore/ingot)
+        // Hellforged/Demonite processing (only gravel->dust, others need hellforged ore/ingot)
         AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                 .input(Ingredient.of(NVTags.Items.FRAGMENTS_HELLFORGED))
                 .guaranteedOutput(new ItemStack(NVItems.DEMONITE_GRAVEL.get()))
@@ -3333,25 +3373,25 @@ public class NVRecipeProvider extends RecipeProvider {
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(NVTags.Items.GRAVELS_HELLFORGED))
-                .guaranteedOutput(new ItemStack(NVItems.HELLFORGED_SAND.get()))
+                .guaranteedOutput(new ItemStack(NVItems.HELLFORGED_DUST.get()))
                 .save(output, NeoVitae.rl("dustsfrom_gravel_hellforged"));
 
-        // Hellforged ingot -> sand (uses explosives, not cutting fluid)
+        // Hellforged ingot -> dust (uses explosives, not cutting fluid)
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
                 .input(Ingredient.of(NVTags.Items.INGOTS_HELLFORGED))
-                .guaranteedOutput(new ItemStack(NVItems.HELLFORGED_SAND.get()))
+                .guaranteedOutput(new ItemStack(NVItems.HELLFORGED_DUST.get()))
                 .save(output, NeoVitae.rl("dustsfrom_ingot_hellforged"));
 
-        // Coal processing - coal -> coal sand with cutting fluid
+        // Coal processing - coal -> coal dust with cutting fluid
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Tags.Items.ORES_COAL))
-                .guaranteedOutput(new ItemStack(NVItems.COAL_SAND.get(), 6))
-                .save(output, NeoVitae.rl("coalsand_from_ore"));
+                .guaranteedOutput(new ItemStack(NVItems.COAL_DUST.get(), 6))
+                .save(output, NeoVitae.rl("coaldust_from_ore"));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Items.COAL))
-                .guaranteedOutput(new ItemStack(NVItems.COAL_SAND.get()))
-                .save(output, NeoVitae.rl("coalsand_from_coal"));
+                .guaranteedOutput(new ItemStack(NVItems.COAL_DUST.get()))
+                .save(output, NeoVitae.rl("coaldust_from_coal"));
 
         // Utility recipes - hydration (all require 200mB water)
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
@@ -3359,7 +3399,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .fluidInput(new FluidStack(Fluids.WATER, 200))
                 .guaranteedOutput(new ItemStack(Items.CLAY_BALL, 1))
                 .chancedOutput(new ItemStack(Items.CLAY_BALL, 1), 0.5)
-                .save(output, NeoVitae.rl("clay_from_sand"));
+                .save(output, NeoVitae.rl("clay_from_dust"));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.TERRACOTTA))

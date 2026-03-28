@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_netherite_scrap_dust": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:netherite_scrap_dust"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:smelting/netherite_scrap_from_dust"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_netherite_scrap_dust"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:smelting/netherite_scrap_from_dust"
+    ]
+  }
+}

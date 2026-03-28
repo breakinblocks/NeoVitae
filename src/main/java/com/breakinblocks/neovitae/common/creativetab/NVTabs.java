@@ -48,6 +48,8 @@ public class NVTabs {
                         output.accept(living_plate);
 
                         addAll(NVItems.BASIC_ITEMS, output::accept);
+                        com.breakinblocks.neovitae.common.material.MaterialRegistry.getAllItems()
+                                .forEach(holder -> output.accept(new ItemStack(holder.get())));
                         addFlaskVariants(output::accept);
                         addAll(NVItems.ITEMS, output::accept);
                         addAll(NVFluids.BUCKETS, output::accept);

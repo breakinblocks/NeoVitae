@@ -33,6 +33,9 @@ import com.breakinblocks.neovitae.client.render.entity.NoopRenderer;
 import com.breakinblocks.neovitae.client.hud.SpiritusGaugeOverlay;
 import com.breakinblocks.neovitae.common.item.AnointmentColor;
 import com.breakinblocks.neovitae.common.item.ItemAnointmentProvider;
+import com.breakinblocks.neovitae.common.item.MaterialItem;
+import com.breakinblocks.neovitae.common.item.MaterialItemColor;
+import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.breakinblocks.neovitae.common.item.potion.FlaskColor;
 import com.breakinblocks.neovitae.common.item.potion.TippedDaggerColor;
 import com.breakinblocks.neovitae.client.screen.TabulaVitaeScreen;
@@ -131,6 +134,9 @@ public class ClientModEventHandler {
         NVItems.BASIC_ITEMS.getEntries().stream()
                 .filter(holder -> holder.get() instanceof ItemAnointmentProvider)
                 .forEach(holder -> event.register(anointmentColor, holder.get()));
+
+        MaterialItemColor materialColor = new MaterialItemColor();
+        MaterialRegistry.getAllItems().forEach(holder -> event.register(materialColor, holder.get()));
     }
 
     @SubscribeEvent

@@ -33,7 +33,7 @@ public class OreProcessingEntry extends EntryProvider {
         this.pageTitle("Basic Cutting Fluid");
         this.pageText("[#](8B0000)Cutting Fluid[#]() is prepared in the Tabula Vitae and serves as the penultimate "
                 + "reagent in all ore processing chains.\\\n\\\n"
-                + "Within the Athanor, it dissolves an ore block into 3 portions of Ore Sand, "
+                + "Within the Athanor, it dissolves an ore block into 3 portions of Metal Dust, "
                 + "or a raw ore into 1.5 on average. [#](2E8B57)A simple Bottle of Water may substitute "
                 + "for the Water Sigil in the recipe.[#]()");
 
@@ -50,33 +50,34 @@ public class OreProcessingEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Advanced Cutting Fluid");
         this.pageText("The apex of dissolution. This fluid persists sixteen times longer, doubles crafting speed, "
-                + "and doubles the probability of bonus yields. The [#](8B0000)Hellforged Sand[#]() "
+                + "and doubles the probability of bonus yields. The [#](8B0000)Hellforged Dust[#]() "
                 + "it requires lies buried in the deepest reaches of the [#](4A0080)Demon Realm[#]().");
 
-        this.page("sand_recipes", () -> BookTextPageModel.create()
+        this.page("dust_recipes", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Metal Sand");
-        this.pageText("The Tabula Vitae can grind raw ore into metallic sand, effectively doubling your yield:\n\n"
-                + "- Iron Sand from Raw Iron\n"
-                + "- Gold Sand from Raw Gold");
+        this.pageTitle("Metal Dust");
+        this.pageText("The Tabula Vitae can grind raw ore into metallic dust, effectively doubling your yield:\n\n"
+                + "- Iron Dust from Raw Iron\n"
+                + "- Gold Dust from Raw Gold");
 
         this.page("athanor_ore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Athanor's Yield");
         this.pageText("With access to the Athanor and a Cutting Fluid, every mined ore block yields three "
-                + "portions of sand. This sand is then smelted into ingots as normal.\\\n\\\n"
+                + "portions of dust. This dust is then smelted into ingots as normal.\\\n\\\n"
                 + "The discipline rewards patience, apprentice. Refine in stages, and the earth gives up "
                 + "far more than it would to a common furnace.");
 
         this.page("smelting", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Smelting Metal Sand");
-        this.pageText("Metal Sand yields ingots in a standard furnace:\n\n"
-                + "- Iron Sand smelts into Iron Ingots\n"
-                + "- Gold Sand smelts into Gold Ingots");
+        this.pageTitle("Smelting Metal Dust");
+        this.pageText("Metal Dust yields ingots in a standard furnace or blast furnace:\n\n"
+                + "- Iron Dust smelts into Iron Ingots\n"
+                + "- Gold Dust smelts into Gold Ingots\n"
+                + "- Copper Dust smelts into Copper Ingots");
 
         this.page("explosive_powder", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -84,7 +85,7 @@ public class OreProcessingEntry extends EntryProvider {
         this.pageTitle("Explosive Powder");
         this.pageText("[#](8B0000)Explosive Powder[#](), prepared in the Tabula Vitae, shatters ore into fragments "
                 + "within the Athanor: 4.5 fragments per ore block, 2.25 per raw ore on average. "
-                + "It can also reduce ingots to their sand form.\\\n\\\n"
+                + "It can also reduce ingots to their dust form.\\\n\\\n"
                 + "Netherrack, too, crumbles before it, yielding Sulfur and 50mb of Lava. "
                 + "Two improved variants exist.");
 
@@ -120,7 +121,7 @@ public class OreProcessingEntry extends EntryProvider {
         this.pageTitle("The Refinement Chain");
         this.pageText("The full processing chain within the Athanor:\n\n"
                 + "- Ore Fragment to Ore Gravel (using Resonator)\n"
-                + "- Ore Gravel to Ore Sand (using Cutting Fluid)");
+                + "- Ore Gravel to Ore Dust (using Cutting Fluid)");
 
         this.page("corrupted_dust", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

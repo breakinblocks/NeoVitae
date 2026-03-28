@@ -5,14 +5,14 @@
       "chance": 0.33,
       "item": {
         "count": 1,
-        "id": "neovitae:copper_sand"
+        "id": "neovitae:copper_dust"
       }
     }
   ],
   "guaranteed_outputs": [
     {
       "count": 1,
-      "id": "neovitae:copper_sand"
+      "id": "neovitae:copper_dust"
     }
   ],
   "input": {

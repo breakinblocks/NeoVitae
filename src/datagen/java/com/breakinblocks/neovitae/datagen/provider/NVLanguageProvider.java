@@ -669,21 +669,21 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Ore Processing Items
         add(NVItems.IRON_FRAGMENT.get(), "Iron Fragment");
         add(NVItems.IRON_GRAVEL.get(), "Iron Gravel");
-        add(NVItems.IRON_SAND.get(), "Iron Sand");
+        add(NVItems.IRON_DUST.get(), "Iron Dust");
         add(NVItems.GOLD_FRAGMENT.get(), "Gold Fragment");
         add(NVItems.GOLD_GRAVEL.get(), "Gold Gravel");
-        add(NVItems.GOLD_SAND.get(), "Gold Sand");
+        add(NVItems.GOLD_DUST.get(), "Gold Dust");
         add(NVItems.COPPER_FRAGMENT.get(), "Copper Fragment");
         add(NVItems.COPPER_GRAVEL.get(), "Copper Gravel");
-        add(NVItems.COPPER_SAND.get(), "Copper Sand");
-        add(NVItems.COAL_SAND.get(), "Coal Sand");
+        add(NVItems.COPPER_DUST.get(), "Copper Dust");
+        add(NVItems.COAL_DUST.get(), "Coal Dust");
         add(NVItems.DEMONITE_RAW.get(), "Raw Demonite");
         add(NVItems.DEMONITE_FRAGMENT.get(), "Demonite Fragment");
         add(NVItems.DEMONITE_GRAVEL.get(), "Demonite Gravel");
         add(NVItems.NETHERITE_SCRAP_FRAGMENT.get(), "Ancient Debris Fragment");
         add(NVItems.NETHERITE_SCRAP_GRAVEL.get(), "Ancient Debris Gravel");
-        add(NVItems.NETHERITE_SCRAP_SAND.get(), "Netherite Scrap Sand");
-        add(NVItems.HELLFORGED_SAND.get(), "Hellforged Sand");
+        add(NVItems.NETHERITE_SCRAP_DUST.get(), "Netherite Scrap Dust");
+        add(NVItems.HELLFORGED_DUST.get(), "Hellforged Dust");
         add(NVItems.CORRUPTED_DUST.get(), "Corrupted Dust");
         add(NVItems.CORRUPTED_DUST_TINY.get(), "Tiny Corrupted Dust");
 

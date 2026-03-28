@@ -5,14 +5,14 @@
       "chance": 0.33,
       "item": {
         "count": 1,
-        "id": "neovitae:gold_sand"
+        "id": "neovitae:gold_dust"
       }
     }
   ],
   "guaranteed_outputs": [
     {
       "count": 1,
-      "id": "neovitae:gold_sand"
+      "id": "neovitae:gold_dust"
     }
   ],
   "input": {

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "neovitae:item/iron_gravel"
+    "layer0": "neovitae:item/base_gravel"
   }
 }

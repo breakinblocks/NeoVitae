@@ -60,8 +60,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.sand_recipes.text",
-      "title": "book.neovitae.guide.utility.ore_processing.sand_recipes.title",
+      "text": "book.neovitae.guide.utility.ore_processing.dust_recipes.text",
+      "title": "book.neovitae.guide.utility.ore_processing.dust_recipes.title",
       "use_markdown_in_title": false
     },
     {

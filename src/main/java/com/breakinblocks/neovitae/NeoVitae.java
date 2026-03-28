@@ -76,6 +76,7 @@ public class NeoVitae {
             LOGGER.error("Failed to register game test setup", e);
         }
 
+        com.breakinblocks.neovitae.common.material.MaterialRegistry.register(modBus);
         NVRegistries.register(modBus);
         NVDataComponents.register(modBus);
         NVFluids.register(modBus);

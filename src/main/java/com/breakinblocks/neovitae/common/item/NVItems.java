@@ -18,6 +18,7 @@ import com.breakinblocks.neovitae.common.item.routing.ItemModFilter;
 import com.breakinblocks.neovitae.common.item.routing.ItemNodeRouter;
 import com.breakinblocks.neovitae.common.item.routing.ItemRouterFilter;
 import com.breakinblocks.neovitae.common.item.routing.ItemTagFilter;
+import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.breakinblocks.neovitae.common.item.sigil.ISigil;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.common.item.sigil.SigilItem;
@@ -137,25 +138,27 @@ public class NVItems {
     public static final DeferredHolder<Item, TeleposerFocusItem> TELEPOSER_FOCUS_ENHANCED = ITEMS.register("enhanced_teleposer_focus", () -> new TeleposerFocusItem(1));
     public static final DeferredHolder<Item, TeleposerFocusItem> TELEPOSER_FOCUS_REINFORCED = ITEMS.register("reinforced_teleposer_focus", () -> new TeleposerFocusItem(2));
 
-    public static final DeferredHolder<Item, Item> IRON_FRAGMENT = plainItem("iron_fragment");
-    public static final DeferredHolder<Item, Item> GOLD_FRAGMENT = plainItem("gold_fragment");
-    public static final DeferredHolder<Item, Item> COPPER_FRAGMENT = plainItem("copper_fragment");
-    public static final DeferredHolder<Item, Item> NETHERITE_SCRAP_FRAGMENT = plainItem("fragment_netherite_scrap");
+    // Material items registered by MaterialRegistry from config/neovitae/materials.json
+    // These accessors delegate to MaterialRegistry for backwards compatibility
+    public static final DeferredHolder<Item, Item> IRON_FRAGMENT = MaterialRegistry.getFragment("iron");
+    public static final DeferredHolder<Item, Item> GOLD_FRAGMENT = MaterialRegistry.getFragment("gold");
+    public static final DeferredHolder<Item, Item> COPPER_FRAGMENT = MaterialRegistry.getFragment("copper");
+    public static final DeferredHolder<Item, Item> NETHERITE_SCRAP_FRAGMENT = MaterialRegistry.getFragment("netherite_scrap");
     public static final DeferredHolder<Item, Item> DEMONITE_RAW = plainItem("raw_demonite");
-    public static final DeferredHolder<Item, Item> DEMONITE_FRAGMENT = plainItem("demonite_fragment");
+    public static final DeferredHolder<Item, Item> DEMONITE_FRAGMENT = MaterialRegistry.getFragment("demonite");
 
-    public static final DeferredHolder<Item, Item> IRON_GRAVEL = plainItem("iron_gravel");
-    public static final DeferredHolder<Item, Item> GOLD_GRAVEL = plainItem("gold_gravel");
-    public static final DeferredHolder<Item, Item> COPPER_GRAVEL = plainItem("copper_gravel");
-    public static final DeferredHolder<Item, Item> NETHERITE_SCRAP_GRAVEL = plainItem("gravel_netherite_scrap");
-    public static final DeferredHolder<Item, Item> DEMONITE_GRAVEL = plainItem("demonite_gravel");
+    public static final DeferredHolder<Item, Item> IRON_GRAVEL = MaterialRegistry.getGravel("iron");
+    public static final DeferredHolder<Item, Item> GOLD_GRAVEL = MaterialRegistry.getGravel("gold");
+    public static final DeferredHolder<Item, Item> COPPER_GRAVEL = MaterialRegistry.getGravel("copper");
+    public static final DeferredHolder<Item, Item> NETHERITE_SCRAP_GRAVEL = MaterialRegistry.getGravel("netherite_scrap");
+    public static final DeferredHolder<Item, Item> DEMONITE_GRAVEL = MaterialRegistry.getGravel("demonite");
 
-    public static final DeferredHolder<Item, Item> IRON_SAND = plainItem("iron_sand");
-    public static final DeferredHolder<Item, Item> GOLD_SAND = plainItem("gold_sand");
-    public static final DeferredHolder<Item, Item> COPPER_SAND = plainItem("copper_sand");
-    public static final DeferredHolder<Item, Item> COAL_SAND = plainItem("coal_sand");
-    public static final DeferredHolder<Item, Item> NETHERITE_SCRAP_SAND = plainItem("sand_netherite");
-    public static final DeferredHolder<Item, Item> HELLFORGED_SAND = plainItem("sand_hellforged");
+    public static final DeferredHolder<Item, Item> IRON_DUST = MaterialRegistry.getDust("iron");
+    public static final DeferredHolder<Item, Item> GOLD_DUST = MaterialRegistry.getDust("gold");
+    public static final DeferredHolder<Item, Item> COPPER_DUST = MaterialRegistry.getDust("copper");
+    public static final DeferredHolder<Item, Item> COAL_DUST = MaterialRegistry.getDust("coal");
+    public static final DeferredHolder<Item, Item> NETHERITE_SCRAP_DUST = MaterialRegistry.getDust("netherite_scrap");
+    public static final DeferredHolder<Item, Item> HELLFORGED_DUST = MaterialRegistry.getDust("hellforged");
     public static final DeferredHolder<Item, Item> CORRUPTED_DUST = plainItem("corrupted_dust");
     public static final DeferredHolder<Item, Item> CORRUPTED_DUST_TINY = plainItem("corrupted_tiny_dust");
 

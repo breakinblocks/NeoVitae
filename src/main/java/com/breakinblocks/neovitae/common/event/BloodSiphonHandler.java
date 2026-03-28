@@ -4,7 +4,9 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -55,6 +57,7 @@ public class BloodSiphonHandler {
         }
 
         attackerNetwork.add(AnimaTicket.create(lpAmount), Integer.MAX_VALUE);
+        attacker.level().playSound(null, attacker.blockPosition(), NVSounds.BLOOD_SIPHON.get(), SoundSource.PLAYERS, 0.3f, 1.0f);
     }
 
     /**
@@ -87,12 +90,14 @@ public class BloodSiphonHandler {
         if (currentLP >= lpCost) {
             network.syphon(AnimaTicket.create(lpCost));
             event.setNewDamage(reducedDamage);
+            defender.level().playSound(null, defender.blockPosition(), NVSounds.BLOOD_SHIELD_ABSORB.get(), SoundSource.PLAYERS, 0.4f, 1.0f);
         } else if (currentLP > 0) {
             // Partial shield — use whatever LP we have
             double affordableReduction = (double) currentLP / NeoVitae.SERVER_CONFIG.BLOOD_SHIELD_LP_COST_MULTIPLIER.get();
             float partialReduced = originalDamage - (float) affordableReduction;
             network.syphon(AnimaTicket.create(currentLP));
             event.setNewDamage(Math.max(partialReduced, 0.1f));
+            defender.level().playSound(null, defender.blockPosition(), NVSounds.BLOOD_SHIELD_ABSORB.get(), SoundSource.PLAYERS, 0.4f, 1.0f);
         }
     }
 }

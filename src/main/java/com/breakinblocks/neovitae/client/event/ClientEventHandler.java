@@ -40,6 +40,7 @@ public class ClientEventHandler {
         ClientSpiritusCache.clear();
         ClientHandler.setRitualHoloToNull();
         ClientHandler.setRitualRangeHoloToNull();
+        com.breakinblocks.neovitae.client.sound.LoopSoundManager.clear();
     }
 
     @SubscribeEvent

@@ -51,7 +51,15 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, MasterRitualStoneBlockEntity tile) {
-        if (level.isClientSide()) return;
+        if (level.isClientSide()) {
+            if (tile.active && tile.currentRitual != null) {
+                com.breakinblocks.neovitae.client.sound.LoopSoundManager.tryStartLoop(
+                        NVSounds.RITUAL_AMBIENT.get(), 0.2f, level, pos,
+                        be -> be instanceof MasterRitualStoneBlockEntity mrs && mrs.active && mrs.currentRitual != null
+                );
+            }
+            return;
+        }
 
         if (tile.cooldown > 0) {
             tile.cooldown--;

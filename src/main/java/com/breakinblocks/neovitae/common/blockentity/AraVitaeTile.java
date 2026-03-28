@@ -169,7 +169,15 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, AraVitaeTile tile) {
-        if (level.isClientSide) return;
+        if (level.isClientSide()) {
+            if (tile.isActive()) {
+                com.breakinblocks.neovitae.client.sound.LoopSoundManager.tryStartLoop(
+                        NVSounds.BLOOD_ALTAR_AMBIENT.get(), 0.3f, level, pos,
+                        be -> be instanceof AraVitaeTile ara && ara.isActive()
+                );
+            }
+            return;
+        }
 
         if (tile.isSignaling()) tile.setSignaling(false);
         tile.incrementTicks();

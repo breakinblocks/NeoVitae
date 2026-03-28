@@ -92,7 +92,13 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, HellfireForgeBlockEntity tile) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
+            if (tile.progress > 0) {
+                com.breakinblocks.neovitae.client.sound.LoopSoundManager.tryStartLoop(
+                        NVSounds.HELLFIRE_FORGE_AMBIENT.get(), 0.2f, level, pos,
+                        be -> be instanceof HellfireForgeBlockEntity forge && forge.progress > 0
+                );
+            }
             return;
         }
 

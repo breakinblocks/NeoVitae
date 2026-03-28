@@ -22,12 +22,20 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 public class BloodTankBlockEntity extends BaseBlockEntity {
     private int tier;
+    private int previousFluidAmount = 0;
     public static final int[] CAPACITIES = {16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288};
     private final FluidTank tank = new FluidTank(FluidType.BUCKET_VOLUME) {
         @Override
         protected void onContentsChanged() {
             setChanged();
-            if (level != null) {
+            if (level != null && !level.isClientSide) {
+                int currentAmount = getFluidAmount();
+                if (currentAmount > previousFluidAmount) {
+                    level.playSound(null, getBlockPos(), com.breakinblocks.neovitae.common.NVSounds.BLOOD_TANK_FILL.get(), net.minecraft.sounds.SoundSource.BLOCKS, 0.4f, 1.0f);
+                } else if (currentAmount < previousFluidAmount) {
+                    level.playSound(null, getBlockPos(), com.breakinblocks.neovitae.common.NVSounds.BLOOD_TANK_DRAIN.get(), net.minecraft.sounds.SoundSource.BLOCKS, 0.4f, 1.0f);
+                }
+                previousFluidAmount = currentAmount;
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
             }
         }

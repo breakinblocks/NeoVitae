@@ -121,6 +121,15 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
     }
 
     public void tick() {
+        if (level != null && level.isClientSide()) {
+            if (!isSlave && burnTime > 0) {
+                com.breakinblocks.neovitae.client.sound.LoopSoundManager.tryStartLoop(
+                        NVSounds.TABULA_VITAE_CRAFT.get(), 0.3f, level, worldPosition,
+                        be -> be instanceof TabulaVitaeBlockEntity tv && !tv.isSlave && tv.burnTime > 0
+                );
+            }
+            return;
+        }
         if (level == null || level.isClientSide || isSlave) return;
 
         ItemStack orbStack = inv.getStackInSlot(ORB_SLOT);

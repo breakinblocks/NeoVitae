@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -56,6 +57,17 @@ public class BlockIncenseAltar extends BaseEntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new IncenseAltarBlockEntity(pos, state);
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (level.getBlockEntity(pos) instanceof IncenseAltarBlockEntity altar && altar.getIncenseAddition() > 0) {
+            com.breakinblocks.neovitae.client.sound.LoopSoundManager.tryStartLoop(
+                    com.breakinblocks.neovitae.common.NVSounds.INCENSE_AMBIENT.get(),
+                    0.15f, level, pos,
+                    be -> be instanceof IncenseAltarBlockEntity ia && ia.getIncenseAddition() > 0
+            );
+        }
     }
 
     @Nullable

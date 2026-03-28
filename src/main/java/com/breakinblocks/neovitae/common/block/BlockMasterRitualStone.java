@@ -77,7 +77,6 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (level.isClientSide()) return null;
         return type == NVTiles.MASTER_RITUAL_STONE_TYPE.get()
                 ? (lvl, pos, st, be) -> MasterRitualStoneBlockEntity.tick(lvl, pos, st, (MasterRitualStoneBlockEntity) be)
                 : null;

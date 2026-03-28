@@ -175,7 +175,13 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AthanorBlockEntity arcTile) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
+            if (arcTile.progress > 0) {
+                com.breakinblocks.neovitae.client.sound.LoopSoundManager.tryStartLoop(
+                        NVSounds.ATHANOR_BUBBLE.get(), 0.3f, level, blockPos,
+                        be -> be instanceof AthanorBlockEntity athanor && athanor.progress > 0
+                );
+            }
             return;
         }
 

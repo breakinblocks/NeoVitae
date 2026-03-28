@@ -13,9 +13,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffect;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
+import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.AlchemyArrayInput;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
+import net.minecraft.sounds.SoundSource;
 
 public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     public boolean isActive = false;
@@ -113,6 +115,9 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
                 return false;
             } else {
                 arrayEffect = effect;
+                if (level != null && !level.isClientSide) {
+                    level.playSound(null, worldPosition, NVSounds.ALCHEMY_ARRAY_ACTIVATE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
+                }
             }
         }
 
@@ -120,6 +125,9 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
             isActive = true;
             if (arrayEffect.update(this, this.activeCounter)) {
                 craftComplete = true;
+                if (level != null && !level.isClientSide) {
+                    level.playSound(null, worldPosition, NVSounds.ALCHEMY_ARRAY_CRAFT.get(), SoundSource.BLOCKS, 0.7f, 1.0f);
+                }
                 inv.extractItem(0, 1, false);
                 inv.extractItem(1, 1, false);
                 this.getLevel().setBlockAndUpdate(getBlockPos(), Blocks.AIR.defaultBlockState());

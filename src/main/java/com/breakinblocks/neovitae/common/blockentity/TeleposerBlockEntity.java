@@ -9,8 +9,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import com.breakinblocks.neovitae.common.NVSounds;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
@@ -159,8 +159,8 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
             uses++;
         }
 
-        level.playSound(null, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.BLOCKS, 1, 1);
-        linkedWorld.playSound(null, linkedPos.getX(), linkedPos.getY(), linkedPos.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.BLOCKS, 1, 1);
+        level.playSound(null, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), NVSounds.TELEPOSER_ACTIVATE.get(), SoundSource.BLOCKS, 0.7f, 1.0f);
+        linkedWorld.playSound(null, linkedPos.getX(), linkedPos.getY(), linkedPos.getZ(), NVSounds.TELEPOSER_ARRIVAL.get(), SoundSource.BLOCKS, 0.7f, 1.0f);
 
         network.syphon(AnimaTicket.create(Math.min((int) (uses * transportCost), MAX_TOTAL_COST)));
     }

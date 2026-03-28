@@ -51,10 +51,6 @@ public final class StreamPresets {
 
     private StreamPresets() {}
 
-    // =====================================================================
-    //  STREAM PRESETS
-    // =====================================================================
-
     /**
      * Viscous crimson tendril. Droops under its own weight with a slow,
      * deliberate spiral into the target. Thick enough to feel like flowing blood.

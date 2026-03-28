@@ -28,6 +28,8 @@ import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeInput;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.breakinblocks.neovitae.common.tag.NVTags;
+import com.breakinblocks.neovitae.common.NVSounds;
+import net.minecraft.sounds.SoundSource;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -126,11 +128,16 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
             }
         }
 
+        if (tile.progress == 0) {
+            level.playSound(null, pos, NVSounds.HELLFIRE_FORGE_CRAFT.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
+        }
         tile.progress++;
         if (tile.progress < MAX_PROGRESS) {
             ((ServerLevel) level).sendParticles(ParticleTypes.SNOWFLAKE, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 1, 0.1, 0, 0.1, 0);
             return;
         }
+
+        level.playSound(null, pos, NVSounds.HELLFIRE_FORGE_COMPLETE.get(), SoundSource.BLOCKS, 0.6f, 1.0f);
 
         NeoVitaeCraftedEvent.Forge event = new NeoVitaeCraftedEvent.Forge(output, input.asArray());
         NeoForge.EVENT_BUS.post(event);

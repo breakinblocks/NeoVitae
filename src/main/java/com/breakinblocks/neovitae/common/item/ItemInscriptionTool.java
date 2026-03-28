@@ -11,7 +11,9 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.block.BlockRitualStone;
+import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
+import net.minecraft.sounds.SoundSource;
 
 import java.util.List;
 
@@ -32,6 +34,9 @@ public class ItemInscriptionTool extends Item {
         if (state.getBlock() instanceof BlockRitualStone ritualStone
                 && !ritualStone.isRuneType(world, pos, type)) {
             ritualStone.setRuneType(world, pos, type);
+            if (!world.isClientSide) {
+                world.playSound(null, pos, NVSounds.INSCRIPTION_TOOL_SCRIBE.get(), SoundSource.PLAYERS, 0.5f, 1.0f);
+            }
             return InteractionResult.sidedSuccess(world.isClientSide);
         }
 

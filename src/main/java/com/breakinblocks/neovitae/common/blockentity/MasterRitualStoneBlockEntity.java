@@ -22,6 +22,8 @@ import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.event.RitualEvent;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
+import com.breakinblocks.neovitae.common.NVSounds;
+import net.minecraft.sounds.SoundSource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -192,6 +194,8 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
 
         network.syphon(ticket(ritual.getActivationCost()));
 
+        level.playSound(null, worldPosition, NVSounds.RITUAL_ACTIVATE.get(), SoundSource.BLOCKS, 0.8f, 1.0f);
+
         NeoForge.EVENT_BUS.post(new RitualEvent.Activated(this, currentRitual, player));
 
         setChanged();
@@ -219,6 +223,8 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         for (Map.Entry<String, AreaDescriptor> entry : ritual.getModifiableRanges().entrySet()) {
             blockRanges.put(entry.getKey(), entry.getValue().copy());
         }
+
+        level.playSound(null, worldPosition, NVSounds.RITUAL_ACTIVATE.get(), SoundSource.BLOCKS, 0.8f, 1.0f);
 
         if (player != null) {
             NeoForge.EVENT_BUS.post(new RitualEvent.Activated(this, currentRitual, player));
@@ -258,6 +264,9 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         if (currentRitual != null) {
             NeoForge.EVENT_BUS.post(new RitualEvent.Stop(this, currentRitual, breakType));
             currentRitual.stopRitual(this, breakType);
+            if (level != null && !level.isClientSide()) {
+                level.playSound(null, worldPosition, NVSounds.RITUAL_COMPLETE.get(), SoundSource.BLOCKS, 0.7f, 1.0f);
+            }
         }
         currentRitual = null;
         currentRitualId = null;

@@ -44,6 +44,8 @@ import com.breakinblocks.neovitae.util.AltarUtil;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
+import com.breakinblocks.neovitae.common.NVSounds;
+import net.minecraft.sounds.SoundSource;
 
 import java.util.HashMap;
 import java.util.List;
@@ -282,6 +284,9 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
             if (getTicks() % AltarConstants.PARTICLE_FREQUENCY_SMOKE == 0) {
                 ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 1, 0.1, 1.0, 0.1, 0);
             }
+            if (getProgress() <= 0) {
+                level.playSound(null, worldPosition, NVSounds.BLOOD_ALTAR_FAIL.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
+            }
         }
 
         if (hasOperated && getProgress() >= totalRequired) {
@@ -316,6 +321,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         setActive(false);
         setCurrentRecipe(null);
         ((ServerLevel) level).sendParticles(DustParticleOptions.REDSTONE, worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 40, 0.3, 0.0, 0.3, 0);
+        level.playSound(null, worldPosition, NVSounds.BLOOD_ALTAR_CRAFT_COMPLETE.get(), SoundSource.BLOCKS, 0.7f, 1.0f);
 
         NeoForge.EVENT_BUS.post(new AraVitaeCraftEvent.Crafted(this, recipe, inputStack, legacyEvent.getOutput()));
     }
@@ -357,6 +363,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
             setCurrentRecipe(optionalHolder.get().value());
             setActive(true);
             setCanFill(false);
+            level.playSound(null, worldPosition, NVSounds.BLOOD_ALTAR_CRAFT_START.get(), SoundSource.BLOCKS, 0.6f, 1.0f);
             return;
         }
         setActive(false);

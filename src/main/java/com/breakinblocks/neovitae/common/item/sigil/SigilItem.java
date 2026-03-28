@@ -23,6 +23,8 @@ import com.breakinblocks.neovitae.api.sigil.ISigilEffect;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.api.sigil.SigilType;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.common.NVSounds;
+import net.minecraft.sounds.SoundSource;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
@@ -165,7 +167,9 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
         if (isToggleable(stack, level)) {
             if (!level.isClientSide && !isUnusable(stack)) {
-                setActivatedState(stack, !getActivated(stack));
+                boolean newState = !getActivated(stack);
+                setActivatedState(stack, newState);
+                level.playSound(null, player.blockPosition(), newState ? NVSounds.SIGIL_TOGGLE_ON.get() : NVSounds.SIGIL_TOGGLE_OFF.get(), SoundSource.PLAYERS, 0.4f, 1.0f);
             }
             return InteractionResultHolder.success(player.getItemInHand(hand));
         }
@@ -173,12 +177,15 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         if (!isUnusable(stack)) {
             ISigilEffect effect = getSigilEffect(stack, level);
             if (effect != null && effect.useOnAir(level, player, stack)) {
-                if (!level.isClientSide && !player.isCreative()) {
-                    int cost = getReducedCost(getLpCost(stack, level, SigilType.UseContext.AIR), player);
-                    if (cost > 0) {
-                        Anima network = AnimaHelper.getAnima(binding);
-                        if (network != null) {
-                            setUnusable(stack, !network.syphonAndDamage(player, AnimaTicket.create(cost)).success());
+                if (!level.isClientSide) {
+                    level.playSound(null, player.blockPosition(), NVSounds.SIGIL_ACTIVATE.get(), SoundSource.PLAYERS, 0.4f, 1.0f);
+                    if (!player.isCreative()) {
+                        int cost = getReducedCost(getLpCost(stack, level, SigilType.UseContext.AIR), player);
+                        if (cost > 0) {
+                            Anima network = AnimaHelper.getAnima(binding);
+                            if (network != null) {
+                                setUnusable(stack, !network.syphonAndDamage(player, AnimaTicket.create(cost)).success());
+                            }
                         }
                     }
                 }

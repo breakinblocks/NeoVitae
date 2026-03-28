@@ -30,6 +30,8 @@ import com.breakinblocks.neovitae.common.recipe.flask.FlaskInput;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskRecipe;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
+import com.breakinblocks.neovitae.common.NVSounds;
+import net.minecraft.sounds.SoundSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,6 +146,9 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
                 return;
             }
 
+            if (burnTime == 0) {
+                level.playSound(null, worldPosition, NVSounds.TABULA_VITAE_ACTIVATE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
+            }
             burnTime++;
 
             if (burnTime >= ticksRequired) {
@@ -180,6 +185,9 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             return;
         }
 
+        if (burnTime == 0) {
+            level.playSound(null, worldPosition, NVSounds.TABULA_VITAE_ACTIVATE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
+        }
         burnTime++;
 
         if (burnTime >= ticksRequired) {
@@ -234,6 +242,10 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             currentOutput.grow(output.getCount());
         }
 
+        if (level != null && !level.isClientSide) {
+            level.playSound(null, worldPosition, NVSounds.TABULA_VITAE_COMPLETE.get(), SoundSource.BLOCKS, 0.6f, 1.0f);
+        }
+
         cachedRecipe = null;
         cachedFlaskRecipe = null;
         flaskSlot = -1;
@@ -269,6 +281,10 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
 
         inv.setStackInSlot(flaskSlot, ItemStack.EMPTY);
         inv.setStackInSlot(OUTPUT_SLOT, output);
+
+        if (level != null && !level.isClientSide) {
+            level.playSound(null, worldPosition, NVSounds.TABULA_VITAE_COMPLETE.get(), SoundSource.BLOCKS, 0.6f, 1.0f);
+        }
 
         cachedFlaskRecipe = null;
         flaskSlot = -1;

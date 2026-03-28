@@ -69,19 +69,13 @@ import com.breakinblocks.neovitae.common.network.StreamPayload;
  */
 public final class StreamEffect {
 
-    // ---- Position ----
-
     /** Source X position (world-space). */
     public final double sourceX, sourceY, sourceZ;
     /** Target X position (world-space). Ignored if {@link #stationary}. */
     public final double targetX, targetY, targetZ;
 
-    // ---- Mode ----
-
     /** If true, renders as a pulsing stationary blob instead of a flowing stream. */
     public final boolean stationary;
-
-    // ---- Appearance ----
 
     /** Packed RGB color (e.g. {@code 0xBB0000} for blood red). */
     public final int color;
@@ -96,8 +90,6 @@ public final class StreamEffect {
     /** Number of sides in the tube cross-section. Default {@code 8}. Higher = smoother. */
     public final int tubeSegments;
 
-    // ---- Physics ----
-
     /** Overall speed multiplier for velocity and attraction. Default {@code 1.0f}. */
     public final float speed;
     /** Gravity factor applied to Y velocity each tick. Default {@code 0.2f}. Set to 0 for no gravity. */
@@ -107,8 +99,6 @@ public final class StreamEffect {
     /** Frequency multiplier for wobble oscillation. Default {@code 1.0f}. */
     public final float wobbleFrequency;
 
-    // ---- Spiral ----
-
     /** If true, the stream spirals downward into the target on arrival. Default {@code true}. */
     public final boolean spiralInto;
     /** Radius of the spiral orbit in blocks. Default {@code 0.35f}. */
@@ -117,8 +107,6 @@ public final class StreamEffect {
     public final float spiralSpeed;
     /** Height above the target to approach before spiraling. Default {@code 1.0f}. */
     public final float approachHeight;
-
-    // ---- Lifecycle ----
 
     /** Maximum lifetime in ticks. {@code 0} = auto-calculate from distance. */
     public final int lifetime;
@@ -151,8 +139,6 @@ public final class StreamEffect {
         this.drainSpeed = b.drainSpeed;
     }
 
-    // ---- Factory Methods ----
-
     /**
      * Create a builder with an exact source position.
      */
@@ -173,8 +159,6 @@ public final class StreamEffect {
     public static Builder builder(BlockPos pos) {
         return new Builder(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
     }
-
-    // ---- Network ----
 
     /**
      * Send this effect to all players within {@code radius} blocks of {@code center}.
@@ -251,8 +235,6 @@ public final class StreamEffect {
         b.drainSpeed = buf.readFloat();
         return new StreamEffect(b);
     }
-
-    // ---- Builder ----
 
     /**
      * Fluent builder for {@link StreamEffect}.

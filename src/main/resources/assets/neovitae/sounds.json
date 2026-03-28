@@ -1,19 +1,126 @@
 {
   "bleedingedge": {
     "category": "record",
-    "sounds": [
-      {
-        "name": "neovitae:bleedingedge",
-        "stream": true
-      }
-    ]
+    "sounds": [{"name": "neovitae:bleedingedge", "stream": true}]
   },
   "blood_lamp": {
     "category": "block",
-    "sounds": [
-      {
-        "name": "neovitae:blood_lamp"
-      }
-    ]
+    "sounds": [{"name": "neovitae:blood_lamp"}]
+  },
+  "blood_altar_ambient": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:blood_altar_ambient", "stream": true}]
+  },
+  "blood_altar_craft_start": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:blood_altar_craft_start"}]
+  },
+  "blood_altar_craft_complete": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:blood_altar_craft_complete"}]
+  },
+  "blood_altar_fail": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:blood_altar_fail"}]
+  },
+  "ritual_activate": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:ritual_activate"}]
+  },
+  "ritual_ambient": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:ritual_ambient", "stream": true}]
+  },
+  "ritual_complete": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:ritual_complete"}]
+  },
+  "alchemy_array_activate": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:alchemy_array_activate"}]
+  },
+  "alchemy_array_craft": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:alchemy_array_craft"}]
+  },
+  "hellfire_forge_ambient": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:hellfire_forge_ambient", "stream": true}]
+  },
+  "hellfire_forge_craft": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:hellfire_forge_craft"}]
+  },
+  "hellfire_forge_complete": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:hellfire_forge_complete"}]
+  },
+  "athanor_bubble": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:athanor_bubble", "stream": true}]
+  },
+  "athanor_complete": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:athanor_complete"}]
+  },
+  "tabula_vitae_activate": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:tabula_vitae_activate"}]
+  },
+  "tabula_vitae_craft": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:tabula_vitae_craft", "stream": true}]
+  },
+  "tabula_vitae_complete": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:tabula_vitae_complete"}]
+  },
+  "teleposer_activate": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:teleposer_activate"}]
+  },
+  "teleposer_arrival": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:teleposer_arrival"}]
+  },
+  "blood_siphon": {
+    "category": "player",
+    "sounds": [{"name": "neovitae:blood_siphon"}]
+  },
+  "blood_shield_absorb": {
+    "category": "player",
+    "sounds": [{"name": "neovitae:blood_shield_absorb"}]
+  },
+  "sigil_activate": {
+    "category": "player",
+    "sounds": [{"name": "neovitae:sigil_activate"}]
+  },
+  "sigil_toggle_on": {
+    "category": "player",
+    "sounds": [{"name": "neovitae:sigil_toggle_on"}]
+  },
+  "sigil_toggle_off": {
+    "category": "player",
+    "sounds": [{"name": "neovitae:sigil_toggle_off"}]
+  },
+  "incense_ignite": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:incense_ignite"}]
+  },
+  "incense_ambient": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:incense_ambient", "stream": true}]
+  },
+  "blood_tank_fill": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:blood_tank_fill"}]
+  },
+  "blood_tank_drain": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:blood_tank_drain"}]
+  },
+  "inscription_tool_scribe": {
+    "category": "player",
+    "sounds": [{"name": "neovitae:inscription_tool_scribe"}]
   }
 }

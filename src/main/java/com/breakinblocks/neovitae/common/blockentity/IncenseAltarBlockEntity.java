@@ -11,11 +11,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.incense.EnumTranquilityType;
 import com.breakinblocks.neovitae.incense.IncenseAltarHandler;
 import com.breakinblocks.neovitae.incense.IncenseHelper;
 import com.breakinblocks.neovitae.incense.TranquilityRegistry;
 import com.breakinblocks.neovitae.incense.TranquilityStack;
+import net.minecraft.sounds.SoundSource;
 
 import java.util.HashMap;
 import java.util.List;
@@ -150,6 +152,9 @@ public class IncenseAltarBlockEntity extends BlockEntity {
         }
 
         double bonus = IncenseAltarHandler.getIncenseBonus(appliedTranquility, roadDistance);
+        if (this.incenseAddition <= 0 && bonus > 0 && level != null) {
+            level.playSound(null, worldPosition, NVSounds.INCENSE_IGNITE.get(), SoundSource.BLOCKS, 0.4f, 1.0f);
+        }
         this.incenseAddition = bonus;
         this.tranquility = appliedTranquility;
 

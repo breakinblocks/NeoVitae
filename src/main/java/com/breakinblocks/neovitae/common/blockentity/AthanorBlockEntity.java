@@ -37,7 +37,9 @@ import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipeInput;
 import com.breakinblocks.neovitae.common.tag.NVTags;
+import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.util.AthanorOutputHandler;
+import net.minecraft.sounds.SoundSource;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -279,6 +281,9 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     private void handleInventory(List<ItemStack> toOutput, AthanorOutputHandler outputHandler) {
         if (!outputHandler.canTransferAllItemsToSlots(toOutput, false)) {
             // Debug: NeoVitae.LOGGER.info("couldnt stash all {}", toOutput);
+        }
+        if (level != null && !level.isClientSide) {
+            level.playSound(null, worldPosition, NVSounds.ATHANOR_COMPLETE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
         }
         arcInv.getStackInSlot(INPUT_SLOT).shrink(1);
         progress = 0;

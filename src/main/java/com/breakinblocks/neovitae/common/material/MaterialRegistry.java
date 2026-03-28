@@ -7,8 +7,18 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackLocationInfo;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.minecraft.server.packs.PackSelectionConfig;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
@@ -35,6 +45,8 @@ public class MaterialRegistry {
     private static final List<MaterialDefinition> MATERIALS = new ArrayList<>();
     private static final Map<String, Map<String, DeferredHolder<Item, Item>>> ITEM_MAP = new LinkedHashMap<>();
     private static InMemoryPack GENERATED_PACK;
+    private static boolean firstRun = false;
+    private static boolean pendingRestartNotice = false;
 
     static {
         loadAndRegister();
@@ -312,6 +324,106 @@ public class MaterialRegistry {
     public static void register(IEventBus modBus) {
         ITEMS.register(modBus);
         modBus.addListener(MaterialRegistry::onAddPackFinders);
+        NeoForge.EVENT_BUS.addListener(MaterialRegistry::onServerStarted);
+    }
+
+    private static void onServerStarted(ServerStartedEvent event) {
+        if (!firstRun) return;
+        firstRun = false;
+
+        ServerLevel level = event.getServer().overworld();
+        var itemRegistry = level.registryAccess().registryOrThrow(Registries.ITEM);
+
+        List<String> oreNames = itemRegistry.getTagNames()
+                .filter(tag -> tag.location().getNamespace().equals("c"))
+                .filter(tag -> tag.location().getPath().startsWith("ores/"))
+                .map(tag -> tag.location().getPath().substring(5))
+                .distinct()
+                .filter(name -> !hasMaterial(name))
+                .sorted()
+                .toList();
+
+        if (oreNames.isEmpty()) {
+            NeoVitae.LOGGER.info("[MaterialRegistry] First run: no additional ores found beyond defaults");
+            return;
+        }
+
+        List<MaterialDefinition> newMaterials = new java.util.ArrayList<>();
+        var recipeManager = level.getRecipeManager();
+        var resourceManager = event.getServer().getResourceManager();
+
+        for (String oreName : oreNames) {
+            TagKey<net.minecraft.world.item.Item> oreTag = TagKey.create(Registries.ITEM,
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("c", "ores/" + oreName));
+            var firstOre = itemRegistry.getTag(oreTag)
+                    .flatMap(set -> set.stream().findFirst().map(Holder::value));
+            if (firstOre.isEmpty()) continue;
+
+            String smeltTo = null;
+            var input = new SingleRecipeInput(new ItemStack(firstOre.get()));
+            var recipe = recipeManager.getRecipeFor(RecipeType.SMELTING, input, level);
+            if (recipe.isPresent()) {
+                ItemStack result = recipe.get().value().getResultItem(level.registryAccess());
+                if (!result.isEmpty()) {
+                    smeltTo = BuiltInRegistries.ITEM.getKey(result.getItem()).toString();
+                }
+            }
+            if (smeltTo == null) {
+                TagKey<net.minecraft.world.item.Item> ingotTag = TagKey.create(Registries.ITEM,
+                        net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("c", "ingots/" + oreName));
+                smeltTo = itemRegistry.getTag(ingotTag)
+                        .flatMap(s -> s.stream().findFirst().map(Holder::value))
+                        .map(item -> BuiltInRegistries.ITEM.getKey(item).toString())
+                        .orElse(null);
+            }
+            if (smeltTo == null) {
+                TagKey<net.minecraft.world.item.Item> gemTag = TagKey.create(Registries.ITEM,
+                        net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("c", "gems/" + oreName));
+                smeltTo = itemRegistry.getTag(gemTag)
+                        .flatMap(s -> s.stream().findFirst().map(Holder::value))
+                        .map(item -> BuiltInRegistries.ITEM.getKey(item).toString())
+                        .orElse(null);
+            }
+
+            String color = com.breakinblocks.neovitae.common.command.GenerateMaterialsCommand
+                    .extractOreColorPublic(resourceManager, firstOre.get(), oreName);
+
+            boolean hasRaw = itemRegistry.getTag(TagKey.create(Registries.ITEM,
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("c", "raw_materials/" + oreName)))
+                    .map(s -> s.size() > 0).orElse(false);
+            boolean hasIngotTag = itemRegistry.getTag(TagKey.create(Registries.ITEM,
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("c", "ingots/" + oreName)))
+                    .map(s -> s.size() > 0).orElse(false);
+            boolean hasGemTag = itemRegistry.getTag(TagKey.create(Registries.ITEM,
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("c", "gems/" + oreName)))
+                    .map(s -> s.size() > 0).orElse(false);
+
+            String rawTag = hasRaw ? "c:raw_materials/" + oreName : null;
+            String ingotOrGemTag = hasIngotTag ? "c:ingots/" + oreName : hasGemTag ? "c:gems/" + oreName : null;
+
+            newMaterials.add(new MaterialDefinition(
+                    oreName, color, List.of("fragment", "gravel", "dust"),
+                    smeltTo, smeltTo != null ? 0.7f : 0,
+                    "c:ores/" + oreName, rawTag, ingotOrGemTag,
+                    null, null
+            ));
+        }
+
+        if (!newMaterials.isEmpty()) {
+            appendAndSave(newMaterials);
+            pendingRestartNotice = true;
+            List<String> names = newMaterials.stream().map(MaterialDefinition::getName).toList();
+            NeoVitae.LOGGER.info("[MaterialRegistry] First run auto-discovery: added {} materials: {}. Restart for items to appear.",
+                    newMaterials.size(), String.join(", ", names));
+        }
+    }
+
+    public static boolean hasPendingRestartNotice() {
+        return pendingRestartNotice;
+    }
+
+    public static void clearRestartNotice() {
+        pendingRestartNotice = false;
     }
 
     private static void onAddPackFinders(AddPackFindersEvent event) {
@@ -351,6 +463,7 @@ public class MaterialRegistry {
         Path configFile = FMLPaths.CONFIGDIR.get().resolve("neovitae/materials.json");
 
         if (!Files.exists(configFile)) {
+            firstRun = true;
             writeConfig(configFile, defaults);
             return defaults;
         }
@@ -423,6 +536,17 @@ public class MaterialRegistry {
         List<DeferredHolder<Item, Item>> all = new ArrayList<>();
         ITEM_MAP.values().forEach(map -> all.addAll(map.values()));
         return all;
+    }
+
+    public static boolean hasMaterial(String name) {
+        return MATERIALS.stream().anyMatch(m -> m.getName().equals(name));
+    }
+
+    public static void appendAndSave(List<MaterialDefinition> newMaterials) {
+        List<MaterialDefinition> all = new ArrayList<>(MATERIALS);
+        all.addAll(newMaterials);
+        Path configFile = FMLPaths.CONFIGDIR.get().resolve("neovitae/materials.json");
+        writeConfig(configFile, all);
     }
 
     private static List<MaterialDefinition> createDefaults() {

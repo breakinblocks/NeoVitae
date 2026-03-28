@@ -695,6 +695,23 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("item_group.neovitae.tomes", "Neo Vitae Upgrade Tomes");
         add("item_group.neovitae.trainers", "Neo Vitae Trainer Tomes");
 
+        // Blood light messages
+        add("tooltip.neovitae.sigil.blood_light.brightness", "Light Level: %s");
+        add("tooltip.neovitae.sigil.blood_light.color", "Color: %s");
+        add("message.neovitae.blood_light.brightness", "Blood Light: Brightness %s");
+        add("message.neovitae.blood_light.redstone_on", "Redstone Control: Enabled");
+        add("message.neovitae.blood_light.redstone_off", "Redstone Control: Disabled");
+        add("message.neovitae.sigil.blood_light.brightness", "Sigil Brightness: %s");
+
+        // Material generation messages
+        add("message.neovitae.materials.generated", "[Neo Vitae] New ore materials have been detected and added to the config.");
+        add("message.neovitae.materials.restart_required", "[Neo Vitae] A game restart is required for the new material items to appear.");
+        add("command.neovitae.generate.scanning", "Scanning c:ores tags...");
+        add("command.neovitae.generate.no_new", "No new ore materials found. %s already configured.");
+        add("command.neovitae.generate.added", "Added %s new materials: %s");
+        add("command.neovitae.generate.skipped", "%s ore types already configured or skipped.");
+        add("command.neovitae.generate.restart", "Restart the game for new items to appear.");
+
         add(NVItems.LIVING_HELMET.get(), "Living Helmet");
         add(NVItems.LIVING_PLATE.get(), "Living Plate");
         add(NVItems.LIVING_LEGGINGS.get(), "Living Leggings");
@@ -759,7 +776,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("sigil.divination.desc", "Reveals the state of an Ara Vitae or your Anima");
         addTooltip("sigil.seer.desc", "Reveals detailed knowledge of an Ara Vitae or your Anima");
         addTooltip("sigil.air.desc", "Launches you into the air");
-        addTooltip("sigil.bloodlight.desc", "Creates a light source where you click");
+        addTooltip("sigil.blood_light.desc", "Creates a configurable colored light source");
         addTooltip("sigil.fast_miner.desc", "Increases mining speed while active");
         addTooltip("sigil.frost.desc", "Freezes water beneath your feet");
         addTooltip("sigil.suppression.desc", "Pushes away nearby fluids");

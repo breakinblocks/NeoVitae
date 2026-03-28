@@ -18,6 +18,7 @@ public class NVCommands {
         ImperfectRitualCommand.register(dispatcher);
         AuraCommand.register(dispatcher);
         DungeonShowcaseCommand.register(dispatcher);
+        GenerateMaterialsCommand.register(dispatcher);
 
         CommandNode<CommandSourceStack> networkNode = dispatcher.getRoot().getChild("anima");
         CommandNode<CommandSourceStack> ritualNode = dispatcher.getRoot().getChild("nv-ritual");
@@ -25,6 +26,7 @@ public class NVCommands {
         CommandNode<CommandSourceStack> auraNode = dispatcher.getRoot().getChild("nv-aura");
         CommandNode<CommandSourceStack> upgradeNode = dispatcher.getRoot().getChild("living-upgrade");
         CommandNode<CommandSourceStack> showcaseNode = dispatcher.getRoot().getChild("nv-dungeon-showcase");
+        CommandNode<CommandSourceStack> generateNode = dispatcher.getRoot().getChild("nvgenerate");
 
         dispatcher.register(
                 Commands.literal("neovitae")
@@ -34,6 +36,7 @@ public class NVCommands {
                         .then(Commands.literal("aura").redirect(auraNode))
                         .then(Commands.literal("upgrade").redirect(upgradeNode))
                         .then(Commands.literal("dungeon-showcase").redirect(showcaseNode))
+                        .then(Commands.literal("generate").redirect(generateNode))
         );
     }
 }

@@ -74,6 +74,14 @@ public class CommonEventHandler {
                 NeoVitae.LOGGER.info("Auto-opped {} in dev environment", serverPlayer.getName().getString());
             }
         }
+
+        if (event.getEntity() instanceof ServerPlayer player
+                && com.breakinblocks.neovitae.common.material.MaterialRegistry.hasPendingRestartNotice()) {
+            player.sendSystemMessage(net.minecraft.network.chat.Component.translatable("message.neovitae.materials.generated")
+                    .withStyle(net.minecraft.ChatFormatting.GOLD));
+            player.sendSystemMessage(net.minecraft.network.chat.Component.translatable("message.neovitae.materials.restart_required")
+                    .withStyle(net.minecraft.ChatFormatting.YELLOW));
+        }
     }
 
     @SubscribeEvent

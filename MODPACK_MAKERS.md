@@ -921,6 +921,86 @@ Use standard NeoForge attribute modifier syntax on items or equipment:
 
 ---
 
+## Data-Driven Material System
+
+Neo Vitae's ore processing system is fully data-driven. Materials (dusts, gravels, fragments) are defined in a JSON config file and items are generated at startup.
+
+### Config File
+
+**Location:** `config/neovitae/materials.json`
+
+Each entry defines a processable material:
+
+```json
+{
+  "name": "tin",
+  "color": "#C8C8D0",
+  "stages": ["fragment", "gravel", "dust"],
+  "smelt_to": "create:tin_ingot",
+  "smelt_xp": 0.7,
+  "ore_tag": "c:ores/tin",
+  "raw_tag": "c:raw_materials/tin",
+  "ingot_tag": "c:ingots/tin",
+  "display_name": "Tin"
+}
+```
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `name` | Yes | Unique material name. Used in item IDs (`neovitae:tin_dust`). |
+| `color` | Yes | Hex color for item tinting (e.g., `#C8C8D0`). |
+| `stages` | Yes | Processing stages to create: `fragment`, `gravel`, `dust`. |
+| `smelt_to` | No | Item ID for smelting output. Omit to skip smelting recipes. |
+| `smelt_xp` | No | XP from smelting (default: 0). |
+| `ore_tag` | No | Tag for ore blocks (e.g., `c:ores/tin`). Enables ore processing recipes. |
+| `raw_tag` | No | Tag for raw materials (e.g., `c:raw_materials/tin`). |
+| `ingot_tag` | No | Tag for ingots/gems (e.g., `c:ingots/tin`). Enables ingot-to-dust recipe. |
+| `display_name` | No | Override display name. Defaults to capitalized material name. |
+| `id_overrides` | No | Map to override generated item IDs per stage. |
+
+### Auto-Generated Content
+
+For each material, the system automatically generates:
+
+- **Items**: Fragment, gravel, and/or dust items with color-tinted base textures
+- **Tags**: `c:fragments/{name}`, `c:gravels/{name}`, `c:dusts/{name}`
+- **Smelting/blasting recipes**: Dust to output item (if `smelt_to` is defined)
+- **Athanor recipes**: Full ore processing chain (ore/raw to fragments, fragments to gravel, gravel to dust, etc.)
+- **Tabula Vitae recipes**: Ore to dust, fragments to gravel with corrupted dust
+- **Item models and translations**: Generated in-memory, no files needed
+
+All recipes use `neoforge:item_exists` conditions so they silently disable if the output item's mod is not installed.
+
+### Auto-Discovery Command
+
+**`/nvgenerate`** (or `/neovitae generate`) - Requires op permissions.
+
+Scans all `c:ores/*` tags from installed mods and:
+1. Discovers ore materials not already in the config
+2. Looks up smelting recipes to find the output item
+3. Falls back to `c:ingots/{name}` or `c:gems/{name}` tag matching
+4. Extracts the ore's characteristic color from its block texture (filtering out stone-colored pixels)
+5. Appends new material entries to the config
+
+A game restart is required after running the command for new items to appear.
+
+### First-Run Auto-Discovery
+
+On the very first launch (when `materials.json` does not exist), the mod automatically runs the ore discovery process after the world loads. Any detected ores are added to the config and a notification is sent to players on join indicating a restart is needed.
+
+### Adding a Custom Material Manually
+
+1. Open `config/neovitae/materials.json`
+2. Add a new entry to the JSON array
+3. Restart the game
+4. The new material's items, models, tags, and recipes appear automatically
+
+### Removing a Material
+
+Remove the entry from `materials.json` and restart. Existing items in the world will become unknown items.
+
+---
+
 ## Tips & Best Practices
 
 1. **Use `"replace": false`** in tags to add to existing lists instead of replacing them

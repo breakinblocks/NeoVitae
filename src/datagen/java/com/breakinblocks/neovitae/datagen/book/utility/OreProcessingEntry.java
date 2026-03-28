@@ -152,6 +152,16 @@ public class OreProcessingEntry extends EntryProvider {
                 + "the Block of Coal in its recipe would yield in a furnace. Better still, it consumes durability "
                 + "only upon completing a craft, wasting nothing.\\\n\\\n"
                 + "[#](2E8B57)An efficient Vitaemancer wastes neither blood nor fuel.[#]()");
+
+        this.page("custom_materials", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Custom Materials");
+        this.pageText("Neo Vitae's ore processing supports any material from any mod. "
+                + "On first launch, the mod scans for installed ores and auto-generates processing entries.\\\n\\\n"
+                + "Modpack makers can run [#](8B0000)/nvgenerate[#]() to re-scan after adding new mods, "
+                + "or manually edit [#](8B0000)config/neovitae/materials.json[#]() to add, remove, "
+                + "or customize materials. A restart is required for changes to take effect.");
     }
 
     @Override

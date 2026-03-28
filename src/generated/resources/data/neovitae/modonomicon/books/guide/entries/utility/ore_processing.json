@@ -184,6 +184,17 @@
       "text": "book.neovitae.guide.utility.ore_processing.fuel_info.text",
       "title": "book.neovitae.guide.utility.ore_processing.fuel_info.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.ore_processing.custom_materials.text",
+      "title": "book.neovitae.guide.utility.ore_processing.custom_materials.title",
+      "use_markdown_in_title": false
     }
   ],
   "show_when_any_parent_unlocked": false,

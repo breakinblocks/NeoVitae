@@ -150,7 +150,10 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
         Binding binding = getBinding(stack);
         if (binding == null) {
-            return InteractionResultHolder.consume(player.getItemInHand(hand));
+            if (!level.isClientSide) {
+                bind(player, stack);
+            }
+            return InteractionResultHolder.success(player.getItemInHand(hand));
         }
 
         if (isToggleable(stack, level)) {
@@ -188,7 +191,10 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
         Binding binding = getBinding(stack);
         if (binding == null) {
-            return InteractionResult.CONSUME;
+            if (!level.isClientSide && player != null) {
+                bind(player, stack);
+            }
+            return InteractionResult.SUCCESS;
         }
 
         ISigilEffect effect = getSigilEffect(stack, level);

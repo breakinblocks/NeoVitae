@@ -194,6 +194,14 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
             tile.tickFluidTransfer();
         }
 
+        // Ambient blood drip when altar has LP
+        if (tile.getMainTank() > 0 && tile.getTicks() % 10 == 0) {
+            ((ServerLevel) level).sendParticles(
+                    new ColoredParticleOptions(NVParticles.BLOOD_DRIP.get(), 0x990011),
+                    pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5,
+                    1, 0.3, 0.0, 0.3, 0);
+        }
+
         if (!tile.isActive() && tile.getCooldownAfterCrafting() > 0) {
             tile.setCooldownAfterCrafting(tile.getCooldownAfterCrafting() - 1);
             if (tile.getCooldownAfterCrafting() <= 0) tile.checkAction();
@@ -369,6 +377,13 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
                         cx - offsetX * 0.5, cy + 0.1, cz - offsetZ * 0.5,
                         0, -offsetX * 0.01, 0.06, -offsetZ * 0.01, 1);
             }
+            // Blood bubbles at altar surface during orb filling
+            if (drained > 0 && getTicks() % 8 == 0) {
+                ((ServerLevel) level).sendParticles(
+                        new ColoredParticleOptions(NVParticles.BLOOD_BUBBLE.get(), 0x990011),
+                        worldPosition.getX() + 0.5, worldPosition.getY() + 0.7, worldPosition.getZ() + 0.5,
+                        1, 0.2, 0.0, 0.2, 0);
+            }
         }
     }
 
@@ -376,6 +391,12 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     private static final int[][] T3_CAPS = {{5, 2, 5}, {5, 2, -5}, {-5, 2, 5}, {-5, 2, -5}};
     private static final int[][] T4_CAPS = {{8, -4, 8}, {8, -4, -8}, {-8, -4, 8}, {-8, -4, -8}};
     private static final int[][] T5_CAPS_ORDERED = {{11, 3, -11}, {11, 3, 11}, {-11, 3, 11}, {-11, 3, -11}};
+    private static final int[][] T5_TO_T4_MAP = {
+            {11, 3, -11, 8, -4, -8},
+            {11, 3, 11, 8, -4, 8},
+            {-11, 3, 11, -8, -4, 8},
+            {-11, 3, -11, -8, -4, -8}
+    };
     private static final int ORBIT_TICKS = 30;
     private static final int CYCLE_TICKS = 60;
 
@@ -392,7 +413,14 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         }
 
         if (currentTier >= 3) {
-            tickCapOrbitAndFire(serverLevel, tick, T3_CAPS, 0xCC0000, 1.5, CYCLE_TICKS + 15, ax, ay, az, false);
+            int capIdx = (tick / (CYCLE_TICKS + 15)) % T3_CAPS.length;
+            int[] staggerOffsets = {0, 18, 37, 9};
+            for (int i = 0; i < T3_CAPS.length; i++) {
+                int staggeredTick = tick + staggerOffsets[i];
+                int darkColor = (i % 2 == 0) ? 0x880011 : 0x660022;
+                tickSingleCapOrbitAndFire(serverLevel, staggeredTick, T3_CAPS[i], darkColor,
+                        1.5, CYCLE_TICKS + 15, ax, ay, az);
+            }
         }
 
         if (currentTier >= 4 && tick % 5 == 0) {
@@ -407,6 +435,20 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
 
         if (currentTier >= 5) {
             tickCrystalLoop(serverLevel, tick);
+            if (tick % 60 == 0) {
+                for (int[] mapping : T5_TO_T4_MAP) {
+                    double cx = worldPosition.getX() + mapping[0] + 0.5;
+                    double cy = worldPosition.getY() + mapping[1] + 0.5;
+                    double cz = worldPosition.getZ() + mapping[2] + 0.5;
+                    double hx = worldPosition.getX() + mapping[3] + 0.5;
+                    double hy = worldPosition.getY() + mapping[4] + 0.5;
+                    double hz = worldPosition.getZ() + mapping[5] + 0.5;
+                    StreamPresets.demonTether(
+                            new net.minecraft.core.BlockPos(worldPosition.getX() + mapping[0], worldPosition.getY() + mapping[1], worldPosition.getZ() + mapping[2]),
+                            new net.minecraft.core.BlockPos(worldPosition.getX() + mapping[3], worldPosition.getY() + mapping[4], worldPosition.getZ() + mapping[5]))
+                            .build().sendToNearby(serverLevel, worldPosition, 128);
+                }
+            }
         }
     }
 
@@ -450,6 +492,35 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
                             .build().sendToNearby(serverLevel, worldPosition, 128);
                 }
             }
+        }
+    }
+
+    private void tickSingleCapOrbitAndFire(ServerLevel serverLevel, int tick, int[] cap, int color,
+                                              double orbitRadius, int cyclePeriod, double ax, double ay, double az) {
+        int phase = tick % cyclePeriod;
+        double cx = worldPosition.getX() + cap[0] + 0.5;
+        double cy = worldPosition.getY() + cap[1] + 0.5;
+        double cz = worldPosition.getZ() + cap[2] + 0.5;
+
+        if (phase < ORBIT_TICKS && tick % 3 == 0) {
+            double angle = (phase / (double) ORBIT_TICKS) * Math.PI * 2 * (1 + (tick / cyclePeriod) % 3);
+            double px = cx + Math.cos(angle) * orbitRadius;
+            double pz = cz + Math.sin(angle) * orbitRadius;
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), color),
+                    px, cy, pz, 0, 0, 0.01, 0, 1);
+        }
+
+        if (phase == ORBIT_TICKS) {
+            float scale = 0.12f + (float) (Math.sin(tick * 0.1) * 0.05);
+            float speed = 1.8f + (float) (Math.sin(tick * 0.07) * 0.5);
+            StreamEffect.builder(cx, cy, cz)
+                    .to(ax, ay, az)
+                    .color(color).scale(scale).speed(speed).gravity(0.08f)
+                    .approachHeight(0.3f)
+                    .spiralInto(true).spiralRadius(0.15f).spiralSpeed(0.2f)
+                    .wobble(0.01f)
+                    .alphaStart(0.5f).alphaEnd(0.85f)
+                    .build().sendToNearby(serverLevel, worldPosition, 128);
         }
     }
 
@@ -724,9 +795,9 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     private void setChargingTank(int chargingTank) { this.chargingTank = chargingTank; }
     private void setProgress(int progress) { this.progress = progress; }
     private void setCurrentRecipe(AraVitaeRecipe recipe) { this.currentRecipe = recipe; }
-    private void setActive(boolean active) { this.isActive = active; }
+    public void setActive(boolean active) { this.isActive = active; }
     private void setCanFill(boolean canFill) { this.canFill = canFill; }
-    private void setCooldownAfterCrafting(int cooldown) { this.cooldownAfterCrafting = cooldown; }
+    public void setCooldownAfterCrafting(int cooldown) { this.cooldownAfterCrafting = cooldown; }
     private void setTier(int tier) { this.tier = tier; }
 
     @Override

@@ -23,6 +23,16 @@ public class SacrificialLambEffect extends MobEffect {
 
     @Override
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
+        if (entity.level().isClientSide && entity.tickCount % 3 == 0) {
+            double x = entity.getX() + (entity.getRandom().nextDouble() - 0.5) * 0.5;
+            double y = entity.getY() + entity.getRandom().nextDouble() * entity.getBbHeight();
+            double z = entity.getZ() + (entity.getRandom().nextDouble() - 0.5) * 0.5;
+            entity.level().addParticle(
+                    new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
+                            com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_GLOW.get(), 0xCC0000),
+                    x, y, z, 0, 0.02, 0);
+        }
+
         if (!(entity instanceof PathfinderMob animal)) {
             return true;
         }

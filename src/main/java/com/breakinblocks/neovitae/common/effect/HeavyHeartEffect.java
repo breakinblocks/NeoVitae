@@ -21,6 +21,16 @@ public class HeavyHeartEffect extends MobEffect {
 
     @Override
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
+        if (entity.level().isClientSide && entity.tickCount % 4 == 0) {
+            double x = entity.getX() + (entity.getRandom().nextDouble() - 0.5) * 0.6;
+            double y = entity.getY() + entity.getRandom().nextDouble() * 0.3;
+            double z = entity.getZ() + (entity.getRandom().nextDouble() - 0.5) * 0.6;
+            entity.level().addParticle(
+                    new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
+                            com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_FLAME.get(), 0x8B0000),
+                    x, y, z, 0, -0.04, 0);
+        }
+
         if (!entity.onGround() && entity.getDeltaMovement().y > -1.0) {
             double downwardForce = 0.05 * (amplifier + 1);
             entity.setDeltaMovement(entity.getDeltaMovement().add(0, -downwardForce, 0));

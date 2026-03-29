@@ -19,6 +19,7 @@ public class NVCommands {
         AuraCommand.register(dispatcher);
         DungeonShowcaseCommand.register(dispatcher);
         GenerateMaterialsCommand.register(dispatcher);
+        StreamTestCommand.register(dispatcher);
 
         CommandNode<CommandSourceStack> networkNode = dispatcher.getRoot().getChild("anima");
         CommandNode<CommandSourceStack> ritualNode = dispatcher.getRoot().getChild("nv-ritual");

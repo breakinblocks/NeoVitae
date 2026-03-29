@@ -31,6 +31,9 @@ import com.breakinblocks.neovitae.common.recipe.flask.FlaskRecipe;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 
 import java.util.ArrayList;
@@ -160,6 +163,10 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             }
             burnTime++;
 
+            if (burnTime % 5 == 0) {
+                ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.1, worldPosition.getZ() + 0.5, 2, 0.2, 0.0, 0.2, 0.01);
+            }
+
             if (burnTime >= ticksRequired) {
                 craftFlaskItem(flaskRecipe);
                 burnTime = 0;
@@ -198,6 +205,10 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             level.playSound(null, worldPosition, NVSounds.TABULA_VITAE_ACTIVATE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
         }
         burnTime++;
+
+        if (burnTime % 5 == 0) {
+            ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.1, worldPosition.getZ() + 0.5, 2, 0.2, 0.0, 0.2, 0.01);
+        }
 
         if (burnTime >= ticksRequired) {
             craftItem(recipe);
@@ -253,6 +264,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
 
         if (level != null && !level.isClientSide) {
             level.playSound(null, worldPosition, NVSounds.TABULA_VITAE_COMPLETE.get(), SoundSource.BLOCKS, 0.6f, 1.0f);
+            ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 8, 0.3, 0.2, 0.3, 0);
         }
 
         cachedRecipe = null;
@@ -293,6 +305,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
 
         if (level != null && !level.isClientSide) {
             level.playSound(null, worldPosition, NVSounds.TABULA_VITAE_COMPLETE.get(), SoundSource.BLOCKS, 0.6f, 1.0f);
+            ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 8, 0.3, 0.2, 0.3, 0);
         }
 
         cachedFlaskRecipe = null;

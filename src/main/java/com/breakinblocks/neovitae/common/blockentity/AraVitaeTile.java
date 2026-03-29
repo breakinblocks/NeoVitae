@@ -3,13 +3,12 @@ package com.breakinblocks.neovitae.common.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -45,6 +44,10 @@ import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
+import com.breakinblocks.neovitae.api.stream.StreamEffect;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import net.minecraft.sounds.SoundSource;
 
 import java.util.HashMap;
@@ -284,15 +287,18 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
             hasOperated = true;
 
             if (getTicks() % AltarConstants.PARTICLE_FREQUENCY_REDSTONE == 0) {
-                ((ServerLevel) level).sendParticles(DustParticleOptions.REDSTONE, worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 1, 0.2, 1.0, 0.2, 0);
+                ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 3, 0.3, 0.0, 0.3, 0.02);
             }
+            tickTierEffects();
         } else if (!hasOperated && getProgress() > 0) {
             setProgress(getProgress() - (int) (getCurrentRecipe().getDrainSpeed() * (1 + modifiers.getEfficiencyMod())));
             if (getProgress() < 0) setProgress(0);
             if (getTicks() % AltarConstants.PARTICLE_FREQUENCY_SMOKE == 0) {
-                ((ServerLevel) level).sendParticles(ParticleTypes.LARGE_SMOKE, worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 1, 0.1, 1.0, 0.1, 0);
+                ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x330000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 1, 0.1, 1.0, 0.1, 0);
             }
             if (getProgress() <= 0) {
+                ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x330000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 8, 0.3, 0.2, 0.3, 0.01);
+                StreamPresets.voidMark(worldPosition).build().sendToNearby((ServerLevel) level, worldPosition, 64);
                 level.playSound(null, worldPosition, NVSounds.BLOOD_ALTAR_FAIL.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
             }
         }
@@ -328,7 +334,8 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         setCooldownAfterCrafting(AltarConstants.CRAFTING_COOLDOWN_TICKS);
         setActive(false);
         setCurrentRecipe(null);
-        ((ServerLevel) level).sendParticles(DustParticleOptions.REDSTONE, worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 40, 0.3, 0.0, 0.3, 0);
+        ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 15, 0.3, 0.5, 0.3, 0.05);
+        StreamPresets.emberMote(worldPosition).color(0x990011).lifetime(30).scale(0.15f).build().sendToNearby((ServerLevel) level, worldPosition, 64);
         level.playSound(null, worldPosition, NVSounds.BLOOD_ALTAR_CRAFT_COMPLETE.get(), SoundSource.BLOCKS, 0.7f, 1.0f);
 
         NeoForge.EVENT_BUS.post(new AraVitaeCraftEvent.Crafted(this, recipe, inputStack, legacyEvent.getOutput()));
@@ -343,9 +350,147 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
             int available = Math.min(getMainTank(), (int) (orb.fillRate() * (1 + modifiers.getConsumptionMod())));
             int drained = AnimaHelper.getAnima(binding.uuid()).add(AnimaTicket.create(available), (int) (orb.capacity() * (1 + modifiers.getOrbCapacityMod())));
             setMainTank(getMainTank() - drained);
-            if (drained > 0) {
-                ((ServerLevel) level).sendParticles(ParticleTypes.WITCH, worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 1, 0, 0, 0, 0.001);
+            if (drained > 0 && getTicks() % 2 == 0) {
+                double angle = (getTicks() * 0.15) % (Math.PI * 2);
+                double radius = 0.2;
+                double offsetX = Math.cos(angle) * radius;
+                double offsetZ = Math.sin(angle) * radius;
+                double cx = worldPosition.getX() + 0.5;
+                double cy = worldPosition.getY() + 1.0;
+                double cz = worldPosition.getZ() + 0.5;
+
+                ((ServerLevel) level).sendParticles(
+                        new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x880022),
+                        cx + offsetX, cy, cz + offsetZ,
+                        0, offsetX * 0.02, 0.08, offsetZ * 0.02, 1);
+                ((ServerLevel) level).sendParticles(
+                        new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x440066),
+                        cx - offsetX * 0.5, cy + 0.1, cz - offsetZ * 0.5,
+                        0, -offsetX * 0.01, 0.06, -offsetZ * 0.01, 1);
             }
+        }
+    }
+
+    private static final int[][] T2_CAPS = {{3, 1, 3}, {3, 1, -3}, {-3, 1, 3}, {-3, 1, -3}};
+    private static final int[][] T3_CAPS = {{5, 2, 5}, {5, 2, -5}, {-5, 2, 5}, {-5, 2, -5}};
+    private static final int[][] T4_CAPS = {{8, -4, 8}, {8, -4, -8}, {-8, -4, 8}, {-8, -4, -8}};
+    private static final int[][] T5_CAPS_ORDERED = {{11, 3, 11}, {11, 3, -11}, {-11, 3, -11}, {-11, 3, 11}};
+    private static final int ORBIT_TICKS = 30;
+    private static final int CYCLE_TICKS = 60;
+
+    private void tickTierEffects() {
+        if (!(level instanceof ServerLevel serverLevel)) return;
+        int currentTier = getTier();
+        int tick = getTicks();
+        double ax = worldPosition.getX() + 0.5;
+        double ay = worldPosition.getY() + 0.5;
+        double az = worldPosition.getZ() + 0.5;
+
+        if (currentTier >= 2) {
+            tickCapOrbitAndFire(serverLevel, tick, T2_CAPS, 0xFFCC22, 1.2, CYCLE_TICKS, ax, ay, az, true);
+        }
+
+        if (currentTier >= 3) {
+            tickCapOrbitAndFire(serverLevel, tick, T3_CAPS, 0xCC0000, 1.5, CYCLE_TICKS + 15, ax, ay, az, false);
+        }
+
+        if (currentTier >= 4 && tick % 5 == 0) {
+            for (int[] cap : T4_CAPS) {
+                double cx = worldPosition.getX() + cap[0] + 0.5;
+                double cy = worldPosition.getY() + cap[1] + 0.5;
+                double cz = worldPosition.getZ() + cap[2] + 0.5;
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x8800CC),
+                        cx, cy, cz, 1, 0.3, 0.3, 0.3, 0.01);
+            }
+        }
+
+        if (currentTier >= 5) {
+            tickCrystalLoop(serverLevel, tick);
+        }
+    }
+
+    private void tickCapOrbitAndFire(ServerLevel serverLevel, int tick, int[][] caps, int color,
+                                      double orbitRadius, int cyclePeriod, double ax, double ay, double az,
+                                      boolean useLifePulse) {
+        int phase = tick % cyclePeriod;
+
+        if (phase < ORBIT_TICKS && tick % 2 == 0) {
+            double angle = (phase / (double) ORBIT_TICKS) * Math.PI * 2 * (1 + (tick / cyclePeriod) % 3);
+            for (int[] cap : caps) {
+                double cx = worldPosition.getX() + cap[0] + 0.5;
+                double cy = worldPosition.getY() + cap[1] + 0.5;
+                double cz = worldPosition.getZ() + cap[2] + 0.5;
+                double px = cx + Math.cos(angle) * orbitRadius;
+                double pz = cz + Math.sin(angle) * orbitRadius;
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), color),
+                        px, cy, pz, 0, 0, 0.01, 0, 1);
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), color),
+                        px, cy, pz, 0, 0, 0, 0, 0);
+            }
+        }
+
+        if (phase == ORBIT_TICKS) {
+            for (int[] cap : caps) {
+                double cx = worldPosition.getX() + cap[0] + 0.5;
+                double cy = worldPosition.getY() + cap[1] + 0.5;
+                double cz = worldPosition.getZ() + cap[2] + 0.5;
+                if (useLifePulse) {
+                    StreamPresets.lifePulse(
+                            new net.minecraft.core.BlockPos(worldPosition.getX() + cap[0], worldPosition.getY() + cap[1], worldPosition.getZ() + cap[2]),
+                            worldPosition)
+                            .scale(0.1f).build().sendToNearby(serverLevel, worldPosition, 128);
+                } else {
+                    StreamEffect.builder(cx, cy, cz)
+                            .to(ax, ay, az)
+                            .color(color).scale(0.2f).speed(2.5f).gravity(0.05f)
+                            .approachHeight(0.5f)
+                            .spiralInto(false).wobble(0.005f)
+                            .alphaStart(1.0f).alphaEnd(1.0f)
+                            .build().sendToNearby(serverLevel, worldPosition, 128);
+                }
+            }
+        }
+    }
+
+    private void tickCrystalLoop(ServerLevel serverLevel, int tick) {
+        int segmentTicks = 8;
+        int totalCycle = segmentTicks * 4;
+        int phase = tick % totalCycle;
+        int segIndex = phase / segmentTicks;
+        int segProgress = phase % segmentTicks;
+
+        int[] from = T5_CAPS_ORDERED[segIndex];
+        int[] to = T5_CAPS_ORDERED[(segIndex + 1) % 4];
+
+        double fx = worldPosition.getX() + from[0] + 0.5;
+        double fy = worldPosition.getY() + from[1] + 0.5;
+        double fz = worldPosition.getZ() + from[2] + 0.5;
+        double tx = worldPosition.getX() + to[0] + 0.5;
+        double ty = worldPosition.getY() + to[1] + 0.5;
+        double tz = worldPosition.getZ() + to[2] + 0.5;
+
+        if (segProgress < 4) {
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x8800CC),
+                    fx, fy, fz, 5, 0.5, 0.5, 0.5, 0.02);
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA00FF),
+                    fx, fy, fz, 3, 0.3, 0.3, 0.3, 0);
+        }
+
+        if (segProgress == 4) {
+            StreamEffect.builder(fx, fy, fz)
+                    .to(tx, ty, tz)
+                    .color(0x8800CC).scale(0.08f).speed(30.0f).gravity(0.0f)
+                    .spiralInto(false).wobble(0.0f).wobbleFrequency(0.0f)
+                    .alphaStart(1.0f).alphaEnd(1.0f)
+                    .glow(true).drainSpeed(8.0f)
+                    .build().sendToNearby(serverLevel, worldPosition, 128);
+        }
+
+        if (segProgress >= 4 && segProgress <= 6) {
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA00FF),
+                    tx, ty, tz, 5, 0.5, 0.5, 0.5, 0.02);
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x8800CC),
+                    tx, ty, tz, 2, 0.3, 0.3, 0.3, 0);
         }
     }
 
@@ -438,6 +583,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         inv.deserializeNBT(registries, tag.getCompound("inventory"));
 
         this.isSignaling = tag.getBoolean("signal");
+        this.isActive = tag.getBoolean("active");
 
         this.tier = tag.getInt("tier");
         this.capacityGraceTicks = tag.getInt("capacityGrace");
@@ -475,6 +621,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         tag.put("stats", stats);
         tag.putInt("tier", this.tier);
         tag.putBoolean("signal", isSignaling);
+        tag.putBoolean("active", isActive);
         tag.putInt("capacityGrace", capacityGraceTicks);
     }
 
@@ -716,5 +863,11 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     @Override
     public int getTickRate() {
         return modifiers.getTickRate();
+    }
+
+    public AABB getRenderBoundingBox() {
+        return new AABB(
+                worldPosition.getX() - 12, worldPosition.getY() - 5, worldPosition.getZ() - 12,
+                worldPosition.getX() + 13, worldPosition.getY() + 260, worldPosition.getZ() + 13);
     }
 }

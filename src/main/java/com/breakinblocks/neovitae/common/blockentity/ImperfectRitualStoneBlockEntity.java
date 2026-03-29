@@ -2,12 +2,16 @@ package com.breakinblocks.neovitae.common.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import net.neoforged.neoforge.common.NeoForge;
 import com.breakinblocks.neovitae.api.ritual.IImperfectRitualStone;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
@@ -74,14 +78,22 @@ public class ImperfectRitualStoneBlockEntity extends BlockEntity implements IImp
                 BlockProtectionHelper.tryBreakBlockNoDrops(world, abovePos, player);
             }
 
-            boolean showLightning = stats != null ? stats.lightningEffect() : imperfectRitual.isLightShow();
-            if (showLightning && world instanceof ServerLevel serverLevel) {
-                LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(serverLevel);
-                if (lightning != null) {
-                    lightning.setPos(pos.getX() + 0.5, pos.getY() + 2, pos.getZ() + 0.5);
-                    lightning.setVisualOnly(true);
-                    serverLevel.addFreshEntity(lightning);
+            if (world instanceof ServerLevel serverLevel) {
+                boolean showLightning = stats != null ? stats.lightningEffect() : imperfectRitual.isLightShow();
+                if (showLightning) {
+                    LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(serverLevel);
+                    if (lightning != null) {
+                        lightning.setPos(pos.getX() + 0.5, pos.getY() + 2, pos.getZ() + 0.5);
+                        lightning.setVisualOnly(true);
+                        serverLevel.addFreshEntity(lightning);
+                    }
                 }
+
+                serverLevel.playSound(null, pos, NVSounds.RITUAL_ACTIVATE.get(), SoundSource.BLOCKS, 0.6f, 1.2f);
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000),
+                        pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 10, 0.4, 0.3, 0.4, 0.02);
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x990011),
+                        pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 15, 0.3, 0.1, 0.3, 0.05);
             }
 
             NeoForge.EVENT_BUS.post(new ImperfectRitualEvent.Activated(this, imperfectRitual, player, stats));

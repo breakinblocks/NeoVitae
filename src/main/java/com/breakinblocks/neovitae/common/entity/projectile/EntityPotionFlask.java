@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.common.entity.projectile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -125,6 +126,18 @@ public class EntityPotionFlask extends ThrowableItemProjectile implements ItemSu
             int color = contents.getColor();
             boolean hasInstant = effects.stream().anyMatch(e -> e.getEffect().value().isInstantenous());
             this.level().levelEvent(hasInstant ? 2007 : 2002, this.blockPosition(), color);
+
+            if (this.level() instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(
+                        new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
+                                com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_FLAME.get(), color),
+                        this.getX(), this.getY() + 0.5, this.getZ(), 12, 0.5, 0.3, 0.5, 0.03);
+                serverLevel.sendParticles(
+                        new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
+                                com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_GLOW.get(), color),
+                        this.getX(), this.getY() + 0.3, this.getZ(), 5, 0.3, 0.2, 0.3, 0.01);
+            }
+
             this.discard();
         }
     }

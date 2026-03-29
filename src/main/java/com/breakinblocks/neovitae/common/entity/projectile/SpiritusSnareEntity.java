@@ -46,12 +46,17 @@ public class SpiritusSnareEntity extends ThrowableItemProjectile {
             if (target instanceof Enemy) {
                 target.addEffect(new MobEffectInstance(NVMobEffects.SPIRITUS_SNARE, 1200, 0, false, true));
 
-                for (int i = 0; i < 8; i++) {
-                    level().addParticle(ParticleTypes.ENCHANT,
-                            target.getX() + (random.nextDouble() - 0.5) * target.getBbWidth(),
-                            target.getY() + random.nextDouble() * target.getBbHeight(),
-                            target.getZ() + (random.nextDouble() - 0.5) * target.getBbWidth(),
-                            0, 0.1, 0);
+                if (level() instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+                    serverLevel.sendParticles(
+                            new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
+                                    com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_GLOW.get(), 0x88CCFF),
+                            target.getX(), target.getY() + target.getBbHeight() * 0.5, target.getZ(),
+                            10, target.getBbWidth() * 0.4, target.getBbHeight() * 0.4, target.getBbWidth() * 0.4, 0.02);
+                    serverLevel.sendParticles(
+                            new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
+                                    com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_FLAME.get(), 0x88CCFF),
+                            target.getX(), target.getY() + target.getBbHeight() * 0.5, target.getZ(),
+                            6, target.getBbWidth() * 0.3, target.getBbHeight() * 0.3, target.getBbWidth() * 0.3, 0.03);
                 }
             }
             discard();
@@ -71,9 +76,13 @@ public class SpiritusSnareEntity extends ThrowableItemProjectile {
         super.tick();
 
         if (level().isClientSide()) {
-            level().addParticle(ParticleTypes.ENCHANT,
-                    getX(), getY(), getZ(),
-                    0, 0, 0);
+            level().addParticle(
+                    new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
+                            com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_FLAME.get(), 0x88CCFF),
+                    getX() + (random.nextDouble() - 0.5) * 0.1,
+                    getY() + (random.nextDouble() - 0.5) * 0.1,
+                    getZ() + (random.nextDouble() - 0.5) * 0.1,
+                    0, 0.02, 0);
         }
     }
 

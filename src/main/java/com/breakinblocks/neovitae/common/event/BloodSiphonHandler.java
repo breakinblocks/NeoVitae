@@ -5,7 +5,11 @@ import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
+import com.breakinblocks.neovitae.api.stream.StreamEffect;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -58,6 +62,14 @@ public class BloodSiphonHandler {
 
         attackerNetwork.add(AnimaTicket.create(lpAmount), Integer.MAX_VALUE);
         attacker.level().playSound(null, attacker.blockPosition(), NVSounds.BLOOD_SIPHON.get(), SoundSource.PLAYERS, 0.3f, 1.0f);
+        if (attacker.level() instanceof ServerLevel serverLevel) {
+            StreamEffect.builder(event.getEntity()).to(attacker)
+                    .color(0x990011).scale(0.05f).speed(2.0f).gravity(0.25f)
+                    .wobble(0.03f).wobbleFrequency(0.8f)
+                    .spiralInto(true).spiralRadius(0.35f).spiralSpeed(0.35f)
+                    .approachHeight(1.0f).alphaStart(0.08f).alphaEnd(0.95f)
+                    .build().sendToNearby(serverLevel, attacker.blockPosition(), 128);
+        }
     }
 
     /**
@@ -91,6 +103,9 @@ public class BloodSiphonHandler {
             network.syphon(AnimaTicket.create(lpCost));
             event.setNewDamage(reducedDamage);
             defender.level().playSound(null, defender.blockPosition(), NVSounds.BLOOD_SHIELD_ABSORB.get(), SoundSource.PLAYERS, 0.4f, 1.0f);
+            if (defender.level() instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), defender.getX(), defender.getY() + 1, defender.getZ(), 4, 0.3, 0.3, 0.3, 0);
+            }
         } else if (currentLP > 0) {
             // Partial shield — use whatever LP we have
             double affordableReduction = (double) currentLP / NeoVitae.SERVER_CONFIG.BLOOD_SHIELD_LP_COST_MULTIPLIER.get();
@@ -98,6 +113,9 @@ public class BloodSiphonHandler {
             network.syphon(AnimaTicket.create(currentLP));
             event.setNewDamage(Math.max(partialReduced, 0.1f));
             defender.level().playSound(null, defender.blockPosition(), NVSounds.BLOOD_SHIELD_ABSORB.get(), SoundSource.PLAYERS, 0.4f, 1.0f);
+            if (defender.level() instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), defender.getX(), defender.getY() + 1, defender.getZ(), 4, 0.3, 0.3, 0.3, 0);
+            }
         }
     }
 }

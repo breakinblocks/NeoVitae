@@ -26,6 +26,13 @@ public class FireFuseEffect extends MobEffect {
                 entity.getY() + random.nextDouble() * 0.3,
                 entity.getZ() + random.nextDouble() * 0.3,
                 0, 0.06d, 0);
+        entity.level().addParticle(
+                new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
+                        com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_FLAME.get(), 0xFF2200),
+                entity.getX() + (random.nextDouble() - 0.5) * 0.5,
+                entity.getY() + random.nextDouble() * 0.5,
+                entity.getZ() + (random.nextDouble() - 0.5) * 0.5,
+                0, 0.04, 0);
 
         int radius = amplifier + 1;
 

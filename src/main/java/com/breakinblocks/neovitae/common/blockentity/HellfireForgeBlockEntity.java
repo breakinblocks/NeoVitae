@@ -3,7 +3,6 @@ package com.breakinblocks.neovitae.common.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -29,6 +28,8 @@ import com.breakinblocks.neovitae.common.recipe.forge.ForgeInput;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import net.minecraft.sounds.SoundSource;
 
 import javax.annotation.Nullable;
@@ -139,11 +140,14 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         }
         tile.progress++;
         if (tile.progress < MAX_PROGRESS) {
-            ((ServerLevel) level).sendParticles(ParticleTypes.SNOWFLAKE, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 1, 0.1, 0, 0.1, 0);
+            if (tile.progress % 4 == 0) {
+                ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xFF4400), pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 2, 0.1, 0, 0.1, 0.02);
+            }
             return;
         }
 
         level.playSound(null, pos, NVSounds.HELLFIRE_FORGE_COMPLETE.get(), SoundSource.BLOCKS, 0.6f, 1.0f);
+        ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xFF4400), pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 8, 0.3, 0.2, 0.3, 0);
 
         NeoVitaeCraftedEvent.Forge event = new NeoVitaeCraftedEvent.Forge(output, input.asArray());
         NeoForge.EVENT_BUS.post(event);

@@ -12,6 +12,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.incense.EnumTranquilityType;
 import com.breakinblocks.neovitae.incense.IncenseAltarHandler;
 import com.breakinblocks.neovitae.incense.IncenseHelper;
@@ -66,6 +68,9 @@ public class IncenseAltarBlockEntity extends BlockEntity {
             serverLevel.sendParticles(ParticleTypes.FLAME,
                     pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5,
                     1, 0.02, 0.03, 0.02, 0);
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xCC6600),
+                    pos.getX() + 0.5, pos.getY() + 1.3, pos.getZ() + 0.5,
+                    1, 0.02, 0.0, 0.02, 0.005);
         }
     }
 

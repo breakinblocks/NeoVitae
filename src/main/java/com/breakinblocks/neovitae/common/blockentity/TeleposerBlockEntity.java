@@ -11,6 +11,9 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
@@ -160,7 +163,13 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
         }
 
         level.playSound(null, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), NVSounds.TELEPOSER_ACTIVATE.get(), SoundSource.BLOCKS, 0.7f, 1.0f);
+        ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x1A0028), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 12, 0.4, 0.3, 0.4, 0);
+        StreamPresets.voidMark(worldPosition).build().sendToNearby((ServerLevel) level, worldPosition, 64);
+
         linkedWorld.playSound(null, linkedPos.getX(), linkedPos.getY(), linkedPos.getZ(), NVSounds.TELEPOSER_ARRIVAL.get(), SoundSource.BLOCKS, 0.7f, 1.0f);
+        if (linkedWorld instanceof ServerLevel linkedServerLevel) {
+            linkedServerLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x1A0028), linkedPos.getX() + 0.5, linkedPos.getY() + 1.0, linkedPos.getZ() + 0.5, 12, 0.4, 0.3, 0.4, 0);
+        }
 
         network.syphon(AnimaTicket.create(Math.min((int) (uses * transportCost), MAX_TOTAL_COST)));
     }

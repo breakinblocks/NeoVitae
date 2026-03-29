@@ -23,6 +23,10 @@ import com.breakinblocks.neovitae.common.event.RitualEvent;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 
 import java.util.HashMap;
@@ -203,6 +207,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         network.syphon(ticket(ritual.getActivationCost()));
 
         level.playSound(null, worldPosition, NVSounds.RITUAL_ACTIVATE.get(), SoundSource.BLOCKS, 0.8f, 1.0f);
+        ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 10, 0.4, 0.2, 0.4, 0);
 
         NeoForge.EVENT_BUS.post(new RitualEvent.Activated(this, currentRitual, player));
 
@@ -233,6 +238,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         }
 
         level.playSound(null, worldPosition, NVSounds.RITUAL_ACTIVATE.get(), SoundSource.BLOCKS, 0.8f, 1.0f);
+        ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 10, 0.4, 0.2, 0.4, 0);
 
         if (player != null) {
             NeoForge.EVENT_BUS.post(new RitualEvent.Activated(this, currentRitual, player));
@@ -274,6 +280,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
             currentRitual.stopRitual(this, breakType);
             if (level != null && !level.isClientSide()) {
                 level.playSound(null, worldPosition, NVSounds.RITUAL_COMPLETE.get(), SoundSource.BLOCKS, 0.7f, 1.0f);
+                StreamPresets.voidMark(worldPosition).build().sendToNearby((ServerLevel) level, worldPosition, 64);
             }
         }
         currentRitual = null;

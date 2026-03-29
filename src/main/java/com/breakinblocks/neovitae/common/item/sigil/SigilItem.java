@@ -24,6 +24,9 @@ import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.api.sigil.SigilType;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -170,6 +173,15 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
                 boolean newState = !getActivated(stack);
                 setActivatedState(stack, newState);
                 level.playSound(null, player.blockPosition(), newState ? NVSounds.SIGIL_TOGGLE_ON.get() : NVSounds.SIGIL_TOGGLE_OFF.get(), SoundSource.PLAYERS, 0.4f, 1.0f);
+                ServerLevel serverLevel = (ServerLevel) level;
+                for (int i = 0; i < 8; i++) {
+                    double angle = (2 * Math.PI / 8) * i;
+                    double offX = Math.cos(angle) * 0.6;
+                    double offZ = Math.sin(angle) * 0.6;
+                    double vx = newState ? offX * 0.1 : -offX * 0.1;
+                    double vz = newState ? offZ * 0.1 : -offZ * 0.1;
+                    serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), player.getX() + offX, player.getY() + 1, player.getZ() + offZ, 1, 0, 0, 0, 0);
+                }
             }
             return InteractionResultHolder.success(player.getItemInHand(hand));
         }
@@ -179,6 +191,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
             if (effect != null && effect.useOnAir(level, player, stack)) {
                 if (!level.isClientSide) {
                     level.playSound(null, player.blockPosition(), NVSounds.SIGIL_ACTIVATE.get(), SoundSource.PLAYERS, 0.4f, 1.0f);
+                    ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), player.getX(), player.getY() + 1, player.getZ(), 4, 0.2, 0.1, 0.2, 0);
                     if (!player.isCreative()) {
                         int cost = getReducedCost(getLpCost(stack, level, SigilType.UseContext.AIR), player);
                         if (cost > 0) {

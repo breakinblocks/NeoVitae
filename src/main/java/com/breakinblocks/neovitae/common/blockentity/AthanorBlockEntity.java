@@ -38,6 +38,8 @@ import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipeInput;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.util.AthanorOutputHandler;
 import net.minecraft.sounds.SoundSource;
 
@@ -231,6 +233,10 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
             }
         }
 
+        if (didProgress && level.getGameTime() % 6 == 0) {
+            ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x22AA22), blockPos.getX() + 0.5, blockPos.getY() + 1.1, blockPos.getZ() + 0.5, 2, 0.1, 0.0, 0.1, 0.02);
+        }
+
         arcTile.setLit(didProgress);
         if (!didProgress) {
             arcTile.progress = 0;
@@ -290,6 +296,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         }
         if (level != null && !level.isClientSide) {
             level.playSound(null, worldPosition, NVSounds.ATHANOR_COMPLETE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
+            ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x22AA22), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 6, 0.2, 0.2, 0.2, 0);
         }
         arcInv.getStackInSlot(INPUT_SLOT).shrink(1);
         progress = 0;

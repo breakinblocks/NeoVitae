@@ -116,12 +116,13 @@ public class ActiveStream {
     }
 
     private void initBlobPoints() {
-        int count = 10;
+        int count = 12;
+        float spread = Math.max(0.5f, effect.scale * 4.0f);
         for (int i = 0; i < count; i++) {
             float t = (float) i / count;
-            float py = (t - 0.5f) * effect.scale * 2.0f;
-            float px = Mth.sin(t * (float) (Math.PI * 2)) * 0.02f;
-            float pz = Mth.cos(t * (float) (Math.PI * 2)) * 0.02f;
+            float py = (t - 0.5f) * spread;
+            float px = Mth.sin(t * (float) (Math.PI * 2)) * spread * 0.15f;
+            float pz = Mth.cos(t * (float) (Math.PI * 2)) * spread * 0.15f;
             pathPoints.add(new float[]{px, py, pz, effect.scale});
         }
     }
@@ -258,7 +259,6 @@ public class ActiveStream {
                 pt[0] += (dx / dist) * move;
                 pt[1] += (dy / dist) * move;
                 pt[2] += (dz / dist) * move;
-                pt[3] *= 0.97f;
             }
         }
 

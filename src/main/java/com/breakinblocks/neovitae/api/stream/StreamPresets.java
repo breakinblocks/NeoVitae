@@ -93,18 +93,18 @@ public final class StreamPresets {
     }
 
     private static StreamEffect.Builder applySoulSiphon(StreamEffect.Builder b) {
-        return b.color(0x88CCFF)
-                .scale(0.05f)
-                .speed(1.6f)
+        return b.color(0x22AADD)
+                .scale(0.14f)
+                .speed(2.2f)
                 .gravity(0.03f)
-                .wobble(0.05f)
-                .wobbleFrequency(1.4f)
+                .wobble(0.04f)
+                .wobbleFrequency(1.2f)
                 .spiralInto(true)
-                .spiralRadius(0.2f)
+                .spiralRadius(0.25f)
                 .spiralSpeed(0.5f)
                 .approachHeight(0.8f)
-                .alphaStart(0.04f)
-                .alphaEnd(0.6f)
+                .alphaStart(0.15f)
+                .alphaEnd(0.8f)
                 .glow(true);
     }
 
@@ -125,15 +125,15 @@ public final class StreamPresets {
     private static StreamEffect.Builder applyVoidTendril(StreamEffect.Builder b) {
         return b.color(0x1A0028)
                 .scale(0.18f)
-                .speed(0.45f)
-                .gravity(0.55f)
-                .wobble(0.04f)
-                .wobbleFrequency(0.4f)
+                .speed(1.0f)
+                .gravity(0.15f)
+                .wobble(0.005f)
+                .wobbleFrequency(0.3f)
                 .spiralInto(false)
-                .approachHeight(0.4f)
+                .approachHeight(0.3f)
                 .alphaStart(0.5f)
                 .alphaEnd(1.0f)
-                .drainSpeed(0.6f)
+                .drainSpeed(1.0f)
                 .tubeSegments(12);
     }
 
@@ -151,7 +151,7 @@ public final class StreamPresets {
     }
 
     private static StreamEffect.Builder applyLifePulse(StreamEffect.Builder b) {
-        return b.color(0xFFCC22)
+        return b.color(0xAA0011)
                 .scale(0.08f)
                 .speed(2.0f)
                 .gravity(0.0f)
@@ -181,7 +181,7 @@ public final class StreamPresets {
     }
 
     private static StreamEffect.Builder applyDemonTether(StreamEffect.Builder b) {
-        return b.color(0xFF4400)
+        return b.color(0x180028)
                 .scale(0.12f)
                 .speed(1.3f)
                 .gravity(-0.08f)
@@ -213,15 +213,17 @@ public final class StreamPresets {
     private static StreamEffect.Builder applyCorruptionSeep(StreamEffect.Builder b) {
         return b.color(0x44BB22)
                 .scale(0.15f)
-                .speed(0.35f)
-                .gravity(0.6f)
-                .wobble(0.07f)
-                .wobbleFrequency(0.35f)
-                .spiralInto(false)
-                .approachHeight(0.25f)
+                .speed(1.2f)
+                .gravity(0.3f)
+                .wobble(0.05f)
+                .wobbleFrequency(0.5f)
+                .spiralInto(true)
+                .spiralRadius(0.25f)
+                .spiralSpeed(0.3f)
+                .approachHeight(0.5f)
                 .alphaStart(0.4f)
                 .alphaEnd(0.85f)
-                .drainSpeed(0.4f)
+                .drainSpeed(1.2f)
                 .tubeSegments(10);
     }
 
@@ -239,23 +241,19 @@ public final class StreamPresets {
     }
 
     private static StreamEffect.Builder applyArcaneBolt(StreamEffect.Builder b) {
-        return b.color(0x5599FF)
-                .scale(0.035f)
-                .speed(3.5f)
+        return b.color(0x4422CC)
+                .scale(0.04f)
+                .speed(5.0f)
                 .gravity(0.0f)
-                .wobble(0.015f)
-                .wobbleFrequency(2.5f)
+                .wobble(0.0f)
+                .wobbleFrequency(0.0f)
                 .spiralInto(false)
                 .approachHeight(0.0f)
-                .alphaStart(0.25f)
+                .alphaStart(0.8f)
                 .alphaEnd(1.0f)
                 .glow(true)
-                .drainSpeed(2.5f);
+                .drainSpeed(4.0f);
     }
-
-    // =====================================================================
-    //  BLOB PRESETS
-    // =====================================================================
 
     /**
      * Small floating ember. A warm, pulsing mote of residual energy
@@ -281,8 +279,7 @@ public final class StreamPresets {
     }
 
     /**
-     * Pale drifting wisp. A faint, ghostly presence that hovers in place
-     * with gentle motion before dissipating.
+     * Pale drifting wisp. A faint, ghostly presence that hovers in place.
      */
     public static StreamEffect.Builder soulWisp(BlockPos pos) {
         return applySoulWisp(StreamEffect.builder(pos));
@@ -305,8 +302,7 @@ public final class StreamPresets {
     }
 
     /**
-     * Heavy dark stain hanging in the air. A dense, slow-pulsing void residue
-     * that takes its time to fade. Large and ominous.
+     * A dense, slow-pulsing void residue that takes its time to fade.
      */
     public static StreamEffect.Builder voidMark(BlockPos pos) {
         return applyVoidMark(StreamEffect.builder(pos));

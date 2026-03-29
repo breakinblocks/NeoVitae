@@ -12,7 +12,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.block.BlockRitualStone;
 import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 
 import java.util.List;
@@ -36,6 +39,9 @@ public class ItemInscriptionTool extends Item {
             ritualStone.setRuneType(world, pos, type);
             if (!world.isClientSide) {
                 world.playSound(null, pos, NVSounds.INSCRIPTION_TOOL_SCRIBE.get(), SoundSource.PLAYERS, 0.5f, 1.0f);
+                int runeColor = type.colorCode.getColor() != null ? type.colorCode.getColor() : 0xAA0000;
+                ((ServerLevel) world).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 3, 0.15, 0.15, 0.15, 0);
+                ((ServerLevel) world).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), runeColor), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 3, 0.15, 0.15, 0.15, 0.01);
             }
             return InteractionResult.sidedSuccess(world.isClientSide);
         }

@@ -14,9 +14,12 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffect;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
 import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.AlchemyArrayInput;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 
 public class AlchemyArrayBlockEntity extends BaseBlockEntity {
@@ -117,6 +120,12 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
                 arrayEffect = effect;
                 if (level != null && !level.isClientSide) {
                     level.playSound(null, worldPosition, NVSounds.ALCHEMY_ARRAY_ACTIVATE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
+                    for (int i = 0; i < 6; i++) {
+                        double angle = (2 * Math.PI / 6) * i;
+                        double px = worldPosition.getX() + 0.5 + Math.cos(angle) * 0.4;
+                        double pz = worldPosition.getZ() + 0.5 + Math.sin(angle) * 0.4;
+                        ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), px, worldPosition.getY() + 0.5, pz, 1, 0, 0, 0, 0);
+                    }
                 }
             }
         }
@@ -127,6 +136,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
                 craftComplete = true;
                 if (level != null && !level.isClientSide) {
                     level.playSound(null, worldPosition, NVSounds.ALCHEMY_ARRAY_CRAFT.get(), SoundSource.BLOCKS, 0.7f, 1.0f);
+                    ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, 10, 0.2, 0.0, 0.2, 0.05);
                 }
                 inv.extractItem(0, 1, false);
                 inv.extractItem(1, 1, false);

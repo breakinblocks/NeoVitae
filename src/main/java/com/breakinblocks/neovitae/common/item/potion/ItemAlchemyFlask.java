@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -127,6 +128,22 @@ public class ItemAlchemyFlask extends Item {
             if (!player.getAbilities().instabuild) {
                 stack.setDamageValue(stack.getDamageValue() + 1);
             }
+
+            if (level instanceof ServerLevel serverLevel) {
+                int color = 0xAA0000;
+                PotionContents contents = stack.get(DataComponents.POTION_CONTENTS);
+                if (contents != null && contents.hasEffects()) {
+                    color = contents.getColor();
+                }
+                serverLevel.sendParticles(
+                        new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
+                                com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_FLAME.get(), color),
+                        player.getX(), player.getY() + 1.0, player.getZ(), 6, 0.2, 0.3, 0.2, 0.02);
+                serverLevel.sendParticles(
+                        new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
+                                com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_GLOW.get(), color),
+                        player.getX(), player.getY() + 1.2, player.getZ(), 3, 0.15, 0.2, 0.15, 0.01);
+            }
         }
 
         return stack;
@@ -155,7 +172,17 @@ public class ItemAlchemyFlask extends Item {
         }
 
         List<MobEffectInstance> effectList = flaskEffects.toEffectInstances(false, true);
-        PotionContents contents = new PotionContents(Optional.empty(), Optional.empty(), effectList);
+        List<MobEffectInstance> stable = new ArrayList<>();
+        for (MobEffectInstance inst : effectList) {
+            MobEffectInstance copy = new MobEffectInstance(inst.getEffect(), inst.getDuration(), inst.getAmplifier(), inst.isAmbient(), inst.isVisible());
+            List<net.neoforged.neoforge.common.EffectCure> sortedCures = copy.getCures().stream()
+                    .sorted(java.util.Comparator.comparing(net.neoforged.neoforge.common.EffectCure::name))
+                    .toList();
+            copy.getCures().clear();
+            copy.getCures().addAll(sortedCures);
+            stable.add(copy);
+        }
+        PotionContents contents = new PotionContents(Optional.empty(), Optional.empty(), stable);
         stack.set(DataComponents.POTION_CONTENTS, contents);
     }
 

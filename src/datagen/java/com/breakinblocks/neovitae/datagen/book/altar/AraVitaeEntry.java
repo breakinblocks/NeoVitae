@@ -119,7 +119,7 @@ public class AraVitaeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("[#](B8860B)Tier 3[#]() expands the structure outward: 5 runes along each edge, set one level "
                 + "down and two blocks out from the previous ring. Stone pillars rise at each corner, capped with "
-                + "[#](8B0000)Glowstone Blocks[#](), light to guide the essence. Use a [#](8B0000)Divination Sigil[#]() to confirm "
+                + "[#](8B0000)Blood Stained Glass[#](), light to guide the essence. Use a [#](8B0000)Divination Sigil[#]() to confirm "
                 + "the upgrade. Any solid block suffices for the pillar bodies.");
 
         this.page("tier3", () -> BookMultiblockPageModel.create()

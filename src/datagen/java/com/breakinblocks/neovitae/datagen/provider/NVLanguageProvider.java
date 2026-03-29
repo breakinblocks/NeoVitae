@@ -326,6 +326,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVBlocks.INVERSION_PILLAR, "Inversion Pillar");
         add(NVBlocks.INVERSION_PILLAR_CAP, "Inversion Pillar Cap");
 
+        add(NVBlocks.SANDS_OF_VITAE, "Sands of Vitae");
+        add(NVBlocks.BLOOD_STAINED_GLASS, "Blood Stained Glass");
+        add(NVBlocks.BLOOD_STAINED_GLASS_PANE, "Blood Stained Glass Pane");
+
         // Dungeon Control Blocks
         add(NVBlocks.DUNGEON_CONTROLLER.block().get(), "Dungeon Controller");
         add(NVBlocks.DUNGEON_SEAL.block().get(), "Dungeon Seal");

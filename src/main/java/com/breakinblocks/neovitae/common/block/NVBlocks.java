@@ -7,6 +7,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.PushReaction;
@@ -159,6 +160,13 @@ public class NVBlocks {
 
     public static final BlockWithItemHolder<BlockDungeonController, BlockItem> DUNGEON_CONTROLLER = BLOCK_REG.register("dungeon_controller", BlockDungeonController::new);
     public static final BlockWithItemHolder<BlockDungeonSeal, BlockItem> DUNGEON_SEAL = BLOCK_REG.register("dungeon_seal", BlockDungeonSeal::new);
+
+    public static final BlockWithItemHolder<SandsOfVitaeBlock, BlockItem> SANDS_OF_VITAE = BLOCK_REG.register("sands_of_vitae", SandsOfVitaeBlock::new);
+
+    public static final BlockWithItemHolder<BloodStainedGlassBlock, BlockItem> BLOOD_STAINED_GLASS = BLOCK_REG.register("blood_stained_glass", BloodStainedGlassBlock::new);
+
+    public static final BlockWithItemHolder<IronBarsBlock, BlockItem> BLOOD_STAINED_GLASS_PANE = BLOCK_REG.register("blood_stained_glass_pane",
+            () -> new IronBarsBlock(BlockBehaviour.Properties.of().strength(0.3F).sound(SoundType.GLASS).noOcclusion().lightLevel(state -> 15)));
 
     public static void register(IEventBus modBus) {
         BASIC_BLOCKS.register(modBus);

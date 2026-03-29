@@ -57,9 +57,9 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
                 .build(false)
         );
 
-        // Tier 3: Tier 2 + outer 7x7 ring at y=-2 + pillars with glowstone caps
+        // Tier 3: Tier 2 + outer 7x7 ring at y=-2 + pillars with blood stained glass caps
         this.add(this.modLoc("altar_three"), new DenseMultiblockBuilder()
-                .layer( // y=+1: glowstone caps
+                .layer( // y=+1: blood stained glass caps
                         "G_____G",
                         "_______",
                         "_______",
@@ -97,7 +97,7 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
                 )
                 .block('0', () -> NVBlocks.ARA_VITAE.block().get())
                 .tag('R', NVTags.Blocks.RUNES, () -> NVBlocks.RUNE_BLANK.block().get())
-                .block('G', () -> Blocks.GLOWSTONE)
+                .tag('G', NVTags.Blocks.T3_CAPSTONES, () -> NVBlocks.BLOOD_STAINED_GLASS.block().get())
                 .predicate('P', NeoVitae.rl("non_air_solid"), true, () -> Blocks.STONE_BRICKS)
                 .build(false)
         );
@@ -117,7 +117,7 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
                         "___________",
                         "S_________S"
                 )
-                .layer( // y=+1: glowstone at inner corners, pillars at outer
+                .layer( // y=+1: blood stained glass at inner corners, pillars at outer
                         "P_________P",
                         "___G___G___",
                         "___________",
@@ -184,7 +184,7 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
                 )
                 .block('0', () -> NVBlocks.ARA_VITAE.block().get())
                 .tag('R', NVTags.Blocks.RUNES, () -> NVBlocks.RUNE_BLANK.block().get())
-                .block('G', () -> Blocks.GLOWSTONE)
+                .tag('G', NVTags.Blocks.T3_CAPSTONES, () -> NVBlocks.BLOOD_STAINED_GLASS.block().get())
                 .tag('S', NVTags.Blocks.BLOODSTONES, () -> NVBlocks.BLOODSTONE.block().get())
                 .predicate('P', NeoVitae.rl("non_air_solid"), true, () -> Blocks.STONE_BRICKS)
                 .build(false)
@@ -211,7 +211,7 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
                         "_________________",
                         "_________________"
                 )
-                .layer( // y=+1: glowstone at ±3, pillars at ±5
+                .layer( // y=+1: blood stained glass at ±3, pillars at ±5
                         "_________________",
                         "_________________",
                         "_________________",
@@ -327,7 +327,7 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
                 )
                 .block('0', () -> NVBlocks.ARA_VITAE.block().get())
                 .tag('R', NVTags.Blocks.RUNES, () -> NVBlocks.RUNE_BLANK.block().get())
-                .block('G', () -> Blocks.GLOWSTONE)
+                .tag('G', NVTags.Blocks.T3_CAPSTONES, () -> NVBlocks.BLOOD_STAINED_GLASS.block().get())
                 .tag('S', NVTags.Blocks.BLOODSTONES, () -> NVBlocks.BLOODSTONE.block().get())
                 .block('H', () -> NVBlocks.HELLFORGED_BLOCK.block().get())
                 .predicate('P', NeoVitae.rl("non_air_solid"), true, () -> Blocks.STONE_BRICKS)
@@ -386,7 +386,7 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
                         "_______________________",
                         "P_____________________P"
                 )
-                .layer( // y=+1: glowstone at ±3, pillars at ±5, tier 6 pillars at ±11
+                .layer( // y=+1: blood stained glass at ±3, pillars at ±5, tier 6 pillars at ±11
                         "P_____________________P",
                         "_______________________",
                         "_______________________",
@@ -563,7 +563,7 @@ public class NVModonomiconMultiblockProvider extends MultiblockProvider {
                 )
                 .block('0', () -> NVBlocks.ARA_VITAE.block().get())
                 .tag('R', NVTags.Blocks.RUNES, () -> NVBlocks.RUNE_BLANK.block().get())
-                .block('G', () -> Blocks.GLOWSTONE)
+                .tag('G', NVTags.Blocks.T3_CAPSTONES, () -> NVBlocks.BLOOD_STAINED_GLASS.block().get())
                 .tag('S', NVTags.Blocks.BLOODSTONES, () -> NVBlocks.BLOODSTONE.block().get())
                 .block('H', () -> NVBlocks.HELLFORGED_BLOCK.block().get())
                 .block('C', () -> NVBlocks.CRYSTAL_CLUSTER.block().get())

@@ -34,6 +34,7 @@ public class MineBlock extends BlockLootSubProvider {
         NVBlocks.BASIC_BLOCKS.getEntries().forEach(holder -> dropSelfList.add(holder.get()));
         addDropSelf(NVBlocks.ARA_VITAE);
         addDropSelf(NVBlocks.HELLFIRE_FORGE);
+        addDropSelf(NVBlocks.SANDS_OF_VITAE);
     }
 
     private void addDropSelf(BlockWithItemHolder<? extends Block, ? extends BlockItem> toAdd) {
@@ -45,7 +46,9 @@ public class MineBlock extends BlockLootSubProvider {
             NVBlocks.ATHANOR_BLOCK.block().get(),
             NVBlocks.WEAK_TAU.block().get(),
             NVBlocks.STRONG_TAU.block().get(),
-            NVBlocks.INCENSE_ALTAR.block().get()
+            NVBlocks.INCENSE_ALTAR.block().get(),
+            NVBlocks.BLOOD_STAINED_GLASS.block().get(),
+            NVBlocks.BLOOD_STAINED_GLASS_PANE.block().get()
     );
     private List<Block> dropSelfList = new ArrayList<>();
 
@@ -71,6 +74,10 @@ public class MineBlock extends BlockLootSubProvider {
 
         // Incense Altar - simple drop self
         dropSelf(NVBlocks.INCENSE_ALTAR.block().get());
+
+        // Glass blocks - silk touch only
+        dropWhenSilkTouch(NVBlocks.BLOOD_STAINED_GLASS.block().get());
+        dropWhenSilkTouch(NVBlocks.BLOOD_STAINED_GLASS_PANE.block().get());
     }
 
     private void generateTauLoot(BlockWithItemHolder<BlockTau, BlockItem> holder) {

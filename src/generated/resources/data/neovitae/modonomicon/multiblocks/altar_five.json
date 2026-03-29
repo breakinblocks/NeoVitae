@@ -6,8 +6,9 @@
       "block": "neovitae:ara_vitae"
     },
     "G": {
-      "type": "modonomicon:block",
-      "block": "minecraft:glowstone"
+      "type": "modonomicon:tag",
+      "display": "neovitae:blood_stained_glass",
+      "tag": "#neovitae:altar/t3_capstones"
     },
     "H": {
       "type": "modonomicon:block",

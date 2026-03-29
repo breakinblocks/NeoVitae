@@ -284,6 +284,9 @@
     },
     "minecraft:wheat": {
       "type": "crop"
+    },
+    "neovitae:sands_of_vitae": {
+      "type": "earthen"
     }
   }
 }

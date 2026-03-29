@@ -207,6 +207,19 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_hellforged_dust", has(NVItems.HELLFORGED_DUST.get()))
                 .save(output, NeoVitae.rl("blasting/hellforged_ingot_from_dust"));
 
+        // Blood Stained Glass from Sands of Vitae
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVBlocks.SANDS_OF_VITAE.block().get()), RecipeCategory.BUILDING_BLOCKS, NVBlocks.BLOOD_STAINED_GLASS.block().get(), 0.1f, 200)
+                .unlockedBy("has_sands", has(NVBlocks.SANDS_OF_VITAE.block().get()))
+                .save(output, NeoVitae.rl("smelting/blood_stained_glass"));
+
+        // Blood Stained Glass Pane from Blood Stained Glass
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, NVBlocks.BLOOD_STAINED_GLASS_PANE.block().get(), 16)
+                .pattern("GGG")
+                .pattern("GGG")
+                .define('G', NVBlocks.BLOOD_STAINED_GLASS.block().get())
+                .unlockedBy("has_glass", has(NVBlocks.BLOOD_STAINED_GLASS.block().get()))
+                .save(output, NeoVitae.rl("blood_stained_glass_pane"));
+
         // Synthetic Point - iron nuggets corners, meat edges, redstone center
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, NVItems.SYNTHETIC_POINT.get(), 2)
                 .pattern("imi")
@@ -847,6 +860,16 @@ public class NVRecipeProvider extends RecipeProvider {
                 .drain(10)
                 .unlockedBy("has_master_orb", has(NVItems.ORB_MASTER.get()))
                 .save(output, NeoVitae.rl("bleeding_edge_music"));
+
+        // Sands of Vitae - soul sand on tier 0 altar
+        AltarRecipeBuilder.build(NVBlocks.SANDS_OF_VITAE.block().get())
+                .from(Blocks.SOUL_SAND)
+                .minTier(0)
+                .bloodNeeded(250)
+                .consumption(5)
+                .drain(1)
+                .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
+                .save(output, NeoVitae.rl("sands_of_vitae"));
     }
 
     private void addHellfireForgeRecipes(RecipeOutput output) {

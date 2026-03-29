@@ -33,8 +33,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .addAll(BlockGroups.BLOODSTONE);
 
         this.tag(NVTags.Blocks.T3_CAPSTONES)
-                .add(Blocks.GLOWSTONE, Blocks.SHROOMLIGHT, Blocks.SEA_LANTERN)
-                .add(Blocks.OCHRE_FROGLIGHT, Blocks.PEARLESCENT_FROGLIGHT, Blocks.VERDANT_FROGLIGHT);
+                .add(NVBlocks.BLOOD_STAINED_GLASS.block().getKey());
 
         this.tag(NVTags.Blocks.T4_CAPSTONES)
                 .addAll(BlockGroups.BLOODSTONE);
@@ -202,7 +201,8 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         this.tag(NVTags.Blocks.TRANQUILITY_PLANT);
         this.tag(NVTags.Blocks.TRANQUILITY_CROP);
         this.tag(NVTags.Blocks.TRANQUILITY_TREE);
-        this.tag(NVTags.Blocks.TRANQUILITY_EARTHEN);
+        this.tag(NVTags.Blocks.TRANQUILITY_EARTHEN)
+                .add(NVBlocks.SANDS_OF_VITAE.block().getKey());
         this.tag(NVTags.Blocks.TRANQUILITY_WATER);
         this.tag(NVTags.Blocks.TRANQUILITY_FIRE);
         this.tag(NVTags.Blocks.TRANQUILITY_LAVA);

@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.datagen.provider;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.IronBarsBlock;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.client.model.generators.VariantBlockStateBuilder;
@@ -101,6 +102,17 @@ public class NVBlockStateProvider extends BlockStateProvider {
         ModelFile inversionPillarModel = models().withExistingParent("inversion_pillar", bm("block/pillar_mid"))
                 .texture("texture", bm("block/pillar_mid"));
         simpleBlockWithItem(NVBlocks.INVERSION_PILLAR.block().get(), inversionPillarModel);
+
+        // Sands of Vitae
+        simpleBlockWithItem(NVBlocks.SANDS_OF_VITAE.block().get(), cubeAll(NVBlocks.SANDS_OF_VITAE.block().get()));
+
+        // Blood Stained Glass
+        simpleBlockWithItem(NVBlocks.BLOOD_STAINED_GLASS.block().get(),
+                models().cubeAll("blood_stained_glass", bm("block/blood_stained_glass")).renderType("translucent"));
+
+        // Blood Stained Glass Pane
+        paneBlockWithRenderType((IronBarsBlock) NVBlocks.BLOOD_STAINED_GLASS_PANE.block().get(),
+                bm("block/blood_stained_glass"), bm("block/blood_stained_glass_pane_top"), "translucent");
 
         // Inversion Pillar Cap - uses block state for top/bottom orientation (uses custom pillar_top/pillar_bottom parents)
         ModelFile inversionPillarCapBottom = models().withExistingParent("inversion_pillar_bottom", bm("block/pillar_bottom"))

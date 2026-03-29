@@ -37,7 +37,7 @@ public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile> {
         ItemStack inputStack = tileAltar.inv.getStackInSlot(0);
         this.renderItem(inputStack, tileAltar.getLevel(), poseStack, bufferSource, packedLight, packedOverlay);
 
-        if (tileAltar.isActive()) {
+        if (tileAltar.isVisuallyActive()) {
             renderRitualCircle(tileAltar, partialTick, poseStack, bufferSource, packedLight, packedOverlay);
             if (tileAltar.getTier() >= 4) {
                 renderHellforgedBeams(tileAltar, partialTick, poseStack, bufferSource);

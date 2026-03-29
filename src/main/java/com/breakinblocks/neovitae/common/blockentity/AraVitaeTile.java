@@ -197,6 +197,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         if (!tile.isActive() && tile.getCooldownAfterCrafting() > 0) {
             tile.setCooldownAfterCrafting(tile.getCooldownAfterCrafting() - 1);
             if (tile.getCooldownAfterCrafting() <= 0) tile.checkAction();
+            tile.tickTierEffects();
             return;
         }
 
@@ -374,7 +375,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     private static final int[][] T2_CAPS = {{3, 1, 3}, {3, 1, -3}, {-3, 1, 3}, {-3, 1, -3}};
     private static final int[][] T3_CAPS = {{5, 2, 5}, {5, 2, -5}, {-5, 2, 5}, {-5, 2, -5}};
     private static final int[][] T4_CAPS = {{8, -4, 8}, {8, -4, -8}, {-8, -4, 8}, {-8, -4, -8}};
-    private static final int[][] T5_CAPS_ORDERED = {{11, 3, 11}, {11, 3, -11}, {-11, 3, -11}, {-11, 3, 11}};
+    private static final int[][] T5_CAPS_ORDERED = {{11, 3, -11}, {11, 3, 11}, {-11, 3, 11}, {-11, 3, -11}};
     private static final int ORBIT_TICKS = 30;
     private static final int CYCLE_TICKS = 60;
 
@@ -453,44 +454,47 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     }
 
     private void tickCrystalLoop(ServerLevel serverLevel, int tick) {
-        int segmentTicks = 8;
-        int totalCycle = segmentTicks * 4;
-        int phase = tick % totalCycle;
-        int segIndex = phase / segmentTicks;
-        int segProgress = phase % segmentTicks;
+        for (int bolt = 0; bolt < 5; bolt++) {
+            int boltTick = tick - bolt * 20;
+            if (boltTick < 0) continue;
 
-        int[] from = T5_CAPS_ORDERED[segIndex];
-        int[] to = T5_CAPS_ORDERED[(segIndex + 1) % 4];
+            int totalCycle = 20 * 4;
+            int phase = boltTick % totalCycle;
+            int segIndex = phase / 20;
+            int segProgress = phase % 20;
 
-        double fx = worldPosition.getX() + from[0] + 0.5;
-        double fy = worldPosition.getY() + from[1] + 0.5;
-        double fz = worldPosition.getZ() + from[2] + 0.5;
-        double tx = worldPosition.getX() + to[0] + 0.5;
-        double ty = worldPosition.getY() + to[1] + 0.5;
-        double tz = worldPosition.getZ() + to[2] + 0.5;
+            int[] from = T5_CAPS_ORDERED[segIndex];
+            int[] to = T5_CAPS_ORDERED[(segIndex + 1) % 4];
 
-        if (segProgress < 4) {
-            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x8800CC),
-                    fx, fy, fz, 5, 0.5, 0.5, 0.5, 0.02);
-            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA00FF),
-                    fx, fy, fz, 3, 0.3, 0.3, 0.3, 0);
-        }
+            double fx = worldPosition.getX() + from[0] + 0.5;
+            double fy = worldPosition.getY() + from[1] + 0.5;
+            double fz = worldPosition.getZ() + from[2] + 0.5;
+            double tx = worldPosition.getX() + to[0] + 0.5;
+            double ty = worldPosition.getY() + to[1] + 0.5;
+            double tz = worldPosition.getZ() + to[2] + 0.5;
 
-        if (segProgress == 4) {
-            StreamEffect.builder(fx, fy, fz)
-                    .to(tx, ty, tz)
-                    .color(0x8800CC).scale(0.08f).speed(30.0f).gravity(0.0f)
-                    .spiralInto(false).wobble(0.0f).wobbleFrequency(0.0f)
-                    .alphaStart(1.0f).alphaEnd(1.0f)
-                    .glow(true).drainSpeed(8.0f)
-                    .build().sendToNearby(serverLevel, worldPosition, 128);
-        }
+            if (segProgress == 0) {
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x8800CC),
+                        fx, fy, fz, 6, 0.5, 0.5, 0.5, 0.02);
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA00FF),
+                        fx, fy, fz, 3, 0.3, 0.3, 0.3, 0);
 
-        if (segProgress >= 4 && segProgress <= 6) {
-            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA00FF),
-                    tx, ty, tz, 5, 0.5, 0.5, 0.5, 0.02);
-            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x8800CC),
-                    tx, ty, tz, 2, 0.3, 0.3, 0.3, 0);
+                StreamEffect.builder(fx, fy, fz)
+                        .to(tx, ty, tz)
+                        .color(0x8800CC).scale(0.08f).speed(30.0f).gravity(0.0f)
+                        .spiralInto(false).wobble(0.0f).wobbleFrequency(0.0f)
+                        .approachHeight(0.0f)
+                        .alphaStart(1.0f).alphaEnd(1.0f)
+                        .glow(true).drainSpeed(8.0f)
+                        .build().sendToNearby(serverLevel, worldPosition, 128);
+            }
+
+            if (segProgress == 2) {
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA00FF),
+                        tx, ty, tz, 5, 0.5, 0.5, 0.5, 0.02);
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x8800CC),
+                        tx, ty, tz, 3, 0.3, 0.3, 0.3, 0);
+            }
         }
     }
 
@@ -584,6 +588,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
 
         this.isSignaling = tag.getBoolean("signal");
         this.isActive = tag.getBoolean("active");
+        this.cooldownAfterCrafting = tag.getInt("craftCooldown");
 
         this.tier = tag.getInt("tier");
         this.capacityGraceTicks = tag.getInt("capacityGrace");
@@ -622,6 +627,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         tag.putInt("tier", this.tier);
         tag.putBoolean("signal", isSignaling);
         tag.putBoolean("active", isActive);
+        tag.putInt("craftCooldown", cooldownAfterCrafting);
         tag.putInt("capacityGrace", capacityGraceTicks);
     }
 
@@ -692,6 +698,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     }
 
     public boolean isActive() { return isActive; }
+    public boolean isVisuallyActive() { return isActive || cooldownAfterCrafting > 0; }
     public boolean canFill() { return canFill; }
     public AraVitaeRecipe getCurrentRecipe() { return currentRecipe; }
     public int getCooldownAfterCrafting() { return cooldownAfterCrafting; }

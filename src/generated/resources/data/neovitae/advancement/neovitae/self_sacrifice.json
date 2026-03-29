@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/root",
+  "criteria": {
+    "get_dagger": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:sacrificial_dagger"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.self_sacrifice.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:sacrificial_dagger"
+    },
+    "title": {
+      "translate": "advancements.neovitae.self_sacrifice.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_dagger"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

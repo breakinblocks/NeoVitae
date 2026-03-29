@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/tabula_vitae",
+  "criteria": {
+    "get_athanor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:athanor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.athanor.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:athanor"
+    },
+    "title": {
+      "translate": "advancements.neovitae.athanor.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_athanor"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

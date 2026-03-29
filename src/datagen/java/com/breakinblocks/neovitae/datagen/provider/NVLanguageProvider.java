@@ -976,24 +976,47 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addDungeonBlocks();
 
         // Advancements
-        addAdvancement("root", "Neo Vitae", "Obtain a Ara Vitae");
+        addAdvancement("root", "Neo Vitae", "Obtain an Ara Vitae");
         addAdvancement("weak_blood_orb", "Weak Blood Orb", "Craft your first Blood Orb");
-        addAdvancement("apprentice_blood_orb", "Apprentice Blood Orb", "Upgrade to a Tier 2 orb");
-        addAdvancement("magician_blood_orb", "Magician Blood Orb", "Upgrade to a Tier 3 orb");
-        addAdvancement("master_blood_orb", "Master Blood Orb", "Upgrade to a Tier 4 orb");
-        addAdvancement("archmage_blood_orb", "Archmage Blood Orb", "Upgrade to a Tier 5 orb");
+        addAdvancement("apprentice_blood_orb", "Apprentice Blood Orb", "Upgrade to a Tier 2 Blood Orb");
+        addAdvancement("magician_blood_orb", "Magician Blood Orb", "Upgrade to a Tier 3 Blood Orb");
+        addAdvancement("master_blood_orb", "Master Blood Orb", "Upgrade to a Tier 4 Blood Orb");
+        addAdvancement("archmage_blood_orb", "Archmage Blood Orb", "Upgrade to a Tier 5 Blood Orb");
+        addAdvancement("transcendent_blood_orb", "Transcendent Blood Orb", "Achieve the ultimate Blood Orb");
+        addAdvancement("blank_slate", "Blank Slate", "Inscribe your first slate");
+        addAdvancement("reinforced_slate", "Reinforced Slate", "Craft a Reinforced Slate");
+        addAdvancement("imbued_slate", "Imbued Slate", "Craft an Imbued Slate");
+        addAdvancement("demonic_slate", "Demonic Slate", "Craft a Demonic Slate");
+        addAdvancement("ethereal_slate", "Ethereal Slate", "Craft an Ethereal Slate");
+        addAdvancement("tabula_vitae", "The Alchemy Table", "Craft a Tabula Vitae");
+        addAdvancement("athanor", "Industrial Alchemy", "Craft an Athanor");
+        addAdvancement("incense_altar", "Sacred Incense", "Craft an Incense Altar");
+        addAdvancement("first_sigil", "First Sigil", "Craft your first sigil");
+        addAdvancement("ritual_diviner", "Ritual Diviner", "Craft a Ritual Diviner");
+        addAdvancement("master_ritual_stone", "Ritual Master", "Place a Master Ritual Stone");
+        addAdvancement("imperfect_ritual", "Imperfect Beginnings", "Activate an Imperfect Ritual");
+        addAdvancement("first_ritual", "Ritual Awakening", "Activate your first ritual");
+        addAdvancement("well_of_suffering", "Well of Suffering", "Activate the Well of Suffering");
+        addAdvancement("edge_of_hidden_realm", "Edge of the Hidden Realm", "Venture into the Endless Realm");
+        addAdvancement("crack_of_fractured_crystal", "Crack of the Fractured Crystal", "Activate the Resonance of the Faceted Crystal");
+        addAdvancement("serenade_of_nether", "Serenade of the Nether", "Activate the Serenade of the Nether");
+        addAdvancement("master_of_ceremonies", "Master of Ceremonies", "Complete all ritual achievements");
+        addAdvancement("meteor", "METEO!", "Summon the Mark of the Falling Tower");
+        addAdvancement("teleposer", "Displacement", "Craft a Teleposer");
         addAdvancement("spiritus_snare", "Soul Snare", "Craft a Soul Snare");
-        addAdvancement("spiritus", "Spiritus", "Obtain a Spiritus");
-        addAdvancement("sentient_sword", "Sentient Sword", "Craft a Sentient Sword");
+        addAdvancement("spiritus", "First Spiritus", "Obtain raw Spiritus");
         addAdvancement("spiritus_gem_petty", "Petty Spiritus Gem", "Craft a Petty Spiritus Gem");
         addAdvancement("spiritus_gem_lesser", "Lesser Spiritus Gem", "Upgrade to a Lesser Gem");
         addAdvancement("spiritus_gem_common", "Common Spiritus Gem", "Upgrade to a Common Gem");
         addAdvancement("spiritus_gem_greater", "Greater Spiritus Gem", "Upgrade to a Greater Gem");
         addAdvancement("spiritus_gem_grand", "Grand Spiritus Gem", "Upgrade to a Grand Gem");
-        addAdvancement("ritual_diviner", "Ritual Diviner", "Craft a Ritual Diviner");
-        addAdvancement("living_armor", "Living Armor", "Craft a Living Chestplate");
+        addAdvancement("sentient_sword", "Sentient Blade", "Craft a Sentient Sword");
         addAdvancement("hellfire_forge", "Hellfire Forge", "Craft a Hellfire Forge");
         addAdvancement("vas_maleficum", "Vas Maleficum", "Craft a Vas Maleficum");
+        addAdvancement("living_armor", "Living Armor", "Craft Living Armor");
+        addAdvancement("self_sacrifice", "Blood Pact", "Craft a Sacrificial Dagger");
+        addAdvancement("sacrifice", "The Greater Sacrifice", "Craft a Dagger of Sacrifice");
+        addAdvancement("blood_sweat_and_tears", "Blood, Sweat & Tears", "Craft the legendary record at a Tier 6 altar");
     }
 
     public void addRitual(String key, String name) {

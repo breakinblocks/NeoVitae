@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.advancement.NVCriteriaTriggers;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
@@ -219,6 +220,10 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
 
         NeoForge.EVENT_BUS.post(new RitualEvent.Activated(this, currentRitual, player));
 
+        if (player instanceof ServerPlayer serverPlayer && currentRitualId != null) {
+            NVCriteriaTriggers.RITUAL_ACTIVATED.get().trigger(serverPlayer, currentRitualId.toString());
+        }
+
         setChanged();
         return true;
     }
@@ -250,6 +255,10 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
 
         if (player != null) {
             NeoForge.EVENT_BUS.post(new RitualEvent.Activated(this, currentRitual, player));
+
+            if (player instanceof ServerPlayer serverPlayer && currentRitualId != null) {
+                NVCriteriaTriggers.RITUAL_ACTIVATED.get().trigger(serverPlayer, currentRitualId.toString());
+            }
         }
 
         setChanged();

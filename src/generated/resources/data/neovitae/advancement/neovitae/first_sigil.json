@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/blank_slate",
+  "criteria": {
+    "get_sigil": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:sigil_divination"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.first_sigil.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:sigil_divination"
+    },
+    "title": {
+      "translate": "advancements.neovitae.first_sigil.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_sigil"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

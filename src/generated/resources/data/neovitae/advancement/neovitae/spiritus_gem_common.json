@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/spiritus_gem_lesser",
+  "criteria": {
+    "get_gem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:spiritus_gem_common"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.spiritus_gem_common.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:spiritus_gem_common"
+    },
+    "title": {
+      "translate": "advancements.neovitae.spiritus_gem_common.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_gem"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

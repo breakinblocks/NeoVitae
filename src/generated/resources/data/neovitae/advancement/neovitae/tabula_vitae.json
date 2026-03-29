@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/weak_blood_orb",
+  "criteria": {
+    "get_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:tabula_vitae"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.tabula_vitae.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:tabula_vitae"
+    },
+    "title": {
+      "translate": "advancements.neovitae.tabula_vitae.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_table"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

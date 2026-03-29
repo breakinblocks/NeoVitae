@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/demonic_slate",
+  "criteria": {
+    "get_slate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:ethereal_slate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neovitae.ethereal_slate.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "neovitae:ethereal_slate"
+    },
+    "title": {
+      "translate": "advancements.neovitae.ethereal_slate.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_slate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

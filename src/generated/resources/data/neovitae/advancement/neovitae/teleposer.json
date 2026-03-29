@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/demonic_slate",
+  "criteria": {
+    "get_teleposer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:teleposer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.teleposer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:teleposer"
+    },
+    "title": {
+      "translate": "advancements.neovitae.teleposer.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_teleposer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

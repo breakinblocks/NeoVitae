@@ -1,0 +1,27 @@
+{
+  "parent": "neovitae:neovitae/ritual_diviner",
+  "criteria": {
+    "activate": {
+      "trigger": "neovitae:imperfect_ritual_activated"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.imperfect_ritual.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:imperfect_ritual_stone"
+    },
+    "title": {
+      "translate": "advancements.neovitae.imperfect_ritual.title"
+    }
+  },
+  "requirements": [
+    [
+      "activate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -72,6 +72,8 @@ public class Datagen {
 
         event.createProvider(NVRecipeProvider::new);
 
+        generator.addProvider(event.includeServer(), new NVAdvancementProvider(output, event.getLookupProvider(), fileHelper));
+
         // Modonomicon multiblock definitions (altar tiers + ritual layouts)
         generator.addProvider(event.includeServer(), new NVModonomiconMultiblockProvider(output));
 

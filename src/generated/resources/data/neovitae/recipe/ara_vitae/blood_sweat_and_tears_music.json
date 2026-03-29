@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "bloodNeeded": 2000,
+  "craftSpeed": 5,
+  "drainSpeed": 1,
+  "input": {
+    "tag": "minecraft:creeper_drop_music_discs"
+  },
+  "minTier": 5,
+  "output": {
+    "count": 1,
+    "id": "neovitae:blood_sweat_and_tears"
+  }
+}

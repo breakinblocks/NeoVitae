@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/ritual_diviner",
+  "criteria": {
+    "get_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:master_ritual_stone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neovitae.master_ritual_stone.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "neovitae:master_ritual_stone"
+    },
+    "title": {
+      "translate": "advancements.neovitae.master_ritual_stone.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_stone"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

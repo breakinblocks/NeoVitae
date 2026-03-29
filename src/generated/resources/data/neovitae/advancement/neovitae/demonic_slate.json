@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/imbued_slate",
+  "criteria": {
+    "get_slate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:demonic_slate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neovitae.demonic_slate.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "neovitae:demonic_slate"
+    },
+    "title": {
+      "translate": "advancements.neovitae.demonic_slate.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_slate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

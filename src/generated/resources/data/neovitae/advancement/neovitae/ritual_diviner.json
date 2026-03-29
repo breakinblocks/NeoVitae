@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/first_sigil",
+  "criteria": {
+    "get_diviner": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:ritual_diviner"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.ritual_diviner.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:ritual_diviner"
+    },
+    "title": {
+      "translate": "advancements.neovitae.ritual_diviner.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_diviner"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

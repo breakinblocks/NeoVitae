@@ -1,0 +1,35 @@
+{
+  "parent": "neovitae:neovitae/transcendent_blood_orb",
+  "criteria": {
+    "get_record": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:blood_sweat_and_tears"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neovitae.blood_sweat_and_tears.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "neovitae:blood_sweat_and_tears"
+    },
+    "title": {
+      "translate": "advancements.neovitae.blood_sweat_and_tears.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_record"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

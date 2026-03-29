@@ -1,0 +1,33 @@
+{
+  "criteria": {
+    "get_ara_vitae": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:ara_vitae"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/block/nether_bricks.png",
+    "description": {
+      "translate": "advancements.neovitae.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:ara_vitae"
+    },
+    "title": {
+      "translate": "advancements.neovitae.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_ara_vitae"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

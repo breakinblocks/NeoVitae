@@ -1,0 +1,30 @@
+{
+  "parent": "neovitae:neovitae/first_ritual",
+  "criteria": {
+    "activate": {
+      "conditions": {
+        "ritual_id": "neovitae:simple_dungeon"
+      },
+      "trigger": "neovitae:ritual_activated"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neovitae.edge_of_hidden_realm.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "neovitae:master_ritual_stone"
+    },
+    "title": {
+      "translate": "advancements.neovitae.edge_of_hidden_realm.title"
+    }
+  },
+  "requirements": [
+    [
+      "activate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

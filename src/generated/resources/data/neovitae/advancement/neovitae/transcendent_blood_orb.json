@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/archmage_blood_orb",
+  "criteria": {
+    "get_orb": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:blood_orb_transcendent"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neovitae.transcendent_blood_orb.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "neovitae:blood_orb_transcendent"
+    },
+    "title": {
+      "translate": "advancements.neovitae.transcendent_blood_orb.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_orb"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

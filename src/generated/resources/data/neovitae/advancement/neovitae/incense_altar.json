@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/tabula_vitae",
+  "criteria": {
+    "get_altar": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:incense_altar"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.incense_altar.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:incense_altar"
+    },
+    "title": {
+      "translate": "advancements.neovitae.incense_altar.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_altar"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

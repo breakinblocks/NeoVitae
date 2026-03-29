@@ -1,0 +1,27 @@
+{
+  "parent": "neovitae:neovitae/master_ritual_stone",
+  "criteria": {
+    "activate": {
+      "trigger": "neovitae:ritual_activated"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neovitae.first_ritual.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "neovitae:master_ritual_stone"
+    },
+    "title": {
+      "translate": "advancements.neovitae.first_ritual.title"
+    }
+  },
+  "requirements": [
+    [
+      "activate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

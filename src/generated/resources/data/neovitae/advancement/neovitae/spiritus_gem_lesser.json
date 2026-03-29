@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/spiritus_gem_petty",
+  "criteria": {
+    "get_gem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:spiritus_gem_lesser"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.spiritus_gem_lesser.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:spiritus_gem_lesser"
+    },
+    "title": {
+      "translate": "advancements.neovitae.spiritus_gem_lesser.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_gem"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

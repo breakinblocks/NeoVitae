@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/magician_blood_orb",
+  "criteria": {
+    "get_orb": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:blood_orb_master"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neovitae.master_blood_orb.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "neovitae:blood_orb_master"
+    },
+    "title": {
+      "translate": "advancements.neovitae.master_blood_orb.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_orb"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

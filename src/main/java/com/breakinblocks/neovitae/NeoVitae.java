@@ -35,6 +35,7 @@ import com.breakinblocks.neovitae.common.structure.NVMultiblock;
 import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
 import com.breakinblocks.neovitae.ritual.harvest.NVHarvestHandlers;
+import com.breakinblocks.neovitae.common.advancement.NVCriteriaTriggers;
 import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
@@ -96,6 +97,7 @@ public class NeoVitae {
         NVIngredientTypes.register(modBus);
         NVLootFunctions.register(modBus);
         RitualRegistry.register(modBus);
+        NVCriteriaTriggers.register(modBus);
         NVMultiblock.register(NeoForge.EVENT_BUS);
         NVMenus.register(modBus);
         NVTabs.register(modBus);

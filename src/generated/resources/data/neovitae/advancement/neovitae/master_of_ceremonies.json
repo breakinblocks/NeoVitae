@@ -1,0 +1,67 @@
+{
+  "parent": "neovitae:neovitae/first_ritual",
+  "criteria": {
+    "crystal": {
+      "conditions": {
+        "ritual_id": "neovitae:crystal_split"
+      },
+      "trigger": "neovitae:ritual_activated"
+    },
+    "dungeon": {
+      "conditions": {
+        "ritual_id": "neovitae:simple_dungeon"
+      },
+      "trigger": "neovitae:ritual_activated"
+    },
+    "lava": {
+      "conditions": {
+        "ritual_id": "neovitae:lava"
+      },
+      "trigger": "neovitae:ritual_activated"
+    },
+    "meteor": {
+      "conditions": {
+        "ritual_id": "neovitae:meteor"
+      },
+      "trigger": "neovitae:ritual_activated"
+    },
+    "suffering": {
+      "conditions": {
+        "ritual_id": "neovitae:well_of_suffering"
+      },
+      "trigger": "neovitae:ritual_activated"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neovitae.master_of_ceremonies.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "neovitae:master_ritual_stone"
+    },
+    "title": {
+      "translate": "advancements.neovitae.master_of_ceremonies.title"
+    }
+  },
+  "requirements": [
+    [
+      "suffering"
+    ],
+    [
+      "dungeon"
+    ],
+    [
+      "crystal"
+    ],
+    [
+      "lava"
+    ],
+    [
+      "meteor"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

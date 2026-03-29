@@ -852,7 +852,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("alchemy_flask"));
 
         AltarRecipeBuilder.build(NVItems.BLOOD_SWEAT_AND_TEARS.get())
-                .from(net.minecraft.tags.ItemTags.MUSIC_DISCS)
+                .from(net.minecraft.tags.ItemTags.CREEPER_DROP_MUSIC_DISCS)
                 .minTier(5)
                 .bloodNeeded(2000)
                 .consumption(5)

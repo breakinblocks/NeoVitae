@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/spiritus_gem_petty",
+  "criteria": {
+    "get_forge": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:hellfire_forge"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.hellfire_forge.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:hellfire_forge"
+    },
+    "title": {
+      "translate": "advancements.neovitae.hellfire_forge.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_forge"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

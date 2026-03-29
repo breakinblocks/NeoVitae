@@ -1,0 +1,30 @@
+{
+  "parent": "neovitae:neovitae/first_ritual",
+  "criteria": {
+    "activate": {
+      "conditions": {
+        "ritual_id": "neovitae:meteor"
+      },
+      "trigger": "neovitae:ritual_activated"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neovitae.meteor.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "neovitae:master_ritual_stone"
+    },
+    "title": {
+      "translate": "advancements.neovitae.meteor.title"
+    }
+  },
+  "requirements": [
+    [
+      "activate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

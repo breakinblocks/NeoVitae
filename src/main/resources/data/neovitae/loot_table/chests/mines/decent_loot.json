@@ -875,19 +875,6 @@
               "add": false,
               "count": 1.0,
               "function": "minecraft:set_count"
-            }
-          ],
-          "name": "neovitae:bleeding_edge",
-          "quality": 5,
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": 1.0,
-              "function": "minecraft:set_count"
             },
             {
               "function": "neovitae:set_living_upgrade",

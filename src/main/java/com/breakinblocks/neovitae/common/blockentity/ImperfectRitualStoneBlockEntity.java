@@ -12,12 +12,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
+import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.common.NeoForge;
 import com.breakinblocks.neovitae.api.ritual.IImperfectRitualStone;
+import com.breakinblocks.neovitae.common.advancement.NVCriteriaTriggers;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datamap.ImperfectRitualStats;
 import com.breakinblocks.neovitae.common.event.ImperfectRitualEvent;
 import com.breakinblocks.neovitae.ritual.ImperfectRitual;
+import com.breakinblocks.neovitae.ritual.RitualRegistry;
 import com.breakinblocks.neovitae.ritual.RitualResult;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
@@ -97,6 +100,12 @@ public class ImperfectRitualStoneBlockEntity extends BlockEntity implements IImp
             }
 
             NeoForge.EVENT_BUS.post(new ImperfectRitualEvent.Activated(this, imperfectRitual, player, stats));
+
+            if (player instanceof ServerPlayer serverPlayer) {
+                var ritualId = RitualRegistry.getId(imperfectRitual);
+                String idStr = ritualId != null ? ritualId.toString() : "";
+                NVCriteriaTriggers.IMPERFECT_RITUAL_ACTIVATED.get().trigger(serverPlayer, idStr);
+            }
 
             return RitualResult.success();
         }

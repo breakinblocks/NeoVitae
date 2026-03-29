@@ -25,7 +25,7 @@ public class TabulaVitaeEntry extends EntryProvider {
         this.pageTitle("Tabula Vitae");
         this.pageText("The [#](8B0000)Tabula Vitae[#]() is a workbench of transmutation, drawing [#](4A0080)Essentia Vitae[#]() from your "
                 + "[#](4A0080)Anima[#]() to reshape matter itself. The [#](4A0080)Anima[#]() tapped and the [#](B8860B)tier[#]() of recipes "
-                + "available are governed by the [#](8B0000)Blood Orb[#]() socketed into its right-hand slot.\\\n\\\n"
+                + "available are governed by the [#](8B0000)Orb of Vitae[#]() socketed into its right-hand slot.\\\n\\\n"
                 + "Through this instrument, the Vitaemancer transmutes base materials into reagents, "
                 + "catalysts, and components essential to the art.");
 
@@ -55,7 +55,7 @@ public class TabulaVitaeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Common Failures");
         this.pageText("Should the table refuse to work, the cause is almost certainly one of these:"
-                + "\n\n- [#](8B0000)Orb Error[#](): No [#](8B0000)Blood Orb[#]() is present, or the orb's [#](B8860B)tier[#]() is insufficient "
+                + "\n\n- [#](8B0000)Orb Error[#](): No [#](8B0000)Orb of Vitae[#]() is present, or the orb's [#](B8860B)tier[#]() is insufficient "
                 + "for the recipe you attempt."
                 + "\n\n- [#](8B0000)Anima Error[#](): The orb is adequate, but it has not been bound to you (right-click to bind), "
                 + "or your [#](4A0080)Anima[#]() lacks sufficient [#](4A0080)Essentia Vitae[#]() to fuel the transmutation."

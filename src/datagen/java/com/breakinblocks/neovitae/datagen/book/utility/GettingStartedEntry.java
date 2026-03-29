@@ -33,7 +33,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.pageText("Your first act as a Vitaemancer is to construct an [#](8B0000)Ara Vitae[#]() and a "
                 + "[#](8B0000)Sacrificial Knife[#](). With blade in hand, you offer your own blood to the altar, "
                 + "and it drinks deeply, refining it into [#](4A0080)Essentia Vitae[#]().\\\n\\\n"
-                + "Use this to forge a [#](8B0000)Weak Blood Orb[#](), several [#](8B0000)Blank Slates[#](), "
+                + "Use this to forge a [#](8B0000)Novicius Orb of Vitae[#](), several [#](8B0000)Blank Slates[#](), "
                 + "and a handful of [#](8B0000)Soul Snares[#]().");
 
         this.page("tier1_alchemy", () -> BookTextPageModel.create()
@@ -41,7 +41,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("The Tabula Vitae (Tier I)");
         this.pageText("The [#](8B0000)Tabula Vitae[#]() draws [#](4A0080)Essentia Vitae[#]() from your "
-                + "[#](4A0080)Anima[#]() through the Blood Orb placed within, channeling it into a myriad of creations:\n\n"
+                + "[#](4A0080)Anima[#]() through the Orb of Vitae placed within, channeling it into a myriad of creations:\n\n"
                 + "- [#](8B0000)Arcane Ashes[#]() for array work\n"
                 + "- Reagents for Sigil crafting\n"
                 + "- Anointments for your blades\n"
@@ -171,7 +171,7 @@ public class GettingStartedEntry extends EntryProvider {
                 + "the demon dimension. Come armed and armoured - the realm does not suffer the unprepared.\\\n\\\n"
                 + "Delve deep enough, and you may unearth [#](8B0000)Demonite Ore[#](), "
                 + "which in block form serves as capstone for the ultimate altar tiers, alongside the "
-                + "[#](8B0000)Archmage's Blood Orb[#]().");
+                + "[#](8B0000)Dominus Orb of Vitae[#]().");
 
         this.page("tier5", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

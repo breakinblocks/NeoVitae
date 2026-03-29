@@ -24,7 +24,7 @@ public class ReinforcedOrbRuneEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Reinforced Rune of the Orb");
         this.pageText("Augmented with [#](8B0000)Netherite Scrap[#]() and [#](8B0000)Intricate Hellforged Parts[#]() from "
-                + "the [#](4A0080)Demon Realm[#](), this rune resonates more deeply with the Blood Orb within. "
+                + "the [#](4A0080)Demon Realm[#](), this rune resonates more deeply with the Orb of Vitae within. "
                 + "Each rune expands the orb's capacity by [#](8B0000)+4%%[#]() additively, twice the reach of "
                 + "the lesser inscription, stretching your [#](4A0080)Anima[#]() further.");
 

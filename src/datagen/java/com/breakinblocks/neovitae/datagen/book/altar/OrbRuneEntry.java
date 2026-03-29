@@ -23,7 +23,7 @@ public class OrbRuneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Rune of the Orb");
-        this.pageText("The [#](8B0000)Rune of the Orb[#]() resonates with the [#](8B0000)Blood Orb[#]() resting within the "
+        this.pageText("The [#](8B0000)Rune of the Orb[#]() resonates with the [#](8B0000)Orb of Vitae[#]() resting within the "
                 + "altar, stretching the boundaries of your [#](4A0080)Anima[#](). While the orb sits in the basin, "
                 + "each rune increases its capacity by [#](8B0000)+2%%[#]() additively. The orb must remain within "
                 + "the altar to benefit; remove it, and the expansion fades.");
@@ -40,7 +40,7 @@ public class OrbRuneEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Stretches the Blood Orb's capacity while it rests in the altar.";
+        return "Stretches the Orb of Vitae's capacity while it rests in the altar.";
     }
 
     @Override

@@ -59,7 +59,7 @@ public class RedstoneAutomationEntry extends EntryProvider {
         this.page("comparator_examples", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("For example, [#](8B0000)500,000 EV[#]() would register as overflowing through a Weak "
-                + "Blood Orb, but only half-strength through a Master Blood Orb. Clever use of this lets you "
+                + "Novicius Orb, but only half-strength through a Magus Orb. Clever use of this lets you "
                 + "shut down costly rituals before your [#](4A0080)Anima[#]() runs dry.\\\n\\\n"
                 + "[#](2E8B57)Place a Redstone Lamp beneath the altar and it will emit a redstone pulse the instant "
                 + "a transmutation completes, useful for chained automation.[#]()");

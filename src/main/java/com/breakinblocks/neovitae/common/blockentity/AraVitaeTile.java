@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.SimpleFluidContent;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
@@ -30,6 +31,7 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.BloodOrb;
+import com.breakinblocks.neovitae.common.item.OrbFluidHandler;
 import com.breakinblocks.neovitae.common.event.AraVitaeCraftEvent;
 import com.breakinblocks.neovitae.common.event.NeoVitaeCraftedEvent;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
@@ -355,7 +357,46 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         BloodOrb orb = inputStack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
         if (binding.isEmpty() || orb == null) return;
 
-        if (getMainTank() > 0) {
+        SimpleFluidContent orbFluid = inputStack.getOrDefault(NVDataComponents.ORB_FLUID.get(), SimpleFluidContent.EMPTY);
+        int orbAmount = orbFluid.isEmpty() ? 0 : orbFluid.getAmount();
+
+        if (orbAmount > 0) {
+            int altarRoom = getMainCapacity() - getMainTank();
+
+            if (altarRoom >= 1000) {
+                int transferRate = (int) (orb.fillRate() * 10 * (1 + modifiers.getConsumptionMod()));
+                int toDrain = Math.min(transferRate, Math.min(orbAmount, altarRoom));
+                if (toDrain > 0) {
+                    FluidStack drained = OrbFluidHandler.drainInternal(inputStack, toDrain, FluidAction.EXECUTE);
+                    setMainTank(getMainTank() + drained.getAmount());
+                    if (!drained.isEmpty() && getTicks() % 2 == 0) {
+                        double angle = (getTicks() * 0.15) % (Math.PI * 2);
+                        double radius = 0.2;
+                        double offsetX = Math.cos(angle) * radius;
+                        double offsetZ = Math.sin(angle) * radius;
+                        double cx = worldPosition.getX() + 0.5;
+                        double cy = worldPosition.getY() + 1.0;
+                        double cz = worldPosition.getZ() + 0.5;
+
+                        ((ServerLevel) level).sendParticles(
+                                new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x881100),
+                                cx + offsetX, cy + 0.3, cz + offsetZ,
+                                0, -offsetX * 0.02, -0.06, -offsetZ * 0.02, 1);
+                        ((ServerLevel) level).sendParticles(
+                                new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x664400),
+                                cx - offsetX * 0.5, cy + 0.2, cz - offsetZ * 0.5,
+                                0, offsetX * 0.01, -0.04, offsetZ * 0.01, 1);
+                    }
+                }
+            } else {
+                int networkFill = Math.min(orbAmount, (int) (orb.fillRate() * (1 + modifiers.getConsumptionMod())));
+                FluidStack drained = OrbFluidHandler.drainInternal(inputStack, networkFill, FluidAction.EXECUTE);
+                if (!drained.isEmpty()) {
+                    AnimaHelper.getAnima(binding.uuid()).add(AnimaTicket.create(drained.getAmount()),
+                            (int) (orb.capacity() * (1 + modifiers.getOrbCapacityMod())));
+                }
+            }
+        } else if (getMainTank() > 0) {
             int available = Math.min(getMainTank(), (int) (orb.fillRate() * (1 + modifiers.getConsumptionMod())));
             int drained = AnimaHelper.getAnima(binding.uuid()).add(AnimaTicket.create(available), (int) (orb.capacity() * (1 + modifiers.getOrbCapacityMod())));
             setMainTank(getMainTank() - drained);
@@ -377,7 +418,6 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
                         cx - offsetX * 0.5, cy + 0.1, cz - offsetZ * 0.5,
                         0, -offsetX * 0.01, 0.06, -offsetZ * 0.01, 1);
             }
-            // Blood bubbles at altar surface during orb filling
             if (drained > 0 && getTicks() % 8 == 0) {
                 ((ServerLevel) level).sendParticles(
                         new ColoredParticleOptions(NVParticles.BLOOD_BUBBLE.get(), 0x990011),
@@ -434,7 +474,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         }
 
         if (currentTier >= 5) {
-            tickCrystalLoop(serverLevel, tick);
+            tickCrystalCascade(serverLevel, tick);
             if (tick % 60 == 0) {
                 for (int[] mapping : T5_TO_T4_MAP) {
                     double cx = worldPosition.getX() + mapping[0] + 0.5;
@@ -524,47 +564,34 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         }
     }
 
-    private void tickCrystalLoop(ServerLevel serverLevel, int tick) {
-        for (int bolt = 0; bolt < 5; bolt++) {
-            int boltTick = tick - bolt * 20;
-            if (boltTick < 0) continue;
+    private void tickCrystalCascade(ServerLevel serverLevel, int tick) {
+        for (int[] cap : T5_CAPS_ORDERED) {
+            double cx = worldPosition.getX() + cap[0] + 0.5;
+            double topY = worldPosition.getY() + cap[1] + 1.5;
+            double cz = worldPosition.getZ() + cap[2] + 0.5;
 
-            int totalCycle = 20 * 4;
-            int phase = boltTick % totalCycle;
-            int segIndex = phase / 20;
-            int segProgress = phase % 20;
-
-            int[] from = T5_CAPS_ORDERED[segIndex];
-            int[] to = T5_CAPS_ORDERED[(segIndex + 1) % 4];
-
-            double fx = worldPosition.getX() + from[0] + 0.5;
-            double fy = worldPosition.getY() + from[1] + 0.5;
-            double fz = worldPosition.getZ() + from[2] + 0.5;
-            double tx = worldPosition.getX() + to[0] + 0.5;
-            double ty = worldPosition.getY() + to[1] + 0.5;
-            double tz = worldPosition.getZ() + to[2] + 0.5;
-
-            if (segProgress == 0) {
+            if (tick % 2 == 0) {
+                double offsetX = (serverLevel.random.nextDouble() - 0.5) * 0.4;
+                double offsetZ = (serverLevel.random.nextDouble() - 0.5) * 0.4;
                 serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x8800CC),
-                        fx, fy, fz, 6, 0.5, 0.5, 0.5, 0.02);
-                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA00FF),
-                        fx, fy, fz, 3, 0.3, 0.3, 0.3, 0);
-
-                StreamEffect.builder(fx, fy, fz)
-                        .to(tx, ty, tz)
-                        .color(0x8800CC).scale(0.08f).speed(30.0f).gravity(0.0f)
-                        .spiralInto(false).wobble(0.0f).wobbleFrequency(0.0f)
-                        .approachHeight(0.0f)
-                        .alphaStart(1.0f).alphaEnd(1.0f)
-                        .glow(true).drainSpeed(8.0f)
-                        .build().sendToNearby(serverLevel, worldPosition, 128);
+                        cx + offsetX, topY, cz + offsetZ, 0, 0, -0.12, 0, 1);
             }
 
-            if (segProgress == 2) {
+            if (tick % 3 == 0) {
+                double offsetX = (serverLevel.random.nextDouble() - 0.5) * 0.3;
+                double offsetZ = (serverLevel.random.nextDouble() - 0.5) * 0.3;
                 serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA00FF),
-                        tx, ty, tz, 5, 0.5, 0.5, 0.5, 0.02);
-                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x8800CC),
-                        tx, ty, tz, 3, 0.3, 0.3, 0.3, 0);
+                        cx + offsetX, topY, cz + offsetZ, 0, 0, -0.1, 0, 1);
+            }
+
+            if (tick % 4 == 0) {
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x6600AA),
+                        cx, topY - 0.5, cz, 1, 0.2, 0.3, 0.2, 0);
+            }
+
+            if (tick % 6 == 0) {
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_DRIP.get(), 0x8800CC),
+                        cx, topY, cz, 0, 0, -0.08, 0, 1);
             }
         }
     }

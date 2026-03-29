@@ -37,7 +37,7 @@ public class AnimaEntry extends EntryProvider {
 
         this.page("filling", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("To fill your [#](4A0080)Anima[#](), you require a [#](8B0000)Blood Orb[#](), a crystallized anchor "
+        this.pageText("To fill your [#](4A0080)Anima[#](), you require an [#](8B0000)Orb of Vitae[#](), a crystallized anchor "
                 + "between your soul and the altar's power."
                 + "\n\n- Right-click with the orb in hand to sacrifice one heart, channeling [#](8B0000)200 EV[#]() "
                 + "into your [#](4A0080)Anima[#]()."
@@ -48,27 +48,27 @@ public class AnimaEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Each tier of the [#](8B0000)Ara Vitae[#]() unlocks a more potent orb, expanding the boundaries "
                 + "of your [#](4A0080)Anima[#]()."
-                + "\n\n- [#](B8860B)Weak Blood Orb[#](): Capacity: [#](8B0000)5,000 EV[#]()."
-                + "\n\n- [#](B8860B)Apprentice Blood Orb[#](): Capacity: [#](8B0000)25,000 EV[#]()."
-                + "\n\n- [#](B8860B)Magician Blood Orb[#](): Capacity: [#](8B0000)150,000 EV[#]()."
-                + "\n\n- [#](B8860B)Master Blood Orb[#](): Capacity: [#](8B0000)1,000,000 EV[#]()."
-                + "\n\n- [#](B8860B)Archmage Blood Orb[#](): Capacity: [#](8B0000)10,000,000 EV[#]().");
+                + "\n\n- [#](B8860B)Novicius Orb of Vitae[#](): Capacity: [#](8B0000)5,000 EV[#]()."
+                + "\n\n- [#](B8860B)Discipulus Orb of Vitae[#](): Capacity: [#](8B0000)25,000 EV[#]()."
+                + "\n\n- [#](B8860B)Veneficus Orb of Vitae[#](): Capacity: [#](8B0000)150,000 EV[#]()."
+                + "\n\n- [#](B8860B)Magus Orb of Vitae[#](): Capacity: [#](8B0000)1,000,000 EV[#]()."
+                + "\n\n- [#](B8860B)Dominus Orb of Vitae[#](): Capacity: [#](8B0000)10,000,000 EV[#]().");
 
         this.page("weak_apprentice", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Blood Orb Recipes");
-        this.pageText("Forge the [#](8B0000)Weak Blood Orb[#]() in the Ara Vitae ([#](B8860B)Tier 1[#](), cost: 2,000 EV)."
-                + "\\\n\\\nForge the [#](8B0000)Apprentice Blood Orb[#]() in the Ara Vitae ([#](B8860B)Tier 2[#](), cost: 5,000 EV).");
+        this.pageTitle("Orb of Vitae Recipes");
+        this.pageText("Forge the [#](8B0000)Novicius Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 1[#](), cost: 2,000 EV)."
+                + "\\\n\\\nForge the [#](8B0000)Discipulus Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 2[#](), cost: 5,000 EV).");
 
         this.page("magician_master", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Forge the [#](8B0000)Magician Blood Orb[#]() in the Ara Vitae ([#](B8860B)Tier 3[#](), cost: 25,000 EV)."
-                + "\\\n\\\nForge the [#](8B0000)Master Blood Orb[#]() in the Ara Vitae ([#](B8860B)Tier 4[#](), cost: 50,000 EV).");
+        this.pageText("Forge the [#](8B0000)Veneficus Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 3[#](), cost: 25,000 EV)."
+                + "\\\n\\\nForge the [#](8B0000)Magus Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 4[#](), cost: 50,000 EV).");
 
         this.page("archmage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Forge the [#](8B0000)Archmage Blood Orb[#]() in the Ara Vitae ([#](B8860B)Tier 5[#](), cost: 80,000 EV)."
+        this.pageText("Forge the [#](8B0000)Dominus Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 5[#](), cost: 80,000 EV)."
                 + "\\\n\\\n[#](2E8B57)Should even this not sate your ambitions, the Runes of the Orb can stretch your "
                 + "Anima further still.[#]()");
 
@@ -76,7 +76,7 @@ public class AnimaEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Orb's Inner Reservoir");
-        this.pageText("Each [#](8B0000)Blood Orb[#]() harbours a hidden internal reservoir of "
+        this.pageText("Each [#](8B0000)Orb of Vitae[#]() harbours a hidden internal reservoir of "
                 + "[#](4A0080)Essentia Vitae[#](). When the altar fills your [#](4A0080)Anima[#](), "
                 + "a portion of that EV seeps into the orb's reservoir as well."
                 + "\\\n\\\nWhen you place an orb containing stored fluid back upon an "

@@ -33,7 +33,7 @@ public class RitualWellOfSufferingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Crimson Tithe");
-        this.pageText("Perhaps the most infamous ritual in all of [#](4A0080)Vitaemancy[#](). The circle inflicts suffering upon every creature within its reach, siphoning [#](4A0080)Essentia Vitae[#]() from their agony and channeling it into a nearby [#](8B0000)Ara Vitae[#](). Place a [#](8B0000)Blood Orb[#]() in the altar and line its walls with [#](8B0000)Runes of Sacrifice[#](); provided you can supply enough victims, your reserves will never run dry.");
+        this.pageText("Perhaps the most infamous ritual in all of [#](4A0080)Vitaemancy[#](). The circle inflicts suffering upon every creature within its reach, siphoning [#](4A0080)Essentia Vitae[#]() from their agony and channeling it into a nearby [#](8B0000)Ara Vitae[#](). Place an [#](8B0000)Orb of Vitae[#]() in the altar and line its walls with [#](8B0000)Runes of Sacrifice[#](); provided you can supply enough victims, your reserves will never run dry.");
 
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

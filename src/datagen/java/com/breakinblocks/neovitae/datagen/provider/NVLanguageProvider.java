@@ -32,15 +32,17 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVFluids.ESSENTIA_VITAE_BUCKET.get(), "Bucket of Essentia Vitae");
         add(NVFluids.ESSENTIA_VITAE_BLOCK.get(), "Essentia Vitae");
 
-        add(NVItems.ORB_WEAK.get(), "Weak Blood Orb");
-        add(NVItems.ORB_APPRENTICE.get(), "Apprentice Blood Orb");
-        add(NVItems.ORB_MAGICIAN.get(), "Magician Blood Orb");
-        add(NVItems.ORB_MASTER.get(), "Master Blood Orb");
-        add(NVItems.ORB_ARCHMAGE.get(), "Archmage Blood Orb");
-        add(NVItems.ORB_TRANSCENDENT.get(), "Transcendent Blood Orb");
+        add(NVItems.ORB_WEAK.get(), "Novicius Orb of Vitae");
+        add(NVItems.ORB_APPRENTICE.get(), "Discipulus Orb of Vitae");
+        add(NVItems.ORB_MAGICIAN.get(), "Veneficus Orb of Vitae");
+        add(NVItems.ORB_MASTER.get(), "Magus Orb of Vitae");
+        add(NVItems.ORB_ARCHMAGE.get(), "Dominus Orb of Vitae");
+        add(NVItems.ORB_TRANSCENDENT.get(), "Divinus Orb of Vitae");
 
         addTooltip("current_owner", "Current Owner: %s");
         addTooltip("no_owner", "Not bound yet");
+        addTooltip("orb.fluid", "Essentia Vitae: %s / %s mB");
+        addTooltip("orb.tier", "Tier %s (%s)");
 
         // Death messages
         add("death.attack.spikes", "%1$s was impaled by spikes");
@@ -560,7 +562,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Ritual failure messages
         add("chat.neovitae.ritual.notEnoughLP", "Not enough Essentia Vitae! Requires %d EV.");
-        add("chat.neovitae.ritual.noAnima", "You must bind a Blood Orb first!");
+        add("chat.neovitae.ritual.noAnima", "You must bind an Orb of Vitae first!");
         add("chat.neovitae.ritual.eventCancelled", "Ritual activation was blocked.");
         add("chat.neovitae.ritual.activationFailed", "Ritual activation failed.");
         add("chat.neovitae.ritual.missingItem", "Required item not found.");
@@ -655,7 +657,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("rune.capacity", "Increases Ara Vitae EV capacity");
         addTooltip("rune.capacity_augmented", "Multiplicative increase to Ara Vitae EV capacity");
         addTooltip("rune.dislocation", "Increases fluid transfer rate to/from the Ara Vitae");
-        addTooltip("rune.orb", "Increases Blood Orb capacity while in the Ara Vitae");
+        addTooltip("rune.orb", "Increases Orb of Vitae capacity while in the Ara Vitae");
         addTooltip("rune.charging", "Pre-charges EV for faster crafting");
         addTooltip("rune.acceleration", "Reduces ticks between Ara Vitae operations");
         addTooltip("rune.efficiency", "Reduces EV loss when the Ara Vitae runs out mid-craft");
@@ -715,6 +717,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("command.neovitae.generate.added", "Added %s new materials: %s");
         add("command.neovitae.generate.skipped", "%s ore types already configured or skipped.");
         add("command.neovitae.generate.restart", "Restart the game for new items to appear.");
+        add("command.neovitae.setorbfill.success", "Set orb fill to %s / %s mB");
+        add("command.neovitae.setorbfill.not_orb", "You must be holding an Orb of Vitae");
 
         add(NVItems.LIVING_HELMET.get(), "Living Helmet");
         add(NVItems.LIVING_PLATE.get(), "Living Plate");
@@ -977,12 +981,12 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Advancements
         addAdvancement("root", "Neo Vitae", "Obtain an Ara Vitae");
-        addAdvancement("weak_blood_orb", "Weak Blood Orb", "Craft your first Blood Orb");
-        addAdvancement("apprentice_blood_orb", "Apprentice Blood Orb", "Upgrade to a Tier 2 Blood Orb");
-        addAdvancement("magician_blood_orb", "Magician Blood Orb", "Upgrade to a Tier 3 Blood Orb");
-        addAdvancement("master_blood_orb", "Master Blood Orb", "Upgrade to a Tier 4 Blood Orb");
-        addAdvancement("archmage_blood_orb", "Archmage Blood Orb", "Upgrade to a Tier 5 Blood Orb");
-        addAdvancement("transcendent_blood_orb", "Transcendent Blood Orb", "Achieve the ultimate Blood Orb");
+        addAdvancement("weak_blood_orb", "Novicius Orb of Vitae", "Craft your first Orb of Vitae");
+        addAdvancement("apprentice_blood_orb", "Discipulus Orb of Vitae", "Upgrade to a Tier 1 Orb of Vitae");
+        addAdvancement("magician_blood_orb", "Veneficus Orb of Vitae", "Upgrade to a Tier 2 Orb of Vitae");
+        addAdvancement("master_blood_orb", "Magus Orb of Vitae", "Upgrade to a Tier 3 Orb of Vitae");
+        addAdvancement("archmage_blood_orb", "Dominus Orb of Vitae", "Upgrade to a Tier 4 Orb of Vitae");
+        addAdvancement("transcendent_blood_orb", "Divinus Orb of Vitae", "Achieve the ultimate Orb of Vitae");
         addAdvancement("blank_slate", "Blank Slate", "Inscribe your first slate");
         addAdvancement("reinforced_slate", "Reinforced Slate", "Craft a Reinforced Slate");
         addAdvancement("imbued_slate", "Imbued Slate", "Craft an Imbued Slate");

@@ -24,7 +24,7 @@ public class AthanorEntry extends EntryProvider {
         this.pageTitle("The Athanor");
         this.pageText("The [#](8B0000)Athanor[#]() is the alchemist's furnace, "
                 + "a vessel of transmutation that transcends mere smelting. Within its crucible you may triple ore yields, "
-                + "revert Blood Orbs, unmake Netherite and Reinforced Runes, and - most critically - distill "
+                + "revert Orbs of Vitae, unmake Netherite and Reinforced Runes, and - most critically - distill "
                 + "[#](8B0000)Weak Blood Shards[#]() from [#](8B0000)Saturated Tau[#]().\\\n\\\n"
                 + "[#](2E8B57)Most tools placed in the Athanor degrade over time, but Unbreaking or Mending "
                 + "enchantments will slow or halt their decay.[#]()");
@@ -37,7 +37,7 @@ public class AthanorEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("The Sanguine Reverter");
         this.pageText("Forged within the Hellfire Forge, the [#](8B0000)Sanguine Reverter[#]() is a tool of "
-                + "[#](4A0080)unmaking[#](). It peels away the enchantments of creation, reducing Blood Orbs, "
+                + "[#](4A0080)unmaking[#](). It peels away the enchantments of creation, reducing Orbs of Vitae, "
                 + "Netherite, and Reinforced Runes back to their constituent materials. It is also the instrument "
                 + "by which Weak Blood Shards are born from Saturated Tau.");
 
@@ -46,10 +46,10 @@ public class AthanorEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Recipes of Reversion");
         this.pageText("With the Sanguine Reverter, the Athanor can unmake:\n\n"
-                + "- [#](8B0000)Weak Blood Orb[#]()\n"
-                + "- [#](8B0000)Apprentice Blood Orb[#]()\n"
-                + "- [#](8B0000)Magician Blood Orb[#]()\n"
-                + "- [#](8B0000)Master Blood Orb[#]()\n"
+                + "- [#](8B0000)Novicius Orb of Vitae[#]()\n"
+                + "- [#](8B0000)Discipulus Orb of Vitae[#]()\n"
+                + "- [#](8B0000)Veneficus Orb of Vitae[#]()\n"
+                + "- [#](8B0000)Magus Orb of Vitae[#]()\n"
                 + "- Netherite Ingot\n"
                 + "- Any Reinforced Rune (to base materials)");
 

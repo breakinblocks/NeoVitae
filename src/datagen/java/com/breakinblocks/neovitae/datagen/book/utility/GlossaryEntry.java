@@ -58,7 +58,7 @@ public class GlossaryEntry extends EntryProvider {
         this.pageText("Your [#](4A0080)Anima[#]() is the invisible reservoir woven into the fabric of your very soul. "
                 + "Every Vitaemancer possesses one, unique and untouchable by others. Items bound to you "
                 + "draw from and replenish this wellspring.\\\n\\\n"
-                + "The capacity of your Anima is determined by the tier of your [#](8B0000)Blood Orb[#](). "
+                + "The capacity of your Anima is determined by the tier of your [#](8B0000)Orb of Vitae[#](). "
                 + "Greater orbs hold vastly more EV.");
 
         this.page("refinement", () -> BookTextPageModel.create()
@@ -69,7 +69,7 @@ public class GlossaryEntry extends EntryProvider {
                 + "- [#](8B0000)Blood[#]() (raw): torn from living flesh by blade or sacrifice\n"
                 + "- [#](4A0080)Essentia Vitae[#]() (refined): sanctified within the [#](8B0000)Ara Vitae[#](), "
                 + "pooling as luminous crimson fluid\\\n\\\n"
-                + "The Ara Vitae transmutes blood into EV. A [#](8B0000)Blood Orb[#]() placed within draws that EV "
+                + "The Ara Vitae transmutes blood into EV. A [#](8B0000)Orb of Vitae[#]() placed within draws that EV "
                 + "into your [#](4A0080)Anima[#](), where it fuels your instruments across any distance.");
     }
 

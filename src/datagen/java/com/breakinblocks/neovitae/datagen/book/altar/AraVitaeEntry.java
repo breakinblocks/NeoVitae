@@ -72,7 +72,7 @@ public class AraVitaeEntry extends EntryProvider {
 
         this.page("first_craft", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Your first creation should be the [#](8B0000)Weak Blood Orb[#](), a diamond offered to "
+        this.pageText("Your first creation should be the [#](8B0000)Novicius Orb of Vitae[#](), a diamond offered to "
                 + "a Tier 1 altar along with [#](8B0000)2,000 EV[#](). This orb is the key to your "
                 + "[#](4A0080)Anima[#](), the invisible network that binds your soul to all your vitaemantic instruments. "
                 + "Consult JEI for all recipes the Ara Vitae can perform.");

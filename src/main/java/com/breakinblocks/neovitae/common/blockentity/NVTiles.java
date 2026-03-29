@@ -12,6 +12,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.capability.NVCapabilities;
+import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.item.OrbFluidHandler;
 import com.breakinblocks.neovitae.client.render.blockentity.AlchemyArrayRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.AraVitaeRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.BloodTankRenderer;
@@ -187,6 +189,14 @@ public class NVTiles {
                 VAS_MALEFICUM_TYPE.get(),
                 (tile, side) -> tile.getInventory()
         );
+
+        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> new OrbFluidHandler(stack),
+                NVItems.ORB_WEAK.get(),
+                NVItems.ORB_APPRENTICE.get(),
+                NVItems.ORB_MAGICIAN.get(),
+                NVItems.ORB_MASTER.get(),
+                NVItems.ORB_ARCHMAGE.get(),
+                NVItems.ORB_TRANSCENDENT.get());
     }
 
     private static void registerBlockEntityRenderer(EntityRenderersEvent.RegisterRenderers event) {

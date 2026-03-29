@@ -133,7 +133,7 @@ public class NVItemModelProvider extends ItemModelProvider {
         });
 
         // Blood Stained Glass Pane - flat texture for inventory
-        singleTexture("blood_stained_glass_pane", mcLoc("item/generated"), "layer0", modLoc("block/blood_stained_glass"));
+        singleTexture("blood_stained_glass_pane", mcLoc("item/generated"), "layer0", modLoc("block/blood_stained_glass")).renderType("translucent");
 
         basicItem(NVItems.DAGGER_OF_SACRIFICE.get());
 

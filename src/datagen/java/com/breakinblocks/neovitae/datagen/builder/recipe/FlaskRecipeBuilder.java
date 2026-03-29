@@ -70,7 +70,6 @@ public class FlaskRecipeBuilder implements RecipeBuilder {
     protected FlaskRecipeBuilder() {
     }
 
-    // ==================== Factory methods ====================
 
     /**
      * Create a recipe that adds a new effect to a flask.
@@ -154,7 +153,6 @@ public class FlaskRecipeBuilder implements RecipeBuilder {
         return builder;
     }
 
-    // ==================== Configuration methods ====================
 
     public FlaskRecipeBuilder addIngredient(ItemLike item) {
         return addIngredient(Ingredient.of(item));

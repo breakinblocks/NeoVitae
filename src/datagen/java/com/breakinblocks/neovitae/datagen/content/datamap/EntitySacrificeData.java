@@ -53,7 +53,6 @@ public class EntitySacrificeData {
     public static void bootstrap(Function<DataMapType<EntityType<?>, EntitySacrificeValue>, DataMapProvider.Builder<EntitySacrificeValue, EntityType<?>>> setup) {
         var builder = setup.apply(NVDataMaps.ENTITY_SACRIFICE_VALUE);
 
-        // ===== Passive Mobs =====
         // Easy to farm, low LP value
         builder
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.CHICKEN), EntitySacrificeValue.of(15), false)
@@ -70,7 +69,6 @@ public class EntitySacrificeData {
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.CAMEL), EntitySacrificeValue.of(50), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SNIFFER), EntitySacrificeValue.of(75), false);
 
-        // ===== Common Hostile Mobs =====
         builder
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ZOMBIE), EntitySacrificeValue.of(HOSTILE_LP), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SKELETON), EntitySacrificeValue.of(HOSTILE_LP), false)
@@ -87,7 +85,6 @@ public class EntitySacrificeData {
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.BOGGED), EntitySacrificeValue.of(60), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.BREEZE), EntitySacrificeValue.of(100), false);
 
-        // ===== Stronger Hostile Mobs =====
         builder
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ENDERMAN), EntitySacrificeValue.of(STRONG_HOSTILE_LP), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.WITCH), EntitySacrificeValue.of(STRONG_HOSTILE_LP), false)
@@ -106,20 +103,17 @@ public class EntitySacrificeData {
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.PILLAGER), EntitySacrificeValue.of(75), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.WARDEN), EntitySacrificeValue.withCap(BOSS_LP, BOSS_CAP), false);
 
-        // ===== Mini-Bosses / Rare Mobs =====
         builder
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ELDER_GUARDIAN), EntitySacrificeValue.of(MINIBOSS_LP), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.EVOKER), EntitySacrificeValue.of(MINIBOSS_LP), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.RAVAGER), EntitySacrificeValue.of(MINIBOSS_LP), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ILLUSIONER), EntitySacrificeValue.of(MINIBOSS_LP), false);
 
-        // ===== Bosses =====
         // High LP but capped to prevent exploitation
         builder
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.WITHER), EntitySacrificeValue.withCap(BOSS_LP, BOSS_CAP), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ENDER_DRAGON), EntitySacrificeValue.withCap(1000, 5000), false);
 
-        // ===== Aquatic Mobs =====
         builder
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SQUID), EntitySacrificeValue.of(20), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.GLOW_SQUID), EntitySacrificeValue.of(30), false)
@@ -131,14 +125,12 @@ public class EntitySacrificeData {
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.TURTLE), EntitySacrificeValue.of(35), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.AXOLOTL), EntitySacrificeValue.of(30), false);
 
-        // ===== Villagers & Golems =====
         builder
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.VILLAGER), EntitySacrificeValue.of(STRONG_HOSTILE_LP), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.WANDERING_TRADER), EntitySacrificeValue.of(150), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.IRON_GOLEM), EntitySacrificeValue.of(200), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SNOW_GOLEM), EntitySacrificeValue.of(50), false);
 
-        // ===== Misc Mobs =====
         builder
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.BAT), EntitySacrificeValue.of(10), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.BEE), EntitySacrificeValue.of(20), false)
@@ -154,14 +146,12 @@ public class EntitySacrificeData {
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ALLAY), EntitySacrificeValue.of(50), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ARMADILLO), EntitySacrificeValue.of(25), false);
 
-        // ===== Zombie Variants =====
         builder
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ZOMBIE_VILLAGER), EntitySacrificeValue.of(75), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ZOMBIE_HORSE), EntitySacrificeValue.of(50), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SKELETON_HORSE), EntitySacrificeValue.of(50), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.GIANT), EntitySacrificeValue.of(MINIBOSS_LP), false);
 
-        // ===== Wither Skeleton =====
         builder
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.WITHER_SKELETON), EntitySacrificeValue.of(150), false);
     }

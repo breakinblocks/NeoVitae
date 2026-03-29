@@ -137,7 +137,7 @@ public class BloodSiphonHandler {
 
         LivingEntity victim = event.getEntity();
         float maxHealth = victim.getMaxHealth();
-        int baseEV = (int) (maxHealth * 100);
+        int baseEV = (int) (maxHealth * 10);
 
         double sacrificeBonus = player.getAttributeValue(NVAttributes.BONUS_SACRIFICE);
         int totalEV = (int) (baseEV * (1.0 + sacrificeBonus / 100.0));

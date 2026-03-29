@@ -85,6 +85,37 @@ public class AnimaEntry extends EntryProvider {
                 + "the basin. If the altar is nearly full, overflow is channeled "
                 + "into your [#](4A0080)Anima[#]() instead. Once the orb is empty, "
                 + "normal behavior resumes and the altar fills your network as usual.");
+
+        this.page("orb_harvest", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Harvest of the Slain");
+        this.pageText("Slay any creature while an [#](8B0000)Orb of Vitae[#]() rests in your off-hand, "
+                + "and the orb drinks deeply of the fallen. The victim's life force is converted into "
+                + "[#](4A0080)Essentia Vitae[#]() and drawn directly into the orb's internal reservoir "
+                + "- [#](8B0000)10 EV per point of maximum health[#]()."
+                + "\\\n\\\nA slain zombie (20 HP) yields [#](8B0000)200 EV[#](). "
+                + "An Ender Dragon (200 HP) yields [#](8B0000)2,000 EV[#](). "
+                + "The [#](B8860B)Bonus Sacrifice[#]() attribute further multiplies this harvest."
+                + "\\\n\\\n[#](2E8B57)Combine this with the orb's altar-drain behaviour: "
+                + "fill the orb through combat, then place it upon the Ara Vitae to rapidly "
+                + "replenish the basin at 10x speed.[#]()");
+
+
+        this.page("blood_shield", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Sanguine Ward");
+        this.pageText("Any [#](8B0000)Orb of Vitae[#]() held in the off-hand may be raised as a ward. "
+                + "Hold the use key to conjure a translucent barrier of crystallised [#](4A0080)Essentia Vitae[#]() "
+                + "before you. The ward persists for as long as you hold the key and vanishes the instant "
+                + "you release it."
+                + "\\\n\\\nWhile active, the ward blocks all damage originating from your front arc, "
+                + "draining [#](8B0000)50 EV per second[#]() from your [#](4A0080)Anima[#]() to maintain it. "
+                + "If your [#](4A0080)Anima[#]() falls below [#](8B0000)200 EV[#](), "
+                + "the ward cannot be raised."
+                + "\\\n\\\n[#](2E8B57)The ward moves with you, always positioned directly ahead. "
+                + "Attacks from behind or the sides will bypass it entirely.[#]()");
     }
 
     @Override

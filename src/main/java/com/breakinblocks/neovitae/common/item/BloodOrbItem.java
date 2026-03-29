@@ -2,21 +2,27 @@ package com.breakinblocks.neovitae.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
+import com.breakinblocks.neovitae.api.NeoVitaeAPI;
+import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
+import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
@@ -28,6 +34,9 @@ public class BloodOrbItem extends Item implements IBindable {
         super(new Item.Properties().stacksTo(1).component(NVDataComponents.BINDING, Binding.EMPTY));
     }
 
+    private static final int SHIELD_EV_COST = 200;
+    private static final int SHIELD_DRAIN_PER_SECOND = 50;
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
@@ -38,17 +47,28 @@ public class BloodOrbItem extends Item implements IBindable {
         if (player instanceof FakePlayer)
             return InteractionResultHolder.consume(stack);
 
-
         Binding binding = stack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
         if (binding.isEmpty())
             return InteractionResultHolder.consume(stack);
+
+        if (hand == InteractionHand.OFF_HAND) {
+            IAnima network = NeoVitaeAPI.getInstance().getAnima(player.getUUID());
+            if (network != null && network.getCurrentEV() >= SHIELD_EV_COST) {
+                player.startUsingItem(hand);
+                if (!level.isClientSide) {
+                    BloodShieldEntity shield = new BloodShieldEntity(level, player);
+                    level.addFreshEntity(shield);
+                }
+                return InteractionResultHolder.consume(stack);
+            }
+            return InteractionResultHolder.fail(stack);
+        }
 
         if (!level.isClientSide) {
             level.playSound(null, player.getX(), player.getY(), player.getZ(),
                     SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS,
                     0.5F, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F
             );
-
 
             int capacity = getCapacity(stack);
             if (capacity == 0)
@@ -60,6 +80,31 @@ public class BloodOrbItem extends Item implements IBindable {
         }
 
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
+    }
+
+    @Override
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.BLOCK;
+    }
+
+    @Override
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
+        return 72000;
+    }
+
+    @Override
+    public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int remainingUseDuration) {
+        if (!(entity instanceof Player player)) return;
+        if (level.isClientSide) return;
+
+        if (player.tickCount % 20 == 0) {
+            IAnima network = NeoVitaeAPI.getInstance().getAnima(player.getUUID());
+            if (network == null || network.getCurrentEV() < SHIELD_DRAIN_PER_SECOND) {
+                player.stopUsingItem();
+                return;
+            }
+            network.syphon(AnimaTicket.create(SHIELD_DRAIN_PER_SECOND));
+        }
     }
 
     public int getCapacity(ItemStack stack) {
@@ -74,17 +119,11 @@ public class BloodOrbItem extends Item implements IBindable {
         return stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS).tier();
     }
 
-    private static final String[] TIER_NAMES = {
-            "Weak", "Apprentice", "Magician", "Master", "Archmage", "Transcendent"
-    };
-
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         var stats = stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
         if (stats != null) {
-            int tier = stats.tier();
-            String tierName = tier >= 0 && tier < TIER_NAMES.length ? TIER_NAMES[tier] : "Unknown";
-            tooltip.add(Component.translatable("tooltip.neovitae.orb.tier", tier, tierName)
+            tooltip.add(Component.translatable("tooltip.neovitae.orb.tier", stats.tier())
                     .withStyle(ChatFormatting.GRAY));
         }
 

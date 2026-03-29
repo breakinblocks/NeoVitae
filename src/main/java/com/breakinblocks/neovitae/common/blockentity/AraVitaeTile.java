@@ -449,7 +449,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         double az = worldPosition.getZ() + 0.5;
 
         if (currentTier >= 2) {
-            tickCapOrbitAndFire(serverLevel, tick, T2_CAPS, 0xFFCC22, 1.2, CYCLE_TICKS, ax, ay, az, true);
+            tickCapOrbitAndFire(serverLevel, tick, T2_CAPS, 0xBB3300, 1.2, CYCLE_TICKS, ax, ay, az, true);
         }
 
         if (currentTier >= 3) {
@@ -475,20 +475,6 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
 
         if (currentTier >= 5) {
             tickCrystalCascade(serverLevel, tick);
-            if (tick % 60 == 0) {
-                for (int[] mapping : T5_TO_T4_MAP) {
-                    double cx = worldPosition.getX() + mapping[0] + 0.5;
-                    double cy = worldPosition.getY() + mapping[1] + 0.5;
-                    double cz = worldPosition.getZ() + mapping[2] + 0.5;
-                    double hx = worldPosition.getX() + mapping[3] + 0.5;
-                    double hy = worldPosition.getY() + mapping[4] + 0.5;
-                    double hz = worldPosition.getZ() + mapping[5] + 0.5;
-                    StreamPresets.demonTether(
-                            new net.minecraft.core.BlockPos(worldPosition.getX() + mapping[0], worldPosition.getY() + mapping[1], worldPosition.getZ() + mapping[2]),
-                            new net.minecraft.core.BlockPos(worldPosition.getX() + mapping[3], worldPosition.getY() + mapping[4], worldPosition.getZ() + mapping[5]))
-                            .build().sendToNearby(serverLevel, worldPosition, 128);
-                }
-            }
         }
     }
 
@@ -569,29 +555,34 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
             double cx = worldPosition.getX() + cap[0] + 0.5;
             double topY = worldPosition.getY() + cap[1] + 1.5;
             double cz = worldPosition.getZ() + cap[2] + 0.5;
+            double circleRadius = 1.2;
 
             if (tick % 2 == 0) {
-                double offsetX = (serverLevel.random.nextDouble() - 0.5) * 0.4;
-                double offsetZ = (serverLevel.random.nextDouble() - 0.5) * 0.4;
+                double angle = serverLevel.random.nextDouble() * Math.PI * 2;
+                double r = circleRadius + (serverLevel.random.nextDouble() - 0.5) * 0.3;
                 serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x8800CC),
-                        cx + offsetX, topY, cz + offsetZ, 0, 0, -0.12, 0, 1);
+                        cx + Math.cos(angle) * r, topY, cz + Math.sin(angle) * r, 0, 0, -0.12, 0, 1);
             }
 
             if (tick % 3 == 0) {
-                double offsetX = (serverLevel.random.nextDouble() - 0.5) * 0.3;
-                double offsetZ = (serverLevel.random.nextDouble() - 0.5) * 0.3;
+                double angle = serverLevel.random.nextDouble() * Math.PI * 2;
+                double r = circleRadius * 0.8 + (serverLevel.random.nextDouble() - 0.5) * 0.2;
                 serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA00FF),
-                        cx + offsetX, topY, cz + offsetZ, 0, 0, -0.1, 0, 1);
+                        cx + Math.cos(angle) * r, topY, cz + Math.sin(angle) * r, 0, 0, -0.1, 0, 1);
             }
 
             if (tick % 4 == 0) {
+                double angle = serverLevel.random.nextDouble() * Math.PI * 2;
+                double r = circleRadius * 0.6;
                 serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x6600AA),
-                        cx, topY - 0.5, cz, 1, 0.2, 0.3, 0.2, 0);
+                        cx + Math.cos(angle) * r, topY - 0.5, cz + Math.sin(angle) * r, 1, 0.15, 0.3, 0.15, 0);
             }
 
             if (tick % 6 == 0) {
+                double angle = serverLevel.random.nextDouble() * Math.PI * 2;
+                double r = circleRadius;
                 serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_DRIP.get(), 0x8800CC),
-                        cx, topY, cz, 0, 0, -0.08, 0, 1);
+                        cx + Math.cos(angle) * r, topY, cz + Math.sin(angle) * r, 0, 0, -0.08, 0, 1);
             }
         }
     }
@@ -972,7 +963,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
 
     public AABB getRenderBoundingBox() {
         return new AABB(
-                worldPosition.getX() - 12, worldPosition.getY() - 5, worldPosition.getZ() - 12,
-                worldPosition.getX() + 13, worldPosition.getY() + 260, worldPosition.getZ() + 13);
+                worldPosition.getX() - 64, worldPosition.getY() - 64, worldPosition.getZ() - 64,
+                worldPosition.getX() + 64, worldPosition.getY() + 320, worldPosition.getZ() + 64);
     }
 }

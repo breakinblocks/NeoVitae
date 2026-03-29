@@ -15,10 +15,6 @@
           {
             "duration": 3600,
             "id": "minecraft:water_breathing",
-            "neoforge:cures": [
-              "milk",
-              "protected_by_totem"
-            ],
             "show_icon": true
           }
         ]

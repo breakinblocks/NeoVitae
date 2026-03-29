@@ -8,6 +8,7 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumGlaciarisEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumIgnisEntity;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityBloodLight;
@@ -77,6 +78,13 @@ public class NVEntities {
                     .updateInterval(3)
                     .fireImmune()
                     .build("daemonium_ignis"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<BloodShieldEntity>> BLOOD_SHIELD = ENTITIES.register("blood_shield",
+            () -> EntityType.Builder.<BloodShieldEntity>of(BloodShieldEntity::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(64)
+                    .updateInterval(1)
+                    .build("blood_shield"));
 
     public static final DeferredHolder<EntityType<?>, EntityType<DaemoniumGlaciarisEntity>> DAEMONIUM_GLACIARIS = ENTITIES.register("daemonium_glaciaris",
             () -> EntityType.Builder.<DaemoniumGlaciarisEntity>of(DaemoniumGlaciarisEntity::new, MobCategory.MONSTER)

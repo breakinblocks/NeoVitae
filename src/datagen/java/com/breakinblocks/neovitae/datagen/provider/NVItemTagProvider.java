@@ -33,6 +33,25 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.LEG_ARMOR).add(NVItems.LIVING_LEGGINGS.get());
         tag(ItemTags.FOOT_ARMOR).add(NVItems.LIVING_BOOTS.get());
 
+        tag(ItemTags.SWORDS).add(NVItems.SENTIENT_SWORD.get());
+        tag(ItemTags.AXES).add(NVItems.SENTIENT_AXE.get());
+        tag(ItemTags.PICKAXES).add(NVItems.SENTIENT_PICKAXE.get());
+        tag(ItemTags.SHOVELS).add(NVItems.SENTIENT_SHOVEL.get());
+        tag(ItemTags.MINING_ENCHANTABLE).add(NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(), NVItems.SENTIENT_AXE.get());
+        tag(ItemTags.MINING_LOOT_ENCHANTABLE).add(NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(), NVItems.SENTIENT_AXE.get());
+        tag(ItemTags.SWORD_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get());
+        tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get());
+        tag(ItemTags.WEAPON_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get());
+        tag(ItemTags.FIRE_ASPECT_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get());
+        tag(ItemTags.DURABILITY_ENCHANTABLE)
+                .add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get(),
+                        NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(),
+                        NVItems.SENTIENT_SCYTHE.get(), NVItems.DAGGER_OF_SACRIFICE.get());
+        tag(ItemTags.VANISHING_ENCHANTABLE)
+                .add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get(),
+                        NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(),
+                        NVItems.SENTIENT_SCYTHE.get(), NVItems.DAGGER_OF_SACRIFICE.get());
+
         tag(NVTags.Items.SPIRITUS_CRYSTALS)
                 .add(NVItems.RAW_CRYSTAL.get())
                 .add(NVItems.CORROSIVE_CRYSTAL.get())

@@ -26,7 +26,7 @@ public class StreamTestCommand {
     private static final List<String> PRESET_NAMES = List.of(
             "bloodTendril", "soulSiphon", "voidTendril", "lifePulse",
             "demonTether", "corruptionSeep", "arcaneBolt",
-            "blockBolt", "blockBolt2", "blockBolt3",
+            "blockBolt", "blockBolt2", "blockBolt3", "blockBolt4", "blockBolt5", "blockBolt6",
             "emberMote", "soulWisp", "voidMark", "ritual"
     );
 
@@ -129,6 +129,9 @@ public class StreamTestCommand {
             case "blockBolt" -> StreamPresets.blockBolt(player, target);
             case "blockBolt2" -> StreamPresets.blockBolt2(player, target);
             case "blockBolt3" -> StreamPresets.blockBolt3(player, target);
+            case "blockBolt4" -> StreamPresets.blockBolt4(player, target);
+            case "blockBolt5" -> StreamPresets.blockBolt5(player, target);
+            case "blockBolt6" -> StreamPresets.blockBolt6(player, target);
             default -> null;
         };
     }

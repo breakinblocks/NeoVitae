@@ -87,7 +87,7 @@ public class ActiveStream {
         this.headY = startY;
         this.headZ = startZ;
 
-        this.currentScale = effect.blockyUniform
+        this.currentScale = (effect.blockyUniform || effect.blockyBox || effect.blockyBeam)
                 ? effect.scale
                 : (float) (effect.scale * (1.0 + RANDOM.nextGaussian() * 0.15));
 
@@ -147,7 +147,7 @@ public class ActiveStream {
             tickDrain();
         } else if (spiraling) {
             tickSpiral();
-        } else if (effect.blockyUniform) {
+        } else if (effect.blockyUniform || effect.blockyBox || effect.blockyBeam) {
             tickApproachLinear();
         } else if (effect.blocky && effect.blockySteps) {
             tickApproachBlocky();
@@ -381,7 +381,7 @@ public class ActiveStream {
         for (int i = 0; i < size; i++) {
             float[] pt = pathPoints.get(i);
 
-            if (effect.blockyUniform) {
+            if (effect.blockyUniform || effect.blockyBox || effect.blockyBeam) {
                 positions[i][0] = pt[0];
                 positions[i][1] = pt[1];
                 positions[i][2] = pt[2];
@@ -455,4 +455,6 @@ public class ActiveStream {
     public int getTubeSegments() { return effect.tubeSegments; }
     public boolean isGlow() { return effect.glow; }
     public boolean isBlockyUniform() { return effect.blockyUniform; }
+    public boolean isBlockyBox() { return effect.blockyBox; }
+    public boolean isBlockyBeam() { return effect.blockyBeam; }
 }

@@ -77,7 +77,17 @@ public class SpiritusEventHandler {
             soulDrops = scythe.getRandomSpiritusDrop(killed, player, weapon, looting);
         }
 
-        dropSouls(killed, soulDrops);
+        if (soulDrops != null && !soulDrops.isEmpty()) {
+            List<ItemStack> overflow = new ArrayList<>();
+            for (ItemStack soulStack : soulDrops) {
+                if (soulStack.isEmpty()) continue;
+                ItemStack remaining = PlayerSpiritusHandler.addSpiritus(player, soulStack);
+                if (!remaining.isEmpty()) {
+                    overflow.add(remaining);
+                }
+            }
+            dropSouls(killed, overflow);
+        }
     }
 
     private static void handleSnareDrop(LivingEntity killed, @Nullable Player killer) {
@@ -134,9 +144,13 @@ public class SpiritusEventHandler {
 
         if (remaining.isEmpty()) {
             event.getItemEntity().discard();
-        } else if (remaining.getItem() instanceof ISpiritus remainingWill &&
-                   remainingWill.getWill(will.getType(remaining), remaining) < will.getWill(will.getType(pickedUp), pickedUp)) {
-            event.getItemEntity().setItem(remaining);
+        } else {
+            double originalWill = will.getWill(will.getType(pickedUp), pickedUp);
+            double remainingWillAmount = remaining.getItem() instanceof ISpiritus remainingSpiritus
+                    ? remainingSpiritus.getWill(will.getType(remaining), remaining) : originalWill;
+            if (remainingWillAmount < originalWill) {
+                event.getItemEntity().setItem(remaining);
+            }
         }
     }
 }

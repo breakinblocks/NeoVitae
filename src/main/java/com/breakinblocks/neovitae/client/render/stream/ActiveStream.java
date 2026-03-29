@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
+import com.breakinblocks.neovitae.api.stream.BlockyMode;
 import net.minecraft.world.entity.Entity;
 import com.breakinblocks.neovitae.api.stream.StreamEffect;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
@@ -87,7 +88,7 @@ public class ActiveStream {
         this.headY = startY;
         this.headZ = startZ;
 
-        this.currentScale = (effect.blockyUniform || effect.blockyBox || effect.blockyBeam)
+        this.currentScale = effect.blockyMode.ordinal() >= BlockyMode.BLOCKY_UNIFORM.ordinal()
                 ? effect.scale
                 : (float) (effect.scale * (1.0 + RANDOM.nextGaussian() * 0.15));
 
@@ -147,10 +148,10 @@ public class ActiveStream {
             tickDrain();
         } else if (spiraling) {
             tickSpiral();
-        } else if (effect.blockyUniform || effect.blockyBox || effect.blockyBeam) {
-            tickApproachLinear();
-        } else if (effect.blocky && effect.blockySteps) {
+        } else if (effect.blockyMode == BlockyMode.BLOCKY_STEPS) {
             tickApproachBlocky();
+        } else if (effect.blockyMode.ordinal() >= BlockyMode.BLOCKY_UNIFORM.ordinal()) {
+            tickApproachLinear();
         } else {
             tickApproach();
         }
@@ -381,7 +382,7 @@ public class ActiveStream {
         for (int i = 0; i < size; i++) {
             float[] pt = pathPoints.get(i);
 
-            if (effect.blockyUniform || effect.blockyBox || effect.blockyBeam) {
+            if (effect.blockyMode.ordinal() >= BlockyMode.BLOCKY_UNIFORM.ordinal()) {
                 positions[i][0] = pt[0];
                 positions[i][1] = pt[1];
                 positions[i][2] = pt[2];
@@ -403,7 +404,7 @@ public class ActiveStream {
             positions[i][2] = pt[2] + wz;
 
             float variance;
-            if (effect.blocky) {
+            if (effect.blockyMode == BlockyMode.BLOCKY || effect.blockyMode == BlockyMode.BLOCKY_STEPS) {
                 int period = 6;
                 int pos = i % period;
                 variance = (pos < 4) ? 1.8f : 0.7f;
@@ -454,7 +455,5 @@ public class ActiveStream {
     public int getAge() { return age; }
     public int getTubeSegments() { return effect.tubeSegments; }
     public boolean isGlow() { return effect.glow; }
-    public boolean isBlockyUniform() { return effect.blockyUniform; }
-    public boolean isBlockyBox() { return effect.blockyBox; }
-    public boolean isBlockyBeam() { return effect.blockyBeam; }
+    public BlockyMode getBlockyMode() { return effect.blockyMode; }
 }

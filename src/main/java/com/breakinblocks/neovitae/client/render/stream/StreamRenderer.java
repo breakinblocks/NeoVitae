@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.api.stream.BlockyMode;
 import org.joml.Matrix4f;
 
 /**
@@ -33,13 +34,10 @@ public class StreamRenderer {
      */
     public static void render(ActiveStream stream, PoseStack poseStack,
                               VertexConsumer buffer, float partialTick) {
-        if (stream.isBlockyBeam()) {
-            renderBeam(stream, poseStack, buffer, partialTick);
-            return;
-        }
-        if (stream.isBlockyBox()) {
-            renderBox(stream, poseStack, buffer, partialTick);
-            return;
+        switch (stream.getBlockyMode()) {
+            case BLOCKY_BEAM -> { renderBeam(stream, poseStack, buffer, partialTick); return; }
+            case BLOCKY_BOX -> { renderBox(stream, poseStack, buffer, partialTick); return; }
+            default -> {}
         }
         renderTube(stream, poseStack, buffer, partialTick);
     }
@@ -64,7 +62,7 @@ public class StreamRenderer {
         Vec3[] normals = new Vec3[numPoints];
         Vec3[] binormals = new Vec3[numPoints];
 
-        if (stream.isBlockyUniform()) {
+        if (stream.getBlockyMode() == BlockyMode.BLOCKY_UNIFORM) {
             computeFixedFrames(directions, normals, binormals, numPoints);
         } else {
             computeFrames(directions, normals, binormals, numPoints);
@@ -245,19 +243,6 @@ public class StreamRenderer {
         buffer.addVertex(matrix, cx, cy, cz).setColor(cr1, cg1, cb1, ca1).setUv(1, 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(FULL_BRIGHT).setNormal(-nx, -ny, -nz);
         buffer.addVertex(matrix, bx, by, bz).setColor(cr1, cg1, cb1, ca1).setUv(0, 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(FULL_BRIGHT).setNormal(-nx, -ny, -nz);
         buffer.addVertex(matrix, ax, ay, az).setColor(cr0, cg0, cb0, ca0).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(FULL_BRIGHT).setNormal(-nx, -ny, -nz);
-    }
-
-    private static void emitBoxVertex(VertexConsumer buffer, Matrix4f matrix,
-                                      float x, float y, float z,
-                                      float u, float v,
-                                      int r, int g, int b, int a,
-                                      float nx, float ny, float nz) {
-        buffer.addVertex(matrix, x, y, z)
-                .setColor(r, g, b, a)
-                .setUv(u, v)
-                .setOverlay(OverlayTexture.NO_OVERLAY)
-                .setLight(FULL_BRIGHT)
-                .setNormal(nx, ny, nz);
     }
 
     private static void emitVertex(VertexConsumer buffer, Matrix4f matrix,

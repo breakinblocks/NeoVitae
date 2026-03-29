@@ -112,11 +112,7 @@ public final class StreamEffect {
     public final int lifetime;
     /** Multiplier for drain-phase acceleration when the tail is absorbed. Default {@code 1.0f}. */
     public final float drainSpeed;
-    public final boolean blocky;
-    public final boolean blockySteps;
-    public final boolean blockyUniform;
-    public final boolean blockyBox;
-    public final boolean blockyBeam;
+    public final BlockyMode blockyMode;
 
     /** Entity ID to track as the target. {@code -1} = no tracking, use fixed coordinates. */
     public final int targetEntityId;
@@ -145,11 +141,7 @@ public final class StreamEffect {
         this.approachHeight = b.approachHeight;
         this.lifetime = b.lifetime;
         this.drainSpeed = b.drainSpeed;
-        this.blocky = b.blocky;
-        this.blockySteps = b.blockySteps;
-        this.blockyUniform = b.blockyUniform;
-        this.blockyBox = b.blockyBox;
-        this.blockyBeam = b.blockyBeam;
+        this.blockyMode = b.blockyMode;
         this.targetEntityId = b.targetEntityId;
     }
 
@@ -220,11 +212,7 @@ public final class StreamEffect {
         buf.writeFloat(approachHeight);
         buf.writeInt(lifetime);
         buf.writeFloat(drainSpeed);
-        buf.writeBoolean(blocky);
-        buf.writeBoolean(blockySteps);
-        buf.writeBoolean(blockyUniform);
-        buf.writeBoolean(blockyBox);
-        buf.writeBoolean(blockyBeam);
+        buf.writeInt(blockyMode.ordinal());
         buf.writeInt(targetEntityId);
     }
 
@@ -253,11 +241,7 @@ public final class StreamEffect {
         b.approachHeight = buf.readFloat();
         b.lifetime = buf.readInt();
         b.drainSpeed = buf.readFloat();
-        b.blocky = buf.readBoolean();
-        b.blockySteps = buf.readBoolean();
-        b.blockyUniform = buf.readBoolean();
-        b.blockyBox = buf.readBoolean();
-        b.blockyBeam = buf.readBoolean();
+        b.blockyMode = BlockyMode.values()[buf.readInt()];
         b.targetEntityId = buf.readInt();
         return new StreamEffect(b);
     }
@@ -286,11 +270,7 @@ public final class StreamEffect {
         private float approachHeight = 1.0f;
         private int lifetime = 0;
         private float drainSpeed = 1.0f;
-        private boolean blocky = false;
-        private boolean blockySteps = false;
-        private boolean blockyUniform = false;
-        private boolean blockyBox = false;
-        private boolean blockyBeam = false;
+        private BlockyMode blockyMode = BlockyMode.NONE;
         private int targetEntityId = -1;
 
         private Builder(double x, double y, double z) {
@@ -430,41 +410,8 @@ public final class StreamEffect {
             return this;
         }
 
-        public Builder blocky(boolean blocky) {
-            this.blocky = blocky;
-            return this;
-        }
-
-        public Builder blocky() {
-            return blocky(true);
-        }
-
-        public Builder blockySteps(boolean steps) {
-            this.blockySteps = steps;
-            return this;
-        }
-
-        public Builder blockySteps() {
-            return blockySteps(true);
-        }
-
-        public Builder blockyUniform(boolean uniform) {
-            this.blockyUniform = uniform;
-            this.blocky = true;
-            return this;
-        }
-
-        public Builder blockyUniform() {
-            return blockyUniform(true);
-        }
-
-        public Builder blockyBox() {
-            this.blockyBox = true;
-            return this;
-        }
-
-        public Builder blockyBeam() {
-            this.blockyBeam = true;
+        public Builder blockyMode(BlockyMode mode) {
+            this.blockyMode = mode;
             return this;
         }
 

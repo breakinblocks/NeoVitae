@@ -11,7 +11,7 @@ import net.minecraft.client.particle.TextureSheetParticle;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.joml.Quaternionf;
+
 
 @OnlyIn(Dist.CLIENT)
 public class RuneGlowParticle extends TextureSheetParticle {

@@ -1,6 +1,40 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "neovitae:item/blood_orb_archmage"
-  }
+  "overrides": [
+    {
+      "model": "neovitae:item/variant/blood_orb_archmage_empty",
+      "predicate": {
+        "neovitae:fill_level": 0.0
+      }
+    },
+    {
+      "model": "neovitae:item/variant/blood_orb_archmage_fill_1",
+      "predicate": {
+        "neovitae:fill_level": 0.01
+      }
+    },
+    {
+      "model": "neovitae:item/variant/blood_orb_archmage_fill_2",
+      "predicate": {
+        "neovitae:fill_level": 0.2
+      }
+    },
+    {
+      "model": "neovitae:item/variant/blood_orb_archmage_fill_3",
+      "predicate": {
+        "neovitae:fill_level": 0.4
+      }
+    },
+    {
+      "model": "neovitae:item/variant/blood_orb_archmage_fill_4",
+      "predicate": {
+        "neovitae:fill_level": 0.6
+      }
+    },
+    {
+      "model": "neovitae:item/variant/blood_orb_archmage_fill_5",
+      "predicate": {
+        "neovitae:fill_level": 0.8
+      }
+    }
+  ]
 }

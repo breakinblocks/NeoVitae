@@ -31,6 +31,7 @@ public class NVItemModelProvider extends ItemModelProvider {
                 .filter(holder -> !(holder.get() instanceof ItemAnointmentProvider))
                 .filter(holder -> !(holder.get() instanceof MaterialItem))
                 .filter(holder -> holder != NVItems.SIGIL_BLOOD_LIGHT)
+                .filter(holder -> !(holder.get() instanceof com.breakinblocks.neovitae.common.item.BloodOrbItem))
                 .filter(holder -> !(holder.get() instanceof net.minecraft.world.item.SpawnEggItem))
                 .map(Supplier::get)
                 .forEach(this::basicItem);
@@ -134,6 +135,28 @@ public class NVItemModelProvider extends ItemModelProvider {
 
         // Blood Stained Glass Pane - flat texture for inventory
         singleTexture("blood_stained_glass_pane", mcLoc("item/generated"), "layer0", modLoc("block/blood_stained_glass")).renderType("translucent");
+
+        // Blood orbs with fill level overlays
+        for (var orb : java.util.List.of(NVItems.ORB_WEAK, NVItems.ORB_APPRENTICE, NVItems.ORB_MAGICIAN,
+                NVItems.ORB_MASTER, NVItems.ORB_ARCHMAGE, NVItems.ORB_TRANSCENDENT)) {
+            String path = orb.getId().getPath();
+            ModelFile emptyModel = singleTexture("item/variant/" + path + "_empty",
+                    mcLoc("item/generated"), "layer0", modLoc("item/" + path));
+            ModelFile[] fillModels = new ModelFile[5];
+            for (int i = 0; i < 5; i++) {
+                fillModels[i] = getBuilder("item/variant/" + path + "_fill_" + (i + 1))
+                        .parent(new ModelFile.UncheckedModelFile("minecraft:item/generated"))
+                        .texture("layer0", modLoc("item/" + path))
+                        .texture("layer1", modLoc("item/orb_fill_" + (i + 1)));
+            }
+            ItemModelBuilder orbBuilder = getBuilder(path);
+            orbBuilder.override().predicate(NeoVitae.rl("fill_level"), 0).model(emptyModel).end();
+            orbBuilder.override().predicate(NeoVitae.rl("fill_level"), 0.01f).model(fillModels[0]).end();
+            orbBuilder.override().predicate(NeoVitae.rl("fill_level"), 0.2f).model(fillModels[1]).end();
+            orbBuilder.override().predicate(NeoVitae.rl("fill_level"), 0.4f).model(fillModels[2]).end();
+            orbBuilder.override().predicate(NeoVitae.rl("fill_level"), 0.6f).model(fillModels[3]).end();
+            orbBuilder.override().predicate(NeoVitae.rl("fill_level"), 0.8f).model(fillModels[4]).end();
+        }
 
         basicItem(NVItems.DAGGER_OF_SACRIFICE.get());
 

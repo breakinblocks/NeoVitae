@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "neovitae:item/blood_orb_transcendent",
+    "layer1": "neovitae:item/orb_fill_2"
+  }
+}

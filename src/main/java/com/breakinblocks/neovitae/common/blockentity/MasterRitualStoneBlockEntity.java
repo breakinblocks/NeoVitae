@@ -73,6 +73,14 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         if (tile.active && tile.currentRitual != null) {
             tile.runningTime++;
 
+            // Rune glow at the master stone while ritual is active
+            if (tile.runningTime % 20 == 0) {
+                ((ServerLevel) level).sendParticles(
+                        new ColoredParticleOptions(NVParticles.RUNE_GLOW.get(), 0xAA0000),
+                        pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5,
+                        1, 0.0, 0.0, 0.0, 0);
+            }
+
             if (tile.runningTime % tile.currentRitual.getRefreshTime() == 0) {
                 tile.performRitual();
             }

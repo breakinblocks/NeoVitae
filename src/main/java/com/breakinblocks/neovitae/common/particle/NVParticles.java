@@ -21,6 +21,15 @@ public class NVParticles {
     public static final DeferredHolder<ParticleType<?>, ParticleType<ColoredParticleOptions>> BLOOD_GLOW =
             PARTICLES.register("blood_glow", NVParticles::coloredType);
 
+    public static final DeferredHolder<ParticleType<?>, ParticleType<ColoredParticleOptions>> BLOOD_DRIP =
+            PARTICLES.register("blood_drip", NVParticles::coloredType);
+
+    public static final DeferredHolder<ParticleType<?>, ParticleType<ColoredParticleOptions>> RUNE_GLOW =
+            PARTICLES.register("rune_glow", NVParticles::coloredType);
+
+    public static final DeferredHolder<ParticleType<?>, ParticleType<ColoredParticleOptions>> BLOOD_BUBBLE =
+            PARTICLES.register("blood_bubble", NVParticles::coloredType);
+
     private static ParticleType<ColoredParticleOptions> coloredType() {
         return new ParticleType<>(false) {
             @Override

@@ -40,6 +40,10 @@ public class BloodTankBlockEntity extends BaseBlockEntity {
                     level.playSound(null, getBlockPos(), com.breakinblocks.neovitae.common.NVSounds.BLOOD_TANK_DRAIN.get(), net.minecraft.sounds.SoundSource.BLOCKS, 0.4f, 1.0f);
                     ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, 3, 0.2, 0.2, 0.2, 0.01);
                 }
+                // Blood drip when tank is nearly full (>90%)
+                if (currentAmount > getCapacity() * 0.9) {
+                    ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_DRIP.get(), 0x990011), getBlockPos().getX() + 0.5, getBlockPos().getY() + 1.0, getBlockPos().getZ() + 0.5, 1, 0.2, 0.0, 0.2, 0);
+                }
                 previousFluidAmount = currentAmount;
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
             }

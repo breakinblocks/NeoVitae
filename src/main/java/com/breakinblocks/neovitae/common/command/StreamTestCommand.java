@@ -16,6 +16,8 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.api.stream.StreamEffect;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class StreamTestCommand {
     private static final List<String> PRESET_NAMES = List.of(
             "bloodTendril", "soulSiphon", "voidTendril", "lifePulse",
             "demonTether", "corruptionSeep", "arcaneBolt",
-            "emberMote", "soulWisp", "voidMark"
+            "emberMote", "soulWisp", "voidMark", "ritual"
     );
 
     private static final SuggestionProvider<CommandSourceStack> SUGGEST_PRESETS =
@@ -61,6 +63,27 @@ public class StreamTestCommand {
         }
 
         net.minecraft.core.BlockPos targetPos = hit.getBlockPos();
+
+        if (preset.equals("emberMote") || preset.equals("soulWisp") || preset.equals("voidMark")) {
+            spawnBlobParticles(level, targetPos, preset);
+            source.sendSuccess(() -> Component.literal("Spawned " + preset + " at " + targetPos.toShortString()), false);
+            return 1;
+        }
+
+        if (preset.equals("ritual")) {
+            net.minecraft.world.level.block.entity.BlockEntity be = level.getBlockEntity(targetPos);
+            if (be instanceof com.breakinblocks.neovitae.common.blockentity.AraVitaeTile altar) {
+                altar.setActive(true);
+                altar.setCooldownAfterCrafting(200);
+                altar.setChanged();
+                level.sendBlockUpdated(targetPos, level.getBlockState(targetPos), level.getBlockState(targetPos), 3);
+                source.sendSuccess(() -> Component.literal("Activated ritual circle on altar at " + targetPos.toShortString() + " for 10 seconds"), false);
+            } else {
+                source.sendFailure(Component.literal("No altar at " + targetPos.toShortString() + " (found: " + (be != null ? be.getClass().getSimpleName() : "null") + ")"));
+            }
+            return 1;
+        }
+
         StreamEffect.Builder builder = getPreset(preset, player, targetPos);
 
         if (builder == null) {
@@ -73,6 +96,26 @@ public class StreamTestCommand {
         return 1;
     }
 
+    private static void spawnBlobParticles(ServerLevel level, net.minecraft.core.BlockPos pos, String type) {
+        double x = pos.getX() + 0.5;
+        double y = pos.getY() + 1.0;
+        double z = pos.getZ() + 0.5;
+
+        int color;
+        int glowColor;
+        switch (type) {
+            case "emberMote" -> { color = 0xFF6600; glowColor = 0xFFCC00; }
+            case "soulWisp" -> { color = 0xAADDFF; glowColor = 0xDDEEFF; }
+            case "voidMark" -> { color = 0x1A0033; glowColor = 0x330066; }
+            default -> { color = 0xFFFFFF; glowColor = 0xFFFFFF; }
+        }
+
+        level.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), color),
+                x, y, z, 8, 0.15, 0.15, 0.15, 0.01);
+        level.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), glowColor),
+                x, y, z, 4, 0.1, 0.1, 0.1, 0);
+    }
+
     private static StreamEffect.Builder getPreset(String name, ServerPlayer player, net.minecraft.core.BlockPos target) {
         return switch (name) {
             case "bloodTendril" -> StreamPresets.bloodTendril(player, target);
@@ -82,9 +125,6 @@ public class StreamTestCommand {
             case "demonTether" -> StreamPresets.demonTether(player, target);
             case "corruptionSeep" -> StreamPresets.corruptionSeep(player, target);
             case "arcaneBolt" -> StreamPresets.arcaneBolt(player, target);
-            case "emberMote" -> StreamPresets.emberMote(target).scale(0.3f).lifetime(100);
-            case "soulWisp" -> StreamPresets.soulWisp(target).scale(0.3f).lifetime(100);
-            case "voidMark" -> StreamPresets.voidMark(target).scale(0.3f).lifetime(100);
             default -> null;
         };
     }

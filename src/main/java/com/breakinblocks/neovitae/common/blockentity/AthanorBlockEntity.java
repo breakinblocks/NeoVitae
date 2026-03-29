@@ -235,6 +235,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
 
         if (didProgress && level.getGameTime() % 6 == 0) {
             ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x22AA22), blockPos.getX() + 0.5, blockPos.getY() + 1.1, blockPos.getZ() + 0.5, 2, 0.1, 0.0, 0.1, 0.02);
+            ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_BUBBLE.get(), 0x22AA22), blockPos.getX() + 0.5, blockPos.getY() + 1.1, blockPos.getZ() + 0.5, 1, 0.15, 0.0, 0.15, 0);
         }
 
         arcTile.setLit(didProgress);

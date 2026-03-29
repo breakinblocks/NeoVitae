@@ -52,27 +52,34 @@ public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile> {
     }
 
     private void renderRitualCircle(AraVitaeTile altar, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
-        float ticks = altar.getTicks() + partialTick;
+        float ticks = (altar.getLevel().getGameTime() + partialTick);
         float rotation = (ticks * 0.5f) % 360f;
 
         poseStack.pushPose();
-        poseStack.translate(0.5, -0.99, 0.5);
-        poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
+        poseStack.translate(0.5, 0.01, 0.5);
+        poseStack.mulPose(Axis.YP.rotationDegrees(-rotation));
 
-        float half = 1.125f;
-        VertexConsumer buf = bufferSource.getBuffer(RenderType.entityTranslucent(RITUAL_TEXTURE));
+        float half = 1.682f;
+        VertexConsumer buf = bufferSource.getBuffer(RenderType.entityTranslucentEmissive(RITUAL_TEXTURE));
         PoseStack.Pose pose = poseStack.last();
         Matrix4f matrix = pose.pose();
-        Vector3f norm = new Vector3f();
-        pose.transformNormal(0, 1, 0, norm);
 
-        int color = 0xCCFFFFFF;
+        Vector3f normUp = new Vector3f();
+        pose.transformNormal(0, 1, 0, normUp);
+        Vector3f normDown = new Vector3f();
+        pose.transformNormal(0, -1, 0, normDown);
+
         int fullbright = 0xF000F0;
 
-        RenderHelper.addVertex(buf, matrix, -half, 0, -half, 0, 0, color, fullbright, packedOverlay, norm);
-        RenderHelper.addVertex(buf, matrix, -half, 0, half, 0, 1, color, fullbright, packedOverlay, norm);
-        RenderHelper.addVertex(buf, matrix, half, 0, half, 1, 1, color, fullbright, packedOverlay, norm);
-        RenderHelper.addVertex(buf, matrix, half, 0, -half, 1, 0, color, fullbright, packedOverlay, norm);
+        buf.addVertex(matrix, -half, 0, -half).setColor(255, 255, 255, 64).setUv(0, 0).setOverlay(packedOverlay).setLight(fullbright).setNormal(normUp.x, normUp.y, normUp.z);
+        buf.addVertex(matrix, -half, 0, half).setColor(255, 255, 255, 64).setUv(0, 1).setOverlay(packedOverlay).setLight(fullbright).setNormal(normUp.x, normUp.y, normUp.z);
+        buf.addVertex(matrix, half, 0, half).setColor(255, 255, 255, 64).setUv(1, 1).setOverlay(packedOverlay).setLight(fullbright).setNormal(normUp.x, normUp.y, normUp.z);
+        buf.addVertex(matrix, half, 0, -half).setColor(255, 255, 255, 64).setUv(1, 0).setOverlay(packedOverlay).setLight(fullbright).setNormal(normUp.x, normUp.y, normUp.z);
+
+        buf.addVertex(matrix, half, 0, -half).setColor(255, 255, 255, 64).setUv(1, 0).setOverlay(packedOverlay).setLight(fullbright).setNormal(normDown.x, normDown.y, normDown.z);
+        buf.addVertex(matrix, half, 0, half).setColor(255, 255, 255, 64).setUv(1, 1).setOverlay(packedOverlay).setLight(fullbright).setNormal(normDown.x, normDown.y, normDown.z);
+        buf.addVertex(matrix, -half, 0, half).setColor(255, 255, 255, 64).setUv(0, 1).setOverlay(packedOverlay).setLight(fullbright).setNormal(normDown.x, normDown.y, normDown.z);
+        buf.addVertex(matrix, -half, 0, -half).setColor(255, 255, 255, 64).setUv(0, 0).setOverlay(packedOverlay).setLight(fullbright).setNormal(normDown.x, normDown.y, normDown.z);
 
         poseStack.popPose();
     }

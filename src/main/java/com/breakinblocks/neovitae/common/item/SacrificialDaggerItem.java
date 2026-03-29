@@ -20,6 +20,8 @@ import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -75,6 +77,16 @@ public class SacrificialDaggerItem extends Item {
                 player.hurt(AltarUtil.sacrificeDamage(player), event.hpLost);
             }
             evAdded = event.evAdded;
+
+            // Blood drip particles at player's hand after self-sacrifice
+            if (level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+                double handY = player.getY() + player.getBbHeight() * 0.7;
+                serverLevel.sendParticles(
+                        new ColoredParticleOptions(NVParticles.BLOOD_DRIP.get(), 0x990011),
+                        player.getX(), handY, player.getZ(),
+                        3, 0.1, 0.05, 0.1, 0);
+            }
+
             if (!event.shouldFillAltar) {
                 return super.use(level, player, hand);
             }

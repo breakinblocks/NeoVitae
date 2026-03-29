@@ -42,6 +42,7 @@ public class ItemInscriptionTool extends Item {
                 int runeColor = type.colorCode.getColor() != null ? type.colorCode.getColor() : 0xAA0000;
                 ((ServerLevel) world).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 3, 0.15, 0.15, 0.15, 0);
                 ((ServerLevel) world).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), runeColor), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 3, 0.15, 0.15, 0.15, 0.01);
+                ((ServerLevel) world).sendParticles(new ColoredParticleOptions(NVParticles.RUNE_GLOW.get(), runeColor), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1, 0.0, 0.0, 0.0, 0);
             }
             return InteractionResult.sidedSuccess(world.isClientSide);
         }

@@ -152,6 +152,9 @@ public class ClientModEventHandler {
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(NVParticles.BLOOD_FLAME.get(), BloodFlameParticle.Provider::new);
         event.registerSpriteSet(NVParticles.BLOOD_GLOW.get(), BloodGlowParticle.Provider::new);
+        event.registerSpriteSet(NVParticles.BLOOD_DRIP.get(), com.breakinblocks.neovitae.client.particle.BloodDripParticle.Provider::new);
+        event.registerSpriteSet(NVParticles.RUNE_GLOW.get(), com.breakinblocks.neovitae.client.particle.RuneGlowParticle.Provider::new);
+        event.registerSpriteSet(NVParticles.BLOOD_BUBBLE.get(), com.breakinblocks.neovitae.client.particle.BloodBubbleParticle.Provider::new);
     }
 
     @SubscribeEvent

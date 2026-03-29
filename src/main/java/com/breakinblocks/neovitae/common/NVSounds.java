@@ -15,7 +15,7 @@ public class NVSounds {
     }
 
     // Music
-    public static final DeferredHolder<SoundEvent, SoundEvent> BLEEDING_EDGE_MUSIC = sound("bleedingedge");
+    public static final DeferredHolder<SoundEvent, SoundEvent> BLOOD_SWEAT_AND_TEARS_MUSIC = sound("bloodsweatandtears");
 
     // Blood Lamp
     public static final DeferredHolder<SoundEvent, SoundEvent> BLOOD_LAMP = sound("blood_lamp");

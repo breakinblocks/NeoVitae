@@ -1,7 +1,7 @@
 {
-  "bleedingedge": {
+  "bloodsweatandtears": {
     "category": "record",
-    "sounds": [{"name": "neovitae:bleedingedge", "stream": true}]
+    "sounds": [{"name": "neovitae:bloodsweatandtears", "stream": true}]
   },
   "blood_lamp": {
     "category": "block",

@@ -450,9 +450,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("tooltip.neovitae.extraInfo", "Hold SHIFT for details");
         add("tooltip.neovitae.contained_filters", "Contained Filters:");
 
-        // Bleeding Edge Music Disc
-        add(NVItems.BLEEDING_EDGE.get(), "Music Disc");
-        add("jukebox_song.neovitae.bleeding_edge", "WayOfTime - Bleeding Edge");
+        add(NVItems.BLOOD_SWEAT_AND_TEARS.get(), "Music Disc");
+        add("jukebox_song.neovitae.blood_sweat_and_tears", "Saereth - Blood, Sweat & Tears");
         add(NVBlocks.RAW_DEMONITE_BLOCK, "Raw Demonite Block");
 
         // Alchemy Catalysts

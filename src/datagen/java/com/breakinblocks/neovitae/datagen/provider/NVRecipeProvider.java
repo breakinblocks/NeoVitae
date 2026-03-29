@@ -851,15 +851,14 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_apprentice_orb", has(NVItems.ORB_APPRENTICE.get()))
                 .save(output, NeoVitae.rl("alchemy_flask"));
 
-        // Bleeding Edge Music Disc - raw demonite block on tier 3 altar
-        AltarRecipeBuilder.build(NVItems.BLEEDING_EDGE.get())
-                .from(NVBlocks.RAW_DEMONITE_BLOCK.item().get())
-                .minTier(3)
-                .bloodNeeded(10000)
-                .consumption(20)
-                .drain(10)
-                .unlockedBy("has_master_orb", has(NVItems.ORB_MASTER.get()))
-                .save(output, NeoVitae.rl("bleeding_edge_music"));
+        AltarRecipeBuilder.build(NVItems.BLOOD_SWEAT_AND_TEARS.get())
+                .from(net.minecraft.tags.ItemTags.MUSIC_DISCS)
+                .minTier(5)
+                .bloodNeeded(2000)
+                .consumption(5)
+                .drain(1)
+                .unlockedBy("has_archmage_orb", has(NVItems.ORB_ARCHMAGE.get()))
+                .save(output, NeoVitae.rl("blood_sweat_and_tears_music"));
 
         // Sands of Vitae - soul sand on tier 0 altar
         AltarRecipeBuilder.build(NVBlocks.SANDS_OF_VITAE.block().get())

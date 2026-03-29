@@ -335,13 +335,13 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemCompositeFilter> ITEM_COMPOSITE_FILTER = BASIC_ITEMS.register("item_router_filter_composite", ItemCompositeFilter::new);
 
 
-    public static final DeferredHolder<Item, Item> BLEEDING_EDGE = BASIC_ITEMS.register("bleeding_edge", () -> new Item(
+    public static final DeferredHolder<Item, Item> BLOOD_SWEAT_AND_TEARS = BASIC_ITEMS.register("blood_sweat_and_tears", () -> new Item(
             new Item.Properties()
                     .stacksTo(1)
                     .rarity(net.minecraft.world.item.Rarity.RARE)
                     .jukeboxPlayable(net.minecraft.resources.ResourceKey.create(
                             net.minecraft.core.registries.Registries.JUKEBOX_SONG,
-                            com.breakinblocks.neovitae.NeoVitae.rl("bleeding_edge")
+                            com.breakinblocks.neovitae.NeoVitae.rl("blood_sweat_and_tears")
                     ))
     ));
 

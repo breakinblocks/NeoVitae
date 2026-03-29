@@ -42,7 +42,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("current_owner", "Current Owner: %s");
         addTooltip("no_owner", "Not bound yet");
         addTooltip("orb.fluid", "Essentia Vitae: %s / %s mB");
-        addTooltip("orb.tier", "Tier %s (%s)");
+        addTooltip("orb.tier", "Tier %s");
 
         // Death messages
         add("death.attack.spikes", "%1$s was impaled by spikes");
@@ -293,6 +293,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("tooltip.neovitae.throwing_dagger.desc", "Throw at enemies for damage");
         add("entity.neovitae.throwing_dagger", "Throwing Dagger");
         add("entity.neovitae.throwing_dagger_syringe", "Syringe Throwing Dagger");
+        add("entity.neovitae.blood_shield", "Sanguine Ward");
 
         // Daemonium Ignis
         add("entity.neovitae.daemonium_ignis", "Daemonium Ignis");

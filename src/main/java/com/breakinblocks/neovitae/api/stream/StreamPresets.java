@@ -296,6 +296,78 @@ public final class StreamPresets {
                 .drainSpeed(1.5f);
     }
 
+    public static StreamEffect.Builder blockBolt4(Entity source, BlockPos target) {
+        return applyBlockBolt4(StreamEffect.builder(source).to(target));
+    }
+
+    public static StreamEffect.Builder blockBolt4(BlockPos source, BlockPos target) {
+        return applyBlockBolt4(StreamEffect.builder(source).to(target));
+    }
+
+    private static StreamEffect.Builder applyBlockBolt4(StreamEffect.Builder b) {
+        return b.color(0x880011)
+                .scale(0.12f)
+                .speed(2.0f)
+                .gravity(0.0f)
+                .wobble(0.0f)
+                .wobbleFrequency(0.0f)
+                .spiralInto(false)
+                .approachHeight(0.0f)
+                .alphaStart(0.3f)
+                .alphaEnd(1.0f)
+                .glow(true)
+                .blockyBox()
+                .drainSpeed(1.5f);
+    }
+
+    public static StreamEffect.Builder blockBolt5(Entity source, BlockPos target) {
+        return applyBlockBolt5(StreamEffect.builder(source).to(target));
+    }
+
+    public static StreamEffect.Builder blockBolt5(BlockPos source, BlockPos target) {
+        return applyBlockBolt5(StreamEffect.builder(source).to(target));
+    }
+
+    private static StreamEffect.Builder applyBlockBolt5(StreamEffect.Builder b) {
+        return b.color(0x880011)
+                .scale(0.12f)
+                .speed(2.0f)
+                .gravity(0.0f)
+                .wobble(0.0f)
+                .wobbleFrequency(0.0f)
+                .spiralInto(false)
+                .approachHeight(0.0f)
+                .alphaStart(0.3f)
+                .alphaEnd(1.0f)
+                .glow(true)
+                .blockyBeam()
+                .drainSpeed(1.5f);
+    }
+
+    public static StreamEffect.Builder blockBolt6(Entity source, BlockPos target) {
+        return applyBlockBolt6(StreamEffect.builder(source).to(target));
+    }
+
+    public static StreamEffect.Builder blockBolt6(BlockPos source, BlockPos target) {
+        return applyBlockBolt6(StreamEffect.builder(source).to(target));
+    }
+
+    private static StreamEffect.Builder applyBlockBolt6(StreamEffect.Builder b) {
+        return b.color(0x880011)
+                .scale(0.05f)
+                .speed(2.0f)
+                .gravity(0.0f)
+                .wobble(0.0f)
+                .wobbleFrequency(0.0f)
+                .spiralInto(false)
+                .approachHeight(0.0f)
+                .alphaStart(0.3f)
+                .alphaEnd(1.0f)
+                .glow(true)
+                .blockyBeam()
+                .drainSpeed(1.5f);
+    }
+
     private static StreamEffect.Builder applyBlockBolt2(StreamEffect.Builder b) {
         return b.color(0x880011)
                 .scale(0.12f)

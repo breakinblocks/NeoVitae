@@ -175,11 +175,7 @@ public class ItemAlchemyFlask extends Item {
         List<MobEffectInstance> stable = new ArrayList<>();
         for (MobEffectInstance inst : effectList) {
             MobEffectInstance copy = new MobEffectInstance(inst.getEffect(), inst.getDuration(), inst.getAmplifier(), inst.isAmbient(), inst.isVisible());
-            List<net.neoforged.neoforge.common.EffectCure> sortedCures = copy.getCures().stream()
-                    .sorted(java.util.Comparator.comparing(net.neoforged.neoforge.common.EffectCure::name))
-                    .toList();
             copy.getCures().clear();
-            copy.getCures().addAll(sortedCures);
             stable.add(copy);
         }
         PotionContents contents = new PotionContents(Optional.empty(), Optional.empty(), stable);

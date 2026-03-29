@@ -115,6 +115,8 @@ public final class StreamEffect {
     public final boolean blocky;
     public final boolean blockySteps;
     public final boolean blockyUniform;
+    public final boolean blockyBox;
+    public final boolean blockyBeam;
 
     /** Entity ID to track as the target. {@code -1} = no tracking, use fixed coordinates. */
     public final int targetEntityId;
@@ -146,6 +148,8 @@ public final class StreamEffect {
         this.blocky = b.blocky;
         this.blockySteps = b.blockySteps;
         this.blockyUniform = b.blockyUniform;
+        this.blockyBox = b.blockyBox;
+        this.blockyBeam = b.blockyBeam;
         this.targetEntityId = b.targetEntityId;
     }
 
@@ -219,6 +223,8 @@ public final class StreamEffect {
         buf.writeBoolean(blocky);
         buf.writeBoolean(blockySteps);
         buf.writeBoolean(blockyUniform);
+        buf.writeBoolean(blockyBox);
+        buf.writeBoolean(blockyBeam);
         buf.writeInt(targetEntityId);
     }
 
@@ -250,6 +256,8 @@ public final class StreamEffect {
         b.blocky = buf.readBoolean();
         b.blockySteps = buf.readBoolean();
         b.blockyUniform = buf.readBoolean();
+        b.blockyBox = buf.readBoolean();
+        b.blockyBeam = buf.readBoolean();
         b.targetEntityId = buf.readInt();
         return new StreamEffect(b);
     }
@@ -281,6 +289,8 @@ public final class StreamEffect {
         private boolean blocky = false;
         private boolean blockySteps = false;
         private boolean blockyUniform = false;
+        private boolean blockyBox = false;
+        private boolean blockyBeam = false;
         private int targetEntityId = -1;
 
         private Builder(double x, double y, double z) {
@@ -446,6 +456,16 @@ public final class StreamEffect {
 
         public Builder blockyUniform() {
             return blockyUniform(true);
+        }
+
+        public Builder blockyBox() {
+            this.blockyBox = true;
+            return this;
+        }
+
+        public Builder blockyBeam() {
+            this.blockyBeam = true;
+            return this;
         }
 
         /** Build the immutable {@link StreamEffect}. */

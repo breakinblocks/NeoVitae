@@ -32,7 +32,6 @@ public class BloodShieldRenderer extends GeoEntityRenderer<BloodShieldEntity> {
             poseStack.translate(0, 0.35, 0);
             poseStack.mulPose(Axis.YP.rotationDegrees(-entity.getYRot()));
             poseStack.scale(SHIELD_SCALE, SHIELD_SCALE, SHIELD_SCALE);
-            model.getBone("trim").ifPresent(b -> b.setHidden(true));
         }
         super.preRender(poseStack, entity, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
     }

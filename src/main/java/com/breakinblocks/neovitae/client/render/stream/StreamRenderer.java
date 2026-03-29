@@ -50,7 +50,12 @@ public class StreamRenderer {
         Vec3[] directions = computeDirections(points, numPoints);
         Vec3[] normals = new Vec3[numPoints];
         Vec3[] binormals = new Vec3[numPoints];
-        computeFrames(directions, normals, binormals, numPoints);
+
+        if (stream.isBlockyUniform()) {
+            computeFixedFrames(directions, normals, binormals, numPoints);
+        } else {
+            computeFrames(directions, normals, binormals, numPoints);
+        }
 
         float vOffset = (stream.getAge() + partialTick) * 0.05f;
 
@@ -117,6 +122,16 @@ public class StreamRenderer {
         }
         dirs[n - 1] = dirs[n - 2];
         return dirs;
+    }
+
+    private static void computeFixedFrames(Vec3[] dirs, Vec3[] normals, Vec3[] binormals, int n) {
+        Vec3 ref = Math.abs(dirs[0].y) < 0.9 ? new Vec3(0, 1, 0) : new Vec3(1, 0, 0);
+        Vec3 normal = dirs[0].cross(ref).normalize();
+        Vec3 binormal = dirs[0].cross(normal).normalize();
+        for (int i = 0; i < n; i++) {
+            normals[i] = normal;
+            binormals[i] = binormal;
+        }
     }
 
     private static void computeFrames(Vec3[] dirs, Vec3[] normals, Vec3[] binormals, int n) {

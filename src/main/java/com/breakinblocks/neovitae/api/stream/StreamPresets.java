@@ -255,10 +255,84 @@ public final class StreamPresets {
                 .drainSpeed(4.0f);
     }
 
-    /**
-     * Small floating ember. A warm, pulsing mote of residual energy
-     * that lingers briefly before fading.
-     */
+    public static StreamEffect.Builder blockBolt(Entity source, BlockPos target) {
+        return applyBlockBolt(StreamEffect.builder(source).to(target));
+    }
+
+    public static StreamEffect.Builder blockBolt(BlockPos source, BlockPos target) {
+        return applyBlockBolt(StreamEffect.builder(source).to(target));
+    }
+
+    public static StreamEffect.Builder blockBolt2(Entity source, BlockPos target) {
+        return applyBlockBolt2(StreamEffect.builder(source).to(target));
+    }
+
+    public static StreamEffect.Builder blockBolt2(BlockPos source, BlockPos target) {
+        return applyBlockBolt2(StreamEffect.builder(source).to(target));
+    }
+
+    public static StreamEffect.Builder blockBolt3(Entity source, BlockPos target) {
+        return applyBlockBolt3(StreamEffect.builder(source).to(target));
+    }
+
+    public static StreamEffect.Builder blockBolt3(BlockPos source, BlockPos target) {
+        return applyBlockBolt3(StreamEffect.builder(source).to(target));
+    }
+
+    private static StreamEffect.Builder applyBlockBolt3(StreamEffect.Builder b) {
+        return b.color(0x880011)
+                .scale(0.12f)
+                .speed(2.0f)
+                .gravity(0.0f)
+                .wobble(0.0f)
+                .wobbleFrequency(0.0f)
+                .spiralInto(false)
+                .approachHeight(0.0f)
+                .alphaStart(0.3f)
+                .alphaEnd(1.0f)
+                .glow(true)
+                .tubeSegments(4)
+                .blockyUniform()
+                .drainSpeed(1.5f);
+    }
+
+    private static StreamEffect.Builder applyBlockBolt2(StreamEffect.Builder b) {
+        return b.color(0x880011)
+                .scale(0.12f)
+                .speed(2.0f)
+                .gravity(0.0f)
+                .wobble(0.0f)
+                .wobbleFrequency(0.0f)
+                .spiralInto(false)
+                .approachHeight(0.0f)
+                .alphaStart(0.3f)
+                .alphaEnd(1.0f)
+                .glow(true)
+                .tubeSegments(4)
+                .blocky()
+                .blockySteps()
+                .drainSpeed(1.5f);
+    }
+
+    private static StreamEffect.Builder applyBlockBolt(StreamEffect.Builder b) {
+        return b.color(0x880011)
+                .scale(0.12f)
+                .speed(2.0f)
+                .gravity(0.02f)
+                .wobble(0.0f)
+                .wobbleFrequency(0.0f)
+                .spiralInto(true)
+                .spiralRadius(0.2f)
+                .spiralSpeed(0.3f)
+                .approachHeight(0.8f)
+                .alphaStart(0.3f)
+                .alphaEnd(1.0f)
+                .glow(true)
+                .tubeSegments(4)
+                .blocky()
+                .drainSpeed(1.5f);
+    }
+
     public static StreamEffect.Builder emberMote(BlockPos pos) {
         return applyEmberMote(StreamEffect.builder(pos));
     }

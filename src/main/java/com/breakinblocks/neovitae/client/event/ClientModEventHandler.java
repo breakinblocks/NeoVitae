@@ -53,7 +53,9 @@ import com.breakinblocks.neovitae.client.screen.TeleposerScreen;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.item.OrbFluidHandler;
 import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
+import net.neoforged.neoforge.fluids.SimpleFluidContent;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
 public class ClientModEventHandler {
@@ -82,6 +84,16 @@ public class ClientModEventHandler {
                         stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT), player);
                 return will > 0 ? 1 : 0;
             });
+
+            for (var orb : java.util.List.of(NVItems.ORB_WEAK, NVItems.ORB_APPRENTICE, NVItems.ORB_MAGICIAN,
+                    NVItems.ORB_MASTER, NVItems.ORB_ARCHMAGE, NVItems.ORB_TRANSCENDENT)) {
+                ItemProperties.register(orb.get(), NeoVitae.rl("fill_level"), (stack, lvl, entity, seed) -> {
+                    int capacity = OrbFluidHandler.getOrbFluidCapacity(stack);
+                    if (capacity <= 0) return 0;
+                    SimpleFluidContent fluid = stack.getOrDefault(NVDataComponents.ORB_FLUID.get(), SimpleFluidContent.EMPTY);
+                    return fluid.isEmpty() ? 0 : (float) fluid.getAmount() / capacity;
+                });
+            }
         });
     }
 

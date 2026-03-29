@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import com.breakinblocks.neovitae.api.stream.StreamEffect;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
 
@@ -33,9 +35,9 @@ public class ActiveStream {
 
     // Resolved positions
     private final double startX, startY, startZ;
-    private final double altarX, altarY, altarZ;
-    private final double approachX, approachY, approachZ;
-    private final float altarRelX, altarRelY, altarRelZ;
+    private double altarX, altarY, altarZ;
+    private double approachX, approachY, approachZ;
+    private float altarRelX, altarRelY, altarRelZ;
 
     // Color
     private final float red, green, blue;
@@ -85,7 +87,9 @@ public class ActiveStream {
         this.headY = startY;
         this.headZ = startZ;
 
-        this.currentScale = (float) (effect.scale * (1.0 + RANDOM.nextGaussian() * 0.15));
+        this.currentScale = effect.blockyUniform
+                ? effect.scale
+                : (float) (effect.scale * (1.0 + RANDOM.nextGaussian() * 0.15));
 
         this.red = ColorHelper.red(effect.color);
         this.green = ColorHelper.green(effect.color);
@@ -135,17 +139,45 @@ public class ActiveStream {
             return;
         }
 
+        updateTrackedTarget();
+
         if (effect.stationary) {
             tickStationary();
         } else if (draining) {
             tickDrain();
         } else if (spiraling) {
             tickSpiral();
+        } else if (effect.blockyUniform) {
+            tickApproachLinear();
+        } else if (effect.blocky && effect.blockySteps) {
+            tickApproachBlocky();
         } else {
             tickApproach();
         }
 
         rebuildRenderData();
+    }
+
+    private void updateTrackedTarget() {
+        if (effect.targetEntityId < 0) return;
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.level == null) return;
+        Entity entity = mc.level.getEntity(effect.targetEntityId);
+        if (entity == null || !entity.isAlive()) return;
+
+        double newX = entity.getX();
+        double newY = entity.getY() + entity.getBbHeight() * 0.5;
+        double newZ = entity.getZ();
+
+        this.altarX = newX;
+        this.altarY = newY;
+        this.altarZ = newZ;
+        this.approachX = newX;
+        this.approachY = newY + effect.approachHeight;
+        this.approachZ = newZ;
+        this.altarRelX = (float) (newX - startX);
+        this.altarRelY = (float) (newY - startY);
+        this.altarRelZ = (float) (newZ - startZ);
     }
 
     private void tickStationary() {
@@ -164,6 +196,70 @@ public class ActiveStream {
         for (float[] pt : pathPoints) {
             pt[3] = effect.scale * pulse;
         }
+    }
+
+    private void tickApproachLinear() {
+        float spd = effect.speed * 0.15f;
+        double dx = altarRelX - (float)(headX - startX);
+        double dy = altarRelY - (float)(headY - startY);
+        double dz = altarRelZ - (float)(headZ - startZ);
+        double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+        if (dist < 0.3) {
+            draining = true;
+            drainAge = 0;
+        } else {
+            double move = Math.min(spd, dist);
+            headX += (dx / dist) * move;
+            headY += (dy / dist) * move;
+            headZ += (dz / dist) * move;
+        }
+
+        pathPoints.add(new float[]{
+                (float) (headX - startX),
+                (float) (headY - startY),
+                (float) (headZ - startZ),
+                currentScale
+        });
+    }
+
+    private void tickApproachBlocky() {
+        float spd = effect.speed * 0.15f;
+        double dx = altarRelX - (float)(headX - startX);
+        double dy = altarRelY - (float)(headY - startY);
+        double dz = altarRelZ - (float)(headZ - startZ);
+        double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+        if (dist < 0.5) {
+            draining = true;
+            drainAge = 0;
+        } else {
+            double absDx = Math.abs(dx);
+            double absDy = Math.abs(dy);
+            double absDz = Math.abs(dz);
+
+            int step = age % 3;
+            if (step == 0 && (absDx > 0.01 || absDz > 0.01)) {
+                double moveX = Math.signum(dx) * Math.min(absDx, spd);
+                double moveZ = Math.signum(dz) * Math.min(absDz, spd);
+                headX += moveX;
+                headZ += moveZ;
+            } else if (step == 1 && absDy > 0.01) {
+                headY += Math.signum(dy) * Math.min(absDy, spd);
+            } else {
+                double moveX = Math.signum(dx) * Math.min(absDx, spd * 0.5);
+                double moveZ = Math.signum(dz) * Math.min(absDz, spd * 0.5);
+                headX += moveX;
+                headZ += moveZ;
+            }
+        }
+
+        pathPoints.add(new float[]{
+                (float) (headX - startX),
+                (float) (headY - startY),
+                (float) (headZ - startZ),
+                Math.max(0, currentScale)
+        });
     }
 
     private void tickApproach() {
@@ -285,6 +381,19 @@ public class ActiveStream {
         for (int i = 0; i < size; i++) {
             float[] pt = pathPoints.get(i);
 
+            if (effect.blockyUniform) {
+                positions[i][0] = pt[0];
+                positions[i][1] = pt[1];
+                positions[i][2] = pt[2];
+                radii[i] = pt[3];
+                colors[i][0] = red;
+                colors[i][1] = green;
+                colors[i][2] = blue;
+                float progress = (float) i / (size - 1);
+                colors[i][3] = effect.alphaStart + (effect.alphaEnd - effect.alphaStart) * progress * progress;
+                continue;
+            }
+
             float wx = Mth.sin((i + age) / (6.0f / wFreq)) * wAmp;
             float wy = Mth.sin((i + age) / (7.0f / wFreq)) * wAmp;
             float wz = Mth.sin((i + age) / (8.0f / wFreq)) * wAmp;
@@ -293,15 +402,20 @@ public class ActiveStream {
             positions[i][1] = pt[1] + wy;
             positions[i][2] = pt[2] + wz;
 
-            float variance = 1.0f + Mth.sin((i + age) / 3.0f) * 0.2f;
+            float variance;
+            if (effect.blocky) {
+                int period = 6;
+                int pos = i % period;
+                variance = (pos < 4) ? 1.8f : 0.7f;
+            } else {
+                variance = 1.0f + Mth.sin((i + age) / 3.0f) * 0.2f;
+            }
             radii[i] = pt[3] * variance;
 
-            // Tail taper (source end)
             if (i < 10 && size > 12 && !effect.stationary) {
                 radii[i] *= Mth.sin((float) i / 10.0f * (float) (Math.PI / 2.0));
             }
 
-            // Head taper (target end) - only during approach/spiral
             if (!draining && !effect.stationary) {
                 int fromEnd = size - 1 - i;
                 if (fromEnd == 0 || fromEnd == 1) radii[i] = 0;
@@ -317,7 +431,6 @@ public class ActiveStream {
             colors[i][1] = green * colorVar;
             colors[i][2] = blue * colorVar;
 
-            // Alpha gradient
             if (effect.stationary) {
                 colors[i][3] = effect.alphaEnd;
             } else {
@@ -341,4 +454,5 @@ public class ActiveStream {
     public int getAge() { return age; }
     public int getTubeSegments() { return effect.tubeSegments; }
     public boolean isGlow() { return effect.glow; }
+    public boolean isBlockyUniform() { return effect.blockyUniform; }
 }

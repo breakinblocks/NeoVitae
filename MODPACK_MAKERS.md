@@ -95,6 +95,22 @@ Customize the tier, capacity, and fill rate of blood orbs.
 | Master | 3 | 1,000,000 | 25 |
 | Archmage | 4 | 10,000,000 | 50 |
 
+### Blood Orb Internal Fluid Tank
+
+Each Blood Orb has an internal fluid reservoir that stores Essentia Vitae. The capacity of this reservoir is calculated as `4000 + (tier * 2000)` mB. When the altar fills the player's Anima (soul network), it also fills the orb's internal tank with the same amount.
+
+**Dual-Mode Altar Behavior:**
+
+When a Blood Orb is placed in an Ara Vitae, the altar checks whether the orb's internal tank contains fluid:
+
+1. **Orb has fluid (draining mode):** The altar drains the orb's internal tank at 10x the orb's normal fill rate. If the altar basin has at least 1,000 mB of room, the drained fluid goes into the altar. If the altar is nearly full (less than 1,000 mB of room), the drained fluid is channeled into the player's Anima instead.
+
+2. **Orb is empty (normal mode):** The altar operates normally, draining its own LP into the player's Anima at the orb's standard fill rate.
+
+This means players can pre-fill orbs with Essentia Vitae (for example, from fluid pipes or the Athanor) and then use those orbs to rapidly refill an altar or top off their network. The 10x transfer rate makes this significantly faster than normal altar filling.
+
+**Debug Command:** Use `/neovitae setorbfill <amount>` (or `/nvsetorbfill <amount>`) to manually set the fluid amount in a held Blood Orb for testing purposes. Requires operator permissions.
+
 ---
 
 ### Sigil Stats

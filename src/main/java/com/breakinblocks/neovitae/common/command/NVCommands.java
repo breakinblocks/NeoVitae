@@ -20,6 +20,7 @@ public class NVCommands {
         DungeonShowcaseCommand.register(dispatcher);
         GenerateMaterialsCommand.register(dispatcher);
         StreamTestCommand.register(dispatcher);
+        SetOrbFillCommand.register(dispatcher);
 
         CommandNode<CommandSourceStack> networkNode = dispatcher.getRoot().getChild("anima");
         CommandNode<CommandSourceStack> ritualNode = dispatcher.getRoot().getChild("nv-ritual");
@@ -28,6 +29,7 @@ public class NVCommands {
         CommandNode<CommandSourceStack> upgradeNode = dispatcher.getRoot().getChild("living-upgrade");
         CommandNode<CommandSourceStack> showcaseNode = dispatcher.getRoot().getChild("nv-dungeon-showcase");
         CommandNode<CommandSourceStack> generateNode = dispatcher.getRoot().getChild("nvgenerate");
+        CommandNode<CommandSourceStack> setOrbFillNode = dispatcher.getRoot().getChild("nvsetorbfill");
 
         dispatcher.register(
                 Commands.literal("neovitae")
@@ -38,6 +40,7 @@ public class NVCommands {
                         .then(Commands.literal("upgrade").redirect(upgradeNode))
                         .then(Commands.literal("dungeon-showcase").redirect(showcaseNode))
                         .then(Commands.literal("generate").redirect(generateNode))
+                        .then(Commands.literal("setorbfill").redirect(setOrbFillNode))
         );
     }
 }

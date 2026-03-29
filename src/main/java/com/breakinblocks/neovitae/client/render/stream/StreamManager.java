@@ -36,7 +36,8 @@ public class StreamManager {
         String key = Mth.floor(effect.sourceX) + ":" + Mth.floor(effect.sourceY) + ":"
                 + Mth.floor(effect.sourceZ) + ":" + Mth.floor(effect.targetX) + ":"
                 + Mth.floor(effect.targetY) + ":" + Mth.floor(effect.targetZ) + ":"
-                + effect.color + ":" + (effect.stationary ? "s" : "m");
+                + effect.color + ":" + (effect.stationary ? "s" : "m")
+                + (effect.targetEntityId >= 0 ? ":e" + effect.targetEntityId : "");
 
         ActiveStream existing = activeStreams.get(key);
         if (existing != null && !existing.isExpired()) {

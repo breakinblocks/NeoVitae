@@ -112,6 +112,12 @@ public final class StreamEffect {
     public final int lifetime;
     /** Multiplier for drain-phase acceleration when the tail is absorbed. Default {@code 1.0f}. */
     public final float drainSpeed;
+    public final boolean blocky;
+    public final boolean blockySteps;
+    public final boolean blockyUniform;
+
+    /** Entity ID to track as the target. {@code -1} = no tracking, use fixed coordinates. */
+    public final int targetEntityId;
 
     private StreamEffect(Builder b) {
         this.sourceX = b.sourceX;
@@ -137,6 +143,10 @@ public final class StreamEffect {
         this.approachHeight = b.approachHeight;
         this.lifetime = b.lifetime;
         this.drainSpeed = b.drainSpeed;
+        this.blocky = b.blocky;
+        this.blockySteps = b.blockySteps;
+        this.blockyUniform = b.blockyUniform;
+        this.targetEntityId = b.targetEntityId;
     }
 
     /**
@@ -206,6 +216,10 @@ public final class StreamEffect {
         buf.writeFloat(approachHeight);
         buf.writeInt(lifetime);
         buf.writeFloat(drainSpeed);
+        buf.writeBoolean(blocky);
+        buf.writeBoolean(blockySteps);
+        buf.writeBoolean(blockyUniform);
+        buf.writeInt(targetEntityId);
     }
 
     /**
@@ -233,6 +247,10 @@ public final class StreamEffect {
         b.approachHeight = buf.readFloat();
         b.lifetime = buf.readInt();
         b.drainSpeed = buf.readFloat();
+        b.blocky = buf.readBoolean();
+        b.blockySteps = buf.readBoolean();
+        b.blockyUniform = buf.readBoolean();
+        b.targetEntityId = buf.readInt();
         return new StreamEffect(b);
     }
 
@@ -260,6 +278,10 @@ public final class StreamEffect {
         private float approachHeight = 1.0f;
         private int lifetime = 0;
         private float drainSpeed = 1.0f;
+        private boolean blocky = false;
+        private boolean blockySteps = false;
+        private boolean blockyUniform = false;
+        private int targetEntityId = -1;
 
         private Builder(double x, double y, double z) {
             this.sourceX = x;
@@ -281,6 +303,12 @@ public final class StreamEffect {
         /** Set the target to an entity's position (center mass). */
         public Builder to(Entity entity) {
             return to(entity.getX(), entity.getY() + entity.getBbHeight() * 0.5, entity.getZ());
+        }
+
+        /** Set the target to an entity and track its position each tick on the client. */
+        public Builder toTracked(Entity entity) {
+            this.targetEntityId = entity.getId();
+            return to(entity);
         }
 
         /** Render as a stationary pulsing blob instead of a flowing stream. */
@@ -390,6 +418,34 @@ public final class StreamEffect {
         public Builder drainSpeed(float speed) {
             this.drainSpeed = speed;
             return this;
+        }
+
+        public Builder blocky(boolean blocky) {
+            this.blocky = blocky;
+            return this;
+        }
+
+        public Builder blocky() {
+            return blocky(true);
+        }
+
+        public Builder blockySteps(boolean steps) {
+            this.blockySteps = steps;
+            return this;
+        }
+
+        public Builder blockySteps() {
+            return blockySteps(true);
+        }
+
+        public Builder blockyUniform(boolean uniform) {
+            this.blockyUniform = uniform;
+            this.blocky = true;
+            return this;
+        }
+
+        public Builder blockyUniform() {
+            return blockyUniform(true);
         }
 
         /** Build the immutable {@link StreamEffect}. */

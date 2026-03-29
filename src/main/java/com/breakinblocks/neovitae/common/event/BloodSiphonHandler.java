@@ -9,12 +9,21 @@ import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.api.stream.StreamEffect;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
+import com.breakinblocks.neovitae.common.item.BloodOrbItem;
+import com.breakinblocks.neovitae.common.item.OrbFluidHandler;
+import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 
 /**
  * Handles Blood Siphon and Blood Shield attributes.
@@ -63,7 +72,7 @@ public class BloodSiphonHandler {
         attackerNetwork.add(AnimaTicket.create(lpAmount), Integer.MAX_VALUE);
         attacker.level().playSound(null, attacker.blockPosition(), NVSounds.BLOOD_SIPHON.get(), SoundSource.PLAYERS, 0.3f, 1.0f);
         if (attacker.level() instanceof ServerLevel serverLevel) {
-            StreamEffect.builder(event.getEntity()).to(attacker)
+            StreamEffect.builder(event.getEntity()).toTracked(attacker)
                     .color(0x990011).scale(0.05f).speed(2.0f).gravity(0.25f)
                     .wobble(0.03f).wobbleFrequency(0.8f)
                     .spiralInto(true).spiralRadius(0.35f).spiralSpeed(0.35f)
@@ -116,6 +125,44 @@ public class BloodSiphonHandler {
             if (defender.level() instanceof ServerLevel serverLevel) {
                 serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), defender.getX(), defender.getY() + 1, defender.getZ(), 4, 0.3, 0.3, 0.3, 0);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEntityKilled(LivingDeathEvent event) {
+        if (!(event.getSource().getEntity() instanceof ServerPlayer player)) return;
+
+        ItemStack offhand = player.getOffhandItem();
+        if (offhand.isEmpty() || !(offhand.getItem() instanceof BloodOrbItem)) return;
+
+        LivingEntity victim = event.getEntity();
+        float maxHealth = victim.getMaxHealth();
+        int baseEV = (int) (maxHealth * 100);
+
+        double sacrificeBonus = player.getAttributeValue(NVAttributes.BONUS_SACRIFICE);
+        int totalEV = (int) (baseEV * (1.0 + sacrificeBonus / 100.0));
+
+        if (totalEV <= 0) return;
+
+        FluidStack blood = new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), totalEV);
+        int filled = OrbFluidHandler.fillInternal(offhand, blood, FluidAction.EXECUTE);
+
+        if (filled > 0) {
+            ServerLevel serverLevel = player.serverLevel();
+
+            serverLevel.playSound(null, player.blockPosition(), NVSounds.BLOOD_SIPHON.get(), SoundSource.PLAYERS, 0.4f, 0.8f);
+
+            StreamEffect.builder(victim)
+                    .toTracked(player)
+                    .color(0x990011).scale(0.06f).speed(2.5f).gravity(0.15f)
+                    .wobble(0.02f).wobbleFrequency(0.8f)
+                    .spiralInto(true).spiralRadius(0.25f).spiralSpeed(0.3f)
+                    .approachHeight(0.8f).alphaStart(0.1f).alphaEnd(0.9f)
+                    .build().sendToNearby(serverLevel, player.blockPosition(), 64);
+
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000),
+                    victim.getX(), victim.getY() + victim.getBbHeight() * 0.5, victim.getZ(),
+                    6, 0.3, 0.3, 0.3, 0.02);
         }
     }
 }

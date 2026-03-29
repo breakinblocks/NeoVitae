@@ -71,6 +71,20 @@ public class AnimaEntry extends EntryProvider {
         this.pageText("Forge the [#](8B0000)Archmage Blood Orb[#]() in the Ara Vitae ([#](B8860B)Tier 5[#](), cost: 80,000 EV)."
                 + "\\\n\\\n[#](2E8B57)Should even this not sate your ambitions, the Runes of the Orb can stretch your "
                 + "Anima further still.[#]()");
+
+        this.page("orb_fluid_tank", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("The Orb's Inner Reservoir");
+        this.pageText("Each [#](8B0000)Blood Orb[#]() harbours a hidden internal reservoir of "
+                + "[#](4A0080)Essentia Vitae[#](). When the altar fills your [#](4A0080)Anima[#](), "
+                + "a portion of that EV seeps into the orb's reservoir as well."
+                + "\\\n\\\nWhen you place an orb containing stored fluid back upon an "
+                + "[#](8B0000)Ara Vitae[#](), the altar reverses the flow. It drains the orb's "
+                + "reservoir at [#](B8860B)10 times[#]() the normal fill rate, rapidly refilling "
+                + "the basin. If the altar is nearly full, overflow is channeled "
+                + "into your [#](4A0080)Anima[#]() instead. Once the orb is empty, "
+                + "normal behavior resumes and the altar fills your network as usual.");
     }
 
     @Override

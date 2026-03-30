@@ -30,6 +30,8 @@ public class ServerConfig {
     public final ModConfigSpec.IntValue BLOOD_SIPHON_PLAYER_MULTIPLIER;
     public final ModConfigSpec.IntValue BLOOD_SIPHON_MOB_MULTIPLIER;
     public final ModConfigSpec.IntValue BLOOD_SHIELD_LP_COST_MULTIPLIER;
+    public final ModConfigSpec.IntValue SANGUINE_WARD_DRAIN_PER_SECOND;
+    public final ModConfigSpec.IntValue SANGUINE_WARD_MIN_EV;
 
     protected ServerConfig(ModConfigSpec.Builder builder) {
         SELF_SACRIFICE_CONVERSION = builder.define("self_sacrifice_conversion", 100);
@@ -105,6 +107,12 @@ public class ServerConfig {
         BLOOD_SHIELD_LP_COST_MULTIPLIER = builder
                 .comment("LP cost per point of damage prevented by Blood Shield")
                 .defineInRange("shield_lp_cost_multiplier", 100, 1, 10000);
+        SANGUINE_WARD_DRAIN_PER_SECOND = builder
+                .comment("EV drained per second while the Sanguine Ward is active")
+                .defineInRange("sanguine_ward_drain_per_second", 50, 0, 10000);
+        SANGUINE_WARD_MIN_EV = builder
+                .comment("Minimum EV required to activate the Sanguine Ward")
+                .defineInRange("sanguine_ward_min_ev", 200, 0, 100000);
 
         builder.pop();
     }

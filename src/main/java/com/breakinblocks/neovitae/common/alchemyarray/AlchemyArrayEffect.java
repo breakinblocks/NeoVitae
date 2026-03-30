@@ -18,4 +18,12 @@ public abstract class AlchemyArrayEffect {
 
     public void onEntityCollidedWithBlock(AlchemyArrayBlockEntity tile, Level world, BlockPos pos, BlockState state, Entity entity) {
     }
+
+    public int getRedstoneSignal(AlchemyArrayBlockEntity tile) {
+        return 0;
+    }
+
+    public boolean isSignalSource() {
+        return false;
+    }
 }

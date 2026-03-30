@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "tag": "c:gems/diamond"
+  },
+  "baseinput": {
+    "item": "neovitae:imbued_slate"
+  },
+  "effect_type": "deflection",
+  "texture": "neovitae:textures/models/alchemyarrays/deflectionarray.png"
+}

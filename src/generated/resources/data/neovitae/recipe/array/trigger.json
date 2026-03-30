@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "tag": "c:ingots/iron"
+  },
+  "baseinput": {
+    "tag": "c:dusts/redstone"
+  },
+  "effect_type": "trigger",
+  "texture": "neovitae:textures/models/alchemyarrays/triggerarray.png"
+}

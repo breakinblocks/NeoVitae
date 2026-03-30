@@ -22,7 +22,7 @@ public class AlchemyArraysCategory extends CategoryProvider {
                 "__f_g_h_i_j_k_l_m__",
                 "____n_o_p_q_r_s_W__",
                 "____________________",
-                "__t_u_v_w___________",
+                "__t_u_v_w_1_2_3_4_5_",
                 "____________________",
                 "x_y_z_A_B_C_D_E_F__",
                 "_G_H_I_J_K_L_M_N_O_",
@@ -287,6 +287,31 @@ public class AlchemyArraysCategory extends CategoryProvider {
         concreteShoes.withParent(this.parent(livingUpgrades));
         concreteShoes.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/living_upgrades"));
         concreteShoes.hideWhileLocked(false);
+
+        var defenseArrays = this.add(new DefenseArraysEntry(this).generate('1'));
+        defenseArrays.withParent(this.parent(arcaneAsh));
+        defenseArrays.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/arcane_ash"));
+        defenseArrays.hideWhileLocked(false);
+
+        var utilityArrays = this.add(new UtilityArraysEntry(this).generate('2'));
+        utilityArrays.withParent(this.parent(arcaneAsh));
+        utilityArrays.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/arcane_ash"));
+        utilityArrays.hideWhileLocked(false);
+
+        var environmentArrays = this.add(new EnvironmentArraysEntry(this).generate('3'));
+        environmentArrays.withParent(this.parent(arcaneAsh));
+        environmentArrays.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/arcane_ash"));
+        environmentArrays.hideWhileLocked(false);
+
+        var redstoneArrays = this.add(new RedstoneArraysEntry(this).generate('4'));
+        redstoneArrays.withParent(this.parent(arcaneAsh));
+        redstoneArrays.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/arcane_ash"));
+        redstoneArrays.hideWhileLocked(false);
+
+        var spiritSiphonArray = this.add(new SpiritSiphonArrayEntry(this).generate('5'));
+        spiritSiphonArray.withParent(this.parent(arcaneAsh));
+        spiritSiphonArray.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/arcane_ash"));
+        spiritSiphonArray.hideWhileLocked(false);
     }
 
     @Override

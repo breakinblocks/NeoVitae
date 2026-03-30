@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "tag": "c:ingots/gold"
+  },
+  "baseinput": {
+    "tag": "c:dusts/glowstone"
+  },
+  "effect_type": "light",
+  "texture": "neovitae:textures/models/alchemyarrays/lightarray.png"
+}

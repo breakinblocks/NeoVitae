@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffect;
+import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectLight;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
@@ -216,5 +217,19 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
                 }
             }
         }
+        if (arrayEffect instanceof AlchemyArrayEffectLight lightEffect && level != null && !level.isClientSide) {
+            lightEffect.removeLights(level);
+        }
+    }
+
+    public int getRedstoneSignal() {
+        if (arrayEffect != null) {
+            return arrayEffect.getRedstoneSignal(this);
+        }
+        return 0;
+    }
+
+    public boolean isSignalSource() {
+        return arrayEffect != null && arrayEffect.isSignalSource();
     }
 }

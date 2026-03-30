@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -104,6 +105,20 @@ public class AlchemyArrayBlock extends BaseEntityBlock {
 
         world.sendBlockUpdated(pos, state, state, 3);
         return ItemInteractionResult.SUCCESS;
+    }
+
+    @Override
+    protected boolean isSignalSource(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+        BlockEntity tile = level.getBlockEntity(pos);
+        if (tile instanceof AlchemyArrayBlockEntity arrayTile) {
+            return arrayTile.getRedstoneSignal();
+        }
+        return 0;
     }
 
     @Override

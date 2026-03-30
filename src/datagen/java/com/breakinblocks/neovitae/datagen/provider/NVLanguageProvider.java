@@ -911,6 +911,28 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("effect.night.desc", "Sets the time to night");
         addJei("effect.elevator.name", "Teleposition Array");
         addJei("effect.elevator.desc", "Teleports you to aligned arrays above or below");
+        addJei("effect.repulsion.name", "Repulsion Array");
+        addJei("effect.repulsion.desc", "Pushes hostile mobs away from the array");
+        addJei("effect.collection.name", "Collection Array");
+        addJei("effect.collection.desc", "Pulls nearby items toward the array center");
+        addJei("effect.light.name", "Light Array");
+        addJei("effect.light.desc", "Emits light in a radius without placing torches");
+        addJei("effect.furnace.name", "Furnace Array");
+        addJei("effect.furnace.desc", "Smelts items dropped on the ground nearby");
+        addJei("effect.rain.name", "Tempest Array");
+        addJei("effect.rain.desc", "Toggles rain on or off. Costs EV to activate.");
+        addJei("effect.growth.name", "Growth Array");
+        addJei("effect.growth.desc", "Accelerates crop growth in a small radius");
+        addJei("effect.freeze.name", "Freeze Array");
+        addJei("effect.freeze.desc", "Converts water to ice and adds snow layers");
+        addJei("effect.signal.name", "Signal Array");
+        addJei("effect.signal.desc", "Outputs redstone proportional to owner's EV");
+        addJei("effect.trigger.name", "Trigger Array");
+        addJei("effect.trigger.desc", "Emits a redstone pulse when an entity steps on it");
+        addJei("effect.spirit_siphon.name", "Spirit Siphon Array");
+        addJei("effect.spirit_siphon.desc", "Damages mobs and releases raw spiritus into the chunk");
+        addJei("effect.deflection.name", "Deflection Array");
+        addJei("effect.deflection.desc", "Reflects projectiles that pass through the column above");
 
         // Array effect dummy items (JEI searchable)
         add(NVItems.ARRAY_BOUNCE.get(), "Bounce Array");
@@ -920,6 +942,17 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.ARRAY_DAY.get(), "Sunrise Array");
         add(NVItems.ARRAY_NIGHT.get(), "Moonrise Array");
         add(NVItems.ARRAY_ELEVATOR.get(), "Teleposition Array");
+        add(NVItems.ARRAY_REPULSION.get(), "Repulsion Array");
+        add(NVItems.ARRAY_COLLECTION.get(), "Collection Array");
+        add(NVItems.ARRAY_LIGHT.get(), "Light Array");
+        add(NVItems.ARRAY_FURNACE.get(), "Furnace Array");
+        add(NVItems.ARRAY_RAIN.get(), "Tempest Array");
+        add(NVItems.ARRAY_GROWTH.get(), "Growth Array");
+        add(NVItems.ARRAY_FREEZE.get(), "Freeze Array");
+        add(NVItems.ARRAY_SIGNAL.get(), "Signal Array");
+        add(NVItems.ARRAY_TRIGGER.get(), "Trigger Array");
+        add(NVItems.ARRAY_SPIRIT_SIPHON.get(), "Spirit Siphon Array");
+        add(NVItems.ARRAY_DEFLECTION.get(), "Deflection Array");
         addTooltip("array_effect.bounce", "Bounces entities high into the air. Crouch to disable.");
         addTooltip("array_effect.spike", "Damages any entity that steps on the array.");
         addTooltip("array_effect.updraft", "Launches entities upward with a gust of wind.");
@@ -927,6 +960,17 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("array_effect.day", "Advances the time to dawn. Consumed on use.");
         addTooltip("array_effect.night", "Advances the time to night. Consumed on use.");
         addTooltip("array_effect.elevator", "Requires another Teleposition Array above or below. Jump to teleport up, sneak to go down. Range: 64 blocks.");
+        addTooltip("array_effect.repulsion", "Pushes hostile mobs away in a 5-block radius.");
+        addTooltip("array_effect.collection", "Pulls dropped items within 2 blocks. Place over a chest to auto-collect.");
+        addTooltip("array_effect.light", "Places invisible light sources in a radius above the array.");
+        addTooltip("array_effect.furnace", "Smelts items on the ground using furnace recipes. 10 EV per stack. Prevents item despawn.");
+        addTooltip("array_effect.rain", "Toggles rain on or off. Costs 500 EV. Consumed on use.");
+        addTooltip("array_effect.growth", "Accelerates crop and plant growth in a 2-block radius.");
+        addTooltip("array_effect.freeze", "Freezes water sources to ice and covers ground in snow. Consumed on use.");
+        addTooltip("array_effect.signal", "Outputs redstone signal 0-15 based on the owner's EV level.");
+        addTooltip("array_effect.trigger", "Emits a redstone pulse when a mob or player steps on the array.");
+        addTooltip("array_effect.spirit_siphon", "Damages non-player mobs and releases raw spiritus into the chunk.");
+        addTooltip("array_effect.deflection", "Reflects projectiles passing through a column above the array.");
 
         // Rituals
         addRitual("water", "Ritual of the Full Spring");

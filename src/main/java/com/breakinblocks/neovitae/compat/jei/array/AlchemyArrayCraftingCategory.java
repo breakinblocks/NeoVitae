@@ -69,6 +69,17 @@ public class AlchemyArrayCraftingCategory implements IRecipeCategory<AlchemyArra
             case DAY -> new ItemStack(NVItems.ARRAY_DAY.get());
             case NIGHT -> new ItemStack(NVItems.ARRAY_NIGHT.get());
             case ELEVATOR -> new ItemStack(NVItems.ARRAY_ELEVATOR.get());
+            case REPULSION -> new ItemStack(NVItems.ARRAY_REPULSION.get());
+            case COLLECTION -> new ItemStack(NVItems.ARRAY_COLLECTION.get());
+            case LIGHT -> new ItemStack(NVItems.ARRAY_LIGHT.get());
+            case FURNACE -> new ItemStack(NVItems.ARRAY_FURNACE.get());
+            case RAIN -> new ItemStack(NVItems.ARRAY_RAIN.get());
+            case GROWTH -> new ItemStack(NVItems.ARRAY_GROWTH.get());
+            case FREEZE -> new ItemStack(NVItems.ARRAY_FREEZE.get());
+            case SIGNAL -> new ItemStack(NVItems.ARRAY_SIGNAL.get());
+            case TRIGGER -> new ItemStack(NVItems.ARRAY_TRIGGER.get());
+            case SPIRIT_SIPHON -> new ItemStack(NVItems.ARRAY_SPIRIT_SIPHON.get());
+            case DEFLECTION -> new ItemStack(NVItems.ARRAY_DEFLECTION.get());
             default -> ItemStack.EMPTY;
         };
     }

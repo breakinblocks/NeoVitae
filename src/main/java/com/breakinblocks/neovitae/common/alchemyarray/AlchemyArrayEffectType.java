@@ -22,7 +22,18 @@ public enum AlchemyArrayEffectType implements StringRepresentable {
     MOVEMENT("movement", AlchemyArrayEffectMovement::new),
     DAY("day", AlchemyArrayEffectDay::new),
     NIGHT("night", AlchemyArrayEffectNight::new),
-    ELEVATOR("elevator", AlchemyArrayEffectElevator::new);
+    ELEVATOR("elevator", AlchemyArrayEffectElevator::new),
+    REPULSION("repulsion", AlchemyArrayEffectRepulsion::new),
+    COLLECTION("collection", AlchemyArrayEffectCollection::new),
+    LIGHT("light", AlchemyArrayEffectLight::new),
+    FURNACE("furnace", AlchemyArrayEffectFurnace::new),
+    RAIN("rain", AlchemyArrayEffectRain::new),
+    GROWTH("growth", AlchemyArrayEffectGrowth::new),
+    FREEZE("freeze", AlchemyArrayEffectFreeze::new),
+    SIGNAL("signal", AlchemyArrayEffectSignal::new),
+    TRIGGER("trigger", AlchemyArrayEffectTrigger::new),
+    SPIRIT_SIPHON("spirit_siphon", AlchemyArrayEffectSpiritSiphon::new),
+    DEFLECTION("deflection", AlchemyArrayEffectDeflection::new);
 
     public static final Codec<AlchemyArrayEffectType> CODEC = StringRepresentable.fromEnum(AlchemyArrayEffectType::values);
     public static final StreamCodec<ByteBuf, AlchemyArrayEffectType> STREAM_CODEC = ByteBufCodecs.idMapper(

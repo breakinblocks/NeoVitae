@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "tag": "c:ingots/gold"
+  },
+  "baseinput": {
+    "tag": "c:dusts/redstone"
+  },
+  "effect_type": "signal",
+  "texture": "neovitae:textures/models/alchemyarrays/signalarray.png"
+}

@@ -1966,6 +1966,83 @@ public class NVRecipeProvider extends RecipeProvider {
                 .added(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
                 .texture("textures/models/alchemyarrays/elevatorarray.png")
                 .save(output, "elevator");
+
+        // Repulsion Array - iron ingot + lapis
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.REPULSION)
+                .base(Ingredient.of(Tags.Items.INGOTS_IRON))
+                .added(Ingredient.of(Tags.Items.GEMS_LAPIS))
+                .texture("textures/models/alchemyarrays/repulsionarray.png")
+                .save(output, "repulsion");
+
+        // Collection Array - hopper + redstone
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.COLLECTION)
+                .base(Items.HOPPER)
+                .added(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
+                .texture("textures/models/alchemyarrays/collectionarray.png")
+                .save(output, "collection");
+
+        // Light Array - glowstone dust + gold ingot
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.LIGHT)
+                .base(Ingredient.of(Tags.Items.DUSTS_GLOWSTONE))
+                .added(Ingredient.of(Tags.Items.INGOTS_GOLD))
+                .texture("textures/models/alchemyarrays/lightarray.png")
+                .save(output, "light");
+
+        // Furnace Array - coal + iron block
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.FURNACE)
+                .base(Items.COAL)
+                .added(Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON))
+                .texture("textures/models/alchemyarrays/furnacearray.png")
+                .save(output, "furnace");
+
+        // Rain Array - water bucket + lapis
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.RAIN)
+                .base(Items.WATER_BUCKET)
+                .added(Ingredient.of(Tags.Items.GEMS_LAPIS))
+                .texture("textures/models/alchemyarrays/rainarray.png")
+                .save(output, "rain");
+
+        // Growth Array - bone meal + torchflower
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.GROWTH)
+                .base(Items.BONE_MEAL)
+                .added(Items.TORCHFLOWER)
+                .texture("textures/models/alchemyarrays/growtharray.png")
+                .save(output, "growth");
+
+        // Freeze Array - snowball + lapis
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.FREEZE)
+                .base(Items.SNOWBALL)
+                .added(Ingredient.of(Tags.Items.GEMS_LAPIS))
+                .texture("textures/models/alchemyarrays/freezearray.png")
+                .save(output, "freeze");
+
+        // Signal Array - redstone + gold ingot
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.SIGNAL)
+                .base(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
+                .added(Ingredient.of(Tags.Items.INGOTS_GOLD))
+                .texture("textures/models/alchemyarrays/signalarray.png")
+                .save(output, "signal");
+
+        // Trigger Array - redstone + iron ingot
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.TRIGGER)
+                .base(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
+                .added(Ingredient.of(Tags.Items.INGOTS_IRON))
+                .texture("textures/models/alchemyarrays/triggerarray.png")
+                .save(output, "trigger");
+
+        // Spirit Siphon Array - imbued slate + redstone
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.SPIRIT_SIPHON)
+                .base(NVItems.SLATE_IMBUED.get())
+                .added(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
+                .texture("textures/models/alchemyarrays/spiritsiphonarray.png")
+                .save(output, "spirit_siphon");
+
+        // Deflection Array - imbued slate + diamond
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.DEFLECTION)
+                .base(NVItems.SLATE_IMBUED.get())
+                .added(Ingredient.of(Tags.Items.GEMS_DIAMOND))
+                .texture("textures/models/alchemyarrays/deflectionarray.png")
+                .save(output, "deflection");
     }
 
     private void addTabulaVitaeRecipes(RecipeOutput output) {

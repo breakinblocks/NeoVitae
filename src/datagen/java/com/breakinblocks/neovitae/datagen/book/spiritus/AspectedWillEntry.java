@@ -22,7 +22,7 @@ public class AspectedWillEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Aspects of Will");
+        this.pageTitle("Aspects of Spiritus");
         this.pageText("Unleashing [#](8B0000)Spiritus[#]() into the atmosphere has proven most fruitful, empowering "
                 + "[#](8B0000)Rituals[#]() and producing [#](8B0000)Crystal Clusters[#]() of satisfying geometry. Yet these raw crystals "
                 + "feel somehow... [#](4A0080)conflicted[#](), as though warring natures strain against one another within.\\\n\\\n"
@@ -30,18 +30,18 @@ public class AspectedWillEntry extends EntryProvider {
 
         this.page("image", () -> BookImagePageModel.create()
                 .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/will_splitting.png"))
-                .withTitle("Aspects of Will")
+                .withTitle("Aspects of Spiritus")
                 .withBorder(true)
                 .withText(this.context().pageText()));
         this.pageText("The [#](8B0000)Resonance of the Faceted Crystal[#]() ritual in action.");
 
         this.page("aspects", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The ritual fractures raw Will into four distinct [#](4A0080)Aspects[#]():\n\n"
-                + "- [#](8B0000)Steadfast Will[#](): upon the Water Rune\n\n"
-                + "- [#](8B0000)Destructive Will[#](): upon the Air Rune\n\n"
-                + "- [#](8B0000)Vengeful Will[#](): upon the Fire Rune\n\n"
-                + "- [#](8B0000)Corrosive Will[#](): upon the Earth Rune\\\n\\\n"
+        this.pageText("The ritual fractures raw Spiritus into four distinct [#](4A0080)Aspects[#]():\n\n"
+                + "- [#](8B0000)Steadfast Spiritus[#](): upon the Water Rune\n\n"
+                + "- [#](8B0000)Destructive Spiritus[#](): upon the Air Rune\n\n"
+                + "- [#](8B0000)Vengeful Spiritus[#](): upon the Fire Rune\n\n"
+                + "- [#](8B0000)Corrosive Spiritus[#](): upon the Earth Rune\\\n\\\n"
                 + "Each Aspect can be burned in the [#](8B0000)Vas Maleficum[#]() just as Raw Spiritus can, feeding the "
                 + "[#](8B0000)Aura[#]() with its particular resonance for your Rituals to draw upon.");
 
@@ -51,21 +51,21 @@ public class AspectedWillEntry extends EntryProvider {
         this.pageTitle("Sentient Tool Aspects");
         this.pageText("Each Aspect also transforms the behavior of your [#](8B0000)Sentient Tools[#]():\n\n"
                 + "- [#](8B0000)Raw Spiritus[#](): Pure damage increase.\n\n"
-                + "- [#](8B0000)Corrosive Will[#](): Strikes may inflict poison or wither. Otherwise identical to Raw.\n\n"
-                + "- [#](8B0000)Vengeful Will[#](): Moderate damage increase, heightened attack speed, and a movement speed "
-                + "boon that intensifies with greater Will reserves.");
+                + "- [#](8B0000)Corrosive Spiritus[#](): Strikes may inflict poison or wither. Otherwise identical to Raw.\n\n"
+                + "- [#](8B0000)Vengeful Spiritus[#](): Moderate damage increase, heightened attack speed, and a movement speed "
+                + "boon that intensifies with greater Spiritus reserves.");
 
         this.page("sentient_aspects2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("- [#](8B0000)Steadfast Will[#](): Moderate damage increase, and slaying a foe grants you a protective "
+        this.pageText("- [#](8B0000)Steadfast Spiritus[#](): Moderate damage increase, and slaying a foe grants you a protective "
                 + "shield of Absorption.\n\n"
-                + "- [#](8B0000)Destructive Will[#](): The greatest raw damage of any Aspect, at the cost of reduced attack speed.");
+                + "- [#](8B0000)Destructive Spiritus[#](): The greatest raw damage of any Aspect, at the cost of reduced attack speed.");
 
         this.page("filling_gems", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("To fill a [#](8B0000)Spiritus Gem[#]() with a specific Aspect, place an empty gem into a "
                 + "[#](8B0000)Hellfire Forge[#]() situated in the same chunk as a [#](8B0000)Vas Maleficum[#](). Feed the Vas "
-                + "Maleficum with Will Crystals of the desired Aspect, and the gem will drink deeply.\\\n\\\n"
+                + "Maleficum with Spiritus Crystals of the desired Aspect, and the gem will drink deeply.\\\n\\\n"
                 + "[#](2E8B57)Right-click while holding a Sentient Tool to recalibrate it to the dominant Aspect "
                 + "in your inventory.[#]()");
 
@@ -74,13 +74,13 @@ public class AspectedWillEntry extends EntryProvider {
         this.pageText("Your [#](8B0000)Sentient Tools[#]() attune to whichever Aspect you carry in greatest quantity. "
                 + "Ten Corrosive Will in one [#](8B0000)Spiritus Gem[#]() and a thousand Raw in another means the blade "
                 + "remains Raw.\\\n\\\n"
-                + "[#](2E8B57)The Hellfire Forge accepts any Aspect of Will for crafting, so there is no need to "
+                + "[#](2E8B57)The Hellfire Forge accepts any Aspect of Spiritus for crafting, so there is no need to "
                 + "juggle multiple gems between stations.[#]()");
     }
 
     @Override
     protected String entryName() {
-        return "Aspects of Will";
+        return "Aspects of Spiritus";
     }
 
     @Override

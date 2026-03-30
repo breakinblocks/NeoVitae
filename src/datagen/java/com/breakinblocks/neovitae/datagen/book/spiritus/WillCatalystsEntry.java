@@ -19,7 +19,7 @@ public class WillCatalystsEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Will Catalysts");
+        this.pageTitle("Spiritus Catalysts");
         this.pageText("If [#](8B0000)Spiritus[#]() has one flaw, it is the tedium of collection. Even armed with a "
                 + "nearly full [#](8B0000)Spiritus Gem[#](), a [#](8B0000)Sentient Sword[#]() bearing [#](8B0000)Looting III[#]() and "
                 + "[#](8B0000)Plunderer's Glint II[#](), the harvest remains a manual labor, and you have far "
@@ -29,7 +29,7 @@ public class WillCatalystsEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Fortunately, the entire process can be automated, freeing your hands for worthier "
                 + "pursuits.\\\n\\\n"
-                + "Begin with four [#](8B0000)Will Crystals[#]() of the same type: Raw, Steadfast, Destructive, "
+                + "Begin with four [#](8B0000)Spiritus Crystals[#]() of the same type: Raw, Steadfast, Destructive, "
                 + "Vengeful, or Corrosive.");
 
         this.page("clusters", () -> BookTextPageModel.create()
@@ -37,7 +37,7 @@ public class WillCatalystsEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Crystal Clusters");
         this.pageText("Forge a cluster from four matching crystals in the [#](8B0000)Hellfire Forge[#](), then place "
-                + "it in any chunk suffused with Will of the same Aspect. In time, new spires crystallize "
+                + "it in any chunk suffused with Spiritus of the same Aspect. In time, new spires crystallize "
                 + "and grow, just as they do atop a [#](8B0000)Crystallarium Maleficum[#]().");
 
         this.page("harvesting", () -> BookTextPageModel.create()
@@ -47,14 +47,14 @@ public class WillCatalystsEntry extends EntryProvider {
                 + "With a basic [#](8B0000)Routing Node[#]() system, you can even feed surplus crystals back into a "
                 + "[#](8B0000)Vas Maleficum[#]() for a self-sustaining loop.\\\n\\\n"
                 + "There is, however, a drawback: this process is slow. Each crystal sprouts a new spire once "
-                + "every few minutes, consuming nearly as much Will as it yields, roughly [#](B8860B)1 Will per minute "
+                + "every few minutes, consuming nearly as much Spiritus as it yields, roughly [#](B8860B)1 Spiritus per minute "
                 + "per spire[#]().");
 
         this.page("catalyst_recipes", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Will Catalysts");
-        this.pageText("Five variants exist, one for each Aspect of Will. Forge them in the "
+        this.pageTitle("Spiritus Catalysts");
+        this.pageText("Five variants exist, one for each Aspect of Spiritus. Forge them in the "
                 + "[#](8B0000)Hellfire Forge[#]().");
 
         this.page("catalyst_usage", () -> BookTextPageModel.create()
@@ -83,7 +83,7 @@ public class WillCatalystsEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Will Catalysts";
+        return "Spiritus Catalysts";
     }
 
     @Override

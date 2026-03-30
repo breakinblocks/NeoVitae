@@ -24,7 +24,7 @@ public class DemonStoneEntry extends EntryProvider {
         this.pageText("The [#](4A0080)Demon Realm[#]() is built from a pale-blue material unknown to our "
                 + "world, a substance practitioners have taken to calling [#](8B0000)Demon Stone[#](). "
                 + "Its creation is deceptively simple: an infusion of ordinary stone with a measure "
-                + "of [#](4A0080)Will[#](). Yet the result is something fundamentally alien.");
+                + "of [#](4A0080)Spiritus[#](). Yet the result is something fundamentally alien.");
 
         this.page("recipe_stone", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -41,7 +41,7 @@ public class DemonStoneEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Coloured Variants");
         this.pageText("Introducing stone to [#](4A0080)Corrosive[#](), [#](4A0080)Destructive[#](), "
-                + "[#](4A0080)Steadfast[#](), or [#](4A0080)Vengeful[#]() Will produces coloured variants "
+                + "[#](4A0080)Steadfast[#](), or [#](4A0080)Vengeful[#]() Spiritus produces coloured variants "
                 + "of Demon Stone, each carrying the faintest resonance of its aspect. All variants "
                 + "can be shaped in a stonecutter into various decorative patterns. Consult JEI for "
                 + "variant and spread recipes.");

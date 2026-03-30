@@ -156,7 +156,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.page("tier4_will", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Aspected Will (Tier IV)");
+        this.pageTitle("Aspected Spiritus (Tier IV)");
         this.pageText("Investigate the [#](8B0000)Ritual Tinkerer[#]() and the various "
                 + "[#](4A0080)Aspects of Spiritus[#]() now available. These aspects can refine your rituals "
                 + "and reshape how your Sentient Tools behave.\\\n\\\n"

@@ -19,7 +19,7 @@ public class CrystallizedWillEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Crystallized Will");
+        this.pageTitle("Crystallized Spiritus");
         this.pageText("Now that your [#](8B0000)Spiritus Gem[#]() brims with [#](8B0000)Spiritus[#](), you may wonder what happens "
                 + "when that malice is unleashed upon the world itself. The answer begins with saturating "
                 + "the [#](8B0000)Aura[#](), and continues with the [#](8B0000)Crystallarium Maleficum[#]().");
@@ -29,13 +29,13 @@ public class CrystallizedWillEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Crystallarium Maleficum");
         this.pageText("This device slowly draws [#](8B0000)Spiritus[#]() from the [#](8B0000)Aura[#]() and condenses it into physical "
-                + "[#](8B0000)Will Crystals[#](). The first spire demands 100 Will to form; each subsequent growth costs "
+                + "[#](8B0000)Spiritus Crystals[#](). The first spire demands 100 Spiritus to form; each subsequent growth costs "
                 + "45, yet yields 50 when burned in a [#](8B0000)Vas Maleficum[#](), a net gain of 5 per spire. "
                 + "A cluster may grow up to 7 spires tall.");
 
         this.page("harvesting", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("If you carry more than [#](B8860B)512 total Will[#]() in your inventory (across any number of "
+        this.pageText("If you carry more than [#](B8860B)512 total Spiritus[#]() in your inventory (across any number of "
                 + "[#](8B0000)Spiritus Gems[#](), of any single type), you may harvest these crystals by right-clicking "
                 + "the cluster with an empty hand. This strips all but the central spire.\\\n\\\n"
                 + "[#](2E8B57)In a hurry, or desperate for that last crystal? A pickaxe will shatter the entire "
@@ -43,15 +43,15 @@ public class CrystallizedWillEntry extends EntryProvider {
 
         this.page("related", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Five Will per harvest is a modest return, but rituals such as the "
+        this.pageText("Five Spiritus per harvest is a modest return, but rituals such as the "
                 + "[#](8B0000)Resonance of the Faceted Crystal[#](), the [#](8B0000)Catalyst of the Forsaken Souls[#](), and the "
-                + "[#](8B0000)Crack of the Fractured Crystal[#](), alongside [#](8B0000)Will Catalysts[#](), can accelerate and "
+                + "[#](8B0000)Crack of the Fractured Crystal[#](), alongside [#](8B0000)Spiritus Catalysts[#](), can accelerate and "
                 + "automate crystal production to impressive effect.");
     }
 
     @Override
     protected String entryName() {
-        return "Crystallized Will";
+        return "Crystallized Spiritus";
     }
 
     @Override

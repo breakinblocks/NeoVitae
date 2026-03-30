@@ -531,7 +531,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("reader.state.information", "Information");
         addTooltip("reader.state.set_area_corner_1", "Set Area Corner 1");
         addTooltip("reader.state.set_area_corner_2", "Set Area Corner 2");
-        addTooltip("reader.state.set_will_config", "Set Will Configuration");
+        addTooltip("reader.state.set_will_config", "Set Spiritus Configuration");
         addTooltip("reader.help.1", "Click MRS for ritual info");
         addTooltip("reader.help.2", "Sneak + click MRS to cycle modes");
         addTooltip("reader.help.3", "Sneak + click air to cycle ranges");
@@ -607,7 +607,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAnointment("quick_draw", "Deft Hands");
         addAnointment("looting", "Plundering");
         addAnointment("bow_power", "Heavy Shot");
-        addAnointment("will_power", "Will Power");
+        addAnointment("will_power", "Spiritus Drain");
         addAnointment("smelting", "Heated Tool");
         addAnointment("voiding", "Voiding");
         addAnointment("bow_velocity", "Sniping");
@@ -693,9 +693,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.CORRUPTED_DUST.get(), "Corrupted Dust");
         add(NVItems.CORRUPTED_DUST_TINY.get(), "Tiny Corrupted Dust");
 
-        addTooltip("will", "Will Quality: %s");
+        addTooltip("will", "Spiritus: %s");
         for (SpiritusType type : SpiritusType.values()) {
-            addTooltip("current_type." + type.getSerializedName(), String.format("Contains: %s Will", type.toCapitalized()));
+            addTooltip("current_type." + type.getSerializedName(), String.format("Contains: %s Spiritus", type.toCapitalized()));
         }
         add("item_group.neovitae.main", "Neo Vitae");
         add("item_group.neovitae.tomes", "Neo Vitae Upgrade Tomes");
@@ -854,9 +854,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("recipe.consumptionrate", "Consumption Rate: %s EV/t");
         addJei("recipe.drainrate", "Drain Rate: %s EV/t");
         addJei("recipe.componentTransfer", "Preserves Components");
-        addJei("recipe.minimumsouls", "Minimum Souls: %s");
-        addJei("recipe.soulsdrained", "Souls Drained: %s");
-        addJei("recipe.will", "Will");
+        addJei("recipe.minimumsouls", "Minimum Spiritus: %s");
+        addJei("recipe.soulsdrained", "Spiritus Drained: %s");
+        addJei("recipe.will", "Spiritus");
         addJei("recipe.info", "Hover for info");
         addJei("recipe.lp", "EV");
         addJei("recipe.lpDrained", "EV Drained: %s");

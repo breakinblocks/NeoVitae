@@ -33,12 +33,12 @@ public class RitualCrystalSplitEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Prismatic Fracture");
-        this.pageText("This ritual shatters a mature [#](8B0000)Raw Crystal Cluster[#]() (at least 5 spires) positioned 2 blocks above the [#](8B0000)Master Ritual Stone[#](), refining it into individual spires of each [#](8B0000)Aspected Will[#]() Crystal Cluster. These new crystals appear above the four elemental [#](8B0000)Ritual Stones[#]().");
+        this.pageText("This ritual shatters a mature [#](8B0000)Raw Crystal Cluster[#]() (at least 5 spires) positioned 2 blocks above the [#](8B0000)Master Ritual Stone[#](), refining it into individual spires of each [#](8B0000)Aspected Spiritus[#]() Crystal Cluster. These new crystals appear above the four elemental [#](8B0000)Ritual Stones[#]().");
 
         this.page("setup", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The spacing is designed to accommodate a [#](8B0000)Crystallarium Maleficum[#]() atop the [#](8B0000)Master Ritual Stone[#]()."
-                + "\\\n\\\n[#](2E8B57)For details on cultivating Spiritus Crystals, consult the Crystallized Will entry in the Spiritus chapter.[#]()");
+                + "\\\n\\\n[#](2E8B57)For details on cultivating Spiritus Crystals, consult the Crystallized Spiritus entry in the Spiritus chapter.[#]()");
     }
 
     @Override

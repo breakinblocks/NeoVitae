@@ -23,7 +23,7 @@ public class DungeonEyeEntry extends EntryProvider {
                 + "emits a pale, unwavering light. Whether these serve as sentinels or mere decoration "
                 + "is unclear; what is certain is that they illuminate the darkness with no fuel or flame.\\\n\\\n"
                 + "Variants exist tinted by [#](4A0080)Raw[#](), [#](4A0080)Corrosive[#](), "
-                + "[#](4A0080)Destructive[#](), [#](4A0080)Steadfast[#](), and [#](4A0080)Vengeful[#]() Will. "
+                + "[#](4A0080)Destructive[#](), [#](4A0080)Steadfast[#](), and [#](4A0080)Vengeful[#]() Spiritus. "
                 + "Consult JEI for crafting recipes.");
     }
 

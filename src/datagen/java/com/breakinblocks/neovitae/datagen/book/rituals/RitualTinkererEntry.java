@@ -31,7 +31,7 @@ public class RitualTinkererEntry extends EntryProvider {
         this.page("modes", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("- [#](8B0000)Information[#](): Reveals the purpose of the selected [#](4A0080)ritual[#](), much like the [#](8B0000)Ritual Diviner[#]()."
-                + "\n\n- [#](8B0000)Set Will Consumed[#](): Attunes the ritual to consume specific types of [#](8B0000)Spiritus[#]() from the [#](4A0080)Aura[#](). Carry the desired [#](8B0000)Will Crystals[#]() in your hotbar, one for each aspect you wish the ritual to draw upon. The effects of each will type are detailed on individual ritual pages.");
+                + "\n\n- [#](8B0000)Set Spiritus Consumed[#](): Attunes the ritual to consume specific types of [#](8B0000)Spiritus[#]() from the [#](4A0080)Aura[#](). Carry the desired [#](8B0000)Spiritus Crystals[#]() in your hotbar, one for each aspect you wish the ritual to draw upon. The effects of each spiritus type are detailed on individual ritual pages.");
 
         this.page("define_area", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

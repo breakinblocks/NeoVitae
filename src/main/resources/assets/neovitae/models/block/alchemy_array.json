@@ -1,3 +1,6 @@
 {
-  "parent": "block/air"
+  "parent": "block/air",
+  "textures": {
+    "particle": "neovitae:models/alchemyarrays/basearray"
+  }
 }

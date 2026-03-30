@@ -129,6 +129,11 @@ public class NVTags {
 
     public static class Fluids {
         public static final TagKey<Fluid> ESSENTIA_VITAE = tag(bm("essentia_vitae"));
+        public static final TagKey<Fluid> ESSENTIA_VITAE_SOURCE = tag(bm("essentia_vitae_source"));
+        public static final TagKey<Fluid> ESSENTIA_VITAE_FLOWING = tag(bm("essentia_vitae_flowing"));
+        public static final TagKey<Fluid> ANIMATED_SPIRITUS = tag(bm("animated_spiritus"));
+        public static final TagKey<Fluid> ANIMATED_SPIRITUS_SOURCE = tag(bm("animated_spiritus_source"));
+        public static final TagKey<Fluid> ANIMATED_SPIRITUS_FLOWING = tag(bm("animated_spiritus_flowing"));
 
         private static TagKey<Fluid> tag(ResourceLocation id) {
             return TagKey.create(Registries.FLUID, id);

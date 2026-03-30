@@ -165,5 +165,14 @@ public class NVItemModelProvider extends ItemModelProvider {
         ModelFile chargedDagger = singleTexture("item/variant/sacrificial_dagger_charged", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger_charged"));
         builder.override().predicate(NeoVitae.INCENSE_PROPERTY, 0).model(normalDagger).end();
         builder.override().predicate(NeoVitae.INCENSE_PROPERTY, 1).model(chargedDagger).end();
+
+        // Array effect dummy items - use their alchemy array textures
+        singleTexture("array_bounce", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/bouncearray"));
+        singleTexture("array_spike", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/spikearray"));
+        singleTexture("array_updraft", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/updraftarray"));
+        singleTexture("array_movement", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/movementarray"));
+        singleTexture("array_day", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/sunarray"));
+        singleTexture("array_night", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/moonarray"));
+        singleTexture("array_elevator", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/elevatorarray"));
     }
 }

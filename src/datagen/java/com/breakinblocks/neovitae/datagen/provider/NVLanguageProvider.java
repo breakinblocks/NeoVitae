@@ -238,10 +238,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Crystal Items
         add(NVItems.RAW_CRYSTAL.get(), "Spiritus Crystal");
-        add(NVItems.CORROSIVE_CRYSTAL.get(), "Corrosive Will Crystal");
-        add(NVItems.DESTRUCTIVE_CRYSTAL.get(), "Destructive Will Crystal");
-        add(NVItems.VENGEFUL_CRYSTAL.get(), "Vengeful Will Crystal");
-        add(NVItems.STEADFAST_CRYSTAL.get(), "Steadfast Will Crystal");
+        add(NVItems.CORROSIVE_CRYSTAL.get(), "Corrosive Spiritus Crystal");
+        add(NVItems.DESTRUCTIVE_CRYSTAL.get(), "Destructive Spiritus Crystal");
+        add(NVItems.VENGEFUL_CRYSTAL.get(), "Vengeful Spiritus Crystal");
+        add(NVItems.STEADFAST_CRYSTAL.get(), "Steadfast Spiritus Crystal");
         add(NVItems.SPIRITUS_GAUGE.get(), "Spiritus Aura Gauge");
         addTooltip("spiritus_gauge", "Shows the current spiritus level in the area");
 
@@ -900,6 +900,24 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("effect.day.desc", "Sets the time to dawn");
         addJei("effect.night.name", "Moonrise Array");
         addJei("effect.night.desc", "Sets the time to night");
+        addJei("effect.elevator.name", "Teleposition Array");
+        addJei("effect.elevator.desc", "Teleports you to aligned arrays above or below");
+
+        // Array effect dummy items (JEI searchable)
+        add(NVItems.ARRAY_BOUNCE.get(), "Bounce Array");
+        add(NVItems.ARRAY_SPIKE.get(), "Spike Array");
+        add(NVItems.ARRAY_UPDRAFT.get(), "Updraft Array");
+        add(NVItems.ARRAY_MOVEMENT.get(), "Movement Array");
+        add(NVItems.ARRAY_DAY.get(), "Sunrise Array");
+        add(NVItems.ARRAY_NIGHT.get(), "Moonrise Array");
+        add(NVItems.ARRAY_ELEVATOR.get(), "Teleposition Array");
+        addTooltip("array_effect.bounce", "Bounces entities high into the air. Crouch to disable.");
+        addTooltip("array_effect.spike", "Damages any entity that steps on the array.");
+        addTooltip("array_effect.updraft", "Launches entities upward with a gust of wind.");
+        addTooltip("array_effect.movement", "Accelerates entities in the direction the array faces.");
+        addTooltip("array_effect.day", "Advances the time to dawn. Consumed on use.");
+        addTooltip("array_effect.night", "Advances the time to night. Consumed on use.");
+        addTooltip("array_effect.elevator", "Jump to teleport up, crouch to teleport down. Searches up to 64 blocks.");
 
         // Rituals
         addRitual("water", "Ritual of the Full Spring");

@@ -71,6 +71,7 @@ public class ClientModEventHandler {
                 ItemProperties.register(item.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());
             });
             ItemProperties.register(NVItems.SACRIFICIAL_DAGGER.get(), NeoVitae.INCENSE_PROPERTY, ((stack, level, entity, seed) -> stack.getOrDefault(NVDataComponents.INCENSE, false) ? 1 : 0));
+            ItemProperties.register(NVItems.SACRIFICIAL_DAGGER.get(), NeoVitae.rl("alternate"), ((stack, level, entity, seed) -> NeoVitae.SERVER_CONFIG.ALTERNATE_SACRIFICE_TOOL.get() ? 1 : 0));
 
             ItemProperties.register(NVItems.SENTIENT_SWORD.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());
             ItemProperties.register(NVItems.SENTIENT_AXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());

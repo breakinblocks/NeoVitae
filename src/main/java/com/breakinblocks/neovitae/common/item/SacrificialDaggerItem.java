@@ -29,6 +29,7 @@ import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.effect.SoulFrayEffect;
 import com.breakinblocks.neovitae.common.event.SacrificialDaggerEvent;
 import com.breakinblocks.neovitae.incense.IncenseHelper;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.util.AltarUtil;
 
 
@@ -39,6 +40,14 @@ public class SacrificialDaggerItem extends Item {
 
     public SacrificialDaggerItem() {
         super(new Properties().stacksTo(1).component(NVDataComponents.INCENSE, false));
+    }
+
+    @Override
+    public Component getName(ItemStack stack) {
+        if (NeoVitae.SERVER_CONFIG.ALTERNATE_SACRIFICE_TOOL.get()) {
+            return Component.translatable("item.neovitae.sacrificial_dagger.alternate");
+        }
+        return super.getName(stack);
     }
 
     @Override

@@ -648,6 +648,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Dagger tooltips
         addTooltip("sacrificial_dagger.desc", "The Gift of Vitae");
+        add("item.neovitae.sacrificial_dagger.alternate", "Orb of Sacrifice");
         addTooltip("dagger_of_sacrifice.desc", "Theft of Vitae");
 
         // Rune tooltips

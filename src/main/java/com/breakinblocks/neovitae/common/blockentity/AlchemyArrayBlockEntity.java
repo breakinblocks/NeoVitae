@@ -14,6 +14,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffect;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
 import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
@@ -31,6 +32,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
 
     public AlchemyArrayEffect arrayEffect;
     private boolean doDropIngredients = true;
+    private Binding ownerBinding = Binding.EMPTY;
 
     public final ItemStackHandler inv = new ItemStackHandler(2) {
         @Override
@@ -69,6 +71,9 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
         }
         this.rotation = Direction.from2DDataValue(tag.getInt("direction"));
         inv.deserializeNBT(registries, tag.getCompound("inventory"));
+        if (tag.contains("ownerBinding")) {
+            this.ownerBinding = Binding.BASIC_CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag.getCompound("ownerBinding")).result().orElse(Binding.EMPTY);
+        }
     }
 
     public void doDropIngredients(boolean drop) {
@@ -83,6 +88,9 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
         tag.putBoolean("doDropIngredients", doDropIngredients);
         tag.putInt("direction", rotation.get2DDataValue());
         tag.put("inventory", inv.serializeNBT(registries));
+        if (!ownerBinding.isEmpty()) {
+            Binding.BASIC_CODEC.encodeStart(net.minecraft.nbt.NbtOps.INSTANCE, ownerBinding).result().ifPresent(nbt -> tag.put("ownerBinding", nbt));
+        }
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, AlchemyArrayBlockEntity tile) {
@@ -184,6 +192,15 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
 
     public void setRotation(Direction rotation) {
         this.rotation = rotation;
+    }
+
+    public Binding getOwnerBinding() {
+        return ownerBinding;
+    }
+
+    public void setOwnerBinding(Binding binding) {
+        this.ownerBinding = binding;
+        setChanged();
     }
 
     public ItemStack getItem(int slot) {

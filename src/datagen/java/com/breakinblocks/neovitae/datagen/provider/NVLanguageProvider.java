@@ -554,6 +554,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.imperfect.notEnoughLP", "Not enough Essentia Vitae! Requires %d EV.");
         add("chat.neovitae.imperfect.noMatch", "No imperfect ritual matches that block.");
 
+        // Arcane Ash messages
+        add("chat.neovitae.ash.notBound", "The arcane ashes must be bound first!");
+
         // Master Ritual Stone activation messages
         add("chat.neovitae.crystal.notBound", "The crystal is not bound to a player!");
         add("chat.neovitae.ritual.activated", "%s has been activated!");

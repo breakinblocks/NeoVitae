@@ -16,6 +16,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -34,8 +35,8 @@ public class BloodOrbItem extends Item implements IBindable {
         super(new Item.Properties().stacksTo(1).component(NVDataComponents.BINDING, Binding.EMPTY));
     }
 
-    private static final int SHIELD_EV_COST = 200;
-    private static final int SHIELD_DRAIN_PER_SECOND = 50;
+    private static int getShieldMinEV() { return NeoVitae.SERVER_CONFIG.SANGUINE_WARD_MIN_EV.get(); }
+    private static int getShieldDrain() { return NeoVitae.SERVER_CONFIG.SANGUINE_WARD_DRAIN_PER_SECOND.get(); }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
@@ -53,7 +54,7 @@ public class BloodOrbItem extends Item implements IBindable {
 
         if (hand == InteractionHand.OFF_HAND) {
             IAnima network = NeoVitaeAPI.getInstance().getAnima(player.getUUID());
-            if (network != null && network.getCurrentEV() >= SHIELD_EV_COST) {
+            if (network != null && network.getCurrentEV() >= getShieldMinEV()) {
                 player.startUsingItem(hand);
                 if (!level.isClientSide) {
                     BloodShieldEntity shield = new BloodShieldEntity(level, player);
@@ -99,11 +100,11 @@ public class BloodOrbItem extends Item implements IBindable {
 
         if (player.tickCount % 20 == 0) {
             IAnima network = NeoVitaeAPI.getInstance().getAnima(player.getUUID());
-            if (network == null || network.getCurrentEV() < SHIELD_DRAIN_PER_SECOND) {
+            if (network == null || network.getCurrentEV() < getShieldDrain()) {
                 player.stopUsingItem();
                 return;
             }
-            network.syphon(AnimaTicket.create(SHIELD_DRAIN_PER_SECOND));
+            network.syphon(AnimaTicket.create(getShieldDrain()));
         }
     }
 

@@ -2,13 +2,18 @@ package com.breakinblocks.neovitae.common.item.soul;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.util.ChatUtil;
 import com.breakinblocks.neovitae.will.ISpiritus;
+import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
 
 import java.util.List;
 
@@ -36,6 +41,22 @@ public class SpiritusEssenceItem extends Item implements ISpiritus {
                     .withStyle(ChatFormatting.GRAY));
         }
         super.appendHoverText(stack, context, tooltip, flag);
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (level.isClientSide) return InteractionResultHolder.success(stack);
+
+        double will = getWill(willType, stack);
+        if (will <= 0) return InteractionResultHolder.fail(stack);
+
+        ItemStack remaining = PlayerSpiritusHandler.addSpiritus(player, stack);
+        if (remaining.isEmpty() || getWill(willType, remaining) < will) {
+            player.setItemInHand(hand, remaining);
+            return InteractionResultHolder.consume(remaining);
+        }
+        return InteractionResultHolder.fail(stack);
     }
 
     @Override

@@ -33,6 +33,16 @@ public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile> {
     public AraVitaeRenderer(BlockEntityRendererProvider.Context context) {}
 
     @Override
+    public boolean shouldRenderOffScreen(AraVitaeTile blockEntity) {
+        return true;
+    }
+
+    @Override
+    public int getViewDistance() {
+        return 256;
+    }
+
+    @Override
     public void render(AraVitaeTile tileAltar, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         ItemStack inputStack = tileAltar.inv.getStackInSlot(0);
         this.renderItem(inputStack, tileAltar.getLevel(), poseStack, bufferSource, packedLight, packedOverlay);

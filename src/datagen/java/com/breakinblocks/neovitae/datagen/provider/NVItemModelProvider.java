@@ -127,7 +127,8 @@ public class NVItemModelProvider extends ItemModelProvider {
                 return;
             }
             // Other will items get variants for each will type
-            ItemModelBuilder builder = getBuilder(path);
+            ItemModelBuilder builder = getBuilder(path).parent(new ModelFile.UncheckedModelFile("minecraft:item/handheld"))
+                    .texture("layer0", modLoc("item/" + path + "_default"));
             for (SpiritusType type : SpiritusType.values()) {
                 ModelFile modelFile = singleTexture(String.format("item/variant/%s_%s", path, type.getSerializedName()), mcLoc("item/handheld"), "layer0", modLoc(String.format("item/%s_%s", path, type.getSerializedName())));
                 builder.override().predicate(NeoVitae.TYPE_PROPERTY, type.ordinal()).model(modelFile).end();

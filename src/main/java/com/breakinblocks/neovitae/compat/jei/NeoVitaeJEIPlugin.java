@@ -197,6 +197,22 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         }
         registration.addIngredientInfo(bloodTankStacks, VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.neovitae.blood_tank.upgrade_info"));
+
+        // Array effect items - add to JEI with descriptions
+        registration.addIngredientInfo(new ItemStack(NVItems.ARRAY_BOUNCE.get()), VanillaTypes.ITEM_STACK,
+                Component.translatable("tooltip.neovitae.array_effect.bounce"));
+        registration.addIngredientInfo(new ItemStack(NVItems.ARRAY_SPIKE.get()), VanillaTypes.ITEM_STACK,
+                Component.translatable("tooltip.neovitae.array_effect.spike"));
+        registration.addIngredientInfo(new ItemStack(NVItems.ARRAY_UPDRAFT.get()), VanillaTypes.ITEM_STACK,
+                Component.translatable("tooltip.neovitae.array_effect.updraft"));
+        registration.addIngredientInfo(new ItemStack(NVItems.ARRAY_MOVEMENT.get()), VanillaTypes.ITEM_STACK,
+                Component.translatable("tooltip.neovitae.array_effect.movement"));
+        registration.addIngredientInfo(new ItemStack(NVItems.ARRAY_DAY.get()), VanillaTypes.ITEM_STACK,
+                Component.translatable("tooltip.neovitae.array_effect.day"));
+        registration.addIngredientInfo(new ItemStack(NVItems.ARRAY_NIGHT.get()), VanillaTypes.ITEM_STACK,
+                Component.translatable("tooltip.neovitae.array_effect.night"));
+        registration.addIngredientInfo(new ItemStack(NVItems.ARRAY_ELEVATOR.get()), VanillaTypes.ITEM_STACK,
+                Component.translatable("tooltip.neovitae.array_effect.elevator"));
     }
 
     private List<FlaskCombinationJEIRecipe> createFlaskCombinationRecipes(List<FlaskRecipe> allFlaskRecipes) {

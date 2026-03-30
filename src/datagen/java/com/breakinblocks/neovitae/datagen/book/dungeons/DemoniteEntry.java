@@ -63,7 +63,7 @@ public class DemoniteEntry extends EntryProvider {
         this.pageTitle("Decorative Variants");
         this.pageText("Hellforged Blocks can be shaped in a [#](8B0000)stonecutter[#]() into variants faintly "
                 + "tainted with [#](4A0080)Corrosive[#](), [#](4A0080)Destructive[#](), [#](4A0080)Steadfast[#](), "
-                + "or [#](4A0080)Vengeful[#]() Will. Each decorative variant can be deconstructed back into "
+                + "or [#](4A0080)Vengeful[#]() Spiritus. Each decorative variant can be deconstructed back into "
                 + "9 [#](8B0000)Hellforged Ingots[#]().");
     }
 

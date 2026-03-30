@@ -30,7 +30,7 @@ public class SpiritusGemsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Petty Spiritus Gem");
-        this.pageText("Your first vessel holds a modest [#](B8860B)64 Will[#](), crude, but far more practical than "
+        this.pageText("Your first vessel holds a modest [#](B8860B)64 Spiritus[#](), crude, but far more practical than "
                 + "loose fragments rattling about your pack.\\\n\\\n"
                 + "[#](2E8B57)To transfer Will between gems, right-click while holding the gem you wish to empty. "
                 + "Its contents flow into the first valid gem in your inventory.[#]()");
@@ -45,9 +45,9 @@ public class SpiritusGemsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Lesser Spiritus Gem");
-        this.pageText("This reinforced gem holds up to [#](B8860B)256 Will[#]().\\\n\\\n"
-                + "[#](2E8B57)When upgrading, the Forge draws Will from the gem being crafted before tapping "
-                + "the gem in its Gem Slot. The newly forged gem retains any leftover Will from the "
+        this.pageText("This reinforced gem holds up to [#](B8860B)256 Spiritus[#]().\\\n\\\n"
+                + "[#](2E8B57)When upgrading, the Forge draws Spiritus from the gem being crafted before tapping "
+                + "the gem in its Gem Slot. The newly forged gem retains any leftover Spiritus from the "
                 + "process.[#]()");
 
         this.page("common_intro", () -> BookTextPageModel.create()
@@ -60,7 +60,7 @@ public class SpiritusGemsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Common Spiritus Gem");
-        this.pageText("This intricate gem holds an impressive [#](B8860B)1,024 Will[#](). A worthy vessel for a "
+        this.pageText("This intricate gem holds an impressive [#](B8860B)1,024 Spiritus[#](). A worthy vessel for a "
                 + "practitioner of growing renown.");
 
         this.page("greater_intro", () -> BookTextPageModel.create()
@@ -75,7 +75,7 @@ public class SpiritusGemsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Greater Spiritus Gem");
-        this.pageText("This masterwork of [#](4A0080)vitaemantic[#]() artifice holds an astounding [#](B8860B)4,096 Will[#](). "
+        this.pageText("This masterwork of [#](4A0080)vitaemantic[#]() artifice holds an astounding [#](B8860B)4,096 Spiritus[#](). "
                 + "Few vessels in existence can rival its containment.");
     }
 

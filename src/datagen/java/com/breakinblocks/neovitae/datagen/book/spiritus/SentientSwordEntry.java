@@ -20,11 +20,11 @@ public class SentientSwordEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Sentient Sword");
-        this.pageText("The [#](8B0000)Sentient Sword[#]() is a far more elegant instrument of Will collection than the "
+        this.pageText("The [#](8B0000)Sentient Sword[#]() is a far more elegant instrument of Spiritus collection than the "
                 + "[#](8B0000)Soul Snare[#]() could ever aspire to be. It may feel sluggish when first drawn; the blade "
-                + "feeds on the Will you carry, growing sharper with every fragment. A [#](8B0000)Spiritus Gem[#]() brimming "
-                + "with Will is essential to unlocking its true potential.\\\n\\\n"
-                + "[#](2E8B57)As with all Sentient equipment, the sword may be repaired with Crystallized Will in an Anvil.[#]()");
+                + "feeds on the Spiritus you carry, growing sharper with every fragment. A [#](8B0000)Spiritus Gem[#]() brimming "
+                + "with Spiritus is essential to unlocking its true potential.\\\n\\\n"
+                + "[#](2E8B57)As with all Sentient equipment, the sword may be repaired with Crystallized Spiritus in an Anvil.[#]()");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -32,7 +32,7 @@ public class SentientSwordEntry extends EntryProvider {
         this.pageTitle("Forging the Blade");
         this.pageText("This weapon shall serve you well in the hunts to come.\\\n\\\n"
                 + "[#](2E8B57)Right-click to recalibrate the blade's attunement. Do this after acquiring a large quantity "
-                + "of Will, or when experimenting with a new Aspect for the first time.[#]()");
+                + "of Spiritus, or when experimenting with a new Aspect for the first time.[#]()");
     }
 
     @Override
@@ -42,7 +42,7 @@ public class SentientSwordEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A Will-devouring blade that reaps essence from the slain.";
+        return "A Spiritus-devouring blade that reaps essence from the slain.";
     }
 
     @Override

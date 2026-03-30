@@ -30,7 +30,7 @@ public class NodeRouterEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Node Router");
-        this.pageText("A slender wand of bound Will. Unremarkable in appearance, indispensable in practice.");
+        this.pageText("A slender wand of bound Spiritus. Unremarkable in appearance, indispensable in practice.");
     }
 
     @Override

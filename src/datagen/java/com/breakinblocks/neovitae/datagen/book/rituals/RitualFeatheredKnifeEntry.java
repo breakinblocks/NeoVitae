@@ -40,10 +40,10 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Raw Spiritus[#](): Increases the [#](8B0000)Essentia Vitae[#]() gained per health sacrificed."
-                + "\n\n- [#](8B0000)Corrosive Will[#](): Channels the [#](8B0000)Incense Bonus[#]() from a nearby [#](8B0000)Incense Altar[#]()."
-                + "\n\n- [#](8B0000)Vengeful Will[#](): When paired with [#](8B0000)Steadfast[#](), increases the drain rate."
-                + "\n\n- [#](8B0000)Destructive Will[#](): Raises the maximum vitality drained per tick."
-                + "\n\n- [#](8B0000)Steadfast Will[#](): Prevents the ritual from draining you to death.");
+                + "\n\n- [#](8B0000)Corrosive Spiritus[#](): Channels the [#](8B0000)Incense Bonus[#]() from a nearby [#](8B0000)Incense Altar[#]()."
+                + "\n\n- [#](8B0000)Vengeful Spiritus[#](): When paired with [#](8B0000)Steadfast[#](), increases the drain rate."
+                + "\n\n- [#](8B0000)Destructive Spiritus[#](): Raises the maximum vitality drained per tick."
+                + "\n\n- [#](8B0000)Steadfast Spiritus[#](): Prevents the ritual from draining you to death.");
     }
 
     @Override

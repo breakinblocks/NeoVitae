@@ -38,7 +38,7 @@ public class ThrowingDaggersEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Syringe Throwing Dagger");
-        this.pageText("For the practitioner more interested in [#](4A0080)Essentia Vitae[#]() than Will. Slightly less "
+        this.pageText("For the practitioner more interested in [#](4A0080)Essentia Vitae[#]() than Spiritus. Slightly less "
                 + "damaging and noticeably cheaper to forge, creatures slain by this weapon have a chance of "
                 + "yielding a [#](8B0000)Slate Ampoule[#](), or more, if the quarry is sufficiently hearty.");
 
@@ -54,7 +54,7 @@ public class ThrowingDaggersEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Amethyst Throwing Dagger");
-        this.pageText("Matches the Iron dagger in damage but yields no Will from kills. Its true purpose lies "
+        this.pageText("Matches the Iron dagger in damage but yields no Spiritus from kills. Its true purpose lies "
                 + "elsewhere: eight Amethyst daggers combined with a [#](8B0000)Lingering Alchemy Flask[#]() in the "
                 + "[#](8B0000)Athanor[#]() produce [#](8B0000)Tipped Amethyst Throwing Daggers[#]().");
 
@@ -74,7 +74,7 @@ public class ThrowingDaggersEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Razor-edged projectiles that harvest Will, Essence, or deliver alchemical ruin.";
+        return "Razor-edged projectiles that harvest Spiritus, Essence, or deliver alchemical ruin.";
     }
 
     @Override

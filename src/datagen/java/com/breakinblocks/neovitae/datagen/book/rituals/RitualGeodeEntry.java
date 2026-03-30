@@ -40,10 +40,10 @@ public class RitualGeodeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Raw Spiritus[#](): Hastens crystal growth."
-                + "\n\n- [#](8B0000)Corrosive Will[#](): Enables automatic harvest of mature clusters."
-                + "\n\n- [#](8B0000)Vengeful Will[#](): Lashes out at nearby creatures."
-                + "\n\n- [#](8B0000)Destructive Will[#](): Applies a Fortune effect to harvested clusters."
-                + "\n\n- [#](8B0000)Steadfast Will[#](): Deposits harvested shards into a nearby chest.");
+                + "\n\n- [#](8B0000)Corrosive Spiritus[#](): Enables automatic harvest of mature clusters."
+                + "\n\n- [#](8B0000)Vengeful Spiritus[#](): Lashes out at nearby creatures."
+                + "\n\n- [#](8B0000)Destructive Spiritus[#](): Applies a Fortune effect to harvested clusters."
+                + "\n\n- [#](8B0000)Steadfast Spiritus[#](): Deposits harvested shards into a nearby chest.");
     }
 
     @Override

@@ -40,10 +40,10 @@ public class RitualLavaEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Raw Spiritus[#](): Channels lava directly into a tank placed above the ritual, reducing [#](8B0000)Essentia Vitae[#]() cost."
-                + "\n\n- [#](8B0000)Corrosive Will[#](): Sets nearby hostile creatures ablaze."
-                + "\n\n- [#](8B0000)Vengeful Will[#](): Marks hostile mobs with [#](8B0000)Fire Fuse[#](). When it expires, they detonate spectacularly."
-                + "\n\n- [#](8B0000)Destructive Will[#](): Accelerates the rate of lava conjuration."
-                + "\n\n- [#](8B0000)Steadfast Will[#](): Wraps nearby practitioners in [#](8B0000)Fire Resistance[#]().");
+                + "\n\n- [#](8B0000)Corrosive Spiritus[#](): Sets nearby hostile creatures ablaze."
+                + "\n\n- [#](8B0000)Vengeful Spiritus[#](): Marks hostile mobs with [#](8B0000)Fire Fuse[#](). When it expires, they detonate spectacularly."
+                + "\n\n- [#](8B0000)Destructive Spiritus[#](): Accelerates the rate of lava conjuration."
+                + "\n\n- [#](8B0000)Steadfast Spiritus[#](): Wraps nearby practitioners in [#](8B0000)Fire Resistance[#]().");
     }
 
     @Override

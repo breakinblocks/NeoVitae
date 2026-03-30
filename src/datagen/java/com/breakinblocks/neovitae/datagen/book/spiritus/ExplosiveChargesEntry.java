@@ -22,13 +22,13 @@ public class ExplosiveChargesEntry extends EntryProvider {
         this.pageTitle("Explosive Charges");
         this.pageText("Mining by hand and felling trees one swing at a time; such drudgery is beneath a "
                 + "practitioner of [#](4A0080)Vitaemancy[#](). You have devised something far more elegant: compact "
-                + "charges of compressed Will that detonate on contact. Hurl them at offending stone, timber, "
+                + "charges of compressed Spiritus that detonate on contact. Hurl them at offending stone, timber, "
                 + "or anything else you wish unmade, and wait for the satisfying ignition.");
 
         this.page("anointments", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Each charge can be further enhanced by [#](8B0000)Anointing[#]() it with certain reagents and "
-                + "a measure of Will:\n\n"
+                + "a measure of Spiritus:\n\n"
                 + "- [#](B8860B)Fortunate[#](): broken blocks yield Fortune loot.\n\n"
                 + "- [#](B8860B)Heated Tool[#](): broken blocks are smelted on the spot.\n\n"
                 + "- [#](B8860B)Soft Touch[#](): broken blocks are affected by Silk Touch.\n\n"
@@ -119,7 +119,7 @@ public class ExplosiveChargesEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Compact demolition devices fueled by Will and enhanced by anointment.";
+        return "Compact demolition devices fueled by Spiritus and enhanced by anointment.";
     }
 
     @Override

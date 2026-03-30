@@ -40,9 +40,7 @@ Want to help? See our [Contributing Guidelines](https://github.com/breakinblocks
 
 ## License
 
-Neo Vitae is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
-
-You are free to use, share, and adapt this work provided you give appropriate credit.This rewrite will not most likely not be publicly posted on any modding platforms at the request of WayOfTime
+Neo Vitae is licensed under the [MIT License](LICENSE.md).
 
 ## Disclaimer
 
@@ -50,12 +48,19 @@ You are free to use, share, and adapt this work provided you give appropriate cr
 
 ## Credits
 
-- **Saereth** - Maintainer
-- All contributors who have helped develop and maintain the mod
-- WayOfTime for the original bloodmagic team
+- **Saereth** - Developer
+- **Jamiscus** - Artwork
+- **LadyMaehem** - Modeling and Texture Artwork
+- **WayOfTime** - Original BloodMagic
+- **Azanor** - Inspiration for certain features from Thaumcraft
+- **Iron431** - Inspiration for certain features from Iron's Spells n' Spellbooks
 - The NeoForge team for their continued development of the modding platform
+- All contributors who have helped develop and maintain the mod
 
 ## Links
 
-- if you wish to support this project please instead support WayOfTime on their Patreon
 - [Discord](https://discord.gg/TRxaXaYy42)
+
+## Attribution
+
+Neo Vitae is a derivative work based on [BloodMagic](https://github.com/WayofTime/BloodMagic) by WayofTime, licensed under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/). Neo Vitae has been substantially modified from the original source, including a full NeoForge 1.21.1 port, data-driven systems, custom visual effects, new gameplay mechanics, and modern registration patterns.

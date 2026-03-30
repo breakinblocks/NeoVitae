@@ -120,6 +120,14 @@ public class BloodOrbItem extends Item implements IBindable {
     }
 
     @Override
+    public boolean isFoil(ItemStack stack) {
+        int capacity = OrbFluidHandler.getOrbFluidCapacity(stack);
+        if (capacity <= 0) return false;
+        SimpleFluidContent fluid = stack.getOrDefault(NVDataComponents.ORB_FLUID.get(), SimpleFluidContent.EMPTY);
+        return !fluid.isEmpty() && fluid.getAmount() >= capacity;
+    }
+
+    @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         var stats = stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
         if (stats != null) {

@@ -880,6 +880,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("recipe.ritual.crystal.awakened", "Tier: Awakened");
         addJei("recipe.ritual.crystal.creative", "Tier: Creative");
 
+        // Jade integration
+        add("config.jade.plugin_neovitae.block_info", "Neo Vitae Block Info");
+
         // Blood Tank
         add("jei.neovitae.blood_tank.upgrade_info", "Blood Tanks can be upgraded by placing them in a crafting grid surrounded by Glass and Bloodstone. Each upgrade doubles the tank's capacity. Tanks retain their stored fluid when upgraded. The initial tier holds 16,000 mB and tier 16 holds 524,288,000 mB.");
 

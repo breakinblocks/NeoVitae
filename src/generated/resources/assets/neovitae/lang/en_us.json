@@ -1757,6 +1757,7 @@
   "commands.neovitae.upgrade.get": "%s has the following upgrades:\n",
   "commands.neovitae.upgrade.no_armour": "The chestplate %s is wearing does not have a neovitae:required_set component set. Upgrades cannot take effect like this",
   "commands.neovitae.upgrade.set": "Set %s to %s exp for %s",
+  "config.jade.plugin_neovitae.block_info": "Neo Vitae Block Info",
   "death.attack.ritual": "%1$s was killed by dark ritual magic",
   "death.attack.ritual.player": "%1$s was killed by dark ritual magic whilst fighting %2$s",
   "death.attack.sacrifice": "%1$s was sacrificed",

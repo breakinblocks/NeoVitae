@@ -131,6 +131,7 @@ dependencies {
     implementation("software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}")
 
     // Jade - WAILA fork for block/entity tooltips (optional dev dependency)
+    compileOnly("curse.maven:jade-324717:6853386")
     runtimeOnly("curse.maven:jade-324717:6853386")
 
     // Modonomicon - In-game documentation

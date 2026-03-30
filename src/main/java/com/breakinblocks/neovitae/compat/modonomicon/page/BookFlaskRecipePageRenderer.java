@@ -60,7 +60,7 @@ public class BookFlaskRecipePageRenderer extends BookRecipePageRenderer<FlaskRec
         this.parentScreen.renderItemStack(guiGraphics, outputX + 3, recipeY + 3, mouseX, mouseY, output);
 
         int textY = recipeY + 26;
-        int tier = recipe.getMinimumTier() + 1;
+        int tier = recipe.getMinimumTier();
         String lpFormatted = String.format("%,d", recipe.getSyphon());
         Component info = Component.literal("Tier " + tier + " | " + lpFormatted + " EV | " + (recipe.getTicks() / 20) + "s");
         this.drawCenteredStringNoShadow(guiGraphics, info.getVisualOrderText(),

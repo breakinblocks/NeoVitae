@@ -44,7 +44,7 @@ public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRec
     @Override
     public void getTooltip(ITooltipBuilder tooltip, TabulaVitaeRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if (mouseX >= 58 && mouseX <= 78 && mouseY >= 21 && mouseY <= 34) {
-            tooltip.add(Component.translatable("jei.neovitae.recipe.requiredtier", DECIMAL_FORMAT.format(recipe.getMinimumTier() + 1)));
+            tooltip.add(Component.translatable("jei.neovitae.recipe.requiredtier", DECIMAL_FORMAT.format(recipe.getMinimumTier())));
             tooltip.add(Component.translatable("jei.neovitae.recipe.lpDrained", DECIMAL_FORMAT.format(recipe.getSyphon())));
             tooltip.add(Component.translatable("jei.neovitae.recipe.ticksRequired", DECIMAL_FORMAT.format(recipe.getTicks())));
         }

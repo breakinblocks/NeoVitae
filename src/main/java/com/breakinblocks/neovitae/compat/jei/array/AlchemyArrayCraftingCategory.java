@@ -60,11 +60,29 @@ public class AlchemyArrayCraftingCategory implements IRecipeCategory<AlchemyArra
         return icon;
     }
 
+    private static ItemStack getEffectDummyItem(AlchemyArrayEffectType type) {
+        return switch (type) {
+            case BOUNCE -> new ItemStack(NVItems.ARRAY_BOUNCE.get());
+            case SPIKE -> new ItemStack(NVItems.ARRAY_SPIKE.get());
+            case UPDRAFT -> new ItemStack(NVItems.ARRAY_UPDRAFT.get());
+            case MOVEMENT -> new ItemStack(NVItems.ARRAY_MOVEMENT.get());
+            case DAY -> new ItemStack(NVItems.ARRAY_DAY.get());
+            case NIGHT -> new ItemStack(NVItems.ARRAY_NIGHT.get());
+            case ELEVATOR -> new ItemStack(NVItems.ARRAY_ELEVATOR.get());
+            default -> ItemStack.EMPTY;
+        };
+    }
+
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, AlchemyArrayRecipe recipe, IFocusGroup focuses) {
+        IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 74, 6);
         if (!recipe.getOutput().isEmpty()) {
-            IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 74, 6);
             output.addItemStack(recipe.getOutput());
+        } else {
+            ItemStack dummy = getEffectDummyItem(recipe.getEffectType());
+            if (!dummy.isEmpty()) {
+                output.addItemStack(dummy);
+            }
         }
 
 

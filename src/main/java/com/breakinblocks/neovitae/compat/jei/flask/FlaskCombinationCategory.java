@@ -42,7 +42,7 @@ public class FlaskCombinationCategory implements IRecipeCategory<FlaskCombinatio
     @Override
     public void getTooltip(ITooltipBuilder tooltip, FlaskCombinationJEIRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if (mouseX >= 58 && mouseX <= 78 && mouseY >= 21 && mouseY <= 34) {
-            tooltip.add(Component.translatable("jei.neovitae.recipe.requiredtier", DECIMAL_FORMAT.format(recipe.minimumTier() + 1)));
+            tooltip.add(Component.translatable("jei.neovitae.recipe.requiredtier", DECIMAL_FORMAT.format(recipe.minimumTier())));
             tooltip.add(Component.translatable("jei.neovitae.recipe.lpDrained", DECIMAL_FORMAT.format(recipe.syphon())));
             tooltip.add(Component.translatable("jei.neovitae.recipe.ticksRequired", DECIMAL_FORMAT.format(recipe.ticks())));
         }

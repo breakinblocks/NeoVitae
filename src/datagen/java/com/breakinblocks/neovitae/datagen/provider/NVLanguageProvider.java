@@ -883,6 +883,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Jade integration
         add("config.jade.plugin_neovitae.block_info", "Neo Vitae Block Info");
 
+        // Blood Orb
+        add("jei.neovitae.orb.info", "Orbs of Vitae serve three purposes:\n\nMain Hand: Right-click to sacrifice one heart, channeling 200 EV into your Anima.\n\nOff-Hand (Shield): Hold the use key to raise a Sanguine Ward that blocks all frontal damage. Costs 50 EV/second to maintain. Requires at least 200 EV to activate.\n\nOff-Hand (Harvest): Slay any creature while holding an orb in your off-hand to fill the orb's internal reservoir with Essentia Vitae (10 EV per point of max health). Place the orb on an Ara Vitae to drain its reservoir into the basin at 10x speed.\n\nThe orb glows with an enchanted sheen when its internal tank is full.");
+
         // Blood Tank
         add("jei.neovitae.blood_tank.upgrade_info", "Blood Tanks can be upgraded by placing them in a crafting grid surrounded by Glass and Bloodstone. Each upgrade doubles the tank's capacity. Tanks retain their stored fluid when upgraded. The initial tier holds 16,000 mB and tier 16 holds 524,288,000 mB.");
 

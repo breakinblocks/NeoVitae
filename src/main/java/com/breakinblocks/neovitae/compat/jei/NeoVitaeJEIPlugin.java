@@ -198,7 +198,12 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addIngredientInfo(bloodTankStacks, VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.neovitae.blood_tank.upgrade_info"));
 
-
+        List<ItemStack> orbStacks = java.util.List.of(
+                new ItemStack(NVItems.ORB_WEAK.get()), new ItemStack(NVItems.ORB_APPRENTICE.get()),
+                new ItemStack(NVItems.ORB_MAGICIAN.get()), new ItemStack(NVItems.ORB_MASTER.get()),
+                new ItemStack(NVItems.ORB_ARCHMAGE.get()), new ItemStack(NVItems.ORB_TRANSCENDENT.get()));
+        registration.addIngredientInfo(orbStacks, VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.neovitae.orb.info"));
     }
 
     private List<FlaskCombinationJEIRecipe> createFlaskCombinationRecipes(List<FlaskRecipe> allFlaskRecipes) {

@@ -83,6 +83,7 @@ public class NVTabs {
                         addBloodTankVariants(output::accept);
                         addAll(NVBlocks.BASIC_BLOCK_ITEMS, output::accept);
                         addAll(DungeonBlocks.ITEMS, output::accept);
+                        addAll(NVItems.ARRAY_ITEMS, output::accept);
                     })
                     .build()
     );

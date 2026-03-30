@@ -49,6 +49,11 @@ public class AlchemyArraysCategory extends CategoryProvider {
         spikeArray.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/arcane_ash"));
         spikeArray.hideWhileLocked(false);
 
+        var telepositionArray = this.add(new TelepositionArrayEntry(this).generate('E'));
+        telepositionArray.withParent(this.parent(arcaneAsh));
+        telepositionArray.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/arcane_ash"));
+        telepositionArray.hideWhileLocked(false);
+
         var timeArrays = this.add(new TimeArraysEntry(this).generate('e'));
         timeArrays.withParent(this.parent(arcaneAsh));
         timeArrays.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/arcane_ash"));

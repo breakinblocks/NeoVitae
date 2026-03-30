@@ -21,7 +21,8 @@ public enum AlchemyArrayEffectType implements StringRepresentable {
     UPDRAFT("updraft", AlchemyArrayEffectUpdraft::new),
     MOVEMENT("movement", AlchemyArrayEffectMovement::new),
     DAY("day", AlchemyArrayEffectDay::new),
-    NIGHT("night", AlchemyArrayEffectNight::new);
+    NIGHT("night", AlchemyArrayEffectNight::new),
+    ELEVATOR("elevator", AlchemyArrayEffectElevator::new);
 
     public static final Codec<AlchemyArrayEffectType> CODEC = StringRepresentable.fromEnum(AlchemyArrayEffectType::values);
     public static final StreamCodec<ByteBuf, AlchemyArrayEffectType> STREAM_CODEC = ByteBufCodecs.idMapper(

@@ -1967,6 +1967,13 @@ public class NVRecipeProvider extends RecipeProvider {
                 .added(Ingredient.of(Tags.Items.GEMS_LAPIS))
                 .texture("textures/models/alchemyarrays/moonarray.png")
                 .save(output, "night");
+
+        // Teleposition Array - ender pearl + redstone
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.ELEVATOR)
+                .base(Ingredient.of(Tags.Items.ENDER_PEARLS))
+                .added(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
+                .texture("textures/models/alchemyarrays/elevatorarray.png")
+                .save(output, "elevator");
     }
 
     private void addTabulaVitaeRecipes(RecipeOutput output) {

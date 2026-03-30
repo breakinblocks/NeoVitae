@@ -920,7 +920,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("array_effect.movement", "Accelerates entities in the direction the array faces.");
         addTooltip("array_effect.day", "Advances the time to dawn. Consumed on use.");
         addTooltip("array_effect.night", "Advances the time to night. Consumed on use.");
-        addTooltip("array_effect.elevator", "Jump to teleport up, crouch to teleport down. Searches up to 64 blocks.");
+        addTooltip("array_effect.elevator", "Requires another Teleposition Array above or below. Jump to teleport up, sneak to go down. Range: 64 blocks.");
 
         // Rituals
         addRitual("water", "Ritual of the Full Spring");

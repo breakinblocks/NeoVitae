@@ -21,17 +21,18 @@ public class TelepositionArrayEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Teleposition Array");
         this.pageText("The [#](8B0000)Teleposition Array[#]() folds space between two aligned glyphs, "
-                + "creating a seamless vertical transit system. Place two or more arrays directly above one "
-                + "another at any distance up to [#](B8860B)64 blocks[#]()."
+                + "creating a seamless vertical transit system. A single array does nothing on its own "
+                + "you must place [#](8B0000)at least two[#]() arrays directly above one another, aligned on "
+                + "the same block column, at any distance up to [#](B8860B)64 blocks[#]()."
                 + "\\\n\\\n[#](B8860B)Jump[#]() while standing on an array to teleport upward to the next array above. "
-                + "[#](B8860B)Crouch[#]() to descend to the nearest array below.");
+                + "[#](B8860B)Sneak[#]() to descend to the nearest array below.");
 
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Multiple arrays can be chained vertically to create a multi-floor elevator shaft. "
                 + "Each array searches only along the same X/Z column, so they must be precisely aligned."
                 + "\\\n\\\n[#](2E8B57)Place one at the bottom of your base and one at the top for instant vertical transit. "
-                + "Add intermediate floors as needed - each jump or crouch moves you to the nearest array, "
+                + "Add intermediate floors as needed, each jump or sneak moves you to the nearest array, "
                 + "not the furthest.[#]()");
     }
 

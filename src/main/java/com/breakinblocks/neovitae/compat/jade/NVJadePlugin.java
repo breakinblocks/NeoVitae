@@ -42,5 +42,12 @@ public class NVJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, BloodLightBlock.class);
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, HellfireForgeBlock.class);
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, BlockIncenseAltar.class);
+        registration.addRayTraceCallback((hitResult, accessor, original) -> {
+            if (accessor instanceof snownee.jade.api.EntityAccessor entityAccessor
+                    && entityAccessor.getEntity() instanceof com.breakinblocks.neovitae.common.entity.BloodShieldEntity) {
+                return null;
+            }
+            return accessor;
+        });
     }
 }

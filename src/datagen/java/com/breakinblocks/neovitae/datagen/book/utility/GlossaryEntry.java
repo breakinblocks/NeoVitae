@@ -29,7 +29,7 @@ public class GlossaryEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Blood");
         this.pageText("[#](8B0000)Blood[#]() is the raw, unrefined substance found coursing through every living creature. "
-                + "When you draw a blade across your flesh, or when the [#](8B0000)Dagger of Sacrifice[#]() claims a life, "
+                + "When you offer your own vitality, or when a creature falls with an orb in your grasp, "
                 + "it is this crude vitality you offer to the Ara Vitae for purification.");
 
         this.page("essentia_vitae", () -> BookTextPageModel.create()

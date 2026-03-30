@@ -158,8 +158,6 @@ public class NVItemModelProvider extends ItemModelProvider {
             orbBuilder.override().predicate(NeoVitae.rl("fill_level"), 0.8f).model(fillModels[4]).end();
         }
 
-        basicItem(NVItems.DAGGER_OF_SACRIFICE.get());
-
         ModelFile normalDagger = singleTexture("item/variant/sacrificial_dagger_normal", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger"));
         ModelFile chargedDagger = singleTexture("item/variant/sacrificial_dagger_charged", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger_charged"));
         ModelFile alternateOrb = singleTexture("item/variant/sacrificial_dagger_alternate", mcLoc("item/generated"), "layer0", modLoc("item/glass_orb"));

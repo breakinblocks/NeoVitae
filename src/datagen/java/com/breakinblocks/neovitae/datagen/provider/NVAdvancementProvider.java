@@ -399,14 +399,6 @@ public class NVAdvancementProvider extends AdvancementProvider {
                     .addCriterion("get_dagger", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SACRIFICIAL_DAGGER.get()))
                     .save(saver, NeoVitae.rl("neovitae/self_sacrifice").toString());
 
-            Advancement.Builder.advancement()
-                    .parent(selfSacrifice)
-                    .display(NVItems.DAGGER_OF_SACRIFICE.get(),
-                            Component.translatable("advancements.neovitae.sacrifice.title"),
-                            Component.translatable("advancements.neovitae.sacrifice.description"),
-                            null, AdvancementType.GOAL, true, true, false)
-                    .addCriterion("get_dagger", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.DAGGER_OF_SACRIFICE.get()))
-                    .save(saver, NeoVitae.rl("neovitae/sacrifice").toString());
 
             // Epic Hidden Achievement (off transcendent_blood_orb)
             Advancement.Builder.advancement()

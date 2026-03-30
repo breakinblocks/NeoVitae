@@ -148,28 +148,6 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.ara_vitae.dagger_of_sacrifice.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.ara_vitae.dagger_recipe.text",
-      "title": "book.neovitae.guide.altar.ara_vitae.dagger_recipe.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
       "text": "book.neovitae.guide.altar.ara_vitae.tier3_text.text",
       "title": "",
       "use_markdown_in_title": false

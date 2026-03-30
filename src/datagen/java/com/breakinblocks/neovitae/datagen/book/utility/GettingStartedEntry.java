@@ -71,9 +71,9 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Second Tier");
-        this.pageText("[#](B8860B)Tier I[#]() grants the [#](8B0000)Dagger of Sacrifice[#](), a blade that lets you "
-                + "harvest [#](4A0080)Essentia Vitae[#]() from slain creatures, sparing your own veins. "
-                + "Upgrade Runes become available for the Ara Vitae, and new Sigils emerge.\\\n\\\n"
+        this.pageText("[#](B8860B)Tier I[#]() unlocks Upgrade Runes for the Ara Vitae and new Sigils. "
+                + "Slay creatures while holding an [#](8B0000)Orb of Vitae[#]() in your off-hand to harvest "
+                + "[#](4A0080)Essentia Vitae[#]() directly into the orb, sparing your own veins.\\\n\\\n"
                 + "As always, continue expanding and upgrading your altar. Its hunger grows with your ambition.");
 
         this.page("tier2_potions", () -> BookTextPageModel.create()

@@ -231,7 +231,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.SPIRITUS_SNARE.get(), "Soul Snare");
         addTooltip("soulSnare.desc", "Throw at weakened mobs to extract their soul");
         add(NVItems.WEAK_BLOOD_SHARD.get(), "Weak Blood Shard");
-        add(NVItems.DAGGER_OF_SACRIFICE.get(), "Dagger of Sacrifice");
+
         add(NVItems.LAVA_CRYSTAL.get(), "Lava Crystal");
         addTooltip("lavaCrystal.desc", "Place fire, bindable furnace fuel");
         add("chat.neovitae.notEnoughLP", "Not enough Essentia Vitae!");
@@ -649,7 +649,6 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Dagger tooltips
         addTooltip("sacrificial_dagger.desc", "The Gift of Vitae");
         add("item.neovitae.sacrificial_dagger.alternate", "Orb of Sacrifice");
-        addTooltip("dagger_of_sacrifice.desc", "Theft of Vitae");
 
         // Rune tooltips
         addTooltip("rune.blank", "A basic rune with no special effect");
@@ -1042,7 +1041,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("vas_maleficum", "Vas Maleficum", "Craft a Vas Maleficum");
         addAdvancement("living_armor", "Living Armor", "Craft Living Armor");
         addAdvancement("self_sacrifice", "Blood Pact", "Craft a Sacrificial Dagger");
-        addAdvancement("sacrifice", "The Greater Sacrifice", "Craft a Dagger of Sacrifice");
+
         addAdvancement("blood_sweat_and_tears", "Blood, Sweat & Tears", "Craft the legendary record at a Tier 6 altar");
     }
 

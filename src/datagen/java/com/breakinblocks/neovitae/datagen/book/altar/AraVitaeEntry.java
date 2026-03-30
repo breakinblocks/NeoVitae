@@ -100,21 +100,6 @@ public class AraVitaeEntry extends EntryProvider {
         this.pageTitle("Tier 1 Ara Vitae");
         this.pageText("Eight runes encircle the basin. The altar stirs with new hunger.");
 
-        this.page("dagger_of_sacrifice", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("With a Tier 1 altar, you unlock a darker means of gathering [#](4A0080)Essentia Vitae[#](). "
-                + "The [#](8B0000)Dagger of Sacrifice[#](), the Dagger of Expenditure, slays any creature that "
-                + "wanders within two blocks of your altar, harvesting its lifeforce in a single, merciless stroke."
-                + "\\\n\\\n[#](8B0000)Runes of Sacrifice[#]() amplify the yield. Different creatures surrender different "
-                + "quantities of essence.");
-
-        this.page("dagger_recipe", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Dagger of Sacrifice");
-        this.pageText("Forge the Dagger of Sacrifice in the Ara Vitae ([#](B8860B)Tier 1[#](), cost: 3,000 EV)."
-                + "\\\n\\\n[#](2E8B57)The squeamish may wish to look away. The altar does not judge what, or whom, you feed it.[#]()");
-
         this.page("tier3_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("[#](B8860B)Tier 2[#]() expands the structure outward: 5 runes along each edge, set one level "

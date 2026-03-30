@@ -46,11 +46,11 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.DURABILITY_ENCHANTABLE)
                 .add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get(),
                         NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(),
-                        NVItems.SENTIENT_SCYTHE.get(), NVItems.DAGGER_OF_SACRIFICE.get());
+                        NVItems.SENTIENT_SCYTHE.get());
         tag(ItemTags.VANISHING_ENCHANTABLE)
                 .add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get(),
                         NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(),
-                        NVItems.SENTIENT_SCYTHE.get(), NVItems.DAGGER_OF_SACRIFICE.get());
+                        NVItems.SENTIENT_SCYTHE.get());
 
         tag(NVTags.Items.SPIRITUS_CRYSTALS)
                 .add(NVItems.RAW_CRYSTAL.get())

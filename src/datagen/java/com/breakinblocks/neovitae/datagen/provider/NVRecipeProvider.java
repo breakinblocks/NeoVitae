@@ -757,14 +757,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
                 .save(output, NeoVitae.rl("spiritus_snare"));
 
-        AltarRecipeBuilder.build(NVItems.DAGGER_OF_SACRIFICE.get())
-                .from(Items.IRON_SWORD)
-                .minTier(1)
-                .bloodNeeded(3000)
-                .consumption(5)
-                .drain(5)
-                .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
-                .save(output, NeoVitae.rl("dagger_of_sacrifice"));
 
         AltarRecipeBuilder.build(NVFluids.ESSENTIA_VITAE_BUCKET.get())
                 .from(Items.BUCKET)

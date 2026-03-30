@@ -45,7 +45,7 @@ public class AraVitaeEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_one"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier 1 Ara Vitae");
+        this.pageTitle("Tier 0 Ara Vitae");
         this.pageText("The simplest form. A lone altar, unadorned by runes.");
 
         this.page("knife", () -> BookTextPageModel.create()
@@ -73,7 +73,7 @@ public class AraVitaeEntry extends EntryProvider {
         this.page("first_craft", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Your first creation should be the [#](8B0000)Novicius Orb of Vitae[#](), a diamond offered to "
-                + "a Tier 1 altar along with [#](8B0000)2,000 EV[#](). This orb is the key to your "
+                + "a Tier 0 altar along with [#](8B0000)2,000 EV[#](). This orb is the key to your "
                 + "[#](4A0080)Anima[#](), the invisible network that binds your soul to all your vitaemantic instruments. "
                 + "Consult JEI for all recipes the Ara Vitae can perform.");
 
@@ -89,20 +89,20 @@ public class AraVitaeEntry extends EntryProvider {
 
         this.page("tier2_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Tier 2[#]() demands 8 [#](8B0000)Blood Runes[#]() arranged in a ring around the altar. "
+        this.pageText("[#](B8860B)Tier 1[#]() demands 8 [#](8B0000)Blood Runes[#]() arranged in a ring around the altar. "
                 + "The four cardinal runes may be replaced with specialized variants; the corner runes remain "
-                + "inert until Tier 3 unlocks their potential.");
+                + "inert until Tier 2 unlocks their potential.");
 
         this.page("tier2", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_two"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier 2 Ara Vitae");
+        this.pageTitle("Tier 1 Ara Vitae");
         this.pageText("Eight runes encircle the basin. The altar stirs with new hunger.");
 
         this.page("dagger_of_sacrifice", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("With a Tier 2 altar, you unlock a darker means of gathering [#](4A0080)Essentia Vitae[#](). "
+        this.pageText("With a Tier 1 altar, you unlock a darker means of gathering [#](4A0080)Essentia Vitae[#](). "
                 + "The [#](8B0000)Dagger of Sacrifice[#](), the Dagger of Expenditure, slays any creature that "
                 + "wanders within two blocks of your altar, harvesting its lifeforce in a single, merciless stroke."
                 + "\\\n\\\n[#](8B0000)Runes of Sacrifice[#]() amplify the yield. Different creatures surrender different "
@@ -112,12 +112,12 @@ public class AraVitaeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Dagger of Sacrifice");
-        this.pageText("Forge the Dagger of Sacrifice in the Ara Vitae ([#](B8860B)Tier 2[#](), cost: 3,000 EV)."
+        this.pageText("Forge the Dagger of Sacrifice in the Ara Vitae ([#](B8860B)Tier 1[#](), cost: 3,000 EV)."
                 + "\\\n\\\n[#](2E8B57)The squeamish may wish to look away. The altar does not judge what, or whom, you feed it.[#]()");
 
         this.page("tier3_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Tier 3[#]() expands the structure outward: 5 runes along each edge, set one level "
+        this.pageText("[#](B8860B)Tier 2[#]() expands the structure outward: 5 runes along each edge, set one level "
                 + "down and two blocks out from the previous ring. Stone pillars rise at each corner, capped with "
                 + "[#](8B0000)Blood Stained Glass[#](), light to guide the essence. Use a [#](8B0000)Divination Sigil[#]() to confirm "
                 + "the upgrade. Any solid block suffices for the pillar bodies.");
@@ -126,12 +126,12 @@ public class AraVitaeEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_three"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier 3 Ara Vitae");
+        this.pageTitle("Tier 2 Ara Vitae");
         this.pageText("28 total runes. The altar's appetite deepens.");
 
         this.page("tier4_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Tier 4[#]() demands 7 runes per edge, another level down and two blocks further out. "
+        this.pageText("[#](B8860B)Tier 3[#]() demands 7 runes per edge, another level down and two blocks further out. "
                 + "Four-block pillars rise at each corner, crowned with [#](8B0000)Bloodstone Bricks[#](), for which you "
                 + "will need [#](8B0000)Tau Fruit[#](), harvested from beyond the [#](4A0080)Edge of the Hidden Realm[#]() ritual.");
 
@@ -139,12 +139,12 @@ public class AraVitaeEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_four"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier 4 Ara Vitae");
+        this.pageTitle("Tier 3 Ara Vitae");
         this.pageText("56 total runes. The structure groans with barely-contained power.");
 
         this.page("tier5_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Tier 5[#]() calls for 13 runes per edge, three blocks out from the previous ring, "
+        this.pageText("[#](B8860B)Tier 4[#]() calls for 13 runes per edge, three blocks out from the previous ring, "
                 + "with a one-block gap at each end. [#](8B0000)Hellforged Blocks[#]() anchor the corners, rare metal "
                 + "wrested from the [#](4A0080)Demon Realm[#]() itself. The altar now commands fearsome energies.");
 
@@ -152,7 +152,7 @@ public class AraVitaeEntry extends EntryProvider {
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_five"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier 5 Ara Vitae");
+        this.pageTitle("Tier 4 Ara Vitae");
         this.pageText("108 total runes. Few Vitaemancers dare reach this height.");
 
         this.page("tier6_text", () -> BookTextPageModel.create()

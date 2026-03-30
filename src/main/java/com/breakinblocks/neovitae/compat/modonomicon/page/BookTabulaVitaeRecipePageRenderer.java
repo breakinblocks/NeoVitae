@@ -69,7 +69,7 @@ public class BookTabulaVitaeRecipePageRenderer extends BookRecipePageRenderer<Ta
 
         int textY = recipeY + (rows * slotSize) + 4;
         String lpFormatted = String.format("%,d", recipe.getSyphon());
-        Component info = Component.literal(lpFormatted + " LP | " + (recipe.getTicks() / 20) + "s");
+        Component info = Component.literal(lpFormatted + " EV | " + (recipe.getTicks() / 20) + "s");
         this.drawCenteredStringNoShadow(guiGraphics, info.getVisualOrderText(),
                 BookEntryScreen.PAGE_WIDTH / 2, textY, 0x555555, 1.0f);
     }

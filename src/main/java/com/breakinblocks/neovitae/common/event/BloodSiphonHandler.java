@@ -106,7 +106,7 @@ public class BloodSiphonHandler {
 
         int lpCost = (int) (damagePrevented * NeoVitae.SERVER_CONFIG.BLOOD_SHIELD_LP_COST_MULTIPLIER.get());
 
-        // Only apply the shield if we can afford the LP cost
+        // Only apply the shield if we can afford the EV cost
         int currentLP = network.getCurrentEV();
         if (currentLP >= lpCost) {
             network.syphon(AnimaTicket.create(lpCost));

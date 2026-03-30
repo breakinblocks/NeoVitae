@@ -34,7 +34,7 @@ public class SigilStatsProvider implements DataProvider {
     }
 
     protected void addSigils() {
-        // Divination sigils - no LP cost (info only)
+        // Divination sigils - no EV cost (info only)
         add(NVItems.SIGIL_DIVINATION, SigilStats.simple(0));
         add(NVItems.SIGIL_SEER, SigilStats.simple(0));
 
@@ -66,7 +66,7 @@ public class SigilStatsProvider implements DataProvider {
         // Suppression: radius 5 horizontal, 5 vertical
         add(NVItems.SIGIL_SUPPRESSION, SigilStats.ranged(400, 5, 5));
 
-        // Holding: no LP cost (container only)
+        // Holding: no EV cost (container only)
         add(NVItems.SIGIL_HOLDING, SigilStats.simple(0));
     }
 

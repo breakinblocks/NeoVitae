@@ -29,7 +29,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.page("tier1_altar", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("The Ara Vitae (Tier I)");
+        this.pageTitle("The Ara Vitae (Tier 0)");
         this.pageText("Your first act as a Vitaemancer is to construct an [#](8B0000)Ara Vitae[#]() and a "
                 + "[#](8B0000)Sacrificial Knife[#](). With blade in hand, you offer your own blood to the altar, "
                 + "and it drinks deeply, refining it into [#](4A0080)Essentia Vitae[#]().\\\n\\\n"
@@ -39,7 +39,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.page("tier1_alchemy", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("The Tabula Vitae (Tier I)");
+        this.pageTitle("The Tabula Vitae (Tier 0)");
         this.pageText("The [#](8B0000)Tabula Vitae[#]() draws [#](4A0080)Essentia Vitae[#]() from your "
                 + "[#](4A0080)Anima[#]() through the Orb of Vitae placed within, channeling it into a myriad of creations:\n\n"
                 + "- [#](8B0000)Arcane Ashes[#]() for array work\n"
@@ -51,7 +51,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.page("tier1_array", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Alchemy Arrays (Tier I)");
+        this.pageTitle("Alchemy Arrays (Tier 0)");
         this.pageText("Scatter [#](8B0000)Arcane Ashes[#]() upon the ground, and a circle of power awakens. "
                 + "This is the [#](8B0000)Alchemy Array[#]() - a versatile glyph that accepts two offerings.\\\n\\\n"
                 + "Some combinations yield crafted objects, such as the [#](8B0000)Divination Sigil[#](). "
@@ -60,7 +60,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.page("tier1_forge", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("The Hellfire Forge (Tier I)");
+        this.pageTitle("The Hellfire Forge (Tier 0)");
         this.pageText("The [#](8B0000)Hellfire Forge[#]() is fueled by [#](4A0080)Spiritus[#]() - "
                 + "that strange substance torn from slain creatures with your Soul Snares. A "
                 + "[#](8B0000)Sentient Sword[#]() harvests it far more efficiently.\\\n\\\n"
@@ -71,7 +71,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Second Tier");
-        this.pageText("[#](B8860B)Tier II[#]() grants the [#](8B0000)Dagger of Sacrifice[#](), a blade that lets you "
+        this.pageText("[#](B8860B)Tier I[#]() grants the [#](8B0000)Dagger of Sacrifice[#](), a blade that lets you "
                 + "harvest [#](4A0080)Essentia Vitae[#]() from slain creatures, sparing your own veins. "
                 + "Upgrade Runes become available for the Ara Vitae, and new Sigils emerge.\\\n\\\n"
                 + "As always, continue expanding and upgrading your altar. Its hunger grows with your ambition.");
@@ -79,9 +79,9 @@ public class GettingStartedEntry extends EntryProvider {
         this.page("tier2_potions", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Potioncrafting (Tier II)");
+        this.pageTitle("Potioncrafting (Tier I)");
         this.pageText("Should the altar's construction grow tiresome, a welcome diversion awaits. "
-                + "The potioncrafting system opens at [#](B8860B)Tier II[#](), allowing you to prepare "
+                + "The potioncrafting system opens at [#](B8860B)Tier I[#](), allowing you to prepare "
                 + "[#](8B0000)Alchemy Flasks[#]() or tip your [#](8B0000)Amethyst Throwing Daggers[#]() "
                 + "with dozens of potent effects.\\\n\\\n"
                 + "A Vitaemancer with a well-stocked flask belt is never truly in danger.");
@@ -90,7 +90,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Third Tier");
-        this.pageText("At [#](B8860B)Tier III[#](), the true scope of Vitaemancy reveals itself. "
+        this.pageText("At [#](B8860B)Tier II[#](), the true scope of Vitaemancy reveals itself. "
                 + "You gain the ability to inscribe [#](4A0080)Rituals[#]() and forge "
                 + "[#](8B0000)Living Armour[#]() - equipment that grows stronger through the trials you endure.\\\n\\\n"
                 + "Turn your attention to upgrading both the Ara Vitae and your "
@@ -99,7 +99,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.page("tier3_dungeon", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Dungeoneering (Tier III)");
+        this.pageTitle("Dungeoneering (Tier II)");
         this.pageText("By performing the [#](4A0080)Edge of the Hidden Realm[#](), you tear a wound in the veil "
                 + "and gain limited passage into the [#](4A0080)Demon Realm[#](). There, among the horrors, "
                 + "you may find [#](8B0000)Tau Fruit[#]().\\\n\\\n"
@@ -110,7 +110,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Fourth Tier");
-        this.pageText("[#](B8860B)Tier IV[#]() unlocks the [#](8B0000)Ritual Diviner [Dusk][#](), and with it, "
+        this.pageText("[#](B8860B)Tier III[#]() unlocks the [#](8B0000)Ritual Diviner [Dusk][#](), and with it, "
                 + "a vast repertoire of advanced rites. Automate your [#](4A0080)Essentia Vitae[#]() supply, "
                 + "soar in unfettered flight within your sanctum, or call down a devastating "
                 + "[#](4A0080)meteor[#]() laden with precious bounty from the heavens above.");
@@ -118,7 +118,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.page("tier4_armour", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Living Evolution (Tier IV)");
+        this.pageTitle("Living Evolution (Tier III)");
         this.pageText("Your [#](8B0000)Living Armour[#]() may have begun to feel constrained by its modest "
                 + "point cap. With the Dusk Diviner, you may now perform the "
                 + "[#](4A0080)Ritual of Living Evolution[#](), raising your armour's capacity from "
@@ -156,7 +156,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.page("tier4_will", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Aspected Spiritus (Tier IV)");
+        this.pageTitle("Aspected Spiritus (Tier III)");
         this.pageText("Investigate the [#](8B0000)Ritual Tinkerer[#]() and the various "
                 + "[#](4A0080)Aspects of Spiritus[#]() now available. These aspects can refine your rituals "
                 + "and reshape how your Sentient Tools behave.\\\n\\\n"
@@ -166,7 +166,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.page("tier4_demon", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("The Demon Realm (Tier IV)");
+        this.pageTitle("The Demon Realm (Tier III)");
         this.pageText("The [#](4A0080)Pathway to the Endless Realm[#]() tears open a permanent gate into "
                 + "the demon dimension. Come armed and armoured - the realm does not suffer the unprepared.\\\n\\\n"
                 + "Delve deep enough, and you may unearth [#](8B0000)Demonite Ore[#](), "
@@ -177,7 +177,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Fifth Tier");
-        this.pageText("[#](B8860B)Tier V[#]() grants access to the most devastating rituals and the "
+        this.pageText("[#](B8860B)Tier IV[#]() grants access to the most devastating rituals and the "
                 + "most potent crafting recipes in all of Vitaemancy.\\\n\\\n"
                 + "Continue your expeditions into the Demon Realm. With fortune, you may recover "
                 + "[#](8B0000)Intricate Hellforged Parts[#](), which, combined with Netherite Scrap, "

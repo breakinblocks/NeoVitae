@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * Data-driven imperfect ritual statistics that can be customized via datapacks.
  *
- * @param activationCost LP cost to activate the ritual
+ * @param activationCost EV cost to activate the ritual
  * @param block The block required above the ritual stone (as registry name)
  * @param blockTag Optional block tag that can be used instead of a specific block
  * @param consumeBlock Whether the catalyst block should be consumed on activation

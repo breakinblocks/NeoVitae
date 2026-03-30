@@ -14,8 +14,8 @@ import java.util.Map;
  *
  * @param ritualId        The ritual's registry ID
  * @param translationKey  Translation key prefix for the ritual
- * @param activationCost  LP cost to activate
- * @param refreshCost     LP cost per operation
+ * @param activationCost  EV cost to activate
+ * @param refreshCost     EV cost per operation
  * @param crystalLevel    Required activation crystal tier (0 = weak, 1 = awakened)
  * @param components      List of rune components
  * @param runeCounts      Map of rune type to count

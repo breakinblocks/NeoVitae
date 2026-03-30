@@ -70,8 +70,8 @@ public class BookHellfireForgeRecipePageRenderer extends BookRecipePageRenderer<
         int textY = recipeY + (rows * slotSize) + 4;
         String willFormatted = String.format("%,.0f", recipe.getMinWill());
         String drainFormatted = String.format("%,.0f", recipe.getDrain());
-        Component info = Component.literal("Will: " + willFormatted + " | Drain: " + drainFormatted);
+        Component info = Component.literal("Spiritus: " + willFormatted + " | Drain: " + drainFormatted);
         this.drawCenteredStringNoShadow(guiGraphics, info.getVisualOrderText(),
-                BookEntryScreen.PAGE_WIDTH / 2, textY, 0x555555, 1.0f);
+                BookEntryScreen.PAGE_WIDTH / 2, textY, 0x555555, 0.8f);
     }
 }

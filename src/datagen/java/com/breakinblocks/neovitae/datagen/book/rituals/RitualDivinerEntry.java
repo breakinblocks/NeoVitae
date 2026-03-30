@@ -49,8 +49,8 @@ public class RitualDivinerEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Inscription Tools");
-        this.pageText("The base Diviner requires one of each [#](8B0000)Elemental Inscription Tool[#](), and thus a [#](B8860B)Tier 3[#]() [#](8B0000)Ara Vitae[#]()."
-                + "\\\n\\\nThe four elemental tools each cost [#](8B0000)1,000 EV[#]() to craft. The [#](B8860B)Dusk[#]() variant requires a [#](B8860B)Tier 4[#]() Altar and two [#](8B0000)Dusk Inscription Tools[#]() at [#](8B0000)2,000 EV[#]() each."
+        this.pageText("The base Diviner requires one of each [#](8B0000)Elemental Inscription Tool[#](), and thus a [#](B8860B)Tier 2[#]() [#](8B0000)Ara Vitae[#]()."
+                + "\\\n\\\nThe four elemental tools each cost [#](8B0000)1,000 EV[#]() to craft. The [#](B8860B)Dusk[#]() variant requires a [#](B8860B)Tier 3[#]() Altar and two [#](8B0000)Dusk Inscription Tools[#]() at [#](8B0000)2,000 EV[#]() each."
                 + "\\\n\\\nWhile the Diviner handles functional ritual construction, the inscription tools remain useful for [#](2E8B57)decorative purposes[#](). "
                 + "Use them to paint ritual markings onto stones by hand for aesthetic ritual circles, "
                 + "thematic builds, or simply to mark areas of importance. They never break, so use them freely.");

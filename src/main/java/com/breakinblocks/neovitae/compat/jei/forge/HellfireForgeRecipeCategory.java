@@ -83,7 +83,7 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
 
         var poseStack = guiGraphics.pose();
         poseStack.pushPose();
-        poseStack.translate(45, 23, 0);
+        poseStack.translate(40, 33, 0);
         poseStack.scale(0.5f, 0.5f, 1f);
         guiGraphics.drawString(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.will"), 0, 0, 0x8b8b8b, false);
         poseStack.popPose();

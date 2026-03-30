@@ -53,7 +53,7 @@ public interface IImperfectRitual {
     Predicate<BlockState> getBlockRequirement();
 
     /**
-     * Gets the LP cost to activate this ritual.
+     * Gets the EV cost to activate this ritual.
      *
      * <p>Note: Costs can be overridden via DataMaps (ImperfectRitualStats).</p>
      *

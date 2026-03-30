@@ -23,7 +23,7 @@ import java.awt.*;
 /**
  * JEI category for displaying imperfect ritual recipes.
  * Shows the ritual stone with the required catalyst block above it,
- * along with LP cost and effect description.
+ * along with EV cost and effect description.
  */
 public class ImperfectRitualRecipeCategory implements IRecipeCategory<ImperfectRitualJEIRecipe> {
 
@@ -79,7 +79,7 @@ public class ImperfectRitualRecipeCategory implements IRecipeCategory<ImperfectR
         int nameWidth = mc.font.width(ritualName);
         guiGraphics.drawString(mc.font, ritualName, (WIDTH - nameWidth) / 2, 2, Color.DARK_GRAY.getRGB(), false);
 
-        String lpCost = recipe.activationCost() + " LP";
+        String lpCost = recipe.activationCost() + " EV";
         if (recipe.consumesBlock()) {
             lpCost += " (Consumed)";
         }

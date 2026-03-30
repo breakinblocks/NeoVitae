@@ -775,7 +775,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addCommand("imperfect_ritual.unknown", "Unknown imperfect ritual: %s");
         addCommand("imperfect_ritual.no_block", "Imperfect ritual %s has no block requirement in DataMap.");
         addCommand("imperfect_ritual.activated", "Imperfect ritual %s activated.");
-        addCommand("imperfect_ritual.failed", "Imperfect ritual %s failed to activate (insufficient LP?).");
+        addCommand("imperfect_ritual.failed", "Imperfect ritual %s failed to activate (insufficient EV?).");
         addCommand("imperfect_ritual.placed", "Placed block for imperfect ritual %s: %s");
         addCommand("imperfect_ritual.list.header", "=== Available Imperfect Rituals ===");
 

@@ -21,7 +21,7 @@ import java.util.*;
 
 /**
  * Recipe for meteor summoning.
- * Defines the catalyst item, LP cost, explosion radius, and block layers.
+ * Defines the catalyst item, EV cost, explosion radius, and block layers.
  */
 public class MeteorRecipe implements Recipe<MeteorInput> {
 

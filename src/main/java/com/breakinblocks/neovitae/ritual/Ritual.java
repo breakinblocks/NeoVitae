@@ -35,7 +35,7 @@ public abstract class Ritual {
      *
      * @param name           Unique identifier for this ritual
      * @param crystalLevel   Required activation crystal tier (1 = weak, 2 = awakened)
-     * @param activationCost Base LP cost to activate
+     * @param activationCost Base EV cost to activate
      * @param translationKey Translation key prefix for localization
      */
     public Ritual(String name, int crystalLevel, int activationCost, String translationKey) {

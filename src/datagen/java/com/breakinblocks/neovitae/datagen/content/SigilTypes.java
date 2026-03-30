@@ -34,7 +34,7 @@ public class SigilTypes {
     public static final ResourceKey<SigilType> PHANTOM_BRIDGE = SigilTypeRegistry.key("phantom_bridge");
 
     public static void bootstrap(BootstrapContext<SigilType> context) {
-        // Divination sigils - information display, no LP cost
+        // Divination sigils - information display, no EV cost
         context.register(DIVINATION, simple(0, new DivinationSigilEffect(false)));
         context.register(SEER, simple(0, new DivinationSigilEffect(true)));
 

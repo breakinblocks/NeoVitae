@@ -24,7 +24,7 @@ public class BloodstoneBricksEntry extends EntryProvider {
         this.pageTitle("Bloodstone Bricks");
         this.pageText("[#](8B0000)Bloodstone Bricks[#]() are stone saturated with crystallized life force, "
                 + "dark and warm to the touch. Beyond their unsettling beauty, they serve as the "
-                + "[#](B8860B)capstones for the Tier IV Ara Vitae[#]().\\\n\\\n"
+                + "[#](B8860B)capstones for the Tier III Ara Vitae[#]().\\\n\\\n"
                 + "Their creation requires [#](8B0000)Weak Blood Shards[#](), obtained by placing "
                 + "[#](8B0000)Saturated Tau[#]() into the Athanor with a Sanguine Reverter.");
 

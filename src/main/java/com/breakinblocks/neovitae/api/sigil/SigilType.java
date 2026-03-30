@@ -14,7 +14,7 @@ import com.breakinblocks.neovitae.registry.SigilTypeRegistry;
 import java.util.Optional;
 
 /**
- * A datapack-driven definition for a sigil, pairing LP cost configuration with
+ * A datapack-driven definition for a sigil, pairing EV cost configuration with
  * an {@link ISigilEffect} implementation that provides the actual behavior.
  *
  * <p>{@code SigilType} instances are loaded from JSON datapacks and registered into
@@ -22,7 +22,7 @@ import java.util.Optional;
  * to determine its costs and behavior.</p>
  *
  * <h3>Relationship to SigilEffect</h3>
- * <p>{@code SigilType} is the <em>data</em> side -- it holds LP costs, drain intervals,
+ * <p>{@code SigilType} is the <em>data</em> side -- it holds EV costs, drain intervals,
  * and a reference to the {@link ISigilEffect} that implements the sigil's logic.
  * {@link ISigilEffect} / {@link SigilEffect} is the <em>behavior</em> side -- it defines
  * what happens when the sigil is used or ticked. A single {@code ISigilEffect} implementation
@@ -31,16 +31,16 @@ import java.util.Optional;
  * <h3>Creating Sigil Types</h3>
  * <p>Use the provided factory methods for common patterns:</p>
  * <ul>
- *   <li>{@link #simple(int, ISigilEffect)} -- one-shot sigils with an air-use LP cost</li>
+ *   <li>{@link #simple(int, ISigilEffect)} -- one-shot sigils with an air-use EV cost</li>
  *   <li>{@link #toggleable(int, int, ISigilEffect)} -- sigils that can be toggled on/off</li>
  *   <li>{@link #toggleableWithUse(int, int, int, ISigilEffect)} -- toggleable sigils that also
- *       have a block-use action with a separate LP cost</li>
+ *       have a block-use action with a separate EV cost</li>
  * </ul>
  *
- * @param lpCostAir      LP cost when used in air (right-click air)
- * @param lpCostBlock    LP cost when used on a block
- * @param lpCostEntity   LP cost when used on an entity
- * @param lpCostActive   LP cost per drain interval when the sigil is actively toggled on
+ * @param lpCostAir      EV cost when used in air (right-click air)
+ * @param lpCostBlock    EV cost when used on a block
+ * @param lpCostEntity   EV cost when used on an entity
+ * @param lpCostActive   EV cost per drain interval when the sigil is actively toggled on
  * @param drainInterval  ticks between LP drain for toggleable sigils (default: 100 = 5 seconds)
  * @param effect         the sigil effect implementation, or empty if this type has no behavior
  *
@@ -95,7 +95,7 @@ public record SigilType(
     /**
      * Creates a simple one-shot sigil type that drains LP when right-clicked in air.
      *
-     * @param lpCost the LP cost for air usage
+     * @param lpCost the EV cost for air usage
      * @param effect the sigil effect implementation
      * @return a new non-toggleable sigil type
      */
@@ -106,7 +106,7 @@ public record SigilType(
     /**
      * Creates a toggleable sigil type that periodically drains LP while active.
      *
-     * @param lpCostActive  LP cost per drain tick while the sigil is toggled on
+     * @param lpCostActive  EV cost per drain tick while the sigil is toggled on
      * @param drainInterval ticks between each LP drain
      * @param effect        the sigil effect implementation (must return {@code true} from
      *                      {@link ISigilEffect#isToggleable()})
@@ -117,10 +117,10 @@ public record SigilType(
     }
 
     /**
-     * Creates a toggleable sigil type that also has a block-use action with its own LP cost.
+     * Creates a toggleable sigil type that also has a block-use action with its own EV cost.
      *
-     * @param lpCostBlock   LP cost when used on a block
-     * @param lpCostActive  LP cost per drain tick while the sigil is toggled on
+     * @param lpCostBlock   EV cost when used on a block
+     * @param lpCostActive  EV cost per drain tick while the sigil is toggled on
      * @param drainInterval ticks between each LP drain
      * @param effect        the sigil effect implementation
      * @return a new toggleable sigil type with block-use support
@@ -140,10 +140,10 @@ public record SigilType(
     }
 
     /**
-     * Returns the LP cost for the given usage context.
+     * Returns the EV cost for the given usage context.
      *
      * @param context the context in which the sigil is being used
-     * @return the LP cost, or 0 if no cost is defined for that context
+     * @return the EV cost, or 0 if no cost is defined for that context
      */
     public int getCostForContext(UseContext context) {
         return switch (context) {
@@ -155,7 +155,7 @@ public record SigilType(
     }
 
     /**
-     * The context in which a sigil is being used, determining which LP cost applies.
+     * The context in which a sigil is being used, determining which EV cost applies.
      */
     public enum UseContext {
         AIR,

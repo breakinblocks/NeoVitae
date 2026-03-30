@@ -58,17 +58,17 @@ public class AnimaEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Orb of Vitae Recipes");
-        this.pageText("Forge the [#](8B0000)Novicius Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 1[#](), cost: 2,000 EV)."
-                + "\\\n\\\nForge the [#](8B0000)Discipulus Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 2[#](), cost: 5,000 EV).");
+        this.pageText("Forge the [#](8B0000)Novicius Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 0[#](), cost: 2,000 EV)."
+                + "\\\n\\\nForge the [#](8B0000)Discipulus Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 1[#](), cost: 5,000 EV).");
 
         this.page("magician_master", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Forge the [#](8B0000)Veneficus Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 3[#](), cost: 25,000 EV)."
-                + "\\\n\\\nForge the [#](8B0000)Magus Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 4[#](), cost: 50,000 EV).");
+        this.pageText("Forge the [#](8B0000)Veneficus Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 2[#](), cost: 25,000 EV)."
+                + "\\\n\\\nForge the [#](8B0000)Magus Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 3[#](), cost: 50,000 EV).");
 
         this.page("archmage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Forge the [#](8B0000)Dominus Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 5[#](), cost: 80,000 EV)."
+        this.pageText("Forge the [#](8B0000)Dominus Orb of Vitae[#]() in the Ara Vitae ([#](B8860B)Tier 4[#](), cost: 80,000 EV)."
                 + "\\\n\\\n[#](2E8B57)Should even this not sate your ambitions, the Runes of the Orb can stretch your "
                 + "Anima further still.[#]()");
 

@@ -21,7 +21,7 @@ import java.text.DecimalFormat;
 
 /**
  * JEI category for displaying ritual information.
- * Shows the ritual name, rune requirements, and LP costs
+ * Shows the ritual name, rune requirements, and EV costs
  * in a two-column layout.
  */
 public class RitualRecipeCategory implements IRecipeCategory<RitualJEIRecipe> {
@@ -91,12 +91,12 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualJEIRecipe> {
 
         guiGraphics.drawString(mc.font, Component.translatable("jei.neovitae.recipe.ritual.activation"), LEFT_COL, leftY, 0x606060, false);
         leftY += 10;
-        guiGraphics.drawString(mc.font, DECIMAL_FORMAT.format(recipe.activationCost()) + " LP", LEFT_COL + 4, leftY, 0x808080, false);
+        guiGraphics.drawString(mc.font, DECIMAL_FORMAT.format(recipe.activationCost()) + " EV", LEFT_COL + 4, leftY, 0x808080, false);
         leftY += 12;
 
         guiGraphics.drawString(mc.font, Component.translatable("jei.neovitae.recipe.ritual.refresh"), LEFT_COL, leftY, 0x606060, false);
         leftY += 10;
-        guiGraphics.drawString(mc.font, DECIMAL_FORMAT.format(recipe.refreshCost()) + " LP/op", LEFT_COL + 4, leftY, 0x808080, false);
+        guiGraphics.drawString(mc.font, DECIMAL_FORMAT.format(recipe.refreshCost()) + " EV/op", LEFT_COL + 4, leftY, 0x808080, false);
 
         int rightY = 28;
 

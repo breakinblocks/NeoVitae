@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @param ritualId        The ritual's registry ID
  * @param catalystBlock   The block required above the ritual stone (as ItemStack for display)
- * @param activationCost  LP cost to activate
+ * @param activationCost  EV cost to activate
  * @param description     Description of what the ritual does
  * @param consumesBlock   Whether the catalyst block is consumed
  */

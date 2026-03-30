@@ -27,21 +27,21 @@ public class SlatesEntry extends EntryProvider {
 
         this.page("blank_reinforced", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Blank Slate[#](): Lay smooth stone upon a [#](B8860B)Tier 1[#]() altar. The basin drinks "
+        this.pageText("[#](B8860B)Blank Slate[#](): Lay smooth stone upon a [#](B8860B)Tier 0[#]() altar. The basin drinks "
                 + "[#](8B0000)1,000 EV[#]() and etches the first sigils into the stone."
-                + "\\\n\\\n[#](B8860B)Reinforced Slate[#](): Feed a Blank Slate to a [#](B8860B)Tier 2[#]() altar. "
+                + "\\\n\\\n[#](B8860B)Reinforced Slate[#](): Feed a Blank Slate to a [#](B8860B)Tier 1[#]() altar. "
                 + "Cost: [#](8B0000)2,000 EV[#](). The sigils deepen, the stone hardens with purpose.");
 
         this.page("imbued_demonic", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Imbued Slate[#](): A Reinforced Slate offered to a [#](B8860B)Tier 3[#]() altar. "
+        this.pageText("[#](B8860B)Imbued Slate[#](): A Reinforced Slate offered to a [#](B8860B)Tier 2[#]() altar. "
                 + "Cost: [#](8B0000)5,000 EV[#](). The stone now pulses with a faint, living warmth."
-                + "\\\n\\\n[#](B8860B)Demonic Slate[#](): An Imbued Slate consumed by a [#](B8860B)Tier 4[#]() altar. "
+                + "\\\n\\\n[#](B8860B)Demonic Slate[#](): An Imbued Slate consumed by a [#](B8860B)Tier 3[#]() altar. "
                 + "Cost: [#](8B0000)15,000 EV[#](). Dark veins thread through the tablet like frozen lightning.");
 
         this.page("ethereal", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Ethereal Slate[#](): A Demonic Slate surrendered to a [#](B8860B)Tier 5[#]() altar. "
+        this.pageText("[#](B8860B)Ethereal Slate[#](): A Demonic Slate surrendered to a [#](B8860B)Tier 4[#]() altar. "
                 + "Cost: [#](8B0000)30,000 EV[#](). The slate becomes almost translucent, hovering at the edge "
                 + "between the material and the [#](4A0080)beyond[#]().");
     }

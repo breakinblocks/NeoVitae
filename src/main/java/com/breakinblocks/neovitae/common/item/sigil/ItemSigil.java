@@ -40,7 +40,7 @@ public class ItemSigil extends Item implements IBindable, ISigil {
     }
 
     /**
-     * Gets the LP cost for this sigil, checking the datamap first.
+     * Gets the EV cost for this sigil, checking the datamap first.
      * Falls back to the default value if not in datamap.
      */
     public int getLpUsed() {

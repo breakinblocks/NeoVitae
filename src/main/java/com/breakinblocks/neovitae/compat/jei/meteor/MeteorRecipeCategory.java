@@ -80,7 +80,7 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
     public void draw(MeteorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         Minecraft mc = Minecraft.getInstance();
 
-        String costText = "Cost: " + DECIMAL_FORMAT.format(recipe.getSyphon()) + " LP";
+        String costText = "Cost: " + DECIMAL_FORMAT.format(recipe.getSyphon()) + " EV";
         guiGraphics.drawString(mc.font, costText, 30, 3, Color.GRAY.getRGB(), false);
 
         String explosionText = "Explosion: " + recipe.getExplosionRadius();

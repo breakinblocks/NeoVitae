@@ -3849,7 +3849,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
     /**
      * Meteor recipes for the Meteor Ritual.
-     * Each recipe defines a catalyst item, LP cost, explosion radius, and layers of blocks.
+     * Each recipe defines a catalyst item, EV cost, explosion radius, and layers of blocks.
      */
     private void addMeteorRecipes(RecipeOutput output) {
         String basePath = "meteor/";

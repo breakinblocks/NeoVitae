@@ -59,11 +59,11 @@ public class WillCatalystsEntry extends EntryProvider {
 
         this.page("catalyst_usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("While holding a [#](8B0000)Will Catalyst[#]() of the matching Aspect, right-click a "
+        this.pageText("While holding a [#](8B0000)Spiritus Catalyst[#]() of the matching Aspect, right-click a "
                 + "[#](8B0000)Crystal Cluster[#]() to supercharge its growth.\\\n\\\n"
-                + "Each catalyst reduces the Will cost per spire from 45 to just [#](B8860B)25[#](), and accelerates "
+                + "Each catalyst reduces the Spiritus cost per spire from 45 to just [#](B8860B)25[#](), and accelerates "
                 + "growth tenfold. One dose fuels ten spires of growth, yielding a net bonus of "
-                + "[#](B8860B)200 Will per Catalyst[#]().");
+                + "[#](B8860B)200 Spiritus per Catalyst[#]().");
 
         this.page("double_dosing", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -88,7 +88,7 @@ public class WillCatalystsEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Supercharging crystal growth for automated Will production.";
+        return "Supercharging crystal growth for automated Spiritus production.";
     }
 
     @Override

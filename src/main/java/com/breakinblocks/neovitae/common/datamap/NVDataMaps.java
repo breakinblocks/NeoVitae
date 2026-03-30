@@ -40,7 +40,7 @@ public class NVDataMaps {
     ).synced(AltarRuneStats.CODEC, true).build();
 
     /**
-     * Sigil statistics - allows customization of LP costs, ranges, and effect parameters.
+     * Sigil statistics - allows customization of EV costs, ranges, and effect parameters.
      * Maps Item -> SigilStats.
      */
     public static final DataMapType<Item, SigilStats> SIGIL_STATS = DataMapType.builder(

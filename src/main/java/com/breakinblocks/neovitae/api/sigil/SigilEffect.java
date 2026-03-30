@@ -24,7 +24,7 @@ import java.util.function.Supplier;
  *   <li>{@link #activeTick} -- called every tick while a toggleable sigil is active</li>
  * </ul>
  * <p>Each use method returns {@code true} to signal that the effect was performed and LP
- * should be drained from the player's soul network. Returning {@code false} skips the LP cost.</p>
+ * should be drained from the player's soul network. Returning {@code false} skips the EV cost.</p>
  *
  * <h3>Codec Registration</h3>
  * <p>Every concrete effect must expose a {@link MapCodec} via {@link #codec()}. The codec is

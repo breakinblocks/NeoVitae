@@ -46,7 +46,6 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
 
         if (data.contains("altar_tier")) {
             tooltip.add(Component.literal("Tier " + data.getInt("altar_tier")).withStyle(ChatFormatting.GOLD));
-            tooltip.add(Component.literal("EV: " + FORMAT.format(data.getInt("altar_ev")) + " / " + FORMAT.format(data.getInt("altar_capacity"))).withStyle(ChatFormatting.DARK_RED));
             if (data.getBoolean("altar_active")) {
                 tooltip.add(Component.literal("Crafting...").withStyle(ChatFormatting.GREEN));
             }

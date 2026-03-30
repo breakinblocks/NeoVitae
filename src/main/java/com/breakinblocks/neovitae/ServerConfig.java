@@ -95,17 +95,17 @@ public class ServerConfig {
         builder.pop();
 
         builder.comment("Blood Attribute Configuration",
-                "Configure LP multipliers for Blood Siphon and Blood Shield attributes.");
+                "Configure EV multipliers for Blood Siphon and Blood Shield attributes.");
         builder.push("blood_attributes");
 
         BLOOD_SIPHON_PLAYER_MULTIPLIER = builder
-                .comment("LP multiplier when Blood Siphon drains from a player target")
+                .comment("EV multiplier when Blood Siphon drains from a player target")
                 .defineInRange("siphon_player_multiplier", 100, 1, 10000);
         BLOOD_SIPHON_MOB_MULTIPLIER = builder
-                .comment("LP multiplier when Blood Siphon drains from a non-player target")
+                .comment("EV multiplier when Blood Siphon drains from a non-player target")
                 .defineInRange("siphon_mob_multiplier", 10, 1, 10000);
         BLOOD_SHIELD_LP_COST_MULTIPLIER = builder
-                .comment("LP cost per point of damage prevented by Blood Shield")
+                .comment("EV cost per point of damage prevented by Blood Shield")
                 .defineInRange("shield_lp_cost_multiplier", 100, 1, 10000);
         SANGUINE_WARD_DRAIN_PER_SECOND = builder
                 .comment("EV drained per second while the Sanguine Ward is active")

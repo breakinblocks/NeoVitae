@@ -9,7 +9,7 @@ import java.util.Optional;
 /**
  * Data-driven sigil statistics that can be customized via datapacks.
  *
- * @param lpCost LP cost per activation (for single-use sigils) or per drain tick (for toggleable sigils)
+ * @param lpCost EV cost per activation (for single-use sigils) or per drain tick (for toggleable sigils)
  * @param drainInterval For toggleable sigils, how often LP is drained (in ticks). Default is 100 (5 seconds).
  * @param range Optional range parameter for area-effect sigils (e.g., magnetism radius)
  * @param verticalRange Optional vertical range parameter
@@ -36,14 +36,14 @@ public record SigilStats(
     ).apply(instance, SigilStats::new));
 
     /**
-     * Creates a simple SigilStats with just LP cost.
+     * Creates a simple SigilStats with just EV cost.
      */
     public static SigilStats simple(int lpCost) {
         return new SigilStats(lpCost, DEFAULT_DRAIN_INTERVAL, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
-     * Creates a toggleable SigilStats with LP cost and custom drain interval.
+     * Creates a toggleable SigilStats with EV cost and custom drain interval.
      */
     public static SigilStats toggleable(int lpCost, int drainInterval) {
         return new SigilStats(lpCost, drainInterval, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());

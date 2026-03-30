@@ -9,8 +9,8 @@ import java.util.Optional;
 /**
  * Data-driven ritual statistics that can be customized via datapacks.
  *
- * @param activationCost LP cost to activate the ritual
- * @param refreshCost LP cost per refresh tick while running
+ * @param activationCost EV cost to activate the ritual
+ * @param refreshCost EV cost per refresh tick while running
  * @param refreshTime Ticks between each refresh (lower = faster updates)
  * @param crystalLevel Required activation crystal tier (0 = weak, 1 = standard, 2 = awakened)
  * @param rangeLimits Map of range name to RangeLimit for area customization

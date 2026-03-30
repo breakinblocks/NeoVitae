@@ -505,7 +505,7 @@ public class MaterialRegistry {
                 null, 0f,
                 null, "c:raw_materials/hellforged", null,
                 null, null));
-        defaults.add(new MaterialDefinition("hellforged", "#B02020",
+        defaults.add(new MaterialDefinition("hellforged", "#99D6CB",
                 List.of("dust"),
                 "neovitae:ingot_hellforged", 1.0f,
                 null, null, "c:ingots/hellforged",

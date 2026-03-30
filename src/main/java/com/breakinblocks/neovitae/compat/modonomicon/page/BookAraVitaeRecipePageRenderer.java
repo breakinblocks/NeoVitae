@@ -47,7 +47,7 @@ public class BookAraVitaeRecipePageRenderer extends BookRecipePageRenderer<AraVi
         int textY = recipeY + 28;
         int tier = recipe.getMinTier() + 1;
         String lpFormatted = String.format("%,d", recipe.getTotalBlood());
-        Component info = Component.literal("Tier " + tier + " | " + lpFormatted + " LP");
+        Component info = Component.literal("Tier " + tier + " | " + lpFormatted + " EV");
         this.drawCenteredStringNoShadow(guiGraphics, info.getVisualOrderText(),
                 BookEntryScreen.PAGE_WIDTH / 2, textY, 0x555555, 1.0f);
     }

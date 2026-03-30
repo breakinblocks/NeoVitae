@@ -28,7 +28,7 @@ import java.util.function.Consumer;
  *
  * <p>Spiritus effects:
  * <ul>
- *   <li><b>Raw (Default)</b> - Reduced LP cost for lava placement, enables tank filling</li>
+ *   <li><b>Raw (Default)</b> - Reduced EV cost for lava placement, enables tank filling</li>
  *   <li><b>Vengeful</b> - Apply Fire Fuse to non-player mobs in fire range</li>
  *   <li><b>Steadfast</b> - Apply Fire Resistance to players in fire range</li>
  *   <li><b>Corrosive</b> - Deal fire damage to entities (skip fire-immune) in fire range</li>
@@ -71,7 +71,7 @@ public class RitualLava extends Ritual {
 
         SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
 
-        // LP cost per lava placement — cheaper with more raw Spiritus
+        // EV cost per lava placement — cheaper with more raw Spiritus
         int lavaCost = will.hasDefault() ? Math.max(0, BASE_LAVA_COST - (int) will.getDefault()) : BASE_LAVA_COST;
         if (lavaCost == 0) lavaCost = 1; // Minimum 1 LP
 

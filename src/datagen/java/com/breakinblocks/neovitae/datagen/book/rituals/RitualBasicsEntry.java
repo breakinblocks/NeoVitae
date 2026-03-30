@@ -20,9 +20,9 @@ public class RitualBasicsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Art of Ritual");
-        this.pageText("When your [#](8B0000)Ara Vitae[#]() reaches [#](B8860B)Tier 3[#](), the boundaries of [#](4A0080)Vitaemancy[#]() expand dramatically. You gain access to [#](4A0080)Rituals[#](), vast sigil-circles that channel your [#](4A0080)Anima[#]() into sustained, powerful effects upon the world itself."
+        this.pageText("When your [#](8B0000)Ara Vitae[#]() reaches [#](B8860B)Tier 2[#](), the boundaries of [#](4A0080)Vitaemancy[#]() expand dramatically. You gain access to [#](4A0080)Rituals[#](), vast sigil-circles that channel your [#](4A0080)Anima[#]() into sustained, powerful effects upon the world itself."
                 + "\\\n\\\nTo perform a ritual, you require:"
-                + "\n\n- An [#](8B0000)Activation Crystal[#](). At [#](B8860B)Tier 3[#](), only the [#](8B0000)Weak Crystal[#]() is available."
+                + "\n\n- An [#](8B0000)Activation Crystal[#](). At [#](B8860B)Tier 2[#](), only the [#](8B0000)Weak Crystal[#]() is available."
                 + "\n\n- A [#](8B0000)Master Ritual Stone[#](). Every ritual demands exactly one at its heart.");
 
         this.page("requirements", () -> BookTextPageModel.create()

@@ -28,7 +28,7 @@ public interface IRitual {
     void performRitual(IMasterRitualStone masterRitualStone);
 
     /**
-     * Gets the LP cost per refresh (tick).
+     * Gets the EV cost per refresh (tick).
      *
      * @return LP drained each refresh
      */
@@ -85,7 +85,7 @@ public interface IRitual {
     int getCrystalLevel();
 
     /**
-     * Gets the LP cost to activate this ritual.
+     * Gets the EV cost to activate this ritual.
      */
     int getActivationCost();
 

@@ -62,7 +62,7 @@ public class BookFlaskRecipePageRenderer extends BookRecipePageRenderer<FlaskRec
         int textY = recipeY + 26;
         int tier = recipe.getMinimumTier() + 1;
         String lpFormatted = String.format("%,d", recipe.getSyphon());
-        Component info = Component.literal("Tier " + tier + " | " + lpFormatted + " LP | " + (recipe.getTicks() / 20) + "s");
+        Component info = Component.literal("Tier " + tier + " | " + lpFormatted + " EV | " + (recipe.getTicks() / 20) + "s");
         this.drawCenteredStringNoShadow(guiGraphics, info.getVisualOrderText(),
                 BookEntryScreen.PAGE_WIDTH / 2, textY, 0x555555, 1.0f);
     }

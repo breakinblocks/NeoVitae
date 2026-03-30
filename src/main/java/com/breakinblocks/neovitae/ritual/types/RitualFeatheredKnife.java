@@ -29,7 +29,7 @@ import java.util.function.Consumer;
  *   <li><b>Steadfast</b> - Raises health threshold to 70% (safer for players)</li>
  *   <li><b>Vengeful</b> - Lowers health threshold to 10% (more aggressive)</li>
  *   <li><b>Corrosive</b> - Incense mode: consumes incense for massive LP, applies Soul Fray</li>
- *   <li><b>Destructive</b> - LP multiplier based on will amount</li>
+ *   <li><b>Destructive</b> - EV multiplier based on will amount</li>
  * </ul>
  */
 public class RitualFeatheredKnife extends Ritual {
@@ -84,7 +84,7 @@ public class RitualFeatheredKnife extends Ritual {
             healthThreshold = 0.3F;
         }
 
-        // LP multiplier from destructive will
+        // EV multiplier from destructive will
         double lpMultiplier = 1.0;
         if (will.hasDestructive()) {
             lpMultiplier = 1.0 + will.getDestructive() * 0.2 / 100.0;
@@ -142,7 +142,7 @@ public class RitualFeatheredKnife extends Ritual {
                     lp = (int) (lp * 1.1);
                 }
 
-                // Destructive will LP multiplier
+                // Destructive will EV multiplier
                 if (will.hasDestructive() && (will.getDestructive() - destructiveUsed) >= DESTRUCTIVE_WILL_PER_USE) {
                     lp = (int) (lp * lpMultiplier);
                     destructiveUsed += DESTRUCTIVE_WILL_PER_USE;

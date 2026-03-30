@@ -91,7 +91,7 @@ public class AraVitaeTests {
             helper.runAfterDelay(40, () -> {
                 ItemStack result = altar.inv.getStackInSlot(0);
                 if (!result.is(Items.STONE)) {
-                    helper.fail("Altar should not craft without LP, but item changed to " + result);
+                    helper.fail("Altar should not craft without EV, but item changed to " + result);
                 }
                 helper.succeed();
             });

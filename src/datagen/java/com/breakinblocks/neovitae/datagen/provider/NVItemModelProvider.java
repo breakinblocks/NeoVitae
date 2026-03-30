@@ -32,6 +32,7 @@ public class NVItemModelProvider extends ItemModelProvider {
                 .filter(holder -> !(holder.get() instanceof MaterialItem))
                 .filter(holder -> holder != NVItems.SIGIL_BLOOD_LIGHT)
                 .filter(holder -> !(holder.get() instanceof com.breakinblocks.neovitae.common.item.BloodOrbItem))
+                .filter(holder -> !(holder.get() instanceof com.breakinblocks.neovitae.common.item.soul.ISentientTool))
                 .filter(holder -> !(holder.get() instanceof net.minecraft.world.item.SpawnEggItem))
                 .map(Supplier::get)
                 .forEach(this::basicItem);
@@ -165,6 +166,13 @@ public class NVItemModelProvider extends ItemModelProvider {
         builder.override().predicate(NeoVitae.rl("alternate"), 1).model(alternateOrb).end();
         builder.override().predicate(NeoVitae.INCENSE_PROPERTY, 0).model(normalDagger).end();
         builder.override().predicate(NeoVitae.INCENSE_PROPERTY, 1).model(chargedDagger).end();
+
+        // Sentient tools - use handheld parent for correct held rendering
+        singleTexture("sentient_sword", mcLoc("item/handheld"), "layer0", modLoc("item/sentient_sword"));
+        singleTexture("sentient_axe", mcLoc("item/handheld"), "layer0", modLoc("item/sentient_axe"));
+        singleTexture("sentient_pickaxe", mcLoc("item/handheld"), "layer0", modLoc("item/sentient_pickaxe"));
+        singleTexture("sentient_shovel", mcLoc("item/handheld"), "layer0", modLoc("item/sentient_shovel"));
+        singleTexture("sentient_scythe", mcLoc("item/handheld"), "layer0", modLoc("item/sentient_scythe"));
 
         // Array effect dummy items - use their alchemy array textures
         singleTexture("array_bounce", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/bouncearray"));

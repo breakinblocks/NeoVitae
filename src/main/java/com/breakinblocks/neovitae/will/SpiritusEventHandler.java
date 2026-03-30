@@ -19,7 +19,9 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.soul.SpiritusEssenceItem;
+import com.breakinblocks.neovitae.common.item.soul.SentientToolHelper;
 import com.breakinblocks.neovitae.common.item.soul.SentientAxeItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientPickaxeItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientScytheItem;
@@ -78,12 +80,19 @@ public class SpiritusEventHandler {
         }
 
         if (soulDrops != null && !soulDrops.isEmpty()) {
+            SpiritusType weaponType = SentientToolHelper.getCurrentType(weapon);
             List<ItemStack> overflow = new ArrayList<>();
             for (ItemStack soulStack : soulDrops) {
                 if (soulStack.isEmpty()) continue;
-                ItemStack remaining = PlayerSpiritusHandler.addSpiritus(player, soulStack);
-                if (!remaining.isEmpty()) {
-                    overflow.add(remaining);
+                if (soulStack.getItem() instanceof ISpiritus spirit) {
+                    double amount = spirit.getWill(weaponType, soulStack);
+                    double added = PlayerSpiritusHandler.addSpiritus(weaponType, player, amount);
+                    if (added < amount) {
+                        double leftover = amount - added;
+                        overflow.add(spirit.createWill(leftover));
+                    }
+                } else {
+                    overflow.add(soulStack);
                 }
             }
             dropSouls(killed, overflow);

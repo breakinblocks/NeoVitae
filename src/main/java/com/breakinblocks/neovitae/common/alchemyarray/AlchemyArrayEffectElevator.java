@@ -2,13 +2,16 @@ package com.breakinblocks.neovitae.common.alchemyarray;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -69,9 +72,23 @@ public class AlchemyArrayEffectElevator extends AlchemyArrayEffect {
     }
 
     private void teleportPlayer(Player player, Level level, BlockPos target) {
+        if (level instanceof ServerLevel serverLevel) {
+            double px = player.getX(), py = player.getY() + 0.5, pz = player.getZ();
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x8800CC),
+                    px, py, pz, 12, 0.3, 0.5, 0.3, 0.02);
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA00FF),
+                    px, py, pz, 6, 0.2, 0.4, 0.2, 0.01);
+        }
         player.teleportTo(target.getX() + 0.5, target.getY() + 1.0, target.getZ() + 0.5);
         player.fallDistance = 0;
         level.playSound(null, target, SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 0.8f, 1.2f);
+        if (level instanceof ServerLevel serverLevel) {
+            double tx = target.getX() + 0.5, ty = target.getY() + 1.5, tz = target.getZ() + 0.5;
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x8800CC),
+                    tx, ty, tz, 12, 0.3, 0.5, 0.3, 0.02);
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.RUNE_GLOW.get(), 0xAA00FF),
+                    tx, ty - 0.5, tz, 4, 0.4, 0.05, 0.4, 0);
+        }
     }
 
     @Override

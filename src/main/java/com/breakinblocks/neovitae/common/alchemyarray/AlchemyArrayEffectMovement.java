@@ -6,8 +6,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.Vec3;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 
 /**
  * Alchemy array effect that pushes entities in the direction the array is facing.
@@ -46,6 +49,12 @@ public class AlchemyArrayEffectMovement extends AlchemyArrayEffect {
         };
 
         entity.setDeltaMovement(newMotion);
+        if (level instanceof ServerLevel serverLevel) {
+            double dx = newMotion.x * 0.3, dz = newMotion.z * 0.3;
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x2288FF),
+                    pos.getX() + 0.5 + dx, pos.getY() + 0.5, pos.getZ() + 0.5 + dz,
+                    6, 0.2, 0.1, 0.2, 0.03);
+        }
     }
 
     @Override

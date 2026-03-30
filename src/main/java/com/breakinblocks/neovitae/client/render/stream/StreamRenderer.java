@@ -143,14 +143,14 @@ public class StreamRenderer {
 
         // Right face (+X)
         emitQuadBothSides(buffer, matrix,
-                x0+r, y0+r, z0, x1+r, y1+r, z1,
-                x1+r, y1-r, z1, x0+r, y0-r, z0,
+                x0+r, y0+r, z0-r, x1+r, y1+r, z1-r,
+                x1+r, y1-r, z1-r, x0+r, y0-r, z0-r,
                 cr0, cg0, cb0, ca0, cr1, cg1, cb1, ca1, 1, 0, 0);
 
         // Left face (-X)
         emitQuadBothSides(buffer, matrix,
-                x0-r, y0-r, z0, x1-r, y1-r, z1,
-                x1-r, y1+r, z1, x0-r, y0+r, z0,
+                x0-r, y0-r, z0+r, x1-r, y1-r, z1+r,
+                x1-r, y1+r, z1+r, x0-r, y0+r, z0+r,
                 cr0, cg0, cb0, ca0, cr1, cg1, cb1, ca1, -1, 0, 0);
 
         poseStack.popPose();

@@ -6,8 +6,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.Vec3;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 
 /**
  * Alchemy array effect that launches entities upward.
@@ -38,6 +41,12 @@ public class AlchemyArrayEffectUpdraft extends AlchemyArrayEffect {
         entity.fallDistance = 0;
         Vec3 motion = entity.getDeltaMovement();
         entity.setDeltaMovement(motion.x, verticalMotion, motion.z);
+        if (level instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xFFCC22),
+                    pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 8, 0.3, 0.05, 0.3, 0.08);
+            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xFFEE44),
+                    pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 4, 0.15, 0.3, 0.15, 0.04);
+        }
     }
 
     @Override

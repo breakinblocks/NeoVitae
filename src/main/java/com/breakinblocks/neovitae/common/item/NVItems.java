@@ -366,9 +366,49 @@ public class NVItems {
                     com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_IGNIS, 0x2D0A0A, 0xFF4500,
                     new Item.Properties()));
 
+    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_CRUORIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_cruoris_spawn_egg",
+            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
+                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_CRUORIS, 0x3A1010, 0x8B0000,
+                    new Item.Properties()));
+
+    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_CORRODIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_corrodis_spawn_egg",
+            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
+                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_CORRODIS, 0x2A1A2A, 0x6B3FA0,
+                    new Item.Properties()));
+
     public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_GLACIARIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_glaciaris_spawn_egg",
             () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
                     com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_GLACIARIS, 0xA0D4E8, 0x4FC3F7,
+                    new Item.Properties()));
+
+    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_PESTIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_pestis_spawn_egg",
+            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
+                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_PESTIS, 0x0D0F1E, 0x2A2656,
+                    new Item.Properties()));
+
+    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_VORAXIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_voraxis_spawn_egg",
+            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
+                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_VORAXIS, 0x0D0D14, 0x4A1A5C,
+                    new Item.Properties()));
+
+    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_DOLORIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_doloris_spawn_egg",
+            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
+                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_DOLORIS, 0x1A1A1A, 0x4A6B3A,
+                    new Item.Properties()));
+
+    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_FERVIDIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_fervidis_spawn_egg",
+            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
+                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_FERVIDIS, 0x3A2A1A, 0x6B4423,
+                    new Item.Properties()));
+
+    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_ANIMARIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_animaris_spawn_egg",
+            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
+                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_ANIMARIS, 0x2A2A2A, 0x8B1A1A,
+                    new Item.Properties()));
+
+    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_RANCORIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_rancoris_spawn_egg",
+            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
+                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_RANCORIS, 0x1A1A2E, 0x7B9EBF,
                     new Item.Properties()));
 
     // Array effect dummy items for JEI visibility

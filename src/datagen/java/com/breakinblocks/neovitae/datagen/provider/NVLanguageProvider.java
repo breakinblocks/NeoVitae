@@ -299,9 +299,41 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("entity.neovitae.daemonium_ignis", "Daemonium Ignis");
         add(NVItems.DAEMONIUM_IGNIS_SPAWN_EGG.get(), "Daemonium Ignis Spawn Egg");
 
+        // Daemonium Cruoris
+        add("entity.neovitae.daemonium_cruoris", "Daemonium Cruoris");
+        add(NVItems.DAEMONIUM_CRUORIS_SPAWN_EGG.get(), "Daemonium Cruoris Spawn Egg");
+
+        // Daemonium Corrodis
+        add("entity.neovitae.daemonium_corrodis", "Daemonium Corrodis");
+        add(NVItems.DAEMONIUM_CORRODIS_SPAWN_EGG.get(), "Daemonium Corrodis Spawn Egg");
+
         // Daemonium Glaciaris
         add("entity.neovitae.daemonium_glaciaris", "Daemonium Glaciaris");
         add(NVItems.DAEMONIUM_GLACIARIS_SPAWN_EGG.get(), "Daemonium Glaciaris Spawn Egg");
+
+        // Daemonium Rancoris
+        add("entity.neovitae.daemonium_rancoris", "Daemonium Rancoris");
+        add(NVItems.DAEMONIUM_RANCORIS_SPAWN_EGG.get(), "Daemonium Rancoris Spawn Egg");
+
+        // Daemonium Pestis
+        add("entity.neovitae.daemonium_pestis", "Daemonium Pestis");
+        add(NVItems.DAEMONIUM_PESTIS_SPAWN_EGG.get(), "Daemonium Pestis Spawn Egg");
+
+        // Daemonium Voraxis
+        add("entity.neovitae.daemonium_voraxis", "Daemonium Voraxis");
+        add(NVItems.DAEMONIUM_VORAXIS_SPAWN_EGG.get(), "Daemonium Voraxis Spawn Egg");
+
+        // Daemonium Doloris
+        add("entity.neovitae.daemonium_doloris", "Daemonium Doloris");
+        add(NVItems.DAEMONIUM_DOLORIS_SPAWN_EGG.get(), "Daemonium Doloris Spawn Egg");
+
+        // Daemonium Fervidis
+        add("entity.neovitae.daemonium_fervidis", "Daemonium Fervidis");
+        add(NVItems.DAEMONIUM_FERVIDIS_SPAWN_EGG.get(), "Daemonium Fervidis Spawn Egg");
+
+        // Daemonium Animaris
+        add("entity.neovitae.daemonium_animaris", "Daemonium Animaris");
+        add(NVItems.DAEMONIUM_ANIMARIS_SPAWN_EGG.get(), "Daemonium Animaris Spawn Egg");
 
         // Misc WIP Items
         add(NVItems.ANIMATED_SPIRITUS.get(), "Animated Spiritus");

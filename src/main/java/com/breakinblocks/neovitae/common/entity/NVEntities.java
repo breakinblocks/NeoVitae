@@ -9,8 +9,16 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
+import com.breakinblocks.neovitae.common.entity.mob.DaemoniumCorrodisEntity;
+import com.breakinblocks.neovitae.common.entity.mob.DaemoniumCruorisEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumGlaciarisEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumIgnisEntity;
+import com.breakinblocks.neovitae.common.entity.mob.DaemoniumAnimarisEntity;
+import com.breakinblocks.neovitae.common.entity.mob.DaemoniumDolorisEntity;
+import com.breakinblocks.neovitae.common.entity.mob.DaemoniumVoraxisEntity;
+import com.breakinblocks.neovitae.common.entity.mob.DaemoniumFervidisEntity;
+import com.breakinblocks.neovitae.common.entity.mob.DaemoniumPestisEntity;
+import com.breakinblocks.neovitae.common.entity.mob.DaemoniumRancorisEntity;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityBloodLight;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityMeteor;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityPotionFlask;
@@ -86,6 +94,20 @@ public class NVEntities {
                     .updateInterval(1)
                     .build("blood_shield"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<DaemoniumCorrodisEntity>> DAEMONIUM_CORRODIS = ENTITIES.register("daemonium_corrodis",
+            () -> EntityType.Builder.<DaemoniumCorrodisEntity>of(DaemoniumCorrodisEntity::new, MobCategory.MONSTER)
+                    .sized(1.0F, 2.2F)
+                    .clientTrackingRange(10)
+                    .updateInterval(3)
+                    .build("daemonium_corrodis"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<DaemoniumCruorisEntity>> DAEMONIUM_CRUORIS = ENTITIES.register("daemonium_cruoris",
+            () -> EntityType.Builder.<DaemoniumCruorisEntity>of(DaemoniumCruorisEntity::new, MobCategory.MONSTER)
+                    .sized(0.8F, 1.8F)
+                    .clientTrackingRange(10)
+                    .updateInterval(3)
+                    .build("daemonium_cruoris"));
+
     public static final DeferredHolder<EntityType<?>, EntityType<DaemoniumGlaciarisEntity>> DAEMONIUM_GLACIARIS = ENTITIES.register("daemonium_glaciaris",
             () -> EntityType.Builder.<DaemoniumGlaciarisEntity>of(DaemoniumGlaciarisEntity::new, MobCategory.MONSTER)
                     .sized(0.8F, 2.2F)
@@ -93,9 +115,59 @@ public class NVEntities {
                     .updateInterval(3)
                     .build("daemonium_glaciaris"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<DaemoniumPestisEntity>> DAEMONIUM_PESTIS = ENTITIES.register("daemonium_pestis",
+            () -> EntityType.Builder.<DaemoniumPestisEntity>of(DaemoniumPestisEntity::new, MobCategory.MONSTER)
+                    .sized(0.7F, 0.5F)
+                    .clientTrackingRange(8)
+                    .updateInterval(3)
+                    .build("daemonium_pestis"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<DaemoniumVoraxisEntity>> DAEMONIUM_VORAXIS = ENTITIES.register("daemonium_voraxis",
+            () -> EntityType.Builder.<DaemoniumVoraxisEntity>of(DaemoniumVoraxisEntity::new, MobCategory.MONSTER)
+                    .sized(0.8F, 1.8F)
+                    .clientTrackingRange(10)
+                    .updateInterval(3)
+                    .build("daemonium_voraxis"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<DaemoniumDolorisEntity>> DAEMONIUM_DOLORIS = ENTITIES.register("daemonium_doloris",
+            () -> EntityType.Builder.<DaemoniumDolorisEntity>of(DaemoniumDolorisEntity::new, MobCategory.MONSTER)
+                    .sized(1.2F, 3.0F)
+                    .clientTrackingRange(10)
+                    .updateInterval(3)
+                    .build("daemonium_doloris"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<DaemoniumFervidisEntity>> DAEMONIUM_FERVIDIS = ENTITIES.register("daemonium_fervidis",
+            () -> EntityType.Builder.<DaemoniumFervidisEntity>of(DaemoniumFervidisEntity::new, MobCategory.MONSTER)
+                    .sized(1.2F, 2.8F)
+                    .clientTrackingRange(10)
+                    .updateInterval(3)
+                    .build("daemonium_fervidis"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<DaemoniumAnimarisEntity>> DAEMONIUM_ANIMARIS = ENTITIES.register("daemonium_animaris",
+            () -> EntityType.Builder.<DaemoniumAnimarisEntity>of(DaemoniumAnimarisEntity::new, MobCategory.MONSTER)
+                    .sized(0.4F, 0.8F)
+                    .clientTrackingRange(8)
+                    .updateInterval(3)
+                    .build("daemonium_animaris"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<DaemoniumRancorisEntity>> DAEMONIUM_RANCORIS = ENTITIES.register("daemonium_rancoris",
+            () -> EntityType.Builder.<DaemoniumRancorisEntity>of(DaemoniumRancorisEntity::new, MobCategory.MONSTER)
+                    .sized(0.8F, 2.2F)
+                    .clientTrackingRange(10)
+                    .updateInterval(3)
+                    .build("daemonium_rancoris"));
+
     private static void registerEntityAttributes(EntityAttributeCreationEvent event) {
         event.put(DAEMONIUM_IGNIS.get(), DaemoniumIgnisEntity.createAttributes().build());
+        event.put(DAEMONIUM_CORRODIS.get(), DaemoniumCorrodisEntity.createAttributes().build());
+        event.put(DAEMONIUM_CRUORIS.get(), DaemoniumCruorisEntity.createAttributes().build());
         event.put(DAEMONIUM_GLACIARIS.get(), DaemoniumGlaciarisEntity.createAttributes().build());
+        event.put(DAEMONIUM_RANCORIS.get(), DaemoniumRancorisEntity.createAttributes().build());
+        event.put(DAEMONIUM_ANIMARIS.get(), DaemoniumAnimarisEntity.createAttributes().build());
+        event.put(DAEMONIUM_FERVIDIS.get(), DaemoniumFervidisEntity.createAttributes().build());
+        event.put(DAEMONIUM_PESTIS.get(), DaemoniumPestisEntity.createAttributes().build());
+        event.put(DAEMONIUM_VORAXIS.get(), DaemoniumVoraxisEntity.createAttributes().build());
+        event.put(DAEMONIUM_DOLORIS.get(), DaemoniumDolorisEntity.createAttributes().build());
     }
 
     public static void register(IEventBus modBus) {

@@ -24,8 +24,16 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.render.entity.BloodLightRenderer;
+import com.breakinblocks.neovitae.client.render.entity.DaemoniumCorrodisRenderer;
+import com.breakinblocks.neovitae.client.render.entity.DaemoniumCruorisRenderer;
 import com.breakinblocks.neovitae.client.render.entity.DaemoniumGlaciarisRenderer;
+import com.breakinblocks.neovitae.client.render.entity.DaemoniumAnimarisRenderer;
+import com.breakinblocks.neovitae.client.render.entity.DaemoniumDolorisRenderer;
+import com.breakinblocks.neovitae.client.render.entity.DaemoniumPestisRenderer;
+import com.breakinblocks.neovitae.client.render.entity.DaemoniumVoraxisRenderer;
+import com.breakinblocks.neovitae.client.render.entity.DaemoniumFervidisRenderer;
 import com.breakinblocks.neovitae.client.render.entity.DaemoniumIgnisRenderer;
+import com.breakinblocks.neovitae.client.render.entity.DaemoniumRancorisRenderer;
 import com.breakinblocks.neovitae.client.render.entity.EntityMeteorRenderer;
 import com.breakinblocks.neovitae.client.render.entity.EntityShapedChargeRenderer;
 import com.breakinblocks.neovitae.client.render.entity.EntityThrowingDaggerRenderer;
@@ -108,7 +116,16 @@ public class ClientModEventHandler {
         event.registerEntityRenderer(NVEntities.THROWING_DAGGER.get(), EntityThrowingDaggerRenderer::new);
         event.registerEntityRenderer(NVEntities.THROWING_DAGGER_SYRINGE.get(), EntityThrowingDaggerRenderer::new);
         event.registerEntityRenderer(NVEntities.DAEMONIUM_IGNIS.get(), DaemoniumIgnisRenderer::new);
+        event.registerEntityRenderer(NVEntities.DAEMONIUM_CORRODIS.get(), DaemoniumCorrodisRenderer::new);
+        event.registerEntityRenderer(NVEntities.DAEMONIUM_CRUORIS.get(), DaemoniumCruorisRenderer::new);
         event.registerEntityRenderer(NVEntities.DAEMONIUM_GLACIARIS.get(), DaemoniumGlaciarisRenderer::new);
+        event.registerEntityRenderer(NVEntities.DAEMONIUM_RANCORIS.get(), DaemoniumRancorisRenderer::new);
+        event.registerEntityRenderer(NVEntities.DAEMONIUM_FERVIDIS.get(), DaemoniumFervidisRenderer::new);
+        event.registerEntityRenderer(NVEntities.DAEMONIUM_PESTIS.get(), DaemoniumPestisRenderer::new);
+        event.registerEntityRenderer(NVEntities.DAEMONIUM_VORAXIS.get(), DaemoniumVoraxisRenderer::new);
+        event.registerEntityRenderer(NVEntities.DAEMONIUM_DOLORIS.get(), DaemoniumDolorisRenderer::new);
+        //noinspection unchecked,rawtypes - DaemoniumAnimarisEntity extends Vex; raw cast needed for VexRenderer generics
+        event.registerEntityRenderer((net.minecraft.world.entity.EntityType) NVEntities.DAEMONIUM_ANIMARIS.get(), DaemoniumAnimarisRenderer::new);
         event.registerEntityRenderer(NVEntities.BLOOD_SHIELD.get(), com.breakinblocks.neovitae.client.render.entity.shield.BloodShieldRenderer::new);
     }
 

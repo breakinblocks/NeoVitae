@@ -7,14 +7,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:blue_ice",
+          "name": "neovitae:permafrost_core",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 2,
-                "max": 5
+                "max": 4
               }
             },
             {
@@ -40,7 +40,72 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "neovitae:base_spiritus_soul_steadfast",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:item",
           "name": "neovitae:base_spiritus_soul",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "neovitae:base_spiritus_soul_corrosive",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "neovitae:base_spiritus_soul_destructive",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "neovitae:base_spiritus_soul_vengeful",
+          "weight": 15
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "neovitae:frozen_marrow_shard",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.2
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:blue_ice",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -48,6 +113,35 @@
                 "type": "minecraft:uniform",
                 "min": 1,
                 "max": 3
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.3
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "neovitae:raw_demonite",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
               }
             }
           ]

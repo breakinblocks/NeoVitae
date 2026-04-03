@@ -36,8 +36,8 @@ public class ArcaneAshEntry extends EntryProvider {
         this.page("inputs", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("A second item placed becomes the [#](8B0000)catalyst[#](). If both are valid, "
-                + "the array awakens and its working begins. Base and catalyst together define the array's "
-                + "effect: a transmutation, an enchantment, a binding.\\\n\\\n"
+                + "the array awakens and its working begins. Both components are [#](8B0000)consumed[#]() "
+                + "as the array activates; nothing remains but the result of the working.\\\n\\\n"
                 + "[#](2E8B57)Watch the pattern carefully when you place the base. If the glyph changes form, "
                 + "you are on the right path.[#]()");
 

@@ -1,0 +1,63 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "dungeons",
+  "description": "book.neovitae.guide.dungeons.demon_drops.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:cinder_heart_fragment"
+  },
+  "name": "book.neovitae.guide.dungeons.demon_drops.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demon_drops.intro.text",
+      "title": "book.neovitae.guide.dungeons.demon_drops.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demon_drops.fodder_drops.text",
+      "title": "book.neovitae.guide.dungeons.demon_drops.fodder_drops.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demon_drops.standard_drops.text",
+      "title": "book.neovitae.guide.dungeons.demon_drops.standard_drops.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "count": 1,
+        "item": "neovitae:permafrost_core"
+      },
+      "text": "book.neovitae.guide.dungeons.demon_drops.boss_drops.text",
+      "title": "Apex Trophies"
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 12,
+  "x": -3,
+  "y": 3
+}

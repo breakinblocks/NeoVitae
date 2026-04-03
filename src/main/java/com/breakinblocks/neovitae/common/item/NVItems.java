@@ -20,6 +20,7 @@ import com.breakinblocks.neovitae.common.item.routing.ItemRouterFilter;
 import com.breakinblocks.neovitae.common.item.routing.ItemTagFilter;
 import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.breakinblocks.neovitae.common.item.sigil.ISigil;
+import com.breakinblocks.neovitae.common.item.sigil.ItemSigilDamned;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.common.item.sigil.SigilItem;
 import com.breakinblocks.neovitae.common.item.soul.SpiritusEssenceItem;
@@ -233,6 +234,39 @@ public class NVItems {
             com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonTester::new);
 
     public static final DeferredHolder<Item, Item> ANIMATED_SPIRITUS = plainItem("animated_spiritus");
+
+    // Demon drop materials
+    public static final DeferredHolder<Item, Item> GORE_CLOTTED_FANG = plainItem("gore_clotted_fang");
+    public static final DeferredHolder<Item, Item> BLIGHT_MARROW = plainItem("blight_marrow");
+    public static final DeferredHolder<Item, Item> VENOMGLAND_SAC = plainItem("venomgland_sac");
+    public static final DeferredHolder<Item, Item> HOLLOW_GUT = plainItem("hollow_gut");
+    public static final DeferredHolder<Item, Item> ECTOPLASMIC_RESIDUE = plainItem("ectoplasmic_residue");
+    public static final DeferredHolder<Item, Item> ANIMUS_MOTE = plainItem("animus_mote");
+    public static final DeferredHolder<Item, Item> REVENANT_PLATE = plainItem("revenant_plate");
+    public static final DeferredHolder<Item, Item> FROZEN_MARROW_SHARD = plainItem("frozen_marrow_shard");
+    public static final DeferredHolder<Item, Item> CINDER_HEART_FRAGMENT = plainItem("cinder_heart_fragment");
+    public static final DeferredHolder<Item, Item> PERMAFROST_CORE = plainItem("permafrost_core");
+    public static final DeferredHolder<Item, Item> DEMONITE_TRIM_INGOT = plainItem("demonite_trim_ingot");
+    public static final DeferredHolder<Item, Item> BLIGHT_WHETSTONE = BASIC_ITEMS.register("blight_whetstone",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+
+    // Demon food items
+    public static final DeferredHolder<Item, NVFoodItem> TAINTED_FLESH = BASIC_ITEMS.register("tainted_flesh",
+            () -> NVFoodItem.builder(4, 0.1f)
+                    .effect(() -> net.minecraft.world.effect.MobEffects.WITHER, 100, 0, 0.3f)
+                    .build());
+    public static final DeferredHolder<Item, NVFoodItem> VITAE_MORSEL = BASIC_ITEMS.register("vitae_morsel",
+            () -> NVFoodItem.builder(6, 0.8f).alwaysEdible()
+                    .effect(() -> net.minecraft.world.effect.MobEffects.REGENERATION, 200, 0)
+                    .build());
+    public static final DeferredHolder<Item, NVFoodItem> BOTTLED_SPITE = BASIC_ITEMS.register("bottled_spite",
+            () -> NVFoodItem.builder(0, 0f).alwaysEdible().stacksTo(16).drinkable()
+                    .effect(() -> net.minecraft.world.effect.MobEffects.DAMAGE_BOOST, 600, 1)
+                    .effect(() -> net.minecraft.world.effect.MobEffects.DIG_SLOWDOWN, 300, 0)
+                    .build());
+
+    // Sigil of the Damned
+    public static final DeferredHolder<Item, ItemSigilDamned> SIGIL_DAMNED = BASIC_ITEMS.register("sigil_damned", ItemSigilDamned::new);
 
     public static final DeferredHolder<Item, Item> SULFUR = plainItem("sulfur");
     public static final DeferredHolder<Item, Item> SALTPETER = plainItem("saltpeter");

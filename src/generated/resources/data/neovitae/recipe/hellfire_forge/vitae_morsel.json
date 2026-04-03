@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:hellfire_forge",
+  "drain": 20.0,
+  "inputs": [
+    {
+      "item": "neovitae:tainted_flesh"
+    },
+    {
+      "item": "neovitae:tainted_flesh"
+    },
+    {
+      "item": "neovitae:weak_blood_shard"
+    },
+    {
+      "item": "neovitae:gore_clotted_fang"
+    }
+  ],
+  "minDrain": 200.0,
+  "output": {
+    "count": 4,
+    "id": "neovitae:vitae_morsel"
+  }
+}

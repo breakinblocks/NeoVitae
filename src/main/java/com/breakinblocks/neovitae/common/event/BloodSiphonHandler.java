@@ -11,6 +11,7 @@ import com.breakinblocks.neovitae.api.stream.StreamEffect;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 import com.breakinblocks.neovitae.common.item.OrbFluidHandler;
+import com.breakinblocks.neovitae.common.item.sigil.ItemSigilDamned;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -131,6 +132,8 @@ public class BloodSiphonHandler {
     @SubscribeEvent
     public static void onEntityKilled(LivingDeathEvent event) {
         if (!(event.getSource().getEntity() instanceof ServerPlayer player)) return;
+
+        ItemSigilDamned.onKill(player, event.getEntity());
 
         ItemStack offhand = player.getOffhandItem();
         if (offhand.isEmpty() || !(offhand.getItem() instanceof BloodOrbItem)) return;

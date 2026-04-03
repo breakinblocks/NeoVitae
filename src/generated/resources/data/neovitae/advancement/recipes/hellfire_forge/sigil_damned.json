@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cinder_heart": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:cinder_heart_fragment"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:sigil_damned"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cinder_heart"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:sigil_damned"
+    ]
+  }
+}

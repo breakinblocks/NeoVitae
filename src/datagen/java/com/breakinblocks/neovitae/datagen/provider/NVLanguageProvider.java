@@ -338,6 +338,33 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Misc WIP Items
         add(NVItems.ANIMATED_SPIRITUS.get(), "Animated Spiritus");
 
+        // Demon drop materials
+        add(NVItems.GORE_CLOTTED_FANG.get(), "Gore-Clotted Fang");
+        add(NVItems.BLIGHT_MARROW.get(), "Blight Marrow");
+        add(NVItems.VENOMGLAND_SAC.get(), "Venomgland Sac");
+        add(NVItems.HOLLOW_GUT.get(), "Hollow Gut");
+        add(NVItems.ECTOPLASMIC_RESIDUE.get(), "Ectoplasmic Residue");
+        add(NVItems.ANIMUS_MOTE.get(), "Animus Mote");
+        add(NVItems.REVENANT_PLATE.get(), "Revenant Plate");
+        add(NVItems.FROZEN_MARROW_SHARD.get(), "Frozen Marrow Shard");
+        add(NVItems.CINDER_HEART_FRAGMENT.get(), "Cinder Heart Fragment");
+        add(NVItems.PERMAFROST_CORE.get(), "Permafrost Core");
+        add(NVItems.DEMONITE_TRIM_INGOT.get(), "Demonite Trim Ingot");
+        add(NVItems.BLIGHT_WHETSTONE.get(), "Blight Whetstone");
+        add(NVItems.TAINTED_FLESH.get(), "Tainted Flesh");
+        add(NVItems.VITAE_MORSEL.get(), "Vitae Morsel");
+        add(NVItems.BOTTLED_SPITE.get(), "Bottled Spite");
+        add(NVItems.SIGIL_DAMNED.get(), "Sigil of the Damned");
+
+        // Sigil of the Damned tooltips
+        add("tooltip.neovitae.sigil.damned.desc", "The blood of the fallen empowers the bearer.");
+        add("tooltip.neovitae.sigil.damned.spiritus", "+50 Bonus Spiritus Collection");
+        add("tooltip.neovitae.sigil.damned.sacrifice", "+25 Bonus Sacrifice");
+        add("tooltip.neovitae.sigil.damned.siphon", "+10 Blood Siphon (heal on kill)");
+
+        // Trim material
+        add("trim_material.neovitae.demonite", "Demonite");
+
         // Simple Recipe Ingredients
         add(NVItems.SULFUR.get(), "Sulfur");
         add(NVItems.SALTPETER.get(), "Saltpeter");

@@ -861,6 +861,16 @@ public class NVRecipeProvider extends RecipeProvider {
                 .drain(1)
                 .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
                 .save(output, NeoVitae.rl("sands_of_vitae"));
+
+        // Revenant Plate infusion - turns revenant plate into an empowered form via tier 4 altar
+        AltarRecipeBuilder.build(NVItems.REVENANT_PLATE.get())
+                .from(NVItems.GORE_CLOTTED_FANG.get())
+                .minTier(3)
+                .bloodNeeded(20000)
+                .consumption(25)
+                .drain(30)
+                .unlockedBy("has_gore_fang", has(NVItems.GORE_CLOTTED_FANG.get()))
+                .save(output, NeoVitae.rl("revenant_plate_infusion"));
     }
 
     private void addHellfireForgeRecipes(RecipeOutput output) {
@@ -1762,6 +1772,75 @@ public class NVRecipeProvider extends RecipeProvider {
                 .withAnointment("neovitae:voiding", 1, 1)
                 .unlockedBy("has_fungal_charge_2", has(NVBlocks.FUNGAL_CHARGE_2.item().get()))
                 .save(output, NeoVitae.rl("fungal_charge_2_voiding"));
+
+        // === Demon drop crafted items ===
+
+        // Vitae Morsel - Tainted Flesh + Weak Blood Shard in forge
+        HellfireForgeRecipeBuilder.build(NVItems.VITAE_MORSEL.get(), 4)
+                .requires(NVItems.TAINTED_FLESH.get())
+                .requires(NVItems.TAINTED_FLESH.get())
+                .requires(NVItems.WEAK_BLOOD_SHARD.get())
+                .requires(NVItems.GORE_CLOTTED_FANG.get())
+                .minWill(200)
+                .drain(20)
+                .unlockedBy("has_tainted_flesh", has(NVItems.TAINTED_FLESH.get()))
+                .save(output, NeoVitae.rl("vitae_morsel"));
+
+        // Bottled Spite - Ectoplasmic Residue + Glass Bottle + Venomgland Sac
+        HellfireForgeRecipeBuilder.build(NVItems.BOTTLED_SPITE.get(), 2)
+                .requires(NVItems.ECTOPLASMIC_RESIDUE.get())
+                .requires(NVItems.VENOMGLAND_SAC.get())
+                .requires(Items.GLASS_BOTTLE)
+                .requires(NVItems.HOLLOW_GUT.get())
+                .minWill(300)
+                .drain(30)
+                .unlockedBy("has_ectoplasmic_residue", has(NVItems.ECTOPLASMIC_RESIDUE.get()))
+                .save(output, NeoVitae.rl("bottled_spite"));
+
+        // Demonite Trim Ingot - Demonite Fragment + Animus Mote
+        HellfireForgeRecipeBuilder.build(NVItems.DEMONITE_TRIM_INGOT.get())
+                .requires(NVItems.DEMONITE_FRAGMENT.get())
+                .requires(NVItems.DEMONITE_FRAGMENT.get())
+                .requires(NVItems.ANIMUS_MOTE.get())
+                .requires(NVItems.WEAK_BLOOD_SHARD.get())
+                .minWill(500)
+                .drain(50)
+                .unlockedBy("has_animus_mote", has(NVItems.ANIMUS_MOTE.get()))
+                .save(output, NeoVitae.rl("demonite_trim_ingot"));
+
+        // Blight Whetstone - Blight Marrow + Corrosive Crystal Catalyst
+        HellfireForgeRecipeBuilder.build(NVItems.BLIGHT_WHETSTONE.get())
+                .requires(NVItems.BLIGHT_MARROW.get())
+                .requires(NVItems.BLIGHT_MARROW.get())
+                .requires(NVItems.CORROSIVE_CRYSTAL_CATALYST.get())
+                .requires(NVItems.SLATE_DEMONIC.get())
+                .minWill(800)
+                .drain(80)
+                .requiredWillType(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.CORROSIVE)
+                .unlockedBy("has_blight_marrow", has(NVItems.BLIGHT_MARROW.get()))
+                .save(output, NeoVitae.rl("blight_whetstone"));
+
+        // Sigil of the Damned - Cinder Heart Fragment + Permafrost Core + Greater Spiritus Gem + Demonic Slate
+        HellfireForgeRecipeBuilder.build(NVItems.SIGIL_DAMNED.get())
+                .requires(NVItems.CINDER_HEART_FRAGMENT.get())
+                .requires(NVItems.PERMAFROST_CORE.get())
+                .requires(NVItems.SPIRITUS_GEM_GREATER.get())
+                .requires(NVItems.SLATE_DEMONIC.get())
+                .minWill(2000)
+                .drain(200)
+                .unlockedBy("has_cinder_heart", has(NVItems.CINDER_HEART_FRAGMENT.get()))
+                .save(output, NeoVitae.rl("sigil_damned"));
+
+        // Grand Soul Gem - now requires Animus Mote as a demon dungeon ingredient
+        HellfireForgeRecipeBuilder.build(NVItems.SPIRITUS_GEM_GRAND.get())
+                .requires(NVItems.SPIRITUS_GEM_GREATER.get())
+                .requires(NVItems.ANIMUS_MOTE.get())
+                .requires(NVItems.SLATE_ETHEREAL.get())
+                .requires(NVItems.PERMAFROST_CORE.get())
+                .minWill(4000)
+                .drain(400)
+                .unlockedBy("has_greater_gem", has(NVItems.SPIRITUS_GEM_GREATER.get()))
+                .save(output, NeoVitae.rl("spiritus_gem_grand"));
     }
 
     // Helper methods
@@ -4390,6 +4469,19 @@ public class NVRecipeProvider extends RecipeProvider {
                 Ingredient.of(Items.SHIELD),
                 NeoVitae.rl("crippled_arm"))
                 .save(output, NeoVitae.rl(basePath + "crippled_arm"));
+
+        // Demon-drop based downgrades
+        // Poisoned Blood - periodic poison ticks (from venomgland sac)
+        LivingDowngradeRecipeBuilder.downgrade(
+                Ingredient.of(NVItems.VENOMGLAND_SAC.get()),
+                NeoVitae.rl("poisoned_blood"))
+                .save(output, NeoVitae.rl(basePath + "poisoned_blood"));
+
+        // Hollow Hunger - increased hunger drain (from hollow gut, thematic upgrade over rotten flesh)
+        LivingDowngradeRecipeBuilder.downgrade(
+                Ingredient.of(NVItems.HOLLOW_GUT.get()),
+                NeoVitae.rl("hollow_hunger"))
+                .save(output, NeoVitae.rl(basePath + "hollow_hunger"));
     }
 
 }

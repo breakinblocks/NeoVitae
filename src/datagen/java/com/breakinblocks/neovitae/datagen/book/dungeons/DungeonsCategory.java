@@ -15,14 +15,17 @@ public class DungeonsCategory extends CategoryProvider {
 
     @Override
     protected String[] generateEntryMap() {
-        // Flow: Lobby → access → realm → materials & hazards
         return new String[]{
-                "______l________",
-                "__k_______r____",
-                "______d________",
-                "__e___t________",
-                "______s________",
-                "__a___m___p____"
+                "______l____________",
+                "__k_______r________",
+                "______d____________",
+                "__e___t____________",
+                "______s____________",
+                "__a___m___p________",
+                "___________________",
+                "______D____________",
+                "__B___F___C________",
+                "______T____________",
         };
     }
 
@@ -38,6 +41,13 @@ public class DungeonsCategory extends CategoryProvider {
         var tauFruit = this.add(new TauFruitEntry(this).generate('t'));
         var mimics = this.add(new MimicsEntry(this).generate('m'));
         var spikeTrap = this.add(new SpikeTrapEntry(this).generate('p'));
+
+        // Daemonium section
+        var daemoniumOverview = this.add(new DaemoniumOverviewEntry(this).generate('D'));
+        var bestiary = this.add(new DemonBestiaryEntry(this).generate('B'));
+        var drops = this.add(new DemonDropsEntry(this).generate('F'));
+        var crafting = this.add(new DemonCraftingEntry(this).generate('C'));
+        var food = this.add(new DemonFoodEntry(this).generate('T'));
     }
 
     @Override

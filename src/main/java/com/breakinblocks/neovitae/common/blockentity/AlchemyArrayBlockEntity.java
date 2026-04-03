@@ -143,6 +143,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
             isActive = true;
             if (arrayEffect.update(this, this.activeCounter)) {
                 craftComplete = true;
+                doDropIngredients = false;
                 if (level != null && !level.isClientSide) {
                     level.playSound(null, worldPosition, NVSounds.ALCHEMY_ARRAY_CRAFT.get(), SoundSource.BLOCKS, 0.7f, 1.0f);
                     ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, 10, 0.2, 0.0, 0.2, 0.05);

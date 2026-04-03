@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gore_fang": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:gore_clotted_fang"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:revenant_plate_infusion"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_gore_fang"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:revenant_plate_infusion"
+    ]
+  }
+}

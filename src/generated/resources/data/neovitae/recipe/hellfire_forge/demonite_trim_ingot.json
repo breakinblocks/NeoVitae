@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:hellfire_forge",
+  "drain": 50.0,
+  "inputs": [
+    {
+      "item": "neovitae:demonite_fragment"
+    },
+    {
+      "item": "neovitae:demonite_fragment"
+    },
+    {
+      "item": "neovitae:animus_mote"
+    },
+    {
+      "item": "neovitae:weak_blood_shard"
+    }
+  ],
+  "minDrain": 500.0,
+  "output": {
+    "count": 1,
+    "id": "neovitae:demonite_trim_ingot"
+  }
+}

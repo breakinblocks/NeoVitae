@@ -1,0 +1,10 @@
+{
+  "asset_name": "neovitae_demonite",
+  "description": {
+    "color": "#8B1A3A",
+    "translate": "trim_material.neovitae.demonite"
+  },
+  "ingredient": "neovitae:demonite_trim_ingot",
+  "item_model_index": 0.85,
+  "override_armor_materials": {}
+}

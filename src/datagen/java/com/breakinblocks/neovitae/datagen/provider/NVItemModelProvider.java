@@ -183,5 +183,16 @@ public class NVItemModelProvider extends ItemModelProvider {
         singleTexture("array_day", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/sunarray"));
         singleTexture("array_night", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/moonarray"));
         singleTexture("array_elevator", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/elevatorarray"));
+        singleTexture("array_repulsion", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/repulsionarray"));
+        singleTexture("array_collection", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/collectionarray"));
+        singleTexture("array_light", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/lightarray"));
+        singleTexture("array_furnace", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/furnacearray"));
+        singleTexture("array_rain", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/rainarray"));
+        singleTexture("array_growth", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/growtharray"));
+        singleTexture("array_freeze", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/freezearray"));
+        singleTexture("array_signal", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/signalarray"));
+        singleTexture("array_trigger", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/triggerarray"));
+        singleTexture("array_spirit_siphon", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/spiritsiphonarray"));
+        singleTexture("array_deflection", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/deflectionarray"));
     }
 }

@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:hellfire_forge",
+  "drain": 200.0,
+  "inputs": [
+    {
+      "item": "neovitae:cinder_heart_fragment"
+    },
+    {
+      "item": "neovitae:permafrost_core"
+    },
+    {
+      "item": "neovitae:spiritus_gem_greater"
+    },
+    {
+      "item": "neovitae:demonic_slate"
+    }
+  ],
+  "minDrain": 2000.0,
+  "output": {
+    "count": 1,
+    "id": "neovitae:sigil_damned"
+  }
+}

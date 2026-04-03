@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:hellfire_forge",
+  "drain": 80.0,
+  "inputs": [
+    {
+      "item": "neovitae:blight_marrow"
+    },
+    {
+      "item": "neovitae:blight_marrow"
+    },
+    {
+      "item": "neovitae:corrosive_catalyst"
+    },
+    {
+      "item": "neovitae:demonic_slate"
+    }
+  ],
+  "minDrain": 800.0,
+  "output": {
+    "count": 1,
+    "id": "neovitae:blight_whetstone"
+  },
+  "willType": "corrosive"
+}

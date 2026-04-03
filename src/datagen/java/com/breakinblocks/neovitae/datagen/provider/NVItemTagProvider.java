@@ -131,5 +131,8 @@ public class NVItemTagProvider extends ItemTagsProvider {
 
         // Raw material tags
         tag(NVTags.Items.RAW_MATERIALS_HELLFORGED).add(NVItems.DEMONITE_RAW.get());
+
+        // Armor trim material
+        tag(ItemTags.TRIM_MATERIALS).add(NVItems.DEMONITE_TRIM_INGOT.get());
     }
 }

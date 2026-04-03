@@ -1,0 +1,127 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "dungeons",
+  "description": "book.neovitae.guide.dungeons.demon_bestiary.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:gore_clotted_fang"
+  },
+  "name": "book.neovitae.guide.dungeons.demon_bestiary.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.cruoris.text",
+      "title": "book.neovitae.guide.dungeons.demon_bestiary.cruoris.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.pestis.text",
+      "title": "book.neovitae.guide.dungeons.demon_bestiary.pestis.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.rancoris.text",
+      "title": "book.neovitae.guide.dungeons.demon_bestiary.rancoris.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.animaris.text",
+      "title": "book.neovitae.guide.dungeons.demon_bestiary.animaris.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.voraxis.text",
+      "title": "book.neovitae.guide.dungeons.demon_bestiary.voraxis.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.corrodis.text",
+      "title": "book.neovitae.guide.dungeons.demon_bestiary.corrodis.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.fervidis.text",
+      "title": "book.neovitae.guide.dungeons.demon_bestiary.fervidis.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.doloris.text",
+      "title": "book.neovitae.guide.dungeons.demon_bestiary.doloris.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.ignis.text",
+      "title": "book.neovitae.guide.dungeons.demon_bestiary.ignis.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.glaciaris.text",
+      "title": "book.neovitae.guide.dungeons.demon_bestiary.glaciaris.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 11,
+  "x": -7,
+  "y": 3
+}

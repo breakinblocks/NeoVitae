@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:hellfire_forge",
+  "drain": 400.0,
+  "inputs": [
+    {
+      "item": "neovitae:spiritus_gem_greater"
+    },
+    {
+      "item": "neovitae:animus_mote"
+    },
+    {
+      "item": "neovitae:ethereal_slate"
+    },
+    {
+      "item": "neovitae:permafrost_core"
+    }
+  ],
+  "minDrain": 4000.0,
+  "output": {
+    "count": 1,
+    "id": "neovitae:spiritus_gem_grand"
+  }
+}

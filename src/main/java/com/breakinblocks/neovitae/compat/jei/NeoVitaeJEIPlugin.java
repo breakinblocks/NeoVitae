@@ -66,6 +66,13 @@ import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualComponent;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
 
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -204,6 +211,19 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 new ItemStack(NVItems.ORB_ARCHMAGE.get()), new ItemStack(NVItems.ORB_TRANSCENDENT.get()));
         registration.addIngredientInfo(orbStacks, VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.neovitae.orb.info"));
+
+        // Arcane Scribe Tool dye recipes
+        List<RecipeHolder<CraftingRecipe>> scribeDyeRecipes = new ArrayList<>();
+        for (DyeColor color : DyeColor.values()) {
+            ItemStack result = new ItemStack(NVItems.ARCANE_SCRIBE_TOOL.get());
+            result.set(NVDataComponents.ALCHEMY_ARRAY_COLOR.get(), color);
+            NonNullList<Ingredient> ingredients = NonNullList.of(Ingredient.EMPTY,
+                    Ingredient.of(NVItems.ARCANE_SCRIBE_TOOL.get()),
+                    Ingredient.of(DyeItem.byColor(color)));
+            ShapelessRecipe recipe = new ShapelessRecipe("neovitae", CraftingBookCategory.MISC, result, ingredients);
+            scribeDyeRecipes.add(new RecipeHolder<>(NeoVitae.rl("arcane_scribe_dye_" + color.getSerializedName()), recipe));
+        }
+        registration.addRecipes(mezz.jei.api.constants.RecipeTypes.CRAFTING, scribeDyeRecipes);
     }
 
     private List<FlaskCombinationJEIRecipe> createFlaskCombinationRecipes(List<FlaskRecipe> allFlaskRecipes) {

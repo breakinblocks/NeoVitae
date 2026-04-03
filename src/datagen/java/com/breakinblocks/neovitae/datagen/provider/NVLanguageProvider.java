@@ -615,7 +615,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.imperfect.noMatch", "No imperfect ritual matches that block.");
 
         // Arcane Scribe Tool messages
-        add("chat.neovitae.scribe.notBound", "The scribe tool must be bound first!");
+        add("chat.neovitae.scribe.bound", "Arcane Scribe Tool bound to %s");
 
         // Master Ritual Stone activation messages
         add("chat.neovitae.crystal.notBound", "The crystal is not bound to a player!");

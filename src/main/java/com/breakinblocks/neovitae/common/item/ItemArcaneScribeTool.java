@@ -46,9 +46,10 @@ public class ItemArcaneScribeTool extends Item implements IBindable {
         Binding binding = getBinding(stack);
         if (binding == null) {
             if (!context.getLevel().isClientSide && player != null) {
-                player.displayClientMessage(Component.translatable("chat.neovitae.scribe.notBound").withStyle(ChatFormatting.RED), true);
+                bind(player, stack);
+                player.displayClientMessage(Component.translatable("chat.neovitae.scribe.bound", player.getName()).withStyle(ChatFormatting.GOLD), true);
             }
-            return InteractionResult.FAIL;
+            return InteractionResult.SUCCESS;
         }
 
         BlockPos newPos = context.getClickedPos().relative(context.getClickedFace());

@@ -5,7 +5,7 @@
   "description": "book.neovitae.guide.alchemy_arrays.arcane_ash.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "neovitae:arcane_ashes"
+    "item": "neovitae:arcane_scribe_tool"
   },
   "name": "book.neovitae.guide.alchemy_arrays.arcane_ash.name",
   "pages": [

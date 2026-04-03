@@ -21,15 +21,15 @@ public class ArcaneAshEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("The Alchemy Array");
         this.pageText("Before sigils, before rituals, before the great workings of [#](4A0080)Vitaemancy[#]() "
-                + "were ever conceived, there was the [#](8B0000)Alchemy Array[#](). Drawn in [#](8B0000)Arcane Ashes[#]() "
-                + "upon bare stone or earth, the array is the most fundamental expression of the art "
-                + ", a circle of intent, waiting to be given purpose.");
+                + "were ever conceived, there was the [#](8B0000)Alchemy Array[#](). Inscribed with the [#](8B0000)Arcane Scribe Tool[#]() "
+                + "upon bare stone or earth, the array is the most fundamental expression of the art: "
+                + "a circle of intent, waiting to be given purpose.");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("To inscribe an array, hold [#](8B0000)Arcane Ashes[#]() and press [Use] upon a solid surface. "
-                + "Each inscription consumes one charge from the ashes, which hold twenty uses before crumbling "
-                + "to dust.\\\n\\\n"
+        this.pageText("To inscribe an array, hold the [#](8B0000)Arcane Scribe Tool[#]() and press [Use] upon a solid surface. "
+                + "Each inscription consumes one charge; the tool holds twenty uses before wearing out."
+                + "\\\n\\\n"
                 + "The empty array is inert. Click it with an item to place the [#](8B0000)base[#]() component. "
                 + "The design shifts if the base is recognized.");
 
@@ -55,7 +55,7 @@ public class ArcaneAshEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The foundation of all vitaemantic craft, circles drawn in ash, awaiting purpose.";
+        return "The foundation of all vitaemantic craft, circles inscribed by the scribe's hand.";
     }
 
     @Override
@@ -65,7 +65,7 @@ public class ArcaneAshEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.ARCANE_ASHES.get());
+        return BookIconModel.create(NVItems.ARCANE_SCRIBE_TOOL.get());
     }
 
     @Override

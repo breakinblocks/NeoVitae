@@ -42,7 +42,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.pageTitle("The Tabula Vitae (Tier 0)");
         this.pageText("The [#](8B0000)Tabula Vitae[#]() draws [#](4A0080)Essentia Vitae[#]() from your "
                 + "[#](4A0080)Anima[#]() through the Orb of Vitae placed within, channeling it into a myriad of creations:\n\n"
-                + "- [#](8B0000)Arcane Ashes[#]() for array work\n"
+                + "- [#](8B0000)Arcane Scribe Tools[#]() for array work\n"
                 + "- Reagents for Sigil crafting\n"
                 + "- Anointments for your blades\n"
                 + "- 2x Ore Processing\n"
@@ -52,7 +52,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Alchemy Arrays (Tier 0)");
-        this.pageText("Scatter [#](8B0000)Arcane Ashes[#]() upon the ground, and a circle of power awakens. "
+        this.pageText("Use the [#](8B0000)Arcane Scribe Tool[#]() upon the ground, and a circle of power awakens. "
                 + "This is the [#](8B0000)Alchemy Array[#]() - a versatile glyph that accepts two offerings.\\\n\\\n"
                 + "Some combinations yield crafted objects, such as the [#](8B0000)Divination Sigil[#](). "
                 + "Others invoke immediate effects upon the world, bending time or light to your will.");

@@ -2287,8 +2287,8 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(3)
                 .save(output, "reagent_phantom_bridge");
 
-        // Arcane Ash - redstone, white dye (bone meal), gunpowder, coal
-        TabulaVitaeRecipeBuilder.build(NVItems.ARCANE_ASHES.get())
+        // Arcane Scribe Tool - redstone, white dye (bone meal), gunpowder, coal
+        TabulaVitaeRecipeBuilder.build(NVItems.ARCANE_SCRIBE_TOOL.get())
                 .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
                 .input(Ingredient.of(Tags.Items.DYES_WHITE))
                 .input(Ingredient.of(Tags.Items.GUNPOWDERS))
@@ -2296,7 +2296,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .syphon(500)
                 .ticks(200)
                 .minimumTier(1)
-                .save(output, "arcane_ash");
+                .save(output, "arcane_scribe_tool");
 
         // Tau Oil - 3x weak tau + bone meal
         TabulaVitaeRecipeBuilder.build(NVItems.TAU_OIL.get())

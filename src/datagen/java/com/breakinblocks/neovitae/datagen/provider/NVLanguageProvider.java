@@ -196,8 +196,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.SIGIL_PHANTOM_BRIDGE.get(), "Sigil of the Phantom Bridge");
 
         // Alchemy & Misc
-        add(NVItems.ARCANE_ASHES.get(), "Arcane Ashes");
-        addTooltip("arcaneAshes", "Draws an alchemy circle when placed");
+        add(NVItems.ARCANE_SCRIBE_TOOL.get(), "Arcane Scribe Tool");
+        addTooltip("arcane_scribe_tool", "Inscribes an alchemy array when used on a surface");
+        add("tooltip.neovitae.arcane_scribe_tool.color", "Color: %s");
 
         // Reagents
         add(NVItems.REAGENT_WATER.get(), "Reagent Water");
@@ -613,8 +614,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.imperfect.notEnoughLP", "Not enough Essentia Vitae! Requires %d EV.");
         add("chat.neovitae.imperfect.noMatch", "No imperfect ritual matches that block.");
 
-        // Arcane Ash messages
-        add("chat.neovitae.ash.notBound", "The arcane ashes must be bound first!");
+        // Arcane Scribe Tool messages
+        add("chat.neovitae.scribe.notBound", "The scribe tool must be bound first!");
 
         // Master Ritual Stone activation messages
         add("chat.neovitae.crystal.notBound", "The crystal is not bound to a player!");

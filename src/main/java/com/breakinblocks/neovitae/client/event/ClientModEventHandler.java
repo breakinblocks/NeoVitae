@@ -179,6 +179,14 @@ public class ClientModEventHandler {
         }, NVItems.SIGIL_BLOOD_LIGHT.get());
 
         event.register((stack, layer) -> {
+            net.minecraft.world.item.DyeColor color = stack.get(com.breakinblocks.neovitae.common.datacomponent.NVDataComponents.ALCHEMY_ARRAY_COLOR.get());
+            if (color != null) {
+                return 0xFF000000 | ColorHelper.fromDye(color);
+            }
+            return 0xFFFFFFFF;
+        }, NVItems.ARCANE_SCRIBE_TOOL.get());
+
+        event.register((stack, layer) -> {
             if (layer == 1) return 0x99990011;
             return 0xFFFFFFFF;
         }, NVItems.ORB_WEAK.get(), NVItems.ORB_APPRENTICE.get(), NVItems.ORB_MAGICIAN.get(),

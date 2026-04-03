@@ -11,12 +11,14 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4f;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.recipe.AlchemyArrayInput;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
+import com.breakinblocks.neovitae.util.helper.ColorHelper;
 
 public class AlchemyArrayRenderer implements BlockEntityRenderer<AlchemyArrayBlockEntity> {
 
@@ -60,7 +62,16 @@ public class AlchemyArrayRenderer implements BlockEntityRenderer<AlchemyArrayBlo
 
         poseStack.translate(-0.5, 0, -0.5);
 
-        renderArrayTexture(texture, poseStack, bufferSource, packedLight);
+        DyeColor dyeColor = tile.getArrayColor();
+        int r = 255, g = 255, b = 255;
+        if (dyeColor != null) {
+            int rgb = ColorHelper.fromDye(dyeColor);
+            r = (rgb >> 16) & 0xFF;
+            g = (rgb >> 8) & 0xFF;
+            b = rgb & 0xFF;
+        }
+
+        renderArrayTexture(texture, poseStack, bufferSource, packedLight, r, g, b);
 
         poseStack.popPose();
     }
@@ -85,7 +96,7 @@ public class AlchemyArrayRenderer implements BlockEntityRenderer<AlchemyArrayBlo
                 .orElse(DEFAULT_TEXTURE);
     }
 
-    private void renderArrayTexture(ResourceLocation texture, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+    private void renderArrayTexture(ResourceLocation texture, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int r, int g, int b) {
         VertexConsumer buffer = bufferSource.getBuffer(RenderType.entityTranslucentCull(texture));
 
         Matrix4f matrix = poseStack.last().pose();
@@ -105,9 +116,9 @@ public class AlchemyArrayRenderer implements BlockEntityRenderer<AlchemyArrayBlo
 
         float nx = 0, ny = 1, nz = 0;
 
-        buffer.addVertex(matrix, minX, y, minZ).setColor(255, 255, 255, 255).setUv(u0, v0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
-        buffer.addVertex(matrix, minX, y, maxZ).setColor(255, 255, 255, 255).setUv(u0, v1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
-        buffer.addVertex(matrix, maxX, y, maxZ).setColor(255, 255, 255, 255).setUv(u1, v1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
-        buffer.addVertex(matrix, maxX, y, minZ).setColor(255, 255, 255, 255).setUv(u1, v0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
+        buffer.addVertex(matrix, minX, y, minZ).setColor(r, g, b, 255).setUv(u0, v0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
+        buffer.addVertex(matrix, minX, y, maxZ).setColor(r, g, b, 255).setUv(u0, v1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
+        buffer.addVertex(matrix, maxX, y, maxZ).setColor(r, g, b, 255).setUv(u1, v1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
+        buffer.addVertex(matrix, maxX, y, minZ).setColor(r, g, b, 255).setUv(u1, v0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
     }
 }

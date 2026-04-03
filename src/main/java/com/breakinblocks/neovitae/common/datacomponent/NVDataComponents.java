@@ -94,6 +94,8 @@ public class NVDataComponents {
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SimpleFluidContent>> ORB_FLUID = DATA_COMPONENTS.registerComponentType("orb_fluid", builder -> builder.persistent(SimpleFluidContent.CODEC).networkSynchronized(SimpleFluidContent.STREAM_CODEC));
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<DyeColor>> ALCHEMY_ARRAY_COLOR = DATA_COMPONENTS.registerComponentType("alchemy_array_color", builder -> builder.persistent(DyeColor.CODEC).networkSynchronized(DyeColor.STREAM_CODEC));
+
     public static void register(IEventBus modBus) {
         DATA_COMPONENTS.register(modBus);
     }

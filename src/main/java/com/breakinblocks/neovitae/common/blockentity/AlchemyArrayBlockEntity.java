@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
@@ -34,6 +35,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     public AlchemyArrayEffect arrayEffect;
     private boolean doDropIngredients = true;
     private Binding ownerBinding = Binding.EMPTY;
+    private DyeColor arrayColor = null;
 
     public final ItemStackHandler inv = new ItemStackHandler(2) {
         @Override
@@ -75,6 +77,11 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
         if (tag.contains("ownerBinding")) {
             this.ownerBinding = Binding.BASIC_CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag.getCompound("ownerBinding")).result().orElse(Binding.EMPTY);
         }
+        if (tag.contains("arrayColor")) {
+            this.arrayColor = DyeColor.byId(tag.getInt("arrayColor"));
+        } else {
+            this.arrayColor = null;
+        }
     }
 
     public void doDropIngredients(boolean drop) {
@@ -91,6 +98,9 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
         tag.put("inventory", inv.serializeNBT(registries));
         if (!ownerBinding.isEmpty()) {
             Binding.BASIC_CODEC.encodeStart(net.minecraft.nbt.NbtOps.INSTANCE, ownerBinding).result().ifPresent(nbt -> tag.put("ownerBinding", nbt));
+        }
+        if (arrayColor != null) {
+            tag.putInt("arrayColor", arrayColor.getId());
         }
     }
 
@@ -202,6 +212,15 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
 
     public void setOwnerBinding(Binding binding) {
         this.ownerBinding = binding;
+        setChanged();
+    }
+
+    public DyeColor getArrayColor() {
+        return arrayColor;
+    }
+
+    public void setArrayColor(DyeColor color) {
+        this.arrayColor = color;
         setChanged();
     }
 

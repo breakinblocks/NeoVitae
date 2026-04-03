@@ -329,7 +329,7 @@ public class AlchemyArraysCategory extends CategoryProvider {
 
     @Override
     protected BookIconModel categoryIcon() {
-        return BookIconModel.create(NVItems.ARCANE_ASHES.get());
+        return BookIconModel.create(NVItems.ARCANE_SCRIBE_TOOL.get());
     }
 
     @Override

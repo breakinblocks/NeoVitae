@@ -1796,7 +1796,7 @@
   "chat.neovitae.routing.remove": "Stored position cleared.",
   "chat.neovitae.routing.same": "Cannot link a node to itself!",
   "chat.neovitae.routing.set": "Position stored.",
-  "chat.neovitae.scribe.notBound": "The scribe tool must be bound first!",
+  "chat.neovitae.scribe.bound": "Arcane Scribe Tool bound to %s",
   "command.neovitae.generate.added": "Added %s new materials: %s",
   "command.neovitae.generate.no_new": "No new ore materials found. %s already configured.",
   "command.neovitae.generate.restart": "Restart the game for new items to appear.",

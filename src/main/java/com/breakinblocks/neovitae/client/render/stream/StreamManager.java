@@ -6,8 +6,11 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.stream.StreamEffect;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -19,6 +22,7 @@ public class StreamManager {
     private static final StreamManager INSTANCE = new StreamManager();
 
     private final ConcurrentHashMap<String, ActiveStream> activeStreams = new ConcurrentHashMap<>();
+    private final List<SimpleStreamEffect> simpleStreams = new ArrayList<>();
     private int tickCount = 0;
 
     private StreamManager() {
@@ -33,6 +37,11 @@ public class StreamManager {
      * If an identical stream is still active, the request is ignored.
      */
     public void addStream(StreamEffect effect) {
+        if (NeoVitae.CLIENT_CONFIG.USE_SIMPLE_EFFECTS.get()) {
+            simpleStreams.add(new SimpleStreamEffect(effect));
+            return;
+        }
+
         String key = Mth.floor(effect.sourceX) + ":" + Mth.floor(effect.sourceY) + ":"
                 + Mth.floor(effect.sourceZ) + ":" + Mth.floor(effect.targetX) + ":"
                 + Mth.floor(effect.targetY) + ":" + Mth.floor(effect.targetZ) + ":"
@@ -53,6 +62,10 @@ public class StreamManager {
         activeStreams.values().removeIf(stream -> {
             stream.tick();
             return stream.isExpired();
+        });
+        simpleStreams.removeIf(simple -> {
+            simple.tick();
+            return simple.isExpired();
         });
     }
 
@@ -79,10 +92,11 @@ public class StreamManager {
     /** Clear all streams. Called on disconnect. */
     public void clear() {
         activeStreams.clear();
+        simpleStreams.clear();
         tickCount = 0;
     }
 
     public boolean hasActiveStreams() {
-        return !activeStreams.isEmpty();
+        return !activeStreams.isEmpty() || !simpleStreams.isEmpty();
     }
 }

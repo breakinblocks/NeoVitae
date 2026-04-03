@@ -58,10 +58,17 @@ public class NeoVitae {
     public static final ServerConfig SERVER_CONFIG;
     private static final ModConfigSpec SERVER_CONFIG_SPEC;
 
+    public static final ClientConfig CLIENT_CONFIG;
+    private static final ModConfigSpec CLIENT_CONFIG_SPEC;
+
     static {
-        Pair<ServerConfig, ModConfigSpec> pair = new ModConfigSpec.Builder().configure(ServerConfig::new);
-        SERVER_CONFIG = pair.getLeft();
-        SERVER_CONFIG_SPEC = pair.getRight();
+        Pair<ServerConfig, ModConfigSpec> serverPair = new ModConfigSpec.Builder().configure(ServerConfig::new);
+        SERVER_CONFIG = serverPair.getLeft();
+        SERVER_CONFIG_SPEC = serverPair.getRight();
+
+        Pair<ClientConfig, ModConfigSpec> clientPair = new ModConfigSpec.Builder().configure(ClientConfig::new);
+        CLIENT_CONFIG = clientPair.getLeft();
+        CLIENT_CONFIG_SPEC = clientPair.getRight();
     }
 
     public NeoVitae(IEventBus modBus, ModContainer container) {
@@ -105,6 +112,7 @@ public class NeoVitae {
         CuriosCompat.init(modBus);
 
         container.registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG_SPEC);
+        container.registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG_SPEC);
 
         modBus.addListener(this::commonSetup);
         modBus.addListener(NVPayloads::register);

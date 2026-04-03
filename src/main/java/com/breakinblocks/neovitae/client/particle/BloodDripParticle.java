@@ -6,6 +6,7 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -56,6 +57,9 @@ public class BloodDripParticle extends TextureSheetParticle {
         public Particle createParticle(ColoredParticleOptions options, ClientLevel level,
                                         double x, double y, double z,
                                         double xSpeed, double ySpeed, double zSpeed) {
+            if (NeoVitae.CLIENT_CONFIG.USE_SIMPLE_EFFECTS.get()) {
+                return SimpleParticleFactory.createSimpleDrip(level, x, y, z, xSpeed, ySpeed, zSpeed, this.sprites, options.color());
+            }
             return new BloodDripParticle(level, x, y, z, ySpeed, this.sprites, options.color());
         }
     }

@@ -8,6 +8,7 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -68,6 +69,9 @@ public class RuneGlowParticle extends TextureSheetParticle {
         public Particle createParticle(ColoredParticleOptions options, ClientLevel level,
                                         double x, double y, double z,
                                         double xSpeed, double ySpeed, double zSpeed) {
+            if (NeoVitae.CLIENT_CONFIG.USE_SIMPLE_EFFECTS.get()) {
+                return SimpleParticleFactory.createSimpleRune(level, x, y, z, this.sprites, options.color());
+            }
             return new RuneGlowParticle(level, x, y, z, this.sprites, options.color());
         }
     }

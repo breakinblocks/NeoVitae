@@ -38,7 +38,7 @@ public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRec
 
     public TabulaVitaeRecipeCategory(IGuiHelper guiHelper) {
         icon = guiHelper.createDrawableItemStack(new ItemStack(NVBlocks.TABULA_VITAE.block().get()));
-        background = guiHelper.createDrawable(NeoVitae.rl("gui/jei/alchemytable.png"), 0, 0, WIDTH, HEIGHT);
+        background = guiHelper.createDrawable(NeoVitae.rl("textures/gui/jei/alchemytable.png"), 0, 0, WIDTH, HEIGHT);
     }
 
     @Override

@@ -36,7 +36,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
 
     public AthanorRecipeCategory(IGuiHelper guiHelper) {
         icon = guiHelper.createDrawableItemStack(new ItemStack(NVBlocks.ATHANOR_BLOCK.block().get()));
-        background = guiHelper.createDrawable(NeoVitae.rl("gui/jei/athanor.png"), 0, 0, WIDTH, HEIGHT);
+        background = guiHelper.createDrawable(NeoVitae.rl("textures/gui/jei/athanor.png"), 0, 0, WIDTH, HEIGHT);
     }
 
     @Nonnull

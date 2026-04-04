@@ -39,7 +39,7 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
 
     public HellfireForgeRecipeCategory(IGuiHelper guiHelper) {
         icon = guiHelper.createDrawableItemStack(new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()));
-        background = guiHelper.createDrawable(NeoVitae.rl("gui/jei/hellfire_forge.png"), 0, 0, WIDTH, HEIGHT);
+        background = guiHelper.createDrawable(NeoVitae.rl("textures/gui/jei/hellfire_forge.png"), 0, 0, WIDTH, HEIGHT);
     }
 
     @Override

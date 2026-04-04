@@ -38,7 +38,7 @@ public class AraVitaeRecipeCategory implements IRecipeCategory<AraVitaeRecipe> {
 
     public AraVitaeRecipeCategory(IGuiHelper guiHelper) {
         icon = guiHelper.createDrawableItemStack(new ItemStack(NVBlocks.ARA_VITAE.block().get()));
-        background = guiHelper.createDrawable(NeoVitae.rl("gui/jei/altar.png"), 3, 4, WIDTH, HEIGHT);
+        background = guiHelper.createDrawable(NeoVitae.rl("textures/gui/jei/altar.png"), 3, 4, WIDTH, HEIGHT);
     }
 
     @Override

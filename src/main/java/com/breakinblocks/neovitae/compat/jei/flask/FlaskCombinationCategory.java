@@ -36,7 +36,7 @@ public class FlaskCombinationCategory implements IRecipeCategory<FlaskCombinatio
 
     public FlaskCombinationCategory(IGuiHelper guiHelper) {
         icon = guiHelper.createDrawableItemStack(new ItemStack(NVItems.ALCHEMY_FLASK.get()));
-        background = guiHelper.createDrawable(NeoVitae.rl("gui/jei/alchemytable.png"), 0, 0, WIDTH, HEIGHT);
+        background = guiHelper.createDrawable(NeoVitae.rl("textures/gui/jei/alchemytable.png"), 0, 0, WIDTH, HEIGHT);
     }
 
     @Override

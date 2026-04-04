@@ -35,7 +35,7 @@ public class AlchemyArrayCraftingCategory implements IRecipeCategory<AlchemyArra
 
     public AlchemyArrayCraftingCategory(IGuiHelper guiHelper) {
         icon = guiHelper.createDrawableItemStack(new ItemStack(NVItems.ARCANE_SCRIBE_TOOL.get()));
-        background = guiHelper.createDrawable(NeoVitae.rl("gui/jei/binding.png"), 0, 0, WIDTH, HEIGHT);
+        background = guiHelper.createDrawable(NeoVitae.rl("textures/gui/jei/binding.png"), 0, 0, WIDTH, HEIGHT);
     }
 
     @Nonnull

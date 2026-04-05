@@ -35,14 +35,20 @@ public class RitualLavaEntry extends EntryProvider {
         this.pageTitle("Infernal Invocation");
         this.pageText("This ritual tears open a seam to the molten depths, conjuring lava source blocks above the [#](8B0000)Master Ritual Stone[#](). The heat it radiates is palpable; handle with the respect due to the Nether's own blood.");
 
+        this.page("tank_fill", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Channeled Reservoir");
+        this.pageText("Place any fluid container (a [#](8B0000)Blood Tank[#]() or compatible tank from another tradition) directly above the [#](8B0000)Master Ritual Stone[#]() and the ritual will pipe one bucket of lava into it each cycle instead of spilling a source block into the world."
+                + "\n\nWhen the vessel has no room for another bucket, the ritual grows patient: it probes the container less and less frequently, doubling the wait between attempts, so a sealed tank never burdens the server. The moment space reappears it ramps straight back up to its normal cadence of one bucket every ten ticks.");
+
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
-        this.pageText("- [#](8B0000)Raw Spiritus[#](): Channels lava directly into a tank placed above the ritual, reducing [#](8B0000)Essentia Vitae[#]() cost."
+        this.pageText("- [#](8B0000)Raw Spiritus[#](): Reduces the [#](8B0000)Essentia Vitae[#]() cost of each lava block or bucket conjured."
                 + "\n\n- [#](8B0000)Corrosive Spiritus[#](): Sets nearby hostile creatures ablaze."
                 + "\n\n- [#](8B0000)Vengeful Spiritus[#](): Marks hostile mobs with [#](8B0000)Fire Fuse[#](). When it expires, they detonate spectacularly."
-                + "\n\n- [#](8B0000)Destructive Spiritus[#](): Accelerates the rate of lava conjuration."
                 + "\n\n- [#](8B0000)Steadfast Spiritus[#](): Wraps nearby practitioners in [#](8B0000)Fire Resistance[#]().");
     }
 

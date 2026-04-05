@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,15 +25,22 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 /**
- * Ritual of Lava - generates lava in a configurable area.
+ * Ritual of Lava - generates lava in a configurable area, or fills a fluid tank
+ * placed directly above the Master Ritual Stone with one bucket of lava per cycle.
+ *
+ * <p>Tank-fill mode is automatic: if a fluid handler is detected within the tank
+ * range (the block above the master stone by default), the ritual pipes lava into
+ * it instead of placing source blocks in the world. When the tank has no room for
+ * another bucket, the ritual enters an exponential backoff, skipping an increasing
+ * number of invocations to avoid repeatedly probing a full container. A successful
+ * fill immediately resets the backoff to the ritual's normal cadence.
  *
  * <p>Spiritus effects:
  * <ul>
- *   <li><b>Raw (Default)</b> - Reduced EV cost for lava placement, enables tank filling</li>
+ *   <li><b>Raw (Default)</b> - Reduced EV cost for lava placement and tank filling</li>
  *   <li><b>Vengeful</b> - Apply Fire Fuse to non-player mobs in fire range</li>
  *   <li><b>Steadfast</b> - Apply Fire Resistance to players in fire range</li>
  *   <li><b>Corrosive</b> - Deal fire damage to entities (skip fire-immune) in fire range</li>
- *   <li><b>Destructive</b> - Reserved (range expansion, not implemented)</li>
  * </ul>
  */
 public class RitualLava extends Ritual {
@@ -42,13 +50,20 @@ public class RitualLava extends Ritual {
     public static final String FIRE_RANGE = "fireRange";
 
     private static final double MIN_WILL = 0.5;
-    private static final double WILL_PER_LAVA = 0.5;
-    private static final double WILL_PER_TANK_FILL = 1.0;
     private static final double VENGEFUL_WILL_PER_MOB = 1.0;
     private static final double CORROSIVE_WILL_PER_HIT = 1.0;
     private static final double STEADFAST_WILL_PER_PLAYER = 0.5;
     private static final int BASE_LAVA_COST = 500;
     private static final float CORROSIVE_FIRE_DAMAGE = 2.0F;
+
+    // Backoff configuration: number of performRitual invocations to skip per level.
+    // Level 0 = normal cadence (no skip). Capped so full-tank polling stays cheap.
+    private static final int MAX_BACKOFF_LEVEL = 5;
+    private static final int[] BACKOFF_SKIPS = {0, 1, 3, 7, 15, 31};
+
+    // Persisted backoff state (saved with the ritual via read/writeToNBT).
+    private int tankBackoffLevel = 0;
+    private int tankBackoffRemaining = 0;
 
     public RitualLava() {
         super("lava", 0, 10000, "ritual." + NeoVitae.MODID + ".lava");
@@ -71,9 +86,8 @@ public class RitualLava extends Ritual {
 
         SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
 
-        // EV cost per lava placement — cheaper with more raw Spiritus
-        int lavaCost = will.hasDefault() ? Math.max(0, BASE_LAVA_COST - (int) will.getDefault()) : BASE_LAVA_COST;
-        if (lavaCost == 0) lavaCost = 1; // Minimum 1 LP
+        // EV cost per operation: cheaper with more raw Spiritus.
+        int lavaCost = will.hasDefault() ? Math.max(1, BASE_LAVA_COST - (int) will.getDefault()) : BASE_LAVA_COST;
 
         int maxEffects = ctx.maxOperations(lavaCost);
         int totalEffects = 0;
@@ -83,37 +97,58 @@ public class RitualLava extends Ritual {
         double vengefulUsed = 0;
         double steadfastUsed = 0;
 
-        // --- TANK FILLING: Fill fluid tanks with lava when raw Spiritus is present ---
-        if (will.hasDefault()) {
-            List<BlockPos> tankPositions = RitualHelper.getRangePositions(ctx.master(), this, TANK_RANGE, masterPos);
-            for (BlockPos tankPos : tankPositions) {
-                if (totalEffects >= maxEffects) break;
-                if ((will.getDefault() - rawUsed) < WILL_PER_TANK_FILL) break;
+        // --- TANK / LAVA PLACEMENT ---
+        // If a fluid handler is present in the tank range, switch to tank-fill mode.
+        // Otherwise fall back to placing lava source blocks in the lava range.
+        boolean tankPresent = false;
 
-                IFluidHandler fluidHandler = ctx.level().getCapability(
+        if (tankBackoffRemaining > 0) {
+            // Currently backing off: don't probe the tank this cycle, but remember
+            // that tank mode is active so we skip world placement.
+            tankBackoffRemaining--;
+            tankPresent = true;
+        } else {
+            List<BlockPos> tankPositions = RitualHelper.getRangePositions(ctx.master(), this, TANK_RANGE, masterPos);
+            IFluidHandler availableTank = null;
+            for (BlockPos tankPos : tankPositions) {
+                IFluidHandler handler = ctx.level().getCapability(
                         Capabilities.FluidHandler.BLOCK, tankPos, null);
-                if (fluidHandler != null) {
+                if (handler != null) {
+                    tankPresent = true;
                     FluidStack lavaStack = new FluidStack(Fluids.LAVA, 1000);
-                    int filled = fluidHandler.fill(lavaStack, IFluidHandler.FluidAction.SIMULATE);
-                    if (filled > 0) {
-                        fluidHandler.fill(lavaStack, IFluidHandler.FluidAction.EXECUTE);
-                        rawUsed += WILL_PER_TANK_FILL;
-                        totalEffects++;
+                    int simulated = handler.fill(lavaStack, IFluidHandler.FluidAction.SIMULATE);
+                    if (simulated >= 1000) {
+                        availableTank = handler;
+                        break;
                     }
                 }
             }
+
+            if (availableTank != null && totalEffects < maxEffects) {
+                availableTank.fill(new FluidStack(Fluids.LAVA, 1000), IFluidHandler.FluidAction.EXECUTE);
+                totalEffects++;
+                // Successful fill: return to normal cadence.
+                tankBackoffLevel = 0;
+                tankBackoffRemaining = 0;
+            } else if (tankPresent) {
+                // Tank exists but is full (or maxEffects exhausted). Back off so we
+                // don't keep probing the capability every cycle.
+                if (tankBackoffLevel < MAX_BACKOFF_LEVEL) {
+                    tankBackoffLevel++;
+                }
+                tankBackoffRemaining = BACKOFF_SKIPS[tankBackoffLevel];
+            }
         }
 
-        // --- LAVA PLACEMENT: Place lava in empty blocks ---
-        List<BlockPos> positions = RitualHelper.getRangePositions(ctx.master(), this, LAVA_RANGE, masterPos);
-        for (BlockPos pos : positions) {
-            if (totalEffects >= maxEffects) break;
+        // Only place lava in the world when no tank is present at all.
+        if (!tankPresent) {
+            List<BlockPos> positions = RitualHelper.getRangePositions(ctx.master(), this, LAVA_RANGE, masterPos);
+            for (BlockPos pos : positions) {
+                if (totalEffects >= maxEffects) break;
 
-            if (ctx.level().isEmptyBlock(pos)) {
-                if (BlockProtectionHelper.tryPlaceBlock(ctx.level(), pos, Blocks.LAVA.defaultBlockState(), owner)) {
-                    totalEffects++;
-                    if (will.hasDefault()) {
-                        rawUsed += WILL_PER_LAVA;
+                if (ctx.level().isEmptyBlock(pos)) {
+                    if (BlockProtectionHelper.tryPlaceBlock(ctx.level(), pos, Blocks.LAVA.defaultBlockState(), owner)) {
+                        totalEffects++;
                     }
                 }
             }
@@ -182,5 +217,19 @@ public class RitualLava extends Ritual {
     @Override
     public Ritual getNewCopy() {
         return new RitualLava();
+    }
+
+    @Override
+    public void readFromNBT(CompoundTag tag) {
+        super.readFromNBT(tag);
+        tankBackoffLevel = Math.min(Math.max(tag.getInt("tankBackoffLevel"), 0), MAX_BACKOFF_LEVEL);
+        tankBackoffRemaining = Math.max(tag.getInt("tankBackoffRemaining"), 0);
+    }
+
+    @Override
+    public void writeToNBT(CompoundTag tag) {
+        super.writeToNBT(tag);
+        tag.putInt("tankBackoffLevel", tankBackoffLevel);
+        tag.putInt("tankBackoffRemaining", tankBackoffRemaining);
     }
 }

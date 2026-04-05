@@ -107,40 +107,34 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
         if (array == null || player.isShiftKeyDown())
             return ItemInteractionResult.FAIL;
 
-        if (array.arrayEffect != null && array.getItem(0).isEmpty() == false && array.getItem(1).isEmpty() == false) {
-            if (!world.isClientSide && array.arrayEffect.onUse(array, player)) {
-                world.sendBlockUpdated(pos, state, state, 3);
-            }
-            return ItemInteractionResult.sidedSuccess(world.isClientSide);
+        ItemStack playerItem = player.getItemInHand(hand);
+        if (playerItem.isEmpty()) {
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
-        ItemStack playerItem = player.getItemInHand(hand);
-
-        if (!playerItem.isEmpty()) {
-            if (array.getItem(0).isEmpty()) {
+        for (int slot = 0; slot < 2; slot++) {
+            ItemStack inSlot = array.getItem(slot);
+            if (inSlot.isEmpty()) {
                 ItemStack toInsert = playerItem.copy();
                 toInsert.setCount(1);
-                array.inv.setStackInSlot(0, toInsert);
-                if (!player.isCreative()) {
-                    playerItem.shrink(1);
-                }
+                array.inv.setStackInSlot(slot, toInsert);
+                if (!player.isCreative()) playerItem.shrink(1);
+                if (slot == 1) array.attemptCraft();
                 world.sendBlockUpdated(pos, state, state, 3);
-            } else if (array.getItem(1).isEmpty()) {
-                ItemStack toInsert = playerItem.copy();
-                toInsert.setCount(1);
-                array.inv.setStackInSlot(1, toInsert);
-                if (!player.isCreative()) {
-                    playerItem.shrink(1);
-                }
+                return ItemInteractionResult.sidedSuccess(world.isClientSide);
+            }
+            if (ItemStack.isSameItemSameComponents(inSlot, playerItem)
+                    && inSlot.getCount() < inSlot.getMaxStackSize()) {
+                inSlot.grow(1);
+                array.inv.setStackInSlot(slot, inSlot);
+                if (!player.isCreative()) playerItem.shrink(1);
                 array.attemptCraft();
                 world.sendBlockUpdated(pos, state, state, 3);
-            } else {
-                return ItemInteractionResult.SUCCESS;
+                return ItemInteractionResult.sidedSuccess(world.isClientSide);
             }
         }
 
-        world.sendBlockUpdated(pos, state, state, 3);
-        return ItemInteractionResult.SUCCESS;
+        return ItemInteractionResult.sidedSuccess(world.isClientSide);
     }
 
     @Override
@@ -148,7 +142,8 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
         if (player.isShiftKeyDown()) return InteractionResult.PASS;
         BlockEntity tile = world.getBlockEntity(pos);
         if (tile instanceof AlchemyArrayBlockEntity array && array.arrayEffect != null) {
-            if (!world.isClientSide && array.arrayEffect.onUse(array, player)) {
+            boolean handled = array.arrayEffect.onUse(array, player);
+            if (handled && !world.isClientSide) {
                 world.sendBlockUpdated(pos, state, state, 3);
             }
             return InteractionResult.sidedSuccess(world.isClientSide);

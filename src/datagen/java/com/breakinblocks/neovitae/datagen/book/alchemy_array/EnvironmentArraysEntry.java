@@ -37,14 +37,18 @@ public class EnvironmentArraysEntry extends EntryProvider {
         this.page("undertow", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The [#](8B0000)Undertow Array[#]() is scribed with [#](8B0000)Kelp[#]() and awakened by "
-                + "[#](8B0000)Redstone Dust[#](). It must sit beneath a column of still water: once activated it "
-                + "drives a [#](8B0000)bubble column[#]() upward through every water source directly above, "
-                + "behaving exactly like the natural columns that form over soul sand.\\\n\\\n"
-                + "[#](8B0000)Right-click[#]() the array to reverse the flow. Upward columns push entities "
-                + "skyward; downward columns drag them to the bottom, mirroring a magma block's current. The "
-                + "array is persistent and remembers its direction across world reloads.\\\n\\\n"
+                + "[#](8B0000)Redstone Dust[#](). Once active, it opens a [#](8B0000)vitaemantic current[#]() "
+                + "through the open column of air directly above the glyph, lifting or drowning any entity that "
+                + "enters, no water required.\\\n\\\n"
+                + "[#](8B0000)Right-click with an empty hand[#]() to reverse the flow. Upward currents push "
+                + "entities skyward; downward currents drag them to the bottom, mirroring a magma block's pull. "
+                + "The array is persistent and remembers its direction across world reloads.\\\n\\\n"
+                + "[#](8B0000)Scaling[#](): the strength of the current is read live from the array's own slots. "
+                + "Adding more [#](8B0000)Redstone Dust[#]() to the redstone slot strengthens the acceleration; "
+                + "adding more [#](8B0000)Kelp[#]() to the kelp slot raises the terminal velocity. Simply "
+                + "right-click the array with additional ingredients to stack them into place.\\\n\\\n"
                 + "[#](2E8B57)Tip: the Arcane Scribe Tool can inscribe arrays directly into water source blocks, "
-                + "so an Undertow Array can be placed at the bottom of a pool without draining it first.[#]()");
+                + "so an Undertow Array can still be placed at the bottom of a pool without draining it first.[#]()");
     }
 
     @Override

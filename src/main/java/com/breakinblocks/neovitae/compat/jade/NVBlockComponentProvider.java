@@ -8,8 +8,10 @@ import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectElevator
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectMovement;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectNight;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectSpike;
+import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectUndertow;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectUpdraft;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
+import net.minecraft.world.item.Items;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.blockentity.BloodLightBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
@@ -42,6 +44,23 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
 
         if (data.contains("array_effect")) {
             tooltip.add(Component.literal(data.getString("array_effect")).withStyle(ChatFormatting.LIGHT_PURPLE));
+        }
+
+        if (data.contains("array_mode")) {
+            boolean down = data.getBoolean("array_mode_down");
+            String arrow = down ? "\u25BC" : "\u25B2";
+            tooltip.add(Component.literal("Direction: " + arrow + " " + data.getString("array_mode"))
+                    .withStyle(down ? ChatFormatting.BLUE : ChatFormatting.AQUA));
+        }
+
+        if (data.contains("array_accel")) {
+            tooltip.add(Component.literal(String.format("Acceleration: %.3f", data.getDouble("array_accel")))
+                    .withStyle(ChatFormatting.GOLD));
+        }
+
+        if (data.contains("array_max_vel")) {
+            tooltip.add(Component.literal(String.format("Max Velocity: %.2f", data.getDouble("array_max_vel")))
+                    .withStyle(ChatFormatting.GOLD));
         }
 
         if (data.contains("altar_tier")) {
@@ -92,6 +111,21 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
             AlchemyArrayEffect effect = array.arrayEffect;
             if (effect != null) {
                 data.putString("array_effect", getEffectName(effect));
+
+                if (effect instanceof AlchemyArrayEffectUpdraft) {
+                    int feathers = array.getItem(0).is(Items.FEATHER) ? array.getItem(0).getCount() : 0;
+                    int glowstone = array.getItem(1).is(Items.GLOWSTONE_DUST) ? array.getItem(1).getCount() : 0;
+                    double base = 1.0;
+                    data.putDouble("array_max_vel", base + 0.1 * glowstone + 0.05 * feathers);
+                } else if (effect instanceof AlchemyArrayEffectUndertow undertow) {
+                    int kelp = array.getItem(0).is(Items.KELP) ? array.getItem(0).getCount() : 0;
+                    int redstone = array.getItem(1).is(Items.REDSTONE) ? array.getItem(1).getCount() : 0;
+                    boolean dragDown = undertow.isDragDown();
+                    data.putString("array_mode", dragDown ? "Downward" : "Upward");
+                    data.putBoolean("array_mode_down", dragDown);
+                    data.putDouble("array_accel", (dragDown ? 0.05 : 0.12) + 0.003 * redstone);
+                    data.putDouble("array_max_vel", (dragDown ? 0.9 : 1.8) + 0.015 * kelp);
+                }
             }
         }
 
@@ -135,6 +169,7 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
         if (effect instanceof AlchemyArrayEffectBounce) return "Bounce Array";
         if (effect instanceof AlchemyArrayEffectSpike) return "Spike Array";
         if (effect instanceof AlchemyArrayEffectUpdraft) return "Updraft Array";
+        if (effect instanceof AlchemyArrayEffectUndertow) return "Undertow Array";
         if (effect instanceof AlchemyArrayEffectMovement) return "Movement Array";
         if (effect instanceof AlchemyArrayEffectDay) return "Sunrise Array";
         if (effect instanceof AlchemyArrayEffectNight) return "Moonrise Array";

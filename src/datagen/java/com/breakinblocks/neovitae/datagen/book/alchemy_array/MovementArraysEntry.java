@@ -28,9 +28,7 @@ public class MovementArraysEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("[#](8B0000)Speed Array[#](): Launches entities horizontally in the direction they face. "
                 + "Inscribed via [#](8B0000)Alchemy Array[#]().\\\n\\\n"
-                + "[#](8B0000)Updraft Array[#](): Opens a sustained column of rising force above the glyph, "
-                + "lifting any entity that enters it until they clear the ceiling. Additional feathers in the "
-                + "array strengthen the acceleration; additional glowstone dust raises the terminal velocity. "
+                + "[#](8B0000)Updraft Array[#](): Hurls entities skyward with considerable force. "
                 + "Inscribed via [#](8B0000)Alchemy Array[#]().\\\n\\\n"
                 + "[#](2E8B57)Useful for rapid transit systems, mob processing, or simply entertaining "
                 + "oneself at a guest's expense.[#]()");

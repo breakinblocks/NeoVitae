@@ -36,6 +36,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     private boolean doDropIngredients = true;
     private Binding ownerBinding = Binding.EMPTY;
     private DyeColor arrayColor = null;
+    private CompoundTag pendingEffectNbt = null;
 
     public final ItemStackHandler inv = new ItemStackHandler(2) {
         @Override
@@ -82,6 +83,15 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
         } else {
             this.arrayColor = null;
         }
+        if (tag.contains("effectState")) {
+            pendingEffectNbt = tag.getCompound("effectState");
+            if (arrayEffect != null) {
+                arrayEffect.readFromNBT(pendingEffectNbt);
+                pendingEffectNbt = null;
+            }
+        } else {
+            pendingEffectNbt = null;
+        }
     }
 
     public void doDropIngredients(boolean drop) {
@@ -101,6 +111,13 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
         }
         if (arrayColor != null) {
             tag.putInt("arrayColor", arrayColor.getId());
+        }
+        if (arrayEffect != null) {
+            CompoundTag effectTag = new CompoundTag();
+            arrayEffect.writeToNBT(effectTag);
+            if (!effectTag.isEmpty()) {
+                tag.put("effectState", effectTag);
+            }
         }
     }
 
@@ -137,6 +154,10 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
                 return false;
             } else {
                 arrayEffect = effect;
+                if (pendingEffectNbt != null) {
+                    arrayEffect.readFromNBT(pendingEffectNbt);
+                    pendingEffectNbt = null;
+                }
                 if (level != null && !level.isClientSide) {
                     level.playSound(null, worldPosition, NVSounds.ALCHEMY_ARRAY_ACTIVATE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
                     for (int i = 0; i < 6; i++) {

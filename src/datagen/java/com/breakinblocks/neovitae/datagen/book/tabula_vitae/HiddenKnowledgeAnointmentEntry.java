@@ -24,7 +24,7 @@ public class HiddenKnowledgeAnointmentEntry extends EntryProvider {
         this.pageText("[#](8B0000)Miner's Secrets[#]() draws forth hidden knowledge from the stone. Blocks that normally "
                 + "release experience yield an additional 2 points per harvest. The coating is consumed only "
                 + "when this bonus experience is actually extracted."
-                + "\\\n\\\nValid items: Tools, Swords.\\\n\\\nApplies: Miner's Secrets (256 exp-dropping blocks)");
+                + "\\\n\\\nValid items: anything in [#](8B0000)#neovitae:anointable/mining[#]().\\\n\\\nApplies: Miner's Secrets (256 exp-dropping blocks)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
                 .withRecipeId1("neovitae:alchemytable/hidden_knowledge_anointment")

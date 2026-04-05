@@ -24,7 +24,7 @@ public class QuickDrawAnointmentEntry extends EntryProvider {
         this.pageText("[#](8B0000)Dexterity Alkahest[#]() loosens the mechanism and limbs of ranged weapons, reducing "
                 + "draw time by 33%%. In the heat of battle, those fractions of a second are the difference "
                 + "between life and death.\\\n\\\n"
-                + "Valid items: Bows, Crossbows.\\\n\\\nApplies: Deft Hands I (256 shots)");
+                + "Valid items: anything in [#](8B0000)#neovitae:anointable/bows[#]().\\\n\\\nApplies: Deft Hands I (256 shots)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
                 .withRecipeId1("neovitae:alchemytable/quick_draw_anointment")

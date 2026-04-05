@@ -23,7 +23,7 @@ public class MeleeAnointmentEntry extends EntryProvider {
         this.pageTitle("Honing Oil");
         this.pageText("[#](8B0000)Honing Oil[#]() sharpens the edge of any blade it touches to a lethal keenness, "
                 + "adding 3 points of melee damage per strike.\\\n\\\n"
-                + "Valid items: Tools, Swords.\\\n\\\nApplies: Whetstone I (256 hits)");
+                + "Valid items: anything in [#](8B0000)#neovitae:anointable/melee[#]().\\\n\\\nApplies: Whetstone I (256 hits)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
                 .withRecipeId1("neovitae:alchemytable/melee_damage_anointment")

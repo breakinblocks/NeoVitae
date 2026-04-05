@@ -134,5 +134,22 @@ public class NVItemTagProvider extends ItemTagsProvider {
 
         // Armor trim material
         tag(ItemTags.TRIM_MATERIALS).add(NVItems.DEMONITE_TRIM_INGOT.get());
+
+        tag(NVTags.Items.ANOINTABLE_MELEE)
+                .addTag(ItemTags.SWORDS)
+                .addTag(ItemTags.AXES);
+
+        tag(NVTags.Items.ANOINTABLE_MINING)
+                .addTag(ItemTags.PICKAXES)
+                .addTag(ItemTags.SHOVELS)
+                .addTag(ItemTags.AXES);
+
+        tag(NVTags.Items.ANOINTABLE_BOWS)
+                .add(net.minecraft.world.item.Items.BOW)
+                .add(net.minecraft.world.item.Items.CROSSBOW);
+
+        tag(NVTags.Items.ANOINTABLE_WEAPONS)
+                .addTag(NVTags.Items.ANOINTABLE_MELEE)
+                .addTag(NVTags.Items.ANOINTABLE_BOWS);
     }
 }

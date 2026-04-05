@@ -500,6 +500,56 @@ Tags control various gameplay mechanics. Override or extend these in your datapa
 | `athanor_tool/furnace` | Smelting tools |
 | `crystals/demon` | Demon crystal items |
 | `charges` | Explosive charges |
+| `anointable/melee` | Items that can receive melee-category anointments |
+| `anointable/mining` | Items that can receive mining-category anointments |
+| `anointable/bows` | Items that can receive bow-category anointments |
+| `anointable/weapons` | Items that can receive any-weapon anointments (parent of melee + bows) |
+
+### Anointable Item Tags
+
+Each anointment is restricted to a specific item tag. If a tool's id is not in the matching tag, the anointment right-click (or smithing table apply) silently does nothing. Add your modded weapons, tools, or custom bows to these tags to make them valid targets.
+
+**Built-in assignments** (source: `AnointmentRegistrar.java`):
+
+| Anointment | Tag |
+|------------|-----|
+| Honing Oil (Melee Damage) | `neovitae:anointable/melee` |
+| Holy Water | `neovitae:anointable/melee` |
+| Plunderer's Glint (Looting) | `neovitae:anointable/melee` |
+| Soft Coating (Silk Touch) | `neovitae:anointable/mining` |
+| Fortuna Extract (Fortune) | `neovitae:anointable/mining` |
+| Miner's Secrets (Hidden Knowledge) | `neovitae:anointable/mining` |
+| Slow-burning Oil (Smelting) | `neovitae:anointable/mining` |
+| Void Essence (Voiding) | `neovitae:anointable/mining` |
+| Iron Tip (Bow Power) | `neovitae:anointable/bows` |
+| Archer's Polish (Bow Velocity) | `neovitae:anointable/bows` |
+| Dexterity Alkahest (Quick Draw) | `neovitae:anointable/bows` |
+| Will Power | `neovitae:anointable/weapons` |
+| Repairing Salve (Weapon Repair) | `neovitae:anointable/weapons` |
+
+**Default tag members** (vanilla + NeoVitae):
+
+| Tag | Contents |
+|-----|----------|
+| `anointable/melee` | `#minecraft:swords`, `#minecraft:axes` |
+| `anointable/mining` | `#minecraft:pickaxes`, `#minecraft:shovels`, `#minecraft:axes` |
+| `anointable/bows` | `minecraft:bow`, `minecraft:crossbow` |
+| `anointable/weapons` | `#neovitae:anointable/melee`, `#neovitae:anointable/bows` |
+
+**Adding a modded bow to Iron Tip:**
+
+```json
+// data/neovitae/tags/items/anointable/bows.json
+{
+  "replace": false,
+  "values": [
+    "tetra:modular_bow",
+    "some_mod:magic_bow"
+  ]
+}
+```
+
+**Creating a one-off tag for a single anointment:** if you want to give one specific anointment its own applicability list (for example, a custom pack that restricts Honing Oil to only Netherite swords), override the tag or make a new one and point the anointment at it via a resource override. The `appliesTo(...)` call in `AnointmentRegistrar` accepts any `TagKey<Item>`, so in-code modders can declare their own tag like `neovitae:anointable/iron_tip_only` and wire the bow power anointment at it.
 
 ### Entity Tags
 

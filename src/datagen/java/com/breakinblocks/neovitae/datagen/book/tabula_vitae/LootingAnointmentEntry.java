@@ -23,7 +23,7 @@ public class LootingAnointmentEntry extends EntryProvider {
         this.pageTitle("Plunderer's Glint");
         this.pageText("[#](8B0000)Plunderer's Glint[#]() draws forth spoils from the slain that would otherwise remain "
                 + "hidden. The coating stacks with the Looting enchantment.\\\n\\\n"
-                + "Valid items: Tools, Swords.\\\n\\\nApplies: Plundering I (256 hits)");
+                + "Valid items: anything in [#](8B0000)#neovitae:anointable/melee[#]().\\\n\\\nApplies: Plundering I (256 hits)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
                 .withRecipeId1("neovitae:alchemytable/looting_anointment")

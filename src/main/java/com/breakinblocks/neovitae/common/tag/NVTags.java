@@ -67,6 +67,11 @@ public class NVTags {
         public static final TagKey<Item> INGOTS_HELLFORGED = tag(c("ingots/hellforged"));
         public static final TagKey<Item> RAW_MATERIALS_HELLFORGED = tag(c("raw_materials/hellforged"));
 
+        public static final TagKey<Item> ANOINTABLE_MELEE = tag(bm("anointable/melee"));
+        public static final TagKey<Item> ANOINTABLE_MINING = tag(bm("anointable/mining"));
+        public static final TagKey<Item> ANOINTABLE_BOWS = tag(bm("anointable/bows"));
+        public static final TagKey<Item> ANOINTABLE_WEAPONS = tag(bm("anointable/weapons"));
+
         private static TagKey<Item> fromBlock(TagKey<Block> input) {
             return tag(input.location());
         }

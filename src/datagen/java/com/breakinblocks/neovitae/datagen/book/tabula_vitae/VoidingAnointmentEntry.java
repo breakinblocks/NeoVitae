@@ -23,7 +23,7 @@ public class VoidingAnointmentEntry extends EntryProvider {
         this.pageTitle("Void Essence");
         this.pageText("[#](8B0000)Void Essence[#]() consigns worthless materials to oblivion the instant they are broken, "
                 + "stone, dirt, netherrack, and other mundane refuse simply cease to exist.\\\n\\\n"
-                + "Valid items: Tools, Swords, Charges.\\\n\\\nApplies: Voiding I (256 blocks)");
+                + "Valid items: anything in [#](8B0000)#neovitae:anointable/mining[#]().\\\n\\\nApplies: Voiding I (256 blocks)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
                 .withRecipeId1("neovitae:alchemytable/voiding_anointment")

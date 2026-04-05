@@ -23,7 +23,7 @@ public class HolyWaterAnointmentEntry extends EntryProvider {
         this.pageTitle("Holy Water");
         this.pageText("[#](8B0000)Holy Water[#]() sears the profane. Blades anointed with it strike the undead with an "
                 + "additional 5 points of searing damage, a purifying flame they cannot endure."
-                + "\\\n\\\nValid items: Tools, Swords.\\\n\\\nApplies: Holy Light (256 hits)");
+                + "\\\n\\\nValid items: anything in [#](8B0000)#neovitae:anointable/melee[#]().\\\n\\\nApplies: Holy Light (256 hits)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
                 .withRecipeId1("neovitae:alchemytable/holy_water_anointment")

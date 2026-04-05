@@ -23,7 +23,7 @@ public class SilkTouchAnointmentEntry extends EntryProvider {
         this.pageTitle("Soft Coating");
         this.pageText("[#](8B0000)Soft Coating[#]() wraps the tool's edge in a preserving membrane, allowing blocks "
                 + "to be harvested whole rather than shattered. Does not stack with the Silk Touch enchantment.\\\n\\\n"
-                + "Valid items: Tools, Swords, Charges.\\\n\\\nApplies: Soft Touch I (256 blocks)");
+                + "Valid items: anything in [#](8B0000)#neovitae:anointable/mining[#]().\\\n\\\nApplies: Soft Touch I (256 blocks)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
                 .withRecipeId1("neovitae:alchemytable/silk_touch_anointment")

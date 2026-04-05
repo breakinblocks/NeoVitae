@@ -23,7 +23,7 @@ public class BowPowerAnointmentEntry extends EntryProvider {
         this.pageTitle("Iron Tip");
         this.pageText("[#](8B0000)Iron Tip[#]() weights each arrow with an alchemical density, increasing its damage "
                 + "by 25%%. The effect stacks with existing enchantments."
-                + "\\\n\\\nValid items: Bows, Crossbows.\\\n\\\nApplies: Heavy Shot (256 shots)");
+                + "\\\n\\\nValid items: anything in [#](8B0000)#neovitae:anointable/bows[#]().\\\n\\\nApplies: Heavy Shot (256 shots)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
                 .withRecipeId1("neovitae:alchemytable/bow_power_anointment")

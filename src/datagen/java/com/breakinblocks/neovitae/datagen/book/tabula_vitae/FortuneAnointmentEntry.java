@@ -23,7 +23,7 @@ public class FortuneAnointmentEntry extends EntryProvider {
         this.pageTitle("Fortuna Extract");
         this.pageText("[#](8B0000)Fortuna Extract[#]() coaxes the earth into yielding more than it should. The coating "
                 + "stacks with the Fortune enchantment for truly bountiful harvests."
-                + "\\\n\\\nValid items: Tools, Swords, Charges.\\\n\\\nApplies: Fortunate (256 blocks)");
+                + "\\\n\\\nValid items: anything in [#](8B0000)#neovitae:anointable/mining[#]().\\\n\\\nApplies: Fortunate (256 blocks)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
                 .withRecipeId1("neovitae:alchemytable/fortune_anointment")

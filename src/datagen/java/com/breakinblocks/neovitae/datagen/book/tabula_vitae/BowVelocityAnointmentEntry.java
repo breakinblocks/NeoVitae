@@ -24,7 +24,7 @@ public class BowVelocityAnointmentEntry extends EntryProvider {
         this.pageText("[#](8B0000)Archer's Polish[#]() reduces friction along the bowstring and arrow shaft, launching "
                 + "projectiles at 50%% greater velocity. The increased speed translates directly into "
                 + "proportionally greater damage. Stacks with existing enchantments."
-                + "\\\n\\\nValid items: Bows, Crossbows.\\\n\\\nApplies: Sniping (256 shots)");
+                + "\\\n\\\nValid items: anything in [#](8B0000)#neovitae:anointable/bows[#]().\\\n\\\nApplies: Sniping (256 shots)");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
                 .withRecipeId1("neovitae:alchemytable/bow_velocity_anointment")

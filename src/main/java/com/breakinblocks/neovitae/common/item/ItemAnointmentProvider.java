@@ -6,6 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -121,6 +122,11 @@ public class ItemAnointmentProvider extends Item {
     }
 
     public boolean isItemValidForApplication(ItemStack stack) {
+        Anointment anointment = AnointmentRegistrar.get(anointmentKey);
+        TagKey<Item> applicable = anointment.getApplicableItems();
+        if (applicable != null) {
+            return stack.is(applicable);
+        }
         return isItemTool(stack) || isItemSword(stack);
     }
 

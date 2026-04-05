@@ -1,12 +1,15 @@
 package com.breakinblocks.neovitae.anointment;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.AnointmentHolder;
 
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -25,6 +28,9 @@ public class Anointment {
     private boolean consumeOnAttack = false;
     private boolean consumeOnUseFinish = false;
     private boolean consumeOnHarvest = false;
+
+    @Nullable
+    private TagKey<Item> applicableItems = null;
 
     private IDamageProvider damageProvider;
 
@@ -67,6 +73,11 @@ public class Anointment {
         return this;
     }
 
+    public Anointment appliesTo(TagKey<Item> tag) {
+        this.applicableItems = tag;
+        return this;
+    }
+
     // Getters
     public ResourceLocation getKey() {
         return key;
@@ -86,6 +97,11 @@ public class Anointment {
 
     public IDamageProvider getDamageProvider() {
         return damageProvider;
+    }
+
+    @Nullable
+    public TagKey<Item> getApplicableItems() {
+        return applicableItems;
     }
 
     public boolean isCompatible(ResourceLocation otherKey) {

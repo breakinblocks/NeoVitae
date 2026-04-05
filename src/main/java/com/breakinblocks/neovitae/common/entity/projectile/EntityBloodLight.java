@@ -130,6 +130,16 @@ public class EntityBloodLight extends ThrowableProjectile {
     }
 
     @Override
+    public boolean isInWater() {
+        return false;
+    }
+
+    @Override
+    protected boolean updateInWaterStateAndDoFluidPushing() {
+        return false;
+    }
+
+    @Override
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("maxTicksInAir", maxTicksInAir);

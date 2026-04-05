@@ -192,22 +192,24 @@ public class BloodLightBlock extends BaseEntityBlock implements SimpleWaterlogge
             color = ColorHelper.fromDye(ble.getColor());
         }
 
-        for (int i = 0; i < 2; i++) {
-            double x = pos.getX() + 0.5 + random.nextGaussian() * 0.03;
-            double y = pos.getY() + 0.45 + random.nextGaussian() * 0.03;
-            double z = pos.getZ() + 0.5 + random.nextGaussian() * 0.03;
+        double cx = pos.getX() + 0.5;
+        double cy = pos.getY() + 0.5;
+        double cz = pos.getZ() + 0.5;
 
-            double vx = random.nextGaussian() * 0.003;
-            double vy = random.nextFloat() * 0.008;
-            double vz = random.nextGaussian() * 0.003;
+        for (int i = 0; i < 8; i++) {
+            double ox = (random.nextDouble() - 0.5) * 0.2;
+            double oy = (random.nextDouble() - 0.5) * 0.2;
+            double oz = (random.nextDouble() - 0.5) * 0.2;
 
-            level.addParticle(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), color), x, y, z, vx, vy, vz);
+            double vx = ox * 0.3;
+            double vy = oy * 0.3 + 0.005;
+            double vz = oz * 0.3;
+
+            level.addParticle(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), color),
+                    cx + ox, cy + oy, cz + oz, vx, vy, vz);
         }
 
-        if (random.nextInt(3) == 0) {
-            level.addParticle(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), color),
-                    pos.getX() + 0.5, pos.getY() + 0.49, pos.getZ() + 0.5,
-                    0, 0, 0);
-        }
+        level.addParticle(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), color),
+                cx, cy, cz, 0, 0, 0);
     }
 }

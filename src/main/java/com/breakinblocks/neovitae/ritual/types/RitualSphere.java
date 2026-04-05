@@ -10,6 +10,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
@@ -90,6 +91,10 @@ public class RitualSphere extends Ritual {
             if (BlockProtectionHelper.tryPlaceBlock(ctx.level(), placePos, stateToPlace, owner)) {
                 inventory.extractItem(slotIndex, 1, false);
                 blocksPlaced++;
+                final BlockPos placed = placePos;
+                RitualHelper.chanceStream(ctx.level(), 20, () ->
+                        StreamPresets.arcaneBolt(ctx.masterPos(), placed).build()
+                                .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128));
             }
         }
 

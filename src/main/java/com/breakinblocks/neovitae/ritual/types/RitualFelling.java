@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
@@ -57,6 +58,7 @@ public class RitualFelling extends Ritual {
         BlockEntity inv = chest.tile();
         boolean hasInv = chest.hasFreeSlot();
 
+        BlockPos masterPos = ctx.masterPos();
         // Find and break logs first, then leaves
         for (BlockPos pos : positions) {
             if (blocksBroken >= maxBlocks) break;
@@ -64,7 +66,13 @@ public class RitualFelling extends Ritual {
             BlockState state = ctx.level().getBlockState(pos);
             if (state.is(BlockTags.LOGS)) {
                 if (BlockProtectionHelper.canBreakBlock(ctx.level(), pos, owner)) {
-                    blocksBroken += breakAndCollect(ctx, serverLevel, pos, state, toolStack, fakePlayer, inv, hasInv);
+                    int broken = breakAndCollect(ctx, serverLevel, pos, state, toolStack, fakePlayer, inv, hasInv);
+                    blocksBroken += broken;
+                    if (broken > 0) {
+                        RitualHelper.chanceStream(ctx.level(), 8, () ->
+                                StreamPresets.lifePulse(pos, masterPos).color(0x44CC33).build()
+                                        .sendToNearby(ctx.serverLevel(), masterPos, 64));
+                    }
                 }
             }
         }

@@ -7,6 +7,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 
@@ -50,6 +51,9 @@ public class RitualContainment extends Ritual {
                 Vec3 direction = center.subtract(entityPos).normalize().scale(0.5);
                 entity.setDeltaMovement(direction);
                 entitiesContained++;
+                RitualHelper.chanceStream(ctx.level(), 20, () ->
+                        StreamPresets.demonTether(ctx.masterPos(), entity.blockPosition()).build()
+                                .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 64));
             }
         }
 

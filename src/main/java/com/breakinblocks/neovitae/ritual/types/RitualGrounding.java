@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
@@ -88,6 +89,9 @@ public class RitualGrounding extends Ritual {
                     steadfastUsed += WILL_PER_ENTITY;
                 }
                 totalCost += refreshCost;
+                RitualHelper.chanceStream(ctx.level(), 15, () ->
+                        StreamPresets.voidTendril(masterPos, entity.blockPosition()).build()
+                                .sendToNearby(ctx.serverLevel(), masterPos, 128));
             }
         } else if (will.hasDefault()) {
             // RAW WILL: Player-only targeting with will-based effects

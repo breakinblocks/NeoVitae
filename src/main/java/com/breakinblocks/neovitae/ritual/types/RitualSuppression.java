@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
@@ -57,10 +58,13 @@ public class RitualSuppression extends Ritual {
             FluidState fluidState = state.getFluidState();
 
             if (!fluidState.isEmpty() && fluidState.isSource()) {
-                // Only suppress source blocks (with protection check)
                 if (BlockProtectionHelper.tryReplaceBlock(ctx.level(), pos, Blocks.AIR.defaultBlockState(), owner)) {
                     suppressedBlocks.put(pos.immutable(), state);
                     fluidsSuppressed++;
+                    final BlockPos suppressedAt = pos.immutable();
+                    RitualHelper.chanceStream(ctx.level(), 25, () ->
+                            StreamPresets.voidTendril(suppressedAt, ctx.masterPos()).build()
+                                    .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 64));
                 }
             }
         }

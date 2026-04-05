@@ -8,6 +8,7 @@ import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 
@@ -40,9 +41,11 @@ public class RitualCondor extends Ritual {
 
         int totalCost = 0;
         for (Player player : players) {
-            // Duration slightly longer than refresh time to prevent flickering
             player.addEffect(new MobEffectInstance(NVMobEffects.FLIGHT, 40, 0, true, false));
             totalCost += getRefreshCost();
+            RitualHelper.chanceStream(ctx.level(), 80, () ->
+                    StreamPresets.emberMote(player.blockPosition().above()).build()
+                            .sendToNearby(ctx.serverLevel(), player.blockPosition(), 128));
         }
 
         if (totalCost > 0) {

@@ -7,6 +7,7 @@ import net.minecraft.world.level.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import com.breakinblocks.neovitae.ritual.IMasterRitualStone;
 import com.breakinblocks.neovitae.ritual.Ritual;
@@ -35,7 +36,7 @@ public class RitualStandardDungeon extends DungeonRitualBase {
         Level world = masterRitualStone.getWorldObj();
         BlockPos masterPos = masterRitualStone.getMasterBlockPos();
 
-        if (world.isClientSide || !(world instanceof ServerLevel)) {
+        if (world.isClientSide || !(world instanceof ServerLevel serverWorld)) {
             return;
         }
 
@@ -74,6 +75,16 @@ public class RitualStandardDungeon extends DungeonRitualBase {
         // This works because cleanup happens first, converting the rune at (0,4,0) to smooth stone
         BlockPos pillarPos = masterPos.relative(Direction.UP, 4);
         BlockPos overworldPlayerPos = masterPos.relative(Direction.UP).relative(masterRitualStone.getDirection(), 2);
+
+        // Dramatic activation burst: void tendrils converging on the master
+        // stone before the portal pillars rise and consume the ritual.
+        for (BlockPos offset : new BlockPos[]{
+                masterPos.north(4), masterPos.south(4),
+                masterPos.east(4),  masterPos.west(4),
+                masterPos.north(4).east(4), masterPos.south(4).west(4)}) {
+            StreamPresets.voidTendril(offset, masterPos).build()
+                    .sendToNearby(serverWorld, masterPos, 128);
+        }
 
         // Perform cleanup FIRST (converts ritual stones to smooth stone)
         // This must happen before placing the pillar, otherwise the pillar would be overwritten

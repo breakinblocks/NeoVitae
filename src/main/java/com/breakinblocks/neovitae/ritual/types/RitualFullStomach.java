@@ -10,6 +10,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 
@@ -45,6 +46,7 @@ public class RitualFullStomach extends Ritual {
                 : null;
 
         int playersFed = 0;
+        BlockPos feedAnchor = chestPos != null ? chestPos : ctx.masterPos();
 
         for (Player player : players) {
             int hunger = player.getFoodData().getFoodLevel();
@@ -55,6 +57,9 @@ public class RitualFullStomach extends Ritual {
                 boolean fed = feedFromInventory(player, inventory);
                 if (fed) {
                     playersFed++;
+                    RitualHelper.chanceStream(ctx.level(), 8, () ->
+                            StreamPresets.lifePulse(feedAnchor, player.blockPosition()).build()
+                                    .sendToNearby(ctx.serverLevel(), feedAnchor, 32));
                     continue;
                 }
             }
@@ -63,6 +68,9 @@ public class RitualFullStomach extends Ritual {
             int toFeed = Math.min(20 - hunger, 4);
             player.getFoodData().eat(toFeed, 0.5f);
             playersFed++;
+            RitualHelper.chanceStream(ctx.level(), 8, () ->
+                    StreamPresets.lifePulse(feedAnchor, player.blockPosition()).build()
+                            .sendToNearby(ctx.serverLevel(), feedAnchor, 32));
         }
 
         ctx.syphon(getRefreshCost() * playersFed);

@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.ritual.harvest.HarvestRegistry;
@@ -41,25 +42,27 @@ public class RitualHarvest extends Ritual {
         List<IHarvestHandler> handlers = HarvestRegistry.getHarvestHandlers();
         UUID owner = ctx.master().getOwner();
 
+        BlockPos masterPos = ctx.masterPos();
         for (BlockPos pos : positions) {
             if (totalHarvests >= maxHarvests) break;
 
             BlockState state = ctx.level().getBlockState(pos);
 
-            // Try each registered handler
             for (IHarvestHandler handler : handlers) {
                 if (handler.test(ctx.level(), pos, state)) {
                     List<ItemStack> drops = new ArrayList<>();
 
                     if (handler.harvest(ctx.level(), pos, state, drops, owner)) {
-                        // Pop the drops into the world
                         for (ItemStack drop : drops) {
                             if (!drop.isEmpty()) {
                                 Block.popResource(ctx.level(), pos, drop);
                             }
                         }
                         totalHarvests++;
-                        break; // Only harvest once per position
+                        RitualHelper.chanceStream(ctx.level(), 10, () ->
+                                StreamPresets.lifePulse(pos, masterPos).color(0x44CC33).build()
+                                        .sendToNearby(ctx.serverLevel(), masterPos, 32));
+                        break;
                     }
                 }
             }

@@ -16,6 +16,7 @@ import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -179,6 +180,11 @@ public class RitualYawningVoid extends Ritual {
             List<ItemStack> blockDrops = RitualHelper.getBlockDrops(serverLevel, state, targetPos, toolStack, fakePlayer);
             ctx.level().destroyBlock(targetPos, false);
             processed = true;
+
+            final BlockPos consumedAt = targetPos.immutable();
+            RitualHelper.chanceStream(ctx.level(), 20, () ->
+                    StreamPresets.voidTendril(consumedAt, masterPos).build()
+                            .sendToNearby(ctx.serverLevel(), masterPos, 128));
 
             RitualHelper.distributeDrops(blockDrops, chestTile,
                     stack -> Utils.spawnStackAtBlock(ctx.level(), masterPos, Direction.UP, stack));

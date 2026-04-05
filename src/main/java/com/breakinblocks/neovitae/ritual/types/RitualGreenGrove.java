@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -125,6 +126,9 @@ public class RitualGreenGrove extends Ritual {
                 if (doVengeful && (will.getVengeful() - vengefulWillUsed) >= WILL_PER_VENGEFUL_GROWTH) {
                     vengefulWillUsed += WILL_PER_VENGEFUL_GROWTH;
                 }
+                RitualHelper.chanceStream(ctx.level(), 12, () ->
+                        StreamPresets.lifePulse(masterPos, pos).color(0x44CC33).build()
+                                .sendToNearby(ctx.serverLevel(), masterPos, 32));
             }
         }
 

@@ -66,6 +66,10 @@ public class RitualMeteor extends Ritual {
                 meteor.setContainedStack(stack.split(1));
                 ctx.level().addFreshEntity(meteor);
 
+                com.breakinblocks.neovitae.api.stream.StreamPresets
+                        .demonTether(entityItem, ctx.masterPos()).build()
+                        .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128);
+
                 if (stack.isEmpty()) {
                     entityItem.remove(RemovalReason.KILLED);
                 }

@@ -12,6 +12,7 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeInput;
@@ -106,6 +107,9 @@ public class RitualCrafting extends Ritual {
                     will.use(SpiritusType.STEADFAST, WILL_PER_FORGE_CRAFT);
                     will.drain(ctx.level(), masterPos);
                     ctx.syphon(getRefreshCost());
+                    RitualHelper.chanceStream(ctx.level(), 8, () ->
+                            StreamPresets.arcaneBolt(inputPos, outputPos).build()
+                                    .sendToNearby(ctx.serverLevel(), masterPos, 128));
                     return;
                 }
             }
@@ -119,7 +123,6 @@ public class RitualCrafting extends Ritual {
                 // Check if output can accept the result
                 ItemStack insertResult = ItemHandlerHelper.insertItemStacked(outputHandler, result.copy(), true);
                 if (insertResult.isEmpty()) {
-                    // Consume ingredients (up to 6 for alchemy table)
                     for (int i = 0; i < Math.min(6, inputHandler.getSlots()); i++) {
                         if (!inputItems.get(i).isEmpty()) {
                             inputHandler.extractItem(i, 1, false);
@@ -129,6 +132,9 @@ public class RitualCrafting extends Ritual {
                     will.use(SpiritusType.CORROSIVE, WILL_PER_ALCHEMY_CRAFT);
                     will.drain(ctx.level(), masterPos);
                     ctx.syphon(getRefreshCost());
+                    RitualHelper.chanceStream(ctx.level(), 8, () ->
+                            StreamPresets.arcaneBolt(inputPos, outputPos).build()
+                                    .sendToNearby(ctx.serverLevel(), masterPos, 128));
                     return;
                 }
             }
@@ -166,6 +172,9 @@ public class RitualCrafting extends Ritual {
         ItemHandlerHelper.insertItemStacked(outputHandler, result, false);
 
         ctx.syphon(getRefreshCost());
+        RitualHelper.chanceStream(ctx.level(), 8, () ->
+                StreamPresets.arcaneBolt(inputPos, outputPos).build()
+                        .sendToNearby(ctx.serverLevel(), masterPos, 128));
     }
 
     /**

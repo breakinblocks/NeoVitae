@@ -7,6 +7,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.*;
@@ -52,6 +53,9 @@ public class RitualRegeneration extends Ritual {
             if (player.getHealth() < player.getMaxHealth()) {
                 player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 60, 0, true, false));
                 cost += getRefreshCost();
+                RitualHelper.chanceStream(ctx.level(), 20, () ->
+                        StreamPresets.lifePulse(masterPos, player.blockPosition()).build()
+                                .sendToNearby(ctx.serverLevel(), masterPos, 32));
             }
         }
 
@@ -78,11 +82,13 @@ public class RitualRegeneration extends Ritual {
                     mob.hurt(ctx.level().damageSources().source(NVDamageSources.RITUAL), 2.0F);
 
                     if (mob.getHealth() < healthBefore) {
-                        // Heal a nearby player (round-robin)
                         Player target = hurtPlayers.get(playerIndex % hurtPlayers.size());
                         target.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 40, 0, true, false));
                         playerIndex++;
                         willUsed += CORROSIVE_WILL_PER_MOB;
+                        RitualHelper.chanceStream(ctx.level(), 8, () ->
+                                StreamPresets.bloodTendril(mob, target.blockPosition()).build()
+                                        .sendToNearby(ctx.serverLevel(), masterPos, 32));
                     }
                 }
 

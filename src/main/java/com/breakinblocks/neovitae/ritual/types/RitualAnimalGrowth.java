@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -96,6 +97,9 @@ public class RitualAnimalGrowth extends Ritual {
             if (age < 0) {
                 animal.setAge(Math.min(age + 200, 0));
                 animalsProcessed++;
+                RitualHelper.chanceStream(ctx.level(), 10, () ->
+                        StreamPresets.lifePulse(masterPos, animal.blockPosition()).color(0x44CC33).build()
+                                .sendToNearby(ctx.serverLevel(), masterPos, 64));
             }
         }
 
@@ -115,10 +119,13 @@ public class RitualAnimalGrowth extends Ritual {
                         steadfastWillUsed += WILL_PER_BREED;
                         animalsProcessed++;
                         fed = true;
+                        RitualHelper.chanceStream(ctx.level(), 10, () ->
+                                StreamPresets.lifePulse(masterPos, animal.blockPosition()).color(0x44CC33).build()
+                                        .sendToNearby(ctx.serverLevel(), masterPos, 64));
                         break;
                     }
                 }
-                if (!fed) break; // No suitable food found
+                if (!fed) break;
             }
         }
 
@@ -131,6 +138,9 @@ public class RitualAnimalGrowth extends Ritual {
                 if (!animal.hasEffect(NVMobEffects.SACRIFICIAL_LAMB)) {
                     animal.addEffect(new MobEffectInstance(NVMobEffects.SACRIFICIAL_LAMB, 1200, 0));
                     destructiveWillUsed += WILL_PER_SACRIFICE;
+                    RitualHelper.chanceStream(ctx.level(), 10, () ->
+                            StreamPresets.bloodTendril(masterPos, animal.blockPosition()).build()
+                                    .sendToNearby(ctx.serverLevel(), masterPos, 64));
                 }
             }
         }

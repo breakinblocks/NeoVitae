@@ -5,10 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.util.Mth;
 import com.breakinblocks.neovitae.api.stream.BlockyMode;
 import net.minecraft.world.entity.Entity;
 import com.breakinblocks.neovitae.api.stream.StreamEffect;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
 
 /**
@@ -156,7 +159,32 @@ public class ActiveStream {
             tickApproach();
         }
 
+        if (effect.trailDensity > 0 && !effect.stationary && !draining) {
+            emitTrailParticles();
+        }
+
         rebuildRenderData();
+    }
+
+    /**
+     * Spawns {@code effect.trailDensity} colored glow particles at the current
+     * head position with a tiny jitter, so a fast thin stream leaves a fuzzy
+     * wake behind it. Particles inherit the stream's color and rely on the
+     * {@link ColoredParticleOptions} fallback to honour the simple-effects
+     * client config.
+     */
+    private void emitTrailParticles() {
+        ClientLevel level = Minecraft.getInstance().level;
+        if (level == null) return;
+        for (int i = 0; i < effect.trailDensity; i++) {
+            double jx = (RANDOM.nextDouble() - 0.5) * 0.12;
+            double jy = (RANDOM.nextDouble() - 0.5) * 0.12;
+            double jz = (RANDOM.nextDouble() - 0.5) * 0.12;
+            level.addParticle(
+                    new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), effect.color),
+                    headX + jx, headY + jy, headZ + jz,
+                    0.0, 0.0, 0.0);
+        }
     }
 
     private void updateTrackedTarget() {

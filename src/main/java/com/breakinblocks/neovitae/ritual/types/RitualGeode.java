@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
@@ -137,9 +138,13 @@ public class RitualGeode extends Ritual {
 
             List<ItemStack> blockDrops = RitualHelper.getBlockDrops(serverLevel, state, harvestPos, toolStack, fakePlayer);
 
-            // Break the block without natural drops (we handle them ourselves)
             ctx.level().destroyBlock(harvestPos, false);
             totalCost += getRefreshCost();
+
+            final BlockPos streamFrom = harvestPos.immutable();
+            RitualHelper.chanceStream(ctx.level(), 8, () ->
+                    StreamPresets.arcaneBolt(streamFrom, masterPos).build()
+                            .sendToNearby(ctx.serverLevel(), masterPos, 64));
 
             // Consume will for enchant effects
             if (doFortune) fortuneWillUsed += WILL_PER_FORTUNE;

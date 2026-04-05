@@ -10,6 +10,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 
@@ -43,16 +44,17 @@ public class RitualForsakenSoul extends Ritual {
         int willGenerated = 0;
 
         for (LivingEntity entity : entities) {
-            // Calculate will based on entity type
             double willAmount = getWillForEntity(entity);
             if (willAmount > 0) {
-                // Spawn will item with appropriate will amount
                 ItemStack willStack = new ItemStack(NVItems.RAW_SPIRITUS.get());
                 willStack.set(NVDataComponents.SPIRITUS_AMOUNT, willAmount);
                 ItemEntity willEntity = new ItemEntity(ctx.level(),
                         entity.getX(), entity.getY() + 0.5, entity.getZ(), willStack);
                 ctx.level().addFreshEntity(willEntity);
                 willGenerated++;
+                RitualHelper.chanceStream(ctx.level(), 10, () ->
+                        StreamPresets.soulSiphon(entity, ctx.masterPos()).build()
+                                .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128));
             }
         }
 

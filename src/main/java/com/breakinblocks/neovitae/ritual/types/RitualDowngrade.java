@@ -40,7 +40,6 @@ public class RitualDowngrade extends Ritual {
             LivingStats stats = stack.get(NVDataComponents.UPGRADES.get());
 
             if (stats != null && !stats.upgrades().isEmpty()) {
-                // Remove all upgrades and spawn upgrade tomes
                 stats.upgrades().forEach((upgradeHolder, exp) -> {
                     ItemStack tome = new ItemStack(NVItems.UPGRADE_TOME.get());
                     tome.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(upgradeHolder, exp));
@@ -50,10 +49,12 @@ public class RitualDowngrade extends Ritual {
                     ctx.level().addFreshEntity(droppedTome);
                 });
 
-                // Clear upgrades from the item
                 stack.remove(NVDataComponents.UPGRADES.get());
+                com.breakinblocks.neovitae.api.stream.StreamPresets
+                        .voidTendril(itemEntity, ctx.masterPos()).build()
+                        .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128);
                 ctx.syphon(getRefreshCost());
-                break; // Only process one item per ritual tick
+                break;
             }
         }
     }

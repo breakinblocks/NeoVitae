@@ -11,6 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.PhantomBridgeBlockEntity;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
@@ -123,6 +124,10 @@ public class RitualPhantomBridge extends Ritual {
                             phantomTile.resetDuration();
                         }
                         blocksCreated++;
+                        final BlockPos bridgePos = targetPos.immutable();
+                        RitualHelper.chanceStream(ctx.level(), 6, () ->
+                                StreamPresets.arcaneBolt(ctx.masterPos(), bridgePos).build()
+                                        .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 64));
                     }
                 }
             }

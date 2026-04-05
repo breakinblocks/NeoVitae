@@ -6,6 +6,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
@@ -103,10 +104,11 @@ public class RitualFeatheredKnife extends Ritual {
 
             if (health <= threshold) continue;
 
+            BlockPos altarPos = altar.getBlockPos();
+
             if (hasCorrosive && (will.getCorrosive() - corrosiveUsed) >= CORROSIVE_WILL_PER_USE) {
                 double incense = IncenseHelper.getCurrentIncense(player);
                 if (incense > 0) {
-                    // Sacrifice more health (down to threshold)
                     float damage = health - threshold;
                     if (damage > 0) {
                         player.hurt(ctx.level().damageSources().source(NVDamageSources.SELF_SACRIFICE, player), damage);
@@ -115,8 +117,9 @@ public class RitualFeatheredKnife extends Ritual {
                             int lp = AltarUtil.calculateSelfSacrificeLP(player, healthLost, incense);
                             lp = (int) (lp * lpMultiplier);
                             totalEV += lp;
+                            StreamPresets.bloodTendril(player, altarPos).build()
+                                    .sendToNearby(ctx.serverLevel(), altarPos, 64);
                         }
-                        // Apply Soul Fray to prevent immediate re-sacrifice with incense
                         player.addEffect(new MobEffectInstance(NVMobEffects.SOUL_FRAY, 400, 0, true, true));
                         IncenseHelper.clearIncense(player);
                         corrosiveUsed += CORROSIVE_WILL_PER_USE;
@@ -135,7 +138,6 @@ public class RitualFeatheredKnife extends Ritual {
                 int healthLost = (int) Math.ceil(health - player.getHealth());
                 int lp = AltarUtil.calculateSelfSacrificeLP(player, healthLost);
 
-                // Living armor self-sacrifice bonus
                 if (LivingHelper.hasFullSet(player)) {
                     lp = (int) (lp * 1.1);
                 }
@@ -146,6 +148,10 @@ public class RitualFeatheredKnife extends Ritual {
                 }
 
                 totalEV += lp;
+
+                RitualHelper.chanceStream(ctx.level(), 6, () ->
+                        StreamPresets.bloodTendril(player, altarPos).build()
+                                .sendToNearby(ctx.serverLevel(), altarPos, 64));
             }
         }
 

@@ -4,6 +4,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
@@ -53,8 +54,10 @@ public class RitualArmourEvolve extends Ritual {
                 continue; // Already at max evolution
             }
 
-            // Evolve the armor
             chestpiece.set(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS.get(), newMaxPoints);
+
+            StreamPresets.soulSiphon(player, ctx.masterPos()).build()
+                    .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128);
 
             ctx.syphon(getRefreshCost());
             masterRitualStone.stopRitual(BreakType.DEACTIVATE);

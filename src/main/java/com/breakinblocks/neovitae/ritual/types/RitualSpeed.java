@@ -7,6 +7,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.network.NVPayloads;
@@ -122,6 +123,10 @@ public class RitualSpeed extends Ritual {
             entity.setDeltaMovement(motionX, motionY, motionZ);
             entity.hurtMarked = true;
             entity.fallDistance = 0;
+
+            RitualHelper.chanceStream(ctx.level(), 15, () ->
+                    StreamPresets.arcaneBolt(ctx.masterPos(), entity.blockPosition()).build()
+                            .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 32));
 
             // For server players, send velocity payload for client sync
             if (entity instanceof ServerPlayer serverPlayer) {

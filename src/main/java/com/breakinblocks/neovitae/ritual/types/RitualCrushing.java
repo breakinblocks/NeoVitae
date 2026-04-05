@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.api.will.SpiritusState;
@@ -128,7 +129,10 @@ public class RitualCrushing extends Ritual {
             ctx.level().destroyBlock(pos, false);
             crushed = true;
 
-            // Consume will for enchant effects
+            RitualHelper.chanceStream(ctx.level(), 15, () ->
+                    StreamPresets.arcaneBolt(masterPos, pos).build()
+                            .sendToNearby(ctx.serverLevel(), masterPos, 64));
+
             if (doSilk) silkWillUsed += WILL_PER_SILK;
             if (doFortune) fortuneWillUsed += WILL_PER_FORTUNE;
 

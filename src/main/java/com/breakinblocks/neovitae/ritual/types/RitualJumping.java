@@ -6,6 +6,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 
@@ -36,6 +37,9 @@ public class RitualJumping extends Ritual {
         for (Player player : players) {
             player.addEffect(new MobEffectInstance(MobEffects.JUMP, 100, 1, true, false));
             cost += getRefreshCost();
+            RitualHelper.chanceStream(ctx.level(), 20, () ->
+                    StreamPresets.arcaneBolt(ctx.masterPos(), player.blockPosition()).build()
+                            .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 32));
         }
 
         if (cost > 0) {

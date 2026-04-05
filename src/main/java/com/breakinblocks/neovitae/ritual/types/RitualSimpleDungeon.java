@@ -7,6 +7,7 @@ import net.minecraft.world.level.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import com.breakinblocks.neovitae.ritual.IMasterRitualStone;
 import com.breakinblocks.neovitae.ritual.Ritual;
@@ -73,6 +74,15 @@ public class RitualSimpleDungeon extends DungeonRitualBase {
         // Calculate positions for portal pillars
         BlockPos pillarPos = masterPos.above(2);  // Above the rune column
         BlockPos overworldPlayerPos = masterPos.relative(masterRitualStone.getDirection(), 2);
+
+        // Dramatic activation burst: four void tendrils converging on the
+        // master stone before the portal pillars consume the rune circle.
+        for (BlockPos offset : new BlockPos[]{
+                masterPos.north(4), masterPos.south(4),
+                masterPos.east(4),  masterPos.west(4)}) {
+            StreamPresets.voidTendril(offset, masterPos).build()
+                    .sendToNearby(serverWorld, masterPos, 128);
+        }
 
         // Perform common cleanup FIRST (replaces runes with smooth stone, removes MRS)
         performRitualCleanup(masterRitualStone, world);

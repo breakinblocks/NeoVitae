@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -69,9 +70,10 @@ public class RitualCrystalSplit extends Ritual {
             return;
         }
 
-        // Place the 4 aspected crystals (with protection checks)
         for (int i = 0; i < 4; i++) {
             BlockProtectionHelper.tryPlaceBlock(ctx.level(), outputPositions[i], aspectedCrystals[i].defaultBlockState(), owner);
+            StreamPresets.soulSiphon(crystalPos, outputPositions[i]).build()
+                    .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128);
         }
 
         ctx.syphon(getRefreshCost());

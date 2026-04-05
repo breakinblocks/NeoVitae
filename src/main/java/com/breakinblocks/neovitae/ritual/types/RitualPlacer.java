@@ -9,6 +9,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
@@ -65,9 +66,12 @@ public class RitualPlacer extends Ritual {
         BlockState stateToPlace = blockItem.getBlock().defaultBlockState();
 
         if (BlockProtectionHelper.tryPlaceBlock(ctx.level(), placePos, stateToPlace, owner)) {
-            // Extract item from inventory
             inventory.extractItem(slotIndex, 1, false);
             ctx.syphon(getRefreshCost());
+            final BlockPos placedAt = placePos;
+            RitualHelper.chanceStream(ctx.level(), 15, () ->
+                    StreamPresets.arcaneBolt(ctx.masterPos(), placedAt).build()
+                            .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 64));
         }
     }
 

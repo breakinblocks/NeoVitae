@@ -15,6 +15,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.ExperienceTomeItem;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.util.Utils;
@@ -77,6 +78,10 @@ public class RitualZephyr extends Ritual {
                     item.setItem(remainder);
                 }
                 entitiesMoved++;
+                final BlockPos insertAnchor = chestPos;
+                RitualHelper.chanceStream(ctx.level(), 10, () ->
+                        StreamPresets.arcaneBolt(item, insertAnchor).build()
+                                .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 32));
                 continue;
             }
 

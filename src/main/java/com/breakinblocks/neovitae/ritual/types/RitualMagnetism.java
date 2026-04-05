@@ -5,6 +5,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 
@@ -45,6 +46,9 @@ public class RitualMagnetism extends Ritual {
                 Vec3 direction = center.subtract(itemPos).normalize().scale(0.3);
                 item.setDeltaMovement(item.getDeltaMovement().add(direction));
                 itemsMoved++;
+                RitualHelper.chanceStream(ctx.level(), 15, () ->
+                        StreamPresets.arcaneBolt(item, ctx.masterPos()).build()
+                                .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 32));
             }
         }
 

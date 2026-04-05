@@ -64,6 +64,9 @@ public class RitualUpgradeRemove extends Ritual {
 
             if (cleansedAny) {
                 ctx.syphon(getRefreshCost());
+                com.breakinblocks.neovitae.api.stream.StreamPresets
+                        .lifePulse(ctx.masterPos(), player.blockPosition()).build()
+                        .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128);
                 masterRitualStone.stopRitual(BreakType.DEACTIVATE);
                 return;
             }

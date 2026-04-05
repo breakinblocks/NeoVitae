@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
@@ -47,6 +48,10 @@ public class RitualCrystalHarvest extends Ritual {
             if (isSpiritusCrystal(block)) {
                 if (BlockProtectionHelper.tryBreakBlock(ctx.level(), pos, owner)) {
                     crystalsHarvested++;
+                    final BlockPos crystalAt = pos.immutable();
+                    RitualHelper.chanceStream(ctx.level(), 6, () ->
+                            StreamPresets.soulSiphon(crystalAt, ctx.masterPos()).build()
+                                    .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128));
                 }
             }
         }

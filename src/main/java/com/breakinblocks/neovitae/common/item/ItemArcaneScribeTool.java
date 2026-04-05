@@ -14,6 +14,10 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import com.breakinblocks.neovitae.common.block.AlchemyArrayBlock;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
@@ -55,10 +59,16 @@ public class ItemArcaneScribeTool extends Item implements IBindable {
         BlockPos newPos = context.getClickedPos().relative(context.getClickedFace());
         Level world = context.getLevel();
 
-        if (world.isEmptyBlock(newPos)) {
+        FluidState existingFluid = world.getFluidState(newPos);
+        boolean inWater = existingFluid.is(Fluids.WATER) && existingFluid.isSource();
+        boolean targetFree = world.isEmptyBlock(newPos) || inWater;
+
+        if (targetFree) {
             if (!world.isClientSide) {
                 Direction rotation = Direction.fromYRot(player.getYHeadRot());
-                if (!BlockProtectionHelper.tryPlaceBlock(world, newPos, NVBlocks.ALCHEMY_ARRAY.get().defaultBlockState(), player)) {
+                BlockState placeState = NVBlocks.ALCHEMY_ARRAY.get().defaultBlockState()
+                        .setValue(AlchemyArrayBlock.WATERLOGGED, inWater);
+                if (!BlockProtectionHelper.tryPlaceBlock(world, newPos, placeState, player)) {
                     return InteractionResult.FAIL;
                 }
                 BlockEntity tile = world.getBlockEntity(newPos);

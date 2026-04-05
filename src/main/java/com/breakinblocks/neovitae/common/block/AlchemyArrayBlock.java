@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -106,6 +107,13 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
         if (array == null || player.isShiftKeyDown())
             return ItemInteractionResult.FAIL;
 
+        if (array.arrayEffect != null && array.getItem(0).isEmpty() == false && array.getItem(1).isEmpty() == false) {
+            if (!world.isClientSide && array.arrayEffect.onUse(array, player)) {
+                world.sendBlockUpdated(pos, state, state, 3);
+            }
+            return ItemInteractionResult.sidedSuccess(world.isClientSide);
+        }
+
         ItemStack playerItem = player.getItemInHand(hand);
 
         if (!playerItem.isEmpty()) {
@@ -133,6 +141,19 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
 
         world.sendBlockUpdated(pos, state, state, 3);
         return ItemInteractionResult.SUCCESS;
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (player.isShiftKeyDown()) return InteractionResult.PASS;
+        BlockEntity tile = world.getBlockEntity(pos);
+        if (tile instanceof AlchemyArrayBlockEntity array && array.arrayEffect != null) {
+            if (!world.isClientSide && array.arrayEffect.onUse(array, player)) {
+                world.sendBlockUpdated(pos, state, state, 3);
+            }
+            return InteractionResult.sidedSuccess(world.isClientSide);
+        }
+        return InteractionResult.PASS;
     }
 
     @Override

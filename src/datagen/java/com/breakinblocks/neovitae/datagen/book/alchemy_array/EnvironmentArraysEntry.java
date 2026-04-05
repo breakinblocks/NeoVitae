@@ -33,6 +33,18 @@ public class EnvironmentArraysEntry extends EntryProvider {
                 + "in a 3-block radius.\\\n\\\n"
                 + "Once the array has frozen everything in reach, it dissipates.\\\n\\\n"
                 + "[#](4A0080)The vitaemancer's will made manifest in frost and bloom.[#]()");
+
+        this.page("undertow", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("The [#](8B0000)Undertow Array[#]() is scribed with [#](8B0000)Kelp[#]() and awakened by "
+                + "[#](8B0000)Redstone Dust[#](). It must sit beneath a column of still water: once activated it "
+                + "drives a [#](8B0000)bubble column[#]() upward through every water source directly above, "
+                + "behaving exactly like the natural columns that form over soul sand.\\\n\\\n"
+                + "[#](8B0000)Right-click[#]() the array to reverse the flow. Upward columns push entities "
+                + "skyward; downward columns drag them to the bottom, mirroring a magma block's current. The "
+                + "array is persistent and remembers its direction across world reloads.\\\n\\\n"
+                + "[#](2E8B57)Tip: the Arcane Scribe Tool can inscribe arrays directly into water source blocks, "
+                + "so an Undertow Array can be placed at the bottom of a pool without draining it first.[#]()");
     }
 
     @Override

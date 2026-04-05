@@ -2129,6 +2129,13 @@ public class NVRecipeProvider extends RecipeProvider {
                 .added(Items.SEA_PICKLE)
                 .texture("textures/models/alchemyarrays/fountainarray.png")
                 .save(output, "endless_fountain");
+
+        // Undertow Array - kelp + redstone
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.UNDERTOW)
+                .base(Items.KELP)
+                .added(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
+                .texture("textures/models/alchemyarrays/undertowarray.png")
+                .save(output, "undertow");
     }
 
     private void addTabulaVitaeRecipes(RecipeOutput output) {

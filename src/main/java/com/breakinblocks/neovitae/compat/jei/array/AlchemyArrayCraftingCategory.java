@@ -81,6 +81,7 @@ public class AlchemyArrayCraftingCategory implements IRecipeCategory<AlchemyArra
             case SPIRIT_SIPHON -> new ItemStack(NVItems.ARRAY_SPIRIT_SIPHON.get());
             case DEFLECTION -> new ItemStack(NVItems.ARRAY_DEFLECTION.get());
             case ENDLESS_FOUNTAIN -> new ItemStack(NVItems.ARRAY_ENDLESS_FOUNTAIN.get());
+            case UNDERTOW -> new ItemStack(NVItems.ARRAY_UNDERTOW.get());
             default -> ItemStack.EMPTY;
         };
     }

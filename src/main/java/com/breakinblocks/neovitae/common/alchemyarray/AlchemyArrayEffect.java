@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.common.alchemyarray;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
@@ -25,6 +26,15 @@ public abstract class AlchemyArrayEffect {
      * of waiting for the next timed rebuild.
      */
     public void onNeighborChanged(AlchemyArrayBlockEntity tile, BlockPos neighborPos) {
+    }
+
+    /**
+     * Invoked when a player right-clicks an active array. Returning true
+     * indicates the effect consumed the interaction; the block will report
+     * success and skip its default slot-fill logic.
+     */
+    public boolean onUse(AlchemyArrayBlockEntity tile, Player player) {
+        return false;
     }
 
     public int getRedstoneSignal(AlchemyArrayBlockEntity tile) {

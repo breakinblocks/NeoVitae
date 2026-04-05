@@ -285,6 +285,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.routing.same", "Cannot link a node to itself!");
         add("chat.neovitae.routing.link.master", "Node linked to Master Routing Node.");
         add("chat.neovitae.routing.link", "Nodes linked together.");
+        add("chat.neovitae.undertow.upward", "Undertow Array: bubble column now pushes upward.");
+        add("chat.neovitae.undertow.downward", "Undertow Array: bubble column now drags downward.");
 
         // Throwing Daggers
         add(NVItems.THROWING_DAGGER.get(), "Throwing Dagger");
@@ -995,6 +997,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("effect.deflection.desc", "Reflects projectiles that pass through the column above");
         addJei("effect.endless_fountain.name", "Endless Fountain Array");
         addJei("effect.endless_fountain.desc", "Fills adjacent fluid tanks with water every few ticks");
+        addJei("effect.undertow.name", "Undertow Array");
+        addJei("effect.undertow.desc", "Creates a bubble column in water; right-click to reverse");
 
         // Array effect dummy items (JEI searchable)
         add(NVItems.ARRAY_BOUNCE.get(), "Bounce Array");
@@ -1016,6 +1020,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.ARRAY_SPIRIT_SIPHON.get(), "Spirit Siphon Array");
         add(NVItems.ARRAY_DEFLECTION.get(), "Deflection Array");
         add(NVItems.ARRAY_ENDLESS_FOUNTAIN.get(), "Endless Fountain Array");
+        add(NVItems.ARRAY_UNDERTOW.get(), "Undertow Array");
         addTooltip("array_effect.bounce", "Bounces entities high into the air. Crouch to disable.");
         addTooltip("array_effect.spike", "Damages any entity that steps on the array.");
         addTooltip("array_effect.updraft", "Launches entities upward with a gust of wind.");
@@ -1035,6 +1040,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("array_effect.spirit_siphon", "Damages non-player mobs and releases raw spiritus into the chunk.");
         addTooltip("array_effect.deflection", "Reflects projectiles passing through a column above the array.");
         addTooltip("array_effect.endless_fountain", "Fills adjacent fluid tanks with up to 6 buckets of water every 5 ticks.");
+        addTooltip("array_effect.undertow", "Drives a bubble column through the water above. Right-click to flip between upward (push) and downward (drag).");
 
         // Rituals
         addRitual("water", "Ritual of the Full Spring");

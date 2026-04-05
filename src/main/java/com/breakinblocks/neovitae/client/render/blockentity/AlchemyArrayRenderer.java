@@ -97,6 +97,11 @@ public class AlchemyArrayRenderer implements BlockEntityRenderer<AlchemyArrayBlo
     }
 
     private void renderArrayTexture(ResourceLocation texture, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int r, int g, int b) {
+        renderArrayQuad(texture, poseStack, bufferSource, r, g, b, 255);
+    }
+
+    public static void renderArrayQuad(ResourceLocation texture, PoseStack poseStack, MultiBufferSource bufferSource,
+                                       int r, int g, int b, int a) {
         VertexConsumer buffer = bufferSource.getBuffer(RenderType.entityTranslucentCull(texture));
 
         Matrix4f matrix = poseStack.last().pose();
@@ -116,9 +121,9 @@ public class AlchemyArrayRenderer implements BlockEntityRenderer<AlchemyArrayBlo
 
         float nx = 0, ny = 1, nz = 0;
 
-        buffer.addVertex(matrix, minX, y, minZ).setColor(r, g, b, 255).setUv(u0, v0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
-        buffer.addVertex(matrix, minX, y, maxZ).setColor(r, g, b, 255).setUv(u0, v1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
-        buffer.addVertex(matrix, maxX, y, maxZ).setColor(r, g, b, 255).setUv(u1, v1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
-        buffer.addVertex(matrix, maxX, y, minZ).setColor(r, g, b, 255).setUv(u1, v0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
+        buffer.addVertex(matrix, minX, y, minZ).setColor(r, g, b, a).setUv(u0, v0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
+        buffer.addVertex(matrix, minX, y, maxZ).setColor(r, g, b, a).setUv(u0, v1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
+        buffer.addVertex(matrix, maxX, y, maxZ).setColor(r, g, b, a).setUv(u1, v1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
+        buffer.addVertex(matrix, maxX, y, minZ).setColor(r, g, b, a).setUv(u1, v0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(nx, ny, nz);
     }
 }

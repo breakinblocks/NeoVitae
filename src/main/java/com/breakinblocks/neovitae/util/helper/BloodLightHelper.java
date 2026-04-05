@@ -19,9 +19,14 @@ public final class BloodLightHelper {
     private BloodLightHelper() {}
 
     public static BlockState createBlockState(int brightness) {
+        return createBlockState(brightness, false);
+    }
+
+    public static BlockState createBlockState(int brightness, boolean waterlogged) {
         return NVBlocks.BLOOD_LIGHT.get().defaultBlockState()
                 .setValue(BloodLightBlock.BRIGHTNESS, brightness)
-                .setValue(BloodLightBlock.POWERED, true);
+                .setValue(BloodLightBlock.POWERED, true)
+                .setValue(BloodLightBlock.WATERLOGGED, waterlogged);
     }
 
     public static void setBlockEntityColor(Level level, BlockPos pos, DyeColor color) {

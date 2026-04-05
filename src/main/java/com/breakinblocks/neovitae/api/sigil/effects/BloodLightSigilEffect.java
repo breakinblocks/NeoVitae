@@ -41,14 +41,16 @@ public record BloodLightSigilEffect(int defaultBrightness) implements SigilEffec
     }
 
     private boolean tryPlace(Level level, Player player, ItemStack stack, BlockPos placePos) {
-        if (level.getBlockState(placePos).getBlock() instanceof BloodLightBlock) return false;
-        if (!level.isEmptyBlock(placePos) && !level.getBlockState(placePos).canBeReplaced()) return false;
+        BlockState existing = level.getBlockState(placePos);
+        if (existing.getBlock() instanceof BloodLightBlock) return false;
+        if (!level.isEmptyBlock(placePos) && !existing.canBeReplaced()) return false;
 
         int brightness = BloodLightHelper.getBrightness(stack, defaultBrightness);
         DyeColor color = BloodLightHelper.getColorAndCycleIfRainbow(stack);
 
         if (!level.isClientSide) {
-            BlockState lightState = BloodLightHelper.createBlockState(brightness);
+            boolean waterlogged = existing.getFluidState().is(net.minecraft.tags.FluidTags.WATER);
+            BlockState lightState = BloodLightHelper.createBlockState(brightness, waterlogged);
             if (BlockProtectionHelper.tryPlaceBlock(level, placePos, lightState, player)) {
                 BloodLightHelper.setBlockEntityColor(level, placePos, color);
                 BloodLightHelper.playSound(level, placePos);

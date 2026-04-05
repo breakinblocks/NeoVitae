@@ -297,6 +297,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("entity.neovitae.throwing_dagger", "Throwing Dagger");
         add("entity.neovitae.throwing_dagger_syringe", "Syringe Throwing Dagger");
         add("entity.neovitae.blood_shield", "Sanguine Ward");
+        add("entity.neovitae.blood_light", "Blood Light");
 
         // Daemonium Ignis
         add("entity.neovitae.daemonium_ignis", "Daemonium Ignis");

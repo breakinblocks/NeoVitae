@@ -60,8 +60,10 @@ public class EntityBloodLight extends ThrowableProjectile {
     }
 
     private void placeLight(BlockPos placePos) {
-        if (level().isEmptyBlock(placePos) || level().getBlockState(placePos).canBeReplaced()) {
-            BlockState lightState = BloodLightHelper.createBlockState(brightness);
+        BlockState existing = level().getBlockState(placePos);
+        if (level().isEmptyBlock(placePos) || existing.canBeReplaced()) {
+            boolean waterlogged = existing.getFluidState().is(net.minecraft.tags.FluidTags.WATER);
+            BlockState lightState = BloodLightHelper.createBlockState(brightness, waterlogged);
             if (BlockProtectionHelper.tryPlaceBlock(level(), placePos, lightState, ownerUUID)) {
                 BloodLightHelper.setBlockEntityColor(level(), placePos, color);
             }
@@ -120,6 +122,11 @@ public class EntityBloodLight extends ThrowableProjectile {
     @Override
     protected double getDefaultGravity() {
         return 0.0;
+    }
+
+    @Override
+    public boolean isPushedByFluid() {
+        return false;
     }
 
     @Override

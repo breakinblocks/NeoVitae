@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.api.routing.*;
 
@@ -86,7 +87,16 @@ public abstract class BlockRoutingNode extends BaseEntityBlock {
 
     protected boolean canConnect(BlockState state, BlockGetter level, BlockPos neighborPos, Direction direction) {
         if (state.getBlock() instanceof BlockRoutingNode) return true;
+        if (hasRoutingCapability(level, neighborPos, direction)) return true;
         return state.isFaceSturdy(level, neighborPos, direction.getOpposite());
+    }
+
+    private static boolean hasRoutingCapability(BlockGetter getter, BlockPos neighborPos, Direction dirFromNode) {
+        if (!(getter instanceof Level level)) return false;
+        Direction side = dirFromNode.getOpposite();
+        if (level.getCapability(Capabilities.ItemHandler.BLOCK, neighborPos, side) != null) return true;
+        if (level.getCapability(Capabilities.FluidHandler.BLOCK, neighborPos, side) != null) return true;
+        return level.getCapability(Capabilities.EnergyStorage.BLOCK, neighborPos, side) != null;
     }
 
     private BooleanProperty getPropertyForDirection(Direction dir) {

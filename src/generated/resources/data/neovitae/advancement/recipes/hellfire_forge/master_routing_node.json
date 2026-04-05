@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "neovitae:item_routing_node"
+            "items": "neovitae:routing_conduit"
           }
         ]
       },

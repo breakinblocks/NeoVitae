@@ -239,7 +239,7 @@ public class RoutingNodeTests {
 
         helper.setBlock(srcChestPos, Blocks.CHEST.defaultBlockState());
         InputRoutingNodeBlockEntity input = placeAndGet(helper, inputPos, NVBlocks.INPUT_ROUTING_NODE.block().get(), InputRoutingNodeBlockEntity.class);
-        RoutingNodeBlockEntity relay = placeAndGet(helper, relayPos, NVBlocks.ROUTING_NODE.block().get(), RoutingNodeBlockEntity.class);
+        RoutingConduitBlockEntity relay = placeAndGet(helper, relayPos, NVBlocks.ROUTING_CONDUIT.block().get(), RoutingConduitBlockEntity.class);
         MasterRoutingNodeBlockEntity master = placeAndGet(helper, masterPos, NVBlocks.MASTER_ROUTING_NODE.block().get(), MasterRoutingNodeBlockEntity.class);
         OutputRoutingNodeBlockEntity output = placeAndGet(helper, outputPos, NVBlocks.OUTPUT_ROUTING_NODE.block().get(), OutputRoutingNodeBlockEntity.class);
         helper.setBlock(dstChestPos, Blocks.CHEST.defaultBlockState());

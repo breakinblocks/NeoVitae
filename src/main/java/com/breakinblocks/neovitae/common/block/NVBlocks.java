@@ -129,7 +129,7 @@ public class NVBlocks {
     public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> STEADFAST_SPIRITUS_CRYSTAL = BLOCK_REG.register("steadfast_spiritus_crystal", () -> new BlockSpiritusCrystal(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.STEADFAST, crystal_block_properties));
 
     private static final BlockBehaviour.Properties routing_node_properties = BlockBehaviour.Properties.of().strength(2.0F, 5.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion();
-    public static final BlockWithItemHolder<BlockRoutingNode, BlockItem> ROUTING_NODE = BLOCK_REG.register("item_routing_node", () -> new BlockRoutingNode(routing_node_properties));
+    public static final BlockWithItemHolder<BlockRoutingConduit, BlockItem> ROUTING_CONDUIT = BLOCK_REG.register("routing_conduit", () -> new BlockRoutingConduit(routing_node_properties));
     public static final BlockWithItemHolder<BlockInputRoutingNode, BlockItem> INPUT_ROUTING_NODE = BLOCK_REG.register("input_routing_node", () -> new BlockInputRoutingNode(routing_node_properties));
     public static final BlockWithItemHolder<BlockOutputRoutingNode, BlockItem> OUTPUT_ROUTING_NODE = BLOCK_REG.register("output_routing_node", () -> new BlockOutputRoutingNode(routing_node_properties));
     public static final BlockWithItemHolder<BlockMasterRoutingNode, BlockItem> MASTER_ROUTING_NODE = BLOCK_REG.register("master_routing_node", () -> new BlockMasterRoutingNode(routing_node_properties));

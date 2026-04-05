@@ -18,9 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Base tile entity for routing nodes.
+ * Abstract base tile entity for routing nodes. Concrete subclasses are
+ * {@link RoutingConduitBlockEntity} (the plain graph-edge relay) and the
+ * filtered variants (input/output/master) under {@link FilteredRoutingNodeBlockEntity}.
  */
-public class RoutingNodeBlockEntity extends BlockEntity implements IRoutingNode, IItemRoutingNode {
+public abstract class RoutingNodeBlockEntity extends BlockEntity implements IRoutingNode, IItemRoutingNode {
 
     private int currentInput;
     private BlockPos masterPos = BlockPos.ZERO;
@@ -28,10 +30,6 @@ public class RoutingNodeBlockEntity extends BlockEntity implements IRoutingNode,
 
     public RoutingNodeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-    }
-
-    public RoutingNodeBlockEntity(BlockPos pos, BlockState state) {
-        this(com.breakinblocks.neovitae.common.blockentity.NVTiles.ROUTING_NODE_TYPE.get(), pos, state);
     }
 
     public void tick(Level level, BlockPos pos, BlockState state) {

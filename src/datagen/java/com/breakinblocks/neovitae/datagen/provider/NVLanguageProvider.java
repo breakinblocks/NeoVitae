@@ -111,7 +111,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVBlocks.STEADFAST_SPIRITUS_CRYSTAL, "Steadfast Crystal Cluster");
 
         // Routing Node Blocks
-        add(NVBlocks.ROUTING_NODE, "Item Routing Node");
+        add(NVBlocks.ROUTING_CONDUIT, "Routing Conduit");
         add(NVBlocks.INPUT_ROUTING_NODE, "Input Routing Node");
         add(NVBlocks.OUTPUT_ROUTING_NODE, "Output Routing Node");
         add(NVBlocks.MASTER_ROUTING_NODE, "Master Routing Node");

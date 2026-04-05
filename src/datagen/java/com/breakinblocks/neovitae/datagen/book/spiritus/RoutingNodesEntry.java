@@ -47,16 +47,16 @@ public class RoutingNodesEntry extends EntryProvider {
         this.page("other_nodes", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("A Master alone accomplishes nothing. [#](8B0000)Input Routing Nodes[#]() draw resources into "
-                + "the network; [#](8B0000)Output Routing Nodes[#]() deliver them to their destination. Plain "
-                + "[#](8B0000)Routing Nodes[#]() serve as relays, extending the network's reach beyond the "
-                + "16-block limit of a single connection.");
+                + "the network; [#](8B0000)Output Routing Nodes[#]() deliver them to their destination. "
+                + "[#](8B0000)Routing Conduits[#]() serve as the wires between them, extending the network's "
+                + "reach beyond the 16-block limit of a single connection.");
 
         this.page("node_recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Routing Node");
-        this.pageText("A passive relay. Unremarkable alone, but essential for bridging distances between "
-                + "active nodes in your [#](4A0080)Routing Network[#]().");
+        this.pageTitle("Routing Conduit");
+        this.pageText("A passive relay carrying items, fluids and energy alike. Unremarkable alone, but "
+                + "essential for bridging distances between active nodes in your [#](4A0080)Routing Network[#]().");
 
         this.page("io_recipes", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

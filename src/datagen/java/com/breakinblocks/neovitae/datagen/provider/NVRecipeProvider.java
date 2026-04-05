@@ -1092,38 +1092,38 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("steadfast_spiritus_crystal"));
 
         // Routing Nodes
-        HellfireForgeRecipeBuilder.build(NVBlocks.ROUTING_NODE.block().get())
+        HellfireForgeRecipeBuilder.build(NVBlocks.ROUTING_CONDUIT.block().get())
                 .requires(Ingredient.of(Tags.Items.STONES), 2)
                 .requires(Tags.Items.INGOTS_IRON)
                 .requires(Tags.Items.GLASS_BLOCKS)
                 .minWill(100)
                 .drain(5)
                 .unlockedBy("has_lesser_gem", has(NVItems.SPIRITUS_GEM_LESSER.get()))
-                .save(output, NeoVitae.rl("routing_node"));
+                .save(output, NeoVitae.rl("routing_conduit"));
 
         HellfireForgeRecipeBuilder.build(NVBlocks.INPUT_ROUTING_NODE.block().get())
-                .requires(NVBlocks.ROUTING_NODE.block().get())
+                .requires(NVBlocks.ROUTING_CONDUIT.block().get())
                 .requires(Items.HOPPER)
                 .minWill(200)
                 .drain(10)
-                .unlockedBy("has_routing_node", has(NVBlocks.ROUTING_NODE.block().get()))
+                .unlockedBy("has_routing_node", has(NVBlocks.ROUTING_CONDUIT.block().get()))
                 .save(output, NeoVitae.rl("input_routing_node"));
 
         HellfireForgeRecipeBuilder.build(NVBlocks.OUTPUT_ROUTING_NODE.block().get())
-                .requires(NVBlocks.ROUTING_NODE.block().get())
+                .requires(NVBlocks.ROUTING_CONDUIT.block().get())
                 .requires(Items.DISPENSER)
                 .minWill(200)
                 .drain(10)
-                .unlockedBy("has_routing_node", has(NVBlocks.ROUTING_NODE.block().get()))
+                .unlockedBy("has_routing_node", has(NVBlocks.ROUTING_CONDUIT.block().get()))
                 .save(output, NeoVitae.rl("output_routing_node"));
 
         HellfireForgeRecipeBuilder.build(NVBlocks.MASTER_ROUTING_NODE.block().get())
-                .requires(NVBlocks.ROUTING_NODE.block().get())
+                .requires(NVBlocks.ROUTING_CONDUIT.block().get())
                 .requires(Tags.Items.GEMS_DIAMOND)
                 .requires(Tags.Items.STORAGE_BLOCKS_LAPIS)
                 .minWill(400)
                 .drain(25)
-                .unlockedBy("has_routing_node", has(NVBlocks.ROUTING_NODE.block().get()))
+                .unlockedBy("has_routing_node", has(NVBlocks.ROUTING_CONDUIT.block().get()))
                 .save(output, NeoVitae.rl("master_routing_node"));
 
         // Node Upgrades
@@ -1152,7 +1152,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(Tags.Items.DUSTS_REDSTONE)
                 .minWill(50)
                 .drain(5)
-                .unlockedBy("has_routing_node", has(NVBlocks.ROUTING_NODE.block().get()))
+                .unlockedBy("has_routing_node", has(NVBlocks.ROUTING_CONDUIT.block().get()))
                 .save(output, NeoVitae.rl("node_router"));
 
         // Spiritus Gauge

@@ -24,9 +24,12 @@ import com.breakinblocks.neovitae.api.routing.*;
 
 import javax.annotation.Nullable;
 
-public class BlockRoutingNode extends BaseEntityBlock {
-
-    public static final MapCodec<BlockRoutingNode> CODEC = simpleCodec(BlockRoutingNode::new);
+/**
+ * Shared base for all routing-node blocks (conduit, input, output, master).
+ * Holds the multipart connection state and the graph-teardown hook; concrete
+ * subclasses supply their own {@link #codec()} and {@link #newBlockEntity}.
+ */
+public abstract class BlockRoutingNode extends BaseEntityBlock {
 
     public static final BooleanProperty UP = BooleanProperty.create("up");
     public static final BooleanProperty DOWN = BooleanProperty.create("down");
@@ -37,7 +40,7 @@ public class BlockRoutingNode extends BaseEntityBlock {
 
     protected static final VoxelShape SHAPE = Block.box(6.0D, 6.0D, 6.0D, 10.0D, 10.0D, 10.0D);
 
-    public BlockRoutingNode(BlockBehaviour.Properties properties) {
+    protected BlockRoutingNode(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(DOWN, false)
@@ -46,11 +49,6 @@ public class BlockRoutingNode extends BaseEntityBlock {
                 .setValue(EAST, false)
                 .setValue(SOUTH, false)
                 .setValue(WEST, false));
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Override
@@ -116,12 +114,6 @@ public class BlockRoutingNode extends BaseEntityBlock {
             }
         }
         super.onRemove(state, level, pos, newState, isMoving);
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new RoutingNodeBlockEntity(pos, state);
     }
 
     @Nullable

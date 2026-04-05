@@ -30,9 +30,16 @@ import java.util.List;
  * to the Serenade of the Nether, capping at 80 ticks between attempts. Any
  * successful fill immediately resets the backoff.
  *
- * <p>The adjacent-tank cache is rebuilt every {@link #CACHE_REBUILD_TICKS} ticks,
- * and stale entries (tanks that were broken between scans) are dropped lazily as
- * they are encountered during fill attempts.
+ * <p>The adjacent-tank cache is refreshed in three ways: on a timed interval
+ * ({@link #CACHE_REBUILD_TICKS}), reactively whenever an adjacent block is
+ * placed or broken (via {@link #onNeighborChanged}), and lazily when a cached
+ * position no longer exposes a fluid handler during a deposit. Unloaded chunks
+ * are respected: a cached tank in an unloaded chunk is kept (not dropped) until
+ * its chunk ticks in again, and the rebuild pass skips unloaded neighbours.
+ *
+ * <p>The array is redstone-sensitive: any neighbouring redstone signal parks
+ * the effect until the signal drops. While backing off a small puff of drowsy
+ * particles hints at the slowdown so players can spot it at a glance.
  */
 public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
 
@@ -46,11 +53,16 @@ public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
     private static final int MAX_BACKOFF_LEVEL = 4;
     private static final int[] BACKOFF_CYCLES = {0, 1, 3, 7, 15};
 
+    // Particle colours for feedback. Flow = cheerful aqua, backoff = muted slate.
+    private static final int FLOW_COLOR = 0x3A9BD9;
+    private static final int BACKOFF_COLOR = 0x4A5C6E;
+
     private final List<BlockPos> tankCache = new ArrayList<>(6);
     private int roundRobinCursor = 0;
     private int backoffLevel = 0;
     private int backoffRemaining = 0;
     private int lastCacheBuild = -1;
+    private boolean cacheDirty = false;
 
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
@@ -62,15 +74,24 @@ public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
 
         BlockPos arrayPos = tile.getBlockPos();
 
-        // Rebuild the adjacency cache periodically or on first run.
-        if (lastCacheBuild < 0 || ticksActive - lastCacheBuild >= CACHE_REBUILD_TICKS) {
+        // Redstone kill-switch: if any neighbour is powered, park the effect
+        // but keep existing state (cache, backoff) intact.
+        if (level.hasNeighborSignal(arrayPos)) {
+            return false;
+        }
+
+        // Rebuild the adjacency cache on a timer, on first run, or when a
+        // neighbour change has been signalled since the last rebuild.
+        if (cacheDirty || lastCacheBuild < 0 || ticksActive - lastCacheBuild >= CACHE_REBUILD_TICKS) {
             rebuildCache(level, arrayPos);
             lastCacheBuild = ticksActive;
+            cacheDirty = false;
         }
 
         // Respect an active backoff without touching any capabilities.
         if (backoffRemaining > 0) {
             backoffRemaining--;
+            emitBackoffParticles(level, arrayPos);
             return false;
         }
 
@@ -82,11 +103,11 @@ public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
         int placedBuckets = attemptDeposit(level);
 
         if (placedBuckets > 0) {
-            // Reset to normal cadence and emit ambient particles on success.
+            // Reset to normal cadence and emit ambient flow particles.
             backoffLevel = 0;
             backoffRemaining = 0;
             if (level instanceof ServerLevel server) {
-                server.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x3A9BD9),
+                server.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), FLOW_COLOR),
                         arrayPos.getX() + 0.5, arrayPos.getY() + 0.35, arrayPos.getZ() + 0.5,
                         3 * placedBuckets, 0.4, 0.1, 0.4, 0.02);
             }
@@ -96,6 +117,7 @@ public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
                 backoffLevel++;
             }
             backoffRemaining = BACKOFF_CYCLES[backoffLevel];
+            emitBackoffParticles(level, arrayPos);
         }
 
         return false;
@@ -105,8 +127,8 @@ public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
      * Attempts to deposit up to {@link #BUCKETS_PER_CYCLE} buckets across the
      * cached tanks, spreading them evenly via round-robin. For each bucket we
      * walk the cache starting at the cursor; tanks that no longer exist are
-     * removed lazily. Tanks that cannot take a full bucket are skipped for
-     * this bucket but remain in the cache.
+     * removed lazily (respecting chunk-load state). Tanks that cannot take a
+     * full bucket are skipped for this bucket but remain in the cache.
      *
      * @return the number of full buckets successfully deposited this cycle.
      */
@@ -123,6 +145,15 @@ public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
                     roundRobinCursor = 0;
                 }
                 BlockPos tankPos = tankCache.get(roundRobinCursor);
+
+                // Skip (but keep) entries whose chunks have unloaded; we cannot
+                // safely query them and the cache will re-examine on rebuild.
+                if (!level.isLoaded(tankPos)) {
+                    roundRobinCursor++;
+                    attempts++;
+                    continue;
+                }
+
                 IFluidHandler handler = level.getCapability(Capabilities.FluidHandler.BLOCK, tankPos, null);
 
                 if (handler == null) {
@@ -165,6 +196,10 @@ public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
         tankCache.clear();
         for (Direction dir : Direction.values()) {
             BlockPos neighbor = arrayPos.relative(dir);
+            // Skip unloaded neighbours entirely; if their chunk loads before the
+            // next timed rebuild, the onNeighborChanged hook (or the 60-tick
+            // timer) will pick them up.
+            if (!level.isLoaded(neighbor)) continue;
             IFluidHandler handler = level.getCapability(Capabilities.FluidHandler.BLOCK, neighbor, null);
             if (handler != null) {
                 tankCache.add(neighbor.immutable());
@@ -180,12 +215,38 @@ public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
         backoffRemaining = 0;
     }
 
+    /**
+     * Emits a small, muted particle puff to telegraph that the array is
+     * currently backing off. Particle count scales with the backoff level so a
+     * deeply-backed-off array looks visibly sluggish next to an active one.
+     */
+    private void emitBackoffParticles(Level level, BlockPos arrayPos) {
+        if (!(level instanceof ServerLevel server)) return;
+        // Only emit occasionally during longer backoffs to avoid overhead.
+        if ((server.getGameTime() & 0xF) != 0) return;
+        int count = Math.max(1, backoffLevel);
+        server.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), BACKOFF_COLOR),
+                arrayPos.getX() + 0.5, arrayPos.getY() + 0.2, arrayPos.getZ() + 0.5,
+                count, 0.15, 0.02, 0.15, 0.0);
+    }
+
+    @Override
+    public void onNeighborChanged(AlchemyArrayBlockEntity tile, BlockPos neighborPos) {
+        BlockPos arrayPos = tile.getBlockPos();
+        // Only react to changes on our six faces; ignore diagonals and farther
+        // updates propagated through the neighbour-notification graph.
+        if (neighborPos.distManhattan(arrayPos) == 1) {
+            cacheDirty = true;
+        }
+    }
+
     @Override
     public void writeToNBT(CompoundTag tag) {
         tag.putInt("cursor", roundRobinCursor);
         tag.putInt("backoffLevel", backoffLevel);
         tag.putInt("backoffRemaining", backoffRemaining);
         tag.putInt("lastCacheBuild", lastCacheBuild);
+        tag.putBoolean("cacheDirty", cacheDirty);
         ListTag cacheTag = new ListTag();
         for (BlockPos pos : tankCache) {
             CompoundTag posTag = new CompoundTag();
@@ -203,6 +264,7 @@ public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
         backoffLevel = Math.min(Math.max(0, tag.getInt("backoffLevel")), MAX_BACKOFF_LEVEL);
         backoffRemaining = Math.max(0, tag.getInt("backoffRemaining"));
         lastCacheBuild = tag.contains("lastCacheBuild") ? tag.getInt("lastCacheBuild") : -1;
+        cacheDirty = tag.getBoolean("cacheDirty");
         tankCache.clear();
         ListTag cacheTag = tag.getList("tankCache", Tag.TAG_COMPOUND);
         for (int i = 0; i < cacheTag.size(); i++) {

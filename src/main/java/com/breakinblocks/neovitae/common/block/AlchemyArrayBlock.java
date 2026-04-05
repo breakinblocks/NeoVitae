@@ -108,6 +108,14 @@ public class AlchemyArrayBlock extends BaseEntityBlock {
     }
 
     @Override
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+        super.neighborChanged(state, level, pos, neighborBlock, neighborPos, movedByPiston);
+        if (!level.isClientSide && level.getBlockEntity(pos) instanceof AlchemyArrayBlockEntity arrayTile) {
+            arrayTile.onNeighborChanged(neighborPos);
+        }
+    }
+
+    @Override
     protected boolean isSignalSource(BlockState state) {
         return true;
     }

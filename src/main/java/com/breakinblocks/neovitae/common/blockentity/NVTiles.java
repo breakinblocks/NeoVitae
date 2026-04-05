@@ -94,8 +94,8 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PhantomBridgeBlockEntity>> PHANTOM_BRIDGE_TYPE =
             registerTile("phantom_bridge", PhantomBridgeBlockEntity::new, NVBlocks.PHANTOM_BRIDGE_BLOCK);
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity>> ROUTING_NODE_TYPE =
-            registerTile("routing_node", com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity::new, NVBlocks.ROUTING_NODE.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.RoutingConduitBlockEntity>> ROUTING_CONDUIT_TYPE =
+            registerTile("routing_conduit", com.breakinblocks.neovitae.common.blockentity.routing.RoutingConduitBlockEntity::new, NVBlocks.ROUTING_CONDUIT.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlockEntity>> INPUT_ROUTING_NODE_TYPE =
             registerTile("input_routing_node", com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlockEntity::new, NVBlocks.INPUT_ROUTING_NODE.block());
@@ -206,7 +206,7 @@ public class NVTiles {
         event.registerBlockEntityRenderer(ALCHEMY_ARRAY_TYPE.get(), AlchemyArrayRenderer::new);
         event.registerBlockEntityRenderer(MIMIC_TYPE.get(), com.breakinblocks.neovitae.client.render.blockentity.MimicRenderer::new);
 
-        event.registerBlockEntityRenderer(ROUTING_NODE_TYPE.get(), RoutingNodeRenderer::new);
+        event.registerBlockEntityRenderer(ROUTING_CONDUIT_TYPE.get(), RoutingNodeRenderer::new);
         event.registerBlockEntityRenderer(INPUT_ROUTING_NODE_TYPE.get(), RoutingNodeRenderer::new);
         event.registerBlockEntityRenderer(OUTPUT_ROUTING_NODE_TYPE.get(), RoutingNodeRenderer::new);
         event.registerBlockEntityRenderer(MASTER_ROUTING_NODE_TYPE.get(), RoutingNodeRenderer::new);

@@ -252,4 +252,10 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     public boolean isSignalSource() {
         return arrayEffect != null && arrayEffect.isSignalSource();
     }
+
+    public void onNeighborChanged(BlockPos neighborPos) {
+        if (arrayEffect != null) {
+            arrayEffect.onNeighborChanged(this, neighborPos);
+        }
+    }
 }

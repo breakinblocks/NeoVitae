@@ -3,7 +3,7 @@
   "drain": 10.0,
   "inputs": [
     {
-      "item": "neovitae:item_routing_node"
+      "item": "neovitae:routing_conduit"
     },
     {
       "item": "minecraft:hopper"

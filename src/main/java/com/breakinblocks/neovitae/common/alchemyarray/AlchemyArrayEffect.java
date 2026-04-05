@@ -19,6 +19,14 @@ public abstract class AlchemyArrayEffect {
     public void onEntityCollidedWithBlock(AlchemyArrayBlockEntity tile, Level world, BlockPos pos, BlockState state, Entity entity) {
     }
 
+    /**
+     * Called when a block adjacent to the array changes. Effects that maintain
+     * a neighbour cache can override this to invalidate it reactively instead
+     * of waiting for the next timed rebuild.
+     */
+    public void onNeighborChanged(AlchemyArrayBlockEntity tile, BlockPos neighborPos) {
+    }
+
     public int getRedstoneSignal(AlchemyArrayBlockEntity tile) {
         return 0;
     }

@@ -84,7 +84,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .add(NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().getKey())
                 .add(NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().getKey())
                 // Routing nodes
-                .add(NVBlocks.ROUTING_NODE.block().getKey())
+                .add(NVBlocks.ROUTING_CONDUIT.block().getKey())
                 .add(NVBlocks.INPUT_ROUTING_NODE.block().getKey())
                 .add(NVBlocks.OUTPUT_ROUTING_NODE.block().getKey())
                 .add(NVBlocks.MASTER_ROUTING_NODE.block().getKey())
@@ -125,7 +125,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .add(NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().getKey())
                 .add(NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().getKey())
                 // Routing nodes
-                .add(NVBlocks.ROUTING_NODE.block().getKey())
+                .add(NVBlocks.ROUTING_CONDUIT.block().getKey())
                 .add(NVBlocks.INPUT_ROUTING_NODE.block().getKey())
                 .add(NVBlocks.OUTPUT_ROUTING_NODE.block().getKey())
                 .add(NVBlocks.MASTER_ROUTING_NODE.block().getKey())

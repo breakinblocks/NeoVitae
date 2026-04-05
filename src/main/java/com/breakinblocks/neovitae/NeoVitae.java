@@ -116,6 +116,7 @@ public class NeoVitae {
 
         modBus.addListener(this::commonSetup);
         modBus.addListener(NVPayloads::register);
+        com.breakinblocks.neovitae.common.event.NVMissingMappings.register(modBus);
         NeoForge.EVENT_BUS.addListener(NVCommands::register);
     }
 

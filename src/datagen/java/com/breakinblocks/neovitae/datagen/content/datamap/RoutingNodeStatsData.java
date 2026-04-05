@@ -69,10 +69,10 @@ public class RoutingNodeStatsData {
                 false
         );
 
-        // Basic routing node - relay node (no special stats needed, uses defaults)
+        // Routing conduit - graph-edge relay (no special stats needed, uses defaults)
         // We still register it so it shows in the datamap for reference
         builder.add(
-                NVBlocks.ROUTING_NODE.block(),
+                NVBlocks.ROUTING_CONDUIT.block(),
                 RoutingNodeStats.DEFAULT_NODE,
                 false
         );

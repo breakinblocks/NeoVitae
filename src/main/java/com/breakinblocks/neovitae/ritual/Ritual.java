@@ -222,6 +222,17 @@ public abstract class Ritual {
         return Math.max(minTime, baseTime - (int) (willAmount / willDivisor));
     }
 
+    /**
+     * Applies {@link #scaleRefreshTime} when raw spiritus is present, otherwise
+     * returns {@code baseTime}. Collapses the common
+     * {@code hasRaw ? scaleRefreshTime(...) : baseTime} ternary used by the
+     * raw-spiritus-accelerated rituals (animal growth, crushing, green grove).
+     */
+    protected static int scaleByRawWill(com.breakinblocks.neovitae.api.will.SpiritusState will,
+                                        int baseTime, int minTime, double willDivisor) {
+        return will.hasDefault() ? scaleRefreshTime(will.getDefault(), baseTime, minTime, willDivisor) : baseTime;
+    }
+
     protected final void addParallelRunes(Consumer<RitualComponent> components, int offset, int y, EnumRuneType rune) {
         addRune(components, offset, y, 0, rune);
         addRune(components, -offset, y, 0, rune);

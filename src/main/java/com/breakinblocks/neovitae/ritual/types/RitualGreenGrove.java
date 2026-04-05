@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -68,20 +67,18 @@ public class RitualGreenGrove extends Ritual {
         RitualContext ctx = RitualHelper.createContext(masterRitualStone, getRefreshCost());
         if (ctx == null) return;
 
-        if (!(ctx.level() instanceof ServerLevel serverLevel)) return;
+        ServerLevel serverLevel = ctx.serverLevel();
 
         BlockPos masterPos = ctx.masterPos();
 
         SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
 
-        boolean hasRaw = will.hasDefault();
         boolean doHydrate = will.hasSteadfast();
         boolean doLeech = will.hasCorrosive();
         boolean doVengeful = will.hasVengeful();
 
-        refreshTime = hasRaw ? scaleRefreshTime(will.getDefault(), 20, 10, 10) : 20;
+        refreshTime = scaleByRawWill(will, 20, 10, 10);
 
-        double rawSpiritusUsed = 0;
         double steadfastWillUsed = 0;
         double corrosiveWillUsed = 0;
         double vengefulWillUsed = 0;
@@ -162,11 +159,8 @@ public class RitualGreenGrove extends Ritual {
             }
         }
 
-        will.use(SpiritusType.DEFAULT, rawSpiritusUsed);
-        will.use(SpiritusType.STEADFAST, steadfastWillUsed);
-        will.use(SpiritusType.CORROSIVE, corrosiveWillUsed);
-        will.use(SpiritusType.VENGEFUL, vengefulWillUsed);
-        will.drain(ctx.level(), masterPos);
+        RitualHelper.drainWill(will, ctx.level(), masterPos,
+                0, corrosiveWillUsed, 0, vengefulWillUsed, steadfastWillUsed);
 
         ctx.syphon(getRefreshCost() * totalGrowths);
     }

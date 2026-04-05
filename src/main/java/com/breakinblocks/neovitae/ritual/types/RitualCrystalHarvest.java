@@ -1,7 +1,6 @@
 package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -32,8 +31,6 @@ public class RitualCrystalHarvest extends Ritual {
     public void performRitual(IMasterRitualStone masterRitualStone) {
         RitualContext ctx = RitualHelper.createContext(masterRitualStone, getRefreshCost());
         if (ctx == null) return;
-
-        if (!(ctx.level() instanceof ServerLevel)) return;
 
         List<BlockPos> positions = RitualHelper.getRangePositions(ctx.master(), this, HARVEST_RANGE, ctx.masterPos());
         int crystalsHarvested = 0;

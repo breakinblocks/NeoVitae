@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.ritual;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -14,16 +16,24 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
+import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.api.will.SpiritusHandler;
 import com.breakinblocks.neovitae.api.will.SpiritusState;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.util.Utils;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
+import java.util.function.Consumer;
 
 /**
  * Utility class providing common operations used by rituals.
@@ -84,6 +94,19 @@ public final class RitualHelper {
             String rangeKey, BlockPos masterPos) {
         AreaDescriptor range = getEffectiveRange(masterRitualStone, ritual, rangeKey);
         return range != null ? range.getContainedPositions(masterPos) : Collections.emptyList();
+    }
+
+    /**
+     * Returns the first block position in a ritual's configured range, or
+     * {@link Optional#empty()} if the range is missing or empty. Callers that
+     * only care about a single anchor position (chest slot, altar lookup, etc.)
+     * should prefer this over {@code getRangePositions(...).getFirst()} so a
+     * user-configured empty range does not throw {@link java.util.NoSuchElementException}.
+     */
+    public static java.util.Optional<BlockPos> firstPositionInRange(IMasterRitualStone masterRitualStone, Ritual ritual,
+            String rangeKey, BlockPos masterPos) {
+        List<BlockPos> positions = getRangePositions(masterRitualStone, ritual, rangeKey, masterPos);
+        return positions.isEmpty() ? java.util.Optional.empty() : java.util.Optional.of(positions.getFirst());
     }
 
     public static <T extends Entity> List<T> getEntitiesInRange(RitualContext context, Ritual ritual,
@@ -192,6 +215,103 @@ public final class RitualHelper {
         return tool;
     }
 
+    /**
+     * Creates a fake player for ritual loot-context and block-break operations.
+     * The display name is bracketed so the entity is obvious in logs and
+     * protection mod allowlists.
+     */
+    public static FakePlayer createRitualFakePlayer(ServerLevel level, UUID owner, String tag) {
+        return new FakePlayer(level, new GameProfile(owner, "[" + tag + "]"));
+    }
+
+    /**
+     * Resolves the chest output at the first position in the given range. The
+     * returned {@link ChestOutput} aggregates the block entity, the downward
+     * inventory view, and a convenience {@code hasFreeSlot} flag so block-break
+     * rituals can avoid re-fetching the capability per drop.
+     */
+    public static ChestOutput resolveChestOutput(RitualContext context, Ritual ritual, String rangeKey) {
+        BlockPos chestPos = firstPositionInRange(context.master(), ritual, rangeKey, context.masterPos()).orElse(null);
+        if (chestPos == null) return ChestOutput.EMPTY;
+        BlockEntity tile = context.level().getBlockEntity(chestPos);
+        if (tile == null) return ChestOutput.EMPTY;
+        boolean hasFreeSlot = Utils.getNumberOfFreeSlots(tile, Direction.DOWN) >= 1;
+        return new ChestOutput(tile, hasFreeSlot);
+    }
+
+    /**
+     * Bundle returned by {@link #resolveChestOutput} — carries the chest block
+     * entity (or {@code null} when no chest is configured/found) along with a
+     * pre-computed free-slot flag so callers can short-circuit without hitting
+     * the capability again.
+     */
+    public record ChestOutput(@Nullable BlockEntity tile, boolean hasFreeSlot) {
+        public static final ChestOutput EMPTY = new ChestOutput(null, false);
+    }
+
+    /**
+     * Builds the standard block-break loot context used by quarry/harvest
+     * rituals and returns the resulting drops. Every caller passes an
+     * identical set of parameters, so this centralises the shape and keeps
+     * the ritual bodies readable.
+     */
+    public static List<ItemStack> getBlockDrops(ServerLevel level, BlockState state, BlockPos pos,
+                                                ItemStack tool, FakePlayer fakePlayer) {
+        LootParams.Builder builder = new LootParams.Builder(level)
+                .withParameter(LootContextParams.ORIGIN, pos.getCenter())
+                .withParameter(LootContextParams.BLOCK_STATE, state)
+                .withParameter(LootContextParams.TOOL, tool)
+                .withOptionalParameter(LootContextParams.BLOCK_ENTITY, level.getBlockEntity(pos))
+                .withOptionalParameter(LootContextParams.THIS_ENTITY, fakePlayer);
+        return state.getDrops(builder);
+    }
+
+    /**
+     * Distributes a list of block drops into an optional chest inventory,
+     * sending any overflow through the supplied {@link Consumer}. Passing
+     * {@code null} for {@code chestTile} skips insertion entirely and routes
+     * every drop to the overflow sink.
+     *
+     * <p>Callers pick their own overflow strategy via the lambda — typically
+     * {@code stack -> Block.popResource(level, pos, stack)} for drops that
+     * should fall at the broken block, or
+     * {@code stack -> Utils.spawnStackAtBlock(level, masterPos, Direction.UP, stack)}
+     * for drops that should pop out the top of the ritual stone.
+     */
+    public static void distributeDrops(List<ItemStack> drops, @Nullable BlockEntity chestTile,
+                                       Consumer<ItemStack> overflowSink) {
+        for (ItemStack stack : drops) {
+            ItemStack remaining = stack;
+            if (chestTile != null) {
+                remaining = Utils.insertStackIntoTile(remaining, chestTile, Direction.DOWN);
+            }
+            if (!remaining.isEmpty()) {
+                overflowSink.accept(remaining);
+            }
+        }
+    }
+
+    /**
+     * Applies accumulated per-type will usage to the {@link SpiritusState} and
+     * commits the result to the chunk in a single call, replacing the
+     * 5-line {@code will.use(...) + will.drain(...)} boilerplate that
+     * block-break and buff rituals repeat at the bottom of their tick.
+     *
+     * <p>Arguments are positional in canonical spiritus order (raw,
+     * corrosive, destructive, vengeful, steadfast); zero values are skipped
+     * so callers don't pay the map insertion for an unused type.
+     */
+    public static void drainWill(SpiritusState will, Level level, BlockPos pos,
+                                 double raw, double corrosive, double destructive,
+                                 double vengeful, double steadfast) {
+        if (raw > 0) will.use(SpiritusType.DEFAULT, raw);
+        if (corrosive > 0) will.use(SpiritusType.CORROSIVE, corrosive);
+        if (destructive > 0) will.use(SpiritusType.DESTRUCTIVE, destructive);
+        if (vengeful > 0) will.use(SpiritusType.VENGEFUL, vengeful);
+        if (steadfast > 0) will.use(SpiritusType.STEADFAST, steadfast);
+        will.drain(level, pos);
+    }
+
     public static void syphonEV(RitualContext context, int cost) {
         if (cost > 0) {
             int actualCost = Math.min(cost, context.currentEV());
@@ -217,6 +337,17 @@ public final class RitualHelper {
 
         public int maxOperations(int costPerOperation) {
             return RitualHelper.getMaxOperations(this, costPerOperation);
+        }
+
+        /**
+         * Returns the level as a {@link ServerLevel}. Safe to call on any
+         * context produced by {@link RitualHelper#createContext}, which already
+         * rejects client-side levels — on the server the only concrete
+         * {@link Level} subclass is {@link ServerLevel}, so the cast cannot
+         * fail for a non-null ritual context.
+         */
+        public ServerLevel serverLevel() {
+            return (ServerLevel) level;
         }
     }
 }

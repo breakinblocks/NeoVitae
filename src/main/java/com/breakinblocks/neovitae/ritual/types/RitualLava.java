@@ -13,7 +13,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -192,11 +191,8 @@ public class RitualLava extends Ritual {
             ctx.syphon(lavaCost * totalEffects);
         }
 
-        will.use(SpiritusType.DEFAULT, rawUsed);
-        will.use(SpiritusType.CORROSIVE, corrosiveUsed);
-        will.use(SpiritusType.VENGEFUL, vengefulUsed);
-        will.use(SpiritusType.STEADFAST, steadfastUsed);
-        will.drain(ctx.level(), masterPos);
+        RitualHelper.drainWill(will, ctx.level(), masterPos,
+                rawUsed, corrosiveUsed, 0, vengefulUsed, steadfastUsed);
     }
 
     @Override

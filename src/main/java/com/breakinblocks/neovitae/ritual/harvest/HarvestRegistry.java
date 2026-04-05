@@ -5,6 +5,7 @@ import net.minecraft.world.level.block.AttachedStemBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -87,8 +88,10 @@ public class HarvestRegistry {
         }
     }
 
+    private static final List<IHarvestHandler> HARVEST_HANDLERS_VIEW = Collections.unmodifiableList(HARVEST_HANDLERS);
+
     public static List<IHarvestHandler> getHarvestHandlers() {
-        return ImmutableList.copyOf(HARVEST_HANDLERS);
+        return HARVEST_HANDLERS_VIEW;
     }
 
     public static Map<Block, Integer> getStandardCrops() {

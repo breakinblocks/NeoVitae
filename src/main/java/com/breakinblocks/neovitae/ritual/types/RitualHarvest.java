@@ -1,7 +1,6 @@
 package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,8 +33,6 @@ public class RitualHarvest extends Ritual {
     public void performRitual(IMasterRitualStone masterRitualStone) {
         RitualContext ctx = RitualHelper.createContext(masterRitualStone, getRefreshCost());
         if (ctx == null) return;
-
-        if (!(ctx.level() instanceof ServerLevel)) return;
 
         int maxHarvests = ctx.maxOperations(getRefreshCost());
         int totalHarvests = 0;

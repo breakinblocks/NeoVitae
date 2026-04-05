@@ -1,6 +1,5 @@
 package com.breakinblocks.neovitae.ritual.types;
 
-import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -10,10 +9,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -55,11 +53,10 @@ public class RitualYawningVoid extends Ritual {
     private static final double WILL_PER_REPLACE = 0.5;
     private static final double WILL_PER_FILTER = 0.2;
 
-    // Persistent scanning position
-    private int currentX = 0;
-    private int currentY = 0;
-    private int currentZ = 0;
-    private boolean scanInitialized = false;
+    // Persistent scan index into the quarry position list. Survives reloads
+    // via readFromNBT; clamped into range at the start of each tick so range
+    // resizes don't crash the scanner.
+    private int scanIndex = 0;
 
     public RitualYawningVoid() {
         super("yawning_void", 1, 10000, "ritual." + NeoVitae.MODID + ".yawning_void");
@@ -80,7 +77,7 @@ public class RitualYawningVoid extends Ritual {
             return;
         }
 
-        if (!(ctx.level() instanceof ServerLevel serverLevel)) return;
+        ServerLevel serverLevel = ctx.serverLevel();
 
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
@@ -93,22 +90,15 @@ public class RitualYawningVoid extends Ritual {
 
         double steadfastWillUsed = 0;
 
-        BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, masterPos).getFirst();
-        BlockEntity chestTile = ctx.level().getBlockEntity(chestPos);
+        RitualHelper.ChestOutput chest = RitualHelper.resolveChestOutput(ctx, this, CHEST_RANGE);
+        BlockEntity chestTile = chest.tile();
         IItemHandler chestHandler = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
 
         List<BlockPos> quarryPositions = RitualHelper.getRangePositions(ctx.master(), this, QUARRY_RANGE, masterPos);
         if (quarryPositions.isEmpty()) return;
+        if (scanIndex >= quarryPositions.size() || scanIndex < 0) scanIndex = 0;
 
-        if (!scanInitialized) {
-            BlockPos firstPos = quarryPositions.getFirst();
-            currentX = firstPos.getX();
-            currentY = firstPos.getY();
-            currentZ = firstPos.getZ();
-            scanInitialized = true;
-        }
-
-        FakePlayer fakePlayer = new FakePlayer(serverLevel, new GameProfile(owner, "[NeoVitae]"));
+        FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(serverLevel, owner, "NeoVitae");
         ItemStack toolStack = new ItemStack(Items.NETHERITE_PICKAXE);
 
         // Build filter list from chest (for corrosive mode)
@@ -132,18 +122,14 @@ public class RitualYawningVoid extends Ritual {
         while (!processed && attempts < maxAttempts) {
             attempts++;
 
-            // Find next valid position
-            BlockPos targetPos = new BlockPos(currentX, currentY, currentZ);
-            advanceScanPosition(quarryPositions);
-
-            // Validate the position is in range
-            if (!quarryPositions.contains(targetPos)) continue;
+            BlockPos targetPos = quarryPositions.get(scanIndex);
+            scanIndex = (scanIndex + 1) % quarryPositions.size();
 
             BlockState state = ctx.level().getBlockState(targetPos);
 
-            // Skip air, liquids, unbreakable blocks
+            // Skip air, pure liquid blocks, unbreakable blocks
             if (state.isAir()) continue;
-            if (!state.getFluidState().isEmpty() && state.getBlock().defaultBlockState().isAir()) continue;
+            if (state.getBlock() instanceof LiquidBlock) continue;
             float destroySpeed = state.getDestroySpeed(ctx.level(), targetPos);
             if (destroySpeed < 0) continue; // Unbreakable
             if (state.getBlock() instanceof com.breakinblocks.neovitae.common.block.BlockRitualStone) continue;
@@ -154,13 +140,7 @@ public class RitualYawningVoid extends Ritual {
 
             // CORROSIVE: Filter mode - only destroy blocks matching items in chest
             if (doFilter) {
-                // Get the block's drop to check against filter
-                LootParams.Builder filterLootBuilder = new LootParams.Builder(serverLevel)
-                        .withParameter(LootContextParams.ORIGIN, targetPos.getCenter())
-                        .withParameter(LootContextParams.BLOCK_STATE, state)
-                        .withParameter(LootContextParams.TOOL, toolStack)
-                        .withOptionalParameter(LootContextParams.THIS_ENTITY, fakePlayer);
-                List<ItemStack> filterDrops = state.getDrops(filterLootBuilder);
+                List<ItemStack> filterDrops = RitualHelper.getBlockDrops(serverLevel, state, targetPos, toolStack, fakePlayer);
 
                 boolean matchesFilter = false;
                 for (ItemStack drop : filterDrops) {
@@ -196,25 +176,12 @@ public class RitualYawningVoid extends Ritual {
                 // Fall through to normal destroy if placement failed
             }
 
-            LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel)
-                    .withParameter(LootContextParams.ORIGIN, targetPos.getCenter())
-                    .withParameter(LootContextParams.BLOCK_STATE, state)
-                    .withParameter(LootContextParams.TOOL, toolStack)
-                    .withOptionalParameter(LootContextParams.BLOCK_ENTITY, ctx.level().getBlockEntity(targetPos))
-                    .withOptionalParameter(LootContextParams.THIS_ENTITY, fakePlayer);
-
-            List<ItemStack> blockDrops = state.getDrops(lootBuilder);
+            List<ItemStack> blockDrops = RitualHelper.getBlockDrops(serverLevel, state, targetPos, toolStack, fakePlayer);
             ctx.level().destroyBlock(targetPos, false);
             processed = true;
 
-            for (ItemStack dropStack : blockDrops) {
-                if (chestTile != null) {
-                    dropStack = Utils.insertStackIntoTile(dropStack, chestTile, Direction.DOWN);
-                }
-                if (!dropStack.isEmpty()) {
-                    Utils.spawnStackAtBlock(ctx.level(), masterPos, Direction.UP, dropStack);
-                }
-            }
+            RitualHelper.distributeDrops(blockDrops, chestTile,
+                    stack -> Utils.spawnStackAtBlock(ctx.level(), masterPos, Direction.UP, stack));
         }
 
         will.drain(ctx.level(), masterPos);
@@ -222,24 +189,6 @@ public class RitualYawningVoid extends Ritual {
         if (processed) {
             ctx.syphon(getRefreshCost());
         }
-    }
-
-    /**
-     * Advances the scan position to the next block in the quarry range.
-     */
-    private void advanceScanPosition(List<BlockPos> quarryPositions) {
-        if (quarryPositions.isEmpty()) return;
-
-        // Find current index
-        BlockPos current = new BlockPos(currentX, currentY, currentZ);
-        int index = quarryPositions.indexOf(current);
-
-        // Move to next position, wrapping around
-        int nextIndex = (index + 1) % quarryPositions.size();
-        BlockPos next = quarryPositions.get(nextIndex);
-        currentX = next.getX();
-        currentY = next.getY();
-        currentZ = next.getZ();
     }
 
     /**
@@ -260,19 +209,13 @@ public class RitualYawningVoid extends Ritual {
     @Override
     public void readFromNBT(CompoundTag tag) {
         super.readFromNBT(tag);
-        currentX = tag.getInt("currentX");
-        currentY = tag.getInt("currentY");
-        currentZ = tag.getInt("currentZ");
-        scanInitialized = tag.getBoolean("scanInitialized");
+        scanIndex = Math.max(0, tag.getInt("scanIndex"));
     }
 
     @Override
     public void writeToNBT(CompoundTag tag) {
         super.writeToNBT(tag);
-        tag.putInt("currentX", currentX);
-        tag.putInt("currentY", currentY);
-        tag.putInt("currentZ", currentZ);
-        tag.putBoolean("scanInitialized", scanInitialized);
+        tag.putInt("scanIndex", scanIndex);
     }
 
     @Override

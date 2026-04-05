@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -66,12 +65,11 @@ public class RitualAnimalGrowth extends Ritual {
 
         SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
 
-        boolean hasRaw = will.hasDefault();
         boolean doBreed = will.hasSteadfast();
         boolean doSacrifice = will.hasDestructive();
         boolean doVengeful = will.hasVengeful();
 
-        refreshTime = hasRaw ? scaleRefreshTime(will.getDefault(), 20, 5, 10) : 20;
+        refreshTime = scaleByRawWill(will, 20, 5, 10);
 
         double steadfastWillUsed = 0;
         double destructiveWillUsed = 0;
@@ -80,16 +78,19 @@ public class RitualAnimalGrowth extends Ritual {
         int maxAnimals = ctx.maxOperations(getRefreshCost());
         int animalsProcessed = 0;
 
-        BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, masterPos).getFirst();
-        BlockEntity chestTile = ctx.level().getBlockEntity(chestPos);
+        RitualHelper.ChestOutput chest = RitualHelper.resolveChestOutput(ctx, this, CHEST_RANGE);
+        BlockEntity chestTile = chest.tile();
         IItemHandler foodHandler = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
 
-        // --- Baby Growth ---
-        List<Animal> babies = RitualHelper.getEntitiesInRange(ctx, this, GROWTH_RANGE,
-                Animal.class, Animal::isBaby);
+        // Single spatial query; filter locally for each pass so the four
+        // spiritus modes don't each re-walk the level's entity partitions.
+        List<Animal> animals = RitualHelper.getEntitiesInRange(ctx, this, GROWTH_RANGE,
+                Animal.class, Animal::isAlive);
 
-        for (Animal animal : babies) {
+        // --- Baby Growth ---
+        for (Animal animal : animals) {
             if (animalsProcessed >= maxAnimals) break;
+            if (!animal.isBaby()) continue;
 
             int age = animal.getAge();
             if (age < 0) {
@@ -100,14 +101,11 @@ public class RitualAnimalGrowth extends Ritual {
 
         // --- STEADFAST: Breeding using food from chest ---
         if (doBreed && foodHandler != null) {
-            List<Animal> adults = RitualHelper.getEntitiesInRange(ctx, this, GROWTH_RANGE,
-                    Animal.class, animal -> !animal.isBaby() && animal.canFallInLove() && animal.getAge() == 0);
-
-            for (Animal animal : adults) {
+            for (Animal animal : animals) {
                 if (animalsProcessed >= maxAnimals) break;
                 if ((will.getSteadfast() - steadfastWillUsed) < WILL_PER_BREED) break;
+                if (animal.isBaby() || !animal.canFallInLove() || animal.getAge() != 0) continue;
 
-                // Try to find food in the chest
                 boolean fed = false;
                 for (int slot = 0; slot < foodHandler.getSlots(); slot++) {
                     ItemStack foodStack = foodHandler.getStackInSlot(slot);
@@ -126,11 +124,9 @@ public class RitualAnimalGrowth extends Ritual {
 
         // --- DESTRUCTIVE: Apply Sacrificial Lamb to adults ---
         if (doSacrifice) {
-            List<Animal> adults = RitualHelper.getEntitiesInRange(ctx, this, GROWTH_RANGE,
-                    Animal.class, animal -> !animal.isBaby() && animal.isAlive());
-
-            for (Animal animal : adults) {
+            for (Animal animal : animals) {
                 if ((will.getDestructive() - destructiveWillUsed) < WILL_PER_SACRIFICE) break;
+                if (animal.isBaby()) continue;
 
                 if (!animal.hasEffect(NVMobEffects.SACRIFICIAL_LAMB)) {
                     animal.addEffect(new MobEffectInstance(NVMobEffects.SACRIFICIAL_LAMB, 1200, 0));
@@ -141,23 +137,18 @@ public class RitualAnimalGrowth extends Ritual {
 
         // --- VENGEFUL: Reduce breeding cooldown on adults ---
         if (doVengeful) {
-            List<Animal> cooldownAnimals = RitualHelper.getEntitiesInRange(ctx, this, GROWTH_RANGE,
-                    Animal.class, animal -> !animal.isBaby() && animal.getAge() > 0);
-
-            for (Animal animal : cooldownAnimals) {
+            int reduction = 10 + (int) (will.getVengeful() / 5);
+            for (Animal animal : animals) {
                 if ((will.getVengeful() - vengefulWillUsed) < WILL_PER_COOLDOWN) break;
+                if (animal.isBaby() || animal.getAge() <= 0) continue;
 
-                int age = animal.getAge();
-                int reduction = 10 + (int) (will.getVengeful() / 5);
-                animal.setAge(Math.max(0, age - reduction));
+                animal.setAge(Math.max(0, animal.getAge() - reduction));
                 vengefulWillUsed += WILL_PER_COOLDOWN;
             }
         }
 
-        will.use(SpiritusType.STEADFAST, steadfastWillUsed);
-        will.use(SpiritusType.DESTRUCTIVE, destructiveWillUsed);
-        will.use(SpiritusType.VENGEFUL, vengefulWillUsed);
-        will.drain(ctx.level(), masterPos);
+        RitualHelper.drainWill(will, ctx.level(), masterPos,
+                0, 0, destructiveWillUsed, vengefulWillUsed, steadfastWillUsed);
 
         ctx.syphon(getRefreshCost() * animalsProcessed);
     }

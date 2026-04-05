@@ -56,8 +56,8 @@ public class RitualZephyr extends Ritual {
         Vec3 target = ownerPlayer.position();
         Vec3 masterCenter = Vec3.atCenterOf(ctx.masterPos());
 
-        BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, ctx.masterPos()).getFirst();
-        BlockEntity chestTile = ctx.level().getBlockEntity(chestPos);
+        BlockPos chestPos = RitualHelper.firstPositionInRange(ctx.master(), this, CHEST_RANGE, ctx.masterPos()).orElse(null);
+        BlockEntity chestTile = chestPos != null ? ctx.level().getBlockEntity(chestPos) : null;
         boolean hasChest = chestTile != null && Utils.getNumberOfFreeSlots(chestTile, Direction.DOWN) >= 1;
 
         List<ItemEntity> items = ctx.level().getEntitiesOfClass(ItemEntity.class, aabb);

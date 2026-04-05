@@ -1,6 +1,5 @@
 package com.breakinblocks.neovitae.ritual.types;
 
-import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -9,13 +8,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
-import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -91,7 +87,7 @@ public class RitualGeode extends Ritual {
             return;
         }
 
-        if (!(ctx.level() instanceof ServerLevel serverLevel)) return;
+        ServerLevel serverLevel = ctx.serverLevel();
 
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
@@ -111,13 +107,12 @@ public class RitualGeode extends Ritual {
 
         ItemStack toolStack = RitualHelper.createMiningTool(serverLevel, doFortune, doSilk);
 
-        BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, masterPos).getFirst();
-        BlockEntity inv = ctx.level().getBlockEntity(chestPos);
-        boolean hasInv = inv != null && Utils.getNumberOfFreeSlots(inv, Direction.DOWN) >= 1;
+        RitualHelper.ChestOutput chest = RitualHelper.resolveChestOutput(ctx, this, CHEST_RANGE);
+        BlockEntity inv = chest.tile();
+        boolean hasInv = chest.hasFreeSlot();
         doStore = doStore && hasInv;
 
-        // Create fake player for loot context (fixes drops for blocks that require THIS_ENTITY like certus quartz)
-        FakePlayer fakePlayer = new FakePlayer(serverLevel, new GameProfile(owner, "[NeoVitae Geode]"));
+        FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(serverLevel, owner, "NeoVitae Geode");
 
         double fortuneWillUsed = 0;
         double silkWillUsed = 0;
@@ -140,14 +135,7 @@ public class RitualGeode extends Ritual {
             // Check block protection
             if (!BlockProtectionHelper.canBreakBlock(ctx.level(), harvestPos, owner)) continue;
 
-            LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel)
-                    .withParameter(LootContextParams.ORIGIN, harvestPos.getCenter())
-                    .withParameter(LootContextParams.BLOCK_STATE, state)
-                    .withParameter(LootContextParams.TOOL, toolStack)
-                    .withOptionalParameter(LootContextParams.BLOCK_ENTITY, ctx.level().getBlockEntity(harvestPos))
-                    .withOptionalParameter(LootContextParams.THIS_ENTITY, fakePlayer);
-
-            List<ItemStack> blockDrops = state.getDrops(lootBuilder);
+            List<ItemStack> blockDrops = RitualHelper.getBlockDrops(serverLevel, state, harvestPos, toolStack, fakePlayer);
 
             // Break the block without natural drops (we handle them ourselves)
             ctx.level().destroyBlock(harvestPos, false);
@@ -207,12 +195,8 @@ public class RitualGeode extends Ritual {
             }
         }
 
-        will.use(SpiritusType.DEFAULT, storeWillUsed);
-        will.use(SpiritusType.DESTRUCTIVE, fortuneWillUsed);
-        will.use(SpiritusType.STEADFAST, silkWillUsed);
-        will.use(SpiritusType.CORROSIVE, accelWillUsed);
-        will.use(SpiritusType.VENGEFUL, harmWillUsed);
-        will.drain(ctx.level(), masterPos);
+        RitualHelper.drainWill(will, ctx.level(), masterPos,
+                storeWillUsed, accelWillUsed, fortuneWillUsed, harmWillUsed, silkWillUsed);
 
         ctx.syphon(totalCost > 0 ? totalCost : getRefreshCost());
     }

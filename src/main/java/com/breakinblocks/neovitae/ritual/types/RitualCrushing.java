@@ -1,6 +1,5 @@
 package com.breakinblocks.neovitae.ritual.types;
 
-import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -8,15 +7,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.api.will.SpiritusState;
@@ -69,14 +65,13 @@ public class RitualCrushing extends Ritual {
         RitualContext ctx = RitualHelper.createContext(masterRitualStone, getRefreshCost());
         if (ctx == null) return;
 
-        if (!(ctx.level() instanceof ServerLevel serverLevel)) return;
+        ServerLevel serverLevel = ctx.serverLevel();
 
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
         SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
 
-        boolean hasRaw = will.hasDefault();
         boolean doSilk = will.hasSteadfast();
         boolean doFortune = will.hasDestructive();
 
@@ -85,15 +80,15 @@ public class RitualCrushing extends Ritual {
             doFortune = false;
         }
 
-        refreshTime = hasRaw ? scaleRefreshTime(will.getDefault(), 40, 1, 5) : 40;
+        refreshTime = scaleByRawWill(will, 40, 1, 5);
 
         ItemStack toolStack = RitualHelper.createMiningTool(serverLevel, doFortune, doSilk);
 
-        BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, masterPos).getFirst();
-        BlockEntity inv = ctx.level().getBlockEntity(chestPos);
-        boolean hasInv = inv != null && Utils.getNumberOfFreeSlots(inv, Direction.DOWN) >= 1;
+        RitualHelper.ChestOutput chest = RitualHelper.resolveChestOutput(ctx, this, CHEST_RANGE);
+        BlockEntity inv = chest.tile();
+        boolean hasInv = chest.hasFreeSlot();
 
-        FakePlayer fakePlayer = new FakePlayer(serverLevel, new GameProfile(owner, "[NeoVitae]"));
+        FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(serverLevel, owner, "NeoVitae");
 
         double silkWillUsed = 0;
         double fortuneWillUsed = 0;
@@ -107,10 +102,9 @@ public class RitualCrushing extends Ritual {
 
             BlockState state = ctx.level().getBlockState(pos);
 
-            // Skip air, liquids, unbreakable blocks, and ritual stones
+            // Skip air, pure liquid blocks, unbreakable blocks, and ritual stones
             if (state.isAir()) continue;
-            FluidState fluidState = state.getFluidState();
-            if (!fluidState.isEmpty() && state.getBlock().defaultBlockState().isAir()) continue;
+            if (state.getBlock() instanceof LiquidBlock) continue;
             float destroySpeed = state.getDestroySpeed(ctx.level(), pos);
             if (destroySpeed < 0) continue; // Unbreakable
             if (state.getBlock() instanceof com.breakinblocks.neovitae.common.block.BlockRitualStone) continue;
@@ -129,16 +123,8 @@ public class RitualCrushing extends Ritual {
             // Check block protection
             if (!BlockProtectionHelper.canBreakBlock(ctx.level(), pos, owner)) continue;
 
-            LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel)
-                    .withParameter(LootContextParams.ORIGIN, pos.getCenter())
-                    .withParameter(LootContextParams.BLOCK_STATE, state)
-                    .withParameter(LootContextParams.TOOL, toolStack)
-                    .withOptionalParameter(LootContextParams.BLOCK_ENTITY, ctx.level().getBlockEntity(pos))
-                    .withOptionalParameter(LootContextParams.THIS_ENTITY, fakePlayer);
+            List<ItemStack> blockDrops = RitualHelper.getBlockDrops(serverLevel, state, pos, toolStack, fakePlayer);
 
-            List<ItemStack> blockDrops = state.getDrops(lootBuilder);
-
-            // Break the block without natural drops
             ctx.level().destroyBlock(pos, false);
             crushed = true;
 
@@ -146,19 +132,12 @@ public class RitualCrushing extends Ritual {
             if (doSilk) silkWillUsed += WILL_PER_SILK;
             if (doFortune) fortuneWillUsed += WILL_PER_FORTUNE;
 
-            for (ItemStack dropStack : blockDrops) {
-                if (hasInv) {
-                    dropStack = Utils.insertStackIntoTile(dropStack, inv, Direction.DOWN);
-                }
-                if (!dropStack.isEmpty()) {
-                    Utils.spawnStackAtBlock(ctx.level(), masterPos, Direction.UP, dropStack);
-                }
-            }
+            RitualHelper.distributeDrops(blockDrops, hasInv ? inv : null,
+                    stack -> Utils.spawnStackAtBlock(ctx.level(), masterPos, Direction.UP, stack));
         }
 
-        will.use(SpiritusType.STEADFAST, silkWillUsed);
-        will.use(SpiritusType.DESTRUCTIVE, fortuneWillUsed);
-        will.drain(ctx.level(), masterPos);
+        RitualHelper.drainWill(will, ctx.level(), masterPos,
+                0, 0, fortuneWillUsed, 0, silkWillUsed);
 
         if (crushed) {
             ctx.syphon(getRefreshCost());

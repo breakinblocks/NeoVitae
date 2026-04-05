@@ -1,6 +1,5 @@
 package com.breakinblocks.neovitae.ritual.types;
 
-import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -10,14 +9,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.*;
@@ -46,7 +42,7 @@ public class RitualFelling extends Ritual {
         RitualContext ctx = RitualHelper.createContext(masterRitualStone, getRefreshCost());
         if (ctx == null) return;
 
-        if (!(ctx.level() instanceof ServerLevel serverLevel)) return;
+        ServerLevel serverLevel = ctx.serverLevel();
 
         List<BlockPos> positions = RitualHelper.getRangePositions(ctx.master(), this, FELL_RANGE, ctx.masterPos());
         UUID owner = ctx.master().getOwner();
@@ -55,11 +51,11 @@ public class RitualFelling extends Ritual {
 
         ItemStack toolStack = new ItemStack(Items.NETHERITE_AXE);
 
-        FakePlayer fakePlayer = new FakePlayer(serverLevel, new GameProfile(owner, "[NeoVitae]"));
+        FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(serverLevel, owner, "NeoVitae");
 
-        BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, ctx.masterPos()).getFirst();
-        BlockEntity inv = ctx.level().getBlockEntity(chestPos);
-        boolean hasInv = inv != null && Utils.getNumberOfFreeSlots(inv, Direction.DOWN) >= 1;
+        RitualHelper.ChestOutput chest = RitualHelper.resolveChestOutput(ctx, this, CHEST_RANGE);
+        BlockEntity inv = chest.tile();
+        boolean hasInv = chest.hasFreeSlot();
 
         // Find and break logs first, then leaves
         for (BlockPos pos : positions) {
@@ -97,26 +93,12 @@ public class RitualFelling extends Ritual {
     private int breakAndCollect(RitualContext ctx, ServerLevel serverLevel, BlockPos pos,
                                 BlockState state, ItemStack toolStack, FakePlayer fakePlayer,
                                 BlockEntity inv, boolean hasInv) {
-        LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel)
-                .withParameter(LootContextParams.ORIGIN, pos.getCenter())
-                .withParameter(LootContextParams.BLOCK_STATE, state)
-                .withParameter(LootContextParams.TOOL, toolStack)
-                .withOptionalParameter(LootContextParams.BLOCK_ENTITY, ctx.level().getBlockEntity(pos))
-                .withOptionalParameter(LootContextParams.THIS_ENTITY, fakePlayer);
+        List<ItemStack> drops = RitualHelper.getBlockDrops(serverLevel, state, pos, toolStack, fakePlayer);
 
-        List<ItemStack> drops = state.getDrops(lootBuilder);
-
-        // Break the block without natural drops
         ctx.level().destroyBlock(pos, false);
 
-        for (ItemStack dropStack : drops) {
-            if (hasInv) {
-                dropStack = Utils.insertStackIntoTile(dropStack, inv, Direction.DOWN);
-            }
-            if (!dropStack.isEmpty()) {
-                Block.popResource(ctx.level(), ctx.masterPos(), dropStack);
-            }
-        }
+        RitualHelper.distributeDrops(drops, hasInv ? inv : null,
+                stack -> Block.popResource(ctx.level(), ctx.masterPos(), stack));
 
         return 1;
     }

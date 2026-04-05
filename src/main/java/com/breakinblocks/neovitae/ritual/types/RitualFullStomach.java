@@ -39,9 +39,10 @@ public class RitualFullStomach extends Ritual {
 
         List<Player> players = RitualHelper.getEntitiesInRange(ctx, this, HUNGER_RANGE, Player.class);
 
-        // Find chest inventory for food supply
-        BlockPos chestPos = RitualHelper.getRangePositions(ctx.master(), this, CHEST_RANGE, ctx.masterPos()).getFirst();
-        IItemHandler inventory = ctx.level().getCapability(Capabilities.ItemHandler.BLOCK, chestPos, null);
+        BlockPos chestPos = RitualHelper.firstPositionInRange(ctx.master(), this, CHEST_RANGE, ctx.masterPos()).orElse(null);
+        IItemHandler inventory = chestPos != null
+                ? ctx.level().getCapability(Capabilities.ItemHandler.BLOCK, chestPos, null)
+                : null;
 
         int playersFed = 0;
 

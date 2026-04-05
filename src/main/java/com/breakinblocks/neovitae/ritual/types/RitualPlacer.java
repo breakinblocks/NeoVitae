@@ -22,7 +22,6 @@ import java.util.function.Consumer;
 public class RitualPlacer extends Ritual {
 
     public static final String PLACER_RANGE = "placerRange";
-    private BlockPos currentPos = null;
 
     public RitualPlacer() {
         super("placer", 0, 5000, "ritual." + NeoVitae.MODID + ".placer");

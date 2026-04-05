@@ -1,7 +1,6 @@
 package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -34,7 +33,7 @@ public class RitualMeteor extends Ritual {
     @Override
     public void performRitual(IMasterRitualStone masterRitualStone) {
         RitualContext ctx = RitualHelper.createContext(masterRitualStone, 0);
-        if (ctx == null || !(ctx.level() instanceof ServerLevel)) return;
+        if (ctx == null) return;
 
         AreaDescriptor itemRange = RitualHelper.getEffectiveRange(ctx.master(), this, CHECK_RANGE);
         List<ItemEntity> itemList = ctx.level().getEntitiesOfClass(ItemEntity.class,

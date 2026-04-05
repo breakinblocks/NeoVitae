@@ -97,12 +97,9 @@ public class RitualCrafting extends Ritual {
                 // Check if output can accept the result
                 ItemStack insertResult = ItemHandlerHelper.insertItemStacked(outputHandler, result.copy(), true);
                 if (insertResult.isEmpty()) {
-                    // Consume ingredients (up to 4 for soul forge)
-                    int consumed = 0;
                     for (int i = 0; i < Math.min(4, inputHandler.getSlots()); i++) {
                         if (!inputItems.get(i).isEmpty()) {
                             inputHandler.extractItem(i, 1, false);
-                            consumed++;
                         }
                     }
                     ItemHandlerHelper.insertItemStacked(outputHandler, result, false);

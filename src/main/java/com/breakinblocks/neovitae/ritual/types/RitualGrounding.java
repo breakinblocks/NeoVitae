@@ -8,8 +8,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.api.will.SpiritusState;
@@ -72,19 +72,19 @@ public class RitualGrounding extends Ritual {
         if (will.hasDestructive()) {
             // DESTRUCTIVE: Heavy Heart on ALL living entities
             List<LivingEntity> entities = RitualHelper.getAliveLivingEntities(ctx, this, GROUNDING_RANGE);
+            boolean hasSteadfast = will.hasSteadfast();
 
             for (LivingEntity entity : entities) {
-                // Skip creative players
                 if (entity instanceof Player player && player.isCreative()) continue;
 
-                // Skip boss entities unless steadfast will is present
-                if (!will.hasSteadfast() && !entity.canChangeDimensions(ctx.level(), ctx.level())) continue;
+                boolean isBoss = entity.getType().is(NVTags.Entities.RITUAL_BOSS_BLACKLIST);
+                if (isBoss && !hasSteadfast) continue;
 
                 if ((will.getDestructive() - destructiveUsed) < WILL_PER_ENTITY) break;
 
                 entity.addEffect(new MobEffectInstance(NVMobEffects.HEAVY_HEART, 100, 1, true, true));
                 destructiveUsed += WILL_PER_ENTITY;
-                if (will.hasSteadfast() && !entity.canChangeDimensions(ctx.level(), ctx.level())) {
+                if (isBoss) {
                     steadfastUsed += WILL_PER_ENTITY;
                 }
                 totalCost += refreshCost;
@@ -134,12 +134,8 @@ public class RitualGrounding extends Ritual {
             ctx.syphon(Math.min(totalCost, ctx.currentEV()));
         }
 
-        will.use(SpiritusType.DEFAULT, rawUsed);
-        will.use(SpiritusType.CORROSIVE, corrosiveUsed);
-        will.use(SpiritusType.DESTRUCTIVE, destructiveUsed);
-        will.use(SpiritusType.VENGEFUL, vengefulUsed);
-        will.use(SpiritusType.STEADFAST, steadfastUsed);
-        will.drain(ctx.level(), masterPos);
+        RitualHelper.drainWill(will, ctx.level(), masterPos,
+                rawUsed, corrosiveUsed, destructiveUsed, vengefulUsed, steadfastUsed);
     }
 
     @Override

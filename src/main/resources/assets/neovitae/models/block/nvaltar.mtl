@@ -1,9 +1,0 @@
-# nvaltar material — rebaked atlas for Minecraft
-newmtl material_0
-Ka 1.000000 1.000000 1.000000
-Kd 1.000000 1.000000 1.000000
-Ks 0.000000 0.000000 0.000000
-Ns 10.000000
-d 1.000000
-illum 1
-map_Kd nvaltar.png

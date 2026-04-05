@@ -228,8 +228,9 @@ public final class StreamPresets {
     }
 
     /**
-     * Crackling blue-white bolt of arcane energy. Razor-thin, near-instant,
-     * and perfectly straight. Strikes its target like controlled lightning.
+     * Wispy violet thread of arcane energy. Thin and fast, the body jitters
+     * with a faint wobble and leaves a fuzzy trail of glow particles behind
+     * the head as it arcs into its target.
      */
     public static StreamEffect.Builder arcaneBolt(Entity source, BlockPos target) {
         return applyArcaneBolt(StreamEffect.builder(source).to(target));
@@ -241,18 +242,19 @@ public final class StreamPresets {
     }
 
     private static StreamEffect.Builder applyArcaneBolt(StreamEffect.Builder b) {
-        return b.color(0x4422CC)
-                .scale(0.04f)
+        return b.color(0x8822EE)
+                .scale(0.022f)
                 .speed(5.0f)
                 .gravity(0.0f)
-                .wobble(0.0f)
-                .wobbleFrequency(0.0f)
+                .wobble(0.08f)
+                .wobbleFrequency(2.4f)
                 .spiralInto(false)
                 .approachHeight(0.0f)
-                .alphaStart(0.8f)
-                .alphaEnd(1.0f)
+                .alphaStart(0.35f)
+                .alphaEnd(0.9f)
                 .glow(true)
-                .drainSpeed(4.0f);
+                .drainSpeed(4.0f)
+                .trailDensity(2);
     }
 
     private static StreamEffect.Builder applyBlockBoltBase(StreamEffect.Builder b, BlockyMode mode, float scale) {

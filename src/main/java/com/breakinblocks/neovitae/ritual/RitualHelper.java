@@ -312,6 +312,20 @@ public final class RitualHelper {
         will.drain(level, pos);
     }
 
+    /**
+     * Chance-gated emission hook used by ritual visual effect calls. Fires the
+     * supplied {@link Runnable} on a 1-in-{@code oneInN} roll, and only on the
+     * server side. Wrapping every ritual stream/particle emission in this
+     * helper keeps the random gate out of the ritual body and gives a single
+     * seam for a future subtle-effects config toggle.
+     */
+    public static void chanceStream(Level level, int oneInN, Runnable emit) {
+        if (level.isClientSide()) return;
+        if (oneInN <= 1 || level.random.nextInt(oneInN) == 0) {
+            emit.run();
+        }
+    }
+
     public static void syphonEV(RitualContext context, int cost) {
         if (cost > 0) {
             int actualCost = Math.min(cost, context.currentEV());

@@ -1156,6 +1156,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("living_armor", "Living Armor", "Craft Living Armor");
         addAdvancement("self_sacrifice", "Blood Pact", "Craft a Sacrificial Dagger");
 
+        addAdvancement("arcane_scribe", "Circle of Intent", "Craft an Arcane Scribe Tool to inscribe and activate Alchemy Arrays");
+        addAdvancement("demonite", "Forged in the Pit", "Unearth a sliver of raw Demonite from the Endless Realm");
+        addAdvancement("hellforged_ingot", "Hellforged", "Smelt raw Demonite into a Hellforged Ingot");
+
         addAdvancement("blood_sweat_and_tears", "Blood, Sweat & Tears", "Craft the legendary record at a Tier 6 altar");
     }
 

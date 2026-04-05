@@ -389,6 +389,33 @@ public class NVAdvancementProvider extends AdvancementProvider {
                     .addCriterion("get_armor", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.LIVING_PLATE.get()))
                     .save(saver, NeoVitae.rl("neovitae/living_armor").toString());
 
+            Advancement.Builder.advancement()
+                    .parent(weakBloodOrb)
+                    .display(NVItems.ARCANE_SCRIBE_TOOL.get(),
+                            Component.translatable("advancements.neovitae.arcane_scribe.title"),
+                            Component.translatable("advancements.neovitae.arcane_scribe.description"),
+                            null, AdvancementType.GOAL, true, true, false)
+                    .addCriterion("get_scribe", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.ARCANE_SCRIBE_TOOL.get()))
+                    .save(saver, NeoVitae.rl("neovitae/arcane_scribe").toString());
+
+            AdvancementHolder demonite = Advancement.Builder.advancement()
+                    .parent(hellfireForge)
+                    .display(NVItems.DEMONITE_RAW.get(),
+                            Component.translatable("advancements.neovitae.demonite.title"),
+                            Component.translatable("advancements.neovitae.demonite.description"),
+                            null, AdvancementType.TASK, true, false, false)
+                    .addCriterion("get_demonite", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.DEMONITE_RAW.get()))
+                    .save(saver, NeoVitae.rl("neovitae/demonite").toString());
+
+            Advancement.Builder.advancement()
+                    .parent(demonite)
+                    .display(NVItems.HELLFORGED_INGOT.get(),
+                            Component.translatable("advancements.neovitae.hellforged_ingot.title"),
+                            Component.translatable("advancements.neovitae.hellforged_ingot.description"),
+                            null, AdvancementType.CHALLENGE, true, true, false)
+                    .addCriterion("get_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.HELLFORGED_INGOT.get()))
+                    .save(saver, NeoVitae.rl("neovitae/hellforged_ingot").toString());
+
             // Self-sacrifice progression (off root)
             AdvancementHolder selfSacrifice = Advancement.Builder.advancement()
                     .parent(root)

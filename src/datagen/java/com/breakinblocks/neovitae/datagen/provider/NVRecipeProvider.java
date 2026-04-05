@@ -2122,6 +2122,13 @@ public class NVRecipeProvider extends RecipeProvider {
                 .added(Ingredient.of(Tags.Items.GEMS_DIAMOND))
                 .texture("textures/models/alchemyarrays/deflectionarray.png")
                 .save(output, "deflection");
+
+        // Endless Fountain Array - block of lapis + sea pickle
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.ENDLESS_FOUNTAIN)
+                .base(Items.LAPIS_BLOCK)
+                .added(Items.SEA_PICKLE)
+                .texture("textures/models/alchemyarrays/fountainarray.png")
+                .save(output, "endless_fountain");
     }
 
     private void addTabulaVitaeRecipes(RecipeOutput output) {

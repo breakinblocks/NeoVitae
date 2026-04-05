@@ -34,6 +34,17 @@
       "text": "book.neovitae.guide.alchemy_arrays.utility_arrays.furnace.text",
       "title": "",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_arrays.utility_arrays.endless_fountain.text",
+      "title": "",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [

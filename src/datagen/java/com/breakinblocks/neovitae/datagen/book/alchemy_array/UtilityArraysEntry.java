@@ -34,6 +34,19 @@ public class UtilityArraysEntry extends EntryProvider {
                 + "awaiting processing.\\\n\\\n"
                 + "Cook time matches a standard furnace, but the array processes all valid stacks simultaneously.\\\n\\\n"
                 + "[#](4A0080)The floor itself becomes the forge.[#]()");
+
+        this.page("endless_fountain", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("The [#](8B0000)Endless Fountain Array[#]() is scribed with a [#](8B0000)Block of Lapis[#]() "
+                + "and awakened by a [#](8B0000)Sea Pickle[#](). Once lit, it draws water from nowhere and pipes it "
+                + "into every fluid container touching its six faces.\\\n\\\n"
+                + "Each placement cycle (every 5 ticks) the array attempts to deposit [#](8B0000)up to 6 buckets[#]() "
+                + "of water, spread evenly across its neighbours (one per face when all six are tanks). Only whole-bucket "
+                + "fills are committed: if a tank has room for less than a full bucket the array skips it and tries the "
+                + "next cached neighbour until all 6 buckets land or every tank refuses.\\\n\\\n"
+                + "The list of adjacent tanks is cached and refreshed every few seconds, so tanks can be swapped in "
+                + "or out freely. When every tank is full the array backs off progressively (like the "
+                + "[#](8B0000)Serenade of the Nether[#]()), and resumes full cadence the moment space opens up.");
     }
 
     @Override

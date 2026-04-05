@@ -194,5 +194,6 @@ public class NVItemModelProvider extends ItemModelProvider {
         singleTexture("array_trigger", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/triggerarray"));
         singleTexture("array_spirit_siphon", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/spiritsiphonarray"));
         singleTexture("array_deflection", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/deflectionarray"));
+        singleTexture("array_endless_fountain", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/fountainarray"));
     }
 }

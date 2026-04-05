@@ -465,6 +465,7 @@ public class NVItems {
     public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_TRIGGER = ARRAY_ITEMS.register("array_trigger", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.TRIGGER));
     public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_SPIRIT_SIPHON = ARRAY_ITEMS.register("array_spirit_siphon", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.SPIRIT_SIPHON));
     public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_DEFLECTION = ARRAY_ITEMS.register("array_deflection", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.DEFLECTION));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_ENDLESS_FOUNTAIN = ARRAY_ITEMS.register("array_endless_fountain", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.ENDLESS_FOUNTAIN));
 
     public static void register(IEventBus modBus) {
         BASIC_ITEMS.register(modBus);

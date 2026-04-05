@@ -993,6 +993,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("effect.spirit_siphon.desc", "Damages mobs and releases raw spiritus into the chunk");
         addJei("effect.deflection.name", "Deflection Array");
         addJei("effect.deflection.desc", "Reflects projectiles that pass through the column above");
+        addJei("effect.endless_fountain.name", "Endless Fountain Array");
+        addJei("effect.endless_fountain.desc", "Fills adjacent fluid tanks with water every few ticks");
 
         // Array effect dummy items (JEI searchable)
         add(NVItems.ARRAY_BOUNCE.get(), "Bounce Array");
@@ -1013,6 +1015,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.ARRAY_TRIGGER.get(), "Trigger Array");
         add(NVItems.ARRAY_SPIRIT_SIPHON.get(), "Spirit Siphon Array");
         add(NVItems.ARRAY_DEFLECTION.get(), "Deflection Array");
+        add(NVItems.ARRAY_ENDLESS_FOUNTAIN.get(), "Endless Fountain Array");
         addTooltip("array_effect.bounce", "Bounces entities high into the air. Crouch to disable.");
         addTooltip("array_effect.spike", "Damages any entity that steps on the array.");
         addTooltip("array_effect.updraft", "Launches entities upward with a gust of wind.");
@@ -1031,6 +1034,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("array_effect.trigger", "Emits a redstone pulse when a mob or player steps on the array.");
         addTooltip("array_effect.spirit_siphon", "Damages non-player mobs and releases raw spiritus into the chunk.");
         addTooltip("array_effect.deflection", "Reflects projectiles passing through a column above the array.");
+        addTooltip("array_effect.endless_fountain", "Fills adjacent fluid tanks with up to 6 buckets of water every 5 ticks.");
 
         // Rituals
         addRitual("water", "Ritual of the Full Spring");

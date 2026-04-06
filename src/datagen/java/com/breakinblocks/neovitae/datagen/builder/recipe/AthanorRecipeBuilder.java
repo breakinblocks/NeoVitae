@@ -12,8 +12,12 @@ import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.fluids.FluidStack;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
 
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class AthanorRecipeBuilder extends BaseRecipeBuilder {
@@ -24,6 +28,7 @@ public class AthanorRecipeBuilder extends BaseRecipeBuilder {
     private List<Pair<ItemStack, Double>> chanced = new ArrayList<>();
     private FluidStack inputFluid = null;
     private FluidStack outputFluid = null;
+    private final EnumMap<SpiritusType, Double> spiritusCosts = new EnumMap<>(SpiritusType.class);
 
     protected AthanorRecipeBuilder(TagKey<Item> tag) {
         super(ItemStack.EMPTY);
@@ -73,6 +78,11 @@ public class AthanorRecipeBuilder extends BaseRecipeBuilder {
         return this;
     }
 
+    public AthanorRecipeBuilder spiritusCost(SpiritusType type, double amount) {
+        spiritusCosts.put(type, amount);
+        return this;
+    }
+
     @Override
     public void save(RecipeOutput output, ResourceLocation id) {
         if (input == null) {
@@ -82,7 +92,7 @@ public class AthanorRecipeBuilder extends BaseRecipeBuilder {
             throw new IllegalStateException("AthanorRecipe must have at least one output (guaranteed, chanced, or fluid)");
         }
         Advancement.Builder advBuilder = getBuilder(output, id);
-        AthanorRecipe recipe = new AthanorRecipe(Ingredient.of(toolTag), input, guaranteed, chanced, Optional.ofNullable(inputFluid), Optional.ofNullable(outputFluid));
+        AthanorRecipe recipe = new AthanorRecipe(Ingredient.of(toolTag), input, guaranteed, chanced, Optional.ofNullable(inputFluid), Optional.ofNullable(outputFluid), Map.copyOf(spiritusCosts));
         output.accept(makeId(id, toolTag.location()), recipe, advBuilder.build(advancementId(id, "athanor")));
     }
 

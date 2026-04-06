@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:athanor",
+  "chance_outputs": [],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "minecraft:nether_star"
+    }
+  ],
+  "input": {
+    "item": "minecraft:diamond"
+  },
+  "input_fluid": {
+    "amount": 4000,
+    "id": "neovitae:essentia_vitae_source"
+  },
+  "spiritus_costs": {
+    "default": 50.0
+  },
+  "tool": {
+    "tag": "neovitae:athanor_tool/resonator"
+  }
+}

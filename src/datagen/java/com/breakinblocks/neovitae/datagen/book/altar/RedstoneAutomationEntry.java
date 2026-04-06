@@ -51,16 +51,18 @@ public class RedstoneAutomationEntry extends EntryProvider {
         this.page("comparator", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("A comparator placed beside the [#](8B0000)Ara Vitae[#]() reads the level of "
-                + "[#](4A0080)Essentia Vitae[#]() within, much like a chest.\\\n\\\nPlace a [#](8B0000)Bloodstone Brick[#]() "
-                + "beneath the altar, and the comparator instead reads the [#](4A0080)Anima[#]() of whoever owns the "
-                + "orb resting inside. The signal strength scales to the orb's tier, not the maximum capacity "
-                + "of the network.");
+                + "[#](4A0080)Essentia Vitae[#]() within, much like a chest.\\\n\\\nPlace a [#](8B0000)Blood Stained Glass[#]() "
+                + "block directly beneath the altar, and the comparator instead reads the [#](4A0080)Anima[#]() of "
+                + "whoever owns the orb resting in the altar's basin. The signal strength scales to the orb's "
+                + "tier, not the maximum capacity of the network.");
 
         this.page("comparator_examples", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("For example, [#](8B0000)500,000 EV[#]() would register as overflowing through a Weak "
                 + "Novicius Orb, but only half-strength through a Magus Orb. Clever use of this lets you "
                 + "shut down costly rituals before your [#](4A0080)Anima[#]() runs dry.\\\n\\\n"
+                + "[#](2E8B57)When the orb is bound to a team via NeoVitae Teams, the comparator reads the "
+                + "team's pooled Anima automatically; no special setup is needed.[#]()\\\n\\\n"
                 + "[#](2E8B57)Place a Redstone Lamp beneath the altar and it will emit a redstone pulse the instant "
                 + "a transmutation completes, useful for chained automation.[#]()");
     }

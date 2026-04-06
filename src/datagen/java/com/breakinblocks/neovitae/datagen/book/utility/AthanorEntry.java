@@ -61,6 +61,18 @@ public class AthanorEntry extends EntryProvider {
                 + "its form and returns to base materials. This is invaluable when restructuring your altar, "
                 + "apprentice - no investment need be permanent.");
 
+        this.page("spiritus_costs", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Spiritus Infusion");
+        this.pageText("Certain advanced Athanor recipes draw upon the [#](4A0080)Spiritus[#]() that permeates the "
+                + "chunk. When such a recipe is loaded, a gauge appears in the Athanor's interface showing the "
+                + "current levels of each spiritus type in the surrounding area.\\\n\\\n"
+                + "If the chunk lacks sufficient spiritus, the Athanor stalls and emits dark particles until the "
+                + "deficit is replenished. A red overlay on the gauge marks the amount needed.\\\n\\\n"
+                + "[#](2E8B57)Spiritus costs are consumed on craft completion, not during progress. "
+                + "Build up your chunk's spiritus with Demon Crystals before attempting these recipes.[#]()");
+
         this.page("automation", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));

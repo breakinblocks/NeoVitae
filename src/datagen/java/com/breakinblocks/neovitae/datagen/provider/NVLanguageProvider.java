@@ -934,6 +934,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("recipe.meteor.estimate", "Est: %s blocks (~%s%%)");
         addJei("recipe.arc", "Athanor");
         addJei("recipe.athanor.chance", "Chance: %s%%");
+        addJei("recipe.athanor.spiritus_cost", "Spiritus Cost:");
         addJei("recipe.flask", "Flask Brewing");
         addJei("recipe.flask_combination", "Flask Combinations");
         addJei("recipe.imperfect_ritual", "Imperfect Ritual");

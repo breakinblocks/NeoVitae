@@ -55,7 +55,7 @@ public class AthanorPotionRecipe extends AthanorRecipe {
     public AthanorPotionRecipe(Ingredient tool, Ingredient input, List<ItemStack> guaranteedOutput,
                            List<Pair<ItemStack, Double>> chanceOutput,
                            Optional<FluidStack> inputFluid, Optional<FluidStack> outputStack) {
-        super(tool, input, guaranteedOutput, chanceOutput, inputFluid, outputStack);
+        super(tool, input, guaranteedOutput, chanceOutput, inputFluid, outputStack, java.util.Map.of());
     }
 
     private List<ItemStack> outputStacks = new ArrayList<>();

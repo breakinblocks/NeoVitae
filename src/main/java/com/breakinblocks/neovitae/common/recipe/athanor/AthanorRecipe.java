@@ -16,10 +16,13 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
@@ -32,38 +35,69 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
             Pair::new
     );
 
+    private static final Codec<Map<SpiritusType, Double>> SPIRITUS_COST_CODEC =
+            Codec.unboundedMap(SpiritusType.CODEC, Codec.DOUBLE);
+
     public static final MapCodec<AthanorRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
             Ingredient.CODEC.fieldOf("tool").forGetter(AthanorRecipe::getTool),
             Ingredient.CODEC.fieldOf("input").forGetter(AthanorRecipe::getInput),
             ItemStack.CODEC.listOf().fieldOf("guaranteed_outputs").forGetter(AthanorRecipe::getGuaranteedOutput),
             Codec.pair(ItemStack.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().fieldOf("chance_outputs").forGetter(AthanorRecipe::getChanceOutput),
             FluidStack.CODEC.optionalFieldOf("input_fluid").forGetter(AthanorRecipe::getInputFluid),
-            FluidStack.CODEC.optionalFieldOf("output_fluid").forGetter(AthanorRecipe::getOutputFluid)
+            FluidStack.CODEC.optionalFieldOf("output_fluid").forGetter(AthanorRecipe::getOutputFluid),
+            SPIRITUS_COST_CODEC.optionalFieldOf("spiritus_costs", Map.of()).forGetter(AthanorRecipe::getSpiritusCosts)
     ).apply(inst, AthanorRecipe::new));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, AthanorRecipe> STREAM_CODEC = StreamCodec.composite(
-            Ingredient.CONTENTS_STREAM_CODEC, AthanorRecipe::getTool,
-            Ingredient.CONTENTS_STREAM_CODEC, AthanorRecipe::getInput,
-            ItemStack.LIST_STREAM_CODEC, AthanorRecipe::getGuaranteedOutput,
-            CHANCE_PAIR_STREAM_CODEC.apply(ByteBufCodecs.list()), AthanorRecipe::getChanceOutput,
-            FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional), AthanorRecipe::getInputFluid,
-            FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional), AthanorRecipe::getOutputFluid,
-            AthanorRecipe::new
-    );
+    public static final StreamCodec<RegistryFriendlyByteBuf, AthanorRecipe> STREAM_CODEC = new StreamCodec<>() {
+        @Override
+        public AthanorRecipe decode(RegistryFriendlyByteBuf buf) {
+            Ingredient tool = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+            Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+            List<ItemStack> guaranteed = ItemStack.LIST_STREAM_CODEC.decode(buf);
+            List<Pair<ItemStack, Double>> chanced = CHANCE_PAIR_STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buf);
+            Optional<FluidStack> inFluid = FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional).decode(buf);
+            Optional<FluidStack> outFluid = FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional).decode(buf);
+            int costSize = buf.readVarInt();
+            Map<SpiritusType, Double> costs = new EnumMap<>(SpiritusType.class);
+            for (int i = 0; i < costSize; i++) {
+                costs.put(SpiritusType.STREAM_CODEC.decode(buf), buf.readDouble());
+            }
+            return new AthanorRecipe(tool, input, guaranteed, chanced, inFluid, outFluid, costs);
+        }
+
+        @Override
+        public void encode(RegistryFriendlyByteBuf buf, AthanorRecipe recipe) {
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.tool);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.input);
+            ItemStack.LIST_STREAM_CODEC.encode(buf, recipe.guaranteedOutput);
+            CHANCE_PAIR_STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buf, recipe.chanceOutput);
+            FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional).encode(buf, recipe.inputFluid);
+            FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional).encode(buf, recipe.outputFluid);
+            buf.writeVarInt(recipe.spiritusCosts.size());
+            recipe.spiritusCosts.forEach((type, amount) -> {
+                SpiritusType.STREAM_CODEC.encode(buf, type);
+                buf.writeDouble(amount);
+            });
+        }
+    };
+
     private final Ingredient tool;
     private final Ingredient input;
     private final List<ItemStack> guaranteedOutput;
     private final List<Pair<ItemStack, Double>> chanceOutput;
     private final Optional<FluidStack> inputFluid;
     private final Optional<FluidStack> outputFluid;
+    private final Map<SpiritusType, Double> spiritusCosts;
     private final List<Pair<ItemStack, Double>> allListed;
-    public AthanorRecipe(Ingredient tool, Ingredient input, List<ItemStack> guaranteedOutput, List<Pair<ItemStack, Double>> chanceOutput, Optional<FluidStack> inputFluid, Optional<FluidStack> outputStack) {
+
+    public AthanorRecipe(Ingredient tool, Ingredient input, List<ItemStack> guaranteedOutput, List<Pair<ItemStack, Double>> chanceOutput, Optional<FluidStack> inputFluid, Optional<FluidStack> outputStack, Map<SpiritusType, Double> spiritusCosts) {
         this.tool = tool;
         this.input = input;
         this.guaranteedOutput = guaranteedOutput;
         this.chanceOutput = chanceOutput;
         this.inputFluid = inputFluid;
         this.outputFluid = outputStack;
+        this.spiritusCosts = Map.copyOf(spiritusCosts);
 
         List<Pair<ItemStack, Double>> outputs = new ArrayList<>();
         guaranteedOutput.forEach(stack -> outputs.add(Pair.of(stack, 1D)));
@@ -93,6 +127,14 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
 
     public Optional<FluidStack> getOutputFluid() {
         return outputFluid;
+    }
+
+    public Map<SpiritusType, Double> getSpiritusCosts() {
+        return spiritusCosts;
+    }
+
+    public boolean hasSpiritusCosts() {
+        return !spiritusCosts.isEmpty();
     }
 
     @Override

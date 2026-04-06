@@ -20,6 +20,7 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.tag.NVTags;
@@ -4007,6 +4008,14 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(Ingredient.of(NVItems.THROWING_DAGGER_AMETHYST.get()))
                 .guaranteedOutput(new ItemStack(NVItems.THROWING_DAGGER_TIPPED.get(), 8))
                 .save(output, NeoVitae.rl("tipped_throwing_dagger"));
+
+        // === SPIRITUS INFUSION RECIPES ===
+        AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
+                .input(Ingredient.of(Items.DIAMOND))
+                .fluidInput(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 4000))
+                .guaranteedOutput(new ItemStack(Items.NETHER_STAR))
+                .spiritusCost(SpiritusType.DEFAULT, 50.0)
+                .save(output, NeoVitae.rl("nether_star_from_diamond"));
     }
 
     /**

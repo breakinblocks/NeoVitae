@@ -45,7 +45,7 @@ public class AthanorBlock extends Block implements EntityBlock {
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!state.is(newState.getBlock())) {
             if (level.getBlockEntity(pos) instanceof AthanorBlockEntity arc) {
-                BlockEntityHelper.dropContents(level, pos, arc.arcInv);
+                BlockEntityHelper.dropContents(level, pos, arc.athanorInv);
             }
         }
         super.onRemove(state, level, pos, newState, movedByPiston);

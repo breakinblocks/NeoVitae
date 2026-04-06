@@ -15,20 +15,33 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
 
 public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
     public static final RecipeType<AthanorRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "athanor", AthanorRecipe.class);
 
     private static final int WIDTH = 157;
-    private static final int HEIGHT = 43;
+    private static final int HEIGHT = 80;
+
+    private static final SpiritusType[] TYPES = SpiritusType.values();
+    private static final int[] TYPE_COLORS = {
+            0xFFAA3333, // DEFAULT
+            0xFF33AA33, // CORROSIVE
+            0xFFDD8822, // DESTRUCTIVE
+            0xFF3355BB, // STEADFAST
+            0xFFAA33CC  // VENGEFUL
+    };
+    private static final String[] TYPE_NAMES = {"Raw", "Corrosive", "Destructive", "Steadfast", "Vengeful"};
 
     @Nonnull
     private final IDrawable background;
@@ -36,7 +49,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
 
     public AthanorRecipeCategory(IGuiHelper guiHelper) {
         icon = guiHelper.createDrawableItemStack(new ItemStack(NVBlocks.ATHANOR_BLOCK.block().get()));
-        background = guiHelper.createDrawable(NeoVitae.rl("textures/gui/jei/athanor.png"), 0, 0, WIDTH, HEIGHT);
+        background = guiHelper.createDrawable(NeoVitae.rl("textures/gui/jei/athanor.png"), 0, 0, WIDTH, 43);
     }
 
     @Nonnull
@@ -82,11 +95,26 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
             outputSlot.addItemStack(allOutputs.get(i).getFirst());
             outputSlot.setSlotName("output" + i);
         }
+
+        recipe.getInputFluid().ifPresent(fluid -> {
+            IRecipeSlotBuilder fluidIn = builder.addSlot(RecipeIngredientRole.INPUT, 1, 26);
+            fluidIn.addFluidStack(fluid.getFluid(), fluid.getAmount());
+            fluidIn.setSlotName("fluid_input");
+            fluidIn.addRichTooltipCallback((view, tooltip) ->
+                    tooltip.add(Component.literal(fluid.getAmount() + " mB")));
+        });
+
+        recipe.getOutputFluid().ifPresent(fluid -> {
+            IRecipeSlotBuilder fluidOut = builder.addSlot(RecipeIngredientRole.OUTPUT, 140, 17);
+            fluidOut.addFluidStack(fluid.getFluid(), fluid.getAmount());
+            fluidOut.setSlotName("fluid_output");
+            fluidOut.addRichTooltipCallback((view, tooltip) ->
+                    tooltip.add(Component.literal(fluid.getAmount() + " mB")));
+        });
     }
 
     @Override
     public void draw(AthanorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        // Draw background
         background.draw(guiGraphics);
 
         Minecraft mc = Minecraft.getInstance();
@@ -97,7 +125,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
             String chanceStr;
 
             if (chance >= 1.0) {
-                chanceStr = ""; // Don't show anything for 100% chance
+                chanceStr = "";
             } else if (chance < 0.01) {
                 chanceStr = "<1%";
             } else {
@@ -108,6 +136,32 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
                 int x = 62 + i * 22 - mc.font.width(chanceStr) / 2;
                 guiGraphics.drawString(mc.font, chanceStr, x, 5, Color.WHITE.getRGB(), true);
             }
+        }
+
+        if (recipe.hasSpiritusCosts()) {
+            drawSpiritusCosts(guiGraphics, mc, recipe);
+        }
+    }
+
+    private void drawSpiritusCosts(GuiGraphics guiGraphics, Minecraft mc, AthanorRecipe recipe) {
+        Map<SpiritusType, Double> costs = recipe.getSpiritusCosts();
+        int y = 46;
+
+        guiGraphics.drawString(mc.font, Component.translatable("jei.neovitae.recipe.athanor.spiritus_cost"),
+                1, y, 0xAAAAAA, true);
+        y += 10;
+
+        for (int i = 0; i < TYPES.length; i++) {
+            Double amount = costs.get(TYPES[i]);
+            if (amount == null || amount <= 0) continue;
+
+            // Colored square
+            guiGraphics.fill(1, y, 5, y + 4, TYPE_COLORS[i]);
+
+            // Amount and type name
+            String text = String.format("%.1f %s", amount, TYPE_NAMES[i]);
+            guiGraphics.drawString(mc.font, text, 8, y - 1, 0xFFFFFF, true);
+            y += 10;
         }
     }
 
@@ -123,6 +177,20 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
                 if (chance < 1.0) {
                     tooltip.add(Component.translatable("jei.neovitae.recipe.athanor.chance", (int) Math.round(chance * 100)));
                 }
+            }
+        }
+
+        if (recipe.hasSpiritusCosts() && mouseY >= 46 && mouseY <= HEIGHT) {
+            Map<SpiritusType, Double> costs = recipe.getSpiritusCosts();
+            int y = 56;
+            for (int i = 0; i < TYPES.length; i++) {
+                Double amount = costs.get(TYPES[i]);
+                if (amount == null || amount <= 0) continue;
+
+                if (mouseY >= y - 1 && mouseY < y + 9 && mouseX >= 0 && mouseX <= WIDTH) {
+                    tooltip.add(Component.literal(String.format("Requires %.1f %s spiritus from the chunk", amount, TYPE_NAMES[i])));
+                }
+                y += 10;
             }
         }
     }

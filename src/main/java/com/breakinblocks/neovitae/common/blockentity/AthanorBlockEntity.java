@@ -389,8 +389,9 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     private void craft(AthanorRecipe value, AthanorRecipeInput input, AthanorOutputHandler outputHandler) {
         value.assemble(input, level.registryAccess());
         List<ItemStack> outputs = value.getActualOutputs();
+        value.getInputFluid().ifPresent(required ->
+                inputTank.drain(required.getAmount(), FluidAction.EXECUTE));
         int filled = outputTank.fill(value.getActualOutputFluid(), FluidAction.EXECUTE);
-        // Debug: NeoVitae.LOGGER.info("filled {}mB into output tank", filled);
         handleInventory(outputs, outputHandler);
     }
 

@@ -39,7 +39,7 @@ public class BloodstoneBricksEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Stone steeped in life force - decorative, and essential for the fourth altar.";
+        return "Stone steeped in life force - decorative, and essential for the fourth Ara Vitae tier.";
     }
 
     @Override

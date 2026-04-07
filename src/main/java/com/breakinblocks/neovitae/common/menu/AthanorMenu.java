@@ -24,7 +24,7 @@ public class AthanorMenu extends AbstractBlockEntityMenu<AthanorBlockEntity> {
         for (int row = 0; row < 2; row++) {
             for (int col = 0; col < 3; col++) {
                 int slotIdx = AthanorBlockEntity.INPUT_START + row * 3 + col;
-                this.addSlot(new SlotItemHandler(AthanorBlockEntity.getItemHandler(tile, null), slotIdx, 44 + col * 18, 14 + row * 18));
+                this.addSlot(new SlotItemHandler(AthanorBlockEntity.getItemHandler(tile, null), slotIdx, 33 + col * 18, 14 + row * 18));
             }
         }
 

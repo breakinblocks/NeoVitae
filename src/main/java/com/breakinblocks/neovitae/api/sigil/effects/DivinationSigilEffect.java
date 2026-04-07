@@ -99,7 +99,7 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
     }
 
     private void showDetailedAltarStats(Player player, IAraVitae altar) {
-        player.sendSystemMessage(Component.literal("--- Altar Stats ---").withStyle(ChatFormatting.GOLD));
+        player.sendSystemMessage(Component.literal("--- Ara Vitae Stats ---").withStyle(ChatFormatting.GOLD));
 
         player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "creative.capacityMod",
                 String.format("%.2f", altar.getBonusCapacity())).withStyle(ChatFormatting.AQUA));

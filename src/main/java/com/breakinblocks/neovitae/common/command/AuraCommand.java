@@ -38,13 +38,13 @@ public class AuraCommand {
     private static final SuggestionProvider<CommandSourceStack> WILL_TYPE_SUGGESTIONS = (context, builder) -> {
         Stream<String> types = Arrays.stream(SpiritusType.values())
                 .map(SpiritusType::getSerializedName);
-        return SharedSuggestionProvider.suggest(Stream.concat(types, Stream.of("all")), builder);
+        return SharedSuggestionProvider.suggest(Stream.of(types, Stream.of("raw", "all")).flatMap(s -> s), builder);
     };
 
     private static final SuggestionProvider<CommandSourceStack> WILL_TYPE_ONLY_SUGGESTIONS = (context, builder) -> {
         Stream<String> types = Arrays.stream(SpiritusType.values())
                 .map(SpiritusType::getSerializedName);
-        return SharedSuggestionProvider.suggest(Stream.concat(types, Stream.of("all")), builder);
+        return SharedSuggestionProvider.suggest(Stream.of(types, Stream.of("raw", "all")).flatMap(s -> s), builder);
     };
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -231,6 +231,7 @@ public class AuraCommand {
     }
 
     private static SpiritusType parseWillType(String str) {
+        if (str.equalsIgnoreCase("raw")) return SpiritusType.DEFAULT;
         for (SpiritusType type : SpiritusType.values()) {
             if (type.getSerializedName().equalsIgnoreCase(str)) {
                 return type;

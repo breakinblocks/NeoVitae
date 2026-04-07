@@ -775,6 +775,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("message.neovitae.blood_light.redstone_on", "Redstone Control: Enabled");
         add("message.neovitae.blood_light.redstone_off", "Redstone Control: Disabled");
         add("message.neovitae.sigil.blood_light.brightness", "Sigil Brightness: %s");
+        add("message.neovitae.too_far_from_altar", "You are too far from an Ara Vitae");
 
         // Material generation messages
         add("message.neovitae.materials.generated", "[Neo Vitae] New ore materials have been detected and added to the config.");
@@ -865,14 +866,14 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("sigil.lava.desc", "Places lava source blocks");
 
         // Sigil tooltips - Divination/Seer info messages
-        addTooltip("sigil.divination.currentAltarTier", "Current Altar Tier: %s");
+        addTooltip("sigil.divination.currentAltarTier", "Current Ara Vitae Tier: %s");
         addTooltip("sigil.divination.currentEV", "Current Essentia Vitae: %s");
-        addTooltip("sigil.divination.currentAltarCapacity", "Altar Capacity: %s EV");
+        addTooltip("sigil.divination.currentAltarCapacity", "Ara Vitae Capacity: %s EV");
         addTooltip("sigil.divination.currentNetworkLP", "Anima: %s EV");
         addTooltip("sigil.divination.otherNetwork", "Viewing network of: %s");
-        addTooltip("sigil.seer.currentAltarTier", "Current Altar Tier: %s");
+        addTooltip("sigil.seer.currentAltarTier", "Current Ara Vitae Tier: %s");
         addTooltip("sigil.seer.currentEV", "Current Essentia Vitae: %s");
-        addTooltip("sigil.seer.currentAltarCapacity", "Altar Capacity: %s EV");
+        addTooltip("sigil.seer.currentAltarCapacity", "Ara Vitae Capacity: %s EV");
         addTooltip("sigil.seer.otherNetwork", "Viewing network of: %s");
         addTooltip("sigil.seer.currentAltarProgress", "Crafting Progress: %s%%");
         addTooltip("sigil.seer.currentAltarConsumption", "Consumption Rate: %s EV/t");
@@ -1169,7 +1170,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("demonite", "Forged in the Pit", "Unearth a sliver of raw Demonite from the Endless Realm");
         addAdvancement("hellforged_ingot", "Hellforged", "Smelt raw Demonite into a Hellforged Ingot");
 
-        addAdvancement("blood_sweat_and_tears", "Blood, Sweat & Tears", "Craft the legendary record at a Tier 6 altar");
+        addAdvancement("blood_sweat_and_tears", "Blood, Sweat & Tears", "Craft the legendary record at a Tier 6 Ara Vitae");
     }
 
     public void addRitual(String key, String name) {

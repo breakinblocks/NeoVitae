@@ -195,7 +195,7 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
 
     private boolean isOverProgressArrow(double mouseX, double mouseY) {
         int ax = leftPos + 63;
-        int ay = topPos + 47;
+        int ay = topPos + 51;
         return mouseX >= ax && mouseX < ax + 38 && mouseY >= ay && mouseY < ay + 23;
     }
 
@@ -214,6 +214,9 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1) {
         guiGraphics.blit(background, leftPos, topPos, 0, 0, imageWidth, imageHeight);
-        guiGraphics.blitSprite(progress, leftPos + 63, topPos + 47, menu.tile.getProgressForGui(), 23);
+        int progressWidth = menu.tile.getProgressForGui();
+        if (progressWidth > 0) {
+            guiGraphics.blitSprite(progress, 38, 23, 0, 4, leftPos + 63, topPos + 51, progressWidth, 19);
+        }
     }
 }

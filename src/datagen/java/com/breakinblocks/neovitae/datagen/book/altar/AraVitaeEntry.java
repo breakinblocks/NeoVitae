@@ -38,7 +38,7 @@ public class AraVitaeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Once placed, the [#](8B0000)Ara Vitae[#]() awakens. It drinks the blood offered to it "
                 + "and distills it into [#](4A0080)Essentia Vitae[#](), which it then uses to [#](4A0080)transfigure[#]() items "
-                + "placed within its basin. Right-click the altar to lay an item upon it; right-click with an "
+                + "placed within its basin. Right-click the Ara Vitae to lay an item upon it; right-click with an "
                 + "empty hand to retrieve it.");
 
         this.page("tier1", () -> BookMultiblockPageModel.create()
@@ -46,27 +46,27 @@ public class AraVitaeEntry extends EntryProvider {
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier 0 Ara Vitae");
-        this.pageText("The simplest form. A lone altar, unadorned by runes.");
+        this.pageText("The simplest form. A lone Ara Vitae, unadorned by runes.");
 
         this.page("knife", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("To feed the altar, you must first forge a [#](8B0000)Sacrificial Knife[#](). By drawing the blade "
+        this.pageText("To feed the Ara Vitae, you must first forge a [#](8B0000)Sacrificial Knife[#](). By drawing the blade "
                 + "across your own flesh (right-click while aiming at air), you spill one heart's worth of blood "
                 + "into a nearby [#](8B0000)Ara Vitae[#](), yielding [#](8B0000)200 Essentia Vitae[#]().\\\n\\\n"
-                + "The altar's basin holds [#](8B0000)10,000 EV[#]() at first. Watch the crimson pool within; its level "
+                + "The basin holds [#](8B0000)10,000 EV[#]() at first. Watch the crimson pool within; its level "
                 + "reveals how full the vessel is. A [#](8B0000)Divination Sigil[#]() reveals the exact figures.");
 
         this.page("knife_recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "sacrificial_dagger"))
                 .withText(this.context().pageText()));
-        this.pageText("[#](2E8B57)Be aware:[#]() 10%% of the altar's total capacity seeps into a hidden internal reservoir, "
+        this.pageText("[#](2E8B57)Be aware:[#]() 10%% of the Ara Vitae's total capacity seeps into a hidden internal reservoir, "
                 + "used for fluid transfer operations. If your numbers seem off, this unseen vessel is likely the cause.");
 
         this.page("crafting_process", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The moment an item is laid upon the altar, the [#](4A0080)transmutation[#]() begins. "
+        this.pageText("The moment an item is laid upon the Ara Vitae, the [#](4A0080)transmutation[#]() begins. "
                 + "[#](4A0080)Essentia Vitae[#]() drains steadily from the basin; crimson motes rising from the surface "
-                + "confirm the process is underway.\\\n\\\nShould the altar run dry, gray smoke rises as the working "
+                + "confirm the process is underway.\\\n\\\nShould the Ara Vitae run dry, gray smoke rises as the working "
                 + "unravels and progress is lost. Once sufficient EV has been consumed (cost multiplied by the "
                 + "stack size), the full stack is transfigured into something new.");
 
@@ -80,16 +80,16 @@ public class AraVitaeEntry extends EntryProvider {
         this.page("blank_rune", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("To ascend to greater tiers, you must inscribe [#](8B0000)Blood Runes[#]() and arrange them "
-                + "around the altar in precise patterns. Specialized runes confer different blessings upon the "
+                + "around the Ara Vitae in precise patterns. Specialized runes confer different blessings upon the "
                 + "altar's workings. The most basic, the [#](8B0000)Blank Rune[#](), carries no enchantment of its own, "
-                + "serving only as structural scaffolding for the altar's ascension.");
+                + "serving only as structural scaffolding for the Ara Vitae's ascension.");
 
         this.page("blank_rune_recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_blank")));
 
         this.page("tier2_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Tier 1[#]() demands 8 [#](8B0000)Blood Runes[#]() arranged in a ring around the altar. "
+        this.pageText("[#](B8860B)Tier 1[#]() demands 8 [#](8B0000)Blood Runes[#]() arranged in a ring around the Ara Vitae. "
                 + "The four cardinal runes may be replaced with specialized variants; the corner runes remain "
                 + "inert until Tier 2 unlocks their potential.");
 
@@ -98,7 +98,7 @@ public class AraVitaeEntry extends EntryProvider {
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier 1 Ara Vitae");
-        this.pageText("Eight runes encircle the basin. The altar stirs with new hunger.");
+        this.pageText("Eight runes encircle the basin. The Ara Vitae stirs with new hunger.");
 
         this.page("tier3_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -131,7 +131,7 @@ public class AraVitaeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("[#](B8860B)Tier 4[#]() calls for 13 runes per edge, three blocks out from the previous ring, "
                 + "with a one-block gap at each end. [#](8B0000)Hellforged Blocks[#]() anchor the corners, rare metal "
-                + "wrested from the [#](4A0080)Demon Realm[#]() itself. The altar now commands fearsome energies.");
+                + "wrested from the [#](4A0080)Demon Realm[#]() itself. The Ara Vitae now commands fearsome energies.");
 
         this.page("tier5", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_five"))
@@ -157,7 +157,7 @@ public class AraVitaeEntry extends EntryProvider {
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier 6 Ara Vitae");
-        this.pageText("184 total runes. The altar becomes a cathedral of blood and stone.");
+        this.pageText("184 total runes. The Ara Vitae becomes a cathedral of blood and stone.");
     }
 
     @Override
@@ -167,7 +167,7 @@ public class AraVitaeEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The sacred altar where blood becomes power, growing through six tiers of mastery.";
+        return "The sacred Ara Vitae where blood becomes power, growing through six tiers of mastery.";
     }
 
     @Override

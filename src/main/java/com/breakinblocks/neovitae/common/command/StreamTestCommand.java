@@ -78,9 +78,9 @@ public class StreamTestCommand {
                 altar.setCooldownAfterCrafting(200);
                 altar.setChanged();
                 level.sendBlockUpdated(targetPos, level.getBlockState(targetPos), level.getBlockState(targetPos), 3);
-                source.sendSuccess(() -> Component.literal("Activated ritual circle on altar at " + targetPos.toShortString() + " for 10 seconds"), false);
+                source.sendSuccess(() -> Component.literal("Activated ritual circle on Ara Vitae at " + targetPos.toShortString() + " for 10 seconds"), false);
             } else {
-                source.sendFailure(Component.literal("No altar at " + targetPos.toShortString() + " (found: " + (be != null ? be.getClass().getSimpleName() : "null") + ")"));
+                source.sendFailure(Component.literal("No Ara Vitae at " + targetPos.toShortString() + " (found: " + (be != null ? be.getClass().getSimpleName() : "null") + ")"));
             }
             return 1;
         }

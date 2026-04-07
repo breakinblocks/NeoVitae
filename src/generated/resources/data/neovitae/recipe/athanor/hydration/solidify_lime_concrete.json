@@ -7,13 +7,15 @@
       "id": "minecraft:lime_concrete"
     }
   ],
-  "input": {
-    "item": "minecraft:lime_concrete_powder"
-  },
   "input_fluid": {
     "amount": 200,
     "id": "minecraft:water"
   },
+  "inputs": [
+    {
+      "item": "minecraft:lime_concrete_powder"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/hydration"
   }

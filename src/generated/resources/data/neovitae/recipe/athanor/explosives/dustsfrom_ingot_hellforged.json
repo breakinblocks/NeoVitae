@@ -7,9 +7,11 @@
       "id": "neovitae:hellforged_dust"
     }
   ],
-  "input": {
-    "tag": "c:ingots/hellforged"
-  },
+  "inputs": [
+    {
+      "tag": "c:ingots/hellforged"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/explosives"
   }

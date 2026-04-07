@@ -7,13 +7,15 @@
       "id": "minecraft:weathered_copper"
     }
   ],
-  "input": {
-    "item": "minecraft:exposed_copper"
-  },
   "input_fluid": {
     "amount": 200,
     "id": "minecraft:water"
   },
+  "inputs": [
+    {
+      "item": "minecraft:exposed_copper"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/hydration"
   }

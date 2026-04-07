@@ -22,9 +22,11 @@
       "id": "neovitae:rune_speed"
     }
   ],
-  "input": {
-    "item": "neovitae:rune_2_speed"
-  },
+  "inputs": [
+    {
+      "item": "neovitae:rune_2_speed"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/reverter"
   }

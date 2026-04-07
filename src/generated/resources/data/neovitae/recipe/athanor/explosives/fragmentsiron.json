@@ -15,9 +15,11 @@
       "id": "neovitae:iron_fragment"
     }
   ],
-  "input": {
-    "tag": "c:raw_materials/iron"
-  },
+  "inputs": [
+    {
+      "tag": "c:raw_materials/iron"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/explosives"
   }

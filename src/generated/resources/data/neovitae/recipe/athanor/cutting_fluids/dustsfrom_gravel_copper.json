@@ -7,9 +7,11 @@
       "id": "neovitae:copper_dust"
     }
   ],
-  "input": {
-    "tag": "c:gravels/copper"
-  },
+  "inputs": [
+    {
+      "tag": "c:gravels/copper"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/cutting_fluids"
   }

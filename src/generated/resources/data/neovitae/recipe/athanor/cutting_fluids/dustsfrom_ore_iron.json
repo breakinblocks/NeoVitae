@@ -7,9 +7,11 @@
       "id": "neovitae:iron_dust"
     }
   ],
-  "input": {
-    "tag": "c:ores/iron"
-  },
+  "inputs": [
+    {
+      "tag": "c:ores/iron"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/cutting_fluids"
   }

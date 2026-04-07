@@ -7,13 +7,15 @@
       "id": "minecraft:glass"
     }
   ],
-  "input": {
-    "tag": "c:glass_blocks"
-  },
   "input_fluid": {
     "amount": 200,
     "id": "minecraft:water"
   },
+  "inputs": [
+    {
+      "tag": "c:glass_blocks"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/hydration"
   }

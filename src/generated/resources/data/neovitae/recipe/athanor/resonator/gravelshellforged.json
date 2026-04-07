@@ -15,9 +15,11 @@
       "id": "neovitae:demonite_gravel"
     }
   ],
-  "input": {
-    "tag": "c:fragments/hellforged"
-  },
+  "inputs": [
+    {
+      "tag": "c:fragments/hellforged"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/resonator"
   }

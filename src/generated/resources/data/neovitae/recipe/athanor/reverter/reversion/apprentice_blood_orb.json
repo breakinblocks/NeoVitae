@@ -7,9 +7,11 @@
       "id": "minecraft:redstone_block"
     }
   ],
-  "input": {
-    "item": "neovitae:blood_orb_apprentice"
-  },
+  "inputs": [
+    {
+      "item": "neovitae:blood_orb_apprentice"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/reverter"
   }

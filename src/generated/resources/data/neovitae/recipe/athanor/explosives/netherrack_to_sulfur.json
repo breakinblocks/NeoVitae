@@ -7,9 +7,11 @@
       "id": "neovitae:sulfur"
     }
   ],
-  "input": {
-    "tag": "c:netherracks"
-  },
+  "inputs": [
+    {
+      "tag": "c:netherracks"
+    }
+  ],
   "output_fluid": {
     "amount": 50,
     "id": "minecraft:lava"

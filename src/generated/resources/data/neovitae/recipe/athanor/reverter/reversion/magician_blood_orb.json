@@ -7,9 +7,11 @@
       "id": "minecraft:gold_block"
     }
   ],
-  "input": {
-    "item": "neovitae:blood_orb_magician"
-  },
+  "inputs": [
+    {
+      "item": "neovitae:blood_orb_magician"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/reverter"
   }

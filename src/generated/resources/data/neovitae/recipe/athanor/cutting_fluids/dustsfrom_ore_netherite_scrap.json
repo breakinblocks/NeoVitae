@@ -7,9 +7,11 @@
       "id": "neovitae:netherite_scrap_dust"
     }
   ],
-  "input": {
-    "item": "minecraft:ancient_debris"
-  },
+  "inputs": [
+    {
+      "item": "minecraft:ancient_debris"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/cutting_fluids"
   }

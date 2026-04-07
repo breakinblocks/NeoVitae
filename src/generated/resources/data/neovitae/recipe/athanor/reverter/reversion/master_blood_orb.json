@@ -7,9 +7,11 @@
       "id": "neovitae:weak_blood_shard"
     }
   ],
-  "input": {
-    "item": "neovitae:blood_orb_master"
-  },
+  "inputs": [
+    {
+      "item": "neovitae:blood_orb_master"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/reverter"
   }

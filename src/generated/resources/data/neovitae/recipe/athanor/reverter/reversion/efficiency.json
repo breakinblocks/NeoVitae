@@ -15,9 +15,11 @@
       "id": "neovitae:rune_efficiency"
     }
   ],
-  "input": {
-    "item": "neovitae:rune_2_efficiency"
-  },
+  "inputs": [
+    {
+      "item": "neovitae:rune_2_efficiency"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/reverter"
   }

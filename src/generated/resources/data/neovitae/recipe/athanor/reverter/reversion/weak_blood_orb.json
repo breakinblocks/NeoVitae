@@ -7,9 +7,11 @@
       "id": "minecraft:diamond"
     }
   ],
-  "input": {
-    "item": "neovitae:blood_orb_weak"
-  },
+  "inputs": [
+    {
+      "item": "neovitae:blood_orb_weak"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/reverter"
   }

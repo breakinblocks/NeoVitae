@@ -15,9 +15,11 @@
       "id": "neovitae:iron_gravel"
     }
   ],
-  "input": {
-    "tag": "c:fragments/iron"
-  },
+  "inputs": [
+    {
+      "tag": "c:fragments/iron"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/resonator"
   }

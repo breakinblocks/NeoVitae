@@ -7,9 +7,11 @@
       "id": "neovitae:sulfur"
     }
   ],
-  "input": {
-    "item": "minecraft:netherrack"
-  },
+  "inputs": [
+    {
+      "item": "minecraft:netherrack"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/cutting_fluids"
   }

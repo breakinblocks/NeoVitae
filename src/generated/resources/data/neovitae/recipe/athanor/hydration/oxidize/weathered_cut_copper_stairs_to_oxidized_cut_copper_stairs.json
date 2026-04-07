@@ -7,13 +7,15 @@
       "id": "minecraft:oxidized_cut_copper_stairs"
     }
   ],
-  "input": {
-    "item": "minecraft:weathered_cut_copper_stairs"
-  },
   "input_fluid": {
     "amount": 200,
     "id": "minecraft:water"
   },
+  "inputs": [
+    {
+      "item": "minecraft:weathered_cut_copper_stairs"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/hydration"
   }

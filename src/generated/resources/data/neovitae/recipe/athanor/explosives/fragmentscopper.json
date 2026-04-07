@@ -15,9 +15,11 @@
       "id": "neovitae:copper_fragment"
     }
   ],
-  "input": {
-    "tag": "c:raw_materials/copper"
-  },
+  "inputs": [
+    {
+      "tag": "c:raw_materials/copper"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/explosives"
   }

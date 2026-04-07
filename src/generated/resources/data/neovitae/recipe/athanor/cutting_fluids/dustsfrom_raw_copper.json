@@ -15,9 +15,11 @@
       "id": "neovitae:copper_dust"
     }
   ],
-  "input": {
-    "tag": "c:raw_materials/copper"
-  },
+  "inputs": [
+    {
+      "tag": "c:raw_materials/copper"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/cutting_fluids"
   }

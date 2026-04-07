@@ -7,13 +7,15 @@
       "id": "minecraft:mossy_stone_brick_wall"
     }
   ],
-  "input": {
-    "item": "minecraft:stone_brick_wall"
-  },
   "input_fluid": {
     "amount": 200,
     "id": "minecraft:water"
   },
+  "inputs": [
+    {
+      "item": "minecraft:stone_brick_wall"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/hydration"
   }

@@ -7,13 +7,15 @@
       "id": "minecraft:white_wool"
     }
   ],
-  "input": {
-    "tag": "minecraft:wool"
-  },
   "input_fluid": {
     "amount": 200,
     "id": "minecraft:water"
   },
+  "inputs": [
+    {
+      "tag": "minecraft:wool"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/hydration"
   }

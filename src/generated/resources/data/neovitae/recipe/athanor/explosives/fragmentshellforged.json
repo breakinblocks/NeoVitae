@@ -15,9 +15,11 @@
       "id": "neovitae:demonite_fragment"
     }
   ],
-  "input": {
-    "tag": "c:raw_materials/hellforged"
-  },
+  "inputs": [
+    {
+      "tag": "c:raw_materials/hellforged"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/explosives"
   }

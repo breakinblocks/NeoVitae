@@ -7,13 +7,15 @@
       "id": "minecraft:white_bed"
     }
   ],
-  "input": {
-    "tag": "minecraft:beds"
-  },
   "input_fluid": {
     "amount": 200,
     "id": "minecraft:water"
   },
+  "inputs": [
+    {
+      "tag": "minecraft:beds"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/hydration"
   }

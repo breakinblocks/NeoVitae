@@ -7,9 +7,11 @@
       "id": "neovitae:gold_dust"
     }
   ],
-  "input": {
-    "tag": "c:gravels/gold"
-  },
+  "inputs": [
+    {
+      "tag": "c:gravels/gold"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/cutting_fluids"
   }

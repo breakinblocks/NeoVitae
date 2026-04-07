@@ -15,9 +15,11 @@
       "id": "neovitae:iron_dust"
     }
   ],
-  "input": {
-    "tag": "c:raw_materials/iron"
-  },
+  "inputs": [
+    {
+      "tag": "c:raw_materials/iron"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/cutting_fluids"
   }

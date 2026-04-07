@@ -442,10 +442,10 @@ public class NVRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, NVBlocks.INCENSE_ALTAR.block().get())
                 .pattern("s s")
                 .pattern("shs")
-                .pattern("coc")
+                .pattern("lol")
                 .define('s', Tags.Items.STONES)
-                .define('h', Items.CHARCOAL)
-                .define('c', Tags.Items.COBBLESTONES)
+                .define('h', net.minecraft.tags.ItemTags.COALS)
+                .define('l', net.minecraft.tags.ItemTags.LOGS)
                 .define('o', OrbTierIngredient.of(1))
                 .unlockedBy("has_weak_orb", has(NVItems.ORB_WEAK.get()))
                 .save(output);
@@ -4012,10 +4012,32 @@ public class NVRecipeProvider extends RecipeProvider {
         // === SPIRITUS INFUSION RECIPES ===
         AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                 .input(Ingredient.of(Items.DIAMOND))
-                .fluidInput(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 4000))
+                .input(NVItems.HELLFORGED_INGOT.get())
                 .guaranteedOutput(new ItemStack(Items.NETHER_STAR))
+                .fluidInput(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 4000))
                 .spiritusCost(SpiritusType.DEFAULT, 50.0)
                 .save(output, NeoVitae.rl("nether_star_from_diamond"));
+
+        // === TEST RECIPE (all slots, all will types) ===
+        AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
+                .input(Ingredient.of(Items.DIAMOND))
+                .input(Ingredient.of(Items.EMERALD))
+                .input(Ingredient.of(Items.AMETHYST_SHARD))
+                .input(Ingredient.of(Items.LAPIS_LAZULI))
+                .input(Ingredient.of(Items.REDSTONE))
+                .input(Ingredient.of(Items.QUARTZ))
+                .guaranteedOutput(new ItemStack(Items.NETHER_STAR))
+                .guaranteedOutput(new ItemStack(Items.BEACON))
+                .chancedOutput(new ItemStack(Items.ELYTRA), 0.25)
+                .chancedOutput(new ItemStack(Items.TOTEM_OF_UNDYING), 0.10)
+                .fluidInput(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 8000))
+                .fluidOutput(new FluidStack(Fluids.LAVA, 2000))
+                .spiritusCost(SpiritusType.DEFAULT, 75.0)
+                .spiritusCost(SpiritusType.CORROSIVE, 30.0)
+                .spiritusCost(SpiritusType.DESTRUCTIVE, 20.0)
+                .spiritusCost(SpiritusType.STEADFAST, 15.0)
+                .spiritusCost(SpiritusType.VENGEFUL, 10.0)
+                .save(output, NeoVitae.rl("test_all_slots"));
     }
 
     /**

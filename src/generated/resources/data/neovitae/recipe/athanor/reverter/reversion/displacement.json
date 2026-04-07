@@ -22,9 +22,11 @@
       "id": "neovitae:rune_dislocation"
     }
   ],
-  "input": {
-    "item": "neovitae:rune_2_dislocation"
-  },
+  "inputs": [
+    {
+      "item": "neovitae:rune_2_dislocation"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/reverter"
   }

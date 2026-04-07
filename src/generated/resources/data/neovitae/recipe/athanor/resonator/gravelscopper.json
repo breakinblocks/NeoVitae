@@ -15,9 +15,11 @@
       "id": "neovitae:copper_gravel"
     }
   ],
-  "input": {
-    "tag": "c:fragments/copper"
-  },
+  "inputs": [
+    {
+      "tag": "c:fragments/copper"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/resonator"
   }

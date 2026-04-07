@@ -7,13 +7,15 @@
       "id": "minecraft:mossy_cobblestone_slab"
     }
   ],
-  "input": {
-    "item": "minecraft:cobblestone_slab"
-  },
   "input_fluid": {
     "amount": 200,
     "id": "minecraft:water"
   },
+  "inputs": [
+    {
+      "item": "minecraft:cobblestone_slab"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/hydration"
   }

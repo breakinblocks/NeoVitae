@@ -22,9 +22,11 @@
       "id": "neovitae:rune_orb"
     }
   ],
-  "input": {
-    "item": "neovitae:rune_2_orb"
-  },
+  "inputs": [
+    {
+      "item": "neovitae:rune_2_orb"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/reverter"
   }

@@ -22,9 +22,11 @@
       "id": "neovitae:rune_sacrifice"
     }
   ],
-  "input": {
-    "item": "neovitae:rune_2_sacrifice"
-  },
+  "inputs": [
+    {
+      "item": "neovitae:rune_2_sacrifice"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/reverter"
   }

@@ -7,9 +7,11 @@
       "id": "neovitae:coal_dust"
     }
   ],
-  "input": {
-    "item": "minecraft:coal"
-  },
+  "inputs": [
+    {
+      "item": "minecraft:coal"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/cutting_fluids"
   }

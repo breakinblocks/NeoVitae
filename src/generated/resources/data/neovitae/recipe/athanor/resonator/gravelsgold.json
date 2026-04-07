@@ -15,9 +15,11 @@
       "id": "neovitae:gold_gravel"
     }
   ],
-  "input": {
-    "tag": "c:fragments/gold"
-  },
+  "inputs": [
+    {
+      "tag": "c:fragments/gold"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/resonator"
   }

@@ -15,9 +15,11 @@
       "id": "neovitae:gold_fragment"
     }
   ],
-  "input": {
-    "tag": "c:raw_materials/gold"
-  },
+  "inputs": [
+    {
+      "tag": "c:raw_materials/gold"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/explosives"
   }

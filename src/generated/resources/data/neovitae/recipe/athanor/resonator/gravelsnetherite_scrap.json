@@ -15,9 +15,11 @@
       "id": "neovitae:gravel_netherite_scrap"
     }
   ],
-  "input": {
-    "tag": "c:fragments/netherite_scrap"
-  },
+  "inputs": [
+    {
+      "tag": "c:fragments/netherite_scrap"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/resonator"
   }

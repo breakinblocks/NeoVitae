@@ -82,6 +82,17 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.athanor.spiritus_recipes.text",
+      "title": "book.neovitae.guide.utility.athanor.spiritus_recipes.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
       "text": "book.neovitae.guide.utility.athanor.automation.text",
       "title": "book.neovitae.guide.utility.athanor.automation.title",
       "use_markdown_in_title": false

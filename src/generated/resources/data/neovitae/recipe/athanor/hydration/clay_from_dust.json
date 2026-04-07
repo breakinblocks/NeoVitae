@@ -15,13 +15,15 @@
       "id": "minecraft:clay_ball"
     }
   ],
-  "input": {
-    "tag": "c:sands"
-  },
   "input_fluid": {
     "amount": 200,
     "id": "minecraft:water"
   },
+  "inputs": [
+    {
+      "tag": "c:sands"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/hydration"
   }

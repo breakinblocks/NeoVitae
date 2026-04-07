@@ -7,13 +7,18 @@
       "id": "minecraft:nether_star"
     }
   ],
-  "input": {
-    "item": "minecraft:diamond"
-  },
   "input_fluid": {
     "amount": 4000,
     "id": "neovitae:essentia_vitae_source"
   },
+  "inputs": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "neovitae:ingot_hellforged"
+    }
+  ],
   "spiritus_costs": {
     "default": 50.0
   },

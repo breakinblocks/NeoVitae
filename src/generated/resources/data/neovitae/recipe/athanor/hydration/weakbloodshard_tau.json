@@ -7,13 +7,15 @@
       "id": "neovitae:weak_blood_shard"
     }
   ],
-  "input": {
-    "item": "neovitae:strong_tau"
-  },
   "input_fluid": {
     "amount": 3200,
     "id": "neovitae:essentia_vitae_source"
   },
+  "inputs": [
+    {
+      "item": "neovitae:strong_tau"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/hydration"
   }

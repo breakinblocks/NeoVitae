@@ -7,13 +7,15 @@
       "id": "minecraft:exposed_cut_copper"
     }
   ],
-  "input": {
-    "item": "minecraft:cut_copper"
-  },
   "input_fluid": {
     "amount": 200,
     "id": "minecraft:water"
   },
+  "inputs": [
+    {
+      "item": "minecraft:cut_copper"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/hydration"
   }

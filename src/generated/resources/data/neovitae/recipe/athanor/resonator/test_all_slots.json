@@ -1,0 +1,67 @@
+{
+  "type": "neovitae:athanor",
+  "chance_outputs": [
+    {
+      "chance": 0.25,
+      "item": {
+        "count": 1,
+        "id": "minecraft:elytra"
+      }
+    },
+    {
+      "chance": 0.1,
+      "item": {
+        "count": 1,
+        "id": "minecraft:totem_of_undying"
+      }
+    }
+  ],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "minecraft:nether_star"
+    },
+    {
+      "count": 1,
+      "id": "minecraft:beacon"
+    }
+  ],
+  "input_fluid": {
+    "amount": 8000,
+    "id": "neovitae:essentia_vitae_source"
+  },
+  "inputs": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
+    },
+    {
+      "item": "minecraft:lapis_lazuli"
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:quartz"
+    }
+  ],
+  "output_fluid": {
+    "amount": 2000,
+    "id": "minecraft:lava"
+  },
+  "spiritus_costs": {
+    "corrosive": 30.0,
+    "default": 75.0,
+    "destructive": 20.0,
+    "steadfast": 15.0,
+    "vengeful": 10.0
+  },
+  "tool": {
+    "tag": "neovitae:athanor_tool/resonator"
+  }
+}

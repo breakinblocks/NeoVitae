@@ -7,13 +7,15 @@
       "id": "minecraft:green_concrete"
     }
   ],
-  "input": {
-    "item": "minecraft:green_concrete_powder"
-  },
   "input_fluid": {
     "amount": 200,
     "id": "minecraft:water"
   },
+  "inputs": [
+    {
+      "item": "minecraft:green_concrete_powder"
+    }
+  ],
   "tool": {
     "tag": "neovitae:athanor_tool/hydration"
   }

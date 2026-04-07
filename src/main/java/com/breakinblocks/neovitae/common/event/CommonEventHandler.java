@@ -38,9 +38,12 @@ import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
+import com.breakinblocks.neovitae.util.ChatUtil;
+import com.breakinblocks.neovitae.will.SpiritusHelper;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.HashMap;
@@ -224,9 +227,20 @@ public class CommonEventHandler {
 
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
-        if (event.getItemStack().has(NVDataComponents.BLOOD_MENDING.get())) {
+        ItemStack stack = event.getItemStack();
+        if (stack.has(NVDataComponents.BLOOD_MENDING.get())) {
             event.getToolTip().add(Component.translatable("tooltip.neovitae.blood_mending")
                     .withStyle(ChatFormatting.DARK_RED));
+        }
+        if (SpiritusHelper.hasSpiritus(stack) && SpiritusHelper.isRechargeable(stack)) {
+            SpiritusType type = SpiritusHelper.getCurrentType(stack);
+            double amount = SpiritusHelper.getWill(stack, type);
+            double max = SpiritusHelper.resolveMaxWill(stack);
+            event.getToolTip().add(Component.translatable("tooltip.neovitae.spiritus_stored",
+                    ChatUtil.DECIMAL_FORMAT.format(amount), ChatUtil.DECIMAL_FORMAT.format(max))
+                    .withStyle(ChatFormatting.GRAY));
+            event.getToolTip().add(Component.translatable("tooltip.neovitae.current_type." + type.getSerializedName())
+                    .withStyle(ChatFormatting.GRAY));
         }
     }
 

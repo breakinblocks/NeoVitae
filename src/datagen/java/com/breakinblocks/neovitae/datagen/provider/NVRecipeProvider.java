@@ -32,6 +32,7 @@ import com.breakinblocks.neovitae.datagen.builder.TabulaVitaeRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.AthanorRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.AthanorPotionRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.AltarRecipeBuilder;
+import com.breakinblocks.neovitae.datagen.builder.recipe.ForgeSpiritusInfusionRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.ForgeTransformRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.ForgeUpgradeRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.HellfireForgeRecipeBuilder;
@@ -1867,6 +1868,13 @@ public class NVRecipeProvider extends RecipeProvider {
                 .drain(400)
                 .unlockedBy("has_reinforced_slate", has(NVItems.SLATE_REINFORCED.get()))
                 .save(output, NeoVitae.rl("blood_mending"));
+
+        ForgeSpiritusInfusionRecipeBuilder.build()
+                .gemInput(NVTags.Items.SPIRITUS_GEM)
+                .minWill(1)
+                .drain(0)
+                .unlockedBy("has_spiritus_gem", has(NVTags.Items.SPIRITUS_GEM))
+                .save(output, NeoVitae.rl("spiritus_infusion"));
     }
 
     private void addAlchemyArrayRecipes(RecipeOutput output) {

@@ -19,7 +19,7 @@ public class SpiritusCategory extends CategoryProvider {
         return new String[]{
                 "_____________a_____________",
                 "___b___c_y_j_l_m_n_________",
-                "___d___o___k_______________",
+                "___d_z_o___k_______________",
                 "___e___p___________________",
                 "___f___q___x_______________",
                 "___g_i_t_u_v_w_____________",
@@ -151,6 +151,11 @@ public class SpiritusCategory extends CategoryProvider {
         bloodMending.withParent(this.parent(hellfireForge));
         bloodMending.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/hellfire_forge"));
         bloodMending.hideWhileLocked(false);
+
+        var spiritusInfusion = this.add(new SpiritusInfusionEntry(this).generate('z'));
+        spiritusInfusion.withParent(this.parent(spiritusGems));
+        spiritusInfusion.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/spiritus_gems"));
+        spiritusInfusion.hideWhileLocked(false);
     }
 
     @Override

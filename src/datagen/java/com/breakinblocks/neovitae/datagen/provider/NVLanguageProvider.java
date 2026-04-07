@@ -255,6 +255,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("tooltip.neovitae.crystal_catalyst.desc", "Right-click a Spiritus Crystal to accelerate its growth");
         add("tooltip.neovitae.crystal_catalyst.aspect", "Aspect: %s");
         add("tooltip.neovitae.blood_mending", "Enchanted with Blood Mending");
+        add("tooltip.neovitae.spiritus_stored", "Spiritus: %s / %s");
 
         // Will Type Names
         add("will.neovitae.default", "Raw");

@@ -45,6 +45,7 @@ import com.breakinblocks.neovitae.common.recipe.flask.FlaskEffectRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskEffectTransformRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
+import com.breakinblocks.neovitae.common.recipe.forge.ForgeSpiritusInfusionRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeTransformRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeUpgradeRecipe;
 import com.breakinblocks.neovitae.common.tag.NVTags;
@@ -152,6 +153,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         List<ForgeRecipe> upgradeRecipes = allForgeRecipes.stream()
                 .filter(r -> r instanceof ForgeUpgradeRecipe
                         || r instanceof ForgeTransformRecipe
+                        || r instanceof ForgeSpiritusInfusionRecipe
                         || r.getOutput().is(NVTags.Items.SPIRITUS_GEM))
                 .toList();
         List<ForgeRecipe> forgeRecipes = allForgeRecipes.stream()

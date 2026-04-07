@@ -12,7 +12,6 @@ public class PlayerSpiritusHandler {
         inventory.addAll(player.getInventory().items);
         inventory.addAll(player.getInventory().armor);
         inventory.addAll(player.getInventory().offhand);
-
         return inventory;
     }
 
@@ -22,11 +21,8 @@ public class PlayerSpiritusHandler {
 
         for (ItemStack stack : inventory) {
             if (stack.isEmpty()) continue;
-
-            if (stack.getItem() instanceof ISpiritus will && will.getType(stack) == type) {
-                souls += will.getWill(type, stack);
-            } else if (stack.getItem() instanceof ISpiritusGem gem) {
-                souls += gem.getWill(type, stack);
+            if (SpiritusHelper.hasSpiritus(stack)) {
+                souls += SpiritusHelper.getWill(stack, type);
             }
         }
 
@@ -51,19 +47,18 @@ public class PlayerSpiritusHandler {
     public static boolean isSpiritusFull(SpiritusType type, Player player) {
         NonNullList<ItemStack> inventory = getAllInventories(player);
 
-        boolean hasGem = false;
+        boolean hasRechargeable = false;
         for (ItemStack stack : inventory) {
             if (stack.isEmpty()) continue;
-
-            if (stack.getItem() instanceof ISpiritusGem gem) {
-                hasGem = true;
-                if (gem.getWill(type, stack) < gem.getMaxWill(type, stack)) {
+            if (SpiritusHelper.isRechargeable(stack)) {
+                hasRechargeable = true;
+                if (SpiritusHelper.getWill(stack, type) < SpiritusHelper.resolveMaxWill(stack, type)) {
                     return false;
                 }
             }
         }
 
-        return hasGem;
+        return hasRechargeable;
     }
 
     public static double consumeSpiritus(SpiritusType type, Player player, double amount) {
@@ -79,35 +74,27 @@ public class PlayerSpiritusHandler {
             if (consumed >= amount) break;
 
             ItemStack stack = list.get(i);
-            if (stack.isEmpty()) continue;
+            if (stack.isEmpty() || !SpiritusHelper.hasSpiritus(stack)) continue;
 
-            if (stack.getItem() instanceof ISpiritus will && will.getType(stack) == type) {
-                consumed += will.drainWill(type, stack, amount - consumed);
-                if (will.getWill(type, stack) <= 0) {
-                    list.set(i, ItemStack.EMPTY);
-                }
-            } else if (stack.getItem() instanceof ISpiritusGem gem) {
-                consumed += gem.drainWill(type, stack, amount - consumed, true);
+            consumed += SpiritusHelper.drainWill(stack, type, amount - consumed, true);
+            if (SpiritusHelper.getWill(stack, type) <= 0 && !SpiritusHelper.isRechargeable(stack)) {
+                list.set(i, ItemStack.EMPTY);
             }
         }
         return consumed;
     }
 
     public static ItemStack addSpiritus(Player player, ItemStack willStack) {
-        if (willStack.isEmpty()) {
-            return ItemStack.EMPTY;
-        }
+        if (willStack.isEmpty()) return ItemStack.EMPTY;
 
         NonNullList<ItemStack> inventory = getAllInventories(player);
 
         for (ItemStack stack : inventory) {
-            if (stack.isEmpty()) continue;
+            if (stack.isEmpty() || !SpiritusHelper.isRechargeable(stack)) continue;
 
             if (stack.getItem() instanceof ISpiritusGem gem) {
                 ItemStack newStack = gem.fillSpiritusGem(stack, willStack);
-                if (newStack.isEmpty()) {
-                    return ItemStack.EMPTY;
-                }
+                if (newStack.isEmpty()) return ItemStack.EMPTY;
                 willStack = newStack;
             }
         }
@@ -125,13 +112,10 @@ public class PlayerSpiritusHandler {
 
         for (ItemStack stack : inventory) {
             if (stack.isEmpty() || stack.equals(ignored)) continue;
+            if (!SpiritusHelper.isRechargeable(stack)) continue;
 
-            if (stack.getItem() instanceof ISpiritusGem gem) {
-                remaining -= gem.fillWill(type, stack, remaining, true);
-                if (remaining <= 0) {
-                    break;
-                }
-            }
+            remaining -= SpiritusHelper.fillWill(stack, type, remaining, true);
+            if (remaining <= 0) break;
         }
 
         return amount - remaining;

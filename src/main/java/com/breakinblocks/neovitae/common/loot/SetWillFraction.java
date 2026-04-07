@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.will.ISpiritusGem;
+import com.breakinblocks.neovitae.will.SpiritusHelper;
 
 import java.util.List;
 
@@ -43,10 +44,10 @@ public class SetWillFraction extends LootItemConditionalFunction {
 
     @Override
     protected ItemStack run(ItemStack stack, LootContext context) {
-        if (stack.getItem() instanceof ISpiritusGem gem) {
-            int maxWill = gem.getMaxWill(SpiritusType.DEFAULT, stack);
+        if (SpiritusHelper.isRechargeable(stack)) {
+            double maxWill = SpiritusHelper.resolveMaxWill(stack, SpiritusType.DEFAULT);
             float fraction = 1.0F - fractionRange.getFloat(context);
-            gem.setWill(SpiritusType.DEFAULT, stack, maxWill * fraction);
+            SpiritusHelper.setWill(stack, SpiritusType.DEFAULT, maxWill * fraction);
         } else {
             LOGGER.warn("Couldn't set will fraction of loot item {}", stack);
         }

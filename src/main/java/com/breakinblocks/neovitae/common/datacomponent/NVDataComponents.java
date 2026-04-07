@@ -98,6 +98,8 @@ public class NVDataComponents {
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> BLOOD_MENDING = DATA_COMPONENTS.registerComponentType("blood_mending", builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Double>> SPIRITUS_MAX = DATA_COMPONENTS.registerComponentType("will_max", builder -> builder.persistent(Codec.DOUBLE).networkSynchronized(ByteBufCodecs.DOUBLE));
+
     public static void register(IEventBus modBus) {
         DATA_COMPONENTS.register(modBus);
     }

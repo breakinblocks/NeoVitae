@@ -1,0 +1,51 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "spiritus",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "spiritus/spiritus_gems"
+  },
+  "description": "book.neovitae.guide.spiritus.spiritus_infusion.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "neovitae:spiritus_gem_common"
+  },
+  "name": "book.neovitae.guide.spiritus.spiritus_infusion.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.spiritus_infusion.intro.text",
+      "title": "book.neovitae.guide.spiritus.spiritus_infusion.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.spiritus_infusion.usage.text",
+      "title": "book.neovitae.guide.spiritus.spiritus_infusion.usage.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "spiritus/spiritus_gems",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 25,
+  "x": -8,
+  "y": -2
+}

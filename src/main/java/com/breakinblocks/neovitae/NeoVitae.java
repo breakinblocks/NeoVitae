@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
@@ -116,6 +117,9 @@ public class NeoVitae {
 
         modBus.addListener(this::commonSetup);
         modBus.addListener(NVPayloads::register);
+        if (net.neoforged.fml.loading.FMLEnvironment.dist == Dist.CLIENT) {
+            modBus.addListener(com.breakinblocks.neovitae.client.render.item.SpiritusBarDecorator::registerAll);
+        }
         com.breakinblocks.neovitae.common.event.NVMissingMappings.register(modBus);
         NeoForge.EVENT_BUS.addListener(NVCommands::register);
     }

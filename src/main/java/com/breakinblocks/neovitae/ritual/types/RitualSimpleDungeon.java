@@ -71,6 +71,8 @@ public class RitualSimpleDungeon extends DungeonRitualBase {
 
         LOGGER.info("Dungeon generated. Player spawn: {}, Portal: {}", playerSpawnPos, portalPos);
 
+        storeControllerPosition(masterRitualStone, dungeonControllerPos);
+
         // Calculate positions for portal pillars
         BlockPos pillarPos = masterPos.above(2);  // Above the rune column
         BlockPos overworldPlayerPos = masterPos.relative(masterRitualStone.getDirection(), 2);

@@ -12,7 +12,9 @@ import com.breakinblocks.neovitae.util.helper.BlockWithItemHolder;
 import com.breakinblocks.neovitae.util.helper.BlockWithItemRegister;
 
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class DungeonBlocks {
@@ -169,6 +171,18 @@ public class DungeonBlocks {
 
     private static BlockWithItemHolder<SlabBlock, BlockItem> registerSlab(String name) {
         return REG.register(name, () -> new SlabBlock(DUNGEON_STONE_PROPS));
+    }
+
+    private static Set<Block> dungeonBlockSet;
+
+    public static boolean isDungeonBlock(Block block) {
+        if (dungeonBlockSet == null) {
+            dungeonBlockSet = new HashSet<>();
+            for (var entry : BLOCKS.getEntries()) {
+                dungeonBlockSet.add(entry.get());
+            }
+        }
+        return dungeonBlockSet.contains(block);
     }
 
     public static void register(IEventBus modBus) {

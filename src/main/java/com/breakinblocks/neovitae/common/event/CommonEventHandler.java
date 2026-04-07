@@ -13,15 +13,25 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayer;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import com.breakinblocks.neovitae.NeoVitae;
+import net.minecraft.core.BlockPos;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
+import com.breakinblocks.neovitae.common.blockentity.DungeonControllerBlockEntity;
+import com.breakinblocks.neovitae.common.dataattachment.DungeonExitData;
+import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
+import com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 
 import java.util.HashMap;
@@ -116,6 +126,44 @@ public class CommonEventHandler {
             double motionY = bounceMap.remove(player.getUUID());
             player.setDeltaMovement(player.getDeltaMovement().multiply(1, 0, 1).add(0, motionY, 0));
         }
+
+        if (player instanceof ServerPlayer serverPlayer
+                && DungeonDimensionHelper.isDungeonDimension(player.level())) {
+            if (player.getY() < 10) {
+                bootPlayerFromDungeon(serverPlayer);
+            } else if (player.tickCount % 20 == 0) {
+                DungeonExitData exitData = serverPlayer.getData(NVDataAttachments.DUNGEON_EXIT);
+                if (exitData.controllerPos().isPresent()) {
+                    BlockPos ctrlPos = exitData.controllerPos().get();
+                    if (player.level().getBlockEntity(ctrlPos) instanceof DungeonControllerBlockEntity controller) {
+                        if (!controller.getDungeonSynthesizer().isBlockInDescriptor(player.blockPosition())) {
+                            bootPlayerFromDungeon(serverPlayer);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBlockBreak(BlockEvent.BreakEvent event) {
+        if (event.getLevel() instanceof Level level && DungeonDimensionHelper.isDungeonDimension(level)) {
+            Block block = event.getState().getBlock();
+            if (DungeonBlocks.isDungeonBlock(block)
+                    || block == NVBlocks.MASTER_RITUAL_STONE.block().get()
+                    || block == NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().get()) {
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
+        if (event.getLevel() instanceof Level level && DungeonDimensionHelper.isDungeonDimension(level)) {
+            if (DungeonBlocks.isDungeonBlock(event.getPlacedBlock().getBlock())) {
+                event.setCanceled(true);
+            }
+        }
     }
 
     @SubscribeEvent
@@ -126,6 +174,19 @@ public class CommonEventHandler {
     @SubscribeEvent
     public static void onEffectExpired(MobEffectEvent.Expired event) {
         handleEffectRemoval(event.getEntity(), event.getEffectInstance());
+    }
+
+    private static void bootPlayerFromDungeon(ServerPlayer serverPlayer) {
+        DungeonExitData exitData = serverPlayer.getData(NVDataAttachments.DUNGEON_EXIT);
+        if (exitData.isValid()) {
+            DungeonDimensionHelper.teleportFromDungeon(serverPlayer, exitData.getExitPosOrNull(), exitData.getExitDimensionOrNull());
+        } else {
+            BlockPos spawnPos = serverPlayer.getRespawnPosition();
+            if (spawnPos == null) {
+                spawnPos = serverPlayer.server.overworld().getSharedSpawnPos();
+            }
+            DungeonDimensionHelper.teleportToOverworld(serverPlayer, spawnPos);
+        }
     }
 
     private static void handleEffectRemoval(LivingEntity entity, MobEffectInstance instance) {

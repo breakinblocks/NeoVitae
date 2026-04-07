@@ -16,12 +16,13 @@ import java.util.Optional;
  */
 public record DungeonExitData(
         Optional<BlockPos> exitPos,
-        Optional<ResourceKey<Level>> exitDimension
+        Optional<ResourceKey<Level>> exitDimension,
+        Optional<BlockPos> controllerPos
 ) {
     /**
      * Empty instance representing no stored exit data.
      */
-    public static final DungeonExitData EMPTY = new DungeonExitData(Optional.empty(), Optional.empty());
+    public static final DungeonExitData EMPTY = new DungeonExitData(Optional.empty(), Optional.empty(), Optional.empty());
 
     /**
      * Codec for serialization.
@@ -29,7 +30,8 @@ public record DungeonExitData(
     public static final Codec<DungeonExitData> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     BlockPos.CODEC.optionalFieldOf("exitPos").forGetter(DungeonExitData::exitPos),
-                    ResourceKey.codec(Registries.DIMENSION).optionalFieldOf("exitDimension").forGetter(DungeonExitData::exitDimension)
+                    ResourceKey.codec(Registries.DIMENSION).optionalFieldOf("exitDimension").forGetter(DungeonExitData::exitDimension),
+                    BlockPos.CODEC.optionalFieldOf("controllerPos").forGetter(DungeonExitData::controllerPos)
             ).apply(instance, DungeonExitData::new)
     );
 
@@ -37,7 +39,7 @@ public record DungeonExitData(
      * Creates a new DungeonExitData with the given position and dimension.
      */
     public static DungeonExitData of(BlockPos pos, ResourceKey<Level> dimension) {
-        return new DungeonExitData(Optional.of(pos), Optional.of(dimension));
+        return new DungeonExitData(Optional.of(pos), Optional.of(dimension), Optional.empty());
     }
 
     /**
@@ -45,6 +47,13 @@ public record DungeonExitData(
      */
     public static DungeonExitData of(Level level, BlockPos pos) {
         return of(pos, level.dimension());
+    }
+
+    /**
+     * Returns a copy with the controller position set.
+     */
+    public DungeonExitData withControllerPos(BlockPos pos) {
+        return new DungeonExitData(exitPos, exitDimension, Optional.of(pos));
     }
 
     /**

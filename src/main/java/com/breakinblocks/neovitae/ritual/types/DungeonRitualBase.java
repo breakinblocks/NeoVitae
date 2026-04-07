@@ -44,6 +44,15 @@ public abstract class DungeonRitualBase extends Ritual {
         player.setData(NVDataAttachments.DUNGEON_EXIT.get(), exitData);
     }
 
+    protected void storeControllerPosition(IMasterRitualStone masterRitualStone, BlockPos controllerPos) {
+        Level world = masterRitualStone.getWorldObj();
+        Player player = world.getPlayerByUUID(masterRitualStone.getOwner());
+        if (player != null) {
+            DungeonExitData exitData = player.getData(NVDataAttachments.DUNGEON_EXIT.get());
+            player.setData(NVDataAttachments.DUNGEON_EXIT.get(), exitData.withControllerPos(controllerPos));
+        }
+    }
+
     protected void performRitualCleanup(IMasterRitualStone masterRitualStone, Level world) {
         BlockPos masterPos = masterRitualStone.getMasterBlockPos();
         Direction direction = masterRitualStone.getDirection();

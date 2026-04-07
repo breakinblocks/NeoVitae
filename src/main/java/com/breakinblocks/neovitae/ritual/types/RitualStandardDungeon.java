@@ -71,6 +71,8 @@ public class RitualStandardDungeon extends DungeonRitualBase {
 
         LOGGER.info("Dungeon generated. Player spawn: {}, Portal: {}", playerSpawnPos, portalPos);
 
+        storeControllerPosition(masterRitualStone, dungeonControllerPos);
+
         // Calculate positions - pillar is 4 blocks up (same as 1.20.1)
         // This works because cleanup happens first, converting the rune at (0,4,0) to smooth stone
         BlockPos pillarPos = masterPos.relative(Direction.UP, 4);

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "s": {
+      "item": "neovitae:dungeon_brick1_v"
+    }
+  },
+  "pattern": [
+    "sss"
+  ],
+  "result": {
+    "count": 6,
+    "id": "neovitae:dungeon_brick_slab_v"
+  }
+}

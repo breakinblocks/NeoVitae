@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "neovitae:dungeon_brick1_c"
+  },
+  "result": {
+    "count": 1,
+    "id": "neovitae:dungeon_brick_stairs_c"
+  }
+}

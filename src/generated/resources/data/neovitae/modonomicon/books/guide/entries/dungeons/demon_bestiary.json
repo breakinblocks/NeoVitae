@@ -16,108 +16,163 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.demon_bestiary.cruoris.text",
-      "title": "book.neovitae.guide.dungeons.demon_bestiary.cruoris.title",
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.intro.text",
+      "title": "book.neovitae.guide.dungeons.demon_bestiary.intro.title",
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:entity",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.demon_bestiary.pestis.text",
-      "title": "book.neovitae.guide.dungeons.demon_bestiary.pestis.title",
-      "use_markdown_in_title": false
+      "default_rotation": -45.0,
+      "entity_id": "neovitae:slime_vitae",
+      "name": "Slime of Vitae",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 0.4,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.slime_vitae_entity.text"
     },
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:entity",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.demon_bestiary.rancoris.text",
-      "title": "book.neovitae.guide.dungeons.demon_bestiary.rancoris.title",
-      "use_markdown_in_title": false
+      "default_rotation": -45.0,
+      "entity_id": "neovitae:daemonium_cruoris",
+      "name": "Daemonium Cruoris",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 0.5,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.cruoris_entity.text"
     },
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:entity",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.demon_bestiary.animaris.text",
-      "title": "book.neovitae.guide.dungeons.demon_bestiary.animaris.title",
-      "use_markdown_in_title": false
+      "default_rotation": -45.0,
+      "entity_id": "neovitae:daemonium_pestis",
+      "name": "Daemonium Pestis",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 0.5,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.pestis_entity.text"
     },
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:entity",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.demon_bestiary.voraxis.text",
-      "title": "book.neovitae.guide.dungeons.demon_bestiary.voraxis.title",
-      "use_markdown_in_title": false
+      "default_rotation": -45.0,
+      "entity_id": "neovitae:daemonium_rancoris",
+      "name": "Daemonium Rancoris",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 0.4,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.rancoris_entity.text"
     },
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:entity",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.demon_bestiary.corrodis.text",
-      "title": "book.neovitae.guide.dungeons.demon_bestiary.corrodis.title",
-      "use_markdown_in_title": false
+      "default_rotation": -45.0,
+      "entity_id": "neovitae:daemonium_animaris",
+      "name": "Daemonium Animaris",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 0.6,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.animaris_entity.text"
     },
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:entity",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.demon_bestiary.fervidis.text",
-      "title": "book.neovitae.guide.dungeons.demon_bestiary.fervidis.title",
-      "use_markdown_in_title": false
+      "default_rotation": -45.0,
+      "entity_id": "neovitae:daemonium_voraxis",
+      "name": "Daemonium Voraxis",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 0.4,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.voraxis_entity.text"
     },
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:entity",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.demon_bestiary.doloris.text",
-      "title": "book.neovitae.guide.dungeons.demon_bestiary.doloris.title",
-      "use_markdown_in_title": false
+      "default_rotation": -45.0,
+      "entity_id": "neovitae:daemonium_corrodis",
+      "name": "Daemonium Corrodis",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 0.35,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.corrodis_entity.text"
     },
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:entity",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.demon_bestiary.ignis.text",
-      "title": "book.neovitae.guide.dungeons.demon_bestiary.ignis.title",
-      "use_markdown_in_title": false
+      "default_rotation": -45.0,
+      "entity_id": "neovitae:daemonium_ignis",
+      "name": "Daemonium Ignis",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 0.3,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.ignis_entity.text"
     },
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:entity",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.demon_bestiary.glaciaris.text",
-      "title": "book.neovitae.guide.dungeons.demon_bestiary.glaciaris.title",
-      "use_markdown_in_title": false
+      "default_rotation": -45.0,
+      "entity_id": "neovitae:daemonium_fervidis",
+      "name": "Daemonium Fervidis",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 0.3,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.fervidis_entity.text"
+    },
+    {
+      "type": "modonomicon:entity",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "default_rotation": -45.0,
+      "entity_id": "neovitae:daemonium_doloris",
+      "name": "Daemonium Doloris",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 0.3,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.doloris_entity.text"
+    },
+    {
+      "type": "modonomicon:entity",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "default_rotation": -45.0,
+      "entity_id": "neovitae:daemonium_glaciaris",
+      "name": "Daemonium Glaciaris",
+      "offset": 0.0,
+      "rotate": true,
+      "scale": 0.25,
+      "text": "book.neovitae.guide.dungeons.demon_bestiary.glaciaris_entity.text"
     }
   ],
   "show_when_any_parent_unlocked": false,

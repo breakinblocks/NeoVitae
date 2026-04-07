@@ -1,0 +1,21 @@
+{
+  "type": "neovitae:athanor",
+  "chance_outputs": [],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "neovitae:dungeon_stone_v"
+    }
+  ],
+  "inputs": [
+    {
+      "item": "minecraft:smooth_stone"
+    },
+    {
+      "item": "neovitae:base_spiritus_soul_vengeful"
+    }
+  ],
+  "tool": {
+    "tag": "neovitae:athanor_tool/resonator"
+  }
+}

@@ -50,7 +50,7 @@ public class AthanorTests {
             if (arc == null) return;
 
             arc.athanorInv.setStackInSlot(AthanorBlockEntity.TOOL_SLOT, new ItemStack(NVItems.PRIMITIVE_FURNACE_CELL.get()));
-            arc.athanorInv.setStackInSlot(AthanorBlockEntity.INPUT_SLOT, new ItemStack(Items.RAW_IRON));
+            arc.athanorInv.setStackInSlot(AthanorBlockEntity.INPUT_START, new ItemStack(Items.RAW_IRON));
 
             helper.runAfterDelay(250, () -> {
                 ItemStack output = arc.athanorInv.getStackInSlot(AthanorBlockEntity.OUTPUT_SLOT);
@@ -73,7 +73,7 @@ public class AthanorTests {
         helper.runAfterDelay(1, () -> {
             if (arc == null) return;
 
-            arc.athanorInv.setStackInSlot(AthanorBlockEntity.INPUT_SLOT, new ItemStack(Items.RAW_IRON));
+            arc.athanorInv.setStackInSlot(AthanorBlockEntity.INPUT_START, new ItemStack(Items.RAW_IRON));
 
             helper.runAfterDelay(110, () -> {
                 ItemStack output = arc.athanorInv.getStackInSlot(AthanorBlockEntity.OUTPUT_SLOT);
@@ -114,10 +114,10 @@ public class AthanorTests {
             if (arc == null) return;
 
             arc.athanorInv.setStackInSlot(AthanorBlockEntity.TOOL_SLOT, new ItemStack(NVItems.PRIMITIVE_FURNACE_CELL.get()));
-            arc.athanorInv.setStackInSlot(AthanorBlockEntity.INPUT_SLOT, new ItemStack(Items.RAW_IRON));
+            arc.athanorInv.setStackInSlot(AthanorBlockEntity.INPUT_START, new ItemStack(Items.RAW_IRON));
 
             helper.runAfterDelay(250, () -> {
-                ItemStack input = arc.athanorInv.getStackInSlot(AthanorBlockEntity.INPUT_SLOT);
+                ItemStack input = arc.athanorInv.getStackInSlot(AthanorBlockEntity.INPUT_START);
                 if (!input.isEmpty()) {
                     helper.fail("Input should be consumed after smelting, has " + input);
                 }

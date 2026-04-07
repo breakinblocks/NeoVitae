@@ -32,6 +32,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         super(menu, playerInventory, title);
         this.imageWidth = 176;
         this.imageHeight = 187;
+        this.titleLabelX = 38;
         this.inventoryLabelY = this.imageHeight - 94;
     }
 

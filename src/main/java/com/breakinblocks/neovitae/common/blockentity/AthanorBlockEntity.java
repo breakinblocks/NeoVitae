@@ -55,10 +55,11 @@ import java.util.Optional;
 public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider {
 
     public static final int TOOL_SLOT = 0;
-    public static final int INPUT_SLOT = 1;
-    public static final int INPUT_BUCKET_SLOT = 2;
-    public static final int OUTPUT_BUCKET_SLOT = 3;
-    public static final int OUTPUT_SLOT = 4;
+    public static final int INPUT_START = 1;
+    public static final int NUM_INPUTS = 6;
+    public static final int INPUT_BUCKET_SLOT = INPUT_START + NUM_INPUTS; // 7
+    public static final int OUTPUT_BUCKET_SLOT = INPUT_BUCKET_SLOT + 1;   // 8
+    public static final int OUTPUT_SLOT = OUTPUT_BUCKET_SLOT + 1;         // 9
 
     public static final int NUM_OUTPUTS = 5;
 
@@ -97,12 +98,10 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return switch (slot) {
-                case TOOL_SLOT -> stack.is(NVTags.Items.ATHANOR_TOOL);
-                case INPUT_BUCKET_SLOT, OUTPUT_BUCKET_SLOT -> FluidUtil.getFluidHandler(stack).isPresent();
-                case INPUT_SLOT -> true;
-                default -> false;
-            };
+            if (slot == TOOL_SLOT) return stack.is(NVTags.Items.ATHANOR_TOOL);
+            if (slot >= INPUT_START && slot < INPUT_START + NUM_INPUTS) return true;
+            if (slot == INPUT_BUCKET_SLOT || slot == OUTPUT_BUCKET_SLOT) return FluidUtil.getFluidHandler(stack).isPresent();
+            return false;
         }
 
         @Override
@@ -141,7 +140,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         return switch (side) {
             case UP -> new RangedWrapper(tile.athanorInv, TOOL_SLOT, TOOL_SLOT + 1);
             case DOWN -> new RangedWrapper(tile.athanorInv, OUTPUT_SLOT, OUTPUT_SLOT + NUM_OUTPUTS);
-            default -> new RangedWrapper(tile.athanorInv, INPUT_SLOT, OUTPUT_BUCKET_SLOT + 1);
+            default -> new RangedWrapper(tile.athanorInv, INPUT_START, OUTPUT_BUCKET_SLOT + 1);
         };
     }
 
@@ -169,6 +168,9 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         super.loadAdditional(tag, registries);
         CompoundTag inv = tag.getCompound("arcinv");
         athanorInv.deserializeNBT(registries, inv);
+        if (athanorInv.getSlots() < OUTPUT_SLOT + NUM_OUTPUTS) {
+            athanorInv.setSize(OUTPUT_SLOT + NUM_OUTPUTS);
+        }
         inputTank.readFromNBT(registries, tag.getCompound("inputtank"));
         outputTank.readFromNBT(registries, tag.getCompound("outputtank"));
         progress = tag.getDouble("arcprogress");
@@ -259,12 +261,17 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
             athanorTile.snapshotChunkWill(level, blockPos);
         }
         ItemStack toolStack = athanorTile.athanorInv.getStackInSlot(TOOL_SLOT);
-        ItemStack inputStack = athanorTile.athanorInv.getStackInSlot(INPUT_SLOT);
+        ItemStack[] inputStacks = new ItemStack[NUM_INPUTS];
+        for (int s = 0; s < NUM_INPUTS; s++) {
+            inputStacks[s] = athanorTile.athanorInv.getStackInSlot(INPUT_START + s);
+        }
+        double rawWill = WorldSpiritusHandler.getCurrentWill(level, blockPos, SpiritusType.DEFAULT);
+        double willSpeedMod = 0.5 + 1.5 * Math.min(1.0, rawWill / 100.0);
         boolean didProgress = false;
         if (toolStack.is(NVTags.Items.ATHANOR_TOOL)) {
             if (toolStack.is(NVTags.Items.ATHANOR_FURNACE)) {
                 Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = Optional.empty();
-                SingleRecipeInput input = new SingleRecipeInput(inputStack);
+                SingleRecipeInput input = new SingleRecipeInput(inputStacks[0]);
                 if (toolStack.is(NVTags.Items.ARC_SMELTING)) {
                      recipe = athanorTile.quickSmelting.getRecipeFor(input, level);
                 } else if (toolStack.is(NVTags.Items.ARC_BLASTING)) {
@@ -273,7 +280,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
                     recipe = athanorTile.quickSmoking.getRecipeFor(input, level);
                 }
                 if (athanorTile.canCraftFurnace(recipe, itemOutputHandler)) {
-                    athanorTile.progress += DEFAULT_SPEED * ((double) recipe.get().value().getCookingTime() / 200D) * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D);
+                    athanorTile.progress += DEFAULT_SPEED * ((double) recipe.get().value().getCookingTime() / 200D) * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * willSpeedMod;
                     didProgress = true;
                     if (athanorTile.progress >= 1) {
                         athanorTile.craftFurnace(recipe.get().value(), input, itemOutputHandler);
@@ -281,7 +288,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
                     }
                 }
             } else {
-                AthanorRecipeInput input = new AthanorRecipeInput(toolStack, inputStack, athanorTile.inputTank.getFluidInTank(0));
+                AthanorRecipeInput input = new AthanorRecipeInput(toolStack, inputStacks, athanorTile.inputTank.getFluidInTank(0));
                 Optional<RecipeHolder<AthanorRecipe>> recipe = athanorTile.quickAthanor.getRecipeFor(input, level);
                 if (athanorTile.canCraft(recipe, itemOutputHandler)) {
                     AthanorRecipe athanorRecipe = recipe.get().value();
@@ -292,12 +299,12 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
                             athanorTile.willBlocked = true;
                         } else {
                             athanorTile.willBlocked = false;
-                            athanorTile.progress += DEFAULT_SPEED * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D);
+                            athanorTile.progress += DEFAULT_SPEED * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * willSpeedMod;
                             didProgress = true;
                         }
                     } else {
                         athanorTile.willBlocked = false;
-                        athanorTile.progress += DEFAULT_SPEED * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D);
+                        athanorTile.progress += DEFAULT_SPEED * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * willSpeedMod;
                         didProgress = true;
                     }
 
@@ -322,6 +329,10 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         if (didProgress && level.getGameTime() % 6 == 0) {
             ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x22AA22), blockPos.getX() + 0.5, blockPos.getY() + 1.1, blockPos.getZ() + 0.5, 2, 0.1, 0.0, 0.1, 0.02);
             ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_BUBBLE.get(), 0x22AA22), blockPos.getX() + 0.5, blockPos.getY() + 1.1, blockPos.getZ() + 0.5, 1, 0.15, 0.0, 0.15, 0);
+        }
+
+        if (didProgress && level.getGameTime() % 20 == 0 && level.random.nextFloat() < 0.05f) {
+            WorldSpiritusHandler.drainWillFromChunk(level, blockPos, SpiritusType.DEFAULT, 1.0);
         }
 
         if (athanorTile.willBlocked && level.getGameTime() % 10 == 0) {
@@ -391,7 +402,12 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
             level.playSound(null, worldPosition, NVSounds.ATHANOR_COMPLETE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
             ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x22AA22), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 6, 0.2, 0.2, 0.2, 0);
         }
-        athanorInv.getStackInSlot(INPUT_SLOT).shrink(1);
+        for (int s = INPUT_START; s < INPUT_START + NUM_INPUTS; s++) {
+            ItemStack inSlot = athanorInv.getStackInSlot(s);
+            if (!inSlot.isEmpty()) {
+                inSlot.shrink(1);
+            }
+        }
         progress = 0;
 
         ItemStack toolStack = athanorInv.getStackInSlot(TOOL_SLOT);

@@ -13,15 +13,23 @@ import com.breakinblocks.neovitae.common.blockentity.AthanorBlockEntity;
 
 public class AthanorMenu extends AbstractBlockEntityMenu<AthanorBlockEntity> {
 
-    private static final int TILE_SLOTS = 4 + AthanorBlockEntity.NUM_OUTPUTS;
+    private static final int TILE_SLOTS = 1 + AthanorBlockEntity.NUM_INPUTS + 2 + AthanorBlockEntity.NUM_OUTPUTS;
 
     public AthanorMenu(int containerId, Inventory playerInventory, AthanorBlockEntity tile) {
         super(NVMenus.ARC.get(), containerId, tile, TILE_SLOTS);
 
+        this.addSlot(new SlotItemHandler(AthanorBlockEntity.getItemHandler(tile, null), AthanorBlockEntity.TOOL_SLOT, 35, 55));
+
+        // 6 input slots in a 3x2 grid
+        for (int row = 0; row < 2; row++) {
+            for (int col = 0; col < 3; col++) {
+                int slotIdx = AthanorBlockEntity.INPUT_START + row * 3 + col;
+                this.addSlot(new SlotItemHandler(AthanorBlockEntity.getItemHandler(tile, null), slotIdx, 44 + col * 18, 14 + row * 18));
+            }
+        }
+
         this.addSlot(new SlotItemHandler(AthanorBlockEntity.getItemHandler(tile, null), AthanorBlockEntity.INPUT_BUCKET_SLOT, 8, 18));
         this.addSlot(new SlotItemHandler(AthanorBlockEntity.getItemHandler(tile, null), AthanorBlockEntity.OUTPUT_BUCKET_SLOT, 152, 90));
-        this.addSlot(new SlotItemHandler(AthanorBlockEntity.getItemHandler(tile, null), AthanorBlockEntity.TOOL_SLOT, 35, 54));
-        this.addSlot(new SlotItemHandler(AthanorBlockEntity.getItemHandler(tile, null), AthanorBlockEntity.INPUT_SLOT, 71, 18));
 
         for (int i = 0; i < AthanorBlockEntity.NUM_OUTPUTS; i++) {
             this.addSlot(new SlotItemHandler(AthanorBlockEntity.getItemHandler(tile, null), AthanorBlockEntity.OUTPUT_SLOT + i, 116, 18 + i * 18) {

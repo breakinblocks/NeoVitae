@@ -16,6 +16,7 @@ public class TrainerScreen extends AbstractGhostScreen<TrainerMenu> {
         super(menu, playerInventory, title);
         this.imageWidth = 176;
         this.imageHeight = 187;
+        this.titleLabelX = 38;
     }
 
     private static final Component allowTooltip = Component.translatable("trainer.neovitae.allow_others");

@@ -35,6 +35,7 @@ public class FilterScreen extends AbstractContainerScreen<FilterMenu> {
         super(menu, playerInventory, title);
         this.imageWidth = 176;
         this.imageHeight = 187;
+        this.titleLabelX = 38;
     }
 
     @Override

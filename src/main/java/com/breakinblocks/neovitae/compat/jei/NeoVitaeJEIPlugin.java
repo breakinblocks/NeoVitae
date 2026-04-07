@@ -86,6 +86,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NeoVitaeJEIPlugin.class);
     public static IJeiHelpers jeiHelper;
+    public static mezz.jei.api.runtime.IJeiRuntime jeiRuntime;
     private static final ResourceLocation ID = NeoVitae.rl("jei_plugin");
 
     @Override
@@ -234,6 +235,11 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
             scribeDyeRecipes.add(new RecipeHolder<>(NeoVitae.rl("arcane_scribe_dye_" + color.getSerializedName()), recipe));
         }
         registration.addRecipes(mezz.jei.api.constants.RecipeTypes.CRAFTING, scribeDyeRecipes);
+    }
+
+    @Override
+    public void onRuntimeAvailable(mezz.jei.api.runtime.IJeiRuntime runtime) {
+        jeiRuntime = runtime;
     }
 
     private List<FlaskCombinationJEIRecipe> createFlaskCombinationRecipes(List<FlaskRecipe> allFlaskRecipes) {

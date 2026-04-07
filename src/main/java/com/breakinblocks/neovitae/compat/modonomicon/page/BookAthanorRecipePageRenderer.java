@@ -40,8 +40,15 @@ public class BookAthanorRecipePageRenderer extends BookRecipePageRenderer<Athano
 
         recipeY += 8;
 
-        guiGraphics.blit(CRAFTING_TEXTURES, recipeX + 2, recipeY, 84, 198, 22, 22, 128, 256);
-        this.parentScreen.renderIngredient(guiGraphics, recipeX + 5, recipeY + 3, mouseX, mouseY, recipe.getInput());
+        java.util.List<net.minecraft.world.item.crafting.Ingredient> inputs = recipe.getInputs();
+        for (int idx = 0; idx < inputs.size() && idx < 6; idx++) {
+            int col = idx % 3;
+            int row = idx / 3;
+            int ix = recipeX + 2 + col * 20;
+            int iy = recipeY + row * 20;
+            guiGraphics.blit(CRAFTING_TEXTURES, ix, iy, 84, 198, 22, 22, 128, 256);
+            this.parentScreen.renderIngredient(guiGraphics, ix + 3, iy + 3, mouseX, mouseY, inputs.get(idx));
+        }
 
         guiGraphics.blit(CRAFTING_TEXTURES, recipeX + 2, recipeY + 26, 84, 198, 22, 22, 128, 256);
         this.parentScreen.renderIngredient(guiGraphics, recipeX + 5, recipeY + 29, mouseX, mouseY, recipe.getTool());

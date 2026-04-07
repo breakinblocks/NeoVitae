@@ -15,6 +15,7 @@ public class MasterRoutingNodeScreen extends AbstractContainerScreen<MasterRouti
         super(menu, playerInventory, title);
         this.imageWidth = 176;
         this.imageHeight = 121;
+        this.titleLabelX = 38;
         this.inventoryLabelY = 27;
     }
 

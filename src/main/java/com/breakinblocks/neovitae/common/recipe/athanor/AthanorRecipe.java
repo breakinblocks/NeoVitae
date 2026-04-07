@@ -28,6 +28,7 @@ import java.util.Optional;
 public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
 
     public static final String RECIPE_TYPE_NAME = "athanor";
+    public static final int MAX_INPUTS = 6;
 
     private static final StreamCodec<RegistryFriendlyByteBuf, Pair<ItemStack, Double>> CHANCE_PAIR_STREAM_CODEC = StreamCodec.composite(
             ItemStack.STREAM_CODEC, Pair::getFirst,
@@ -40,7 +41,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
 
     public static final MapCodec<AthanorRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
             Ingredient.CODEC.fieldOf("tool").forGetter(AthanorRecipe::getTool),
-            Ingredient.CODEC.fieldOf("input").forGetter(AthanorRecipe::getInput),
+            Ingredient.CODEC.listOf().fieldOf("inputs").forGetter(AthanorRecipe::getInputs),
             ItemStack.CODEC.listOf().fieldOf("guaranteed_outputs").forGetter(AthanorRecipe::getGuaranteedOutput),
             Codec.pair(ItemStack.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().fieldOf("chance_outputs").forGetter(AthanorRecipe::getChanceOutput),
             FluidStack.CODEC.optionalFieldOf("input_fluid").forGetter(AthanorRecipe::getInputFluid),
@@ -52,7 +53,11 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         @Override
         public AthanorRecipe decode(RegistryFriendlyByteBuf buf) {
             Ingredient tool = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
-            Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+            int inputCount = buf.readVarInt();
+            List<Ingredient> inputs = new ArrayList<>(inputCount);
+            for (int i = 0; i < inputCount; i++) {
+                inputs.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
+            }
             List<ItemStack> guaranteed = ItemStack.LIST_STREAM_CODEC.decode(buf);
             List<Pair<ItemStack, Double>> chanced = CHANCE_PAIR_STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buf);
             Optional<FluidStack> inFluid = FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional).decode(buf);
@@ -62,13 +67,16 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
             for (int i = 0; i < costSize; i++) {
                 costs.put(SpiritusType.STREAM_CODEC.decode(buf), buf.readDouble());
             }
-            return new AthanorRecipe(tool, input, guaranteed, chanced, inFluid, outFluid, costs);
+            return new AthanorRecipe(tool, inputs, guaranteed, chanced, inFluid, outFluid, costs);
         }
 
         @Override
         public void encode(RegistryFriendlyByteBuf buf, AthanorRecipe recipe) {
             Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.tool);
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.input);
+            buf.writeVarInt(recipe.inputs.size());
+            for (Ingredient input : recipe.inputs) {
+                Ingredient.CONTENTS_STREAM_CODEC.encode(buf, input);
+            }
             ItemStack.LIST_STREAM_CODEC.encode(buf, recipe.guaranteedOutput);
             CHANCE_PAIR_STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buf, recipe.chanceOutput);
             FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional).encode(buf, recipe.inputFluid);
@@ -82,7 +90,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
     };
 
     private final Ingredient tool;
-    private final Ingredient input;
+    private final List<Ingredient> inputs;
     private final List<ItemStack> guaranteedOutput;
     private final List<Pair<ItemStack, Double>> chanceOutput;
     private final Optional<FluidStack> inputFluid;
@@ -90,9 +98,9 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
     private final Map<SpiritusType, Double> spiritusCosts;
     private final List<Pair<ItemStack, Double>> allListed;
 
-    public AthanorRecipe(Ingredient tool, Ingredient input, List<ItemStack> guaranteedOutput, List<Pair<ItemStack, Double>> chanceOutput, Optional<FluidStack> inputFluid, Optional<FluidStack> outputStack, Map<SpiritusType, Double> spiritusCosts) {
+    public AthanorRecipe(Ingredient tool, List<Ingredient> inputs, List<ItemStack> guaranteedOutput, List<Pair<ItemStack, Double>> chanceOutput, Optional<FluidStack> inputFluid, Optional<FluidStack> outputStack, Map<SpiritusType, Double> spiritusCosts) {
         this.tool = tool;
-        this.input = input;
+        this.inputs = List.copyOf(inputs);
         this.guaranteedOutput = guaranteedOutput;
         this.chanceOutput = chanceOutput;
         this.inputFluid = inputFluid;
@@ -109,8 +117,8 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         return tool;
     }
 
-    public Ingredient getInput() {
-        return input;
+    public List<Ingredient> getInputs() {
+        return inputs;
     }
 
     public List<ItemStack> getGuaranteedOutput() {
@@ -142,19 +150,34 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         if (!tool.test(recipeInput.getItem(0))) {
             return false;
         }
-        if (!input.test(recipeInput.getItem(1))) {
-            return false;
-        }
         if (inputFluid.isPresent()) {
             if (!(inputFluid.get().is(recipeInput.getFluid().getFluidType()) && inputFluid.get().getAmount() <= recipeInput.getFluid().getAmount())) {
                 return false;
             }
+        }
+        return matchInputs(recipeInput);
+    }
+
+    private boolean matchInputs(AthanorRecipeInput recipeInput) {
+        boolean[] used = new boolean[MAX_INPUTS];
+        for (Ingredient ingredient : inputs) {
+            boolean found = false;
+            for (int slot = 0; slot < MAX_INPUTS; slot++) {
+                if (used[slot]) continue;
+                if (ingredient.test(recipeInput.getItem(1 + slot))) {
+                    used[slot] = true;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) return false;
         }
         return true;
     }
 
     private List<ItemStack> outputStacks = new ArrayList<>();
     private FluidStack outputFluidStack = FluidStack.EMPTY;
+
     @Override
     public ItemStack assemble(AthanorRecipeInput input, HolderLookup.Provider registries) {
         outputStacks.clear();

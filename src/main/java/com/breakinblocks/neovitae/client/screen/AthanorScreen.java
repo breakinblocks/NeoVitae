@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.client.screen;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -8,6 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.menu.AthanorMenu;
+import com.breakinblocks.neovitae.compat.jei.athanor.AthanorRecipeCategory;
 import com.breakinblocks.neovitae.util.helper.RenderHelper;
 
 import java.util.ArrayList;
@@ -18,27 +20,24 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
     private final ResourceLocation background = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "textures/gui/container/athanor_gui.png");
     private final ResourceLocation progress = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "container/athanor/progress");
     private final ResourceLocation gauge = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "container/athanor/gauge");
+    private static final ResourceLocation BARS_TEXTURE = NeoVitae.rl("textures/hud/bars.png");
 
-    private static final SpiritusType[] TYPES = SpiritusType.values();
-    private static final int[] TYPE_COLORS = {
-            0xFFAA3333, // DEFAULT - dark red
-            0xFF33AA33, // CORROSIVE - green
-            0xFFDD8822, // DESTRUCTIVE - orange
-            0xFF3355BB, // STEADFAST - blue
-            0xFFAA33CC  // VENGEFUL - purple
+    private static final SpiritusType[] ORDERED_TYPES = {
+            SpiritusType.DEFAULT, SpiritusType.CORROSIVE,
+            SpiritusType.STEADFAST, SpiritusType.DESTRUCTIVE, SpiritusType.VENGEFUL
     };
-    private static final String[] TYPE_NAMES = {"Raw", "Corrosive", "Destructive", "Steadfast", "Vengeful"};
+    private static final String[] TYPE_NAMES = {"Raw", "Corrosive", "Steadfast", "Destructive", "Vengeful"};
 
-    private static final int GAUGE_X = 50;
+    private static final int GAUGE_X = 35;
     private static final int GAUGE_Y = 76;
-    private static final int BAR_WIDTH = 40;
-    private static final int BAR_HEIGHT = 4;
-    private static final int BAR_SPACING = 6;
+    private static final int[] BAR_X_OFFSETS = {2, 0, 0, 0, 2};
+    private static final int[] BAR_WIDTHS = {52, 56, 58, 56, 52};
 
     public AthanorScreen(AthanorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         this.imageWidth = 176;
         this.imageHeight = 208;
+        this.titleLabelX = 38;
         this.inventoryLabelY = imageHeight - 94;
     }
 
@@ -71,45 +70,49 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
         guiGraphics.blitSprite(gauge, inputX, inputY, 16, 57);
         guiGraphics.blitSprite(gauge, outputX, outputY, 16, 57);
 
-        renderSpiritusGauge(guiGraphics, mouseX, mouseY);
+        renderSpiritusGauge(guiGraphics);
 
         this.renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
-    private void renderSpiritusGauge(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    private void renderSpiritusGauge(GuiGraphics guiGraphics) {
         Map<SpiritusType, Double> costs = menu.tile.getCurrentRecipeWillCost();
         int gx = leftPos + GAUGE_X;
         int gy = topPos + GAUGE_Y;
 
-        for (int i = 0; i < TYPES.length; i++) {
-            SpiritusType type = TYPES[i];
-            int barY = gy + i * BAR_SPACING;
+        for (int idx = 0; idx < ORDERED_TYPES.length; idx++) {
+            SpiritusType type = ORDERED_TYPES[idx];
+            int i = idx + 1;
+
             double current = menu.tile.getChunkWill(type);
             double max = menu.tile.getChunkWillMax(type);
             if (max <= 0) max = 100.0;
+            double ratio = Math.max(0, Math.min(1, current / max));
 
-            // Background (dark gray)
-            guiGraphics.fill(gx, barY, gx + BAR_WIDTH, barY + BAR_HEIGHT, 0xFF222222);
+            int fullBarWidth = BAR_WIDTHS[idx];
+            int barX = gx + BAR_X_OFFSETS[idx];
+            int barY = gy + 4 * i;
+            int barHeight = 2;
 
-            // Current fill
-            int fillWidth = (int) (BAR_WIDTH * Math.min(1.0, current / max));
+            // UV from bars.png texture (uses HUD formula for the color strip source)
+            int textureXOffset = (i > 3) ? (i - 3) : (3 - i);
+            int textureX = 2 * textureXOffset + 84;
+            int textureY = 4 * i + 220;
+
+            int fillWidth = (int) (fullBarWidth * ratio);
             if (fillWidth > 0) {
-                guiGraphics.fill(gx, barY, gx + fillWidth, barY + BAR_HEIGHT, TYPE_COLORS[i]);
+                guiGraphics.blit(BARS_TEXTURE, barX, barY, textureX, textureY, fillWidth, barHeight);
             }
 
-            // Required threshold marker if recipe has a cost for this type
             Double required = costs.get(type);
             if (required != null && required > 0) {
-                int requiredX = (int) (BAR_WIDTH * Math.min(1.0, required / max));
+                int requiredWidth = (int) (fullBarWidth * Math.min(1.0, required / max));
                 if (current < required) {
-                    guiGraphics.fill(gx + fillWidth, barY, gx + requiredX, barY + BAR_HEIGHT, 0x88FF2222);
+                    guiGraphics.fill(barX + fillWidth, barY, barX + requiredWidth, barY + barHeight, 0xAAFF2222);
                 }
-                guiGraphics.fill(gx + requiredX, barY - 1, gx + requiredX + 1, barY + BAR_HEIGHT + 1, 0xFFFFFFFF);
+                int markerX = barX + requiredWidth;
+                guiGraphics.fill(markerX, barY - 1, markerX + 1, barY + barHeight + 1, 0xFFFFFFFF);
             }
-
-            // Type initial label (left of bar)
-            String label = TYPE_NAMES[i].substring(0, 1);
-            guiGraphics.drawString(font, label, gx - 8, barY - 1, TYPE_COLORS[i] | 0xFF000000, true);
         }
     }
 
@@ -139,18 +142,43 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
             guiGraphics.renderComponentTooltip(this.font, tip, x, y);
         }
 
+        // Slot area tooltips when hovering empty slots
+        if (this.hoveredSlot != null && !this.hoveredSlot.hasItem()) {
+            int slotIdx = this.hoveredSlot.getSlotIndex();
+            if (slotIdx == 0) {
+                guiGraphics.renderTooltip(this.font, Component.literal("Tool").withStyle(ChatFormatting.GRAY), x, y);
+            } else if (slotIdx >= 1 && slotIdx <= 6) {
+                guiGraphics.renderTooltip(this.font, Component.literal("Input").withStyle(ChatFormatting.GRAY), x, y);
+            } else if (slotIdx == 7) {
+                guiGraphics.renderTooltip(this.font, Component.literal("Fluid Input").withStyle(ChatFormatting.GRAY), x, y);
+            } else if (slotIdx == 8) {
+                guiGraphics.renderTooltip(this.font, Component.literal("Fluid Output").withStyle(ChatFormatting.GRAY), x, y);
+            } else if (slotIdx >= 9 && slotIdx <= 13) {
+                guiGraphics.renderTooltip(this.font, Component.literal("Output").withStyle(ChatFormatting.GRAY), x, y);
+            }
+        }
+
+        // Progress arrow tooltip
+        if (isOverProgressArrow(x, y)) {
+            guiGraphics.renderTooltip(this.font, Component.literal("Show Recipes").withStyle(ChatFormatting.YELLOW), x, y);
+        }
+
         // Spiritus gauge tooltip
         Map<SpiritusType, Double> costs = menu.tile.getCurrentRecipeWillCost();
         int gx = leftPos + GAUGE_X;
         int gy = topPos + GAUGE_Y;
-        for (int i = 0; i < TYPES.length; i++) {
-            SpiritusType type = TYPES[i];
-            int barY = gy + i * BAR_SPACING;
-            if (x >= gx - 8 && x <= gx + BAR_WIDTH && y >= barY - 1 && y <= barY + BAR_HEIGHT + 1) {
+        for (int idx = 0; idx < ORDERED_TYPES.length; idx++) {
+            SpiritusType type = ORDERED_TYPES[idx];
+            int i = idx + 1;
+            int fullBarWidth = BAR_WIDTHS[idx];
+            int barX = gx + BAR_X_OFFSETS[idx];
+            int barY = gy + 4 * i;
+
+            if (x >= barX && x <= barX + fullBarWidth && y >= barY - 1 && y <= barY + 3) {
                 double current = menu.tile.getChunkWill(type);
                 double max = menu.tile.getChunkWillMax(type);
                 List<Component> tooltip = new ArrayList<>();
-                tooltip.add(Component.literal(TYPE_NAMES[i] + " Spiritus"));
+                tooltip.add(Component.literal(TYPE_NAMES[idx] + " Spiritus"));
                 tooltip.add(Component.literal(String.format("%.1f / %.1f", current, max)));
                 Double required = costs.get(type);
                 if (required != null && required > 0) {
@@ -163,6 +191,24 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
                 break;
             }
         }
+    }
+
+    private boolean isOverProgressArrow(double mouseX, double mouseY) {
+        int ax = leftPos + 63;
+        int ay = topPos + 47;
+        return mouseX >= ax && mouseX < ax + 38 && mouseY >= ay && mouseY < ay + 23;
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0 && isOverProgressArrow(mouseX, mouseY)) {
+            var runtime = com.breakinblocks.neovitae.compat.jei.NeoVitaeJEIPlugin.jeiRuntime;
+            if (runtime != null) {
+                runtime.getRecipesGui().showTypes(List.of(AthanorRecipeCategory.RECIPE_TYPE));
+                return true;
+            }
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override

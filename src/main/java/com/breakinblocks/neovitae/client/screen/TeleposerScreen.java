@@ -15,6 +15,7 @@ public class TeleposerScreen extends AbstractContainerScreen<TeleposerMenu> {
         super(menu, playerInventory, title);
         this.imageWidth = 176;
         this.imageHeight = 121;
+        this.titleLabelX = 38;
         this.inventoryLabelY = this.imageHeight - 94;
     }
 

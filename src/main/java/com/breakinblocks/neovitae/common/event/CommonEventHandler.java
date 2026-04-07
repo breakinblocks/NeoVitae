@@ -22,17 +22,26 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import net.minecraft.core.BlockPos;
+import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.blockentity.DungeonControllerBlockEntity;
 import com.breakinblocks.neovitae.common.dataattachment.DungeonExitData;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
+import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import com.breakinblocks.neovitae.common.item.BloodOrbItem;
+import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -211,5 +220,49 @@ public class CommonEventHandler {
             float modifier = (float) (1 - 0.2 * (1 + instance.getAmplifier()));
             event.setAmount(event.getAmount() * Math.max(0, modifier));
         }
+    }
+
+    @SubscribeEvent
+    public static void onItemTooltip(ItemTooltipEvent event) {
+        if (event.getItemStack().has(NVDataComponents.BLOOD_MENDING.get())) {
+            event.getToolTip().add(Component.translatable("tooltip.neovitae.blood_mending")
+                    .withStyle(ChatFormatting.DARK_RED));
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTickBloodMending(PlayerTickEvent.Post event) {
+        Player player = event.getEntity();
+        if (player.level().isClientSide || player.tickCount % 20 != 0) return;
+
+        int repairCost = NeoVitae.SERVER_CONFIG.BLOOD_MENDING_REPAIR_COST.get();
+
+        Binding orbBinding = findBoundOrb(player);
+        if (orbBinding == null || orbBinding.isEmpty()) return;
+
+        Anima anima = AnimaHelper.getAnima(orbBinding);
+        if (anima == null || anima.getCurrentEV() < repairCost) return;
+
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack stack = player.getItemBySlot(slot);
+            if (stack.isEmpty() || !stack.has(NVDataComponents.BLOOD_MENDING.get())) continue;
+            if (!stack.isDamaged()) continue;
+            if (stack.is(NVTags.Items.BLOOD_MENDING_BLACKLIST)) continue;
+            if (anima.getCurrentEV() < repairCost) break;
+
+            stack.setDamageValue(stack.getDamageValue() - 1);
+            anima.syphon(AnimaTicket.create(repairCost));
+        }
+    }
+
+    private static Binding findBoundOrb(Player player) {
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+            if (stack.getItem() instanceof BloodOrbItem) {
+                Binding binding = stack.getOrDefault(NVDataComponents.BINDING.get(), Binding.EMPTY);
+                if (!binding.isEmpty()) return binding;
+            }
+        }
+        return null;
     }
 }

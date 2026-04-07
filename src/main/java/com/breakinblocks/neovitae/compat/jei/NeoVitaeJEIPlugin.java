@@ -45,6 +45,7 @@ import com.breakinblocks.neovitae.common.recipe.flask.FlaskEffectRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskEffectTransformRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
+import com.breakinblocks.neovitae.common.recipe.forge.ForgeUpgradeRecipe;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
 import com.breakinblocks.neovitae.compat.jei.tabulavitae.TabulaVitaeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.altar.AraVitaeRecipeCategory;
@@ -56,6 +57,7 @@ import com.breakinblocks.neovitae.compat.jei.flask.FlaskCombinationJEIRecipe;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.bloodtank.BloodTankSubtypeInterpreter;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskSubtypeInterpreter;
+import com.breakinblocks.neovitae.compat.jei.forge.ForgeUpgradeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.forge.HellfireForgeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.imperfectritual.ImperfectRitualJEIRecipe;
 import com.breakinblocks.neovitae.compat.jei.imperfectritual.ImperfectRitualRecipeCategory;
@@ -106,6 +108,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         jeiHelper = registration.getJeiHelpers();
         registration.addRecipeCategories(new HellfireForgeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new ForgeUpgradeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new AraVitaeRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new AlchemyArrayCraftingCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new AlchemyArrayEffectCategory(registration.getJeiHelpers().getGuiHelper()));
@@ -121,6 +124,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()), HellfireForgeRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()), ForgeUpgradeRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.ARA_VITAE.block().get()), AraVitaeRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVItems.ARCANE_SCRIBE_TOOL.get()), AlchemyArrayCraftingCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVItems.ARCANE_SCRIBE_TOOL.get()), AlchemyArrayEffectCategory.RECIPE_TYPE);
@@ -138,12 +142,20 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         ClientLevel world = Objects.requireNonNull(Minecraft.getInstance().level);
 
-        List<ForgeRecipe> forgeRecipes = world.getRecipeManager()
+        List<ForgeRecipe> allForgeRecipes = world.getRecipeManager()
                 .getAllRecipesFor(NVRecipes.HELLFIRE_FORGE_TYPE.get())
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();
+        List<ForgeRecipe> forgeRecipes = allForgeRecipes.stream()
+                .filter(r -> !(r instanceof ForgeUpgradeRecipe))
+                .toList();
+        List<ForgeUpgradeRecipe> upgradeRecipes = allForgeRecipes.stream()
+                .filter(r -> r instanceof ForgeUpgradeRecipe)
+                .map(r -> (ForgeUpgradeRecipe) r)
+                .toList();
         registration.addRecipes(HellfireForgeRecipeCategory.RECIPE_TYPE, forgeRecipes);
+        registration.addRecipes(ForgeUpgradeRecipeCategory.RECIPE_TYPE, upgradeRecipes);
 
         List<com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe> altarRecipes = world.getRecipeManager()
                 .getAllRecipesFor(NVRecipes.ARA_VITAE_TYPE.get())

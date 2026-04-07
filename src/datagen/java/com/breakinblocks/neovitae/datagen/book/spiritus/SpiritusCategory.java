@@ -18,7 +18,7 @@ public class SpiritusCategory extends CategoryProvider {
     protected String[] generateEntryMap() {
         return new String[]{
                 "_____________a_____________",
-                "___b___c___j_l_m_n_________",
+                "___b___c_y_j_l_m_n_________",
                 "___d___o___k_______________",
                 "___e___p___________________",
                 "___f___q___x_______________",
@@ -146,6 +146,11 @@ public class SpiritusCategory extends CategoryProvider {
         upgrades.withParent(this.parent(routingNodes));
         upgrades.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/routing_nodes"));
         upgrades.hideWhileLocked(false);
+
+        var bloodMending = this.add(new BloodMendingEntry(this).generate('y'));
+        bloodMending.withParent(this.parent(hellfireForge));
+        bloodMending.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/hellfire_forge"));
+        bloodMending.hideWhileLocked(false);
     }
 
     @Override

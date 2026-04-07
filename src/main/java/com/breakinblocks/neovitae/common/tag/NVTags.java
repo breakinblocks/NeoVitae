@@ -16,6 +16,7 @@ import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 public class NVTags {
     public static class Items {
+        public static final TagKey<Item> BLOOD_MENDING_BLACKLIST = tag(bm("blood_mending_blacklist"));
         public static final TagKey<Item> SPIRITUS_GEM = tag(bm("spiritus_gems"));
         public static final TagKey<Item> SPIRITUS_CRYSTALS = tag(bm("crystals/demon"));
 

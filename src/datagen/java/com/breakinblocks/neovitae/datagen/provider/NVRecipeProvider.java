@@ -32,6 +32,7 @@ import com.breakinblocks.neovitae.datagen.builder.TabulaVitaeRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.AthanorRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.AthanorPotionRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.AltarRecipeBuilder;
+import com.breakinblocks.neovitae.datagen.builder.recipe.ForgeUpgradeRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.HellfireForgeRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.TieredRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.MeteorRecipeBuilder;
@@ -67,6 +68,7 @@ public class NVRecipeProvider extends RecipeProvider {
         addTieredRecipes(output);
         addAraVitaeRecipes(output);
         addHellfireForgeRecipes(output);
+        addForgeUpgradeRecipes(output);
         addAlchemyArrayRecipes(output);
         addTabulaVitaeRecipes(output);
         addAthanorRecipes(output);
@@ -1859,6 +1861,17 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('s', net.minecraft.tags.ItemTags.STONE_CRAFTING_MATERIALS)
                 .unlockedBy("has_tier1_rune", has(tier1Rune))
                 .save(output);
+    }
+
+    private void addForgeUpgradeRecipes(RecipeOutput output) {
+        ForgeUpgradeRecipeBuilder.build()
+                .catalyst(NVItems.SLATE_REINFORCED.get())
+                .catalyst(Items.LAPIS_LAZULI)
+                .catalyst(Items.NETHER_WART)
+                .minWill(200)
+                .drain(400)
+                .unlockedBy("has_reinforced_slate", has(NVItems.SLATE_REINFORCED.get()))
+                .save(output, NeoVitae.rl("blood_mending"));
     }
 
     private void addAlchemyArrayRecipes(RecipeOutput output) {

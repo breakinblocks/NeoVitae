@@ -27,6 +27,9 @@ public class ServerConfig {
     public final ModConfigSpec.DoubleValue CRYSTAL_GROWTH_THRESHOLD;
     public final ModConfigSpec.IntValue CRYSTAL_MAX_COUNT;
 
+    // Blood Mending config
+    public final ModConfigSpec.IntValue BLOOD_MENDING_REPAIR_COST;
+
     // Blood Siphon / Blood Shield config
     public final ModConfigSpec.IntValue BLOOD_SIPHON_PLAYER_MULTIPLIER;
     public final ModConfigSpec.IntValue BLOOD_SIPHON_MOB_MULTIPLIER;
@@ -95,6 +98,16 @@ public class ServerConfig {
         CRYSTAL_MAX_COUNT = builder
                 .comment("Maximum number of crystal segments per cluster")
                 .defineInRange("max_count", 7, 1, 20);
+
+        builder.pop();
+
+        builder.comment("Blood Mending Configuration",
+                "Controls costs for repairing items through Blood Mending.");
+        builder.push("blood_mending");
+
+        BLOOD_MENDING_REPAIR_COST = builder
+                .comment("EV cost per point of durability restored")
+                .defineInRange("repair_cost_per_durability", 100, 1, 100000);
 
         builder.pop();
 

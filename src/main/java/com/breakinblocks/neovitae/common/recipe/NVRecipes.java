@@ -13,6 +13,7 @@ import com.breakinblocks.neovitae.common.recipe.athanor.AthanorPotionRecipe;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
 import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
+import com.breakinblocks.neovitae.common.recipe.forge.ForgeUpgradeRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.*;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
 import com.breakinblocks.neovitae.common.recipe.tiered.FluidTieredRecipe;
@@ -24,6 +25,7 @@ public class NVRecipes {
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<ForgeRecipe>> HELLFIRE_FORGE_TYPE = TYPES.register(ForgeRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(ForgeRecipe.RECIPE_TYPE_NAME)));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ForgeRecipe>> HELLFIRE_FORGE_SERIALIZER = SERIALIZERS.register(ForgeRecipe.RECIPE_TYPE_NAME, () -> new NVRecipeSerializer<>(ForgeRecipe.CODEC, ForgeRecipe.STREAM_CODEC));
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ForgeUpgradeRecipe>> HELLFIRE_FORGE_UPGRADE_SERIALIZER = SERIALIZERS.register("hellfire_forge_upgrade", () -> new NVRecipeSerializer<>(ForgeUpgradeRecipe.CODEC, ForgeUpgradeRecipe.STREAM_CODEC));
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe>> ARA_VITAE_TYPE = TYPES.register(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe.RECIPE_TYPE_NAME)));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe>> ARA_VITAE_SERIALIZER = SERIALIZERS.register(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe.RECIPE_TYPE_NAME, () -> new NVRecipeSerializer<>(com.breakinblocks.neovitae.common.recipe.aravitae.AraVitaeRecipe.CODEC, com.breakinblocks.neovitae.common.recipe.aravitae.AraVitaeRecipe.STREAM_CODEC));

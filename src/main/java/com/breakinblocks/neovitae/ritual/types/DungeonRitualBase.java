@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.block.type.PillarCapType;
 import com.breakinblocks.neovitae.common.blockentity.InversionPillarBlockEntity;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
@@ -57,14 +58,13 @@ public abstract class DungeonRitualBase extends Ritual {
         BlockPos masterPos = masterRitualStone.getMasterBlockPos();
         Direction direction = masterRitualStone.getDirection();
 
-        // Replace ritual runes with smooth stone
         List<RitualComponent> components = new ArrayList<>();
         gatherComponents(components::add);
 
         for (RitualComponent component : components) {
             BlockPos rotatedOffset = rotateOffset(component.offset(), direction);
             BlockPos newPos = masterPos.offset(rotatedOffset);
-            world.setBlockAndUpdate(newPos, Blocks.SMOOTH_STONE.defaultBlockState());
+            world.setBlockAndUpdate(newPos, DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get().defaultBlockState());
         }
 
         spawnLightningEffect(world, masterPos);

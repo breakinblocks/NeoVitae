@@ -45,7 +45,9 @@ import com.breakinblocks.neovitae.common.recipe.flask.FlaskEffectRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskEffectTransformRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
+import com.breakinblocks.neovitae.common.recipe.forge.ForgeTransformRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeUpgradeRecipe;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
 import com.breakinblocks.neovitae.compat.jei.tabulavitae.TabulaVitaeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.altar.AraVitaeRecipeCategory;
@@ -147,12 +149,13 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 .stream()
                 .map(RecipeHolder::value)
                 .toList();
-        List<ForgeRecipe> forgeRecipes = allForgeRecipes.stream()
-                .filter(r -> !(r instanceof ForgeUpgradeRecipe))
+        List<ForgeRecipe> upgradeRecipes = allForgeRecipes.stream()
+                .filter(r -> r instanceof ForgeUpgradeRecipe
+                        || r instanceof ForgeTransformRecipe
+                        || r.getOutput().is(NVTags.Items.SPIRITUS_GEM))
                 .toList();
-        List<ForgeUpgradeRecipe> upgradeRecipes = allForgeRecipes.stream()
-                .filter(r -> r instanceof ForgeUpgradeRecipe)
-                .map(r -> (ForgeUpgradeRecipe) r)
+        List<ForgeRecipe> forgeRecipes = allForgeRecipes.stream()
+                .filter(r -> !upgradeRecipes.contains(r))
                 .toList();
         registration.addRecipes(HellfireForgeRecipeCategory.RECIPE_TYPE, forgeRecipes);
         registration.addRecipes(ForgeUpgradeRecipeCategory.RECIPE_TYPE, upgradeRecipes);

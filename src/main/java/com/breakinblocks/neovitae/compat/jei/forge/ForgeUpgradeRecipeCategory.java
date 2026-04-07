@@ -20,7 +20,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
+import com.breakinblocks.neovitae.common.recipe.forge.ForgeTransformRecipe;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeUpgradeRecipe;
 
 import javax.annotation.Nonnull;
@@ -28,9 +29,9 @@ import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeUpgradeRecipe> {
+public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
 
-    public static final RecipeType<ForgeUpgradeRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "hellfire_forge_upgrade", ForgeUpgradeRecipe.class);
+    public static final RecipeType<ForgeRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "hellfire_forge_upgrade", ForgeRecipe.class);
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
 
     private static final int WIDTH = 100;
@@ -46,7 +47,7 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeUpgradeR
     }
 
     @Override
-    public RecipeType<ForgeUpgradeRecipe> getRecipeType() {
+    public RecipeType<ForgeRecipe> getRecipeType() {
         return RECIPE_TYPE;
     }
 
@@ -73,7 +74,7 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeUpgradeR
     }
 
     @Override
-    public void getTooltip(ITooltipBuilder tooltip, ForgeUpgradeRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+    public void getTooltip(ITooltipBuilder tooltip, ForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if (mouseX >= 40 && mouseX <= 60 && mouseY >= 21 && mouseY <= 34) {
             tooltip.add(Component.translatable("jei.neovitae.recipe.minimumsouls", DECIMAL_FORMAT.format(recipe.getMinWill())));
             tooltip.add(Component.translatable("jei.neovitae.recipe.soulsdrained", DECIMAL_FORMAT.format(recipe.getDrain())));
@@ -81,7 +82,7 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeUpgradeR
     }
 
     @Override
-    public void draw(ForgeUpgradeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(ForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
 
         var font = Minecraft.getInstance().font;
@@ -93,14 +94,16 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeUpgradeR
         guiGraphics.drawString(font, Component.translatable("jei.neovitae.recipe.will"), 0, 0, 0x8b8b8b, false);
         poseStack.popPose();
 
-        poseStack.pushPose();
-        poseStack.scale(0.5f, 0.5f, 1f);
-        guiGraphics.drawWordWrap(font, Component.translatable("jei.neovitae.recipe.upgrade_hint"), 0, 84, WIDTH * 2, 0xAA0000);
-        poseStack.popPose();
+        if (recipe instanceof ForgeUpgradeRecipe) {
+            poseStack.pushPose();
+            poseStack.scale(0.5f, 0.5f, 1f);
+            guiGraphics.drawWordWrap(font, Component.translatable("jei.neovitae.recipe.upgrade_hint"), 0, 84, WIDTH * 2, 0xAA0000);
+            poseStack.popPose();
+        }
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, ForgeUpgradeRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, ForgeRecipe recipe, IFocusGroup focuses) {
         List<ItemStack> validGems = Lists.newArrayList();
         for (HellfireForgeRecipeCategory.DefaultWill will : HellfireForgeRecipeCategory.DefaultWill.values()) {
             if (will.minSouls >= recipe.getMinWill()) {
@@ -110,21 +113,21 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeUpgradeR
         IRecipeSlotBuilder gems = builder.addSlot(RecipeIngredientRole.CATALYST, 43, 1);
         gems.addItemStacks(validGems);
 
-        ItemStack displayOutput = new ItemStack(Items.DIAMOND_SWORD);
-        displayOutput.set(NVDataComponents.BLOOD_MENDING.get(), true);
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 74, 14);
-        output.addItemStack(displayOutput);
+        if (recipe instanceof ForgeUpgradeRecipe) {
+            ItemStack displayOutput = new ItemStack(Items.DIAMOND_SWORD);
+            displayOutput.set(NVDataComponents.BLOOD_MENDING.get(), true);
+            output.addItemStack(displayOutput);
+        } else {
+            output.addItemStack(recipe.getOutput());
+        }
 
-        IRecipeSlotBuilder equipSlot = builder.addSlot(RecipeIngredientRole.INPUT, 1, 1);
-        equipSlot.addItemStack(new ItemStack(Items.DIAMOND_SWORD));
-
-        List<? extends Ingredient> catalysts = recipe.getCraftingIngredients();
-        for (int index = 0; index < catalysts.size(); index++) {
-            int gridIndex = index + 1;
-            int x = gridIndex % 2;
-            int y = gridIndex / 2;
+        List<? extends Ingredient> inputs = recipe.getCraftingIngredients();
+        for (int index = 0; index < inputs.size(); index++) {
+            int x = index % 2;
+            int y = index / 2;
             IRecipeSlotBuilder input = builder.addSlot(RecipeIngredientRole.INPUT, x * 18 + 1, y * 18 + 1);
-            input.addIngredients(catalysts.get(index));
+            input.addIngredients(inputs.get(index));
         }
     }
 }

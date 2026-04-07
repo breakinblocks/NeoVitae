@@ -1,17 +1,17 @@
 {
-  "type": "neovitae:hellfire_forge",
-  "drain": 0.0,
-  "inputs": [
+  "type": "neovitae:hellfire_forge_transform",
+  "catalysts": [
     {
       "item": "neovitae:spiritus_gem_petty"
-    },
-    {
-      "item": "minecraft:iron_sword"
     }
   ],
+  "drain": 0.0,
   "minDrain": 0.0,
   "output": {
     "count": 1,
     "id": "neovitae:sentient_sword"
+  },
+  "transformInput": {
+    "item": "minecraft:iron_sword"
   }
 }

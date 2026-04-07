@@ -32,6 +32,7 @@ import com.breakinblocks.neovitae.datagen.builder.TabulaVitaeRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.AthanorRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.AthanorPotionRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.AltarRecipeBuilder;
+import com.breakinblocks.neovitae.datagen.builder.recipe.ForgeTransformRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.ForgeUpgradeRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.HellfireForgeRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.TieredRecipeBuilder;
@@ -988,44 +989,38 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_raw_will", has(NVItems.RAW_SPIRITUS.get()))
                 .save(output, NeoVitae.rl("training_bracelet"));
 
-        // Sentient Tools
-        HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_SWORD.get())
-                .requires(NVItems.SPIRITUS_GEM_PETTY.get())
-                .requires(Items.IRON_SWORD)
-                .minWill(0)
-                .drain(0)
+        ForgeTransformRecipeBuilder.build(NVItems.SENTIENT_SWORD.get())
+                .transformInput(Items.IRON_SWORD)
+                .catalyst(NVItems.SPIRITUS_GEM_PETTY.get())
+                .minWill(0).drain(0)
                 .unlockedBy("has_petty_gem", has(NVItems.SPIRITUS_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_sword"));
 
-        HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_AXE.get())
-                .requires(NVItems.SPIRITUS_GEM_PETTY.get())
-                .requires(Items.IRON_AXE)
-                .minWill(0)
-                .drain(0)
+        ForgeTransformRecipeBuilder.build(NVItems.SENTIENT_AXE.get())
+                .transformInput(Items.IRON_AXE)
+                .catalyst(NVItems.SPIRITUS_GEM_PETTY.get())
+                .minWill(0).drain(0)
                 .unlockedBy("has_petty_gem", has(NVItems.SPIRITUS_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_axe"));
 
-        HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_PICKAXE.get())
-                .requires(NVItems.SPIRITUS_GEM_PETTY.get())
-                .requires(Items.IRON_PICKAXE)
-                .minWill(0)
-                .drain(0)
+        ForgeTransformRecipeBuilder.build(NVItems.SENTIENT_PICKAXE.get())
+                .transformInput(Items.IRON_PICKAXE)
+                .catalyst(NVItems.SPIRITUS_GEM_PETTY.get())
+                .minWill(0).drain(0)
                 .unlockedBy("has_petty_gem", has(NVItems.SPIRITUS_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_pickaxe"));
 
-        HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_SHOVEL.get())
-                .requires(NVItems.SPIRITUS_GEM_PETTY.get())
-                .requires(Items.IRON_SHOVEL)
-                .minWill(0)
-                .drain(0)
+        ForgeTransformRecipeBuilder.build(NVItems.SENTIENT_SHOVEL.get())
+                .transformInput(Items.IRON_SHOVEL)
+                .catalyst(NVItems.SPIRITUS_GEM_PETTY.get())
+                .minWill(0).drain(0)
                 .unlockedBy("has_petty_gem", has(NVItems.SPIRITUS_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_shovel"));
 
-        HellfireForgeRecipeBuilder.build(NVItems.SENTIENT_SCYTHE.get())
-                .requires(NVItems.SPIRITUS_GEM_PETTY.get())
-                .requires(Items.IRON_HOE)
-                .minWill(0)
-                .drain(0)
+        ForgeTransformRecipeBuilder.build(NVItems.SENTIENT_SCYTHE.get())
+                .transformInput(Items.IRON_HOE)
+                .catalyst(NVItems.SPIRITUS_GEM_PETTY.get())
+                .minWill(0).drain(0)
                 .unlockedBy("has_petty_gem", has(NVItems.SPIRITUS_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_scythe"));
 

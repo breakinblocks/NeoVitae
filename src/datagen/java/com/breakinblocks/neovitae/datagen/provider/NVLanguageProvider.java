@@ -299,6 +299,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("entity.neovitae.blood_shield", "Sanguine Ward");
         add("entity.neovitae.blood_light", "Blood Light");
 
+        // Slime of Vitae
+        add("entity.neovitae.slime_vitae", "Slime of Vitae");
+        add(NVItems.SLIME_VITAE_SPAWN_EGG.get(), "Slime of Vitae Spawn Egg");
+
         // Daemonium Ignis
         add("entity.neovitae.daemonium_ignis", "Daemonium Ignis");
         add(NVItems.DAEMONIUM_IGNIS_SPAWN_EGG.get(), "Daemonium Ignis Spawn Egg");

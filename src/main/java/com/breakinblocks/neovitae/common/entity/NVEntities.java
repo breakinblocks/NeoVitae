@@ -13,6 +13,7 @@ import com.breakinblocks.neovitae.common.entity.mob.DaemoniumCorrodisEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumCruorisEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumGlaciarisEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumIgnisEntity;
+import com.breakinblocks.neovitae.common.entity.mob.SlimeVitaeEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumAnimarisEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumDolorisEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumVoraxisEntity;
@@ -157,6 +158,13 @@ public class NVEntities {
                     .updateInterval(3)
                     .build("daemonium_rancoris"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<SlimeVitaeEntity>> SLIME_VITAE = ENTITIES.register("slime_vitae",
+            () -> EntityType.Builder.<SlimeVitaeEntity>of(SlimeVitaeEntity::new, MobCategory.MONSTER)
+                    .sized(2.04F, 2.04F)
+                    .clientTrackingRange(10)
+                    .updateInterval(3)
+                    .build("slime_vitae"));
+
     private static void registerEntityAttributes(EntityAttributeCreationEvent event) {
         event.put(DAEMONIUM_IGNIS.get(), DaemoniumIgnisEntity.createAttributes().build());
         event.put(DAEMONIUM_CORRODIS.get(), DaemoniumCorrodisEntity.createAttributes().build());
@@ -168,6 +176,7 @@ public class NVEntities {
         event.put(DAEMONIUM_PESTIS.get(), DaemoniumPestisEntity.createAttributes().build());
         event.put(DAEMONIUM_VORAXIS.get(), DaemoniumVoraxisEntity.createAttributes().build());
         event.put(DAEMONIUM_DOLORIS.get(), DaemoniumDolorisEntity.createAttributes().build());
+        event.put(SLIME_VITAE.get(), net.minecraft.world.entity.monster.Monster.createMonsterAttributes().build());
     }
 
     public static void register(IEventBus modBus) {

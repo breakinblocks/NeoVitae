@@ -445,6 +445,11 @@ public class NVItems {
                     com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_RANCORIS, 0x1A1A2E, 0x7B9EBF,
                     new Item.Properties()));
 
+    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> SLIME_VITAE_SPAWN_EGG = BASIC_ITEMS.register("slime_vitae_spawn_egg",
+            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
+                    com.breakinblocks.neovitae.common.entity.NVEntities.SLIME_VITAE, 0x8B0000, 0xFF2222,
+                    new Item.Properties()));
+
     // Array effect dummy items for JEI visibility
     public static final DeferredRegister<Item> ARRAY_ITEMS = DeferredRegister.createItems(NeoVitae.MODID);
     public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_BOUNCE = ARRAY_ITEMS.register("array_bounce", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.BOUNCE));

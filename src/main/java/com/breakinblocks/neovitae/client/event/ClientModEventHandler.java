@@ -127,6 +127,8 @@ public class ClientModEventHandler {
         //noinspection unchecked,rawtypes - DaemoniumAnimarisEntity extends Vex; raw cast needed for VexRenderer generics
         event.registerEntityRenderer((net.minecraft.world.entity.EntityType) NVEntities.DAEMONIUM_ANIMARIS.get(), DaemoniumAnimarisRenderer::new);
         event.registerEntityRenderer(NVEntities.BLOOD_SHIELD.get(), com.breakinblocks.neovitae.client.render.entity.shield.BloodShieldRenderer::new);
+        //noinspection unchecked,rawtypes - SlimeVitaeEntity extends Slime; raw cast needed for SlimeRenderer generics
+        event.registerEntityRenderer((net.minecraft.world.entity.EntityType) NVEntities.SLIME_VITAE.get(), com.breakinblocks.neovitae.client.render.entity.SlimeVitaeRenderer::new);
     }
 
     @SubscribeEvent

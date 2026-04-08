@@ -60,6 +60,7 @@ public final class ModRoomPools {
     public static void init() {
         LOGGER.info("Initializing dungeon room pools and rooms...");
         registerRoomPools();
+        registerSpecialRooms();
         ModDungeons.registerDungeonRooms();
         DungeonRoomLoader.loadRoomPools();
         DungeonRoomLoader.loadDungeons();

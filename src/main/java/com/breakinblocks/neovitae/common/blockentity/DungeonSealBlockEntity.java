@@ -161,6 +161,7 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
                 worldPosition, data.doorPos(), data.doorDirection(), data.doorType(), roomTypes, rand);
 
         if (success) {
+            controller.getDungeonSynthesizer().decrementSealCount();
             serverLevel.removeBlock(worldPosition, false);
             return true;
         }

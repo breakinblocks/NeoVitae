@@ -34,7 +34,7 @@ public class ItemDungeonKey extends Item {
 
         List<ResourceLocation> matchingPools = roomPools.stream()
                 .filter(pool -> Arrays.stream(resourceKeys)
-                        .anyMatch(key -> pool.toString().contains(key)))
+                        .anyMatch(key -> getPoolName(pool).contains(key)))
                 .collect(Collectors.toList());
 
         if (matchingPools.isEmpty()) {
@@ -52,7 +52,13 @@ public class ItemDungeonKey extends Item {
 
         return roomPools.stream()
                 .anyMatch(pool -> Arrays.stream(resourceKeys)
-                        .anyMatch(key -> pool.toString().contains(key)));
+                        .anyMatch(key -> getPoolName(pool).contains(key)));
+    }
+
+    private static String getPoolName(ResourceLocation pool) {
+        String path = pool.getPath();
+        int lastSlash = path.lastIndexOf('/');
+        return lastSlash >= 0 ? path.substring(lastSlash + 1) : path;
     }
 
     public String[] getResourceKeys() {

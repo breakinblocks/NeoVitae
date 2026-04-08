@@ -163,27 +163,39 @@ public class DungeonRoomPlacement {
                 continue;
             }
 
+            // Build pool list, filtering out special pools that haven't been unlocked
             BlockPos sealPos = door.doorPos().relative(door.doorDir()).above(2);
-            boolean hasSpecialPool = door.getPotentialRoomTypes().stream().anyMatch(s -> s.startsWith("#"));
-            world.setBlockAndUpdate(sealPos, NVBlocks.DUNGEON_SEAL.block().get().defaultBlockState()
-                    .setValue(com.breakinblocks.neovitae.common.block.BlockDungeonSeal.SPECIAL, hasSpecialPool));
-            synthesizer.incrementSealCount();
-
-            // Configure the seal
-            if (world.getBlockEntity(sealPos) instanceof DungeonSealBlockEntity seal) {
-                List<ResourceLocation> potentialRooms = new ArrayList<>();
-                for (String roomType : door.getPotentialRoomTypes()) {
-                    // Strip prefix characters (# for special, $ for deadend) before parsing
-                    String cleanRoomType = roomType;
-                    if (roomType.startsWith("#") || roomType.startsWith("$")) {
-                        cleanRoomType = roomType.substring(1);
+            List<ResourceLocation> unlockedSpecials = synthesizer.getSpecialRoomBuffer();
+            List<ResourceLocation> potentialRooms = new ArrayList<>();
+            boolean hasUnlockedSpecial = false;
+            for (String roomType : door.getPotentialRoomTypes()) {
+                if (roomType.startsWith("#")) {
+                    ResourceLocation parsed = ResourceLocation.parse(roomType.substring(1));
+                    if (unlockedSpecials.contains(parsed)) {
+                        potentialRooms.add(parsed);
+                        hasUnlockedSpecial = true;
                     }
+                } else {
+                    String cleanRoomType = roomType.startsWith("$") ? roomType.substring(1) : roomType;
                     potentialRooms.add(ResourceLocation.parse(cleanRoomType));
                 }
+            }
+
+            if (potentialRooms.isEmpty()) {
+                // All pools were locked special pools; wall it off
+                LOGGER.info("  Walled off door at {} - all special pools locked", door.doorPos());
+                continue;
+            }
+
+            world.setBlockAndUpdate(sealPos, NVBlocks.DUNGEON_SEAL.block().get().defaultBlockState()
+                    .setValue(com.breakinblocks.neovitae.common.block.BlockDungeonSeal.SPECIAL, hasUnlockedSpecial));
+            synthesizer.incrementSealCount();
+
+            if (world.getBlockEntity(sealPos) instanceof DungeonSealBlockEntity seal) {
                 seal.initialize(controllerPos, door.doorPos(), door.doorDir(), door.doorType(), potentialRooms);
             }
 
-            if (hasSpecialPool) {
+            if (hasUnlockedSpecial) {
                 spawnSpecialSealLights(world, sealPos);
             }
         }

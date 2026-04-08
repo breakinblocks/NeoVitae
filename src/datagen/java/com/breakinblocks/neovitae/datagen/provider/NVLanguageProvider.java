@@ -657,9 +657,11 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.ritual.disabled", "This ritual has been disabled.");
 
         // Dungeon Seal messages
+        add("container.neovitae.dungeon_seal", "Choose Your Path");
         add("chat.neovitae.dungeon.seal.opened", "The seal has been broken. A new path opens...");
         add("chat.neovitae.dungeon.seal.failed", "The seal remains firmly shut.");
         add("chat.neovitae.dungeon.seal.wrongKey", "This key doesn't fit this seal.");
+        add("chat.neovitae.dungeon.seal.noKeys", "You don't have any keys that fit this seal.");
         add("chat.neovitae.dungeon.threshold.mine_entrance", "Strange noises and creatures begin to stir in the depths...");
         add("chat.neovitae.dungeon.threshold.mine_key", "A monstrous roar echoes through the corridors...");
         add("chat.neovitae.dungeon.spatial_distortion", "You sense a spatial distortion in this area...");

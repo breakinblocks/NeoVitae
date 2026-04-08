@@ -56,6 +56,7 @@ import com.breakinblocks.neovitae.client.screen.TrainerScreen;
 import com.breakinblocks.neovitae.common.menu.NVMenus;
 import com.breakinblocks.neovitae.client.render.entity.layer.LivingElytraLayer;
 import com.breakinblocks.neovitae.client.screen.AthanorScreen;
+import com.breakinblocks.neovitae.client.screen.DungeonSealScreen;
 import com.breakinblocks.neovitae.client.screen.FilterScreen;
 import com.breakinblocks.neovitae.client.screen.TeleposerScreen;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -157,6 +158,7 @@ public class ClientModEventHandler {
         event.register(NVMenus.ROUTING_NODE.get(), RoutingNodeScreen::new);
         event.register(NVMenus.MASTER_ROUTING_NODE.get(), MasterRoutingNodeScreen::new);
         event.register(NVMenus.FILTER.get(), FilterScreen::new);
+        event.register(NVMenus.DUNGEON_SEAL.get(), DungeonSealScreen::new);
     }
 
     @SubscribeEvent

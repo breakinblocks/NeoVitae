@@ -109,6 +109,7 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemSigilHolding> SIGIL_HOLDING = BASIC_ITEMS.register("sigil_holding", ItemSigilHolding::new);
     public static final DeferredHolder<Item, SigilItem> SIGIL_TELEPOSITION = BASIC_ITEMS.register("sigil_teleposition", () -> new SigilItem(SigilTypeRegistry.key("teleposition")));
     public static final DeferredHolder<Item, SigilItem> SIGIL_PHANTOM_BRIDGE = BASIC_ITEMS.register("sigil_phantom_bridge", () -> new SigilItem(SigilTypeRegistry.key("phantom_bridge")));
+    public static final DeferredHolder<Item, SigilItem> SIGIL_NECROMANCY = BASIC_ITEMS.register("sigil_necromancy", () -> new SigilItem(SigilTypeRegistry.key("necromancy")));
 
     public static final DeferredHolder<Item, ItemArcaneScribeTool> ARCANE_SCRIBE_TOOL = BASIC_ITEMS.register("arcane_scribe_tool", ItemArcaneScribeTool::new);
 

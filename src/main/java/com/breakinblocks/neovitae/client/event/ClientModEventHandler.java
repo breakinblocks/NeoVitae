@@ -129,6 +129,11 @@ public class ClientModEventHandler {
         event.registerEntityRenderer(NVEntities.BLOOD_SHIELD.get(), com.breakinblocks.neovitae.client.render.entity.shield.BloodShieldRenderer::new);
         //noinspection unchecked,rawtypes - SlimeVitaeEntity extends Slime; raw cast needed for SlimeRenderer generics
         event.registerEntityRenderer((net.minecraft.world.entity.EntityType) NVEntities.SLIME_VITAE.get(), com.breakinblocks.neovitae.client.render.entity.SlimeVitaeRenderer::new);
+        //noinspection unchecked,rawtypes - Summoned undead extend vanilla types; raw casts needed for renderer generics
+        event.registerEntityRenderer((net.minecraft.world.entity.EntityType) NVEntities.NECROMANCY_SUMMON.get(), net.minecraft.client.renderer.entity.ZombieRenderer::new);
+        event.registerEntityRenderer((net.minecraft.world.entity.EntityType) NVEntities.NECROMANCY_SUMMON_HUSK.get(), net.minecraft.client.renderer.entity.HuskRenderer::new);
+        event.registerEntityRenderer((net.minecraft.world.entity.EntityType) NVEntities.NECROMANCY_SUMMON_SKELETON.get(), net.minecraft.client.renderer.entity.SkeletonRenderer::new);
+        event.registerEntityRenderer((net.minecraft.world.entity.EntityType) NVEntities.NECROMANCY_SUMMON_STRAY.get(), net.minecraft.client.renderer.entity.StrayRenderer::new);
     }
 
     @SubscribeEvent

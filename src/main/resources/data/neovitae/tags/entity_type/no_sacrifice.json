@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "neovitae:necromancy_summon",
+    "neovitae:necromancy_summon_husk",
+    "neovitae:necromancy_summon_skeleton",
+    "neovitae:necromancy_summon_stray"
+  ]
+}

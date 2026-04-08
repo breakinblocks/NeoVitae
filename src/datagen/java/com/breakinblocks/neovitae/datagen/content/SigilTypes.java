@@ -32,6 +32,7 @@ public class SigilTypes {
     public static final ResourceKey<SigilType> SUPPRESSION = SigilTypeRegistry.key("suppression");
     public static final ResourceKey<SigilType> TELEPOSITION = SigilTypeRegistry.key("teleposition");
     public static final ResourceKey<SigilType> PHANTOM_BRIDGE = SigilTypeRegistry.key("phantom_bridge");
+    public static final ResourceKey<SigilType> NECROMANCY = SigilTypeRegistry.key("necromancy");
 
     public static void bootstrap(BootstrapContext<SigilType> context) {
         // Divination sigils - information display, no EV cost
@@ -57,6 +58,7 @@ public class SigilTypes {
         context.register(AIR, simple(50, new AirSigilEffect()));
         context.register(BLOOD_LIGHT, simple(10, new BloodLightSigilEffect(15)));
         context.register(TELEPOSITION, simple(1000, new TelepositionSigilEffect()));
+        context.register(NECROMANCY, simple(2000, new NecromancySigilEffect()));
     }
 
     /**

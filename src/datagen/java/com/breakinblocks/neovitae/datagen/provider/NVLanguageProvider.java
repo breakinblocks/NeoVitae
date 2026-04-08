@@ -194,6 +194,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.SIGIL_HOLDING.get(), "Sigil of Holding");
         add(NVItems.SIGIL_TELEPOSITION.get(), "Sigil of Teleposition");
         add(NVItems.SIGIL_PHANTOM_BRIDGE.get(), "Sigil of the Phantom Bridge");
+        add(NVItems.SIGIL_NECROMANCY.get(), "Sigil of Necromancy");
 
         // Alchemy & Misc
         add(NVItems.ARCANE_SCRIBE_TOOL.get(), "Arcane Scribe Tool");
@@ -300,6 +301,11 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("entity.neovitae.throwing_dagger_syringe", "Syringe Throwing Dagger");
         add("entity.neovitae.blood_shield", "Sanguine Ward");
         add("entity.neovitae.blood_light", "Blood Light");
+
+        add("entity.neovitae.necromancy_summon", "Undead Servant");
+        add("entity.neovitae.necromancy_summon_husk", "Desiccated Servant");
+        add("entity.neovitae.necromancy_summon_skeleton", "Skeletal Servant");
+        add("entity.neovitae.necromancy_summon_stray", "Frozen Servant");
 
         // Slime of Vitae
         add("entity.neovitae.slime_vitae", "Slime of Vitae");

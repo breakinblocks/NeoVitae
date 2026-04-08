@@ -16,6 +16,10 @@ import com.breakinblocks.neovitae.common.entity.mob.DaemoniumIgnisEntity;
 import com.breakinblocks.neovitae.common.entity.mob.SlimeVitaeEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumAnimarisEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumDolorisEntity;
+import com.breakinblocks.neovitae.common.entity.mob.NecromancySummonEntity;
+import com.breakinblocks.neovitae.common.entity.mob.NecromancySummonHuskEntity;
+import com.breakinblocks.neovitae.common.entity.mob.NecromancySummonSkeletonEntity;
+import com.breakinblocks.neovitae.common.entity.mob.NecromancySummonStrayEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumVoraxisEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumFervidisEntity;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumPestisEntity;
@@ -158,6 +162,34 @@ public class NVEntities {
                     .updateInterval(3)
                     .build("daemonium_rancoris"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<NecromancySummonEntity>> NECROMANCY_SUMMON = ENTITIES.register("necromancy_summon",
+            () -> EntityType.Builder.<NecromancySummonEntity>of(NecromancySummonEntity::new, MobCategory.CREATURE)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8)
+                    .updateInterval(3)
+                    .build("necromancy_summon"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<NecromancySummonHuskEntity>> NECROMANCY_SUMMON_HUSK = ENTITIES.register("necromancy_summon_husk",
+            () -> EntityType.Builder.<NecromancySummonHuskEntity>of(NecromancySummonHuskEntity::new, MobCategory.CREATURE)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8)
+                    .updateInterval(3)
+                    .build("necromancy_summon_husk"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<NecromancySummonSkeletonEntity>> NECROMANCY_SUMMON_SKELETON = ENTITIES.register("necromancy_summon_skeleton",
+            () -> EntityType.Builder.<NecromancySummonSkeletonEntity>of(NecromancySummonSkeletonEntity::new, MobCategory.CREATURE)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8)
+                    .updateInterval(3)
+                    .build("necromancy_summon_skeleton"));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<NecromancySummonStrayEntity>> NECROMANCY_SUMMON_STRAY = ENTITIES.register("necromancy_summon_stray",
+            () -> EntityType.Builder.<NecromancySummonStrayEntity>of(NecromancySummonStrayEntity::new, MobCategory.CREATURE)
+                    .sized(0.6F, 1.99F)
+                    .clientTrackingRange(8)
+                    .updateInterval(3)
+                    .build("necromancy_summon_stray"));
+
     public static final DeferredHolder<EntityType<?>, EntityType<SlimeVitaeEntity>> SLIME_VITAE = ENTITIES.register("slime_vitae",
             () -> EntityType.Builder.<SlimeVitaeEntity>of(SlimeVitaeEntity::new, MobCategory.MONSTER)
                     .sized(2.04F, 2.04F)
@@ -176,6 +208,10 @@ public class NVEntities {
         event.put(DAEMONIUM_PESTIS.get(), DaemoniumPestisEntity.createAttributes().build());
         event.put(DAEMONIUM_VORAXIS.get(), DaemoniumVoraxisEntity.createAttributes().build());
         event.put(DAEMONIUM_DOLORIS.get(), DaemoniumDolorisEntity.createAttributes().build());
+        event.put(NECROMANCY_SUMMON.get(), NecromancySummonEntity.createAttributes().build());
+        event.put(NECROMANCY_SUMMON_HUSK.get(), NecromancySummonHuskEntity.createAttributes().build());
+        event.put(NECROMANCY_SUMMON_SKELETON.get(), NecromancySummonSkeletonEntity.createAttributes().build());
+        event.put(NECROMANCY_SUMMON_STRAY.get(), NecromancySummonStrayEntity.createAttributes().build());
         event.put(SLIME_VITAE.get(), net.minecraft.world.entity.monster.Monster.createMonsterAttributes().build());
     }
 

@@ -156,6 +156,7 @@ public class NVTags {
         public static final TagKey<EntityType<?>> TELEPOSE_BLACKLIST = tag(bm("telepose_blacklist"));
         public static final TagKey<EntityType<?>> WELL_OF_SUFFERING_BLACKLIST = tag(bm("well_of_suffering_blacklist"));
         public static final TagKey<EntityType<?>> RITUAL_BOSS_BLACKLIST = tag(bm("ritual_boss_blacklist"));
+        public static final TagKey<EntityType<?>> NO_SACRIFICE = tag(bm("no_sacrifice"));
 
         private static TagKey<EntityType<?>> tag(ResourceLocation id) {
             return TagKey.create(Registries.ENTITY_TYPE, id);

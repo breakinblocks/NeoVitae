@@ -1869,6 +1869,15 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_reinforced_slate", has(NVItems.SLATE_REINFORCED.get()))
                 .save(output, NeoVitae.rl("blood_mending"));
 
+        AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
+                .input(NVItems.SLATE_REINFORCED.get())
+                .input(Ingredient.of(Items.ROTTEN_FLESH))
+                .input(Ingredient.of(Items.BONE))
+                .fluidInput(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 1000))
+                .spiritusCost(SpiritusType.DEFAULT, 20.0)
+                .guaranteedOutput(new ItemStack(NVItems.SIGIL_NECROMANCY.get()))
+                .save(output, NeoVitae.rl("sigil_necromancy"));
+
         ForgeSpiritusInfusionRecipeBuilder.build()
                 .gemInput(NVTags.Items.SPIRITUS_GEM)
                 .minWill(1)

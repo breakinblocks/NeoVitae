@@ -1,0 +1,7 @@
+{
+  "effect": {
+    "type": "neovitae:necromancy"
+  },
+  "lp_cost_air": 2000,
+  "lp_cost_block": 2000
+}

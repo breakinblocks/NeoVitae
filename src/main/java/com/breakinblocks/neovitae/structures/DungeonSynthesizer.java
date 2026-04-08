@@ -144,10 +144,17 @@ public class DungeonSynthesizer {
     public void readFromNBT(CompoundTag tag) {
         // Deserialize door master map using Codec
         if (tag.contains("doorMasterMap")) {
-            availableDoorMasterMap = DOOR_MASTER_MAP_CODEC.parse(NbtOps.INSTANCE, tag.get("doorMasterMap"))
+            Map<String, Map<Direction, List<BlockPos>>> parsed = DOOR_MASTER_MAP_CODEC.parse(NbtOps.INSTANCE, tag.get("doorMasterMap"))
                     .resultOrPartial(LOGGER::error)
-                    .map(HashMap::new)
                     .orElse(new HashMap<>());
+            availableDoorMasterMap = new HashMap<>();
+            for (var entry : parsed.entrySet()) {
+                HashMap<Direction, List<BlockPos>> innerMap = new HashMap<>();
+                for (var inner : entry.getValue().entrySet()) {
+                    innerMap.put(inner.getKey(), new ArrayList<>(inner.getValue()));
+                }
+                availableDoorMasterMap.put(entry.getKey(), innerMap);
+            }
         }
 
         // Deserialize area descriptors

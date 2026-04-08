@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "special=false": {
       "model": "neovitae:block/dungeon_seal"
+    },
+    "special=true": {
+      "model": "neovitae:block/dungeon_seal_special"
     }
   }
 }

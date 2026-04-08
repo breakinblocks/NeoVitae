@@ -96,7 +96,13 @@ public class NVBlockStateProvider extends BlockStateProvider {
 
         // Dungeon Seal - door seal blocks for dungeon progression (uses dungeon eye texture)
         ModelFile dungeonSealModel = models().cubeAll("dungeon_seal", bm("block/dungeon/dungeon_eye"));
-        simpleBlockWithItem(NVBlocks.DUNGEON_SEAL.block().get(), dungeonSealModel);
+        ModelFile dungeonSealSpecialModel = models().cubeAll("dungeon_seal_special", bm("block/dungeon/dungeon_eye_c"));
+        getVariantBuilder(NVBlocks.DUNGEON_SEAL.block().get())
+                .partialState().with(com.breakinblocks.neovitae.common.block.BlockDungeonSeal.SPECIAL, false)
+                .modelForState().modelFile(dungeonSealModel).addModel()
+                .partialState().with(com.breakinblocks.neovitae.common.block.BlockDungeonSeal.SPECIAL, true)
+                .modelForState().modelFile(dungeonSealSpecialModel).addModel();
+        simpleBlockItem(NVBlocks.DUNGEON_SEAL.block().get(), dungeonSealModel);
 
         // Inversion Pillar - dungeon teleporter (uses custom pillar_mid parent)
         ModelFile inversionPillarModel = models().withExistingParent("inversion_pillar", bm("block/pillar_mid"))

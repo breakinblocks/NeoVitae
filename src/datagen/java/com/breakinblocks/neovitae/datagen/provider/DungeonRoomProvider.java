@@ -132,22 +132,34 @@ public class DungeonRoomProvider implements DataProvider {
         fourWayCorridor.addDoors(Direction.SOUTH, "default", 1, new BlockPos(5, 0, 10));
         fourWayCorridor.addDoors(Direction.WEST, "default", 1, new BlockPos(0, 0, 5));
         fourWayCorridor.addDoors(Direction.EAST, "default", 1, new BlockPos(10, 0, 5));
+        fourWayCorridor.addNormalRoomPool(1, ModRoomPools.STANDARD_ROOMS);
+        fourWayCorridor.addNormalRoomPool(1, ModRoomPools.CONNECTIVE_CORRIDORS);
+        addDefaultSpecialRoomPools(fourWayCorridor, 1);
 
         DungeonRoom fourWayCorridorLoot = new DungeonRoom().addStructure("neovitae:four_way_corridor_loot", BlockPos.ZERO).addAreaDescriptor(new Rectangle(new BlockPos(0, 0, 0), new BlockPos(11, 1, 11)));
         fourWayCorridorLoot.addDoors(Direction.NORTH, "default", 1, new BlockPos(5, 5, 0));
         fourWayCorridorLoot.addDoors(Direction.SOUTH, "default", 1, new BlockPos(5, 5, 10));
         fourWayCorridorLoot.addDoors(Direction.WEST, "default", 1, new BlockPos(0, 5, 5));
         fourWayCorridorLoot.addDoors(Direction.EAST, "default", 1, new BlockPos(10, 5, 5));
+        fourWayCorridorLoot.addNormalRoomPool(1, ModRoomPools.STANDARD_ROOMS);
+        fourWayCorridorLoot.addNormalRoomPool(1, ModRoomPools.CONNECTIVE_CORRIDORS);
+        addDefaultSpecialRoomPools(fourWayCorridorLoot, 1);
 
         DungeonRoom overlapped_corridor = new DungeonRoom().addStructure("neovitae:overlapped_corridor", BlockPos.ZERO).addAreaDescriptor(new Rectangle(new BlockPos(3, 0, 0), new BlockPos(8, 5, 11))).addAreaDescriptor(new Rectangle(new BlockPos(0, 4, 3), new BlockPos(11, 9, 8)));
         overlapped_corridor.addDoors(Direction.NORTH, "default", 1, new BlockPos(5, 0, 0));
         overlapped_corridor.addDoors(Direction.SOUTH, "default", 1, new BlockPos(5, 0, 10));
         overlapped_corridor.addDoors(Direction.WEST, "default", 1, new BlockPos(0, 4, 5));
         overlapped_corridor.addDoors(Direction.EAST, "default", 1, new BlockPos(10, 4, 5));
+        overlapped_corridor.addNormalRoomPool(1, ModRoomPools.STANDARD_ROOMS);
+        overlapped_corridor.addNormalRoomPool(1, ModRoomPools.CONNECTIVE_CORRIDORS);
+        addDefaultSpecialRoomPools(overlapped_corridor, 1);
 
         DungeonRoom straightCorridor = new DungeonRoom().addStructure("neovitae:straight_corridor", BlockPos.ZERO).addAreaDescriptor(new Rectangle(new BlockPos(0, 0, 0), new BlockPos(11, 5, 5)));
         straightCorridor.addDoor(new BlockPos(0, 0, 2), Direction.WEST, "default", 1);
         straightCorridor.addDoor(new BlockPos(10, 0, 2), Direction.EAST, "default", 1);
+        straightCorridor.addNormalRoomPool(1, ModRoomPools.STANDARD_ROOMS);
+        straightCorridor.addNormalRoomPool(1, ModRoomPools.CONNECTIVE_CORRIDORS);
+        addDefaultSpecialRoomPools(straightCorridor, 1);
 
         // Spiral staircase - multi-level corridor with connections at different heights
         DungeonRoom spiralStaircase = new DungeonRoom().addStructure("neovitae:spiral_staircase", BlockPos.ZERO).addAreaDescriptor(new Rectangle(new BlockPos(0, 0, 0), new BlockPos(11, 18, 11)));
@@ -156,11 +168,17 @@ public class DungeonRoomProvider implements DataProvider {
         spiralStaircase.addDoors(Direction.SOUTH, "default", 1, new BlockPos(5, 0, 14), new BlockPos(5, 12, 10));
         spiralStaircase.addDoors(Direction.WEST, "default", 1, new BlockPos(0, 0, 5), new BlockPos(0, 12, 5));
         spiralStaircase.addDoors(Direction.EAST, "default", 1, new BlockPos(10, 0, 5), new BlockPos(10, 6, 5), new BlockPos(10, 12, 5));
+        spiralStaircase.addNormalRoomPool(1, ModRoomPools.STANDARD_ROOMS);
+        spiralStaircase.addNormalRoomPool(1, ModRoomPools.CONNECTIVE_CORRIDORS);
+        addDefaultSpecialRoomPools(spiralStaircase, 1);
 
         DungeonRoom tCorridor = new DungeonRoom().addStructure("neovitae:t_corridor", BlockPos.ZERO).addAreaDescriptor(new Rectangle(new BlockPos(0, 0, 0), new BlockPos(11, 5, 8)));
         tCorridor.addDoor(new BlockPos(5, 0, 0), Direction.NORTH, "default", 1);
         tCorridor.addDoor(new BlockPos(0, 0, 5), Direction.WEST, "default", 1);
         tCorridor.addDoor(new BlockPos(10, 0, 5), Direction.EAST, "default", 1);
+        tCorridor.addNormalRoomPool(1, ModRoomPools.STANDARD_ROOMS);
+        tCorridor.addNormalRoomPool(1, ModRoomPools.CONNECTIVE_CORRIDORS);
+        addDefaultSpecialRoomPools(tCorridor, 1);
 
         DungeonRoom oreHold = new DungeonRoom().addStructure("neovitae:standard/ore_hold_1", new BlockPos(0, 0, 0));
         oreHold.addDoors(Direction.NORTH, "default", 1, new BlockPos(12, 5, 0));

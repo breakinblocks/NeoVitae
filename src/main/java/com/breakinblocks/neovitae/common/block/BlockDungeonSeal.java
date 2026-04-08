@@ -15,6 +15,8 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.DungeonSealBlockEntity;
@@ -22,12 +24,20 @@ import com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey;
 
 public class BlockDungeonSeal extends Block implements EntityBlock {
 
+    public static final BooleanProperty SPECIAL = BooleanProperty.create("special");
+
     public BlockDungeonSeal() {
         super(BlockBehaviour.Properties.of()
                 .sound(SoundType.STONE)
-                .strength(-1.0F, 3600000.0F)  // Unbreakable in survival
+                .strength(-1.0F, 3600000.0F)
                 .noLootTable()
-                .lightLevel(state -> 7));  // Faint glow to make it visible
+                .lightLevel(state -> state.getValue(SPECIAL) ? 11 : 7));
+        this.registerDefaultState(this.stateDefinition.any().setValue(SPECIAL, false));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(SPECIAL);
     }
 
     @Nullable
@@ -60,7 +70,7 @@ public class BlockDungeonSeal extends Block implements EntityBlock {
                             .withStyle(ChatFormatting.RED), true);
         }
 
-        return InteractionResult.SUCCESS;
+        return InteractionResult.CONSUME;
     }
 
     @Override

@@ -277,7 +277,7 @@ public class DungeonRoomProvider implements DataProvider {
         DungeonRoom mineEntrance = new DungeonRoom().addStructure("neovitae:standard/mine_entrance", new BlockPos(0, 0, 0)).addStructure("neovitae:standard/mine_entrance2", new BlockPos(0, 0, 32));
         mineEntrance.addDoor(new BlockPos(0, 12, 38), Direction.WEST, "default", 1);
         mineEntrance.addDoor(new BlockPos(22, 1, 0), Direction.NORTH, "mine", 2);
-        mineEntrance.addAreaDescriptor(new Rectangle(new BlockPos(0, 0, 0), new BlockPos(21, 18, 43)));
+        mineEntrance.addAreaDescriptor(new Rectangle(new BlockPos(-1, 0, 0), new BlockPos(25, 18, 43)));
         mineEntrance.addNormalRoomPool(1, ModRoomPools.STANDARD_ROOMS);
         mineEntrance.addNormalRoomPool(2, ModRoomPools.MINE_CORRIDORS);
 

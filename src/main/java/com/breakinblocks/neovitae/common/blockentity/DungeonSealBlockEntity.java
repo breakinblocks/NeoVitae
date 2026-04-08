@@ -120,6 +120,7 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
 
         if (success) {
             controller.getDungeonSynthesizer().decrementSealCount();
+            clearDoorwayFill(serverLevel);
             serverLevel.removeBlock(worldPosition, false);
             return true;
         }
@@ -162,11 +163,31 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
 
         if (success) {
             controller.getDungeonSynthesizer().decrementSealCount();
+            clearDoorwayFill(serverLevel);
             serverLevel.removeBlock(worldPosition, false);
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * Clears the doorway fill blocks that were placed when this seal was created.
+     */
+    private void clearDoorwayFill(ServerLevel serverLevel) {
+        BlockPos sealPos = worldPosition;
+        Direction doorDir = data.doorDirection();
+        Direction rightDir = doorDir.getClockWise();
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                BlockPos fillPos = sealPos.relative(rightDir, i).relative(net.minecraft.core.Direction.UP, j);
+                if (serverLevel.getBlockState(fillPos).is(
+                        com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get())) {
+                    serverLevel.removeBlock(fillPos, false);
+                }
+            }
+        }
     }
 
     @Override

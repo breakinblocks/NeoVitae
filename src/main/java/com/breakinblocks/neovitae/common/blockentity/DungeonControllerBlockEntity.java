@@ -156,6 +156,10 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
     private void notifySpatialDistortion(ServerLevel level, ResourceLocation roomType, DungeonRoomPlacement placement) {
         boolean isSpecial = roomType.getPath().contains("special") || roomType.getPath().contains("mine_key");
         if (!isSpecial) return;
+        if (spatialDistortionPlayed) return;
+
+        spatialDistortionPlayed = true;
+        setChanged();
 
         BlockPos roomCenter = placement.getRoomPosition().offset(
                 placement.room.getAreaDescriptors(new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings(), placement.getRoomPosition())
@@ -184,6 +188,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         level.playSound(null, roomCenter, SoundEvents.WARDEN_EMERGE, SoundSource.HOSTILE, 1.0F, 0.3F);
     }
 
+    private boolean spatialDistortionPlayed = false;
     private boolean riftOpened = false;
     private BlockPos portalPos;
 
@@ -192,6 +197,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         super.saveAdditional(tag, registries);
         tag.putBoolean("initialized", initialized);
         tag.putBoolean("riftOpened", riftOpened);
+        tag.putBoolean("spatialDistortionPlayed", spatialDistortionPlayed);
         if (portalPos != null) {
             tag.putInt("portalX", portalPos.getX());
             tag.putInt("portalY", portalPos.getY());
@@ -211,6 +217,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
 
         initialized = tag.getBoolean("initialized");
         riftOpened = tag.getBoolean("riftOpened");
+        spatialDistortionPlayed = tag.getBoolean("spatialDistortionPlayed");
         if (tag.contains("portalX")) {
             portalPos = new BlockPos(tag.getInt("portalX"), tag.getInt("portalY"), tag.getInt("portalZ"));
         }

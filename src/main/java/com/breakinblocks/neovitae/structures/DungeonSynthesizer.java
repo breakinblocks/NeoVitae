@@ -317,6 +317,28 @@ public class DungeonSynthesizer {
     }
 
     /**
+     * Checks if a block position is within or near any placed room's area.
+     * Uses a tolerance to avoid ejecting players standing in doorways.
+     */
+    public boolean isBlockNearDescriptor(BlockPos blockPos, int tolerance) {
+        for (AreaDescriptor descriptor : descriptorList) {
+            if (descriptor instanceof AreaDescriptor.Rectangle rect) {
+                if (blockPos.getX() >= rect.getMinimumOffset().getX() - tolerance &&
+                    blockPos.getX() <= rect.getMaximumOffset().getX() + tolerance &&
+                    blockPos.getY() >= rect.getMinimumOffset().getY() - tolerance &&
+                    blockPos.getY() <= rect.getMaximumOffset().getY() + tolerance &&
+                    blockPos.getZ() >= rect.getMinimumOffset().getZ() - tolerance &&
+                    blockPos.getZ() <= rect.getMaximumOffset().getZ() + tolerance) {
+                    return true;
+                }
+            } else if (descriptor.isWithinArea(blockPos)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if any position in the list is within a placed room.
      */
     public boolean isAnyBlockInDescriptor(List<BlockPos> posList) {
@@ -398,19 +420,33 @@ public class DungeonSynthesizer {
 
                     List<AreaDescriptor> descriptors = testingRoom.getAreaDescriptors(settings, roomLocation);
                     boolean valid = true;
+                    String rejectReason = null;
 
                     for (AreaDescriptor testDesc : descriptors) {
                         if (!isAreaDescriptorInBounds(world, testDesc)) {
                             valid = false;
+                            rejectReason = "out_of_bounds";
                             break;
                         }
                         for (AreaDescriptor currentDesc : descriptorList) {
                             if (testDesc.intersects(currentDesc)) {
                                 valid = false;
+                                if (testDesc instanceof AreaDescriptor.Rectangle tr && currentDesc instanceof AreaDescriptor.Rectangle cr) {
+                                    rejectReason = "intersects existing descriptor [" +
+                                            cr.getMinimumOffset() + " to " + cr.getMaximumOffset() +
+                                            "] test=[" + tr.getMinimumOffset() + " to " + tr.getMaximumOffset() + "]";
+                                } else {
+                                    rejectReason = "intersects existing descriptor";
+                                }
                                 break;
                             }
                         }
                         if (!valid) break;
+                    }
+
+                    if (!valid) {
+                        LOGGER.warn("Rejected {} rot={} at {}: {}",
+                                testingRoom.getKey(), rotation, roomLocation, rejectReason);
                     }
 
                     if (valid) {

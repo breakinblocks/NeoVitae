@@ -7,12 +7,12 @@
   "descriptorList": [
     {
       "maximumOffset": {
-        "x": 21,
+        "x": 25,
         "y": 18,
         "z": 43
       },
       "minimumOffset": {
-        "x": 0,
+        "x": -1,
         "y": 0,
         "z": 0
       }

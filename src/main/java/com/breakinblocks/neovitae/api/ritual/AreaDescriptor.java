@@ -249,12 +249,12 @@ public abstract class AreaDescriptor {
         @Override
         public boolean intersects(AreaDescriptor other) {
             if (other instanceof Rectangle rect) {
-                return !(maximumOffset.getX() < rect.minimumOffset.getX() ||
-                         minimumOffset.getX() > rect.maximumOffset.getX() ||
-                         maximumOffset.getY() < rect.minimumOffset.getY() ||
-                         minimumOffset.getY() > rect.maximumOffset.getY() ||
-                         maximumOffset.getZ() < rect.minimumOffset.getZ() ||
-                         minimumOffset.getZ() > rect.maximumOffset.getZ());
+                return !(minimumOffset.getX() >= rect.maximumOffset.getX() ||
+                         minimumOffset.getY() >= rect.maximumOffset.getY() ||
+                         minimumOffset.getZ() >= rect.maximumOffset.getZ() ||
+                         rect.minimumOffset.getX() >= maximumOffset.getX() ||
+                         rect.minimumOffset.getY() >= maximumOffset.getY() ||
+                         rect.minimumOffset.getZ() >= maximumOffset.getZ());
             }
             // For other types, use AABB-based intersection check
             AABB thisBox = getAABB(BlockPos.ZERO);

@@ -86,6 +86,7 @@ public class TrialSpawnerEntityProcessor extends StructureProcessor {
 
     private boolean replaceEntityId(CompoundTag entityTag) {
         if (!entityTag.contains("id")) return false;
+        if (entityTag.getBoolean("IsForeman")) return false;
         String id = entityTag.getString("id");
         String replacement = REPLACEMENTS.get(id);
         if (replacement != null) {

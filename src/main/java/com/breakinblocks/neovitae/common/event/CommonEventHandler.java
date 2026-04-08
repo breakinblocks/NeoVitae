@@ -159,9 +159,9 @@ public class CommonEventHandler {
                     BlockPos ctrlPos = exitData.controllerPos().get();
                     if (player.level().getBlockEntity(ctrlPos) instanceof DungeonControllerBlockEntity controller) {
                         BlockPos playerPos = player.blockPosition();
-                        boolean inBounds = controller.getDungeonSynthesizer().isBlockInDescriptor(playerPos)
-                                || controller.getDungeonSynthesizer().isBlockInDescriptor(playerPos.above())
-                                || controller.getDungeonSynthesizer().isBlockInDescriptor(playerPos.above(2));
+                        boolean inBounds = controller.getDungeonSynthesizer().isBlockNearDescriptor(playerPos, 5)
+                                || controller.getDungeonSynthesizer().isBlockNearDescriptor(playerPos.above(), 5)
+                                || controller.getDungeonSynthesizer().isBlockNearDescriptor(playerPos.above(2), 5);
                         if (!inBounds) {
                             NeoVitae.LOGGER.warn("Ejecting player {} at {} from dungeon. Controller at {}. Descriptors: {}",
                                     player.getName().getString(), playerPos, ctrlPos,

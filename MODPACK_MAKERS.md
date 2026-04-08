@@ -11,6 +11,7 @@ This guide covers all the data-driven systems in Neo Vitae that modpack makers c
    - [Ritual Stats](#ritual-stats)
    - [Imperfect Ritual Stats](#imperfect-ritual-stats)
    - [Spiritus Gem Capacities](#spiritus-gem-capacities)
+   - [Dungeon Ore Weights](#dungeon-ore-weights)
 3. [Sigil Types (Effect Definitions)](#sigil-types-effect-definitions)
 4. [Recipe Types](#recipe-types)
 5. [Tags](#tags)
@@ -39,6 +40,8 @@ your_datapack/
 └── data/
     └── neovitae/
         ├── data_maps/
+        │   ├── block/
+        │   │   └── dungeon_ore_weights.json
         │   ├── item/
         │   │   ├── blood_orb_stats.json
         │   │   ├── sigil_stats.json
@@ -302,6 +305,39 @@ Customize how much Demon Will each soul gem tier can hold.
 | Greater | 4,096 |
 | Grand | 16,384 |
 
+### Dungeon Ore Weights
+
+**Location:** `data/neovitae/data_maps/block/dungeon_ore_weights.json`
+
+Controls which ores spawn in dungeon rooms when stone blocks are replaced. Each entry maps a block to an integer weight; higher weight means more frequent. Pack makers can add modded ores or adjust the distribution.
+
+**Example - Add modded ores:**
+
+```json
+{
+  "values": {
+    "mekanism:tin_ore": 20,
+    "mekanism:osmium_ore": 15,
+    "mekanism:uranium_ore": 3
+  }
+}
+```
+
+**Default Distribution:**
+
+| Block | Weight | ~Chance |
+|-------|--------|---------|
+| `minecraft:coal_ore` | 40 | 28% |
+| `minecraft:iron_ore` | 30 | 21% |
+| `minecraft:copper_ore` | 25 | 17% |
+| `minecraft:gold_ore` | 15 | 10% |
+| `minecraft:redstone_ore` | 15 | 10% |
+| `minecraft:lapis_ore` | 10 | 7% |
+| `minecraft:diamond_ore` | 5 | 3.5% |
+| `minecraft:emerald_ore` | 3 | 2% |
+
+Ore density per room is set by the room definition (corridors ~20%, standard rooms ~40%, mine key/deadend rooms ~80%). The weights only control which ore is chosen when a stone block is replaced.
+
 ---
 
 ## Sigil Types (Effect Definitions)
@@ -500,6 +536,8 @@ Tags control various gameplay mechanics. Override or extend these in your datapa
 | `athanor_tool/furnace` | Smelting tools |
 | `crystals/demon` | Demon crystal items |
 | `charges` | Explosive charges |
+| `blood_mending_blacklist` | Items that cannot receive or benefit from Blood Mending |
+| `spiritus_capable` | Items that can receive spiritus storage via Hellfire Forge infusion (armor, tools, weapons, shields) |
 | `anointable/melee` | Items that can receive melee-category anointments |
 | `anointable/mining` | Items that can receive mining-category anointments |
 | `anointable/bows` | Items that can receive bow-category anointments |
@@ -558,6 +596,9 @@ Each anointment is restricted to a specific item tag. If a tool's id is not in t
 | Tag | Purpose |
 |-----|---------|
 | `telepose_blacklist` | Entities that cannot be teleposed |
+| `well_of_suffering_blacklist` | Entities immune to Well of Suffering ritual |
+| `ritual_boss_blacklist` | Entities immune to ritual boss mechanics |
+| `no_sacrifice` | Entities that provide no EV when killed (e.g., summoned undead servants) |
 
 ---
 

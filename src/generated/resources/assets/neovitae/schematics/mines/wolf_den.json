@@ -96,7 +96,7 @@
       "$neovitae:room_pools/mines/mine_deadend"
     ]
   },
-  "oreDensity": 0.1,
+  "oreDensity": 0.4,
   "portalOffset": {
     "x": 0,
     "y": 0,

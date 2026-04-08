@@ -2,25 +2,30 @@ package com.breakinblocks.neovitae.structures;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Structure processor that replaces dungeon stone with ore blocks
- * based on a probability (integrity).
- */
 public class StoneToOreProcessor extends StructureProcessor {
 
     public static final MapCodec<StoneToOreProcessor> CODEC = MapCodec.unit(new StoneToOreProcessor(0.0f));
 
     private final float integrity;
+    private List<WeightedOre> cachedOres;
+    private int cachedTotalWeight;
 
     public StoneToOreProcessor(float integrity) {
         this.integrity = integrity;
@@ -34,23 +39,47 @@ public class StoneToOreProcessor extends StructureProcessor {
                                                         StructureTemplate.StructureBlockInfo blockInfoAfter,
                                                         StructurePlaceSettings settings,
                                                         @Nullable StructureTemplate template) {
-        // Dungeon decorative blocks (dungeon_stone, dungeon_ore) from 1.20.1 not yet ported
-        // Using stone -> iron ore as placeholder until dungeon blocks are added
         if (blockInfoAfter.state().is(Blocks.STONE)) {
             RandomSource random = settings.getRandom(blockInfoAfter.pos());
-            if (this.integrity < 1.0F && random.nextFloat() < this.integrity) {
-                return new StructureTemplate.StructureBlockInfo(
-                        blockInfoAfter.pos(),
-                        Blocks.IRON_ORE.defaultBlockState(),
-                        blockInfoAfter.nbt()
-                );
+            if (this.integrity > 0 && random.nextFloat() < this.integrity) {
+                BlockState ore = getRandomOre(random);
+                if (ore != null) {
+                    return new StructureTemplate.StructureBlockInfo(
+                            blockInfoAfter.pos(), ore, blockInfoAfter.nbt());
+                }
             }
         }
         return blockInfoAfter;
+    }
+
+    @Nullable
+    private BlockState getRandomOre(RandomSource random) {
+        if (cachedOres == null) {
+            cachedOres = new ArrayList<>();
+            cachedTotalWeight = 0;
+            for (Holder<Block> holder : BuiltInRegistries.BLOCK.holders().toList()) {
+                Integer weight = holder.getData(NVDataMaps.DUNGEON_ORE_WEIGHTS);
+                if (weight != null && weight > 0) {
+                    cachedOres.add(new WeightedOre(holder.value().defaultBlockState(), weight));
+                    cachedTotalWeight += weight;
+                }
+            }
+        }
+
+        if (cachedOres.isEmpty() || cachedTotalWeight <= 0) return null;
+
+        int roll = random.nextInt(cachedTotalWeight);
+        for (WeightedOre ore : cachedOres) {
+            roll -= ore.weight;
+            if (roll < 0) return ore.state;
+        }
+        return cachedOres.getLast().state;
     }
 
     @Override
     protected StructureProcessorType<?> getType() {
         return StructureProcessorType.BLOCK_ROT;
     }
+
+    private record WeightedOre(BlockState state, int weight) {}
 }

@@ -35,6 +35,7 @@ public class SigilEffects {
     public static final Supplier<MapCodec<BloodLightSigilEffect>> BLOOD_LIGHT = BloodLightSigilEffect.REGISTRATION;
     public static final Supplier<MapCodec<TelepositionSigilEffect>> TELEPOSITION = TelepositionSigilEffect.REGISTRATION;
     public static final Supplier<MapCodec<NecromancySigilEffect>> NECROMANCY = NecromancySigilEffect.REGISTRATION;
+    public static final Supplier<MapCodec<BoundTreasuresSigilEffect>> BOUND_TREASURES = BoundTreasuresSigilEffect.REGISTRATION;
 
     /**
      * Forces class loading to trigger static initialization of all built-in effect registrations.
@@ -54,5 +55,6 @@ public class SigilEffects {
         var bloodLight = BLOOD_LIGHT;
         var teleposition = TELEPOSITION;
         var necromancy = NECROMANCY;
+        var boundTreasures = BOUND_TREASURES;
     }
 }

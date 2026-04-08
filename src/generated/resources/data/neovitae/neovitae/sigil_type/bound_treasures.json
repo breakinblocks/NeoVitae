@@ -1,0 +1,7 @@
+{
+  "effect": {
+    "type": "neovitae:bound_treasures"
+  },
+  "lp_cost_air": 200,
+  "lp_cost_block": 200
+}

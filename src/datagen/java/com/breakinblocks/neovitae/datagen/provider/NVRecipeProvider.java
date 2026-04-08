@@ -1992,6 +1992,12 @@ public class NVRecipeProvider extends RecipeProvider {
                 .texture("textures/models/alchemyarrays/watersigil.png")
                 .save(output, "frost_sigil");
 
+        AlchemyArrayRecipeBuilder.build(NVItems.SIGIL_BOUND_TREASURES.get())
+                .base(Items.ENDER_EYE)
+                .added(NVItems.SLATE_IMBUED.get())
+                .texture("textures/models/alchemyarrays/sigil.png")
+                .save(output, "bound_treasures_sigil");
+
         // Living Armor - reagent_binding + iron armor pieces
         AlchemyArrayRecipeBuilder.build(NVItems.LIVING_HELMET.get())
                 .base(NVItems.REAGENT_BINDING.get())
@@ -2164,6 +2170,11 @@ public class NVRecipeProvider extends RecipeProvider {
                 .added(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
                 .texture("textures/models/alchemyarrays/undertowarray.png")
                 .save(output, "undertow");
+
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.LOYAL_FRIENDS)
+                .base(Items.LEAD)
+                .added(NVItems.SLATE_REINFORCED.get())
+                .save(output, "loyal_friends");
     }
 
     private void addTabulaVitaeRecipes(RecipeOutput output) {

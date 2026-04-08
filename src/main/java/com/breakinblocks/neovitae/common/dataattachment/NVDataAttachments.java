@@ -27,6 +27,13 @@ public class NVDataAttachments {
             "will_chunk", () -> AttachmentType.builder(SpiritusChunk::new).serialize(SpiritusChunk.CODEC).build()
     );
 
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<DeadPetStorage>> DEAD_PET_STORAGE = ATTACHMENT_TYPES.register(
+            "dead_pet_storage", () -> AttachmentType.builder(() -> DeadPetStorage.EMPTY)
+                    .serialize(DeadPetStorage.CODEC)
+                    .copyOnDeath()
+                    .build()
+    );
+
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<DungeonExitData>> DUNGEON_EXIT = ATTACHMENT_TYPES.register(
             "dungeon_exit", () -> AttachmentType.builder(() -> DungeonExitData.EMPTY)
                     .serialize(DungeonExitData.CODEC)

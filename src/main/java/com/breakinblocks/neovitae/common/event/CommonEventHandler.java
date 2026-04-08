@@ -2,10 +2,13 @@ package com.breakinblocks.neovitae.common.event;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -33,6 +36,7 @@ import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.blockentity.DungeonControllerBlockEntity;
+import com.breakinblocks.neovitae.common.dataattachment.DeadPetStorage;
 import com.breakinblocks.neovitae.common.dataattachment.DungeonExitData;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
@@ -267,6 +271,23 @@ public class CommonEventHandler {
             stack.setDamageValue(stack.getDamageValue() - 1);
             anima.syphon(AnimaTicket.create(repairCost));
         }
+    }
+
+    @SubscribeEvent
+    public static void onTamedPetDeath(LivingDeathEvent event) {
+        if (event.getEntity().level().isClientSide) return;
+        if (!(event.getEntity() instanceof TamableAnimal pet)) return;
+        if (!pet.isTame() || pet.getOwnerUUID() == null) return;
+
+        Player owner = pet.level().getPlayerByUUID(pet.getOwnerUUID());
+        if (owner == null) return;
+
+        CompoundTag petData = new CompoundTag();
+        pet.save(petData);
+        petData.remove("Inventory");
+
+        DeadPetStorage storage = owner.getData(NVDataAttachments.DEAD_PET_STORAGE);
+        owner.setData(NVDataAttachments.DEAD_PET_STORAGE.get(), storage.addPet(petData));
     }
 
     private static Binding findBoundOrb(Player player) {

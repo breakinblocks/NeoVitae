@@ -27,7 +27,7 @@ public class AlchemyArraysCategory extends CategoryProvider {
                 "x_y_z_A_B_C_D_E_F__",
                 "_G_H_I_J_K_L_M_N_O_",
                 "P_Q_R_S_T_U_V_X_Y_Z",
-                "6_______________________"
+                "6_7_8___________________"
         };
     }
 
@@ -318,6 +318,16 @@ public class AlchemyArraysCategory extends CategoryProvider {
         necromancy.withParent(this.parent(divination));
         necromancy.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/sigil_divination"));
         necromancy.hideWhileLocked(false);
+
+        var loyalFriends = this.add(new LoyalFriendsArrayEntry(this).generate('7'));
+        loyalFriends.withParent(this.parent(arcaneAsh));
+        loyalFriends.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/arcane_ash"));
+        loyalFriends.hideWhileLocked(false);
+
+        var boundTreasures = this.add(new BoundTreasuresSigilEntry(this).generate('8'));
+        boundTreasures.withParent(this.parent(divination));
+        boundTreasures.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/sigil_divination"));
+        boundTreasures.hideWhileLocked(false);
     }
 
     @Override

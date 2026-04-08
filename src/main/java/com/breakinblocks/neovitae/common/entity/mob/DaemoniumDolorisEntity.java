@@ -2,13 +2,18 @@ package com.breakinblocks.neovitae.common.entity.mob;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.BossEvent;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -63,6 +68,10 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
     private static final RawAnimation DEATH_ANIM = RawAnimation.begin().thenPlayAndHold("animation.daemonium_doloris.death");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private final ServerBossEvent bossBar = new ServerBossEvent(
+            Component.translatable("entity.neovitae.daemonium_doloris"),
+            BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.NOTCHED_10);
+    private boolean isForeman = false;
 
     private int attackCooldown = 0;
     private int attackAnimTimer = 0;
@@ -186,6 +195,37 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
         }
 
         if (level().isClientSide) spawnAmbientParticles();
+
+        if (!level().isClientSide && isForeman) {
+            bossBar.setProgress(getHealth() / getMaxHealth());
+        }
+    }
+
+    public void setForeman(boolean foreman) {
+        this.isForeman = foreman;
+        if (foreman) {
+            bossBar.setName(Component.translatable("entity.neovitae.daemonium_doloris.foreman"));
+            bossBar.setVisible(true);
+            getAttribute(Attributes.MAX_HEALTH).setBaseValue(600.0);
+            getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(25.0);
+            getAttribute(Attributes.ARMOR).setBaseValue(16.0);
+            getAttribute(Attributes.ARMOR_TOUGHNESS).setBaseValue(8.0);
+            setHealth(getMaxHealth());
+        }
+    }
+
+    public boolean isForeman() { return isForeman; }
+
+    @Override
+    public void startSeenByPlayer(ServerPlayer player) {
+        super.startSeenByPlayer(player);
+        if (isForeman) bossBar.addPlayer(player);
+    }
+
+    @Override
+    public void stopSeenByPlayer(ServerPlayer player) {
+        super.stopSeenByPlayer(player);
+        if (isForeman) bossBar.removePlayer(player);
     }
 
     private void spawnAmbientParticles() {
@@ -378,6 +418,10 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
     @Override
     public void die(DamageSource source) {
         playLayeredSound(SoundEvents.POLAR_BEAR_DEATH, 0.8F, 0.45F);
+        if (isForeman && !level().isClientSide) {
+            spawnAtLocation(new ItemStack(com.breakinblocks.neovitae.common.item.NVItems.MINE_ENTRANCE_KEY.get()));
+            bossBar.removeAllPlayers();
+        }
         super.die(source);
     }
 
@@ -403,6 +447,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
         tag.putBoolean("HasSpawned", hasSpawned);
         tag.putBoolean("IsRunning", isRunning());
         tag.putInt("GhostTimer", ghostTimer);
+        tag.putBoolean("IsForeman", isForeman);
     }
 
     @Override
@@ -412,6 +457,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
         if (hasSpawned) spawnTimer = 50;
         setRunning(tag.getBoolean("IsRunning"));
         ghostTimer = tag.getInt("GhostTimer");
+        if (tag.getBoolean("IsForeman")) setForeman(true);
     }
 
     // ---- GeckoLib ----

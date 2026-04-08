@@ -38,23 +38,31 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.endless_realm.distortions.text",
-      "title": "",
+      "text": "book.neovitae.guide.dungeons.endless_realm.progression.text",
+      "title": "book.neovitae.guide.dungeons.endless_realm.progression.title",
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:image",
+      "type": "modonomicon:text",
       "anchor": "",
-      "border": true,
       "condition": {
         "type": "modonomicon:none"
       },
-      "images": [
-        "neovitae:images/entries/dungeon/mine_key.png"
-      ],
-      "text": "book.neovitae.guide.dungeons.endless_realm.foreman_key_img.text",
-      "title": "The Foreman's Key",
-      "use_legacy_rendering": false
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.endless_realm.distortions.text",
+      "title": "book.neovitae.guide.dungeons.endless_realm.distortions.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.endless_realm.foreman.text",
+      "title": "book.neovitae.guide.dungeons.endless_realm.foreman.title",
+      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:image",

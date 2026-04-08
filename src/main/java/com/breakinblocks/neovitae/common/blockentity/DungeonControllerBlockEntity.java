@@ -1,19 +1,29 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.structures.DungeonSynthesizer;
+import com.breakinblocks.neovitae.structures.ModRoomPools;
 import com.breakinblocks.neovitae.structures.rooms.DungeonRoomPlacement;
 import com.breakinblocks.neovitae.util.Constants;
+
+import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -93,7 +103,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
 
                     dungeonSynthesizer.incrementActivatedDoors();
 
-                    dungeonSynthesizer.checkSpecialRoomRequirements(
+                    List<ResourceLocation> newlyUnlocked = dungeonSynthesizer.checkSpecialRoomRequirements(
                             dungeonSynthesizer.getDescriptorList().size());
 
                     placement.updateDoorMasterMap(dungeonSynthesizer.getAvailableDoorMasterMap());
@@ -101,6 +111,9 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
                     placement.placeNewDoorSeals(serverLevel, worldPosition, dungeonSynthesizer);
 
                     setChanged();
+
+                    notifyProgressionThresholds(serverLevel, newlyUnlocked);
+                    notifySpatialDistortion(serverLevel, roomType, placement);
 
                     LOGGER.info("Successfully placed room {} from pool {} at {}",
                             placement.room.getKey(), roomType, placement.getRoomPosition());
@@ -118,6 +131,57 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         LOGGER.warn("Failed to place any room from {} potential pools at door {} (direction: {}, type: {})",
                 potentialRooms.length, doorPos, doorDirection, doorType);
         return false;
+    }
+
+    private void notifyProgressionThresholds(ServerLevel level, List<ResourceLocation> newlyUnlocked) {
+        for (ResourceLocation pool : newlyUnlocked) {
+            String msgKey;
+            if (pool.equals(ModRoomPools.MINE_ENTRANCES)) {
+                msgKey = "chat.neovitae.dungeon.threshold.mine_entrance";
+            } else if (pool.equals(ModRoomPools.MINE_KEY)) {
+                msgKey = "chat.neovitae.dungeon.threshold.mine_key";
+            } else {
+                continue;
+            }
+
+            Component msg = Component.translatable(msgKey).withStyle(ChatFormatting.DARK_PURPLE);
+            for (ServerPlayer player : level.players()) {
+                player.connection.send(new ClientboundSetActionBarTextPacket(msg));
+                player.sendSystemMessage(msg);
+                level.playSound(null, player.blockPosition(), SoundEvents.WARDEN_ROAR, SoundSource.HOSTILE, 0.6F, 0.5F);
+            }
+        }
+    }
+
+    private void notifySpatialDistortion(ServerLevel level, ResourceLocation roomType, DungeonRoomPlacement placement) {
+        boolean isSpecial = roomType.getPath().contains("special") || roomType.getPath().contains("mine_key");
+        if (!isSpecial) return;
+
+        BlockPos roomCenter = placement.getRoomPosition().offset(
+                placement.room.getAreaDescriptors(new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings(), placement.getRoomPosition())
+                        .stream().findFirst()
+                        .map(d -> {
+                            if (d instanceof com.breakinblocks.neovitae.api.ritual.AreaDescriptor.Rectangle r) {
+                                BlockPos min = r.getMinimumOffset();
+                                BlockPos max = r.getMaximumOffset();
+                                return new BlockPos((min.getX() + max.getX()) / 2, (min.getY() + max.getY()) / 2, (min.getZ() + max.getZ()) / 2);
+                            }
+                            return BlockPos.ZERO;
+                        }).orElse(BlockPos.ZERO));
+
+        Component msg = Component.translatable("chat.neovitae.dungeon.spatial_distortion").withStyle(ChatFormatting.DARK_PURPLE);
+        for (ServerPlayer player : level.players()) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(msg));
+            player.sendSystemMessage(msg);
+        }
+
+        for (int i = 0; i < 4; i++) {
+            BlockPos offset = roomCenter.offset(level.random.nextInt(6) - 3, level.random.nextInt(3), level.random.nextInt(6) - 3);
+            StreamPresets.voidTendril(offset, roomCenter).build().sendToNearby(level, roomCenter, 128);
+            StreamPresets.demonTether(roomCenter, offset).build().sendToNearby(level, roomCenter, 128);
+        }
+
+        level.playSound(null, roomCenter, SoundEvents.WARDEN_EMERGE, SoundSource.HOSTILE, 1.0F, 0.3F);
     }
 
     @Override

@@ -36,30 +36,47 @@ public class EndlessRealmEntry extends EntryProvider {
         this.pageText("A second [#](8B0000)Inversion Pillar[#]() stands ready to return you home. Use it wisely; "
                 + "the creatures that dwell here are far more formidable than those of the Antechamber, "
                 + "and the rewards they guard are proportionally greater.\\\n\\\n"
-                + "[#](2E8B57)Watch for messages warning of [#](8B0000)Spatial Distortions[#]() as you explore, "
-                + "and keep any [#](8B0000)Foreman's Keys[#]() you discover close at hand.[#]()");
+                + "As you explore, the realm will warn you of your progress. Listen for ominous messages "
+                + "and watch for [#](8B0000)Spatial Distortions[#](); they herald the path to the mines.");
+
+        this.page("progression", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Dungeon Progression");
+        this.pageText("The deeper you delve, the more the realm stirs. After exploring several rooms, "
+                + "you will receive a warning: [#](4A0080)\"Strange noises and creatures begin to stir in the depths...\"[#]() "
+                + "This signals that a [#](8B0000)Spatial Distortion[#]() has appeared somewhere in the dungeon, "
+                + "marked by dark tendrils of void energy and an ominous sound.\\\n\\\n"
+                + "Press deeper still and a second warning echoes: [#](4A0080)\"A monstrous roar echoes through "
+                + "the corridors...\"[#]() The [#](8B0000)Foreman's Key[#]() chamber has manifested.");
 
         this.page("distortions", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageText("[#](4A0080)Spatial Distortions[#]() are fractures in the architecture of the realm itself. "
-                + "A whispered message will alert you when you have entered a room harboring one. "
-                + "These anomalies conceal either the entrance to [#](8B0000)The Mines[#]() or a sealed chamber "
-                + "containing the [#](8B0000)Foreman's Key[#](), the latter opened with an [#](8B0000)Iron Key[#](). "
-                + "The mine entrance always manifests before the key chamber, so be prepared to retrace your steps.");
+        this.pageTitle("Spatial Distortions");
+        this.pageText("[#](4A0080)Spatial Distortions[#]() are fractures in the architecture of the realm. "
+                + "When a room harboring one is unsealed, dark void tendrils erupt from its center "
+                + "and a message appears on your screen. These distortions conceal two things: "
+                + "the entrance to [#](8B0000)The Mines[#]() and the sealed chamber of the "
+                + "[#](8B0000)Foreman's Key[#]().");
 
-        this.page("foreman_key_img", () -> BookImagePageModel.create()
-                .withTitle("The Foreman's Key")
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/dungeon/mine_key.png"))
-                .withBorder(true)
+        this.page("foreman", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageText("An Iron Key will unseal this chamber. Within lies the Foreman's Key, coveted prize of the deep.");
+        this.pageTitle("The Foreman");
+        this.pageText("The mine entrance is no empty passage. Within lurks [#](8B0000)The Foreman[#](), "
+                + "a greatly empowered [#](8B0000)Daemonium Doloris[#]() that serves as guardian of the mines. "
+                + "This boss-tier creature is far stronger than its lesser kin, boasting immense health, "
+                + "devastating attacks, and a visible boss bar.\\\n\\\n"
+                + "Defeat The Foreman and it will drop the [#](8B0000)Foreman's Key[#](), which unseals the "
+                + "passage into the mine tunnels. The key chamber requires an [#](8B0000)Iron Key[#]() to open.");
 
         this.page("mine_entrance_img", () -> BookImagePageModel.create()
                 .withTitle("The Mine Entrance")
                 .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/dungeon/mine_entrance.png"))
                 .withBorder(true)
                 .withText(this.context().pageText()));
-        this.pageText("Only the Foreman's Key will open this passage. If you have not yet found it, you must venture back.");
+        this.pageText("Only the Foreman's Key will open the sealed passage beyond. If you have not yet defeated The Foreman, you must venture back.");
 
         this.page("mines", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

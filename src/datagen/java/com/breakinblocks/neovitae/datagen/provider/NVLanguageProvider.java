@@ -346,6 +346,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Daemonium Doloris
         add("entity.neovitae.daemonium_doloris", "Daemonium Doloris");
+        add("entity.neovitae.daemonium_doloris.foreman", "The Foreman");
         add(NVItems.DAEMONIUM_DOLORIS_SPAWN_EGG.get(), "Daemonium Doloris Spawn Egg");
 
         // Daemonium Fervidis
@@ -659,6 +660,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.dungeon.seal.opened", "The seal has been broken. A new path opens...");
         add("chat.neovitae.dungeon.seal.failed", "The seal remains firmly shut.");
         add("chat.neovitae.dungeon.seal.wrongKey", "This key doesn't fit this seal.");
+        add("chat.neovitae.dungeon.threshold.mine_entrance", "Strange noises and creatures begin to stir in the depths...");
+        add("chat.neovitae.dungeon.threshold.mine_key", "A monstrous roar echoes through the corridors...");
+        add("chat.neovitae.dungeon.spatial_distortion", "You sense a spatial distortion in this area...");
 
         // Dungeon Key items
         add(NVItems.SIMPLE_KEY.get(), "Simple Dungeon Key");

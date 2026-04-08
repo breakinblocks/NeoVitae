@@ -204,7 +204,7 @@ public class DungeonSynthesizer {
             }
         }
 
-        // Place the room structure
+        settings.addProcessor(new TrialSpawnerEntityProcessor());
         initialRoom.placeStructureAtPosition(rand, settings, world, roomPlacementPosition);
 
         // Place controller block
@@ -374,6 +374,7 @@ public class DungeonSynthesizer {
             if (valid) {
                 settings.clearProcessors();
                 settings.addProcessor(new StoneToOreProcessor(testingRoom.getOreDensity()));
+                settings.addProcessor(new TrialSpawnerEntityProcessor());
 
                 Pair<Direction, BlockPos> addedDoor = Pair.of(oppositeDoorFacing, testDoor.offset(roomLocation));
                 return new DungeonRoomPlacement(testingRoom, world, settings, roomLocation, addedDoor);
@@ -386,16 +387,15 @@ public class DungeonSynthesizer {
     /**
      * Checks and updates special room requirements based on progression.
      */
-    public void checkSpecialRoomRequirements(int currentRoomDepth) {
-        // Increment counters
+    public List<ResourceLocation> checkSpecialRoomRequirements(int currentRoomDepth) {
         for (ResourceLocation res : placementsSinceLastSpecial.keySet()) {
             placementsSinceLastSpecial.merge(res, 1, Integer::sum);
         }
 
-        // Check for new special rooms to add
         List<ResourceLocation> newSpecialPools = SpecialDungeonRoomPoolRegistry.getSpecialRooms(
                 activatedDoors, currentRoomDepth, placementsSinceLastSpecial, specialRoomBuffer);
         specialRoomBuffer.addAll(newSpecialPools);
+        return newSpecialPools;
     }
 
     /**

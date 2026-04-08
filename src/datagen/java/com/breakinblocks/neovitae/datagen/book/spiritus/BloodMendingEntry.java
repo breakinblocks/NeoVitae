@@ -25,10 +25,10 @@ public class BloodMendingEntry extends EntryProvider {
         this.pageTitle("Blood Mending");
         this.pageText("Through the [#](8B0000)Hellfire Forge[#](), a practitioner can bind the restorative "
                 + "power of [#](4A0080)Essentia Vitae[#]() directly into their equipment. An item imbued with "
-                + "[#](8B0000)Blood Mending[#]() will slowly restore itself, drawing [#](4A0080)100 EV[#]() per point "
-                + "of durability from the wielder's [#](8B0000)Soul Network[#]() each second.\\\n\\\n"
+                + "[#](8B0000)Blood Mending[#]() will slowly knit itself back together, drawing "
+                + "[#](4A0080)Essentia Vitae[#]() from the wielder's [#](8B0000)Soul Network[#]() each second.\\\n\\\n"
                 + "The enchantment requires a bound [#](8B0000)Orb of Vitae[#]() somewhere in the practitioner's "
-                + "inventory, and at least [#](4A0080)100 EV[#]() in their network to function. Only worn armor "
+                + "inventory and sufficient reserves in their network to function. Only worn armour "
                 + "and held items benefit from this effect.");
 
         this.page("recipe", () -> BookTextPageModel.create()

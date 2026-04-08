@@ -20,8 +20,8 @@ public class HealthyUpgradeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Healthy");
-        this.pageText("The armour learns from each wound mended and expands your vitality in turn. Grants "
-                + "additional health up to 50 half-hearts.\\\n\\\n"
+        this.pageText("The armour learns from each wound mended and expands your vitality in turn, greatly "
+                + "increasing the amount of punishment your body can endure.\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Restoring health through any means, natural regeneration, "
                 + "potions, or vitaemantic healing.\\\n\\\n"
                 + "[#](B8860B)Maximum level[#](): 10");

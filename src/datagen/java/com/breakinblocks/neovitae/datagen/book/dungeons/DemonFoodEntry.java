@@ -28,8 +28,8 @@ public class DemonFoodEntry extends EntryProvider {
                 .withItem(NVItems.TAINTED_FLESH.get())
                 .withTitle("Tainted Flesh")
                 .withText(this.context().pageText()));
-        this.pageText("Dropped by most Daemonium, this dark meat restores [#](2E8B57)4 hunger[#]() but "
-                + "carries a [#](8B0000)30%% chance of inflicting Wither I[#]() for 5 seconds. Desperation "
+        this.pageText("Dropped by most Daemonium, this dark meat staves off hunger but "
+                + "carries a [#](8B0000)risk of a brief withering curse[#](). Desperation "
                 + "food at best; useful as a crafting base at worst.");
 
         this.page("vitae_morsel", () -> BookSpotlightPageModel.create()
@@ -37,18 +37,18 @@ public class DemonFoodEntry extends EntryProvider {
                 .withTitle("Vitae Morsel")
                 .withText(this.context().pageText()));
         this.pageText("Tainted Flesh refined through the [#](8B0000)Hellfire Forge[#]() with a "
-                + "[#](8B0000)Weak Blood Shard[#]() and [#](8B0000)Gore-Clotted Fang[#](). Restores "
-                + "[#](2E8B57)6 hunger[#]() with high saturation, grants [#](2E8B57)Regeneration I[#]() "
-                + "for 10 seconds, and can be eaten at any time. A reliable combat ration.");
+                + "[#](8B0000)Weak Blood Shard[#]() and [#](8B0000)Gore-Clotted Fang[#](). Deeply satisfying "
+                + "and [#](2E8B57)accelerates natural healing[#]() "
+                + "for a short time. Can be eaten at any time. A reliable combat ration.");
 
         this.page("bottled_spite", () -> BookSpotlightPageModel.create()
                 .withItem(NVItems.BOTTLED_SPITE.get())
                 .withTitle("Bottled Spite")
                 .withText(this.context().pageText()));
         this.pageText("A vile draught brewed from [#](8B0000)Ectoplasmic Residue[#](), "
-                + "[#](8B0000)Venomgland Sac[#](), and [#](8B0000)Hollow Gut[#](). Grants "
-                + "[#](8B0000)Strength II[#]() for 30 seconds but inflicts [#](B8860B)Mining Fatigue I[#]() "
-                + "for 15 seconds. A combat stimulant with a bitter cost.");
+                + "[#](8B0000)Venomgland Sac[#](), and [#](8B0000)Hollow Gut[#](). Floods the body with "
+                + "[#](8B0000)unnatural might[#]() but dulls coordination and leaves the drinker lethargic. "
+                + "A combat stimulant with a bitter cost.");
     }
 
     @Override

@@ -21,8 +21,8 @@ public class BodyBuilderUpgradeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Body Builder");
         this.pageText("The armour observes your habits of nourishment and responds in kind, hardening your "
-                + "frame against impact. Grants [#](4A0080)Knockback Resistance[#]() up to 100%% and bonus "
-                + "health up to 10 half-hearts.\\\n\\\n"
+                + "frame against impact. Grants an [#](4A0080)anchored stance[#]() that resists being thrown and "
+                + "bolsters your vitality considerably.\\\n\\\n"
                 + "[#](B8860B)Trained by[#](): Eating food.\\\n\\\n"
                 + "[#](B8860B)Maximum level[#](): 5");
     }

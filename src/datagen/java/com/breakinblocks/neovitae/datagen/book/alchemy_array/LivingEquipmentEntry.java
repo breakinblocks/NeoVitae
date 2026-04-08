@@ -28,7 +28,7 @@ public class LivingEquipmentEntry extends EntryProvider {
         this.page("reagent", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The [#](8B0000)Binding Reagent[#]() is forged in the [#](8B0000)Tabula Vitae[#]().\\\n\\\n"
-                + "[#](8B0000)Living Equipment[#]() matches [#](B8860B)Diamond[#]() in durability and can be "
+                + "[#](8B0000)Living Equipment[#]() rivals [#](B8860B)Diamond[#]() in resilience and can be "
                 + "repaired in an [#](8B0000)Anvil[#]() with additional [#](8B0000)Binding Reagent[#]().");
 
         this.page("crafting", () -> BookTextPageModel.create()

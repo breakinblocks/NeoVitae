@@ -112,8 +112,8 @@ public class OreProcessingEntry extends EntryProvider {
         this.pageTitle("The Resonator");
         this.pageText("Forged in the Hellfire Forge, the [#](8B0000)Resonator[#]() vibrates ore fragments into "
                 + "gravel for further refinement, producing [#](8B0000)Tiny Corrupted Dust[#]() as a byproduct. "
-                + "The [#](B8860B)Reinforced[#]() variant has 4x durability, and the "
-                + "[#](B8860B)Hellforged[#]() variant has 16x durability with doubled bonus outputs.");
+                + "The [#](B8860B)Reinforced[#]() variant is far more resilient, and the "
+                + "[#](B8860B)Hellforged[#]() variant is nearly indestructible with doubled bonus outputs.");
 
         this.page("gravel_sand", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -148,8 +148,8 @@ public class OreProcessingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("On Fuel Efficiency");
-        this.pageText("The Primitive Fuel Cell endures for 128 individual operations - more than double what "
-                + "the Block of Coal in its recipe would yield in a furnace. Better still, it consumes durability "
+        this.pageText("The Primitive Fuel Cell endures for 128 individual operations, more than double what "
+                + "the Block of Coal in its recipe would yield in a furnace. Better still, it wears down "
                 + "only upon completing a craft, wasting nothing.\\\n\\\n"
                 + "[#](2E8B57)An efficient Vitaemancer wastes neither blood nor fuel.[#]()");
 

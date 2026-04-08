@@ -27,9 +27,10 @@ public class DemonBestiaryEntry extends EntryProvider {
 
         // --- Slime of Vitae ---
         addMob("slime_vitae", "neovitae:slime_vitae", "Slime of Vitae", 0.4f,
-                "A [#](8B0000)blood-red slime[#]() born of coagulated Essentia Vitae. Applies "
-                        + "[#](8B0000)Slowness II[#]() on contact and detonates in a splash of "
-                        + "[#](8B0000)Instant Harm II[#]() on death. Immune to magic damage.\\\n\\\n"
+                "A [#](8B0000)blood-red slime[#]() born of coagulated Essentia Vitae. Its touch "
+                        + "chills the body, slowing movement, and upon death it detonates in a burst of "
+                        + "[#](8B0000)raw magic damage[#](). Immune to magical attacks. Frequently "
+                        + "encountered in dungeon trial spawners, appearing in groups of three.\\\n\\\n"
                         + "[#](2E8B57)Beware:[#]() if four small Slimes of Vitae gather nearby, they merge "
                         + "into a larger, deadlier variant.");
 
@@ -67,16 +68,17 @@ public class DemonBestiaryEntry extends EntryProvider {
 
         // --- Daemonium Corrodis ---
         addMob("corrodis", "neovitae:daemonium_corrodis", "Daemonium Corrodis", 0.35f,
-                "[#](8B0000)The Wither Knight[#](). An elite melee combatant (100 HP, 15 armour) "
-                        + "with three attack phases. All hits inflict Wither II, with a 60%% chance of Weakness.\\\n\\\n"
+                "[#](8B0000)The Wither Knight[#](). An elite melee combatant clad in heavy armour "
+                        + "with three attack phases. Every blow carries a withering curse that rots flesh on contact, "
+                        + "and its strikes often leave victims drained and enfeebled.\\\n\\\n"
                         + "[#](2E8B57)Drops[#](): Blight Marrow, Raw Demonite, Corrosive/Vengeful Spiritus, "
                         + "Wither Skeleton Skull (rare)");
 
         // --- Daemonium Ignis ---
         addMob("ignis", "neovitae:daemonium_ignis", "Daemonium Ignis", 0.3f,
-                "The [#](8B0000)Fire Demon[#](). An apex predator (60 HP but high armour and fire "
-                        + "immunity) that alternates between fireball barrages, ground slams, and rapid sword "
-                        + "combos with Slowness IV.\\\n\\\n"
+                "The [#](8B0000)Fire Demon[#](). An apex predator wreathed in flame, immune to fire, "
+                        + "that alternates between fireball barrages, ground slams, and rapid sword "
+                        + "combos that leave victims barely able to move.\\\n\\\n"
                         + "[#](2E8B57)Drops[#](): Cinder Heart Fragment, Raw Demonite, Destructive/Corrosive "
                         + "Spiritus, Blaze Rod (rare)");
 
@@ -93,6 +95,8 @@ public class DemonBestiaryEntry extends EntryProvider {
                 "The [#](4A0080)Wendigo of Pain[#](). An elite hunter (200 HP) with three-hit "
                         + "combos, leap slams, and a ghost howl that phases it out of reality. Enters a dangerous "
                         + "second phase at low health.\\\n\\\n"
+                        + "A vastly empowered variant known as [#](8B0000)The Foreman[#]() (600 HP, 25 damage, "
+                        + "16 armour) guards the mine entrance. Defeating it drops the [#](8B0000)Foreman's Key[#]().\\\n\\\n"
                         + "[#](2E8B57)Drops[#](): Frozen Marrow Shard, Ectoplasmic Residue (rare), Raw Demonite, "
                         + "Vengeful/Destructive Spiritus");
 

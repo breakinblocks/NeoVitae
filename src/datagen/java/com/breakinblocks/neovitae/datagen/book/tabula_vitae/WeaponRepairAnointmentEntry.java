@@ -21,9 +21,10 @@ public class WeaponRepairAnointmentEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Repairing Salve");
-        this.pageText("[#](8B0000)Repairing Salve[#]() mends as it works. Each use of the coated tool restores 1 "
-                + "point of durability, allowing favoured instruments to endure far longer than nature intended.\\\n\\\n"
-                + "Valid items: anything in [#](8B0000)#neovitae:anointable/weapons[#]().\\\n\\\nApplies: Regular Maintenance I (256 blocks)");
+        this.pageText("[#](8B0000)Repairing Salve[#]() mends as it works. Each swing of the coated weapon "
+                + "restores a sliver of its condition, allowing favoured instruments to endure far longer "
+                + "than nature intended.\\\n\\\n"
+                + "Can be applied to any weapon or bow.");
 
         this.page("recipe1", () -> BookTabulaVitaeRecipePageModel.create()
                 .withRecipeId1("neovitae:alchemytable/weapon_repair_anointment")

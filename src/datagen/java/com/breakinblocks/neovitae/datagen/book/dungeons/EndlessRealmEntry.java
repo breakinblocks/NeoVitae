@@ -78,6 +78,18 @@ public class EndlessRealmEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Only the Foreman's Key will open the sealed passage beyond. If you have not yet defeated The Foreman, you must venture back.");
 
+        this.page("rift", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("The Spatial Rift");
+        this.pageText("When every sealed doorway in the dungeon has been opened or collapsed, a "
+                + "[#](8B0000)Spatial Rift[#]() tears open near the exit portal. Dark tendrils of blood "
+                + "energy radiate outward from the fracture.\\\n\\\n"
+                + "Step into the rift to be transported to a [#](4A0080)brand new Endless Realm[#]() dungeon. "
+                + "A return portal in the new dungeon leads back to the previous one, and the standard "
+                + "[#](8B0000)Inversion Pillar[#]() always takes you home to the overworld. "
+                + "This process can repeat infinitely; each rift leads deeper into the realm.");
+
         this.page("mines", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));

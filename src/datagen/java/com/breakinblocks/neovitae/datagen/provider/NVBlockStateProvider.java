@@ -101,7 +101,12 @@ public class NVBlockStateProvider extends BlockStateProvider {
         // Inversion Pillar - dungeon teleporter (uses custom pillar_mid parent)
         ModelFile inversionPillarModel = models().withExistingParent("inversion_pillar", bm("block/pillar_mid"))
                 .texture("texture", bm("block/pillar_mid"));
-        simpleBlockWithItem(NVBlocks.INVERSION_PILLAR.block().get(), inversionPillarModel);
+        getVariantBuilder(NVBlocks.INVERSION_PILLAR.block().get())
+                .partialState().with(com.breakinblocks.neovitae.common.block.BlockInversionPillar.RIFT_RETURN, false)
+                .modelForState().modelFile(inversionPillarModel).addModel()
+                .partialState().with(com.breakinblocks.neovitae.common.block.BlockInversionPillar.RIFT_RETURN, true)
+                .modelForState().modelFile(inversionPillarModel).addModel();
+        simpleBlockItem(NVBlocks.INVERSION_PILLAR.block().get(), inversionPillarModel);
 
         // Sands of Vitae
         simpleBlockWithItem(NVBlocks.SANDS_OF_VITAE.block().get(), cubeAll(NVBlocks.SANDS_OF_VITAE.block().get()));
@@ -121,8 +126,16 @@ public class NVBlockStateProvider extends BlockStateProvider {
                 .texture("texture", bm("block/pillar_base"));
         getVariantBuilder(NVBlocks.INVERSION_PILLAR_CAP.block().get())
                 .partialState().with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.TYPE, com.breakinblocks.neovitae.common.block.type.PillarCapType.BOTTOM)
+                .with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.RIFT_RETURN, false)
                 .modelForState().modelFile(inversionPillarCapBottom).addModel()
                 .partialState().with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.TYPE, com.breakinblocks.neovitae.common.block.type.PillarCapType.TOP)
+                .with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.RIFT_RETURN, false)
+                .modelForState().modelFile(inversionPillarCapTop).addModel()
+                .partialState().with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.TYPE, com.breakinblocks.neovitae.common.block.type.PillarCapType.BOTTOM)
+                .with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.RIFT_RETURN, true)
+                .modelForState().modelFile(inversionPillarCapBottom).addModel()
+                .partialState().with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.TYPE, com.breakinblocks.neovitae.common.block.type.PillarCapType.TOP)
+                .with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.RIFT_RETURN, true)
                 .modelForState().modelFile(inversionPillarCapTop).addModel();
         simpleBlockItem(NVBlocks.INVERSION_PILLAR_CAP.block().get(), inversionPillarCapBottom);
     }

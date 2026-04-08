@@ -663,6 +663,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.dungeon.threshold.mine_entrance", "Strange noises and creatures begin to stir in the depths...");
         add("chat.neovitae.dungeon.threshold.mine_key", "A monstrous roar echoes through the corridors...");
         add("chat.neovitae.dungeon.spatial_distortion", "You sense a spatial distortion in this area...");
+        add("chat.neovitae.dungeon.rift_opened", "A spatial rift tears open near the exit portal...");
 
         // Dungeon Key items
         add(NVItems.SIMPLE_KEY.get(), "Simple Dungeon Key");

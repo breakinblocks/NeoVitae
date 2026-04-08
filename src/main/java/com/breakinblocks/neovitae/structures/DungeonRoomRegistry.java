@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.structures;
 
 import net.minecraft.resources.ResourceLocation;
+import javax.annotation.Nullable;
 import net.minecraft.util.RandomSource;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
@@ -54,6 +55,11 @@ public final class DungeonRoomRegistry {
      */
     public static Map<ResourceLocation, List<Pair<ResourceLocation, Integer>>> getRoomPoolTable() {
         return Collections.unmodifiableMap(roomPoolTable);
+    }
+
+    @Nullable
+    public static List<Pair<ResourceLocation, Integer>> getRoomPoolEntries(ResourceLocation poolName) {
+        return roomPoolTable.get(poolName);
     }
 
     /**

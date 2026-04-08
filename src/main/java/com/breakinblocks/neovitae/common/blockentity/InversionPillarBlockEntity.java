@@ -75,6 +75,10 @@ public class InversionPillarBlockEntity extends BaseBlockEntity {
             return;
         }
 
+        if (com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper.isDungeonDimension(destLevel)) {
+            com.breakinblocks.neovitae.common.event.CommonEventHandler.setDungeonGracePeriod(player, 100);
+        }
+
         serverPlayer.teleportTo(
                 destLevel,
                 teleportPos.getX() + 0.5,

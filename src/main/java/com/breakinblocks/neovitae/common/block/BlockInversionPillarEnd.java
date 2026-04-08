@@ -7,6 +7,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -17,18 +18,19 @@ import javax.annotation.Nullable;
 public class BlockInversionPillarEnd extends Block {
 
     public static final EnumProperty<PillarCapType> TYPE = EnumProperty.create("type", PillarCapType.class);
+    public static final BooleanProperty RIFT_RETURN = BooleanProperty.create("rift_return");
 
     protected static final VoxelShape BOTTOM_SHAPE = Block.box(0, 0, 0, 16, 8, 16);
     protected static final VoxelShape TOP_SHAPE = Block.box(0, 8, 0, 16, 16, 16);
 
     public BlockInversionPillarEnd(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(TYPE, PillarCapType.BOTTOM));
+        this.registerDefaultState(this.stateDefinition.any().setValue(TYPE, PillarCapType.BOTTOM).setValue(RIFT_RETURN, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(TYPE);
+        builder.add(TYPE, RIFT_RETURN);
     }
 
     @Nullable

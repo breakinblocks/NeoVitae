@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {
+    "rift_return=false": {
+      "model": "neovitae:block/inversion_pillar"
+    },
+    "rift_return=true": {
       "model": "neovitae:block/inversion_pillar"
     }
   }

@@ -1,9 +1,15 @@
 {
   "variants": {
-    "type=bottom": {
+    "rift_return=false,type=bottom": {
       "model": "neovitae:block/inversion_pillar_bottom"
     },
-    "type=top": {
+    "rift_return=false,type=top": {
+      "model": "neovitae:block/inversion_pillar_top"
+    },
+    "rift_return=true,type=bottom": {
+      "model": "neovitae:block/inversion_pillar_bottom"
+    },
+    "rift_return=true,type=top": {
       "model": "neovitae:block/inversion_pillar_top"
     }
   }

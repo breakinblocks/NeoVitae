@@ -57,6 +57,8 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
         super(NVTiles.DUNGEON_SEAL_TYPE.get(), pos, state);
     }
 
+    public SealData getData() { return data; }
+
     public void initialize(BlockPos controllerPos, BlockPos doorPos, Direction doorDirection,
                            String doorType, List<ResourceLocation> potentialRoomTypes) {
         this.data = new SealData(controllerPos, doorPos, doorDirection, doorType, List.copyOf(potentialRoomTypes));
@@ -117,10 +119,12 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
                 worldPosition, data.doorPos(), data.doorDirection(), data.doorType(), roomTypes, rand);
 
         if (success) {
+            controller.getDungeonSynthesizer().decrementSealCount();
             serverLevel.removeBlock(worldPosition, false);
             return true;
         }
 
+        controller.queueSealForValidation(worldPosition);
         return false;
     }
 

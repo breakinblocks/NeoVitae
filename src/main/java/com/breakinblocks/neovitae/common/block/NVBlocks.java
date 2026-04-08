@@ -157,6 +157,7 @@ public class NVBlocks {
     private static final BlockBehaviour.Properties inversion_pillar_properties = BlockBehaviour.Properties.of().strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().noOcclusion();
     public static final BlockWithItemHolder<BlockInversionPillar, BlockItem> INVERSION_PILLAR = BLOCK_REG.register("inversion_pillar", () -> new BlockInversionPillar(inversion_pillar_properties));
     public static final BlockWithItemHolder<BlockInversionPillarEnd, BlockItem> INVERSION_PILLAR_CAP = BLOCK_REG.register("inversion_pillar_cap", () -> new BlockInversionPillarEnd(inversion_pillar_properties));
+    public static final BlockWithItemHolder<BlockSpatialRift, BlockItem> SPATIAL_RIFT = BLOCK_REG.register("spatial_rift", BlockSpatialRift::new);
 
     public static final BlockWithItemHolder<BlockDungeonController, BlockItem> DUNGEON_CONTROLLER = BLOCK_REG.register("dungeon_controller", BlockDungeonController::new);
     public static final BlockWithItemHolder<BlockDungeonSeal, BlockItem> DUNGEON_SEAL = BLOCK_REG.register("dungeon_seal", BlockDungeonSeal::new);

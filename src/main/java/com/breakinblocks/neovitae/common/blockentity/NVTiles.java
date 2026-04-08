@@ -142,6 +142,9 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DungeonControllerBlockEntity>> DUNGEON_CONTROLLER_TYPE =
             registerTile("dungeon_controller", DungeonControllerBlockEntity::new, NVBlocks.DUNGEON_CONTROLLER.block());
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SpatialRiftBlockEntity>> SPATIAL_RIFT_TYPE =
+            registerTile("spatial_rift", SpatialRiftBlockEntity::new, NVBlocks.SPATIAL_RIFT.block());
+
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DungeonSealBlockEntity>> DUNGEON_SEAL_TYPE =
             registerTile("dungeon_seal", DungeonSealBlockEntity::new, NVBlocks.DUNGEON_SEAL.block());
 

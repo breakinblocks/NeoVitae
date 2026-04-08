@@ -56,6 +56,7 @@ public class DungeonDimensionHelper {
             return false;
         }
 
+        com.breakinblocks.neovitae.common.event.CommonEventHandler.setDungeonGracePeriod(player, 100);
         serverPlayer.teleportTo(dungeonLevel,
                 destination.getX() + 0.5,
                 destination.getY(),

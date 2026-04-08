@@ -10,6 +10,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -19,10 +21,18 @@ import javax.annotation.Nullable;
 
 public class BlockInversionPillar extends Block implements EntityBlock {
 
+    public static final BooleanProperty RIFT_RETURN = BooleanProperty.create("rift_return");
+
     protected static final VoxelShape BODY = Block.box(2, 1, 2, 14, 15, 14);
 
     public BlockInversionPillar(Properties properties) {
         super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(RIFT_RETURN, false));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(RIFT_RETURN);
     }
 
     @Override

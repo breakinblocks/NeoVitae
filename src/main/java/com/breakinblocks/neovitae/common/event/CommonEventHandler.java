@@ -59,6 +59,7 @@ import java.util.UUID;
 public class CommonEventHandler {
 
     private static final Map<UUID, Double> bounceMap = new HashMap<>();
+    private static final Map<UUID, Integer> dungeonGracePeriod = new HashMap<>();
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onInteract(PlayerInteractEvent.RightClickItem event) {
@@ -145,6 +146,11 @@ public class CommonEventHandler {
 
         if (player instanceof ServerPlayer serverPlayer
                 && DungeonDimensionHelper.isDungeonDimension(player.level())) {
+            int grace = dungeonGracePeriod.getOrDefault(player.getUUID(), 0);
+            if (grace > 0) {
+                dungeonGracePeriod.put(player.getUUID(), grace - 1);
+                return;
+            }
             if (player.getY() < 10) {
                 bootPlayerFromDungeon(serverPlayer);
             } else if (player.tickCount % 20 == 0) {
@@ -152,10 +158,25 @@ public class CommonEventHandler {
                 if (exitData.controllerPos().isPresent()) {
                     BlockPos ctrlPos = exitData.controllerPos().get();
                     if (player.level().getBlockEntity(ctrlPos) instanceof DungeonControllerBlockEntity controller) {
-                        if (!controller.getDungeonSynthesizer().isBlockInDescriptor(player.blockPosition())) {
+                        BlockPos playerPos = player.blockPosition();
+                        boolean inBounds = controller.getDungeonSynthesizer().isBlockInDescriptor(playerPos)
+                                || controller.getDungeonSynthesizer().isBlockInDescriptor(playerPos.above())
+                                || controller.getDungeonSynthesizer().isBlockInDescriptor(playerPos.above(2));
+                        if (!inBounds) {
+                            NeoVitae.LOGGER.warn("Ejecting player {} at {} from dungeon. Controller at {}. Descriptors: {}",
+                                    player.getName().getString(), playerPos, ctrlPos,
+                                    controller.getDungeonSynthesizer().getDescriptorList().size());
                             bootPlayerFromDungeon(serverPlayer);
                         }
+                    } else {
+                        NeoVitae.LOGGER.warn("No controller BE found at {} for player {}. Ejecting.",
+                                ctrlPos, player.getName().getString());
+                        bootPlayerFromDungeon(serverPlayer);
                     }
+                } else {
+                    NeoVitae.LOGGER.warn("Player {} in dungeon with no controllerPos set. Ejecting.",
+                            player.getName().getString());
+                    bootPlayerFromDungeon(serverPlayer);
                 }
             }
         }
@@ -190,6 +211,10 @@ public class CommonEventHandler {
     @SubscribeEvent
     public static void onEffectExpired(MobEffectEvent.Expired event) {
         handleEffectRemoval(event.getEntity(), event.getEffectInstance());
+    }
+
+    public static void setDungeonGracePeriod(Player player, int ticks) {
+        dungeonGracePeriod.put(player.getUUID(), ticks);
     }
 
     private static void bootPlayerFromDungeon(ServerPlayer serverPlayer) {

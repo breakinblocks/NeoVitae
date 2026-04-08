@@ -73,9 +73,7 @@ public class RitualStandardDungeon extends DungeonRitualBase {
 
         storeControllerPosition(masterRitualStone, dungeonControllerPos);
 
-        // Calculate positions - pillar is 4 blocks up (same as 1.20.1)
-        // This works because cleanup happens first, converting the rune at (0,4,0) to smooth stone
-        BlockPos pillarPos = masterPos.relative(Direction.UP, 4);
+        BlockPos pillarPos = masterPos.above(2);
         BlockPos overworldPlayerPos = masterPos.relative(Direction.UP).relative(masterRitualStone.getDirection(), 2);
 
         // Dramatic activation burst: void tendrils converging on the master
@@ -95,6 +93,10 @@ public class RitualStandardDungeon extends DungeonRitualBase {
         // Spawn portal pillars AFTER cleanup
         spawnPortalPillar(world, dungeonWorld, pillarPos, playerSpawnPos);
         spawnPortalPillar(dungeonWorld, world, portalPos, overworldPlayerPos);
+
+        if (dungeonWorld.getBlockEntity(dungeonControllerPos) instanceof com.breakinblocks.neovitae.common.blockentity.DungeonControllerBlockEntity controller) {
+            controller.setPortalPos(portalPos);
+        }
 
         // Stop the ritual since it's a one-time effect
         masterRitualStone.stopRitual(Ritual.BreakType.DEACTIVATE);

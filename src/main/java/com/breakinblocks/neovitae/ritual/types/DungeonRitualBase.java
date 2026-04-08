@@ -95,6 +95,24 @@ public abstract class DungeonRitualBase extends Ritual {
             spawnWorld.setBlockAndUpdate(pillarPos.above(),
                     NVBlocks.INVERSION_PILLAR_CAP.block().get().defaultBlockState()
                             .setValue(BlockInversionPillarEnd.TYPE, PillarCapType.TOP));
+            spawnWorld.setBlockAndUpdate(pillarPos.below(2),
+                    NVBlocks.BLOODSTONE.block().get().defaultBlockState());
+        }
+
+        net.minecraft.util.RandomSource rand = spawnWorld.getRandom();
+        int lightCount = 4 + rand.nextInt(6);
+        net.minecraft.world.level.block.state.BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState();
+        for (int i = 0; i < lightCount; i++) {
+            for (int attempt = 0; attempt < 10; attempt++) {
+                int dx = rand.nextInt(9) - 4;
+                int dy = rand.nextInt(5) - 1;
+                int dz = rand.nextInt(9) - 4;
+                BlockPos lightPos = pillarPos.offset(dx, dy, dz);
+                if (spawnWorld.isEmptyBlock(lightPos)) {
+                    spawnWorld.setBlockAndUpdate(lightPos, lightState);
+                    break;
+                }
+            }
         }
     }
 

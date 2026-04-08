@@ -63,8 +63,10 @@ public class DungeonSynthesizer {
 
     // Room progression tracking
     private int activatedDoors = 0;
+    private int activeSealCount = 0;
     private List<ResourceLocation> specialRoomBuffer = new ArrayList<>();
     private Map<ResourceLocation, Integer> placementsSinceLastSpecial = new HashMap<>();
+    private final java.util.ArrayDeque<BlockPos> pendingValidation = new java.util.ArrayDeque<>();
 
     /**
      * Gets the available door master map.
@@ -123,6 +125,17 @@ public class DungeonSynthesizer {
                 .ifPresent(nbt -> tag.put("placementTracker", nbt));
 
         tag.putInt("activatedDoors", activatedDoors);
+        tag.putInt("activeSealCount", activeSealCount);
+
+        net.minecraft.nbt.ListTag validationQueue = new net.minecraft.nbt.ListTag();
+        for (BlockPos pos : pendingValidation) {
+            net.minecraft.nbt.CompoundTag posTag = new net.minecraft.nbt.CompoundTag();
+            posTag.putInt("X", pos.getX());
+            posTag.putInt("Y", pos.getY());
+            posTag.putInt("Z", pos.getZ());
+            validationQueue.add(posTag);
+        }
+        if (!validationQueue.isEmpty()) tag.put("pendingValidation", validationQueue);
     }
 
     /**
@@ -164,6 +177,16 @@ public class DungeonSynthesizer {
         }
 
         activatedDoors = tag.getInt("activatedDoors");
+        activeSealCount = tag.getInt("activeSealCount");
+
+        pendingValidation.clear();
+        if (tag.contains("pendingValidation")) {
+            net.minecraft.nbt.ListTag validationQueue = tag.getList("pendingValidation", 10);
+            for (int i = 0; i < validationQueue.size(); i++) {
+                net.minecraft.nbt.CompoundTag posTag = validationQueue.getCompound(i);
+                pendingValidation.add(new BlockPos(posTag.getInt("X"), posTag.getInt("Y"), posTag.getInt("Z")));
+            }
+        }
     }
 
     /**
@@ -207,8 +230,10 @@ public class DungeonSynthesizer {
         settings.addProcessor(new TrialSpawnerEntityProcessor());
         initialRoom.placeStructureAtPosition(rand, settings, world, roomPlacementPosition);
 
-        // Place controller block
         world.setBlockAndUpdate(spawningPosition, NVBlocks.DUNGEON_CONTROLLER.block().get().defaultBlockState());
+        if (world.getBlockEntity(spawningPosition) instanceof com.breakinblocks.neovitae.common.blockentity.DungeonControllerBlockEntity controller) {
+            controller.setDungeonSynthesizer(this);
+        }
 
         // Create door seal blocks for each potential connection
         List<DungeonDoor> doorTypeMap = initialRoom.getPotentialConnectedRoomTypes(settings, roomPlacementPosition);
@@ -257,8 +282,8 @@ public class DungeonSynthesizer {
             return;
         }
 
-        // Place the seal block on top of the filled doorway
         world.setBlockAndUpdate(sealPos, NVBlocks.DUNGEON_SEAL.block().get().defaultBlockState());
+        activeSealCount++;
 
         // Configure the seal block entity
         if (world.getBlockEntity(sealPos) instanceof DungeonSealBlockEntity seal) {
@@ -410,5 +435,58 @@ public class DungeonSynthesizer {
      */
     public void incrementActivatedDoors() {
         activatedDoors++;
+    }
+
+    public int getActiveSealCount() { return activeSealCount; }
+    public void incrementSealCount() { activeSealCount++; }
+    public void decrementSealCount() { activeSealCount = Math.max(0, activeSealCount - 1); }
+
+    public java.util.ArrayDeque<BlockPos> getPendingValidation() { return pendingValidation; }
+
+    public void queueSealForValidation(BlockPos pos) {
+        if (!pendingValidation.contains(pos)) pendingValidation.add(pos);
+    }
+
+    public boolean canAnythingFit(ServerLevel level, BlockPos doorPos, Direction doorFacing, String doorType, ResourceLocation[] pools) {
+        StructurePlaceSettings settings = new StructurePlaceSettings();
+        settings.setMirror(Mirror.NONE);
+        settings.setIgnoreEntities(false);
+        settings.setKnownShape(true);
+
+        Direction opposite = doorFacing.getOpposite();
+
+        for (ResourceLocation poolName : pools) {
+            List<org.apache.commons.lang3.tuple.Pair<ResourceLocation, Integer>> poolEntries =
+                    DungeonRoomRegistry.getRoomPoolEntries(poolName);
+            if (poolEntries == null) continue;
+
+            for (var entry : poolEntries) {
+                DungeonRoom room = DungeonRoomRegistry.getDungeonRoom(entry.getLeft());
+                if (room == null) continue;
+
+                for (Rotation rotation : Rotation.values()) {
+                    settings.setRotation(rotation);
+                    List<BlockPos> doors = room.getDoorOffsetsForFacing(settings, doorType, opposite, BlockPos.ZERO);
+                    if (doors == null || doors.isEmpty()) continue;
+
+                    for (BlockPos testDoor : doors) {
+                        BlockPos roomLocation = doorPos.subtract(testDoor).offset(doorFacing.getNormal());
+                        List<AreaDescriptor> descs = room.getAreaDescriptors(settings, roomLocation);
+                        boolean valid = true;
+
+                        for (AreaDescriptor testDesc : descs) {
+                            if (!isAreaDescriptorInBounds(level, testDesc)) { valid = false; break; }
+                            for (AreaDescriptor current : descriptorList) {
+                                if (testDesc.intersects(current)) { valid = false; break; }
+                            }
+                            if (!valid) break;
+                        }
+
+                        if (valid) return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

@@ -159,6 +159,7 @@ public class ClientModEventHandler {
         event.register(NVMenus.MASTER_ROUTING_NODE.get(), MasterRoutingNodeScreen::new);
         event.register(NVMenus.FILTER.get(), FilterScreen::new);
         event.register(NVMenus.DUNGEON_SEAL.get(), DungeonSealScreen::new);
+        event.register(NVMenus.SPIRIT_CACHE.get(), com.breakinblocks.neovitae.client.screen.SpiritCacheScreen::new);
     }
 
     @SubscribeEvent

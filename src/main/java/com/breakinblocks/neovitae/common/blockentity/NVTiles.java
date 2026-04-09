@@ -151,6 +151,9 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BloodLightBlockEntity>> BLOOD_LIGHT =
             registerTile("blood_light", BloodLightBlockEntity::new, NVBlocks.BLOOD_LIGHT);
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SpiritCacheBlockEntity>> SPIRIT_CACHE_TYPE =
+            registerTile("spirit_cache", SpiritCacheBlockEntity::new, NVBlocks.SPIRIT_CACHE.block());
+
     private static void registerTileCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
@@ -191,6 +194,11 @@ public class NVTiles {
                 Capabilities.ItemHandler.BLOCK,
                 VAS_MALEFICUM_TYPE.get(),
                 (tile, side) -> tile.getInventory()
+        );
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                SPIRIT_CACHE_TYPE.get(),
+                (tile, side) -> new net.neoforged.neoforge.items.wrapper.InvWrapper(tile)
         );
 
         event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> new OrbFluidHandler(stack),

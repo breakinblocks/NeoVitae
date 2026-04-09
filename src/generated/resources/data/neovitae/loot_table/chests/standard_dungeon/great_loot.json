@@ -5,6 +5,26 @@
       "bonus_rolls": 0.0,
       "entries": [
         {
+          "type": "neovitae:loot_table",
+          "name": "minecraft:chests/end_city_treasure"
+        },
+        {
+          "type": "neovitae:loot_table",
+          "name": "minecraft:chests/stronghold_crossing",
+          "weight": 2
+        },
+        {
+          "type": "neovitae:loot_table",
+          "name": "minecraft:chests/buried_treasure",
+          "weight": 2
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
           "type": "minecraft:item",
           "functions": [
             {
@@ -54,6 +74,40 @@
           "name": "minecraft:netherite_scrap",
           "quality": 5,
           "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 8.0,
+                "min": 3.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "neovitae:raw_demonite",
+          "quality": 3,
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "neovitae:ingot_hellforged",
+          "quality": 4,
+          "weight": 5
         },
         {
           "type": "minecraft:item",

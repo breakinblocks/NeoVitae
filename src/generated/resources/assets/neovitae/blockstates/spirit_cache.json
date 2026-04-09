@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "neovitae:block/spirit_cache",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "neovitae:block/spirit_cache"
+    },
+    "facing=south": {
+      "model": "neovitae:block/spirit_cache",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "neovitae:block/spirit_cache",
+      "y": 270
+    }
+  }
+}

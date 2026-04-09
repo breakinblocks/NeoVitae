@@ -82,6 +82,9 @@ public class NVBlockStateProvider extends BlockStateProvider {
         // Explosive charges - directional blocks attached to surfaces
         registerExplosiveCharges();
 
+        // Spirit Cache container
+        registerSpiritCache();
+
         // Mimic block - renders the mimicked block dynamically, this is the fallback texture
         ModelFile mimicModel = models().cubeAll("mimic", bm("block/dungeon/dungeon_brick1"));
         simpleBlockWithItem(NVBlocks.MIMIC.block().get(), mimicModel);
@@ -261,6 +264,29 @@ public class NVBlockStateProvider extends BlockStateProvider {
         builder.partialState()
             .with(com.breakinblocks.neovitae.common.block.BlockShapedExplosive.ATTACHED, Direction.WEST)
             .modelForState().modelFile(model).rotationX(90).rotationY(270).addModel();
+    }
+
+    private void registerSpiritCache() {
+        ModelFile model = models().withExistingParent("spirit_cache", bm("block/sub/shaped_charge"))
+                .texture("1", bm("block/altar_corner"))
+                .texture("3", bm("block/altar_side"))
+                .texture("4", bm("block/altar_edge"))
+                .texture("5", bm("block/altar_inside"))
+                .texture("6", bm("block/altar_corner_decoration"))
+                .texture("particle", bm("block/altar_side"))
+                .renderType("cutout");
+
+        VariantBlockStateBuilder builder = getVariantBuilder(NVBlocks.SPIRIT_CACHE.block().get());
+        builder.partialState().with(com.breakinblocks.neovitae.common.block.SpiritCacheBlock.FACING, Direction.NORTH)
+                .modelForState().modelFile(model).addModel();
+        builder.partialState().with(com.breakinblocks.neovitae.common.block.SpiritCacheBlock.FACING, Direction.SOUTH)
+                .modelForState().modelFile(model).rotationY(180).addModel();
+        builder.partialState().with(com.breakinblocks.neovitae.common.block.SpiritCacheBlock.FACING, Direction.WEST)
+                .modelForState().modelFile(model).rotationY(270).addModel();
+        builder.partialState().with(com.breakinblocks.neovitae.common.block.SpiritCacheBlock.FACING, Direction.EAST)
+                .modelForState().modelFile(model).rotationY(90).addModel();
+
+        simpleBlockItem(NVBlocks.SPIRIT_CACHE.block().get(), model);
     }
 
     private void registerDungeonBlocks() {

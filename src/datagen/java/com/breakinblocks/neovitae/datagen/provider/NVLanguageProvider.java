@@ -558,6 +558,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Teleposer Block
         add(NVBlocks.TELEPOSER, "Teleposer");
 
+        // Spirit Cache
+        add(NVBlocks.SPIRIT_CACHE, "Spirit Cache");
+
         // Teleposer Focus Items
         add(NVItems.TELEPOSER_FOCUS.get(), "Teleposer Focus");
         add(NVItems.TELEPOSER_FOCUS_ENHANCED.get(), "Enhanced Teleposer Focus");

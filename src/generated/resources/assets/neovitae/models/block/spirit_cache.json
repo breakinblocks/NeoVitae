@@ -1,0 +1,12 @@
+{
+  "parent": "neovitae:block/sub/shaped_charge",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "1": "neovitae:block/altar_corner",
+    "3": "neovitae:block/altar_side",
+    "4": "neovitae:block/altar_edge",
+    "5": "neovitae:block/altar_inside",
+    "6": "neovitae:block/altar_corner_decoration",
+    "particle": "neovitae:block/altar_side"
+  }
+}

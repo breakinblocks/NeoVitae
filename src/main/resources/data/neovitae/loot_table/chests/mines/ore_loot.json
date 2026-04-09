@@ -6,70 +6,44 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 22.0,
-                "min": 15.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "neovitae:copper_fragment",
+          "functions": [{ "add": false, "count": { "type": "minecraft:uniform", "max": 18.0, "min": 10.0 }, "function": "minecraft:set_count" }],
+          "name": "minecraft:raw_copper",
           "quality": -4,
-          "weight": 25
+          "weight": 22
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 15.0,
-                "min": 8.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "neovitae:iron_fragment",
+          "functions": [{ "add": false, "count": { "type": "minecraft:uniform", "max": 12.0, "min": 6.0 }, "function": "minecraft:set_count" }],
+          "name": "minecraft:raw_iron",
           "quality": 1,
           "weight": 20
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 13.0,
-                "min": 8.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "neovitae:gold_fragment",
+          "functions": [{ "add": false, "count": { "type": "minecraft:uniform", "max": 10.0, "min": 5.0 }, "function": "minecraft:set_count" }],
+          "name": "minecraft:raw_gold",
           "quality": 2,
           "weight": 15
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 5.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "neovitae:fragment_netherite_scrap",
+          "functions": [{ "add": false, "count": { "type": "minecraft:uniform", "max": 8.0, "min": 3.0 }, "function": "minecraft:set_count" }],
+          "name": "neovitae:raw_demonite",
+          "quality": 3,
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [{ "add": false, "count": { "type": "minecraft:uniform", "max": 4.0, "min": 1.0 }, "function": "minecraft:set_count" }],
+          "name": "neovitae:ingot_hellforged",
           "quality": 4,
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [{ "add": false, "count": { "type": "minecraft:uniform", "max": 3.0, "min": 1.0 }, "function": "minecraft:set_count" }],
+          "name": "minecraft:netherite_scrap",
+          "quality": 5,
           "weight": 3
         }
       ],

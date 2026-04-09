@@ -47,6 +47,7 @@ public class MineBlock extends BlockLootSubProvider {
             NVBlocks.WEAK_TAU.block().get(),
             NVBlocks.STRONG_TAU.block().get(),
             NVBlocks.INCENSE_ALTAR.block().get(),
+            NVBlocks.SPIRIT_CACHE.block().get(),
             NVBlocks.BLOOD_STAINED_GLASS.block().get(),
             NVBlocks.BLOOD_STAINED_GLASS_PANE.block().get()
     );
@@ -74,6 +75,9 @@ public class MineBlock extends BlockLootSubProvider {
 
         // Incense Altar - simple drop self
         dropSelf(NVBlocks.INCENSE_ALTAR.block().get());
+
+        // Spirit Cache
+        dropSelf(NVBlocks.SPIRIT_CACHE.block().get());
 
         // Glass blocks - silk touch only
         dropWhenSilkTouch(NVBlocks.BLOOD_STAINED_GLASS.block().get());

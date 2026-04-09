@@ -17,7 +17,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "neovitae:copper_fragment",
+          "name": "minecraft:raw_copper",
           "quality": -4,
           "weight": 25
         },
@@ -34,7 +34,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "neovitae:iron_fragment",
+          "name": "minecraft:raw_iron",
           "quality": 1,
           "weight": 20
         },
@@ -51,7 +51,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "neovitae:gold_fragment",
+          "name": "minecraft:raw_gold",
           "quality": 2,
           "weight": 15
         },
@@ -68,7 +68,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "neovitae:fragment_netherite_scrap",
+          "name": "minecraft:netherite_scrap",
           "quality": 4,
           "weight": 3
         }

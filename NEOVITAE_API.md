@@ -39,12 +39,16 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.breakinblocks.neovitae:neovitae:1.21.1-1.0.0")
-    runtimeOnly("com.breakinblocks.neovitae:neovitae:1.21.1-1.0.0")
+    compileOnly("com.breakinblocks.neovitae:neovitae:1.21.1-${neoVitaeVersion}")
+    runtimeOnly("com.breakinblocks.neovitae:neovitae:1.21.1-${neoVitaeVersion}")
 }
 ```
 
+You can find the version of the latest released artifact [here](https://maven.breakinblocks.com/#/releases/com/breakinblocks/neovitae/neovitae).
+
 > **Note:** The API classes are in the main mod JAR under `com.breakinblocks.neovitae.api`. There is no separate api artifact.
+
+Although not included by default, it's highly recommended to include the Modonomicon mod in your runtime dependencies.
 
 ### Accessing the API
 

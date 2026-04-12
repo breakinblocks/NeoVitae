@@ -52,6 +52,9 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BloodTankBlockEntity>> BLOOD_TANK_TYPE =
             registerTile("blood_tank", BloodTankBlockEntity::new, NVBlocks.BLOOD_TANK.block());
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BloodBatteryBlockEntity>> BLOOD_BATTERY_TYPE =
+            registerTile("blood_battery", BloodBatteryBlockEntity::new, NVBlocks.BLOOD_BATTERY.block());
+
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlchemyArrayBlockEntity>> ALCHEMY_ARRAY_TYPE =
             registerTile("alchemy_array", AlchemyArrayBlockEntity::new, NVBlocks.ALCHEMY_ARRAY);
 
@@ -189,6 +192,11 @@ public class NVTiles {
                 Capabilities.FluidHandler.BLOCK,
                 BLOOD_TANK_TYPE.get(),
                 BloodTankBlockEntity::getFluidHandler
+        );
+        event.registerBlockEntity(
+                Capabilities.EnergyStorage.BLOCK,
+                BLOOD_BATTERY_TYPE.get(),
+                BloodBatteryBlockEntity::getEnergyHandler
         );
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,

@@ -37,6 +37,7 @@ public class NVBlocks {
 
     public static final BlockWithItemHolder<AraVitaeBlock, BlockItem> ARA_VITAE = BLOCK_REG.register("ara_vitae", AraVitaeBlock::new);
     public static final BlockWithItemHolder<BloodTankBlock, BlockItem> BLOOD_TANK = BLOCK_REG.register("blood_tank", BloodTankBlock::new, block -> new BlockItem(block, new Item.Properties().component(NVDataComponents.CONTAINER_TIER, 1)));
+    public static final BlockWithItemHolder<BloodBatteryBlock, BlockItem> BLOOD_BATTERY = BLOCK_REG.register("blood_battery", BloodBatteryBlock::new);
     public static final BlockWithItemHolder<HellfireForgeBlock, BlockItem> HELLFIRE_FORGE = BLOCK_REG.register("hellfire_forge", HellfireForgeBlock::new);
     public static final BlockWithItemHolder<AthanorBlock, BlockItem> ATHANOR_BLOCK = BLOCK_REG.register("athanor", AthanorBlock::new);
     public static final BlockWithItemHolder<TeleposerBlock, BlockItem> TELEPOSER = BLOCK_REG.register("teleposer", TeleposerBlock::new);

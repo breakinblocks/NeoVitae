@@ -150,6 +150,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("fluid_content_empty", "Empty");
         addTooltip("fluid_content", "Contains: %smB of %s");
 
+        add(NVBlocks.BLOOD_BATTERY, "Blood Battery");
+        addTooltip("blood_battery.capacity", "Capacity: %s FE");
+        addTooltip("blood_battery.creative", "Creative Only");
+
         add(NVBlocks.HELLFIRE_FORGE, "Hellfire Forge");
         add(NVItems.RAW_SPIRITUS.get(), "Raw Spiritus");
 

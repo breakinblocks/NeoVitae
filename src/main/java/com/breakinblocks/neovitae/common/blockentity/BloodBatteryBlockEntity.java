@@ -33,6 +33,13 @@ public class BloodBatteryBlockEntity extends BaseBlockEntity {
         super(NVTiles.BLOOD_BATTERY_TYPE.get(), pos, state);
     }
 
+    public void tick() {
+        if (level == null || level.isClientSide) return;
+        if (level.hasNeighborSignal(worldPosition) && energy.getEnergyStored() < energy.getMaxEnergyStored()) {
+            energy.receiveEnergy(energy.getMaxEnergyStored() - energy.getEnergyStored(), false);
+        }
+    }
+
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);

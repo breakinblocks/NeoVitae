@@ -7,5 +7,5 @@
     "item": "minecraft:lead"
   },
   "effect_type": "loyal_friends",
-  "texture": "neovitae:textures/models/alchemyarrays/sigil.png"
+  "texture": "neovitae:textures/models/alchemyarrays/defaultarray.png"
 }

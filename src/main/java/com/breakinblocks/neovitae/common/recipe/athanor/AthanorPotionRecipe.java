@@ -15,6 +15,7 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class AthanorPotionRecipe extends AthanorRecipe {
             Ingredient.CODEC.fieldOf("input").forGetter(AthanorPotionRecipe::getSingleInput),
             ItemStack.CODEC.listOf().fieldOf("guaranteed_outputs").forGetter(AthanorPotionRecipe::getGuaranteedOutput),
             Codec.pair(ItemStack.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().fieldOf("chance_outputs").forGetter(AthanorPotionRecipe::getChanceOutput),
-            FluidStack.CODEC.optionalFieldOf("input_fluid").forGetter(AthanorPotionRecipe::getInputFluid),
+            SizedFluidIngredient.NESTED_CODEC.optionalFieldOf("input_fluid").forGetter(AthanorPotionRecipe::getInputFluid),
             FluidStack.CODEC.optionalFieldOf("output_fluid").forGetter(AthanorPotionRecipe::getOutputFluid)
     ).apply(inst, AthanorPotionRecipe::new));
 
@@ -52,14 +53,14 @@ public class AthanorPotionRecipe extends AthanorRecipe {
             Ingredient.CONTENTS_STREAM_CODEC, AthanorPotionRecipe::getSingleInput,
             ItemStack.LIST_STREAM_CODEC, AthanorPotionRecipe::getGuaranteedOutput,
             CHANCE_PAIR_STREAM_CODEC.apply(ByteBufCodecs.list()), AthanorPotionRecipe::getChanceOutput,
-            FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional), AthanorPotionRecipe::getInputFluid,
+            SizedFluidIngredient.STREAM_CODEC.apply(ByteBufCodecs::optional), AthanorPotionRecipe::getInputFluid,
             FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional), AthanorPotionRecipe::getOutputFluid,
             AthanorPotionRecipe::new
     );
 
     public AthanorPotionRecipe(Ingredient tool, Ingredient input, List<ItemStack> guaranteedOutput,
                            List<Pair<ItemStack, Double>> chanceOutput,
-                           Optional<FluidStack> inputFluid, Optional<FluidStack> outputStack) {
+                           Optional<SizedFluidIngredient> inputFluid, Optional<FluidStack> outputStack) {
         super(tool, List.of(input), guaranteedOutput, chanceOutput, inputFluid, outputStack, java.util.Map.of());
     }
 

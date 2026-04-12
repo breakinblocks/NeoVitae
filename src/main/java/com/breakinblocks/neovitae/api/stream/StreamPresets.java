@@ -17,7 +17,7 @@ import net.minecraft.world.entity.Entity;
  *   <li>{@link #lifePulse} &ndash; Warm golden surge, quick and radiant</li>
  *   <li>{@link #demonTether} &ndash; Fiery orange chain, rises with heat</li>
  *   <li>{@link #corruptionSeep} &ndash; Sickly green ooze, sluggish and heavy</li>
- *   <li>{@link #arcaneBolt} &ndash; Crackling blue-white thread, near-instant</li>
+ *   <li>{@link #arcaneBolt} &ndash; Saturated purple thread, near-instant</li>
  * </ul>
  *
  * <h3>Blob Presets</h3>
@@ -228,9 +228,9 @@ public final class StreamPresets {
     }
 
     /**
-     * Wispy violet thread of arcane energy. Thin and fast, the body jitters
+     * Saturated purple thread of arcane energy. Thin and fast, the body jitters
      * with a faint wobble and leaves a fuzzy trail of glow particles behind
-     * the head as it arcs into its target.
+     * the head as it arcs into its target. Uniform purple along its whole length.
      */
     public static StreamEffect.Builder arcaneBolt(Entity source, BlockPos target) {
         return applyArcaneBolt(StreamEffect.builder(source).to(target));
@@ -242,19 +242,20 @@ public final class StreamPresets {
     }
 
     private static StreamEffect.Builder applyArcaneBolt(StreamEffect.Builder b) {
-        return b.color(0x8822EE)
+        return b.color(0xAA00FF)
                 .scale(0.022f)
                 .speed(5.0f)
                 .gravity(0.0f)
-                .wobble(0.08f)
+                .wobble(0.005f)
                 .wobbleFrequency(2.4f)
                 .spiralInto(false)
                 .approachHeight(0.0f)
-                .alphaStart(0.35f)
-                .alphaEnd(0.9f)
+                .alphaStart(0.55f)
+                .alphaEnd(0.55f)
                 .glow(true)
                 .drainSpeed(4.0f)
-                .trailDensity(2);
+                .trailDensity(2)
+                .rawTrailColor(true);
     }
 
     private static StreamEffect.Builder applyBlockBoltBase(StreamEffect.Builder b, BlockyMode mode, float scale) {

@@ -500,39 +500,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.BOW_VELOCITY_ANOINTMENT_3.get(), "Archer's Polish III");
         add(NVItems.WEAPON_REPAIR_ANOINTMENT_3.get(), "Mending Balm III");
 
-        // Routing/Filter Items
+        // Routing Items
         add(NVItems.FRAME_PARTS.get(), "Frame Parts");
-        add(NVItems.ITEM_ROUTER_FILTER.get(), "Standard Filter");
-        add(NVItems.ITEM_TAG_FILTER.get(), "Tag Filter");
-        add(NVItems.ITEM_ENCHANT_FILTER.get(), "Enchantment Filter");
-        add(NVItems.ITEM_MOD_FILTER.get(), "Mod Filter");
-        add(NVItems.ITEM_COMPOSITE_FILTER.get(), "Composite Filter");
-
-        // Filter GUI translations
-        add("filter.neovitae.whitelist", "Whitelist Mode");
-        add("filter.neovitae.blacklist", "Blacklist Mode");
-        add("filter.neovitae.anytag", "Match Any Tag:");
-        add("filter.neovitae.specifiedtag", "Specified Tag:");
-        add("filter.neovitae.novalidtag", "No valid tag");
-
-        // Filter GUI display names (used by getDisplayName())
-        add("gui.neovitae.filter.exact", "Exact Filter");
-        add("gui.neovitae.filter.mod", "Mod Filter");
-        add("gui.neovitae.filter.tag", "Tag Filter");
-        add("gui.neovitae.filter.composite", "Composite Filter");
-
-        // Filter tooltip descriptions
-        add("tooltip.neovitae.modfilter.desc", "Filters items by their mod namespace");
-        add("tooltip.neovitae.tagfilter.desc", "Filters items by their tags");
-        add("tooltip.neovitae.compositefilter.desc", "Combines multiple filters together");
-        add("tooltip.neovitae.filter.whitelist", "Whitelist: Only matching items pass");
-        add("tooltip.neovitae.filter.blacklist", "Blacklist: Non-matching items pass");
-        add("tooltip.neovitae.filter.from_mod", "Items from %s");
-        add("tooltip.neovitae.filter.count", "%d x %s");
-        add("tooltip.neovitae.filter.all", "All %s");
-        add("tooltip.neovitae.filter.anytag", "Any tag on %s");
-        add("tooltip.neovitae.extraInfo", "Hold SHIFT for details");
-        add("tooltip.neovitae.contained_filters", "Contained Filters:");
 
         add(NVItems.BLOOD_SWEAT_AND_TEARS.get(), "Music Disc");
         add("jukebox_song.neovitae.blood_sweat_and_tears", "Saereth - Blood, Sweat & Tears");
@@ -1034,6 +1003,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("effect.endless_fountain.desc", "Fills adjacent fluid tanks with water every few ticks");
         addJei("effect.undertow.name", "Undertow Array");
         addJei("effect.undertow.desc", "Creates a bubble column in water; right-click to reverse");
+        addJei("effect.loyal_friends.name", "Array of Loyal Friends");
+        addJei("effect.loyal_friends.desc", "Summons and revives your tamed companions");
 
         // Array effect dummy items (JEI searchable)
         add(NVItems.ARRAY_BOUNCE.get(), "Bounce Array");

@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.dataattachment.DeadPetStorage;
@@ -30,8 +31,6 @@ public class AlchemyArrayEffectLoyalFriends extends AlchemyArrayEffect {
 
     private static final int ACTIVATION_TICK = 100;
     private static final int COMPLETION_TICK = 200;
-    private static final int LP_COST = 5000;
-
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
@@ -50,10 +49,11 @@ public class AlchemyArrayEffectLoyalFriends extends AlchemyArrayEffect {
         Player nearest = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 8, false);
         if (nearest == null) return true;
 
+        int lpCost = NeoVitae.SERVER_CONFIG.LOYAL_FRIENDS_LP_COST.get();
         Anima anima = AnimaHelper.getAnima(nearest);
-        if (anima == null || anima.getCurrentEV() < LP_COST) return true;
+        if (anima == null || anima.getCurrentEV() < lpCost) return true;
 
-        anima.syphon(AnimaTicket.create(LP_COST));
+        anima.syphon(AnimaTicket.create(lpCost));
 
         summonLivingPets(serverLevel, nearest, pos);
         reviveDeadPets(serverLevel, nearest, pos);

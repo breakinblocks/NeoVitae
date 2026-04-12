@@ -17,15 +17,21 @@ import net.neoforged.api.distmarker.OnlyIn;
 public class BloodGlowParticle extends TextureSheetParticle {
 
     protected BloodGlowParticle(ClientLevel level, double x, double y, double z,
-                                 SpriteSet sprites, int color) {
+                                 SpriteSet sprites, int color, boolean rawColor) {
         super(level, x, y, z);
 
         float r = ColorHelper.red(color);
         float g = ColorHelper.green(color);
         float b = ColorHelper.blue(color);
-        this.rCol = Math.min(1.0f, r * 0.5f + 0.5f);
-        this.gCol = Math.min(1.0f, g * 0.5f + 0.5f);
-        this.bCol = Math.min(1.0f, b * 0.5f + 0.5f);
+        if (rawColor) {
+            this.rCol = r;
+            this.gCol = g;
+            this.bCol = b;
+        } else {
+            this.rCol = Math.min(1.0f, r * 0.5f + 0.5f);
+            this.gCol = Math.min(1.0f, g * 0.5f + 0.5f);
+            this.bCol = Math.min(1.0f, b * 0.5f + 0.5f);
+        }
 
         this.alpha = 0.35f;
         this.quadSize = 0.12f + this.random.nextFloat() * 0.03f;
@@ -72,7 +78,7 @@ public class BloodGlowParticle extends TextureSheetParticle {
             if (NeoVitae.CLIENT_CONFIG.USE_SIMPLE_EFFECTS.get()) {
                 return SimpleParticleFactory.createSimpleGlow(level, x, y, z, this.sprites, options.color());
             }
-            return new BloodGlowParticle(level, x, y, z, this.sprites, options.color());
+            return new BloodGlowParticle(level, x, y, z, this.sprites, options.color(), options.rawColor());
         }
     }
 }

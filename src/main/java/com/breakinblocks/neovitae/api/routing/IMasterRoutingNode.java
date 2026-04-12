@@ -33,4 +33,13 @@ public interface IMasterRoutingNode extends IRoutingNode {
      * Removes a connection between two positions.
      */
     void removeConnection(BlockPos pos1, BlockPos pos2);
+
+    /**
+     * Scrubs a position from the network graph entirely: removes all edges
+     * involving it and deletes its entry from the master's connection map.
+     * Used when a conduit or node is broken so the graph doesn't leak stale
+     * references. Call this from the node's {@code removeAllConnections}
+     * instead of trying to remove a self-edge.
+     */
+    void removeNodeFromGraph(BlockPos pos);
 }

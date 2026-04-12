@@ -27,6 +27,9 @@ public class ServerConfig {
     public final ModConfigSpec.DoubleValue CRYSTAL_GROWTH_THRESHOLD;
     public final ModConfigSpec.IntValue CRYSTAL_MAX_COUNT;
 
+    // Alchemy Array config
+    public final ModConfigSpec.IntValue LOYAL_FRIENDS_LP_COST;
+
     // Blood Mending config
     public final ModConfigSpec.IntValue BLOOD_MENDING_REPAIR_COST;
 
@@ -98,6 +101,15 @@ public class ServerConfig {
         CRYSTAL_MAX_COUNT = builder
                 .comment("Maximum number of crystal segments per cluster")
                 .defineInRange("max_count", 7, 1, 20);
+
+        builder.pop();
+
+        builder.comment("Alchemy Array Configuration");
+        builder.push("alchemy_arrays");
+
+        LOYAL_FRIENDS_LP_COST = builder
+                .comment("EV cost for the Array of Loyal Friends to summon and revive pets")
+                .defineInRange("loyal_friends_lp_cost", 2500, 0, 100000);
 
         builder.pop();
 

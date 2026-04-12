@@ -13,6 +13,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import com.breakinblocks.neovitae.api.routing.*;
+import com.breakinblocks.neovitae.common.routing.RoutingLinkHelper;
 import com.breakinblocks.neovitae.util.Constants;
 
 import java.util.LinkedList;
@@ -100,15 +101,19 @@ public class ItemNodeRouter extends Item {
                 master.addConnection(nodePos, masterPos);
                 master.addNodeToList(node);
                 node.addConnection(masterPos);
+                RoutingLinkHelper.fireLinkBolt(level, nodePos, masterPos);
                 player.displayClientMessage(Component.translatable("chat.neovitae.routing.link.master"), true);
-                setBlockPos(stack, BlockPos.ZERO);
+                // Preserve the master in the router so the next right-click binds another
+                // node to the same master without re-selecting it.
+                setBlockPos(stack, masterPos);
                 return InteractionResult.SUCCESS;
             }
         } else {
             master.addConnection(nodePos, masterPos);
             node.addConnection(masterPos);
+            RoutingLinkHelper.fireLinkBolt(level, nodePos, masterPos);
             player.displayClientMessage(Component.translatable("chat.neovitae.routing.link.master"), true);
-            setBlockPos(stack, BlockPos.ZERO);
+            setBlockPos(stack, masterPos);
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.FAIL;
@@ -127,8 +132,10 @@ public class ItemNodeRouter extends Item {
             }
             pastNode.addConnection(pos);
             node.addConnection(containedPos);
+            RoutingLinkHelper.fireLinkBolt(level, containedPos, pos);
             player.displayClientMessage(Component.translatable("chat.neovitae.routing.link"), true);
-            setBlockPos(stack, BlockPos.ZERO);
+            // Chain-bind: stash the just-clicked node so the next right-click continues the chain
+            setBlockPos(stack, pos);
             return InteractionResult.SUCCESS;
         } else if (pastNode.getMasterPos().equals(BlockPos.ZERO)) {
             // pastNode not connected, node is connected
@@ -140,8 +147,9 @@ public class ItemNodeRouter extends Item {
             }
             pastNode.addConnection(pos);
             node.addConnection(containedPos);
+            RoutingLinkHelper.fireLinkBolt(level, containedPos, pos);
             player.displayClientMessage(Component.translatable("chat.neovitae.routing.link"), true);
-            setBlockPos(stack, BlockPos.ZERO);
+            setBlockPos(stack, pos);
             return InteractionResult.SUCCESS;
         } else if (node.getMasterPos().equals(BlockPos.ZERO)) {
             // node not connected, pastNode is connected
@@ -153,11 +161,13 @@ public class ItemNodeRouter extends Item {
             }
             pastNode.addConnection(pos);
             node.addConnection(containedPos);
+            RoutingLinkHelper.fireLinkBolt(level, containedPos, pos);
             player.displayClientMessage(Component.translatable("chat.neovitae.routing.link"), true);
-            setBlockPos(stack, BlockPos.ZERO);
+            setBlockPos(stack, pos);
             return InteractionResult.SUCCESS;
         }
 
+        // Both nodes attached to different masters - can't bridge networks, bail.
         setBlockPos(stack, BlockPos.ZERO);
         return InteractionResult.SUCCESS;
     }

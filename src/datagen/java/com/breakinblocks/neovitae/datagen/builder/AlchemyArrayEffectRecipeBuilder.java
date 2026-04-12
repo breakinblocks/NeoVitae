@@ -21,7 +21,7 @@ public class AlchemyArrayEffectRecipeBuilder {
 
     private AlchemyArrayEffectRecipeBuilder(AlchemyArrayEffectType effectType) {
         this.effectType = effectType;
-        this.texture = NeoVitae.rl("textures/models/alchemyarrays/sigil.png");
+        this.texture = NeoVitae.rl("textures/models/alchemyarrays/defaultarray.png");
     }
 
     public static AlchemyArrayEffectRecipeBuilder effect(AlchemyArrayEffectType effectType) {

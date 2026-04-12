@@ -13,11 +13,7 @@ import com.breakinblocks.neovitae.common.item.athanor.ItemAthanorToolBase;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlaskLingering;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlaskThrowable;
-import com.breakinblocks.neovitae.common.item.routing.ItemCompositeFilter;
-import com.breakinblocks.neovitae.common.item.routing.ItemModFilter;
 import com.breakinblocks.neovitae.common.item.routing.ItemNodeRouter;
-import com.breakinblocks.neovitae.common.item.routing.ItemRouterFilter;
-import com.breakinblocks.neovitae.common.item.routing.ItemTagFilter;
 import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.breakinblocks.neovitae.common.item.sigil.ISigil;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilDamned;
@@ -364,11 +360,6 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemAnointmentProvider> WEAPON_REPAIR_ANOINTMENT_3 = anointment("weapon_repair_anointment_3", "repairing", COLOR_REPAIR, 3, USES_BASE);
 
     public static final DeferredHolder<Item, Item> FRAME_PARTS = plainItem("component_frame_parts");
-    public static final DeferredHolder<Item, ItemRouterFilter> ITEM_ROUTER_FILTER = BASIC_ITEMS.register("item_router_filter_exact", ItemRouterFilter::new);
-    public static final DeferredHolder<Item, ItemTagFilter> ITEM_TAG_FILTER = BASIC_ITEMS.register("item_router_filter_tag", ItemTagFilter::new);
-    public static final DeferredHolder<Item, Item> ITEM_ENCHANT_FILTER = plainItem("item_router_filter_enchant");
-    public static final DeferredHolder<Item, ItemModFilter> ITEM_MOD_FILTER = BASIC_ITEMS.register("item_router_filter_mod", ItemModFilter::new);
-    public static final DeferredHolder<Item, ItemCompositeFilter> ITEM_COMPOSITE_FILTER = BASIC_ITEMS.register("item_router_filter_composite", ItemCompositeFilter::new);
 
 
     public static final DeferredHolder<Item, Item> BLOOD_SWEAT_AND_TEARS = BASIC_ITEMS.register("blood_sweat_and_tears", () -> new Item(

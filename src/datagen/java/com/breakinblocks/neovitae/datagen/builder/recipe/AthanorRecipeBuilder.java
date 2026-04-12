@@ -9,7 +9,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
 
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
@@ -26,7 +28,7 @@ public class AthanorRecipeBuilder extends BaseRecipeBuilder {
     private final List<Ingredient> inputs = new ArrayList<>();
     private List<ItemStack> guaranteed = new ArrayList<>();
     private List<Pair<ItemStack, Double>> chanced = new ArrayList<>();
-    private FluidStack inputFluid = null;
+    private SizedFluidIngredient inputFluid = null;
     private FluidStack outputFluid = null;
     private final EnumMap<SpiritusType, Double> spiritusCosts = new EnumMap<>(SpiritusType.class);
 
@@ -71,8 +73,23 @@ public class AthanorRecipeBuilder extends BaseRecipeBuilder {
         return this;
     }
 
-    public AthanorRecipeBuilder fluidInput(FluidStack fluidInput) {
+    public AthanorRecipeBuilder fluidInput(SizedFluidIngredient fluidInput) {
         this.inputFluid = fluidInput;
+        return this;
+    }
+
+    public AthanorRecipeBuilder fluidInput(FluidStack fluidInput) {
+        this.inputFluid = SizedFluidIngredient.of(fluidInput);
+        return this;
+    }
+
+    public AthanorRecipeBuilder fluidInput(Fluid fluid, int amount) {
+        this.inputFluid = SizedFluidIngredient.of(fluid, amount);
+        return this;
+    }
+
+    public AthanorRecipeBuilder fluidInput(TagKey<Fluid> tag, int amount) {
+        this.inputFluid = SizedFluidIngredient.of(tag, amount);
         return this;
     }
 

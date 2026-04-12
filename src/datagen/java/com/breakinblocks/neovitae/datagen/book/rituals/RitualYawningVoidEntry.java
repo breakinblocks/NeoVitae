@@ -40,8 +40,11 @@ public class RitualYawningVoidEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Raw Spiritus[#](): Accelerates the excavation rate.\\\n\\\n"
-                + "- [#](8B0000)Corrosive Spiritus[#](): Enables block filtering. Place an [#](8B0000)Item Filter[#]() in the linked chest to restrict what is mined. Standard, Tag, Mod, and Composite filters are all accepted. Blacklisting works as well.\\\n\\\n"
-                + "- [#](8B0000)Steadfast Spiritus[#](): Rather than destroying blocks, relocates them above the ritual, creating a surface copy of the excavated terrain.");
+                + "- [#](8B0000)Corrosive Spiritus[#](): Enables a [#](8B0000)whitelist[#](). Drop sample "
+                + "items into the linked chest; the ritual will only break blocks whose drops match one "
+                + "of those items. An empty chest disables the filter and mines everything.\\\n\\\n"
+                + "- [#](8B0000)Steadfast Spiritus[#](): Rather than destroying blocks, relocates them "
+                + "above the ritual, creating a surface copy of the excavated terrain.");
     }
 
     @Override

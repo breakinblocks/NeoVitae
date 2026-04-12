@@ -107,41 +107,6 @@ public class SpiritusCategory extends CategoryProvider {
         routingNodes.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/node_router"));
         routingNodes.hideWhileLocked(false);
 
-        var standardFilter = this.add(new StandardFilterEntry(this).generate('q'));
-        standardFilter.withParent(this.parent(routingNodes));
-        standardFilter.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/routing_nodes"));
-        standardFilter.hideWhileLocked(false);
-
-        var tagFilter = this.add(new TagFilterEntry(this).generate('r'));
-        tagFilter.withParent(this.parent(standardFilter));
-        tagFilter.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/standard_filter"));
-        tagFilter.hideWhileLocked(false);
-
-        var modFilter = this.add(new ModFilterEntry(this).generate('s'));
-        modFilter.withParent(this.parent(standardFilter));
-        modFilter.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/standard_filter"));
-        modFilter.hideWhileLocked(false);
-
-        var enchantFilter = this.add(new EnchantFilterEntry(this).generate('t'));
-        enchantFilter.withParent(this.parent(standardFilter));
-        enchantFilter.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/standard_filter"));
-        enchantFilter.hideWhileLocked(false);
-
-        var compositeFilter = this.add(new CompositeFilterEntry(this).generate('u'));
-        compositeFilter.withParent(this.parent(standardFilter));
-        compositeFilter.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/standard_filter"));
-        compositeFilter.hideWhileLocked(false);
-
-        var filterParts = this.add(new FilterPartsEntry(this).generate('v'));
-        filterParts.withParent(this.parent(standardFilter));
-        filterParts.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/standard_filter"));
-        filterParts.hideWhileLocked(false);
-
-        var editingFilters = this.add(new EditingFiltersEntry(this).generate('w'));
-        editingFilters.withParent(this.parent(standardFilter));
-        editingFilters.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/standard_filter"));
-        editingFilters.hideWhileLocked(false);
-
         var upgrades = this.add(new UpgradesEntry(this).generate('x'));
         upgrades.withParent(this.parent(routingNodes));
         upgrades.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/routing_nodes"));

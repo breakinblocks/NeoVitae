@@ -3,6 +3,8 @@ package com.breakinblocks.neovitae.common.block;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -21,6 +23,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.common.routing.RoutingLinkHelper;
 import com.breakinblocks.neovitae.api.routing.*;
 
 import javax.annotation.Nullable;
@@ -113,6 +116,16 @@ public abstract class BlockRoutingNode extends BaseEntityBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(UP, DOWN, NORTH, EAST, SOUTH, WEST);
+    }
+
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        if (level.isClientSide) return;
+        BlockEntity tile = level.getBlockEntity(pos);
+        if (tile instanceof IRoutingNode node && !(tile instanceof IMasterRoutingNode)) {
+            RoutingLinkHelper.tryAutoBind(level, pos, node);
+        }
     }
 
     @Override

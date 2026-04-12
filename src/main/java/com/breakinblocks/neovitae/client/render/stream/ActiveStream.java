@@ -181,7 +181,7 @@ public class ActiveStream {
             double jy = (RANDOM.nextDouble() - 0.5) * 0.12;
             double jz = (RANDOM.nextDouble() - 0.5) * 0.12;
             level.addParticle(
-                    new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), effect.color),
+                    new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), effect.color, effect.rawTrailColor),
                     headX + jx, headY + jy, headZ + jz,
                     0.0, 0.0, 0.0);
         }
@@ -456,9 +456,20 @@ public class ActiveStream {
             radii[i] = Math.max(0, radii[i]);
 
             float colorVar = 1.0f - Mth.sin((i + age) / 2.0f) * 0.1f;
-            colors[i][0] = red * colorVar;
-            colors[i][1] = green * colorVar;
-            colors[i][2] = blue * colorVar;
+            float cr = red * colorVar;
+            float cg = green * colorVar;
+            float cb = blue * colorVar;
+            // If the brightness bump pushes any channel above 1, scale all three down
+            // uniformly so the hue is preserved instead of the bright channel clipping.
+            float maxChan = Math.max(cr, Math.max(cg, cb));
+            if (maxChan > 1.0f) {
+                cr /= maxChan;
+                cg /= maxChan;
+                cb /= maxChan;
+            }
+            colors[i][0] = cr;
+            colors[i][1] = cg;
+            colors[i][2] = cb;
 
             if (effect.stationary) {
                 colors[i][3] = effect.alphaEnd;

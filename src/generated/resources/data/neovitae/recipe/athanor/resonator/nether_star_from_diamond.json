@@ -9,7 +9,9 @@
   ],
   "input_fluid": {
     "amount": 4000,
-    "id": "neovitae:essentia_vitae_source"
+    "ingredient": {
+      "fluid": "neovitae:essentia_vitae_source"
+    }
   },
   "inputs": [
     {

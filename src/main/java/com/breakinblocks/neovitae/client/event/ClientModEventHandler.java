@@ -57,7 +57,6 @@ import com.breakinblocks.neovitae.common.menu.NVMenus;
 import com.breakinblocks.neovitae.client.render.entity.layer.LivingElytraLayer;
 import com.breakinblocks.neovitae.client.screen.AthanorScreen;
 import com.breakinblocks.neovitae.client.screen.DungeonSealScreen;
-import com.breakinblocks.neovitae.client.screen.FilterScreen;
 import com.breakinblocks.neovitae.client.screen.TeleposerScreen;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
@@ -157,7 +156,6 @@ public class ClientModEventHandler {
         event.register(NVMenus.SIGIL_HOLDING.get(), SigilHoldingScreen::new);
         event.register(NVMenus.ROUTING_NODE.get(), RoutingNodeScreen::new);
         event.register(NVMenus.MASTER_ROUTING_NODE.get(), MasterRoutingNodeScreen::new);
-        event.register(NVMenus.FILTER.get(), FilterScreen::new);
         event.register(NVMenus.DUNGEON_SEAL.get(), DungeonSealScreen::new);
         event.register(NVMenus.SPIRIT_CACHE.get(), com.breakinblocks.neovitae.client.screen.SpiritCacheScreen::new);
     }

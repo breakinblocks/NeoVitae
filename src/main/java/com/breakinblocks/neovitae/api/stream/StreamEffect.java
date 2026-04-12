@@ -124,6 +124,9 @@ public final class StreamEffect {
      */
     public final int trailDensity;
 
+    /** When true, trail particles render with the effect's color un-biased. */
+    public final boolean rawTrailColor;
+
     private StreamEffect(Builder b) {
         this.sourceX = b.sourceX;
         this.sourceY = b.sourceY;
@@ -151,6 +154,7 @@ public final class StreamEffect {
         this.blockyMode = b.blockyMode;
         this.targetEntityId = b.targetEntityId;
         this.trailDensity = b.trailDensity;
+        this.rawTrailColor = b.rawTrailColor;
     }
 
     /**
@@ -223,6 +227,7 @@ public final class StreamEffect {
         buf.writeInt(blockyMode.ordinal());
         buf.writeInt(targetEntityId);
         buf.writeInt(trailDensity);
+        buf.writeBoolean(rawTrailColor);
     }
 
     /**
@@ -253,6 +258,7 @@ public final class StreamEffect {
         b.blockyMode = BlockyMode.values()[buf.readInt()];
         b.targetEntityId = buf.readInt();
         b.trailDensity = buf.readInt();
+        b.rawTrailColor = buf.readBoolean();
         return new StreamEffect(b);
     }
 
@@ -283,6 +289,7 @@ public final class StreamEffect {
         private BlockyMode blockyMode = BlockyMode.NONE;
         private int targetEntityId = -1;
         private int trailDensity = 0;
+        private boolean rawTrailColor = false;
 
         private Builder(double x, double y, double z) {
             this.sourceX = x;
@@ -433,6 +440,16 @@ public final class StreamEffect {
          */
         public Builder trailDensity(int count) {
             this.trailDensity = Math.max(0, count);
+            return this;
+        }
+
+        /**
+         * When true, the trail particles render with the effect's raw color
+         * instead of the default BloodGlowParticle brightening bias. Use for
+         * effects that need to appear as a pure single hue.
+         */
+        public Builder rawTrailColor(boolean raw) {
+            this.rawTrailColor = raw;
             return this;
         }
 

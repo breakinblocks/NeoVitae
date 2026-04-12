@@ -7,6 +7,7 @@ import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
@@ -94,10 +95,11 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
         }
 
         // Fluid input
-        recipe.getInputFluid().ifPresent(fluid -> {
+        recipe.getInputFluid().ifPresent(sized -> {
             IRecipeSlotBuilder s = builder.addSlot(RecipeIngredientRole.INPUT, INPUT_COL + 1, ROW2 + 1);
-            s.addFluidStack(fluid.getFluid(), fluid.getAmount());
-            s.addRichTooltipCallback((v, t) -> t.add(Component.literal(fluid.getAmount() + " mB")));
+            s.addIngredients(NeoForgeTypes.FLUID_STACK, java.util.Arrays.asList(sized.getFluids()));
+            int amount = sized.amount();
+            s.addRichTooltipCallback((v, t) -> t.add(Component.literal(amount + " mB")));
         });
 
         // Fluid output

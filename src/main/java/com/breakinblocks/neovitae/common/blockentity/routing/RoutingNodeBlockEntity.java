@@ -5,13 +5,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Triple;
 import com.breakinblocks.neovitae.api.routing.*;
-import com.breakinblocks.neovitae.api.routing.*;
+import com.breakinblocks.neovitae.common.routing.RoutingLinkHelper;
 import com.breakinblocks.neovitae.util.Constants;
 
 import java.util.ArrayList;
@@ -28,19 +29,54 @@ public abstract class RoutingNodeBlockEntity extends BlockEntity implements IRou
     private BlockPos masterPos = BlockPos.ZERO;
     private List<BlockPos> connectionList = new ArrayList<>();
 
+    private boolean bindingNeedsValidation = true;
+
     public RoutingNodeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
     public void tick(Level level, BlockPos pos, BlockState state) {
-        if (!level.isClientSide) {
-            currentInput = level.getBestNeighborSignal(pos);
+        if (level.isClientSide) return;
+        currentInput = level.getBestNeighborSignal(pos);
+
+        if (bindingNeedsValidation) {
+            validateBinding(level);
         }
+    }
+
+    /**
+     * Runs once per (re)load: verify the master still knows about us, else reset and
+     * try to auto-bind. Deferred if the master's chunk isn't loaded yet.
+     */
+    private void validateBinding(Level level) {
+        if (!masterPos.equals(BlockPos.ZERO)) {
+            int mcx = masterPos.getX() >> 4;
+            int mcz = masterPos.getZ() >> 4;
+            if (!level.hasChunk(mcx, mcz)) return;
+
+            BlockEntity masterTile = level.getBlockEntity(masterPos);
+            boolean valid = masterTile instanceof com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity master
+                    && master.graphContains(worldPosition);
+            if (!valid) {
+                masterPos = BlockPos.ZERO;
+                connectionList.clear();
+                setChanged();
+            }
+        }
+
+        if (masterPos.equals(BlockPos.ZERO)) {
+            RoutingLinkHelper.tryAutoBind(level, worldPosition, this);
+        }
+
+        bindingNeedsValidation = false;
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
+
+        // Position stamp: lets loadAdditional detect if a mover copied our BE to a new spot.
+        tag.putLong("savedAt", worldPosition.asLong());
 
         CompoundTag masterTag = new CompoundTag();
         masterTag.putInt(Constants.NBT.X_COORD, masterPos.getX());
@@ -79,15 +115,34 @@ public abstract class RoutingNodeBlockEntity extends BlockEntity implements IRou
                     blockTag.getInt(Constants.NBT.Z_COORD));
             connectionList.add(newPos);
         }
+
+        // Detect a block-mover that preserved the BE but changed its position.
+        if (tag.contains("savedAt", Tag.TAG_LONG)) {
+            BlockPos savedAt = BlockPos.of(tag.getLong("savedAt"));
+            if (!savedAt.equals(worldPosition)) {
+                masterPos = BlockPos.ZERO;
+                connectionList.clear();
+            }
+        }
+
+        bindingNeedsValidation = true;
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        bindingNeedsValidation = true;
     }
 
     @Override
     public void removeAllConnections() {
         BlockEntity testTile = getLevel().getBlockEntity(getMasterPos());
         if (testTile instanceof IMasterRoutingNode master) {
-            master.removeConnection(worldPosition, worldPosition);
+            master.removeNodeFromGraph(worldPosition);
+            master.removeConnection(worldPosition);
         }
 
+        // Opportunistic cleanup of loaded neighbors; the master's graph is authoritative for unloaded ones.
         for (BlockPos testPos : connectionList) {
             BlockEntity tile = getLevel().getBlockEntity(testPos);
             if (tile instanceof IRoutingNode node) {

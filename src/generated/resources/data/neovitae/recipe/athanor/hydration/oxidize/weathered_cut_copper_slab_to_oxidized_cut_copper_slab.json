@@ -9,7 +9,9 @@
   ],
   "input_fluid": {
     "amount": 200,
-    "id": "minecraft:water"
+    "ingredient": {
+      "fluid": "minecraft:water"
+    }
   },
   "inputs": [
     {

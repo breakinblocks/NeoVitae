@@ -15,6 +15,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
@@ -44,7 +45,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
             Ingredient.CODEC.listOf().fieldOf("inputs").forGetter(AthanorRecipe::getInputs),
             ItemStack.CODEC.listOf().fieldOf("guaranteed_outputs").forGetter(AthanorRecipe::getGuaranteedOutput),
             Codec.pair(ItemStack.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().fieldOf("chance_outputs").forGetter(AthanorRecipe::getChanceOutput),
-            FluidStack.CODEC.optionalFieldOf("input_fluid").forGetter(AthanorRecipe::getInputFluid),
+            SizedFluidIngredient.NESTED_CODEC.optionalFieldOf("input_fluid").forGetter(AthanorRecipe::getInputFluid),
             FluidStack.CODEC.optionalFieldOf("output_fluid").forGetter(AthanorRecipe::getOutputFluid),
             SPIRITUS_COST_CODEC.optionalFieldOf("spiritus_costs", Map.of()).forGetter(AthanorRecipe::getSpiritusCosts)
     ).apply(inst, AthanorRecipe::new));
@@ -60,7 +61,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
             }
             List<ItemStack> guaranteed = ItemStack.LIST_STREAM_CODEC.decode(buf);
             List<Pair<ItemStack, Double>> chanced = CHANCE_PAIR_STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buf);
-            Optional<FluidStack> inFluid = FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional).decode(buf);
+            Optional<SizedFluidIngredient> inFluid = SizedFluidIngredient.STREAM_CODEC.apply(ByteBufCodecs::optional).decode(buf);
             Optional<FluidStack> outFluid = FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional).decode(buf);
             int costSize = buf.readVarInt();
             Map<SpiritusType, Double> costs = new EnumMap<>(SpiritusType.class);
@@ -79,7 +80,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
             }
             ItemStack.LIST_STREAM_CODEC.encode(buf, recipe.guaranteedOutput);
             CHANCE_PAIR_STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buf, recipe.chanceOutput);
-            FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional).encode(buf, recipe.inputFluid);
+            SizedFluidIngredient.STREAM_CODEC.apply(ByteBufCodecs::optional).encode(buf, recipe.inputFluid);
             FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional).encode(buf, recipe.outputFluid);
             buf.writeVarInt(recipe.spiritusCosts.size());
             recipe.spiritusCosts.forEach((type, amount) -> {
@@ -93,12 +94,12 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
     private final List<Ingredient> inputs;
     private final List<ItemStack> guaranteedOutput;
     private final List<Pair<ItemStack, Double>> chanceOutput;
-    private final Optional<FluidStack> inputFluid;
+    private final Optional<SizedFluidIngredient> inputFluid;
     private final Optional<FluidStack> outputFluid;
     private final Map<SpiritusType, Double> spiritusCosts;
     private final List<Pair<ItemStack, Double>> allListed;
 
-    public AthanorRecipe(Ingredient tool, List<Ingredient> inputs, List<ItemStack> guaranteedOutput, List<Pair<ItemStack, Double>> chanceOutput, Optional<FluidStack> inputFluid, Optional<FluidStack> outputStack, Map<SpiritusType, Double> spiritusCosts) {
+    public AthanorRecipe(Ingredient tool, List<Ingredient> inputs, List<ItemStack> guaranteedOutput, List<Pair<ItemStack, Double>> chanceOutput, Optional<SizedFluidIngredient> inputFluid, Optional<FluidStack> outputStack, Map<SpiritusType, Double> spiritusCosts) {
         this.tool = tool;
         this.inputs = List.copyOf(inputs);
         this.guaranteedOutput = guaranteedOutput;
@@ -129,7 +130,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         return chanceOutput;
     }
 
-    public Optional<FluidStack> getInputFluid() {
+    public Optional<SizedFluidIngredient> getInputFluid() {
         return inputFluid;
     }
 
@@ -150,10 +151,8 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         if (!tool.test(recipeInput.getItem(0))) {
             return false;
         }
-        if (inputFluid.isPresent()) {
-            if (!(inputFluid.get().is(recipeInput.getFluid().getFluidType()) && inputFluid.get().getAmount() <= recipeInput.getFluid().getAmount())) {
-                return false;
-            }
+        if (inputFluid.isPresent() && !inputFluid.get().test(recipeInput.getFluid())) {
+            return false;
         }
         return matchInputs(recipeInput);
     }

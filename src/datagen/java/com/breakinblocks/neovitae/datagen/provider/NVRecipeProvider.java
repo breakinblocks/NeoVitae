@@ -1995,7 +1995,7 @@ public class NVRecipeProvider extends RecipeProvider {
         AlchemyArrayRecipeBuilder.build(NVItems.SIGIL_BOUND_TREASURES.get())
                 .base(Items.ENDER_EYE)
                 .added(NVItems.SLATE_IMBUED.get())
-                .texture("textures/models/alchemyarrays/sigil.png")
+                .texture("textures/models/alchemyarrays/defaultarray.png")
                 .save(output, "bound_treasures_sigil");
 
         // Living Armor - reagent_binding + iron armor pieces
@@ -2637,56 +2637,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .ticks(100)
                 .minimumTier(3)
                 .save(output, "component_frame_parts");
-
-        TabulaVitaeRecipeBuilder.build(NVItems.ITEM_ROUTER_FILTER.get())
-                .input(NVItems.FRAME_PARTS.get())
-                .input(Ingredient.of(Tags.Items.LEATHERS))
-                .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
-                .input(Ingredient.of(Tags.Items.DYES_RED))
-                .syphon(500)
-                .ticks(100)
-                .minimumTier(3)
-                .save(output, "router_filter");
-
-        TabulaVitaeRecipeBuilder.build(NVItems.ITEM_TAG_FILTER.get())
-                .input(NVItems.FRAME_PARTS.get())
-                .input(Ingredient.of(Tags.Items.INGOTS))
-                .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
-                .input(Items.CLAY_BALL)
-                .syphon(500)
-                .ticks(100)
-                .minimumTier(3)
-                .save(output, "tag_router_filter");
-
-        TabulaVitaeRecipeBuilder.build(NVItems.ITEM_MOD_FILTER.get())
-                .input(NVItems.FRAME_PARTS.get())
-                .input(NVItems.SLATE_REINFORCED.get())
-                .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
-                .input(Ingredient.of(Tags.Items.DYES_YELLOW))
-                .syphon(500)
-                .ticks(100)
-                .minimumTier(3)
-                .save(output, "mod_router_filter");
-
-        TabulaVitaeRecipeBuilder.build(NVItems.ITEM_ENCHANT_FILTER.get())
-                .input(NVItems.FRAME_PARTS.get())
-                .input(Items.ENCHANTED_BOOK)
-                .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
-                .input(Items.PAPER)
-                .syphon(500)
-                .ticks(100)
-                .minimumTier(3)
-                .save(output, "enchant_router_filter");
-
-        TabulaVitaeRecipeBuilder.build(NVItems.ITEM_COMPOSITE_FILTER.get())
-                .input(NVItems.FRAME_PARTS.get())
-                .input(Ingredient.of(Tags.Items.DUSTS_GLOWSTONE))
-                .input(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
-                .input(NVItems.SLATE_IMBUED.get())
-                .syphon(1000)
-                .ticks(200)
-                .minimumTier(3)
-                .save(output, "composite_router_filter");
 
         // Intermediate Cutting Fluid - tau oil + glowstone + gunpowder + sugar + sulfur + water bottle
         TabulaVitaeRecipeBuilder.build(NVItems.INTERMEDIATE_CUTTING_FLUID.get())

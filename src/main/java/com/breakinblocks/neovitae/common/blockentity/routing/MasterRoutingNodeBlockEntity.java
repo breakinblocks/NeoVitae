@@ -35,9 +35,20 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
     public static final int SLOT_STACK_UPGRADE = 0;
     public static final int SLOT_SPEED_UPGRADE = 1;
 
+    public static final int ENERGY_RATE_DEFAULT = 500;
+    /** Hard storage cap; effective rate is further clamped by {@link #getUpgradeEnergyCeiling()}. */
+    public static final int ENERGY_RATE_MAX = 1_000_000;
+    public static final int ENERGY_RATE_MIN = 0;
+
+    private static final int PHANTOM_SWEEP_INTERVAL_TICKS = 1200;
+
     private int currentInput;
+    private int configuredEnergyRate = ENERGY_RATE_DEFAULT;
+    /** Authoritative adjacency map; BFS over this drives connectivity without loading any BEs. */
     private TreeMap<BlockPos, List<BlockPos>> connectionMap = new TreeMap<>();
     private List<BlockPos> generalNodeList = new ArrayList<>();
+    private boolean legacyMigrationAttempted = false;
+    private int ticksSincePhantomSweep = 0;
 
     // Channel-keyed node lists: channelId -> list of node positions
     private final Map<String, List<BlockPos>> inputNodeLists = new LinkedHashMap<>();
@@ -66,30 +77,167 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
 
         currentInput = level.getDirectSignalTo(pos);
 
+        // Sweep runs independently of channel tick rate so a slow master still self-heals.
+        if (++ticksSincePhantomSweep >= PHANTOM_SWEEP_INTERVAL_TICKS) {
+            ticksSincePhantomSweep = 0;
+            sweepPhantomEntries(level);
+        }
+
         int tickMod = RoutingNodeHelper.getEffectiveTickRate(
                 getBlockState().getBlock(),
                 getItem(SLOT_SPEED_UPGRADE).getCount()
         );
         if (level.getGameTime() % tickMod != 0) return;
 
-        Set<BlockPos> visitedNodes = new HashSet<>();
+        // One-shot rebuild for pre-persistence saves that only stored the graph on nodes.
+        if (!legacyMigrationAttempted) {
+            legacyMigrationAttempted = true;
+            if (connectionMap.isEmpty() && !generalNodeList.isEmpty()) {
+                rebuildConnectionMapFromLoadedNodes(level);
+            }
+        }
 
         for (RoutingChannel<?> channel : RoutingChannelRegistry.getChannels()) {
-            processChannel(channel, visitedNodes, level);
+            processChannel(channel, level);
         }
     }
 
+    /**
+     * Prune graph entries whose chunks are loaded but no longer hold a routing-node block.
+     * Catches WorldEdit fast-mode, region-file deletion, and any destructive op that
+     * bypasses {@code Block.onRemove}. Unloaded positions are left alone.
+     */
+    private void sweepPhantomEntries(Level level) {
+        if (connectionMap.isEmpty()) return;
+
+        List<BlockPos> toRemove = new ArrayList<>();
+        for (BlockPos pos : connectionMap.keySet()) {
+            if (pos.equals(worldPosition)) continue;
+            if (!level.hasChunk(pos.getX() >> 4, pos.getZ() >> 4)) continue;
+
+            BlockState state = level.getBlockState(pos);
+            if (!(state.getBlock() instanceof com.breakinblocks.neovitae.common.block.BlockRoutingNode)) {
+                toRemove.add(pos);
+            }
+        }
+
+        if (toRemove.isEmpty()) return;
+
+        for (BlockPos pos : toRemove) {
+            removeNodeFromGraph(pos);
+            generalNodeList.remove(pos);
+            for (List<BlockPos> list : inputNodeLists.values()) list.remove(pos);
+            for (List<BlockPos> list : outputNodeLists.values()) list.remove(pos);
+        }
+        setChanged();
+    }
+
+    /** Best-effort: rebuild {@link #connectionMap} from whatever nodes are currently loaded. */
+    private void rebuildConnectionMapFromLoadedNodes(Level level) {
+        for (BlockPos nodePos : new ArrayList<>(generalNodeList)) {
+            BlockEntity tile = level.getBlockEntity(nodePos);
+            if (!(tile instanceof IRoutingNode node)) continue;
+            for (BlockPos neighbor : node.getConnected()) {
+                addConnection(nodePos, neighbor);
+            }
+        }
+    }
+
+    /** Emergency rebuild from live BEs in range. Preserves upgrade/energy settings. */
+    public int rescanNetwork(int radius) {
+        Level lvl = getLevel();
+        if (lvl == null) return 0;
+
+        connectionMap.clear();
+        generalNodeList.clear();
+        inputNodeLists.values().forEach(List::clear);
+        outputNodeLists.values().forEach(List::clear);
+
+        int added = 0;
+        int r = Math.max(1, radius);
+        int radiusSq = r * r;
+
+        int minCx = (worldPosition.getX() - r) >> 4;
+        int maxCx = (worldPosition.getX() + r) >> 4;
+        int minCz = (worldPosition.getZ() - r) >> 4;
+        int maxCz = (worldPosition.getZ() + r) >> 4;
+
+        for (int cx = minCx; cx <= maxCx; cx++) {
+            for (int cz = minCz; cz <= maxCz; cz++) {
+                if (!lvl.hasChunk(cx, cz)) continue;
+                net.minecraft.world.level.chunk.LevelChunk chunk = lvl.getChunk(cx, cz);
+                for (Map.Entry<BlockPos, BlockEntity> entry : chunk.getBlockEntities().entrySet()) {
+                    BlockEntity be = entry.getValue();
+                    if (!(be instanceof IRoutingNode node)) continue;
+                    if (be instanceof IMasterRoutingNode && !entry.getKey().equals(worldPosition)) continue;
+                    BlockPos nodePos = entry.getKey();
+                    if (nodePos.distSqr(worldPosition) > radiusSq) continue;
+
+                    if (!nodePos.equals(worldPosition)) {
+                        addNodeToList(node);
+                        added++;
+                    }
+                    for (BlockPos neighbor : node.getConnected()) {
+                        addConnection(nodePos, neighbor);
+                    }
+                    if (!(be instanceof IMasterRoutingNode)) {
+                        node.connectMasterToRemainingNode(lvl, new LinkedList<>(), this);
+                    }
+                }
+            }
+        }
+
+        setChanged();
+        return added;
+    }
+
+    public boolean graphContains(BlockPos pos) {
+        return pos.equals(worldPosition) || connectionMap.containsKey(pos);
+    }
+
+    /** BFS over connectionMap; never loads block entities during traversal. */
+    public boolean isConnectedViaGraph(BlockPos startPos) {
+        if (startPos.equals(this.worldPosition)) return true;
+        if (!connectionMap.containsKey(startPos)) return false;
+
+        BlockPos target = this.worldPosition;
+        Set<BlockPos> visited = new HashSet<>();
+        ArrayDeque<BlockPos> queue = new ArrayDeque<>();
+        queue.add(startPos);
+        visited.add(startPos);
+
+        while (!queue.isEmpty()) {
+            BlockPos cur = queue.poll();
+            if (cur.equals(target)) return true;
+
+            // Respect redstone-gating only when the node is loaded; unloaded nodes can't be receiving signals.
+            if (level != null && level.hasChunk(cur.getX() >> 4, cur.getZ() >> 4)) {
+                BlockEntity tile = level.getBlockEntity(cur);
+                if (tile instanceof IRoutingNode node && !node.isConnectionEnabled(cur)) {
+                    continue;
+                }
+            }
+
+            List<BlockPos> neighbors = connectionMap.get(cur);
+            if (neighbors == null) continue;
+            for (BlockPos n : neighbors) {
+                if (visited.add(n)) {
+                    queue.add(n);
+                }
+            }
+        }
+        return false;
+    }
+
     @SuppressWarnings("unchecked")
-    private <F extends IRoutingFilter> void processChannel(RoutingChannel<F> channel,
-                                                            Set<BlockPos> visitedNodes, Level level) {
+    private <F extends IRoutingFilter> void processChannel(RoutingChannel<F> channel, Level level) {
         List<BlockPos> outputNodes = getOutputList(channel.id());
         List<BlockPos> inputNodes = getInputList(channel.id());
 
         Map<Integer, List<F>> outputMap = new TreeMap<>();
         for (BlockPos outputPos : outputNodes) {
-            visitedNodes.clear();
             BlockEntity tile = level.getBlockEntity(outputPos);
-            if (tile != null && isConnectedOptimized(visitedNodes, outputPos)) {
+            if (tile != null && isConnectedViaGraph(outputPos)) {
                 for (Direction facing : Direction.values()) {
                     if (!channel.isConnectedOnSide(tile, facing) || !channel.isOutputSide(tile, facing)) continue;
 
@@ -104,9 +252,8 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
 
         Map<Integer, List<F>> inputMap = new TreeMap<>();
         for (BlockPos inputPos : inputNodes) {
-            visitedNodes.clear();
             BlockEntity tile = level.getBlockEntity(inputPos);
-            if (tile != null && isConnectedOptimized(visitedNodes, inputPos)) {
+            if (tile != null && isConnectedViaGraph(inputPos)) {
                 for (Direction facing : Direction.values()) {
                     if (!channel.isConnectedOnSide(tile, facing) || !channel.isInputSide(tile, facing)) continue;
 
@@ -134,30 +281,6 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         }
     }
 
-    private boolean isConnectedOptimized(Set<BlockPos> visited, BlockPos nodePos) {
-        if (getLevel() == null) return false;
-
-        BlockEntity tile = getLevel().getBlockEntity(nodePos);
-        if (!(tile instanceof IRoutingNode node)) return false;
-
-        List<BlockPos> connectionList = node.getConnected();
-        visited.add(nodePos);
-
-        for (BlockPos testPos : connectionList) {
-            if (visited.contains(testPos)) continue;
-
-            if (testPos.equals(this.getBlockPos()) && node.isConnectionEnabled(testPos)) {
-                return true;
-            } else if (node.isConnectionEnabled(testPos)) {
-                BlockEntity testTile = getLevel().getBlockEntity(testPos);
-                if (testTile instanceof IRoutingNode testNode && testNode.isConnectionEnabled(nodePos)) {
-                    if (isConnectedOptimized(visited, testPos)) return true;
-                }
-            }
-        }
-        return false;
-    }
-
     public int getMaxTransfer() {
         return RoutingNodeHelper.getEffectiveItemTransfer(
                 getBlockState().getBlock(),
@@ -172,11 +295,58 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         );
     }
 
+    /** Raw value the player has entered in the UI ("I want up to this much per pulse"). */
+    public int getConfiguredEnergyRate() {
+        return configuredEnergyRate;
+    }
+
+    public void setConfiguredEnergyRate(int rate) {
+        int clamped = Math.max(ENERGY_RATE_MIN, Math.min(ENERGY_RATE_MAX, rate));
+        if (clamped != this.configuredEnergyRate) {
+            this.configuredEnergyRate = clamped;
+            setChanged();
+        }
+    }
+
+    /** Ceiling derived from installed stack upgrades via the datamap formula. */
+    public int getUpgradeEnergyCeiling() {
+        return RoutingNodeHelper.getEffectiveEnergyTransfer(
+                getBlockState().getBlock(),
+                getItem(SLOT_STACK_UPGRADE).getCount()
+        );
+    }
+
+    /** The configured throttle clamped by the upgrade-derived ceiling. */
+    public int getEffectiveEnergyRate() {
+        return Math.min(configuredEnergyRate, getUpgradeEnergyCeiling());
+    }
+
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         ContainerHelper.saveAllItems(tag, items, registries);
+        tag.putInt("configuredEnergyRate", configuredEnergyRate);
         savePosList(tag, Constants.NBT.ROUTING_MASTER_GENERAL, generalNodeList);
+
+        ListTag graphTag = new ListTag();
+        for (Entry<BlockPos, List<BlockPos>> entry : connectionMap.entrySet()) {
+            CompoundTag entryTag = new CompoundTag();
+            BlockPos key = entry.getKey();
+            entryTag.putInt("kx", key.getX());
+            entryTag.putInt("ky", key.getY());
+            entryTag.putInt("kz", key.getZ());
+            ListTag neighbors = new ListTag();
+            for (BlockPos neighbor : entry.getValue()) {
+                CompoundTag nbTag = new CompoundTag();
+                nbTag.putInt("x", neighbor.getX());
+                nbTag.putInt("y", neighbor.getY());
+                nbTag.putInt("z", neighbor.getZ());
+                neighbors.add(nbTag);
+            }
+            entryTag.put("n", neighbors);
+            graphTag.add(entryTag);
+        }
+        tag.put("connectionGraph", graphTag);
 
         for (RoutingChannel<?> channel : RoutingChannelRegistry.getChannels()) {
             savePosList(tag, "channel_input_" + channel.id(), getInputList(channel.id()));
@@ -188,7 +358,29 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         ContainerHelper.loadAllItems(tag, items, registries);
+        if (tag.contains("configuredEnergyRate", net.minecraft.nbt.Tag.TAG_INT)) {
+            this.configuredEnergyRate = Math.max(ENERGY_RATE_MIN, Math.min(ENERGY_RATE_MAX, tag.getInt("configuredEnergyRate")));
+        } else {
+            this.configuredEnergyRate = ENERGY_RATE_DEFAULT;
+        }
         generalNodeList = loadPosList(tag, Constants.NBT.ROUTING_MASTER_GENERAL);
+
+        connectionMap.clear();
+        if (tag.contains("connectionGraph", net.minecraft.nbt.Tag.TAG_LIST)) {
+            ListTag graphTag = tag.getList("connectionGraph", net.minecraft.nbt.Tag.TAG_COMPOUND);
+            for (int i = 0; i < graphTag.size(); i++) {
+                CompoundTag entryTag = graphTag.getCompound(i);
+                BlockPos key = new BlockPos(entryTag.getInt("kx"), entryTag.getInt("ky"), entryTag.getInt("kz"));
+                ListTag neighbors = entryTag.getList("n", net.minecraft.nbt.Tag.TAG_COMPOUND);
+                List<BlockPos> list = new ArrayList<>(neighbors.size());
+                for (int j = 0; j < neighbors.size(); j++) {
+                    CompoundTag nbTag = neighbors.getCompound(j);
+                    list.add(new BlockPos(nbTag.getInt("x"), nbTag.getInt("y"), nbTag.getInt("z")));
+                }
+                connectionMap.put(key, list);
+            }
+        }
+        legacyMigrationAttempted = false;
 
         for (RoutingChannel<?> channel : RoutingChannelRegistry.getChannels()) {
             String inputKey = "channel_input_" + channel.id();
@@ -322,6 +514,24 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
             connectionMap.get(pos2).remove(pos1);
             if (connectionMap.get(pos2).isEmpty()) connectionMap.remove(pos2);
         }
+        setChanged();
+    }
+
+    @Override
+    public void removeNodeFromGraph(BlockPos pos) {
+        List<BlockPos> neighbors = connectionMap.remove(pos);
+        if (neighbors != null) {
+            for (BlockPos neighbor : neighbors) {
+                List<BlockPos> neighborList = connectionMap.get(neighbor);
+                if (neighborList != null) {
+                    neighborList.remove(pos);
+                    if (neighborList.isEmpty()) connectionMap.remove(neighbor);
+                }
+            }
+        }
+        // Defensive scrub for any stale references not captured via neighbors above.
+        connectionMap.values().forEach(list -> list.remove(pos));
+        setChanged();
     }
 
     @Override

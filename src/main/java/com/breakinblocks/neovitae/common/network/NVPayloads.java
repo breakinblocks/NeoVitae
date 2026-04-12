@@ -9,14 +9,12 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
-import com.breakinblocks.neovitae.common.datacomponent.FilterInventory;
+import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import net.minecraft.network.chat.Component;
 import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.common.item.NVItems;
-import com.breakinblocks.neovitae.common.item.routing.ItemRouterFilter;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.menu.FilterMenu;
 import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
 import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
 import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
@@ -39,6 +37,24 @@ public class NVPayloads {
         );
 
         registrar.playToServer(
+                RoutingNodeSetGhostPayload.TYPE,
+                RoutingNodeSetGhostPayload.STREAM_CODEC,
+                NVPayloads::handleRoutingNodeSetGhost
+        );
+
+        registrar.playToServer(
+                RoutingNodeSetFluidGhostPayload.TYPE,
+                RoutingNodeSetFluidGhostPayload.STREAM_CODEC,
+                NVPayloads::handleRoutingNodeSetFluidGhost
+        );
+
+        registrar.playToServer(
+                MasterRoutingNodeEnergyRatePayload.TYPE,
+                MasterRoutingNodeEnergyRatePayload.STREAM_CODEC,
+                NVPayloads::handleMasterRoutingNodeEnergyRate
+        );
+
+        registrar.playToServer(
                 RitualDivinerCyclePayload.TYPE,
                 RitualDivinerCyclePayload.STREAM_CODEC,
                 NVPayloads::handleRitualDivinerCycle
@@ -48,12 +64,6 @@ public class NVPayloads {
                 SigilHoldingCyclePayload.TYPE,
                 SigilHoldingCyclePayload.STREAM_CODEC,
                 NVPayloads::handleSigilHoldingCycle
-        );
-
-        registrar.playToServer(
-                FilterGhostSlotPayload.TYPE,
-                FilterGhostSlotPayload.STREAM_CODEC,
-                NVPayloads::handleFilterGhostSlot
         );
 
         registrar.playToServer(
@@ -113,12 +123,68 @@ public class NVPayloads {
             BlockEntity be = player.level().getBlockEntity(payload.pos());
             if (be instanceof FilteredRoutingNodeBlockEntity tile) {
                 if (player.containerMenu instanceof com.breakinblocks.neovitae.common.menu.RoutingNodeMenu menu && menu.tile == tile) {
+                    int currentSide = tile.getCurrentActiveSlot();
                     switch (payload.action()) {
                         case RoutingNodePayload.ACTION_SELECT_SLOT -> tile.swapFilters(payload.value());
                         case RoutingNodePayload.ACTION_INCREMENT_PRIORITY -> tile.incrementCurrentPriorityToMaximum(10);
                         case RoutingNodePayload.ACTION_DECREMENT_PRIORITY -> tile.decrementCurrentPriority();
                         case RoutingNodePayload.ACTION_SWAP_PRIORITY -> tile.swapPriorityWith(payload.value());
+                        case RoutingNodePayload.ACTION_TOGGLE_SIDE_ENABLED -> {
+                            var cfg = tile.getSideFilter(currentSide);
+                            tile.setSideEnabled(currentSide, !cfg.isEnabled());
+                        }
+                        case RoutingNodePayload.ACTION_TOGGLE_SIDE_ITEM_MODE -> tile.toggleSideItemMode(currentSide);
+                        case RoutingNodePayload.ACTION_CLEAR_ITEM_GHOST -> tile.clearItemGhost(currentSide, payload.value());
+                        case RoutingNodePayload.ACTION_TOGGLE_SIDE_FLUID_MODE -> tile.toggleSideFluidMode(currentSide);
+                        case RoutingNodePayload.ACTION_CLEAR_FLUID_GHOST -> tile.clearFluidGhost(currentSide, payload.value());
                     }
+                }
+            }
+        });
+    }
+
+    private static void handleRoutingNodeSetGhost(RoutingNodeSetGhostPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player player = context.player();
+            if (player.distanceToSqr(payload.pos().getX() + 0.5, payload.pos().getY() + 0.5, payload.pos().getZ() + 0.5) > 64.0) {
+                return;
+            }
+            BlockEntity be = player.level().getBlockEntity(payload.pos());
+            if (be instanceof FilteredRoutingNodeBlockEntity tile) {
+                if (player.containerMenu instanceof com.breakinblocks.neovitae.common.menu.RoutingNodeMenu menu && menu.tile == tile) {
+                    int currentSide = tile.getCurrentActiveSlot();
+                    tile.setItemGhost(currentSide, payload.ghostSlot(), payload.stack());
+                }
+            }
+        });
+    }
+
+    private static void handleRoutingNodeSetFluidGhost(RoutingNodeSetFluidGhostPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player player = context.player();
+            if (player.distanceToSqr(payload.pos().getX() + 0.5, payload.pos().getY() + 0.5, payload.pos().getZ() + 0.5) > 64.0) {
+                return;
+            }
+            BlockEntity be = player.level().getBlockEntity(payload.pos());
+            if (be instanceof FilteredRoutingNodeBlockEntity tile) {
+                if (player.containerMenu instanceof com.breakinblocks.neovitae.common.menu.RoutingNodeMenu menu && menu.tile == tile) {
+                    int currentSide = tile.getCurrentActiveSlot();
+                    tile.setFluidGhost(currentSide, payload.ghostSlot(), payload.stack());
+                }
+            }
+        });
+    }
+
+    private static void handleMasterRoutingNodeEnergyRate(MasterRoutingNodeEnergyRatePayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player player = context.player();
+            if (player.distanceToSqr(payload.pos().getX() + 0.5, payload.pos().getY() + 0.5, payload.pos().getZ() + 0.5) > 64.0) {
+                return;
+            }
+            BlockEntity be = player.level().getBlockEntity(payload.pos());
+            if (be instanceof MasterRoutingNodeBlockEntity tile) {
+                if (player.containerMenu instanceof com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu menu && menu.tile == tile) {
+                    tile.setConfiguredEnergyRate(payload.rate());
                 }
             }
         });
@@ -172,31 +238,6 @@ public class NVPayloads {
                     return;
                 }
             }
-        });
-    }
-
-    private static void handleFilterGhostSlot(FilterGhostSlotPayload payload, IPayloadContext context) {
-        context.enqueueWork(() -> {
-            Player player = context.player();
-            if (!(player.containerMenu instanceof FilterMenu menu)) {
-                return;
-            }
-
-            ItemStack filterStack = player.getMainHandItem();
-            if (!(filterStack.getItem() instanceof ItemRouterFilter)) {
-                return;
-            }
-
-            int slot = payload.ghostSlot();
-            if (slot < 0 || slot >= ItemRouterFilter.INVENTORY_SIZE) {
-                return;
-            }
-
-            FilterInventory inv = ItemRouterFilter.getFilterInventory(filterStack);
-            inv = inv.setItem(slot, payload.stack());
-            ItemRouterFilter.setFilterInventory(filterStack, inv);
-
-            menu.filterInventory.setStackInSlot(slot, payload.stack());
         });
     }
 

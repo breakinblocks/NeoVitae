@@ -83,10 +83,6 @@ public class NVDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<FlaskEffects>> FLASK_EFFECTS = DATA_COMPONENTS.registerComponentType("flask_effects", builder -> builder.persistent(FlaskEffects.CODEC).networkSynchronized(FlaskEffects.STREAM_CODEC));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> GHOST_STACK_SIZE = DATA_COMPONENTS.registerComponentType("ghost_stack_size", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<FilterInventory>> FILTER_INVENTORY = DATA_COMPONENTS.registerComponentType("filter_inventory", builder -> builder.persistent(FilterInventory.CODEC).networkSynchronized(FilterInventory.STREAM_CODEC));
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> FILTER_BLACKLIST = DATA_COMPONENTS.registerComponentType("filter_blacklist", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> FILTER_TAG = DATA_COMPONENTS.registerComponentType("filter_tag", builder -> builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<NestedFilterInventory>> NESTED_FILTERS = DATA_COMPONENTS.registerComponentType("nested_filters", builder -> builder.persistent(NestedFilterInventory.CODEC).networkSynchronized(NestedFilterInventory.STREAM_CODEC));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> BLOOD_LIGHT_BRIGHTNESS = DATA_COMPONENTS.registerComponentType("blood_light_brightness", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<DyeColor>> BLOOD_LIGHT_COLOR = DATA_COMPONENTS.registerComponentType("blood_light_color", builder -> builder.persistent(DyeColor.CODEC).networkSynchronized(DyeColor.STREAM_CODEC));

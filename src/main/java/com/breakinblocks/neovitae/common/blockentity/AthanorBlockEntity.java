@@ -390,7 +390,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         value.assemble(input, level.registryAccess());
         List<ItemStack> outputs = value.getActualOutputs();
         value.getInputFluid().ifPresent(required ->
-                inputTank.drain(required.getAmount(), FluidAction.EXECUTE));
+                inputTank.drain(required.amount(), FluidAction.EXECUTE));
         int filled = outputTank.fill(value.getActualOutputFluid(), FluidAction.EXECUTE);
         handleInventory(outputs, outputHandler);
     }

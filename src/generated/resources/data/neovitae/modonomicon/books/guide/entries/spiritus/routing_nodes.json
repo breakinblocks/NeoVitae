@@ -53,6 +53,28 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.routing_nodes.master_energy.text",
+      "title": "book.neovitae.guide.spiritus.routing_nodes.master_energy.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.routing_nodes.master_energy2.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
       "text": "book.neovitae.guide.spiritus.routing_nodes.other_nodes.text",
       "title": "",
       "use_markdown_in_title": false
@@ -161,6 +183,50 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.routing_nodes.gui_items.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.routing_nodes.gui_fluids.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.routing_nodes.auto_bind.text",
+      "title": "book.neovitae.guide.spiritus.routing_nodes.auto_bind.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.routing_nodes.chain_binding.text",
+      "title": "book.neovitae.guide.spiritus.routing_nodes.chain_binding.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
       "text": "book.neovitae.guide.spiritus.routing_nodes.setup.text",
       "title": "",
       "use_markdown_in_title": false
@@ -178,6 +244,39 @@
       "text": "book.neovitae.guide.spiritus.routing_nodes.network_image.text",
       "title": "",
       "use_legacy_rendering": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.routing_nodes.unloaded_conduits.text",
+      "title": "book.neovitae.guide.spiritus.routing_nodes.unloaded_conduits.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.routing_nodes.self_healing.text",
+      "title": "book.neovitae.guide.spiritus.routing_nodes.self_healing.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.routing_nodes.emergency_rescan.text",
+      "title": "",
+      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:text",

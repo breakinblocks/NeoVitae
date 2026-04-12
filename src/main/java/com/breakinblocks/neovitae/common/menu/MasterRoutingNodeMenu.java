@@ -23,7 +23,9 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
     private static final int DATA_OUTPUT_COUNT = 2;
     private static final int DATA_MAX_TRANSFER = 3;
     private static final int DATA_TICK_RATE = 4;
-    private static final int DATA_SIZE = 5;
+    private static final int DATA_ENERGY_RATE = 5;
+    private static final int DATA_ENERGY_CEILING = 6;
+    private static final int DATA_SIZE = 7;
 
     public MasterRoutingNodeMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {
         this(containerId, playerInventory, getBlockEntitySafe(playerInventory, buf.readBlockPos()));
@@ -54,12 +56,17 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
                                 tile.getBlockState().getBlock(),
                                 tile.getItem(MasterRoutingNodeBlockEntity.SLOT_SPEED_UPGRADE).getCount()
                         );
+                        case DATA_ENERGY_RATE -> tile.getConfiguredEnergyRate();
+                        case DATA_ENERGY_CEILING -> tile.getUpgradeEnergyCeiling();
                         default -> 0;
                     };
                 }
 
                 @Override
                 public void set(int index, int value) {
+                    if (index == DATA_ENERGY_RATE) {
+                        tile.setConfiguredEnergyRate(value);
+                    }
                 }
 
                 @Override
@@ -78,7 +85,7 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
             this.addSlot(new UpgradeSlot(tile, MasterRoutingNodeBlockEntity.SLOT_SPEED_UPGRADE, 98, 15));
         }
 
-        MenuSlotHelper.addPlayerInventory(this::addSlot, playerInventory, 39, 97);
+        MenuSlotHelper.addPlayerInventory(this::addSlot, playerInventory, 64, 122);
     }
 
     public int getGeneralNodeCount() {
@@ -99,6 +106,14 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
 
     public int getTickRate() {
         return data.get(DATA_TICK_RATE);
+    }
+
+    public int getEnergyRate() {
+        return data.get(DATA_ENERGY_RATE);
+    }
+
+    public int getEnergyCeiling() {
+        return data.get(DATA_ENERGY_CEILING);
     }
 
     @Override

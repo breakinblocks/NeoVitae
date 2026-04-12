@@ -36,27 +36,37 @@ public class RitualCraftingEntry extends EntryProvider {
         this.pageText("A versatile and powerful ritual, the [#](8B0000)Rhythm of the Beating Anvil[#]() automates crafting, standard recipes by default, or [#](8B0000)Tabula Vitae[#]() and [#](8B0000)Hellfire Forge[#]() recipes with the proper augmentation. Its configuration is more involved than most, so study the following pages carefully."
                 + "\\\n\\\nEach ritual handles exactly one recipe at a time.");
 
-        this.page("filter_setup", () -> BookTextPageModel.create()
+        this.page("containers", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Specifying a Recipe");
-        this.pageText("You must define the recipe using an [#](8B0000)Item Filter[#](). The ritual accepts only one filter at a time. The following types are recognized:"
-                + "\n\n- [#](8B0000)Standard Item Filter[#](): Specifies exact items for each slot."
-                + "\n\n- [#](8B0000)Tag Item Filter[#](): Uses item tags to define valid ingredients."
-                + "\n\n- [#](8B0000)Mod Item Filter[#](): Accepts any item from the specified source.");
+        this.pageText("Place a container one block [#](8B0000)above[#]() the master ritual stone to serve "
+                + "as the [#](8B0000)input[#](), and another one block [#](8B0000)below[#]() to serve as the "
+                + "[#](8B0000)output[#](). Any block that exposes an item handler, chests, barrels, hoppers, "
+                + "will suffice.\\\n\\\n"
+                + "The ritual reads whatever ingredients you place into the first nine slots of the input "
+                + "container and attempts to match them against a known recipe.");
 
-        this.page("placement", () -> BookTextPageModel.create()
+        this.page("layout", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Place the filter in an [#](8B0000)Item Frame[#]() on the ritual structure, or inside the linked chest. If multiple filters exist in the chest, only the first is used."
-                + "\\\n\\\n[#](2E8B57)By default, input and output share the same chest. Use the Ritual Tinkerer to separate them.[#]()");
+        this.pageText("Those nine slots are treated as a [#](8B0000)3x3 crafting grid[#](). Arrange your "
+                + "ingredients exactly as you would on a workbench and leave empty slots where the shape "
+                + "demands them. Each time the ritual fires it consumes one of every ingredient present "
+                + "and deposits the result into the output container.\\\n\\\n"
+                + "[#](2E8B57)If two of the same item are needed, place a copy in each appropriate slot.[#]()");
 
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
-        this.pageText("- [#](8B0000)Steadfast Spiritus[#](): Redirects crafting to a linked [#](8B0000)Hellfire Forge[#]()."
-                + "\n\n- [#](8B0000)Corrosive Spiritus[#](): Redirects crafting to a linked [#](8B0000)Tabula Vitae[#]()."
-                + "\\\n\\\n[#](2E8B57)All recipes are treated as shapeless. If two of the same item are needed, specify it twice in the filter.[#]()");
+        this.pageText("The default behavior mirrors a vanilla [#](8B0000)Crafting Table[#](). Feed the ritual "
+                + "a fragment of spiritus and its craft shifts accordingly:\\\n\\\n"
+                + "- [#](8B0000)Steadfast Spiritus[#](): attempts a [#](8B0000)Hellfire Forge[#]() recipe first, "
+                + "falling back to vanilla crafting if none match.\\\n"
+                + "- [#](8B0000)Corrosive Spiritus[#](): attempts a [#](8B0000)Tabula Vitae[#]() recipe first, "
+                + "falling back to vanilla crafting if none match.\\\n\\\n"
+                + "[#](2E8B57)Only one recipe is attempted per ritual pulse; queue as much raw material as "
+                + "you like and the ritual will work its way through the stack.[#]()");
     }
 
     @Override

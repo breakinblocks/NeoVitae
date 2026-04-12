@@ -51,8 +51,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_crafting.filter_setup.text",
-      "title": "book.neovitae.guide.rituals.ritual_crafting.filter_setup.title",
+      "text": "book.neovitae.guide.rituals.ritual_crafting.containers.text",
+      "title": "book.neovitae.guide.rituals.ritual_crafting.containers.title",
       "use_markdown_in_title": false
     },
     {
@@ -62,7 +62,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_crafting.placement.text",
+      "text": "book.neovitae.guide.rituals.ritual_crafting.layout.text",
       "title": "",
       "use_markdown_in_title": false
     },

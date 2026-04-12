@@ -21,6 +21,7 @@ public class NVCommands {
         GenerateMaterialsCommand.register(dispatcher);
         StreamTestCommand.register(dispatcher);
         SetOrbFillCommand.register(dispatcher);
+        RoutingRescanCommand.register(dispatcher);
 
         CommandNode<CommandSourceStack> networkNode = dispatcher.getRoot().getChild("anima");
         CommandNode<CommandSourceStack> ritualNode = dispatcher.getRoot().getChild("nv-ritual");
@@ -30,6 +31,7 @@ public class NVCommands {
         CommandNode<CommandSourceStack> showcaseNode = dispatcher.getRoot().getChild("nv-dungeon-showcase");
         CommandNode<CommandSourceStack> generateNode = dispatcher.getRoot().getChild("nvgenerate");
         CommandNode<CommandSourceStack> setOrbFillNode = dispatcher.getRoot().getChild("nvsetorbfill");
+        CommandNode<CommandSourceStack> routingRescanNode = dispatcher.getRoot().getChild("nvroutingrescan");
 
         dispatcher.register(
                 Commands.literal("neovitae")
@@ -41,6 +43,7 @@ public class NVCommands {
                         .then(Commands.literal("dungeon-showcase").redirect(showcaseNode))
                         .then(Commands.literal("generate").redirect(generateNode))
                         .then(Commands.literal("setorbfill").redirect(setOrbFillNode))
+                        .then(Commands.literal("routing").then(Commands.literal("rescan").redirect(routingRescanNode)))
         );
     }
 }

@@ -60,6 +60,8 @@ Neo Vitae is licensed under the [MIT License](LICENSE.md).
 ## Links
 
 - [Discord](https://discord.gg/TRxaXaYy42)
+- [Modpack Makers Guide](MODPACK_MAKERS.md)
+- [API Guide](NEOVITAE_API.md)
 - [Maven (Releases)](https://maven.breakinblocks.com/releases) - `com.breakinblocks:neovitae`
 - [Maven (Snapshots)](https://maven.breakinblocks.com/snapshots) - `com.breakinblocks:neovitae`
 

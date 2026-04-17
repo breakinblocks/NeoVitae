@@ -293,6 +293,8 @@ public class NVBlockStateProvider extends BlockStateProvider {
         // Non-variant dungeon blocks
         simpleBlockWithItem(DungeonBlocks.DUNGEON_ORE.block().get(),
             models().cubeAll("dungeon_ore", bm("block/dungeon/dungeon_ore")));
+        simpleBlockWithItem(DungeonBlocks.PRISMATIC_DEMONITE.block().get(),
+            models().cubeAll("prismatic_demonite", bm("block/dungeon/prismatic_demonite")));
         simpleBlockWithItem(DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get(),
             models().cubeAll("dungeon_brick_assorted", bm("block/dungeon/dungeon_cracked_brick1")));
 

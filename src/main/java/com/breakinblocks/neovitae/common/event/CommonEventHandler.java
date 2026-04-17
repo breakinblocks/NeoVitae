@@ -186,6 +186,9 @@ public class CommonEventHandler {
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
         if (event.getLevel() instanceof Level level && DungeonDimensionHelper.isDungeonDimension(level)) {
             Block block = event.getState().getBlock();
+            if (block instanceof com.breakinblocks.neovitae.common.block.dungeon.BlockPrismaticDemonite) {
+                return;
+            }
             if (DungeonBlocks.isDungeonBlock(block)
                     || block == NVBlocks.MASTER_RITUAL_STONE.block().get()
                     || block == NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().get()) {

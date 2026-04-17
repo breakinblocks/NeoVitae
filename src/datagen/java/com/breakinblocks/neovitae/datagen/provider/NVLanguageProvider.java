@@ -1216,6 +1216,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
     private void addDungeonBlocks() {
         // Non-variant dungeon blocks
         add(DungeonBlocks.DUNGEON_ORE, "Dungeon Ore");
+        add(DungeonBlocks.PRISMATIC_DEMONITE, "Prismatic Demonite Ore");
         add(DungeonBlocks.DUNGEON_BRICK_ASSORTED, "Assorted Dungeon Brick");
 
         // Functional dungeon blocks

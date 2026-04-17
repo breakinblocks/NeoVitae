@@ -22,6 +22,8 @@ public class StoneToOreProcessor extends StructureProcessor {
         this.integrity = integrity;
     }
 
+    private static final float PRISMATIC_CHANCE = 0.2f;
+
     @Nullable
     @Override
     public StructureTemplate.StructureBlockInfo process(LevelReader levelReader, BlockPos blockPos,
@@ -33,6 +35,12 @@ public class StoneToOreProcessor extends StructureProcessor {
         if (blockInfoAfter.state().is(DungeonBlocks.DUNGEON_STONE.get(com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant.RAW).block().get())) {
             RandomSource random = settings.getRandom(blockInfoAfter.pos());
             if (this.integrity > 0 && random.nextFloat() < this.integrity) {
+                if (random.nextFloat() < PRISMATIC_CHANCE) {
+                    return new StructureTemplate.StructureBlockInfo(
+                            blockInfoAfter.pos(),
+                            DungeonBlocks.PRISMATIC_DEMONITE.block().get().defaultBlockState(),
+                            blockInfoAfter.nbt());
+                }
                 return new StructureTemplate.StructureBlockInfo(
                         blockInfoAfter.pos(),
                         DungeonBlocks.DUNGEON_ORE.block().get().defaultBlockState(),

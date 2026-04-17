@@ -62,6 +62,7 @@ public class DungeonBlocks {
     public static final Map<DungeonVariant, BlockWithItemHolder<SlabBlock, BlockItem>> DUNGEON_POLISHED_SLAB = new EnumMap<>(DungeonVariant.class);
 
     public static BlockWithItemHolder<Block, BlockItem> DUNGEON_ORE;
+    public static BlockWithItemHolder<BlockPrismaticDemonite, BlockItem> PRISMATIC_DEMONITE;
     public static BlockWithItemHolder<Block, BlockItem> DUNGEON_BRICK_ASSORTED;
 
     public static BlockWithItemHolder<BlockSpikes, BlockItem> SPIKES;
@@ -80,6 +81,7 @@ public class DungeonBlocks {
     static {
         DUNGEON_ORE = REG.register("dungeon_ore", BlockBehaviour.Properties.of()
                 .strength(3.0F, 3.0F).sound(SoundType.STONE).requiresCorrectToolForDrops(), new Item.Properties());
+        PRISMATIC_DEMONITE = REG.register("prismatic_demonite", BlockPrismaticDemonite::new);
         DUNGEON_BRICK_ASSORTED = REG.register("dungeon_brick_assorted", BlockBehaviour.Properties.of()
                 .strength(20.0F, 50.0F).sound(SoundType.STONE).requiresCorrectToolForDrops(), new Item.Properties());
 

@@ -275,6 +275,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         // Add all dungeon blocks to MINEABLE_WITH_PICKAXE
         var pickaxeTag = this.tag(BlockTags.MINEABLE_WITH_PICKAXE);
         pickaxeTag.add(DungeonBlocks.DUNGEON_ORE.block().getKey());
+        pickaxeTag.add(DungeonBlocks.PRISMATIC_DEMONITE.block().getKey());
         pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().getKey());
 
         // Path blocks
@@ -323,6 +324,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         // Add stone tool requirement for dungeon blocks
         var stoneToolTag = this.tag(BlockTags.NEEDS_STONE_TOOL);
         stoneToolTag.add(DungeonBlocks.DUNGEON_ORE.block().getKey());
+        stoneToolTag.add(DungeonBlocks.PRISMATIC_DEMONITE.block().getKey());
         stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().getKey());
         for (DungeonVariant variant : DungeonVariant.values()) {
             stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_1.get(variant).block().getKey());

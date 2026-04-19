@@ -195,7 +195,7 @@ public class ClientModEventHandler {
         }, NVItems.ARCANE_SCRIBE_TOOL.get());
 
         event.register((stack, layer) -> {
-            if (layer == 1) return 0x99990011;
+            if (layer == 1) return 0x80FF0000;
             return 0xFFFFFFFF;
         }, NVItems.ORB_WEAK.get(), NVItems.ORB_APPRENTICE.get(), NVItems.ORB_MAGICIAN.get(),
                 NVItems.ORB_MASTER.get(), NVItems.ORB_ARCHMAGE.get(), NVItems.ORB_TRANSCENDENT.get());

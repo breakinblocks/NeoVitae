@@ -2,6 +2,6 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "neovitae:item/blood_orb_magician",
-    "layer1": "neovitae:item/orb_fill_3"
+    "layer1": "neovitae:item/blood_orb_magician_fill_3"
   }
 }

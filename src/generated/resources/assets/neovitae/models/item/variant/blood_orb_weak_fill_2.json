@@ -2,6 +2,6 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "neovitae:item/blood_orb_weak",
-    "layer1": "neovitae:item/orb_fill_2"
+    "layer1": "neovitae:item/blood_orb_weak_fill_2"
   }
 }

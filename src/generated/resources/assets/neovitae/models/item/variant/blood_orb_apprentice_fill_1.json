@@ -2,6 +2,6 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "neovitae:item/blood_orb_apprentice",
-    "layer1": "neovitae:item/orb_fill_1"
+    "layer1": "neovitae:item/blood_orb_apprentice_fill_1"
   }
 }

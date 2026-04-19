@@ -149,7 +149,7 @@ public class NVItemModelProvider extends ItemModelProvider {
                 fillModels[i] = getBuilder("item/variant/" + path + "_fill_" + (i + 1))
                         .parent(new ModelFile.UncheckedModelFile("minecraft:item/generated"))
                         .texture("layer0", modLoc("item/" + path))
-                        .texture("layer1", modLoc("item/orb_fill_" + (i + 1)));
+                        .texture("layer1", modLoc("item/" + path + "_fill_" + (i + 1)));
             }
             ItemModelBuilder orbBuilder = getBuilder(path);
             orbBuilder.override().predicate(NeoVitae.rl("fill_level"), 0).model(emptyModel).end();

@@ -60,7 +60,7 @@ public class OrbFluidHandler implements IFluidHandlerItem {
     public static int getOrbFluidCapacity(ItemStack stack) {
         BloodOrb orb = stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
         if (orb == null) return 0;
-        return 4000 + orb.tier() * 2000;
+        return orb.fluidCapacity();
     }
 
     public static int fillInternal(ItemStack stack, FluidStack fluid, FluidAction action) {

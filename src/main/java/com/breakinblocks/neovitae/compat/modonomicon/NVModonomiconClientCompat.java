@@ -42,5 +42,13 @@ public class NVModonomiconClientCompat {
                 NVPageTypes.LIVING_UPGRADE_TABLE,
                 p -> new BookLivingUpgradeTablePageRenderer((BookLivingUpgradeTablePage) p)
         );
+        PageRendererRegistry.registerPageRenderer(
+                NVPageTypes.BLOOD_ORB_STATS,
+                p -> new BookBloodOrbStatsPageRenderer((BookBloodOrbStatsPage) p)
+        );
+        PageRendererRegistry.registerPageRenderer(
+                NVPageTypes.SPIRITUS_GEM_STATS,
+                p -> new BookSpiritusGemStatsPageRenderer((BookSpiritusGemStatsPage) p)
+        );
     }
 }

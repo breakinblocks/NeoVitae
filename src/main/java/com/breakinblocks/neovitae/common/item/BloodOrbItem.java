@@ -71,12 +71,12 @@ public class BloodOrbItem extends Item implements IBindable {
                     0.5F, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F
             );
 
-            int capacity = getCapacity(stack);
-            if (capacity == 0)
+            int animaCapacity = getAnimaCapacity(stack);
+            if (animaCapacity == 0)
                 return InteractionResultHolder.fail(stack);
 
             Anima ownerNetwork = AnimaHelper.getAnima(binding);
-            ownerNetwork.add(AnimaTicket.create(200), capacity);
+            ownerNetwork.add(AnimaTicket.create(200), animaCapacity);
             ownerNetwork.hurtPlayer(player, 200);
         }
 
@@ -108,8 +108,12 @@ public class BloodOrbItem extends Item implements IBindable {
         }
     }
 
-    public int getCapacity(ItemStack stack) {
-        return stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS).capacity();
+    public int getFluidCapacity(ItemStack stack) {
+        return stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS).fluidCapacity();
+    }
+
+    public int getAnimaCapacity(ItemStack stack) {
+        return stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS).animaCapacity();
     }
 
     public int getFillRate(ItemStack stack) {
@@ -133,6 +137,8 @@ public class BloodOrbItem extends Item implements IBindable {
         var stats = stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
         if (stats != null) {
             tooltip.add(Component.translatable("tooltip.neovitae.orb.tier", stats.tier())
+                    .withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("tooltip.neovitae.orb.anima_max", stats.animaCapacity())
                     .withStyle(ChatFormatting.GRAY));
         }
 

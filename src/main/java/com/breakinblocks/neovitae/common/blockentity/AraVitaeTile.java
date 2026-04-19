@@ -393,12 +393,12 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
                 FluidStack drained = OrbFluidHandler.drainInternal(inputStack, networkFill, FluidAction.EXECUTE);
                 if (!drained.isEmpty()) {
                     AnimaHelper.getAnima(binding.uuid()).add(AnimaTicket.create(drained.getAmount()),
-                            (int) (orb.capacity() * (1 + modifiers.getOrbCapacityMod())));
+                            (int) (orb.animaCapacity() * (1 + modifiers.getOrbCapacityMod())));
                 }
             }
         } else if (getMainTank() > 0) {
             int available = Math.min(getMainTank(), (int) (orb.fillRate() * (1 + modifiers.getConsumptionMod())));
-            int drained = AnimaHelper.getAnima(binding.uuid()).add(AnimaTicket.create(available), (int) (orb.capacity() * (1 + modifiers.getOrbCapacityMod())));
+            int drained = AnimaHelper.getAnima(binding.uuid()).add(AnimaTicket.create(available), (int) (orb.animaCapacity() * (1 + modifiers.getOrbCapacityMod())));
             setMainTank(getMainTank() - drained);
             if (drained > 0 && getTicks() % 2 == 0) {
                 double angle = (getTicks() * 0.15) % (Math.PI * 2);
@@ -628,7 +628,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
                 return 0;
             }
             float current = network.getCurrentEV();
-            float max = (int) ((float) orb.capacity() * (1 + modifiers.getOrbCapacityMod()));
+            float max = (int) ((float) orb.animaCapacity() * (1 + modifiers.getOrbCapacityMod()));
             return Mth.lerpDiscrete(current / max, 0, 15);
         }
 

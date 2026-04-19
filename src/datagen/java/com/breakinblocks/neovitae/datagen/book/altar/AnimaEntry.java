@@ -6,6 +6,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.datagen.book.page.BookBloodOrbStatsPageModel;
 import com.mojang.datafixers.util.Pair;
 
 public class AnimaEntry extends EntryProvider {
@@ -44,15 +45,9 @@ public class AnimaEntry extends EntryProvider {
                 + "\n\n- Place the orb within an [#](8B0000)Ara Vitae[#]() brimming with [#](4A0080)Essentia Vitae[#](). "
                 + "The orb drinks deeply, limited only by your altar's [#](8B0000)Speed Runes[#]().");
 
-        this.page("orb_tiers", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Each tier of the [#](8B0000)Ara Vitae[#]() unlocks a more potent orb, expanding the boundaries "
-                + "of your [#](4A0080)Anima[#]()."
-                + "\n\n- [#](B8860B)Novicius Orb of Vitae[#](): Capacity: [#](8B0000)5,000 EV[#]()."
-                + "\n\n- [#](B8860B)Discipulus Orb of Vitae[#](): Capacity: [#](8B0000)25,000 EV[#]()."
-                + "\n\n- [#](B8860B)Veneficus Orb of Vitae[#](): Capacity: [#](8B0000)150,000 EV[#]()."
-                + "\n\n- [#](B8860B)Magus Orb of Vitae[#](): Capacity: [#](8B0000)1,000,000 EV[#]()."
-                + "\n\n- [#](B8860B)Dominus Orb of Vitae[#](): Capacity: [#](8B0000)10,000,000 EV[#]().");
+        this.page("orb_tiers", () -> BookBloodOrbStatsPageModel.create()
+                .withTitle(this.context().pageTitle()));
+        this.pageTitle("Orb Tiers");
 
         this.page("weak_apprentice", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

@@ -47,15 +47,12 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:text",
+      "type": "neovitae:blood_orb_stats",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.anima.orb_tiers.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "title": "book.neovitae.guide.altar.anima.orb_tiers.title"
     },
     {
       "type": "modonomicon:text",

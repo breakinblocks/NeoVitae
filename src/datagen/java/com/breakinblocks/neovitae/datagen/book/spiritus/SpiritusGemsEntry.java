@@ -6,6 +6,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.datagen.book.page.BookSpiritusGemStatsPageModel;
 import com.mojang.datafixers.util.Pair;
 
 public class SpiritusGemsEntry extends EntryProvider {
@@ -26,11 +27,15 @@ public class SpiritusGemsEntry extends EntryProvider {
                 + "Better still, the gem hungers. Drop loose Will upon the ground nearby, and the gem will "
                 + "devour it of its own accord.");
 
+        this.page("gem_stats", () -> BookSpiritusGemStatsPageModel.create()
+                .withTitle(this.context().pageTitle()));
+        this.pageTitle("Gem Capacities");
+
         this.page("petty", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Petty Spiritus Gem");
-        this.pageText("Your first vessel holds a modest [#](B8860B)64 Spiritus[#](), crude, but far more practical than "
+        this.pageText("Your first vessel holds a modest amount of [#](8B0000)Spiritus[#](), crude, but far more practical than "
                 + "loose fragments rattling about your pack.\\\n\\\n"
                 + "[#](2E8B57)To transfer Will between gems, right-click while holding the gem you wish to empty. "
                 + "Its contents flow into the first valid gem in your inventory.[#]()");
@@ -45,7 +50,7 @@ public class SpiritusGemsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Lesser Spiritus Gem");
-        this.pageText("This reinforced gem holds up to [#](B8860B)256 Spiritus[#]().\\\n\\\n"
+        this.pageText("This reinforced gem markedly outclasses its predecessor in containment.\\\n\\\n"
                 + "[#](2E8B57)When upgrading, the Forge draws Spiritus from the gem being crafted before tapping "
                 + "the gem in its Gem Slot. The newly forged gem retains any leftover Spiritus from the "
                 + "process.[#]()");
@@ -60,7 +65,7 @@ public class SpiritusGemsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Common Spiritus Gem");
-        this.pageText("This intricate gem holds an impressive [#](B8860B)1,024 Spiritus[#](). A worthy vessel for a "
+        this.pageText("This intricate gem holds an impressive reserve of [#](8B0000)Spiritus[#](). A worthy vessel for a "
                 + "practitioner of growing renown.");
 
         this.page("greater_intro", () -> BookTextPageModel.create()
@@ -75,7 +80,7 @@ public class SpiritusGemsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Greater Spiritus Gem");
-        this.pageText("This masterwork of [#](4A0080)vitaemantic[#]() artifice holds an astounding [#](B8860B)4,096 Spiritus[#](). "
+        this.pageText("This masterwork of [#](4A0080)vitaemantic[#]() artifice holds an astounding reserve of [#](8B0000)Spiritus[#](). "
                 + "Few vessels in existence can rival its containment.");
     }
 

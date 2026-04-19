@@ -1,33 +1,39 @@
 {
   "values": {
     "neovitae:blood_orb_apprentice": {
-      "capacity": 25000,
+      "animaCapacity": 25000,
       "fillRate": 5,
+      "fluidCapacity": 6000,
       "tier": 1
     },
     "neovitae:blood_orb_archmage": {
-      "capacity": 5000000,
+      "animaCapacity": 5000000,
       "fillRate": 50,
+      "fluidCapacity": 12000,
       "tier": 4
     },
     "neovitae:blood_orb_magician": {
-      "capacity": 150000,
+      "animaCapacity": 150000,
       "fillRate": 15,
+      "fluidCapacity": 8000,
       "tier": 2
     },
     "neovitae:blood_orb_master": {
-      "capacity": 1000000,
+      "animaCapacity": 1000000,
       "fillRate": 25,
+      "fluidCapacity": 10000,
       "tier": 3
     },
     "neovitae:blood_orb_transcendent": {
-      "capacity": 10000000,
+      "animaCapacity": 10000000,
       "fillRate": 50,
+      "fluidCapacity": 14000,
       "tier": 5
     },
     "neovitae:blood_orb_weak": {
-      "capacity": 5000,
+      "animaCapacity": 5000,
       "fillRate": 2,
+      "fluidCapacity": 4000,
       "tier": 0
     }
   }

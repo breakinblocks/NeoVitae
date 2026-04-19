@@ -43,6 +43,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("no_owner", "Not bound yet");
         addTooltip("orb.fluid", "Essentia Vitae: %s / %s mB");
         addTooltip("orb.tier", "Tier %s");
+        addTooltip("orb.anima_max", "Raises Anima Maximum to %s");
 
         // Death messages
         add("death.attack.spikes", "%1$s was impaled by spikes");

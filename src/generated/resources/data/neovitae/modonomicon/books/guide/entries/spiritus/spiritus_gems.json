@@ -25,6 +25,14 @@
       "use_markdown_in_title": false
     },
     {
+      "type": "neovitae:spiritus_gem_stats",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "title": "book.neovitae.guide.spiritus.spiritus_gems.gem_stats.title"
+    },
+    {
       "type": "modonomicon:text",
       "anchor": "",
       "condition": {

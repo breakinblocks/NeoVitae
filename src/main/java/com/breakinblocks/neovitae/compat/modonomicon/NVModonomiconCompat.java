@@ -51,5 +51,15 @@ public class NVModonomiconCompat {
                 BookLivingUpgradeTablePage::fromJson,
                 BookLivingUpgradeTablePage::fromNetwork
         );
+        LoaderRegistry.registerPageLoader(
+                NVPageTypes.BLOOD_ORB_STATS,
+                BookBloodOrbStatsPage::fromJson,
+                BookBloodOrbStatsPage::fromNetwork
+        );
+        LoaderRegistry.registerPageLoader(
+                NVPageTypes.SPIRITUS_GEM_STATS,
+                BookSpiritusGemStatsPage::fromJson,
+                BookSpiritusGemStatsPage::fromNetwork
+        );
     }
 }

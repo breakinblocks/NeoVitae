@@ -13,4 +13,6 @@ public class NVPageTypes {
     public static final ResourceLocation LIVING_DOWNGRADE = NeoVitae.rl("living_downgrade_recipe");
     public static final ResourceLocation RITUAL_INFO = NeoVitae.rl("ritual_info");
     public static final ResourceLocation LIVING_UPGRADE_TABLE = NeoVitae.rl("living_upgrade_table");
+    public static final ResourceLocation BLOOD_ORB_STATS = NeoVitae.rl("blood_orb_stats");
+    public static final ResourceLocation SPIRITUS_GEM_STATS = NeoVitae.rl("spiritus_gem_stats");
 }

@@ -2,6 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'net.neoforged.moddev' version "${mdg_version}"
+    id 'me.modmuss50.mod-publish-plugin' version '1.1.0'
     id 'idea'
 }
 
@@ -189,6 +190,41 @@ publishing {
             }
         }
     }
+}
+
+publishMods {
+    file = jar.archiveFile
+    def changelogFile = file("metadata/changelogs/${mod_version}.md")
+    changelog = changelogFile.exists() ? changelogFile.text : "Release ${version}"
+    type = STABLE
+    modLoaders.add("neoforge")
+
+    curseforge {
+        projectId = "1404763"
+        projectSlug = "neovitae"
+        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+        minecraftVersions.add(minecraft_version)
+        optional("jei", "jade", "curios", "modonomicon")
+    }
+
+    modrinth {
+        projectId = "rvaW4C93"
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        minecraftVersions.add(minecraft_version)
+        optional("jei", "jade", "curios", "modonomicon")
+    }
+}
+
+tasks.register('publishMaven') {
+    description = 'Publishes the mod JAR and sources JAR to the BreakInBlocks Maven repository.'
+    group = 'publishing'
+    dependsOn 'publishMavenJavaPublicationToBreakInBlocksRepository'
+}
+
+tasks.register('publishMod') {
+    description = 'Publishes the mod to CurseForge, Modrinth, and the BreakInBlocks Maven repository.'
+    group = 'publishing'
+    dependsOn 'publishMods', 'publishMaven'
 }
 
 tasks.withType(JavaCompile).configureEach {

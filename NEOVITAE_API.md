@@ -30,6 +30,12 @@ repositories {
         name = "BreakInBlocks"
         url = "https://maven.breakinblocks.com/releases"
     }
+    // Modonomicon is a transitive dependency of NeoVitae
+    maven {
+        name = "KliKli's maven"
+        url = "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
+        content { includeGroup "com.klikli_dev" }
+    }
     // Geckolib is a transitive dependency of NeoVitae
     maven {
         name = "Geckolib"
@@ -39,16 +45,13 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.breakinblocks.neovitae:neovitae:1.21.1-${neoVitaeVersion}")
-    runtimeOnly("com.breakinblocks.neovitae:neovitae:1.21.1-${neoVitaeVersion}")
+    implementation("com.breakinblocks.neovitae:neovitae:${minecraftVersion}-${neoVitaeVersion}")
 }
 ```
 
 You can find the version of the latest released artifact [here](https://maven.breakinblocks.com/#/releases/com/breakinblocks/neovitae/neovitae).
 
 > **Note:** The API classes are in the main mod JAR under `com.breakinblocks.neovitae.api`. There is no separate api artifact.
-
-Although not included by default, it's highly recommended to include the Modonomicon mod in your runtime dependencies.
 
 ### Accessing the API
 

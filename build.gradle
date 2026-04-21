@@ -23,6 +23,13 @@ repositories {
         }
     }
     maven {
+        name = "KliKli's maven"
+        url = "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
+        content {
+            includeGroup "com.klikli_dev"
+        }
+    }
+    maven {
         // location of the maven that hosts JEI files since January 2023
         name = "Jared's maven"
         url = "https://maven.blamejared.com/"
@@ -134,13 +141,12 @@ dependencies {
     // Geckolib - Animated entity rendering
     implementation("software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}")
 
+    // Modonomicon - In-game documentation
+    implementation("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"){transitive=false}
+
     // Jade - WAILA fork for block/entity tooltips (optional dev dependency)
     compileOnly("curse.maven:jade-324717:6853386")
     localRuntime("curse.maven:jade-324717:6853386")
-
-    // Modonomicon - In-game documentation
-    compileOnly("curse.maven:modonomicon-538392:7771524")
-    localRuntime("curse.maven:modonomicon-538392:7771524")
 
     compileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
     compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api")

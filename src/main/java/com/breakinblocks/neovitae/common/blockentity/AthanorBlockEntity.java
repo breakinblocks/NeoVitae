@@ -387,12 +387,11 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     }
 
     private void craft(AthanorRecipe value, AthanorRecipeInput input, AthanorOutputHandler outputHandler) {
-        value.assemble(input, level.registryAccess());
-        List<ItemStack> outputs = value.getActualOutputs();
+        AthanorRecipe.AthanorResult result = value.assembleOutputs(input);
         value.getInputFluid().ifPresent(required ->
                 inputTank.drain(required.amount(), FluidAction.EXECUTE));
-        int filled = outputTank.fill(value.getActualOutputFluid(), FluidAction.EXECUTE);
-        handleInventory(outputs, outputHandler);
+        outputTank.fill(result.fluid(), FluidAction.EXECUTE);
+        handleInventory(result.items(), outputHandler);
     }
 
     private void handleInventory(List<ItemStack> toOutput, AthanorOutputHandler outputHandler) {
@@ -431,15 +430,17 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     }
 
     public void setLit(boolean lit) {
-        if (!getBlockState().getValue(AthanorBlock.LIT)) {
-            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState().setValue(AthanorBlock.LIT, lit), Block.UPDATE_ALL);
+        BlockState state = getBlockState();
+        if (state.getValue(AthanorBlock.LIT) != lit) {
+            level.setBlock(getBlockPos(), state.setValue(AthanorBlock.LIT, lit), Block.UPDATE_ALL);
         }
     }
 
     public void updateType() {
         SpiritusType type = athanorInv.getStackInSlot(TOOL_SLOT).getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT);
-        if (getBlockState().getValue(AthanorBlock.TYPE) != type) {
-            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState().setValue(AthanorBlock.TYPE, type), Block.UPDATE_ALL);
+        BlockState state = getBlockState();
+        if (state.getValue(AthanorBlock.TYPE) != type) {
+            level.setBlock(getBlockPos(), state.setValue(AthanorBlock.TYPE, type), Block.UPDATE_ALL);
         }
     }
 

@@ -20,13 +20,9 @@ import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.item.soul.ISentientTool;
 import com.breakinblocks.neovitae.common.item.soul.SpiritusEssenceItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientToolHelper;
-import com.breakinblocks.neovitae.common.item.soul.SentientAxeItem;
-import com.breakinblocks.neovitae.common.item.soul.SentientPickaxeItem;
-import com.breakinblocks.neovitae.common.item.soul.SentientScytheItem;
-import com.breakinblocks.neovitae.common.item.soul.SentientShovelItem;
-import com.breakinblocks.neovitae.common.item.soul.SentientSwordItem;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -67,16 +63,8 @@ public class SpiritusEventHandler {
 
         List<ItemStack> soulDrops = null;
 
-        if (weapon.getItem() instanceof SentientSwordItem sword) {
-            soulDrops = sword.getRandomSpiritusDrop(killed, player, weapon, looting);
-        } else if (weapon.getItem() instanceof SentientAxeItem axe) {
-            soulDrops = axe.getRandomSpiritusDrop(killed, player, weapon, looting);
-        } else if (weapon.getItem() instanceof SentientPickaxeItem pickaxe) {
-            soulDrops = pickaxe.getRandomSpiritusDrop(killed, player, weapon, looting);
-        } else if (weapon.getItem() instanceof SentientShovelItem shovel) {
-            soulDrops = shovel.getRandomSpiritusDrop(killed, player, weapon, looting);
-        } else if (weapon.getItem() instanceof SentientScytheItem scythe) {
-            soulDrops = scythe.getRandomSpiritusDrop(killed, player, weapon, looting);
+        if (weapon.getItem() instanceof ISentientTool sentient) {
+            soulDrops = sentient.getRandomSpiritusDrop(killed, player, weapon, looting);
         }
 
         if (soulDrops != null && !soulDrops.isEmpty()) {

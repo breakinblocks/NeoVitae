@@ -174,30 +174,31 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         return true;
     }
 
-    private List<ItemStack> outputStacks = new ArrayList<>();
-    private FluidStack outputFluidStack = FluidStack.EMPTY;
+    /** Per-craft result bundle. Recipe instances are singletons, so results must not be stored on them. */
+    public record AthanorResult(List<ItemStack> items, FluidStack fluid) {}
 
     @Override
     public ItemStack assemble(AthanorRecipeInput input, HolderLookup.Provider registries) {
-        outputStacks.clear();
-        outputFluidStack = outputFluid.orElse(FluidStack.EMPTY);
-        outputStacks.addAll(guaranteedOutput);
+        return ItemStack.EMPTY;
+    }
+
+    /**
+     * Rolls chance outputs and returns a fresh result. Safe to call concurrently for different inputs
+     * since no state is stored on the recipe.
+     */
+    public AthanorResult assembleOutputs(AthanorRecipeInput input) {
+        List<ItemStack> outputs = new ArrayList<>(guaranteedOutput.size() + chanceOutput.size());
+        for (ItemStack guaranteed : guaranteedOutput) {
+            outputs.add(guaranteed.copy());
+        }
         ItemStack toolStack = input.getItem(0);
         double bonusChance = toolStack.getOrDefault(NVDataComponents.ARC_CHANCE, 1D);
         for (Pair<ItemStack, Double> entry : chanceOutput) {
             if (Math.random() < entry.getSecond() * bonusChance) {
-                outputStacks.add(entry.getFirst());
+                outputs.add(entry.getFirst().copy());
             }
         }
-        return ItemStack.EMPTY;
-    }
-
-    public List<ItemStack> getActualOutputs() {
-        return outputStacks;
-    }
-
-    public FluidStack getActualOutputFluid() {
-        return outputFluidStack;
+        return new AthanorResult(outputs, outputFluid.orElse(FluidStack.EMPTY).copy());
     }
 
     public List<Pair<ItemStack, Double>> getAllListedOutputs() {

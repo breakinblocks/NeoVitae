@@ -64,13 +64,9 @@ public class AthanorPotionRecipe extends AthanorRecipe {
         super(tool, List.of(input), guaranteedOutput, chanceOutput, inputFluid, outputStack, java.util.Map.of());
     }
 
-    private List<ItemStack> outputStacks = new ArrayList<>();
-    private FluidStack outputFluidStack = FluidStack.EMPTY;
-
     @Override
-    public ItemStack assemble(AthanorRecipeInput input, HolderLookup.Provider registries) {
-        outputStacks.clear();
-        outputFluidStack = getOutputFluid().orElse(FluidStack.EMPTY);
+    public AthanorResult assembleOutputs(AthanorRecipeInput input) {
+        List<ItemStack> outputs = new ArrayList<>(getGuaranteedOutput().size() + getChanceOutput().size());
 
         ItemStack toolStack = input.getItem(0);
         PotionContents toolContents = toolStack.get(DataComponents.POTION_CONTENTS);
@@ -87,28 +83,18 @@ public class AthanorPotionRecipe extends AthanorRecipe {
                 );
                 outputStack.set(DataComponents.POTION_CONTENTS, newContents);
             }
-            outputStacks.add(outputStack);
+            outputs.add(outputStack);
         }
 
-        double bonusChance = input.getItem(0).getOrDefault(
+        double bonusChance = toolStack.getOrDefault(
                 com.breakinblocks.neovitae.common.datacomponent.NVDataComponents.ARC_CHANCE, 1D);
         for (Pair<ItemStack, Double> entry : getChanceOutput()) {
             if (Math.random() < entry.getSecond() * bonusChance) {
-                outputStacks.add(entry.getFirst().copy());
+                outputs.add(entry.getFirst().copy());
             }
         }
 
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public List<ItemStack> getActualOutputs() {
-        return outputStacks;
-    }
-
-    @Override
-    public FluidStack getActualOutputFluid() {
-        return outputFluidStack;
+        return new AthanorResult(outputs, getOutputFluid().orElse(FluidStack.EMPTY).copy());
     }
 
     @Override

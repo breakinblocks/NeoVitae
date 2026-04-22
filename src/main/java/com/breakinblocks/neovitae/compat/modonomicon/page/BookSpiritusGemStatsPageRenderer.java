@@ -4,7 +4,7 @@ import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookPageRenderer;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
@@ -25,7 +25,7 @@ public class BookSpiritusGemStatsPageRenderer extends BookPageRenderer<BookSpiri
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         int y = 0;
         if (this.page.hasTitle()) {
             this.renderTitle(guiGraphics, this.page.getTitle(), false, BookEntryScreen.PAGE_WIDTH / 2, 0);
@@ -36,10 +36,10 @@ public class BookSpiritusGemStatsPageRenderer extends BookPageRenderer<BookSpiri
             this.parentScreen.renderItemStack(guiGraphics, ICON_X, y + 1, mouseX, mouseY, entry.stack);
 
             Component name = entry.stack.getHoverName().copy();
-            guiGraphics.drawString(this.font, name, TEXT_X, y, 0x4A0080, false);
+            guiGraphics.text(this.font, name, TEXT_X, y, 0x4A0080);
 
             String line = String.format("%s Spiritus", formatNumber(entry.max));
-            guiGraphics.drawString(this.font, line, TEXT_X, y + 10, 0x555555, false);
+            guiGraphics.text(this.font, line, TEXT_X, y + 10, 0x555555);
             y += ROW_HEIGHT;
         }
     }

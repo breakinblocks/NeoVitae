@@ -3,16 +3,16 @@ package com.breakinblocks.neovitae.common.item;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.ItemAbilities;
@@ -24,15 +24,17 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class ItemAnointmentProvider extends Item {
-    private final ResourceLocation anointmentKey;
+    private final Identifier anointmentKey;
     private final int color;
     private final int level;
     private final int maxDamage;
 
-    public ItemAnointmentProvider(ResourceLocation anointmentKey, int color, int level, int maxDamage) {
-        super(new Item.Properties().stacksTo(16));
+    public ItemAnointmentProvider(Item.Properties props, Identifier anointmentKey, int color, int level, int maxDamage) {
+        super(props.stacksTo(16));
         this.anointmentKey = anointmentKey;
         this.color = color;
         this.level = level;
@@ -40,11 +42,11 @@ public class ItemAnointmentProvider extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         ItemStack targetStack = player.getItemInHand(hand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND);
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             if (!targetStack.isEmpty() && isItemValidForApplication(targetStack)) {
                 AnointmentHolder holder = targetStack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
                 if (holder == null) {
@@ -58,7 +60,7 @@ public class ItemAnointmentProvider extends Item {
 
                     level.playSound(null, player.blockPosition(), SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     stack.shrink(1);
-                    return InteractionResultHolder.consume(stack);
+                    return InteractionResult.CONSUME;
                 }
             }
         } else {
@@ -75,7 +77,7 @@ public class ItemAnointmentProvider extends Item {
                                 player.getRandomX(0.3D), player.getRandomY(), player.getRandomZ(0.3D),
                                 0, 0, 0);
                     }
-                    return InteractionResultHolder.consume(stack);
+                    return InteractionResult.CONSUME;
                 }
             }
         }
@@ -84,7 +86,7 @@ public class ItemAnointmentProvider extends Item {
     }
 
     private boolean canApplyAnointment(AnointmentHolder holder, Anointment anointment, int level, int maxDamage) {
-        ResourceLocation key = anointment.getKey();
+        Identifier key = anointment.getKey();
 
         for (AnointmentHolder.AnointmentEntry entry : holder.anointments()) {
             Anointment existing = AnointmentRegistrar.get(entry.key());
@@ -107,7 +109,7 @@ public class ItemAnointmentProvider extends Item {
         return true;
     }
 
-    private AnointmentHolder applyAnointment(AnointmentHolder holder, ResourceLocation key, int level, int maxDamage) {
+    private AnointmentHolder applyAnointment(AnointmentHolder holder, Identifier key, int level, int maxDamage) {
         List<AnointmentHolder.AnointmentEntry> newList = new ArrayList<>();
 
         for (AnointmentHolder.AnointmentEntry entry : holder.anointments()) {
@@ -140,17 +142,18 @@ public class ItemAnointmentProvider extends Item {
     }
 
     public static boolean isItemSword(ItemStack stack) {
-        return stack.getItem() instanceof SwordItem;
+        // 26.1: SwordItem class removed; check by vanilla "swords" tag.
+        return stack.is(ItemTags.SWORDS);
     }
 
     public static List<ItemAbility> validToolActions() {
-        List<ItemAbility> actionList = new ArrayList<>();
-        actionList.add(ItemAbilities.AXE_DIG);
-        actionList.add(ItemAbilities.SHOVEL_DIG);
-        actionList.add(ItemAbilities.SWORD_DIG);
-        actionList.add(ItemAbilities.PICKAXE_DIG);
-        actionList.add(ItemAbilities.HOE_DIG);
-        return actionList;
+        // 26.1: AXE_DIG / PICKAXE_DIG / SHOVEL_DIG / SWORD_DIG / HOE_DIG were removed when
+        // digging moved to ToolMaterial-driven resolution. Only SHEARS_DIG remains, and tool
+        // category is now determined by item JSON / ToolMaterial mining rules, not by
+        // `canPerformAction` against a dig ability. Anointment compatibility therefore falls
+        // back to the tool-category tags (ItemTags.AXES etc.) in callers.
+        // See migration_alterations.md.
+        return List.of();
     }
 
     public int getColor() {
@@ -158,11 +161,9 @@ public class ItemAnointmentProvider extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae.anointment." + anointmentKey.getPath() + ".desc")
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable("tooltip.neovitae.anointment." + anointmentKey.getPath() + ".desc")
                 .withStyle(net.minecraft.ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.neovitae.anointment.level", level));
-        tooltip.add(Component.translatable("tooltip.neovitae.anointment.uses", maxDamage));
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
+        tooltip.accept(Component.translatable("tooltip.neovitae.anointment.level", level));
+        tooltip.accept(Component.translatable("tooltip.neovitae.anointment.uses", maxDamage));}
 }

@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -22,12 +22,14 @@ import com.breakinblocks.neovitae.common.event.ItemBindEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class TeleposerFocusItem extends Item implements ITeleposerFocus {
     public final int range;
 
-    public TeleposerFocusItem(int range) {
-        super(new Item.Properties().stacksTo(1).component(NVDataComponents.BINDING, Binding.EMPTY));
+    public TeleposerFocusItem(Item.Properties props, int range) {
+        super(props.stacksTo(1).component(NVDataComponents.BINDING, Binding.EMPTY));
         this.range = range;
     }
 
@@ -65,7 +67,7 @@ public class TeleposerFocusItem extends Item implements ITeleposerFocus {
     }
 
     public void setWorld(ItemStack stack, Level world) {
-        String worldKey = world.dimension().location().toString();
+        String worldKey = world.dimension().identifier().toString();
         stack.set(NVDataComponents.TELEPOSER_DIMENSION, worldKey);
     }
 
@@ -74,7 +76,7 @@ public class TeleposerFocusItem extends Item implements ITeleposerFocus {
         if (worldKey == null || worldKey.isEmpty()) {
             return null;
         }
-        return ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(worldKey));
+        return ResourceKey.create(Registries.DIMENSION, Identifier.parse(worldKey));
     }
 
     @Override
@@ -93,13 +95,11 @@ public class TeleposerFocusItem extends Item implements ITeleposerFocus {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        ResourceKey<Level> storedKey = getStoredKey(stack);
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {ResourceKey<Level> storedKey = getStoredKey(stack);
         if (storedKey != null) {
             BlockPos storedPos = getStoredPos(stack);
-            tooltip.add(Component.translatable("tooltip.neovitae.telepositionfocus.coords", storedPos.getX(), storedPos.getY(), storedPos.getZ()).withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.translatable("tooltip.neovitae.telepositionfocus.world", Component.translatable(storedKey.location().toString())).withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.translatable("tooltip.neovitae.telepositionfocus.coords", storedPos.getX(), storedPos.getY(), storedPos.getZ()).withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.translatable("tooltip.neovitae.telepositionfocus.world", Component.translatable(storedKey.identifier().toString())).withStyle(ChatFormatting.GRAY));
         }
     }
 

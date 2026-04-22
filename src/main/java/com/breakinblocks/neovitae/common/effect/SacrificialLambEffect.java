@@ -21,9 +21,9 @@ public class SacrificialLambEffect extends MobEffect {
         super(category, color);
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
-        if (entity.level().isClientSide && entity.tickCount % 3 == 0) {
+        if (entity.level().isClientSide() && entity.tickCount % 3 == 0) {
             double x = entity.getX() + (entity.getRandom().nextDouble() - 0.5) * 0.5;
             double y = entity.getY() + entity.getRandom().nextDouble() * entity.getBbHeight();
             double z = entity.getZ() + (entity.getRandom().nextDouble() - 0.5) * 0.5;

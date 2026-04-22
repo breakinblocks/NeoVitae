@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.common.item.soul;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -16,6 +16,8 @@ import com.breakinblocks.neovitae.will.ISpiritus;
 import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 /**
  * Monster Soul item - dropped by mobs when killed with sentient weapons.
@@ -25,8 +27,8 @@ public class SpiritusEssenceItem extends Item implements ISpiritus {
 
     private final SpiritusType willType;
 
-    public SpiritusEssenceItem(SpiritusType willType) {
-        super(new Properties()
+    public SpiritusEssenceItem(Item.Properties props, SpiritusType willType) {
+        super(props
                 .stacksTo(1)
                 .component(NVDataComponents.SPIRITUS_AMOUNT, 0.0)
                 .component(NVDataComponents.SPIRITUS_TYPE, willType));
@@ -34,29 +36,27 @@ public class SpiritusEssenceItem extends Item implements ISpiritus {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         double will = getWill(willType, stack);
         if (will > 0) {
-            tooltip.add(Component.translatable("tooltip.neovitae.will", ChatUtil.DECIMAL_FORMAT.format(will))
+            tooltip.accept(Component.translatable("tooltip.neovitae.will", ChatUtil.DECIMAL_FORMAT.format(will))
                     .withStyle(ChatFormatting.GRAY));
-        }
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
+        }}
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (level.isClientSide) return InteractionResultHolder.success(stack);
+        if (level.isClientSide()) return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
 
         double will = getWill(willType, stack);
-        if (will <= 0) return InteractionResultHolder.fail(stack);
+        if (will <= 0) return InteractionResult.FAIL;
 
         ItemStack remaining = PlayerSpiritusHandler.addSpiritus(player, stack);
         if (remaining.isEmpty() || getWill(willType, remaining) < will) {
             player.setItemInHand(hand, remaining);
-            return InteractionResultHolder.consume(remaining);
+            return InteractionResult.CONSUME;
         }
-        return InteractionResultHolder.fail(stack);
+        return InteractionResult.FAIL;
     }
 
     @Override

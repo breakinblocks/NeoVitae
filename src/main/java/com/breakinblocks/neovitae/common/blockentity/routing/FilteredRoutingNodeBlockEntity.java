@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity.routing;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -46,8 +49,8 @@ public class FilteredRoutingNodeBlockEntity extends RoutingNodeBlockEntity {
                 BlockPos offsetPos = this.getCurrentBlockPos().relative(dir);
                 BlockEntity tile = level.getBlockEntity(offsetPos);
                 if (tile != null) {
-                    IItemHandler handler = level.getCapability(
-                            Capabilities.ItemHandler.BLOCK, offsetPos, dir.getOpposite());
+                    Object handler = level.getCapability(
+                            Capabilities.Item.BLOCK, offsetPos, dir.getOpposite());
                     if (handler != null) {
                         currentActiveSlot = dir.get3DDataValue();
                         break;
@@ -68,33 +71,33 @@ public class FilteredRoutingNodeBlockEntity extends RoutingNodeBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         tag.putInt("currentSlot", currentActiveSlot);
         tag.putIntArray(Constants.NBT.ROUTING_PRIORITY, priorities);
 
-        ListTag sides = new ListTag();
-        for (int i = 0; i < 6; i++) {
-            sides.add(sideFilters[i].save(registries));
+        ValueOutput filtersTag = tag.child("sideFilters");
+        for (Direction dir : Direction.values()) {
+            sideFilters[dir.get3DDataValue()].save(filtersTag.child(dir.getSerializedName()));
         }
-        tag.put("SideFilters", sides);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        currentActiveSlot = tag.getInt("currentSlot");
-        priorities = tag.getIntArray(Constants.NBT.ROUTING_PRIORITY);
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        currentActiveSlot = tag.getIntOr("currentSlot", 0);
+        tag.getIntArray(Constants.NBT.ROUTING_PRIORITY).ifPresent(arr -> {
+            if (arr.length == 6) priorities = arr;
+        });
         if (priorities.length != 6) {
             priorities = new int[6];
         }
 
-        if (tag.contains("SideFilters", Tag.TAG_LIST)) {
-            ListTag sides = tag.getList("SideFilters", Tag.TAG_COMPOUND);
-            for (int i = 0; i < Math.min(6, sides.size()); i++) {
-                sideFilters[i].load(sides.getCompound(i), registries);
+        tag.child("sideFilters").ifPresent(filtersTag -> {
+            for (Direction dir : Direction.values()) {
+                filtersTag.child(dir.getSerializedName()).ifPresent(sideFilters[dir.get3DDataValue()]::load);
             }
-        }
+        });
     }
 
     public void swapFilters(int requestedSlot) {
@@ -201,7 +204,6 @@ public class FilteredRoutingNodeBlockEntity extends RoutingNodeBlockEntity {
     public boolean hasInventoryNeighbor(Direction dir) {
         if (level == null) return false;
         BlockPos neighborPos = worldPosition.relative(dir);
-        IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, neighborPos, dir.getOpposite());
-        return handler != null;
+        return level.getCapability(Capabilities.Item.BLOCK, neighborPos, dir.getOpposite()) != null;
     }
 }

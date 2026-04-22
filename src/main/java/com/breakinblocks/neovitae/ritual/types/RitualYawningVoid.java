@@ -27,6 +27,9 @@ import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
+import java.util.HashSet;
+import java.util.Set;
+import net.minecraft.world.item.Item;
 
 /**
  * Yawning of the Void - Block quarry ritual that destroys blocks and collects drops.
@@ -103,7 +106,7 @@ public class RitualYawningVoid extends Ritual {
         ItemStack toolStack = new ItemStack(Items.NETHERITE_PICKAXE);
 
         // Build filter list from chest (for corrosive mode)
-        java.util.Set<net.minecraft.world.item.Item> filterItems = new java.util.HashSet<>();
+        Set<Item> filterItems = new HashSet<>();
         if (doFilter && chestHandler != null) {
             for (int i = 0; i < chestHandler.getSlots(); i++) {
                 ItemStack filterStack = chestHandler.getStackInSlot(i);
@@ -215,7 +218,7 @@ public class RitualYawningVoid extends Ritual {
     @Override
     public void readFromNBT(CompoundTag tag) {
         super.readFromNBT(tag);
-        scanIndex = Math.max(0, tag.getInt("scanIndex"));
+        scanIndex = Math.max(0, tag.getIntOr("scanIndex", 0));
     }
 
     @Override

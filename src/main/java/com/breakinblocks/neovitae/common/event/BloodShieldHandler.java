@@ -4,7 +4,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
@@ -18,7 +18,7 @@ public class BloodShieldHandler {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onIncomingDamage(LivingIncomingDamageEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
-        if (player.level().isClientSide) return;
+        if (player.level().isClientSide()) return;
         if (!(player.getOffhandItem().getItem() instanceof BloodOrbItem)) return;
         if (!player.isUsingItem() || player.getUsedItemHand() != InteractionHand.OFF_HAND) return;
 

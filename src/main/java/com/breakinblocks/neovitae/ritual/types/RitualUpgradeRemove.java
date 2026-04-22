@@ -40,8 +40,9 @@ public class RitualUpgradeRemove extends Ritual {
         for (Player player : players) {
             boolean cleansedAny = false;
 
-            for (int i = 0; i < player.getInventory().armor.size(); i++) {
-                ItemStack armorPiece = player.getInventory().armor.get(i);
+            for (net.minecraft.world.entity.EquipmentSlot slot : net.minecraft.world.entity.EquipmentSlot.VALUES) {
+                if (slot.getType() != net.minecraft.world.entity.EquipmentSlot.Type.HUMANOID_ARMOR) continue;
+                ItemStack armorPiece = player.getItemBySlot(slot);
                 if (armorPiece.isEmpty() || !armorPiece.is(NVTags.Items.LIVING_SET)) {
                     continue;
                 }

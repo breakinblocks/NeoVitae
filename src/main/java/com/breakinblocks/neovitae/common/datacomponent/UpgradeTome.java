@@ -18,6 +18,7 @@ import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.function.Consumer;
+import net.minecraft.core.component.DataComponentGetter;
 
 public record UpgradeTome(Holder<LivingUpgrade> upgrade, float exp) implements TooltipProvider {
     public static final Codec<UpgradeTome> CODEC = RecordCodecBuilder.create(builder -> builder.group(
@@ -32,7 +33,7 @@ public record UpgradeTome(Holder<LivingUpgrade> upgrade, float exp) implements T
     );
 
     @Override
-    public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag) {
+    public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag, DataComponentGetter componentGetter) {
         tooltipAdder.accept(LivingHelper.getTooltip(upgrade, exp, tooltipFlag.hasShiftDown()));
     }
 }

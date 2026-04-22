@@ -7,20 +7,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class ItemSigilToggleableBase extends ItemSigilToggleable {
     protected final String tooltipBase;
 
-    public ItemSigilToggleableBase(String name, int lpUsed) {
-        super(new Item.Properties().stacksTo(1), lpUsed);
+    public ItemSigilToggleableBase(Item.Properties props, String name, int lpUsed) {
+        super(props.stacksTo(1), lpUsed);
         this.tooltipBase = "tooltip.neovitae.sigil." + name + ".";
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-
-        String stateKey = getActivated(stack) ? "tooltip.neovitae.activated" : "tooltip.neovitae.deactivated";
-        tooltip.add(Component.translatable(stateKey).withStyle(ChatFormatting.GRAY));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {String stateKey = getActivated(stack) ? "tooltip.neovitae.activated" : "tooltip.neovitae.deactivated";
+        tooltip.accept(Component.translatable(stateKey).withStyle(ChatFormatting.GRAY));
     }
 }

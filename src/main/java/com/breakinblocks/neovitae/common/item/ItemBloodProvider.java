@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -19,23 +19,25 @@ import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.util.AltarUtil;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class ItemBloodProvider extends Item {
     protected final String tooltipBase;
     public final int evProvided;
 
-    public ItemBloodProvider(String name, int evProvided) {
-        super(new Item.Properties().stacksTo(64));
+    public ItemBloodProvider(Item.Properties props, String name, int evProvided) {
+        super(props.stacksTo(64));
         this.tooltipBase = "tooltip.neovitae.blood_provider." + name + ".";
         this.evProvided = evProvided;
     }
 
-    public ItemBloodProvider(String name) {
-        this(name, 0);
+    public ItemBloodProvider(Item.Properties props, String name) {
+        this(props, name, 0);
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         if (player instanceof FakePlayer) {
@@ -51,7 +53,7 @@ public class ItemBloodProvider extends Item {
                 double posZ = player.getZ();
 
                 level.playSound(player, posX, posY, posZ, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS,
-                        0.5F, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
+                        0.5F, 2.6F + (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.8F);
 
                 for (int l = 0; l < 8; ++l) {
                     level.addParticle(DustParticleOptions.REDSTONE,
@@ -61,7 +63,7 @@ public class ItemBloodProvider extends Item {
                             0, 0, 0);
                 }
 
-                if (!level.isClientSide) {
+                if (!level.isClientSide()) {
                     altar.addSacrificeEV(evProvided, false);
 
                     if (!player.getAbilities().instabuild) {
@@ -75,8 +77,6 @@ public class ItemBloodProvider extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable(tooltipBase + "desc").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable(tooltipBase + "desc").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));}
 }

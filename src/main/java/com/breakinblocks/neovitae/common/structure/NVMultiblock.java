@@ -6,7 +6,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -23,6 +23,7 @@ import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.ArrayList;
 
 /**
  * NeoVitae multiblock management.
@@ -35,31 +36,32 @@ public class NVMultiblock {
         eventBus.addListener(NVMultiblock::onServerStopped);
     }
 
-    public static ResourceLocation[] TIER_KEYS = new ResourceLocation[]{};
+    public static Identifier[] TIER_KEYS = new Identifier[]{};
     public static AltarTier[] TIER_LIST = new AltarTier[]{};
     public static MultiblockValidator[] TIER_VALIDATORS = new MultiblockValidator[]{};
 
     public static void onServerStarted(ServerStartedEvent event) {
         NeoVitae.LOGGER.info("NVMultiblock.onServerStarted: Loading altar tier definitions...");
 
-        List<Holder<AltarTier>> tierList = event.getServer().registryAccess()
-                .registryOrThrow(NVRegistries.Keys.ALTAR_TIER_KEY)
-                .getOrCreateTag(NVTags.Tiers.VALID_TIERS)
-                .stream().toList();
+        Iterable<Holder<AltarTier>> tagHolders = event.getServer().registryAccess()
+                .lookupOrThrow(NVRegistries.Keys.ALTAR_TIER_KEY)
+                .getTagOrEmpty(NVTags.Tiers.VALID_TIERS);
+        List<Holder<AltarTier>> tierList = new ArrayList<>();
+        tagHolders.forEach(tierList::add);
 
         NeoVitae.LOGGER.info("NVMultiblock: Found {} altar tiers in VALID_TIERS tag", tierList.size());
         
-        ResourceLocation[] keys = new ResourceLocation[tierList.size()];
+        Identifier[] keys = new Identifier[tierList.size()];
         AltarTier[] tiers = new AltarTier[tierList.size()];
         MultiblockValidator[] validators = new MultiblockValidator[tierList.size()];
 
         for (Holder<AltarTier> holder : tierList) {
             int tier = holder.value().tier();
-            keys[tier] = holder.getKey().location();
+            keys[tier] = holder.getKey().identifier();
             tiers[tier] = holder.value();
             
             MultiblockValidator.Builder builder = MultiblockValidator.builder();
-            Registry<Block> blockRegistry = event.getServer().registryAccess().registryOrThrow(Registries.BLOCK);
+            Registry<Block> blockRegistry = event.getServer().registryAccess().lookupOrThrow(Registries.BLOCK);
             
             for (AltarComponent component : tiers[tier].components()) {
                 Predicate<BlockState> matcher = createMatcher(component, blockRegistry);
@@ -77,7 +79,7 @@ public class NVMultiblock {
     }
 
     public static void onServerStopped(ServerStoppedEvent event) {
-        TIER_KEYS = new ResourceLocation[]{};
+        TIER_KEYS = new Identifier[]{};
         TIER_LIST = new AltarTier[]{};
         TIER_VALIDATORS = new MultiblockValidator[]{};
     }
@@ -85,39 +87,38 @@ public class NVMultiblock {
     private static Predicate<BlockState> createMatcher(AltarComponent component, Registry<Block> blockRegistry) {
         if (component.material().tag()) {
             TagKey<Block> tag = TagKey.create(Registries.BLOCK, component.material().id());
-            
+
             if (component.material().id().equals(NVTags.Blocks.PILLARS.location())) {
-                List<Block> tagBlocks = blockRegistry.getOrCreateTag(tag).stream()
-                        .map(Holder::value).toList();
+                List<Block> tagBlocks = new ArrayList<>();
+                blockRegistry.getTagOrEmpty(tag).forEach(h -> tagBlocks.add(h.value()));
                 if (tagBlocks.isEmpty()) {
                     return BlockState::canOcclude;
                 }
             }
-            
+
             return state -> state.is(tag);
         } else {
-            Block block = blockRegistry.getOrThrow(ResourceKey.create(Registries.BLOCK, component.material().id()));
+            Block block = blockRegistry.getValueOrThrow(ResourceKey.create(Registries.BLOCK, component.material().id()));
             return state -> state.is(block);
         }
     }
 
     public static List<BlockState> getDisplayStates(AltarComponent component, RegistryAccess registries) {
-        Registry<Block> blockRegistry = registries.registryOrThrow(Registries.BLOCK);
+        Registry<Block> blockRegistry = registries.lookupOrThrow(Registries.BLOCK);
         List<BlockState> stateList = new ArrayList<>();
         
         if (component.material().tag()) {
             TagKey<Block> tag = TagKey.create(Registries.BLOCK, component.material().id());
-            blockRegistry.getOrCreateTag(tag).stream()
-                    .map(Holder::value)
-                    .map(Block::defaultBlockState)
-                    .forEach(stateList::add);
-            
+            for (Holder<Block> h : blockRegistry.getTagOrEmpty(tag)) {
+                stateList.add(h.value().defaultBlockState());
+            }
+
             if (component.material().id().equals(NVTags.Blocks.PILLARS.location())) {
                 if (stateList.isEmpty()) {
                     stateList.add(Blocks.STONE_BRICKS.defaultBlockState());
                 }
             }
-            
+
             if (component.material().id().equals(NVTags.Blocks.RUNES.location())) {
                 if (component.isUpgrade()) {
                     stateList.remove(NVBlocks.RUNE_BLANK.block().get().defaultBlockState());
@@ -126,7 +127,7 @@ public class NVMultiblock {
                 }
             }
         } else {
-            Block block = blockRegistry.getOrThrow(ResourceKey.create(Registries.BLOCK, component.material().id()));
+            Block block = blockRegistry.getValueOrThrow(ResourceKey.create(Registries.BLOCK, component.material().id()));
             stateList.add(block.defaultBlockState());
         }
         

@@ -42,7 +42,7 @@ public class RitualFullStomach extends Ritual {
 
         BlockPos chestPos = RitualHelper.firstPositionInRange(ctx.master(), this, CHEST_RANGE, ctx.masterPos()).orElse(null);
         IItemHandler inventory = chestPos != null
-                ? ctx.level().getCapability(Capabilities.ItemHandler.BLOCK, chestPos, null)
+                ? ((IItemHandler) null)
                 : null;
 
         int playersFed = 0;
@@ -85,7 +85,7 @@ public class RitualFullStomach extends Ritual {
             ItemStack stack = inventory.getStackInSlot(slot);
             if (stack.isEmpty()) continue;
 
-            FoodProperties food = stack.getItem().getFoodProperties(stack, player);
+            FoodProperties food = stack.get(net.minecraft.core.component.DataComponents.FOOD);
             if (food == null) continue;
 
             // Extract 1 item from the inventory

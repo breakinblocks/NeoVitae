@@ -9,7 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class RitualDivinerEntry extends EntryProvider {
 
@@ -31,7 +31,7 @@ public class RitualDivinerEntry extends EntryProvider {
         this.pageText("You can also change the facing of the completed ritual by pressing Use in the air. This only matters for asymmetrical rituals such as the [#](8B0000)Ritual of Speed[#](); most patterns are perfectly symmetrical.");
 
         this.page("crafting", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_diviner"))
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual_diviner"))
                 .withText(this.context().pageText()));
         this.pageText("Tap Use while aiming at a [#](8B0000)Master Ritual Stone[#]() and the Diviner will construct the selected ritual, consuming [#](8B0000)Ritual Stones[#]() from your inventory as it works.");
 
@@ -41,7 +41,7 @@ public class RitualDivinerEntry extends EntryProvider {
                 + "\\\n\\\nThe base Diviner can only inscribe simpler rituals. For the most advanced patterns, you must upgrade it with [#](8B0000)Dusk Inscription Tools[#]().");
 
         this.page("dusk_crafting", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_diviner_dusk"))
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual_diviner_dusk"))
                 .withText(this.context().pageText()));
         this.pageText("Unlike the [#](8B0000)Elemental Inscription Tools[#](), the Ritual Diviner and its [#](B8860B)Dusk[#]() variant are inexhaustible; they will never wear out.");
 

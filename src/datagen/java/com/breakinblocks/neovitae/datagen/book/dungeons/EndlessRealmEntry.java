@@ -11,7 +11,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class EndlessRealmEntry extends EntryProvider {
 
@@ -73,7 +73,7 @@ public class EndlessRealmEntry extends EntryProvider {
 
         this.page("mine_entrance_img", () -> BookImagePageModel.create()
                 .withTitle("The Mine Entrance")
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/dungeon/mine_entrance.png"))
+                .withImages(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/dungeon/mine_entrance.png"))
                 .withBorder(true)
                 .withText(this.context().pageText()));
         this.pageText("Only the Foreman's Key will open the sealed passage beyond. If you have not yet defeated The Foreman, you must venture back.");

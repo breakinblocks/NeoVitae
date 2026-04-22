@@ -7,7 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -25,6 +25,7 @@ import com.breakinblocks.neovitae.structures.rooms.DungeonRoomPlacement;
 
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.ArrayDeque;
 
 /**
  * The DungeonSynthesizer handles procedural dungeon generation.
@@ -52,8 +53,8 @@ public class DungeonSynthesizer {
     /**
      * Codec for room placement tracking.
      */
-    private static final Codec<Map<ResourceLocation, Integer>> PLACEMENT_TRACKER_CODEC =
-            Codec.unboundedMap(ResourceLocation.CODEC, Codec.INT);
+    private static final Codec<Map<Identifier, Integer>> PLACEMENT_TRACKER_CODEC =
+            Codec.unboundedMap(Identifier.CODEC, Codec.INT);
 
     // Map of door types to their available doors by direction
     private Map<String, Map<Direction, List<BlockPos>>> availableDoorMasterMap = new HashMap<>();
@@ -64,9 +65,9 @@ public class DungeonSynthesizer {
     // Room progression tracking
     private int activatedDoors = 0;
     private int activeSealCount = 0;
-    private List<ResourceLocation> specialRoomBuffer = new ArrayList<>();
-    private Map<ResourceLocation, Integer> placementsSinceLastSpecial = new HashMap<>();
-    private final java.util.ArrayDeque<BlockPos> pendingValidation = new java.util.ArrayDeque<>();
+    private List<Identifier> specialRoomBuffer = new ArrayList<>();
+    private Map<Identifier, Integer> placementsSinceLastSpecial = new HashMap<>();
+    private final ArrayDeque<BlockPos> pendingValidation = new ArrayDeque<>();
 
     /**
      * Gets the available door master map.
@@ -89,7 +90,7 @@ public class DungeonSynthesizer {
         if (desc instanceof AreaDescriptor.Rectangle rect) {
             BlockPos maxOffset = rect.getMaximumOffset();
             BlockPos minOffset = rect.getMinimumOffset();
-            return maxOffset.getY() < level.getMaxBuildHeight() && minOffset.getY() >= level.getMinBuildHeight();
+            return maxOffset.getY() <= level.getMaxY() && minOffset.getY() >= level.getMinY();
         }
         return true;
     }
@@ -115,7 +116,7 @@ public class DungeonSynthesizer {
         }
 
         // Serialize special room buffer using Codec
-        ResourceLocation.CODEC.listOf().encodeStart(NbtOps.INSTANCE, specialRoomBuffer)
+        Identifier.CODEC.listOf().encodeStart(NbtOps.INSTANCE, specialRoomBuffer)
                 .resultOrPartial(LOGGER::error)
                 .ifPresent(nbt -> tag.put("specialRoomBuffer", nbt));
 
@@ -127,9 +128,9 @@ public class DungeonSynthesizer {
         tag.putInt("activatedDoors", activatedDoors);
         tag.putInt("activeSealCount", activeSealCount);
 
-        net.minecraft.nbt.ListTag validationQueue = new net.minecraft.nbt.ListTag();
+        ListTag validationQueue = new ListTag();
         for (BlockPos pos : pendingValidation) {
-            net.minecraft.nbt.CompoundTag posTag = new net.minecraft.nbt.CompoundTag();
+            CompoundTag posTag = new CompoundTag();
             posTag.putInt("X", pos.getX());
             posTag.putInt("Y", pos.getY());
             posTag.putInt("Z", pos.getZ());
@@ -158,10 +159,10 @@ public class DungeonSynthesizer {
         }
 
         // Deserialize area descriptors
-        ListTag descriptorNbt = tag.getList("areaDescriptors", 10);
+        ListTag descriptorNbt = tag.getListOrEmpty("areaDescriptors");
         descriptorList.clear();
         for (int i = 0; i < descriptorNbt.size(); i++) {
-            CompoundTag compoundnbt = descriptorNbt.getCompound(i);
+            CompoundTag compoundnbt = descriptorNbt.getCompound(i).orElse(new CompoundTag());
             AreaDescriptor.Rectangle rec = new AreaDescriptor.Rectangle(BlockPos.ZERO, 1, 1, 1);
             rec.readFromNBT(compoundnbt);
             descriptorList.add(rec);
@@ -169,7 +170,7 @@ public class DungeonSynthesizer {
 
         // Deserialize special room buffer using Codec
         if (tag.contains("specialRoomBuffer")) {
-            specialRoomBuffer = ResourceLocation.CODEC.listOf().parse(NbtOps.INSTANCE, tag.get("specialRoomBuffer"))
+            specialRoomBuffer = Identifier.CODEC.listOf().parse(NbtOps.INSTANCE, tag.get("specialRoomBuffer"))
                     .resultOrPartial(LOGGER::error)
                     .map(ArrayList::new)
                     .orElse(new ArrayList<>());
@@ -183,16 +184,17 @@ public class DungeonSynthesizer {
                     .orElse(new HashMap<>());
         }
 
-        activatedDoors = tag.getInt("activatedDoors");
-        activeSealCount = tag.getInt("activeSealCount");
+        activatedDoors = tag.getIntOr("activatedDoors", 0);
+        activeSealCount = tag.getIntOr("activeSealCount", 0);
 
         pendingValidation.clear();
-        if (tag.contains("pendingValidation")) {
-            net.minecraft.nbt.ListTag validationQueue = tag.getList("pendingValidation", 10);
-            for (int i = 0; i < validationQueue.size(); i++) {
-                net.minecraft.nbt.CompoundTag posTag = validationQueue.getCompound(i);
-                pendingValidation.add(new BlockPos(posTag.getInt("X"), posTag.getInt("Y"), posTag.getInt("Z")));
-            }
+        ListTag validationQueue = tag.getListOrEmpty("pendingValidation");
+        for (int i = 0; i < validationQueue.size(); i++) {
+            CompoundTag posTag = validationQueue.getCompound(i).orElse(new CompoundTag());
+            pendingValidation.add(new BlockPos(
+                    posTag.getIntOr("X", 0),
+                    posTag.getIntOr("Y", 0),
+                    posTag.getIntOr("Z", 0)));
         }
     }
 
@@ -205,7 +207,7 @@ public class DungeonSynthesizer {
      * @param spawningPosition The position for the dungeon controller
      * @return Array of [playerSpawnPos, portalPos]
      */
-    public BlockPos[] generateInitialRoom(ResourceLocation initialType, RandomSource rand,
+    public BlockPos[] generateInitialRoom(Identifier initialType, RandomSource rand,
                                           ServerLevel world, BlockPos spawningPosition) {
         StructurePlaceSettings settings = new StructurePlaceSettings();
         settings.setMirror(Mirror.NONE);
@@ -294,9 +296,9 @@ public class DungeonSynthesizer {
 
         // Configure the seal block entity
         if (world.getBlockEntity(sealPos) instanceof DungeonSealBlockEntity seal) {
-            List<ResourceLocation> potentialRooms = new ArrayList<>();
+            List<Identifier> potentialRooms = new ArrayList<>();
             for (String roomType : door.getPotentialRoomTypes()) {
-                potentialRooms.add(ResourceLocation.parse(roomType));
+                potentialRooms.add(Identifier.parse(roomType));
             }
             seal.initialize(controllerPos, door.doorPos(), door.doorDir(), door.doorType(), potentialRooms);
         }
@@ -365,7 +367,7 @@ public class DungeonSynthesizer {
     /**
      * Gets a random room from the specified room pool.
      */
-    public DungeonRoom getRandomRoom(ResourceLocation roomType, RandomSource rand) {
+    public DungeonRoom getRandomRoom(Identifier roomType, RandomSource rand) {
         return DungeonRoomRegistry.getRandomDungeonRoom(roomType, rand);
     }
 
@@ -376,21 +378,21 @@ public class DungeonSynthesizer {
      *
      * @return DungeonRoomPlacement if successful, null otherwise
      */
-    public DungeonRoomPlacement getRandomPlacement(ServerLevel world, ResourceLocation roomType,
+    public DungeonRoomPlacement getRandomPlacement(ServerLevel world, Identifier roomType,
                                                     RandomSource rand, BlockPos activatedDoorPos,
                                                     Direction doorFacing, String activatedDoorType) {
-        List<Pair<ResourceLocation, Integer>> poolEntries = DungeonRoomRegistry.getRoomPoolEntries(roomType);
+        List<Pair<Identifier, Integer>> poolEntries = DungeonRoomRegistry.getRoomPoolEntries(roomType);
         if (poolEntries == null || poolEntries.isEmpty()) {
             LOGGER.debug("No room pool found for type: {}", roomType);
             return null;
         }
 
-        List<Pair<ResourceLocation, Integer>> shuffled = new ArrayList<>(poolEntries);
+        List<Pair<Identifier, Integer>> shuffled = new ArrayList<>(poolEntries);
         Collections.shuffle(shuffled, new Random(rand.nextLong()));
 
         Direction oppositeDoorFacing = doorFacing.getOpposite();
 
-        for (Pair<ResourceLocation, Integer> entry : shuffled) {
+        for (Pair<Identifier, Integer> entry : shuffled) {
             DungeonRoom testingRoom = DungeonRoomRegistry.getDungeonRoom(entry.getLeft());
             if (testingRoom == null) continue;
 
@@ -416,7 +418,7 @@ public class DungeonSynthesizer {
                 Collections.shuffle(shuffledDoors, new Random(rand.nextLong()));
 
                 for (BlockPos testDoor : shuffledDoors) {
-                    BlockPos roomLocation = activatedDoorPos.subtract(testDoor).offset(doorFacing.getNormal());
+                    BlockPos roomLocation = activatedDoorPos.subtract(testDoor).offset(doorFacing.getUnitVec3i());
 
                     List<AreaDescriptor> descriptors = testingRoom.getAreaDescriptors(settings, roomLocation);
                     boolean valid = true;
@@ -467,12 +469,12 @@ public class DungeonSynthesizer {
     /**
      * Checks and updates special room requirements based on progression.
      */
-    public List<ResourceLocation> checkSpecialRoomRequirements(int currentRoomDepth) {
-        for (ResourceLocation res : placementsSinceLastSpecial.keySet()) {
+    public List<Identifier> checkSpecialRoomRequirements(int currentRoomDepth) {
+        for (Identifier res : placementsSinceLastSpecial.keySet()) {
             placementsSinceLastSpecial.merge(res, 1, Integer::sum);
         }
 
-        List<ResourceLocation> newSpecialPools = SpecialDungeonRoomPoolRegistry.getSpecialRooms(
+        List<Identifier> newSpecialPools = SpecialDungeonRoomPoolRegistry.getSpecialRooms(
                 activatedDoors, currentRoomDepth, placementsSinceLastSpecial, specialRoomBuffer);
         specialRoomBuffer.addAll(newSpecialPools);
         return newSpecialPools;
@@ -493,18 +495,18 @@ public class DungeonSynthesizer {
     }
 
     public int getActiveSealCount() { return activeSealCount; }
-    public List<ResourceLocation> getSpecialRoomBuffer() { return specialRoomBuffer; }
-    public Map<ResourceLocation, Integer> getPlacementsSinceLastSpecial() { return placementsSinceLastSpecial; }
+    public List<Identifier> getSpecialRoomBuffer() { return specialRoomBuffer; }
+    public Map<Identifier, Integer> getPlacementsSinceLastSpecial() { return placementsSinceLastSpecial; }
     public void incrementSealCount() { activeSealCount++; }
     public void decrementSealCount() { activeSealCount = Math.max(0, activeSealCount - 1); }
 
-    public java.util.ArrayDeque<BlockPos> getPendingValidation() { return pendingValidation; }
+    public ArrayDeque<BlockPos> getPendingValidation() { return pendingValidation; }
 
     public void queueSealForValidation(BlockPos pos) {
         if (!pendingValidation.contains(pos)) pendingValidation.add(pos);
     }
 
-    public boolean canAnythingFit(ServerLevel level, BlockPos doorPos, Direction doorFacing, String doorType, ResourceLocation[] pools) {
+    public boolean canAnythingFit(ServerLevel level, BlockPos doorPos, Direction doorFacing, String doorType, Identifier[] pools) {
         StructurePlaceSettings settings = new StructurePlaceSettings();
         settings.setMirror(Mirror.NONE);
         settings.setIgnoreEntities(false);
@@ -512,8 +514,8 @@ public class DungeonSynthesizer {
 
         Direction opposite = doorFacing.getOpposite();
 
-        for (ResourceLocation poolName : pools) {
-            List<org.apache.commons.lang3.tuple.Pair<ResourceLocation, Integer>> poolEntries =
+        for (Identifier poolName : pools) {
+            List<org.apache.commons.lang3.tuple.Pair<Identifier, Integer>> poolEntries =
                     DungeonRoomRegistry.getRoomPoolEntries(poolName);
             if (poolEntries == null) continue;
 
@@ -527,7 +529,7 @@ public class DungeonSynthesizer {
                     if (doors == null || doors.isEmpty()) continue;
 
                     for (BlockPos testDoor : doors) {
-                        BlockPos roomLocation = doorPos.subtract(testDoor).offset(doorFacing.getNormal());
+                        BlockPos roomLocation = doorPos.subtract(testDoor).offset(doorFacing.getUnitVec3i());
                         List<AreaDescriptor> descs = room.getAreaDescriptors(settings, roomLocation);
                         boolean valid = true;
 

@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.entity.projectile;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -22,6 +24,8 @@ import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
 
 import java.util.UUID;
+import net.minecraft.core.UUIDUtil;
+import net.minecraft.tags.FluidTags;
 
 public class EntityBloodLight extends ThrowableProjectile {
 
@@ -37,7 +41,8 @@ public class EntityBloodLight extends ThrowableProjectile {
     }
 
     public EntityBloodLight(Level level, LivingEntity shooter) {
-        super(NVEntities.BLOOD_LIGHT.get(), shooter, level);
+        super(NVEntities.BLOOD_LIGHT.get(), shooter.getX(), shooter.getEyeY() - 0.1, shooter.getZ(), level);
+        setOwner(shooter);
         if (shooter != null) {
             this.ownerUUID = shooter.getUUID();
         }
@@ -62,7 +67,7 @@ public class EntityBloodLight extends ThrowableProjectile {
     private void placeLight(BlockPos placePos) {
         BlockState existing = level().getBlockState(placePos);
         if (level().isEmptyBlock(placePos) || existing.canBeReplaced()) {
-            boolean waterlogged = existing.getFluidState().is(net.minecraft.tags.FluidTags.WATER);
+            boolean waterlogged = existing.getFluidState().is(FluidTags.WATER);
             BlockState lightState = BloodLightHelper.createBlockState(brightness, waterlogged);
             if (BlockProtectionHelper.tryPlaceBlock(level(), placePos, lightState, ownerUUID)) {
                 BloodLightHelper.setBlockEntityColor(level(), placePos, color);
@@ -134,38 +139,30 @@ public class EntityBloodLight extends ThrowableProjectile {
         return false;
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     protected boolean updateInWaterStateAndDoFluidPushing() {
         return false;
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    protected void addAdditionalSaveData(ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("maxTicksInAir", maxTicksInAir);
         tag.putInt("Brightness", brightness);
         tag.putInt("Color", color.getId());
         if (ownerUUID != null) {
-            tag.putUUID("ownerUUID", ownerUUID);
+            tag.store("ownerUUID", UUIDUtil.CODEC, ownerUUID);
         }
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    protected void readAdditionalSaveData(ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        if (tag.contains("maxTicksInAir")) {
-            maxTicksInAir = tag.getInt("maxTicksInAir");
-        }
-        if (tag.contains("Brightness")) {
-            brightness = tag.getInt("Brightness");
-        }
-        if (tag.contains("Color")) {
-            color = DyeColor.byId(tag.getInt("Color"));
-            this.entityData.set(DATA_COLOR, color.getId());
-        }
-        if (tag.hasUUID("ownerUUID")) {
-            ownerUUID = tag.getUUID("ownerUUID");
-        }
+        maxTicksInAir = tag.getIntOr("maxTicksInAir", maxTicksInAir);
+        brightness = tag.getIntOr("Brightness", brightness);
+        color = DyeColor.byId(tag.getIntOr("Color", color.getId()));
+        this.entityData.set(DATA_COLOR, color.getId());
+        ownerUUID = tag.read("ownerUUID", UUIDUtil.CODEC).orElse(null);
     }
 
     @Override

@@ -3,12 +3,11 @@ package com.breakinblocks.neovitae.common.block;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -34,13 +33,14 @@ import com.breakinblocks.neovitae.structures.DungeonSynthesizer;
 
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 public class BlockDungeonSeal extends Block implements EntityBlock {
 
     public static final BooleanProperty SPECIAL = BooleanProperty.create("special");
 
-    public BlockDungeonSeal() {
-        super(BlockBehaviour.Properties.of()
+    public BlockDungeonSeal(BlockBehaviour.Properties props) {
+        super(props
                 .sound(SoundType.STONE)
                 .strength(-1.0F, 3600000.0F)
                 .noLootTable()
@@ -82,11 +82,11 @@ public class BlockDungeonSeal extends Block implements EntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level,
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level,
                                                BlockPos pos, Player player, InteractionHand hand,
                                                BlockHitResult hitResult) {
         // Pass through to useWithoutItem for everything except sneak+debug
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 
     private void openSealMenu(Player player, DungeonSealBlockEntity seal, BlockPos pos) {
@@ -107,9 +107,9 @@ public class BlockDungeonSeal extends Block implements EntityBlock {
             }
 
             if (!hasAnyKey && !player.getAbilities().instabuild) {
-                player.displayClientMessage(
+                player.sendOverlayMessage(
                         Component.translatable("chat.neovitae.dungeon.seal.noKeys")
-                                .withStyle(ChatFormatting.RED), true);
+                                .withStyle(ChatFormatting.RED));
                 return;
             }
 
@@ -134,12 +134,12 @@ public class BlockDungeonSeal extends Block implements EntityBlock {
 
         DungeonSynthesizer synth = controller.getDungeonSynthesizer();
         if (synth == null) {
-            player.sendSystemMessage(Component.literal("[Debug] Synthesizer is null")
+            player.sendSystemMessage(Component.translatable("message.neovitae.dungeon_seal.debug.synth_null")
                     .withStyle(ChatFormatting.RED));
             return;
         }
 
-        player.sendSystemMessage(Component.literal("=== Dungeon Debug ===")
+        player.sendSystemMessage(Component.translatable("message.neovitae.dungeon_seal.debug.header")
                 .withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD));
 
         // Progression depth
@@ -163,25 +163,25 @@ public class BlockDungeonSeal extends Block implements EntityBlock {
                 .withStyle(mineKeyMet ? ChatFormatting.GREEN : ChatFormatting.RED));
 
         // Special room buffer
-        List<ResourceLocation> buffer = synth.getSpecialRoomBuffer();
+        List<Identifier> buffer = synth.getSpecialRoomBuffer();
         if (buffer.isEmpty()) {
-            player.sendSystemMessage(Component.literal("Special room buffer: (empty)")
+            player.sendSystemMessage(Component.translatable("message.neovitae.dungeon_seal.special_buffer.empty")
                     .withStyle(ChatFormatting.GRAY));
         } else {
-            player.sendSystemMessage(Component.literal("Special room buffer:")
+            player.sendSystemMessage(Component.translatable("message.neovitae.dungeon_seal.special_buffer.label")
                     .withStyle(ChatFormatting.YELLOW));
-            for (ResourceLocation rl : buffer) {
+            for (Identifier rl : buffer) {
                 player.sendSystemMessage(Component.literal("  - " + rl)
                         .withStyle(ChatFormatting.YELLOW));
             }
         }
 
         // Placements since last special
-        Map<ResourceLocation, Integer> placements = synth.getPlacementsSinceLastSpecial();
+        Map<Identifier, Integer> placements = synth.getPlacementsSinceLastSpecial();
         if (!placements.isEmpty()) {
-            player.sendSystemMessage(Component.literal("Placements since last special:")
+            player.sendSystemMessage(Component.translatable("message.neovitae.dungeon_seal.placements_since_special")
                     .withStyle(ChatFormatting.GRAY));
-            for (Map.Entry<ResourceLocation, Integer> entry : placements.entrySet()) {
+            for (Map.Entry<Identifier, Integer> entry : placements.entrySet()) {
                 player.sendSystemMessage(Component.literal("  - " + entry.getKey() + ": " + entry.getValue())
                         .withStyle(ChatFormatting.GRAY));
             }
@@ -218,7 +218,7 @@ public class BlockDungeonSeal extends Block implements EntityBlock {
                 DaemoniumDolorisEntity::isForeman);
 
         if (foremans.isEmpty()) {
-            player.sendSystemMessage(Component.literal("The Foreman: not found in dungeon")
+            player.sendSystemMessage(Component.translatable("message.neovitae.dungeon_seal.foreman_not_found")
                     .withStyle(ChatFormatting.GRAY));
         } else {
             for (DaemoniumDolorisEntity foreman : foremans) {
@@ -238,7 +238,7 @@ public class BlockDungeonSeal extends Block implements EntityBlock {
                 .withStyle(ChatFormatting.AQUA));
 
         // Find all remaining seals in the dungeon
-        List<DungeonSealBlockEntity> otherSeals = new java.util.ArrayList<>();
+        List<DungeonSealBlockEntity> otherSeals = new ArrayList<>();
         for (var desc : synth.getDescriptorList()) {
             AABB box = desc.getAABB(BlockPos.ZERO);
             BlockPos min = BlockPos.containing(box.minX, box.minY, box.minZ);
@@ -259,7 +259,7 @@ public class BlockDungeonSeal extends Block implements EntityBlock {
         }
 
         if (otherSeals.isEmpty()) {
-            player.sendSystemMessage(Component.literal("Remaining seals: none (this is the last one)")
+            player.sendSystemMessage(Component.translatable("message.neovitae.dungeon_seal.seals_none")
                     .withStyle(ChatFormatting.GRAY));
         } else {
             player.sendSystemMessage(Component.literal("Remaining seals (" + (otherSeals.size() + 1) + " total including this one):")
@@ -267,7 +267,7 @@ public class BlockDungeonSeal extends Block implements EntityBlock {
             for (DungeonSealBlockEntity other : otherSeals) {
                 BlockPos sp = other.getBlockPos();
                 double dist = Math.sqrt(seal.getBlockPos().distSqr(sp));
-                List<ResourceLocation> pools = other.getPotentialRoomTypes();
+                List<Identifier> pools = other.getPotentialRoomTypes();
                 String poolNames = pools.stream()
                         .map(rl -> rl.getPath().substring(rl.getPath().lastIndexOf('/') + 1))
                         .collect(java.util.stream.Collectors.joining(", "));

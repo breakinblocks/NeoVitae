@@ -9,7 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class SpiritusSnareEntry extends EntryProvider {
 
@@ -37,7 +37,7 @@ public class SpiritusSnareEntry extends EntryProvider {
                 + "the harvest far more efficient.");
 
         this.page("image", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/snare_particles.png"))
+                .withImages(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/snare_particles.png"))
                 .withTitle("Snared Quarry")
                 .withBorder(true)
                 .withText(this.context().pageText()));

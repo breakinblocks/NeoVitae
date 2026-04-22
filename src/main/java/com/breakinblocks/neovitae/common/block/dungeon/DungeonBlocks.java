@@ -15,19 +15,24 @@ import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Supplier;
 
 public class DungeonBlocks {
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.createBlocks(NeoVitae.MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.createItems(NeoVitae.MODID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(NeoVitae.MODID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(NeoVitae.MODID);
     public static final BlockWithItemRegister REG = new BlockWithItemRegister(BLOCKS, ITEMS);
 
-    private static final BlockBehaviour.Properties DUNGEON_STONE_PROPS = BlockBehaviour.Properties.of()
-            .strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops();
-    private static final BlockBehaviour.Properties DUNGEON_METAL_PROPS = BlockBehaviour.Properties.of()
-            .strength(5.0F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops();
-    private static final BlockBehaviour.Properties DUNGEON_EYE_PROPS = BlockBehaviour.Properties.of()
-            .strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().lightLevel(state -> 15);
+    private static BlockBehaviour.Properties dungeonStoneProps() {
+        return BlockBehaviour.Properties.of()
+                .strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops();
+    }
+    private static BlockBehaviour.Properties dungeonMetalProps() {
+        return BlockBehaviour.Properties.of()
+                .strength(5.0F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops();
+    }
+    private static BlockBehaviour.Properties dungeonEyeProps() {
+        return BlockBehaviour.Properties.of()
+                .strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().lightLevel(state -> 15);
+    }
 
     public static final Map<DungeonVariant, BlockWithItemHolder<Block, BlockItem>> DUNGEON_BRICK_1 = new EnumMap<>(DungeonVariant.class);
     public static final Map<DungeonVariant, BlockWithItemHolder<Block, BlockItem>> DUNGEON_BRICK_2 = new EnumMap<>(DungeonVariant.class);
@@ -81,16 +86,16 @@ public class DungeonBlocks {
     static {
         DUNGEON_ORE = REG.register("dungeon_ore", BlockBehaviour.Properties.of()
                 .strength(3.0F, 3.0F).sound(SoundType.STONE).requiresCorrectToolForDrops(), new Item.Properties());
-        PRISMATIC_DEMONITE = REG.register("prismatic_demonite", BlockPrismaticDemonite::new);
+        PRISMATIC_DEMONITE = REG.register("prismatic_demonite", BlockPrismaticDemonite::new, BlockBehaviour.Properties.of());
         DUNGEON_BRICK_ASSORTED = REG.register("dungeon_brick_assorted", BlockBehaviour.Properties.of()
                 .strength(20.0F, 50.0F).sound(SoundType.STONE).requiresCorrectToolForDrops(), new Item.Properties());
 
-        SPIKES = REG.register("spikes", () -> new BlockSpikes(BlockBehaviour.Properties.of()
-                .strength(2.0F, 5.0F).sound(SoundType.METAL).noOcclusion()));
-        SPIKE_TRAP = REG.register("spike_trap", () -> new BlockSpikeTrap(BlockBehaviour.Properties.of()
-                .strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
-        ALTERNATOR = REG.register("alternator", () -> new BlockAlternator(BlockBehaviour.Properties.of()
-                .strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+        SPIKES = REG.register("spikes", BlockSpikes::new,
+                BlockBehaviour.Properties.of().strength(2.0F, 5.0F).sound(SoundType.METAL).noOcclusion());
+        SPIKE_TRAP = REG.register("spike_trap", BlockSpikeTrap::new,
+                BlockBehaviour.Properties.of().strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
+        ALTERNATOR = REG.register("alternator", BlockAlternator::new,
+                BlockBehaviour.Properties.of().strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
 
         BlockBehaviour.Properties pathProps = BlockBehaviour.Properties.of()
                 .strength(2.0F, 5.0F).sound(SoundType.WOOD).requiresCorrectToolForDrops();
@@ -114,20 +119,20 @@ public class DungeonBlocks {
     private static void registerVariantBlocks(DungeonVariant variant) {
         String suffix = variant.getSuffix();
 
-        DUNGEON_BRICK_1.put(variant, registerSimple("dungeon_brick1" + suffix, DUNGEON_STONE_PROPS));
-        DUNGEON_BRICK_2.put(variant, registerSimple("dungeon_brick2" + suffix, DUNGEON_STONE_PROPS));
-        DUNGEON_BRICK_3.put(variant, registerSimple("dungeon_brick3" + suffix, DUNGEON_STONE_PROPS));
-        DUNGEON_STONE.put(variant, registerSimple("dungeon_stone" + suffix, DUNGEON_STONE_PROPS));
-        DUNGEON_EYE.put(variant, registerSimple("dungeon_eye" + suffix, DUNGEON_EYE_PROPS));
-        DUNGEON_POLISHED.put(variant, registerSimple("dungeon_polished" + suffix, DUNGEON_STONE_PROPS));
-        DUNGEON_TILE.put(variant, registerSimple("dungeon_tile" + suffix, DUNGEON_STONE_PROPS));
-        DUNGEON_SMALLBRICK.put(variant, registerSimple("dungeon_smallbrick" + suffix, DUNGEON_STONE_PROPS));
-        DUNGEON_TILESPECIAL.put(variant, registerSimple("dungeon_tilespecial" + suffix, DUNGEON_STONE_PROPS));
-        DUNGEON_METAL.put(variant, registerSimple("dungeon_metal" + suffix, DUNGEON_METAL_PROPS));
+        DUNGEON_BRICK_1.put(variant, registerSimple("dungeon_brick1" + suffix, dungeonStoneProps()));
+        DUNGEON_BRICK_2.put(variant, registerSimple("dungeon_brick2" + suffix, dungeonStoneProps()));
+        DUNGEON_BRICK_3.put(variant, registerSimple("dungeon_brick3" + suffix, dungeonStoneProps()));
+        DUNGEON_STONE.put(variant, registerSimple("dungeon_stone" + suffix, dungeonStoneProps()));
+        DUNGEON_EYE.put(variant, registerSimple("dungeon_eye" + suffix, dungeonEyeProps()));
+        DUNGEON_POLISHED.put(variant, registerSimple("dungeon_polished" + suffix, dungeonStoneProps()));
+        DUNGEON_TILE.put(variant, registerSimple("dungeon_tile" + suffix, dungeonStoneProps()));
+        DUNGEON_SMALLBRICK.put(variant, registerSimple("dungeon_smallbrick" + suffix, dungeonStoneProps()));
+        DUNGEON_TILESPECIAL.put(variant, registerSimple("dungeon_tilespecial" + suffix, dungeonStoneProps()));
+        DUNGEON_METAL.put(variant, registerSimple("dungeon_metal" + suffix, dungeonMetalProps()));
 
         DUNGEON_PILLAR_CENTER.put(variant, registerPillar("dungeon_pillar_center" + suffix));
         DUNGEON_PILLAR_SPECIAL.put(variant, registerPillar("dungeon_pillar_special" + suffix));
-        DUNGEON_PILLAR_CAP.put(variant, registerSimple("dungeon_pillar_cap" + suffix, DUNGEON_STONE_PROPS));
+        DUNGEON_PILLAR_CAP.put(variant, registerSimple("dungeon_pillar_cap" + suffix, dungeonStoneProps()));
 
         BlockWithItemHolder<Block, BlockItem> brick1 = DUNGEON_BRICK_1.get(variant);
         BlockWithItemHolder<Block, BlockItem> polished = DUNGEON_POLISHED.get(variant);
@@ -156,23 +161,25 @@ public class DungeonBlocks {
     }
 
     private static BlockWithItemHolder<RotatedPillarBlock, BlockItem> registerPillar(String name) {
-        return REG.register(name, () -> new RotatedPillarBlock(DUNGEON_STONE_PROPS));
+        return REG.register(name, RotatedPillarBlock::new, dungeonStoneProps());
     }
 
     private static BlockWithItemHolder<StairBlock, BlockItem> registerStairs(String name, BlockWithItemHolder<Block, BlockItem> baseBlock) {
-        return REG.register(name, () -> new StairBlock(baseBlock.block().get().defaultBlockState(), DUNGEON_STONE_PROPS));
+        return REG.register(name,
+                props -> new StairBlock(baseBlock.block().get().defaultBlockState(), props),
+                dungeonStoneProps());
     }
 
     private static BlockWithItemHolder<WallBlock, BlockItem> registerWall(String name) {
-        return REG.register(name, () -> new WallBlock(DUNGEON_STONE_PROPS));
+        return REG.register(name, WallBlock::new, dungeonStoneProps());
     }
 
     private static BlockWithItemHolder<FenceGateBlock, BlockItem> registerGate(String name) {
-        return REG.register(name, () -> new FenceGateBlock(WoodType.OAK, DUNGEON_STONE_PROPS));
+        return REG.register(name, props -> new FenceGateBlock(WoodType.OAK, props), dungeonStoneProps());
     }
 
     private static BlockWithItemHolder<SlabBlock, BlockItem> registerSlab(String name) {
-        return REG.register(name, () -> new SlabBlock(DUNGEON_STONE_PROPS));
+        return REG.register(name, SlabBlock::new, dungeonStoneProps());
     }
 
     private static Set<Block> dungeonBlockSet;

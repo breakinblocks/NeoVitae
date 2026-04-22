@@ -21,13 +21,13 @@ public class FlaskSubtypeInterpreter implements ISubtypeInterpreter<ItemStack> {
         }
         return effects.stream()
                 .map(e -> e.effect().unwrapKey()
-                        .map(k -> k.location().toString() + ":" + e.amplifier())
+                        .map(k -> k.identifier().toString() + ":" + e.amplifier())
                         .orElse("unknown"))
                 .sorted()
                 .collect(Collectors.joining(","));
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
         Object data = getSubtypeData(ingredient, context);
         return data.toString();

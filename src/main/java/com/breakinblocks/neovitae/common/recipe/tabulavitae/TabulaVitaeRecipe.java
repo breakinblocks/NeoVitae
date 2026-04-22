@@ -4,14 +4,15 @@ import com.google.common.base.Preconditions;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -21,13 +22,15 @@ import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class TabulaVitaeRecipe implements Recipe<TabulaVitaeInput> {
     public static final String RECIPE_TYPE_NAME = "alchemytable";
     public static final int MAX_INPUTS = 6;
 
     public static final MapCodec<TabulaVitaeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.listOf().fieldOf("input").forGetter(TabulaVitaeRecipe::getInput),
+            Ingredient.CODEC.listOf().fieldOf("input").forGetter(TabulaVitaeRecipe::getInput),
             ItemStack.CODEC.fieldOf("output").forGetter(TabulaVitaeRecipe::getOutput),
             Codec.INT.fieldOf("syphon").forGetter(TabulaVitaeRecipe::getSyphon),
             Codec.INT.fieldOf("ticks").forGetter(TabulaVitaeRecipe::getTicks),
@@ -73,13 +76,6 @@ public class TabulaVitaeRecipe implements Recipe<TabulaVitaeInput> {
         return input;
     }
 
-    @Override
-    public NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> list = NonNullList.create();
-        list.addAll(input);
-        return list;
-    }
-
     @Nonnull
     public ItemStack getOutput() {
         return output;
@@ -103,7 +99,7 @@ public class TabulaVitaeRecipe implements Recipe<TabulaVitaeInput> {
         List<ItemStack> inputItems = container.items();
 
         // Create a mutable copy of ingredients to mark as matched
-        List<Ingredient> remainingIngredients = new java.util.ArrayList<>(input);
+        List<Ingredient> remainingIngredients = new ArrayList<>(input);
 
         for (ItemStack stack : inputItems) {
             if (stack.isEmpty()) continue;
@@ -129,27 +125,37 @@ public class TabulaVitaeRecipe implements Recipe<TabulaVitaeInput> {
     }
 
     @Override
-    public ItemStack assemble(TabulaVitaeInput container, HolderLookup.Provider registries) {
+    public ItemStack assemble(TabulaVitaeInput container) {
         return output.copy();
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
+    public boolean showNotification() {
+        return false;
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return output.copy();
+    public String group() {
+        return "";
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.createFromOptionals(input.stream().map(Optional::of).toList());
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
+
+    @Override
+    public RecipeSerializer<? extends Recipe<TabulaVitaeInput>> getSerializer() {
         return NVRecipes.TABULA_VITAE_SERIALIZER.get();
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<TabulaVitaeInput>> getType() {
         return NVRecipes.TABULA_VITAE_TYPE.get();
     }
 }

@@ -32,7 +32,7 @@ public record VoidSigilEffect() implements SigilEffect {
 
     @Override
     public boolean useOnAir(Level level, Player player, ItemStack stack) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return false;
         }
 
@@ -57,7 +57,8 @@ public record VoidSigilEffect() implements SigilEffect {
             return true;
         }
 
-        IFluidHandler handler = level.getCapability(Capabilities.FluidHandler.BLOCK, blockPos, sideHit);
+        var rh = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, null);
+        IFluidHandler handler = rh != null ? IFluidHandler.of(rh) : null;
         if (handler != null) {
             var drained = handler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
             if (!drained.isEmpty()) {

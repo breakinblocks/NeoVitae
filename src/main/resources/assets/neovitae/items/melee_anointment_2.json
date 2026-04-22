@@ -1,0 +1,19 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "neovitae:item/melee_anointment_2",
+    "tints": [
+      {
+        "type": "neovitae:anointment"
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -1
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -1
+      }
+    ]
+  }
+}

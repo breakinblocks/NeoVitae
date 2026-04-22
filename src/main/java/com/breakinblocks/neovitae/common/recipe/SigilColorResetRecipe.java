@@ -2,7 +2,6 @@ package com.breakinblocks.neovitae.common.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.DyeColor;
@@ -27,7 +26,7 @@ public class SigilColorResetRecipe extends CustomRecipe {
     );
 
     public SigilColorResetRecipe(CraftingBookCategory category) {
-        super(category);
+        super();
     }
 
     @Override
@@ -50,7 +49,7 @@ public class SigilColorResetRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(CraftingInput input) {
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getItem(i);
             if (stack.is(NVItems.SIGIL_BLOOD_LIGHT.get())) {
@@ -64,12 +63,7 @@ public class SigilColorResetRecipe extends CustomRecipe {
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return width * height >= 1;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends CustomRecipe> getSerializer() {
         return NVRecipes.SIGIL_COLOR_RESET_SERIALIZER.get();
     }
 }

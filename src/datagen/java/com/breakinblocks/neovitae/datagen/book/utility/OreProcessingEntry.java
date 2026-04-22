@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class OreProcessingEntry extends EntryProvider {
 
@@ -139,7 +139,7 @@ public class OreProcessingEntry extends EntryProvider {
                 + "- [#](8B0000)Corrupted Debris[#]()");
 
         this.page("fuel_cell", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "furnacecell_primitive"))
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "furnacecell_primitive"))
                 .withText(this.context().pageText()));
         this.pageText("The Athanor functions as a furnace, but accepts only two fuel sources: the "
                 + "[#](8B0000)Primitive Fuel Cell[#]() or a [#](8B0000)Lava Crystal[#]().");

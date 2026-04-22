@@ -68,7 +68,8 @@ public class TranquilityData {
         builder
             .add(BlockTags.FLOWERS, TranquilityValue.of(EnumTranquilityType.PLANT, STANDARD_VALUE), false)
             .add(BlockTags.SMALL_FLOWERS, TranquilityValue.of(EnumTranquilityType.PLANT, STANDARD_VALUE), false)
-            .add(BlockTags.TALL_FLOWERS, TranquilityValue.of(EnumTranquilityType.PLANT, STANDARD_VALUE), false);
+            ;
+            // TALL_FLOWERS tag removed in 26.1 — SMALL_FLOWERS + FLOWERS covers the tall variants now.
 
         builder
             .add(BlockTags.DIRT, TranquilityValue.of(EnumTranquilityType.EARTHEN, EARTHEN_VALUE), false);

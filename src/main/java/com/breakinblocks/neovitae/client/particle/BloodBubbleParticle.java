@@ -1,26 +1,28 @@
 package com.breakinblocks.neovitae.client.particle;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.renderer.state.level.QuadParticleRenderState;
+import net.minecraft.client.Camera;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class BloodBubbleParticle extends TextureSheetParticle {
+public class BloodBubbleParticle extends SingleQuadParticle {
 
     private final float baseQuadSize;
+    private final SpriteSet sprites;
 
     protected BloodBubbleParticle(ClientLevel level, double x, double y, double z,
                                    SpriteSet sprites, int color) {
-        super(level, x, y, z);
+        super(level, x, y, z, sprites.first());
+        this.sprites = sprites;
 
         this.rCol = ColorHelper.red(color);
         this.gCol = ColorHelper.green(color);
@@ -37,13 +39,14 @@ public class BloodBubbleParticle extends TextureSheetParticle {
         this.gravity = -0.01f;
         this.hasPhysics = false;
         this.friction = 0.98f;
-
-        this.pickSprite(sprites);
     }
 
     @Override
-    public void render(VertexConsumer buffer, Camera camera, float partialTicks) {
-        float progress = ((float) this.age + partialTicks) / (float) this.lifetime;
+    public void tick() {
+        super.tick();
+        this.setSpriteFromAge(this.sprites);
+
+        float progress = (float) this.age / (float) this.lifetime;
         if (progress > 0.8f) {
             float pop = (progress - 0.8f) / 0.2f;
             this.quadSize = this.baseQuadSize * (1.0f + pop * 0.5f);
@@ -52,16 +55,20 @@ public class BloodBubbleParticle extends TextureSheetParticle {
             float wobble = 1.0f + (float) Math.sin(this.age * 0.3) * 0.15f;
             this.quadSize = this.baseQuadSize * wobble;
         }
-        super.render(buffer, camera, partialTicks);
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
-        return BloodFlameRenderType.ADDITIVE_TRANSLUCENT;
+    public void extract(QuadParticleRenderState state, Camera camera, float partialTick) {
+        super.extract(state, camera, partialTick);
     }
 
     @Override
-    public int getLightColor(float partialTick) {
+    public SingleQuadParticle.Layer getLayer() {
+        return SingleQuadParticle.Layer.TRANSLUCENT;
+    }
+
+    @Override
+    public int getLightCoords(float partialTick) {
         return 0xF000F0;
     }
 
@@ -76,7 +83,7 @@ public class BloodBubbleParticle extends TextureSheetParticle {
         @Override
         public Particle createParticle(ColoredParticleOptions options, ClientLevel level,
                                         double x, double y, double z,
-                                        double xSpeed, double ySpeed, double zSpeed) {
+                                        double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
             if (NeoVitae.CLIENT_CONFIG.USE_SIMPLE_EFFECTS.get()) {
                 return SimpleParticleFactory.createSimpleBubble(level, x, y, z, this.sprites, options.color());
             }

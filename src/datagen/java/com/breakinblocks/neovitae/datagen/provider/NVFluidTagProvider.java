@@ -3,7 +3,6 @@ package com.breakinblocks.neovitae.datagen.provider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.FluidTagsProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.tag.NVTags;
@@ -12,8 +11,8 @@ import java.util.concurrent.CompletableFuture;
 
 public class NVFluidTagProvider extends FluidTagsProvider {
 
-    public NVFluidTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, ExistingFileHelper existingFileHelper) {
-        super(output, provider, NeoVitae.MODID, existingFileHelper);
+    public NVFluidTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+        super(output, provider, NeoVitae.MODID);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class AlchemyArrayEffectRepulsion extends AlchemyArrayEffect {
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
-        if (level == null || level.isClientSide) return false;
+        if (level == null || level.isClientSide()) return false;
 
         if (ticksActive % 5 != 0) return false;
 

@@ -57,7 +57,8 @@ public class EnergyRoutingChannel implements RoutingChannel<IEnergyFilter> {
         if (!node.getSideFilter(side).isEnabled()) return null;
 
         BlockPos neighborPos = be.getBlockPos().relative(side);
-        IEnergyStorage storage = be.getLevel().getCapability(Capabilities.EnergyStorage.BLOCK, neighborPos, side.getOpposite());
+        var eh = be.getLevel().getCapability(Capabilities.Energy.BLOCK, neighborPos, side.getOpposite());
+        IEnergyStorage storage = eh != null ? IEnergyStorage.of(eh) : null;
         if (storage == null || !storage.canExtract()) return null;
 
         return new BasicEnergyFilter(be.getLevel().getBlockEntity(neighborPos), storage, false);
@@ -70,7 +71,8 @@ public class EnergyRoutingChannel implements RoutingChannel<IEnergyFilter> {
         if (!node.getSideFilter(side).isEnabled()) return null;
 
         BlockPos neighborPos = be.getBlockPos().relative(side);
-        IEnergyStorage storage = be.getLevel().getCapability(Capabilities.EnergyStorage.BLOCK, neighborPos, side.getOpposite());
+        var eh = be.getLevel().getCapability(Capabilities.Energy.BLOCK, neighborPos, side.getOpposite());
+        IEnergyStorage storage = eh != null ? IEnergyStorage.of(eh) : null;
         if (storage == null || !storage.canReceive()) return null;
 
         return new BasicEnergyFilter(be.getLevel().getBlockEntity(neighborPos), storage, true);

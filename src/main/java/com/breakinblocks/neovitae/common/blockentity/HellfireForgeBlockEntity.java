@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -104,7 +107,9 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         }
 
         ForgeInput input = tile.getInput();
-        Optional<RecipeHolder<ForgeRecipe>> recipeOptional = level.getRecipeManager().getRecipeFor(NVRecipes.HELLFIRE_FORGE_TYPE.get(), input, level);
+        Optional<RecipeHolder<ForgeRecipe>> recipeOptional = level instanceof ServerLevel serverLevel
+                ? serverLevel.recipeAccess().getRecipeFor(NVRecipes.HELLFIRE_FORGE_TYPE.get(), input, serverLevel)
+                : Optional.empty();
         if (recipeOptional.isEmpty()) {
             if (tile.progress > 0) {
                 tile.progress = 0;
@@ -114,7 +119,7 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         }
 
         ForgeRecipe recipe = recipeOptional.get().value();
-        ItemStack output = recipe.assemble(input, level.registryAccess());
+        ItemStack output = recipe.assemble(input);
         if (output.isEmpty()) {
             if (tile.progress > 0) {
                 tile.progress = 0;
@@ -168,8 +173,9 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
             if (item.isEmpty()) {
                 continue;
             }
-            if (item.hasCraftingRemainingItem()) {
-                tile.inv.setStackInSlot(i, item.getCraftingRemainingItem());
+            ItemStack remainder = item.getCraftingRemainder().create();
+            if (!remainder.isEmpty()) {
+                tile.inv.setStackInSlot(i, remainder);
                 continue;
             }
             item.shrink(1);
@@ -204,16 +210,16 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        inv.deserializeNBT(registries, tag.getCompound("inventory"));
-        progress = tag.getInt("progress");
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        tag.child("inventory").ifPresent(inv::deserialize);
+        progress = tag.getIntOr("progress", 0);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.put("inventory", inv.serializeNBT(registries));
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
+        inv.serialize(tag.child("inventory"));
         tag.putInt("progress", progress);
     }
 

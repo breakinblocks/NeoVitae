@@ -17,6 +17,7 @@ import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import net.minecraft.world.item.crafting.Recipe;
 
 /**
  * Recipe that cycles the order of effects in a flask.
@@ -25,7 +26,7 @@ import java.util.List;
 public class FlaskCycleRecipe extends FlaskRecipe {
 
     public static final MapCodec<FlaskCycleRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.listOf().fieldOf("input").forGetter(FlaskCycleRecipe::getInput),
+            Ingredient.CODEC.listOf().fieldOf("input").forGetter(FlaskCycleRecipe::getInput),
             Codec.INT.fieldOf("count").forGetter(FlaskCycleRecipe::getNumCycles),
             Codec.INT.fieldOf("syphon").forGetter(FlaskCycleRecipe::getSyphon),
             Codec.INT.fieldOf("ticks").forGetter(FlaskCycleRecipe::getTicks),
@@ -79,7 +80,7 @@ public class FlaskCycleRecipe extends FlaskRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<FlaskInput>> getSerializer() {
         return NVRecipes.FLASK_CYCLE_SERIALIZER.get();
     }
 }

@@ -27,6 +27,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import net.minecraft.core.component.DataComponentGetter;
 
 public record LivingStats(Object2FloatOpenHashMap<Holder<LivingUpgrade>> upgrades) implements TooltipProvider {
     public static final Codec<LivingStats> CODEC =
@@ -41,7 +42,7 @@ public record LivingStats(Object2FloatOpenHashMap<Holder<LivingUpgrade>> upgrade
     }
 
     @Override
-    public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag) {
+    public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag, DataComponentGetter componentGetter) {
         HolderSet<LivingUpgrade> order = getOrder(context.registries());
         for (Holder<LivingUpgrade> holder : order) {
             if (this.upgrades.containsKey(holder)) {

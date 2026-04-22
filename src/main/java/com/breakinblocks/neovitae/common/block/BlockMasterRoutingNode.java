@@ -39,7 +39,7 @@ public class BlockMasterRoutingNode extends BlockRoutingNode {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (level.isClientSide) return null;
+        if (level.isClientSide()) return null;
         return (lvl, pos, st, be) -> {
             if (be instanceof MasterRoutingNodeBlockEntity tile) {
                 tile.tick(lvl, pos, st);
@@ -50,12 +50,12 @@ public class BlockMasterRoutingNode extends BlockRoutingNode {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos,
                                                 Player player, BlockHitResult hitResult) {
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             BlockEntity tile = level.getBlockEntity(pos);
             if (tile instanceof MasterRoutingNodeBlockEntity menuProvider) {
                 serverPlayer.openMenu(menuProvider, buf -> buf.writeBlockPos(pos));
             }
         }
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.SUCCESS;
     }
 }

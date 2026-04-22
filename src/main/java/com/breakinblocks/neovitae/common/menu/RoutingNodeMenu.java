@@ -8,7 +8,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
@@ -200,11 +200,11 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public void clicked(int slotId, int dragType, ClickType clickType, Player player) {
+    public void clicked(int slotId, int dragType, ContainerInput clickType, Player player) {
         if (slotId >= 0 && slotId < GHOST_SLOT_COUNT) {
             Slot slot = this.slots.get(slotId);
             if (slot instanceof GhostSlot) {
-                if (clickType == ClickType.PICKUP) {
+                if (clickType == ContainerInput.PICKUP) {
                     if (dragType == 0) {
                         ItemStack carried = this.getCarried();
                         if (!carried.isEmpty()) {

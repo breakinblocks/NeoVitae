@@ -4,7 +4,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -66,11 +66,11 @@ public class ChestLoot implements LootTableSubProvider {
     }
 
     private ResourceKey<LootTable> chestKey(String path) {
-        return ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "chests/" + path));
+        return ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath(NeoVitae.MODID, "chests/" + path));
     }
 
     private ResourceKey<LootTable> vanillaChestKey(String path) {
-        return ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.withDefaultNamespace("chests/" + path));
+        return ResourceKey.create(Registries.LOOT_TABLE, Identifier.withDefaultNamespace("chests/" + path));
     }
 
     // ==================== SIMPLE DUNGEON LOOT TABLES ====================

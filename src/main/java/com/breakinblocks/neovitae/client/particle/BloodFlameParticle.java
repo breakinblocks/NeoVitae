@@ -1,20 +1,18 @@
 package com.breakinblocks.neovitae.client.particle;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class BloodFlameParticle extends TextureSheetParticle {
+public class BloodFlameParticle extends SingleQuadParticle {
 
     private final SpriteSet sprites;
     private final float baseQuadSize;
@@ -22,7 +20,7 @@ public class BloodFlameParticle extends TextureSheetParticle {
     protected BloodFlameParticle(ClientLevel level, double x, double y, double z,
                                   double xSpeed, double ySpeed, double zSpeed,
                                   SpriteSet sprites, int color) {
-        super(level, x, y, z);
+        super(level, x, y, z, sprites.first());
         this.sprites = sprites;
 
         this.xd = xSpeed;
@@ -55,6 +53,8 @@ public class BloodFlameParticle extends TextureSheetParticle {
         super.tick();
         int spriteFrame = (this.age * 3) % this.lifetime;
         this.setSprite(this.sprites.get(spriteFrame, this.lifetime));
+        float progress = (float) this.age / (float) this.lifetime;
+        this.alpha = 0.5f * (1.0f - progress * progress);
     }
 
     @Override
@@ -66,19 +66,12 @@ public class BloodFlameParticle extends TextureSheetParticle {
     }
 
     @Override
-    public void render(VertexConsumer buffer, Camera camera, float partialTicks) {
-        float progress = ((float) this.age + partialTicks) / (float) this.lifetime;
-        this.alpha = 0.5f * (1.0f - progress * progress);
-        super.render(buffer, camera, partialTicks);
+    public SingleQuadParticle.Layer getLayer() {
+        return SingleQuadParticle.Layer.TRANSLUCENT;
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
-        return BloodFlameRenderType.ADDITIVE_TRANSLUCENT;
-    }
-
-    @Override
-    public int getLightColor(float partialTick) {
+    public int getLightCoords(float partialTick) {
         return 0xF000F0;
     }
 
@@ -93,7 +86,7 @@ public class BloodFlameParticle extends TextureSheetParticle {
         @Override
         public Particle createParticle(ColoredParticleOptions options, ClientLevel level,
                                         double x, double y, double z,
-                                        double xSpeed, double ySpeed, double zSpeed) {
+                                        double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
             if (NeoVitae.CLIENT_CONFIG.USE_SIMPLE_EFFECTS.get()) {
                 return SimpleParticleFactory.createSimpleFlame(level, x, y, z, xSpeed, ySpeed, zSpeed, this.sprites, options.color());
             }

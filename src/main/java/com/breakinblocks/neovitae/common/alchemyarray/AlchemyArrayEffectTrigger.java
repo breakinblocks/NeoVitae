@@ -23,7 +23,7 @@ public class AlchemyArrayEffectTrigger extends AlchemyArrayEffect {
             pulseTimer--;
             if (pulseTimer == 0) {
                 Level level = tile.getLevel();
-                if (level != null && !level.isClientSide) {
+                if (level != null && !level.isClientSide()) {
                     BlockPos pos = tile.getBlockPos();
                     level.updateNeighborsAt(pos, level.getBlockState(pos).getBlock());
                 }
@@ -35,7 +35,7 @@ public class AlchemyArrayEffectTrigger extends AlchemyArrayEffect {
     @Override
     public void onEntityCollidedWithBlock(AlchemyArrayBlockEntity tile, Level level, BlockPos pos,
                                           BlockState state, Entity entity) {
-        if (level.isClientSide) return;
+        if (level.isClientSide()) return;
         if (pulseTimer > 0) return;
 
         if (entity instanceof Player || entity instanceof Mob) {
@@ -66,7 +66,7 @@ public class AlchemyArrayEffectTrigger extends AlchemyArrayEffect {
 
     @Override
     public void readFromNBT(CompoundTag tag) {
-        pulseTimer = tag.getInt("pulseTimer");
+        pulseTimer = tag.getIntOr("pulseTimer", 0);
     }
 
     @Override

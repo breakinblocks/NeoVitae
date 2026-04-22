@@ -2,10 +2,11 @@ package com.breakinblocks.neovitae.common.item;
 
 import com.breakinblocks.neovitae.NeoVitae;
 import com.klikli_dev.modonomicon.item.ModonomiconCustomItemBase;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 
 public class NVGuideBookItem extends ModonomiconCustomItemBase {
-    public NVGuideBookItem() {
-        super(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "guide"), new Properties().stacksTo(1));
+    public NVGuideBookItem(Item.Properties props) {
+        super(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "guide"), props.stacksTo(1));
     }
 }

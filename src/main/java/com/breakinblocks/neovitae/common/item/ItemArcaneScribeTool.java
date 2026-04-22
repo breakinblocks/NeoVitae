@@ -25,18 +25,20 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class ItemArcaneScribeTool extends Item implements IBindable {
-    public ItemArcaneScribeTool() {
-        super(new Item.Properties().stacksTo(1).durability(20).component(NVDataComponents.BINDING.get(), Binding.EMPTY));
+    public ItemArcaneScribeTool(Item.Properties props) {
+        super(props.stacksTo(1).durability(20).component(NVDataComponents.BINDING.get(), Binding.EMPTY));
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae.arcane_scribe_tool").withStyle(ChatFormatting.GRAY));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable("tooltip.neovitae.arcane_scribe_tool").withStyle(ChatFormatting.GRAY));
         DyeColor color = stack.get(NVDataComponents.ALCHEMY_ARRAY_COLOR.get());
         if (color != null) {
-            tooltip.add(Component.translatable("tooltip.neovitae.arcane_scribe_tool.color",
+            tooltip.accept(Component.translatable("tooltip.neovitae.arcane_scribe_tool.color",
                     Component.translatable("color.minecraft." + color.getSerializedName()))
                     .withStyle(ChatFormatting.GRAY));
         }
@@ -49,9 +51,9 @@ public class ItemArcaneScribeTool extends Item implements IBindable {
 
         Binding binding = getBinding(stack);
         if (binding == null) {
-            if (!context.getLevel().isClientSide && player != null) {
+            if (!context.getLevel().isClientSide() && player != null) {
                 bind(player, stack);
-                player.displayClientMessage(Component.translatable("chat.neovitae.scribe.bound", player.getName()).withStyle(ChatFormatting.GOLD), true);
+                player.sendOverlayMessage(Component.translatable("chat.neovitae.scribe.bound", player.getName()).withStyle(ChatFormatting.GOLD));
             }
             return InteractionResult.SUCCESS;
         }
@@ -64,7 +66,7 @@ public class ItemArcaneScribeTool extends Item implements IBindable {
         boolean targetFree = world.isEmptyBlock(newPos) || inWater;
 
         if (targetFree) {
-            if (!world.isClientSide) {
+            if (!world.isClientSide()) {
                 Direction rotation = Direction.fromYRot(player.getYHeadRot());
                 BlockState placeState = NVBlocks.ALCHEMY_ARRAY.get().defaultBlockState()
                         .setValue(AlchemyArrayBlock.WATERLOGGED, inWater);

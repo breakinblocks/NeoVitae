@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.breakinblocks.neovitae.anointment.Anointment;
 import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
 
@@ -28,23 +28,23 @@ public record AnointmentHolder(List<AnointmentEntry> anointments) {
         return new AnointmentHolder(List.of());
     }
 
-    public static AnointmentHolder single(ResourceLocation key, int level, int maxDamage) {
+    public static AnointmentHolder single(Identifier key, int level, int maxDamage) {
         return new AnointmentHolder(List.of(new AnointmentEntry(key, level, 0, maxDamage)));
     }
 
     public static AnointmentHolder single(String key, int level, int maxDamage) {
-        return single(ResourceLocation.parse(key), level, maxDamage);
+        return single(Identifier.parse(key), level, maxDamage);
     }
 
     public boolean isEmpty() {
         return anointments.isEmpty();
     }
 
-    public boolean hasAnointment(ResourceLocation key) {
+    public boolean hasAnointment(Identifier key) {
         return anointments.stream().anyMatch(a -> a.key().equals(key));
     }
 
-    public int getAnointmentLevel(ResourceLocation key) {
+    public int getAnointmentLevel(Identifier key) {
         for (AnointmentEntry entry : anointments) {
             if (entry.key().equals(key)) {
                 return entry.level();
@@ -57,7 +57,7 @@ public record AnointmentHolder(List<AnointmentEntry> anointments) {
         return getAnointmentLevel(anointment.getKey());
     }
 
-    public AnointmentHolder withDamage(ResourceLocation key, int damage) {
+    public AnointmentHolder withDamage(Identifier key, int damage) {
         List<AnointmentEntry> newList = new ArrayList<>();
         for (AnointmentEntry entry : anointments) {
             if (entry.key().equals(key)) {
@@ -117,7 +117,7 @@ public record AnointmentHolder(List<AnointmentEntry> anointments) {
         return new AnointmentHolder(newList);
     }
 
-    public AnointmentHolder consumeAnointment(ResourceLocation key) {
+    public AnointmentHolder consumeAnointment(Identifier key) {
         List<AnointmentEntry> newList = new ArrayList<>();
         for (AnointmentEntry entry : anointments) {
             if (entry.key().equals(key)) {
@@ -132,17 +132,17 @@ public record AnointmentHolder(List<AnointmentEntry> anointments) {
         return new AnointmentHolder(newList);
     }
 
-    public record AnointmentEntry(ResourceLocation key, int level, int damage, int maxDamage) {
+    public record AnointmentEntry(Identifier key, int level, int damage, int maxDamage) {
 
         public static final Codec<AnointmentEntry> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                ResourceLocation.CODEC.fieldOf("key").forGetter(AnointmentEntry::key),
+                Identifier.CODEC.fieldOf("key").forGetter(AnointmentEntry::key),
                 Codec.INT.fieldOf("level").forGetter(AnointmentEntry::level),
                 Codec.INT.fieldOf("damage").forGetter(AnointmentEntry::damage),
                 Codec.INT.fieldOf("max_damage").forGetter(AnointmentEntry::maxDamage)
         ).apply(instance, AnointmentEntry::new));
 
         public static final StreamCodec<ByteBuf, AnointmentEntry> STREAM_CODEC = StreamCodec.composite(
-                ResourceLocation.STREAM_CODEC, AnointmentEntry::key,
+                Identifier.STREAM_CODEC, AnointmentEntry::key,
                 ByteBufCodecs.INT, AnointmentEntry::level,
                 ByteBufCodecs.INT, AnointmentEntry::damage,
                 ByteBufCodecs.INT, AnointmentEntry::maxDamage,

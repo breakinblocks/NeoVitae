@@ -9,7 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class HellfireForgeEntry extends EntryProvider {
 
@@ -30,7 +30,7 @@ public class HellfireForgeEntry extends EntryProvider {
                 + "No practitioner of [#](4A0080)Vitaemancy[#]() can progress far without one.");
 
         this.page("crafting", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "hellfire_forge")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "hellfire_forge")));
     }
 
     @Override

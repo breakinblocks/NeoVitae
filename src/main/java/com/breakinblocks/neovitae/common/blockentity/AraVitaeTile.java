@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -322,7 +325,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     private void completeCrafting(ItemStack inputStack) {
         AraVitaeRecipe recipe = getCurrentRecipe();
         AraVitaeInput recipeInput = new AraVitaeInput(inputStack, getTier());
-        ItemStack result = recipe.assemble(recipeInput, level.registryAccess());
+        ItemStack result = recipe.assemble(recipeInput);
         result.setCount(inputStack.getCount());
 
         AraVitaeCraftEvent.Crafting craftingEvent = new AraVitaeCraftEvent.Crafting(this, recipe, inputStack, result);
@@ -354,7 +357,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
 
     private void tickOrbFilling(ItemStack inputStack) {
         Binding binding = inputStack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
-        BloodOrb orb = inputStack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
+        BloodOrb orb = inputStack.typeHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
         if (binding.isEmpty() || orb == null) return;
 
         SimpleFluidContent orbFluid = inputStack.getOrDefault(NVDataComponents.ORB_FLUID.get(), SimpleFluidContent.EMPTY);
@@ -505,7 +508,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
                 double cz = worldPosition.getZ() + cap[2] + 0.5;
                 if (useLifePulse) {
                     StreamPresets.lifePulse(
-                            new net.minecraft.core.BlockPos(worldPosition.getX() + cap[0], worldPosition.getY() + cap[1], worldPosition.getZ() + cap[2]),
+                            new BlockPos(worldPosition.getX() + cap[0], worldPosition.getY() + cap[1], worldPosition.getZ() + cap[2]),
                             worldPosition)
                             .scale(0.1f).build().sendToNearby(serverLevel, worldPosition, 128);
                 } else {
@@ -558,28 +561,28 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
             double circleRadius = 1.2;
 
             if (tick % 2 == 0) {
-                double angle = serverLevel.random.nextDouble() * Math.PI * 2;
-                double r = circleRadius + (serverLevel.random.nextDouble() - 0.5) * 0.3;
+                double angle = serverLevel.getRandom().nextDouble() * Math.PI * 2;
+                double r = circleRadius + (serverLevel.getRandom().nextDouble() - 0.5) * 0.3;
                 serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x8800CC),
                         cx + Math.cos(angle) * r, topY, cz + Math.sin(angle) * r, 0, 0, -0.12, 0, 1);
             }
 
             if (tick % 3 == 0) {
-                double angle = serverLevel.random.nextDouble() * Math.PI * 2;
-                double r = circleRadius * 0.8 + (serverLevel.random.nextDouble() - 0.5) * 0.2;
+                double angle = serverLevel.getRandom().nextDouble() * Math.PI * 2;
+                double r = circleRadius * 0.8 + (serverLevel.getRandom().nextDouble() - 0.5) * 0.2;
                 serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA00FF),
                         cx + Math.cos(angle) * r, topY, cz + Math.sin(angle) * r, 0, 0, -0.1, 0, 1);
             }
 
             if (tick % 4 == 0) {
-                double angle = serverLevel.random.nextDouble() * Math.PI * 2;
+                double angle = serverLevel.getRandom().nextDouble() * Math.PI * 2;
                 double r = circleRadius * 0.6;
                 serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x6600AA),
                         cx + Math.cos(angle) * r, topY - 0.5, cz + Math.sin(angle) * r, 1, 0.15, 0.3, 0.15, 0);
             }
 
             if (tick % 6 == 0) {
-                double angle = serverLevel.random.nextDouble() * Math.PI * 2;
+                double angle = serverLevel.getRandom().nextDouble() * Math.PI * 2;
                 double r = circleRadius;
                 serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_DRIP.get(), 0x8800CC),
                         cx + Math.cos(angle) * r, topY, cz + Math.sin(angle) * r, 0, 0, -0.08, 0, 1);
@@ -599,7 +602,9 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
 
         ItemStack inputStack = inv.getStackInSlot(0);
         Binding inputBinding = inputStack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
-        Optional<RecipeHolder<com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe>> optionalHolder = level.getRecipeManager().getRecipeFor(NVRecipes.ARA_VITAE_TYPE.get(), new AraVitaeInput(inputStack, getTier()), level);
+        Optional<RecipeHolder<AraVitaeRecipe>> optionalHolder = level instanceof ServerLevel serverLevel
+                ? serverLevel.recipeAccess().getRecipeFor(NVRecipes.ARA_VITAE_TYPE.get(), new AraVitaeInput(inputStack, getTier()), serverLevel)
+                : Optional.empty();
         if (!inputBinding.isEmpty()) {
             setCanFill(true);
             setActive(true);
@@ -619,7 +624,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         if (level.getBlockState(getBlockPos().below()).is(NVTags.Blocks.ANIMA_COMPARATOR)) {
             ItemStack content = inv.getStackInSlot(0);
             Binding binding = content.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
-            BloodOrb orb = content.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
+            BloodOrb orb = content.typeHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
             if (binding.isEmpty() || orb == null) {
                 return 0;
             }
@@ -648,44 +653,44 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        CompoundTag stats = tag.getCompound("stats");
-        ticks = stats.getInt("ticks");
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        CompoundTag stats = tag.read("stats", CompoundTag.CODEC).orElseGet(CompoundTag::new);
+        ticks = stats.getIntOr("ticks", 0);
         modifiers = new AltarRuneModifiers(
-                stats.getFloat("capacity"),
-                stats.getInt("tickrate"),
-                stats.getFloat("consumption"),
-                stats.getFloat("sacrifice"),
-                stats.getFloat("selfsacrifice"),
-                stats.getFloat("dislocation"),
-                stats.getFloat("orb"),
-                stats.getFloat("chargeamount"),
-                stats.getFloat("chargecap"),
-                stats.getFloat("efficiency")
+                stats.getFloatOr("capacity", 0f),
+                stats.getIntOr("tickrate", 0),
+                stats.getFloatOr("consumption", 0f),
+                stats.getFloatOr("sacrifice", 0f),
+                stats.getFloatOr("selfsacrifice", 0f),
+                stats.getFloatOr("dislocation", 0f),
+                stats.getFloatOr("orb", 0f),
+                stats.getFloatOr("chargeamount", 0f),
+                stats.getFloatOr("chargecap", 0f),
+                stats.getFloatOr("efficiency", 0f)
         );
 
-        CompoundTag tanks = tag.getCompound("tanks");
+        CompoundTag tanks = tag.read("tanks", CompoundTag.CODEC).orElseGet(CompoundTag::new);
 
-        inputTank = tanks.getInt("input");
-        outputTank = tanks.getInt("output");
-        mainTank = tanks.getInt("main");
-        chargingTank = tanks.getInt("charging");
-        progress = tanks.getInt("progress");
+        inputTank = tanks.getIntOr("input", 0);
+        outputTank = tanks.getIntOr("output", 0);
+        mainTank = tanks.getIntOr("main", 0);
+        chargingTank = tanks.getIntOr("charging", 0);
+        progress = tanks.getIntOr("progress", 0);
 
-        inv.deserializeNBT(registries, tag.getCompound("inventory"));
+        tag.child("inventory").ifPresent(inv::deserialize);
 
-        this.isSignaling = tag.getBoolean("signal");
-        this.isActive = tag.getBoolean("active");
-        this.cooldownAfterCrafting = tag.getInt("craftCooldown");
+        this.isSignaling = tag.getBooleanOr("signal", false);
+        this.isActive = tag.getBooleanOr("active", false);
+        this.cooldownAfterCrafting = tag.getIntOr("craftCooldown", 0);
 
-        this.tier = tag.getInt("tier");
-        this.capacityGraceTicks = tag.getInt("capacityGrace");
+        this.tier = tag.getIntOr("tier", 0);
+        this.capacityGraceTicks = tag.getIntOr("capacityGrace", 0);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         CompoundTag stats = new CompoundTag();
         stats.putInt("tickrate", modifiers.getTickRate());
         stats.putInt("ticks", ticks % 2048);
@@ -706,13 +711,10 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         tanks.putInt("charging", chargingTank);
         tanks.putInt("progress", progress);
 
-        CompoundTag inventory = inv.serializeNBT(registries);
+        inv.serialize(tag.child("inventory"));
 
-        tag.put("tanks", tanks);
-
-        tag.put("inventory", inventory);
-
-        tag.put("stats", stats);
+        tag.store("tanks", CompoundTag.CODEC, tanks);
+        tag.store("stats", CompoundTag.CODEC, stats);
         tag.putInt("tier", this.tier);
         tag.putBoolean("signal", isSignaling);
         tag.putBoolean("active", isActive);
@@ -884,7 +886,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
 
     @Override
     public void checkTier() {
-        if (level != null && !level.isClientSide) {
+        if (level != null && !level.isClientSide()) {
             scanAndRecalculate();
             setChanged();
         }

@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.function.Predicate;
+import java.util.HashMap;
 
 /**
  * Custom multiblock validation system for NeoVitae.
@@ -76,7 +77,7 @@ public class MultiblockValidator {
     }
 
     public static class Builder {
-        private final java.util.HashMap<BlockPos, Predicate<BlockState>> matchers = new java.util.HashMap<>();
+        private final HashMap<BlockPos, Predicate<BlockState>> matchers = new HashMap<>();
         private BlockPos offset = BlockPos.ZERO;
         private boolean symmetrical = false;
 

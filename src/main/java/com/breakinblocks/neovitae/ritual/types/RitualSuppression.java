@@ -1,10 +1,10 @@
 package com.breakinblocks.neovitae.ritual.types;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -31,6 +31,15 @@ import java.util.function.Consumer;
 public class RitualSuppression extends Ritual {
 
     public static final String SUPPRESS_RANGE = "suppressRange";
+
+    private static final Codec<BlockStateEntry> ENTRY_CODEC = RecordCodecBuilder.create(b -> b.group(
+            BlockPos.CODEC.fieldOf("pos").forGetter(BlockStateEntry::pos),
+            BlockState.CODEC.fieldOf("state").forGetter(BlockStateEntry::state)
+    ).apply(b, BlockStateEntry::new));
+
+    private static final Codec<List<BlockStateEntry>> ENTRY_LIST_CODEC = ENTRY_CODEC.listOf();
+
+    private record BlockStateEntry(BlockPos pos, BlockState state) {}
 
     // Track suppressed blocks to restore them when ritual stops
     private final Map<BlockPos, BlockState> suppressedBlocks = new HashMap<>();
@@ -116,31 +125,23 @@ public class RitualSuppression extends Ritual {
     @Override
     public void writeToNBT(CompoundTag tag) {
         super.writeToNBT(tag);
-        ListTag blockList = new ListTag();
-        for (Map.Entry<BlockPos, BlockState> entry : suppressedBlocks.entrySet()) {
-            CompoundTag blockTag = new CompoundTag();
-            blockTag.put("pos", NbtUtils.writeBlockPos(entry.getKey()));
-            blockTag.put("state", NbtUtils.writeBlockState(entry.getValue()));
-            blockList.add(blockTag);
-        }
-        tag.put("suppressedBlocks", blockList);
+        List<BlockStateEntry> entries = suppressedBlocks.entrySet().stream()
+                .map(e -> new BlockStateEntry(e.getKey(), e.getValue()))
+                .toList();
+        ENTRY_LIST_CODEC.encodeStart(NbtOps.INSTANCE, entries).result()
+                .ifPresent(t -> tag.put("suppressedBlocks", t));
     }
 
     @Override
     public void readFromNBT(CompoundTag tag) {
         super.readFromNBT(tag);
         suppressedBlocks.clear();
-        if (tag.contains("suppressedBlocks")) {
-            ListTag blockList = tag.getList("suppressedBlocks", Tag.TAG_COMPOUND);
-            for (int i = 0; i < blockList.size(); i++) {
-                CompoundTag blockTag = blockList.getCompound(i);
-                NbtUtils.readBlockPos(blockTag, "pos").ifPresent(pos -> {
-                    BlockState state = NbtUtils.readBlockState(BuiltInRegistries.BLOCK.asLookup(), blockTag.getCompound("state"));
-                    if (!state.isAir()) {
-                        suppressedBlocks.put(pos, state);
-                    }
-                });
+        Tag raw = tag.get("suppressedBlocks");
+        if (raw == null) return;
+        ENTRY_LIST_CODEC.parse(NbtOps.INSTANCE, raw).result().ifPresent(list -> {
+            for (BlockStateEntry entry : list) {
+                suppressedBlocks.put(entry.pos(), entry.state());
             }
-        }
+        });
     }
 }

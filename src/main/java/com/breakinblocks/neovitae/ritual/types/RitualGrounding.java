@@ -78,7 +78,7 @@ public class RitualGrounding extends Ritual {
             for (LivingEntity entity : entities) {
                 if (entity instanceof Player player && player.isCreative()) continue;
 
-                boolean isBoss = entity.getType().is(NVTags.Entities.RITUAL_BOSS_BLACKLIST);
+                boolean isBoss = entity.getType().getTags().anyMatch(t -> t.equals(NVTags.Entities.RITUAL_BOSS_BLACKLIST));
                 if (isBoss && !hasSteadfast) continue;
 
                 if ((will.getDestructive() - destructiveUsed) < WILL_PER_ENTITY) break;

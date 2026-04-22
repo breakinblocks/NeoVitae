@@ -1,15 +1,18 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class BaseBlockEntity extends BlockEntity {
@@ -32,8 +35,11 @@ public abstract class BaseBlockEntity extends BlockEntity {
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        CompoundTag tag = new CompoundTag();
-        saveAdditional(tag, registries);
-        return tag;
+        try (ProblemReporter.ScopedCollector reporter =
+                     new ProblemReporter.ScopedCollector(LogUtils.getLogger())) {
+            TagValueOutput output = TagValueOutput.createWithContext(reporter, registries);
+            saveAdditional(output);
+            return output.buildResult();
+        }
     }
 }

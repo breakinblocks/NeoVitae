@@ -73,7 +73,8 @@ public class InputRoutingNodeBlockEntity extends FilteredRoutingNodeBlockEntity 
         if (!cfg.isEnabled()) return null;
 
         BlockPos neighborPos = worldPosition.relative(side);
-        IFluidHandler handler = getLevel().getCapability(Capabilities.FluidHandler.BLOCK, neighborPos, side.getOpposite());
+        var rhFluid = getLevel().getCapability(Capabilities.Fluid.BLOCK, neighborPos, side.getOpposite());
+        IFluidHandler handler = rhFluid != null ? IFluidHandler.of(rhFluid) : null;
         if (handler == null) return null;
 
         BlockEntity tile = getLevel().getBlockEntity(neighborPos);

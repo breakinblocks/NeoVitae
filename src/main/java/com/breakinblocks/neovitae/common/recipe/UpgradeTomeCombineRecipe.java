@@ -2,7 +2,6 @@ package com.breakinblocks.neovitae.common.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -32,7 +31,7 @@ public class UpgradeTomeCombineRecipe extends CustomRecipe {
     );
 
     public UpgradeTomeCombineRecipe(CraftingBookCategory category) {
-        super(category);
+        super();
     }
 
     @Override
@@ -68,7 +67,7 @@ public class UpgradeTomeCombineRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(CraftingInput input) {
         UpgradeTome firstTome = null;
         float totalExp = 0;
 
@@ -97,12 +96,7 @@ public class UpgradeTomeCombineRecipe extends CustomRecipe {
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return width * height >= 2;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends CustomRecipe> getSerializer() {
         return NVRecipes.UPGRADE_TOME_COMBINE_SERIALIZER.get();
     }
 }

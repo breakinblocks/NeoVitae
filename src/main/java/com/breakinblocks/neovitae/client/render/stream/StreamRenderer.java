@@ -1,48 +1,42 @@
 package com.breakinblocks.neovitae.client.render.stream;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.stream.BlockyMode;
 import org.joml.Matrix4f;
 
 /**
- * Renders tube geometry from path points using the modern NeoForge rendering pipeline.
- * <p>
- * Supports two render types: standard translucent and emissive (glow).
- * Tube segment count is configurable per stream via {@link ActiveStream#getTubeSegments()}.
+ * Renders tube geometry from path points. The 26.1 submit pipeline provides a
+ * {@code PoseStack.Pose} snapshot at submit time; callers should have already
+ * translated the outer poseStack to the stream's origin before capturing the pose,
+ * and pass the pose's matrix here.
  */
 public class StreamRenderer {
 
-    private static final ResourceLocation STREAM_TEXTURE = NeoVitae.rl("textures/misc/stream.png");
+    private static final Identifier STREAM_TEXTURE = NeoVitae.rl("textures/misc/stream.png");
 
-    /** Standard translucent render type (affected by world lighting). */
-    public static final RenderType STREAM_RENDER_TYPE = RenderType.entityTranslucent(STREAM_TEXTURE);
-
-    /** Emissive render type (fullbright, ignores world lighting). */
-    public static final RenderType STREAM_GLOW_TYPE = RenderType.entityTranslucentEmissive(STREAM_TEXTURE);
+    public static final RenderType STREAM_RENDER_TYPE = RenderTypes.entityTranslucent(STREAM_TEXTURE);
+    public static final RenderType STREAM_GLOW_TYPE = RenderTypes.entityTranslucentEmissive(STREAM_TEXTURE);
 
     private static final float TWO_PI = (float) (Math.PI * 2.0);
     private static final int FULL_BRIGHT = 0xF000F0;
 
-    /**
-     * Render a single stream using the appropriate geometry mode.
-     */
-    public static void render(ActiveStream stream, PoseStack poseStack,
+    public static void render(ActiveStream stream, Matrix4f matrix,
                               VertexConsumer buffer, float partialTick) {
         switch (stream.getBlockyMode()) {
-            case BLOCKY_BEAM -> { renderBeam(stream, poseStack, buffer, partialTick); return; }
-            case BLOCKY_BOX -> { renderBox(stream, poseStack, buffer, partialTick); return; }
+            case BLOCKY_BEAM -> { renderBeam(stream, matrix, buffer, partialTick); return; }
+            case BLOCKY_BOX -> { renderBox(stream, matrix, buffer, partialTick); return; }
             default -> {}
         }
-        renderTube(stream, poseStack, buffer, partialTick);
+        renderTube(stream, matrix, buffer, partialTick);
     }
 
-    private static void renderTube(ActiveStream stream, PoseStack poseStack,
+    private static void renderTube(ActiveStream stream, Matrix4f matrix,
                                    VertexConsumer buffer, float partialTick) {
         double[][] points = stream.getPositions();
         float[][] streamColors = stream.getColors();
@@ -52,11 +46,6 @@ public class StreamRenderer {
 
         int numPoints = points.length;
         int segments = stream.getTubeSegments();
-
-        poseStack.pushPose();
-        poseStack.translate(stream.getStartX(), stream.getStartY(), stream.getStartZ());
-
-        Matrix4f matrix = poseStack.last().pose();
 
         Vec3[] directions = computeDirections(points, numPoints);
         Vec3[] normals = new Vec3[numPoints];
@@ -101,11 +90,9 @@ public class StreamRenderer {
                 emitVertex(buffer, matrix, points[i], off0j1, r0, u1, v0, cr0, cg0, cb0, ca0);
             }
         }
-
-        poseStack.popPose();
     }
 
-    private static void renderBeam(ActiveStream stream, PoseStack poseStack,
+    private static void renderBeam(ActiveStream stream, Matrix4f matrix,
                                    VertexConsumer buffer, float partialTick) {
         double[][] points = stream.getPositions();
         float[][] streamColors = stream.getColors();
@@ -117,10 +104,6 @@ public class StreamRenderer {
         float r = streamRadii[last / 2];
         if (r <= 0) r = stream.getEffect().scale;
 
-        poseStack.pushPose();
-        poseStack.translate(stream.getStartX(), stream.getStartY(), stream.getStartZ());
-        Matrix4f matrix = poseStack.last().pose();
-
         float x0 = (float) points[0][0], y0 = (float) points[0][1], z0 = (float) points[0][2];
         float x1 = (float) points[last][0], y1 = (float) points[last][1], z1 = (float) points[last][2];
 
@@ -129,34 +112,28 @@ public class StreamRenderer {
         int cr0 = (int)(cTail[0]*255), cg0 = (int)(cTail[1]*255), cb0 = (int)(cTail[2]*255), ca0 = (int)(cTail[3]*255);
         int cr1 = (int)(cHead[0]*255), cg1 = (int)(cHead[1]*255), cb1 = (int)(cHead[2]*255), ca1 = (int)(cHead[3]*255);
 
-        // Top face (+Y)
         emitQuadBothSides(buffer, matrix,
                 x0-r, y0+r, z0-r, x1-r, y1+r, z1-r,
                 x1+r, y1+r, z1+r, x0+r, y0+r, z0+r,
                 cr0, cg0, cb0, ca0, cr1, cg1, cb1, ca1, 0, 1, 0);
 
-        // Bottom face (-Y)
         emitQuadBothSides(buffer, matrix,
                 x0+r, y0-r, z0-r, x1+r, y1-r, z1-r,
                 x1-r, y1-r, z1+r, x0-r, y0-r, z0+r,
                 cr0, cg0, cb0, ca0, cr1, cg1, cb1, ca1, 0, -1, 0);
 
-        // Right face (+X)
         emitQuadBothSides(buffer, matrix,
                 x0+r, y0+r, z0-r, x1+r, y1+r, z1-r,
                 x1+r, y1-r, z1-r, x0+r, y0-r, z0-r,
                 cr0, cg0, cb0, ca0, cr1, cg1, cb1, ca1, 1, 0, 0);
 
-        // Left face (-X)
         emitQuadBothSides(buffer, matrix,
                 x0-r, y0-r, z0+r, x1-r, y1-r, z1+r,
                 x1-r, y1+r, z1+r, x0-r, y0+r, z0+r,
                 cr0, cg0, cb0, ca0, cr1, cg1, cb1, ca1, -1, 0, 0);
-
-        poseStack.popPose();
     }
 
-    private static void renderBox(ActiveStream stream, PoseStack poseStack,
+    private static void renderBox(ActiveStream stream, Matrix4f matrix,
                                   VertexConsumer buffer, float partialTick) {
         double[][] points = stream.getPositions();
         float[][] streamColors = stream.getColors();
@@ -165,11 +142,6 @@ public class StreamRenderer {
         if (points == null || points.length < 3) return;
 
         int numPoints = points.length;
-
-        poseStack.pushPose();
-        poseStack.translate(stream.getStartX(), stream.getStartY(), stream.getStartZ());
-
-        Matrix4f matrix = poseStack.last().pose();
 
         for (int i = 0; i < numPoints - 1; i++) {
             float r0 = streamRadii[i];
@@ -184,44 +156,36 @@ public class StreamRenderer {
             float x0 = (float)points[i][0], y0 = (float)points[i][1], z0 = (float)points[i][2];
             float x1 = (float)points[i+1][0], y1 = (float)points[i+1][1], z1 = (float)points[i+1][2];
 
-            // Top face (+Y)
             emitQuadBothSides(buffer, matrix,
                     x0-r0, y0+r0, z0-r0, x1-r1, y1+r1, z1-r1,
                     x1+r1, y1+r1, z1+r1, x0+r0, y0+r0, z0+r0,
                     cr0, cg0, cb0, ca0, cr1, cg1, cb1, ca1, 0, 1, 0);
 
-            // Bottom face (-Y)
             emitQuadBothSides(buffer, matrix,
                     x0+r0, y0-r0, z0-r0, x1+r1, y1-r1, z1-r1,
                     x1-r1, y1-r1, z1+r1, x0-r0, y0-r0, z0+r0,
                     cr0, cg0, cb0, ca0, cr1, cg1, cb1, ca1, 0, -1, 0);
 
-            // Right face (+X)
             emitQuadBothSides(buffer, matrix,
                     x0+r0, y0+r0, z0-r0, x1+r1, y1+r1, z1-r1,
                     x1+r1, y1-r1, z1-r1, x0+r0, y0-r0, z0-r0,
                     cr0, cg0, cb0, ca0, cr1, cg1, cb1, ca1, 1, 0, 0);
 
-            // Left face (-X)
             emitQuadBothSides(buffer, matrix,
                     x0-r0, y0-r0, z0-r0, x1-r1, y1-r1, z1-r1,
                     x1-r1, y1+r1, z1-r1, x0-r0, y0+r0, z0-r0,
                     cr0, cg0, cb0, ca0, cr1, cg1, cb1, ca1, -1, 0, 0);
 
-            // Front face (+Z)
             emitQuadBothSides(buffer, matrix,
                     x0-r0, y0+r0, z0+r0, x1-r1, y1+r1, z1+r1,
                     x1-r1, y1-r1, z1+r1, x0-r0, y0-r0, z0+r0,
                     cr0, cg0, cb0, ca0, cr1, cg1, cb1, ca1, 0, 0, 1);
 
-            // Back face (-Z)
             emitQuadBothSides(buffer, matrix,
                     x0+r0, y0+r0, z0-r0, x1+r1, y1+r1, z1-r1,
                     x1+r1, y1-r1, z1-r1, x0+r0, y0-r0, z0-r0,
                     cr0, cg0, cb0, ca0, cr1, cg1, cb1, ca1, 0, 0, -1);
         }
-
-        poseStack.popPose();
     }
 
     private static void emitQuadBothSides(VertexConsumer buffer, Matrix4f matrix,
@@ -232,13 +196,11 @@ public class StreamRenderer {
                                           int cr0, int cg0, int cb0, int ca0,
                                           int cr1, int cg1, int cb1, int ca1,
                                           float nx, float ny, float nz) {
-        // Front face (A-B-C-D)
         buffer.addVertex(matrix, ax, ay, az).setColor(cr0, cg0, cb0, ca0).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(FULL_BRIGHT).setNormal(nx, ny, nz);
         buffer.addVertex(matrix, bx, by, bz).setColor(cr1, cg1, cb1, ca1).setUv(0, 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(FULL_BRIGHT).setNormal(nx, ny, nz);
         buffer.addVertex(matrix, cx, cy, cz).setColor(cr1, cg1, cb1, ca1).setUv(1, 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(FULL_BRIGHT).setNormal(nx, ny, nz);
         buffer.addVertex(matrix, dx, dy, dz).setColor(cr0, cg0, cb0, ca0).setUv(1, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(FULL_BRIGHT).setNormal(nx, ny, nz);
 
-        // Back face (D-C-B-A) reversed winding
         buffer.addVertex(matrix, dx, dy, dz).setColor(cr0, cg0, cb0, ca0).setUv(1, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(FULL_BRIGHT).setNormal(-nx, -ny, -nz);
         buffer.addVertex(matrix, cx, cy, cz).setColor(cr1, cg1, cb1, ca1).setUv(1, 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(FULL_BRIGHT).setNormal(-nx, -ny, -nz);
         buffer.addVertex(matrix, bx, by, bz).setColor(cr1, cg1, cb1, ca1).setUv(0, 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(FULL_BRIGHT).setNormal(-nx, -ny, -nz);

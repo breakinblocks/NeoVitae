@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.gametest;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -36,7 +36,7 @@ public class DataValidationTests {
                 List<RitualComponent> components = new ArrayList<>();
                 ritual.gatherComponents(components::add);
                 if (components.isEmpty()) {
-                    ResourceLocation id = RitualRegistry.getId(ritual);
+                    Identifier id = RitualRegistry.getId(ritual);
                     helper.fail("Ritual " + id + " has no components");
                     return;
                 }
@@ -115,7 +115,7 @@ public class DataValidationTests {
     @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
     public void imperfectRitualsRegistered(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
-            Collection<ResourceLocation> rituals = RitualRegistry.getRegisteredImperfectRituals();
+            Collection<Identifier> rituals = RitualRegistry.getRegisteredImperfectRituals();
             if (rituals.isEmpty()) {
                 helper.fail("No imperfect rituals registered");
                 return;
@@ -136,7 +136,7 @@ public class DataValidationTests {
             };
 
             for (String name : expectedBlocks) {
-                ResourceLocation rl = NeoVitae.rl(name);
+                Identifier rl = NeoVitae.rl(name);
                 if (!BuiltInRegistries.BLOCK.containsKey(rl)) {
                     helper.fail("Expected block " + rl + " not registered");
                     return;
@@ -158,7 +158,7 @@ public class DataValidationTests {
             };
 
             for (String name : expectedItems) {
-                ResourceLocation rl = NeoVitae.rl(name);
+                Identifier rl = NeoVitae.rl(name);
                 if (!BuiltInRegistries.ITEM.containsKey(rl)) {
                     helper.fail("Expected item " + rl + " not registered");
                     return;
@@ -171,7 +171,7 @@ public class DataValidationTests {
     @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
     public void streamPayloadTypeRegistered(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
-            ResourceLocation id = com.breakinblocks.neovitae.common.network.StreamPayload.TYPE.id();
+            Identifier id = com.breakinblocks.neovitae.common.network.StreamPayload.TYPE.id();
             if (id == null) {
                 helper.fail("StreamPayload TYPE should have a valid id");
                 return;

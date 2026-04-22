@@ -9,7 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class SpiritusEntry extends EntryProvider {
 
@@ -39,7 +39,7 @@ public class SpiritusEntry extends EntryProvider {
                 + "of the blood, [#](4A0080)Spiritus[#]() is the currency of the soul.");
 
         this.page("image", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/spiritus.png"))
+                .withImages(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/spiritus.png"))
                 .withTitle("Spiritus")
                 .withBorder(true));
 

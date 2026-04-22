@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity.routing;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -27,6 +30,7 @@ import com.breakinblocks.neovitae.util.Constants;
 
 import java.util.*;
 import java.util.Map.Entry;
+import net.minecraft.world.level.chunk.LevelChunk;
 
 public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMasterRoutingNode, Container, MenuProvider {
 
@@ -73,7 +77,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
     }
 
     public void tick(Level level, BlockPos pos, BlockState state) {
-        if (level.isClientSide) return;
+        if (level.isClientSide()) return;
 
         currentInput = level.getDirectSignalTo(pos);
 
@@ -165,7 +169,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         for (int cx = minCx; cx <= maxCx; cx++) {
             for (int cz = minCz; cz <= maxCz; cz++) {
                 if (!lvl.hasChunk(cx, cz)) continue;
-                net.minecraft.world.level.chunk.LevelChunk chunk = lvl.getChunk(cx, cz);
+                LevelChunk chunk = lvl.getChunk(cx, cz);
                 for (Map.Entry<BlockPos, BlockEntity> entry : chunk.getBlockEntities().entrySet()) {
                     BlockEntity be = entry.getValue();
                     if (!(be instanceof IRoutingNode node)) continue;
@@ -322,31 +326,30 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        ContainerHelper.saveAllItems(tag, items, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
+        ContainerHelper.saveAllItems(tag, items);
         tag.putInt("configuredEnergyRate", configuredEnergyRate);
         savePosList(tag, Constants.NBT.ROUTING_MASTER_GENERAL, generalNodeList);
 
-        ListTag graphTag = new ListTag();
+        ValueOutput.TypedOutputList<BlockPos> graphList = tag.list("connectionGraph", BlockPos.CODEC);
+        // Graph encoding: flatten connection map to pairs of (key, neighbor) with the key repeated.
+        // Simpler encoding as list-of-child-compounds.
+        ValueOutput.ValueOutputList graphChildren = tag.childrenList("connectionGraph");
         for (Entry<BlockPos, List<BlockPos>> entry : connectionMap.entrySet()) {
-            CompoundTag entryTag = new CompoundTag();
+            ValueOutput entryOut = graphChildren.addChild();
             BlockPos key = entry.getKey();
-            entryTag.putInt("kx", key.getX());
-            entryTag.putInt("ky", key.getY());
-            entryTag.putInt("kz", key.getZ());
-            ListTag neighbors = new ListTag();
+            entryOut.putInt("kx", key.getX());
+            entryOut.putInt("ky", key.getY());
+            entryOut.putInt("kz", key.getZ());
+            ValueOutput.ValueOutputList neighbors = entryOut.childrenList("n");
             for (BlockPos neighbor : entry.getValue()) {
-                CompoundTag nbTag = new CompoundTag();
-                nbTag.putInt("x", neighbor.getX());
-                nbTag.putInt("y", neighbor.getY());
-                nbTag.putInt("z", neighbor.getZ());
-                neighbors.add(nbTag);
+                ValueOutput nb = neighbors.addChild();
+                nb.putInt("x", neighbor.getX());
+                nb.putInt("y", neighbor.getY());
+                nb.putInt("z", neighbor.getZ());
             }
-            entryTag.put("n", neighbors);
-            graphTag.add(entryTag);
         }
-        tag.put("connectionGraph", graphTag);
 
         for (RoutingChannel<?> channel : RoutingChannelRegistry.getChannels()) {
             savePosList(tag, "channel_input_" + channel.id(), getInputList(channel.id()));
@@ -355,31 +358,32 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        ContainerHelper.loadAllItems(tag, items, registries);
-        if (tag.contains("configuredEnergyRate", net.minecraft.nbt.Tag.TAG_INT)) {
-            this.configuredEnergyRate = Math.max(ENERGY_RATE_MIN, Math.min(ENERGY_RATE_MAX, tag.getInt("configuredEnergyRate")));
-        } else {
-            this.configuredEnergyRate = ENERGY_RATE_DEFAULT;
-        }
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        ContainerHelper.loadAllItems(tag, items);
+        this.configuredEnergyRate = Math.max(ENERGY_RATE_MIN, Math.min(ENERGY_RATE_MAX,
+                tag.getIntOr("configuredEnergyRate", ENERGY_RATE_DEFAULT)));
         generalNodeList = loadPosList(tag, Constants.NBT.ROUTING_MASTER_GENERAL);
 
         connectionMap.clear();
-        if (tag.contains("connectionGraph", net.minecraft.nbt.Tag.TAG_LIST)) {
-            ListTag graphTag = tag.getList("connectionGraph", net.minecraft.nbt.Tag.TAG_COMPOUND);
-            for (int i = 0; i < graphTag.size(); i++) {
-                CompoundTag entryTag = graphTag.getCompound(i);
-                BlockPos key = new BlockPos(entryTag.getInt("kx"), entryTag.getInt("ky"), entryTag.getInt("kz"));
-                ListTag neighbors = entryTag.getList("n", net.minecraft.nbt.Tag.TAG_COMPOUND);
-                List<BlockPos> list = new ArrayList<>(neighbors.size());
-                for (int j = 0; j < neighbors.size(); j++) {
-                    CompoundTag nbTag = neighbors.getCompound(j);
-                    list.add(new BlockPos(nbTag.getInt("x"), nbTag.getInt("y"), nbTag.getInt("z")));
-                }
-                connectionMap.put(key, list);
+        tag.childrenList("connectionGraph").ifPresent(list -> {
+            for (ValueInput entryTag : list) {
+                BlockPos key = new BlockPos(
+                        entryTag.getIntOr("kx", 0),
+                        entryTag.getIntOr("ky", 0),
+                        entryTag.getIntOr("kz", 0));
+                List<BlockPos> neighbors = new ArrayList<>();
+                entryTag.childrenList("n").ifPresent(nbList -> {
+                    for (ValueInput nbTag : nbList) {
+                        neighbors.add(new BlockPos(
+                                nbTag.getIntOr("x", 0),
+                                nbTag.getIntOr("y", 0),
+                                nbTag.getIntOr("z", 0)));
+                    }
+                });
+                connectionMap.put(key, neighbors);
             }
-        }
+        });
         legacyMigrationAttempted = false;
 
         for (RoutingChannel<?> channel : RoutingChannelRegistry.getChannels()) {
@@ -397,8 +401,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         migrateOldKey(tag, Constants.NBT.ROUTING_MASTER_FLUID_OUTPUT, "fluid", false);
     }
 
-    private void migrateOldKey(CompoundTag tag, String oldKey, String channelId, boolean isInput) {
-        if (!tag.contains(oldKey)) return;
+    private void migrateOldKey(ValueInput tag, String oldKey, String channelId, boolean isInput) {
         List<BlockPos> oldList = loadPosList(tag, oldKey);
         if (oldList.isEmpty()) return;
 
@@ -410,28 +413,27 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         }
     }
 
-    private void savePosList(CompoundTag tag, String key, List<BlockPos> list) {
-        ListTag tags = new ListTag();
+    private void savePosList(ValueOutput tag, String key, List<BlockPos> list) {
+        if (list.isEmpty()) return;
+        ValueOutput.ValueOutputList children = tag.childrenList(key);
         for (BlockPos pos : list) {
-            CompoundTag posTag = new CompoundTag();
-            posTag.putInt(Constants.NBT.X_COORD, pos.getX());
-            posTag.putInt(Constants.NBT.Y_COORD, pos.getY());
-            posTag.putInt(Constants.NBT.Z_COORD, pos.getZ());
-            tags.add(posTag);
+            ValueOutput posOut = children.addChild();
+            posOut.putInt(Constants.NBT.X_COORD, pos.getX());
+            posOut.putInt(Constants.NBT.Y_COORD, pos.getY());
+            posOut.putInt(Constants.NBT.Z_COORD, pos.getZ());
         }
-        tag.put(key, tags);
     }
 
-    private List<BlockPos> loadPosList(CompoundTag tag, String key) {
+    private List<BlockPos> loadPosList(ValueInput tag, String key) {
         List<BlockPos> list = new ArrayList<>();
-        ListTag tags = tag.getList(key, 10);
-        for (int i = 0; i < tags.size(); i++) {
-            CompoundTag blockTag = tags.getCompound(i);
-            list.add(new BlockPos(
-                    blockTag.getInt(Constants.NBT.X_COORD),
-                    blockTag.getInt(Constants.NBT.Y_COORD),
-                    blockTag.getInt(Constants.NBT.Z_COORD)));
-        }
+        tag.childrenList(key).ifPresent(children -> {
+            for (ValueInput blockTag : children) {
+                list.add(new BlockPos(
+                        blockTag.getIntOr(Constants.NBT.X_COORD, 0),
+                        blockTag.getIntOr(Constants.NBT.Y_COORD, 0),
+                        blockTag.getIntOr(Constants.NBT.Z_COORD, 0)));
+            }
+        });
         return list;
     }
 

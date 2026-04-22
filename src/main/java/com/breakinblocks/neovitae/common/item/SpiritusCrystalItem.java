@@ -8,17 +8,19 @@ import net.minecraft.world.item.TooltipFlag;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class SpiritusCrystalItem extends Item {
     private final SpiritusType willType;
     private final double willPerCrystal;
 
-    public SpiritusCrystalItem(SpiritusType willType) {
-        this(willType, 50.0);
+    public SpiritusCrystalItem(Item.Properties props, SpiritusType willType) {
+        this(props, willType, 50.0);
     }
 
-    public SpiritusCrystalItem(SpiritusType willType, double willPerCrystal) {
-        super(new Properties());
+    public SpiritusCrystalItem(Item.Properties props, SpiritusType willType, double willPerCrystal) {
+        super(props);
         this.willType = willType;
         this.willPerCrystal = willPerCrystal;
     }
@@ -36,8 +38,6 @@ public class SpiritusCrystalItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae.current_type." + willType.getSerializedName()).withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable("tooltip.neovitae.current_type." + willType.getSerializedName()).withStyle(ChatFormatting.GRAY));}
 }

@@ -185,7 +185,7 @@ public class RitualFeatheredKnife extends Ritual {
     public void readFromNBT(CompoundTag tag) {
         super.readFromNBT(tag);
         altarOffsetPos = RitualHelper.readAltarOffset(tag);
-        refreshTime = tag.getInt("refreshTime");
+        refreshTime = tag.getIntOr("refreshTime", 0);
         if (refreshTime == 0) refreshTime = 20;
     }
 

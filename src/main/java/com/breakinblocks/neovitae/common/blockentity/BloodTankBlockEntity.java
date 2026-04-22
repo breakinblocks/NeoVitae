@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -22,6 +25,8 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.sounds.SoundSource;
 
 public class BloodTankBlockEntity extends BaseBlockEntity {
     private int tier;
@@ -31,13 +36,13 @@ public class BloodTankBlockEntity extends BaseBlockEntity {
         @Override
         protected void onContentsChanged() {
             setChanged();
-            if (level != null && !level.isClientSide) {
+            if (level != null && !level.isClientSide()) {
                 int currentAmount = getFluidAmount();
                 if (currentAmount > previousFluidAmount) {
-                    level.playSound(null, getBlockPos(), com.breakinblocks.neovitae.common.NVSounds.BLOOD_TANK_FILL.get(), net.minecraft.sounds.SoundSource.BLOCKS, 0.4f, 1.0f);
+                    level.playSound(null, getBlockPos(), com.breakinblocks.neovitae.common.NVSounds.BLOOD_TANK_FILL.get(), SoundSource.BLOCKS, 0.4f, 1.0f);
                     ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, 3, 0.2, 0.2, 0.2, 0.01);
                 } else if (currentAmount < previousFluidAmount) {
-                    level.playSound(null, getBlockPos(), com.breakinblocks.neovitae.common.NVSounds.BLOOD_TANK_DRAIN.get(), net.minecraft.sounds.SoundSource.BLOCKS, 0.4f, 1.0f);
+                    level.playSound(null, getBlockPos(), com.breakinblocks.neovitae.common.NVSounds.BLOOD_TANK_DRAIN.get(), SoundSource.BLOCKS, 0.4f, 1.0f);
                     ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, 3, 0.2, 0.2, 0.2, 0.01);
                 }
                 // Blood drip when tank is nearly full (>90%)
@@ -63,21 +68,18 @@ public class BloodTankBlockEntity extends BaseBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        CompoundTag tankTag = tag.getCompound("tank");
-        tank.readFromNBT(registries, tankTag);
-        tier = tag.getInt("tier");
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        tier = tag.getIntOr("tier", 0);
         updateCapacity();
+        tag.read("fluid", FluidStack.OPTIONAL_CODEC).ifPresent(tank::setFluid);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        CompoundTag tankTag = new CompoundTag();
-        tank.writeToNBT(registries, tankTag);
-        tag.put("tank", tankTag);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         tag.putInt("tier", tier);
+        tag.store("fluid", FluidStack.OPTIONAL_CODEC, tank.getFluid());
     }
 
     public static @Nullable IFluidHandler getFluidHandler(BloodTankBlockEntity tile, @Nullable Direction direction) {
@@ -93,7 +95,7 @@ public class BloodTankBlockEntity extends BaseBlockEntity {
     }
 
     @Override
-    protected void applyImplicitComponents(DataComponentInput componentInput) {
+    protected void applyImplicitComponents(DataComponentGetter componentInput) {
         super.applyImplicitComponents(componentInput);
         this.tier = componentInput.getOrDefault(NVDataComponents.CONTAINER_TIER, 0);
         FluidStack stack = componentInput.getOrDefault(NVDataComponents.FLUID_CONTENT, SimpleFluidContent.EMPTY).copy();

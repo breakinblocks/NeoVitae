@@ -10,7 +10,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -72,12 +72,12 @@ public class ImperfectRitualRecipeCategory implements IRecipeCategory<ImperfectR
     }
 
     @Override
-    public void draw(ImperfectRitualJEIRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(ImperfectRitualJEIRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         Minecraft mc = Minecraft.getInstance();
 
         Component ritualName = recipe.getRitualName();
         int nameWidth = mc.font.width(ritualName);
-        guiGraphics.drawString(mc.font, ritualName, (WIDTH - nameWidth) / 2, 2, Color.DARK_GRAY.getRGB(), false);
+        guiGraphics.text(mc.font, ritualName, (WIDTH - nameWidth) / 2, 2, Color.DARK_GRAY.getRGB());
 
         String lpCost = recipe.activationCost() + " EV";
         if (recipe.consumesBlock()) {
@@ -85,15 +85,15 @@ public class ImperfectRitualRecipeCategory implements IRecipeCategory<ImperfectR
         }
         int lpWidth = mc.font.width(lpCost);
         int lpColor = recipe.consumesBlock() ? 0xCC4444 : Color.GRAY.getRGB();
-        guiGraphics.drawString(mc.font, lpCost, (WIDTH - lpWidth) / 2, 53, lpColor, false);
+        guiGraphics.text(mc.font, lpCost, (WIDTH - lpWidth) / 2, 53, lpColor);
 
         Component desc = recipe.description();
         int descY = 65;
         int descWidth = mc.font.width(desc);
         if (descWidth <= WIDTH - 4) {
-            guiGraphics.drawString(mc.font, desc, (WIDTH - descWidth) / 2, descY, Color.DARK_GRAY.getRGB(), false);
+            guiGraphics.text(mc.font, desc, (WIDTH - descWidth) / 2, descY, Color.DARK_GRAY.getRGB());
         } else {
-            guiGraphics.drawString(mc.font, desc, 2, descY, Color.DARK_GRAY.getRGB(), false);
+            guiGraphics.text(mc.font, desc, 2, descY, Color.DARK_GRAY.getRGB());
         }
 
         slotDrawable.draw(guiGraphics, 71, 15);

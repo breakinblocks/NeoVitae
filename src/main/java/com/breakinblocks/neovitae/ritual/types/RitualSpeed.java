@@ -18,6 +18,7 @@ import com.breakinblocks.neovitae.api.will.SpiritusState;
 
 import java.util.List;
 import java.util.function.Consumer;
+import net.minecraft.world.entity.player.Player;
 
 /**
  * Ritual of Speed - propels entities in the direction the master ritual stone faces.
@@ -88,7 +89,7 @@ public class RitualSpeed extends Ritual {
 
             // Entity filtering based on destructive/vengeful will
             boolean isBaby = entity.isBaby();
-            boolean isPlayer = entity instanceof net.minecraft.world.entity.player.Player;
+            boolean isPlayer = entity instanceof Player;
 
             if (hasDestructive && hasVengeful) {
                 // Both present: only players pass through (neither baby nor adult in mob terms)

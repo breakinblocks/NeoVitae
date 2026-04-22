@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -34,20 +37,16 @@ public class BloodLightBlockEntity extends BaseBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         tag.putInt("Color", color.getId());
         tag.putBoolean("RedstoneControlled", redstoneControlled);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        if (tag.contains("Color")) {
-            color = DyeColor.byId(tag.getInt("Color"));
-        }
-        if (tag.contains("RedstoneControlled")) {
-            redstoneControlled = tag.getBoolean("RedstoneControlled");
-        }
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        color = DyeColor.byId(tag.getIntOr("Color", color.getId()));
+        redstoneControlled = tag.getBooleanOr("RedstoneControlled", redstoneControlled);
     }
 }

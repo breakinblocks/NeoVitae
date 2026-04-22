@@ -11,7 +11,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -51,18 +51,18 @@ public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRec
     }
 
     @Override
-    public void draw(TabulaVitaeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(TabulaVitaeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         // Draw background
         background.draw(guiGraphics);
 
         var poseStack = guiGraphics.pose();
-        poseStack.pushPose();
-        poseStack.translate(57, 35, 0);
-        poseStack.scale(0.5f, 0.5f, 1f);
-        guiGraphics.drawString(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.lp"), 0, 0, 0x8b8b8b, false);
-        poseStack.translate(-8, 12, 0);
-        guiGraphics.drawString(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.info"), 0, 0, 0x8b8b8b, false);
-        poseStack.popPose();
+        poseStack.pushMatrix();
+        poseStack.translate(57, 35);
+        poseStack.scale(0.5f, 0.5f);
+        guiGraphics.text(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.lp"), 0, 0, 0x8b8b8b);
+        poseStack.translate(-8, 12);
+        guiGraphics.text(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.info"), 0, 0, 0x8b8b8b);
+        poseStack.popMatrix();
     }
 
     @Nonnull
@@ -92,7 +92,7 @@ public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRec
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 92, 14);
         output.addItemStack(recipe.getOutput());
 
-        IRecipeSlotBuilder orb = builder.addSlot(RecipeIngredientRole.CATALYST, 61, 1);
+        IRecipeSlotBuilder orb = builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 61, 1);
         orb.addItemStacks(getOrbsForTier(recipe.getMinimumTier()));
 
         for (int index = 0; index < recipe.getInput().size(); index++) {

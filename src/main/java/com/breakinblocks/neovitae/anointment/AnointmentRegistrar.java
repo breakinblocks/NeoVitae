@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.anointment;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
@@ -12,7 +12,7 @@ import java.util.Map;
  * Anointments are temporary weapon/tool coatings that provide special effects.
  */
 public class AnointmentRegistrar {
-    public static final Map<ResourceLocation, Anointment> ANOINTMENT_MAP = new HashMap<>();
+    public static final Map<Identifier, Anointment> ANOINTMENT_MAP = new HashMap<>();
 
     public static final Anointment MELEE_DAMAGE = register(new Anointment(NeoVitae.rl("melee_damage"))
             .withBonusSet("damage", list -> {
@@ -131,12 +131,12 @@ public class AnointmentRegistrar {
         return anointment;
     }
 
-    public static Anointment get(ResourceLocation key) {
+    public static Anointment get(Identifier key) {
         return ANOINTMENT_MAP.getOrDefault(key, Anointment.DUMMY);
     }
 
     public static Anointment get(String key) {
-        return get(ResourceLocation.parse(key));
+        return get(Identifier.parse(key));
     }
 
     public static void init() {

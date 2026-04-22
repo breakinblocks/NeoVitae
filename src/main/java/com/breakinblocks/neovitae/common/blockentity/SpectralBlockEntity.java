@@ -1,11 +1,9 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -102,20 +100,17 @@ public class SpectralBlockEntity extends BaseBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         tag.putInt("duration", duration);
-        if (containedBlockState != null) {
-            tag.put("containedState", NbtUtils.writeBlockState(containedBlockState));
-        }
+        tag.store("containedBlockState", BlockState.CODEC, containedBlockState);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        duration = tag.getInt("duration");
-        if (tag.contains("containedState")) {
-            containedBlockState = NbtUtils.readBlockState(BuiltInRegistries.BLOCK.asLookup(), tag.getCompound("containedState"));
-        }
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        duration = tag.getIntOr("duration", 0);
+        containedBlockState = tag.read("containedBlockState", BlockState.CODEC)
+                .orElse(Blocks.WATER.defaultBlockState());
     }
 }

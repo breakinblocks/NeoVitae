@@ -3,7 +3,6 @@ package com.breakinblocks.neovitae.common.recipe.forge;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -18,14 +17,15 @@ import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.world.item.crafting.Recipe;
 
 public class ForgeTransformRecipe extends ForgeRecipe {
 
     public static final MapCodec<ForgeTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.DOUBLE.fieldOf("minDrain").forGetter(r -> r.minWill),
             Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedWill),
-            Codec.list(Ingredient.CODEC_NONEMPTY).fieldOf("catalysts").forGetter(ForgeTransformRecipe::getCatalysts),
-            Ingredient.CODEC_NONEMPTY.fieldOf("transformInput").forGetter(r -> r.transformInput),
+            Codec.list(Ingredient.CODEC).fieldOf("catalysts").forGetter(ForgeTransformRecipe::getCatalysts),
+            Ingredient.CODEC.fieldOf("transformInput").forGetter(r -> r.transformInput),
             ItemStack.CODEC.fieldOf("output").forGetter(r -> r.resultItem)
     ).apply(instance, ForgeTransformRecipe::new));
 
@@ -63,7 +63,7 @@ public class ForgeTransformRecipe extends ForgeRecipe {
     }
 
     @Override
-    public ItemStack assemble(ForgeInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(ForgeInput input) {
         ItemStack gemStack = input.getGem();
         double will = gemStack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
         if (will < minWill) return ItemStack.EMPTY;
@@ -93,7 +93,7 @@ public class ForgeTransformRecipe extends ForgeRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<ForgeInput>> getSerializer() {
         return NVRecipes.HELLFIRE_FORGE_TRANSFORM_SERIALIZER.get();
     }
 }

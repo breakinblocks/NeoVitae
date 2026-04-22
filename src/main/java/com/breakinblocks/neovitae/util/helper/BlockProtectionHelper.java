@@ -19,6 +19,7 @@ import net.minecraft.world.entity.Entity;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 
 /**
  * Helper class for safe block operations that respect protection mods like FTB Chunks.
@@ -139,7 +140,8 @@ public class BlockProtectionHelper {
             return true;
         }
 
-        BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(serverLevel, pos, state, player);
+        BreakBlockEvent event =
+                new BreakBlockEvent(serverLevel, pos, state, player);
         NeoForge.EVENT_BUS.post(event);
         return !event.isCanceled();
     }

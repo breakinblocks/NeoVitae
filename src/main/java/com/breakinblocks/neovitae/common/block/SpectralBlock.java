@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -10,6 +11,7 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -22,11 +24,11 @@ import javax.annotation.Nullable;
 
 public class SpectralBlock extends BaseEntityBlock {
 
-    public static final MapCodec<SpectralBlock> CODEC = simpleCodec(p -> new SpectralBlock());
+    public static final MapCodec<SpectralBlock> CODEC = simpleCodec(SpectralBlock::new);
 
-    public SpectralBlock() {
-        super(Properties.of()
-                .noCollission()
+    public SpectralBlock(BlockBehaviour.Properties props) {
+        super(props
+                .noCollision()
                 .noOcclusion()
                 .noLootTable()
                 .air()
@@ -68,18 +70,18 @@ public class SpectralBlock extends BaseEntityBlock {
         return RenderShape.INVISIBLE;
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
         return true;
     }
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock())) {
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        if (true) {
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof SpectralBlockEntity spectral) {
-            }
+    }
         }
-        super.onRemove(state, level, pos, newState, movedByPiston);
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 }

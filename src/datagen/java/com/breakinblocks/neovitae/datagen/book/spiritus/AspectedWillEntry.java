@@ -9,7 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class AspectedWillEntry extends EntryProvider {
 
@@ -29,7 +29,7 @@ public class AspectedWillEntry extends EntryProvider {
                 + "A certain [#](8B0000)Ritual[#]() may coax these hidden facets into purer forms...");
 
         this.page("image", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/will_splitting.png"))
+                .withImages(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/will_splitting.png"))
                 .withTitle("Aspects of Spiritus")
                 .withBorder(true)
                 .withText(this.context().pageText()));

@@ -2,7 +2,7 @@ package com.breakinblocks.neovitae.structures;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
@@ -23,9 +23,9 @@ import java.util.Optional;
 public class DungeonStructure {
     private static final Logger LOGGER = LoggerFactory.getLogger(DungeonStructure.class);
 
-    public final ResourceLocation resource;
+    public final Identifier resource;
 
-    public DungeonStructure(ResourceLocation resource) {
+    public DungeonStructure(Identifier resource) {
         this.resource = resource;
     }
 
@@ -71,7 +71,7 @@ public class DungeonStructure {
             return false;
         } finally {
             for (ChunkPos chunk : chunks) {
-                world.setChunkForced(chunk.x, chunk.z, false);
+                world.setChunkForced(chunk.x(), chunk.z(), false);
             }
         }
 

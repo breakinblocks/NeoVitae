@@ -1,19 +1,24 @@
 package com.breakinblocks.neovitae.compat.modonomicon.page;
 
+import com.breakinblocks.neovitae.client.event.ClientRecipeCache;
+import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
-import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
-import net.minecraft.client.gui.GuiGraphics;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 
 import java.util.List;
 
 public class BookTabulaVitaeRecipePageRenderer extends BookRecipePageRenderer<TabulaVitaeRecipe, BookTabulaVitaeRecipePage> {
 
-    private static final ResourceLocation CRAFTING_TEXTURES = ResourceLocation.fromNamespaceAndPath("modonomicon", "textures/gui/crafting_textures.png");
+    private static final Identifier CRAFTING_TEXTURES = Identifier.fromNamespaceAndPath("modonomicon", "textures/gui/crafting_textures.png");
+    private static final RenderPipeline GUI = RenderPipelines.GUI_TEXTURED;
 
     public BookTabulaVitaeRecipePageRenderer(BookTabulaVitaeRecipePage page) {
         super(page);
@@ -25,10 +30,8 @@ public class BookTabulaVitaeRecipePageRenderer extends BookRecipePageRenderer<Ta
     }
 
     @Override
-    protected void drawRecipe(GuiGraphics guiGraphics, RecipeHolder<TabulaVitaeRecipe> recipeHolder,
-                              int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
-        var recipe = recipeHolder.value();
-
+    protected void drawRecipe(GuiGraphicsExtractor guiGraphics, RecipeDisplayEntry recipeDisplayEntry,
+                              int recipeX, int recipeY, int mouseX, int mouseY, boolean second)  {
         if (!second) {
             if (!this.page.getTitle1().isEmpty())
                 this.renderTitle(guiGraphics, this.page.getTitle1(), false, BookEntryScreen.PAGE_WIDTH / 2, 0);
@@ -39,11 +42,15 @@ public class BookTabulaVitaeRecipePageRenderer extends BookRecipePageRenderer<Ta
 
         recipeY += 8;
 
+        RecipeHolder<TabulaVitaeRecipe> holder = ClientRecipeCache.byKey(
+                second ? this.page.getRecipeKey2() : this.page.getRecipeKey1());
+        if (holder == null) return;
+        TabulaVitaeRecipe recipe = holder.value();
+
         List<Ingredient> ingredients = recipe.getInput();
         int cols = Math.min(ingredients.size(), 3);
         int rows = (ingredients.size() + 2) / 3;
 
-        // Use 18px slot spacing for compact grid + horizontal arrow + output
         int slotSize = 18;
         int gridWidth = cols * slotSize;
         int totalWidth = gridWidth + 2 + 16 + 2 + 22;
@@ -54,23 +61,23 @@ public class BookTabulaVitaeRecipePageRenderer extends BookRecipePageRenderer<Ta
             int row = i / 3;
             int slotX = startX + (col * slotSize);
             int slotY = recipeY + (row * slotSize);
-            guiGraphics.blit(CRAFTING_TEXTURES, slotX, slotY, 84, 198, 22, 22, 128, 256);
+            guiGraphics.blit(GUI, CRAFTING_TEXTURES, slotX, slotY, 84, 198, 22, 22, 128, 256);
             this.parentScreen.renderIngredient(guiGraphics, slotX + 3, slotY + 3, mouseX, mouseY, ingredients.get(i));
         }
 
         int arrowX = startX + gridWidth + 2;
         int arrowY = recipeY + ((rows * slotSize - 16) / 2);
-        guiGraphics.blit(CRAFTING_TEXTURES, arrowX, arrowY, 35, 198, 18, 18, 128, 256);
+        guiGraphics.blit(GUI, CRAFTING_TEXTURES, arrowX, arrowY, 35, 198, 18, 18, 128, 256);
 
         int outputX = arrowX + 20;
         int outputY = recipeY + ((rows * slotSize - 22) / 2);
-        guiGraphics.blit(CRAFTING_TEXTURES, outputX, outputY, 84, 198, 22, 22, 128, 256);
+        guiGraphics.blit(GUI, CRAFTING_TEXTURES, outputX, outputY, 84, 198, 22, 22, 128, 256);
         this.parentScreen.renderItemStack(guiGraphics, outputX + 3, outputY + 3, mouseX, mouseY, recipe.getOutput());
 
         int textY = recipeY + (rows * slotSize) + 4;
         String lpFormatted = String.format("%,d", recipe.getSyphon());
-        Component info = Component.literal(lpFormatted + " EV | " + (recipe.getTicks() / 20) + "s");
+        Component info = Component.literal(lpFormatted + " LP | " + (recipe.getTicks() / 20) + "s");
         this.drawCenteredStringNoShadow(guiGraphics, info.getVisualOrderText(),
-                BookEntryScreen.PAGE_WIDTH / 2, textY, 0x555555, 1.0f);
+                BookEntryScreen.PAGE_WIDTH / 2, textY, 0xFF555555, 1.0f);
     }
 }

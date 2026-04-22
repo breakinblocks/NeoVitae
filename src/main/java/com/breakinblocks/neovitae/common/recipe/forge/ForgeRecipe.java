@@ -3,7 +3,6 @@ package com.breakinblocks.neovitae.common.recipe.forge;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -27,7 +26,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
     public static final MapCodec<ForgeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.DOUBLE.fieldOf("minDrain").forGetter(ForgeRecipe::getMinWill),
             Codec.DOUBLE.fieldOf("drain").forGetter(ForgeRecipe::getDrain),
-            Codec.list(Ingredient.CODEC_NONEMPTY).fieldOf("inputs").forGetter(ForgeRecipe::getCraftingIngredients),
+            Codec.list(Ingredient.CODEC).fieldOf("inputs").forGetter(ForgeRecipe::getCraftingIngredients),
             ItemStack.CODEC.fieldOf("output").forGetter(ForgeRecipe::getOutput),
             SpiritusType.CODEC.optionalFieldOf("willType").forGetter(ForgeRecipe::getWillType)
     ).apply(instance, ForgeRecipe::new));
@@ -86,7 +85,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
     }
 
     @Override
-    public ItemStack assemble(ForgeInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(ForgeInput input) {
         ItemStack gemStack = input.getGem();
         double will = gemStack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
         if (will < minWill) {
@@ -102,22 +101,32 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
+    public boolean showNotification() {
+        return false;
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return resultItem.copy();
+    public String group() {
+        return "";
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.createFromOptionals(ingredients.stream().map(Optional::of).toList());
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
+
+    @Override
+    public RecipeSerializer<? extends Recipe<ForgeInput>> getSerializer() {
         return NVRecipes.HELLFIRE_FORGE_SERIALIZER.get();
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<ForgeInput>> getType() {
         return NVRecipes.HELLFIRE_FORGE_TYPE.get();
     }
 

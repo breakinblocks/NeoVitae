@@ -57,8 +57,8 @@ public class StrengthFlaskEntry extends EntryProvider {
     @Override
     protected BookIconModel entryIcon() {
         ItemStack flask = new ItemStack(NVItems.ALCHEMY_FLASK.get());
-        ItemAlchemyFlask.setFlaskEffects(flask, FlaskEffects.single(EffectHolder.create(MobEffects.DAMAGE_BOOST, 3600, 0)));
-        return BookIconModel.create(flask);
+        ItemAlchemyFlask.setFlaskEffects(flask, FlaskEffects.single(EffectHolder.create(MobEffects.STRENGTH, 3600, 0)));
+        return BookIconModel.create(com.breakinblocks.neovitae.common.item.NVItems.ALCHEMY_FLASK.get());
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -66,7 +69,7 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, SpiritusCrystalBlockEntity tile) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return;
         }
 
@@ -186,7 +189,7 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
 
     public boolean dropSingleCrystal() {
         int crystalCount = getCrystalCount();
-        if (!getLevel().isClientSide && crystalCount > 1) {
+        if (!getLevel().isClientSide() && crystalCount > 1) {
             SpiritusType type = getWillType();
             ItemStack stack = BlockSpiritusCrystal.getItemStackDropped(type, 1);
             if (!stack.isEmpty()) {
@@ -217,8 +220,8 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         tag.putInt("placement", placement.get3DDataValue());
         tag.putDouble("progress", progressToNextCrystal);
         tag.putString("willType", willType.getSerializedName());
@@ -228,25 +231,25 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        placement = Direction.from3DDataValue(tag.getInt("placement"));
-        progressToNextCrystal = tag.getDouble("progress");
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        placement = Direction.from3DDataValue(tag.getIntOr("placement", 0));
+        progressToNextCrystal = tag.getDoubleOr("progress", 0d);
 
-        if (tag.contains("willType")) {
-            String typeStr = tag.getString("willType");
+        String typeStr = tag.getStringOr("willType", "");
+        if (typeStr.isEmpty()) {
+            willType = SpiritusType.DEFAULT;
+        } else {
             try {
                 willType = SpiritusType.valueOf(typeStr.toUpperCase());
             } catch (IllegalArgumentException e) {
                 willType = SpiritusType.DEFAULT;
             }
-        } else {
-            willType = SpiritusType.DEFAULT;
         }
 
-        injectedWill = tag.getDouble("injectedWill");
-        speedModifier = tag.getDouble("speedModifier");
-        appliedConversionRate = tag.getDouble("appliedRate");
+        injectedWill = tag.getDoubleOr("injectedWill", 0d);
+        speedModifier = tag.getDoubleOr("speedModifier", 0d);
+        appliedConversionRate = tag.getDoubleOr("appliedRate", 0d);
 
         if (speedModifier <= 0) {
             speedModifier = 1;

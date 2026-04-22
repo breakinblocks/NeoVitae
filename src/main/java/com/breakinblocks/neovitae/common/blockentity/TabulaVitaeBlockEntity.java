@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -37,8 +40,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Collections;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvider {
     public static final int ORB_SLOT = 6;
@@ -65,7 +71,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
-            if (level != null && !level.isClientSide) {
+            if (level != null && !level.isClientSide()) {
                 level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
             }
             if (slot != OUTPUT_SLOT) {
@@ -81,19 +87,19 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        direction = Direction.from3DDataValue(tag.getInt("direction"));
-        isSlave = tag.getBoolean("isSlave");
-        burnTime = tag.getInt("burnTime");
-        ticksRequired = tag.getInt("ticksRequired");
-        connectedPos = new BlockPos(tag.getInt("connectedX"), tag.getInt("connectedY"), tag.getInt("connectedZ"));
-        inv.deserializeNBT(registries, tag.getCompound("inventory"));
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        direction = Direction.from3DDataValue(tag.getIntOr("direction", 0));
+        isSlave = tag.getBooleanOr("isSlave", false);
+        burnTime = tag.getIntOr("burnTime", 0);
+        ticksRequired = tag.getIntOr("ticksRequired", 0);
+        connectedPos = new BlockPos(tag.getIntOr("connectedX", 0), tag.getIntOr("connectedY", 0), tag.getIntOr("connectedZ", 0));
+        tag.child("inventory").ifPresent(inv::deserialize);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         tag.putInt("direction", direction.get3DDataValue());
         tag.putBoolean("isSlave", isSlave);
         tag.putInt("burnTime", burnTime);
@@ -101,7 +107,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         tag.putInt("connectedX", connectedPos.getX());
         tag.putInt("connectedY", connectedPos.getY());
         tag.putInt("connectedZ", connectedPos.getZ());
-        tag.put("inventory", inv.serializeNBT(registries));
+        inv.serialize(tag.child("inventory"));
     }
 
     public void setInitialTableParameters(Direction direction, boolean isSlave, BlockPos connectedPos) {
@@ -133,7 +139,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             }
             return;
         }
-        if (level == null || level.isClientSide || isSlave) return;
+        if (level == null || level.isClientSide() || isSlave) return;
 
         ItemStack orbStack = inv.getStackInSlot(ORB_SLOT);
         int orbTier = getOrbTier(orbStack);
@@ -243,7 +249,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
 
             for (int j = 0; j < ingredients.size(); j++) {
                 if (ingredients.get(j).test(stack)) {
-                    ItemStack container = stack.getCraftingRemainingItem();
+                    ItemStack container = stack.getCraftingRemainder().create();
                     stack.shrink(1);
                     if (stack.isEmpty() && !container.isEmpty()) {
                         inv.setStackInSlot(i, container);
@@ -262,7 +268,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             currentOutput.grow(output.getCount());
         }
 
-        if (level != null && !level.isClientSide) {
+        if (level != null && !level.isClientSide()) {
             level.playSound(null, worldPosition, NVSounds.TABULA_VITAE_COMPLETE.get(), SoundSource.BLOCKS, 0.6f, 1.0f);
             ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 8, 0.3, 0.2, 0.3, 0);
         }
@@ -289,7 +295,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
 
             for (int j = 0; j < ingredients.size(); j++) {
                 if (ingredients.get(j).test(stack)) {
-                    ItemStack container = stack.getCraftingRemainingItem();
+                    ItemStack container = stack.getCraftingRemainder().create();
                     stack.shrink(1);
                     if (stack.isEmpty() && !container.isEmpty()) {
                         inv.setStackInSlot(i, container);
@@ -303,7 +309,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         inv.setStackInSlot(flaskSlot, ItemStack.EMPTY);
         inv.setStackInSlot(OUTPUT_SLOT, output);
 
-        if (level != null && !level.isClientSide) {
+        if (level != null && !level.isClientSide()) {
             level.playSound(null, worldPosition, NVSounds.TABULA_VITAE_COMPLETE.get(), SoundSource.BLOCKS, 0.6f, 1.0f);
             ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 8, 0.3, 0.2, 0.3, 0);
         }
@@ -344,7 +350,10 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         FlaskRecipe bestRecipe = null;
         int bestPriority = Integer.MIN_VALUE;
 
-        for (var holder : level.getRecipeManager().getAllRecipesFor(NVRecipes.FLASK_TYPE.get())) {
+        Collection<RecipeHolder<FlaskRecipe>> flaskHolders = level instanceof ServerLevel serverLevel
+                ? serverLevel.recipeAccess().recipeMap().byType(NVRecipes.FLASK_TYPE.get())
+                : Collections.emptyList();
+        for (RecipeHolder<FlaskRecipe> holder : flaskHolders) {
             FlaskRecipe recipe = holder.value();
             if (recipe.matches(input, level)) {
                 int priority = recipe.getPriority(flaskEffects);
@@ -388,9 +397,9 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         }
 
         TabulaVitaeInput input = createInput();
-        Optional<TabulaVitaeRecipe> recipe = level.getRecipeManager()
-                .getRecipeFor(NVRecipes.TABULA_VITAE_TYPE.get(), input, level)
-                .map(holder -> holder.value());
+        Optional<TabulaVitaeRecipe> recipe = level instanceof ServerLevel serverLevel
+                ? serverLevel.recipeAccess().getRecipeFor(NVRecipes.TABULA_VITAE_TYPE.get(), input, serverLevel).map(RecipeHolder::value)
+                : Optional.empty();
 
         recipe.ifPresent(r -> cachedRecipe = r);
         return recipe;
@@ -415,7 +424,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
     }
 
     public void dropItems() {
-        if (level != null && !level.isClientSide && !isSlave) {
+        if (level != null && !level.isClientSide() && !isSlave) {
             for (int i = 0; i < inv.getSlots(); i++) {
                 ItemStack stack = inv.getStackInSlot(i);
                 if (!stack.isEmpty()) {

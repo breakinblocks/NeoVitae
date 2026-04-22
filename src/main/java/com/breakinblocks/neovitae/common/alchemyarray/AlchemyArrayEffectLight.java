@@ -24,7 +24,7 @@ public class AlchemyArrayEffectLight extends AlchemyArrayEffect {
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
-        if (level == null || level.isClientSide) return false;
+        if (level == null || level.isClientSide()) return false;
 
         if (!initialized && ticksActive > 10) {
             placeLight(level, tile.getBlockPos());
@@ -89,9 +89,9 @@ public class AlchemyArrayEffectLight extends AlchemyArrayEffect {
 
     @Override
     public void readFromNBT(CompoundTag tag) {
-        initialized = tag.getBoolean("initialized");
+        initialized = tag.getBooleanOr("initialized", false);
         placedLights.clear();
-        int[] coords = tag.getIntArray("lightPositions");
+        int[] coords = tag.getIntArray("lightPositions").orElse(new int[0]);
         for (int i = 0; i + 2 < coords.length; i += 3) {
             placedLights.add(new BlockPos(coords[i], coords[i + 1], coords[i + 2]));
         }

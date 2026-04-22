@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -47,14 +47,15 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 import com.breakinblocks.neovitae.impl.AltarRuneBlockRegistry;
 import com.breakinblocks.neovitae.impl.NeoVitaeAPIImpl;
+import net.neoforged.fml.loading.FMLLoader;
 
 @Mod(NeoVitae.MODID)
 public class NeoVitae {
     public static final String MODID = "neovitae";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final ResourceLocation TYPE_PROPERTY = rl("will_type");
-    public static final ResourceLocation INCENSE_PROPERTY = rl("incense_type");
+    public static final Identifier TYPE_PROPERTY = rl("will_type");
+    public static final Identifier INCENSE_PROPERTY = rl("incense_type");
 
     public static final ServerConfig SERVER_CONFIG;
     private static final ModConfigSpec SERVER_CONFIG_SPEC;
@@ -117,7 +118,7 @@ public class NeoVitae {
 
         modBus.addListener(this::commonSetup);
         modBus.addListener(NVPayloads::register);
-        if (net.neoforged.fml.loading.FMLEnvironment.dist == Dist.CLIENT) {
+        if (FMLLoader.getCurrentOrNull() != null && FMLLoader.getCurrentOrNull().getDist() == Dist.CLIENT) {
             modBus.addListener(com.breakinblocks.neovitae.client.render.item.SpiritusBarDecorator::registerAll);
         }
         com.breakinblocks.neovitae.common.event.NVMissingMappings.register(modBus);
@@ -143,7 +144,7 @@ public class NeoVitae {
         }
     }
 
-    public static ResourceLocation rl(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MODID, path);
+    public static Identifier rl(String path) {
+        return Identifier.fromNamespaceAndPath(MODID, path);
     }
 }

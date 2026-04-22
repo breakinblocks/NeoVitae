@@ -9,7 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.datagen.book.page.BookRitualInfoPageModel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.mojang.datafixers.util.Pair;
 
 public class RitualFeatheredKnifeEntry extends EntryProvider {
@@ -21,7 +21,7 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
     @Override
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
-                .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/feathered_knife"))
+                .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/feathered_knife"))
                 .withMultiblockName("Ritual of the Feathered Knife")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");

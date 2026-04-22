@@ -50,7 +50,7 @@ public class AuraCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("nv-aura")
-                        .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .then(
                                 Commands.literal("get")
                                         .executes(AuraCommand::getAllWill)
@@ -128,7 +128,7 @@ public class AuraCommand {
 
         SpiritusType type = parseWillType(typeStr);
         if (type == null) {
-            source.sendFailure(Component.literal("Invalid will type: " + typeStr));
+            source.sendFailure(Component.translatable("command.neovitae.aura.invalid_will_type", typeStr));
             return 0;
         }
 
@@ -155,17 +155,17 @@ public class AuraCommand {
                 double clampedAmount = Math.max(0, Math.min(max, amount));
                 setWillForType(level, pos, type, clampedAmount);
             }
-            source.sendSuccess(() -> Component.literal("Set all will types to " + String.format("%.2f", amount) + " (clamped to max)"), true);
+            source.sendSuccess(() -> Component.translatable("command.neovitae.aura.set_all", String.format("%.2f", amount)), true);
         } else {
             SpiritusType type = parseWillType(typeStr);
             if (type == null) {
-                source.sendFailure(Component.literal("Invalid will type: " + typeStr));
+                source.sendFailure(Component.translatable("command.neovitae.aura.invalid_will_type", typeStr));
                 return 0;
             }
             double max = WorldSpiritusHandler.getMaxWill(level, pos, type);
             double clampedAmount = Math.max(0, Math.min(max, amount));
             setWillForType(level, pos, type, clampedAmount);
-            source.sendSuccess(() -> Component.literal("Set " + type.getSerializedName() + " will to " + String.format("%.2f", clampedAmount)), true);
+            source.sendSuccess(() -> Component.translatable("command.neovitae.aura.set_type", type.getSerializedName(), String.format("%.2f", clampedAmount)), true);
         }
         return 1;
     }
@@ -192,7 +192,7 @@ public class AuraCommand {
         } else {
             SpiritusType type = parseWillType(typeStr);
             if (type == null) {
-                source.sendFailure(Component.literal("Invalid will type: " + typeStr));
+                source.sendFailure(Component.translatable("command.neovitae.aura.invalid_will_type", typeStr));
                 return 0;
             }
             double before = WorldSpiritusHandler.getCurrentWill(level, pos, type);
@@ -217,7 +217,7 @@ public class AuraCommand {
             setWillForType(level, pos, type, 0);
         }
 
-        source.sendSuccess(() -> Component.literal("Cleared all spiritus from chunk"), true);
+        source.sendSuccess(() -> Component.translatable("command.neovitae.aura.cleared_chunk"), true);
         return 1;
     }
 

@@ -1,10 +1,12 @@
 package com.breakinblocks.neovitae.client.screen;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
@@ -17,16 +19,23 @@ import java.util.List;
 import java.util.Map;
 
 public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
-    private final ResourceLocation background = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "textures/gui/container/athanor_gui.png");
-    private final ResourceLocation progress = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "container/athanor/progress");
-    private final ResourceLocation gauge = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "container/athanor/gauge");
-    private static final ResourceLocation BARS_TEXTURE = NeoVitae.rl("textures/hud/bars.png");
+    private final Identifier background = Identifier.fromNamespaceAndPath(NeoVitae.MODID, "textures/gui/container/athanor_gui.png");
+    private final Identifier progress = Identifier.fromNamespaceAndPath(NeoVitae.MODID, "container/athanor/progress");
+    private final Identifier gauge = Identifier.fromNamespaceAndPath(NeoVitae.MODID, "container/athanor/gauge");
+    private static final Identifier BARS_TEXTURE = NeoVitae.rl("textures/hud/bars.png");
 
     private static final SpiritusType[] ORDERED_TYPES = {
             SpiritusType.DEFAULT, SpiritusType.CORROSIVE,
             SpiritusType.STEADFAST, SpiritusType.DESTRUCTIVE, SpiritusType.VENGEFUL
     };
     private static final String[] TYPE_NAMES = {"Raw", "Corrosive", "Steadfast", "Destructive", "Vengeful"};
+    private static final String[] TYPE_KEYS = {
+            "will.neovitae.default",
+            "will.neovitae.corrosive",
+            "will.neovitae.steadfast",
+            "will.neovitae.destructive",
+            "will.neovitae.vengeful"
+    };
 
     private static final int GAUGE_X = 35;
     private static final int GAUGE_Y = 76;
@@ -34,9 +43,7 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
     private static final int[] BAR_WIDTHS = {52, 56, 58, 56, 52};
 
     public AthanorScreen(AthanorMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
-        this.imageWidth = 176;
-        this.imageHeight = 208;
+        super(menu, playerInventory, title, 176, 208);
         this.titleLabelX = 38;
         this.inventoryLabelY = imageHeight - 94;
     }
@@ -56,8 +63,8 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
 
         if (!this.menu.tile.inputTank.isEmpty()) {
             int fluidHeight = 63 * this.menu.tile.inputTank.getFluidAmount() / this.menu.tile.inputTank.getCapacity();
@@ -67,15 +74,13 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
             int fluidHeight = 63 * this.menu.tile.outputTank.getFluidAmount() / this.menu.tile.outputTank.getCapacity();
             RenderHelper.renderGuiFluid(guiGraphics, this.menu.tile.outputTank.getFluid().getFluid(), outputX, outputY + (63 - fluidHeight), 16, fluidHeight);
         }
-        guiGraphics.blitSprite(gauge, inputX, inputY, 16, 57);
-        guiGraphics.blitSprite(gauge, outputX, outputY, 16, 57);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, gauge, inputX, inputY, 16, 57);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, gauge, outputX, outputY, 16, 57);
 
         renderSpiritusGauge(guiGraphics);
-
-        this.renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
-    private void renderSpiritusGauge(GuiGraphics guiGraphics) {
+    private void renderSpiritusGauge(GuiGraphicsExtractor guiGraphics) {
         Map<SpiritusType, Double> costs = menu.tile.getCurrentRecipeWillCost();
         int gx = leftPos + GAUGE_X;
         int gy = topPos + GAUGE_Y;
@@ -94,14 +99,13 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
             int barY = gy + 4 * i;
             int barHeight = 2;
 
-            // UV from bars.png texture (uses HUD formula for the color strip source)
             int textureXOffset = (i > 3) ? (i - 3) : (3 - i);
             int textureX = 2 * textureXOffset + 84;
             int textureY = 4 * i + 220;
 
             int fillWidth = (int) (fullBarWidth * ratio);
             if (fillWidth > 0) {
-                guiGraphics.blit(BARS_TEXTURE, barX, barY, textureX, textureY, fillWidth, barHeight);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BARS_TEXTURE, barX, barY, (float) textureX, (float) textureY, fillWidth, barHeight, 256, 256);
             }
 
             Double required = costs.get(type);
@@ -117,53 +121,50 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
     }
 
     @Override
-    protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
-        super.renderTooltip(guiGraphics, x, y);
+    protected void extractTooltip(GuiGraphicsExtractor guiGraphics, int x, int y) {
+        super.extractTooltip(guiGraphics, x, y);
 
         if (x > inputX && x < inputX + 16 && y > inputY && y < inputY + 63) {
             List<Component> tip = new ArrayList<>();
             if (!this.menu.tile.inputTank.isEmpty()) {
                 tip.add(this.menu.tile.inputTank.getFluid().getHoverName());
-                tip.add(Component.literal(this.menu.tile.inputTank.getFluidAmount() + " / " + this.menu.tile.inputTank.getCapacity() + " mB"));
+                tip.add(Component.translatable("gui.neovitae.athanor.tank_amount", this.menu.tile.inputTank.getFluidAmount(), this.menu.tile.inputTank.getCapacity()));
             } else {
-                tip.add(Component.literal("Empty"));
+                tip.add(Component.translatable("gui.neovitae.athanor.slot.empty"));
             }
-            guiGraphics.renderComponentTooltip(this.font, tip, x, y);
+            guiGraphics.setComponentTooltipForNextFrame(this.font, tip, x, y);
         }
 
         if (x > outputX && x < outputX + 16 && y > outputY && y < outputY + 63) {
             List<Component> tip = new ArrayList<>();
             if (!this.menu.tile.outputTank.isEmpty()) {
                 tip.add(this.menu.tile.outputTank.getFluid().getHoverName());
-                tip.add(Component.literal(this.menu.tile.outputTank.getFluidAmount() + " / " + this.menu.tile.outputTank.getCapacity() + " mB"));
+                tip.add(Component.translatable("gui.neovitae.athanor.tank_amount", this.menu.tile.outputTank.getFluidAmount(), this.menu.tile.outputTank.getCapacity()));
             } else {
-                tip.add(Component.literal("Empty"));
+                tip.add(Component.translatable("gui.neovitae.athanor.slot.empty"));
             }
-            guiGraphics.renderComponentTooltip(this.font, tip, x, y);
+            guiGraphics.setComponentTooltipForNextFrame(this.font, tip, x, y);
         }
 
-        // Slot area tooltips when hovering empty slots
         if (this.hoveredSlot != null && !this.hoveredSlot.hasItem()) {
             int slotIdx = this.hoveredSlot.getSlotIndex();
             if (slotIdx == 0) {
-                guiGraphics.renderTooltip(this.font, Component.literal("Tool").withStyle(ChatFormatting.GRAY), x, y);
+                guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.athanor.slot.tool").withStyle(ChatFormatting.GRAY), x, y);
             } else if (slotIdx >= 1 && slotIdx <= 6) {
-                guiGraphics.renderTooltip(this.font, Component.literal("Input").withStyle(ChatFormatting.GRAY), x, y);
+                guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.athanor.slot.input").withStyle(ChatFormatting.GRAY), x, y);
             } else if (slotIdx == 7) {
-                guiGraphics.renderTooltip(this.font, Component.literal("Fluid Input").withStyle(ChatFormatting.GRAY), x, y);
+                guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.athanor.slot.fluid_input").withStyle(ChatFormatting.GRAY), x, y);
             } else if (slotIdx == 8) {
-                guiGraphics.renderTooltip(this.font, Component.literal("Fluid Output").withStyle(ChatFormatting.GRAY), x, y);
+                guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.athanor.slot.fluid_output").withStyle(ChatFormatting.GRAY), x, y);
             } else if (slotIdx >= 9 && slotIdx <= 13) {
-                guiGraphics.renderTooltip(this.font, Component.literal("Output").withStyle(ChatFormatting.GRAY), x, y);
+                guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.athanor.slot.output").withStyle(ChatFormatting.GRAY), x, y);
             }
         }
 
-        // Progress arrow tooltip
         if (isOverProgressArrow(x, y)) {
-            guiGraphics.renderTooltip(this.font, Component.literal("Show Recipes").withStyle(ChatFormatting.YELLOW), x, y);
+            guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.show_recipes").withStyle(ChatFormatting.YELLOW), x, y);
         }
 
-        // Spiritus gauge tooltip
         Map<SpiritusType, Double> costs = menu.tile.getCurrentRecipeWillCost();
         int gx = leftPos + GAUGE_X;
         int gy = topPos + GAUGE_Y;
@@ -178,16 +179,16 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
                 double current = menu.tile.getChunkWill(type);
                 double max = menu.tile.getChunkWillMax(type);
                 List<Component> tooltip = new ArrayList<>();
-                tooltip.add(Component.literal(TYPE_NAMES[idx] + " Spiritus"));
-                tooltip.add(Component.literal(String.format("%.1f / %.1f", current, max)));
+                tooltip.add(Component.translatable("gui.neovitae.athanor.type_spiritus", Component.translatable(TYPE_KEYS[idx])));
+                tooltip.add(Component.translatable("gui.neovitae.athanor.spiritus_progress", String.format("%.1f", current), String.format("%.1f", max)));
                 Double required = costs.get(type);
                 if (required != null && required > 0) {
-                    tooltip.add(Component.literal(String.format("Required: %.1f", required)));
+                    tooltip.add(Component.translatable("gui.neovitae.athanor.spiritus_required", String.format("%.1f", required)));
                     if (current < required) {
-                        tooltip.add(Component.literal("Insufficient!").withStyle(style -> style.withColor(0xFF5555)));
+                        tooltip.add(Component.translatable("gui.neovitae.athanor.insufficient").withStyle(style -> style.withColor(0xFF5555)));
                     }
                 }
-                guiGraphics.renderComponentTooltip(this.font, tooltip, x, y);
+                guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, x, y);
                 break;
             }
         }
@@ -200,23 +201,23 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button == 0 && isOverProgressArrow(mouseX, mouseY)) {
+    public boolean mouseClicked(MouseButtonEvent event, boolean dragging) {
+        if (event.button() == 0 && isOverProgressArrow(event.x(), event.y())) {
             var runtime = com.breakinblocks.neovitae.compat.jei.NeoVitaeJEIPlugin.jeiRuntime;
             if (runtime != null) {
                 runtime.getRecipesGui().showTypes(List.of(AthanorRecipeCategory.RECIPE_TYPE));
                 return true;
             }
         }
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(event, dragging);
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1) {
-        guiGraphics.blit(background, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, background, leftPos, topPos, 0f, 0f, imageWidth, imageHeight, 256, 256);
         int progressWidth = menu.tile.getProgressForGui();
         if (progressWidth > 0) {
-            guiGraphics.blitSprite(progress, 38, 23, 0, 4, leftPos + 63, topPos + 51, progressWidth, 19);
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, progress, 38, 23, 0, 4, leftPos + 63, topPos + 51, progressWidth, 19);
         }
     }
 }

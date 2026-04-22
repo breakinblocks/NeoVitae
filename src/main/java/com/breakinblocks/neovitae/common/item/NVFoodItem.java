@@ -6,12 +6,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+import net.minecraft.core.Holder;
 
 /**
  * A food item that applies effects on consumption with optional probability.
@@ -20,10 +21,10 @@ import java.util.function.Supplier;
 public class NVFoodItem extends Item {
 
     private final List<FoodEffect> effects;
-    private final UseAnim useAnim;
+    private final ItemUseAnimation useAnim;
     private final int useDuration;
 
-    private NVFoodItem(Properties properties, List<FoodEffect> effects, UseAnim useAnim, int useDuration) {
+    private NVFoodItem(Properties properties, List<FoodEffect> effects, ItemUseAnimation useAnim, int useDuration) {
         super(properties);
         this.effects = effects;
         this.useAnim = useAnim;
@@ -33,9 +34,9 @@ public class NVFoodItem extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         ItemStack result = super.finishUsingItem(stack, level, entity);
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             for (FoodEffect effect : effects) {
-                if (effect.probability >= 1.0f || level.random.nextFloat() < effect.probability) {
+                if (effect.probability >= 1.0f || level.getRandom().nextFloat() < effect.probability) {
                     entity.addEffect(new MobEffectInstance(effect.effect.get(), effect.duration, effect.amplifier));
                 }
             }
@@ -44,7 +45,7 @@ public class NVFoodItem extends Item {
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
+    public ItemUseAnimation getUseAnimation(ItemStack stack) {
         return useAnim;
     }
 
@@ -57,14 +58,14 @@ public class NVFoodItem extends Item {
         return new Builder(nutrition, saturation);
     }
 
-    private record FoodEffect(Supplier<net.minecraft.core.Holder<MobEffect>> effect, int duration, int amplifier, float probability) {}
+    private record FoodEffect(Supplier<Holder<MobEffect>> effect, int duration, int amplifier, float probability) {}
 
     public static class Builder {
         private final FoodProperties.Builder foodBuilder;
         private final List<FoodEffect> effects = new ArrayList<>();
-        private Item.Properties properties = new Item.Properties();
-        private UseAnim useAnim = UseAnim.EAT;
+        private ItemUseAnimation useAnim = ItemUseAnimation.EAT;
         private int useDuration = 32;
+        private int maxStack = 64;
 
         private Builder(int nutrition, float saturation) {
             this.foodBuilder = new FoodProperties.Builder().nutrition(nutrition).saturationModifier(saturation);
@@ -76,12 +77,12 @@ public class NVFoodItem extends Item {
         }
 
         public Builder stacksTo(int max) {
-            properties.stacksTo(max);
+            this.maxStack = max;
             return this;
         }
 
         public Builder drinkable() {
-            this.useAnim = UseAnim.DRINK;
+            this.useAnim = ItemUseAnimation.DRINK;
             return this;
         }
 
@@ -90,18 +91,18 @@ public class NVFoodItem extends Item {
             return this;
         }
 
-        public Builder effect(Supplier<net.minecraft.core.Holder<MobEffect>> effect, int duration, int amplifier, float probability) {
+        public Builder effect(Supplier<Holder<MobEffect>> effect, int duration, int amplifier, float probability) {
             effects.add(new FoodEffect(effect, duration, amplifier, probability));
             return this;
         }
 
-        public Builder effect(Supplier<net.minecraft.core.Holder<MobEffect>> effect, int duration, int amplifier) {
+        public Builder effect(Supplier<Holder<MobEffect>> effect, int duration, int amplifier) {
             return effect(effect, duration, amplifier, 1.0f);
         }
 
-        public NVFoodItem build() {
-            properties.food(foodBuilder.build());
-            return new NVFoodItem(properties, effects, useAnim, useDuration);
+        public NVFoodItem build(Item.Properties props) {
+            props.stacksTo(maxStack).food(foodBuilder.build());
+            return new NVFoodItem(props, effects, useAnim, useDuration);
         }
     }
 }

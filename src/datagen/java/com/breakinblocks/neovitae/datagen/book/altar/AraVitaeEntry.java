@@ -10,7 +10,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.datagen.book.page.BookHellfireForgeRecipePageModel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.mojang.datafixers.util.Pair;
 
 public class AraVitaeEntry extends EntryProvider {
@@ -32,7 +32,7 @@ public class AraVitaeEntry extends EntryProvider {
                 + "of rune-carved power.");
 
         this.page("crafting", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae")));
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -42,7 +42,7 @@ public class AraVitaeEntry extends EntryProvider {
                 + "empty hand to retrieve it.");
 
         this.page("tier1", () -> BookMultiblockPageModel.create()
-                .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_one"))
+                .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "altar_one"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier 0 Ara Vitae");
@@ -57,7 +57,7 @@ public class AraVitaeEntry extends EntryProvider {
                 + "reveals how full the vessel is. A [#](8B0000)Divination Sigil[#]() reveals the exact figures.");
 
         this.page("knife_recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "sacrificial_dagger"))
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "sacrificial_dagger"))
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Be aware:[#]() 10%% of the Ara Vitae's total capacity seeps into a hidden internal reservoir, "
                 + "used for fluid transfer operations. If your numbers seem off, this unseen vessel is likely the cause.");
@@ -85,7 +85,7 @@ public class AraVitaeEntry extends EntryProvider {
                 + "serving only as structural scaffolding for the Ara Vitae's ascension.");
 
         this.page("blank_rune_recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_blank")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "rune_blank")));
 
         this.page("tier2_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
@@ -94,7 +94,7 @@ public class AraVitaeEntry extends EntryProvider {
                 + "inert until Tier 2 unlocks their potential.");
 
         this.page("tier2", () -> BookMultiblockPageModel.create()
-                .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_two"))
+                .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "altar_two"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier 1 Ara Vitae");
@@ -108,7 +108,7 @@ public class AraVitaeEntry extends EntryProvider {
                 + "the upgrade. Any solid block suffices for the pillar bodies.");
 
         this.page("tier3", () -> BookMultiblockPageModel.create()
-                .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_three"))
+                .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "altar_three"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier 2 Ara Vitae");
@@ -121,7 +121,7 @@ public class AraVitaeEntry extends EntryProvider {
                 + "will need [#](8B0000)Tau Fruit[#](), harvested from beyond the [#](4A0080)Edge of the Hidden Realm[#]() ritual.");
 
         this.page("tier4", () -> BookMultiblockPageModel.create()
-                .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_four"))
+                .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "altar_four"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier 3 Ara Vitae");
@@ -134,7 +134,7 @@ public class AraVitaeEntry extends EntryProvider {
                 + "wrested from the [#](4A0080)Demon Realm[#]() itself. The Ara Vitae now commands fearsome energies.");
 
         this.page("tier5", () -> BookMultiblockPageModel.create()
-                .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_five"))
+                .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "altar_five"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier 4 Ara Vitae");
@@ -150,10 +150,10 @@ public class AraVitaeEntry extends EntryProvider {
                 + "[#](8B0000)Crystal Cluster Bricks[#]() also serve as valid capstones.");
 
         this.page("tier6_recipe", () -> BookHellfireForgeRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "hellfire_forge/crystal_cluster")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "hellfire_forge/crystal_cluster")));
 
         this.page("tier6", () -> BookMultiblockPageModel.create()
-                .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_six"))
+                .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "altar_six"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Tier 6 Ara Vitae");

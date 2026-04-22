@@ -44,7 +44,7 @@ public record SuppressionSigilEffect(int range, int verticalRange) implements Si
 
     @Override
     public void activeTick(Level level, Player player, ItemStack stack, int itemSlot, boolean isSelected) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return;
         }
 

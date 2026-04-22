@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.common.item;
 
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.entity.projectile.AbstractEntityThrowingDagger;
@@ -8,8 +9,8 @@ import com.breakinblocks.neovitae.common.entity.projectile.EntityThrowingDaggerS
 
 public class ItemThrowingDaggerSyringe extends ItemThrowingDagger {
 
-    public ItemThrowingDaggerSyringe() {
-        super();
+    public ItemThrowingDaggerSyringe(Item.Properties props) {
+        super(props);
     }
 
     @Override

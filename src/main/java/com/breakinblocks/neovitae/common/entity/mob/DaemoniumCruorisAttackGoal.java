@@ -4,6 +4,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Melee attack AI for Daemonium Cruoris (ghoul).
@@ -69,7 +70,7 @@ public class DaemoniumCruorisAttackGoal extends Goal {
         mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
 
         if (mob.isAttacking()) {
-            if (!mob.getDeltaMovement().equals(net.minecraft.world.phys.Vec3.ZERO)) {
+            if (!mob.getDeltaMovement().equals(Vec3.ZERO)) {
                 // Allow movement during leap
             } else {
                 mob.getNavigation().stop();

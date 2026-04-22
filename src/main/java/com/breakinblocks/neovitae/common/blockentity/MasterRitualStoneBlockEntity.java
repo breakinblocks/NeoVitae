@@ -1,11 +1,14 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -33,12 +36,15 @@ import net.minecraft.sounds.SoundSource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.core.UUIDUtil;
 
 public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMasterRitualStone {
 
     private UUID owner;
     private Ritual currentRitual;
-    private ResourceLocation currentRitualId;  // Store the ritual ID separately since currentRitual is a copy
+    private Identifier currentRitualId;  // Store the ritual ID separately since currentRitual is a copy
     private boolean active = false;
     private Direction direction = Direction.NORTH;
     private boolean inverted = false;
@@ -158,24 +164,24 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         RitualStats stats = ritualHolder.getData(NVDataMaps.RITUAL_STATS);
         if (stats != null && !stats.enabled()) {
             if (player != null) {
-                player.displayClientMessage(
-                        Component.translatable("chat.neovitae.ritual.disabled"), true);
+                player.sendSystemMessage(
+                        Component.translatable("chat.neovitae.ritual.disabled"));
             }
             return false;
         }
 
         if (ritual.getCrystalLevel() > crystalLevel) {
             if (player != null) {
-                player.displayClientMessage(
-                        Component.translatable("ritual.neovitae.crystalLevel.insufficient"), true);
+                player.sendOverlayMessage(
+                        Component.translatable("ritual.neovitae.crystalLevel.insufficient"));
             }
             return false;
         }
 
         if (!checkStructure(ritual)) {
             if (player != null) {
-                player.displayClientMessage(
-                        Component.translatable("ritual.neovitae.structure.invalid"), true);
+                player.sendOverlayMessage(
+                        Component.translatable("ritual.neovitae.structure.invalid"));
             }
             return false;
         }
@@ -183,8 +189,8 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         Anima network = AnimaHelper.getAnima(player.getUUID());
         if (network == null || network.getCurrentEV() < ritual.getActivationCost()) {
             if (player != null) {
-                player.displayClientMessage(
-                        Component.translatable("ritual.neovitae.activation.insufficient"), true);
+                player.sendOverlayMessage(
+                        Component.translatable("ritual.neovitae.activation.insufficient"));
             }
             return false;
         }
@@ -349,8 +355,8 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         };
     }
 
-    private java.util.List<RitualComponent> getRitualComponents(Ritual ritual) {
-        java.util.List<RitualComponent> components = new java.util.ArrayList<>();
+    private List<RitualComponent> getRitualComponents(Ritual ritual) {
+        List<RitualComponent> components = new ArrayList<>();
         ritual.gatherComponents(components::add);
         return components;
     }
@@ -393,7 +399,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         if (currentRitual != null) {
             Component[] info = currentRitual.provideInformationOfRitualToPlayer(player);
             for (Component component : info) {
-                player.displayClientMessage(component, false);
+                player.sendSystemMessage(component);
             }
         }
     }
@@ -401,7 +407,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     @Override
     public void provideInformationOfRangeToPlayer(Player player, String key) {
         if (currentRitual != null) {
-            player.displayClientMessage(currentRitual.provideInformationOfRangeToPlayer(player, key), false);
+            player.sendSystemMessage(currentRitual.provideInformationOfRangeToPlayer(player, key));
         }
     }
 
@@ -409,10 +415,10 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     public void provideInformationOfOffsetToPlayer(Player player, AreaDescriptor.Rectangle descriptor) {
         BlockPos min = descriptor.getMinimumOffset();
         BlockPos max = descriptor.getMaximumOffset();
-        player.displayClientMessage(
+        player.sendSystemMessage(
                 Component.translatable("ritual.neovitae.offset.info",
                         min.getX(), min.getY(), min.getZ(),
-                        max.getX(), max.getY(), max.getZ()), false);
+                        max.getX(), max.getY(), max.getZ()));
     }
 
     @Override
@@ -423,17 +429,17 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         if (server != null) {
             ServerPlayer player = server.getPlayerList().getPlayer(owner);
             if (player != null) {
-                player.displayClientMessage(message, false);
+                player.sendSystemMessage(message);
             }
         }
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
 
         if (owner != null) {
-            tag.putUUID("owner", owner);
+            tag.store("owner", UUIDUtil.CODEC, owner);
         }
         tag.putBoolean("active", active);
         tag.putBoolean("inverted", inverted);
@@ -447,7 +453,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
 
             CompoundTag ritualData = new CompoundTag();
             currentRitual.writeToNBT(ritualData);
-            tag.put("ritualData", ritualData);
+            tag.store("ritualData", CompoundTag.CODEC, ritualData);
 
             CompoundTag rangesTag = new CompoundTag();
             for (Map.Entry<String, AreaDescriptor> entry : blockRanges.entrySet()) {
@@ -463,52 +469,52 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
                 desc.saveToNBT(rangeTag);
                 rangesTag.put(entry.getKey(), rangeTag);
             }
-            tag.put("blockRanges", rangesTag);
+            tag.store("blockRanges", CompoundTag.CODEC, rangesTag);
         }
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
 
-        if (tag.hasUUID("owner")) {
-            owner = tag.getUUID("owner");
+        if (tag.read("owner", UUIDUtil.CODEC).isPresent()) {
+            owner = tag.read("owner", UUIDUtil.CODEC).orElse(null);
         }
-        active = tag.getBoolean("active");
-        inverted = tag.getBoolean("inverted");
-        cooldown = tag.getInt("cooldown");
-        runningTime = tag.getLong("runningTime");
+        active = tag.getBooleanOr("active", false);
+        inverted = tag.getBooleanOr("inverted", false);
+        cooldown = tag.getIntOr("cooldown", 0);
+        runningTime = tag.getLongOr("runningTime", 0L);
 
-        if (tag.contains("direction")) {
-            direction = Direction.byName(tag.getString("direction"));
+        tag.getString("direction").ifPresent(d -> {
+            direction = Direction.byName(d);
             if (direction == null) direction = Direction.NORTH;
-        }
+        });
 
-        if (tag.contains("willConfig")) {
+        tag.getString("willConfig").ifPresent(w -> {
             try {
-                activeWillConfig = SpiritusType.valueOf(tag.getString("willConfig").toUpperCase());
+                activeWillConfig = SpiritusType.valueOf(w.toUpperCase());
             } catch (IllegalArgumentException e) {
                 activeWillConfig = SpiritusType.DEFAULT;
             }
-        }
+        });
 
-        if (tag.contains("ritual")) {
-            ResourceLocation ritualId = ResourceLocation.parse(tag.getString("ritual"));
+        String ritualStr = tag.getStringOr("ritual", "");
+        if (!ritualStr.isEmpty()) {
+            Identifier ritualId = Identifier.parse(ritualStr);
             Ritual ritual = RitualRegistry.getRitual(ritualId);
             if (ritual != null) {
                 currentRitualId = ritualId;  // Restore the ID
                 currentRitual = ritual.getNewCopy();
 
-                if (tag.contains("ritualData")) {
-                    currentRitual.readFromNBT(tag.getCompound("ritualData"));
-                }
+                tag.read("ritualData", CompoundTag.CODEC).ifPresent(currentRitual::readFromNBT);
 
                 blockRanges.clear();
-                if (tag.contains("blockRanges")) {
-                    CompoundTag rangesTag = tag.getCompound("blockRanges");
-                    for (String key : rangesTag.getAllKeys()) {
-                        CompoundTag rangeTag = rangesTag.getCompound(key);
-                        String type = rangeTag.getString("type");
+                var rangesOpt = tag.read("blockRanges", CompoundTag.CODEC);
+                if (rangesOpt.isPresent()) {
+                    CompoundTag rangesTag = rangesOpt.get();
+                    for (String key : rangesTag.keySet()) {
+                        CompoundTag rangeTag = rangesTag.getCompoundOrEmpty(key);
+                        String type = rangeTag.getStringOr("type", "");
                         AreaDescriptor desc = createAreaDescriptor(type);
                         if (desc != null) {
                             desc.loadFromNBT(rangeTag);

@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class LavaCrystalEntry extends EntryProvider {
 
@@ -28,7 +28,7 @@ public class LavaCrystalEntry extends EntryProvider {
                 + "[#](2E8B57)Use on any block in the world to ignite it, at a cost of 100 EV.[#]()");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "lava_crystal"))
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "lava_crystal"))
                 .withText(this.context().pageText()));
         this.pageText("Place a Lava Crystal in the fuel slot of any furnace, and it becomes an "
                 + "inexhaustible flame, drawing 50 [#](4A0080)Essentia Vitae[#]() per item smelted. "

@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackLocationInfo;
@@ -31,11 +31,12 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import net.minecraft.network.chat.Component;
 
 public class MaterialRegistry {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final DeferredRegister<Item> ITEMS = DeferredRegister.createItems(NeoVitae.MODID);
+    private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(NeoVitae.MODID);
     private static final List<MaterialDefinition> MATERIALS = new ArrayList<>();
     private static final Map<String, Map<String, DeferredHolder<Item, Item>>> ITEM_MAP = new LinkedHashMap<>();
     private static InMemoryPack GENERATED_PACK;
@@ -55,7 +56,7 @@ public class MaterialRegistry {
             for (String stage : mat.getStages()) {
                 String itemId = mat.getItemId(stage);
                 int color = mat.getColorInt();
-                DeferredHolder<Item, Item> holder = ITEMS.register(itemId, () -> new MaterialItem(color));
+                DeferredHolder<Item, Item> holder = ITEMS.registerItem(itemId, props -> new MaterialItem(props, color));
                 stageMap.put(stage, holder);
             }
             ITEM_MAP.put(mat.getName(), stageMap);
@@ -67,7 +68,7 @@ public class MaterialRegistry {
     private static void populatePack() {
         var locationInfo = new PackLocationInfo(
                 "neovitae_materials",
-                net.minecraft.network.chat.Component.literal("NeoVitae Materials"),
+                Component.translatable("pack.neovitae.materials"),
                 PackSource.BUILT_IN,
                 Optional.empty()
         );
@@ -94,8 +95,23 @@ public class MaterialRegistry {
                 model.add("textures", textures);
 
                 GENERATED_PACK.putJson(PackType.CLIENT_RESOURCES,
-                        ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "models/item/" + itemId + ".json"),
+                        Identifier.fromNamespaceAndPath(NeoVitae.MODID, "models/item/" + itemId + ".json"),
                         GSON.toJson(model));
+
+                JsonObject selector = new JsonObject();
+                JsonObject selectorModel = new JsonObject();
+                selectorModel.addProperty("type", "minecraft:model");
+                selectorModel.addProperty("model", "neovitae:item/" + itemId);
+                com.google.gson.JsonArray tints = new com.google.gson.JsonArray();
+                JsonObject materialTint = new JsonObject();
+                materialTint.addProperty("type", "neovitae:material");
+                tints.add(materialTint);
+                selectorModel.add("tints", tints);
+                selector.add("model", selectorModel);
+
+                GENERATED_PACK.putJson(PackType.CLIENT_RESOURCES,
+                        Identifier.fromNamespaceAndPath(NeoVitae.MODID, "items/" + itemId + ".json"),
+                        GSON.toJson(selector));
 
                 lang.addProperty("item.neovitae." + itemId, displayName + " " + stageName);
             }
@@ -112,7 +128,7 @@ public class MaterialRegistry {
         }
 
         GENERATED_PACK.putJson(PackType.CLIENT_RESOURCES,
-                ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "lang/en_us.json"),
+                Identifier.fromNamespaceAndPath(NeoVitae.MODID, "lang/en_us.json"),
                 GSON.toJson(lang));
 
         NeoVitae.LOGGER.info("Populated in-memory resource pack for {} materials", MATERIALS.size());
@@ -144,7 +160,7 @@ public class MaterialRegistry {
         root.addProperty("cookingtime", cookTime);
 
         GENERATED_PACK.putJson(PackType.SERVER_DATA,
-                ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "recipe/materials/" + recipeType + "_" + materialName + "_dust.json"),
+                Identifier.fromNamespaceAndPath(NeoVitae.MODID, "recipe/materials/" + recipeType + "_" + materialName + "_dust.json"),
                 GSON.toJson(root));
     }
 
@@ -167,7 +183,7 @@ public class MaterialRegistry {
             tag.add("values", values);
 
             GENERATED_PACK.putJson(PackType.SERVER_DATA,
-                    ResourceLocation.fromNamespaceAndPath("c", "tags/item/" + tagPrefix + "/" + mat.getName() + ".json"),
+                    Identifier.fromNamespaceAndPath("c", "tags/item/" + tagPrefix + "/" + mat.getName() + ".json"),
                     GSON.toJson(tag));
         }
     }
@@ -217,7 +233,7 @@ public class MaterialRegistry {
         recipe.addProperty("upgradeLevel", tier);
 
         GENERATED_PACK.putJson(PackType.SERVER_DATA,
-                ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "recipe/alchemytable/" + recipeName + ".json"),
+                Identifier.fromNamespaceAndPath(NeoVitae.MODID, "recipe/alchemytable/" + recipeName + ".json"),
                 GSON.toJson(recipe));
     }
 
@@ -311,7 +327,7 @@ public class MaterialRegistry {
         recipe.add("chance_outputs", chanced);
 
         GENERATED_PACK.putJson(PackType.SERVER_DATA,
-                ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "recipe/athanor/" + recipePath + ".json"),
+                Identifier.fromNamespaceAndPath(NeoVitae.MODID, "recipe/athanor/" + recipePath + ".json"),
                 GSON.toJson(recipe));
     }
 
@@ -356,7 +372,7 @@ public class MaterialRegistry {
         event.addRepositorySource(consumer -> {
             var locationInfo = new PackLocationInfo(
                     "neovitae_materials",
-                    net.minecraft.network.chat.Component.literal("NeoVitae Materials"),
+                    Component.translatable("pack.neovitae.materials"),
                     PackSource.BUILT_IN,
                     Optional.empty()
             );

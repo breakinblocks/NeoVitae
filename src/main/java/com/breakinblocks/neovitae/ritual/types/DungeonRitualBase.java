@@ -23,6 +23,9 @@ import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Abstract base class for dungeon rituals containing shared functionality.
@@ -73,7 +76,7 @@ public abstract class DungeonRitualBase extends Ritual {
     }
 
     protected void spawnLightningEffect(Level world, BlockPos pos) {
-        LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(world);
+        LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(world, EntitySpawnReason.TRIGGERED);
         if (lightning != null) {
             lightning.setPos(pos.getX(), pos.getY() + 1, pos.getZ());
             lightning.setVisualOnly(true);
@@ -99,9 +102,9 @@ public abstract class DungeonRitualBase extends Ritual {
                     NVBlocks.BLOODSTONE.block().get().defaultBlockState());
         }
 
-        net.minecraft.util.RandomSource rand = spawnWorld.getRandom();
+        RandomSource rand = spawnWorld.getRandom();
         int lightCount = 4 + rand.nextInt(6);
-        net.minecraft.world.level.block.state.BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState();
+        BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState();
         for (int i = 0; i < lightCount; i++) {
             for (int attempt = 0; attempt < 10; attempt++) {
                 int dx = rand.nextInt(9) - 4;

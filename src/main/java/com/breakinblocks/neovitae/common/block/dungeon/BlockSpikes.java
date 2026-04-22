@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.block.dungeon;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -12,7 +14,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -20,7 +22,7 @@ import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 
 public class BlockSpikes extends Block {
 
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 
     protected static final VoxelShape UP_SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 14.0D, 14.0D);
     protected static final VoxelShape DOWN_SHAPE = Block.box(2.0D, 2.0D, 2.0D, 14.0D, 16.0D, 14.0D);
@@ -57,7 +59,7 @@ public class BlockSpikes extends Block {
     }
 
     @Override
-    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier applier, boolean intersects) {
         if (entity.getType() != EntityType.ITEM) {
             entity.makeStuckInBlock(state, new Vec3(0.55D, 0.20D, 0.55D));
             entity.hurt(NVDamageSources.spikes(level), 2.0F);
@@ -65,7 +67,7 @@ public class BlockSpikes extends Block {
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @javax.annotation.Nullable Orientation fromPos, boolean isMoving) {
         super.neighborChanged(state, level, pos, block, fromPos, isMoving);
         // Retract if the block behind us is removed
         if (level.getBlockState(pos.relative(state.getValue(FACING).getOpposite())).isAir()) {

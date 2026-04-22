@@ -47,7 +47,7 @@ public class RitualWellOfSuffering extends Ritual {
 
         List<LivingEntity> entities = RitualHelper.getEntitiesInRange(ctx, this, DAMAGE_RANGE,
                 LivingEntity.class, e -> !(e instanceof Player) && e.isAlive() && !e.isInvulnerable()
-                        && !e.getType().is(NVTags.Entities.WELL_OF_SUFFERING_BLACKLIST));
+                        && !e.getType().getTags().anyMatch(t -> t.equals(NVTags.Entities.WELL_OF_SUFFERING_BLACKLIST)));
 
         // Find the altar for direct LP feeding
         AraVitaeTile altar = findAltar(ctx);

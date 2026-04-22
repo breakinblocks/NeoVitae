@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.common.dataattachment;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -18,25 +18,31 @@ public class NVDataAttachments {
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, NeoVitae.MODID);
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Double>> INCENSE = ATTACHMENT_TYPES.register(
-            "incense", () -> AttachmentType.builder(() -> 0D).serialize(Codec.DOUBLE).build()
+            "incense", () -> AttachmentType.builder(() -> 0D).serialize(Codec.DOUBLE.fieldOf("value")).build()
     );
 
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Map<ResourceLocation, Double>>> LIVING_ADDITIONAL = ATTACHMENT_TYPES.register("living_cooldown", () -> AttachmentType.<Map<ResourceLocation, Double>>builder(() -> new HashMap<>()).serialize(Codec.unboundedMap(ResourceLocation.CODEC, Codec.DOUBLE).xmap(HashMap::new, Function.identity())).build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Map<Identifier, Double>>> LIVING_ADDITIONAL = ATTACHMENT_TYPES.register(
+            "living_cooldown",
+            () -> AttachmentType.<Map<Identifier, Double>>builder(() -> new HashMap<>())
+                    .serialize(Codec.unboundedMap(Identifier.CODEC, Codec.DOUBLE)
+                            .<Map<Identifier, Double>>xmap(m -> m, m -> m)
+                            .fieldOf("value"))
+                    .build());
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<SpiritusChunk>> SPIRITUS_CHUNK = ATTACHMENT_TYPES.register(
-            "will_chunk", () -> AttachmentType.builder(SpiritusChunk::new).serialize(SpiritusChunk.CODEC).build()
+            "will_chunk", () -> AttachmentType.builder(SpiritusChunk::new).serialize(SpiritusChunk.CODEC.fieldOf("value")).build()
     );
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<DeadPetStorage>> DEAD_PET_STORAGE = ATTACHMENT_TYPES.register(
             "dead_pet_storage", () -> AttachmentType.builder(() -> DeadPetStorage.EMPTY)
-                    .serialize(DeadPetStorage.CODEC)
+                    .serialize(DeadPetStorage.CODEC.fieldOf("value"))
                     .copyOnDeath()
                     .build()
     );
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<DungeonExitData>> DUNGEON_EXIT = ATTACHMENT_TYPES.register(
             "dungeon_exit", () -> AttachmentType.builder(() -> DungeonExitData.EMPTY)
-                    .serialize(DungeonExitData.CODEC)
+                    .serialize(DungeonExitData.CODEC.fieldOf("value"))
                     .copyOnDeath()
                     .build()
     );

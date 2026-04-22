@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.util.helper;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.tags.TagKey;
@@ -22,13 +22,15 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
 
 public final class OreDiscoveryHelper {
 
     private OreDiscoveryHelper() {}
 
     public static List<MaterialDefinition> discoverNewMaterials(ServerLevel level) {
-        Registry<Item> itemRegistry = level.registryAccess().registryOrThrow(Registries.ITEM);
+        Registry<Item> itemRegistry = level.registryAccess().lookupOrThrow(Registries.ITEM);
         ResourceManager resourceManager = level.getServer().getResourceManager();
 
         List<String> oreNames = TagHelper.getOreNames(itemRegistry);
@@ -66,9 +68,9 @@ public final class OreDiscoveryHelper {
     @Nullable
     public static String findSmeltOutput(ServerLevel level, Registry<Item> itemRegistry, Item oreItem, String oreName) {
         var input = new SingleRecipeInput(new ItemStack(oreItem));
-        var recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, input, level);
+        Optional<RecipeHolder<SmeltingRecipe>> recipe = level.recipeAccess().getRecipeFor(RecipeType.SMELTING, input, level);
         if (recipe.isPresent()) {
-            ItemStack result = recipe.get().value().getResultItem(level.registryAccess());
+            ItemStack result = recipe.get().value().assemble(input);
             if (!result.isEmpty()) {
                 return BuiltInRegistries.ITEM.getKey(result.getItem()).toString();
             }
@@ -93,8 +95,8 @@ public final class OreDiscoveryHelper {
             return "#808080";
         }
 
-        ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(block);
-        ResourceLocation textureLocation = ResourceLocation.fromNamespaceAndPath(
+        Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
+        Identifier textureLocation = Identifier.fromNamespaceAndPath(
                 blockId.getNamespace(),
                 "textures/block/" + blockId.getPath() + ".png"
         );
@@ -114,13 +116,13 @@ public final class OreDiscoveryHelper {
 
                 for (int y = 0; y < height; y++) {
                     for (int x = 0; x < width; x++) {
-                        int pixel = image.getPixelRGBA(x, y);
+                        int pixel = image.getPixel(x, y);
                         int a = (pixel >> 24) & 0xFF;
                         if (a < 128) continue;
 
-                        int r = pixel & 0xFF;
+                        int r = (pixel >> 16) & 0xFF;
                         int g = (pixel >> 8) & 0xFF;
-                        int b = (pixel >> 16) & 0xFF;
+                        int b = pixel & 0xFF;
 
                         if (isStonePixel(r, g, b)) continue;
 

@@ -21,6 +21,7 @@ import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.item.crafting.Recipe;
 
 /**
  * Recipe that adds a new potion effect to a flask.
@@ -28,7 +29,7 @@ import java.util.List;
 public class FlaskEffectRecipe extends FlaskRecipe {
 
     public static final MapCodec<FlaskEffectRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.listOf().fieldOf("input").forGetter(FlaskEffectRecipe::getInput),
+            Ingredient.CODEC.listOf().fieldOf("input").forGetter(FlaskEffectRecipe::getInput),
             BuiltInRegistries.MOB_EFFECT.holderByNameCodec().fieldOf("effect").forGetter(FlaskEffectRecipe::getOutputEffect),
             Codec.INT.fieldOf("baseDuration").forGetter(FlaskEffectRecipe::getBaseDuration),
             Codec.INT.fieldOf("syphon").forGetter(FlaskEffectRecipe::getSyphon),
@@ -99,7 +100,7 @@ public class FlaskEffectRecipe extends FlaskRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<FlaskInput>> getSerializer() {
         return NVRecipes.FLASK_EFFECT_SERIALIZER.get();
     }
 }

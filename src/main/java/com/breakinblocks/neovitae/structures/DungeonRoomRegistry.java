@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.structures;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import javax.annotation.Nullable;
 import net.minecraft.util.RandomSource;
 import org.apache.commons.lang3.tuple.Pair;
@@ -28,13 +28,13 @@ public final class DungeonRoomRegistry {
     private static volatile int totalWeight = 0;
 
     // Modern room pool system - thread-safe
-    private static final Map<ResourceLocation, DungeonRoom> dungeonRoomMap = new ConcurrentHashMap<>();
-    private static final Map<ResourceLocation, List<Pair<ResourceLocation, Integer>>> roomPoolTable = new ConcurrentHashMap<>();
-    private static final Map<ResourceLocation, Integer> totalWeightMap = new ConcurrentHashMap<>();
+    private static final Map<Identifier, DungeonRoom> dungeonRoomMap = new ConcurrentHashMap<>();
+    private static final Map<Identifier, List<Pair<Identifier, Integer>>> roomPoolTable = new ConcurrentHashMap<>();
+    private static final Map<Identifier, Integer> totalWeightMap = new ConcurrentHashMap<>();
 
     // Unloaded resources (to be loaded from JSON) - thread-safe
-    private static final List<ResourceLocation> unloadedDungeonRooms = new CopyOnWriteArrayList<>();
-    private static final List<ResourceLocation> unloadedDungeonRoomPools = new CopyOnWriteArrayList<>();
+    private static final List<Identifier> unloadedDungeonRooms = new CopyOnWriteArrayList<>();
+    private static final List<Identifier> unloadedDungeonRoomPools = new CopyOnWriteArrayList<>();
 
     /**
      * Gets the legacy dungeon weight map (read-only view).
@@ -46,40 +46,40 @@ public final class DungeonRoomRegistry {
     /**
      * Gets the dungeon room map (read-only view).
      */
-    public static Map<ResourceLocation, DungeonRoom> getDungeonRoomMap() {
+    public static Map<Identifier, DungeonRoom> getDungeonRoomMap() {
         return Collections.unmodifiableMap(dungeonRoomMap);
     }
 
     /**
      * Gets the room pool table (read-only view).
      */
-    public static Map<ResourceLocation, List<Pair<ResourceLocation, Integer>>> getRoomPoolTable() {
+    public static Map<Identifier, List<Pair<Identifier, Integer>>> getRoomPoolTable() {
         return Collections.unmodifiableMap(roomPoolTable);
     }
 
     @Nullable
-    public static List<Pair<ResourceLocation, Integer>> getRoomPoolEntries(ResourceLocation poolName) {
+    public static List<Pair<Identifier, Integer>> getRoomPoolEntries(Identifier poolName) {
         return roomPoolTable.get(poolName);
     }
 
     /**
      * Gets the list of unloaded dungeon rooms.
      */
-    public static List<ResourceLocation> getUnloadedDungeonRooms() {
+    public static List<Identifier> getUnloadedDungeonRooms() {
         return unloadedDungeonRooms;
     }
 
     /**
      * Gets the list of unloaded room pools.
      */
-    public static List<ResourceLocation> getUnloadedDungeonRoomPools() {
+    public static List<Identifier> getUnloadedDungeonRoomPools() {
         return unloadedDungeonRoomPools;
     }
 
     /**
      * Registers a dungeon room with a specific weight.
      */
-    public static synchronized void registerDungeonRoom(ResourceLocation res, DungeonRoom room, int weight) {
+    public static synchronized void registerDungeonRoom(Identifier res, DungeonRoom room, int weight) {
         room.setKey(res);
         dungeonWeightMap.put(room, weight);
         totalWeight += weight;
@@ -90,21 +90,21 @@ public final class DungeonRoomRegistry {
     /**
      * Registers an unloaded dungeon room to be loaded from JSON.
      */
-    public static void registerUnloadedDungeonRoom(ResourceLocation res) {
+    public static void registerUnloadedDungeonRoom(Identifier res) {
         unloadedDungeonRooms.add(res);
     }
 
     /**
      * Registers an unloaded room pool to be loaded from JSON.
      */
-    public static void registerUnloadedDungeonRoomPool(ResourceLocation res) {
+    public static void registerUnloadedDungeonRoomPool(Identifier res) {
         unloadedDungeonRoomPools.add(res);
     }
 
     /**
      * Registers a room pool with weighted room entries.
      */
-    public static void registerDungeonRoomPool(ResourceLocation poolRes, List<Pair<ResourceLocation, Integer>> pool) {
+    public static void registerDungeonRoomPool(Identifier poolRes, List<Pair<Identifier, Integer>> pool) {
         roomPoolTable.put(poolRes, new CopyOnWriteArrayList<>(pool));
         int totalWeightOfPool = pool.stream().mapToInt(Pair::getValue).sum();
         totalWeightMap.put(poolRes, totalWeightOfPool);
@@ -119,7 +119,7 @@ public final class DungeonRoomRegistry {
      * @param rand         Random source
      * @return A random DungeonRoom, or null if the pool doesn't exist or is empty
      */
-    public static DungeonRoom getRandomDungeonRoom(ResourceLocation roomPoolName, RandomSource rand) {
+    public static DungeonRoom getRandomDungeonRoom(Identifier roomPoolName, RandomSource rand) {
         Integer maxWeight = totalWeightMap.get(roomPoolName);
         if (maxWeight == null || maxWeight <= 0) {
             LOGGER.warn("No weight found for room pool: {}", roomPoolName);
@@ -127,17 +127,17 @@ public final class DungeonRoomRegistry {
         }
 
         int wantedWeight = rand.nextInt(maxWeight);
-        List<Pair<ResourceLocation, Integer>> roomPool = roomPoolTable.get(roomPoolName);
+        List<Pair<Identifier, Integer>> roomPool = roomPoolTable.get(roomPoolName);
 
         if (roomPool == null || roomPool.isEmpty()) {
             LOGGER.warn("Empty or missing room pool: {}", roomPoolName);
             return null;
         }
 
-        for (Pair<ResourceLocation, Integer> entry : roomPool) {
+        for (Pair<Identifier, Integer> entry : roomPool) {
             wantedWeight -= entry.getValue();
             if (wantedWeight < 0) {
-                ResourceLocation dungeonName = entry.getKey();
+                Identifier dungeonName = entry.getKey();
                 DungeonRoom room = dungeonRoomMap.get(dungeonName);
                 if (room == null) {
                     LOGGER.warn("Room not found in registry: {}", dungeonName);
@@ -152,7 +152,7 @@ public final class DungeonRoomRegistry {
     /**
      * Gets a specific dungeon room by resource location.
      */
-    public static DungeonRoom getDungeonRoom(ResourceLocation dungeonName) {
+    public static DungeonRoom getDungeonRoom(Identifier dungeonName) {
         return dungeonRoomMap.get(dungeonName);
     }
 

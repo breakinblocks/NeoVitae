@@ -16,6 +16,8 @@ import com.breakinblocks.neovitae.common.datamap.BloodOrb;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+import net.minecraft.core.Holder;
+import net.minecraft.world.item.Item;
 
 /**
  * A custom ingredient that matches any Blood Orb with a tier >= the specified minimum tier.
@@ -23,6 +25,8 @@ import java.util.stream.Stream;
  * to add custom orbs to any tier.
  */
 public class OrbTierIngredient implements ICustomIngredient {
+    @Override public java.util.stream.Stream<Holder<Item>> items() { return java.util.stream.Stream.empty(); }
+
 
     private final int minimumTier;
 
@@ -48,11 +52,11 @@ public class OrbTierIngredient implements ICustomIngredient {
         if (stack.isEmpty()) {
             return false;
         }
-        BloodOrb orb = stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
+        BloodOrb orb = stack.typeHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
         return orb != null && orb.tier() >= minimumTier;
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public Stream<ItemStack> getItems() {
         // Return all items from the registry that have blood orb data with tier >= minimumTier
         List<ItemStack> matchingOrbs = new ArrayList<>();

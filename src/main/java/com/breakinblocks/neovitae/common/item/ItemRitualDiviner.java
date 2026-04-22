@@ -7,10 +7,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -40,6 +39,9 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.ritual.*;
 
 import java.util.*;
+import java.util.function.Consumer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 /**
  * The Ritual Diviner is used to build rituals by automatically placing ritual stones.
@@ -55,8 +57,8 @@ public class ItemRitualDiviner extends Item {
 
     private final int type;
 
-    public ItemRitualDiviner(int type) {
-        super(new Item.Properties()
+    public ItemRitualDiviner(Item.Properties props, int type) {
+        super(props
                 .stacksTo(1)
                 .component(NVDataComponents.CURRENT_RITUAL.get(), "")
                 .component(NVDataComponents.DIVINER_DIRECTION.get(), Direction.NORTH.get3DDataValue())
@@ -105,7 +107,7 @@ public class ItemRitualDiviner extends Item {
     public Ritual getCurrentRitual(ItemStack stack) {
         String id = getCurrentRitualId(stack);
         if (id.isEmpty()) return null;
-        return RitualRegistry.getRitual(ResourceLocation.parse(id));
+        return RitualRegistry.getRitual(Identifier.parse(id));
     }
 
 
@@ -142,7 +144,7 @@ public class ItemRitualDiviner extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         setActivated(stack, false);
 
@@ -150,18 +152,18 @@ public class ItemRitualDiviner extends Item {
             if (!level.isClientSide()) {
                 cycleRitual(stack, player, false);
             }
-            return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+            return InteractionResult.SUCCESS;
         }
 
         HitResult ray = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
         if (ray != null && ray.getType() == HitResult.Type.BLOCK) {
-            return new InteractionResultHolder<>(InteractionResult.PASS, stack);
+            return InteractionResult.PASS;
         }
 
         if (!level.isClientSide()) {
             cycleDirection(stack, player);
         }
-        return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+        return InteractionResult.SUCCESS;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -183,7 +185,7 @@ public class ItemRitualDiviner extends Item {
         ClientHandler.setRitualHoloToNull();
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
         if (!(entity instanceof Player player)) return;
         if (!isActivated(stack)) return;
@@ -277,7 +279,10 @@ public class ItemRitualDiviner extends Item {
     private boolean consumeRitualStone(ItemStack diviner, Level level, Player player) {
         if (player.isCreative()) return true;
 
-        for (ItemStack invStack : player.getInventory().items) {
+        var inv = player.getInventory();
+        int size = inv.getContainerSize();
+        for (int i = 0; i < size; i++) {
+            ItemStack invStack = inv.getItem(i);
             if (invStack.isEmpty()) continue;
             if (invStack.getItem() instanceof BlockItem blockItem) {
                 if (blockItem.getBlock() instanceof BlockRitualStone) {
@@ -299,11 +304,11 @@ public class ItemRitualDiviner extends Item {
             default -> Direction.NORTH;
         };
         setDirection(stack, next);
-        player.displayClientMessage(
-                Component.translatable(TOOLTIP_BASE + "currentDirection", capitalize(next.getName())), true);
+        player.sendOverlayMessage(
+                Component.translatable(TOOLTIP_BASE + "currentDirection", capitalize(next.getName())));
 
         // Force sync inventory to client so tooltip updates
-        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+        if (player instanceof ServerPlayer serverPlayer) {
             serverPlayer.inventoryMenu.broadcastChanges();
         }
     }
@@ -314,20 +319,20 @@ public class ItemRitualDiviner extends Item {
         List<Ritual> rituals = RitualRegistry.getAllRituals().stream()
                 .filter(r -> canDivinerBuildRitual(stack, r))
                 .sorted(Comparator.comparing(r -> {
-                    ResourceLocation id = RitualRegistry.getId(r);
+                    Identifier id = RitualRegistry.getId(r);
                     return id != null ? id.toString() : "";
                 }))
                 .toList();
 
         if (rituals.isEmpty()) {
-            player.displayClientMessage(
-                    Component.translatable("chat.neovitae.diviner.noRituals").withStyle(ChatFormatting.RED), true);
+            player.sendOverlayMessage(
+                    Component.translatable("chat.neovitae.diviner.noRituals").withStyle(ChatFormatting.RED));
             return;
         }
 
         int currentIndex = -1;
         for (int i = 0; i < rituals.size(); i++) {
-            ResourceLocation id = RitualRegistry.getId(rituals.get(i));
+            Identifier id = RitualRegistry.getId(rituals.get(i));
             if (id != null && id.toString().equals(currentId)) {
                 currentIndex = i;
                 break;
@@ -344,14 +349,14 @@ public class ItemRitualDiviner extends Item {
         }
 
         Ritual nextRitual = rituals.get(nextIndex);
-        ResourceLocation nextId = RitualRegistry.getId(nextRitual);
+        Identifier nextId = RitualRegistry.getId(nextRitual);
 
         if (nextId != null) {
             setCurrentRitual(stack, nextId.toString());
             notifyRitualChange(nextRitual, player);
 
             // Force sync inventory to client so tooltip updates
-            if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            if (player instanceof ServerPlayer serverPlayer) {
                 serverPlayer.inventoryMenu.broadcastChanges();
             }
         }
@@ -369,12 +374,12 @@ public class ItemRitualDiviner extends Item {
     }
 
     private void notifyRitualChange(Ritual ritual, Player player) {
-        player.displayClientMessage(Component.translatable(ritual.getTranslationKey()), true);
+        player.sendOverlayMessage(Component.translatable(ritual.getTranslationKey()));
     }
 
     private void notifyBlockedBuild(Player player, BlockPos pos) {
-        player.displayClientMessage(
-                Component.translatable("chat.neovitae.diviner.blockedBuild", pos.getX(), pos.getY(), pos.getZ()), true);
+        player.sendOverlayMessage(
+                Component.translatable("chat.neovitae.diviner.blockedBuild", pos.getX(), pos.getY(), pos.getZ()));
     }
 
 
@@ -392,50 +397,47 @@ public class ItemRitualDiviner extends Item {
 
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         Ritual ritual = getCurrentRitual(stack);
         if (ritual != null) {
-            tooltip.add(Component.translatable(TOOLTIP_BASE + "currentRitual",
+            tooltip.accept(Component.translatable(TOOLTIP_BASE + "currentRitual",
                     Component.translatable(ritual.getTranslationKey())).withStyle(ChatFormatting.GRAY));
 
-            boolean sneaking = Screen.hasShiftDown();
-            boolean extraInfo = sneaking && Screen.hasAltDown();
+            boolean sneaking = com.breakinblocks.neovitae.util.helper.KeyboardHelper.isShiftDown();
+            boolean extraInfo = com.breakinblocks.neovitae.util.helper.KeyboardHelper.isAltDown();
 
             if (extraInfo) {
-                tooltip.add(Component.empty());
+                tooltip.accept(Component.empty());
             } else if (sneaking) {
-                tooltip.add(Component.translatable(TOOLTIP_BASE + "currentDirection",
+                tooltip.accept(Component.translatable(TOOLTIP_BASE + "currentDirection",
                         capitalize(getDirection(stack).getName())).withStyle(ChatFormatting.GRAY));
-                tooltip.add(Component.empty());
+                tooltip.accept(Component.empty());
 
                 Map<EnumRuneType, Integer> runeCounts = countRunes(ritual);
                 int total = 0;
                 for (EnumRuneType runeType : EnumRuneType.values()) {
                     int count = runeCounts.getOrDefault(runeType, 0);
                     if (count > 0) {
-                        tooltip.add(Component.translatable(TOOLTIP_BASE + runeType.translationKey, count)
+                        tooltip.accept(Component.translatable(TOOLTIP_BASE + runeType.translationKey, count)
                                 .withStyle(runeType.colorCode));
                         total += count;
                     }
                 }
 
-                tooltip.add(Component.empty());
-                tooltip.add(Component.translatable(TOOLTIP_BASE + "totalRune", total).withStyle(ChatFormatting.GRAY));
+                tooltip.accept(Component.empty());
+                tooltip.accept(Component.translatable(TOOLTIP_BASE + "totalRune", total).withStyle(ChatFormatting.GRAY));
             } else {
-                tooltip.add(Component.empty());
+                tooltip.accept(Component.empty());
                 String infoKey = ritual.getTranslationKey() + ".info";
-                tooltip.add(Component.translatable(infoKey).withStyle(ChatFormatting.GRAY));
-                tooltip.add(Component.empty());
-                tooltip.add(Component.translatable(TOOLTIP_BASE + "extraInfo").withStyle(ChatFormatting.BLUE));
-                tooltip.add(Component.translatable(TOOLTIP_BASE + "extraExtraInfo").withStyle(ChatFormatting.BLUE));
+                tooltip.accept(Component.translatable(infoKey).withStyle(ChatFormatting.GRAY));
+                tooltip.accept(Component.empty());
+                tooltip.accept(Component.translatable(TOOLTIP_BASE + "extraInfo").withStyle(ChatFormatting.BLUE));
+                tooltip.accept(Component.translatable(TOOLTIP_BASE + "extraExtraInfo").withStyle(ChatFormatting.BLUE));
             }
         } else {
-            tooltip.add(Component.translatable(TOOLTIP_BASE + "noRitual").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.translatable(TOOLTIP_BASE + "cycleHint").withStyle(ChatFormatting.BLUE));
-        }
-
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
+            tooltip.accept(Component.translatable(TOOLTIP_BASE + "noRitual").withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.translatable(TOOLTIP_BASE + "cycleHint").withStyle(ChatFormatting.BLUE));
+        }}
 
     private Map<EnumRuneType, Integer> countRunes(Ritual ritual) {
         Map<EnumRuneType, Integer> counts = new EnumMap<>(EnumRuneType.class);
@@ -454,13 +456,13 @@ public class ItemRitualDiviner extends Item {
 
     public static void spawnParticles(Level level, BlockPos pos, int amount) {
         for (int i = 0; i < amount; i++) {
-            double dx = level.random.nextGaussian() * 0.02;
-            double dy = level.random.nextGaussian() * 0.02;
-            double dz = level.random.nextGaussian() * 0.02;
+            double dx = level.getRandom().nextGaussian() * 0.02;
+            double dy = level.getRandom().nextGaussian() * 0.02;
+            double dz = level.getRandom().nextGaussian() * 0.02;
             level.addParticle(ParticleTypes.HAPPY_VILLAGER,
-                    pos.getX() + level.random.nextFloat(),
-                    pos.getY() + level.random.nextFloat(),
-                    pos.getZ() + level.random.nextFloat(),
+                    pos.getX() + level.getRandom().nextFloat(),
+                    pos.getY() + level.getRandom().nextFloat(),
+                    pos.getZ() + level.getRandom().nextFloat(),
                     dx, dy, dz);
         }
     }

@@ -21,7 +21,7 @@ import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntit
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
@@ -34,7 +34,7 @@ import java.text.DecimalFormat;
 public enum NVBlockComponentProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
     INSTANCE;
 
-    private static final ResourceLocation UID = NeoVitae.rl("block_info");
+    private static final Identifier UID = NeoVitae.rl("block_info");
     private static final DecimalFormat FORMAT = new DecimalFormat("#,###");
 
     @Override
@@ -43,62 +43,62 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
         if (data == null || data.isEmpty()) return;
 
         if (data.contains("array_effect")) {
-            tooltip.add(Component.literal(data.getString("array_effect")).withStyle(ChatFormatting.LIGHT_PURPLE));
+            tooltip.add(Component.translatable(data.getStringOr("array_effect", "jade.neovitae.array_effect.generic")).withStyle(ChatFormatting.LIGHT_PURPLE));
         }
 
         if (data.contains("array_mode")) {
-            boolean down = data.getBoolean("array_mode_down");
+            boolean down = data.getBooleanOr("array_mode_down", false);
             String arrow = down ? "\u25BC" : "\u25B2";
-            tooltip.add(Component.literal("Direction: " + arrow + " " + data.getString("array_mode"))
+            tooltip.add(Component.translatable("jade.neovitae.array_direction", arrow, data.getStringOr("array_mode", ""))
                     .withStyle(down ? ChatFormatting.BLUE : ChatFormatting.AQUA));
         }
 
         if (data.contains("array_accel")) {
-            tooltip.add(Component.literal(String.format("Acceleration: %.3f", data.getDouble("array_accel")))
+            tooltip.add(Component.translatable("jade.neovitae.array_accel", String.format("%.3f", data.getDoubleOr("array_accel", 0d)))
                     .withStyle(ChatFormatting.GOLD));
         }
 
         if (data.contains("array_max_vel")) {
-            tooltip.add(Component.literal(String.format("Max Velocity: %.2f", data.getDouble("array_max_vel")))
+            tooltip.add(Component.translatable("jade.neovitae.array_max_vel", String.format("%.2f", data.getDoubleOr("array_max_vel", 0d)))
                     .withStyle(ChatFormatting.GOLD));
         }
 
         if (data.contains("altar_tier")) {
-            tooltip.add(Component.literal("Tier " + data.getInt("altar_tier")).withStyle(ChatFormatting.GOLD));
-            if (data.getBoolean("altar_active")) {
-                tooltip.add(Component.literal("Crafting...").withStyle(ChatFormatting.GREEN));
+            tooltip.add(Component.translatable("jade.neovitae.altar_tier", data.getIntOr("altar_tier", 0)).withStyle(ChatFormatting.GOLD));
+            if (data.getBooleanOr("altar_active", false)) {
+                tooltip.add(Component.translatable("jade.neovitae.crafting").withStyle(ChatFormatting.GREEN));
             }
         }
 
         if (data.contains("ritual_name")) {
-            String name = data.getString("ritual_name");
-            boolean active = data.getBoolean("ritual_active");
-            tooltip.add(Component.literal(name).withStyle(active ? ChatFormatting.GREEN : ChatFormatting.GRAY));
+            String name = data.getStringOr("ritual_name", "");
+            boolean active = data.getBooleanOr("ritual_active", false);
+            tooltip.add(Component.translatable(name).withStyle(active ? ChatFormatting.GREEN : ChatFormatting.GRAY));
             if (!active) {
-                tooltip.add(Component.literal("Inactive").withStyle(ChatFormatting.DARK_GRAY));
+                tooltip.add(Component.translatable("jade.neovitae.inactive").withStyle(ChatFormatting.DARK_GRAY));
             }
         }
 
         if (data.contains("tank_amount")) {
-            tooltip.add(Component.literal("EV: " + FORMAT.format(data.getInt("tank_amount")) + " / " + FORMAT.format(data.getInt("tank_capacity")) + " mB").withStyle(ChatFormatting.DARK_RED));
+            tooltip.add(Component.translatable("jade.neovitae.tank_ev", FORMAT.format(data.getIntOr("tank_amount", 0)), FORMAT.format(data.getIntOr("tank_capacity", 0))).withStyle(ChatFormatting.DARK_RED));
         }
 
         if (data.contains("light_color")) {
-            tooltip.add(Component.literal("Color: " + data.getString("light_color")).withStyle(ChatFormatting.YELLOW));
+            tooltip.add(Component.translatable("jade.neovitae.light_color", data.getStringOr("light_color", "")).withStyle(ChatFormatting.YELLOW));
         }
 
         if (data.contains("forge_progress")) {
-            int progress = data.getInt("forge_progress");
+            int progress = data.getIntOr("forge_progress", 0);
             if (progress > 0) {
-                tooltip.add(Component.literal("Progress: " + progress + "%").withStyle(ChatFormatting.GOLD));
+                tooltip.add(Component.translatable("jade.neovitae.progress", progress).withStyle(ChatFormatting.GOLD));
             }
         }
 
         if (data.contains("tranquility")) {
-            tooltip.add(Component.literal("Tranquility: " + String.format("%.1f", data.getDouble("tranquility"))).withStyle(ChatFormatting.AQUA));
-            double bonus = data.getDouble("incense_bonus");
+            tooltip.add(Component.translatable("jade.neovitae.tranquility", String.format("%.1f", data.getDoubleOr("tranquility", 0d))).withStyle(ChatFormatting.AQUA));
+            double bonus = data.getDoubleOr("incense_bonus", 0d);
             if (bonus > 0) {
-                tooltip.add(Component.literal("Incense Bonus: " + String.format("%.1f%%", bonus * 100)).withStyle(ChatFormatting.GOLD));
+                tooltip.add(Component.translatable("jade.neovitae.incense_bonus", String.format("%.1f", bonus * 100)).withStyle(ChatFormatting.GOLD));
             }
         }
     }
@@ -138,7 +138,7 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
 
         if (be instanceof MasterRitualStoneBlockEntity mrs) {
             if (mrs.getCurrentRitual() != null) {
-                data.putString("ritual_name", mrs.getCurrentRitual().getName());
+                data.putString("ritual_name", mrs.getCurrentRitual().getTranslationKey());
                 data.putBoolean("ritual_active", mrs.isActive());
             }
         }
@@ -166,19 +166,19 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
     }
 
     private static String getEffectName(AlchemyArrayEffect effect) {
-        if (effect instanceof AlchemyArrayEffectBounce) return "Bounce Array";
-        if (effect instanceof AlchemyArrayEffectSpike) return "Spike Array";
-        if (effect instanceof AlchemyArrayEffectUpdraft) return "Updraft Array";
-        if (effect instanceof AlchemyArrayEffectUndertow) return "Undertow Array";
-        if (effect instanceof AlchemyArrayEffectMovement) return "Movement Array";
-        if (effect instanceof AlchemyArrayEffectDay) return "Sunrise Array";
-        if (effect instanceof AlchemyArrayEffectNight) return "Moonrise Array";
-        if (effect instanceof AlchemyArrayEffectElevator) return "Teleposition Array";
-        return "Alchemy Array";
+        if (effect instanceof AlchemyArrayEffectBounce) return "jade.neovitae.array_effect.bounce";
+        if (effect instanceof AlchemyArrayEffectSpike) return "jade.neovitae.array_effect.spike";
+        if (effect instanceof AlchemyArrayEffectUpdraft) return "jade.neovitae.array_effect.updraft";
+        if (effect instanceof AlchemyArrayEffectUndertow) return "jade.neovitae.array_effect.undertow";
+        if (effect instanceof AlchemyArrayEffectMovement) return "jade.neovitae.array_effect.movement";
+        if (effect instanceof AlchemyArrayEffectDay) return "jade.neovitae.array_effect.day";
+        if (effect instanceof AlchemyArrayEffectNight) return "jade.neovitae.array_effect.night";
+        if (effect instanceof AlchemyArrayEffectElevator) return "jade.neovitae.array_effect.elevator";
+        return "jade.neovitae.array_effect.generic";
     }
 
     @Override
-    public ResourceLocation getUid() {
+    public Identifier getUid() {
         return UID;
     }
 }

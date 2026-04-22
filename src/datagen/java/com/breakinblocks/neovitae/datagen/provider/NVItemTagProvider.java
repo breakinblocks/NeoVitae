@@ -2,10 +2,8 @@ package com.breakinblocks.neovitae.datagen.provider;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.ItemTagsProvider;
+import net.neoforged.neoforge.common.data.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.tag.NVTags;
@@ -13,13 +11,15 @@ import com.breakinblocks.neovitae.common.tag.NVTags;
 import java.util.concurrent.CompletableFuture;
 
 public class NVItemTagProvider extends ItemTagsProvider {
-    public NVItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags) {
-        super(output, lookupProvider, blockTags, NeoVitae.MODID, null);
+    public NVItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
+                             CompletableFuture<net.minecraft.data.tags.TagsProvider.TagLookup<net.minecraft.world.level.block.Block>> blockTags) {
+        super(output, lookupProvider, NeoVitae.MODID);
     }
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        copy(NVTags.Blocks.STORAGE_BLOCKS_HELLFORGED, NVTags.Items.STORAGE_BLOCKS_HELLFORGED);
+        // TODO(phase15 stage2): copy() removed in 26.1 - inline the block->item tag contents here.
+        // Was: copy(NVTags.Blocks.STORAGE_BLOCKS_HELLFORGED, NVTags.Items.STORAGE_BLOCKS_HELLFORGED);
 
         tag(NVTags.Items.LIVING_SET)
                 .add(NVItems.LIVING_HELMET.get(), NVItems.LIVING_PLATE.get(), NVItems.LIVING_LEGGINGS.get(), NVItems.LIVING_BOOTS.get());
@@ -39,7 +39,8 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.SHOVELS).add(NVItems.SENTIENT_SHOVEL.get());
         tag(ItemTags.MINING_ENCHANTABLE).add(NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(), NVItems.SENTIENT_AXE.get());
         tag(ItemTags.MINING_LOOT_ENCHANTABLE).add(NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(), NVItems.SENTIENT_AXE.get());
-        tag(ItemTags.SWORD_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get());
+        // ItemTags.SWORD_ENCHANTABLE removed in 26.1 — MELEE_WEAPON_ENCHANTABLE + SHARP_WEAPON_ENCHANTABLE cover the use case.
+        tag(ItemTags.MELEE_WEAPON_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get());
         tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get());
         tag(ItemTags.WEAPON_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get());
         tag(ItemTags.FIRE_ASPECT_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get());

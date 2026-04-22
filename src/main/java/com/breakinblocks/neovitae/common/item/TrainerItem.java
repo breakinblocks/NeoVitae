@@ -6,7 +6,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
@@ -27,18 +27,18 @@ import com.breakinblocks.neovitae.common.menu.TrainerMenu;
 import java.util.List;
 
 public class TrainerItem extends Item {
-    public TrainerItem() {
-        super(new Properties().stacksTo(1));
+    public TrainerItem(Item.Properties props) {
+        super(props.stacksTo(1));
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
 
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             ItemStack chest = LivingHelper.getChest(player);
             if (LivingHelper.isNeverValid(chest)) {
-                return InteractionResultHolder.fail(stack);
+                return InteractionResult.FAIL;
             }
 
             GhostItemHandler handler = new GhostItemHandler(16) {
@@ -76,13 +76,13 @@ public class TrainerItem extends Item {
 
             serverPlayer.openMenu(
                     new SimpleMenuProvider(
-                            (id, inv, playerIn) -> new TrainerMenu(id, inv, handler, data, playerIn.getInventory().selected),
+                            (id, inv, playerIn) -> new TrainerMenu(id, inv, handler, data, playerIn.getInventory().getSelectedSlot()),
                             Component.translatable(getDescriptionId())
                     ),
-                    buf -> buf.writeInt(serverPlayer.getInventory().selected)
+                    buf -> buf.writeInt(serverPlayer.getInventory().getSelectedSlot())
             );
         }
 
-        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
+        return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
     }
 }

@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -27,18 +26,18 @@ public class ItemSigilToggleable extends ItemSigil implements IActivatable {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+    public InteractionResult use(Level world, Player player, InteractionHand hand) {
         ItemStack stack = resolveStackForUse(player, hand);
         if (stack == null) {
-            return InteractionResultHolder.fail(player.getItemInHand(hand));
+            return InteractionResult.FAIL;
         }
 
         Binding binding = getBinding(stack);
         if (binding == null) {
-            return InteractionResultHolder.consume(player.getItemInHand(hand));
+            return InteractionResult.CONSUME;
         }
 
-        if (!world.isClientSide && !isUnusable(stack)) {
+        if (!world.isClientSide() && !isUnusable(stack)) {
             if (player.isShiftKeyDown()) {
                 setActivatedState(stack, !getActivated(stack));
             }
@@ -82,9 +81,9 @@ public class ItemSigilToggleable extends ItemSigil implements IActivatable {
         return false;
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if (!worldIn.isClientSide && entityIn instanceof Player player && getActivated(stack)) {
+        if (!worldIn.isClientSide() && entityIn instanceof Player player && getActivated(stack)) {
             int drainInterval = getDrainInterval();
             if (entityIn.tickCount % drainInterval == 0) {
                 Binding binding = getBinding(stack);

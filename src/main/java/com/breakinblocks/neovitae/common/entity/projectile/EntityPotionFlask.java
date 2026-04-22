@@ -13,7 +13,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ItemSupplier;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -32,6 +32,7 @@ import com.breakinblocks.neovitae.common.entity.NVEntities;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.ArrayList;
 
 /**
  * Throwable potion flask entity for alchemy flasks.
@@ -48,11 +49,11 @@ public class EntityPotionFlask extends ThrowableItemProjectile implements ItemSu
     }
 
     public EntityPotionFlask(Level level, LivingEntity thrower) {
-        super(NVEntities.POTION_FLASK.get(), thrower, level);
+        super(NVEntities.POTION_FLASK.get(), thrower, level, ItemStack.EMPTY);
     }
 
     public EntityPotionFlask(Level level, double x, double y, double z) {
-        super(NVEntities.POTION_FLASK.get(), x, y, z, level);
+        super(NVEntities.POTION_FLASK.get(), x, y, z, level, ItemStack.EMPTY);
     }
 
     @Override
@@ -76,7 +77,7 @@ public class EntityPotionFlask extends ThrowableItemProjectile implements ItemSu
     @Override
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             ItemStack itemstack = this.getItem();
             PotionContents contents = itemstack.get(DataComponents.POTION_CONTENTS);
             boolean isWater = contents != null && !contents.getAllEffects().iterator().hasNext();
@@ -98,7 +99,7 @@ public class EntityPotionFlask extends ThrowableItemProjectile implements ItemSu
     @Override
     protected void onHit(HitResult result) {
         super.onHit(result);
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             ItemStack itemstack = this.getItem();
             PotionContents contents = itemstack.get(DataComponents.POTION_CONTENTS);
 
@@ -107,7 +108,7 @@ public class EntityPotionFlask extends ThrowableItemProjectile implements ItemSu
                 return;
             }
 
-            List<MobEffectInstance> effects = new java.util.ArrayList<>();
+            List<MobEffectInstance> effects = new ArrayList<>();
             contents.getAllEffects().forEach(effects::add);
             boolean isWater = effects.isEmpty();
 
@@ -170,8 +171,10 @@ public class EntityPotionFlask extends ThrowableItemProjectile implements ItemSu
                     for (MobEffectInstance effect : effects) {
                         MobEffect mobEffect = effect.getEffect().value();
                         if (mobEffect.isInstantenous()) {
-                            mobEffect.applyInstantenousEffect(this, this.getOwner(), entity,
-                                    effect.getAmplifier(), intensity);
+                            if (this.level() instanceof ServerLevel sl) {
+                                mobEffect.applyInstantenousEffect(sl, this, this.getOwner(), entity,
+                                        effect.getAmplifier(), intensity);
+                            }
                         } else {
                             int duration = (int) (intensity * (double) effect.getDuration() + 0.5D);
                             if (duration > 20) {

@@ -139,7 +139,7 @@ public class MeteorLayer {
     }
 
     public void buildLayer(Level level, BlockPos centerPos, int emptyRadius) {
-        recalculateMaxWeight(level.random, level);
+        recalculateMaxWeight(level.getRandom(), level);
 
         int radius = layerRadius;
         for (int i = -radius; i <= radius; i++) {
@@ -158,12 +158,12 @@ public class MeteorLayer {
                             continue;
                         }
                         if (shellBlock != null && checkIfSphereShell(radius, i, j, k)) {
-                            Block block = shellBlock.getRandomBlock(level.random, level);
+                            Block block = shellBlock.getRandomBlock(level.getRandom(), level);
                             if (block != null) {
                                 level.setBlockAndUpdate(pos, block.defaultBlockState());
                             }
                         } else {
-                            level.setBlockAndUpdate(pos, getRandomState(level.random, level));
+                            level.setBlockAndUpdate(pos, getRandomState(level.getRandom(), level));
                         }
                     }
                 }

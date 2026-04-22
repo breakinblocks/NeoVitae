@@ -2,7 +2,7 @@ package com.breakinblocks.neovitae.registry;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -14,7 +14,7 @@ import com.breakinblocks.neovitae.api.sigil.SigilType;
  */
 public class SigilTypeRegistry {
     public static final ResourceKey<Registry<SigilType>> SIGIL_TYPE_KEY =
-            ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "sigil_type"));
+            ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "sigil_type"));
 
     public static void register(IEventBus modBus) {
         modBus.addListener(SigilTypeRegistry::registerDatapackRegistry);
@@ -32,7 +32,7 @@ public class SigilTypeRegistry {
     /**
      * Creates a resource key for a sigil type.
      */
-    public static ResourceKey<SigilType> key(ResourceLocation location) {
+    public static ResourceKey<SigilType> key(Identifier location) {
         return ResourceKey.create(SIGIL_TYPE_KEY, location);
     }
 
@@ -40,6 +40,6 @@ public class SigilTypeRegistry {
      * Creates a resource key for a sigil type in the neovitae namespace.
      */
     public static ResourceKey<SigilType> key(String path) {
-        return key(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, path));
+        return key(Identifier.fromNamespaceAndPath(NeoVitae.MODID, path));
     }
 }

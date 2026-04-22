@@ -1,35 +1,43 @@
 package com.breakinblocks.neovitae.common.world;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.saveddata.SavedDataType;
+import com.breakinblocks.neovitae.NeoVitae;
 
 public class DungeonSavedData extends SavedData {
-    public static final String ID = "neovitae_dungeons";
+    public static final String ID = "dungeons";
     public static final int DUNGEON_DISPLACEMENT = 1000;
 
-    private int numberOfDungeons = 0;
+    public static final Codec<DungeonSavedData> CODEC = RecordCodecBuilder.create(builder -> builder.group(
+            Codec.INT.optionalFieldOf("numberOfDungeons", 0).forGetter(DungeonSavedData::getNumberOfDungeons)
+    ).apply(builder, DungeonSavedData::new));
+
+    public static final SavedDataType<DungeonSavedData> TYPE = new SavedDataType<>(NeoVitae.rl(ID), DungeonSavedData::new, CODEC, DataFixTypes.LEVEL);
+
+    private int numberOfDungeons;
+
+    public DungeonSavedData() {
+        this(0);
+    }
+
+    public DungeonSavedData(int numberOfDungeons) {
+        this.numberOfDungeons = numberOfDungeons;
+    }
 
     public int getNumberOfDungeons() {
         return numberOfDungeons;
     }
 
-    /**
-     * Increments the dungeon counter and marks dirty.
-     * @return The new dungeon index (to be used for positioning)
-     */
     public int incrementDungeonCounter() {
         numberOfDungeons++;
         setDirty();
         return numberOfDungeons;
     }
 
-    /**
-     * Calculates the spawn position for the next dungeon based on a spiral grid pattern.
-     * Each dungeon is placed DUNGEON_DISPLACEMENT blocks apart in a spiral.
-     * @return The BlockPos for the dungeon controller in the dungeon dimension
-     */
     public BlockPos getNextDungeonSpawnPosition() {
         int dungeonIndex = numberOfDungeons + 1;
 
@@ -55,17 +63,5 @@ public class DungeonSavedData extends SavedData {
         }
 
         return new BlockPos(0, 64, 0);
-    }
-    
-    @Override
-    public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
-        tag.putInt("numberOfDungeons", numberOfDungeons);
-        return tag;
-    }
-
-    public static DungeonSavedData load(CompoundTag tag, HolderLookup.Provider registries) {
-        DungeonSavedData savedData = new DungeonSavedData();
-        savedData.numberOfDungeons = tag.getInt("numberOfDungeons");
-        return savedData;
     }
 }

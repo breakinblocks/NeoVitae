@@ -3,18 +3,21 @@ package com.breakinblocks.neovitae.common.item.soul;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -22,8 +25,8 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
 import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
 
-import java.util.List;
 import java.util.Locale;
+import java.util.function.Consumer;
 
 import static com.breakinblocks.neovitae.common.item.soul.SentientToolHelper.*;
 
@@ -31,7 +34,7 @@ import static com.breakinblocks.neovitae.common.item.soul.SentientToolHelper.*;
  * Sentient Sword - a will-powered weapon that scales with spiritus in the player's inventory.
  * Kills enemies to collect will based on the current will type.
  */
-public class SentientSwordItem extends SwordItem implements ISentientTool {
+public class SentientSwordItem extends Item implements ISentientTool {
 
     private static final double[] DEFAULT_DAMAGE = {1, 1.5, 2, 2.5, 3, 3.5, 4};
     private static final double[] DESTRUCTIVE_DAMAGE = {1.5, 2.25, 3, 3.75, 4.5, 5.25, 6};
@@ -43,9 +46,8 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
 
     private static final double[] MOVEMENT_SPEED = {0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4};
 
-    public SentientSwordItem() {
-        super(NVMaterialsAndTiers.SENTIENT, new Properties()
-                .attributes(SwordItem.createAttributes(NVMaterialsAndTiers.SENTIENT, 6, -2.4f))
+    public SentientSwordItem(Item.Properties props) {
+        super(props.sword(NVMaterialsAndTiers.SENTIENT, 6, -2.4f)
                 .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT)
                 .component(NVDataComponents.SIGIL_ACTIVATED, false));
     }
@@ -66,46 +68,38 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-        if (!level.isClientSide && entity instanceof Player player && isSelected) {
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
+        if (entity instanceof Player player && slot == EquipmentSlot.MAINHAND) {
             if (level.getGameTime() % 20 == 0) {
                 recalculatePowers(stack, level, player);
             }
         }
-        super.inventoryTick(stack, level, entity, slotId, isSelected);
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+    public InteractionResult use(Level world, Player player, InteractionHand hand) {
         recalculatePowers(player.getItemInHand(hand), world, player);
-        return super.use(world, player, hand);
+        return InteractionResult.PASS;
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (super.hurtEnemy(stack, target, attacker)) {
-            if (attacker instanceof Player player) {
-                recalculatePowers(stack, player.level(), player);
-                SpiritusType type = getCurrentType(stack);
-                double will = PlayerSpiritusHandler.getTotalSpiritus(type, player);
-                int willBracket = getLevel(will);
+    public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        if (attacker instanceof Player player) {
+            recalculatePowers(stack, player.level(), player);
+            SpiritusType type = getCurrentType(stack);
+            double will = PlayerSpiritusHandler.getTotalSpiritus(type, player);
+            int willBracket = getLevel(will);
 
-                if (willBracket >= 0) {
-                    applyEffectToEntity(type, willBracket, target, player);
-                }
+            if (willBracket >= 0) {
+                applyEffectToEntity(type, willBracket, target, player);
             }
-            return true;
         }
-        return false;
     }
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
         recalculatePowers(stack, player.level(), player);
-        if (handleWillDrain(stack, player)) {
-            return false;
-        }
-        return super.onLeftClickEntity(stack, player, entity);
+        return handleWillDrain(stack, player);
     }
 
     @Override
@@ -165,7 +159,6 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
                         AttributeModifier.Operation.ADD_VALUE),
                 EquipmentSlotGroup.MAINHAND);
 
-        // Movement speed bonus for VENGEFUL will
         if (movementSpeed > 0) {
             builder.add(Attributes.MOVEMENT_SPEED,
                     new AttributeModifier(
@@ -179,10 +172,10 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae." + getTooltipKey() + ".desc").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.neovitae.currentType." + getCurrentType(stack).name().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(stack, context, tooltip, flag);
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display,
+                                Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable("tooltip.neovitae." + getTooltipKey() + ".desc").withStyle(ChatFormatting.GRAY));
+        tooltip.accept(Component.translatable("tooltip.neovitae.currentType." + getCurrentType(stack).name().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GRAY));
     }
 
     @Override

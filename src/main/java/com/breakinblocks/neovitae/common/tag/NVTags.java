@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.common.tag;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
@@ -41,7 +41,7 @@ public class NVTags {
         public static final TagKey<Item> CHARGES = tag(bm("charges"));
 
         public static final TagKey<Item> LIVING_UPGRADE_SET = tag(bm("living_upgrade_set"));
-        public static final TagKey<Item> LIVING_SET = withParent(LIVING_UPGRADE_SET, NVMaterialsAndTiers.LIVING_ARMOUR_MATERIAL.getId());
+        public static final TagKey<Item> LIVING_SET = withParent(LIVING_UPGRADE_SET, NVMaterialsAndTiers.LIVING_EQUIPMENT_ASSET.identifier());
 
         public static final TagKey<Item> FRAGMENTS_IRON = tag(c("fragments/iron"));
         public static final TagKey<Item> FRAGMENTS_GOLD = tag(c("fragments/gold"));
@@ -78,11 +78,11 @@ public class NVTags {
             return tag(input.location());
         }
 
-        private static TagKey<Item> withParent(TagKey<Item> parent, ResourceLocation location) {
+        private static TagKey<Item> withParent(TagKey<Item> parent, Identifier location) {
             return TagKey.create(Registries.ITEM, location.withPrefix(parent.location().getPath()+"/"));
         }
 
-        private static TagKey<Item> tag(ResourceLocation id) {
+        private static TagKey<Item> tag(Identifier id) {
             return TagKey.create(Registries.ITEM, id);
         }
     }
@@ -129,7 +129,7 @@ public class NVTags {
 
         public static final TagKey<Block> MUNDANE_BLOCK = tag(bm("mundane_block"));
 
-        private static TagKey<Block> tag(ResourceLocation id) {
+        private static TagKey<Block> tag(Identifier id) {
             return TagKey.create(Registries.BLOCK, id);
         }
     }
@@ -142,7 +142,7 @@ public class NVTags {
         public static final TagKey<Fluid> ANIMATED_SPIRITUS_SOURCE = tag(bm("animated_spiritus_source"));
         public static final TagKey<Fluid> ANIMATED_SPIRITUS_FLOWING = tag(bm("animated_spiritus_flowing"));
 
-        private static TagKey<Fluid> tag(ResourceLocation id) {
+        private static TagKey<Fluid> tag(Identifier id) {
             return TagKey.create(Registries.FLUID, id);
         }
     }
@@ -158,7 +158,7 @@ public class NVTags {
         public static final TagKey<EntityType<?>> RITUAL_BOSS_BLACKLIST = tag(bm("ritual_boss_blacklist"));
         public static final TagKey<EntityType<?>> NO_SACRIFICE = tag(bm("no_sacrifice"));
 
-        private static TagKey<EntityType<?>> tag(ResourceLocation id) {
+        private static TagKey<EntityType<?>> tag(Identifier id) {
             return TagKey.create(Registries.ENTITY_TYPE, id);
         }
     }
@@ -177,16 +177,16 @@ public class NVTags {
         /** Upgrades in this tag are unsuitable for Living Armor and should not be applied */
         public static final TagKey<LivingUpgrade> LIVING_BLACKLIST = tag(bm("living_blacklist"));
 
-        private static TagKey<LivingUpgrade> tag(ResourceLocation id) {
+        private static TagKey<LivingUpgrade> tag(Identifier id) {
             return TagKey.create(NVRegistries.Keys.LIVING_UPGRADES, id);
         }
     }
 
-    private static ResourceLocation bm(String path) {
-        return ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, path);
+    private static Identifier bm(String path) {
+        return Identifier.fromNamespaceAndPath(NeoVitae.MODID, path);
     }
 
-    private static ResourceLocation c(String path) {
-        return ResourceLocation.fromNamespaceAndPath("c", path);
+    private static Identifier c(String path) {
+        return Identifier.fromNamespaceAndPath("c", path);
     }
 }

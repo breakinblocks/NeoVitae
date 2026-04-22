@@ -27,6 +27,10 @@ import com.breakinblocks.neovitae.common.routing.RoutingLinkHelper;
 import com.breakinblocks.neovitae.api.routing.*;
 
 import javax.annotation.Nullable;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 
 /**
  * Shared base for all routing-node blocks (conduit, input, output, master).
@@ -82,8 +86,10 @@ public abstract class BlockRoutingNode extends BaseEntityBlock {
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
-                                   LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+    public BlockState updateShape(BlockState state, LevelReader level,
+                                   ScheduledTickAccess tickAccess, BlockPos pos,
+                                   Direction direction, BlockPos neighborPos, BlockState neighborState,
+                                   RandomSource random) {
         BooleanProperty prop = getPropertyForDirection(direction);
         return state.setValue(prop, canConnect(neighborState, level, neighborPos, direction));
     }
@@ -97,9 +103,9 @@ public abstract class BlockRoutingNode extends BaseEntityBlock {
     private static boolean hasRoutingCapability(BlockGetter getter, BlockPos neighborPos, Direction dirFromNode) {
         if (!(getter instanceof Level level)) return false;
         Direction side = dirFromNode.getOpposite();
-        if (level.getCapability(Capabilities.ItemHandler.BLOCK, neighborPos, side) != null) return true;
-        if (level.getCapability(Capabilities.FluidHandler.BLOCK, neighborPos, side) != null) return true;
-        return level.getCapability(Capabilities.EnergyStorage.BLOCK, neighborPos, side) != null;
+        if (level.getCapability(Capabilities.Item.BLOCK, neighborPos, side) != null) return true;
+        if (level.getCapability(Capabilities.Fluid.BLOCK, neighborPos, side) != null) return true;
+        return level.getCapability(Capabilities.Energy.BLOCK, neighborPos, side) != null;
     }
 
     private BooleanProperty getPropertyForDirection(Direction dir) {
@@ -121,7 +127,7 @@ public abstract class BlockRoutingNode extends BaseEntityBlock {
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
-        if (level.isClientSide) return;
+        if (level.isClientSide()) return;
         BlockEntity tile = level.getBlockEntity(pos);
         if (tile instanceof IRoutingNode node && !(tile instanceof IMasterRoutingNode)) {
             RoutingLinkHelper.tryAutoBind(level, pos, node);
@@ -129,20 +135,18 @@ public abstract class BlockRoutingNode extends BaseEntityBlock {
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!state.is(newState.getBlock())) {
-            BlockEntity tile = level.getBlockEntity(pos);
-            if (tile instanceof IRoutingNode node) {
-                node.removeAllConnections();
-            }
+    public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean isMoving) {
+        BlockEntity tile = level.getBlockEntity(pos);
+        if (tile instanceof IRoutingNode node) {
+            node.removeAllConnections();
         }
-        super.onRemove(state, level, pos, newState, isMoving);
+        super.affectNeighborsAfterRemoval(state, level, pos, isMoving);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (level.isClientSide) return null;
+        if (level.isClientSide()) return null;
         return (lvl, pos, st, be) -> {
             if (be instanceof RoutingNodeBlockEntity tile) {
                 tile.tick(lvl, pos, st);

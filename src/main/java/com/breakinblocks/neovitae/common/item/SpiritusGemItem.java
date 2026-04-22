@@ -2,10 +2,9 @@ package com.breakinblocks.neovitae.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,18 +19,20 @@ import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
 import com.breakinblocks.neovitae.will.SpiritusHelper;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class SpiritusGemItem extends Item implements ISpiritusGem {
 
-    public SpiritusGemItem() {
-        super(new Properties()
+    public SpiritusGemItem(Item.Properties props) {
+        super(props
                 .stacksTo(1)
                 .component(NVDataComponents.SPIRITUS_AMOUNT, 0.0)
                 .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT));
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+    public InteractionResult use(Level world, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         SpiritusType type = SpiritusHelper.getCurrentType(stack);
         double drain = Math.min(SpiritusHelper.getWill(stack, type), SpiritusHelper.resolveMaxWill(stack, type) / 10.0);
@@ -39,21 +40,18 @@ public class SpiritusGemItem extends Item implements ISpiritusGem {
         double filled = PlayerSpiritusHandler.addSpiritus(type, player, drain, stack);
         SpiritusHelper.drainWill(stack, type, filled, true);
 
-        return new InteractionResultHolder<>(InteractionResult.PASS, stack);
+        return InteractionResult.PASS;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag tooltipFlag) {
         SpiritusType type = SpiritusHelper.getCurrentType(stack);
         double amount = SpiritusHelper.getWill(stack, type);
-        ResourceLocation loc = stack.getItemHolder().getKey().location();
+        Identifier loc = stack.typeHolder().getKey().identifier();
 
-        tooltip.add(Component.translatable("tooltip.neovitae.spiritus_gem." + loc.getPath()).withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.neovitae.will", ChatUtil.DECIMAL_FORMAT.format(amount)).withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.neovitae.current_type." + type.getSerializedName()).withStyle(ChatFormatting.GRAY));
-
-        super.appendHoverText(stack, context, tooltip, tooltipFlag);
-    }
+        tooltip.accept(Component.translatable("tooltip.neovitae.spiritus_gem." + loc.getPath()).withStyle(ChatFormatting.GRAY));
+        tooltip.accept(Component.translatable("tooltip.neovitae.will", ChatUtil.DECIMAL_FORMAT.format(amount)).withStyle(ChatFormatting.GRAY));
+        tooltip.accept(Component.translatable("tooltip.neovitae.current_type." + type.getSerializedName()).withStyle(ChatFormatting.GRAY));}
 
     @Override
     public ItemStack fillSpiritusGem(ItemStack soulGemStack, ItemStack soulStack) {

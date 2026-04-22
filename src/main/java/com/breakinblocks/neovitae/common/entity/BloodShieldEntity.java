@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.entity;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -9,15 +11,21 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
+import net.minecraft.core.UUIDUtil;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 
 public class BloodShieldEntity extends Entity implements GeoEntity {
+    @Override
+    public boolean hurtServer(ServerLevel sl, DamageSource src, float amt) { return false; }
+
 
     private static final EntityDataAccessor<Integer> OWNER_ID = SynchedEntityData.defineId(BloodShieldEntity.class, EntityDataSerializers.INT);
     private static final float SHIELD_DISTANCE = 2.5f;
@@ -45,16 +53,16 @@ public class BloodShieldEntity extends Entity implements GeoEntity {
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag tag) {
-        if (tag.hasUUID("Owner")) {
-            ownerUUID = tag.getUUID("Owner");
+    protected void readAdditionalSaveData(ValueInput tag) {
+        if (tag.read("Owner", UUIDUtil.CODEC).isPresent()) {
+            ownerUUID = tag.read("Owner", UUIDUtil.CODEC).orElse(null);
         }
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag tag) {
+    protected void addAdditionalSaveData(ValueOutput tag) {
         if (ownerUUID != null) {
-            tag.putUUID("Owner", ownerUUID);
+            tag.store("Owner", UUIDUtil.CODEC, ownerUUID);
         }
     }
 

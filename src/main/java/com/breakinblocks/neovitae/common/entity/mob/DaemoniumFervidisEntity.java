@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.entity.mob;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -27,12 +29,14 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.util.GeckoLibUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class DaemoniumFervidisEntity extends Monster implements GeoEntity {
 
@@ -121,17 +125,17 @@ public class DaemoniumFervidisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         if (!hasSpawned) {
             return true;
         }
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
-        boolean hurt = super.hurt(source, amount);
-        if (hurt && !level().isClientSide && hasSpawned) {
+    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+        boolean hurt = super.hurtServer(level, source, amount);
+        if (hurt && !level().isClientSide() && hasSpawned) {
             // Undying Resilience: 25% chance on damage, if off cooldown and not already in bear
             if (bearCooldown <= 0 && bearTimer <= 0 && random.nextFloat() < 0.25F) {
                 activateBearStance();
@@ -155,7 +159,7 @@ public class DaemoniumFervidisEntity extends Monster implements GeoEntity {
         attackAnimTimer = 50;
         attackCooldown = 55;
 
-        addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 50, 2));
+        addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 50, 2));
 
         playLayeredSound(SoundEvents.ZOGLIN_AMBIENT, 0.8F, 0.5F);
     }
@@ -191,7 +195,7 @@ public class DaemoniumFervidisEntity extends Monster implements GeoEntity {
         if (bearTimer > 0) bearTimer--;
 
         // Stance switching
-        if (!level().isClientSide && hasSpawned && !isAttacking()) {
+        if (!level().isClientSide() && hasSpawned && !isAttacking()) {
             if (--stanceSwitchTimer <= 0) {
                 stanceSwitchTimer = 60 + random.nextInt(60);
                 setRunning(random.nextFloat() < 0.3F);
@@ -206,7 +210,7 @@ public class DaemoniumFervidisEntity extends Monster implements GeoEntity {
             }
         }
 
-        if (level().isClientSide) {
+        if (level().isClientSide()) {
             spawnAmbientParticles();
         }
     }
@@ -221,7 +225,7 @@ public class DaemoniumFervidisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Decay Swing ----
     public void performSwingAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_SWING);
         attackAnimTimer = 30;
         attackCooldown = 60;
@@ -250,7 +254,7 @@ public class DaemoniumFervidisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Revenant Smash (leap + ground slam) ----
     public void performSmashAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_SMASH);
         attackAnimTimer = 40;
         attackCooldown = 75;
@@ -300,7 +304,7 @@ public class DaemoniumFervidisEntity extends Monster implements GeoEntity {
 
     // ---- Sounds ----
     private void playSpawnSounds() {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         playLayeredSound(SoundEvents.HEAVY_CORE_PLACE, 1.0F, 0.8F);
         playLayeredSound(SoundEvents.ZOGLIN_AMBIENT, 0.8F, 0.65F);
     }
@@ -344,7 +348,7 @@ public class DaemoniumFervidisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    protected void playStepSound(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+    protected void playStepSound(BlockPos pos, BlockState state) {
         if (isRunning()) {
             playLayeredSound(SoundEvents.ZOGLIN_STEP, 1.0F, 0.4F);
         } else {
@@ -366,24 +370,24 @@ public class DaemoniumFervidisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    protected void addAdditionalSaveData(ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("HasSpawned", hasSpawned);
         tag.putBoolean("IsRunning", isRunning());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    protected void readAdditionalSaveData(ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        hasSpawned = tag.getBoolean("HasSpawned");
+        hasSpawned = tag.getBooleanOr("HasSpawned", false);
         if (hasSpawned) spawnTimer = 50;
-        setRunning(tag.getBoolean("IsRunning"));
+        setRunning(tag.getBooleanOr("IsRunning", false));
     }
 
     // ---- GeckoLib animation ----
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "body", 10, state -> {
+        controllers.add(new AnimationController<DaemoniumFervidisEntity>("body", 10, state -> {
             if (isDeadOrDying()) {
                 return state.setAndContinue(DEATH_ANIM);
             }

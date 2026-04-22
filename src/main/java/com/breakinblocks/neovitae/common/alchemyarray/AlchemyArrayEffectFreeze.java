@@ -20,7 +20,7 @@ public class AlchemyArrayEffectFreeze extends AlchemyArrayEffect {
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
-        if (level == null || level.isClientSide) return false;
+        if (level == null || level.isClientSide()) return false;
 
         if (ticksActive < 40) return false;
 
@@ -44,7 +44,7 @@ public class AlchemyArrayEffectFreeze extends AlchemyArrayEffect {
                     } else if (state.isAir()) {
                         BlockPos below = target.below();
                         BlockState belowState = level.getBlockState(below);
-                        if (belowState.isSolidRender(level, below) && !belowState.is(Blocks.ICE)) {
+                        if (belowState.isSolidRender() && !belowState.is(Blocks.ICE)) {
                             level.setBlockAndUpdate(target, Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, 1));
                             didWork = true;
                             blocksProcessed++;
@@ -69,7 +69,7 @@ public class AlchemyArrayEffectFreeze extends AlchemyArrayEffect {
 
     @Override
     public void readFromNBT(CompoundTag tag) {
-        blocksProcessed = tag.getInt("blocksProcessed");
+        blocksProcessed = tag.getIntOr("blocksProcessed", 0);
     }
 
     @Override

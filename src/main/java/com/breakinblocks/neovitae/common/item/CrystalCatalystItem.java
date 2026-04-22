@@ -20,6 +20,8 @@ import com.breakinblocks.neovitae.common.blockentity.SpiritusCrystalBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class CrystalCatalystItem extends Item {
 
@@ -29,8 +31,8 @@ public class CrystalCatalystItem extends Item {
     private final double conversionRate;
     private final double maxInjectedWill;
 
-    public CrystalCatalystItem(SpiritusType type, double injectedWill, double speedModifier, double conversionRate, double maxInjectedWill) {
-        super(new Properties());
+    public CrystalCatalystItem(Item.Properties props, SpiritusType type, double injectedWill, double speedModifier, double conversionRate, double maxInjectedWill) {
+        super(props);
         this.type = type;
         this.injectedWill = injectedWill;
         this.speedModifier = speedModifier;
@@ -39,11 +41,9 @@ public class CrystalCatalystItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae.crystal_catalyst.desc").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.neovitae.crystal_catalyst.aspect", type.toCapitalized()).withStyle(ChatFormatting.DARK_PURPLE));
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable("tooltip.neovitae.crystal_catalyst.desc").withStyle(ChatFormatting.GRAY));
+        tooltip.accept(Component.translatable("tooltip.neovitae.crystal_catalyst.aspect", type.toCapitalized()).withStyle(ChatFormatting.DARK_PURPLE));}
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
@@ -53,12 +53,12 @@ public class CrystalCatalystItem extends Item {
 
         BlockEntity tile = level.getBlockEntity(pos);
         if (tile instanceof SpiritusCrystalBlockEntity crystalTile) {
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 if (applyCatalyst(crystalTile)) {
                     ServerLevel server = (ServerLevel) level;
                     ItemStack crystalStack = BlockSpiritusCrystal.getItemStackDropped(type, 1);
 
-                    ItemParticleOption particleData = new ItemParticleOption(ParticleTypes.ITEM, crystalStack);
+                    ItemParticleOption particleData = new ItemParticleOption(ParticleTypes.ITEM, crystalStack.getItem());
                     for (int i = 0; i < 8; ++i) {
                         server.sendParticles(particleData, pos.getX() + 0.5, pos.getY() + 0.6, pos.getZ() + 0.5, 1, 0.2, 0.2, 0.2, 0.03);
                     }

@@ -18,6 +18,10 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
 import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
 import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.server.level.ServerLevel;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 public class NVPayloads {
 
@@ -221,7 +225,7 @@ public class NVPayloads {
                     int current = held.getOrDefault(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get(), 15);
                     int newBrightness = BloodLightHelper.cycleBrightness(current, payload.reverse());
                     held.set(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get(), newBrightness);
-                    player.displayClientMessage(Component.translatable("message.neovitae.sigil.blood_light.brightness", newBrightness), true);
+                    player.sendOverlayMessage(Component.translatable("message.neovitae.sigil.blood_light.brightness", newBrightness));
                     return;
                 }
             }
@@ -242,20 +246,20 @@ public class NVPayloads {
     }
 
     public static void sendToServer(Object payload) {
-        PacketDistributor.sendToServer((net.minecraft.network.protocol.common.custom.CustomPacketPayload) payload);
+        ClientPacketDistributor.sendToServer((CustomPacketPayload) payload);
     }
 
     public static void sendToPlayer(ServerPlayer player, Object payload) {
-        PacketDistributor.sendToPlayer(player, (net.minecraft.network.protocol.common.custom.CustomPacketPayload) payload);
+        PacketDistributor.sendToPlayer(player, (CustomPacketPayload) payload);
     }
 
     /**
      * Send a payload to all players within a radius of a block position.
      */
-    public static void sendToNearby(net.minecraft.server.level.ServerLevel level, net.minecraft.core.BlockPos pos,
+    public static void sendToNearby(ServerLevel level, BlockPos pos,
                                     double radius, Object payload) {
-        net.minecraft.network.protocol.common.custom.CustomPacketPayload p =
-                (net.minecraft.network.protocol.common.custom.CustomPacketPayload) payload;
+        CustomPacketPayload p =
+                (CustomPacketPayload) payload;
         double radiusSq = radius * radius;
         double cx = pos.getX() + 0.5, cy = pos.getY() + 0.5, cz = pos.getZ() + 0.5;
         for (ServerPlayer player : level.players()) {

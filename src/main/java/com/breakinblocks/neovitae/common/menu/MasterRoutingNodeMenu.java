@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.datamap.RoutingNodeHelper;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import net.minecraft.core.BlockPos;
 
 public class MasterRoutingNodeMenu extends AbstractContainerMenu {
 
@@ -31,7 +32,7 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
         this(containerId, playerInventory, getBlockEntitySafe(playerInventory, buf.readBlockPos()));
     }
 
-    private static MasterRoutingNodeBlockEntity getBlockEntitySafe(Inventory playerInventory, net.minecraft.core.BlockPos pos) {
+    private static MasterRoutingNodeBlockEntity getBlockEntitySafe(Inventory playerInventory, BlockPos pos) {
         if (playerInventory.player.level() == null) return null;
         if (playerInventory.player.level().getBlockEntity(pos) instanceof MasterRoutingNodeBlockEntity tile) {
             return tile;
@@ -43,7 +44,7 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
         super(NVMenus.MASTER_ROUTING_NODE.get(), containerId);
         this.tile = tile;
 
-        if (tile != null && !playerInventory.player.level().isClientSide) {
+        if (tile != null && !playerInventory.player.level().isClientSide()) {
             this.data = new ContainerData() {
                 @Override
                 public int get(int index) {

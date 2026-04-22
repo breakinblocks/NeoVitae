@@ -4,7 +4,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.world.entity.EntityType;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
@@ -12,8 +11,8 @@ import java.util.concurrent.CompletableFuture;
 
 public class NVEntityTagProvider extends EntityTypeTagsProvider {
 
-    public NVEntityTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, ExistingFileHelper existingFileHelper) {
-        super(output, provider, NeoVitae.MODID, existingFileHelper);
+    public NVEntityTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+        super(output, provider, NeoVitae.MODID);
     }
 
     @Override

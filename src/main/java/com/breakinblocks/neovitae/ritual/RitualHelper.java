@@ -34,6 +34,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * Utility class providing common operations used by rituals.
@@ -103,10 +105,10 @@ public final class RitualHelper {
      * should prefer this over {@code getRangePositions(...).getFirst()} so a
      * user-configured empty range does not throw {@link java.util.NoSuchElementException}.
      */
-    public static java.util.Optional<BlockPos> firstPositionInRange(IMasterRitualStone masterRitualStone, Ritual ritual,
+    public static Optional<BlockPos> firstPositionInRange(IMasterRitualStone masterRitualStone, Ritual ritual,
             String rangeKey, BlockPos masterPos) {
         List<BlockPos> positions = getRangePositions(masterRitualStone, ritual, rangeKey, masterPos);
-        return positions.isEmpty() ? java.util.Optional.empty() : java.util.Optional.of(positions.getFirst());
+        return positions.isEmpty() ? Optional.empty() : Optional.of(positions.getFirst());
     }
 
     public static <T extends Entity> List<T> getEntitiesInRange(RitualContext context, Ritual ritual,
@@ -119,7 +121,7 @@ public final class RitualHelper {
     }
 
     public static <T extends Entity> List<T> getEntitiesInRange(RitualContext context, Ritual ritual,
-            String rangeKey, Class<T> entityClass, java.util.function.Predicate<T> filter) {
+            String rangeKey, Class<T> entityClass, Predicate<T> filter) {
         AABB aabb = getRangeAABB(context.master(), ritual, rangeKey, context.masterPos());
         if (aabb == null) {
             return Collections.emptyList();
@@ -173,9 +175,9 @@ public final class RitualHelper {
     public static BlockPos readAltarOffset(CompoundTag tag) {
         if (tag.contains("altarOffsetX")) {
             return new BlockPos(
-                    tag.getInt("altarOffsetX"),
-                    tag.getInt("altarOffsetY"),
-                    tag.getInt("altarOffsetZ")
+                    tag.getIntOr("altarOffsetX", 0),
+                    tag.getIntOr("altarOffsetY", 0),
+                    tag.getIntOr("altarOffsetZ", 0)
             );
         }
         return null;
@@ -321,7 +323,7 @@ public final class RitualHelper {
      */
     public static void chanceStream(Level level, int oneInN, Runnable emit) {
         if (level.isClientSide()) return;
-        if (oneInN <= 1 || level.random.nextInt(oneInN) == 0) {
+        if (oneInN <= 1 || level.getRandom().nextInt(oneInN) == 0) {
             emit.run();
         }
     }

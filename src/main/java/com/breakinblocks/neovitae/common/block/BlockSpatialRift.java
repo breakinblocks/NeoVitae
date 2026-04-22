@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -24,15 +25,15 @@ import javax.annotation.Nullable;
 
 public class BlockSpatialRift extends BaseEntityBlock {
 
-    public static final MapCodec<BlockSpatialRift> CODEC = simpleCodec(p -> new BlockSpatialRift());
+    public static final MapCodec<BlockSpatialRift> CODEC = simpleCodec(BlockSpatialRift::new);
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
-    public BlockSpatialRift() {
-        super(BlockBehaviour.Properties.of()
+    public BlockSpatialRift(BlockBehaviour.Properties props) {
+        super(props
                 .strength(-1.0F, 3600000.0F)
                 .sound(SoundType.AMETHYST)
                 .lightLevel(s -> 3)
@@ -68,8 +69,8 @@ public class BlockSpatialRift extends BaseEntityBlock {
     }
 
     @Override
-    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if (!level.isClientSide && entity instanceof Player player) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier applier, boolean intersects) {
+        if (!level.isClientSide() && entity instanceof Player player) {
             if (level.getBlockEntity(pos) instanceof SpatialRiftBlockEntity rift) {
                 rift.handlePlayerEntry(player);
             }

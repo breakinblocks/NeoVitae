@@ -74,6 +74,6 @@ public class ItemBlockTabulaVitae extends BlockItem {
             context.getItemInHand().shrink(1);
         }
 
-        return InteractionResult.sidedSuccess(world.isClientSide);
+        return InteractionResult.SUCCESS;
     }
 }

@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -7,7 +10,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -26,6 +29,7 @@ import com.breakinblocks.neovitae.util.Constants;
 import java.util.List;
 
 import javax.annotation.Nullable;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 
 public class DungeonControllerBlockEntity extends BaseBlockEntity {
 
@@ -66,7 +70,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
      */
     public boolean handleRequestForRoomPlacement(BlockPos sealPos, BlockPos doorPos,
                                                   Direction doorDirection, String doorType,
-                                                  ResourceLocation[] potentialRooms, RandomSource rand) {
+                                                  Identifier[] potentialRooms, RandomSource rand) {
         if (level == null || level.isClientSide() || !(level instanceof ServerLevel serverLevel)) {
             return false;
         }
@@ -79,7 +83,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         LOGGER.info("Processing room placement request: doorPos={}, direction={}, doorType={}, potentialPools={}",
                 doorPos, doorDirection, doorType, potentialRooms.length);
 
-        for (ResourceLocation roomType : potentialRooms) {
+        for (Identifier roomType : potentialRooms) {
             LOGGER.debug("Trying room pool: {}", roomType);
 
             DungeonRoomPlacement placement;
@@ -103,7 +107,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
 
                     dungeonSynthesizer.incrementActivatedDoors();
 
-                    List<ResourceLocation> newlyUnlocked = dungeonSynthesizer.checkSpecialRoomRequirements(
+                    List<Identifier> newlyUnlocked = dungeonSynthesizer.checkSpecialRoomRequirements(
                             dungeonSynthesizer.getDescriptorList().size());
 
                     placement.updateDoorMasterMap(dungeonSynthesizer.getAvailableDoorMasterMap());
@@ -133,8 +137,8 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         return false;
     }
 
-    private void notifyProgressionThresholds(ServerLevel level, List<ResourceLocation> newlyUnlocked) {
-        for (ResourceLocation pool : newlyUnlocked) {
+    private void notifyProgressionThresholds(ServerLevel level, List<Identifier> newlyUnlocked) {
+        for (Identifier pool : newlyUnlocked) {
             String msgKey;
             if (pool.equals(ModRoomPools.MINE_ENTRANCES)) {
                 msgKey = "chat.neovitae.dungeon.threshold.mine_entrance";
@@ -153,7 +157,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         }
     }
 
-    private void notifySpatialDistortion(ServerLevel level, ResourceLocation roomType, DungeonRoomPlacement placement) {
+    private void notifySpatialDistortion(ServerLevel level, Identifier roomType, DungeonRoomPlacement placement) {
         boolean isSpecial = roomType.getPath().contains("special") || roomType.getPath().contains("mine_key");
         if (!isSpecial) return;
         if (spatialDistortionPlayed) return;
@@ -162,7 +166,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         setChanged();
 
         BlockPos roomCenter = placement.getRoomPosition().offset(
-                placement.room.getAreaDescriptors(new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings(), placement.getRoomPosition())
+                placement.room.getAreaDescriptors(new StructurePlaceSettings(), placement.getRoomPosition())
                         .stream().findFirst()
                         .map(d -> {
                             if (d instanceof com.breakinblocks.neovitae.api.ritual.AreaDescriptor.Rectangle r) {
@@ -180,7 +184,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         }
 
         for (int i = 0; i < 4; i++) {
-            BlockPos offset = roomCenter.offset(level.random.nextInt(6) - 3, level.random.nextInt(3), level.random.nextInt(6) - 3);
+            BlockPos offset = roomCenter.offset(level.getRandom().nextInt(6) - 3, level.getRandom().nextInt(3), level.getRandom().nextInt(6) - 3);
             StreamPresets.voidTendril(offset, roomCenter).build().sendToNearby(level, roomCenter, 128);
             StreamPresets.demonTether(roomCenter, offset).build().sendToNearby(level, roomCenter, 128);
         }
@@ -193,8 +197,8 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
     private BlockPos portalPos;
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         tag.putBoolean("initialized", initialized);
         tag.putBoolean("riftOpened", riftOpened);
         tag.putBoolean("spatialDistortionPlayed", spatialDistortionPlayed);
@@ -207,27 +211,28 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         if (dungeonSynthesizer != null) {
             CompoundTag synthTag = new CompoundTag();
             dungeonSynthesizer.writeToNBT(synthTag);
-            tag.put(Constants.NBT.SYNTHESIZER, synthTag);
+            tag.store(Constants.NBT.SYNTHESIZER, CompoundTag.CODEC, synthTag);
         }
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
 
-        initialized = tag.getBoolean("initialized");
-        riftOpened = tag.getBoolean("riftOpened");
-        spatialDistortionPlayed = tag.getBoolean("spatialDistortionPlayed");
-        if (tag.contains("portalX")) {
-            portalPos = new BlockPos(tag.getInt("portalX"), tag.getInt("portalY"), tag.getInt("portalZ"));
+        initialized = tag.getBooleanOr("initialized", false);
+        riftOpened = tag.getBooleanOr("riftOpened", false);
+        spatialDistortionPlayed = tag.getBooleanOr("spatialDistortionPlayed", false);
+        int px = tag.getIntOr("portalX", Integer.MIN_VALUE);
+        if (px != Integer.MIN_VALUE) {
+            portalPos = new BlockPos(px, tag.getIntOr("portalY", 0), tag.getIntOr("portalZ", 0));
         }
 
-        if (tag.contains(Constants.NBT.SYNTHESIZER)) {
+        tag.read(Constants.NBT.SYNTHESIZER, CompoundTag.CODEC).ifPresent(synthTag -> {
             if (dungeonSynthesizer == null) {
                 dungeonSynthesizer = new DungeonSynthesizer();
             }
-            dungeonSynthesizer.readFromNBT(tag.getCompound(Constants.NBT.SYNTHESIZER));
-        }
+            dungeonSynthesizer.readFromNBT(synthTag);
+        });
     }
 
     public void setPortalPos(BlockPos pos) { this.portalPos = pos; }
@@ -251,7 +256,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
             if (serverLevel.getBlockEntity(sealPos) instanceof DungeonSealBlockEntity seal) {
                 var sealData = seal.getData();
                 if (sealData != null) {
-                    ResourceLocation[] pools = sealData.potentialRoomTypes().toArray(new ResourceLocation[0]);
+                    Identifier[] pools = sealData.potentialRoomTypes().toArray(new Identifier[0]);
                     boolean canFit = tile.dungeonSynthesizer.canAnythingFit(
                             serverLevel, sealData.doorPos(), sealData.doorDirection(), sealData.doorType(), pools);
                     if (!canFit) {
@@ -292,7 +297,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         level.playSound(null, riftPos, SoundEvents.END_PORTAL_SPAWN, SoundSource.HOSTILE, 1.0F, 0.5F);
 
         for (int i = 0; i < 6; i++) {
-            BlockPos offset = riftPos.offset(level.random.nextInt(8) - 4, level.random.nextInt(4) - 2, level.random.nextInt(8) - 4);
+            BlockPos offset = riftPos.offset(level.getRandom().nextInt(8) - 4, level.getRandom().nextInt(4) - 2, level.getRandom().nextInt(8) - 4);
             StreamPresets.bloodTendril(offset, riftPos).build().sendToNearby(level, riftPos, 128);
         }
 

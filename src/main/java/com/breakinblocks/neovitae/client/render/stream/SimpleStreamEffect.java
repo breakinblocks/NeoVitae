@@ -8,6 +8,7 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import org.joml.Vector3f;
+import net.minecraft.util.ARGB;
 
 /**
  * Lightweight vanilla-particle replacement for the custom stream renderer.
@@ -57,15 +58,15 @@ public class SimpleStreamEffect {
         float b = ColorHelper.blue(effect.color);
         float scale = Math.max(0.4f, effect.scale * 3.0f);
 
-        DustParticleOptions dust = new DustParticleOptions(new Vector3f(r, g, b), scale);
+        DustParticleOptions dust = new DustParticleOptions(ARGB.colorFromFloat(1.0f, r, g, b), scale);
 
         if (effect.stationary) {
             float pulse = 1.0f + Mth.sin(age / 4.0f) * 0.3f;
             double spread = effect.scale * pulse;
             for (int i = 0; i < 2; i++) {
-                double px = effect.sourceX + (level.random.nextDouble() - 0.5) * spread;
-                double py = effect.sourceY + (level.random.nextDouble() - 0.5) * spread;
-                double pz = effect.sourceZ + (level.random.nextDouble() - 0.5) * spread;
+                double px = effect.sourceX + (level.getRandom().nextDouble() - 0.5) * spread;
+                double py = effect.sourceY + (level.getRandom().nextDouble() - 0.5) * spread;
+                double pz = effect.sourceZ + (level.getRandom().nextDouble() - 0.5) * spread;
                 level.addParticle(dust, px, py, pz, 0, 0.01, 0);
             }
         } else {
@@ -86,11 +87,11 @@ public class SimpleStreamEffect {
                 double py = effect.sourceY + dy * t;
                 double pz = effect.sourceZ + dz * t;
 
-                px += (level.random.nextDouble() - 0.5) * 0.1;
-                py += (level.random.nextDouble() - 0.5) * 0.1;
-                pz += (level.random.nextDouble() - 0.5) * 0.1;
+                px += (level.getRandom().nextDouble() - 0.5) * 0.1;
+                py += (level.getRandom().nextDouble() - 0.5) * 0.1;
+                pz += (level.getRandom().nextDouble() - 0.5) * 0.1;
 
-                if (level.random.nextFloat() < 0.3f) {
+                if (level.getRandom().nextFloat() < 0.3f) {
                     level.addParticle(dust, px, py, pz, 0, 0, 0);
                 }
             }

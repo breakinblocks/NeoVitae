@@ -10,7 +10,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.datagen.book.page.BookRitualInfoPageModel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.mojang.datafixers.util.Pair;
 
 public class RitualLivingDowngradeEntry extends EntryProvider {
@@ -22,7 +22,7 @@ public class RitualLivingDowngradeEntry extends EntryProvider {
     @Override
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
-                .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/downgrade"))
+                .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/downgrade"))
                 .withMultiblockName("Penance of the Leaden Soul")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
@@ -41,7 +41,7 @@ public class RitualLivingDowngradeEntry extends EntryProvider {
         this.pageText("Downgrades are harsh; they cripple specific abilities in exchange for a wealth of additional [#](8B0000)Upgrade Points[#](). This is the path of [#](4A0080)specialization[#](): sacrifice breadth to sharpen your edge in the areas that matter most.");
 
         this.page("synthetic", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "synthetic_point"))
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "synthetic_point"))
                 .withText(this.context().pageText()));
         this.pageText("If you lack sufficient points, you can craft [#](8B0000)Synthetic Upgrade Points[#](). Each is worth a single point, crude, but functional.");
 

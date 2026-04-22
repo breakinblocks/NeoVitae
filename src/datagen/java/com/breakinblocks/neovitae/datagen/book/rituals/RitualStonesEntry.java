@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.mojang.datafixers.util.Pair;
 
 public class RitualStonesEntry extends EntryProvider {
@@ -27,8 +27,8 @@ public class RitualStonesEntry extends EntryProvider {
                 + "\\\n\\\nThe [#](8B0000)Elemental Inscription Tools[#]() can be used to paint stones by hand; they never break, so feel free to use them for decoration as well as function.");
 
         this.page("recipes", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_stone_blank"))
-                .withRecipeId2(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_stone_master")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual_stone_blank"))
+                .withRecipeId2(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual_stone_master")));
     }
 
     @Override

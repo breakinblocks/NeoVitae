@@ -26,16 +26,19 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.LargeFireball;
+import net.minecraft.world.entity.projectile.hurtingprojectile.LargeFireball;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.util.GeckoLibUtil;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
 
@@ -124,7 +127,7 @@ public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
+    public boolean causeFallDamage(double fallDistance, float multiplier, DamageSource source) {
         return false;
     }
 
@@ -133,14 +136,14 @@ public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
-        if (source.is(net.minecraft.tags.DamageTypeTags.IS_EXPLOSION)) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
+        if (source.is(DamageTypeTags.IS_EXPLOSION)) {
             return true;
         }
         if (!hasSpawned) {
             return true;
         }
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 
     public boolean isAttacking() {
@@ -196,7 +199,7 @@ public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
         }
 
         // Slow falling - keeps mob floating gently
-        if (!level().isClientSide && hasSpawned && !onGround()) {
+        if (!level().isClientSide() && hasSpawned && !onGround()) {
             if (!hasEffect(MobEffects.SLOW_FALLING)) {
                 addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20, 0, false, false));
             }
@@ -212,7 +215,7 @@ public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
         }
 
         // Ambient particles (client-side)
-        if (level().isClientSide) {
+        if (level().isClientSide()) {
             spawnAmbientParticles();
         }
     }
@@ -242,7 +245,7 @@ public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
     // ---- Attack: Fireball (MM attack_1) ----
 
     public void performFireballAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
 
         setAttackState(ATTACK_FIREBALL);
         attackAnimTimer = 65;
@@ -270,7 +273,7 @@ public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
     // ---- Attack: Ground Slam (MM attack_2) - close range AoE ----
 
     public void performSlamAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
 
         setAttackState(ATTACK_SLAM);
         attackAnimTimer = 50;
@@ -315,14 +318,14 @@ public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
     // ---- Attack: Sword Slash (MM attack_3) - melee multi-hit ----
 
     public void performSwordAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
 
         setAttackState(ATTACK_SWORD);
         attackAnimTimer = 65;
         attackCooldown = 65;
 
         // Apply slowness IV to target (3 seconds = 60 ticks)
-        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 4));
+        target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 60, 4));
 
         // Start multi-hit sequence (4 hits like MM sword totem)
         swordHitsRemaining = 4;
@@ -374,7 +377,7 @@ public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
     // ---- Spawn sounds ----
 
     private void playSpawnSounds() {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         playLayeredSound(SoundEvents.FROGSPAWN_BREAK, 0.5F, 0.77F);
         playLayeredSound(SoundEvents.TRIAL_SPAWNER_AMBIENT_OMINOUS, 0.6F, 0.75F);
         playLayeredSound(SoundEvents.BLAZE_AMBIENT, 0.9F, 0.80F);
@@ -447,15 +450,15 @@ public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    protected void addAdditionalSaveData(ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("HasSpawned", hasSpawned);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    protected void readAdditionalSaveData(ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        hasSpawned = tag.getBoolean("HasSpawned");
+        hasSpawned = tag.getBooleanOr("HasSpawned", false);
         if (hasSpawned) {
             spawnTimer = 50;
         }
@@ -466,7 +469,7 @@ public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         // Main body controller - handles spawn, idle, walk, attacks, death
-        controllers.add(new AnimationController<>(this, "body", 10, state -> {
+        controllers.add(new AnimationController<DaemoniumIgnisEntity>("body", 10, state -> {
             if (isDeadOrDying()) {
                 return state.setAndContinue(DEATH_ANIM);
             }
@@ -490,11 +493,11 @@ public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
         }));
 
         // Blaze rod spin controller (always active, independent)
-        controllers.add(new AnimationController<>(this, "spin", 0, state ->
+        controllers.add(new AnimationController<DaemoniumIgnisEntity>("spin", 0, state ->
                 state.setAndContinue(SPIN_ANIM)));
 
         // Sword orbit spin controller (always active, independent)
-        controllers.add(new AnimationController<>(this, "sword_spin", 0, state ->
+        controllers.add(new AnimationController<DaemoniumIgnisEntity>("sword_spin", 0, state ->
                 state.setAndContinue(SWORD_SPIN_ANIM)));
     }
 

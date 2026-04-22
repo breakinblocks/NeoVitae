@@ -26,6 +26,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.world.entity.EntitySpawnReason;
 
 public class AlchemyArrayEffectLoyalFriends extends AlchemyArrayEffect {
 
@@ -34,7 +35,7 @@ public class AlchemyArrayEffectLoyalFriends extends AlchemyArrayEffect {
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
-        if (level == null || level.isClientSide) return false;
+        if (level == null || level.isClientSide()) return false;
         if (!(level instanceof ServerLevel serverLevel)) return false;
 
         if (ticksActive < ACTIVATION_TICK) return false;
@@ -58,9 +59,9 @@ public class AlchemyArrayEffectLoyalFriends extends AlchemyArrayEffect {
         summonLivingPets(serverLevel, nearest, pos);
         reviveDeadPets(serverLevel, nearest, pos);
 
-        LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(serverLevel);
+        LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(serverLevel, EntitySpawnReason.TRIGGERED);
         if (bolt != null) {
-            bolt.moveTo(Vec3.atBottomCenterOf(pos));
+            bolt.snapTo(Vec3.atBottomCenterOf(pos));
             bolt.setVisualOnly(true);
             serverLevel.addFreshEntity(bolt);
         }
@@ -84,9 +85,9 @@ public class AlchemyArrayEffectLoyalFriends extends AlchemyArrayEffect {
         if (storage.pets().isEmpty()) return;
 
         for (CompoundTag petData : storage.pets()) {
-            Optional<Entity> entity = EntityType.create(petData, level);
-            if (entity.isPresent() && entity.get() instanceof TamableAnimal pet) {
-                pet.moveTo(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, level.random.nextFloat() * 360, 0);
+            Entity loaded = EntityType.loadEntityRecursive(petData, level, EntitySpawnReason.TRIGGERED, e -> e);
+            if (loaded instanceof TamableAnimal pet) {
+                pet.snapTo(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, level.getRandom().nextFloat() * 360, 0);
                 pet.setHealth(pet.getMaxHealth());
                 pet.setOrderedToSit(false);
                 level.addFreshEntity(pet);

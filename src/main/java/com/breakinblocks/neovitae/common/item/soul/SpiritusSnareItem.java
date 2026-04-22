@@ -6,7 +6,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -15,6 +15,8 @@ import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.entity.projectile.SpiritusSnareEntity;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 /**
  * Soul Snare - throwable item that marks hostile mobs for spiritus drops.
@@ -22,12 +24,12 @@ import java.util.List;
  */
 public class SpiritusSnareItem extends Item {
 
-    public SpiritusSnareItem() {
-        super(new Properties().stacksTo(16));
+    public SpiritusSnareItem(Item.Properties props) {
+        super(props.stacksTo(16));
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         level.playSound(null, player.getX(), player.getY(), player.getZ(),
@@ -47,12 +49,10 @@ public class SpiritusSnareItem extends Item {
             stack.shrink(1);
         }
 
-        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+        return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae.soulSnare.desc").withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable("tooltip.neovitae.soulSnare.desc").withStyle(ChatFormatting.GRAY));}
 }

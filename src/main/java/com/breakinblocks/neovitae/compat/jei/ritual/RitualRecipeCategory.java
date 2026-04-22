@@ -8,7 +8,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -76,41 +76,41 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualJEIRecipe> {
     }
 
     @Override
-    public void draw(RitualJEIRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RitualJEIRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         Minecraft mc = Minecraft.getInstance();
 
         Component ritualName = recipe.getRitualName();
         int nameWidth = mc.font.width(ritualName);
-        guiGraphics.drawString(mc.font, ritualName, (WIDTH - nameWidth) / 2, 2, 0x404040, false);
+        guiGraphics.text(mc.font, ritualName, (WIDTH - nameWidth) / 2, 2, 0x404040);
 
         int leftY = 16;
 
         Component crystalTier = recipe.getCrystalTierName();
-        guiGraphics.drawString(mc.font, crystalTier, LEFT_COL, leftY, 0x606060, false);
+        guiGraphics.text(mc.font, crystalTier, LEFT_COL, leftY, 0x606060);
         leftY += 12;
 
-        guiGraphics.drawString(mc.font, Component.translatable("jei.neovitae.recipe.ritual.activation"), LEFT_COL, leftY, 0x606060, false);
+        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.recipe.ritual.activation"), LEFT_COL, leftY, 0x606060);
         leftY += 10;
-        guiGraphics.drawString(mc.font, DECIMAL_FORMAT.format(recipe.activationCost()) + " EV", LEFT_COL + 4, leftY, 0x808080, false);
+        guiGraphics.text(mc.font, DECIMAL_FORMAT.format(recipe.activationCost()) + " EV", LEFT_COL + 4, leftY, 0x808080);
         leftY += 12;
 
-        guiGraphics.drawString(mc.font, Component.translatable("jei.neovitae.recipe.ritual.refresh"), LEFT_COL, leftY, 0x606060, false);
+        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.recipe.ritual.refresh"), LEFT_COL, leftY, 0x606060);
         leftY += 10;
-        guiGraphics.drawString(mc.font, DECIMAL_FORMAT.format(recipe.refreshCost()) + " EV/op", LEFT_COL + 4, leftY, 0x808080, false);
+        guiGraphics.text(mc.font, DECIMAL_FORMAT.format(recipe.refreshCost()) + " EV/op", LEFT_COL + 4, leftY, 0x808080);
 
         int rightY = 28;
 
-        guiGraphics.drawString(mc.font, Component.translatable("jei.neovitae.recipe.ritual.total_runes", recipe.getTotalRunes()), RIGHT_COL, rightY, 0x606060, false);
+        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.recipe.ritual.total_runes", recipe.getTotalRunes()), RIGHT_COL, rightY, 0x606060);
         rightY += 12;
 
         for (EnumRuneType runeType : EnumRuneType.values()) {
             int count = recipe.getRuneCount(runeType);
             if (count > 0) {
                 String runeName = capitalize(runeType.getSerializedName());
-                Component runeText = Component.literal(count + "x " + runeName)
+                Component runeText = Component.translatable("jei.neovitae.ritual.rune_count", count, runeName)
                         .withStyle(runeType.colorCode);
-                guiGraphics.drawString(mc.font, runeText, RIGHT_COL + 4, rightY, runeType.colorCode.getColor() != null ?
-                        runeType.colorCode.getColor() : 0x808080, false);
+                guiGraphics.text(mc.font, runeText, RIGHT_COL + 4, rightY, runeType.colorCode.getColor() != null ?
+                        runeType.colorCode.getColor() : 0x808080);
                 rightY += 10;
             }
         }

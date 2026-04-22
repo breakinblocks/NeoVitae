@@ -1,54 +1,33 @@
 package com.breakinblocks.neovitae.compat.modonomicon.page;
 
-import com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe;
-import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
+import com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe;
 import com.google.gson.JsonObject;
-import com.klikli_dev.modonomicon.book.BookTextHolder;
-import com.klikli_dev.modonomicon.book.conditions.BookCondition;
-import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.level.Level;
+import net.minecraft.resources.Identifier;
 
 public class BookAraVitaeRecipePage extends BookRecipePage<AraVitaeRecipe> {
 
-    public BookAraVitaeRecipePage(BookTextHolder title1, ResourceLocation recipeId1,
-                                    BookTextHolder title2, ResourceLocation recipeId2,
-                                    BookTextHolder text, String anchor, BookCondition condition) {
-        super(NVRecipes.ARA_VITAE_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
+    public BookAraVitaeRecipePage(JsonDataHolder data) {
+        super(data);
     }
 
-    public static BookAraVitaeRecipePage fromJson(JsonObject json, HolderLookup.Provider provider) {
-        var common = BookRecipePage.commonFromJson(json, provider);
-        var anchor = GsonHelper.getAsString(json, "anchor", "");
-        var condition = json.has("condition")
-                ? BookCondition.fromJson(json.getAsJsonObject("condition"), provider)
-                : new BookNoneCondition();
-        return new BookAraVitaeRecipePage(common.title1(), common.recipeId1(),
-                common.title2(), common.recipeId2(), common.text(), anchor, condition);
+    public BookAraVitaeRecipePage(NetworkDataHolder data) {
+        super(data);
+    }
+
+    public static BookAraVitaeRecipePage fromJson(Identifier id, JsonObject json, HolderLookup.Provider provider) {
+        return new BookAraVitaeRecipePage(BookRecipePage.commonFromJson(id, json, provider));
     }
 
     public static BookAraVitaeRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        var common = BookRecipePage.commonFromNetwork(buffer);
-        var anchor = buffer.readUtf();
-        var condition = BookCondition.fromNetwork(buffer);
-        return new BookAraVitaeRecipePage(common.title1(), common.recipeId1(),
-                common.title2(), common.recipeId2(), common.text(), anchor, condition);
+        return new BookAraVitaeRecipePage(BookRecipePage.commonFromNetwork(buffer));
     }
 
     @Override
-    protected ItemStack getRecipeOutput(Level level, RecipeHolder<AraVitaeRecipe> recipeHolder) {
-        return recipeHolder.value().getResult();
-    }
-
-    @Override
-    public ResourceLocation getType() {
+    public Identifier getType() {
         return NVPageTypes.ARA_VITAE;
     }
 }

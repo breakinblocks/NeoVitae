@@ -2,7 +2,7 @@ package com.breakinblocks.neovitae.client.render.entity.model;
 
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.entity.mob.DaemoniumCorrodisEntity;
-import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+import com.geckolib.model.DefaultedEntityGeoModel;
 
 public class DaemoniumCorrodisModel extends DefaultedEntityGeoModel<DaemoniumCorrodisEntity> {
 

@@ -1,10 +1,10 @@
 package com.breakinblocks.neovitae.ritual.types;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -36,6 +36,15 @@ public class RitualPhantomBridge extends Ritual {
     public static final String BRIDGE_RANGE = "bridgeRange";
     private static final int BRIDGE_DEPTH = 2; // How far below players to create bridges
     private static final int BRIDGE_WIDTH = 1; // Radius around player's position
+
+    private static final Codec<BlockStateEntry> ENTRY_CODEC = RecordCodecBuilder.create(b -> b.group(
+            BlockPos.CODEC.fieldOf("pos").forGetter(BlockStateEntry::pos),
+            BlockState.CODEC.fieldOf("state").forGetter(BlockStateEntry::state)
+    ).apply(b, BlockStateEntry::new));
+
+    private static final Codec<List<BlockStateEntry>> ENTRY_LIST_CODEC = ENTRY_CODEC.listOf();
+
+    private record BlockStateEntry(BlockPos pos, BlockState state) {}
 
     // Track phantom bridge blocks created by this ritual
     private final Map<BlockPos, BlockState> phantomBlocks = new HashMap<>();
@@ -180,29 +189,23 @@ public class RitualPhantomBridge extends Ritual {
     @Override
     public void writeToNBT(CompoundTag tag) {
         super.writeToNBT(tag);
-        ListTag blockList = new ListTag();
-        for (Map.Entry<BlockPos, BlockState> entry : phantomBlocks.entrySet()) {
-            CompoundTag blockTag = new CompoundTag();
-            blockTag.put("pos", NbtUtils.writeBlockPos(entry.getKey()));
-            blockTag.put("state", NbtUtils.writeBlockState(entry.getValue()));
-            blockList.add(blockTag);
-        }
-        tag.put("phantomBlocks", blockList);
+        List<BlockStateEntry> entries = phantomBlocks.entrySet().stream()
+                .map(e -> new BlockStateEntry(e.getKey(), e.getValue()))
+                .toList();
+        ENTRY_LIST_CODEC.encodeStart(NbtOps.INSTANCE, entries).result()
+                .ifPresent(t -> tag.put("phantomBlocks", t));
     }
 
     @Override
     public void readFromNBT(CompoundTag tag) {
         super.readFromNBT(tag);
         phantomBlocks.clear();
-        if (tag.contains("phantomBlocks")) {
-            ListTag blockList = tag.getList("phantomBlocks", Tag.TAG_COMPOUND);
-            for (int i = 0; i < blockList.size(); i++) {
-                CompoundTag blockTag = blockList.getCompound(i);
-                NbtUtils.readBlockPos(blockTag, "pos").ifPresent(pos -> {
-                    BlockState state = NbtUtils.readBlockState(BuiltInRegistries.BLOCK.asLookup(), blockTag.getCompound("state"));
-                    phantomBlocks.put(pos, state);
-                });
+        Tag raw = tag.get("phantomBlocks");
+        if (raw == null) return;
+        ENTRY_LIST_CODEC.parse(NbtOps.INSTANCE, raw).result().ifPresent(list -> {
+            for (BlockStateEntry entry : list) {
+                phantomBlocks.put(entry.pos(), entry.state());
             }
-        }
+        });
     }
 }

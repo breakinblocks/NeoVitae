@@ -1,23 +1,28 @@
 package com.breakinblocks.neovitae.common.recipe.tiered;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 public abstract class BaseTieredRecipe extends CustomRecipe {
+    protected final CraftingBookCategory category;
     protected final ShapedRecipePattern pattern;
     protected final int primary;
     protected final int secondary;
     protected final ItemStack output;
 
     public BaseTieredRecipe(CraftingBookCategory category, ShapedRecipePattern pattern, int primary, int secondary, ItemStack baseOutput) {
-        super(category);
+        this.category = category;
         this.pattern = pattern;
         this.primary = primary;
         this.secondary = secondary;
         this.output = baseOutput;
+    }
+
+    @Override
+    public CraftingBookCategory category() {
+        return this.category;
     }
 
     public ShapedRecipePattern getPattern() {
@@ -57,18 +62,4 @@ public abstract class BaseTieredRecipe extends CustomRecipe {
         return true;
     }
 
-    @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return pattern.width() <= width && pattern.height() <= height;
-    }
-
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return output;
-    }
-
-    @Override
-    public RecipeType<?> getType() {
-        return RecipeType.CRAFTING;
-    }
 }

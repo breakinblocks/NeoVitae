@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.entity.mob;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -27,12 +29,12 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.util.GeckoLibUtil;
 
 public class DaemoniumVoraxisEntity extends Monster implements GeoEntity {
 
@@ -99,9 +101,9 @@ public class DaemoniumVoraxisEntity extends Monster implements GeoEntity {
     public void setAttackState(int state) { this.entityData.set(ATTACK_STATE, state); }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         if (!hasSpawned) return true;
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 
     public boolean isAttacking() { return attackAnimTimer > 0; }
@@ -132,7 +134,7 @@ public class DaemoniumVoraxisEntity extends Monster implements GeoEntity {
             }
         }
 
-        if (level().isClientSide) spawnAmbientParticles();
+        if (level().isClientSide()) spawnAmbientParticles();
     }
 
     private void spawnAmbientParticles() {
@@ -146,7 +148,7 @@ public class DaemoniumVoraxisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Slash Left ----
     public void performSlashLeft(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_SLASH_L);
         attackAnimTimer = 25;
         attackCooldown = 30;
@@ -155,7 +157,7 @@ public class DaemoniumVoraxisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Slash Right ----
     public void performSlashRight(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_SLASH_R);
         attackAnimTimer = 25;
         attackCooldown = 30;
@@ -183,7 +185,7 @@ public class DaemoniumVoraxisEntity extends Monster implements GeoEntity {
         playLayeredSound(SoundEvents.PLAYER_ATTACK_CRIT, 1.0F, 0.3F);
 
         if (level() instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(ParticleTypes.DRAGON_BREATH,
+            serverLevel.sendParticles(ParticleTypes.SMOKE,
                     forward.x, forward.y, forward.z, 8, 0.4, 0.3, 0.4, 0.02);
         }
     }
@@ -197,14 +199,14 @@ public class DaemoniumVoraxisEntity extends Monster implements GeoEntity {
         if (level() instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.SQUID_INK,
                     getX(), getY() + 0.5, getZ(), 30, 0.8, 0.4, 0.8, 0.05);
-            serverLevel.sendParticles(ParticleTypes.DRAGON_BREATH,
+            serverLevel.sendParticles(ParticleTypes.SMOKE,
                     getX(), getY() + 0.3, getZ(), 20, 0.6, 0.3, 0.6, 0.03);
         }
     }
 
     // ---- Sounds ----
     private void playSpawnSounds() {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         playLayeredSound(SoundEvents.PHANTOM_AMBIENT, 0.8F, 0.4F);
     }
 
@@ -244,22 +246,22 @@ public class DaemoniumVoraxisEntity extends Monster implements GeoEntity {
     public boolean canAttack() { return attackCooldown <= 0 && hasSpawned && !isAttacking(); }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    protected void addAdditionalSaveData(ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("HasSpawned", hasSpawned);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    protected void readAdditionalSaveData(ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        hasSpawned = tag.getBoolean("HasSpawned");
+        hasSpawned = tag.getBooleanOr("HasSpawned", false);
         if (hasSpawned) spawnTimer = 25;
     }
 
     // ---- GeckoLib ----
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "body", 10, state -> {
+        controllers.add(new AnimationController<DaemoniumVoraxisEntity>("body", 10, state -> {
             if (isDeadOrDying()) return state.setAndContinue(DEATH_ANIM);
             if (!hasSpawned) return state.setAndContinue(SPAWN_ANIM);
 

@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.ItemLore;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -25,6 +25,7 @@ import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerXpEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -42,7 +43,7 @@ public class LivingEventHandler {
         if (!(event.getEntity() instanceof Player player)) {
             return;
         }
-        if (player.level().isClientSide) {
+        if (player.level().isClientSide()) {
             return;
         }
 
@@ -55,7 +56,7 @@ public class LivingEventHandler {
 
     @SubscribeEvent
     public static void onPlayerInteract(PlayerInteractEvent.RightClickItem event) {
-        if (event.getEntity().level().isClientSide) {
+        if (event.getEntity().level().isClientSide()) {
             return;
         }
 
@@ -65,7 +66,7 @@ public class LivingEventHandler {
                 cancel = true;
             }
             // Quenched downgrade prevents drinking
-            if (event.getItemStack().getUseAnimation() == UseAnim.DRINK && LivingHelper.has(event.getEntity(), LivingEffectComponents.QUENCHED.get())) {
+            if (event.getItemStack().getUseAnimation() == ItemUseAnimation.DRINK && LivingHelper.has(event.getEntity(), LivingEffectComponents.QUENCHED.get())) {
                 cancel = true;
             }
 
@@ -78,7 +79,7 @@ public class LivingEventHandler {
 
     @SubscribeEvent
     public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
-        if (event.getEntity().level().isClientSide) {
+        if (event.getEntity().level().isClientSide()) {
             return;
         }
 
@@ -92,7 +93,7 @@ public class LivingEventHandler {
 
     @SubscribeEvent
     public static void onKnockback(LivingKnockBackEvent event) {
-        if (event.getEntity().level().isClientSide) {
+        if (event.getEntity().level().isClientSide()) {
             return;
         }
 
@@ -111,20 +112,22 @@ public class LivingEventHandler {
 
     @SubscribeEvent
     public static void onExpPickup(PlayerXpEvent.PickupXp event) {
-        if (event.getEntity().level().isClientSide) {
+        if (event.getEntity().level().isClientSide()) {
             return;
         }
 
         if (LivingHelper.hasFullSet(event.getEntity())) {
             int starting = event.getOrb().getValue();
             int ending = LivingHelper.modifyExperience(event.getEntity(), starting);
-            event.getOrb().value = ending;
+            if (ending != starting) {
+                event.getOrb().setValue(ending);
+            }
         }
     }
 
     @SubscribeEvent
     public static void onHeal(LivingHealEvent event) {
-        if (event.getEntity().level().isClientSide) {
+        if (event.getEntity().level().isClientSide()) {
             return;
         }
 
@@ -138,7 +141,7 @@ public class LivingEventHandler {
 
     @SubscribeEvent
     public static void onDamage(LivingDamageEvent.Pre event) {
-        if (event.getEntity().level().isClientSide) {
+        if (event.getEntity().level().isClientSide()) {
             return;
         }
 
@@ -172,7 +175,7 @@ public class LivingEventHandler {
     }
 
     @SubscribeEvent
-    public static void onBlockBroken(BlockEvent.BreakEvent event) {
+    public static void onBlockBroken(BreakBlockEvent event) {
         if (event.getLevel().isClientSide()) {
             return;
         }
@@ -184,7 +187,7 @@ public class LivingEventHandler {
 
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Post event) {
-        if (event.getEntity().level().isClientSide) {
+        if (event.getEntity().level().isClientSide()) {
             return;
         }
 
@@ -247,7 +250,7 @@ public class LivingEventHandler {
 
     @SubscribeEvent
     public static void entityJoin(EntityJoinLevelEvent event) {
-        if (event.getEntity().level().isClientSide) {
+        if (event.getEntity().level().isClientSide()) {
             return;
         }
 

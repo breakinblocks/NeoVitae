@@ -25,12 +25,12 @@ import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.common.tag.NVTags;
-import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.ArrayList;
 
 public class NVTabs {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, NeoVitae.MODID);
@@ -122,19 +122,19 @@ public class NVTabs {
 
     private static void addFlaskVariants(Consumer<ItemStack> tab) {
         List<Holder<MobEffect>> flaskEffects = List.of(
-                MobEffects.MOVEMENT_SPEED,
-                MobEffects.DAMAGE_BOOST,
+                MobEffects.SPEED,
+                MobEffects.STRENGTH,
                 MobEffects.REGENERATION,
-                MobEffects.HEAL,
-                MobEffects.HARM,
+                MobEffects.INSTANT_HEALTH,
+                MobEffects.INSTANT_DAMAGE,
                 MobEffects.POISON,
                 MobEffects.NIGHT_VISION,
                 MobEffects.INVISIBILITY,
                 MobEffects.FIRE_RESISTANCE,
                 MobEffects.WATER_BREATHING,
-                MobEffects.JUMP,
+                MobEffects.JUMP_BOOST,
                 MobEffects.SLOW_FALLING,
-                MobEffects.MOVEMENT_SLOWDOWN,
+                MobEffects.SLOWNESS,
                 MobEffects.WEAKNESS,
                 MobEffects.LEVITATION,
                 NVMobEffects.BOUNCE.getDelegate(),
@@ -158,14 +158,14 @@ public class NVTabs {
 
         // Combination flasks (multi-effect precursors for advanced potions)
         addCombinationFlask(tab, NVMobEffects.GROUNDED.getDelegate(), MobEffects.SLOW_FALLING);       // → Gravity
-        addCombinationFlask(tab, NVMobEffects.GRAVITY.getDelegate(), MobEffects.HEAL);                 // → Heavy Heart
+        addCombinationFlask(tab, NVMobEffects.GRAVITY.getDelegate(), MobEffects.INSTANT_HEALTH);                 // → Heavy Heart
         addCombinationFlask(tab, NVMobEffects.SUSPENDED.getDelegate(), MobEffects.LEVITATION);         // → Flight
     }
 
     @SafeVarargs
     private static void addCombinationFlask(Consumer<ItemStack> tab, Holder<MobEffect>... effects) {
         ItemStack flask = new ItemStack(NVItems.ALCHEMY_FLASK.get());
-        List<EffectHolder> holders = new java.util.ArrayList<>();
+        List<EffectHolder> holders = new ArrayList<>();
         for (Holder<MobEffect> effect : effects) {
             holders.add(EffectHolder.create(effect, 3600, 0));
         }

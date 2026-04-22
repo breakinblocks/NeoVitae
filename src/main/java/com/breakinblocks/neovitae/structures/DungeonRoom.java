@@ -2,7 +2,7 @@ package com.breakinblocks.neovitae.structures;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Rotation;
@@ -20,7 +20,7 @@ import java.util.Map.Entry;
  */
 public class DungeonRoom {
 
-    private ResourceLocation key;
+    private Identifier key;
     private int dungeonWeight = 1;
 
     // Map of structure resource locations to their offset positions
@@ -58,7 +58,7 @@ public class DungeonRoom {
 
     // ==================== Getters ====================
 
-    public ResourceLocation getKey() {
+    public Identifier getKey() {
         return key;
     }
 
@@ -96,7 +96,7 @@ public class DungeonRoom {
 
     // ==================== Setters ====================
 
-    public void setKey(ResourceLocation key) {
+    public void setKey(Identifier key) {
         this.key = key;
     }
 
@@ -154,15 +154,15 @@ public class DungeonRoom {
         return this;
     }
 
-    public DungeonRoom addNormalRoomPool(int index, ResourceLocation roomPool) {
+    public DungeonRoom addNormalRoomPool(int index, Identifier roomPool) {
         return addRoomPool(index, roomPool.toString());
     }
 
-    public DungeonRoom addSpecialRoomPool(int index, ResourceLocation roomPool) {
+    public DungeonRoom addSpecialRoomPool(int index, Identifier roomPool) {
         return addRoomPool(index, "#" + roomPool.toString());
     }
 
-    public DungeonRoom addDeadendRoomPool(int index, ResourceLocation roomPool) {
+    public DungeonRoom addDeadendRoomPool(int index, Identifier roomPool) {
         return addRoomPool(index, "$" + roomPool.toString());
     }
 
@@ -364,7 +364,7 @@ public class DungeonRoom {
 
         for (Entry<BlockPos, List<String>> entry : compositeMap.entrySet()) {
             List<String> structures = entry.getValue();
-            ResourceLocation location = ResourceLocation.parse(structures.get(rand.nextInt(structures.size())));
+            Identifier location = Identifier.parse(structures.get(rand.nextInt(structures.size())));
             BlockPos offsetPos = StructureTemplate.calculateRelativePosition(settings, entry.getKey());
             DungeonStructure structure = new DungeonStructure(location);
             structure.placeStructureAtPosition(rand, settings, world, pos.offset(offsetPos));

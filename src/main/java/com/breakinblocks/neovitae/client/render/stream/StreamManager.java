@@ -1,9 +1,8 @@
 package com.breakinblocks.neovitae.client.render.stream;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -69,8 +68,8 @@ public class StreamManager {
         });
     }
 
-    /** Render all active streams. */
-    public void renderAll(PoseStack poseStack, MultiBufferSource.BufferSource bufferSource,
+    /** Submit all active streams into the 26.1 render pipeline. */
+    public void submitAll(PoseStack poseStack, SubmitNodeCollector collector,
                           Vec3 cameraPos, float partialTick) {
         if (activeStreams.isEmpty()) return;
 
@@ -79,14 +78,14 @@ public class StreamManager {
 
         for (ActiveStream stream : activeStreams.values()) {
             RenderType type = stream.isGlow() ? StreamRenderer.STREAM_GLOW_TYPE : StreamRenderer.STREAM_RENDER_TYPE;
-            VertexConsumer buffer = bufferSource.getBuffer(type);
-            StreamRenderer.render(stream, poseStack, buffer, partialTick);
+            poseStack.pushPose();
+            poseStack.translate(stream.getStartX(), stream.getStartY(), stream.getStartZ());
+            collector.submitCustomGeometry(poseStack, type, (pose, buf) ->
+                    StreamRenderer.render(stream, pose.pose(), buf, partialTick));
+            poseStack.popPose();
         }
 
         poseStack.popPose();
-
-        bufferSource.endBatch(StreamRenderer.STREAM_RENDER_TYPE);
-        bufferSource.endBatch(StreamRenderer.STREAM_GLOW_TYPE);
     }
 
     /** Clear all streams. Called on disconnect. */

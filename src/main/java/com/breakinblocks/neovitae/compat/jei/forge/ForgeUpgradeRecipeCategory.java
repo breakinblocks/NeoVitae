@@ -12,7 +12,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -82,23 +82,23 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> 
     }
 
     @Override
-    public void draw(ForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(ForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
 
         var font = Minecraft.getInstance().font;
         var poseStack = guiGraphics.pose();
 
-        poseStack.pushPose();
-        poseStack.translate(40, 33, 0);
-        poseStack.scale(0.5f, 0.5f, 1f);
-        guiGraphics.drawString(font, Component.translatable("jei.neovitae.recipe.will"), 0, 0, 0x8b8b8b, false);
-        poseStack.popPose();
+        poseStack.pushMatrix();
+        poseStack.translate(40, 33);
+        poseStack.scale(0.5f, 0.5f);
+        guiGraphics.text(font, Component.translatable("jei.neovitae.recipe.will"), 0, 0, 0xFF8B8B8B);
+        poseStack.popMatrix();
 
         if (recipe instanceof ForgeUpgradeRecipe) {
-            poseStack.pushPose();
-            poseStack.scale(0.5f, 0.5f, 1f);
-            guiGraphics.drawWordWrap(font, Component.translatable("jei.neovitae.recipe.upgrade_hint"), 0, 84, WIDTH * 2, 0xAA0000);
-            poseStack.popPose();
+            poseStack.pushMatrix();
+            poseStack.scale(0.5f, 0.5f);
+            guiGraphics.textWithWordWrap(font, Component.translatable("jei.neovitae.recipe.upgrade_hint"), 0, 84, WIDTH * 2, 0xFFAA0000);
+            poseStack.popMatrix();
         }
     }
 
@@ -110,7 +110,7 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> 
                 validGems.add(will.willStack);
             }
         }
-        IRecipeSlotBuilder gems = builder.addSlot(RecipeIngredientRole.CATALYST, 43, 1);
+        IRecipeSlotBuilder gems = builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 43, 1);
         gems.addItemStacks(validGems);
 
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 74, 14);

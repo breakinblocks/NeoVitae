@@ -22,7 +22,7 @@ public record ValueBasedExp(Holder<LivingUpgrade> upgrade, boolean victim) imple
 
     @Override
     public float process(int level, LootContext lootContext, float value) {
-        Player player = (Player) lootContext.getParam(victim ? LootContextParams.THIS_ENTITY : LootContextParams.ATTACKING_ENTITY);
+        Player player = (Player) lootContext.getOptionalParameter(victim ? LootContextParams.THIS_ENTITY : LootContextParams.ATTACKING_ENTITY);
         LivingHelper.applyExp(player, upgrade, value);
         return value;
     }

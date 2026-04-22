@@ -4,7 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -31,17 +31,18 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class BloodTankBlock extends Block implements EntityBlock {
     protected static final VoxelShape BOX = Block.box(3, 0, 3, 13, 14, 13);
 
-    public BloodTankBlock() {
-        super(BlockBehaviour.Properties.of()
+    public BloodTankBlock(BlockBehaviour.Properties props) {
+        super(props
                 .requiresCorrectToolForDrops()
                 .strength(2.0F, 5.0F)
                 .sound(SoundType.GLASS)
-                .forceSolidOn() // This prevents fluids from wiping it away
-        );
+                .forceSolidOn()); // prevents fluids from wiping it away
     }
 
     @Override
@@ -60,41 +61,23 @@ public class BloodTankBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, components, tooltipFlag);
-
-        int tier = stack.getOrDefault(NVDataComponents.CONTAINER_TIER, 0);
-        if (tier == 0) {
-            components.add(Component.translatable("tooltip.neovitae.container_tier_missing").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
-        } else {
-            components.add(BlockEntityHelper.translatableHover("tooltip.neovitae.container_tier", tier));
-        }
-
-        FluidStack fluidStack = stack.getOrDefault(NVDataComponents.FLUID_CONTENT, SimpleFluidContent.EMPTY).copy();
-        if (fluidStack.isEmpty()) {
-            components.add(BlockEntityHelper.translatableHover("tooltip.neovitae.fluid_content_empty"));
-        } else {
-            components.add(BlockEntityHelper.translatableHover("tooltip.neovitae.fluid_content", fluidStack.getAmount(), fluidStack.getHoverName()));
-        }
-    }
-
-    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return BOX;
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        IFluidHandler tank = level.getCapability(Capabilities.FluidHandler.BLOCK, pos, null);
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        var rh = level.getCapability(Capabilities.Fluid.BLOCK, pos, null);
+        IFluidHandler tank = rh != null ? IFluidHandler.of(rh) : null;
         if (tank == null) {
-            return ItemInteractionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
         if (!FluidUtil.interactWithFluidHandler(player, hand, tank)) {
-            return ItemInteractionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
         player.getInventory().setChanged();
         level.sendBlockUpdated(pos, state, state, UPDATE_ALL);
-        return ItemInteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.SUCCESS;
     }
 
     @Override

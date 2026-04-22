@@ -1,14 +1,14 @@
 package com.breakinblocks.neovitae.client.hud;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.client.gui.GuiLayer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
@@ -16,9 +16,9 @@ import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
 
 import java.util.List;
 
-public class SpiritusGaugeOverlay implements LayeredDraw.Layer {
+public class SpiritusGaugeOverlay implements GuiLayer {
 
-    private static final ResourceLocation BAR_LOCATION = NeoVitae.rl("textures/hud/bars.png");
+    private static final Identifier BAR_LOCATION = NeoVitae.rl("textures/hud/bars.png");
 
     private static final List<SpiritusType> ORDERED_TYPES = Lists.newArrayList(
             SpiritusType.DEFAULT,
@@ -32,7 +32,7 @@ public class SpiritusGaugeOverlay implements LayeredDraw.Layer {
     private static final int HEIGHT = 46;
 
     @Override
-    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+    public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
 
@@ -51,7 +51,7 @@ public class SpiritusGaugeOverlay implements LayeredDraw.Layer {
         int drawX = 2;
         int drawY = 2;
 
-        guiGraphics.blit(BAR_LOCATION, drawX, drawY, 0, 210, WIDTH, HEIGHT);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BAR_LOCATION, drawX, drawY, 0, 210, WIDTH, HEIGHT, 256, 256);
 
         int i = 0;
         for (SpiritusType type : ORDERED_TYPES) {
@@ -71,17 +71,17 @@ public class SpiritusGaugeOverlay implements LayeredDraw.Layer {
             int textureY = 4 * i + 220;
 
             if (width > 0) {
-                guiGraphics.blit(BAR_LOCATION, x, y, textureX, textureY, width, height);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BAR_LOCATION, x, y, textureX, textureY, width, height, 256, 256);
             }
 
             if (player.isShiftKeyDown()) {
                 double amount = WorldSpiritusHandler.getCurrentWill(mc.level, player.blockPosition(), type);
-                PoseStack poseStack = guiGraphics.pose();
-                poseStack.pushPose();
-                poseStack.translate(x - 2 * textureXOffset + 70, y - 2, 0);
-                poseStack.scale(0.5f, 0.5f, 1f);
-                guiGraphics.drawString(mc.font, String.valueOf((int) amount), 0, 2, 0xFFFFFFFF, true);
-                poseStack.popPose();
+                var poseStack = guiGraphics.pose();
+                poseStack.pushMatrix();
+                poseStack.translate(x - 2 * textureXOffset + 70, y - 2);
+                poseStack.scale(0.5f, 0.5f);
+                guiGraphics.text(mc.font, String.valueOf((int) amount), 0, 2, 0xFFFFFFFF);
+                poseStack.popMatrix();
             }
         }
     }

@@ -18,6 +18,7 @@ import com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey;
 
 import java.util.List;
 import java.util.function.Supplier;
+import net.minecraft.network.chat.Component;
 
 public class DungeonSealMenu extends AbstractContainerMenu {
 
@@ -122,13 +123,13 @@ public class DungeonSealMenu extends AbstractContainerMenu {
             if (!player.getAbilities().instabuild && keySlot >= 0) {
                 playerInventory.getItem(keySlot).shrink(1);
             }
-            player.displayClientMessage(
-                    net.minecraft.network.chat.Component.translatable("chat.neovitae.dungeon.seal.opened")
-                            .withStyle(net.minecraft.ChatFormatting.GREEN), true);
+            player.sendOverlayMessage(
+                    Component.translatable("chat.neovitae.dungeon.seal.opened")
+                            .withStyle(net.minecraft.ChatFormatting.GREEN));
         } else {
-            player.displayClientMessage(
-                    net.minecraft.network.chat.Component.translatable("chat.neovitae.dungeon.seal.failed")
-                            .withStyle(net.minecraft.ChatFormatting.RED), true);
+            player.sendOverlayMessage(
+                    Component.translatable("chat.neovitae.dungeon.seal.failed")
+                            .withStyle(net.minecraft.ChatFormatting.RED));
         }
 
         if (player instanceof ServerPlayer sp) {

@@ -4,13 +4,15 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -28,7 +30,7 @@ public class MeteorRecipe implements Recipe<MeteorInput> {
     public static final String RECIPE_TYPE_NAME = "meteor";
 
     public static final MapCodec<MeteorRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.fieldOf("input").forGetter(MeteorRecipe::getInput),
+            Ingredient.CODEC.fieldOf("input").forGetter(MeteorRecipe::getInput),
             Codec.INT.fieldOf("syphon").forGetter(MeteorRecipe::getSyphon),
             Codec.FLOAT.fieldOf("explosion").forGetter(MeteorRecipe::getExplosionRadius),
             MeteorLayer.CODEC.listOf().fieldOf("layers").forGetter(MeteorRecipe::getLayerList)
@@ -82,27 +84,37 @@ public class MeteorRecipe implements Recipe<MeteorInput> {
     }
 
     @Override
-    public ItemStack assemble(MeteorInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(MeteorInput input) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
+    public boolean showNotification() {
+        return false;
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return ItemStack.EMPTY;
+    public String group() {
+        return "";
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(input);
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
+
+    @Override
+    public RecipeSerializer<? extends Recipe<MeteorInput>> getSerializer() {
         return NVRecipes.METEOR_SERIALIZER.get();
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<MeteorInput>> getType() {
         return NVRecipes.METEOR_TYPE.get();
     }
 

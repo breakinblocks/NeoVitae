@@ -2,7 +2,7 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookPageRenderer;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Style;
 
 public class BookLivingUpgradeTablePageRenderer extends BookPageRenderer<BookLivingUpgradeTablePage> {
@@ -12,7 +12,7 @@ public class BookLivingUpgradeTablePageRenderer extends BookPageRenderer<BookLiv
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         int y = 0;
 
         if (this.page.hasTitle()) {

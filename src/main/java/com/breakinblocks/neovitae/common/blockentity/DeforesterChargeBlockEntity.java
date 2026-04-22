@@ -34,7 +34,7 @@ public class DeforesterChargeBlockEntity extends ExplosiveChargeBlockEntity {
 
     @Override
     public void onUpdate() {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return;
         }
 

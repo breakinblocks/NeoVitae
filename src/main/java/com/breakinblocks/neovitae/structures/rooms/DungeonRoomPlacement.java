@@ -2,7 +2,7 @@ package com.breakinblocks.neovitae.structures.rooms;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.HashMap;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Represents a pending dungeon room placement with all the data needed
@@ -37,7 +40,7 @@ public class DungeonRoomPlacement {
 
     public DungeonRoomPlacement(DungeonRoom room, ServerLevel world, StructurePlaceSettings settings,
                                  BlockPos roomLocation, Pair<Direction, BlockPos> entrance) {
-        this.rand = world.random;
+        this.rand = world.getRandom();
         this.room = room;
         this.world = world;
         this.settings = settings;
@@ -124,7 +127,7 @@ public class DungeonRoomPlacement {
                 }
 
                 if (!filteredDoors.isEmpty()) {
-                    doorMasterMap.computeIfAbsent(doorType, k -> new java.util.HashMap<>())
+                    doorMasterMap.computeIfAbsent(doorType, k -> new HashMap<>())
                             .computeIfAbsent(facing, k -> new ArrayList<>())
                             .addAll(filteredDoors);
                 }
@@ -165,19 +168,19 @@ public class DungeonRoomPlacement {
 
             // Build pool list, filtering out special pools that haven't been unlocked
             BlockPos sealPos = door.doorPos().relative(door.doorDir()).above(2);
-            List<ResourceLocation> unlockedSpecials = synthesizer.getSpecialRoomBuffer();
-            List<ResourceLocation> potentialRooms = new ArrayList<>();
+            List<Identifier> unlockedSpecials = synthesizer.getSpecialRoomBuffer();
+            List<Identifier> potentialRooms = new ArrayList<>();
             boolean hasUnlockedSpecial = false;
             for (String roomType : door.getPotentialRoomTypes()) {
                 if (roomType.startsWith("#")) {
-                    ResourceLocation parsed = ResourceLocation.parse(roomType.substring(1));
+                    Identifier parsed = Identifier.parse(roomType.substring(1));
                     if (unlockedSpecials.contains(parsed)) {
                         potentialRooms.add(parsed);
                         hasUnlockedSpecial = true;
                     }
                 } else {
                     String cleanRoomType = roomType.startsWith("$") ? roomType.substring(1) : roomType;
-                    potentialRooms.add(ResourceLocation.parse(cleanRoomType));
+                    potentialRooms.add(Identifier.parse(cleanRoomType));
                 }
             }
 
@@ -202,8 +205,8 @@ public class DungeonRoomPlacement {
     }
 
     private void spawnSpecialSealLights(ServerLevel world, BlockPos sealPos) {
-        net.minecraft.util.RandomSource rand = world.getRandom();
-        net.minecraft.world.level.block.state.BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState();
+        RandomSource rand = world.getRandom();
+        BlockState lightState = NVBlocks.BLOOD_LIGHT.get().defaultBlockState();
         int count = 3 + rand.nextInt(4);
         for (int i = 0; i < count; i++) {
             for (int attempt = 0; attempt < 10; attempt++) {
@@ -211,7 +214,7 @@ public class DungeonRoomPlacement {
                 if (world.isEmptyBlock(lightPos)) {
                     world.setBlockAndUpdate(lightPos, lightState);
                     if (world.getBlockEntity(lightPos) instanceof com.breakinblocks.neovitae.common.blockentity.BloodLightBlockEntity lightBE) {
-                        lightBE.setColor(net.minecraft.world.item.DyeColor.CYAN);
+                        lightBE.setColor(DyeColor.CYAN);
                     }
                     break;
                 }
@@ -234,10 +237,10 @@ public class DungeonRoomPlacement {
                         com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get().defaultBlockState());
             }
         } else {
-            net.minecraft.core.Direction rightDir = door.doorDir().getClockWise();
+            Direction rightDir = door.doorDir().getClockWise();
             for (int i = -1; i <= 1; i++) {
                 for (int j = -1; j <= 1; j++) {
-                    BlockPos fillerPos = sealPos.relative(rightDir, i).relative(net.minecraft.core.Direction.UP, j);
+                    BlockPos fillerPos = sealPos.relative(rightDir, i).relative(Direction.UP, j);
                     world.setBlockAndUpdate(fillerPos,
                             com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get().defaultBlockState());
                 }

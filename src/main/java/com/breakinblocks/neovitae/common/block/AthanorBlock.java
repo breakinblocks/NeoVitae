@@ -1,12 +1,12 @@
 package com.breakinblocks.neovitae.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -16,12 +16,13 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.core.Direction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.fluids.FluidActionResult;
 import net.neoforged.neoforge.fluids.FluidUtil;
@@ -31,24 +32,26 @@ import com.breakinblocks.neovitae.common.blockentity.AthanorBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
+import net.neoforged.neoforge.common.SoundActions;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 public class AthanorBlock extends Block implements EntityBlock {
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final EnumProperty<SpiritusType> TYPE = EnumProperty.create("type", SpiritusType.class);
 
-    public AthanorBlock() {
-        super(Properties.ofFullCopy(Blocks.FURNACE));
+    public AthanorBlock(BlockBehaviour.Properties props) {
+        super(props);
     }
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock())) {
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        if (true) {
             if (level.getBlockEntity(pos) instanceof AthanorBlockEntity arc) {
                 BlockEntityHelper.dropContents(level, pos, arc.athanorInv);
-            }
+    }
         }
-        super.onRemove(state, level, pos, newState, movedByPiston);
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 
     @Nullable
@@ -67,18 +70,18 @@ public class AthanorBlock extends Block implements EntityBlock {
      * Priority: Fill input tank > Empty output tank > Empty input tank > Open GUI
      */
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (level.isClientSide) {
-            return ItemInteractionResult.SUCCESS;
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (level.isClientSide()) {
+            return InteractionResult.SUCCESS;
         }
 
         BlockEntity be = level.getBlockEntity(pos);
         if (!(be instanceof AthanorBlockEntity arc)) {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
         }
 
         if (!FluidUtil.getFluidHandler(stack).isPresent()) {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
         }
 
         FluidActionResult fillResult = FluidUtil.tryEmptyContainerAndStow(
@@ -86,7 +89,7 @@ public class AthanorBlock extends Block implements EntityBlock {
         if (fillResult.isSuccess()) {
             player.setItemInHand(hand, fillResult.getResult());
             playFluidSound(level, pos, arc.inputTank, true);
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
         FluidActionResult drainOutputResult = FluidUtil.tryFillContainerAndStow(
@@ -94,7 +97,7 @@ public class AthanorBlock extends Block implements EntityBlock {
         if (drainOutputResult.isSuccess()) {
             player.setItemInHand(hand, drainOutputResult.getResult());
             playFluidSound(level, pos, arc.outputTank, false);
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
         FluidActionResult drainInputResult = FluidUtil.tryFillContainerAndStow(
@@ -102,19 +105,19 @@ public class AthanorBlock extends Block implements EntityBlock {
         if (drainInputResult.isSuccess()) {
             player.setItemInHand(hand, drainInputResult.getResult());
             playFluidSound(level, pos, arc.inputTank, false);
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 
     private void playFluidSound(Level level, BlockPos pos, IFluidHandler tank, boolean fill) {
         if (tank.getFluidInTank(0).isEmpty()) return;
 
-        net.neoforged.neoforge.fluids.FluidStack fluid = tank.getFluidInTank(0);
+        FluidStack fluid = tank.getFluidInTank(0);
         SoundEvent sound = fill
-                ? fluid.getFluidType().getSound(fluid, net.neoforged.neoforge.common.SoundActions.BUCKET_FILL)
-                : fluid.getFluidType().getSound(fluid, net.neoforged.neoforge.common.SoundActions.BUCKET_EMPTY);
+                ? fluid.getFluidType().getSound(fluid, SoundActions.BUCKET_FILL)
+                : fluid.getFluidType().getSound(fluid, SoundActions.BUCKET_EMPTY);
 
         if (sound != null) {
             level.playSound(null, pos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -123,10 +126,10 @@ public class AthanorBlock extends Block implements EntityBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             serverPlayer.openMenu(state.getMenuProvider(level, pos), buf -> buf.writeBlockPos(pos));
         }
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable

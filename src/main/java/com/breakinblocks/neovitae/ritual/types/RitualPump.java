@@ -41,7 +41,8 @@ public class RitualPump extends Ritual {
         BlockEntity tankBe = ctx.level().getBlockEntity(ctx.masterPos().above());
         if (tankBe == null) return;
 
-        IFluidHandler tank = ctx.level().getCapability(Capabilities.FluidHandler.BLOCK, ctx.masterPos().above(), null);
+        var rhFluid = ctx.level().getCapability(Capabilities.Fluid.BLOCK, ctx.masterPos().above(), null);
+        IFluidHandler tank = rhFluid != null ? IFluidHandler.of(rhFluid) : null;
         if (tank == null) return;
 
         List<BlockPos> positions = RitualHelper.getRangePositions(ctx.master(), this, PUMP_RANGE, ctx.masterPos());

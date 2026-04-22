@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -16,8 +19,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.menu.SpiritCacheMenu;
+import net.minecraft.world.MenuProvider;
 
-public class SpiritCacheBlockEntity extends BaseBlockEntity implements Container, net.minecraft.world.MenuProvider {
+public class SpiritCacheBlockEntity extends BaseBlockEntity implements Container, MenuProvider {
 
     private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
 
@@ -90,23 +94,23 @@ public class SpiritCacheBlockEntity extends BaseBlockEntity implements Container
         return new SpiritCacheMenu(containerId, playerInventory, this);
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public void stopOpen(Player player) {
-        if (level != null && !level.isClientSide) {
+        if (level != null && !level.isClientSide()) {
             level.playSound(null, worldPosition, SoundEvents.VAULT_INSERT_ITEM, SoundSource.BLOCKS, 1.0F, 0.8F);
         }
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        ContainerHelper.saveAllItems(tag, items, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
+        ContainerHelper.saveAllItems(tag, items);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
         items = NonNullList.withSize(27, ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, items, registries);
+        ContainerHelper.loadAllItems(tag, items);
     }
 }

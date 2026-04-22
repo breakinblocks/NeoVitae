@@ -16,8 +16,8 @@ import com.breakinblocks.neovitae.common.blockentity.DungeonControllerBlockEntit
 
 public class BlockDungeonController extends Block implements EntityBlock {
 
-    public BlockDungeonController() {
-        super(BlockBehaviour.Properties.of()
+    public BlockDungeonController(BlockBehaviour.Properties props) {
+        super(props
                 .sound(SoundType.STONE)
                 .strength(-1.0F, 3600000.0F)  // Unbreakable in survival
                 .noLootTable());

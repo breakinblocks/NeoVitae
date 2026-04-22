@@ -93,7 +93,7 @@ public class SpiritusEventHandler {
         }
 
         double willModifier = killed instanceof Slime ? 0.67 : 1;
-        double soulAmount = willModifier * (SNARE_BASE_DROP + killed.level().random.nextDouble() * SNARE_RANDOM_DROP)
+        double soulAmount = willModifier * (SNARE_BASE_DROP + killed.level().getRandom().nextDouble() * SNARE_RANDOM_DROP)
                 * killed.getMaxHealth() / 20d;
 
         if (killer != null) {

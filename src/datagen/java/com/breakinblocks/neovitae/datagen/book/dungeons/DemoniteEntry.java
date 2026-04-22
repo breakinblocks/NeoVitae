@@ -9,7 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class DemoniteEntry extends EntryProvider {
 
@@ -53,7 +53,7 @@ public class DemoniteEntry extends EntryProvider {
 
         this.page("hellforged_block", () -> BookCraftingRecipePageModel.create()
                 .withTitle1("Hellforged Block")
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "hellforged_block_from_ingots"))
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "hellforged_block_from_ingots"))
                 .withText(this.context().pageText()));
         this.pageText("Consult JEI for the Raw Hellforged Block recipe.");
 

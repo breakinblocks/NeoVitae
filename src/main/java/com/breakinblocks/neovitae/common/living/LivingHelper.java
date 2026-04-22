@@ -50,7 +50,9 @@ public class LivingHelper {
             return false;
         }
 
-        for (ItemStack stack : player.getArmorSlots()) {
+        for (net.minecraft.world.entity.EquipmentSlot slot : net.minecraft.world.entity.EquipmentSlot.VALUES) {
+            if (slot.getType() != net.minecraft.world.entity.EquipmentSlot.Type.HUMANOID_ARMOR) continue;
+            ItemStack stack = player.getItemBySlot(slot);
             if (!stack.is(set)) {
                 return false;
             }
@@ -178,7 +180,7 @@ public class LivingHelper {
                 (upgrade, level, value) -> upgrade.modifyExperience(level, player, value));
 
         float mod = finalValue % 1;
-        int toAdd = player.level().random.nextFloat() < mod ? 1 : 0;
+        int toAdd = player.level().getRandom().nextFloat() < mod ? 1 : 0;
         return (int) Math.floor(finalValue) + toAdd;
     }
 
@@ -344,7 +346,7 @@ public class LivingHelper {
         if (result.leveledUp) {
             context.chest.set(NVDataComponents.CURRENT_UPGRADE_POINTS, result.newTotalPoints);
             NeoForge.EVENT_BUS.post(new LivingArmourEvent.LevelUp(context.wearer, context.upgrade, result.oldLevel, result.newLevel));
-            context.wearer.displayClientMessage(Component.translatable("chat.neovitae.living_upgrade.level_up", Component.translatable(LivingUpgrade.descriptionId(context.upgrade.getKey())), result.newLevel), true);
+            context.wearer.sendOverlayMessage(Component.translatable("chat.neovitae.living_upgrade.level_up", Component.translatable(LivingUpgrade.descriptionId(context.upgrade.getKey())), result.newLevel));
         }
     }
     

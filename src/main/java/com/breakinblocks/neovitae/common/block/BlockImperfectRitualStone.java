@@ -22,6 +22,8 @@ import com.breakinblocks.neovitae.ritual.RitualRegistry;
 import com.breakinblocks.neovitae.ritual.RitualResult;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 /**
  * Imperfect Ritual Stone - a simple ritual block for one-time effects.
@@ -29,8 +31,8 @@ import java.util.List;
  */
 public class BlockImperfectRitualStone extends Block implements EntityBlock {
 
-    public BlockImperfectRitualStone() {
-        super(BlockBehaviour.Properties.of()
+    public BlockImperfectRitualStone(BlockBehaviour.Properties props) {
+        super(props
                 .sound(SoundType.STONE)
                 .strength(2.0F, 5.0F)
                 .requiresCorrectToolForDrops());
@@ -58,38 +60,36 @@ public class BlockImperfectRitualStone extends Block implements EntityBlock {
         BlockState aboveState = level.getBlockState(abovePos);
 
         if (aboveState.isAir()) {
-            player.displayClientMessage(
-                    Component.translatable("chat.neovitae.imperfect.noBlock").withStyle(ChatFormatting.RED), true);
+            player.sendOverlayMessage(
+                    Component.translatable("chat.neovitae.imperfect.noBlock").withStyle(ChatFormatting.RED));
             return InteractionResult.FAIL;
         }
 
         RitualRegistry.ImperfectRitualLookupResult lookupResult = RitualRegistry.findRitualForBlock(aboveState);
 
         if (lookupResult == null) {
-            player.displayClientMessage(
-                    Component.translatable("chat.neovitae.imperfect.noMatch").withStyle(ChatFormatting.YELLOW), true);
+            player.sendOverlayMessage(
+                    Component.translatable("chat.neovitae.imperfect.noMatch").withStyle(ChatFormatting.YELLOW));
             return InteractionResult.FAIL;
         }
 
         RitualResult result = tile.performRitual(level, pos, lookupResult.ritual(), lookupResult.stats(), player);
         if (result.successful()) {
-            player.displayClientMessage(
+            player.sendOverlayMessage(
                     Component.translatable("chat.neovitae.imperfect.activated",
-                            Component.translatable(lookupResult.ritual().getTranslationKey())).withStyle(ChatFormatting.GREEN), true);
+                            Component.translatable(lookupResult.ritual().getTranslationKey())).withStyle(ChatFormatting.GREEN));
             return InteractionResult.SUCCESS;
         } else {
             Component errorMsg = result.getErrorMessage();
             if (errorMsg != null) {
-                player.displayClientMessage(errorMsg.copy().withStyle(ChatFormatting.RED), true);
+                player.sendOverlayMessage(errorMsg.copy().withStyle(ChatFormatting.RED));
             }
             return InteractionResult.FAIL;
         }
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae.imperfectRitualStone.desc").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.neovitae.imperfectRitualStone.hint").withStyle(ChatFormatting.BLUE));
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
+    // @Override (removed: not an override in 26.1)
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable("tooltip.neovitae.imperfectRitualStone.desc").withStyle(ChatFormatting.GRAY));
+        tooltip.accept(Component.translatable("tooltip.neovitae.imperfectRitualStone.hint").withStyle(ChatFormatting.BLUE));}
 }

@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.compat.jei.imperfectritual;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
@@ -17,7 +17,7 @@ import java.util.List;
  * @param consumesBlock   Whether the catalyst block is consumed
  */
 public record ImperfectRitualJEIRecipe(
-        ResourceLocation ritualId,
+        Identifier ritualId,
         List<ItemStack> catalystBlock,
         int activationCost,
         Component description,

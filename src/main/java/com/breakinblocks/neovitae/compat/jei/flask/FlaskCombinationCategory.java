@@ -10,7 +10,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -49,7 +49,7 @@ public class FlaskCombinationCategory implements IRecipeCategory<FlaskCombinatio
     }
 
     @Override
-    public void draw(FlaskCombinationJEIRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(FlaskCombinationJEIRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
     }
 
@@ -80,7 +80,7 @@ public class FlaskCombinationCategory implements IRecipeCategory<FlaskCombinatio
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 92, 14);
         output.addItemStack(recipe.outputFlask());
 
-        IRecipeSlotBuilder orb = builder.addSlot(RecipeIngredientRole.CATALYST, 61, 1);
+        IRecipeSlotBuilder orb = builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 61, 1);
         orb.addItemStacks(getOrbsForTier(recipe.minimumTier()));
 
         IRecipeSlotBuilder flaskInput = builder.addSlot(RecipeIngredientRole.INPUT, 1, 1);

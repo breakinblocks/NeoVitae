@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.datagen.content;
 
-import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.data.tags.TagAppender;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
@@ -19,7 +19,7 @@ public class NVDamageSourcesContent {
         context.register(NVDamageSources.SPIKES, new DamageType("spikes", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0F));
     }
 
-    public static void tags(Function<TagKey<DamageType>, TagsProvider.TagAppender<DamageType>> setter) {
+    public static void tags(Function<TagKey<DamageType>, TagAppender<net.minecraft.resources.ResourceKey<DamageType>, DamageType>> setter) {
         setter.apply(DamageTypeTags.BYPASSES_ARMOR)
                 .add(NVDamageSources.SELF_SACRIFICE)
                 .add(NVDamageSources.SACRIFICE);

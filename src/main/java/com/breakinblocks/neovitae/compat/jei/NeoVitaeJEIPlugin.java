@@ -17,13 +17,15 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeMap;
+import com.breakinblocks.neovitae.client.event.ClientRecipeCache;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
@@ -78,13 +80,20 @@ import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @JeiPlugin
 public class NeoVitaeJEIPlugin implements IModPlugin {
@@ -92,10 +101,10 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
     private static final Logger LOGGER = LoggerFactory.getLogger(NeoVitaeJEIPlugin.class);
     public static IJeiHelpers jeiHelper;
     public static mezz.jei.api.runtime.IJeiRuntime jeiRuntime;
-    private static final ResourceLocation ID = NeoVitae.rl("jei_plugin");
+    private static final Identifier ID = NeoVitae.rl("jei_plugin");
 
     @Override
-    public ResourceLocation getPluginUid() {
+    public Identifier getPluginUid() {
         return ID;
     }
 
@@ -143,79 +152,54 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        ClientLevel world = Objects.requireNonNull(Minecraft.getInstance().level);
+        RecipeMap syncedRecipes = ClientRecipeCache.get();
 
-        List<ForgeRecipe> allForgeRecipes = world.getRecipeManager()
-                .getAllRecipesFor(NVRecipes.HELLFIRE_FORGE_TYPE.get())
-                .stream()
-                .map(RecipeHolder::value)
-                .toList();
+        List<ForgeRecipe> allForgeRecipes = syncedRecipes.byType(NVRecipes.HELLFIRE_FORGE_TYPE.get())
+                .stream().map(RecipeHolder::value).toList();
         List<ForgeRecipe> upgradeRecipes = allForgeRecipes.stream()
-                .filter(r -> r instanceof ForgeUpgradeRecipe
-                        || r instanceof ForgeTransformRecipe
-                        || r instanceof ForgeSpiritusInfusionRecipe
-                        || r.getOutput().is(NVTags.Items.SPIRITUS_GEM))
+                .filter(r -> r instanceof ForgeUpgradeRecipe || r instanceof ForgeTransformRecipe || r instanceof ForgeSpiritusInfusionRecipe)
                 .toList();
         List<ForgeRecipe> forgeRecipes = allForgeRecipes.stream()
-                .filter(r -> !upgradeRecipes.contains(r))
+                .filter(r -> !(r instanceof ForgeUpgradeRecipe) && !(r instanceof ForgeTransformRecipe) && !(r instanceof ForgeSpiritusInfusionRecipe))
                 .toList();
         registration.addRecipes(HellfireForgeRecipeCategory.RECIPE_TYPE, forgeRecipes);
         registration.addRecipes(ForgeUpgradeRecipeCategory.RECIPE_TYPE, upgradeRecipes);
 
-        List<com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe> altarRecipes = world.getRecipeManager()
-                .getAllRecipesFor(NVRecipes.ARA_VITAE_TYPE.get())
-                .stream()
-                .map(RecipeHolder::value)
-                .toList();
+        List<com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe> altarRecipes = syncedRecipes.byType(NVRecipes.ARA_VITAE_TYPE.get())
+                .stream().map(RecipeHolder::value).toList();
         registration.addRecipes(AraVitaeRecipeCategory.RECIPE_TYPE, altarRecipes);
 
-        List<AlchemyArrayRecipe> arrayRecipes = world.getRecipeManager()
-                .getAllRecipesFor(NVRecipes.ALCHEMY_ARRAY_TYPE.get())
-                .stream()
-                .map(RecipeHolder::value)
+        List<AlchemyArrayRecipe> allArrayRecipes = syncedRecipes.byType(NVRecipes.ALCHEMY_ARRAY_TYPE.get())
+                .stream().map(RecipeHolder::value).toList();
+        List<AlchemyArrayRecipe> arrayCraftingRecipes = allArrayRecipes.stream()
+                .filter(r -> r.getEffectType() == com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.CRAFTING
+                        || r.getEffectType() == com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.BINDING)
                 .toList();
-        List<AlchemyArrayRecipe> arrayCraftingRecipes = arrayRecipes.stream()
-                .filter(r -> !r.getOutput().isEmpty())
-                .toList();
-        List<AlchemyArrayRecipe> arrayEffectRecipes = arrayRecipes.stream()
-                .filter(r -> r.getOutput().isEmpty())
+        List<AlchemyArrayRecipe> arrayEffectRecipes = allArrayRecipes.stream()
+                .filter(r -> r.getEffectType() != com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.CRAFTING
+                        && r.getEffectType() != com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.BINDING)
                 .toList();
         registration.addRecipes(AlchemyArrayCraftingCategory.RECIPE_TYPE, arrayCraftingRecipes);
         registration.addRecipes(AlchemyArrayEffectCategory.RECIPE_TYPE, arrayEffectRecipes);
 
-        List<TabulaVitaeRecipe> tableRecipes = world.getRecipeManager()
-                .getAllRecipesFor(NVRecipes.TABULA_VITAE_TYPE.get())
-                .stream()
-                .map(RecipeHolder::value)
-                .toList();
+        List<TabulaVitaeRecipe> tableRecipes = syncedRecipes.byType(NVRecipes.TABULA_VITAE_TYPE.get())
+                .stream().map(RecipeHolder::value).toList();
         registration.addRecipes(TabulaVitaeRecipeCategory.RECIPE_TYPE, tableRecipes);
 
-        List<MeteorRecipe> meteorRecipes = world.getRecipeManager()
-                .getAllRecipesFor(NVRecipes.METEOR_TYPE.get())
-                .stream()
-                .map(RecipeHolder::value)
-                .toList();
+        List<MeteorRecipe> meteorRecipes = syncedRecipes.byType(NVRecipes.METEOR_TYPE.get())
+                .stream().map(RecipeHolder::value).toList();
         registration.addRecipes(MeteorRecipeCategory.RECIPE_TYPE, meteorRecipes);
 
-        List<AthanorRecipe> arcRecipes = world.getRecipeManager()
-                .getAllRecipesFor(NVRecipes.ATHANOR_TYPE.get())
-                .stream()
-                .map(RecipeHolder::value)
-                .toList();
+        List<AthanorRecipe> arcRecipes = syncedRecipes.byType(NVRecipes.ATHANOR_TYPE.get())
+                .stream().map(RecipeHolder::value).toList();
         registration.addRecipes(AthanorRecipeCategory.RECIPE_TYPE, arcRecipes);
 
-        List<FlaskRecipe> flaskRecipes = world.getRecipeManager()
-                .getAllRecipesFor(NVRecipes.FLASK_TYPE.get())
-                .stream()
-                .map(RecipeHolder::value)
-                .toList();
+        List<FlaskRecipe> flaskRecipes = syncedRecipes.byType(NVRecipes.FLASK_TYPE.get())
+                .stream().map(RecipeHolder::value).toList();
         registration.addRecipes(FlaskRecipeCategory.RECIPE_TYPE, flaskRecipes);
-
-        LOGGER.info("Registered {} flask recipes with JEI", flaskRecipes.size());
 
         List<FlaskCombinationJEIRecipe> combinationRecipes = createFlaskCombinationRecipes(flaskRecipes);
         registration.addRecipes(FlaskCombinationCategory.RECIPE_TYPE, combinationRecipes);
-        LOGGER.info("Registered {} flask combination recipes with JEI", combinationRecipes.size());
 
         List<ImperfectRitualJEIRecipe> imperfectRitualRecipes = createImperfectRitualRecipes();
         registration.addRecipes(ImperfectRitualRecipeCategory.RECIPE_TYPE, imperfectRitualRecipes);
@@ -233,23 +217,29 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addIngredientInfo(bloodTankStacks, VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.neovitae.blood_tank.upgrade_info"));
 
-        List<ItemStack> orbStacks = java.util.List.of(
+        List<ItemStack> orbStacks = List.of(
                 new ItemStack(NVItems.ORB_WEAK.get()), new ItemStack(NVItems.ORB_APPRENTICE.get()),
                 new ItemStack(NVItems.ORB_MAGICIAN.get()), new ItemStack(NVItems.ORB_MASTER.get()),
                 new ItemStack(NVItems.ORB_ARCHMAGE.get()), new ItemStack(NVItems.ORB_TRANSCENDENT.get()));
         registration.addIngredientInfo(orbStacks, VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.neovitae.orb.info"));
 
-        // Arcane Scribe Tool dye recipes
         List<RecipeHolder<CraftingRecipe>> scribeDyeRecipes = new ArrayList<>();
         for (DyeColor color : DyeColor.values()) {
+            Item dyeItem = BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(color.getSerializedName() + "_dye"));
+            if (dyeItem == null || dyeItem == Items.AIR) continue;
             ItemStack result = new ItemStack(NVItems.ARCANE_SCRIBE_TOOL.get());
             result.set(NVDataComponents.ALCHEMY_ARRAY_COLOR.get(), color);
-            NonNullList<Ingredient> ingredients = NonNullList.of(Ingredient.EMPTY,
+            List<Ingredient> ingredients = List.of(
                     Ingredient.of(NVItems.ARCANE_SCRIBE_TOOL.get()),
-                    Ingredient.of(DyeItem.byColor(color)));
-            ShapelessRecipe recipe = new ShapelessRecipe("neovitae", CraftingBookCategory.MISC, result, ingredients);
-            scribeDyeRecipes.add(new RecipeHolder<>(NeoVitae.rl("arcane_scribe_dye_" + color.getSerializedName()), recipe));
+                    Ingredient.of(dyeItem));
+            ShapelessRecipe recipe = new ShapelessRecipe(
+                    new Recipe.CommonInfo(true),
+                    new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.MISC, "neovitae"),
+                    ItemStackTemplate.fromNonEmptyStack(result),
+                    ingredients);
+            ResourceKey<Recipe<?>> key = ResourceKey.create(Registries.RECIPE, NeoVitae.rl("arcane_scribe_dye_" + color.getSerializedName()));
+            scribeDyeRecipes.add(new RecipeHolder<>(key, recipe));
         }
         registration.addRecipes(mezz.jei.api.constants.RecipeTypes.CRAFTING, scribeDyeRecipes);
     }
@@ -273,7 +263,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 .toList();
 
         // Collect all effects that can exist in a flask from all recipe types
-        java.util.Set<Holder<MobEffect>> allEffects = new java.util.LinkedHashSet<>();
+        Set<Holder<MobEffect>> allEffects = new LinkedHashSet<>();
         for (FlaskRecipe recipe : allFlaskRecipes) {
             if (recipe instanceof FlaskEffectRecipe er) {
                 allEffects.add(er.getOutputEffect());
@@ -325,7 +315,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         LOGGER.info("Creating imperfect ritual JEI recipes. Registry size: {}", registry.size());
 
         for (ImperfectRitual ritual : registry) {
-            ResourceLocation ritualId = registry.getKey(ritual);
+            Identifier ritualId = registry.getKey(ritual);
             if (ritualId == null) {
                 LOGGER.warn("Ritual has null ID, skipping");
                 continue;
@@ -356,12 +346,10 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                     catalystBlocks.add(displayStack);
                 } else if (stats.blockTag().isPresent()) {
                     TagKey<Block> tag = stats.blockTag().get();
-                    BuiltInRegistries.BLOCK.getTag(tag).ifPresent(holders -> {
-                        for (Holder<Block> blockHolder : holders) {
-                            ItemStack displayStack = getDisplayItemForBlock(blockHolder.value());
-                            catalystBlocks.add(displayStack);
-                        }
-                    });
+                    for (Holder<Block> blockHolder : BuiltInRegistries.BLOCK.getTagOrEmpty(tag)) {
+                        ItemStack displayStack = getDisplayItemForBlock(blockHolder.value());
+                        catalystBlocks.add(displayStack);
+                    }
                 }
             } else {
                 LOGGER.warn("No stats found in DataMap for ritual: {}", ritualId);
@@ -422,7 +410,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         LOGGER.info("Creating ritual JEI recipes. Registry size: {}", registry.size());
 
         for (Ritual ritual : registry) {
-            ResourceLocation ritualId = registry.getKey(ritual);
+            Identifier ritualId = registry.getKey(ritual);
             if (ritualId == null) {
                 LOGGER.warn("Ritual has null ID, skipping");
                 continue;

@@ -15,7 +15,7 @@ public class BloodTankSubtypeInterpreter implements ISubtypeInterpreter<ItemStac
         return String.valueOf(tier);
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public String getLegacyStringSubtypeInfo(ItemStack ingredient, UidContext context) {
         return String.valueOf(ingredient.getOrDefault(NVDataComponents.CONTAINER_TIER, 0));
     }

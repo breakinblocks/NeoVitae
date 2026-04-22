@@ -60,7 +60,7 @@ public class RitualMeteor extends Ritual {
 
                 EntityMeteor meteor = new EntityMeteor(ctx.level(),
                         ctx.masterPos().getX() + 0.5,
-                        ctx.level().getMaxBuildHeight() + 10,
+                        ctx.level().getMaxY() + 10,
                         ctx.masterPos().getZ() + 0.5);
                 meteor.setDeltaMovement(0, -0.1, 0);
                 meteor.setContainedStack(stack.split(1));

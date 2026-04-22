@@ -1,55 +1,33 @@
 package com.breakinblocks.neovitae.compat.modonomicon.page;
 
-import com.breakinblocks.neovitae.common.recipe.NVRecipes;
-import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
+import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
 import com.google.gson.JsonObject;
-import com.klikli_dev.modonomicon.book.BookTextHolder;
-import com.klikli_dev.modonomicon.book.conditions.BookCondition;
-import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.level.Level;
+import net.minecraft.resources.Identifier;
 
 public class BookAthanorRecipePage extends BookRecipePage<AthanorRecipe> {
 
-    public BookAthanorRecipePage(BookTextHolder title1, ResourceLocation recipeId1,
-                             BookTextHolder title2, ResourceLocation recipeId2,
-                             BookTextHolder text, String anchor, BookCondition condition) {
-        super(NVRecipes.ATHANOR_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
+    public BookAthanorRecipePage(JsonDataHolder data) {
+        super(data);
     }
 
-    public static BookAthanorRecipePage fromJson(JsonObject json, HolderLookup.Provider provider) {
-        var common = BookRecipePage.commonFromJson(json, provider);
-        var anchor = GsonHelper.getAsString(json, "anchor", "");
-        var condition = json.has("condition")
-                ? BookCondition.fromJson(json.getAsJsonObject("condition"), provider)
-                : new BookNoneCondition();
-        return new BookAthanorRecipePage(common.title1(), common.recipeId1(),
-                common.title2(), common.recipeId2(), common.text(), anchor, condition);
+    public BookAthanorRecipePage(NetworkDataHolder data) {
+        super(data);
+    }
+
+    public static BookAthanorRecipePage fromJson(Identifier id, JsonObject json, HolderLookup.Provider provider) {
+        return new BookAthanorRecipePage(BookRecipePage.commonFromJson(id, json, provider));
     }
 
     public static BookAthanorRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        var common = BookRecipePage.commonFromNetwork(buffer);
-        var anchor = buffer.readUtf();
-        var condition = BookCondition.fromNetwork(buffer);
-        return new BookAthanorRecipePage(common.title1(), common.recipeId1(),
-                common.title2(), common.recipeId2(), common.text(), anchor, condition);
+        return new BookAthanorRecipePage(BookRecipePage.commonFromNetwork(buffer));
     }
 
     @Override
-    protected ItemStack getRecipeOutput(Level level, RecipeHolder<AthanorRecipe> recipeHolder) {
-        var outputs = recipeHolder.value().getGuaranteedOutput();
-        return outputs.isEmpty() ? ItemStack.EMPTY : outputs.getFirst();
-    }
-
-    @Override
-    public ResourceLocation getType() {
+    public Identifier getType() {
         return NVPageTypes.ATHANOR;
     }
 }

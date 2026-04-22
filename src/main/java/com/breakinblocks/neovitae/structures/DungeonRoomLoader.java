@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.structures;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import com.google.common.reflect.TypeToken;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,7 @@ public final class DungeonRoomLoader {
      * Loads all registered room pools from JSON resources.
      */
     public static void loadRoomPools() {
-        for (ResourceLocation schematic : DungeonRoomRegistry.getUnloadedDungeonRoomPools()) {
+        for (Identifier schematic : DungeonRoomRegistry.getUnloadedDungeonRoomPools()) {
             try {
                 URL roomPoolURL = DungeonRoomLoader.class.getResource(resLocToResourcePath(schematic));
                 if (roomPoolURL == null) {
@@ -44,9 +44,9 @@ public final class DungeonRoomLoader {
                         new TypeToken<List<String>>() {}.getType()
                 );
 
-                List<Pair<ResourceLocation, Integer>> roomPool = new ArrayList<>();
+                List<Pair<Identifier, Integer>> roomPool = new ArrayList<>();
                 for (String roomEntryString : roomPoolList) {
-                    Pair<ResourceLocation, Integer> roomEntry = parseRoomEntryString(roomEntryString);
+                    Pair<Identifier, Integer> roomEntry = parseRoomEntryString(roomEntryString);
                     if (roomEntry != null) {
                         roomPool.add(roomEntry);
                     }
@@ -64,12 +64,12 @@ public final class DungeonRoomLoader {
     /**
      * Parses a room entry string in format "weight;resourcelocation".
      */
-    public static Pair<ResourceLocation, Integer> parseRoomEntryString(String str) {
+    public static Pair<Identifier, Integer> parseRoomEntryString(String str) {
         String[] splitString = str.split(";");
         if (splitString.length == 2) {
             try {
                 Integer weight = Integer.parseInt(splitString[0]);
-                ResourceLocation resLoc = ResourceLocation.parse(splitString[1]);
+                Identifier resLoc = Identifier.parse(splitString[1]);
                 return Pair.of(resLoc, weight);
             } catch (NumberFormatException ex) {
                 LOGGER.error("Invalid weight in room entry: {}", str, ex);
@@ -82,7 +82,7 @@ public final class DungeonRoomLoader {
      * Loads all registered dungeon rooms from JSON resources.
      */
     public static void loadDungeons() {
-        for (ResourceLocation schematic : DungeonRoomRegistry.getUnloadedDungeonRooms()) {
+        for (Identifier schematic : DungeonRoomRegistry.getUnloadedDungeonRooms()) {
             try {
                 URL dungeonURL = DungeonRoomLoader.class.getResource(resLocToResourcePath(schematic));
                 if (dungeonURL == null) {
@@ -157,9 +157,9 @@ public final class DungeonRoomLoader {
     }
 
     /**
-     * Converts a ResourceLocation to the resource path for JSON schematics.
+     * Converts a Identifier to the resource path for JSON schematics.
      */
-    public static String resLocToResourcePath(ResourceLocation resourceLocation) {
+    public static String resLocToResourcePath(Identifier resourceLocation) {
         return "/assets/" + resourceLocation.getNamespace() + "/schematics/" + resourceLocation.getPath() + ".json";
     }
 }

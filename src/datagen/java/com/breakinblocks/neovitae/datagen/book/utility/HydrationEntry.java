@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class HydrationEntry extends EntryProvider {
 
@@ -29,7 +29,7 @@ public class HydrationEntry extends EntryProvider {
                 + "extend their service considerably.[#]()");
 
         this.page("recipe_hydration", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "primitive_hydration_cell"))
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "primitive_hydration_cell"))
                 .withText(this.context().pageText()));
         this.pageText("Among its many uses, the Hydration Cell can produce Clay - the [#](4A0080)Cornerstone of Balance[#]().");
 

@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -32,19 +31,20 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.redstone.Orientation;
 
 public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<AlchemyArrayBlock> CODEC = simpleCodec(AlchemyArrayBlock::new);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape BODY = Block.box(1, 0, 1, 15, 1, 15);
 
-    public AlchemyArrayBlock() {
-        super(BlockBehaviour.Properties.of().strength(1.0F, 0).noCollission().ignitedByLava());
-        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
-    }
-
     public AlchemyArrayBlock(BlockBehaviour.Properties properties) {
-        super(properties.strength(1.0F, 0).noCollission().ignitedByLava());
+        super(properties.strength(1.0F, 0).noCollision().ignitedByLava());
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
     }
 
@@ -59,12 +59,14 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
-                                     LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+    protected BlockState updateShape(BlockState state, LevelReader level,
+                                     ScheduledTickAccess tickAccess, BlockPos pos,
+                                     Direction direction, BlockPos neighborPos, BlockState neighborState,
+                                     RandomSource random) {
         if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            tickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+        return super.updateShape(state, level, tickAccess, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
@@ -89,11 +91,13 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
 
     @Override
     protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.ENTITYBLOCK_ANIMATED;
+        // 26.1: ENTITYBLOCK_ANIMATED removed; renderer is attached via BlockEntityRenderer only.
+        return RenderShape.INVISIBLE;
     }
 
     @Override
-    protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
+    protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity,
+                                InsideBlockEffectApplier applier, boolean intersects) {
         BlockEntity tile = world.getBlockEntity(pos);
         if (tile instanceof AlchemyArrayBlockEntity arrayTile) {
             arrayTile.onEntityCollidedWithBlock(state, entity);
@@ -101,15 +105,15 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         AlchemyArrayBlockEntity array = (AlchemyArrayBlockEntity) world.getBlockEntity(pos);
 
         if (array == null || player.isShiftKeyDown())
-            return ItemInteractionResult.FAIL;
+            return InteractionResult.FAIL;
 
         ItemStack playerItem = player.getItemInHand(hand);
         if (playerItem.isEmpty()) {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
         }
 
         for (int slot = 0; slot < 2; slot++) {
@@ -121,7 +125,7 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
                 if (!player.isCreative()) playerItem.shrink(1);
                 if (slot == 1) array.attemptCraft();
                 world.sendBlockUpdated(pos, state, state, 3);
-                return ItemInteractionResult.sidedSuccess(world.isClientSide);
+                return InteractionResult.SUCCESS;
             }
             if (ItemStack.isSameItemSameComponents(inSlot, playerItem)
                     && inSlot.getCount() < inSlot.getMaxStackSize()) {
@@ -130,11 +134,11 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
                 if (!player.isCreative()) playerItem.shrink(1);
                 array.attemptCraft();
                 world.sendBlockUpdated(pos, state, state, 3);
-                return ItemInteractionResult.sidedSuccess(world.isClientSide);
+                return InteractionResult.SUCCESS;
             }
         }
 
-        return ItemInteractionResult.sidedSuccess(world.isClientSide);
+        return InteractionResult.SUCCESS;
     }
 
     @Override
@@ -143,19 +147,21 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
         BlockEntity tile = world.getBlockEntity(pos);
         if (tile instanceof AlchemyArrayBlockEntity array && array.arrayEffect != null) {
             boolean handled = array.arrayEffect.onUse(array, player);
-            if (handled && !world.isClientSide) {
+            if (handled && !world.isClientSide()) {
                 world.sendBlockUpdated(pos, state, state, 3);
             }
-            return InteractionResult.sidedSuccess(world.isClientSide);
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
     }
 
     @Override
-    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
-        super.neighborChanged(state, level, pos, neighborBlock, neighborPos, movedByPiston);
-        if (!level.isClientSide && level.getBlockEntity(pos) instanceof AlchemyArrayBlockEntity arrayTile) {
-            arrayTile.onNeighborChanged(neighborPos);
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock,
+                                   @Nullable Orientation orientation,
+                                   boolean movedByPiston) {
+        super.neighborChanged(state, level, pos, neighborBlock, orientation, movedByPiston);
+        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof AlchemyArrayBlockEntity arrayTile) {
+            arrayTile.onNeighborChanged(pos);
         }
     }
 
@@ -184,15 +190,12 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
     }
 
     @Override
-    protected void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!state.is(newState.getBlock())) {
-            BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof AlchemyArrayBlockEntity alchemyArray) {
-                alchemyArray.dropItems();
-                worldIn.updateNeighbourForOutputSignal(pos, this);
-            }
-
-            super.onRemove(state, worldIn, pos, newState, isMoving);
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel worldIn, BlockPos pos, boolean isMoving) {
+        BlockEntity tileentity = worldIn.getBlockEntity(pos);
+        if (tileentity instanceof AlchemyArrayBlockEntity alchemyArray) {
+            alchemyArray.dropItems();
+            worldIn.updateNeighbourForOutputSignal(pos, this);
         }
+        super.affectNeighborsAfterRemoval(state, worldIn, pos, isMoving);
     }
 }

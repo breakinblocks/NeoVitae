@@ -42,7 +42,7 @@ public record FastMinerSigilEffect(int amplifier) implements SigilEffect {
             return;
         }
         // Grant Haste effect (2 ticks duration, so it wears off immediately when sigil is deactivated)
-        player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 2, amplifier, true, false));
+        player.addEffect(new MobEffectInstance(MobEffects.HASTE, 2, amplifier, true, false));
     }
 
     public boolean performArrayEffect(Level level, BlockPos pos) {
@@ -54,10 +54,10 @@ public record FastMinerSigilEffect(int amplifier) implements SigilEffect {
         List<Player> playerList = level.getEntitiesOfClass(Player.class, bb);
 
         for (Player player : playerList) {
-            if (!player.hasEffect(MobEffects.DIG_SPEED) ||
-                    (player.hasEffect(MobEffects.DIG_SPEED) &&
-                            player.getEffect(MobEffects.DIG_SPEED).getAmplifier() < potionPotency)) {
-                player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, ticks, potionPotency));
+            if (!player.hasEffect(MobEffects.HASTE) ||
+                    (player.hasEffect(MobEffects.HASTE) &&
+                            player.getEffect(MobEffects.HASTE).getAmplifier() < potionPotency)) {
+                player.addEffect(new MobEffectInstance(MobEffects.HASTE, ticks, potionPotency));
                 if (!player.isCreative()) {
                     player.invulnerableTime = 0;
                     player.hurt(level.damageSources().source(NVDamageSources.SACRIFICE), 1.0F);

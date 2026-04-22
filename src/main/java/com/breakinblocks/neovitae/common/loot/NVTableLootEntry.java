@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -34,13 +34,13 @@ public class NVTableLootEntry extends LootPoolSingletonContainer {
     }
 
     @Override
-    public LootPoolEntryType getType() {
+    public MapCodec<? extends LootPoolSingletonContainer> codec() {
         return NVLootEntries.LOOT_TABLE.get();
     }
 
     @Override
     protected void createItemStack(Consumer<ItemStack> stackConsumer, LootContext context) {
-        context.addDynamicDrops(this.table.location(), stackConsumer);
+        context.addDynamicDrops(this.table.identifier(), stackConsumer);
     }
 
     public static Builder<?> builder(ResourceKey<LootTable> table) {

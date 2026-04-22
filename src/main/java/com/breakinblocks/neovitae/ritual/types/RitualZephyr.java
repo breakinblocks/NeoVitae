@@ -96,7 +96,7 @@ public class RitualZephyr extends Ritual {
             }
         }
 
-        IItemHandler inventory = ctx.level().getCapability(Capabilities.ItemHandler.BLOCK, chestPos, null);
+        IItemHandler inventory = hasChest ? Utils.getInventory(chestTile, Direction.DOWN) : null;
         ItemStack experienceTome = findExperienceTome(inventory);
 
         List<ExperienceOrb> orbs = ctx.level().getEntitiesOfClass(ExperienceOrb.class, aabb);

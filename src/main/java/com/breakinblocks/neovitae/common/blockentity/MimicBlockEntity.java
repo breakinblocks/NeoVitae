@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -19,8 +22,8 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.client.model.data.ModelData;
-import net.neoforged.neoforge.client.model.data.ModelProperty;
+import net.neoforged.neoforge.model.data.ModelData;
+import net.neoforged.neoforge.model.data.ModelProperty;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
@@ -29,6 +32,9 @@ import com.breakinblocks.neovitae.util.ChatUtil;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.Container;
+import net.minecraft.world.level.storage.TagValueInput;
 
 public class MimicBlockEntity extends BaseBlockEntity {
     public static final ModelProperty<BlockState> MIMIC = new ModelProperty<>();
@@ -80,7 +86,7 @@ public class MimicBlockEntity extends BaseBlockEntity {
 
         ItemStack stack = player.getItemInHand(hand);
         if (mimic == null || mimic == Blocks.AIR.defaultBlockState()) {
-            if (!stack.isEmpty() && stack.getItem() instanceof BlockItem blockItem && !world.isClientSide) {
+            if (!stack.isEmpty() && stack.getItem() instanceof BlockItem blockItem && !world.isClientSide()) {
                 Block block = blockItem.getBlock();
                 BlockState mimicState = block.defaultBlockState();
                 if (!(mimicState.getBlock() instanceof BlockMimic)) {
@@ -145,7 +151,7 @@ public class MimicBlockEntity extends BaseBlockEntity {
     }
 
     public void dropMimicedTileInventory() {
-        if (!getLevel().isClientSide && mimicedTile instanceof net.minecraft.world.Container) {
+        if (!getLevel().isClientSide() && mimicedTile instanceof Container) {
             inventory.setStackInSlot(0, ItemStack.EMPTY);
             inventory.setStackInSlot(1, ItemStack.EMPTY);
         }
@@ -167,7 +173,11 @@ public class MimicBlockEntity extends BaseBlockEntity {
                     copyTag.putInt("x", pos.getX());
                     copyTag.putInt("y", pos.getY());
                     copyTag.putInt("z", pos.getZ());
-                    tile.loadWithComponents(copyTag, world.registryAccess());
+                    try (ProblemReporter.ScopedCollector reporter =
+                             new ProblemReporter.ScopedCollector(tile.problemPath(), org.slf4j.LoggerFactory.getLogger(MimicBlockEntity.class))) {
+                        tile.loadWithComponents(TagValueInput.create(
+                                reporter, world.registryAccess(), copyTag));
+                    }
                 }
 
                 tile.setLevel(world);
@@ -196,42 +206,38 @@ public class MimicBlockEntity extends BaseBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        dropItemsOnBreak = tag.getBoolean("dropItemsOnBreak");
-        tileTag = tag.getCompound("tileTag");
-        playerCheckRadius = tag.getInt("playerCheckRadius");
-        potionSpawnRadius = tag.getInt("potionSpawnRadius");
-        potionSpawnInterval = Math.max(1, tag.getInt("potionSpawnInterval"));
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        dropItemsOnBreak = tag.getBooleanOr("dropItemsOnBreak", false);
+        tileTag = tag.read("tileTag", CompoundTag.CODEC).orElseGet(CompoundTag::new);
+        playerCheckRadius = tag.getIntOr("playerCheckRadius", 0);
+        potionSpawnRadius = tag.getIntOr("potionSpawnRadius", 0);
+        potionSpawnInterval = Math.max(1, tag.getIntOr("potionSpawnInterval", 0));
 
-        if (tag.contains("inventory")) {
-            inventory.deserializeNBT(registries, tag.getCompound("inventory"));
-        }
+        tag.child("inventory").ifPresent(inventory::deserialize);
 
-        if (tag.contains("mimic")) {
-            mimic = NbtUtils.readBlockState(BuiltInRegistries.BLOCK.asLookup(), tag.getCompound("mimic"));
-        }
+        tag.read("mimic", BlockState.CODEC).ifPresent(state -> mimic = state);
 
         mimicedTile = getTileFromStackWithTag(getLevel(), worldPosition, inventory.getStackInSlot(0), tileTag, mimic);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         tag.putBoolean("dropItemsOnBreak", dropItemsOnBreak);
-        tag.put("tileTag", tileTag);
+        tag.store("tileTag", CompoundTag.CODEC, tileTag);
         tag.putInt("playerCheckRadius", playerCheckRadius);
         tag.putInt("potionSpawnRadius", potionSpawnRadius);
         tag.putInt("potionSpawnInterval", potionSpawnInterval);
-        tag.put("inventory", inventory.serializeNBT(registries));
+        inventory.serialize(tag.child("inventory"));
 
         if (mimic != null) {
-            tag.put("mimic", NbtUtils.writeBlockState(mimic));
+            tag.store("mimic", BlockState.CODEC, mimic);
         }
     }
 
     public void dropItems() {
-        if (dropItemsOnBreak && level != null && !level.isClientSide) {
+        if (dropItemsOnBreak && level != null && !level.isClientSide()) {
             for (int i = 0; i < inventory.getSlots(); i++) {
                 ItemStack stack = inventory.getStackInSlot(i);
                 if (!stack.isEmpty()) {

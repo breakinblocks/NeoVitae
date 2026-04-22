@@ -134,13 +134,13 @@ public abstract class Ritual {
     }
 
     public void readFromNBT(CompoundTag tag) {
-        ListTag areas = tag.getList("areas", Tag.TAG_COMPOUND);
+        ListTag areas = tag.getListOrEmpty("areas");
         for (int i = 0; i < areas.size(); i++) {
-            CompoundTag areaTag = areas.getCompound(i);
-            String key = areaTag.getString("key");
+            CompoundTag areaTag = areas.getCompound(i).orElse(new CompoundTag());
+            String key = areaTag.getStringOr("key", "");
             AreaDescriptor descriptor = modifiableRanges.get(key);
             if (descriptor != null) {
-                descriptor.loadFromNBT(areaTag.getCompound("area"));
+                areaTag.getCompound("area").ifPresent(descriptor::loadFromNBT);
             }
         }
     }

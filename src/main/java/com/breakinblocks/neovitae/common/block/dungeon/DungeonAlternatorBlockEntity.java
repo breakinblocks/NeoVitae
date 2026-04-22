@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.block.dungeon;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -21,7 +24,7 @@ public class DungeonAlternatorBlockEntity extends BaseBlockEntity {
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, DungeonAlternatorBlockEntity tile) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return;
         }
 
@@ -43,16 +46,16 @@ public class DungeonAlternatorBlockEntity extends BaseBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         tag.putInt("tickCounter", tickCounter);
         tag.putInt("pulseRate", pulseRate);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        tickCounter = tag.getInt("tickCounter");
-        pulseRate = tag.contains("pulseRate") ? tag.getInt("pulseRate") : DEFAULT_PULSE_RATE;
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        tickCounter = tag.getIntOr("tickCounter", 0);
+        pulseRate = tag.getIntOr("pulseRate", DEFAULT_PULSE_RATE);
     }
 }

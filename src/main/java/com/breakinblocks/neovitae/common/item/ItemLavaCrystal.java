@@ -5,48 +5,44 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
-import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class ItemLavaCrystal extends Item implements IBindable {
 
     private static final int FIRE_COST = 100;
-    private static final int FUEL_COST = 50;
-    private static final int BURN_TIME = 200;
 
-    public ItemLavaCrystal() {
-        super(new Item.Properties()
+    public ItemLavaCrystal(Item.Properties props) {
+        super(props
                 .stacksTo(1)
                 .component(NVDataComponents.BINDING.get(), Binding.EMPTY));
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         if (player.isShiftKeyDown()) {
             player.swing(hand);
-            return InteractionResultHolder.success(stack);
+            return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
         }
 
-        return InteractionResultHolder.pass(stack);
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -64,8 +60,8 @@ public class ItemLavaCrystal extends Item implements IBindable {
         Binding binding = stack.get(NVDataComponents.BINDING.get());
         if (binding == null || binding.isEmpty()) {
             if (!level.isClientSide()) {
-                player.displayClientMessage(
-                        Component.translatable("chat.neovitae.crystal.notBound").withStyle(ChatFormatting.RED), true);
+                player.sendOverlayMessage(
+                        Component.translatable("chat.neovitae.crystal.notBound").withStyle(ChatFormatting.RED));
             }
             return InteractionResult.FAIL;
         }
@@ -78,8 +74,8 @@ public class ItemLavaCrystal extends Item implements IBindable {
         if (!level.isClientSide()) {
             Anima network = AnimaHelper.getAnima(binding.uuid());
             if (network == null) {
-                player.displayClientMessage(
-                        Component.translatable("chat.neovitae.notEnoughLP").withStyle(ChatFormatting.RED), true);
+                player.sendOverlayMessage(
+                        Component.translatable("chat.neovitae.notEnoughLP").withStyle(ChatFormatting.RED));
                 return InteractionResult.FAIL;
             }
 
@@ -92,48 +88,10 @@ public class ItemLavaCrystal extends Item implements IBindable {
             level.gameEvent(player, GameEvent.BLOCK_PLACE, firePos);
         }
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
-        Binding binding = itemStack.get(NVDataComponents.BINDING.get());
-        if (binding == null || binding.isEmpty()) {
-            return 0;
-        }
-
-        Anima network = AnimaHelper.getAnima(binding.uuid());
-        if (network == null || network.getCurrentEV() < FUEL_COST) {
-            return 0;
-        }
-
-        return BURN_TIME;
-    }
-
-    @Override
-    public boolean hasCraftingRemainingItem(ItemStack stack) {
-        Binding binding = stack.get(NVDataComponents.BINDING.get());
-        return binding != null && !binding.isEmpty();
-    }
-
-    @Override
-    public ItemStack getCraftingRemainingItem(ItemStack stack) {
-        Binding binding = stack.get(NVDataComponents.BINDING.get());
-        if (binding == null || binding.isEmpty()) {
-            return ItemStack.EMPTY;
-        }
-
-        Anima network = AnimaHelper.getAnima(binding.uuid());
-        if (network != null) {
-            network.syphon(AnimaTicket.create(FUEL_COST));
-        }
-
-        return stack.copy();
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae.lavaCrystal.desc").withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable("tooltip.neovitae.lavaCrystal.desc").withStyle(ChatFormatting.GRAY));}
 }

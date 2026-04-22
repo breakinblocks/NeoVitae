@@ -4,7 +4,7 @@ import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualComponent;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.*;
 

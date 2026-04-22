@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.api.altar.rune;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,7 +52,7 @@ public interface IAltarRuneRegistry {
      * @return The rune type, or null if not found
      */
     @Nullable
-    IAltarRuneType getRuneType(ResourceLocation id);
+    IAltarRuneType getRuneType(Identifier id);
 
     /**
      * Gets a registered rune type by its serialized name.
@@ -76,7 +76,7 @@ public interface IAltarRuneRegistry {
      * @param id The rune type ID to check
      * @return True if registered
      */
-    boolean isRegistered(ResourceLocation id);
+    boolean isRegistered(Identifier id);
 
     /**
      * Registers a block as providing one or more rune bonuses.

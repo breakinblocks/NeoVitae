@@ -24,6 +24,7 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import javax.annotation.Nonnull;
+import net.minecraft.world.item.ItemInstance;
 
 /**
  * Global loot modifiers for anointment effects (smelting, voiding).
@@ -87,15 +88,15 @@ public class GlobalLootModifiers {
         public static final MapCodec<SmeltingModifier> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 codecStart(inst).apply(inst, SmeltingModifier::new));
 
-        public SmeltingModifier(LootItemCondition[] conditions) {
-            super(conditions);
+        public SmeltingModifier(LootItemCondition[] conditions, int priority) {
+            super(conditions, priority);
         }
 
         @Nonnull
         @Override
         protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-            ItemStack tool = context.getParamOrNull(LootContextParams.TOOL);
-            if (tool == null || tool.isEmpty()) return generatedLoot;
+            ItemInstance toolInstance = context.getOptionalParameter(LootContextParams.TOOL);
+            if (!(toolInstance instanceof ItemStack tool) || tool.isEmpty()) return generatedLoot;
 
             // Skip explosive charges
             if (tool.is(NVTags.Items.CHARGES)) return generatedLoot;
@@ -112,19 +113,15 @@ public class GlobalLootModifiers {
         }
 
         private ItemStack smelt(ItemStack stack, LootContext context) {
-            var recipeOptional = context.getLevel().getRecipeManager()
-                    .getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(stack), context.getLevel());
-
-            if (recipeOptional.isEmpty()) {
-                return stack;
-            }
-
-            ItemStack result = recipeOptional.get().value().getResultItem(context.getLevel().registryAccess());
-            if (result.isEmpty()) {
-                return stack;
-            }
-
-            return copyStackWithSize(result, stack.getCount() * result.getCount());
+            if (stack.isEmpty()) return stack;
+            var level = context.getLevel();
+            var input = new SingleRecipeInput(stack);
+            return level.recipeAccess().getRecipeFor(RecipeType.SMELTING, input, level)
+                    .map(holder -> {
+                        ItemStack result = holder.value().assemble(input);
+                        return result.isEmpty() ? stack : copyStackWithSize(result, result.getCount() * stack.getCount());
+                    })
+                    .orElse(stack);
         }
 
         @Override
@@ -140,15 +137,15 @@ public class GlobalLootModifiers {
         public static final MapCodec<VoidingModifier> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 codecStart(inst).apply(inst, VoidingModifier::new));
 
-        public VoidingModifier(LootItemCondition[] conditions) {
-            super(conditions);
+        public VoidingModifier(LootItemCondition[] conditions, int priority) {
+            super(conditions, priority);
         }
 
         @Nonnull
         @Override
         protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-            ItemStack tool = context.getParamOrNull(LootContextParams.TOOL);
-            if (tool == null || tool.isEmpty()) return generatedLoot;
+            ItemInstance toolInstance = context.getOptionalParameter(LootContextParams.TOOL);
+            if (!(toolInstance instanceof ItemStack tool) || tool.isEmpty()) return generatedLoot;
 
             // Skip explosive charges
             if (tool.is(NVTags.Items.CHARGES)) return generatedLoot;
@@ -156,7 +153,7 @@ public class GlobalLootModifiers {
             // Check for voiding anointment
             if (!hasVoidingAnointment(tool)) return generatedLoot;
 
-            BlockState blockState = context.getParamOrNull(LootContextParams.BLOCK_STATE);
+            BlockState blockState = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
             if (blockState == null) return generatedLoot;
 
             // Only void mundane blocks

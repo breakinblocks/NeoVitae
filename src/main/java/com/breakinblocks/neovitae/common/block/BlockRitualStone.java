@@ -18,12 +18,14 @@ import com.breakinblocks.neovitae.ritual.IRitualStone;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class BlockRitualStone extends Block implements IRitualStone {
     private final EnumRuneType type;
 
-    public BlockRitualStone(EnumRuneType type) {
-        super(BlockBehaviour.Properties.of()
+    public BlockRitualStone(BlockBehaviour.Properties props, EnumRuneType type) {
+        super(props
                 .strength(2.0F, 5.0F)
                 .sound(SoundType.STONE)
                 .requiresCorrectToolForDrops());
@@ -34,10 +36,8 @@ public class BlockRitualStone extends Block implements IRitualStone {
         return type;
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
+    // @Override (removed: not an override in 26.1)
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {}
 
     @Override
     public boolean isRuneType(Level world, BlockPos pos, EnumRuneType runeType) {

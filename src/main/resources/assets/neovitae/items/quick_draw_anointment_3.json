@@ -1,0 +1,19 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "neovitae:item/quick_draw_anointment_3",
+    "tints": [
+      {
+        "type": "neovitae:anointment"
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -1
+      },
+      {
+        "type": "minecraft:constant",
+        "value": -1
+      }
+    ]
+  }
+}

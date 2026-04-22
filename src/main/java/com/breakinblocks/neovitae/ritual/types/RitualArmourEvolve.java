@@ -36,7 +36,7 @@ public class RitualArmourEvolve extends Ritual {
         List<Player> players = ctx.level().getEntitiesOfClass(Player.class, checkArea);
 
         for (Player player : players) {
-            ItemStack chestpiece = player.getInventory().armor.get(2);
+            ItemStack chestpiece = player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST);
             if (chestpiece.isEmpty() || !chestpiece.is(NVTags.Items.LIVING_SET)) {
                 continue;
             }

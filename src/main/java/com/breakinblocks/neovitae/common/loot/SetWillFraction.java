@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
-import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
@@ -38,7 +37,7 @@ public class SetWillFraction extends LootItemConditionalFunction {
     }
 
     @Override
-    public LootItemFunctionType<? extends LootItemConditionalFunction> getType() {
+    public MapCodec<? extends LootItemConditionalFunction> codec() {
         return NVLootFunctions.SET_WILL_FRACTION.get();
     }
 

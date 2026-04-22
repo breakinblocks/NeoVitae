@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.breakinblocks.neovitae.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "refmap": "neovitae.refmap.json",
   "mixins": [],
   "client": [],

@@ -32,7 +32,7 @@ public class NVGameTestSetup {
 
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
-                Capabilities.EnergyStorage.BLOCK,
+                Capabilities.Energy.BLOCK,
                 TEST_ENERGY_BE_TYPE.get(),
                 TestEnergyBlock.TestEnergyBlockEntity::getEnergyStorage
         );

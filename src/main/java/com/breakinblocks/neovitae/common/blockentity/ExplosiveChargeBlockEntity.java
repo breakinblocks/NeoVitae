@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
@@ -32,6 +35,7 @@ import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.List;
 import java.util.UUID;
+import net.minecraft.core.UUIDUtil;
 
 /**
  * Base class for explosive charge block entities.
@@ -86,29 +90,21 @@ public class ExplosiveChargeBlockEntity extends TickingBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        if (tag.hasUUID("ownerUUID")) {
-            ownerUUID = tag.getUUID("ownerUUID");
-        }
-        if (tag.contains("anointment_holder")) {
-            anointmentHolder = AnointmentHolder.CODEC.parse(registries.createSerializationContext(NbtOps.INSTANCE), tag.get("anointment_holder"))
-                    .result()
-                    .orElse(AnointmentHolder.empty());
-        }
-        internalCounter = tag.getDouble("internalCounter");
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        ownerUUID = tag.read("ownerUUID", UUIDUtil.CODEC).orElse(null);
+        anointmentHolder = tag.read("anointment_holder", AnointmentHolder.CODEC).orElse(AnointmentHolder.empty());
+        internalCounter = tag.getDoubleOr("internalCounter", 0d);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         if (ownerUUID != null) {
-            tag.putUUID("ownerUUID", ownerUUID);
+            tag.store("ownerUUID", UUIDUtil.CODEC, ownerUUID);
         }
         if (anointmentHolder != null && !anointmentHolder.isEmpty()) {
-            AnointmentHolder.CODEC.encodeStart(registries.createSerializationContext(NbtOps.INSTANCE), anointmentHolder)
-                    .result()
-                    .ifPresent(nbt -> tag.put("anointment_holder", nbt));
+            tag.store("anointment_holder", AnointmentHolder.CODEC, anointmentHolder);
         }
         tag.putDouble("internalCounter", internalCounter);
     }
@@ -145,7 +141,7 @@ public class ExplosiveChargeBlockEntity extends TickingBlockEntity {
         if (internalCounter == IGNITE_TICK) {
             level.playSound((Player) null, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5,
                     worldPosition.getZ() + 0.5, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS,
-                    1.0F, level.random.nextFloat() * 0.4F + 0.8F);
+                    1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
             ((ServerLevel) level).sendParticles(ParticleTypes.FLAME,
                     worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5,
                     5, 0.02, 0.03, 0.02, 0);
@@ -156,7 +152,7 @@ public class ExplosiveChargeBlockEntity extends TickingBlockEntity {
                     worldPosition.getZ() + 0.5, SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, 1.0F);
         }
 
-        if (internalCounter >= PRIME_TICK && level.random.nextDouble() < 0.3) {
+        if (internalCounter >= PRIME_TICK && level.getRandom().nextDouble() < 0.3) {
             ((ServerLevel) level).sendParticles(ParticleTypes.SMOKE,
                     worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5,
                     1, 0.0D, 0.0D, 0.0D, 0);
@@ -181,7 +177,7 @@ public class ExplosiveChargeBlockEntity extends TickingBlockEntity {
 
         level.playSound((Player) null, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5,
                 worldPosition.getZ() + 0.5, SoundEvents.GENERIC_EXPLODE.value(), SoundSource.BLOCKS,
-                4.0F, (1.0F + (level.random.nextFloat() - level.random.nextFloat()) * 0.2F) * 0.7F);
+                4.0F, (1.0F + (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2F) * 0.7F);
 
         serverLevel.sendParticles(ParticleTypes.EXPLOSION,
                 worldPosition.getX() + 0.5 + explosiveDirection.getStepX(),

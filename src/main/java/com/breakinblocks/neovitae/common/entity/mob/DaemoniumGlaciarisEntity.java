@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.entity.mob;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -30,12 +32,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.util.GeckoLibUtil;
+import net.minecraft.tags.DamageTypeTags;
 
 public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
 
@@ -115,14 +118,14 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
-        if (source.is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
+        if (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             return false;
         }
         if (mistTicksRemaining > 0) {
             return true;
         }
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 
     public boolean isAttacking() {
@@ -146,11 +149,11 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
         }
 
         // Ice beam continuous damage
-        if (!level().isClientSide && beamTicksRemaining > 0 && beamTarget != null && beamTarget.isAlive()) {
+        if (!level().isClientSide() && beamTicksRemaining > 0 && beamTarget != null && beamTarget.isAlive()) {
             beamTicksRemaining--;
             if (beamTicksRemaining % 4 == 0) {
                 beamTarget.hurt(damageSources().mobAttack(this), 0.25F);
-                beamTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 2));
+                beamTarget.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40, 2));
             }
             if (beamTicksRemaining <= 0) {
                 beamTarget = null;
@@ -162,7 +165,7 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
             mistTicksRemaining--;
         }
 
-        if (level().isClientSide) {
+        if (level().isClientSide()) {
             spawnAmbientParticles();
         }
     }
@@ -186,13 +189,13 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Basic shot (MM basic) - quick ice projectile ----
     public void performBasicAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_BASIC);
         attackAnimTimer = 30;
         attackCooldown = 35;
 
         target.hurt(damageSources().mobAttack(this), 10.0F);
-        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1));
+        target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40, 1));
 
         playLayeredSound(SoundEvents.TRIDENT_RETURN, 1.0F, 2.0F);
         spawnIceParticles(target);
@@ -200,7 +203,7 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Ice Beam (MM ice_beam) - channeled damage ----
     public void performIceBeamAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_ICE_BEAM);
         attackAnimTimer = 100;
         attackCooldown = 100;
@@ -215,13 +218,13 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Rose Toss (MM rose_toss) - ice projectile + thorns ----
     public void performRoseTossAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_ROSE_TOSS);
         attackAnimTimer = 90;
         attackCooldown = 90;
 
         target.hurt(damageSources().mobAttack(this), 10.0F);
-        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 2));
+        target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 60, 2));
 
         spawnIceParticles(target);
         playLayeredSound(SoundEvents.TRIDENT_RETURN, 1.0F, 2.0F);
@@ -229,7 +232,7 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Shards (MM shards) - close-range AoE burst ----
     public void performShardsAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_SHARDS);
         attackAnimTimer = 70;
         attackCooldown = 70;
@@ -237,7 +240,7 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 getBoundingBox().inflate(4.0), e -> e != this && e instanceof Player)) {
             entity.hurt(damageSources().mobAttack(this), 15.0F);
-            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 3));
+            entity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 60, 3));
         }
 
         // Layered trident sounds (6x from MM)
@@ -250,7 +253,7 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Wall Summon (MM wall_summon) - defensive ----
     public void performWallSummonAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_WALL_SUMMON);
         attackAnimTimer = 90;
         attackCooldown = 600; // 30 second cooldown like MM
@@ -271,7 +274,7 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Mist Phase (MM mist) - invulnerable phase ----
     public void performMistAttack() {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_MIST);
         attackAnimTimer = 400;
         attackCooldown = 400;
@@ -329,7 +332,7 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
 
     @Override
     public void playHurtSound(DamageSource source) {
-        if (source.is(net.minecraft.tags.DamageTypeTags.BYPASSES_ARMOR)) return;
+        if (source.is(DamageTypeTags.BYPASSES_ARMOR)) return;
         playLayeredSound(SoundEvents.ALLAY_HURT, 1.0F, 2.0F);
     }
 
@@ -353,21 +356,21 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    protected void addAdditionalSaveData(ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("MistTicks", mistTicksRemaining);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    protected void readAdditionalSaveData(ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        mistTicksRemaining = tag.getInt("MistTicks");
+        mistTicksRemaining = tag.getIntOr("MistTicks", 0);
     }
 
     // ---- Geckolib ----
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "body", 10, state -> {
+        controllers.add(new AnimationController<DaemoniumGlaciarisEntity>("body", 10, state -> {
             if (isDeadOrDying()) {
                 return state.setAndContinue(DEATH_ANIM);
             }

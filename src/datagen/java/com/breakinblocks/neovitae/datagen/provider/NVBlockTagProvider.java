@@ -1,14 +1,12 @@
 package com.breakinblocks.neovitae.datagen.provider;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
@@ -20,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class NVBlockTagProvider extends BlockTagsProvider {
     public NVBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(output, lookupProvider, NeoVitae.MODID, null);
+        super(output, lookupProvider, NeoVitae.MODID);
     }
 
     @Override
@@ -33,7 +31,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .addAll(BlockGroups.BLOODSTONE);
 
         this.tag(NVTags.Blocks.T3_CAPSTONES)
-                .add(NVBlocks.BLOOD_STAINED_GLASS.block().getKey());
+                .add(NVBlocks.BLOOD_STAINED_GLASS.block().get());
 
         this.tag(NVTags.Blocks.T4_CAPSTONES)
                 .addAll(BlockGroups.BLOODSTONE);
@@ -47,7 +45,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         this.tag(NVTags.Blocks.PILLARS); // means all solid blocks are viable, has to be added otherwise the tag isnt generated
 
         this.tag(NVTags.Blocks.ANIMA_COMPARATOR)
-                .add(NVBlocks.BLOOD_STAINED_GLASS.block().getKey());
+                .add(NVBlocks.BLOOD_STAINED_GLASS.block().get());
 
         this.tag(NVTags.Blocks.PULSE_ON_CRAFTING)
                 .add(Blocks.REDSTONE_LAMP, Blocks.NOTE_BLOCK);
@@ -59,86 +57,86 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .addAll(BlockGroups.HELLFORGED_BLOCK);
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(NVBlocks.ARA_VITAE.block().getKey(), NVBlocks.BLOOD_TANK.block().getKey())
-                .add(NVBlocks.HELLFIRE_FORGE.block().getKey())
-                .add(NVBlocks.ATHANOR_BLOCK.block().getKey())
-                .add(NVBlocks.TABULA_VITAE.block().getKey())
-                .add(NVBlocks.TELEPOSER.block().getKey())
-                .add(NVBlocks.BLANK_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.AIR_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.WATER_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.FIRE_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.EARTH_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.DUSK_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.DAWN_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.MASTER_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.IMPERFECT_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.VAS_MALEFICUM.block().getKey())
-                .add(NVBlocks.CRYSTALLARIUM_MALEFICUM.block().getKey())
-                .add(NVBlocks.SPIRA_INFERNALIS.block().getKey())
+                .add(NVBlocks.ARA_VITAE.block().get(), NVBlocks.BLOOD_TANK.block().get())
+                .add(NVBlocks.HELLFIRE_FORGE.block().get())
+                .add(NVBlocks.ATHANOR_BLOCK.block().get())
+                .add(NVBlocks.TABULA_VITAE.block().get())
+                .add(NVBlocks.TELEPOSER.block().get())
+                .add(NVBlocks.BLANK_RITUAL_STONE.block().get())
+                .add(NVBlocks.AIR_RITUAL_STONE.block().get())
+                .add(NVBlocks.WATER_RITUAL_STONE.block().get())
+                .add(NVBlocks.FIRE_RITUAL_STONE.block().get())
+                .add(NVBlocks.EARTH_RITUAL_STONE.block().get())
+                .add(NVBlocks.DUSK_RITUAL_STONE.block().get())
+                .add(NVBlocks.DAWN_RITUAL_STONE.block().get())
+                .add(NVBlocks.MASTER_RITUAL_STONE.block().get())
+                .add(NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().get())
+                .add(NVBlocks.IMPERFECT_RITUAL_STONE.block().get())
+                .add(NVBlocks.VAS_MALEFICUM.block().get())
+                .add(NVBlocks.CRYSTALLARIUM_MALEFICUM.block().get())
+                .add(NVBlocks.SPIRA_INFERNALIS.block().get())
                 // Demon crystals
-                .add(NVBlocks.RAW_SPIRITUS_CRYSTAL.block().getKey())
-                .add(NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block().getKey())
-                .add(NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block().getKey())
-                .add(NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().getKey())
-                .add(NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().getKey())
+                .add(NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get())
+                .add(NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block().get())
+                .add(NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block().get())
+                .add(NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().get())
+                .add(NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().get())
                 // Routing nodes
-                .add(NVBlocks.ROUTING_CONDUIT.block().getKey())
-                .add(NVBlocks.INPUT_ROUTING_NODE.block().getKey())
-                .add(NVBlocks.OUTPUT_ROUTING_NODE.block().getKey())
-                .add(NVBlocks.MASTER_ROUTING_NODE.block().getKey())
+                .add(NVBlocks.ROUTING_CONDUIT.block().get())
+                .add(NVBlocks.INPUT_ROUTING_NODE.block().get())
+                .add(NVBlocks.OUTPUT_ROUTING_NODE.block().get())
+                .add(NVBlocks.MASTER_ROUTING_NODE.block().get())
                 // Explosive charges
-                .add(NVBlocks.SHAPED_CHARGE.block().getKey())
-                .add(NVBlocks.AUG_SHAPED_CHARGE.block().getKey())
-                .add(NVBlocks.SHAPED_CHARGE_DEEP.block().getKey())
-                .add(NVBlocks.DEFORESTER_CHARGE.block().getKey())
-                .add(NVBlocks.DEFORESTER_CHARGE_2.block().getKey())
-                .add(NVBlocks.VEINMINE_CHARGE.block().getKey())
-                .add(NVBlocks.VEINMINE_CHARGE_2.block().getKey())
-                .add(NVBlocks.FUNGAL_CHARGE.block().getKey())
-                .add(NVBlocks.FUNGAL_CHARGE_2.block().getKey());
+                .add(NVBlocks.SHAPED_CHARGE.block().get())
+                .add(NVBlocks.AUG_SHAPED_CHARGE.block().get())
+                .add(NVBlocks.SHAPED_CHARGE_DEEP.block().get())
+                .add(NVBlocks.DEFORESTER_CHARGE.block().get())
+                .add(NVBlocks.DEFORESTER_CHARGE_2.block().get())
+                .add(NVBlocks.VEINMINE_CHARGE.block().get())
+                .add(NVBlocks.VEINMINE_CHARGE_2.block().get())
+                .add(NVBlocks.FUNGAL_CHARGE.block().get())
+                .add(NVBlocks.FUNGAL_CHARGE_2.block().get());
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
-                .add(NVBlocks.ARA_VITAE.block().getKey(), NVBlocks.BLOOD_TANK.block().getKey())
-                .add(NVBlocks.HELLFIRE_FORGE.block().getKey())
-                .add(NVBlocks.ATHANOR_BLOCK.block().getKey())
-                .add(NVBlocks.TABULA_VITAE.block().getKey())
-                .add(NVBlocks.TELEPOSER.block().getKey())
-                .add(NVBlocks.BLANK_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.AIR_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.WATER_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.FIRE_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.EARTH_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.DUSK_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.DAWN_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.MASTER_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.IMPERFECT_RITUAL_STONE.block().getKey())
-                .add(NVBlocks.VAS_MALEFICUM.block().getKey())
-                .add(NVBlocks.CRYSTALLARIUM_MALEFICUM.block().getKey())
-                .add(NVBlocks.SPIRA_INFERNALIS.block().getKey())
+                .add(NVBlocks.ARA_VITAE.block().get(), NVBlocks.BLOOD_TANK.block().get())
+                .add(NVBlocks.HELLFIRE_FORGE.block().get())
+                .add(NVBlocks.ATHANOR_BLOCK.block().get())
+                .add(NVBlocks.TABULA_VITAE.block().get())
+                .add(NVBlocks.TELEPOSER.block().get())
+                .add(NVBlocks.BLANK_RITUAL_STONE.block().get())
+                .add(NVBlocks.AIR_RITUAL_STONE.block().get())
+                .add(NVBlocks.WATER_RITUAL_STONE.block().get())
+                .add(NVBlocks.FIRE_RITUAL_STONE.block().get())
+                .add(NVBlocks.EARTH_RITUAL_STONE.block().get())
+                .add(NVBlocks.DUSK_RITUAL_STONE.block().get())
+                .add(NVBlocks.DAWN_RITUAL_STONE.block().get())
+                .add(NVBlocks.MASTER_RITUAL_STONE.block().get())
+                .add(NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().get())
+                .add(NVBlocks.IMPERFECT_RITUAL_STONE.block().get())
+                .add(NVBlocks.VAS_MALEFICUM.block().get())
+                .add(NVBlocks.CRYSTALLARIUM_MALEFICUM.block().get())
+                .add(NVBlocks.SPIRA_INFERNALIS.block().get())
                 // Demon crystals
-                .add(NVBlocks.RAW_SPIRITUS_CRYSTAL.block().getKey())
-                .add(NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block().getKey())
-                .add(NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block().getKey())
-                .add(NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().getKey())
-                .add(NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().getKey())
+                .add(NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get())
+                .add(NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block().get())
+                .add(NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block().get())
+                .add(NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().get())
+                .add(NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().get())
                 // Routing nodes
-                .add(NVBlocks.ROUTING_CONDUIT.block().getKey())
-                .add(NVBlocks.INPUT_ROUTING_NODE.block().getKey())
-                .add(NVBlocks.OUTPUT_ROUTING_NODE.block().getKey())
-                .add(NVBlocks.MASTER_ROUTING_NODE.block().getKey())
+                .add(NVBlocks.ROUTING_CONDUIT.block().get())
+                .add(NVBlocks.INPUT_ROUTING_NODE.block().get())
+                .add(NVBlocks.OUTPUT_ROUTING_NODE.block().get())
+                .add(NVBlocks.MASTER_ROUTING_NODE.block().get())
                 // Explosive charges
-                .add(NVBlocks.SHAPED_CHARGE.block().getKey())
-                .add(NVBlocks.AUG_SHAPED_CHARGE.block().getKey())
-                .add(NVBlocks.SHAPED_CHARGE_DEEP.block().getKey())
-                .add(NVBlocks.DEFORESTER_CHARGE.block().getKey())
-                .add(NVBlocks.DEFORESTER_CHARGE_2.block().getKey())
-                .add(NVBlocks.VEINMINE_CHARGE.block().getKey())
-                .add(NVBlocks.VEINMINE_CHARGE_2.block().getKey())
-                .add(NVBlocks.FUNGAL_CHARGE.block().getKey())
-                .add(NVBlocks.FUNGAL_CHARGE_2.block().getKey());
+                .add(NVBlocks.SHAPED_CHARGE.block().get())
+                .add(NVBlocks.AUG_SHAPED_CHARGE.block().get())
+                .add(NVBlocks.SHAPED_CHARGE_DEEP.block().get())
+                .add(NVBlocks.DEFORESTER_CHARGE.block().get())
+                .add(NVBlocks.DEFORESTER_CHARGE_2.block().get())
+                .add(NVBlocks.VEINMINE_CHARGE.block().get())
+                .add(NVBlocks.VEINMINE_CHARGE_2.block().get())
+                .add(NVBlocks.FUNGAL_CHARGE.block().get())
+                .add(NVBlocks.FUNGAL_CHARGE_2.block().get());
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .addAll(BlockGroups.BLOODSTONE)
@@ -154,19 +152,19 @@ public class NVBlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.NEEDS_IRON_TOOL)
                 .addAll(BlockGroups.HELLFORGED_BLOCK)
-                .add(NVBlocks.RAW_DEMONITE_BLOCK.block().getKey());
+                .add(NVBlocks.RAW_DEMONITE_BLOCK.block().get());
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(NVBlocks.RAW_DEMONITE_BLOCK.block().getKey());
+                .add(NVBlocks.RAW_DEMONITE_BLOCK.block().get());
 
         this.tag(Tags.Blocks.NEEDS_NETHERITE_TOOL)
                 .addAll(BlockGroups.RUNE_T2);
 
         // Incense Altar mineable
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(NVBlocks.INCENSE_ALTAR.block().getKey());
+                .add(NVBlocks.INCENSE_ALTAR.block().get());
         this.tag(BlockTags.NEEDS_STONE_TOOL)
-                .add(NVBlocks.INCENSE_ALTAR.block().getKey());
+                .add(NVBlocks.INCENSE_ALTAR.block().get());
 
         // Incense Path Blocks - higher level tags inherit from lower levels via tag hierarchy
         // Level 0 (innermost ring) - basic path blocks
@@ -202,7 +200,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         this.tag(NVTags.Blocks.TRANQUILITY_CROP);
         this.tag(NVTags.Blocks.TRANQUILITY_TREE);
         this.tag(NVTags.Blocks.TRANQUILITY_EARTHEN)
-                .add(NVBlocks.SANDS_OF_VITAE.block().getKey());
+                .add(NVBlocks.SANDS_OF_VITAE.block().get());
         this.tag(NVTags.Blocks.TRANQUILITY_WATER);
         this.tag(NVTags.Blocks.TRANQUILITY_FIRE);
         this.tag(NVTags.Blocks.TRANQUILITY_LAVA);
@@ -216,7 +214,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         // Includes c:budding tag for cross-mod compat (AE2 certus, GeoOres, etc.)
         this.tag(NVTags.Blocks.GEODE_ACCELERATABLE)
                 .add(Blocks.BUDDING_AMETHYST)
-                .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "budding_blocks"));
+                .addOptionalTag(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK, Identifier.fromNamespaceAndPath("c", "budding_blocks")));
 
         // Mushroom blocks for fungal charges
         this.tag(NVTags.Blocks.MUSHROOM_STEM)
@@ -228,11 +226,11 @@ public class NVBlockTagProvider extends BlockTagsProvider {
 
         // Inversion Pillar blocks
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(NVBlocks.INVERSION_PILLAR.block().getKey())
-                .add(NVBlocks.INVERSION_PILLAR_CAP.block().getKey());
+                .add(NVBlocks.INVERSION_PILLAR.block().get())
+                .add(NVBlocks.INVERSION_PILLAR_CAP.block().get());
         this.tag(BlockTags.NEEDS_STONE_TOOL)
-                .add(NVBlocks.INVERSION_PILLAR.block().getKey())
-                .add(NVBlocks.INVERSION_PILLAR_CAP.block().getKey());
+                .add(NVBlocks.INVERSION_PILLAR.block().get())
+                .add(NVBlocks.INVERSION_PILLAR_CAP.block().get());
 
         // Dungeon blocks
         addDungeonBlockTags();
@@ -242,136 +240,136 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         // Add walls to WALLS tag so they connect properly
         var wallsTag = this.tag(BlockTags.WALLS);
         for (DungeonVariant variant : DungeonVariant.values()) {
-            wallsTag.add(DungeonBlocks.DUNGEON_BRICK_WALL.get(variant).block().getKey());
-            wallsTag.add(DungeonBlocks.DUNGEON_TILE_WALL.get(variant).block().getKey());
-            wallsTag.add(DungeonBlocks.DUNGEON_POLISHED_WALL.get(variant).block().getKey());
-            wallsTag.add(DungeonBlocks.DUNGEON_STONE_WALL.get(variant).block().getKey());
+            wallsTag.add(DungeonBlocks.DUNGEON_BRICK_WALL.get(variant).block().get());
+            wallsTag.add(DungeonBlocks.DUNGEON_TILE_WALL.get(variant).block().get());
+            wallsTag.add(DungeonBlocks.DUNGEON_POLISHED_WALL.get(variant).block().get());
+            wallsTag.add(DungeonBlocks.DUNGEON_STONE_WALL.get(variant).block().get());
         }
 
         // Add stairs to STAIRS tag
         var stairsTag = this.tag(BlockTags.STAIRS);
         for (DungeonVariant variant : DungeonVariant.values()) {
-            stairsTag.add(DungeonBlocks.DUNGEON_BRICK_STAIRS.get(variant).block().getKey());
-            stairsTag.add(DungeonBlocks.DUNGEON_POLISHED_STAIRS.get(variant).block().getKey());
-            stairsTag.add(DungeonBlocks.DUNGEON_STONE_STAIRS.get(variant).block().getKey());
+            stairsTag.add(DungeonBlocks.DUNGEON_BRICK_STAIRS.get(variant).block().get());
+            stairsTag.add(DungeonBlocks.DUNGEON_POLISHED_STAIRS.get(variant).block().get());
+            stairsTag.add(DungeonBlocks.DUNGEON_STONE_STAIRS.get(variant).block().get());
         }
 
         // Add slabs to SLABS tag
         var slabsTag = this.tag(BlockTags.SLABS);
         for (DungeonVariant variant : DungeonVariant.values()) {
-            slabsTag.add(DungeonBlocks.DUNGEON_BRICK_SLAB.get(variant).block().getKey());
-            slabsTag.add(DungeonBlocks.DUNGEON_TILE_SLAB.get(variant).block().getKey());
-            slabsTag.add(DungeonBlocks.DUNGEON_STONE_SLAB.get(variant).block().getKey());
-            slabsTag.add(DungeonBlocks.DUNGEON_POLISHED_SLAB.get(variant).block().getKey());
+            slabsTag.add(DungeonBlocks.DUNGEON_BRICK_SLAB.get(variant).block().get());
+            slabsTag.add(DungeonBlocks.DUNGEON_TILE_SLAB.get(variant).block().get());
+            slabsTag.add(DungeonBlocks.DUNGEON_STONE_SLAB.get(variant).block().get());
+            slabsTag.add(DungeonBlocks.DUNGEON_POLISHED_SLAB.get(variant).block().get());
         }
 
         // Add fence gates to FENCE_GATES tag
         var gatesTag = this.tag(BlockTags.FENCE_GATES);
         for (DungeonVariant variant : DungeonVariant.values()) {
-            gatesTag.add(DungeonBlocks.DUNGEON_BRICK_GATE.get(variant).block().getKey());
-            gatesTag.add(DungeonBlocks.DUNGEON_POLISHED_GATE.get(variant).block().getKey());
+            gatesTag.add(DungeonBlocks.DUNGEON_BRICK_GATE.get(variant).block().get());
+            gatesTag.add(DungeonBlocks.DUNGEON_POLISHED_GATE.get(variant).block().get());
         }
 
         // Add all dungeon blocks to MINEABLE_WITH_PICKAXE
         var pickaxeTag = this.tag(BlockTags.MINEABLE_WITH_PICKAXE);
-        pickaxeTag.add(DungeonBlocks.DUNGEON_ORE.block().getKey());
-        pickaxeTag.add(DungeonBlocks.PRISMATIC_DEMONITE.block().getKey());
-        pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().getKey());
+        pickaxeTag.add(DungeonBlocks.DUNGEON_ORE.block().get());
+        pickaxeTag.add(DungeonBlocks.PRISMATIC_DEMONITE.block().get());
+        pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get());
 
         // Path blocks
-        pickaxeTag.add(DungeonBlocks.WOOD_BRICK_PATH.block().getKey());
-        pickaxeTag.add(DungeonBlocks.WOOD_TILE_PATH.block().getKey());
-        pickaxeTag.add(DungeonBlocks.STONE_BRICK_PATH.block().getKey());
-        pickaxeTag.add(DungeonBlocks.STONE_TILE_PATH.block().getKey());
-        pickaxeTag.add(DungeonBlocks.WORN_STONE_BRICK_PATH.block().getKey());
-        pickaxeTag.add(DungeonBlocks.WORN_STONE_TILE_PATH.block().getKey());
-        pickaxeTag.add(DungeonBlocks.OBSIDIAN_BRICK_PATH.block().getKey());
-        pickaxeTag.add(DungeonBlocks.OBSIDIAN_TILE_PATH.block().getKey());
+        pickaxeTag.add(DungeonBlocks.WOOD_BRICK_PATH.block().get());
+        pickaxeTag.add(DungeonBlocks.WOOD_TILE_PATH.block().get());
+        pickaxeTag.add(DungeonBlocks.STONE_BRICK_PATH.block().get());
+        pickaxeTag.add(DungeonBlocks.STONE_TILE_PATH.block().get());
+        pickaxeTag.add(DungeonBlocks.WORN_STONE_BRICK_PATH.block().get());
+        pickaxeTag.add(DungeonBlocks.WORN_STONE_TILE_PATH.block().get());
+        pickaxeTag.add(DungeonBlocks.OBSIDIAN_BRICK_PATH.block().get());
+        pickaxeTag.add(DungeonBlocks.OBSIDIAN_TILE_PATH.block().get());
 
         // All variant blocks
         for (DungeonVariant variant : DungeonVariant.values()) {
             // Base blocks
-            pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_1.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_2.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_3.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_STONE.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_EYE.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_POLISHED.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_TILE.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_SMALLBRICK.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_TILESPECIAL.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_METAL.get(variant).block().getKey());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_1.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_2.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_3.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_STONE.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_EYE.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_POLISHED.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_TILE.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_SMALLBRICK.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_TILESPECIAL.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_METAL.get(variant).block().get());
             // Pillars
-            pickaxeTag.add(DungeonBlocks.DUNGEON_PILLAR_CENTER.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_PILLAR_SPECIAL.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_PILLAR_CAP.get(variant).block().getKey());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_PILLAR_CENTER.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_PILLAR_SPECIAL.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_PILLAR_CAP.get(variant).block().get());
             // Decorative
-            pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_STAIRS.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_POLISHED_STAIRS.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_STONE_STAIRS.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_WALL.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_TILE_WALL.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_POLISHED_WALL.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_STONE_WALL.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_SLAB.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_TILE_SLAB.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_STONE_SLAB.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_POLISHED_SLAB.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_GATE.get(variant).block().getKey());
-            pickaxeTag.add(DungeonBlocks.DUNGEON_POLISHED_GATE.get(variant).block().getKey());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_STAIRS.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_POLISHED_STAIRS.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_STONE_STAIRS.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_WALL.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_TILE_WALL.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_POLISHED_WALL.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_STONE_WALL.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_SLAB.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_TILE_SLAB.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_STONE_SLAB.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_POLISHED_SLAB.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_BRICK_GATE.get(variant).block().get());
+            pickaxeTag.add(DungeonBlocks.DUNGEON_POLISHED_GATE.get(variant).block().get());
         }
 
         // Add stone tool requirement for dungeon blocks
         var stoneToolTag = this.tag(BlockTags.NEEDS_STONE_TOOL);
-        stoneToolTag.add(DungeonBlocks.DUNGEON_ORE.block().getKey());
-        stoneToolTag.add(DungeonBlocks.PRISMATIC_DEMONITE.block().getKey());
-        stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().getKey());
+        stoneToolTag.add(DungeonBlocks.DUNGEON_ORE.block().get());
+        stoneToolTag.add(DungeonBlocks.PRISMATIC_DEMONITE.block().get());
+        stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get());
         for (DungeonVariant variant : DungeonVariant.values()) {
-            stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_1.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_2.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_3.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_STONE.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_EYE.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_POLISHED.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_TILE.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_SMALLBRICK.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_TILESPECIAL.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_PILLAR_CENTER.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_PILLAR_SPECIAL.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_PILLAR_CAP.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_STAIRS.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_POLISHED_STAIRS.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_STONE_STAIRS.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_WALL.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_TILE_WALL.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_POLISHED_WALL.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_STONE_WALL.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_SLAB.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_TILE_SLAB.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_STONE_SLAB.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_POLISHED_SLAB.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_GATE.get(variant).block().getKey());
-            stoneToolTag.add(DungeonBlocks.DUNGEON_POLISHED_GATE.get(variant).block().getKey());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_1.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_2.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_3.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_STONE.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_EYE.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_POLISHED.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_TILE.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_SMALLBRICK.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_TILESPECIAL.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_PILLAR_CENTER.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_PILLAR_SPECIAL.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_PILLAR_CAP.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_STAIRS.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_POLISHED_STAIRS.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_STONE_STAIRS.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_WALL.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_TILE_WALL.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_POLISHED_WALL.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_STONE_WALL.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_SLAB.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_TILE_SLAB.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_STONE_SLAB.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_POLISHED_SLAB.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_BRICK_GATE.get(variant).block().get());
+            stoneToolTag.add(DungeonBlocks.DUNGEON_POLISHED_GATE.get(variant).block().get());
         }
 
         // Iron tool for dungeon metal blocks
         var ironToolTag = this.tag(BlockTags.NEEDS_IRON_TOOL);
         for (DungeonVariant variant : DungeonVariant.values()) {
-            ironToolTag.add(DungeonBlocks.DUNGEON_METAL.get(variant).block().getKey());
+            ironToolTag.add(DungeonBlocks.DUNGEON_METAL.get(variant).block().get());
         }
 
         // Add path blocks to incense altar path tags
         this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_2)
-                .add(DungeonBlocks.WOOD_BRICK_PATH.block().getKey())
-                .add(DungeonBlocks.WOOD_TILE_PATH.block().getKey());
+                .add(DungeonBlocks.WOOD_BRICK_PATH.block().get())
+                .add(DungeonBlocks.WOOD_TILE_PATH.block().get());
         this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_4)
-                .add(DungeonBlocks.STONE_BRICK_PATH.block().getKey())
-                .add(DungeonBlocks.STONE_TILE_PATH.block().getKey());
+                .add(DungeonBlocks.STONE_BRICK_PATH.block().get())
+                .add(DungeonBlocks.STONE_TILE_PATH.block().get());
         this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_6)
-                .add(DungeonBlocks.WORN_STONE_BRICK_PATH.block().getKey())
-                .add(DungeonBlocks.WORN_STONE_TILE_PATH.block().getKey());
+                .add(DungeonBlocks.WORN_STONE_BRICK_PATH.block().get())
+                .add(DungeonBlocks.WORN_STONE_TILE_PATH.block().get());
         this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_8)
-                .add(DungeonBlocks.OBSIDIAN_BRICK_PATH.block().getKey())
-                .add(DungeonBlocks.OBSIDIAN_TILE_PATH.block().getKey());
+                .add(DungeonBlocks.OBSIDIAN_BRICK_PATH.block().get())
+                .add(DungeonBlocks.OBSIDIAN_TILE_PATH.block().get());
     }
 }

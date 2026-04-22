@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.mojang.datafixers.util.Pair;
 
 public class ChargingRuneEntry extends EntryProvider {
@@ -37,7 +37,7 @@ public class ChargingRuneEntry extends EntryProvider {
                 + "[altar capacity / 20,000] if that ratio exceeds 1.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_charging")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "rune_charging")));
 
     }
 

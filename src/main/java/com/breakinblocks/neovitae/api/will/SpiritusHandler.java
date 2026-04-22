@@ -68,7 +68,7 @@ public class SpiritusHandler implements ISpiritusHandler {
 
         SpiritusChunk newSpiritusChunk = willChunk.copy();
         chunk.setData(NVDataAttachments.SPIRITUS_CHUNK, newSpiritusChunk);
-        chunk.setUnsaved(true);
+        chunk.markUnsaved();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class SpiritusHandler implements ISpiritusHandler {
 
         SpiritusChunk newSpiritusChunk = willChunk.copy();
         chunk.setData(NVDataAttachments.SPIRITUS_CHUNK, newSpiritusChunk);
-        chunk.setUnsaved(true);
+        chunk.markUnsaved();
 
         return newBonus;
     }

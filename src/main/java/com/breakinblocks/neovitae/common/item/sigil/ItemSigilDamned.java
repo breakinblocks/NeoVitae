@@ -5,7 +5,7 @@ import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,15 +18,17 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class ItemSigilDamned extends ItemSigilBase {
 
-    private static final ResourceLocation SPIRITUS_BONUS_ID = NeoVitae.rl("sigil_damned_spiritus");
-    private static final ResourceLocation SACRIFICE_BONUS_ID = NeoVitae.rl("sigil_damned_sacrifice");
-    private static final ResourceLocation SIPHON_BONUS_ID = NeoVitae.rl("sigil_damned_siphon");
+    private static final Identifier SPIRITUS_BONUS_ID = NeoVitae.rl("sigil_damned_spiritus");
+    private static final Identifier SACRIFICE_BONUS_ID = NeoVitae.rl("sigil_damned_sacrifice");
+    private static final Identifier SIPHON_BONUS_ID = NeoVitae.rl("sigil_damned_siphon");
 
-    public ItemSigilDamned() {
-        super("damned", 0);
+    public ItemSigilDamned(Item.Properties props) {
+        super(props, "damned", 0);
     }
 
     @Override
@@ -49,18 +51,16 @@ public class ItemSigilDamned extends ItemSigilBase {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.neovitae.sigil.damned.spiritus")
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {tooltip.accept(Component.translatable("tooltip.neovitae.sigil.damned.spiritus")
                 .withStyle(ChatFormatting.DARK_PURPLE));
-        tooltip.add(Component.translatable("tooltip.neovitae.sigil.damned.sacrifice")
+        tooltip.accept(Component.translatable("tooltip.neovitae.sigil.damned.sacrifice")
                 .withStyle(ChatFormatting.DARK_RED));
-        tooltip.add(Component.translatable("tooltip.neovitae.sigil.damned.siphon")
+        tooltip.accept(Component.translatable("tooltip.neovitae.sigil.damned.siphon")
                 .withStyle(ChatFormatting.RED));
     }
 
     public static void onKill(Player player, LivingEntity target) {
-        for (ItemStack stack : player.getHandSlots()) {
+        for (ItemStack stack : List.<ItemStack>of(player.getMainHandItem(), player.getOffhandItem())) {
             if (stack.getItem() instanceof ItemSigilDamned sigil) {
                 Binding binding = sigil.getBinding(stack);
                 if (binding != null) {

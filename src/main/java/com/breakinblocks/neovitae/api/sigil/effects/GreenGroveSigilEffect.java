@@ -45,7 +45,7 @@ public record GreenGroveSigilEffect(int range, int verticalRange) implements Sig
             return false;
         }
 
-        if (!level.isClientSide && applyBonemeal(stack, level, blockPos, player)) {
+        if (!level.isClientSide() && applyBonemeal(stack, level, blockPos, player)) {
             level.levelEvent(2005, blockPos, 0);
             return true;
         }
@@ -72,11 +72,11 @@ public record GreenGroveSigilEffect(int range, int verticalRange) implements Sig
                         Block block = state.getBlock();
 
                         if (block instanceof BonemealableBlock growable && block != Blocks.GRASS_BLOCK) {
-                            if (level.random.nextInt(50) == 0) {
+                            if (level.getRandom().nextInt(50) == 0) {
                                 BlockState preBlockState = level.getBlockState(blockPos);
                                 if (growable.isValidBonemealTarget(serverWorld, blockPos, preBlockState)) {
-                                    if (growable.isBonemealSuccess(level, level.random, blockPos, state)) {
-                                        growable.performBonemeal(serverWorld, level.random, blockPos, state);
+                                    if (growable.isBonemealSuccess(level, level.getRandom(), blockPos, state)) {
+                                        growable.performBonemeal(serverWorld, level.getRandom(), blockPos, state);
 
                                         BlockState newState = level.getBlockState(blockPos);
                                         if (!newState.equals(preBlockState)) {
@@ -98,8 +98,8 @@ public record GreenGroveSigilEffect(int range, int verticalRange) implements Sig
         if (blockstate.getBlock() instanceof BonemealableBlock growable) {
             if (growable.isValidBonemealTarget(level, pos, blockstate)) {
                 if (level instanceof ServerLevel serverWorld) {
-                    if (growable.isBonemealSuccess(level, level.random, pos, blockstate)) {
-                        growable.performBonemeal(serverWorld, level.random, pos, blockstate);
+                    if (growable.isBonemealSuccess(level, level.getRandom(), pos, blockstate)) {
+                        growable.performBonemeal(serverWorld, level.getRandom(), pos, blockstate);
                     }
                 }
                 return true;

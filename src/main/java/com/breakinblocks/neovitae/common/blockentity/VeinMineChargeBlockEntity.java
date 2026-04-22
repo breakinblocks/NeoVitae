@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -42,7 +45,7 @@ public class VeinMineChargeBlockEntity extends ExplosiveChargeBlockEntity {
 
     @Override
     public void onUpdate() {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return;
         }
 
@@ -120,14 +123,14 @@ public class VeinMineChargeBlockEntity extends ExplosiveChargeBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        maxBlocks = tag.getInt("maxBlocks");
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        maxBlocks = tag.getIntOr("maxBlocks", 0);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         tag.putInt("maxBlocks", maxBlocks);
     }
 

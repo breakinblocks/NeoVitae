@@ -166,8 +166,8 @@ public final class SentientToolHelper {
         }
 
         for (int i = 0; i <= looting; i++) {
-            if (i == 0 || attackingEntity.level().random.nextDouble() < 0.4) {
-                double soulAmount = willModifier * (soulDropAmount * attackingEntity.level().random.nextDouble()
+            if (i == 0 || attackingEntity.level().getRandom().nextDouble() < 0.4) {
+                double soulAmount = willModifier * (soulDropAmount * attackingEntity.level().getRandom().nextDouble()
                     + staticDropAmount) * killedEntity.getMaxHealth() / 20d * willBonus;
                 soulList.add(soulItem.createWill(soulAmount));
             }

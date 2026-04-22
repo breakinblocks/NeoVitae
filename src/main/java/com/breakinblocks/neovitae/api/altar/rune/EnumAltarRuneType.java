@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.api.altar.rune;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.breakinblocks.neovitae.NeoVitae;
 
 /**
@@ -35,15 +35,15 @@ public enum EnumAltarRuneType implements IAltarRuneType {
     CHARGING("charging");
 
     private final String serializedName;
-    private final ResourceLocation id;
+    private final Identifier id;
 
     EnumAltarRuneType(String serializedName) {
         this.serializedName = serializedName;
-        this.id = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, serializedName);
+        this.id = Identifier.fromNamespaceAndPath(NeoVitae.MODID, serializedName);
     }
 
     @Override
-    public ResourceLocation getId() {
+    public Identifier getId() {
         return id;
     }
 

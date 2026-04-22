@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.api.altar.rune;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.StringRepresentable;
 
 /**
@@ -13,7 +13,7 @@ import net.minecraft.util.StringRepresentable;
  * <h2>Implementation Notes</h2>
  * <p>Custom implementations should:</p>
  * <ul>
- *   <li>Provide a unique {@link ResourceLocation} ID (e.g., "mymod:arcane")</li>
+ *   <li>Provide a unique {@link Identifier} ID (e.g., "mymod:arcane")</li>
  *   <li>Provide a unique serialized name for NBT/config storage</li>
  *   <li>Register with the rune registry at mod initialization</li>
  * </ul>
@@ -22,10 +22,10 @@ import net.minecraft.util.StringRepresentable;
  * <pre>{@code
  * public class MyRuneType implements IAltarRuneType {
  *     public static final MyRuneType INSTANCE = new MyRuneType();
- *     private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath("mymod", "arcane");
+ *     private static final Identifier ID = Identifier.fromNamespaceAndPath("mymod", "arcane");
  *
  *     @Override
- *     public ResourceLocation getId() { return ID; }
+ *     public Identifier getId() { return ID; }
  *
  *     @Override
  *     public String getSerializedName() { return "arcane"; }
@@ -46,7 +46,7 @@ public interface IAltarRuneType extends StringRepresentable {
      *
      * @return The rune type's resource location ID
      */
-    ResourceLocation getId();
+    Identifier getId();
 
     /**
      * Gets the serialized name for this rune type.

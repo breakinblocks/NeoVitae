@@ -18,6 +18,8 @@ import com.breakinblocks.neovitae.util.helper.PlayerHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class ItemSigil extends Item implements IBindable, ISigil {
     private final int defaultLpUsed;
@@ -56,10 +58,10 @@ public class ItemSigil extends Item implements IBindable, ISigil {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         Binding binding = getBinding(stack);
         if (binding != null) {
-            tooltip.add(Component.translatable("tooltip.neovitae.currentOwner", binding.name())
+            tooltip.accept(Component.translatable("tooltip.neovitae.currentOwner", binding.name())
                     .withStyle(ChatFormatting.GRAY));
         }
     }

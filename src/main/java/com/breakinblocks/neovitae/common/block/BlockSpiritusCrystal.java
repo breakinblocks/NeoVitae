@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -112,7 +112,7 @@ public class BlockSpiritusCrystal extends BaseEntityBlock {
         return null;
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public BlockState updateShape(BlockState state, Direction facing, BlockState facingState,
                                    LevelAccessor level, BlockPos pos, BlockPos facingPos) {
         Direction attached = state.getValue(ATTACHED);
@@ -123,15 +123,15 @@ public class BlockSpiritusCrystal extends BaseEntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
                                                Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (level.isClientSide) {
-            return ItemInteractionResult.SUCCESS;
+        if (level.isClientSide()) {
+            return InteractionResult.SUCCESS;
         }
 
         BlockEntity be = level.getBlockEntity(pos);
         if (!(be instanceof SpiritusCrystalBlockEntity crystal)) {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
         }
 
         boolean isCreative = player.isCreative();
@@ -145,20 +145,20 @@ public class BlockSpiritusCrystal extends BaseEntityBlock {
                 }
                 crystal.setCrystalCount(crystal.getCrystalCount() + 1);
                 crystal.setChanged();
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
         }
 
         double playerWill = PlayerSpiritusHandler.getTotalSpiritus(
                 PlayerSpiritusHandler.getLargestSpiritusType(player), player);
         if (playerWill > 512) {
             if (crystal.dropSingleCrystal()) {
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         }
 
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 
     @Nullable
@@ -170,7 +170,7 @@ public class BlockSpiritusCrystal extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return null;
         }
         return createTickerHelper(type, NVTiles.SPIRITUS_CRYSTAL_TYPE.get(), SpiritusCrystalBlockEntity::tick);

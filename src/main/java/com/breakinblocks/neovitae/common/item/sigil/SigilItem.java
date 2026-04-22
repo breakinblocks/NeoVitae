@@ -9,7 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -41,6 +40,8 @@ import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 /**
  * Unified sigil item that uses datapack-driven sigil types.
@@ -52,16 +53,10 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
     private final ResourceKey<SigilType> defaultSigilType;
     private final String tooltipBase;
 
-    public SigilItem(ResourceKey<SigilType> sigilTypeKey) {
-        super(new Item.Properties().stacksTo(1));
-        this.defaultSigilType = sigilTypeKey;
-        this.tooltipBase = "tooltip.neovitae.sigil." + sigilTypeKey.location().getPath() + ".";
-    }
-
-    public SigilItem(ResourceKey<SigilType> sigilTypeKey, Item.Properties properties) {
+    public SigilItem(Item.Properties properties, ResourceKey<SigilType> sigilTypeKey) {
         super(properties.stacksTo(1));
         this.defaultSigilType = sigilTypeKey;
-        this.tooltipBase = "tooltip.neovitae.sigil." + sigilTypeKey.location().getPath() + ".";
+        this.tooltipBase = "tooltip.neovitae.sigil." + sigilTypeKey.identifier().getPath() + ".";
     }
 
     @Nullable
@@ -73,9 +68,9 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
         // Fall back to default type from registry
         if (level != null) {
-            var registry = level.registryAccess().registry(SigilTypeRegistry.SIGIL_TYPE_KEY);
+            var registry = level.registryAccess().lookup(SigilTypeRegistry.SIGIL_TYPE_KEY);
             if (registry.isPresent()) {
-                return registry.get().get(defaultSigilType);
+                return registry.get().get(defaultSigilType).map(Holder.Reference::value).orElse(null);
             }
         }
         return null;
@@ -115,26 +110,26 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable(tooltipBase + "desc")
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable(tooltipBase + "desc")
                 .withStyle(ChatFormatting.ITALIC)
                 .withStyle(ChatFormatting.GRAY));
 
         Binding binding = getBinding(stack);
         if (binding != null) {
-            tooltip.add(Component.translatable("tooltip.neovitae.currentOwner", binding.name())
+            tooltip.accept(Component.translatable("tooltip.neovitae.currentOwner", binding.name())
                     .withStyle(ChatFormatting.GRAY));
         }
 
         Level level = context.level();
         if (level != null && isToggleable(stack, level)) {
             String stateKey = getActivated(stack) ? "tooltip.neovitae.activated" : "tooltip.neovitae.deactivated";
-            tooltip.add(Component.translatable(stateKey).withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.translatable(stateKey).withStyle(ChatFormatting.GRAY));
         }
 
         Integer brightness = stack.get(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get());
         if (brightness != null) {
-            tooltip.add(Component.translatable("tooltip.neovitae.sigil.blood_light.brightness", brightness)
+            tooltip.accept(Component.translatable("tooltip.neovitae.sigil.blood_light.brightness", brightness)
                     .withStyle(ChatFormatting.GOLD));
         }
 
@@ -142,11 +137,11 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         if (color != null) {
             boolean rainbow = stack.getOrDefault(NVDataComponents.BLOOD_LIGHT_RAINBOW.get(), false);
             if (rainbow) {
-                tooltip.add(Component.translatable("tooltip.neovitae.sigil.blood_light.color",
+                tooltip.accept(Component.translatable("tooltip.neovitae.sigil.blood_light.color",
                         Component.translatable("tooltip.neovitae.sigil.blood_light.rainbow"))
                         .withStyle(ChatFormatting.GRAY));
             } else {
-                tooltip.add(Component.translatable("tooltip.neovitae.sigil.blood_light.color",
+                tooltip.accept(Component.translatable("tooltip.neovitae.sigil.blood_light.color",
                         Component.translatable("color.minecraft." + color.getSerializedName()))
                         .withStyle(ChatFormatting.GRAY));
             }
@@ -154,22 +149,22 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = resolveStackForUse(player, hand);
         if (stack == null) {
-            return InteractionResultHolder.fail(player.getItemInHand(hand));
+            return InteractionResult.FAIL;
         }
 
         Binding binding = getBinding(stack);
         if (binding == null) {
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 bind(player, stack);
             }
-            return InteractionResultHolder.success(player.getItemInHand(hand));
+            return InteractionResult.SUCCESS.heldItemTransformedTo(player.getItemInHand(hand));
         }
 
         if (isToggleable(stack, level)) {
-            if (!level.isClientSide && !isUnusable(stack)) {
+            if (!level.isClientSide() && !isUnusable(stack)) {
                 boolean newState = !getActivated(stack);
                 setActivatedState(stack, newState);
                 level.playSound(null, player.blockPosition(), newState ? NVSounds.SIGIL_TOGGLE_ON.get() : NVSounds.SIGIL_TOGGLE_OFF.get(), SoundSource.PLAYERS, 0.4f, 1.0f);
@@ -183,13 +178,13 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
                     serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), player.getX() + offX, player.getY() + 1, player.getZ() + offZ, 1, 0, 0, 0, 0);
                 }
             }
-            return InteractionResultHolder.success(player.getItemInHand(hand));
+            return InteractionResult.SUCCESS.heldItemTransformedTo(player.getItemInHand(hand));
         }
 
         if (!isUnusable(stack)) {
             ISigilEffect effect = getSigilEffect(stack, level);
             if (effect != null && effect.useOnAir(level, player, stack)) {
-                if (!level.isClientSide) {
+                if (!level.isClientSide()) {
                     level.playSound(null, player.blockPosition(), NVSounds.SIGIL_ACTIVATE.get(), SoundSource.PLAYERS, 0.4f, 1.0f);
                     ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), player.getX(), player.getY() + 1, player.getZ(), 4, 0.2, 0.1, 0.2, 0);
                     if (!player.isCreative()) {
@@ -202,11 +197,11 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
                         }
                     }
                 }
-                return InteractionResultHolder.success(player.getItemInHand(hand));
+                return InteractionResult.SUCCESS.heldItemTransformedTo(player.getItemInHand(hand));
             }
         }
 
-        return InteractionResultHolder.consume(player.getItemInHand(hand));
+        return InteractionResult.CONSUME;
     }
 
     @Override
@@ -218,7 +213,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
         Binding binding = getBinding(stack);
         if (binding == null) {
-            if (!level.isClientSide && player != null) {
+            if (!level.isClientSide() && player != null) {
                 bind(player, stack);
             }
             return InteractionResult.SUCCESS;
@@ -230,7 +225,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
             Vec3 hitVec = context.getClickLocation();
 
             if (effect.useOnBlock(level, player, stack, blockPos, side, hitVec)) {
-                if (!level.isClientSide && player != null && !player.isCreative()) {
+                if (!level.isClientSide() && player != null && !player.isCreative()) {
                     int cost = getReducedCost(getLpCost(stack, level, SigilType.UseContext.BLOCK), player);
                     if (cost > 0) {
                         Anima network = AnimaHelper.getAnima(binding);
@@ -247,7 +242,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
     }
 
     @Override
-    public InteractionResult interactLivingEntity(ItemStack stack, Player player, net.minecraft.world.entity.LivingEntity target, InteractionHand hand) {
+    public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         ItemStack useStack = ISigil.resolveHeldStack(stack, player);
 
         Binding binding = getBinding(useStack);
@@ -258,7 +253,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         Level level = player.level();
         ISigilEffect effect = getSigilEffect(useStack, level);
         if (effect != null && effect.useOnEntity(level, player, useStack, target)) {
-            if (!level.isClientSide && !player.isCreative()) {
+            if (!level.isClientSide() && !player.isCreative()) {
                 int cost = getReducedCost(getLpCost(useStack, level, SigilType.UseContext.ENTITY), player);
                 if (cost > 0) {
                     Anima network = AnimaHelper.getAnima(binding);
@@ -273,9 +268,9 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         return InteractionResult.CONSUME;
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int itemSlot, boolean isSelected) {
-        if (level.isClientSide || !(entity instanceof Player player)) {
+        if (level.isClientSide() || !(entity instanceof Player player)) {
             return;
         }
 

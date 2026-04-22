@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.common.meteor;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -43,7 +43,7 @@ public class RandomBlockTagContainer extends RandomBlockContainer {
 
     @Override
     public String getEntry() {
-        ResourceLocation rl = tag.location();
+        Identifier rl = tag.location();
         String entry = "#" + rl.toString();
         if (index >= 0) {
             entry = entry + "#" + index;

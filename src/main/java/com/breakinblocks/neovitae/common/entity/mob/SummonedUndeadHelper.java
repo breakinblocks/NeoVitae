@@ -1,6 +1,5 @@
 package com.breakinblocks.neovitae.common.entity.mob;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -8,9 +7,12 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
+import net.minecraft.core.UUIDUtil;
 
 public final class SummonedUndeadHelper {
 
@@ -32,7 +34,7 @@ public final class SummonedUndeadHelper {
     }
 
     public static boolean tickSummon(Mob entity, @Nullable UUID ownerUUID, int lifetime) {
-        if (entity.level().isClientSide) return false;
+        if (entity.level().isClientSide()) return false;
 
         if (lifetime > MAX_LIFETIME) { entity.discard(); return true; }
 
@@ -56,12 +58,13 @@ public final class SummonedUndeadHelper {
         return ownerUUID != null && source.getEntity() instanceof Player player && player.getUUID().equals(ownerUUID);
     }
 
-    public static void save(CompoundTag tag, @Nullable UUID ownerUUID, int lifetime) {
-        if (ownerUUID != null) tag.putUUID("Owner", ownerUUID);
+    public static void save(ValueOutput tag, @Nullable UUID ownerUUID, int lifetime) {
+        if (ownerUUID != null) tag.store("Owner", UUIDUtil.CODEC, ownerUUID);
         tag.putInt("Lifetime", lifetime);
     }
 
-    public static UUID load(CompoundTag tag) {
-        return tag.hasUUID("Owner") ? tag.getUUID("Owner") : null;
+    @Nullable
+    public static UUID load(ValueInput tag) {
+        return tag.read("Owner", UUIDUtil.CODEC).orElse(null);
     }
 }

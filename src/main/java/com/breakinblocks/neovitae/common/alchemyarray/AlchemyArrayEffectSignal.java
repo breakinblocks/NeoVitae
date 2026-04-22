@@ -15,7 +15,7 @@ public class AlchemyArrayEffectSignal extends AlchemyArrayEffect {
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
-        if (level == null || level.isClientSide) return false;
+        if (level == null || level.isClientSide()) return false;
 
         if (ticksActive % 10 != 0) return false;
 
@@ -60,7 +60,7 @@ public class AlchemyArrayEffectSignal extends AlchemyArrayEffect {
 
     @Override
     public void readFromNBT(CompoundTag tag) {
-        lastSignal = tag.getInt("lastSignal");
+        lastSignal = tag.getIntOr("lastSignal", 0);
     }
 
     @Override

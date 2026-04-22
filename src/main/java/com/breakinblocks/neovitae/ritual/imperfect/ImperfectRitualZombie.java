@@ -3,8 +3,8 @@ package com.breakinblocks.neovitae.ritual.imperfect;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -32,7 +32,7 @@ public class ImperfectRitualZombie extends ImperfectRitual {
         if (level instanceof ServerLevel serverLevel) {
             Zombie zombie = EntityType.ZOMBIE.spawn(serverLevel,
                     imperfectRitualStone.getRitualPos().above(2),
-                    MobSpawnType.TRIGGERED);
+                    EntitySpawnReason.TRIGGERED);
 
             if (zombie != null) {
                 zombie.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.LEATHER_CHESTPLATE));

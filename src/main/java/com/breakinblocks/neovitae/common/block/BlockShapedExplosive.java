@@ -56,7 +56,7 @@ public class BlockShapedExplosive extends Block implements EntityBlock {
         };
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
         return facing.getOpposite() == stateIn.getValue(ATTACHED) && !stateIn.canSurvive(worldIn, currentPos)
                 ? Blocks.AIR.defaultBlockState()
@@ -113,7 +113,7 @@ public class BlockShapedExplosive extends Block implements EntityBlock {
     @Override
     public BlockState playerWillDestroy(Level world, BlockPos blockPos, BlockState blockState, Player player) {
         BlockEntity tile = world.getBlockEntity(blockPos);
-        if (tile instanceof ExplosiveChargeBlockEntity explosiveCharge && !world.isClientSide) {
+        if (tile instanceof ExplosiveChargeBlockEntity explosiveCharge && !world.isClientSide()) {
             explosiveCharge.dropSelf();
         }
         return super.playerWillDestroy(world, blockPos, blockState, player);

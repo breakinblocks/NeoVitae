@@ -2,14 +2,17 @@ package com.breakinblocks.neovitae.common.item.soul;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -17,25 +20,22 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
 import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
 
-import java.util.List;
 import java.util.Locale;
+import java.util.function.Consumer;
 
 import static com.breakinblocks.neovitae.common.item.soul.SentientToolHelper.*;
 
-/**
- * Sentient Pickaxe - a will-powered pickaxe with enhanced damage and mining speed.
- */
-public class SentientPickaxeItem extends PickaxeItem implements ISentientTool {
+public class SentientPickaxeItem extends Item implements ISentientTool {
 
     private static final double[] DEFAULT_DAMAGE = {0.5, 1, 1.5, 2, 2.5, 3, 3.5};
     private static final double[] DESTRUCTIVE_DAMAGE = {1, 2, 3, 4, 5, 6, 7};
     private static final double[] VENGEFUL_DAMAGE = {0, 0.25, 0.5, 0.75, 1, 1.25, 1.5};
     private static final double[] STEADFAST_DAMAGE = {0, 0.25, 0.5, 0.75, 1, 1.25, 1.5};
 
-    public SentientPickaxeItem() {
-        super(NVMaterialsAndTiers.SENTIENT, new Properties()
-                .attributes(PickaxeItem.createAttributes(NVMaterialsAndTiers.SENTIENT, 1, -2.8f))
-                .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT));
+    public SentientPickaxeItem(Item.Properties props) {
+        super(props.pickaxe(NVMaterialsAndTiers.SENTIENT, 1, -2.8f)
+                .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT)
+                .component(NVDataComponents.SIGIL_ACTIVATED, false));
     }
 
     @Override
@@ -63,36 +63,33 @@ public class SentientPickaxeItem extends PickaxeItem implements ISentientTool {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+    public InteractionResult use(Level world, Player player, InteractionHand hand) {
         recalculatePowers(player.getItemInHand(hand), world, player);
-        return super.use(world, player, hand);
+        return InteractionResult.PASS;
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (super.hurtEnemy(stack, target, attacker)) {
-            if (attacker instanceof Player player) {
-                recalculatePowers(stack, player.level(), player);
-                SpiritusType type = getCurrentType(stack);
-                double will = PlayerSpiritusHandler.getTotalSpiritus(type, player);
-                int willBracket = getLevel(will);
+    public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        if (attacker instanceof Player player) {
+            recalculatePowers(stack, player.level(), player);
+            SpiritusType type = getCurrentType(stack);
+            double will = PlayerSpiritusHandler.getTotalSpiritus(type, player);
+            int willBracket = getLevel(will);
 
-                if (willBracket >= 0) {
-                    applyEffectToEntity(type, willBracket, target, player);
-                }
+            if (willBracket >= 0) {
+                applyEffectToEntity(type, willBracket, target, player);
             }
-            return true;
         }
-        return false;
     }
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
         recalculatePowers(stack, player.level(), player);
-        if (handleWillDrain(stack, player)) {
-            return false;
-        }
-        return super.onLeftClickEntity(stack, player, entity);
+        return handleWillDrain(stack, player);
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
     }
 
     @Override
@@ -111,10 +108,10 @@ public class SentientPickaxeItem extends PickaxeItem implements ISentientTool {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae." + getTooltipKey() + ".desc").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.neovitae.currentType." + getCurrentType(stack).name().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(stack, context, tooltip, flag);
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display,
+                                Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable("tooltip.neovitae." + getTooltipKey() + ".desc").withStyle(ChatFormatting.GRAY));
+        tooltip.accept(Component.translatable("tooltip.neovitae.currentType." + getCurrentType(stack).name().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GRAY));
     }
 
     @Override

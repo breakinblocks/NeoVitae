@@ -28,7 +28,7 @@ public class PlayerHelper {
     }
 
     public static UUID getUUIDFromPlayer(Player player) {
-        return player.getGameProfile().getId();
+        return player.getGameProfile().id();
     }
 
     public static boolean isFakePlayer(Player player) {

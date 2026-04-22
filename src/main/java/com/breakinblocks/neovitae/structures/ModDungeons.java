@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.structures;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.breakinblocks.neovitae.NeoVitae;
 
 /**
@@ -10,58 +10,58 @@ import com.breakinblocks.neovitae.NeoVitae;
  */
 public class ModDungeons {
     // Corridor rooms
-    public static final ResourceLocation T_CORRIDOR = NeoVitae.rl("t_corridor");
-    public static final ResourceLocation FOUR_WAY_CORRIDOR_LOOT = NeoVitae.rl("four_way_corridor_loot");
-    public static final ResourceLocation FOUR_WAY_CORRIDOR = NeoVitae.rl("four_way_corridor");
-    public static final ResourceLocation OVERLAPPED_CORRIDOR = NeoVitae.rl("overlapped_corridor");
-    public static final ResourceLocation STRAIGHT_CORRIDOR = NeoVitae.rl("straight_corridor");
-    public static final ResourceLocation SPIRAL_STAIRCASE = NeoVitae.rl("spiral_staircase");
+    public static final Identifier T_CORRIDOR = NeoVitae.rl("t_corridor");
+    public static final Identifier FOUR_WAY_CORRIDOR_LOOT = NeoVitae.rl("four_way_corridor_loot");
+    public static final Identifier FOUR_WAY_CORRIDOR = NeoVitae.rl("four_way_corridor");
+    public static final Identifier OVERLAPPED_CORRIDOR = NeoVitae.rl("overlapped_corridor");
+    public static final Identifier STRAIGHT_CORRIDOR = NeoVitae.rl("straight_corridor");
+    public static final Identifier SPIRAL_STAIRCASE = NeoVitae.rl("spiral_staircase");
 
     // Mini dungeon rooms
-    public static final ResourceLocation MINI_LIBRARY = NeoVitae.rl("mini_dungeon/library");
-    public static final ResourceLocation MINI_ARMOURY = NeoVitae.rl("mini_dungeon/armoury");
-    public static final ResourceLocation MINI_FARM = NeoVitae.rl("mini_dungeon/farm");
-    public static final ResourceLocation MINI_PORTAL = NeoVitae.rl("mini_dungeon/portal_nether");
-    public static final ResourceLocation MINI_CRYPT = NeoVitae.rl("mini_dungeon/crypt");
-    public static final ResourceLocation MINI_ENTRANCE = NeoVitae.rl("t3_entrance");
+    public static final Identifier MINI_LIBRARY = NeoVitae.rl("mini_dungeon/library");
+    public static final Identifier MINI_ARMOURY = NeoVitae.rl("mini_dungeon/armoury");
+    public static final Identifier MINI_FARM = NeoVitae.rl("mini_dungeon/farm");
+    public static final Identifier MINI_PORTAL = NeoVitae.rl("mini_dungeon/portal_nether");
+    public static final Identifier MINI_CRYPT = NeoVitae.rl("mini_dungeon/crypt");
+    public static final Identifier MINI_ENTRANCE = NeoVitae.rl("t3_entrance");
 
     // Standard dungeon rooms
-    public static final ResourceLocation ORE_HOLD_1 = NeoVitae.rl("standard/ore_hold_1");
-    public static final ResourceLocation CHALLENGE_TOWER = NeoVitae.rl("standard/challenge_tower");
-    public static final ResourceLocation BIG_LIBRARY = NeoVitae.rl("standard/big_library");
-    public static final ResourceLocation SMALL_CRANE = NeoVitae.rl("standard/small_crane");
-    public static final ResourceLocation SMALL_LIBRARY = NeoVitae.rl("standard/small_library");
-    public static final ResourceLocation SMALL_SMITHY = NeoVitae.rl("standard/small_smithy");
-    public static final ResourceLocation TALL_SPIRAL = NeoVitae.rl("standard/tall_spiral");
-    public static final ResourceLocation SMALL_ARENA = NeoVitae.rl("standard/small_arena");
-    public static final ResourceLocation ANTECHAMBER = NeoVitae.rl("standard/antechamber");
-    public static final ResourceLocation DESTROYED_END_PORTAL = NeoVitae.rl("standard/destroyed_end_portal");
-    public static final ResourceLocation AUG_CORRIDOR_LOOT = NeoVitae.rl("standard/four_way_corridor_loot");
-    public static final ResourceLocation WATER_WAY = NeoVitae.rl("standard/water_way");
-    public static final ResourceLocation STANDARD_ENTRANCE = NeoVitae.rl("standard_entrance");
+    public static final Identifier ORE_HOLD_1 = NeoVitae.rl("standard/ore_hold_1");
+    public static final Identifier CHALLENGE_TOWER = NeoVitae.rl("standard/challenge_tower");
+    public static final Identifier BIG_LIBRARY = NeoVitae.rl("standard/big_library");
+    public static final Identifier SMALL_CRANE = NeoVitae.rl("standard/small_crane");
+    public static final Identifier SMALL_LIBRARY = NeoVitae.rl("standard/small_library");
+    public static final Identifier SMALL_SMITHY = NeoVitae.rl("standard/small_smithy");
+    public static final Identifier TALL_SPIRAL = NeoVitae.rl("standard/tall_spiral");
+    public static final Identifier SMALL_ARENA = NeoVitae.rl("standard/small_arena");
+    public static final Identifier ANTECHAMBER = NeoVitae.rl("standard/antechamber");
+    public static final Identifier DESTROYED_END_PORTAL = NeoVitae.rl("standard/destroyed_end_portal");
+    public static final Identifier AUG_CORRIDOR_LOOT = NeoVitae.rl("standard/four_way_corridor_loot");
+    public static final Identifier WATER_WAY = NeoVitae.rl("standard/water_way");
+    public static final Identifier STANDARD_ENTRANCE = NeoVitae.rl("standard_entrance");
 
     // Mine rooms
-    public static final ResourceLocation MINE_KEY = NeoVitae.rl("mines/mine_key");
-    public static final ResourceLocation MINE_ENTRANCE = NeoVitae.rl("standard/mine_entrance");
-    public static final ResourceLocation MINE_PIT = NeoVitae.rl("mines/pit");
-    public static final ResourceLocation MINE_CORNER_ZOMBIE_TRAP = NeoVitae.rl("mines/corner_zombie_trap");
-    public static final ResourceLocation MINE_SPLIT_ROAD = NeoVitae.rl("mines/split_road");
-    public static final ResourceLocation MINE_STATION = NeoVitae.rl("mines/station");
-    public static final ResourceLocation MINE_DOWNWARD_TUNNEL = NeoVitae.rl("mines/downward_tunnel");
-    public static final ResourceLocation MINE_JUNCTION_STATION = NeoVitae.rl("mines/junction_station");
-    public static final ResourceLocation MINE_BUILT_SHAFT = NeoVitae.rl("mines/downward_shaft");
-    public static final ResourceLocation MINE_NATURE_CROSSROAD = NeoVitae.rl("mines/nature_crossroad");
-    public static final ResourceLocation MINE_WOLF_DEN = NeoVitae.rl("mines/wolf_den");
-    public static final ResourceLocation MINE_ORE_CAVERN = NeoVitae.rl("mines/ore_cavern");
+    public static final Identifier MINE_KEY = NeoVitae.rl("mines/mine_key");
+    public static final Identifier MINE_ENTRANCE = NeoVitae.rl("standard/mine_entrance");
+    public static final Identifier MINE_PIT = NeoVitae.rl("mines/pit");
+    public static final Identifier MINE_CORNER_ZOMBIE_TRAP = NeoVitae.rl("mines/corner_zombie_trap");
+    public static final Identifier MINE_SPLIT_ROAD = NeoVitae.rl("mines/split_road");
+    public static final Identifier MINE_STATION = NeoVitae.rl("mines/station");
+    public static final Identifier MINE_DOWNWARD_TUNNEL = NeoVitae.rl("mines/downward_tunnel");
+    public static final Identifier MINE_JUNCTION_STATION = NeoVitae.rl("mines/junction_station");
+    public static final Identifier MINE_BUILT_SHAFT = NeoVitae.rl("mines/downward_shaft");
+    public static final Identifier MINE_NATURE_CROSSROAD = NeoVitae.rl("mines/nature_crossroad");
+    public static final Identifier MINE_WOLF_DEN = NeoVitae.rl("mines/wolf_den");
+    public static final Identifier MINE_ORE_CAVERN = NeoVitae.rl("mines/ore_cavern");
 
     // Mine corridors
-    public static final ResourceLocation MINE_STRAIGHT_CORRIDOR = NeoVitae.rl("mines/straight_corridor");
-    public static final ResourceLocation MINE_BENT_CORRIDOR = NeoVitae.rl("mines/bent_corridor");
-    public static final ResourceLocation MINE_FOURWAY_CORRIDOR = NeoVitae.rl("mines/fourway_corridor");
+    public static final Identifier MINE_STRAIGHT_CORRIDOR = NeoVitae.rl("mines/straight_corridor");
+    public static final Identifier MINE_BENT_CORRIDOR = NeoVitae.rl("mines/bent_corridor");
+    public static final Identifier MINE_FOURWAY_CORRIDOR = NeoVitae.rl("mines/fourway_corridor");
 
     // Deadend rooms
-    public static final ResourceLocation DEFAULT_DEADEND = NeoVitae.rl("default_deadend");
-    public static final ResourceLocation MINES_DEADEND = NeoVitae.rl("mines/deadend");
+    public static final Identifier DEFAULT_DEADEND = NeoVitae.rl("default_deadend");
+    public static final Identifier MINES_DEADEND = NeoVitae.rl("mines/deadend");
 
     /**
      * Initialize dungeon rooms - registers unloaded rooms and triggers loading.

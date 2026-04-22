@@ -8,7 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -22,6 +22,8 @@ import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 /**
  * Alchemy Flask - A reusable potion container that can hold custom potion effects.
@@ -34,27 +36,23 @@ public class ItemAlchemyFlask extends Item {
 
     public static final int MAX_USES = 8;
 
-    public ItemAlchemyFlask() {
-        super(new Item.Properties().stacksTo(1).durability(MAX_USES));
-    }
-
-    public ItemAlchemyFlask(Properties properties) {
-        super(properties);
+    public ItemAlchemyFlask(Item.Properties props) {
+        super(props.stacksTo(1).durability(MAX_USES));
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae.arctool.uses", getRemainingUses(stack))
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable("tooltip.neovitae.arctool.uses", getRemainingUses(stack))
                 .withStyle(ChatFormatting.GOLD));
 
         PotionContents contents = stack.get(DataComponents.POTION_CONTENTS);
         if (contents != null) {
-            contents.addPotionTooltip(tooltip::add, 1.0F, context.tickRate());
+            PotionContents.addPotionTooltip(contents.getAllEffects(), tooltip, 1.0F, context.tickRate());
         }
 
         FlaskEffects effects = getFlaskEffects(stack);
         if (effects.effects().size() > 1) {
-            tooltip.add(Component.translatable("tooltip.neovitae.flask.combination")
+            tooltip.accept(Component.translatable("tooltip.neovitae.flask.combination")
                     .withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC));
         }
     }
@@ -69,20 +67,20 @@ public class ItemAlchemyFlask extends Item {
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.DRINK;
+    public ItemUseAnimation getUseAnimation(ItemStack stack) {
+        return ItemUseAnimation.DRINK;
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack heldStack = player.getItemInHand(hand);
 
         if (getRemainingUses(heldStack) <= 0) {
-            return InteractionResultHolder.pass(heldStack);
+            return InteractionResult.PASS;
         }
 
         if (!hasFlaskEffects(heldStack) && !hasEffects(heldStack)) {
-            return InteractionResultHolder.pass(heldStack);
+            return InteractionResult.PASS;
         }
 
         return ItemUtils.startUsingInstantly(level, player, hand);
@@ -96,13 +94,13 @@ public class ItemAlchemyFlask extends Item {
             CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, stack);
         }
 
-        if (!level.isClientSide) {
+        if (level instanceof ServerLevel serverLevel) {
             FlaskEffects flaskEffects = getFlaskEffects(stack);
             if (!flaskEffects.isEmpty()) {
                 for (MobEffectInstance effectInstance : flaskEffects.toEffectInstances(false, true)) {
                     if (effectInstance.getEffect().value().isInstantenous()) {
                         effectInstance.getEffect().value().applyInstantenousEffect(
-                                player, player, entityLiving, effectInstance.getAmplifier(), 1.0D);
+                                serverLevel, player, player, entityLiving, effectInstance.getAmplifier(), 1.0D);
                     } else {
                         entityLiving.addEffect(new MobEffectInstance(effectInstance));
                     }
@@ -114,7 +112,7 @@ public class ItemAlchemyFlask extends Item {
                     for (MobEffectInstance effectInstance : contents.getAllEffects()) {
                         if (effectInstance.getEffect().value().isInstantenous()) {
                             effectInstance.getEffect().value().applyInstantenousEffect(
-                                    player, player, entityLiving, effectInstance.getAmplifier(), 1.0D);
+                                    serverLevel, player, player, entityLiving, effectInstance.getAmplifier(), 1.0D);
                         } else {
                             entityLiving.addEffect(new MobEffectInstance(effectInstance));
                         }
@@ -175,10 +173,9 @@ public class ItemAlchemyFlask extends Item {
         List<MobEffectInstance> stable = new ArrayList<>();
         for (MobEffectInstance inst : effectList) {
             MobEffectInstance copy = new MobEffectInstance(inst.getEffect(), inst.getDuration(), inst.getAmplifier(), inst.isAmbient(), inst.isVisible());
-            copy.getCures().clear();
             stable.add(copy);
         }
-        PotionContents contents = new PotionContents(Optional.empty(), Optional.empty(), stable);
+        PotionContents contents = new PotionContents(Optional.empty(), Optional.empty(), stable, Optional.empty());
         stack.set(DataComponents.POTION_CONTENTS, contents);
     }
 
@@ -194,7 +191,7 @@ public class ItemAlchemyFlask extends Item {
     public static ItemStack setEffects(ItemStack stack, Iterable<MobEffectInstance> effects) {
         List<MobEffectInstance> effectList = new ArrayList<>();
         effects.forEach(effectList::add);
-        PotionContents contents = new PotionContents(Optional.empty(), Optional.empty(), effectList);
+        PotionContents contents = new PotionContents(Optional.empty(), Optional.empty(), effectList, Optional.empty());
         stack.set(DataComponents.POTION_CONTENTS, contents);
         return stack;
     }

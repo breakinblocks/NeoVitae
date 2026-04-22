@@ -27,7 +27,7 @@ public final class RoutingRescanCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("nvroutingrescan")
-                        .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .executes(RoutingRescanCommand::execute)
         );
     }
@@ -35,26 +35,23 @@ public final class RoutingRescanCommand {
     private static int execute(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
         if (!(source.getEntity() instanceof ServerPlayer player)) {
-            source.sendFailure(Component.literal("This command must be run by a player"));
+            source.sendFailure(Component.translatable("command.neovitae.player_only"));
             return 0;
         }
 
-        ServerLevel level = player.serverLevel();
+        ServerLevel level = (ServerLevel) player.level();
         MasterRoutingNodeBlockEntity master = findMaster(player, level);
 
         if (master == null) {
-            source.sendFailure(Component.literal(
-                    "No Master Routing Node found. Look directly at one or stand within "
-                            + LOCATE_RADIUS + " blocks of one."));
+            source.sendFailure(Component.translatable("command.neovitae.routing_rescan.no_master", LOCATE_RADIUS));
             return 0;
         }
 
         BlockPos masterPos = master.getBlockPos();
         int added = master.rescanNetwork(RESCAN_RADIUS);
 
-        source.sendSuccess(() -> Component.literal(
-                "Rescanned master at " + masterPos.getX() + ", " + masterPos.getY() + ", " + masterPos.getZ()
-                        + " (" + added + " nodes found within " + RESCAN_RADIUS + " blocks)"), true);
+        source.sendSuccess(() -> Component.translatable("command.neovitae.routing_rescan.result",
+                masterPos.getX(), masterPos.getY(), masterPos.getZ(), added, RESCAN_RADIUS), true);
         return added;
     }
 

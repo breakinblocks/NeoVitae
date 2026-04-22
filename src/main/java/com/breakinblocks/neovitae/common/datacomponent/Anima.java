@@ -32,6 +32,10 @@ public class Anima implements IAnima {
         return anima;
     }
 
+    public void rebind(NVSavedData parent) {
+        this.parent = parent;
+    }
+
     protected Anima(UUID playerId, int ev) {
         this.playerId = playerId;
         this.currentEV = ev;
@@ -115,7 +119,7 @@ public class Anima implements IAnima {
 
     @Override
     public SyphonResult syphonAndDamage(Player user, AnimaTicket ticket) {
-        if (user.level().isClientSide) {
+        if (user.level().isClientSide()) {
             return SyphonResult.failure();
         }
 

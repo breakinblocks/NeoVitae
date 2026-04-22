@@ -13,7 +13,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -39,6 +39,13 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
             0xFFAA3333, 0xFF33AA33, 0xFFDD8822, 0xFF3355BB, 0xFFAA33CC
     };
     private static final String[] TYPE_NAMES = {"Raw", "Corrosive", "Destructive", "Steadfast", "Vengeful"};
+    private static final String[] TYPE_KEYS = {
+            "will.neovitae.default",
+            "will.neovitae.corrosive",
+            "will.neovitae.destructive",
+            "will.neovitae.steadfast",
+            "will.neovitae.vengeful"
+    };
 
     // Grid layout
     // Row 0 (y=2):  inputs col 0-2, tool, outputs col 0-1
@@ -81,7 +88,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
         }
 
         // Tool
-        IRecipeSlotBuilder toolSlot = builder.addSlot(RecipeIngredientRole.CATALYST, TOOL_COL + 1, ROW0 + 10);
+        IRecipeSlotBuilder toolSlot = builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, TOOL_COL + 1, ROW0 + 10);
         toolSlot.addIngredients(recipe.getTool());
 
         // Outputs: 2x2 grid
@@ -97,21 +104,24 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
         // Fluid input
         recipe.getInputFluid().ifPresent(sized -> {
             IRecipeSlotBuilder s = builder.addSlot(RecipeIngredientRole.INPUT, INPUT_COL + 1, ROW2 + 1);
-            s.addIngredients(NeoForgeTypes.FLUID_STACK, java.util.Arrays.asList(sized.getFluids()));
             int amount = sized.amount();
-            s.addRichTooltipCallback((v, t) -> t.add(Component.literal(amount + " mB")));
+            List<FluidStack> stacks = sized.ingredient().fluids().stream()
+                    .map(h -> new FluidStack(h, amount))
+                    .toList();
+            s.addIngredients(NeoForgeTypes.FLUID_STACK, stacks);
+            s.addRichTooltipCallback((v, t) -> t.add(Component.translatable("jei.neovitae.athanor.mb", amount)));
         });
 
         // Fluid output
         recipe.getOutputFluid().ifPresent(fluid -> {
             IRecipeSlotBuilder s = builder.addSlot(RecipeIngredientRole.OUTPUT, OUTPUT_COL + 1, ROW2 + 1);
             s.addFluidStack(fluid.getFluid(), fluid.getAmount());
-            s.addRichTooltipCallback((v, t) -> t.add(Component.literal(fluid.getAmount() + " mB")));
+            s.addRichTooltipCallback((v, t) -> t.add(Component.translatable("jei.neovitae.athanor.mb", fluid.getAmount())));
         });
     }
 
     @Override
-    public void draw(AthanorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(AthanorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         Minecraft mc = Minecraft.getInstance();
 
         // Input slot backgrounds (3x2)
@@ -149,7 +159,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
         }
 
         // Labels
-        guiGraphics.drawString(mc.font, "Tool", TOOL_COL, ROW0 + 28, 0x808080, false);
+        guiGraphics.text(mc.font, "Tool", TOOL_COL, ROW0 + 28, 0x808080);
 
         // Spiritus costs
         if (recipe.hasSpiritusCosts()) {
@@ -157,12 +167,12 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
         }
     }
 
-    private void drawSpiritusCosts(GuiGraphics guiGraphics, Minecraft mc, AthanorRecipe recipe) {
+    private void drawSpiritusCosts(GuiGraphicsExtractor guiGraphics, Minecraft mc, AthanorRecipe recipe) {
         Map<SpiritusType, Double> costs = recipe.getSpiritusCosts();
         int y = 58;
 
-        guiGraphics.drawString(mc.font, Component.translatable("jei.neovitae.recipe.athanor.spiritus_cost"),
-                1, y, 0xAAAAAA, true);
+        guiGraphics.text(mc.font, Component.translatable("jei.neovitae.recipe.athanor.spiritus_cost"),
+                1, y, 0xAAAAAA);
         y += 10;
 
         int col = 0;
@@ -173,7 +183,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
 
             int x = baseX + col * 83;
             guiGraphics.fill(x, y + 1, x + 4, y + 5, TYPE_COLORS[i]);
-            guiGraphics.drawString(mc.font, String.format("%.0f %s", amount, TYPE_NAMES[i]), x + 6, y, 0xFFFFFF, true);
+            guiGraphics.text(mc.font, String.format("%.0f %s", amount, TYPE_NAMES[i]), x + 6, y, 0xFFFFFF);
 
             col++;
             if (col >= 2) {
@@ -206,7 +216,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
                 Double amount = costs.get(TYPES[i]);
                 if (amount == null || amount <= 0) continue;
                 if (mouseY >= y - 1 && mouseY < y + 9 && mouseX >= 0 && mouseX <= WIDTH) {
-                    tooltip.add(Component.literal(String.format("Requires %.1f %s spiritus from the chunk", amount, TYPE_NAMES[i])));
+                    tooltip.add(Component.translatable("jei.neovitae.athanor.spiritus_requirement", String.format("%.1f", amount), Component.translatable(TYPE_KEYS[i])));
                 }
                 y += 10;
             }

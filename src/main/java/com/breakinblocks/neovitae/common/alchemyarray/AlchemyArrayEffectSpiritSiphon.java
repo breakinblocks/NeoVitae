@@ -30,7 +30,7 @@ public class AlchemyArrayEffectSpiritSiphon extends AlchemyArrayEffect {
     @Override
     public void onEntityCollidedWithBlock(AlchemyArrayBlockEntity tile, Level level, BlockPos pos,
                                           BlockState state, Entity entity) {
-        if (level.isClientSide) return;
+        if (level.isClientSide()) return;
         if (!(entity instanceof LivingEntity living)) return;
         if (entity instanceof Player) return;
         if (cooldown > 0) return;
@@ -55,7 +55,7 @@ public class AlchemyArrayEffectSpiritSiphon extends AlchemyArrayEffect {
 
     @Override
     public void readFromNBT(CompoundTag tag) {
-        cooldown = tag.getInt("cooldown");
+        cooldown = tag.getIntOr("cooldown", 0);
     }
 
     @Override

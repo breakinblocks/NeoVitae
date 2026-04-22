@@ -1,9 +1,8 @@
 package com.breakinblocks.neovitae.common.tag;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.TagsUpdatedEvent;
@@ -11,7 +10,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
-import java.util.function.Consumer;
+import java.util.Optional;
 
 @EventBusSubscriber(modid = NeoVitae.MODID)
 public class TagsCache {
@@ -41,24 +40,19 @@ public class TagsCache {
 
     @SubscribeEvent
     public static void onTagsUpdated(TagsUpdatedEvent event) {
-        // if this is the solution Im gonna be a LITTLE bit PISSED. it. was. FK-
         if (!event.shouldUpdateStaticData()) {
             return;
         }
-        RegistryAccess access = event.getRegistryAccess();
-        datapackHelper(
-                access,
-                NVRegistries.Keys.LIVING_UPGRADES,
-                registry -> TOOLTIP_ORDER = registry.getOrCreateTag(NVTags.Living.TOOLTIP_ORDER)
-        );
-        datapackHelper(
-                access,
-                NVRegistries.Keys.LIVING_UPGRADES,
-                registry -> UPGRADE_SCRAPPABLE = registry.getOrCreateTag(NVTags.Living.IS_SCRAPPABLE)
-        );
+        HolderLookup.Provider lookup = event.getLookupProvider();
+        lookupTag(lookup, NVTags.Living.TOOLTIP_ORDER)
+                .ifPresentOrElse(set -> TOOLTIP_ORDER = set,
+                        () -> NeoVitae.LOGGER.error("TagsUpdatedEvent missing {}", NVTags.Living.TOOLTIP_ORDER.location()));
+        lookupTag(lookup, NVTags.Living.IS_SCRAPPABLE)
+                .ifPresentOrElse(set -> UPGRADE_SCRAPPABLE = set,
+                        () -> NeoVitae.LOGGER.error("TagsUpdatedEvent missing {}", NVTags.Living.IS_SCRAPPABLE.location()));
     }
 
-    private static <T> void datapackHelper(RegistryAccess registries, ResourceKey<Registry<T>> key, Consumer<Registry<T>> ifPresent) {
-        registries.registry(key).ifPresentOrElse(ifPresent, () -> NeoVitae.LOGGER.error("TagsUpdatedEvent doesnt have tags for \"{}\"", key));
+    private static Optional<HolderSet.Named<LivingUpgrade>> lookupTag(HolderLookup.Provider provider, TagKey<LivingUpgrade> tag) {
+        return provider.lookup(NVRegistries.Keys.LIVING_UPGRADES).flatMap(lookup -> lookup.get(tag));
     }
 }

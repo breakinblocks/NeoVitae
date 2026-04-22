@@ -22,6 +22,7 @@ import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.item.crafting.Recipe;
 
 /**
  * Recipe that transforms one or more effects into different effects.
@@ -35,7 +36,7 @@ public class FlaskEffectTransformRecipe extends FlaskRecipe {
     ).apply(instance, Pair::of));
 
     public static final MapCodec<FlaskEffectTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.listOf().fieldOf("input").forGetter(FlaskEffectTransformRecipe::getInput),
+            Ingredient.CODEC.listOf().fieldOf("input").forGetter(FlaskEffectTransformRecipe::getInput),
             EFFECT_PAIR_CODEC.listOf().fieldOf("outputEffects").forGetter(FlaskEffectTransformRecipe::getOutputEffects),
             BuiltInRegistries.MOB_EFFECT.holderByNameCodec().listOf().fieldOf("inputEffects").forGetter(FlaskEffectTransformRecipe::getInputEffects),
             Codec.INT.fieldOf("syphon").forGetter(FlaskEffectTransformRecipe::getSyphon),
@@ -235,7 +236,7 @@ public class FlaskEffectTransformRecipe extends FlaskRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<FlaskInput>> getSerializer() {
         return NVRecipes.FLASK_EFFECT_TRANSFORM_SERIALIZER.get();
     }
 }

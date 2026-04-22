@@ -6,8 +6,8 @@ public class MaterialItem extends Item {
 
     private final int materialColor;
 
-    public MaterialItem(int materialColor) {
-        super(new Item.Properties());
+    public MaterialItem(Item.Properties props, int materialColor) {
+        super(props);
         this.materialColor = materialColor;
     }
 

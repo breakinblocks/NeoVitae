@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.block.dungeon;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -15,14 +16,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
 public class BlockSpikeTrap extends BaseEntityBlock {
     public static final MapCodec<BlockSpikeTrap> CODEC = simpleCodec(BlockSpikeTrap::new);
 
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
     public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 
     public BlockSpikeTrap(Properties properties) {
@@ -53,9 +54,9 @@ public class BlockSpikeTrap extends BaseEntityBlock {
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @javax.annotation.Nullable Orientation fromPos, boolean isMoving) {
         super.neighborChanged(state, level, pos, block, fromPos, isMoving);
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             boolean powered = level.hasNeighborSignal(pos);
             if (powered != state.getValue(ACTIVE)) {
                 level.setBlock(pos, state.setValue(ACTIVE, powered), Block.UPDATE_ALL);
@@ -72,7 +73,7 @@ public class BlockSpikeTrap extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return null;
         }
         return createTickerHelper(type, NVTiles.SPIKE_TRAP_TYPE.get(), SpikeTrapBlockEntity::tick);

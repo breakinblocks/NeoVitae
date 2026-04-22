@@ -16,7 +16,7 @@ public class SuspendedEffect extends MobEffect {
         super(category, color);
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         if (!entity.isNoGravity()) {
             entity.setNoGravity(true);

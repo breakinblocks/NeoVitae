@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.ritual;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -70,16 +70,16 @@ public final class RitualRegistry {
         return RITUALS.getRegistry().get();
     }
 
-    public static Ritual getRitual(ResourceLocation id) {
+    public static Ritual getRitual(Identifier id) {
         Registry<Ritual> registry = RITUALS.getRegistry().get();
-        return registry != null ? registry.get(id) : null;
+        return registry != null ? registry.get(id).map(Holder.Reference::value).orElse(null) : null;
     }
 
     public static Ritual getRitual(String name) {
         return getRitual(NeoVitae.rl(name));
     }
 
-    public static ResourceLocation getId(Ritual ritual) {
+    public static Identifier getId(Ritual ritual) {
         Registry<Ritual> registry = RITUALS.getRegistry().get();
         return registry != null ? registry.getKey(ritual) : null;
     }
@@ -89,7 +89,7 @@ public final class RitualRegistry {
         return registry != null ? registry.stream().toList() : Collections.emptyList();
     }
 
-    public static Collection<ResourceLocation> getRegisteredRituals() {
+    public static Collection<Identifier> getRegisteredRituals() {
         Registry<Ritual> registry = RITUALS.getRegistry().get();
         return registry != null ? registry.keySet() : Collections.emptySet();
     }
@@ -98,9 +98,9 @@ public final class RitualRegistry {
         return IMPERFECT_RITUALS.getRegistry().get();
     }
 
-    public static ImperfectRitual getImperfectRitual(ResourceLocation id) {
+    public static ImperfectRitual getImperfectRitual(Identifier id) {
         Registry<ImperfectRitual> registry = IMPERFECT_RITUALS.getRegistry().get();
-        return registry != null ? registry.get(id) : null;
+        return registry != null ? registry.get(id).map(Holder.Reference::value).orElse(null) : null;
     }
 
     public static Collection<ImperfectRitual> getAllImperfectRituals() {
@@ -108,12 +108,12 @@ public final class RitualRegistry {
         return registry != null ? registry.stream().toList() : Collections.emptyList();
     }
 
-    public static Collection<ResourceLocation> getRegisteredImperfectRituals() {
+    public static Collection<Identifier> getRegisteredImperfectRituals() {
         Registry<ImperfectRitual> registry = IMPERFECT_RITUALS.getRegistry().get();
         return registry != null ? registry.keySet() : Collections.emptySet();
     }
 
-    public static ResourceLocation getId(ImperfectRitual ritual) {
+    public static Identifier getId(ImperfectRitual ritual) {
         Registry<ImperfectRitual> registry = IMPERFECT_RITUALS.getRegistry().get();
         return registry != null ? registry.getKey(ritual) : null;
     }

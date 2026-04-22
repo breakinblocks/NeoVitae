@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -34,22 +37,22 @@ public class BloodBatteryBlockEntity extends BaseBlockEntity {
     }
 
     public void tick() {
-        if (level == null || level.isClientSide) return;
+        if (level == null || level.isClientSide()) return;
         if (level.hasNeighborSignal(worldPosition) && energy.getEnergyStored() < energy.getMaxEnergyStored()) {
             energy.receiveEnergy(energy.getMaxEnergyStored() - energy.getEnergyStored(), false);
         }
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        energy.deserializeNBT(registries, tag.get("energy"));
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        tag.child("energy").ifPresent(energy::deserialize);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.put("energy", energy.serializeNBT(registries));
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
+        energy.serialize(tag.child("energy"));
     }
 
     public static @Nullable EnergyStorage getEnergyHandler(BloodBatteryBlockEntity tile, @Nullable Direction direction) {

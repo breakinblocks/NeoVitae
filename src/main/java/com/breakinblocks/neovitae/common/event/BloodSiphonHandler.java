@@ -32,7 +32,7 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
  * Blood Siphon: converts a portion of damage dealt into LP.
  * Blood Shield: reduces incoming damage, draining LP to compensate.
  */
-@EventBusSubscriber(modid = NeoVitae.MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = NeoVitae.MODID)
 public class BloodSiphonHandler {
 
     /**
@@ -43,7 +43,7 @@ public class BloodSiphonHandler {
     @SubscribeEvent
     public static void onDamageDealt(LivingDamageEvent.Post event) {
         if (!(event.getSource().getEntity() instanceof Player attacker)) return;
-        if (attacker.level().isClientSide) return;
+        if (attacker.level().isClientSide()) return;
 
         double siphonValue = attacker.getAttributeValue(NVAttributes.BLOOD_SIPHON);
         if (siphonValue <= 0) return;
@@ -89,7 +89,7 @@ public class BloodSiphonHandler {
     @SubscribeEvent
     public static void onDamageTaken(LivingDamageEvent.Pre event) {
         if (!(event.getEntity() instanceof Player defender)) return;
-        if (defender.level().isClientSide) return;
+        if (defender.level().isClientSide()) return;
 
         double shieldValue = defender.getAttributeValue(NVAttributes.BLOOD_SHIELD);
         if (shieldValue <= 0) return;
@@ -151,7 +151,7 @@ public class BloodSiphonHandler {
         int filled = OrbFluidHandler.fillInternal(offhand, blood, FluidAction.EXECUTE);
 
         if (filled > 0) {
-            ServerLevel serverLevel = player.serverLevel();
+            ServerLevel serverLevel = (ServerLevel) player.level();
 
             serverLevel.playSound(null, player.blockPosition(), NVSounds.BLOOD_SIPHON.get(), SoundSource.PLAYERS, 0.4f, 0.8f);
 

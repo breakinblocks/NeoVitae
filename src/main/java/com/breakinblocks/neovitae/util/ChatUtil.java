@@ -15,7 +15,7 @@ public class ChatUtil {
     private static final long SPAM_COOLDOWN = 500; // 500ms cooldown between messages
 
     public static void sendNoSpam(Player player, Component message) {
-        if (player == null || player.level().isClientSide) {
+        if (player == null || player.level().isClientSide()) {
             return;
         }
 
@@ -24,14 +24,14 @@ public class ChatUtil {
         Long lastTime = lastMessageTime.get(uuid);
 
         if (lastTime == null || currentTime - lastTime >= SPAM_COOLDOWN) {
-            player.displayClientMessage(message, true);
+            player.sendSystemMessage(message);
             lastMessageTime.put(uuid, currentTime);
         }
     }
 
     public static void send(Player player, Component message) {
-        if (player != null && !player.level().isClientSide) {
-            player.displayClientMessage(message, false);
+        if (player != null && !player.level().isClientSide()) {
+            player.sendSystemMessage(message);
         }
     }
 

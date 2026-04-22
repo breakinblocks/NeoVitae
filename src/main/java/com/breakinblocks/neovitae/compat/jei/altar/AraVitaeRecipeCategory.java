@@ -11,7 +11,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -77,19 +77,19 @@ public class AraVitaeRecipeCategory implements IRecipeCategory<AraVitaeRecipe> {
     }
 
     @Override
-    public void draw(AraVitaeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(AraVitaeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
 
         Minecraft mc = Minecraft.getInstance();
         String tierText = "Tier " + recipe.getMinTier();
         String lpText = recipe.getTotalBlood() + " EV";
 
-        guiGraphics.drawString(mc.font, tierText, 90 - mc.font.width(tierText) / 2, 0, Color.gray.getRGB(), false);
-        guiGraphics.drawString(mc.font, lpText, 90 - mc.font.width(lpText) / 2, 10, Color.gray.getRGB(), false);
+        guiGraphics.text(mc.font, tierText, 90 - mc.font.width(tierText) / 2, 0, Color.gray.getRGB());
+        guiGraphics.text(mc.font, lpText, 90 - mc.font.width(lpText) / 2, 10, Color.gray.getRGB());
 
         if (recipe.shouldCopyInputComponents()) {
             String transferText = Component.translatable("jei.neovitae.recipe.componentTransfer").getString();
-            guiGraphics.drawString(mc.font, transferText, 90 - mc.font.width(transferText) / 2, 55, new Color(100, 180, 100).getRGB(), false);
+            guiGraphics.text(mc.font, transferText, 90 - mc.font.width(transferText) / 2, 55, new Color(100, 180, 100).getRGB());
         }
     }
 

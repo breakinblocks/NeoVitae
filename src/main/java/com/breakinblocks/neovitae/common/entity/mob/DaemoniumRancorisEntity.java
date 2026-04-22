@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.entity.mob;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -27,12 +29,12 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.util.GeckoLibUtil;
 
 public class DaemoniumRancorisEntity extends Monster implements GeoEntity {
 
@@ -103,11 +105,11 @@ public class DaemoniumRancorisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         if (!hasSpawned) {
             return true;
         }
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 
     public boolean isAttacking() {
@@ -148,7 +150,7 @@ public class DaemoniumRancorisEntity extends Monster implements GeoEntity {
             }
         }
 
-        if (level().isClientSide) {
+        if (level().isClientSide()) {
             spawnAmbientParticles();
         }
     }
@@ -170,14 +172,14 @@ public class DaemoniumRancorisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Spectral Bolt (single ranged shot) ----
     public void performBoltAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_BOLT);
         attackAnimTimer = 35;
         attackCooldown = 70;
 
         float damage = (float) getAttributeValue(Attributes.ATTACK_DAMAGE);
         target.hurt(damageSources().mobAttack(this), damage);
-        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0));
+        target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 60, 0));
 
         spawnBoltParticles(target);
         playLayeredSound(SoundEvents.WITHER_SHOOT, 0.4F, 0.6F);
@@ -186,7 +188,7 @@ public class DaemoniumRancorisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Ectoplasmic Burst (AoE at target location) ----
     public void performBurstAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_BURST);
         attackAnimTimer = 37;
         attackCooldown = 100;
@@ -196,7 +198,7 @@ public class DaemoniumRancorisEntity extends Monster implements GeoEntity {
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 target.getBoundingBox().inflate(3.0), e -> e != this && e instanceof Player)) {
             entity.hurt(damageSources().mobAttack(this), damage);
-            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 1));
+            entity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 1));
         }
 
         spawnBurstParticles(target);
@@ -244,7 +246,7 @@ public class DaemoniumRancorisEntity extends Monster implements GeoEntity {
 
     // ---- Sounds ----
     private void playSpawnSounds() {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         playLayeredSound(SoundEvents.PHANTOM_AMBIENT, 1.0F, 0.6F);
         playLayeredSound(SoundEvents.SOUL_ESCAPE.value(), 1.0F, 0.8F);
     }
@@ -297,15 +299,15 @@ public class DaemoniumRancorisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    protected void addAdditionalSaveData(ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("HasSpawned", hasSpawned);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    protected void readAdditionalSaveData(ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        hasSpawned = tag.getBoolean("HasSpawned");
+        hasSpawned = tag.getBooleanOr("HasSpawned", false);
         if (hasSpawned) {
             spawnTimer = 50;
         }
@@ -314,7 +316,7 @@ public class DaemoniumRancorisEntity extends Monster implements GeoEntity {
     // ---- GeckoLib animation ----
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "body", 10, state -> {
+        controllers.add(new AnimationController<DaemoniumRancorisEntity>("body", 10, state -> {
             if (isDeadOrDying()) {
                 return state.setAndContinue(DEATH_ANIM);
             }

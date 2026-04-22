@@ -5,7 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookTextHolderModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookPageModel;
 import com.google.gson.JsonObject;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class BookBloodOrbStatsPageModel extends BookPageModel<BookBloodOrbStatsPageModel> {
 
@@ -25,7 +25,7 @@ public class BookBloodOrbStatsPageModel extends BookPageModel<BookBloodOrbStatsP
     }
 
     @Override
-    public JsonObject toJson(ResourceLocation entryId, HolderLookup.Provider provider) {
+    public JsonObject toJson(Identifier entryId, HolderLookup.Provider provider) {
         var json = super.toJson(entryId, provider);
         json.add("title", this.title.toJson(provider));
         return json;

@@ -23,7 +23,7 @@ public class AlchemyArrayEffectCrafting extends AlchemyArrayEffect {
 
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
-        if (tile.getLevel().isClientSide) {
+        if (tile.getLevel().isClientSide()) {
             return false;
         }
 

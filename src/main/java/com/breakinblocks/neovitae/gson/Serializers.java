@@ -4,10 +4,12 @@ import com.google.gson.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 import java.lang.reflect.Type;
+import net.minecraft.core.Holder;
+import net.minecraft.world.item.Items;
 
 /**
  * Custom Gson serializers for NeoVitae data types.
@@ -34,26 +36,26 @@ public final class Serializers {
         }
     };
 
-    public static final SerializerBase<ResourceLocation> RESOURCELOCATION_SERIALIZER = new SerializerBase<>() {
+    public static final SerializerBase<Identifier> RESOURCELOCATION_SERIALIZER = new SerializerBase<>() {
         @Override
-        public Class<ResourceLocation> getType() {
-            return ResourceLocation.class;
+        public Class<Identifier> getType() {
+            return Identifier.class;
         }
 
         @Override
-        public ResourceLocation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+        public Identifier deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             if (json.isJsonObject()) {
                 JsonObject obj = json.getAsJsonObject();
                 String domain = obj.get("domain").getAsString();
                 String path = obj.get("path").getAsString();
-                return ResourceLocation.fromNamespaceAndPath(domain, path);
+                return Identifier.fromNamespaceAndPath(domain, path);
             }
-            return ResourceLocation.parse(json.getAsString());
+            return Identifier.parse(json.getAsString());
         }
 
         @Override
-        public JsonElement serialize(ResourceLocation src, Type typeOfSrc, JsonSerializationContext context) {
+        public JsonElement serialize(Identifier src, Type typeOfSrc, JsonSerializationContext context) {
             JsonObject object = new JsonObject();
             object.addProperty("domain", src.getNamespace());
             object.addProperty("path", src.getPath());
@@ -70,9 +72,9 @@ public final class Serializers {
         @Override
         public ItemStack deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
-            ResourceLocation registryName = context.deserialize(
-                    json.getAsJsonObject().get("registryName").getAsJsonObject(), ResourceLocation.class);
-            return new ItemStack(BuiltInRegistries.ITEM.get(registryName));
+            Identifier registryName = context.deserialize(
+                    json.getAsJsonObject().get("registryName").getAsJsonObject(), Identifier.class);
+            return new ItemStack(BuiltInRegistries.ITEM.get(registryName).map(Holder.Reference::value).orElse(Items.AIR));
         }
 
         @Override

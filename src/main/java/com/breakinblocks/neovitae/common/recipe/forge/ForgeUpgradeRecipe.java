@@ -3,7 +3,6 @@ package com.breakinblocks.neovitae.common.recipe.forge;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -18,13 +17,14 @@ import com.breakinblocks.neovitae.common.tag.NVTags;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.world.item.crafting.Recipe;
 
 public class ForgeUpgradeRecipe extends ForgeRecipe {
 
     public static final MapCodec<ForgeUpgradeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.DOUBLE.fieldOf("minDrain").forGetter(r -> r.minWill),
             Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedWill),
-            Codec.list(Ingredient.CODEC_NONEMPTY).fieldOf("catalysts").forGetter(r -> r.ingredients)
+            Codec.list(Ingredient.CODEC).fieldOf("catalysts").forGetter(r -> r.ingredients)
     ).apply(instance, ForgeUpgradeRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ForgeUpgradeRecipe> STREAM_CODEC = StreamCodec.composite(
@@ -73,7 +73,7 @@ public class ForgeUpgradeRecipe extends ForgeRecipe {
     }
 
     @Override
-    public ItemStack assemble(ForgeInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(ForgeInput input) {
         ItemStack gemStack = input.getGem();
         double will = gemStack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
         if (will < minWill) return ItemStack.EMPTY;
@@ -102,7 +102,7 @@ public class ForgeUpgradeRecipe extends ForgeRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<ForgeInput>> getSerializer() {
         return NVRecipes.HELLFIRE_FORGE_UPGRADE_SERIALIZER.get();
     }
 }

@@ -73,10 +73,10 @@ public class ClientEventHandler {
 
         ItemStack newSelected = ItemSigilHolding.getInternalInventory(stack)
                 .get(ItemSigilHolding.getCurrentItemOrdinal(stack));
-        player.displayClientMessage(
-                newSelected.isEmpty() ? Component.literal("") : newSelected.getHoverName(), true);
+        player.sendOverlayMessage(
+                newSelected.isEmpty() ? Component.literal("") : newSelected.getHoverName());
 
-        NVPayloads.sendToServer(new SigilHoldingCyclePayload(player.getInventory().selected, direction));
+        NVPayloads.sendToServer(new SigilHoldingCyclePayload(player.getInventory().getSelectedSlot(), direction));
 
         event.setCanceled(true);
     }
@@ -108,7 +108,7 @@ public class ClientEventHandler {
     ) {
         T tooltipProvider = stack.get(component);
         if (tooltipProvider != null) {
-            tooltipProvider.addToTooltip(context, tooltipAdder, tooltipFlag);
+            tooltipProvider.addToTooltip(context, tooltipAdder, tooltipFlag, stack);
         }
     }
 }

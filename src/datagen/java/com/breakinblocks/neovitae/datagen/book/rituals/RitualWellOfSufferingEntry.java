@@ -9,7 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.datagen.book.page.BookRitualInfoPageModel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.mojang.datafixers.util.Pair;
 
 public class RitualWellOfSufferingEntry extends EntryProvider {
@@ -21,7 +21,7 @@ public class RitualWellOfSufferingEntry extends EntryProvider {
     @Override
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
-                .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/well_of_suffering"))
+                .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/well_of_suffering"))
                 .withMultiblockName("Well of Suffering")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");

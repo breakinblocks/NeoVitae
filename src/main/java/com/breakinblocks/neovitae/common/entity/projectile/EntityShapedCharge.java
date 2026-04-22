@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.entity.projectile;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -27,6 +29,7 @@ import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.ExplosiveChargeBlockEntity;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
+import net.minecraft.server.level.ServerLevel;
 
 /**
  * Throwable shaped charge entity.
@@ -42,7 +45,8 @@ public class EntityShapedCharge extends ThrowableProjectile {
     }
 
     public EntityShapedCharge(Level level, Block block, LivingEntity thrower) {
-        super(NVEntities.SHAPED_CHARGE.get(), thrower, level);
+        super(NVEntities.SHAPED_CHARGE.get(), thrower.getX(), thrower.getEyeY() - 0.1, thrower.getZ(), level);
+        this.setOwner(thrower);
         this.setFallTile(block.defaultBlockState());
     }
 
@@ -68,7 +72,7 @@ public class EntityShapedCharge extends ThrowableProjectile {
     public void tick() {
         super.tick();
 
-        if (level().isClientSide) {
+        if (level().isClientSide()) {
             return;
         }
 
@@ -103,34 +107,30 @@ public class EntityShapedCharge extends ThrowableProjectile {
                     this.discard();
                 } else {
                     // Protection prevented placement, drop the item
-                    this.spawnAtLocation(fallTile.getBlock());
+                    if (this.level() instanceof ServerLevel sl) {
+                        this.spawnAtLocation(sl, fallTile.getBlock());
+                    }
                     this.discard();
                 }
             } else {
                 // Can't place - drop as item
-                this.spawnAtLocation(fallTile.getBlock());
+                if (this.level() instanceof ServerLevel sl) this.spawnAtLocation(sl, fallTile.getBlock());
                 this.discard();
             }
         }
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag compound) {
+    protected void addAdditionalSaveData(ValueOutput compound) {
         super.addAdditionalSaveData(compound);
-        compound.put("BlockState", NbtUtils.writeBlockState(this.getBlockState()));
+        compound.store("TileEntityData", BlockState.CODEC, this.getBlockState());
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag compound) {
+    protected void readAdditionalSaveData(ValueInput compound) {
         super.readAdditionalSaveData(compound);
-        BlockState fallTile = NbtUtils.readBlockState(
-                this.level().holderLookup(BuiltInRegistries.BLOCK.key()),
-                compound.getCompound("BlockState"));
-
-        if (fallTile.isAir()) {
-            fallTile = NVBlocks.SHAPED_CHARGE.block().get().defaultBlockState();
-        }
-
+        BlockState fallTile = compound.read("TileEntityData", BlockState.CODEC)
+                .orElseGet(() -> NVBlocks.SHAPED_CHARGE.block().get().defaultBlockState());
         this.setFallTile(fallTile);
     }
 

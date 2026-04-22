@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.entity.mob;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -24,12 +26,12 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.util.GeckoLibUtil;
 
 public class DaemoniumCruorisEntity extends Monster implements GeoEntity {
 
@@ -148,7 +150,7 @@ public class DaemoniumCruorisEntity extends Monster implements GeoEntity {
         }
 
         // Random walk/run switching (like MM Ghoul_Dash)
-        if (!level().isClientSide && getTarget() != null && tickCount % 40 == 0) {
+        if (!level().isClientSide() && getTarget() != null && tickCount % 40 == 0) {
             isRunning = random.nextFloat() < 0.25F;
         }
 
@@ -160,7 +162,7 @@ public class DaemoniumCruorisEntity extends Monster implements GeoEntity {
             }
         }
 
-        if (level().isClientSide) {
+        if (level().isClientSide()) {
             spawnAmbientParticles();
         }
     }
@@ -179,7 +181,7 @@ public class DaemoniumCruorisEntity extends Monster implements GeoEntity {
     // ---- Attack: Necrotic Claw ----
 
     public void performClawAttack(LivingEntity target, boolean leftHand) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
 
         setAttackState(leftHand ? ATTACK_CLAW_LEFT : ATTACK_CLAW_RIGHT);
         attackAnimTimer = 34;
@@ -214,7 +216,7 @@ public class DaemoniumCruorisEntity extends Monster implements GeoEntity {
     // ---- Attack: Grave Leap ----
 
     public void performLeapAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
 
         setAttackState(ATTACK_LEAP);
         attackAnimTimer = 75;
@@ -225,7 +227,7 @@ public class DaemoniumCruorisEntity extends Monster implements GeoEntity {
     }
 
     private void performLeapLanding() {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
 
         Vec3 forward = getForwardHitPos(1.3);
         float damage = (float) getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5F;
@@ -327,12 +329,12 @@ public class DaemoniumCruorisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    protected void addAdditionalSaveData(ValueOutput tag) {
         super.addAdditionalSaveData(tag);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    protected void readAdditionalSaveData(ValueInput tag) {
         super.readAdditionalSaveData(tag);
     }
 
@@ -340,7 +342,7 @@ public class DaemoniumCruorisEntity extends Monster implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "body", 5, state -> {
+        controllers.add(new AnimationController<DaemoniumCruorisEntity>("body", 5, state -> {
             if (isDeadOrDying()) {
                 return state.setAndContinue(DEATH_ANIM);
             }

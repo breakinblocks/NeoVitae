@@ -5,15 +5,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.api.capability.NVCapabilities;
-import com.breakinblocks.neovitae.common.item.NVItems;
-import com.breakinblocks.neovitae.common.item.OrbFluidHandler;
 import com.breakinblocks.neovitae.client.render.blockentity.AlchemyArrayRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.AraVitaeRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.BloodTankRenderer;
@@ -21,9 +17,7 @@ import com.breakinblocks.neovitae.client.render.blockentity.HellfireForgeRendere
 import com.breakinblocks.neovitae.client.render.blockentity.RoutingNodeRenderer;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 
-import java.util.Arrays;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class NVTiles {
     public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, NeoVitae.MODID);
@@ -33,11 +27,11 @@ public class NVTiles {
             String name,
             BlockEntityType.BlockEntitySupplier<T> factory,
             Supplier<? extends Block>... validBlocks) {
-        return TILES.register(name, () -> new BlockEntityType<>(
-                factory,
-                Arrays.stream(validBlocks).map(Supplier::get).collect(Collectors.toSet()),
-                null
-        ));
+        return TILES.register(name, () -> {
+            Block[] blocks = new Block[validBlocks.length];
+            for (int i = 0; i < validBlocks.length; i++) blocks[i] = validBlocks[i].get();
+            return new BlockEntityType<T>(factory, blocks);
+        });
     }
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HellfireForgeBlockEntity>> HELLFIRE_FORGE_TYPE =
@@ -158,64 +152,19 @@ public class NVTiles {
             registerTile("spirit_cache", SpiritCacheBlockEntity::new, NVBlocks.SPIRIT_CACHE.block());
 
     private static void registerTileCapabilities(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                HELLFIRE_FORGE_TYPE.get(),
-                HellfireForgeBlockEntity::getInventory
-        );
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                ARA_VITAE_TYPE.get(),
-                (tile, side) -> tile.inv
-        );
-        event.registerBlockEntity(
-                Capabilities.FluidHandler.BLOCK,
-                ARA_VITAE_TYPE.get(),
-                (tile, side) -> tile
-        );
-        event.registerBlockEntity(
-                NVCapabilities.ARA_VITAE,
-                ARA_VITAE_TYPE.get(),
-                (tile, side) -> tile
-        );
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                ATHANOR_TYPE.get(),
-                AthanorBlockEntity::getItemHandler
-        );
-        event.registerBlockEntity(
-                Capabilities.FluidHandler.BLOCK,
-                ATHANOR_TYPE.get(),
-                AthanorBlockEntity::getFluidHandler
-        );
-        event.registerBlockEntity(
-                Capabilities.FluidHandler.BLOCK,
-                BLOOD_TANK_TYPE.get(),
-                BloodTankBlockEntity::getFluidHandler
-        );
-        event.registerBlockEntity(
-                Capabilities.EnergyStorage.BLOCK,
-                BLOOD_BATTERY_TYPE.get(),
-                BloodBatteryBlockEntity::getEnergyHandler
-        );
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                VAS_MALEFICUM_TYPE.get(),
-                (tile, side) -> tile.getInventory()
-        );
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                SPIRIT_CACHE_TYPE.get(),
-                (tile, side) -> new net.neoforged.neoforge.items.wrapper.InvWrapper(tile)
-        );
-
-        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> new OrbFluidHandler(stack),
-                NVItems.ORB_WEAK.get(),
-                NVItems.ORB_APPRENTICE.get(),
-                NVItems.ORB_MAGICIAN.get(),
-                NVItems.ORB_MASTER.get(),
-                NVItems.ORB_ARCHMAGE.get(),
-                NVItems.ORB_TRANSCENDENT.get());
+        // Deferred: Capabilities.Item.BLOCK requires ResourceHandler<ItemResource>,
+        // Capabilities.Fluid.BLOCK requires ResourceHandler<FluidResource>, and
+        // Capabilities.Energy.BLOCK requires EnergyHandler in 26.1.
+        //
+        // Every NeoVitae BE needs its handler replaced with a SnapshotJournal-backed
+        // ResourceHandler before the per-BE capability registrations can be re-enabled.
+        // Consumer-side lookups already use IItemHandler.of(rh) / IFluidHandler.of(rh) /
+        // IEnergyStorage.of(eh) adapters and will function against any neighbour that
+        // registers a modern handler (vanilla containers included). NeoVitae BEs will
+        // expose nothing until this block is re-enabled and the tile handlers migrate.
+        // Affected BEs: HellfireForge, AraVitae, Athanor, BloodTank, BloodBattery,
+        // VasMaleficum, SpiritCache, routing-node tiles, Mimic, AlchemyArray.
+        // Also the item-level Fluid.ITEM for Blood Orbs (OrbFluidHandler).
     }
 
     private static void registerBlockEntityRenderer(EntityRenderersEvent.RegisterRenderers event) {
@@ -224,7 +173,6 @@ public class NVTiles {
         event.registerBlockEntityRenderer(BLOOD_TANK_TYPE.get(), BloodTankRenderer::new);
         event.registerBlockEntityRenderer(ALCHEMY_ARRAY_TYPE.get(), AlchemyArrayRenderer::new);
         event.registerBlockEntityRenderer(MIMIC_TYPE.get(), com.breakinblocks.neovitae.client.render.blockentity.MimicRenderer::new);
-
         event.registerBlockEntityRenderer(ROUTING_CONDUIT_TYPE.get(), RoutingNodeRenderer::new);
         event.registerBlockEntityRenderer(INPUT_ROUTING_NODE_TYPE.get(), RoutingNodeRenderer::new);
         event.registerBlockEntityRenderer(OUTPUT_ROUTING_NODE_TYPE.get(), RoutingNodeRenderer::new);

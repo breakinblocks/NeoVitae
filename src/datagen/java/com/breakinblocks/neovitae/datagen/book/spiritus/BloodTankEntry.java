@@ -9,7 +9,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.datagen.book.page.BookHellfireForgeRecipePageModel;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class BloodTankEntry extends EntryProvider {
 
@@ -31,7 +31,7 @@ public class BloodTankEntry extends EntryProvider {
                 + "beginning at [#](B8860B)16 Buckets[#]() and reaching a staggering [#](B8860B)524,288 Buckets[#]() at tier 16.");
 
         this.page("recipe", () -> BookHellfireForgeRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "hellfire_forge/blood_tank")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "hellfire_forge/blood_tank")));
 
         this.page("upgrading", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

@@ -1,0 +1,41 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:component",
+    "component": "neovitae:will_type",
+    "cases": [
+      {
+        "when": "corrosive",
+        "model": {
+          "type": "minecraft:model",
+          "model": "neovitae:item/variant/spiritus_gem_greater_corrosive"
+        }
+      },
+      {
+        "when": "destructive",
+        "model": {
+          "type": "minecraft:model",
+          "model": "neovitae:item/variant/spiritus_gem_greater_destructive"
+        }
+      },
+      {
+        "when": "steadfast",
+        "model": {
+          "type": "minecraft:model",
+          "model": "neovitae:item/variant/spiritus_gem_greater_steadfast"
+        }
+      },
+      {
+        "when": "vengeful",
+        "model": {
+          "type": "minecraft:model",
+          "model": "neovitae:item/variant/spiritus_gem_greater_vengeful"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "neovitae:item/variant/spiritus_gem_greater_default"
+    }
+  }
+}

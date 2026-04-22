@@ -1,19 +1,15 @@
 package com.breakinblocks.neovitae.client.render;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.data.AtlasIds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -24,7 +20,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.event.SubmitCustomGeometryEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
@@ -35,30 +31,26 @@ import com.breakinblocks.neovitae.ritual.RitualComponent;
 import java.util.List;
 
 /**
- * Renders holographic previews of ritual stone placements.
- * Shows the ritual pattern when a player holds a Ritual Diviner and looks at an MRS.
- * Uses textured block rendering for accurate preview of actual rune blocks.
+ * Renders holographic previews of ritual stone placements while the player holds a Ritual
+ * Diviner and looks at a Master Ritual Stone. Uses the 26.1 {@link SubmitCustomGeometryEvent}
+ * pipeline so the geometry is captured with the rest of the level's main pass.
  */
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
 public class RitualRenderer {
 
-    private static final ResourceLocation RITUAL_STONE_BLANK = NeoVitae.rl("block/ritual_stone");
-    private static final ResourceLocation RITUAL_STONE_WATER = NeoVitae.rl("block/water_ritual_stone");
-    private static final ResourceLocation RITUAL_STONE_FIRE = NeoVitae.rl("block/fire_ritual_stone");
-    private static final ResourceLocation RITUAL_STONE_EARTH = NeoVitae.rl("block/earth_ritual_stone");
-    private static final ResourceLocation RITUAL_STONE_AIR = NeoVitae.rl("block/air_ritual_stone");
-    private static final ResourceLocation RITUAL_STONE_DAWN = NeoVitae.rl("block/dawn_ritual_stone");
-    private static final ResourceLocation RITUAL_STONE_DUSK = NeoVitae.rl("block/dusk_ritual_stone");
+    private static final Identifier RITUAL_STONE_BLANK = NeoVitae.rl("block/ritual_stone");
+    private static final Identifier RITUAL_STONE_WATER = NeoVitae.rl("block/water_ritual_stone");
+    private static final Identifier RITUAL_STONE_FIRE = NeoVitae.rl("block/fire_ritual_stone");
+    private static final Identifier RITUAL_STONE_EARTH = NeoVitae.rl("block/earth_ritual_stone");
+    private static final Identifier RITUAL_STONE_AIR = NeoVitae.rl("block/air_ritual_stone");
+    private static final Identifier RITUAL_STONE_DAWN = NeoVitae.rl("block/dawn_ritual_stone");
+    private static final Identifier RITUAL_STONE_DUSK = NeoVitae.rl("block/dusk_ritual_stone");
 
     private static final int GHOST_COLOR = 0xDDFFFFFF;
     private static final int FULL_BRIGHT = 0x00F000F0;
 
     @SubscribeEvent
-    public static void onRenderLevel(RenderLevelStageEvent event) {
-        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
-            return;
-        }
-
+    public static void onSubmitCustomGeometry(SubmitCustomGeometryEvent event) {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
         if (player == null) return;
@@ -68,75 +60,52 @@ public class RitualRenderer {
         if (heldItem.isEmpty()) {
             heldItem = player.getOffhandItem();
         }
-
-        if (!(heldItem.getItem() instanceof ItemRitualDiviner diviner)) {
-            return;
-        }
+        if (!(heldItem.getItem() instanceof ItemRitualDiviner diviner)) return;
 
         HitResult hitResult = mc.hitResult;
-        if (hitResult == null || hitResult.getType() != HitResult.Type.BLOCK) {
-            return;
-        }
+        if (hitResult == null || hitResult.getType() != HitResult.Type.BLOCK) return;
 
         BlockHitResult blockHit = (BlockHitResult) hitResult;
         BlockPos mrsPos = blockHit.getBlockPos();
         BlockEntity be = level.getBlockEntity(mrsPos);
-
-        if (!(be instanceof MasterRitualStoneBlockEntity)) {
-            return;
-        }
+        if (!(be instanceof MasterRitualStoneBlockEntity)) return;
 
         Ritual ritual = diviner.getCurrentRitual(heldItem);
-        if (ritual == null) {
-            return;
-        }
+        if (ritual == null) return;
 
         Direction direction = diviner.getDirection(heldItem);
 
-        MultiBufferSource.BufferSource buffers = Minecraft.getInstance().renderBuffers().bufferSource();
+        Vec3 eyePos = event.getLevelRenderState().cameraRenderState.pos;
         PoseStack poseStack = event.getPoseStack();
-
-        renderRitualStones(poseStack, buffers, mrsPos, ritual, direction, level);
-
-        RenderSystem.disableDepthTest();
-        buffers.endBatch();
-    }
-
-    private static void renderRitualStones(PoseStack poseStack, MultiBufferSource buffers,
-                                            BlockPos mrsPos, Ritual ritual, Direction direction, Level level) {
-        Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
-        Vec3 eyePos = camera.getPosition();
-        VertexConsumer buffer = buffers.getBuffer(Sheets.translucentCullBlockSheet());
 
         List<RitualComponent> components = Lists.newArrayList();
         ritual.gatherComponents(components::add);
 
         for (RitualComponent component : components) {
-            poseStack.pushPose();
-
             BlockPos rotatedOffset = rotateOffset(component.offset(), direction);
             BlockPos runePos = mrsPos.offset(rotatedOffset);
+
+            if (level.getBlockState(runePos).isSolidRender()) continue;
 
             double minX = runePos.getX() - eyePos.x;
             double minY = runePos.getY() - eyePos.y;
             double minZ = runePos.getZ() - eyePos.z;
 
+            Identifier textureRL = getRuneTexture(component.runeType());
+            NeoVitaeRenderer.Model3D model = getBlockModel(textureRL);
+
+            poseStack.pushPose();
             poseStack.translate(minX, minY, minZ);
-
-            if (!level.getBlockState(runePos).isSolidRender(level, runePos)) {
-                ResourceLocation textureRL = getRuneTexture(component.runeType());
-                NeoVitaeRenderer.Model3D model = getBlockModel(textureRL);
-
-                RenderResizableCuboid.INSTANCE.renderCube(
-                        model, poseStack, buffer, GHOST_COLOR, FULL_BRIGHT, OverlayTexture.NO_OVERLAY
-                );
-            }
-
+            event.getSubmitNodeCollector().submitCustomGeometry(
+                    poseStack,
+                    RenderTypes.entityTranslucent(AtlasIds.BLOCKS),
+                    (pose, buf) -> RenderResizableCuboid.INSTANCE.renderCube(
+                            model, pose.pose(), buf, GHOST_COLOR, FULL_BRIGHT, OverlayTexture.NO_OVERLAY));
             poseStack.popPose();
         }
     }
 
-    private static ResourceLocation getRuneTexture(EnumRuneType runeType) {
+    private static Identifier getRuneTexture(EnumRuneType runeType) {
         return switch (runeType) {
             case BLANK -> RITUAL_STONE_BLANK;
             case WATER -> RITUAL_STONE_WATER;
@@ -148,11 +117,12 @@ public class RitualRenderer {
         };
     }
 
-    private static NeoVitaeRenderer.Model3D getBlockModel(ResourceLocation textureRL) {
+    private static NeoVitaeRenderer.Model3D getBlockModel(Identifier textureRL) {
         NeoVitaeRenderer.Model3D model = new NeoVitaeRenderer.Model3D();
         TextureAtlasSprite sprite = Minecraft.getInstance()
-                .getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-                .apply(textureRL);
+                .getAtlasManager()
+                .getAtlasOrThrow(AtlasIds.BLOCKS)
+                .getSprite(textureRL);
         model.setTexture(sprite);
         model.minX = 0;
         model.minY = 0;

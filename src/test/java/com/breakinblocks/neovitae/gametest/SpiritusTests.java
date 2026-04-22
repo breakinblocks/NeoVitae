@@ -29,7 +29,7 @@ public class SpiritusTests {
         BlockPos absPos = helper.absolutePos(relativePos);
         LevelChunk chunk = helper.getLevel().getChunkAt(absPos);
         chunk.setData(NVDataAttachments.SPIRITUS_CHUNK.get(), new SpiritusChunk(amount, 0, 0, 0, 0));
-        chunk.setUnsaved(true);
+        chunk.markUnsaved();
     }
 
     private static double getChunkWill(GameTestHelper helper, BlockPos relativePos) {

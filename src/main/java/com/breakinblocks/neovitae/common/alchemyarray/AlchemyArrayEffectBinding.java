@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
+import net.minecraft.world.entity.EntitySpawnReason;
 
 /**
  * Alchemy array effect for binding items (like creating sigils).
@@ -32,7 +33,7 @@ public class AlchemyArrayEffectBinding extends AlchemyArrayEffectCrafting {
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
-        if (level == null || level.isClientSide) {
+        if (level == null || level.isClientSide()) {
             return false;
         }
 
@@ -66,9 +67,9 @@ public class AlchemyArrayEffectBinding extends AlchemyArrayEffectCrafting {
         double x = pos.getX() + 0.5 + Math.cos(angle) * radius;
         double z = pos.getZ() + 0.5 + Math.sin(angle) * radius;
 
-        LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(serverLevel);
+        LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(serverLevel, EntitySpawnReason.TRIGGERED);
         if (bolt != null) {
-            bolt.moveTo(x, pos.getY(), z);
+            bolt.snapTo(x, pos.getY(), z);
             bolt.setVisualOnly(true);
             serverLevel.addFreshEntity(bolt);
         }

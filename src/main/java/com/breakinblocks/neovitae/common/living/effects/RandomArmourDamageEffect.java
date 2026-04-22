@@ -18,9 +18,15 @@ public record RandomArmourDamageEffect(LevelBasedValue amounts) implements Livin
 
     @Override
     public void apply(int upgradeLevel, Entity entity) {
+        if (!(entity instanceof LivingEntity living)) return;
         List<ItemStack> stacks = new ArrayList<>();
-        ((LivingEntity) entity).getArmorSlots().forEach(stacks::add);
-        ItemStack chosen = stacks.get(entity.level().random.nextInt(stacks.size()));
+        for (net.minecraft.world.entity.EquipmentSlot slot : net.minecraft.world.entity.EquipmentSlot.VALUES) {
+            if (slot.getType() != net.minecraft.world.entity.EquipmentSlot.Type.HUMANOID_ARMOR) continue;
+            ItemStack s = living.getItemBySlot(slot);
+            if (!s.isEmpty()) stacks.add(s);
+        }
+        if (stacks.isEmpty()) return;
+        ItemStack chosen = stacks.get(entity.level().getRandom().nextInt(stacks.size()));
         chosen.setDamageValue(chosen.getDamageValue() + (int) amounts.calculate(upgradeLevel));
     }
 

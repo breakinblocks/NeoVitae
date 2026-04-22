@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "neovitae:item/input_routing_node"
+  }
+}

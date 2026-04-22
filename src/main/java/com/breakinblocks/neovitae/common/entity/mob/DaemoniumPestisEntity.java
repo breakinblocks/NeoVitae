@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.entity.mob;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -27,12 +29,14 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.util.GeckoLibUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class DaemoniumPestisEntity extends Monster implements GeoEntity {
 
@@ -98,9 +102,9 @@ public class DaemoniumPestisEntity extends Monster implements GeoEntity {
     public void setAttackState(int state) { this.entityData.set(ATTACK_STATE, state); }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         if (!hasSpawned) return true;
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 
     public boolean isAttacking() { return attackAnimTimer > 0; }
@@ -131,7 +135,7 @@ public class DaemoniumPestisEntity extends Monster implements GeoEntity {
             }
         }
 
-        if (level().isClientSide) spawnAmbientParticles();
+        if (level().isClientSide()) spawnAmbientParticles();
     }
 
     private void spawnAmbientParticles() {
@@ -145,7 +149,7 @@ public class DaemoniumPestisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Fang Bite ----
     public void performFangAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_FANG);
         attackAnimTimer = 26;
         attackCooldown = 26;
@@ -169,7 +173,7 @@ public class DaemoniumPestisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Shadow Lunge ----
     public void performLungeAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_LUNGE);
         attackAnimTimer = 40;
         attackCooldown = 40;
@@ -210,7 +214,7 @@ public class DaemoniumPestisEntity extends Monster implements GeoEntity {
 
     // ---- Sounds ----
     private void playSpawnSounds() {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         playLayeredSound(SoundEvents.SPIDER_AMBIENT, 1.0F, 0.7F);
     }
 
@@ -227,7 +231,7 @@ public class DaemoniumPestisEntity extends Monster implements GeoEntity {
     protected SoundEvent getDeathSound() { return SoundEvents.SPIDER_DEATH; }
 
     @Override
-    protected void playStepSound(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+    protected void playStepSound(BlockPos pos, BlockState state) {
         playSound(SoundEvents.SPIDER_STEP, 0.8F, 0.9F);
     }
 
@@ -238,22 +242,22 @@ public class DaemoniumPestisEntity extends Monster implements GeoEntity {
     public boolean canAttack() { return attackCooldown <= 0 && hasSpawned && !isAttacking(); }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    protected void addAdditionalSaveData(ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("HasSpawned", hasSpawned);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    protected void readAdditionalSaveData(ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        hasSpawned = tag.getBoolean("HasSpawned");
+        hasSpawned = tag.getBooleanOr("HasSpawned", false);
         if (hasSpawned) spawnTimer = 40;
     }
 
     // ---- GeckoLib ----
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "body", 5, state -> {
+        controllers.add(new AnimationController<DaemoniumPestisEntity>("body", 5, state -> {
             if (isDeadOrDying()) return state.setAndContinue(DEATH_ANIM);
             if (!hasSpawned) return state.setAndContinue(SPAWN_ANIM);
 

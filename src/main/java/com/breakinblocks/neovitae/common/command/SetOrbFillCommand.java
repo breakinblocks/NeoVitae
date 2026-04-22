@@ -20,7 +20,7 @@ public class SetOrbFillCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("nvsetorbfill")
-                        .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .then(Commands.argument("amount", IntegerArgumentType.integer(0))
                                 .executes(SetOrbFillCommand::execute))
         );
@@ -29,7 +29,7 @@ public class SetOrbFillCommand {
     private static int execute(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
         if (!(source.getEntity() instanceof ServerPlayer player)) {
-            source.sendFailure(Component.literal("This command must be run by a player"));
+            source.sendFailure(Component.translatable("command.neovitae.player_only"));
             return 0;
         }
 

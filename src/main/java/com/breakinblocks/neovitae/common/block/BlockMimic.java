@@ -3,7 +3,6 @@ package com.breakinblocks.neovitae.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -40,7 +39,7 @@ public class BlockMimic extends Block implements EntityBlock {
 
     @Override
     public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.ENTITYBLOCK_ANIMATED;
+        return RenderShape.MODEL;
     }
 
     @Override
@@ -49,14 +48,14 @@ public class BlockMimic extends Block implements EntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         BlockEntity te = world.getBlockEntity(pos);
         if (te instanceof MimicBlockEntity mimic) {
             if (mimic.onBlockActivated(world, pos, state, player, hand, stack, hitResult.getDirection())) {
-                return ItemInteractionResult.sidedSuccess(world.isClientSide);
+                return InteractionResult.SUCCESS;
             }
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -74,7 +73,7 @@ public class BlockMimic extends Block implements EntityBlock {
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         BlockEntity te = level.getBlockEntity(pos);
-        if (te instanceof MimicBlockEntity mimic && !level.isClientSide) {
+        if (te instanceof MimicBlockEntity mimic && !level.isClientSide()) {
             mimic.dropItems();
         }
         return super.playerWillDestroy(level, pos, state, player);

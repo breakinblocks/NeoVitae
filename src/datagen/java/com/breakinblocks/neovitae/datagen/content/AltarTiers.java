@@ -1,10 +1,10 @@
 package com.breakinblocks.neovitae.datagen.content;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.data.tags.TagAppender;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.ExtraCodecs.TagOrElementLocation;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -29,7 +29,7 @@ public class AltarTiers {
         builder.register(Keys.TRANSCENDENT, new AltarTier(5, AltarTiers.TRANSCENDENT));
     }
 
-    public static void tags(Function<TagKey<AltarTier>, TagsProvider.TagAppender<AltarTier>> setter) {
+    public static void tags(Function<TagKey<AltarTier>, TagAppender<net.minecraft.resources.ResourceKey<AltarTier>, AltarTier>> setter) {
         setter.apply(NVTags.Tiers.VALID_TIERS)
                 .add(Keys.WEAK)
                 .add(Keys.APPRENTICE)
@@ -39,8 +39,8 @@ public class AltarTiers {
                 .add(Keys.TRANSCENDENT);
     }
 
-    protected static ResourceLocation bm(String path) {
-        return ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, path);
+    protected static Identifier bm(String path) {
+        return Identifier.fromNamespaceAndPath(NeoVitae.MODID, path);
     }
 
     public static class Keys {
@@ -53,12 +53,12 @@ public class AltarTiers {
     }
 
     public static class Locs {
-        public static final ResourceLocation WEAK = bm("weak");
-        public static final ResourceLocation APPRENTICE = bm("apprentice");
-        public static final ResourceLocation MAGE = bm("mage");
-        public static final ResourceLocation MASTER = bm("master");
-        public static final ResourceLocation ARCHMAGE = bm("archmage");
-        public static final ResourceLocation TRANSCENDENT = bm("transcendent");
+        public static final Identifier WEAK = bm("weak");
+        public static final Identifier APPRENTICE = bm("apprentice");
+        public static final Identifier MAGE = bm("mage");
+        public static final Identifier MASTER = bm("master");
+        public static final Identifier ARCHMAGE = bm("archmage");
+        public static final Identifier TRANSCENDENT = bm("transcendent");
     }
 
     private static final TagOrElementLocation ALTAR = new TagOrElementLocation(NVBlocks.ARA_VITAE.block().getId(), false);

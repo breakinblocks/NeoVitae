@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.ritual.harvest;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +22,7 @@ import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
+import net.minecraft.core.Holder;
 
 /**
  * Harvest handler for standard plantable crops such as Wheat, Potatoes, and Netherwart.
@@ -104,7 +105,7 @@ public class HarvestHandlerPlantable implements IHarvestHandler {
     private static void addThirdPartyCrop(String modid, String regName, int matureMeta) {
         if (!ModList.get().isLoaded(modid)) return;
 
-        Block block = BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(modid, regName));
+        Block block = BuiltInRegistries.BLOCK.get(Identifier.fromNamespaceAndPath(modid, regName)).map(Holder.Reference::value).orElse(null);
         if (block != null && block != Blocks.AIR) {
             HarvestRegistry.registerStandardCrop(block, matureMeta);
         }

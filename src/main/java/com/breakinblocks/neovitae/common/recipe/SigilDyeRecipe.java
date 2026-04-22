@@ -2,7 +2,6 @@ package com.breakinblocks.neovitae.common.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.DyeColor;
@@ -28,7 +27,7 @@ public class SigilDyeRecipe extends CustomRecipe {
     );
 
     public SigilDyeRecipe(CraftingBookCategory category) {
-        super(category);
+        super();
     }
 
     @Override
@@ -55,7 +54,7 @@ public class SigilDyeRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(CraftingInput input) {
         ItemStack sigilStack = ItemStack.EMPTY;
         DyeColor dyeColor = null;
 
@@ -65,8 +64,9 @@ public class SigilDyeRecipe extends CustomRecipe {
 
             if (stack.is(NVItems.SIGIL_BLOOD_LIGHT.get())) {
                 sigilStack = stack;
-            } else if (stack.getItem() instanceof DyeItem dyeItem) {
-                dyeColor = dyeItem.getDyeColor();
+            } else if (stack.getItem() instanceof DyeItem) {
+                DyeColor color = stack.get(net.minecraft.core.component.DataComponents.DYE);
+                if (color != null) dyeColor = color;
             }
         }
 
@@ -79,12 +79,7 @@ public class SigilDyeRecipe extends CustomRecipe {
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return width * height >= 2;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends CustomRecipe> getSerializer() {
         return NVRecipes.SIGIL_DYE_SERIALIZER.get();
     }
 }

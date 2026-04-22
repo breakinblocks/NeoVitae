@@ -6,7 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
@@ -21,6 +21,7 @@ import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 
 import java.util.Set;
 import java.util.function.Supplier;
+import net.minecraft.world.entity.Relative;
 
 public record TelepositionSigilEffect() implements SigilEffect {
 
@@ -36,7 +37,7 @@ public record TelepositionSigilEffect() implements SigilEffect {
 
     @Override
     public boolean useOnAir(Level level, Player player, ItemStack stack) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return false;
         }
 
@@ -53,7 +54,7 @@ public record TelepositionSigilEffect() implements SigilEffect {
             return false;
         }
 
-        ResourceKey<Level> dimensionKey = ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(dimensionId));
+        ResourceKey<Level> dimensionKey = ResourceKey.create(Registries.DIMENSION, Identifier.parse(dimensionId));
         ServerLevel targetLevel = server.getLevel(dimensionKey);
         if (targetLevel == null) {
             player.sendSystemMessage(Component.translatable("tooltip.neovitae.sigil.teleposition.invalid_dimension"));
@@ -75,7 +76,7 @@ public record TelepositionSigilEffect() implements SigilEffect {
         if (level.dimension() == dimensionKey) {
             player.teleportTo(x, y, z);
         } else {
-            player.teleportTo(targetLevel, x, y, z, Set.of(), player.getYRot(), player.getXRot());
+            player.teleportTo(targetLevel, x, y, z, Set.<Relative>of(), player.getYRot(), player.getXRot(), true);
         }
 
         return true;
@@ -83,14 +84,14 @@ public record TelepositionSigilEffect() implements SigilEffect {
 
     @Override
     public boolean useOnBlock(Level level, Player player, ItemStack stack, BlockPos blockPos, Direction side, Vec3 hitVec) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return false;
         }
 
         BlockEntity tile = level.getBlockEntity(blockPos);
         if (tile instanceof TeleposerBlockEntity) {
             stack.set(NVDataComponents.TELEPOSER_POS.get(), blockPos);
-            stack.set(NVDataComponents.TELEPOSER_DIMENSION.get(), level.dimension().location().toString());
+            stack.set(NVDataComponents.TELEPOSER_DIMENSION.get(), level.dimension().identifier().toString());
             player.sendSystemMessage(Component.translatable("tooltip.neovitae.sigil.teleposition.bound",
                     blockPos.getX(), blockPos.getY(), blockPos.getZ()));
             return true;

@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
@@ -23,7 +24,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -34,14 +35,9 @@ import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
 public class TabulaVitaeBlock extends BaseEntityBlock {
     public static final MapCodec<TabulaVitaeBlock> CODEC = simpleCodec(TabulaVitaeBlock::new);
-    public static final DirectionProperty DIRECTION = DirectionProperty.create("direction", Direction.Plane.HORIZONTAL);
+    public static final EnumProperty<Direction> DIRECTION = EnumProperty.create("direction", Direction.class, Direction.Plane.HORIZONTAL.stream().toArray(Direction[]::new));
     public static final BooleanProperty INVISIBLE = BooleanProperty.create("invisible");
     protected static final VoxelShape BODY = Block.box(1, 0, 1, 15, 15, 15);
-
-    public TabulaVitaeBlock() {
-        super(BlockBehaviour.Properties.of().strength(2.0F, 5.0F).noOcclusion().isRedstoneConductor(TabulaVitaeBlock::isntSolid).isViewBlocking(TabulaVitaeBlock::isntSolid).requiresCorrectToolForDrops());
-        this.registerDefaultState(this.stateDefinition.any().setValue(DIRECTION, Direction.NORTH).setValue(INVISIBLE, false));
-    }
 
     public TabulaVitaeBlock(BlockBehaviour.Properties properties) {
         super(properties.strength(2.0F, 5.0F).noOcclusion().isRedstoneConductor(TabulaVitaeBlock::isntSolid).isViewBlocking(TabulaVitaeBlock::isntSolid).requiresCorrectToolForDrops());
@@ -86,7 +82,7 @@ public class TabulaVitaeBlock extends BaseEntityBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (world.isClientSide)
+        if (world.isClientSide())
             return InteractionResult.SUCCESS;
 
         if (!(player instanceof ServerPlayer serverPlayer)) {
@@ -145,15 +141,12 @@ public class TabulaVitaeBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!state.is(newState.getBlock())) {
-            BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof TabulaVitaeBlockEntity alchemyTable && !alchemyTable.isSlave()) {
-                alchemyTable.dropItems();
-                worldIn.updateNeighbourForOutputSignal(pos, this);
-            }
-
-            super.onRemove(state, worldIn, pos, newState, isMoving);
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel worldIn, BlockPos pos, boolean isMoving) {
+        BlockEntity tileentity = worldIn.getBlockEntity(pos);
+        if (tileentity instanceof TabulaVitaeBlockEntity alchemyTable && !alchemyTable.isSlave()) {
+            alchemyTable.dropItems();
+            worldIn.updateNeighbourForOutputSignal(pos, this);
         }
+        super.affectNeighborsAfterRemoval(state, worldIn, pos, isMoving);
     }
 }

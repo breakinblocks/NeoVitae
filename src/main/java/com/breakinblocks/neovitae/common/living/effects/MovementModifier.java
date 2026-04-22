@@ -23,7 +23,7 @@ public record MovementModifier(LevelBasedValue amounts) implements LivingEntityE
     }
 
     private double rand(ServerLevel level) {
-        return level.random.nextDouble() - 0.5;
+        return level.getRandom().nextDouble() - 0.5;
     }
 
     @Override

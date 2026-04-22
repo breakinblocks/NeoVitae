@@ -10,6 +10,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.function.Predicate;
+import net.minecraft.util.RandomSource;
 
 @OnlyIn(Dist.CLIENT)
 public class BlockEntityLoopSound extends AbstractTickableSoundInstance {
@@ -19,7 +20,7 @@ public class BlockEntityLoopSound extends AbstractTickableSoundInstance {
     private final Predicate<BlockEntity> activeCheck;
 
     public BlockEntityLoopSound(SoundEvent sound, SoundSource source, float volume, Level level, BlockPos pos, Predicate<BlockEntity> activeCheck) {
-        super(sound, source, net.minecraft.util.RandomSource.create());
+        super(sound, source, RandomSource.create());
         this.level = level;
         this.pos = pos;
         this.activeCheck = activeCheck;

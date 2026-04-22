@@ -60,7 +60,7 @@ public class LevitationFlaskEntry extends EntryProvider {
     protected BookIconModel entryIcon() {
         ItemStack flask = new ItemStack(NVItems.ALCHEMY_FLASK.get());
         ItemAlchemyFlask.setFlaskEffects(flask, FlaskEffects.single(EffectHolder.create(MobEffects.LEVITATION, 3600, 0)));
-        return BookIconModel.create(flask);
+        return BookIconModel.create(com.breakinblocks.neovitae.common.item.NVItems.ALCHEMY_FLASK.get());
     }
 
     @Override

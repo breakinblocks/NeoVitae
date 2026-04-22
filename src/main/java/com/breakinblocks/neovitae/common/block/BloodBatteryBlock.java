@@ -23,25 +23,24 @@ import com.breakinblocks.neovitae.common.blockentity.BloodBatteryBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class BloodBatteryBlock extends Block implements EntityBlock {
     protected static final VoxelShape BOX = Block.box(3, 0, 3, 13, 14, 13);
 
-    public BloodBatteryBlock() {
-        super(BlockBehaviour.Properties.of()
+    public BloodBatteryBlock(BlockBehaviour.Properties props) {
+        super(props
                 .requiresCorrectToolForDrops()
                 .strength(2.0F, 5.0F)
                 .sound(SoundType.METAL)
-                .forceSolidOn()
-        );
+                .forceSolidOn());
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, components, tooltipFlag);
-        components.add(Component.translatable("tooltip.neovitae.blood_battery.capacity",
+    // @Override (removed: not an override in 26.1)
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {components.accept(Component.translatable("tooltip.neovitae.blood_battery.capacity",
                 String.format("%,d", BloodBatteryBlockEntity.CAPACITY)).withStyle(ChatFormatting.DARK_RED));
-        components.add(Component.translatable("tooltip.neovitae.blood_battery.creative").withStyle(ChatFormatting.DARK_PURPLE));
+        components.accept(Component.translatable("tooltip.neovitae.blood_battery.creative").withStyle(ChatFormatting.DARK_PURPLE));
     }
 
     @Override
@@ -57,7 +56,7 @@ public class BloodBatteryBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (level.isClientSide) return null;
+        if (level.isClientSide()) return null;
         if (type != NVTiles.BLOOD_BATTERY_TYPE.get()) return null;
         return (lvl, pos, st, be) -> ((BloodBatteryBlockEntity) be).tick();
     }

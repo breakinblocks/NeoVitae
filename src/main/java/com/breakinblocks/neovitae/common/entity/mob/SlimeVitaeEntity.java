@@ -18,6 +18,7 @@ import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 
 import java.util.List;
+import net.minecraft.world.entity.EntitySpawnReason;
 
 /**
  * Slime of Vitae: a blood-red slime that applies slowness on hit,
@@ -37,39 +38,39 @@ public class SlimeVitaeEntity extends Slime {
     @Override
     public void playerTouch(Player player) {
         if (this.isDealsDamage()) {
-            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1));
+            player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40, 1));
         }
         super.playerTouch(player);
     }
 
     @Override
-    public boolean doHurtTarget(Entity target) {
-        boolean result = super.doHurtTarget(target);
+    public boolean doHurtTarget(ServerLevel serverLevel, Entity target) {
+        boolean result = super.doHurtTarget(serverLevel, target);
         if (result && target instanceof LivingEntity living) {
-            living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1));
+            living.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40, 1));
         }
         return result;
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         if (source.is(DamageTypes.MAGIC) || source.is(DamageTypes.INDIRECT_MAGIC)) {
             return true;
         }
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 
     @Override
     public void die(DamageSource source) {
         super.die(source);
-        if (!level().isClientSide && level() instanceof ServerLevel serverLevel) {
+        if (!level().isClientSide() && level() instanceof ServerLevel serverLevel) {
             int size = getSize();
             float radius = size * 1.5f;
             List<LivingEntity> nearby = serverLevel.getEntitiesOfClass(LivingEntity.class,
                     getBoundingBox().inflate(radius), e -> e != this && e.isAlive());
             for (LivingEntity entity : nearby) {
                 if (!(entity instanceof SlimeVitaeEntity)) {
-                    entity.addEffect(new MobEffectInstance(MobEffects.HARM, 1, 1));
+                    entity.addEffect(new MobEffectInstance(MobEffects.INSTANT_DAMAGE, 1, 1));
                 }
             }
             serverLevel.sendParticles(ParticleTypes.CRIMSON_SPORE,
@@ -82,7 +83,7 @@ public class SlimeVitaeEntity extends Slime {
     @Override
     public void tick() {
         super.tick();
-        if (!level().isClientSide && level() instanceof ServerLevel serverLevel
+        if (!level().isClientSide() && level() instanceof ServerLevel serverLevel
                 && tickCount % MERGE_CHECK_INTERVAL == 0 && getSize() == 1) {
             tryMerge(serverLevel);
         }
@@ -115,10 +116,10 @@ public class SlimeVitaeEntity extends Slime {
             level.sendParticles(ParticleTypes.ENCHANT,
                     cx, cy + 1.0, cz, 20, 0.5, 0.5, 0.5, 0.1);
 
-            SlimeVitaeEntity merged = NVEntities.SLIME_VITAE.get().create(level);
+            SlimeVitaeEntity merged = NVEntities.SLIME_VITAE.get().create(level, EntitySpawnReason.MOB_SUMMONED);
             if (merged != null) {
                 merged.setSize(2, true);
-                merged.moveTo(cx, cy, cz, random.nextFloat() * 360, 0);
+                merged.snapTo(cx, cy, cz, random.nextFloat() * 360, 0);
                 level.addFreshEntity(merged);
             }
 
@@ -129,18 +130,18 @@ public class SlimeVitaeEntity extends Slime {
     @Override
     public void remove(RemovalReason reason) {
         int size = this.getSize();
-        if (!this.isRemoved() && !this.level().isClientSide && size > 1 && this.isDeadOrDying()) {
+        if (!this.isRemoved() && !this.level().isClientSide() && size > 1 && this.isDeadOrDying()) {
             int count = 2 + this.random.nextInt(3);
             for (int i = 0; i < count; i++) {
                 float offset = ((float) (i % 2) - 0.5F) * (float) size / 4.0F;
                 float offsetZ = ((float) (i / 2) - 0.5F) * (float) size / 4.0F;
-                SlimeVitaeEntity baby = NVEntities.SLIME_VITAE.get().create(this.level());
+                SlimeVitaeEntity baby = NVEntities.SLIME_VITAE.get().create(this.level(), EntitySpawnReason.MOB_SUMMONED);
                 if (baby != null) {
                     if (this.isPersistenceRequired()) {
                         baby.setPersistenceRequired();
                     }
                     baby.setSize(size / 2, true);
-                    baby.moveTo(this.getX() + offset, this.getY() + 0.5, this.getZ() + offsetZ,
+                    baby.snapTo(this.getX() + offset, this.getY() + 0.5, this.getZ() + offsetZ,
                             this.random.nextFloat() * 360.0F, 0.0F);
                     if (this.level() instanceof ServerLevel sl) {
                         sl.addFreshEntity(baby);

@@ -11,11 +11,11 @@ import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.commands.arguments.ResourceLocationArgument;
+import net.minecraft.commands.arguments.IdentifierArgument;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
@@ -47,7 +47,7 @@ public class RitualCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("nv-ritual")
-                        .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .then(
                                 Commands.argument("pos", BlockPosArgument.blockPos())
                                         .then(
@@ -61,7 +61,7 @@ public class RitualCommand {
                                         .then(
                                                 Commands.literal("set")
                                                         .then(
-                                                                Commands.argument("ritual", ResourceLocationArgument.id())
+                                                                Commands.argument("ritual", IdentifierArgument.id())
                                                                         .suggests(RITUAL_SUGGESTIONS)
                                                                         .executes(RitualCommand::setRitual)
                                                         )
@@ -103,7 +103,7 @@ public class RitualCommand {
         }
 
         Ritual ritual = mrs.getCurrentRitual();
-        ResourceLocation ritualId = RitualRegistry.getId(ritual);
+        Identifier ritualId = RitualRegistry.getId(ritual);
 
         source.sendSuccess(() -> Component.translatable("commands.neovitae.ritual.info.header"), false);
         source.sendSuccess(() -> Component.translatable("commands.neovitae.ritual.info.name",
@@ -129,7 +129,7 @@ public class RitualCommand {
             throw ERROR_NO_RITUAL.create();
         }
 
-        ResourceLocation ritualId = RitualRegistry.getId(mrs.getCurrentRitual());
+        Identifier ritualId = RitualRegistry.getId(mrs.getCurrentRitual());
         mrs.stopRitual(Ritual.BreakType.DEACTIVATE);
 
         context.getSource().sendSuccess(() -> Component.translatable("commands.neovitae.ritual.stopped",
@@ -140,7 +140,7 @@ public class RitualCommand {
 
     private static int setRitual(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         MasterRitualStoneBlockEntity mrs = getMRS(context);
-        ResourceLocation ritualId = ResourceLocationArgument.getId(context, "ritual");
+        Identifier ritualId = IdentifierArgument.getId(context, "ritual");
 
         Ritual ritual = RitualRegistry.getRitual(ritualId);
         if (ritual == null) {
@@ -178,7 +178,7 @@ public class RitualCommand {
 
         source.sendSuccess(() -> Component.translatable("commands.neovitae.ritual.list.header"), false);
 
-        for (ResourceLocation id : RitualRegistry.getRegisteredRituals()) {
+        for (Identifier id : RitualRegistry.getRegisteredRituals()) {
             Ritual ritual = RitualRegistry.getRitual(id);
             if (ritual != null) {
                 source.sendSuccess(() -> Component.literal(" - " + id.toString() +

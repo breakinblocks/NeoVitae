@@ -29,7 +29,7 @@ public class NVPotionUtils {
     public static double damageMobAndGrowSurroundingPlants(LivingEntity entity, int horizontalRadius,
                                                            int verticalRadius, double damageRatio, int maxPlantsGrown) {
         Level level = entity.level();
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return 0;
         }
 
@@ -66,7 +66,7 @@ public class NVPotionUtils {
                 if (!currentState.is(preBlockState.getBlock()) || !(currentState.getBlock() instanceof BonemealableBlock)) {
                     break;
                 }
-                currentState.randomTick(serverLevel, blockPos, level.random);
+                currentState.randomTick(serverLevel, blockPos, level.getRandom());
             }
 
             BlockState newState = level.getBlockState(blockPos);

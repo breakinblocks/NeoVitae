@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.api.capability;
 
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -54,7 +54,7 @@ public final class NVCapabilities {
      */
     public static final BlockCapability<IAraVitae, @Nullable Direction> ARA_VITAE =
             BlockCapability.createSided(
-                    ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae"),
+                    Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae"),
                     IAraVitae.class
             );
 }

@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class BloodstoneBricksEntry extends EntryProvider {
 
@@ -29,7 +29,7 @@ public class BloodstoneBricksEntry extends EntryProvider {
                 + "[#](8B0000)Saturated Tau[#]() into the Athanor with a Sanguine Reverter.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "bloodstone_brick")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "bloodstone_brick")));
     }
 
     @Override

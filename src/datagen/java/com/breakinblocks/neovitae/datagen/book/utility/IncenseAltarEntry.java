@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class IncenseAltarEntry extends EntryProvider {
 
@@ -72,20 +72,20 @@ public class IncenseAltarEntry extends EntryProvider {
                 + "consecrated [#](8B0000)Path blocks[#](), extending from the 3x3 foundation.");
 
         this.page("path_wood", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_wood_brick"))
-                .withRecipeId2(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_wood_tile")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "path/path_wood_brick"))
+                .withRecipeId2(Identifier.fromNamespaceAndPath("neovitae", "path/path_wood_tile")));
 
         this.page("path_stone", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_stone_brick"))
-                .withRecipeId2(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_stone_tile")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "path/path_stone_brick"))
+                .withRecipeId2(Identifier.fromNamespaceAndPath("neovitae", "path/path_stone_tile")));
 
         this.page("path_wornstone", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_worn_stone_brick"))
-                .withRecipeId2(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_worn_stone_tile")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "path/path_worn_stone_brick"))
+                .withRecipeId2(Identifier.fromNamespaceAndPath("neovitae", "path/path_worn_stone_tile")));
 
         this.page("path_obsidian", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_obsidian_brick"))
-                .withRecipeId2(ResourceLocation.fromNamespaceAndPath("neovitae", "path/path_obsidian_tile")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "path/path_obsidian_brick"))
+                .withRecipeId2(Identifier.fromNamespaceAndPath("neovitae", "path/path_obsidian_tile")));
 
         this.page("path_rules", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

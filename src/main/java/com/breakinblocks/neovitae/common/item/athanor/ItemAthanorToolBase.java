@@ -10,23 +10,25 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.util.ChatUtil;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class ItemAthanorToolBase extends Item implements IAthanorTool {
 
-    public ItemAthanorToolBase(int maxDamage, double craftingMultiplier) {
-        this(maxDamage, craftingMultiplier, 1, SpiritusType.DEFAULT);
+    public ItemAthanorToolBase(Item.Properties props, int maxDamage, double craftingMultiplier) {
+        this(props, maxDamage, craftingMultiplier, 1, SpiritusType.DEFAULT);
     }
 
-    public ItemAthanorToolBase(int maxDamage, double craftingMultiplier, SpiritusType type) {
-        this(maxDamage, craftingMultiplier, 1, type);
+    public ItemAthanorToolBase(Item.Properties props, int maxDamage, double craftingMultiplier, SpiritusType type) {
+        this(props, maxDamage, craftingMultiplier, 1, type);
     }
 
-    public ItemAthanorToolBase(int maxDamage, double craftingMultiplier, double additionalOutputChance) {
-        this(maxDamage, craftingMultiplier, additionalOutputChance, SpiritusType.DEFAULT);
+    public ItemAthanorToolBase(Item.Properties props, int maxDamage, double craftingMultiplier, double additionalOutputChance) {
+        this(props, maxDamage, craftingMultiplier, additionalOutputChance, SpiritusType.DEFAULT);
     }
 
-    public ItemAthanorToolBase(int maxDamage, double craftingMultiplier, double additionalOutputChance, SpiritusType type) {
-        super(new Item.Properties()
+    public ItemAthanorToolBase(Item.Properties props, int maxDamage, double craftingMultiplier, double additionalOutputChance, SpiritusType type) {
+        super(props
                 .stacksTo(1)
                 .durability(maxDamage)
                 .component(NVDataComponents.ARC_SPEED.get(), craftingMultiplier)
@@ -35,17 +37,14 @@ public class ItemAthanorToolBase extends Item implements IAthanorTool {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae.arctool.uses", stack.getMaxDamage() - stack.getDamageValue()).withStyle(ChatFormatting.GRAY));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable("tooltip.neovitae.arctool.uses", stack.getMaxDamage() - stack.getDamageValue()).withStyle(ChatFormatting.GRAY));
 
         if (getCraftingSpeedMultiplier(stack) != 1)
-            tooltip.add(Component.translatable("tooltip.neovitae.arctool.craftspeed", ChatUtil.DECIMAL_FORMAT.format(getCraftingSpeedMultiplier(stack))).withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.translatable("tooltip.neovitae.arctool.craftspeed", ChatUtil.DECIMAL_FORMAT.format(getCraftingSpeedMultiplier(stack))).withStyle(ChatFormatting.GRAY));
 
         if (getAdditionalOutputChanceMultiplier(stack) != 1)
-            tooltip.add(Component.translatable("tooltip.neovitae.arctool.additionaldrops", ChatUtil.DECIMAL_FORMAT.format(getAdditionalOutputChanceMultiplier(stack))).withStyle(ChatFormatting.GRAY));
-
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
+            tooltip.accept(Component.translatable("tooltip.neovitae.arctool.additionaldrops", ChatUtil.DECIMAL_FORMAT.format(getAdditionalOutputChanceMultiplier(stack))).withStyle(ChatFormatting.GRAY));}
 
     @Override
     public double getCraftingSpeedMultiplier(ItemStack stack) {

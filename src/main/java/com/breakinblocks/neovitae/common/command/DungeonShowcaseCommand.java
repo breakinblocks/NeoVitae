@@ -9,7 +9,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -30,6 +30,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import net.minecraft.world.level.block.StructureBlock;
 
 public class DungeonShowcaseCommand {
 
@@ -39,7 +40,7 @@ public class DungeonShowcaseCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("nv-dungeon-showcase")
-                        .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .executes(DungeonShowcaseCommand::placeShowcase)
         );
     }
@@ -56,17 +57,17 @@ public class DungeonShowcaseCommand {
         ResourceManager resourceManager = level.getServer().getResourceManager();
 
         // Find all structure NBT files under the neovitae namespace
-        Map<ResourceLocation, Resource> structureResources = resourceManager.listResources(
+        Map<Identifier, Resource> structureResources = resourceManager.listResources(
                 "structure", rl -> rl.getNamespace().equals("neovitae") && rl.getPath().endsWith(".nbt")
         );
 
         List<StructureEntry> entries = new ArrayList<>();
 
-        for (ResourceLocation fullPath : structureResources.keySet()) {
+        for (Identifier fullPath : structureResources.keySet()) {
             // Convert "structure/standard/antechamber.nbt" -> "neovitae:standard/antechamber"
             String path = fullPath.getPath();
             path = path.substring("structure/".length(), path.length() - ".nbt".length());
-            ResourceLocation structureId = NeoVitae.rl(path);
+            Identifier structureId = NeoVitae.rl(path);
 
             Optional<StructureTemplate> template = templateManager.get(structureId);
             if (template.isPresent()) {
@@ -76,14 +77,14 @@ public class DungeonShowcaseCommand {
         }
 
         if (entries.isEmpty()) {
-            source.sendFailure(Component.literal("No structures found under neovitae namespace"));
+            source.sendFailure(Component.translatable("command.neovitae.dungeon_showcase.no_structures"));
             return 0;
         }
 
         // Sort by category (directory), then by name
         entries.sort(Comparator.comparing(e -> e.path));
 
-        source.sendSuccess(() -> Component.literal("Placing " + entries.size() + " structures..."), true);
+        source.sendSuccess(() -> Component.translatable("command.neovitae.dungeon_showcase.placing", entries.size()), true);
 
         int curX = startPos.getX();
         int curZ = startPos.getZ();
@@ -145,9 +146,9 @@ public class DungeonShowcaseCommand {
         }
 
         int finalPlaced = placed;
-        source.sendSuccess(() -> Component.literal("Successfully placed " + finalPlaced + " structures with structure blocks in SAVE mode."), true);
-        source.sendSuccess(() -> Component.literal("Each structure block is pre-configured with the correct name and size."), false);
-        source.sendSuccess(() -> Component.literal("To save edits: open the structure block, verify bounds, click SAVE."), false);
+        source.sendSuccess(() -> Component.translatable("command.neovitae.dungeon_showcase.placed", finalPlaced), true);
+        source.sendSuccess(() -> Component.translatable("command.neovitae.dungeon_showcase.preconfigured"), false);
+        source.sendSuccess(() -> Component.translatable("command.neovitae.dungeon_showcase.save_hint"), false);
 
         return Command.SINGLE_SUCCESS;
     }
@@ -161,9 +162,9 @@ public class DungeonShowcaseCommand {
         }
     }
 
-    private static void placeStructureBlock(ServerLevel level, BlockPos pos, ResourceLocation structureId, Vec3i size) {
+    private static void placeStructureBlock(ServerLevel level, BlockPos pos, Identifier structureId, Vec3i size) {
         level.setBlock(pos, Blocks.STRUCTURE_BLOCK.defaultBlockState().setValue(
-                net.minecraft.world.level.block.StructureBlock.MODE, StructureMode.SAVE), 2);
+                StructureBlock.MODE, StructureMode.SAVE), 2);
 
         BlockEntity be = level.getBlockEntity(pos);
         if (be instanceof StructureBlockEntity sb) {
@@ -193,5 +194,5 @@ public class DungeonShowcaseCommand {
         }
     }
 
-    private record StructureEntry(ResourceLocation id, String path, Vec3i size) {}
+    private record StructureEntry(Identifier id, String path, Vec3i size) {}
 }

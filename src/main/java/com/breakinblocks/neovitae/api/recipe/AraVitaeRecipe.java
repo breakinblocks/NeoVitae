@@ -139,7 +139,7 @@ public abstract class AraVitaeRecipe implements Recipe<AraVitaeInput> {
     /**
      * Gets a copy of the base result item. Note: if {@link #shouldCopyInputComponents()}
      * returns true, the actual output may have additional components from the input.
-     * Use {@link #assemble(AraVitaeInput, HolderLookup.Provider)} for the actual output.
+     * Use {@link #assemble(AraVitaeInput)} for the actual output.
      *
      * @return A copy of the result item stack
      */
@@ -161,18 +161,9 @@ public abstract class AraVitaeRecipe implements Recipe<AraVitaeInput> {
 
     /**
      * Assembles the output item stack for this recipe.
-     * <p>
-     * If {@link #shouldCopyInputComponents()} returns true, data components from the
-     * input item will be copied to the output as a patch. This preserves the output's
-     * base components while adding/overwriting with input components.
-     * </p>
-     *
-     * @param recipeInput The altar input containing the item being crafted
-     * @param registries  Registry access for component serialization
-     * @return The crafted output item, potentially with copied components
      */
     @Override
-    public ItemStack assemble(AraVitaeInput recipeInput, HolderLookup.Provider registries) {
+    public ItemStack assemble(AraVitaeInput recipeInput) {
         ItemStack output = result.copy();
         if (copyInputComponents) {
             ItemStack inputStack = recipeInput.getItem(0);
@@ -183,18 +174,28 @@ public abstract class AraVitaeRecipe implements Recipe<AraVitaeInput> {
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
+    public boolean showNotification() {
+        return false;
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return result.copy();
+    public String group() {
+        return "";
     }
 
     @Override
-    public abstract RecipeSerializer<?> getSerializer();
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(input);
+    }
 
     @Override
-    public abstract RecipeType<?> getType();
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
+
+    @Override
+    public abstract RecipeSerializer<? extends Recipe<AraVitaeInput>> getSerializer();
+
+    @Override
+    public abstract RecipeType<? extends Recipe<AraVitaeInput>> getType();
 }

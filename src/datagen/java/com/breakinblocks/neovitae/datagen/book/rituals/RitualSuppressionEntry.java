@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.datagen.book.page.BookRitualInfoPageModel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
 import com.mojang.datafixers.util.Pair;
 
@@ -21,7 +21,7 @@ public class RitualSuppressionEntry extends EntryProvider {
     @Override
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
-                .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/suppression"))
+                .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/suppression"))
                 .withMultiblockName("Dome of Suppression")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");

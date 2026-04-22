@@ -105,59 +105,23 @@ public final class SideFilterConfig {
         }
     }
 
-    public CompoundTag save(HolderLookup.Provider registries) {
-        CompoundTag tag = new CompoundTag();
-        tag.putBoolean("enabled", enabled);
-        tag.putByte("itemMode", (byte) itemMode.ordinal());
-        tag.putByte("fluidMode", (byte) fluidMode.ordinal());
-        ContainerHelper.saveAllItems(tag, itemGhosts, registries);
-
-        RegistryOps<Tag> ops = registries.createSerializationContext(NbtOps.INSTANCE);
-        ListTag fluidList = new ListTag();
-        for (int i = 0; i < GHOST_SLOTS; i++) {
-            FluidStack fluid = fluidGhosts.get(i);
-            DataResult<Tag> encoded = FluidStack.OPTIONAL_CODEC.encodeStart(ops, fluid);
-            fluidList.add(encoded.result().orElseGet(CompoundTag::new));
-        }
-        tag.put("FluidGhosts", fluidList);
-        return tag;
+    public void save(net.minecraft.world.level.storage.ValueOutput out) {
+        out.putBoolean("enabled", enabled);
+        out.putString("itemMode", itemMode.name());
+        ContainerHelper.saveAllItems(out.child("itemGhosts"), itemGhosts);
+        out.putString("fluidMode", fluidMode.name());
+        out.store("fluidGhosts", FluidStack.CODEC.listOf(), fluidGhosts);
     }
 
-    public void load(CompoundTag tag, HolderLookup.Provider registries) {
-        this.enabled = tag.getBoolean("enabled");
-        FilterMode[] values = FilterMode.values();
-
-        int itemModeIdx = tag.contains("itemMode", Tag.TAG_BYTE)
-                ? tag.getByte("itemMode")
-                : tag.getByte("mode");
-        this.itemMode = (itemModeIdx >= 0 && itemModeIdx < values.length)
-                ? values[itemModeIdx]
-                : FilterMode.WHITELIST;
-        if (this.itemMode == FilterMode.AUTO_MATCH) {
-            this.itemMode = FilterMode.WHITELIST;
-        }
-
-        int fluidModeIdx = tag.contains("fluidMode", Tag.TAG_BYTE) ? tag.getByte("fluidMode") : FilterMode.AUTO_MATCH.ordinal();
-        this.fluidMode = (fluidModeIdx >= 0 && fluidModeIdx < values.length)
-                ? values[fluidModeIdx]
-                : FilterMode.AUTO_MATCH;
-
-        for (int i = 0; i < GHOST_SLOTS; i++) {
-            itemGhosts.set(i, ItemStack.EMPTY);
-        }
-        ContainerHelper.loadAllItems(tag, itemGhosts, registries);
-
-        for (int i = 0; i < GHOST_SLOTS; i++) {
-            fluidGhosts.set(i, FluidStack.EMPTY);
-        }
-        if (tag.contains("FluidGhosts", Tag.TAG_LIST)) {
-            RegistryOps<Tag> ops = registries.createSerializationContext(NbtOps.INSTANCE);
-            ListTag fluidList = tag.getList("FluidGhosts", Tag.TAG_COMPOUND);
-            int limit = Math.min(fluidList.size(), GHOST_SLOTS);
-            for (int i = 0; i < limit; i++) {
-                DataResult<FluidStack> parsed = FluidStack.OPTIONAL_CODEC.parse(ops, fluidList.getCompound(i));
-                fluidGhosts.set(i, parsed.result().orElse(FluidStack.EMPTY));
+    public void load(net.minecraft.world.level.storage.ValueInput in) {
+        enabled = in.getBooleanOr("enabled", false);
+        in.getString("itemMode").ifPresent(s -> { try { itemMode = FilterMode.valueOf(s); } catch (IllegalArgumentException ignored) {} });
+        in.child("itemGhosts").ifPresent(child -> ContainerHelper.loadAllItems(child, itemGhosts));
+        in.getString("fluidMode").ifPresent(s -> { try { fluidMode = FilterMode.valueOf(s); } catch (IllegalArgumentException ignored) {} });
+        in.read("fluidGhosts", FluidStack.CODEC.listOf()).ifPresent(list -> {
+            for (int i = 0; i < GHOST_SLOTS; i++) {
+                fluidGhosts.set(i, i < list.size() ? list.get(i) : FluidStack.EMPTY);
             }
-        }
+        });
     }
 }

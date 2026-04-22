@@ -110,8 +110,8 @@ public class RitualLava extends Ritual {
             List<BlockPos> tankPositions = RitualHelper.getRangePositions(ctx.master(), this, TANK_RANGE, masterPos);
             IFluidHandler availableTank = null;
             for (BlockPos tankPos : tankPositions) {
-                IFluidHandler handler = ctx.level().getCapability(
-                        Capabilities.FluidHandler.BLOCK, tankPos, null);
+                var rhLava = ctx.level().getCapability(Capabilities.Fluid.BLOCK, tankPos, null);
+                IFluidHandler handler = rhLava != null ? IFluidHandler.of(rhLava) : null;
                 if (handler != null) {
                     tankPresent = true;
                     FluidStack lavaStack = new FluidStack(Fluids.LAVA, 1000);
@@ -218,8 +218,8 @@ public class RitualLava extends Ritual {
     @Override
     public void readFromNBT(CompoundTag tag) {
         super.readFromNBT(tag);
-        tankBackoffLevel = Math.min(Math.max(tag.getInt("tankBackoffLevel"), 0), MAX_BACKOFF_LEVEL);
-        tankBackoffRemaining = Math.max(tag.getInt("tankBackoffRemaining"), 0);
+        tankBackoffLevel = Math.min(Math.max(tag.getIntOr("tankBackoffLevel", 0), 0), MAX_BACKOFF_LEVEL);
+        tankBackoffRemaining = Math.max(tag.getIntOr("tankBackoffRemaining", 0), 0);
     }
 
     @Override

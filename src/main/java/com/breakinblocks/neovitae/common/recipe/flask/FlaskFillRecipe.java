@@ -19,6 +19,7 @@ import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.item.crafting.Recipe;
 
 /**
  * Recipe that refills an empty/damaged flask with existing effects.
@@ -27,7 +28,7 @@ import java.util.List;
 public class FlaskFillRecipe extends FlaskRecipe {
 
     public static final MapCodec<FlaskFillRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.listOf().fieldOf("input").forGetter(FlaskFillRecipe::getInput),
+            Ingredient.CODEC.listOf().fieldOf("input").forGetter(FlaskFillRecipe::getInput),
             Codec.INT.fieldOf("max").forGetter(FlaskFillRecipe::getMaxEffects),
             Codec.INT.fieldOf("syphon").forGetter(FlaskFillRecipe::getSyphon),
             Codec.INT.fieldOf("ticks").forGetter(FlaskFillRecipe::getTicks),
@@ -103,7 +104,7 @@ public class FlaskFillRecipe extends FlaskRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<FlaskInput>> getSerializer() {
         return NVRecipes.FLASK_FILL_SERIALIZER.get();
     }
 }

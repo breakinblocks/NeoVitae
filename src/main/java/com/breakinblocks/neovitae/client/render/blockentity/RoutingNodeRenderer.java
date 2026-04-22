@@ -2,97 +2,103 @@ package com.breakinblocks.neovitae.client.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity;
-import com.breakinblocks.neovitae.common.blockentity.routing.RoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.api.routing.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class RoutingNodeRenderer<T extends BlockEntity & IRoutingNode> implements BlockEntityRenderer<T> {
+public class RoutingNodeRenderer<T extends BlockEntity & IRoutingNode>
+        implements BlockEntityRenderer<T, RoutingNodeRenderer.State> {
 
     private static final int COLOR_INPUT = 0xFF4488FF;
     private static final int COLOR_OUTPUT = 0xFFFF8844;
     private static final int COLOR_MASTER = 0xFFFFD700;
     private static final int COLOR_GENERAL = 0xFFAAAAAA;
 
-    private static final float BEAM_WIDTH = 0.03f;
-
     public RoutingNodeRenderer(BlockEntityRendererProvider.Context context) {
     }
 
+    public static class State extends BlockEntityRenderState {
+        public int color = COLOR_GENERAL;
+        public final List<BlockPos> outgoingBeams = new ArrayList<>();
+        public BlockPos sourcePos = BlockPos.ZERO;
+    }
+
     @Override
-    public void render(T node, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
-        Level level = node.getLevel();
-        if (level == null) return;
+    public State createRenderState() {
+        return new State();
+    }
 
-        List<BlockPos> connections = node.getConnected();
-        if (connections.isEmpty()) return;
+    @Override
+    public boolean shouldRenderOffScreen() {
+        return true;
+    }
 
-        BlockPos nodePos = node.getCurrentBlockPos();
-        int color = getColorForNode(node);
+    @Override
+    public int getViewDistance() {
+        return 64;
+    }
 
-        VertexConsumer buffer = bufferSource.getBuffer(RenderType.LINES);
-
-        for (BlockPos targetPos : connections) {
-            // Only render beams to positions with lower coordinates to avoid double-rendering
-            // This ensures each beam is drawn only once between two connected nodes
-            if (targetPos.compareTo(nodePos) > 0) {
-                renderBeam(poseStack, buffer, nodePos, targetPos, color, packedLight);
+    @Override
+    public void extractRenderState(T node, State s, float partialTick, Vec3 cameraPos,
+                                   ModelFeatureRenderer.@Nullable CrumblingOverlay crumbling) {
+        BlockEntityRenderer.super.extractRenderState(node, s, partialTick, cameraPos, crumbling);
+        s.color = getColorForNode(node);
+        s.sourcePos = node.getCurrentBlockPos();
+        s.outgoingBeams.clear();
+        for (BlockPos target : node.getConnected()) {
+            if (target.compareTo(s.sourcePos) > 0) {
+                s.outgoingBeams.add(target);
             }
         }
     }
 
-    private void renderBeam(PoseStack poseStack, VertexConsumer buffer, BlockPos source, BlockPos target, int color, int packedLight) {
-        poseStack.pushPose();
+    @Override
+    public void submit(State s, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera) {
+        if (s.outgoingBeams.isEmpty()) return;
 
-        float dx = target.getX() - source.getX();
-        float dy = target.getY() - source.getY();
-        float dz = target.getZ() - source.getZ();
+        collector.submitCustomGeometry(poseStack, RenderTypes.lines(), (pose, buffer) -> {
+            Matrix4f matrix = pose.pose();
+            float r = ((s.color >> 16) & 0xFF) / 255f;
+            float g = ((s.color >> 8) & 0xFF) / 255f;
+            float b = (s.color & 0xFF) / 255f;
+            float a = ((s.color >>> 24) & 0xFF) / 255f;
 
-        float startX = 0.5f;
-        float startY = 0.5f;
-        float startZ = 0.5f;
+            for (BlockPos target : s.outgoingBeams) {
+                float dx = target.getX() - s.sourcePos.getX();
+                float dy = target.getY() - s.sourcePos.getY();
+                float dz = target.getZ() - s.sourcePos.getZ();
 
-        float endX = dx + 0.5f;
-        float endY = dy + 0.5f;
-        float endZ = dz + 0.5f;
+                float length = (float) Math.sqrt(dx * dx + dy * dy + dz * dz);
+                if (length < 0.001f) continue;
 
-        Matrix4f matrix = poseStack.last().pose();
+                float nx = dx / length;
+                float ny = dy / length;
+                float nz = dz / length;
 
-        float r = ((color >> 16) & 0xFF) / 255f;
-        float g = ((color >> 8) & 0xFF) / 255f;
-        float b = (color & 0xFF) / 255f;
-        float a = ((color >> 24) & 0xFF) / 255f;
-
-        float length = (float) Math.sqrt(dx * dx + dy * dy + dz * dz);
-        if (length < 0.001f) {
-            poseStack.popPose();
-            return;
-        }
-
-        float nx = dx / length;
-        float ny = dy / length;
-        float nz = dz / length;
-
-        buffer.addVertex(matrix, startX, startY, startZ)
-                .setColor(r, g, b, a)
-                .setNormal(poseStack.last(), nx, ny, nz);
-        buffer.addVertex(matrix, endX, endY, endZ)
-                .setColor(r, g, b, a)
-                .setNormal(poseStack.last(), nx, ny, nz);
-
-        poseStack.popPose();
+                buffer.addVertex(matrix, 0.5f, 0.5f, 0.5f)
+                        .setColor(r, g, b, a)
+                        .setNormal(pose, nx, ny, nz);
+                buffer.addVertex(matrix, dx + 0.5f, dy + 0.5f, dz + 0.5f)
+                        .setColor(r, g, b, a)
+                        .setNormal(pose, nx, ny, nz);
+            }
+        });
     }
 
     private int getColorForNode(T node) {
@@ -104,15 +110,5 @@ public class RoutingNodeRenderer<T extends BlockEntity & IRoutingNode> implement
             return COLOR_OUTPUT;
         }
         return COLOR_GENERAL;
-    }
-
-    @Override
-    public boolean shouldRenderOffScreen(T blockEntity) {
-        return true;
-    }
-
-    @Override
-    public int getViewDistance() {
-        return 64;
     }
 }

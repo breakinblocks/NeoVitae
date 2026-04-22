@@ -62,7 +62,8 @@ public class RitualWater extends Ritual {
             List<BlockPos> tankPositions = RitualHelper.getRangePositions(ctx.master(), this, TANK_RANGE, ctx.masterPos());
 
             for (BlockPos tankPos : tankPositions) {
-                IFluidHandler fluidHandler = ctx.level().getCapability(Capabilities.FluidHandler.BLOCK, tankPos, null);
+                var rhFluid = ctx.level().getCapability(Capabilities.Fluid.BLOCK, tankPos, null);
+                IFluidHandler fluidHandler = rhFluid != null ? IFluidHandler.of(rhFluid) : null;
                 if (fluidHandler != null) {
                     FluidStack waterStack = new FluidStack(Fluids.WATER, 1000);
                     int filled = fluidHandler.fill(waterStack, IFluidHandler.FluidAction.EXECUTE);

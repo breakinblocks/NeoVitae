@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.common.living;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentType;
@@ -41,13 +41,13 @@ public record LivingUpgrade(Levels levels, DataComponentMap effects) {
 
     public static final Codec<LivingUpgrade> CLIENT_CODEC = RecordCodecBuilder.create(builder -> builder.group(
             Levels.CODEC.fieldOf("levels").forGetter(LivingUpgrade::levels),
-            Codec.unit(DataComponentMap.EMPTY).fieldOf("effects").forGetter(LivingUpgrade::effects)
+            com.mojang.serialization.MapCodec.unitCodec(DataComponentMap.EMPTY).fieldOf("effects").forGetter(LivingUpgrade::effects)
     ).apply(builder, LivingUpgrade::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<LivingUpgrade>> HOLDER_STREAM_CODEC = ByteBufCodecs.holderRegistry(NVRegistries.Keys.LIVING_UPGRADES);
 
     public static String descriptionId(ResourceKey<LivingUpgrade> key) {
-        return Util.makeDescriptionId("living_upgrade", key.location());
+        return Util.makeDescriptionId("living_upgrade", key.identifier());
     }
 
     public static final Codec<Holder<LivingUpgrade>> HOLDER_CODEC = RegistryFixedCodec.create(NVRegistries.Keys.LIVING_UPGRADES);

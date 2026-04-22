@@ -2,7 +2,7 @@ package com.breakinblocks.neovitae.common.meteor;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
 import java.util.Optional;
+import net.minecraft.core.Holder;
 
 /**
  * Base class for random block generation in meteor layers.
@@ -35,7 +36,7 @@ public abstract class RandomBlockContainer {
             int index = -1;
             String tagName = splitStr[1];
 
-            TagKey<Block> tag = TagKey.create(Registries.BLOCK, ResourceLocation.parse(tagName));
+            TagKey<Block> tag = TagKey.create(Registries.BLOCK, Identifier.parse(tagName));
 
             if (splitStr.length > 2) {
                 try {
@@ -55,12 +56,12 @@ public abstract class RandomBlockContainer {
     }
 
     public static RandomBlockContainer parseTagEntry(String str, int index) {
-        TagKey<Block> tag = TagKey.create(Registries.BLOCK, ResourceLocation.parse(str));
+        TagKey<Block> tag = TagKey.create(Registries.BLOCK, Identifier.parse(str));
         return new RandomBlockTagContainer(tag, index);
     }
 
     public static RandomBlockContainer parseBlockEntry(String str) {
-        Block block = BuiltInRegistries.BLOCK.get(ResourceLocation.parse(str));
+        Block block = BuiltInRegistries.BLOCK.get(Identifier.parse(str)).map(Holder.Reference::value).orElse(null);
         if (block == null) {
             return null;
         }
@@ -68,7 +69,7 @@ public abstract class RandomBlockContainer {
     }
 
     public static RandomBlockContainer parseFluidEntry(String str) {
-        Optional<Fluid> fluid = BuiltInRegistries.FLUID.getOptional(ResourceLocation.parse(str));
+        Optional<Fluid> fluid = BuiltInRegistries.FLUID.getOptional(Identifier.parse(str));
         return fluid.map(FluidBlockContainer::new).orElse(null);
     }
 }

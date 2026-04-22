@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -160,35 +163,32 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
 
     @Override
     public Component getDisplayName() {
-        return Component.literal("Athanor");
+        return Component.translatable("menu.neovitae.athanor");
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        CompoundTag inv = tag.getCompound("arcinv");
-        athanorInv.deserializeNBT(registries, inv);
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        tag.child("arcinv").ifPresent(athanorInv::deserialize);
         if (athanorInv.getSlots() < OUTPUT_SLOT + NUM_OUTPUTS) {
             athanorInv.setSize(OUTPUT_SLOT + NUM_OUTPUTS);
         }
-        inputTank.readFromNBT(registries, tag.getCompound("inputtank"));
-        outputTank.readFromNBT(registries, tag.getCompound("outputtank"));
-        progress = tag.getDouble("arcprogress");
-        willBlocked = tag.getBoolean("willBlocked");
-        if (tag.contains("chunkWill")) {
-            CompoundTag willTag = tag.getCompound("chunkWill");
+        tag.child("inputTank").ifPresent(inputTank::deserialize);
+        tag.child("outputTank").ifPresent(outputTank::deserialize);
+        progress = tag.getDoubleOr("arcprogress", 0d);
+        willBlocked = tag.getBooleanOr("willBlocked", false);
+        tag.child("chunkWill").ifPresent(willTag -> {
             for (SpiritusType type : SpiritusType.values()) {
-                chunkWill[type.ordinal()] = willTag.getDouble(type.getSerializedName());
-                chunkWillMax[type.ordinal()] = willTag.getDouble(type.getSerializedName() + "_max");
+                chunkWill[type.ordinal()] = willTag.getDoubleOr(type.getSerializedName(), 0d);
+                chunkWillMax[type.ordinal()] = willTag.getDoubleOr(type.getSerializedName() + "_max", 0d);
             }
-        }
-        if (tag.contains("recipeWillCost")) {
-            CompoundTag costTag = tag.getCompound("recipeWillCost");
+        });
+        Optional<ValueInput> costTagOpt = tag.child("recipeWillCost");
+        if (costTagOpt.isPresent()) {
+            ValueInput costTag = costTagOpt.get();
             EnumMap<SpiritusType, Double> costs = new EnumMap<>(SpiritusType.class);
             for (SpiritusType type : SpiritusType.values()) {
-                if (costTag.contains(type.getSerializedName())) {
-                    costs.put(type, costTag.getDouble(type.getSerializedName()));
-                }
+                costTag.read(type.getSerializedName(), com.mojang.serialization.Codec.DOUBLE).ifPresent(v -> costs.put(type, v));
             }
             currentRecipeWillCost = Map.copyOf(costs);
         } else {
@@ -197,28 +197,21 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        CompoundTag inv = athanorInv.serializeNBT(registries);
-        tag.put("arcinv", inv);
-        CompoundTag input = new CompoundTag();
-        CompoundTag output = new CompoundTag();
-        inputTank.writeToNBT(registries, input);
-        outputTank.writeToNBT(registries, output);
-        tag.put("inputtank", input);
-        tag.put("outputtank", output);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
+        athanorInv.serialize(tag.child("arcinv"));
+        inputTank.serialize(tag.child("inputTank"));
+        outputTank.serialize(tag.child("outputTank"));
         tag.putDouble("arcprogress", progress);
         tag.putBoolean("willBlocked", willBlocked);
-        CompoundTag willTag = new CompoundTag();
+        ValueOutput willTag = tag.child("chunkWill");
         for (SpiritusType type : SpiritusType.values()) {
             willTag.putDouble(type.getSerializedName(), chunkWill[type.ordinal()]);
             willTag.putDouble(type.getSerializedName() + "_max", chunkWillMax[type.ordinal()]);
         }
-        tag.put("chunkWill", willTag);
         if (!currentRecipeWillCost.isEmpty()) {
-            CompoundTag costTag = new CompoundTag();
+            ValueOutput costTag = tag.child("recipeWillCost");
             currentRecipeWillCost.forEach((type, amount) -> costTag.putDouble(type.getSerializedName(), amount));
-            tag.put("recipeWillCost", costTag);
         }
     }
 
@@ -268,28 +261,29 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         double rawWill = WorldSpiritusHandler.getCurrentWill(level, blockPos, SpiritusType.DEFAULT);
         double willSpeedMod = 0.5 + 1.5 * Math.min(1.0, rawWill / 100.0);
         boolean didProgress = false;
+        ServerLevel serverLevel = level instanceof ServerLevel sl ? sl : null;
         if (toolStack.is(NVTags.Items.ATHANOR_TOOL)) {
-            if (toolStack.is(NVTags.Items.ATHANOR_FURNACE)) {
+            if (toolStack.is(NVTags.Items.ATHANOR_FURNACE) && serverLevel != null) {
                 Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = Optional.empty();
                 SingleRecipeInput input = new SingleRecipeInput(inputStacks[0]);
                 if (toolStack.is(NVTags.Items.ARC_SMELTING)) {
-                     recipe = athanorTile.quickSmelting.getRecipeFor(input, level);
+                     recipe = athanorTile.quickSmelting.getRecipeFor(input, serverLevel);
                 } else if (toolStack.is(NVTags.Items.ARC_BLASTING)) {
-                    recipe = athanorTile.quickBlasting.getRecipeFor(input, level);
+                    recipe = athanorTile.quickBlasting.getRecipeFor(input, serverLevel);
                 } else if (toolStack.is(NVTags.Items.ARC_SMOKING)) {
-                    recipe = athanorTile.quickSmoking.getRecipeFor(input, level);
+                    recipe = athanorTile.quickSmoking.getRecipeFor(input, serverLevel);
                 }
                 if (athanorTile.canCraftFurnace(recipe, itemOutputHandler)) {
-                    athanorTile.progress += DEFAULT_SPEED * ((double) recipe.get().value().getCookingTime() / 200D) * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * willSpeedMod;
+                    athanorTile.progress += DEFAULT_SPEED * ((double) recipe.get().value().cookingTime() / 200D) * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * willSpeedMod;
                     didProgress = true;
                     if (athanorTile.progress >= 1) {
                         athanorTile.craftFurnace(recipe.get().value(), input, itemOutputHandler);
                         outputChanged = true;
                     }
                 }
-            } else {
+            } else if (serverLevel != null) {
                 AthanorRecipeInput input = new AthanorRecipeInput(toolStack, inputStacks, athanorTile.inputTank.getFluidInTank(0));
-                Optional<RecipeHolder<AthanorRecipe>> recipe = athanorTile.quickAthanor.getRecipeFor(input, level);
+                Optional<RecipeHolder<AthanorRecipe>> recipe = athanorTile.quickAthanor.getRecipeFor(input, serverLevel);
                 if (athanorTile.canCraft(recipe, itemOutputHandler)) {
                     AthanorRecipe athanorRecipe = recipe.get().value();
                     athanorTile.currentRecipeWillCost = athanorRecipe.getSpiritusCosts();
@@ -331,7 +325,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
             ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_BUBBLE.get(), 0x22AA22), blockPos.getX() + 0.5, blockPos.getY() + 1.1, blockPos.getZ() + 0.5, 1, 0.15, 0.0, 0.15, 0);
         }
 
-        if (didProgress && level.getGameTime() % 20 == 0 && level.random.nextFloat() < 0.05f) {
+        if (didProgress && level.getGameTime() % 20 == 0 && level.getRandom().nextFloat() < 0.05f) {
             WorldSpiritusHandler.drainWillFromChunk(level, blockPos, SpiritusType.DEFAULT, 1.0);
         }
 
@@ -355,15 +349,16 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
 
 
     private boolean canCraftFurnace(Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe, AthanorOutputHandler outputHandler) {
-        if (recipe.isEmpty()) {
+        if (recipe.isEmpty() || !(level instanceof ServerLevel sl)) {
             return false;
         }
-        ItemStack result = recipe.get().value().getResultItem(level.registryAccess());
+        ItemStack result = recipe.get().value().assemble(new SingleRecipeInput(ItemStack.EMPTY));
         return outputHandler.canTransferAllItemsToSlots(List.of(result), true);
     }
 
     private void craftFurnace(AbstractCookingRecipe value, SingleRecipeInput input, AthanorOutputHandler outputHandler) {
-        ItemStack output = value.assemble(input, level.registryAccess());
+        if (!(level instanceof ServerLevel sl)) return;
+        ItemStack output = value.assemble(input);
         handleInventory(List.of(output), outputHandler);
     }
 
@@ -398,7 +393,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         if (!outputHandler.canTransferAllItemsToSlots(toOutput, false)) {
             // Debug: NeoVitae.LOGGER.info("couldnt stash all {}", toOutput);
         }
-        if (level != null && !level.isClientSide) {
+        if (level != null && !level.isClientSide()) {
             level.playSound(null, worldPosition, NVSounds.ATHANOR_COMPLETE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
             ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x22AA22), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 6, 0.2, 0.2, 0.2, 0);
         }
@@ -412,8 +407,9 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
 
         ItemStack toolStack = athanorInv.getStackInSlot(TOOL_SLOT);
         if (!toolStack.has(DataComponents.UNBREAKABLE)) {
-            if (toolStack.hasCraftingRemainingItem()) {
-                athanorInv.setStackInSlot(TOOL_SLOT, toolStack.getCraftingRemainingItem());
+            ItemStack remainder = toolStack.getCraftingRemainder().create();
+            if (!remainder.isEmpty()) {
+                athanorInv.setStackInSlot(TOOL_SLOT, remainder);
             } else if (toolStack.has(DataComponents.MAX_DAMAGE)) {
                 int lost = EnchantmentHelper.processDurabilityChange((ServerLevel) level, toolStack, 1); // this *should* apply enchantments like unbreaking
                 int newDamage = toolStack.getOrDefault(DataComponents.DAMAGE, 0) + lost;

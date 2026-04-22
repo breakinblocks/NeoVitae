@@ -2,11 +2,11 @@ package com.breakinblocks.neovitae.common.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -35,10 +36,14 @@ import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
 import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 
 public class BloodLightBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
-    public static final MapCodec<BloodLightBlock> CODEC = simpleCodec(p -> new BloodLightBlock());
+    public static final MapCodec<BloodLightBlock> CODEC = simpleCodec(BloodLightBlock::new);
 
     public static final IntegerProperty BRIGHTNESS = IntegerProperty.create("brightness", 1, 15);
     public static final BooleanProperty POWERED = BooleanProperty.create("powered");
@@ -48,9 +53,9 @@ public class BloodLightBlock extends BaseEntityBlock implements SimpleWaterlogge
 
     public static final int DEFAULT_BRIGHTNESS = 15;
 
-    public BloodLightBlock() {
-        super(Properties.of()
-                .noCollission()
+    public BloodLightBlock(BlockBehaviour.Properties props) {
+        super(props
+                .noCollision()
                 .noOcclusion()
                 .instabreak()
                 .lightLevel(BloodLightBlock::getLightLevel)
@@ -85,12 +90,18 @@ public class BloodLightBlock extends BaseEntityBlock implements SimpleWaterlogge
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
-                                     LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+    protected BlockState updateShape(BlockState state,
+                                     LevelReader level,
+                                     ScheduledTickAccess scheduledTickAccess,
+                                     BlockPos pos,
+                                     Direction direction,
+                                     BlockPos neighborPos,
+                                     BlockState neighborState,
+                                     RandomSource random) {
         if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            scheduledTickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+        return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
@@ -109,21 +120,21 @@ public class BloodLightBlock extends BaseEntityBlock implements SimpleWaterlogge
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, net.minecraft.world.InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (stack.is(Items.REDSTONE)) {
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 BlockEntity be = level.getBlockEntity(pos);
                 if (be instanceof BloodLightBlockEntity ble) {
                     boolean newState = !ble.isRedstoneControlled();
                     ble.setRedstoneControlled(newState);
                     updatePoweredState(level, pos, state, ble);
                     String key = newState ? "message.neovitae.blood_light.redstone_on" : "message.neovitae.blood_light.redstone_off";
-                    player.displayClientMessage(Component.translatable(key), true);
+                    player.sendOverlayMessage(Component.translatable(key));
                 }
             }
-            return ItemInteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -131,17 +142,17 @@ public class BloodLightBlock extends BaseEntityBlock implements SimpleWaterlogge
         int current = state.getValue(BRIGHTNESS);
         boolean sneaking = player.isShiftKeyDown();
         int newBrightness = sneaking ? Math.max(1, current - 1) : Math.min(15, current + 1);
-        if (current != newBrightness && !level.isClientSide) {
+        if (current != newBrightness && !level.isClientSide()) {
             level.setBlock(pos, state.setValue(BRIGHTNESS, newBrightness), Block.UPDATE_ALL);
             BloodLightHelper.playSound(level, pos);
         }
-        player.displayClientMessage(Component.translatable("message.neovitae.blood_light.brightness", newBrightness), true);
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        player.sendOverlayMessage(Component.translatable("message.neovitae.blood_light.brightness", newBrightness));
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
-        if (!level.isClientSide) {
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, @javax.annotation.Nullable Orientation neighborPos, boolean movedByPiston) {
+        if (!level.isClientSide()) {
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof BloodLightBlockEntity ble && ble.isRedstoneControlled()) {
                 updatePoweredState(level, pos, state, ble);
@@ -151,7 +162,7 @@ public class BloodLightBlock extends BaseEntityBlock implements SimpleWaterlogge
 
     @Override
     protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
-        if (!level.isClientSide && !oldState.is(this)) {
+        if (!level.isClientSide() && !oldState.is(this)) {
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof BloodLightBlockEntity ble) {
                 updatePoweredState(level, pos, state, ble);
@@ -172,7 +183,7 @@ public class BloodLightBlock extends BaseEntityBlock implements SimpleWaterlogge
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+    protected boolean propagatesSkylightDown(BlockState state) {
         return true;
     }
 
@@ -186,7 +197,7 @@ public class BloodLightBlock extends BaseEntityBlock implements SimpleWaterlogge
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (!state.getValue(POWERED)) return;
 
-        int color = ColorHelper.fromDye(net.minecraft.world.item.DyeColor.RED);
+        int color = ColorHelper.fromDye(DyeColor.RED);
         BlockEntity be = level.getBlockEntity(pos);
         if (be instanceof BloodLightBlockEntity ble) {
             color = ColorHelper.fromDye(ble.getColor());

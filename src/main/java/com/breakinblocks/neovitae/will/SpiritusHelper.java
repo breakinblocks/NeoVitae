@@ -32,7 +32,7 @@ public final class SpiritusHelper {
         Double componentMax = stack.get(NVDataComponents.SPIRITUS_MAX);
         if (componentMax != null) return componentMax;
 
-        Double dataMapMax = stack.getItemHolder().getData(NVDataMaps.SPIRITUS_GEM_MAX_AMOUNTS);
+        Double dataMapMax = stack.typeHolder().getData(NVDataMaps.SPIRITUS_GEM_MAX_AMOUNTS);
         if (dataMapMax != null) return dataMapMax;
 
         return 0;

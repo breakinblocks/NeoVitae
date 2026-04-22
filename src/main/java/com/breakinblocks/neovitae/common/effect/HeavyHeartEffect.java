@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.common.effect;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,17 +11,17 @@ import com.breakinblocks.neovitae.NeoVitae;
 
 public class HeavyHeartEffect extends MobEffect {
 
-    private static final ResourceLocation HEAVY_HEART_MODIFIER_ID =
-            ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "effect.heavy_heart");
+    private static final Identifier HEAVY_HEART_MODIFIER_ID =
+            Identifier.fromNamespaceAndPath(NeoVitae.MODID, "effect.heavy_heart");
 
     public HeavyHeartEffect(MobEffectCategory category, int color) {
         super(category, color);
         // Flight cancellation is handled in applyEffectTick and onEffectAdded
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
-        if (entity.level().isClientSide && entity.tickCount % 4 == 0) {
+        if (entity.level().isClientSide() && entity.tickCount % 4 == 0) {
             double x = entity.getX() + (entity.getRandom().nextDouble() - 0.5) * 0.6;
             double y = entity.getY() + entity.getRandom().nextDouble() * 0.3;
             double z = entity.getZ() + (entity.getRandom().nextDouble() - 0.5) * 0.6;

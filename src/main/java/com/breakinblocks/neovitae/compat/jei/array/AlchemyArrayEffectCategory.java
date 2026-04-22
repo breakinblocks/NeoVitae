@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.compat.jei.array;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.renderer.RenderPipelines;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
@@ -11,9 +11,9 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
@@ -119,12 +119,11 @@ public class AlchemyArrayEffectCategory implements IRecipeCategory<AlchemyArrayR
     }
 
     @Override
-    public void draw(AlchemyArrayRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(AlchemyArrayRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
 
-        ResourceLocation textureRL = recipe.getTexture();
-        RenderSystem.setShaderTexture(0, textureRL);
-        guiGraphics.blit(textureRL, 74, 6, 0, 0, 16, 16, 16, 16);
+        Identifier textureRL = recipe.getTexture();
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, textureRL, 74, 6, 0f, 0f, 16, 16, 16, 16);
     }
 
     @Override

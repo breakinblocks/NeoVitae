@@ -3,7 +3,6 @@ package com.breakinblocks.neovitae.common.recipe.tiered;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -39,7 +38,7 @@ public class FluidTieredRecipe extends BaseTieredRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(CraftingInput input) {
         ItemStack primaryStack = input.getItem(primary);
         ItemStack secondaryStack = input.getItem(secondary);
         FluidStack primaryContent = primaryStack.getOrDefault(NVDataComponents.FLUID_CONTENT, SimpleFluidContent.EMPTY).copy();
@@ -67,12 +66,7 @@ public class FluidTieredRecipe extends BaseTieredRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends CustomRecipe> getSerializer() {
         return NVRecipes.FLUID_TIERED_SERIALIZER.get();
-    }
-
-    @Override
-    public RecipeType<?> getType() {
-        return super.getType();
     }
 }

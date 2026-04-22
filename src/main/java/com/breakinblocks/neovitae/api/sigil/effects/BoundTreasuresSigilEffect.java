@@ -6,7 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
@@ -35,14 +35,14 @@ public record BoundTreasuresSigilEffect() implements SigilEffect {
 
     @Override
     public boolean useOnBlock(Level level, Player player, ItemStack stack, BlockPos blockPos, Direction side, Vec3 hitVec) {
-        if (level.isClientSide) return false;
+        if (level.isClientSide()) return false;
         if (!player.isShiftKeyDown()) return false;
 
         BlockEntity be = level.getBlockEntity(blockPos);
         if (be instanceof MenuProvider) {
             stack.set(NVDataComponents.TELEPOSER_POS.get(), blockPos);
-            stack.set(NVDataComponents.TELEPOSER_DIMENSION.get(), level.dimension().location().toString());
-            player.displayClientMessage(Component.translatable("tooltip.neovitae.bound_treasures.linked"), true);
+            stack.set(NVDataComponents.TELEPOSER_DIMENSION.get(), level.dimension().identifier().toString());
+            player.sendOverlayMessage(Component.translatable("tooltip.neovitae.bound_treasures.linked"));
             return false;
         }
         return false;
@@ -50,21 +50,21 @@ public record BoundTreasuresSigilEffect() implements SigilEffect {
 
     @Override
     public boolean useOnAir(Level level, Player player, ItemStack stack) {
-        if (level.isClientSide || !(player instanceof ServerPlayer serverPlayer)) return false;
+        if (level.isClientSide() || !(player instanceof ServerPlayer serverPlayer)) return false;
 
         BlockPos chestPos = stack.get(NVDataComponents.TELEPOSER_POS.get());
         String dimStr = stack.get(NVDataComponents.TELEPOSER_DIMENSION.get());
         if (chestPos == null || dimStr == null) {
-            player.displayClientMessage(Component.translatable("tooltip.neovitae.bound_treasures.not_linked"), true);
+            player.sendOverlayMessage(Component.translatable("tooltip.neovitae.bound_treasures.not_linked"));
             return false;
         }
 
-        ResourceKey<Level> dimKey = ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(dimStr));
-        ServerLevel targetLevel = serverPlayer.server.getLevel(dimKey);
+        ResourceKey<Level> dimKey = ResourceKey.create(Registries.DIMENSION, Identifier.parse(dimStr));
+        ServerLevel targetLevel = serverPlayer.level().getServer().getLevel(dimKey);
         if (targetLevel == null) return false;
 
         if (!targetLevel.isLoaded(chestPos)) {
-            player.displayClientMessage(Component.translatable("tooltip.neovitae.bound_treasures.unloaded"), true);
+            player.sendOverlayMessage(Component.translatable("tooltip.neovitae.bound_treasures.unloaded"));
             return false;
         }
 
@@ -74,7 +74,7 @@ public record BoundTreasuresSigilEffect() implements SigilEffect {
             return true;
         }
 
-        player.displayClientMessage(Component.translatable("tooltip.neovitae.bound_treasures.missing"), true);
+        player.sendOverlayMessage(Component.translatable("tooltip.neovitae.bound_treasures.missing"));
         return false;
     }
 }

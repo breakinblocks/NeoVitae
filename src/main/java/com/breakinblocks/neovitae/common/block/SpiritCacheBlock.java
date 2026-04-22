@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -21,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -32,11 +33,11 @@ import com.breakinblocks.neovitae.common.particle.NVParticles;
 
 public class SpiritCacheBlock extends Block implements EntityBlock {
 
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 7, 14);
 
-    public SpiritCacheBlock() {
-        super(BlockBehaviour.Properties.of()
+    public SpiritCacheBlock(BlockBehaviour.Properties props) {
+        super(props
                 .strength(2.0F, 5.0F)
                 .sound(SoundType.STONE)
                 .requiresCorrectToolForDrops()
@@ -88,14 +89,14 @@ public class SpiritCacheBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock())) {
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        if (true) {
             if (level.getBlockEntity(pos) instanceof SpiritCacheBlockEntity cache) {
                 Containers.dropContents(level, pos, cache);
                 level.updateNeighbourForOutputSignal(pos, this);
-            }
+    }
         }
-        super.onRemove(state, level, pos, newState, movedByPiston);
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 
     @Override

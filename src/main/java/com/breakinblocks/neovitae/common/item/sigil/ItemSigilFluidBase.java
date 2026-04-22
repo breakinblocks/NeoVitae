@@ -3,12 +3,14 @@ package com.breakinblocks.neovitae.common.item.sigil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
@@ -22,18 +24,18 @@ public abstract class ItemSigilFluidBase extends ItemSigilBase {
 
     public final FluidStack sigilFluid;
 
-    public ItemSigilFluidBase(String name, int lpUsed, FluidStack fluid) {
-        super(name, lpUsed);
+    public ItemSigilFluidBase(Item.Properties props, String name, int lpUsed, FluidStack fluid) {
+        super(props, name, lpUsed);
         this.sigilFluid = fluid;
     }
 
-    public ItemSigilFluidBase(String name, FluidStack fluid) {
-        super(name);
+    public ItemSigilFluidBase(Item.Properties props, String name, FluidStack fluid) {
+        super(props, name);
         this.sigilFluid = fluid;
     }
 
-    public ItemSigilFluidBase(String name) {
-        super(name);
+    public ItemSigilFluidBase(Item.Properties props, String name) {
+        super(props, name);
         this.sigilFluid = FluidStack.EMPTY;
     }
 
@@ -64,7 +66,7 @@ public abstract class ItemSigilFluidBase extends ItemSigilBase {
             return false;
         }
 
-        if (world.dimensionType().ultraWarm() && fluid.getFluidType().isVaporizedOnPlacement(world, blockPos, sigilFluid)) {
+        if (fluid.getFluidType().isVaporizedOnPlacement(world, blockPos, sigilFluid)) {
             fluid.getFluidType().onVaporize(player, world, blockPos, sigilFluid);
             return true;
         }
@@ -79,17 +81,7 @@ public abstract class ItemSigilFluidBase extends ItemSigilBase {
 
     @Nullable
     protected IFluidHandler getFluidHandler(Level world, BlockPos blockPos, @Nullable Direction side) {
-        BlockState state = world.getBlockState(blockPos);
-        if (state.getBlock() instanceof LiquidBlock) {
-            return null;
-        }
-
-        var blockEntity = world.getBlockEntity(blockPos);
-        if (blockEntity != null) {
-            var cap = world.getCapability(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.BLOCK, blockPos, side);
-            return cap;
-        }
-
-        return null;
+        var rh = world.getCapability(Capabilities.Fluid.BLOCK, blockPos, side);
+        return rh != null ? IFluidHandler.of(rh) : null;
     }
 }

@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -64,7 +67,7 @@ public class IncenseAltarBlockEntity extends BlockEntity {
             }
         }
 
-        if (hasPerformed && level.random.nextInt(4) == 0 && level instanceof ServerLevel serverLevel) {
+        if (hasPerformed && level.getRandom().nextInt(4) == 0 && level instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.FLAME,
                     pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5,
                     1, 0.02, 0.03, 0.02, 0);
@@ -179,16 +182,16 @@ public class IncenseAltarBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        tranquility = tag.getDouble("tranquility");
-        incenseAddition = tag.getDouble("incenseAddition");
-        roadDistance = tag.getInt("roadDistance");
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        tranquility = tag.getDoubleOr("tranquility", 0d);
+        incenseAddition = tag.getDoubleOr("incenseAddition", 0d);
+        roadDistance = tag.getIntOr("roadDistance", 0);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         tag.putDouble("tranquility", tranquility);
         tag.putDouble("incenseAddition", incenseAddition);
         tag.putInt("roadDistance", roadDistance);

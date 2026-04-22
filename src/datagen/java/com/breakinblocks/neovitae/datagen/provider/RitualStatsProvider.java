@@ -5,7 +5,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datamap.RitualStats;
@@ -99,7 +99,7 @@ public class RitualStatsProvider implements DataProvider {
     }
 
     protected void add(DeferredHolder<Ritual, ? extends Ritual> ritual, RitualStats stats) {
-        ResourceLocation ritualId = ritual.getId();
+        Identifier ritualId = ritual.getId();
         entries.add(new RitualEntry(ritualId, stats));
     }
 
@@ -178,5 +178,5 @@ public class RitualStatsProvider implements DataProvider {
         return "NeoVitae Ritual Stats";
     }
 
-    private record RitualEntry(ResourceLocation ritualId, RitualStats stats) {}
+    private record RitualEntry(Identifier ritualId, RitualStats stats) {}
 }

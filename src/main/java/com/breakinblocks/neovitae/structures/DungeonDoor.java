@@ -2,7 +2,7 @@ package com.breakinblocks.neovitae.structures;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 
 import java.util.ArrayList;
@@ -40,11 +40,11 @@ public record DungeonDoor(
      * Gets the list of normal room pools this door can connect to.
      * Normal rooms are listed without any prefix.
      */
-    public List<ResourceLocation> getRoomList() {
-        List<ResourceLocation> rlRoomList = new ArrayList<>();
+    public List<Identifier> getRoomList() {
+        List<Identifier> rlRoomList = new ArrayList<>();
         for (String room : roomList) {
             if (!room.startsWith("#") && !room.startsWith("$")) {
-                rlRoomList.add(ResourceLocation.parse(room));
+                rlRoomList.add(Identifier.parse(room));
             }
         }
         return rlRoomList;
@@ -54,13 +54,13 @@ public record DungeonDoor(
      * Gets the list of special room pools this door can connect to.
      * Special rooms are prefixed with '#'.
      */
-    public List<ResourceLocation> getSpecialRoomList() {
-        List<ResourceLocation> rlRoomList = new ArrayList<>();
+    public List<Identifier> getSpecialRoomList() {
+        List<Identifier> rlRoomList = new ArrayList<>();
         for (String room : roomList) {
             if (room.startsWith("#")) {
                 String[] splitString = room.split("#");
                 if (splitString.length > 1) {
-                    rlRoomList.add(ResourceLocation.parse(splitString[1]));
+                    rlRoomList.add(Identifier.parse(splitString[1]));
                 }
             }
         }
@@ -72,13 +72,13 @@ public record DungeonDoor(
      * Dead-end rooms are prefixed with '$'.
      * Returns the default dead-end pool if none are specified.
      */
-    public List<ResourceLocation> getDeadendRoomList() {
-        List<ResourceLocation> rlRoomList = new ArrayList<>();
+    public List<Identifier> getDeadendRoomList() {
+        List<Identifier> rlRoomList = new ArrayList<>();
         for (String room : roomList) {
             if (room.startsWith("$")) {
                 String[] splitString = room.split("\\$");
                 if (splitString.length > 1) {
-                    rlRoomList.add(ResourceLocation.parse(splitString[1]));
+                    rlRoomList.add(Identifier.parse(splitString[1]));
                 }
             }
         }

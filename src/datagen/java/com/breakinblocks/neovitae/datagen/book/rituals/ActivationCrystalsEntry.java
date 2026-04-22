@@ -9,7 +9,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.datagen.book.page.BookAraVitaeRecipePageModel;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class ActivationCrystalsEntry extends EntryProvider {
 
@@ -26,12 +26,12 @@ public class ActivationCrystalsEntry extends EntryProvider {
         this.pageText("A properly inscribed circle is inert without the spark of will to awaken it. The [#](8B0000)Activation Crystal[#]() serves as that spark, a focus through which you open a conduit between your [#](4A0080)Anima[#]() and the waiting runes, breathing purpose into stone.");
 
         this.page("weak_recipe", () -> BookAraVitaeRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae/weak_activation_crystal"))
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae/weak_activation_crystal"))
                 .withText(this.context().pageText()));
         this.pageText("The [#](8B0000)Weak Activation Crystal[#]() is forged within the [#](8B0000)Ara Vitae[#]() from a [#](8B0000)Lava Crystal[#](). Press Use with a bound crystal upon the [#](8B0000)Master Ritual Stone[#]() to ignite the circle.");
 
         this.page("awakened_recipe", () -> BookAraVitaeRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae/awakened_activation_crystal"))
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ara_vitae/awakened_activation_crystal"))
                 .withText(this.context().pageText()));
         this.pageText("The [#](8B0000)Awakened Activation Crystal[#]() resonates with deeper currents of power, required to activate [#](B8860B)advanced rituals[#]() beyond the Weak Crystal's reach. It is forged within the [#](8B0000)Ara Vitae[#]() from its lesser counterpart.");
     }

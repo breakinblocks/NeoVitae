@@ -8,8 +8,10 @@ import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
 import com.klikli_dev.modonomicon.book.page.BookPage;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.Level;
 
 public class BookSpiritusGemStatsPage extends BookPage {
 
@@ -20,13 +22,13 @@ public class BookSpiritusGemStatsPage extends BookPage {
         this.title = title;
     }
 
-    public static BookSpiritusGemStatsPage fromJson(JsonObject json, HolderLookup.Provider provider) {
+    public static BookSpiritusGemStatsPage fromJson(Identifier id, JsonObject json, HolderLookup.Provider provider) {
         var title = json.has("title")
-                ? new BookTextHolder(net.minecraft.network.chat.Component.translatable(GsonHelper.getAsString(json, "title")))
+                ? new BookTextHolder(Component.translatable(GsonHelper.getAsString(json, "title")))
                 : BookTextHolder.EMPTY;
         var anchor = GsonHelper.getAsString(json, "anchor", "");
         var condition = json.has("condition")
-                ? BookCondition.fromJson(json.getAsJsonObject("condition"), provider)
+                ? BookCondition.fromJson(id, json.getAsJsonObject("condition"), provider)
                 : new BookNoneCondition();
         return new BookSpiritusGemStatsPage(title, anchor, condition);
     }
@@ -62,12 +64,12 @@ public class BookSpiritusGemStatsPage extends BookPage {
     }
 
     @Override
-    public ResourceLocation getType() {
+    public Identifier getType() {
         return NVPageTypes.SPIRITUS_GEM_STATS;
     }
 
     @Override
-    public boolean matchesQuery(String query) {
+    public boolean matchesQuery(String query, Level level) {
         return false;
     }
 }

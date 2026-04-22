@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class AthanorEntry extends EntryProvider {
 
@@ -30,7 +30,7 @@ public class AthanorEntry extends EntryProvider {
                 + "enchantments will slow or halt their decay.[#]()");
 
         this.page("recipe_arc", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "athanor_block")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "athanor_block")));
 
         this.page("sanguine_reverter", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

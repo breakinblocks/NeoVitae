@@ -12,13 +12,14 @@ import com.breakinblocks.neovitae.util.helper.OreDiscoveryHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.core.registries.Registries;
 
 public class GenerateMaterialsCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("nvgenerate")
-                        .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .executes(GenerateMaterialsCommand::execute)
         );
     }
@@ -35,7 +36,7 @@ public class GenerateMaterialsCommand {
         }
 
         int totalOreCount = com.breakinblocks.neovitae.util.helper.TagHelper.getOreNames(
-                level.registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.ITEM)).size();
+                level.registryAccess().lookupOrThrow(Registries.ITEM)).size();
 
         if (newMaterials.isEmpty()) {
             int existing = totalOreCount;

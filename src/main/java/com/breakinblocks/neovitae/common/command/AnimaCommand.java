@@ -16,7 +16,7 @@ public class AnimaCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("anima")
-                        .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .then(
                                 Commands.argument("target", EntityArgument.player())
                                         .then(
@@ -48,21 +48,21 @@ public class AnimaCommand {
     private static int setNetwork(CommandContext<CommandSourceStack> context, ServerPlayer target, int amount) {
         Anima anima = AnimaHelper.getAnima(target);
         int setAmount = anima.set(AnimaTicket.create(amount), Integer.MAX_VALUE);
-        context.getSource().sendSuccess(() -> Component.literal("Successfully set " + target.getGameProfile().getName() + "'s Essence to " + setAmount), true);
+        context.getSource().sendSuccess(() -> Component.translatable("command.neovitae.anima.set", target.getGameProfile().name(), setAmount), true);
         return 1;
     }
 
     private static int addNetwork(CommandContext<CommandSourceStack> context, ServerPlayer target, int amount) {
         Anima anima = AnimaHelper.getAnima(target);
         int added = anima.add(AnimaTicket.create(amount), Integer.MAX_VALUE);
-        context.getSource().sendSuccess(() -> Component.literal("Successfully added " + added + " EV to " + target.getGameProfile().getName() + "'s Anima"), true);
+        context.getSource().sendSuccess(() -> Component.translatable("command.neovitae.anima.add", added, target.getGameProfile().name()), true);
         return 1;
     }
 
     private static int showNetwork(CommandContext<CommandSourceStack> context, ServerPlayer target) {
         Anima anima = AnimaHelper.getAnima(target);
         int amount = anima.getCurrentEV();
-        context.getSource().sendSuccess(() -> Component.literal(target.getGameProfile().getName() + " has " + amount + " EV in their Anima"), true);
+        context.getSource().sendSuccess(() -> Component.translatable("command.neovitae.anima.get", target.getGameProfile().name(), amount), true);
         return 1;
     }
 }

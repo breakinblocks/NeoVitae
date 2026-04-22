@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
@@ -7,7 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +37,7 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
             BlockPos doorPos,
             Direction doorDirection,
             String doorType,
-            List<ResourceLocation> potentialRoomTypes
+            List<Identifier> potentialRoomTypes
     ) {
         public static final SealData EMPTY = new SealData(
                 BlockPos.ZERO, BlockPos.ZERO, Direction.NORTH, "", List.of()
@@ -46,7 +49,7 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
                         BlockPos.CODEC.fieldOf("doorPos").forGetter(SealData::doorPos),
                         Direction.CODEC.fieldOf("doorDirection").forGetter(SealData::doorDirection),
                         Codec.STRING.fieldOf("doorType").forGetter(SealData::doorType),
-                        ResourceLocation.CODEC.listOf().fieldOf("potentialRoomTypes").forGetter(SealData::potentialRoomTypes)
+                        Identifier.CODEC.listOf().fieldOf("potentialRoomTypes").forGetter(SealData::potentialRoomTypes)
                 ).apply(instance, SealData::new)
         );
     }
@@ -60,7 +63,7 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
     public SealData getData() { return data; }
 
     public void initialize(BlockPos controllerPos, BlockPos doorPos, Direction doorDirection,
-                           String doorType, List<ResourceLocation> potentialRoomTypes) {
+                           String doorType, List<Identifier> potentialRoomTypes) {
         this.data = new SealData(controllerPos, doorPos, doorDirection, doorType, List.copyOf(potentialRoomTypes));
         setChanged();
     }
@@ -81,7 +84,7 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
         return data.doorType();
     }
 
-    public List<ResourceLocation> getPotentialRoomTypes() {
+    public List<Identifier> getPotentialRoomTypes() {
         return data.potentialRoomTypes();
     }
 
@@ -113,7 +116,7 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
         }
 
         RandomSource rand = serverLevel.getRandom();
-        ResourceLocation[] roomTypes = data.potentialRoomTypes().toArray(new ResourceLocation[0]);
+        Identifier[] roomTypes = data.potentialRoomTypes().toArray(new Identifier[0]);
 
         boolean success = controller.handleRequestForRoomPlacement(
                 worldPosition, data.doorPos(), data.doorDirection(), data.doorType(), roomTypes, rand);
@@ -149,14 +152,14 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
             return false;
         }
 
-        ResourceLocation selectedRoom = key.getValidResourceLocation(new ArrayList<>(data.potentialRoomTypes()));
+        Identifier selectedRoom = key.getValidResourceLocation(new ArrayList<>(data.potentialRoomTypes()));
         if (selectedRoom == null) {
             LOGGER.debug("Key {} didn't match any room types for seal at {}", key.getKeyType(), worldPosition);
             return false;
         }
 
         RandomSource rand = serverLevel.getRandom();
-        ResourceLocation[] roomTypes = new ResourceLocation[] { selectedRoom };
+        Identifier[] roomTypes = new Identifier[] { selectedRoom };
 
         boolean success = controller.handleRequestForRoomPlacement(
                 worldPosition, data.doorPos(), data.doorDirection(), data.doorType(), roomTypes, rand);
@@ -181,7 +184,7 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
 
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                BlockPos fillPos = sealPos.relative(rightDir, i).relative(net.minecraft.core.Direction.UP, j);
+                BlockPos fillPos = sealPos.relative(rightDir, i).relative(Direction.UP, j);
                 if (serverLevel.getBlockState(fillPos).is(
                         com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get())) {
                     serverLevel.removeBlock(fillPos, false);
@@ -191,22 +194,14 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-
-        SealData.CODEC.encodeStart(NbtOps.INSTANCE, data)
-                .resultOrPartial(LOGGER::error)
-                .ifPresent(nbt -> tag.put("sealData", nbt));
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
+        tag.store("sealData", SealData.CODEC, data);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-
-        if (tag.contains("sealData")) {
-            data = SealData.CODEC.parse(NbtOps.INSTANCE, tag.get("sealData"))
-                    .resultOrPartial(LOGGER::error)
-                    .orElse(SealData.EMPTY);
-        }
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        data = tag.read("sealData", SealData.CODEC).orElse(SealData.EMPTY);
     }
 }

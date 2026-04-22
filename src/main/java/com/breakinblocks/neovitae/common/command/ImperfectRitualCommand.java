@@ -10,13 +10,13 @@ import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.commands.arguments.ResourceLocationArgument;
+import net.minecraft.commands.arguments.IdentifierArgument;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -25,6 +25,8 @@ import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.ImperfectRitualStats;
 import com.breakinblocks.neovitae.ritual.ImperfectRitual;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
 
 /**
  * Admin command for managing imperfect rituals.
@@ -48,13 +50,13 @@ public class ImperfectRitualCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("nv-imperfectritual")
-                        .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .then(
                                 Commands.argument("pos", BlockPosArgument.blockPos())
                                         .then(
                                                 Commands.literal("set")
                                                         .then(
-                                                                Commands.argument("ritual", ResourceLocationArgument.id())
+                                                                Commands.argument("ritual", IdentifierArgument.id())
                                                                         .suggests(RITUAL_SUGGESTIONS)
                                                                         .executes(ImperfectRitualCommand::setRitual)
                                                         )
@@ -81,7 +83,7 @@ public class ImperfectRitualCommand {
 
     private static int setRitual(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         ImperfectRitualStoneBlockEntity irs = getIRS(context);
-        ResourceLocation ritualId = ResourceLocationArgument.getId(context, "ritual");
+        Identifier ritualId = IdentifierArgument.getId(context, "ritual");
         ServerLevel level = context.getSource().getLevel();
 
         ImperfectRitual ritual = RitualRegistry.getImperfectRitual(ritualId);
@@ -119,8 +121,8 @@ public class ImperfectRitualCommand {
         if (success) {
             boolean showLightning = stats != null ? stats.lightningEffect() : ritual.isLightShow();
             if (showLightning) {
-                net.minecraft.world.entity.EntityType.LIGHTNING_BOLT.spawn(level, abovePos.above(),
-                        net.minecraft.world.entity.MobSpawnType.TRIGGERED);
+                EntityType.LIGHTNING_BOLT.spawn(level, abovePos.above(),
+                        EntitySpawnReason.TRIGGERED);
             }
         }
 
@@ -142,7 +144,7 @@ public class ImperfectRitualCommand {
 
         var registry = RitualRegistry.getImperfectRitualRegistry();
 
-        for (ResourceLocation id : RitualRegistry.getRegisteredImperfectRituals()) {
+        for (Identifier id : RitualRegistry.getRegisteredImperfectRituals()) {
             ImperfectRitual ritual = RitualRegistry.getImperfectRitual(id);
             if (ritual != null && registry != null) {
                 Holder<ImperfectRitual> holder = registry.wrapAsHolder(ritual);

@@ -48,7 +48,7 @@ public abstract class AbstractGhostMenu<T extends AbstractContainerMenu> extends
     }
 
     @Override
-    public void clicked(int slotId, int button, ClickType clickType, Player player) {
+    public void clicked(int slotId, int button, ContainerInput clickType, Player player) {
         if (slotId < slots.size() && slotId >= 0) {
             Slot slot = slots.get(slotId);
             if (slot instanceof GhostSlot ghostSlot) {

@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -23,9 +23,9 @@ public record DistanceExpGain(Holder<LivingUpgrade> upgrade, Movement movement) 
     ).apply(builder, DistanceExpGain::new));
 
 
-    private static final ResourceLocation X = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "x");
-    private static final ResourceLocation Y = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "y");
-    private static final ResourceLocation Z = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "z");
+    private static final Identifier X = Identifier.fromNamespaceAndPath(NeoVitae.MODID, "x");
+    private static final Identifier Y = Identifier.fromNamespaceAndPath(NeoVitae.MODID, "y");
+    private static final Identifier Z = Identifier.fromNamespaceAndPath(NeoVitae.MODID, "z");
 
     @Override
     public void apply(int upgradeLevel, Entity entity) {
@@ -35,7 +35,7 @@ public record DistanceExpGain(Holder<LivingUpgrade> upgrade, Movement movement) 
         double y = wearer.getY();
         double z = wearer.getZ();
 
-        Map<ResourceLocation, Double> data = wearer.getData(NVDataAttachments.LIVING_ADDITIONAL);
+        Map<Identifier, Double> data = wearer.getData(NVDataAttachments.LIVING_ADDITIONAL);
         double oldX = data.getOrDefault(X, x);
         double oldY = data.getOrDefault(Y, y);
         double oldZ = data.getOrDefault(Z, z);

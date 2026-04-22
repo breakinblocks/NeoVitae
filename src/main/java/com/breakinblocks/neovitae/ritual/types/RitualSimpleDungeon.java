@@ -36,7 +36,7 @@ public class RitualSimpleDungeon extends DungeonRitualBase {
         Level world = masterRitualStone.getWorldObj();
         BlockPos masterPos = masterRitualStone.getMasterBlockPos();
 
-        if (world.isClientSide || !(world instanceof ServerLevel serverWorld)) {
+        if (world.isClientSide() || !(world instanceof ServerLevel serverWorld)) {
             return;
         }
 
@@ -61,7 +61,7 @@ public class RitualSimpleDungeon extends DungeonRitualBase {
         DungeonSynthesizer synthesizer = new DungeonSynthesizer();
         BlockPos[] positions = synthesizer.generateInitialRoom(
                 ModRoomPools.MINI_DUNGEON_ENTRANCES,
-                dungeonWorld.random,
+                dungeonWorld.getRandom(),
                 dungeonWorld,
                 dungeonControllerPos
         );

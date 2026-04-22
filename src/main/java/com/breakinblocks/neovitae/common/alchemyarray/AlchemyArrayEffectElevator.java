@@ -31,7 +31,7 @@ public class AlchemyArrayEffectElevator extends AlchemyArrayEffect {
     @Override
     public void onEntityCollidedWithBlock(AlchemyArrayBlockEntity tile, Level level, BlockPos pos,
                                           BlockState state, Entity entity) {
-        if (level.isClientSide) return;
+        if (level.isClientSide()) return;
         if (!(entity instanceof Player player)) return;
 
         long gameTime = level.getGameTime();
@@ -58,8 +58,8 @@ public class AlchemyArrayEffectElevator extends AlchemyArrayEffect {
         int step = searchUp ? 1 : -1;
         int start = from.getY() + step * 2;
         int end = searchUp
-                ? Math.min(from.getY() + MAX_SEARCH_DISTANCE, level.getMaxBuildHeight())
-                : Math.max(from.getY() - MAX_SEARCH_DISTANCE, level.getMinBuildHeight());
+                ? Math.min(from.getY() + MAX_SEARCH_DISTANCE, level.getMaxY())
+                : Math.max(from.getY() - MAX_SEARCH_DISTANCE, level.getMinY());
 
         for (int y = start; searchUp ? y <= end : y >= end; y += step) {
             BlockPos check = new BlockPos(from.getX(), y, from.getZ());

@@ -12,6 +12,7 @@ import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
+import net.minecraft.world.entity.EntitySpawnReason;
 
 public class AlchemyArrayEffectRain extends AlchemyArrayEffect {
 
@@ -22,7 +23,7 @@ public class AlchemyArrayEffectRain extends AlchemyArrayEffect {
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
-        if (level == null || level.isClientSide) return false;
+        if (level == null || level.isClientSide()) return false;
 
         if (ticksActive < START_TICK) return false;
 
@@ -40,17 +41,23 @@ public class AlchemyArrayEffectRain extends AlchemyArrayEffect {
 
         if (ticksActive >= END_TICK) {
             if (level instanceof ServerLevel serverLevel) {
-                boolean isRaining = serverLevel.isRaining();
-                if (isRaining) {
-                    serverLevel.getServer().overworld().setWeatherParameters(6000 + level.random.nextInt(12000), 0, false, false);
+                net.minecraft.world.level.saveddata.WeatherData weather = serverLevel.getWeatherData();
+                if (weather.isRaining()) {
+                    weather.setClearWeatherTime(6000);
+                    weather.setRainTime(0);
+                    weather.setRaining(false);
+                    weather.setThunderTime(0);
+                    weather.setThundering(false);
                 } else {
-                    serverLevel.getServer().overworld().setWeatherParameters(0, 6000 + level.random.nextInt(12000), true, false);
+                    weather.setClearWeatherTime(0);
+                    weather.setRainTime(24000);
+                    weather.setRaining(true);
                 }
 
                 BlockPos pos = tile.getBlockPos();
-                LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(serverLevel);
+                LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(serverLevel, EntitySpawnReason.TRIGGERED);
                 if (bolt != null) {
-                    bolt.moveTo(Vec3.atBottomCenterOf(pos));
+                    bolt.snapTo(Vec3.atBottomCenterOf(pos));
                     bolt.setVisualOnly(true);
                     serverLevel.addFreshEntity(bolt);
                 }

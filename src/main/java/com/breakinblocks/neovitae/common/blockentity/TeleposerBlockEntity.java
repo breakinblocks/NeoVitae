@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
@@ -37,6 +40,7 @@ import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.List;
+import net.minecraft.server.permissions.PermissionSet;
 
 public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvider, CommandSource {
     public static final int FOCUS_SLOT = 0;
@@ -63,7 +67,7 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
     }
 
     public void tick() {
-        if (level == null || level.isClientSide) {
+        if (level == null || level.isClientSide()) {
             return;
         }
 
@@ -131,7 +135,7 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
         ResourceKey<Level> linkedKey = linkedWorld.dimension();
 
         for (Entity entity : originalEntities) {
-            if (entity.getType().is(NVTags.Entities.TELEPOSE_BLACKLIST)) {
+            if (entity.getType().getTags().anyMatch(t -> t.equals(NVTags.Entities.TELEPOSE_BLACKLIST))) {
                 continue;
             }
 
@@ -147,7 +151,7 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
         }
 
         for (Entity entity : focusEntities) {
-            if (entity.getType().is(NVTags.Entities.TELEPOSE_BLACKLIST)) {
+            if (entity.getType().getTags().anyMatch(t -> t.equals(NVTags.Entities.TELEPOSE_BLACKLIST))) {
                 continue;
             }
 
@@ -190,21 +194,21 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        inv.deserializeNBT(registries, tag.getCompound("inventory"));
-        this.previousInput = tag.getInt("redstone");
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        tag.child("inventory").ifPresent(inv::deserialize);
+        this.previousInput = tag.getIntOr("redstone", 0);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.put("inventory", inv.serializeNBT(registries));
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
+        inv.serialize(tag.child("inventory"));
         tag.putInt("redstone", previousInput);
     }
 
     public void dropItems() {
-        if (level != null && !level.isClientSide) {
+        if (level != null && !level.isClientSide()) {
             for (int i = 0; i < inv.getSlots(); i++) {
                 ItemStack stack = inv.getStackInSlot(i);
                 if (!stack.isEmpty()) {
@@ -232,7 +236,7 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
     }
 
     public CommandSourceStack getCommandSource(ServerLevel world) {
-        return new CommandSourceStack(this, new Vec3(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()), Vec2.ZERO, world, 2, "Teleposer", Component.literal("Teleposer"), world.getServer(), null);
+        return new CommandSourceStack(this, new Vec3(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ()), Vec2.ZERO, world, PermissionSet.ALL_PERMISSIONS, "Teleposer", Component.translatable("menu.neovitae.teleposer"), world.getServer(), null);
     }
 
     public void teleportPlayerToLocation(ServerLevel serverWorld, Player player, ResourceKey<Level> destination, double x, double y, double z) {
@@ -243,7 +247,7 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
 
     public String getTextCommandForTeleport(ResourceKey<Level> destination, Player player, double posX, double posY, double posZ) {
         String playerName = player.getName().getString();
-        return "execute in " + destination.location().toString() + " run teleport " + playerName + " " + posX + " " + posY + " " + posZ;
+        return "execute in " + destination.identifier().toString() + " run teleport " + playerName + " " + posX + " " + posY + " " + posZ;
     }
 
     @Override

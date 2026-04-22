@@ -2,26 +2,27 @@ package com.breakinblocks.neovitae.client.render.entity.model;
 
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
-import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.model.GeoModel;
+import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.base.GeoRenderState;
+import net.minecraft.resources.Identifier;
 
 public class BloodShieldModel extends GeoModel<BloodShieldEntity> {
 
-    private static final ResourceLocation MODEL = NeoVitae.rl("geo/entity/blood_shield.geo.json");
-    private static final ResourceLocation TEXTURE = NeoVitae.rl("textures/entity/blood_shield_overlay.png");
+    private static final Identifier MODEL = NeoVitae.rl("geo/entity/blood_shield.geo.json");
+    private static final Identifier TEXTURE = NeoVitae.rl("textures/entity/blood_shield_overlay.png");
 
     @Override
-    public ResourceLocation getModelResource(BloodShieldEntity entity) {
+    public Identifier getModelResource(GeoRenderState state) {
         return MODEL;
     }
 
     @Override
-    public ResourceLocation getTextureResource(BloodShieldEntity entity) {
+    public Identifier getTextureResource(GeoRenderState state) {
         return TEXTURE;
     }
 
     @Override
-    public ResourceLocation getAnimationResource(BloodShieldEntity entity) {
+    public Identifier getAnimationResource(BloodShieldEntity entity) {
         return null;
     }
 }

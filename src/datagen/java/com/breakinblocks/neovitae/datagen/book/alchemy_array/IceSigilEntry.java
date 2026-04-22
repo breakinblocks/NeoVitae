@@ -9,7 +9,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.datagen.book.page.BookAlchemyArrayRecipePageModel;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class IceSigilEntry extends EntryProvider {
 
@@ -30,7 +30,7 @@ public class IceSigilEntry extends EntryProvider {
                 + "Toggle it with sneak and [Use]. The ice endures only as long as you remain near.");
 
         this.page("recipe", () -> BookAlchemyArrayRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "array/frost_sigil")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "array/frost_sigil")));
     }
 
     @Override

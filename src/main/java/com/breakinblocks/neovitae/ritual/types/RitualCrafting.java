@@ -75,8 +75,10 @@ public class RitualCrafting extends Ritual {
         if (outputPositions.isEmpty()) return;
         BlockPos outputPos = outputPositions.get(0);
 
-        IItemHandler inputHandler = ctx.level().getCapability(Capabilities.ItemHandler.BLOCK, inputPos, null);
-        IItemHandler outputHandler = ctx.level().getCapability(Capabilities.ItemHandler.BLOCK, outputPos, null);
+        var inputRh = ctx.level().getCapability(Capabilities.Item.BLOCK, inputPos, null);
+        var outputRh = ctx.level().getCapability(Capabilities.Item.BLOCK, outputPos, null);
+        IItemHandler inputHandler = inputRh != null ? IItemHandler.of(inputRh) : null;
+        IItemHandler outputHandler = outputRh != null ? IItemHandler.of(outputRh) : null;
 
         if (inputHandler == null || outputHandler == null) return;
 
@@ -148,14 +150,14 @@ public class RitualCrafting extends Ritual {
 
         CraftingInput craftingInput = CraftingInput.of(3, 3, inputItems);
 
-        Optional<CraftingRecipe> recipeOpt = ctx.level().getRecipeManager()
-                .getRecipeFor(RecipeType.CRAFTING, craftingInput, ctx.level())
+        Optional<CraftingRecipe> recipeOpt = ctx.serverLevel().recipeAccess()
+                .getRecipeFor(RecipeType.CRAFTING, craftingInput, ctx.serverLevel())
                 .map(holder -> holder.value());
 
         if (recipeOpt.isEmpty()) return;
 
         CraftingRecipe recipe = recipeOpt.get();
-        ItemStack result = recipe.assemble(craftingInput, ctx.level().registryAccess());
+        ItemStack result = recipe.assemble(craftingInput);
 
         if (result.isEmpty()) return;
 
@@ -177,10 +179,6 @@ public class RitualCrafting extends Ritual {
                         .sendToNearby(ctx.serverLevel(), masterPos, 128));
     }
 
-    /**
-     * Tries to find and assemble a Soul Forge recipe from the input items.
-     * Soul Forge recipes use up to 4 ingredients plus a gem.
-     */
     private ItemStack tryHellfireForgeRecipe(RitualContext ctx, IItemHandler inputHandler, List<ItemStack> inputItems) {
         // Build input stacks (up to 4 items)
         List<ItemStack> forgeItems = new ArrayList<>();
@@ -195,22 +193,20 @@ public class RitualCrafting extends Ritual {
         // Use empty gem stack (ritual doesn't have a gem slot)
         ForgeInput forgeInput = new ForgeInput(forgeItems, ItemStack.EMPTY, -1);
 
-        Optional<ForgeRecipe> recipeOpt = ctx.level().getRecipeManager()
-                .getRecipeFor(NVRecipes.HELLFIRE_FORGE_TYPE.get(), forgeInput, ctx.level())
+        Optional<ForgeRecipe> recipeOpt = ctx.serverLevel().recipeAccess()
+                .getRecipeFor(NVRecipes.HELLFIRE_FORGE_TYPE.get(), forgeInput, ctx.serverLevel())
                 .map(holder -> holder.value());
 
         if (recipeOpt.isPresent()) {
             ForgeRecipe recipe = recipeOpt.get();
-            return recipe.assemble(forgeInput, ctx.level().registryAccess());
+            return recipe.assemble(forgeInput);
         }
 
         return ItemStack.EMPTY;
     }
 
-    /**
-     * Tries to find and assemble an Tabula Vitae recipe from the input items.
-     * Tabula Vitae recipes use up to 6 ingredients.
-     */
+    // Tries to find and assemble a Tabula Vitae recipe from the input items.
+    // Tabula Vitae recipes use up to 6 ingredients.
     private ItemStack tryTabulaVitaeRecipe(RitualContext ctx, IItemHandler inputHandler, List<ItemStack> inputItems) {
         List<ItemStack> alchemyItems = new ArrayList<>();
         for (int i = 0; i < Math.min(TabulaVitaeRecipe.MAX_INPUTS, inputItems.size()); i++) {
@@ -224,13 +220,13 @@ public class RitualCrafting extends Ritual {
         // Use orb tier 0 since the ritual has no orb
         TabulaVitaeInput alchemyInput = new TabulaVitaeInput(alchemyItems, 0);
 
-        Optional<TabulaVitaeRecipe> recipeOpt = ctx.level().getRecipeManager()
-                .getRecipeFor(NVRecipes.TABULA_VITAE_TYPE.get(), alchemyInput, ctx.level())
+        Optional<TabulaVitaeRecipe> recipeOpt = ctx.serverLevel().recipeAccess()
+                .getRecipeFor(NVRecipes.TABULA_VITAE_TYPE.get(), alchemyInput, ctx.serverLevel())
                 .map(holder -> holder.value());
 
         if (recipeOpt.isPresent()) {
             TabulaVitaeRecipe recipe = recipeOpt.get();
-            return recipe.assemble(alchemyInput, ctx.level().registryAccess());
+            return recipe.assemble(alchemyInput);
         }
 
         return ItemStack.EMPTY;

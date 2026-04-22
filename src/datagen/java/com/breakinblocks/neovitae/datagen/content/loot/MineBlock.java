@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.datagen.content.loot;
 
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -115,7 +115,7 @@ public class MineBlock extends BlockLootSubProvider {
                         this.applyExplosionCondition(holder.block().get(), LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1))
                                 .add(LootItem.lootTableItem(holder)
-                                        .apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY))
+                                        .apply(CopyComponentsFunction.copyComponentsFromBlockEntity(net.minecraft.world.level.storage.loot.parameters.LootContextParams.BLOCK_ENTITY))
                                 )
                         )
                 )

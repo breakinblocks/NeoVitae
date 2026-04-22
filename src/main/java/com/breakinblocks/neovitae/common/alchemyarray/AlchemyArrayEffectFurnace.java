@@ -32,7 +32,7 @@ public class AlchemyArrayEffectFurnace extends AlchemyArrayEffect {
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
-        if (level == null || level.isClientSide) return false;
+        if (level == null || level.isClientSide()) return false;
 
         BlockPos pos = tile.getBlockPos();
         AABB area = new AABB(pos).inflate(RADIUS);
@@ -45,8 +45,9 @@ public class AlchemyArrayEffectFurnace extends AlchemyArrayEffect {
             if (itemEntity.isRemoved()) continue;
 
             ItemStack stack = itemEntity.getItem();
-            Optional<RecipeHolder<SmeltingRecipe>> recipeOpt = level.getRecipeManager()
-                    .getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(stack), level);
+            Optional<RecipeHolder<SmeltingRecipe>> recipeOpt = level instanceof ServerLevel srv
+                    ? srv.recipeAccess().getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(stack), srv)
+                    : Optional.empty();
 
             if (recipeOpt.isPresent()) {
                 UUID id = itemEntity.getUUID();
@@ -71,7 +72,7 @@ public class AlchemyArrayEffectFurnace extends AlchemyArrayEffect {
                     }
 
                     if (hasLP) {
-                        ItemStack result = recipeOpt.get().value().getResultItem(level.registryAccess()).copy();
+                        ItemStack result = recipeOpt.get().value().assemble(new SingleRecipeInput(stack)).copy();
                         result.setCount(result.getCount() * stack.getCount());
 
                         itemEntity.discard();

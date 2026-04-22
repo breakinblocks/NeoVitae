@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.mojang.datafixers.util.Pair;
 
 public class RitualTinkererEntry extends EntryProvider {
@@ -26,7 +26,7 @@ public class RitualTinkererEntry extends EntryProvider {
         this.pageText("The [#](8B0000)Ritual Tinkerer[#]() is an essential instrument for the practitioner who demands mastery over their [#](4A0080)ritual circles[#](). It offers three modes of interaction, each granting deeper control. Cycle between them by pressing Sneak and Use.");
 
         this.page("crafting", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_reader")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual_reader")));
 
         this.page("modes", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

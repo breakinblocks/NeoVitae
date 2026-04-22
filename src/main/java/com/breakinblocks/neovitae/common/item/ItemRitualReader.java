@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,6 +19,8 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.*;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 /**
  * The Ritual Reader is used to configure ritual effect areas and settings.
@@ -32,8 +33,8 @@ public class ItemRitualReader extends Item {
 
     public static final String TOOLTIP_BASE = "tooltip.neovitae.reader.";
 
-    public ItemRitualReader() {
-        super(new Item.Properties()
+    public ItemRitualReader(Item.Properties props) {
+        super(props
                 .stacksTo(1)
                 .component(NVDataComponents.READER_STATE.get(), 0)
                 .component(NVDataComponents.READER_RANGE_KEY.get(), "")
@@ -107,8 +108,8 @@ public class ItemRitualReader extends Item {
 
         Ritual ritual = mrs.getCurrentRitual();
         if (ritual == null) {
-            player.displayClientMessage(
-                    Component.translatable("chat.neovitae.reader.noRitual").withStyle(ChatFormatting.RED), true);
+            player.sendOverlayMessage(
+                    Component.translatable("chat.neovitae.reader.noRitual").withStyle(ChatFormatting.RED));
             return InteractionResult.SUCCESS;
         }
 
@@ -138,9 +139,9 @@ public class ItemRitualReader extends Item {
                     case STEADFAST -> SpiritusType.DEFAULT;
                 };
                 mrs.setActiveWillConfig(nextType);
-                player.displayClientMessage(
+                player.sendOverlayMessage(
                         Component.translatable("chat.neovitae.reader.willType",
-                                Component.translatable("will.neovitae." + nextType.getSerializedName())), true);
+                                Component.translatable("will.neovitae." + nextType.getSerializedName())));
             }
         }
 
@@ -154,9 +155,9 @@ public class ItemRitualReader extends Item {
         if (state == EnumRitualReaderState.SET_AREA_CORNER_1) {
             setCorner1(stack, clickedPos);
             setState(stack, EnumRitualReaderState.SET_AREA_CORNER_2);
-            player.displayClientMessage(
+            player.sendOverlayMessage(
                     Component.translatable("chat.neovitae.reader.corner1Set",
-                            clickedPos.getX(), clickedPos.getY(), clickedPos.getZ()), true);
+                            clickedPos.getX(), clickedPos.getY(), clickedPos.getZ()));
             return InteractionResult.SUCCESS;
         }
 
@@ -167,16 +168,16 @@ public class ItemRitualReader extends Item {
 
             MasterRitualStoneBlockEntity mrs = findNearbyMasterRitualStone(level, corner1, corner2, player);
             if (mrs == null) {
-                player.displayClientMessage(
-                        Component.translatable("chat.neovitae.reader.noMRS").withStyle(ChatFormatting.RED), true);
+                player.sendOverlayMessage(
+                        Component.translatable("chat.neovitae.reader.noMRS").withStyle(ChatFormatting.RED));
                 setState(stack, EnumRitualReaderState.SET_AREA_CORNER_1);
                 return InteractionResult.SUCCESS;
             }
 
             Ritual ritual = mrs.getCurrentRitual();
             if (ritual == null) {
-                player.displayClientMessage(
-                        Component.translatable("chat.neovitae.reader.noRitual").withStyle(ChatFormatting.RED), true);
+                player.sendOverlayMessage(
+                        Component.translatable("chat.neovitae.reader.noRitual").withStyle(ChatFormatting.RED));
                 setState(stack, EnumRitualReaderState.SET_AREA_CORNER_1);
                 return InteractionResult.SUCCESS;
             }
@@ -187,8 +188,8 @@ public class ItemRitualReader extends Item {
 
             AreaDescriptor descriptor = ritual.getBlockRange(rangeKey);
             if (descriptor == null) {
-                player.displayClientMessage(
-                        Component.translatable("chat.neovitae.reader.invalidRange").withStyle(ChatFormatting.RED), true);
+                player.sendOverlayMessage(
+                        Component.translatable("chat.neovitae.reader.invalidRange").withStyle(ChatFormatting.RED));
                 setState(stack, EnumRitualReaderState.SET_AREA_CORNER_1);
                 return InteractionResult.SUCCESS;
             }
@@ -197,11 +198,11 @@ public class ItemRitualReader extends Item {
             if (result == EnumReaderBoundaries.SUCCESS) {
                 descriptor.modifyAreaByBlockPositions(offset1, offset2);
                 mrs.setBlockRange(rangeKey, descriptor);
-                player.displayClientMessage(
-                        Component.translatable("chat.neovitae.reader.areaSet", rangeKey), true);
+                player.sendOverlayMessage(
+                        Component.translatable("chat.neovitae.reader.areaSet", rangeKey));
             } else {
                 Component errorMsg = ritual.getErrorForBlockRangeOnFail(player, rangeKey, mrs, offset1, offset2);
-                player.displayClientMessage(errorMsg.copy().withStyle(ChatFormatting.RED), true);
+                player.sendOverlayMessage(errorMsg.copy().withStyle(ChatFormatting.RED));
             }
 
             setState(stack, EnumRitualReaderState.SET_AREA_CORNER_1);
@@ -212,15 +213,15 @@ public class ItemRitualReader extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         if (!level.isClientSide() && player.isShiftKeyDown()) {
             cycleRangeKey(stack, player);
-            return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+            return InteractionResult.SUCCESS;
         }
 
-        return new InteractionResultHolder<>(InteractionResult.PASS, stack);
+        return InteractionResult.PASS;
     }
 
 
@@ -228,18 +229,18 @@ public class ItemRitualReader extends Item {
         EnumRitualReaderState current = getState(stack);
         EnumRitualReaderState next = current.next();
         setState(stack, next);
-        player.displayClientMessage(
-                Component.translatable(TOOLTIP_BASE + "state." + next.getSerializedName()), true);
+        player.sendOverlayMessage(
+                Component.translatable(TOOLTIP_BASE + "state." + next.getSerializedName()));
     }
 
     private void cycleRangeKey(ItemStack stack, Player player) {
         String currentKey = getRangeKey(stack);
         if (currentKey.isEmpty()) {
-            player.displayClientMessage(
-                    Component.translatable("chat.neovitae.reader.noRangeSelected").withStyle(ChatFormatting.YELLOW), true);
+            player.sendOverlayMessage(
+                    Component.translatable("chat.neovitae.reader.noRangeSelected").withStyle(ChatFormatting.YELLOW));
         } else {
-            player.displayClientMessage(
-                    Component.translatable("chat.neovitae.reader.currentRange", currentKey), true);
+            player.sendOverlayMessage(
+                    Component.translatable("chat.neovitae.reader.currentRange", currentKey));
         }
     }
 
@@ -251,8 +252,8 @@ public class ItemRitualReader extends Item {
         setRangeKey(stack, nextKey);
 
         if (!nextKey.isEmpty()) {
-            player.displayClientMessage(
-                    Component.translatable("chat.neovitae.reader.rangeSelected", nextKey), true);
+            player.sendOverlayMessage(
+                    Component.translatable("chat.neovitae.reader.rangeSelected", nextKey));
         }
     }
 
@@ -277,23 +278,20 @@ public class ItemRitualReader extends Item {
 
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         EnumRitualReaderState state = getState(stack);
-        tooltip.add(Component.translatable(TOOLTIP_BASE + "currentState",
+        tooltip.accept(Component.translatable(TOOLTIP_BASE + "currentState",
                 Component.translatable(TOOLTIP_BASE + "state." + state.getSerializedName()))
                 .withStyle(ChatFormatting.GRAY));
 
         String rangeKey = getRangeKey(stack);
         if (!rangeKey.isEmpty()) {
-            tooltip.add(Component.translatable(TOOLTIP_BASE + "currentRange", rangeKey)
+            tooltip.accept(Component.translatable(TOOLTIP_BASE + "currentRange", rangeKey)
                     .withStyle(ChatFormatting.GRAY));
         }
 
-        tooltip.add(Component.empty());
-        tooltip.add(Component.translatable(TOOLTIP_BASE + "help.1").withStyle(ChatFormatting.BLUE));
-        tooltip.add(Component.translatable(TOOLTIP_BASE + "help.2").withStyle(ChatFormatting.BLUE));
-        tooltip.add(Component.translatable(TOOLTIP_BASE + "help.3").withStyle(ChatFormatting.BLUE));
-
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
+        tooltip.accept(Component.empty());
+        tooltip.accept(Component.translatable(TOOLTIP_BASE + "help.1").withStyle(ChatFormatting.BLUE));
+        tooltip.accept(Component.translatable(TOOLTIP_BASE + "help.2").withStyle(ChatFormatting.BLUE));
+        tooltip.accept(Component.translatable(TOOLTIP_BASE + "help.3").withStyle(ChatFormatting.BLUE));}
 }

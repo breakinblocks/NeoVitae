@@ -2,7 +2,7 @@ package com.breakinblocks.neovitae.client.render;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
 
@@ -80,7 +80,7 @@ public class NeoVitaeRenderer {
         public double minX, minY;
         public double maxX, maxY;
 
-        public ResourceLocation resource;
+        public Identifier resource;
 
         public double sizeX() {
             return maxX - minX;
@@ -90,7 +90,7 @@ public class NeoVitaeRenderer {
             return maxY - minY;
         }
 
-        public void setTexture(ResourceLocation resource) {
+        public void setTexture(Identifier resource) {
             this.resource = resource;
         }
     }

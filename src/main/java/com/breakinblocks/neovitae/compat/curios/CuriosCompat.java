@@ -2,7 +2,7 @@ package com.breakinblocks.neovitae.compat.curios;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -139,7 +139,7 @@ public class CuriosCompat {
             return 0;
         }
 
-        ResourceLocation modifierId = NeoVitae.rl("curios_socket_upgrade");
+        Identifier modifierId = NeoVitae.rl("curios_socket_upgrade");
 
         if (LivingHelper.hasFullSet(player)) {
             int curiosLevel = getCuriosSocketLevel(player);

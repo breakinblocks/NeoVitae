@@ -145,9 +145,9 @@ public class RitualEllipse extends Ritual {
         for (BlockPos offset : new BlockPos[]{
             pos.above(), pos.below(), pos.north(), pos.south(), pos.east(), pos.west()
         }) {
-            IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, offset, null);
-            if (handler != null) {
-                return handler;
+            var rh = level.getCapability(Capabilities.Item.BLOCK, offset, null);
+            if (rh != null) {
+                return IItemHandler.of(rh);
             }
         }
         return null;

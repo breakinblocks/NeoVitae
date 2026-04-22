@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.api.living;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -54,7 +54,7 @@ public interface ILivingArmorManager {
      * @param upgradeId The resource location of the upgrade
      * @return The upgrade level, or 0 if not present
      */
-    int getUpgradeLevel(Player player, ResourceLocation upgradeId);
+    int getUpgradeLevel(Player player, Identifier upgradeId);
 
     /**
      * Grants experience to a specific upgrade on the player's armor.
@@ -64,7 +64,7 @@ public interface ILivingArmorManager {
      * @param amount    The amount of experience to grant
      * @return true if experience was successfully granted
      */
-    boolean grantUpgradeExperience(Player player, ResourceLocation upgradeId, float amount);
+    boolean grantUpgradeExperience(Player player, Identifier upgradeId, float amount);
 
     /**
      * Gets the current experience for a specific upgrade.
@@ -73,7 +73,7 @@ public interface ILivingArmorManager {
      * @param upgradeId The resource location of the upgrade
      * @return Current experience amount, or 0 if upgrade not present
      */
-    float getUpgradeExperience(Player player, ResourceLocation upgradeId);
+    float getUpgradeExperience(Player player, Identifier upgradeId);
 
     /**
      * Gets the total upgrade points used by the player's armor.
@@ -120,6 +120,6 @@ public interface ILivingArmorManager {
      * @param experience Current experience accumulated
      * @param pointCost Point cost for the current level
      */
-    record UpgradeInfo(ResourceLocation upgradeId, int level, float experience, int pointCost) {
+    record UpgradeInfo(Identifier upgradeId, int level, float experience, int pointCost) {
     }
 }

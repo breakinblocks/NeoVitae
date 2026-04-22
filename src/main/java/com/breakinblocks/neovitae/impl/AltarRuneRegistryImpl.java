@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.impl;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.altar.rune.EnumAltarRuneType;
@@ -23,7 +23,7 @@ public class AltarRuneRegistryImpl implements IAltarRuneRegistry {
     public static final AltarRuneRegistryImpl INSTANCE = new AltarRuneRegistryImpl();
 
     // Thread-safe maps for runtime registration
-    private final Map<ResourceLocation, IAltarRuneType> runeTypesById = new ConcurrentHashMap<>();
+    private final Map<Identifier, IAltarRuneType> runeTypesById = new ConcurrentHashMap<>();
     private final Map<String, IAltarRuneType> runeTypesByName = new ConcurrentHashMap<>();
     private final Map<Block, Map<IAltarRuneType, Integer>> blockToRunes = new ConcurrentHashMap<>();
 
@@ -53,7 +53,7 @@ public class AltarRuneRegistryImpl implements IAltarRuneRegistry {
             return;
         }
 
-        ResourceLocation id = runeType.getId();
+        Identifier id = runeType.getId();
         if (runeTypesById.containsKey(id)) {
             throw new IllegalArgumentException("A rune type with ID '" + id + "' is already registered");
         }
@@ -72,7 +72,7 @@ public class AltarRuneRegistryImpl implements IAltarRuneRegistry {
 
     @Override
     @Nullable
-    public IAltarRuneType getRuneType(ResourceLocation id) {
+    public IAltarRuneType getRuneType(Identifier id) {
         return runeTypesById.get(id);
     }
 
@@ -88,7 +88,7 @@ public class AltarRuneRegistryImpl implements IAltarRuneRegistry {
     }
 
     @Override
-    public boolean isRegistered(ResourceLocation id) {
+    public boolean isRegistered(Identifier id) {
         return runeTypesById.containsKey(id);
     }
 

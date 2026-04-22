@@ -1,10 +1,10 @@
 package com.breakinblocks.neovitae.client.screen;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.widgets.MultiIconButton;
@@ -13,9 +13,7 @@ import com.breakinblocks.neovitae.common.menu.TrainerMenu;
 public class TrainerScreen extends AbstractGhostScreen<TrainerMenu> {
 
     public TrainerScreen(TrainerMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
-        this.imageWidth = 176;
-        this.imageHeight = 187;
+        super(menu, playerInventory, title, 176, 187);
         this.titleLabelX = 38;
     }
 
@@ -59,26 +57,20 @@ public class TrainerScreen extends AbstractGhostScreen<TrainerMenu> {
         return "" + getMenu().getData(3 + this.menu.getLastGhostSlotClicked());
     }
 
-    private static final ResourceLocation allow = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "container/trainer/allow_others");
-    private static final ResourceLocation deny = ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "container/trainer/deny_others");
+    private static final Identifier allow = Identifier.fromNamespaceAndPath(NeoVitae.MODID, "container/trainer/allow_others");
+    private static final Identifier deny = Identifier.fromNamespaceAndPath(NeoVitae.MODID, "container/trainer/deny_others");
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-        renderTooltip(guiGraphics, mouseX, mouseY);
-    }
-
-    @Override
-    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderLabels(guiGraphics, mouseX, mouseY);
+    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractLabels(guiGraphics, mouseX, mouseY);
         String level = getLevelString();
         if (!level.isEmpty()) {
             int xOff = -3 * level.length();
-            guiGraphics.drawString(this.font, Component.literal(level), 34 + xOff, 40, 0xFFFFFF /*4210752*/, false);
+            guiGraphics.text(this.font, Component.literal(level), 34 + xOff, 40, 0xFFFFFFFF);
         }
     }
 
     @Override
-    public ResourceLocation background() {
+    public Identifier background() {
         return NeoVitae.rl("textures/gui/container/training_bracelet.png");
     }
 }

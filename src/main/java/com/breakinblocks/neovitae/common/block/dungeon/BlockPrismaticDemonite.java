@@ -2,7 +2,7 @@ package com.breakinblocks.neovitae.common.block.dungeon;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.player.Player;
@@ -22,17 +22,18 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import net.minecraft.core.HolderSet;
 
 public class BlockPrismaticDemonite extends Block {
 
     private static final int DEPLETE_THRESHOLD = 20;
 
-    public BlockPrismaticDemonite() {
-        super(BlockBehaviour.Properties.of()
+    public BlockPrismaticDemonite(BlockBehaviour.Properties props) {
+        super(props
                 .strength(3.0F, 3.0F)
                 .sound(SoundType.STONE)
-                .requiresCorrectToolForDrops()
-        );
+                .requiresCorrectToolForDrops());
     }
 
     @Override
@@ -42,13 +43,13 @@ public class BlockPrismaticDemonite extends Block {
 
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide && !player.isCreative()) {
+        if (!level.isClientSide() && !player.isCreative()) {
             ItemStack drop = getRandomRawOre(level);
             if (!drop.isEmpty()) {
                 popResource(level, pos, drop);
             }
 
-            int roll = level.random.nextInt(100) + 1;
+            int roll = level.getRandom().nextInt(100) + 1;
             if (roll <= DEPLETE_THRESHOLD) {
                 level.setBlock(pos, DungeonBlocks.DUNGEON_STONE.get(DungeonVariant.RAW).block().get().defaultBlockState(), UPDATE_ALL);
             } else {
@@ -64,15 +65,15 @@ public class BlockPrismaticDemonite extends Block {
             String rawTag = mat.getRawTag();
             if (rawTag == null) continue;
 
-            ResourceLocation tagId = ResourceLocation.parse(rawTag);
+            Identifier tagId = Identifier.parse(rawTag);
             TagKey<Item> tag = TagKey.create(Registries.ITEM, tagId);
-            var holders = BuiltInRegistries.ITEM.getTag(tag);
+            var holders = Optional.<HolderSet.Named<Item>>empty();
             if (holders.isPresent()) {
                 holders.get().forEach(holder -> candidates.add(new ItemStack(holder.value())));
             }
         }
 
         if (candidates.isEmpty()) return ItemStack.EMPTY;
-        return candidates.get(level.random.nextInt(candidates.size())).copy();
+        return candidates.get(level.getRandom().nextInt(candidates.size())).copy();
     }
 }

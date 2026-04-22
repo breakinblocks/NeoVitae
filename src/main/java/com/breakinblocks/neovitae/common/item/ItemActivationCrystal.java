@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -14,32 +14,32 @@ import com.breakinblocks.neovitae.common.datacomponent.Binding;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class ItemActivationCrystal extends Item implements IBindable {
     private final CrystalType type;
 
-    public ItemActivationCrystal(CrystalType type) {
-        super(new Item.Properties().stacksTo(1).component(NVDataComponents.BINDING.get(), Binding.EMPTY));
+    public ItemActivationCrystal(Item.Properties props, CrystalType type) {
+        super(props.stacksTo(1).component(NVDataComponents.BINDING.get(), Binding.EMPTY));
         this.type = type;
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         if (player.isShiftKeyDown()) {
             player.swing(hand);
-            return InteractionResultHolder.success(stack);
+            return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
         }
 
-        return InteractionResultHolder.pass(stack);
+        return InteractionResult.PASS;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae.activationcrystal." + type.name().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GRAY));
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable("tooltip.neovitae.activationcrystal." + type.name().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GRAY));}
 
     public int getCrystalLevel(ItemStack stack) {
         return this.type.equals(CrystalType.CREATIVE) ? Integer.MAX_VALUE : type.ordinal() + 1;

@@ -28,6 +28,7 @@ import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
+import net.minecraft.world.entity.EntitySpawnReason;
 
 public class ImperfectRitualStoneBlockEntity extends BlockEntity implements IImperfectRitualStone {
 
@@ -84,7 +85,7 @@ public class ImperfectRitualStoneBlockEntity extends BlockEntity implements IImp
             if (world instanceof ServerLevel serverLevel) {
                 boolean showLightning = stats != null ? stats.lightningEffect() : imperfectRitual.isLightShow();
                 if (showLightning) {
-                    LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(serverLevel);
+                    LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(serverLevel, EntitySpawnReason.TRIGGERED);
                     if (lightning != null) {
                         lightning.setPos(pos.getX() + 0.5, pos.getY() + 2, pos.getZ() + 0.5);
                         lightning.setVisualOnly(true);

@@ -9,7 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class AuraGaugeEntry extends EntryProvider {
 
@@ -40,7 +40,7 @@ public class AuraGaugeEntry extends EntryProvider {
         this.pageText("See overleaf for an image of the gauge's spectral overlay.");
 
         this.page("hud_image", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/spiritus_aura_gauge.png"))
+                .withImages(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/spiritus_aura_gauge.png"))
                 .withTitle("Aura Gauge Overlay")
                 .withBorder(true));
 

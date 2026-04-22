@@ -28,7 +28,7 @@ public class AnimaTicket {
     }
 
     public static AnimaTicket block(Level level, BlockPos pos, int amount) {
-        return new AnimaTicket(Component.literal("block|" + level.dimension().location() + "|" + pos.asLong()), amount);
+        return new AnimaTicket(Component.literal("block|" + level.dimension().identifier() + "|" + pos.asLong()), amount);
     }
 
     public static AnimaTicket block(Level level, BlockPos pos) {
@@ -40,11 +40,11 @@ public class AnimaTicket {
     }
 
     public static AnimaTicket item(ItemStack stack, Level level, BlockPos pos, int amount) {
-        return new AnimaTicket(Component.literal("item|" + BuiltInRegistries.ITEM.getKey(stack.getItem()) + "|" + level.dimension().location() + "|" + pos.asLong()), amount);
+        return new AnimaTicket(Component.literal("item|" + BuiltInRegistries.ITEM.getKey(stack.getItem()) + "|" + level.dimension().identifier() + "|" + pos.asLong()), amount);
     }
 
     public static AnimaTicket item(ItemStack stack, Level level, Entity entity, int amount) {
-        return new AnimaTicket(Component.literal("item|" + BuiltInRegistries.ITEM.getKey(stack.getItem()) + "|" + level.dimension().location() + "|" + entity.getStringUUID()), amount);
+        return new AnimaTicket(Component.literal("item|" + BuiltInRegistries.ITEM.getKey(stack.getItem()) + "|" + level.dimension().identifier() + "|" + entity.getStringUUID()), amount);
     }
 
     public static AnimaTicket command(CommandSource sender, String command, int amount) {

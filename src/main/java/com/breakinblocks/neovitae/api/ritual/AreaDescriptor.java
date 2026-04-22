@@ -222,8 +222,8 @@ public abstract class AreaDescriptor {
 
         @Override
         public void loadFromNBT(CompoundTag tag) {
-            minimumOffset = new BlockPos(tag.getInt("minX"), tag.getInt("minY"), tag.getInt("minZ"));
-            maximumOffset = new BlockPos(tag.getInt("maxX"), tag.getInt("maxY"), tag.getInt("maxZ"));
+            minimumOffset = new BlockPos(tag.getIntOr("minX", 0), tag.getIntOr("minY", 0), tag.getIntOr("minZ", 0));
+            maximumOffset = new BlockPos(tag.getIntOr("maxX", 0), tag.getIntOr("maxY", 0), tag.getIntOr("maxZ", 0));
             resetCache();
         }
 
@@ -350,8 +350,8 @@ public abstract class AreaDescriptor {
 
         @Override
         public void loadFromNBT(CompoundTag tag) {
-            centerOffset = new BlockPos(tag.getInt("centerX"), tag.getInt("centerY"), tag.getInt("centerZ"));
-            radius = tag.getInt("radius");
+            centerOffset = new BlockPos(tag.getIntOr("centerX", 0), tag.getIntOr("centerY", 0), tag.getIntOr("centerZ", 0));
+            radius = tag.getIntOr("radius", 0);
             resetCache();
         }
 
@@ -475,9 +475,9 @@ public abstract class AreaDescriptor {
 
         @Override
         public void loadFromNBT(CompoundTag tag) {
-            centerOffset = new BlockPos(tag.getInt("centerX"), tag.getInt("centerY"), tag.getInt("centerZ"));
-            length = tag.getInt("length");
-            height = tag.getInt("height");
+            centerOffset = new BlockPos(tag.getIntOr("centerX", 0), tag.getIntOr("centerY", 0), tag.getIntOr("centerZ", 0));
+            length = tag.getIntOr("length", 0);
+            height = tag.getIntOr("height", 0);
             resetCache();
         }
 

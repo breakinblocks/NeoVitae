@@ -9,7 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.datagen.book.page.BookRitualInfoPageModel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.mojang.datafixers.util.Pair;
 
 public class RitualStandardDungeonEntry extends EntryProvider {
@@ -21,7 +21,7 @@ public class RitualStandardDungeonEntry extends EntryProvider {
     @Override
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
-                .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/standard_dungeon"))
+                .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/standard_dungeon"))
                 .withMultiblockName("Pathway to the Endless Realm")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");

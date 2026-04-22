@@ -2,11 +2,11 @@ package com.breakinblocks.neovitae.common.material;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackLocationInfo;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.metadata.MetadataSectionSerializer;
+import net.minecraft.server.packs.metadata.MetadataSectionType;
 import net.minecraft.server.packs.resources.IoSupplier;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +20,7 @@ public class InMemoryPack implements PackResources {
     private static final String PACK_META_JSON = "{\"pack\":{\"description\":\"NeoVitae Generated Materials\",\"pack_format\":34}}";
 
     private final PackLocationInfo locationInfo;
-    private final Map<PackType, Map<ResourceLocation, byte[]>> resources = new EnumMap<>(PackType.class);
+    private final Map<PackType, Map<Identifier, byte[]>> resources = new EnumMap<>(PackType.class);
 
     public InMemoryPack(PackLocationInfo locationInfo) {
         this.locationInfo = locationInfo;
@@ -29,7 +29,7 @@ public class InMemoryPack implements PackResources {
         }
     }
 
-    public void putJson(PackType type, ResourceLocation location, String json) {
+    public void putJson(PackType type, Identifier location, String json) {
         resources.get(type).put(location, json.getBytes(StandardCharsets.UTF_8));
     }
 
@@ -50,18 +50,21 @@ public class InMemoryPack implements PackResources {
 
     @Nullable
     @Override
-    public <T> T getMetadataSection(MetadataSectionSerializer<T> deserializer) {
+    public <T> T getMetadataSection(MetadataSectionType<T> type) {
         JsonObject root = JsonParser.parseString(PACK_META_JSON).getAsJsonObject();
-        String key = deserializer.getMetadataSectionName();
+        String key = type.name();
         if (root.has(key)) {
-            return deserializer.fromJson(root.getAsJsonObject(key));
+            return type.codec()
+                    .parse(com.mojang.serialization.JsonOps.INSTANCE, root.getAsJsonObject(key))
+                    .result()
+                    .orElse(null);
         }
         return null;
     }
 
     @Nullable
     @Override
-    public IoSupplier<InputStream> getResource(PackType packType, ResourceLocation location) {
+    public IoSupplier<InputStream> getResource(PackType packType, Identifier location) {
         byte[] data = resources.get(packType).get(location);
         if (data == null) return null;
         return () -> new ByteArrayInputStream(data);

@@ -7,6 +7,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.event.EventHooks;
+import net.minecraft.server.level.ServerLevel;
 
 public class FireFuseEffect extends MobEffect {
 
@@ -15,12 +16,8 @@ public class FireFuseEffect extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
-        if (entity.level().isClientSide) {
-            return true;
-        }
-
-        RandomSource random = entity.level().random;
+    public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity entity, int amplifier) {
+        RandomSource random = entity.level().getRandom();
         entity.level().addParticle(ParticleTypes.FLAME,
                 entity.getX() + random.nextDouble() * 0.3,
                 entity.getY() + random.nextDouble() * 0.3,
@@ -38,7 +35,7 @@ public class FireFuseEffect extends MobEffect {
 
         var effect = entity.getEffect(NVMobEffects.FIRE_FUSE);
         if (effect != null && effect.getDuration() <= 3) {
-            Level.ExplosionInteraction explosionMode = EventHooks.canEntityGrief(entity.level(), entity)
+            Level.ExplosionInteraction explosionMode = EventHooks.canEntityGrief(serverLevel, entity)
                     ? Level.ExplosionInteraction.TNT
                     : Level.ExplosionInteraction.NONE;
             entity.level().explode(null, entity.getX(), entity.getY(), entity.getZ(),

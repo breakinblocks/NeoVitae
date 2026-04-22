@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.entity.mob;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -32,12 +34,16 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.util.GeckoLibUtil;
+import java.util.UUID;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
 
@@ -69,6 +75,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private final ServerBossEvent bossBar = new ServerBossEvent(
+            UUID.randomUUID(),
             Component.translatable("entity.neovitae.daemonium_doloris"),
             BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.NOTCHED_10);
     private boolean isForeman = false;
@@ -134,13 +141,13 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
     public boolean isPhase2() { return getHealth() < getMaxHealth() * 0.5F; }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         if (!hasSpawned) return true;
         // Ghost howl: 40% chance to negate non-bypass damage
-        if (ghostTimer > 0 && !source.is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+        if (ghostTimer > 0 && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             if (random.nextFloat() < 0.4F) return true;
         }
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 
     public boolean isAttacking() { return attackAnimTimer > 0; }
@@ -179,7 +186,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
         }
 
         // Stance switching
-        if (!level().isClientSide && hasSpawned && !isAttacking()) {
+        if (!level().isClientSide() && hasSpawned && !isAttacking()) {
             if (--stanceSwitchTimer <= 0) {
                 stanceSwitchTimer = 60 + random.nextInt(60);
                 setRunning(random.nextFloat() < 0.3F);
@@ -194,9 +201,9 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
             }
         }
 
-        if (level().isClientSide) spawnAmbientParticles();
+        if (level().isClientSide()) spawnAmbientParticles();
 
-        if (!level().isClientSide && isForeman) {
+        if (!level().isClientSide() && isForeman) {
             bossBar.setProgress(getHealth() / getMaxHealth());
         }
     }
@@ -244,7 +251,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Combo 1 (basic melee) ----
     public void performCombo1(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_COMBO1);
         attackAnimTimer = 40;
         attackCooldown = 80;
@@ -254,7 +261,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Combo 2 (longer melee) ----
     public void performCombo2(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_COMBO2);
         attackAnimTimer = 52;
         attackCooldown = 100;
@@ -264,7 +271,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Combo 3 (P2 upward + spin, big knockback) ----
     public void performCombo3(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_COMBO3);
         attackAnimTimer = 50;
         attackCooldown = 100;
@@ -287,7 +294,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Leap Smash ----
     public void performLeap(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_LEAP);
         attackAnimTimer = 60;
         attackCooldown = 80;
@@ -302,7 +309,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
     }
 
     private void performSmashLanding() {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         float damage = (float) getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5F;
         if (isPhase2()) damage *= 1.33F;
 
@@ -330,7 +337,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
 
     // ---- Attack: Howl (P2 ghost phase) ----
     public void performHowl() {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         setAttackState(ATTACK_HOWL);
         attackAnimTimer = 66;
         attackCooldown = 60;
@@ -380,7 +387,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
 
     // ---- Sounds ----
     private void playSpawnSounds() {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         playLayeredSound(SoundEvents.HEAVY_CORE_PLACE, 1.0F, 0.8F);
         playLayeredSound(SoundEvents.POLAR_BEAR_AMBIENT, 0.8F, 0.6F);
     }
@@ -418,15 +425,15 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
     @Override
     public void die(DamageSource source) {
         playLayeredSound(SoundEvents.POLAR_BEAR_DEATH, 0.8F, 0.45F);
-        if (isForeman && !level().isClientSide) {
-            spawnAtLocation(new ItemStack(com.breakinblocks.neovitae.common.item.NVItems.MINE_ENTRANCE_KEY.get()));
+        if (isForeman && level() instanceof ServerLevel sl) {
+            spawnAtLocation(sl, new ItemStack(com.breakinblocks.neovitae.common.item.NVItems.MINE_ENTRANCE_KEY.get()));
             bossBar.removeAllPlayers();
         }
         super.die(source);
     }
 
     @Override
-    protected void playStepSound(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+    protected void playStepSound(BlockPos pos, BlockState state) {
         playLayeredSound(SoundEvents.ZOGLIN_STEP, 1.0F, isRunning() ? 0.4F : 0.6F);
     }
 
@@ -442,7 +449,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    protected void addAdditionalSaveData(ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("HasSpawned", hasSpawned);
         tag.putBoolean("IsRunning", isRunning());
@@ -451,19 +458,19 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    protected void readAdditionalSaveData(ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        hasSpawned = tag.getBoolean("HasSpawned");
+        hasSpawned = tag.getBooleanOr("HasSpawned", false);
         if (hasSpawned) spawnTimer = 50;
-        setRunning(tag.getBoolean("IsRunning"));
-        ghostTimer = tag.getInt("GhostTimer");
-        if (tag.getBoolean("IsForeman")) setForeman(true);
+        setRunning(tag.getBooleanOr("IsRunning", false));
+        ghostTimer = tag.getIntOr("GhostTimer", 0);
+        if (tag.getBooleanOr("IsForeman", false)) setForeman(true);
     }
 
     // ---- GeckoLib ----
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "body", 10, state -> {
+        controllers.add(new AnimationController<DaemoniumDolorisEntity>("body", 10, state -> {
             if (isDeadOrDying()) return state.setAndContinue(DEATH_ANIM);
             if (!hasSpawned) return state.setAndContinue(SPAWN_ANIM);
 

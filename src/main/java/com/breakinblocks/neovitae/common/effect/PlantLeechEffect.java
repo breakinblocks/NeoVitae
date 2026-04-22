@@ -10,9 +10,9 @@ public class PlantLeechEffect extends MobEffect {
         super(category, color);
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
-        if (entity.level().isClientSide) {
+        if (entity.level().isClientSide()) {
             for (int i = 0; i < 2; i++) {
                 double x = entity.getX() + (entity.getRandom().nextDouble() - 0.5) * 0.8;
                 double y = entity.getY() + entity.getRandom().nextDouble() * entity.getBbHeight();

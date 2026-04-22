@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity.base;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -27,15 +30,15 @@ public abstract class TickingBlockEntity extends BaseBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        this.ticksExisted = tag.getInt("ticksExisted");
-        this.shouldTick = tag.getBoolean("shouldTick");
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        this.ticksExisted = tag.getIntOr("ticksExisted", 0);
+        this.shouldTick = tag.getBooleanOr("shouldTick", false);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         tag.putInt("ticksExisted", getTicksExisted());
         tag.putBoolean("shouldTick", shouldTick());
     }

@@ -1,9 +1,10 @@
 package com.breakinblocks.neovitae.client.screen;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -25,10 +26,8 @@ public class DungeonSealScreen extends AbstractContainerScreen<DungeonSealMenu> 
     private final List<KeyButton> keyButtons = new ArrayList<>();
 
     public DungeonSealScreen(DungeonSealMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
-        int validCount = Integer.bitCount(menu.getValidKeyMask());
-        this.imageWidth = PANEL_WIDTH;
-        this.imageHeight = TITLE_HEIGHT + validCount * BUTTON_SPACING + PADDING;
+        super(menu, playerInventory, title, PANEL_WIDTH,
+                TITLE_HEIGHT + Integer.bitCount(menu.getValidKeyMask()) * BUTTON_SPACING + PADDING);
     }
 
     @Override
@@ -43,7 +42,7 @@ public class DungeonSealScreen extends AbstractContainerScreen<DungeonSealMenu> 
             final int keyIndex = i;
             ItemDungeonKey keyItem = DungeonSealMenu.KEY_TYPES.get(i).get();
             Button btn = Button.builder(
-                    Component.literal(keyItem.getKeyType() + " Key"),
+                    Component.translatable("gui.neovitae.dungeon_seal.key_name", keyItem.getKeyType()),
                     button -> {
                         Minecraft.getInstance().gameMode.handleInventoryButtonClick(menu.containerId, keyIndex);
                     }
@@ -64,12 +63,7 @@ public class DungeonSealScreen extends AbstractContainerScreen<DungeonSealMenu> 
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-    }
-
-    @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         guiGraphics.fill(leftPos, topPos, leftPos + imageWidth, topPos + imageHeight, 0xCC1A0A0A);
         guiGraphics.fill(leftPos + 1, topPos + 1, leftPos + imageWidth - 1, topPos + imageHeight - 1, 0xCC2A1520);
 
@@ -81,24 +75,25 @@ public class DungeonSealScreen extends AbstractContainerScreen<DungeonSealMenu> 
     }
 
     @Override
-    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        guiGraphics.drawCenteredString(this.font,
-                Component.translatable("container.neovitae.dungeon_seal"),
-                imageWidth / 2, 8, 0xCCA05050);
+    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        Component titleComponent = Component.translatable("container.neovitae.dungeon_seal");
+        int titleWidth = this.font.width(titleComponent);
+        guiGraphics.text(this.font, titleComponent,
+                (imageWidth - titleWidth) / 2, 8, 0xFFA05050);
 
         for (KeyButton kb : keyButtons) {
             int relX = kb.button.getX() - leftPos;
             int relY = kb.button.getY() - topPos;
 
             // Key icon
-            guiGraphics.renderItem(kb.stack, relX + 3, relY + 4);
+            guiGraphics.item(kb.stack, relX + 3, relY + 4);
 
             // Key count
             int count = menu.getKeyCount(kb.keyIndex);
             String countStr = "x" + count;
-            int countColor = count > 0 ? 0xFFFFFF : 0x808080;
-            guiGraphics.drawString(this.font, countStr,
-                    relX + BUTTON_WIDTH - font.width(countStr) - 6, relY + 8, countColor, false);
+            int countColor = count > 0 ? 0xFFFFFFFF : 0xFF808080;
+            guiGraphics.text(this.font, countStr,
+                    relX + BUTTON_WIDTH - font.width(countStr) - 6, relY + 8, countColor);
         }
     }
 

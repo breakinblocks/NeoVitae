@@ -6,7 +6,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datamap.SigilStats;
@@ -71,7 +71,7 @@ public class SigilStatsProvider implements DataProvider {
     }
 
     protected void add(Supplier<? extends Item> item, SigilStats stats) {
-        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(item.get());
+        Identifier itemId = BuiltInRegistries.ITEM.getKey(item.get());
         entries.add(new SigilEntry(itemId, stats));
     }
 
@@ -126,5 +126,5 @@ public class SigilStatsProvider implements DataProvider {
         return "NeoVitae Sigil Stats";
     }
 
-    private record SigilEntry(ResourceLocation itemId, SigilStats stats) {}
+    private record SigilEntry(Identifier itemId, SigilStats stats) {}
 }

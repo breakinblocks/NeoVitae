@@ -35,7 +35,7 @@ public class RitualJumping extends Ritual {
 
         int cost = 0;
         for (Player player : players) {
-            player.addEffect(new MobEffectInstance(MobEffects.JUMP, 100, 1, true, false));
+            player.addEffect(new MobEffectInstance(MobEffects.JUMP_BOOST, 100, 1, true, false));
             cost += getRefreshCost();
             RitualHelper.chanceStream(ctx.level(), 20, () ->
                     StreamPresets.arcaneBolt(ctx.masterPos(), player.blockPosition()).build()

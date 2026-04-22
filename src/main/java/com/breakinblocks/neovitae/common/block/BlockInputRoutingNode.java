@@ -37,12 +37,12 @@ public class BlockInputRoutingNode extends BlockRoutingNode {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos,
                                                 Player player, BlockHitResult hitResult) {
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             BlockEntity tile = level.getBlockEntity(pos);
             if (tile instanceof InputRoutingNodeBlockEntity menuProvider) {
                 serverPlayer.openMenu(menuProvider, buf -> buf.writeBlockPos(pos));
             }
         }
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.SUCCESS;
     }
 }

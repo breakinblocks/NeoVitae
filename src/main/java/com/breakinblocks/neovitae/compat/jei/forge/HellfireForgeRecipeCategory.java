@@ -12,7 +12,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.util.List;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
 
@@ -78,15 +79,15 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
     }
 
     @Override
-    public void draw(ForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(ForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
 
         var poseStack = guiGraphics.pose();
-        poseStack.pushPose();
-        poseStack.translate(40, 33, 0);
-        poseStack.scale(0.5f, 0.5f, 1f);
-        guiGraphics.drawString(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.will"), 0, 0, 0x8b8b8b, false);
-        poseStack.popPose();
+        poseStack.pushMatrix();
+        poseStack.translate(40, 33);
+        poseStack.scale(0.5f, 0.5f);
+        guiGraphics.text(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.will"), 0, 0, 0x8b8b8b);
+        poseStack.popMatrix();
     }
 
     @Override
@@ -97,13 +98,13 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
                 validGems.add(will.willStack);
             }
         }
-        IRecipeSlotBuilder gems = builder.addSlot(RecipeIngredientRole.CATALYST, 43, 1);
+        IRecipeSlotBuilder gems = builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 43, 1);
         gems.addItemStacks(validGems);
 
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 74, 14);
         output.addItemStack(recipe.getOutput());
 
-        List<? extends net.minecraft.world.item.crafting.Ingredient> inputs = recipe.getCraftingIngredients();
+        List<? extends Ingredient> inputs = recipe.getCraftingIngredients();
         for (int index = 0; index < inputs.size(); index++) {
             int x = index % 2;
             int y = index / 2;

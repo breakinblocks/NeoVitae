@@ -8,8 +8,10 @@ import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
 import com.klikli_dev.modonomicon.book.page.BookPage;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.Level;
 
 public class BookRitualInfoPage extends BookPage {
 
@@ -22,16 +24,16 @@ public class BookRitualInfoPage extends BookPage {
         this.text = text;
     }
 
-    public static BookRitualInfoPage fromJson(JsonObject json, HolderLookup.Provider provider) {
+    public static BookRitualInfoPage fromJson(Identifier id, JsonObject json, HolderLookup.Provider provider) {
         var title = json.has("title")
-                ? new BookTextHolder(net.minecraft.network.chat.Component.translatable(GsonHelper.getAsString(json, "title")))
+                ? new BookTextHolder(Component.translatable(GsonHelper.getAsString(json, "title")))
                 : BookTextHolder.EMPTY;
         var text = json.has("text")
                 ? new BookTextHolder(GsonHelper.getAsString(json, "text"))
                 : BookTextHolder.EMPTY;
         var anchor = GsonHelper.getAsString(json, "anchor", "");
         var condition = json.has("condition")
-                ? BookCondition.fromJson(json.getAsJsonObject("condition"), provider)
+                ? BookCondition.fromJson(id, json.getAsJsonObject("condition"), provider)
                 : new BookNoneCondition();
         return new BookRitualInfoPage(title, text, anchor, condition);
     }
@@ -76,12 +78,12 @@ public class BookRitualInfoPage extends BookPage {
     }
 
     @Override
-    public ResourceLocation getType() {
+    public Identifier getType() {
         return NVPageTypes.RITUAL_INFO;
     }
 
     @Override
-    public boolean matchesQuery(String query) {
+    public boolean matchesQuery(String query, Level level) {
         return false;
     }
 }

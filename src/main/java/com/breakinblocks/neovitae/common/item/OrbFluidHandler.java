@@ -58,7 +58,7 @@ public class OrbFluidHandler implements IFluidHandlerItem {
     }
 
     public static int getOrbFluidCapacity(ItemStack stack) {
-        BloodOrb orb = stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
+        BloodOrb orb = stack.typeHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
         if (orb == null) return 0;
         return orb.fluidCapacity();
     }

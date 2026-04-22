@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.entity.projectile;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
@@ -12,6 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipeHelper;
+import net.minecraft.network.syncher.SynchedEntityData;
 
 /**
  * Meteor entity that falls from the sky and spawns blocks based on meteor recipes.
@@ -26,7 +29,8 @@ public class EntityMeteor extends ThrowableProjectile {
     }
 
     public EntityMeteor(Level level, LivingEntity thrower) {
-        super(NVEntities.METEOR.get(), thrower, level);
+        super(NVEntities.METEOR.get(), thrower.getX(), thrower.getEyeY() - 0.1, thrower.getZ(), level);
+        this.setOwner(thrower);
     }
 
     public EntityMeteor(Level level, double x, double y, double z) {
@@ -42,20 +46,17 @@ public class EntityMeteor extends ThrowableProjectile {
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag compound) {
+    protected void addAdditionalSaveData(ValueOutput compound) {
         super.addAdditionalSaveData(compound);
         if (!containedStack.isEmpty()) {
-            compound.put("item", containedStack.save(level().registryAccess()));
+            compound.store("item", ItemStack.CODEC, containedStack);
         }
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag compound) {
+    protected void readAdditionalSaveData(ValueInput compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("item")) {
-            containedStack = ItemStack.parse(level().registryAccess(), compound.getCompound("item"))
-                    .orElse(ItemStack.EMPTY);
-        }
+        containedStack = compound.read("item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class EntityMeteor extends ThrowableProjectile {
 
     @Override
     protected void onInsideBlock(BlockState state) {
-        if (level().isClientSide) {
+        if (level().isClientSide()) {
             return;
         }
 
@@ -87,7 +88,7 @@ public class EntityMeteor extends ThrowableProjectile {
     }
 
     @Override
-    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
     }
 
     @Override

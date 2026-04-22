@@ -45,7 +45,10 @@ public interface UpgradeHolderBase extends IItemExtension, IUpgradeHolder {
         return LivingHelper.hasFullSet(player) && LivingHelper.has(player, LivingEffectComponents.GILDED.get());
     }
 
-    @Override
+    // canElytraFly / elytraFlightTick / isEnderMask were IItemExtension hooks in 21.1 that
+    // moved to the EquipmentAsset system in 26.1. These methods are retained as regular
+    // helpers and invoked from the Living Armor event handlers; they are no longer auto-wired
+    // by the item extension framework.
     default boolean canElytraFly(ItemStack stack, LivingEntity wearer) {
         if (!(wearer instanceof Player player)) {
             return false;
@@ -53,9 +56,8 @@ public interface UpgradeHolderBase extends IItemExtension, IUpgradeHolder {
         return LivingHelper.hasFullSet(player) && LivingHelper.has(player, LivingEffectComponents.ELYTRA.get());
     }
 
-    @Override
     default boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks) {
-        if (!entity.level().isClientSide) {
+        if (!entity.level().isClientSide()) {
             int nextFlightTick = flightTicks + 1;
             if (nextFlightTick % 10 == 0) {
                 // Scale damage interval based on upgrade level - higher levels take damage less often
@@ -79,7 +81,6 @@ public interface UpgradeHolderBase extends IItemExtension, IUpgradeHolder {
         return LivingHelper.hasFullSet(player) && LivingHelper.has(player, LivingEffectComponents.WALK_ON_POWDERED_SNOW.get());
     }
 
-    @Override
     default boolean isEnderMask(ItemStack stack, Player player, EnderMan endermanEntity) {
         return LivingHelper.hasFullSet(player) && LivingHelper.has(player, LivingEffectComponents.IS_ENDER_MASK.get());
     }

@@ -1,9 +1,9 @@
 package com.breakinblocks.neovitae.util.helper;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.saveddata.SavedData.Factory;
-import net.minecraft.world.level.storage.DimensionDataStorage;
+import net.minecraft.world.level.storage.SavedDataStorage;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
@@ -31,24 +31,26 @@ public class AnimaHelper {
         DUNGEON_SD_INSTANCE = null;
     }
 
+    @Nullable
     private static NVSavedData getSavedData() {
         if (SD_INSTANCE == null) {
-            if (ServerLifecycleHooks.getCurrentServer() == null)
+            MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+            if (server == null)
                 return null;
-
-            DimensionDataStorage dimData = ServerLifecycleHooks.getCurrentServer().overworld().getDataStorage();
-            SD_INSTANCE = dimData.computeIfAbsent(new Factory<>(NVSavedData::new, NVSavedData::load), NVSavedData.ID);
+            SavedDataStorage dimData = server.overworld().getDataStorage();
+            SD_INSTANCE = dimData.computeIfAbsent(NVSavedData.TYPE);
         }
         return SD_INSTANCE;
     }
 
+    @Nullable
     private static DungeonSavedData getDungeonSavedData() {
         if (DUNGEON_SD_INSTANCE == null) {
-            if (ServerLifecycleHooks.getCurrentServer() == null)
+            MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+            if (server == null)
                 return null;
-
-            DimensionDataStorage dimData = ServerLifecycleHooks.getCurrentServer().overworld().getDataStorage();
-            DUNGEON_SD_INSTANCE = dimData.computeIfAbsent(new Factory<>(DungeonSavedData::new, DungeonSavedData::load), DungeonSavedData.ID);
+            SavedDataStorage dimData = server.overworld().getDataStorage();
+            DUNGEON_SD_INSTANCE = dimData.computeIfAbsent(DungeonSavedData.TYPE);
         }
         return DUNGEON_SD_INSTANCE;
     }
@@ -57,7 +59,6 @@ public class AnimaHelper {
         NVSavedData savedData = getSavedData();
         if (savedData == null)
             return null;
-
         return savedData.getNetwork(uuid);
     }
 
@@ -78,7 +79,6 @@ public class AnimaHelper {
         DungeonSavedData savedData = getDungeonSavedData();
         if (savedData == null)
             return null;
-
         return savedData.getNextDungeonSpawnPosition();
     }
 
@@ -93,7 +93,6 @@ public class AnimaHelper {
         DungeonSavedData savedData = getDungeonSavedData();
         if (savedData == null)
             return 0;
-
         return savedData.getNumberOfDungeons();
     }
 }

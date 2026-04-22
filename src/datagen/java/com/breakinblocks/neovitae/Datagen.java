@@ -5,10 +5,8 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraft.server.packs.PackType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.datagen.content.AltarTiers;
@@ -28,10 +26,9 @@ import java.util.concurrent.CompletableFuture;
 public class Datagen {
 
     @SubscribeEvent
-    public static void gatherData(GatherDataEvent event) {
+    public static void gatherData(GatherDataEvent.Client event) {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
-        ExistingFileHelper fileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
 
         var langProvider = new NVLanguageProvider(output);
@@ -43,18 +40,18 @@ public class Datagen {
             .add(SigilTypeRegistry.SIGIL_TYPE_KEY, SigilTypes::bootstrap)
         );
 
-        ProviderHelper helper = new ProviderHelper(fileHelper);
+        ProviderHelper helper = new ProviderHelper();
 
         event.createProvider(helper.tagsFor(NVRegistries.Keys.ALTAR_TIER_KEY, AltarTiers::tags));
         event.createProvider(helper.tagsFor(NVRegistries.Keys.LIVING_UPGRADES, LivingUpgrades::tags));
         event.createProvider(helper.tagsFor(Registries.DAMAGE_TYPE, NVDamageSourcesContent::tags));
         event.createBlockAndItemTags(NVBlockTagProvider::new, NVItemTagProvider::new);
 
-        generator.addProvider(true, new NVItemModelProvider(output, fileHelper));
-        generator.addProvider(true, new NVBlockStateProvider(output, fileHelper));
-        generator.addProvider(true, new NVFluidTagProvider(output, provider, fileHelper));
-        generator.addProvider(true, new NVEntityTagProvider(output, provider, fileHelper));
-        generator.addProvider(true, new NVSpriteSourceProvider(output, provider, fileHelper));
+        event.createProvider(NVItemModelProvider::new);
+        event.createProvider(NVBlockStateProvider::new);
+        event.createProvider(NVFluidTagProvider::new);
+        event.createProvider(NVEntityTagProvider::new);
+        event.createProvider(NVSpriteSourceProvider::new);
         generator.addProvider(true, new DungeonRoomProvider(output));
 
         event.createProvider(NVDataMapProvider::new);
@@ -62,9 +59,9 @@ public class Datagen {
         event.createProvider(RitualStatsProvider::new);
         event.createProvider(ImperfectRitualStatsProvider::new);
         event.createProvider(NVLootTableProvider::new);
-        event.createProvider(NVRecipeProvider::new);
+        event.createProvider(NVRecipeProvider.Runner::new);
 
-        generator.addProvider(true, new NVAdvancementProvider(output, provider, fileHelper));
+        event.createProvider(NVAdvancementProvider::new);
         generator.addProvider(true, new NVModonomiconMultiblockProvider(output));
         generator.addProvider(true, new BookProvider(
                 output, provider, NeoVitae.MODID,

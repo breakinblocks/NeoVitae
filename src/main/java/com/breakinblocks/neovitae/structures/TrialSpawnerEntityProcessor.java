@@ -53,27 +53,24 @@ public class TrialSpawnerEntityProcessor extends StructureProcessor {
 
     private boolean replaceInSpawnData(CompoundTag root) {
         if (!root.contains("spawn_data")) return false;
-        CompoundTag spawnData = root.getCompound("spawn_data");
+        CompoundTag spawnData = root.getCompoundOrEmpty("spawn_data");
         if (!spawnData.contains("entity")) return false;
-        CompoundTag entity = spawnData.getCompound("entity");
+        CompoundTag entity = spawnData.getCompoundOrEmpty("entity");
         return replaceEntityId(entity);
     }
 
     private boolean replaceInConfig(CompoundTag root, String configKey) {
         if (!root.contains(configKey)) return false;
-        CompoundTag config = root.getCompound(configKey);
+        CompoundTag config = root.getCompoundOrEmpty(configKey);
         boolean modified = false;
 
-        if (config.contains("spawn_potentials")) {
-            ListTag potentials = config.getList("spawn_potentials", 10);
-            for (int i = 0; i < potentials.size(); i++) {
-                CompoundTag potential = potentials.getCompound(i);
-                if (potential.contains("data")) {
-                    CompoundTag data = potential.getCompound("data");
-                    if (data.contains("entity")) {
-                        modified |= replaceEntityId(data.getCompound("entity"));
-                    }
-                }
+        ListTag potentials = config.getListOrEmpty("spawn_potentials");
+        for (int i = 0; i < potentials.size(); i++) {
+            CompoundTag potential = potentials.getCompoundOrEmpty(i);
+            CompoundTag data = potential.getCompoundOrEmpty("data");
+            CompoundTag entityTag = data.getCompoundOrEmpty("entity");
+            if (!entityTag.isEmpty()) {
+                modified |= replaceEntityId(entityTag);
             }
         }
 
@@ -85,9 +82,9 @@ public class TrialSpawnerEntityProcessor extends StructureProcessor {
     }
 
     private boolean replaceEntityId(CompoundTag entityTag) {
-        if (!entityTag.contains("id")) return false;
-        if (entityTag.getBoolean("IsForeman")) return false;
-        String id = entityTag.getString("id");
+        if (entityTag.getBooleanOr("IsForeman", false)) return false;
+        String id = entityTag.getStringOr("id", "");
+        if (id.isEmpty()) return false;
         String replacement = REPLACEMENTS.get(id);
         if (replacement != null) {
             entityTag.putString("id", replacement);

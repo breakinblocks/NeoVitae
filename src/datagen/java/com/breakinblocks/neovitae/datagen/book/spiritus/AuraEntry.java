@@ -9,7 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class AuraEntry extends EntryProvider {
 
@@ -37,7 +37,7 @@ public class AuraEntry extends EntryProvider {
                 + "form or from a gem is consumed gradually as needed.");
 
         this.page("crucible_image", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/vas_maleficum.png"))
+                .withImages(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/vas_maleficum.png"))
                 .withTitle("Vas Maleficum")
                 .withBorder(true)
                 .withText(this.context().pageText()));

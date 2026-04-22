@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.api.registry;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.breakinblocks.neovitae.api.ritual.IImperfectRitual;
 import com.breakinblocks.neovitae.api.ritual.IRitual;
 import com.breakinblocks.neovitae.api.sigil.ISigilEffect;
@@ -46,14 +46,14 @@ public final class NeoVitaeRegistries {
      * Rituals are multiblock structures that provide ongoing effects.
      */
     public static final ResourceKey<Registry<IRitual>> RITUAL_KEY =
-            ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(NEOVITAE_NAMESPACE, "ritual"));
+            ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(NEOVITAE_NAMESPACE, "ritual"));
 
     /**
      * Registry key for imperfect rituals.
      * Imperfect rituals are simpler one-time effects triggered by placing a block.
      */
     public static final ResourceKey<Registry<IImperfectRitual>> IMPERFECT_RITUAL_KEY =
-            ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(NEOVITAE_NAMESPACE, "imperfect_ritual"));
+            ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(NEOVITAE_NAMESPACE, "imperfect_ritual"));
 
     /**
      * Registry key for sigil effect types.
@@ -63,5 +63,5 @@ public final class NeoVitaeRegistries {
      * to add custom sigil behaviors.</p>
      */
     public static final ResourceKey<Registry<MapCodec<? extends ISigilEffect>>> SIGIL_EFFECT_TYPE_KEY =
-            ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(NEOVITAE_NAMESPACE, "sigil_effect_type"));
+            ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(NEOVITAE_NAMESPACE, "sigil_effect_type"));
 }

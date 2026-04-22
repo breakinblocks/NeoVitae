@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.common.recipe.meteor;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
@@ -15,8 +16,9 @@ public class MeteorRecipeHelper {
         }
 
         MeteorInput input = new MeteorInput(catalyst);
-        Optional<RecipeHolder<MeteorRecipe>> result = level.getRecipeManager()
-                .getRecipeFor(NVRecipes.METEOR_TYPE.get(), input, level);
+        Optional<RecipeHolder<MeteorRecipe>> result = level instanceof ServerLevel serverLevel
+                ? serverLevel.recipeAccess().getRecipeFor(NVRecipes.METEOR_TYPE.get(), input, serverLevel)
+                : Optional.empty();
 
         return result.map(RecipeHolder::value).orElse(null);
     }

@@ -20,6 +20,7 @@ import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.item.crafting.Recipe;
 
 /**
  * Recipe that transforms the flask item itself (e.g., regular flask to splash flask).
@@ -28,7 +29,7 @@ import java.util.List;
 public class FlaskItemTransformRecipe extends FlaskRecipe {
 
     public static final MapCodec<FlaskItemTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.listOf().fieldOf("input").forGetter(FlaskItemTransformRecipe::getInput),
+            Ingredient.CODEC.listOf().fieldOf("input").forGetter(FlaskItemTransformRecipe::getInput),
             ItemStack.CODEC.fieldOf("output").forGetter(FlaskItemTransformRecipe::getOutputItem),
             Codec.INT.fieldOf("syphon").forGetter(FlaskItemTransformRecipe::getSyphon),
             Codec.INT.fieldOf("ticks").forGetter(FlaskItemTransformRecipe::getTicks),
@@ -96,12 +97,12 @@ public class FlaskItemTransformRecipe extends FlaskRecipe {
     @Override
     public List<EffectHolder> getExampleEffects() {
         List<EffectHolder> effects = new ArrayList<>();
-        effects.add(EffectHolder.create(MobEffects.MOVEMENT_SPEED, 3600, 0));
+        effects.add(EffectHolder.create(MobEffects.SPEED, 3600, 0));
         return effects;
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<FlaskInput>> getSerializer() {
         return NVRecipes.FLASK_ITEM_TRANSFORM_SERIALIZER.get();
     }
 }

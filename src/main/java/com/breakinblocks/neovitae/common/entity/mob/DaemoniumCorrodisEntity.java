@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.common.entity.mob;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -29,12 +31,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.util.GeckoLibUtil;
+import net.minecraft.world.entity.Entity;
 
 public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
 
@@ -115,16 +118,16 @@ public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(ServerLevel level, DamageSource source) {
         if (!hasSpawned) {
             return true;
         }
-        return super.isInvulnerableTo(source);
+        return super.isInvulnerableTo(level, source);
     }
 
     @Override
-    public boolean doHurtTarget(net.minecraft.world.entity.Entity target) {
-        boolean hit = super.doHurtTarget(target);
+    public boolean doHurtTarget(ServerLevel serverLevel, Entity target) {
+        boolean hit = super.doHurtTarget(serverLevel, target);
         if (hit && target instanceof LivingEntity living) {
             living.addEffect(new MobEffectInstance(MobEffects.WITHER, WITHER_DURATION, WITHER_LEVEL));
         }
@@ -178,7 +181,7 @@ public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
             }
         }
 
-        if (level().isClientSide) {
+        if (level().isClientSide()) {
             spawnAmbientParticles();
         }
     }
@@ -207,7 +210,7 @@ public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
     // ---- Attack 1: Single forward sweep ----
 
     public void performSweepAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
 
         setAttackState(ATTACK_SWEEP);
         attackAnimTimer = 15;
@@ -235,7 +238,7 @@ public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
     // ---- Attack 2: Double forward sweep ----
 
     public void performDoubleAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
 
         setAttackState(ATTACK_DOUBLE);
         attackAnimTimer = 15;
@@ -267,7 +270,7 @@ public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
     // ---- Attack 3: Two-phase AoE slam ----
 
     public void performSlamAttack(LivingEntity target) {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
 
         setAttackState(ATTACK_SLAM);
         attackAnimTimer = 25;
@@ -296,7 +299,7 @@ public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
     }
 
     private void performSlamPhase2() {
-        if (level().isClientSide || slamOrigin == null) return;
+        if (level().isClientSide() || slamOrigin == null) return;
 
         float damage = (float) getAttributeValue(Attributes.ATTACK_DAMAGE);
 
@@ -358,7 +361,7 @@ public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
     // ---- Sounds ----
 
     private void playSpawnSounds() {
-        if (level().isClientSide) return;
+        if (level().isClientSide()) return;
         playLayeredSound(SoundEvents.HEAVY_CORE_PLACE, 1.0F, 1.0F);
         playLayeredSound(SoundEvents.ARMOR_EQUIP_IRON.value(), 1.0F, 0.69F);
         playLayeredSound(SoundEvents.WITHER_SKELETON_DEATH, 1.0F, 0.80F);
@@ -422,15 +425,15 @@ public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    protected void addAdditionalSaveData(ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("HasSpawned", hasSpawned);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    protected void readAdditionalSaveData(ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        hasSpawned = tag.getBoolean("HasSpawned");
+        hasSpawned = tag.getBooleanOr("HasSpawned", false);
         if (hasSpawned) {
             spawnTimer = 50;
         }
@@ -440,7 +443,7 @@ public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "body", 10, state -> {
+        controllers.add(new AnimationController<DaemoniumCorrodisEntity>("body", 10, state -> {
             if (isDeadOrDying()) {
                 return state.setAndContinue(DEATH_ANIM);
             }

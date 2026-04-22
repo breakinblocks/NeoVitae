@@ -1,58 +1,48 @@
 package com.breakinblocks.neovitae.common.item.potion;
 
-import net.minecraft.client.color.item.ItemColor;
-import net.minecraft.world.item.ItemStack;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.client.color.item.ItemTintSource;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 /**
- * Tints the flask texture based on its effects.
- * Single-effect flasks show one solid color.
- * Multi-effect flasks split the color: bottom half shows the first effect,
- * top half shows the second effect.
+ * Tints the flask texture based on its effects. Registered via
+ * {@code RegisterColorHandlersEvent.ItemTintSources}. Each JSON tint entry declares its
+ * target layer (0 = bottom, 1 = top) so a two-layer flask model needs two tint entries.
  */
-public class FlaskColor implements ItemColor {
+public record FlaskColor(int layer) implements ItemTintSource {
 
-    private static final int DEFAULT_COLOR = 0xFF385DC6;
+    public static final Identifier ID = Identifier.fromNamespaceAndPath(NeoVitae.MODID, "flask");
+    public static final int DEFAULT_COLOR = 0xFF385DC6;
+
+    public static final MapCodec<FlaskColor> MAP_CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
+            Codec.INT.fieldOf("layer").forGetter(FlaskColor::layer)
+    ).apply(inst, FlaskColor::new));
 
     @Override
-    public int getColor(ItemStack stack, int layer) {
-        if (layer == 0) {
-            return getBottomColor(stack);
-        }
-        if (layer == 1) {
-            return getTopColor(stack);
-        }
-        return 0xFFFFFFFF;
-    }
-
-    private int getBottomColor(ItemStack stack) {
+    public int calculate(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity) {
         FlaskEffects effects = stack.get(NVDataComponents.FLASK_EFFECTS.get());
         if (effects == null || effects.effects().isEmpty()) {
             return DEFAULT_COLOR;
         }
         List<EffectHolder> holders = effects.effects();
-        if (holders.size() == 1) {
-            return 0xFF000000 | holders.get(0).effect().value().getColor();
-        }
-        // Bottom half shows the first effect color
-        return 0xFF000000 | holders.get(0).effect().value().getColor();
+        int holderIndex = holders.size() >= 2 && layer == 1 ? 1 : 0;
+        return 0xFF000000 | holders.get(holderIndex).effect().value().getColor();
     }
 
-    private int getTopColor(ItemStack stack) {
-        FlaskEffects effects = stack.get(NVDataComponents.FLASK_EFFECTS.get());
-        if (effects == null || effects.effects().isEmpty()) {
-            return DEFAULT_COLOR;
-        }
-        List<EffectHolder> holders = effects.effects();
-        if (holders.size() == 1) {
-            // Single effect: top matches bottom
-            return 0xFF000000 | holders.get(0).effect().value().getColor();
-        }
-        // Top half shows the second effect color
-        return 0xFF000000 | holders.get(1).effect().value().getColor();
+    @Override
+    public MapCodec<FlaskColor> type() {
+        return MAP_CODEC;
     }
 }

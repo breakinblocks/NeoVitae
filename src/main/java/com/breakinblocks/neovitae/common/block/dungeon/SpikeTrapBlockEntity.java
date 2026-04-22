@@ -15,7 +15,7 @@ public class SpikeTrapBlockEntity extends BaseBlockEntity {
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, SpikeTrapBlockEntity tile) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return;
         }
 

@@ -7,25 +7,24 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class ItemSigilBase extends ItemSigil {
     protected final String tooltipBase;
 
-    public ItemSigilBase(String name, int lpUsed) {
-        super(new Item.Properties().stacksTo(1), lpUsed);
+    public ItemSigilBase(Item.Properties props, String name, int lpUsed) {
+        super(props.stacksTo(1), lpUsed);
         this.tooltipBase = "tooltip.neovitae.sigil." + name + ".";
     }
 
-    public ItemSigilBase(String name) {
-        this(name, 0);
+    public ItemSigilBase(Item.Properties props, String name) {
+        this(props, name, 0);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable(tooltipBase + "desc")
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        tooltip.accept(Component.translatable(tooltipBase + "desc")
                 .withStyle(ChatFormatting.ITALIC)
-                .withStyle(ChatFormatting.GRAY));
-
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
+                .withStyle(ChatFormatting.GRAY));}
 }

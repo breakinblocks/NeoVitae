@@ -1,10 +1,15 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
@@ -24,6 +29,8 @@ import com.breakinblocks.neovitae.common.recipe.AlchemyArrayInput;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import java.util.Optional;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     public boolean isActive = false;
@@ -37,6 +44,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     private Binding ownerBinding = Binding.EMPTY;
     private DyeColor arrayColor = null;
     private CompoundTag pendingEffectNbt = null;
+    private Identifier cachedTexture = null;
 
     public final ItemStackHandler inv = new ItemStackHandler(2) {
         @Override
@@ -47,7 +55,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
-            if (level != null && !level.isClientSide) {
+            if (level != null && !level.isClientSide()) {
                 level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
             }
         }
@@ -64,32 +72,24 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        this.isActive = tag.getBoolean("isActive");
-        this.activeCounter = tag.getInt("activeCounter");
-        if (!tag.contains("doDropIngredients")) {
-            this.doDropIngredients = true;
-        } else {
-            this.doDropIngredients = tag.getBoolean("doDropIngredients");
-        }
-        this.rotation = Direction.from2DDataValue(tag.getInt("direction"));
-        inv.deserializeNBT(registries, tag.getCompound("inventory"));
-        if (tag.contains("ownerBinding")) {
-            this.ownerBinding = Binding.BASIC_CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag.getCompound("ownerBinding")).result().orElse(Binding.EMPTY);
-        }
-        if (tag.contains("arrayColor")) {
-            this.arrayColor = DyeColor.byId(tag.getInt("arrayColor"));
-        } else {
-            this.arrayColor = null;
-        }
-        if (tag.contains("effectState")) {
-            pendingEffectNbt = tag.getCompound("effectState");
-            if (arrayEffect != null) {
-                arrayEffect.readFromNBT(pendingEffectNbt);
-                pendingEffectNbt = null;
-            }
-        } else {
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        this.isActive = tag.getBooleanOr("isActive", false);
+        this.activeCounter = tag.getIntOr("activeCounter", 0);
+        this.doDropIngredients = tag.getBooleanOr("doDropIngredients", true);
+        this.rotation = Direction.from2DDataValue(tag.getIntOr("direction", 0));
+        tag.child("inventory").ifPresent(inv::deserialize);
+
+        this.ownerBinding = tag.read("ownerBinding", Binding.BASIC_CODEC).orElse(Binding.EMPTY);
+
+        var colorOpt = tag.getInt("arrayColor");
+        this.arrayColor = colorOpt.map(DyeColor::byId).orElse(null);
+
+        this.cachedTexture = tag.read("cachedTexture", Identifier.CODEC).orElse(null);
+
+        pendingEffectNbt = tag.read("effectState", CompoundTag.CODEC).orElse(null);
+        if (pendingEffectNbt != null && arrayEffect != null) {
+            arrayEffect.readFromNBT(pendingEffectNbt);
             pendingEffectNbt = null;
         }
     }
@@ -99,24 +99,27 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         tag.putBoolean("isActive", isActive);
         tag.putInt("activeCounter", activeCounter);
         tag.putBoolean("doDropIngredients", doDropIngredients);
         tag.putInt("direction", rotation.get2DDataValue());
-        tag.put("inventory", inv.serializeNBT(registries));
+        inv.serialize(tag.child("inventory"));
         if (!ownerBinding.isEmpty()) {
-            Binding.BASIC_CODEC.encodeStart(net.minecraft.nbt.NbtOps.INSTANCE, ownerBinding).result().ifPresent(nbt -> tag.put("ownerBinding", nbt));
+            tag.store("ownerBinding", Binding.BASIC_CODEC, ownerBinding);
         }
         if (arrayColor != null) {
             tag.putInt("arrayColor", arrayColor.getId());
+        }
+        if (cachedTexture != null) {
+            tag.store("cachedTexture", Identifier.CODEC, cachedTexture);
         }
         if (arrayEffect != null) {
             CompoundTag effectTag = new CompoundTag();
             arrayEffect.writeToNBT(effectTag);
             if (!effectTag.isEmpty()) {
-                tag.put("effectState", effectTag);
+                tag.store("effectState", CompoundTag.CODEC, effectTag);
             }
         }
     }
@@ -158,7 +161,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
                     arrayEffect.readFromNBT(pendingEffectNbt);
                     pendingEffectNbt = null;
                 }
-                if (level != null && !level.isClientSide) {
+                if (level != null && !level.isClientSide()) {
                     level.playSound(null, worldPosition, NVSounds.ALCHEMY_ARRAY_ACTIVATE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
                     for (int i = 0; i < 6; i++) {
                         double angle = (2 * Math.PI / 6) * i;
@@ -175,7 +178,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
             if (arrayEffect.update(this, this.activeCounter)) {
                 craftComplete = true;
                 doDropIngredients = false;
-                if (level != null && !level.isClientSide) {
+                if (level != null && !level.isClientSide()) {
                     level.playSound(null, worldPosition, NVSounds.ALCHEMY_ARRAY_CRAFT.get(), SoundSource.BLOCKS, 0.7f, 1.0f);
                     ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, 10, 0.2, 0.0, 0.2, 0.05);
                 }
@@ -199,8 +202,20 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
 
         AlchemyArrayInput input = new AlchemyArrayInput(base, added);
 
-        return level.getRecipeManager()
-                .getRecipeFor(NVRecipes.ALCHEMY_ARRAY_TYPE.get(), input, level)
+        Optional<RecipeHolder<AlchemyArrayRecipe>> holderOpt = level instanceof ServerLevel serverLevel
+                ? serverLevel.recipeAccess().getRecipeFor(NVRecipes.ALCHEMY_ARRAY_TYPE.get(), input, serverLevel)
+                : Optional.empty();
+        holderOpt.ifPresent(h -> {
+            Identifier tex = h.value().getTexture();
+            if (!java.util.Objects.equals(tex, cachedTexture)) {
+                cachedTexture = tex;
+                setChanged();
+                if (level != null && !level.isClientSide()) {
+                    level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+                }
+            }
+        });
+        return holderOpt
                 .map(holder -> {
                     AlchemyArrayRecipe recipe = holder.value();
                     AlchemyArrayEffectType effectType = recipe.getEffectType();
@@ -221,6 +236,11 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
 
     public Direction getRotation() {
         return rotation;
+    }
+
+    @Nullable
+    public Identifier getCachedTexture() {
+        return cachedTexture;
     }
 
     public void setRotation(Direction rotation) {
@@ -250,7 +270,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     }
 
     public void dropItems() {
-        if (doDropIngredients && level != null && !level.isClientSide) {
+        if (doDropIngredients && level != null && !level.isClientSide()) {
             for (int i = 0; i < inv.getSlots(); i++) {
                 ItemStack stack = inv.getStackInSlot(i);
                 if (!stack.isEmpty()) {
@@ -258,7 +278,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
                 }
             }
         }
-        if (arrayEffect instanceof AlchemyArrayEffectLight lightEffect && level != null && !level.isClientSide) {
+        if (arrayEffect instanceof AlchemyArrayEffectLight lightEffect && level != null && !level.isClientSide()) {
             lightEffect.removeLights(level);
         }
     }

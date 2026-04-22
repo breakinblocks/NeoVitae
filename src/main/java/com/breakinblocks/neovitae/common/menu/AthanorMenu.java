@@ -40,7 +40,7 @@ public class AthanorMenu extends AbstractBlockEntityMenu<AthanorBlockEntity> {
 
                 @Override
                 public void onTake(Player player, ItemStack stack) {
-                    stack.onCraftedBy(player.level(), player, stack.getCount());
+                    stack.onCraftedBy(player, stack.getCount());
                     super.onTake(player, stack);
                 }
             });

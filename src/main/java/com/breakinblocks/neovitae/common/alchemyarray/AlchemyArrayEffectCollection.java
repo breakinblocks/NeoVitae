@@ -25,7 +25,7 @@ public class AlchemyArrayEffectCollection extends AlchemyArrayEffect {
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
-        if (level == null || level.isClientSide) return false;
+        if (level == null || level.isClientSide()) return false;
 
         BlockPos pos = tile.getBlockPos();
         Vec3 center = Vec3.atCenterOf(pos);
@@ -35,7 +35,8 @@ public class AlchemyArrayEffectCollection extends AlchemyArrayEffect {
         if (items.isEmpty()) return false;
 
         BlockPos belowPos = pos.below();
-        IItemHandler inventory = level.getCapability(Capabilities.ItemHandler.BLOCK, belowPos, null);
+        var rhItem = level.getCapability(Capabilities.Item.BLOCK, belowPos, net.minecraft.core.Direction.UP);
+        IItemHandler inventory = rhItem != null ? IItemHandler.of(rhItem) : null;
 
         for (ItemEntity itemEntity : items) {
             if (itemEntity.isRemoved()) continue;

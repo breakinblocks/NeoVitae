@@ -45,13 +45,13 @@ public class SpiritusHolder {
     }
 
     public void readFromNBT(CompoundTag tag, String key) {
-        CompoundTag willTag = tag.getCompound(key);
+        CompoundTag willTag = tag.getCompoundOrEmpty(key);
         willMap.clear();
 
         for (SpiritusType type : SpiritusType.values()) {
             String nbtKey = "EnumWill" + type.name();
             if (willTag.contains(nbtKey)) {
-                double amount = willTag.getDouble(nbtKey);
+                double amount = willTag.getDoubleOr(nbtKey, 0.0);
                 if (amount > 0) {
                     willMap.put(type, amount);
                 }

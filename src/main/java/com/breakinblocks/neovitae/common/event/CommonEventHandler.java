@@ -46,6 +46,8 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import com.breakinblocks.neovitae.util.ChatUtil;
 import com.breakinblocks.neovitae.will.SpiritusHelper;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
@@ -54,12 +56,28 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 
 @EventBusSubscriber(modid = NeoVitae.MODID)
 public class CommonEventHandler {
 
     private static final Map<UUID, Double> bounceMap = new HashMap<>();
     private static final Map<UUID, Integer> dungeonGracePeriod = new HashMap<>();
+
+    @SubscribeEvent
+    public static void onDatapackSync(OnDatapackSyncEvent event) {
+        event.sendRecipes(
+                NVRecipes.HELLFIRE_FORGE_TYPE.get(),
+                NVRecipes.ARA_VITAE_TYPE.get(),
+                NVRecipes.ATHANOR_TYPE.get(),
+                NVRecipes.FLUID_TIERED_TYPE.get(),
+                NVRecipes.ALCHEMY_ARRAY_TYPE.get(),
+                NVRecipes.TABULA_VITAE_TYPE.get(),
+                NVRecipes.METEOR_TYPE.get(),
+                NVRecipes.FLASK_TYPE.get(),
+                NVRecipes.LIVING_DOWNGRADE_TYPE.get()
+        );
+    }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onInteract(PlayerInteractEvent.RightClickItem event) {
@@ -81,32 +99,34 @@ public class CommonEventHandler {
         GameProfile profile = event.getEntity().getGameProfile();
 
         if (binding.isEmpty()) {
-            Binding newBinding = new Binding(profile.getId(), profile.getName());
+            Binding newBinding = new Binding(profile.id(), profile.name());
             if (NeoForge.EVENT_BUS.post(new ItemBindEvent(event.getEntity(), held)).isCanceled()) {
                 return;
             }
             held.set(NVDataComponents.BINDING, newBinding);
-        } else if (binding.uuid().equals(profile.getId()) && !Objects.equals(binding.name(), profile.getName())) {
-            binding = new Binding(profile.getId(), profile.getName());
+        } else if (binding.uuid().equals(profile.id()) && !Objects.equals(binding.name(), profile.name())) {
+            binding = new Binding(profile.id(), profile.name());
             held.set(NVDataComponents.BINDING, binding);
         }
     }
 
     @SubscribeEvent
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (!FMLLoader.isProduction() && event.getEntity() instanceof ServerPlayer serverPlayer) {
-            var server = serverPlayer.getServer();
-            if (server != null && !server.getPlayerList().isOp(serverPlayer.getGameProfile())) {
-                server.getPlayerList().op(serverPlayer.getGameProfile());
+        FMLLoader loader = FMLLoader.getCurrentOrNull();
+        boolean dev = loader == null || !loader.isProduction();
+        if (dev && event.getEntity() instanceof ServerPlayer serverPlayer) {
+            var server = serverPlayer.level().getServer();
+            if (server != null && !server.getPlayerList().isOp(serverPlayer.nameAndId())) {
+                server.getPlayerList().op(serverPlayer.nameAndId());
                 NeoVitae.LOGGER.info("Auto-opped {} in dev environment", serverPlayer.getName().getString());
             }
         }
 
         if (event.getEntity() instanceof ServerPlayer player
                 && com.breakinblocks.neovitae.common.material.MaterialRegistry.hasPendingRestartNotice()) {
-            player.sendSystemMessage(net.minecraft.network.chat.Component.translatable("message.neovitae.materials.generated")
+            player.sendSystemMessage(Component.translatable("message.neovitae.materials.generated")
                     .withStyle(net.minecraft.ChatFormatting.GOLD));
-            player.sendSystemMessage(net.minecraft.network.chat.Component.translatable("message.neovitae.materials.restart_required")
+            player.sendSystemMessage(Component.translatable("message.neovitae.materials.restart_required")
                     .withStyle(net.minecraft.ChatFormatting.YELLOW));
         }
     }
@@ -125,7 +145,7 @@ public class CommonEventHandler {
             if (entity instanceof Player player) {
                 event.setDamageMultiplier(0);
                 if (!player.isShiftKeyDown() && event.getDistance() > 1.5) {
-                    if (player.level().isClientSide) {
+                    if (player.level().isClientSide()) {
                         player.setDeltaMovement(player.getDeltaMovement().multiply(1, -1, 1));
                         bounceMap.put(player.getUUID(), player.getDeltaMovement().y());
                     } else {
@@ -183,7 +203,7 @@ public class CommonEventHandler {
     }
 
     @SubscribeEvent
-    public static void onBlockBreak(BlockEvent.BreakEvent event) {
+    public static void onBlockBreak(BreakBlockEvent event) {
         if (event.getLevel() instanceof Level level && DungeonDimensionHelper.isDungeonDimension(level)) {
             Block block = event.getState().getBlock();
             if (block instanceof com.breakinblocks.neovitae.common.block.dungeon.BlockPrismaticDemonite) {
@@ -225,9 +245,18 @@ public class CommonEventHandler {
         if (exitData.isValid()) {
             DungeonDimensionHelper.teleportFromDungeon(serverPlayer, exitData.getExitPosOrNull(), exitData.getExitDimensionOrNull());
         } else {
-            BlockPos spawnPos = serverPlayer.getRespawnPosition();
+            BlockPos spawnPos = null;
+            ServerPlayer.RespawnConfig respawn = serverPlayer.getRespawnConfig();
+            if (respawn != null && respawn.respawnData() != null) {
+                spawnPos = respawn.respawnData().pos();
+            }
             if (spawnPos == null) {
-                spawnPos = serverPlayer.server.overworld().getSharedSpawnPos();
+                var server = serverPlayer.level().getServer();
+                if (server != null) {
+                    spawnPos = server.overworld().getLevelData().getRespawnData().pos();
+                } else {
+                    spawnPos = BlockPos.ZERO;
+                }
             }
             DungeonDimensionHelper.teleportToOverworld(serverPlayer, spawnPos);
         }
@@ -279,7 +308,7 @@ public class CommonEventHandler {
     @SubscribeEvent
     public static void onPlayerTickBloodMending(PlayerTickEvent.Post event) {
         Player player = event.getEntity();
-        if (player.level().isClientSide || player.tickCount % 20 != 0) return;
+        if (player.level().isClientSide() || player.tickCount % 20 != 0) return;
 
         int repairCost = NeoVitae.SERVER_CONFIG.BLOOD_MENDING_REPAIR_COST.get();
 
@@ -303,19 +332,26 @@ public class CommonEventHandler {
 
     @SubscribeEvent
     public static void onTamedPetDeath(LivingDeathEvent event) {
-        if (event.getEntity().level().isClientSide) return;
+        if (event.getEntity().level().isClientSide()) return;
         if (!(event.getEntity() instanceof TamableAnimal pet)) return;
-        if (!pet.isTame() || pet.getOwnerUUID() == null) return;
+        if (!pet.isTame()) return;
+        var ownerRef = pet.getOwnerReference();
+        if (ownerRef == null) return;
 
-        Player owner = pet.level().getPlayerByUUID(pet.getOwnerUUID());
+        Player owner = pet.level().getPlayerByUUID(ownerRef.getUUID());
         if (owner == null) return;
 
-        CompoundTag petData = new CompoundTag();
-        pet.save(petData);
-        petData.remove("Inventory");
-
-        DeadPetStorage storage = owner.getData(NVDataAttachments.DEAD_PET_STORAGE);
-        owner.setData(NVDataAttachments.DEAD_PET_STORAGE.get(), storage.addPet(petData));
+        try (net.minecraft.util.ProblemReporter.ScopedCollector reporter =
+                     new net.minecraft.util.ProblemReporter.ScopedCollector(NeoVitae.LOGGER)) {
+            net.minecraft.world.level.storage.TagValueOutput petOutput =
+                    net.minecraft.world.level.storage.TagValueOutput.createWithContext(reporter, pet.level().registryAccess());
+            if (pet.save(petOutput)) {
+                CompoundTag petData = petOutput.buildResult();
+                petData.remove("Inventory");
+                DeadPetStorage storage = owner.getData(NVDataAttachments.DEAD_PET_STORAGE);
+                owner.setData(NVDataAttachments.DEAD_PET_STORAGE.get(), storage.addPet(petData));
+            }
+        }
     }
 
     private static Binding findBoundOrb(Player player) {

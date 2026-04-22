@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.mojang.datafixers.util.Pair;
 
 public class TabulaVitaeEntry extends EntryProvider {
@@ -30,7 +30,7 @@ public class TabulaVitaeEntry extends EntryProvider {
                 + "catalysts, and components essential to the art.");
 
         this.page("crafting", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "tabula_vitae"))
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "tabula_vitae"))
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)When studying recipes in these pages or through JEI, hover over the arrow "
                 + "marked with a EV label to reveal the drain cost, crafting time, and required tier.[#]()");

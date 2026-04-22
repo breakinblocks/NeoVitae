@@ -67,7 +67,7 @@ public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
-        if (level == null || level.isClientSide) return false;
+        if (level == null || level.isClientSide()) return false;
 
         // Only act on our cycle cadence; the block entity still ticks every tick.
         if (ticksActive % CYCLE_TICKS != 0) return false;
@@ -154,7 +154,8 @@ public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
                     continue;
                 }
 
-                IFluidHandler handler = level.getCapability(Capabilities.FluidHandler.BLOCK, tankPos, null);
+                var rh = level.getCapability(Capabilities.Fluid.BLOCK, tankPos, null);
+                IFluidHandler handler = rh != null ? IFluidHandler.of(rh) : null;
 
                 if (handler == null) {
                     // Tank vanished between scans. Drop it; the cursor now points
@@ -200,8 +201,7 @@ public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
             // next timed rebuild, the onNeighborChanged hook (or the 60-tick
             // timer) will pick them up.
             if (!level.isLoaded(neighbor)) continue;
-            IFluidHandler handler = level.getCapability(Capabilities.FluidHandler.BLOCK, neighbor, null);
-            if (handler != null) {
+            if (level.getCapability(Capabilities.Fluid.BLOCK, neighbor, dir.getOpposite()) != null) {
                 tankCache.add(neighbor.immutable());
             }
         }
@@ -260,16 +260,16 @@ public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
 
     @Override
     public void readFromNBT(CompoundTag tag) {
-        roundRobinCursor = Math.max(0, tag.getInt("cursor"));
-        backoffLevel = Math.min(Math.max(0, tag.getInt("backoffLevel")), MAX_BACKOFF_LEVEL);
-        backoffRemaining = Math.max(0, tag.getInt("backoffRemaining"));
-        lastCacheBuild = tag.contains("lastCacheBuild") ? tag.getInt("lastCacheBuild") : -1;
-        cacheDirty = tag.getBoolean("cacheDirty");
+        roundRobinCursor = Math.max(0, tag.getIntOr("cursor", 0));
+        backoffLevel = Math.min(Math.max(0, tag.getIntOr("backoffLevel", 0)), MAX_BACKOFF_LEVEL);
+        backoffRemaining = Math.max(0, tag.getIntOr("backoffRemaining", 0));
+        lastCacheBuild = tag.getIntOr("lastCacheBuild", -1);
+        cacheDirty = tag.getBooleanOr("cacheDirty", false);
         tankCache.clear();
-        ListTag cacheTag = tag.getList("tankCache", Tag.TAG_COMPOUND);
+        ListTag cacheTag = tag.getListOrEmpty("tankCache");
         for (int i = 0; i < cacheTag.size(); i++) {
-            CompoundTag posTag = cacheTag.getCompound(i);
-            tankCache.add(new BlockPos(posTag.getInt("x"), posTag.getInt("y"), posTag.getInt("z")));
+            CompoundTag posTag = cacheTag.getCompound(i).orElse(new CompoundTag());
+            tankCache.add(new BlockPos(posTag.getIntOr("x", 0), posTag.getIntOr("y", 0), posTag.getIntOr("z", 0)));
         }
     }
 

@@ -19,7 +19,7 @@ public class SpiritusChunkEvents {
         ServerLevel level = (ServerLevel) event.getLevel();
         ChunkPos chunkPos = event.getPos();
 
-        LevelChunk chunk = level.getChunk(chunkPos.x, chunkPos.z);
+        LevelChunk chunk = level.getChunk(chunkPos.x(), chunkPos.z());
         SpiritusChunk willChunk = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
 
         if (willChunk.hasWill()) {

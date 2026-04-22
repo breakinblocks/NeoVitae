@@ -47,7 +47,7 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
 
     @Override
     public boolean useOnAir(Level level, Player player, ItemStack stack) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return false;
         }
 
@@ -76,7 +76,7 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
             Anima network = AnimaHelper.getAnima(binding);
             if (network != null) {
                 int currentLP = network.getCurrentEV();
-                if (!binding.uuid().equals(player.getGameProfile().getId())) {
+                if (!binding.uuid().equals(player.getGameProfile().id())) {
                     player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "otherNetwork", binding.name()));
                 }
                 player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "currentNetworkLP", currentLP));
@@ -99,7 +99,7 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
     }
 
     private void showDetailedAltarStats(Player player, IAraVitae altar) {
-        player.sendSystemMessage(Component.literal("--- Ara Vitae Stats ---").withStyle(ChatFormatting.GOLD));
+        player.sendSystemMessage(Component.translatable("message.neovitae.divination.altar_stats_header").withStyle(ChatFormatting.GOLD));
 
         player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "creative.capacityMod",
                 String.format("%.2f", altar.getBonusCapacity())).withStyle(ChatFormatting.AQUA));
@@ -124,6 +124,6 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
         player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "creative.incense",
                 String.format("%.2f", incense)).withStyle(ChatFormatting.LIGHT_PURPLE));
 
-        player.sendSystemMessage(Component.literal("--- End Stats ---").withStyle(ChatFormatting.GOLD));
+        player.sendSystemMessage(Component.translatable("message.neovitae.divination.altar_stats_footer").withStyle(ChatFormatting.GOLD));
     }
 }

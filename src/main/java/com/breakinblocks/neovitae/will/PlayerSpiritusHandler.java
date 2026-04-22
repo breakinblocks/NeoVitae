@@ -8,10 +8,12 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 public class PlayerSpiritusHandler {
 
     public static NonNullList<ItemStack> getAllInventories(Player player) {
+        var inv = player.getInventory();
         NonNullList<ItemStack> inventory = NonNullList.create();
-        inventory.addAll(player.getInventory().items);
-        inventory.addAll(player.getInventory().armor);
-        inventory.addAll(player.getInventory().offhand);
+        int size = inv.getContainerSize();
+        for (int i = 0; i < size; i++) {
+            inventory.add(inv.getItem(i));
+        }
         return inventory;
     }
 
@@ -63,8 +65,7 @@ public class PlayerSpiritusHandler {
 
     public static double consumeSpiritus(SpiritusType type, Player player, double amount) {
         double consumed = 0;
-        consumed += consumeFromList(type, player.getInventory().items, amount - consumed);
-        consumed += consumeFromList(type, player.getInventory().offhand, amount - consumed);
+        consumed += consumeFromList(type, getAllInventories(player), amount - consumed);
         return consumed;
     }
 

@@ -1,57 +1,70 @@
 package com.breakinblocks.neovitae.client.render.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.block.MovingBlockRenderState;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.client.model.data.ModelData;
+import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityShapedCharge;
 
 @OnlyIn(Dist.CLIENT)
-public class EntityShapedChargeRenderer extends EntityRenderer<EntityShapedCharge> {
+public class EntityShapedChargeRenderer extends EntityRenderer<EntityShapedCharge, EntityShapedChargeRenderer.State> {
 
     public EntityShapedChargeRenderer(EntityRendererProvider.Context context) {
         super(context);
         this.shadowRadius = 0.5F;
     }
 
+    public static class State extends EntityRenderState {
+        public @Nullable MovingBlockRenderState block;
+    }
+
     @Override
-    public void render(EntityShapedCharge entity, float entityYaw, float partialTicks,
-                       PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+    public State createRenderState() {
+        return new State();
+    }
+
+    @Override
+    public void extractRenderState(EntityShapedCharge entity, State state, float partialTicks) {
+        super.extractRenderState(entity, state, partialTicks);
         BlockState blockState = entity.getBlockState();
-        if (blockState.getRenderShape() == RenderShape.MODEL) {
-            Level level = entity.level();
-            if (blockState != level.getBlockState(entity.blockPosition()) &&
-                    blockState.getRenderShape() != RenderShape.INVISIBLE) {
-
-                poseStack.pushPose();
-
-                BlockPos blockPos = BlockPos.containing(entity.getX(), entity.getBoundingBox().maxY, entity.getZ());
-                poseStack.translate(-0.5D, 0.0D, -0.5D);
-
-                BlockRenderDispatcher blockRenderer = Minecraft.getInstance().getBlockRenderer();
-                blockRenderer.renderSingleBlock(blockState, poseStack, buffer, packedLight, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.solid());
-
-                poseStack.popPose();
-                super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
-            }
+        Level level = entity.level();
+        if (blockState.getRenderShape() == RenderShape.MODEL
+                && blockState != level.getBlockState(entity.blockPosition())
+                && blockState.getRenderShape() != RenderShape.INVISIBLE
+                && level instanceof ClientLevel clientLevel) {
+            BlockPos pos = BlockPos.containing(entity.getX(), entity.getBoundingBox().maxY, entity.getZ());
+            MovingBlockRenderState moving = new MovingBlockRenderState();
+            moving.randomSeedPos = pos;
+            moving.blockPos = pos;
+            moving.blockState = blockState;
+            moving.biome = clientLevel.getBiome(pos);
+            moving.cardinalLighting = clientLevel.cardinalLighting();
+            moving.lightEngine = clientLevel.getLightEngine();
+            state.block = moving;
+        } else {
+            state.block = null;
         }
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EntityShapedCharge entity) {
-        return InventoryMenu.BLOCK_ATLAS;
+    public void submit(State state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera) {
+        if (state.block != null) {
+            poseStack.pushPose();
+            poseStack.translate(-0.5, 0.0, -0.5);
+            collector.submitMovingBlock(poseStack, state.block);
+            poseStack.popPose();
+        }
+        super.submit(state, poseStack, collector, camera);
     }
 }

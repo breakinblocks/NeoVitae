@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.anointment;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -20,8 +20,8 @@ import java.util.function.Consumer;
 public class Anointment {
     public static final Anointment DUMMY = new Anointment(NeoVitae.rl("dummy"));
 
-    private final ResourceLocation key;
-    private final Set<ResourceLocation> incompatible;
+    private final Identifier key;
+    private final Set<Identifier> incompatible;
     private final Map<String, Bonus> bonuses;
     private String translationKey = null;
 
@@ -34,7 +34,7 @@ public class Anointment {
 
     private IDamageProvider damageProvider;
 
-    public Anointment(ResourceLocation key) {
+    public Anointment(Identifier key) {
         this.key = key;
         this.incompatible = new HashSet<>();
         this.bonuses = new HashMap<>();
@@ -48,7 +48,7 @@ public class Anointment {
         return this;
     }
 
-    public Anointment addIncompatibility(ResourceLocation... keys) {
+    public Anointment addIncompatibility(Identifier... keys) {
         Collections.addAll(incompatible, keys);
         return this;
     }
@@ -79,7 +79,7 @@ public class Anointment {
     }
 
     // Getters
-    public ResourceLocation getKey() {
+    public Identifier getKey() {
         return key;
     }
 
@@ -104,7 +104,7 @@ public class Anointment {
         return applicableItems;
     }
 
-    public boolean isCompatible(ResourceLocation otherKey) {
+    public boolean isCompatible(Identifier otherKey) {
         return !incompatible.contains(otherKey);
     }
 

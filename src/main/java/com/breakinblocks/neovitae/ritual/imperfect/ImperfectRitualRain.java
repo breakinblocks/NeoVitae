@@ -24,7 +24,12 @@ public class ImperfectRitualRain extends ImperfectRitual {
         if (level == null || level.isClientSide()) return false;
 
         if (level instanceof ServerLevel serverLevel) {
-            serverLevel.setWeatherParameters(0, 6000, true, true);
+            net.minecraft.world.level.saveddata.WeatherData weather = serverLevel.getWeatherData();
+            weather.setClearWeatherTime(0);
+            weather.setRainTime(24000);
+            weather.setRaining(true);
+            weather.setThunderTime(0);
+            weather.setThundering(false);
             return true;
         }
 

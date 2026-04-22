@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -18,6 +21,7 @@ import com.breakinblocks.neovitae.structures.ModRoomPools;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import javax.annotation.Nullable;
+import net.minecraft.resources.ResourceKey;
 
 public class SpatialRiftBlockEntity extends BaseBlockEntity {
 
@@ -53,7 +57,7 @@ public class SpatialRiftBlockEntity extends BaseBlockEntity {
         DungeonSynthesizer synthesizer = new DungeonSynthesizer();
         BlockPos[] positions = synthesizer.generateInitialRoom(
                 ModRoomPools.STANDARD_DUNGEON_ENTRANCES,
-                dungeonWorld.random,
+                dungeonWorld.getRandom(),
                 dungeonWorld,
                 newControllerPos
         );
@@ -100,10 +104,10 @@ public class SpatialRiftBlockEntity extends BaseBlockEntity {
                         .setValue(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.RIFT_RETURN, true));
     }
 
-    private void spawnHomePillar(ServerLevel world, BlockPos pillarPos, BlockPos exitPos, net.minecraft.resources.ResourceKey<Level> exitDim) {
+    private void spawnHomePillar(ServerLevel world, BlockPos pillarPos, BlockPos exitPos, ResourceKey<Level> exitDim) {
         world.setBlockAndUpdate(pillarPos, NVBlocks.INVERSION_PILLAR.block().get().defaultBlockState());
         if (world.getBlockEntity(pillarPos) instanceof InversionPillarBlockEntity pillar) {
-            pillar.setDestination(exitPos, exitDim.location());
+            pillar.setDestination(exitPos, exitDim.identifier());
         }
         world.setBlockAndUpdate(pillarPos.below(),
                 NVBlocks.INVERSION_PILLAR_CAP.block().get().defaultBlockState()
@@ -118,23 +122,23 @@ public class SpatialRiftBlockEntity extends BaseBlockEntity {
     public static void tick(Level level, BlockPos pos, BlockState state, SpatialRiftBlockEntity tile) {
         if (tile.cooldown > 0) tile.cooldown--;
 
-        if (!level.isClientSide && level instanceof ServerLevel serverLevel && level.getGameTime() % 20 == 0) {
+        if (!level.isClientSide() && level instanceof ServerLevel serverLevel && level.getGameTime() % 20 == 0) {
             for (int i = 0; i < 3; i++) {
                 BlockPos offset = pos.offset(
-                        serverLevel.random.nextInt(8) - 4,
-                        serverLevel.random.nextInt(4) - 2,
-                        serverLevel.random.nextInt(8) - 4);
+                        serverLevel.getRandom().nextInt(8) - 4,
+                        serverLevel.getRandom().nextInt(4) - 2,
+                        serverLevel.getRandom().nextInt(8) - 4);
                 StreamPresets.bloodTendril(offset, pos).build().sendToNearby(serverLevel, pos, 64);
             }
             StreamPresets.voidTendril(pos, pos.offset(
-                    serverLevel.random.nextInt(6) - 3, serverLevel.random.nextInt(3), serverLevel.random.nextInt(6) - 3))
+                    serverLevel.getRandom().nextInt(6) - 3, serverLevel.getRandom().nextInt(3), serverLevel.getRandom().nextInt(6) - 3))
                     .build().sendToNearby(serverLevel, pos, 64);
         }
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
         if (destinationSpawnPos != null) {
             tag.putInt("destX", destinationSpawnPos.getX());
             tag.putInt("destY", destinationSpawnPos.getY());
@@ -149,14 +153,16 @@ public class SpatialRiftBlockEntity extends BaseBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        if (tag.contains("destX")) {
-            destinationSpawnPos = new BlockPos(tag.getInt("destX"), tag.getInt("destY"), tag.getInt("destZ"));
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
+        int dx = tag.getIntOr("destX", Integer.MIN_VALUE);
+        if (dx != Integer.MIN_VALUE) {
+            destinationSpawnPos = new BlockPos(dx, tag.getIntOr("destY", 0), tag.getIntOr("destZ", 0));
         }
-        if (tag.contains("destCtrlX")) {
-            destinationControllerPos = new BlockPos(tag.getInt("destCtrlX"), tag.getInt("destCtrlY"), tag.getInt("destCtrlZ"));
+        int dcx = tag.getIntOr("destCtrlX", Integer.MIN_VALUE);
+        if (dcx != Integer.MIN_VALUE) {
+            destinationControllerPos = new BlockPos(dcx, tag.getIntOr("destCtrlY", 0), tag.getIntOr("destCtrlZ", 0));
         }
-        cooldown = tag.getInt("cooldown");
+        cooldown = tag.getIntOr("cooldown", 0);
     }
 }

@@ -9,7 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.datagen.book.page.BookAraVitaeRecipePageModel;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class TeleposerEntry extends EntryProvider {
 
@@ -29,7 +29,7 @@ public class TeleposerEntry extends EntryProvider {
                 + "place it in a second, and apply a redstone signal. The exchange is instantaneous.");
 
         this.page("recipe_teleposer", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "teleposer"))
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "teleposer"))
                 .withText(this.context().pageText()));
         this.pageText("Nothing in [#](4A0080)Vitaemancy[#]() is free. Each block or entity transported costs "
                 + "1 [#](4A0080)Essentia Vitae[#]() per two blocks of distance, up to 1,000 per object "
@@ -52,7 +52,7 @@ public class TeleposerEntry extends EntryProvider {
                 + "Entire small structures can be relocated in a single pulse.");
 
         this.page("reinforced_focus", () -> BookAraVitaeRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "ara_vitae/enhanced_teleposer_focus"))
+                .withRecipeId1(Identifier.fromNamespaceAndPath("neovitae", "ara_vitae/enhanced_teleposer_focus"))
                 .withText(this.context().pageText()));
         this.pageText("The [#](8B0000)Reinforced Teleposition Focus[#]() commands a 5x5x5 volume - "
                 + "a formidable displacement field.");

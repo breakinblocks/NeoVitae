@@ -43,7 +43,7 @@ public class MinorSystemTests {
 
         helper.runAfterDelay(1, () -> {
             BlockPos absPos = helper.absolutePos(pos);
-            IFluidHandler handler = helper.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, absPos, null);
+            IFluidHandler handler = helper.getLevel().getCapability(Capabilities.Fluid.BLOCK, absPos, null);
             if (handler == null) { helper.fail("No fluid handler"); return; }
 
             int filled = handler.fill(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 5000), IFluidHandler.FluidAction.EXECUTE);
@@ -77,7 +77,7 @@ public class MinorSystemTests {
         helper.runAfterDelay(1, () -> {
             int capacity = tank.getCapacity();
             BlockPos absPos = helper.absolutePos(pos);
-            IFluidHandler handler = helper.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, absPos, null);
+            IFluidHandler handler = helper.getLevel().getCapability(Capabilities.Fluid.BLOCK, absPos, null);
 
             int filled = handler.fill(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), capacity + 5000), IFluidHandler.FluidAction.EXECUTE);
             if (filled > capacity) {

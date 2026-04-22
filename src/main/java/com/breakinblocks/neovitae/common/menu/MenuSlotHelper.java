@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.menu;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
+import java.util.function.Consumer;
 
 public final class MenuSlotHelper {
 
@@ -10,13 +11,13 @@ public final class MenuSlotHelper {
     public static final int PLAYER_INV_X = 8;
     public static final int SLOT_SIZE = 18;
 
-    public static void addPlayerInventory(java.util.function.Consumer<Slot> slotAdder,
+    public static void addPlayerInventory(Consumer<Slot> slotAdder,
                                           Inventory playerInventory,
                                           int inventoryY, int hotbarY) {
         addPlayerInventory(slotAdder, playerInventory, PLAYER_INV_X, inventoryY, hotbarY);
     }
 
-    public static void addPlayerInventory(java.util.function.Consumer<Slot> slotAdder,
+    public static void addPlayerInventory(Consumer<Slot> slotAdder,
                                           Inventory playerInventory,
                                           int x, int inventoryY, int hotbarY) {
         for (int row = 0; row < 3; row++) {

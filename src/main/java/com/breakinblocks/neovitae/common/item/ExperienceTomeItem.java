@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -12,19 +12,21 @@ import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class ExperienceTomeItem extends Item {
 
-    public ExperienceTomeItem() {
-        super(new Properties().stacksTo(1).component(NVDataComponents.STORED_XP, 0));
+    public ExperienceTomeItem(Item.Properties props) {
+        super(props.stacksTo(1).component(NVDataComponents.STORED_XP, 0));
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         if (level.isClientSide()) {
-            return InteractionResultHolder.success(stack);
+            return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
         }
 
         int storedXp = stack.getOrDefault(NVDataComponents.STORED_XP, 0);
@@ -38,7 +40,7 @@ public class ExperienceTomeItem extends Item {
                 if (playerXp >= xpToStore) {
                     addXpToPlayer(player, -xpToStore);
                     stack.set(NVDataComponents.STORED_XP, storedXp + xpToStore);
-                    return InteractionResultHolder.success(stack);
+                    return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
                 }
             }
         } else {
@@ -48,21 +50,21 @@ public class ExperienceTomeItem extends Item {
 
                 addXpToPlayer(player, xpToGive);
                 stack.set(NVDataComponents.STORED_XP, storedXp - xpToGive);
-                return InteractionResultHolder.success(stack);
+                return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
             }
         }
 
-        return InteractionResultHolder.pass(stack);
+        return InteractionResult.PASS;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         int storedXp = stack.getOrDefault(NVDataComponents.STORED_XP, 0);
-        tooltip.add(Component.translatable("tooltip.neovitae.experience_tome.stored", storedXp)
+        tooltip.accept(Component.translatable("tooltip.neovitae.experience_tome.stored", storedXp)
                 .withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.neovitae.experience_tome.sneak_use")
+        tooltip.accept(Component.translatable("tooltip.neovitae.experience_tome.sneak_use")
                 .withStyle(ChatFormatting.DARK_GRAY));
-        tooltip.add(Component.translatable("tooltip.neovitae.experience_tome.use")
+        tooltip.accept(Component.translatable("tooltip.neovitae.experience_tome.use")
                 .withStyle(ChatFormatting.DARK_GRAY));
     }
 

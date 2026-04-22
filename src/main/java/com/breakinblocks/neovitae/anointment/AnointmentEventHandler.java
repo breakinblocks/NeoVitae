@@ -11,7 +11,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
@@ -30,6 +30,7 @@ import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.AnointmentHolder;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -126,7 +127,7 @@ public class AnointmentEventHandler {
      * Handle harvest anointments (silk touch, fortune, smelting, voiding)
      */
     @SubscribeEvent(priority = EventPriority.HIGH)
-    public static void onBlockBreak(BlockEvent.BreakEvent event) {
+    public static void onBlockBreak(BreakBlockEvent event) {
         Player player = event.getPlayer();
         if (player == null) {
             return;
@@ -196,7 +197,7 @@ public class AnointmentEventHandler {
      */
     @SubscribeEvent
     public static void onGetEnchantmentLevel(GetEnchantmentLevelEvent event) {
-        ItemStack stack = event.getStack();
+        if (!(event.getStack() instanceof ItemStack stack)) return;
         AnointmentHolder holder = stack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
 
         if (holder == null || holder.isEmpty()) {
@@ -316,7 +317,7 @@ public class AnointmentEventHandler {
             int powerLevel = holder.getAnointmentLevel(AnointmentRegistrar.BOW_POWER);
             if (powerLevel > 0) {
                 double damageMultiplier = AnointmentRegistrar.BOW_POWER.getBonusValue("damage", powerLevel).doubleValue();
-                arrow.setBaseDamage(arrow.getBaseDamage() + damageMultiplier);
+                arrow.setBaseDamage(2.0 + damageMultiplier);
             }
 
             int velocityLevel = holder.getAnointmentLevel(AnointmentRegistrar.BOW_VELOCITY);
@@ -324,8 +325,7 @@ public class AnointmentEventHandler {
                 double multiplier = AnointmentRegistrar.BOW_VELOCITY.getBonusValue("velocity", velocityLevel).doubleValue();
                 Vec3 motion = arrow.getDeltaMovement();
                 arrow.setDeltaMovement(motion.scale(1 + multiplier));
-                // Scale down base damage to compensate for velocity increase (arrows do more damage at higher velocity)
-                arrow.setBaseDamage(arrow.getBaseDamage() / (1 + multiplier));
+                arrow.setBaseDamage(2.0 / (1 + multiplier));
             }
 
             break; // Only process the first matching hand
@@ -355,7 +355,7 @@ public class AnointmentEventHandler {
             return;
         }
 
-        boolean showDetails = Screen.hasShiftDown();
+        boolean showDetails = com.breakinblocks.neovitae.util.helper.KeyboardHelper.isShiftDown();
 
         for (AnointmentHolder.AnointmentEntry entry : holder.anointments()) {
             Anointment anoint = AnointmentRegistrar.get(entry.key());
@@ -365,7 +365,7 @@ public class AnointmentEventHandler {
                 event.getToolTip().add(Component.translatable(anoint.getTranslationKey())
                         .append(" ")
                         .append(Component.translatable("enchantment.level." + entry.level()))
-                        .append(Component.literal(" (" + entry.remainingUses() + "/" + entry.maxDamage() + ")"))
+                        .append(Component.translatable("tooltip.neovitae.anointment.uses", entry.remainingUses(), entry.maxDamage()))
                         .withStyle(ChatFormatting.DARK_PURPLE));
             } else {
                 // Show basic info

@@ -55,17 +55,19 @@ public class RenderResizableCuboid {
     }
 
     public void renderCube(Model3D cube, PoseStack matrix, VertexConsumer buffer, int argb, int light, int overlay) {
+        matrix.pushPose();
+        matrix.translate(cube.minX, cube.minY, cube.minZ);
+        renderCube(cube, matrix.last().pose(), buffer, argb, light, overlay);
+        matrix.popPose();
+    }
+
+    public void renderCube(Model3D cube, Matrix4f matrix4f, VertexConsumer buffer, int argb, int light, int overlay) {
         float red = NeoVitaeRenderer.getRed(argb);
         float green = NeoVitaeRenderer.getGreen(argb);
         float blue = NeoVitaeRenderer.getBlue(argb);
         float alpha = NeoVitaeRenderer.getAlpha(argb);
 
         Vec3 size = new Vec3(cube.sizeX(), cube.sizeY(), cube.sizeZ());
-        matrix.pushPose();
-        matrix.translate(cube.minX, cube.minY, cube.minZ);
-
-        PoseStack.Pose lastMatrix = matrix.last();
-        Matrix4f matrix4f = lastMatrix.pose();
 
         for (Direction face : Direction.values()) {
             if (cube.shouldSideRender(face)) {
@@ -121,7 +123,6 @@ public class RenderResizableCuboid {
                 }
             }
         }
-        matrix.popPose();
     }
 
     private void renderPoint(Matrix4f matrix4f, VertexConsumer buffer, Direction face,
@@ -135,7 +136,7 @@ public class RenderResizableCuboid {
         vertex = withValue(vertex, v, xyz[V_ARRAY]);
         vertex = withValue(vertex, face.getAxis(), other);
 
-        Vec3i normalForFace = face.getNormal();
+        Vec3i normalForFace = face.getUnitVec3i();
         float adjustment = 2.5F;
         Vector3f norm = new Vector3f(
                 normalForFace.getX() + adjustment,

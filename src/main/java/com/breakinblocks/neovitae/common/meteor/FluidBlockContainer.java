@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.common.meteor;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -30,7 +30,7 @@ public class FluidBlockContainer extends RandomBlockContainer {
 
     @Override
     public String getEntry() {
-        ResourceLocation rl = BuiltInRegistries.FLUID.getKey(fluid);
+        Identifier rl = BuiltInRegistries.FLUID.getKey(fluid);
         return ";" + rl.toString();
     }
 

@@ -5,7 +5,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
@@ -37,7 +37,7 @@ public record NecromancySigilEffect() implements SigilEffect {
 
     @Override
     public boolean useOnAir(Level level, Player player, ItemStack stack) {
-        if (level.isClientSide || !(level instanceof ServerLevel serverLevel)) return false;
+        if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return false;
 
         Vec3 eye = player.getEyePosition();
         Vec3 end = eye.add(player.getLookAngle().scale(RANGE));
@@ -48,8 +48,8 @@ public record NecromancySigilEffect() implements SigilEffect {
                 : end;
 
         Mob summon = createRandomSummon(serverLevel, player);
-        summon.moveTo(spawnPos.x, spawnPos.y, spawnPos.z, player.getYRot(), 0);
-        summon.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(summon.blockPosition()), MobSpawnType.MOB_SUMMONED, null);
+        summon.snapTo(spawnPos.x, spawnPos.y, spawnPos.z, player.getYRot(), 0);
+        summon.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(summon.blockPosition()), EntitySpawnReason.MOB_SUMMONED, null);
         serverLevel.addFreshEntity(summon);
 
         return true;
@@ -57,7 +57,7 @@ public record NecromancySigilEffect() implements SigilEffect {
 
     @Override
     public boolean useOnEntity(Level level, Player player, ItemStack stack, Entity target) {
-        if (level.isClientSide) return false;
+        if (level.isClientSide()) return false;
         if (!player.isShiftKeyDown()) return false;
 
         if (target instanceof NecromancySummonEntity e && player.getUUID().equals(e.getOwnerUUID())
@@ -79,8 +79,8 @@ public record NecromancySigilEffect() implements SigilEffect {
                 NVEntities.NECROMANCY_SUMMON_STRAY.get()
         );
 
-        EntityType<? extends Mob> chosen = types.get(level.random.nextInt(types.size()));
-        Mob mob = chosen.create(level);
+        EntityType<? extends Mob> chosen = types.get(level.getRandom().nextInt(types.size()));
+        Mob mob = chosen.create(level, EntitySpawnReason.MOB_SUMMONED);
 
         if (mob instanceof NecromancySummonEntity e) e.setOwner(owner);
         else if (mob instanceof NecromancySummonHuskEntity e) e.setOwner(owner);

@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -10,6 +11,7 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -22,12 +24,12 @@ import javax.annotation.Nullable;
 
 public class PhantomBridgeBlock extends BaseEntityBlock {
 
-    public static final MapCodec<PhantomBridgeBlock> CODEC = simpleCodec(p -> new PhantomBridgeBlock());
+    public static final MapCodec<PhantomBridgeBlock> CODEC = simpleCodec(PhantomBridgeBlock::new);
 
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 16, 16);
 
-    public PhantomBridgeBlock() {
-        super(Properties.of()
+    public PhantomBridgeBlock(BlockBehaviour.Properties props) {
+        super(props
                 .strength(-1.0F, 3600000.0F) // Unbreakable like bedrock
                 .noLootTable()
                 .noOcclusion()
@@ -70,7 +72,7 @@ public class PhantomBridgeBlock extends BaseEntityBlock {
         return RenderShape.MODEL;
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
         return true;
     }
@@ -81,9 +83,9 @@ public class PhantomBridgeBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock())) {
-        }
-        super.onRemove(state, level, pos, newState, movedByPiston);
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        if (true) {
+    }
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 }

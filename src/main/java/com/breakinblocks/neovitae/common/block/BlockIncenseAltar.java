@@ -26,12 +26,12 @@ import com.breakinblocks.neovitae.common.blockentity.IncenseAltarBlockEntity;
  * Surround with tranquility blocks (plants, water, etc.) to increase the bonus.
  */
 public class BlockIncenseAltar extends BaseEntityBlock {
-    public static final MapCodec<BlockIncenseAltar> CODEC = simpleCodec(p -> new BlockIncenseAltar());
+    public static final MapCodec<BlockIncenseAltar> CODEC = simpleCodec(BlockIncenseAltar::new);
 
     private static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 14.0D, 12.0D);
 
-    public BlockIncenseAltar() {
-        super(BlockBehaviour.Properties.of()
+    public BlockIncenseAltar(BlockBehaviour.Properties props) {
+        super(props
                 .strength(2.0F, 5.0F)
                 .sound(SoundType.STONE)
                 .requiresCorrectToolForDrops()

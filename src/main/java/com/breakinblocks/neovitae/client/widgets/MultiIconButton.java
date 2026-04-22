@@ -1,18 +1,21 @@
 package com.breakinblocks.neovitae.client.widgets;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import java.util.function.Function;
+import net.minecraft.client.input.InputWithModifiers;
 
 public class MultiIconButton extends AbstractButton {
 
-    private final ResourceLocation[] icons;
+    private final Identifier[] icons;
     private final Component[] tooltips;
     private final OnPress onPress;
-    public MultiIconButton(int x, int y, int width, int height, Component[] tooltips, ResourceLocation[] icons, OnPress onPress) {
+    public MultiIconButton(int x, int y, int width, int height, Component[] tooltips, Identifier[] icons, OnPress onPress) {
         super(x, y, width, height, Component.literal(""));
         this.onPress = onPress;
         this.icons = icons;
@@ -33,7 +36,7 @@ public class MultiIconButton extends AbstractButton {
     }
 
     @Override
-    public void onPress() {
+    public void onPress(InputWithModifiers input) {
         onPress.onPress(this);
     }
 
@@ -42,9 +45,8 @@ public class MultiIconButton extends AbstractButton {
     }
 
     @Override
-    protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.renderWidget(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.blitSprite(icons[state % icons.length], this.getX(), this.getY(), this.getWidth(), this.getHeight());
+    protected void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, icons[state % icons.length], this.getX(), this.getY(), this.getWidth(), this.getHeight());
     }
 
     @Override
@@ -62,7 +64,7 @@ public class MultiIconButton extends AbstractButton {
         private int y;
         private int width = 150;
         private int height = 20;
-        private ResourceLocation[] icons;
+        private Identifier[] icons;
         private Component[] tooltips;
 
         public Builder(OnPress onPress) {
@@ -95,7 +97,7 @@ public class MultiIconButton extends AbstractButton {
             return this;
         }
 
-        public Builder icons(ResourceLocation... icons) {
+        public Builder icons(Identifier... icons) {
             this.icons = icons;
             return this;
         }
@@ -104,7 +106,7 @@ public class MultiIconButton extends AbstractButton {
             return build(MultiIconButton::new);
         }
 
-        public MultiIconButton build(java.util.function.Function<Builder, MultiIconButton> builder) {
+        public MultiIconButton build(Function<Builder, MultiIconButton> builder) {
             return builder.apply(this);
         }
     }

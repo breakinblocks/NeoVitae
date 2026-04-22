@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.common.effect;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,8 +15,8 @@ import com.breakinblocks.neovitae.NeoVitae;
  */
 public class FlightEffect extends MobEffect {
 
-    private static final ResourceLocation FLIGHT_MODIFIER_ID =
-            ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "effect.flight");
+    private static final Identifier FLIGHT_MODIFIER_ID =
+            Identifier.fromNamespaceAndPath(NeoVitae.MODID, "effect.flight");
 
     public FlightEffect(MobEffectCategory category, int color) {
         super(category, color);
@@ -29,7 +29,7 @@ public class FlightEffect extends MobEffect {
         );
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         entity.fallDistance = 0;
 

@@ -44,7 +44,7 @@ public final class RoutingLinkHelper {
      */
     @Nullable
     public static BlockPos tryAutoBind(Level level, BlockPos placedPos, IRoutingNode placedNode) {
-        if (level.isClientSide) return null;
+        if (level.isClientSide()) return null;
         if (placedNode instanceof IMasterRoutingNode) return null;
         if (!placedNode.getMasterPos().equals(BlockPos.ZERO)) return null;
 

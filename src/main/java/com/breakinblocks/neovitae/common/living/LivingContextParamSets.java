@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.minecraft.util.context.ContextKeySet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 
@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class LivingContextParamSets {
-    public static final LootContextParamSet DAMAGE_BASED = LootContextParamSet.builder()
+    public static final ContextKeySet DAMAGE_BASED = new ContextKeySet.Builder()
             .required(LootContextParams.ORIGIN)
             .required(LootContextParams.DAMAGE_SOURCE)
             .required(LootContextParams.THIS_ENTITY)
@@ -28,7 +28,7 @@ public class LivingContextParamSets {
             .optional(LootContextParams.DIRECT_ATTACKING_ENTITY)
             .build();
 
-    public static final LootContextParamSet BREAK_BLOCK = LootContextParamSet.builder()
+    public static final ContextKeySet BREAK_BLOCK = new ContextKeySet.Builder()
             .required(LootContextParams.ORIGIN)
             .required(LootContextParams.BLOCK_STATE)
             .required(LootContextParams.THIS_ENTITY)
@@ -36,13 +36,13 @@ public class LivingContextParamSets {
             .optional(LootContextParams.TOOL)
             .build();
 
-    public static final LootContextParamSet TICK = LootContextParamSet.builder()
+    public static final ContextKeySet TICK = new ContextKeySet.Builder()
             .required(LootContextParams.THIS_ENTITY)
             .required(LootContextParams.ORIGIN)
             .required(LootContextParams.ENCHANTMENT_LEVEL)
             .build();
 
-    public static final LootContextParamSet PROJECTILE = LootContextParamSet.builder()
+    public static final ContextKeySet PROJECTILE = new ContextKeySet.Builder()
             .required(LootContextParams.ATTACKING_ENTITY)
             .required(LootContextParams.DIRECT_ATTACKING_ENTITY)
             .required(LootContextParams.ENCHANTMENT_LEVEL)

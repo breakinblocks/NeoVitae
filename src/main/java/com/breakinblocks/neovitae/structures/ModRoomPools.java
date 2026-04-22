@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.structures;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -19,39 +19,39 @@ public final class ModRoomPools {
     // ==================== Room Pools ====================
 
     // Connector corridors between rooms
-    public static final ResourceLocation CONNECTIVE_CORRIDORS =
+    public static final Identifier CONNECTIVE_CORRIDORS =
             NeoVitae.rl("room_pools/connective_corridors");
 
     // Entrance rooms for different dungeon types
-    public static final ResourceLocation MINI_DUNGEON_ENTRANCES =
+    public static final Identifier MINI_DUNGEON_ENTRANCES =
             NeoVitae.rl("room_pools/entrances/mini_dungeon_entrances");
-    public static final ResourceLocation STANDARD_DUNGEON_ENTRANCES =
+    public static final Identifier STANDARD_DUNGEON_ENTRANCES =
             NeoVitae.rl("room_pools/entrances/standard_dungeon_entrances");
 
     // Mini dungeon tier 1 rooms
-    public static final ResourceLocation MINI_DUNGEON =
+    public static final Identifier MINI_DUNGEON =
             NeoVitae.rl("room_pools/tier1/mini_dungeon");
 
     // Standard dungeon rooms
-    public static final ResourceLocation STANDARD_ROOMS =
+    public static final Identifier STANDARD_ROOMS =
             NeoVitae.rl("room_pools/standard/standard_rooms");
-    public static final ResourceLocation STANDARD_DEADEND =
+    public static final Identifier STANDARD_DEADEND =
             NeoVitae.rl("room_pools/standard/standard_deadend");
 
     // Mine special area rooms
-    public static final ResourceLocation MINE_ENTRANCES =
+    public static final Identifier MINE_ENTRANCES =
             NeoVitae.rl("room_pools/special/mine_entrances");
-    public static final ResourceLocation MINE_KEY =
+    public static final Identifier MINE_KEY =
             NeoVitae.rl("room_pools/standard/mine_key");
-    public static final ResourceLocation MINE_ROOMS =
+    public static final Identifier MINE_ROOMS =
             NeoVitae.rl("room_pools/mines/mine_rooms");
-    public static final ResourceLocation MINE_CORRIDORS =
+    public static final Identifier MINE_CORRIDORS =
             NeoVitae.rl("room_pools/mines/mine_corridors");
-    public static final ResourceLocation MINE_DEADEND =
+    public static final Identifier MINE_DEADEND =
             NeoVitae.rl("room_pools/mines/mine_deadend");
 
     // Default dead-end pool
-    public static final ResourceLocation DEFAULT_DEADEND = STANDARD_DEADEND;
+    public static final Identifier DEFAULT_DEADEND = STANDARD_DEADEND;
 
     /**
      * Initializes all room pools and rooms by registering them with the DungeonRoomRegistry.

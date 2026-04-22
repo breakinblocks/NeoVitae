@@ -53,7 +53,7 @@ public class AlchemyArrayEffectUndertow extends AlchemyArrayEffect {
         double accel = (dragDown ? 0.05 : 0.12) + 0.003 * redstoneCount;
         double maxVel = (dragDown ? 0.9 : 1.8) + 0.015 * kelpCount;
 
-        boolean isClient = level.isClientSide;
+        boolean isClient = level.isClientSide();
         for (Entity entity : level.getEntitiesOfClass(Entity.class, columnAabb, Entity::isAlive)) {
             if (entity instanceof Player player) {
                 if (!isClient || !player.isLocalPlayer()) continue;
@@ -89,13 +89,13 @@ public class AlchemyArrayEffectUndertow extends AlchemyArrayEffect {
     public boolean onUse(AlchemyArrayBlockEntity tile, Player player) {
         dragDown = !dragDown;
         Level level = tile.getLevel();
-        if (level != null && !level.isClientSide) {
+        if (level != null && !level.isClientSide()) {
             BlockPos pos = tile.getBlockPos();
             level.playSound(null, pos,
                     dragDown ? SoundEvents.BUBBLE_COLUMN_WHIRLPOOL_AMBIENT : SoundEvents.BUBBLE_COLUMN_UPWARDS_AMBIENT,
                     SoundSource.BLOCKS, 0.7f, 1.0f);
-            player.displayClientMessage(Component.translatable(
-                    dragDown ? "chat.neovitae.undertow.downward" : "chat.neovitae.undertow.upward"), true);
+            player.sendOverlayMessage(Component.translatable(
+                    dragDown ? "chat.neovitae.undertow.downward" : "chat.neovitae.undertow.upward"));
             tile.setChanged();
         }
         return true;
@@ -108,7 +108,7 @@ public class AlchemyArrayEffectUndertow extends AlchemyArrayEffect {
 
     @Override
     public void readFromNBT(CompoundTag tag) {
-        dragDown = tag.getBoolean("dragDown");
+        dragDown = tag.getBooleanOr("dragDown", false);
     }
 
     @Override

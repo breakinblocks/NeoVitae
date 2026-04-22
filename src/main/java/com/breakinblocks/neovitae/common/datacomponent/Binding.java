@@ -16,6 +16,7 @@ import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import java.util.function.Consumer;
+import net.minecraft.core.component.DataComponentGetter;
 
 public record Binding(UUID uuid, String name) implements TooltipProvider {
     public static final Codec<Binding> BASIC_CODEC = RecordCodecBuilder.create(instance ->
@@ -39,11 +40,12 @@ public record Binding(UUID uuid, String name) implements TooltipProvider {
     public static final Binding EMPTY = new Binding(NONE, "");
 
     @Override
-    public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag tooltipFlag) {
-            if (this.isEmpty()) {
-                tooltip.accept(BlockEntityHelper.translatableHover("tooltip.neovitae.no_owner"));
-            } else {
-                tooltip.accept(BlockEntityHelper.translatableHover("tooltip.neovitae.current_owner", this.name));
-            }
+    public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag tooltipFlag,
+                             DataComponentGetter componentGetter) {
+        if (this.isEmpty()) {
+            tooltip.accept(BlockEntityHelper.translatableHover("tooltip.neovitae.no_owner"));
+        } else {
+            tooltip.accept(BlockEntityHelper.translatableHover("tooltip.neovitae.current_owner", this.name));
+        }
     }
 }

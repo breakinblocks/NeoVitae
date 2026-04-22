@@ -44,7 +44,7 @@ public record PlaceFluidSigilEffect(Fluid fluid, int amount) implements SigilEff
 
     @Override
     public boolean useOnAir(Level level, Player player, ItemStack stack) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return false;
         }
 
@@ -65,13 +65,15 @@ public record PlaceFluidSigilEffect(Fluid fluid, int amount) implements SigilEff
 
         FluidStack fluidStack = new FluidStack(fluid, amount);
 
-        IFluidHandler destination = level.getCapability(Capabilities.FluidHandler.BLOCK, blockPos, null);
+        var rhDest = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, null);
+        IFluidHandler destination = rhDest != null ? IFluidHandler.of(rhDest) : null;
         if (destination != null && tryInsertFluid(destination, fluidStack, false)) {
             tryInsertFluid(destination, fluidStack, true);
             return true;
         }
 
-        IFluidHandler destinationSide = level.getCapability(Capabilities.FluidHandler.BLOCK, blockPos, sideHit);
+        var rhSide = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, sideHit);
+        IFluidHandler destinationSide = rhSide != null ? IFluidHandler.of(rhSide) : null;
         if (destinationSide != null && tryInsertFluid(destinationSide, fluidStack, false)) {
             tryInsertFluid(destinationSide, fluidStack, true);
             return true;
@@ -86,7 +88,7 @@ public record PlaceFluidSigilEffect(Fluid fluid, int amount) implements SigilEff
 
     @Override
     public boolean useOnBlock(Level level, Player player, ItemStack stack, BlockPos blockPos, Direction side, Vec3 hitVec) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return false;
         }
 
@@ -98,13 +100,15 @@ public record PlaceFluidSigilEffect(Fluid fluid, int amount) implements SigilEff
 
         FluidStack fluidStack = new FluidStack(fluid, amount);
 
-        IFluidHandler destination = level.getCapability(Capabilities.FluidHandler.BLOCK, blockPos, null);
+        var rhDest = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, null);
+        IFluidHandler destination = rhDest != null ? IFluidHandler.of(rhDest) : null;
         if (destination != null && tryInsertFluid(destination, fluidStack, false)) {
             tryInsertFluid(destination, fluidStack, true);
             return true;
         }
 
-        IFluidHandler destinationSide = level.getCapability(Capabilities.FluidHandler.BLOCK, blockPos, side);
+        var rhSide = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, side);
+        IFluidHandler destinationSide = rhSide != null ? IFluidHandler.of(rhSide) : null;
         if (destinationSide != null && tryInsertFluid(destinationSide, fluidStack, false)) {
             tryInsertFluid(destinationSide, fluidStack, true);
             return true;
@@ -136,7 +140,7 @@ public record PlaceFluidSigilEffect(Fluid fluid, int amount) implements SigilEff
             return false;
         }
 
-        if (level.dimensionType().ultraWarm() && fluid.getFluidType().isVaporizedOnPlacement(level, blockPos, fluidStack)) {
+        if (fluid.getFluidType().isVaporizedOnPlacement(level, blockPos, fluidStack)) {
             fluid.getFluidType().onVaporize(player, level, blockPos, fluidStack);
             return true;
         }

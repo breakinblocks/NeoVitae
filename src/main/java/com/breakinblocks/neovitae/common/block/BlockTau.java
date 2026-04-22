@@ -93,7 +93,8 @@ public class BlockTau extends CropBlock {
         List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, boundingBox);
 
         for (LivingEntity entity : entities) {
-            if (entity.hurt(entity.damageSources().cactus(), 2)) {
+            entity.hurt(entity.damageSources().cactus(), 2);
+        if (true) {
                 if (isStrong) {
                     // Strong tau only grows when it successfully damages something
                     doGrow = true;
@@ -135,11 +136,12 @@ public class BlockTau extends CropBlock {
             List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, boundingBox);
 
             for (LivingEntity entity : entities) {
-                if (entity.hurt(entity.damageSources().cactus(), 2)) {
+                entity.hurt(entity.damageSources().cactus(), 2);
+        if (true) {
                     if (isStrong) {
                         doGrow = true;
                         break;
-                    } else if (level.random.nextDouble() <= TRANSFORM_CHANCE) {
+                    } else if (level.getRandom().nextDouble() <= TRANSFORM_CHANCE) {
                         doTransform = true;
                         break;
                     }
@@ -161,7 +163,7 @@ public class BlockTau extends CropBlock {
 
     @Override
     protected int getBonemealAgeIncrease(Level level) {
-        return Mth.nextInt(level.random, 1, 1);
+        return Mth.nextInt(level.getRandom(), 1, 1);
     }
 
 }

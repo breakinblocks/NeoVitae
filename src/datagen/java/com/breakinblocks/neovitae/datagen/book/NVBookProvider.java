@@ -11,7 +11,7 @@ import com.breakinblocks.neovitae.datagen.book.spiritus.SpiritusCategory;
 import com.breakinblocks.neovitae.datagen.book.dungeons.DungeonsCategory;
 import com.breakinblocks.neovitae.datagen.book.rituals.RitualsCategory;
 import com.breakinblocks.neovitae.datagen.book.utility.UtilityCategory;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class NVBookProvider extends SingleBookSubProvider {
 
@@ -49,8 +49,8 @@ public class NVBookProvider extends SingleBookSubProvider {
     protected BookModel additionalSetup(BookModel book) {
         return super.additionalSetup(book)
                 .withGenerateBookItem(false)
-                .withCustomBookItem(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "guide_book"))
-                .withCreativeTab(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "main"))
+                .withCustomBookItem(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "guide_book"))
+                .withCreativeTab(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "main"))
                 .withBookContentTexture(NeoVitae.rl("textures/gui/book_content.png"))
                 .withFrameTexture(NeoVitae.rl("textures/gui/book_frame.png"))
                 .withBookOverviewTexture(NeoVitae.rl("textures/gui/book_overview.png"))

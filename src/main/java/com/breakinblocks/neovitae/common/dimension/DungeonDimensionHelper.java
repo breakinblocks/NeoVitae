@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.common.dimension;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -11,6 +11,7 @@ import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.NeoVitae;
 
 import javax.annotation.Nullable;
+import java.util.Set;
 
 /**
  * Utility class for working with the NeoVitae dungeon dimension.
@@ -61,8 +62,10 @@ public class DungeonDimensionHelper {
                 destination.getX() + 0.5,
                 destination.getY(),
                 destination.getZ() + 0.5,
+                Set.of(),
                 player.getYRot(),
-                player.getXRot());
+                player.getXRot(),
+                true);
         return true;
     }
 
@@ -87,8 +90,10 @@ public class DungeonDimensionHelper {
                 destination.getX() + 0.5,
                 destination.getY(),
                 destination.getZ() + 0.5,
+                Set.of(),
                 player.getYRot(),
-                player.getXRot());
+                player.getXRot(),
+                true);
         return true;
     }
 
@@ -118,7 +123,7 @@ public class DungeonDimensionHelper {
     /**
      * Gets the resource location for the dungeon dimension.
      */
-    public static ResourceLocation getDungeonDimensionId() {
+    public static Identifier getDungeonDimensionId() {
         return NeoVitae.rl("dungeon");
     }
 }

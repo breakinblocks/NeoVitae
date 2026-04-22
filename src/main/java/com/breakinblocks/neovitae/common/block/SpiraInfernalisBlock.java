@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.blockentity.SpiraInfernalisBlockEntity;
@@ -18,10 +19,10 @@ import javax.annotation.Nullable;
 
 public class SpiraInfernalisBlock extends BaseEntityBlock {
 
-    public static final MapCodec<SpiraInfernalisBlock> CODEC = simpleCodec(p -> new SpiraInfernalisBlock());
+    public static final MapCodec<SpiraInfernalisBlock> CODEC = simpleCodec(SpiraInfernalisBlock::new);
 
-    public SpiraInfernalisBlock() {
-        super(Properties.of()
+    public SpiraInfernalisBlock(BlockBehaviour.Properties props) {
+        super(props
                 .strength(5.0F, 6.0F)
                 .sound(SoundType.METAL)
                 .requiresCorrectToolForDrops()

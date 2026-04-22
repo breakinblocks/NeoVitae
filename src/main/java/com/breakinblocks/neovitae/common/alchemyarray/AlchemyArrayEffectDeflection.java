@@ -25,7 +25,7 @@ public class AlchemyArrayEffectDeflection extends AlchemyArrayEffect {
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
-        if (level == null || level.isClientSide) return false;
+        if (level == null || level.isClientSide()) return false;
 
         BlockPos pos = tile.getBlockPos();
         AABB column = new AABB(

@@ -22,10 +22,10 @@ public class WorldSpiritusHandler {
             return new SpiritusChunk();
         }
 
-        ChunkPos chunkPos = new ChunkPos(pos);
+        ChunkPos chunkPos = new ChunkPos(pos.getX() >> 4, pos.getZ() >> 4);
 
         if (level.isClientSide()) {
-            return ClientSpiritusCache.get(chunkPos.x, chunkPos.z);
+            return ClientSpiritusCache.get(chunkPos.x(), chunkPos.z());
         }
 
         LevelChunk chunk = level.getChunkAt(pos);
@@ -38,10 +38,10 @@ public class WorldSpiritusHandler {
         }
 
         if (level.isClientSide()) {
-            return ClientSpiritusCache.get(chunkPos.x, chunkPos.z);
+            return ClientSpiritusCache.get(chunkPos.x(), chunkPos.z());
         }
 
-        LevelChunk chunk = level.getChunk(chunkPos.x, chunkPos.z);
+        LevelChunk chunk = level.getChunk(chunkPos.x(), chunkPos.z());
         return chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
     }
 
@@ -66,7 +66,7 @@ public class WorldSpiritusHandler {
         if (added > 0) {
             SpiritusChunk newSpiritusChunk = willChunk.copy();
             chunk.setData(NVDataAttachments.SPIRITUS_CHUNK, newSpiritusChunk);
-            chunk.setUnsaved(true);
+            chunk.markUnsaved();
         }
 
         return added;
@@ -84,14 +84,14 @@ public class WorldSpiritusHandler {
         if (drained > 0) {
             SpiritusChunk newSpiritusChunk = willChunk.copy();
             chunk.setData(NVDataAttachments.SPIRITUS_CHUNK, newSpiritusChunk);
-            chunk.setUnsaved(true);
+            chunk.markUnsaved();
         }
 
         return drained;
     }
 
     public static int syncChunkToTrackingPlayers(ServerLevel level, ChunkPos chunkPos, SpiritusChunk willChunk) {
-        SpiritusSyncPayload payload = SpiritusSyncPayload.fromSpiritusChunk(chunkPos.x, chunkPos.z, willChunk);
+        SpiritusSyncPayload payload = SpiritusSyncPayload.fromSpiritusChunk(chunkPos.x(), chunkPos.z(), willChunk);
         List<ServerPlayer> trackingPlayers = level.getChunkSource().chunkMap.getPlayers(chunkPos, false);
         int playerCount = trackingPlayers.size();
 
@@ -101,7 +101,7 @@ public class WorldSpiritusHandler {
     }
 
     public static void syncChunkToPlayer(ServerPlayer player, ChunkPos chunkPos, SpiritusChunk willChunk) {
-        SpiritusSyncPayload payload = SpiritusSyncPayload.fromSpiritusChunk(chunkPos.x, chunkPos.z, willChunk);
+        SpiritusSyncPayload payload = SpiritusSyncPayload.fromSpiritusChunk(chunkPos.x(), chunkPos.z(), willChunk);
         PacketDistributor.sendToPlayer(player, payload);
     }
 
@@ -116,7 +116,7 @@ public class WorldSpiritusHandler {
         }
 
         BlockPos pos = player.blockPosition();
-        ChunkPos chunkPos = new ChunkPos(pos);
+        ChunkPos chunkPos = new ChunkPos(pos.getX() >> 4, pos.getZ() >> 4);
         SpiritusChunk willChunk = getSpiritusChunk(player.level(), pos);
 
         syncChunkToPlayer(player, chunkPos, willChunk);
@@ -147,8 +147,8 @@ public class WorldSpiritusHandler {
             return 0;
         }
 
-        LevelChunk from = level.getChunk(fromChunk.x, fromChunk.z);
-        LevelChunk to = level.getChunk(toChunk.x, toChunk.z);
+        LevelChunk from = level.getChunk(fromChunk.x(), fromChunk.z());
+        LevelChunk to = level.getChunk(toChunk.x(), toChunk.z());
 
         SpiritusChunk fromWill = from.getData(NVDataAttachments.SPIRITUS_CHUNK);
         SpiritusChunk toWill = to.getData(NVDataAttachments.SPIRITUS_CHUNK);
@@ -179,8 +179,8 @@ public class WorldSpiritusHandler {
 
         from.setData(NVDataAttachments.SPIRITUS_CHUNK, newFromWill);
         to.setData(NVDataAttachments.SPIRITUS_CHUNK, newToWill);
-        from.setUnsaved(true);
-        to.setUnsaved(true);
+        from.markUnsaved();
+        to.markUnsaved();
 
         return toTransfer;
     }
@@ -203,7 +203,7 @@ public class WorldSpiritusHandler {
         willChunk.setMaxBonus(type, bonus);
         SpiritusChunk newSpiritusChunk = willChunk.copy();
         chunk.setData(NVDataAttachments.SPIRITUS_CHUNK, newSpiritusChunk);
-        chunk.setUnsaved(true);
+        chunk.markUnsaved();
     }
 
     public static double addMaxBonus(Level level, BlockPos pos, SpiritusType type, double amount) {
@@ -216,7 +216,7 @@ public class WorldSpiritusHandler {
         double newBonus = willChunk.addMaxBonus(type, amount);
         SpiritusChunk newSpiritusChunk = willChunk.copy();
         chunk.setData(NVDataAttachments.SPIRITUS_CHUNK, newSpiritusChunk);
-        chunk.setUnsaved(true);
+        chunk.markUnsaved();
 
         return newBonus;
     }

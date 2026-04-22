@@ -18,9 +18,7 @@ import javax.annotation.Nullable;
 public class Utils {
 
     public static ItemStack insertStackIntoTile(ItemStack stack, BlockEntity tile, Direction dir) {
-        IItemHandler handler = tile.getLevel().getCapability(
-                net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK,
-                tile.getBlockPos(), dir);
+        IItemHandler handler = lookupItemHandler(tile, dir);
 
         if (handler != null) {
             return insertStackIntoTile(stack, handler);
@@ -29,6 +27,13 @@ public class Utils {
         }
 
         return stack;
+    }
+
+    @Nullable
+    private static IItemHandler lookupItemHandler(@Nullable BlockEntity tile, @Nullable Direction dir) {
+        if (tile == null || tile.getLevel() == null) return null;
+        var rh = tile.getLevel().getCapability(Capabilities.Item.BLOCK, tile.getBlockPos(), dir);
+        return rh != null ? IItemHandler.of(rh) : null;
     }
 
     public static ItemStack insertStackIntoTile(ItemStack stack, IItemHandler handler) {
@@ -97,9 +102,7 @@ public class Utils {
     public static int getNumberOfFreeSlots(BlockEntity tile, Direction dir) {
         int slots = 0;
 
-        IItemHandler handler = tile.getLevel().getCapability(
-                net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK,
-                tile.getBlockPos(), dir);
+        IItemHandler handler = lookupItemHandler(tile, dir);
 
         if (handler != null) {
             for (int i = 0; i < handler.getSlots(); i++) {
@@ -119,7 +122,7 @@ public class Utils {
     }
 
     public static void spawnStackAtBlock(Level level, BlockPos pos, Direction dir, ItemStack stack) {
-        if (stack.isEmpty() || level.isClientSide) return;
+        if (stack.isEmpty() || level.isClientSide()) return;
 
         double x = pos.getX() + 0.5 + dir.getStepX() * 0.6;
         double y = pos.getY() + 0.5 + dir.getStepY() * 0.6;
@@ -135,8 +138,7 @@ public class Utils {
         if (tile == null || tile.getLevel() == null) return null;
         if (facing == null) facing = Direction.DOWN;
 
-        IItemHandler handler = tile.getLevel().getCapability(
-                Capabilities.ItemHandler.BLOCK, tile.getBlockPos(), facing);
+        IItemHandler handler = lookupItemHandler(tile, facing);
 
         if (handler != null) {
             return handler;

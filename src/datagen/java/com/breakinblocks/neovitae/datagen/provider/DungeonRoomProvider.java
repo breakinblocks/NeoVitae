@@ -6,7 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor.Rectangle;
 import com.breakinblocks.neovitae.gson.Serializers;
@@ -30,20 +30,20 @@ public class DungeonRoomProvider implements DataProvider {
     }
 
     public ArrayList<CompletableFuture<?>> loadRoomPools(CachedOutput cache) {
-        Map<ResourceLocation, Integer> connectiveCorridors = new TreeMap<>();
+        Map<Identifier, Integer> connectiveCorridors = new TreeMap<>();
         connectiveCorridors.put(ModDungeons.T_CORRIDOR, 2);
         connectiveCorridors.put(ModDungeons.FOUR_WAY_CORRIDOR, 2);
         connectiveCorridors.put(ModDungeons.STRAIGHT_CORRIDOR, 4);
         connectiveCorridors.put(ModDungeons.OVERLAPPED_CORRIDOR, 3);
 
-        Map<ResourceLocation, Integer> miniDungeonRooms = new TreeMap<>();
+        Map<Identifier, Integer> miniDungeonRooms = new TreeMap<>();
         miniDungeonRooms.put(ModDungeons.MINI_ARMOURY, 1);
         miniDungeonRooms.put(ModDungeons.MINI_CRYPT, 1);
         miniDungeonRooms.put(ModDungeons.MINI_FARM, 1);
         miniDungeonRooms.put(ModDungeons.MINI_PORTAL, 1);
         miniDungeonRooms.put(ModDungeons.MINI_LIBRARY, 1);
 
-        Map<ResourceLocation, Integer> standardDungeonRooms = new TreeMap<>();
+        Map<Identifier, Integer> standardDungeonRooms = new TreeMap<>();
         standardDungeonRooms.put(ModDungeons.ORE_HOLD_1, 2);
         standardDungeonRooms.put(ModDungeons.CHALLENGE_TOWER, 2);
         standardDungeonRooms.put(ModDungeons.BIG_LIBRARY, 2);
@@ -56,7 +56,7 @@ public class DungeonRoomProvider implements DataProvider {
         standardDungeonRooms.put(ModDungeons.DESTROYED_END_PORTAL, 1);
         standardDungeonRooms.put(ModDungeons.AUG_CORRIDOR_LOOT, 3);
 
-        Map<ResourceLocation, Integer> mineDungeonRooms = new TreeMap<>();
+        Map<Identifier, Integer> mineDungeonRooms = new TreeMap<>();
         mineDungeonRooms.put(ModDungeons.MINE_PIT, 3);
         mineDungeonRooms.put(ModDungeons.MINE_CORNER_ZOMBIE_TRAP, 2);
         mineDungeonRooms.put(ModDungeons.MINE_SPLIT_ROAD, 2);
@@ -68,27 +68,27 @@ public class DungeonRoomProvider implements DataProvider {
         mineDungeonRooms.put(ModDungeons.MINE_WOLF_DEN, 2);
         mineDungeonRooms.put(ModDungeons.MINE_ORE_CAVERN, 2);
 
-        Map<ResourceLocation, Integer> mineCorridors = new TreeMap<>();
+        Map<Identifier, Integer> mineCorridors = new TreeMap<>();
         mineCorridors.put(ModDungeons.MINE_STRAIGHT_CORRIDOR, 5);
         mineCorridors.put(ModDungeons.MINE_BENT_CORRIDOR, 4);
         mineCorridors.put(ModDungeons.MINE_FOURWAY_CORRIDOR, 3);
 
-        Map<ResourceLocation, Integer> mineEntrances = new TreeMap<>();
+        Map<Identifier, Integer> mineEntrances = new TreeMap<>();
         mineEntrances.put(ModDungeons.MINE_ENTRANCE, 1);
 
-        Map<ResourceLocation, Integer> mineKey = new TreeMap<>();
+        Map<Identifier, Integer> mineKey = new TreeMap<>();
         mineKey.put(ModDungeons.MINE_KEY, 1);
 
-        Map<ResourceLocation, Integer> miniDungeonEntrances = new TreeMap<>();
+        Map<Identifier, Integer> miniDungeonEntrances = new TreeMap<>();
         miniDungeonEntrances.put(ModDungeons.MINI_ENTRANCE, 1);
 
-        Map<ResourceLocation, Integer> standardDungeonEntrances = new TreeMap<>();
+        Map<Identifier, Integer> standardDungeonEntrances = new TreeMap<>();
         standardDungeonEntrances.put(ModDungeons.STANDARD_ENTRANCE, 1);
 
-        Map<ResourceLocation, Integer> defaultDeadends = new TreeMap<>();
+        Map<Identifier, Integer> defaultDeadends = new TreeMap<>();
         defaultDeadends.put(ModDungeons.DEFAULT_DEADEND, 1);
 
-        Map<ResourceLocation, Integer> mineDeadends = new TreeMap<>();
+        Map<Identifier, Integer> mineDeadends = new TreeMap<>();
         mineDeadends.put(ModDungeons.MINES_DEADEND, 1);
 
         return new ArrayList<>(List.of(
@@ -528,7 +528,7 @@ public class DungeonRoomProvider implements DataProvider {
         ));
     }
 
-    public CompletableFuture<?> addDungeonRoom(CachedOutput cache, DungeonRoom room, ResourceLocation schematicName) {
+    public CompletableFuture<?> addDungeonRoom(CachedOutput cache, DungeonRoom room, Identifier schematicName) {
         JsonElement json = Serializers.GSON.toJsonTree(room);
         Path mainOutput = packOutput.getOutputFolder();
         String pathSuffix = "assets/" + schematicName.getNamespace() + "/schematics/" + schematicName.getPath() + ".json";
@@ -536,9 +536,9 @@ public class DungeonRoomProvider implements DataProvider {
         return DataProvider.saveStable(cache, json, outputPath);
     }
 
-    public CompletableFuture<?> addRoomPool(CachedOutput cache, Map<ResourceLocation, Integer> roomPool, ResourceLocation schematicName) {
+    public CompletableFuture<?> addRoomPool(CachedOutput cache, Map<Identifier, Integer> roomPool, Identifier schematicName) {
         List<String> roomStringList = new ArrayList<>();
-        for (Entry<ResourceLocation, Integer> roomEntry : roomPool.entrySet()) {
+        for (Entry<Identifier, Integer> roomEntry : roomPool.entrySet()) {
             roomStringList.add(roomEntry.getValue() + ";" + roomEntry.getKey().toString());
         }
 

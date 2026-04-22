@@ -534,7 +534,7 @@ public class RoutingNodeTests {
 
     private static int getFluidAmount(GameTestHelper helper, BlockPos pos) {
         IFluidHandler handler = helper.getLevel().getCapability(
-                Capabilities.FluidHandler.BLOCK, helper.absolutePos(pos), null);
+                Capabilities.Fluid.BLOCK, helper.absolutePos(pos), null);
         if (handler == null) return 0;
         FluidStack fluid = handler.getFluidInTank(0);
         return fluid.isEmpty() ? 0 : fluid.getAmount();
@@ -570,7 +570,7 @@ public class RoutingNodeTests {
 
         // Fill source tank with 4000 mB of Life Essence
         IFluidHandler srcHandler = helper.getLevel().getCapability(
-                Capabilities.FluidHandler.BLOCK, helper.absolutePos(srcTankPos), null);
+                Capabilities.Fluid.BLOCK, helper.absolutePos(srcTankPos), null);
         if (srcHandler == null) {
             helper.fail("Source tank has no fluid handler");
             return;
@@ -621,7 +621,7 @@ public class RoutingNodeTests {
 
         // Fill source, leave dest empty — tests the empty tank output filter bypass
         IFluidHandler srcHandler = helper.getLevel().getCapability(
-                Capabilities.FluidHandler.BLOCK, helper.absolutePos(srcTankPos), null);
+                Capabilities.Fluid.BLOCK, helper.absolutePos(srcTankPos), null);
         srcHandler.fill(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 2000), IFluidHandler.FluidAction.EXECUTE);
 
         helper.runAfterDelay(TICK_RATE * 8, () -> {

@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.client.render.item;
 
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,7 +22,7 @@ public class SpiritusBarDecorator implements IItemDecorator {
     }
 
     @Override
-    public boolean render(GuiGraphics guiGraphics, Font font, ItemStack stack, int xOffset, int yOffset) {
+    public boolean render(GuiGraphicsExtractor guiGraphics, Font font, ItemStack stack, int xOffset, int yOffset) {
         if (!SpiritusHelper.hasSpiritus(stack)) return false;
 
         double max = SpiritusHelper.resolveMaxWill(stack);

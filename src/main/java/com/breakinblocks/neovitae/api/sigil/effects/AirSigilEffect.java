@@ -24,18 +24,18 @@ public record AirSigilEffect() implements SigilEffect {
 
     @Override
     public boolean useOnAir(Level level, Player player, ItemStack stack) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             Vec3 vec = player.getLookAngle();
             double wantedVelocity = 1.7;
 
-            if (player.hasEffect(MobEffects.MOVEMENT_SPEED)) {
-                int amplifier = player.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier();
+            if (player.hasEffect(MobEffects.SPEED)) {
+                int amplifier = player.getEffect(MobEffects.SPEED).getAmplifier();
                 wantedVelocity += 0.3 * (amplifier + 1);
             }
 
             double verticalBoost = 0;
-            if (player.hasEffect(MobEffects.JUMP)) {
-                int amplifier = player.getEffect(MobEffects.JUMP).getAmplifier();
+            if (player.hasEffect(MobEffects.JUMP_BOOST)) {
+                int amplifier = player.getEffect(MobEffects.JUMP_BOOST).getAmplifier();
                 verticalBoost = 0.2 * (amplifier + 1);
             }
 

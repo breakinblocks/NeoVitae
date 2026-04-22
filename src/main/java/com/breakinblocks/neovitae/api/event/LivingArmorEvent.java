@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.api.event;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.Event;
@@ -37,10 +37,10 @@ public abstract class LivingArmorEvent extends Event {
      * Cancel to prevent the experience gain.
      */
     public static class ExperienceGain extends LivingArmorEvent implements ICancellableEvent {
-        private final ResourceLocation upgradeId;
+        private final Identifier upgradeId;
         private float experience;
 
-        public ExperienceGain(Player wearer, ItemStack armorPiece, ResourceLocation upgradeId, float experience) {
+        public ExperienceGain(Player wearer, ItemStack armorPiece, Identifier upgradeId, float experience) {
             super(wearer, armorPiece);
             this.upgradeId = upgradeId;
             this.experience = experience;
@@ -49,7 +49,7 @@ public abstract class LivingArmorEvent extends Event {
         /**
          * Gets the upgrade that is gaining experience.
          */
-        public ResourceLocation getUpgradeId() {
+        public Identifier getUpgradeId() {
             return upgradeId;
         }
 
@@ -73,11 +73,11 @@ public abstract class LivingArmorEvent extends Event {
      * Not cancellable - use for notification purposes.
      */
     public static class LevelUp extends LivingArmorEvent {
-        private final ResourceLocation upgradeId;
+        private final Identifier upgradeId;
         private final int previousLevel;
         private final int newLevel;
 
-        public LevelUp(Player wearer, ItemStack armorPiece, ResourceLocation upgradeId, int previousLevel, int newLevel) {
+        public LevelUp(Player wearer, ItemStack armorPiece, Identifier upgradeId, int previousLevel, int newLevel) {
             super(wearer, armorPiece);
             this.upgradeId = upgradeId;
             this.previousLevel = previousLevel;
@@ -87,7 +87,7 @@ public abstract class LivingArmorEvent extends Event {
         /**
          * Gets the upgrade that leveled up.
          */
-        public ResourceLocation getUpgradeId() {
+        public Identifier getUpgradeId() {
             return upgradeId;
         }
 

@@ -21,6 +21,7 @@ import com.breakinblocks.neovitae.common.recipe.RecipeSerializerUtils;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.item.crafting.Recipe;
 
 /**
  * Recipe that increases the potency (amplifier) of a specific effect in a flask.
@@ -29,7 +30,7 @@ import java.util.List;
 public class FlaskPotencyRecipe extends FlaskRecipe {
 
     public static final MapCodec<FlaskPotencyRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.listOf().fieldOf("input").forGetter(FlaskPotencyRecipe::getInput),
+            Ingredient.CODEC.listOf().fieldOf("input").forGetter(FlaskPotencyRecipe::getInput),
             BuiltInRegistries.MOB_EFFECT.holderByNameCodec().fieldOf("effect").forGetter(FlaskPotencyRecipe::getTargetEffect),
             Codec.INT.fieldOf("amplifier").forGetter(FlaskPotencyRecipe::getAmplifier),
             Codec.DOUBLE.fieldOf("ampDurationMod").forGetter(FlaskPotencyRecipe::getAmpDurationMod),
@@ -136,7 +137,7 @@ public class FlaskPotencyRecipe extends FlaskRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<FlaskInput>> getSerializer() {
         return NVRecipes.FLASK_POTENCY_SERIALIZER.get();
     }
 }

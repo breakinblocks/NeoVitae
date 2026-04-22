@@ -2,7 +2,7 @@ package com.breakinblocks.neovitae.impl;
 
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -47,7 +47,7 @@ public class LivingArmorManagerImpl implements ILivingArmorManager {
             int level = instance.level();
 
             if (upgradeHolder.isBound() && upgradeHolder.unwrapKey().isPresent()) {
-                ResourceLocation id = upgradeHolder.unwrapKey().get().location();
+                Identifier id = upgradeHolder.unwrapKey().get().identifier();
                 LivingUpgrade upgrade = upgradeHolder.value();
                 float experience = getUpgradeExperience(player, id);
                 int pointCost = upgrade.levels().levelToCost().getOrDefault(level, 0);
@@ -60,7 +60,7 @@ public class LivingArmorManagerImpl implements ILivingArmorManager {
     }
 
     @Override
-    public int getUpgradeLevel(Player player, ResourceLocation upgradeId) {
+    public int getUpgradeLevel(Player player, Identifier upgradeId) {
         if (!hasFullSet(player)) {
             return 0;
         }
@@ -68,7 +68,7 @@ public class LivingArmorManagerImpl implements ILivingArmorManager {
         List<LivingHelper.UpgradeInstance> upgrades = LivingHelper.getUpgrades(player);
         for (LivingHelper.UpgradeInstance instance : upgrades) {
             if (instance.upgrade().unwrapKey().isPresent() &&
-                instance.upgrade().unwrapKey().get().location().equals(upgradeId)) {
+                instance.upgrade().unwrapKey().get().identifier().equals(upgradeId)) {
                 return instance.level();
             }
         }
@@ -76,7 +76,7 @@ public class LivingArmorManagerImpl implements ILivingArmorManager {
     }
 
     @Override
-    public boolean grantUpgradeExperience(Player player, ResourceLocation upgradeId, float amount) {
+    public boolean grantUpgradeExperience(Player player, Identifier upgradeId, float amount) {
         if (!hasFullSet(player)) {
             return false;
         }
@@ -84,7 +84,7 @@ public class LivingArmorManagerImpl implements ILivingArmorManager {
         List<LivingHelper.UpgradeInstance> upgrades = LivingHelper.getUpgrades(player);
         for (LivingHelper.UpgradeInstance instance : upgrades) {
             if (instance.upgrade().unwrapKey().isPresent() &&
-                instance.upgrade().unwrapKey().get().location().equals(upgradeId)) {
+                instance.upgrade().unwrapKey().get().identifier().equals(upgradeId)) {
                 LivingHelper.applyExp(player, instance.upgrade(), amount);
                 return true;
             }
@@ -93,7 +93,7 @@ public class LivingArmorManagerImpl implements ILivingArmorManager {
     }
 
     @Override
-    public float getUpgradeExperience(Player player, ResourceLocation upgradeId) {
+    public float getUpgradeExperience(Player player, Identifier upgradeId) {
         if (!hasFullSet(player)) {
             return 0;
         }
@@ -110,7 +110,7 @@ public class LivingArmorManagerImpl implements ILivingArmorManager {
 
         for (Object2FloatMap.Entry<Holder<LivingUpgrade>> entry : stats.upgrades().object2FloatEntrySet()) {
             if (entry.getKey().unwrapKey().isPresent() &&
-                entry.getKey().unwrapKey().get().location().equals(upgradeId)) {
+                entry.getKey().unwrapKey().get().identifier().equals(upgradeId)) {
                 return entry.getFloatValue();
             }
         }

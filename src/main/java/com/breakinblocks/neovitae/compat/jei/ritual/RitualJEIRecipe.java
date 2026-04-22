@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.compat.jei.ritual;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import com.breakinblocks.neovitae.ritual.RitualComponent;
 
@@ -21,7 +21,7 @@ import java.util.Map;
  * @param runeCounts      Map of rune type to count
  */
 public record RitualJEIRecipe(
-        ResourceLocation ritualId,
+        Identifier ritualId,
         String translationKey,
         int activationCost,
         int refreshCost,
@@ -29,7 +29,7 @@ public record RitualJEIRecipe(
         List<RitualComponent> components,
         Map<EnumRuneType, Integer> runeCounts
 ) {
-    public static RitualJEIRecipe create(ResourceLocation id, String translationKey, int activationCost,
+    public static RitualJEIRecipe create(Identifier id, String translationKey, int activationCost,
                                           int refreshCost, int crystalLevel, List<RitualComponent> components) {
         Map<EnumRuneType, Integer> counts = new EnumMap<>(EnumRuneType.class);
         for (RitualComponent component : components) {

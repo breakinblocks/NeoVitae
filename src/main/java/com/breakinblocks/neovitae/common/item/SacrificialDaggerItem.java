@@ -5,7 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -31,6 +31,11 @@ import com.breakinblocks.neovitae.common.event.SacrificialDaggerEvent;
 import com.breakinblocks.neovitae.incense.IncenseHelper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.util.AltarUtil;
+import java.util.function.Consumer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 
 public class SacrificialDaggerItem extends Item {
@@ -38,8 +43,8 @@ public class SacrificialDaggerItem extends Item {
     // Value is the game tick when the next stream can be sent.
     private static final Map<UUID, Long> streamCooldowns = new HashMap<>();
 
-    public SacrificialDaggerItem() {
-        super(new Properties().stacksTo(1).component(NVDataComponents.INCENSE, false));
+    public SacrificialDaggerItem(Item.Properties props) {
+        super(props.stacksTo(1).component(NVDataComponents.INCENSE, false));
     }
 
     @Override
@@ -51,13 +56,16 @@ public class SacrificialDaggerItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, java.util.List<net.minecraft.network.chat.Component> tooltip, net.minecraft.world.item.TooltipFlag flag) {
-        tooltip.add(net.minecraft.network.chat.Component.translatable("tooltip.neovitae.sacrificial_dagger.desc")
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context,
+                                TooltipDisplay display,
+                                Consumer<Component> tooltip,
+                                TooltipFlag flag) {
+        tooltip.accept(Component.translatable("tooltip.neovitae.sacrificial_dagger.desc")
                 .withStyle(net.minecraft.ChatFormatting.ITALIC, net.minecraft.ChatFormatting.DARK_RED));
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (player instanceof FakePlayer) {
             return super.use(level, player, hand);
         }
@@ -88,7 +96,7 @@ public class SacrificialDaggerItem extends Item {
             evAdded = event.evAdded;
 
             // Blood drip particles at player's hand after self-sacrifice
-            if (level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+            if (level instanceof ServerLevel serverLevel) {
                 double handY = player.getY() + player.getBbHeight() * 0.7;
                 serverLevel.sendParticles(
                         new ColoredParticleOptions(NVParticles.BLOOD_DRIP.get(), 0x990011),
@@ -110,18 +118,18 @@ public class SacrificialDaggerItem extends Item {
 
         if (altarPos == null) {
             if (!level.isClientSide()) {
-                player.displayClientMessage(Component.translatable("message.neovitae.too_far_from_altar"), true);
+                player.sendSystemMessage(Component.translatable("message.neovitae.too_far_from_altar"));
             }
             return super.use(level, player, hand);
         }
         BlockEntity be = level.getBlockEntity(altarPos);
         if (be instanceof AraVitaeTile altar) {
-            altar.addSacrificeEV(evAdded, false);
+            altar.addSacrificeEV(evAdded, true);
 
-            level.playSound(player, player.blockPosition(), SoundEvents.BEEHIVE_DRIP, SoundSource.PLAYERS, 0.6F, 0.8F + level.random.nextFloat() * 0.4F);
+            level.playSound(player, player.blockPosition(), SoundEvents.BEEHIVE_DRIP, SoundSource.PLAYERS, 0.6F, 0.8F + level.getRandom().nextFloat() * 0.4F);
 
             // Send stream visual from player to altar (cooldown based on travel time)
-            if (level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+            if (level instanceof ServerLevel serverLevel) {
                 long gameTime = level.getGameTime();
                 UUID playerId = player.getUUID();
                 long cooldownEnd = streamCooldowns.getOrDefault(playerId, 0L);
@@ -145,7 +153,8 @@ public class SacrificialDaggerItem extends Item {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+    public void inventoryTick(ItemStack stack, ServerLevel level,
+                              Entity entity, EquipmentSlot slot) {
         if (entity instanceof Player player) {
             boolean state = stack.getOrDefault(NVDataComponents.INCENSE, false);
             boolean playerState = player.getData(NVDataAttachments.INCENSE) > 0;

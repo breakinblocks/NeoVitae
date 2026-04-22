@@ -17,7 +17,7 @@ public class AlchemyArrayEffectGrowth extends AlchemyArrayEffect {
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
-        if (level == null || level.isClientSide) return false;
+        if (level == null || level.isClientSide()) return false;
 
         if (ticksActive % 20 != 0) return false;
 
@@ -32,8 +32,8 @@ public class AlchemyArrayEffectGrowth extends AlchemyArrayEffect {
 
                     if (state.getBlock() instanceof BonemealableBlock growable) {
                         if (growable.isValidBonemealTarget(level, target, state)) {
-                            if (serverLevel.random.nextFloat() < 0.15f) {
-                                growable.performBonemeal(serverLevel, serverLevel.random, target, state);
+                            if (serverLevel.getRandom().nextFloat() < 0.15f) {
+                                growable.performBonemeal(serverLevel, serverLevel.getRandom(), target, state);
                                 serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x44DD22),
                                         target.getX() + 0.5, target.getY() + 0.5, target.getZ() + 0.5, 2, 0.2, 0.1, 0.2, 0.01);
                             }

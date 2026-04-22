@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
@@ -98,7 +98,7 @@ public class RitualGreenGrove extends Ritual {
             // Vengeful: scale growth chance
             if (doVengeful && (will.getVengeful() - vengefulWillUsed) >= WILL_PER_VENGEFUL_GROWTH) {
                 double growthChance = 0.3 + will.getVengeful() / 200.0;
-                if (ctx.level().random.nextDouble() > growthChance) {
+                if (ctx.level().getRandom().nextDouble() > growthChance) {
                     continue; // Skip this position based on chance
                 }
             }
@@ -108,8 +108,8 @@ public class RitualGreenGrove extends Ritual {
             // Try bonemeal-based growth first
             if (block instanceof BonemealableBlock growable) {
                 if (growable.isValidBonemealTarget(ctx.level(), pos, state)) {
-                    if (growable.isBonemealSuccess(ctx.level(), ctx.level().random, pos, state)) {
-                        growable.performBonemeal(serverLevel, ctx.level().random, pos, state);
+                    if (growable.isBonemealSuccess(ctx.level(), ctx.level().getRandom(), pos, state)) {
+                        growable.performBonemeal(serverLevel, ctx.level().getRandom(), pos, state);
                         grew = true;
                     }
                 }
@@ -140,9 +140,9 @@ public class RitualGreenGrove extends Ritual {
 
                 BlockState state = ctx.level().getBlockState(pos);
                 if (state.is(Blocks.FARMLAND)) {
-                    int moisture = state.getValue(FarmBlock.MOISTURE);
+                    int moisture = state.getValue(FarmlandBlock.MOISTURE);
                     if (moisture < 7) {
-                        ctx.level().setBlock(pos, state.setValue(FarmBlock.MOISTURE, 7), Block.UPDATE_ALL);
+                        ctx.level().setBlock(pos, state.setValue(FarmlandBlock.MOISTURE, 7), Block.UPDATE_ALL);
                         steadfastWillUsed += WILL_PER_HYDRATE;
                     }
                 }

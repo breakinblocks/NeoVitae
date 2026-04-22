@@ -1,12 +1,13 @@
 package com.breakinblocks.neovitae.common.recipe.flask;
 
 import com.google.common.base.Preconditions;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
@@ -19,6 +20,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Base class for all flask recipes processed in the alchemy table.
@@ -52,13 +54,6 @@ public abstract class FlaskRecipe implements Recipe<FlaskInput> {
     @Nonnull
     public List<Ingredient> getInput() {
         return input;
-    }
-
-    @Override
-    public NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> list = NonNullList.create();
-        list.addAll(input);
-        return list;
     }
 
     public int getSyphon() {
@@ -140,23 +135,32 @@ public abstract class FlaskRecipe implements Recipe<FlaskInput> {
     }
 
     @Override
-    public ItemStack assemble(FlaskInput container, HolderLookup.Provider registries) {
+    public ItemStack assemble(FlaskInput container) {
         return getOutput(container.flaskStack(), container.flaskEffects());
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
+    public boolean showNotification() {
+        return false;
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        // Return example output for JEI
-        return getOutput(getExampleFlask(), getExampleEffects());
+    public String group() {
+        return "";
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.createFromOptionals(input.stream().map(Optional::of).toList());
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
+
+    @Override
+    public RecipeType<? extends Recipe<FlaskInput>> getType() {
         return NVRecipes.FLASK_TYPE.get();
     }
 
@@ -165,9 +169,9 @@ public abstract class FlaskRecipe implements Recipe<FlaskInput> {
      */
     protected static List<EffectHolder> createDefaultExampleEffects() {
         List<EffectHolder> effects = new ArrayList<>();
-        effects.add(EffectHolder.create(MobEffects.MOVEMENT_SPEED, 3600, 0));
+        effects.add(EffectHolder.create(MobEffects.SPEED, 3600, 0));
         effects.add(EffectHolder.create(MobEffects.FIRE_RESISTANCE, 3600, 0));
-        effects.add(EffectHolder.create(MobEffects.DIG_SPEED, 3600, 0));
+        effects.add(EffectHolder.create(MobEffects.HASTE, 3600, 0));
         return effects;
     }
 }

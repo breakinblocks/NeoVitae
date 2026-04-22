@@ -6,7 +6,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -47,7 +47,7 @@ public class ImperfectRitualStatsProvider implements DataProvider {
     }
 
     protected void add(DeferredHolder<ImperfectRitual, ? extends ImperfectRitual> ritual, ImperfectRitualStats stats) {
-        ResourceLocation ritualId = ritual.getId();
+        Identifier ritualId = ritual.getId();
         entries.add(new ImperfectRitualEntry(ritualId, stats));
     }
 
@@ -88,7 +88,7 @@ public class ImperfectRitualStatsProvider implements DataProvider {
         // Block or block tag
         if (stats.block().isPresent()) {
             Block block = stats.block().get();
-            ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(block);
+            Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
             statsJson.addProperty("block", blockId.toString());
         }
 
@@ -112,5 +112,5 @@ public class ImperfectRitualStatsProvider implements DataProvider {
         return "NeoVitae Imperfect Ritual Stats";
     }
 
-    private record ImperfectRitualEntry(ResourceLocation ritualId, ImperfectRitualStats stats) {}
+    private record ImperfectRitualEntry(Identifier ritualId, ImperfectRitualStats stats) {}
 }

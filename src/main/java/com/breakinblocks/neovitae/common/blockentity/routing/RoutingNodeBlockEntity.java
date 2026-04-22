@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.blockentity.routing;
 
+
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -36,7 +39,7 @@ public abstract class RoutingNodeBlockEntity extends BlockEntity implements IRou
     }
 
     public void tick(Level level, BlockPos pos, BlockState state) {
-        if (level.isClientSide) return;
+        if (level.isClientSide()) return;
         currentInput = level.getBestNeighborSignal(pos);
 
         if (bindingNeedsValidation) {
@@ -72,53 +75,30 @@ public abstract class RoutingNodeBlockEntity extends BlockEntity implements IRou
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput tag) {
+        super.saveAdditional(tag);
 
-        // Position stamp: lets loadAdditional detect if a mover copied our BE to a new spot.
         tag.putLong("savedAt", worldPosition.asLong());
 
-        CompoundTag masterTag = new CompoundTag();
-        masterTag.putInt(Constants.NBT.X_COORD, masterPos.getX());
-        masterTag.putInt(Constants.NBT.Y_COORD, masterPos.getY());
-        masterTag.putInt(Constants.NBT.Z_COORD, masterPos.getZ());
-        tag.put(Constants.NBT.ROUTING_MASTER, masterTag);
+        tag.store(Constants.NBT.ROUTING_MASTER, BlockPos.CODEC, masterPos);
 
-        ListTag tags = new ListTag();
-        for (BlockPos connPos : connectionList) {
-            CompoundTag posTag = new CompoundTag();
-            posTag.putInt(Constants.NBT.X_COORD, connPos.getX());
-            posTag.putInt(Constants.NBT.Y_COORD, connPos.getY());
-            posTag.putInt(Constants.NBT.Z_COORD, connPos.getZ());
-            tags.add(posTag);
-        }
-        tag.put(Constants.NBT.ROUTING_CONNECTION, tags);
+        tag.store(Constants.NBT.ROUTING_CONNECTION, BlockPos.CODEC.listOf(), List.copyOf(connectionList));
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
+    protected void loadAdditional(ValueInput tag) {
+        super.loadAdditional(tag);
         connectionList.clear();
 
-        CompoundTag masterTag = tag.getCompound(Constants.NBT.ROUTING_MASTER);
-        masterPos = new BlockPos(
-                masterTag.getInt(Constants.NBT.X_COORD),
-                masterTag.getInt(Constants.NBT.Y_COORD),
-                masterTag.getInt(Constants.NBT.Z_COORD));
+        masterPos = tag.read(Constants.NBT.ROUTING_MASTER, BlockPos.CODEC).orElse(BlockPos.ZERO);
 
-        ListTag tags = tag.getList(Constants.NBT.ROUTING_CONNECTION, 10);
-        for (int i = 0; i < tags.size(); i++) {
-            CompoundTag blockTag = tags.getCompound(i);
-            BlockPos newPos = new BlockPos(
-                    blockTag.getInt(Constants.NBT.X_COORD),
-                    blockTag.getInt(Constants.NBT.Y_COORD),
-                    blockTag.getInt(Constants.NBT.Z_COORD));
-            connectionList.add(newPos);
-        }
+        tag.read(Constants.NBT.ROUTING_CONNECTION, BlockPos.CODEC.listOf())
+                .ifPresent(connectionList::addAll);
 
         // Detect a block-mover that preserved the BE but changed its position.
-        if (tag.contains("savedAt", Tag.TAG_LONG)) {
-            BlockPos savedAt = BlockPos.of(tag.getLong("savedAt"));
+        long savedAtLong = tag.getLongOr("savedAt", Long.MIN_VALUE);
+        if (savedAtLong != Long.MIN_VALUE) {
+            BlockPos savedAt = BlockPos.of(savedAtLong);
             if (!savedAt.equals(worldPosition)) {
                 masterPos = BlockPos.ZERO;
                 connectionList.clear();

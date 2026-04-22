@@ -9,7 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class RoutingNodesEntry extends EntryProvider {
 
@@ -97,13 +97,13 @@ public class RoutingNodesEntry extends EntryProvider {
                 + "interface and explicitly enable each face you wish to carry traffic.");
 
         this.page("node_image", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/node_demo.png"))
+                .withImages(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/node_demo.png"))
                 .withBorder(true)
                 .withText(this.context().pageText()));
         this.pageText("An Output Node manifested in the world.");
 
         this.page("gui_right", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/node_gui_right.png"))
+                .withImages(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/node_gui_right.png"))
                 .withBorder(true)
                 .withText(this.context().pageText()));
         this.pageText("Open the node's interface to configure its connections.");
@@ -117,7 +117,7 @@ public class RoutingNodesEntry extends EntryProvider {
                 + "Button orientation follows your facing direction; the top button is always 'forward.'");
 
         this.page("gui_left", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/node_gui_left.png"))
+                .withImages(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/node_gui_left.png"))
                 .withBorder(true));
 
         this.page("gui_filter", () -> BookTextPageModel.create()
@@ -190,7 +190,7 @@ public class RoutingNodesEntry extends EntryProvider {
                 + "nodes by hand.");
 
         this.page("network_image", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/network_demo.png"))
+                .withImages(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/routing/network_demo.png"))
                 .withBorder(true)
                 .withText(this.context().pageText()));
         this.pageText("Nodes need not connect directly to the Master; only to some node on the network.");

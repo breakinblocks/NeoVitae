@@ -3,23 +3,22 @@ package com.breakinblocks.neovitae.util.helper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.FluidState;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.FluidType;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 public class RenderHelper {
 
-    public static void renderGuiFluid(GuiGraphics guiGraphics, Fluid content, int x, int y, int width, int height) {
-        IClientFluidTypeExtensions fluidClientInfo = IClientFluidTypeExtensions.of(content);
-        TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidClientInfo.getStillTexture());
-        guiGraphics.blit(x, y, 0, width, height, sprite);
+    public static void renderGuiFluid(GuiGraphicsExtractor guiGraphics, Fluid content, int x, int y, int width, int height) {
+        if (content == null) return;
+        FluidModel model = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(content.defaultFluidState());
+        if (model == null) return;
+        TextureAtlasSprite sprite = model.stillMaterial().sprite();
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x, y, width, height);
     }
 
     public static void addVertex (

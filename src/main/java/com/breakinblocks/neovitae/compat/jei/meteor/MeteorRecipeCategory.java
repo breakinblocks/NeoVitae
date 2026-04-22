@@ -11,10 +11,10 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -31,6 +31,10 @@ import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.List;
+import java.util.ArrayList;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
 
 /**
  * JEI recipe category for meteor ritual recipes.
@@ -77,14 +81,14 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
     }
 
     @Override
-    public void draw(MeteorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(MeteorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         Minecraft mc = Minecraft.getInstance();
 
         String costText = "Cost: " + DECIMAL_FORMAT.format(recipe.getSyphon()) + " EV";
-        guiGraphics.drawString(mc.font, costText, 30, 3, Color.GRAY.getRGB(), false);
+        guiGraphics.text(mc.font, costText, 30, 3, Color.GRAY.getRGB());
 
         String explosionText = "Explosion: " + recipe.getExplosionRadius();
-        guiGraphics.drawString(mc.font, explosionText, 30, 13, Color.GRAY.getRGB(), false);
+        guiGraphics.text(mc.font, explosionText, 30, 13, Color.GRAY.getRGB());
 
         int maxRadius = 0;
         for (MeteorLayer layer : recipe.getLayerList()) {
@@ -92,13 +96,13 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
         }
         int diameter = maxRadius * 2 + 1;
         String sizeText = "Size: " + diameter + " Blocks";
-        guiGraphics.drawString(mc.font, sizeText, 30, 23, Color.GRAY.getRGB(), false);
+        guiGraphics.text(mc.font, sizeText, 30, 23, Color.GRAY.getRGB());
 
         // Draw "Catalyst:" label
-        guiGraphics.drawString(mc.font, "Catalyst:", 0, 40, Color.DARK_GRAY.getRGB(), false);
+        guiGraphics.text(mc.font, "Catalyst:", 0, 40, Color.DARK_GRAY.getRGB());
 
         // Draw "Outputs:" label
-        guiGraphics.drawString(mc.font, "Outputs:", 0, 58, Color.DARK_GRAY.getRGB(), false);
+        guiGraphics.text(mc.font, "Outputs:", 0, 58, Color.DARK_GRAY.getRGB());
     }
 
     @Override
@@ -107,7 +111,7 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, MeteorRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.CATALYST, 50, 38)
+        builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 50, 38)
                 .addIngredients(recipe.getInput());
 
         List<MeteorLayer> layers = recipe.getLayerList();
@@ -222,14 +226,12 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
                 tagName = tagName.substring(0, tagName.indexOf("#"));
             }
             try {
-                ResourceLocation tagLoc = ResourceLocation.parse(tagName);
-                var tagKey = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK, tagLoc);
-                var optional = BuiltInRegistries.BLOCK.getTag(tagKey);
-                if (optional.isPresent()) {
-                    var holders = optional.get().stream().toList();
-                    if (!holders.isEmpty()) {
-                        return holders.get(0).value();
-                    }
+                Identifier tagLoc = Identifier.parse(tagName);
+                var tagKey = TagKey.create(Registries.BLOCK, tagLoc);
+                var holders = new ArrayList<Holder<Block>>();
+                for (var h : BuiltInRegistries.BLOCK.getTagOrEmpty(tagKey)) holders.add(h);
+                if (!holders.isEmpty()) {
+                    return holders.get(0).value();
                 }
             } catch (Exception e) {
                 return null;
@@ -237,18 +239,18 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
         } else if (entry.startsWith(";")) {
             String fluidName = entry.substring(1);
             try {
-                ResourceLocation fluidLoc = ResourceLocation.parse(fluidName);
-                var fluid = BuiltInRegistries.FLUID.get(fluidLoc);
-                if (fluid != null) {
-                    return fluid.defaultFluidState().createLegacyBlock().getBlock();
+                Identifier fluidLoc = Identifier.parse(fluidName);
+                var fluidOpt = BuiltInRegistries.FLUID.get(fluidLoc);
+                if (fluidOpt.isPresent()) {
+                    return fluidOpt.get().value().defaultFluidState().createLegacyBlock().getBlock();
                 }
             } catch (Exception e) {
                 return null;
             }
         } else {
             try {
-                ResourceLocation blockLoc = ResourceLocation.parse(entry);
-                return BuiltInRegistries.BLOCK.get(blockLoc);
+                Identifier blockLoc = Identifier.parse(entry);
+                return BuiltInRegistries.BLOCK.get(blockLoc).map(Holder.Reference::value).orElse(null);
             } catch (Exception e) {
                 return null;
             }

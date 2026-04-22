@@ -4,7 +4,6 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -21,6 +20,8 @@ import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
+import net.minecraft.world.item.crafting.Recipe;
 
 /**
  * Athanor recipe variant that copies potion effects from the tool (lingering alchemy flask)
@@ -36,7 +37,7 @@ public class AthanorPotionRecipe extends AthanorRecipe {
     );
 
     private Ingredient getSingleInput() {
-        return getInputs().isEmpty() ? Ingredient.EMPTY : getInputs().getFirst();
+        return getInputs().isEmpty() ? Ingredient.of() : getInputs().getFirst();
     }
 
     public static final MapCodec<AthanorPotionRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
@@ -44,14 +45,14 @@ public class AthanorPotionRecipe extends AthanorRecipe {
             Ingredient.CODEC.fieldOf("input").forGetter(AthanorPotionRecipe::getSingleInput),
             ItemStack.CODEC.listOf().fieldOf("guaranteed_outputs").forGetter(AthanorPotionRecipe::getGuaranteedOutput),
             Codec.pair(ItemStack.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().fieldOf("chance_outputs").forGetter(AthanorPotionRecipe::getChanceOutput),
-            SizedFluidIngredient.NESTED_CODEC.optionalFieldOf("input_fluid").forGetter(AthanorPotionRecipe::getInputFluid),
+            SizedFluidIngredient.CODEC.optionalFieldOf("input_fluid").forGetter(AthanorPotionRecipe::getInputFluid),
             FluidStack.CODEC.optionalFieldOf("output_fluid").forGetter(AthanorPotionRecipe::getOutputFluid)
     ).apply(inst, AthanorPotionRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, AthanorPotionRecipe> STREAM_CODEC = StreamCodec.composite(
             Ingredient.CONTENTS_STREAM_CODEC, AthanorPotionRecipe::getTool,
             Ingredient.CONTENTS_STREAM_CODEC, AthanorPotionRecipe::getSingleInput,
-            ItemStack.LIST_STREAM_CODEC, AthanorPotionRecipe::getGuaranteedOutput,
+            ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), AthanorPotionRecipe::getGuaranteedOutput,
             CHANCE_PAIR_STREAM_CODEC.apply(ByteBufCodecs.list()), AthanorPotionRecipe::getChanceOutput,
             SizedFluidIngredient.STREAM_CODEC.apply(ByteBufCodecs::optional), AthanorPotionRecipe::getInputFluid,
             FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional), AthanorPotionRecipe::getOutputFluid,
@@ -61,7 +62,7 @@ public class AthanorPotionRecipe extends AthanorRecipe {
     public AthanorPotionRecipe(Ingredient tool, Ingredient input, List<ItemStack> guaranteedOutput,
                            List<Pair<ItemStack, Double>> chanceOutput,
                            Optional<SizedFluidIngredient> inputFluid, Optional<FluidStack> outputStack) {
-        super(tool, List.of(input), guaranteedOutput, chanceOutput, inputFluid, outputStack, java.util.Map.of());
+        super(tool, List.of(input), guaranteedOutput, chanceOutput, inputFluid, outputStack, Map.of());
     }
 
     @Override
@@ -79,7 +80,8 @@ public class AthanorPotionRecipe extends AthanorRecipe {
                 PotionContents newContents = new PotionContents(
                         Optional.empty(),
                         Optional.empty(),
-                        effects
+                        effects,
+                        Optional.empty()
                 );
                 outputStack.set(DataComponents.POTION_CONTENTS, newContents);
             }
@@ -98,7 +100,7 @@ public class AthanorPotionRecipe extends AthanorRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<AthanorRecipeInput>> getSerializer() {
         return NVRecipes.ATHANOR_POTION_SERIALIZER.get();
     }
 }

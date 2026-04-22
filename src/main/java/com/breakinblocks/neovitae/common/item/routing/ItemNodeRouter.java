@@ -18,21 +18,23 @@ import com.breakinblocks.neovitae.util.Constants;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 /**
  * Item for connecting routing nodes together.
  */
 public class ItemNodeRouter extends Item {
 
-    public ItemNodeRouter() {
-        super(new Item.Properties().stacksTo(1));
+    public ItemNodeRouter(Item.Properties props) {
+        super(props.stacksTo(1));
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         BlockPos coords = getBlockPos(stack);
         if (coords != null && !coords.equals(BlockPos.ZERO)) {
-            tooltip.add(Component.translatable("tooltip.neovitae.noderouter.coords",
+            tooltip.accept(Component.translatable("tooltip.neovitae.noderouter.coords",
                     coords.getX(), coords.getY(), coords.getZ()));
         }
     }
@@ -44,7 +46,7 @@ public class ItemNodeRouter extends Item {
         BlockPos pos = context.getClickedPos();
         ItemStack stack = context.getItemInHand();
 
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return InteractionResult.PASS;
         }
 
@@ -54,7 +56,7 @@ public class ItemNodeRouter extends Item {
             BlockPos containedPos = getBlockPos(stack);
             if (containedPos != null && !containedPos.equals(BlockPos.ZERO)) {
                 setBlockPos(stack, BlockPos.ZERO);
-                player.displayClientMessage(Component.translatable("chat.neovitae.routing.remove"), true);
+                player.sendOverlayMessage(Component.translatable("chat.neovitae.routing.remove"));
                 return InteractionResult.FAIL;
             }
             return InteractionResult.FAIL;
@@ -63,17 +65,17 @@ public class ItemNodeRouter extends Item {
         BlockPos containedPos = getBlockPos(stack);
         if (containedPos == null || containedPos.equals(BlockPos.ZERO)) {
             setBlockPos(stack, pos);
-            player.displayClientMessage(Component.translatable("chat.neovitae.routing.set"), true);
+            player.sendOverlayMessage(Component.translatable("chat.neovitae.routing.set"));
             return InteractionResult.SUCCESS;
         }
 
         if (containedPos.distSqr(pos) > 16 * 16) {
-            player.displayClientMessage(Component.translatable("chat.neovitae.routing.distance"), true);
+            player.sendOverlayMessage(Component.translatable("chat.neovitae.routing.distance"));
             return InteractionResult.SUCCESS;
         }
 
         if (containedPos.equals(pos)) {
-            player.displayClientMessage(Component.translatable("chat.neovitae.routing.same"), true);
+            player.sendOverlayMessage(Component.translatable("chat.neovitae.routing.same"));
             return InteractionResult.SUCCESS;
         }
 
@@ -102,7 +104,7 @@ public class ItemNodeRouter extends Item {
                 master.addNodeToList(node);
                 node.addConnection(masterPos);
                 RoutingLinkHelper.fireLinkBolt(level, nodePos, masterPos);
-                player.displayClientMessage(Component.translatable("chat.neovitae.routing.link.master"), true);
+                player.sendOverlayMessage(Component.translatable("chat.neovitae.routing.link.master"));
                 // Preserve the master in the router so the next right-click binds another
                 // node to the same master without re-selecting it.
                 setBlockPos(stack, masterPos);
@@ -112,7 +114,7 @@ public class ItemNodeRouter extends Item {
             master.addConnection(nodePos, masterPos);
             node.addConnection(masterPos);
             RoutingLinkHelper.fireLinkBolt(level, nodePos, masterPos);
-            player.displayClientMessage(Component.translatable("chat.neovitae.routing.link.master"), true);
+            player.sendOverlayMessage(Component.translatable("chat.neovitae.routing.link.master"));
             setBlockPos(stack, masterPos);
             return InteractionResult.SUCCESS;
         }
@@ -133,7 +135,7 @@ public class ItemNodeRouter extends Item {
             pastNode.addConnection(pos);
             node.addConnection(containedPos);
             RoutingLinkHelper.fireLinkBolt(level, containedPos, pos);
-            player.displayClientMessage(Component.translatable("chat.neovitae.routing.link"), true);
+            player.sendOverlayMessage(Component.translatable("chat.neovitae.routing.link"));
             // Chain-bind: stash the just-clicked node so the next right-click continues the chain
             setBlockPos(stack, pos);
             return InteractionResult.SUCCESS;
@@ -148,7 +150,7 @@ public class ItemNodeRouter extends Item {
             pastNode.addConnection(pos);
             node.addConnection(containedPos);
             RoutingLinkHelper.fireLinkBolt(level, containedPos, pos);
-            player.displayClientMessage(Component.translatable("chat.neovitae.routing.link"), true);
+            player.sendOverlayMessage(Component.translatable("chat.neovitae.routing.link"));
             setBlockPos(stack, pos);
             return InteractionResult.SUCCESS;
         } else if (node.getMasterPos().equals(BlockPos.ZERO)) {
@@ -162,7 +164,7 @@ public class ItemNodeRouter extends Item {
             pastNode.addConnection(pos);
             node.addConnection(containedPos);
             RoutingLinkHelper.fireLinkBolt(level, containedPos, pos);
-            player.displayClientMessage(Component.translatable("chat.neovitae.routing.link"), true);
+            player.sendOverlayMessage(Component.translatable("chat.neovitae.routing.link"));
             setBlockPos(stack, pos);
             return InteractionResult.SUCCESS;
         }
@@ -178,9 +180,9 @@ public class ItemNodeRouter extends Item {
 
         var tag = data.copyTag();
         return new BlockPos(
-                tag.getInt(Constants.NBT.X_COORD),
-                tag.getInt(Constants.NBT.Y_COORD),
-                tag.getInt(Constants.NBT.Z_COORD));
+                tag.getIntOr(Constants.NBT.X_COORD, 0),
+                tag.getIntOr(Constants.NBT.Y_COORD, 0),
+                tag.getIntOr(Constants.NBT.Z_COORD, 0));
     }
 
     public void setBlockPos(ItemStack stack, BlockPos pos) {

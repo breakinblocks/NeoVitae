@@ -3,35 +3,36 @@ package com.breakinblocks.neovitae.util.helper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public final class TagHelper {
 
     private TagHelper() {}
 
     public static Optional<Item> getFirstItem(Registry<Item> registry, String namespace, String path) {
-        TagKey<Item> tag = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(namespace, path));
-        return registry.getTag(tag).flatMap(set -> set.stream().findFirst().map(Holder::value));
+        TagKey<Item> tag = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(namespace, path));
+        for (Holder<Item> holder : registry.getTagOrEmpty(tag)) {
+            return Optional.of(holder.value());
+        }
+        return Optional.empty();
     }
 
     public static boolean tagHasItems(Registry<Item> registry, String namespace, String path) {
-        TagKey<Item> tag = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(namespace, path));
-        return registry.getTag(tag).map(set -> set.size() > 0).orElse(false);
+        TagKey<Item> tag = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(namespace, path));
+        return registry.getTagOrEmpty(tag).iterator().hasNext();
     }
 
     public static List<String> getOreNames(Registry<Item> registry) {
-        return registry.getTagNames()
-                .filter(tag -> tag.location().getNamespace().equals("c"))
-                .filter(tag -> tag.location().getPath().startsWith("ores/"))
-                .map(tag -> tag.location().getPath().substring(5))
-                .distinct()
-                .sorted()
+        return registry.getTags()
+                .map(named -> named.key().location().toString())
                 .collect(Collectors.toList());
     }
 }

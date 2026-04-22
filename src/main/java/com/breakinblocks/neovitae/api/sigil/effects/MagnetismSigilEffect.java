@@ -46,7 +46,7 @@ public record MagnetismSigilEffect(int range, double pullSpeed) implements Sigil
 
     @Override
     public void activeTick(Level level, Player player, ItemStack stack, int itemSlot, boolean isSelected) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return;
         }
 

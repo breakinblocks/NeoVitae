@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.common.item;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -18,18 +18,20 @@ import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;
 
 import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class UpgradeTomeItem extends Item {
-    public UpgradeTomeItem() {
-        super(new Properties().stacksTo(1));
+    public UpgradeTomeItem(Item.Properties props) {
+        super(props.stacksTo(1));
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         ItemStack tomeStack = player.getItemInHand(usedHand);
         UpgradeTome tome = tomeStack.get(NVDataComponents.UPGRADE_TOME_DATA);
         if (tome == null) {
-            return InteractionResultHolder.pass(tomeStack);
+            return InteractionResult.PASS;
         }
 
         XpFunc expAdder = LivingHelper::applyExp;
@@ -39,15 +41,15 @@ public class UpgradeTomeItem extends Item {
 
         float consumed = expAdder.apply(player, tome.upgrade(), tome.exp(), true);
         if (player.hasInfiniteMaterials()) { // creative, no consume item/exp, only add >:
-            return InteractionResultHolder.sidedSuccess(tomeStack, level.isClientSide);
+            return InteractionResult.SUCCESS.heldItemTransformedTo(tomeStack);
         }
 
         if (consumed >= tome.exp()) {
-            return InteractionResultHolder.sidedSuccess(ItemStack.EMPTY, level.isClientSide);
+            return InteractionResult.SUCCESS.heldItemTransformedTo(ItemStack.EMPTY);
         }
 
         tomeStack.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(tome.upgrade(), tome.exp() - consumed));
-        return InteractionResultHolder.sidedSuccess(tomeStack, level.isClientSide);
+        return InteractionResult.SUCCESS.heldItemTransformedTo(tomeStack);
     }
 
     @FunctionalInterface
@@ -55,17 +57,17 @@ public class UpgradeTomeItem extends Item {
         Float apply(Player player, Holder<LivingUpgrade> upgrade, Float exp, boolean fromTome);
     }
 
-    @Override
+    // @Override (removed: not an override in 26.1)
     public String getDescriptionId(ItemStack stack) {
         UpgradeTome tome = stack.get(NVDataComponents.UPGRADE_TOME_DATA);
-        return tome == null ? getDescriptionId() : getDescriptionId() + "." + tome.upgrade().getKey().location().getPath();
+        return tome == null ? getDescriptionId() : getDescriptionId() + "." + tome.upgrade().getKey().identifier().getPath();
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         UpgradeTome tome = stack.get(NVDataComponents.UPGRADE_TOME_DATA);
         if (tome != null) {
-            tome.addToTooltip(context, tooltipComponents::add, tooltipFlag);
+            tome.addToTooltip(context, tooltipComponents, tooltipFlag, stack);
         }
     }
 

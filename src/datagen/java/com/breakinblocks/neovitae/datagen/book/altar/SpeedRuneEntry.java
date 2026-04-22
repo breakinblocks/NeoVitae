@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import com.mojang.datafixers.util.Pair;
 
 public class SpeedRuneEntry extends EntryProvider {
@@ -29,7 +29,7 @@ public class SpeedRuneEntry extends EntryProvider {
                 + "Be warned: an empty altar also loses progress faster with these runes in place.");
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "rune_speed")));
+                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "rune_speed")));
 
     }
 

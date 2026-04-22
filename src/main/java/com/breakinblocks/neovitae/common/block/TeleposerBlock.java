@@ -17,10 +17,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.blockentity.TeleposerBlockEntity;
+import net.minecraft.server.level.ServerLevel;
 
 public class TeleposerBlock extends Block implements EntityBlock {
-    public TeleposerBlock() {
-        super(BlockBehaviour.Properties.of().strength(2.0F, 5.0F).requiresCorrectToolForDrops());
+    public TeleposerBlock(BlockBehaviour.Properties props) {
+        super(props.strength(2.0F, 5.0F).requiresCorrectToolForDrops());
     }
 
     @Override
@@ -47,20 +48,18 @@ public class TeleposerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!state.is(newState.getBlock())) {
-            BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof TeleposerBlockEntity teleposer) {
-                teleposer.dropItems();
-                worldIn.updateNeighbourForOutputSignal(pos, this);
-            }
-            super.onRemove(state, worldIn, pos, newState, isMoving);
+    public void affectNeighborsAfterRemoval(BlockState state, ServerLevel worldIn, BlockPos pos, boolean isMoving) {
+        BlockEntity tileentity = worldIn.getBlockEntity(pos);
+        if (tileentity instanceof TeleposerBlockEntity teleposer) {
+            teleposer.dropItems();
+            worldIn.updateNeighbourForOutputSignal(pos, this);
         }
+        super.affectNeighborsAfterRemoval(state, worldIn, pos, isMoving);
     }
 
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult blockRayTraceResult) {
-        if (world.isClientSide) {
+        if (world.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
 

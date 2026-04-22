@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -46,7 +46,7 @@ public class NVRegistries {
         SigilTypeRegistry.register(modBus);
     }
 
-    private static ResourceLocation bm(String path) {
-        return ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, path);
+    private static Identifier bm(String path) {
+        return Identifier.fromNamespaceAndPath(NeoVitae.MODID, path);
     }
 }

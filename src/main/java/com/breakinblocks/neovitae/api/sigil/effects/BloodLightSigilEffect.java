@@ -23,6 +23,7 @@ import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
 
 import java.util.function.Supplier;
+import net.minecraft.tags.FluidTags;
 
 public record BloodLightSigilEffect(int defaultBrightness) implements SigilEffect {
 
@@ -48,8 +49,8 @@ public record BloodLightSigilEffect(int defaultBrightness) implements SigilEffec
         int brightness = BloodLightHelper.getBrightness(stack, defaultBrightness);
         DyeColor color = BloodLightHelper.getColorAndCycleIfRainbow(stack);
 
-        if (!level.isClientSide) {
-            boolean waterlogged = existing.getFluidState().is(net.minecraft.tags.FluidTags.WATER);
+        if (!level.isClientSide()) {
+            boolean waterlogged = existing.getFluidState().is(FluidTags.WATER);
             BlockState lightState = BloodLightHelper.createBlockState(brightness, waterlogged);
             if (BlockProtectionHelper.tryPlaceBlock(level, placePos, lightState, player)) {
                 BloodLightHelper.setBlockEntityColor(level, placePos, color);
@@ -74,7 +75,7 @@ public record BloodLightSigilEffect(int defaultBrightness) implements SigilEffec
             return tryPlace(level, player, stack, hitPos.relative(blockRayTrace.getDirection()));
         }
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             int brightness = BloodLightHelper.getBrightness(stack, defaultBrightness);
             DyeColor color = BloodLightHelper.getColorAndCycleIfRainbow(stack);
             EntityBloodLight projectile = new EntityBloodLight(level, player, brightness, color);

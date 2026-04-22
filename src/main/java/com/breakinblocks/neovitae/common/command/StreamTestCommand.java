@@ -20,6 +20,8 @@ import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class StreamTestCommand {
 
@@ -36,7 +38,7 @@ public class StreamTestCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("nvstream")
-                        .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .then(Commands.argument("preset", StringArgumentType.word())
                                 .suggests(SUGGEST_PRESETS)
                                 .executes(StreamTestCommand::execute))
@@ -46,12 +48,12 @@ public class StreamTestCommand {
     private static int execute(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
         if (!(source.getEntity() instanceof ServerPlayer player)) {
-            source.sendFailure(Component.literal("Must be run by a player"));
+            source.sendFailure(Component.translatable("command.neovitae.player_only"));
             return 0;
         }
 
         String preset = StringArgumentType.getString(context, "preset");
-        ServerLevel level = player.serverLevel();
+        ServerLevel level = (ServerLevel) player.level();
 
         Vec3 eye = player.getEyePosition();
         BlockHitResult hit = level.clip(new ClipContext(
@@ -59,28 +61,28 @@ public class StreamTestCommand {
                 ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player));
 
         if (hit.getType() == HitResult.Type.MISS) {
-            source.sendFailure(Component.literal("No block in range"));
+            source.sendFailure(Component.translatable("command.neovitae.stream_test.no_block"));
             return 0;
         }
 
-        net.minecraft.core.BlockPos targetPos = hit.getBlockPos();
+        BlockPos targetPos = hit.getBlockPos();
 
         if (preset.equals("emberMote") || preset.equals("soulWisp") || preset.equals("voidMark")) {
             spawnBlobParticles(level, targetPos, preset);
-            source.sendSuccess(() -> Component.literal("Spawned " + preset + " at " + targetPos.toShortString()), false);
+            source.sendSuccess(() -> Component.translatable("command.neovitae.stream_test.spawned", preset, targetPos.toShortString()), false);
             return 1;
         }
 
         if (preset.equals("ritual")) {
-            net.minecraft.world.level.block.entity.BlockEntity be = level.getBlockEntity(targetPos);
+            BlockEntity be = level.getBlockEntity(targetPos);
             if (be instanceof com.breakinblocks.neovitae.common.blockentity.AraVitaeTile altar) {
                 altar.setActive(true);
                 altar.setCooldownAfterCrafting(200);
                 altar.setChanged();
                 level.sendBlockUpdated(targetPos, level.getBlockState(targetPos), level.getBlockState(targetPos), 3);
-                source.sendSuccess(() -> Component.literal("Activated ritual circle on Ara Vitae at " + targetPos.toShortString() + " for 10 seconds"), false);
+                source.sendSuccess(() -> Component.translatable("command.neovitae.stream_test.activated", targetPos.toShortString()), false);
             } else {
-                source.sendFailure(Component.literal("No Ara Vitae at " + targetPos.toShortString() + " (found: " + (be != null ? be.getClass().getSimpleName() : "null") + ")"));
+                source.sendFailure(Component.translatable("command.neovitae.stream_test.no_altar", targetPos.toShortString(), (be != null ? be.getClass().getSimpleName() : "null")));
             }
             return 1;
         }
@@ -88,16 +90,16 @@ public class StreamTestCommand {
         StreamEffect.Builder builder = getPreset(preset, player, targetPos);
 
         if (builder == null) {
-            source.sendFailure(Component.literal("Unknown preset: " + preset));
+            source.sendFailure(Component.translatable("command.neovitae.stream_test.unknown_preset", preset));
             return 0;
         }
 
         builder.build().sendToNearby(level, player.blockPosition(), 128);
-        source.sendSuccess(() -> Component.literal("Fired " + preset + " to " + targetPos.toShortString()), false);
+        source.sendSuccess(() -> Component.translatable("command.neovitae.stream_test.fired", preset, targetPos.toShortString()), false);
         return 1;
     }
 
-    private static void spawnBlobParticles(ServerLevel level, net.minecraft.core.BlockPos pos, String type) {
+    private static void spawnBlobParticles(ServerLevel level, BlockPos pos, String type) {
         double x = pos.getX() + 0.5;
         double y = pos.getY() + 1.0;
         double z = pos.getZ() + 0.5;
@@ -117,7 +119,7 @@ public class StreamTestCommand {
                 x, y, z, 4, 0.1, 0.1, 0.1, 0);
     }
 
-    private static StreamEffect.Builder getPreset(String name, ServerPlayer player, net.minecraft.core.BlockPos target) {
+    private static StreamEffect.Builder getPreset(String name, ServerPlayer player, BlockPos target) {
         return switch (name) {
             case "bloodTendril" -> StreamPresets.bloodTendril(player, target);
             case "soulSiphon" -> StreamPresets.soulSiphon(player, target);

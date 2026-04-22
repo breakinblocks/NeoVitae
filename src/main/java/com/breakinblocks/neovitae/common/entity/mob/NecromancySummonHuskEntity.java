@@ -1,13 +1,16 @@
 package com.breakinblocks.neovitae.common.entity.mob;
 
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Husk;
+import net.minecraft.world.entity.monster.zombie.Husk;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -17,8 +20,8 @@ public class NecromancySummonHuskEntity extends Husk {
     private int lifetime = 0;
     @Nullable private UUID ownerUUID;
 
-    public NecromancySummonHuskEntity(EntityType<? extends NecromancySummonHuskEntity> type, Level level) {
-        super(type, level);
+    public NecromancySummonHuskEntity(EntityType<? extends Zombie> type, Level level) {
+        super((EntityType) type, level);
         this.xpReward = 0;
         this.setPersistenceRequired();
     }
@@ -44,15 +47,15 @@ public class NecromancySummonHuskEntity extends Husk {
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
+    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
         if (SummonedUndeadHelper.shouldBlockDamage(source, ownerUUID)) return false;
-        return super.hurt(source, amount);
+        return super.hurtServer(level, source, amount);
     }
 
-    @Override protected boolean shouldDropLoot() { return false; }
-    @Override public boolean isSunSensitive() { return false; }
+    // @Override (removed: not an override in 26.1) protected boolean shouldDropLoot() { return false; }
+    @Override protected boolean isSunSensitive() { return false; }
     @Override public boolean removeWhenFarAway(double distance) { return false; }
 
-    @Override public void addAdditionalSaveData(CompoundTag tag) { super.addAdditionalSaveData(tag); SummonedUndeadHelper.save(tag, ownerUUID, lifetime); }
-    @Override public void readAdditionalSaveData(CompoundTag tag) { super.readAdditionalSaveData(tag); ownerUUID = SummonedUndeadHelper.load(tag); lifetime = tag.getInt("Lifetime"); }
+    @Override protected void addAdditionalSaveData(ValueOutput tag) { super.addAdditionalSaveData(tag); SummonedUndeadHelper.save(tag, ownerUUID, lifetime); }
+    @Override protected void readAdditionalSaveData(ValueInput tag) { super.readAdditionalSaveData(tag); ownerUUID = SummonedUndeadHelper.load(tag); lifetime = tag.getIntOr("Lifetime", 0); }
 }

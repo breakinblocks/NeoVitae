@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.common.effect;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -10,6 +10,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
+import net.minecraft.core.Holder;
 
 public class NVMobEffects {
 
@@ -44,7 +45,7 @@ public class NVMobEffects {
             MOB_EFFECTS.register("gravity", () -> {
                 NeoVitaeEffect effect = new NeoVitaeEffect(MobEffectCategory.HARMFUL, 0x800080);
                 effect.addAttributeModifier(Attributes.GRAVITY,
-                        ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "gravity_effect"),
+                        Identifier.fromNamespaceAndPath(NeoVitae.MODID, "gravity_effect"),
                         0.5F, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
                 return effect;
             });
@@ -71,7 +72,7 @@ public class NVMobEffects {
             MOB_EFFECTS.register("hard_cloak", () -> {
                 NeoVitaeEffect effect = new NeoVitaeEffect(MobEffectCategory.BENEFICIAL, 0x3C1A8D);
                 effect.addAttributeModifier(Attributes.ARMOR_TOUGHNESS,
-                        ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "hard_cloak_effect"),
+                        Identifier.fromNamespaceAndPath(NeoVitae.MODID, "hard_cloak_effect"),
                         3, AttributeModifier.Operation.ADD_VALUE);
                 return effect;
             });
@@ -80,7 +81,7 @@ public class NVMobEffects {
         MOB_EFFECTS.register(modBus);
     }
 
-    public static MobEffect getEffect(ResourceLocation rl) {
-        return MOB_EFFECTS.getRegistry().get().get(rl);
+    public static MobEffect getEffect(Identifier rl) {
+        return MOB_EFFECTS.getRegistry().get().get(rl).map(Holder.Reference::value).orElse(null);
     }
 }

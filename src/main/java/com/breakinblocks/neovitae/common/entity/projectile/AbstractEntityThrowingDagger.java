@@ -1,6 +1,5 @@
 package com.breakinblocks.neovitae.common.entity.projectile;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.core.BlockPos;
@@ -8,38 +7,34 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtUtils;
-import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
@@ -50,8 +45,10 @@ import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import net.minecraft.core.component.DataComponents;
 
 /**
  * Base class for throwing dagger projectiles.
@@ -87,8 +84,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
 
     public AbstractEntityThrowingDagger(EntityType<? extends AbstractEntityThrowingDagger> type, ItemStack stack,
                                         Level level, LivingEntity thrower) {
-        super(type, thrower, level);
-        this.setItem(stack);
+        super(type, thrower, level, stack);
         if (thrower instanceof Player) {
             this.pickupStatus = AbstractArrow.Pickup.ALLOWED;
         }
@@ -96,8 +92,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
 
     public AbstractEntityThrowingDagger(EntityType<? extends AbstractEntityThrowingDagger> type, ItemStack stack,
                                         Level level, double x, double y, double z) {
-        super(type, x, y, z, level);
-        this.setItem(stack);
+        super(type, x, y, z, level, stack);
     }
 
     @Override
@@ -141,7 +136,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
     }
 
     public void setEffectsFromItem(ItemStack stack) {
-        PotionContents contents = stack.get(net.minecraft.core.component.DataComponents.POTION_CONTENTS);
+        PotionContents contents = stack.get(DataComponents.POTION_CONTENTS);
         if (contents != null) {
             for (MobEffectInstance effect : contents.getAllEffects()) {
                 this.addEffect(new MobEffectInstance(effect));
@@ -153,9 +148,27 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         if (this.effects.isEmpty()) {
             this.entityData.set(ID_EFFECT_COLOR, -1);
         } else {
-            int color = PotionContents.getColor(this.effects);
-            this.entityData.set(ID_EFFECT_COLOR, color);
+            this.entityData.set(ID_EFFECT_COLOR, computeEffectColor(this.effects));
         }
+    }
+
+    private static int computeEffectColor(Collection<MobEffectInstance> effects) {
+        float r = 0f, g = 0f, b = 0f;
+        int total = 0;
+        for (MobEffectInstance e : effects) {
+            if (!e.isVisible()) continue;
+            int color = e.getEffect().value().getColor();
+            int amp = e.getAmplifier() + 1;
+            r += ((color >> 16) & 0xFF) / 255.0F * amp;
+            g += ((color >> 8) & 0xFF) / 255.0F * amp;
+            b += (color & 0xFF) / 255.0F * amp;
+            total += amp;
+        }
+        if (total == 0) return 0;
+        int ri = Mth.floor(r / total * 255.0F);
+        int gi = Mth.floor(g / total * 255.0F);
+        int bi = Mth.floor(b / total * 255.0F);
+        return (ri << 16) | (gi << 8) | bi;
     }
 
     @Override
@@ -200,7 +213,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         if (this.inGround && !noClip) {
             if (this.inBlockState != blockstate && this.shouldFall()) {
                 this.startFalling();
-            } else if (!this.level().isClientSide) {
+            } else if (!this.level().isClientSide()) {
                 this.tickDespawn();
             }
             ++this.timeInGround;
@@ -231,7 +244,6 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
 
                 if (hitresult != null && hitresult.getType() != HitResult.Type.MISS && !noClip) {
                     this.onHit(hitresult);
-                    this.hasImpulse = true;
                 }
 
                 if (entityhitresult == null || this.getPierceLevel() <= 0) {
@@ -274,7 +286,6 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
             }
 
             this.setPos(newX, newY, newZ);
-            this.checkInsideBlocks();
         }
     }
 
@@ -330,7 +341,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
             entity.igniteForSeconds(5);
         }
 
-        if (entity.hurt(damageSource, (float) dmg)) {
+        if (entity.hurtOrSimulate(damageSource, (float) dmg)) {
             if (!entity.isAlive() && owner instanceof Player playerOwner && entity instanceof LivingEntity living) {
                 double willAmount = this.getWillDropForMobHealth(living.getMaxHealth());
                 double bonusSpiritus = playerOwner.getAttributeValue(NVAttributes.BONUS_SPIRITUS);
@@ -351,15 +362,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
                     }
                 }
 
-                // Post-hurt/damage enchantment effects are now handled automatically by the damage system in 1.21
-
                 this.daggerHit(living);
-
-                if (owner != null && living != owner && living instanceof Player &&
-                        owner instanceof ServerPlayer serverOwner && !this.isSilent()) {
-                    serverOwner.connection.send(new ClientboundGameEventPacket(
-                            ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
-                }
             }
 
             this.playSound(this.hitSound, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
@@ -369,9 +372,9 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
             this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
             this.setYRot(this.getYRot() + 180.0F);
             this.yRotO += 180.0F;
-            if (!this.level().isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
+            if (this.level() instanceof ServerLevel serverLevel && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
                 if (this.pickupStatus == AbstractArrow.Pickup.ALLOWED) {
-                    this.spawnAtLocation(this.getArrowStack(), 0.1F);
+                    this.spawnAtLocation(serverLevel, this.getArrowStack(), 0.1F);
                 }
                 this.discard();
             }
@@ -395,7 +398,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
 
     @Override
     public void playerTouch(Player player) {
-        if (!this.level().isClientSide && (this.inGround || this.noPhysics) && this.arrowShake <= 0) {
+        if (!this.level().isClientSide() && (this.inGround || this.noPhysics) && this.arrowShake <= 0) {
             boolean canPickup = this.pickupStatus == AbstractArrow.Pickup.ALLOWED ||
                     (this.pickupStatus == AbstractArrow.Pickup.CREATIVE_ONLY && player.getAbilities().instabuild) ||
                     (this.noPhysics && this.getOwner() != null && this.getOwner().getUUID().equals(player.getUUID()));
@@ -408,7 +411,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
             if (canPickup) {
                 level().playSound(null, player.getX(), player.getY() + 0.5, player.getZ(),
                         SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F,
-                        ((level().random.nextFloat() - level().random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                        ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 this.discard();
             }
         }
@@ -469,64 +472,48 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putShort("life", (short) this.ticksInGround);
+    protected void addAdditionalSaveData(ValueOutput out) {
+        super.addAdditionalSaveData(out);
+        out.putShort("life", (short) this.ticksInGround);
         if (this.inBlockState != null) {
-            compound.put("inBlockState", NbtUtils.writeBlockState(this.inBlockState));
+            out.store("inBlockState", BlockState.CODEC, this.inBlockState);
         }
-        compound.putByte("shake", (byte) this.arrowShake);
-        compound.putBoolean("inGround", this.inGround);
-        compound.putByte("pickup", (byte) this.pickupStatus.ordinal());
-        compound.putDouble("damage", this.damage);
-        compound.putDouble("willDrop", willDrop);
-        compound.putString("willType", this.willType.getSerializedName());
+        out.putByte("shake", (byte) this.arrowShake);
+        out.putBoolean("inGround", this.inGround);
+        out.putByte("pickup", (byte) this.pickupStatus.ordinal());
+        out.putDouble("damage", this.damage);
+        out.putDouble("willDrop", willDrop);
+        out.putString("willType", this.willType.getSerializedName());
 
         if (!this.effects.isEmpty()) {
-            ListTag effectList = new ListTag();
-            for (MobEffectInstance effect : this.effects) {
-                effectList.add(effect.save());
-            }
-            compound.put("CustomPotionEffects", effectList);
+            out.store("CustomPotionEffects", MobEffectInstance.CODEC.listOf(), List.copyOf(this.effects));
         }
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.ticksInGround = compound.getShort("life");
-        if (compound.contains("inBlockState", 10)) {
-            this.inBlockState = NbtUtils.readBlockState(
-                    this.level().holderLookup(BuiltInRegistries.BLOCK.key()),
-                    compound.getCompound("inBlockState"));
-        }
-        this.arrowShake = compound.getByte("shake") & 255;
-        this.inGround = compound.getBoolean("inGround");
-        if (compound.contains("damage", 99)) {
-            this.damage = compound.getDouble("damage");
-        }
-        if (compound.contains("pickup", 99)) {
-            this.pickupStatus = AbstractArrow.Pickup.byOrdinal(compound.getByte("pickup"));
-        }
-        this.willDrop = compound.getDouble("willDrop");
-        String willTypeName = compound.getString("willType");
+    protected void readAdditionalSaveData(ValueInput in) {
+        super.readAdditionalSaveData(in);
+        this.ticksInGround = in.getShortOr("life", (short) 0);
+        in.read("inBlockState", BlockState.CODEC).ifPresent(state -> this.inBlockState = state);
+        this.arrowShake = in.getByteOr("shake", (byte) 0) & 255;
+        this.inGround = in.getBooleanOr("inGround", false);
+        this.damage = in.getDoubleOr("damage", this.damage);
+        this.pickupStatus = AbstractArrow.Pickup.byOrdinal(in.getByteOr("pickup", (byte) 0));
+        this.willDrop = in.getDoubleOr("willDrop", 0d);
+        String willTypeName = in.getStringOr("willType", "");
         this.willType = willTypeName.isEmpty() ? SpiritusType.DEFAULT : SpiritusType.valueOf(willTypeName.toUpperCase());
 
-        if (compound.contains("CustomPotionEffects", 9)) {
-            ListTag effectList = compound.getList("CustomPotionEffects", 10);
-            for (int i = 0; i < effectList.size(); i++) {
-                MobEffectInstance effect = MobEffectInstance.load(effectList.getCompound(i));
-                if (effect != null) {
-                    this.addEffect(effect);
-                }
+        in.read("CustomPotionEffects", MobEffectInstance.CODEC.listOf()).ifPresent(list -> {
+            for (MobEffectInstance effect : list) {
+                this.addEffect(effect);
             }
-        }
+        });
     }
 
     @OnlyIn(Dist.CLIENT)
     private ParticleOptions makeParticle() {
         ItemStack stack = this.getItem();
-        return stack.isEmpty() ? ParticleTypes.CRIT : new ItemParticleOption(ParticleTypes.ITEM, stack);
+        return stack.isEmpty() ? ParticleTypes.CRIT : new ItemParticleOption(ParticleTypes.ITEM, stack.getItem());
     }
 
     @OnlyIn(Dist.CLIENT)

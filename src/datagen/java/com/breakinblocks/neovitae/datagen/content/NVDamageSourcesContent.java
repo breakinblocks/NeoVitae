@@ -10,6 +10,7 @@ import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import java.util.function.Function;
+import net.minecraft.resources.ResourceKey;
 
 public class NVDamageSourcesContent {
     public static void bootstrap(BootstrapContext<DamageType> context) {
@@ -19,7 +20,7 @@ public class NVDamageSourcesContent {
         context.register(NVDamageSources.SPIKES, new DamageType("spikes", DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0F));
     }
 
-    public static void tags(Function<TagKey<DamageType>, TagAppender<net.minecraft.resources.ResourceKey<DamageType>, DamageType>> setter) {
+    public static void tags(Function<TagKey<DamageType>, TagAppender<ResourceKey<DamageType>, DamageType>> setter) {
         setter.apply(DamageTypeTags.BYPASSES_ARMOR)
                 .add(NVDamageSources.SELF_SACRIFICE)
                 .add(NVDamageSources.SACRIFICE);

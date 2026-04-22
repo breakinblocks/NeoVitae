@@ -10,10 +10,12 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStackTemplate;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
@@ -30,8 +32,8 @@ import net.minecraft.world.item.crafting.Recipe;
  */
 public class AthanorPotionRecipe extends AthanorRecipe {
 
-    private static final StreamCodec<RegistryFriendlyByteBuf, Pair<ItemStack, Double>> CHANCE_PAIR_STREAM_CODEC = StreamCodec.composite(
-            ItemStack.STREAM_CODEC, Pair::getFirst,
+    private static final StreamCodec<RegistryFriendlyByteBuf, Pair<ItemStackTemplate, Double>> CHANCE_PAIR_STREAM_CODEC = StreamCodec.composite(
+            ItemStackTemplate.STREAM_CODEC, Pair::getFirst,
             ByteBufCodecs.DOUBLE, Pair::getSecond,
             Pair::new
     );
@@ -43,25 +45,25 @@ public class AthanorPotionRecipe extends AthanorRecipe {
     public static final MapCodec<AthanorPotionRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
             Ingredient.CODEC.fieldOf("tool").forGetter(AthanorPotionRecipe::getTool),
             Ingredient.CODEC.fieldOf("input").forGetter(AthanorPotionRecipe::getSingleInput),
-            ItemStack.CODEC.listOf().fieldOf("guaranteed_outputs").forGetter(AthanorPotionRecipe::getGuaranteedOutput),
-            Codec.pair(ItemStack.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().fieldOf("chance_outputs").forGetter(AthanorPotionRecipe::getChanceOutput),
+            ItemStackTemplate.CODEC.listOf().fieldOf("guaranteed_outputs").forGetter(AthanorPotionRecipe::getGuaranteedOutput),
+            Codec.pair(ItemStackTemplate.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().fieldOf("chance_outputs").forGetter(AthanorPotionRecipe::getChanceOutput),
             SizedFluidIngredient.CODEC.optionalFieldOf("input_fluid").forGetter(AthanorPotionRecipe::getInputFluid),
-            FluidStack.CODEC.optionalFieldOf("output_fluid").forGetter(AthanorPotionRecipe::getOutputFluid)
+            FluidStackTemplate.CODEC.optionalFieldOf("output_fluid").forGetter(AthanorPotionRecipe::getOutputFluidTemplate)
     ).apply(inst, AthanorPotionRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, AthanorPotionRecipe> STREAM_CODEC = StreamCodec.composite(
             Ingredient.CONTENTS_STREAM_CODEC, AthanorPotionRecipe::getTool,
             Ingredient.CONTENTS_STREAM_CODEC, AthanorPotionRecipe::getSingleInput,
-            ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), AthanorPotionRecipe::getGuaranteedOutput,
+            ItemStackTemplate.STREAM_CODEC.apply(ByteBufCodecs.list()), AthanorPotionRecipe::getGuaranteedOutput,
             CHANCE_PAIR_STREAM_CODEC.apply(ByteBufCodecs.list()), AthanorPotionRecipe::getChanceOutput,
             SizedFluidIngredient.STREAM_CODEC.apply(ByteBufCodecs::optional), AthanorPotionRecipe::getInputFluid,
-            FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional), AthanorPotionRecipe::getOutputFluid,
+            FluidStackTemplate.STREAM_CODEC.apply(ByteBufCodecs::optional), AthanorPotionRecipe::getOutputFluidTemplate,
             AthanorPotionRecipe::new
     );
 
-    public AthanorPotionRecipe(Ingredient tool, Ingredient input, List<ItemStack> guaranteedOutput,
-                           List<Pair<ItemStack, Double>> chanceOutput,
-                           Optional<SizedFluidIngredient> inputFluid, Optional<FluidStack> outputStack) {
+    public AthanorPotionRecipe(Ingredient tool, Ingredient input, List<ItemStackTemplate> guaranteedOutput,
+                           List<Pair<ItemStackTemplate, Double>> chanceOutput,
+                           Optional<SizedFluidIngredient> inputFluid, Optional<FluidStackTemplate> outputStack) {
         super(tool, List.of(input), guaranteedOutput, chanceOutput, inputFluid, outputStack, Map.of());
     }
 
@@ -72,8 +74,8 @@ public class AthanorPotionRecipe extends AthanorRecipe {
         ItemStack toolStack = input.getItem(0);
         PotionContents toolContents = toolStack.get(DataComponents.POTION_CONTENTS);
 
-        for (ItemStack guaranteedStack : getGuaranteedOutput()) {
-            ItemStack outputStack = guaranteedStack.copy();
+        for (ItemStackTemplate guaranteedTpl : getGuaranteedOutput()) {
+            ItemStack outputStack = guaranteedTpl.create();
             if (toolContents != null && toolContents.hasEffects()) {
                 List<MobEffectInstance> effects = new ArrayList<>();
                 toolContents.getAllEffects().forEach(effect -> effects.add(new MobEffectInstance(effect)));
@@ -90,13 +92,13 @@ public class AthanorPotionRecipe extends AthanorRecipe {
 
         double bonusChance = toolStack.getOrDefault(
                 com.breakinblocks.neovitae.common.datacomponent.NVDataComponents.ARC_CHANCE, 1D);
-        for (Pair<ItemStack, Double> entry : getChanceOutput()) {
+        for (Pair<ItemStackTemplate, Double> entry : getChanceOutput()) {
             if (Math.random() < entry.getSecond() * bonusChance) {
-                outputs.add(entry.getFirst().copy());
+                outputs.add(entry.getFirst().create());
             }
         }
 
-        return new AthanorResult(outputs, getOutputFluid().orElse(FluidStack.EMPTY).copy());
+        return new AthanorResult(outputs, getOutputFluid().orElse(FluidStack.EMPTY));
     }
 
     @Override

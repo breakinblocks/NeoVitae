@@ -8,6 +8,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
@@ -30,7 +31,7 @@ public class FlaskItemTransformRecipe extends FlaskRecipe {
 
     public static final MapCodec<FlaskItemTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC.listOf().fieldOf("input").forGetter(FlaskItemTransformRecipe::getInput),
-            ItemStack.CODEC.fieldOf("output").forGetter(FlaskItemTransformRecipe::getOutputItem),
+            ItemStackTemplate.CODEC.fieldOf("output").forGetter(FlaskItemTransformRecipe::getOutputTemplate),
             Codec.INT.fieldOf("syphon").forGetter(FlaskItemTransformRecipe::getSyphon),
             Codec.INT.fieldOf("ticks").forGetter(FlaskItemTransformRecipe::getTicks),
             Codec.INT.optionalFieldOf("upgradeLevel", 0).forGetter(FlaskItemTransformRecipe::getMinimumTier)
@@ -38,28 +39,31 @@ public class FlaskItemTransformRecipe extends FlaskRecipe {
 
     public static final StreamCodec<RegistryFriendlyByteBuf, FlaskItemTransformRecipe> STREAM_CODEC = StreamCodec.composite(
             RecipeSerializerUtils.INGREDIENT_LIST_CODEC, FlaskItemTransformRecipe::getInput,
-            ItemStack.STREAM_CODEC, FlaskItemTransformRecipe::getOutputItem,
+            ItemStackTemplate.STREAM_CODEC, FlaskItemTransformRecipe::getOutputTemplate,
             ByteBufCodecs.INT, FlaskItemTransformRecipe::getSyphon,
             ByteBufCodecs.INT, FlaskItemTransformRecipe::getTicks,
             ByteBufCodecs.INT, FlaskItemTransformRecipe::getMinimumTier,
             FlaskItemTransformRecipe::new
     );
 
-    private final ItemStack outputItem;
+    private final ItemStackTemplate outputTemplate;
 
-    public FlaskItemTransformRecipe(List<Ingredient> input, ItemStack outputItem, int syphon, int ticks, int minimumTier) {
+    public FlaskItemTransformRecipe(List<Ingredient> input, ItemStackTemplate outputTemplate, int syphon, int ticks, int minimumTier) {
         super(input, syphon, ticks, minimumTier);
-        this.outputItem = outputItem;
+        this.outputTemplate = outputTemplate;
+    }
+
+    public ItemStackTemplate getOutputTemplate() {
+        return outputTemplate;
     }
 
     public ItemStack getOutputItem() {
-        return outputItem;
+        return outputTemplate.create();
     }
 
     @Override
     public boolean canModifyFlask(ItemStack flaskStack, List<EffectHolder> flaskEffects) {
-        // Can only transform if the item type is different
-        return !flaskStack.is(outputItem.getItem());
+        return !flaskStack.is(outputTemplate.item().value());
     }
 
     @Override
@@ -70,7 +74,7 @@ public class FlaskItemTransformRecipe extends FlaskRecipe {
     @Nonnull
     @Override
     public ItemStack getOutput(ItemStack flaskStack, List<EffectHolder> flaskEffects) {
-        ItemStack copyStack = outputItem.copy();
+        ItemStack copyStack = outputTemplate.create();
 
         // Transfer effects from old flask
         if (!flaskEffects.isEmpty()) {

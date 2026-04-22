@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.Blocks;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.IImperfectRitualStone;
 import com.breakinblocks.neovitae.ritual.ImperfectRitual;
+import net.minecraft.world.level.saveddata.WeatherData;
 
 public class ImperfectRitualRain extends ImperfectRitual {
 
@@ -24,7 +25,7 @@ public class ImperfectRitualRain extends ImperfectRitual {
         if (level == null || level.isClientSide()) return false;
 
         if (level instanceof ServerLevel serverLevel) {
-            net.minecraft.world.level.saveddata.WeatherData weather = serverLevel.getWeatherData();
+            WeatherData weather = serverLevel.getWeatherData();
             weather.setClearWeatherTime(0);
             weather.setRainTime(24000);
             weather.setRaining(true);

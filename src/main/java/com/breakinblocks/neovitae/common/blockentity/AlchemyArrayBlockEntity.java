@@ -31,6 +31,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import java.util.Optional;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import java.util.Objects;
 
 public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     public boolean isActive = false;
@@ -207,7 +208,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
                 : Optional.empty();
         holderOpt.ifPresent(h -> {
             Identifier tex = h.value().getTexture();
-            if (!java.util.Objects.equals(tex, cachedTexture)) {
+            if (!Objects.equals(tex, cachedTexture)) {
                 cachedTexture = tex;
                 setChanged();
                 if (level != null && !level.isClientSide()) {

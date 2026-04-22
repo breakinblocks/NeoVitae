@@ -17,14 +17,19 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.material.Fluid;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
-/**
- * 26.1 note: ItemStack construction ({@code new ItemStack(ItemLike)}) will NPE during datagen
- * with "Components not bound yet" because the item Holder's component map is populated after
- * registry bake. This base class therefore stores {@code ItemLike + count} and materializes the
- * ItemStack lazily via {@link #resultStack()}. Subclasses that need to compare the result against
- * ItemStack.EMPTY should instead compare against the ItemLike field.
- */
+// Stores ItemLike+count (not ItemStack) — `new ItemStack(ItemLike)` NPEs during datagen
+// ("Components not bound yet") because the Item Holder's component map binds at mod-load.
 public abstract class BaseRecipeBuilder implements RecipeBuilder {
     protected final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
     protected String group;
@@ -33,9 +38,6 @@ public abstract class BaseRecipeBuilder implements RecipeBuilder {
     protected final int resultCount;
 
     protected BaseRecipeBuilder(ItemStack result) {
-        // Accept ItemStack for source compatibility but immediately decompose — ItemStack
-        // construction already happened (or is happening) in the caller; the safe path is to
-        // extract the ItemLike and count without touching .components().
         if (result == null || result.isEmpty()) {
             this.resultItem = null;
             this.resultCount = 0;
@@ -54,15 +56,42 @@ public abstract class BaseRecipeBuilder implements RecipeBuilder {
         this(result, 1);
     }
 
-    /**
-     * Construct the result ItemStack lazily via {@link net.minecraft.world.item.ItemStackTemplate},
-     * which is the 26.1 datagen-safe path. The direct ItemStack ctors NPE during datagen with
-     * "Components not bound yet" because the Item Holder's component map is populated at
-     * mod-load, not during datagen. ItemStackTemplate doesn't trigger the component lookup.
-     */
+    private static HolderGetter<Item> itemGetter;
+    private static HolderGetter<Fluid> fluidGetter;
+
+    public static void bindItemGetter(HolderGetter<Item> getter) {
+        itemGetter = getter;
+    }
+
+    public static void bindFluidGetter(HolderGetter<Fluid> getter) {
+        fluidGetter = getter;
+    }
+
+    public static Ingredient ingredientOf(TagKey<Item> tag) {
+        if (itemGetter == null) {
+            throw new IllegalStateException("BaseRecipeBuilder.bindItemGetter() must be called before building tag-based ingredients");
+        }
+        return Ingredient.of(itemGetter.getOrThrow(tag));
+    }
+
+    public static SizedFluidIngredient sizedFluidOf(TagKey<Fluid> tag, int amount) {
+        if (fluidGetter == null) {
+            throw new IllegalStateException("BaseRecipeBuilder.bindFluidGetter() must be called before building tag-based fluid ingredients");
+        }
+        return new SizedFluidIngredient(FluidIngredient.of(fluidGetter.getOrThrow(tag)), amount);
+    }
+
+    protected ItemStackTemplate resultTemplate() {
+        if (resultItem == null) {
+            return new ItemStackTemplate(Items.STONE, 1);
+        }
+        return new ItemStackTemplate(resultItem.asItem(), Math.max(resultCount, 1));
+    }
+
+    @Deprecated
     protected ItemStack resultStack() {
         if (resultItem == null || resultCount <= 0) return ItemStack.EMPTY;
-        return new net.minecraft.world.item.ItemStackTemplate(resultItem.asItem(), resultCount).create();
+        return new ItemStackTemplate(resultItem.asItem(), resultCount).create();
     }
 
     @Override
@@ -77,15 +106,11 @@ public abstract class BaseRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    /**
-     * 26.1 recipe contract: each builder reports its default ResourceKey.
-     * Subclasses override when the default derives from more than the result item id.
-     */
     @Override
     public ResourceKey<Recipe<?>> defaultId() {
         Identifier id = resultItem == null
                 ? Identifier.withDefaultNamespace("unknown")
-                : net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(resultItem.asItem());
+                : BuiltInRegistries.ITEM.getKey(resultItem.asItem());
         return recipeKey(id);
     }
 

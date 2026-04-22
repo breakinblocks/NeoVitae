@@ -2,12 +2,16 @@ package com.breakinblocks.neovitae.datagen.builder;
 
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.crafting.Recipe;
 
 /**
  * Builder for effect-only alchemy array recipes (no item output).
@@ -59,10 +63,10 @@ public class AlchemyArrayEffectRecipeBuilder {
     }
 
     public void save(RecipeOutput output, String name) {
-        save(output, net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, NeoVitae.rl("array/" + name)));
+        save(output, ResourceKey.create(Registries.RECIPE, NeoVitae.rl("array/" + name)));
     }
 
-    public void save(RecipeOutput recipeOutput, net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> id) {
+    public void save(RecipeOutput recipeOutput, ResourceKey<Recipe<?>> id) {
         if (baseInput == null) {
             throw new IllegalStateException("AlchemyArrayRecipe requires a base input");
         }
@@ -70,7 +74,7 @@ public class AlchemyArrayEffectRecipeBuilder {
             throw new IllegalStateException("AlchemyArrayRecipe requires an added input");
         }
         // Effect recipes have empty output
-        AlchemyArrayRecipe recipe = new AlchemyArrayRecipe(texture, baseInput, addedInput, ItemStack.EMPTY, effectType);
+        AlchemyArrayRecipe recipe = new AlchemyArrayRecipe(texture, baseInput, addedInput, new ItemStackTemplate(Items.STONE, 1), effectType);
         recipeOutput.accept(id, recipe, null);
     }
 }

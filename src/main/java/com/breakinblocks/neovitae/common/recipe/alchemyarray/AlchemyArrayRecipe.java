@@ -6,6 +6,8 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
@@ -29,15 +31,15 @@ public class AlchemyArrayRecipe implements Recipe<AlchemyArrayInput> {
             Identifier.CODEC.fieldOf("texture").forGetter(AlchemyArrayRecipe::getTexture),
             Ingredient.CODEC.fieldOf("baseinput").forGetter(AlchemyArrayRecipe::getBaseInput),
             Ingredient.CODEC.fieldOf("addedinput").forGetter(AlchemyArrayRecipe::getAddedInput),
-            ItemStack.CODEC.optionalFieldOf("output", ItemStack.EMPTY).forGetter(AlchemyArrayRecipe::getOutput),
+            ItemStackTemplate.CODEC.optionalFieldOf("output").forGetter(r -> r.getOutputTemplate().item().value() == Items.AIR ? Optional.empty() : Optional.of(r.getOutputTemplate())),
             AlchemyArrayEffectType.CODEC.optionalFieldOf("effect_type", AlchemyArrayEffectType.CRAFTING).forGetter(AlchemyArrayRecipe::getEffectType)
-    ).apply(instance, AlchemyArrayRecipe::new));
+    ).apply(instance, (tex, base, added, out, effect) -> new AlchemyArrayRecipe(tex, base, added, out.orElseGet(() -> new ItemStackTemplate(Items.STONE, 1)), effect)));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, AlchemyArrayRecipe> STREAM_CODEC = StreamCodec.composite(
             Identifier.STREAM_CODEC, AlchemyArrayRecipe::getTexture,
             Ingredient.CONTENTS_STREAM_CODEC, AlchemyArrayRecipe::getBaseInput,
             Ingredient.CONTENTS_STREAM_CODEC, AlchemyArrayRecipe::getAddedInput,
-            ItemStack.OPTIONAL_STREAM_CODEC, AlchemyArrayRecipe::getOutput,
+            ItemStackTemplate.STREAM_CODEC, AlchemyArrayRecipe::getOutputTemplate,
             AlchemyArrayEffectType.STREAM_CODEC, AlchemyArrayRecipe::getEffectType,
             AlchemyArrayRecipe::new
     );
@@ -48,19 +50,19 @@ public class AlchemyArrayRecipe implements Recipe<AlchemyArrayInput> {
     @Nonnull
     private final Ingredient addedInput;
     @Nonnull
-    private final ItemStack output;
+    private final ItemStackTemplate outputTemplate;
     @Nonnull
     private final AlchemyArrayEffectType effectType;
 
-    public AlchemyArrayRecipe(Identifier texture, @Nonnull Ingredient baseIngredient, @Nonnull Ingredient addedIngredient, @Nonnull ItemStack result) {
+    public AlchemyArrayRecipe(Identifier texture, @Nonnull Ingredient baseIngredient, @Nonnull Ingredient addedIngredient, @Nonnull ItemStackTemplate result) {
         this(texture, baseIngredient, addedIngredient, result, AlchemyArrayEffectType.CRAFTING);
     }
 
-    public AlchemyArrayRecipe(Identifier texture, @Nonnull Ingredient baseIngredient, @Nonnull Ingredient addedIngredient, @Nonnull ItemStack result, @Nonnull AlchemyArrayEffectType effectType) {
+    public AlchemyArrayRecipe(Identifier texture, @Nonnull Ingredient baseIngredient, @Nonnull Ingredient addedIngredient, @Nonnull ItemStackTemplate result, @Nonnull AlchemyArrayEffectType effectType) {
         this.texture = texture;
         this.baseInput = baseIngredient;
         this.addedInput = addedIngredient;
-        this.output = result;
+        this.outputTemplate = result;
         this.effectType = effectType;
     }
 
@@ -81,7 +83,12 @@ public class AlchemyArrayRecipe implements Recipe<AlchemyArrayInput> {
 
     @Nonnull
     public ItemStack getOutput() {
-        return output;
+        return outputTemplate.create();
+    }
+
+    @Nonnull
+    public ItemStackTemplate getOutputTemplate() {
+        return outputTemplate;
     }
 
     @Nonnull
@@ -96,7 +103,7 @@ public class AlchemyArrayRecipe implements Recipe<AlchemyArrayInput> {
 
     @Override
     public ItemStack assemble(AlchemyArrayInput input) {
-        return output.copy();
+        return outputTemplate.create();
     }
 
     @Override

@@ -38,6 +38,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import net.minecraft.data.tags.TagAppender;
 
 public class LivingUpgrades {
     // Downgrades
@@ -625,7 +626,7 @@ public class LivingUpgrades {
             SELF_SACRIFICE     // Tough Palms
     );
 
-    public static void tags(Function<TagKey<LivingUpgrade>, net.minecraft.data.tags.TagAppender<net.minecraft.resources.ResourceKey<LivingUpgrade>, LivingUpgrade>> adder) {
+    public static void tags(Function<TagKey<LivingUpgrade>, TagAppender<ResourceKey<LivingUpgrade>, LivingUpgrade>> adder) {
         adder.apply(NVTags.Living.TRAINERS)
                 .addAll(expList);
 

@@ -5,7 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -17,7 +17,7 @@ public class AraVitaeRecipe extends com.breakinblocks.neovitae.api.recipe.AraVit
 
     public static final MapCodec<com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC.fieldOf("input").forGetter(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe::getInput),
-            ItemStack.CODEC.fieldOf("output").forGetter(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe::getResult),
+            ItemStackTemplate.CODEC.fieldOf("output").forGetter(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe::getResultTemplate),
             Codec.INT.fieldOf("minTier").forGetter(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe::getMinTier),
             Codec.INT.fieldOf("bloodNeeded").forGetter(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe::getTotalBlood),
             Codec.INT.fieldOf("craftSpeed").forGetter(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe::getCraftSpeed),
@@ -30,7 +30,7 @@ public class AraVitaeRecipe extends com.breakinblocks.neovitae.api.recipe.AraVit
                 @Override
                 public com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe decode(RegistryFriendlyByteBuf buf) {
                     Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
-                    ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
+                    ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buf);
                     int minTier = buf.readInt();
                     int bloodNeeded = buf.readInt();
                     int craftSpeed = buf.readInt();
@@ -42,7 +42,7 @@ public class AraVitaeRecipe extends com.breakinblocks.neovitae.api.recipe.AraVit
                 @Override
                 public void encode(RegistryFriendlyByteBuf buf, com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe recipe) {
                     Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.getInput());
-                    ItemStack.STREAM_CODEC.encode(buf, recipe.getResult());
+                    ItemStackTemplate.STREAM_CODEC.encode(buf, recipe.getResultTemplate());
                     buf.writeInt(recipe.getMinTier());
                     buf.writeInt(recipe.getTotalBlood());
                     buf.writeInt(recipe.getCraftSpeed());
@@ -51,11 +51,11 @@ public class AraVitaeRecipe extends com.breakinblocks.neovitae.api.recipe.AraVit
                 }
             };
 
-    public AraVitaeRecipe(Ingredient input, ItemStack result, int minTier, int totalBlood, int craftSpeed, int drainSpeed) {
+    public AraVitaeRecipe(Ingredient input, ItemStackTemplate result, int minTier, int totalBlood, int craftSpeed, int drainSpeed) {
         super(input, result, minTier, totalBlood, craftSpeed, drainSpeed);
     }
 
-    public AraVitaeRecipe(Ingredient input, ItemStack result, int minTier, int totalBlood, int craftSpeed, int drainSpeed, boolean copyInputComponents) {
+    public AraVitaeRecipe(Ingredient input, ItemStackTemplate result, int minTier, int totalBlood, int craftSpeed, int drainSpeed, boolean copyInputComponents) {
         super(input, result, minTier, totalBlood, craftSpeed, drainSpeed, copyInputComponents);
     }
 

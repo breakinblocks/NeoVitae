@@ -54,6 +54,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import net.minecraft.world.item.ItemStackTemplate;
 
 public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider {
 
@@ -367,8 +368,10 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
             return false;
         }
         AthanorRecipe athanorRecipe = recipe.get().value();
-        List<Pair<ItemStack, Double>> chanceOutputs = athanorRecipe.getAllListedOutputs();
-        List<ItemStack> outputs = chanceOutputs.stream().map(Pair::getFirst).toList();
+        List<ItemStack> outputs = athanorRecipe.getAllListedOutputs().stream()
+                .map(Pair::getFirst)
+                .map(ItemStackTemplate::create)
+                .toList();
         if (!outputHandler.canTransferAllItemsToSlots(outputs, true)) {
             return false;
         }

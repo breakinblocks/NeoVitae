@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import static net.minecraft.world.level.material.Fluids.LAVA;
 import static net.minecraft.world.level.material.Fluids.WATER;
+import net.minecraft.world.level.material.Fluids;
 
 /**
  * Bootstrap content for sigil types datapack registry.
@@ -41,8 +42,8 @@ public class SigilTypes {
         context.register(SEER, simple(0, new DivinationSigilEffect(true)));
 
         // Fluid placement sigils
-        context.register(WATER, simple(100, new PlaceFluidSigilEffect(net.minecraft.world.level.material.Fluids.WATER, 1000)));
-        context.register(LAVA, simple(1000, new PlaceFluidSigilEffect(net.minecraft.world.level.material.Fluids.LAVA, 1000)));
+        context.register(WATER, simple(100, new PlaceFluidSigilEffect(Fluids.WATER, 1000)));
+        context.register(LAVA, simple(1000, new PlaceFluidSigilEffect(Fluids.LAVA, 1000)));
 
         // Void sigil - removes fluids
         context.register(VOID, simple(50, new VoidSigilEffect()));

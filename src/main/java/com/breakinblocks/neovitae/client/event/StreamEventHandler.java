@@ -8,6 +8,7 @@ import net.neoforged.neoforge.client.event.SubmitCustomGeometryEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.render.stream.StreamManager;
+import net.minecraft.client.Minecraft;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
 public class StreamEventHandler {
@@ -20,7 +21,7 @@ public class StreamEventHandler {
                 event.getPoseStack(),
                 event.getSubmitNodeCollector(),
                 event.getLevelRenderState().cameraRenderState.pos,
-                net.minecraft.client.Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false));
+                Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false));
     }
 
     @SubscribeEvent

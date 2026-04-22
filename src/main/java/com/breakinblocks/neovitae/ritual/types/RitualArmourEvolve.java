@@ -12,6 +12,7 @@ import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 
 import java.util.List;
 import java.util.function.Consumer;
+import net.minecraft.world.entity.EquipmentSlot;
 
 /**
  * Ritual of Living Evolution - Allows living armor to evolve and gain max upgrade points.
@@ -36,7 +37,7 @@ public class RitualArmourEvolve extends Ritual {
         List<Player> players = ctx.level().getEntitiesOfClass(Player.class, checkArea);
 
         for (Player player : players) {
-            ItemStack chestpiece = player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST);
+            ItemStack chestpiece = player.getItemBySlot(EquipmentSlot.CHEST);
             if (chestpiece.isEmpty() || !chestpiece.is(NVTags.Items.LIVING_SET)) {
                 continue;
             }

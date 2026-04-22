@@ -8,6 +8,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
@@ -31,7 +32,7 @@ public class TabulaVitaeRecipe implements Recipe<TabulaVitaeInput> {
 
     public static final MapCodec<TabulaVitaeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC.listOf().fieldOf("input").forGetter(TabulaVitaeRecipe::getInput),
-            ItemStack.CODEC.fieldOf("output").forGetter(TabulaVitaeRecipe::getOutput),
+            ItemStackTemplate.CODEC.fieldOf("output").forGetter(TabulaVitaeRecipe::getOutputTemplate),
             Codec.INT.fieldOf("syphon").forGetter(TabulaVitaeRecipe::getSyphon),
             Codec.INT.fieldOf("ticks").forGetter(TabulaVitaeRecipe::getTicks),
             Codec.INT.fieldOf("upgradeLevel").forGetter(TabulaVitaeRecipe::getMinimumTier)
@@ -39,7 +40,7 @@ public class TabulaVitaeRecipe implements Recipe<TabulaVitaeInput> {
 
     public static final StreamCodec<RegistryFriendlyByteBuf, TabulaVitaeRecipe> STREAM_CODEC = StreamCodec.composite(
             RecipeSerializerUtils.INGREDIENT_LIST_CODEC, TabulaVitaeRecipe::getInput,
-            ItemStack.STREAM_CODEC, TabulaVitaeRecipe::getOutput,
+            ItemStackTemplate.STREAM_CODEC, TabulaVitaeRecipe::getOutputTemplate,
             ByteBufCodecs.INT, TabulaVitaeRecipe::getSyphon,
             ByteBufCodecs.INT, TabulaVitaeRecipe::getTicks,
             ByteBufCodecs.INT, TabulaVitaeRecipe::getMinimumTier,
@@ -49,7 +50,7 @@ public class TabulaVitaeRecipe implements Recipe<TabulaVitaeInput> {
     @Nonnull
     protected final List<Ingredient> input;
     @Nonnull
-    private final ItemStack output;
+    private final ItemStackTemplate outputTemplate;
     @Nonnegative
     private final int syphon;
     @Nonnegative
@@ -57,7 +58,7 @@ public class TabulaVitaeRecipe implements Recipe<TabulaVitaeInput> {
     @Nonnegative
     private final int minimumTier;
 
-    public TabulaVitaeRecipe(List<Ingredient> input, @Nonnull ItemStack output, int syphon, int ticks, int minimumTier) {
+    public TabulaVitaeRecipe(List<Ingredient> input, @Nonnull ItemStackTemplate output, int syphon, int ticks, int minimumTier) {
         Preconditions.checkNotNull(input, "input cannot be null.");
         Preconditions.checkNotNull(output, "output cannot be null.");
         Preconditions.checkArgument(syphon >= 0, "syphon cannot be negative.");
@@ -65,7 +66,7 @@ public class TabulaVitaeRecipe implements Recipe<TabulaVitaeInput> {
         Preconditions.checkArgument(minimumTier >= 0, "minimumTier cannot be negative.");
 
         this.input = input;
-        this.output = output;
+        this.outputTemplate = output;
         this.syphon = syphon;
         this.ticks = ticks;
         this.minimumTier = minimumTier;
@@ -78,7 +79,12 @@ public class TabulaVitaeRecipe implements Recipe<TabulaVitaeInput> {
 
     @Nonnull
     public ItemStack getOutput() {
-        return output;
+        return outputTemplate.create();
+    }
+
+    @Nonnull
+    public ItemStackTemplate getOutputTemplate() {
+        return outputTemplate;
     }
 
     public int getSyphon() {
@@ -126,7 +132,7 @@ public class TabulaVitaeRecipe implements Recipe<TabulaVitaeInput> {
 
     @Override
     public ItemStack assemble(TabulaVitaeInput container) {
-        return output.copy();
+        return outputTemplate.create();
     }
 
     @Override

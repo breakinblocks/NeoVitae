@@ -53,7 +53,7 @@ public class TieredRecipeBuilder extends BaseRecipeBuilder {
     }
 
     public TieredRecipeBuilder define(Character symbol, TagKey<Item> tag) {
-        return this.define(symbol, Ingredient.of() /* TODO(phase15): tag-based ingredient - needs HolderGetter plumb-through */);
+        return this.define(symbol, ingredientOf(tag));
     }
 
     public TieredRecipeBuilder define(Character symbol, Ingredient ingredient) {
@@ -82,7 +82,7 @@ public class TieredRecipeBuilder extends BaseRecipeBuilder {
         Advancement.Builder advBuilder = getBuilder(output, id);
         FluidTieredRecipe recipe = new FluidTieredRecipe(
                 CraftingBookCategory.valueOf(this.category.name()),
-                shapedrecipepattern, primary, secondary, resultStack());
+                shapedrecipepattern, primary, secondary, resultTemplate());
         output.accept(id, recipe, advBuilder.build(advancementId(id, this.category.getFolderName())));
     }
 }

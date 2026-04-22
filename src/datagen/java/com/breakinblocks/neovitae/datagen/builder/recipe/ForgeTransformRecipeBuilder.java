@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.core.registries.Registries;
 
 public class ForgeTransformRecipeBuilder extends BaseRecipeBuilder {
 
@@ -41,7 +42,7 @@ public class ForgeTransformRecipeBuilder extends BaseRecipeBuilder {
     }
 
     public ForgeTransformRecipeBuilder catalyst(TagKey<Item> tag) {
-        this.catalysts.add(Ingredient.of() /* TODO(phase15): tag-based ingredient � needs HolderGetter plumb-through */);
+        this.catalysts.add(ingredientOf(tag));
         return this;
     }
 
@@ -58,7 +59,7 @@ public class ForgeTransformRecipeBuilder extends BaseRecipeBuilder {
     @Override
     public void save(RecipeOutput output, ResourceKey<Recipe<?>> id) {
         Advancement.Builder advBuilder = getBuilder(output, id);
-        ForgeTransformRecipe recipe = new ForgeTransformRecipe(minWill, drainedWill, catalysts, transformInput, resultStack());
-        output.accept(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, id.identifier().withPrefix("hellfire_forge/")), recipe, advBuilder.build(advancementId(id, "hellfire_forge")));
+        ForgeTransformRecipe recipe = new ForgeTransformRecipe(minWill, drainedWill, catalysts, transformInput, resultTemplate());
+        output.accept(ResourceKey.create(Registries.RECIPE, id.identifier().withPrefix("hellfire_forge/")), recipe, advBuilder.build(advancementId(id, "hellfire_forge")));
     }
 }

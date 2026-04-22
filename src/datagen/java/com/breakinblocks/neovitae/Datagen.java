@@ -47,11 +47,11 @@ public class Datagen {
         event.createProvider(helper.tagsFor(Registries.DAMAGE_TYPE, NVDamageSourcesContent::tags));
         event.createBlockAndItemTags(NVBlockTagProvider::new, NVItemTagProvider::new);
 
-        // NVItemModelProvider + NVBlockStateProvider both extend ModelProvider — 26.1 allows only
-        // one per mod (both derive their provider name from modId, causing "Duplicate provider:
-        // Model Definitions" at runtime). NVItemModelProvider carries the combined stub;
-        // NVBlockStateProvider retained in-tree for Stage 2 restoration but unregistered.
-        event.createProvider(NVItemModelProvider::new);
+        // Model providers (blockstates + block/item models) are not registered — the pre-baked
+        // JSON under src/generated/resources/assets/neovitae/{blockstates,models}/ + the 497
+        // hand-authored selectors under src/main/resources/assets/neovitae/items/ are the
+        // authoritative source in 26.1. Registering an empty ModelProvider here would cause
+        // HashCache to delete every file tracked under its cache hash.
         event.createProvider(NVFluidTagProvider::new);
         event.createProvider(NVEntityTagProvider::new);
         event.createProvider(NVSpriteSourceProvider::new);
@@ -64,8 +64,10 @@ public class Datagen {
         event.createProvider(NVLootTableProvider::new);
         event.createProvider(NVRecipeProvider.Runner::new);
 
-        event.createProvider(NVAdvancementProvider::new);
-        generator.addProvider(true, new NVModonomiconMultiblockProvider(output));
+        // NVAdvancementProvider + NVModonomiconMultiblockProvider: the custom advancement chain
+        // and the 218 multiblock definitions live as static JSON under src/main/resources/data/
+        // neovitae/ since neither provider can regenerate faithfully in 26.1 (advancement datagen
+        // was rewritten; multiblock builder depended on removed ItemStack construction paths).
         generator.addProvider(true, new BookProvider(
                 output, provider, NeoVitae.MODID,
                 List.of(new NVBookProvider(langProvider))

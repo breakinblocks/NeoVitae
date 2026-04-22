@@ -14,7 +14,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import com.breakinblocks.neovitae.common.crafting.OrbTierIngredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
+import com.breakinblocks.neovitae.datagen.builder.recipe.BaseRecipeBuilder;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.fluids.FluidStack;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -49,33 +51,46 @@ import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
 import net.minecraft.world.item.crafting.CookingBookCategory;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.world.item.ItemStackTemplate;
 
 public class NVRecipeProvider extends RecipeProvider {
 
-    private final net.minecraft.core.HolderGetter<net.minecraft.world.item.Item> items;
+    private final HolderGetter<Item> items;
+    private final HolderGetter<Fluid> fluids;
 
     protected NVRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
         super(registries, output);
-        this.items = registries.lookupOrThrow(net.minecraft.core.registries.Registries.ITEM);
+        this.items = registries.lookupOrThrow(Registries.ITEM);
+        this.fluids = registries.lookupOrThrow(Registries.FLUID);
     }
 
     /** Wrap an Identifier as a recipe ResourceKey (the 26.1 save() contract). */
-    protected static net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> rKey(net.minecraft.resources.Identifier id) {
-        return net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, id);
+    protected static ResourceKey<Recipe<?>> rKey(Identifier id) {
+        return ResourceKey.create(Registries.RECIPE, id);
     }
 
     /**
      * Creates an ingredient that matches a water bottle (potion with water contents)
      */
     private static Ingredient waterBottle() {
-        ItemStack waterBottle = new ItemStack(Items.POTION);
-        waterBottle.set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.WATER));
-        return DataComponentIngredient.of(false, waterBottle);
+        var patch = DataComponentPatch.builder()
+                .set(DataComponents.POTION_CONTENTS, new PotionContents(Potions.WATER))
+                .build();
+        return DataComponentIngredient.of(false, new ItemStackTemplate(Items.POTION, patch));
     }
 
     @Override
     protected void buildRecipes() {
         RecipeOutput output = this.output;
+        BaseRecipeBuilder.bindItemGetter(items);
+        BaseRecipeBuilder.bindFluidGetter(fluids);
         addVanillaCraftingRecipes(output);
         addTieredRecipes(output);
         addAraVitaeRecipes(output);
@@ -429,7 +444,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .pattern("nrn")
                 .define('n', Items.NETHERITE_SCRAP)
                 .define('r', NVBlocks.RUNE_EFFICIENCY.block().get())
-                .define('s', net.minecraft.tags.ItemTags.STONE_CRAFTING_MATERIALS)
+                .define('s', ItemTags.STONE_CRAFTING_MATERIALS)
                 .unlockedBy("has_efficiency_rune", has(NVBlocks.RUNE_EFFICIENCY.block().get()))
                 .save(output);
 
@@ -476,8 +491,8 @@ public class NVRecipeProvider extends RecipeProvider {
                 .pattern("shs")
                 .pattern("lol")
                 .define('s', Tags.Items.STONES)
-                .define('h', net.minecraft.tags.ItemTags.COALS)
-                .define('l', net.minecraft.tags.ItemTags.LOGS)
+                .define('h', ItemTags.COALS)
+                .define('l', ItemTags.LOGS)
                 .define('o', OrbTierIngredient.of(1))
                 .unlockedBy("has_weak_orb", has(NVItems.ORB_WEAK.get()))
                 .save(output);
@@ -877,7 +892,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, rKey(NeoVitae.rl("alchemy_flask")));
 
         AltarRecipeBuilder.build(NVItems.BLOOD_SWEAT_AND_TEARS.get())
-                .from(net.minecraft.tags.ItemTags.CREEPER_DROP_MUSIC_DISCS)
+                .from(ItemTags.CREEPER_DROP_MUSIC_DISCS)
                 .minTier(5)
                 .bloodNeeded(2000)
                 .consumption(5)
@@ -1880,7 +1895,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('n', Items.NETHERITE_SCRAP)
                 .define('h', NVItems.HELLFORGED_PARTS.get())
                 .define('r', tier1Rune)
-                .define('s', net.minecraft.tags.ItemTags.STONE_CRAFTING_MATERIALS)
+                .define('s', ItemTags.STONE_CRAFTING_MATERIALS)
                 .unlockedBy("has_tier1_rune", has(tier1Rune))
                 .save(output);
     }
@@ -1899,9 +1914,9 @@ public class NVRecipeProvider extends RecipeProvider {
                 .input(NVItems.SLATE_REINFORCED.get())
                 .input(Ingredient.of(Items.ROTTEN_FLESH))
                 .input(Ingredient.of(Items.BONE))
-                .fluidInput(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 1000))
+                .fluidInput(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 1000)
                 .spiritusCost(SpiritusType.DEFAULT, 20.0)
-                .guaranteedOutput(new ItemStack(NVItems.SIGIL_NECROMANCY.get()))
+                .guaranteedOutput(NVItems.SIGIL_NECROMANCY.get())
                 .save(output, rKey(NeoVitae.rl("sigil_necromancy")));
 
         ForgeSpiritusInfusionRecipeBuilder.build()
@@ -2390,7 +2405,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // Utility recipes
         // Leather from rotten flesh
-        TabulaVitaeRecipeBuilder.build(new ItemStack(Items.LEATHER, 4))
+        TabulaVitaeRecipeBuilder.build(Items.LEATHER, 4)
                 .input(Items.ROTTEN_FLESH)
                 .input(Items.ROTTEN_FLESH)
                 .input(Items.ROTTEN_FLESH)
@@ -2403,7 +2418,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "leather_from_flesh");
 
         // String from wool
-        TabulaVitaeRecipeBuilder.build(new ItemStack(Items.STRING, 4))
+        TabulaVitaeRecipeBuilder.build(Items.STRING, 4)
                 .input(Ingredient.of(items.getOrThrow(ItemTags.WOOL)))
                 .input(Items.FLINT)
                 .syphon(100)
@@ -2412,7 +2427,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "string");
 
         // Flint duplication
-        TabulaVitaeRecipeBuilder.build(new ItemStack(Items.FLINT, 2))
+        TabulaVitaeRecipeBuilder.build(Items.FLINT, 2)
                 .input(Items.GRAVEL)
                 .input(Items.FLINT)
                 .syphon(50)
@@ -2440,7 +2455,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "explosive_powder");
 
         // Sulfur from lava bucket + cobblestone
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.SULFUR.get(), 4))
+        TabulaVitaeRecipeBuilder.build(NVItems.SULFUR.get(), 4)
                 .input(Items.LAVA_BUCKET)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.COBBLESTONES)))
                 .syphon(200)
@@ -2449,7 +2464,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "sulfur_from_lava");
 
         // Saltpeter from plant oil x2 + coal dust
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.SALTPETER.get(), 3))
+        TabulaVitaeRecipeBuilder.build(NVItems.SALTPETER.get(), 3)
                 .input(NVItems.PLANT_OIL.get())
                 .input(NVItems.PLANT_OIL.get())
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.DUSTS_COAL)))
@@ -2459,7 +2474,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "saltpeter");
 
         // Gunpowder from sulfur + saltpeter + coal
-        TabulaVitaeRecipeBuilder.build(new ItemStack(Items.GUNPOWDER, 3))
+        TabulaVitaeRecipeBuilder.build(Items.GUNPOWDER, 3)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.DUSTS_SULFUR)))
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.DUSTS_SALTPETER)))
                 .input(Ingredient.of(items.getOrThrow(ItemTags.COALS)))
@@ -2521,7 +2536,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "basic_cutting_fluid");
 
         // Slate Vial - blank slate + 5 glass
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.SLATE_VIAL.get(), 8))
+        TabulaVitaeRecipeBuilder.build(NVItems.SLATE_VIAL.get(), 8)
                 .input(NVItems.SLATE_BLANK.get())
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.GLASS_BLOCKS)))
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.GLASS_BLOCKS)))
@@ -2655,7 +2670,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "weapon_repair_anointment");
 
         // Frame Parts and Filter Recipes
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.FRAME_PARTS.get(), 2))
+        TabulaVitaeRecipeBuilder.build(NVItems.FRAME_PARTS.get(), 2)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.GLASS_BLOCKS)))
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.STONES)))
                 .input(NVItems.SLATE_BLANK.get())
@@ -3054,7 +3069,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // === CATALYST RECIPES ===
         // Simple Catalyst - sugar, redstone, glowstone, gunpowder, nether wart
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.SIMPLE_CATALYST.get(), 2))
+        TabulaVitaeRecipeBuilder.build(NVItems.SIMPLE_CATALYST.get(), 2)
                 .input(Items.SUGAR)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.DUSTS_REDSTONE)))
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.DUSTS_GLOWSTONE)))
@@ -3164,7 +3179,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "sigil_lava_bucket");
 
         // Clay from Sand with Water Sigil
-        TabulaVitaeRecipeBuilder.build(new ItemStack(Items.CLAY_BALL, 2))
+        TabulaVitaeRecipeBuilder.build(Items.CLAY_BALL, 2)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.SANDS)))
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.SANDS)))
                 .input(NVItems.SIGIL_WATER.get())
@@ -3174,7 +3189,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "clay_from_dust_sigil");
 
         // Leather from Rotten Flesh with Water Sigil
-        TabulaVitaeRecipeBuilder.build(new ItemStack(Items.LEATHER, 4))
+        TabulaVitaeRecipeBuilder.build(Items.LEATHER, 4)
                 .input(Items.ROTTEN_FLESH)
                 .input(Items.ROTTEN_FLESH)
                 .input(Items.ROTTEN_FLESH)
@@ -3187,7 +3202,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "leather_from_flesh_sigil");
 
         // Sulfur from Lava Sigil
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.SULFUR.get(), 4))
+        TabulaVitaeRecipeBuilder.build(NVItems.SULFUR.get(), 4)
                 .input(NVItems.SIGIL_LAVA.get())
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.COBBLESTONES)))
                 .syphon(1200)
@@ -3236,7 +3251,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // === CORRUPTED DUST RECIPES ===
         // Corrupted Coal -> Coal Sand x3
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.COAL_DUST.get(), 3))
+        TabulaVitaeRecipeBuilder.build(NVItems.COAL_DUST.get(), 3)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.DUSTS_COAL)))
                 .input(NVItems.CORRUPTED_DUST.get())
                 .syphon(50)
@@ -3245,7 +3260,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "corrupted_coal");
 
         // Corrupted Copper -> Copper Gravel x2
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.COPPER_GRAVEL.get(), 2))
+        TabulaVitaeRecipeBuilder.build(NVItems.COPPER_GRAVEL.get(), 2)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_COPPER)))
                 .input(NVItems.CORRUPTED_DUST.get())
                 .syphon(50)
@@ -3254,7 +3269,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "corrupted_copper");
 
         // Corrupted Gold -> Gold Gravel x2
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.GOLD_GRAVEL.get(), 2))
+        TabulaVitaeRecipeBuilder.build(NVItems.GOLD_GRAVEL.get(), 2)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_GOLD)))
                 .input(NVItems.CORRUPTED_DUST.get())
                 .syphon(300)
@@ -3263,7 +3278,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "corrupted_gold");
 
         // Corrupted Iron -> Iron Gravel x2
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.IRON_GRAVEL.get(), 2))
+        TabulaVitaeRecipeBuilder.build(NVItems.IRON_GRAVEL.get(), 2)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_IRON)))
                 .input(NVItems.CORRUPTED_DUST.get())
                 .syphon(100)
@@ -3272,7 +3287,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "corrupted_iron");
 
         // Corrupted Netherite -> Netherite Gravel x2
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.NETHERITE_SCRAP_GRAVEL.get(), 2))
+        TabulaVitaeRecipeBuilder.build(NVItems.NETHERITE_SCRAP_GRAVEL.get(), 2)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_NETHERITE_SCRAP)))
                 .input(NVItems.CORRUPTED_DUST.get())
                 .input(NVItems.CORRUPTED_DUST.get())
@@ -3284,7 +3299,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // === SAND RECIPES ===
         // Coal Dust from Coal
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.COAL_DUST.get(), 4))
+        TabulaVitaeRecipeBuilder.build(NVItems.COAL_DUST.get(), 4)
                 .input(Items.COAL)
                 .input(Items.COAL)
                 .input(Items.FLINT)
@@ -3294,7 +3309,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "dust_coal");
 
         // Gold Dust from Gold Ore
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.GOLD_DUST.get(), 2))
+        TabulaVitaeRecipeBuilder.build(NVItems.GOLD_DUST.get(), 2)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_GOLD)))
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.CUTTING_FLUIDS)))
                 .syphon(400)
@@ -3303,7 +3318,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "dust_gold");
 
         // Iron Dust from Iron Ore
-        TabulaVitaeRecipeBuilder.build(new ItemStack(NVItems.IRON_DUST.get(), 2))
+        TabulaVitaeRecipeBuilder.build(NVItems.IRON_DUST.get(), 2)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_IRON)))
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.CUTTING_FLUIDS)))
                 .syphon(400)
@@ -3347,7 +3362,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, "hellforged_explosive_cell");
 
         // Gold Nuggets from Gilded Blackstone
-        TabulaVitaeRecipeBuilder.build(new ItemStack(Items.GOLD_NUGGET, 9))
+        TabulaVitaeRecipeBuilder.build(Items.GOLD_NUGGET, 9)
                 .input(Items.GILDED_BLACKSTONE)
                 .syphon(200)
                 .ticks(100)
@@ -3422,587 +3437,587 @@ public class NVRecipeProvider extends RecipeProvider {
         // Ore -> Sand (3x) with cutting fluid
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_IRON)))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_DUST.get(), 3))
+                .guaranteedOutput(NVItems.IRON_DUST.get(), 3)
                 .save(output, rKey(NeoVitae.rl("dustsfrom_ore_iron")));
 
         // Raw material -> Fragment (2x + 25% extra) with explosive
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.RAW_MATERIALS_IRON)))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_FRAGMENT.get(), 2))
-                .chancedOutput(new ItemStack(NVItems.IRON_FRAGMENT.get()), 0.25)
+                .guaranteedOutput(NVItems.IRON_FRAGMENT.get(), 2)
+                .chancedOutput(NVItems.IRON_FRAGMENT.get(), 0.25)
                 .save(output, rKey(NeoVitae.rl("fragmentsiron")));
 
         // Ore -> Fragment (4x) with explosive
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_IRON)))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_FRAGMENT.get(), 4))
+                .guaranteedOutput(NVItems.IRON_FRAGMENT.get(), 4)
                 .save(output, rKey(NeoVitae.rl("fragmentsfrom_ore_iron")));
 
         // Fragment -> Gravel (1x + 50% corrupted tinydust) with resonator
         AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_IRON)))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_GRAVEL.get()))
-                .chancedOutput(new ItemStack(NVItems.CORRUPTED_DUST_TINY.get()), 0.5)
+                .guaranteedOutput(NVItems.IRON_GRAVEL.get())
+                .chancedOutput(NVItems.CORRUPTED_DUST_TINY.get(), 0.5)
                 .save(output, rKey(NeoVitae.rl("gravelsiron")));
 
         // Gravel -> Sand (1x) with cutting fluid
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.GRAVELS_IRON)))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_DUST.get()))
+                .guaranteedOutput(NVItems.IRON_DUST.get())
                 .save(output, rKey(NeoVitae.rl("dustsfrom_gravel_iron")));
 
         // Ingot -> Sand (1x) with cutting fluid
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.INGOTS_IRON)))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_DUST.get()))
+                .guaranteedOutput(NVItems.IRON_DUST.get())
                 .save(output, rKey(NeoVitae.rl("dustsfrom_ingot_iron")));
 
         // Raw material -> Sand (1x + 17% extra, 33% for 2nd extra) with cutting fluid
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.RAW_MATERIALS_IRON)))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_DUST.get()))
-                .chancedOutput(new ItemStack(NVItems.IRON_DUST.get()), 0.33)
+                .guaranteedOutput(NVItems.IRON_DUST.get())
+                .chancedOutput(NVItems.IRON_DUST.get(), 0.33)
                 .save(output, rKey(NeoVitae.rl("dustsfrom_raw_iron")));
 
         // Gold processing chain
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_GOLD)))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_DUST.get(), 3))
+                .guaranteedOutput(NVItems.GOLD_DUST.get(), 3)
                 .save(output, rKey(NeoVitae.rl("dustsfrom_ore_gold")));
 
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.RAW_MATERIALS_GOLD)))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_FRAGMENT.get(), 2))
-                .chancedOutput(new ItemStack(NVItems.GOLD_FRAGMENT.get()), 0.25)
+                .guaranteedOutput(NVItems.GOLD_FRAGMENT.get(), 2)
+                .chancedOutput(NVItems.GOLD_FRAGMENT.get(), 0.25)
                 .save(output, rKey(NeoVitae.rl("fragmentsgold")));
 
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_GOLD)))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_FRAGMENT.get(), 4))
+                .guaranteedOutput(NVItems.GOLD_FRAGMENT.get(), 4)
                 .save(output, rKey(NeoVitae.rl("fragmentsfrom_ore_gold")));
 
         AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_GOLD)))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_GRAVEL.get()))
-                .chancedOutput(new ItemStack(NVItems.CORRUPTED_DUST_TINY.get()), 0.5)
+                .guaranteedOutput(NVItems.GOLD_GRAVEL.get())
+                .chancedOutput(NVItems.CORRUPTED_DUST_TINY.get(), 0.5)
                 .save(output, rKey(NeoVitae.rl("gravelsgold")));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.GRAVELS_GOLD)))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_DUST.get()))
+                .guaranteedOutput(NVItems.GOLD_DUST.get())
                 .save(output, rKey(NeoVitae.rl("dustsfrom_gravel_gold")));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.INGOTS_GOLD)))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_DUST.get()))
+                .guaranteedOutput(NVItems.GOLD_DUST.get())
                 .save(output, rKey(NeoVitae.rl("dustsfrom_ingot_gold")));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.RAW_MATERIALS_GOLD)))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_DUST.get()))
-                .chancedOutput(new ItemStack(NVItems.GOLD_DUST.get()), 0.33)
+                .guaranteedOutput(NVItems.GOLD_DUST.get())
+                .chancedOutput(NVItems.GOLD_DUST.get(), 0.33)
                 .save(output, rKey(NeoVitae.rl("dustsfrom_raw_gold")));
 
         // Copper processing chain
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_COPPER)))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_DUST.get(), 3))
+                .guaranteedOutput(NVItems.COPPER_DUST.get(), 3)
                 .save(output, rKey(NeoVitae.rl("dustsfrom_ore_copper")));
 
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.RAW_MATERIALS_COPPER)))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_FRAGMENT.get(), 2))
-                .chancedOutput(new ItemStack(NVItems.COPPER_FRAGMENT.get()), 0.25)
+                .guaranteedOutput(NVItems.COPPER_FRAGMENT.get(), 2)
+                .chancedOutput(NVItems.COPPER_FRAGMENT.get(), 0.25)
                 .save(output, rKey(NeoVitae.rl("fragmentscopper")));
 
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_COPPER)))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_FRAGMENT.get(), 4))
+                .guaranteedOutput(NVItems.COPPER_FRAGMENT.get(), 4)
                 .save(output, rKey(NeoVitae.rl("fragmentsfrom_ore_copper")));
 
         AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_COPPER)))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_GRAVEL.get()))
-                .chancedOutput(new ItemStack(NVItems.CORRUPTED_DUST_TINY.get()), 0.5)
+                .guaranteedOutput(NVItems.COPPER_GRAVEL.get())
+                .chancedOutput(NVItems.CORRUPTED_DUST_TINY.get(), 0.5)
                 .save(output, rKey(NeoVitae.rl("gravelscopper")));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.GRAVELS_COPPER)))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_DUST.get()))
+                .guaranteedOutput(NVItems.COPPER_DUST.get())
                 .save(output, rKey(NeoVitae.rl("dustsfrom_gravel_copper")));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.INGOTS_COPPER)))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_DUST.get()))
+                .guaranteedOutput(NVItems.COPPER_DUST.get())
                 .save(output, rKey(NeoVitae.rl("dustsfrom_ingot_copper")));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.RAW_MATERIALS_COPPER)))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_DUST.get()))
-                .chancedOutput(new ItemStack(NVItems.COPPER_DUST.get()), 0.33)
+                .guaranteedOutput(NVItems.COPPER_DUST.get())
+                .chancedOutput(NVItems.COPPER_DUST.get(), 0.33)
                 .save(output, rKey(NeoVitae.rl("dustsfrom_raw_copper")));
 
         // Netherite scrap processing chain
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Items.ANCIENT_DEBRIS))
-                .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_DUST.get(), 2))
+                .guaranteedOutput(NVItems.NETHERITE_SCRAP_DUST.get(), 2)
                 .save(output, rKey(NeoVitae.rl("dustsfrom_ore_netherite_scrap")));
 
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
                 .input(Ingredient.of(Items.NETHERITE_SCRAP))
-                .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_FRAGMENT.get(), 3))
-                .chancedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_FRAGMENT.get()), 0.25)
+                .guaranteedOutput(NVItems.NETHERITE_SCRAP_FRAGMENT.get(), 3)
+                .chancedOutput(NVItems.NETHERITE_SCRAP_FRAGMENT.get(), 0.25)
                 .save(output, rKey(NeoVitae.rl("fragmentsnetherite_scrap")));
 
         AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_NETHERITE_SCRAP)))
-                .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_GRAVEL.get()))
-                .chancedOutput(new ItemStack(NVItems.CORRUPTED_DUST_TINY.get()), 0.5)
+                .guaranteedOutput(NVItems.NETHERITE_SCRAP_GRAVEL.get())
+                .chancedOutput(NVItems.CORRUPTED_DUST_TINY.get(), 0.5)
                 .save(output, rKey(NeoVitae.rl("gravelsnetherite_scrap")));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.GRAVELS_NETHERITE_SCRAP)))
-                .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_DUST.get()))
+                .guaranteedOutput(NVItems.NETHERITE_SCRAP_DUST.get())
                 .save(output, rKey(NeoVitae.rl("dustsfrom_gravel_netherite_scrap")));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Items.NETHERITE_SCRAP))
-                .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_DUST.get()))
+                .guaranteedOutput(NVItems.NETHERITE_SCRAP_DUST.get())
                 .save(output, rKey(NeoVitae.rl("dustsfrom_ingot_netherite_scrap")));
 
         // Hellforged/Demonite processing (only gravel->dust, others need hellforged ore/ingot)
         AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_HELLFORGED)))
-                .guaranteedOutput(new ItemStack(NVItems.DEMONITE_GRAVEL.get()))
-                .chancedOutput(new ItemStack(NVItems.CORRUPTED_DUST_TINY.get()), 0.5)
+                .guaranteedOutput(NVItems.DEMONITE_GRAVEL.get())
+                .chancedOutput(NVItems.CORRUPTED_DUST_TINY.get(), 0.5)
                 .save(output, rKey(NeoVitae.rl("gravelshellforged")));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.GRAVELS_HELLFORGED)))
-                .guaranteedOutput(new ItemStack(NVItems.HELLFORGED_DUST.get()))
+                .guaranteedOutput(NVItems.HELLFORGED_DUST.get())
                 .save(output, rKey(NeoVitae.rl("dustsfrom_gravel_hellforged")));
 
         // Hellforged ingot -> dust (uses explosives, not cutting fluid)
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.INGOTS_HELLFORGED)))
-                .guaranteedOutput(new ItemStack(NVItems.HELLFORGED_DUST.get()))
+                .guaranteedOutput(NVItems.HELLFORGED_DUST.get())
                 .save(output, rKey(NeoVitae.rl("dustsfrom_ingot_hellforged")));
 
         // Coal processing - coal -> coal dust with cutting fluid
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_COAL)))
-                .guaranteedOutput(new ItemStack(NVItems.COAL_DUST.get(), 6))
+                .guaranteedOutput(NVItems.COAL_DUST.get(), 6)
                 .save(output, rKey(NeoVitae.rl("coaldust_from_ore")));
 
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Items.COAL))
-                .guaranteedOutput(new ItemStack(NVItems.COAL_DUST.get()))
+                .guaranteedOutput(NVItems.COAL_DUST.get())
                 .save(output, rKey(NeoVitae.rl("coaldust_from_coal")));
 
         // Utility recipes - hydration (all require 200mB water)
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.SANDS)))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.CLAY_BALL, 1))
-                .chancedOutput(new ItemStack(Items.CLAY_BALL, 1), 0.5)
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.CLAY_BALL, 1)
+                .chancedOutput(Items.CLAY_BALL, 1, 0.5)
                 .save(output, rKey(NeoVitae.rl("clay_from_dust")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.TERRACOTTA))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.CLAY, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.CLAY, 1)
                 .save(output, rKey(NeoVitae.rl("clay_from_terracotta")));
 
         // Netherrack to sulfur
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Items.NETHERRACK))
-                .guaranteedOutput(new ItemStack(NVItems.SULFUR.get(), 2))
+                .guaranteedOutput(NVItems.SULFUR.get(), 2)
                 .save(output, rKey(NeoVitae.rl("netherrack_to_sulfur")));
 
         // Weak blood shard from tau + life essence
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(NVBlocks.STRONG_TAU.item().get())
-                .fluidInput(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 3200))
-                .guaranteedOutput(new ItemStack(NVItems.WEAK_BLOOD_SHARD.get()))
+                .fluidInput(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 3200)
+                .guaranteedOutput(NVItems.WEAK_BLOOD_SHARD.get())
                 .save(output, rKey(NeoVitae.rl("weakbloodshard_tau")));
 
         // Dirt to Mud
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.DIRT))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.MUD, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.MUD, 1)
                 .save(output, rKey(NeoVitae.rl("mud_from_dirt")));
 
         // === DYE WASHING RECIPES ===
         // Wool washing (any colored wool → white wool)
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(items.getOrThrow(ItemTags.WOOL)))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.WHITE_WOOL, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.WHITE_WOOL, 1)
                 .save(output, rKey(NeoVitae.rl("wash_wool")));
 
         // Carpet washing (any colored carpet → white carpet)
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(items.getOrThrow(ItemTags.WOOL_CARPETS)))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.WHITE_CARPET, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.WHITE_CARPET, 1)
                 .save(output, rKey(NeoVitae.rl("wash_carpet")));
 
         // Bed washing (any colored bed → white bed)
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(items.getOrThrow(ItemTags.BEDS)))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.WHITE_BED, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.WHITE_BED, 1)
                 .save(output, rKey(NeoVitae.rl("wash_bed")));
 
         // Stained glass washing → clear glass
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.GLASS_BLOCKS)))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.GLASS, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.GLASS, 1)
                 .save(output, rKey(NeoVitae.rl("wash_glass")));
 
         // Stained glass pane washing → clear glass pane
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.GLASS_PANES)))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.GLASS_PANE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.GLASS_PANE, 1)
                 .save(output, rKey(NeoVitae.rl("wash_glass_pane")));
 
         // === CONCRETE SOLIDIFICATION RECIPES ===
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.WHITE_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.WHITE_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.WHITE_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_white_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.ORANGE_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.ORANGE_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.ORANGE_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_orange_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.MAGENTA_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.MAGENTA_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.MAGENTA_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_magenta_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.LIGHT_BLUE_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.LIGHT_BLUE_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.LIGHT_BLUE_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_light_blue_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.YELLOW_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.YELLOW_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.YELLOW_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_yellow_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.LIME_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.LIME_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.LIME_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_lime_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.PINK_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.PINK_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.PINK_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_pink_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.GRAY_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.GRAY_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.GRAY_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_gray_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.LIGHT_GRAY_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.LIGHT_GRAY_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.LIGHT_GRAY_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_light_gray_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.CYAN_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.CYAN_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.CYAN_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_cyan_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.PURPLE_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.PURPLE_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.PURPLE_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_purple_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.BLUE_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.BLUE_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.BLUE_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_blue_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.BROWN_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.BROWN_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.BROWN_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_brown_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.GREEN_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.GREEN_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.GREEN_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_green_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.RED_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.RED_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.RED_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_red_concrete")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.BLACK_CONCRETE_POWDER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.BLACK_CONCRETE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.BLACK_CONCRETE, 1)
                 .save(output, rKey(NeoVitae.rl("solidify_black_concrete")));
 
         // === MOSS SPREADING RECIPES ===
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.COBBLESTONE))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.MOSSY_COBBLESTONE, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.MOSSY_COBBLESTONE, 1)
                 .save(output, rKey(NeoVitae.rl("mossify_cobblestone")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.COBBLESTONE_STAIRS))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.MOSSY_COBBLESTONE_STAIRS, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.MOSSY_COBBLESTONE_STAIRS, 1)
                 .save(output, rKey(NeoVitae.rl("mossify_cobblestone_stairs")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.COBBLESTONE_SLAB))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.MOSSY_COBBLESTONE_SLAB, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.MOSSY_COBBLESTONE_SLAB, 1)
                 .save(output, rKey(NeoVitae.rl("mossify_cobblestone_slab")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.COBBLESTONE_WALL))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.MOSSY_COBBLESTONE_WALL, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.MOSSY_COBBLESTONE_WALL, 1)
                 .save(output, rKey(NeoVitae.rl("mossify_cobblestone_wall")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.STONE_BRICKS))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.MOSSY_STONE_BRICKS, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.MOSSY_STONE_BRICKS, 1)
                 .save(output, rKey(NeoVitae.rl("mossify_stone_bricks")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.STONE_BRICK_STAIRS))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.MOSSY_STONE_BRICK_STAIRS, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.MOSSY_STONE_BRICK_STAIRS, 1)
                 .save(output, rKey(NeoVitae.rl("mossify_stone_brick_stairs")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.STONE_BRICK_SLAB))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.MOSSY_STONE_BRICK_SLAB, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.MOSSY_STONE_BRICK_SLAB, 1)
                 .save(output, rKey(NeoVitae.rl("mossify_stone_brick_slab")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.STONE_BRICK_WALL))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.MOSSY_STONE_BRICK_WALL, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.MOSSY_STONE_BRICK_WALL, 1)
                 .save(output, rKey(NeoVitae.rl("mossify_stone_brick_wall")));
 
         // === COPPER OXIDATION RECIPES ===
         // Copper Block oxidation chain
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.COPPER_BLOCK))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.EXPOSED_COPPER, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.EXPOSED_COPPER, 1)
                 .save(output, rKey(NeoVitae.rl("oxidize/copper_block_to_exposed_copper")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.EXPOSED_COPPER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.WEATHERED_COPPER, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.WEATHERED_COPPER, 1)
                 .save(output, rKey(NeoVitae.rl("oxidize/exposed_copper_to_weathered_copper")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.WEATHERED_COPPER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.OXIDIZED_COPPER, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.OXIDIZED_COPPER, 1)
                 .save(output, rKey(NeoVitae.rl("oxidize/weathered_copper_to_oxidized_copper")));
 
         // Cut Copper oxidation chain
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.CUT_COPPER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.EXPOSED_CUT_COPPER, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.EXPOSED_CUT_COPPER, 1)
                 .save(output, rKey(NeoVitae.rl("oxidize/cut_copper_to_exposed_cut_copper")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.EXPOSED_CUT_COPPER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.WEATHERED_CUT_COPPER, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.WEATHERED_CUT_COPPER, 1)
                 .save(output, rKey(NeoVitae.rl("oxidize/exposed_cut_copper_to_weathered_cut_copper")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.WEATHERED_CUT_COPPER))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.OXIDIZED_CUT_COPPER, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.OXIDIZED_CUT_COPPER, 1)
                 .save(output, rKey(NeoVitae.rl("oxidize/weathered_cut_copper_to_oxidized_cut_copper")));
 
         // Cut Copper Stairs oxidation chain
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.CUT_COPPER_STAIRS))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.EXPOSED_CUT_COPPER_STAIRS, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.EXPOSED_CUT_COPPER_STAIRS, 1)
                 .save(output, rKey(NeoVitae.rl("oxidize/cut_copper_stairs_to_exposed_cut_copper_stairs")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.EXPOSED_CUT_COPPER_STAIRS))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.WEATHERED_CUT_COPPER_STAIRS, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.WEATHERED_CUT_COPPER_STAIRS, 1)
                 .save(output, rKey(NeoVitae.rl("oxidize/exposed_cut_copper_stairs_to_weathered_cut_copper_stairs")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.WEATHERED_CUT_COPPER_STAIRS))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.OXIDIZED_CUT_COPPER_STAIRS, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.OXIDIZED_CUT_COPPER_STAIRS, 1)
                 .save(output, rKey(NeoVitae.rl("oxidize/weathered_cut_copper_stairs_to_oxidized_cut_copper_stairs")));
 
         // Cut Copper Slab oxidation chain
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.CUT_COPPER_SLAB))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.EXPOSED_CUT_COPPER_SLAB, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.EXPOSED_CUT_COPPER_SLAB, 1)
                 .save(output, rKey(NeoVitae.rl("oxidize/cut_copper_slab_to_exposed_cut_copper_slab")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.EXPOSED_CUT_COPPER_SLAB))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.WEATHERED_CUT_COPPER_SLAB, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.WEATHERED_CUT_COPPER_SLAB, 1)
                 .save(output, rKey(NeoVitae.rl("oxidize/exposed_cut_copper_slab_to_weathered_cut_copper_slab")));
 
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(Items.WEATHERED_CUT_COPPER_SLAB))
-                .fluidInput(new FluidStack(Fluids.WATER, 200))
-                .guaranteedOutput(new ItemStack(Items.OXIDIZED_CUT_COPPER_SLAB, 1))
+                .fluidInput(Fluids.WATER, 200)
+                .guaranteedOutput(Items.OXIDIZED_CUT_COPPER_SLAB, 1)
                 .save(output, rKey(NeoVitae.rl("oxidize/weathered_cut_copper_slab_to_oxidized_cut_copper_slab")));
 
         // === RUNE REVERSION RECIPES ===
         // Speed Rune 2 -> Speed Rune + hellforged parts + netherite scrap
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVBlocks.RUNE_2_SPEED.item().get())
-                .guaranteedOutput(new ItemStack(NVBlocks.RUNE_SPEED.item().get()))
-                .chancedOutput(new ItemStack(NVItems.HELLFORGED_PARTS.get()), 1.0)
-                .chancedOutput(new ItemStack(Items.NETHERITE_SCRAP, 4), 1.0)
+                .guaranteedOutput(NVBlocks.RUNE_SPEED.item().get())
+                .chancedOutput(NVItems.HELLFORGED_PARTS.get(), 1.0)
+                .chancedOutput(Items.NETHERITE_SCRAP, 4, 1.0)
                 .save(output, rKey(NeoVitae.rl("reversion/speed")));
 
         // Acceleration Rune 2 -> Acceleration Rune
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVBlocks.RUNE_2_ACCELERATION.item().get())
-                .guaranteedOutput(new ItemStack(NVBlocks.RUNE_ACCELERATION.item().get()))
-                .chancedOutput(new ItemStack(NVItems.HELLFORGED_PARTS.get()), 1.0)
-                .chancedOutput(new ItemStack(Items.NETHERITE_SCRAP, 4), 1.0)
+                .guaranteedOutput(NVBlocks.RUNE_ACCELERATION.item().get())
+                .chancedOutput(NVItems.HELLFORGED_PARTS.get(), 1.0)
+                .chancedOutput(Items.NETHERITE_SCRAP, 4, 1.0)
                 .save(output, rKey(NeoVitae.rl("reversion/acceleration")));
 
         // Capacity Rune 2 -> Capacity Rune
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVBlocks.RUNE_2_CAPACITY.item().get())
-                .guaranteedOutput(new ItemStack(NVBlocks.RUNE_CAPACITY.item().get()))
-                .chancedOutput(new ItemStack(NVItems.HELLFORGED_PARTS.get()), 1.0)
-                .chancedOutput(new ItemStack(Items.NETHERITE_SCRAP, 4), 1.0)
+                .guaranteedOutput(NVBlocks.RUNE_CAPACITY.item().get())
+                .chancedOutput(NVItems.HELLFORGED_PARTS.get(), 1.0)
+                .chancedOutput(Items.NETHERITE_SCRAP, 4, 1.0)
                 .save(output, rKey(NeoVitae.rl("reversion/capacity")));
 
         // Augmented Capacity Rune 2 -> Augmented Capacity Rune
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVBlocks.RUNE_2_CAPACITY_AUGMENTED.item().get())
-                .guaranteedOutput(new ItemStack(NVBlocks.RUNE_CAPACITY_AUGMENTED.item().get()))
-                .chancedOutput(new ItemStack(NVItems.HELLFORGED_PARTS.get()), 1.0)
-                .chancedOutput(new ItemStack(Items.NETHERITE_SCRAP, 4), 1.0)
+                .guaranteedOutput(NVBlocks.RUNE_CAPACITY_AUGMENTED.item().get())
+                .chancedOutput(NVItems.HELLFORGED_PARTS.get(), 1.0)
+                .chancedOutput(Items.NETHERITE_SCRAP, 4, 1.0)
                 .save(output, rKey(NeoVitae.rl("reversion/aug_capacity")));
 
         // Charging Rune 2 -> Charging Rune
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVBlocks.RUNE_2_CHARGING.item().get())
-                .guaranteedOutput(new ItemStack(NVBlocks.RUNE_CHARGING.item().get()))
-                .chancedOutput(new ItemStack(NVItems.HELLFORGED_PARTS.get()), 1.0)
-                .chancedOutput(new ItemStack(Items.NETHERITE_SCRAP, 4), 1.0)
+                .guaranteedOutput(NVBlocks.RUNE_CHARGING.item().get())
+                .chancedOutput(NVItems.HELLFORGED_PARTS.get(), 1.0)
+                .chancedOutput(Items.NETHERITE_SCRAP, 4, 1.0)
                 .save(output, rKey(NeoVitae.rl("reversion/charging")));
 
         // Dislocation Rune 2 -> Dislocation Rune
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVBlocks.RUNE_2_DISLOCATION.item().get())
-                .guaranteedOutput(new ItemStack(NVBlocks.RUNE_DISLOCATION.item().get()))
-                .chancedOutput(new ItemStack(NVItems.HELLFORGED_PARTS.get()), 1.0)
-                .chancedOutput(new ItemStack(Items.NETHERITE_SCRAP, 4), 1.0)
+                .guaranteedOutput(NVBlocks.RUNE_DISLOCATION.item().get())
+                .chancedOutput(NVItems.HELLFORGED_PARTS.get(), 1.0)
+                .chancedOutput(Items.NETHERITE_SCRAP, 4, 1.0)
                 .save(output, rKey(NeoVitae.rl("reversion/displacement")));
 
         // Orb Rune 2 -> Orb Rune
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVBlocks.RUNE_2_ORB.item().get())
-                .guaranteedOutput(new ItemStack(NVBlocks.RUNE_ORB.item().get()))
-                .chancedOutput(new ItemStack(NVItems.HELLFORGED_PARTS.get()), 1.0)
-                .chancedOutput(new ItemStack(Items.NETHERITE_SCRAP, 4), 1.0)
+                .guaranteedOutput(NVBlocks.RUNE_ORB.item().get())
+                .chancedOutput(NVItems.HELLFORGED_PARTS.get(), 1.0)
+                .chancedOutput(Items.NETHERITE_SCRAP, 4, 1.0)
                 .save(output, rKey(NeoVitae.rl("reversion/orb_rune")));
 
         // Sacrifice Rune 2 -> Sacrifice Rune
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVBlocks.RUNE_2_SACRIFICE.item().get())
-                .guaranteedOutput(new ItemStack(NVBlocks.RUNE_SACRIFICE.item().get()))
-                .chancedOutput(new ItemStack(NVItems.HELLFORGED_PARTS.get()), 1.0)
-                .chancedOutput(new ItemStack(Items.NETHERITE_SCRAP, 4), 1.0)
+                .guaranteedOutput(NVBlocks.RUNE_SACRIFICE.item().get())
+                .chancedOutput(NVItems.HELLFORGED_PARTS.get(), 1.0)
+                .chancedOutput(Items.NETHERITE_SCRAP, 4, 1.0)
                 .save(output, rKey(NeoVitae.rl("reversion/sac")));
 
         // Self-Sacrifice Rune 2 -> Self-Sacrifice Rune
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVBlocks.RUNE_2_SELF_SACRIFICE.item().get())
-                .guaranteedOutput(new ItemStack(NVBlocks.RUNE_SELF_SACRIFICE.item().get()))
-                .chancedOutput(new ItemStack(NVItems.HELLFORGED_PARTS.get()), 1.0)
-                .chancedOutput(new ItemStack(Items.NETHERITE_SCRAP, 4), 1.0)
+                .guaranteedOutput(NVBlocks.RUNE_SELF_SACRIFICE.item().get())
+                .chancedOutput(NVItems.HELLFORGED_PARTS.get(), 1.0)
+                .chancedOutput(Items.NETHERITE_SCRAP, 4, 1.0)
                 .save(output, rKey(NeoVitae.rl("reversion/self_sac")));
 
         // Efficiency Rune 2 -> Efficiency Rune
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVBlocks.RUNE_2_EFFICIENCY.item().get())
-                .guaranteedOutput(new ItemStack(NVBlocks.RUNE_EFFICIENCY.item().get()))
-                .chancedOutput(new ItemStack(Items.NETHERITE_SCRAP, 6), 1.0)
+                .guaranteedOutput(NVBlocks.RUNE_EFFICIENCY.item().get())
+                .chancedOutput(Items.NETHERITE_SCRAP, 6, 1.0)
                 .save(output, rKey(NeoVitae.rl("reversion/efficiency")));
 
         // === BLOOD ORB REVERSION ===
         // Weak Blood Orb -> Diamond
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVItems.ORB_WEAK.get())
-                .guaranteedOutput(new ItemStack(Items.DIAMOND))
+                .guaranteedOutput(Items.DIAMOND)
                 .save(output, rKey(NeoVitae.rl("reversion/weak_blood_orb")));
 
         // Apprentice Blood Orb -> Redstone Block
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVItems.ORB_APPRENTICE.get())
-                .guaranteedOutput(new ItemStack(Items.REDSTONE_BLOCK))
+                .guaranteedOutput(Items.REDSTONE_BLOCK)
                 .save(output, rKey(NeoVitae.rl("reversion/apprentice_blood_orb")));
 
         // Magician Blood Orb -> Gold Block
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVItems.ORB_MAGICIAN.get())
-                .guaranteedOutput(new ItemStack(Items.GOLD_BLOCK))
+                .guaranteedOutput(Items.GOLD_BLOCK)
                 .save(output, rKey(NeoVitae.rl("reversion/magician_blood_orb")));
 
         // Master Blood Orb -> Weak Blood Shard
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVItems.ORB_MASTER.get())
-                .guaranteedOutput(new ItemStack(NVItems.WEAK_BLOOD_SHARD.get()))
+                .guaranteedOutput(NVItems.WEAK_BLOOD_SHARD.get())
                 .save(output, rKey(NeoVitae.rl("reversion/master_blood_orb")));
 
         // === HELLFORGED PROCESSING ===
         // Hellforged Fragments from raw hellforged (explosive)
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
                 .input(Ingredient.of(items.getOrThrow(NVTags.Items.RAW_MATERIALS_HELLFORGED)))
-                .guaranteedOutput(new ItemStack(NVItems.DEMONITE_FRAGMENT.get(), 2))
-                .chancedOutput(new ItemStack(NVItems.DEMONITE_FRAGMENT.get()), 0.25)
+                .guaranteedOutput(NVItems.DEMONITE_FRAGMENT.get(), 2)
+                .chancedOutput(NVItems.DEMONITE_FRAGMENT.get(), 0.25)
                 .save(output, rKey(NeoVitae.rl("fragmentshellforged")));
 
         // Raw hellforged processing removed - no raw hellforged item exists
@@ -4011,8 +4026,8 @@ public class NVRecipeProvider extends RecipeProvider {
         // Netherrack to Sulfur + Lava
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.NETHERRACKS)))
-                .guaranteedOutput(new ItemStack(NVItems.SULFUR.get()))
-                .fluidOutput(new FluidStack(Fluids.LAVA, 50))
+                .guaranteedOutput(NVItems.SULFUR.get())
+                .fluidOutput(Fluids.LAVA, 50)
                 .save(output, rKey(NeoVitae.rl("netherrack_to_sulfur")));
 
         // === POTION TRANSFER RECIPES ===
@@ -4020,15 +4035,15 @@ public class NVRecipeProvider extends RecipeProvider {
         // The lingering flask's potion effects are transferred to the output daggers
         AthanorPotionRecipeBuilder.build(NVTags.Items.LINGERING_FLASK)
                 .input(Ingredient.of(NVItems.THROWING_DAGGER_AMETHYST.get()))
-                .guaranteedOutput(new ItemStack(NVItems.THROWING_DAGGER_TIPPED.get(), 8))
+                .guaranteedOutput(NVItems.THROWING_DAGGER_TIPPED.get(), 8)
                 .save(output, rKey(NeoVitae.rl("tipped_throwing_dagger")));
 
         // === SPIRITUS INFUSION RECIPES ===
         AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                 .input(Ingredient.of(Items.DIAMOND))
                 .input(NVItems.HELLFORGED_INGOT.get())
-                .guaranteedOutput(new ItemStack(Items.NETHER_STAR))
-                .fluidInput(new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 4000))
+                .guaranteedOutput(Items.NETHER_STAR)
+                .fluidInput(NVFluids.ESSENTIA_VITAE_SOURCE.get(), 4000)
                 .spiritusCost(SpiritusType.DEFAULT, 50.0)
                 .save(output, rKey(NeoVitae.rl("nether_star_from_diamond")));
     }
@@ -4071,7 +4086,7 @@ public class NVRecipeProvider extends RecipeProvider {
             AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                     .input(Items.SMOOTH_STONE)
                     .input(spiritus)
-                    .guaranteedOutput(new ItemStack(stone.asItem()))
+                    .guaranteedOutput(stone.asItem())
                     .save(output, rKey(NeoVitae.rl("dungeon/dungeon_stone" + suffix)));
 
             // === CRAFTING: stone → brick (2x2 = 4, vanilla stone → stone bricks) ===

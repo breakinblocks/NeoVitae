@@ -57,6 +57,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.level.storage.TagValueOutput;
 
 @EventBusSubscriber(modid = NeoVitae.MODID)
 public class CommonEventHandler {
@@ -341,10 +343,10 @@ public class CommonEventHandler {
         Player owner = pet.level().getPlayerByUUID(ownerRef.getUUID());
         if (owner == null) return;
 
-        try (net.minecraft.util.ProblemReporter.ScopedCollector reporter =
-                     new net.minecraft.util.ProblemReporter.ScopedCollector(NeoVitae.LOGGER)) {
-            net.minecraft.world.level.storage.TagValueOutput petOutput =
-                    net.minecraft.world.level.storage.TagValueOutput.createWithContext(reporter, pet.level().registryAccess());
+        try (ProblemReporter.ScopedCollector reporter =
+                     new ProblemReporter.ScopedCollector(NeoVitae.LOGGER)) {
+            TagValueOutput petOutput =
+                    TagValueOutput.createWithContext(reporter, pet.level().registryAccess());
             if (pet.save(petOutput)) {
                 CompoundTag petData = petOutput.buildResult();
                 petData.remove("Inventory");

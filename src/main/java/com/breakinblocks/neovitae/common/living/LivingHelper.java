@@ -50,8 +50,8 @@ public class LivingHelper {
             return false;
         }
 
-        for (net.minecraft.world.entity.EquipmentSlot slot : net.minecraft.world.entity.EquipmentSlot.VALUES) {
-            if (slot.getType() != net.minecraft.world.entity.EquipmentSlot.Type.HUMANOID_ARMOR) continue;
+        for (EquipmentSlot slot : EquipmentSlot.VALUES) {
+            if (slot.getType() != EquipmentSlot.Type.HUMANOID_ARMOR) continue;
             ItemStack stack = player.getItemBySlot(slot);
             if (!stack.is(set)) {
                 return false;

@@ -16,6 +16,7 @@ import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 
 import java.util.List;
+import net.minecraft.core.Direction;
 
 public class AlchemyArrayEffectCollection extends AlchemyArrayEffect {
 
@@ -35,7 +36,7 @@ public class AlchemyArrayEffectCollection extends AlchemyArrayEffect {
         if (items.isEmpty()) return false;
 
         BlockPos belowPos = pos.below();
-        var rhItem = level.getCapability(Capabilities.Item.BLOCK, belowPos, net.minecraft.core.Direction.UP);
+        var rhItem = level.getCapability(Capabilities.Item.BLOCK, belowPos, Direction.UP);
         IItemHandler inventory = rhItem != null ? IItemHandler.of(rhItem) : null;
 
         for (ItemEntity itemEntity : items) {

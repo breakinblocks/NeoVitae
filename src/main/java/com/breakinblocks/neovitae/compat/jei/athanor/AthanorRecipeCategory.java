@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
+import net.minecraft.world.item.ItemStackTemplate;
 
 public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
     public static final RecipeType<AthanorRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "athanor", AthanorRecipe.class);
@@ -92,13 +93,13 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
         toolSlot.addIngredients(recipe.getTool());
 
         // Outputs: 2x2 grid
-        List<Pair<ItemStack, Double>> allOutputs = recipe.getAllListedOutputs();
+        List<Pair<ItemStackTemplate, Double>> allOutputs = recipe.getAllListedOutputs();
         for (int i = 0; i < allOutputs.size() && i < 4; i++) {
             int col = i % 2;
             int row = i / 2;
             IRecipeSlotBuilder s = builder.addSlot(RecipeIngredientRole.OUTPUT,
                     OUTPUT_COL + 1 + col * 18, (row == 0 ? ROW0 : ROW1) + 1);
-            s.addItemStack(allOutputs.get(i).getFirst());
+            s.addItemStack(allOutputs.get(i).getFirst().create());
         }
 
         // Fluid input
@@ -143,7 +144,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
         guiGraphics.fill(ARROW_COL + 14, ay - 1, ARROW_COL + 16, ay + 3, 0xFF606060);
 
         // Output slot backgrounds (2x2)
-        List<Pair<ItemStack, Double>> allOutputs = recipe.getAllListedOutputs();
+        List<Pair<ItemStackTemplate, Double>> allOutputs = recipe.getAllListedOutputs();
         for (int i = 0; i < allOutputs.size() && i < 4; i++) {
             int col = i % 2;
             int row = i / 2;
@@ -195,7 +196,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
 
     @Override
     public void getTooltip(ITooltipBuilder tooltip, AthanorRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-        List<Pair<ItemStack, Double>> allOutputs = recipe.getAllListedOutputs();
+        List<Pair<ItemStackTemplate, Double>> allOutputs = recipe.getAllListedOutputs();
         for (int i = 0; i < allOutputs.size() && i < 4; i++) {
             int col = i % 2;
             int row = i / 2;

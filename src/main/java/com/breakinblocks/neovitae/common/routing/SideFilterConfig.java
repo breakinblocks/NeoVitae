@@ -14,6 +14,8 @@ import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 /**
  * Per-direction filter configuration stored on a routing node. Default state is
@@ -105,7 +107,7 @@ public final class SideFilterConfig {
         }
     }
 
-    public void save(net.minecraft.world.level.storage.ValueOutput out) {
+    public void save(ValueOutput out) {
         out.putBoolean("enabled", enabled);
         out.putString("itemMode", itemMode.name());
         ContainerHelper.saveAllItems(out.child("itemGhosts"), itemGhosts);
@@ -113,7 +115,7 @@ public final class SideFilterConfig {
         out.store("fluidGhosts", FluidStack.CODEC.listOf(), fluidGhosts);
     }
 
-    public void load(net.minecraft.world.level.storage.ValueInput in) {
+    public void load(ValueInput in) {
         enabled = in.getBooleanOr("enabled", false);
         in.getString("itemMode").ifPresent(s -> { try { itemMode = FilterMode.valueOf(s); } catch (IllegalArgumentException ignored) {} });
         in.child("itemGhosts").ifPresent(child -> ContainerHelper.loadAllItems(child, itemGhosts));

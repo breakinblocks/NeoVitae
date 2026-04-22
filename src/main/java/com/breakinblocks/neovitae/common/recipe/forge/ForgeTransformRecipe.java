@@ -8,6 +8,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -26,7 +27,7 @@ public class ForgeTransformRecipe extends ForgeRecipe {
             Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedWill),
             Codec.list(Ingredient.CODEC).fieldOf("catalysts").forGetter(ForgeTransformRecipe::getCatalysts),
             Ingredient.CODEC.fieldOf("transformInput").forGetter(r -> r.transformInput),
-            ItemStack.CODEC.fieldOf("output").forGetter(r -> r.resultItem)
+            ItemStackTemplate.CODEC.fieldOf("output").forGetter(r -> r.resultTemplate)
     ).apply(instance, ForgeTransformRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ForgeTransformRecipe> STREAM_CODEC = StreamCodec.composite(
@@ -34,7 +35,7 @@ public class ForgeTransformRecipe extends ForgeRecipe {
             ByteBufCodecs.DOUBLE, r -> r.usedWill,
             Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), ForgeTransformRecipe::getCatalysts,
             Ingredient.CONTENTS_STREAM_CODEC, r -> r.transformInput,
-            ItemStack.STREAM_CODEC, r -> r.resultItem,
+            ItemStackTemplate.STREAM_CODEC, r -> r.resultTemplate,
             ForgeTransformRecipe::new
     );
 
@@ -42,8 +43,8 @@ public class ForgeTransformRecipe extends ForgeRecipe {
     private final List<Ingredient> catalysts;
 
     public ForgeTransformRecipe(double minWill, double usedWill, List<Ingredient> catalysts,
-                                 Ingredient transformInput, ItemStack resultItem) {
-        super(minWill, usedWill, combinedIngredients(catalysts, transformInput), resultItem, Optional.empty());
+                                 Ingredient transformInput, ItemStackTemplate resultTemplate) {
+        super(minWill, usedWill, combinedIngredients(catalysts, transformInput), resultTemplate, Optional.empty());
         this.transformInput = transformInput;
         this.catalysts = catalysts;
     }
@@ -72,7 +73,7 @@ public class ForgeTransformRecipe extends ForgeRecipe {
             ItemStack stack = input.getItem(i);
             if (stack.isEmpty() || !transformInput.test(stack)) continue;
 
-            ItemStack result = resultItem.copy();
+            ItemStack result = resultTemplate.create();
 
             if (stack.has(DataComponents.ENCHANTMENTS))
                 result.set(DataComponents.ENCHANTMENTS, stack.get(DataComponents.ENCHANTMENTS));

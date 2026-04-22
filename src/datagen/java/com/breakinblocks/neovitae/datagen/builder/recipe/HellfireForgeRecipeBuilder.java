@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Optional;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.ItemStackTemplate;
 
 public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
     public static final int MAX_INGREDIENTS = 4;
@@ -28,8 +31,7 @@ public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
     protected List<Ingredient> ingredients = new ArrayList<>();
     protected boolean requireWillType = false;
     protected Optional<SpiritusType> willType = Optional.empty();
-    // Component overrides deferred to save() — ItemStack construction before registry bake NPEs.
-    private final java.util.List<java.util.function.Consumer<ItemStack>> componentPatches = new ArrayList<>();
+    private final DataComponentPatch.Builder patchBuilder = DataComponentPatch.builder();
 
     protected HellfireForgeRecipeBuilder(ItemLike result, int count) {
         super(result, count);
@@ -47,7 +49,7 @@ public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
     }
 
     public HellfireForgeRecipeBuilder requires(TagKey<Item> tag) {
-        return this.requires(Ingredient.of() /* TODO(phase15): tag-based ingredient � needs HolderGetter plumb-through */);
+        return this.requires(ingredientOf(tag));
     }
 
     public HellfireForgeRecipeBuilder requires(ItemLike item) {
@@ -95,12 +97,12 @@ public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
     }
 
     public HellfireForgeRecipeBuilder withAnointment(String key, int level, int maxDamage) {
-        this.componentPatches.add(stack -> stack.set(NVDataComponents.ANOINTMENT_HOLDER.get(), AnointmentHolder.single(key, level, maxDamage)));
+        this.patchBuilder.set(NVDataComponents.ANOINTMENT_HOLDER.get(), AnointmentHolder.single(key, level, maxDamage));
         return this;
     }
 
     public <T> HellfireForgeRecipeBuilder withComponent(DataComponentType<T> component, T value) {
-        this.componentPatches.add(stack -> stack.set(component, value));
+        this.patchBuilder.set(component, value);
         return this;
     }
 
@@ -110,9 +112,12 @@ public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
             throw new IllegalStateException("ForgeRecipe must have at least one ingredient");
         }
         Advancement.Builder advBuilder = getBuilder(output, id);
-        ItemStack result = resultStack();
-        for (var patch : componentPatches) patch.accept(result);
-        ForgeRecipe recipe = new ForgeRecipe(minWill, drainedWill, ingredients, result, willType);
-        output.accept(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, id.identifier().withPrefix("hellfire_forge/")), recipe, advBuilder.build(advancementId(id, "hellfire_forge")));
+        DataComponentPatch patch = patchBuilder.build();
+        ItemStackTemplate resultTpl = patch.isEmpty()
+                ? resultTemplate()
+                : new ItemStackTemplate(resultItem.asItem(), patch)
+                        .withCount(Math.max(resultCount, 1));
+        ForgeRecipe recipe = new ForgeRecipe(minWill, drainedWill, ingredients, resultTpl, willType);
+        output.accept(ResourceKey.create(Registries.RECIPE, id.identifier().withPrefix("hellfire_forge/")), recipe, advBuilder.build(advancementId(id, "hellfire_forge")));
     }
 }

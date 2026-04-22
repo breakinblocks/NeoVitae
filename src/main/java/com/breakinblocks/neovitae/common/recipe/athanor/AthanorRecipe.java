@@ -8,6 +8,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStackTemplate;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
@@ -33,8 +35,8 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
     public static final String RECIPE_TYPE_NAME = "athanor";
     public static final int MAX_INPUTS = 6;
 
-    private static final StreamCodec<RegistryFriendlyByteBuf, Pair<ItemStack, Double>> CHANCE_PAIR_STREAM_CODEC = StreamCodec.composite(
-            ItemStack.STREAM_CODEC, Pair::getFirst,
+    private static final StreamCodec<RegistryFriendlyByteBuf, Pair<ItemStackTemplate, Double>> CHANCE_PAIR_STREAM_CODEC = StreamCodec.composite(
+            ItemStackTemplate.STREAM_CODEC, Pair::getFirst,
             ByteBufCodecs.DOUBLE, Pair::getSecond,
             Pair::new
     );
@@ -45,10 +47,10 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
     public static final MapCodec<AthanorRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
             Ingredient.CODEC.fieldOf("tool").forGetter(AthanorRecipe::getTool),
             Ingredient.CODEC.listOf().fieldOf("inputs").forGetter(AthanorRecipe::getInputs),
-            ItemStack.CODEC.listOf().fieldOf("guaranteed_outputs").forGetter(AthanorRecipe::getGuaranteedOutput),
-            Codec.pair(ItemStack.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().fieldOf("chance_outputs").forGetter(AthanorRecipe::getChanceOutput),
+            ItemStackTemplate.CODEC.listOf().fieldOf("guaranteed_outputs").forGetter(AthanorRecipe::getGuaranteedOutput),
+            Codec.pair(ItemStackTemplate.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().fieldOf("chance_outputs").forGetter(AthanorRecipe::getChanceOutput),
             SizedFluidIngredient.CODEC.optionalFieldOf("input_fluid").forGetter(AthanorRecipe::getInputFluid),
-            FluidStack.CODEC.optionalFieldOf("output_fluid").forGetter(AthanorRecipe::getOutputFluid),
+            FluidStackTemplate.CODEC.optionalFieldOf("output_fluid").forGetter(AthanorRecipe::getOutputFluidTemplate),
             SPIRITUS_COST_CODEC.optionalFieldOf("spiritus_costs", Map.of()).forGetter(AthanorRecipe::getSpiritusCosts)
     ).apply(inst, AthanorRecipe::new));
 
@@ -61,10 +63,10 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
             for (int i = 0; i < inputCount; i++) {
                 inputs.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
             }
-            List<ItemStack> guaranteed = ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buf);
-            List<Pair<ItemStack, Double>> chanced = CHANCE_PAIR_STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buf);
+            List<ItemStackTemplate> guaranteed = ItemStackTemplate.STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buf);
+            List<Pair<ItemStackTemplate, Double>> chanced = CHANCE_PAIR_STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buf);
             Optional<SizedFluidIngredient> inFluid = SizedFluidIngredient.STREAM_CODEC.apply(ByteBufCodecs::optional).decode(buf);
-            Optional<FluidStack> outFluid = FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional).decode(buf);
+            Optional<FluidStackTemplate> outFluid = FluidStackTemplate.STREAM_CODEC.apply(ByteBufCodecs::optional).decode(buf);
             int costSize = buf.readVarInt();
             Map<SpiritusType, Double> costs = new EnumMap<>(SpiritusType.class);
             for (int i = 0; i < costSize; i++) {
@@ -80,10 +82,10 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
             for (Ingredient input : recipe.inputs) {
                 Ingredient.CONTENTS_STREAM_CODEC.encode(buf, input);
             }
-            ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buf, recipe.guaranteedOutput);
+            ItemStackTemplate.STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buf, recipe.guaranteedOutput);
             CHANCE_PAIR_STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buf, recipe.chanceOutput);
             SizedFluidIngredient.STREAM_CODEC.apply(ByteBufCodecs::optional).encode(buf, recipe.inputFluid);
-            FluidStack.STREAM_CODEC.apply(ByteBufCodecs::optional).encode(buf, recipe.outputFluid);
+            FluidStackTemplate.STREAM_CODEC.apply(ByteBufCodecs::optional).encode(buf, recipe.outputFluid);
             buf.writeVarInt(recipe.spiritusCosts.size());
             recipe.spiritusCosts.forEach((type, amount) -> {
                 SpiritusType.STREAM_CODEC.encode(buf, type);
@@ -94,14 +96,14 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
 
     private final Ingredient tool;
     private final List<Ingredient> inputs;
-    private final List<ItemStack> guaranteedOutput;
-    private final List<Pair<ItemStack, Double>> chanceOutput;
+    private final List<ItemStackTemplate> guaranteedOutput;
+    private final List<Pair<ItemStackTemplate, Double>> chanceOutput;
     private final Optional<SizedFluidIngredient> inputFluid;
-    private final Optional<FluidStack> outputFluid;
+    private final Optional<FluidStackTemplate> outputFluid;
     private final Map<SpiritusType, Double> spiritusCosts;
-    private final List<Pair<ItemStack, Double>> allListed;
+    private final List<Pair<ItemStackTemplate, Double>> allListed;
 
-    public AthanorRecipe(Ingredient tool, List<Ingredient> inputs, List<ItemStack> guaranteedOutput, List<Pair<ItemStack, Double>> chanceOutput, Optional<SizedFluidIngredient> inputFluid, Optional<FluidStack> outputStack, Map<SpiritusType, Double> spiritusCosts) {
+    public AthanorRecipe(Ingredient tool, List<Ingredient> inputs, List<ItemStackTemplate> guaranteedOutput, List<Pair<ItemStackTemplate, Double>> chanceOutput, Optional<SizedFluidIngredient> inputFluid, Optional<FluidStackTemplate> outputStack, Map<SpiritusType, Double> spiritusCosts) {
         this.tool = tool;
         this.inputs = List.copyOf(inputs);
         this.guaranteedOutput = guaranteedOutput;
@@ -110,7 +112,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         this.outputFluid = outputStack;
         this.spiritusCosts = Map.copyOf(spiritusCosts);
 
-        List<Pair<ItemStack, Double>> outputs = new ArrayList<>();
+        List<Pair<ItemStackTemplate, Double>> outputs = new ArrayList<>();
         guaranteedOutput.forEach(stack -> outputs.add(Pair.of(stack, 1D)));
         outputs.addAll(chanceOutput);
         allListed = List.copyOf(outputs);
@@ -124,11 +126,11 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         return inputs;
     }
 
-    public List<ItemStack> getGuaranteedOutput() {
+    public List<ItemStackTemplate> getGuaranteedOutput() {
         return guaranteedOutput;
     }
 
-    public List<Pair<ItemStack, Double>> getChanceOutput() {
+    public List<Pair<ItemStackTemplate, Double>> getChanceOutput() {
         return chanceOutput;
     }
 
@@ -137,6 +139,10 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
     }
 
     public Optional<FluidStack> getOutputFluid() {
+        return outputFluid.map(FluidStackTemplate::create);
+    }
+
+    public Optional<FluidStackTemplate> getOutputFluidTemplate() {
         return outputFluid;
     }
 
@@ -190,20 +196,20 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
      */
     public AthanorResult assembleOutputs(AthanorRecipeInput input) {
         List<ItemStack> outputs = new ArrayList<>(guaranteedOutput.size() + chanceOutput.size());
-        for (ItemStack guaranteed : guaranteedOutput) {
-            outputs.add(guaranteed.copy());
+        for (ItemStackTemplate guaranteed : guaranteedOutput) {
+            outputs.add(guaranteed.create());
         }
         ItemStack toolStack = input.getItem(0);
         double bonusChance = toolStack.getOrDefault(NVDataComponents.ARC_CHANCE, 1D);
-        for (Pair<ItemStack, Double> entry : chanceOutput) {
+        for (Pair<ItemStackTemplate, Double> entry : chanceOutput) {
             if (Math.random() < entry.getSecond() * bonusChance) {
-                outputs.add(entry.getFirst().copy());
+                outputs.add(entry.getFirst().create());
             }
         }
-        return new AthanorResult(outputs, outputFluid.orElse(FluidStack.EMPTY).copy());
+        return new AthanorResult(outputs, outputFluid.map(FluidStackTemplate::create).orElse(FluidStack.EMPTY));
     }
 
-    public List<Pair<ItemStack, Double>> getAllListedOutputs() {
+    public List<Pair<ItemStackTemplate, Double>> getAllListedOutputs() {
         return allListed;
     }
 

@@ -16,6 +16,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 
 import java.util.List;
+import net.minecraft.world.item.ItemStackTemplate;
 
 public class BookAthanorRecipePageRenderer extends BookRecipePageRenderer<AthanorRecipe, BookAthanorRecipePage> {
 
@@ -63,25 +64,25 @@ public class BookAthanorRecipePageRenderer extends BookRecipePageRenderer<Athano
 
         guiGraphics.blit(GUI, CRAFTING_TEXTURES, recipeX + 50, recipeY + 2, 35, 198, 18, 18, 128, 256);
 
-        List<ItemStack> guaranteed = recipe.getGuaranteedOutput();
-        List<Pair<ItemStack, Double>> chance = recipe.getChanceOutput();
+        List<ItemStackTemplate> guaranteed = recipe.getGuaranteedOutput();
+        List<Pair<ItemStackTemplate, Double>> chance = recipe.getChanceOutput();
         int outputX = recipeX + 74;
         int outputIdx = 0;
 
-        for (ItemStack stack : guaranteed) {
+        for (ItemStackTemplate tpl : guaranteed) {
             int ox = outputX + (outputIdx % 2) * 24;
             int oy = recipeY + (outputIdx / 2) * 24;
             guiGraphics.blit(GUI, CRAFTING_TEXTURES, ox, oy, 84, 198, 22, 22, 128, 256);
-            this.parentScreen.renderItemStack(guiGraphics, ox + 3, oy + 3, mouseX, mouseY, stack);
+            this.parentScreen.renderItemStack(guiGraphics, ox + 3, oy + 3, mouseX, mouseY, tpl.create());
             outputIdx++;
         }
 
-        for (Pair<ItemStack, Double> pair : chance) {
+        for (Pair<ItemStackTemplate, Double> pair : chance) {
             if (outputIdx >= 4) break;
             int ox = outputX + (outputIdx % 2) * 24;
             int oy = recipeY + (outputIdx / 2) * 24;
             guiGraphics.blit(GUI, CRAFTING_TEXTURES, ox, oy, 84, 198, 22, 22, 128, 256);
-            this.parentScreen.renderItemStack(guiGraphics, ox + 3, oy + 3, mouseX, mouseY, pair.getFirst());
+            this.parentScreen.renderItemStack(guiGraphics, ox + 3, oy + 3, mouseX, mouseY, pair.getFirst().create());
             String pct = String.format("%.0f%%", pair.getSecond() * 100);
             guiGraphics.text(this.font, pct, ox + 18, oy + 14, 0xFFAAAAAA, false);
             outputIdx++;

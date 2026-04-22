@@ -12,6 +12,7 @@ import net.minecraft.world.level.ItemLike;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeSpiritusInfusionRecipe;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.core.registries.Registries;
 
 public class ForgeSpiritusInfusionRecipeBuilder extends BaseRecipeBuilder {
 
@@ -33,7 +34,7 @@ public class ForgeSpiritusInfusionRecipeBuilder extends BaseRecipeBuilder {
     }
 
     public ForgeSpiritusInfusionRecipeBuilder gemInput(TagKey<Item> tag) {
-        this.gemInput = Ingredient.of() /* TODO(phase15): tag-based ingredient � needs HolderGetter plumb-through */;
+        this.gemInput = ingredientOf(tag);
         return this;
     }
 
@@ -51,6 +52,6 @@ public class ForgeSpiritusInfusionRecipeBuilder extends BaseRecipeBuilder {
     public void save(RecipeOutput output, ResourceKey<Recipe<?>> id) {
         Advancement.Builder advBuilder = getBuilder(output, id);
         ForgeSpiritusInfusionRecipe recipe = new ForgeSpiritusInfusionRecipe(minWill, drainedWill, gemInput);
-        output.accept(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, id.identifier().withPrefix("hellfire_forge/")), recipe, advBuilder.build(advancementId(id, "hellfire_forge")));
+        output.accept(ResourceKey.create(Registries.RECIPE, id.identifier().withPrefix("hellfire_forge/")), recipe, advBuilder.build(advancementId(id, "hellfire_forge")));
     }
 }

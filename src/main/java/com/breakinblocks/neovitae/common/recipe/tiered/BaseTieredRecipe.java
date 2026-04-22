@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.common.recipe.tiered;
 
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -10,14 +11,14 @@ public abstract class BaseTieredRecipe extends CustomRecipe {
     protected final ShapedRecipePattern pattern;
     protected final int primary;
     protected final int secondary;
-    protected final ItemStack output;
+    protected final ItemStackTemplate outputTemplate;
 
-    public BaseTieredRecipe(CraftingBookCategory category, ShapedRecipePattern pattern, int primary, int secondary, ItemStack baseOutput) {
+    public BaseTieredRecipe(CraftingBookCategory category, ShapedRecipePattern pattern, int primary, int secondary, ItemStackTemplate outputTemplate) {
         this.category = category;
         this.pattern = pattern;
         this.primary = primary;
         this.secondary = secondary;
-        this.output = baseOutput;
+        this.outputTemplate = outputTemplate;
     }
 
     @Override
@@ -38,7 +39,11 @@ public abstract class BaseTieredRecipe extends CustomRecipe {
     }
 
     public ItemStack getOutput() {
-        return this.output;
+        return this.outputTemplate.create();
+    }
+
+    public ItemStackTemplate getOutputTemplate() {
+        return this.outputTemplate;
     }
 
     @Override

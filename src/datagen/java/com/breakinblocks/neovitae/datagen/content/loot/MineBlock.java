@@ -24,6 +24,7 @@ import com.breakinblocks.neovitae.util.helper.BlockWithItemHolder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 public class MineBlock extends BlockLootSubProvider {
     private final HolderLookup.Provider registries;
@@ -115,7 +116,7 @@ public class MineBlock extends BlockLootSubProvider {
                         this.applyExplosionCondition(holder.block().get(), LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1))
                                 .add(LootItem.lootTableItem(holder)
-                                        .apply(CopyComponentsFunction.copyComponentsFromBlockEntity(net.minecraft.world.level.storage.loot.parameters.LootContextParams.BLOCK_ENTITY))
+                                        .apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY))
                                 )
                         )
                 )

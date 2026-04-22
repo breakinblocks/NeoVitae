@@ -15,6 +15,8 @@ import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.datagen.BlockGroups;
 
 import java.util.concurrent.CompletableFuture;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
 
 public class NVBlockTagProvider extends BlockTagsProvider {
     public NVBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -214,7 +216,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         // Includes c:budding tag for cross-mod compat (AE2 certus, GeoOres, etc.)
         this.tag(NVTags.Blocks.GEODE_ACCELERATABLE)
                 .add(Blocks.BUDDING_AMETHYST)
-                .addOptionalTag(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK, Identifier.fromNamespaceAndPath("c", "budding_blocks")));
+                .addOptionalTag(TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c", "budding_blocks")));
 
         // Mushroom blocks for fungal charges
         this.tag(NVTags.Blocks.MUSHROOM_STEM)

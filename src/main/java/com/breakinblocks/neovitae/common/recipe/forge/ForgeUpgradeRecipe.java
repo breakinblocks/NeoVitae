@@ -7,6 +7,8 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -35,7 +37,7 @@ public class ForgeUpgradeRecipe extends ForgeRecipe {
     );
 
     public ForgeUpgradeRecipe(double minWill, double usedWill, List<Ingredient> catalysts) {
-        super(minWill, usedWill, catalysts, ItemStack.EMPTY, Optional.empty());
+        super(minWill, usedWill, catalysts, new ItemStackTemplate(Items.STONE, 1), Optional.empty());
     }
 
     @Override

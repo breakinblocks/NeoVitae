@@ -13,6 +13,7 @@ import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.level.saveddata.WeatherData;
 
 public class AlchemyArrayEffectRain extends AlchemyArrayEffect {
 
@@ -41,7 +42,7 @@ public class AlchemyArrayEffectRain extends AlchemyArrayEffect {
 
         if (ticksActive >= END_TICK) {
             if (level instanceof ServerLevel serverLevel) {
-                net.minecraft.world.level.saveddata.WeatherData weather = serverLevel.getWeatherData();
+                WeatherData weather = serverLevel.getWeatherData();
                 if (weather.isRaining()) {
                     weather.setClearWeatherTime(6000);
                     weather.setRainTime(0);

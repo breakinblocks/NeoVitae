@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.recipe.livingdowngrade.LivingDowngradeRecipe;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.core.registries.Registries;
 
 /**
  * Builder for Living Downgrade recipes.
@@ -62,8 +63,8 @@ public class LivingDowngradeRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> defaultId() {
-        return net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
-                net.minecraft.resources.Identifier.fromNamespaceAndPath(com.breakinblocks.neovitae.NeoVitae.MODID, "auto"));
+    public ResourceKey<Recipe<?>> defaultId() {
+        return ResourceKey.create(Registries.RECIPE,
+                Identifier.fromNamespaceAndPath(com.breakinblocks.neovitae.NeoVitae.MODID, "auto"));
     }
 }

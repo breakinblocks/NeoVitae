@@ -10,6 +10,7 @@ import com.breakinblocks.neovitae.common.living.LivingEntityEffect;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.entity.EquipmentSlot;
 
 public record RandomArmourDamageEffect(LevelBasedValue amounts) implements LivingEntityEffect {
     public static final MapCodec<RandomArmourDamageEffect> CODEC = RecordCodecBuilder.mapCodec(builder -> builder.group(
@@ -20,8 +21,8 @@ public record RandomArmourDamageEffect(LevelBasedValue amounts) implements Livin
     public void apply(int upgradeLevel, Entity entity) {
         if (!(entity instanceof LivingEntity living)) return;
         List<ItemStack> stacks = new ArrayList<>();
-        for (net.minecraft.world.entity.EquipmentSlot slot : net.minecraft.world.entity.EquipmentSlot.VALUES) {
-            if (slot.getType() != net.minecraft.world.entity.EquipmentSlot.Type.HUMANOID_ARMOR) continue;
+        for (EquipmentSlot slot : EquipmentSlot.VALUES) {
+            if (slot.getType() != EquipmentSlot.Type.HUMANOID_ARMOR) continue;
             ItemStack s = living.getItemBySlot(slot);
             if (!s.isEmpty()) stacks.add(s);
         }

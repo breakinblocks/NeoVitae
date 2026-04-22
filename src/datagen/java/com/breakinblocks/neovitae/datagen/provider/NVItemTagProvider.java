@@ -9,10 +9,13 @@ import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import java.util.concurrent.CompletableFuture;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 
 public class NVItemTagProvider extends ItemTagsProvider {
     public NVItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
-                             CompletableFuture<net.minecraft.data.tags.TagsProvider.TagLookup<net.minecraft.world.level.block.Block>> blockTags) {
+                             CompletableFuture<TagsProvider.TagLookup<Block>> blockTags) {
         super(output, lookupProvider, NeoVitae.MODID);
     }
 
@@ -148,8 +151,8 @@ public class NVItemTagProvider extends ItemTagsProvider {
                 .addTag(ItemTags.AXES);
 
         tag(NVTags.Items.ANOINTABLE_BOWS)
-                .add(net.minecraft.world.item.Items.BOW)
-                .add(net.minecraft.world.item.Items.CROSSBOW);
+                .add(Items.BOW)
+                .add(Items.CROSSBOW);
 
         tag(NVTags.Items.ANOINTABLE_WEAPONS)
                 .addTag(NVTags.Items.ANOINTABLE_MELEE)

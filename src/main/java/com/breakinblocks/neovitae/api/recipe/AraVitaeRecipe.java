@@ -3,6 +3,8 @@ package com.breakinblocks.neovitae.api.recipe;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
@@ -48,7 +50,7 @@ public abstract class AraVitaeRecipe implements Recipe<AraVitaeInput> {
     public static final String RECIPE_TYPE_NAME = "ara_vitae_recipe";
 
     private final Ingredient input;
-    private final ItemStack result;
+    private final ItemStackTemplate resultTemplate;
     private final int minTier;
     private final int totalBlood;
     private final int craftSpeed;
@@ -65,7 +67,7 @@ public abstract class AraVitaeRecipe implements Recipe<AraVitaeInput> {
      * @param craftSpeed  LP consumed per tick while crafting
      * @param drainSpeed  Progress lost per tick when altar runs out of LP
      */
-    public AraVitaeRecipe(Ingredient input, ItemStack result, int minTier, int totalBlood, int craftSpeed, int drainSpeed) {
+    public AraVitaeRecipe(Ingredient input, ItemStackTemplate result, int minTier, int totalBlood, int craftSpeed, int drainSpeed) {
         this(input, result, minTier, totalBlood, craftSpeed, drainSpeed, false);
     }
 
@@ -82,9 +84,9 @@ public abstract class AraVitaeRecipe implements Recipe<AraVitaeInput> {
      *                            copied to the output item. The output's base components
      *                            are preserved, with input components applied as a patch.
      */
-    public AraVitaeRecipe(Ingredient input, ItemStack result, int minTier, int totalBlood, int craftSpeed, int drainSpeed, boolean copyInputComponents) {
+    public AraVitaeRecipe(Ingredient input, ItemStackTemplate result, int minTier, int totalBlood, int craftSpeed, int drainSpeed, boolean copyInputComponents) {
         this.input = input;
-        this.result = result;
+        this.resultTemplate = result;
         this.minTier = minTier;
         this.totalBlood = totalBlood;
         this.craftSpeed = craftSpeed;
@@ -144,7 +146,11 @@ public abstract class AraVitaeRecipe implements Recipe<AraVitaeInput> {
      * @return A copy of the result item stack
      */
     public ItemStack getResult() {
-        return result.copy();
+        return resultTemplate.create();
+    }
+
+    public ItemStackTemplate getResultTemplate() {
+        return resultTemplate;
     }
 
     /**
@@ -164,7 +170,7 @@ public abstract class AraVitaeRecipe implements Recipe<AraVitaeInput> {
      */
     @Override
     public ItemStack assemble(AraVitaeInput recipeInput) {
-        ItemStack output = result.copy();
+        ItemStack output = resultTemplate.create();
         if (copyInputComponents) {
             ItemStack inputStack = recipeInput.getItem(0);
             DataComponentPatch inputPatch = inputStack.getComponentsPatch();

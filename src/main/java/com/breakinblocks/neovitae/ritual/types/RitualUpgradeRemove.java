@@ -14,6 +14,7 @@ import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 
 import java.util.List;
 import java.util.function.Consumer;
+import net.minecraft.world.entity.EquipmentSlot;
 
 /**
  * Sound of the Cleansing Soul - Removes all upgrades from living armor.
@@ -40,8 +41,8 @@ public class RitualUpgradeRemove extends Ritual {
         for (Player player : players) {
             boolean cleansedAny = false;
 
-            for (net.minecraft.world.entity.EquipmentSlot slot : net.minecraft.world.entity.EquipmentSlot.VALUES) {
-                if (slot.getType() != net.minecraft.world.entity.EquipmentSlot.Type.HUMANOID_ARMOR) continue;
+            for (EquipmentSlot slot : EquipmentSlot.VALUES) {
+                if (slot.getType() != EquipmentSlot.Type.HUMANOID_ARMOR) continue;
                 ItemStack armorPiece = player.getItemBySlot(slot);
                 if (armorPiece.isEmpty() || !armorPiece.is(NVTags.Items.LIVING_SET)) {
                     continue;

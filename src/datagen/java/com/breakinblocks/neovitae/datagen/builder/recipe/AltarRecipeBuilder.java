@@ -11,6 +11,7 @@ import net.minecraft.world.level.ItemLike;
 import com.breakinblocks.neovitae.common.recipe.aravitae.AraVitaeRecipe;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.core.registries.Registries;
 
 public class AltarRecipeBuilder extends BaseRecipeBuilder {
 
@@ -65,11 +66,11 @@ public class AltarRecipeBuilder extends BaseRecipeBuilder {
     }
 
     public AltarRecipeBuilder from(ItemLike input) {
-        return from(Ingredient.of() /* TODO(phase15): was Ingredient.of(TagKey input) */);
+        return from(Ingredient.of(input));
     }
 
     public AltarRecipeBuilder from(TagKey<Item> input) {
-        return from(Ingredient.of() /* TODO(phase15): was Ingredient.of(TagKey input) */);
+        return from(ingredientOf(input));
     }
 
     public AltarRecipeBuilder from(Ingredient input) {
@@ -77,11 +78,6 @@ public class AltarRecipeBuilder extends BaseRecipeBuilder {
         return this;
     }
 
-    /**
-     * When enabled, components from the input item will be copied to the output item.
-     * This is useful for recipes where the input carries data that should persist,
-     * such as bound items or items with custom enchantments.
-     */
     public AltarRecipeBuilder copyInputComponents() {
         this.copyInputComponents = true;
         return this;
@@ -96,7 +92,7 @@ public class AltarRecipeBuilder extends BaseRecipeBuilder {
             throw new IllegalStateException("AltarRecipe requires bloodNeeded > 0");
         }
         Advancement.Builder advBuilder = getBuilder(output, id);
-        AraVitaeRecipe recipe = new AraVitaeRecipe(input, resultStack(), minTier, totalBlood, craftingSpeed, drainSpeed, copyInputComponents);
-        output.accept(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, id.identifier().withPrefix("ara_vitae/")), recipe, advBuilder.build(advancementId(id, "ara_vitae")));
+        AraVitaeRecipe recipe = new AraVitaeRecipe(input, resultTemplate(), minTier, totalBlood, craftingSpeed, drainSpeed, copyInputComponents);
+        output.accept(ResourceKey.create(Registries.RECIPE, id.identifier().withPrefix("ara_vitae/")), recipe, advBuilder.build(advancementId(id, "ara_vitae")));
     }
 }

@@ -26,6 +26,10 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.FluidModel;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.data.AtlasIds;
 
 public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile, AraVitaeRenderer.State> {
 
@@ -123,12 +127,12 @@ public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile, AraVi
         s.gameTime = level != null ? level.getGameTime() : 0L;
         s.animationTicks = s.gameTime + partialTick;
 
-        net.minecraft.client.renderer.block.FluidModel fluidModel = net.minecraft.client.Minecraft.getInstance()
+        FluidModel fluidModel = Minecraft.getInstance()
                 .getModelManager()
                 .getFluidStateModelSet()
                 .get(com.breakinblocks.neovitae.common.fluid.NVFluids.ESSENTIA_VITAE_SOURCE.get().defaultFluidState());
         if (fluidModel != null) {
-            net.minecraft.client.renderer.texture.TextureAtlasSprite sprite = fluidModel.stillMaterial().sprite();
+            TextureAtlasSprite sprite = fluidModel.stillMaterial().sprite();
             s.fluidU0 = sprite.getU0();
             s.fluidU1 = sprite.getU1();
             s.fluidV0 = sprite.getV0();
@@ -303,7 +307,7 @@ public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile, AraVi
         int overlay = OverlayTexture.NO_OVERLAY;
         float u0 = s.fluidU0, u1 = s.fluidU1, v0 = s.fluidV0, v1 = s.fluidV1;
 
-        collector.submitCustomGeometry(poseStack, RenderTypes.entityTranslucent(net.minecraft.data.AtlasIds.BLOCKS), (pose, buf) -> {
+        collector.submitCustomGeometry(poseStack, RenderTypes.entityTranslucent(AtlasIds.BLOCKS), (pose, buf) -> {
             Matrix4f matrix = pose.pose();
             Vector3f norm = new Vector3f();
             pose.transformNormal(0, 1, 0, norm);

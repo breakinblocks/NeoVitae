@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import net.minecraft.core.component.DataComponents;
 
 public class ArcaneScribeDyeRecipe extends CustomRecipe {
 
@@ -65,7 +66,7 @@ public class ArcaneScribeDyeRecipe extends CustomRecipe {
             if (stack.is(NVItems.ARCANE_SCRIBE_TOOL.get())) {
                 scribeStack = stack;
             } else if (stack.getItem() instanceof DyeItem) {
-                DyeColor color = stack.get(net.minecraft.core.component.DataComponents.DYE);
+                DyeColor color = stack.get(DataComponents.DYE);
                 if (color != null) dyeColor = color;
             }
         }

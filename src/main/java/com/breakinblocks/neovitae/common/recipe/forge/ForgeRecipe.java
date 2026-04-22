@@ -7,6 +7,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
@@ -27,7 +28,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
             Codec.DOUBLE.fieldOf("minDrain").forGetter(ForgeRecipe::getMinWill),
             Codec.DOUBLE.fieldOf("drain").forGetter(ForgeRecipe::getDrain),
             Codec.list(Ingredient.CODEC).fieldOf("inputs").forGetter(ForgeRecipe::getCraftingIngredients),
-            ItemStack.CODEC.fieldOf("output").forGetter(ForgeRecipe::getOutput),
+            ItemStackTemplate.CODEC.fieldOf("output").forGetter(r -> r.resultTemplate),
             SpiritusType.CODEC.optionalFieldOf("willType").forGetter(ForgeRecipe::getWillType)
     ).apply(instance, ForgeRecipe::new));
 
@@ -35,20 +36,20 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
             ByteBufCodecs.DOUBLE, ForgeRecipe::getMinWill,
             ByteBufCodecs.DOUBLE, ForgeRecipe::getDrain,
             Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), ForgeRecipe::getCraftingIngredients,
-            ItemStack.STREAM_CODEC, ForgeRecipe::getOutput,
+            ItemStackTemplate.STREAM_CODEC, r -> r.resultTemplate,
             SpiritusType.STREAM_CODEC.apply(ByteBufCodecs::optional), ForgeRecipe::getWillType,
             ForgeRecipe::new
     );
     public final double minWill;
     public final double usedWill;
     public final List<Ingredient> ingredients;
-    public final ItemStack resultItem;
+    public final ItemStackTemplate resultTemplate;
     public final Optional<SpiritusType> willType;
-    public ForgeRecipe(double minWill, double usedWill, List<Ingredient> ingredients, ItemStack resultItem, Optional<SpiritusType> willType) {
+    public ForgeRecipe(double minWill, double usedWill, List<Ingredient> ingredients, ItemStackTemplate resultTemplate, Optional<SpiritusType> willType) {
         this.minWill = minWill;
         this.usedWill = usedWill;
         this.ingredients = ingredients;
-        this.resultItem = resultItem;
+        this.resultTemplate = resultTemplate;
         this.willType = willType;
     }
 
@@ -91,7 +92,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
         if (will < minWill) {
             return ItemStack.EMPTY;
         }
-        ItemStack outStack = resultItem.copy();
+        ItemStack outStack = resultTemplate.create();
         if (outStack.is(NVTags.Items.SPIRITUS_GEM) && input.getGemIndex() != HellfireForgeBlockEntity.GEM_SLOT) {
             outStack.set(NVDataComponents.SPIRITUS_AMOUNT, will - usedWill);
             outStack.set(NVDataComponents.SPIRITUS_TYPE, gemStack.get(NVDataComponents.SPIRITUS_TYPE));
@@ -143,7 +144,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
     }
 
     public ItemStack getOutput() {
-        return resultItem;
+        return resultTemplate.create();
     }
 
     public Optional<SpiritusType> getWillType() {

@@ -7,6 +7,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
@@ -21,7 +22,7 @@ public class FluidTieredRecipe extends BaseTieredRecipe {
             ShapedRecipePattern.MAP_CODEC.fieldOf("pattern").forGetter(FluidTieredRecipe::getPattern),
             Codec.INT.fieldOf("primary").forGetter(FluidTieredRecipe::getPrimary),
             Codec.INT.fieldOf("secondary").forGetter(FluidTieredRecipe::getSecondary),
-            ItemStack.CODEC.fieldOf("result").forGetter(FluidTieredRecipe::getOutput)
+            ItemStackTemplate.CODEC.fieldOf("result").forGetter(FluidTieredRecipe::getOutputTemplate)
     ).apply(builder, FluidTieredRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, FluidTieredRecipe> STREAM_CODEC = StreamCodec.composite(
@@ -29,12 +30,12 @@ public class FluidTieredRecipe extends BaseTieredRecipe {
             ShapedRecipePattern.STREAM_CODEC, FluidTieredRecipe::getPattern,
             ByteBufCodecs.INT, FluidTieredRecipe::getPrimary,
             ByteBufCodecs.INT, FluidTieredRecipe::getSecondary,
-            ItemStack.STREAM_CODEC, FluidTieredRecipe::getOutput,
+            ItemStackTemplate.STREAM_CODEC, FluidTieredRecipe::getOutputTemplate,
             FluidTieredRecipe::new
     );
 
-    public FluidTieredRecipe(CraftingBookCategory category, ShapedRecipePattern pattern, int primary, int secondary, ItemStack baseOutput) {
-        super(category, pattern, primary, secondary, baseOutput);
+    public FluidTieredRecipe(CraftingBookCategory category, ShapedRecipePattern pattern, int primary, int secondary, ItemStackTemplate outputTemplate) {
+        super(category, pattern, primary, secondary, outputTemplate);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class FluidTieredRecipe extends BaseTieredRecipe {
             resultContent = primaryContent.copy();
         }
 
-        ItemStack resultStack = output.copy();
+        ItemStack resultStack = outputTemplate.create();
         resultStack.set(NVDataComponents.CONTAINER_TIER, resultTier);
         resultStack.set(NVDataComponents.FLUID_CONTENT, SimpleFluidContent.copyOf(resultContent));
 

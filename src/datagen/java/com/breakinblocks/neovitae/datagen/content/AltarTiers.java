@@ -29,7 +29,7 @@ public class AltarTiers {
         builder.register(Keys.TRANSCENDENT, new AltarTier(5, AltarTiers.TRANSCENDENT));
     }
 
-    public static void tags(Function<TagKey<AltarTier>, TagAppender<net.minecraft.resources.ResourceKey<AltarTier>, AltarTier>> setter) {
+    public static void tags(Function<TagKey<AltarTier>, TagAppender<ResourceKey<AltarTier>, AltarTier>> setter) {
         setter.apply(NVTags.Tiers.VALID_TIERS)
                 .add(Keys.WEAK)
                 .add(Keys.APPRENTICE)

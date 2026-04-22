@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 /**
  * Builder for Modonomicon sparse multiblock JSON definitions.
@@ -159,6 +160,6 @@ public class SparseMultiblockBuilder {
     }
 
     private static String blockId(Supplier<? extends Block> block) {
-        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block.get()).toString();
+        return BuiltInRegistries.BLOCK.getKey(block.get()).toString();
     }
 }

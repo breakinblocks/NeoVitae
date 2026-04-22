@@ -13,6 +13,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.core.registries.Registries;
 
 /**
  * Recipe builder for all flask recipe types.
@@ -48,7 +50,7 @@ public class FlaskRecipeBuilder implements RecipeBuilder {
     private int numCycles = 1;
 
     // For item transform recipe
-    private ItemStack transformOutput;
+    private ItemStackTemplate transformOutput;
 
     // For length recipe
     private Holder<MobEffect> lengthEffect;
@@ -117,7 +119,7 @@ public class FlaskRecipeBuilder implements RecipeBuilder {
     public static FlaskRecipeBuilder itemTransform(ItemLike output) {
         FlaskRecipeBuilder builder = new FlaskRecipeBuilder();
         builder.recipeType = FlaskRecipeType.ITEM_TRANSFORM;
-        builder.transformOutput = new ItemStack(output);
+        builder.transformOutput = new ItemStackTemplate(output.asItem(), 1);
         return builder;
     }
 
@@ -161,7 +163,7 @@ public class FlaskRecipeBuilder implements RecipeBuilder {
     }
 
     public FlaskRecipeBuilder addIngredient(TagKey<Item> tag) {
-        return addIngredient(Ingredient.of() /* TODO(phase15): tag-based ingredient � needs HolderGetter plumb-through */);
+        return addIngredient(BaseRecipeBuilder.ingredientOf(tag));
     }
 
     public FlaskRecipeBuilder addIngredient(Ingredient ingredient) {
@@ -228,7 +230,7 @@ public class FlaskRecipeBuilder implements RecipeBuilder {
 
         FlaskRecipe recipe = createRecipe();
         // Note: Flask recipes don't have traditional advancements since they modify items
-        output.accept(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, id.identifier().withPrefix("flask/")), recipe, null);
+        output.accept(ResourceKey.create(Registries.RECIPE, id.identifier().withPrefix("flask/")), recipe, null);
     }
 
     private FlaskRecipe createRecipe() {
@@ -244,8 +246,8 @@ public class FlaskRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> defaultId() {
-        return net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
-                net.minecraft.resources.Identifier.fromNamespaceAndPath(com.breakinblocks.neovitae.NeoVitae.MODID, "auto"));
+    public ResourceKey<Recipe<?>> defaultId() {
+        return ResourceKey.create(Registries.RECIPE,
+                Identifier.fromNamespaceAndPath(com.breakinblocks.neovitae.NeoVitae.MODID, "auto"));
     }
 }

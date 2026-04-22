@@ -16,6 +16,7 @@ import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 
 import java.util.List;
 import java.util.function.Consumer;
+import net.minecraft.core.component.DataComponents;
 
 /**
  * Ritual that replenishes hunger for nearby players using food from an inventory.
@@ -85,7 +86,7 @@ public class RitualFullStomach extends Ritual {
             ItemStack stack = inventory.getStackInSlot(slot);
             if (stack.isEmpty()) continue;
 
-            FoodProperties food = stack.get(net.minecraft.core.component.DataComponents.FOOD);
+            FoodProperties food = stack.get(DataComponents.FOOD);
             if (food == null) continue;
 
             // Extract 1 item from the inventory

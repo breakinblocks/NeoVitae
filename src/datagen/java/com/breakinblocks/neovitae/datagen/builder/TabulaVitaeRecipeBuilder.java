@@ -1,11 +1,13 @@
 package com.breakinblocks.neovitae.datagen.builder;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
@@ -16,25 +18,25 @@ import java.util.List;
 public class TabulaVitaeRecipeBuilder {
     public static final int MAX_INPUTS = TabulaVitaeRecipe.MAX_INPUTS;
 
-    private final ItemStack output;
+    private final ItemStackTemplate output;
     private final List<Ingredient> inputs = new ArrayList<>();
     private int syphon = 0;
     private int ticks = 200;
     private int minimumTier = 0;
 
-    private TabulaVitaeRecipeBuilder(ItemStack output) {
-        if (output == null || output.isEmpty()) {
-            throw new IllegalArgumentException("TabulaVitaeRecipe output cannot be null or empty");
+    private TabulaVitaeRecipeBuilder(ItemStackTemplate output) {
+        if (output == null) {
+            throw new IllegalArgumentException("TabulaVitaeRecipe output cannot be null");
         }
         this.output = output;
     }
 
     public static TabulaVitaeRecipeBuilder build(ItemLike output) {
-        return new TabulaVitaeRecipeBuilder(new ItemStack(output));
+        return new TabulaVitaeRecipeBuilder(new ItemStackTemplate(output.asItem(), 1));
     }
 
-    public static TabulaVitaeRecipeBuilder build(ItemStack output) {
-        return new TabulaVitaeRecipeBuilder(output);
+    public static TabulaVitaeRecipeBuilder build(ItemLike output, int count) {
+        return new TabulaVitaeRecipeBuilder(new ItemStackTemplate(output.asItem(), count));
     }
 
     public TabulaVitaeRecipeBuilder input(ItemLike item) {
@@ -42,7 +44,7 @@ public class TabulaVitaeRecipeBuilder {
     }
 
     public TabulaVitaeRecipeBuilder input(TagKey<Item> tag) {
-        return input(Ingredient.of() /* TODO(phase15): tag-based ingredient - needs HolderGetter plumb-through */);
+        return input(com.breakinblocks.neovitae.datagen.builder.recipe.BaseRecipeBuilder.ingredientOf(tag));
     }
 
     public TabulaVitaeRecipeBuilder input(Ingredient ingredient) {
@@ -78,10 +80,10 @@ public class TabulaVitaeRecipeBuilder {
     }
 
     public void save(RecipeOutput output, String name) {
-        save(output, net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, NeoVitae.rl("alchemytable/" + name)));
+        save(output, ResourceKey.create(Registries.RECIPE, NeoVitae.rl("alchemytable/" + name)));
     }
 
-    public void save(RecipeOutput recipeOutput, net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> id) {
+    public void save(RecipeOutput recipeOutput, ResourceKey<Recipe<?>> id) {
         if (inputs.isEmpty()) {
             throw new IllegalStateException("TabulaVitaeRecipe must have at least one input");
         }

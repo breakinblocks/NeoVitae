@@ -162,7 +162,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             int x = leftPos + slot.x;
             int y = topPos + slot.y;
             guiGraphics.fill(x, y, x + 16, y + 16, 0xFF8B8B8B);
-            net.neoforged.neoforge.fluids.FluidStack ghost = menu.getCurrentFluidGhost(i);
+            FluidStack ghost = menu.getCurrentFluidGhost(i);
             if (!ghost.isEmpty()) {
                 com.breakinblocks.neovitae.util.helper.RenderHelper.renderGuiFluid(guiGraphics, ghost.getFluid(), x, y, 16, 16);
             }

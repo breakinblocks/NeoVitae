@@ -1,33 +1,36 @@
 package com.breakinblocks.neovitae.datagen.builder;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
 
 public class AlchemyArrayRecipeBuilder {
-    private final ItemStack output;
+    private final ItemStackTemplate output;
     private Ingredient baseInput;
     private Ingredient addedInput;
     private Identifier texture;
 
-    private AlchemyArrayRecipeBuilder(ItemStack output) {
-        if (output == null || output.isEmpty()) {
-            throw new IllegalArgumentException("AlchemyArrayRecipe output cannot be null or empty");
+    private AlchemyArrayRecipeBuilder(ItemStackTemplate output) {
+        if (output == null) {
+            throw new IllegalArgumentException("AlchemyArrayRecipe output cannot be null");
         }
         this.output = output;
         this.texture = NeoVitae.rl("textures/models/alchemyarrays/sigil.png");
     }
 
     public static AlchemyArrayRecipeBuilder build(ItemLike output) {
-        return new AlchemyArrayRecipeBuilder(new ItemStack(output));
+        return new AlchemyArrayRecipeBuilder(new ItemStackTemplate(output.asItem(), 1));
     }
 
-    public static AlchemyArrayRecipeBuilder build(ItemStack output) {
-        return new AlchemyArrayRecipeBuilder(output);
+    public static AlchemyArrayRecipeBuilder build(ItemLike output, int count) {
+        return new AlchemyArrayRecipeBuilder(new ItemStackTemplate(output.asItem(), count));
     }
 
     public AlchemyArrayRecipeBuilder base(ItemLike item) {
@@ -61,10 +64,10 @@ public class AlchemyArrayRecipeBuilder {
     }
 
     public void save(RecipeOutput output, String name) {
-        save(output, net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, NeoVitae.rl("array/" + name)));
+        save(output, ResourceKey.create(Registries.RECIPE, NeoVitae.rl("array/" + name)));
     }
 
-    public void save(RecipeOutput recipeOutput, net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> id) {
+    public void save(RecipeOutput recipeOutput, ResourceKey<Recipe<?>> id) {
         if (baseInput == null) {
             throw new IllegalStateException("AlchemyArrayRecipe requires a base input");
         }

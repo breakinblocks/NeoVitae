@@ -117,8 +117,8 @@ neoForge {
             gameDirectory = project.file('run-gametest')
         }
 
-        data {
-            data()
+        clientData {
+            clientData()
             sourceSet = sourceSets.datagen // this makes the intellij configuration work
             loadedMods = [ mods.data ] // this prevents from main loading on mod and data since default is all configured mods
             gameDirectory = project.file('run-data')

@@ -1,0 +1,118 @@
+package com.breakinblocks.neovitae.datagen.builder.recipe;
+
+import net.minecraft.advancements.Advancement;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+import com.breakinblocks.neovitae.common.datacomponent.AnointmentHolder;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.crafting.Recipe;
+
+public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
+    public static final int MAX_INGREDIENTS = 4;
+
+    protected double minWill;
+    protected double drainedWill;
+    protected List<Ingredient> ingredients = new ArrayList<>();
+    protected boolean requireWillType = false;
+    protected Optional<SpiritusType> willType = Optional.empty();
+    // Component overrides deferred to save() — ItemStack construction before registry bake NPEs.
+    private final java.util.List<java.util.function.Consumer<ItemStack>> componentPatches = new ArrayList<>();
+
+    protected HellfireForgeRecipeBuilder(ItemLike result, int count) {
+        super(result, count);
+        if (result == null) {
+            throw new IllegalArgumentException("ForgeRecipe result cannot be null");
+        }
+    }
+
+    public static HellfireForgeRecipeBuilder build(ItemLike result) {
+        return new HellfireForgeRecipeBuilder(result, 1);
+    }
+
+    public static HellfireForgeRecipeBuilder build(ItemLike result, int count) {
+        return new HellfireForgeRecipeBuilder(result, count);
+    }
+
+    public HellfireForgeRecipeBuilder requires(TagKey<Item> tag) {
+        return this.requires(Ingredient.of() /* TODO(phase15): tag-based ingredient � needs HolderGetter plumb-through */);
+    }
+
+    public HellfireForgeRecipeBuilder requires(ItemLike item) {
+        return this.requires(item, 1);
+    }
+
+    public HellfireForgeRecipeBuilder requires(ItemLike item, int quantity) {
+        this.requires(Ingredient.of(item), quantity);
+        return this;
+    }
+
+    public HellfireForgeRecipeBuilder requires(Ingredient ingredient) {
+        return this.requires(ingredient, 1);
+    }
+
+    public HellfireForgeRecipeBuilder requires(Ingredient ingredient, int quantity) {
+        if (ingredients.size() + quantity > MAX_INGREDIENTS) {
+            throw new IllegalStateException("ForgeRecipe cannot have more than " + MAX_INGREDIENTS + " ingredients");
+        }
+        for (int i = 0; i < quantity; i++) {
+            this.ingredients.add(ingredient);
+        }
+        return this;
+    }
+
+    public HellfireForgeRecipeBuilder minWill(double minWill) {
+        if (minWill < 0) {
+            throw new IllegalArgumentException("minWill cannot be negative");
+        }
+        this.minWill = minWill;
+        return this;
+    }
+
+    public HellfireForgeRecipeBuilder drain(double drain) {
+        if (drain < 0) {
+            throw new IllegalArgumentException("drain cannot be negative");
+        }
+        this.drainedWill = drain;
+        return this;
+    }
+
+    public HellfireForgeRecipeBuilder requiredWillType(SpiritusType type) {
+        this.willType = Optional.of(type);
+        return this;
+    }
+
+    public HellfireForgeRecipeBuilder withAnointment(String key, int level, int maxDamage) {
+        this.componentPatches.add(stack -> stack.set(NVDataComponents.ANOINTMENT_HOLDER.get(), AnointmentHolder.single(key, level, maxDamage)));
+        return this;
+    }
+
+    public <T> HellfireForgeRecipeBuilder withComponent(DataComponentType<T> component, T value) {
+        this.componentPatches.add(stack -> stack.set(component, value));
+        return this;
+    }
+
+    @Override
+    public void save(RecipeOutput output, ResourceKey<Recipe<?>> id) {
+        if (ingredients.isEmpty()) {
+            throw new IllegalStateException("ForgeRecipe must have at least one ingredient");
+        }
+        Advancement.Builder advBuilder = getBuilder(output, id);
+        ItemStack result = resultStack();
+        for (var patch : componentPatches) patch.accept(result);
+        ForgeRecipe recipe = new ForgeRecipe(minWill, drainedWill, ingredients, result, willType);
+        output.accept(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, id.identifier().withPrefix("hellfire_forge/")), recipe, advBuilder.build(advancementId(id, "hellfire_forge")));
+    }
+}

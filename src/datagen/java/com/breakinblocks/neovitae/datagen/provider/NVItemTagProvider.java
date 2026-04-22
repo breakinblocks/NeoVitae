@@ -18,8 +18,10 @@ public class NVItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        // TODO(phase15 stage2): copy() removed in 26.1 - inline the block->item tag contents here.
-        // Was: copy(NVTags.Blocks.STORAGE_BLOCKS_HELLFORGED, NVTags.Items.STORAGE_BLOCKS_HELLFORGED);
+        // 26.1 removed ItemTagsProvider.copy() — inline the block-tag contents into the item tag manually.
+        // NVTags.Blocks.STORAGE_BLOCKS_HELLFORGED contains BlockGroups.HELLFORGED_BLOCK (currently a single entry).
+        tag(NVTags.Items.STORAGE_BLOCKS_HELLFORGED)
+                .add(com.breakinblocks.neovitae.common.block.NVBlocks.HELLFORGED_BLOCK.item().get());
 
         tag(NVTags.Items.LIVING_SET)
                 .add(NVItems.LIVING_HELMET.get(), NVItems.LIVING_PLATE.get(), NVItems.LIVING_LEGGINGS.get(), NVItems.LIVING_BOOTS.get());

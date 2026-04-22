@@ -47,8 +47,11 @@ public class Datagen {
         event.createProvider(helper.tagsFor(Registries.DAMAGE_TYPE, NVDamageSourcesContent::tags));
         event.createBlockAndItemTags(NVBlockTagProvider::new, NVItemTagProvider::new);
 
+        // NVItemModelProvider + NVBlockStateProvider both extend ModelProvider — 26.1 allows only
+        // one per mod (both derive their provider name from modId, causing "Duplicate provider:
+        // Model Definitions" at runtime). NVItemModelProvider carries the combined stub;
+        // NVBlockStateProvider retained in-tree for Stage 2 restoration but unregistered.
         event.createProvider(NVItemModelProvider::new);
-        event.createProvider(NVBlockStateProvider::new);
         event.createProvider(NVFluidTagProvider::new);
         event.createProvider(NVEntityTagProvider::new);
         event.createProvider(NVSpriteSourceProvider::new);

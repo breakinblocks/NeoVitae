@@ -54,8 +54,6 @@ public class GroundedFlaskEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        ItemStack flask = new ItemStack(NVItems.ALCHEMY_FLASK.get());
-        ItemAlchemyFlask.setFlaskEffects(flask, FlaskEffects.single(EffectHolder.create(NVMobEffects.GROUNDED.getDelegate(), 3600, 0)));
         return BookIconModel.create(com.breakinblocks.neovitae.common.item.NVItems.ALCHEMY_FLASK.get());
     }
 

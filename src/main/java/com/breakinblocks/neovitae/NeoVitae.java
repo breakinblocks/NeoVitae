@@ -121,7 +121,6 @@ public class NeoVitae {
         if (FMLLoader.getCurrentOrNull() != null && FMLLoader.getCurrentOrNull().getDist() == Dist.CLIENT) {
             modBus.addListener(com.breakinblocks.neovitae.client.render.item.SpiritusBarDecorator::registerAll);
         }
-        com.breakinblocks.neovitae.common.event.NVMissingMappings.register(modBus);
         NeoForge.EVENT_BUS.addListener(NVCommands::register);
     }
 

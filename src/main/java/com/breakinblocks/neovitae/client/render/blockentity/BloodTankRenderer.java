@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.client.render.blockentity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -67,6 +68,13 @@ public class BloodTankRenderer implements BlockEntityRenderer<BloodTankBlockEnti
             s.u1 = sprite.getU1();
             s.v0 = sprite.getV0();
             s.v1 = sprite.getV1();
+            BlockTintSource tintSource = model.tintSource();
+            if (tintSource != null) {
+                int rgb = tintSource.color(fluid.defaultFluidState().createLegacyBlock()) & 0xFFFFFF;
+                s.tintColor = 0xFF000000 | rgb;
+            } else {
+                s.tintColor = 0xFFFFFFFF;
+            }
         }
     }
 

@@ -26,7 +26,16 @@ import java.util.UUID;
  */
 public class HarvestHandlerTall implements IHarvestHandler {
 
-    private static final ItemStack mockHoe = new ItemStack(Items.DIAMOND_HOE, 1);
+    private static ItemStack mockHoe;
+
+    private static ItemStack mockHoe() {
+        ItemStack cached = mockHoe;
+        if (cached == null) {
+            cached = new ItemStack(Items.DIAMOND_HOE, 1);
+            mockHoe = cached;
+        }
+        return cached;
+    }
 
     public HarvestHandlerTall() {
         HarvestRegistry.registerTallCrop(Blocks.SUGAR_CANE.defaultBlockState().setValue(SugarCaneBlock.AGE, 0));
@@ -50,7 +59,7 @@ public class HarvestHandlerTall implements IHarvestHandler {
             Vec3 blockCenter = new Vec3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
             List<ItemStack> blockDrops = state.getDrops(lootBuilder
                     .withParameter(LootContextParams.ORIGIN, blockCenter)
-                    .withParameter(LootContextParams.TOOL, mockHoe));
+                    .withParameter(LootContextParams.TOOL, mockHoe()));
             drops.addAll(blockDrops);
             return true;
         }

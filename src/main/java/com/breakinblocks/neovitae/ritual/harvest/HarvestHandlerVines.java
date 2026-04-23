@@ -23,7 +23,16 @@ import java.util.UUID;
  */
 public class HarvestHandlerVines implements IHarvestHandler {
 
-    private static final ItemStack mockShears = new ItemStack(Items.SHEARS, 1);
+    private static ItemStack mockShears;
+
+    private static ItemStack mockShears() {
+        ItemStack cached = mockShears;
+        if (cached == null) {
+            cached = new ItemStack(Items.SHEARS, 1);
+            mockShears = cached;
+        }
+        return cached;
+    }
 
     @Override
     public boolean harvest(Level level, BlockPos pos, BlockState state, List<ItemStack> drops, @Nullable UUID ownerUUID) {
@@ -38,7 +47,7 @@ public class HarvestHandlerVines implements IHarvestHandler {
         Vec3 blockCenter = new Vec3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
         List<ItemStack> blockDrops = state.getDrops(lootBuilder
                 .withParameter(LootContextParams.ORIGIN, blockCenter)
-                .withParameter(LootContextParams.TOOL, mockShears));
+                .withParameter(LootContextParams.TOOL, mockShears()));
         drops.addAll(blockDrops);
 
         return true;

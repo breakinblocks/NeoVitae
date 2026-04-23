@@ -25,7 +25,16 @@ import java.util.UUID;
  */
 public class HarvestHandlerStem implements IHarvestHandler {
 
-    private static final ItemStack mockHoe = new ItemStack(Items.DIAMOND_HOE, 1);
+    private static ItemStack mockHoe;
+
+    private static ItemStack mockHoe() {
+        ItemStack cached = mockHoe;
+        if (cached == null) {
+            cached = new ItemStack(Items.DIAMOND_HOE, 1);
+            mockHoe = cached;
+        }
+        return cached;
+    }
 
     public HarvestHandlerStem() {
         for (int i = 0; i < 4; i++) {
@@ -59,7 +68,7 @@ public class HarvestHandlerStem implements IHarvestHandler {
                     Vec3 blockCenter = new Vec3(cropPos.getX() + 0.5, cropPos.getY() + 0.5, cropPos.getZ() + 0.5);
                     List<ItemStack> blockDrops = probableCrop.getDrops(lootBuilder
                             .withParameter(LootContextParams.ORIGIN, blockCenter)
-                            .withParameter(LootContextParams.TOOL, mockHoe));
+                            .withParameter(LootContextParams.TOOL, mockHoe()));
                     drops.addAll(blockDrops);
                     return true;
                 }

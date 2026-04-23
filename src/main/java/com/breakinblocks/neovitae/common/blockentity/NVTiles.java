@@ -5,10 +5,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.render.blockentity.AlchemyArrayRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.AraVitaeRenderer;
@@ -16,6 +18,9 @@ import com.breakinblocks.neovitae.client.render.blockentity.BloodTankRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.HellfireForgeRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.RoutingNodeRenderer;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.api.capability.NVCapabilities;
+import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.item.OrbFluidCapability;
 
 import java.util.function.Supplier;
 
@@ -152,38 +157,49 @@ public class NVTiles {
             registerTile("spirit_cache", SpiritCacheBlockEntity::new, NVBlocks.SPIRIT_CACHE.block());
 
     private static void registerTileCapabilities(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, HELLFIRE_FORGE_TYPE.get(),
+        event.registerBlockEntity(Capabilities.Item.BLOCK, HELLFIRE_FORGE_TYPE.get(),
                 (be, side) -> be.getInventory(side));
 
-        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, ATHANOR_TYPE.get(),
+        event.registerBlockEntity(Capabilities.Item.BLOCK, ATHANOR_TYPE.get(),
                 AthanorBlockEntity::getItemHandler);
-        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Fluid.BLOCK, ATHANOR_TYPE.get(),
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK, ATHANOR_TYPE.get(),
                 AthanorBlockEntity::getFluidHandler);
 
-        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Fluid.BLOCK, BLOOD_TANK_TYPE.get(),
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK, BLOOD_TANK_TYPE.get(),
                 BloodTankBlockEntity::getFluidHandler);
 
-        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Energy.BLOCK, BLOOD_BATTERY_TYPE.get(),
+        event.registerBlockEntity(Capabilities.Energy.BLOCK, BLOOD_BATTERY_TYPE.get(),
                 BloodBatteryBlockEntity::getEnergyHandler);
 
-        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, VAS_MALEFICUM_TYPE.get(),
+        event.registerBlockEntity(Capabilities.Item.BLOCK, VAS_MALEFICUM_TYPE.get(),
                 (be, side) -> be.getInventory());
 
-        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, ARA_VITAE_TYPE.get(),
+        event.registerBlockEntity(Capabilities.Item.BLOCK, ARA_VITAE_TYPE.get(),
                 (be, side) -> be.inv);
-        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Fluid.BLOCK, ARA_VITAE_TYPE.get(),
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK, ARA_VITAE_TYPE.get(),
                 (be, side) -> be.fluidHandler);
+        event.registerBlockEntity(NVCapabilities.ARA_VITAE, ARA_VITAE_TYPE.get(),
+                (be, side) -> be);
 
-        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, ALCHEMY_ARRAY_TYPE.get(),
+        event.registerBlockEntity(Capabilities.Item.BLOCK, ALCHEMY_ARRAY_TYPE.get(),
                 (be, side) -> be.inv);
-        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, TABULA_VITAE_TYPE.get(),
+        event.registerBlockEntity(Capabilities.Item.BLOCK, TABULA_VITAE_TYPE.get(),
                 (be, side) -> be.inv);
-        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, TELEPOSER_TYPE.get(),
+        event.registerBlockEntity(Capabilities.Item.BLOCK, TELEPOSER_TYPE.get(),
                 (be, side) -> be.inv);
-        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, MIMIC_TYPE.get(),
+        event.registerBlockEntity(Capabilities.Item.BLOCK, MIMIC_TYPE.get(),
                 (be, side) -> be.inventory);
-        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, SPIRIT_CACHE_TYPE.get(),
-                (be, side) -> net.neoforged.neoforge.transfer.item.VanillaContainerWrapper.of(be));
+        event.registerBlockEntity(Capabilities.Item.BLOCK, SPIRIT_CACHE_TYPE.get(),
+                (be, side) -> VanillaContainerWrapper.of(be));
+
+        event.registerItem(Capabilities.Fluid.ITEM,
+                (stack, access) -> new OrbFluidCapability(access),
+                NVItems.ORB_WEAK.get(),
+                NVItems.ORB_APPRENTICE.get(),
+                NVItems.ORB_MAGICIAN.get(),
+                NVItems.ORB_MASTER.get(),
+                NVItems.ORB_ARCHMAGE.get(),
+                NVItems.ORB_TRANSCENDENT.get());
     }
 
     private static void registerBlockEntityRenderer(EntityRenderersEvent.RegisterRenderers event) {

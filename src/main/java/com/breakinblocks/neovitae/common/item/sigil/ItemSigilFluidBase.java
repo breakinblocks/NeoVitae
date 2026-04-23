@@ -5,13 +5,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import javax.annotation.Nullable;
@@ -39,19 +40,31 @@ public abstract class ItemSigilFluidBase extends ItemSigilBase {
         this.sigilFluid = FluidStack.EMPTY;
     }
 
-    protected boolean tryInsertSigilFluid(IFluidHandler destination, boolean doTransfer) {
+    protected boolean tryInsertSigilFluid(ResourceHandler<FluidResource> destination, boolean doTransfer) {
         if (destination == null || sigilFluid.isEmpty()) {
             return false;
         }
-        return destination.fill(sigilFluid, doTransfer ? IFluidHandler.FluidAction.EXECUTE : IFluidHandler.FluidAction.SIMULATE) > 0;
+        try (Transaction tx = Transaction.openRoot()) {
+            int inserted = destination.insert(FluidResource.of(sigilFluid), sigilFluid.getAmount(), tx);
+            if (doTransfer) tx.commit();
+            return inserted > 0;
+        }
     }
 
-    protected boolean tryRemoveFluid(IFluidHandler source, int amount, boolean doTransfer) {
-        if (source == null) {
-            return false;
+    protected boolean tryRemoveFluid(ResourceHandler<FluidResource> source, int amount, boolean doTransfer) {
+        if (source == null) return false;
+        for (int tank = 0; tank < source.size(); tank++) {
+            FluidResource r = source.getResource(tank);
+            if (r.isEmpty()) continue;
+            try (Transaction tx = Transaction.openRoot()) {
+                int drained = source.extract(tank, r, amount, tx);
+                if (drained > 0) {
+                    if (doTransfer) tx.commit();
+                    return true;
+                }
+            }
         }
-        FluidStack drained = source.drain(amount, doTransfer ? IFluidHandler.FluidAction.EXECUTE : IFluidHandler.FluidAction.SIMULATE);
-        return !drained.isEmpty();
+        return false;
     }
 
     protected boolean tryPlaceSigilFluid(Player player, Level world, BlockPos blockPos) {
@@ -80,8 +93,7 @@ public abstract class ItemSigilFluidBase extends ItemSigilBase {
     }
 
     @Nullable
-    protected IFluidHandler getFluidHandler(Level world, BlockPos blockPos, @Nullable Direction side) {
-        var rh = world.getCapability(Capabilities.Fluid.BLOCK, blockPos, side);
-        return rh != null ? IFluidHandler.of(rh) : null;
+    protected ResourceHandler<FluidResource> getFluidHandler(Level world, BlockPos blockPos, @Nullable Direction side) {
+        return world.getCapability(Capabilities.Fluid.BLOCK, blockPos, side);
     }
 }

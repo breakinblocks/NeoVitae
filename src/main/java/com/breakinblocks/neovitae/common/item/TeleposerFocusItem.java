@@ -93,8 +93,8 @@ public class TeleposerFocusItem extends Item implements ITeleposerFocus {
         Binding binding = stack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
         return binding.isEmpty() ? null : binding;
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {ResourceKey<Level> storedKey = getStoredKey(stack);
         if (storedKey != null) {
             BlockPos storedPos = getStoredPos(stack);

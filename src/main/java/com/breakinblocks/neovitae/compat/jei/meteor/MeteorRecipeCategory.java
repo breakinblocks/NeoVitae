@@ -8,7 +8,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -42,7 +42,7 @@ import net.minecraft.tags.TagKey;
  */
 public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
 
-    public static final RecipeType<MeteorRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "meteor", MeteorRecipe.class);
+    public static final IRecipeType<MeteorRecipe> RECIPE_TYPE = IRecipeType.create(NeoVitae.MODID, "meteor", MeteorRecipe.class);
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,###");
     private static final int WIDTH = 170;
     private static final int HEIGHT = 120;
@@ -54,7 +54,7 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
     }
 
     @Override
-    public RecipeType<MeteorRecipe> getRecipeType() {
+    public IRecipeType<MeteorRecipe> getRecipeType() {
         return RECIPE_TYPE;
     }
 
@@ -112,7 +112,7 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, MeteorRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 50, 38)
-                .addIngredients(recipe.getInput());
+                .add(recipe.getInput());
 
         List<MeteorLayer> layers = recipe.getLayerList();
         int totalEstimatedBlocks = 0;
@@ -184,7 +184,7 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
             int y = startY + row * 18;
 
             IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.OUTPUT, x, y);
-            slot.addItemStack(new ItemStack(entry.getKey()));
+            slot.add(new ItemStack(entry.getKey()));
             int estimatedCount = (int) Math.round(entry.getValue());
             double percentage = finalTotalBlocks > 0 ? (double) estimatedCount / finalTotalBlocks * 100 : 0;
 

@@ -170,8 +170,8 @@ public class SentientSwordItem extends Item implements ISentientTool {
 
         stack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display,
                                 Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable("tooltip.neovitae." + getTooltipKey() + ".desc").withStyle(ChatFormatting.GRAY));

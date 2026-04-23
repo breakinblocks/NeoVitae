@@ -51,8 +51,8 @@ public class ItemInscriptionTool extends Item {
 
         return InteractionResult.PASS;
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable("tooltip.neovitae.inscriber.desc").withStyle(ChatFormatting.GRAY));}
 

@@ -178,7 +178,7 @@ public class DaemoniumRancorisEntity extends Monster implements GeoEntity {
         attackCooldown = 70;
 
         float damage = (float) getAttributeValue(Attributes.ATTACK_DAMAGE);
-        target.hurt(damageSources().mobAttack(this), damage);
+        target.hurtServer((ServerLevel) target.level(), damageSources().mobAttack(this), damage);
         target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 60, 0));
 
         spawnBoltParticles(target);
@@ -197,7 +197,7 @@ public class DaemoniumRancorisEntity extends Monster implements GeoEntity {
 
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 target.getBoundingBox().inflate(3.0), e -> e != this && e instanceof Player)) {
-            entity.hurt(damageSources().mobAttack(this), damage);
+            entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
             entity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 1));
         }
 

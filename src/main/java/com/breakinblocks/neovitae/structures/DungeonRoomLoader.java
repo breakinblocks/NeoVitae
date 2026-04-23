@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.structures;
 
-import com.google.common.base.Charsets;
+import java.nio.charset.StandardCharsets;
 import com.google.common.io.Resources;
 import com.google.common.reflect.TypeToken;
 import net.minecraft.resources.Identifier;
@@ -40,7 +40,7 @@ public final class DungeonRoomLoader {
                 }
 
                 List<String> roomPoolList = Serializers.GSON.fromJson(
-                        Resources.toString(roomPoolURL, Charsets.UTF_8),
+                        Resources.toString(roomPoolURL, StandardCharsets.UTF_8),
                         new TypeToken<List<String>>() {}.getType()
                 );
 
@@ -92,7 +92,7 @@ public final class DungeonRoomLoader {
 
                 LOGGER.debug("Loading schematic: {}", schematic);
                 DungeonRoom dungeonRoom = Serializers.GSON.fromJson(
-                        Resources.toString(dungeonURL, Charsets.UTF_8),
+                        Resources.toString(dungeonURL, StandardCharsets.UTF_8),
                         DungeonRoom.class
                 );
                 DungeonRoomRegistry.registerDungeonRoom(schematic, dungeonRoom, Math.max(1, dungeonRoom.getDungeonWeight()));

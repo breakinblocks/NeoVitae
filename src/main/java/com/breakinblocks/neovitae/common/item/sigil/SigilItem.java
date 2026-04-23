@@ -108,8 +108,8 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         SigilType type = getSigilType(stack, level);
         return type != null ? type.drainInterval() : SigilType.DEFAULT_DRAIN_INTERVAL;
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable(tooltipBase + "desc")
                 .withStyle(ChatFormatting.ITALIC)

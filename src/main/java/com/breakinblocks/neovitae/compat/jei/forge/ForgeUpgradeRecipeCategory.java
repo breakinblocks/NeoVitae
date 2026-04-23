@@ -9,7 +9,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -31,7 +31,7 @@ import java.util.List;
 
 public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
 
-    public static final RecipeType<ForgeRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "hellfire_forge_upgrade", ForgeRecipe.class);
+    public static final IRecipeType<ForgeRecipe> RECIPE_TYPE = IRecipeType.create(NeoVitae.MODID, "hellfire_forge_upgrade", ForgeRecipe.class);
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
 
     private static final int WIDTH = 100;
@@ -47,7 +47,7 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> 
     }
 
     @Override
-    public RecipeType<ForgeRecipe> getRecipeType() {
+    public IRecipeType<ForgeRecipe> getRecipeType() {
         return RECIPE_TYPE;
     }
 
@@ -117,9 +117,9 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> 
         if (recipe instanceof ForgeUpgradeRecipe) {
             ItemStack displayOutput = new ItemStack(Items.DIAMOND_SWORD);
             displayOutput.set(NVDataComponents.BLOOD_MENDING.get(), true);
-            output.addItemStack(displayOutput);
+            output.add(displayOutput);
         } else {
-            output.addItemStack(recipe.getOutput());
+            output.add(recipe.getOutput());
         }
 
         List<? extends Ingredient> inputs = recipe.getCraftingIngredients();
@@ -127,7 +127,7 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> 
             int x = index % 2;
             int y = index / 2;
             IRecipeSlotBuilder input = builder.addSlot(RecipeIngredientRole.INPUT, x * 18 + 1, y * 18 + 1);
-            input.addIngredients(inputs.get(index));
+            input.add(inputs.get(index));
         }
     }
 }

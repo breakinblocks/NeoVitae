@@ -3,70 +3,64 @@ package com.breakinblocks.neovitae.util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
-import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.wrapper.InvWrapper;
-import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 import javax.annotation.Nullable;
 
 public class Utils {
 
     public static ItemStack insertStackIntoTile(ItemStack stack, BlockEntity tile, Direction dir) {
-        IItemHandler handler = lookupItemHandler(tile, dir);
-
+        ResourceHandler<ItemResource> handler = lookupItemHandler(tile, dir);
         if (handler != null) {
             return insertStackIntoTile(stack, handler);
         } else if (tile instanceof Container container) {
             return insertStackIntoInventory(stack, container, dir);
         }
-
         return stack;
     }
 
     @Nullable
-    private static IItemHandler lookupItemHandler(@Nullable BlockEntity tile, @Nullable Direction dir) {
+    private static ResourceHandler<ItemResource> lookupItemHandler(@Nullable BlockEntity tile, @Nullable Direction dir) {
         if (tile == null || tile.getLevel() == null) return null;
-        var rh = tile.getLevel().getCapability(Capabilities.Item.BLOCK, tile.getBlockPos(), dir);
-        return rh != null ? IItemHandler.of(rh) : null;
+        return tile.getLevel().getCapability(Capabilities.Item.BLOCK, tile.getBlockPos(), dir);
     }
 
-    public static ItemStack insertStackIntoTile(ItemStack stack, IItemHandler handler) {
+    public static ItemStack insertStackIntoTile(ItemStack stack, ResourceHandler<ItemResource> handler) {
         return insertStackIntoTile(stack, handler, false);
     }
 
-    /**
-     * @param doCleanly If true, tries to stack with existing items first
-     */
-    public static ItemStack insertStackIntoTile(ItemStack stack, IItemHandler handler, boolean doCleanly) {
-        int numberOfSlots = handler.getSlots();
-        ItemStack copyStack = stack.copy();
+    public static ItemStack insertStackIntoTile(ItemStack stack, ResourceHandler<ItemResource> handler, boolean doCleanly) {
+        if (stack.isEmpty()) return ItemStack.EMPTY;
+        ItemResource resource = ItemResource.of(stack);
+        int remaining = stack.getCount();
+        int numberOfSlots = handler.size();
 
-        if (doCleanly) {
-            for (int slot = 0; slot < numberOfSlots; slot++) {
-                ItemStack containedStack = handler.getStackInSlot(slot);
-                if (ItemStack.isSameItemSameComponents(stack, containedStack)) {
-                    copyStack = handler.insertItem(slot, copyStack, false);
-                    if (copyStack.isEmpty()) {
-                        return ItemStack.EMPTY;
-                    }
+        try (Transaction tx = Transaction.openRoot()) {
+            if (doCleanly) {
+                for (int slot = 0; slot < numberOfSlots && remaining > 0; slot++) {
+                    if (!resource.matches(handler.getResource(slot).toStack(1))) continue;
+                    remaining -= handler.insert(slot, resource, remaining, tx);
                 }
             }
-        }
-
-        for (int slot = 0; slot < numberOfSlots; slot++) {
-            copyStack = handler.insertItem(slot, copyStack, false);
-            if (copyStack.isEmpty()) {
-                return ItemStack.EMPTY;
+            for (int slot = 0; slot < numberOfSlots && remaining > 0; slot++) {
+                remaining -= handler.insert(slot, resource, remaining, tx);
             }
+            tx.commit();
         }
 
-        return copyStack;
+        if (remaining == stack.getCount()) return stack;
+        if (remaining == 0) return ItemStack.EMPTY;
+        ItemStack leftover = stack.copy();
+        leftover.setCount(remaining);
+        return leftover;
     }
 
     public static ItemStack insertStackIntoInventory(ItemStack stack, Container inventory, Direction dir) {
@@ -102,11 +96,11 @@ public class Utils {
     public static int getNumberOfFreeSlots(BlockEntity tile, Direction dir) {
         int slots = 0;
 
-        IItemHandler handler = lookupItemHandler(tile, dir);
+        ResourceHandler<ItemResource> handler = lookupItemHandler(tile, dir);
 
         if (handler != null) {
-            for (int i = 0; i < handler.getSlots(); i++) {
-                if (handler.getStackInSlot(i).isEmpty()) {
+            for (int i = 0; i < handler.size(); i++) {
+                if (handler.getResource(i).isEmpty()) {
                     slots++;
                 }
             }
@@ -134,21 +128,45 @@ public class Utils {
     }
 
     @Nullable
-    public static IItemHandler getInventory(BlockEntity tile, @Nullable Direction facing) {
+    public static ResourceHandler<ItemResource> getInventory(BlockEntity tile, @Nullable Direction facing) {
         if (tile == null || tile.getLevel() == null) return null;
         if (facing == null) facing = Direction.DOWN;
 
-        IItemHandler handler = lookupItemHandler(tile, facing);
+        ResourceHandler<ItemResource> handler = lookupItemHandler(tile, facing);
+        if (handler != null) return handler;
 
-        if (handler != null) {
-            return handler;
-        } else if (tile instanceof WorldlyContainer worldly) {
-            int[] slots = worldly.getSlotsForFace(facing);
-            return slots.length != 0 ? new SidedInvWrapper(worldly, facing) : null;
-        } else if (tile instanceof Container container) {
-            return new InvWrapper(container);
+        if (tile instanceof Container container) {
+            return VanillaContainerWrapper.of(container);
         }
-
         return null;
+    }
+
+    public static ItemStack stackAt(ResourceHandler<ItemResource> handler, int slot) {
+        ItemResource r = handler.getResource(slot);
+        return r.isEmpty() ? ItemStack.EMPTY : r.toStack(handler.getAmountAsInt(slot));
+    }
+
+    public static ItemStack extractItem(ResourceHandler<ItemResource> handler, int slot, int amount, boolean simulate) {
+        ItemResource r = handler.getResource(slot);
+        if (r.isEmpty() || amount <= 0) return ItemStack.EMPTY;
+        try (Transaction tx = Transaction.openRoot()) {
+            int extracted = handler.extract(slot, r, amount, tx);
+            if (extracted <= 0) return ItemStack.EMPTY;
+            if (!simulate) tx.commit();
+            return r.toStack(extracted);
+        }
+    }
+
+    public static ItemStack insertItemStacked(ResourceHandler<ItemResource> handler, ItemStack stack, boolean simulate) {
+        if (stack.isEmpty()) return ItemStack.EMPTY;
+        ItemResource resource = ItemResource.of(stack);
+        try (Transaction tx = Transaction.openRoot()) {
+            int inserted = handler.insert(resource, stack.getCount(), tx);
+            if (!simulate) tx.commit();
+            if (inserted >= stack.getCount()) return ItemStack.EMPTY;
+            ItemStack remainder = stack.copy();
+            remainder.shrink(inserted);
+            return remainder;
+        }
     }
 }

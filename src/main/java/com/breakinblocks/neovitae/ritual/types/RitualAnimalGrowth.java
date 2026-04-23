@@ -8,7 +8,8 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
@@ -81,7 +82,7 @@ public class RitualAnimalGrowth extends Ritual {
 
         RitualHelper.ChestOutput chest = RitualHelper.resolveChestOutput(ctx, this, CHEST_RANGE);
         BlockEntity chestTile = chest.tile();
-        IItemHandler foodHandler = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
+        ResourceHandler<ItemResource> foodHandler = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
 
         // Single spatial query; filter locally for each pass so the four
         // spiritus modes don't each re-walk the level's entity partitions.
@@ -111,10 +112,10 @@ public class RitualAnimalGrowth extends Ritual {
                 if (animal.isBaby() || !animal.canFallInLove() || animal.getAge() != 0) continue;
 
                 boolean fed = false;
-                for (int slot = 0; slot < foodHandler.getSlots(); slot++) {
-                    ItemStack foodStack = foodHandler.getStackInSlot(slot);
+                for (int slot = 0; slot < foodHandler.size(); slot++) {
+                    ItemStack foodStack = Utils.stackAt(foodHandler, slot);
                     if (!foodStack.isEmpty() && animal.isFood(foodStack)) {
-                        foodHandler.extractItem(slot, 1, false);
+                        Utils.extractItem(foodHandler, slot, 1, false);
                         animal.setInLove(null);
                         steadfastWillUsed += WILL_PER_BREED;
                         animalsProcessed++;

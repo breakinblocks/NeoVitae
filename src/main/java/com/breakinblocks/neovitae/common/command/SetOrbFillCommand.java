@@ -9,7 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 import com.breakinblocks.neovitae.common.item.OrbFluidHandler;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;

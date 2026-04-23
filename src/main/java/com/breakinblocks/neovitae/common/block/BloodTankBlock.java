@@ -22,9 +22,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.FluidUtil;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.fluid.FluidUtil;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -67,12 +68,11 @@ public class BloodTankBlock extends Block implements EntityBlock {
 
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        var rh = level.getCapability(Capabilities.Fluid.BLOCK, pos, null);
-        IFluidHandler tank = rh != null ? IFluidHandler.of(rh) : null;
+        ResourceHandler<FluidResource> tank = level.getCapability(Capabilities.Fluid.BLOCK, pos, null);
         if (tank == null) {
             return InteractionResult.CONSUME;
         }
-        if (!FluidUtil.interactWithFluidHandler(player, hand, tank)) {
+        if (!FluidUtil.interactWithFluidHandler(player, hand, pos, tank)) {
             return InteractionResult.CONSUME;
         }
         player.getInventory().setChanged();

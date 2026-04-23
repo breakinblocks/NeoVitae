@@ -56,8 +56,8 @@ public class ExperienceTomeItem extends Item {
 
         return InteractionResult.PASS;
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         int storedXp = stack.getOrDefault(NVDataComponents.STORED_XP, 0);
         tooltip.accept(Component.translatable("tooltip.neovitae.experience_tome.stored", storedXp)

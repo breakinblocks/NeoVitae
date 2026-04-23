@@ -25,6 +25,7 @@ import java.util.function.Consumer;
 
 import static com.breakinblocks.neovitae.common.item.soul.SentientToolHelper.*;
 
+import net.minecraft.server.level.ServerLevel;
 public class SentientScytheItem extends Item implements ISentientTool {
 
     private static final double[] DEFAULT_DAMAGE = {1, 1.5, 2, 2.5, 3, 3.5, 4};
@@ -87,7 +88,7 @@ public class SentientScytheItem extends Item implements ISentientTool {
 
         float sweepDamage = 1.0f + (float) getExtraDamage(type, willBracket) * 0.5f;
         for (LivingEntity entity : nearbyEntities) {
-            entity.hurt(player.damageSources().playerAttack(player), sweepDamage);
+            entity.hurtServer((ServerLevel) entity.level(), player.damageSources().playerAttack(player), sweepDamage);
             applyEffectToEntity(type, willBracket, entity, player);
         }
     }
@@ -112,8 +113,8 @@ public class SentientScytheItem extends Item implements ISentientTool {
         setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] : 1);
         setSoulDrop(stack, level >= 0 ? SOUL_DROP[level] : 0);
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display,
                                 Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable("tooltip.neovitae." + getTooltipKey() + ".desc").withStyle(ChatFormatting.GRAY));

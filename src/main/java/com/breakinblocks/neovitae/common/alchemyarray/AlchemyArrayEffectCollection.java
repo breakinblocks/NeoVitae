@@ -9,8 +9,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
@@ -36,8 +38,7 @@ public class AlchemyArrayEffectCollection extends AlchemyArrayEffect {
         if (items.isEmpty()) return false;
 
         BlockPos belowPos = pos.below();
-        var rhItem = level.getCapability(Capabilities.Item.BLOCK, belowPos, Direction.UP);
-        IItemHandler inventory = rhItem != null ? IItemHandler.of(rhItem) : null;
+        ResourceHandler<ItemResource> inventory = level.getCapability(Capabilities.Item.BLOCK, belowPos, Direction.UP);
 
         for (ItemEntity itemEntity : items) {
             if (itemEntity.isRemoved()) continue;
@@ -47,7 +48,7 @@ public class AlchemyArrayEffectCollection extends AlchemyArrayEffect {
 
             if (dist < 0.5 && inventory != null) {
                 ItemStack stack = itemEntity.getItem().copy();
-                ItemStack remainder = insertIntoInventory(inventory, stack);
+                ItemStack remainder = Utils.insertItemStacked(inventory, stack, false);
                 if (remainder.isEmpty()) {
                     itemEntity.discard();
                 } else {
@@ -65,14 +66,6 @@ public class AlchemyArrayEffectCollection extends AlchemyArrayEffect {
         }
 
         return false;
-    }
-
-    private ItemStack insertIntoInventory(IItemHandler handler, ItemStack stack) {
-        ItemStack remaining = stack;
-        for (int i = 0; i < handler.getSlots() && !remaining.isEmpty(); i++) {
-            remaining = handler.insertItem(i, remaining, false);
-        }
-        return remaining;
     }
 
     @Override

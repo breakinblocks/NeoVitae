@@ -172,7 +172,7 @@ public class RitualGeode extends Ritual {
                 if (harmTicks >= MAX_HARM) break;
                 if ((will.getVengeful() - harmWillUsed) < WILL_PER_HARM) break;
 
-                mob.hurt(ctx.level().damageSources().source(NVDamageSources.RITUAL), HURT_DAMAGE);
+                mob.hurtServer((ServerLevel) mob.level(), ctx.level().damageSources().source(NVDamageSources.RITUAL), HURT_DAMAGE);
         if (true) {
                     harmTicks++;
                     harmWillUsed += WILL_PER_HARM;

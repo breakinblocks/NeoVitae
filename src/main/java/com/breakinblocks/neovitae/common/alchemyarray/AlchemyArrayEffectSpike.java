@@ -21,7 +21,7 @@ public class AlchemyArrayEffectSpike extends AlchemyArrayEffect {
     @Override
     public void onEntityCollidedWithBlock(AlchemyArrayBlockEntity tile, Level level, BlockPos pos, BlockState state, Entity entity) {
         if (entity instanceof LivingEntity) {
-            entity.hurt(entity.damageSources().cactus(), 2.0F);
+            entity.hurtServer((ServerLevel) entity.level(), entity.damageSources().cactus(), 2.0F);
             if (level instanceof ServerLevel serverLevel) {
                 serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_DRIP.get(), 0xAA0000),
                         entity.getX(), entity.getY() + 0.3, entity.getZ(), 4, 0.2, 0.1, 0.2, 0.02);

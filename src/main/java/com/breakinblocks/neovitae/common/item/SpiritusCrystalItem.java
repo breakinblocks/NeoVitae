@@ -36,8 +36,8 @@ public class SpiritusCrystalItem extends Item {
     public double getWillPerCrystal() {
         return willPerCrystal;
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable("tooltip.neovitae.current_type." + willType.getSerializedName()).withStyle(ChatFormatting.GRAY));}
 }

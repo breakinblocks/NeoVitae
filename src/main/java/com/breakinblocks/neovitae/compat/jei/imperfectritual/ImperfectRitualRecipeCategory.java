@@ -7,7 +7,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -27,8 +27,8 @@ import java.awt.*;
  */
 public class ImperfectRitualRecipeCategory implements IRecipeCategory<ImperfectRitualJEIRecipe> {
 
-    public static final RecipeType<ImperfectRitualJEIRecipe> RECIPE_TYPE =
-            RecipeType.create(NeoVitae.MODID, "imperfect_ritual", ImperfectRitualJEIRecipe.class);
+    public static final IRecipeType<ImperfectRitualJEIRecipe> RECIPE_TYPE =
+            IRecipeType.create(NeoVitae.MODID, "imperfect_ritual", ImperfectRitualJEIRecipe.class);
 
     private static final int WIDTH = 160;
     private static final int HEIGHT = 80;
@@ -45,7 +45,7 @@ public class ImperfectRitualRecipeCategory implements IRecipeCategory<ImperfectR
     }
 
     @Override
-    public RecipeType<ImperfectRitualJEIRecipe> getRecipeType() {
+    public IRecipeType<ImperfectRitualJEIRecipe> getRecipeType() {
         return RECIPE_TYPE;
     }
 
@@ -106,6 +106,6 @@ public class ImperfectRitualRecipeCategory implements IRecipeCategory<ImperfectR
         catalystSlot.addItemStacks(recipe.catalystBlock());
 
         IRecipeSlotBuilder ritualStoneSlot = builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 72, 34);
-        ritualStoneSlot.addItemStack(new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()));
+        ritualStoneSlot.add(new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()));
     }
 }

@@ -8,7 +8,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -25,7 +25,7 @@ import java.text.DecimalFormat;
 
 public class AraVitaeRecipeCategory implements IRecipeCategory<AraVitaeRecipe> {
 
-    public static final RecipeType<AraVitaeRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "ara_vitae", AraVitaeRecipe.class);
+    public static final IRecipeType<AraVitaeRecipe> RECIPE_TYPE = IRecipeType.create(NeoVitae.MODID, "ara_vitae", AraVitaeRecipe.class);
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
     private static final String[] ROMAN_NUMERALS = {"I", "II", "III", "IV", "V", "VI"};
 
@@ -42,7 +42,7 @@ public class AraVitaeRecipeCategory implements IRecipeCategory<AraVitaeRecipe> {
     }
 
     @Override
-    public RecipeType<AraVitaeRecipe> getRecipeType() {
+    public IRecipeType<AraVitaeRecipe> getRecipeType() {
         return RECIPE_TYPE;
     }
 
@@ -96,10 +96,10 @@ public class AraVitaeRecipeCategory implements IRecipeCategory<AraVitaeRecipe> {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, AraVitaeRecipe recipe, IFocusGroup focuses) {
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 126, 31);
-        output.addItemStack(recipe.getResult());
+        output.add(recipe.getResult());
 
         IRecipeSlotBuilder input = builder.addSlot(RecipeIngredientRole.INPUT, 32, 1);
-        input.addIngredients(recipe.getInput());
+        input.add(recipe.getInput());
     }
 
     private static String toRoman(int number) {

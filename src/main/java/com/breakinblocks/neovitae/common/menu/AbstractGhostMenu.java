@@ -5,7 +5,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 import com.breakinblocks.neovitae.NeoVitae;
 
 public abstract class AbstractGhostMenu<T extends AbstractContainerMenu> extends AbstractContainerMenu {
@@ -102,26 +103,21 @@ public abstract class AbstractGhostMenu<T extends AbstractContainerMenu> extends
         return this.tracker.get(id);
     }
 
-    public static class GhostSlot extends SlotItemHandler {
+    public static class GhostSlot extends ResourceHandlerSlot {
 
         private final GhostItemHandler handler;
         public GhostSlot(GhostItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
+            super(itemHandler, itemHandler::set, index, xPosition, yPosition);
             this.handler = itemHandler;
         }
 
         public boolean isValid(ItemStack stack) {
-            return handler.isItemValid(this.index, stack);
+            return handler.isValid(this.getSlotIndex(), ItemResource.of(stack));
         }
 
         @Override
         public boolean mayPickup(Player playerIn) {
             return false;
-        }
-
-        @Override
-        public void set(ItemStack stack) {
-            super.set(stack);
         }
 
         @Override

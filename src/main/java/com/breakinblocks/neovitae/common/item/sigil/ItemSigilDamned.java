@@ -49,8 +49,8 @@ public class ItemSigilDamned extends ItemSigilBase {
                         EquipmentSlotGroup.HAND)
                 .build();
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {tooltip.accept(Component.translatable("tooltip.neovitae.sigil.damned.spiritus")
                 .withStyle(ChatFormatting.DARK_PURPLE));
         tooltip.accept(Component.translatable("tooltip.neovitae.sigil.damned.sacrifice")

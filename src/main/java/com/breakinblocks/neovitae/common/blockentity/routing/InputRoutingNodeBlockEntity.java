@@ -12,8 +12,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.api.routing.*;
 import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
@@ -46,7 +47,7 @@ public class InputRoutingNodeBlockEntity extends FilteredRoutingNodeBlockEntity 
         BlockEntity tile = getLevel().getBlockEntity(worldPosition.relative(side));
         if (tile == null) return null;
 
-        IItemHandler handler = Utils.getInventory(tile, side.getOpposite());
+        ResourceHandler<ItemResource> handler = Utils.getInventory(tile, side.getOpposite());
         if (handler == null) return null;
 
         return RoutingFilterFactory.createItemFilter(cfg, tile, handler, false);
@@ -73,8 +74,7 @@ public class InputRoutingNodeBlockEntity extends FilteredRoutingNodeBlockEntity 
         if (!cfg.isEnabled()) return null;
 
         BlockPos neighborPos = worldPosition.relative(side);
-        var rhFluid = getLevel().getCapability(Capabilities.Fluid.BLOCK, neighborPos, side.getOpposite());
-        IFluidHandler handler = rhFluid != null ? IFluidHandler.of(rhFluid) : null;
+        ResourceHandler<FluidResource> handler = getLevel().getCapability(Capabilities.Fluid.BLOCK, neighborPos, side.getOpposite());
         if (handler == null) return null;
 
         BlockEntity tile = getLevel().getBlockEntity(neighborPos);

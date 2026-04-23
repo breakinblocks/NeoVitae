@@ -236,7 +236,7 @@ public class DaemoniumFervidisEntity extends Monster implements GeoEntity {
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 getBoundingBox().inflate(3.0), e -> e != this && e instanceof Player)) {
             if (entity.distanceToSqr(forward.x, forward.y, forward.z) <= 3.0 * 3.0) {
-                entity.hurt(damageSources().mobAttack(this), damage);
+                entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
                 entity.invulnerableTime = 0;
                 Vec3 knockback = entity.position().subtract(position()).normalize().scale(1.2).add(0, 0.3, 0);
                 entity.setDeltaMovement(entity.getDeltaMovement().add(knockback));
@@ -267,7 +267,7 @@ public class DaemoniumFervidisEntity extends Monster implements GeoEntity {
 
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 getBoundingBox().inflate(5.0), e -> e != this && e instanceof Player)) {
-            entity.hurt(damageSources().mobAttack(this), damage);
+            entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
             entity.invulnerableTime = 0;
             Vec3 knockback = entity.position().subtract(position()).normalize().scale(0.8).add(0, 1.0, 0);
             entity.setDeltaMovement(entity.getDeltaMovement().add(knockback));

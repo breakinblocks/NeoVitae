@@ -17,6 +17,7 @@ import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import java.util.List;
 import java.util.function.Consumer;
 
+import net.minecraft.server.level.ServerLevel;
 /**
  * Ritual that damages nearby mobs to generate LP.
  * Supports entity blacklist tag, baby entity modifier, and altar discovery.
@@ -60,7 +61,7 @@ public class RitualWellOfSuffering extends Ritual {
             float health = entity.getHealth();
 
             if (health > damage) {
-                entity.hurt(ctx.level().damageSources().source(NVDamageSources.RITUAL), damage);
+                entity.hurtServer((ServerLevel) entity.level(), ctx.level().damageSources().source(NVDamageSources.RITUAL), damage);
 
                 if (entity.getHealth() < health) {
                     int lp = EntitySacrificeHelper.calculateLP(entity, damage);

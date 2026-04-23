@@ -160,7 +160,7 @@ public class DaemoniumPestisEntity extends Monster implements GeoEntity {
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 getBoundingBox().inflate(2.0), e -> e != this && e instanceof Player)) {
             if (entity.distanceToSqr(forward.x, forward.y, forward.z) <= 2.0 * 2.0) {
-                entity.hurt(damageSources().mobAttack(this), damage);
+                entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
                 entity.invulnerableTime = 0;
                 entity.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 1));
                 Vec3 kb = entity.position().subtract(position()).normalize().scale(0.4);
@@ -185,7 +185,7 @@ public class DaemoniumPestisEntity extends Monster implements GeoEntity {
         float damage = (float) getAttributeValue(Attributes.ATTACK_DAMAGE);
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 getBoundingBox().inflate(2.0), e -> e != this && e instanceof Player)) {
-            entity.hurt(damageSources().mobAttack(this), damage);
+            entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
             entity.invulnerableTime = 0;
             entity.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 1));
             Vec3 kb = entity.position().subtract(position()).normalize().scale(0.5);

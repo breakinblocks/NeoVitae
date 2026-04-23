@@ -51,8 +51,8 @@ public class SpiritusSnareItem extends Item {
 
         return InteractionResult.SUCCESS.heldItemTransformedTo(stack);
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable("tooltip.neovitae.soulSnare.desc").withStyle(ChatFormatting.GRAY));}
 }

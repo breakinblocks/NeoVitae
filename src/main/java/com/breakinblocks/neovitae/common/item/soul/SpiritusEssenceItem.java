@@ -34,8 +34,8 @@ public class SpiritusEssenceItem extends Item implements ISpiritus {
                 .component(NVDataComponents.SPIRITUS_TYPE, willType));
         this.willType = willType;
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         double will = getWill(willType, stack);
         if (will > 0) {

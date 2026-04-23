@@ -58,6 +58,7 @@ public class CuriosCompat {
      * @param player The player to get curios from
      * @return A list of all equipped curios
      */
+    @SuppressWarnings("removal")
     public static NonNullList<ItemStack> getCuriosInventory(Player player) {
         if (!curiosLoaded) {
             return NonNullList.create();

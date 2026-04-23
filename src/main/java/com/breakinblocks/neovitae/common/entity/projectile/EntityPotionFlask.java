@@ -150,7 +150,7 @@ public class EntityPotionFlask extends ThrowableItemProjectile implements ItemSu
         for (LivingEntity entity : list) {
             double dist = this.distanceToSqr(entity);
             if (dist < 16.0D && entity.isSensitiveToWater()) {
-                entity.hurt(entity.damageSources().indirectMagic(entity, this.getOwner()), 1.0F);
+                entity.hurtServer((ServerLevel) entity.level(), entity.damageSources().indirectMagic(entity, this.getOwner()), 1.0F);
             }
         }
     }

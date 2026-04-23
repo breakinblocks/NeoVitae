@@ -56,8 +56,8 @@ public class ItemSigil extends Item implements IBindable, ISigil {
     public SigilStats getSigilStats() {
         return BuiltInRegistries.ITEM.wrapAsHolder(this).getData(NVDataMaps.SIGIL_STATS);
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         Binding binding = getBinding(stack);
         if (binding != null) {

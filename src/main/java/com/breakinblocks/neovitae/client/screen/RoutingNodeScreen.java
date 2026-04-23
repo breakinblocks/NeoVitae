@@ -14,7 +14,7 @@ import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.FluidUtil;
+import net.neoforged.neoforge.transfer.fluid.FluidUtil;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
 import com.breakinblocks.neovitae.common.network.RoutingNodePayload;
@@ -328,7 +328,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             } else {
                 if (button == 0) {
                     if (!carried.isEmpty()) {
-                        FluidStack extracted = FluidUtil.getFluidContained(carried).orElse(FluidStack.EMPTY);
+                        FluidStack extracted = FluidUtil.getFirstStackContained(carried);
                         if (!extracted.isEmpty()) {
                             FluidStack ghost = extracted.copy();
                             ghost.setAmount(1);

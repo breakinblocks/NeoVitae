@@ -39,8 +39,8 @@ public class ItemAlchemyFlask extends Item {
     public ItemAlchemyFlask(Item.Properties props) {
         super(props.stacksTo(1).durability(MAX_USES));
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable("tooltip.neovitae.arctool.uses", getRemainingUses(stack))
                 .withStyle(ChatFormatting.GOLD));

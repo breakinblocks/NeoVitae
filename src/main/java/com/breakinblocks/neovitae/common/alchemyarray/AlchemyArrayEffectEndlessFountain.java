@@ -9,8 +9,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
@@ -154,26 +155,26 @@ public class AlchemyArrayEffectEndlessFountain extends AlchemyArrayEffect {
                     continue;
                 }
 
-                var rh = level.getCapability(Capabilities.Fluid.BLOCK, tankPos, null);
-                IFluidHandler handler = rh != null ? IFluidHandler.of(rh) : null;
+                ResourceHandler<FluidResource> handler = level.getCapability(Capabilities.Fluid.BLOCK, tankPos, null);
 
                 if (handler == null) {
-                    // Tank vanished between scans. Drop it; the cursor now points
-                    // at the next tank (or falls out of range, handled above).
                     tankCache.remove(roundRobinCursor);
                     cacheSize--;
-                    // Do NOT count this as an attempt; we replaced the slot we were
-                    // about to try with a fresh candidate.
                     continue;
                 }
 
-                FluidStack bucketStack = new FluidStack(Fluids.WATER, BUCKET_MB);
-                int simulated = handler.fill(bucketStack, IFluidHandler.FluidAction.SIMULATE);
+                FluidResource waterResource = FluidResource.of(Fluids.WATER);
+                int simulated;
+                try (Transaction tx = Transaction.openRoot()) {
+                    simulated = handler.insert(waterResource, BUCKET_MB, tx);
+                }
                 if (simulated >= BUCKET_MB) {
-                    handler.fill(bucketStack, IFluidHandler.FluidAction.EXECUTE);
+                    try (Transaction tx = Transaction.openRoot()) {
+                        handler.insert(waterResource, BUCKET_MB, tx);
+                        tx.commit();
+                    }
                     placed++;
                     placedThisBucket = true;
-                    // Advance the cursor so the next bucket prefers the next tank.
                     roundRobinCursor++;
                     break;
                 }

@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
@@ -57,9 +57,8 @@ public class EnergyRoutingChannel implements RoutingChannel<IEnergyFilter> {
         if (!node.getSideFilter(side).isEnabled()) return null;
 
         BlockPos neighborPos = be.getBlockPos().relative(side);
-        var eh = be.getLevel().getCapability(Capabilities.Energy.BLOCK, neighborPos, side.getOpposite());
-        IEnergyStorage storage = eh != null ? IEnergyStorage.of(eh) : null;
-        if (storage == null || !storage.canExtract()) return null;
+        EnergyHandler storage = be.getLevel().getCapability(Capabilities.Energy.BLOCK, neighborPos, side.getOpposite());
+        if (storage == null) return null;
 
         return new BasicEnergyFilter(be.getLevel().getBlockEntity(neighborPos), storage, false);
     }
@@ -71,9 +70,8 @@ public class EnergyRoutingChannel implements RoutingChannel<IEnergyFilter> {
         if (!node.getSideFilter(side).isEnabled()) return null;
 
         BlockPos neighborPos = be.getBlockPos().relative(side);
-        var eh = be.getLevel().getCapability(Capabilities.Energy.BLOCK, neighborPos, side.getOpposite());
-        IEnergyStorage storage = eh != null ? IEnergyStorage.of(eh) : null;
-        if (storage == null || !storage.canReceive()) return null;
+        EnergyHandler storage = be.getLevel().getCapability(Capabilities.Energy.BLOCK, neighborPos, side.getOpposite());
+        if (storage == null) return null;
 
         return new BasicEnergyFilter(be.getLevel().getBlockEntity(neighborPos), storage, true);
     }

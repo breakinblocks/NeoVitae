@@ -5,7 +5,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,15 +22,14 @@ public class BasicFluidFilter implements IFluidFilter {
 
     protected List<FluidStack> requestList;
     protected BlockEntity accessedTile;
-    protected IFluidHandler fluidHandler;
+    protected ResourceHandler<FluidResource> fluidHandler;
 
     @Override
-    public void initializeFilter(List<FluidStack> filteredFluids, BlockEntity tile, IFluidHandler fluidHandler, boolean isFilterOutput) {
+    public void initializeFilter(List<FluidStack> filteredFluids, BlockEntity tile, ResourceHandler<FluidResource> fluidHandler, boolean isFilterOutput) {
         this.accessedTile = tile;
         this.fluidHandler = fluidHandler;
         this.requestList = new ArrayList<>();
 
-        // Deep copy the filtered fluids
         for (FluidStack fluid : filteredFluids) {
             if (!fluid.isEmpty()) {
                 requestList.add(fluid.copy());
@@ -36,9 +37,8 @@ public class BasicFluidFilter implements IFluidFilter {
         }
 
         if (isFilterOutput) {
-            // Adjust counts based on what's already in the tanks
-            for (int tank = 0; tank < fluidHandler.getTanks(); tank++) {
-                FluidStack checkedFluid = fluidHandler.getFluidInTank(tank);
+            for (int tank = 0; tank < fluidHandler.size(); tank++) {
+                FluidStack checkedFluid = fluidAt(tank);
                 if (checkedFluid.isEmpty()) continue;
 
                 int fluidAmount = checkedFluid.getAmount();
@@ -52,13 +52,12 @@ public class BasicFluidFilter implements IFluidFilter {
                 }
             }
         } else {
-            // Input filter: set amounts to what's available to extract, capped by filter max
             for (FluidStack filterFluid : requestList) {
                 int maxPull = filterFluid.getAmount();
                 int available = 0;
 
-                for (int tank = 0; tank < fluidHandler.getTanks(); tank++) {
-                    FluidStack checkedFluid = fluidHandler.getFluidInTank(tank);
+                for (int tank = 0; tank < fluidHandler.size(); tank++) {
+                    FluidStack checkedFluid = fluidAt(tank);
                     if (!checkedFluid.isEmpty() && doFluidsMatch(filterFluid, checkedFluid)) {
                         available += checkedFluid.getAmount();
                     }
@@ -95,20 +94,20 @@ public class BasicFluidFilter implements IFluidFilter {
             return inputFluid;
         }
 
-        FluidStack testFluid = inputFluid.copy();
-        testFluid.setAmount(allowedAmount);
-
-        int filled = fluidHandler.fill(testFluid, IFluidHandler.FluidAction.EXECUTE);
-        int changeAmount = filled;
+        int filled;
+        try (Transaction tx = Transaction.openRoot()) {
+            filled = fluidHandler.insert(FluidResource.of(inputFluid), allowedAmount, tx);
+            tx.commit();
+        }
 
         FluidStack remainderFluid = inputFluid.copy();
-        remainderFluid.shrink(changeAmount);
+        remainderFluid.shrink(filled);
 
         Iterator<FluidStack> itr = requestList.iterator();
         while (itr.hasNext()) {
             FluidStack filterFluid = itr.next();
             if (doFluidsMatch(filterFluid, inputFluid)) {
-                filterFluid.shrink(changeAmount);
+                filterFluid.shrink(filled);
                 if (filterFluid.isEmpty()) {
                     itr.remove();
                 }
@@ -128,43 +127,31 @@ public class BasicFluidFilter implements IFluidFilter {
     public int transferThroughInputFilter(IFluidFilter outputFilter, int maxTransfer) {
         int totalChange = 0;
 
-        for (int tank = 0; tank < fluidHandler.getTanks(); tank++) {
-            FluidStack inputFluid = fluidHandler.getFluidInTank(tank);
-            if (inputFluid.isEmpty()) {
-                continue;
-            }
+        for (int tank = 0; tank < fluidHandler.size(); tank++) {
+            FluidStack inputFluid = fluidAt(tank);
+            if (inputFluid.isEmpty()) continue;
 
-            // Check if we can extract
-            FluidStack drainTest = fluidHandler.drain(inputFluid.copy(), IFluidHandler.FluidAction.SIMULATE);
-            if (drainTest.isEmpty()) {
-                continue;
-            }
+            int simulated = simulateExtract(tank, inputFluid);
+            if (simulated <= 0) continue;
 
             int allowedAmount = 0;
             for (FluidStack filterFluid : requestList) {
                 if (doFluidsMatch(filterFluid, inputFluid)) {
-                    allowedAmount = Math.min(maxTransfer, Math.min(filterFluid.getAmount(), drainTest.getAmount()));
+                    allowedAmount = Math.min(maxTransfer, Math.min(filterFluid.getAmount(), simulated));
                     break;
                 }
             }
 
-            if (allowedAmount <= 0) {
-                continue;
-            }
+            if (allowedAmount <= 0) continue;
 
             FluidStack testFluid = inputFluid.copy();
             testFluid.setAmount(allowedAmount);
             FluidStack remainderFluid = outputFilter.transferFluidThroughOutputFilter(testFluid);
             int changeAmount = allowedAmount - (remainderFluid.isEmpty() ? 0 : remainderFluid.getAmount());
 
-            if (changeAmount <= 0) {
-                continue;
-            }
+            if (changeAmount <= 0) continue;
 
-            // Actually drain the fluid
-            FluidStack toDrain = inputFluid.copy();
-            toDrain.setAmount(changeAmount);
-            fluidHandler.drain(toDrain, IFluidHandler.FluidAction.EXECUTE);
+            extractCommitted(tank, inputFluid, changeAmount);
 
             Iterator<FluidStack> itr = requestList.iterator();
             while (itr.hasNext()) {
@@ -191,6 +178,28 @@ public class BasicFluidFilter implements IFluidFilter {
         }
 
         return totalChange;
+    }
+
+    private FluidStack fluidAt(int tank) {
+        FluidResource r = fluidHandler.getResource(tank);
+        return r.isEmpty() ? FluidStack.EMPTY : r.toStack(fluidHandler.getAmountAsInt(tank));
+    }
+
+    private int simulateExtract(int tank, FluidStack input) {
+        FluidResource r = fluidHandler.getResource(tank);
+        if (r.isEmpty()) return 0;
+        try (Transaction tx = Transaction.openRoot()) {
+            return fluidHandler.extract(tank, r, input.getAmount(), tx);
+        }
+    }
+
+    private void extractCommitted(int tank, FluidStack input, int amount) {
+        FluidResource r = fluidHandler.getResource(tank);
+        if (r.isEmpty()) return;
+        try (Transaction tx = Transaction.openRoot()) {
+            fluidHandler.extract(tank, r, amount, tx);
+            tx.commit();
+        }
     }
 
     @Override

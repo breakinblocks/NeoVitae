@@ -7,7 +7,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
+import com.breakinblocks.neovitae.util.Utils;
 /**
  * Dawn of the New Moon - Builds sphere shapes using blocks from inventory.
  * This is a Dusk tier ritual for building perfect spheres.
@@ -58,7 +60,7 @@ public class RitualSphere extends Ritual {
             return;
         }
 
-        IItemHandler inventory = findAdjacentInventory(ctx.level(), ctx.masterPos());
+        ResourceHandler<ItemResource> inventory = findAdjacentInventory(ctx.level(), ctx.masterPos());
         if (inventory == null) return;
 
         UUID owner = ctx.master().getOwner();
@@ -74,8 +76,8 @@ public class RitualSphere extends Ritual {
 
             ItemStack toPlace = ItemStack.EMPTY;
             int slotIndex = -1;
-            for (int i = 0; i < inventory.getSlots(); i++) {
-                ItemStack stack = inventory.getStackInSlot(i);
+            for (int i = 0; i < inventory.size(); i++) {
+                ItemStack stack = Utils.stackAt(inventory, i);
                 if (!stack.isEmpty() && stack.getItem() instanceof BlockItem) {
                     toPlace = stack;
                     slotIndex = i;
@@ -89,7 +91,7 @@ public class RitualSphere extends Ritual {
             BlockState stateToPlace = blockItem.getBlock().defaultBlockState();
 
             if (BlockProtectionHelper.tryPlaceBlock(ctx.level(), placePos, stateToPlace, owner)) {
-                inventory.extractItem(slotIndex, 1, false);
+                Utils.extractItem(inventory, slotIndex, 1, false);
                 blocksPlaced++;
                 final BlockPos placed = placePos;
                 RitualHelper.chanceStream(ctx.level(), 20, () ->
@@ -138,13 +140,13 @@ public class RitualSphere extends Ritual {
         return positions;
     }
 
-    private IItemHandler findAdjacentInventory(Level level, BlockPos pos) {
+    private ResourceHandler<ItemResource> findAdjacentInventory(Level level, BlockPos pos) {
         for (BlockPos offset : new BlockPos[]{
             pos.above(), pos.below(), pos.north(), pos.south(), pos.east(), pos.west()
         }) {
             var rh = level.getCapability(Capabilities.Item.BLOCK, offset, null);
             if (rh != null) {
-                return IItemHandler.of(rh);
+                return rh;
             }
         }
         return null;

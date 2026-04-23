@@ -135,19 +135,19 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()), HellfireForgeRecipeCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()), ForgeUpgradeRecipeCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVBlocks.ARA_VITAE.block().get()), AraVitaeRecipeCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVItems.ARCANE_SCRIBE_TOOL.get()), AlchemyArrayCraftingCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVItems.ARCANE_SCRIBE_TOOL.get()), AlchemyArrayEffectCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVBlocks.TABULA_VITAE.block().get()), TabulaVitaeRecipeCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVBlocks.ATHANOR_BLOCK.block().get()), AthanorRecipeCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVItems.ALCHEMY_FLASK.get()), FlaskRecipeCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVBlocks.TABULA_VITAE.block().get()), FlaskRecipeCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVItems.ALCHEMY_FLASK.get()), FlaskCombinationCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVBlocks.TABULA_VITAE.block().get()), FlaskCombinationCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()), ImperfectRitualRecipeCategory.RECIPE_TYPE);
-        registration.addRecipeCatalyst(new ItemStack(NVBlocks.MASTER_RITUAL_STONE.block().get()), RitualRecipeCategory.RECIPE_TYPE);
+        registration.addCraftingStation(HellfireForgeRecipeCategory.RECIPE_TYPE, new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()));
+        registration.addCraftingStation(ForgeUpgradeRecipeCategory.RECIPE_TYPE, new ItemStack(NVBlocks.HELLFIRE_FORGE.block().get()));
+        registration.addCraftingStation(AraVitaeRecipeCategory.RECIPE_TYPE, new ItemStack(NVBlocks.ARA_VITAE.block().get()));
+        registration.addCraftingStation(AlchemyArrayCraftingCategory.RECIPE_TYPE, new ItemStack(NVItems.ARCANE_SCRIBE_TOOL.get()));
+        registration.addCraftingStation(AlchemyArrayEffectCategory.RECIPE_TYPE, new ItemStack(NVItems.ARCANE_SCRIBE_TOOL.get()));
+        registration.addCraftingStation(TabulaVitaeRecipeCategory.RECIPE_TYPE, new ItemStack(NVBlocks.TABULA_VITAE.block().get()));
+        registration.addCraftingStation(AthanorRecipeCategory.RECIPE_TYPE, new ItemStack(NVBlocks.ATHANOR_BLOCK.block().get()));
+        registration.addCraftingStation(FlaskRecipeCategory.RECIPE_TYPE, new ItemStack(NVItems.ALCHEMY_FLASK.get()));
+        registration.addCraftingStation(FlaskRecipeCategory.RECIPE_TYPE, new ItemStack(NVBlocks.TABULA_VITAE.block().get()));
+        registration.addCraftingStation(FlaskCombinationCategory.RECIPE_TYPE, new ItemStack(NVItems.ALCHEMY_FLASK.get()));
+        registration.addCraftingStation(FlaskCombinationCategory.RECIPE_TYPE, new ItemStack(NVBlocks.TABULA_VITAE.block().get()));
+        registration.addCraftingStation(ImperfectRitualRecipeCategory.RECIPE_TYPE, new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()));
+        registration.addCraftingStation(RitualRecipeCategory.RECIPE_TYPE, new ItemStack(NVBlocks.MASTER_RITUAL_STONE.block().get()));
     }
 
     @Override

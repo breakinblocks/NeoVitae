@@ -18,6 +18,7 @@ import com.breakinblocks.neovitae.util.helper.PlayerHelper;
 import java.util.List;
 import java.util.function.Supplier;
 
+import net.minecraft.server.level.ServerLevel;
 public record FastMinerSigilEffect(int amplifier) implements SigilEffect {
     public static final MapCodec<FastMinerSigilEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.INT.optionalFieldOf("amplifier", 0).forGetter(FastMinerSigilEffect::amplifier)
@@ -60,7 +61,7 @@ public record FastMinerSigilEffect(int amplifier) implements SigilEffect {
                 player.addEffect(new MobEffectInstance(MobEffects.HASTE, ticks, potionPotency));
                 if (!player.isCreative()) {
                     player.invulnerableTime = 0;
-                    player.hurt(level.damageSources().source(NVDamageSources.SACRIFICE), 1.0F);
+                    player.hurtServer((ServerLevel) player.level(), level.damageSources().source(NVDamageSources.SACRIFICE), 1.0F);
                 }
             }
         }

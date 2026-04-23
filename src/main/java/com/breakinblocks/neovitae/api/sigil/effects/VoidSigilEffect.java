@@ -13,7 +13,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 
@@ -57,12 +59,17 @@ public record VoidSigilEffect() implements SigilEffect {
             return true;
         }
 
-        var rh = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, null);
-        IFluidHandler handler = rh != null ? IFluidHandler.of(rh) : null;
+        ResourceHandler<FluidResource> handler = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, null);
         if (handler != null) {
-            var drained = handler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
-            if (!drained.isEmpty()) {
-                return true;
+            for (int tank = 0; tank < handler.size(); tank++) {
+                FluidResource r = handler.getResource(tank);
+                if (r.isEmpty()) continue;
+                try (Transaction tx = Transaction.openRoot()) {
+                    if (handler.extract(tank, r, 1000, tx) > 0) {
+                        tx.commit();
+                        return true;
+                    }
+                }
             }
         }
 

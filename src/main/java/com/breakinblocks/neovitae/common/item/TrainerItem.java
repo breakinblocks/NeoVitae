@@ -14,6 +14,7 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -43,7 +44,9 @@ public class TrainerItem extends Item {
 
             GhostItemHandler handler = new GhostItemHandler(16) {
                 @Override
-                public boolean isItemValid(int slot, ItemStack stack) {
+                public boolean isValid(int index, ItemResource resource) {
+                    if (resource.isEmpty()) return true;
+                    ItemStack stack = resource.toStack(1);
                     return stack.is(NVItems.UPGRADE_TOME) && stack.has(NVDataComponents.UPGRADE_TOME_DATA);
                 }
             };

@@ -12,6 +12,7 @@ public class BookRitualInfoPageRenderer extends BookPageRenderer<BookRitualInfoP
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         int y = 0;
 

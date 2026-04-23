@@ -394,9 +394,8 @@ public class ItemRitualDiviner extends Item {
     public int getDivinerType() {
         return type;
     }
-
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         Ritual ritual = getCurrentRitual(stack);
         if (ritual != null) {

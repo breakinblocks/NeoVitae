@@ -5,8 +5,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.api.routing.IFilterKey;
 import com.breakinblocks.neovitae.api.routing.IFluidFilter;
 import com.breakinblocks.neovitae.api.routing.IItemFilter;
@@ -19,7 +21,7 @@ public final class RoutingFilterFactory {
 
     private RoutingFilterFactory() {}
 
-    public static IItemFilter createItemFilter(SideFilterConfig cfg, BlockEntity tile, IItemHandler handler, boolean isOutput) {
+    public static IItemFilter createItemFilter(SideFilterConfig cfg, BlockEntity tile, ResourceHandler<ItemResource> handler, boolean isOutput) {
         IItemFilter filter = cfg.getItemMode() == FilterMode.BLACKLIST
                 ? new BlacklistItemFilter()
                 : new BasicItemFilter();
@@ -41,8 +43,7 @@ public final class RoutingFilterFactory {
         return keys;
     }
 
-    /** Returns null if no filter should apply (e.g. AUTO_MATCH with an empty input tank). */
-    public static IFluidFilter createFluidFilter(SideFilterConfig cfg, BlockEntity tile, IFluidHandler handler, boolean isOutput) {
+    public static IFluidFilter createFluidFilter(SideFilterConfig cfg, BlockEntity tile, ResourceHandler<FluidResource> handler, boolean isOutput) {
         FilterMode mode = cfg.getFluidMode();
 
         if (mode == FilterMode.AUTO_MATCH) {
@@ -70,24 +71,27 @@ public final class RoutingFilterFactory {
         return filter;
     }
 
-    private static IFluidFilter buildAutoMatchFilter(BlockEntity tile, IFluidHandler handler, boolean isOutput) {
+    private static IFluidFilter buildAutoMatchFilter(BlockEntity tile, ResourceHandler<FluidResource> handler, boolean isOutput) {
         List<FluidStack> passAll = new ArrayList<>();
-        for (int tank = 0; tank < handler.getTanks(); tank++) {
-            FluidStack fluid = handler.getFluidInTank(tank);
-            if (!fluid.isEmpty()) {
-                FluidStack copy = fluid.copy();
-                copy.setAmount(handler.getTankCapacity(tank));
+        for (int tank = 0; tank < handler.size(); tank++) {
+            FluidResource r = handler.getResource(tank);
+            if (!r.isEmpty()) {
+                FluidStack copy = r.toStack(1);
+                copy.setAmount(handler.getCapacityAsInt(tank, r));
                 passAll.add(copy);
             }
         }
 
         if (passAll.isEmpty()) {
             if (!isOutput) return null;
-            // Empty output tank: bypass whitelist matching and fill directly whatever comes in.
             BasicFluidFilter filter = new BasicFluidFilter() {
                 @Override
                 public FluidStack transferFluidThroughOutputFilter(FluidStack inputFluid) {
-                    int filled = fluidHandler.fill(inputFluid.copy(), IFluidHandler.FluidAction.EXECUTE);
+                    int filled;
+                    try (Transaction tx = Transaction.openRoot()) {
+                        filled = fluidHandler.insert(FluidResource.of(inputFluid), inputFluid.getAmount(), tx);
+                        tx.commit();
+                    }
                     if (filled > 0 && accessedTile != null) {
                         Level level = accessedTile.getLevel();
                         BlockPos pos = accessedTile.getBlockPos();

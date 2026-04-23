@@ -5,7 +5,7 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -26,8 +26,8 @@ import java.text.DecimalFormat;
  */
 public class RitualRecipeCategory implements IRecipeCategory<RitualJEIRecipe> {
 
-    public static final RecipeType<RitualJEIRecipe> RECIPE_TYPE =
-            RecipeType.create(NeoVitae.MODID, "ritual", RitualJEIRecipe.class);
+    public static final IRecipeType<RitualJEIRecipe> RECIPE_TYPE =
+            IRecipeType.create(NeoVitae.MODID, "ritual", RitualJEIRecipe.class);
 
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,###");
 
@@ -49,7 +49,7 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualJEIRecipe> {
     }
 
     @Override
-    public RecipeType<RitualJEIRecipe> getRecipeType() {
+    public IRecipeType<RitualJEIRecipe> getRecipeType() {
         return RECIPE_TYPE;
     }
 

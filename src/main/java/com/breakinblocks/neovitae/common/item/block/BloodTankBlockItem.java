@@ -19,8 +19,8 @@ public class BloodTankBlockItem extends BlockItem {
     public BloodTankBlockItem(Block block, Properties properties) {
         super(block, properties);
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         int tier = stack.getOrDefault(NVDataComponents.CONTAINER_TIER, 0);
         if (tier == 0) {

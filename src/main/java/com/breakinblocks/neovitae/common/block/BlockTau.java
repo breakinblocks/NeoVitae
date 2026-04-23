@@ -93,7 +93,7 @@ public class BlockTau extends CropBlock {
         List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, boundingBox);
 
         for (LivingEntity entity : entities) {
-            entity.hurt(entity.damageSources().cactus(), 2);
+            entity.hurtServer((ServerLevel) entity.level(), entity.damageSources().cactus(), 2);
         if (true) {
                 if (isStrong) {
                     // Strong tau only grows when it successfully damages something
@@ -136,7 +136,7 @@ public class BlockTau extends CropBlock {
             List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, boundingBox);
 
             for (LivingEntity entity : entities) {
-                entity.hurt(entity.damageSources().cactus(), 2);
+                entity.hurtServer((ServerLevel) entity.level(), entity.damageSources().cactus(), 2);
         if (true) {
                     if (isStrong) {
                         doGrow = true;

@@ -19,8 +19,8 @@ public class SpiritusGaugeItem extends Item {
     public SpiritusGaugeItem(Item.Properties props) {
         super(props.stacksTo(1));
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {tooltip.accept(Component.translatable("tooltip.neovitae.spiritus_gauge"));
     }
 

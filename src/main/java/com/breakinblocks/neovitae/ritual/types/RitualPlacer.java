@@ -6,7 +6,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
@@ -17,6 +18,7 @@ import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 import java.util.UUID;
 import java.util.function.Consumer;
 
+import com.breakinblocks.neovitae.util.Utils;
 /**
  * Domain of the Filler - Places blocks from an adjacent inventory into the ritual area.
  */
@@ -40,14 +42,14 @@ public class RitualPlacer extends Ritual {
 
         AreaDescriptor range = RitualHelper.getEffectiveRange(ctx.master(), this, PLACER_RANGE);
 
-        IItemHandler inventory = findAdjacentInventory(ctx.level(), ctx.masterPos());
+        ResourceHandler<ItemResource> inventory = findAdjacentInventory(ctx.level(), ctx.masterPos());
         if (inventory == null) return;
 
         // Get block to place from inventory
         ItemStack toPlace = ItemStack.EMPTY;
         int slotIndex = -1;
-        for (int i = 0; i < inventory.getSlots(); i++) {
-            ItemStack stack = inventory.getStackInSlot(i);
+        for (int i = 0; i < inventory.size(); i++) {
+            ItemStack stack = Utils.stackAt(inventory, i);
             if (!stack.isEmpty() && stack.getItem() instanceof BlockItem) {
                 toPlace = stack;
                 slotIndex = i;
@@ -66,7 +68,7 @@ public class RitualPlacer extends Ritual {
         BlockState stateToPlace = blockItem.getBlock().defaultBlockState();
 
         if (BlockProtectionHelper.tryPlaceBlock(ctx.level(), placePos, stateToPlace, owner)) {
-            inventory.extractItem(slotIndex, 1, false);
+            Utils.extractItem(inventory, slotIndex, 1, false);
             ctx.syphon(getRefreshCost());
             final BlockPos placedAt = placePos;
             RitualHelper.chanceStream(ctx.level(), 15, () ->
@@ -75,13 +77,13 @@ public class RitualPlacer extends Ritual {
         }
     }
 
-    private IItemHandler findAdjacentInventory(Level level, BlockPos pos) {
+    private ResourceHandler<ItemResource> findAdjacentInventory(Level level, BlockPos pos) {
         for (BlockPos offset : new BlockPos[]{
             pos.above(), pos.below(), pos.north(), pos.south(), pos.east(), pos.west()
         }) {
             var rh = level.getCapability(Capabilities.Item.BLOCK, offset, null);
             if (rh != null) {
-                return IItemHandler.of(rh);
+                return rh;
             }
         }
         return null;

@@ -341,7 +341,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
             entity.igniteForSeconds(5);
         }
 
-        if (entity.hurtOrSimulate(damageSource, (float) dmg)) {
+        if (entity.hurtServer((ServerLevel) entity.level(), damageSource, (float) dmg)) {
             if (!entity.isAlive() && owner instanceof Player playerOwner && entity instanceof LivingEntity living) {
                 double willAmount = this.getWillDropForMobHealth(living.getMaxHealth());
                 double bonusSpiritus = playerOwner.getAttributeValue(NVAttributes.BONUS_SPIRITUS);

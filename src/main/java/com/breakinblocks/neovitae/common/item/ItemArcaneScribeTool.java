@@ -32,8 +32,8 @@ public class ItemArcaneScribeTool extends Item implements IBindable {
     public ItemArcaneScribeTool(Item.Properties props) {
         super(props.stacksTo(1).durability(20).component(NVDataComponents.BINDING.get(), Binding.EMPTY));
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable("tooltip.neovitae.arcane_scribe_tool").withStyle(ChatFormatting.GRAY));
         DyeColor color = stack.get(NVDataComponents.ALCHEMY_ARRAY_COLOR.get());

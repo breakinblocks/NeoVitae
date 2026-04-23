@@ -42,8 +42,8 @@ public class SpiritusGemItem extends Item implements ISpiritusGem {
 
         return InteractionResult.PASS;
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag tooltipFlag) {
         SpiritusType type = SpiritusHelper.getCurrentType(stack);
         double amount = SpiritusHelper.getWill(stack, type);

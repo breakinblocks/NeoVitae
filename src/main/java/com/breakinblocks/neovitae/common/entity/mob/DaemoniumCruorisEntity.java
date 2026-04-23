@@ -193,7 +193,7 @@ public class DaemoniumCruorisEntity extends Monster implements GeoEntity {
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 getBoundingBox().inflate(2.5), e -> e != this && e instanceof Player)) {
             if (entity.distanceToSqr(forward.x, forward.y, forward.z) <= 2.5 * 2.5) {
-                entity.hurt(damageSources().mobAttack(this), damage);
+                entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
                 entity.invulnerableTime = 0;
             }
         }
@@ -235,7 +235,7 @@ public class DaemoniumCruorisEntity extends Monster implements GeoEntity {
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 getBoundingBox().inflate(2.5), e -> e != this && e instanceof Player)) {
             if (entity.distanceToSqr(forward.x, forward.y, forward.z) <= 2.5 * 2.5) {
-                entity.hurt(damageSources().mobAttack(this), damage);
+                entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
                 entity.invulnerableTime = 0;
             }
         }

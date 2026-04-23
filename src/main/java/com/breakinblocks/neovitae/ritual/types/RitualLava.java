@@ -10,7 +10,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
+import net.minecraft.server.level.ServerLevel;
 /**
  * Ritual of Lava - generates lava in a configurable area, or fills a fluid tank
  * placed directly above the Master Ritual Stone with one bucket of lava per cycle.
@@ -108,14 +111,15 @@ public class RitualLava extends Ritual {
             tankPresent = true;
         } else {
             List<BlockPos> tankPositions = RitualHelper.getRangePositions(ctx.master(), this, TANK_RANGE, masterPos);
-            IFluidHandler availableTank = null;
+            ResourceHandler<FluidResource> availableTank = null;
             for (BlockPos tankPos : tankPositions) {
-                var rhLava = ctx.level().getCapability(Capabilities.Fluid.BLOCK, tankPos, null);
-                IFluidHandler handler = rhLava != null ? IFluidHandler.of(rhLava) : null;
+                ResourceHandler<FluidResource> handler = ctx.level().getCapability(Capabilities.Fluid.BLOCK, tankPos, null);
                 if (handler != null) {
                     tankPresent = true;
-                    FluidStack lavaStack = new FluidStack(Fluids.LAVA, 1000);
-                    int simulated = handler.fill(lavaStack, IFluidHandler.FluidAction.SIMULATE);
+                    int simulated;
+                    try (Transaction tx = Transaction.openRoot()) {
+                        simulated = handler.insert(FluidResource.of(Fluids.LAVA), 1000, tx);
+                    }
                     if (simulated >= 1000) {
                         availableTank = handler;
                         break;
@@ -124,7 +128,10 @@ public class RitualLava extends Ritual {
             }
 
             if (availableTank != null && totalEffects < maxEffects) {
-                availableTank.fill(new FluidStack(Fluids.LAVA, 1000), IFluidHandler.FluidAction.EXECUTE);
+                try (Transaction tx = Transaction.openRoot()) {
+                    availableTank.insert(FluidResource.of(Fluids.LAVA), 1000, tx);
+                    tx.commit();
+                }
                 totalEffects++;
                 // Successful fill: return to normal cadence.
                 tankBackoffLevel = 0;
@@ -181,7 +188,7 @@ public class RitualLava extends Ritual {
                     entity -> entity.isAlive() && !entity.fireImmune());
             for (LivingEntity entity : entities) {
                 if ((will.getCorrosive() - corrosiveUsed) < CORROSIVE_WILL_PER_HIT) break;
-                entity.hurt(ctx.level().damageSources().onFire(), CORROSIVE_FIRE_DAMAGE);
+                entity.hurtServer((ServerLevel) entity.level(), ctx.level().damageSources().onFire(), CORROSIVE_FIRE_DAMAGE);
                 entity.setRemainingFireTicks(60);
                 corrosiveUsed += CORROSIVE_WILL_PER_HIT;
             }

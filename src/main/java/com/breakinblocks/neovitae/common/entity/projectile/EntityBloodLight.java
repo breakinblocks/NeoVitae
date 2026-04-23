@@ -130,6 +130,7 @@ public class EntityBloodLight extends ThrowableProjectile {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean isPushedByFluid() {
         return false;
     }

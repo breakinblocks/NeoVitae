@@ -9,7 +9,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
@@ -31,8 +31,8 @@ import javax.annotation.Nullable;
  * sibling {@link AlchemyArrayCraftingCategory}.
  */
 public class AlchemyArrayEffectCategory implements IRecipeCategory<AlchemyArrayRecipe> {
-    public static final RecipeType<AlchemyArrayRecipe> RECIPE_TYPE =
-            RecipeType.create(NeoVitae.MODID, "array_effects", AlchemyArrayRecipe.class);
+    public static final IRecipeType<AlchemyArrayRecipe> RECIPE_TYPE =
+            IRecipeType.create(NeoVitae.MODID, "array_effects", AlchemyArrayRecipe.class);
 
     private static final int WIDTH = 100;
     private static final int HEIGHT = 30;
@@ -99,14 +99,14 @@ public class AlchemyArrayEffectCategory implements IRecipeCategory<AlchemyArrayR
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 74, 6);
         ItemStack dummy = getEffectDummyItem(recipe.getEffectType());
         if (!dummy.isEmpty()) {
-            output.addItemStack(dummy);
+            output.add(dummy);
         }
 
         IRecipeSlotBuilder catalyst = builder.addSlot(RecipeIngredientRole.INPUT, 30, 4);
-        catalyst.addIngredients(recipe.getAddedInput());
+        catalyst.add(recipe.getAddedInput());
 
         IRecipeSlotBuilder input = builder.addSlot(RecipeIngredientRole.INPUT, 1, 6);
-        input.addIngredients(recipe.getBaseInput());
+        input.add(recipe.getBaseInput());
     }
 
     @Override
@@ -127,7 +127,7 @@ public class AlchemyArrayEffectCategory implements IRecipeCategory<AlchemyArrayR
     }
 
     @Override
-    public RecipeType<AlchemyArrayRecipe> getRecipeType() {
+    public IRecipeType<AlchemyArrayRecipe> getRecipeType() {
         return RECIPE_TYPE;
     }
 }

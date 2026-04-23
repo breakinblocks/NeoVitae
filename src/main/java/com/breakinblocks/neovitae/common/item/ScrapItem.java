@@ -14,8 +14,8 @@ public class ScrapItem extends Item {
     public ScrapItem(Properties properties) {
         super(properties);
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         int scrap = stack.getOrDefault(NVDataComponents.UPGRADE_SCRAP, 0);
         tooltipComponents.accept(Component.translatable("tooltip.neovitae.scrap", scrap));}

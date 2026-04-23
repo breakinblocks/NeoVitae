@@ -133,8 +133,8 @@ public class BloodOrbItem extends Item implements IBindable {
         SimpleFluidContent fluid = stack.getOrDefault(NVDataComponents.ORB_FLUID.get(), SimpleFluidContent.EMPTY);
         return !fluid.isEmpty() && fluid.getAmount() >= capacity;
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         var stats = stack.typeHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
         if (stats != null) {

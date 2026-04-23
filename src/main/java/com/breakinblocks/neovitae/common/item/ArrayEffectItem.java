@@ -23,8 +23,8 @@ public class ArrayEffectItem extends Item {
     public AlchemyArrayEffectType getEffectType() {
         return effectType;
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable("tooltip.neovitae.array_effect." + effectType.getSerializedName())
                 .withStyle(ChatFormatting.GRAY));

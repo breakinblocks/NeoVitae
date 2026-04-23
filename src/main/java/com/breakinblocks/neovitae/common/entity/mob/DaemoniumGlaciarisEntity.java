@@ -152,7 +152,7 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
         if (!level().isClientSide() && beamTicksRemaining > 0 && beamTarget != null && beamTarget.isAlive()) {
             beamTicksRemaining--;
             if (beamTicksRemaining % 4 == 0) {
-                beamTarget.hurt(damageSources().mobAttack(this), 0.25F);
+                beamTarget.hurtServer((ServerLevel) beamTarget.level(), damageSources().mobAttack(this), 0.25F);
                 beamTarget.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40, 2));
             }
             if (beamTicksRemaining <= 0) {
@@ -194,7 +194,7 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
         attackAnimTimer = 30;
         attackCooldown = 35;
 
-        target.hurt(damageSources().mobAttack(this), 10.0F);
+        target.hurtServer((ServerLevel) target.level(), damageSources().mobAttack(this), 10.0F);
         target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40, 1));
 
         playLayeredSound(SoundEvents.TRIDENT_RETURN, 1.0F, 2.0F);
@@ -223,7 +223,7 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
         attackAnimTimer = 90;
         attackCooldown = 90;
 
-        target.hurt(damageSources().mobAttack(this), 10.0F);
+        target.hurtServer((ServerLevel) target.level(), damageSources().mobAttack(this), 10.0F);
         target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 60, 2));
 
         spawnIceParticles(target);
@@ -239,7 +239,7 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
 
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 getBoundingBox().inflate(4.0), e -> e != this && e instanceof Player)) {
-            entity.hurt(damageSources().mobAttack(this), 15.0F);
+            entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), 15.0F);
             entity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 60, 3));
         }
 

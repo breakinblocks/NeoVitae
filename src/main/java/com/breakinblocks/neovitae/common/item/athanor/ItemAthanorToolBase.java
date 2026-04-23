@@ -35,8 +35,8 @@ public class ItemAthanorToolBase extends Item implements IAthanorTool {
                 .component(NVDataComponents.ARC_CHANCE.get(), additionalOutputChance)
                 .component(NVDataComponents.SPIRITUS_TYPE.get(), type));
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable("tooltip.neovitae.arctool.uses", stack.getMaxDamage() - stack.getDamageValue()).withStyle(ChatFormatting.GRAY));
 

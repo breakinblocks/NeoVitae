@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.EventHooks;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.common.entity.mob.*;
@@ -49,7 +50,7 @@ public record NecromancySigilEffect() implements SigilEffect {
 
         Mob summon = createRandomSummon(serverLevel, player);
         summon.snapTo(spawnPos.x, spawnPos.y, spawnPos.z, player.getYRot(), 0);
-        summon.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(summon.blockPosition()), EntitySpawnReason.MOB_SUMMONED, null);
+        EventHooks.finalizeMobSpawn(summon, serverLevel, serverLevel.getCurrentDifficultyAt(summon.blockPosition()), EntitySpawnReason.MOB_SUMMONED, null);
         serverLevel.addFreshEntity(summon);
 
         return true;

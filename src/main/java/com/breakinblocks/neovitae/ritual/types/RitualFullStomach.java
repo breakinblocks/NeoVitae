@@ -7,7 +7,8 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import net.minecraft.core.component.DataComponents;
 
+import com.breakinblocks.neovitae.util.Utils;
 /**
  * Ritual that replenishes hunger for nearby players using food from an inventory.
  */
@@ -42,8 +44,8 @@ public class RitualFullStomach extends Ritual {
         List<Player> players = RitualHelper.getEntitiesInRange(ctx, this, HUNGER_RANGE, Player.class);
 
         BlockPos chestPos = RitualHelper.firstPositionInRange(ctx.master(), this, CHEST_RANGE, ctx.masterPos()).orElse(null);
-        IItemHandler inventory = chestPos != null
-                ? ((IItemHandler) null)
+        ResourceHandler<ItemResource> inventory = chestPos != null
+                ? ((ResourceHandler<ItemResource>) null)
                 : null;
 
         int playersFed = 0;
@@ -81,16 +83,16 @@ public class RitualFullStomach extends Ritual {
      * Attempts to find a food item in the inventory and feed it to the player.
      * @return true if the player was fed
      */
-    private boolean feedFromInventory(Player player, IItemHandler inventory) {
-        for (int slot = 0; slot < inventory.getSlots(); slot++) {
-            ItemStack stack = inventory.getStackInSlot(slot);
+    private boolean feedFromInventory(Player player, ResourceHandler<ItemResource> inventory) {
+        for (int slot = 0; slot < inventory.size(); slot++) {
+            ItemStack stack = Utils.stackAt(inventory, slot);
             if (stack.isEmpty()) continue;
 
             FoodProperties food = stack.get(DataComponents.FOOD);
             if (food == null) continue;
 
             // Extract 1 item from the inventory
-            ItemStack extracted = inventory.extractItem(slot, 1, false);
+            ItemStack extracted = Utils.extractItem(inventory, slot, 1, false);
             if (extracted.isEmpty()) continue;
 
             // Apply the food's nutrition and saturation to the player

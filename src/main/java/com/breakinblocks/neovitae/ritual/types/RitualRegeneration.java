@@ -17,6 +17,7 @@ import com.breakinblocks.neovitae.api.will.SpiritusState;
 import java.util.List;
 import java.util.function.Consumer;
 
+import net.minecraft.server.level.ServerLevel;
 /**
  * Ritual that provides regeneration to nearby players.
  *
@@ -79,7 +80,7 @@ public class RitualRegeneration extends Ritual {
                     if ((will.getCorrosive() - willUsed) < CORROSIVE_WILL_PER_MOB) break;
 
                     float healthBefore = mob.getHealth();
-                    mob.hurt(ctx.level().damageSources().source(NVDamageSources.RITUAL), 2.0F);
+                    mob.hurtServer((ServerLevel) mob.level(), ctx.level().damageSources().source(NVDamageSources.RITUAL), 2.0F);
 
                     if (mob.getHealth() < healthBefore) {
                         Player target = hurtPlayers.get(playerIndex % hurtPlayers.size());

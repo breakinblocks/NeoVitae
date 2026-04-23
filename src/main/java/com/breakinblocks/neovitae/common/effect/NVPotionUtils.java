@@ -77,7 +77,7 @@ public class NVPotionUtils {
         }
 
         if (incurredDamage > 0) {
-            entity.hurt(entity.damageSources().source(NVDamageSources.SACRIFICE, entity), (float) incurredDamage);
+            entity.hurtServer((ServerLevel) entity.level(), entity.damageSources().source(NVDamageSources.SACRIFICE, entity), (float) incurredDamage);
         }
 
         return incurredDamage;

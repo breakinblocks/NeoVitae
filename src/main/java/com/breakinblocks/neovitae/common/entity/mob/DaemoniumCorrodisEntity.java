@@ -222,7 +222,7 @@ public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 getBoundingBox().inflate(2.5), e -> e != this && e instanceof Player)) {
             if (entity.distanceToSqr(forward.x, forward.y, forward.z) <= 2.5 * 2.5) {
-                entity.hurt(damageSources().mobAttack(this), damage);
+                entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
                 entity.invulnerableTime = 0;
                 entity.addEffect(new MobEffectInstance(MobEffects.WITHER, WITHER_DURATION, WITHER_LEVEL));
                 applyCorrosiveChance(entity);
@@ -253,7 +253,7 @@ public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
             boolean inZone1 = entity.distanceToSqr(forward1.x, forward1.y, forward1.z) <= 1.3 * 1.3;
             boolean inZone2 = entity.distanceToSqr(forward2.x, forward2.y, forward2.z) <= 1.3 * 1.3;
             if (inZone1 || inZone2) {
-                entity.hurt(damageSources().mobAttack(this), damage);
+                entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
                 entity.invulnerableTime = 0;
                 entity.addEffect(new MobEffectInstance(MobEffects.WITHER, WITHER_DURATION, WITHER_LEVEL));
                 applyCorrosiveChance(entity);
@@ -283,7 +283,7 @@ public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 getBoundingBox().inflate(2.5), e -> e != this)) {
             if (entity.distanceToSqr(forward.x, forward.y, forward.z) <= 2.5 * 2.5) {
-                entity.hurt(damageSources().mobAttack(this), damage);
+                entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
                 entity.invulnerableTime = 0;
                 entity.addEffect(new MobEffectInstance(MobEffects.WITHER, WITHER_DURATION, WITHER_LEVEL));
                 applyCorrosiveChance(entity);
@@ -306,7 +306,7 @@ public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 getBoundingBox().inflate(2.75), e -> e != this && e instanceof Player)) {
             if (entity.distanceToSqr(slamOrigin.x, slamOrigin.y, slamOrigin.z) <= 2.75 * 2.75) {
-                entity.hurt(damageSources().mobAttack(this), damage);
+                entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
                 entity.invulnerableTime = 0;
                 entity.addEffect(new MobEffectInstance(MobEffects.WITHER, WITHER_DURATION, WITHER_LEVEL));
                 applyCorrosiveChance(entity);

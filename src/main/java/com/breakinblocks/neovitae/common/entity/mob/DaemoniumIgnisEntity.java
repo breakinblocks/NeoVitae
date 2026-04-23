@@ -186,7 +186,7 @@ public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
                 swordHitTimer = 4; // 4 ticks between hits
                 swordHitsRemaining--;
                 float damage = (float) getAttributeValue(Attributes.ATTACK_DAMAGE);
-                swordTarget.hurt(damageSources().mobAttack(this), damage);
+                swordTarget.hurtServer((ServerLevel) swordTarget.level(), damageSources().mobAttack(this), damage);
                 swordTarget.setDeltaMovement(Vec3.ZERO);
                 swordTarget.invulnerableTime = 0; // Reset i-frames for multi-hit
                 swordTarget.setRemainingFireTicks(100);
@@ -284,7 +284,7 @@ public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
         float damage = (float) getAttributeValue(Attributes.ATTACK_DAMAGE);
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 target.getBoundingBox().inflate(2.5), e -> e != this && e instanceof Player)) {
-            entity.hurt(damageSources().mobAttack(this), damage);
+            entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
             entity.invulnerableTime = 0;
             entity.setRemainingFireTicks(100);
         }

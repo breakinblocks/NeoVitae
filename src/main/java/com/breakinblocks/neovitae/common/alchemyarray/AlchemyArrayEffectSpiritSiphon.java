@@ -35,7 +35,7 @@ public class AlchemyArrayEffectSpiritSiphon extends AlchemyArrayEffect {
         if (entity instanceof Player) return;
         if (cooldown > 0) return;
 
-        living.hurt(living.damageSources().cactus(), DAMAGE);
+        living.hurtServer((ServerLevel) living.level(), living.damageSources().cactus(), DAMAGE);
         cooldown = COOLDOWN_TICKS;
 
         WorldSpiritusHandler.addWillToChunk(level, pos, SpiritusType.DEFAULT, SPIRITUS_PER_HIT);

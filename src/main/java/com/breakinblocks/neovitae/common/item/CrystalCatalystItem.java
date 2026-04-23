@@ -39,8 +39,8 @@ public class CrystalCatalystItem extends Item {
         this.conversionRate = conversionRate;
         this.maxInjectedWill = maxInjectedWill;
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable("tooltip.neovitae.crystal_catalyst.desc").withStyle(ChatFormatting.GRAY));
         tooltip.accept(Component.translatable("tooltip.neovitae.crystal_catalyst.aspect", type.toCapitalized()).withStyle(ChatFormatting.DARK_PURPLE));}

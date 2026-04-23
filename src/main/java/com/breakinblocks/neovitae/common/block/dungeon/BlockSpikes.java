@@ -20,6 +20,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 
+import net.minecraft.server.level.ServerLevel;
 public class BlockSpikes extends Block {
 
     public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
@@ -62,7 +63,7 @@ public class BlockSpikes extends Block {
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier applier, boolean intersects) {
         if (entity.getType() != EntityType.ITEM) {
             entity.makeStuckInBlock(state, new Vec3(0.55D, 0.20D, 0.55D));
-            entity.hurt(NVDamageSources.spikes(level), 2.0F);
+            entity.hurtServer((ServerLevel) entity.level(), NVDamageSources.spikes(level), 2.0F);
         }
     }
 

@@ -13,7 +13,8 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.FakePlayer;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
@@ -96,7 +97,7 @@ public class RitualYawningVoid extends Ritual {
 
         RitualHelper.ChestOutput chest = RitualHelper.resolveChestOutput(ctx, this, CHEST_RANGE);
         BlockEntity chestTile = chest.tile();
-        IItemHandler chestHandler = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
+        ResourceHandler<ItemResource> chestHandler = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
 
         List<BlockPos> quarryPositions = RitualHelper.getRangePositions(ctx.master(), this, QUARRY_RANGE, masterPos);
         if (quarryPositions.isEmpty()) return;
@@ -108,8 +109,8 @@ public class RitualYawningVoid extends Ritual {
         // Build filter list from chest (for corrosive mode)
         Set<Item> filterItems = new HashSet<>();
         if (doFilter && chestHandler != null) {
-            for (int i = 0; i < chestHandler.getSlots(); i++) {
-                ItemStack filterStack = chestHandler.getStackInSlot(i);
+            for (int i = 0; i < chestHandler.size(); i++) {
+                ItemStack filterStack = Utils.stackAt(chestHandler, i);
                 if (!filterStack.isEmpty()) {
                     filterItems.add(filterStack.getItem());
                 }

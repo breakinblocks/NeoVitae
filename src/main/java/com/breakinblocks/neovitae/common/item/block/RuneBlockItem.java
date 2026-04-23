@@ -20,8 +20,8 @@ public class RuneBlockItem extends BlockItem {
         super(block, properties);
         this.tooltipKeys = tooltipKeys;
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         for (String key : tooltipKeys) {
             tooltip.accept(Component.translatable(key).withStyle(ChatFormatting.GRAY));

@@ -10,7 +10,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.ExperienceTomeItem;
@@ -96,7 +97,7 @@ public class RitualZephyr extends Ritual {
             }
         }
 
-        IItemHandler inventory = hasChest ? Utils.getInventory(chestTile, Direction.DOWN) : null;
+        ResourceHandler<ItemResource> inventory = hasChest ? Utils.getInventory(chestTile, Direction.DOWN) : null;
         ItemStack experienceTome = findExperienceTome(inventory);
 
         List<ExperienceOrb> orbs = ctx.level().getEntitiesOfClass(ExperienceOrb.class, aabb);
@@ -126,12 +127,12 @@ public class RitualZephyr extends Ritual {
         }
     }
 
-    private ItemStack findExperienceTome(IItemHandler inventory) {
-        if (inventory == null || inventory.getSlots() == 0) {
+    private ItemStack findExperienceTome(ResourceHandler<ItemResource> inventory) {
+        if (inventory == null || inventory.size() == 0) {
             return ItemStack.EMPTY;
         }
 
-        ItemStack firstSlot = inventory.getStackInSlot(0);
+        ItemStack firstSlot = Utils.stackAt(inventory, 0);
         if (firstSlot.is(NVItems.EXPERIENCE_TOME.get())) {
             return firstSlot;
         }

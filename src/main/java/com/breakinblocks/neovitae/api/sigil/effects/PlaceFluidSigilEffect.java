@@ -21,7 +21,9 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
@@ -65,15 +67,13 @@ public record PlaceFluidSigilEffect(Fluid fluid, int amount) implements SigilEff
 
         FluidStack fluidStack = new FluidStack(fluid, amount);
 
-        var rhDest = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, null);
-        IFluidHandler destination = rhDest != null ? IFluidHandler.of(rhDest) : null;
+        ResourceHandler<FluidResource> destination = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, null);
         if (destination != null && tryInsertFluid(destination, fluidStack, false)) {
             tryInsertFluid(destination, fluidStack, true);
             return true;
         }
 
-        var rhSide = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, sideHit);
-        IFluidHandler destinationSide = rhSide != null ? IFluidHandler.of(rhSide) : null;
+        ResourceHandler<FluidResource> destinationSide = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, sideHit);
         if (destinationSide != null && tryInsertFluid(destinationSide, fluidStack, false)) {
             tryInsertFluid(destinationSide, fluidStack, true);
             return true;
@@ -100,15 +100,13 @@ public record PlaceFluidSigilEffect(Fluid fluid, int amount) implements SigilEff
 
         FluidStack fluidStack = new FluidStack(fluid, amount);
 
-        var rhDest = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, null);
-        IFluidHandler destination = rhDest != null ? IFluidHandler.of(rhDest) : null;
+        ResourceHandler<FluidResource> destination = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, null);
         if (destination != null && tryInsertFluid(destination, fluidStack, false)) {
             tryInsertFluid(destination, fluidStack, true);
             return true;
         }
 
-        var rhSide = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, side);
-        IFluidHandler destinationSide = rhSide != null ? IFluidHandler.of(rhSide) : null;
+        ResourceHandler<FluidResource> destinationSide = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, side);
         if (destinationSide != null && tryInsertFluid(destinationSide, fluidStack, false)) {
             tryInsertFluid(destinationSide, fluidStack, true);
             return true;
@@ -121,11 +119,15 @@ public record PlaceFluidSigilEffect(Fluid fluid, int amount) implements SigilEff
         return false;
     }
 
-    private boolean tryInsertFluid(IFluidHandler destination, FluidStack fluidStack, boolean doTransfer) {
+    private boolean tryInsertFluid(ResourceHandler<FluidResource> destination, FluidStack fluidStack, boolean doTransfer) {
         if (destination == null || fluidStack.isEmpty()) {
             return false;
         }
-        return destination.fill(fluidStack, doTransfer ? IFluidHandler.FluidAction.EXECUTE : IFluidHandler.FluidAction.SIMULATE) > 0;
+        try (Transaction tx = Transaction.openRoot()) {
+            int inserted = destination.insert(FluidResource.of(fluidStack), fluidStack.getAmount(), tx);
+            if (doTransfer) tx.commit();
+            return inserted > 0;
+        }
     }
 
     private boolean tryPlaceFluid(Player player, Level level, BlockPos blockPos, FluidStack fluidStack) {

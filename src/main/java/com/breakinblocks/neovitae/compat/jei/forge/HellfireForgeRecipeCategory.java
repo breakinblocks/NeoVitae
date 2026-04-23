@@ -9,7 +9,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -28,7 +28,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
 
-    public static final RecipeType<ForgeRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "hellfire_forge", ForgeRecipe.class);
+    public static final IRecipeType<ForgeRecipe> RECIPE_TYPE = IRecipeType.create(NeoVitae.MODID, "hellfire_forge", ForgeRecipe.class);
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
 
     private static final int WIDTH = 100;
@@ -44,7 +44,7 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
     }
 
     @Override
-    public RecipeType<ForgeRecipe> getRecipeType() {
+    public IRecipeType<ForgeRecipe> getRecipeType() {
         return RECIPE_TYPE;
     }
 
@@ -102,14 +102,14 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
         gems.addItemStacks(validGems);
 
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 74, 14);
-        output.addItemStack(recipe.getOutput());
+        output.add(recipe.getOutput());
 
         List<? extends Ingredient> inputs = recipe.getCraftingIngredients();
         for (int index = 0; index < inputs.size(); index++) {
             int x = index % 2;
             int y = index / 2;
             IRecipeSlotBuilder input = builder.addSlot(RecipeIngredientRole.INPUT, x * 18 + 1, y * 18 + 1);
-            input.addIngredients(inputs.get(index));
+            input.add(inputs.get(index));
         }
     }
 

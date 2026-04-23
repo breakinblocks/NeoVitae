@@ -281,7 +281,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 getBoundingBox().inflate(4.0), e -> e != this && e instanceof Player)) {
             if (entity.distanceToSqr(forward.x, forward.y, forward.z) <= 4.0 * 4.0) {
-                entity.hurt(damageSources().mobAttack(this), damage);
+                entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
                 entity.invulnerableTime = 0;
                 entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 100, 1));
                 Vec3 kb = entity.position().subtract(position()).normalize().scale(2.5).add(0, 1.5, 0);
@@ -315,7 +315,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
 
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 getBoundingBox().inflate(6.0), e -> e != this && e instanceof Player)) {
-            entity.hurt(damageSources().mobAttack(this), damage);
+            entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
             entity.invulnerableTime = 0;
             Vec3 kb = entity.position().subtract(position()).normalize().scale(1.5).add(0, 1.0, 0);
             entity.setDeltaMovement(entity.getDeltaMovement().add(kb));
@@ -361,7 +361,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
         for (LivingEntity entity : level().getEntitiesOfClass(LivingEntity.class,
                 getBoundingBox().inflate(range), e -> e != this && e instanceof Player)) {
             if (entity.distanceToSqr(forward.x, forward.y, forward.z) <= range * range) {
-                entity.hurt(damageSources().mobAttack(this), damage);
+                entity.hurtServer((ServerLevel) entity.level(), damageSources().mobAttack(this), damage);
                 entity.invulnerableTime = 0;
                 Vec3 kb = entity.position().subtract(position()).normalize().scale(kbScale).add(0, 0.2, 0);
                 entity.setDeltaMovement(entity.getDeltaMovement().add(kb));

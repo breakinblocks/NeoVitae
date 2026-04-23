@@ -275,9 +275,8 @@ public class ItemRitualReader extends Item {
 
         return null;
     }
-
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         EnumRitualReaderState state = getState(stack);
         tooltip.accept(Component.translatable(TOOLTIP_BASE + "currentState",

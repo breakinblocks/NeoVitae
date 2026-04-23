@@ -56,8 +56,8 @@ public class ItemThrowingDagger extends Item {
         dagger.setDamage(10);
         return dagger;
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable("tooltip.neovitae.throwing_dagger.desc")
                 .withStyle(ChatFormatting.ITALIC)

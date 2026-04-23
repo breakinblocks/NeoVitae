@@ -33,8 +33,8 @@ public class ItemTippedThrowingDagger extends ItemThrowingDagger {
         dagger.setEffectsFromItem(stack);
         return dagger;
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         PotionContents contents = stack.get(DataComponents.POTION_CONTENTS);
         if (contents != null) {

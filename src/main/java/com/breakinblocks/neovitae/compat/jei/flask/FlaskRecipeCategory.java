@@ -8,7 +8,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
-    public static final RecipeType<FlaskRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "flask", FlaskRecipe.class);
+    public static final IRecipeType<FlaskRecipe> RECIPE_TYPE = IRecipeType.create(NeoVitae.MODID, "flask", FlaskRecipe.class);
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
 
     private static final int WIDTH = 118;
@@ -80,7 +80,7 @@ public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
         ItemStack outputStack = recipe.getOutput(recipe.getExampleFlask(), recipe.getExampleEffects());
 
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 92, 14);
-        output.addItemStack(outputStack);
+        output.add(outputStack);
 
         IRecipeSlotBuilder orb = builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 61, 1);
         orb.addItemStacks(getOrbsForTier(recipe.getMinimumTier()));
@@ -89,7 +89,7 @@ public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
             int x = index % 3;
             int y = index / 3;
             IRecipeSlotBuilder input = builder.addSlot(RecipeIngredientRole.INPUT, x * 18 + 1, y * 18 + 1);
-            input.addIngredients(recipe.getInput().get(index));
+            input.add(recipe.getInput().get(index));
         }
 
         int flaskSlot = recipe.getInput().size();
@@ -97,7 +97,7 @@ public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
             int x = flaskSlot % 3;
             int y = flaskSlot / 3;
             IRecipeSlotBuilder flaskInput = builder.addSlot(RecipeIngredientRole.INPUT, x * 18 + 1, y * 18 + 1);
-            flaskInput.addItemStack(recipe.getExampleFlask());
+            flaskInput.add(recipe.getExampleFlask());
         }
     }
 
@@ -113,7 +113,7 @@ public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
     }
 
     @Override
-    public RecipeType<FlaskRecipe> getRecipeType() {
+    public IRecipeType<FlaskRecipe> getRecipeType() {
         return RECIPE_TYPE;
     }
 }

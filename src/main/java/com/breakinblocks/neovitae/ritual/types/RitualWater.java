@@ -5,7 +5,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
@@ -62,11 +64,13 @@ public class RitualWater extends Ritual {
             List<BlockPos> tankPositions = RitualHelper.getRangePositions(ctx.master(), this, TANK_RANGE, ctx.masterPos());
 
             for (BlockPos tankPos : tankPositions) {
-                var rhFluid = ctx.level().getCapability(Capabilities.Fluid.BLOCK, tankPos, null);
-                IFluidHandler fluidHandler = rhFluid != null ? IFluidHandler.of(rhFluid) : null;
+                ResourceHandler<FluidResource> fluidHandler = ctx.level().getCapability(Capabilities.Fluid.BLOCK, tankPos, null);
                 if (fluidHandler != null) {
-                    FluidStack waterStack = new FluidStack(Fluids.WATER, 1000);
-                    int filled = fluidHandler.fill(waterStack, IFluidHandler.FluidAction.EXECUTE);
+                    int filled;
+                    try (Transaction tx = Transaction.openRoot()) {
+                        filled = fluidHandler.insert(FluidResource.of(Fluids.WATER), 1000, tx);
+                        tx.commit();
+                    }
                     if (filled > 0) {
                         will.use(SpiritusType.DEFAULT, (double) filled / 1000.0);
                         totalEffects++;

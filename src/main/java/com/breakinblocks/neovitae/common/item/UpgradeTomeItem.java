@@ -62,8 +62,8 @@ public class UpgradeTomeItem extends Item {
         UpgradeTome tome = stack.get(NVDataComponents.UPGRADE_TOME_DATA);
         return tome == null ? getDescriptionId() : getDescriptionId() + "." + tome.upgrade().getKey().identifier().getPath();
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         UpgradeTome tome = stack.get(NVDataComponents.UPGRADE_TOME_DATA);
         if (tome != null) {

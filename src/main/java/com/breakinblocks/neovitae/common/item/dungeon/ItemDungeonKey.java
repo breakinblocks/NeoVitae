@@ -70,8 +70,8 @@ public class ItemDungeonKey extends Item {
     public String getKeyType() {
         return keyType;
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable("tooltip.neovitae.dungeon_key.type", keyType)
                 .withStyle(ChatFormatting.GRAY));

@@ -12,6 +12,7 @@ public class BookLivingUpgradeTablePageRenderer extends BookPageRenderer<BookLiv
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         int y = 0;
 

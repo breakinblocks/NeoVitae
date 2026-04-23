@@ -44,8 +44,8 @@ public class ItemSigilHolding extends ItemSigilBase implements ISigil.Holding {
     public ItemSigilHolding(Item.Properties props) {
         super(props, "holding");
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {NonNullList<ItemStack> inv = getInternalInventory(stack);
         int currentSlot = getCurrentItemOrdinal(stack);
 

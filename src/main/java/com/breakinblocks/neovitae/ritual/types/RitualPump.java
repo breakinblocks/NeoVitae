@@ -8,7 +8,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.ritual.*;
@@ -41,8 +43,7 @@ public class RitualPump extends Ritual {
         BlockEntity tankBe = ctx.level().getBlockEntity(ctx.masterPos().above());
         if (tankBe == null) return;
 
-        var rhFluid = ctx.level().getCapability(Capabilities.Fluid.BLOCK, ctx.masterPos().above(), null);
-        IFluidHandler tank = rhFluid != null ? IFluidHandler.of(rhFluid) : null;
+        ResourceHandler<FluidResource> tank = ctx.level().getCapability(Capabilities.Fluid.BLOCK, ctx.masterPos().above(), null);
         if (tank == null) return;
 
         List<BlockPos> positions = RitualHelper.getRangePositions(ctx.master(), this, PUMP_RANGE, ctx.masterPos());
@@ -61,12 +62,16 @@ public class RitualPump extends Ritual {
                     continue;
                 }
 
-                FluidStack fluidStack = new FluidStack(fluidState.getType(), 1000);
-
-                // Try to insert into tank
-                int filled = tank.fill(fluidStack, IFluidHandler.FluidAction.SIMULATE);
+                FluidResource resource = FluidResource.of(fluidState.getType());
+                int filled;
+                try (Transaction tx = Transaction.openRoot()) {
+                    filled = tank.insert(resource, 1000, tx);
+                }
                 if (filled == 1000) {
-                    tank.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
+                    try (Transaction tx = Transaction.openRoot()) {
+                        tank.insert(resource, 1000, tx);
+                        tx.commit();
+                    }
 
                     // Remove the fluid source
                     if (state.getBlock() instanceof BucketPickup bucketPickup) {

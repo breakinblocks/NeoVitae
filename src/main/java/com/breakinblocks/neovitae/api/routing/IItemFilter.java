@@ -2,7 +2,8 @@ package com.breakinblocks.neovitae.api.routing;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface IItemFilter extends IRoutingFilter {
      * @param itemHandler The item handler to filter
      * @param isFilterOutput True if this is an output filter
      */
-    void initializeFilter(List<IFilterKey> filteredList, BlockEntity tile, IItemHandler itemHandler, boolean isFilterOutput);
+    void initializeFilter(List<IFilterKey> filteredList, BlockEntity tile, ResourceHandler<ItemResource> itemHandler, boolean isFilterOutput);
 
     /**
      * Initializes the filter with just the filter list (no inventory context).

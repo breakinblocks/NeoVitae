@@ -54,8 +54,8 @@ public class SacrificialDaggerItem extends Item {
         }
         return super.getName(stack);
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context,
                                 TooltipDisplay display,
                                 Consumer<Component> tooltip,
@@ -91,7 +91,7 @@ public class SacrificialDaggerItem extends Item {
             }
             if (event.shouldDrainHealth) {
                 player.invulnerableTime = 0;
-                player.hurt(AltarUtil.sacrificeDamage(player), event.hpLost);
+                player.hurtServer((ServerLevel) player.level(), AltarUtil.sacrificeDamage(player), event.hpLost);
             }
             evAdded = event.evAdded;
 

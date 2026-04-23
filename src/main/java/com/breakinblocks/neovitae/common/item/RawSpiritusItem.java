@@ -19,8 +19,8 @@ public class RawSpiritusItem extends Item {
     public RawSpiritusItem(Item.Properties props) {
         super(props.stacksTo(1).component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).component(NVDataComponents.SPIRITUS_AMOUNT, 5D));
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         SpiritusType type = stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT);
         double amount = stack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);

@@ -2,7 +2,8 @@ package com.breakinblocks.neovitae.api.routing;
 
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface IFluidFilter extends IRoutingFilter {
      * @param fluidHandler The fluid handler to filter
      * @param isFilterOutput True if this is an output filter
      */
-    void initializeFilter(List<FluidStack> filteredFluids, BlockEntity tile, IFluidHandler fluidHandler, boolean isFilterOutput);
+    void initializeFilter(List<FluidStack> filteredFluids, BlockEntity tile, ResourceHandler<FluidResource> fluidHandler, boolean isFilterOutput);
 
     /**
      * Initializes the filter with just the filter list (no tank context).

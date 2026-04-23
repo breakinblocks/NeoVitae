@@ -8,7 +8,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRecipe> {
-    public static final RecipeType<TabulaVitaeRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "alchemytable", TabulaVitaeRecipe.class);
+    public static final IRecipeType<TabulaVitaeRecipe> RECIPE_TYPE = IRecipeType.create(NeoVitae.MODID, "alchemytable", TabulaVitaeRecipe.class);
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
 
     private static final int WIDTH = 118;
@@ -90,7 +90,7 @@ public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRec
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, TabulaVitaeRecipe recipe, IFocusGroup focuses) {
         IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 92, 14);
-        output.addItemStack(recipe.getOutput());
+        output.add(recipe.getOutput());
 
         IRecipeSlotBuilder orb = builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 61, 1);
         orb.addItemStacks(getOrbsForTier(recipe.getMinimumTier()));
@@ -99,7 +99,7 @@ public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRec
             int x = index % 3;
             int y = index / 3;
             IRecipeSlotBuilder input = builder.addSlot(RecipeIngredientRole.INPUT, x * 18 + 1, y * 18 + 1);
-            input.addIngredients(recipe.getInput().get(index));
+            input.add(recipe.getInput().get(index));
         }
     }
 
@@ -115,7 +115,7 @@ public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRec
     }
 
     @Override
-    public RecipeType<TabulaVitaeRecipe> getRecipeType() {
+    public IRecipeType<TabulaVitaeRecipe> getRecipeType() {
         return RECIPE_TYPE;
     }
 }

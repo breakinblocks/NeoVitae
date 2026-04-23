@@ -10,7 +10,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -30,7 +30,7 @@ import java.util.Map;
 import net.minecraft.world.item.ItemStackTemplate;
 
 public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
-    public static final RecipeType<AthanorRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "athanor", AthanorRecipe.class);
+    public static final IRecipeType<AthanorRecipe> RECIPE_TYPE = IRecipeType.create(NeoVitae.MODID, "athanor", AthanorRecipe.class);
 
     private static final int WIDTH = 160;
     private static final int HEIGHT = 100;
@@ -74,7 +74,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
     @Override public int getWidth() { return WIDTH; }
     @Override public int getHeight() { return HEIGHT; }
     @Nullable @Override public IDrawable getIcon() { return icon; }
-    @Override public RecipeType<AthanorRecipe> getRecipeType() { return RECIPE_TYPE; }
+    @Override public IRecipeType<AthanorRecipe> getRecipeType() { return RECIPE_TYPE; }
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull AthanorRecipe recipe, @Nonnull IFocusGroup focuses) {
@@ -85,12 +85,12 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
             int row = i / 3;
             IRecipeSlotBuilder s = builder.addSlot(RecipeIngredientRole.INPUT,
                     INPUT_COL + 1 + col * 18, (row == 0 ? ROW0 : ROW1) + 1);
-            s.addIngredients(inputs.get(i));
+            s.add(inputs.get(i));
         }
 
         // Tool
         IRecipeSlotBuilder toolSlot = builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, TOOL_COL + 1, ROW0 + 10);
-        toolSlot.addIngredients(recipe.getTool());
+        toolSlot.add(recipe.getTool());
 
         // Outputs: 2x2 grid
         List<Pair<ItemStackTemplate, Double>> allOutputs = recipe.getAllListedOutputs();
@@ -99,7 +99,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
             int row = i / 2;
             IRecipeSlotBuilder s = builder.addSlot(RecipeIngredientRole.OUTPUT,
                     OUTPUT_COL + 1 + col * 18, (row == 0 ? ROW0 : ROW1) + 1);
-            s.addItemStack(allOutputs.get(i).getFirst().create());
+            s.add(allOutputs.get(i).getFirst().create());
         }
 
         // Fluid input
@@ -116,7 +116,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
         // Fluid output
         recipe.getOutputFluid().ifPresent(fluid -> {
             IRecipeSlotBuilder s = builder.addSlot(RecipeIngredientRole.OUTPUT, OUTPUT_COL + 1, ROW2 + 1);
-            s.addFluidStack(fluid.getFluid(), fluid.getAmount());
+            s.add(fluid.getFluid(), fluid.getAmount());
             s.addRichTooltipCallback((v, t) -> t.add(Component.translatable("jei.neovitae.athanor.mb", fluid.getAmount())));
         });
     }

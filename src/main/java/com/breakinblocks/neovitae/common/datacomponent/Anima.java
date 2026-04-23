@@ -16,6 +16,7 @@ import com.breakinblocks.neovitae.util.BooleanResult;
 
 import java.util.UUID;
 
+import net.minecraft.server.level.ServerLevel;
 public class Anima implements IAnima {
     public static final Codec<Anima> CODEC = RecordCodecBuilder.create(builder -> builder.group(
             UUIDUtil.CODEC.fieldOf("id").forGetter(Anima::getPlayerId),
@@ -111,7 +112,7 @@ public class Anima implements IAnima {
                     int dmg = Math.ceilDiv((int) syphon, 100);
                     user.invulnerableTime = 0;
                     Level level = user.level();
-                    user.hurt(level.damageSources().source(NVDamageSources.SACRIFICE, user), dmg);
+                    user.hurtServer((ServerLevel) user.level(), level.damageSources().source(NVDamageSources.SACRIFICE, user), dmg);
                 }
             }
         }

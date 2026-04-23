@@ -4,7 +4,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.api.routing.*;
 import com.breakinblocks.neovitae.util.Utils;
 
@@ -12,25 +14,24 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Blacklist filter implementation.
- * Blocks items that match the filter list.
+ * Blacklist filter implementation. Blocks items that match the filter list.
  */
 public class BlacklistItemFilter implements IItemFilter {
 
     protected List<IFilterKey> requestList;
     protected BlockEntity accessedTile;
-    protected IItemHandler itemHandler;
+    protected ResourceHandler<ItemResource> itemHandler;
 
     @Override
-    public void initializeFilter(List<IFilterKey> filteredList, BlockEntity tile, IItemHandler itemHandler, boolean isFilterOutput) {
+    public void initializeFilter(List<IFilterKey> filteredList, BlockEntity tile, ResourceHandler<ItemResource> itemHandler, boolean isFilterOutput) {
         this.accessedTile = tile;
         this.itemHandler = itemHandler;
 
         if (isFilterOutput) {
             requestList = filteredList;
 
-            for (int slot = 0; slot < itemHandler.getSlots(); slot++) {
-                ItemStack checkedStack = itemHandler.getStackInSlot(slot);
+            for (int slot = 0; slot < itemHandler.size(); slot++) {
+                ItemStack checkedStack = stackAt(slot);
                 if (checkedStack.isEmpty()) continue;
 
                 int stackSize = checkedStack.getCount();
@@ -49,8 +50,8 @@ public class BlacklistItemFilter implements IItemFilter {
                 filterStack.setCount(filterStack.getCount() * -1);
             }
 
-            for (int slot = 0; slot < itemHandler.getSlots(); slot++) {
-                ItemStack checkedStack = itemHandler.getStackInSlot(slot);
+            for (int slot = 0; slot < itemHandler.size(); slot++) {
+                ItemStack checkedStack = stackAt(slot);
                 if (checkedStack.isEmpty()) continue;
 
                 int stackSize = checkedStack.getCount();
@@ -62,12 +63,10 @@ public class BlacklistItemFilter implements IItemFilter {
                 }
             }
         }
-        // Note: Blacklist filter doesn't remove empty entries
     }
 
     @Override
     public ItemStack transferStackThroughOutputFilter(ItemStack inputStack) {
-        // If the stack matches the blacklist, reject it
         for (IFilterKey filterStack : requestList) {
             if (doStacksMatch(filterStack, inputStack)) {
                 return inputStack;
@@ -112,18 +111,18 @@ public class BlacklistItemFilter implements IItemFilter {
         int totalChange = 0;
 
         slots:
-        for (int slot = 0; slot < itemHandler.getSlots(); slot++) {
-            ItemStack inputStack = itemHandler.getStackInSlot(slot);
-            if (inputStack.isEmpty() || itemHandler.extractItem(slot, inputStack.getCount(), true).isEmpty()) {
-                continue;
-            }
+        for (int slot = 0; slot < itemHandler.size(); slot++) {
+            ItemStack inputStack = stackAt(slot);
+            if (inputStack.isEmpty()) continue;
+
+            int simulated = simulateExtract(slot, inputStack.getCount());
+            if (simulated <= 0) continue;
 
             int allowedAmount = Math.min(inputStack.getCount(), maxTransfer);
 
-            // Check if it matches the blacklist
             for (IFilterKey filterStack : requestList) {
                 if (doStacksMatch(filterStack, inputStack)) {
-                    continue slots; // Skip blacklisted items
+                    continue slots;
                 }
             }
 
@@ -140,7 +139,7 @@ public class BlacklistItemFilter implements IItemFilter {
                 continue;
             }
 
-            itemHandler.extractItem(slot, changeAmount, false);
+            extractCommitted(slot, changeAmount);
 
             Iterator<IFilterKey> itr = requestList.iterator();
             while (itr.hasNext()) {
@@ -166,9 +165,30 @@ public class BlacklistItemFilter implements IItemFilter {
         return totalChange;
     }
 
+    private ItemStack stackAt(int slot) {
+        ItemResource r = itemHandler.getResource(slot);
+        return r.isEmpty() ? ItemStack.EMPTY : r.toStack(itemHandler.getAmountAsInt(slot));
+    }
+
+    private int simulateExtract(int slot, int amount) {
+        ItemResource r = itemHandler.getResource(slot);
+        if (r.isEmpty()) return 0;
+        try (Transaction tx = Transaction.openRoot()) {
+            return itemHandler.extract(slot, r, amount, tx);
+        }
+    }
+
+    private void extractCommitted(int slot, int amount) {
+        ItemResource r = itemHandler.getResource(slot);
+        if (r.isEmpty()) return;
+        try (Transaction tx = Transaction.openRoot()) {
+            itemHandler.extract(slot, r, amount, tx);
+            tx.commit();
+        }
+    }
+
     @Override
     public boolean doesStackPassFilter(ItemStack testStack) {
-        // Blacklist: passes if it does NOT match
         for (IFilterKey filterStack : requestList) {
             if (doStacksMatch(filterStack, testStack)) {
                 return false;

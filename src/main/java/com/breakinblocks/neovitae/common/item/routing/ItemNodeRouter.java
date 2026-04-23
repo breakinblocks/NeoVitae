@@ -29,8 +29,8 @@ public class ItemNodeRouter extends Item {
     public ItemNodeRouter(Item.Properties props) {
         super(props.stacksTo(1));
     }
-
     @Override
+    @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         BlockPos coords = getBlockPos(stack);
         if (coords != null && !coords.equals(BlockPos.ZERO)) {

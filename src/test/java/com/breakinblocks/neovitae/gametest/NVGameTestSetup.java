@@ -21,8 +21,7 @@ public class NVGameTestSetup {
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TestEnergyBlock.TestEnergyBlockEntity>> TEST_ENERGY_BE_TYPE =
             BLOCK_ENTITIES.register("test_energy_block",
-                    () -> BlockEntityType.Builder.of(TestEnergyBlock.TestEnergyBlockEntity::new,
-                            TEST_ENERGY_BLOCK.get()).build(null));
+                    () -> new BlockEntityType<>(TestEnergyBlock.TestEnergyBlockEntity::new, TEST_ENERGY_BLOCK.get()));
 
     public static void register(IEventBus modBus) {
         BLOCKS.register(modBus);
@@ -34,7 +33,7 @@ public class NVGameTestSetup {
         event.registerBlockEntity(
                 Capabilities.Energy.BLOCK,
                 TEST_ENERGY_BE_TYPE.get(),
-                TestEnergyBlock.TestEnergyBlockEntity::getEnergyStorage
+                TestEnergyBlock.TestEnergyBlockEntity::getEnergyHandler
         );
     }
 }

@@ -1,28 +1,32 @@
 package com.breakinblocks.neovitae.gametest;
 
-import net.neoforged.neoforge.event.RegisterGameTestsEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.RegisterGameTestsEvent;
+import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.gametest.base.NVTestRegistrar;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = NeoVitae.MODID)
 public class NVGameTestRegistration {
 
     @SubscribeEvent
     public static void registerTests(RegisterGameTestsEvent event) {
-        event.register(RoutingNodeTests.class);
-        event.register(AraVitaeTests.class);
-        event.register(HellfireForgeTests.class);
-        event.register(AthanorTests.class);
-        event.register(TabulaVitaeTests.class);
-        event.register(SpiritusTests.class);
-        event.register(AlchemyArrayTests.class);
-        event.register(ImperfectRitualTests.class);
-        event.register(AnimaTests.class);
-        event.register(MinorSystemTests.class);
-        event.register(MultiblockTests.class);
-        event.register(DataValidationTests.class);
-        event.register(SacrificeTests.class);
+        NVTestRegistrar r = new NVTestRegistrar(event);
 
-        event.register(BloodOrbTests.class);
+        AlchemyArrayTests.register(r);
+        AnimaTests.register(r);
+        AraVitaeTests.register(r);
+        AthanorTests.register(r);
+        BloodOrbTests.register(r);
+        CapabilityTests.register(r);
+        DataValidationTests.register(r);
+        HellfireForgeTests.register(r);
+        ImperfectRitualTests.register(r);
+        MinorSystemTests.register(r);
+        MultiblockTests.register(r);
+        RoutingNodeTests.register(r);
+        SacrificeTests.register(r);
+        SpiritusTests.register(r);
+        TabulaVitaeTests.register(r);
     }
 }

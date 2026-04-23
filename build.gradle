@@ -16,12 +16,10 @@ group = mod_group_id
 repositories {
     mavenLocal()
     maven {
-        // location of the maven that hosts JEI files since January 2023
         name = "Jared's maven"
         url = "https://maven.blamejared.com/"
     }
     maven {
-        // location of a maven mirror for JEI files, as a fallback
         name = "ModMaven"
         url = "https://modmaven.dev"
     }
@@ -57,21 +55,7 @@ sourceSets {
     }
 }
 
-// TODO(phase17): GameTest framework had a major API overhaul in 26.1 (GameTest class
-// relocated, GameTestHelper.getBlockEntity signature changed to take a BlockEntityType,
-// etc.). 261 test-source errors remain; disable compileTestJava until test migration.
-tasks.named('compileTestJava') { enabled = false }
 tasks.named('test') { enabled = false }
-
-// Phase 15: datagen source set re-enabled for active migration.
-// TODO(phase15): datagen source set has ~988 errors — 261 modonomicon book entries plus
-// tag/recipe/loot providers need the 26.1 DSL migration (TagsProvider, RecipeProvider.Runner,
-// loot + book DSL changes). runData still works through the separate client-side gen-data task
-// that uses the pre-baked JSON in src/generated/resources.
-// tasks.matching { it.name == 'compileDatagenJava' }.configureEach { enabled = false }
-// tasks.matching { it.name == 'datagenClasses' }.configureEach { enabled = false }
-
-// API classes are now in the main source set
 
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(25)
@@ -117,8 +101,8 @@ neoForge {
 
         clientData {
             clientData()
-            sourceSet = sourceSets.datagen // this makes the intellij configuration work
-            loadedMods = [ mods.data ] // this prevents from main loading on mod and data since default is all configured mods
+            sourceSet = sourceSets.datagen
+            loadedMods = [ mods.data ]
             gameDirectory = project.file('run-data')
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
         }
@@ -137,15 +121,11 @@ configurations {
 }
 
 dependencies {
-    // Geckolib - Animated entity rendering (26.1.2 release via CurseMaven)
     implementation("curse.maven:geckolib-388172:7913641")
 
-    // Jade - WAILA fork for block/entity tooltips (optional dev dependency)
-    // NeoForge 26.1 release (26.0.5); bump file ID when 26.0.10+ IDs are known.
     compileOnly("curse.maven:jade-324717:7815579")
     localRuntime("curse.maven:jade-324717:7815579")
 
-    // Modonomicon - In-game documentation (26.1.2 release via CurseMaven)
     compileOnly("curse.maven:modonomicon-538392:7930699")
     localRuntime("curse.maven:modonomicon-538392:7930699")
 
@@ -235,7 +215,7 @@ tasks.register('publishMod') {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+    options.encoding = 'UTF-8'
     options.compilerArgs << '-Xlint:deprecation'
     options.compilerArgs << '-Xmaxerrs' << '5000'
     options.compilerArgs << '-Xmaxwarns' << '5000'

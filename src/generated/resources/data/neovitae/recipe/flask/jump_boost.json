@@ -3,12 +3,8 @@
   "baseDuration": 3600,
   "effect": "minecraft:jump_boost",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:rabbit_foot"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:rabbit_foot"
   ],
   "syphon": 500,
   "ticks": 200,

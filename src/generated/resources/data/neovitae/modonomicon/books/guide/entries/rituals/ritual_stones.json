@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_stones.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:water_ritual_stone"
-  },
+  "icon": "neovitae:water_ritual_stone",
   "name": "book.neovitae.guide.rituals.ritual_stones.name",
   "pages": [
     {

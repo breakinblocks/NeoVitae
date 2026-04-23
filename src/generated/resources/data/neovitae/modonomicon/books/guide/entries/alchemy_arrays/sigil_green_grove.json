@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_green_grove.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:sigil_green_grove"
-  },
+  "icon": "neovitae:sigil_green_grove",
   "name": "book.neovitae.guide.alchemy_arrays.sigil_green_grove.name",
   "pages": [
     {

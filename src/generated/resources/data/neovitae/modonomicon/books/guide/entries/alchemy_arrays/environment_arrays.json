@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.environment_arrays.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:snowball"
-  },
+  "icon": "minecraft:snowball",
   "name": "book.neovitae.guide.alchemy_arrays.environment_arrays.name",
   "pages": [
     {

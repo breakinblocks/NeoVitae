@@ -2,15 +2,9 @@
   "type": "neovitae:hellfire_forge",
   "drain": 2.0,
   "inputs": [
-    {
-      "tag": "c:ingots/copper"
-    },
-    {
-      "tag": "c:ingots/copper"
-    },
-    {
-      "tag": "c:gems/amethyst"
-    }
+    "#c:ingots/copper",
+    "#c:ingots/copper",
+    "#c:gems/amethyst"
   ],
   "minDrain": 32.0,
   "output": {

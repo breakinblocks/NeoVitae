@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "tag": "c:dusts/redstone"
-  },
-  "baseinput": {
-    "item": "minecraft:hopper"
-  },
+  "addedinput": "#c:dusts/redstone",
+  "baseinput": "minecraft:hopper",
   "effect_type": "collection",
   "texture": "neovitae:textures/models/alchemyarrays/collectionarray.png"
 }

@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.spirit_siphon_array.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:imbued_slate"
-  },
+  "icon": "neovitae:imbued_slate",
   "name": "book.neovitae.guide.alchemy_arrays.spirit_siphon_array.name",
   "pages": [
     {

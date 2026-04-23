@@ -18,7 +18,7 @@
             50.0
           ]
         },
-        "attribute": "minecraft:generic.max_health",
+        "attribute": "minecraft:max_health",
         "id": "neovitae:health",
         "operation": "add_value"
       }

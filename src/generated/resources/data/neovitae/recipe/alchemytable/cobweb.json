@@ -1,15 +1,9 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:strings"
-    },
-    {
-      "tag": "c:strings"
-    },
-    {
-      "tag": "c:strings"
-    }
+    "#c:strings",
+    "#c:strings",
+    "#c:strings"
   ],
   "output": {
     "count": 1,

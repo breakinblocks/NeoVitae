@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:voiding_anointment"
-    },
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "item": "minecraft:netherrack"
-    },
-    {
-      "item": "minecraft:cobbled_deepslate"
-    }
+    "neovitae:voiding_anointment",
+    "neovitae:tau_oil",
+    "minecraft:netherrack",
+    "minecraft:cobbled_deepslate"
   ],
   "output": {
     "count": 1,

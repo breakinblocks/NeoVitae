@@ -1,8 +1,6 @@
 {
   "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "neovitae:dungeon_polished_c"
-  },
+  "ingredient": "neovitae:dungeon_polished_c",
   "result": {
     "count": 2,
     "id": "neovitae:dungeon_polished_slab_c"

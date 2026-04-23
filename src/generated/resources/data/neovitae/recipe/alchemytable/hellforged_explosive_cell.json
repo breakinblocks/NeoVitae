@@ -1,24 +1,12 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:gunpowders"
-    },
-    {
-      "tag": "c:dusts/sulfur"
-    },
-    {
-      "tag": "c:dusts/redstone"
-    },
-    {
-      "tag": "c:gems/quartz"
-    },
-    {
-      "tag": "c:dusts/hellforged"
-    },
-    {
-      "tag": "c:dusts/coal"
-    }
+    "#c:gunpowders",
+    "#c:dusts/sulfur",
+    "#c:dusts/redstone",
+    "#c:gems/quartz",
+    "#c:dusts/hellforged",
+    "#c:dusts/coal"
   ],
   "output": {
     "count": 1,

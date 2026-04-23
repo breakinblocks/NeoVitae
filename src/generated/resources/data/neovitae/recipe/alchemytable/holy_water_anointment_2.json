@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:holy_water_anointment"
-    },
-    {
-      "item": "neovitae:strong_tau"
-    },
-    {
-      "item": "minecraft:glistering_melon_slice"
-    },
-    {
-      "tag": "c:gems/quartz"
-    }
+    "neovitae:holy_water_anointment",
+    "neovitae:strong_tau",
+    "minecraft:glistering_melon_slice",
+    "#c:gems/quartz"
   ],
   "output": {
     "count": 1,

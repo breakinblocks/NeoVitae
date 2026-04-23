@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "a": {
-      "tag": "c:stones"
-    },
-    "b": {
-      "item": "minecraft:bucket"
-    },
-    "c": {
-      "item": "neovitae:rune_blank"
-    },
-    "d": {
-      "item": "neovitae:imbued_slate"
-    }
+    "a": "#c:stones",
+    "b": "minecraft:bucket",
+    "c": "neovitae:rune_blank",
+    "d": "neovitae:imbued_slate"
   },
   "pattern": [
     "aba",

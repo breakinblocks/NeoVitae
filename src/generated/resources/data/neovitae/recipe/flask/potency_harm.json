@@ -4,9 +4,7 @@
   "amplifier": 1,
   "effect": "minecraft:instant_damage",
   "input": [
-    {
-      "item": "neovitae:mundane_power_catalyst"
-    }
+    "neovitae:mundane_power_catalyst"
   ],
   "syphon": 200,
   "ticks": 100,

@@ -9,25 +9,15 @@
   ],
   "input_fluid": {
     "amount": 1000,
-    "ingredient": {
-      "fluid": "neovitae:essentia_vitae_source"
-    }
+    "ingredient": "neovitae:essentia_vitae_source"
   },
   "inputs": [
-    {
-      "item": "neovitae:reinforced_slate"
-    },
-    {
-      "item": "minecraft:rotten_flesh"
-    },
-    {
-      "item": "minecraft:bone"
-    }
+    "neovitae:reinforced_slate",
+    "minecraft:rotten_flesh",
+    "minecraft:bone"
   ],
   "spiritus_costs": {
     "default": 20.0
   },
-  "tool": {
-    "tag": "neovitae:athanor_tool/resonator"
-  }
+  "tool": "#neovitae:athanor_tool/resonator"
 }

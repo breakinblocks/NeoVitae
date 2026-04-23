@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "tag": "c:dusts/redstone"
-  },
-  "baseinput": {
-    "item": "neovitae:imbued_slate"
-  },
+  "addedinput": "#c:dusts/redstone",
+  "baseinput": "neovitae:imbued_slate",
   "effect_type": "spirit_siphon",
   "texture": "neovitae:textures/models/alchemyarrays/spiritsiphonarray.png"
 }

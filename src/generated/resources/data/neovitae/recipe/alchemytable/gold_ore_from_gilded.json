@@ -1,9 +1,7 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "minecraft:gilded_blackstone"
-    }
+    "minecraft:gilded_blackstone"
   ],
   "output": {
     "count": 9,

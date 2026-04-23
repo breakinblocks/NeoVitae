@@ -3,12 +3,8 @@
   "baseDuration": 3600,
   "effect": "minecraft:water_breathing",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:pufferfish"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:pufferfish"
   ],
   "syphon": 500,
   "ticks": 200,

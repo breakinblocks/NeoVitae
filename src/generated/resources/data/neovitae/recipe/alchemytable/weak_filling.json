@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:sugar_cane"
-    },
-    {
-      "item": "minecraft:crimson_fungus"
-    },
-    {
-      "item": "minecraft:warped_fungus"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:sugar_cane",
+    "minecraft:crimson_fungus",
+    "minecraft:warped_fungus"
   ],
   "output": {
     "count": 1,

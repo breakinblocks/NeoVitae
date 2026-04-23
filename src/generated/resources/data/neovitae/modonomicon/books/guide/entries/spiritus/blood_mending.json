@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.spiritus.blood_mending.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:reinforced_slate"
-  },
+  "icon": "neovitae:reinforced_slate",
   "name": "book.neovitae.guide.spiritus.blood_mending.name",
   "pages": [
     {

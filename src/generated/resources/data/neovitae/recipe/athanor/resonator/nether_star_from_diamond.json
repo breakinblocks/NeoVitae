@@ -9,22 +9,14 @@
   ],
   "input_fluid": {
     "amount": 4000,
-    "ingredient": {
-      "fluid": "neovitae:essentia_vitae_source"
-    }
+    "ingredient": "neovitae:essentia_vitae_source"
   },
   "inputs": [
-    {
-      "item": "minecraft:diamond"
-    },
-    {
-      "item": "neovitae:ingot_hellforged"
-    }
+    "minecraft:diamond",
+    "neovitae:ingot_hellforged"
   ],
   "spiritus_costs": {
     "default": 50.0
   },
-  "tool": {
-    "tag": "neovitae:athanor_tool/resonator"
-  }
+  "tool": "#neovitae:athanor_tool/resonator"
 }

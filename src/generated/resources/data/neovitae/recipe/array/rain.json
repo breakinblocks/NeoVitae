@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "tag": "c:gems/lapis"
-  },
-  "baseinput": {
-    "item": "minecraft:water_bucket"
-  },
+  "addedinput": "#c:gems/lapis",
+  "baseinput": "minecraft:water_bucket",
   "effect_type": "rain",
   "texture": "neovitae:textures/models/alchemyarrays/rainarray.png"
 }

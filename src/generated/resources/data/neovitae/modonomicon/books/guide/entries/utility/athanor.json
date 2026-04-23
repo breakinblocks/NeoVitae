@@ -4,9 +4,7 @@
   "category": "utility",
   "description": "book.neovitae.guide.utility.athanor.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:athanor"
-  },
+  "icon": "neovitae:athanor",
   "name": "book.neovitae.guide.utility.athanor.name",
   "pages": [
     {

@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.tabula_vitae.hidden_knowledge_anointment.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:hidden_knowledge_anointment"
-  },
+  "icon": "neovitae:hidden_knowledge_anointment",
   "name": "book.neovitae.guide.tabula_vitae.hidden_knowledge_anointment.name",
   "pages": [
     {

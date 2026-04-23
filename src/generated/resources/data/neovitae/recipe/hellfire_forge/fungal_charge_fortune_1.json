@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 1.0,
   "inputs": [
-    {
-      "item": "neovitae:fungal_charge"
-    },
-    {
-      "tag": "c:crops/nether_wart"
-    },
-    {
-      "tag": "c:dusts/redstone"
-    },
-    {
-      "tag": "c:dusts/coal"
-    }
+    "neovitae:fungal_charge",
+    "#c:crops/nether_wart",
+    "#c:dusts/redstone",
+    "#c:dusts/coal"
   ],
   "minDrain": 60.0,
   "output": {

@@ -1,9 +1,7 @@
 {
   "type": "neovitae:meteor",
   "explosion": 30.0,
-  "input": {
-    "tag": "c:stones"
-  },
+  "input": "#c:stones",
   "layers": [
     {
       "fill": "minecraft:stone",

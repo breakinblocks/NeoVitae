@@ -3,15 +3,11 @@
   "category": "building",
   "key": {
     "c": {
-      "type": "neovitae:orb_tier",
+      "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 3
     },
-    "o": {
-      "tag": "c:obsidians"
-    },
-    "s": {
-      "item": "neovitae:ritual_stone"
-    }
+    "o": "#c:obsidians",
+    "s": "neovitae:ritual_stone"
   },
   "pattern": [
     "oso",

@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "tag": "c:storage_blocks/iron"
-  },
-  "baseinput": {
-    "item": "minecraft:coal"
-  },
+  "addedinput": "#c:storage_blocks/iron",
+  "baseinput": "minecraft:coal",
   "effect_type": "furnace",
   "texture": "neovitae:textures/models/alchemyarrays/furnacearray.png"
 }

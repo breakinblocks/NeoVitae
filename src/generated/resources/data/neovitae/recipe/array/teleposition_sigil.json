@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "neovitae:demonic_slate"
-  },
-  "baseinput": {
-    "item": "neovitae:reagent_teleposition"
-  },
+  "addedinput": "neovitae:demonic_slate",
+  "baseinput": "neovitae:reagent_teleposition",
   "output": {
     "count": 1,
     "id": "neovitae:sigil_teleposition"

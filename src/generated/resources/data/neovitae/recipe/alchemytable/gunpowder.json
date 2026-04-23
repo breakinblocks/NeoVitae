@@ -1,15 +1,9 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:dusts/sulfur"
-    },
-    {
-      "tag": "c:dusts/saltpeter"
-    },
-    {
-      "tag": "minecraft:coals"
-    }
+    "#c:dusts/sulfur",
+    "#c:dusts/saltpeter",
+    "#minecraft:coals"
   ],
   "output": {
     "count": 3,

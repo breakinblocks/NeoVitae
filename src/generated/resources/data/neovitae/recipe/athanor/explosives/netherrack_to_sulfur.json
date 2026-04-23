@@ -8,15 +8,11 @@
     }
   ],
   "inputs": [
-    {
-      "tag": "c:netherracks"
-    }
+    "#c:netherracks"
   ],
   "output_fluid": {
     "amount": 50,
     "id": "minecraft:lava"
   },
-  "tool": {
-    "tag": "neovitae:athanor_tool/explosives"
-  }
+  "tool": "#neovitae:athanor_tool/explosives"
 }

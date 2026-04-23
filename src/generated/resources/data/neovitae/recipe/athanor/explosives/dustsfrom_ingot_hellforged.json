@@ -8,11 +8,7 @@
     }
   ],
   "inputs": [
-    {
-      "tag": "c:ingots/hellforged"
-    }
+    "#c:ingots/hellforged"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/explosives"
-  }
+  "tool": "#neovitae:athanor_tool/explosives"
 }

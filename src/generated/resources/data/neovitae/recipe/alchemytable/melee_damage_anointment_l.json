@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:melee_anointment"
-    },
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "item": "minecraft:blaze_powder"
-    },
-    {
-      "tag": "c:gems/quartz"
-    }
+    "neovitae:melee_anointment",
+    "neovitae:tau_oil",
+    "minecraft:blaze_powder",
+    "#c:gems/quartz"
   ],
   "output": {
     "count": 1,

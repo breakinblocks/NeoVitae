@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 2.5,
   "inputs": [
-    {
-      "tag": "c:storage_blocks/copper"
-    },
-    {
-      "item": "minecraft:charcoal"
-    },
-    {
-      "tag": "minecraft:crimson_stems"
-    },
-    {
-      "tag": "c:mushrooms"
-    }
+    "#c:storage_blocks/copper",
+    "minecraft:charcoal",
+    "#minecraft:crimson_stems",
+    "#c:mushrooms"
   ],
   "minDrain": 80.0,
   "output": {

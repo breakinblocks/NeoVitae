@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.spiritus.will_catalysts.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:raw_catalyst"
-  },
+  "icon": "neovitae:raw_catalyst",
   "name": "book.neovitae.guide.spiritus.will_catalysts.name",
   "pages": [
     {

@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.spiritus.crystallized_will.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:default_crystal"
-  },
+  "icon": "neovitae:default_crystal",
   "name": "book.neovitae.guide.spiritus.crystallized_will.name",
   "pages": [
     {

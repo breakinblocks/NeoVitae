@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "minecraft:bucket"
-    },
-    {
-      "tag": "c:strings"
-    },
-    {
-      "tag": "c:strings"
-    },
-    {
-      "tag": "c:gunpowders"
-    }
+    "minecraft:bucket",
+    "#c:strings",
+    "#c:strings",
+    "#c:gunpowders"
   ],
   "output": {
     "count": 1,

@@ -1,21 +1,11 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:voiding_anointment"
-    },
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "item": "minecraft:cobbled_deepslate"
-    },
-    {
-      "item": "neovitae:hellforged_dust"
-    },
-    {
-      "item": "minecraft:amethyst_shard"
-    }
+    "neovitae:voiding_anointment",
+    "neovitae:tau_oil",
+    "minecraft:cobbled_deepslate",
+    "neovitae:hellforged_dust",
+    "minecraft:amethyst_shard"
   ],
   "output": {
     "count": 1,

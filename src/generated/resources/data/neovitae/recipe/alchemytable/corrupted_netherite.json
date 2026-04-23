@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:fragments/netherite_scrap"
-    },
-    {
-      "item": "neovitae:corrupted_dust"
-    },
-    {
-      "item": "neovitae:corrupted_dust"
-    },
-    {
-      "item": "neovitae:corrupted_dust"
-    }
+    "#c:fragments/netherite_scrap",
+    "neovitae:corrupted_dust",
+    "neovitae:corrupted_dust",
+    "neovitae:corrupted_dust"
   ],
   "output": {
     "count": 2,

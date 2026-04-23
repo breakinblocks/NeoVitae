@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_felling.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:oak_sapling"
-  },
+  "icon": "minecraft:oak_sapling",
   "name": "book.neovitae.guide.rituals.ritual_felling.name",
   "pages": [
     {

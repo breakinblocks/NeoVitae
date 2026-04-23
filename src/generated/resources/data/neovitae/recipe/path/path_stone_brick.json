@@ -2,20 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
+    "#c:stones",
+    "#c:stones",
+    "#c:stones",
+    "#c:stones",
     {
-      "tag": "c:stones"
-    },
-    {
-      "tag": "c:stones"
-    },
-    {
-      "tag": "c:stones"
-    },
-    {
-      "tag": "c:stones"
-    },
-    {
-      "type": "neovitae:orb_tier",
+      "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 3
     }
   ],

@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "f": {
-      "item": "minecraft:furnace"
-    },
-    "g": {
-      "tag": "c:ingots/gold"
-    },
-    "s": {
-      "tag": "c:stones"
-    }
+    "f": "minecraft:furnace",
+    "g": "#c:ingots/gold",
+    "s": "#c:stones"
   },
   "pattern": [
     "s s",

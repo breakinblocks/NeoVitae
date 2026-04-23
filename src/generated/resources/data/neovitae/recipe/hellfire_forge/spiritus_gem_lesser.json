@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 20.0,
   "inputs": [
-    {
-      "item": "neovitae:spiritus_gem_petty"
-    },
-    {
-      "tag": "c:gems/diamond"
-    },
-    {
-      "tag": "c:storage_blocks/redstone"
-    },
-    {
-      "tag": "c:storage_blocks/lapis"
-    }
+    "neovitae:spiritus_gem_petty",
+    "#c:gems/diamond",
+    "#c:storage_blocks/redstone",
+    "#c:storage_blocks/lapis"
   ],
   "minDrain": 60.0,
   "output": {

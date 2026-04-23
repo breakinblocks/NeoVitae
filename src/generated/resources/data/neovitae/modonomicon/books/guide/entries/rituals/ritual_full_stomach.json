@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_full_stomach.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:cake"
-  },
+  "icon": "minecraft:cake",
   "name": "book.neovitae.guide.rituals.ritual_full_stomach.name",
   "pages": [
     {

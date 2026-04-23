@@ -1,21 +1,11 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:bow_power_anointment"
-    },
-    {
-      "item": "neovitae:strong_tau"
-    },
-    {
-      "item": "neovitae:hellforged_dust"
-    },
-    {
-      "item": "minecraft:glow_berries"
-    },
-    {
-      "tag": "c:ingots/iron"
-    }
+    "neovitae:bow_power_anointment",
+    "neovitae:strong_tau",
+    "neovitae:hellforged_dust",
+    "minecraft:glow_berries",
+    "#c:ingots/iron"
   ],
   "output": {
     "count": 1,

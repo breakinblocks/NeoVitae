@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "neovitae:raw_demonite_block"
-    }
+    "neovitae:raw_demonite_block"
   ],
   "result": {
     "count": 9,

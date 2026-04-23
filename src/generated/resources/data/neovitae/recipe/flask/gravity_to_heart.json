@@ -1,9 +1,7 @@
 {
   "type": "neovitae:flask_effect_transform",
   "input": [
-    {
-      "item": "neovitae:combinational_catalyst"
-    }
+    "neovitae:combinational_catalyst"
   ],
   "inputEffects": [
     "neovitae:gravity",

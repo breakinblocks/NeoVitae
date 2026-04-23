@@ -3,12 +3,8 @@
   "baseDuration": 3600,
   "effect": "neovitae:bounce",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:slime_ball"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:slime_ball"
   ],
   "syphon": 500,
   "ticks": 200,

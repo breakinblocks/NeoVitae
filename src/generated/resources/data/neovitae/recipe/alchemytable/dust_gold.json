@@ -1,12 +1,8 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:ores/gold"
-    },
-    {
-      "tag": "neovitae:athanor_tool/cutting_fluids"
-    }
+    "#c:ores/gold",
+    "#neovitae:athanor_tool/cutting_fluids"
   ],
   "output": {
     "count": 2,

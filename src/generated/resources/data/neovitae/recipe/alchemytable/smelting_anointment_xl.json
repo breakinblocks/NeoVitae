@@ -1,21 +1,11 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:smelting_anointment"
-    },
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "tag": "minecraft:coals"
-    },
-    {
-      "item": "neovitae:hellforged_dust"
-    },
-    {
-      "item": "minecraft:amethyst_shard"
-    }
+    "neovitae:smelting_anointment",
+    "neovitae:tau_oil",
+    "#minecraft:coals",
+    "neovitae:hellforged_dust",
+    "minecraft:amethyst_shard"
   ],
   "output": {
     "count": 1,

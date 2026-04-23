@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_holding.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:sigil_holding"
-  },
+  "icon": "neovitae:sigil_holding",
   "name": "book.neovitae.guide.alchemy_arrays.sigil_holding.name",
   "pages": [
     {

@@ -3,12 +3,8 @@
   "baseDuration": 3600,
   "effect": "minecraft:fire_resistance",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:magma_cream"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:magma_cream"
   ],
   "syphon": 500,
   "ticks": 200,

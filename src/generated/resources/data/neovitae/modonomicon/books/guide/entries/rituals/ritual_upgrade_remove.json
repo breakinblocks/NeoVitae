@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_upgrade_remove.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:upgrade_tome"
-  },
+  "icon": "neovitae:upgrade_tome",
   "name": "book.neovitae.guide.rituals.ritual_upgrade_remove.name",
   "pages": [
     {

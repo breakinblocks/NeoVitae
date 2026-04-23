@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 2.5,
   "inputs": [
-    {
-      "tag": "c:storage_blocks/copper"
-    },
-    {
-      "item": "minecraft:charcoal"
-    },
-    {
-      "tag": "minecraft:logs"
-    },
-    {
-      "tag": "minecraft:planks"
-    }
+    "#c:storage_blocks/copper",
+    "minecraft:charcoal",
+    "#minecraft:logs",
+    "#minecraft:planks"
   ],
   "minDrain": 80.0,
   "output": {

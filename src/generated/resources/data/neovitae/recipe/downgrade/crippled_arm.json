@@ -1,7 +1,5 @@
 {
   "type": "neovitae:livingdowngrade",
-  "input": {
-    "item": "minecraft:shield"
-  },
+  "input": "minecraft:shield",
   "livingarmour": "neovitae:crippled_arm"
 }

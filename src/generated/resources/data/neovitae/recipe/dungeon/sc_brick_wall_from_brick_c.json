@@ -1,8 +1,6 @@
 {
   "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "neovitae:dungeon_brick1_c"
-  },
+  "ingredient": "neovitae:dungeon_brick1_c",
   "result": {
     "count": 1,
     "id": "neovitae:dungeon_brick_wall_c"

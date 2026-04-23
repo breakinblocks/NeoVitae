@@ -3,9 +3,7 @@
   "bloodNeeded": 5000,
   "craftSpeed": 15,
   "drainSpeed": 10,
-  "input": {
-    "item": "neovitae:reinforced_slate"
-  },
+  "input": "neovitae:reinforced_slate",
   "minTier": 2,
   "output": {
     "count": 1,

@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "h": {
-      "item": "neovitae:hellforged_parts"
-    },
-    "n": {
-      "item": "minecraft:netherite_scrap"
-    },
-    "r": {
-      "item": "neovitae:rune_orb"
-    },
-    "s": {
-      "tag": "minecraft:stone_crafting_materials"
-    }
+    "h": "neovitae:hellforged_parts",
+    "n": "minecraft:netherite_scrap",
+    "r": "neovitae:rune_orb",
+    "s": "#minecraft:stone_crafting_materials"
   },
   "pattern": [
     "nhn",

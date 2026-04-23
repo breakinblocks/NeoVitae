@@ -1,12 +1,8 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "minecraft:lava_bucket"
-    },
-    {
-      "tag": "c:cobblestones"
-    }
+    "minecraft:lava_bucket",
+    "#c:cobblestones"
   ],
   "output": {
     "count": 4,

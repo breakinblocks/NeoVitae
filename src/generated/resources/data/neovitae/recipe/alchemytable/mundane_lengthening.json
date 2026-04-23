@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:weak_tau"
-    },
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "tag": "c:dusts/redstone"
-    },
-    {
-      "tag": "c:dusts/redstone"
-    }
+    "neovitae:weak_tau",
+    "neovitae:simple_catalyst",
+    "#c:dusts/redstone",
+    "#c:dusts/redstone"
   ],
   "output": {
     "count": 1,

@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.tabula_vitae.looting_anointment.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:looting_anointment"
-  },
+  "icon": "neovitae:looting_anointment",
   "name": "book.neovitae.guide.tabula_vitae.looting_anointment.name",
   "pages": [
     {

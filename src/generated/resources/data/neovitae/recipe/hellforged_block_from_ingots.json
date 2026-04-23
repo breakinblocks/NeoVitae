@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "i": {
-      "tag": "c:ingots/hellforged"
-    }
+    "i": "#c:ingots/hellforged"
   },
   "pattern": [
     "iii",

@@ -4,9 +4,7 @@
   "category": "utility",
   "description": "book.neovitae.guide.utility.book_experience.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:experience_tome"
-  },
+  "icon": "neovitae:experience_tome",
   "name": "book.neovitae.guide.utility.book_experience.name",
   "pages": [
     {

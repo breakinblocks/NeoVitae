@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_void.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:sigil_void"
-  },
+  "icon": "neovitae:sigil_void",
   "name": "book.neovitae.guide.alchemy_arrays.sigil_void.name",
   "pages": [
     {

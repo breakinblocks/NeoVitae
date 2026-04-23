@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.spiritus.aura_gauge.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:spiritus_gauge"
-  },
+  "icon": "neovitae:spiritus_gauge",
   "name": "book.neovitae.guide.spiritus.aura_gauge.name",
   "pages": [
     {

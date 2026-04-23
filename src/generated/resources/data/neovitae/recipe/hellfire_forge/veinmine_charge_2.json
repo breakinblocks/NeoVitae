@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 2.5,
   "inputs": [
-    {
-      "tag": "c:storage_blocks/copper"
-    },
-    {
-      "item": "minecraft:charcoal"
-    },
-    {
-      "tag": "c:sandstone/blocks"
-    },
-    {
-      "tag": "c:sands"
-    }
+    "#c:storage_blocks/copper",
+    "minecraft:charcoal",
+    "#c:sandstone/blocks",
+    "#c:sands"
   ],
   "minDrain": 80.0,
   "output": {

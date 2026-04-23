@@ -3,9 +3,7 @@
   "bloodNeeded": 2000,
   "craftSpeed": 10,
   "drainSpeed": 10,
-  "input": {
-    "tag": "c:ender_pearls"
-  },
+  "input": "#c:ender_pearls",
   "minTier": 3,
   "output": {
     "count": 1,

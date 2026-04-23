@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_regeneration.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:golden_apple"
-  },
+  "icon": "minecraft:golden_apple",
   "name": "book.neovitae.guide.rituals.ritual_regeneration.name",
   "pages": [
     {

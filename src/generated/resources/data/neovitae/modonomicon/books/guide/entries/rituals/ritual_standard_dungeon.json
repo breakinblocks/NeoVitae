@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_standard_dungeon.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:ingot_hellforged"
-  },
+  "icon": "neovitae:ingot_hellforged",
   "name": "book.neovitae.guide.rituals.ritual_standard_dungeon.name",
   "pages": [
     {

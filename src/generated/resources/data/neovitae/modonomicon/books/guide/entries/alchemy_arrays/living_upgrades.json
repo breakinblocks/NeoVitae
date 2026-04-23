@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.living_upgrades.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:upgrade_tome"
-  },
+  "icon": "neovitae:upgrade_tome",
   "name": "book.neovitae.guide.alchemy_arrays.living_upgrades.name",
   "pages": [
     {

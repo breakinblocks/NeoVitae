@@ -1,15 +1,9 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:plant_oil"
-    },
-    {
-      "item": "neovitae:plant_oil"
-    },
-    {
-      "tag": "c:dusts/coal"
-    }
+    "neovitae:plant_oil",
+    "neovitae:plant_oil",
+    "#c:dusts/coal"
   ],
   "output": {
     "count": 3,

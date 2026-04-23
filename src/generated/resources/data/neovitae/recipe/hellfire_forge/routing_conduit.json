@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 5.0,
   "inputs": [
-    {
-      "tag": "c:stones"
-    },
-    {
-      "tag": "c:stones"
-    },
-    {
-      "tag": "c:ingots/iron"
-    },
-    {
-      "tag": "c:glass_blocks"
-    }
+    "#c:stones",
+    "#c:stones",
+    "#c:ingots/iron",
+    "#c:glass_blocks"
   ],
   "minDrain": 100.0,
   "output": {

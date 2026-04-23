@@ -1,12 +1,8 @@
 {
   "type": "neovitae:flask_effect_transform",
   "input": [
-    {
-      "tag": "c:gems/diamond"
-    },
-    {
-      "item": "minecraft:crying_obsidian"
-    }
+    "#c:gems/diamond",
+    "minecraft:crying_obsidian"
   ],
   "inputEffects": [
     "neovitae:hard_cloak"

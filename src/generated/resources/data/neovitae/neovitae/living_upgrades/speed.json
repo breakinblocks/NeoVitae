@@ -19,7 +19,7 @@
             1.5
           ]
         },
-        "attribute": "minecraft:generic.movement_speed",
+        "attribute": "minecraft:movement_speed",
         "id": "neovitae:speed",
         "operation": "add_multiplied_base"
       }

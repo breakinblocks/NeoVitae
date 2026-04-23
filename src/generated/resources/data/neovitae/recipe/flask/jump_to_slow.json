@@ -1,9 +1,7 @@
 {
   "type": "neovitae:flask_effect_transform",
   "input": [
-    {
-      "item": "minecraft:fermented_spider_eye"
-    }
+    "minecraft:fermented_spider_eye"
   ],
   "inputEffects": [
     "minecraft:jump_boost"

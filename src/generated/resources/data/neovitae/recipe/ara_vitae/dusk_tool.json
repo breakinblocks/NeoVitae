@@ -3,9 +3,7 @@
   "bloodNeeded": 2000,
   "craftSpeed": 20,
   "drainSpeed": 10,
-  "input": {
-    "tag": "c:storage_blocks/coal"
-  },
+  "input": "#c:storage_blocks/coal",
   "minTier": 3,
   "output": {
     "count": 1,

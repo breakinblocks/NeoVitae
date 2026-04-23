@@ -1,21 +1,11 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:fortune_anointment"
-    },
-    {
-      "item": "neovitae:strong_tau"
-    },
-    {
-      "item": "neovitae:hellforged_dust"
-    },
-    {
-      "item": "minecraft:glow_berries"
-    },
-    {
-      "tag": "c:dusts/coal"
-    }
+    "neovitae:fortune_anointment",
+    "neovitae:strong_tau",
+    "neovitae:hellforged_dust",
+    "minecraft:glow_berries",
+    "#c:dusts/coal"
   ],
   "output": {
     "count": 1,

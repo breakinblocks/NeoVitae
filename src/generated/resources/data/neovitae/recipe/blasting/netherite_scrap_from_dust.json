@@ -3,9 +3,7 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 2.0,
-  "ingredient": {
-    "item": "neovitae:netherite_scrap_dust"
-  },
+  "ingredient": "neovitae:netherite_scrap_dust",
   "result": {
     "count": 1,
     "id": "minecraft:netherite_scrap"

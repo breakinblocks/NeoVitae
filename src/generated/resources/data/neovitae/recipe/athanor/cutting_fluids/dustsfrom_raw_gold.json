@@ -16,11 +16,7 @@
     }
   ],
   "inputs": [
-    {
-      "tag": "c:raw_materials/gold"
-    }
+    "#c:raw_materials/gold"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/cutting_fluids"
-  }
+  "tool": "#neovitae:athanor_tool/cutting_fluids"
 }

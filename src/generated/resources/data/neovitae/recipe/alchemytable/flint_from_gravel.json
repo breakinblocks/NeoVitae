@@ -1,12 +1,8 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "minecraft:gravel"
-    },
-    {
-      "item": "minecraft:flint"
-    }
+    "minecraft:gravel",
+    "minecraft:flint"
   ],
   "output": {
     "count": 2,

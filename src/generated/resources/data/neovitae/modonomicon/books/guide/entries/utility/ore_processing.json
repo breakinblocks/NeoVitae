@@ -4,9 +4,7 @@
   "category": "utility",
   "description": "book.neovitae.guide.utility.ore_processing.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:basic_cutting_fluid"
-  },
+  "icon": "neovitae:basic_cutting_fluid",
   "name": "book.neovitae.guide.utility.ore_processing.name",
   "pages": [
     {

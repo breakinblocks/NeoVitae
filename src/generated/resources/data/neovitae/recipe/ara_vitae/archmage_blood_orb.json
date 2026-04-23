@@ -3,9 +3,7 @@
   "bloodNeeded": 80000,
   "craftSpeed": 50,
   "drainSpeed": 100,
-  "input": {
-    "item": "neovitae:hellforged_block"
-  },
+  "input": "neovitae:hellforged_block",
   "minTier": 4,
   "output": {
     "count": 1,

@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:slate_vial"
-    },
-    {
-      "tag": "c:crops/nether_wart"
-    },
-    {
-      "tag": "c:dusts/redstone"
-    },
-    {
-      "tag": "c:dusts/coal"
-    }
+    "neovitae:slate_vial",
+    "#c:crops/nether_wart",
+    "#c:dusts/redstone",
+    "#c:dusts/coal"
   ],
   "output": {
     "count": 1,

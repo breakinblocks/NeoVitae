@@ -4,9 +4,7 @@
   "category": "utility",
   "description": "book.neovitae.guide.utility.lava_crystal.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:lava_crystal"
-  },
+  "icon": "neovitae:lava_crystal",
   "name": "book.neovitae.guide.utility.lava_crystal.name",
   "pages": [
     {

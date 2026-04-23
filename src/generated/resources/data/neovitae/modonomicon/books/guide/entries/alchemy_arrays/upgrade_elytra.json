@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_elytra.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:elytra"
-  },
+  "icon": "minecraft:elytra",
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_elytra.name",
   "pages": [
     {

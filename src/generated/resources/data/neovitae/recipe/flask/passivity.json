@@ -3,12 +3,8 @@
   "baseDuration": 3600,
   "effect": "neovitae:passivity",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:honeycomb"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:honeycomb"
   ],
   "syphon": 500,
   "ticks": 200,

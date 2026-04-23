@@ -1,9 +1,7 @@
 {
   "type": "neovitae:meteor",
   "explosion": 8.0,
-  "input": {
-    "tag": "c:gems/diamond"
-  },
+  "input": "#c:gems/diamond",
   "layers": [
     {
       "fill": "minecraft:diamond_ore",

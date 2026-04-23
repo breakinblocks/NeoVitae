@@ -1,15 +1,9 @@
 {
   "type": "neovitae:hellfire_forge_upgrade",
   "catalysts": [
-    {
-      "item": "neovitae:reinforced_slate"
-    },
-    {
-      "item": "minecraft:lapis_lazuli"
-    },
-    {
-      "item": "minecraft:nether_wart"
-    }
+    "neovitae:reinforced_slate",
+    "minecraft:lapis_lazuli",
+    "minecraft:nether_wart"
   ],
   "drain": 400.0,
   "minDrain": 200.0

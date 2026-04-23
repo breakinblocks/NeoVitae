@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_suppression.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:sigil_suppression"
-  },
+  "icon": "neovitae:sigil_suppression",
   "name": "book.neovitae.guide.alchemy_arrays.sigil_suppression.name",
   "pages": [
     {

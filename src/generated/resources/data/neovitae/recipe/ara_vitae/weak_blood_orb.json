@@ -3,9 +3,7 @@
   "bloodNeeded": 2000,
   "craftSpeed": 5,
   "drainSpeed": 1,
-  "input": {
-    "tag": "c:gems/diamond"
-  },
+  "input": "#c:gems/diamond",
   "minTier": 0,
   "output": {
     "count": 1,

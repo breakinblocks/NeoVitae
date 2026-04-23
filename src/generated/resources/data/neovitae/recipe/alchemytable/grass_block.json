@@ -1,15 +1,9 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "minecraft:dirt"
-    },
-    {
-      "item": "minecraft:bone_meal"
-    },
-    {
-      "item": "minecraft:wheat_seeds"
-    }
+    "minecraft:dirt",
+    "minecraft:bone_meal",
+    "minecraft:wheat_seeds"
   ],
   "output": {
     "count": 1,

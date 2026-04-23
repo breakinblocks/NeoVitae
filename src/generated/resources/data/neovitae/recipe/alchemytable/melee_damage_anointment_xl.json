@@ -1,21 +1,11 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:melee_anointment"
-    },
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "tag": "c:gems/quartz"
-    },
-    {
-      "item": "neovitae:hellforged_dust"
-    },
-    {
-      "item": "minecraft:amethyst_shard"
-    }
+    "neovitae:melee_anointment",
+    "neovitae:tau_oil",
+    "#c:gems/quartz",
+    "neovitae:hellforged_dust",
+    "minecraft:amethyst_shard"
   ],
   "output": {
     "count": 1,

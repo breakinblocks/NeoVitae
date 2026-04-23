@@ -16,11 +16,7 @@
     }
   ],
   "inputs": [
-    {
-      "tag": "c:raw_materials/hellforged"
-    }
+    "#c:raw_materials/hellforged"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/explosives"
-  }
+  "tool": "#neovitae:athanor_tool/explosives"
 }

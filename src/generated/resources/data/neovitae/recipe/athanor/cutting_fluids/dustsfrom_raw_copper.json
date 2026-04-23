@@ -16,11 +16,7 @@
     }
   ],
   "inputs": [
-    {
-      "tag": "c:raw_materials/copper"
-    }
+    "#c:raw_materials/copper"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/cutting_fluids"
-  }
+  "tool": "#neovitae:athanor_tool/cutting_fluids"
 }

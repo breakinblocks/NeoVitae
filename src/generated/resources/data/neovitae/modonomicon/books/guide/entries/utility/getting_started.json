@@ -4,9 +4,7 @@
   "category": "utility",
   "description": "book.neovitae.guide.utility.getting_started.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:sacrificial_dagger"
-  },
+  "icon": "neovitae:sacrificial_dagger",
   "name": "book.neovitae.guide.utility.getting_started.name",
   "pages": [
     {

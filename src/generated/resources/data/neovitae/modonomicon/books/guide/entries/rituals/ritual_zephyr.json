@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_zephyr.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:hopper"
-  },
+  "icon": "minecraft:hopper",
   "name": "book.neovitae.guide.rituals.ritual_zephyr.name",
   "pages": [
     {

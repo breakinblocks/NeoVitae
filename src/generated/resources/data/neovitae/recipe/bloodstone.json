@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "b": {
-      "item": "neovitae:essentia_vitae_bucket"
-    },
-    "s": {
-      "item": "minecraft:stone"
-    }
+    "b": "neovitae:essentia_vitae_bucket",
+    "s": "minecraft:stone"
   },
   "pattern": [
     "sss",

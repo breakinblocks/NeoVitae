@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "minecraft:sea_pickle"
-  },
-  "baseinput": {
-    "item": "minecraft:lapis_block"
-  },
+  "addedinput": "minecraft:sea_pickle",
+  "baseinput": "minecraft:lapis_block",
   "effect_type": "endless_fountain",
   "texture": "neovitae:textures/models/alchemyarrays/fountainarray.png"
 }

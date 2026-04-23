@@ -4,9 +4,7 @@
   "category": "utility",
   "description": "book.neovitae.guide.utility.hydration.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:primitive_hydration_cell"
-  },
+  "icon": "neovitae:primitive_hydration_cell",
   "name": "book.neovitae.guide.utility.hydration.name",
   "pages": [
     {

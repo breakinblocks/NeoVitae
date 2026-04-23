@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 80.0,
   "inputs": [
-    {
-      "item": "neovitae:blight_marrow"
-    },
-    {
-      "item": "neovitae:blight_marrow"
-    },
-    {
-      "item": "neovitae:corrosive_catalyst"
-    },
-    {
-      "item": "neovitae:demonic_slate"
-    }
+    "neovitae:blight_marrow",
+    "neovitae:blight_marrow",
+    "neovitae:corrosive_catalyst",
+    "neovitae:demonic_slate"
   ],
   "minDrain": 800.0,
   "output": {

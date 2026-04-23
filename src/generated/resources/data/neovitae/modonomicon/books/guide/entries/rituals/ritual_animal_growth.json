@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_animal_growth.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:white_wool"
-  },
+  "icon": "minecraft:white_wool",
   "name": "book.neovitae.guide.rituals.ritual_animal_growth.name",
   "pages": [
     {

@@ -13,7 +13,7 @@
             10.0
           ]
         },
-        "attribute": "minecraft:generic.luck",
+        "attribute": "minecraft:luck",
         "id": "neovitae:luck",
         "operation": "add_value"
       }

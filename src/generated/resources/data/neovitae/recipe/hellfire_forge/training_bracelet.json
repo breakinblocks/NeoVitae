@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 5.0,
   "inputs": [
-    {
-      "item": "minecraft:gold_ingot"
-    },
-    {
-      "item": "minecraft:gold_ingot"
-    },
-    {
-      "item": "minecraft:string"
-    },
-    {
-      "item": "neovitae:raw_spiritus"
-    }
+    "minecraft:gold_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:string",
+    "neovitae:raw_spiritus"
   ],
   "minDrain": 10.0,
   "output": {

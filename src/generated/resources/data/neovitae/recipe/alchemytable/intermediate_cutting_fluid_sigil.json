@@ -1,24 +1,12 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "tag": "c:dusts/glowstone"
-    },
-    {
-      "tag": "c:gunpowders"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "tag": "c:dusts/sulfur"
-    },
-    {
-      "item": "neovitae:sigil_water"
-    }
+    "neovitae:tau_oil",
+    "#c:dusts/glowstone",
+    "#c:gunpowders",
+    "minecraft:sugar",
+    "#c:dusts/sulfur",
+    "neovitae:sigil_water"
   ],
   "output": {
     "count": 1,

@@ -1,8 +1,6 @@
 {
   "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "neovitae:dungeon_stone_st"
-  },
+  "ingredient": "neovitae:dungeon_stone_st",
   "result": {
     "count": 1,
     "id": "neovitae:dungeon_tile_wall_st"

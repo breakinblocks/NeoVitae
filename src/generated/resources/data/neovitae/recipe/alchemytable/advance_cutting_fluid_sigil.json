@@ -1,24 +1,12 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "tag": "c:dusts/hellforged"
-    },
-    {
-      "item": "minecraft:glow_berries"
-    },
-    {
-      "item": "neovitae:saltpeter"
-    },
-    {
-      "tag": "c:dusts/sulfur"
-    },
-    {
-      "item": "neovitae:sigil_water"
-    }
+    "neovitae:tau_oil",
+    "#c:dusts/hellforged",
+    "minecraft:glow_berries",
+    "neovitae:saltpeter",
+    "#c:dusts/sulfur",
+    "neovitae:sigil_water"
   ],
   "output": {
     "count": 1,

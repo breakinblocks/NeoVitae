@@ -2,12 +2,8 @@
   "type": "neovitae:hellfire_forge",
   "drain": 10.0,
   "inputs": [
-    {
-      "item": "neovitae:amethyst_throwing_dagger"
-    },
-    {
-      "item": "minecraft:glass_bottle"
-    }
+    "neovitae:amethyst_throwing_dagger",
+    "minecraft:glass_bottle"
   ],
   "minDrain": 200.0,
   "output": {

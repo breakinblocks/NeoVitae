@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_soft_fall.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:feather"
-  },
+  "icon": "minecraft:feather",
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_soft_fall.name",
   "pages": [
     {

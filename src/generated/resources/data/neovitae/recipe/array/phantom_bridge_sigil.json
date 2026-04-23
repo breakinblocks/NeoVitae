@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "neovitae:imbued_slate"
-  },
-  "baseinput": {
-    "item": "neovitae:reagent_phantom_bridge"
-  },
+  "addedinput": "neovitae:imbued_slate",
+  "baseinput": "neovitae:reagent_phantom_bridge",
   "output": {
     "count": 1,
     "id": "neovitae:sigil_phantom_bridge"

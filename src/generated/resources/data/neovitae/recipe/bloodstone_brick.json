@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "b": {
-      "item": "neovitae:weak_blood_shard"
-    },
-    "s": {
-      "tag": "c:stones"
-    }
+    "b": "neovitae:weak_blood_shard",
+    "s": "#c:stones"
   },
   "pattern": [
     "ss",

@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "neovitae:reinforced_slate"
-  },
-  "baseinput": {
-    "item": "neovitae:reagent_frost"
-  },
+  "addedinput": "neovitae:reinforced_slate",
+  "baseinput": "neovitae:reagent_frost",
   "output": {
     "count": 1,
     "id": "neovitae:sigil_frost"

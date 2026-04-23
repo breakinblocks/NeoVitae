@@ -1,21 +1,11 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "tag": "c:dusts/redstone"
-    },
-    {
-      "tag": "c:dusts/glowstone"
-    },
-    {
-      "tag": "c:gunpowders"
-    },
-    {
-      "tag": "c:crops/nether_wart"
-    }
+    "minecraft:sugar",
+    "#c:dusts/redstone",
+    "#c:dusts/glowstone",
+    "#c:gunpowders",
+    "#c:crops/nether_wart"
   ],
   "output": {
     "count": 2,

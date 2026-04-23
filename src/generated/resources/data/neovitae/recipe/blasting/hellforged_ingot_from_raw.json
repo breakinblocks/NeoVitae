@@ -3,9 +3,7 @@
   "category": "misc",
   "cookingtime": 100,
   "experience": 0.0,
-  "ingredient": {
-    "item": "neovitae:raw_demonite"
-  },
+  "ingredient": "neovitae:raw_demonite",
   "result": {
     "count": 1,
     "id": "neovitae:ingot_hellforged"

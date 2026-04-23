@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:gunpowders"
-    },
-    {
-      "tag": "c:dusts/redstone"
-    },
-    {
-      "item": "neovitae:weak_tau"
-    },
-    {
-      "tag": "c:dusts/coal"
-    }
+    "#c:gunpowders",
+    "#c:dusts/redstone",
+    "neovitae:weak_tau",
+    "#c:dusts/coal"
   ],
   "output": {
     "count": 1,

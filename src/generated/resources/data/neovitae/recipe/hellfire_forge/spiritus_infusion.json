@@ -1,8 +1,6 @@
 {
   "type": "neovitae:hellfire_forge_spiritus_infusion",
   "drain": 0.0,
-  "gemInput": {
-    "tag": "neovitae:spiritus_gems"
-  },
+  "gemInput": "#neovitae:spiritus_gems",
   "minDrain": 1.0
 }

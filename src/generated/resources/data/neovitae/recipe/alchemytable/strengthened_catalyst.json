@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "tag": "c:dusts/copper"
-    },
-    {
-      "item": "minecraft:glow_berries"
-    },
-    {
-      "item": "minecraft:cobbled_deepslate"
-    }
+    "neovitae:simple_catalyst",
+    "#c:dusts/copper",
+    "minecraft:glow_berries",
+    "minecraft:cobbled_deepslate"
   ],
   "output": {
     "count": 1,

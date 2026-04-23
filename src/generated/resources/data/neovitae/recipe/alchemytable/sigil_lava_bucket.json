@@ -1,12 +1,8 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:sigil_lava"
-    },
-    {
-      "item": "minecraft:bucket"
-    }
+    "neovitae:sigil_lava",
+    "minecraft:bucket"
   ],
   "output": {
     "count": 1,

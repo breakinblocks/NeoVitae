@@ -8,14 +8,8 @@
     }
   ],
   "inputs": [
-    {
-      "item": "minecraft:smooth_stone"
-    },
-    {
-      "item": "neovitae:base_spiritus_soul_destructive"
-    }
+    "minecraft:smooth_stone",
+    "neovitae:base_spiritus_soul_destructive"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/resonator"
-  }
+  "tool": "#neovitae:athanor_tool/resonator"
 }

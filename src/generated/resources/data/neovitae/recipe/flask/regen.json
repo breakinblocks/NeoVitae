@@ -3,12 +3,8 @@
   "baseDuration": 900,
   "effect": "minecraft:regeneration",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:ghast_tear"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:ghast_tear"
   ],
   "syphon": 500,
   "ticks": 200,

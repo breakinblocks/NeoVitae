@@ -2,16 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "a": {
-      "tag": "c:stones"
-    },
+    "a": "#c:stones",
     "o": {
-      "type": "neovitae:orb_tier",
+      "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 1
     },
-    "s": {
-      "item": "neovitae:blank_slate"
-    }
+    "s": "neovitae:blank_slate"
   },
   "pattern": [
     "asa",

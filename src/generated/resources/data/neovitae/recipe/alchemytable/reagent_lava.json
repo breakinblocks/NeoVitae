@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "minecraft:lava_bucket"
-    },
-    {
-      "tag": "c:dusts/redstone"
-    },
-    {
-      "tag": "c:cobblestones"
-    },
-    {
-      "item": "minecraft:coal_block"
-    }
+    "minecraft:lava_bucket",
+    "#c:dusts/redstone",
+    "#c:cobblestones",
+    "minecraft:coal_block"
   ],
   "output": {
     "count": 1,

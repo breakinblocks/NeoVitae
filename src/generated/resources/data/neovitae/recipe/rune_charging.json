@@ -2,22 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "G": {
-      "tag": "c:dusts/glowstone"
-    },
-    "R": {
-      "tag": "c:dusts/redstone"
-    },
+    "G": "#c:dusts/glowstone",
+    "R": "#c:dusts/redstone",
     "e": {
-      "type": "neovitae:orb_tier",
+      "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 4
     },
-    "r": {
-      "item": "neovitae:rune_blank"
-    },
-    "s": {
-      "item": "neovitae:demonic_slate"
-    }
+    "r": "neovitae:rune_blank",
+    "s": "neovitae:demonic_slate"
   },
   "pattern": [
     "RsR",

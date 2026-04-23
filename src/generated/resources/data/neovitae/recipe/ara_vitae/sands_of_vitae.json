@@ -3,9 +3,7 @@
   "bloodNeeded": 250,
   "craftSpeed": 5,
   "drainSpeed": 1,
-  "input": {
-    "item": "minecraft:soul_sand"
-  },
+  "input": "minecraft:soul_sand",
   "minTier": 0,
   "output": {
     "count": 1,

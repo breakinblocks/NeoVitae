@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.tabula_vitae.fortune_anointment.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:fortune_anointment"
-  },
+  "icon": "neovitae:fortune_anointment",
   "name": "book.neovitae.guide.tabula_vitae.fortune_anointment.name",
   "pages": [
     {

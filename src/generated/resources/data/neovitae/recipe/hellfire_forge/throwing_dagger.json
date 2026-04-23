@@ -2,15 +2,9 @@
   "type": "neovitae:hellfire_forge",
   "drain": 5.0,
   "inputs": [
-    {
-      "tag": "c:ingots/iron"
-    },
-    {
-      "tag": "c:ingots/iron"
-    },
-    {
-      "tag": "c:strings"
-    }
+    "#c:ingots/iron",
+    "#c:ingots/iron",
+    "#c:strings"
   ],
   "minDrain": 32.0,
   "output": {

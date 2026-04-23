@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "neovitae:reinforced_slate"
-  },
-  "baseinput": {
-    "item": "minecraft:lead"
-  },
+  "addedinput": "neovitae:reinforced_slate",
+  "baseinput": "minecraft:lead",
   "effect_type": "loyal_friends",
   "texture": "neovitae:textures/models/alchemyarrays/defaultarray.png"
 }

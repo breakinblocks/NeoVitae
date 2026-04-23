@@ -1,21 +1,11 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:silk_touch_anointment"
-    },
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "item": "minecraft:cobweb"
-    },
-    {
-      "item": "neovitae:hellforged_dust"
-    },
-    {
-      "item": "minecraft:amethyst_shard"
-    }
+    "neovitae:silk_touch_anointment",
+    "neovitae:tau_oil",
+    "minecraft:cobweb",
+    "neovitae:hellforged_dust",
+    "minecraft:amethyst_shard"
   ],
   "output": {
     "count": 1,

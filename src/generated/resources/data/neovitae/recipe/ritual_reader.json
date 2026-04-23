@@ -2,19 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "g": {
-      "tag": "c:glass_blocks"
-    },
-    "i": {
-      "tag": "c:ingots/gold"
-    },
+    "g": "#c:glass_blocks",
+    "i": "#c:ingots/gold",
     "o": {
-      "type": "neovitae:orb_tier",
+      "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 4
     },
-    "s": {
-      "item": "neovitae:demonic_slate"
-    }
+    "s": "neovitae:demonic_slate"
   },
   "pattern": [
     "gog",

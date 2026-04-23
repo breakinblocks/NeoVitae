@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:hidden_knowledge_anointment"
-    },
-    {
-      "item": "neovitae:strong_tau"
-    },
-    {
-      "item": "minecraft:glass_bottle"
-    },
-    {
-      "item": "minecraft:enchanted_book"
-    }
+    "neovitae:hidden_knowledge_anointment",
+    "neovitae:strong_tau",
+    "minecraft:glass_bottle",
+    "minecraft:enchanted_book"
   ],
   "output": {
     "count": 1,

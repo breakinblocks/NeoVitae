@@ -3,12 +3,8 @@
   "baseDuration": 3600,
   "effect": "neovitae:hard_cloak",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:obsidian"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:obsidian"
   ],
   "syphon": 500,
   "ticks": 200,

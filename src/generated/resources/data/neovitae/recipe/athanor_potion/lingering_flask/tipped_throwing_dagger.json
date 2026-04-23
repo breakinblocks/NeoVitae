@@ -7,10 +7,6 @@
       "id": "neovitae:tipped_throwing_dagger"
     }
   ],
-  "input": {
-    "item": "neovitae:amethyst_throwing_dagger"
-  },
-  "tool": {
-    "tag": "neovitae:athanor_tool/lingering_flask"
-  }
+  "input": "neovitae:amethyst_throwing_dagger",
+  "tool": "#neovitae:athanor_tool/lingering_flask"
 }

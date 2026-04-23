@@ -4,9 +4,7 @@
   "category": "dungeons",
   "description": "book.neovitae.guide.dungeons.demon_drops.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:cinder_heart_fragment"
-  },
+  "icon": "neovitae:cinder_heart_fragment",
   "name": "book.neovitae.guide.dungeons.demon_drops.name",
   "pages": [
     {

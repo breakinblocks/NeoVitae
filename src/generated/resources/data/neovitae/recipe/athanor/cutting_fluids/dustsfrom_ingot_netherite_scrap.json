@@ -8,11 +8,7 @@
     }
   ],
   "inputs": [
-    {
-      "item": "minecraft:netherite_scrap"
-    }
+    "minecraft:netherite_scrap"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/cutting_fluids"
-  }
+  "tool": "#neovitae:athanor_tool/cutting_fluids"
 }

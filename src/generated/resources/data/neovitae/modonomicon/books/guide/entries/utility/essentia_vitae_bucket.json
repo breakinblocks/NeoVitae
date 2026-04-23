@@ -4,9 +4,7 @@
   "category": "utility",
   "description": "book.neovitae.guide.utility.essentia_vitae_bucket.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:essentia_vitae_bucket"
-  },
+  "icon": "neovitae:essentia_vitae_bucket",
   "name": "book.neovitae.guide.utility.essentia_vitae_bucket.name",
   "pages": [
     {

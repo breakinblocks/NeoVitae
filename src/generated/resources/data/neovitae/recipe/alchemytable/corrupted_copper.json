@@ -1,12 +1,8 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:fragments/copper"
-    },
-    {
-      "item": "neovitae:corrupted_dust"
-    }
+    "#c:fragments/copper",
+    "neovitae:corrupted_dust"
   ],
   "output": {
     "count": 2,

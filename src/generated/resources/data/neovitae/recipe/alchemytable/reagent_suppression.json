@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:teleposer"
-    },
-    {
-      "item": "neovitae:sigil_void"
-    },
-    {
-      "tag": "c:ingots/gold"
-    },
-    {
-      "item": "minecraft:bucket"
-    }
+    "neovitae:teleposer",
+    "neovitae:sigil_void",
+    "#c:ingots/gold",
+    "minecraft:bucket"
   ],
   "output": {
     "count": 1,

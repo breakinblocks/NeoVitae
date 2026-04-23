@@ -1,9 +1,7 @@
 {
   "type": "neovitae:flask_fill",
   "input": [
-    {
-      "item": "neovitae:standard_filling_agent"
-    }
+    "neovitae:standard_filling_agent"
   ],
   "max": 3,
   "syphon": 3000,

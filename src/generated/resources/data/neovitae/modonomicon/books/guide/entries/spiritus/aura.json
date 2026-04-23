@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.spiritus.aura.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:vas_maleficum"
-  },
+  "icon": "neovitae:vas_maleficum",
   "name": "book.neovitae.guide.spiritus.aura.name",
   "pages": [
     {

@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_gift_of_ignis.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:blaze_powder"
-  },
+  "icon": "minecraft:blaze_powder",
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_gift_of_ignis.name",
   "pages": [
     {

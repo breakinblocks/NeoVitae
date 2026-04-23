@@ -1,15 +1,9 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:sands"
-    },
-    {
-      "tag": "c:sands"
-    },
-    {
-      "item": "neovitae:sigil_water"
-    }
+    "#c:sands",
+    "#c:sands",
+    "neovitae:sigil_water"
   ],
   "output": {
     "count": 2,

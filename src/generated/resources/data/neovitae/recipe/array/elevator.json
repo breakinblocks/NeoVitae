@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "tag": "c:dusts/redstone"
-  },
-  "baseinput": {
-    "tag": "c:ender_pearls"
-  },
+  "addedinput": "#c:dusts/redstone",
+  "baseinput": "#c:ender_pearls",
   "effect_type": "elevator",
   "texture": "neovitae:textures/models/alchemyarrays/elevatorarray.png"
 }

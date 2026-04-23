@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 20.0,
   "inputs": [
-    {
-      "tag": "c:crops/nether_wart"
-    },
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "tag": "c:dusts/sulfur"
-    },
-    {
-      "item": "minecraft:wheat_seeds"
-    }
+    "#c:crops/nether_wart",
+    "neovitae:tau_oil",
+    "#c:dusts/sulfur",
+    "minecraft:wheat_seeds"
   ],
   "minDrain": 400.0,
   "output": {

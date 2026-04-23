@@ -2,15 +2,9 @@
   "type": "neovitae:hellfire_forge",
   "drain": 10.0,
   "inputs": [
-    {
-      "tag": "c:ingots/iron"
-    },
-    {
-      "tag": "c:ingots/iron"
-    },
-    {
-      "tag": "c:nuggets/gold"
-    }
+    "#c:ingots/iron",
+    "#c:ingots/iron",
+    "#c:nuggets/gold"
   ],
   "minDrain": 100.0,
   "output": {

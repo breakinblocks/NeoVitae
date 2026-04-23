@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_speed.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:sugar"
-  },
+  "icon": "minecraft:sugar",
   "name": "book.neovitae.guide.rituals.ritual_speed.name",
   "pages": [
     {

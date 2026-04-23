@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.tabula_vitae.bow_power_anointment.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:bow_power_anointment"
-  },
+  "icon": "neovitae:bow_power_anointment",
   "name": "book.neovitae.guide.tabula_vitae.bow_power_anointment.name",
   "pages": [
     {

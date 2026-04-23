@@ -18,7 +18,7 @@
             7.0
           ]
         },
-        "attribute": "minecraft:generic.attack_damage",
+        "attribute": "minecraft:attack_damage",
         "id": "neovitae:melee_damage",
         "operation": "add_value"
       }

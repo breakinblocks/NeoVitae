@@ -18,7 +18,7 @@
             1.3
           ]
         },
-        "attribute": "minecraft:generic.jump_strength",
+        "attribute": "minecraft:jump_strength",
         "id": "neovitae:jump",
         "operation": "add_multiplied_base"
       },
@@ -39,7 +39,7 @@
             -0.95
           ]
         },
-        "attribute": "minecraft:generic.fall_damage_multiplier",
+        "attribute": "minecraft:fall_damage_multiplier",
         "id": "neovitae:jump",
         "operation": "add_multiplied_base"
       }

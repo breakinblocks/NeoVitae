@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_charging_strike.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:golden_axe"
-  },
+  "icon": "minecraft:golden_axe",
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_charging_strike.name",
   "pages": [
     {

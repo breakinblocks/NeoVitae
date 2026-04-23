@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "minecraft:torchflower"
-  },
-  "baseinput": {
-    "item": "minecraft:bone_meal"
-  },
+  "addedinput": "minecraft:torchflower",
+  "baseinput": "minecraft:bone_meal",
   "effect_type": "growth",
   "texture": "neovitae:textures/models/alchemyarrays/growtharray.png"
 }

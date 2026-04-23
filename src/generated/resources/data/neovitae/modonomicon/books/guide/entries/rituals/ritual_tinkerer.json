@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_tinkerer.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:ritual_reader"
-  },
+  "icon": "neovitae:ritual_reader",
   "name": "book.neovitae.guide.rituals.ritual_tinkerer.name",
   "pages": [
     {

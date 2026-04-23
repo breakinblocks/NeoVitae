@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "tag": "c:gems/lapis"
-  },
-  "baseinput": {
-    "item": "minecraft:snowball"
-  },
+  "addedinput": "#c:gems/lapis",
+  "baseinput": "minecraft:snowball",
   "effect_type": "freeze",
   "texture": "neovitae:textures/models/alchemyarrays/freezearray.png"
 }

@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "neovitae:imbued_slate"
-  },
-  "baseinput": {
-    "item": "minecraft:ender_eye"
-  },
+  "addedinput": "neovitae:imbued_slate",
+  "baseinput": "minecraft:ender_eye",
   "output": {
     "count": 1,
     "id": "neovitae:sigil_bound_treasures"

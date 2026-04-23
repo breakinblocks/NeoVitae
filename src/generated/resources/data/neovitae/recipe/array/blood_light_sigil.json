@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "neovitae:imbued_slate"
-  },
-  "baseinput": {
-    "item": "neovitae:reagent_blood_light"
-  },
+  "addedinput": "neovitae:imbued_slate",
+  "baseinput": "neovitae:reagent_blood_light",
   "output": {
     "count": 1,
     "id": "neovitae:sigil_blood_light"

@@ -3,9 +3,7 @@
   "bloodNeeded": 40000,
   "craftSpeed": 30,
   "drainSpeed": 50,
-  "input": {
-    "item": "neovitae:weak_blood_shard"
-  },
+  "input": "neovitae:weak_blood_shard",
   "minTier": 3,
   "output": {
     "count": 1,

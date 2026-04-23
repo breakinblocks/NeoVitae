@@ -1,9 +1,7 @@
 {
   "type": "neovitae:flask_effect_transform",
   "input": [
-    {
-      "item": "minecraft:cobweb"
-    }
+    "minecraft:cobweb"
   ],
   "inputEffects": [
     "minecraft:jump_boost"

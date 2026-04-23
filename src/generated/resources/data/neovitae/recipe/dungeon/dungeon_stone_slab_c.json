@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "s": {
-      "item": "neovitae:dungeon_stone_c"
-    }
+    "s": "neovitae:dungeon_stone_c"
   },
   "pattern": [
     "sss"

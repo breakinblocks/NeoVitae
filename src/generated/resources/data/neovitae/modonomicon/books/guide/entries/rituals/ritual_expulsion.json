@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_expulsion.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:shield"
-  },
+  "icon": "minecraft:shield",
   "name": "book.neovitae.guide.rituals.ritual_expulsion.name",
   "pages": [
     {

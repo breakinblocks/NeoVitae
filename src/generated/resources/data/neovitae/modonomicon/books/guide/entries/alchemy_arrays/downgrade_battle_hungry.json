@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.downgrade_battle_hungry.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:rotten_flesh"
-  },
+  "icon": "minecraft:rotten_flesh",
   "name": "book.neovitae.guide.alchemy_arrays.downgrade_battle_hungry.name",
   "pages": [
     {

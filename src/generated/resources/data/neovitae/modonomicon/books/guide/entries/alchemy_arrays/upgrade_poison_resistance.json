@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_poison_resistance.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:milk_bucket"
-  },
+  "icon": "minecraft:milk_bucket",
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_poison_resistance.name",
   "pages": [
     {

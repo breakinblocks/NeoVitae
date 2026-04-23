@@ -1,15 +1,9 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:nuggets/gold"
-    },
-    {
-      "item": "minecraft:iron_pickaxe"
-    },
-    {
-      "item": "minecraft:iron_shovel"
-    }
+    "#c:nuggets/gold",
+    "minecraft:iron_pickaxe",
+    "minecraft:iron_shovel"
   ],
   "output": {
     "count": 1,

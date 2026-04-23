@@ -16,11 +16,7 @@
     }
   ],
   "inputs": [
-    {
-      "tag": "c:fragments/netherite_scrap"
-    }
+    "#c:fragments/netherite_scrap"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/resonator"
-  }
+  "tool": "#neovitae:athanor_tool/resonator"
 }

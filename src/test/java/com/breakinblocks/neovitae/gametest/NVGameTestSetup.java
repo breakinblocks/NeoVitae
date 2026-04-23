@@ -12,12 +12,13 @@ import com.breakinblocks.neovitae.NeoVitae;
 
 public class NVGameTestSetup {
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.createBlocks(NeoVitae.MODID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(NeoVitae.MODID);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, NeoVitae.MODID);
 
     public static final DeferredHolder<Block, TestEnergyBlock> TEST_ENERGY_BLOCK =
-            BLOCKS.register("test_energy_block", TestEnergyBlock::new);
+            BLOCKS.registerBlock("test_energy_block", TestEnergyBlock::new,
+                    () -> net.minecraft.world.level.block.state.BlockBehaviour.Properties.of().strength(1.0F));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TestEnergyBlock.TestEnergyBlockEntity>> TEST_ENERGY_BE_TYPE =
             BLOCK_ENTITIES.register("test_energy_block",

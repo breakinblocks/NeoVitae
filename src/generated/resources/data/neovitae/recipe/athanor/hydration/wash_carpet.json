@@ -9,16 +9,10 @@
   ],
   "input_fluid": {
     "amount": 200,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "inputs": [
-    {
-      "tag": "minecraft:wool_carpets"
-    }
+    "#minecraft:wool_carpets"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/hydration"
-  }
+  "tool": "#neovitae:athanor_tool/hydration"
 }

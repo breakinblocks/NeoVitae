@@ -18,7 +18,7 @@
             -0.8
           ]
         },
-        "attribute": "minecraft:player.block_break_speed",
+        "attribute": "minecraft:block_break_speed",
         "id": "neovitae:dig_slowdown",
         "operation": "add_multiplied_base"
       }

@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_grounding.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:dirt"
-  },
+  "icon": "minecraft:dirt",
   "name": "book.neovitae.guide.rituals.ritual_grounding.name",
   "pages": [
     {

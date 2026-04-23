@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 30.0,
   "inputs": [
-    {
-      "item": "minecraft:shears"
-    },
-    {
-      "tag": "c:stones"
-    },
-    {
-      "item": "neovitae:imbued_slate"
-    },
-    {
-      "tag": "c:ingots/iron"
-    }
+    "minecraft:shears",
+    "#c:stones",
+    "neovitae:imbued_slate",
+    "#c:ingots/iron"
   ],
   "minDrain": 350.0,
   "output": {

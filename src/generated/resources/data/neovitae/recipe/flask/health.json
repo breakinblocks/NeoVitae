@@ -3,12 +3,8 @@
   "baseDuration": 0,
   "effect": "minecraft:instant_health",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:glistering_melon_slice"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:glistering_melon_slice"
   ],
   "syphon": 500,
   "ticks": 200,

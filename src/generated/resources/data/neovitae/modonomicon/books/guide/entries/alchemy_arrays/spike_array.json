@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.spike_array.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:iron_ingot"
-  },
+  "icon": "minecraft:iron_ingot",
   "name": "book.neovitae.guide.alchemy_arrays.spike_array.name",
   "pages": [
     {

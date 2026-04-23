@@ -16,11 +16,7 @@
     }
   ],
   "inputs": [
-    {
-      "tag": "c:fragments/hellforged"
-    }
+    "#c:fragments/hellforged"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/resonator"
-  }
+  "tool": "#neovitae:athanor_tool/resonator"
 }

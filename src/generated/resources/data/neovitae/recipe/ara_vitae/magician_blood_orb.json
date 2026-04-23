@@ -3,9 +3,7 @@
   "bloodNeeded": 25000,
   "craftSpeed": 20,
   "drainSpeed": 20,
-  "input": {
-    "tag": "c:storage_blocks/gold"
-  },
+  "input": "#c:storage_blocks/gold",
   "minTier": 2,
   "output": {
     "count": 1,

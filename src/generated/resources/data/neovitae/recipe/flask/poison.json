@@ -3,12 +3,8 @@
   "baseDuration": 900,
   "effect": "minecraft:poison",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:spider_eye"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:spider_eye"
   ],
   "syphon": 500,
   "ticks": 200,

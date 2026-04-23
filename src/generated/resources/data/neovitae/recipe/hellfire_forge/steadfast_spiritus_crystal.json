@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 100.0,
   "inputs": [
-    {
-      "item": "neovitae:steadfast_crystal"
-    },
-    {
-      "item": "neovitae:steadfast_crystal"
-    },
-    {
-      "item": "neovitae:steadfast_crystal"
-    },
-    {
-      "item": "neovitae:steadfast_crystal"
-    }
+    "neovitae:steadfast_crystal",
+    "neovitae:steadfast_crystal",
+    "neovitae:steadfast_crystal",
+    "neovitae:steadfast_crystal"
   ],
   "minDrain": 1200.0,
   "output": {

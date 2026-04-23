@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_phantom_bridge.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:sigil_phantom_bridge"
-  },
+  "icon": "neovitae:sigil_phantom_bridge",
   "name": "book.neovitae.guide.alchemy_arrays.sigil_phantom_bridge.name",
   "pages": [
     {

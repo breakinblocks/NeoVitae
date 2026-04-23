@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.tabula_vitae.melee_anointment.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:melee_anointment"
-  },
+  "icon": "neovitae:melee_anointment",
   "name": "book.neovitae.guide.tabula_vitae.melee_anointment.name",
   "pages": [
     {

@@ -3,9 +3,7 @@
   "bloodNeeded": 10000,
   "craftSpeed": 20,
   "drainSpeed": 10,
-  "input": {
-    "item": "neovitae:teleposer_focus"
-  },
+  "input": "neovitae:teleposer_focus",
   "minTier": 3,
   "output": {
     "count": 1,

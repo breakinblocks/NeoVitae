@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "tag": "c:gems/lapis"
-  },
-  "baseinput": {
-    "tag": "c:ingots/iron"
-  },
+  "addedinput": "#c:gems/lapis",
+  "baseinput": "#c:ingots/iron",
   "effect_type": "repulsion",
   "texture": "neovitae:textures/models/alchemyarrays/repulsionarray.png"
 }

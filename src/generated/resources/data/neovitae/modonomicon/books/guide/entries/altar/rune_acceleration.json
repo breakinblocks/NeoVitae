@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.altar.rune_acceleration.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:rune_acceleration"
-  },
+  "icon": "neovitae:rune_acceleration",
   "name": "book.neovitae.guide.altar.rune_acceleration.name",
   "pages": [
     {

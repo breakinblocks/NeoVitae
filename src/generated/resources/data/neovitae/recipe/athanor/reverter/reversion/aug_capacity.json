@@ -23,11 +23,7 @@
     }
   ],
   "inputs": [
-    {
-      "item": "neovitae:rune_2_capacity_augmented"
-    }
+    "neovitae:rune_2_capacity_augmented"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/reverter"
-  }
+  "tool": "#neovitae:athanor_tool/reverter"
 }

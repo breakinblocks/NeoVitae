@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.spiritus.throwing_daggers.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:throwing_dagger"
-  },
+  "icon": "neovitae:throwing_dagger",
   "name": "book.neovitae.guide.spiritus.throwing_daggers.name",
   "pages": [
     {

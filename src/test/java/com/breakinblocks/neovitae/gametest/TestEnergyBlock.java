@@ -13,8 +13,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class TestEnergyBlock extends Block implements EntityBlock {
 
-    public TestEnergyBlock() {
-        super(BlockBehaviour.Properties.of().strength(1.0F));
+    public TestEnergyBlock(BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     @Nullable

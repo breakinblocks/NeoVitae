@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "c": {
-      "item": "neovitae:crystal_cluster"
-    }
+    "c": "neovitae:crystal_cluster"
   },
   "pattern": [
     "cc",

@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.tabula_vitae.quick_draw_anointment.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:quick_draw_anointment"
-  },
+  "icon": "neovitae:quick_draw_anointment",
   "name": "book.neovitae.guide.tabula_vitae.quick_draw_anointment.name",
   "pages": [
     {

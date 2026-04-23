@@ -2,19 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "h": {
-      "tag": "minecraft:coals"
-    },
-    "l": {
-      "tag": "minecraft:logs"
-    },
+    "h": "#minecraft:coals",
+    "l": "#minecraft:logs",
     "o": {
-      "type": "neovitae:orb_tier",
+      "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 1
     },
-    "s": {
-      "tag": "c:stones"
-    }
+    "s": "#c:stones"
   },
   "pattern": [
     "s s",

@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_dwarven_might.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:diamond_pickaxe"
-  },
+  "icon": "minecraft:diamond_pickaxe",
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_dwarven_might.name",
   "pages": [
     {

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "neovitae:spiritus_gem_petty",
+    "neovitae:spiritus_gem_lesser",
+    "neovitae:spiritus_gem_common",
+    "neovitae:spiritus_gem_greater",
+    "neovitae:spiritus_gem_grand"
+  ]
+}

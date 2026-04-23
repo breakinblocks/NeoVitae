@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:weapon_repair_anointment"
-    },
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "tag": "c:ingots/copper"
-    },
-    {
-      "tag": "c:dusts/gold"
-    }
+    "neovitae:weapon_repair_anointment",
+    "neovitae:tau_oil",
+    "#c:ingots/copper",
+    "#c:dusts/gold"
   ],
   "output": {
     "count": 1,

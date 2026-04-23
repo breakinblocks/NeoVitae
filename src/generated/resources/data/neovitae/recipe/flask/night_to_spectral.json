@@ -1,9 +1,7 @@
 {
   "type": "neovitae:flask_effect_transform",
   "input": [
-    {
-      "item": "minecraft:glowstone_dust"
-    }
+    "minecraft:glowstone_dust"
   ],
   "inputEffects": [
     "minecraft:night_vision"

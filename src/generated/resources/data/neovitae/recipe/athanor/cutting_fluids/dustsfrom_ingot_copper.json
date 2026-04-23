@@ -8,11 +8,7 @@
     }
   ],
   "inputs": [
-    {
-      "tag": "c:ingots/copper"
-    }
+    "#c:ingots/copper"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/cutting_fluids"
-  }
+  "tool": "#neovitae:athanor_tool/cutting_fluids"
 }

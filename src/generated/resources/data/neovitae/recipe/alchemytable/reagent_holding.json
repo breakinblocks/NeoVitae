@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:chests"
-    },
-    {
-      "tag": "c:leathers"
-    },
-    {
-      "tag": "c:strings"
-    },
-    {
-      "tag": "c:strings"
-    }
+    "#c:chests",
+    "#c:leathers",
+    "#c:strings",
+    "#c:strings"
   ],
   "output": {
     "count": 1,

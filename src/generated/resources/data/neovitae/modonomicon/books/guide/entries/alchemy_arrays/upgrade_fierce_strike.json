@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_fierce_strike.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:golden_sword"
-  },
+  "icon": "minecraft:golden_sword",
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_fierce_strike.name",
   "pages": [
     {

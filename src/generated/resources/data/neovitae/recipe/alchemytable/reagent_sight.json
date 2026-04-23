@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:dusts/glowstone"
-    },
-    {
-      "tag": "c:glass_blocks"
-    },
-    {
-      "tag": "c:glass_blocks"
-    },
-    {
-      "item": "neovitae:sigil_divination"
-    }
+    "#c:dusts/glowstone",
+    "#c:glass_blocks",
+    "#c:glass_blocks",
+    "neovitae:sigil_divination"
   ],
   "output": {
     "count": 1,

@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "c": {
-      "item": "neovitae:blood_orb_weak"
-    },
-    "o": {
-      "tag": "c:obsidians"
-    },
-    "s": {
-      "tag": "c:stones"
-    }
+    "c": "neovitae:blood_orb_weak",
+    "o": "#c:obsidians",
+    "s": "#c:stones"
   },
   "pattern": [
     "oso",

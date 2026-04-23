@@ -8,11 +8,7 @@
     }
   ],
   "inputs": [
-    {
-      "tag": "c:ingots/gold"
-    }
+    "#c:ingots/gold"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/cutting_fluids"
-  }
+  "tool": "#neovitae:athanor_tool/cutting_fluids"
 }

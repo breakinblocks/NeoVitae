@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "n": {
-      "item": "minecraft:netherite_scrap"
-    },
-    "r": {
-      "item": "neovitae:rune_efficiency"
-    },
-    "s": {
-      "tag": "minecraft:stone_crafting_materials"
-    }
+    "n": "minecraft:netherite_scrap",
+    "r": "neovitae:rune_efficiency",
+    "s": "#minecraft:stone_crafting_materials"
   },
   "pattern": [
     "nrn",

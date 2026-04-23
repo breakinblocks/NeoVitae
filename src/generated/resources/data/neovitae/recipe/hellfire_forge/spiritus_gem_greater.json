@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 100.0,
   "inputs": [
-    {
-      "item": "neovitae:spiritus_gem_common"
-    },
-    {
-      "item": "neovitae:demonic_slate"
-    },
-    {
-      "item": "neovitae:weak_blood_shard"
-    },
-    {
-      "tag": "neovitae:crystals/demon"
-    }
+    "neovitae:spiritus_gem_common",
+    "neovitae:demonic_slate",
+    "neovitae:weak_blood_shard",
+    "#neovitae:crystals/demon"
   ],
   "minDrain": 1000.0,
   "output": {

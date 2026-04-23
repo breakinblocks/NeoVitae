@@ -8,11 +8,7 @@
     }
   ],
   "inputs": [
-    {
-      "item": "neovitae:blood_orb_weak"
-    }
+    "neovitae:blood_orb_weak"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/reverter"
-  }
+  "tool": "#neovitae:athanor_tool/reverter"
 }

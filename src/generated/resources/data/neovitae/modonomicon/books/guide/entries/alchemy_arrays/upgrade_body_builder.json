@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_body_builder.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:cooked_beef"
-  },
+  "icon": "minecraft:cooked_beef",
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_body_builder.name",
   "pages": [
     {

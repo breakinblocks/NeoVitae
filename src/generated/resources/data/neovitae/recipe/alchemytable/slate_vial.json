@@ -1,24 +1,12 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:blank_slate"
-    },
-    {
-      "tag": "c:glass_blocks"
-    },
-    {
-      "tag": "c:glass_blocks"
-    },
-    {
-      "tag": "c:glass_blocks"
-    },
-    {
-      "tag": "c:glass_blocks"
-    },
-    {
-      "tag": "c:glass_blocks"
-    }
+    "neovitae:blank_slate",
+    "#c:glass_blocks",
+    "#c:glass_blocks",
+    "#c:glass_blocks",
+    "#c:glass_blocks",
+    "#c:glass_blocks"
   ],
   "output": {
     "count": 8,

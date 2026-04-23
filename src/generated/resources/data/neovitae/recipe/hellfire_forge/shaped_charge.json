@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 0.5,
   "inputs": [
-    {
-      "tag": "c:cobblestones"
-    },
-    {
-      "item": "minecraft:charcoal"
-    },
-    {
-      "tag": "c:sands"
-    },
-    {
-      "tag": "c:stones"
-    }
+    "#c:cobblestones",
+    "minecraft:charcoal",
+    "#c:sands",
+    "#c:stones"
   ],
   "minDrain": 10.0,
   "output": {

@@ -1,12 +1,8 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "minecraft:wool"
-    },
-    {
-      "item": "minecraft:flint"
-    }
+    "#minecraft:wool",
+    "minecraft:flint"
   ],
   "output": {
     "count": 4,

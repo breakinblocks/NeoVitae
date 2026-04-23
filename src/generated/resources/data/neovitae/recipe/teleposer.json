@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "e": {
-      "tag": "c:ender_pearls"
-    },
-    "g": {
-      "tag": "c:ingots/gold"
-    },
-    "t": {
-      "item": "neovitae:teleposer_focus"
-    }
+    "e": "#c:ender_pearls",
+    "g": "#c:ingots/gold",
+    "t": "neovitae:teleposer_focus"
   },
   "pattern": [
     "ggg",

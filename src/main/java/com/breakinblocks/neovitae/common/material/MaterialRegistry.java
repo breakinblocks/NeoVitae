@@ -136,20 +136,9 @@ public class MaterialRegistry {
 
     private static void addSmeltingRecipe(String materialName, String input, String result, float xp, int cookTime, String recipeType) {
         JsonObject root = new JsonObject();
-
-        JsonObject condition = new JsonObject();
-        condition.addProperty("type", "neoforge:item_exists");
-        condition.addProperty("item", result);
-        com.google.gson.JsonArray conditions = new com.google.gson.JsonArray();
-        conditions.add(condition);
-        root.add("neoforge:conditions", conditions);
-
         root.addProperty("type", "minecraft:" + recipeType);
         root.addProperty("category", "misc");
-
-        JsonObject ingredient = new JsonObject();
-        ingredient.addProperty("item", input);
-        root.add("ingredient", ingredient);
+        root.addProperty("ingredient", input);
 
         JsonObject resultObj = new JsonObject();
         resultObj.addProperty("count", 1);
@@ -213,13 +202,11 @@ public class MaterialRegistry {
 
         com.google.gson.JsonArray inputArray = new com.google.gson.JsonArray();
         for (String input : inputs) {
-            JsonObject entry = new JsonObject();
             if (input.startsWith("tag:")) {
-                entry.addProperty("tag", input.substring(4));
+                inputArray.add("#" + input.substring(4));
             } else {
-                entry.addProperty("item", input.substring(5));
+                inputArray.add(input.substring(5));
             }
-            inputArray.add(entry);
         }
         recipe.add("input", inputArray);
 
@@ -298,14 +285,10 @@ public class MaterialRegistry {
                                           String chanceItem, double chance) {
         JsonObject recipe = new JsonObject();
         recipe.addProperty("type", "neovitae:athanor");
-
-        JsonObject input = new JsonObject();
-        input.addProperty("tag", inputTag);
-        recipe.add("input", input);
-
-        JsonObject tool = new JsonObject();
-        tool.addProperty("tag", toolTag);
-        recipe.add("tool", tool);
+        com.google.gson.JsonArray inputs = new com.google.gson.JsonArray();
+        inputs.add("#" + inputTag);
+        recipe.add("inputs", inputs);
+        recipe.addProperty("tool", "#" + toolTag);
 
         com.google.gson.JsonArray guaranteed = new com.google.gson.JsonArray();
         JsonObject mainOutput = new JsonObject();

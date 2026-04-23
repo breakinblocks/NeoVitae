@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:bow_velocity_anointment"
-    },
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "tag": "c:nuggets/gold"
-    },
-    {
-      "item": "minecraft:bow"
-    }
+    "neovitae:bow_velocity_anointment",
+    "neovitae:tau_oil",
+    "#c:nuggets/gold",
+    "minecraft:bow"
   ],
   "output": {
     "count": 1,

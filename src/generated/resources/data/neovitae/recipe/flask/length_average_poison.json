@@ -2,9 +2,7 @@
   "type": "neovitae:flask_length",
   "effect": "minecraft:poison",
   "input": [
-    {
-      "item": "neovitae:average_lengthening_catalyst"
-    }
+    "neovitae:average_lengthening_catalyst"
   ],
   "lengthDurationMod": 7.1112,
   "syphon": 500,

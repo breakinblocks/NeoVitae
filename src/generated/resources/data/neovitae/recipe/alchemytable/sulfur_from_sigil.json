@@ -1,12 +1,8 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:sigil_lava"
-    },
-    {
-      "tag": "c:cobblestones"
-    }
+    "neovitae:sigil_lava",
+    "#c:cobblestones"
   ],
   "output": {
     "count": 4,

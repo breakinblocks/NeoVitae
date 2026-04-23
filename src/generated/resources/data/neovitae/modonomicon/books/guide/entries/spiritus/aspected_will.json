@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.spiritus.aspected_will.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:vengeful_crystal"
-  },
+  "icon": "neovitae:vengeful_crystal",
   "name": "book.neovitae.guide.spiritus.aspected_will.name",
   "pages": [
     {

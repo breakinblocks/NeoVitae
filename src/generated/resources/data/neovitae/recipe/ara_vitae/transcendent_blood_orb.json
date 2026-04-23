@@ -3,9 +3,7 @@
   "bloodNeeded": 200000,
   "craftSpeed": 100,
   "drainSpeed": 200,
-  "input": {
-    "item": "neovitae:crystal_cluster"
-  },
+  "input": "neovitae:crystal_cluster",
   "minTier": 5,
   "output": {
     "count": 1,

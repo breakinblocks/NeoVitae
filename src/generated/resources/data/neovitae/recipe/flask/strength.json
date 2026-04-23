@@ -3,12 +3,8 @@
   "baseDuration": 3600,
   "effect": "minecraft:strength",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:blaze_powder"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:blaze_powder"
   ],
   "syphon": 500,
   "ticks": 200,

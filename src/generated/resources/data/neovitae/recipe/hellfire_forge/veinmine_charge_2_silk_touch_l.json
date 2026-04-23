@@ -2,12 +2,8 @@
   "type": "neovitae:hellfire_forge",
   "drain": 4.0,
   "inputs": [
-    {
-      "item": "neovitae:veinmine_charge_2"
-    },
-    {
-      "item": "neovitae:silk_touch_anointment_l"
-    }
+    "neovitae:veinmine_charge_2",
+    "neovitae:silk_touch_anointment_l"
   ],
   "minDrain": 300.0,
   "output": {

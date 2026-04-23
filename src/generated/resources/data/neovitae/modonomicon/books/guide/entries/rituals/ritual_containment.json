@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_containment.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:lead"
-  },
+  "icon": "minecraft:lead",
   "name": "book.neovitae.guide.rituals.ritual_containment.name",
   "pages": [
     {

@@ -1,21 +1,11 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:bow_velocity_anointment"
-    },
-    {
-      "item": "neovitae:strong_tau"
-    },
-    {
-      "item": "neovitae:hellforged_dust"
-    },
-    {
-      "item": "minecraft:glow_berries"
-    },
-    {
-      "tag": "c:nuggets/gold"
-    }
+    "neovitae:bow_velocity_anointment",
+    "neovitae:strong_tau",
+    "neovitae:hellforged_dust",
+    "minecraft:glow_berries",
+    "#c:nuggets/gold"
   ],
   "output": {
     "count": 1,

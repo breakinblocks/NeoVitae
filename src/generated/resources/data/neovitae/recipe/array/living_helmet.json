@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "minecraft:iron_helmet"
-  },
-  "baseinput": {
-    "item": "neovitae:reagent_binding"
-  },
+  "addedinput": "minecraft:iron_helmet",
+  "baseinput": "neovitae:reagent_binding",
   "output": {
     "count": 1,
     "id": "neovitae:living_helmet"

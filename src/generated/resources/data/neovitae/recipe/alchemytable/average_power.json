@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:strong_tau"
-    },
-    {
-      "item": "neovitae:strengthened_catalyst"
-    },
-    {
-      "tag": "c:dusts/glowstone"
-    },
-    {
-      "tag": "c:dusts/hellforged"
-    }
+    "neovitae:strong_tau",
+    "neovitae:strengthened_catalyst",
+    "#c:dusts/glowstone",
+    "#c:dusts/hellforged"
   ],
   "output": {
     "count": 1,

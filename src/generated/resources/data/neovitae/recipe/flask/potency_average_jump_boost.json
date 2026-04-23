@@ -4,9 +4,7 @@
   "amplifier": 2,
   "effect": "minecraft:jump_boost",
   "input": [
-    {
-      "item": "neovitae:average_power_catalyst"
-    }
+    "neovitae:average_power_catalyst"
   ],
   "syphon": 500,
   "ticks": 100,

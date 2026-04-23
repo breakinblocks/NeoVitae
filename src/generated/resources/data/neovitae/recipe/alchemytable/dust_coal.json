@@ -1,15 +1,9 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "minecraft:coal"
-    },
-    {
-      "item": "minecraft:coal"
-    },
-    {
-      "item": "minecraft:flint"
-    }
+    "minecraft:coal",
+    "minecraft:coal",
+    "minecraft:flint"
   ],
   "output": {
     "count": 4,

@@ -2,20 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
+    "neovitae:stone_brick_path",
+    "neovitae:stone_brick_path",
+    "neovitae:stone_brick_path",
+    "neovitae:stone_brick_path",
     {
-      "item": "neovitae:stone_brick_path"
-    },
-    {
-      "item": "neovitae:stone_brick_path"
-    },
-    {
-      "item": "neovitae:stone_brick_path"
-    },
-    {
-      "item": "neovitae:stone_brick_path"
-    },
-    {
-      "type": "neovitae:orb_tier",
+      "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 4
     }
   ],

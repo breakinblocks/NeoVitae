@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "minecraft:ice"
-    },
-    {
-      "item": "minecraft:snowball"
-    },
-    {
-      "item": "minecraft:snowball"
-    },
-    {
-      "item": "minecraft:water_bucket"
-    }
+    "minecraft:ice",
+    "minecraft:snowball",
+    "minecraft:snowball",
+    "minecraft:water_bucket"
   ],
   "output": {
     "count": 1,

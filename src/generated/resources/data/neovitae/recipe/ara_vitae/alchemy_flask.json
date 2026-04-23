@@ -3,9 +3,7 @@
   "bloodNeeded": 4000,
   "craftSpeed": 5,
   "drainSpeed": 5,
-  "input": {
-    "item": "minecraft:glass_bottle"
-  },
+  "input": "minecraft:glass_bottle",
   "minTier": 1,
   "output": {
     "count": 1,

@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 50.0,
   "inputs": [
-    {
-      "item": "neovitae:spiritus_gem_lesser"
-    },
-    {
-      "tag": "c:gems/diamond"
-    },
-    {
-      "tag": "c:storage_blocks/gold"
-    },
-    {
-      "item": "neovitae:imbued_slate"
-    }
+    "neovitae:spiritus_gem_lesser",
+    "#c:gems/diamond",
+    "#c:storage_blocks/gold",
+    "neovitae:imbued_slate"
   ],
   "minDrain": 240.0,
   "output": {

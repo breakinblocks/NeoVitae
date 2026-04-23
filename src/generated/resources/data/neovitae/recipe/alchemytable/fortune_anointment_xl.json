@@ -1,21 +1,11 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:fortune_anointment"
-    },
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "tag": "c:dusts/coal"
-    },
-    {
-      "item": "neovitae:hellforged_dust"
-    },
-    {
-      "item": "minecraft:amethyst_shard"
-    }
+    "neovitae:fortune_anointment",
+    "neovitae:tau_oil",
+    "#c:dusts/coal",
+    "neovitae:hellforged_dust",
+    "minecraft:amethyst_shard"
   ],
   "output": {
     "count": 1,

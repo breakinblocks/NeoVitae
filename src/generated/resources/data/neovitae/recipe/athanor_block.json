@@ -2,22 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "item": "minecraft:iron_block"
-    },
-    "S": {
-      "item": "neovitae:imbued_slate"
-    },
-    "f": {
-      "item": "minecraft:furnace"
-    },
+    "I": "minecraft:iron_block",
+    "S": "neovitae:imbued_slate",
+    "f": "minecraft:furnace",
     "o": {
-      "type": "neovitae:orb_tier",
+      "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 3
     },
-    "s": {
-      "tag": "c:stones"
-    }
+    "s": "#c:stones"
   },
   "pattern": [
     "sss",

@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "S": {
-      "item": "neovitae:demonic_slate"
-    },
-    "d": {
-      "item": "neovitae:ritual_diviner"
-    },
-    "t": {
-      "item": "neovitae:dusk_scribe_tool"
-    }
+    "S": "neovitae:demonic_slate",
+    "d": "neovitae:ritual_diviner",
+    "t": "neovitae:dusk_scribe_tool"
   },
   "pattern": [
     " S ",

@@ -1,24 +1,12 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:plant_oil"
-    },
-    {
-      "tag": "c:dusts/redstone"
-    },
-    {
-      "tag": "c:gunpowders"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "tag": "c:dusts/coal"
-    },
-    {
-      "item": "neovitae:sigil_water"
-    }
+    "neovitae:plant_oil",
+    "#c:dusts/redstone",
+    "#c:gunpowders",
+    "minecraft:sugar",
+    "#c:dusts/coal",
+    "neovitae:sigil_water"
   ],
   "output": {
     "count": 1,

@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.spiritus.node_router.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:node_router"
-  },
+  "icon": "neovitae:node_router",
   "name": "book.neovitae.guide.spiritus.node_router.name",
   "pages": [
     {

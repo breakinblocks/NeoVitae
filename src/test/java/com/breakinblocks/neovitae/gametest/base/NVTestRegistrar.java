@@ -37,6 +37,11 @@ public final class NVTestRegistrar {
                 true,
                 Rotation.NONE
         );
-        event.registerTest(NeoVitae.rl(name), new NVInlineTest(info, body));
+        try {
+            event.registerTest(NeoVitae.rl(name), new NVInlineTest(info, body));
+        } catch (Throwable t) {
+            System.err.println("[NVGameTest] Failed to register " + name + ": " + t);
+            t.printStackTrace();
+        }
     }
 }

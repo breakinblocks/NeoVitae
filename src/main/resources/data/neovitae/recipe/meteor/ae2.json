@@ -6,9 +6,7 @@
     }
   ],
   "type": "neovitae:meteor",
-  "input": {
-    "tag": "c:gems/certus_quartz"
-  },
+  "input": "#c:gems/certus_quartz",
   "syphon": 500000,
   "explosion": 24.0,
   "layers": [

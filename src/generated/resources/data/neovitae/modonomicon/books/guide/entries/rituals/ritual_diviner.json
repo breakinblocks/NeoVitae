@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_diviner.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:ritual_diviner"
-  },
+  "icon": "neovitae:ritual_diviner",
   "name": "book.neovitae.guide.rituals.ritual_diviner.name",
   "pages": [
     {

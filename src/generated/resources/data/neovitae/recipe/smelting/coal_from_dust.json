@@ -3,9 +3,7 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.1,
-  "ingredient": {
-    "item": "neovitae:coal_dust"
-  },
+  "ingredient": "neovitae:coal_dust",
   "result": {
     "count": 1,
     "id": "minecraft:coal"

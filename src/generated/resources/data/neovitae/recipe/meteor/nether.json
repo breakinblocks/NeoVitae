@@ -1,9 +1,7 @@
 {
   "type": "neovitae:meteor",
   "explosion": 12.0,
-  "input": {
-    "tag": "c:dusts/glowstone"
-  },
+  "input": "#c:dusts/glowstone",
   "layers": [
     {
       "fill": "minecraft:netherrack",

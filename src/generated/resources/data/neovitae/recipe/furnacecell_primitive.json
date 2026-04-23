@@ -2,19 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "c": {
-      "tag": "c:cobblestones"
-    },
-    "f": {
-      "tag": "c:storage_blocks/coal"
-    },
+    "c": "#c:cobblestones",
+    "f": "#c:storage_blocks/coal",
     "o": {
-      "type": "neovitae:orb_tier",
+      "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 3
     },
-    "s": {
-      "item": "neovitae:blank_slate"
-    }
+    "s": "neovitae:blank_slate"
   },
   "pattern": [
     "csc",

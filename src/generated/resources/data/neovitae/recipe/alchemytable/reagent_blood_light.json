@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:dusts/glowstone"
-    },
-    {
-      "item": "minecraft:torch"
-    },
-    {
-      "tag": "c:dusts/redstone"
-    },
-    {
-      "tag": "c:dusts/redstone"
-    }
+    "#c:dusts/glowstone",
+    "minecraft:torch",
+    "#c:dusts/redstone",
+    "#c:dusts/redstone"
   ],
   "output": {
     "count": 1,

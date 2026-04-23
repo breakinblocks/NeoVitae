@@ -78,14 +78,6 @@ public class NeoVitae {
         com.breakinblocks.neovitae.api.routing.RoutingChannelRegistry.register(new com.breakinblocks.neovitae.common.routing.FluidRoutingChannel());
         com.breakinblocks.neovitae.api.routing.RoutingChannelRegistry.register(new com.breakinblocks.neovitae.common.routing.EnergyRoutingChannel());
 
-        try {
-            Class<?> testSetup = Class.forName("com.breakinblocks.neovitae.gametest.NVGameTestSetup");
-            testSetup.getMethod("register", IEventBus.class).invoke(null, modBus);
-        } catch (ClassNotFoundException ignored) {
-        } catch (ReflectiveOperationException e) {
-            LOGGER.error("Failed to register game test setup", e);
-        }
-
         com.breakinblocks.neovitae.common.material.MaterialRegistry.register(modBus);
         NVRegistries.register(modBus);
         NVDataComponents.register(modBus);
@@ -122,6 +114,30 @@ public class NeoVitae {
             modBus.addListener(com.breakinblocks.neovitae.client.render.item.SpiritusBarDecorator::registerAll);
         }
         NeoForge.EVENT_BUS.addListener(NVCommands::register);
+
+        wireGameTests(modBus);
+    }
+
+    private static void wireGameTests(net.neoforged.bus.api.IEventBus modBus) {
+        try {
+            Class<?> setup = Class.forName("com.breakinblocks.neovitae.gametest.NVGameTestSetup");
+            setup.getMethod("register", net.neoforged.bus.api.IEventBus.class).invoke(null, modBus);
+
+            Class<?> reg = Class.forName("com.breakinblocks.neovitae.gametest.NVGameTestRegistration");
+            java.lang.reflect.Method handler = reg.getMethod("registerTests",
+                    net.neoforged.neoforge.event.RegisterGameTestsEvent.class);
+            modBus.addListener(net.neoforged.neoforge.event.RegisterGameTestsEvent.class, event -> {
+                try {
+                    handler.invoke(null, event);
+                } catch (ReflectiveOperationException t) {
+                    LOGGER.error("Failed to invoke NVGameTestRegistration.registerTests", t);
+                }
+            });
+        } catch (ClassNotFoundException expected) {
+            // Test source set not on classpath — production build
+        } catch (ReflectiveOperationException e) {
+            LOGGER.error("Failed to wire gametest hooks", e);
+        }
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

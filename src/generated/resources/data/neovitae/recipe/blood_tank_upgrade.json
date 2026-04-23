@@ -3,15 +3,9 @@
   "category": "misc",
   "pattern": {
     "key": {
-      "g": {
-        "item": "minecraft:glass"
-      },
-      "s": {
-        "item": "neovitae:bloodstone"
-      },
-      "t": {
-        "item": "neovitae:blood_tank"
-      }
+      "g": "minecraft:glass",
+      "s": "neovitae:bloodstone",
+      "t": "neovitae:blood_tank"
     },
     "pattern": [
       "g g",

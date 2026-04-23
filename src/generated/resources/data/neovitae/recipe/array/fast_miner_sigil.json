@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "neovitae:reinforced_slate"
-  },
-  "baseinput": {
-    "item": "neovitae:reagent_fast_miner"
-  },
+  "addedinput": "neovitae:reinforced_slate",
+  "baseinput": "neovitae:reagent_fast_miner",
   "output": {
     "count": 1,
     "id": "neovitae:sigil_fast_miner"

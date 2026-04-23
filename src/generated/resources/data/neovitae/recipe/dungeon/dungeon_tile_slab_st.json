@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "s": {
-      "item": "neovitae:dungeon_tile_st"
-    }
+    "s": "neovitae:dungeon_tile_st"
   },
   "pattern": [
     "sss"

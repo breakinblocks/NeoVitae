@@ -4,9 +4,7 @@
   "category": "spiritus",
   "description": "book.neovitae.guide.spiritus.spiritus.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:base_spiritus_soul"
-  },
+  "icon": "neovitae:base_spiritus_soul",
   "name": "book.neovitae.guide.spiritus.spiritus.name",
   "pages": [
     {

@@ -1,12 +1,8 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:fragments/gold"
-    },
-    {
-      "item": "neovitae:corrupted_dust"
-    }
+    "#c:fragments/gold",
+    "neovitae:corrupted_dust"
   ],
   "output": {
     "count": 2,

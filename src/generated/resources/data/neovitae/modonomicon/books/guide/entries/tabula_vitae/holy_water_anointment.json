@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.tabula_vitae.holy_water_anointment.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:holy_water_anointment"
-  },
+  "icon": "neovitae:holy_water_anointment",
   "name": "book.neovitae.guide.tabula_vitae.holy_water_anointment.name",
   "pages": [
     {

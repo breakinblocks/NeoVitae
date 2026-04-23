@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.redstone_arrays.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:redstone"
-  },
+  "icon": "minecraft:redstone",
   "name": "book.neovitae.guide.alchemy_arrays.redstone_arrays.name",
   "pages": [
     {

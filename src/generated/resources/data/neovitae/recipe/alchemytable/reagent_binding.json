@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:dusts/glowstone"
-    },
-    {
-      "tag": "c:dusts/redstone"
-    },
-    {
-      "tag": "c:gunpowders"
-    },
-    {
-      "tag": "c:nuggets/gold"
-    }
+    "#c:dusts/glowstone",
+    "#c:dusts/redstone",
+    "#c:gunpowders",
+    "#c:nuggets/gold"
   ],
   "output": {
     "count": 1,

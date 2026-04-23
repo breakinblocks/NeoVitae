@@ -3,12 +3,8 @@
   "baseDuration": 1800,
   "effect": "minecraft:slow_falling",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:phantom_membrane"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:phantom_membrane"
   ],
   "syphon": 500,
   "ticks": 200,

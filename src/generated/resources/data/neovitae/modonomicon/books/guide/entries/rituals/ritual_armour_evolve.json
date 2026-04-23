@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_armour_evolve.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:living_plate"
-  },
+  "icon": "neovitae:living_plate",
   "name": "book.neovitae.guide.rituals.ritual_armour_evolve.name",
   "pages": [
     {

@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:strong_tau"
-    },
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "tag": "c:dusts/glowstone"
-    },
-    {
-      "tag": "c:dusts/glowstone"
-    }
+    "neovitae:strong_tau",
+    "neovitae:simple_catalyst",
+    "#c:dusts/glowstone",
+    "#c:dusts/glowstone"
   ],
   "output": {
     "count": 1,

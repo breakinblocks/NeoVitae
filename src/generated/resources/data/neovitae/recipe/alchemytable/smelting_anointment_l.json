@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:smelting_anointment"
-    },
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "item": "minecraft:furnace"
-    },
-    {
-      "tag": "minecraft:coals"
-    }
+    "neovitae:smelting_anointment",
+    "neovitae:tau_oil",
+    "minecraft:furnace",
+    "#minecraft:coals"
   ],
   "output": {
     "count": 1,

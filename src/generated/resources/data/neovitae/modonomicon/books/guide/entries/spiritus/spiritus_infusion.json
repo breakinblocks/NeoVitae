@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.spiritus.spiritus_infusion.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:spiritus_gem_common"
-  },
+  "icon": "neovitae:spiritus_gem_common",
   "name": "book.neovitae.guide.spiritus.spiritus_infusion.name",
   "pages": [
     {

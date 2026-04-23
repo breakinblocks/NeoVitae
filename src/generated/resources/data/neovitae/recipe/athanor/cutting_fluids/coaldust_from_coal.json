@@ -8,11 +8,7 @@
     }
   ],
   "inputs": [
-    {
-      "item": "minecraft:coal"
-    }
+    "minecraft:coal"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/cutting_fluids"
-  }
+  "tool": "#neovitae:athanor_tool/cutting_fluids"
 }

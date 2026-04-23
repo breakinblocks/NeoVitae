@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_gilded.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:golden_chestplate"
-  },
+  "icon": "minecraft:golden_chestplate",
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_gilded.name",
   "pages": [
     {

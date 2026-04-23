@@ -3,9 +3,7 @@
   "bloodNeeded": 40000,
   "craftSpeed": 30,
   "drainSpeed": 50,
-  "input": {
-    "item": "neovitae:activation_crystal_weak"
-  },
+  "input": "neovitae:activation_crystal_weak",
   "minTier": 4,
   "output": {
     "count": 1,

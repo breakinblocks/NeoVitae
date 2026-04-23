@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:silk_touch_anointment"
-    },
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "item": "minecraft:cobweb"
-    },
-    {
-      "tag": "c:nuggets/gold"
-    }
+    "neovitae:silk_touch_anointment",
+    "neovitae:tau_oil",
+    "minecraft:cobweb",
+    "#c:nuggets/gold"
   ],
   "output": {
     "count": 1,

@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.loyal_friends_array.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:lead"
-  },
+  "icon": "minecraft:lead",
   "name": "book.neovitae.guide.alchemy_arrays.loyal_friends_array.name",
   "pages": [
     {

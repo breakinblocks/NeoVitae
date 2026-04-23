@@ -2,20 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "a": {
-      "tag": "c:stones"
-    },
-    "b": {
-      "item": "neovitae:reinforced_slate"
-    },
-    "c": {
-      "tag": "c:ingots/gold"
-    },
-    "d": {
-      "item": "neovitae:rune_blank"
-    },
+    "a": "#c:stones",
+    "b": "neovitae:reinforced_slate",
+    "c": "#c:ingots/gold",
+    "d": "neovitae:rune_blank",
     "e": {
-      "type": "neovitae:orb_tier",
+      "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 2
     }
   },

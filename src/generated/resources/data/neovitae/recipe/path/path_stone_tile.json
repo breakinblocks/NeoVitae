@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "building",
   "ingredients": [
-    {
-      "item": "neovitae:stone_brick_path"
-    },
-    {
-      "item": "neovitae:stone_brick_path"
-    },
-    {
-      "item": "neovitae:stone_brick_path"
-    },
-    {
-      "item": "neovitae:stone_brick_path"
-    }
+    "neovitae:stone_brick_path",
+    "neovitae:stone_brick_path",
+    "neovitae:stone_brick_path",
+    "neovitae:stone_brick_path"
   ],
   "result": {
     "count": 4,

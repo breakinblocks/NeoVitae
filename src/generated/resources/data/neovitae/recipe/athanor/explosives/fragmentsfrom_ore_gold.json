@@ -8,11 +8,7 @@
     }
   ],
   "inputs": [
-    {
-      "tag": "c:ores/gold"
-    }
+    "#c:ores/gold"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/explosives"
-  }
+  "tool": "#neovitae:athanor_tool/explosives"
 }

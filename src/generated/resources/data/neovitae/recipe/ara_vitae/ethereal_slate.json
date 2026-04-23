@@ -3,9 +3,7 @@
   "bloodNeeded": 30000,
   "craftSpeed": 40,
   "drainSpeed": 100,
-  "input": {
-    "item": "neovitae:demonic_slate"
-  },
+  "input": "neovitae:demonic_slate",
   "minTier": 4,
   "output": {
     "count": 1,

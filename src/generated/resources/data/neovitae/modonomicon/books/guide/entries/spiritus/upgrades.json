@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.spiritus.upgrades.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:master_core"
-  },
+  "icon": "neovitae:master_core",
   "name": "book.neovitae.guide.spiritus.upgrades.name",
   "pages": [
     {

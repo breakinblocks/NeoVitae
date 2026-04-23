@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:crops/beetroot"
-    },
-    {
-      "tag": "c:crops/beetroot"
-    },
-    {
-      "tag": "c:crops/beetroot"
-    },
-    {
-      "item": "minecraft:bone_meal"
-    }
+    "#c:crops/beetroot",
+    "#c:crops/beetroot",
+    "#c:crops/beetroot",
+    "minecraft:bone_meal"
   ],
   "output": {
     "count": 1,

@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "neovitae:demonic_slate"
-  },
-  "baseinput": {
-    "item": "neovitae:reagent_suppression"
-  },
+  "addedinput": "neovitae:demonic_slate",
+  "baseinput": "neovitae:reagent_suppression",
   "output": {
     "count": 1,
     "id": "neovitae:sigil_suppression"

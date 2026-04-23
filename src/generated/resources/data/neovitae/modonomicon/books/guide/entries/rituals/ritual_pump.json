@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_pump.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:bucket"
-  },
+  "icon": "minecraft:bucket",
   "name": "book.neovitae.guide.rituals.ritual_pump.name",
   "pages": [
     {

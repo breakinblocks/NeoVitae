@@ -3,9 +3,7 @@
   "category": "blocks",
   "cookingtime": 200,
   "experience": 0.1,
-  "ingredient": {
-    "item": "neovitae:sands_of_vitae"
-  },
+  "ingredient": "neovitae:sands_of_vitae",
   "result": {
     "count": 1,
     "id": "neovitae:blood_stained_glass"

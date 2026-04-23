@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.tabula_vitae.bow_velocity_anointment.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:bow_velocity_anointment"
-  },
+  "icon": "neovitae:bow_velocity_anointment",
   "name": "book.neovitae.guide.tabula_vitae.bow_velocity_anointment.name",
   "pages": [
     {

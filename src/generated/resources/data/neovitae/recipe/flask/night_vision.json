@@ -3,12 +3,8 @@
   "baseDuration": 3600,
   "effect": "minecraft:night_vision",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:golden_carrot"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:golden_carrot"
   ],
   "syphon": 500,
   "ticks": 200,

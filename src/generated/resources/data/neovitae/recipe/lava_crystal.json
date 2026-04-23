@@ -2,22 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "a": {
-      "tag": "c:glass_blocks"
-    },
-    "b": {
-      "item": "minecraft:lava_bucket"
-    },
+    "a": "#c:glass_blocks",
+    "b": "minecraft:lava_bucket",
     "c": {
-      "type": "neovitae:orb_tier",
+      "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 1
     },
-    "d": {
-      "tag": "c:obsidians"
-    },
-    "e": {
-      "tag": "c:gems/diamond"
-    }
+    "d": "#c:obsidians",
+    "e": "#c:gems/diamond"
   },
   "pattern": [
     "aba",

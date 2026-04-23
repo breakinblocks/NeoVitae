@@ -4,9 +4,7 @@
   "category": "utility",
   "description": "book.neovitae.guide.utility.incense_altar.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:incense_altar"
-  },
+  "icon": "neovitae:incense_altar",
   "name": "book.neovitae.guide.utility.incense_altar.name",
   "pages": [
     {

@@ -2,22 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "R": {
-      "tag": "c:dusts/redstone"
-    },
+    "R": "#c:dusts/redstone",
     "e": {
-      "type": "neovitae:orb_tier",
+      "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 5
     },
-    "h": {
-      "item": "neovitae:hellforged_parts"
-    },
-    "r": {
-      "item": "neovitae:rune_blank"
-    },
-    "s": {
-      "item": "neovitae:ethereal_slate"
-    }
+    "h": "neovitae:hellforged_parts",
+    "r": "neovitae:rune_blank",
+    "s": "neovitae:ethereal_slate"
   },
   "pattern": [
     "RsR",

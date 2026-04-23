@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:quick_draw_anointment"
-    },
-    {
-      "item": "neovitae:strong_tau"
-    },
-    {
-      "tag": "c:strings"
-    },
-    {
-      "item": "minecraft:spectral_arrow"
-    }
+    "neovitae:quick_draw_anointment",
+    "neovitae:strong_tau",
+    "#c:strings",
+    "minecraft:spectral_arrow"
   ],
   "output": {
     "count": 1,

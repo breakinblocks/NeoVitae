@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:dusts/redstone"
-    },
-    {
-      "tag": "c:dyes/white"
-    },
-    {
-      "tag": "c:gunpowders"
-    },
-    {
-      "tag": "minecraft:coals"
-    }
+    "#c:dusts/redstone",
+    "#c:dyes/white",
+    "#c:gunpowders",
+    "#minecraft:coals"
   ],
   "output": {
     "count": 1,

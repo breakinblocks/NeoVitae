@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_condor.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:feather"
-  },
+  "icon": "minecraft:feather",
   "name": "book.neovitae.guide.rituals.ritual_condor.name",
   "pages": [
     {

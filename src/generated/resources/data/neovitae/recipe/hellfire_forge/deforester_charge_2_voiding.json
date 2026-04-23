@@ -2,12 +2,8 @@
   "type": "neovitae:hellfire_forge",
   "drain": 4.0,
   "inputs": [
-    {
-      "item": "neovitae:deforester_charge_2"
-    },
-    {
-      "item": "neovitae:voiding_anointment"
-    }
+    "neovitae:deforester_charge_2",
+    "neovitae:voiding_anointment"
   ],
   "minDrain": 300.0,
   "output": {

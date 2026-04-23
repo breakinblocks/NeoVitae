@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_harvest.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:wheat"
-  },
+  "icon": "minecraft:wheat",
   "name": "book.neovitae.guide.rituals.ritual_harvest.name",
   "pages": [
     {

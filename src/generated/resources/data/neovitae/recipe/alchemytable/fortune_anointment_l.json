@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:fortune_anointment"
-    },
-    {
-      "item": "neovitae:tau_oil"
-    },
-    {
-      "tag": "c:dusts/redstone"
-    },
-    {
-      "tag": "c:dusts/coal"
-    }
+    "neovitae:fortune_anointment",
+    "neovitae:tau_oil",
+    "#c:dusts/redstone",
+    "#c:dusts/coal"
   ],
   "output": {
     "count": 1,

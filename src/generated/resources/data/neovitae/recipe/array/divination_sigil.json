@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "neovitae:blank_slate"
-  },
-  "baseinput": {
-    "item": "minecraft:redstone"
-  },
+  "addedinput": "neovitae:blank_slate",
+  "baseinput": "minecraft:redstone",
   "output": {
     "count": 1,
     "id": "neovitae:sigil_divination"

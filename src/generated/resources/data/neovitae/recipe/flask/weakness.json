@@ -3,12 +3,8 @@
   "baseDuration": 1800,
   "effect": "minecraft:weakness",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:fermented_spider_eye"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:fermented_spider_eye"
   ],
   "syphon": 500,
   "ticks": 200,

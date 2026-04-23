@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:slate_vial"
-    },
-    {
-      "tag": "c:crops/nether_wart"
-    },
-    {
-      "tag": "c:ingots/iron"
-    },
-    {
-      "item": "minecraft:bow"
-    }
+    "neovitae:slate_vial",
+    "#c:crops/nether_wart",
+    "#c:ingots/iron",
+    "minecraft:bow"
   ],
   "output": {
     "count": 1,

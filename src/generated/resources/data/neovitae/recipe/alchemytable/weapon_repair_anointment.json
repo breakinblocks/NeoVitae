@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:slate_vial"
-    },
-    {
-      "tag": "c:crops/nether_wart"
-    },
-    {
-      "tag": "c:ingots/copper"
-    },
-    {
-      "tag": "c:dusts/gold"
-    }
+    "neovitae:slate_vial",
+    "#c:crops/nether_wart",
+    "#c:ingots/copper",
+    "#c:dusts/gold"
   ],
   "output": {
     "count": 1,

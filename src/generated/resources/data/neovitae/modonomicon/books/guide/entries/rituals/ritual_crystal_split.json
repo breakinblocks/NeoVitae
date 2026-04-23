@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_crystal_split.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:vengeful_crystal"
-  },
+  "icon": "neovitae:vengeful_crystal",
   "name": "book.neovitae.guide.rituals.ritual_crystal_split.name",
   "pages": [
     {

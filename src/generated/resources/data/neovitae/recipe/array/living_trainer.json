@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "minecraft:diamond"
-  },
-  "baseinput": {
-    "item": "neovitae:reagent_binding"
-  },
+  "addedinput": "minecraft:diamond",
+  "baseinput": "neovitae:reagent_binding",
   "output": {
     "count": 1,
     "id": "neovitae:training_bracelet"

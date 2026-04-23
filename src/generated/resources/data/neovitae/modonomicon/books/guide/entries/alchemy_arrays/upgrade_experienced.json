@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_experienced.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:experience_bottle"
-  },
+  "icon": "minecraft:experience_bottle",
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_experienced.name",
   "pages": [
     {

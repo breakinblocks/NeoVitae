@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "tag": "c:gems/lapis"
-  },
-  "baseinput": {
-    "tag": "c:gems/lapis"
-  },
+  "addedinput": "#c:gems/lapis",
+  "baseinput": "#c:gems/lapis",
   "effect_type": "night",
   "texture": "neovitae:textures/models/alchemyarrays/moonarray.png"
 }

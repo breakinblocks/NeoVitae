@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "neovitae:imbued_slate"
-  },
-  "baseinput": {
-    "item": "neovitae:reagent_holding"
-  },
+  "addedinput": "neovitae:imbued_slate",
+  "baseinput": "neovitae:reagent_holding",
   "output": {
     "count": 1,
     "id": "neovitae:sigil_holding"

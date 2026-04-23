@@ -1,7 +1,5 @@
 {
   "type": "neovitae:livingdowngrade",
-  "input": {
-    "item": "neovitae:hollow_gut"
-  },
+  "input": "neovitae:hollow_gut",
   "livingarmour": "neovitae:hollow_hunger"
 }

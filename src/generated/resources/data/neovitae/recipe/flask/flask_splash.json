@@ -1,12 +1,8 @@
 {
   "type": "neovitae:flask_item_transform",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:gunpowder"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:gunpowder"
   ],
   "output": {
     "count": 1,

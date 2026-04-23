@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_crystal_harvest.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:default_crystal"
-  },
+  "icon": "neovitae:default_crystal",
   "name": "book.neovitae.guide.rituals.ritual_crystal_harvest.name",
   "pages": [
     {

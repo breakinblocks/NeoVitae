@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:strings"
-    },
-    {
-      "tag": "c:ingots/gold"
-    },
-    {
-      "tag": "c:ingots/gold"
-    },
-    {
-      "tag": "c:storage_blocks/iron"
-    }
+    "#c:strings",
+    "#c:ingots/gold",
+    "#c:ingots/gold",
+    "#c:storage_blocks/iron"
   ],
   "output": {
     "count": 1,

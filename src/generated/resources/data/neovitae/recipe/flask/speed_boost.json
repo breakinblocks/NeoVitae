@@ -3,12 +3,8 @@
   "baseDuration": 3600,
   "effect": "minecraft:speed",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "item": "minecraft:sugar"
-    }
+    "neovitae:simple_catalyst",
+    "minecraft:sugar"
   ],
   "syphon": 500,
   "ticks": 200,

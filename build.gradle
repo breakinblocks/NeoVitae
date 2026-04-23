@@ -95,6 +95,7 @@ neoForge {
 
         gameTestServer {
             type = "gameTestServer"
+            loadedMods = [ mods.mod ]
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
             gameDirectory = project.file('run-gametest')
         }
@@ -118,6 +119,11 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 configurations {
     runtimeClasspath.extendsFrom localRuntime
+    runGameTestServerAdditionalRuntimeClasspath.extendsFrom runtimeClasspath
+}
+
+dependencies {
+    runGameTestServerAdditionalRuntimeClasspath files(sourceSets.test.output)
 }
 
 dependencies {

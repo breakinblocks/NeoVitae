@@ -1,21 +1,11 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:holy_water_anointment"
-    },
-    {
-      "item": "neovitae:strong_tau"
-    },
-    {
-      "item": "neovitae:hellforged_dust"
-    },
-    {
-      "item": "minecraft:glow_berries"
-    },
-    {
-      "item": "minecraft:glistering_melon_slice"
-    }
+    "neovitae:holy_water_anointment",
+    "neovitae:strong_tau",
+    "neovitae:hellforged_dust",
+    "minecraft:glow_berries",
+    "minecraft:glistering_melon_slice"
   ],
   "output": {
     "count": 1,

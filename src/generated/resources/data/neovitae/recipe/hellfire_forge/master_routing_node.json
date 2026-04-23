@@ -2,15 +2,9 @@
   "type": "neovitae:hellfire_forge",
   "drain": 25.0,
   "inputs": [
-    {
-      "item": "neovitae:routing_conduit"
-    },
-    {
-      "tag": "c:gems/diamond"
-    },
-    {
-      "tag": "c:storage_blocks/lapis"
-    }
+    "neovitae:routing_conduit",
+    "#c:gems/diamond",
+    "#c:storage_blocks/lapis"
   ],
   "minDrain": 400.0,
   "output": {

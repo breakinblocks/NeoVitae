@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_curios_sockets.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:spiritus_snare"
-  },
+  "icon": "neovitae:spiritus_snare",
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_curios_sockets.name",
   "pages": [
     {

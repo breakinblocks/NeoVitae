@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:looting_anointment"
-    },
-    {
-      "item": "neovitae:strong_tau"
-    },
-    {
-      "tag": "c:gems/lapis"
-    },
-    {
-      "tag": "c:bones"
-    }
+    "neovitae:looting_anointment",
+    "neovitae:strong_tau",
+    "#c:gems/lapis",
+    "#c:bones"
   ],
   "output": {
     "count": 1,

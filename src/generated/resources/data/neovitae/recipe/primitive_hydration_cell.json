@@ -2,19 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "B": {
-      "item": "minecraft:water_bucket"
-    },
-    "c": {
-      "tag": "c:cobblestones"
-    },
+    "B": "minecraft:water_bucket",
+    "c": "#c:cobblestones",
     "o": {
-      "type": "neovitae:orb_tier",
+      "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 3
     },
-    "s": {
-      "item": "neovitae:blank_slate"
-    }
+    "s": "neovitae:blank_slate"
   },
   "pattern": [
     "csc",

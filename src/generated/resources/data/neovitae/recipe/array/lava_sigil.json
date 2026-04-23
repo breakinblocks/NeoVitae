@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "neovitae:blank_slate"
-  },
-  "baseinput": {
-    "item": "neovitae:reagent_lava"
-  },
+  "addedinput": "neovitae:blank_slate",
+  "baseinput": "neovitae:reagent_lava",
   "output": {
     "count": 1,
     "id": "neovitae:sigil_lava"

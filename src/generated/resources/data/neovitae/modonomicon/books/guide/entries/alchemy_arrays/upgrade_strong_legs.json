@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_strong_legs.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:diamond_leggings"
-  },
+  "icon": "minecraft:diamond_leggings",
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_strong_legs.name",
   "pages": [
     {

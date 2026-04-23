@@ -4,9 +4,7 @@
   "category": "altar",
   "description": "book.neovitae.guide.altar.ara_vitae.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:ara_vitae"
-  },
+  "icon": "neovitae:ara_vitae",
   "name": "book.neovitae.guide.altar.ara_vitae.name",
   "pages": [
     {

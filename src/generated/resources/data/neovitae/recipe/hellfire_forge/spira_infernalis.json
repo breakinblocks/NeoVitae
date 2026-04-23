@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 50.0,
   "inputs": [
-    {
-      "tag": "neovitae:crystals/demon"
-    },
-    {
-      "tag": "c:stones"
-    },
-    {
-      "tag": "c:gems/lapis"
-    },
-    {
-      "tag": "c:storage_blocks/iron"
-    }
+    "#neovitae:crystals/demon",
+    "#c:stones",
+    "#c:gems/lapis",
+    "#c:storage_blocks/iron"
   ],
   "minDrain": 400.0,
   "output": {

@@ -19,7 +19,7 @@
             1.5
           ]
         },
-        "attribute": "minecraft:player.mining_efficiency",
+        "attribute": "minecraft:mining_efficiency",
         "id": "neovitae:digging",
         "operation": "add_multiplied_base"
       }

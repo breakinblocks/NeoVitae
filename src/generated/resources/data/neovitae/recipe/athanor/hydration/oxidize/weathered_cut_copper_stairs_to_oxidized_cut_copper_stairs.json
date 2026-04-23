@@ -9,16 +9,10 @@
   ],
   "input_fluid": {
     "amount": 200,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "inputs": [
-    {
-      "item": "minecraft:weathered_cut_copper_stairs"
-    }
+    "minecraft:weathered_cut_copper_stairs"
   ],
-  "tool": {
-    "tag": "neovitae:athanor_tool/hydration"
-  }
+  "tool": "#neovitae:athanor_tool/hydration"
 }

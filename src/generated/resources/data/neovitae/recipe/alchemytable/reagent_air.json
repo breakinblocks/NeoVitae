@@ -1,15 +1,9 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "minecraft:ghast_tear"
-    },
-    {
-      "item": "minecraft:feather"
-    },
-    {
-      "item": "minecraft:feather"
-    }
+    "minecraft:ghast_tear",
+    "minecraft:feather",
+    "minecraft:feather"
   ],
   "output": {
     "count": 1,

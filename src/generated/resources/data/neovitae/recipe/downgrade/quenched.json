@@ -1,7 +1,5 @@
 {
   "type": "neovitae:livingdowngrade",
-  "input": {
-    "item": "minecraft:glass_bottle"
-  },
+  "input": "minecraft:glass_bottle",
   "livingarmour": "neovitae:quenched"
 }

@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.downgrade_diseased.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:ghast_tear"
-  },
+  "icon": "minecraft:ghast_tear",
   "name": "book.neovitae.guide.alchemy_arrays.downgrade_diseased.name",
   "pages": [
     {

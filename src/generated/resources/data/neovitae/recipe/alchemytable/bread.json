@@ -1,12 +1,8 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:crops/wheat"
-    },
-    {
-      "item": "minecraft:sugar"
-    }
+    "#c:crops/wheat",
+    "minecraft:sugar"
   ],
   "output": {
     "count": 1,

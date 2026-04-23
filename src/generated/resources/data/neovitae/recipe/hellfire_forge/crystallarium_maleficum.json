@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 100.0,
   "inputs": [
-    {
-      "item": "neovitae:hellfire_forge"
-    },
-    {
-      "tag": "c:stones"
-    },
-    {
-      "tag": "c:gems/lapis"
-    },
-    {
-      "tag": "c:glass_blocks"
-    }
+    "neovitae:hellfire_forge",
+    "#c:stones",
+    "#c:gems/lapis",
+    "#c:glass_blocks"
   ],
   "minDrain": 500.0,
   "output": {

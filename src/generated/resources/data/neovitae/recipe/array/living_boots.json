@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "minecraft:iron_boots"
-  },
-  "baseinput": {
-    "item": "neovitae:reagent_binding"
-  },
+  "addedinput": "minecraft:iron_boots",
+  "baseinput": "neovitae:reagent_binding",
   "output": {
     "count": 1,
     "id": "neovitae:living_boots"

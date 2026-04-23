@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 30.0,
   "inputs": [
-    {
-      "item": "neovitae:ectoplasmic_residue"
-    },
-    {
-      "item": "neovitae:venomgland_sac"
-    },
-    {
-      "item": "minecraft:glass_bottle"
-    },
-    {
-      "item": "neovitae:hollow_gut"
-    }
+    "neovitae:ectoplasmic_residue",
+    "neovitae:venomgland_sac",
+    "minecraft:glass_bottle",
+    "neovitae:hollow_gut"
   ],
   "minDrain": 300.0,
   "output": {

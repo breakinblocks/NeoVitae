@@ -1,9 +1,7 @@
 {
   "type": "neovitae:meteor",
   "explosion": 14.0,
-  "input": {
-    "tag": "c:storage_blocks/iron"
-  },
+  "input": "#c:storage_blocks/iron",
   "layers": [
     {
       "fill": "minecraft:iron_ore",

@@ -1,7 +1,5 @@
 {
   "type": "neovitae:livingdowngrade",
-  "input": {
-    "item": "minecraft:arrow"
-  },
+  "input": "minecraft:arrow",
   "livingarmour": "neovitae:storm_trooper"
 }

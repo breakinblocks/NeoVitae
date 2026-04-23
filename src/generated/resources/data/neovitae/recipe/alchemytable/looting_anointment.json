@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:slate_vial"
-    },
-    {
-      "tag": "c:crops/nether_wart"
-    },
-    {
-      "tag": "c:gems/lapis"
-    },
-    {
-      "tag": "c:bones"
-    }
+    "neovitae:slate_vial",
+    "#c:crops/nether_wart",
+    "#c:gems/lapis",
+    "#c:bones"
   ],
   "output": {
     "count": 1,

@@ -1,21 +1,11 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:simple_catalyst"
-    },
-    {
-      "tag": "c:gems/lapis"
-    },
-    {
-      "tag": "c:gems/lapis"
-    },
-    {
-      "tag": "c:dyes/green"
-    },
-    {
-      "tag": "c:sands"
-    }
+    "neovitae:simple_catalyst",
+    "#c:gems/lapis",
+    "#c:gems/lapis",
+    "#c:dyes/green",
+    "#c:sands"
   ],
   "output": {
     "count": 1,

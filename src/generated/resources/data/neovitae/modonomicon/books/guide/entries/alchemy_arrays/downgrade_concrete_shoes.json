@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.downgrade_concrete_shoes.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:water_bucket"
-  },
+  "icon": "minecraft:water_bucket",
   "name": "book.neovitae.guide.alchemy_arrays.downgrade_concrete_shoes.name",
   "pages": [
     {

@@ -1,11 +1,7 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "neovitae:reinforced_slate"
-  },
-  "baseinput": {
-    "item": "neovitae:reagent_void"
-  },
+  "addedinput": "neovitae:reinforced_slate",
+  "baseinput": "neovitae:reagent_void",
   "output": {
     "count": 1,
     "id": "neovitae:sigil_void"

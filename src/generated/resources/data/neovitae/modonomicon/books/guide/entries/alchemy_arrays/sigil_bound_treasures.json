@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_bound_treasures.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:sigil_bound_treasures"
-  },
+  "icon": "neovitae:sigil_bound_treasures",
   "name": "book.neovitae.guide.alchemy_arrays.sigil_bound_treasures.name",
   "pages": [
     {

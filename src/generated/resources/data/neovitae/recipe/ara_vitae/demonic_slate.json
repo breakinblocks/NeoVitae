@@ -3,9 +3,7 @@
   "bloodNeeded": 15000,
   "craftSpeed": 20,
   "drainSpeed": 20,
-  "input": {
-    "item": "neovitae:imbued_slate"
-  },
+  "input": "neovitae:imbued_slate",
   "minTier": 3,
   "output": {
     "count": 1,

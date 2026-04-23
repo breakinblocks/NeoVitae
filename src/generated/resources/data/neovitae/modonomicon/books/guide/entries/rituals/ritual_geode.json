@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_geode.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "minecraft:amethyst_cluster"
-  },
+  "icon": "minecraft:amethyst_cluster",
   "name": "book.neovitae.guide.rituals.ritual_geode.name",
   "pages": [
     {

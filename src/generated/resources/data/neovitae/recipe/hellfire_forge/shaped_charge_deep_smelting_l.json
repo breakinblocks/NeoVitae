@@ -2,12 +2,8 @@
   "type": "neovitae:hellfire_forge",
   "drain": 4.0,
   "inputs": [
-    {
-      "item": "neovitae:shaped_charge_deep"
-    },
-    {
-      "item": "neovitae:smelting_anointment_l"
-    }
+    "neovitae:shaped_charge_deep",
+    "neovitae:smelting_anointment_l"
   ],
   "minDrain": 300.0,
   "output": {

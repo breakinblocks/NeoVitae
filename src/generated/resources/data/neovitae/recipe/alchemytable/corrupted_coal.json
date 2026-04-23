@@ -1,12 +1,8 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "c:dusts/coal"
-    },
-    {
-      "item": "neovitae:corrupted_dust"
-    }
+    "#c:dusts/coal",
+    "neovitae:corrupted_dust"
   ],
   "output": {
     "count": 3,

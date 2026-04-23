@@ -2,20 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "a": {
-      "tag": "c:obsidians"
-    },
-    "b": {
-      "item": "neovitae:demonic_slate"
-    },
-    "c": {
-      "item": "minecraft:bucket"
-    },
-    "d": {
-      "item": "neovitae:rune_capacity"
-    },
+    "a": "#c:obsidians",
+    "b": "neovitae:demonic_slate",
+    "c": "minecraft:bucket",
+    "d": "neovitae:rune_capacity",
     "e": {
-      "type": "neovitae:orb_tier",
+      "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 4
     }
   },

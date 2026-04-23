@@ -8,9 +8,7 @@
   },
   "description": "book.neovitae.guide.altar.slates.description",
   "hide_while_locked": false,
-  "icon": {
-    "item": "neovitae:blank_slate"
-  },
+  "icon": "neovitae:blank_slate",
   "name": "book.neovitae.guide.altar.slates.name",
   "pages": [
     {

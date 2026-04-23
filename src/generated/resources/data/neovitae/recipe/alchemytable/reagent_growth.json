@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "tag": "minecraft:saplings"
-    },
-    {
-      "tag": "minecraft:saplings"
-    },
-    {
-      "item": "minecraft:sugar_cane"
-    },
-    {
-      "item": "minecraft:sugar"
-    }
+    "#minecraft:saplings",
+    "#minecraft:saplings",
+    "minecraft:sugar_cane",
+    "minecraft:sugar"
   ],
   "output": {
     "count": 1,

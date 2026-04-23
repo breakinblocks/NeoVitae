@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "minecraft:feather"
-    },
-    {
-      "tag": "c:glass_blocks"
-    },
-    {
-      "item": "minecraft:soul_sand"
-    },
-    {
-      "tag": "c:slime_balls"
-    }
+    "minecraft:feather",
+    "#c:glass_blocks",
+    "minecraft:soul_sand",
+    "#c:slime_balls"
   ],
   "output": {
     "count": 1,

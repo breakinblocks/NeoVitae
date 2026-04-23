@@ -3,9 +3,7 @@
   "bloodNeeded": 20000,
   "craftSpeed": 25,
   "drainSpeed": 30,
-  "input": {
-    "item": "neovitae:gore_clotted_fang"
-  },
+  "input": "neovitae:gore_clotted_fang",
   "minTier": 3,
   "output": {
     "count": 1,

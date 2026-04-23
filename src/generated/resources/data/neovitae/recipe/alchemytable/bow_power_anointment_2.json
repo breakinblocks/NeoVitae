@@ -1,18 +1,10 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    {
-      "item": "neovitae:bow_power_anointment"
-    },
-    {
-      "item": "neovitae:strong_tau"
-    },
-    {
-      "tag": "c:ingots/iron"
-    },
-    {
-      "item": "minecraft:bow"
-    }
+    "neovitae:bow_power_anointment",
+    "neovitae:strong_tau",
+    "#c:ingots/iron",
+    "minecraft:bow"
   ],
   "output": {
     "count": 1,

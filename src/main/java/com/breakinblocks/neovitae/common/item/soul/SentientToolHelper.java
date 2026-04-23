@@ -247,4 +247,10 @@ public final class SentientToolHelper {
     public static void setDigSpeedBonus(ItemStack stack, double speed) {
         stack.set(NVDataComponents.SENTIENT_TOOL_SPEED, speed);
     }
+
+    public static final int ACTIVATION_THRESHOLD = 16;
+
+    public static void setActivatedState(ItemStack stack, boolean activated) {
+        stack.set(NVDataComponents.SIGIL_ACTIVATED, activated);
+    }
 }

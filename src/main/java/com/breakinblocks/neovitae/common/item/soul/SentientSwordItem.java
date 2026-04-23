@@ -115,7 +115,7 @@ public class SentientSwordItem extends Item implements ISentientTool {
         double attackSpeed = getAttackSpeed(type, level);
         double movementSpeed = getMovementSpeed(type, level);
 
-        setActivatedState(stack, soulsRemaining > 16);
+        setActivatedState(stack, soulsRemaining > ACTIVATION_THRESHOLD);
         setDrainAmount(stack, drain);
         setDamageBonus(stack, 5 + extraDamage);
         setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] : 1);
@@ -185,9 +185,5 @@ public class SentientSwordItem extends Item implements ISentientTool {
 
     private boolean getActivated(ItemStack stack) {
         return stack.getOrDefault(NVDataComponents.SIGIL_ACTIVATED, false);
-    }
-
-    private void setActivatedState(ItemStack stack, boolean activated) {
-        stack.set(NVDataComponents.SIGIL_ACTIVATED, activated);
     }
 }

@@ -100,6 +100,7 @@ public class SentientPickaxeItem extends Item implements ISentientTool {
         setCurrentType(stack, soulsRemaining > 0 ? type : SpiritusType.DEFAULT);
         int level = getLevel(soulsRemaining);
 
+        setActivatedState(stack, soulsRemaining > ACTIVATION_THRESHOLD);
         setDrainAmount(stack, level >= 0 ? SOUL_DRAIN_PER_SWING[level] : 0);
         setDamageBonus(stack, getExtraDamage(type, level));
         setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] : 1);

@@ -1,37 +1,5 @@
 {
   "parent": "minecraft:item/handheld",
-  "overrides": [
-    {
-      "model": "neovitae:item/variant/spiritus_gem_petty_default",
-      "predicate": {
-        "neovitae:will_type": 0.0
-      }
-    },
-    {
-      "model": "neovitae:item/variant/spiritus_gem_petty_corrosive",
-      "predicate": {
-        "neovitae:will_type": 1.0
-      }
-    },
-    {
-      "model": "neovitae:item/variant/spiritus_gem_petty_destructive",
-      "predicate": {
-        "neovitae:will_type": 2.0
-      }
-    },
-    {
-      "model": "neovitae:item/variant/spiritus_gem_petty_steadfast",
-      "predicate": {
-        "neovitae:will_type": 3.0
-      }
-    },
-    {
-      "model": "neovitae:item/variant/spiritus_gem_petty_vengeful",
-      "predicate": {
-        "neovitae:will_type": 4.0
-      }
-    }
-  ],
   "textures": {
     "layer0": "neovitae:item/spiritus_gem_petty_default"
   }

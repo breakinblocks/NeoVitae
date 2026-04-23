@@ -32,6 +32,7 @@ public class NVCommands {
         CommandNode<CommandSourceStack> generateNode = dispatcher.getRoot().getChild("nvgenerate");
         CommandNode<CommandSourceStack> setOrbFillNode = dispatcher.getRoot().getChild("nvsetorbfill");
         CommandNode<CommandSourceStack> routingRescanNode = dispatcher.getRoot().getChild("nvroutingrescan");
+        CommandNode<CommandSourceStack> streamNode = dispatcher.getRoot().getChild("nvstream");
 
         dispatcher.register(
                 Commands.literal("neovitae")
@@ -44,6 +45,7 @@ public class NVCommands {
                         .then(Commands.literal("generate").redirect(generateNode))
                         .then(Commands.literal("setorbfill").redirect(setOrbFillNode))
                         .then(Commands.literal("routing").then(Commands.literal("rescan").redirect(routingRescanNode)))
+                        .then(Commands.literal("stream").redirect(streamNode))
         );
     }
 }

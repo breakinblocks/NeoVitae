@@ -81,11 +81,9 @@ java {
 neoForge {
     version = project.neo_version
 
-    // Parchment mappings for 26.1.2 not yet published at time of port; re-enable when available.
-    // parchment {
-    //     mappingsVersion = project.parchment_mappings_version
-    //     minecraftVersion = project.parchment_minecraft_version
-    // }
+    interfaceInjectionData {
+        from(file("buildutil/interface_injections.json"))
+    }
 
     mods {
         "mod" {

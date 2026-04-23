@@ -21,7 +21,6 @@ import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
-import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 public class NVPayloads {
 
@@ -243,10 +242,6 @@ public class NVPayloads {
                 }
             }
         });
-    }
-
-    public static void sendToServer(Object payload) {
-        ClientPacketDistributor.sendToServer((CustomPacketPayload) payload);
     }
 
     public static void sendToPlayer(ServerPlayer player, Object payload) {

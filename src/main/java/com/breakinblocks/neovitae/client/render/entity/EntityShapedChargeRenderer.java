@@ -12,12 +12,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityShapedCharge;
 
-@OnlyIn(Dist.CLIENT)
 public class EntityShapedChargeRenderer extends EntityRenderer<EntityShapedCharge, EntityShapedChargeRenderer.State> {
 
     public EntityShapedChargeRenderer(EntityRendererProvider.Context context) {

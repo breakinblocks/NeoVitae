@@ -1,12 +1,9 @@
 package com.breakinblocks.neovitae.client;
 
 import net.minecraft.core.Direction;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.ritual.Ritual;
 
-@OnlyIn(Dist.CLIENT)
 public class ClientHandler {
 
     private static MasterRitualStoneBlockEntity mrsHoloTile;

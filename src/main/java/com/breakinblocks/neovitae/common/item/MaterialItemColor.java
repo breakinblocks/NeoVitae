@@ -7,14 +7,11 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Tints a {@link MaterialItem} layer using the material's configured base color.
  */
-@OnlyIn(Dist.CLIENT)
 public record MaterialItemColor() implements ItemTintSource {
 
     public static final Identifier ID = Identifier.fromNamespaceAndPath(NeoVitae.MODID, "material");

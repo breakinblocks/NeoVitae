@@ -28,8 +28,8 @@ import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.FluidModel;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.data.AtlasIds;
 
 public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile, AraVitaeRenderer.State> {
 
@@ -307,7 +307,7 @@ public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile, AraVi
         int overlay = OverlayTexture.NO_OVERLAY;
         float u0 = s.fluidU0, u1 = s.fluidU1, v0 = s.fluidV0, v1 = s.fluidV1;
 
-        collector.submitCustomGeometry(poseStack, RenderTypes.entityTranslucent(AtlasIds.BLOCKS), (pose, buf) -> {
+        collector.submitCustomGeometry(poseStack, RenderTypes.entityTranslucent(TextureAtlas.LOCATION_BLOCKS), (pose, buf) -> {
             Matrix4f matrix = pose.pose();
             Vector3f norm = new Vector3f();
             pose.transformNormal(0, 1, 0, norm);

@@ -27,8 +27,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.apache.commons.lang3.StringUtils;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.ClientHandler;
@@ -167,7 +165,6 @@ public class ItemRitualDiviner extends Item {
         return InteractionResult.SUCCESS;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void trySetDisplayedRitual(ItemStack itemStack, Level level, BlockPos pos) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
 
@@ -181,7 +178,6 @@ public class ItemRitualDiviner extends Item {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void undisplayHologram() {
         ClientHandler.setRitualHoloToNull();
     }

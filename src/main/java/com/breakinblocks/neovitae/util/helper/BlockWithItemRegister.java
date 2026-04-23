@@ -29,6 +29,7 @@ public class BlockWithItemRegister {
             BiFunction<B, Item.Properties, I> item,
             Item.Properties itemProperties) {
         DeferredBlock<B> regBlock = BLOCK.registerBlock(name, block, (Supplier<BlockBehaviour.Properties>) () -> blockProperties);
+        itemProperties.useBlockDescriptionPrefix();
         DeferredItem<I> regItem = ITEM.registerItem(name, props -> item.apply(regBlock.get(), props), (Supplier<Item.Properties>) () -> itemProperties);
         return new BlockWithItemHolder<>(regBlock, regItem);
     }

@@ -4,6 +4,7 @@
   "flip_v": true,
   "model": "neovitae:models/block/routing/modeloutputroutingnodecombined.obj",
   "textures": {
-    "particle": "neovitae:models/modeloutputroutingnode"
+    "default": "neovitae:block/modeloutputroutingnode",
+    "particle": "#default"
   }
 }

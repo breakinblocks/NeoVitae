@@ -18,6 +18,7 @@ public class NVCommands {
         ImperfectRitualCommand.register(dispatcher);
         AuraCommand.register(dispatcher);
         DungeonShowcaseCommand.register(dispatcher);
+        ShowcaseCommand.register(dispatcher);
         GenerateMaterialsCommand.register(dispatcher);
         StreamTestCommand.register(dispatcher);
         SetOrbFillCommand.register(dispatcher);
@@ -28,7 +29,6 @@ public class NVCommands {
         CommandNode<CommandSourceStack> imperfectRitualNode = dispatcher.getRoot().getChild("nv-imperfectritual");
         CommandNode<CommandSourceStack> auraNode = dispatcher.getRoot().getChild("nv-aura");
         CommandNode<CommandSourceStack> upgradeNode = dispatcher.getRoot().getChild("living-upgrade");
-        CommandNode<CommandSourceStack> showcaseNode = dispatcher.getRoot().getChild("nv-dungeon-showcase");
         CommandNode<CommandSourceStack> generateNode = dispatcher.getRoot().getChild("nvgenerate");
         CommandNode<CommandSourceStack> setOrbFillNode = dispatcher.getRoot().getChild("nvsetorbfill");
         CommandNode<CommandSourceStack> routingRescanNode = dispatcher.getRoot().getChild("nvroutingrescan");
@@ -41,7 +41,12 @@ public class NVCommands {
                         .then(Commands.literal("imperfect").redirect(imperfectRitualNode))
                         .then(Commands.literal("aura").redirect(auraNode))
                         .then(Commands.literal("upgrade").redirect(upgradeNode))
-                        .then(Commands.literal("dungeon-showcase").redirect(showcaseNode))
+                        .then(Commands.literal("dungeon-showcase")
+                                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                                .executes(DungeonShowcaseCommand::placeShowcase))
+                        .then(Commands.literal("showcase")
+                                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                                .executes(ShowcaseCommand::placeShowcase))
                         .then(Commands.literal("generate").redirect(generateNode))
                         .then(Commands.literal("setorbfill").redirect(setOrbFillNode))
                         .then(Commands.literal("routing").then(Commands.literal("rescan").redirect(routingRescanNode)))

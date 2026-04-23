@@ -1,16 +1,20 @@
 package com.breakinblocks.neovitae.client.event;
 
+import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterFluidModelsEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent;
+import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.client.model.OrbFillProperty;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.client.particle.BloodFlameParticle;
@@ -133,4 +137,15 @@ public class ClientModEventHandler {
         event.registerAbove(VanillaGuiLayers.HOTBAR, NeoVitae.rl("spiritus_gauge"), new SpiritusGaugeOverlay());
     }
 
+    @SubscribeEvent
+    public static void registerFluidModels(RegisterFluidModelsEvent event) {
+        event.register(new FluidModel.Unbaked(
+                new Material(NeoVitae.rl("block/essentia_vitae_still")),
+                new Material(NeoVitae.rl("block/essentia_vitae_flowing")),
+                null, null), NVFluids.ESSENTIA_VITAE_SOURCE, NVFluids.ESSENTIA_VITAE_FLOWING);
+        event.register(new FluidModel.Unbaked(
+                new Material(NeoVitae.rl("block/animated_spiritus_still")),
+                new Material(NeoVitae.rl("block/animated_spiritus_flowing")),
+                null, null), NVFluids.ANIMATED_SPIRITUS_SOURCE, NVFluids.ANIMATED_SPIRITUS_FLOWING);
+    }
 }

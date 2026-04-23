@@ -6,13 +6,10 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.function.Predicate;
 import net.minecraft.util.RandomSource;
 
-@OnlyIn(Dist.CLIENT)
 public class BlockEntityLoopSound extends AbstractTickableSoundInstance {
 
     private final Level level;

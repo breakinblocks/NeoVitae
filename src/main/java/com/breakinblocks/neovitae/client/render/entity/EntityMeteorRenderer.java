@@ -11,13 +11,10 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Matrix4f;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityMeteor;
 
-@OnlyIn(Dist.CLIENT)
 public class EntityMeteorRenderer extends EntityRenderer<EntityMeteor, EntityMeteorRenderer.State> {
 
     private static final Identifier METEOR_TEXTURE = NeoVitae.rl("textures/entity/meteor.png");

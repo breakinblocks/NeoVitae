@@ -10,10 +10,7 @@ import net.minecraft.client.renderer.state.level.QuadParticleRenderState;
 import net.minecraft.client.Camera;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class BloodBubbleParticle extends SingleQuadParticle {
 
     private final float baseQuadSize;
@@ -72,7 +69,6 @@ public class BloodBubbleParticle extends SingleQuadParticle {
         return 0xF000F0;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<ColoredParticleOptions> {
         private final SpriteSet sprites;
 

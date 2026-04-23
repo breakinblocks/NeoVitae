@@ -14,6 +14,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -48,11 +49,11 @@ public class ClientEventHandler {
     public static void onLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
         ItemStack stack = event.getItemStack();
         if (stack.getItem() instanceof ItemRitualDiviner) {
-            NVPayloads.sendToServer(new RitualDivinerCyclePayload(true));
+            ClientPacketDistributor.sendToServer(new RitualDivinerCyclePayload(true));
         } else if (stack.is(NVItems.SIGIL_BLOOD_LIGHT.get())) {
             LocalPlayer player = Minecraft.getInstance().player;
             boolean reverse = player != null && player.isShiftKeyDown();
-            NVPayloads.sendToServer(new BloodLightCyclePayload(reverse));
+            ClientPacketDistributor.sendToServer(new BloodLightCyclePayload(reverse));
         }
     }
 
@@ -77,7 +78,7 @@ public class ClientEventHandler {
         player.sendOverlayMessage(
                 newSelected.isEmpty() ? Component.literal("") : newSelected.getHoverName());
 
-        NVPayloads.sendToServer(new SigilHoldingCyclePayload(player.getInventory().getSelectedSlot(), direction));
+        ClientPacketDistributor.sendToServer(new SigilHoldingCyclePayload(player.getInventory().getSelectedSlot(), direction));
 
         event.setCanceled(true);
     }

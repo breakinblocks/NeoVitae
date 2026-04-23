@@ -24,13 +24,13 @@ public class NVJadePlugin implements IWailaPlugin {
 
     @Override
     public void register(IWailaCommonRegistration registration) {
-        registration.registerBlockDataProvider(NVBlockComponentProvider.INSTANCE, AlchemyArrayBlockEntity.class);
-        registration.registerBlockDataProvider(NVBlockComponentProvider.INSTANCE, AraVitaeTile.class);
-        registration.registerBlockDataProvider(NVBlockComponentProvider.INSTANCE, MasterRitualStoneBlockEntity.class);
-        registration.registerBlockDataProvider(NVBlockComponentProvider.INSTANCE, BloodTankBlockEntity.class);
-        registration.registerBlockDataProvider(NVBlockComponentProvider.INSTANCE, BloodLightBlockEntity.class);
-        registration.registerBlockDataProvider(NVBlockComponentProvider.INSTANCE, HellfireForgeBlockEntity.class);
-        registration.registerBlockDataProvider(NVBlockComponentProvider.INSTANCE, IncenseAltarBlockEntity.class);
+        registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, AlchemyArrayBlockEntity.class);
+        registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, AraVitaeTile.class);
+        registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, MasterRitualStoneBlockEntity.class);
+        registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, BloodTankBlockEntity.class);
+        registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, BloodLightBlockEntity.class);
+        registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, HellfireForgeBlockEntity.class);
+        registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, IncenseAltarBlockEntity.class);
     }
 
     @Override

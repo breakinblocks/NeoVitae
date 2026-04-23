@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.data.AtlasIds;
 import net.minecraft.core.BlockPos;
@@ -98,7 +99,7 @@ public class RitualRenderer {
             poseStack.translate(minX, minY, minZ);
             event.getSubmitNodeCollector().submitCustomGeometry(
                     poseStack,
-                    RenderTypes.entityTranslucent(AtlasIds.BLOCKS),
+                    RenderTypes.entityTranslucent(TextureAtlas.LOCATION_BLOCKS),
                     (pose, buf) -> RenderResizableCuboid.INSTANCE.renderCube(
                             model, pose.pose(), buf, GHOST_COLOR, FULL_BRIGHT, OverlayTexture.NO_OVERLAY));
             poseStack.popPose();

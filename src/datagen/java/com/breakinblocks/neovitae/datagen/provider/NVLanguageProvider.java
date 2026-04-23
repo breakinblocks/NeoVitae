@@ -414,6 +414,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVBlocks.ETHEREAL_MIMIC, "Ethereal Mimic");
         add(NVBlocks.INVERSION_PILLAR, "Inversion Pillar");
         add(NVBlocks.INVERSION_PILLAR_CAP, "Inversion Pillar Cap");
+        add(NVBlocks.SPATIAL_RIFT, "Spatial Rift");
 
         add(NVBlocks.SANDS_OF_VITAE, "Sands of Vitae");
         add(NVBlocks.BLOOD_STAINED_GLASS, "Blood Stained Glass");
@@ -1132,6 +1133,28 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Dungeon Blocks
         addDungeonBlocks();
 
+        // Jade tooltips
+        addJade("array_effect.bounce", "Bounce Array");
+        addJade("array_effect.spike", "Spike Array");
+        addJade("array_effect.updraft", "Updraft Array");
+        addJade("array_effect.undertow", "Undertow Array");
+        addJade("array_effect.movement", "Movement Array");
+        addJade("array_effect.day", "Daybreak Array");
+        addJade("array_effect.night", "Nightfall Array");
+        addJade("array_effect.elevator", "Elevator Array");
+        addJade("array_effect.generic", "Alchemy Array");
+        addJade("array_direction", "%s %s");
+        addJade("array_accel", "Acceleration: %s");
+        addJade("array_max_vel", "Max Velocity: %s");
+        addJade("altar_tier", "Tier %s");
+        addJade("crafting", "Crafting...");
+        addJade("inactive", "Inactive");
+        addJade("tank_ev", "%s / %s mB");
+        addJade("light_color", "Color: %s");
+        addJade("progress", "Progress: %s%%");
+        addJade("tranquility", "Tranquility: %s");
+        addJade("incense_bonus", "Incense Bonus: +%s%%");
+
         // Advancements
         addAdvancement("root", "Neo Vitae", "Obtain an Ara Vitae");
         addAdvancement("weak_blood_orb", "Novicius Orb of Vitae", "Craft your first Orb of Vitae");
@@ -1203,6 +1226,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
     public void addJei(String name, String value) {
         add("jei.neovitae." + name, value);
+    }
+
+    public void addJade(String name, String value) {
+        add("jade.neovitae." + name, value);
     }
 
     public void addAnointment(String key, String name) {

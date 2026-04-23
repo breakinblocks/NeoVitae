@@ -112,7 +112,7 @@ public final class SideFilterConfig {
         out.putString("itemMode", itemMode.name());
         ContainerHelper.saveAllItems(out.child("itemGhosts"), itemGhosts);
         out.putString("fluidMode", fluidMode.name());
-        out.store("fluidGhosts", FluidStack.CODEC.listOf(), fluidGhosts);
+        out.store("fluidGhosts", FluidStack.OPTIONAL_CODEC.listOf(), fluidGhosts);
     }
 
     public void load(ValueInput in) {
@@ -120,7 +120,7 @@ public final class SideFilterConfig {
         in.getString("itemMode").ifPresent(s -> { try { itemMode = FilterMode.valueOf(s); } catch (IllegalArgumentException ignored) {} });
         in.child("itemGhosts").ifPresent(child -> ContainerHelper.loadAllItems(child, itemGhosts));
         in.getString("fluidMode").ifPresent(s -> { try { fluidMode = FilterMode.valueOf(s); } catch (IllegalArgumentException ignored) {} });
-        in.read("fluidGhosts", FluidStack.CODEC.listOf()).ifPresent(list -> {
+        in.read("fluidGhosts", FluidStack.OPTIONAL_CODEC.listOf()).ifPresent(list -> {
             for (int i = 0; i < GHOST_SLOTS; i++) {
                 fluidGhosts.set(i, i < list.size() ? list.get(i) : FluidStack.EMPTY);
             }

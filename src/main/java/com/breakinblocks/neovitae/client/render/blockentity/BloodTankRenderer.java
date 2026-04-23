@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.data.AtlasIds;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
@@ -88,7 +88,7 @@ public class BloodTankRenderer implements BlockEntityRenderer<BloodTankBlockEnti
         int color = s.tintColor;
         float u0 = s.u0, u1 = s.u1, v0 = s.v0, v1 = s.v1;
 
-        collector.submitCustomGeometry(poseStack, RenderTypes.entityTranslucent(AtlasIds.BLOCKS), (pose, buf) -> {
+        collector.submitCustomGeometry(poseStack, RenderTypes.entityTranslucent(TextureAtlas.LOCATION_BLOCKS), (pose, buf) -> {
             drawCube(pose, buf, color, light, overlay, start, minHeight, start, end, minHeight + height, end, u0, u1, v0, v1);
         });
     }

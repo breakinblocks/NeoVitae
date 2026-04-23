@@ -25,8 +25,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
@@ -40,7 +38,6 @@ import java.util.ArrayList;
  * Throwable potion flask entity for alchemy flasks.
  * Supports both splash and lingering effects.
  */
-@OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
 public class EntityPotionFlask extends ThrowableItemProjectile implements ItemSupplier {
 
     public static final Predicate<LivingEntity> WATER_SENSITIVE = LivingEntity::isSensitiveToWater;

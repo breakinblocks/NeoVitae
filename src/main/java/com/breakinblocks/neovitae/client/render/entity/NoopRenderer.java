@@ -7,14 +7,11 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.entity.Entity;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 /**
  * A no-op renderer for entities that handle their own visual representation
  * (e.g., through particles) and don't need standard rendering.
  */
-@OnlyIn(Dist.CLIENT)
 public class NoopRenderer<T extends Entity> extends EntityRenderer<T, EntityRenderState> {
 
     public NoopRenderer(EntityRendererProvider.Context context) {

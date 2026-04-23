@@ -5,7 +5,7 @@ import com.mojang.blaze3d.pipeline.ColorTargetState;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.data.AtlasIds;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -23,7 +23,7 @@ public final class NVRenderPipelines {
             .build();
 
     public static final SingleQuadParticle.Layer ADDITIVE_LAYER = new SingleQuadParticle.Layer(
-            true, AtlasIds.PARTICLES, ADDITIVE_PARTICLE);
+            true, TextureAtlas.LOCATION_PARTICLES, ADDITIVE_PARTICLE);
 
     @SubscribeEvent
     static void registerPipelines(RegisterRenderPipelinesEvent event) {

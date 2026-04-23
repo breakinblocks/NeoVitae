@@ -45,7 +45,7 @@ public class DungeonShowcaseCommand {
         );
     }
 
-    private static int placeShowcase(CommandContext<CommandSourceStack> context) {
+    static int placeShowcase(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
         ServerLevel level = source.getLevel();
         BlockPos origin = BlockPos.containing(source.getPosition());

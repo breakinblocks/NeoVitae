@@ -13,11 +13,8 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import com.breakinblocks.neovitae.common.entity.projectile.AbstractEntityThrowingDagger;
 
-@OnlyIn(Dist.CLIENT)
 public class EntityThrowingDaggerRenderer<T extends AbstractEntityThrowingDagger>
         extends EntityRenderer<T, EntityThrowingDaggerRenderer.State> {
 

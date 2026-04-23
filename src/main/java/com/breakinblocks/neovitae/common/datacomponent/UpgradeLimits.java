@@ -9,7 +9,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.client.screen.TrainerScreen;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.living.LivingHelper;
 import com.breakinblocks.neovitae.common.living.LivingUpgrade;

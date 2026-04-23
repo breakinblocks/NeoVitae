@@ -8,10 +8,10 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
-import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.common.network.SigilHoldingSelectionPayload;
 
 public class SigilHoldingScreen extends AbstractContainerScreen<SigilHoldingMenu> {
@@ -62,7 +62,7 @@ public class SigilHoldingScreen extends AbstractContainerScreen<SigilHoldingMenu
 
     private void selectSlot(int slot) {
         menu.setSelectedSlot(slot);
-        NVPayloads.sendToServer(new SigilHoldingSelectionPayload(slot));
+        ClientPacketDistributor.sendToServer(new SigilHoldingSelectionPayload(slot));
     }
 
     @Override

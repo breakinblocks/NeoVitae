@@ -8,10 +8,7 @@ import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class BloodDripParticle extends SingleQuadParticle {
 
     protected BloodDripParticle(ClientLevel level, double x, double y, double z,
@@ -43,7 +40,6 @@ public class BloodDripParticle extends SingleQuadParticle {
         return 0xF000F0;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<ColoredParticleOptions> {
         private final SpriteSet sprites;
 

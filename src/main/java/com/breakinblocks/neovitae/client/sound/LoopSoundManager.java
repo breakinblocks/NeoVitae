@@ -6,14 +6,11 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
-@OnlyIn(Dist.CLIENT)
 public class LoopSoundManager {
 
     private static final Set<BlockPos> ACTIVE_LOOPS = new HashSet<>();

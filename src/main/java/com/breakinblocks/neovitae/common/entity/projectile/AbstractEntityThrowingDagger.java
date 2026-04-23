@@ -37,8 +37,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
@@ -54,7 +52,6 @@ import net.minecraft.core.component.DataComponents;
  * Base class for throwing dagger projectiles.
  * Handles arrow-like behavior with potion effects and spiritus collection.
  */
-@OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
 public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjectile implements ItemSupplier {
 
     private static final EntityDataAccessor<Integer> ID_EFFECT_COLOR = SynchedEntityData.defineId(
@@ -510,13 +507,11 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         });
     }
 
-    @OnlyIn(Dist.CLIENT)
     private ParticleOptions makeParticle() {
         ItemStack stack = this.getItem();
         return stack.isEmpty() ? ParticleTypes.CRIT : new ItemParticleOption(ParticleTypes.ITEM, stack.getItem());
     }
 
-    @OnlyIn(Dist.CLIENT)
     @Override
     public void handleEntityEvent(byte id) {
         if (id == 3) {

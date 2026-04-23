@@ -129,8 +129,8 @@ dependencies {
 dependencies {
     implementation("curse.maven:geckolib-388172:7913641")
 
-    compileOnly("curse.maven:jade-324717:7815579")
-    localRuntime("curse.maven:jade-324717:7815579")
+    compileOnly("curse.maven:jade-324717:7938398")
+    localRuntime("curse.maven:jade-324717:7938398")
 
     compileOnly("curse.maven:modonomicon-538392:7930699")
     localRuntime("curse.maven:modonomicon-538392:7930699")

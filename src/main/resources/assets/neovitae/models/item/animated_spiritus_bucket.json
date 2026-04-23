@@ -1,5 +1,7 @@
 {
-  "parent": "neoforge:item/bucket_drip",
-  "loader": "neoforge:fluid_container",
-  "fluid": "neovitae:animated_spiritus_type"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:item/bucket",
+    "layer1": "neovitae:block/animated_spiritus_still"
+  }
 }

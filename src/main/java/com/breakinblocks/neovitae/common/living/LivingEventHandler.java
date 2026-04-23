@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.living;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -16,6 +17,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.ItemLore;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.Equippable;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
@@ -30,6 +33,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 
@@ -202,6 +206,41 @@ public class LivingEventHandler {
                 }
             }
         }
+
+        syncLivingElytraAsset(event.getEntity());
+    }
+
+    /**
+     * Rewrites the worn Living chestplate's EQUIPPABLE component so its
+     * EquipmentAsset matches whether the Elytra upgrade is currently active.
+     * Pre-port client-side ElytraLayer handled this; the 26.1 EquipmentAsset
+     * system requires the swap to live on the stack itself.
+     */
+    private static void syncLivingElytraAsset(Player player) {
+        ItemStack chest = LivingHelper.getChest(player);
+        if (chest.isEmpty() || !chest.is(NVItems.LIVING_PLATE.get())) return;
+
+        Equippable current = chest.get(DataComponents.EQUIPPABLE);
+        if (current == null) return;
+
+        ResourceKey<EquipmentAsset> desired = LivingHelper.has(chest, LivingEffectComponents.ELYTRA.get())
+                ? NVMaterialsAndTiers.LIVING_ELYTRA_EQUIPMENT_ASSET
+                : NVMaterialsAndTiers.LIVING_EQUIPMENT_ASSET;
+
+        if (current.assetId().isPresent() && current.assetId().get().equals(desired)) return;
+
+        chest.set(DataComponents.EQUIPPABLE, new Equippable(
+                current.slot(),
+                current.equipSound(),
+                java.util.Optional.of(desired),
+                current.cameraOverlay(),
+                current.allowedEntities(),
+                current.dispensable(),
+                current.swappable(),
+                current.damageOnHurt(),
+                current.equipOnInteract(),
+                current.canBeSheared(),
+                current.shearingSound()));
     }
 
     @SubscribeEvent
@@ -235,6 +274,8 @@ public class LivingEventHandler {
         }
 
         chestStack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
+
+        syncLivingElytraAsset(player);
 
         CuriosCompat.recalculateCuriosSlots(player);
     }

@@ -9,9 +9,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,7 +27,7 @@ import java.util.function.Consumer;
 
 import static com.breakinblocks.neovitae.common.item.soul.SentientToolHelper.*;
 
-public class SentientAxeItem extends Item implements ISentientTool {
+public class SentientAxeItem extends AxeItem implements ISentientTool {
 
     private static final double[] DEFAULT_DAMAGE = {1, 2, 3, 3.5, 4, 4.5, 5};
     private static final double[] DESTRUCTIVE_DAMAGE = {2, 3, 4, 5, 6, 7, 8};
@@ -33,9 +35,9 @@ public class SentientAxeItem extends Item implements ISentientTool {
     private static final double[] STEADFAST_DAMAGE = {0, 0.5, 1, 1.5, 2, 2.5, 3};
 
     public SentientAxeItem(Item.Properties props) {
-        super(props.axe(NVMaterialsAndTiers.SENTIENT, 8, -3.1f)
-                .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT)
-                .component(NVDataComponents.SIGIL_ACTIVATED, false));
+        super(NVMaterialsAndTiers.SENTIENT, 8, -3.1f,
+                props.component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT)
+                     .component(NVDataComponents.SIGIL_ACTIVATED, false));
     }
 
     @Override

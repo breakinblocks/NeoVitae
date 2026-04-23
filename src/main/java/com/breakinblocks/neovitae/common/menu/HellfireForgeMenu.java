@@ -7,7 +7,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -19,19 +19,19 @@ public class HellfireForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBloc
     public HellfireForgeMenu(int containerId, Inventory playerInventory, HellfireForgeBlockEntity tile) {
         super(NVMenus.HELLFIRE_FORGE.get(), containerId, tile, TILE_SLOTS);
 
-        this.addSlot(new SlotItemHandler(tile.inv, 0, 8, 15));
-        this.addSlot(new SlotItemHandler(tile.inv, 1, 80, 15));
-        this.addSlot(new SlotItemHandler(tile.inv, 2, 8, 87));
-        this.addSlot(new SlotItemHandler(tile.inv, 3, 80, 87));
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, 0, 8, 15));
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, 1, 80, 15));
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, 2, 8, 87));
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, 3, 80, 87));
 
-        this.addSlot(new SlotItemHandler(tile.inv, HellfireForgeBlockEntity.GEM_SLOT, 152, 51) {
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, HellfireForgeBlockEntity.GEM_SLOT, 152, 51) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.has(NVDataComponents.SPIRITUS_AMOUNT);
             }
         });
 
-        this.addSlot(new SlotItemHandler(tile.inv, HellfireForgeBlockEntity.OUTPUT_SLOT, 44, 51) {
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, HellfireForgeBlockEntity.OUTPUT_SLOT, 44, 51) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;

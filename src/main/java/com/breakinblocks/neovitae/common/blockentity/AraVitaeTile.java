@@ -1,29 +1,30 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
 
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.TransferPreconditions;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.SnapshotJournal;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.api.altar.rune.AltarRuneModifiers;
 import com.breakinblocks.neovitae.api.altar.rune.IAltarRuneType;
@@ -60,7 +61,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAraVitae {
+public class AraVitaeTile extends BaseBlockEntity implements IAraVitae {
 
     private volatile boolean isActive = false;
     private volatile boolean canFill = false;
@@ -81,13 +82,119 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     private int previousIOCapacity = 0;
     private int previousChargingCapacity = 0;
 
-    public ItemStackHandler inv = new ItemStackHandler(1) {
+    public final Inv inv = new Inv();
+
+    public class Inv extends ItemStacksResourceHandler {
+        Inv() { super(1); }
+
         @Override
-        protected void onContentsChanged(int slot) {
-            super.onContentsChanged(slot);
+        protected void onContentsChanged(int index, ItemStack previousContents) {
             setChanged();
         }
-    };
+
+        public ItemStack getStackInSlot(int slot) {
+            ItemResource r = getResource(slot);
+            return r.isEmpty() ? ItemStack.EMPTY : r.toStack(getAmountAsInt(slot));
+        }
+
+        public void setStackInSlot(int slot, ItemStack stack) {
+            set(slot, ItemResource.of(stack), stack.getCount());
+        }
+    }
+
+    public final AltarFluidHandler fluidHandler = new AltarFluidHandler();
+
+    public class AltarFluidHandler implements ResourceHandler<FluidResource> {
+        private final TankJournal journal = new TankJournal();
+
+        @Override public int size() { return 3; }
+
+        @Override
+        public FluidResource getResource(int index) {
+            return switch (index) {
+                case 0, 1, 2 -> tankAmountAt(index) > 0
+                        ? FluidResource.of(NVFluids.ESSENTIA_VITAE_SOURCE.get())
+                        : FluidResource.EMPTY;
+                default -> FluidResource.EMPTY;
+            };
+        }
+
+        @Override
+        public long getAmountAsLong(int index) { return tankAmountAt(index); }
+
+        @Override
+        public long getCapacityAsLong(int index, FluidResource resource) {
+            return switch (index) {
+                case 0 -> getMainCapacity();
+                case 1, 2 -> getIOCapacity();
+                default -> 0;
+            };
+        }
+
+        @Override
+        public boolean isValid(int index, FluidResource resource) {
+            return resource.isEmpty() || resource.getFluid() == NVFluids.ESSENTIA_VITAE_SOURCE.get();
+        }
+
+        @Override
+        public int insert(int index, FluidResource resource, int amount, TransactionContext tx) {
+            TransferPreconditions.checkNonEmptyNonNegative(resource, amount);
+            if (!isValid(index, resource) || index != 1) return 0;
+            int space = Math.max(getIOCapacity() - inputTank, 0);
+            int toFill = Math.min(space, amount);
+            if (toFill <= 0) return 0;
+            journal.updateSnapshots(tx);
+            inputTank += toFill;
+            return toFill;
+        }
+
+        @Override
+        public int extract(int index, FluidResource resource, int amount, TransactionContext tx) {
+            TransferPreconditions.checkNonEmptyNonNegative(resource, amount);
+            if (!isValid(index, resource) || index != 2) return 0;
+            int toDrain = Math.min(outputTank, amount);
+            if (toDrain <= 0) return 0;
+            journal.updateSnapshots(tx);
+            outputTank -= toDrain;
+            return toDrain;
+        }
+
+        @Override
+        public int insert(FluidResource resource, int amount, TransactionContext tx) {
+            return insert(1, resource, amount, tx);
+        }
+
+        @Override
+        public int extract(FluidResource resource, int amount, TransactionContext tx) {
+            return extract(2, resource, amount, tx);
+        }
+
+        private int tankAmountAt(int index) {
+            return switch (index) {
+                case 0 -> mainTank;
+                case 1 -> inputTank;
+                case 2 -> outputTank;
+                default -> 0;
+            };
+        }
+
+        private class TankJournal extends SnapshotJournal<int[]> {
+            @Override
+            protected int[] createSnapshot() { return new int[]{mainTank, inputTank, outputTank}; }
+
+            @Override
+            protected void revertToSnapshot(int[] snapshot) {
+                mainTank = snapshot[0];
+                inputTank = snapshot[1];
+                outputTank = snapshot[2];
+            }
+
+            @Override
+            protected void onRootCommit(int[] originalState) {
+                setChanged();
+            }
+        }
+    }
 
     private AltarRuneModifiers modifiers = new AltarRuneModifiers(1, 20, 1, 1, 1, 1, 1, 1, 1, 1);
 
@@ -370,7 +477,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
                 int transferRate = (int) (orb.fillRate() * 10 * (1 + modifiers.getConsumptionMod()));
                 int toDrain = Math.min(transferRate, Math.min(orbAmount, altarRoom));
                 if (toDrain > 0) {
-                    FluidStack drained = OrbFluidHandler.drainInternal(inputStack, toDrain, FluidAction.EXECUTE);
+                    FluidStack drained = OrbFluidHandler.drainInternal(inputStack, toDrain, true);
                     setMainTank(getMainTank() + drained.getAmount());
                     if (!drained.isEmpty() && getTicks() % 2 == 0) {
                         double angle = (getTicks() * 0.15) % (Math.PI * 2);
@@ -393,7 +500,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
                 }
             } else {
                 int networkFill = Math.min(orbAmount, (int) (orb.fillRate() * (1 + modifiers.getConsumptionMod())));
-                FluidStack drained = OrbFluidHandler.drainInternal(inputStack, networkFill, FluidAction.EXECUTE);
+                FluidStack drained = OrbFluidHandler.drainInternal(inputStack, networkFill, true);
                 if (!drained.isEmpty()) {
                     AnimaHelper.getAnima(binding.uuid()).add(AnimaTicket.create(drained.getAmount()),
                             (int) (orb.animaCapacity() * (1 + modifiers.getOrbCapacityMod())));
@@ -722,72 +829,6 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         tag.putInt("capacityGrace", capacityGraceTicks);
     }
 
-    @Override
-    public int getTanks() {
-        return 3;
-    }
-
-    @Override
-    public FluidStack getFluidInTank(int tank) {
-        return switch (tank) {
-            case 0 -> new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE, getMainTank());
-            case 1 -> new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE, getInputTank());
-            case 2 -> new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE, getOutputTank());
-            default -> FluidStack.EMPTY;
-        };
-    }
-
-    @Override
-    public int getTankCapacity(int tank) {
-        return switch (tank) {
-          case 0 -> getMainCapacity();
-          case 1,2 -> getIOCapacity();
-          default -> 0;
-        };
-    }
-
-    @Override
-    public boolean isFluidValid(int tank, FluidStack stack) {
-        return stack.is(NVTags.Fluids.ESSENTIA_VITAE);
-    }
-
-    @Override
-    public int fill(FluidStack resource, FluidAction action) {
-        if (!isFluidValid(0, resource)) {
-            return 0;
-        }
-        int availableSpace = Math.max(getIOCapacity() - getInputTank(), 0);
-        int canFill = Math.min(availableSpace, resource.getAmount());
-
-        if (action.execute()) {
-            setInputTank(getInputTank() + canFill);
-            this.setChanged();
-        }
-
-        return canFill;
-    }
-
-    @Override
-    public FluidStack drain(FluidStack resource, FluidAction action) {
-        if (!isFluidValid(0, resource)) {
-            return FluidStack.EMPTY;
-        }
-
-        return drain(resource.getAmount(), action);
-    }
-
-    @Override
-    public FluidStack drain(int maxDrain, FluidAction action) {
-        int toDrain = Math.min(getOutputTank(), maxDrain);
-
-        if (action.execute()) {
-            setOutputTank(getOutputTank() - toDrain);
-            this.setChanged();
-        }
-
-        return new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE, toDrain);
-    }
-
     public boolean isActive() { return isActive; }
     public boolean isVisuallyActive() { return isActive || cooldownAfterCrafting > 0; }
     public boolean canFill() { return canFill; }
@@ -864,8 +905,8 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     }
 
     @Override
-    public IFluidHandler getFluidHandler() {
-        return this;
+    public ResourceHandler<FluidResource> getFluidHandler() {
+        return fluidHandler;
     }
 
     private void scanAndRecalculate() {

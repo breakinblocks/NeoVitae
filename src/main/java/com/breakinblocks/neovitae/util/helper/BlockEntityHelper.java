@@ -9,7 +9,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public class BlockEntityHelper {
     public static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> getTicker(BlockEntityType<A> serverType, BlockEntityType<E> clientType, BlockEntityTicker<? super E> ticker) {
@@ -24,9 +25,11 @@ public class BlockEntityHelper {
         return Component.translatable(key).withStyle(ChatFormatting.GRAY);
     }
 
-    public static void dropContents(Level level, BlockPos pos, IItemHandler handler) {
-        for (int i = 0; i < handler.getSlots(); i++) {
-            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), handler.getStackInSlot(i));
+    public static void dropContents(Level level, BlockPos pos, ResourceHandler<ItemResource> handler) {
+        for (int i = 0; i < handler.size(); i++) {
+            ItemResource r = handler.getResource(i);
+            if (r.isEmpty()) continue;
+            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), r.toStack(handler.getAmountAsInt(i)));
         }
     }
 }

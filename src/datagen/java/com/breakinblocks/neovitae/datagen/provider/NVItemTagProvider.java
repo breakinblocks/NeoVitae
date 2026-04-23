@@ -29,6 +29,9 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(NVTags.Items.LIVING_SET)
                 .add(NVItems.LIVING_HELMET.get(), NVItems.LIVING_PLATE.get(), NVItems.LIVING_LEGGINGS.get(), NVItems.LIVING_BOOTS.get());
 
+        tag(NVTags.Items.LIVING_ARMOR_REPAIR)
+                .add(NVItems.RAW_CRYSTAL.get());
+
         tag(NVTags.Items.LIVING_UPGRADE_SET)
                 .addTag(NVTags.Items.LIVING_SET);
 

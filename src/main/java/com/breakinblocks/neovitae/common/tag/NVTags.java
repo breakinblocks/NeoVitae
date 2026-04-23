@@ -20,6 +20,7 @@ public class NVTags {
         public static final TagKey<Item> SPIRITUS_CAPABLE = tag(bm("spiritus_capable"));
         public static final TagKey<Item> SPIRITUS_GEM = tag(bm("spiritus_gems"));
         public static final TagKey<Item> SPIRITUS_CRYSTALS = tag(bm("crystals/demon"));
+        public static final TagKey<Item> LIVING_ARMOR_REPAIR = tag(bm("living_armor_repair"));
 
         public static final TagKey<Item> STORAGE_BLOCKS_HELLFORGED = fromBlock(Blocks.STORAGE_BLOCKS_HELLFORGED);
 

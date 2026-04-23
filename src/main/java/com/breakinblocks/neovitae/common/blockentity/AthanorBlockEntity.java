@@ -1,51 +1,55 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
 
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.FluidUtil;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
-import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.wrapper.RangedWrapper;
-import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.menu.AthanorMenu;
+import net.neoforged.neoforge.transfer.RangedResourceHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.ResourceHandlerUtil;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.fluid.FluidStacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.resource.ResourceStack;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.block.AthanorBlock;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.menu.AthanorMenu;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipeInput;
 import com.breakinblocks.neovitae.common.tag.NVTags;
-import com.breakinblocks.neovitae.common.NVSounds;
-import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
-import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.util.AthanorOutputHandler;
-import net.minecraft.sounds.SoundSource;
-
 import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
 
 import javax.annotation.Nullable;
@@ -54,7 +58,6 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import net.minecraft.world.item.ItemStackTemplate;
 
 public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider {
 
@@ -66,6 +69,8 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     public static final int OUTPUT_SLOT = OUTPUT_BUCKET_SLOT + 1;         // 9
 
     public static final int NUM_OUTPUTS = 5;
+    public static final int INVENTORY_SIZE = OUTPUT_SLOT + NUM_OUTPUTS;
+    public static final int TANK_CAPACITY = 20 * FluidType.BUCKET_VOLUME;
 
     private double progress = 0;
     public static final double DEFAULT_SPEED = 0.005;
@@ -90,32 +95,79 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         quickAthanor = RecipeManager.createCheck(NVRecipes.ATHANOR_TYPE.get());
     }
 
+    @SuppressWarnings("unchecked")
     private RecipeManager.CachedCheck<SingleRecipeInput, ? extends AbstractCookingRecipe> createCookingLookup(RecipeType<? extends AbstractCookingRecipe> recipeType) {
         return RecipeManager.createCheck((RecipeType<AbstractCookingRecipe>) recipeType);
     }
 
-    public final ItemStackHandler athanorInv = new ItemStackHandler(OUTPUT_SLOT + NUM_OUTPUTS) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
+    public final Inv athanorInv = new Inv();
+
+    public class Inv extends ItemStacksResourceHandler {
+        Inv() { super(INVENTORY_SIZE); }
 
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            if (slot == TOOL_SLOT) return stack.is(NVTags.Items.ATHANOR_TOOL);
-            if (slot >= INPUT_START && slot < INPUT_START + NUM_INPUTS) return true;
-            if (slot == INPUT_BUCKET_SLOT || slot == OUTPUT_BUCKET_SLOT) return FluidUtil.getFluidHandler(stack).isPresent();
+        public boolean isValid(int index, ItemResource resource) {
+            if (index == TOOL_SLOT) return resource.is(NVTags.Items.ATHANOR_TOOL);
+            if (index >= INPUT_START && index < INPUT_START + NUM_INPUTS) return true;
+            if (index == INPUT_BUCKET_SLOT || index == OUTPUT_BUCKET_SLOT) {
+                return ItemAccess.forStack(resource.toStack(1)).oneByOne().getCapability(Capabilities.Fluid.ITEM) != null;
+            }
             return false;
         }
 
         @Override
-        public int getSlotLimit(int slot) {
-            if (slot == INPUT_BUCKET_SLOT || slot == OUTPUT_BUCKET_SLOT) {
-                return 1;
-            }
-            return super.getSlotLimit(slot);
+        protected int getCapacity(int index, ItemResource resource) {
+            if (index == INPUT_BUCKET_SLOT || index == OUTPUT_BUCKET_SLOT) return 1;
+            return super.getCapacity(index, resource);
         }
-    };
+
+        @Override
+        protected void onContentsChanged(int index, ItemStack previousContents) {
+            setChanged();
+        }
+
+        public ItemStack getStackInSlot(int slot) {
+            ItemResource r = getResource(slot);
+            return r.isEmpty() ? ItemStack.EMPTY : r.toStack(getAmountAsInt(slot));
+        }
+
+        public void setStackInSlot(int slot, ItemStack stack) {
+            set(slot, ItemResource.of(stack), stack.getCount());
+        }
+    }
+
+    public final Tank inputTank = new Tank();
+    public final Tank outputTank = new Tank();
+
+    public class Tank extends FluidStacksResourceHandler {
+        Tank() { super(1, TANK_CAPACITY); }
+
+        @Override
+        protected void onContentsChanged(int index, FluidStack previousContents) {
+            setChanged();
+        }
+
+        public FluidStack getFluid() {
+            FluidResource r = getResource(0);
+            return r.isEmpty() ? FluidStack.EMPTY : r.toStack(getAmountAsInt(0));
+        }
+
+        public void setFluid(FluidStack stack) {
+            set(0, FluidResource.of(stack), stack.getAmount());
+        }
+
+        public int getFluidAmount() {
+            return getAmountAsInt(0);
+        }
+
+        public int getCapacity() {
+            return capacity;
+        }
+
+        public boolean isEmpty() {
+            return getResource(0).isEmpty();
+        }
+    }
 
     public int getProgressForGui() {
         return (int) (progress * 38);
@@ -137,30 +189,20 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         return willBlocked;
     }
 
-    public static IItemHandler getItemHandler(AthanorBlockEntity tile, @Nullable Direction side) {
+    public static ResourceHandler<ItemResource> getItemHandler(AthanorBlockEntity tile, @Nullable Direction side) {
         if (side == null) {
             return tile.athanorInv;
         }
         return switch (side) {
-            case UP -> new RangedWrapper(tile.athanorInv, TOOL_SLOT, TOOL_SLOT + 1);
-            case DOWN -> new RangedWrapper(tile.athanorInv, OUTPUT_SLOT, OUTPUT_SLOT + NUM_OUTPUTS);
-            default -> new RangedWrapper(tile.athanorInv, INPUT_START, OUTPUT_BUCKET_SLOT + 1);
+            case UP -> RangedResourceHandler.of(tile.athanorInv, TOOL_SLOT, TOOL_SLOT + 1);
+            case DOWN -> RangedResourceHandler.of(tile.athanorInv, OUTPUT_SLOT, OUTPUT_SLOT + NUM_OUTPUTS);
+            default -> RangedResourceHandler.of(tile.athanorInv, INPUT_START, OUTPUT_BUCKET_SLOT + 1);
         };
     }
 
-    public final FluidTank inputTank = new FluidTank(20 * FluidType.BUCKET_VOLUME) {
-        @Override
-        protected void onContentsChanged() {
-            setChanged();
-        }
-    };
-
-    public final FluidTank outputTank = new FluidTank(20 * FluidType.BUCKET_VOLUME) {
-        @Override
-        protected void onContentsChanged() {
-            setChanged();
-        }
-    };
+    public static ResourceHandler<FluidResource> getFluidHandler(AthanorBlockEntity tile, @Nullable Direction side) {
+        return side == Direction.DOWN ? tile.outputTank : tile.inputTank;
+    }
 
     @Override
     public Component getDisplayName() {
@@ -171,9 +213,6 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     protected void loadAdditional(ValueInput tag) {
         super.loadAdditional(tag);
         tag.child("arcinv").ifPresent(athanorInv::deserialize);
-        if (athanorInv.getSlots() < OUTPUT_SLOT + NUM_OUTPUTS) {
-            athanorInv.setSize(OUTPUT_SLOT + NUM_OUTPUTS);
-        }
         tag.child("inputTank").ifPresent(inputTank::deserialize);
         tag.child("outputTank").ifPresent(outputTank::deserialize);
         progress = tag.getDoubleOr("arcprogress", 0d);
@@ -220,13 +259,6 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     @Override
     public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
         return new AthanorMenu(containerId, playerInventory, this);
-    }
-
-    public IFluidHandler getFluidHandler(Direction direction) {
-        if (direction == Direction.DOWN) {
-            return this.outputTank;
-        }
-        return this.inputTank;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AthanorBlockEntity athanorTile) {
@@ -283,7 +315,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
                     }
                 }
             } else if (serverLevel != null) {
-                AthanorRecipeInput input = new AthanorRecipeInput(toolStack, inputStacks, athanorTile.inputTank.getFluidInTank(0));
+                AthanorRecipeInput input = new AthanorRecipeInput(toolStack, inputStacks, athanorTile.inputTank.getFluid());
                 Optional<RecipeHolder<AthanorRecipe>> recipe = athanorTile.quickAthanor.getRecipeFor(input, serverLevel);
                 if (athanorTile.canCraft(recipe, itemOutputHandler)) {
                     AthanorRecipe athanorRecipe = recipe.get().value();
@@ -376,8 +408,12 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
             return false;
         }
         if (athanorRecipe.getOutputFluid().isPresent()) {
-            int filled = outputTank.fill(athanorRecipe.getOutputFluid().get(), FluidAction.SIMULATE);
-            if (!(filled == athanorRecipe.getOutputFluid().get().getAmount())) {
+            FluidStack fluid = athanorRecipe.getOutputFluid().get();
+            int filled;
+            try (Transaction tx = Transaction.openRoot()) {
+                filled = outputTank.insert(FluidResource.of(fluid), fluid.getAmount(), tx);
+            }
+            if (filled != fluid.getAmount()) {
                 return false;
             }
         }
@@ -386,16 +422,27 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
 
     private void craft(AthanorRecipe value, AthanorRecipeInput input, AthanorOutputHandler outputHandler) {
         AthanorRecipe.AthanorResult result = value.assembleOutputs(input);
-        value.getInputFluid().ifPresent(required ->
-                inputTank.drain(required.amount(), FluidAction.EXECUTE));
-        outputTank.fill(result.fluid(), FluidAction.EXECUTE);
+        value.getInputFluid().ifPresent(required -> {
+            try (Transaction tx = Transaction.openRoot()) {
+                FluidResource res = FluidResource.of(inputTank.getFluid());
+                if (!res.isEmpty()) {
+                    inputTank.extract(res, required.amount(), tx);
+                }
+                tx.commit();
+            }
+        });
+        FluidStack outFluid = result.fluid();
+        if (!outFluid.isEmpty()) {
+            try (Transaction tx = Transaction.openRoot()) {
+                outputTank.insert(FluidResource.of(outFluid), outFluid.getAmount(), tx);
+                tx.commit();
+            }
+        }
         handleInventory(result.items(), outputHandler);
     }
 
     private void handleInventory(List<ItemStack> toOutput, AthanorOutputHandler outputHandler) {
-        if (!outputHandler.canTransferAllItemsToSlots(toOutput, false)) {
-            // Debug: NeoVitae.LOGGER.info("couldnt stash all {}", toOutput);
-        }
+        outputHandler.canTransferAllItemsToSlots(toOutput, false);
         if (level != null && !level.isClientSide()) {
             level.playSound(null, worldPosition, NVSounds.ATHANOR_COMPLETE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
             ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x22AA22), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 6, 0.2, 0.2, 0.2, 0);
@@ -404,6 +451,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
             ItemStack inSlot = athanorInv.getStackInSlot(s);
             if (!inSlot.isEmpty()) {
                 inSlot.shrink(1);
+                athanorInv.setStackInSlot(s, inSlot);
             }
         }
         progress = 0;
@@ -414,16 +462,17 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
             if (!remainder.isEmpty()) {
                 athanorInv.setStackInSlot(TOOL_SLOT, remainder);
             } else if (toolStack.has(DataComponents.MAX_DAMAGE)) {
-                int lost = EnchantmentHelper.processDurabilityChange((ServerLevel) level, toolStack, 1); // this *should* apply enchantments like unbreaking
+                int lost = EnchantmentHelper.processDurabilityChange((ServerLevel) level, toolStack, 1);
                 int newDamage = toolStack.getOrDefault(DataComponents.DAMAGE, 0) + lost;
                 if (newDamage >= toolStack.getMaxDamage()) {
-                    // Tool is broken - clear the slot (handleSlots will move it to output if possible)
                     athanorInv.setStackInSlot(TOOL_SLOT, ItemStack.EMPTY);
                 } else {
                     toolStack.set(DataComponents.DAMAGE, newDamage);
+                    athanorInv.setStackInSlot(TOOL_SLOT, toolStack);
                 }
             } else {
                 toolStack.shrink(1);
+                athanorInv.setStackInSlot(TOOL_SLOT, toolStack);
             }
         }
     }
@@ -444,68 +493,10 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     }
 
     public boolean handleSlots(AthanorOutputHandler itemOutputHandler) {
-        IFluidHandlerItem testInputHandler = FluidUtil.getFluidHandler(athanorInv.getStackInSlot(INPUT_BUCKET_SLOT).copy()).orElse(null);
-        IFluidHandlerItem testOutputHandler = FluidUtil.getFluidHandler(athanorInv.getStackInSlot(OUTPUT_BUCKET_SLOT).copy()).orElse(null);
-
         boolean outputChanged = false;
-        if (testInputHandler != null) {
-            FluidStack transferredStack = FluidUtil.tryFluidTransfer(inputTank, testInputHandler, Integer.MAX_VALUE, false);
-            if (!transferredStack.isEmpty()) {
-                testInputHandler.drain(transferredStack, FluidAction.EXECUTE);
-                tempBucketList.clear();
-                tempBucketList.add(testInputHandler.getContainer());
-                if (itemOutputHandler.canTransferAllItemsToSlots(tempBucketList, true)) {
-                    outputChanged = true;
-                    inputTank.fill(transferredStack, FluidAction.EXECUTE);
-                    itemOutputHandler.canTransferAllItemsToSlots(tempBucketList, false);
-                    athanorInv.setStackInSlot(INPUT_BUCKET_SLOT, ItemStack.EMPTY);
-                }
-            } else {
-                transferredStack = FluidUtil.tryFluidTransfer(testInputHandler, inputTank, inputTank.getFluidAmount(), false);
-                if (!transferredStack.isEmpty()) {
-                    testInputHandler.fill(transferredStack, FluidAction.EXECUTE);
-                    tempBucketList.clear();
-                    tempBucketList.add(testInputHandler.getContainer());
-                    if (itemOutputHandler.canTransferAllItemsToSlots(tempBucketList, true)) {
-                        outputChanged = true;
-                        inputTank.drain(transferredStack, FluidAction.EXECUTE);
-                        itemOutputHandler.canTransferAllItemsToSlots(tempBucketList, false);
-                        athanorInv.setStackInSlot(INPUT_BUCKET_SLOT, ItemStack.EMPTY);
-                    }
-                }
-            }
-        }
 
-        if (testOutputHandler != null) {
-            /* probably dont insert into output tank
-            FluidStack transferredStack = FluidUtil.tryFluidTransfer(outputTank, testOutputHandler, outputTank.getCapacity() - outputTank.getFluidAmount(), false);
-            if (!transferredStack.isEmpty()) {
-                testOutputHandler.drain(transferredStack, FluidAction.EXECUTE);
-                tempBucketList.clear();
-                tempBucketList.add(testOutputHandler.getContainer());
-                if (itemOutputHandler.canTransferAllItemsToSlots(tempBucketList, true)) {
-                    outputChanged = true;
-                    outputTank.fill(transferredStack, FluidAction.EXECUTE);
-                    itemOutputHandler.canTransferAllItemsToSlots(tempBucketList, false);
-                    itemHandler.setStackInSlot(OUTPUT_BUCKET_SLOT, ItemStack.EMPTY);
-                }
-            } else {
-
-             */
-            FluidStack transferredStack = FluidUtil.tryFluidTransfer(testOutputHandler, outputTank, outputTank.getFluidAmount(), false);
-            if (!transferredStack.isEmpty()) {
-                testOutputHandler.fill(transferredStack, FluidAction.EXECUTE);
-                tempBucketList.clear();
-                tempBucketList.add(testOutputHandler.getContainer());
-                if (itemOutputHandler.canTransferAllItemsToSlots(tempBucketList, true)) {
-                    outputChanged = true;
-                    outputTank.drain(transferredStack, FluidAction.EXECUTE);
-                    itemOutputHandler.canTransferAllItemsToSlots(tempBucketList, false);
-                    athanorInv.setStackInSlot(OUTPUT_BUCKET_SLOT, ItemStack.EMPTY);
-                }
-            }
-            //}
-        }
+        outputChanged |= moveBucket(INPUT_BUCKET_SLOT, inputTank, itemOutputHandler);
+        outputChanged |= moveBucket(OUTPUT_BUCKET_SLOT, outputTank, itemOutputHandler);
 
         ItemStack toolStack = athanorInv.getStackInSlot(TOOL_SLOT).copy();
         if (toolStack.getDamageValue() >= toolStack.getMaxDamage()) {
@@ -521,6 +512,34 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         }
 
         return outputChanged;
+    }
+
+    private boolean moveBucket(int bucketSlot, Tank tank, AthanorOutputHandler itemOutputHandler) {
+        ItemStack bucket = athanorInv.getStackInSlot(bucketSlot);
+        if (bucket.isEmpty()) return false;
+
+        ItemAccess access = ItemAccess.forStack(bucket.copy()).oneByOne();
+        ResourceHandler<FluidResource> bucketHandler = access.getCapability(Capabilities.Fluid.ITEM);
+        if (bucketHandler == null) return false;
+
+        try (Transaction tx = Transaction.openRoot()) {
+            ResourceStack<FluidResource> moved = ResourceHandlerUtil.moveFirst(tank, bucketHandler, r -> true, Integer.MAX_VALUE, tx);
+            if (moved == null) {
+                moved = ResourceHandlerUtil.moveFirst(bucketHandler, tank, r -> true, Integer.MAX_VALUE, tx);
+            }
+            if (moved == null) return false;
+
+            ItemStack resultBucket = access.getResource().toStack(access.getAmount());
+            tempBucketList.clear();
+            tempBucketList.add(resultBucket);
+            if (!itemOutputHandler.canTransferAllItemsToSlots(tempBucketList, true)) {
+                return false;
+            }
+            tx.commit();
+            itemOutputHandler.canTransferAllItemsToSlots(tempBucketList, false);
+            athanorInv.setStackInSlot(bucketSlot, ItemStack.EMPTY);
+            return true;
+        }
     }
 
     private void snapshotChunkWill(Level level, BlockPos pos) {

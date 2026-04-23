@@ -1,7 +1,8 @@
 package com.breakinblocks.neovitae.api.altar;
 
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 
 /**
  * Interface representing an Ara Vitae's public functionality.
@@ -110,7 +111,7 @@ public interface IAraVitae {
      *
      * @return The fluid handler
      */
-    IFluidHandler getFluidHandler();
+    ResourceHandler<FluidResource> getFluidHandler();
 
     /**
      * Forces a tier recalculation.

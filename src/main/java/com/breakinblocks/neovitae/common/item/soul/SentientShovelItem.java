@@ -11,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
@@ -25,7 +26,7 @@ import java.util.function.Consumer;
 
 import static com.breakinblocks.neovitae.common.item.soul.SentientToolHelper.*;
 
-public class SentientShovelItem extends Item implements ISentientTool {
+public class SentientShovelItem extends ShovelItem implements ISentientTool {
 
     private static final double[] DEFAULT_DAMAGE = {0.5, 1, 1.5, 2, 2.5, 3, 3.5};
     private static final double[] DESTRUCTIVE_DAMAGE = {1, 2, 3, 4, 5, 6, 7};
@@ -33,9 +34,9 @@ public class SentientShovelItem extends Item implements ISentientTool {
     private static final double[] STEADFAST_DAMAGE = {0, 0.25, 0.5, 0.75, 1, 1.25, 1.5};
 
     public SentientShovelItem(Item.Properties props) {
-        super(props.shovel(NVMaterialsAndTiers.SENTIENT, 1.5f, -3.0f)
-                .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT)
-                .component(NVDataComponents.SIGIL_ACTIVATED, false));
+        super(NVMaterialsAndTiers.SENTIENT, 1.5f, -3.0f,
+                props.component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT)
+                     .component(NVDataComponents.SIGIL_ACTIVATED, false));
     }
 
     @Override

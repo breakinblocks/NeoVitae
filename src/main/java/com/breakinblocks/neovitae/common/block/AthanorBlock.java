@@ -1,10 +1,9 @@
 package com.breakinblocks.neovitae.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -12,7 +11,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -22,18 +22,13 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.core.Direction;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.fluids.FluidActionResult;
-import net.neoforged.neoforge.fluids.FluidUtil;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidUtil;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.AthanorBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
-import net.neoforged.neoforge.common.SoundActions;
-import net.neoforged.neoforge.fluids.FluidStack;
 
 public class AthanorBlock extends Block implements EntityBlock {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -46,10 +41,8 @@ public class AthanorBlock extends Block implements EntityBlock {
 
     @Override
     protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-        if (true) {
-            if (level.getBlockEntity(pos) instanceof AthanorBlockEntity arc) {
-                BlockEntityHelper.dropContents(level, pos, arc.athanorInv);
-    }
+        if (level.getBlockEntity(pos) instanceof AthanorBlockEntity arc) {
+            BlockEntityHelper.dropContents(level, pos, arc.athanorInv);
         }
         super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
@@ -65,10 +58,6 @@ public class AthanorBlock extends Block implements EntityBlock {
         builder.add(LIT, FACING, TYPE);
     }
 
-    /**
-     * Handle fluid container interaction with ARC tanks.
-     * Priority: Fill input tank > Empty output tank > Empty input tank > Open GUI
-     */
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (level.isClientSide()) {
@@ -80,48 +69,13 @@ public class AthanorBlock extends Block implements EntityBlock {
             return InteractionResult.PASS;
         }
 
-        if (!FluidUtil.getFluidHandler(stack).isPresent()) {
-            return InteractionResult.PASS;
-        }
-
-        FluidActionResult fillResult = FluidUtil.tryEmptyContainerAndStow(
-                stack, arc.inputTank, null, Integer.MAX_VALUE, player, true);
-        if (fillResult.isSuccess()) {
-            player.setItemInHand(hand, fillResult.getResult());
-            playFluidSound(level, pos, arc.inputTank, true);
+        if (FluidUtil.interactWithFluidHandler(player, hand, pos, arc.inputTank)) {
             return InteractionResult.SUCCESS;
         }
-
-        FluidActionResult drainOutputResult = FluidUtil.tryFillContainerAndStow(
-                stack, arc.outputTank, null, Integer.MAX_VALUE, player, true);
-        if (drainOutputResult.isSuccess()) {
-            player.setItemInHand(hand, drainOutputResult.getResult());
-            playFluidSound(level, pos, arc.outputTank, false);
+        if (FluidUtil.interactWithFluidHandler(player, hand, pos, arc.outputTank)) {
             return InteractionResult.SUCCESS;
         }
-
-        FluidActionResult drainInputResult = FluidUtil.tryFillContainerAndStow(
-                stack, arc.inputTank, null, Integer.MAX_VALUE, player, true);
-        if (drainInputResult.isSuccess()) {
-            player.setItemInHand(hand, drainInputResult.getResult());
-            playFluidSound(level, pos, arc.inputTank, false);
-            return InteractionResult.SUCCESS;
-        }
-
         return InteractionResult.PASS;
-    }
-
-    private void playFluidSound(Level level, BlockPos pos, IFluidHandler tank, boolean fill) {
-        if (tank.getFluidInTank(0).isEmpty()) return;
-
-        FluidStack fluid = tank.getFluidInTank(0);
-        SoundEvent sound = fill
-                ? fluid.getFluidType().getSound(fluid, SoundActions.BUCKET_FILL)
-                : fluid.getFluidType().getSound(fluid, SoundActions.BUCKET_EMPTY);
-
-        if (sound != null) {
-            level.playSound(null, pos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
-        }
     }
 
     @Override

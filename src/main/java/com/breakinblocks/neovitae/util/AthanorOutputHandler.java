@@ -1,11 +1,10 @@
 package com.breakinblocks.neovitae.util;
 
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
 
 import java.util.List;
 
-public class AthanorOutputHandler implements IItemHandler {
+public class AthanorOutputHandler {
     private ItemStack[] items;
     private final int stackLimit;
 
@@ -22,12 +21,10 @@ public class AthanorOutputHandler implements IItemHandler {
         this.items = items;
     }
 
-    @Override
     public int getSlots() {
         return items.length;
     }
 
-    @Override
     public ItemStack getStackInSlot(int slot) {
         return items[slot];
     }
@@ -36,7 +33,6 @@ public class AthanorOutputHandler implements IItemHandler {
         this.items[slot] = stack;
     }
 
-    @Override
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
         if (stack.isEmpty()) {
             return ItemStack.EMPTY;
@@ -99,7 +95,6 @@ public class AthanorOutputHandler implements IItemHandler {
         }
     }
 
-    @Override
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
         if (amount == 0) {
             return ItemStack.EMPTY;
@@ -215,12 +210,10 @@ public class AthanorOutputHandler implements IItemHandler {
         return ItemStack.EMPTY;
     }
 
-    @Override
     public int getSlotLimit(int slot) {
         return this.stackLimit;
     }
 
-    @Override
     public boolean isItemValid(int slot, ItemStack stack) {
         return true;
     }

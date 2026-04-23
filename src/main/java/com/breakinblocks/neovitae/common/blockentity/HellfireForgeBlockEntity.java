@@ -1,14 +1,11 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
 
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -18,22 +15,24 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.wrapper.RangedWrapper;
+import net.neoforged.neoforge.transfer.RangedResourceHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.event.NeoVitaeCraftedEvent;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.menu.HellfireForgeMenu;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeInput;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.breakinblocks.neovitae.common.tag.NVTags;
-import com.breakinblocks.neovitae.common.NVSounds;
-import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
-import com.breakinblocks.neovitae.common.particle.NVParticles;
-import net.minecraft.sounds.SoundSource;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -41,26 +40,32 @@ import java.util.List;
 import java.util.Optional;
 
 public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuProvider {
-    public ItemStackHandler inv = new ItemStackHandler(6) {
+    public final Inv inv = new Inv();
+
+    public class Inv extends ItemStacksResourceHandler {
+        Inv() { super(6); }
+
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            if (slot == OUTPUT_SLOT) {
-                return false;
-            }
-
-            if (slot == GEM_SLOT && !stack.has(NVDataComponents.SPIRITUS_AMOUNT)) {
-                return false;
-            }
-
+        public boolean isValid(int index, ItemResource resource) {
+            if (index == OUTPUT_SLOT) return false;
+            if (index == GEM_SLOT && !resource.has(NVDataComponents.SPIRITUS_AMOUNT)) return false;
             return true;
         }
 
         @Override
-        protected void onContentsChanged(int slot) {
-            super.onContentsChanged(slot);
+        protected void onContentsChanged(int index, ItemStack previousContents) {
             setChanged();
         }
-    };
+
+        public ItemStack getStackInSlot(int slot) {
+            ItemResource r = getResource(slot);
+            return r.isEmpty() ? ItemStack.EMPTY : r.toStack(getAmountAsInt(slot));
+        }
+
+        public void setStackInSlot(int slot, ItemStack stack) {
+            set(slot, ItemResource.of(stack), stack.getCount());
+        }
+    }
 
     // one day mojang is going to change Direction. But not today
     public static final int SOUTH = Direction.SOUTH.get2DDataValue(); // 0
@@ -165,6 +170,7 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
                 tile.inv.setStackInSlot(GEM_SLOT, ItemStack.EMPTY);
             } else {
                 gemStack.set(NVDataComponents.SPIRITUS_AMOUNT, Math.max(0, will));
+                tile.inv.setStackInSlot(GEM_SLOT, gemStack);
             }
         }
 
@@ -179,15 +185,14 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
                 continue;
             }
             item.shrink(1);
-            if (item.isEmpty()) {
-                tile.inv.setStackInSlot(i, ItemStack.EMPTY);
-            }
+            tile.inv.setStackInSlot(i, item);
         }
 
         if (currentOutput.isEmpty()) {
             tile.inv.setStackInSlot(OUTPUT_SLOT, event.getOutput());
         } else {
             currentOutput.grow(event.getOutput().getCount());
+            tile.inv.setStackInSlot(OUTPUT_SLOT, currentOutput);
         }
 
         tile.progress = 0;
@@ -223,15 +228,14 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         tag.putInt("progress", progress);
     }
 
-    public @Nullable IItemHandler getInventory(Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getInventory(@Nullable Direction side) {
         if (side == null) {
             return inv;
         }
-
         return switch (side) {
-            case UP -> new RangedWrapper(inv, GEM_SLOT, GEM_SLOT + 1);
-            case DOWN -> new RangedWrapper(inv, OUTPUT_SLOT, OUTPUT_SLOT + 1);
-            default -> new RangedWrapper(inv, side.get2DDataValue(), side.get2DDataValue() + 1);
+            case UP -> RangedResourceHandler.ofSingleIndex(inv, GEM_SLOT);
+            case DOWN -> RangedResourceHandler.ofSingleIndex(inv, OUTPUT_SLOT);
+            default -> RangedResourceHandler.ofSingleIndex(inv, side.get2DDataValue());
         };
     }
 

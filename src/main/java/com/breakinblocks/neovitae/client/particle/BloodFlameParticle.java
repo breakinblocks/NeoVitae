@@ -67,7 +67,7 @@ public class BloodFlameParticle extends SingleQuadParticle {
 
     @Override
     public SingleQuadParticle.Layer getLayer() {
-        return SingleQuadParticle.Layer.TRANSLUCENT;
+        return NVRenderPipelines.ADDITIVE_LAYER;
     }
 
     @Override

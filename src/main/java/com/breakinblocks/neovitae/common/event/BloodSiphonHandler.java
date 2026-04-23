@@ -24,7 +24,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 
 /**
  * Handles Blood Siphon and Blood Shield attributes.
@@ -148,7 +147,7 @@ public class BloodSiphonHandler {
         if (totalEV <= 0) return;
 
         FluidStack blood = new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), totalEV);
-        int filled = OrbFluidHandler.fillInternal(offhand, blood, FluidAction.EXECUTE);
+        int filled = OrbFluidHandler.fillInternal(offhand, blood, true);
 
         if (filled > 0) {
             ServerLevel serverLevel = (ServerLevel) player.level();

@@ -152,19 +152,27 @@ public class NVTiles {
             registerTile("spirit_cache", SpiritCacheBlockEntity::new, NVBlocks.SPIRIT_CACHE.block());
 
     private static void registerTileCapabilities(RegisterCapabilitiesEvent event) {
-        // Deferred: Capabilities.Item.BLOCK requires ResourceHandler<ItemResource>,
-        // Capabilities.Fluid.BLOCK requires ResourceHandler<FluidResource>, and
-        // Capabilities.Energy.BLOCK requires EnergyHandler in 26.1.
-        //
-        // Every NeoVitae BE needs its handler replaced with a SnapshotJournal-backed
-        // ResourceHandler before the per-BE capability registrations can be re-enabled.
-        // Consumer-side lookups already use IItemHandler.of(rh) / IFluidHandler.of(rh) /
-        // IEnergyStorage.of(eh) adapters and will function against any neighbour that
-        // registers a modern handler (vanilla containers included). NeoVitae BEs will
-        // expose nothing until this block is re-enabled and the tile handlers migrate.
-        // Affected BEs: HellfireForge, AraVitae, Athanor, BloodTank, BloodBattery,
-        // VasMaleficum, SpiritCache, routing-node tiles, Mimic, AlchemyArray.
-        // Also the item-level Fluid.ITEM for Blood Orbs (OrbFluidHandler).
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, HELLFIRE_FORGE_TYPE.get(),
+                (be, side) -> be.getInventory(side));
+
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, ATHANOR_TYPE.get(),
+                AthanorBlockEntity::getItemHandler);
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Fluid.BLOCK, ATHANOR_TYPE.get(),
+                AthanorBlockEntity::getFluidHandler);
+
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Fluid.BLOCK, BLOOD_TANK_TYPE.get(),
+                BloodTankBlockEntity::getFluidHandler);
+
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Energy.BLOCK, BLOOD_BATTERY_TYPE.get(),
+                BloodBatteryBlockEntity::getEnergyHandler);
+
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, VAS_MALEFICUM_TYPE.get(),
+                (be, side) -> be.getInventory());
+
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, ARA_VITAE_TYPE.get(),
+                (be, side) -> be.inv);
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Fluid.BLOCK, ARA_VITAE_TYPE.get(),
+                (be, side) -> be.fluidHandler);
     }
 
     private static void registerBlockEntityRenderer(EntityRenderersEvent.RegisterRenderers event) {

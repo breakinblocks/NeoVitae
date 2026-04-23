@@ -1,15 +1,15 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
 
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.SpiritusCrystalItem;
 import com.breakinblocks.neovitae.will.SpiritusHelper;
@@ -20,17 +20,59 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
     public static final double CRYSTAL_CONSUME_THRESHOLD = 50.0;
     public static final double WILL_PER_CRYSTAL = 50.0;
 
-    private final ItemStackHandler inventory = new ItemStackHandler(1) {
+    public final Inv inventory = new Inv();
+
+    public class Inv extends ItemStacksResourceHandler {
+        Inv() { super(1); }
+
         @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
+        public boolean isValid(int index, ItemResource resource) {
+            if (resource.isEmpty()) return true;
+            ItemStack stack = resource.toStack(1);
+            return SpiritusHelper.hasSpiritus(stack) || stack.getItem() instanceof SpiritusCrystalItem;
         }
 
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            return SpiritusHelper.hasSpiritus(stack) || stack.getItem() instanceof SpiritusCrystalItem;
+        protected void onContentsChanged(int index, ItemStack previousContents) {
+            setChanged();
         }
-    };
+
+        public ItemStack getStackInSlot(int slot) {
+            ItemResource r = getResource(slot);
+            return r.isEmpty() ? ItemStack.EMPTY : r.toStack(getAmountAsInt(slot));
+        }
+
+        public void setStackInSlot(int slot, ItemStack stack) {
+            set(slot, ItemResource.of(stack), stack.getCount());
+        }
+
+        public boolean isItemValid(int slot, ItemStack stack) {
+            return isValid(slot, ItemResource.of(stack));
+        }
+
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+            ItemResource r = getResource(slot);
+            if (r.isEmpty() || amount <= 0) return ItemStack.EMPTY;
+            try (Transaction tx = Transaction.openRoot()) {
+                int extracted = extract(slot, r, amount, tx);
+                if (extracted <= 0) return ItemStack.EMPTY;
+                if (!simulate) tx.commit();
+                return r.toStack(extracted);
+            }
+        }
+
+        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+            if (stack.isEmpty()) return ItemStack.EMPTY;
+            try (Transaction tx = Transaction.openRoot()) {
+                int inserted = insert(slot, ItemResource.of(stack), stack.getCount(), tx);
+                if (!simulate) tx.commit();
+                if (inserted >= stack.getCount()) return ItemStack.EMPTY;
+                ItemStack rem = stack.copy();
+                rem.shrink(inserted);
+                return rem;
+            }
+        }
+    }
 
     private int internalCounter = 0;
 
@@ -137,7 +179,7 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
         }
     }
 
-    public ItemStackHandler getInventory() {
+    public Inv getInventory() {
         return inventory;
     }
 
@@ -153,6 +195,7 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
                     return true;
                 } else if (ItemStack.isSameItemSameComponents(currentItem, heldItem) && currentItem.getCount() < currentItem.getMaxStackSize()) {
                     currentItem.grow(1);
+                    inventory.setStackInSlot(0, currentItem);
                     heldItem.shrink(1);
                     return true;
                 }

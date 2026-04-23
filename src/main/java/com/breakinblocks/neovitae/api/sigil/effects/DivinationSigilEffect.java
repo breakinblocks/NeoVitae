@@ -87,7 +87,7 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
     private void showAltarInfo(Player player, AraVitaeTile altar) {
         int tier = altar.getTier();
         int currentEV = altar.getMainTank();
-        int capacity = altar.getTankCapacity(0);
+        int capacity = altar.getMainCapacity();
 
         player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "currentAltarTier", NumeralHelper.toRoman(tier + 1)));
         player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "currentEV", currentEV));

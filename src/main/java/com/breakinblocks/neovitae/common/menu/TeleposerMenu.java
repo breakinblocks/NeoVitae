@@ -5,7 +5,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 import com.breakinblocks.neovitae.common.blockentity.TeleposerBlockEntity;
 import com.breakinblocks.neovitae.common.item.ITeleposerFocus;
 
@@ -16,7 +16,7 @@ public class TeleposerMenu extends AbstractBlockEntityMenu<TeleposerBlockEntity>
     public TeleposerMenu(int containerId, Inventory playerInventory, TeleposerBlockEntity tile) {
         super(NVMenus.TELEPOSER.get(), containerId, tile, TILE_SLOTS);
 
-        this.addSlot(new SlotItemHandler(tile.inv, TeleposerBlockEntity.FOCUS_SLOT, 80, 15) {
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, TeleposerBlockEntity.FOCUS_SLOT, 80, 15) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() instanceof ITeleposerFocus;

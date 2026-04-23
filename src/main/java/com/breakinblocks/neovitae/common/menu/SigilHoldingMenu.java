@@ -10,9 +10,9 @@ import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.sigil.ISigil;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
@@ -21,7 +21,7 @@ public class SigilHoldingMenu extends AbstractContainerMenu {
 
     private final ItemStack holdingStack;
     private final int holdingSlot;
-    private final ItemStackHandler sigilInventory;
+    private final SigilInv sigilInventory;
     private int selectedSlot;
 
     public SigilHoldingMenu(int containerId, Inventory playerInventory, ItemStack holdingStack, int holdingSlot) {
@@ -30,26 +30,15 @@ public class SigilHoldingMenu extends AbstractContainerMenu {
         this.holdingSlot = holdingSlot;
         this.selectedSlot = ItemSigilHolding.getCurrentItemOrdinal(holdingStack);
 
-        this.sigilInventory = new ItemStackHandler(ItemSigilHolding.INVENTORY_SIZE) {
-            @Override
-            public boolean isItemValid(int slot, ItemStack stack) {
-                return stack.getItem() instanceof ISigil && !(stack.getItem() instanceof ItemSigilHolding);
-            }
-
-            @Override
-            protected void onContentsChanged(int slot) {
-                saveToHoldingStack();
-            }
-        };
-
+        this.sigilInventory = new SigilInv();
         loadFromHoldingStack();
 
         for (int i = 0; i < ItemSigilHolding.INVENTORY_SIZE; i++) {
             final int slotIndex = i;
-            this.addSlot(new SlotItemHandler(sigilInventory, i, 8 + i * 36, 17) {
+            this.addSlot(new ResourceHandlerSlot(sigilInventory, sigilInventory::set, i, 8 + i * 36, 17) {
                 @Override
                 public boolean mayPlace(ItemStack stack) {
-                    return sigilInventory.isItemValid(slotIndex, stack);
+                    return sigilInventory.isValid(slotIndex, ItemResource.of(stack));
                 }
             });
         }
@@ -79,6 +68,30 @@ public class SigilHoldingMenu extends AbstractContainerMenu {
         return player.getInventory().getItem(slot);
     }
 
+    public class SigilInv extends ItemStacksResourceHandler {
+        SigilInv() { super(ItemSigilHolding.INVENTORY_SIZE); }
+
+        @Override
+        public boolean isValid(int index, ItemResource resource) {
+            if (resource.isEmpty()) return true;
+            return resource.value() instanceof ISigil && !(resource.value() instanceof ItemSigilHolding);
+        }
+
+        @Override
+        protected void onContentsChanged(int index, ItemStack previousContents) {
+            saveToHoldingStack();
+        }
+
+        public ItemStack getStackInSlot(int slot) {
+            ItemResource r = getResource(slot);
+            return r.isEmpty() ? ItemStack.EMPTY : r.toStack(getAmountAsInt(slot));
+        }
+
+        public void setStackInSlot(int slot, ItemStack stack) {
+            set(slot, ItemResource.of(stack), stack.getCount());
+        }
+    }
+
     private void loadFromHoldingStack() {
         NonNullList<ItemStack> inv = ItemSigilHolding.getInternalInventory(holdingStack);
         for (int i = 0; i < ItemSigilHolding.INVENTORY_SIZE; i++) {
@@ -105,7 +118,7 @@ public class SigilHoldingMenu extends AbstractContainerMenu {
         }
     }
 
-    public ItemStackHandler getSigilInventory() {
+    public SigilInv getSigilInventory() {
         return sigilInventory;
     }
 

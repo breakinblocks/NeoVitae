@@ -24,7 +24,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.model.data.ModelData;
 import net.neoforged.neoforge.model.data.ModelProperty;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockMimic;
@@ -48,13 +50,38 @@ public class MimicBlockEntity extends BaseBlockEntity {
     public int potionSpawnRadius = 5;
     public int potionSpawnInterval = 40;
 
-    public ItemStackHandler inventory = new ItemStackHandler(2) {
+    public final Inv inventory = new Inv();
+
+    public class Inv extends ItemStacksResourceHandler {
+        Inv() { super(2); }
+
         @Override
-        protected void onContentsChanged(int slot) {
-            super.onContentsChanged(slot);
+        protected void onContentsChanged(int index, ItemStack previousContents) {
             setChanged();
         }
-    };
+
+        public ItemStack getStackInSlot(int slot) {
+            ItemResource r = getResource(slot);
+            return r.isEmpty() ? ItemStack.EMPTY : r.toStack(getAmountAsInt(slot));
+        }
+
+        public void setStackInSlot(int slot, ItemStack stack) {
+            set(slot, ItemResource.of(stack), stack.getCount());
+        }
+
+        public int getSlots() { return size(); }
+
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+            ItemResource r = getResource(slot);
+            if (r.isEmpty() || amount <= 0) return ItemStack.EMPTY;
+            try (Transaction tx = Transaction.openRoot()) {
+                int extracted = extract(slot, r, amount, tx);
+                if (extracted <= 0) return ItemStack.EMPTY;
+                if (!simulate) tx.commit();
+                return r.toStack(extracted);
+            }
+        }
+    }
 
     public MimicBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);

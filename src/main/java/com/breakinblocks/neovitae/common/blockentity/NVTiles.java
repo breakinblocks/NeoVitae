@@ -173,6 +173,17 @@ public class NVTiles {
                 (be, side) -> be.inv);
         event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Fluid.BLOCK, ARA_VITAE_TYPE.get(),
                 (be, side) -> be.fluidHandler);
+
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, ALCHEMY_ARRAY_TYPE.get(),
+                (be, side) -> be.inv);
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, TABULA_VITAE_TYPE.get(),
+                (be, side) -> be.inv);
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, TELEPOSER_TYPE.get(),
+                (be, side) -> be.inv);
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, MIMIC_TYPE.get(),
+                (be, side) -> be.inventory);
+        event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.Item.BLOCK, SPIRIT_CACHE_TYPE.get(),
+                (be, side) -> net.neoforged.neoforge.transfer.item.VanillaContainerWrapper.of(be));
     }
 
     private static void registerBlockEntityRenderer(EntityRenderersEvent.RegisterRenderers event) {

@@ -16,7 +16,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffect;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectLight;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
@@ -47,20 +49,41 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
     private CompoundTag pendingEffectNbt = null;
     private Identifier cachedTexture = null;
 
-    public final ItemStackHandler inv = new ItemStackHandler(2) {
-        @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            return slot == 0 || slot == 1;
-        }
+    public final Inv inv = new Inv();
+
+    public class Inv extends ItemStacksResourceHandler {
+        Inv() { super(2); }
 
         @Override
-        protected void onContentsChanged(int slot) {
+        protected void onContentsChanged(int index, ItemStack previousContents) {
             setChanged();
             if (level != null && !level.isClientSide()) {
                 level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
             }
         }
-    };
+
+        public ItemStack getStackInSlot(int slot) {
+            ItemResource r = getResource(slot);
+            return r.isEmpty() ? ItemStack.EMPTY : r.toStack(getAmountAsInt(slot));
+        }
+
+        public void setStackInSlot(int slot, ItemStack stack) {
+            set(slot, ItemResource.of(stack), stack.getCount());
+        }
+
+        public int getSlots() { return size(); }
+
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+            ItemResource r = getResource(slot);
+            if (r.isEmpty() || amount <= 0) return ItemStack.EMPTY;
+            try (Transaction tx = Transaction.openRoot()) {
+                int extracted = extract(slot, r, amount, tx);
+                if (extracted <= 0) return ItemStack.EMPTY;
+                if (!simulate) tx.commit();
+                return r.toStack(extracted);
+            }
+        }
+    }
 
     public AlchemyArrayBlockEntity(BlockPos pos, BlockState state) {
         super(NVTiles.ALCHEMY_ARRAY_TYPE.get(), pos, state);

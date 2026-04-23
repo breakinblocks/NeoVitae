@@ -29,7 +29,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
@@ -49,18 +51,48 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
 
     private int previousInput = 0;
 
-    public ItemStackHandler inv = new ItemStackHandler(1) {
+    public final Inv inv = new Inv();
+
+    public class Inv extends ItemStacksResourceHandler {
+        Inv() { super(1); }
+
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            return stack.getItem() instanceof ITeleposerFocus;
+        public boolean isValid(int index, ItemResource resource) {
+            if (resource.isEmpty()) return true;
+            return resource.value() instanceof ITeleposerFocus;
         }
 
         @Override
-        protected void onContentsChanged(int slot) {
-            super.onContentsChanged(slot);
+        protected void onContentsChanged(int index, ItemStack previousContents) {
             setChanged();
         }
-    };
+
+        public ItemStack getStackInSlot(int slot) {
+            ItemResource r = getResource(slot);
+            return r.isEmpty() ? ItemStack.EMPTY : r.toStack(getAmountAsInt(slot));
+        }
+
+        public void setStackInSlot(int slot, ItemStack stack) {
+            set(slot, ItemResource.of(stack), stack.getCount());
+        }
+
+        public boolean isItemValid(int slot, ItemStack stack) {
+            return isValid(slot, ItemResource.of(stack));
+        }
+
+        public int getSlots() { return size(); }
+
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+            ItemResource r = getResource(slot);
+            if (r.isEmpty() || amount <= 0) return ItemStack.EMPTY;
+            try (Transaction tx = Transaction.openRoot()) {
+                int extracted = extract(slot, r, amount, tx);
+                if (extracted <= 0) return ItemStack.EMPTY;
+                if (!simulate) tx.commit();
+                return r.toStack(extracted);
+            }
+        }
+    }
 
     public TeleposerBlockEntity(BlockPos pos, BlockState state) {
         super(NVTiles.TELEPOSER_TYPE.get(), pos, state);

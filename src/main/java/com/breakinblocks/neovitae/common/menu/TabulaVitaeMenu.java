@@ -7,7 +7,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.TabulaVitaeBlockEntity;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
@@ -19,19 +19,19 @@ public class TabulaVitaeMenu extends AbstractBlockEntityMenu<TabulaVitaeBlockEnt
     public TabulaVitaeMenu(int containerId, Inventory playerInventory, TabulaVitaeBlockEntity tile) {
         super(NVMenus.TABULA_VITAE.get(), containerId, tile, TILE_SLOTS);
 
-        this.addSlot(new SlotItemHandler(tile.inv, 0, 62, 15));
-        this.addSlot(new SlotItemHandler(tile.inv, 1, 80, 51));
-        this.addSlot(new SlotItemHandler(tile.inv, 2, 62, 87));
-        this.addSlot(new SlotItemHandler(tile.inv, 3, 26, 87));
-        this.addSlot(new SlotItemHandler(tile.inv, 4, 8, 51));
-        this.addSlot(new SlotItemHandler(tile.inv, 5, 26, 15));
-        this.addSlot(new SlotItemHandler(tile.inv, TabulaVitaeBlockEntity.ORB_SLOT, 143, 24) {
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, 0, 62, 15));
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, 1, 80, 51));
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, 2, 62, 87));
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, 3, 26, 87));
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, 4, 8, 51));
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, 5, 26, 15));
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, TabulaVitaeBlockEntity.ORB_SLOT, 143, 24) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() instanceof BloodOrbItem;
             }
         });
-        this.addSlot(new SlotItemHandler(tile.inv, TabulaVitaeBlockEntity.OUTPUT_SLOT, 44, 51) {
+        this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, TabulaVitaeBlockEntity.OUTPUT_SLOT, 44, 51) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;

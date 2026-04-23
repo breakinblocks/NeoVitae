@@ -17,7 +17,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
@@ -60,27 +62,70 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
     private FlaskRecipe cachedFlaskRecipe = null;
     private int flaskSlot = -1; // Slot containing the flask for flask recipes
 
-    public final ItemStackHandler inv = new ItemStackHandler(8) {
+    public final Inv inv = new Inv();
+
+    public class Inv extends ItemStacksResourceHandler {
+        Inv() { super(8); }
+
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            if (slot == OUTPUT_SLOT) return false;
-            if (slot == ORB_SLOT) return stack.getItem() instanceof BloodOrbItem;
+        public boolean isValid(int index, ItemResource resource) {
+            if (resource.isEmpty()) return true;
+            if (index == OUTPUT_SLOT) return false;
+            if (index == ORB_SLOT) return resource.value() instanceof BloodOrbItem;
             return true;
         }
 
         @Override
-        protected void onContentsChanged(int slot) {
+        protected void onContentsChanged(int index, ItemStack previousContents) {
             setChanged();
             if (level != null && !level.isClientSide()) {
                 level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
             }
-            if (slot != OUTPUT_SLOT) {
+            if (index != OUTPUT_SLOT) {
                 cachedRecipe = null;
                 cachedFlaskRecipe = null;
                 flaskSlot = -1;
             }
         }
-    };
+
+        public ItemStack getStackInSlot(int slot) {
+            ItemResource r = getResource(slot);
+            return r.isEmpty() ? ItemStack.EMPTY : r.toStack(getAmountAsInt(slot));
+        }
+
+        public void setStackInSlot(int slot, ItemStack stack) {
+            set(slot, ItemResource.of(stack), stack.getCount());
+        }
+
+        public int getSlots() { return size(); }
+
+        public boolean isItemValid(int slot, ItemStack stack) {
+            return isValid(slot, ItemResource.of(stack));
+        }
+
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+            ItemResource r = getResource(slot);
+            if (r.isEmpty() || amount <= 0) return ItemStack.EMPTY;
+            try (Transaction tx = Transaction.openRoot()) {
+                int extracted = extract(slot, r, amount, tx);
+                if (extracted <= 0) return ItemStack.EMPTY;
+                if (!simulate) tx.commit();
+                return r.toStack(extracted);
+            }
+        }
+
+        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+            if (stack.isEmpty()) return ItemStack.EMPTY;
+            try (Transaction tx = Transaction.openRoot()) {
+                int inserted = insert(slot, ItemResource.of(stack), stack.getCount(), tx);
+                if (!simulate) tx.commit();
+                if (inserted >= stack.getCount()) return ItemStack.EMPTY;
+                ItemStack rem = stack.copy();
+                rem.shrink(inserted);
+                return rem;
+            }
+        }
+    }
 
     public TabulaVitaeBlockEntity(BlockPos pos, BlockState state) {
         super(NVTiles.TABULA_VITAE_TYPE.get(), pos, state);

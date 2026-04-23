@@ -61,6 +61,7 @@ public class BloodTankBlockEntity extends BaseBlockEntity {
 
     public BloodTankBlockEntity(BlockPos pos, BlockState state) {
         super(NVTiles.BLOOD_TANK_TYPE.get(), pos, state);
+        updateCapacity();
     }
 
     private void updateCapacity() {

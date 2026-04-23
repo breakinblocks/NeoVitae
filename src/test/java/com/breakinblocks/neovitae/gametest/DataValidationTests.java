@@ -140,10 +140,10 @@ public final class DataValidationTests {
             helper.runAfterDelay(1, () -> {
                 String[] expected = {
                         "sacrificial_dagger",
-                        "orb_weak", "orb_apprentice",
-                        "slate_blank", "slate_reinforced",
-                        "divination_sigil", "alchemy_flask",
-                        "ritual_diviner_dawn"
+                        "blood_orb_weak", "blood_orb_apprentice",
+                        "blank_slate", "reinforced_slate",
+                        "sigil_divination", "alchemy_flask",
+                        "ritual_diviner"
                 };
                 for (String name : expected) {
                     Identifier rl = NeoVitae.rl(name);

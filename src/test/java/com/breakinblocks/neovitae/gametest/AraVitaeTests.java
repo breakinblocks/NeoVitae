@@ -50,11 +50,11 @@ public final class AraVitaeTests {
                 ResourceHandler<FluidResource> handler = altar.getFluidHandler();
                 int filled;
                 try (Transaction tx = Transaction.openRoot()) {
-                    filled = handler.insert(0, FluidResource.of(NVFluids.ESSENTIA_VITAE_SOURCE.get()), 500, tx);
+                    filled = handler.insert(1, FluidResource.of(NVFluids.ESSENTIA_VITAE_SOURCE.get()), 500, tx);
                     tx.commit();
                 }
                 if (filled <= 0) {
-                    helper.fail("Altar should accept Life Essence, inserted=" + filled);
+                    helper.fail("Altar should accept Life Essence at input slot, inserted=" + filled);
                 }
                 helper.succeed();
             });

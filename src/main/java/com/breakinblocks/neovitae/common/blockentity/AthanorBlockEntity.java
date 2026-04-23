@@ -458,7 +458,8 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
 
         ItemStack toolStack = athanorInv.getStackInSlot(TOOL_SLOT);
         if (!toolStack.has(DataComponents.UNBREAKABLE)) {
-            ItemStack remainder = toolStack.getCraftingRemainder().create();
+            var template = toolStack.getCraftingRemainder();
+            ItemStack remainder = template != null ? template.create() : ItemStack.EMPTY;
             if (!remainder.isEmpty()) {
                 athanorInv.setStackInSlot(TOOL_SLOT, remainder);
             } else if (toolStack.has(DataComponents.MAX_DAMAGE)) {

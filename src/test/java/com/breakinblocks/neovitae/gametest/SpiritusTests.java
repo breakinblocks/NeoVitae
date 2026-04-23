@@ -68,7 +68,7 @@ public final class SpiritusTests {
                     return;
                 }
                 if (crystal.progressToNextCrystal > 0) {
-                    helper.fail("Crystal should not grow without chunk will");
+                    helper.fail("Crystal should not grow without chunk will, got " + crystal.progressToNextCrystal);
                 }
                 helper.succeed();
             });

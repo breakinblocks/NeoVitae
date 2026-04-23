@@ -131,6 +131,9 @@ public final class RoutingNodeTests {
             Field tierField = BloodTankBlockEntity.class.getDeclaredField("tier");
             tierField.setAccessible(true);
             tierField.setInt(tank, tier);
+            java.lang.reflect.Method update = BloodTankBlockEntity.class.getDeclaredMethod("updateCapacity");
+            update.setAccessible(true);
+            update.invoke(tank);
         } catch (ReflectiveOperationException e) {
             helper.fail("Failed to set blood tank tier via reflection: " + e.getMessage());
         }

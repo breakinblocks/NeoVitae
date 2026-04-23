@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -294,7 +295,8 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
 
             for (int j = 0; j < ingredients.size(); j++) {
                 if (ingredients.get(j).test(stack)) {
-                    ItemStack container = stack.getCraftingRemainder().create();
+                    ItemStackTemplate remainder = stack.getCraftingRemainder();
+                    ItemStack container = remainder != null ? remainder.create() : ItemStack.EMPTY;
                     stack.shrink(1);
                     if (stack.isEmpty() && !container.isEmpty()) {
                         inv.setStackInSlot(i, container);
@@ -340,7 +342,8 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
 
             for (int j = 0; j < ingredients.size(); j++) {
                 if (ingredients.get(j).test(stack)) {
-                    ItemStack container = stack.getCraftingRemainder().create();
+                    ItemStackTemplate remainder = stack.getCraftingRemainder();
+                    ItemStack container = remainder != null ? remainder.create() : ItemStack.EMPTY;
                     stack.shrink(1);
                     if (stack.isEmpty() && !container.isEmpty()) {
                         inv.setStackInSlot(i, container);

@@ -26,19 +26,20 @@ public final class RoutingFilterFactory {
                 ? new BlacklistItemFilter()
                 : new BasicItemFilter();
 
-        List<IFilterKey> keys = buildFilterKeys(cfg);
+        List<IFilterKey> keys = buildFilterKeys(cfg, isOutput);
         filter.initializeFilter(keys, tile, handler, isOutput);
         return filter;
     }
 
-    private static List<IFilterKey> buildFilterKeys(SideFilterConfig cfg) {
+    private static List<IFilterKey> buildFilterKeys(SideFilterConfig cfg, boolean isOutput) {
         List<IFilterKey> keys = new ArrayList<>();
+        int initialCount = isOutput ? Integer.MAX_VALUE : 0;
         for (int i = 0; i < SideFilterConfig.GHOST_SLOTS; i++) {
             ItemStack ghost = cfg.getItemGhost(i);
             if (ghost.isEmpty()) continue;
             ItemStack keyStack = ghost.copy();
             keyStack.setCount(1);
-            keys.add(new BasicFilterKey(keyStack, Integer.MAX_VALUE));
+            keys.add(new BasicFilterKey(keyStack, initialCount));
         }
         return keys;
     }

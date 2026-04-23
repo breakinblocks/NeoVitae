@@ -179,7 +179,8 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
             if (item.isEmpty()) {
                 continue;
             }
-            ItemStack remainder = item.getCraftingRemainder().create();
+            var template = item.getCraftingRemainder();
+            ItemStack remainder = template != null ? template.create() : ItemStack.EMPTY;
             if (!remainder.isEmpty()) {
                 tile.inv.setStackInSlot(i, remainder);
                 continue;

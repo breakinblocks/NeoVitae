@@ -84,13 +84,11 @@ public class RitualPhantomBridge extends Ritual {
             }
         }
 
-        // Create bridges under each player
         for (Player player : players) {
             if (blocksCreated >= maxBlocks) break;
 
             BlockPos playerPos = player.blockPosition();
 
-            // Create a small platform below the player
             for (int x = -BRIDGE_WIDTH; x <= BRIDGE_WIDTH; x++) {
                 for (int z = -BRIDGE_WIDTH; z <= BRIDGE_WIDTH; z++) {
                     for (int y = 1; y <= BRIDGE_DEPTH; y++) {
@@ -98,7 +96,6 @@ public class RitualPhantomBridge extends Ritual {
 
                         BlockPos targetPos = playerPos.offset(x, -y, z);
 
-                        // Check if position is within ritual range
                         if (!range.isWithinArea(targetPos.subtract(ctx.masterPos()))) {
                             continue;
                         }
@@ -119,7 +116,6 @@ public class RitualPhantomBridge extends Ritual {
                             continue;
                         }
 
-                        // Check block protection
                         if (!BlockProtectionHelper.tryReplaceBlock(ctx.level(), targetPos,
                                 NVBlocks.PHANTOM_BRIDGE_BLOCK.get().defaultBlockState(), owner)) {
                             continue;
@@ -150,7 +146,6 @@ public class RitualPhantomBridge extends Ritual {
         Level level = masterRitualStone.getLevel();
         if (level == null || level.isClientSide()) return;
 
-        // Remove all phantom bridge blocks immediately
         for (Map.Entry<BlockPos, BlockState> entry : phantomBlocks.entrySet()) {
             BlockPos pos = entry.getKey();
             BlockState state = level.getBlockState(pos);

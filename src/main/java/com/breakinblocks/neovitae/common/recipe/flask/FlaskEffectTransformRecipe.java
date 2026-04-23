@@ -126,7 +126,6 @@ public class FlaskEffectTransformRecipe extends FlaskRecipe {
             return false;
         }
 
-        // Check all input effects are present
         List<Holder<MobEffect>> remainingInputs = new ArrayList<>(inputEffects);
 
         for (EffectHolder holder : flaskEffects) {
@@ -184,7 +183,6 @@ public class FlaskEffectTransformRecipe extends FlaskRecipe {
         double savedAmpMod = 1.0;
         double savedLengthMod = 1.0;
 
-        // Remove input effects
         List<EffectHolder> workingEffects = new ArrayList<>(flaskEffects);
 
         for (Holder<MobEffect> inputEffect : inputEffects) {
@@ -202,13 +200,11 @@ public class FlaskEffectTransformRecipe extends FlaskRecipe {
             }
         }
 
-        // Check if outputs already exist and update them, otherwise add new
         for (Pair<Holder<MobEffect>, Integer> output : outputEffects) {
             boolean found = false;
             for (int i = 0; i < workingEffects.size(); i++) {
                 EffectHolder holder = workingEffects.get(i);
                 if (holder.matches(output.getFirst())) {
-                    // Update duration if new is higher
                     if (holder.baseDuration() < output.getSecond()) {
                         workingEffects.set(i, holder.withBaseDuration(output.getSecond()));
                     }

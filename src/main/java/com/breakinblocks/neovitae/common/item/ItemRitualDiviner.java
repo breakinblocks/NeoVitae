@@ -37,6 +37,7 @@ import com.breakinblocks.neovitae.common.block.BlockRitualStone;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.ritual.*;
+import com.breakinblocks.neovitae.util.helper.KeyboardHelper;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -402,8 +403,8 @@ public class ItemRitualDiviner extends Item {
             tooltip.accept(Component.translatable(TOOLTIP_BASE + "currentRitual",
                     Component.translatable(ritual.getTranslationKey())).withStyle(ChatFormatting.GRAY));
 
-            boolean sneaking = com.breakinblocks.neovitae.util.helper.KeyboardHelper.isShiftDown();
-            boolean extraInfo = com.breakinblocks.neovitae.util.helper.KeyboardHelper.isAltDown();
+            boolean sneaking = KeyboardHelper.isShiftDown();
+            boolean extraInfo = KeyboardHelper.isAltDown();
 
             if (extraInfo) {
                 tooltip.accept(Component.empty());

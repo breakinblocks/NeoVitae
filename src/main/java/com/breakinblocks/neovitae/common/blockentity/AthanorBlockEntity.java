@@ -39,6 +39,7 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.resource.ResourceStack;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.block.AthanorBlock;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -264,7 +265,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AthanorBlockEntity athanorTile) {
         if (level.isClientSide()) {
             if (athanorTile.progress > 0) {
-                com.breakinblocks.neovitae.client.sound.LoopSoundManager.tryStartLoop(
+                LoopSoundManager.tryStartLoop(
                         NVSounds.ATHANOR_BUBBLE.get(), 0.3f, level, blockPos,
                         be -> be instanceof AthanorBlockEntity athanor && athanor.progress > 0
                 );

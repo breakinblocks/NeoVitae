@@ -129,11 +129,9 @@ public class RitualGeode extends Ritual {
             BlockState state = ctx.level().getBlockState(harvestPos);
             if (!state.is(NVTags.Blocks.GEODE_HARVESTABLE)) continue;
 
-            // Check will costs before harvesting
             if (doFortune && (will.getDestructive() - fortuneWillUsed) < WILL_PER_FORTUNE) continue;
             if (doSilk && (will.getSteadfast() - silkWillUsed) < WILL_PER_SILK) continue;
 
-            // Check block protection
             if (!BlockProtectionHelper.canBreakBlock(ctx.level(), harvestPos, owner)) continue;
 
             List<ItemStack> blockDrops = RitualHelper.getBlockDrops(serverLevel, state, harvestPos, toolStack, fakePlayer);

@@ -26,6 +26,7 @@ import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.event.RitualEvent;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
+import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
@@ -64,7 +65,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     public static void tick(Level level, BlockPos pos, BlockState state, MasterRitualStoneBlockEntity tile) {
         if (level.isClientSide()) {
             if (tile.active && tile.currentRitual != null) {
-                com.breakinblocks.neovitae.client.sound.LoopSoundManager.tryStartLoop(
+                LoopSoundManager.tryStartLoop(
                         NVSounds.RITUAL_AMBIENT.get(), 0.2f, level, pos,
                         be -> be instanceof MasterRitualStoneBlockEntity mrs && mrs.active && mrs.currentRitual != null
                 );

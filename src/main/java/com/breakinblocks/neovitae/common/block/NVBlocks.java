@@ -13,6 +13,8 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.item.block.BloodTankBlockItem;
 import com.breakinblocks.neovitae.common.item.block.ItemBlockTabulaVitae;
 import com.breakinblocks.neovitae.common.item.block.RuneBlockItem;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
@@ -37,7 +39,7 @@ public class NVBlocks {
             BLOCK_REG.register("ara_vitae", AraVitaeBlock::new, defaultBlockProps());
     public static final BlockWithItemHolder<BloodTankBlock, BlockItem> BLOOD_TANK =
             BLOCK_REG.register("blood_tank", BloodTankBlock::new, defaultBlockProps(),
-                    (block, itemProps) -> new com.breakinblocks.neovitae.common.item.block.BloodTankBlockItem(block, itemProps.component(NVDataComponents.CONTAINER_TIER, 1)));
+                    (block, itemProps) -> new BloodTankBlockItem(block, itemProps.component(NVDataComponents.CONTAINER_TIER, 1)));
     public static final BlockWithItemHolder<BloodBatteryBlock, BlockItem> BLOOD_BATTERY =
             BLOCK_REG.register("blood_battery", BloodBatteryBlock::new, defaultBlockProps());
     public static final BlockWithItemHolder<HellfireForgeBlock, BlockItem> HELLFIRE_FORGE =
@@ -142,11 +144,11 @@ public class NVBlocks {
     private static BlockBehaviour.Properties crystal_block_properties_src() {
         return BlockBehaviour.Properties.of().strength(3.0F, 3.0F).sound(SoundType.AMETHYST).requiresCorrectToolForDrops().lightLevel(state -> 7).noOcclusion();
     }
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> RAW_SPIRITUS_CRYSTAL = BLOCK_REG.register("raw_spiritus_crystal", props -> new BlockSpiritusCrystal(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.DEFAULT, props), crystal_block_properties_src());
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> CORROSIVE_SPIRITUS_CRYSTAL = BLOCK_REG.register("corrosive_spiritus_crystal", props -> new BlockSpiritusCrystal(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.CORROSIVE, props), crystal_block_properties_src());
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> DESTRUCTIVE_SPIRITUS_CRYSTAL = BLOCK_REG.register("destructive_spiritus_crystal", props -> new BlockSpiritusCrystal(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.DESTRUCTIVE, props), crystal_block_properties_src());
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> VENGEFUL_SPIRITUS_CRYSTAL = BLOCK_REG.register("vengeful_spiritus_crystal", props -> new BlockSpiritusCrystal(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.VENGEFUL, props), crystal_block_properties_src());
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> STEADFAST_SPIRITUS_CRYSTAL = BLOCK_REG.register("steadfast_spiritus_crystal", props -> new BlockSpiritusCrystal(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.STEADFAST, props), crystal_block_properties_src());
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> RAW_SPIRITUS_CRYSTAL = BLOCK_REG.register("raw_spiritus_crystal", props -> new BlockSpiritusCrystal(SpiritusType.DEFAULT, props), crystal_block_properties_src());
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> CORROSIVE_SPIRITUS_CRYSTAL = BLOCK_REG.register("corrosive_spiritus_crystal", props -> new BlockSpiritusCrystal(SpiritusType.CORROSIVE, props), crystal_block_properties_src());
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> DESTRUCTIVE_SPIRITUS_CRYSTAL = BLOCK_REG.register("destructive_spiritus_crystal", props -> new BlockSpiritusCrystal(SpiritusType.DESTRUCTIVE, props), crystal_block_properties_src());
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> VENGEFUL_SPIRITUS_CRYSTAL = BLOCK_REG.register("vengeful_spiritus_crystal", props -> new BlockSpiritusCrystal(SpiritusType.VENGEFUL, props), crystal_block_properties_src());
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> STEADFAST_SPIRITUS_CRYSTAL = BLOCK_REG.register("steadfast_spiritus_crystal", props -> new BlockSpiritusCrystal(SpiritusType.STEADFAST, props), crystal_block_properties_src());
 
     private static BlockBehaviour.Properties routing_node_properties_src() {
         return BlockBehaviour.Properties.of().strength(2.0F, 5.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion();

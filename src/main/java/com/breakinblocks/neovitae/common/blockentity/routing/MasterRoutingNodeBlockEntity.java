@@ -22,8 +22,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Triple;
+import com.breakinblocks.neovitae.common.block.BlockRoutingNode;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.datamap.RoutingNodeHelper;
+import com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu;
 import com.breakinblocks.neovitae.api.routing.*;
 import com.breakinblocks.neovitae.common.routing.*;
 import com.breakinblocks.neovitae.util.Constants;
@@ -120,7 +122,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
             if (!level.hasChunk(pos.getX() >> 4, pos.getZ() >> 4)) continue;
 
             BlockState state = level.getBlockState(pos);
-            if (!(state.getBlock() instanceof com.breakinblocks.neovitae.common.block.BlockRoutingNode)) {
+            if (!(state.getBlock() instanceof BlockRoutingNode)) {
                 toRemove.add(pos);
             }
         }
@@ -642,7 +644,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
 
     @Override
     public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu(containerId, playerInventory, this);
+        return new MasterRoutingNodeMenu(containerId, playerInventory, this);
     }
 
     @Override

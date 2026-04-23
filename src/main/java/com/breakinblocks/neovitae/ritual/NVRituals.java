@@ -1,6 +1,9 @@
 package com.breakinblocks.neovitae.ritual;
 
 import net.neoforged.neoforge.registries.DeferredHolder;
+import com.breakinblocks.neovitae.ritual.imperfect.ImperfectRitualRain;
+import com.breakinblocks.neovitae.ritual.imperfect.ImperfectRitualResistance;
+import com.breakinblocks.neovitae.ritual.imperfect.ImperfectRitualZombie;
 import com.breakinblocks.neovitae.ritual.types.*;
 
 import java.util.function.Supplier;
@@ -119,16 +122,16 @@ public final class NVRituals {
     public static final DeferredHolder<Ritual, RitualPhantomBridge> PHANTOM_BRIDGE =
             registerRitual("phantom_bridge", RitualPhantomBridge::new);
 
-    public static final DeferredHolder<ImperfectRitual, com.breakinblocks.neovitae.ritual.imperfect.ImperfectRitualRain> IMPERFECT_RAIN =
-            registerImperfectRitual("rain", com.breakinblocks.neovitae.ritual.imperfect.ImperfectRitualRain::new);
+    public static final DeferredHolder<ImperfectRitual, ImperfectRitualRain> IMPERFECT_RAIN =
+            registerImperfectRitual("rain", ImperfectRitualRain::new);
 
     // Strong Zombie - Coal Block, 5000 LP
-    public static final DeferredHolder<ImperfectRitual, com.breakinblocks.neovitae.ritual.imperfect.ImperfectRitualZombie> IMPERFECT_ZOMBIE =
-            registerImperfectRitual("zombie", com.breakinblocks.neovitae.ritual.imperfect.ImperfectRitualZombie::new);
+    public static final DeferredHolder<ImperfectRitual, ImperfectRitualZombie> IMPERFECT_ZOMBIE =
+            registerImperfectRitual("zombie", ImperfectRitualZombie::new);
 
     // Fire Resistance II - Bedrock above (Nether), 5000 LP
-    public static final DeferredHolder<ImperfectRitual, com.breakinblocks.neovitae.ritual.imperfect.ImperfectRitualResistance> IMPERFECT_RESISTANCE =
-            registerImperfectRitual("resistance", com.breakinblocks.neovitae.ritual.imperfect.ImperfectRitualResistance::new);
+    public static final DeferredHolder<ImperfectRitual, ImperfectRitualResistance> IMPERFECT_RESISTANCE =
+            registerImperfectRitual("resistance", ImperfectRitualResistance::new);
 
     private static <T extends Ritual> DeferredHolder<Ritual, T> registerRitual(String name, Supplier<T> supplier) {
         return RitualRegistry.RITUALS.register(name, supplier);

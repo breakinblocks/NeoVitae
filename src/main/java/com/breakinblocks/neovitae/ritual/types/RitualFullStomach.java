@@ -91,7 +91,6 @@ public class RitualFullStomach extends Ritual {
             FoodProperties food = stack.get(DataComponents.FOOD);
             if (food == null) continue;
 
-            // Extract 1 item from the inventory
             ItemStack extracted = Utils.extractItem(inventory, slot, 1, false);
             if (extracted.isEmpty()) continue;
 

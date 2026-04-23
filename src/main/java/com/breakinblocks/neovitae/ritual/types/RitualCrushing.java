@@ -13,6 +13,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.common.block.BlockMasterRitualStone;
+import com.breakinblocks.neovitae.common.block.BlockRitualStone;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -108,10 +110,9 @@ public class RitualCrushing extends Ritual {
             if (state.getBlock() instanceof LiquidBlock) continue;
             float destroySpeed = state.getDestroySpeed(ctx.level(), pos);
             if (destroySpeed < 0) continue; // Unbreakable
-            if (state.getBlock() instanceof com.breakinblocks.neovitae.common.block.BlockRitualStone) continue;
-            if (state.getBlock() instanceof com.breakinblocks.neovitae.common.block.BlockMasterRitualStone) continue;
+            if (state.getBlock() instanceof BlockRitualStone) continue;
+            if (state.getBlock() instanceof BlockMasterRitualStone) continue;
 
-            // Check will costs before crushing
             if (doSilk && (will.getSteadfast() - silkWillUsed) < WILL_PER_SILK) {
                 doSilk = false;
                 toolStack = RitualHelper.createMiningTool(serverLevel, false, false);
@@ -121,7 +122,6 @@ public class RitualCrushing extends Ritual {
                 toolStack = RitualHelper.createMiningTool(serverLevel, false, false);
             }
 
-            // Check block protection
             if (!BlockProtectionHelper.canBreakBlock(ctx.level(), pos, owner)) continue;
 
             List<ItemStack> blockDrops = RitualHelper.getBlockDrops(serverLevel, state, pos, toolStack, fakePlayer);

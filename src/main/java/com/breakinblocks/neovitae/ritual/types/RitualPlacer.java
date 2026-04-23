@@ -59,7 +59,6 @@ public class RitualPlacer extends Ritual {
 
         if (toPlace.isEmpty()) return;
 
-        // Find next air block in range to fill
         UUID owner = ctx.master().getOwner();
         BlockPos placePos = findNextPlaceablePosition(ctx.level(), ctx.masterPos(), range, owner);
         if (placePos == null) return;

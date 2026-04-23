@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.common.item;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -163,7 +164,7 @@ public class ItemAnointmentProvider extends Item {
     @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         tooltip.accept(Component.translatable("tooltip.neovitae.anointment." + anointmentKey.getPath() + ".desc")
-                .withStyle(net.minecraft.ChatFormatting.GRAY));
+                .withStyle(ChatFormatting.GRAY));
         tooltip.accept(Component.translatable("tooltip.neovitae.anointment.level", level));
         tooltip.accept(Component.translatable("tooltip.neovitae.anointment.uses", maxDamage));}
 }

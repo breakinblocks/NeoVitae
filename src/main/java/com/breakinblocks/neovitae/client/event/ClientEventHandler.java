@@ -22,6 +22,7 @@ import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.client.ClientHandler;
 import com.breakinblocks.neovitae.client.ClientSpiritusCache;
+import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.network.BloodLightCyclePayload;
 import com.breakinblocks.neovitae.common.network.NVPayloads;
@@ -40,7 +41,7 @@ public class ClientEventHandler {
         ClientSpiritusCache.clear();
         ClientHandler.setRitualHoloToNull();
         ClientHandler.setRitualRangeHoloToNull();
-        com.breakinblocks.neovitae.client.sound.LoopSoundManager.clear();
+        LoopSoundManager.clear();
     }
 
     @SubscribeEvent

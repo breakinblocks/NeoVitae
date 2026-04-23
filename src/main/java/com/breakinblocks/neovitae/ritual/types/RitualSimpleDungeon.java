@@ -47,7 +47,6 @@ public class RitualSimpleDungeon extends DungeonRitualBase {
             return;
         }
 
-        // Get the spawn position for this dungeon (the controller position)
         BlockPos dungeonControllerPos = AnimaHelper.getSpawnPositionOfDungeon();
         if (dungeonControllerPos == null) {
             LOGGER.warn("Could not get dungeon spawn position");
@@ -57,7 +56,6 @@ public class RitualSimpleDungeon extends DungeonRitualBase {
 
         LOGGER.info("Creating mini-dungeon at {} -> dungeon controller {}", masterPos, dungeonControllerPos);
 
-        // Create the dungeon using DungeonSynthesizer
         DungeonSynthesizer synthesizer = new DungeonSynthesizer();
         BlockPos[] positions = synthesizer.generateInitialRoom(
                 ModRoomPools.MINI_DUNGEON_ENTRANCES,
@@ -73,7 +71,6 @@ public class RitualSimpleDungeon extends DungeonRitualBase {
 
         storeControllerPosition(masterRitualStone, dungeonControllerPos);
 
-        // Calculate positions for portal pillars
         BlockPos pillarPos = masterPos.above(2);  // Above the rune column
         BlockPos overworldPlayerPos = masterPos.relative(masterRitualStone.getDirection(), 2);
 

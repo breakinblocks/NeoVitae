@@ -127,9 +127,9 @@ public class CommonEventHandler {
         if (event.getEntity() instanceof ServerPlayer player
                 && com.breakinblocks.neovitae.common.material.MaterialRegistry.hasPendingRestartNotice()) {
             player.sendSystemMessage(Component.translatable("message.neovitae.materials.generated")
-                    .withStyle(net.minecraft.ChatFormatting.GOLD));
+                    .withStyle(ChatFormatting.GOLD));
             player.sendSystemMessage(Component.translatable("message.neovitae.materials.restart_required")
-                    .withStyle(net.minecraft.ChatFormatting.YELLOW));
+                    .withStyle(ChatFormatting.YELLOW));
         }
     }
 

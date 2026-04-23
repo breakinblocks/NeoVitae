@@ -23,6 +23,7 @@ import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.event.NeoVitaeCraftedEvent;
@@ -103,7 +104,7 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
     public static void tick(Level level, BlockPos pos, BlockState state, HellfireForgeBlockEntity tile) {
         if (level.isClientSide()) {
             if (tile.progress > 0) {
-                com.breakinblocks.neovitae.client.sound.LoopSoundManager.tryStartLoop(
+                LoopSoundManager.tryStartLoop(
                         NVSounds.HELLFIRE_FORGE_AMBIENT.get(), 0.2f, level, pos,
                         be -> be instanceof HellfireForgeBlockEntity forge && forge.progress > 0
                 );

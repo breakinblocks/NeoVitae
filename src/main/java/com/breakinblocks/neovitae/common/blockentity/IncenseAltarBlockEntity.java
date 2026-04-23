@@ -87,7 +87,6 @@ public class IncenseAltarBlockEntity extends BlockEntity {
         for (int currentDistance = 2; currentDistance <= 2 + maxLength; currentDistance++) {
             boolean canFormRoad = false;
 
-            // Check different Y levels to find roads
             for (int i = -MAX_CHECK_RANGE + yOffset; i <= MAX_CHECK_RANGE + yOffset; i++) {
                 BlockPos verticalPos = worldPosition.offset(0, i, 0);
 

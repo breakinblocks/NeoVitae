@@ -17,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey;
 
 import java.util.ArrayList;
@@ -186,7 +187,7 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
             for (int j = -1; j <= 1; j++) {
                 BlockPos fillPos = sealPos.relative(rightDir, i).relative(Direction.UP, j);
                 if (serverLevel.getBlockState(fillPos).is(
-                        com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get())) {
+                        DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get())) {
                     serverLevel.removeBlock(fillPos, false);
                 }
             }

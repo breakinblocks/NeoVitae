@@ -10,6 +10,8 @@ import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.athanor.ItemAthanorToolBase;
+import com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey;
+import com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonTester;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlaskLingering;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlaskThrowable;
@@ -222,13 +224,13 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemThrowingDaggerSyringe> THROWING_DAGGER_SYRINGE = BASIC_ITEMS.registerItem("throwing_dagger_syringe", props -> new ItemThrowingDaggerSyringe(props));
     public static final DeferredHolder<Item, ItemTippedThrowingDagger> THROWING_DAGGER_TIPPED = BASIC_ITEMS.registerItem("tipped_throwing_dagger", props -> new ItemTippedThrowingDagger(props));
 
-    public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey> SIMPLE_KEY = BASIC_ITEMS.registerItem("simple_key", props -> new com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey(props, "Simple", "mini_dungeon", "connective_corridors"));
-    public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey> MINE_KEY = BASIC_ITEMS.registerItem("mine_key", props -> new com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey(props, "Mine", "mine_rooms", "mine_corridors", "mine_deadend"));
-    public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey> MINE_ENTRANCE_KEY = BASIC_ITEMS.registerItem("mine_entrance_key", props -> new com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey(props, "Mine Entrance", "mine_entrances", "mine_key"));
-    public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey> STANDARD_KEY = BASIC_ITEMS.registerItem("standard_key", props -> new com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey(props, "Standard", "standard_rooms", "connective_corridors", "standard_deadend"));
-    public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey> BOSS_KEY = BASIC_ITEMS.registerItem("boss_key", props -> new com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey(props, "Boss", "boss", "special", "treasure"));
+    public static final DeferredHolder<Item, ItemDungeonKey> SIMPLE_KEY = BASIC_ITEMS.registerItem("simple_key", props -> new ItemDungeonKey(props, "Simple", "mini_dungeon", "connective_corridors"));
+    public static final DeferredHolder<Item, ItemDungeonKey> MINE_KEY = BASIC_ITEMS.registerItem("mine_key", props -> new ItemDungeonKey(props, "Mine", "mine_rooms", "mine_corridors", "mine_deadend"));
+    public static final DeferredHolder<Item, ItemDungeonKey> MINE_ENTRANCE_KEY = BASIC_ITEMS.registerItem("mine_entrance_key", props -> new ItemDungeonKey(props, "Mine Entrance", "mine_entrances", "mine_key"));
+    public static final DeferredHolder<Item, ItemDungeonKey> STANDARD_KEY = BASIC_ITEMS.registerItem("standard_key", props -> new ItemDungeonKey(props, "Standard", "standard_rooms", "connective_corridors", "standard_deadend"));
+    public static final DeferredHolder<Item, ItemDungeonKey> BOSS_KEY = BASIC_ITEMS.registerItem("boss_key", props -> new ItemDungeonKey(props, "Boss", "boss", "special", "treasure"));
 
-    public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonTester> DUNGEON_TESTER = BASIC_ITEMS.registerItem("dungeon_tester", com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonTester::new);
+    public static final DeferredHolder<Item, ItemDungeonTester> DUNGEON_TESTER = BASIC_ITEMS.registerItem("dungeon_tester", ItemDungeonTester::new);
 
     public static final DeferredHolder<Item, Item> ANIMATED_SPIRITUS = plainItem("animated_spiritus");
 

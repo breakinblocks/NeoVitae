@@ -39,7 +39,6 @@ public class RitualPump extends Ritual {
         RitualContext ctx = RitualHelper.createContext(masterRitualStone, getRefreshCost());
         if (ctx == null) return;
 
-        // Find a fluid handler above the MRS
         BlockEntity tankBe = ctx.level().getBlockEntity(ctx.masterPos().above());
         if (tankBe == null) return;
 
@@ -73,7 +72,6 @@ public class RitualPump extends Ritual {
                         tx.commit();
                     }
 
-                    // Remove the fluid source
                     if (state.getBlock() instanceof BucketPickup bucketPickup) {
                         bucketPickup.pickupBlock(null, ctx.level(), pos, state);
                     } else {

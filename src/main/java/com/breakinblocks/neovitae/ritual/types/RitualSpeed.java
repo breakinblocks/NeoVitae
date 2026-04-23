@@ -102,7 +102,6 @@ public class RitualSpeed extends Ritual {
                 if (isBaby) continue;
             }
 
-            // Calculate velocity based on direction
             double motionX = 0;
             double motionY = 0;
             double motionZ = 0;

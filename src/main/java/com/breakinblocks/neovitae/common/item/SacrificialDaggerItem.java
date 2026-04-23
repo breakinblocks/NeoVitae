@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.common.item;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -61,7 +62,7 @@ public class SacrificialDaggerItem extends Item {
                                 Consumer<Component> tooltip,
                                 TooltipFlag flag) {
         tooltip.accept(Component.translatable("tooltip.neovitae.sacrificial_dagger.desc")
-                .withStyle(net.minecraft.ChatFormatting.ITALIC, net.minecraft.ChatFormatting.DARK_RED));
+                .withStyle(ChatFormatting.ITALIC, ChatFormatting.DARK_RED));
     }
 
     @Override

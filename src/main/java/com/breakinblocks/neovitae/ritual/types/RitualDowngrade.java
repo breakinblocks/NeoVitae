@@ -9,6 +9,7 @@ import com.breakinblocks.neovitae.common.datacomponent.LivingStats;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 
@@ -50,7 +51,7 @@ public class RitualDowngrade extends Ritual {
                 });
 
                 stack.remove(NVDataComponents.UPGRADES.get());
-                com.breakinblocks.neovitae.api.stream.StreamPresets
+                StreamPresets
                         .voidTendril(itemEntity, ctx.masterPos()).build()
                         .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128);
                 ctx.syphon(getRefreshCost());

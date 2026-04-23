@@ -49,6 +49,7 @@ import com.breakinblocks.neovitae.util.AltarUtil;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
+import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
@@ -286,7 +287,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae {
     public static void tick(Level level, BlockPos pos, BlockState state, AraVitaeTile tile) {
         if (level.isClientSide()) {
             if (tile.isActive()) {
-                com.breakinblocks.neovitae.client.sound.LoopSoundManager.tryStartLoop(
+                LoopSoundManager.tryStartLoop(
                         NVSounds.BLOOD_ALTAR_AMBIENT.get(), 0.3f, level, pos,
                         be -> be instanceof AraVitaeTile ara && ara.isActive()
                 );

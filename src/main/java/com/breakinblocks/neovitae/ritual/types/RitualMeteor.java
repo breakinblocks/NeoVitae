@@ -9,6 +9,7 @@ import com.breakinblocks.neovitae.common.entity.projectile.EntityMeteor;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipeHelper;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 
@@ -66,7 +67,7 @@ public class RitualMeteor extends Ritual {
                 meteor.setContainedStack(stack.split(1));
                 ctx.level().addFreshEntity(meteor);
 
-                com.breakinblocks.neovitae.api.stream.StreamPresets
+                StreamPresets
                         .demonTether(entityItem, ctx.masterPos()).build()
                         .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128);
 

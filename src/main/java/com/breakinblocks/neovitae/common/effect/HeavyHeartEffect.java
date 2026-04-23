@@ -8,6 +8,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 
 public class HeavyHeartEffect extends MobEffect {
 
@@ -26,8 +28,8 @@ public class HeavyHeartEffect extends MobEffect {
             double y = entity.getY() + entity.getRandom().nextDouble() * 0.3;
             double z = entity.getZ() + (entity.getRandom().nextDouble() - 0.5) * 0.6;
             entity.level().addParticle(
-                    new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
-                            com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_FLAME.get(), 0x8B0000),
+                    new ColoredParticleOptions(
+                            NVParticles.BLOOD_FLAME.get(), 0x8B0000),
                     x, y, z, 0, -0.04, 0);
         }
 

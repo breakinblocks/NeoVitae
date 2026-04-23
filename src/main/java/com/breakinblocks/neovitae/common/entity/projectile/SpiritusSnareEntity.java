@@ -14,9 +14,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 
@@ -52,13 +54,13 @@ public class SpiritusSnareEntity extends ThrowableItemProjectile {
 
                 if (level() instanceof ServerLevel serverLevel) {
                     serverLevel.sendParticles(
-                            new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
-                                    com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_GLOW.get(), 0x88CCFF),
+                            new ColoredParticleOptions(
+                                    NVParticles.BLOOD_GLOW.get(), 0x88CCFF),
                             target.getX(), target.getY() + target.getBbHeight() * 0.5, target.getZ(),
                             10, target.getBbWidth() * 0.4, target.getBbHeight() * 0.4, target.getBbWidth() * 0.4, 0.02);
                     serverLevel.sendParticles(
-                            new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
-                                    com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_FLAME.get(), 0x88CCFF),
+                            new ColoredParticleOptions(
+                                    NVParticles.BLOOD_FLAME.get(), 0x88CCFF),
                             target.getX(), target.getY() + target.getBbHeight() * 0.5, target.getZ(),
                             6, target.getBbWidth() * 0.3, target.getBbHeight() * 0.3, target.getBbWidth() * 0.3, 0.03);
                 }
@@ -81,8 +83,8 @@ public class SpiritusSnareEntity extends ThrowableItemProjectile {
 
         if (level().isClientSide()) {
             level().addParticle(
-                    new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
-                            com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_FLAME.get(), 0x88CCFF),
+                    new ColoredParticleOptions(
+                            NVParticles.BLOOD_FLAME.get(), 0x88CCFF),
                     getX() + (random.nextDouble() - 0.5) * 0.1,
                     getY() + (random.nextDouble() - 0.5) * 0.1,
                     getZ() + (random.nextDouble() - 0.5) * 0.1,

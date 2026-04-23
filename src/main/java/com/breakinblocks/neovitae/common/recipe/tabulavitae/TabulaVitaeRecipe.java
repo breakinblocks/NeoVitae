@@ -101,10 +101,8 @@ public class TabulaVitaeRecipe implements Recipe<TabulaVitaeInput> {
 
     @Override
     public boolean matches(TabulaVitaeInput container, Level level) {
-        // Check if all ingredients are present in the container
         List<ItemStack> inputItems = container.items();
 
-        // Create a mutable copy of ingredients to mark as matched
         List<Ingredient> remainingIngredients = new ArrayList<>(input);
 
         for (ItemStack stack : inputItems) {

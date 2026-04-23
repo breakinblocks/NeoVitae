@@ -18,6 +18,8 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
+import com.breakinblocks.neovitae.common.block.BlockMasterRitualStone;
+import com.breakinblocks.neovitae.common.block.BlockRitualStone;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -106,7 +108,6 @@ public class RitualYawningVoid extends Ritual {
         FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(serverLevel, owner, "NeoVitae");
         ItemStack toolStack = new ItemStack(Items.NETHERITE_PICKAXE);
 
-        // Build filter list from chest (for corrosive mode)
         Set<Item> filterItems = new HashSet<>();
         if (doFilter && chestHandler != null) {
             for (int i = 0; i < chestHandler.size(); i++) {
@@ -137,10 +138,9 @@ public class RitualYawningVoid extends Ritual {
             if (state.getBlock() instanceof LiquidBlock) continue;
             float destroySpeed = state.getDestroySpeed(ctx.level(), targetPos);
             if (destroySpeed < 0) continue; // Unbreakable
-            if (state.getBlock() instanceof com.breakinblocks.neovitae.common.block.BlockRitualStone) continue;
-            if (state.getBlock() instanceof com.breakinblocks.neovitae.common.block.BlockMasterRitualStone) continue;
+            if (state.getBlock() instanceof BlockRitualStone) continue;
+            if (state.getBlock() instanceof BlockMasterRitualStone) continue;
 
-            // Check block protection
             if (!BlockProtectionHelper.canBreakBlock(ctx.level(), targetPos, owner)) continue;
 
             // CORROSIVE: Filter mode - only destroy blocks matching items in chest

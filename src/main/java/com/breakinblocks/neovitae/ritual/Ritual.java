@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.will.SpiritusState;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 import java.util.*;
@@ -228,7 +229,7 @@ public abstract class Ritual {
      * {@code hasRaw ? scaleRefreshTime(...) : baseTime} ternary used by the
      * raw-spiritus-accelerated rituals (animal growth, crushing, green grove).
      */
-    protected static int scaleByRawWill(com.breakinblocks.neovitae.api.will.SpiritusState will,
+    protected static int scaleByRawWill(SpiritusState will,
                                         int baseTime, int minTime, double willDivisor) {
         return will.hasDefault() ? scaleRefreshTime(will.getDefault(), baseTime, minTime, willDivisor) : baseTime;
     }

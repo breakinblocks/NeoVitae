@@ -48,7 +48,7 @@ public class RitualArmourEvolve extends Ritual {
                 currentMaxPoints = 100; // Default starting max
             }
 
-            int newMaxPoints = currentMaxPoints + 100; // Add 100 max upgrade points
+            int newMaxPoints = currentMaxPoints + 100;
 
             // Cap at reasonable maximum
             if (newMaxPoints > 500) {

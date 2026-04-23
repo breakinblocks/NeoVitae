@@ -4,14 +4,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AttachedStemBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import javax.annotation.Nullable;
@@ -25,20 +21,8 @@ import java.util.UUID;
  */
 public class HarvestHandlerStem implements IHarvestHandler {
 
-    private static ItemStack mockHoe;
-
-    private static ItemStack mockHoe() {
-        ItemStack cached = mockHoe;
-        if (cached == null) {
-            cached = new ItemStack(Items.DIAMOND_HOE, 1);
-            mockHoe = cached;
-        }
-        return cached;
-    }
-
     public HarvestHandlerStem() {
-        for (int i = 0; i < 4; i++) {
-            Direction facing = Direction.from2DDataValue(i);
+        for (Direction facing : Direction.Plane.HORIZONTAL) {
             HarvestRegistry.registerStemCrop(
                     Blocks.PUMPKIN.defaultBlockState(),
                     Blocks.ATTACHED_PUMPKIN_STEM.defaultBlockState().setValue(AttachedStemBlock.FACING, facing));
@@ -53,25 +37,19 @@ public class HarvestHandlerStem implements IHarvestHandler {
         if (!(level instanceof ServerLevel serverLevel)) return false;
 
         Direction cropDir = state.getValue(AttachedStemBlock.FACING);
+        if (cropDir == Direction.UP) return false;
 
-        if (cropDir != Direction.UP) {
-            BlockPos cropPos = pos.relative(cropDir);
-            BlockState probableCrop = level.getBlockState(cropPos);
-            Collection<BlockState> registeredCrops = HarvestRegistry.getStemCrops().get(state);
+        BlockPos cropPos = pos.relative(cropDir);
+        BlockState probableCrop = level.getBlockState(cropPos);
+        Collection<BlockState> registeredCrops = HarvestRegistry.getStemCrops().get(state);
 
-            for (BlockState registeredCrop : registeredCrops) {
-                if (registeredCrop.getBlock() == probableCrop.getBlock()) {
-                    if (!BlockProtectionHelper.tryBreakBlockNoDrops(level, cropPos, ownerUUID)) {
-                        return false;
-                    }
-                    LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel);
-                    Vec3 blockCenter = new Vec3(cropPos.getX() + 0.5, cropPos.getY() + 0.5, cropPos.getZ() + 0.5);
-                    List<ItemStack> blockDrops = probableCrop.getDrops(lootBuilder
-                            .withParameter(LootContextParams.ORIGIN, blockCenter)
-                            .withParameter(LootContextParams.TOOL, mockHoe()));
-                    drops.addAll(blockDrops);
-                    return true;
+        for (BlockState registeredCrop : registeredCrops) {
+            if (registeredCrop.getBlock() == probableCrop.getBlock()) {
+                if (!BlockProtectionHelper.tryBreakBlockNoDrops(level, cropPos, ownerUUID)) {
+                    return false;
                 }
+                drops.addAll(HarvestHelper.getDropsAt(serverLevel, cropPos, probableCrop, HarvestHelper.mockHoe()));
+                return true;
             }
         }
 

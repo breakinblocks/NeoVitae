@@ -44,7 +44,6 @@ public class RitualCrystalHarvest extends Ritual {
             BlockState state = ctx.level().getBlockState(pos);
             Block block = state.getBlock();
 
-            // Check if it's a demon crystal block
             if (isSpiritusCrystal(block)) {
                 if (BlockProtectionHelper.tryBreakBlock(ctx.level(), pos, owner)) {
                     crystalsHarvested++;

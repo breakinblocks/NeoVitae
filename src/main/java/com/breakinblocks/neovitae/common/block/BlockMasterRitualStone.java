@@ -31,6 +31,7 @@ import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntit
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.item.ItemActivationCrystal;
+import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
 
@@ -93,9 +94,9 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
             return InteractionResult.PASS;
         }
 
-        if (stack.getItem() instanceof com.breakinblocks.neovitae.common.item.ItemRitualDiviner diviner) {
+        if (stack.getItem() instanceof ItemRitualDiviner diviner) {
             if (level.isClientSide()) {
-                com.breakinblocks.neovitae.common.item.ItemRitualDiviner.spawnParticles(level, pos.relative(hitResult.getDirection()), 15);
+                ItemRitualDiviner.spawnParticles(level, pos.relative(hitResult.getDirection()), 15);
                 return InteractionResult.SUCCESS;
             }
 

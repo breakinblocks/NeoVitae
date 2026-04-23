@@ -36,7 +36,7 @@ public class RitualContainment extends Ritual {
         AABB aabb = RitualHelper.getRangeAABB(ctx.master(), this, CONTAIN_RANGE, ctx.masterPos());
         if (aabb == null) return;
 
-        AABB expandedAABB = aabb.inflate(2); // Check slightly outside the area
+        AABB expandedAABB = aabb.inflate(2);
 
         List<LivingEntity> entities = ctx.level().getEntitiesOfClass(LivingEntity.class, expandedAABB,
                 e -> !(e instanceof Player));

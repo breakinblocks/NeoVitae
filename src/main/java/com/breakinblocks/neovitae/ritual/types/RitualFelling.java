@@ -59,7 +59,6 @@ public class RitualFelling extends Ritual {
         boolean hasInv = chest.hasFreeSlot();
 
         BlockPos masterPos = ctx.masterPos();
-        // Find and break logs first, then leaves
         for (BlockPos pos : positions) {
             if (blocksBroken >= maxBlocks) break;
 

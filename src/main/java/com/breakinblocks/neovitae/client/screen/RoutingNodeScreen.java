@@ -21,6 +21,7 @@ import com.breakinblocks.neovitae.common.network.RoutingNodePayload;
 import com.breakinblocks.neovitae.common.network.RoutingNodeSetFluidGhostPayload;
 import com.breakinblocks.neovitae.common.network.RoutingNodeSetGhostPayload;
 import com.breakinblocks.neovitae.common.routing.FilterMode;
+import com.breakinblocks.neovitae.util.helper.RenderHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -164,7 +165,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             guiGraphics.fill(x, y, x + 16, y + 16, 0xFF8B8B8B);
             FluidStack ghost = menu.getCurrentFluidGhost(i);
             if (!ghost.isEmpty()) {
-                com.breakinblocks.neovitae.util.helper.RenderHelper.renderGuiFluid(guiGraphics, ghost.getFluid(), x, y, 16, 16);
+                RenderHelper.renderGuiFluid(guiGraphics, ghost.getFluid(), x, y, 16, 16);
             }
         }
     }

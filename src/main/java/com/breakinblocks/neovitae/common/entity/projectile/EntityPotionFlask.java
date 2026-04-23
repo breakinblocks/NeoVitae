@@ -27,7 +27,9 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -130,12 +132,12 @@ public class EntityPotionFlask extends ThrowableItemProjectile implements ItemSu
 
             if (this.level() instanceof ServerLevel serverLevel) {
                 serverLevel.sendParticles(
-                        new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
-                                com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_FLAME.get(), color),
+                        new ColoredParticleOptions(
+                                NVParticles.BLOOD_FLAME.get(), color),
                         this.getX(), this.getY() + 0.5, this.getZ(), 12, 0.5, 0.3, 0.5, 0.03);
                 serverLevel.sendParticles(
-                        new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
-                                com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_GLOW.get(), color),
+                        new ColoredParticleOptions(
+                                NVParticles.BLOOD_GLOW.get(), color),
                         this.getX(), this.getY() + 0.3, this.getZ(), 5, 0.3, 0.2, 0.3, 0.01);
             }
 

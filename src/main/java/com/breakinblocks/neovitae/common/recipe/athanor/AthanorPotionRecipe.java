@@ -17,6 +17,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidStackTemplate;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import java.util.ArrayList;
@@ -91,7 +92,7 @@ public class AthanorPotionRecipe extends AthanorRecipe {
         }
 
         double bonusChance = toolStack.getOrDefault(
-                com.breakinblocks.neovitae.common.datacomponent.NVDataComponents.ARC_CHANCE, 1D);
+                NVDataComponents.ARC_CHANCE, 1D);
         for (Pair<ItemStackTemplate, Double> entry : getChanceOutput()) {
             if (Math.random() < entry.getSecond() * bonusChance) {
                 outputs.add(entry.getFirst().create());

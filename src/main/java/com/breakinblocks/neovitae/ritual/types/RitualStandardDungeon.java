@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
+import com.breakinblocks.neovitae.common.blockentity.DungeonControllerBlockEntity;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import com.breakinblocks.neovitae.ritual.IMasterRitualStone;
 import com.breakinblocks.neovitae.ritual.Ritual;
@@ -47,7 +48,6 @@ public class RitualStandardDungeon extends DungeonRitualBase {
             return;
         }
 
-        // Get the spawn position for this dungeon (the controller position)
         BlockPos dungeonControllerPos = AnimaHelper.getSpawnPositionOfDungeon();
         if (dungeonControllerPos == null) {
             LOGGER.warn("Could not get dungeon spawn position");
@@ -57,7 +57,6 @@ public class RitualStandardDungeon extends DungeonRitualBase {
 
         LOGGER.info("Creating standard dungeon at {} -> dungeon controller {}", masterPos, dungeonControllerPos);
 
-        // Create the dungeon using DungeonSynthesizer with standard dungeon entrances
         DungeonSynthesizer synthesizer = new DungeonSynthesizer();
         BlockPos[] positions = synthesizer.generateInitialRoom(
                 ModRoomPools.STANDARD_DUNGEON_ENTRANCES,
@@ -94,7 +93,7 @@ public class RitualStandardDungeon extends DungeonRitualBase {
         spawnPortalPillar(world, dungeonWorld, pillarPos, playerSpawnPos);
         spawnPortalPillar(dungeonWorld, world, portalPos, overworldPlayerPos);
 
-        if (dungeonWorld.getBlockEntity(dungeonControllerPos) instanceof com.breakinblocks.neovitae.common.blockentity.DungeonControllerBlockEntity controller) {
+        if (dungeonWorld.getBlockEntity(dungeonControllerPos) instanceof DungeonControllerBlockEntity controller) {
             controller.setPortalPos(portalPos);
         }
 

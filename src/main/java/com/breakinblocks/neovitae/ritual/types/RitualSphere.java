@@ -54,7 +54,6 @@ public class RitualSphere extends Ritual {
         }
 
         if (currentIndex >= buildPositions.size()) {
-            // Building complete
             masterRitualStone.stopRitual(BreakType.DEACTIVATE);
             buildPositions = null;
             return;

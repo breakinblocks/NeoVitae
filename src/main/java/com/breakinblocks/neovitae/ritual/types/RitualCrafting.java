@@ -76,11 +76,8 @@ public class RitualCrafting extends Ritual {
         if (outputPositions.isEmpty()) return;
         BlockPos outputPos = outputPositions.get(0);
 
-        var inputRh = ctx.level().getCapability(Capabilities.Item.BLOCK, inputPos, null);
-        var outputRh = ctx.level().getCapability(Capabilities.Item.BLOCK, outputPos, null);
-        ResourceHandler<ItemResource> inputHandler = inputRh != null ? inputRh : null;
-        ResourceHandler<ItemResource> outputHandler = outputRh != null ? outputRh : null;
-
+        ResourceHandler<ItemResource> inputHandler = ctx.level().getCapability(Capabilities.Item.BLOCK, inputPos, null);
+        ResourceHandler<ItemResource> outputHandler = ctx.level().getCapability(Capabilities.Item.BLOCK, outputPos, null);
         if (inputHandler == null || outputHandler == null) return;
 
         SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, Math.min(MIN_STEADFAST, MIN_CORROSIVE));
@@ -98,7 +95,6 @@ public class RitualCrafting extends Ritual {
         if (tryHellfireForge) {
             ItemStack result = tryHellfireForgeRecipe(ctx, inputHandler, inputItems);
             if (!result.isEmpty()) {
-                // Check if output can accept the result
                 ItemStack insertResult = Utils.insertItemStacked(outputHandler, result.copy(), true);
                 if (insertResult.isEmpty()) {
                     for (int i = 0; i < Math.min(4, inputHandler.size()); i++) {
@@ -123,7 +119,6 @@ public class RitualCrafting extends Ritual {
         if (tryAlchemy) {
             ItemStack result = tryTabulaVitaeRecipe(ctx, inputHandler, inputItems);
             if (!result.isEmpty()) {
-                // Check if output can accept the result
                 ItemStack insertResult = Utils.insertItemStacked(outputHandler, result.copy(), true);
                 if (insertResult.isEmpty()) {
                     for (int i = 0; i < Math.min(6, inputHandler.size()); i++) {
@@ -162,9 +157,8 @@ public class RitualCrafting extends Ritual {
 
         if (result.isEmpty()) return;
 
-        // Check if output can accept the result
         ItemStack insertResult = Utils.insertItemStacked(outputHandler, result.copy(), true);
-        if (!insertResult.isEmpty()) return; // Output full
+        if (!insertResult.isEmpty()) return;
 
         for (int i = 0; i < Math.min(9, inputHandler.size()); i++) {
             if (!inputItems.get(i).isEmpty()) {
@@ -181,7 +175,6 @@ public class RitualCrafting extends Ritual {
     }
 
     private ItemStack tryHellfireForgeRecipe(RitualContext ctx, ResourceHandler<ItemResource> inputHandler, List<ItemStack> inputItems) {
-        // Build input stacks (up to 4 items)
         List<ItemStack> forgeItems = new ArrayList<>();
         for (int i = 0; i < Math.min(4, inputItems.size()); i++) {
             if (!inputItems.get(i).isEmpty()) {

@@ -8,6 +8,7 @@ import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.LivingStats;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -54,7 +55,6 @@ public class RitualUpgradeRemove extends Ritual {
                     continue;
                 }
 
-                // Remove all upgrades
                 LivingStats newStats = new LivingStats(new Object2FloatOpenHashMap<>());
                 armorPiece.set(NVDataComponents.UPGRADES.get(), newStats);
 
@@ -66,7 +66,7 @@ public class RitualUpgradeRemove extends Ritual {
 
             if (cleansedAny) {
                 ctx.syphon(getRefreshCost());
-                com.breakinblocks.neovitae.api.stream.StreamPresets
+                StreamPresets
                         .lifePulse(ctx.masterPos(), player.blockPosition()).build()
                         .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128);
                 masterRitualStone.stopRitual(BreakType.DEACTIVATE);

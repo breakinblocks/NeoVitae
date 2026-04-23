@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.common.item.block;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -25,7 +26,7 @@ public class BloodTankBlockItem extends BlockItem {
         int tier = stack.getOrDefault(NVDataComponents.CONTAINER_TIER, 0);
         if (tier == 0) {
             tooltip.accept(Component.translatable("tooltip.neovitae.container_tier_missing")
-                    .withStyle(net.minecraft.ChatFormatting.RED, net.minecraft.ChatFormatting.BOLD));
+                    .withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
         } else {
             tooltip.accept(BlockEntityHelper.translatableHover("tooltip.neovitae.container_tier", tier));
         }

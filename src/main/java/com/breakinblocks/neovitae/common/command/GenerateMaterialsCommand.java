@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -53,7 +54,7 @@ public class GenerateMaterialsCommand {
         if (skippedCount > 0) {
             source.sendSuccess(() -> Component.translatable("command.neovitae.generate.skipped", skippedCount), false);
         }
-        source.sendSuccess(() -> Component.translatable("command.neovitae.generate.restart").withStyle(net.minecraft.ChatFormatting.YELLOW), false);
+        source.sendSuccess(() -> Component.translatable("command.neovitae.generate.restart").withStyle(ChatFormatting.YELLOW), false);
 
         return added;
     }

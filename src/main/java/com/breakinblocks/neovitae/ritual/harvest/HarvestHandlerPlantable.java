@@ -1,45 +1,30 @@
 package com.breakinblocks.neovitae.ritual.harvest;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModList;
-import net.minecraft.core.registries.BuiltInRegistries;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
-import net.minecraft.core.Holder;
 
 /**
  * Harvest handler for standard plantable crops such as Wheat, Potatoes, and Netherwart.
  * Register a new crop for this handler with {@link HarvestRegistry#registerStandardCrop(Block, int)}
  */
 public class HarvestHandlerPlantable implements IHarvestHandler {
-
-    private static ItemStack mockHoe;
-
-    private static ItemStack mockHoe() {
-        ItemStack cached = mockHoe;
-        if (cached == null) {
-            cached = new ItemStack(Items.DIAMOND_HOE, 1);
-            mockHoe = cached;
-        }
-        return cached;
-    }
 
     public HarvestHandlerPlantable() {
         HarvestRegistry.registerStandardCrop(Blocks.CARROTS, 7);
@@ -68,13 +53,9 @@ public class HarvestHandlerPlantable implements IHarvestHandler {
     public boolean harvest(Level level, BlockPos pos, BlockState state, List<ItemStack> drops, @Nullable UUID ownerUUID) {
         if (!(level instanceof ServerLevel serverLevel)) return false;
 
-        boolean foundSeed = false;
-        LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel);
-        Vec3 blockCenter = new Vec3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-        List<ItemStack> blockDrops = state.getDrops(lootBuilder
-                .withParameter(LootContextParams.ORIGIN, blockCenter)
-                .withParameter(LootContextParams.TOOL, mockHoe()));
+        List<ItemStack> blockDrops = HarvestHelper.getDropsAt(serverLevel, pos, state, HarvestHelper.mockHoe());
 
+        boolean foundSeed = false;
         for (ItemStack stack : blockDrops) {
             if (stack.isEmpty()) continue;
 
@@ -124,7 +105,6 @@ public class HarvestHandlerPlantable implements IHarvestHandler {
         if (!ModList.get().isLoaded("mysticalagriculture")) return;
 
         try {
-            // Use reflection to access Mystical Agriculture API
             Class<?> apiClass = Class.forName("com.blakebr0.mysticalagriculture.api.MysticalAgricultureAPI");
             Class<?> registryClass = Class.forName("com.blakebr0.mysticalagriculture.api.registry.ICropRegistry");
             Class<?> cropClass = Class.forName("com.blakebr0.mysticalagriculture.api.crop.Crop");

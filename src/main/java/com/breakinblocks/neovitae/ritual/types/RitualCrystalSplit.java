@@ -32,7 +32,6 @@ public class RitualCrystalSplit extends Ritual {
             return;
         }
 
-        // Check for raw crystal block 2 blocks above
         BlockPos crystalPos = ctx.masterPos().above(2);
         BlockState crystalState = ctx.level().getBlockState(crystalPos);
 
@@ -56,7 +55,6 @@ public class RitualCrystalSplit extends Ritual {
             NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().get()
         };
 
-        // Check if all output positions are empty
         for (BlockPos pos : outputPositions) {
             if (!ctx.level().isEmptyBlock(pos)) {
                 return; // Can't place, position occupied
@@ -65,7 +63,6 @@ public class RitualCrystalSplit extends Ritual {
 
         UUID owner = ctx.master().getOwner();
 
-        // Remove the raw crystal (with protection check)
         if (!BlockProtectionHelper.tryRemoveBlock(ctx.level(), crystalPos, owner)) {
             return;
         }

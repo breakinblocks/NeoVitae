@@ -58,7 +58,7 @@ public abstract class RoutingNodeBlockEntity extends BlockEntity implements IRou
             if (!level.hasChunk(mcx, mcz)) return;
 
             BlockEntity masterTile = level.getBlockEntity(masterPos);
-            boolean valid = masterTile instanceof com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity master
+            boolean valid = masterTile instanceof MasterRoutingNodeBlockEntity master
                     && master.graphContains(worldPosition);
             if (!valid) {
                 masterPos = BlockPos.ZERO;
@@ -116,7 +116,13 @@ public abstract class RoutingNodeBlockEntity extends BlockEntity implements IRou
 
     @Override
     public void removeAllConnections() {
-        BlockEntity testTile = getLevel().getBlockEntity(getMasterPos());
+        Level level = getLevel();
+        if (level == null) {
+            connectionList.clear();
+            return;
+        }
+
+        BlockEntity testTile = level.getBlockEntity(getMasterPos());
         if (testTile instanceof IMasterRoutingNode master) {
             master.removeNodeFromGraph(worldPosition);
             master.removeConnection(worldPosition);
@@ -124,10 +130,10 @@ public abstract class RoutingNodeBlockEntity extends BlockEntity implements IRou
 
         // Opportunistic cleanup of loaded neighbors; the master's graph is authoritative for unloaded ones.
         for (BlockPos testPos : connectionList) {
-            BlockEntity tile = getLevel().getBlockEntity(testPos);
+            BlockEntity tile = level.getBlockEntity(testPos);
             if (tile instanceof IRoutingNode node) {
                 node.removeConnection(worldPosition);
-                getLevel().sendBlockUpdated(testPos, getLevel().getBlockState(testPos), getLevel().getBlockState(testPos), 3);
+                level.sendBlockUpdated(testPos, level.getBlockState(testPos), level.getBlockState(testPos), 3);
             }
         }
 

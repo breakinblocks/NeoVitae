@@ -3,7 +3,6 @@ package com.breakinblocks.neovitae.ritual.harvest;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BambooStalkBlock;
 import net.minecraft.world.level.block.Blocks;
@@ -11,9 +10,6 @@ import net.minecraft.world.level.block.CactusBlock;
 import net.minecraft.world.level.block.SugarCaneBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BambooLeaves;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import javax.annotation.Nullable;
@@ -25,17 +21,6 @@ import java.util.UUID;
  * Register a new crop for this handler with {@link HarvestRegistry#registerTallCrop(BlockState)}
  */
 public class HarvestHandlerTall implements IHarvestHandler {
-
-    private static ItemStack mockHoe;
-
-    private static ItemStack mockHoe() {
-        ItemStack cached = mockHoe;
-        if (cached == null) {
-            cached = new ItemStack(Items.DIAMOND_HOE, 1);
-            mockHoe = cached;
-        }
-        return cached;
-    }
 
     public HarvestHandlerTall() {
         HarvestRegistry.registerTallCrop(Blocks.SUGAR_CANE.defaultBlockState().setValue(SugarCaneBlock.AGE, 0));
@@ -51,20 +36,13 @@ public class HarvestHandlerTall implements IHarvestHandler {
         if (!(level instanceof ServerLevel serverLevel)) return false;
 
         BlockState up = level.getBlockState(pos.above());
-        if (up.getBlock() == state.getBlock()) {
-            if (!BlockProtectionHelper.tryBreakBlockNoDrops(level, pos.above(), ownerUUID)) {
-                return false;
-            }
-            LootParams.Builder lootBuilder = new LootParams.Builder(serverLevel);
-            Vec3 blockCenter = new Vec3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-            List<ItemStack> blockDrops = state.getDrops(lootBuilder
-                    .withParameter(LootContextParams.ORIGIN, blockCenter)
-                    .withParameter(LootContextParams.TOOL, mockHoe()));
-            drops.addAll(blockDrops);
-            return true;
-        }
+        if (up.getBlock() != state.getBlock()) return false;
 
-        return false;
+        if (!BlockProtectionHelper.tryBreakBlockNoDrops(level, pos.above(), ownerUUID)) {
+            return false;
+        }
+        drops.addAll(HarvestHelper.getDropsAt(serverLevel, pos, state, HarvestHelper.mockHoe()));
+        return true;
     }
 
     @Override

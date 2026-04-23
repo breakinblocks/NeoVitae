@@ -1,6 +1,10 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "neovitae:item/animated_spiritus_bucket"
+    "type": "neoforge:fluid_container",
+    "fluid": "neovitae:animated_spiritus_source",
+    "textures": {
+      "base": "minecraft:item/bucket",
+      "fluid": "neoforge:item/mask/bucket_fluid_drip"
+    }
   }
 }

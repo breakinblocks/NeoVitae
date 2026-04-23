@@ -1,6 +1,0 @@
-{
-  "sources": [
-    {"type": "minecraft:single", "resource": "neovitae:block/essentia_vitae_still"},
-    {"type": "minecraft:single", "resource": "neovitae:block/animated_spiritus_still"}
-  ]
-}

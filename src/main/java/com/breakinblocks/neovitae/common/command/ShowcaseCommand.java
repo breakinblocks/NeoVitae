@@ -54,9 +54,10 @@ public class ShowcaseCommand {
 
         List<Holder.Reference<Item>> items = new ArrayList<>();
         BuiltInRegistries.ITEM.listElements().forEach(ref -> {
-            if (ref.key().identifier().getNamespace().equals(NeoVitae.MODID)) {
-                items.add(ref);
-            }
+            if (!ref.key().identifier().getNamespace().equals(NeoVitae.MODID)) return;
+            String path = ref.key().identifier().getPath();
+            if (path.startsWith("array_") || path.equals("spatial_rift")) return;
+            items.add(ref);
         });
         items.sort(Comparator.comparing(ref -> ref.key().identifier().getPath()));
 

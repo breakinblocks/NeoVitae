@@ -19,9 +19,11 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockTau;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.util.helper.BlockWithItemHolder;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -32,14 +34,25 @@ public class MineBlock extends BlockLootSubProvider {
     public MineBlock(HolderLookup.Provider registries) {
         super(Set.of(), FeatureFlags.DEFAULT_FLAGS, registries);
         this.registries = registries;
-        NVBlocks.BASIC_BLOCKS.getEntries().forEach(holder -> dropSelfList.add(holder.get()));
-        addDropSelf(NVBlocks.ARA_VITAE);
-        addDropSelf(NVBlocks.HELLFIRE_FORGE);
-        addDropSelf(NVBlocks.SANDS_OF_VITAE);
-    }
 
-    private void addDropSelf(BlockWithItemHolder<? extends Block, ? extends BlockItem> toAdd) {
-        dropSelfList.add(toAdd.block().get());
+        NVBlocks.BASIC_BLOCKS.getEntries().forEach(holder -> dropSelfList.add(holder.get()));
+
+        Set<Block> skipAuto = new HashSet<>();
+        skipAuto.addAll(specialDropList);
+        skipAuto.add(NVBlocks.DUNGEON_CONTROLLER.block().get());
+        skipAuto.add(NVBlocks.DUNGEON_SEAL.block().get());
+        skipAuto.add(NVBlocks.SPATIAL_RIFT.block().get());
+        skipAuto.add(NVBlocks.ALCHEMY_ARRAY.get());
+        skipAuto.add(NVBlocks.BLOOD_LIGHT.get());
+        skipAuto.add(NVBlocks.SPECTRAL_BLOCK.get());
+        skipAuto.add(NVBlocks.PHANTOM_BRIDGE_BLOCK.get());
+
+        NVBlocks.BLOCKS.getEntries().forEach(holder -> {
+            Block block = holder.get();
+            if (skipAuto.contains(block)) return;
+            dropSelfList.add(block);
+        });
+        DungeonBlocks.BLOCKS.getEntries().forEach(holder -> dropSelfList.add(holder.get()));
     }
 
     private final List<Block> specialDropList = List.of(
@@ -66,21 +79,16 @@ public class MineBlock extends BlockLootSubProvider {
     protected void generate() {
         dropSelfList.forEach(this::dropSelf);
 
-        // Blocks that preserve their contents when broken
         copyComponents(NVBlocks.BLOOD_TANK);
         copyComponents(NVBlocks.ATHANOR_BLOCK);
 
-        // Tau crops - drop 1 seed always, plus bonus seeds at max age with fortune
         generateTauLoot(NVBlocks.WEAK_TAU);
         generateTauLoot(NVBlocks.STRONG_TAU);
 
-        // Incense Altar - simple drop self
         dropSelf(NVBlocks.INCENSE_ALTAR.block().get());
 
-        // Spirit Cache
         dropSelf(NVBlocks.SPIRIT_CACHE.block().get());
 
-        // Glass blocks - silk touch only
         dropWhenSilkTouch(NVBlocks.BLOOD_STAINED_GLASS.block().get());
         dropWhenSilkTouch(NVBlocks.BLOOD_STAINED_GLASS_PANE.block().get());
     }
@@ -89,14 +97,11 @@ public class MineBlock extends BlockLootSubProvider {
         BlockTau block = holder.block().get();
         HolderLookup.RegistryLookup<Enchantment> enchantmentLookup = registries.lookupOrThrow(Registries.ENCHANTMENT);
 
-        // Drop 1 seed always, plus 0-3 bonus seeds at max age with fortune
         add(block, LootTable.lootTable()
-                // Always drop 1 seed
                 .withPool(applyExplosionCondition(block, LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(holder.item().get()))
                 ))
-                // Bonus seeds at max age with fortune
                 .withPool(applyExplosionCondition(block, LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(holder.item().get())

@@ -17,7 +17,6 @@ import com.breakinblocks.neovitae.client.render.blockentity.AraVitaeRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.BloodTankRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.HellfireForgeRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.MimicRenderer;
-import com.breakinblocks.neovitae.client.render.blockentity.RoutingNodeRenderer;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonAlternatorBlockEntity;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
@@ -216,10 +215,6 @@ public class NVTiles {
         event.registerBlockEntityRenderer(BLOOD_TANK_TYPE.get(), BloodTankRenderer::new);
         event.registerBlockEntityRenderer(ALCHEMY_ARRAY_TYPE.get(), AlchemyArrayRenderer::new);
         event.registerBlockEntityRenderer(MIMIC_TYPE.get(), MimicRenderer::new);
-        event.registerBlockEntityRenderer(ROUTING_CONDUIT_TYPE.get(), RoutingNodeRenderer::new);
-        event.registerBlockEntityRenderer(INPUT_ROUTING_NODE_TYPE.get(), RoutingNodeRenderer::new);
-        event.registerBlockEntityRenderer(OUTPUT_ROUTING_NODE_TYPE.get(), RoutingNodeRenderer::new);
-        event.registerBlockEntityRenderer(MASTER_ROUTING_NODE_TYPE.get(), RoutingNodeRenderer::new);
     }
 
     public static void register(IEventBus modBus) {

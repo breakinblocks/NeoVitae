@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.compat.jei;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IJeiHelpers;
+import mezz.jei.api.registration.IIngredientAliasRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -106,6 +107,15 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
     @Override
     public Identifier getPluginUid() {
         return ID;
+    }
+
+    @Override
+    public void registerIngredientAliases(IIngredientAliasRegistration registration) {
+        registration.addAliases(
+                VanillaTypes.ITEM_STACK,
+                new ItemStack(NVItems.GUIDE_BOOK.get()),
+                List.of("guide", "guidebook", "manual", "wiki", "scriptura", "scriptura vitae", "neovitae")
+        );
     }
 
     @Override

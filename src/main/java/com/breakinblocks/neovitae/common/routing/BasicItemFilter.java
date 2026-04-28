@@ -25,6 +25,11 @@ public class BasicItemFilter implements IItemFilter {
     protected ResourceHandler<ItemResource> itemHandler;
 
     @Override
+    public BlockPos getNodePos() {
+        return accessedTile != null ? accessedTile.getBlockPos() : null;
+    }
+
+    @Override
     public void initializeFilter(List<IFilterKey> filteredList, BlockEntity tile, ResourceHandler<ItemResource> itemHandler, boolean isFilterOutput) {
         this.accessedTile = tile;
         this.itemHandler = itemHandler;

@@ -20,6 +20,11 @@ public class BasicEnergyFilter implements IEnergyFilter {
     }
 
     @Override
+    public BlockPos getNodePos() {
+        return tile != null ? tile.getBlockPos() : null;
+    }
+
+    @Override
     public int transferEnergyThroughOutputFilter(int amount) {
         int received;
         try (Transaction tx = Transaction.openRoot()) {

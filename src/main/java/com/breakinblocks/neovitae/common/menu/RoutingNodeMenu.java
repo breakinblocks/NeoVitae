@@ -105,7 +105,7 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
             }
         }
 
-        MenuSlotHelper.addPlayerInventory(this::addSlot, playerInventory, 87, 145);
+        MenuSlotHelper.addPlayerInventory(this::addSlot, playerInventory, MenuSlotHelper.INV_Y_187, MenuSlotHelper.HOTBAR_Y_187);
     }
 
     public RoutingNodeMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {

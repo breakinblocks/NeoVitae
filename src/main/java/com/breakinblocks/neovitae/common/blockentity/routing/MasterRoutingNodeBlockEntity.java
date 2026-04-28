@@ -4,9 +4,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import org.joml.Vector3f;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
@@ -14,6 +20,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -50,6 +57,9 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
     private boolean legacyMigrationAttempted = false;
     private int ticksSincePhantomSweep = 0;
 
+    private List<BlockPos> clientRenderNeighbors = new ArrayList<>();
+    private boolean pendingClientSync = false;
+
     // Channel-keyed node lists: channelId -> list of node positions
     private final Map<String, List<BlockPos>> inputNodeLists = new LinkedHashMap<>();
     private final Map<String, List<BlockPos>> outputNodeLists = new LinkedHashMap<>();
@@ -72,8 +82,30 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         return outputNodeLists.computeIfAbsent(channelId, k -> new ArrayList<>());
     }
 
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        if (level != null && level.isClientSide) {
+            com.breakinblocks.neovitae.client.event.RoutingBeamHandler.register(this);
+        }
+    }
+
+    @Override
+    public void setRemoved() {
+        if (level != null && level.isClientSide) {
+            com.breakinblocks.neovitae.client.event.RoutingBeamHandler.unregister(this);
+        }
+        super.setRemoved();
+    }
+
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (level.isClientSide) return;
+
+        if (pendingClientSync) {
+            pendingClientSync = false;
+            BlockState bs = level.getBlockState(pos);
+            level.sendBlockUpdated(pos, bs, bs, 3);
+        }
 
         currentInput = level.getDirectSignalTo(pos);
 
@@ -229,12 +261,14 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         return false;
     }
 
+    private record FilterEntry<F extends IRoutingFilter>(BlockPos nodePos, F filter) {}
+
     @SuppressWarnings("unchecked")
     private <F extends IRoutingFilter> void processChannel(RoutingChannel<F> channel, Level level) {
         List<BlockPos> outputNodes = getOutputList(channel.id());
         List<BlockPos> inputNodes = getInputList(channel.id());
 
-        Map<Integer, List<F>> outputMap = new TreeMap<>();
+        Map<Integer, List<FilterEntry<F>>> outputMap = new TreeMap<>();
         for (BlockPos outputPos : outputNodes) {
             BlockEntity tile = level.getBlockEntity(outputPos);
             if (tile != null && isConnectedViaGraph(outputPos)) {
@@ -244,13 +278,14 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
                     F filter = channel.getOutputFilter(tile, facing);
                     if (filter != null) {
                         int priority = channel.getPriority(tile, facing);
-                        outputMap.computeIfAbsent(TREE_OFFSET - priority, k -> new ArrayList<>()).add(filter);
+                        outputMap.computeIfAbsent(TREE_OFFSET - priority, k -> new ArrayList<>())
+                                .add(new FilterEntry<>(outputPos, filter));
                     }
                 }
             }
         }
 
-        Map<Integer, List<F>> inputMap = new TreeMap<>();
+        Map<Integer, List<FilterEntry<F>>> inputMap = new TreeMap<>();
         for (BlockPos inputPos : inputNodes) {
             BlockEntity tile = level.getBlockEntity(inputPos);
             if (tile != null && isConnectedViaGraph(inputPos)) {
@@ -260,7 +295,8 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
                     F filter = channel.getInputFilter(tile, facing);
                     if (filter != null) {
                         int priority = channel.getPriority(tile, facing);
-                        inputMap.computeIfAbsent(TREE_OFFSET - priority, k -> new ArrayList<>()).add(filter);
+                        inputMap.computeIfAbsent(TREE_OFFSET - priority, k -> new ArrayList<>())
+                                .add(new FilterEntry<>(inputPos, filter));
                     }
                 }
             }
@@ -268,17 +304,32 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
 
         int maxTransfer = channel.getMaxTransfer(this);
 
-        for (Entry<Integer, List<F>> outputEntry : outputMap.entrySet()) {
-            for (F outputFilter : outputEntry.getValue()) {
-                for (Entry<Integer, List<F>> inputEntry : inputMap.entrySet()) {
-                    for (F inputFilter : inputEntry.getValue()) {
-                        int transferred = channel.transfer(inputFilter, outputFilter, maxTransfer);
+        for (Entry<Integer, List<FilterEntry<F>>> outputEntry : outputMap.entrySet()) {
+            for (FilterEntry<F> outEntry : outputEntry.getValue()) {
+                for (Entry<Integer, List<FilterEntry<F>>> inputEntry : inputMap.entrySet()) {
+                    for (FilterEntry<F> inEntry : inputEntry.getValue()) {
+                        int transferred = channel.transfer(inEntry.filter(), outEntry.filter(), maxTransfer);
+                        if (transferred > 0) {
+                            spawnActivityParticles(level, outEntry.nodePos(), inEntry.nodePos());
+                        }
                         maxTransfer -= transferred;
                         if (maxTransfer <= 0) return;
                     }
                 }
             }
         }
+    }
+
+    private static void spawnActivityParticles(Level level, BlockPos outputNodePos, BlockPos inputNodePos) {
+        if (!(level instanceof ServerLevel sl)) return;
+        DustParticleOptions outputDust = new DustParticleOptions(new Vector3f(1.0f, 0.53f, 0.27f), 1.2f);
+        DustParticleOptions inputDust = new DustParticleOptions(new Vector3f(0.27f, 0.53f, 1.0f), 1.2f);
+        sl.sendParticles(outputDust,
+                outputNodePos.getX() + 0.5, outputNodePos.getY() + 0.6, outputNodePos.getZ() + 0.5,
+                4, 0.25, 0.25, 0.25, 0.0);
+        sl.sendParticles(inputDust,
+                inputNodePos.getX() + 0.5, inputNodePos.getY() + 0.6, inputNodePos.getZ() + 0.5,
+                4, 0.25, 0.25, 0.25, 0.0);
     }
 
     public int getMaxTransfer() {
@@ -502,6 +553,9 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         if (!connectionMap.get(pos2).contains(pos1)) {
             connectionMap.get(pos2).add(pos1);
         }
+        if (pos1.equals(worldPosition) || pos2.equals(worldPosition)) {
+            pendingClientSync = true;
+        }
     }
 
     @Override
@@ -513,6 +567,9 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         if (connectionMap.containsKey(pos2)) {
             connectionMap.get(pos2).remove(pos1);
             if (connectionMap.get(pos2).isEmpty()) connectionMap.remove(pos2);
+        }
+        if (pos1.equals(worldPosition) || pos2.equals(worldPosition)) {
+            pendingClientSync = true;
         }
         setChanged();
     }
@@ -527,6 +584,9 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
                     neighborList.remove(pos);
                     if (neighborList.isEmpty()) connectionMap.remove(neighbor);
                 }
+            }
+            if (neighbors.contains(worldPosition) || pos.equals(worldPosition)) {
+                pendingClientSync = true;
             }
         }
         // Defensive scrub for any stale references not captured via neighbors above.
@@ -545,7 +605,43 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
 
     @Override
     public List<BlockPos> getConnected() {
-        return new ArrayList<>();
+        if (level != null && level.isClientSide) {
+            return clientRenderNeighbors;
+        }
+        return connectionMap.getOrDefault(getBlockPos(), List.of());
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
+        ListTag list = new ListTag();
+        for (BlockPos pos : connectionMap.getOrDefault(getBlockPos(), List.of())) {
+            CompoundTag posTag = new CompoundTag();
+            posTag.putInt("x", pos.getX());
+            posTag.putInt("y", pos.getY());
+            posTag.putInt("z", pos.getZ());
+            list.add(posTag);
+        }
+        tag.put("renderNeighbors", list);
+        return tag;
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider registries) {
+        super.handleUpdateTag(tag, registries);
+        clientRenderNeighbors.clear();
+        if (tag.contains("renderNeighbors", Tag.TAG_LIST)) {
+            ListTag list = tag.getList("renderNeighbors", Tag.TAG_COMPOUND);
+            for (int i = 0; i < list.size(); i++) {
+                CompoundTag posTag = list.getCompound(i);
+                clientRenderNeighbors.add(new BlockPos(posTag.getInt("x"), posTag.getInt("y"), posTag.getInt("z")));
+            }
+        }
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override

@@ -2,7 +2,7 @@
   "type": "neovitae:alchemytable",
   "input": [
     {
-      "item": "neovitae:slate_vial"
+      "item": "neovitae:tabula_vial"
     },
     {
       "tag": "c:crops/nether_wart"

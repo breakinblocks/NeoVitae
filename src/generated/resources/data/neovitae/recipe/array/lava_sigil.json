@@ -1,7 +1,7 @@
 {
   "type": "neovitae:array",
   "addedinput": {
-    "item": "neovitae:blank_slate"
+    "item": "neovitae:tabula_rasa"
   },
   "baseinput": {
     "item": "neovitae:reagent_lava"

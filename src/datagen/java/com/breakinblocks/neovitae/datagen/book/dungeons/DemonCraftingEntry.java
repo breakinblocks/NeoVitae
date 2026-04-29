@@ -42,7 +42,7 @@ public class DemonCraftingEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("A single-use anointment applicator that coats a weapon in corrosive will, "
                 + "inflicting [#](8B0000)Wither[#]() on struck targets for 60 seconds.\\\n\\\n"
-                + "Requires [#](4A0080)Corrosive Will[#]() in the forge. Crafted from "
+                + "Requires [#](4A0080)Spiritus Ruina[#]() in the forge. Crafted from "
                 + "[#](8B0000)Blight Marrow[#](), a [#](4A0080)Corrosive Crystal Catalyst[#](), "
                 + "and a [#](8B0000)Demonic Slate[#]().");
 

@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/harvest_raw_spiritus",
+  "criteria": {
+    "get_shard": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:spiritus_invictus_shard"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.harvest_invictus.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:spiritus_invictus_shard"
+    },
+    "title": {
+      "translate": "advancements.neovitae.harvest_invictus.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_shard"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

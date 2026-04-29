@@ -61,9 +61,9 @@ public class RitualCraftingEntry extends EntryProvider {
         this.pageTitle("Spiritus Resonance");
         this.pageText("The default behavior mirrors a vanilla [#](8B0000)Crafting Table[#](). Feed the ritual "
                 + "a fragment of spiritus and its craft shifts accordingly:\\\n\\\n"
-                + "- [#](8B0000)Steadfast Spiritus[#](): attempts a [#](8B0000)Hellfire Forge[#]() recipe first, "
+                + "- [#](8B0000)Spiritus Invictus[#](): attempts a [#](8B0000)Hellfire Forge[#]() recipe first, "
                 + "falling back to vanilla crafting if none match.\\\n"
-                + "- [#](8B0000)Corrosive Spiritus[#](): attempts a [#](8B0000)Tabula Vitae[#]() recipe first, "
+                + "- [#](8B0000)Spiritus Ruina[#](): attempts a [#](8B0000)Tabula Vitae[#]() recipe first, "
                 + "falling back to vanilla crafting if none match.\\\n\\\n"
                 + "[#](2E8B57)Only one recipe is attempted per ritual pulse; queue as much raw material as "
                 + "you like and the ritual will work its way through the stack.[#]()");

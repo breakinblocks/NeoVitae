@@ -10,24 +10,24 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import java.util.List;
 
 public class SpiritusCrystalItem extends Item {
-    private final SpiritusType willType;
+    private final SpiritusType spiritusType;
     private final double willPerCrystal;
 
-    public SpiritusCrystalItem(SpiritusType willType) {
-        this(willType, 50.0);
+    public SpiritusCrystalItem(SpiritusType spiritusType) {
+        this(spiritusType, 50.0);
     }
 
-    public SpiritusCrystalItem(SpiritusType willType, double willPerCrystal) {
+    public SpiritusCrystalItem(SpiritusType spiritusType, double willPerCrystal) {
         super(new Properties());
-        this.willType = willType;
+        this.spiritusType = spiritusType;
         this.willPerCrystal = willPerCrystal;
     }
 
     public SpiritusType getWillType() {
-        return willType;
+        return spiritusType;
     }
 
-    public double getWill(ItemStack stack) {
+    public double getSpiritus(ItemStack stack) {
         return willPerCrystal * stack.getCount();
     }
 
@@ -37,7 +37,7 @@ public class SpiritusCrystalItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae.current_type." + willType.getSerializedName()).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.neovitae.current_type." + spiritusType.getSerializedName()).withStyle(ChatFormatting.GRAY));
         super.appendHoverText(stack, context, tooltip, flag);
     }
 }

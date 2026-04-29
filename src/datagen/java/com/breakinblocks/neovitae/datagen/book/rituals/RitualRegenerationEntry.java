@@ -34,7 +34,7 @@ public class RitualRegenerationEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("The Mending Circle");
         this.pageText("This ritual suffuses the area with restorative energy, mending the wounds of all living entities within reach at the cost of [#](8B0000)Essentia Vitae[#]() from the activator's [#](4A0080)Anima[#]()."
-                + "\\\n\\\n[#](8B0000)Corrosive Spiritus[#](): Enables a vampiric mode; hostile creatures are drained of vitality, and their stolen life force is used to heal nearby practitioners.");
+                + "\\\n\\\n[#](8B0000)Spiritus Ruina[#](): Enables a vampiric mode; hostile creatures are drained of vitality, and their stolen life force is used to heal nearby practitioners.");
     }
 
     @Override

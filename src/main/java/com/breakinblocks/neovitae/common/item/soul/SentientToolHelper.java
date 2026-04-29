@@ -91,20 +91,20 @@ public final class SentientToolHelper {
      * </ul>
      *
      * @param type the current will type
-     * @param willBracket the power level (0-6)
+     * @param spiritusBracket the power level (0-6)
      * @param target the entity being hit
      * @param attacker the attacking entity
      */
-    public static void applyEffectToEntity(SpiritusType type, int willBracket, LivingEntity target, LivingEntity attacker) {
-        if (willBracket < 0 || willBracket >= POISON_TIME.length) return;
+    public static void applyEffectToEntity(SpiritusType type, int spiritusBracket, LivingEntity target, LivingEntity attacker) {
+        if (spiritusBracket < 0 || spiritusBracket >= POISON_TIME.length) return;
 
         switch (type) {
-            case CORROSIVE -> target.addEffect(
-                new MobEffectInstance(MobEffects.WITHER, POISON_TIME[willBracket], POISON_LEVEL[willBracket]));
-            case STEADFAST -> {
+            case RUINA -> target.addEffect(
+                new MobEffectInstance(MobEffects.WITHER, POISON_TIME[spiritusBracket], POISON_LEVEL[spiritusBracket]));
+            case INVICTUS -> {
                 if (!target.isAlive()) {
                     float absorption = attacker.getAbsorptionAmount();
-                    attacker.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, ABSORPTION_TIME[willBracket], 127, false, false));
+                    attacker.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, ABSORPTION_TIME[spiritusBracket], 127, false, false));
                     attacker.setAbsorptionAmount((float) Math.min(absorption + target.getMaxHealth() * 0.05f, MAX_ABSORPTION_HEARTS));
                 }
             }
@@ -121,10 +121,10 @@ public final class SentientToolHelper {
      */
     public static SpiritusEssenceItem getSoulItemForType(SpiritusType type) {
         return switch (type) {
-            case CORROSIVE -> NVItems.MONSTER_SOUL_CORROSIVE.get();
-            case DESTRUCTIVE -> NVItems.MONSTER_SOUL_DESTRUCTIVE.get();
-            case VENGEFUL -> NVItems.MONSTER_SOUL_VENGEFUL.get();
-            case STEADFAST -> NVItems.MONSTER_SOUL_STEADFAST.get();
+            case RUINA -> NVItems.MONSTER_SOUL_RUINA.get();
+            case NIHILUM -> NVItems.MONSTER_SOUL_NIHILUM.get();
+            case VINDICTA -> NVItems.MONSTER_SOUL_VINDICTA.get();
+            case INVICTUS -> NVItems.MONSTER_SOUL_INVICTUS.get();
             default -> NVItems.MONSTER_SOUL_RAW.get();
         };
     }
@@ -169,7 +169,7 @@ public final class SentientToolHelper {
             if (i == 0 || attackingEntity.level().random.nextDouble() < 0.4) {
                 double soulAmount = willModifier * (soulDropAmount * attackingEntity.level().random.nextDouble()
                     + staticDropAmount) * killedEntity.getMaxHealth() / 20d * willBonus;
-                soulList.add(soulItem.createWill(soulAmount));
+                soulList.add(soulItem.createSpiritus(soulAmount));
             }
         }
 
@@ -184,7 +184,7 @@ public final class SentientToolHelper {
      * @param player the attacking player
      * @return true if the attack should be cancelled (not enough will), false otherwise
      */
-    public static boolean handleWillDrain(ItemStack stack, Player player) {
+    public static boolean handleSpiritusDrain(ItemStack stack, Player player) {
         double drain = getDrainAmount(stack);
         if (drain > 0) {
             SpiritusType type = getCurrentType(stack);
@@ -201,7 +201,7 @@ public final class SentientToolHelper {
 
 
     public static SpiritusType getCurrentType(ItemStack stack) {
-        return stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT);
+        return stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW);
     }
 
     public static void setCurrentType(ItemStack stack, SpiritusType type) {

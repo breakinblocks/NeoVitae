@@ -23,13 +23,13 @@ import java.util.Optional;
 public class ForgeSpiritusInfusionRecipe extends ForgeRecipe {
 
     public static final MapCodec<ForgeSpiritusInfusionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.DOUBLE.fieldOf("minDrain").forGetter(r -> r.minWill),
+            Codec.DOUBLE.fieldOf("minDrain").forGetter(r -> r.minSpiritus),
             Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedWill),
             Ingredient.CODEC_NONEMPTY.fieldOf("gemInput").forGetter(r -> r.gemInput)
     ).apply(instance, ForgeSpiritusInfusionRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ForgeSpiritusInfusionRecipe> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.DOUBLE, r -> r.minWill,
+            ByteBufCodecs.DOUBLE, r -> r.minSpiritus,
             ByteBufCodecs.DOUBLE, r -> r.usedWill,
             Ingredient.CONTENTS_STREAM_CODEC, r -> r.gemInput,
             ForgeSpiritusInfusionRecipe::new
@@ -37,8 +37,8 @@ public class ForgeSpiritusInfusionRecipe extends ForgeRecipe {
 
     private final Ingredient gemInput;
 
-    public ForgeSpiritusInfusionRecipe(double minWill, double usedWill, Ingredient gemInput) {
-        super(minWill, usedWill, List.of(gemInput), ItemStack.EMPTY, Optional.empty());
+    public ForgeSpiritusInfusionRecipe(double minSpiritus, double usedWill, Ingredient gemInput) {
+        super(minSpiritus, usedWill, List.of(gemInput), ItemStack.EMPTY, Optional.empty());
         this.gemInput = gemInput;
     }
 
@@ -80,7 +80,7 @@ public class ForgeSpiritusInfusionRecipe extends ForgeRecipe {
     public ItemStack assemble(ForgeInput input, HolderLookup.Provider registries) {
         ItemStack gemStack = input.getGem();
         double will = gemStack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
-        if (will < minWill) return ItemStack.EMPTY;
+        if (will < minSpiritus) return ItemStack.EMPTY;
 
         Double gemMax = null;
         ItemStack targetStack = null;
@@ -104,7 +104,7 @@ public class ForgeSpiritusInfusionRecipe extends ForgeRecipe {
         ItemStack result = targetStack.copy();
         result.set(NVDataComponents.SPIRITUS_MAX, gemMax);
         result.set(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
-        result.set(NVDataComponents.SPIRITUS_TYPE, com.breakinblocks.neovitae.common.datacomponent.SpiritusType.DEFAULT);
+        result.set(NVDataComponents.SPIRITUS_TYPE, com.breakinblocks.neovitae.common.datacomponent.SpiritusType.RAW);
         return result;
     }
 

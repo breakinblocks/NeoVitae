@@ -13,7 +13,7 @@ import com.breakinblocks.neovitae.common.recipe.forge.ForgeSpiritusInfusionRecip
 
 public class ForgeSpiritusInfusionRecipeBuilder extends BaseRecipeBuilder {
 
-    private double minWill;
+    private double minSpiritus;
     private double drainedWill;
     private Ingredient gemInput;
 
@@ -35,8 +35,8 @@ public class ForgeSpiritusInfusionRecipeBuilder extends BaseRecipeBuilder {
         return this;
     }
 
-    public ForgeSpiritusInfusionRecipeBuilder minWill(double minWill) {
-        this.minWill = minWill;
+    public ForgeSpiritusInfusionRecipeBuilder minSpiritus(double minSpiritus) {
+        this.minSpiritus = minSpiritus;
         return this;
     }
 
@@ -48,7 +48,7 @@ public class ForgeSpiritusInfusionRecipeBuilder extends BaseRecipeBuilder {
     @Override
     public void save(RecipeOutput output, ResourceLocation id) {
         Advancement.Builder advBuilder = getBuilder(output, id);
-        ForgeSpiritusInfusionRecipe recipe = new ForgeSpiritusInfusionRecipe(minWill, drainedWill, gemInput);
+        ForgeSpiritusInfusionRecipe recipe = new ForgeSpiritusInfusionRecipe(minSpiritus, drainedWill, gemInput);
         output.accept(id.withPrefix("hellfire_forge/"), recipe, advBuilder.build(advancementId(id, "hellfire_forge")));
     }
 }

@@ -3,21 +3,21 @@
   "drain": 100.0,
   "inputs": [
     {
-      "item": "neovitae:corrosive_crystal"
+      "item": "neovitae:spiritus_ruina_shard"
     },
     {
-      "item": "neovitae:corrosive_crystal"
+      "item": "neovitae:spiritus_ruina_shard"
     },
     {
-      "item": "neovitae:corrosive_crystal"
+      "item": "neovitae:spiritus_ruina_shard"
     },
     {
-      "item": "neovitae:corrosive_crystal"
+      "item": "neovitae:spiritus_ruina_shard"
     }
   ],
   "minDrain": 1200.0,
   "output": {
     "count": 1,
-    "id": "neovitae:corrosive_spiritus_crystal"
+    "id": "neovitae:spiritus_ruina_crystal"
   }
 }

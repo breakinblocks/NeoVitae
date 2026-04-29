@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ForgeTransformRecipeBuilder extends BaseRecipeBuilder {
 
-    private double minWill;
+    private double minSpiritus;
     private double drainedWill;
     private final List<Ingredient> catalysts = new ArrayList<>();
     private Ingredient transformInput;
@@ -43,8 +43,8 @@ public class ForgeTransformRecipeBuilder extends BaseRecipeBuilder {
         return this;
     }
 
-    public ForgeTransformRecipeBuilder minWill(double minWill) {
-        this.minWill = minWill;
+    public ForgeTransformRecipeBuilder minSpiritus(double minSpiritus) {
+        this.minSpiritus = minSpiritus;
         return this;
     }
 
@@ -56,7 +56,7 @@ public class ForgeTransformRecipeBuilder extends BaseRecipeBuilder {
     @Override
     public void save(RecipeOutput output, ResourceLocation id) {
         Advancement.Builder advBuilder = getBuilder(output, id);
-        ForgeTransformRecipe recipe = new ForgeTransformRecipe(minWill, drainedWill, catalysts, transformInput, result);
+        ForgeTransformRecipe recipe = new ForgeTransformRecipe(minSpiritus, drainedWill, catalysts, transformInput, result);
         output.accept(id.withPrefix("hellfire_forge/"), recipe, advBuilder.build(advancementId(id, "hellfire_forge")));
     }
 }

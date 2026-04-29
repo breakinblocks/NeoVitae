@@ -22,7 +22,7 @@ public class SpiritusChunkEvents {
         LevelChunk chunk = level.getChunk(chunkPos.x, chunkPos.z);
         SpiritusChunk willChunk = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
 
-        if (willChunk.hasWill()) {
+        if (willChunk.hasSpiritus()) {
             WorldSpiritusHandler.syncChunkToPlayer(player, chunkPos, willChunk);
         }
     }

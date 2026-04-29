@@ -9,17 +9,17 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 public interface ISpiritusGem {
     /**
      * Absorbs will from a will item stack into this gem.
-     * @return The remainder willStack (empty if fully absorbed)
+     * @return The remainder spiritusStack (empty if fully absorbed)
      */
-    ItemStack fillSpiritusGem(ItemStack willGemStack, ItemStack willStack);
+    ItemStack fillSpiritusGem(ItemStack willGemStack, ItemStack spiritusStack);
 
-    double getWill(SpiritusType type, ItemStack willGemStack);
+    double getSpiritus(SpiritusType type, ItemStack willGemStack);
 
-    void setWill(SpiritusType type, ItemStack willGemStack, double amount);
+    void setSpiritus(SpiritusType type, ItemStack willGemStack, double amount);
 
-    int getMaxWill(SpiritusType type, ItemStack willGemStack);
+    int getMaxSpiritus(SpiritusType type, ItemStack willGemStack);
 
-    double drainWill(SpiritusType type, ItemStack stack, double drainAmount, boolean doDrain);
+    double drainSpiritus(SpiritusType type, ItemStack stack, double drainAmount, boolean doDrain);
 
-    double fillWill(SpiritusType type, ItemStack stack, double fillAmount, boolean doFill);
+    double fillSpiritus(SpiritusType type, ItemStack stack, double fillAmount, boolean doFill);
 }

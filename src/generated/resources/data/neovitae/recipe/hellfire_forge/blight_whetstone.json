@@ -9,10 +9,10 @@
       "item": "neovitae:blight_marrow"
     },
     {
-      "item": "neovitae:corrosive_catalyst"
+      "item": "neovitae:spiritus_ruina_catalyst"
     },
     {
-      "item": "neovitae:demonic_slate"
+      "item": "neovitae:tabula_spiritus"
     }
   ],
   "minDrain": 800.0,
@@ -20,5 +20,5 @@
     "count": 1,
     "id": "neovitae:blight_whetstone"
   },
-  "willType": "corrosive"
+  "spiritusType": "ruina"
 }

@@ -1414,7 +1414,7 @@ Neo Vitae registers custom player attributes that addon mods can apply modifiers
 | `SELF_SACRIFICE_MULTIPLIER` | `neovitae:player.self_sacrifice_multiplier` | 1.0 | 100.0 | Multiplier for LP from self-sacrifice (PercentageAttribute) |
 | `BONUS_SACRIFICE` | `neovitae:bonus_sacrifice` | 0.0 | 1000.0 | % bonus LP from Lamina Exhauriens mob kills |
 | `BONUS_SELF_SACRIFICE` | `neovitae:bonus_self_sacrifice` | 0.0 | 1000.0 | % bonus LP from Lamina Maleficus self-sacrifice |
-| `BONUS_DEMON_WILL` | `neovitae:bonus_demon_will` | 0.0 | 1000.0 | % bonus Demon Will drops |
+| `BONUS_DEMON_WILL` | `neovitae:bonus_demon_will` | 0.0 | 1000.0 | % bonus Spiritus drops |
 | `SIGIL_COST_REDUCTION` | `neovitae:sigil_cost_reduction` | 0.0 | 100.0 | % reduction to sigil LP costs |
 | `BLOOD_SIPHON` | `neovitae:blood_siphon` | 0.0 | 1024.0 | Converts damage dealt into LP |
 | `BLOOD_SHIELD` | `neovitae:blood_shield` | 0.0 | 10.0 | Reduces incoming damage, drains LP |
@@ -1703,7 +1703,7 @@ These are in `com.breakinblocks.neovitae.common` (not the API package) but commo
 | `NVItems` | `common.item` | Item registry |
 | `NVBlocks` | `common.block` | Block registry |
 | `NVMobEffects` | `common.effect` | Custom mob effects (Flight, Bounce, Gravity, etc.) |
-| `EnumWillType` | `common.datacomponent` | Demon Will type enum |
+| `SpiritusType` | `common.datacomponent` | Spiritus aspect enum (RAW, RUINA, NIHILUM, VINDICTA, INVICTUS) |
 | `NVDataComponents` | `common.datacomponent` | Data component registry |
 | `ForgeRecipe` | `common.recipe.forge` | Hellfire Forge recipe class |
 | `FlaskRecipe` | `common.recipe.flask` | Flask recipe base class |

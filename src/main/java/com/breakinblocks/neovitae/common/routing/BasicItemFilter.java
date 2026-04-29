@@ -51,13 +51,12 @@ public class BasicItemFilter implements IItemFilter {
                 }
             }
         } else {
-            // Input filter: invert counts
             requestList = filteredList;
             for (IFilterKey filterStack : requestList) {
-                filterStack.setCount(filterStack.getCount() * -1);
+                int c = filterStack.getCount();
+                filterStack.setCount(c == Integer.MAX_VALUE ? 0 : c * -1);
             }
 
-            // Add back what's in the inventory
             for (int slot = 0; slot < itemHandler.getSlots(); slot++) {
                 ItemStack checkedStack = itemHandler.getStackInSlot(slot);
                 if (checkedStack.isEmpty()) continue;

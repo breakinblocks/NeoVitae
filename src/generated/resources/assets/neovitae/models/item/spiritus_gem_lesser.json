@@ -2,37 +2,37 @@
   "parent": "minecraft:item/handheld",
   "overrides": [
     {
-      "model": "neovitae:item/variant/spiritus_gem_lesser_default",
+      "model": "neovitae:item/variant/spiritus_gem_lesser_raw",
       "predicate": {
         "neovitae:will_type": 0.0
       }
     },
     {
-      "model": "neovitae:item/variant/spiritus_gem_lesser_corrosive",
+      "model": "neovitae:item/variant/spiritus_gem_lesser_ruina",
       "predicate": {
         "neovitae:will_type": 1.0
       }
     },
     {
-      "model": "neovitae:item/variant/spiritus_gem_lesser_destructive",
+      "model": "neovitae:item/variant/spiritus_gem_lesser_nihilum",
       "predicate": {
         "neovitae:will_type": 2.0
       }
     },
     {
-      "model": "neovitae:item/variant/spiritus_gem_lesser_steadfast",
+      "model": "neovitae:item/variant/spiritus_gem_lesser_invictus",
       "predicate": {
         "neovitae:will_type": 3.0
       }
     },
     {
-      "model": "neovitae:item/variant/spiritus_gem_lesser_vengeful",
+      "model": "neovitae:item/variant/spiritus_gem_lesser_vindicta",
       "predicate": {
         "neovitae:will_type": 4.0
       }
     }
   ],
   "textures": {
-    "layer0": "neovitae:item/spiritus_gem_lesser_default"
+    "layer0": "neovitae:item/spiritus_gem_lesser_raw"
   }
 }

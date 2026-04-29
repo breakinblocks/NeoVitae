@@ -12,7 +12,7 @@ import java.util.EnumMap;
  *
  * <p>Created via {@link ISpiritusHandler#queryWill(Level, BlockPos, double)}.
  * This is the recommended way for rituals and other systems to interact with
- * spiritus, replacing individual {@code getCurrentWill}/{@code drainWill} calls.</p>
+ * spiritus, replacing individual {@code getCurrentWill}/{@code drainSpiritus} calls.</p>
  *
  * <h2>Usage Example</h2>
  * <pre>{@code
@@ -22,12 +22,12 @@ import java.util.EnumMap;
  * if (will.hasDefault()) {
  *     double scaling = will.getDefault() / 100.0;
  *     // ... use scaling ...
- *     will.use(SpiritusType.DEFAULT, 0.1);
+ *     will.use(SpiritusType.RAW, 0.1);
  * }
  *
  * if (will.hasSteadfast()) {
  *     // ... steadfast behavior ...
- *     will.use(SpiritusType.STEADFAST, 0.2);
+ *     will.use(SpiritusType.INVICTUS, 0.2);
  * }
  *
  * will.drain(handler, level, pos);
@@ -56,17 +56,17 @@ public final class SpiritusState {
     /** Returns true if the specified will type meets or exceeds the threshold. */
     public boolean has(SpiritusType type) { return get(type) >= threshold; }
 
-    public double getDefault() { return get(SpiritusType.DEFAULT); }
-    public double getCorrosive() { return get(SpiritusType.CORROSIVE); }
-    public double getDestructive() { return get(SpiritusType.DESTRUCTIVE); }
-    public double getSteadfast() { return get(SpiritusType.STEADFAST); }
-    public double getVengeful() { return get(SpiritusType.VENGEFUL); }
+    public double getDefault() { return get(SpiritusType.RAW); }
+    public double getCorrosive() { return get(SpiritusType.RUINA); }
+    public double getDestructive() { return get(SpiritusType.NIHILUM); }
+    public double getSteadfast() { return get(SpiritusType.INVICTUS); }
+    public double getVengeful() { return get(SpiritusType.VINDICTA); }
 
-    public boolean hasDefault() { return has(SpiritusType.DEFAULT); }
-    public boolean hasCorrosive() { return has(SpiritusType.CORROSIVE); }
-    public boolean hasDestructive() { return has(SpiritusType.DESTRUCTIVE); }
-    public boolean hasSteadfast() { return has(SpiritusType.STEADFAST); }
-    public boolean hasVengeful() { return has(SpiritusType.VENGEFUL); }
+    public boolean hasDefault() { return has(SpiritusType.RAW); }
+    public boolean hasCorrosive() { return has(SpiritusType.RUINA); }
+    public boolean hasDestructive() { return has(SpiritusType.NIHILUM); }
+    public boolean hasSteadfast() { return has(SpiritusType.INVICTUS); }
+    public boolean hasVengeful() { return has(SpiritusType.VINDICTA); }
 
     /**
      * Records will usage of the specified type. Does not drain immediately —
@@ -83,7 +83,7 @@ public final class SpiritusState {
     public void drain(ISpiritusHandler handler, Level level, BlockPos pos) {
         used.forEach((type, amount) -> {
             if (amount > 0) {
-                handler.drainWill(level, pos, type, amount);
+                handler.drainSpiritus(level, pos, type, amount);
             }
         });
     }

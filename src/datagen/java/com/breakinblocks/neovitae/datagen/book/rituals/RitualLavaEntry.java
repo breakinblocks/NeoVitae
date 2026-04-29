@@ -47,9 +47,9 @@ public class RitualLavaEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Raw Spiritus[#](): Reduces the [#](8B0000)Essentia Vitae[#]() cost of each lava block or bucket conjured."
-                + "\n\n- [#](8B0000)Corrosive Spiritus[#](): Sets nearby hostile creatures ablaze."
-                + "\n\n- [#](8B0000)Vengeful Spiritus[#](): Marks hostile mobs with [#](8B0000)Fire Fuse[#](). When it expires, they detonate spectacularly."
-                + "\n\n- [#](8B0000)Steadfast Spiritus[#](): Wraps nearby practitioners in [#](8B0000)Fire Resistance[#]().");
+                + "\n\n- [#](8B0000)Spiritus Ruina[#](): Sets nearby hostile creatures ablaze."
+                + "\n\n- [#](8B0000)Spiritus Vindicta[#](): Marks hostile mobs with [#](8B0000)Fire Fuse[#](). When it expires, they detonate spectacularly."
+                + "\n\n- [#](8B0000)Spiritus Invictus[#](): Wraps nearby practitioners in [#](8B0000)Fire Resistance[#]().");
     }
 
     @Override

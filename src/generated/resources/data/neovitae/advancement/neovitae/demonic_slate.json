@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "neovitae:demonic_slate"
+            "items": "neovitae:tabula_spiritus"
           }
         ]
       },
@@ -19,7 +19,7 @@
     "frame": "goal",
     "icon": {
       "count": 1,
-      "id": "neovitae:demonic_slate"
+      "id": "neovitae:tabula_spiritus"
     },
     "title": {
       "translate": "advancements.neovitae.demonic_slate.title"

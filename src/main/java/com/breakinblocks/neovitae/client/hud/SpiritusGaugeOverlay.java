@@ -21,11 +21,11 @@ public class SpiritusGaugeOverlay implements LayeredDraw.Layer {
     private static final ResourceLocation BAR_LOCATION = NeoVitae.rl("textures/hud/bars.png");
 
     private static final List<SpiritusType> ORDERED_TYPES = Lists.newArrayList(
-            SpiritusType.DEFAULT,
-            SpiritusType.CORROSIVE,
-            SpiritusType.STEADFAST,
-            SpiritusType.DESTRUCTIVE,
-            SpiritusType.VENGEFUL
+            SpiritusType.RAW,
+            SpiritusType.RUINA,
+            SpiritusType.INVICTUS,
+            SpiritusType.NIHILUM,
+            SpiritusType.VINDICTA
     );
 
     private static final int WIDTH = 80;

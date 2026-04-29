@@ -54,7 +54,7 @@ public class AthanorBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(LIT, false).setValue(TYPE, SpiritusType.DEFAULT).setValue(FACING, context.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState().setValue(LIT, false).setValue(TYPE, SpiritusType.RAW).setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override

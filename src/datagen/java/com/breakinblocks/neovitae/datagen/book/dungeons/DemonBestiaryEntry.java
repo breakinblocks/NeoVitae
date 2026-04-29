@@ -39,7 +39,7 @@ public class DemonBestiaryEntry extends EntryProvider {
                 "The [#](8B0000)Blood Demon[#](). A shambling melee creature that attacks with "
                         + "necrotic claw swipes and grave leaps. Relatively fragile at 30 HP but can close "
                         + "distance quickly.\\\n\\\n"
-                        + "[#](2E8B57)Drops[#](): Gore-Clotted Fang, Tainted Flesh, Default/Destructive Spiritus");
+                        + "[#](2E8B57)Drops[#](): Gore-Clotted Fang, Tainted Flesh, Default/Spiritus Nihilum");
 
         // --- Daemonium Pestis ---
         addMob("pestis", "neovitae:daemonium_pestis", "Daemonium Pestis", 0.5f,
@@ -51,19 +51,19 @@ public class DemonBestiaryEntry extends EntryProvider {
         addMob("rancoris", "neovitae:daemonium_rancoris", "Daemonium Rancoris", 0.4f,
                 "The [#](4A0080)Spite Phantom[#](). A spectral ranged attacker that fires spectral "
                         + "bolts and ectoplasmic bursts. Fragile (45 HP) but dangerous at range.\\\n\\\n"
-                        + "[#](2E8B57)Drops[#](): Ectoplasmic Residue, Tainted Flesh, Vengeful/Steadfast Spiritus");
+                        + "[#](2E8B57)Drops[#](): Ectoplasmic Residue, Tainted Flesh, Vengeful/Spiritus Invictus");
 
         // --- Daemonium Animaris ---
         addMob("animaris", "neovitae:daemonium_animaris", "Daemonium Animaris", 0.6f,
                 "The [#](4A0080)Soul Wraith[#](). A flying spectral entity that charges through "
                         + "targets. Elusive and difficult to pin down at 30 HP.\\\n\\\n"
-                        + "[#](2E8B57)Drops[#](): Animus Mote, Steadfast/Vengeful Spiritus, Phantom Membrane (rare)");
+                        + "[#](2E8B57)Drops[#](): Animus Mote, Steadfast/Spiritus Vindicta, Phantom Membrane (rare)");
 
         // --- Daemonium Voraxis ---
         addMob("voraxis", "neovitae:daemonium_voraxis", "Daemonium Voraxis", 0.4f,
                 "The [#](8B0000)Voracious Oni[#](). A mid-tier threat with life-draining slash "
                         + "attacks and hunger effects. Sturdy at 60 HP with decent armour.\\\n\\\n"
-                        + "[#](2E8B57)Drops[#](): Hollow Gut, Tainted Flesh, Destructive/Corrosive Spiritus, "
+                        + "[#](2E8B57)Drops[#](): Hollow Gut, Tainted Flesh, Destructive/Spiritus Ruina, "
                         + "Raw Demonite (rare)");
 
         // --- Daemonium Corrodis ---
@@ -71,7 +71,7 @@ public class DemonBestiaryEntry extends EntryProvider {
                 "[#](8B0000)The Wither Knight[#](). An elite melee combatant clad in heavy armour "
                         + "with three attack phases. Every blow carries a withering curse that rots flesh on contact, "
                         + "and its strikes often leave victims drained and enfeebled.\\\n\\\n"
-                        + "[#](2E8B57)Drops[#](): Blight Marrow, Raw Demonite, Corrosive/Vengeful Spiritus, "
+                        + "[#](2E8B57)Drops[#](): Blight Marrow, Raw Demonite, Corrosive/Spiritus Vindicta, "
                         + "Wither Skeleton Skull (rare)");
 
         // --- Daemonium Ignis ---
@@ -88,7 +88,7 @@ public class DemonBestiaryEntry extends EntryProvider {
                         + "swings, revenant smash leaps, and a defensive bear stance that grants "
                         + "near-invulnerability.\\\n\\\n"
                         + "[#](2E8B57)Drops[#](): Revenant Plate, Gore-Clotted Fang (rare), Raw Demonite, "
-                        + "Destructive/Steadfast Spiritus");
+                        + "Destructive/Spiritus Invictus");
 
         // --- Daemonium Doloris ---
         addMob("doloris", "neovitae:daemonium_doloris", "Daemonium Doloris", 0.3f,
@@ -98,7 +98,7 @@ public class DemonBestiaryEntry extends EntryProvider {
                         + "A vastly empowered variant known as [#](8B0000)The Foreman[#]() (600 HP, 25 damage, "
                         + "16 armour) guards the mine entrance. Defeating it drops the [#](8B0000)Foreman's Key[#]().\\\n\\\n"
                         + "[#](2E8B57)Drops[#](): Frozen Marrow Shard, Ectoplasmic Residue (rare), Raw Demonite, "
-                        + "Vengeful/Destructive Spiritus");
+                        + "Vengeful/Spiritus Nihilum");
 
         // --- Daemonium Glaciaris ---
         addMob("glaciaris", "neovitae:daemonium_glaciaris", "Daemonium Glaciaris", 0.25f,

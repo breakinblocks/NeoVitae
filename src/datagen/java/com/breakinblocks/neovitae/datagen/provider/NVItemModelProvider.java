@@ -33,6 +33,7 @@ public class NVItemModelProvider extends ItemModelProvider {
                 .filter(holder -> holder != NVItems.SIGIL_BLOOD_LIGHT)
                 .filter(holder -> !(holder.get() instanceof com.breakinblocks.neovitae.common.item.BloodOrbItem))
                 .filter(holder -> !(holder.get() instanceof com.breakinblocks.neovitae.common.item.soul.ISentientTool))
+                .filter(holder -> !(holder.get() instanceof com.breakinblocks.neovitae.common.item.SpiritusCrystalItem))
                 .filter(holder -> !(holder.get() instanceof net.minecraft.world.item.SpawnEggItem))
                 .map(Supplier::get)
                 .forEach(this::basicItem);
@@ -118,8 +119,8 @@ public class NVItemModelProvider extends ItemModelProvider {
             }
         }
 
-        // Process WILL_ITEMS - only items that need will type variants (not already-typed monster souls)
-        NVItems.WILL_ITEMS.getEntries().forEach(item -> {
+        // Process SPIRITUS_ITEMS - only items that need will type variants (not already-typed monster souls)
+        NVItems.SPIRITUS_ITEMS.getEntries().forEach(item -> {
             String path = item.getId().getPath();
             // Monster souls are already typed, just use basic item model
             if (path.startsWith("base_spiritus_soul")) {
@@ -128,7 +129,7 @@ public class NVItemModelProvider extends ItemModelProvider {
             }
             // Other will items get variants for each will type
             ItemModelBuilder builder = getBuilder(path).parent(new ModelFile.UncheckedModelFile("minecraft:item/handheld"))
-                    .texture("layer0", modLoc("item/" + path + "_default"));
+                    .texture("layer0", modLoc("item/" + path + "_raw"));
             for (SpiritusType type : SpiritusType.values()) {
                 ModelFile modelFile = singleTexture(String.format("item/variant/%s_%s", path, type.getSerializedName()), mcLoc("item/handheld"), "layer0", modLoc(String.format("item/%s_%s", path, type.getSerializedName())));
                 builder.override().predicate(NeoVitae.TYPE_PROPERTY, type.ordinal()).model(modelFile).end();

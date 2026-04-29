@@ -1,6 +1,0 @@
-{
-  "parent": "neovitae:block/crystal4",
-  "textures": {
-    "crystal": "neovitae:block/vengeful_spiritus_crystal"
-  }
-}

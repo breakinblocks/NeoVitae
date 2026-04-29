@@ -4,7 +4,7 @@
     "tag": "c:gems/diamond"
   },
   "baseinput": {
-    "item": "neovitae:imbued_slate"
+    "item": "neovitae:tabula_animata"
   },
   "effect_type": "deflection",
   "texture": "neovitae:textures/models/alchemyarrays/deflectionarray.png"

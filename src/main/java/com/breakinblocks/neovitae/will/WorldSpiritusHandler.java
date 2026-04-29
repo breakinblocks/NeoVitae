@@ -46,7 +46,7 @@ public class WorldSpiritusHandler {
     }
 
     public static double getCurrentWill(Level level, BlockPos pos, SpiritusType type) {
-        return getSpiritusChunk(level, pos).getWill(type);
+        return getSpiritusChunk(level, pos).getSpiritus(type);
     }
 
     /**
@@ -61,7 +61,7 @@ public class WorldSpiritusHandler {
 
         LevelChunk chunk = level.getChunkAt(pos);
         SpiritusChunk willChunk = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
-        double added = willChunk.addWill(type, amount);
+        double added = willChunk.addSpiritus(type, amount);
 
         if (added > 0) {
             SpiritusChunk newSpiritusChunk = willChunk.copy();
@@ -79,7 +79,7 @@ public class WorldSpiritusHandler {
 
         LevelChunk chunk = level.getChunkAt(pos);
         SpiritusChunk willChunk = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
-        double drained = willChunk.drainWill(type, amount);
+        double drained = willChunk.drainSpiritus(type, amount);
 
         if (drained > 0) {
             SpiritusChunk newSpiritusChunk = willChunk.copy();
@@ -130,16 +130,16 @@ public class WorldSpiritusHandler {
         return addWillToChunk(level, pos, type, targetAmount - current);
     }
 
-    public static double getTotalWill(Level level, BlockPos pos) {
-        return getSpiritusChunk(level, pos).getTotalWill();
+    public static double getTotalSpiritus(Level level, BlockPos pos) {
+        return getSpiritusChunk(level, pos).getTotalSpiritus();
     }
 
     public static SpiritusType getDominantWillType(Level level, BlockPos pos) {
         return getSpiritusChunk(level, pos).getDominantType();
     }
 
-    public static boolean hasWill(Level level, BlockPos pos) {
-        return getSpiritusChunk(level, pos).hasWill();
+    public static boolean hasSpiritus(Level level, BlockPos pos) {
+        return getSpiritusChunk(level, pos).hasSpiritus();
     }
 
     public static double transferWill(Level level, ChunkPos fromChunk, ChunkPos toChunk, SpiritusType type, double maxTransfer) {
@@ -153,8 +153,8 @@ public class WorldSpiritusHandler {
         SpiritusChunk fromWill = from.getData(NVDataAttachments.SPIRITUS_CHUNK);
         SpiritusChunk toWill = to.getData(NVDataAttachments.SPIRITUS_CHUNK);
 
-        double fromAmount = fromWill.getWill(type);
-        double toAmount = toWill.getWill(type);
+        double fromAmount = fromWill.getSpiritus(type);
+        double toAmount = toWill.getSpiritus(type);
 
         if (fromAmount <= toAmount) {
             return 0;
@@ -163,7 +163,7 @@ public class WorldSpiritusHandler {
         double difference = fromAmount - toAmount;
         double toTransfer = Math.min(maxTransfer, difference / 2);
 
-        double toMaxWill = toWill.getMaxWill(type);
+        double toMaxWill = toWill.getMaxSpiritus(type);
         double toCapacity = toMaxWill - toAmount;
         toTransfer = Math.min(toTransfer, toCapacity);
 
@@ -171,8 +171,8 @@ public class WorldSpiritusHandler {
             return 0;
         }
 
-        fromWill.drainWill(type, toTransfer);
-        toWill.addWill(type, toTransfer);
+        fromWill.drainSpiritus(type, toTransfer);
+        toWill.addSpiritus(type, toTransfer);
 
         SpiritusChunk newFromWill = fromWill.copy();
         SpiritusChunk newToWill = toWill.copy();
@@ -185,8 +185,8 @@ public class WorldSpiritusHandler {
         return toTransfer;
     }
 
-    public static double getMaxWill(Level level, BlockPos pos, SpiritusType type) {
-        return getSpiritusChunk(level, pos).getMaxWill(type);
+    public static double getMaxSpiritus(Level level, BlockPos pos, SpiritusType type) {
+        return getSpiritusChunk(level, pos).getMaxSpiritus(type);
     }
 
     public static double getMaxBonus(Level level, BlockPos pos, SpiritusType type) {

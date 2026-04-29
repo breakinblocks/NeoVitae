@@ -66,7 +66,7 @@ public class NVBlockStateProvider extends BlockStateProvider {
             String top = "block/athanor_top_" + willName;
             ModelFile on = models().orientableWithBottom("athanor_" + willName + "_lit", bm(side + lit), bm(front + lit), bm(bottom), bm(top));
             ModelFile off = models().orientableWithBottom("athanor_" + willName, bm(side), bm(front), bm(bottom), bm(top));
-            if (type == SpiritusType.DEFAULT) {
+            if (type == SpiritusType.RAW) {
                 simpleBlockItem(NVBlocks.ATHANOR_BLOCK.block().get(), off);
             }
 

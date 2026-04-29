@@ -265,7 +265,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         for (int s = 0; s < NUM_INPUTS; s++) {
             inputStacks[s] = athanorTile.athanorInv.getStackInSlot(INPUT_START + s);
         }
-        double rawWill = WorldSpiritusHandler.getCurrentWill(level, blockPos, SpiritusType.DEFAULT);
+        double rawWill = WorldSpiritusHandler.getCurrentWill(level, blockPos, SpiritusType.RAW);
         double willSpeedMod = 0.5 + 1.5 * Math.min(1.0, rawWill / 100.0);
         boolean didProgress = false;
         if (toolStack.is(NVTags.Items.ATHANOR_TOOL)) {
@@ -332,7 +332,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         }
 
         if (didProgress && level.getGameTime() % 20 == 0 && level.random.nextFloat() < 0.05f) {
-            WorldSpiritusHandler.drainWillFromChunk(level, blockPos, SpiritusType.DEFAULT, 1.0);
+            WorldSpiritusHandler.drainWillFromChunk(level, blockPos, SpiritusType.RAW, 1.0);
         }
 
         if (athanorTile.willBlocked && level.getGameTime() % 10 == 0) {
@@ -437,7 +437,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     }
 
     public void updateType() {
-        SpiritusType type = athanorInv.getStackInSlot(TOOL_SLOT).getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT);
+        SpiritusType type = athanorInv.getStackInSlot(TOOL_SLOT).getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW);
         BlockState state = getBlockState();
         if (state.getValue(AthanorBlock.TYPE) != type) {
             level.setBlock(getBlockPos(), state.setValue(AthanorBlock.TYPE, type), Block.UPDATE_ALL);
@@ -527,7 +527,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     private void snapshotChunkWill(Level level, BlockPos pos) {
         for (SpiritusType type : SpiritusType.values()) {
             chunkWill[type.ordinal()] = WorldSpiritusHandler.getCurrentWill(level, pos, type);
-            chunkWillMax[type.ordinal()] = WorldSpiritusHandler.getMaxWill(level, pos, type);
+            chunkWillMax[type.ordinal()] = WorldSpiritusHandler.getMaxSpiritus(level, pos, type);
         }
         setChanged();
     }

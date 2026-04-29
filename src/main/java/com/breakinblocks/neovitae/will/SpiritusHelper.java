@@ -14,21 +14,21 @@ public final class SpiritusHelper {
     }
 
     public static boolean isRechargeable(ItemStack stack) {
-        return resolveMaxWill(stack) > 0;
+        return resolveMaxSpiritus(stack) > 0;
     }
 
     public static SpiritusType getCurrentType(ItemStack stack) {
-        return stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT);
+        return stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW);
     }
 
-    public static double getWill(ItemStack stack, SpiritusType type) {
+    public static double getSpiritus(ItemStack stack, SpiritusType type) {
         if (!hasSpiritus(stack)) return 0;
         SpiritusType current = getCurrentType(stack);
         if (!type.equals(current)) return 0;
         return stack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
     }
 
-    public static double resolveMaxWill(ItemStack stack) {
+    public static double resolveMaxSpiritus(ItemStack stack) {
         Double componentMax = stack.get(NVDataComponents.SPIRITUS_MAX);
         if (componentMax != null) return componentMax;
 
@@ -38,19 +38,19 @@ public final class SpiritusHelper {
         return 0;
     }
 
-    public static double resolveMaxWill(ItemStack stack, SpiritusType type) {
-        double currentWill = stack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
-        if (currentWill > 0 && !type.equals(getCurrentType(stack))) return 0;
-        return resolveMaxWill(stack);
+    public static double resolveMaxSpiritus(ItemStack stack, SpiritusType type) {
+        double currentSpiritus = stack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
+        if (currentSpiritus > 0 && !type.equals(getCurrentType(stack))) return 0;
+        return resolveMaxSpiritus(stack);
     }
 
-    public static void setWill(ItemStack stack, SpiritusType type, double amount) {
+    public static void setSpiritus(ItemStack stack, SpiritusType type, double amount) {
         stack.set(NVDataComponents.SPIRITUS_TYPE, type);
         stack.set(NVDataComponents.SPIRITUS_AMOUNT, amount);
     }
 
-    public static double drainWill(ItemStack stack, SpiritusType type, double amount, boolean doDrain) {
-        double current = getWill(stack, type);
+    public static double drainSpiritus(ItemStack stack, SpiritusType type, double amount, boolean doDrain) {
+        double current = getSpiritus(stack, type);
         double drained = Math.min(amount, current);
         if (doDrain && drained > 0) {
             stack.set(NVDataComponents.SPIRITUS_AMOUNT, current - drained);
@@ -58,23 +58,23 @@ public final class SpiritusHelper {
         return drained;
     }
 
-    public static double fillWill(ItemStack stack, SpiritusType type, double amount, boolean doFill) {
-        double maxWill = resolveMaxWill(stack, type);
-        if (maxWill <= 0) return 0;
+    public static double fillSpiritus(ItemStack stack, SpiritusType type, double amount, boolean doFill) {
+        double maxSpiritus = resolveMaxSpiritus(stack, type);
+        if (maxSpiritus <= 0) return 0;
 
-        double currentWill = stack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
-        double filled = Math.min(amount, maxWill - currentWill);
+        double currentSpiritus = stack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
+        double filled = Math.min(amount, maxSpiritus - currentSpiritus);
         if (filled <= 0) return 0;
 
         if (doFill) {
-            SpiritusType typeToSet = currentWill > 0 ? getCurrentType(stack) : type;
-            setWill(stack, typeToSet, currentWill + filled);
+            SpiritusType typeToSet = currentSpiritus > 0 ? getCurrentType(stack) : type;
+            setSpiritus(stack, typeToSet, currentSpiritus + filled);
         }
         return filled;
     }
 
     public static double getFillRatio(ItemStack stack) {
-        double max = resolveMaxWill(stack);
+        double max = resolveMaxSpiritus(stack);
         if (max <= 0) return 0;
         double current = stack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
         return Math.min(1.0, current / max);

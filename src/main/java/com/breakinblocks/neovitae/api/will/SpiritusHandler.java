@@ -35,19 +35,19 @@ public class SpiritusHandler implements ISpiritusHandler {
     }
 
     @Override
-    public double getTotalWill(Level level, BlockPos pos) {
-        return WorldSpiritusHandler.getTotalWill(level, pos);
+    public double getTotalSpiritus(Level level, BlockPos pos) {
+        return WorldSpiritusHandler.getTotalSpiritus(level, pos);
     }
 
     @Override
-    public double getMaxWill(Level level, BlockPos pos, SpiritusType type) {
+    public double getMaxSpiritus(Level level, BlockPos pos, SpiritusType type) {
         SpiritusChunk willChunk = WorldSpiritusHandler.getSpiritusChunk(level, pos);
-        return willChunk.getMaxWill(type);
+        return willChunk.getMaxSpiritus(type);
     }
 
     @Override
-    public double getBaseMaxWill(SpiritusType type) {
-        return NeoVitae.SERVER_CONFIG.getBaseMaxWill(type);
+    public double getBaseMaxSpiritus(SpiritusType type) {
+        return NeoVitae.SERVER_CONFIG.getBaseMaxSpiritus(type);
     }
 
     @Override
@@ -89,12 +89,12 @@ public class SpiritusHandler implements ISpiritusHandler {
     }
 
     @Override
-    public double addWill(Level level, BlockPos pos, SpiritusType type, double amount) {
+    public double addSpiritus(Level level, BlockPos pos, SpiritusType type, double amount) {
         return WorldSpiritusHandler.addWillToChunk(level, pos, type, amount);
     }
 
     @Override
-    public double drainWill(Level level, BlockPos pos, SpiritusType type, double amount) {
+    public double drainSpiritus(Level level, BlockPos pos, SpiritusType type, double amount) {
         return WorldSpiritusHandler.drainWillFromChunk(level, pos, type, amount);
     }
 
@@ -109,8 +109,8 @@ public class SpiritusHandler implements ISpiritusHandler {
     }
 
     @Override
-    public boolean hasWill(Level level, BlockPos pos) {
-        return WorldSpiritusHandler.hasWill(level, pos);
+    public boolean hasSpiritus(Level level, BlockPos pos) {
+        return WorldSpiritusHandler.hasSpiritus(level, pos);
     }
 
     @Override

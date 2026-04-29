@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "neovitae:reinforced_slate"
+            "items": "neovitae:tabula_robur"
           }
         ]
       },
@@ -19,7 +19,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "neovitae:reinforced_slate"
+      "id": "neovitae:tabula_robur"
     },
     "title": {
       "translate": "advancements.neovitae.reinforced_slate.title"

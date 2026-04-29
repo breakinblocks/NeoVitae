@@ -266,8 +266,8 @@ public class CommonEventHandler {
         }
         if (SpiritusHelper.hasSpiritus(stack) && SpiritusHelper.isRechargeable(stack)) {
             SpiritusType type = SpiritusHelper.getCurrentType(stack);
-            double amount = SpiritusHelper.getWill(stack, type);
-            double max = SpiritusHelper.resolveMaxWill(stack);
+            double amount = SpiritusHelper.getSpiritus(stack, type);
+            double max = SpiritusHelper.resolveMaxSpiritus(stack);
             event.getToolTip().add(Component.translatable("tooltip.neovitae.spiritus_stored",
                     ChatUtil.DECIMAL_FORMAT.format(amount), ChatUtil.DECIMAL_FORMAT.format(max))
                     .withStyle(ChatFormatting.GRAY));

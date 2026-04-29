@@ -27,17 +27,17 @@ public class SpiritusGemItem extends Item implements ISpiritusGem {
         super(new Properties()
                 .stacksTo(1)
                 .component(NVDataComponents.SPIRITUS_AMOUNT, 0.0)
-                .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT));
+                .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW));
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         SpiritusType type = SpiritusHelper.getCurrentType(stack);
-        double drain = Math.min(SpiritusHelper.getWill(stack, type), SpiritusHelper.resolveMaxWill(stack, type) / 10.0);
+        double drain = Math.min(SpiritusHelper.getSpiritus(stack, type), SpiritusHelper.resolveMaxSpiritus(stack, type) / 10.0);
 
         double filled = PlayerSpiritusHandler.addSpiritus(type, player, drain, stack);
-        SpiritusHelper.drainWill(stack, type, filled, true);
+        SpiritusHelper.drainSpiritus(stack, type, filled, true);
 
         return new InteractionResultHolder<>(InteractionResult.PASS, stack);
     }
@@ -45,7 +45,7 @@ public class SpiritusGemItem extends Item implements ISpiritusGem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
         SpiritusType type = SpiritusHelper.getCurrentType(stack);
-        double amount = SpiritusHelper.getWill(stack, type);
+        double amount = SpiritusHelper.getSpiritus(stack, type);
         ResourceLocation loc = stack.getItemHolder().getKey().location();
 
         tooltip.add(Component.translatable("tooltip.neovitae.spiritus_gem." + loc.getPath()).withStyle(ChatFormatting.GRAY));
@@ -61,22 +61,22 @@ public class SpiritusGemItem extends Item implements ISpiritusGem {
             SpiritusType thisType = SpiritusHelper.getCurrentType(soulGemStack);
             SpiritusType soulType = soul.getType(soulStack);
 
-            if (thisType != soulType && SpiritusHelper.getWill(soulGemStack, thisType) > 0) {
+            if (thisType != soulType && SpiritusHelper.getSpiritus(soulGemStack, thisType) > 0) {
                 return soulStack;
             }
 
-            double soulsLeft = SpiritusHelper.getWill(soulGemStack, thisType);
-            double maxWill = SpiritusHelper.resolveMaxWill(soulGemStack, thisType);
+            double soulsLeft = SpiritusHelper.getSpiritus(soulGemStack, thisType);
+            double maxSpiritus = SpiritusHelper.resolveMaxSpiritus(soulGemStack, thisType);
 
-            if (soulsLeft < maxWill) {
-                double soulWill = soul.getWill(soulType, soulStack);
-                double newSoulsLeft = Math.min(soulsLeft + soulWill, maxWill);
+            if (soulsLeft < maxSpiritus) {
+                double soulWill = soul.getSpiritus(soulType, soulStack);
+                double newSoulsLeft = Math.min(soulsLeft + soulWill, maxSpiritus);
                 double drained = newSoulsLeft - soulsLeft;
 
-                soul.drainWill(soulType, soulStack, drained);
-                SpiritusHelper.setWill(soulGemStack, soulType, newSoulsLeft);
+                soul.drainSpiritus(soulType, soulStack, drained);
+                SpiritusHelper.setSpiritus(soulGemStack, soulType, newSoulsLeft);
 
-                if (soul.getWill(soulType, soulStack) <= 0) {
+                if (soul.getSpiritus(soulType, soulStack) <= 0) {
                     return ItemStack.EMPTY;
                 }
             }
@@ -86,27 +86,27 @@ public class SpiritusGemItem extends Item implements ISpiritusGem {
     }
 
     @Override
-    public double getWill(SpiritusType type, ItemStack stack) {
-        return SpiritusHelper.getWill(stack, type);
+    public double getSpiritus(SpiritusType type, ItemStack stack) {
+        return SpiritusHelper.getSpiritus(stack, type);
     }
 
     @Override
-    public void setWill(SpiritusType type, ItemStack stack, double souls) {
-        SpiritusHelper.setWill(stack, type, souls);
+    public void setSpiritus(SpiritusType type, ItemStack stack, double souls) {
+        SpiritusHelper.setSpiritus(stack, type, souls);
     }
 
     @Override
-    public int getMaxWill(SpiritusType type, ItemStack stack) {
-        return (int) SpiritusHelper.resolveMaxWill(stack, type);
+    public int getMaxSpiritus(SpiritusType type, ItemStack stack) {
+        return (int) SpiritusHelper.resolveMaxSpiritus(stack, type);
     }
 
     @Override
-    public double drainWill(SpiritusType type, ItemStack stack, double drainAmount, boolean doDrain) {
-        return SpiritusHelper.drainWill(stack, type, drainAmount, doDrain);
+    public double drainSpiritus(SpiritusType type, ItemStack stack, double drainAmount, boolean doDrain) {
+        return SpiritusHelper.drainSpiritus(stack, type, drainAmount, doDrain);
     }
 
     @Override
-    public double fillWill(SpiritusType type, ItemStack stack, double fillAmount, boolean doFill) {
-        return SpiritusHelper.fillWill(stack, type, fillAmount, doFill);
+    public double fillSpiritus(SpiritusType type, ItemStack stack, double fillAmount, boolean doFill) {
+        return SpiritusHelper.fillSpiritus(stack, type, fillAmount, doFill);
     }
 }

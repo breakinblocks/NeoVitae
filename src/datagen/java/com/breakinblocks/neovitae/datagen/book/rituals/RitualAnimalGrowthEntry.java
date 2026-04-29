@@ -40,9 +40,9 @@ public class RitualAnimalGrowthEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Raw Spiritus[#](): Further accelerates the growth of young creatures."
-                + "\n\n- [#](8B0000)Vengeful Spiritus[#](): Compels adult animals to breed without intervention."
-                + "\n\n- [#](8B0000)Destructive Spiritus[#](): Increases the frequency of growth pulses."
-                + "\n\n- [#](8B0000)Steadfast Spiritus[#](): Collects products from sheared or milked animals into a nearby chest.");
+                + "\n\n- [#](8B0000)Spiritus Vindicta[#](): Compels adult animals to breed without intervention."
+                + "\n\n- [#](8B0000)Spiritus Nihilum[#](): Increases the frequency of growth pulses."
+                + "\n\n- [#](8B0000)Spiritus Invictus[#](): Collects products from sheared or milked animals into a nearby chest.");
     }
 
     @Override

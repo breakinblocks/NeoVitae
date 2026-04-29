@@ -33,8 +33,8 @@ public class PlayerSpiritusHandlerImpl implements IPlayerSpiritusHandler {
     }
 
     @Override
-    public ItemStack addSpiritus(Player player, ItemStack willStack) {
-        return PlayerSpiritusHandler.addSpiritus(player, willStack);
+    public ItemStack addSpiritus(Player player, ItemStack spiritusStack) {
+        return PlayerSpiritusHandler.addSpiritus(player, spiritusStack);
     }
 
     @Override

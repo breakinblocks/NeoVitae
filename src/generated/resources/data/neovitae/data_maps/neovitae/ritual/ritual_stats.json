@@ -30,15 +30,16 @@
       "refresh_cost": 100,
       "refresh_time": 40
     },
-    "neovitae:crystal_harvest": {
-      "activation_cost": 40000,
-      "crystal_level": 1,
-      "refresh_cost": 1000
-    },
     "neovitae:crystal_split": {
       "activation_cost": 100000,
       "crystal_level": 2,
       "refresh_cost": 50
+    },
+    "neovitae:crystallum_fractura": {
+      "activation_cost": 100000,
+      "crystal_level": 1,
+      "refresh_cost": 200,
+      "refresh_time": 100
     },
     "neovitae:downgrade": {
       "activation_cost": 20000,
@@ -72,12 +73,6 @@
       "activation_cost": 100000,
       "crystal_level": 1,
       "refresh_cost": 100
-    },
-    "neovitae:geode": {
-      "activation_cost": 100000,
-      "crystal_level": 1,
-      "refresh_cost": 100,
-      "refresh_time": 100
     },
     "neovitae:green_grove": {
       "activation_cost": 1000,

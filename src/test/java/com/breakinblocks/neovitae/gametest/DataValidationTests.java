@@ -151,10 +151,10 @@ public class DataValidationTests {
         helper.runAfterDelay(1, () -> {
             String[] expectedItems = {
                 "sacrificial_dagger",
-                "orb_weak", "orb_apprentice",
-                "slate_blank", "slate_reinforced",
-                "divination_sigil", "alchemy_flask",
-                "ritual_diviner_dawn"
+                "blood_orb_weak", "blood_orb_apprentice",
+                "tabula_rasa", "tabula_robur",
+                "sigil_divination", "alchemy_flask",
+                "ritual_diviner_dusk"
             };
 
             for (String name : expectedItems) {

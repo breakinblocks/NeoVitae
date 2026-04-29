@@ -42,7 +42,7 @@ public class RitualAnimalGrowth extends Ritual {
     private static final double MIN_DESTRUCTIVE = 10.0;
     private static final double MIN_VENGEFUL = 10.0;
 
-    private static final double WILL_PER_BREED = 1.0;
+    private static final double SPIRITUS_PER_BREED = 1.0;
     private static final double WILL_PER_SACRIFICE = 0.5;
     private static final double WILL_PER_COOLDOWN = 0.3;
 
@@ -107,7 +107,7 @@ public class RitualAnimalGrowth extends Ritual {
         if (doBreed && foodHandler != null) {
             for (Animal animal : animals) {
                 if (animalsProcessed >= maxAnimals) break;
-                if ((will.getSteadfast() - steadfastWillUsed) < WILL_PER_BREED) break;
+                if ((will.getSteadfast() - steadfastWillUsed) < SPIRITUS_PER_BREED) break;
                 if (animal.isBaby() || !animal.canFallInLove() || animal.getAge() != 0) continue;
 
                 boolean fed = false;
@@ -116,7 +116,7 @@ public class RitualAnimalGrowth extends Ritual {
                     if (!foodStack.isEmpty() && animal.isFood(foodStack)) {
                         foodHandler.extractItem(slot, 1, false);
                         animal.setInLove(null);
-                        steadfastWillUsed += WILL_PER_BREED;
+                        steadfastWillUsed += SPIRITUS_PER_BREED;
                         animalsProcessed++;
                         fed = true;
                         RitualHelper.chanceStream(ctx.level(), 10, () ->
@@ -157,7 +157,7 @@ public class RitualAnimalGrowth extends Ritual {
             }
         }
 
-        RitualHelper.drainWill(will, ctx.level(), masterPos,
+        RitualHelper.drainSpiritus(will, ctx.level(), masterPos,
                 0, 0, destructiveWillUsed, vengefulWillUsed, steadfastWillUsed);
 
         ctx.syphon(getRefreshCost() * animalsProcessed);

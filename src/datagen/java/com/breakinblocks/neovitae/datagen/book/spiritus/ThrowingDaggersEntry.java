@@ -43,7 +43,7 @@ public class ThrowingDaggersEntry extends EntryProvider {
                 + "yielding a [#](8B0000)Slate Ampoule[#](), or more, if the quarry is sufficiently hearty.");
 
         this.page("slate_ampoule", () -> BookSpotlightPageModel.create()
-                .withItem(NVItems.SLATE_AMPOULE.get())
+                .withItem(NVItems.TABULA_AMPOULE.get())
                 .withTitle("Slate Ampoule")
                 .withText(this.context().pageText()));
         this.pageText("Crush these delicate vials near an [#](8B0000)Ara Vitae[#]() to transfer [#](B8860B)500 EV[#]() "

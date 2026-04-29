@@ -22,7 +22,7 @@
     }
   ],
   "spiritus_costs": {
-    "default": 50.0
+    "raw": 50.0
   },
   "tool": {
     "tag": "neovitae:athanor_tool/resonator"

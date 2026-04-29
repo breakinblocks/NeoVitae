@@ -4,7 +4,7 @@
     "tag": "c:dusts/redstone"
   },
   "baseinput": {
-    "item": "neovitae:imbued_slate"
+    "item": "neovitae:tabula_animata"
   },
   "effect_type": "spirit_siphon",
   "texture": "neovitae:textures/models/alchemyarrays/spiritsiphonarray.png"

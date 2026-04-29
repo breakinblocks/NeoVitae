@@ -140,7 +140,7 @@ public class RitualCrushing extends Ritual {
                     stack -> Utils.spawnStackAtBlock(ctx.level(), masterPos, Direction.UP, stack));
         }
 
-        RitualHelper.drainWill(will, ctx.level(), masterPos,
+        RitualHelper.drainSpiritus(will, ctx.level(), masterPos,
                 0, 0, fortuneWillUsed, 0, silkWillUsed);
 
         if (crushed) {

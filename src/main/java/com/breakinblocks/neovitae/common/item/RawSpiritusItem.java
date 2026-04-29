@@ -15,12 +15,12 @@ import java.util.Locale;
 public class RawSpiritusItem extends Item {
 
     public RawSpiritusItem() {
-        super(new Properties().stacksTo(1).component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).component(NVDataComponents.SPIRITUS_AMOUNT, 5D));
+        super(new Properties().stacksTo(1).component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW).component(NVDataComponents.SPIRITUS_AMOUNT, 5D));
     }
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        SpiritusType type = stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT);
+        SpiritusType type = stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW);
         double amount = stack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
 
         tooltipComponents.add(Component.translatable("tooltip.neovitae.will", ChatUtil.DECIMAL_FORMAT.format(amount)).withStyle(ChatFormatting.GRAY));

@@ -23,15 +23,15 @@ import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
 public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
 
     private static double getSameWillConversionRate() {
-        return NeoVitae.SERVER_CONFIG.CRYSTAL_SAME_WILL_RATE.get();
+        return NeoVitae.SERVER_CONFIG.CRYSTAL_SAME_SPIRITUS_RATE.get();
     }
 
     private static double getDifferentWillConversionRate() {
-        return NeoVitae.SERVER_CONFIG.CRYSTAL_DIFFERENT_WILL_RATE.get();
+        return NeoVitae.SERVER_CONFIG.CRYSTAL_DIFFERENT_SPIRITUS_RATE.get();
     }
 
     private static double getWrongWillDelay() {
-        return NeoVitae.SERVER_CONFIG.CRYSTAL_WRONG_WILL_DELAY.get();
+        return NeoVitae.SERVER_CONFIG.CRYSTAL_WRONG_SPIRITUS_DELAY.get();
     }
 
     private static double getGrowthSpeed() {
@@ -54,15 +54,15 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
     public double speedModifier = 1;
     public double appliedConversionRate = 0; // 0 means use default from config
 
-    public SpiritusType willType;
+    public SpiritusType spiritusType;
 
     public SpiritusCrystalBlockEntity(BlockPos pos, BlockState state) {
-        this(SpiritusType.DEFAULT, pos, state);
+        this(SpiritusType.RAW, pos, state);
     }
 
-    public SpiritusCrystalBlockEntity(SpiritusType willType, BlockPos pos, BlockState state) {
+    public SpiritusCrystalBlockEntity(SpiritusType spiritusType, BlockPos pos, BlockState state) {
         super(NVTiles.SPIRITUS_CRYSTAL_TYPE.get(), pos, state);
-        this.willType = willType;
+        this.spiritusType = spiritusType;
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, SpiritusCrystalBlockEntity tile) {
@@ -104,14 +104,14 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
                             tile.speedModifier = 1;
                         }
                     }
-                } else if (type != SpiritusType.DEFAULT) {
+                } else if (type != SpiritusType.RAW) {
                     // Try using DEFAULT will if own type is not available
-                    value = WorldSpiritusHandler.getCurrentWill(level, pos, SpiritusType.DEFAULT);
+                    value = WorldSpiritusHandler.getCurrentWill(level, pos, SpiritusType.RAW);
                     if (value > 0.5) {
                         double differentRate = getDifferentWillConversionRate();
                         double nextProgress = tile.getCrystalGrowthPerSecond(value) * getWrongWillDelay();
                         tile.progressToNextCrystal += WorldSpiritusHandler.drainWillFromChunk(level, pos,
-                                SpiritusType.DEFAULT, nextProgress * differentRate)
+                                SpiritusType.RAW, nextProgress * differentRate)
                                 / differentRate;
                     }
                 }
@@ -157,7 +157,7 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
     }
 
     public SpiritusType getWillType() {
-        return willType;
+        return spiritusType;
     }
 
     public void checkAndGrowCrystal() {
@@ -171,15 +171,18 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
     }
 
     /**
-     * Calculate growth rate based on available will.
-     * Formula: (1.0 / threshold) * sqrt(will / threshold) * growthSpeed * speedModifier
+     * Calculate growth rate based on available spiritus.
+     * Formula: (1.0 / threshold) * sqrt(spiritus / threshold) * growthSpeed * speedModifier * ritualGrowthMult
      */
-    public double getCrystalGrowthPerSecond(double will) {
+    public double getCrystalGrowthPerSecond(double spiritus) {
         double threshold = getGrowthThreshold();
-        double baseSpeed = 1.0 / threshold * Math.sqrt(will / threshold);
+        double baseSpeed = 1.0 / threshold * Math.sqrt(spiritus / threshold);
         double speed = baseSpeed * getGrowthSpeed();
         if (speedModifier > 0) {
             speed *= speedModifier;
+        }
+        if (getLevel() != null) {
+            speed *= WorldSpiritusHandler.getSpiritusChunk(getLevel(), getBlockPos()).getGrowthMultiplier();
         }
         return speed;
     }
@@ -221,7 +224,7 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
         super.saveAdditional(tag, registries);
         tag.putInt("placement", placement.get3DDataValue());
         tag.putDouble("progress", progressToNextCrystal);
-        tag.putString("willType", willType.getSerializedName());
+        tag.putString("spiritusType", spiritusType.getSerializedName());
         tag.putDouble("injectedWill", injectedWill);
         tag.putDouble("speedModifier", speedModifier);
         tag.putDouble("appliedRate", appliedConversionRate);
@@ -233,15 +236,15 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
         placement = Direction.from3DDataValue(tag.getInt("placement"));
         progressToNextCrystal = tag.getDouble("progress");
 
-        if (tag.contains("willType")) {
-            String typeStr = tag.getString("willType");
+        if (tag.contains("spiritusType")) {
+            String typeStr = tag.getString("spiritusType");
             try {
-                willType = SpiritusType.valueOf(typeStr.toUpperCase());
+                spiritusType = SpiritusType.valueOf(typeStr.toUpperCase());
             } catch (IllegalArgumentException e) {
-                willType = SpiritusType.DEFAULT;
+                spiritusType = SpiritusType.RAW;
             }
         } else {
-            willType = SpiritusType.DEFAULT;
+            spiritusType = SpiritusType.RAW;
         }
 
         injectedWill = tag.getDouble("injectedWill");

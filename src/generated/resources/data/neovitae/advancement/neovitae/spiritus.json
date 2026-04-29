@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "neovitae:base_spiritus_soul"
+            "items": "neovitae:base_spiritus_soul_raw"
           }
         ]
       },
@@ -19,7 +19,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "neovitae:base_spiritus_soul"
+      "id": "neovitae:base_spiritus_soul_raw"
     },
     "title": {
       "translate": "advancements.neovitae.spiritus.title"

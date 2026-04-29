@@ -1,0 +1,6 @@
+{
+  "parent": "neovitae:block/crystal1",
+  "textures": {
+    "crystal": "neovitae:block/spiritus_vindicta_spiritus_crystal"
+  }
+}

@@ -279,7 +279,7 @@ Customize imperfect rituals - simple one-time effects triggered by placing a blo
 
 **Location:** `data/neovitae/data_maps/item/spiritus_gem_max.json`
 
-Customize how much Demon Will each soul gem tier can hold.
+Customize how much Spiritus each soul gem tier can hold.
 
 **Example:**
 
@@ -529,7 +529,7 @@ Tags control various gameplay mechanics. Override or extend these in your datapa
 
 | Tag | Purpose |
 |-----|---------|
-| `soul_gems` | Items that hold Demon Will |
+| `soul_gems` | Items that hold Spiritus |
 | `athanor_tool` | Tools usable in the Athanor |
 | `athanor_tool/explosives` | Explosive tools (ore doubling) |
 | `athanor_tool/cutting_fluids` | Cutting tools |
@@ -972,7 +972,7 @@ Neo Vitae registers several custom player attributes that can be modified via eq
 | Self Sacrifice Multiplier | `neovitae:player.self_sacrifice_multiplier` | 1.0 | 100.0 | Multiplier for LP gained from self-sacrifice (PercentageAttribute) |
 | Bonus Sacrifice | `neovitae:bonus_sacrifice` | 0.0 | 1000.0 | % bonus to LP gained from Lamina Exhauriens mob kills |
 | Bonus Self Sacrifice | `neovitae:bonus_self_sacrifice` | 0.0 | 1000.0 | % bonus to LP gained from Lamina Maleficus self-sacrifice |
-| Bonus Demon Will | `neovitae:bonus_demon_will` | 0.0 | 1000.0 | % bonus to Demon Will drops from sentient weapons and soul snares |
+| Bonus Spiritus | `neovitae:bonus_demon_will` | 0.0 | 1000.0 | % bonus to Spiritus drops from sentient weapons and soul snares |
 | Sigil Cost Reduction | `neovitae:sigil_cost_reduction` | 0.0 | 100.0 | % reduction to all sigil LP costs (capped at near-zero, minimum 1 LP) |
 | Blood Siphon | `neovitae:blood_siphon` | 0.0 | 1024.0 | Converts damage dealt into LP. Base LP = min(attribute, damage), then multiplied |
 | Blood Shield | `neovitae:blood_shield` | 0.0 | 10.0 | Reduces incoming damage by 10% per point (capped at 99%), drains LP for prevented damage |

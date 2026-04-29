@@ -49,7 +49,7 @@ public class AlchemyArrayTests {
         helper.runAfterDelay(1, () -> {
             if (array == null) return;
             array.inv.setStackInSlot(0, new ItemStack(Items.REDSTONE));
-            array.inv.setStackInSlot(1, new ItemStack(NVItems.SLATE_BLANK.get()));
+            array.inv.setStackInSlot(1, new ItemStack(NVItems.TABULA_RASA.get()));
             array.attemptCraft();
 
             helper.runAfterDelay(10, () -> {
@@ -76,7 +76,7 @@ public class AlchemyArrayTests {
         helper.runAfterDelay(1, () -> {
             if (array == null) return;
             array.inv.setStackInSlot(0, new ItemStack(Items.REDSTONE));
-            array.inv.setStackInSlot(1, new ItemStack(NVItems.SLATE_BLANK.get()));
+            array.inv.setStackInSlot(1, new ItemStack(NVItems.TABULA_RASA.get()));
             array.attemptCraft();
             helper.runAfterDelay(220, () -> {
                 BlockPos absPos = helper.absolutePos(arrayPos);

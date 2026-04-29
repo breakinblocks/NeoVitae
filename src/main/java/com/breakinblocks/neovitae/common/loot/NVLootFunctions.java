@@ -14,11 +14,11 @@ public class NVLootFunctions {
     public static final DeferredRegister<LootItemFunctionType<?>> LOOT_FUNCTIONS =
             DeferredRegister.create(Registries.LOOT_FUNCTION_TYPE, NeoVitae.MODID);
 
-    public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<SetWillRange>> SET_WILL_RANGE =
-            LOOT_FUNCTIONS.register("set_will_range", () -> new LootItemFunctionType<>(SetWillRange.CODEC));
+    public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<SetSpiritusRange>> SET_SPIRITUS_RANGE =
+            LOOT_FUNCTIONS.register("set_spiritus_range", () -> new LootItemFunctionType<>(SetSpiritusRange.CODEC));
 
-    public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<SetWillFraction>> SET_WILL_FRACTION =
-            LOOT_FUNCTIONS.register("set_will_fraction", () -> new LootItemFunctionType<>(SetWillFraction.CODEC));
+    public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<SetSpiritusFraction>> SET_SPIRITUS_FRACTION =
+            LOOT_FUNCTIONS.register("set_spiritus_fraction", () -> new LootItemFunctionType<>(SetSpiritusFraction.CODEC));
 
     public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<SetLivingUpgrade>> SET_LIVING_UPGRADE =
             LOOT_FUNCTIONS.register("set_living_upgrade", () -> new LootItemFunctionType<>(SetLivingUpgrade.CODEC));

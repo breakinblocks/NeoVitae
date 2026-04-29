@@ -35,7 +35,7 @@ public class AuraCommand {
 
     private static final double COMMAND_MAX = 10000.0;
 
-    private static final SuggestionProvider<CommandSourceStack> WILL_TYPE_SUGGESTIONS = (context, builder) -> {
+    private static final SuggestionProvider<CommandSourceStack> SPIRITUS_TYPE_SUGGESTIONS = (context, builder) -> {
         Stream<String> types = Arrays.stream(SpiritusType.values())
                 .map(SpiritusType::getSerializedName);
         return SharedSuggestionProvider.suggest(Stream.of(types, Stream.of("raw", "all")).flatMap(s -> s), builder);
@@ -57,17 +57,17 @@ public class AuraCommand {
                                         .then(
                                                 Commands.argument("type", StringArgumentType.word())
                                                         .suggests(WILL_TYPE_ONLY_SUGGESTIONS)
-                                                        .executes(context -> getWill(context, StringArgumentType.getString(context, "type")))
+                                                        .executes(context -> getSpiritus(context, StringArgumentType.getString(context, "type")))
                                         )
                         )
                         .then(
                                 Commands.literal("set")
                                         .then(
                                                 Commands.argument("type", StringArgumentType.word())
-                                                        .suggests(WILL_TYPE_SUGGESTIONS)
+                                                        .suggests(SPIRITUS_TYPE_SUGGESTIONS)
                                                         .then(
                                                                 Commands.argument("amount", DoubleArgumentType.doubleArg(0, COMMAND_MAX))
-                                                                        .executes(context -> setWill(context,
+                                                                        .executes(context -> setSpiritus(context,
                                                                                 StringArgumentType.getString(context, "type"),
                                                                                 DoubleArgumentType.getDouble(context, "amount")))
                                                         )
@@ -77,10 +77,10 @@ public class AuraCommand {
                                 Commands.literal("add")
                                         .then(
                                                 Commands.argument("type", StringArgumentType.word())
-                                                        .suggests(WILL_TYPE_SUGGESTIONS)
+                                                        .suggests(SPIRITUS_TYPE_SUGGESTIONS)
                                                         .then(
                                                                 Commands.argument("amount", DoubleArgumentType.doubleArg(-COMMAND_MAX, COMMAND_MAX))
-                                                                        .executes(context -> addWill(context,
+                                                                        .executes(context -> addSpiritus(context,
                                                                                 StringArgumentType.getString(context, "type"),
                                                                                 DoubleArgumentType.getDouble(context, "amount")))
                                                         )
@@ -103,7 +103,7 @@ public class AuraCommand {
 
         for (SpiritusType type : SpiritusType.values()) {
             double amount = WorldSpiritusHandler.getCurrentWill(level, pos, type);
-            double max = WorldSpiritusHandler.getMaxWill(level, pos, type);
+            double max = WorldSpiritusHandler.getMaxSpiritus(level, pos, type);
             double bonus = WorldSpiritusHandler.getMaxBonus(level, pos, type);
             sb.append("  ").append(type.getSerializedName()).append(": ")
                     .append(String.format("%.2f", amount)).append(" / ").append(String.format("%.2f", max));
@@ -117,7 +117,7 @@ public class AuraCommand {
         return 1;
     }
 
-    private static int getWill(CommandContext<CommandSourceStack> context, String typeStr) {
+    private static int getSpiritus(CommandContext<CommandSourceStack> context, String typeStr) {
         CommandSourceStack source = context.getSource();
         ServerLevel level = source.getLevel();
         BlockPos pos = BlockPos.containing(source.getPosition());
@@ -133,7 +133,7 @@ public class AuraCommand {
         }
 
         double amount = WorldSpiritusHandler.getCurrentWill(level, pos, type);
-        double max = WorldSpiritusHandler.getMaxWill(level, pos, type);
+        double max = WorldSpiritusHandler.getMaxSpiritus(level, pos, type);
         double bonus = WorldSpiritusHandler.getMaxBonus(level, pos, type);
         StringBuilder msg = new StringBuilder(type.getSerializedName() + " will in chunk: " +
                 String.format("%.2f", amount) + " / " + String.format("%.2f", max));
@@ -144,14 +144,14 @@ public class AuraCommand {
         return 1;
     }
 
-    private static int setWill(CommandContext<CommandSourceStack> context, String typeStr, double amount) {
+    private static int setSpiritus(CommandContext<CommandSourceStack> context, String typeStr, double amount) {
         CommandSourceStack source = context.getSource();
         ServerLevel level = source.getLevel();
         BlockPos pos = BlockPos.containing(source.getPosition());
 
         if (typeStr.equalsIgnoreCase("all")) {
             for (SpiritusType type : SpiritusType.values()) {
-                double max = WorldSpiritusHandler.getMaxWill(level, pos, type);
+                double max = WorldSpiritusHandler.getMaxSpiritus(level, pos, type);
                 double clampedAmount = Math.max(0, Math.min(max, amount));
                 setWillForType(level, pos, type, clampedAmount);
             }
@@ -162,7 +162,7 @@ public class AuraCommand {
                 source.sendFailure(Component.literal("Invalid will type: " + typeStr));
                 return 0;
             }
-            double max = WorldSpiritusHandler.getMaxWill(level, pos, type);
+            double max = WorldSpiritusHandler.getMaxSpiritus(level, pos, type);
             double clampedAmount = Math.max(0, Math.min(max, amount));
             setWillForType(level, pos, type, clampedAmount);
             source.sendSuccess(() -> Component.literal("Set " + type.getSerializedName() + " will to " + String.format("%.2f", clampedAmount)), true);
@@ -170,7 +170,7 @@ public class AuraCommand {
         return 1;
     }
 
-    private static int addWill(CommandContext<CommandSourceStack> context, String typeStr, double amount) {
+    private static int addSpiritus(CommandContext<CommandSourceStack> context, String typeStr, double amount) {
         CommandSourceStack source = context.getSource();
         ServerLevel level = source.getLevel();
         BlockPos pos = BlockPos.containing(source.getPosition());
@@ -231,7 +231,7 @@ public class AuraCommand {
     }
 
     private static SpiritusType parseWillType(String str) {
-        if (str.equalsIgnoreCase("raw")) return SpiritusType.DEFAULT;
+        if (str.equalsIgnoreCase("raw")) return SpiritusType.RAW;
         for (SpiritusType type : SpiritusType.values()) {
             if (type.getSerializedName().equalsIgnoreCase(str)) {
                 return type;

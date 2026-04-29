@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "neovitae:block/athanor_bottom",
+    "front": "neovitae:block/athanor_front_ruina",
+    "side": "neovitae:block/athanor_side_ruina",
+    "top": "neovitae:block/athanor_top_ruina"
+  }
+}

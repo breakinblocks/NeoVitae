@@ -33,13 +33,13 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
  * SpiritusState will = handler.queryWill(level, pos, 0.5);
  * if (will.hasDefault()) {
  *     double scaling = will.getDefault() / 100.0;
- *     will.use(SpiritusType.DEFAULT, 0.1);
+ *     will.use(SpiritusType.RAW, 0.1);
  * }
  * will.drain(handler, level, pos);
  *
  * // For simple operations: individual will access
- * double raw = handler.getCurrentWill(level, pos, SpiritusType.DEFAULT);
- * double added = handler.addWill(level, pos, SpiritusType.CORROSIVE, 50.0);
+ * double raw = handler.getCurrentWill(level, pos, SpiritusType.RAW);
+ * double added = handler.addSpiritus(level, pos, SpiritusType.RUINA, 50.0);
  * }</pre>
  */
 public interface ISpiritusHandler {
@@ -61,7 +61,7 @@ public interface ISpiritusHandler {
      * @param pos   The position (chunk is determined from this)
      * @return The total will amount across all types
      */
-    double getTotalWill(Level level, BlockPos pos);
+    double getTotalSpiritus(Level level, BlockPos pos);
 
     /**
      * Gets the maximum will capacity for a specific type in the chunk.
@@ -72,7 +72,7 @@ public interface ISpiritusHandler {
      * @param type  The will type
      * @return The maximum will capacity
      */
-    double getMaxWill(Level level, BlockPos pos, SpiritusType type);
+    double getMaxSpiritus(Level level, BlockPos pos, SpiritusType type);
 
     /**
      * Gets the base maximum will capacity from server config for a specific type.
@@ -81,7 +81,7 @@ public interface ISpiritusHandler {
      * @param type The will type
      * @return The base maximum will capacity from config
      */
-    double getBaseMaxWill(SpiritusType type);
+    double getBaseMaxSpiritus(SpiritusType type);
 
     /**
      * Gets the per-chunk bonus to maximum will capacity for a specific type.
@@ -131,7 +131,7 @@ public interface ISpiritusHandler {
      * @param amount The amount to add
      * @return The amount actually added (may be less if at cap)
      */
-    double addWill(Level level, BlockPos pos, SpiritusType type, double amount);
+    double addSpiritus(Level level, BlockPos pos, SpiritusType type, double amount);
 
     /**
      * Drains will from the chunk at the given position.
@@ -144,7 +144,7 @@ public interface ISpiritusHandler {
      * @param amount The amount to drain
      * @return The amount actually drained (may be less if not enough)
      */
-    double drainWill(Level level, BlockPos pos, SpiritusType type, double amount);
+    double drainSpiritus(Level level, BlockPos pos, SpiritusType type, double amount);
 
     /**
      * Fills will in the chunk up to the specified amount.
@@ -175,7 +175,7 @@ public interface ISpiritusHandler {
      * @param pos   The position (chunk is determined from this)
      * @return true if the chunk has any will of any type
      */
-    boolean hasWill(Level level, BlockPos pos);
+    boolean hasSpiritus(Level level, BlockPos pos);
 
     /**
      * Gets the fill ratio (current/max) for a specific will type in the chunk.

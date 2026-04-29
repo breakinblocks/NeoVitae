@@ -59,7 +59,7 @@ public class BloodMendingEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.SLATE_REINFORCED.get());
+        return BookIconModel.create(NVItems.TABULA_ROBUR.get());
     }
 
     @Override

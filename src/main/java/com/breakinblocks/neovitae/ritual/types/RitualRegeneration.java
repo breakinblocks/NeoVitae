@@ -93,7 +93,7 @@ public class RitualRegeneration extends Ritual {
                 }
 
                 if (willUsed > 0) {
-                    will.use(SpiritusType.CORROSIVE, willUsed);
+                    will.use(SpiritusType.RUINA, willUsed);
                     will.drain(ctx.level(), masterPos);
                 }
             }

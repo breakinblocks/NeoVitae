@@ -14,7 +14,7 @@ import java.util.List;
 public class ItemAthanorToolBase extends Item implements IAthanorTool {
 
     public ItemAthanorToolBase(int maxDamage, double craftingMultiplier) {
-        this(maxDamage, craftingMultiplier, 1, SpiritusType.DEFAULT);
+        this(maxDamage, craftingMultiplier, 1, SpiritusType.RAW);
     }
 
     public ItemAthanorToolBase(int maxDamage, double craftingMultiplier, SpiritusType type) {
@@ -22,7 +22,7 @@ public class ItemAthanorToolBase extends Item implements IAthanorTool {
     }
 
     public ItemAthanorToolBase(int maxDamage, double craftingMultiplier, double additionalOutputChance) {
-        this(maxDamage, craftingMultiplier, additionalOutputChance, SpiritusType.DEFAULT);
+        this(maxDamage, craftingMultiplier, additionalOutputChance, SpiritusType.RAW);
     }
 
     public ItemAthanorToolBase(int maxDamage, double craftingMultiplier, double additionalOutputChance, SpiritusType type) {
@@ -59,6 +59,6 @@ public class ItemAthanorToolBase extends Item implements IAthanorTool {
 
     @Override
     public SpiritusType getDominantWillType(ItemStack stack) {
-        return stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE.get(), SpiritusType.DEFAULT);
+        return stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE.get(), SpiritusType.RAW);
     }
 }

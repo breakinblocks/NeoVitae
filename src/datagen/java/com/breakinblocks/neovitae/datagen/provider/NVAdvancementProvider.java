@@ -97,47 +97,47 @@ public class NVAdvancementProvider extends AdvancementProvider {
             // Slate Progression (branch off weak_blood_orb)
             AdvancementHolder blankSlate = Advancement.Builder.advancement()
                     .parent(weakBloodOrb)
-                    .display(NVItems.SLATE_BLANK.get(),
+                    .display(NVItems.TABULA_RASA.get(),
                             Component.translatable("advancements.neovitae.blank_slate.title"),
                             Component.translatable("advancements.neovitae.blank_slate.description"),
                             null, AdvancementType.TASK, true, false, false)
-                    .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SLATE_BLANK.get()))
+                    .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.TABULA_RASA.get()))
                     .save(saver, NeoVitae.rl("neovitae/blank_slate").toString());
 
             AdvancementHolder reinforcedSlate = Advancement.Builder.advancement()
                     .parent(blankSlate)
-                    .display(NVItems.SLATE_REINFORCED.get(),
+                    .display(NVItems.TABULA_ROBUR.get(),
                             Component.translatable("advancements.neovitae.reinforced_slate.title"),
                             Component.translatable("advancements.neovitae.reinforced_slate.description"),
                             null, AdvancementType.TASK, true, false, false)
-                    .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SLATE_REINFORCED.get()))
+                    .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.TABULA_ROBUR.get()))
                     .save(saver, NeoVitae.rl("neovitae/reinforced_slate").toString());
 
             AdvancementHolder imbuedSlate = Advancement.Builder.advancement()
                     .parent(reinforcedSlate)
-                    .display(NVItems.SLATE_IMBUED.get(),
+                    .display(NVItems.TABULA_ANIMATA.get(),
                             Component.translatable("advancements.neovitae.imbued_slate.title"),
                             Component.translatable("advancements.neovitae.imbued_slate.description"),
                             null, AdvancementType.TASK, true, false, false)
-                    .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SLATE_IMBUED.get()))
+                    .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.TABULA_ANIMATA.get()))
                     .save(saver, NeoVitae.rl("neovitae/imbued_slate").toString());
 
             AdvancementHolder demonicSlate = Advancement.Builder.advancement()
                     .parent(imbuedSlate)
-                    .display(NVItems.SLATE_DEMONIC.get(),
+                    .display(NVItems.TABULA_SPIRITUS.get(),
                             Component.translatable("advancements.neovitae.demonic_slate.title"),
                             Component.translatable("advancements.neovitae.demonic_slate.description"),
                             null, AdvancementType.GOAL, true, true, false)
-                    .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SLATE_DEMONIC.get()))
+                    .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.TABULA_SPIRITUS.get()))
                     .save(saver, NeoVitae.rl("neovitae/demonic_slate").toString());
 
             AdvancementHolder etherealSlate = Advancement.Builder.advancement()
                     .parent(demonicSlate)
-                    .display(NVItems.SLATE_ETHEREAL.get(),
+                    .display(NVItems.TABULA_AETHEREA.get(),
                             Component.translatable("advancements.neovitae.ethereal_slate.title"),
                             Component.translatable("advancements.neovitae.ethereal_slate.description"),
                             null, AdvancementType.CHALLENGE, true, true, false)
-                    .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SLATE_ETHEREAL.get()))
+                    .addCriterion("get_slate", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.TABULA_AETHEREA.get()))
                     .save(saver, NeoVitae.rl("neovitae/ethereal_slate").toString());
 
             // Crafting Stations (branch off weak_blood_orb)
@@ -244,6 +244,76 @@ public class NVAdvancementProvider extends AdvancementProvider {
                             null, AdvancementType.CHALLENGE, true, true, false)
                     .addCriterion("activate", NVCriteriaTriggers.RITUAL_ACTIVATED.get().createCriterion(RitualActivatedTrigger.forRitual("neovitae:crystal_split")))
                     .save(saver, NeoVitae.rl("neovitae/crack_of_fractured_crystal").toString());
+
+            // Crystallum Fractura activation (off firstRitual)
+            AdvancementHolder crystallumFractura = Advancement.Builder.advancement()
+                    .parent(firstRitual)
+                    .display(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get(),
+                            Component.translatable("advancements.neovitae.crystallum_fractura.title"),
+                            Component.translatable("advancements.neovitae.crystallum_fractura.description"),
+                            null, AdvancementType.CHALLENGE, true, true, false)
+                    .addCriterion("activate", NVCriteriaTriggers.RITUAL_ACTIVATED.get().createCriterion(RitualActivatedTrigger.forRitual("neovitae:crystallum_fractura")))
+                    .save(saver, NeoVitae.rl("neovitae/crystallum_fractura").toString());
+
+            // Spiritus harvest chain (off crystallumFractura) - obtain each aspect's crystal shard
+            AdvancementHolder harvestRaw = Advancement.Builder.advancement()
+                    .parent(crystallumFractura)
+                    .display(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get(),
+                            Component.translatable("advancements.neovitae.harvest_raw.title"),
+                            Component.translatable("advancements.neovitae.harvest_raw.description"),
+                            null, AdvancementType.TASK, true, false, false)
+                    .addCriterion("get_shard", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get()))
+                    .save(saver, NeoVitae.rl("neovitae/harvest_raw_spiritus").toString());
+
+            AdvancementHolder harvestRuina = Advancement.Builder.advancement()
+                    .parent(harvestRaw)
+                    .display(NVItems.SPIRITUS_RUINA_CRYSTAL_ITEM.get(),
+                            Component.translatable("advancements.neovitae.harvest_ruina.title"),
+                            Component.translatable("advancements.neovitae.harvest_ruina.description"),
+                            null, AdvancementType.TASK, true, false, false)
+                    .addCriterion("get_shard", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_RUINA_CRYSTAL_ITEM.get()))
+                    .save(saver, NeoVitae.rl("neovitae/harvest_ruina_spiritus").toString());
+
+            AdvancementHolder harvestNihilum = Advancement.Builder.advancement()
+                    .parent(harvestRaw)
+                    .display(NVItems.SPIRITUS_NIHILUM_CRYSTAL_ITEM.get(),
+                            Component.translatable("advancements.neovitae.harvest_nihilum.title"),
+                            Component.translatable("advancements.neovitae.harvest_nihilum.description"),
+                            null, AdvancementType.TASK, true, false, false)
+                    .addCriterion("get_shard", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_NIHILUM_CRYSTAL_ITEM.get()))
+                    .save(saver, NeoVitae.rl("neovitae/harvest_nihilum_spiritus").toString());
+
+            AdvancementHolder harvestVindicta = Advancement.Builder.advancement()
+                    .parent(harvestRaw)
+                    .display(NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get(),
+                            Component.translatable("advancements.neovitae.harvest_vindicta.title"),
+                            Component.translatable("advancements.neovitae.harvest_vindicta.description"),
+                            null, AdvancementType.TASK, true, false, false)
+                    .addCriterion("get_shard", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get()))
+                    .save(saver, NeoVitae.rl("neovitae/harvest_vindicta_spiritus").toString());
+
+            AdvancementHolder harvestInvictus = Advancement.Builder.advancement()
+                    .parent(harvestRaw)
+                    .display(NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get(),
+                            Component.translatable("advancements.neovitae.harvest_invictus.title"),
+                            Component.translatable("advancements.neovitae.harvest_invictus.description"),
+                            null, AdvancementType.TASK, true, false, false)
+                    .addCriterion("get_shard", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get()))
+                    .save(saver, NeoVitae.rl("neovitae/harvest_invictus_spiritus").toString());
+
+            // Master harvest challenge: collect all five aspects
+            Advancement.Builder.advancement()
+                    .parent(harvestRaw)
+                    .display(NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get(),
+                            Component.translatable("advancements.neovitae.aspectum_omnia.title"),
+                            Component.translatable("advancements.neovitae.aspectum_omnia.description"),
+                            null, AdvancementType.CHALLENGE, true, true, true)
+                    .addCriterion("raw", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get()))
+                    .addCriterion("ruina", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_RUINA_CRYSTAL_ITEM.get()))
+                    .addCriterion("nihilum", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_NIHILUM_CRYSTAL_ITEM.get()))
+                    .addCriterion("vindicta", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get()))
+                    .addCriterion("invictus", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get()))
+                    .save(saver, NeoVitae.rl("neovitae/aspectum_omnia").toString());
 
             AdvancementHolder serenadeOfNether = Advancement.Builder.advancement()
                     .parent(firstRitual)

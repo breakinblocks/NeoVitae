@@ -40,10 +40,10 @@ public class RitualGreenGroveEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Raw Spiritus[#](): Hastens the growth rate further."
-                + "\n\n- [#](8B0000)Corrosive Spiritus[#](): Hydrates nearby farmland, ensuring fertile soil."
-                + "\n\n- [#](8B0000)Vengeful Spiritus[#](): Causes nearby plants to spread and propagate."
-                + "\n\n- [#](8B0000)Destructive Spiritus[#](): Intensifies the effect at higher spiritus concentrations."
-                + "\n\n- [#](8B0000)Steadfast Spiritus[#](): Coaxes nearby saplings into full-grown trees.");
+                + "\n\n- [#](8B0000)Spiritus Ruina[#](): Hydrates nearby farmland, ensuring fertile soil."
+                + "\n\n- [#](8B0000)Spiritus Vindicta[#](): Causes nearby plants to spread and propagate."
+                + "\n\n- [#](8B0000)Spiritus Nihilum[#](): Intensifies the effect at higher spiritus concentrations."
+                + "\n\n- [#](8B0000)Spiritus Invictus[#](): Coaxes nearby saplings into full-grown trees.");
     }
 
     @Override

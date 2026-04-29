@@ -30,7 +30,7 @@ public class RitualsCategory extends CategoryProvider {
                 "__0_1_2_3_y________",
                 "__w_x_z____________",
                 "___________________",
-                "__5_6_7____________",
+                "__4_6_7____________",
                 "__8_9_A____________"
         };
     }
@@ -178,14 +178,10 @@ public class RitualsCategory extends CategoryProvider {
         yawningVoid.withParent(this.parent(basics));
         yawningVoid.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
         yawningVoid.hideWhileLocked(false);
-        var geode = this.add(new RitualGeodeEntry(this).generate('4'));
-        geode.withParent(this.parent(basics));
-        geode.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
-        geode.hideWhileLocked(false);
-        var crystalHarvest = this.add(new RitualCrystalHarvestEntry(this).generate('5'));
-        crystalHarvest.withParent(this.parent(basics));
-        crystalHarvest.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
-        crystalHarvest.hideWhileLocked(false);
+        var crystallumFractura = this.add(new RitualCrystallumFracturaEntry(this).generate('4'));
+        crystallumFractura.withParent(this.parent(basics));
+        crystallumFractura.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
+        crystallumFractura.hideWhileLocked(false);
         var crystalSplit = this.add(new RitualCrystalSplitEntry(this).generate('6'));
         crystalSplit.withParent(this.parent(basics));
         crystalSplit.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));

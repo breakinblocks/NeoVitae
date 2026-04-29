@@ -107,7 +107,7 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> 
         List<ItemStack> validGems = Lists.newArrayList();
         for (HellfireForgeRecipeCategory.DefaultWill will : HellfireForgeRecipeCategory.DefaultWill.values()) {
             if (will.minSouls >= recipe.getMinWill()) {
-                validGems.add(will.willStack);
+                validGems.add(will.spiritusStack);
             }
         }
         IRecipeSlotBuilder gems = builder.addSlot(RecipeIngredientRole.CATALYST, 43, 1);

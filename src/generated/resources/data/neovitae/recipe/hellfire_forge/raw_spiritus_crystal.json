@@ -3,16 +3,16 @@
   "drain": 100.0,
   "inputs": [
     {
-      "item": "neovitae:default_crystal"
+      "item": "neovitae:raw_crystal_shard"
     },
     {
-      "item": "neovitae:default_crystal"
+      "item": "neovitae:raw_crystal_shard"
     },
     {
-      "item": "neovitae:default_crystal"
+      "item": "neovitae:raw_crystal_shard"
     },
     {
-      "item": "neovitae:default_crystal"
+      "item": "neovitae:raw_crystal_shard"
     }
   ],
   "minDrain": 1200.0,

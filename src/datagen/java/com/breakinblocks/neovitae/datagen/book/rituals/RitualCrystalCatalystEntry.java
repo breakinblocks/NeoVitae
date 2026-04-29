@@ -53,7 +53,7 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.RAW_CRYSTAL_CATALYST.get());
+        return BookIconModel.create(NVItems.RAW_SPIRITUS_CATALYST.get());
     }
 
     @Override

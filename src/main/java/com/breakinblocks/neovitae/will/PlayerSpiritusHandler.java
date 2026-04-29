@@ -22,7 +22,7 @@ public class PlayerSpiritusHandler {
         for (ItemStack stack : inventory) {
             if (stack.isEmpty()) continue;
             if (SpiritusHelper.hasSpiritus(stack)) {
-                souls += SpiritusHelper.getWill(stack, type);
+                souls += SpiritusHelper.getSpiritus(stack, type);
             }
         }
 
@@ -30,7 +30,7 @@ public class PlayerSpiritusHandler {
     }
 
     public static SpiritusType getLargestSpiritusType(Player player) {
-        SpiritusType type = SpiritusType.DEFAULT;
+        SpiritusType type = SpiritusType.RAW;
         double max = getTotalSpiritus(type, player);
 
         for (SpiritusType testType : SpiritusType.values()) {
@@ -52,7 +52,7 @@ public class PlayerSpiritusHandler {
             if (stack.isEmpty()) continue;
             if (SpiritusHelper.isRechargeable(stack)) {
                 hasRechargeable = true;
-                if (SpiritusHelper.getWill(stack, type) < SpiritusHelper.resolveMaxWill(stack, type)) {
+                if (SpiritusHelper.getSpiritus(stack, type) < SpiritusHelper.resolveMaxSpiritus(stack, type)) {
                     return false;
                 }
             }
@@ -76,16 +76,16 @@ public class PlayerSpiritusHandler {
             ItemStack stack = list.get(i);
             if (stack.isEmpty() || !SpiritusHelper.hasSpiritus(stack)) continue;
 
-            consumed += SpiritusHelper.drainWill(stack, type, amount - consumed, true);
-            if (SpiritusHelper.getWill(stack, type) <= 0 && !SpiritusHelper.isRechargeable(stack)) {
+            consumed += SpiritusHelper.drainSpiritus(stack, type, amount - consumed, true);
+            if (SpiritusHelper.getSpiritus(stack, type) <= 0 && !SpiritusHelper.isRechargeable(stack)) {
                 list.set(i, ItemStack.EMPTY);
             }
         }
         return consumed;
     }
 
-    public static ItemStack addSpiritus(Player player, ItemStack willStack) {
-        if (willStack.isEmpty()) return ItemStack.EMPTY;
+    public static ItemStack addSpiritus(Player player, ItemStack spiritusStack) {
+        if (spiritusStack.isEmpty()) return ItemStack.EMPTY;
 
         NonNullList<ItemStack> inventory = getAllInventories(player);
 
@@ -93,13 +93,13 @@ public class PlayerSpiritusHandler {
             if (stack.isEmpty() || !SpiritusHelper.isRechargeable(stack)) continue;
 
             if (stack.getItem() instanceof ISpiritusGem gem) {
-                ItemStack newStack = gem.fillSpiritusGem(stack, willStack);
+                ItemStack newStack = gem.fillSpiritusGem(stack, spiritusStack);
                 if (newStack.isEmpty()) return ItemStack.EMPTY;
-                willStack = newStack;
+                spiritusStack = newStack;
             }
         }
 
-        return willStack;
+        return spiritusStack;
     }
 
     public static double addSpiritus(SpiritusType type, Player player, double amount) {
@@ -114,7 +114,7 @@ public class PlayerSpiritusHandler {
             if (stack.isEmpty() || stack.equals(ignored)) continue;
             if (!SpiritusHelper.isRechargeable(stack)) continue;
 
-            remaining -= SpiritusHelper.fillWill(stack, type, remaining, true);
+            remaining -= SpiritusHelper.fillSpiritus(stack, type, remaining, true);
             if (remaining <= 0) break;
         }
 

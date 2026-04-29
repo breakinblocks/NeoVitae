@@ -2,37 +2,37 @@
   "parent": "minecraft:item/handheld",
   "overrides": [
     {
-      "model": "neovitae:item/variant/raw_spiritus_default",
+      "model": "neovitae:item/variant/raw_spiritus_raw",
       "predicate": {
         "neovitae:will_type": 0.0
       }
     },
     {
-      "model": "neovitae:item/variant/raw_spiritus_corrosive",
+      "model": "neovitae:item/variant/raw_spiritus_ruina",
       "predicate": {
         "neovitae:will_type": 1.0
       }
     },
     {
-      "model": "neovitae:item/variant/raw_spiritus_destructive",
+      "model": "neovitae:item/variant/raw_spiritus_nihilum",
       "predicate": {
         "neovitae:will_type": 2.0
       }
     },
     {
-      "model": "neovitae:item/variant/raw_spiritus_steadfast",
+      "model": "neovitae:item/variant/raw_spiritus_invictus",
       "predicate": {
         "neovitae:will_type": 3.0
       }
     },
     {
-      "model": "neovitae:item/variant/raw_spiritus_vengeful",
+      "model": "neovitae:item/variant/raw_spiritus_vindicta",
       "predicate": {
         "neovitae:will_type": 4.0
       }
     }
   ],
   "textures": {
-    "layer0": "neovitae:item/raw_spiritus_default"
+    "layer0": "neovitae:item/raw_spiritus_raw"
   }
 }

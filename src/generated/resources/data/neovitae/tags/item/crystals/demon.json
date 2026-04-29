@@ -1,9 +1,9 @@
 {
   "values": [
-    "neovitae:default_crystal",
-    "neovitae:corrosive_crystal",
-    "neovitae:destructive_crystal",
-    "neovitae:steadfast_crystal",
-    "neovitae:vengeful_crystal"
+    "neovitae:raw_crystal_shard",
+    "neovitae:spiritus_ruina_shard",
+    "neovitae:spiritus_nihilum_shard",
+    "neovitae:spiritus_invictus_shard",
+    "neovitae:spiritus_vindicta_shard"
   ]
 }

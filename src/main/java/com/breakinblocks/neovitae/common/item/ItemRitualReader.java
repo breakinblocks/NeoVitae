@@ -129,17 +129,20 @@ public class ItemRitualReader extends Item {
                 mrs.provideInformationOfRangeToPlayer(player, rangeKey);
             }
             case SET_WILL_CONFIG -> {
-                SpiritusType currentType = mrs.getActiveWillConfig();
-                SpiritusType nextType = switch (currentType) {
-                    case DEFAULT -> SpiritusType.CORROSIVE;
-                    case CORROSIVE -> SpiritusType.DESTRUCTIVE;
-                    case DESTRUCTIVE -> SpiritusType.VENGEFUL;
-                    case VENGEFUL -> SpiritusType.STEADFAST;
-                    case STEADFAST -> SpiritusType.DEFAULT;
-                };
-                mrs.setActiveWillConfig(nextType);
+                SpiritusType nextType = resolveAspectFromHotbar(player);
+                if (nextType == null) {
+                    SpiritusType currentType = mrs.getActiveSpiritusAspect();
+                    nextType = switch (currentType) {
+                        case RAW -> SpiritusType.RUINA;
+                        case RUINA -> SpiritusType.NIHILUM;
+                        case NIHILUM -> SpiritusType.VINDICTA;
+                        case VINDICTA -> SpiritusType.INVICTUS;
+                        case INVICTUS -> SpiritusType.RAW;
+                    };
+                }
+                mrs.setActiveSpiritusAspect(nextType);
                 player.displayClientMessage(
-                        Component.translatable("chat.neovitae.reader.willType",
+                        Component.translatable("chat.neovitae.reader.spiritusType",
                                 Component.translatable("will.neovitae." + nextType.getSerializedName())), true);
             }
         }
@@ -256,6 +259,37 @@ public class ItemRitualReader extends Item {
         }
     }
 
+
+    /**
+     * Inspects the player's hotbar for Spiritus Crystal items and returns the
+     * single distinct aspect found. Returns {@code SpiritusType.RAW} if the
+     * hotbar contains crystals of multiple aspects, or {@code null} if no
+     * spiritus crystal is in the hotbar (caller falls back to cycling).
+     */
+    private SpiritusType resolveAspectFromHotbar(Player player) {
+        SpiritusType found = null;
+        for (int i = 0; i < 9; i++) {
+            ItemStack hotbar = player.getInventory().getItem(i);
+            if (hotbar.isEmpty()) continue;
+            SpiritusType type = aspectOfCrystal(hotbar);
+            if (type == null) continue;
+            if (found == null) {
+                found = type;
+            } else if (found != type) {
+                return SpiritusType.RAW;
+            }
+        }
+        return found;
+    }
+
+    private SpiritusType aspectOfCrystal(ItemStack stack) {
+        if (stack.is(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get())) return SpiritusType.RAW;
+        if (stack.is(NVItems.SPIRITUS_RUINA_CRYSTAL_ITEM.get())) return SpiritusType.RUINA;
+        if (stack.is(NVItems.SPIRITUS_NIHILUM_CRYSTAL_ITEM.get())) return SpiritusType.NIHILUM;
+        if (stack.is(NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get())) return SpiritusType.VINDICTA;
+        if (stack.is(NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get())) return SpiritusType.INVICTUS;
+        return null;
+    }
 
     private MasterRitualStoneBlockEntity findNearbyMasterRitualStone(Level level, BlockPos corner1, BlockPos corner2, Player player) {
         int searchRadius = 32;

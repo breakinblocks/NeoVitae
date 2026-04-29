@@ -9,7 +9,7 @@
   "description": "book.neovitae.guide.alchemy_arrays.spirit_siphon_array.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "neovitae:imbued_slate"
+    "item": "neovitae:tabula_animata"
   },
   "name": "book.neovitae.guide.alchemy_arrays.spirit_siphon_array.name",
   "pages": [

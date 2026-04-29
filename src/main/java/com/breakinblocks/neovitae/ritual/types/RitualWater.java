@@ -67,7 +67,7 @@ public class RitualWater extends Ritual {
                     FluidStack waterStack = new FluidStack(Fluids.WATER, 1000);
                     int filled = fluidHandler.fill(waterStack, IFluidHandler.FluidAction.EXECUTE);
                     if (filled > 0) {
-                        will.use(SpiritusType.DEFAULT, (double) filled / 1000.0);
+                        will.use(SpiritusType.RAW, (double) filled / 1000.0);
                         totalEffects++;
                     }
                 }

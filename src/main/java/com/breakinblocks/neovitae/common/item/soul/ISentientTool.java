@@ -30,20 +30,20 @@ public interface ISentientTool {
      * @param type the will type
      * @return array of damage bonuses indexed by power level (0-6)
      */
-    double[] getDamageForWillType(SpiritusType type);
+    double[] getDamageForSpiritusType(SpiritusType type);
 
     /**
      * Calculates the extra damage based on will type and power level.
      *
      * @param type the current will type
-     * @param willBracket the power level (0-6)
+     * @param spiritusBracket the power level (0-6)
      * @return the bonus damage to add
      */
-    default double getExtraDamage(SpiritusType type, int willBracket) {
-        if (willBracket < 0) return 0;
-        double[] damages = getDamageForWillType(type);
-        if (willBracket >= damages.length) return damages[damages.length - 1];
-        return damages[willBracket];
+    default double getExtraDamage(SpiritusType type, int spiritusBracket) {
+        if (spiritusBracket < 0) return 0;
+        double[] damages = getDamageForSpiritusType(type);
+        if (spiritusBracket >= damages.length) return damages[damages.length - 1];
+        return damages[spiritusBracket];
     }
 
     /**

@@ -93,7 +93,7 @@ public class AnointmentRegistrar {
             .setConsumeOnUseFinish()
             .appliesTo(NVTags.Items.ANOINTABLE_BOWS));
 
-    public static final Anointment WILL_POWER = register(new Anointment(NeoVitae.rl("will_power"))
+    public static final Anointment SPIRITUS_DRAIN = register(new Anointment(NeoVitae.rl("spiritus_drain"))
             .withBonusSet("bonus", list -> {
                 list.add(0.5);
             })

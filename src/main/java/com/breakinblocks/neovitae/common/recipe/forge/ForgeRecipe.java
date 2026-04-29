@@ -29,7 +29,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
             Codec.DOUBLE.fieldOf("drain").forGetter(ForgeRecipe::getDrain),
             Codec.list(Ingredient.CODEC_NONEMPTY).fieldOf("inputs").forGetter(ForgeRecipe::getCraftingIngredients),
             ItemStack.CODEC.fieldOf("output").forGetter(ForgeRecipe::getOutput),
-            SpiritusType.CODEC.optionalFieldOf("willType").forGetter(ForgeRecipe::getWillType)
+            SpiritusType.CODEC.optionalFieldOf("spiritusType").forGetter(ForgeRecipe::getWillType)
     ).apply(instance, ForgeRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ForgeRecipe> STREAM_CODEC = StreamCodec.composite(
@@ -40,17 +40,17 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
             SpiritusType.STREAM_CODEC.apply(ByteBufCodecs::optional), ForgeRecipe::getWillType,
             ForgeRecipe::new
     );
-    public final double minWill;
+    public final double minSpiritus;
     public final double usedWill;
     public final List<Ingredient> ingredients;
     public final ItemStack resultItem;
-    public final Optional<SpiritusType> willType;
-    public ForgeRecipe(double minWill, double usedWill, List<Ingredient> ingredients, ItemStack resultItem, Optional<SpiritusType> willType) {
-        this.minWill = minWill;
+    public final Optional<SpiritusType> spiritusType;
+    public ForgeRecipe(double minSpiritus, double usedWill, List<Ingredient> ingredients, ItemStack resultItem, Optional<SpiritusType> spiritusType) {
+        this.minSpiritus = minSpiritus;
         this.usedWill = usedWill;
         this.ingredients = ingredients;
         this.resultItem = resultItem;
-        this.willType = willType;
+        this.spiritusType = spiritusType;
     }
 
     @Override
@@ -58,8 +58,8 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
         if (input.size() != ingredients.size()) {
             return false;
         }
-        SpiritusType will = input.getGem().getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT);
-        if (willType.isPresent() && willType.get() != will) {
+        SpiritusType will = input.getGem().getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW);
+        if (spiritusType.isPresent() && spiritusType.get() != will) {
             return false;
         }
 
@@ -89,7 +89,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
     public ItemStack assemble(ForgeInput input, HolderLookup.Provider registries) {
         ItemStack gemStack = input.getGem();
         double will = gemStack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
-        if (will < minWill) {
+        if (will < minSpiritus) {
             return ItemStack.EMPTY;
         }
         ItemStack outStack = resultItem.copy();
@@ -122,7 +122,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
     }
 
     public Double getMinWill() {
-        return minWill;
+        return minSpiritus;
     }
 
     public Double getDrain() {
@@ -138,6 +138,6 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
     }
 
     public Optional<SpiritusType> getWillType() {
-        return willType;
+        return spiritusType;
     }
 }

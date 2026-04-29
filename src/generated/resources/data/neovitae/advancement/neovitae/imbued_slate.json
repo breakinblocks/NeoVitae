@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "neovitae:imbued_slate"
+            "items": "neovitae:tabula_animata"
           }
         ]
       },
@@ -19,7 +19,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "neovitae:imbued_slate"
+      "id": "neovitae:tabula_animata"
     },
     "title": {
       "translate": "advancements.neovitae.imbued_slate.title"

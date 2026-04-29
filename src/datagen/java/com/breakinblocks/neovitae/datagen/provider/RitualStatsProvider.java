@@ -71,7 +71,7 @@ public class RitualStatsProvider implements DataProvider {
         // ==================== Advanced Rituals ====================
 
         add(NVRituals.PHANTOM_BRIDGE, RitualStats.timed(5000, 10, 1, 0));
-        add(NVRituals.CRYSTAL_HARVEST, RitualStats.timed(40000, 1000, 20, 1));
+        add(NVRituals.CRYSTALLUM_FRACTURA, RitualStats.timed(100000, 200, 100, 1));
         add(NVRituals.DOWNGRADE, RitualStats.timed(20000, 100, 20, 1));
 
         // Meteor Ritual - very expensive, one-time cost
@@ -95,7 +95,6 @@ public class RitualStatsProvider implements DataProvider {
 
         add(NVRituals.PLACER, RitualStats.timed(5000, 10, 20, 0));
         add(NVRituals.GROUNDING, RitualStats.timed(1000, 10, 20, 0));
-        add(NVRituals.GEODE, RitualStats.timed(100000, 100, 100, 1));
     }
 
     protected void add(DeferredHolder<Ritual, ? extends Ritual> ritual, RitualStats stats) {

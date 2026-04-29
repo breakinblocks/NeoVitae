@@ -75,22 +75,22 @@ public class ClientModEventHandler {
         }
 
         event.enqueueWork(() -> {
-            NVItems.WILL_ITEMS.getEntries().forEach(item -> {
-                ItemProperties.register(item.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());
+            NVItems.SPIRITUS_ITEMS.getEntries().forEach(item -> {
+                ItemProperties.register(item.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW).ordinal());
             });
             ItemProperties.register(NVItems.SACRIFICIAL_DAGGER.get(), NeoVitae.INCENSE_PROPERTY, ((stack, level, entity, seed) -> stack.getOrDefault(NVDataComponents.INCENSE, false) ? 1 : 0));
             ItemProperties.register(NVItems.SACRIFICIAL_DAGGER.get(), NeoVitae.rl("alternate"), ((stack, level, entity, seed) -> NeoVitae.SERVER_CONFIG.ALTERNATE_SACRIFICE_TOOL.get() ? 1 : 0));
 
-            ItemProperties.register(NVItems.SENTIENT_SWORD.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());
-            ItemProperties.register(NVItems.SENTIENT_AXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());
-            ItemProperties.register(NVItems.SENTIENT_PICKAXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());
-            ItemProperties.register(NVItems.SENTIENT_SHOVEL.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());
-            ItemProperties.register(NVItems.SENTIENT_SCYTHE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_SWORD.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_AXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_PICKAXE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_SHOVEL.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW).ordinal());
+            ItemProperties.register(NVItems.SENTIENT_SCYTHE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW).ordinal());
 
             ItemProperties.register(NVItems.SENTIENT_SWORD.get(), NeoVitae.rl("active"), (stack, level, entity, seed) -> {
                 if (!(entity instanceof net.minecraft.world.entity.player.Player player)) return 0;
                 double will = com.breakinblocks.neovitae.will.PlayerSpiritusHandler.getTotalSpiritus(
-                        stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT), player);
+                        stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW), player);
                 return will > 0 ? 1 : 0;
             });
 

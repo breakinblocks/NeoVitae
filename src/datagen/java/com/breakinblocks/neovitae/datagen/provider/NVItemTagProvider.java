@@ -53,11 +53,11 @@ public class NVItemTagProvider extends ItemTagsProvider {
                         NVItems.SENTIENT_SCYTHE.get());
 
         tag(NVTags.Items.SPIRITUS_CRYSTALS)
-                .add(NVItems.RAW_CRYSTAL.get())
-                .add(NVItems.CORROSIVE_CRYSTAL.get())
-                .add(NVItems.DESTRUCTIVE_CRYSTAL.get())
-                .add(NVItems.STEADFAST_CRYSTAL.get())
-                .add(NVItems.VENGEFUL_CRYSTAL.get());
+                .add(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get())
+                .add(NVItems.SPIRITUS_RUINA_CRYSTAL_ITEM.get())
+                .add(NVItems.SPIRITUS_NIHILUM_CRYSTAL_ITEM.get())
+                .add(NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get())
+                .add(NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get());
 
         tag(NVTags.Items.REVERTER)
                 .add(NVItems.SANGUINE_REVERTER.get());

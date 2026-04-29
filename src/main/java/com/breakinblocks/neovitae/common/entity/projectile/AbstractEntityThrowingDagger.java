@@ -77,7 +77,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
     private List<Entity> hitEntities;
 
     private double willDrop = 0;
-    private SpiritusType willType = SpiritusType.DEFAULT;
+    private SpiritusType spiritusType = SpiritusType.RAW;
 
     private final Set<MobEffectInstance> effects = Sets.newHashSet();
 
@@ -128,7 +128,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
     }
 
     public void setWillType(SpiritusType type) {
-        this.willType = type;
+        this.spiritusType = type;
     }
 
     public int getColor() {
@@ -332,13 +332,13 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
 
         if (entity.hurt(damageSource, (float) dmg)) {
             if (!entity.isAlive() && owner instanceof Player playerOwner && entity instanceof LivingEntity living) {
-                double willAmount = this.getWillDropForMobHealth(living.getMaxHealth());
+                double spiritusAmount = this.getWillDropForMobHealth(living.getMaxHealth());
                 double bonusSpiritus = playerOwner.getAttributeValue(NVAttributes.BONUS_SPIRITUS);
                 if (bonusSpiritus > 0) {
-                    willAmount *= (1 + bonusSpiritus / 100);
+                    spiritusAmount *= (1 + bonusSpiritus / 100);
                 }
-                if (willAmount > 0) {
-                    PlayerSpiritusHandler.addSpiritus(willType, playerOwner, willAmount);
+                if (spiritusAmount > 0) {
+                    PlayerSpiritusHandler.addSpiritus(spiritusType, playerOwner, spiritusAmount);
                 }
             }
 
@@ -480,7 +480,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         compound.putByte("pickup", (byte) this.pickupStatus.ordinal());
         compound.putDouble("damage", this.damage);
         compound.putDouble("willDrop", willDrop);
-        compound.putString("willType", this.willType.getSerializedName());
+        compound.putString("spiritusType", this.spiritusType.getSerializedName());
 
         if (!this.effects.isEmpty()) {
             ListTag effectList = new ListTag();
@@ -509,8 +509,8 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
             this.pickupStatus = AbstractArrow.Pickup.byOrdinal(compound.getByte("pickup"));
         }
         this.willDrop = compound.getDouble("willDrop");
-        String willTypeName = compound.getString("willType");
-        this.willType = willTypeName.isEmpty() ? SpiritusType.DEFAULT : SpiritusType.valueOf(willTypeName.toUpperCase());
+        String willTypeName = compound.getString("spiritusType");
+        this.spiritusType = willTypeName.isEmpty() ? SpiritusType.RAW : SpiritusType.valueOf(willTypeName.toUpperCase());
 
         if (compound.contains("CustomPotionEffects", 9)) {
             ListTag effectList = compound.getList("CustomPotionEffects", 10);

@@ -15,7 +15,7 @@
   },
   "inputs": [
     {
-      "item": "neovitae:reinforced_slate"
+      "item": "neovitae:tabula_robur"
     },
     {
       "item": "minecraft:rotten_flesh"
@@ -25,7 +25,7 @@
     }
   ],
   "spiritus_costs": {
-    "default": 20.0
+    "raw": 20.0
   },
   "tool": {
     "tag": "neovitae:athanor_tool/resonator"

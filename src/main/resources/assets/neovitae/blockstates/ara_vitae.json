@@ -1,7 +1,8 @@
 {
   "variants": {
-    "": {
-      "model": "neovitae:block/ara_vitae"
-    }
+    "facing=north": { "model": "neovitae:block/ara_vitae" },
+    "facing=south": { "model": "neovitae:block/ara_vitae" },
+    "facing=east":  { "model": "neovitae:block/ara_vitae" },
+    "facing=west":  { "model": "neovitae:block/ara_vitae" }
   }
 }

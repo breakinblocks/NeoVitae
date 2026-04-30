@@ -48,7 +48,16 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
 
     @Override
     public void render(AraVitaeTile tileAltar, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+        // Rotate the geo model by the block's FACING; pop before custom passes so item/ritual/fluid stay in block-local space.
+        net.minecraft.core.Direction facing = tileAltar.getBlockState()
+                .getOptionalValue(com.breakinblocks.neovitae.common.block.AraVitaeBlock.FACING)
+                .orElse(net.minecraft.core.Direction.NORTH);
+        poseStack.pushPose();
+        poseStack.translate(0.5, 0, 0.5);
+        poseStack.mulPose(Axis.YP.rotationDegrees(facing.toYRot()));
+        poseStack.translate(-0.5, 0, -0.5);
         super.render(tileAltar, partialTick, poseStack, bufferSource, packedLight, packedOverlay);
+        poseStack.popPose();
 
         ItemStack inputStack = tileAltar.inv.getStackInSlot(0);
         this.renderItem(inputStack, tileAltar.getLevel(), poseStack, bufferSource, packedLight, packedOverlay);

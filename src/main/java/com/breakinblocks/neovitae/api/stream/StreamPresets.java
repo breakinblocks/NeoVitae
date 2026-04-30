@@ -168,7 +168,7 @@ public final class StreamPresets {
     }
 
     /**
-     * Fiery orange chain of demon will. Aggressive wobble, rises slightly
+     * Fiery orange chain of spiritus. Aggressive wobble, rises slightly
      * against gravity like heated air. Emits a harsh glow.
      */
     public static StreamEffect.Builder demonTether(Entity source, BlockPos target) {

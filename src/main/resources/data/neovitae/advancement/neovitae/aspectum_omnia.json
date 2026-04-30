@@ -1,55 +1,29 @@
 {
-  "parent": "neovitae:neovitae/harvest_raw_spiritus",
+  "parent": "neovitae:neovitae/transmute_ruina",
   "criteria": {
-    "raw": {
-      "conditions": {
-        "items": [
-          {
-            "items": "neovitae:raw_crystal_shard"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "ruina": {
       "conditions": {
-        "items": [
-          {
-            "items": "neovitae:spiritus_ruina_shard"
-          }
-        ]
+        "aspect": "ruina"
       },
-      "trigger": "minecraft:inventory_changed"
+      "trigger": "neovitae:catalyst_transmute"
     },
     "nihilum": {
       "conditions": {
-        "items": [
-          {
-            "items": "neovitae:spiritus_nihilum_shard"
-          }
-        ]
+        "aspect": "nihilum"
       },
-      "trigger": "minecraft:inventory_changed"
+      "trigger": "neovitae:catalyst_transmute"
     },
     "vindicta": {
       "conditions": {
-        "items": [
-          {
-            "items": "neovitae:spiritus_vindicta_shard"
-          }
-        ]
+        "aspect": "vindicta"
       },
-      "trigger": "minecraft:inventory_changed"
+      "trigger": "neovitae:catalyst_transmute"
     },
     "invictus": {
       "conditions": {
-        "items": [
-          {
-            "items": "neovitae:spiritus_invictus_shard"
-          }
-        ]
+        "aspect": "invictus"
       },
-      "trigger": "minecraft:inventory_changed"
+      "trigger": "neovitae:catalyst_transmute"
     }
   },
   "display": {
@@ -61,14 +35,13 @@
     "hidden": true,
     "icon": {
       "count": 1,
-      "id": "neovitae:spiritus_invictus_shard"
+      "id": "neovitae:spiritus_invictus_catalyst"
     },
     "title": {
       "translate": "advancements.neovitae.aspectum_omnia.title"
     }
   },
   "requirements": [
-    ["raw"],
     ["ruina"],
     ["nihilum"],
     ["vindicta"],

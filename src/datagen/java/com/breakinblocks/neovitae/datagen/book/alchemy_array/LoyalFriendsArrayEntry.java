@@ -32,7 +32,7 @@ public class LoyalFriendsArrayEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Inscribing the Array");
         this.pageText("Inscribe an [#](8B0000)Alchemy Array[#]() using a [#](4A0080)Lead[#]() as the base "
-                + "reagent and a [#](4A0080)Reinforced Slate[#]() as the catalyst. Step near the active array "
+                + "reagent and a [#](4A0080)Tabula Robur[#]() as the catalyst. Step near the active array "
                 + "to trigger the summoning. The nearest player within 8 blocks will be treated as the owner.");
     }
 

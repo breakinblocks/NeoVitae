@@ -146,7 +146,7 @@ public class AraVitaeEntry extends EntryProvider {
                 + "beyond the last ring. No corner blocks at rune level; instead, pillars ascend one tier higher, "
                 + "crowned with [#](8B0000)Crystal Clusters[#]() that sing with resonant energy. A monument to mastery."
                 + "\\\n\\\nForge Crystal Clusters in the [#](8B0000)Hellfire Forge[#]() from [#](8B0000)Sculk[#](), "
-                + "an [#](8B0000)Ethereal Slate[#](), a [#](8B0000)Weak Blood Shard[#](), and a [#](8B0000)Nether Star[#](). "
+                + "an [#](8B0000)Tabula Aetherea[#](), a [#](8B0000)Weak Blood Shard[#](), and a [#](8B0000)Nether Star[#](). "
                 + "[#](8B0000)Crystal Cluster Bricks[#]() also serve as valid capstones.");
 
         this.page("tier6_recipe", () -> BookHellfireForgeRecipePageModel.create()

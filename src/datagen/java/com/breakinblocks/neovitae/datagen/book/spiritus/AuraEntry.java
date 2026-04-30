@@ -32,7 +32,7 @@ public class AuraEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Vas Maleficum");
-        this.pageText("Feed it a charged [#](8B0000)Spiritus Gem[#](), loose [#](8B0000)Spiritus[#](), or [#](8B0000)Demon Crystals[#]() "
+        this.pageText("Feed it a charged [#](8B0000)Spiritus Gem[#](), loose [#](8B0000)Spiritus[#](), or [#](8B0000)Spiritus Crystals[#]() "
                 + "of any Aspect. Crystals are consumed once the chunk's Spiritus dips below 50; Spiritus in item "
                 + "form or from a gem is consumed gradually as needed.");
 

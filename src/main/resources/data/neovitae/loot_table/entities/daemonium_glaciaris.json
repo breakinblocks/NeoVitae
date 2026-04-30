@@ -41,27 +41,27 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "neovitae:base_spiritus_soul_steadfast",
+          "name": "neovitae:base_spiritus_soul_invictus",
           "weight": 40
         },
         {
           "type": "minecraft:item",
-          "name": "neovitae:base_spiritus_soul",
+          "name": "neovitae:base_spiritus_soul_raw",
           "weight": 15
         },
         {
           "type": "minecraft:item",
-          "name": "neovitae:base_spiritus_soul_corrosive",
+          "name": "neovitae:base_spiritus_soul_ruina",
           "weight": 15
         },
         {
           "type": "minecraft:item",
-          "name": "neovitae:base_spiritus_soul_destructive",
+          "name": "neovitae:base_spiritus_soul_nihilum",
           "weight": 15
         },
         {
           "type": "minecraft:item",
-          "name": "neovitae:base_spiritus_soul_vengeful",
+          "name": "neovitae:base_spiritus_soul_vindicta",
           "weight": 15
         }
       ],

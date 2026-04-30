@@ -20,65 +20,53 @@ public class SpiritusCatalystsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Catalysts");
-        this.pageText("If [#](8B0000)Spiritus[#]() has one flaw, it is the tedium of collection. Even armed with a "
-                + "nearly full [#](8B0000)Spiritus Gem[#](), a [#](8B0000)Sentient Sword[#]() bearing [#](8B0000)Looting III[#]() and "
-                + "[#](8B0000)Plunderer's Glint II[#](), the harvest remains a manual labor, and you have far "
-                + "grander designs to attend to.");
+        this.pageText("Five catalysts exist, one for each Aspect of Spiritus: Raw, Ruina, Nihilum, Vindicta, "
+                + "and Invictus. Each is forged in the [#](8B0000)Hellfire Forge[#]() and serves two distinct purposes "
+                + "depending on the cluster you click with it.");
 
-        this.page("automation", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Fortunately, the entire process can be automated, freeing your hands for worthier "
-                + "pursuits.\\\n\\\n"
-                + "Begin with four [#](8B0000)Spiritus Crystals[#]() of the same type: Raw, Steadfast, Destructive, "
-                + "Vengeful, or Corrosive.");
-
-        this.page("clusters", () -> BookTextPageModel.create()
+        this.page("bootstrap", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Crystal Clusters");
-        this.pageText("Forge a cluster from four matching crystals in the [#](8B0000)Hellfire Forge[#](), then place "
-                + "it in any chunk suffused with Spiritus of the same Aspect. In time, new spires crystallize "
-                + "and grow, just as they do atop a [#](8B0000)Crystallarium Maleficum[#]().");
+        this.pageTitle("Bootstrapping Aspected Crystals");
+        this.pageText("A [#](8B0000)Crystallarium Maleficum[#]() will only grow [#](8B0000)Raw Spiritus[#]() clusters until "
+                + "the chunk's Aura is dominated by a different Aspect, and that demands aspected crystals "
+                + "you do not yet possess. The catalyst is the only way to break this cycle.\\\n\\\n"
+                + "Right-click a [#](8B0000)fully-grown Raw cluster[#]() with an aspected catalyst (Ruina, Nihilum, "
+                + "Vindicta, or Invictus) and the cluster transmutes into the catalyst's Aspect, restarting "
+                + "at age zero. The catalyst is consumed in the act.");
 
-        this.page("harvesting", () -> BookTextPageModel.create()
+        this.page("animus_cost", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The [#](8B0000)Crack of the Fractured Crystal[#]() ritual automates the breaking of excess "
-                + "spires, and the [#](8B0000)Call of the Zephyr[#]() gathers the dropped crystals.\\\n\\\n"
-                + "With a basic [#](8B0000)Routing Node[#]() system, you can even feed surplus crystals back into a "
-                + "[#](8B0000)Vas Maleficum[#]() for a self-sustaining loop.\\\n\\\n"
-                + "There is, however, a drawback: this process is slow. Each crystal sprouts a new spire once "
-                + "every few minutes, consuming nearly as much Spiritus as it yields, roughly [#](B8860B)1 Spiritus per minute "
-                + "per spire[#]().");
+        this.pageText("Transmutation also demands one [#](8B0000)Animus Mote[#]() be present in your inventory; "
+                + "the mote is what splinters the cluster's natures into a single focused Aspect.\\\n\\\n"
+                + "Animus Motes drop from [#](8B0000)Daemonium Animaris[#]() in [#](2E8B57)Standard Dungeons[#](), and appear in "
+                + "[#](2E8B57)great_loot[#]() and [#](2E8B57)decent_loot[#]() Standard Dungeon chests. Four motes are enough to seed "
+                + "every Aspect lineage; thereafter you only need them when starting a new farm or seeding a "
+                + "fresh cluster type.\\\n\\\n"
+                + "[#](2E8B57)Once you have one aspected cluster of a given Aspect, burn its harvested shards in a Vas "
+                + "Maleficum to make that Aspect dominant in the chunk. The Crystallarium will then form new "
+                + "clusters of that Aspect natively, no further motes required.[#]()");
 
-        this.page("catalyst_recipes", () -> BookTextPageModel.create()
+        this.page("acceleration", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Spiritus Catalysts");
-        this.pageText("Five variants exist, one for each Aspect of Spiritus. Forge them in the "
-                + "[#](8B0000)Hellfire Forge[#]().");
+        this.pageTitle("Accelerating Existing Clusters");
+        this.pageText("Right-click a cluster with a [#](8B0000)matching-Aspect[#]() catalyst (e.g., Ruina catalyst on a "
+                + "Ruina cluster) and the cluster's growth is supercharged: the per-spire Spiritus cost drops "
+                + "from 45 to [#](B8860B)25[#](), and growth accelerates tenfold. One dose fuels ten spires, netting "
+                + "[#](B8860B)+200 Spiritus per catalyst[#]() versus passive aura growth.\\\n\\\n"
+                + "A second dose extends the effect to twenty growths total. Same-aspect acceleration does "
+                + "[#](2E8B57)not[#]() consume an Animus Mote.");
 
-        this.page("catalyst_usage", () -> BookTextPageModel.create()
+        this.page("automation_loop", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("While holding a [#](8B0000)Spiritus Catalyst[#]() of the matching Aspect, right-click a "
-                + "[#](8B0000)Crystal Cluster[#]() to supercharge its growth.\\\n\\\n"
-                + "Each catalyst reduces the Spiritus cost per spire from 45 to just [#](B8860B)25[#](), and accelerates "
-                + "growth tenfold. One dose fuels ten spires of growth, yielding a net bonus of "
-                + "[#](B8860B)200 Spiritus per Catalyst[#]().");
-
-        this.page("double_dosing", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("A second application extends the effect to 20 growths rather than 10, though it "
-                + "provides no other benefit.\\\n\\\n"
-                + "The astute blood mage will note this merely trades one manual task, slaying monsters, "
-                + "for another, anointing crystals.");
-
-        this.page("full_automation", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("Naturally, there is a ritual for that. The [#](8B0000)Gathering of the Forsaken Souls[#]() "
-                + "automatically applies catalysts to any clusters within its reach.\\\n\\\n"
-                + "With the right farms and a sufficiently ingenious [#](8B0000)Routing Node[#]() configuration, "
-                + "the entire apparatus runs itself, top to bottom. The precise arrangement, however, "
-                + "is left as an exercise for the ambitious.");
+        this.pageText("Pair the catalyst with the [#](8B0000)Crystallum Fractura[#]() ritual for a hands-off farm: "
+                + "the ritual auto-harvests fully-grown clusters, doubles ambient growth, and (with the "
+                + "Master Ritual Stone attuned via the Ritual Reader) can bias the +25%% injection bonus toward "
+                + "any Aspect you choose.\\\n\\\n"
+                + "A modest [#](8B0000)Routing Node[#]() arrangement can then ship harvested shards back into a "
+                + "[#](8B0000)Vas Maleficum[#]() to maintain saturation, closing the loop. The exact layout is left as "
+                + "an exercise for the ambitious.");
     }
 
     @Override

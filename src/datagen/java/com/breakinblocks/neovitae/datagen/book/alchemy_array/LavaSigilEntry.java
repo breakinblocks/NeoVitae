@@ -28,7 +28,7 @@ public class LavaSigilEntry extends EntryProvider {
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Forge the [#](8B0000)Lava Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
-                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a [#](8B0000)Blank Slate[#]() as "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a [#](8B0000)Tabula Rasa[#]() as "
                 + "catalyst.\\\n\\\n[#](4A0080)Handle with the reverence due to hellfire.[#]()");
 
         this.page("tabula_vitae", () -> BookTextPageModel.create()

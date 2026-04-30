@@ -1,9 +1,9 @@
 {
   "parent": "neovitae:neovitae/first_ritual",
   "criteria": {
-    "crystal": {
+    "crystallum_fractura": {
       "conditions": {
-        "ritual_id": "neovitae:crystal_split"
+        "ritual_id": "neovitae:crystallum_fractura"
       },
       "trigger": "neovitae:ritual_activated"
     },
@@ -54,7 +54,7 @@
       "dungeon"
     ],
     [
-      "crystal"
+      "crystallum_fractura"
     ],
     [
       "lava"

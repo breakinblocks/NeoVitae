@@ -95,9 +95,6 @@ public final class NVRituals {
     public static final DeferredHolder<Ritual, RitualUpgradeRemove> UPGRADE_REMOVE =
             registerRitual("upgrade_remove", RitualUpgradeRemove::new);
 
-    public static final DeferredHolder<Ritual, RitualCrystalSplit> CRYSTAL_SPLIT =
-            registerRitual("crystal_split", RitualCrystalSplit::new);
-
     public static final DeferredHolder<Ritual, RitualCrafting> CRAFTING =
             registerRitual("crafting", RitualCrafting::new);
 

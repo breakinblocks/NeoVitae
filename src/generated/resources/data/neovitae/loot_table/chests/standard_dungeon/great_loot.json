@@ -197,16 +197,33 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "neovitae:set_will_range",
-              "will": {
+              "function": "neovitae:set_spiritus_range",
+              "spiritus": {
                 "type": "minecraft:uniform",
                 "max": 60.0,
                 "min": 30.0
               }
             }
           ],
-          "name": "neovitae:base_spiritus_soul",
+          "name": "neovitae:base_spiritus_soul_raw",
           "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "neovitae:animus_mote",
+          "quality": 4,
+          "weight": 5
         }
       ],
       "rolls": {

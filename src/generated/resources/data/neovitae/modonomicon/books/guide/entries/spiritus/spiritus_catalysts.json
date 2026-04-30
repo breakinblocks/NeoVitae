@@ -4,7 +4,7 @@
   "category": "spiritus",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "spiritus/aspected_will"
+    "entry_id": "spiritus/aspected_spiritus"
   },
   "description": "book.neovitae.guide.spiritus.spiritus_catalysts.description",
   "hide_while_locked": false,
@@ -31,7 +31,18 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.spiritus_catalysts.automation.text",
+      "text": "book.neovitae.guide.spiritus.spiritus_catalysts.bootstrap.text",
+      "title": "book.neovitae.guide.spiritus.spiritus_catalysts.bootstrap.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.spiritus_catalysts.animus_cost.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -42,8 +53,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.spiritus_catalysts.clusters.text",
-      "title": "book.neovitae.guide.spiritus.spiritus_catalysts.clusters.title",
+      "text": "book.neovitae.guide.spiritus.spiritus_catalysts.acceleration.text",
+      "title": "book.neovitae.guide.spiritus.spiritus_catalysts.acceleration.title",
       "use_markdown_in_title": false
     },
     {
@@ -53,51 +64,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.spiritus_catalysts.harvesting.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.spiritus_catalysts.catalyst_recipes.text",
-      "title": "book.neovitae.guide.spiritus.spiritus_catalysts.catalyst_recipes.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.spiritus_catalysts.catalyst_usage.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.spiritus_catalysts.double_dosing.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.spiritus_catalysts.full_automation.text",
+      "text": "book.neovitae.guide.spiritus.spiritus_catalysts.automation_loop.text",
       "title": "",
       "use_markdown_in_title": false
     }

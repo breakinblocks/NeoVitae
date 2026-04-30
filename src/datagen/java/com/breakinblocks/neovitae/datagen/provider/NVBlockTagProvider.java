@@ -207,16 +207,10 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         this.tag(NVTags.Blocks.TRANQUILITY_FIRE);
         this.tag(NVTags.Blocks.TRANQUILITY_LAVA);
 
-        // Geode ritual - harvestable crystal blocks (mature clusters)
+        // Crystallum Fractura ritual - harvestable crystal blocks (mature clusters)
         // Other mods (AE2, GeoOres, etc.) can add their clusters via datapacks
         this.tag(NVTags.Blocks.GEODE_HARVESTABLE)
                 .add(Blocks.AMETHYST_CLUSTER);
-
-        // Geode ritual - budding blocks that can be accelerated
-        // Includes c:budding tag for cross-mod compat (AE2 certus, GeoOres, etc.)
-        this.tag(NVTags.Blocks.GEODE_ACCELERATABLE)
-                .add(Blocks.BUDDING_AMETHYST)
-                .addOptionalTag(TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("c", "budding_blocks")));
 
         // Mushroom blocks for fungal charges
         this.tag(NVTags.Blocks.MUSHROOM_STEM)

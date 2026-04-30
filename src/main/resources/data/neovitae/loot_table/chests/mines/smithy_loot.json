@@ -547,7 +547,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "neovitae:corrosive_crystal",
+          "name": "neovitae:spiritus_ruina_shard",
           "quality": 3,
           "weight": 2
         },
@@ -564,7 +564,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "neovitae:default_crystal",
+          "name": "neovitae:raw_crystal_shard",
           "quality": 3,
           "weight": 2
         },
@@ -581,7 +581,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "neovitae:steadfast_crystal",
+          "name": "neovitae:spiritus_invictus_shard",
           "quality": 3,
           "weight": 2
         },
@@ -598,7 +598,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "neovitae:vengeful_crystal",
+          "name": "neovitae:spiritus_vindicta_shard",
           "quality": 3,
           "weight": 2
         },
@@ -615,7 +615,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "neovitae:destructive_crystal",
+          "name": "neovitae:spiritus_nihilum_shard",
           "quality": 3,
           "weight": 2
         },
@@ -659,15 +659,15 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "will": {
+              "spiritus": {
                 "type": "minecraft:uniform",
                 "max": 75.0,
                 "min": 40.0
               },
-              "function": "neovitae:set_will_range"
+              "function": "neovitae:set_spiritus_range"
             }
           ],
-          "name": "neovitae:base_spiritus_soul",
+          "name": "neovitae:base_spiritus_soul_raw",
           "weight": 10
         },
         {

@@ -40,11 +40,11 @@ public class ThrowingDaggersEntry extends EntryProvider {
         this.pageTitle("Syringe Throwing Dagger");
         this.pageText("For the practitioner more interested in [#](4A0080)Essentia Vitae[#]() than Spiritus. Slightly less "
                 + "damaging and noticeably cheaper to forge, creatures slain by this weapon have a chance of "
-                + "yielding a [#](8B0000)Slate Ampoule[#](), or more, if the quarry is sufficiently hearty.");
+                + "yielding a [#](8B0000)Tabula Ampoule[#](), or more, if the quarry is sufficiently hearty.");
 
         this.page("slate_ampoule", () -> BookSpotlightPageModel.create()
                 .withItem(NVItems.TABULA_AMPOULE.get())
-                .withTitle("Slate Ampoule")
+                .withTitle("Tabula Ampoule")
                 .withText(this.context().pageText()));
         this.pageText("Crush these delicate vials near an [#](8B0000)Ara Vitae[#]() to transfer [#](B8860B)500 EV[#]() "
                 + "directly into the altar, destroying the ampoule in the process. "

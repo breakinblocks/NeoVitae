@@ -263,8 +263,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.SPIRITUS_NIHILUM_CATALYST.get(), "Spiritus Nihilum Catalyst");
         add(NVItems.SPIRITUS_VINDICTA_CATALYST.get(), "Spiritus Vindicta Catalyst");
         add(NVItems.SPIRITUS_INVICTUS_CATALYST.get(), "Spiritus Invictus Catalyst");
-        add("tooltip.neovitae.crystal_catalyst.desc", "Right-click a Spiritus Crystal to accelerate its growth");
+        add("tooltip.neovitae.crystal_catalyst.desc", "Right-click a same-aspect Spiritus Crystal to accelerate its growth, or a fully-grown Raw cluster to transmute it (consumes one Animus Mote)");
         add("tooltip.neovitae.crystal_catalyst.aspect", "Aspect: %s");
+        add("chat.neovitae.crystal_catalyst.notMature", "The Raw cluster must be fully grown before it can be transmuted");
+        add("chat.neovitae.crystal_catalyst.needsAnimus", "Transmutation requires one Animus Mote in your inventory");
         add("tooltip.neovitae.blood_mending", "Enchanted with Blood Mending");
         add("tooltip.neovitae.spiritus_stored", "Spiritus: %s / %s");
 
@@ -1088,7 +1090,6 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("sphere", "Spherical Manifestation");
         addRitual("armour_evolve", "Ritual of Living Evolution");
         addRitual("upgrade_remove", "Sound of the Cleansing Soul");
-        addRitual("crystal_split", "Resonance of the Faceted Crystal");
         addRitual("crafting", "Rhythm of the Beating Anvil");
         addRitual("yawning_void", "Yawning of the Void");
 
@@ -1177,14 +1178,12 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("first_ritual", "Ritual Awakening", "Activate your first ritual");
         addAdvancement("well_of_suffering", "Well of Suffering", "Activate the Well of Suffering");
         addAdvancement("edge_of_hidden_realm", "Edge of the Hidden Realm", "Venture into the Endless Realm");
-        addAdvancement("crack_of_fractured_crystal", "Crack of the Fractured Crystal", "Activate the Resonance of the Faceted Crystal");
         addAdvancement("crystallum_fractura", "Crystallum Fractura", "Activate the unified harvest ritual; let the aura split crystals from Spiritus itself");
-        addAdvancement("harvest_raw", "Untempered Harvest", "Reap a Raw Spiritus crystal under the aura of Crystallum Fractura");
-        addAdvancement("harvest_ruina", "Ruinous Harvest", "Gather a Spiritus Ruina crystal from a fully-grown cluster");
-        addAdvancement("harvest_nihilum", "Nihilist's Yield", "Gather a Spiritus Nihilum crystal from a fully-grown cluster");
-        addAdvancement("harvest_vindicta", "Vindicated Harvest", "Gather a Spiritus Vindicta crystal from a fully-grown cluster");
-        addAdvancement("harvest_invictus", "Unbroken Harvest", "Gather a Spiritus Invictus crystal from a fully-grown cluster");
-        addAdvancement("aspectum_omnia", "Aspectum Omnia", "Gather every aspect of Spiritus from the harvest");
+        addAdvancement("transmute_ruina", "First Fracture", "Transmute a fully-grown Raw cluster into Spiritus Ruina with a catalyst and an Animus Mote");
+        addAdvancement("transmute_nihilum", "Aspect of Ruin", "Transmute a Raw cluster into Spiritus Nihilum");
+        addAdvancement("transmute_vindicta", "Aspect of Vengeance", "Transmute a Raw cluster into Spiritus Vindicta");
+        addAdvancement("transmute_invictus", "Aspect of Endurance", "Transmute a Raw cluster into Spiritus Invictus");
+        addAdvancement("aspectum_omnia", "Aspectum Omnia", "Transmute a Raw cluster into each of the four aspects");
         addAdvancement("serenade_of_nether", "Serenade of the Nether", "Activate the Serenade of the Nether");
         addAdvancement("master_of_ceremonies", "Master of Ceremonies", "Complete all ritual achievements");
         addAdvancement("meteor", "METEO!", "Summon the Mark of the Falling Tower");

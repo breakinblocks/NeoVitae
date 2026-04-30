@@ -42,7 +42,7 @@ public class NecromancySigilEntry extends EntryProvider {
         this.pageTitle("Crafting");
         this.pageText("Unlike most sigils, the [#](8B0000)Sigil of Necromancy[#]() is forged in the "
                 + "[#](8B0000)Athanor[#]() rather than inscribed via alchemy array. Place a "
-                + "[#](4A0080)Reinforced Slate[#](), [#](4A0080)Rotten Flesh[#](), and [#](4A0080)Bone[#]() "
+                + "[#](4A0080)Tabula Robur[#](), [#](4A0080)Rotten Flesh[#](), and [#](4A0080)Bone[#]() "
                 + "in the input slots with a [#](8B0000)Resonator[#]() tool. Supply [#](4A0080)1,000 mB of "
                 + "Essentia Vitae[#]() and a minimum of [#](8B0000)20 Raw Spiritus[#]().");
     }

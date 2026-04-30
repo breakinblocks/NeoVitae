@@ -45,7 +45,7 @@ public class SpiritusEntry extends EntryProvider {
 
         this.page("next_steps", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Once you have gathered some Will, the [#](8B0000)Hellfire Forge[#]() awaits, eager to transmute "
+        this.pageText("Once you have gathered some Spiritus, the [#](8B0000)Hellfire Forge[#]() awaits, eager to transmute "
                 + "this raw malice into instruments of power. Should loose fragments begin to clutter your person, "
                 + "a [#](8B0000)Spiritus Gem[#]() will serve as a most convenient receptacle.");
     }

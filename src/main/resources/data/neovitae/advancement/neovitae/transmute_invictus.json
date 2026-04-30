@@ -1,0 +1,30 @@
+{
+  "parent": "neovitae:neovitae/transmute_ruina",
+  "criteria": {
+    "transmute": {
+      "conditions": {
+        "aspect": "invictus"
+      },
+      "trigger": "neovitae:catalyst_transmute"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.transmute_invictus.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:spiritus_invictus_catalyst"
+    },
+    "title": {
+      "translate": "advancements.neovitae.transmute_invictus.title"
+    }
+  },
+  "requirements": [
+    [
+      "transmute"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

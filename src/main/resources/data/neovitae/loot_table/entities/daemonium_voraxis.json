@@ -41,12 +41,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "neovitae:base_spiritus_soul_destructive",
+          "name": "neovitae:base_spiritus_soul_nihilum",
           "weight": 70
         },
         {
           "type": "minecraft:item",
-          "name": "neovitae:base_spiritus_soul_corrosive",
+          "name": "neovitae:base_spiritus_soul_ruina",
           "weight": 30
         }
       ],

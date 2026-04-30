@@ -33,7 +33,18 @@ public class RitualCrystallumFracturaEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Crystallum Fractura");
-        this.pageText("A unified harvest engine that gathers fully-grown [#](8B0000)Spiritus Crystals[#]() and any cluster tagged [#](2E8B57)neovitae:geode_harvestable[#](). Within its aura, crystal growth doubles, and any spiritus injected into a chunk is amplified by [#](B8860B)+25%%[#]().");
+        this.pageText("A unified harvest engine that gathers fully-grown [#](8B0000)Spiritus Crystals[#]() and any cluster tagged [#](2E8B57)neovitae:geode_harvestable[#](). Within its aura, crystal growth doubles, and any Spiritus injected into a chunk is amplified by [#](B8860B)+25%%[#]().");
+
+        this.page("how_to_generate", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Generating Spiritus");
+        this.pageText("To turn this ritual into a Spiritus farm:"
+                + "\n\n1. Burn Spiritus in a [#](8B0000)Vas Maleficum[#]() within range to seed the chunk."
+                + "\n2. Place a [#](8B0000)Crystallarium Maleficum[#]() so it forms [#](8B0000)Spiritus Crystal[#]() clusters from the saturated Aura."
+                + "\n3. The ritual's [#](B8860B)2x growth aura[#]() drives clusters to maturity at double speed."
+                + "\n4. Once fully grown, the ritual auto-harvests them and pops the shards as items, ready for the next cycle."
+                + "\n\n[#](2E8B57)Each Vas Maleficum-burned crystal yielded only 5 net Spiritus by hand; with the +25%% injection bonus and 2x growth, the same crystals net you considerably more per cycle.[#]()");
 
         this.page("fortune", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -43,13 +54,13 @@ public class RitualCrystallumFracturaEntry extends EntryProvider {
                 + "\n\n- below [#](B8860B)30 Raw[#](): no Fortune"
                 + "\n- [#](B8860B)30-100 Raw[#](): linearly scales from Fortune I to Fortune III"
                 + "\n- at or above [#](B8860B)100 Raw[#](): Fortune III"
-                + "\n\nWhen Fortune is active, the ritual probabilistically consumes [#](8B0000)Raw Spiritus[#]() at an average rate of one per twelve seconds.");
+                + "\n\nWhen Fortune is active, the ritual probabilistically consumes [#](8B0000)Raw Spiritus[#]() at an average rate of one per twelve seconds; keep the chunk fed.");
 
         this.page("aspect_bias", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Aspect Bias");
-        this.pageText("Attune the Master Ritual Stone to a single Spiritus aspect with the [#](8B0000)Ritual Tinkerer[#]() (one matching crystal in the hotbar). The +25%% portion of any [#](8B0000)Raw Spiritus[#]() injection within the aura is then redirected to that aspect's pool, letting you farm a chosen aspect while the ritual is running.");
+        this.pageText("Attune the Master Ritual Stone to a single Spiritus aspect with the [#](8B0000)Ritual Reader[#]() in [#](2E8B57)Set Spiritus Consumed[#]() mode while holding exactly one matching crystal in your hotbar. The +25%% portion of any [#](8B0000)Raw Spiritus[#]() injection within the aura is then redirected to that aspect's pool, letting you farm a chosen aspect while the ritual is running.");
     }
 
     @Override

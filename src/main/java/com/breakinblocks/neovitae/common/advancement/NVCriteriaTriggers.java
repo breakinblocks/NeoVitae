@@ -17,6 +17,9 @@ public class NVCriteriaTriggers {
     public static final DeferredHolder<CriterionTrigger<?>, ImperfectRitualActivatedTrigger> IMPERFECT_RITUAL_ACTIVATED =
             TRIGGERS.register("imperfect_ritual_activated", ImperfectRitualActivatedTrigger::new);
 
+    public static final DeferredHolder<CriterionTrigger<?>, CatalystTransmuteTrigger> CATALYST_TRANSMUTE =
+            TRIGGERS.register("catalyst_transmute", CatalystTransmuteTrigger::new);
+
     public static void register(IEventBus modBus) {
         TRIGGERS.register(modBus);
     }

@@ -28,7 +28,7 @@ public class DivinationSigilEntry extends EntryProvider {
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Inscribe the array with [#](8B0000)Redstone Dust[#]() as the base and a "
-                + "[#](8B0000)Blank Slate[#]() as the catalyst. The sigil that emerges thrums faintly with "
+                + "[#](8B0000)Tabula Rasa[#]() as the catalyst. The sigil that emerges thrums faintly with "
                 + "awareness.\\\n\\\n[#](4A0080)To see is to begin understanding.[#]()");
 
         this.page("usage", () -> BookTextPageModel.create()

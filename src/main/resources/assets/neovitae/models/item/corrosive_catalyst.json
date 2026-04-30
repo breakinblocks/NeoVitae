@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "neovitae:item/corrosive_catalyst"
+    "layer0": "neovitae:item/spiritus_ruina_catalyst"
   }
 }

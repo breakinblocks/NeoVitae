@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.altar.rune_speed.description",
   "hide_while_locked": false,
-  "icon": "neovitae:rune_speed",
+  "icon": {
+    "id": "neovitae:rune_speed"
+  },
   "name": "book.neovitae.guide.altar.rune_speed.name",
   "pages": [
     {

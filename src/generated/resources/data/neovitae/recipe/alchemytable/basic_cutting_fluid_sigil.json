@@ -9,7 +9,6 @@
     "neovitae:sigil_water"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:basic_cutting_fluid"
   },
   "syphon": 1100,

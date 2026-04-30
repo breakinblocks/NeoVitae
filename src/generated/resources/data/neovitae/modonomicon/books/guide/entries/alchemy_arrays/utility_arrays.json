@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.utility_arrays.description",
   "hide_while_locked": false,
-  "icon": "minecraft:hopper",
+  "icon": {
+    "id": "minecraft:hopper"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.utility_arrays.name",
   "pages": [
     {

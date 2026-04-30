@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.spiritus.explosive_charges.description",
   "hide_while_locked": false,
-  "icon": "neovitae:shaped_charge",
+  "icon": {
+    "id": "neovitae:shaped_charge"
+  },
   "name": "book.neovitae.guide.spiritus.explosive_charges.name",
   "pages": [
     {

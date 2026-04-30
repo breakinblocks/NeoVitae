@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.downgrade_leadened_pick.description",
   "hide_while_locked": false,
-  "icon": "minecraft:stone_pickaxe",
+  "icon": {
+    "id": "minecraft:stone_pickaxe"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.downgrade_leadened_pick.name",
   "pages": [
     {

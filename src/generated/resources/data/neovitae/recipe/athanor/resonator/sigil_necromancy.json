@@ -3,7 +3,6 @@
   "chance_outputs": [],
   "guaranteed_outputs": [
     {
-      "count": 1,
       "id": "neovitae:sigil_necromancy"
     }
   ],
@@ -12,12 +11,12 @@
     "ingredient": "neovitae:essentia_vitae_source"
   },
   "inputs": [
-    "neovitae:reinforced_slate",
+    "neovitae:tabula_robur",
     "minecraft:rotten_flesh",
     "minecraft:bone"
   ],
   "spiritus_costs": {
-    "default": 20.0
+    "raw": 20.0
   },
   "tool": "#neovitae:athanor_tool/resonator"
 }

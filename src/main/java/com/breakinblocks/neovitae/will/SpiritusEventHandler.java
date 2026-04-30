@@ -73,11 +73,11 @@ public class SpiritusEventHandler {
             for (ItemStack soulStack : soulDrops) {
                 if (soulStack.isEmpty()) continue;
                 if (soulStack.getItem() instanceof ISpiritus spirit) {
-                    double amount = spirit.getWill(weaponType, soulStack);
+                    double amount = spirit.getSpiritus(weaponType, soulStack);
                     double added = PlayerSpiritusHandler.addSpiritus(weaponType, player, amount);
                     if (added < amount) {
                         double leftover = amount - added;
-                        overflow.add(spirit.createWill(leftover));
+                        overflow.add(spirit.createSpiritus(leftover));
                     }
                 } else {
                     overflow.add(soulStack);
@@ -104,7 +104,7 @@ public class SpiritusEventHandler {
         }
 
         SpiritusEssenceItem soulItem = NVItems.MONSTER_SOUL_RAW.get();
-        ItemStack soulStack = soulItem.createWill(soulAmount);
+        ItemStack soulStack = soulItem.createSpiritus(soulAmount);
 
         List<ItemStack> drops = new ArrayList<>();
         drops.add(soulStack);
@@ -142,9 +142,9 @@ public class SpiritusEventHandler {
         if (remaining.isEmpty()) {
             event.getItemEntity().discard();
         } else {
-            double originalWill = will.getWill(will.getType(pickedUp), pickedUp);
+            double originalWill = will.getSpiritus(will.getType(pickedUp), pickedUp);
             double remainingWillAmount = remaining.getItem() instanceof ISpiritus remainingSpiritus
-                    ? remainingSpiritus.getWill(will.getType(remaining), remaining) : originalWill;
+                    ? remainingSpiritus.getSpiritus(will.getType(remaining), remaining) : originalWill;
             if (remainingWillAmount < originalWill) {
                 event.getItemEntity().setItem(remaining);
             }

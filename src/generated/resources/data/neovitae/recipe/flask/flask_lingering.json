@@ -5,7 +5,6 @@
     "minecraft:dragon_breath"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:alchemy_flask_lingering"
   },
   "syphon": 1000,

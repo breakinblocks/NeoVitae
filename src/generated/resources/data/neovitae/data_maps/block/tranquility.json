@@ -16,9 +16,6 @@
     "#minecraft:small_flowers": {
       "type": "plant"
     },
-    "#minecraft:tall_flowers": {
-      "type": "plant"
-    },
     "#neovitae:tranquility/crop": {
       "type": "crop"
     },

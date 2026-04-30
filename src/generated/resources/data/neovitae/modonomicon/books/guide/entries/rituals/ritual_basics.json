@@ -4,7 +4,9 @@
   "category": "rituals",
   "description": "book.neovitae.guide.rituals.ritual_basics.description",
   "hide_while_locked": false,
-  "icon": "neovitae:activation_crystal_creative",
+  "icon": {
+    "id": "neovitae:activation_crystal_creative"
+  },
   "name": "book.neovitae.guide.rituals.ritual_basics.name",
   "pages": [
     {

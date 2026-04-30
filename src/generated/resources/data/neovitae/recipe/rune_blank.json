@@ -7,7 +7,7 @@
       "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 1
     },
-    "s": "neovitae:blank_slate"
+    "s": "neovitae:tabula_rasa"
   },
   "pattern": [
     "asa",
@@ -15,7 +15,6 @@
     "aaa"
   ],
   "result": {
-    "count": 1,
     "id": "neovitae:rune_blank"
   }
 }

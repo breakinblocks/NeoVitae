@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.downgrade_limp_leg.description",
   "hide_while_locked": false,
-  "icon": "minecraft:soul_sand",
+  "icon": {
+    "id": "minecraft:soul_sand"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.downgrade_limp_leg.name",
   "pages": [
     {

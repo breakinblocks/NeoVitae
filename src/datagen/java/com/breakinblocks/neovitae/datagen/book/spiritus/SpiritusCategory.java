@@ -47,12 +47,12 @@ public class SpiritusCategory extends CategoryProvider {
         spiritusGems.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/spiritus_snare"));
         spiritusGems.hideWhileLocked(false);
 
-        var crystallizedWill = this.add(new CrystallizedWillEntry(this).generate('e'));
+        var crystallizedWill = this.add(new CrystallizedSpiritusEntry(this).generate('e'));
         crystallizedWill.withParent(this.parent(spiritusGems));
         crystallizedWill.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/spiritus_gems"));
         crystallizedWill.hideWhileLocked(false);
 
-        var aspectedWill = this.add(new AspectedWillEntry(this).generate('f'));
+        var aspectedWill = this.add(new AspectedSpiritusEntry(this).generate('f'));
         aspectedWill.withParent(this.parent(crystallizedWill));
         aspectedWill.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/crystallized_will"));
         aspectedWill.hideWhileLocked(false);
@@ -67,7 +67,7 @@ public class SpiritusCategory extends CategoryProvider {
         auraGauge.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/aura"));
         auraGauge.hideWhileLocked(false);
 
-        var willCatalysts = this.add(new WillCatalystsEntry(this).generate('i'));
+        var willCatalysts = this.add(new SpiritusCatalystsEntry(this).generate('i'));
         willCatalysts.withParent(this.parent(aspectedWill));
         willCatalysts.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/aspected_will"));
         willCatalysts.hideWhileLocked(false);

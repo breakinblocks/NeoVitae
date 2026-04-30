@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.altar.rune_charging.description",
   "hide_while_locked": false,
-  "icon": "neovitae:rune_charging",
+  "icon": {
+    "id": "neovitae:rune_charging"
+  },
   "name": "book.neovitae.guide.altar.rune_charging.name",
   "pages": [
     {

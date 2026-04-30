@@ -3,13 +3,12 @@
   "drain": 100.0,
   "inputs": [
     "neovitae:spiritus_gem_common",
-    "neovitae:demonic_slate",
+    "neovitae:tabula_spiritus",
     "neovitae:weak_blood_shard",
     "#neovitae:crystals/demon"
   ],
   "minDrain": 1000.0,
   "output": {
-    "count": 1,
     "id": "neovitae:spiritus_gem_greater"
   }
 }

@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.altar.anima.description",
   "hide_while_locked": false,
-  "icon": "neovitae:blood_orb_weak",
+  "icon": {
+    "id": "neovitae:blood_orb_weak"
+  },
   "name": "book.neovitae.guide.altar.anima.name",
   "pages": [
     {

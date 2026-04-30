@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_pin_cushion.description",
   "hide_while_locked": false,
-  "icon": "minecraft:arrow",
+  "icon": {
+    "id": "minecraft:arrow"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_pin_cushion.name",
   "pages": [
     {

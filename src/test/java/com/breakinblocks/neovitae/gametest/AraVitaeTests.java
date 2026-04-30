@@ -71,7 +71,7 @@ public final class AraVitaeTests {
 
                 helper.runAfterDelay(250, () -> {
                     ItemStack result = altar.inv.getStackInSlot(0);
-                    if (!result.is(NVItems.SLATE_BLANK.get())) {
+                    if (!result.is(NVItems.TABULA_RASA.get())) {
                         helper.fail("Expected blank slate, got " + result + " (progress=" + altar.getProgress() + ", mainTank=" + altar.getMainTank() + ")");
                     }
                     helper.succeed();

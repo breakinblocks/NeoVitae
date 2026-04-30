@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.spiritus.sentient_sword.description",
   "hide_while_locked": false,
-  "icon": "neovitae:sentient_sword",
+  "icon": {
+    "id": "neovitae:sentient_sword"
+  },
   "name": "book.neovitae.guide.spiritus.sentient_sword.name",
   "pages": [
     {

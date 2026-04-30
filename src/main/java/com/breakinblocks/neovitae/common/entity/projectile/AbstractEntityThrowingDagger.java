@@ -71,7 +71,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
     private List<Entity> hitEntities;
 
     private double willDrop = 0;
-    private SpiritusType willType = SpiritusType.DEFAULT;
+    private SpiritusType spiritusType = SpiritusType.RAW;
 
     private final Set<MobEffectInstance> effects = Sets.newHashSet();
 
@@ -120,7 +120,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
     }
 
     public void setWillType(SpiritusType type) {
-        this.willType = type;
+        this.spiritusType = type;
     }
 
     public int getColor() {
@@ -340,13 +340,13 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
 
         if (entity.hurtServer((ServerLevel) entity.level(), damageSource, (float) dmg)) {
             if (!entity.isAlive() && owner instanceof Player playerOwner && entity instanceof LivingEntity living) {
-                double willAmount = this.getWillDropForMobHealth(living.getMaxHealth());
+                double spiritusAmount = this.getWillDropForMobHealth(living.getMaxHealth());
                 double bonusSpiritus = playerOwner.getAttributeValue(NVAttributes.BONUS_SPIRITUS);
                 if (bonusSpiritus > 0) {
-                    willAmount *= (1 + bonusSpiritus / 100);
+                    spiritusAmount *= (1 + bonusSpiritus / 100);
                 }
-                if (willAmount > 0) {
-                    PlayerSpiritusHandler.addSpiritus(willType, playerOwner, willAmount);
+                if (spiritusAmount > 0) {
+                    PlayerSpiritusHandler.addSpiritus(spiritusType, playerOwner, spiritusAmount);
                 }
             }
 
@@ -480,7 +480,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         out.putByte("pickup", (byte) this.pickupStatus.ordinal());
         out.putDouble("damage", this.damage);
         out.putDouble("willDrop", willDrop);
-        out.putString("willType", this.willType.getSerializedName());
+        out.putString("spiritusType", this.spiritusType.getSerializedName());
 
         if (!this.effects.isEmpty()) {
             out.store("CustomPotionEffects", MobEffectInstance.CODEC.listOf(), List.copyOf(this.effects));
@@ -497,8 +497,8 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         this.damage = in.getDoubleOr("damage", this.damage);
         this.pickupStatus = AbstractArrow.Pickup.byOrdinal(in.getByteOr("pickup", (byte) 0));
         this.willDrop = in.getDoubleOr("willDrop", 0d);
-        String willTypeName = in.getStringOr("willType", "");
-        this.willType = willTypeName.isEmpty() ? SpiritusType.DEFAULT : SpiritusType.valueOf(willTypeName.toUpperCase());
+        String willTypeName = in.getStringOr("spiritusType", "");
+        this.spiritusType = willTypeName.isEmpty() ? SpiritusType.RAW : SpiritusType.valueOf(willTypeName.toUpperCase());
 
         in.read("CustomPotionEffects", MobEffectInstance.CODEC.listOf()).ifPresent(list -> {
             for (MobEffectInstance effect : list) {

@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_air.description",
   "hide_while_locked": false,
-  "icon": "neovitae:sigil_air",
+  "icon": {
+    "id": "neovitae:sigil_air"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.sigil_air.name",
   "pages": [
     {

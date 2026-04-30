@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_crafting.description",
   "hide_while_locked": false,
-  "icon": "minecraft:crafting_table",
+  "icon": {
+    "id": "minecraft:crafting_table"
+  },
   "name": "book.neovitae.guide.rituals.ritual_crafting.name",
   "pages": [
     {

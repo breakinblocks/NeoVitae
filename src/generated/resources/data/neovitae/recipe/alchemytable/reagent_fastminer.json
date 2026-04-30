@@ -7,7 +7,6 @@
     "#c:gunpowders"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:reagent_fast_miner"
   },
   "syphon": 2000,

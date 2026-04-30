@@ -4,7 +4,9 @@
   "category": "utility",
   "description": "book.neovitae.guide.utility.teleposer.description",
   "hide_while_locked": false,
-  "icon": "neovitae:teleposer_focus",
+  "icon": {
+    "id": "neovitae:teleposer_focus"
+  },
   "name": "book.neovitae.guide.utility.teleposer.name",
   "pages": [
     {

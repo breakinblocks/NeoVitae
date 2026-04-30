@@ -79,10 +79,10 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .add(NVBlocks.SPIRA_INFERNALIS.block().get())
                 // Demon crystals
                 .add(NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get())
-                .add(NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block().get())
-                .add(NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block().get())
-                .add(NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().get())
-                .add(NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().get())
+                .add(NVBlocks.SPIRITUS_RUINA_CRYSTAL.block().get())
+                .add(NVBlocks.SPIRITUS_NIHILUM_CRYSTAL.block().get())
+                .add(NVBlocks.SPIRITUS_VINDICTA_CRYSTAL.block().get())
+                .add(NVBlocks.SPIRITUS_INVICTUS_CRYSTAL.block().get())
                 // Routing nodes
                 .add(NVBlocks.ROUTING_CONDUIT.block().get())
                 .add(NVBlocks.INPUT_ROUTING_NODE.block().get())
@@ -120,10 +120,10 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .add(NVBlocks.SPIRA_INFERNALIS.block().get())
                 // Demon crystals
                 .add(NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get())
-                .add(NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block().get())
-                .add(NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block().get())
-                .add(NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().get())
-                .add(NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().get())
+                .add(NVBlocks.SPIRITUS_RUINA_CRYSTAL.block().get())
+                .add(NVBlocks.SPIRITUS_NIHILUM_CRYSTAL.block().get())
+                .add(NVBlocks.SPIRITUS_VINDICTA_CRYSTAL.block().get())
+                .add(NVBlocks.SPIRITUS_INVICTUS_CRYSTAL.block().get())
                 // Routing nodes
                 .add(NVBlocks.ROUTING_CONDUIT.block().get())
                 .add(NVBlocks.INPUT_ROUTING_NODE.block().get())

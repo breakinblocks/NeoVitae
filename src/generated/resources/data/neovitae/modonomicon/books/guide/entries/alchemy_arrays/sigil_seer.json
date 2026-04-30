@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_seer.description",
   "hide_while_locked": false,
-  "icon": "neovitae:sigil_seer",
+  "icon": {
+    "id": "neovitae:sigil_seer"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.sigil_seer.name",
   "pages": [
     {

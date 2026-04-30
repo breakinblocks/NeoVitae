@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "bloodNeeded": 1000,
+  "craftSpeed": 5,
+  "drainSpeed": 5,
+  "input": "#c:stones",
+  "minTier": 0,
+  "output": {
+    "id": "neovitae:tabula_rasa"
+  }
+}

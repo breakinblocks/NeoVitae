@@ -3,5 +3,8 @@
   "addedinput": "#c:dusts/redstone",
   "baseinput": "minecraft:kelp",
   "effect_type": "undertow",
+  "output": {
+    "id": "minecraft:stone"
+  },
   "texture": "neovitae:textures/models/alchemyarrays/undertowarray.png"
 }

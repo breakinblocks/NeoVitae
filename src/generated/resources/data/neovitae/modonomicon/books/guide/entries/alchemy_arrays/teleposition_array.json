@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.teleposition_array.description",
   "hide_while_locked": false,
-  "icon": "minecraft:ender_pearl",
+  "icon": {
+    "id": "minecraft:ender_pearl"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.teleposition_array.name",
   "pages": [
     {

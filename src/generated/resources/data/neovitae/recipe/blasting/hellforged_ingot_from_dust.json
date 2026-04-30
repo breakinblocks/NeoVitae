@@ -5,7 +5,6 @@
   "experience": 1.0,
   "ingredient": "neovitae:hellforged_dust",
   "result": {
-    "count": 1,
     "id": "neovitae:ingot_hellforged"
   }
 }

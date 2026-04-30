@@ -12,17 +12,17 @@ public class ServerConfig {
     public final ModConfigSpec.ConfigValue<Integer> DEFAULT_UPGRADE_POINTS;
     public final ModConfigSpec.ConfigValue<Integer> EVOLUTION_UPGRADE_POINTS;
 
-    public final ModConfigSpec.DoubleValue WILL_MAX_DEFAULT;
-    public final ModConfigSpec.DoubleValue WILL_MAX_CORROSIVE;
-    public final ModConfigSpec.DoubleValue WILL_MAX_DESTRUCTIVE;
-    public final ModConfigSpec.DoubleValue WILL_MAX_VENGEFUL;
-    public final ModConfigSpec.DoubleValue WILL_MAX_STEADFAST;
+    public final ModConfigSpec.DoubleValue SPIRITUS_MAX_RAW;
+    public final ModConfigSpec.DoubleValue SPIRITUS_MAX_RUINA;
+    public final ModConfigSpec.DoubleValue SPIRITUS_MAX_NIHILUM;
+    public final ModConfigSpec.DoubleValue SPIRITUS_MAX_VINDICTA;
+    public final ModConfigSpec.DoubleValue SPIRITUS_MAX_INVICTUS;
 
-    public final ModConfigSpec.DoubleValue CRYSTAL_WILL_TO_FORM;
+    public final ModConfigSpec.DoubleValue CRYSTAL_SPIRITUS_TO_FORM;
     public final ModConfigSpec.DoubleValue CRYSTAL_FORMATION_TIME;
-    public final ModConfigSpec.DoubleValue CRYSTAL_SAME_WILL_RATE;
-    public final ModConfigSpec.DoubleValue CRYSTAL_DIFFERENT_WILL_RATE;
-    public final ModConfigSpec.DoubleValue CRYSTAL_WRONG_WILL_DELAY;
+    public final ModConfigSpec.DoubleValue CRYSTAL_SAME_SPIRITUS_RATE;
+    public final ModConfigSpec.DoubleValue CRYSTAL_DIFFERENT_SPIRITUS_RATE;
+    public final ModConfigSpec.DoubleValue CRYSTAL_WRONG_SPIRITUS_DELAY;
     public final ModConfigSpec.DoubleValue CRYSTAL_GROWTH_SPEED;
     public final ModConfigSpec.DoubleValue CRYSTAL_GROWTH_THRESHOLD;
     public final ModConfigSpec.IntValue CRYSTAL_MAX_COUNT;
@@ -50,53 +50,53 @@ public class ServerConfig {
 
         builder.comment("Spiritus System Configuration",
                 "These values define the base maximum spiritus that can be stored per chunk.",
-                "Different will types can have different maximum capacities.",
+                "Different aspects can have different maximum capacities.",
                 "Rituals and other effects can add bonuses on top of these base values.");
         builder.push("spiritus");
 
-        WILL_MAX_DEFAULT = builder
-                .comment("Base maximum Raw (Default) spiritus per chunk")
-                .defineInRange("max_default_will", 100.0, 1.0, 10000.0);
-        WILL_MAX_CORROSIVE = builder
-                .comment("Base maximum Corrosive spiritus per chunk")
-                .defineInRange("max_corrosive_will", 100.0, 1.0, 10000.0);
-        WILL_MAX_DESTRUCTIVE = builder
-                .comment("Base maximum Destructive spiritus per chunk")
-                .defineInRange("max_destructive_will", 100.0, 1.0, 10000.0);
-        WILL_MAX_VENGEFUL = builder
-                .comment("Base maximum Vengeful spiritus per chunk")
-                .defineInRange("max_vengeful_will", 100.0, 1.0, 10000.0);
-        WILL_MAX_STEADFAST = builder
-                .comment("Base maximum Steadfast spiritus per chunk")
-                .defineInRange("max_steadfast_will", 100.0, 1.0, 10000.0);
+        SPIRITUS_MAX_RAW = builder
+                .comment("Base maximum Raw Spiritus per chunk")
+                .defineInRange("max_raw", 100.0, 1.0, 10000.0);
+        SPIRITUS_MAX_RUINA = builder
+                .comment("Base maximum Spiritus Ruina per chunk")
+                .defineInRange("max_ruina", 100.0, 1.0, 10000.0);
+        SPIRITUS_MAX_NIHILUM = builder
+                .comment("Base maximum Spiritus Nihilum per chunk")
+                .defineInRange("max_nihilum", 100.0, 1.0, 10000.0);
+        SPIRITUS_MAX_VINDICTA = builder
+                .comment("Base maximum Spiritus Vindicta per chunk")
+                .defineInRange("max_vindicta", 100.0, 1.0, 10000.0);
+        SPIRITUS_MAX_INVICTUS = builder
+                .comment("Base maximum Spiritus Invictus per chunk")
+                .defineInRange("max_invictus", 100.0, 1.0, 10000.0);
 
         builder.pop();
 
-        builder.comment("Demon Crystal Growth Configuration",
-                "These values control how demon crystals form and grow.",
-                "Crystals are created by Crystallarium Maleficums and grow based on chunk will.");
+        builder.comment("Spiritus Crystal Growth Configuration",
+                "These values control how spiritus crystals form and grow.",
+                "Crystals are created by Crystallarium Maleficums and grow based on chunk spiritus.");
         builder.push("spiritus_crystal");
 
-        CRYSTAL_WILL_TO_FORM = builder
+        CRYSTAL_SPIRITUS_TO_FORM = builder
                 .comment("Amount of spiritus required to form a new crystal")
-                .defineInRange("will_to_form", 99.0, 1.0, 1000.0);
+                .defineInRange("spiritus_to_form", 99.0, 1.0, 1000.0);
         CRYSTAL_FORMATION_TIME = builder
                 .comment("Total time (in ticks) for crystal formation in the Crystallizer")
                 .defineInRange("formation_time", 1000.0, 100.0, 10000.0);
-        CRYSTAL_SAME_WILL_RATE = builder
-                .comment("Will consumption rate when crystal type matches chunk dominant will")
-                .defineInRange("same_will_rate", 45.0, 1.0, 500.0);
-        CRYSTAL_DIFFERENT_WILL_RATE = builder
-                .comment("Will consumption rate when crystal type differs from chunk dominant will")
-                .defineInRange("different_will_rate", 90.0, 1.0, 500.0);
-        CRYSTAL_WRONG_WILL_DELAY = builder
-                .comment("Growth speed multiplier when consuming non-matching will type (0.0-1.0, lower = slower)")
-                .defineInRange("wrong_will_delay", 0.6, 0.0, 1.0);
+        CRYSTAL_SAME_SPIRITUS_RATE = builder
+                .comment("Spiritus consumption rate when crystal type matches chunk dominant aspect")
+                .defineInRange("same_spiritus_rate", 45.0, 1.0, 500.0);
+        CRYSTAL_DIFFERENT_SPIRITUS_RATE = builder
+                .comment("Spiritus consumption rate when crystal type differs from chunk dominant aspect")
+                .defineInRange("different_spiritus_rate", 90.0, 1.0, 500.0);
+        CRYSTAL_WRONG_SPIRITUS_DELAY = builder
+                .comment("Growth speed multiplier when consuming non-matching aspect (0.0-1.0, lower = slower)")
+                .defineInRange("wrong_spiritus_delay", 0.6, 0.0, 1.0);
         CRYSTAL_GROWTH_SPEED = builder
                 .comment("Base growth speed multiplier (higher = faster crystal growth)")
                 .defineInRange("growth_speed", 1.0, 0.1, 10.0);
         CRYSTAL_GROWTH_THRESHOLD = builder
-                .comment("Minimum will in chunk before crystals start growing (200 = vanilla)")
+                .comment("Minimum spiritus in chunk before crystals start growing (200 = vanilla)")
                 .defineInRange("growth_threshold", 200.0, 1.0, 1000.0);
         CRYSTAL_MAX_COUNT = builder
                 .comment("Maximum number of crystal segments per cluster")
@@ -146,20 +146,20 @@ public class ServerConfig {
         builder.pop();
     }
 
-    public double getBaseMaxWill(SpiritusType type) {
+    public double getBaseMaxSpiritus(SpiritusType type) {
         return switch (type) {
-            case DEFAULT -> WILL_MAX_DEFAULT.get();
-            case CORROSIVE -> WILL_MAX_CORROSIVE.get();
-            case DESTRUCTIVE -> WILL_MAX_DESTRUCTIVE.get();
-            case VENGEFUL -> WILL_MAX_VENGEFUL.get();
-            case STEADFAST -> WILL_MAX_STEADFAST.get();
+            case RAW -> SPIRITUS_MAX_RAW.get();
+            case RUINA -> SPIRITUS_MAX_RUINA.get();
+            case NIHILUM -> SPIRITUS_MAX_NIHILUM.get();
+            case VINDICTA -> SPIRITUS_MAX_VINDICTA.get();
+            case INVICTUS -> SPIRITUS_MAX_INVICTUS.get();
         };
     }
 
-    public EnumMap<SpiritusType, Double> getAllBaseMaxWill() {
+    public EnumMap<SpiritusType, Double> getAllBaseMaxSpiritus() {
         EnumMap<SpiritusType, Double> result = new EnumMap<>(SpiritusType.class);
         for (SpiritusType type : SpiritusType.values()) {
-            result.put(type, getBaseMaxWill(type));
+            result.put(type, getBaseMaxSpiritus(type));
         }
         return result;
     }

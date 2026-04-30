@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.spiritus.spiritus_gems.description",
   "hide_while_locked": false,
-  "icon": "neovitae:spiritus_gem_greater",
+  "icon": {
+    "id": "neovitae:spiritus_gem_greater"
+  },
   "name": "book.neovitae.guide.spiritus.spiritus_gems.name",
   "pages": [
     {

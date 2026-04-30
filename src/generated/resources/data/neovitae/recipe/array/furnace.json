@@ -3,5 +3,8 @@
   "addedinput": "#c:storage_blocks/iron",
   "baseinput": "minecraft:coal",
   "effect_type": "furnace",
+  "output": {
+    "id": "minecraft:stone"
+  },
   "texture": "neovitae:textures/models/alchemyarrays/furnacearray.png"
 }

@@ -7,7 +7,6 @@
     "minecraft:sugar"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:reagent_growth"
   },
   "syphon": 2000,

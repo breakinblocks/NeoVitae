@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.tabula_vitae.potion_crafting.description",
   "hide_while_locked": false,
-  "icon": "neovitae:alchemy_flask",
+  "icon": {
+    "id": "neovitae:alchemy_flask"
+  },
   "name": "book.neovitae.guide.tabula_vitae.potion_crafting.name",
   "pages": [
     {

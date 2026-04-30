@@ -68,16 +68,16 @@ public record SpiritusSyncPayload(
         return new SpiritusSyncPayload(
                 chunkX,
                 chunkZ,
-                willChunk.getWill(SpiritusType.DEFAULT),
-                willChunk.getWill(SpiritusType.CORROSIVE),
-                willChunk.getWill(SpiritusType.DESTRUCTIVE),
-                willChunk.getWill(SpiritusType.VENGEFUL),
-                willChunk.getWill(SpiritusType.STEADFAST),
-                willChunk.getMaxBonus(SpiritusType.DEFAULT),
-                willChunk.getMaxBonus(SpiritusType.CORROSIVE),
-                willChunk.getMaxBonus(SpiritusType.DESTRUCTIVE),
-                willChunk.getMaxBonus(SpiritusType.VENGEFUL),
-                willChunk.getMaxBonus(SpiritusType.STEADFAST)
+                willChunk.getSpiritus(SpiritusType.RAW),
+                willChunk.getSpiritus(SpiritusType.RUINA),
+                willChunk.getSpiritus(SpiritusType.NIHILUM),
+                willChunk.getSpiritus(SpiritusType.VINDICTA),
+                willChunk.getSpiritus(SpiritusType.INVICTUS),
+                willChunk.getMaxBonus(SpiritusType.RAW),
+                willChunk.getMaxBonus(SpiritusType.RUINA),
+                willChunk.getMaxBonus(SpiritusType.NIHILUM),
+                willChunk.getMaxBonus(SpiritusType.VINDICTA),
+                willChunk.getMaxBonus(SpiritusType.INVICTUS)
         );
     }
 

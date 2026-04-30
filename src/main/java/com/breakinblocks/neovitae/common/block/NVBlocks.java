@@ -144,11 +144,11 @@ public class NVBlocks {
     private static BlockBehaviour.Properties crystal_block_properties_src() {
         return BlockBehaviour.Properties.of().strength(3.0F, 3.0F).sound(SoundType.AMETHYST).requiresCorrectToolForDrops().lightLevel(state -> 7).noOcclusion();
     }
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> RAW_SPIRITUS_CRYSTAL = BLOCK_REG.register("raw_spiritus_crystal", props -> new BlockSpiritusCrystal(SpiritusType.DEFAULT, props), crystal_block_properties_src());
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> CORROSIVE_SPIRITUS_CRYSTAL = BLOCK_REG.register("corrosive_spiritus_crystal", props -> new BlockSpiritusCrystal(SpiritusType.CORROSIVE, props), crystal_block_properties_src());
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> DESTRUCTIVE_SPIRITUS_CRYSTAL = BLOCK_REG.register("destructive_spiritus_crystal", props -> new BlockSpiritusCrystal(SpiritusType.DESTRUCTIVE, props), crystal_block_properties_src());
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> VENGEFUL_SPIRITUS_CRYSTAL = BLOCK_REG.register("vengeful_spiritus_crystal", props -> new BlockSpiritusCrystal(SpiritusType.VENGEFUL, props), crystal_block_properties_src());
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> STEADFAST_SPIRITUS_CRYSTAL = BLOCK_REG.register("steadfast_spiritus_crystal", props -> new BlockSpiritusCrystal(SpiritusType.STEADFAST, props), crystal_block_properties_src());
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> RAW_SPIRITUS_CRYSTAL = BLOCK_REG.register("raw_spiritus_crystal", props -> new BlockSpiritusCrystal(SpiritusType.RAW, props), crystal_block_properties_src());
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> SPIRITUS_RUINA_CRYSTAL = BLOCK_REG.register("spiritus_ruina_crystal", props -> new BlockSpiritusCrystal(SpiritusType.RUINA, props), crystal_block_properties_src());
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> SPIRITUS_NIHILUM_CRYSTAL = BLOCK_REG.register("spiritus_nihilum_crystal", props -> new BlockSpiritusCrystal(SpiritusType.NIHILUM, props), crystal_block_properties_src());
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> SPIRITUS_VINDICTA_CRYSTAL = BLOCK_REG.register("spiritus_vindicta_crystal", props -> new BlockSpiritusCrystal(SpiritusType.VINDICTA, props), crystal_block_properties_src());
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> SPIRITUS_INVICTUS_CRYSTAL = BLOCK_REG.register("spiritus_invictus_crystal", props -> new BlockSpiritusCrystal(SpiritusType.INVICTUS, props), crystal_block_properties_src());
 
     private static BlockBehaviour.Properties routing_node_properties_src() {
         return BlockBehaviour.Properties.of().strength(2.0F, 5.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion();

@@ -5,7 +5,7 @@
       "y": 90
     },
     "facing=east,lit=false,type=default": {
-      "model": "neovitae:block/athanor_default",
+      "model": "neovitae:block/athanor_raw",
       "y": 90
     },
     "facing=east,lit=false,type=destructive": {
@@ -25,7 +25,7 @@
       "y": 90
     },
     "facing=east,lit=true,type=default": {
-      "model": "neovitae:block/athanor_default_lit",
+      "model": "neovitae:block/athanor_raw_lit",
       "y": 90
     },
     "facing=east,lit=true,type=destructive": {
@@ -44,7 +44,7 @@
       "model": "neovitae:block/athanor_corrosive"
     },
     "facing=north,lit=false,type=default": {
-      "model": "neovitae:block/athanor_default"
+      "model": "neovitae:block/athanor_raw"
     },
     "facing=north,lit=false,type=destructive": {
       "model": "neovitae:block/athanor_destructive"
@@ -59,7 +59,7 @@
       "model": "neovitae:block/athanor_corrosive_lit"
     },
     "facing=north,lit=true,type=default": {
-      "model": "neovitae:block/athanor_default_lit"
+      "model": "neovitae:block/athanor_raw_lit"
     },
     "facing=north,lit=true,type=destructive": {
       "model": "neovitae:block/athanor_destructive_lit"
@@ -75,7 +75,7 @@
       "y": 180
     },
     "facing=south,lit=false,type=default": {
-      "model": "neovitae:block/athanor_default",
+      "model": "neovitae:block/athanor_raw",
       "y": 180
     },
     "facing=south,lit=false,type=destructive": {
@@ -95,7 +95,7 @@
       "y": 180
     },
     "facing=south,lit=true,type=default": {
-      "model": "neovitae:block/athanor_default_lit",
+      "model": "neovitae:block/athanor_raw_lit",
       "y": 180
     },
     "facing=south,lit=true,type=destructive": {
@@ -115,7 +115,7 @@
       "y": 270
     },
     "facing=west,lit=false,type=default": {
-      "model": "neovitae:block/athanor_default",
+      "model": "neovitae:block/athanor_raw",
       "y": 270
     },
     "facing=west,lit=false,type=destructive": {
@@ -135,7 +135,7 @@
       "y": 270
     },
     "facing=west,lit=true,type=default": {
-      "model": "neovitae:block/athanor_default_lit",
+      "model": "neovitae:block/athanor_raw_lit",
       "y": 270
     },
     "facing=west,lit=true,type=destructive": {

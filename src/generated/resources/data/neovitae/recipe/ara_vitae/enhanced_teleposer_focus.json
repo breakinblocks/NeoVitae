@@ -6,7 +6,6 @@
   "input": "neovitae:teleposer_focus",
   "minTier": 3,
   "output": {
-    "count": 1,
     "id": "neovitae:enhanced_teleposer_focus"
   }
 }

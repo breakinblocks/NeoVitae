@@ -6,7 +6,6 @@
   "input": "neovitae:hellforged_block",
   "minTier": 4,
   "output": {
-    "count": 1,
     "id": "neovitae:blood_orb_archmage"
   }
 }

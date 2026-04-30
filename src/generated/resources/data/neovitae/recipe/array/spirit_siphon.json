@@ -1,7 +1,10 @@
 {
   "type": "neovitae:array",
   "addedinput": "#c:dusts/redstone",
-  "baseinput": "neovitae:imbued_slate",
+  "baseinput": "neovitae:tabula_animata",
   "effect_type": "spirit_siphon",
+  "output": {
+    "id": "minecraft:stone"
+  },
   "texture": "neovitae:textures/models/alchemyarrays/spiritsiphonarray.png"
 }

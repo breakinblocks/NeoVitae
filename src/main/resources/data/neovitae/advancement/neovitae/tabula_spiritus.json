@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/tabula_animata",
+  "criteria": {
+    "get_slate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:tabula_spiritus"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neovitae.tabula_spiritus.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "neovitae:tabula_spiritus"
+    },
+    "title": {
+      "translate": "advancements.neovitae.tabula_spiritus.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_slate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

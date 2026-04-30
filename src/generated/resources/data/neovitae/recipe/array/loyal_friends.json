@@ -1,7 +1,10 @@
 {
   "type": "neovitae:array",
-  "addedinput": "neovitae:reinforced_slate",
+  "addedinput": "neovitae:tabula_robur",
   "baseinput": "minecraft:lead",
   "effect_type": "loyal_friends",
+  "output": {
+    "id": "minecraft:stone"
+  },
   "texture": "neovitae:textures/models/alchemyarrays/defaultarray.png"
 }

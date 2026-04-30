@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.tabula_vitae.smelting_anointment.description",
   "hide_while_locked": false,
-  "icon": "neovitae:smelting_anointment",
+  "icon": {
+    "id": "neovitae:smelting_anointment"
+  },
   "name": "book.neovitae.guide.tabula_vitae.smelting_anointment.name",
   "pages": [
     {

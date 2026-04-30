@@ -25,7 +25,7 @@ public class SpiritusBarDecorator implements IItemDecorator {
     public boolean render(GuiGraphicsExtractor guiGraphics, Font font, ItemStack stack, int xOffset, int yOffset) {
         if (!SpiritusHelper.hasSpiritus(stack)) return false;
 
-        double max = SpiritusHelper.resolveMaxWill(stack);
+        double max = SpiritusHelper.resolveMaxSpiritus(stack);
         if (max <= 0) return false;
 
         double ratio = SpiritusHelper.getFillRatio(stack);
@@ -43,11 +43,11 @@ public class SpiritusBarDecorator implements IItemDecorator {
 
     private static int getColorForType(SpiritusType type) {
         return switch (type) {
-            case DEFAULT -> 0x00CCCC;
-            case CORROSIVE -> 0x00CC00;
-            case DESTRUCTIVE -> 0xCC6600;
-            case VENGEFUL -> 0x9900CC;
-            case STEADFAST -> 0xCCCCCC;
+            case RAW -> 0x00CCCC;
+            case RUINA -> 0x00CC00;
+            case NIHILUM -> 0xCC6600;
+            case VINDICTA -> 0x9900CC;
+            case INVICTUS -> 0xCCCCCC;
         };
     }
 }

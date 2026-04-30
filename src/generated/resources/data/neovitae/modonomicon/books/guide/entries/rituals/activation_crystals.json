@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.activation_crystals.description",
   "hide_while_locked": false,
-  "icon": "neovitae:activation_crystal_weak",
+  "icon": {
+    "id": "neovitae:activation_crystal_weak"
+  },
   "name": "book.neovitae.guide.rituals.activation_crystals.name",
   "pages": [
     {

@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "neovitae:dungeon_polished_d",
   "result": {
-    "count": 1,
     "id": "neovitae:dungeon_polished_stairs_d"
   }
 }

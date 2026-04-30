@@ -141,7 +141,7 @@ public final class DataValidationTests {
                 String[] expected = {
                         "sacrificial_dagger",
                         "blood_orb_weak", "blood_orb_apprentice",
-                        "blank_slate", "reinforced_slate",
+                        "tabula_rasa", "tabula_robur",
                         "sigil_divination", "alchemy_flask",
                         "ritual_diviner"
                 };

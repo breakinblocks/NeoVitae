@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_teleposition.description",
   "hide_while_locked": false,
-  "icon": "neovitae:sigil_teleposition",
+  "icon": {
+    "id": "neovitae:sigil_teleposition"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.sigil_teleposition.name",
   "pages": [
     {

@@ -21,11 +21,11 @@ public class NVLootFunctions {
             (DeferredRegister<MapCodec<? extends LootItemFunction>>) (DeferredRegister<?>)
                     DeferredRegister.create(Registries.LOOT_FUNCTION_TYPE, NeoVitae.MODID);
 
-    public static final DeferredHolder<MapCodec<? extends LootItemFunction>, MapCodec<SetWillRange>> SET_WILL_RANGE =
-            LOOT_FUNCTIONS.register("set_will_range", () -> SetWillRange.CODEC);
+    public static final DeferredHolder<MapCodec<? extends LootItemFunction>, MapCodec<SetSpiritusRange>> SET_SPIRITUS_RANGE =
+            LOOT_FUNCTIONS.register("set_spiritus_range", () -> SetSpiritusRange.CODEC);
 
-    public static final DeferredHolder<MapCodec<? extends LootItemFunction>, MapCodec<SetWillFraction>> SET_WILL_FRACTION =
-            LOOT_FUNCTIONS.register("set_will_fraction", () -> SetWillFraction.CODEC);
+    public static final DeferredHolder<MapCodec<? extends LootItemFunction>, MapCodec<SetSpiritusFraction>> SET_SPIRITUS_FRACTION =
+            LOOT_FUNCTIONS.register("set_spiritus_fraction", () -> SetSpiritusFraction.CODEC);
 
     public static final DeferredHolder<MapCodec<? extends LootItemFunction>, MapCodec<SetLivingUpgrade>> SET_LIVING_UPGRADE =
             LOOT_FUNCTIONS.register("set_living_upgrade", () -> SetLivingUpgrade.CODEC);

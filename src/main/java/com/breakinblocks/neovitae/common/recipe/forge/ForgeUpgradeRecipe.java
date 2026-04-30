@@ -24,20 +24,20 @@ import net.minecraft.world.item.crafting.Recipe;
 public class ForgeUpgradeRecipe extends ForgeRecipe {
 
     public static final MapCodec<ForgeUpgradeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.DOUBLE.fieldOf("minDrain").forGetter(r -> r.minWill),
+            Codec.DOUBLE.fieldOf("minDrain").forGetter(r -> r.minSpiritus),
             Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedWill),
             Codec.list(Ingredient.CODEC).fieldOf("catalysts").forGetter(r -> r.ingredients)
     ).apply(instance, ForgeUpgradeRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ForgeUpgradeRecipe> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.DOUBLE, r -> r.minWill,
+            ByteBufCodecs.DOUBLE, r -> r.minSpiritus,
             ByteBufCodecs.DOUBLE, r -> r.usedWill,
             Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), r -> r.ingredients,
             ForgeUpgradeRecipe::new
     );
 
-    public ForgeUpgradeRecipe(double minWill, double usedWill, List<Ingredient> catalysts) {
-        super(minWill, usedWill, catalysts, new ItemStackTemplate(Items.STONE, 1), Optional.empty());
+    public ForgeUpgradeRecipe(double minSpiritus, double usedWill, List<Ingredient> catalysts) {
+        super(minSpiritus, usedWill, catalysts, new ItemStackTemplate(Items.STONE, 1), Optional.empty());
     }
 
     @Override
@@ -78,7 +78,7 @@ public class ForgeUpgradeRecipe extends ForgeRecipe {
     public ItemStack assemble(ForgeInput input) {
         ItemStack gemStack = input.getGem();
         double will = gemStack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
-        if (will < minWill) return ItemStack.EMPTY;
+        if (will < minSpiritus) return ItemStack.EMPTY;
 
         for (int i = 0; i < 4; i++) {
             ItemStack stack = input.getItem(i);

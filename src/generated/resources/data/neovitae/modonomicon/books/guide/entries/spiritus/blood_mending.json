@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.spiritus.blood_mending.description",
   "hide_while_locked": false,
-  "icon": "neovitae:reinforced_slate",
+  "icon": {
+    "id": "neovitae:tabula_robur"
+  },
   "name": "book.neovitae.guide.spiritus.blood_mending.name",
   "pages": [
     {

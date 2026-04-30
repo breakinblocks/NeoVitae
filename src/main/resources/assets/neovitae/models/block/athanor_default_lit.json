@@ -2,8 +2,8 @@
   "parent": "minecraft:block/orientable_with_bottom",
   "textures": {
     "bottom": "neovitae:block/athanor_bottom",
-    "front": "neovitae:block/athanor_front_default_lit",
-    "side": "neovitae:block/athanor_side_default_lit",
-    "top": "neovitae:block/athanor_top_default"
+    "front": "neovitae:block/athanor_front_raw_lit",
+    "side": "neovitae:block/athanor_side_raw_lit",
+    "top": "neovitae:block/athanor_top_raw"
   }
 }

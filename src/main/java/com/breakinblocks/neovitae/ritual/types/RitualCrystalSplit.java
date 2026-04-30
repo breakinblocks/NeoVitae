@@ -49,10 +49,10 @@ public class RitualCrystalSplit extends Ritual {
         };
 
         Block[] aspectedCrystals = {
-            NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block().get(),
-            NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block().get(),
-            NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().get(),
-            NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().get()
+            NVBlocks.SPIRITUS_RUINA_CRYSTAL.block().get(),
+            NVBlocks.SPIRITUS_NIHILUM_CRYSTAL.block().get(),
+            NVBlocks.SPIRITUS_VINDICTA_CRYSTAL.block().get(),
+            NVBlocks.SPIRITUS_INVICTUS_CRYSTAL.block().get()
         };
 
         for (BlockPos pos : outputPositions) {

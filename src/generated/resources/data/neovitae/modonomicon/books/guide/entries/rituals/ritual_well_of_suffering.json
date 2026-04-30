@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_well_of_suffering.description",
   "hide_while_locked": false,
-  "icon": "neovitae:essentia_vitae_bucket",
+  "icon": {
+    "id": "neovitae:essentia_vitae_bucket"
+  },
   "name": "book.neovitae.guide.rituals.ritual_well_of_suffering.name",
   "pages": [
     {

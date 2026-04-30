@@ -4,13 +4,12 @@
   "inputs": [
     "neovitae:blight_marrow",
     "neovitae:blight_marrow",
-    "neovitae:corrosive_catalyst",
-    "neovitae:demonic_slate"
+    "neovitae:spiritus_ruina_catalyst",
+    "neovitae:tabula_spiritus"
   ],
   "minDrain": 800.0,
   "output": {
-    "count": 1,
     "id": "neovitae:blight_whetstone"
   },
-  "willType": "corrosive"
+  "spiritusType": "ruina"
 }

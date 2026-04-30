@@ -4,12 +4,11 @@
   "inputs": [
     "#c:gems/amethyst",
     "#c:ingots/gold",
-    "neovitae:default_crystal",
+    "neovitae:raw_crystal_shard",
     "neovitae:ingot_hellforged"
   ],
   "minDrain": 1200.0,
   "output": {
-    "count": 1,
     "id": "neovitae:hellforged_resonator"
   }
 }

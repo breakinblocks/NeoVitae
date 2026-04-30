@@ -3,7 +3,6 @@
   "chance_outputs": [],
   "guaranteed_outputs": [
     {
-      "count": 1,
       "id": "minecraft:nether_star"
     }
   ],
@@ -16,7 +15,7 @@
     "neovitae:ingot_hellforged"
   ],
   "spiritus_costs": {
-    "default": 50.0
+    "raw": 50.0
   },
   "tool": "#neovitae:athanor_tool/resonator"
 }

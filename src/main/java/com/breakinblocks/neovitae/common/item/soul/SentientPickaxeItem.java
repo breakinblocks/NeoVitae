@@ -34,16 +34,16 @@ public class SentientPickaxeItem extends Item implements ISentientTool {
 
     public SentientPickaxeItem(Item.Properties props) {
         super(props.pickaxe(NVMaterialsAndTiers.SENTIENT, 1, -2.8f)
-                .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT)
+                .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW)
                 .component(NVDataComponents.SIGIL_ACTIVATED, false));
     }
 
     @Override
-    public double[] getDamageForWillType(SpiritusType type) {
+    public double[] getDamageForSpiritusType(SpiritusType type) {
         return switch (type) {
-            case DESTRUCTIVE -> DESTRUCTIVE_DAMAGE;
-            case VENGEFUL -> VENGEFUL_DAMAGE;
-            case STEADFAST -> STEADFAST_DAMAGE;
+            case NIHILUM -> DESTRUCTIVE_DAMAGE;
+            case VINDICTA -> VENGEFUL_DAMAGE;
+            case INVICTUS -> STEADFAST_DAMAGE;
             default -> DEFAULT_DAMAGE;
         };
     }
@@ -74,10 +74,10 @@ public class SentientPickaxeItem extends Item implements ISentientTool {
             recalculatePowers(stack, player.level(), player);
             SpiritusType type = getCurrentType(stack);
             double will = PlayerSpiritusHandler.getTotalSpiritus(type, player);
-            int willBracket = getLevel(will);
+            int spiritusBracket = getLevel(will);
 
-            if (willBracket >= 0) {
-                applyEffectToEntity(type, willBracket, target, player);
+            if (spiritusBracket >= 0) {
+                applyEffectToEntity(type, spiritusBracket, target, player);
             }
         }
     }
@@ -85,7 +85,7 @@ public class SentientPickaxeItem extends Item implements ISentientTool {
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
         recalculatePowers(stack, player.level(), player);
-        return handleWillDrain(stack, player);
+        return handleSpiritusDrain(stack, player);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class SentientPickaxeItem extends Item implements ISentientTool {
         SpiritusType type = PlayerSpiritusHandler.getLargestSpiritusType(player);
         double soulsRemaining = PlayerSpiritusHandler.getTotalSpiritus(type, player);
 
-        setCurrentType(stack, soulsRemaining > 0 ? type : SpiritusType.DEFAULT);
+        setCurrentType(stack, soulsRemaining > 0 ? type : SpiritusType.RAW);
         int level = getLevel(soulsRemaining);
 
         setActivatedState(stack, soulsRemaining > ACTIVATION_THRESHOLD);

@@ -4,14 +4,12 @@
     {
       "chance": 0.5,
       "item": {
-        "count": 1,
         "id": "neovitae:corrupted_tiny_dust"
       }
     }
   ],
   "guaranteed_outputs": [
     {
-      "count": 1,
       "id": "neovitae:copper_gravel"
     }
   ],

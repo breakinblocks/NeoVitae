@@ -6,7 +6,6 @@
   "input": "#c:storage_blocks/coal",
   "minTier": 3,
   "output": {
-    "count": 1,
     "id": "neovitae:dusk_scribe_tool"
   }
 }

@@ -17,7 +17,9 @@
   "description": "",
   "display_mode": "node",
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
-  "icon": "neovitae:tabula_vitae",
+  "icon": {
+    "id": "neovitae:tabula_vitae"
+  },
   "max_scroll_x": 512,
   "max_scroll_y": 512,
   "name": "book.neovitae.guide.tabula_vitae.name",

@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_repair.description",
   "hide_while_locked": false,
-  "icon": "minecraft:anvil",
+  "icon": {
+    "id": "minecraft:anvil"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_repair.name",
   "pages": [
     {

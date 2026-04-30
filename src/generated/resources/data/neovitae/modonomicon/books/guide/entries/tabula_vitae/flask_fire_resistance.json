@@ -9,29 +9,7 @@
   "description": "book.neovitae.guide.tabula_vitae.flask_fire_resistance.description",
   "hide_while_locked": false,
   "icon": {
-    "components": {
-      "minecraft:potion_contents": {
-        "custom_effects": [
-          {
-            "duration": 3600,
-            "id": "minecraft:fire_resistance",
-            "show_icon": true
-          }
-        ]
-      },
-      "neovitae:flask_effects": {
-        "effects": [
-          {
-            "amp_duration_mod": 1.0,
-            "amplifier": 0,
-            "base_duration": 3600,
-            "effect": "minecraft:fire_resistance",
-            "length_duration_mod": 1.0
-          }
-        ]
-      }
-    },
-    "item": "neovitae:alchemy_flask"
+    "id": "neovitae:alchemy_flask"
   },
   "name": "book.neovitae.guide.tabula_vitae.flask_fire_resistance.name",
   "pages": [

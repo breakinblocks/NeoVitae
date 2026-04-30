@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "a": "#c:obsidians",
-    "b": "neovitae:demonic_slate",
+    "b": "neovitae:tabula_spiritus",
     "c": "minecraft:bucket",
     "d": "neovitae:rune_capacity",
     "e": {
@@ -17,7 +17,6 @@
     "aea"
   ],
   "result": {
-    "count": 1,
     "id": "neovitae:rune_capacity_augmented"
   }
 }

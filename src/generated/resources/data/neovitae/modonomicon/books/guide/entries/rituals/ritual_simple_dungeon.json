@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_simple_dungeon.description",
   "hide_while_locked": false,
-  "icon": "neovitae:simple_key",
+  "icon": {
+    "id": "neovitae:simple_key"
+  },
   "name": "book.neovitae.guide.rituals.ritual_simple_dungeon.name",
   "pages": [
     {

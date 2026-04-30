@@ -3,5 +3,8 @@
   "addedinput": "#c:dusts/glowstone",
   "baseinput": "#c:feathers",
   "effect_type": "updraft",
+  "output": {
+    "id": "minecraft:stone"
+  },
   "texture": "neovitae:textures/models/alchemyarrays/updraftarray.png"
 }

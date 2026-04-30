@@ -16,7 +16,7 @@ import net.minecraft.world.item.component.TooltipDisplay;
 public class ItemAthanorToolBase extends Item implements IAthanorTool {
 
     public ItemAthanorToolBase(Item.Properties props, int maxDamage, double craftingMultiplier) {
-        this(props, maxDamage, craftingMultiplier, 1, SpiritusType.DEFAULT);
+        this(props, maxDamage, craftingMultiplier, 1, SpiritusType.RAW);
     }
 
     public ItemAthanorToolBase(Item.Properties props, int maxDamage, double craftingMultiplier, SpiritusType type) {
@@ -24,7 +24,7 @@ public class ItemAthanorToolBase extends Item implements IAthanorTool {
     }
 
     public ItemAthanorToolBase(Item.Properties props, int maxDamage, double craftingMultiplier, double additionalOutputChance) {
-        this(props, maxDamage, craftingMultiplier, additionalOutputChance, SpiritusType.DEFAULT);
+        this(props, maxDamage, craftingMultiplier, additionalOutputChance, SpiritusType.RAW);
     }
 
     public ItemAthanorToolBase(Item.Properties props, int maxDamage, double craftingMultiplier, double additionalOutputChance, SpiritusType type) {
@@ -58,6 +58,6 @@ public class ItemAthanorToolBase extends Item implements IAthanorTool {
 
     @Override
     public SpiritusType getDominantWillType(ItemStack stack) {
-        return stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE.get(), SpiritusType.DEFAULT);
+        return stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE.get(), SpiritusType.RAW);
     }
 }

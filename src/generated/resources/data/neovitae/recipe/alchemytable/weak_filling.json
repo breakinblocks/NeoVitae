@@ -7,7 +7,6 @@
     "minecraft:warped_fungus"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:weak_filling_agent"
   },
   "syphon": 2000,

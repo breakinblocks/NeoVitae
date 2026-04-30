@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_jump.description",
   "hide_while_locked": false,
-  "icon": "minecraft:diamond_boots",
+  "icon": {
+    "id": "minecraft:diamond_boots"
+  },
   "name": "book.neovitae.guide.rituals.ritual_jump.name",
   "pages": [
     {

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "neovitae:item/vengeful_crystal"
+    "layer0": "neovitae:item/spiritus_vindicta_crystal"
   }
 }

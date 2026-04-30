@@ -65,8 +65,8 @@ public final class NVRituals {
     public static final DeferredHolder<Ritual, RitualPump> PUMP =
             registerRitual("pump", RitualPump::new);
 
-    public static final DeferredHolder<Ritual, RitualCrystalHarvest> CRYSTAL_HARVEST =
-            registerRitual("crystal_harvest", RitualCrystalHarvest::new);
+    public static final DeferredHolder<Ritual, RitualCrystallumFractura> CRYSTALLUM_FRACTURA =
+            registerRitual(RitualCrystallumFractura.NAME, RitualCrystallumFractura::new);
 
     public static final DeferredHolder<Ritual, RitualDowngrade> DOWNGRADE =
             registerRitual("downgrade", RitualDowngrade::new);
@@ -109,9 +109,6 @@ public final class NVRituals {
 
     public static final DeferredHolder<Ritual, RitualGrounding> GROUNDING =
             registerRitual("grounding", RitualGrounding::new);
-
-    public static final DeferredHolder<Ritual, RitualGeode> GEODE =
-            registerRitual("geode", RitualGeode::new);
 
     public static final DeferredHolder<Ritual, RitualSimpleDungeon> SIMPLE_DUNGEON =
             registerRitual("simple_dungeon", RitualSimpleDungeon::new);

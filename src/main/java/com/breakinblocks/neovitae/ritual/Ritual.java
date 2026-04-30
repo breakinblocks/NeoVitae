@@ -213,14 +213,14 @@ public abstract class Ritual {
      * Calculates a scaled refresh time based on the amount of spiritus present.
      * Higher will amounts result in faster (lower) refresh times, clamped to a minimum.
      *
-     * @param willAmount  The amount of spiritus influencing the refresh time
+     * @param spiritusAmount  The amount of spiritus influencing the refresh time
      * @param baseTime    The base refresh time in ticks (used when no will is present)
      * @param minTime     The minimum refresh time in ticks (floor value)
      * @param willDivisor The divisor applied to the will amount to determine tick reduction
      * @return The scaled refresh time, no lower than {@code minTime}
      */
-    protected static int scaleRefreshTime(double willAmount, int baseTime, int minTime, double willDivisor) {
-        return Math.max(minTime, baseTime - (int) (willAmount / willDivisor));
+    protected static int scaleRefreshTime(double spiritusAmount, int baseTime, int minTime, double willDivisor) {
+        return Math.max(minTime, baseTime - (int) (spiritusAmount / willDivisor));
     }
 
     /**

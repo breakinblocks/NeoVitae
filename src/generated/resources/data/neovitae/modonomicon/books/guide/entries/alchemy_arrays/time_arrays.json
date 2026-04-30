@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.time_arrays.description",
   "hide_while_locked": false,
-  "icon": "minecraft:clock",
+  "icon": {
+    "id": "minecraft:clock"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.time_arrays.name",
   "pages": [
     {

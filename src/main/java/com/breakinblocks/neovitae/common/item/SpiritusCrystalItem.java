@@ -12,24 +12,24 @@ import java.util.function.Consumer;
 import net.minecraft.world.item.component.TooltipDisplay;
 
 public class SpiritusCrystalItem extends Item {
-    private final SpiritusType willType;
+    private final SpiritusType spiritusType;
     private final double willPerCrystal;
 
-    public SpiritusCrystalItem(Item.Properties props, SpiritusType willType) {
-        this(props, willType, 50.0);
+    public SpiritusCrystalItem(Item.Properties props, SpiritusType spiritusType) {
+        this(props, spiritusType, 50.0);
     }
 
-    public SpiritusCrystalItem(Item.Properties props, SpiritusType willType, double willPerCrystal) {
+    public SpiritusCrystalItem(Item.Properties props, SpiritusType spiritusType, double willPerCrystal) {
         super(props);
-        this.willType = willType;
+        this.spiritusType = spiritusType;
         this.willPerCrystal = willPerCrystal;
     }
 
     public SpiritusType getWillType() {
-        return willType;
+        return spiritusType;
     }
 
-    public double getWill(ItemStack stack) {
+    public double getSpiritus(ItemStack stack) {
         return willPerCrystal * stack.getCount();
     }
 
@@ -39,5 +39,5 @@ public class SpiritusCrystalItem extends Item {
     @Override
     @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
-        tooltip.accept(Component.translatable("tooltip.neovitae.current_type." + willType.getSerializedName()).withStyle(ChatFormatting.GRAY));}
+        tooltip.accept(Component.translatable("tooltip.neovitae.current_type." + spiritusType.getSerializedName()).withStyle(ChatFormatting.GRAY));}
 }

@@ -7,7 +7,6 @@
     "minecraft:enchanted_book"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:hidden_knowledge_anointment_2"
   },
   "syphon": 1000,

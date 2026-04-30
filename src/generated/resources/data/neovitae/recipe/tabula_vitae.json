@@ -4,7 +4,7 @@
   "key": {
     "b": "#c:ingots/iron",
     "g": "#c:ingots/gold",
-    "o": "neovitae:blank_slate",
+    "o": "neovitae:tabula_rasa",
     "s": "#c:stones",
     "w": "#minecraft:planks"
   },
@@ -14,7 +14,6 @@
     "gog"
   ],
   "result": {
-    "count": 1,
     "id": "neovitae:tabula_vitae"
   }
 }

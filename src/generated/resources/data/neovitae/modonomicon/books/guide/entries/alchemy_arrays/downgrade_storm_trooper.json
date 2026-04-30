@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.downgrade_storm_trooper.description",
   "hide_while_locked": false,
-  "icon": "minecraft:arrow",
+  "icon": {
+    "id": "minecraft:arrow"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.downgrade_storm_trooper.name",
   "pages": [
     {

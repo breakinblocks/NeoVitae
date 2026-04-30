@@ -25,8 +25,8 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
     private static final Identifier BARS_TEXTURE = NeoVitae.rl("textures/hud/bars.png");
 
     private static final SpiritusType[] ORDERED_TYPES = {
-            SpiritusType.DEFAULT, SpiritusType.CORROSIVE,
-            SpiritusType.STEADFAST, SpiritusType.DESTRUCTIVE, SpiritusType.VENGEFUL
+            SpiritusType.RAW, SpiritusType.RUINA,
+            SpiritusType.INVICTUS, SpiritusType.NIHILUM, SpiritusType.VINDICTA
     };
     private static final String[] TYPE_NAMES = {"Raw", "Corrosive", "Steadfast", "Destructive", "Vengeful"};
     private static final String[] TYPE_KEYS = {

@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_sphere_create.description",
   "hide_while_locked": false,
-  "icon": "minecraft:ender_pearl",
+  "icon": {
+    "id": "minecraft:ender_pearl"
+  },
   "name": "book.neovitae.guide.rituals.ritual_sphere_create.name",
   "pages": [
     {

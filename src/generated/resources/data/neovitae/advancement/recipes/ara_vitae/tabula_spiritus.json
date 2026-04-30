@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_imbued_slate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:tabula_animata"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:tabula_spiritus"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_imbued_slate"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neovitae:tabula_spiritus"
+    ]
+  }
+}

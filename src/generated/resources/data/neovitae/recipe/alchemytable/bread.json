@@ -5,7 +5,6 @@
     "minecraft:sugar"
   ],
   "output": {
-    "count": 1,
     "id": "minecraft:bread"
   },
   "syphon": 100,

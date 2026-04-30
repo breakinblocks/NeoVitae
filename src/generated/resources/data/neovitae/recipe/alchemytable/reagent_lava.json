@@ -7,7 +7,6 @@
     "minecraft:coal_block"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:reagent_lava"
   },
   "syphon": 1000,

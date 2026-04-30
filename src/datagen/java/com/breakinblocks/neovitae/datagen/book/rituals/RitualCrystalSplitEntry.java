@@ -58,7 +58,7 @@ public class RitualCrystalSplitEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.VENGEFUL_CRYSTAL.get());
+        return BookIconModel.create(NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get());
     }
 
     @Override

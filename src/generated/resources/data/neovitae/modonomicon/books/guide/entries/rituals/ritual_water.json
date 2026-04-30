@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_water.description",
   "hide_while_locked": false,
-  "icon": "minecraft:water_bucket",
+  "icon": {
+    "id": "minecraft:water_bucket"
+  },
   "name": "book.neovitae.guide.rituals.ritual_water.name",
   "pages": [
     {

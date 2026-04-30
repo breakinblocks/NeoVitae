@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.downgrade_quenched.description",
   "hide_while_locked": false,
-  "icon": "minecraft:glass_bottle",
+  "icon": {
+    "id": "minecraft:glass_bottle"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.downgrade_quenched.name",
   "pages": [
     {

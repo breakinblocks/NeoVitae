@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_tough.description",
   "hide_while_locked": false,
-  "icon": "minecraft:shield",
+  "icon": {
+    "id": "minecraft:shield"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_tough.name",
   "pages": [
     {

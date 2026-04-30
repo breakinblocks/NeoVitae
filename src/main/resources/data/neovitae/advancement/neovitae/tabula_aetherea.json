@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/tabula_spiritus",
+  "criteria": {
+    "get_slate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:tabula_aetherea"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neovitae.tabula_aetherea.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "neovitae:tabula_aetherea"
+    },
+    "title": {
+      "translate": "advancements.neovitae.tabula_aetherea.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_slate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

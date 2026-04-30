@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_crushing.description",
   "hide_while_locked": false,
-  "icon": "minecraft:iron_pickaxe",
+  "icon": {
+    "id": "minecraft:iron_pickaxe"
+  },
   "name": "book.neovitae.guide.rituals.ritual_crushing.name",
   "pages": [
     {

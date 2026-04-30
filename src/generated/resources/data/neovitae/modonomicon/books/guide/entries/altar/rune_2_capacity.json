@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.altar.rune_2_capacity.description",
   "hide_while_locked": false,
-  "icon": "neovitae:rune_2_capacity",
+  "icon": {
+    "id": "neovitae:rune_2_capacity"
+  },
   "name": "book.neovitae.guide.altar.rune_2_capacity.name",
   "pages": [
     {

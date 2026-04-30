@@ -7,16 +7,16 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
  * Interface for Items that contain Will (like Monster Souls).
  */
 public interface ISpiritus {
-    double getWill(SpiritusType type, ItemStack willStack);
+    double getSpiritus(SpiritusType type, ItemStack spiritusStack);
 
-    boolean setWill(SpiritusType type, ItemStack willStack, double will);
+    boolean setSpiritus(SpiritusType type, ItemStack spiritusStack, double will);
 
     /**
      * Drains will from the stack. If all will is drained, the stack should be removed by the caller.
      */
-    double drainWill(SpiritusType type, ItemStack willStack, double drainAmount);
+    double drainSpiritus(SpiritusType type, ItemStack spiritusStack, double drainAmount);
 
-    ItemStack createWill(double number);
+    ItemStack createSpiritus(double number);
 
     SpiritusType getType(ItemStack stack);
 }

@@ -4,7 +4,6 @@
     {
       "chance": 0.25,
       "item": {
-        "count": 1,
         "id": "neovitae:copper_fragment"
       }
     }

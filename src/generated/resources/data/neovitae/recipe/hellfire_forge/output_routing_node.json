@@ -7,7 +7,6 @@
   ],
   "minDrain": 200.0,
   "output": {
-    "count": 1,
     "id": "neovitae:output_routing_node"
   }
 }

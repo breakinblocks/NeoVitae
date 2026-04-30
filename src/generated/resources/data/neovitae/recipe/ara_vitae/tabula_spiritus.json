@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "bloodNeeded": 15000,
+  "craftSpeed": 20,
+  "drainSpeed": 20,
+  "input": "neovitae:tabula_animata",
+  "minTier": 3,
+  "output": {
+    "id": "neovitae:tabula_spiritus"
+  }
+}

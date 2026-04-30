@@ -9,7 +9,6 @@
   ],
   "minDrain": 10.0,
   "output": {
-    "count": 1,
     "id": "neovitae:training_bracelet"
   }
 }

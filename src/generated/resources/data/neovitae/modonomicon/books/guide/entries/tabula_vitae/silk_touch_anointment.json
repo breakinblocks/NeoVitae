@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.tabula_vitae.silk_touch_anointment.description",
   "hide_while_locked": false,
-  "icon": "neovitae:silk_touch_anointment",
+  "icon": {
+    "id": "neovitae:silk_touch_anointment"
+  },
   "name": "book.neovitae.guide.tabula_vitae.silk_touch_anointment.name",
   "pages": [
     {

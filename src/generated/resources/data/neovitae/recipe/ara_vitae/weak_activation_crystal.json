@@ -6,7 +6,6 @@
   "input": "neovitae:lava_crystal",
   "minTier": 2,
   "output": {
-    "count": 1,
     "id": "neovitae:activation_crystal_weak"
   }
 }

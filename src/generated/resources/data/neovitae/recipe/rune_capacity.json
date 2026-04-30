@@ -5,7 +5,7 @@
     "a": "#c:stones",
     "b": "minecraft:bucket",
     "c": "neovitae:rune_blank",
-    "d": "neovitae:imbued_slate"
+    "d": "neovitae:tabula_animata"
   },
   "pattern": [
     "aba",
@@ -13,7 +13,6 @@
     "ada"
   ],
   "result": {
-    "count": 1,
     "id": "neovitae:rune_capacity"
   }
 }

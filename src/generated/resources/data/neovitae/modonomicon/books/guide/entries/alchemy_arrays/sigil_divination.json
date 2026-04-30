@@ -4,7 +4,9 @@
   "category": "alchemy_arrays",
   "description": "book.neovitae.guide.alchemy_arrays.sigil_divination.description",
   "hide_while_locked": false,
-  "icon": "neovitae:sigil_divination",
+  "icon": {
+    "id": "neovitae:sigil_divination"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.sigil_divination.name",
   "pages": [
     {

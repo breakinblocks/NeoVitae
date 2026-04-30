@@ -1,0 +1,18 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    "neovitae:tabula_rasa",
+    "#c:glass_blocks",
+    "#c:glass_blocks",
+    "#c:glass_blocks",
+    "#c:glass_blocks",
+    "#c:glass_blocks"
+  ],
+  "output": {
+    "count": 8,
+    "id": "neovitae:tabula_vial"
+  },
+  "syphon": 500,
+  "ticks": 200,
+  "upgradeLevel": 1
+}

@@ -1,0 +1,59 @@
+package com.breakinblocks.neovitae.common.loot;
+
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.will.SpiritusHelper;
+
+import java.util.List;
+
+public class SetSpiritusFraction extends LootItemConditionalFunction {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SetSpiritusFraction.class);
+
+    public static final MapCodec<SetSpiritusFraction> CODEC = RecordCodecBuilder.mapCodec(instance ->
+            commonFields(instance).and(
+                    NumberProviders.CODEC.fieldOf("fraction").forGetter(func -> func.fractionRange)
+            ).apply(instance, SetSpiritusFraction::new)
+    );
+
+    private final NumberProvider fractionRange;
+
+    private SetSpiritusFraction(List<LootItemCondition> conditions, NumberProvider fractionRange) {
+        super(conditions);
+        this.fractionRange = fractionRange;
+    }
+
+    @Override
+    public MapCodec<? extends LootItemConditionalFunction> codec() {
+        return NVLootFunctions.SET_SPIRITUS_FRACTION.get();
+    }
+
+    @Override
+    protected ItemStack run(ItemStack stack, LootContext context) {
+        if (SpiritusHelper.isRechargeable(stack)) {
+            double maxSpiritus = SpiritusHelper.resolveMaxSpiritus(stack, SpiritusType.RAW);
+            float fraction = 1.0F - fractionRange.getFloat(context);
+            SpiritusHelper.setSpiritus(stack, SpiritusType.RAW, maxSpiritus * fraction);
+        } else {
+            LOGGER.warn("Couldn't set spiritus fraction of loot item {}", stack);
+        }
+        return stack;
+    }
+
+    public static LootItemConditionalFunction.Builder<?> withRange(NumberProvider range) {
+        return simpleBuilder(conditions -> new SetSpiritusFraction(conditions, range));
+    }
+
+    public static LootItemConditionalFunction.Builder<?> withRange(float min, float max) {
+        return withRange(UniformGenerator.between(min, max));
+    }
+}

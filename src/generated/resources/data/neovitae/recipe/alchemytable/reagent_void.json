@@ -7,7 +7,6 @@
     "#c:gunpowders"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:reagent_void"
   },
   "syphon": 1000,

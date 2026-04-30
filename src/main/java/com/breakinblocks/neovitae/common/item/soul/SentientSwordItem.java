@@ -48,16 +48,16 @@ public class SentientSwordItem extends Item implements ISentientTool {
 
     public SentientSwordItem(Item.Properties props) {
         super(props.sword(NVMaterialsAndTiers.SENTIENT, 6, -2.4f)
-                .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT)
+                .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW)
                 .component(NVDataComponents.SIGIL_ACTIVATED, false));
     }
 
     @Override
-    public double[] getDamageForWillType(SpiritusType type) {
+    public double[] getDamageForSpiritusType(SpiritusType type) {
         return switch (type) {
-            case DESTRUCTIVE -> DESTRUCTIVE_DAMAGE;
-            case VENGEFUL -> VENGEFUL_DAMAGE;
-            case STEADFAST -> STEADFAST_DAMAGE;
+            case NIHILUM -> DESTRUCTIVE_DAMAGE;
+            case VINDICTA -> VENGEFUL_DAMAGE;
+            case INVICTUS -> STEADFAST_DAMAGE;
             default -> DEFAULT_DAMAGE;
         };
     }
@@ -88,10 +88,10 @@ public class SentientSwordItem extends Item implements ISentientTool {
             recalculatePowers(stack, player.level(), player);
             SpiritusType type = getCurrentType(stack);
             double will = PlayerSpiritusHandler.getTotalSpiritus(type, player);
-            int willBracket = getLevel(will);
+            int spiritusBracket = getLevel(will);
 
-            if (willBracket >= 0) {
-                applyEffectToEntity(type, willBracket, target, player);
+            if (spiritusBracket >= 0) {
+                applyEffectToEntity(type, spiritusBracket, target, player);
             }
         }
     }
@@ -99,7 +99,7 @@ public class SentientSwordItem extends Item implements ISentientTool {
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
         recalculatePowers(stack, player.level(), player);
-        return handleWillDrain(stack, player);
+        return handleSpiritusDrain(stack, player);
     }
 
     @Override
@@ -107,7 +107,7 @@ public class SentientSwordItem extends Item implements ISentientTool {
         SpiritusType type = PlayerSpiritusHandler.getLargestSpiritusType(player);
         double soulsRemaining = PlayerSpiritusHandler.getTotalSpiritus(type, player);
 
-        setCurrentType(stack, soulsRemaining > 0 ? type : SpiritusType.DEFAULT);
+        setCurrentType(stack, soulsRemaining > 0 ? type : SpiritusType.RAW);
         int level = getLevel(soulsRemaining);
 
         double drain = level >= 0 ? SOUL_DRAIN_PER_SWING[level] : 0;
@@ -124,22 +124,22 @@ public class SentientSwordItem extends Item implements ISentientTool {
         updateAttributeModifiers(stack, 5 + extraDamage, attackSpeed, movementSpeed);
     }
 
-    private double getAttackSpeed(SpiritusType type, int willBracket) {
-        if (willBracket < 0) {
+    private double getAttackSpeed(SpiritusType type, int spiritusBracket) {
+        if (spiritusBracket < 0) {
             return -2.4;
         }
         return switch (type) {
-            case VENGEFUL -> VENGEFUL_ATTACK_SPEED[willBracket];
-            case DESTRUCTIVE -> DESTRUCTIVE_ATTACK_SPEED[willBracket];
+            case VINDICTA -> VENGEFUL_ATTACK_SPEED[spiritusBracket];
+            case NIHILUM -> DESTRUCTIVE_ATTACK_SPEED[spiritusBracket];
             default -> -2.4;
         };
     }
 
-    private double getMovementSpeed(SpiritusType type, int willBracket) {
-        if (willBracket < 0 || type != SpiritusType.VENGEFUL) {
+    private double getMovementSpeed(SpiritusType type, int spiritusBracket) {
+        if (spiritusBracket < 0 || type != SpiritusType.VINDICTA) {
             return 0;
         }
-        return MOVEMENT_SPEED[willBracket];
+        return MOVEMENT_SPEED[spiritusBracket];
     }
 
     private void updateAttributeModifiers(ItemStack stack, double damage, double attackSpeed, double movementSpeed) {

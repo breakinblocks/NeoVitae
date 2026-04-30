@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "I": "minecraft:iron_block",
-    "S": "neovitae:imbued_slate",
+    "S": "neovitae:tabula_animata",
     "f": "minecraft:furnace",
     "o": {
       "neoforge:ingredient_type": "neovitae:orb_tier",
@@ -17,7 +17,6 @@
     "IfI"
   ],
   "result": {
-    "count": 1,
     "id": "neovitae:athanor"
   }
 }

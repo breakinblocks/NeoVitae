@@ -8,7 +8,7 @@
       "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 3
     },
-    "s": "neovitae:blank_slate"
+    "s": "neovitae:tabula_rasa"
   },
   "pattern": [
     "csc",
@@ -16,7 +16,6 @@
     "coc"
   ],
   "result": {
-    "count": 1,
     "id": "neovitae:primitive_hydration_cell"
   }
 }

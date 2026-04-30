@@ -9,29 +9,7 @@
   "description": "book.neovitae.guide.tabula_vitae.flask_bounce.description",
   "hide_while_locked": false,
   "icon": {
-    "components": {
-      "minecraft:potion_contents": {
-        "custom_effects": [
-          {
-            "duration": 3600,
-            "id": "neovitae:bounce",
-            "show_icon": true
-          }
-        ]
-      },
-      "neovitae:flask_effects": {
-        "effects": [
-          {
-            "amp_duration_mod": 1.0,
-            "amplifier": 0,
-            "base_duration": 3600,
-            "effect": "neovitae:bounce",
-            "length_duration_mod": 1.0
-          }
-        ]
-      }
-    },
-    "item": "neovitae:alchemy_flask"
+    "id": "neovitae:alchemy_flask"
   },
   "name": "book.neovitae.guide.tabula_vitae.flask_bounce.name",
   "pages": [

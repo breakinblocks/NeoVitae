@@ -4,11 +4,10 @@
   "inputs": [
     "#c:stones",
     "#c:ingots/copper",
-    "neovitae:default_crystal"
+    "neovitae:raw_crystal_shard"
   ],
   "minDrain": 1200.0,
   "output": {
-    "count": 1,
     "id": "neovitae:resonator"
   }
 }

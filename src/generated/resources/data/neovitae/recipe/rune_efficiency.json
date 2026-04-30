@@ -9,7 +9,7 @@
     },
     "h": "neovitae:hellforged_parts",
     "r": "neovitae:rune_blank",
-    "s": "neovitae:ethereal_slate"
+    "s": "neovitae:tabula_aetherea"
   },
   "pattern": [
     "RsR",
@@ -17,7 +17,6 @@
     "ReR"
   ],
   "result": {
-    "count": 1,
     "id": "neovitae:rune_efficiency"
   }
 }

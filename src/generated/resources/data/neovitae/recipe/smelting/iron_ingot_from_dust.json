@@ -5,7 +5,6 @@
   "experience": 0.7,
   "ingredient": "neovitae:iron_dust",
   "result": {
-    "count": 1,
     "id": "minecraft:iron_ingot"
   }
 }

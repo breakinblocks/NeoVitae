@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_quick_feet.description",
   "hide_while_locked": false,
-  "icon": "minecraft:sugar",
+  "icon": {
+    "id": "minecraft:sugar"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_quick_feet.name",
   "pages": [
     {

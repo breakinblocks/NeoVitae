@@ -7,7 +7,6 @@
     "neovitae:sigil_divination"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:reagent_sight"
   },
   "syphon": 500,

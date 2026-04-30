@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_lava.description",
   "hide_while_locked": false,
-  "icon": "minecraft:lava_bucket",
+  "icon": {
+    "id": "minecraft:lava_bucket"
+  },
   "name": "book.neovitae.guide.rituals.ritual_lava.name",
   "pages": [
     {

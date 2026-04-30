@@ -35,7 +35,7 @@
     ],
     "fallback": {
       "type": "minecraft:model",
-      "model": "neovitae:item/variant/spiritus_gem_petty_default"
+      "model": "neovitae:item/variant/spiritus_gem_petty_raw"
     }
   }
 }

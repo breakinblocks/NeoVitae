@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_water.description",
   "hide_while_locked": false,
-  "icon": "neovitae:sigil_water",
+  "icon": {
+    "id": "neovitae:sigil_water"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.sigil_water.name",
   "pages": [
     {

@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_living_downgrade.description",
   "hide_while_locked": false,
-  "icon": "neovitae:upgrade_scrap",
+  "icon": {
+    "id": "neovitae:upgrade_scrap"
+  },
   "name": "book.neovitae.guide.rituals.ritual_living_downgrade.name",
   "pages": [
     {
@@ -96,7 +98,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 41,
+  "sort_number": 40,
   "x": -3,
   "y": 6
 }

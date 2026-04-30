@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_upgrade_remove.description",
   "hide_while_locked": false,
-  "icon": "neovitae:upgrade_tome",
+  "icon": {
+    "id": "neovitae:upgrade_tome"
+  },
   "name": "book.neovitae.guide.rituals.ritual_upgrade_remove.name",
   "pages": [
     {
@@ -52,7 +54,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 40,
+  "sort_number": 39,
   "x": -5,
   "y": 6
 }

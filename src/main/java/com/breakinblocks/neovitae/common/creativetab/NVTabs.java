@@ -53,7 +53,7 @@ public class NVTabs {
                         addFlaskVariants(output::accept);
                         addAll(NVItems.ITEMS, output::accept);
                         addAll(NVFluids.BUCKETS, output::accept);
-                        NVItems.WILL_ITEMS.getEntries().forEach(holder -> {
+                        NVItems.SPIRITUS_ITEMS.getEntries().forEach(holder -> {
                             String path = holder.getId().getPath();
                             // Monster souls are already typed (basemonstersoul_*), don't create variants
                             if (path.startsWith("base_spiritus_soul")) {
@@ -63,11 +63,11 @@ public class NVTabs {
                                 output.accept(stack);
                             } else {
                                 // Soul gems and raw Spiritus get variants for each will type, filled with max will
-                                double maxWill = getMaxWillForItem(path);
+                                double maxSpiritus = getMaxWillForItem(path);
                                 for (SpiritusType type : SpiritusType.values()) {
                                     ItemStack stack = new ItemStack(holder.get());
                                     stack.set(NVDataComponents.SPIRITUS_TYPE, type);
-                                    stack.set(NVDataComponents.SPIRITUS_AMOUNT, maxWill);
+                                    stack.set(NVDataComponents.SPIRITUS_AMOUNT, maxSpiritus);
                                     output.accept(stack);
                                 }
                             }
@@ -190,7 +190,7 @@ public class NVTabs {
     private static void addEmptyGem(Consumer<ItemStack> tab, Item gem) {
         ItemStack stack = new ItemStack(gem);
         stack.set(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
-        stack.set(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT);
+        stack.set(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW);
         tab.accept(stack);
     }
 

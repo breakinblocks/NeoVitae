@@ -28,7 +28,7 @@ import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
 public class CrystallariumMaleficumBlockEntity extends BaseBlockEntity {
 
     private static double getWillToFormCrystal() {
-        return NeoVitae.SERVER_CONFIG.CRYSTAL_WILL_TO_FORM.get();
+        return NeoVitae.SERVER_CONFIG.CRYSTAL_SPIRITUS_TO_FORM.get();
     }
 
     private static double getTotalFormationTime() {
@@ -82,10 +82,10 @@ public class CrystallariumMaleficumBlockEntity extends BaseBlockEntity {
 
     private boolean formCrystal(SpiritusType type, BlockPos position) {
         Block block = switch (type) {
-            case CORROSIVE -> NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block().get();
-            case DESTRUCTIVE -> NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block().get();
-            case VENGEFUL -> NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block().get();
-            case STEADFAST -> NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block().get();
+            case RUINA -> NVBlocks.SPIRITUS_RUINA_CRYSTAL.block().get();
+            case NIHILUM -> NVBlocks.SPIRITUS_NIHILUM_CRYSTAL.block().get();
+            case VINDICTA -> NVBlocks.SPIRITUS_VINDICTA_CRYSTAL.block().get();
+            case INVICTUS -> NVBlocks.SPIRITUS_INVICTUS_CRYSTAL.block().get();
             default -> NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get();
         };
 
@@ -105,7 +105,7 @@ public class CrystallariumMaleficumBlockEntity extends BaseBlockEntity {
         return false;
     }
 
-    private double getCrystalFormationRate(double currentWill) {
+    private double getCrystalFormationRate(double currentSpiritus) {
         return 1.0;
     }
 

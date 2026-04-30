@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.spiritus.spiritus_snare.description",
   "hide_while_locked": false,
-  "icon": "neovitae:spiritus_snare",
+  "icon": {
+    "id": "neovitae:spiritus_snare"
+  },
   "name": "book.neovitae.guide.spiritus.spiritus_snare.name",
   "pages": [
     {

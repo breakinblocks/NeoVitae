@@ -92,10 +92,10 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SpiritusCrystalBlockEntity>> SPIRITUS_CRYSTAL_TYPE =
             registerTile("spiritus_crystal", SpiritusCrystalBlockEntity::new,
                     NVBlocks.RAW_SPIRITUS_CRYSTAL.block(),
-                    NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL.block(),
-                    NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL.block(),
-                    NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL.block(),
-                    NVBlocks.STEADFAST_SPIRITUS_CRYSTAL.block());
+                    NVBlocks.SPIRITUS_RUINA_CRYSTAL.block(),
+                    NVBlocks.SPIRITUS_NIHILUM_CRYSTAL.block(),
+                    NVBlocks.SPIRITUS_VINDICTA_CRYSTAL.block(),
+                    NVBlocks.SPIRITUS_INVICTUS_CRYSTAL.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SpectralBlockEntity>> SPECTRAL_BLOCK_TYPE =
             registerTile("spectral_block", SpectralBlockEntity::new, NVBlocks.SPECTRAL_BLOCK);

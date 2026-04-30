@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.downgrade_dulled_blade.description",
   "hide_while_locked": false,
-  "icon": "minecraft:stone_sword",
+  "icon": {
+    "id": "minecraft:stone_sword"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.downgrade_dulled_blade.name",
   "pages": [
     {

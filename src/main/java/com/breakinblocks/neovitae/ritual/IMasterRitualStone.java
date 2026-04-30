@@ -62,9 +62,9 @@ public interface IMasterRitualStone {
 
     void setBlockRanges(Map<String, AreaDescriptor> ranges);
 
-    SpiritusType getActiveWillConfig();
+    SpiritusType getActiveSpiritusAspect();
 
-    void setActiveWillConfig(SpiritusType type);
+    void setActiveSpiritusAspect(SpiritusType type);
 
     void provideInformationOfRitualToPlayer(Player player);
 

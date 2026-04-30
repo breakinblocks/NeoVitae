@@ -1,9 +1,8 @@
 {
   "type": "neovitae:array",
-  "addedinput": "neovitae:reinforced_slate",
+  "addedinput": "neovitae:tabula_robur",
   "baseinput": "neovitae:reagent_air",
   "output": {
-    "count": 1,
     "id": "neovitae:sigil_air"
   },
   "texture": "neovitae:textures/models/alchemyarrays/airsigil.png"

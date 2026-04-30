@@ -10,19 +10,19 @@ import java.util.Map;
 public class SpiritusHolder {
     private final EnumMap<SpiritusType, Double> willMap = new EnumMap<>(SpiritusType.class);
 
-    public double addWill(SpiritusType type, double amount, double max) {
+    public double addSpiritus(SpiritusType type, double amount, double max) {
         double current = willMap.getOrDefault(type, 0.0);
         double added = Math.min(max - current, amount);
-        addWill(type, added);
+        addSpiritus(type, added);
         return added;
     }
 
-    public void addWill(SpiritusType type, double amount) {
+    public void addSpiritus(SpiritusType type, double amount) {
         double current = willMap.getOrDefault(type, 0.0);
         willMap.put(type, current + amount);
     }
 
-    public double drainWill(SpiritusType type, double amount) {
+    public double drainSpiritus(SpiritusType type, double amount) {
         double current = willMap.getOrDefault(type, 0.0);
         if (current <= 0) {
             return 0;
@@ -40,7 +40,7 @@ public class SpiritusHolder {
         return reduced;
     }
 
-    public double getWill(SpiritusType type) {
+    public double getSpiritus(SpiritusType type) {
         return willMap.getOrDefault(type, 0.0);
     }
 

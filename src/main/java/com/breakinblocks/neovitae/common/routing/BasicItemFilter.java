@@ -54,7 +54,8 @@ public class BasicItemFilter implements IItemFilter {
         } else {
             requestList = filteredList;
             for (IFilterKey filterStack : requestList) {
-                filterStack.setCount(filterStack.getCount() * -1);
+                int c = filterStack.getCount();
+                filterStack.setCount(c == Integer.MAX_VALUE ? 0 : c * -1);
             }
 
             for (int slot = 0; slot < itemHandler.size(); slot++) {

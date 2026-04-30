@@ -19,7 +19,7 @@ import net.minecraft.core.registries.Registries;
 
 public class ForgeUpgradeRecipeBuilder extends BaseRecipeBuilder {
 
-    private double minWill;
+    private double minSpiritus;
     private double drainedWill;
     private final List<Ingredient> catalysts = new ArrayList<>();
 
@@ -41,8 +41,8 @@ public class ForgeUpgradeRecipeBuilder extends BaseRecipeBuilder {
         return this;
     }
 
-    public ForgeUpgradeRecipeBuilder minWill(double minWill) {
-        this.minWill = minWill;
+    public ForgeUpgradeRecipeBuilder minSpiritus(double minSpiritus) {
+        this.minSpiritus = minSpiritus;
         return this;
     }
 
@@ -54,7 +54,7 @@ public class ForgeUpgradeRecipeBuilder extends BaseRecipeBuilder {
     @Override
     public void save(RecipeOutput output, ResourceKey<Recipe<?>> id) {
         Advancement.Builder advBuilder = getBuilder(output, id);
-        ForgeUpgradeRecipe recipe = new ForgeUpgradeRecipe(minWill, drainedWill, catalysts);
+        ForgeUpgradeRecipe recipe = new ForgeUpgradeRecipe(minSpiritus, drainedWill, catalysts);
         output.accept(ResourceKey.create(Registries.RECIPE, id.identifier().withPrefix("hellfire_forge/")), recipe, advBuilder.build(advancementId(id, "hellfire_forge")));
     }
 }

@@ -5,7 +5,6 @@
     "minecraft:bucket"
   ],
   "output": {
-    "count": 1,
     "id": "minecraft:lava_bucket"
   },
   "syphon": 1000,

@@ -5,7 +5,6 @@
     "minecraft:bucket"
   ],
   "output": {
-    "count": 1,
     "id": "minecraft:water_bucket"
   },
   "syphon": 300,

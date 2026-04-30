@@ -4,7 +4,9 @@
   "category": "dungeons",
   "description": "book.neovitae.guide.dungeons.demon_drops.description",
   "hide_while_locked": false,
-  "icon": "neovitae:cinder_heart_fragment",
+  "icon": {
+    "id": "neovitae:cinder_heart_fragment"
+  },
   "name": "book.neovitae.guide.dungeons.demon_drops.name",
   "pages": [
     {
@@ -47,8 +49,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "count": 1,
-        "item": "neovitae:permafrost_core"
+        "id": "neovitae:permafrost_core"
       },
       "text": "book.neovitae.guide.dungeons.demon_drops.boss_drops.text",
       "title": "Apex Trophies"

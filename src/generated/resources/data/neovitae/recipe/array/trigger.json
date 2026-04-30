@@ -3,5 +3,8 @@
   "addedinput": "#c:ingots/iron",
   "baseinput": "#c:dusts/redstone",
   "effect_type": "trigger",
+  "output": {
+    "id": "minecraft:stone"
+  },
   "texture": "neovitae:textures/models/alchemyarrays/triggerarray.png"
 }

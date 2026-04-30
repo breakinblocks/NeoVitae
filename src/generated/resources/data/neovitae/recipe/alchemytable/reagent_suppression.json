@@ -7,7 +7,6 @@
     "minecraft:bucket"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:reagent_suppression"
   },
   "syphon": 10000,

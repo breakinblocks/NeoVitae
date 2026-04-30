@@ -1,13 +1,12 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    "neovitae:slate_vial",
+    "neovitae:tabula_vial",
     "#c:crops/nether_wart",
     "#c:nuggets/gold",
     "minecraft:bow"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:bow_velocity_anointment"
   },
   "syphon": 500,

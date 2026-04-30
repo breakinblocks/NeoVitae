@@ -51,7 +51,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     private boolean inverted = false;
     private int cooldown = 0;
     private long runningTime = 0;
-    private SpiritusType activeWillConfig = SpiritusType.DEFAULT;
+    private SpiritusType activeSpiritusAspect = SpiritusType.RAW;
 
     private Map<String, AreaDescriptor> blockRanges = new HashMap<>();
 
@@ -385,13 +385,13 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     }
 
     @Override
-    public SpiritusType getActiveWillConfig() {
-        return activeWillConfig;
+    public SpiritusType getActiveSpiritusAspect() {
+        return activeSpiritusAspect;
     }
 
     @Override
-    public void setActiveWillConfig(SpiritusType type) {
-        this.activeWillConfig = type;
+    public void setActiveSpiritusAspect(SpiritusType type) {
+        this.activeSpiritusAspect = type;
         setChanged();
     }
 
@@ -447,7 +447,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         tag.putInt("cooldown", cooldown);
         tag.putLong("runningTime", runningTime);
         tag.putString("direction", direction.getName());
-        tag.putString("willConfig", activeWillConfig.getSerializedName());
+        tag.putString("activeAspect", activeSpiritusAspect.getSerializedName());
 
         if (currentRitual != null && currentRitualId != null) {
             tag.putString("ritual", currentRitualId.toString());
@@ -491,11 +491,11 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
             if (direction == null) direction = Direction.NORTH;
         });
 
-        tag.getString("willConfig").ifPresent(w -> {
+        tag.getString("activeAspect").ifPresent(w -> {
             try {
-                activeWillConfig = SpiritusType.valueOf(w.toUpperCase());
+                activeSpiritusAspect = SpiritusType.valueOf(w.toUpperCase());
             } catch (IllegalArgumentException e) {
-                activeWillConfig = SpiritusType.DEFAULT;
+                activeSpiritusAspect = SpiritusType.RAW;
             }
         });
 

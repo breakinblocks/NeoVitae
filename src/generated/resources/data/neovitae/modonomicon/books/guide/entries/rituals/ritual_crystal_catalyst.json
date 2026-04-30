@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_crystal_catalyst.description",
   "hide_while_locked": false,
-  "icon": "neovitae:raw_catalyst",
+  "icon": {
+    "id": "neovitae:raw_spiritus_catalyst"
+  },
   "name": "book.neovitae.guide.rituals.ritual_crystal_catalyst.name",
   "pages": [
     {
@@ -52,7 +54,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 38,
+  "sort_number": 37,
   "x": -3,
   "y": 5
 }

@@ -17,12 +17,12 @@ import net.minecraft.world.item.component.TooltipDisplay;
 public class RawSpiritusItem extends Item {
 
     public RawSpiritusItem(Item.Properties props) {
-        super(props.stacksTo(1).component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT).component(NVDataComponents.SPIRITUS_AMOUNT, 5D));
+        super(props.stacksTo(1).component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW).component(NVDataComponents.SPIRITUS_AMOUNT, 5D));
     }
     @Override
     @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        SpiritusType type = stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.DEFAULT);
+        SpiritusType type = stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW);
         double amount = stack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
 
         tooltipComponents.accept(Component.translatable("tooltip.neovitae.will", ChatUtil.DECIMAL_FORMAT.format(amount)).withStyle(ChatFormatting.GRAY));

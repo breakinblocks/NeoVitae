@@ -6,7 +6,6 @@
   "input": "neovitae:crystal_cluster",
   "minTier": 5,
   "output": {
-    "count": 1,
     "id": "neovitae:blood_orb_transcendent"
   }
 }

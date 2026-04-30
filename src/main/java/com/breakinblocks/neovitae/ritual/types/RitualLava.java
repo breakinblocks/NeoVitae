@@ -51,7 +51,7 @@ public class RitualLava extends Ritual {
     public static final String TANK_RANGE = "tankRange";
     public static final String FIRE_RANGE = "fireRange";
 
-    private static final double MIN_WILL = 0.5;
+    private static final double MIN_SPIRITUS = 0.5;
     private static final double VENGEFUL_WILL_PER_MOB = 1.0;
     private static final double CORROSIVE_WILL_PER_HIT = 1.0;
     private static final double STEADFAST_WILL_PER_PLAYER = 0.5;
@@ -86,7 +86,7 @@ public class RitualLava extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
+        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_SPIRITUS);
 
         // EV cost per operation: cheaper with more raw Spiritus.
         int lavaCost = will.hasDefault() ? Math.max(1, BASE_LAVA_COST - (int) will.getDefault()) : BASE_LAVA_COST;
@@ -198,7 +198,7 @@ public class RitualLava extends Ritual {
             ctx.syphon(lavaCost * totalEffects);
         }
 
-        RitualHelper.drainWill(will, ctx.level(), masterPos,
+        RitualHelper.drainSpiritus(will, ctx.level(), masterPos,
                 rawUsed, corrosiveUsed, 0, vengefulUsed, steadfastUsed);
     }
 

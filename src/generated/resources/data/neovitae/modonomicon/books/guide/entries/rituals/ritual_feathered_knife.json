@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_feathered_knife.description",
   "hide_while_locked": false,
-  "icon": "neovitae:sacrificial_dagger",
+  "icon": {
+    "id": "neovitae:sacrificial_dagger"
+  },
   "name": "book.neovitae.guide.rituals.ritual_feathered_knife.name",
   "pages": [
     {

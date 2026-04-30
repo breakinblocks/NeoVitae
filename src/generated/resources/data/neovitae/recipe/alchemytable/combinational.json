@@ -8,7 +8,6 @@
     "#c:dusts/coal"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:combinational_catalyst"
   },
   "syphon": 2000,

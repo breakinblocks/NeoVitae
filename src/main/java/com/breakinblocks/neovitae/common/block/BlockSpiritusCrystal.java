@@ -38,12 +38,12 @@ import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
  * ATTACHED property indicates which direction the crystal attaches to.
  */
 public class BlockSpiritusCrystal extends BaseEntityBlock {
-    public static final MapCodec<BlockSpiritusCrystal> CODEC = simpleCodec(p -> new BlockSpiritusCrystal(SpiritusType.DEFAULT, p));
+    public static final MapCodec<BlockSpiritusCrystal> CODEC = simpleCodec(p -> new BlockSpiritusCrystal(SpiritusType.RAW, p));
 
     public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 6);
     public static final EnumProperty<Direction> ATTACHED = EnumProperty.create("attached", Direction.class);
 
-    public final SpiritusType willType;
+    public final SpiritusType spiritusType;
 
     private static final VoxelShape SHAPE_UP = Block.box(2, 0, 2, 14, 14, 14);
     private static final VoxelShape SHAPE_DOWN = Block.box(2, 2, 2, 14, 16, 14);
@@ -52,9 +52,9 @@ public class BlockSpiritusCrystal extends BaseEntityBlock {
     private static final VoxelShape SHAPE_EAST = Block.box(0, 2, 2, 13, 14, 14);
     private static final VoxelShape SHAPE_WEST = Block.box(3, 2, 2, 16, 14, 14);
 
-    public BlockSpiritusCrystal(SpiritusType willType, Properties properties) {
+    public BlockSpiritusCrystal(SpiritusType spiritusType, Properties properties) {
         super(properties);
-        this.willType = willType;
+        this.spiritusType = spiritusType;
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(ATTACHED, Direction.UP)
                 .setValue(AGE, 0));
@@ -150,9 +150,9 @@ public class BlockSpiritusCrystal extends BaseEntityBlock {
             return InteractionResult.PASS;
         }
 
-        double playerWill = PlayerSpiritusHandler.getTotalSpiritus(
+        double playerSpiritus = PlayerSpiritusHandler.getTotalSpiritus(
                 PlayerSpiritusHandler.getLargestSpiritusType(player), player);
-        if (playerWill > 512) {
+        if (playerSpiritus > 512) {
             if (crystal.dropSingleCrystal()) {
                 return InteractionResult.SUCCESS;
             }
@@ -164,7 +164,7 @@ public class BlockSpiritusCrystal extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new SpiritusCrystalBlockEntity(willType, pos, state);
+        return new SpiritusCrystalBlockEntity(spiritusType, pos, state);
     }
 
     @Nullable
@@ -178,17 +178,17 @@ public class BlockSpiritusCrystal extends BaseEntityBlock {
 
     public static ItemStack getItemStackDropped(SpiritusType type, int count) {
         ItemStack stack = switch (type) {
-            case CORROSIVE -> new ItemStack(NVItems.CORROSIVE_CRYSTAL.get());
-            case DESTRUCTIVE -> new ItemStack(NVItems.DESTRUCTIVE_CRYSTAL.get());
-            case VENGEFUL -> new ItemStack(NVItems.VENGEFUL_CRYSTAL.get());
-            case STEADFAST -> new ItemStack(NVItems.STEADFAST_CRYSTAL.get());
-            default -> new ItemStack(NVItems.RAW_CRYSTAL.get());
+            case RUINA -> new ItemStack(NVItems.SPIRITUS_RUINA_CRYSTAL_ITEM.get());
+            case NIHILUM -> new ItemStack(NVItems.SPIRITUS_NIHILUM_CRYSTAL_ITEM.get());
+            case VINDICTA -> new ItemStack(NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get());
+            case INVICTUS -> new ItemStack(NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get());
+            default -> new ItemStack(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get());
         };
         stack.setCount(count);
         return stack;
     }
 
     public SpiritusType getWillType() {
-        return willType;
+        return spiritusType;
     }
 }

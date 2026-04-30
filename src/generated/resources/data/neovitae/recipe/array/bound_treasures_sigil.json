@@ -1,9 +1,8 @@
 {
   "type": "neovitae:array",
-  "addedinput": "neovitae:imbued_slate",
+  "addedinput": "neovitae:tabula_animata",
   "baseinput": "minecraft:ender_eye",
   "output": {
-    "count": 1,
     "id": "neovitae:sigil_bound_treasures"
   },
   "texture": "neovitae:textures/models/alchemyarrays/defaultarray.png"

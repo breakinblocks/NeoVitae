@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_meteor.description",
   "hide_while_locked": false,
-  "icon": "minecraft:fire_charge",
+  "icon": {
+    "id": "minecraft:fire_charge"
+  },
   "name": "book.neovitae.guide.rituals.ritual_meteor.name",
   "pages": [
     {

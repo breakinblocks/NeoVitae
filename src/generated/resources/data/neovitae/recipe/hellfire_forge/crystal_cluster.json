@@ -3,13 +3,12 @@
   "drain": 1024.0,
   "inputs": [
     "minecraft:sculk",
-    "neovitae:ethereal_slate",
+    "neovitae:tabula_aetherea",
     "neovitae:weak_blood_shard",
     "minecraft:nether_star"
   ],
   "minDrain": 2048.0,
   "output": {
-    "count": 1,
     "id": "neovitae:crystal_cluster"
   }
 }

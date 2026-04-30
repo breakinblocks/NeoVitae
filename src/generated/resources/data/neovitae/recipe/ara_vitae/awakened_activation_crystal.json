@@ -6,7 +6,6 @@
   "input": "neovitae:activation_crystal_weak",
   "minTier": 4,
   "output": {
-    "count": 1,
     "id": "neovitae:activation_crystal_awakened"
   }
 }

@@ -106,10 +106,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Demon Crystal Blocks
         add(NVBlocks.RAW_SPIRITUS_CRYSTAL, "Raw Crystal Cluster");
-        add(NVBlocks.CORROSIVE_SPIRITUS_CRYSTAL, "Corrosive Crystal Cluster");
-        add(NVBlocks.DESTRUCTIVE_SPIRITUS_CRYSTAL, "Destructive Crystal Cluster");
-        add(NVBlocks.VENGEFUL_SPIRITUS_CRYSTAL, "Vengeful Crystal Cluster");
-        add(NVBlocks.STEADFAST_SPIRITUS_CRYSTAL, "Steadfast Crystal Cluster");
+        add(NVBlocks.SPIRITUS_RUINA_CRYSTAL, "Spiritus Ruina Crystal Cluster");
+        add(NVBlocks.SPIRITUS_NIHILUM_CRYSTAL, "Spiritus Nihilum Crystal Cluster");
+        add(NVBlocks.SPIRITUS_VINDICTA_CRYSTAL, "Spiritus Vindicta Crystal Cluster");
+        add(NVBlocks.SPIRITUS_INVICTUS_CRYSTAL, "Spiritus Invictus Crystal Cluster");
 
         // Routing Node Blocks
         add(NVBlocks.ROUTING_CONDUIT, "Routing Conduit");
@@ -160,10 +160,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Spiritus Essence (dropped from mobs with sentient weapons)
         add(NVItems.MONSTER_SOUL_RAW.get(), "Spiritus Essence");
-        add(NVItems.MONSTER_SOUL_CORROSIVE.get(), "Corrosive Spiritus Essence");
-        add(NVItems.MONSTER_SOUL_DESTRUCTIVE.get(), "Destructive Spiritus Essence");
-        add(NVItems.MONSTER_SOUL_VENGEFUL.get(), "Vengeful Spiritus Essence");
-        add(NVItems.MONSTER_SOUL_STEADFAST.get(), "Steadfast Spiritus Essence");
+        add(NVItems.MONSTER_SOUL_RUINA.get(), "Spiritus Ruina Essence");
+        add(NVItems.MONSTER_SOUL_NIHILUM.get(), "Spiritus Nihilum Essence");
+        add(NVItems.MONSTER_SOUL_VINDICTA.get(), "Spiritus Vindicta Essence");
+        add(NVItems.MONSTER_SOUL_INVICTUS.get(), "Spiritus Invictus Essence");
 
         add(NVItems.SPIRITUS_GEM_PETTY.get(), "Petty Spiritus Gem");
         add(NVItems.SPIRITUS_GEM_LESSER.get(), "Lesser Spiritus Gem");
@@ -177,11 +177,11 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addGemDesc(NVItems.SPIRITUS_GEM_GRAND, "a large amount of");
 
         // Slates
-        add(NVItems.SLATE_BLANK.get(), "Blank Slate");
-        add(NVItems.SLATE_REINFORCED.get(), "Reinforced Slate");
-        add(NVItems.SLATE_IMBUED.get(), "Imbued Slate");
-        add(NVItems.SLATE_DEMONIC.get(), "Demonic Slate");
-        add(NVItems.SLATE_ETHEREAL.get(), "Ethereal Slate");
+        add(NVItems.TABULA_RASA.get(), "Tabula Rasa");
+        add(NVItems.TABULA_ROBUR.get(), "Tabula Robur");
+        add(NVItems.TABULA_ANIMATA.get(), "Tabula Animata");
+        add(NVItems.TABULA_SPIRITUS.get(), "Tabula Spiritus");
+        add(NVItems.TABULA_AETHEREA.get(), "Tabula Aetherea");
 
         // Sigils
         add(NVItems.SIGIL_DIVINATION.get(), "Divination Sigil");
@@ -249,31 +249,31 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.notEnoughLP", "Not enough Essentia Vitae!");
 
         // Crystal Items
-        add(NVItems.RAW_CRYSTAL.get(), "Spiritus Crystal");
-        add(NVItems.CORROSIVE_CRYSTAL.get(), "Corrosive Spiritus Crystal");
-        add(NVItems.DESTRUCTIVE_CRYSTAL.get(), "Destructive Spiritus Crystal");
-        add(NVItems.VENGEFUL_CRYSTAL.get(), "Vengeful Spiritus Crystal");
-        add(NVItems.STEADFAST_CRYSTAL.get(), "Steadfast Spiritus Crystal");
+        add(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get(), "Spiritus Crystal");
+        add(NVItems.SPIRITUS_RUINA_CRYSTAL_ITEM.get(), "Spiritus Ruina Crystal");
+        add(NVItems.SPIRITUS_NIHILUM_CRYSTAL_ITEM.get(), "Spiritus Nihilum Crystal");
+        add(NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get(), "Spiritus Vindicta Crystal");
+        add(NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get(), "Spiritus Invictus Crystal");
         add(NVItems.SPIRITUS_GAUGE.get(), "Spiritus Aura Gauge");
         addTooltip("spiritus_gauge", "Shows the current spiritus level in the area");
 
         // Crystal Catalysts
-        add(NVItems.RAW_CRYSTAL_CATALYST.get(), "Raw Crystal Catalyst");
-        add(NVItems.CORROSIVE_CRYSTAL_CATALYST.get(), "Corrosive Crystal Catalyst");
-        add(NVItems.DESTRUCTIVE_CRYSTAL_CATALYST.get(), "Destructive Crystal Catalyst");
-        add(NVItems.VENGEFUL_CRYSTAL_CATALYST.get(), "Vengeful Crystal Catalyst");
-        add(NVItems.STEADFAST_CRYSTAL_CATALYST.get(), "Steadfast Crystal Catalyst");
+        add(NVItems.RAW_SPIRITUS_CATALYST.get(), "Raw Crystal Catalyst");
+        add(NVItems.SPIRITUS_RUINA_CATALYST.get(), "Spiritus Ruina Catalyst");
+        add(NVItems.SPIRITUS_NIHILUM_CATALYST.get(), "Spiritus Nihilum Catalyst");
+        add(NVItems.SPIRITUS_VINDICTA_CATALYST.get(), "Spiritus Vindicta Catalyst");
+        add(NVItems.SPIRITUS_INVICTUS_CATALYST.get(), "Spiritus Invictus Catalyst");
         add("tooltip.neovitae.crystal_catalyst.desc", "Right-click a Spiritus Crystal to accelerate its growth");
         add("tooltip.neovitae.crystal_catalyst.aspect", "Aspect: %s");
         add("tooltip.neovitae.blood_mending", "Enchanted with Blood Mending");
         add("tooltip.neovitae.spiritus_stored", "Spiritus: %s / %s");
 
-        // Will Type Names
-        add("will.neovitae.default", "Raw");
-        add("will.neovitae.corrosive", "Corrosive");
-        add("will.neovitae.destructive", "Destructive");
-        add("will.neovitae.vengeful", "Vengeful");
-        add("will.neovitae.steadfast", "Steadfast");
+        // Spiritus Aspect Names
+        add("will.neovitae.raw", "Raw Spiritus");
+        add("will.neovitae.ruina", "Spiritus Ruina");
+        add("will.neovitae.nihilum", "Spiritus Nihilum");
+        add("will.neovitae.vindicta", "Spiritus Vindicta");
+        add("will.neovitae.invictus", "Spiritus Invictus");
 
         // Sentient Tools
         add(NVItems.SENTIENT_SWORD.get(), "Sentient Sword");
@@ -431,13 +431,13 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.mimic.potionInterval.up", "Potion Interval: %d ticks");
 
         // Alchemy Flask Items
-        add(NVItems.SLATE_VIAL.get(), "Slate Vial");
+        add(NVItems.TABULA_VIAL.get(), "Tabula Vial");
         add(NVItems.ALCHEMY_FLASK.get(), "Alchemy Flask");
         add(NVItems.ALCHEMY_FLASK_THROWABLE.get(), "Throwable Alchemy Flask");
         add(NVItems.ALCHEMY_FLASK_LINGERING.get(), "Lingering Alchemy Flask");
 
         // Blood Provider Items
-        add(NVItems.SLATE_AMPOULE.get(), "Slate Ampoule");
+        add(NVItems.TABULA_AMPOULE.get(), "Tabula Ampoule");
         add("tooltip.neovitae.blood_provider.slate.desc", "A simple ampoule containing 500 EV.");
 
         // Anointment Items - Base tier (using 1.20.1 thematic names)
@@ -449,7 +449,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.QUICK_DRAW_ANOINTMENT.get(), "Dexterity Alkahest");
         add(NVItems.LOOTING_ANOINTMENT.get(), "Plunderer's Glint");
         add(NVItems.BOW_POWER_ANOINTMENT.get(), "Iron Tip");
-        add(NVItems.WILL_POWER_ANOINTMENT.get(), "Will Empowerment");
+        add(NVItems.SPIRITUS_DRAIN_ANOINTMENT.get(), "Spiritus Drain Anointment");
         add(NVItems.SMELTING_ANOINTMENT.get(), "Slow-burning Oil");
         add(NVItems.VOIDING_ANOINTMENT.get(), "Voiding Essence");
         add(NVItems.BOW_VELOCITY_ANOINTMENT.get(), "Archer's Polish");
@@ -602,7 +602,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.reader.corner1Set", "Corner 1 set at %d, %d, %d");
         add("chat.neovitae.reader.areaSet", "Area '%s' updated successfully.");
         add("chat.neovitae.reader.invalidRange", "Invalid range key.");
-        add("chat.neovitae.reader.willType", "Will type set to: %s");
+        add("chat.neovitae.reader.spiritusType", "Will type set to: %s");
         add("ritual.neovitae.blockRange.noRange", "No range with that key.");
         add("ritual.neovitae.blockRange.tooBig", "Area volume exceeds limit of %d blocks.");
         add("ritual.neovitae.blockRange.tooFar", "Area extends beyond limits (vertical: %d, horizontal: %d).");
@@ -675,7 +675,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAnointment("quick_draw", "Deft Hands");
         addAnointment("looting", "Plundering");
         addAnointment("bow_power", "Heavy Shot");
-        addAnointment("will_power", "Spiritus Drain");
+        addAnointment("spiritus_drain", "Spiritus Drain");
         addAnointment("smelting", "Heated Tool");
         addAnointment("voiding", "Voiding");
         addAnointment("bow_velocity", "Sniping");
@@ -693,7 +693,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("anointment.quick_draw.desc", "Decreases bow draw time");
         addTooltip("anointment.looting.desc", "Increases mob drops (Looting)");
         addTooltip("anointment.bow_power.desc", "Increases arrow damage");
-        addTooltip("anointment.will_power.desc", "Arrows drain Spiritus on hit");
+        addTooltip("anointment.spiritus_drain.desc", "Arrows drain Spiritus on hit");
         addTooltip("anointment.smelting.desc", "Auto-smelts drops from mining");
         addTooltip("anointment.voiding.desc", "Destroys unwanted drops from mining");
         addTooltip("anointment.bow_velocity.desc", "Increases arrow velocity");
@@ -903,11 +903,11 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("currentOwner", "Bound to: %s");
 
         // Current will type (currentType variant for sentient tools)
-        addTooltip("currentType.default", "Type: Raw");
-        addTooltip("currentType.corrosive", "Type: Corrosive");
-        addTooltip("currentType.destructive", "Type: Destructive");
-        addTooltip("currentType.vengeful", "Type: Vengeful");
-        addTooltip("currentType.steadfast", "Type: Steadfast");
+        addTooltip("currentType.raw", "Type: Raw Spiritus");
+        addTooltip("currentType.ruina", "Type: Spiritus Ruina");
+        addTooltip("currentType.nihilum", "Type: Spiritus Nihilum");
+        addTooltip("currentType.vindicta", "Type: Spiritus Vindicta");
+        addTooltip("currentType.invictus", "Type: Spiritus Invictus");
 
         add("chat.neovitae.living_upgrade.level_up", "%s has levelled up to %s!");
 
@@ -1074,7 +1074,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("zephyr", "Call of the Zephyr");
         addRitual("pump", "Hymn of Siphoning");
         addRitual("phantom_bridge", "Ritual of the Phantom Bridge");
-        addRitual("crystal_harvest", "Crystalline Harvest");
+        addRitual("crystallum_fractura", "Crystallum Fractura");
         addRitual("downgrade", "Ritual of Living Evolution");
         addRitual("meteor", "Mark of the Falling Tower");
         addRitual("forsaken_soul", "Cry of the Forsaken Soul");
@@ -1084,7 +1084,6 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("condor", "Reverence of the Condor");
         addRitual("grounding", "The Sinner's Burden");
         addRitual("placer", "Ritual of the Mason");
-        addRitual("geode", "Geode Resonance");
         addRitual("ellipse", "Ellipsoid Manifestation");
         addRitual("sphere", "Spherical Manifestation");
         addRitual("armour_evolve", "Ritual of Living Evolution");
@@ -1163,11 +1162,11 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("master_blood_orb", "Magus Orb of Vitae", "Upgrade to a Tier 3 Orb of Vitae");
         addAdvancement("archmage_blood_orb", "Dominus Orb of Vitae", "Upgrade to a Tier 4 Orb of Vitae");
         addAdvancement("transcendent_blood_orb", "Divinus Orb of Vitae", "Achieve the ultimate Orb of Vitae");
-        addAdvancement("blank_slate", "Blank Slate", "Inscribe your first slate");
-        addAdvancement("reinforced_slate", "Reinforced Slate", "Craft a Reinforced Slate");
-        addAdvancement("imbued_slate", "Imbued Slate", "Craft an Imbued Slate");
-        addAdvancement("demonic_slate", "Demonic Slate", "Craft a Demonic Slate");
-        addAdvancement("ethereal_slate", "Ethereal Slate", "Craft an Ethereal Slate");
+        addAdvancement("tabula_rasa", "Tabula Rasa", "Inscribe your first slate");
+        addAdvancement("tabula_robur", "Tabula Robur", "Craft a Reinforced Slate");
+        addAdvancement("tabula_animata", "Tabula Animata", "Craft an Imbued Slate");
+        addAdvancement("tabula_spiritus", "Tabula Spiritus", "Craft a Demonic Slate");
+        addAdvancement("tabula_aetherea", "Tabula Aetherea", "Craft an Ethereal Slate");
         addAdvancement("tabula_vitae", "The Alchemy Table", "Craft a Tabula Vitae");
         addAdvancement("athanor", "Industrial Alchemy", "Craft an Athanor");
         addAdvancement("incense_altar", "Sacred Incense", "Craft an Incense Altar");
@@ -1179,6 +1178,13 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("well_of_suffering", "Well of Suffering", "Activate the Well of Suffering");
         addAdvancement("edge_of_hidden_realm", "Edge of the Hidden Realm", "Venture into the Endless Realm");
         addAdvancement("crack_of_fractured_crystal", "Crack of the Fractured Crystal", "Activate the Resonance of the Faceted Crystal");
+        addAdvancement("crystallum_fractura", "Crystallum Fractura", "Activate the unified harvest ritual; let the aura split crystals from Spiritus itself");
+        addAdvancement("harvest_raw", "Untempered Harvest", "Reap a Raw Spiritus crystal under the aura of Crystallum Fractura");
+        addAdvancement("harvest_ruina", "Ruinous Harvest", "Gather a Spiritus Ruina crystal from a fully-grown cluster");
+        addAdvancement("harvest_nihilum", "Nihilist's Yield", "Gather a Spiritus Nihilum crystal from a fully-grown cluster");
+        addAdvancement("harvest_vindicta", "Vindicated Harvest", "Gather a Spiritus Vindicta crystal from a fully-grown cluster");
+        addAdvancement("harvest_invictus", "Unbroken Harvest", "Gather a Spiritus Invictus crystal from a fully-grown cluster");
+        addAdvancement("aspectum_omnia", "Aspectum Omnia", "Gather every aspect of Spiritus from the harvest");
         addAdvancement("serenade_of_nether", "Serenade of the Nether", "Activate the Serenade of the Nether");
         addAdvancement("master_of_ceremonies", "Master of Ceremonies", "Complete all ritual achievements");
         addAdvancement("meteor", "METEO!", "Summon the Mark of the Falling Tower");

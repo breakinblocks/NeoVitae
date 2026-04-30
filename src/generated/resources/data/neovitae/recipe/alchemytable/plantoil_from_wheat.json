@@ -6,7 +6,6 @@
     "minecraft:bone_meal"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:plant_oil"
   },
   "syphon": 100,

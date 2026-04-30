@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_ice.description",
   "hide_while_locked": false,
-  "icon": "neovitae:sigil_frost",
+  "icon": {
+    "id": "neovitae:sigil_frost"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.sigil_ice.name",
   "pages": [
     {

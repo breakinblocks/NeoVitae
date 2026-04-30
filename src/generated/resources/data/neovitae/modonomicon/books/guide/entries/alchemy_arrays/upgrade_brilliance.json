@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_brilliance.description",
   "hide_while_locked": false,
-  "icon": "minecraft:diamond",
+  "icon": {
+    "id": "minecraft:diamond"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_brilliance.name",
   "pages": [
     {

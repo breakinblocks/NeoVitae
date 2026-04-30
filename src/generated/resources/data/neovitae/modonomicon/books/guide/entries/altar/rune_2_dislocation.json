@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.altar.rune_2_dislocation.description",
   "hide_while_locked": false,
-  "icon": "neovitae:rune_2_dislocation",
+  "icon": {
+    "id": "neovitae:rune_2_dislocation"
+  },
   "name": "book.neovitae.guide.altar.rune_2_dislocation.name",
   "pages": [
     {

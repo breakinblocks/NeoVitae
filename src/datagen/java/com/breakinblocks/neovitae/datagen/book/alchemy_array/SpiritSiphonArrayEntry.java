@@ -53,7 +53,7 @@ public class SpiritSiphonArrayEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.SLATE_IMBUED.get());
+        return BookIconModel.create(NVItems.TABULA_ANIMATA.get());
     }
 
     @Override

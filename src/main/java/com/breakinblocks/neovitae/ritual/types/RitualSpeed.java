@@ -39,8 +39,8 @@ public class RitualSpeed extends Ritual {
 
     public static final String SPEED_RANGE = "speedRange";
 
-    private static final double MIN_WILL = 0.5;
-    private static final double WILL_PER_ENTITY = 0.1;
+    private static final double MIN_SPIRITUS = 0.5;
+    private static final double SPIRITUS_PER_ENTITY = 0.1;
 
     public RitualSpeed() {
         super("speed", 0, 500, "ritual." + NeoVitae.MODID + ".speed");
@@ -56,7 +56,7 @@ public class RitualSpeed extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         Direction facing = masterRitualStone.getDirection();
 
-        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
+        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_SPIRITUS);
 
         boolean hasRawWill = will.hasDefault();
         boolean hasCorrosive = will.hasCorrosive();
@@ -136,15 +136,15 @@ public class RitualSpeed extends Ritual {
             // Steadfast: apply Soft Fall
             if (hasSteadfast) {
                 entity.addEffect(new MobEffectInstance(NVMobEffects.SOFT_FALL, 100, 0, true, false));
-                will.use(SpiritusType.STEADFAST, WILL_PER_ENTITY);
+                will.use(SpiritusType.INVICTUS, SPIRITUS_PER_ENTITY);
             }
 
             cost += getRefreshCost();
 
-            if (hasRawWill) will.use(SpiritusType.DEFAULT, WILL_PER_ENTITY);
-            if (hasCorrosive) will.use(SpiritusType.CORROSIVE, WILL_PER_ENTITY);
-            if (hasDestructive) will.use(SpiritusType.DESTRUCTIVE, WILL_PER_ENTITY);
-            if (hasVengeful) will.use(SpiritusType.VENGEFUL, WILL_PER_ENTITY);
+            if (hasRawWill) will.use(SpiritusType.RAW, SPIRITUS_PER_ENTITY);
+            if (hasCorrosive) will.use(SpiritusType.RUINA, SPIRITUS_PER_ENTITY);
+            if (hasDestructive) will.use(SpiritusType.NIHILUM, SPIRITUS_PER_ENTITY);
+            if (hasVengeful) will.use(SpiritusType.VINDICTA, SPIRITUS_PER_ENTITY);
         }
 
         if (cost > 0) {

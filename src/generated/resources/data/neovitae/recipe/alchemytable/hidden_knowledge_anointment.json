@@ -1,13 +1,12 @@
 {
   "type": "neovitae:alchemytable",
   "input": [
-    "neovitae:slate_vial",
+    "neovitae:tabula_vial",
     "#c:crops/nether_wart",
     "minecraft:glass_bottle",
     "minecraft:enchanted_book"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:hidden_knowledge_anointment"
   },
   "syphon": 500,

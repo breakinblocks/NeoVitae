@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_magnetism.description",
   "hide_while_locked": false,
-  "icon": "neovitae:sigil_magnetism",
+  "icon": {
+    "id": "neovitae:sigil_magnetism"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.sigil_magnetism.name",
   "pages": [
     {

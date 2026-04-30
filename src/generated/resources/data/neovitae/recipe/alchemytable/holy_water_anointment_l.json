@@ -7,7 +7,6 @@
     "#c:gems/quartz"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:holy_water_anointment_l"
   },
   "syphon": 1000,

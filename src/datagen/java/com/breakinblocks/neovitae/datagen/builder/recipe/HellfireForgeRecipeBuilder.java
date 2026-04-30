@@ -26,11 +26,11 @@ import net.minecraft.world.item.ItemStackTemplate;
 public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
     public static final int MAX_INGREDIENTS = 4;
 
-    protected double minWill;
+    protected double minSpiritus;
     protected double drainedWill;
     protected List<Ingredient> ingredients = new ArrayList<>();
     protected boolean requireWillType = false;
-    protected Optional<SpiritusType> willType = Optional.empty();
+    protected Optional<SpiritusType> spiritusType = Optional.empty();
     private final DataComponentPatch.Builder patchBuilder = DataComponentPatch.builder();
 
     protected HellfireForgeRecipeBuilder(ItemLike result, int count) {
@@ -75,11 +75,11 @@ public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
         return this;
     }
 
-    public HellfireForgeRecipeBuilder minWill(double minWill) {
-        if (minWill < 0) {
-            throw new IllegalArgumentException("minWill cannot be negative");
+    public HellfireForgeRecipeBuilder minSpiritus(double minSpiritus) {
+        if (minSpiritus < 0) {
+            throw new IllegalArgumentException("minSpiritus cannot be negative");
         }
-        this.minWill = minWill;
+        this.minSpiritus = minSpiritus;
         return this;
     }
 
@@ -92,7 +92,7 @@ public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
     }
 
     public HellfireForgeRecipeBuilder requiredWillType(SpiritusType type) {
-        this.willType = Optional.of(type);
+        this.spiritusType = Optional.of(type);
         return this;
     }
 
@@ -117,7 +117,7 @@ public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
                 ? resultTemplate()
                 : new ItemStackTemplate(resultItem.asItem(), patch)
                         .withCount(Math.max(resultCount, 1));
-        ForgeRecipe recipe = new ForgeRecipe(minWill, drainedWill, ingredients, resultTpl, willType);
+        ForgeRecipe recipe = new ForgeRecipe(minSpiritus, drainedWill, ingredients, resultTpl, spiritusType);
         output.accept(ResourceKey.create(Registries.RECIPE, id.identifier().withPrefix("hellfire_forge/")), recipe, advBuilder.build(advancementId(id, "hellfire_forge")));
     }
 }

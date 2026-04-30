@@ -8,16 +8,15 @@
     "#c:dusts/sulfur",
     {
       "neoforge:ingredient_type": "neoforge:components",
-      "items": "minecraft:potion",
       "components": {
         "minecraft:potion_contents": {
           "potion": "minecraft:water"
         }
-      }
+      },
+      "items": "minecraft:potion"
     }
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:intermediate_cutting_fluid"
   },
   "syphon": 2000,

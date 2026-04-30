@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "S": "neovitae:demonic_slate",
+    "S": "neovitae:tabula_spiritus",
     "d": "neovitae:ritual_diviner",
     "t": "neovitae:dusk_scribe_tool"
   },
@@ -12,7 +12,6 @@
     " S "
   ],
   "result": {
-    "count": 1,
     "id": "neovitae:ritual_diviner_dusk"
   }
 }

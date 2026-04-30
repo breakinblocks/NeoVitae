@@ -1,7 +1,10 @@
 {
   "type": "neovitae:array",
   "addedinput": "#c:gems/diamond",
-  "baseinput": "neovitae:imbued_slate",
+  "baseinput": "neovitae:tabula_animata",
   "effect_type": "deflection",
+  "output": {
+    "id": "minecraft:stone"
+  },
   "texture": "neovitae:textures/models/alchemyarrays/deflectionarray.png"
 }

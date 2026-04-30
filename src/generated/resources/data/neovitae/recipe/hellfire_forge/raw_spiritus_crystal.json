@@ -2,14 +2,13 @@
   "type": "neovitae:hellfire_forge",
   "drain": 100.0,
   "inputs": [
-    "neovitae:default_crystal",
-    "neovitae:default_crystal",
-    "neovitae:default_crystal",
-    "neovitae:default_crystal"
+    "neovitae:raw_crystal_shard",
+    "neovitae:raw_crystal_shard",
+    "neovitae:raw_crystal_shard",
+    "neovitae:raw_crystal_shard"
   ],
   "minDrain": 1200.0,
   "output": {
-    "count": 1,
     "id": "neovitae:raw_spiritus_crystal"
   }
 }

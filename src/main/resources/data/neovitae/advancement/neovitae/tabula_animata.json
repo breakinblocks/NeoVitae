@@ -1,0 +1,34 @@
+{
+  "parent": "neovitae:neovitae/tabula_robur",
+  "criteria": {
+    "get_slate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:tabula_animata"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.tabula_animata.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:tabula_animata"
+    },
+    "title": {
+      "translate": "advancements.neovitae.tabula_animata.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_slate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

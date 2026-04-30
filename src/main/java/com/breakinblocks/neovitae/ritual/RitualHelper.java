@@ -303,14 +303,14 @@ public final class RitualHelper {
      * corrosive, destructive, vengeful, steadfast); zero values are skipped
      * so callers don't pay the map insertion for an unused type.
      */
-    public static void drainWill(SpiritusState will, Level level, BlockPos pos,
+    public static void drainSpiritus(SpiritusState will, Level level, BlockPos pos,
                                  double raw, double corrosive, double destructive,
                                  double vengeful, double steadfast) {
-        if (raw > 0) will.use(SpiritusType.DEFAULT, raw);
-        if (corrosive > 0) will.use(SpiritusType.CORROSIVE, corrosive);
-        if (destructive > 0) will.use(SpiritusType.DESTRUCTIVE, destructive);
-        if (vengeful > 0) will.use(SpiritusType.VENGEFUL, vengeful);
-        if (steadfast > 0) will.use(SpiritusType.STEADFAST, steadfast);
+        if (raw > 0) will.use(SpiritusType.RAW, raw);
+        if (corrosive > 0) will.use(SpiritusType.RUINA, corrosive);
+        if (destructive > 0) will.use(SpiritusType.NIHILUM, destructive);
+        if (vengeful > 0) will.use(SpiritusType.VINDICTA, vengeful);
+        if (steadfast > 0) will.use(SpiritusType.INVICTUS, steadfast);
         will.drain(level, pos);
     }
 

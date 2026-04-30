@@ -72,7 +72,7 @@ public class RitualWater extends Ritual {
                         tx.commit();
                     }
                     if (filled > 0) {
-                        will.use(SpiritusType.DEFAULT, (double) filled / 1000.0);
+                        will.use(SpiritusType.RAW, (double) filled / 1000.0);
                         totalEffects++;
                     }
                 }

@@ -44,12 +44,12 @@ public class RitualForsakenSoul extends Ritual {
         int willGenerated = 0;
 
         for (LivingEntity entity : entities) {
-            double willAmount = getWillForEntity(entity);
-            if (willAmount > 0) {
-                ItemStack willStack = new ItemStack(NVItems.RAW_SPIRITUS.get());
-                willStack.set(NVDataComponents.SPIRITUS_AMOUNT, willAmount);
+            double spiritusAmount = getWillForEntity(entity);
+            if (spiritusAmount > 0) {
+                ItemStack spiritusStack = new ItemStack(NVItems.RAW_SPIRITUS.get());
+                spiritusStack.set(NVDataComponents.SPIRITUS_AMOUNT, spiritusAmount);
                 ItemEntity willEntity = new ItemEntity(ctx.level(),
-                        entity.getX(), entity.getY() + 0.5, entity.getZ(), willStack);
+                        entity.getX(), entity.getY() + 0.5, entity.getZ(), spiritusStack);
                 ctx.level().addFreshEntity(willEntity);
                 willGenerated++;
                 RitualHelper.chanceStream(ctx.level(), 10, () ->

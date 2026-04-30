@@ -5,7 +5,6 @@
   "experience": 0.0,
   "ingredient": "neovitae:raw_demonite",
   "result": {
-    "count": 1,
     "id": "neovitae:ingot_hellforged"
   }
 }

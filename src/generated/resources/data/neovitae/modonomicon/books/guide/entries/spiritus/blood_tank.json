@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.spiritus.blood_tank.description",
   "hide_while_locked": false,
-  "icon": "neovitae:blood_tank",
+  "icon": {
+    "id": "neovitae:blood_tank"
+  },
   "name": "book.neovitae.guide.spiritus.blood_tank.name",
   "pages": [
     {

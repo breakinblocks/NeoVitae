@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.spiritus.sentient_tools.description",
   "hide_while_locked": false,
-  "icon": "neovitae:sentient_pickaxe",
+  "icon": {
+    "id": "neovitae:sentient_pickaxe"
+  },
   "name": "book.neovitae.guide.spiritus.sentient_tools.name",
   "pages": [
     {

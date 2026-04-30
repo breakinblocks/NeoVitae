@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_mining.description",
   "hide_while_locked": false,
-  "icon": "neovitae:sigil_fast_miner",
+  "icon": {
+    "id": "neovitae:sigil_fast_miner"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.sigil_mining.name",
   "pages": [
     {

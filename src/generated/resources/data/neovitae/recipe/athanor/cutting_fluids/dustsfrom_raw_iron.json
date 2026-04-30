@@ -4,14 +4,12 @@
     {
       "chance": 0.33,
       "item": {
-        "count": 1,
         "id": "neovitae:iron_dust"
       }
     }
   ],
   "guaranteed_outputs": [
     {
-      "count": 1,
       "id": "neovitae:iron_dust"
     }
   ],

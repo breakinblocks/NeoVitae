@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "neovitae:item/steadfast_catalyst"
+    "layer0": "neovitae:item/spiritus_invictus_catalyst"
   }
 }

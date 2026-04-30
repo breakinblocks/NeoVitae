@@ -8,96 +8,82 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import java.util.EnumMap;
 import java.util.Map;
 
-/**
- * Stores spiritus amounts for a chunk.
- *
- * <p>Each chunk can hold up to a configurable maximum of each will type.
- * The maximum is determined by:</p>
- * <ol>
- *   <li>Base maximum from server config ({@code neovitae-server.toml})</li>
- *   <li>Per-chunk bonuses from rituals or other effects</li>
- * </ol>
- *
- * <p>Effective maximum = base + bonus for each will type.</p>
- */
 public class SpiritusChunk {
-    /**
-     * @deprecated Use {@link #getMaxWill(SpiritusType)} instead for proper config + bonus support.
-     * This constant is kept for backwards compatibility but should not be relied upon.
-     */
     @Deprecated
-    public static final double MAX_WILL = 100.0;
-    public static final double DEFAULT_WILL = 0.0;
+    public static final double MAX_SPIRITUS = 100.0;
+    public static final double DEFAULT_SPIRITUS = 0.0;
 
     public static final Codec<SpiritusChunk> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.DOUBLE.fieldOf("raw").forGetter(w -> w.getWill(SpiritusType.DEFAULT)),
-            Codec.DOUBLE.fieldOf("corrosive").forGetter(w -> w.getWill(SpiritusType.CORROSIVE)),
-            Codec.DOUBLE.fieldOf("destructive").forGetter(w -> w.getWill(SpiritusType.DESTRUCTIVE)),
-            Codec.DOUBLE.fieldOf("vengeful").forGetter(w -> w.getWill(SpiritusType.VENGEFUL)),
-            Codec.DOUBLE.fieldOf("steadfast").forGetter(w -> w.getWill(SpiritusType.STEADFAST)),
-            Codec.DOUBLE.optionalFieldOf("bonus_raw", 0.0).forGetter(w -> w.getMaxBonus(SpiritusType.DEFAULT)),
-            Codec.DOUBLE.optionalFieldOf("bonus_corrosive", 0.0).forGetter(w -> w.getMaxBonus(SpiritusType.CORROSIVE)),
-            Codec.DOUBLE.optionalFieldOf("bonus_destructive", 0.0).forGetter(w -> w.getMaxBonus(SpiritusType.DESTRUCTIVE)),
-            Codec.DOUBLE.optionalFieldOf("bonus_vengeful", 0.0).forGetter(w -> w.getMaxBonus(SpiritusType.VENGEFUL)),
-            Codec.DOUBLE.optionalFieldOf("bonus_steadfast", 0.0).forGetter(w -> w.getMaxBonus(SpiritusType.STEADFAST))
+            Codec.DOUBLE.fieldOf("raw").forGetter(w -> w.getSpiritus(SpiritusType.RAW)),
+            Codec.DOUBLE.fieldOf("ruina").forGetter(w -> w.getSpiritus(SpiritusType.RUINA)),
+            Codec.DOUBLE.fieldOf("nihilum").forGetter(w -> w.getSpiritus(SpiritusType.NIHILUM)),
+            Codec.DOUBLE.fieldOf("vindicta").forGetter(w -> w.getSpiritus(SpiritusType.VINDICTA)),
+            Codec.DOUBLE.fieldOf("invictus").forGetter(w -> w.getSpiritus(SpiritusType.INVICTUS)),
+            Codec.DOUBLE.optionalFieldOf("bonus_raw", 0.0).forGetter(w -> w.getMaxBonus(SpiritusType.RAW)),
+            Codec.DOUBLE.optionalFieldOf("bonus_ruina", 0.0).forGetter(w -> w.getMaxBonus(SpiritusType.RUINA)),
+            Codec.DOUBLE.optionalFieldOf("bonus_nihilum", 0.0).forGetter(w -> w.getMaxBonus(SpiritusType.NIHILUM)),
+            Codec.DOUBLE.optionalFieldOf("bonus_vindicta", 0.0).forGetter(w -> w.getMaxBonus(SpiritusType.VINDICTA)),
+            Codec.DOUBLE.optionalFieldOf("bonus_invictus", 0.0).forGetter(w -> w.getMaxBonus(SpiritusType.INVICTUS))
     ).apply(instance, SpiritusChunk::new));
 
-    private final EnumMap<SpiritusType, Double> willAmounts;
+    private final EnumMap<SpiritusType, Double> spiritusAmounts;
     private final EnumMap<SpiritusType, Double> maxBonuses;
 
+    private double growthMultiplier = 1.0;
+    private long growthMultiplierExpiryTick = 0L;
+    private double injectionMultiplier = 1.0;
+    private long injectionMultiplierExpiryTick = 0L;
+    private SpiritusType injectionAspectBias = SpiritusType.RAW;
+    private long currentTick = 0L;
+
     public SpiritusChunk() {
-        this.willAmounts = new EnumMap<>(SpiritusType.class);
+        this.spiritusAmounts = new EnumMap<>(SpiritusType.class);
         this.maxBonuses = new EnumMap<>(SpiritusType.class);
         for (SpiritusType type : SpiritusType.values()) {
-            willAmounts.put(type, DEFAULT_WILL);
+            spiritusAmounts.put(type, DEFAULT_SPIRITUS);
             maxBonuses.put(type, 0.0);
         }
     }
 
-    public SpiritusChunk(double raw, double corrosive, double destructive, double vengeful, double steadfast) {
-        this(raw, corrosive, destructive, vengeful, steadfast, 0.0, 0.0, 0.0, 0.0, 0.0);
+    public SpiritusChunk(double raw, double ruina, double nihilum, double vindicta, double invictus) {
+        this(raw, ruina, nihilum, vindicta, invictus, 0.0, 0.0, 0.0, 0.0, 0.0);
     }
 
-    public SpiritusChunk(double raw, double corrosive, double destructive, double vengeful, double steadfast,
-                     double bonusRaw, double bonusCorrosive, double bonusDestructive, double bonusVengeful, double bonusSteadfast) {
-        this.willAmounts = new EnumMap<>(SpiritusType.class);
+    public SpiritusChunk(double raw, double ruina, double nihilum, double vindicta, double invictus,
+                     double bonusRaw, double bonusRuina, double bonusNihilum, double bonusVindicta, double bonusInvictus) {
+        this.spiritusAmounts = new EnumMap<>(SpiritusType.class);
         this.maxBonuses = new EnumMap<>(SpiritusType.class);
-        willAmounts.put(SpiritusType.DEFAULT, raw);
-        willAmounts.put(SpiritusType.CORROSIVE, corrosive);
-        willAmounts.put(SpiritusType.DESTRUCTIVE, destructive);
-        willAmounts.put(SpiritusType.VENGEFUL, vengeful);
-        willAmounts.put(SpiritusType.STEADFAST, steadfast);
-        maxBonuses.put(SpiritusType.DEFAULT, bonusRaw);
-        maxBonuses.put(SpiritusType.CORROSIVE, bonusCorrosive);
-        maxBonuses.put(SpiritusType.DESTRUCTIVE, bonusDestructive);
-        maxBonuses.put(SpiritusType.VENGEFUL, bonusVengeful);
-        maxBonuses.put(SpiritusType.STEADFAST, bonusSteadfast);
+        spiritusAmounts.put(SpiritusType.RAW, raw);
+        spiritusAmounts.put(SpiritusType.RUINA, ruina);
+        spiritusAmounts.put(SpiritusType.NIHILUM, nihilum);
+        spiritusAmounts.put(SpiritusType.VINDICTA, vindicta);
+        spiritusAmounts.put(SpiritusType.INVICTUS, invictus);
+        maxBonuses.put(SpiritusType.RAW, bonusRaw);
+        maxBonuses.put(SpiritusType.RUINA, bonusRuina);
+        maxBonuses.put(SpiritusType.NIHILUM, bonusNihilum);
+        maxBonuses.put(SpiritusType.VINDICTA, bonusVindicta);
+        maxBonuses.put(SpiritusType.INVICTUS, bonusInvictus);
     }
 
-    public double getWill(SpiritusType type) {
-        return willAmounts.getOrDefault(type, DEFAULT_WILL);
+    public double getSpiritus(SpiritusType type) {
+        return spiritusAmounts.getOrDefault(type, DEFAULT_SPIRITUS);
     }
 
-    public void setWill(SpiritusType type, double amount) {
-        double max = getMaxWill(type);
-        willAmounts.put(type, Math.max(0, Math.min(max, amount)));
+    public void setSpiritus(SpiritusType type, double amount) {
+        double max = getMaxSpiritus(type);
+        spiritusAmounts.put(type, Math.max(0, Math.min(max, amount)));
     }
 
-    public double getMaxWill(SpiritusType type) {
-        double base = getBaseMaxWill(type);
+    public double getMaxSpiritus(SpiritusType type) {
+        double base = getBaseMaxSpiritus(type);
         double bonus = getMaxBonus(type);
         return base + bonus;
     }
 
-    /**
-     * Gets the base maximum will from server config.
-     * Falls back to 100.0 if config is not yet loaded.
-     */
-    private double getBaseMaxWill(SpiritusType type) {
+    private double getBaseMaxSpiritus(SpiritusType type) {
         try {
-            return NeoVitae.SERVER_CONFIG.getBaseMaxWill(type);
+            return NeoVitae.SERVER_CONFIG.getBaseMaxSpiritus(type);
         } catch (Exception e) {
-            // Config may not be loaded yet during deserialization
             return 100.0;
         }
     }
@@ -125,37 +111,58 @@ public class SpiritusChunk {
         return false;
     }
 
-    public double addWill(SpiritusType type, double amount) {
-        double current = getWill(type);
-        double max = getMaxWill(type);
+    public double addSpiritus(SpiritusType type, double amount) {
+        InjectionResult result = applyInjectionMultiplier(type, amount);
+        return addRaw(result.baseType(), result.baseAmount()) + addRaw(result.biasType(), result.biasAmount());
+    }
+
+    private double addRaw(SpiritusType type, double amount) {
+        if (amount <= 0) return 0;
+        double current = getSpiritus(type);
+        double max = getMaxSpiritus(type);
         double toAdd = Math.min(amount, max - current);
         if (toAdd > 0) {
-            willAmounts.put(type, current + toAdd);
+            spiritusAmounts.put(type, current + toAdd);
         }
         return toAdd;
     }
 
-    public double drainWill(SpiritusType type, double amount) {
-        double current = getWill(type);
+    private record InjectionResult(SpiritusType baseType, double baseAmount, SpiritusType biasType, double biasAmount) {}
+
+    private InjectionResult applyInjectionMultiplier(SpiritusType type, double amount) {
+        double mult = getInjectionMultiplier();
+        if (mult <= 1.0 || amount <= 0) {
+            return new InjectionResult(type, amount, type, 0);
+        }
+        double total = amount * mult;
+        double bonus = total - amount;
+        SpiritusType biasTarget = (type == SpiritusType.RAW && injectionAspectBias != SpiritusType.RAW)
+                ? injectionAspectBias
+                : type;
+        return new InjectionResult(type, amount, biasTarget, bonus);
+    }
+
+    public double drainSpiritus(SpiritusType type, double amount) {
+        double current = getSpiritus(type);
         double toDrain = Math.min(amount, current);
         if (toDrain > 0) {
-            willAmounts.put(type, current - toDrain);
+            spiritusAmounts.put(type, current - toDrain);
         }
         return toDrain;
     }
 
-    public double getTotalWill() {
+    public double getTotalSpiritus() {
         double total = 0;
-        for (double amount : willAmounts.values()) {
+        for (double amount : spiritusAmounts.values()) {
             total += amount;
         }
         return total;
     }
 
     public SpiritusType getDominantType() {
-        SpiritusType dominant = SpiritusType.DEFAULT;
+        SpiritusType dominant = SpiritusType.RAW;
         double maxAmount = 0;
-        for (Map.Entry<SpiritusType, Double> entry : willAmounts.entrySet()) {
+        for (Map.Entry<SpiritusType, Double> entry : spiritusAmounts.entrySet()) {
             if (entry.getValue() > maxAmount) {
                 maxAmount = entry.getValue();
                 dominant = entry.getKey();
@@ -164,22 +171,66 @@ public class SpiritusChunk {
         return dominant;
     }
 
-    public boolean hasWill() {
-        return getTotalWill() > 0;
+    public boolean hasSpiritus() {
+        return getTotalSpiritus() > 0;
     }
 
     public SpiritusChunk copy() {
         SpiritusChunk copy = new SpiritusChunk();
         for (SpiritusType type : SpiritusType.values()) {
-            copy.willAmounts.put(type, getWill(type));
+            copy.spiritusAmounts.put(type, getSpiritus(type));
             copy.maxBonuses.put(type, getMaxBonus(type));
         }
+        copy.growthMultiplier = this.growthMultiplier;
+        copy.growthMultiplierExpiryTick = this.growthMultiplierExpiryTick;
+        copy.injectionMultiplier = this.injectionMultiplier;
+        copy.injectionMultiplierExpiryTick = this.injectionMultiplierExpiryTick;
+        copy.injectionAspectBias = this.injectionAspectBias;
+        copy.currentTick = this.currentTick;
         return copy;
     }
 
     public double getFillRatio(SpiritusType type) {
-        double max = getMaxWill(type);
+        double max = getMaxSpiritus(type);
         if (max <= 0) return 0;
-        return Math.min(1.0, getWill(type) / max);
+        return Math.min(1.0, getSpiritus(type) / max);
+    }
+
+    public void tickRitualBuffs(long gameTime) {
+        this.currentTick = gameTime;
+        if (gameTime > growthMultiplierExpiryTick && growthMultiplier != 1.0) {
+            growthMultiplier = 1.0;
+        }
+        if (gameTime > injectionMultiplierExpiryTick && injectionMultiplier != 1.0) {
+            injectionMultiplier = 1.0;
+            injectionAspectBias = SpiritusType.RAW;
+        }
+    }
+
+    public double getGrowthMultiplier() {
+        if (currentTick > growthMultiplierExpiryTick) return 1.0;
+        return growthMultiplier;
+    }
+
+    public void setGrowthMultiplier(double multiplier, long durationTicks, long currentGameTime) {
+        this.growthMultiplier = multiplier;
+        this.growthMultiplierExpiryTick = currentGameTime + durationTicks;
+        this.currentTick = currentGameTime;
+    }
+
+    public double getInjectionMultiplier() {
+        if (currentTick > injectionMultiplierExpiryTick) return 1.0;
+        return injectionMultiplier;
+    }
+
+    public void setInjectionMultiplier(double multiplier, SpiritusType aspectBias, long durationTicks, long currentGameTime) {
+        this.injectionMultiplier = multiplier;
+        this.injectionAspectBias = aspectBias == null ? SpiritusType.RAW : aspectBias;
+        this.injectionMultiplierExpiryTick = currentGameTime + durationTicks;
+        this.currentTick = currentGameTime;
+    }
+
+    public SpiritusType getInjectionAspectBias() {
+        return injectionAspectBias;
     }
 }

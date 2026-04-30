@@ -5,11 +5,10 @@
     "neovitae:cinder_heart_fragment",
     "neovitae:permafrost_core",
     "neovitae:spiritus_gem_greater",
-    "neovitae:demonic_slate"
+    "neovitae:tabula_spiritus"
   ],
   "minDrain": 2000.0,
   "output": {
-    "count": 1,
     "id": "neovitae:sigil_damned"
   }
 }

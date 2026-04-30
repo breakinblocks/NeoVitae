@@ -63,7 +63,7 @@ public class SlatesEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.SLATE_BLANK.get());
+        return BookIconModel.create(NVItems.TABULA_RASA.get());
     }
 
     @Override

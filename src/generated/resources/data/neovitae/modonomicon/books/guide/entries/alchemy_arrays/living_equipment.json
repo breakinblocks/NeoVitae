@@ -4,7 +4,9 @@
   "category": "alchemy_arrays",
   "description": "book.neovitae.guide.alchemy_arrays.living_equipment.description",
   "hide_while_locked": false,
-  "icon": "neovitae:reagent_binding",
+  "icon": {
+    "id": "neovitae:reagent_binding"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.living_equipment.name",
   "pages": [
     {

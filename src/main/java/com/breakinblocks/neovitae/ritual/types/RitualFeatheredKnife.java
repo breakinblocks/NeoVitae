@@ -38,7 +38,7 @@ public class RitualFeatheredKnife extends Ritual {
     public static final String SACRIFICE_RANGE = "sacrificeRange";
     public static final String ALTAR_RANGE = "altarRange";
 
-    private static final double MIN_WILL = 0.5;
+    private static final double MIN_SPIRITUS = 0.5;
     private static final double CORROSIVE_WILL_PER_USE = 5.0;
     private static final double DESTRUCTIVE_WILL_PER_USE = 0.5;
 
@@ -63,7 +63,7 @@ public class RitualFeatheredKnife extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_WILL);
+        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_SPIRITUS);
 
         refreshTime = will.hasDefault() ? 10 : 20;
 
@@ -162,7 +162,7 @@ public class RitualFeatheredKnife extends Ritual {
             altar.addSacrificeEV(totalEV, false);
         }
 
-        RitualHelper.drainWill(will, ctx.level(), masterPos,
+        RitualHelper.drainSpiritus(will, ctx.level(), masterPos,
                 0, corrosiveUsed, destructiveUsed, 0, 0);
     }
 

@@ -161,7 +161,7 @@ public class RitualYawningVoid extends Ritual {
                 }
 
                 if (!matchesFilter) continue;
-                will.use(SpiritusType.CORROSIVE, WILL_PER_FILTER);
+                will.use(SpiritusType.RUINA, WILL_PER_FILTER);
             }
 
             // STEADFAST: Replace mode - place block in placement area instead of dropping
@@ -172,7 +172,7 @@ public class RitualYawningVoid extends Ritual {
                     boolean placed = tryPlaceInRange(ctx, masterPos, state);
                     if (placed) {
                         ctx.level().destroyBlock(targetPos, false);
-                        will.use(SpiritusType.STEADFAST, WILL_PER_REPLACE);
+                        will.use(SpiritusType.INVICTUS, WILL_PER_REPLACE);
                         steadfastWillUsed += WILL_PER_REPLACE;
                         processed = true;
                         continue;

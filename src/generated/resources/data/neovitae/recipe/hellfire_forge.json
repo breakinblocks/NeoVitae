@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "S": "neovitae:blank_slate",
+    "S": "neovitae:tabula_rasa",
     "i": "#c:ingots/iron",
     "o": "#c:storage_blocks/iron",
     "s": "#c:stones"
@@ -13,7 +13,6 @@
     "sos"
   ],
   "result": {
-    "count": 1,
     "id": "neovitae:hellfire_forge"
   }
 }

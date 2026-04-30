@@ -40,10 +40,10 @@ public class RitualSpeedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Raw Spiritus[#](): Heightens the swiftness granted."
-                + "\n\n- [#](8B0000)Corrosive Spiritus[#](): Afflicts hostile creatures with Slowness."
-                + "\n\n- [#](8B0000)Vengeful Spiritus[#](): Bestows Haste upon practitioners."
-                + "\n\n- [#](8B0000)Destructive Spiritus[#](): Amplifies the effect at higher spiritus concentrations."
-                + "\n\n- [#](8B0000)Steadfast Spiritus[#](): Grants resistance to knockback.");
+                + "\n\n- [#](8B0000)Spiritus Ruina[#](): Afflicts hostile creatures with Slowness."
+                + "\n\n- [#](8B0000)Spiritus Vindicta[#](): Bestows Haste upon practitioners."
+                + "\n\n- [#](8B0000)Spiritus Nihilum[#](): Amplifies the effect at higher spiritus concentrations."
+                + "\n\n- [#](8B0000)Spiritus Invictus[#](): Grants resistance to knockback.");
     }
 
     @Override

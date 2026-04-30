@@ -3,5 +3,8 @@
   "addedinput": "#c:ingots/iron",
   "baseinput": "#c:cobblestones",
   "effect_type": "spike",
+  "output": {
+    "id": "minecraft:stone"
+  },
   "texture": "neovitae:textures/models/alchemyarrays/spikearray.png"
 }

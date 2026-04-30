@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.altar.slates.description",
   "hide_while_locked": false,
-  "icon": "neovitae:blank_slate",
+  "icon": {
+    "id": "neovitae:tabula_rasa"
+  },
   "name": "book.neovitae.guide.altar.slates.name",
   "pages": [
     {

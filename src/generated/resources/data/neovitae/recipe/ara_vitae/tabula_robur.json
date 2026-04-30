@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "bloodNeeded": 2000,
+  "craftSpeed": 5,
+  "drainSpeed": 5,
+  "input": "neovitae:tabula_rasa",
+  "minTier": 1,
+  "output": {
+    "id": "neovitae:tabula_robur"
+  }
+}

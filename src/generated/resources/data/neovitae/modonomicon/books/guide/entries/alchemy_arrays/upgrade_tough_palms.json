@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_tough_palms.description",
   "hide_while_locked": false,
-  "icon": "neovitae:sacrificial_dagger",
+  "icon": {
+    "id": "neovitae:sacrificial_dagger"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_tough_palms.name",
   "pages": [
     {

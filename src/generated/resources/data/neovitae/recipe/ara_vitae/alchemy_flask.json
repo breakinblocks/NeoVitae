@@ -6,7 +6,6 @@
   "input": "minecraft:glass_bottle",
   "minTier": 1,
   "output": {
-    "count": 1,
     "id": "neovitae:alchemy_flask"
   }
 }

@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.defense_arrays.description",
   "hide_while_locked": false,
-  "icon": "minecraft:shield",
+  "icon": {
+    "id": "minecraft:shield"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.defense_arrays.name",
   "pages": [
     {

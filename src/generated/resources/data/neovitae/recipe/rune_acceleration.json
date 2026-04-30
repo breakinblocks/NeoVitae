@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "a": "minecraft:bucket",
-    "b": "neovitae:demonic_slate",
+    "b": "neovitae:tabula_spiritus",
     "c": "#c:ingots/gold",
     "d": "neovitae:rune_speed",
     "e": {
@@ -17,7 +17,6 @@
     "aea"
   ],
   "result": {
-    "count": 1,
     "id": "neovitae:rune_acceleration"
   }
 }

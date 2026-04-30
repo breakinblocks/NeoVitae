@@ -7,7 +7,6 @@
     "#c:dusts/redstone"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:reagent_blood_light"
   },
   "syphon": 1000,

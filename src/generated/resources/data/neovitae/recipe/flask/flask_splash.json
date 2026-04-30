@@ -5,7 +5,6 @@
     "minecraft:gunpowder"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:alchemy_flask_throwable"
   },
   "syphon": 1000,

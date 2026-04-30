@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "neovitae:default_crystal"
+            "items": "neovitae:raw_crystal_shard"
           }
         ]
       },

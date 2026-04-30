@@ -7,7 +7,6 @@
     "#minecraft:coals"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:arcane_scribe_tool"
   },
   "syphon": 500,

@@ -9,7 +9,6 @@
   ],
   "minDrain": 400.0,
   "output": {
-    "count": 1,
     "id": "neovitae:spira_infernalis"
   }
 }

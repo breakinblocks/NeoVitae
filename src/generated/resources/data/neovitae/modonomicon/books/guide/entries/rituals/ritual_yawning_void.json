@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_yawning_void.description",
   "hide_while_locked": false,
-  "icon": "minecraft:black_stained_glass",
+  "icon": {
+    "id": "minecraft:black_stained_glass"
+  },
   "name": "book.neovitae.guide.rituals.ritual_yawning_void.name",
   "pages": [
     {

@@ -3,20 +3,20 @@ package com.breakinblocks.neovitae.common.block.dungeon;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 public enum DungeonVariant {
-    RAW("", "raw", SpiritusType.DEFAULT),
-    CORROSIVE("_c", "corrosive", SpiritusType.CORROSIVE),
-    DESTRUCTIVE("_d", "destructive", SpiritusType.DESTRUCTIVE),
-    STEADFAST("_st", "steadfast", SpiritusType.STEADFAST),
-    VENGEFUL("_v", "vengeful", SpiritusType.VENGEFUL);
+    RAW("", "raw", SpiritusType.RAW),
+    RUINA("_c", "corrosive", SpiritusType.RUINA),
+    NIHILUM("_d", "destructive", SpiritusType.NIHILUM),
+    INVICTUS("_st", "steadfast", SpiritusType.INVICTUS),
+    VINDICTA("_v", "vengeful", SpiritusType.VINDICTA);
 
     private final String suffix;
     private final String name;
-    private final SpiritusType willType;
+    private final SpiritusType spiritusType;
 
-    DungeonVariant(String suffix, String name, SpiritusType willType) {
+    DungeonVariant(String suffix, String name, SpiritusType spiritusType) {
         this.suffix = suffix;
         this.name = name;
-        this.willType = willType;
+        this.spiritusType = spiritusType;
     }
 
     public String getSuffix() {
@@ -28,7 +28,7 @@ public enum DungeonVariant {
     }
 
     public SpiritusType getWillType() {
-        return willType;
+        return spiritusType;
     }
 
     public String getRegistryName(String baseName) {

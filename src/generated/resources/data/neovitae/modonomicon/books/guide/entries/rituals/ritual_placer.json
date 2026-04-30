@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_placer.description",
   "hide_while_locked": false,
-  "icon": "minecraft:dispenser",
+  "icon": {
+    "id": "minecraft:dispenser"
+  },
   "name": "book.neovitae.guide.rituals.ritual_placer.name",
   "pages": [
     {

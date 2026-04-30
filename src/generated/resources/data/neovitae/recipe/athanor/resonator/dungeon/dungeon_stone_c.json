@@ -3,13 +3,12 @@
   "chance_outputs": [],
   "guaranteed_outputs": [
     {
-      "count": 1,
       "id": "neovitae:dungeon_stone_c"
     }
   ],
   "inputs": [
     "minecraft:smooth_stone",
-    "neovitae:base_spiritus_soul_corrosive"
+    "neovitae:base_spiritus_soul_ruina"
   ],
   "tool": "#neovitae:athanor_tool/resonator"
 }

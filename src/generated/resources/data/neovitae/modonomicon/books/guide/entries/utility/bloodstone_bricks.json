@@ -4,7 +4,9 @@
   "category": "utility",
   "description": "book.neovitae.guide.utility.bloodstone_bricks.description",
   "hide_while_locked": false,
-  "icon": "neovitae:bloodstone_brick",
+  "icon": {
+    "id": "neovitae:bloodstone_brick"
+  },
   "name": "book.neovitae.guide.utility.bloodstone_bricks.name",
   "pages": [
     {

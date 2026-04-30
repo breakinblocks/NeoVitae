@@ -1,6 +1,0 @@
-{
-  "parent": "neovitae:block/crystal1",
-  "textures": {
-    "crystal": "neovitae:block/steadfast_spiritus_crystal"
-  }
-}

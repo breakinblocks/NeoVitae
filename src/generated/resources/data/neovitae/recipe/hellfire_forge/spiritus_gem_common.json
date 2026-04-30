@@ -5,11 +5,10 @@
     "neovitae:spiritus_gem_lesser",
     "#c:gems/diamond",
     "#c:storage_blocks/gold",
-    "neovitae:imbued_slate"
+    "neovitae:tabula_animata"
   ],
   "minDrain": 240.0,
   "output": {
-    "count": 1,
     "id": "neovitae:spiritus_gem_common"
   }
 }

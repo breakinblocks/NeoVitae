@@ -1,6 +1,0 @@
-{
-  "parent": "neovitae:block/crystal5",
-  "textures": {
-    "crystal": "neovitae:block/corrosive_spiritus_crystal"
-  }
-}

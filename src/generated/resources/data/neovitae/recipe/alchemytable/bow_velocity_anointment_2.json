@@ -7,7 +7,6 @@
     "minecraft:bow"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:bow_velocity_anointment_2"
   },
   "syphon": 1000,

@@ -5,7 +5,6 @@
   "experience": 1.0,
   "ingredient": "neovitae:gold_dust",
   "result": {
-    "count": 1,
     "id": "minecraft:gold_ingot"
   }
 }

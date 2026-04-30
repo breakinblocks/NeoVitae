@@ -4,7 +4,9 @@
   "category": "dungeons",
   "description": "book.neovitae.guide.dungeons.endless_realm.description",
   "hide_while_locked": false,
-  "icon": "neovitae:inversion_pillar",
+  "icon": {
+    "id": "neovitae:inversion_pillar"
+  },
   "name": "book.neovitae.guide.dungeons.endless_realm.name",
   "pages": [
     {
@@ -105,8 +107,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "count": 1,
-        "item": "neovitae:hellforged_parts"
+        "id": "neovitae:hellforged_parts"
       },
       "text": "book.neovitae.guide.dungeons.endless_realm.hellforged_parts.text",
       "title": "Intricate Hellforged Parts"

@@ -6,7 +6,6 @@
     "minecraft:water_bucket"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:reagent_water"
   },
   "syphon": 300,

@@ -6,7 +6,6 @@
   "input": "#c:ender_pearls",
   "minTier": 3,
   "output": {
-    "count": 1,
     "id": "neovitae:teleposer_focus"
   }
 }

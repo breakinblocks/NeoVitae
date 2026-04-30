@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.altar.rune_2_orb.description",
   "hide_while_locked": false,
-  "icon": "neovitae:rune_2_orb",
+  "icon": {
+    "id": "neovitae:rune_2_orb"
+  },
   "name": "book.neovitae.guide.altar.rune_2_orb.name",
   "pages": [
     {

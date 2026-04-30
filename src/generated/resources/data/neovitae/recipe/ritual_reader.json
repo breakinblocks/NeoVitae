@@ -8,7 +8,7 @@
       "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 4
     },
-    "s": "neovitae:demonic_slate"
+    "s": "neovitae:tabula_spiritus"
   },
   "pattern": [
     "gog",
@@ -16,7 +16,6 @@
     " s "
   ],
   "result": {
-    "count": 1,
     "id": "neovitae:ritual_reader"
   }
 }

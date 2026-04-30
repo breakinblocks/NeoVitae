@@ -6,7 +6,6 @@
   "input": "neovitae:weak_blood_shard",
   "minTier": 3,
   "output": {
-    "count": 1,
     "id": "neovitae:blood_orb_master"
   }
 }

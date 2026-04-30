@@ -3,5 +3,8 @@
   "addedinput": "#c:gems/lapis",
   "baseinput": "minecraft:water_bucket",
   "effect_type": "rain",
+  "output": {
+    "id": "minecraft:stone"
+  },
   "texture": "neovitae:textures/models/alchemyarrays/rainarray.png"
 }

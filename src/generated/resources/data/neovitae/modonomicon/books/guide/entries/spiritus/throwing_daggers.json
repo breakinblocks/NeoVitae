@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.spiritus.throwing_daggers.description",
   "hide_while_locked": false,
-  "icon": "neovitae:throwing_dagger",
+  "icon": {
+    "id": "neovitae:throwing_dagger"
+  },
   "name": "book.neovitae.guide.spiritus.throwing_daggers.name",
   "pages": [
     {
@@ -51,8 +53,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "count": 1,
-        "item": "neovitae:slate_ampoule"
+        "id": "neovitae:tabula_ampoule"
       },
       "text": "book.neovitae.guide.spiritus.throwing_daggers.slate_ampoule.text",
       "title": "Slate Ampoule"

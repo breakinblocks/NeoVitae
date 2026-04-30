@@ -5,7 +5,6 @@
   "experience": 0.1,
   "ingredient": "neovitae:coal_dust",
   "result": {
-    "count": 1,
     "id": "minecraft:coal"
   }
 }

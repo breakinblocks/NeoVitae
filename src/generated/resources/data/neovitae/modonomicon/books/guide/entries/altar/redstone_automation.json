@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.altar.redstone_automation.description",
   "hide_while_locked": false,
-  "icon": "minecraft:redstone",
+  "icon": {
+    "id": "minecraft:redstone"
+  },
   "name": "book.neovitae.guide.altar.redstone_automation.name",
   "pages": [
     {

@@ -17,7 +17,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.loot.NVTableLootEntry;
-import com.breakinblocks.neovitae.common.loot.SetWillRange;
+import com.breakinblocks.neovitae.common.loot.SetSpiritusRange;
 
 import java.util.function.BiConsumer;
 
@@ -490,7 +490,7 @@ public class ChestLoot implements LootTableSubProvider {
                 .add(LootItem.lootTableItem(NVBlocks.STRONG_TAU.item().get()).setWeight(12)
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0f, 9.0f))))
                 .add(LootItem.lootTableItem(NVItems.MONSTER_SOUL_RAW.get()).setWeight(8)
-                    .apply(SetWillRange.builder(UniformGenerator.between(30.0f, 60.0f))))
+                    .apply(SetSpiritusRange.builder(UniformGenerator.between(30.0f, 60.0f))))
             )
         );
     }

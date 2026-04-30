@@ -35,7 +35,7 @@
     ],
     "fallback": {
       "type": "minecraft:model",
-      "model": "neovitae:item/variant/raw_spiritus_default"
+      "model": "neovitae:item/variant/raw_spiritus_raw"
     }
   }
 }

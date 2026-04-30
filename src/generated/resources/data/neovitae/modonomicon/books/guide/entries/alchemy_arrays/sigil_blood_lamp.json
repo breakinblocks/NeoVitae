@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_blood_lamp.description",
   "hide_while_locked": false,
-  "icon": "neovitae:sigil_blood_light",
+  "icon": {
+    "id": "neovitae:sigil_blood_light"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.sigil_blood_lamp.name",
   "pages": [
     {

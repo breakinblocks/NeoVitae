@@ -4,7 +4,6 @@
     {
       "chance": 1.0,
       "item": {
-        "count": 1,
         "id": "neovitae:hellforged_parts"
       }
     },
@@ -18,7 +17,6 @@
   ],
   "guaranteed_outputs": [
     {
-      "count": 1,
       "id": "neovitae:rune_capacity_augmented"
     }
   ],

@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.rituals.ritual_green_grove.description",
   "hide_while_locked": false,
-  "icon": "minecraft:bone_meal",
+  "icon": {
+    "id": "minecraft:bone_meal"
+  },
   "name": "book.neovitae.guide.rituals.ritual_green_grove.name",
   "pages": [
     {

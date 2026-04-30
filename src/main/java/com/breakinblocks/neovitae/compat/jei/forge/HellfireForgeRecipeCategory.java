@@ -95,7 +95,7 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
         List<ItemStack> validGems = Lists.newArrayList();
         for (DefaultWill will : DefaultWill.values()) {
             if (will.minSouls >= recipe.getMinWill()) {
-                validGems.add(will.willStack);
+                validGems.add(will.spiritusStack);
             }
         }
         IRecipeSlotBuilder gems = builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 43, 1);
@@ -121,11 +121,11 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
         GREATER(new ItemStack(NVItems.SPIRITUS_GEM_GREATER.get()), 4096),
         GRAND(new ItemStack(NVItems.SPIRITUS_GEM_GRAND.get()), 16384);
 
-        public final ItemStack willStack;
+        public final ItemStack spiritusStack;
         public final double minSouls;
 
-        DefaultWill(ItemStack willStack, double minSouls) {
-            this.willStack = willStack;
+        DefaultWill(ItemStack spiritusStack, double minSouls) {
+            this.spiritusStack = spiritusStack;
             this.minSouls = minSouls;
         }
     }

@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_necromancy.description",
   "hide_while_locked": false,
-  "icon": "neovitae:sigil_necromancy",
+  "icon": {
+    "id": "neovitae:sigil_necromancy"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.sigil_necromancy.name",
   "pages": [
     {

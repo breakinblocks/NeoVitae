@@ -32,7 +32,7 @@ import java.util.UUID;
  *
  * // Interact with spiritus in a chunk
  * ISpiritusHandler willHandler = api.getSpiritusHandler();
- * double rawSpiritus = willHandler.getCurrentWill(level, pos, SpiritusType.DEFAULT);
+ * double rawSpiritus = willHandler.getCurrentWill(level, pos, SpiritusType.RAW);
  * }</pre>
  */
 public interface INeoVitaeAPI {

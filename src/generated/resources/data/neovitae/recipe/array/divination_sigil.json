@@ -1,9 +1,8 @@
 {
   "type": "neovitae:array",
-  "addedinput": "neovitae:blank_slate",
+  "addedinput": "neovitae:tabula_rasa",
   "baseinput": "minecraft:redstone",
   "output": {
-    "count": 1,
     "id": "neovitae:sigil_divination"
   },
   "texture": "neovitae:textures/models/alchemyarrays/divinationsigil.png"

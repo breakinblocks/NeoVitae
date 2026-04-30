@@ -4,12 +4,11 @@
   "inputs": [
     "minecraft:shears",
     "#c:stones",
-    "neovitae:imbued_slate",
+    "neovitae:tabula_animata",
     "#c:ingots/iron"
   ],
   "minDrain": 350.0,
   "output": {
-    "count": 1,
     "id": "neovitae:sanguine_reverter"
   }
 }

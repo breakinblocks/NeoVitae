@@ -6,7 +6,6 @@
     "minecraft:wheat_seeds"
   ],
   "output": {
-    "count": 1,
     "id": "minecraft:grass_block"
   },
   "syphon": 200,

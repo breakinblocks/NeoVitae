@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.alchemy_arrays.training_bracelet.description",
   "hide_while_locked": false,
-  "icon": "neovitae:training_bracelet",
+  "icon": {
+    "id": "neovitae:training_bracelet"
+  },
   "name": "book.neovitae.guide.alchemy_arrays.training_bracelet.name",
   "pages": [
     {

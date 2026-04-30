@@ -3,7 +3,7 @@
   "input": [
     "#c:glass_blocks",
     "#c:stones",
-    "neovitae:blank_slate"
+    "neovitae:tabula_rasa"
   ],
   "output": {
     "count": 2,

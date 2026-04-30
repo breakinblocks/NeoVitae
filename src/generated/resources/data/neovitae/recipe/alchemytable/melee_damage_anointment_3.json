@@ -8,7 +8,6 @@
     "#c:gems/quartz"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:melee_anointment_3"
   },
   "syphon": 2000,

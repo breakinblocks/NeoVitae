@@ -7,7 +7,6 @@
     "#c:dusts/hellforged"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:average_power_catalyst"
   },
   "syphon": 2000,

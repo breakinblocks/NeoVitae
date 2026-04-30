@@ -1,9 +1,8 @@
 {
   "type": "neovitae:array",
-  "addedinput": "neovitae:reinforced_slate",
+  "addedinput": "neovitae:tabula_robur",
   "baseinput": "neovitae:reagent_fast_miner",
   "output": {
-    "count": 1,
     "id": "neovitae:sigil_fast_miner"
   },
   "texture": "neovitae:textures/models/alchemyarrays/fastminersigil.png"

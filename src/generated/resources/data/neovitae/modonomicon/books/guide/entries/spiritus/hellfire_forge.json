@@ -8,7 +8,9 @@
   },
   "description": "book.neovitae.guide.spiritus.hellfire_forge.description",
   "hide_while_locked": false,
-  "icon": "neovitae:hellfire_forge",
+  "icon": {
+    "id": "neovitae:hellfire_forge"
+  },
   "name": "book.neovitae.guide.spiritus.hellfire_forge.name",
   "pages": [
     {

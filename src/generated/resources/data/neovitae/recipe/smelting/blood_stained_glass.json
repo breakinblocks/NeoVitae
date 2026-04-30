@@ -1,11 +1,10 @@
 {
   "type": "minecraft:smelting",
-  "category": "blocks",
+  "category": "misc",
   "cookingtime": 200,
   "experience": 0.1,
   "ingredient": "neovitae:sands_of_vitae",
   "result": {
-    "count": 1,
     "id": "neovitae:blood_stained_glass"
   }
 }

@@ -13,11 +13,11 @@ import java.util.function.IntFunction;
 
 public enum SpiritusType implements StringRepresentable {
 
-    DEFAULT,
-    CORROSIVE,
-    DESTRUCTIVE,
-    STEADFAST,
-    VENGEFUL;
+    RAW,
+    RUINA,
+    NIHILUM,
+    INVICTUS,
+    VINDICTA;
 
     public static final IntFunction<SpiritusType> BY_ID = ByIdMap.continuous(
             SpiritusType::ordinal,

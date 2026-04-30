@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "a": "#c:stones",
-    "b": "neovitae:blank_slate",
+    "b": "neovitae:tabula_rasa",
     "c": "minecraft:sugar",
     "d": "neovitae:rune_blank"
   },
@@ -13,7 +13,6 @@
     "aba"
   ],
   "result": {
-    "count": 1,
     "id": "neovitae:rune_speed"
   }
 }

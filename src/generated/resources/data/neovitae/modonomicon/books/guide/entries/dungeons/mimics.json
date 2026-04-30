@@ -4,7 +4,9 @@
   "category": "dungeons",
   "description": "book.neovitae.guide.dungeons.mimics.description",
   "hide_while_locked": false,
-  "icon": "neovitae:ethereal_mimic",
+  "icon": {
+    "id": "neovitae:ethereal_mimic"
+  },
   "name": "book.neovitae.guide.dungeons.mimics.name",
   "pages": [
     {

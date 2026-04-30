@@ -4,12 +4,11 @@
   "inputs": [
     "#c:gems/amethyst",
     "#c:ingots",
-    "neovitae:default_crystal",
+    "neovitae:raw_crystal_shard",
     "neovitae:tau_oil"
   ],
   "minDrain": 1200.0,
   "output": {
-    "count": 1,
     "id": "neovitae:primitive_crystalline_resonator"
   }
 }

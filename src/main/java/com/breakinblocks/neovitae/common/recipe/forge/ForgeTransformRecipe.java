@@ -23,7 +23,7 @@ import net.minecraft.world.item.crafting.Recipe;
 public class ForgeTransformRecipe extends ForgeRecipe {
 
     public static final MapCodec<ForgeTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.DOUBLE.fieldOf("minDrain").forGetter(r -> r.minWill),
+            Codec.DOUBLE.fieldOf("minDrain").forGetter(r -> r.minSpiritus),
             Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedWill),
             Codec.list(Ingredient.CODEC).fieldOf("catalysts").forGetter(ForgeTransformRecipe::getCatalysts),
             Ingredient.CODEC.fieldOf("transformInput").forGetter(r -> r.transformInput),
@@ -31,7 +31,7 @@ public class ForgeTransformRecipe extends ForgeRecipe {
     ).apply(instance, ForgeTransformRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ForgeTransformRecipe> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.DOUBLE, r -> r.minWill,
+            ByteBufCodecs.DOUBLE, r -> r.minSpiritus,
             ByteBufCodecs.DOUBLE, r -> r.usedWill,
             Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), ForgeTransformRecipe::getCatalysts,
             Ingredient.CONTENTS_STREAM_CODEC, r -> r.transformInput,
@@ -42,9 +42,9 @@ public class ForgeTransformRecipe extends ForgeRecipe {
     private final Ingredient transformInput;
     private final List<Ingredient> catalysts;
 
-    public ForgeTransformRecipe(double minWill, double usedWill, List<Ingredient> catalysts,
+    public ForgeTransformRecipe(double minSpiritus, double usedWill, List<Ingredient> catalysts,
                                  Ingredient transformInput, ItemStackTemplate resultTemplate) {
-        super(minWill, usedWill, combinedIngredients(catalysts, transformInput), resultTemplate, Optional.empty());
+        super(minSpiritus, usedWill, combinedIngredients(catalysts, transformInput), resultTemplate, Optional.empty());
         this.transformInput = transformInput;
         this.catalysts = catalysts;
     }
@@ -67,7 +67,7 @@ public class ForgeTransformRecipe extends ForgeRecipe {
     public ItemStack assemble(ForgeInput input) {
         ItemStack gemStack = input.getGem();
         double will = gemStack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
-        if (will < minWill) return ItemStack.EMPTY;
+        if (will < minSpiritus) return ItemStack.EMPTY;
 
         for (int i = 0; i < 4; i++) {
             ItemStack stack = input.getItem(i);

@@ -40,10 +40,10 @@ public class RitualGroundingEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Raw Spiritus[#](): Strengthens the grounding effect."
-                + "\n\n- [#](8B0000)Corrosive Spiritus[#](): Applies the [#](8B0000)Suspended[#]() effect, halting vertical movement entirely."
-                + "\n\n- [#](8B0000)Vengeful Spiritus[#](): Inflicts [#](8B0000)Levitation[#](), a cruel irony, dragging entities skyward against their will."
-                + "\n\n- [#](8B0000)Destructive Spiritus[#](): Applies the [#](8B0000)Heavy Heart[#]() affliction."
-                + "\n\n- [#](8B0000)Steadfast Spiritus[#](): Expands the area of influence.");
+                + "\n\n- [#](8B0000)Spiritus Ruina[#](): Applies the [#](8B0000)Suspended[#]() effect, halting vertical movement entirely."
+                + "\n\n- [#](8B0000)Spiritus Vindicta[#](): Inflicts [#](8B0000)Levitation[#](), a cruel irony, dragging entities skyward against their will."
+                + "\n\n- [#](8B0000)Spiritus Nihilum[#](): Applies the [#](8B0000)Heavy Heart[#]() affliction."
+                + "\n\n- [#](8B0000)Spiritus Invictus[#](): Expands the area of influence.");
     }
 
     @Override

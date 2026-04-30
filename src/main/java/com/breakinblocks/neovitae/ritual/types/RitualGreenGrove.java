@@ -163,7 +163,7 @@ public class RitualGreenGrove extends Ritual {
             }
         }
 
-        RitualHelper.drainWill(will, ctx.level(), masterPos,
+        RitualHelper.drainSpiritus(will, ctx.level(), masterPos,
                 0, corrosiveWillUsed, 0, vengefulWillUsed, steadfastWillUsed);
 
         ctx.syphon(getRefreshCost() * totalGrowths);

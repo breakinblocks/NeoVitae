@@ -4,7 +4,9 @@
   "category": "dungeons",
   "description": "book.neovitae.guide.dungeons.demon_food.description",
   "hide_while_locked": false,
-  "icon": "neovitae:vitae_morsel",
+  "icon": {
+    "id": "neovitae:vitae_morsel"
+  },
   "name": "book.neovitae.guide.dungeons.demon_food.name",
   "pages": [
     {
@@ -25,8 +27,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "count": 1,
-        "item": "neovitae:tainted_flesh"
+        "id": "neovitae:tainted_flesh"
       },
       "text": "book.neovitae.guide.dungeons.demon_food.tainted_flesh.text",
       "title": "Tainted Flesh"
@@ -38,8 +39,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "count": 1,
-        "item": "neovitae:vitae_morsel"
+        "id": "neovitae:vitae_morsel"
       },
       "text": "book.neovitae.guide.dungeons.demon_food.vitae_morsel.text",
       "title": "Vitae Morsel"
@@ -51,8 +51,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "count": 1,
-        "item": "neovitae:bottled_spite"
+        "id": "neovitae:bottled_spite"
       },
       "text": "book.neovitae.guide.dungeons.demon_food.bottled_spite.text",
       "title": "Bottled Spite"

@@ -4,7 +4,9 @@
   "category": "utility",
   "description": "book.neovitae.guide.utility.glossary.description",
   "hide_while_locked": false,
-  "icon": "minecraft:book",
+  "icon": {
+    "id": "minecraft:book"
+  },
   "name": "book.neovitae.guide.utility.glossary.name",
   "pages": [
     {

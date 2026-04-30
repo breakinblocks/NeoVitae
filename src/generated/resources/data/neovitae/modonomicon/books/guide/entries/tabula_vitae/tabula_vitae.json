@@ -4,7 +4,9 @@
   "category": "tabula_vitae",
   "description": "book.neovitae.guide.tabula_vitae.tabula_vitae.description",
   "hide_while_locked": false,
-  "icon": "neovitae:tabula_vitae",
+  "icon": {
+    "id": "neovitae:tabula_vitae"
+  },
   "name": "book.neovitae.guide.tabula_vitae.tabula_vitae.name",
   "pages": [
     {

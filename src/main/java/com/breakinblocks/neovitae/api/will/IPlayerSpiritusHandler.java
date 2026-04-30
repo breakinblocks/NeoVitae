@@ -16,9 +16,9 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
  * <pre>{@code
  * IPlayerSpiritusHandler handler = NeoVitaeAPI.getInstance().getPlayerWillHandler();
  *
- * double total = handler.getTotalSpiritus(SpiritusType.DEFAULT, player);
- * double consumed = handler.consumeSpiritus(SpiritusType.DEFAULT, player, 10.0);
- * double added = handler.addSpiritus(SpiritusType.CORROSIVE, player, 5.0);
+ * double total = handler.getTotalSpiritus(SpiritusType.RAW, player);
+ * double consumed = handler.consumeSpiritus(SpiritusType.RAW, player, 10.0);
+ * double added = handler.addSpiritus(SpiritusType.RUINA, player, 5.0);
  * }</pre>
  */
 public interface IPlayerSpiritusHandler {
@@ -50,7 +50,7 @@ public interface IPlayerSpiritusHandler {
      *
      * @return The remaining will stack (empty if fully absorbed)
      */
-    ItemStack addSpiritus(Player player, ItemStack willStack);
+    ItemStack addSpiritus(Player player, ItemStack spiritusStack);
 
     /**
      * Adds a specific amount of spiritus to gems in the player's inventory.

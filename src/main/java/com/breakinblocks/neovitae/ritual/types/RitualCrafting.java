@@ -103,7 +103,7 @@ public class RitualCrafting extends Ritual {
                         }
                     }
                     Utils.insertItemStacked(outputHandler, result, false);
-                    will.use(SpiritusType.STEADFAST, WILL_PER_FORGE_CRAFT);
+                    will.use(SpiritusType.INVICTUS, WILL_PER_FORGE_CRAFT);
                     will.drain(ctx.level(), masterPos);
                     ctx.syphon(getRefreshCost());
                     RitualHelper.chanceStream(ctx.level(), 8, () ->
@@ -127,7 +127,7 @@ public class RitualCrafting extends Ritual {
                         }
                     }
                     Utils.insertItemStacked(outputHandler, result, false);
-                    will.use(SpiritusType.CORROSIVE, WILL_PER_ALCHEMY_CRAFT);
+                    will.use(SpiritusType.RUINA, WILL_PER_ALCHEMY_CRAFT);
                     will.drain(ctx.level(), masterPos);
                     ctx.syphon(getRefreshCost());
                     RitualHelper.chanceStream(ctx.level(), 8, () ->

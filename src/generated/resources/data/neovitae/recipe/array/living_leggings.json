@@ -3,7 +3,6 @@
   "addedinput": "minecraft:iron_leggings",
   "baseinput": "neovitae:reagent_binding",
   "output": {
-    "count": 1,
     "id": "neovitae:living_leggings"
   },
   "texture": "neovitae:textures/models/alchemyarrays/bindingarray.png"

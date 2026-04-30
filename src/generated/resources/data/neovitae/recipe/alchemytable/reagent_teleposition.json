@@ -7,7 +7,6 @@
     "minecraft:chorus_fruit"
   ],
   "output": {
-    "count": 1,
     "id": "neovitae:reagent_teleposition"
   },
   "syphon": 10000,

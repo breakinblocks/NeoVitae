@@ -1,0 +1,78 @@
+{
+  "parent": "neovitae:neovitae/harvest_raw_spiritus",
+  "criteria": {
+    "raw": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:raw_crystal_shard"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "ruina": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:spiritus_ruina_shard"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "nihilum": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:spiritus_nihilum_shard"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "vindicta": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:spiritus_vindicta_shard"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "invictus": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neovitae:spiritus_invictus_shard"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.neovitae.aspectum_omnia.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "neovitae:spiritus_invictus_shard"
+    },
+    "title": {
+      "translate": "advancements.neovitae.aspectum_omnia.title"
+    }
+  },
+  "requirements": [
+    ["raw"],
+    ["ruina"],
+    ["nihilum"],
+    ["vindicta"],
+    ["invictus"]
+  ],
+  "sends_telemetry_event": true
+}

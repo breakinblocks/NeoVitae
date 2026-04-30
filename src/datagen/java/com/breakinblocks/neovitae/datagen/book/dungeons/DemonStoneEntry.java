@@ -40,8 +40,8 @@ public class DemonStoneEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Coloured Variants");
-        this.pageText("Introducing stone to [#](4A0080)Corrosive[#](), [#](4A0080)Destructive[#](), "
-                + "[#](4A0080)Steadfast[#](), or [#](4A0080)Vengeful[#]() Spiritus produces coloured variants "
+        this.pageText("Introducing stone to [#](4A0080)Ruina[#](), [#](4A0080)Nihilum[#](), "
+                + "[#](4A0080)Invictus[#](), or [#](4A0080)Vindicta[#]() Spiritus produces coloured variants "
                 + "of Demon Stone, each carrying the faintest resonance of its aspect. All variants "
                 + "can be shaped in a stonecutter into various decorative patterns. Consult JEI for "
                 + "variant and spread recipes.");

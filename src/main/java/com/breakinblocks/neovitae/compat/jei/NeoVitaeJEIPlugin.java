@@ -260,7 +260,21 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
         runtime.getIngredientManager().removeIngredientsAtRuntime(
                 VanillaTypes.ITEM_STACK,
-                List.of(new ItemStack(NVItems.BOSS_KEY.get()))
+                List.of(
+                        new ItemStack(NVItems.BOSS_KEY.get()),
+                        new ItemStack(NVBlocks.SPATIAL_RIFT.item().get()),
+                        new ItemStack(NVItems.RAW_SPIRITUS.get()),
+                        new ItemStack(NVItems.SPIRITUS_GEM_PETTY.get()),
+                        new ItemStack(NVItems.SPIRITUS_GEM_LESSER.get()),
+                        new ItemStack(NVItems.SPIRITUS_GEM_COMMON.get()),
+                        new ItemStack(NVItems.SPIRITUS_GEM_GREATER.get()),
+                        new ItemStack(NVItems.SPIRITUS_GEM_GRAND.get()),
+                        new ItemStack(NVItems.MONSTER_SOUL_RAW.get()),
+                        new ItemStack(NVItems.MONSTER_SOUL_RUINA.get()),
+                        new ItemStack(NVItems.MONSTER_SOUL_NIHILUM.get()),
+                        new ItemStack(NVItems.MONSTER_SOUL_VINDICTA.get()),
+                        new ItemStack(NVItems.MONSTER_SOUL_INVICTUS.get())
+                )
         );
     }
 

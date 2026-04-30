@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 import com.breakinblocks.neovitae.client.event.ClientRecipeCache;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
-import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
+import com.breakinblocks.neovitae.compat.modonomicon.page.BookNVRecipePageRenderer;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -15,7 +15,7 @@ import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 
 import java.util.List;
 
-public class BookHellfireForgeRecipePageRenderer extends BookRecipePageRenderer<ForgeRecipe, BookHellfireForgeRecipePage> {
+public class BookHellfireForgeRecipePageRenderer extends BookNVRecipePageRenderer<ForgeRecipe, BookHellfireForgeRecipePage> {
 
     private static final Identifier CRAFTING_TEXTURES = Identifier.fromNamespaceAndPath("modonomicon", "textures/gui/crafting_textures.png");
     private static final RenderPipeline GUI = RenderPipelines.GUI_TEXTURED;

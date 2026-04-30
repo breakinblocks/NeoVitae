@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 import com.breakinblocks.neovitae.client.event.ClientRecipeCache;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
-import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
+import com.breakinblocks.neovitae.compat.modonomicon.page.BookNVRecipePageRenderer;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 import java.util.List;
 import net.minecraft.world.item.ItemStackTemplate;
 
-public class BookAthanorRecipePageRenderer extends BookRecipePageRenderer<AthanorRecipe, BookAthanorRecipePage> {
+public class BookAthanorRecipePageRenderer extends BookNVRecipePageRenderer<AthanorRecipe, BookAthanorRecipePage> {
 
     private static final Identifier CRAFTING_TEXTURES = Identifier.fromNamespaceAndPath("modonomicon", "textures/gui/crafting_textures.png");
     private static final RenderPipeline GUI = RenderPipelines.GUI_TEXTURED;

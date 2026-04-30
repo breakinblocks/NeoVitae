@@ -52,15 +52,15 @@ public class DaemoniumOverviewEntry extends EntryProvider {
         this.pageTitle("Will Affinities");
         this.pageText("Each demon species has a natural [#](4A0080)Spiritus[#]() affinity that determines "
                 + "which type of essence it drops:\\\n\\\n"
-                + "Cruoris: Default/Destructive\\\n"
-                + "Corrodis: Corrosive/Vengeful\\\n"
-                + "Pestis: Corrosive/Default\\\n"
-                + "Voraxis: Destructive/Corrosive\\\n"
-                + "Rancoris: Vengeful/Steadfast\\\n"
-                + "Animaris: Steadfast/Vengeful\\\n"
-                + "Fervidis: Destructive/Steadfast\\\n"
-                + "Doloris: Vengeful/Destructive\\\n"
-                + "Ignis: Destructive/Corrosive\\\n"
+                + "Cruoris: Raw/Nihilum\\\n"
+                + "Corrodis: Ruina/Vindicta\\\n"
+                + "Pestis: Ruina/Raw\\\n"
+                + "Voraxis: Nihilum/Ruina\\\n"
+                + "Rancoris: Vindicta/Invictus\\\n"
+                + "Animaris: Invictus/Vindicta\\\n"
+                + "Fervidis: Nihilum/Invictus\\\n"
+                + "Doloris: Vindicta/Nihilum\\\n"
+                + "Ignis: Nihilum/Ruina\\\n"
                 + "Glaciaris: All types");
     }
 

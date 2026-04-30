@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "neovitae:item/base_spiritus_soul"
+    "model": "neovitae:item/base_spiritus_soul_raw"
   }
 }

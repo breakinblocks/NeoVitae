@@ -1,3 +1,6 @@
 {
-  "parent": "neovitae:block/crystal/nihilumcrystal1"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "neovitae:block/spiritus_nihilum_spiritus_crystal"
+  }
 }

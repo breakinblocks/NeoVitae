@@ -41,7 +41,7 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
         this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Raw Spiritus[#](): Increases the [#](8B0000)Essentia Vitae[#]() gained per health sacrificed."
                 + "\n\n- [#](8B0000)Spiritus Ruina[#](): Channels the [#](8B0000)Incense Bonus[#]() from a nearby [#](8B0000)Incense Altar[#]()."
-                + "\n\n- [#](8B0000)Spiritus Vindicta[#](): When paired with [#](8B0000)Steadfast[#](), increases the drain rate."
+                + "\n\n- [#](8B0000)Spiritus Vindicta[#](): When paired with [#](8B0000)Invictus[#](), increases the drain rate."
                 + "\n\n- [#](8B0000)Spiritus Nihilum[#](): Raises the maximum vitality drained per tick."
                 + "\n\n- [#](8B0000)Spiritus Invictus[#](): Prevents the ritual from draining you to death.");
     }

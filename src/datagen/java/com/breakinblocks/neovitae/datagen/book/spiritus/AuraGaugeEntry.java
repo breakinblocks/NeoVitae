@@ -28,10 +28,10 @@ public class AuraGaugeEntry extends EntryProvider {
                 + "a spectral reading onto your vision.\\\n\\\n"
                 + "From top to bottom, the bars measure:\n\n"
                 + "- Raw\n\n"
-                + "- Corrosive\n\n"
-                + "- Steadfast\n\n"
-                + "- Destructive\n\n"
-                + "- Vengeful");
+                + "- Ruina\n\n"
+                + "- Invictus\n\n"
+                + "- Nihilum\n\n"
+                + "- Vindicta");
 
         this.page("recipe", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

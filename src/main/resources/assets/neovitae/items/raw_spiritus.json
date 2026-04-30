@@ -5,31 +5,31 @@
     "component": "neovitae:will_type",
     "cases": [
       {
-        "when": "corrosive",
+        "when": "ruina",
         "model": {
           "type": "minecraft:model",
-          "model": "neovitae:item/variant/raw_spiritus_corrosive"
+          "model": "neovitae:item/variant/raw_spiritus_ruina"
         }
       },
       {
-        "when": "destructive",
+        "when": "nihilum",
         "model": {
           "type": "minecraft:model",
-          "model": "neovitae:item/variant/raw_spiritus_destructive"
+          "model": "neovitae:item/variant/raw_spiritus_nihilum"
         }
       },
       {
-        "when": "steadfast",
+        "when": "vindicta",
         "model": {
           "type": "minecraft:model",
-          "model": "neovitae:item/variant/raw_spiritus_steadfast"
+          "model": "neovitae:item/variant/raw_spiritus_vindicta"
         }
       },
       {
-        "when": "vengeful",
+        "when": "invictus",
         "model": {
           "type": "minecraft:model",
-          "model": "neovitae:item/variant/raw_spiritus_vengeful"
+          "model": "neovitae:item/variant/raw_spiritus_invictus"
         }
       }
     ],

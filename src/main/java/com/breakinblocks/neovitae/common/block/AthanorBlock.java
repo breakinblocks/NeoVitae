@@ -107,7 +107,7 @@ public class AthanorBlock extends Block implements EntityBlock {
         if (FluidUtil.interactWithFluidHandler(player, hand, pos, arc.outputTank)) {
             return InteractionResult.SUCCESS;
         }
-        return InteractionResult.PASS;
+        return InteractionResult.TRY_WITH_EMPTY_HAND;
     }
 
     @Override

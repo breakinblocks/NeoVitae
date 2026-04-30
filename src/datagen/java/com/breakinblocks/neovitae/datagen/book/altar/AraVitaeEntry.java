@@ -142,7 +142,7 @@ public class AraVitaeEntry extends EntryProvider {
 
         this.page("tier6_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Tier 6[#](), the apex of the art. 19 runes per edge sprawl outward, three blocks "
+        this.pageText("[#](B8860B)Tier 5[#](), the apex of the art. 19 runes per edge sprawl outward, three blocks "
                 + "beyond the last ring. No corner blocks at rune level; instead, pillars ascend one tier higher, "
                 + "crowned with [#](8B0000)Crystal Clusters[#]() that sing with resonant energy. A monument to mastery."
                 + "\\\n\\\nForge Crystal Clusters in the [#](8B0000)Hellfire Forge[#]() from [#](8B0000)Sculk[#](), "
@@ -156,7 +156,7 @@ public class AraVitaeEntry extends EntryProvider {
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "altar_six"))
                 .withMultiblockName(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Tier 6 Ara Vitae");
+        this.pageTitle("Tier 5 Ara Vitae");
         this.pageText("184 total runes. The Ara Vitae becomes a cathedral of blood and stone.");
     }
 

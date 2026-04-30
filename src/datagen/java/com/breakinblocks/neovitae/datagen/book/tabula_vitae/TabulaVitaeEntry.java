@@ -35,21 +35,6 @@ public class TabulaVitaeEntry extends EntryProvider {
         this.pageText("[#](2E8B57)When studying recipes in these pages or through JEI, hover over the arrow "
                 + "marked with a EV label to reveal the drain cost, crafting time, and required tier.[#]()");
 
-        this.page("gui", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("The Interface");
-        this.pageText("Along the right edge of the [#](8B0000)Tabula Vitae[#]() interface, you will find six directional "
-                + "glyphs: [#](8B0000)D[#]()own, [#](8B0000)U[#]()p, [#](8B0000)N[#]()orth, [#](8B0000)S[#]()outh, [#](8B0000)W[#]()est, and [#](8B0000)E[#]()ast.\\\n\\\n"
-                + "Select any slot within the table, then toggle these glyphs to permit or deny external "
-                + "conduits, hoppers, pipes, and the like, access from that face. Click the slot once more "
-                + "to deselect it and return to normal operation.");
-
-        this.page("gui2", () -> BookTextPageModel.create()
-                .withText(this.context().pageText()));
-        this.pageText("The glyph displayed within each slot reveals whether it currently accepts incoming materials or "
-                + "provides outgoing products to external conduits.");
-
         this.page("errors", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));

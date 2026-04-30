@@ -102,6 +102,15 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRen
     }
 
     @Override
+    protected void tryRotateByBlockstate(com.geckolib.renderer.base.RenderPassInfo<State> info, PoseStack poseStack) {
+        // GeoBlockRenderer's default rotation switch produces wrong angles for our model;
+        // rotate manually based on the block's FACING using direct Y-axis yaw.
+        net.minecraft.core.Direction facing = info.getOrDefaultGeckolibData(
+                com.geckolib.renderer.GeoBlockRenderer.DIRECTION_FACING, net.minecraft.core.Direction.NORTH);
+        poseStack.mulPose(Axis.YP.rotationDegrees(facing.toYRot()));
+    }
+
+    @Override
     public int getViewDistance() {
         return 256;
     }

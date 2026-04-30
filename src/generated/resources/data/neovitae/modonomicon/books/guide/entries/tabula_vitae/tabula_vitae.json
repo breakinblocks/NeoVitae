@@ -38,28 +38,6 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.tabula_vitae.tabula_vitae.gui.text",
-      "title": "book.neovitae.guide.tabula_vitae.tabula_vitae.gui.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.tabula_vitae.tabula_vitae.gui2.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
       "text": "book.neovitae.guide.tabula_vitae.tabula_vitae.errors.text",
       "title": "book.neovitae.guide.tabula_vitae.tabula_vitae.errors.title",
       "use_markdown_in_title": false

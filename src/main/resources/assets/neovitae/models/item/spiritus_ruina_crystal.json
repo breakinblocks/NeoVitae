@@ -1,3 +1,6 @@
 {
-  "parent": "neovitae:block/crystal/ruinacrystal1"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "neovitae:block/spiritus_ruina_spiritus_crystal"
+  }
 }

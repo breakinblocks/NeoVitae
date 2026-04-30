@@ -5,31 +5,31 @@
     "component": "neovitae:will_type",
     "cases": [
       {
-        "when": "corrosive",
+        "when": "ruina",
         "model": {
           "type": "minecraft:model",
-          "model": "neovitae:item/variant/spiritus_gem_lesser_corrosive"
+          "model": "neovitae:item/variant/spiritus_gem_lesser_ruina"
         }
       },
       {
-        "when": "destructive",
+        "when": "nihilum",
         "model": {
           "type": "minecraft:model",
-          "model": "neovitae:item/variant/spiritus_gem_lesser_destructive"
+          "model": "neovitae:item/variant/spiritus_gem_lesser_nihilum"
         }
       },
       {
-        "when": "steadfast",
+        "when": "vindicta",
         "model": {
           "type": "minecraft:model",
-          "model": "neovitae:item/variant/spiritus_gem_lesser_steadfast"
+          "model": "neovitae:item/variant/spiritus_gem_lesser_vindicta"
         }
       },
       {
-        "when": "vengeful",
+        "when": "invictus",
         "model": {
           "type": "minecraft:model",
-          "model": "neovitae:item/variant/spiritus_gem_lesser_vengeful"
+          "model": "neovitae:item/variant/spiritus_gem_lesser_invictus"
         }
       }
     ],

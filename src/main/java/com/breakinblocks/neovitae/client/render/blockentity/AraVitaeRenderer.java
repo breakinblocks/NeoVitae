@@ -1,10 +1,10 @@
 package com.breakinblocks.neovitae.client.render.blockentity;
 
+import com.geckolib.renderer.GeoBlockRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
@@ -31,7 +31,7 @@ import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
-public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile, AraVitaeRenderer.State> {
+public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRenderer.State> {
 
     private static final Identifier RITUAL_TEXTURE = NeoVitae.rl("textures/particle/ritual.png");
     private static final Identifier FLUID_FILL_TEXTURE = NeoVitae.rl("textures/models/alchemyarrays/basearray.png");
@@ -71,6 +71,7 @@ public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile, AraVi
     private final ItemModelResolver itemModelResolver;
 
     public AraVitaeRenderer(BlockEntityRendererProvider.Context context) {
+        super(context, new AraVitaeModel());
         this.itemModelResolver = context.itemModelResolver();
     }
 
@@ -108,7 +109,7 @@ public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile, AraVi
     @Override
     public void extractRenderState(AraVitaeTile altar, State s, float partialTick, Vec3 cameraPos,
                                    ModelFeatureRenderer.@Nullable CrumblingOverlay crumbling) {
-        BlockEntityRenderer.super.extractRenderState(altar, s, partialTick, cameraPos, crumbling);
+        super.extractRenderState(altar, s, partialTick, cameraPos, crumbling);
 
         Level level = altar.getLevel();
         ItemStack inputStack = altar.inv.getStackInSlot(0);
@@ -153,6 +154,7 @@ public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile, AraVi
 
     @Override
     public void submit(State s, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera) {
+        super.submit(s, poseStack, collector, camera);
         submitInputItem(s, poseStack, collector);
 
         if (s.active) {
@@ -298,8 +300,8 @@ public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile, AraVi
     }
 
     private void submitFluid(State s, PoseStack poseStack, SubmitNodeCollector collector) {
-        float minHeight = 8F / 16F;
-        float maxHeight = 12F / 16F;
+        float minHeight = 7F / 16F;
+        float maxHeight = 11F / 16F;
         float start = 3F / 16F;
         float end = 13F / 16F;
         float height = minHeight + s.fluidLevel * (maxHeight - minHeight);

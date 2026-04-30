@@ -178,9 +178,6 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         int currentSlot = menu.getCurrentSlot();
         if (currentSlot < 0 || currentSlot >= 6) return;
 
-        Component dirName = Component.translatable(DIRECTION_KEYS[currentSlot]);
-        guiGraphics.text(font, dirName, 79, 6, 0xFF404040);
-
         int priority = menu.getCurrentPriority();
         Component priorityStr = Component.translatable("gui.neovitae.routing.priority_short", priority);
         int textWidth = font.width(priorityStr);

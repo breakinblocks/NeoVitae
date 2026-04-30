@@ -62,7 +62,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class AraVitaeTile extends BaseBlockEntity implements IAraVitae {
+public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, com.geckolib.animatable.GeoBlockEntity {
+
+    private final com.geckolib.animatable.instance.AnimatableInstanceCache geoCache =
+            com.geckolib.util.GeckoLibUtil.createInstanceCache(this);
+    private static final com.geckolib.animation.RawAnimation RITUAL_ANIM =
+            com.geckolib.animation.RawAnimation.begin().thenPlay("animation.ara_vitae.ritual");
+
+    @Override
+    public void registerControllers(com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new com.geckolib.animation.AnimationController<AraVitaeTile>("main", 0, state -> com.geckolib.animation.object.PlayState.STOP)
+                .triggerableAnim("ritual", RITUAL_ANIM));
+    }
+
+    @Override
+    public com.geckolib.animatable.instance.AnimatableInstanceCache getAnimatableInstanceCache() {
+        return geoCache;
+    }
+
 
     private volatile boolean isActive = false;
     private volatile boolean canFill = false;
@@ -452,6 +469,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae {
         if (level.getBlockState(worldPosition.below()).is(NVTags.Blocks.PULSE_ON_CRAFTING)) {
             setSignaling(true);
         }
+        triggerAnim("main", "ritual");
         setProgress(0);
         setCooldownAfterCrafting(AltarConstants.CRAFTING_COOLDOWN_TICKS);
         setActive(false);

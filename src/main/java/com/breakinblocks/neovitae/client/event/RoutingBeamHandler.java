@@ -85,6 +85,10 @@ public final class RoutingBeamHandler {
             BlockPos nodePos = be.getBlockPos();
             for (BlockPos targetPos : connections) {
                 if (targetPos.compareTo(nodePos) <= 0) continue;
+                // Defensive: if the target slot no longer holds a routing node, skip it.
+                // Stale connectionList entries can persist if a remove/sync didn't propagate cleanly.
+                if (mc.level.isLoaded(targetPos)
+                        && !(mc.level.getBlockEntity(targetPos) instanceof IRoutingNode)) continue;
                 submitBeam(poseStack, collector, nodePos, targetPos, r, g, b, gameTime, partialTick);
             }
         }

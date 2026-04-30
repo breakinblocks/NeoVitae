@@ -22,8 +22,8 @@ public class DungeonEyeEntry extends EntryProvider {
         this.pageText("Set into the walls of the [#](4A0080)Endless Realm[#](), the [#](8B0000)Dungeon Eye[#]() "
                 + "emits a pale, unwavering light. Whether these serve as sentinels or mere decoration "
                 + "is unclear; what is certain is that they illuminate the darkness with no fuel or flame.\\\n\\\n"
-                + "Variants exist tinted by [#](4A0080)Raw[#](), [#](4A0080)Corrosive[#](), "
-                + "[#](4A0080)Destructive[#](), [#](4A0080)Steadfast[#](), and [#](4A0080)Vengeful[#]() Spiritus. "
+                + "Variants exist tinted by [#](4A0080)Raw[#](), [#](4A0080)Ruina[#](), "
+                + "[#](4A0080)Nihilum[#](), [#](4A0080)Invictus[#](), and [#](4A0080)Vindicta[#]() Spiritus. "
                 + "Consult JEI for crafting recipes.");
     }
 

@@ -144,6 +144,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVFluids.ANIMATED_SPIRITUS_BLOCK.get(), "Animated Spiritus Essence");
 
         add(NVBlocks.ATHANOR_BLOCK, "Athanor");
+        add("menu.neovitae.athanor", "Athanor");
+        add("menu.neovitae.teleposer", "Teleposer");
 
         add(NVBlocks.BLOOD_TANK, "Blood Tank");
         addTooltip("container_tier_missing", "No Tier found!");

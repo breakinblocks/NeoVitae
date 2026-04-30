@@ -4,10 +4,10 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 public enum DungeonVariant {
     RAW("", "raw", SpiritusType.RAW),
-    RUINA("_c", "corrosive", SpiritusType.RUINA),
-    NIHILUM("_d", "destructive", SpiritusType.NIHILUM),
-    INVICTUS("_st", "steadfast", SpiritusType.INVICTUS),
-    VINDICTA("_v", "vengeful", SpiritusType.VINDICTA);
+    RUINA("_c", "ruina", SpiritusType.RUINA),
+    NIHILUM("_d", "nihilum", SpiritusType.NIHILUM),
+    INVICTUS("_st", "invictus", SpiritusType.INVICTUS),
+    VINDICTA("_v", "vindicta", SpiritusType.VINDICTA);
 
     private final String suffix;
     private final String name;

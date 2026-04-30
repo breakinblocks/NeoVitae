@@ -2346,6 +2346,8 @@
   "living_upgrade.neovitae.sprint_attack": "Charging Strike",
   "living_upgrade.neovitae.storm_trooper": "Storm Trooper",
   "living_upgrade.neovitae.swim_decrease": "Concrete Shoes",
+  "menu.neovitae.athanor": "Athanor",
+  "menu.neovitae.teleposer": "Teleposer",
   "message.neovitae.blood_light.brightness": "Blood Light: Brightness %s",
   "message.neovitae.blood_light.redstone_off": "Redstone Control: Disabled",
   "message.neovitae.blood_light.redstone_on": "Redstone Control: Enabled",

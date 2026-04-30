@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "neovitae:block/spiritus_invictus_spiritus_crystal"
-  }
+  "parent": "neovitae:block/crystal/invictuscrystal1"
 }

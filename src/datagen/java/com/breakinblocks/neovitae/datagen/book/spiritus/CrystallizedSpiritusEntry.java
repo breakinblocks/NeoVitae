@@ -43,10 +43,12 @@ public class CrystallizedSpiritusEntry extends EntryProvider {
 
         this.page("related", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("Five Spiritus per harvest is a modest return, but rituals such as the "
-                + "[#](8B0000)Resonance of the Faceted Crystal[#](), the [#](8B0000)Catalyst of the Forsaken Souls[#](), and the "
-                + "[#](8B0000)Crack of the Fractured Crystal[#](), alongside [#](8B0000)Spiritus Catalysts[#](), can accelerate and "
-                + "automate crystal production to impressive effect.");
+        this.pageText("Manual harvest yields a modest five Spiritus per cluster. To industrialise crystal "
+                + "production, build the [#](8B0000)Crystallum Fractura[#]() ritual: it auto-harvests every fully-grown "
+                + "cluster in range, doubles crystal growth speed, and amplifies any Spiritus injection by +25%%. "
+                + "To bootstrap aspected lineages, apply a [#](8B0000)Spiritus Catalyst[#]() (one per aspect) to a "
+                + "fully-grown Raw cluster; the catalyst consumes one [#](8B0000)Animus Mote[#]() and transmutes the "
+                + "cluster into its target Aspect. See the Spiritus Catalysts entry for the full loop.");
     }
 
     @Override

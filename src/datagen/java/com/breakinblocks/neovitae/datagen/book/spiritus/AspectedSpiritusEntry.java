@@ -26,22 +26,23 @@ public class AspectedSpiritusEntry extends EntryProvider {
         this.pageText("Unleashing [#](8B0000)Spiritus[#]() into the atmosphere has proven most fruitful, empowering "
                 + "[#](8B0000)Rituals[#]() and producing [#](8B0000)Crystal Clusters[#]() of satisfying geometry. Yet these raw crystals "
                 + "feel somehow... [#](4A0080)conflicted[#](), as though warring natures strain against one another within.\\\n\\\n"
-                + "A certain [#](8B0000)Ritual[#]() may coax these hidden facets into purer forms...");
+                + "A focused mote of pure animus, paired with the right [#](8B0000)Spiritus Catalyst[#](), can coax these "
+                + "hidden facets into purer forms.");
 
         this.page("image", () -> BookImagePageModel.create()
                 .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/will_splitting.png"))
                 .withTitle("Aspects of Spiritus")
                 .withBorder(true)
                 .withText(this.context().pageText()));
-        this.pageText("The [#](8B0000)Resonance of the Faceted Crystal[#]() ritual in action.");
+        this.pageText("A fully-grown Raw cluster yields to the catalyst's resonance.");
 
         this.page("aspects", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("The ritual fractures raw Spiritus into four distinct [#](4A0080)Aspects[#]():\n\n"
-                + "- [#](8B0000)Spiritus Invictus[#](): upon the Water Rune\n\n"
-                + "- [#](8B0000)Spiritus Nihilum[#](): upon the Air Rune\n\n"
-                + "- [#](8B0000)Spiritus Vindicta[#](): upon the Fire Rune\n\n"
-                + "- [#](8B0000)Spiritus Ruina[#](): upon the Earth Rune\\\n\\\n"
+        this.pageText("The four distinct [#](4A0080)Aspects[#]() of Spiritus:\n\n"
+                + "- [#](8B0000)Spiritus Invictus[#](): the unbroken\n\n"
+                + "- [#](8B0000)Spiritus Nihilum[#](): the destructive\n\n"
+                + "- [#](8B0000)Spiritus Vindicta[#](): the vengeful\n\n"
+                + "- [#](8B0000)Spiritus Ruina[#](): the corrosive\\\n\\\n"
                 + "Each Aspect can be burned in the [#](8B0000)Vas Maleficum[#]() just as Raw Spiritus can, feeding the "
                 + "[#](8B0000)Aura[#]() with its particular resonance for your Rituals to draw upon.");
 

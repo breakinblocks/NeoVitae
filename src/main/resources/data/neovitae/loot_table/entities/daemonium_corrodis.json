@@ -40,12 +40,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "neovitae:base_spiritus_soul_corrosive",
+          "name": "neovitae:base_spiritus_soul_ruina",
           "weight": 80
         },
         {
           "type": "minecraft:item",
-          "name": "neovitae:base_spiritus_soul_vengeful",
+          "name": "neovitae:base_spiritus_soul_vindicta",
           "weight": 20
         }
       ],

@@ -1,0 +1,30 @@
+{
+  "parent": "neovitae:neovitae/transmute_ruina",
+  "criteria": {
+    "transmute": {
+      "conditions": {
+        "aspect": "vindicta"
+      },
+      "trigger": "neovitae:catalyst_transmute"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.transmute_vindicta.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:spiritus_vindicta_catalyst"
+    },
+    "title": {
+      "translate": "advancements.neovitae.transmute_vindicta.title"
+    }
+  },
+  "requirements": [
+    [
+      "transmute"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

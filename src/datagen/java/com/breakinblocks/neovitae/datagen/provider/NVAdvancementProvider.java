@@ -236,15 +236,6 @@ public class NVAdvancementProvider extends AdvancementProvider {
                     .addCriterion("activate", NVCriteriaTriggers.RITUAL_ACTIVATED.get().createCriterion(RitualActivatedTrigger.forRitual("neovitae:simple_dungeon")))
                     .save(saver, NeoVitae.rl("neovitae/edge_of_hidden_realm").toString());
 
-            AdvancementHolder crackOfFracturedCrystal = Advancement.Builder.advancement()
-                    .parent(firstRitual)
-                    .display(NVBlocks.MASTER_RITUAL_STONE,
-                            Component.translatable("advancements.neovitae.crack_of_fractured_crystal.title"),
-                            Component.translatable("advancements.neovitae.crack_of_fractured_crystal.description"),
-                            null, AdvancementType.CHALLENGE, true, true, false)
-                    .addCriterion("activate", NVCriteriaTriggers.RITUAL_ACTIVATED.get().createCriterion(RitualActivatedTrigger.forRitual("neovitae:crystal_split")))
-                    .save(saver, NeoVitae.rl("neovitae/crack_of_fractured_crystal").toString());
-
             // Crystallum Fractura activation (off firstRitual)
             AdvancementHolder crystallumFractura = Advancement.Builder.advancement()
                     .parent(firstRitual)
@@ -255,64 +246,53 @@ public class NVAdvancementProvider extends AdvancementProvider {
                     .addCriterion("activate", NVCriteriaTriggers.RITUAL_ACTIVATED.get().createCriterion(RitualActivatedTrigger.forRitual("neovitae:crystallum_fractura")))
                     .save(saver, NeoVitae.rl("neovitae/crystallum_fractura").toString());
 
-            // Spiritus harvest chain (off crystallumFractura) - obtain each aspect's crystal shard
-            AdvancementHolder harvestRaw = Advancement.Builder.advancement()
+            // Catalyst transmutation chain (off crystallumFractura)
+            AdvancementHolder transmuteRuina = Advancement.Builder.advancement()
                     .parent(crystallumFractura)
-                    .display(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get(),
-                            Component.translatable("advancements.neovitae.harvest_raw.title"),
-                            Component.translatable("advancements.neovitae.harvest_raw.description"),
+                    .display(NVItems.SPIRITUS_RUINA_CATALYST.get(),
+                            Component.translatable("advancements.neovitae.transmute_ruina.title"),
+                            Component.translatable("advancements.neovitae.transmute_ruina.description"),
                             null, AdvancementType.TASK, true, false, false)
-                    .addCriterion("get_shard", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get()))
-                    .save(saver, NeoVitae.rl("neovitae/harvest_raw_spiritus").toString());
+                    .addCriterion("transmute", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.RUINA)))
+                    .save(saver, NeoVitae.rl("neovitae/transmute_ruina").toString());
 
-            AdvancementHolder harvestRuina = Advancement.Builder.advancement()
-                    .parent(harvestRaw)
-                    .display(NVItems.SPIRITUS_RUINA_CRYSTAL_ITEM.get(),
-                            Component.translatable("advancements.neovitae.harvest_ruina.title"),
-                            Component.translatable("advancements.neovitae.harvest_ruina.description"),
-                            null, AdvancementType.TASK, true, false, false)
-                    .addCriterion("get_shard", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_RUINA_CRYSTAL_ITEM.get()))
-                    .save(saver, NeoVitae.rl("neovitae/harvest_ruina_spiritus").toString());
-
-            AdvancementHolder harvestNihilum = Advancement.Builder.advancement()
-                    .parent(harvestRaw)
-                    .display(NVItems.SPIRITUS_NIHILUM_CRYSTAL_ITEM.get(),
-                            Component.translatable("advancements.neovitae.harvest_nihilum.title"),
-                            Component.translatable("advancements.neovitae.harvest_nihilum.description"),
-                            null, AdvancementType.TASK, true, false, false)
-                    .addCriterion("get_shard", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_NIHILUM_CRYSTAL_ITEM.get()))
-                    .save(saver, NeoVitae.rl("neovitae/harvest_nihilum_spiritus").toString());
-
-            AdvancementHolder harvestVindicta = Advancement.Builder.advancement()
-                    .parent(harvestRaw)
-                    .display(NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get(),
-                            Component.translatable("advancements.neovitae.harvest_vindicta.title"),
-                            Component.translatable("advancements.neovitae.harvest_vindicta.description"),
-                            null, AdvancementType.TASK, true, false, false)
-                    .addCriterion("get_shard", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get()))
-                    .save(saver, NeoVitae.rl("neovitae/harvest_vindicta_spiritus").toString());
-
-            AdvancementHolder harvestInvictus = Advancement.Builder.advancement()
-                    .parent(harvestRaw)
-                    .display(NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get(),
-                            Component.translatable("advancements.neovitae.harvest_invictus.title"),
-                            Component.translatable("advancements.neovitae.harvest_invictus.description"),
-                            null, AdvancementType.TASK, true, false, false)
-                    .addCriterion("get_shard", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get()))
-                    .save(saver, NeoVitae.rl("neovitae/harvest_invictus_spiritus").toString());
-
-            // Master harvest challenge: collect all five aspects
             Advancement.Builder.advancement()
-                    .parent(harvestRaw)
-                    .display(NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get(),
+                    .parent(transmuteRuina)
+                    .display(NVItems.SPIRITUS_NIHILUM_CATALYST.get(),
+                            Component.translatable("advancements.neovitae.transmute_nihilum.title"),
+                            Component.translatable("advancements.neovitae.transmute_nihilum.description"),
+                            null, AdvancementType.TASK, true, false, false)
+                    .addCriterion("transmute", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.NIHILUM)))
+                    .save(saver, NeoVitae.rl("neovitae/transmute_nihilum").toString());
+
+            Advancement.Builder.advancement()
+                    .parent(transmuteRuina)
+                    .display(NVItems.SPIRITUS_VINDICTA_CATALYST.get(),
+                            Component.translatable("advancements.neovitae.transmute_vindicta.title"),
+                            Component.translatable("advancements.neovitae.transmute_vindicta.description"),
+                            null, AdvancementType.TASK, true, false, false)
+                    .addCriterion("transmute", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.VINDICTA)))
+                    .save(saver, NeoVitae.rl("neovitae/transmute_vindicta").toString());
+
+            Advancement.Builder.advancement()
+                    .parent(transmuteRuina)
+                    .display(NVItems.SPIRITUS_INVICTUS_CATALYST.get(),
+                            Component.translatable("advancements.neovitae.transmute_invictus.title"),
+                            Component.translatable("advancements.neovitae.transmute_invictus.description"),
+                            null, AdvancementType.TASK, true, false, false)
+                    .addCriterion("transmute", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.INVICTUS)))
+                    .save(saver, NeoVitae.rl("neovitae/transmute_invictus").toString());
+
+            Advancement.Builder.advancement()
+                    .parent(transmuteRuina)
+                    .display(NVItems.SPIRITUS_INVICTUS_CATALYST.get(),
                             Component.translatable("advancements.neovitae.aspectum_omnia.title"),
                             Component.translatable("advancements.neovitae.aspectum_omnia.description"),
                             null, AdvancementType.CHALLENGE, true, true, true)
-                    .addCriterion("raw", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get()))
-                    .addCriterion("ruina", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_RUINA_CRYSTAL_ITEM.get()))
-                    .addCriterion("nihilum", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_NIHILUM_CRYSTAL_ITEM.get()))
-                    .addCriterion("vindicta", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get()))
-                    .addCriterion("invictus", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get()))
+                    .addCriterion("ruina", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.RUINA)))
+                    .addCriterion("nihilum", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.NIHILUM)))
+                    .addCriterion("vindicta", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.VINDICTA)))
+                    .addCriterion("invictus", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.INVICTUS)))
                     .save(saver, NeoVitae.rl("neovitae/aspectum_omnia").toString());
 
             AdvancementHolder serenadeOfNether = Advancement.Builder.advancement()
@@ -341,7 +321,7 @@ public class NVAdvancementProvider extends AdvancementProvider {
                             null, AdvancementType.CHALLENGE, true, true, true)
                     .addCriterion("suffering", NVCriteriaTriggers.RITUAL_ACTIVATED.get().createCriterion(RitualActivatedTrigger.forRitual("neovitae:well_of_suffering")))
                     .addCriterion("dungeon", NVCriteriaTriggers.RITUAL_ACTIVATED.get().createCriterion(RitualActivatedTrigger.forRitual("neovitae:simple_dungeon")))
-                    .addCriterion("crystal", NVCriteriaTriggers.RITUAL_ACTIVATED.get().createCriterion(RitualActivatedTrigger.forRitual("neovitae:crystal_split")))
+                    .addCriterion("crystal", NVCriteriaTriggers.RITUAL_ACTIVATED.get().createCriterion(RitualActivatedTrigger.forRitual("neovitae:crystallum_fractura")))
                     .addCriterion("lava", NVCriteriaTriggers.RITUAL_ACTIVATED.get().createCriterion(RitualActivatedTrigger.forRitual("neovitae:lava")))
                     .addCriterion("meteor", NVCriteriaTriggers.RITUAL_ACTIVATED.get().createCriterion(RitualActivatedTrigger.forRitual("neovitae:meteor")))
                     .save(saver, NeoVitae.rl("neovitae/master_of_ceremonies").toString());

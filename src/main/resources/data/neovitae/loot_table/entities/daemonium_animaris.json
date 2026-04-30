@@ -40,12 +40,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "neovitae:base_spiritus_soul_steadfast",
+          "name": "neovitae:base_spiritus_soul_invictus",
           "weight": 70
         },
         {
           "type": "minecraft:item",
-          "name": "neovitae:base_spiritus_soul_vengeful",
+          "name": "neovitae:base_spiritus_soul_vindicta",
           "weight": 30
         }
       ],

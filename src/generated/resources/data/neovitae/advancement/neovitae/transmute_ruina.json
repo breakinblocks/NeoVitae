@@ -1,0 +1,30 @@
+{
+  "parent": "neovitae:neovitae/crystallum_fractura",
+  "criteria": {
+    "transmute": {
+      "conditions": {
+        "aspect": "ruina"
+      },
+      "trigger": "neovitae:catalyst_transmute"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.neovitae.transmute_ruina.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "neovitae:spiritus_ruina_catalyst"
+    },
+    "title": {
+      "translate": "advancements.neovitae.transmute_ruina.title"
+    }
+  },
+  "requirements": [
+    [
+      "transmute"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

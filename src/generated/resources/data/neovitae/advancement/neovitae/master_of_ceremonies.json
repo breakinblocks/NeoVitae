@@ -3,7 +3,7 @@
   "criteria": {
     "crystal": {
       "conditions": {
-        "ritual_id": "neovitae:crystal_split"
+        "ritual_id": "neovitae:crystallum_fractura"
       },
       "trigger": "neovitae:ritual_activated"
     },

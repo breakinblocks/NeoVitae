@@ -30,7 +30,7 @@ public class RitualsCategory extends CategoryProvider {
                 "__0_1_2_3_y________",
                 "__w_x_z____________",
                 "___________________",
-                "__4_6_7____________",
+                "__7________________",
                 "__8_9_A____________"
         };
     }
@@ -182,10 +182,6 @@ public class RitualsCategory extends CategoryProvider {
         crystallumFractura.withParent(this.parent(basics));
         crystallumFractura.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
         crystallumFractura.hideWhileLocked(false);
-        var crystalSplit = this.add(new RitualCrystalSplitEntry(this).generate('6'));
-        crystalSplit.withParent(this.parent(basics));
-        crystalSplit.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
-        crystalSplit.hideWhileLocked(false);
 
         var crystalCatalyst = this.add(new RitualCrystalCatalystEntry(this).generate('7'));
         crystalCatalyst.withParent(this.parent(basics));

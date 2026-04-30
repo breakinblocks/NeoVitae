@@ -407,6 +407,8 @@ public class ChestLoot implements LootTableSubProvider {
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0f, 9.0f))))
                 .add(LootItem.lootTableItem(NVBlocks.STRONG_TAU.item().get()).setWeight(6).setQuality(3)
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0f, 6.0f))))
+                .add(LootItem.lootTableItem(NVItems.ANIMUS_MOTE.get()).setWeight(3).setQuality(3)
+                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 1.0f))))
             )
         );
     }
@@ -491,6 +493,8 @@ public class ChestLoot implements LootTableSubProvider {
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0f, 9.0f))))
                 .add(LootItem.lootTableItem(NVItems.MONSTER_SOUL_RAW.get()).setWeight(8)
                     .apply(SetSpiritusRange.builder(UniformGenerator.between(30.0f, 60.0f))))
+                .add(LootItem.lootTableItem(NVItems.ANIMUS_MOTE.get()).setWeight(5).setQuality(4)
+                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0f))))
             )
         );
     }

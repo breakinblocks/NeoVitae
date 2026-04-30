@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -11,6 +12,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -23,6 +25,11 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import java.util.EnumMap;
+import java.util.Map;
 import net.neoforged.neoforge.fluids.FluidActionResult;
 import net.neoforged.neoforge.fluids.FluidUtil;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
@@ -39,6 +46,32 @@ public class AthanorBlock extends Block implements EntityBlock {
 
     public AthanorBlock() {
         super(Properties.ofFullCopy(Blocks.FURNACE));
+    }
+
+    private static final VoxelShape MAIN_BODY = Block.box(0, 0, 0, 16, 21, 16);
+    private static final VoxelShape PROTRUSION_AT_EAST = Block.box(14, 10, 5.5, 18, 25, 9.5);
+    private static final VoxelShape PROTRUSION_AT_SOUTH = Block.box(6.5, 10, 14, 10.5, 25, 18);
+    private static final VoxelShape PROTRUSION_AT_WEST = Block.box(-2, 10, 6.5, 2, 25, 10.5);
+    private static final VoxelShape PROTRUSION_AT_NORTH = Block.box(5.5, 10, -2, 9.5, 25, 2);
+
+    private static final Map<Direction, VoxelShape> SHAPES = new EnumMap<>(Direction.class);
+    static {
+        SHAPES.put(Direction.NORTH, Shapes.or(MAIN_BODY, PROTRUSION_AT_EAST));
+        SHAPES.put(Direction.EAST, Shapes.or(MAIN_BODY, PROTRUSION_AT_SOUTH));
+        SHAPES.put(Direction.SOUTH, Shapes.or(MAIN_BODY, PROTRUSION_AT_WEST));
+        SHAPES.put(Direction.WEST, Shapes.or(MAIN_BODY, PROTRUSION_AT_NORTH));
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPES.getOrDefault(state.getValue(FACING), MAIN_BODY);
+    }
+
+    private static final VoxelShape OCCLUSION_SHAPE = Block.box(0, 2, 0, 16, 16, 16);
+
+    @Override
+    protected VoxelShape getOcclusionShape(BlockState state, BlockGetter level, BlockPos pos) {
+        return OCCLUSION_SHAPE;
     }
 
     @Override

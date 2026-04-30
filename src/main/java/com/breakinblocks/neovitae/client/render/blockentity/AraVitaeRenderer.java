@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -21,6 +20,7 @@ import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtension
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.renderer.GeoBlockRenderer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
@@ -28,11 +28,13 @@ import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.util.helper.RenderHelper;
 
-public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile> {
+public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
 
     private static final ResourceLocation RITUAL_TEXTURE = NeoVitae.rl("textures/particle/ritual.png");
 
-    public AraVitaeRenderer(BlockEntityRendererProvider.Context context) {}
+    public AraVitaeRenderer(BlockEntityRendererProvider.Context context) {
+        super(new AraVitaeModel());
+    }
 
     @Override
     public boolean shouldRenderOffScreen(AraVitaeTile blockEntity) {
@@ -46,6 +48,8 @@ public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile> {
 
     @Override
     public void render(AraVitaeTile tileAltar, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+        super.render(tileAltar, partialTick, poseStack, bufferSource, packedLight, packedOverlay);
+
         ItemStack inputStack = tileAltar.inv.getStackInSlot(0);
         this.renderItem(inputStack, tileAltar.getLevel(), poseStack, bufferSource, packedLight, packedOverlay);
 
@@ -249,8 +253,8 @@ public class AraVitaeRenderer implements BlockEntityRenderer<AraVitaeTile> {
         int tintColour = fluidClientInfo.getTintColor();
 
         VertexConsumer buf = bufferSource.getBuffer(RenderTypeHelper.getEntityRenderType(blockRenderType, false));
-        float minHeight = 8F/16F;
-        float maxHeight = 12F/16F;
+        float minHeight = 7F/16F;
+        float maxHeight = 11F/16F;
         float start = 3F/16F;
         float end = 13F/16F;
         float height = minHeight + fluidLevel * (maxHeight - minHeight);

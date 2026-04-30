@@ -41,6 +41,13 @@ import com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.api.altar.IAraVitae;
 import com.breakinblocks.neovitae.util.AltarScanResult;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 import com.breakinblocks.neovitae.util.AltarUtil;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
@@ -57,7 +64,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAraVitae {
+public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAraVitae, GeoBlockEntity {
+
+    private final AnimatableInstanceCache animatableCache = GeckoLibUtil.createInstanceCache(this);
+    private static final RawAnimation RITUAL_ANIM = RawAnimation.begin().thenPlay("animation.ara_vitae.ritual");
 
     private volatile boolean isActive = false;
     private volatile boolean canFill = false;
@@ -337,6 +347,8 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         NeoVitaeCraftedEvent.Altar legacyEvent = new NeoVitaeCraftedEvent.Altar(craftingEvent.getOutput(), inputStack);
         NeoForge.EVENT_BUS.post(legacyEvent);
         inv.setStackInSlot(0, legacyEvent.getOutput());
+
+        triggerAnim("main", "ritual");
 
         if (level.getBlockState(worldPosition.below()).is(NVTags.Blocks.PULSE_ON_CRAFTING)) {
             setSignaling(true);
@@ -965,5 +977,16 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         return new AABB(
                 worldPosition.getX() - 64, worldPosition.getY() - 64, worldPosition.getZ() - 64,
                 worldPosition.getX() + 64, worldPosition.getY() + 320, worldPosition.getZ() + 64);
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "main", 0, state -> PlayState.STOP)
+                .triggerableAnim("ritual", RITUAL_ANIM));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return animatableCache;
     }
 }

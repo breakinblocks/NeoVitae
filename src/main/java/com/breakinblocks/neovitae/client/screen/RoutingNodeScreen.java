@@ -194,9 +194,6 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         int currentSlot = menu.getCurrentSlot();
         if (currentSlot < 0 || currentSlot >= 6) return;
 
-        String dirName = DIRECTION_NAMES[currentSlot];
-        guiGraphics.drawString(font, dirName, 79, 6, 0x404040, false);
-
         int priority = menu.getCurrentPriority();
         String priorityStr = "P: " + priority;
         int textWidth = font.width(priorityStr);

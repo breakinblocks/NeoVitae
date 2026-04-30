@@ -57,22 +57,13 @@ public class NVBlockStateProvider extends BlockStateProvider {
         // (see src/main/resources/assets/neovitae/blockstates/ and models/)
 
         VariantBlockStateBuilder builder = getVariantBuilder(NVBlocks.ATHANOR_BLOCK.block().get());
-        String bottom = "block/athanor_bottom";
-        String lit = "_lit";
+        ModelFile athanorModel = models().getExistingFile(bm("block/athanor"));
+        simpleBlockItem(NVBlocks.ATHANOR_BLOCK.block().get(), athanorModel);
         for (SpiritusType type : SpiritusType.values()) {
-            String willName = type.getSerializedName();
-            String side = "block/athanor_side_" + willName;
-            String front = "block/athanor_front_" + willName;
-            String top = "block/athanor_top_" + willName;
-            ModelFile on = models().orientableWithBottom("athanor_" + willName + "_lit", bm(side + lit), bm(front + lit), bm(bottom), bm(top));
-            ModelFile off = models().orientableWithBottom("athanor_" + willName, bm(side), bm(front), bm(bottom), bm(top));
-            if (type == SpiritusType.RAW) {
-                simpleBlockItem(NVBlocks.ATHANOR_BLOCK.block().get(), off);
-            }
-
             for (Direction facing : Direction.Plane.HORIZONTAL) {
-                builder.partialState().with(AthanorBlock.LIT, false).with(AthanorBlock.FACING, facing).with(AthanorBlock.TYPE, type).modelForState().modelFile(off).rotationY((int) facing.getOpposite().toYRot()).addModel();
-                builder.partialState().with(AthanorBlock.LIT, true).with(AthanorBlock.FACING, facing).with(AthanorBlock.TYPE, type).modelForState().modelFile(on).rotationY((int) facing.getOpposite().toYRot()).addModel();
+                int yRot = (int) facing.getOpposite().toYRot();
+                builder.partialState().with(AthanorBlock.LIT, false).with(AthanorBlock.FACING, facing).with(AthanorBlock.TYPE, type).modelForState().modelFile(athanorModel).rotationY(yRot).addModel();
+                builder.partialState().with(AthanorBlock.LIT, true).with(AthanorBlock.FACING, facing).with(AthanorBlock.TYPE, type).modelForState().modelFile(athanorModel).rotationY(yRot).addModel();
             }
         }
 

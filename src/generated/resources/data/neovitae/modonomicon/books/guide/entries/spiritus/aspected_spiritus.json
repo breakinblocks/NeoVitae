@@ -4,7 +4,7 @@
   "category": "spiritus",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "spiritus/crystallized_will"
+    "entry_id": "spiritus/crystallized_spiritus"
   },
   "description": "book.neovitae.guide.spiritus.aspected_spiritus.description",
   "hide_while_locked": false,

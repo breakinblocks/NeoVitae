@@ -26,6 +26,11 @@ public class StreamRenderer {
     private static final float TWO_PI = (float) (Math.PI * 2.0);
     private static final int FULL_BRIGHT = 0xF000F0;
 
+    /** Outer halo radius multiplier — geometry-based silhouette softener. */
+    private static final float HALO_RADIUS_MULT = 1.6f;
+    /** Halo alpha multiplier — keeps the outer shell faint so it reads as a soft glow. */
+    private static final float HALO_ALPHA_MULT = 0.28f;
+
     public static void render(ActiveStream stream, Matrix4f matrix,
                               VertexConsumer buffer, float partialTick) {
         switch (stream.getBlockyMode()) {
@@ -33,11 +38,14 @@ public class StreamRenderer {
             case BLOCKY_BOX -> { renderBox(stream, matrix, buffer, partialTick); return; }
             default -> {}
         }
-        renderTube(stream, matrix, buffer, partialTick);
+        // Halo pass first so the inner core writes over it.
+        renderTube(stream, matrix, buffer, partialTick, HALO_RADIUS_MULT, HALO_ALPHA_MULT);
+        renderTube(stream, matrix, buffer, partialTick, 1.0f, 1.0f);
     }
 
     private static void renderTube(ActiveStream stream, Matrix4f matrix,
-                                   VertexConsumer buffer, float partialTick) {
+                                   VertexConsumer buffer, float partialTick,
+                                   float radiusMult, float alphaMult) {
         double[][] points = stream.getPositions();
         float[][] streamColors = stream.getColors();
         float[] streamRadii = stream.getRadii();
@@ -60,15 +68,15 @@ public class StreamRenderer {
         float vOffset = (stream.getAge() + partialTick) * 0.05f;
 
         for (int i = 0; i < numPoints - 1; i++) {
-            float r0 = streamRadii[i];
-            float r1 = streamRadii[i + 1];
+            float r0 = streamRadii[i] * radiusMult;
+            float r1 = streamRadii[i + 1] * radiusMult;
             if (r0 <= 0 && r1 <= 0) continue;
 
             float v0 = (float) i / numPoints + vOffset;
             float v1 = (float) (i + 1) / numPoints + vOffset;
 
-            float cr0 = streamColors[i][0], cg0 = streamColors[i][1], cb0 = streamColors[i][2], ca0 = streamColors[i][3];
-            float cr1 = streamColors[i + 1][0], cg1 = streamColors[i + 1][1], cb1 = streamColors[i + 1][2], ca1 = streamColors[i + 1][3];
+            float cr0 = streamColors[i][0], cg0 = streamColors[i][1], cb0 = streamColors[i][2], ca0 = streamColors[i][3] * alphaMult;
+            float cr1 = streamColors[i + 1][0], cg1 = streamColors[i + 1][1], cb1 = streamColors[i + 1][2], ca1 = streamColors[i + 1][3] * alphaMult;
 
             for (int j = 0; j < segments; j++) {
                 int j1 = (j + 1) % segments;

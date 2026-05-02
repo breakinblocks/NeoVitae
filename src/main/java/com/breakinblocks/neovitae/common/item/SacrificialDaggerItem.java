@@ -158,7 +158,8 @@ public class SacrificialDaggerItem extends Item {
                               Entity entity, EquipmentSlot slot) {
         if (entity instanceof Player player) {
             boolean state = stack.getOrDefault(NVDataComponents.INCENSE, false);
-            boolean playerState = player.getData(NVDataAttachments.INCENSE) > 0;
+            boolean playerState = player.getData(NVDataAttachments.INCENSE) > 0
+                    && SoulFrayEffect.canPerformCeremonialSacrifice(player);
             if (playerState && !state) {
                 stack.set(NVDataComponents.INCENSE, true);
             } else if (!playerState && state) {

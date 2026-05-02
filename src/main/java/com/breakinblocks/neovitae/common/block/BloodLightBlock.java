@@ -18,6 +18,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -30,14 +32,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.blockentity.BloodLightBlockEntity;
-import com.breakinblocks.neovitae.common.particle.NVParticles;
-import com.breakinblocks.neovitae.util.helper.ColorHelper;
+import com.breakinblocks.neovitae.common.blockentity.NVTiles;
+import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 
@@ -193,34 +193,10 @@ public class BloodLightBlock extends BaseEntityBlock implements SimpleWaterlogge
         return new BloodLightBlockEntity(pos, state);
     }
 
+    @Nullable
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (!state.getValue(POWERED)) return;
-
-        int color = ColorHelper.fromDye(DyeColor.RED);
-        BlockEntity be = level.getBlockEntity(pos);
-        if (be instanceof BloodLightBlockEntity ble) {
-            color = ColorHelper.fromDye(ble.getColor());
-        }
-
-        double cx = pos.getX() + 0.5;
-        double cy = pos.getY() + 0.5;
-        double cz = pos.getZ() + 0.5;
-
-        for (int i = 0; i < 8; i++) {
-            double ox = (random.nextDouble() - 0.5) * 0.2;
-            double oy = (random.nextDouble() - 0.5) * 0.2;
-            double oz = (random.nextDouble() - 0.5) * 0.2;
-
-            double vx = ox * 0.3;
-            double vy = oy * 0.3 + 0.005;
-            double vz = oz * 0.3;
-
-            level.addParticle(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), color),
-                    cx + ox, cy + oy, cz + oz, vx, vy, vz);
-        }
-
-        level.addParticle(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), color),
-                cx, cy, cz, 0, 0, 0);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+        if (!level.isClientSide()) return null;
+        return BlockEntityHelper.getTicker(blockEntityType, NVTiles.BLOOD_LIGHT.get(), BloodLightBlockEntity::clientTick);
     }
 }

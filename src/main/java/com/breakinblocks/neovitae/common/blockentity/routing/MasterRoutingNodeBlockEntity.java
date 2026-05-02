@@ -7,14 +7,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.util.ARGB;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
@@ -28,10 +26,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Triple;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.block.BlockRoutingNode;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.datamap.RoutingNodeHelper;
 import com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.api.routing.*;
 import com.breakinblocks.neovitae.common.routing.*;
 import com.breakinblocks.neovitae.util.Constants;
@@ -327,12 +327,12 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
 
     private static void spawnActivityParticles(Level level, BlockPos outputNodePos, BlockPos inputNodePos) {
         if (!(level instanceof ServerLevel sl)) return;
-        DustParticleOptions outputDust = new DustParticleOptions(ARGB.colorFromFloat(1.0f, 1.0f, 0.53f, 0.27f), 1.2f);
-        DustParticleOptions inputDust = new DustParticleOptions(ARGB.colorFromFloat(1.0f, 0.27f, 0.53f, 1.0f), 1.2f);
-        sl.sendParticles(outputDust,
+        ColoredParticleOptions outputGlow = new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xFF8744, true);
+        ColoredParticleOptions inputGlow = new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x4488FF, true);
+        sl.sendParticles(outputGlow,
                 outputNodePos.getX() + 0.5, outputNodePos.getY() + 0.6, outputNodePos.getZ() + 0.5,
                 4, 0.25, 0.25, 0.25, 0.0);
-        sl.sendParticles(inputDust,
+        sl.sendParticles(inputGlow,
                 inputNodePos.getX() + 0.5, inputNodePos.getY() + 0.6, inputNodePos.getZ() + 0.5,
                 4, 0.25, 0.25, 0.25, 0.0);
     }

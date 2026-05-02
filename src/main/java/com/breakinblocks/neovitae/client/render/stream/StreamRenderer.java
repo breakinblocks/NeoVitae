@@ -26,9 +26,8 @@ public class StreamRenderer {
     private static final float TWO_PI = (float) (Math.PI * 2.0);
     private static final int FULL_BRIGHT = 0xF000F0;
 
-    /** Outer halo radius multiplier — geometry-based silhouette softener. */
-    private static final float HALO_RADIUS_MULT = 1.6f;
-    /** Halo alpha multiplier — keeps the outer shell faint so it reads as a soft glow. */
+    private static final float CORE_RADIUS_MULT = 0.8f;
+    private static final float HALO_RADIUS_MULT = 1.28f;
     private static final float HALO_ALPHA_MULT = 0.28f;
 
     public static void render(ActiveStream stream, Matrix4f matrix,
@@ -38,9 +37,8 @@ public class StreamRenderer {
             case BLOCKY_BOX -> { renderBox(stream, matrix, buffer, partialTick); return; }
             default -> {}
         }
-        // Halo pass first so the inner core writes over it.
         renderTube(stream, matrix, buffer, partialTick, HALO_RADIUS_MULT, HALO_ALPHA_MULT);
-        renderTube(stream, matrix, buffer, partialTick, 1.0f, 1.0f);
+        renderTube(stream, matrix, buffer, partialTick, CORE_RADIUS_MULT, 1.0f);
     }
 
     private static void renderTube(ActiveStream stream, Matrix4f matrix,

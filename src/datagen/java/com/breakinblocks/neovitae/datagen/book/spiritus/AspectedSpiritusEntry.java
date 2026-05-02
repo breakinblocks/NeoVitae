@@ -40,9 +40,9 @@ public class AspectedSpiritusEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("The four distinct [#](4A0080)Aspects[#]() of Spiritus:\n\n"
                 + "- [#](8B0000)Spiritus Invictus[#](): the unbroken\n\n"
-                + "- [#](8B0000)Spiritus Nihilum[#](): the destructive\n\n"
-                + "- [#](8B0000)Spiritus Vindicta[#](): the vengeful\n\n"
-                + "- [#](8B0000)Spiritus Ruina[#](): the corrosive\\\n\\\n"
+                + "- [#](8B0000)Spiritus Nihilum[#](): Spiritus Nihilum\n\n"
+                + "- [#](8B0000)Spiritus Vindicta[#](): Spiritus Vindicta\n\n"
+                + "- [#](8B0000)Spiritus Ruina[#](): Spiritus Ruina\\\n\\\n"
                 + "Each Aspect can be burned in the [#](8B0000)Vas Maleficum[#]() just as Raw Spiritus can, feeding the "
                 + "[#](8B0000)Aura[#]() with its particular resonance for your Rituals to draw upon.");
 

@@ -45,7 +45,7 @@ public class DemonDropsEntry extends EntryProvider {
         this.pageText("[#](8B0000)Hollow Gut[#]() (Voraxis): A distended organ that never fills, used in "
                 + "hunger and drain recipes.\\\n\\\n"
                 + "[#](8B0000)Blight Marrow[#]() (Corrodis): Corroded bone seeping dark mist, key to wither "
-                + "and corrosive crafting.\\\n\\\n"
+                + "and Ruina crafting.\\\n\\\n"
                 + "[#](8B0000)Revenant Plate[#]() (Fervidis): A chunk of undying chitin, prized for defensive "
                 + "and armour crafting.\\\n\\\n"
                 + "[#](8B0000)Frozen Marrow Shard[#]() (Doloris): Ice-veined bone, combining cold and anguish "

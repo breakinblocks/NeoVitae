@@ -40,7 +40,7 @@ public class DemonCraftingEntry extends EntryProvider {
                 .withItem(NVItems.BLIGHT_WHETSTONE.get())
                 .withTitle("Blight Whetstone")
                 .withText(this.context().pageText()));
-        this.pageText("A single-use anointment applicator that coats a weapon in corrosive will, "
+        this.pageText("A single-use anointment applicator that coats a weapon in Spiritus Ruina, "
                 + "inflicting [#](8B0000)Wither[#]() on struck targets for 60 seconds.\\\n\\\n"
                 + "Requires [#](4A0080)Spiritus Ruina[#]() in the forge. Crafted from "
                 + "[#](8B0000)Blight Marrow[#](), a [#](4A0080)Ruina Crystal Catalyst[#](), "

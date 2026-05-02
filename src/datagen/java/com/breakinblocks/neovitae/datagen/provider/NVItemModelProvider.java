@@ -161,8 +161,12 @@ public class NVItemModelProvider extends ItemModelProvider {
             orbBuilder.override().predicate(NeoVitae.rl("fill_level"), 0.8f).model(fillModels[4]).end();
         }
 
-        ModelFile normalDagger = singleTexture("item/variant/sacrificial_dagger_normal", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger"));
-        ModelFile chargedDagger = singleTexture("item/variant/sacrificial_dagger_charged", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger_charged"));
+        ModelFile normalDagger = withGuiOffset(
+                singleTexture("item/variant/sacrificial_dagger_normal", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger")),
+                2f, 2f);
+        ModelFile chargedDagger = withGuiOffset(
+                singleTexture("item/variant/sacrificial_dagger_charged", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger_charged")),
+                2f, 2f);
         ModelFile alternateOrb = singleTexture("item/variant/sacrificial_dagger_alternate", mcLoc("item/generated"), "layer0", modLoc("item/glass_orb"));
         ItemModelBuilder builder = getBuilder(NVItems.SACRIFICIAL_DAGGER.getId().getPath());
         builder.override().predicate(NeoVitae.rl("alternate"), 1).model(alternateOrb).end();
@@ -197,5 +201,13 @@ public class NVItemModelProvider extends ItemModelProvider {
         singleTexture("array_deflection", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/deflectionarray"));
         singleTexture("array_endless_fountain", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/fountainarray"));
         singleTexture("array_undertow", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/undertowarray"));
+    }
+
+    /** Apply a GUI-only translation (in display-pixel units) so an item icon can be nudged in inventory slots. */
+    private ItemModelBuilder withGuiOffset(ModelFile model, float dx, float dy) {
+        ItemModelBuilder b = (ItemModelBuilder) model;
+        b.transforms().transform(net.minecraft.world.item.ItemDisplayContext.GUI)
+                .translation(dx, dy, 0f).end();
+        return b;
     }
 }

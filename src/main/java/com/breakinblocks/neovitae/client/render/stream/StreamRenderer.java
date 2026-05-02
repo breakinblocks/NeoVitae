@@ -29,8 +29,10 @@ public class StreamRenderer {
     private static final float TWO_PI = (float) (Math.PI * 2.0);
     private static final int FULL_BRIGHT = 0xF000F0;
 
+    /** Inner-core radius multiplier applied to the configured stream radius. */
+    private static final float CORE_RADIUS_MULT = 0.8f;
     /** Outer halo radius multiplier — geometry-based silhouette softener. */
-    private static final float HALO_RADIUS_MULT = 1.6f;
+    private static final float HALO_RADIUS_MULT = 1.28f;
     /** Halo alpha multiplier — keeps the outer shell faint so it reads as a soft glow. */
     private static final float HALO_ALPHA_MULT = 0.28f;
 
@@ -45,9 +47,8 @@ public class StreamRenderer {
             case BLOCKY_BOX -> { renderBox(stream, poseStack, buffer, partialTick); return; }
             default -> {}
         }
-        // Halo pass first so the inner core writes over it.
         renderTube(stream, poseStack, buffer, partialTick, HALO_RADIUS_MULT, HALO_ALPHA_MULT);
-        renderTube(stream, poseStack, buffer, partialTick, 1.0f, 1.0f);
+        renderTube(stream, poseStack, buffer, partialTick, CORE_RADIUS_MULT, 1.0f);
     }
 
     private static void renderTube(ActiveStream stream, PoseStack poseStack,

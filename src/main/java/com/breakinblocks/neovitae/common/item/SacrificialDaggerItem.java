@@ -146,9 +146,11 @@ public class SacrificialDaggerItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+        if (level.isClientSide()) return;
         if (entity instanceof Player player) {
             boolean state = stack.getOrDefault(NVDataComponents.INCENSE, false);
-            boolean playerState = player.getData(NVDataAttachments.INCENSE) > 0;
+            boolean playerState = player.getData(NVDataAttachments.INCENSE) > 0
+                    && SoulFrayEffect.canPerformCeremonialSacrifice(player);
             if (playerState && !state) {
                 stack.set(NVDataComponents.INCENSE, true);
             } else if (!playerState && state) {

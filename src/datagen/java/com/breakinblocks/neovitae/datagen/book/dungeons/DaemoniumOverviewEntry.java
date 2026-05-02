@@ -41,8 +41,8 @@ public class DaemoniumOverviewEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spoils of the Damned");
         this.pageText("Every Daemonium drops [#](8B0000)Tainted Flesh[#](), an edible but risky food source. "
-                + "Most also yield [#](4A0080)Spiritus Essences[#]() aligned with their nature; corrosive "
-                + "demons favor corrosive will, destructive brutes yield destructive essence.\\\n\\\n"
+                + "Most also yield [#](4A0080)Spiritus Essences[#]() aligned with their nature; Ruina-aligned "
+                + "demons favor Spiritus Ruina, Nihilum-aligned brutes yield Spiritus Nihilum.\\\n\\\n"
                 + "More importantly, each species carries a [#](8B0000)unique trophy material[#]() that serves "
                 + "as a crafting component for powerful items unavailable through any other means.");
 

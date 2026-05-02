@@ -26,7 +26,6 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
             SpiritusType.RAW, SpiritusType.RUINA,
             SpiritusType.INVICTUS, SpiritusType.NIHILUM, SpiritusType.VINDICTA
     };
-    private static final String[] TYPE_NAMES = {"Raw", "Corrosive", "Steadfast", "Destructive", "Vengeful"};
 
     private static final int GAUGE_X = 35;
     private static final int GAUGE_Y = 76;
@@ -178,7 +177,7 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
                 double current = menu.tile.getChunkWill(type);
                 double max = menu.tile.getChunkWillMax(type);
                 List<Component> tooltip = new ArrayList<>();
-                tooltip.add(Component.literal(TYPE_NAMES[idx] + " Spiritus"));
+                tooltip.add(Component.literal(type.toCapitalized() + " Spiritus"));
                 tooltip.add(Component.literal(String.format("%.1f / %.1f", current, max)));
                 Double required = costs.get(type);
                 if (required != null && required > 0) {

@@ -1,5 +1,5 @@
 {
-  "parent": "neovitae:neovitae/spiritus_snare",
+  "parent": "neovitae:neovitae/throwing_dagger",
   "criteria": {
     "get_soul": {
       "conditions": {

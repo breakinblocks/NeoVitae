@@ -1,11 +1,11 @@
 {
   "parent": "neovitae:neovitae/root",
   "criteria": {
-    "get_snare": {
+    "get_dagger": {
       "conditions": {
         "items": [
           {
-            "items": "neovitae:spiritus_snare"
+            "items": "neovitae:throwing_dagger"
           }
         ]
       },
@@ -15,19 +15,19 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancements.neovitae.spiritus_snare.description"
+      "translate": "advancements.neovitae.throwing_dagger.description"
     },
     "icon": {
       "count": 1,
-      "id": "neovitae:spiritus_snare"
+      "id": "neovitae:throwing_dagger"
     },
     "title": {
-      "translate": "advancements.neovitae.spiritus_snare.title"
+      "translate": "advancements.neovitae.throwing_dagger.title"
     }
   },
   "requirements": [
     [
-      "get_snare"
+      "get_dagger"
     ]
   ],
   "sends_telemetry_event": true

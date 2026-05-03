@@ -1,7 +1,6 @@
 {
-  "type": "neovitae:hellfire_forge",
-  "drain": 5.0,
-  "inputs": [
+  "type": "neovitae:alchemytable",
+  "input": [
     {
       "tag": "c:ingots/iron"
     },
@@ -12,9 +11,11 @@
       "tag": "c:strings"
     }
   ],
-  "minDrain": 32.0,
   "output": {
     "count": 16,
     "id": "neovitae:throwing_dagger"
-  }
+  },
+  "syphon": 500,
+  "ticks": 200,
+  "upgradeLevel": 1
 }

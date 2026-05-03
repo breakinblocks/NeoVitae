@@ -109,7 +109,6 @@ public class ClientModEventHandler {
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(NVEntities.BLOOD_LIGHT.get(), NoopRenderer::new);
-        event.registerEntityRenderer(NVEntities.SPIRITUS_SNARE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(NVEntities.METEOR.get(), EntityMeteorRenderer::new);
         event.registerEntityRenderer(NVEntities.POTION_FLASK.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(NVEntities.SHAPED_CHARGE.get(), EntityShapedChargeRenderer::new);

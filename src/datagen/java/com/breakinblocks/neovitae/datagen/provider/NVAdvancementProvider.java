@@ -337,17 +337,17 @@ public class NVAdvancementProvider extends AdvancementProvider {
                     .save(saver, NeoVitae.rl("neovitae/teleposer").toString());
 
             // Spiritus Branch (off root)
-            AdvancementHolder spiritusSnare = Advancement.Builder.advancement()
+            AdvancementHolder throwingDagger = Advancement.Builder.advancement()
                     .parent(root)
-                    .display(NVItems.SPIRITUS_SNARE.get(),
-                            Component.translatable("advancements.neovitae.spiritus_snare.title"),
-                            Component.translatable("advancements.neovitae.spiritus_snare.description"),
+                    .display(NVItems.THROWING_DAGGER.get(),
+                            Component.translatable("advancements.neovitae.throwing_dagger.title"),
+                            Component.translatable("advancements.neovitae.throwing_dagger.description"),
                             null, AdvancementType.TASK, true, false, false)
-                    .addCriterion("get_snare", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SPIRITUS_SNARE.get()))
-                    .save(saver, NeoVitae.rl("neovitae/spiritus_snare").toString());
+                    .addCriterion("get_dagger", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.THROWING_DAGGER.get()))
+                    .save(saver, NeoVitae.rl("neovitae/throwing_dagger").toString());
 
             AdvancementHolder spiritus = Advancement.Builder.advancement()
-                    .parent(spiritusSnare)
+                    .parent(throwingDagger)
                     .display(NVItems.MONSTER_SOUL_RAW.get(),
                             Component.translatable("advancements.neovitae.spiritus.title"),
                             Component.translatable("advancements.neovitae.spiritus.description"),

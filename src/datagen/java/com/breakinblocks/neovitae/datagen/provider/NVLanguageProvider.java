@@ -242,8 +242,6 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Incense Altar
         add(NVBlocks.INCENSE_ALTAR, "Incense Altar");
 
-        add(NVItems.SPIRITUS_SNARE.get(), "Soul Snare");
-        addTooltip("soulSnare.desc", "Throw at weakened mobs to extract their soul");
         add(NVItems.WEAK_BLOOD_SHARD.get(), "Weak Blood Shard");
 
         add(NVItems.LAVA_CRYSTAL.get(), "Lava Crystal");
@@ -1167,7 +1165,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("master_of_ceremonies", "Master of Ceremonies", "Complete all ritual achievements");
         addAdvancement("meteor", "METEO!", "Summon the Mark of the Falling Tower");
         addAdvancement("teleposer", "Displacement", "Craft a Teleposer");
-        addAdvancement("spiritus_snare", "Soul Snare", "Craft a Soul Snare");
+        addAdvancement("throwing_dagger", "First Strike", "Craft a Throwing Dagger");
         addAdvancement("spiritus", "First Spiritus", "Obtain raw Spiritus");
         addAdvancement("spiritus_gem_petty", "Petty Spiritus Gem", "Craft a Petty Spiritus Gem");
         addAdvancement("spiritus_gem_lesser", "Lesser Spiritus Gem", "Upgrade to a Lesser Gem");

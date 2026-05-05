@@ -28,7 +28,6 @@ import com.breakinblocks.neovitae.common.item.soul.SentientPickaxeItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientScytheItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientShovelItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientSwordItem;
-import com.breakinblocks.neovitae.common.item.soul.SpiritusSnareItem;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 
 import java.util.function.Supplier;
@@ -135,7 +134,6 @@ public class NVItems {
     public static final DeferredHolder<Item, Item> REAGENT_FROST = plainItem("reagent_frost");
     public static final DeferredHolder<Item, Item> REAGENT_PHANTOM_BRIDGE = plainItem("reagent_phantom_bridge");
 
-    public static final DeferredHolder<Item, SpiritusSnareItem> SPIRITUS_SNARE = BASIC_ITEMS.registerItem("spiritus_snare", SpiritusSnareItem::new);
     public static final DeferredHolder<Item, Item> WEAK_BLOOD_SHARD = plainItem("weak_blood_shard");
 
     public static final DeferredHolder<Item, ItemLavaCrystal> LAVA_CRYSTAL = ITEMS.registerItem("lava_crystal", ItemLavaCrystal::new);

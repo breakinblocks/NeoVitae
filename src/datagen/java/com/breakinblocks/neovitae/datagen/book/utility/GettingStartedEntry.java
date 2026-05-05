@@ -34,7 +34,7 @@ public class GettingStartedEntry extends EntryProvider {
                 + "[#](8B0000)Sacrificial Knife[#](). With blade in hand, you offer your own blood to the altar, "
                 + "and it drinks deeply, refining it into [#](4A0080)Essentia Vitae[#]().\\\n\\\n"
                 + "Use this to forge a [#](8B0000)Novicius Orb of Vitae[#](), several [#](8B0000)Tabula Rasas[#](), "
-                + "and a handful of [#](8B0000)Soul Snares[#]().");
+                + "and a stack of [#](8B0000)Throwing Daggers[#]() at the Tabula Vitae.");
 
         this.page("tier1_alchemy", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -62,7 +62,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("The Hellfire Forge (Tier 0)");
         this.pageText("The [#](8B0000)Hellfire Forge[#]() is fueled by [#](4A0080)Spiritus[#]() - "
-                + "that strange substance torn from slain creatures with your Soul Snares. A "
+                + "that strange substance torn from slain creatures wounded by your Throwing Daggers. A "
                 + "[#](8B0000)Sentient Sword[#]() harvests it far more efficiently.\\\n\\\n"
                 + "From this forge spring [#](8B0000)Spiritus Gems[#](), Sentient Tools, "
                 + "Explosive Charges, and Throwing Daggers.");

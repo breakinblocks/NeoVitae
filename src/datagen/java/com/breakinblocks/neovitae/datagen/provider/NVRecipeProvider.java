@@ -795,17 +795,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_demonic_slate", has(NVItems.TABULA_SPIRITUS.get()))
                 .save(output, rKey(NeoVitae.rl("tabula_aetherea")));
 
-        // Additional Ara Vitae recipes
-        AltarRecipeBuilder.build(NVItems.SPIRITUS_SNARE.get())
-                .from(Tags.Items.STRINGS)
-                .minTier(0)
-                .bloodNeeded(500)
-                .consumption(5)
-                .drain(1)
-                .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
-                .save(output, rKey(NeoVitae.rl("spiritus_snare")));
-
-
         AltarRecipeBuilder.build(NVFluids.ESSENTIA_VITAE_BUCKET.get())
                 .from(Items.BUCKET)
                 .minTier(0)
@@ -1252,14 +1241,15 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, rKey(NeoVitae.rl("hellforged_resonator")));
 
         // Throwing Daggers
-        // Iron throwing dagger: 2 iron + 1 string, 32 will min, 5 drain, makes 16
-        HellfireForgeRecipeBuilder.build(NVItems.THROWING_DAGGER.get(), 16)
-                .requires(Ingredient.of(items.getOrThrow(Tags.Items.INGOTS_IRON)), 2)
-                .requires(Tags.Items.STRINGS)
-                .minSpiritus(32)
-                .drain(5)
-                .unlockedBy("has_lesser_gem", has(NVItems.SPIRITUS_GEM_LESSER.get()))
-                .save(output, rKey(NeoVitae.rl("throwing_dagger")));
+        // Iron throwing dagger: 2 iron + 1 string, 500 EV, T1 orb, makes 16
+        TabulaVitaeRecipeBuilder.build(NVItems.THROWING_DAGGER.get(), 16)
+                .input(Tags.Items.INGOTS_IRON)
+                .input(Tags.Items.INGOTS_IRON)
+                .input(Tags.Items.STRINGS)
+                .syphon(500)
+                .ticks(200)
+                .minimumTier(1)
+                .save(output, "throwing_dagger");
 
         // Amethyst throwing dagger: 2 copper + 1 amethyst, 32 will min, 2 drain, makes 16
         HellfireForgeRecipeBuilder.build(NVItems.THROWING_DAGGER_AMETHYST.get(), 16)

@@ -30,18 +30,11 @@ import com.breakinblocks.neovitae.common.entity.projectile.EntityPotionFlask;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityShapedCharge;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityThrowingDagger;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityThrowingDaggerSyringe;
-import com.breakinblocks.neovitae.common.entity.projectile.SpiritusSnareEntity;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.monster.Monster;
 
 public class NVEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Registries.ENTITY_TYPE, NeoVitae.MODID);
-
-    public static final DeferredHolder<EntityType<?>, EntityType<SpiritusSnareEntity>> SPIRITUS_SNARE = ENTITIES.register("spiritus_snare", key -> EntityType.Builder.<SpiritusSnareEntity>of(SpiritusSnareEntity::new, MobCategory.MISC)
-                    .sized(0.25F, 0.25F)
-                    .clientTrackingRange(4)
-                    .updateInterval(10)
-                    .build(ResourceKey.create(Registries.ENTITY_TYPE, key)));
 
     public static final DeferredHolder<EntityType<?>, EntityType<EntityBloodLight>> BLOOD_LIGHT = ENTITIES.register("blood_light", key -> EntityType.Builder.<EntityBloodLight>of(EntityBloodLight::new, MobCategory.MISC)
                     .sized(0.3F, 0.3F)

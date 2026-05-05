@@ -24,15 +24,19 @@ public class ThrowingDaggersEntry extends EntryProvider {
         this.pageText("Bows and crossbows serve their purpose well enough, but sifting through gravel for flint "
                 + "and plucking chickens for feathers is, frankly, beneath a Vitaemancer of your caliber. "
                 + "These razor-edged [#](8B0000)Throwing Daggers[#]() require no ammunition and carry some rather "
-                + "devious secondary effects.");
+                + "devious secondary effects.\\\n\\\n"
+                + "The basic Iron variant is forged at the [#](8B0000)Tabula Vitae[#]() with a [#](8B0000)Novicius Orb[#]() "
+                + "and a handful of materials.");
 
         this.page("iron_dagger", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Iron Throwing Dagger");
-        this.pageText("A swift, precise strike dealing [#](B8860B)10 damage[#]() with a moderate cooldown. If you "
-                + "carry [#](8B0000)Spiritus[#](), loose or within a [#](8B0000)Spiritus Gem[#](), slain creatures drop Will "
-                + "as though felled by a [#](8B0000)Sentient Sword[#]().");
+        this.pageText("A swift, precise strike dealing [#](B8860B)10 damage[#]() with a moderate cooldown.\\\n\\\n"
+                + "Every wound it inflicts upon a [#](8B0000)hostile creature[#]() binds spectral motes to its form. "
+                + "Slay the marked quarry and it yields [#](8B0000)Raw Spiritus[#](); the only path to your first "
+                + "harvest before a [#](8B0000)Sentient Sword[#]() is at hand.\\\n\\\n"
+                + "[#](2E8B57)The Looting enchantment increases the Spiritus dropped.[#]()");
 
         this.page("syringe_dagger", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

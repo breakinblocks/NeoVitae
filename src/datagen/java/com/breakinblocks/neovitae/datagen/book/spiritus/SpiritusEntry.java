@@ -27,13 +27,13 @@ public class SpiritusEntry extends EntryProvider {
                 + "[#](4A0080)demonic intent[#](), a residue left when entities of the lower planes imbue their malice "
                 + "into mortal flesh. This essence is known as [#](8B0000)Spiritus[#](), and it is yours to harvest.\\\n\\\n"
                 + "There are two methods of extraction:\n\n"
-                + "- Strike a hostile creature with a [#](8B0000)Soul Snare[#](), then slay it while spectral motes still cling to its form.\n\n"
+                + "- Strike a hostile creature with a [#](8B0000)Throwing Dagger[#](); the wound binds spectral motes to its form, and slaying it while marked yields its Spiritus.\n\n"
                 + "- Fell it outright with a [#](8B0000)Sentient Sword[#]().");
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("As a fledgling Vitaemancer, you will not yet possess a [#](8B0000)Sentient Sword[#](), so the "
-                + "[#](8B0000)Soul Snare[#]() shall serve as your first instrument of collection.\\\n\\\n"
+                + "[#](8B0000)Throwing Dagger[#]() shall serve as your first instrument of collection.\\\n\\\n"
                 + "[#](8B0000)Spiritus[#]() is a cornerstone of [#](4A0080)Vitaemancy[#](), fueling the [#](8B0000)Hellfire Forge[#]() "
                 + "and the creation of ever more potent artifacts. Where [#](4A0080)Essentia Vitae[#]() is the currency "
                 + "of the blood, [#](4A0080)Spiritus[#]() is the currency of the soul.");

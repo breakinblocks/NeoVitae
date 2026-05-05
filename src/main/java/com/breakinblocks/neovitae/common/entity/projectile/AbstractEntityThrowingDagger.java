@@ -39,8 +39,10 @@ import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
+import net.minecraft.world.entity.monster.Enemy;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -336,6 +338,10 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         int fireTicks = entity.getRemainingFireTicks();
         if (this.isOnFire()) {
             entity.igniteForSeconds(5);
+        }
+
+        if (!this.level().isClientSide() && entity instanceof LivingEntity snareTarget && entity instanceof Enemy) {
+            snareTarget.addEffect(new MobEffectInstance(NVMobEffects.SPIRITUS_SNARE, 1200, 0, false, true));
         }
 
         if (entity.hurtServer((ServerLevel) entity.level(), damageSource, (float) dmg)) {

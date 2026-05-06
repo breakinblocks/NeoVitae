@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
-import com.breakinblocks.neovitae.common.living.LivingHelper;
+import com.breakinblocks.neovitae.common.sentient.SentientHelper;
 
 public class TrainerMenu extends AbstractGhostMenu<TrainerMenu> {
 
@@ -33,7 +33,7 @@ public class TrainerMenu extends AbstractGhostMenu<TrainerMenu> {
         if (tome == null) {
             return;
         }
-        old.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(tome.upgrade(), LivingHelper.getExpForLevel(tome.upgrade(), getData(3 + previousSlot))));
+        old.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(tome.upgrade(), SentientHelper.getExpForLevel(tome.upgrade(), getData(3 + previousSlot))));
         this.slots.get(previousSlot).set(old);
     }
 

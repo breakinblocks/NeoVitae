@@ -11,8 +11,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
-import com.breakinblocks.neovitae.common.living.LivingHelper;
-import com.breakinblocks.neovitae.common.living.LivingUpgrade;
+import com.breakinblocks.neovitae.common.sentient.SentientHelper;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 import java.util.HashMap;
@@ -20,20 +20,20 @@ import java.util.TreeMap;
 import java.util.function.Consumer;
 import net.minecraft.core.component.DataComponentGetter;
 
-public record UpgradeTome(Holder<LivingUpgrade> upgrade, float exp) implements TooltipProvider {
+public record UpgradeTome(Holder<SentientUpgrade> upgrade, float exp) implements TooltipProvider {
     public static final Codec<UpgradeTome> CODEC = RecordCodecBuilder.create(builder -> builder.group(
-            LivingUpgrade.HOLDER_CODEC.fieldOf("upgrade").forGetter(UpgradeTome::upgrade),
+            SentientUpgrade.HOLDER_CODEC.fieldOf("upgrade").forGetter(UpgradeTome::upgrade),
             Codec.FLOAT.fieldOf("exp").forGetter(UpgradeTome::exp)
     ).apply(builder, UpgradeTome::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, UpgradeTome> STREAM_CODEC = StreamCodec.composite(
-            LivingUpgrade.HOLDER_STREAM_CODEC, UpgradeTome::upgrade,
+            SentientUpgrade.HOLDER_STREAM_CODEC, UpgradeTome::upgrade,
             ByteBufCodecs.FLOAT, UpgradeTome::exp,
             UpgradeTome::new
     );
 
     @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> tooltipAdder, TooltipFlag tooltipFlag, DataComponentGetter componentGetter) {
-        tooltipAdder.accept(LivingHelper.getTooltip(upgrade, exp, tooltipFlag.hasShiftDown()));
+        tooltipAdder.accept(SentientHelper.getTooltip(upgrade, exp, tooltipFlag.hasShiftDown()));
     }
 }

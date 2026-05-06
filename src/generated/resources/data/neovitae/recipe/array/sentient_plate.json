@@ -1,0 +1,9 @@
+{
+  "type": "neovitae:array",
+  "addedinput": "minecraft:iron_chestplate",
+  "baseinput": "neovitae:reagent_binding",
+  "output": {
+    "id": "neovitae:sentient_plate"
+  },
+  "texture": "neovitae:textures/models/alchemyarrays/bindingarray.png"
+}

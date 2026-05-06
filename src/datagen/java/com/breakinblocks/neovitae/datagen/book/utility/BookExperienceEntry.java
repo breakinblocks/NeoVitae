@@ -36,7 +36,7 @@ public class BookExperienceEntry extends EntryProvider {
         this.pageText("With the Curios API present, you may equip the Tome as a charm upon your person, "
                 + "freeing your hands for more pressing matters.\\\n\\\n"
                 + "[#](2E8B57)If you find yourself wanting more charm slots, the Sigil of Holding "
-                + "or the Socketed Upgrade for Living Armour may serve you well.[#]()");
+                + "or the Socketed Upgrade for Sentient Armour may serve you well.[#]()");
     }
 
     @Override

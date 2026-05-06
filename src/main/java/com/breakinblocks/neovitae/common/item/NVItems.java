@@ -44,13 +44,13 @@ public class NVItems {
     public static final DeferredRegister.Items SPIRITUS_ITEMS = DeferredRegister.createItems(NeoVitae.MODID);
     public static final DeferredRegister.Items TAB_REQ = DeferredRegister.createItems(NeoVitae.MODID);
 
-    public static final DeferredHolder<Item, Item> LIVING_HELMET = BASIC_ITEMS.registerItem("living_helmet",
-            props -> new Item(props.humanoidArmor(NVMaterialsAndTiers.LIVING_ARMOUR_MATERIAL, ArmorType.HELMET)));
-    public static final DeferredHolder<Item, LivingArmourItem> LIVING_PLATE = TAB_REQ.registerItem("living_plate", LivingArmourItem::new);
-    public static final DeferredHolder<Item, Item> LIVING_LEGGINGS = BASIC_ITEMS.registerItem("living_leggings",
-            props -> new Item(props.humanoidArmor(NVMaterialsAndTiers.LIVING_ARMOUR_MATERIAL, ArmorType.LEGGINGS)));
-    public static final DeferredHolder<Item, Item> LIVING_BOOTS = BASIC_ITEMS.registerItem("living_boots",
-            props -> new Item(props.humanoidArmor(NVMaterialsAndTiers.LIVING_ARMOUR_MATERIAL, ArmorType.BOOTS)));
+    public static final DeferredHolder<Item, Item> SENTIENT_HELMET = BASIC_ITEMS.registerItem("sentient_helmet",
+            props -> new Item(props.humanoidArmor(NVMaterialsAndTiers.SENTIENT_ARMOUR_MATERIAL, ArmorType.HELMET)));
+    public static final DeferredHolder<Item, SentientArmourItem> SENTIENT_PLATE = TAB_REQ.registerItem("sentient_plate", SentientArmourItem::new);
+    public static final DeferredHolder<Item, Item> SENTIENT_LEGGINGS = BASIC_ITEMS.registerItem("sentient_leggings",
+            props -> new Item(props.humanoidArmor(NVMaterialsAndTiers.SENTIENT_ARMOUR_MATERIAL, ArmorType.LEGGINGS)));
+    public static final DeferredHolder<Item, Item> SENTIENT_BOOTS = BASIC_ITEMS.registerItem("sentient_boots",
+            props -> new Item(props.humanoidArmor(NVMaterialsAndTiers.SENTIENT_ARMOUR_MATERIAL, ArmorType.BOOTS)));
     public static final DeferredHolder<Item, UpgradeTomeItem> UPGRADE_TOME = TAB_REQ.registerItem("upgrade_tome", UpgradeTomeItem::new);
 
     public static final DeferredHolder<Item, ScrapItem> UPGRADE_SCRAP = BASIC_ITEMS.registerItem("upgrade_scrap", props -> new ScrapItem(props.stacksTo(1)));

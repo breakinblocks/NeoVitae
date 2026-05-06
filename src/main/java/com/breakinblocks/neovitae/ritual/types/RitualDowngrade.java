@@ -5,7 +5,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.LivingStats;
+import com.breakinblocks.neovitae.common.datacomponent.SentientStats;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
@@ -38,7 +38,7 @@ public class RitualDowngrade extends Ritual {
 
         for (ItemEntity itemEntity : items) {
             ItemStack stack = itemEntity.getItem();
-            LivingStats stats = stack.get(NVDataComponents.UPGRADES.get());
+            SentientStats stats = stack.get(NVDataComponents.UPGRADES.get());
 
             if (stats != null && !stats.upgrades().isEmpty()) {
                 stats.upgrades().forEach((upgradeHolder, exp) -> {

@@ -17,7 +17,7 @@ public class ProviderHelper {
     }
 
     /**
-     * Builds a TagsProvider for a datapack registry type T (DamageType, AltarTier, LivingUpgrade, etc).
+     * Builds a TagsProvider for a datapack registry type T (DamageType, AltarTier, SentientUpgrade, etc).
      * Exposes a TagAppender&lt;ResourceKey&lt;T&gt;, T&gt; — callers add tag entries via ResourceKey.
      */
     public <T> GatherDataEvent.DataProviderFromOutputLookup<TagsProvider<T>> tagsFor(

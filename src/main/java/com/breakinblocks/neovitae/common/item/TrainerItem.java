@@ -20,8 +20,8 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeLimits;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
-import com.breakinblocks.neovitae.common.living.LivingHelper;
-import com.breakinblocks.neovitae.common.living.LivingUpgrade;
+import com.breakinblocks.neovitae.common.sentient.SentientHelper;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
 import com.breakinblocks.neovitae.common.menu.GhostItemHandler;
 import com.breakinblocks.neovitae.common.menu.TrainerMenu;
 
@@ -37,8 +37,8 @@ public class TrainerItem extends Item {
         ItemStack stack = player.getItemInHand(usedHand);
 
         if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
-            ItemStack chest = LivingHelper.getChest(player);
-            if (LivingHelper.isNeverValid(chest)) {
+            ItemStack chest = SentientHelper.getChest(player);
+            if (SentientHelper.isNeverValid(chest)) {
                 return InteractionResult.FAIL;
             }
 
@@ -56,7 +56,7 @@ public class TrainerItem extends Item {
                 @Override
                 public void set(int index, int value) {
                     if (index == 2 && value == 1) {
-                        Object2FloatOpenHashMap<Holder<LivingUpgrade>> map = new Object2FloatOpenHashMap<>();
+                        Object2FloatOpenHashMap<Holder<SentientUpgrade>> map = new Object2FloatOpenHashMap<>();
                         for (int i = 0; i < handler.getSlots(); i++) {
                             ItemStack ghostStack = handler.getStackInSlot(i);
                             if (ghostStack.isEmpty()) {
@@ -66,7 +66,7 @@ public class TrainerItem extends Item {
                             if (tome == null) {
                                 continue;
                             }
-                            map.put(tome.upgrade(), LivingHelper.getExpForLevel(tome.upgrade(), this.get(3 + i)));
+                            map.put(tome.upgrade(), SentientHelper.getExpForLevel(tome.upgrade(), this.get(3 + i)));
                         }
                         chest.set(NVDataComponents.LIMITS, new UpgradeLimits(this.get(1) == TrainerMenu.ALLOW, map));
                         return;

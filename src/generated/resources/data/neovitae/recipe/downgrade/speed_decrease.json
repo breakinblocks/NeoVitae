@@ -1,5 +1,5 @@
 {
-  "type": "neovitae:livingdowngrade",
+  "type": "neovitae:sentientdowngrade",
   "input": "minecraft:soul_sand",
   "livingarmour": "neovitae:speed_decrease"
 }

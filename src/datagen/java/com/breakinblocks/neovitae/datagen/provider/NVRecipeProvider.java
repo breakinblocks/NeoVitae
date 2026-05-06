@@ -41,7 +41,7 @@ import com.breakinblocks.neovitae.datagen.builder.recipe.HellfireForgeRecipeBuil
 import com.breakinblocks.neovitae.datagen.builder.recipe.TieredRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.MeteorRecipeBuilder;
 import com.breakinblocks.neovitae.datagen.builder.recipe.FlaskRecipeBuilder;
-import com.breakinblocks.neovitae.datagen.builder.recipe.LivingDowngradeRecipeBuilder;
+import com.breakinblocks.neovitae.datagen.builder.recipe.SentientDowngradeRecipeBuilder;
 import com.breakinblocks.neovitae.common.meteor.MeteorLayer;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import net.minecraft.core.Holder;
@@ -1001,14 +1001,14 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_bloodstone", has(NVBlocks.BLOODSTONE.block().get()))
                 .save(output, rKey(NeoVitae.rl("blood_tank")));
 
-        // TODO: Living Station - block not yet implemented
-        // HellfireForgeRecipeBuilder.build(NVBlocks.LIVING_STATION.block().get())
+        // TODO: Sentient Station - block not yet implemented
+        // HellfireForgeRecipeBuilder.build(NVBlocks.SENTIENT_STATION.block().get())
         //         .requires(NVBlocks.BLOODSTONE.block().get(), 2)
         //         .requires(Items.STONE, 2)
         //         .minSpiritus(50)
         //         .drain(10)
         //         .unlockedBy("has_bloodstone", has(NVBlocks.BLOODSTONE.block().get()))
-        //         .save(output, rKey(NeoVitae.rl("living_station")));
+        //         .save(output, rKey(NeoVitae.rl("sentient_station")));
 
         // Training Bracelet
         HellfireForgeRecipeBuilder.build(NVItems.TRAINING_BRACELET.get())
@@ -2029,37 +2029,37 @@ public class NVRecipeProvider extends RecipeProvider {
                 .texture("textures/models/alchemyarrays/defaultarray.png")
                 .save(output, "bound_treasures_sigil");
 
-        // Living Armor - reagent_binding + iron armor pieces
-        AlchemyArrayRecipeBuilder.build(NVItems.LIVING_HELMET.get())
+        // Sentient Armor - reagent_binding + iron armor pieces
+        AlchemyArrayRecipeBuilder.build(NVItems.SENTIENT_HELMET.get())
                 .base(NVItems.REAGENT_BINDING.get())
                 .added(Items.IRON_HELMET)
                 .texture("textures/models/alchemyarrays/bindingarray.png")
-                .save(output, "living_helmet");
+                .save(output, "sentient_helmet");
 
-        AlchemyArrayRecipeBuilder.build(NVItems.LIVING_PLATE.get())
+        AlchemyArrayRecipeBuilder.build(NVItems.SENTIENT_PLATE.get())
                 .base(NVItems.REAGENT_BINDING.get())
                 .added(Items.IRON_CHESTPLATE)
                 .texture("textures/models/alchemyarrays/bindingarray.png")
-                .save(output, "living_plate");
+                .save(output, "sentient_plate");
 
-        AlchemyArrayRecipeBuilder.build(NVItems.LIVING_LEGGINGS.get())
+        AlchemyArrayRecipeBuilder.build(NVItems.SENTIENT_LEGGINGS.get())
                 .base(NVItems.REAGENT_BINDING.get())
                 .added(Items.IRON_LEGGINGS)
                 .texture("textures/models/alchemyarrays/bindingarray.png")
-                .save(output, "living_leggings");
+                .save(output, "sentient_leggings");
 
-        AlchemyArrayRecipeBuilder.build(NVItems.LIVING_BOOTS.get())
+        AlchemyArrayRecipeBuilder.build(NVItems.SENTIENT_BOOTS.get())
                 .base(NVItems.REAGENT_BINDING.get())
                 .added(Items.IRON_BOOTS)
                 .texture("textures/models/alchemyarrays/bindingarray.png")
-                .save(output, "living_boots");
+                .save(output, "sentient_boots");
 
         // Training Bracelet
         AlchemyArrayRecipeBuilder.build(NVItems.TRAINING_BRACELET.get())
                 .base(NVItems.REAGENT_BINDING.get())
                 .added(Items.DIAMOND)
                 .texture("textures/models/alchemyarrays/bindingarray.png")
-                .save(output, "living_trainer");
+                .save(output, "sentient_trainer");
 
         // Effect Arrays - create environmental effects, not items
         // Bounce Array - slimeball + redstone
@@ -4576,74 +4576,74 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, rKey(NeoVitae.rl("length_average_" + name)));
     }
 
-    // ==================== Living Downgrade Recipes ====================
+    // ==================== Sentient Downgrade Recipes ====================
 
     private void addLivingDowngradeRecipes(RecipeOutput output) {
         String basePath = "downgrade/";
 
         // Battle Hungry - increases hunger drain
-        LivingDowngradeRecipeBuilder.downgrade(
+        SentientDowngradeRecipeBuilder.downgrade(
                 Ingredient.of(Items.ROTTEN_FLESH),
                 NeoVitae.rl("battle_hungry"))
                 .save(output, rKey(NeoVitae.rl(basePath + "battle_hungry")));
 
         // Melee Decrease - reduces melee damage
-        LivingDowngradeRecipeBuilder.downgrade(
+        SentientDowngradeRecipeBuilder.downgrade(
                 Ingredient.of(Items.STONE_SWORD),
                 NeoVitae.rl("melee_decrease"))
                 .save(output, rKey(NeoVitae.rl(basePath + "melee_decrease")));
 
         // Quenched - reduces saturation
-        LivingDowngradeRecipeBuilder.downgrade(
+        SentientDowngradeRecipeBuilder.downgrade(
                 Ingredient.of(Items.GLASS_BOTTLE),
                 NeoVitae.rl("quenched"))
                 .save(output, rKey(NeoVitae.rl(basePath + "quenched")));
 
         // Storm Trooper - reduces arrow accuracy
-        LivingDowngradeRecipeBuilder.downgrade(
+        SentientDowngradeRecipeBuilder.downgrade(
                 Ingredient.of(Items.ARROW),
                 NeoVitae.rl("storm_trooper"))
                 .save(output, rKey(NeoVitae.rl(basePath + "storm_trooper")));
 
         // Dig Slowdown - reduces mining speed
-        LivingDowngradeRecipeBuilder.downgrade(
+        SentientDowngradeRecipeBuilder.downgrade(
                 Ingredient.of(Items.STONE_PICKAXE),
                 NeoVitae.rl("dig_slowdown"))
                 .save(output, rKey(NeoVitae.rl(basePath + "dig_slowdown")));
 
         // Slow Heal - reduces healing effectiveness
-        LivingDowngradeRecipeBuilder.downgrade(
+        SentientDowngradeRecipeBuilder.downgrade(
                 Ingredient.of(Items.GHAST_TEAR),
                 NeoVitae.rl("slow_heal"))
                 .save(output, rKey(NeoVitae.rl(basePath + "slow_heal")));
 
         // Swim Decrease - reduces swim speed
-        LivingDowngradeRecipeBuilder.downgrade(
+        SentientDowngradeRecipeBuilder.downgrade(
                 Ingredient.of(Items.WATER_BUCKET),
                 NeoVitae.rl("swim_decrease"))
                 .save(output, rKey(NeoVitae.rl(basePath + "swim_decrease")));
 
         // Speed Decrease - reduces movement speed
-        LivingDowngradeRecipeBuilder.downgrade(
+        SentientDowngradeRecipeBuilder.downgrade(
                 Ingredient.of(Items.SOUL_SAND),
                 NeoVitae.rl("speed_decrease"))
                 .save(output, rKey(NeoVitae.rl(basePath + "speed_decrease")));
 
         // Crippled Arm - reduces blocking effectiveness
-        LivingDowngradeRecipeBuilder.downgrade(
+        SentientDowngradeRecipeBuilder.downgrade(
                 Ingredient.of(Items.SHIELD),
                 NeoVitae.rl("crippled_arm"))
                 .save(output, rKey(NeoVitae.rl(basePath + "crippled_arm")));
 
         // Demon-drop based downgrades
         // Poisoned Blood - periodic poison ticks (from venomgland sac)
-        LivingDowngradeRecipeBuilder.downgrade(
+        SentientDowngradeRecipeBuilder.downgrade(
                 Ingredient.of(NVItems.VENOMGLAND_SAC.get()),
                 NeoVitae.rl("poisoned_blood"))
                 .save(output, rKey(NeoVitae.rl(basePath + "poisoned_blood")));
 
         // Hollow Hunger - increased hunger drain (from hollow gut, thematic upgrade over rotten flesh)
-        LivingDowngradeRecipeBuilder.downgrade(
+        SentientDowngradeRecipeBuilder.downgrade(
                 Ingredient.of(NVItems.HOLLOW_GUT.get()),
                 NeoVitae.rl("hollow_hunger"))
                 .save(output, rKey(NeoVitae.rl(basePath + "hollow_hunger")));

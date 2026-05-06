@@ -1,5 +1,5 @@
 {
-  "type": "neovitae:livingdowngrade",
+  "type": "neovitae:sentientdowngrade",
   "input": "minecraft:shield",
   "livingarmour": "neovitae:crippled_arm"
 }

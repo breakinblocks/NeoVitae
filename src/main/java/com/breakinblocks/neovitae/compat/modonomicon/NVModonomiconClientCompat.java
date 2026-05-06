@@ -31,16 +31,16 @@ public class NVModonomiconClientCompat {
                 p -> new BookFlaskRecipePageRenderer((BookFlaskRecipePage) p)
         );
         PageRendererRegistry.registerPageRenderer(
-                NVPageTypes.LIVING_DOWNGRADE,
-                p -> new BookLivingDowngradeRecipePageRenderer((BookLivingDowngradeRecipePage) p)
+                NVPageTypes.SENTIENT_DOWNGRADE,
+                p -> new BookSentientDowngradeRecipePageRenderer((BookSentientDowngradeRecipePage) p)
         );
         PageRendererRegistry.registerPageRenderer(
                 NVPageTypes.RITUAL_INFO,
                 p -> new BookRitualInfoPageRenderer((BookRitualInfoPage) p)
         );
         PageRendererRegistry.registerPageRenderer(
-                NVPageTypes.LIVING_UPGRADE_TABLE,
-                p -> new BookLivingUpgradeTablePageRenderer((BookLivingUpgradeTablePage) p)
+                NVPageTypes.SENTIENT_UPGRADE_TABLE,
+                p -> new BookSentientUpgradeTablePageRenderer((BookSentientUpgradeTablePage) p)
         );
         PageRendererRegistry.registerPageRenderer(
                 NVPageTypes.BLOOD_ORB_STATS,

@@ -4,7 +4,7 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.breakinblocks.neovitae.datagen.book.page.BookLivingUpgradeTablePageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookSentientUpgradeTablePageModel;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
 
@@ -16,11 +16,11 @@ public class CuriosSocketsUpgradeEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookLivingUpgradeTablePageModel.create()
+        this.page("intro", () -> BookSentientUpgradeTablePageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Socketed");
-        this.pageText("The armour opens hidden recesses within itself, forming [#](8B0000)Living Armour "
+        this.pageText("The armour opens hidden recesses within itself, forming [#](8B0000)Sentient Armour "
                 + "Socket[#]() slots that can hold compatible [#](4A0080)Vitaemancy[#]() trinkets.\\\n\\\n"
                 + "This upgrade cannot be trained; only inscribed via [#](8B0000)Upgrade Tome[#](). "
                 + "Each tome adds one additional socket.\\\n\\\n"
@@ -44,7 +44,7 @@ public class CuriosSocketsUpgradeEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.LIVING_PLATE.get());
+        return BookIconModel.create(NVItems.SENTIENT_PLATE.get());
     }
 
     @Override

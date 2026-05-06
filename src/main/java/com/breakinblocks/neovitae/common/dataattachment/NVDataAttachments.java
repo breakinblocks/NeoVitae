@@ -21,8 +21,8 @@ public class NVDataAttachments {
             "incense", () -> AttachmentType.builder(() -> 0D).serialize(Codec.DOUBLE.fieldOf("value")).build()
     );
 
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Map<Identifier, Double>>> LIVING_ADDITIONAL = ATTACHMENT_TYPES.register(
-            "living_cooldown",
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Map<Identifier, Double>>> SENTIENT_ADDITIONAL = ATTACHMENT_TYPES.register(
+            "sentient_cooldown",
             () -> AttachmentType.<Map<Identifier, Double>>builder(() -> new HashMap<>())
                     .serialize(Codec.unboundedMap(Identifier.CODEC, Codec.DOUBLE)
                             .<Map<Identifier, Double>>xmap(m -> m, m -> m)

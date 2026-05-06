@@ -26,20 +26,20 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(NVTags.Items.STORAGE_BLOCKS_HELLFORGED)
                 .add(com.breakinblocks.neovitae.common.block.NVBlocks.HELLFORGED_BLOCK.item().get());
 
-        tag(NVTags.Items.LIVING_SET)
-                .add(NVItems.LIVING_HELMET.get(), NVItems.LIVING_PLATE.get(), NVItems.LIVING_LEGGINGS.get(), NVItems.LIVING_BOOTS.get());
+        tag(NVTags.Items.SENTIENT_SET)
+                .add(NVItems.SENTIENT_HELMET.get(), NVItems.SENTIENT_PLATE.get(), NVItems.SENTIENT_LEGGINGS.get(), NVItems.SENTIENT_BOOTS.get());
 
-        tag(NVTags.Items.LIVING_ARMOR_REPAIR)
+        tag(NVTags.Items.SENTIENT_ARMOR_REPAIR)
                 .add(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get());
 
-        tag(NVTags.Items.LIVING_UPGRADE_SET)
-                .addTag(NVTags.Items.LIVING_SET);
+        tag(NVTags.Items.SENTIENT_UPGRADE_SET)
+                .addTag(NVTags.Items.SENTIENT_SET);
 
         // Add living armor to vanilla armor tags for mod compatibility
-        tag(ItemTags.HEAD_ARMOR).add(NVItems.LIVING_HELMET.get());
-        tag(ItemTags.CHEST_ARMOR).add(NVItems.LIVING_PLATE.get());
-        tag(ItemTags.LEG_ARMOR).add(NVItems.LIVING_LEGGINGS.get());
-        tag(ItemTags.FOOT_ARMOR).add(NVItems.LIVING_BOOTS.get());
+        tag(ItemTags.HEAD_ARMOR).add(NVItems.SENTIENT_HELMET.get());
+        tag(ItemTags.CHEST_ARMOR).add(NVItems.SENTIENT_PLATE.get());
+        tag(ItemTags.LEG_ARMOR).add(NVItems.SENTIENT_LEGGINGS.get());
+        tag(ItemTags.FOOT_ARMOR).add(NVItems.SENTIENT_BOOTS.get());
 
         tag(ItemTags.SWORDS).add(NVItems.SENTIENT_SWORD.get());
         tag(ItemTags.AXES).add(NVItems.SENTIENT_AXE.get());

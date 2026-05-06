@@ -1,0 +1,24 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "neovitae:living"
+      }
+    ],
+    "humanoid_baby": [
+      {
+        "texture": "neovitae:living"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "neovitae:living"
+      }
+    ],
+    "wings": [
+      {
+        "texture": "neovitae:sentient_elytra"
+      }
+    ]
+  }
+}

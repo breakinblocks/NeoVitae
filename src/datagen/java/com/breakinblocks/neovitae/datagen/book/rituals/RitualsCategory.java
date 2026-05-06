@@ -187,7 +187,7 @@ public class RitualsCategory extends CategoryProvider {
         crystalCatalyst.withParent(this.parent(basics));
         crystalCatalyst.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
         crystalCatalyst.hideWhileLocked(false);
-        var armourEvolve = this.add(new RitualArmourEvolveEntry(this).generate('8'));
+        var armourEvolve = this.add(new RitualSentientArmourEvolveEntry(this).generate('8'));
         armourEvolve.withParent(this.parent(basics));
         armourEvolve.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
         armourEvolve.hideWhileLocked(false);
@@ -195,7 +195,7 @@ public class RitualsCategory extends CategoryProvider {
         upgradeRemove.withParent(this.parent(basics));
         upgradeRemove.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
         upgradeRemove.hideWhileLocked(false);
-        var livingDowngrade = this.add(new RitualLivingDowngradeEntry(this).generate('A'));
+        var livingDowngrade = this.add(new RitualSentientDowngradeEntry(this).generate('A'));
         livingDowngrade.withParent(this.parent(basics));
         livingDowngrade.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
         livingDowngrade.hideWhileLocked(false);

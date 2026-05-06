@@ -10,9 +10,9 @@ public class NVPageTypes {
     public static final Identifier ALCHEMY_ARRAY = NeoVitae.rl("alchemy_array_recipe");
     public static final Identifier ATHANOR = NeoVitae.rl("athanor_recipe");
     public static final Identifier FLASK = NeoVitae.rl("flask_recipe");
-    public static final Identifier LIVING_DOWNGRADE = NeoVitae.rl("living_downgrade_recipe");
+    public static final Identifier SENTIENT_DOWNGRADE = NeoVitae.rl("sentient_downgrade_recipe");
     public static final Identifier RITUAL_INFO = NeoVitae.rl("ritual_info");
-    public static final Identifier LIVING_UPGRADE_TABLE = NeoVitae.rl("living_upgrade_table");
+    public static final Identifier SENTIENT_UPGRADE_TABLE = NeoVitae.rl("sentient_upgrade_table");
     public static final Identifier BLOOD_ORB_STATS = NeoVitae.rl("blood_orb_stats");
     public static final Identifier SPIRITUS_GEM_STATS = NeoVitae.rl("spiritus_gem_stats");
 }

@@ -3,7 +3,7 @@ package com.breakinblocks.neovitae.api;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.api.altar.rune.IAltarRuneRegistry;
 import com.breakinblocks.neovitae.api.incense.ITranquilityHandler;
-import com.breakinblocks.neovitae.api.living.ILivingArmorManager;
+import com.breakinblocks.neovitae.api.sentient.ISentientArmorManager;
 import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.api.will.ISpiritusHandler;
 import com.breakinblocks.neovitae.api.will.IPlayerSpiritusHandler;
@@ -47,11 +47,11 @@ public interface INeoVitaeAPI {
     IAnima getAnima(UUID uuid);
 
     /**
-     * Gets the Living Armor upgrade manager.
+     * Gets the Sentient Armor upgrade manager.
      *
      * @return The living armor manager
      */
-    ILivingArmorManager getLivingArmorManager();
+    ISentientArmorManager getLivingArmorManager();
 
     /**
      * Gets the Altar Rune registry for registering custom runes.

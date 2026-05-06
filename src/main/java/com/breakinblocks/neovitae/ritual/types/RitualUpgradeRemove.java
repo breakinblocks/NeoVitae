@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.LivingStats;
+import com.breakinblocks.neovitae.common.datacomponent.SentientStats;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
@@ -45,17 +45,17 @@ public class RitualUpgradeRemove extends Ritual {
             for (EquipmentSlot slot : EquipmentSlot.VALUES) {
                 if (slot.getType() != EquipmentSlot.Type.HUMANOID_ARMOR) continue;
                 ItemStack armorPiece = player.getItemBySlot(slot);
-                if (armorPiece.isEmpty() || !armorPiece.is(NVTags.Items.LIVING_SET)) {
+                if (armorPiece.isEmpty() || !armorPiece.is(NVTags.Items.SENTIENT_SET)) {
                     continue;
                 }
 
                 // Get living stats
-                LivingStats stats = armorPiece.get(NVDataComponents.UPGRADES.get());
+                SentientStats stats = armorPiece.get(NVDataComponents.UPGRADES.get());
                 if (stats == null || stats.upgrades().isEmpty()) {
                     continue;
                 }
 
-                LivingStats newStats = new LivingStats(new Object2FloatOpenHashMap<>());
+                SentientStats newStats = new SentientStats(new Object2FloatOpenHashMap<>());
                 armorPiece.set(NVDataComponents.UPGRADES.get(), newStats);
 
                 // Reset used points

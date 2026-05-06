@@ -9,7 +9,7 @@
   "description": "book.neovitae.guide.rituals.ritual_armour_evolve.description",
   "hide_while_locked": false,
   "icon": {
-    "id": "neovitae:living_plate"
+    "id": "neovitae:sentient_plate"
   },
   "name": "book.neovitae.guide.rituals.ritual_armour_evolve.name",
   "pages": [
@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/armour_evolve",
-      "multiblock_name": "Ritual of Living Evolution",
+      "multiblock_name": "Ritual of Sentient Evolution",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_armour_evolve.multiblock.text"
     },

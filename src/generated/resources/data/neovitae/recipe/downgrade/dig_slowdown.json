@@ -1,5 +1,5 @@
 {
-  "type": "neovitae:livingdowngrade",
+  "type": "neovitae:sentientdowngrade",
   "input": "minecraft:stone_pickaxe",
   "livingarmour": "neovitae:dig_slowdown"
 }

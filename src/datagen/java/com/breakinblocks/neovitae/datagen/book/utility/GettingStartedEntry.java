@@ -92,7 +92,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.pageTitle("The Third Tier");
         this.pageText("At [#](B8860B)Tier II[#](), the true scope of Vitaemancy reveals itself. "
                 + "You gain the ability to inscribe [#](4A0080)Rituals[#]() and forge "
-                + "[#](8B0000)Living Armour[#]() - equipment that grows stronger through the trials you endure.\\\n\\\n"
+                + "[#](8B0000)Sentient Armour[#]() - equipment that grows stronger through the trials you endure.\\\n\\\n"
                 + "Turn your attention to upgrading both the Ara Vitae and your "
                 + "[#](8B0000)Ritual Diviner[#]() to unlock more potent rites. But how?");
 
@@ -118,10 +118,10 @@ public class GettingStartedEntry extends EntryProvider {
         this.page("tier4_armour", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Living Evolution (Tier III)");
-        this.pageText("Your [#](8B0000)Living Armour[#]() may have begun to feel constrained by its modest "
+        this.pageTitle("Sentient Evolution (Tier III)");
+        this.pageText("Your [#](8B0000)Sentient Armour[#]() may have begun to feel constrained by its modest "
                 + "point cap. With the Dusk Diviner, you may now perform the "
-                + "[#](4A0080)Ritual of Living Evolution[#](), raising your armour's capacity from "
+                + "[#](4A0080)Ritual of Sentient Evolution[#](), raising your armour's capacity from "
                 + "[#](B8860B)100[#]() to [#](B8860B)300[#]() points.");
 
         this.page("tier4_armour2", () -> BookTextPageModel.create()

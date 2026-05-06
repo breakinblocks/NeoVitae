@@ -27,8 +27,8 @@ public class NVLootFunctions {
     public static final DeferredHolder<MapCodec<? extends LootItemFunction>, MapCodec<SetSpiritusFraction>> SET_SPIRITUS_FRACTION =
             LOOT_FUNCTIONS.register("set_spiritus_fraction", () -> SetSpiritusFraction.CODEC);
 
-    public static final DeferredHolder<MapCodec<? extends LootItemFunction>, MapCodec<SetLivingUpgrade>> SET_LIVING_UPGRADE =
-            LOOT_FUNCTIONS.register("set_living_upgrade", () -> SetLivingUpgrade.CODEC);
+    public static final DeferredHolder<MapCodec<? extends LootItemFunction>, MapCodec<SetSentientUpgrade>> SET_SENTIENT_UPGRADE =
+            LOOT_FUNCTIONS.register("set_sentient_upgrade", () -> SetSentientUpgrade.CODEC);
 
     public static void register(IEventBus modEventBus) {
         LOOT_FUNCTIONS.register(modEventBus);

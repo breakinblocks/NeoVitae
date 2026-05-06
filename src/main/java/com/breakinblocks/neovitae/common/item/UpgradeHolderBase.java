@@ -12,13 +12,13 @@ import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.item.IUpgradeHolder;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.living.LivingEffectComponents;
-import com.breakinblocks.neovitae.common.living.LivingHelper;
+import com.breakinblocks.neovitae.common.sentient.SentientEffectComponents;
+import com.breakinblocks.neovitae.common.sentient.SentientHelper;
 
 import java.util.function.Consumer;
 
 /**
- * Internal implementation interface for Living Armor items.
+ * Internal implementation interface for Sentient Armor items.
  *
  * <p>This interface extends {@link IUpgradeHolder} (the public API) and adds
  * NeoForge item extension overrides for special armor behavior.</p>
@@ -29,7 +29,7 @@ public interface UpgradeHolderBase extends IItemExtension, IUpgradeHolder {
 
     @Override
     default <T extends LivingEntity> int damageItem(ItemStack stack, int amount, @Nullable T entity, Consumer<Item> onBroken) {
-        if (LivingHelper.isNeverValid(stack)) {
+        if (SentientHelper.isNeverValid(stack)) {
             return IItemExtension.super.damageItem(stack, amount, entity, onBroken);
         }
 
@@ -42,18 +42,18 @@ public interface UpgradeHolderBase extends IItemExtension, IUpgradeHolder {
         if (!(wearer instanceof Player player)) {
             return false;
         }
-        return LivingHelper.hasFullSet(player) && LivingHelper.has(player, LivingEffectComponents.GILDED.get());
+        return SentientHelper.hasFullSet(player) && SentientHelper.has(player, SentientEffectComponents.GILDED.get());
     }
 
     // canElytraFly / elytraFlightTick / isEnderMask were IItemExtension hooks in 21.1 that
     // moved to the EquipmentAsset system in 26.1. These methods are retained as regular
-    // helpers and invoked from the Living Armor event handlers; they are no longer auto-wired
+    // helpers and invoked from the Sentient Armor event handlers; they are no longer auto-wired
     // by the item extension framework.
     default boolean canElytraFly(ItemStack stack, LivingEntity wearer) {
         if (!(wearer instanceof Player player)) {
             return false;
         }
-        return LivingHelper.hasFullSet(player) && LivingHelper.has(player, LivingEffectComponents.ELYTRA.get());
+        return SentientHelper.hasFullSet(player) && SentientHelper.has(player, SentientEffectComponents.ELYTRA.get());
     }
 
     default boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks) {
@@ -61,7 +61,7 @@ public interface UpgradeHolderBase extends IItemExtension, IUpgradeHolder {
             int nextFlightTick = flightTicks + 1;
             if (nextFlightTick % 10 == 0) {
                 // Scale damage interval based on upgrade level - higher levels take damage less often
-                int level = entity instanceof Player player ? LivingHelper.getLevel(player, LivingEffectComponents.ELYTRA.get()) : 1;
+                int level = entity instanceof Player player ? SentientHelper.getLevel(player, SentientEffectComponents.ELYTRA.get()) : 1;
                 int damageInterval = 20 * Math.max(level, 1); // Level 1 = 20 ticks, Level 2 = 40 ticks, etc.
                 if (nextFlightTick % damageInterval == 0) {
                     stack.hurtAndBreak(1, entity, EquipmentSlot.CHEST);
@@ -78,17 +78,17 @@ public interface UpgradeHolderBase extends IItemExtension, IUpgradeHolder {
         if (!(wearer instanceof Player player)) {
             return false;
         }
-        return LivingHelper.hasFullSet(player) && LivingHelper.has(player, LivingEffectComponents.WALK_ON_POWDERED_SNOW.get());
+        return SentientHelper.hasFullSet(player) && SentientHelper.has(player, SentientEffectComponents.WALK_ON_POWDERED_SNOW.get());
     }
 
     default boolean isEnderMask(ItemStack stack, Player player, EnderMan endermanEntity) {
-        return LivingHelper.hasFullSet(player) && LivingHelper.has(player, LivingEffectComponents.IS_ENDER_MASK.get());
+        return SentientHelper.hasFullSet(player) && SentientHelper.has(player, SentientEffectComponents.IS_ENDER_MASK.get());
     }
 
 
     @Override
     default int getMaxUpgradePoints(ItemStack stack, Player player) {
-        if (LivingHelper.isNeverValid(stack)) {
+        if (SentientHelper.isNeverValid(stack)) {
             return 0;
         }
         Integer maxPoints = stack.get(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS.get());
@@ -97,11 +97,11 @@ public interface UpgradeHolderBase extends IItemExtension, IUpgradeHolder {
 
     @Override
     default boolean hasFullLivingArmorSet(Player player) {
-        return LivingHelper.hasFullSet(player);
+        return SentientHelper.hasFullSet(player);
     }
 
     @Override
     default boolean isInvalidArmor(ItemStack stack) {
-        return LivingHelper.isNeverValid(stack);
+        return SentientHelper.isNeverValid(stack);
     }
 }

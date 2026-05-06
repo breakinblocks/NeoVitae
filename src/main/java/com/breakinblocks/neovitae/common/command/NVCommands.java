@@ -13,7 +13,7 @@ public class NVCommands {
         CommandBuildContext buildContext = event.getBuildContext();
 
         AnimaCommand.register(dispatcher);
-        LivingUpgradesCommand.register(dispatcher, buildContext);
+        SentientUpgradesCommand.register(dispatcher, buildContext);
         RitualCommand.register(dispatcher);
         ImperfectRitualCommand.register(dispatcher);
         AuraCommand.register(dispatcher);

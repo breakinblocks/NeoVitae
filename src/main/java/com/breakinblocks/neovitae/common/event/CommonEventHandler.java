@@ -77,7 +77,7 @@ public class CommonEventHandler {
                 NVRecipes.TABULA_VITAE_TYPE.get(),
                 NVRecipes.METEOR_TYPE.get(),
                 NVRecipes.FLASK_TYPE.get(),
-                NVRecipes.LIVING_DOWNGRADE_TYPE.get()
+                NVRecipes.SENTIENT_DOWNGRADE_TYPE.get()
         );
     }
 

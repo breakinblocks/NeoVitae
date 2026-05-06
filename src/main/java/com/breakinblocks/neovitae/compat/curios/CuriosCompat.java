@@ -14,8 +14,8 @@ import top.theillusivec4.curios.api.SlotResult;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.living.LivingHelper;
-import com.breakinblocks.neovitae.common.living.LivingUpgrade;
+import com.breakinblocks.neovitae.common.sentient.SentientHelper;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 import java.util.List;
@@ -27,15 +27,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Curios API integration for NeoVitae.
  * Provides:
  * - Curio slots for sigils, Spiritus Gems, and training bracelet
- * - Living Armor socket slots that scale with the Curios Socket upgrade
+ * - Sentient Armor socket slots that scale with the Curios Socket upgrade
  */
 public class CuriosCompat {
 
     public static final String CURIOS_MODID = "curios";
-    public static final String LIVING_ARMOUR_SOCKET_SLOT = "living_armour_socket";
+    public static final String SENTIENT_ARMOUR_SOCKET_SLOT = "sentient_armour_socket";
 
-    public static final ResourceKey<LivingUpgrade> CURIOS_SOCKET_UPGRADE = ResourceKey.create(
-            NVRegistries.Keys.LIVING_UPGRADES,
+    public static final ResourceKey<SentientUpgrade> CURIOS_SOCKET_UPGRADE = ResourceKey.create(
+            NVRegistries.Keys.SENTIENT_UPGRADES,
             NeoVitae.rl("curios_socket")
     );
 
@@ -109,7 +109,7 @@ public class CuriosCompat {
      */
     private static int getCuriosSocketLevel(Player player) {
         AtomicInteger level = new AtomicInteger(0);
-        LivingHelper.runIterationOnPlayer(player, (upgrade, lvl) -> {
+        SentientHelper.runIterationOnPlayer(player, (upgrade, lvl) -> {
             if (upgrade.is(CURIOS_SOCKET_UPGRADE)) {
                 level.set(Math.max(level.get(), lvl));
             }
@@ -135,14 +135,14 @@ public class CuriosCompat {
         }
 
         Map<String, ICurioStacksHandler> curios = curioInv.get().getCurios();
-        ICurioStacksHandler livingArmourSockets = curios.get(LIVING_ARMOUR_SOCKET_SLOT);
+        ICurioStacksHandler livingArmourSockets = curios.get(SENTIENT_ARMOUR_SOCKET_SLOT);
         if (livingArmourSockets == null) {
             return 0;
         }
 
         Identifier modifierId = NeoVitae.rl("curios_socket_upgrade");
 
-        if (LivingHelper.hasFullSet(player)) {
+        if (SentientHelper.hasFullSet(player)) {
             int curiosLevel = getCuriosSocketLevel(player);
 
             livingArmourSockets.removeModifier(modifierId);

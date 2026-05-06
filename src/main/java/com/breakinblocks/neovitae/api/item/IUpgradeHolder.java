@@ -4,14 +4,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Interface for items that can hold Living Armor upgrades.
+ * Interface for items that can hold Sentient Armor upgrades.
  *
- * <p>This interface is implemented by Neo Vitae's Living Armor pieces and can be
+ * <p>This interface is implemented by Neo Vitae's Sentient Armor pieces and can be
  * used by external mods to:</p>
  * <ul>
- *   <li>Detect if an item is a Living Armor piece via {@code instanceof IUpgradeHolder}</li>
+ *   <li>Detect if an item is a Sentient Armor piece via {@code instanceof IUpgradeHolder}</li>
  *   <li>Query upgrade-related information from the armor</li>
- *   <li>Check if the player has a complete Living Armor set</li>
+ *   <li>Check if the player has a complete Sentient Armor set</li>
  * </ul>
  *
  * <p>Example usage:</p>
@@ -23,7 +23,7 @@ import net.minecraft.world.item.ItemStack;
  * }
  * }</pre>
  *
- * @see com.breakinblocks.neovitae.api.living.ILivingArmorUpgrade
+ * @see com.breakinblocks.neovitae.api.sentient.ISentientArmorUpgrade
  */
 public interface IUpgradeHolder {
 
@@ -40,20 +40,20 @@ public interface IUpgradeHolder {
     int getMaxUpgradePoints(ItemStack stack, Player player);
 
     /**
-     * Checks if the player is wearing a complete Living Armor set.
+     * Checks if the player is wearing a complete Sentient Armor set.
      *
      * <p>A complete set requires all four armor slots (helmet, chestplate,
-     * leggings, boots) to contain valid Living Armor pieces.</p>
+     * leggings, boots) to contain valid Sentient Armor pieces.</p>
      *
      * @param player The player to check
-     * @return true if the player has a full Living Armor set
+     * @return true if the player has a full Sentient Armor set
      */
     boolean hasFullLivingArmorSet(Player player);
 
     /**
      * Checks if this armor piece is in a "dead" or invalid state.
      *
-     * <p>Living Armor can become invalid if it's damaged beyond repair
+     * <p>Sentient Armor can become invalid if it's damaged beyond repair
      * or has been corrupted in some way.</p>
      *
      * @param stack The armor ItemStack to check

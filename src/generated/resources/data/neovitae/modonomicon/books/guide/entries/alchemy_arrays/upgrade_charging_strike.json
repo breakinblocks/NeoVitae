@@ -4,7 +4,7 @@
   "category": "alchemy_arrays",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "alchemy_arrays/living_upgrades"
+    "entry_id": "alchemy_arrays/sentient_upgrades"
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_charging_strike.description",
   "hide_while_locked": false,
@@ -14,7 +14,7 @@
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_charging_strike.name",
   "pages": [
     {
-      "type": "neovitae:living_upgrade_table",
+      "type": "neovitae:sentient_upgrade_table",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
@@ -26,7 +26,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "alchemy_arrays/living_upgrades",
+      "entry": "alchemy_arrays/sentient_upgrades",
       "line_enabled": true,
       "line_reversed": false
     }

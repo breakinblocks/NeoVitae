@@ -5,7 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.breakinblocks.neovitae.datagen.book.page.BookLivingDowngradeRecipePageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookSentientDowngradeRecipePageModel;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
 
@@ -26,7 +26,7 @@ public class LimpLegDowngradeEntry extends EntryProvider {
                 + "[#](B8860B)Maximum level[#](): 10\\\n\\\n"
                 + "[#](4A0080)Every step is a negotiation with the armour's weight.[#]()");
 
-        this.page("recipe", () -> BookLivingDowngradeRecipePageModel.create()
+        this.page("recipe", () -> BookSentientDowngradeRecipePageModel.create()
                 .withRecipeId1("neovitae:downgrade/speed_decrease"));
     }
 

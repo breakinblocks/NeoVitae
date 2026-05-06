@@ -27,29 +27,29 @@ import java.util.Map;
  */
 public class NVMaterialsAndTiers {
 
-    public static final ResourceKey<EquipmentAsset> LIVING_EQUIPMENT_ASSET =
+    public static final ResourceKey<EquipmentAsset> SENTIENT_EQUIPMENT_ASSET =
             ResourceKey.create(EquipmentAssets.ROOT_ID,
-                    Identifier.fromNamespaceAndPath(NeoVitae.MODID, "living"));
+                    Identifier.fromNamespaceAndPath(NeoVitae.MODID, "sentient"));
 
     // Swapped into the chestplate's EQUIPPABLE component when the Elytra upgrade is active,
     // replacing the pre-port client-side ElytraLayer texture swap (that extension point was
     // removed in 26.1).
-    public static final ResourceKey<EquipmentAsset> LIVING_ELYTRA_EQUIPMENT_ASSET =
+    public static final ResourceKey<EquipmentAsset> SENTIENT_ELYTRA_EQUIPMENT_ASSET =
             ResourceKey.create(EquipmentAssets.ROOT_ID,
-                    Identifier.fromNamespaceAndPath(NeoVitae.MODID, "living_elytra"));
+                    Identifier.fromNamespaceAndPath(NeoVitae.MODID, "sentient_elytra"));
 
     // Vanilla ArmorItem.Type.getDurability(base) was `base * durabilityMultiplier` with
-    // Helmet=11, Chest=16, Leggings=15, Boots=13. Pre-port Living Armor used base=33
+    // Helmet=11, Chest=16, Leggings=15, Boots=13. Pre-port Sentient Armor used base=33
     // so Chest had 528 HP. Encoding multipliers into the per-slot durability map here.
-    public static final ArmorMaterial LIVING_ARMOUR_MATERIAL = new ArmorMaterial(
+    public static final ArmorMaterial SENTIENT_ARMOUR_MATERIAL = new ArmorMaterial(
             33 * 16,
             defenseMap(2, 5, 6, 2),
             9,
             SoundEvents.ARMOR_EQUIP_IRON,
             0F,
             0F,
-            NVTags.Items.LIVING_ARMOR_REPAIR,
-            LIVING_EQUIPMENT_ASSET);
+            NVTags.Items.SENTIENT_ARMOR_REPAIR,
+            SENTIENT_EQUIPMENT_ASSET);
 
     public static final ToolMaterial SENTIENT = new ToolMaterial(
             BlockTags.INCORRECT_FOR_DIAMOND_TOOL,

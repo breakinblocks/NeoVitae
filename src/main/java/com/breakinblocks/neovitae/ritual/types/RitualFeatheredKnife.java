@@ -10,7 +10,7 @@ import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
-import com.breakinblocks.neovitae.common.living.LivingHelper;
+import com.breakinblocks.neovitae.common.sentient.SentientHelper;
 import com.breakinblocks.neovitae.incense.IncenseHelper;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -139,7 +139,7 @@ public class RitualFeatheredKnife extends Ritual {
                 int healthLost = (int) Math.ceil(health - player.getHealth());
                 int lp = AltarUtil.calculateSelfSacrificeLP(player, healthLost);
 
-                if (LivingHelper.hasFullSet(player)) {
+                if (SentientHelper.hasFullSet(player)) {
                     lp = (int) (lp * 1.1);
                 }
 

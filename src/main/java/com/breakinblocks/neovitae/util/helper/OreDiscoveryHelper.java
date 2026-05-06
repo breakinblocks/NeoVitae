@@ -20,8 +20,12 @@ import com.mojang.blaze3d.platform.NativeImage;
 import javax.annotation.Nullable;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public final class OreDiscoveryHelper {
 
@@ -103,14 +107,15 @@ public final class OreDiscoveryHelper {
             var resource = resourceManager.getResource(textureLocation);
             if (resource.isEmpty()) return "#808080";
 
+            Set<Integer> basePalette = loadBasePalette(resourceManager, blockId);
+
             try (InputStream stream = resource.get().open();
                  NativeImage image = NativeImage.read(stream)) {
 
                 int width = image.getWidth();
                 int height = Math.min(image.getHeight(), width);
 
-                long totalR = 0, totalG = 0, totalB = 0;
-                int count = 0;
+                Map<Integer, double[]> buckets = new HashMap<>();
 
                 for (int y = 0; y < height; y++) {
                     for (int x = 0; x < width; x++) {
@@ -122,31 +127,113 @@ public final class OreDiscoveryHelper {
                         int g = (pixel >> 8) & 0xFF;
                         int b = (pixel >> 16) & 0xFF;
 
-                        if (isStonePixel(r, g, b)) continue;
+                        if (basePalette.contains(quantize(r, g, b))) continue;
 
-                        totalR += r;
-                        totalG += g;
-                        totalB += b;
-                        count++;
+                        float sat = saturation(r, g, b);
+                        if (sat < 0.10f) continue;
+
+                        int key = quantize(r, g, b);
+                        double[] bucket = buckets.computeIfAbsent(key, k -> new double[5]);
+                        bucket[0] += r * sat;
+                        bucket[1] += g * sat;
+                        bucket[2] += b * sat;
+                        bucket[3] += sat;
+                        bucket[4] += 1.0;
                     }
                 }
 
-                if (count == 0) return "#808080";
+                if (buckets.isEmpty()) return fallbackAverage(image);
 
-                int avgR = (int) (totalR / count);
-                int avgG = (int) (totalG / count);
-                int avgB = (int) (totalB / count);
+                double[] best = null;
+                double bestScore = -1;
+                for (double[] b : buckets.values()) {
+                    double score = b[3] * Math.sqrt(b[4]);
+                    if (score > bestScore) {
+                        bestScore = score;
+                        best = b;
+                    }
+                }
 
-                return String.format("#%02X%02X%02X", avgR, avgG, avgB);
+                int rOut = (int) Math.round(best[0] / best[3]);
+                int gOut = (int) Math.round(best[1] / best[3]);
+                int bOut = (int) Math.round(best[2] / best[3]);
+                return String.format("#%02X%02X%02X", clamp(rOut), clamp(gOut), clamp(bOut));
             }
         } catch (Exception e) {
             return "#808080";
         }
     }
 
-    private static boolean isStonePixel(int r, int g, int b) {
-        int maxDiff = Math.max(Math.abs(r - g), Math.max(Math.abs(r - b), Math.abs(g - b)));
-        int avg = (r + g + b) / 3;
-        return maxDiff < 30 && avg > 100 && avg < 180;
+    /** Determine which base stone the ore sits in and load its texture's color palette (quantized). */
+    private static Set<Integer> loadBasePalette(ResourceManager rm, ResourceLocation oreBlockId) {
+        String path = oreBlockId.getPath();
+        String basePath;
+        if (path.startsWith("deepslate_") || path.contains("/deepslate_")) {
+            basePath = "textures/block/deepslate.png";
+        } else if (path.startsWith("nether_") || path.equals("ancient_debris") || path.contains("/nether_")) {
+            basePath = "textures/block/netherrack.png";
+        } else if (path.startsWith("end_stone_") || path.startsWith("end_") || path.contains("/end_stone_")) {
+            basePath = "textures/block/end_stone.png";
+        } else {
+            basePath = "textures/block/stone.png";
+        }
+
+        Set<Integer> palette = new HashSet<>();
+        try {
+            var resource = rm.getResource(ResourceLocation.fromNamespaceAndPath("minecraft", basePath));
+            if (resource.isEmpty()) return palette;
+            try (InputStream stream = resource.get().open();
+                 NativeImage image = NativeImage.read(stream)) {
+                int w = image.getWidth();
+                int h = Math.min(image.getHeight(), w);
+                for (int y = 0; y < h; y++) {
+                    for (int x = 0; x < w; x++) {
+                        int p = image.getPixelRGBA(x, y);
+                        if (((p >> 24) & 0xFF) < 128) continue;
+                        int r = p & 0xFF;
+                        int g = (p >> 8) & 0xFF;
+                        int b = (p >> 16) & 0xFF;
+                        palette.add(quantize(r, g, b));
+                    }
+                }
+            }
+        } catch (Exception ignored) {}
+        return palette;
+    }
+
+    /** Quantize to 5 bits per channel so near-identical pixels collide into one bucket. */
+    private static int quantize(int r, int g, int b) {
+        return ((r >> 3) << 10) | ((g >> 3) << 5) | (b >> 3);
+    }
+
+    private static float saturation(int r, int g, int b) {
+        int max = Math.max(r, Math.max(g, b));
+        if (max == 0) return 0;
+        int min = Math.min(r, Math.min(g, b));
+        return (max - min) / (float) max;
+    }
+
+    private static int clamp(int v) {
+        return Math.max(0, Math.min(255, v));
+    }
+
+    /** Last-resort: plain average across all visible pixels (used only when palette filter strips everything). */
+    private static String fallbackAverage(NativeImage image) {
+        int w = image.getWidth();
+        int h = Math.min(image.getHeight(), w);
+        long tr = 0, tg = 0, tb = 0;
+        int count = 0;
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                int p = image.getPixelRGBA(x, y);
+                if (((p >> 24) & 0xFF) < 128) continue;
+                tr += p & 0xFF;
+                tg += (p >> 8) & 0xFF;
+                tb += (p >> 16) & 0xFF;
+                count++;
+            }
+        }
+        if (count == 0) return "#808080";
+        return String.format("#%02X%02X%02X", (int) (tr / count), (int) (tg / count), (int) (tb / count));
     }
 }

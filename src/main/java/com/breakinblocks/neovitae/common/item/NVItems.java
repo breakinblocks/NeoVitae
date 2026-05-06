@@ -36,10 +36,10 @@ public class NVItems {
     public static final DeferredRegister<Item> SPIRITUS_ITEMS = DeferredRegister.createItems(NeoVitae.MODID);
     public static final DeferredRegister<Item> TAB_REQ = DeferredRegister.createItems(NeoVitae.MODID);
 
-    public static final DeferredHolder<Item, ArmorItem> LIVING_HELMET = BASIC_ITEMS.register("living_helmet", makeLivingArmour(ArmorItem.Type.HELMET));
-    public static final DeferredHolder<Item, LivingArmourItem> LIVING_PLATE = TAB_REQ.register("living_plate", LivingArmourItem::new);
-    public static final DeferredHolder<Item, ArmorItem> LIVING_LEGGINGS = BASIC_ITEMS.register("living_leggings", makeLivingArmour(ArmorItem.Type.LEGGINGS));
-    public static final DeferredHolder<Item, ArmorItem> LIVING_BOOTS = BASIC_ITEMS.register("living_boots", makeLivingArmour(ArmorItem.Type.BOOTS));
+    public static final DeferredHolder<Item, ArmorItem> SENTIENT_HELMET = BASIC_ITEMS.register("sentient_helmet", makeSentientArmour(ArmorItem.Type.HELMET));
+    public static final DeferredHolder<Item, SentientArmourItem> SENTIENT_PLATE = TAB_REQ.register("sentient_plate", SentientArmourItem::new);
+    public static final DeferredHolder<Item, ArmorItem> SENTIENT_LEGGINGS = BASIC_ITEMS.register("sentient_leggings", makeSentientArmour(ArmorItem.Type.LEGGINGS));
+    public static final DeferredHolder<Item, ArmorItem> SENTIENT_BOOTS = BASIC_ITEMS.register("sentient_boots", makeSentientArmour(ArmorItem.Type.BOOTS));
     public static final DeferredHolder<Item, UpgradeTomeItem> UPGRADE_TOME = TAB_REQ.register("upgrade_tome", UpgradeTomeItem::new);
 
     public static final DeferredHolder<Item, ScrapItem> UPGRADE_SCRAP = BASIC_ITEMS.register("upgrade_scrap", () -> new ScrapItem(new Item.Properties().stacksTo(1)));
@@ -56,8 +56,8 @@ public class NVItems {
     public static final DeferredHolder<Item, BloodOrbItem> ORB_ARCHMAGE = BASIC_ITEMS.register("blood_orb_archmage", BloodOrbItem::new);
     public static final DeferredHolder<Item, BloodOrbItem> ORB_TRANSCENDENT = BASIC_ITEMS.register("blood_orb_transcendent", BloodOrbItem::new);
 
-    private static Supplier<ArmorItem> makeLivingArmour(ArmorItem.Type type) {
-        return () -> new ArmorItem(NVMaterialsAndTiers.LIVING_ARMOUR_MATERIAL, type, new Item.Properties().durability(type.getDurability(33)));
+    private static Supplier<ArmorItem> makeSentientArmour(ArmorItem.Type type) {
+        return () -> new ArmorItem(NVMaterialsAndTiers.SENTIENT_ARMOUR_MATERIAL, type, new Item.Properties().durability(type.getDurability(33)));
     }
 
     private static DeferredHolder<Item, Item> plainItem(String name) {

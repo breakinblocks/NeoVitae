@@ -8,7 +8,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.TagsUpdatedEvent;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.common.living.LivingUpgrade;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
 import java.util.function.Consumer;
@@ -20,10 +20,10 @@ public class TagsCache {
      * Thread-safe: volatile ensures visibility of writes across threads.
      * These are written by the event handler on one thread and read from others.
      */
-    private static volatile HolderSet<LivingUpgrade> TOOLTIP_ORDER = null;
-    private static volatile HolderSet<LivingUpgrade> UPGRADE_SCRAPPABLE = null;
+    private static volatile HolderSet<SentientUpgrade> TOOLTIP_ORDER = null;
+    private static volatile HolderSet<SentientUpgrade> UPGRADE_SCRAPPABLE = null;
 
-    public static HolderSet<LivingUpgrade> getUpgradeTooltipOrder() throws IllegalStateException {
+    public static HolderSet<SentientUpgrade> getUpgradeTooltipOrder() throws IllegalStateException {
         if (TOOLTIP_ORDER == null) {
             throw new IllegalStateException("TOOLTIP_ORDER is null");
         }
@@ -31,7 +31,7 @@ public class TagsCache {
         return TOOLTIP_ORDER;
     }
 
-    public static HolderSet<LivingUpgrade> getUpgradeScrappable() {
+    public static HolderSet<SentientUpgrade> getUpgradeScrappable() {
         if (UPGRADE_SCRAPPABLE == null) {
             throw new IllegalStateException("UPGRADE_SCRAPPABLE is null");
         }
@@ -48,13 +48,13 @@ public class TagsCache {
         RegistryAccess access = event.getRegistryAccess();
         datapackHelper(
                 access,
-                NVRegistries.Keys.LIVING_UPGRADES,
-                registry -> TOOLTIP_ORDER = registry.getOrCreateTag(NVTags.Living.TOOLTIP_ORDER)
+                NVRegistries.Keys.SENTIENT_UPGRADES,
+                registry -> TOOLTIP_ORDER = registry.getOrCreateTag(NVTags.Sentient.TOOLTIP_ORDER)
         );
         datapackHelper(
                 access,
-                NVRegistries.Keys.LIVING_UPGRADES,
-                registry -> UPGRADE_SCRAPPABLE = registry.getOrCreateTag(NVTags.Living.IS_SCRAPPABLE)
+                NVRegistries.Keys.SENTIENT_UPGRADES,
+                registry -> UPGRADE_SCRAPPABLE = registry.getOrCreateTag(NVTags.Sentient.IS_SCRAPPABLE)
         );
     }
 

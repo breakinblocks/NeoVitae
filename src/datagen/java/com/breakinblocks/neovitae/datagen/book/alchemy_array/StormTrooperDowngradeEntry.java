@@ -5,7 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.breakinblocks.neovitae.datagen.book.page.BookLivingDowngradeRecipePageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookSentientDowngradeRecipePageModel;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
 
@@ -25,7 +25,7 @@ public class StormTrooperDowngradeEntry extends EntryProvider {
                 + "and bolt you loose. Bows and crossbows become exercises in frustration.\\\n\\\n"
                 + "[#](4A0080)Your hands are steady. The armour is not.[#]()");
 
-        this.page("recipe", () -> BookLivingDowngradeRecipePageModel.create()
+        this.page("recipe", () -> BookSentientDowngradeRecipePageModel.create()
                 .withRecipeId1("neovitae:downgrade/storm_trooper"));
     }
 

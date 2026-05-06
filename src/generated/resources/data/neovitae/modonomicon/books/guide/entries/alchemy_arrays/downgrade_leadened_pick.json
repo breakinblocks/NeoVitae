@@ -4,7 +4,7 @@
   "category": "alchemy_arrays",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "alchemy_arrays/living_upgrades"
+    "entry_id": "alchemy_arrays/sentient_upgrades"
   },
   "description": "book.neovitae.guide.alchemy_arrays.downgrade_leadened_pick.description",
   "hide_while_locked": false,
@@ -25,7 +25,7 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "neovitae:living_downgrade_recipe",
+      "type": "neovitae:sentient_downgrade_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
@@ -39,7 +39,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "alchemy_arrays/living_upgrades",
+      "entry": "alchemy_arrays/sentient_upgrades",
       "line_enabled": true,
       "line_reversed": false
     }

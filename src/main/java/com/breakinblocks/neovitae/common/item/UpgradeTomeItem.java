@@ -14,8 +14,8 @@ import org.apache.commons.lang3.function.TriFunction;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
-import com.breakinblocks.neovitae.common.living.LivingHelper;
-import com.breakinblocks.neovitae.common.living.LivingUpgrade;
+import com.breakinblocks.neovitae.common.sentient.SentientHelper;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
 
 import java.util.List;
 
@@ -32,9 +32,9 @@ public class UpgradeTomeItem extends Item {
             return InteractionResultHolder.pass(tomeStack);
         }
 
-        XpFunc expAdder = LivingHelper::applyExp;
+        XpFunc expAdder = SentientHelper::applyExp;
         if (player.isShiftKeyDown()) {
-            expAdder = LivingHelper::applyExpToCap;
+            expAdder = SentientHelper::applyExpToCap;
         }
 
         float consumed = expAdder.apply(player, tome.upgrade(), tome.exp(), true);
@@ -52,7 +52,7 @@ public class UpgradeTomeItem extends Item {
 
     @FunctionalInterface
     public interface XpFunc {
-        Float apply(Player player, Holder<LivingUpgrade> upgrade, Float exp, boolean fromTome);
+        Float apply(Player player, Holder<SentientUpgrade> upgrade, Float exp, boolean fromTome);
     }
 
     @Override
@@ -81,16 +81,16 @@ public class UpgradeTomeItem extends Item {
             return 0;
         }
 
-        Holder<LivingUpgrade> upgrade = tome.upgrade();
+        Holder<SentientUpgrade> upgrade = tome.upgrade();
         float exp = tome.exp();
-        int currentLevel = LivingHelper.getLevelFromXp(upgrade, exp);
-        int nextLevelExp = LivingHelper.nextLevelExp(upgrade, exp);
+        int currentLevel = SentientHelper.getLevelFromXp(upgrade, exp);
+        int nextLevelExp = SentientHelper.nextLevelExp(upgrade, exp);
 
         if (nextLevelExp == 0) {
             return 13;
         }
 
-        int currentLevelExp = LivingHelper.getExpForLevel(upgrade, currentLevel);
+        int currentLevelExp = SentientHelper.getExpForLevel(upgrade, currentLevel);
         if (currentLevelExp < 0) {
             currentLevelExp = 0;
         }

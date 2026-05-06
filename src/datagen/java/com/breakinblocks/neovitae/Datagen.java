@@ -13,7 +13,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.datagen.content.AltarTiers;
 import com.breakinblocks.neovitae.datagen.content.NVDamageSourcesContent;
-import com.breakinblocks.neovitae.datagen.content.LivingUpgrades;
+import com.breakinblocks.neovitae.datagen.content.SentientUpgrades;
 import com.breakinblocks.neovitae.datagen.content.SigilTypes;
 import com.breakinblocks.neovitae.datagen.provider.*;
 import com.breakinblocks.neovitae.registry.SigilTypeRegistry;
@@ -39,14 +39,14 @@ public class Datagen {
         event.createDatapackRegistryObjects(new RegistrySetBuilder()
             .add(Registries.DAMAGE_TYPE, NVDamageSourcesContent::bootstrap)
             .add(NVRegistries.Keys.ALTAR_TIER_KEY, AltarTiers::bootstrap)
-            .add(NVRegistries.Keys.LIVING_UPGRADES, LivingUpgrades::bootstrap)
+            .add(NVRegistries.Keys.SENTIENT_UPGRADES, SentientUpgrades::bootstrap)
             .add(SigilTypeRegistry.SIGIL_TYPE_KEY, SigilTypes::bootstrap)
         );
 
         ProviderHelper helper = new ProviderHelper(fileHelper);
 
         event.createProvider(helper.tagsFor(NVRegistries.Keys.ALTAR_TIER_KEY, AltarTiers::tags));
-        event.createProvider(helper.tagsFor(NVRegistries.Keys.LIVING_UPGRADES, LivingUpgrades::tags));
+        event.createProvider(helper.tagsFor(NVRegistries.Keys.SENTIENT_UPGRADES, SentientUpgrades::tags));
         event.createProvider(helper.tagsFor(Registries.DAMAGE_TYPE, NVDamageSourcesContent::tags));
         event.createBlockAndItemTags(NVBlockTagProvider::new, NVItemTagProvider::new);
 

@@ -12,7 +12,7 @@ import com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.NVItems;
-import com.breakinblocks.neovitae.datagen.content.LivingUpgrades;
+import com.breakinblocks.neovitae.datagen.content.SentientUpgrades;
 import com.breakinblocks.neovitae.util.helper.BlockWithItemHolder;
 
 public class NVLanguageProvider extends LanguageProvider implements com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider {
@@ -791,10 +791,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("command.neovitae.setorbfill.success", "Set orb fill to %s / %s mB");
         add("command.neovitae.setorbfill.not_orb", "You must be holding an Orb of Vitae");
 
-        add(NVItems.LIVING_HELMET.get(), "Living Helmet");
-        add(NVItems.LIVING_PLATE.get(), "Living Plate");
-        add(NVItems.LIVING_LEGGINGS.get(), "Living Leggings");
-        add(NVItems.LIVING_BOOTS.get(), "Living Boots");
+        add(NVItems.SENTIENT_HELMET.get(), "Sentient Helmet");
+        add(NVItems.SENTIENT_PLATE.get(), "Sentient Plate");
+        add(NVItems.SENTIENT_LEGGINGS.get(), "Sentient Leggings");
+        add(NVItems.SENTIENT_BOOTS.get(), "Sentient Boots");
         add(NVItems.UPGRADE_TOME.get(), "Upgrade Tome");
         add(NVItems.EXPERIENCE_TOME.get(), "Tome of Peritia");
         addTooltip("experience_tome.stored", "Stored XP: %s");
@@ -805,12 +805,12 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.SYNTHETIC_POINT.get(), "Synthetic Upgrade Points");
         addTooltip("scrap", "Contained Upgrade Points: %s");
 
-        add(NVItems.TRAINING_BRACELET.get(), "Living Training Bracelet");
+        add(NVItems.TRAINING_BRACELET.get(), "Sentient Training Bracelet");
         add("trainer.neovitae.allow_others", "Allow Others");
         add("trainer.neovitae.deny_others", "Deny Others");
         add("trainer.neovitae.save", "Save");
 
-        add("item.neovitae.living_plate.dead", "Formerly Living Plate");
+        add("item.neovitae.sentient_plate.dead", "Formerly Sentient Plate");
         addTooltip("has_living_stats", "Theres some kind of notes, but you cant decipher them");
 
         addCommand("upgrade.get", "%s has the following upgrades:\n");
@@ -910,9 +910,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("currentType.vindicta", "Type: Spiritus Vindicta");
         addTooltip("currentType.invictus", "Type: Spiritus Invictus");
 
-        add("chat.neovitae.living_upgrade.level_up", "%s has levelled up to %s!");
+        add("chat.neovitae.sentient_upgrade.level_up", "%s has levelled up to %s!");
 
-        LivingUpgrades.translations(this::add);
+        SentientUpgrades.translations(this::add);
 
         // JEI Integration
         addJei("recipe.altar", "Ara Vitae");
@@ -1076,7 +1076,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("pump", "Hymn of Siphoning");
         addRitual("phantom_bridge", "Ritual of the Phantom Bridge");
         addRitual("crystallum_fractura", "Crystallum Fractura");
-        addRitual("downgrade", "Ritual of Living Evolution");
+        addRitual("downgrade", "Ritual of Sentient Evolution");
         addRitual("meteor", "Mark of the Falling Tower");
         addRitual("forsaken_soul", "Cry of the Forsaken Soul");
         addRitual("full_stomach", "Ritual of the Satiated Stomach");
@@ -1087,7 +1087,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("placer", "Ritual of the Mason");
         addRitual("ellipse", "Ellipsoid Manifestation");
         addRitual("sphere", "Spherical Manifestation");
-        addRitual("armour_evolve", "Ritual of Living Evolution");
+        addRitual("armour_evolve", "Ritual of Sentient Evolution");
         addRitual("upgrade_remove", "Sound of the Cleansing Soul");
         addRitual("crafting", "Rhythm of the Beating Anvil");
         addRitual("yawning_void", "Yawning of the Void");
@@ -1175,7 +1175,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("sentient_sword", "Sentient Blade", "Craft a Sentient Sword");
         addAdvancement("hellfire_forge", "Hellfire Forge", "Craft a Hellfire Forge");
         addAdvancement("vas_maleficum", "Vas Maleficum", "Craft a Vas Maleficum");
-        addAdvancement("living_armor", "Living Armor", "Craft Living Armor");
+        addAdvancement("sentient_armor", "Sentient Armor", "Craft Sentient Armor");
         addAdvancement("self_sacrifice", "Blood Pact", "Craft a Sacrificial Dagger");
 
         addAdvancement("arcane_scribe", "Circle of Intent", "Craft an Arcane Scribe Tool to inscribe and activate Alchemy Arrays");

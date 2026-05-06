@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
-import com.breakinblocks.neovitae.common.datacomponent.LivingStats;
+import com.breakinblocks.neovitae.common.datacomponent.SentientStats;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Sound of the Cleansing Soul - Removes all upgrades from living armor.
- * Player must stand on the Master Ritual Stone wearing living armor.
+ * Sound of the Cleansing Soul - Removes all upgrades from sentient armor.
+ * Player must stand on the Master Ritual Stone wearing sentient armor.
  * This is a Dusk tier ritual.
  */
 public class RitualUpgradeRemove extends Ritual {
@@ -42,18 +42,18 @@ public class RitualUpgradeRemove extends Ritual {
 
             for (int i = 0; i < player.getInventory().armor.size(); i++) {
                 ItemStack armorPiece = player.getInventory().armor.get(i);
-                if (armorPiece.isEmpty() || !armorPiece.is(NVTags.Items.LIVING_SET)) {
+                if (armorPiece.isEmpty() || !armorPiece.is(NVTags.Items.SENTIENT_SET)) {
                     continue;
                 }
 
                 // Get living stats
-                LivingStats stats = armorPiece.get(NVDataComponents.UPGRADES.get());
+                SentientStats stats = armorPiece.get(NVDataComponents.UPGRADES.get());
                 if (stats == null || stats.upgrades().isEmpty()) {
                     continue;
                 }
 
                 // Remove all upgrades
-                LivingStats newStats = new LivingStats(new Object2FloatOpenHashMap<>());
+                SentientStats newStats = new SentientStats(new Object2FloatOpenHashMap<>());
                 armorPiece.set(NVDataComponents.UPGRADES.get(), newStats);
 
                 // Reset used points

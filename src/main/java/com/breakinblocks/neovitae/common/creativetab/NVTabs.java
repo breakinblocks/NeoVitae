@@ -21,8 +21,8 @@ import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
-import com.breakinblocks.neovitae.common.living.LivingHelper;
-import com.breakinblocks.neovitae.common.living.LivingUpgrade;
+import com.breakinblocks.neovitae.common.sentient.SentientHelper;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import net.minecraft.core.Holder;
@@ -43,9 +43,9 @@ public class NVTabs {
                     .displayItems((parameters, output) -> {
                         addAll(NVBlocks.BLOCK_ITEMS, output::accept);
 
-                        ItemStack living_plate = new ItemStack(NVItems.LIVING_PLATE);
-                        LivingHelper.setDefaultLiving(living_plate, parameters.holders());
-                        output.accept(living_plate);
+                        ItemStack sentient_plate = new ItemStack(NVItems.SENTIENT_PLATE);
+                        SentientHelper.setDefaultLiving(sentient_plate, parameters.holders());
+                        output.accept(sentient_plate);
 
                         addAll(NVItems.BASIC_ITEMS, output::accept);
                         com.breakinblocks.neovitae.common.material.MaterialRegistry.getAllItems()
@@ -94,7 +94,7 @@ public class NVTabs {
                     .icon(() -> new ItemStack(NVItems.UPGRADE_TOME))
                     .title(Component.translatable("item_group.neovitae.tomes"))
                     .displayItems((params, output) -> {
-                        addAll(params.holders().lookupOrThrow(NVRegistries.Keys.LIVING_UPGRADES).get(NVTags.Living.TOOLTIP_ORDER).orElseThrow(), output::accept);
+                        addAll(params.holders().lookupOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES).get(NVTags.Sentient.TOOLTIP_ORDER).orElseThrow(), output::accept);
                     })
                     .build()
     );
@@ -105,12 +105,12 @@ public class NVTabs {
                     .icon(() -> new ItemStack(NVItems.UPGRADE_TOME))
                     .title(Component.translatable("item_group.neovitae.trainers"))
                     .displayItems((params, output) -> {
-                        addAll(params.holders().lookupOrThrow(NVRegistries.Keys.LIVING_UPGRADES).get(NVTags.Living.TRAINERS).orElseThrow(), output::accept);
+                        addAll(params.holders().lookupOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES).get(NVTags.Sentient.TRAINERS).orElseThrow(), output::accept);
                     })
                     .build()
     );
 
-    private static void addAll(HolderSet<LivingUpgrade> set, Consumer<ItemStack> tab) {
+    private static void addAll(HolderSet<SentientUpgrade> set, Consumer<ItemStack> tab) {
         ItemStack tome = new ItemStack(NVItems.UPGRADE_TOME);
         set.forEach(upgrade -> {
             upgrade.value().levels().expToLevel().forEach((exp, cost) -> {

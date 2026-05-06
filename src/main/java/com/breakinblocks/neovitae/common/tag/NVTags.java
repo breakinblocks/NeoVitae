@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
-import com.breakinblocks.neovitae.common.living.LivingUpgrade;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
 import com.breakinblocks.neovitae.common.registry.AltarTier;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
@@ -40,8 +40,8 @@ public class NVTags {
 
         public static final TagKey<Item> CHARGES = tag(bm("charges"));
 
-        public static final TagKey<Item> LIVING_UPGRADE_SET = tag(bm("living_upgrade_set"));
-        public static final TagKey<Item> LIVING_SET = withParent(LIVING_UPGRADE_SET, NVMaterialsAndTiers.LIVING_ARMOUR_MATERIAL.getId());
+        public static final TagKey<Item> SENTIENT_UPGRADE_SET = tag(bm("sentient_upgrade_set"));
+        public static final TagKey<Item> SENTIENT_SET = withParent(SENTIENT_UPGRADE_SET, NVMaterialsAndTiers.SENTIENT_ARMOUR_MATERIAL.getId());
 
         public static final TagKey<Item> FRAGMENTS_IRON = tag(c("fragments/iron"));
         public static final TagKey<Item> FRAGMENTS_GOLD = tag(c("fragments/gold"));
@@ -167,18 +167,18 @@ public class NVTags {
         public static final TagKey<AltarTier> VALID_TIERS = TagKey.create(NVRegistries.Keys.ALTAR_TIER_KEY, bm("valid_tiers"));
     }
 
-    public static class Living {
-        public static final TagKey<LivingUpgrade> TOOLTIP_ORDER = tag(bm("tooltip_order"));
-        public static final TagKey<LivingUpgrade> TOOLTIP_HIDE = tag(bm("tooltip_hide"));
-        public static final TagKey<LivingUpgrade> IS_DOWNGRADE = tag(bm("is_downgrade"));
-        public static final TagKey<LivingUpgrade> LIVING_START = tag(bm("living_start"));
-        public static final TagKey<LivingUpgrade> TRAINERS = tag(bm("trainer"));
-        public static final TagKey<LivingUpgrade> IS_SCRAPPABLE = tag(bm("is_scrappable"));
-        /** Upgrades in this tag are unsuitable for Living Armor and should not be applied */
-        public static final TagKey<LivingUpgrade> LIVING_BLACKLIST = tag(bm("living_blacklist"));
+    public static class Sentient {
+        public static final TagKey<SentientUpgrade> TOOLTIP_ORDER = tag(bm("tooltip_order"));
+        public static final TagKey<SentientUpgrade> TOOLTIP_HIDE = tag(bm("tooltip_hide"));
+        public static final TagKey<SentientUpgrade> IS_DOWNGRADE = tag(bm("is_downgrade"));
+        public static final TagKey<SentientUpgrade> SENTIENT_START = tag(bm("sentient_start"));
+        public static final TagKey<SentientUpgrade> TRAINERS = tag(bm("trainer"));
+        public static final TagKey<SentientUpgrade> IS_SCRAPPABLE = tag(bm("is_scrappable"));
+        /** Upgrades in this tag are unsuitable for Sentient Armor and should not be applied */
+        public static final TagKey<SentientUpgrade> SENTIENT_BLACKLIST = tag(bm("sentient_blacklist"));
 
-        private static TagKey<LivingUpgrade> tag(ResourceLocation id) {
-            return TagKey.create(NVRegistries.Keys.LIVING_UPGRADES, id);
+        private static TagKey<SentientUpgrade> tag(ResourceLocation id) {
+            return TagKey.create(NVRegistries.Keys.SENTIENT_UPGRADES, id);
         }
     }
 

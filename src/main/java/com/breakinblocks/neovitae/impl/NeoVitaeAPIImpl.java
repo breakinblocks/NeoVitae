@@ -4,7 +4,7 @@ import com.breakinblocks.neovitae.api.INeoVitaeAPI;
 import com.breakinblocks.neovitae.api.altar.rune.IAltarRuneRegistry;
 import com.breakinblocks.neovitae.api.incense.ITranquilityHandler;
 import com.breakinblocks.neovitae.api.incense.TranquilityHandler;
-import com.breakinblocks.neovitae.api.living.ILivingArmorManager;
+import com.breakinblocks.neovitae.api.sentient.ISentientArmorManager;
 import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.api.will.SpiritusHandler;
 import com.breakinblocks.neovitae.api.will.ISpiritusHandler;
@@ -30,8 +30,8 @@ public class NeoVitaeAPIImpl implements INeoVitaeAPI {
     }
 
     @Override
-    public ILivingArmorManager getLivingArmorManager() {
-        return LivingArmorManagerImpl.INSTANCE;
+    public ISentientArmorManager getLivingArmorManager() {
+        return SentientArmorManagerImpl.INSTANCE;
     }
 
     @Override

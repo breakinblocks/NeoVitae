@@ -25,7 +25,7 @@ import java.util.function.BiConsumer;
  * Generates simple_dungeon and standard_dungeon chest loot tables.
  *
  * Note: mines/ loot tables are kept as manual JSON files because they use
- * SetLivingUpgrade which requires registry access not available at datagen time,
+ * SetSentientUpgrade which requires registry access not available at datagen time,
  * and reference items not fully accessible from the datagen sourceset.
  * Those files are in: src/main/resources/data/neovitae/loot_table/chests/mines/
  */

@@ -44,7 +44,7 @@ public class ArcaneAshEntry extends EntryProvider {
         this.page("arrays", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("The arrays catalogued in this chapter range from simple [#](8B0000)crafting arrays[#]() that reshape "
-                + "matter, to complex inscriptions that forge [#](4A0080)sigils[#](), bind [#](4A0080)living armour[#](), "
+                + "matter, to complex inscriptions that forge [#](4A0080)sigils[#](), bind [#](4A0080)sentient armour[#](), "
                 + "and even bend the passage of time. Master the fundamentals, and the rest shall follow.");
     }
 

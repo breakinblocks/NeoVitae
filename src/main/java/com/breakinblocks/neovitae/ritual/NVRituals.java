@@ -86,8 +86,8 @@ public final class NVRituals {
     public static final DeferredHolder<Ritual, RitualSphere> SPHERE =
             registerRitual("sphere", RitualSphere::new);
 
-    public static final DeferredHolder<Ritual, RitualArmourEvolve> ARMOUR_EVOLVE =
-            registerRitual("armour_evolve", RitualArmourEvolve::new);
+    public static final DeferredHolder<Ritual, RitualSentientArmourEvolve> ARMOUR_EVOLVE =
+            registerRitual("armour_evolve", RitualSentientArmourEvolve::new);
 
     public static final DeferredHolder<Ritual, RitualUpgradeRemove> UPGRADE_REMOVE =
             registerRitual("upgrade_remove", RitualUpgradeRemove::new);

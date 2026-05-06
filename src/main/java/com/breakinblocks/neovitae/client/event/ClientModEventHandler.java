@@ -54,7 +54,7 @@ import com.breakinblocks.neovitae.client.screen.SigilHoldingScreen;
 import com.breakinblocks.neovitae.client.screen.HellfireForgeScreen;
 import com.breakinblocks.neovitae.client.screen.TrainerScreen;
 import com.breakinblocks.neovitae.common.menu.NVMenus;
-import com.breakinblocks.neovitae.client.render.entity.layer.LivingElytraLayer;
+import com.breakinblocks.neovitae.client.render.entity.layer.SentientElytraLayer;
 import com.breakinblocks.neovitae.client.screen.AthanorScreen;
 import com.breakinblocks.neovitae.client.screen.DungeonSealScreen;
 import com.breakinblocks.neovitae.client.screen.TeleposerScreen;
@@ -140,7 +140,7 @@ public class ClientModEventHandler {
         for (PlayerSkin.Model model : event.getSkins()) {
             PlayerRenderer renderer = event.getSkin(model);
             if (renderer != null) {
-                renderer.addLayer(new LivingElytraLayer<>(renderer, event.getEntityModels()));
+                renderer.addLayer(new SentientElytraLayer<>(renderer, event.getEntityModels()));
             }
         }
     }

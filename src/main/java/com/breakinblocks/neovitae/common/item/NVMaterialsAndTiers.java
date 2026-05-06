@@ -18,10 +18,10 @@ import java.util.List;
 public class NVMaterialsAndTiers {
     public static final DeferredRegister<ArmorMaterial> ARMOUR_MATERIALS = DeferredRegister.create(BuiltInRegistries.ARMOR_MATERIAL, NeoVitae.MODID);
 
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> LIVING_ARMOUR_MATERIAL = ARMOUR_MATERIALS.register("living", () -> new ArmorMaterial(
+    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> SENTIENT_ARMOUR_MATERIAL = ARMOUR_MATERIALS.register("sentient", () -> new ArmorMaterial(
             ArmorMaterials.IRON.value().defense(), ArmorMaterials.IRON.value().enchantmentValue(),
             ArmorMaterials.IRON.value().equipSound(), () -> Ingredient.of(NVItems.RAW_SPIRITUS.get()),
-            List.of(new ArmorMaterial.Layer(bm("living"))), 0, 0
+            List.of(new ArmorMaterial.Layer(bm("sentient"))), 0, 0
     ));
 
     public static final Tier SENTIENT = new Tier() {

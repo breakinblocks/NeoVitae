@@ -182,6 +182,23 @@
           "name": "neovitae:strong_tau",
           "quality": 3,
           "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "neovitae:animus_mote",
+          "quality": 3,
+          "weight": 3
         }
       ],
       "rolls": {

@@ -30,11 +30,6 @@
       "refresh_cost": 100,
       "refresh_time": 40
     },
-    "neovitae:crystal_split": {
-      "activation_cost": 100000,
-      "crystal_level": 2,
-      "refresh_cost": 50
-    },
     "neovitae:crystallum_fractura": {
       "activation_cost": 100000,
       "crystal_level": 1,

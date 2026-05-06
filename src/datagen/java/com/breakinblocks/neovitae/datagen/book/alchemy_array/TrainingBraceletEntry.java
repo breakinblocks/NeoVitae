@@ -46,7 +46,7 @@ public class TrainingBraceletEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "A focus of discipline, control what your living armour learns.";
+        return "A focus of discipline, control what your sentient armour learns.";
     }
 
     @Override

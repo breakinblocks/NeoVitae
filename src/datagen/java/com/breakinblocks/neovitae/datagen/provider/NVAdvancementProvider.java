@@ -432,12 +432,12 @@ public class NVAdvancementProvider extends AdvancementProvider {
 
             Advancement.Builder.advancement()
                     .parent(hellfireForge)
-                    .display(NVItems.LIVING_PLATE.get(),
-                            Component.translatable("advancements.neovitae.living_armor.title"),
-                            Component.translatable("advancements.neovitae.living_armor.description"),
+                    .display(NVItems.SENTIENT_PLATE.get(),
+                            Component.translatable("advancements.neovitae.sentient_armor.title"),
+                            Component.translatable("advancements.neovitae.sentient_armor.description"),
                             null, AdvancementType.GOAL, true, true, false)
-                    .addCriterion("get_armor", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.LIVING_PLATE.get()))
-                    .save(saver, NeoVitae.rl("neovitae/living_armor").toString());
+                    .addCriterion("get_armor", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SENTIENT_PLATE.get()))
+                    .save(saver, NeoVitae.rl("neovitae/sentient_armor").toString());
 
             Advancement.Builder.advancement()
                     .parent(weakBloodOrb)

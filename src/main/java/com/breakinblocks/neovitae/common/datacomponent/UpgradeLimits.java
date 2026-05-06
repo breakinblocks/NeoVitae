@@ -11,8 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.screen.TrainerScreen;
 import com.breakinblocks.neovitae.common.item.NVItems;
-import com.breakinblocks.neovitae.common.living.LivingHelper;
-import com.breakinblocks.neovitae.common.living.LivingUpgrade;
+import com.breakinblocks.neovitae.common.sentient.SentientHelper;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
 import com.breakinblocks.neovitae.common.menu.GhostItemHandler;
 import com.breakinblocks.neovitae.common.menu.TrainerMenu;
 
@@ -21,15 +21,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public record UpgradeLimits(boolean allowOthers, Object2FloatOpenHashMap<Holder<LivingUpgrade>> limits) {
+public record UpgradeLimits(boolean allowOthers, Object2FloatOpenHashMap<Holder<SentientUpgrade>> limits) {
     public static final Codec<UpgradeLimits> CODEC = RecordCodecBuilder.create(builder -> builder.group(
             Codec.BOOL.fieldOf("allow_others").forGetter(UpgradeLimits::allowOthers),
             NVDataComponents.UPGRADE_HOLDER_CODEC.fieldOf("limits").forGetter(UpgradeLimits::limits)
     ).apply(builder, UpgradeLimits::new));
 
-    public static final UpgradeLimits EMPTY = new UpgradeLimits(false, LivingHelper.EMPTY_UPGRADE_MAP);
+    public static final UpgradeLimits EMPTY = new UpgradeLimits(false, SentientHelper.EMPTY_UPGRADE_MAP);
 
-    public float getLimit(Holder<LivingUpgrade> upgrade) {
+    public float getLimit(Holder<SentientUpgrade> upgrade) {
         float def = allowOthers ? -1 : 0;
         return limits.getOrDefault(upgrade, def);
     }
@@ -38,13 +38,13 @@ public record UpgradeLimits(boolean allowOthers, Object2FloatOpenHashMap<Holder<
         int index = 0;
         List<Pair<Integer, Integer>> start = new ArrayList<>();
         start.add(Pair.of(1, allowOthers ? TrainerMenu.ALLOW : TrainerMenu.DENY));
-        for (Map.Entry<Holder<LivingUpgrade>, Float> entry: limits.object2FloatEntrySet()) {
+        for (Map.Entry<Holder<SentientUpgrade>, Float> entry: limits.object2FloatEntrySet()) {
             if (!(index < handler.getSlots())) {
                 break;
             }
             ItemStack tomeStack = new ItemStack(NVItems.UPGRADE_TOME);
             tomeStack.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(entry.getKey(), entry.getValue()));
-            int level = LivingHelper.getLevelFromXp(entry.getKey(), entry.getValue());
+            int level = SentientHelper.getLevelFromXp(entry.getKey(), entry.getValue());
             start.add(Pair.of(3 + index, level));
             handler.setStackInSlot(index++, tomeStack);
         }

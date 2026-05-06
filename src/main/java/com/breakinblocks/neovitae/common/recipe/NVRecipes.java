@@ -19,7 +19,7 @@ import com.breakinblocks.neovitae.common.recipe.forge.ForgeUpgradeRecipe;
 import com.breakinblocks.neovitae.common.recipe.flask.*;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
 import com.breakinblocks.neovitae.common.recipe.tiered.FluidTieredRecipe;
-import com.breakinblocks.neovitae.common.recipe.livingdowngrade.LivingDowngradeRecipe;
+import com.breakinblocks.neovitae.common.recipe.sentientdowngrade.SentientDowngradeRecipe;
 
 public class NVRecipes {
     public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(BuiltInRegistries.RECIPE_SERIALIZER, NeoVitae.MODID);
@@ -61,8 +61,8 @@ public class NVRecipes {
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<FlaskPotencyRecipe>> FLASK_POTENCY_SERIALIZER = SERIALIZERS.register("flask_potency", () -> new NVRecipeSerializer<>(FlaskPotencyRecipe.CODEC, FlaskPotencyRecipe.STREAM_CODEC));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<FlaskEffectTransformRecipe>> FLASK_EFFECT_TRANSFORM_SERIALIZER = SERIALIZERS.register("flask_effect_transform", () -> new NVRecipeSerializer<>(FlaskEffectTransformRecipe.CODEC, FlaskEffectTransformRecipe.STREAM_CODEC));
 
-    public static final DeferredHolder<RecipeType<?>, RecipeType<LivingDowngradeRecipe>> LIVING_DOWNGRADE_TYPE = TYPES.register(LivingDowngradeRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(LivingDowngradeRecipe.RECIPE_TYPE_NAME)));
-    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<LivingDowngradeRecipe>> LIVING_DOWNGRADE_SERIALIZER = SERIALIZERS.register(LivingDowngradeRecipe.RECIPE_TYPE_NAME, () -> new NVRecipeSerializer<>(LivingDowngradeRecipe.CODEC, LivingDowngradeRecipe.STREAM_CODEC));
+    public static final DeferredHolder<RecipeType<?>, RecipeType<SentientDowngradeRecipe>> LIVING_DOWNGRADE_TYPE = TYPES.register(SentientDowngradeRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(SentientDowngradeRecipe.RECIPE_TYPE_NAME)));
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<SentientDowngradeRecipe>> LIVING_DOWNGRADE_SERIALIZER = SERIALIZERS.register(SentientDowngradeRecipe.RECIPE_TYPE_NAME, () -> new NVRecipeSerializer<>(SentientDowngradeRecipe.CODEC, SentientDowngradeRecipe.STREAM_CODEC));
 
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<UpgradeTomeCombineRecipe>> UPGRADE_TOME_COMBINE_SERIALIZER = SERIALIZERS.register("upgrade_tome_combine", () -> new NVRecipeSerializer<>(UpgradeTomeCombineRecipe.CODEC, UpgradeTomeCombineRecipe.STREAM_CODEC));
 

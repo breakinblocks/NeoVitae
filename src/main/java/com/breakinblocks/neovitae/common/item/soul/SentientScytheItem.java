@@ -117,8 +117,18 @@ public class SentientScytheItem extends Item implements ISentientTool {
     @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display,
                                 Consumer<Component> tooltip, TooltipFlag flag) {
-        tooltip.accept(Component.translatable("tooltip.neovitae." + getTooltipKey() + ".desc").withStyle(ChatFormatting.GRAY));
-        tooltip.accept(Component.translatable("tooltip.neovitae.currentType." + getCurrentType(stack).name().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GRAY));
+        tooltip.accept(Component.translatable("tooltip.neovitae." + getTooltipKey() + ".desc").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+        SpiritusType type = getCurrentType(stack);
+        SpiritusTooltipHelper.appendSpiritusInfo(stack, getTooltipKey(), tooltip, flag);
+        var localPlayer = net.minecraft.client.Minecraft.getInstance().player;
+        if (localPlayer != null) {
+            int level = getLevel(PlayerSpiritusHandler.getTotalSpiritus(type, localPlayer));
+            if (level >= 0) {
+                double radius = AREA_RANGE[level];
+                tooltip.accept(Component.translatable("tooltip.neovitae.spiritus.aoe_radius",
+                        String.format(Locale.ROOT, "%.1f", radius)).withStyle(ChatFormatting.GRAY));
+            }
+        }
     }
 
     @Override

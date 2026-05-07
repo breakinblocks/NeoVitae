@@ -15,8 +15,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class BloodLightBlockEntity extends BaseBlockEntity {
 
@@ -59,7 +57,6 @@ public class BloodLightBlockEntity extends BaseBlockEntity {
         redstoneControlled = tag.getBooleanOr("RedstoneControlled", redstoneControlled);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static void clientTick(Level level, BlockPos pos, BlockState state, BloodLightBlockEntity be) {
         if (!state.getValue(BloodLightBlock.POWERED)) return;
 

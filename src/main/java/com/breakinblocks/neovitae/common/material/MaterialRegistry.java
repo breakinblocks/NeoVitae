@@ -11,7 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackLocationInfo;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import com.breakinblocks.neovitae.util.helper.OreDiscoveryHelper;
 import net.minecraft.server.packs.PackSelectionConfig;
 import net.minecraft.server.packs.PackType;
@@ -317,14 +317,16 @@ public class MaterialRegistry {
     public static void register(IEventBus modBus) {
         ITEMS.register(modBus);
         modBus.addListener(MaterialRegistry::onAddPackFinders);
-        NeoForge.EVENT_BUS.addListener(MaterialRegistry::onServerStarted);
+        NeoForge.EVENT_BUS.addListener(MaterialRegistry::onPlayerLoggedIn);
     }
 
-    private static void onServerStarted(ServerStartedEvent event) {
+    private static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         if (!firstRun) return;
+        var server = event.getEntity().level().getServer();
+        if (server == null || server.isDedicatedServer()) return;
         firstRun = false;
 
-        ServerLevel level = event.getServer().overworld();
+        ServerLevel level = server.overworld();
 
         List<MaterialDefinition> newMaterials = OreDiscoveryHelper.discoverNewMaterials(level);
 

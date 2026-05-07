@@ -289,6 +289,13 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("sentientShovel.desc", "Empowered by spiritus in your inventory");
         addTooltip("sentientScythe.desc", "Area damage empowered by spiritus");
 
+        add(NVItems.LEX_VITAE.get(), "Lex Vitae");
+        addTooltip("lexVitae.desc", "Sentient multitool: chops, mines, digs, tills. Sneak-right-click to toggle. Sneak+scroll to set mining radius.");
+        addTooltip("lexVitae.dormant", "Dormant");
+        addTooltip("lexVitae.active", "Active");
+        addTooltip("lexVitae.radius", "Radius: %sx%s");
+        add("message.neovitae.lex_vitae.radius", "Lex Vitae mining radius: %sx%s");
+
         // Routing Items
         add(NVItems.NODE_ROUTER.get(), "Node Router");
         add(NVItems.MASTER_NODE_UPGRADE.get(), "Master Routing Node Core");
@@ -784,6 +791,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Material generation messages
         add("message.neovitae.materials.generated", "[Neo Vitae] New ore materials have been detected and added to the config.");
         add("message.neovitae.materials.restart_required", "[Neo Vitae] A game restart is required for the new material items to appear.");
+        add("command.neovitae.generate.dedicated_unsupported", "/nvgenerate cannot run on a dedicated server: ore color sampling requires client-side block textures. Run it once in single-player to produce materials.json, then ship that file to the dedicated server.");
         add("command.neovitae.generate.scanning", "Scanning c:ores tags...");
         add("command.neovitae.generate.no_new", "No new ore materials found. %s already configured.");
         add("command.neovitae.generate.added", "Added %s new materials: %s");

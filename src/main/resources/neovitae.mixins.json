@@ -5,7 +5,9 @@
   "compatibilityLevel": "JAVA_25",
   "refmap": "neovitae.refmap.json",
   "mixins": [],
-  "client": [],
+  "client": [
+    "client.LocalPlayerMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

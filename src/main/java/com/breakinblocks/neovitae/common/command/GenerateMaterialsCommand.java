@@ -28,6 +28,13 @@ public class GenerateMaterialsCommand {
     private static int execute(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
         ServerLevel level = source.getLevel();
+
+        if (source.getServer().isDedicatedServer()) {
+            source.sendFailure(Component.translatable("command.neovitae.generate.dedicated_unsupported")
+                    .withStyle(ChatFormatting.RED));
+            return 0;
+        }
+
         source.sendSuccess(() -> Component.translatable("command.neovitae.generate.scanning"), false);
 
         List<MaterialDefinition> newMaterials = OreDiscoveryHelper.discoverNewMaterials(level);

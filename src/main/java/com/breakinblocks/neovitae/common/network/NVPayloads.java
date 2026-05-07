@@ -75,6 +75,12 @@ public class NVPayloads {
                 NVPayloads::handleBloodLightCycle
         );
 
+        registrar.playToServer(
+                LexCycleRadiusPayload.TYPE,
+                LexCycleRadiusPayload.STREAM_CODEC,
+                NVPayloads::handleLexCycleRadius
+        );
+
         registrar.playToClient(
                 SpiritusSyncPayload.TYPE,
                 SpiritusSyncPayload.STREAM_CODEC,
@@ -238,6 +244,23 @@ public class NVPayloads {
                 ItemStack held = player.getItemInHand(hand);
                 if (held.getItem() instanceof ItemRitualDiviner diviner) {
                     diviner.cycleRitual(held, player, payload.reverse());
+                    return;
+                }
+            }
+        });
+    }
+
+    private static void handleLexCycleRadius(LexCycleRadiusPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player player = context.player();
+            for (InteractionHand hand : InteractionHand.values()) {
+                ItemStack held = player.getItemInHand(hand);
+                if (held.getItem() instanceof com.breakinblocks.neovitae.common.item.soul.LexVitaeItem) {
+                    int current = held.getOrDefault(NVDataComponents.LEX_RADIUS.get(), 0);
+                    int next = ((current + Integer.signum(payload.direction())) % 3 + 3) % 3;
+                    held.set(NVDataComponents.LEX_RADIUS.get(), next);
+                    int side = next == 0 ? 1 : (next == 1 ? 3 : 5);
+                    player.sendOverlayMessage(Component.translatable("message.neovitae.lex_vitae.radius", side, side));
                     return;
                 }
             }

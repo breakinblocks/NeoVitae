@@ -41,25 +41,26 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.LEG_ARMOR).add(NVItems.SENTIENT_LEGGINGS.get());
         tag(ItemTags.FOOT_ARMOR).add(NVItems.SENTIENT_BOOTS.get());
 
-        tag(ItemTags.SWORDS).add(NVItems.SENTIENT_SWORD.get());
-        tag(ItemTags.AXES).add(NVItems.SENTIENT_AXE.get());
-        tag(ItemTags.PICKAXES).add(NVItems.SENTIENT_PICKAXE.get());
-        tag(ItemTags.SHOVELS).add(NVItems.SENTIENT_SHOVEL.get());
-        tag(ItemTags.MINING_ENCHANTABLE).add(NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(), NVItems.SENTIENT_AXE.get());
-        tag(ItemTags.MINING_LOOT_ENCHANTABLE).add(NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(), NVItems.SENTIENT_AXE.get());
+        tag(ItemTags.SWORDS).add(NVItems.SENTIENT_SWORD.get(), NVItems.LEX_VITAE.get());
+        tag(ItemTags.AXES).add(NVItems.SENTIENT_AXE.get(), NVItems.LEX_VITAE.get());
+        tag(ItemTags.PICKAXES).add(NVItems.SENTIENT_PICKAXE.get(), NVItems.LEX_VITAE.get());
+        tag(ItemTags.SHOVELS).add(NVItems.SENTIENT_SHOVEL.get(), NVItems.LEX_VITAE.get());
+        tag(ItemTags.HOES).add(NVItems.LEX_VITAE.get());
+        tag(ItemTags.MINING_ENCHANTABLE).add(NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(), NVItems.SENTIENT_AXE.get(), NVItems.LEX_VITAE.get());
+        tag(ItemTags.MINING_LOOT_ENCHANTABLE).add(NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(), NVItems.SENTIENT_AXE.get(), NVItems.LEX_VITAE.get());
         // ItemTags.SWORD_ENCHANTABLE removed in 26.1 — MELEE_WEAPON_ENCHANTABLE + SHARP_WEAPON_ENCHANTABLE cover the use case.
-        tag(ItemTags.MELEE_WEAPON_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get());
-        tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get());
-        tag(ItemTags.WEAPON_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get());
-        tag(ItemTags.FIRE_ASPECT_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get());
+        tag(ItemTags.MELEE_WEAPON_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get(), NVItems.LEX_VITAE.get());
+        tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get(), NVItems.LEX_VITAE.get());
+        tag(ItemTags.WEAPON_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get(), NVItems.LEX_VITAE.get());
+        tag(ItemTags.FIRE_ASPECT_ENCHANTABLE).add(NVItems.SENTIENT_SWORD.get(), NVItems.LEX_VITAE.get());
         tag(ItemTags.DURABILITY_ENCHANTABLE)
                 .add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get(),
                         NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(),
-                        NVItems.SENTIENT_SCYTHE.get());
+                        NVItems.SENTIENT_SCYTHE.get(), NVItems.LEX_VITAE.get());
         tag(ItemTags.VANISHING_ENCHANTABLE)
                 .add(NVItems.SENTIENT_SWORD.get(), NVItems.SENTIENT_AXE.get(),
                         NVItems.SENTIENT_PICKAXE.get(), NVItems.SENTIENT_SHOVEL.get(),
-                        NVItems.SENTIENT_SCYTHE.get());
+                        NVItems.SENTIENT_SCYTHE.get(), NVItems.LEX_VITAE.get());
 
         tag(NVTags.Items.SPIRITUS_CRYSTALS)
                 .add(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get())

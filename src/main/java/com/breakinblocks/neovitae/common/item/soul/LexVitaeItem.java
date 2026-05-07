@@ -377,14 +377,14 @@ public class LexVitaeItem extends Item implements ISentientTool {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.neovitae.lexVitae.desc").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.neovitae.lexVitae.desc").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
         tooltip.add(Component.translatable(isActive(stack)
                 ? "tooltip.neovitae.lexVitae.active"
                 : "tooltip.neovitae.lexVitae.dormant").withStyle(isActive(stack) ? ChatFormatting.AQUA : ChatFormatting.DARK_GRAY));
         int r = stack.getOrDefault(NVDataComponents.LEX_RADIUS, 0);
         int side = r == 0 ? 1 : (r == 1 ? 3 : 5);
         tooltip.add(Component.translatable("tooltip.neovitae.lexVitae.radius", side, side).withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.neovitae.currentType." + getCurrentType(stack).name().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GRAY));
+        SpiritusTooltipHelper.appendSpiritusInfo(stack, getTooltipKey(), tooltip);
         super.appendHoverText(stack, context, tooltip, flag);
     }
 

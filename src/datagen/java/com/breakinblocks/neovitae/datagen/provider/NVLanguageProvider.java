@@ -296,6 +296,51 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("lexVitae.radius", "Radius: %sx%s");
         add("message.neovitae.lex_vitae.radius", "Lex Vitae mining radius: %sx%s");
 
+        // Spiritus type tooltip header + per-type display names (color-coded at runtime)
+        addTooltip("spiritus.type", "Attuned: %s");
+        addTooltip("spiritus.raw", "Raw");
+        addTooltip("spiritus.ruina", "Spiritus Ruina");
+        addTooltip("spiritus.nihilum", "Spiritus Nihilum");
+        addTooltip("spiritus.vindicta", "Spiritus Vindicta");
+        addTooltip("spiritus.invictus", "Spiritus Invictus");
+
+        // Spiritus headline numerics + Shift expand
+        addTooltip("spiritus.level", "Level %s (%s will)");
+        addTooltip("spiritus.damage_bonus", "+%s bonus damage");
+        addTooltip("spiritus.aoe_radius", "%s block AoE radius");
+        addTooltip("spiritus.hold_shift", "Hold Shift for details");
+
+        // Universal riders for type-specific effects with computed numerics
+        addTooltip("spiritus.rider.ruina", "Wither %s for %ss on hit");
+        addTooltip("spiritus.rider.ruina.inactive", "Insufficient Spiritus Ruina to inflict Wither");
+        addTooltip("spiritus.rider.invictus", "Absorption hearts for %ss on kill");
+        addTooltip("spiritus.rider.invictus.inactive", "Insufficient Spiritus Invictus to grant Absorption");
+
+        // Per-tool riders for type-specific behavior without universal numerics
+        addTooltip("sentientSword.rider.raw", "Damage scales with stored Raw spiritus");
+        addTooltip("sentientSword.rider.nihilum", "Heavy damage scaling; slower attack speed");
+        addTooltip("sentientSword.rider.vindicta", "Faster attacks and bonus movement speed");
+
+        addTooltip("sentientAxe.rider.raw", "Damage scales with stored Raw spiritus");
+        addTooltip("sentientAxe.rider.nihilum", "Heavy damage scaling");
+        addTooltip("sentientAxe.rider.vindicta", "Lighter, quicker swings");
+
+        addTooltip("sentientPickaxe.rider.raw", "Mining speed and damage scale with Raw spiritus");
+        addTooltip("sentientPickaxe.rider.nihilum", "Heavy damage when used as a weapon");
+        addTooltip("sentientPickaxe.rider.vindicta", "Quicker strikes; light in hand");
+
+        addTooltip("sentientShovel.rider.raw", "Mining speed and damage scale with Raw spiritus");
+        addTooltip("sentientShovel.rider.nihilum", "Heavy damage when used as a weapon");
+        addTooltip("sentientShovel.rider.vindicta", "Quicker strikes; light in hand");
+
+        addTooltip("sentientScythe.rider.raw", "Sweeping damage scales with stored Raw spiritus");
+        addTooltip("sentientScythe.rider.nihilum", "Devastating sweeping damage");
+        addTooltip("sentientScythe.rider.vindicta", "Fast, lightweight sweeps");
+
+        addTooltip("lexVitae.rider.raw", "All actions empowered by stored Raw spiritus");
+        addTooltip("lexVitae.rider.nihilum", "Devastating damage and mining bonuses");
+        addTooltip("lexVitae.rider.vindicta", "Faster swings and channels");
+
         // Routing Items
         add(NVItems.NODE_ROUTER.get(), "Node Router");
         add(NVItems.MASTER_NODE_UPGRADE.get(), "Master Routing Node Core");
@@ -910,13 +955,6 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Current owner/binding
         addTooltip("currentOwner", "Bound to: %s");
-
-        // Current will type (currentType variant for sentient tools)
-        addTooltip("currentType.raw", "Type: Raw Spiritus");
-        addTooltip("currentType.ruina", "Type: Spiritus Ruina");
-        addTooltip("currentType.nihilum", "Type: Spiritus Nihilum");
-        addTooltip("currentType.vindicta", "Type: Spiritus Vindicta");
-        addTooltip("currentType.invictus", "Type: Spiritus Invictus");
 
         add("chat.neovitae.sentient_upgrade.level_up", "%s has levelled up to %s!");
 

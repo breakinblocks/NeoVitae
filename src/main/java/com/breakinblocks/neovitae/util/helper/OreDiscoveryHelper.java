@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.Blocks;
 import com.breakinblocks.neovitae.common.material.MaterialDefinition;
 import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.mojang.blaze3d.platform.NativeImage;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.loading.FMLEnvironment;
 
 import javax.annotation.Nullable;
 import java.io.InputStream;
@@ -31,9 +33,18 @@ public final class OreDiscoveryHelper {
 
     private OreDiscoveryHelper() {}
 
+    private static ResourceManager clientResourceManagerIfAvailable(ServerLevel level) {
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            try {
+                return com.breakinblocks.neovitae.client.util.ClientTextureResources.get();
+            } catch (Throwable ignored) {}
+        }
+        return level.getServer().getResourceManager();
+    }
+
     public static List<MaterialDefinition> discoverNewMaterials(ServerLevel level) {
         Registry<Item> itemRegistry = level.registryAccess().registryOrThrow(Registries.ITEM);
-        ResourceManager resourceManager = level.getServer().getResourceManager();
+        ResourceManager resourceManager = clientResourceManagerIfAvailable(level);
 
         List<String> oreNames = TagHelper.getOreNames(itemRegistry);
         List<MaterialDefinition> newMaterials = new ArrayList<>();

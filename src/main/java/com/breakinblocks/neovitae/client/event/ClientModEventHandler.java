@@ -94,6 +94,11 @@ public class ClientModEventHandler {
                 return will > 0 ? 1 : 0;
             });
 
+            ItemProperties.register(NVItems.LEX_VITAE.get(), NeoVitae.rl("active"),
+                    (stack, level, entity, seed) -> stack.getOrDefault(NVDataComponents.LEX_ACTIVE, false) ? 1 : 0);
+            ItemProperties.register(NVItems.LEX_VITAE.get(), NeoVitae.TYPE_PROPERTY,
+                    (stack, level, entity, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW).ordinal());
+
             for (var orb : java.util.List.of(NVItems.ORB_WEAK, NVItems.ORB_APPRENTICE, NVItems.ORB_MAGICIAN,
                     NVItems.ORB_MASTER, NVItems.ORB_ARCHMAGE, NVItems.ORB_TRANSCENDENT)) {
                 ItemProperties.register(orb.get(), NeoVitae.rl("fill_level"), (stack, lvl, entity, seed) -> {

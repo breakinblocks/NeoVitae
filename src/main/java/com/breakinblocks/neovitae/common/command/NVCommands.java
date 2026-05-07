@@ -41,7 +41,9 @@ public class NVCommands {
                         .then(Commands.literal("aura").redirect(auraNode))
                         .then(Commands.literal("upgrade").redirect(upgradeNode))
                         .then(Commands.literal("dungeon-showcase").redirect(showcaseNode))
-                        .then(Commands.literal("generate").redirect(generateNode))
+                        .then(Commands.literal("generate")
+                                .requires(s -> s.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                                .executes(GenerateMaterialsCommand::execute))
                         .then(Commands.literal("setorbfill").redirect(setOrbFillNode))
                         .then(Commands.literal("routing").then(Commands.literal("rescan").redirect(routingRescanNode)))
         );

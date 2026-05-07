@@ -173,6 +173,16 @@ public class NVItemModelProvider extends ItemModelProvider {
         builder.override().predicate(NeoVitae.INCENSE_PROPERTY, 0).model(normalDagger).end();
         builder.override().predicate(NeoVitae.INCENSE_PROPERTY, 1).model(chargedDagger).end();
 
+        ModelFile lexDormant = singleTexture("item/variant/lex_vitae_dormant",
+                mcLoc("item/handheld"), "layer0", modLoc("item/lex_vitae"));
+        ModelFile lexActive = singleTexture("item/variant/lex_vitae_active",
+                mcLoc("item/handheld"), "layer0", modLoc("item/lex_vitae_active"));
+        ItemModelBuilder lexBuilder = getBuilder(NVItems.LEX_VITAE.getId().getPath());
+        lexBuilder.parent(new ModelFile.UncheckedModelFile(mcLoc("item/handheld")));
+        lexBuilder.texture("layer0", modLoc("item/lex_vitae"));
+        lexBuilder.override().predicate(NeoVitae.rl("active"), 0).model(lexDormant).end();
+        lexBuilder.override().predicate(NeoVitae.rl("active"), 1).model(lexActive).end();
+
         // Sentient tools - use handheld parent for correct held rendering
         singleTexture("sentient_sword", mcLoc("item/handheld"), "layer0", modLoc("item/sentient_sword"));
         singleTexture("sentient_axe", mcLoc("item/handheld"), "layer0", modLoc("item/sentient_axe"));

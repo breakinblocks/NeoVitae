@@ -1,0 +1,23 @@
+{
+  "type": "neovitae:hellfire_forge",
+  "drain": 50.0,
+  "inputs": [
+    {
+      "item": "neovitae:sentient_sword"
+    },
+    {
+      "item": "minecraft:netherite_ingot"
+    },
+    {
+      "item": "neovitae:spiritus_gem_greater"
+    },
+    {
+      "item": "neovitae:ingot_hellforged"
+    }
+  ],
+  "minDrain": 2000.0,
+  "output": {
+    "count": 1,
+    "id": "neovitae:lex_vitae"
+  }
+}

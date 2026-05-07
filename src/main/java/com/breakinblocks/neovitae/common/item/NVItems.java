@@ -21,6 +21,7 @@ import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.common.item.sigil.SigilItem;
 import com.breakinblocks.neovitae.common.item.soul.SpiritusEssenceItem;
 import com.breakinblocks.neovitae.registry.SigilTypeRegistry;
+import com.breakinblocks.neovitae.common.item.soul.LexVitaeItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientAxeItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientPickaxeItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientScytheItem;
@@ -192,6 +193,7 @@ public class NVItems {
     public static final DeferredHolder<Item, SentientPickaxeItem> SENTIENT_PICKAXE = BASIC_ITEMS.register("sentient_pickaxe", SentientPickaxeItem::new);
     public static final DeferredHolder<Item, SentientShovelItem> SENTIENT_SHOVEL = BASIC_ITEMS.register("sentient_shovel", SentientShovelItem::new);
     public static final DeferredHolder<Item, SentientScytheItem> SENTIENT_SCYTHE = BASIC_ITEMS.register("sentient_scythe", SentientScytheItem::new);
+    public static final DeferredHolder<Item, LexVitaeItem> LEX_VITAE = BASIC_ITEMS.register("lex_vitae", LexVitaeItem::new);
 
     public static final DeferredHolder<Item, SpiritusCrystalItem> RAW_SPIRITUS_CRYSTAL_ITEM = BASIC_ITEMS.register("raw_crystal_shard", () -> new SpiritusCrystalItem(SpiritusType.RAW));
     public static final DeferredHolder<Item, SpiritusCrystalItem> SPIRITUS_RUINA_CRYSTAL_ITEM = BASIC_ITEMS.register("spiritus_ruina_shard", () -> new SpiritusCrystalItem(SpiritusType.RUINA));

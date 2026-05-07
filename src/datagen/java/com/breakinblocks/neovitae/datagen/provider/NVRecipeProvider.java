@@ -1014,6 +1014,16 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_petty_gem", has(NVItems.SPIRITUS_GEM_PETTY.get()))
                 .save(output, NeoVitae.rl("sentient_scythe"));
 
+        HellfireForgeRecipeBuilder.build(NVItems.LEX_VITAE.get())
+                .requires(NVItems.SENTIENT_SWORD.get())
+                .requires(Items.NETHERITE_INGOT)
+                .requires(NVItems.SPIRITUS_GEM_GREATER.get())
+                .requires(NVItems.HELLFORGED_INGOT.get())
+                .minSpiritus(2000)
+                .drain(50)
+                .unlockedBy("has_greater_gem", has(NVItems.SPIRITUS_GEM_GREATER.get()))
+                .save(output, NeoVitae.rl("lex_vitae"));
+
         // Spiritus Blocks
         HellfireForgeRecipeBuilder.build(NVBlocks.VAS_MALEFICUM.block().get())
                 .requires(Items.CAULDRON)

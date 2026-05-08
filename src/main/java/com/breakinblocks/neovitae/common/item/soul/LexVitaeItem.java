@@ -270,9 +270,11 @@ public class LexVitaeItem extends Item implements ISentientTool {
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
 
+        boolean topFace = context.getClickedFace() == net.minecraft.core.Direction.UP;
         ItemAbility chosen = null;
         BlockState modified = null;
         for (ItemAbility ability : ABILITIES) {
+            if (!topFace && (ability == ItemAbilities.HOE_TILL || ability == ItemAbilities.SHOVEL_FLATTEN)) continue;
             BlockState m = state.getToolModifiedState(context, ability, false);
             if (m != null) { chosen = ability; modified = m; break; }
         }

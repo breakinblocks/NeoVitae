@@ -16,6 +16,9 @@ import net.neoforged.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class BloodGlowParticle extends TextureSheetParticle {
 
+    private static final float BASE_ALPHA = 0.35f;
+    private float baseQuadSize;
+
     protected BloodGlowParticle(ClientLevel level, double x, double y, double z,
                                  SpriteSet sprites, int color, boolean rawColor) {
         super(level, x, y, z);
@@ -33,9 +36,10 @@ public class BloodGlowParticle extends TextureSheetParticle {
             this.bCol = Math.min(1.0f, b * 0.5f + 0.5f);
         }
 
-        this.alpha = 0.35f;
-        this.quadSize = 0.12f + this.random.nextFloat() * 0.03f;
-        this.lifetime = 12;
+        this.alpha = 0.0f;
+        this.baseQuadSize = 0.12f + this.random.nextFloat() * 0.03f;
+        this.quadSize = this.baseQuadSize;
+        this.lifetime = 18;
 
         this.xd = 0;
         this.yd = 0;
@@ -47,10 +51,27 @@ public class BloodGlowParticle extends TextureSheetParticle {
     }
 
     @Override
+    public float getQuadSize(float scaleFactor) {
+        float progress = ((float) this.age + scaleFactor) / (float) this.lifetime;
+        return this.baseQuadSize * envelope(progress);
+    }
+
+    @Override
     public void render(VertexConsumer buffer, Camera camera, float partialTicks) {
         float progress = ((float) this.age + partialTicks) / (float) this.lifetime;
-        this.alpha = 0.35f * (1.0f - progress * progress);
+        this.alpha = BASE_ALPHA * envelope(progress);
         super.render(buffer, camera, partialTicks);
+    }
+
+    private static float envelope(float progress) {
+        float fadeIn = smoothstep(0.0f, 0.20f, progress);
+        float fadeOut = 1.0f - smoothstep(0.55f, 1.0f, progress);
+        return fadeIn * fadeOut;
+    }
+
+    private static float smoothstep(float edge0, float edge1, float x) {
+        float t = Math.max(0.0f, Math.min(1.0f, (x - edge0) / (edge1 - edge0)));
+        return t * t * (3.0f - 2.0f * t);
     }
 
     @Override

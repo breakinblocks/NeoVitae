@@ -20,8 +20,8 @@ public class NVLootFunctions {
     public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<SetSpiritusFraction>> SET_SPIRITUS_FRACTION =
             LOOT_FUNCTIONS.register("set_spiritus_fraction", () -> new LootItemFunctionType<>(SetSpiritusFraction.CODEC));
 
-    public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<SetSentientUpgrade>> SET_SENTIENT_UPGRADE =
-            LOOT_FUNCTIONS.register("set_sentient_upgrade", () -> new LootItemFunctionType<>(SetSentientUpgrade.CODEC));
+    public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<SetSentientUpgrade>> SET_LIVING_UPGRADE =
+            LOOT_FUNCTIONS.register("set_living_upgrade", () -> new LootItemFunctionType<>(SetSentientUpgrade.CODEC));
 
     public static void register(IEventBus modEventBus) {
         LOOT_FUNCTIONS.register(modEventBus);

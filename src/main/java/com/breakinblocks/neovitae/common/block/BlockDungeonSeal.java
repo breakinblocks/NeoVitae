@@ -85,8 +85,7 @@ public class BlockDungeonSeal extends Block implements EntityBlock {
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level,
                                                BlockPos pos, Player player, InteractionHand hand,
                                                BlockHitResult hitResult) {
-        // Pass through to useWithoutItem for everything except sneak+debug
-        return InteractionResult.PASS;
+        return InteractionResult.TRY_WITH_EMPTY_HAND;
     }
 
     private void openSealMenu(Player player, DungeonSealBlockEntity seal, BlockPos pos) {

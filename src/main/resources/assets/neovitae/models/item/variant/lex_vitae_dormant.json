@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "neovitae:item/sentient_axe_ruina"
+    "layer0": "neovitae:item/lex_vitae"
   }
 }

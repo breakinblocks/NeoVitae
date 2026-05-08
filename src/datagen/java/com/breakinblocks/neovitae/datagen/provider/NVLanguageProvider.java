@@ -1252,6 +1252,129 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("hellforged_ingot", "Hellforged", "Smelt raw Demonite into a Hellforged Ingot");
 
         addAdvancement("blood_sweat_and_tears", "Blood, Sweat & Tears", "Craft the legendary record at a Tier 6 Ara Vitae");
+
+        // Commands (note: singular `command.` prefix, distinct from the `commands.` plural used by addCommand)
+        add("command.neovitae.player_only", "This command must be run by a player");
+        add("command.neovitae.anima.set", "Set %s's anima to %s");
+        add("command.neovitae.anima.add", "Added %s anima to %s");
+        add("command.neovitae.anima.get", "%s's anima: %s");
+        add("command.neovitae.aura.invalid_will_type", "Unknown spiritus type: %s");
+        add("command.neovitae.aura.set_all", "Set all spiritus aspects to %s");
+        add("command.neovitae.aura.set_type", "Set %s spiritus to %s");
+        add("command.neovitae.aura.cleared_chunk", "Cleared spiritus aura for this chunk");
+        add("command.neovitae.routing_rescan.no_master", "No master routing node within %s blocks");
+        add("command.neovitae.routing_rescan.result", "Master at [%s, %s, %s]: re-linked %s nodes within %s blocks");
+        add("command.neovitae.stream_test.no_block", "Look at a block to target the stream");
+        add("command.neovitae.stream_test.spawned", "Spawned %s preset at %s");
+        add("command.neovitae.stream_test.activated", "Activated altar at %s");
+        add("command.neovitae.stream_test.no_altar", "No master ritual stone at %s (found: %s)");
+        add("command.neovitae.stream_test.unknown_preset", "Unknown stream preset: %s");
+        add("command.neovitae.stream_test.fired", "Fired %s preset toward %s");
+        add("command.neovitae.dungeon_showcase.no_structures", "No dungeon structures available to place");
+        add("command.neovitae.dungeon_showcase.placing", "Placing %s dungeon structures...");
+        add("command.neovitae.dungeon_showcase.placed", "Placed %s structures");
+        add("command.neovitae.dungeon_showcase.preconfigured", "Use this command in a flat creative world for clean previews");
+        add("command.neovitae.dungeon_showcase.save_hint", "Use /save-all to capture the showcase region");
+        add("command.neovitae.upgrade.no_armour", "%s is not wearing a piece of sentient armor");
+
+        // GUI - Athanor
+        add("gui.neovitae.athanor.slot.empty", "Empty");
+        add("gui.neovitae.athanor.slot.tool", "Tool slot");
+        add("gui.neovitae.athanor.slot.input", "Ingredient slot");
+        add("gui.neovitae.athanor.slot.output", "Output slot");
+        add("gui.neovitae.athanor.slot.fluid_input", "Fluid input slot");
+        add("gui.neovitae.athanor.slot.fluid_output", "Fluid output slot");
+        add("gui.neovitae.athanor.tank_amount", "%s / %s mB");
+        add("gui.neovitae.athanor.type_spiritus", "%s Spiritus");
+        add("gui.neovitae.athanor.spiritus_progress", "%s / %s stored");
+        add("gui.neovitae.athanor.spiritus_required", "Recipe requires %s");
+        add("gui.neovitae.athanor.insufficient", "Not enough spiritus");
+        add("gui.neovitae.show_recipes", "Click to view recipes (JEI)");
+
+        // GUI - Dungeon Seal
+        add("gui.neovitae.dungeon_seal.key_name", "%s");
+
+        // GUI - Master Routing Node
+        add("gui.neovitae.master_routing.energy_rate", "Transfer Rate");
+        add("gui.neovitae.master_routing.energy_rate_label", "Rate");
+        add("gui.neovitae.master_routing.stack_upgrade_slot", "Stack upgrade slot");
+        add("gui.neovitae.master_routing.speed_upgrade_slot", "Speed upgrade slot");
+        add("gui.neovitae.master_routing.transfer_rate.title", "Transfer Rate");
+        add("gui.neovitae.master_routing.transfer_rate.desc", "Items routed per cycle, fluid mB per tick");
+        add("gui.neovitae.master_routing.transfer_rate.install_more", "Install upgrade modules to raise the ceiling");
+
+        // GUI - Routing
+        add("gui.neovitae.routing.disabled", "Disabled");
+        add("gui.neovitae.routing.items", "Items");
+        add("gui.neovitae.routing.whitelist", "Whitelist");
+        add("gui.neovitae.routing.priority_short", "P:%s");
+        add("gui.neovitae.routing.priority_value", "Priority: %s");
+        add("gui.neovitae.routing.priority.increase", "Increase priority");
+        add("gui.neovitae.routing.priority.decrease", "Decrease priority");
+        add("gui.neovitae.routing.swap_priority", "Right-click to swap priority order");
+        add("gui.neovitae.routing.face", "Face: %s");
+        add("gui.neovitae.routing.inventory_neighbor", "Connected inventory: %s");
+        add("gui.neovitae.routing.block_neighbor", "Block: %s");
+        add("gui.neovitae.routing.slot.empty", "Filter slot empty");
+        add("gui.neovitae.routing.bucket.set", "Right-click with a bucket to set fluid filter");
+        add("gui.neovitae.routing.bucket.clear", "Right-click with empty bucket to clear");
+        add("gui.neovitae.routing.side.toggle", "Click to toggle side");
+        add("gui.neovitae.routing.side.disabled_blocks", "Disabled sides do not push or pull");
+        add("gui.neovitae.routing.filter.switch", "Switch filter mode");
+        add("gui.neovitae.routing.filter.items_desc", "Items: filter by item stack");
+        add("gui.neovitae.routing.filter.fluids_desc", "Fluids: filter by fluid type");
+        add("gui.neovitae.routing.filter.item_mode", "Item mode");
+        add("gui.neovitae.routing.filter.whitelist_empty", "Whitelist with no entries: nothing matches");
+        add("gui.neovitae.routing.filter.blacklist_empty", "Blacklist with no entries: everything matches");
+        add("gui.neovitae.routing.filter.fluid_mode", "Fluid mode");
+        add("gui.neovitae.routing.filter.fluid_explicit", "Explicit: only the listed fluids");
+        add("gui.neovitae.routing.filter.fluid_automatch", "Auto-match: any fluid present in the network");
+        add("gui.neovitae.routing.master.upgrade_ceiling", "Upgrade ceiling: %s");
+        add("gui.neovitae.routing.master.throttle_exceeds", "Throttled below ceiling of %s");
+
+        // JEI
+        add("jei.neovitae.athanor.mb", "%s mB");
+        add("jei.neovitae.athanor.spiritus_requirement", "Requires %s %s spiritus");
+        add("jei.neovitae.ritual.rune_count", "%s× %s");
+
+        // Sigil messages
+        add("tooltip.neovitae.sigil.teleposition.unbound", "Bind to a Teleposer first by sneak-right-clicking it");
+        add("tooltip.neovitae.sigil.teleposition.invalid_dimension", "Bound Teleposer is in another dimension");
+        add("tooltip.neovitae.sigil.teleposition.no_teleposer", "Bound Teleposer is missing");
+        add("tooltip.neovitae.sigil.teleposition.bound", "Bound to Teleposer at [%s, %s, %s]");
+
+        // System messages
+        add("message.neovitae.divination.altar_stats_header", "===== Altar Diagnostics =====");
+        add("message.neovitae.divination.altar_stats_footer", "==============================");
+        add("message.neovitae.dungeon_seal.debug.header", "===== Dungeon Seal Debug =====");
+        add("message.neovitae.dungeon_seal.debug.synth_null", "No active synthesizer at this seal");
+        add("message.neovitae.dungeon_seal.foreman_not_found", "Foreman could not be located");
+        add("message.neovitae.dungeon_seal.placements_since_special", "Placements since last special: %s");
+        add("message.neovitae.dungeon_seal.seals_none", "No seals registered");
+        add("message.neovitae.dungeon_seal.special_buffer.empty", "Special buffer: empty");
+        add("message.neovitae.dungeon_seal.special_buffer.label", "Special buffer (%s):");
+        add("message.neovitae.dungeon_tester.generated", "Test dungeon generated at %s");
+        add("message.neovitae.dungeon_tester.failed", "Test dungeon failed to generate");
+
+        // Resource pack
+        add("pack.neovitae.materials", "NeoVitae Generated Materials");
+
+        // Sentient tool rider lines (ruina/invictus aspects fall through to the per-tool keys)
+        add("tooltip.neovitae.sentientAxe.rider.ruina", "Withers struck targets");
+        add("tooltip.neovitae.sentientAxe.rider.invictus", "Grants Absorption on kills");
+        add("tooltip.neovitae.sentientPickaxe.rider.ruina", "Withers struck targets");
+        add("tooltip.neovitae.sentientPickaxe.rider.invictus", "Grants Absorption on kills");
+        add("tooltip.neovitae.sentientScythe.rider.ruina", "Withers swept targets");
+        add("tooltip.neovitae.sentientScythe.rider.invictus", "Grants Absorption on kills");
+        add("tooltip.neovitae.sentientShovel.rider.ruina", "Withers struck targets");
+        add("tooltip.neovitae.sentientShovel.rider.invictus", "Grants Absorption on kills");
+        add("tooltip.neovitae.sentientSword.rider.ruina", "Withers struck targets");
+        add("tooltip.neovitae.sentientSword.rider.invictus", "Grants Absorption on kills");
+
+        // Missing alchemy array tooltips (matches the JEI effect descriptions)
+        addTooltip("array_effect.binding", "Binds items to the owner's soul network.");
+        addTooltip("array_effect.crafting", "Transforms items into new forms.");
+        addTooltip("array_effect.loyal_friends", "Calls allied wolves to your aid.");
     }
 
     public void addRitual(String key, String name) {

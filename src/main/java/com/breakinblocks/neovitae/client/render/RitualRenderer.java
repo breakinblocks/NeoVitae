@@ -118,6 +118,10 @@ public class RitualRenderer {
         };
     }
 
+    // Inset to keep the ghost cube faces off any neighbouring solid block face
+    // (e.g. the MRS column or stacked stones in the diagram), which otherwise z-fight.
+    private static final float GHOST_INSET = 0.005F;
+
     private static NeoVitaeRenderer.Model3D getBlockModel(Identifier textureRL) {
         NeoVitaeRenderer.Model3D model = new NeoVitaeRenderer.Model3D();
         TextureAtlasSprite sprite = Minecraft.getInstance()
@@ -125,12 +129,12 @@ public class RitualRenderer {
                 .getAtlasOrThrow(AtlasIds.BLOCKS)
                 .getSprite(textureRL);
         model.setTexture(sprite);
-        model.minX = 0;
-        model.minY = 0;
-        model.minZ = 0;
-        model.maxX = 1;
-        model.maxY = 1;
-        model.maxZ = 1;
+        model.minX = GHOST_INSET;
+        model.minY = GHOST_INSET;
+        model.minZ = GHOST_INSET;
+        model.maxX = 1.0F - GHOST_INSET;
+        model.maxY = 1.0F - GHOST_INSET;
+        model.maxZ = 1.0F - GHOST_INSET;
         return model;
     }
 

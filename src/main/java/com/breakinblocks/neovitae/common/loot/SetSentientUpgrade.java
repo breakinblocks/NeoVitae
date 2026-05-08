@@ -50,7 +50,7 @@ public class SetSentientUpgrade extends LootItemConditionalFunction {
 
     @Override
     public MapCodec<? extends LootItemConditionalFunction> codec() {
-        return NVLootFunctions.SET_SENTIENT_UPGRADE.get();
+        return NVLootFunctions.SET_LIVING_UPGRADE.get();
     }
 
     @Override

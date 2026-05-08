@@ -1,29 +1,33 @@
 package com.breakinblocks.neovitae.common.blockentity;
 
-
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.RandomizableContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.menu.SpiritCacheMenu;
-import net.minecraft.world.MenuProvider;
 
-public class SpiritCacheBlockEntity extends BaseBlockEntity implements Container, MenuProvider {
+public class SpiritCacheBlockEntity extends BaseBlockEntity
+        implements Container, MenuProvider, RandomizableContainer {
 
     private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
+    @Nullable
+    private ResourceKey<LootTable> lootTable;
+    private long lootTableSeed = 0L;
 
     public SpiritCacheBlockEntity(BlockPos pos, BlockState state) {
         super(NVTiles.SPIRIT_CACHE_TYPE.get(), pos, state);
@@ -48,11 +52,13 @@ public class SpiritCacheBlockEntity extends BaseBlockEntity implements Container
 
     @Override
     public ItemStack getItem(int slot) {
+        unpackLootTable(null);
         return items.get(slot);
     }
 
     @Override
     public ItemStack removeItem(int slot, int amount) {
+        unpackLootTable(null);
         ItemStack result = ContainerHelper.removeItem(items, slot, amount);
         if (!result.isEmpty()) setChanged();
         return result;
@@ -60,11 +66,13 @@ public class SpiritCacheBlockEntity extends BaseBlockEntity implements Container
 
     @Override
     public ItemStack removeItemNoUpdate(int slot) {
+        unpackLootTable(null);
         return ContainerHelper.takeItem(items, slot);
     }
 
     @Override
     public void setItem(int slot, ItemStack stack) {
+        unpackLootTable(null);
         items.set(slot, stack);
         if (stack.getCount() > getMaxStackSize()) {
             stack.setCount(getMaxStackSize());
@@ -84,6 +92,27 @@ public class SpiritCacheBlockEntity extends BaseBlockEntity implements Container
     }
 
     @Override
+    @Nullable
+    public ResourceKey<LootTable> getLootTable() {
+        return lootTable;
+    }
+
+    @Override
+    public void setLootTable(@Nullable ResourceKey<LootTable> table) {
+        this.lootTable = table;
+    }
+
+    @Override
+    public long getLootTableSeed() {
+        return lootTableSeed;
+    }
+
+    @Override
+    public void setLootTableSeed(long seed) {
+        this.lootTableSeed = seed;
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("block.neovitae.spirit_cache");
     }
@@ -94,7 +123,6 @@ public class SpiritCacheBlockEntity extends BaseBlockEntity implements Container
         return new SpiritCacheMenu(containerId, playerInventory, this);
     }
 
-    // @Override (removed: not an override in 26.1)
     public void stopOpen(Player player) {
         if (level != null && !level.isClientSide()) {
             level.playSound(null, worldPosition, SoundEvents.VAULT_INSERT_ITEM, SoundSource.BLOCKS, 1.0F, 0.8F);
@@ -104,13 +132,17 @@ public class SpiritCacheBlockEntity extends BaseBlockEntity implements Container
     @Override
     protected void saveAdditional(ValueOutput tag) {
         super.saveAdditional(tag);
-        ContainerHelper.saveAllItems(tag, items);
+        if (!trySaveLootTable(tag)) {
+            ContainerHelper.saveAllItems(tag, items);
+        }
     }
 
     @Override
     protected void loadAdditional(ValueInput tag) {
         super.loadAdditional(tag);
-        items = NonNullList.withSize(27, ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, items);
+        items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
+        if (!tryLoadLootTable(tag)) {
+            ContainerHelper.loadAllItems(tag, items);
+        }
     }
 }

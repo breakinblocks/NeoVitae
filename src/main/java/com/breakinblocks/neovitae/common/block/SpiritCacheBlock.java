@@ -81,6 +81,7 @@ public class SpiritCacheBlock extends Block implements EntityBlock {
 
         if (player instanceof ServerPlayer serverPlayer
                 && level.getBlockEntity(pos) instanceof SpiritCacheBlockEntity cache) {
+            cache.unpackLootTable(serverPlayer);
             level.playSound(null, pos, SoundEvents.VAULT_INSERT_ITEM, SoundSource.BLOCKS, 1.0F, 1.0F);
             serverPlayer.openMenu(cache, pos);
         }

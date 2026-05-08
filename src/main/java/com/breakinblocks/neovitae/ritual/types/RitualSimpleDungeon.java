@@ -71,11 +71,8 @@ public class RitualSimpleDungeon extends DungeonRitualBase {
 
         storeControllerPosition(masterRitualStone, dungeonControllerPos);
 
-        BlockPos pillarPos = masterPos.above(2);  // Above the rune column
         BlockPos overworldPlayerPos = masterPos.relative(masterRitualStone.getDirection(), 2);
 
-        // Dramatic activation burst: four void tendrils converging on the
-        // master stone before the portal pillars consume the rune circle.
         for (BlockPos offset : new BlockPos[]{
                 masterPos.north(4), masterPos.south(4),
                 masterPos.east(4),  masterPos.west(4)}) {
@@ -83,15 +80,20 @@ public class RitualSimpleDungeon extends DungeonRitualBase {
                     .sendToNearby(serverWorld, masterPos, 128);
         }
 
-        // Perform common cleanup FIRST (replaces runes with smooth stone, removes MRS)
-        performRitualCleanup(masterRitualStone, world);
-
-        // THEN spawn portal pillars (after cleanup so they don't get overwritten)
-        spawnPortalPillar(world, dungeonWorld, pillarPos, playerSpawnPos);
+        if (!applyRitualStructure(masterRitualStone, serverWorld)) {
+            LOGGER.error("Failed to apply ritual structure for simple dungeon");
+            masterRitualStone.stopRitual(Ritual.BreakType.DEACTIVATE);
+            return;
+        }
+        wireFunctionalInversionPillar(serverWorld, masterPos, dungeonWorld, playerSpawnPos);
         spawnPortalPillar(dungeonWorld, world, portalPos, overworldPlayerPos);
 
-        // Stop the ritual since it's a one-time effect
         masterRitualStone.stopRitual(Ritual.BreakType.DEACTIVATE);
+    }
+
+    @Override
+    protected net.minecraft.resources.Identifier getStructureId() {
+        return NeoVitae.rl("ritual/edge_of_the_hidden_realm");
     }
 
     @Override

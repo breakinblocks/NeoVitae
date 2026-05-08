@@ -72,11 +72,8 @@ public class RitualStandardDungeon extends DungeonRitualBase {
 
         storeControllerPosition(masterRitualStone, dungeonControllerPos);
 
-        BlockPos pillarPos = masterPos.above(2);
         BlockPos overworldPlayerPos = masterPos.relative(Direction.UP).relative(masterRitualStone.getDirection(), 2);
 
-        // Dramatic activation burst: void tendrils converging on the master
-        // stone before the portal pillars rise and consume the ritual.
         for (BlockPos offset : new BlockPos[]{
                 masterPos.north(4), masterPos.south(4),
                 masterPos.east(4),  masterPos.west(4),
@@ -85,20 +82,24 @@ public class RitualStandardDungeon extends DungeonRitualBase {
                     .sendToNearby(serverWorld, masterPos, 128);
         }
 
-        // Perform cleanup FIRST (converts ritual stones to smooth stone)
-        // This must happen before placing the pillar, otherwise the pillar would be overwritten
-        performRitualCleanup(masterRitualStone, world);
-
-        // Spawn portal pillars AFTER cleanup
-        spawnPortalPillar(world, dungeonWorld, pillarPos, playerSpawnPos);
+        if (!applyRitualStructure(masterRitualStone, serverWorld)) {
+            LOGGER.error("Failed to apply ritual structure for standard dungeon");
+            masterRitualStone.stopRitual(Ritual.BreakType.DEACTIVATE);
+            return;
+        }
+        wireFunctionalInversionPillar(serverWorld, masterPos, dungeonWorld, playerSpawnPos);
         spawnPortalPillar(dungeonWorld, world, portalPos, overworldPlayerPos);
 
         if (dungeonWorld.getBlockEntity(dungeonControllerPos) instanceof DungeonControllerBlockEntity controller) {
             controller.setPortalPos(portalPos);
         }
 
-        // Stop the ritual since it's a one-time effect
         masterRitualStone.stopRitual(Ritual.BreakType.DEACTIVATE);
+    }
+
+    @Override
+    protected net.minecraft.resources.Identifier getStructureId() {
+        return NeoVitae.rl("ritual/pathway_to_the_endless_realm");
     }
 
     @Override

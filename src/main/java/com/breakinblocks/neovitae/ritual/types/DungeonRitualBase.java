@@ -80,7 +80,8 @@ public abstract class DungeonRitualBase extends Ritual {
         StructurePlaceSettings settings = new StructurePlaceSettings()
                 .setRotation(rotation)
                 .setMirror(Mirror.NONE)
-                .setIgnoreEntities(true);
+                .setIgnoreEntities(true)
+                .setRotationPivot(ALTERNATOR_LOCAL);
 
         BlockPos placeOrigin = masterPos.subtract(ALTERNATOR_LOCAL);
         templateOpt.get().placeInWorld(level, placeOrigin, ALTERNATOR_LOCAL, settings, level.getRandom(),

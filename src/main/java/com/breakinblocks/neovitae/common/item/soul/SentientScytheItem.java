@@ -132,14 +132,16 @@ public class SentientScytheItem extends SwordItem implements ISentientTool {
         tooltip.add(Component.translatable("tooltip.neovitae." + getTooltipKey() + ".desc").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
         SpiritusType type = getCurrentType(stack);
         SpiritusTooltipHelper.appendSpiritusInfo(stack, getTooltipKey(), tooltip);
-        var localPlayer = net.minecraft.client.Minecraft.getInstance().player;
-        if (localPlayer != null) {
-            int level = getLevel(PlayerSpiritusHandler.getTotalSpiritus(type, localPlayer));
-            if (level >= 0) {
-                double radius = AREA_RANGE[level];
-                tooltip.add(Component.translatable("tooltip.neovitae.spiritus.aoe_radius",
-                        String.format(Locale.ROOT, "%.1f", radius))
-                        .withStyle(ChatFormatting.GRAY));
+        if (net.minecraft.client.gui.screens.Screen.hasShiftDown()) {
+            var localPlayer = net.minecraft.client.Minecraft.getInstance().player;
+            if (localPlayer != null) {
+                int level = getLevel(PlayerSpiritusHandler.getTotalSpiritus(type, localPlayer));
+                if (level >= 0) {
+                    double radius = AREA_RANGE[level];
+                    tooltip.add(Component.translatable("tooltip.neovitae.spiritus.aoe_radius",
+                            String.format(Locale.ROOT, "%.1f", radius))
+                            .withStyle(ChatFormatting.GRAY));
+                }
             }
         }
         super.appendHoverText(stack, context, tooltip, flag);

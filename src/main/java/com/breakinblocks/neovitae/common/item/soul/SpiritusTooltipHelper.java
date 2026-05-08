@@ -37,6 +37,11 @@ public final class SpiritusTooltipHelper {
         Component coloredName = Component.translatable("tooltip.neovitae.spiritus." + typeKey).withStyle(typeStyle);
         tooltip.add(Component.translatable("tooltip.neovitae.spiritus.type", coloredName).withStyle(ChatFormatting.GRAY));
 
+        if (!Screen.hasShiftDown()) {
+            tooltip.add(Component.translatable("tooltip.neovitae.spiritus.hold_shift").withStyle(ChatFormatting.DARK_GRAY));
+            return;
+        }
+
         LocalPlayer localPlayer = Minecraft.getInstance().player;
         int level = -1;
         if (localPlayer != null) {
@@ -53,11 +58,7 @@ public final class SpiritusTooltipHelper {
                     String.format(Locale.ROOT, "%.1f", damageBonus)).withStyle(ChatFormatting.GRAY));
         }
 
-        if (Screen.hasShiftDown()) {
-            tooltip.add(buildRider(tooltipKey, type, level).withStyle(ChatFormatting.GRAY));
-        } else {
-            tooltip.add(Component.translatable("tooltip.neovitae.spiritus.hold_shift").withStyle(ChatFormatting.DARK_GRAY));
-        }
+        tooltip.add(buildRider(tooltipKey, type, level).withStyle(ChatFormatting.GRAY));
     }
 
     private static MutableComponent buildRider(String tooltipKey, SpiritusType type, int level) {

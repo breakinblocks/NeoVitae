@@ -155,9 +155,14 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
 
         Identifier selectedRoom = key.getValidResourceLocation(new ArrayList<>(data.potentialRoomTypes()));
         if (selectedRoom == null) {
-            LOGGER.debug("Key {} didn't match any room types for seal at {}", key.getKeyType(), worldPosition);
+            LOGGER.info("[GEN] Seal {} rejected key {} (potentialPools={})",
+                    worldPosition, key.getKeyType(), data.potentialRoomTypes());
             return false;
         }
+
+        LOGGER.info("[GEN] Seal {} accepted key {} -> pool {} (doorPos={}, doorDir={}, doorType={}, controller={})",
+                worldPosition, key.getKeyType(), selectedRoom,
+                data.doorPos(), data.doorDirection(), data.doorType(), data.controllerPos());
 
         RandomSource rand = serverLevel.getRandom();
         Identifier[] roomTypes = new Identifier[] { selectedRoom };
@@ -169,9 +174,11 @@ public class DungeonSealBlockEntity extends BaseBlockEntity {
             controller.getDungeonSynthesizer().decrementSealCount();
             clearDoorwayFill(serverLevel);
             serverLevel.removeBlock(worldPosition, false);
+            LOGGER.info("[GEN] Seal {} consumed; new dungeon room placed", worldPosition);
             return true;
         }
 
+        LOGGER.warn("[GEN] Seal {} key-driven placement FAILED for pool {}", worldPosition, selectedRoom);
         return false;
     }
 

@@ -83,29 +83,35 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
             return false;
         }
 
-        LOGGER.info("Processing room placement request: doorPos={}, direction={}, doorType={}, potentialPools={}",
-                doorPos, doorDirection, doorType, potentialRooms.length);
+        LOGGER.info("[GEN] Controller {} processing placement: doorPos={}, dir={}, doorType={}, pools={} (existing rooms={}, activatedDoors={}, seals={})",
+                worldPosition, doorPos, doorDirection, doorType, potentialRooms.length,
+                dungeonSynthesizer.getDescriptorList().size(),
+                dungeonSynthesizer.getActivatedDoors(),
+                dungeonSynthesizer.getActiveSealCount());
 
-        for (Identifier roomType : potentialRooms) {
-            LOGGER.debug("Trying room pool: {}", roomType);
+        for (int p = 0; p < potentialRooms.length; p++) {
+            Identifier roomType = potentialRooms[p];
+            LOGGER.info("[GEN]   Pool {}/{}: trying {}", p + 1, potentialRooms.length, roomType);
 
             DungeonRoomPlacement placement;
             try {
                 placement = dungeonSynthesizer.getRandomPlacement(
                         serverLevel, roomType, rand, doorPos, doorDirection, doorType);
             } catch (Exception e) {
-                LOGGER.error("Exception while finding placement from pool {} at door {}: {}",
+                LOGGER.error("[GEN]   Exception while finding placement from pool {} at door {}: {}",
                         roomType, doorPos, e.getMessage(), e);
                 continue;
             }
 
             if (placement != null) {
-                LOGGER.info("Found valid placement from pool {}, placing room {} at {}",
-                        roomType, placement.room.getKey(), placement.getRoomPosition());
+                LOGGER.info("[GEN]   Pool {} -> SELECTED room={} pos={} rot={} (placing now)",
+                        roomType, placement.room.getKey(), placement.getRoomPosition(),
+                        placement.settings.getRotation());
 
                 try {
                     placement.placeRoom(rand, serverLevel);
 
+                    int beforeDescs = dungeonSynthesizer.getDescriptorList().size();
                     dungeonSynthesizer.getDescriptorList().addAll(placement.getAreaDescriptors());
 
                     dungeonSynthesizer.incrementActivatedDoors();
@@ -122,21 +128,25 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
                     notifyProgressionThresholds(serverLevel, newlyUnlocked);
                     notifySpatialDistortion(serverLevel, roomType, placement);
 
-                    LOGGER.info("Successfully placed room {} from pool {} at {}",
-                            placement.room.getKey(), roomType, placement.getRoomPosition());
+                    LOGGER.info("[GEN]   Placement done: room={} pool={} pos={}; descs {} -> {}, doors={}, seals={}, unlockedSpecials={}",
+                            placement.room.getKey(), roomType, placement.getRoomPosition(),
+                            beforeDescs, dungeonSynthesizer.getDescriptorList().size(),
+                            dungeonSynthesizer.getActivatedDoors(),
+                            dungeonSynthesizer.getActiveSealCount(),
+                            newlyUnlocked);
                     return true;
                 } catch (Exception e) {
-                    LOGGER.error("Failed to place room {} from pool {} at {}",
+                    LOGGER.error("[GEN]   Failed to place room {} from pool {} at {}",
                             placement.room.getKey(), roomType, placement.getRoomPosition(), e);
                     // Continue to try other room pools
                 }
             } else {
-                LOGGER.debug("No valid placement found from pool {}", roomType);
+                LOGGER.info("[GEN]   Pool {} -> no valid placement", roomType);
             }
         }
 
-        LOGGER.warn("Failed to place any room from {} potential pools at door {} (direction: {}, type: {})",
-                potentialRooms.length, doorPos, doorDirection, doorType);
+        LOGGER.warn("[GEN] Controller {} EXHAUSTED all {} pools at door {} (dir={}, type={})",
+                worldPosition, potentialRooms.length, doorPos, doorDirection, doorType);
         return false;
     }
 
@@ -256,6 +266,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         var queue = tile.dungeonSynthesizer.getPendingValidation();
         if (!queue.isEmpty()) {
             BlockPos sealPos = queue.poll();
+            LOGGER.info("[GEN] tick: validating seal at {} (queue remaining={})", sealPos, queue.size());
             if (serverLevel.getBlockEntity(sealPos) instanceof DungeonSealBlockEntity seal) {
                 var sealData = seal.getData();
                 if (sealData != null) {
@@ -263,6 +274,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
                     boolean canFit = tile.dungeonSynthesizer.canAnythingFit(
                             serverLevel, sealData.doorPos(), sealData.doorDirection(), sealData.doorType(), pools);
                     if (!canFit) {
+                        LOGGER.info("[GEN]   walling off seal {} (no remaining fit)", sealPos);
                         serverLevel.setBlockAndUpdate(sealPos,
                                 DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get().defaultBlockState());
                         tile.dungeonSynthesizer.decrementSealCount();
@@ -270,6 +282,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
                     }
                 }
             } else {
+                LOGGER.info("[GEN]   seal {} no longer exists; decrementing seal count", sealPos);
                 tile.dungeonSynthesizer.decrementSealCount();
                 tile.setChanged();
             }

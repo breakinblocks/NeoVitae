@@ -209,6 +209,8 @@ public class DungeonSynthesizer {
      */
     public BlockPos[] generateInitialRoom(Identifier initialType, RandomSource rand,
                                           ServerLevel world, BlockPos spawningPosition) {
+        LOGGER.info("[GEN] generateInitialRoom: pool={}, controllerPos={}", initialType, spawningPosition);
+
         StructurePlaceSettings settings = new StructurePlaceSettings();
         settings.setMirror(Mirror.NONE);
         settings.setRotation(Rotation.NONE);
@@ -217,14 +219,17 @@ public class DungeonSynthesizer {
 
         DungeonRoom initialRoom = DungeonRoomRegistry.getRandomDungeonRoom(initialType, rand);
         if (initialRoom == null) {
-            LOGGER.warn("Could not find initial room from pool: {}", initialType);
+            LOGGER.warn("[GEN] generateInitialRoom: pool {} returned no room; falling back to bare controller", initialType);
             return new BlockPos[] { spawningPosition.above(), spawningPosition };
         }
 
         BlockPos roomPlacementPosition = initialRoom.getInitialSpawnOffsetForControllerPos(settings, spawningPosition);
+        LOGGER.info("[GEN]   initial room={} placement={}", initialRoom.getKey(), roomPlacementPosition);
 
         // Add area descriptors for collision detection
-        descriptorList.addAll(initialRoom.getAreaDescriptors(settings, roomPlacementPosition));
+        var initialDescs = initialRoom.getAreaDescriptors(settings, roomPlacementPosition);
+        descriptorList.addAll(initialDescs);
+        LOGGER.info("[GEN]   added {} area descriptors (total={})", initialDescs.size(), descriptorList.size());
 
         // Register all doors from this room
         for (Direction facing : Direction.values()) {
@@ -246,12 +251,15 @@ public class DungeonSynthesizer {
 
         // Create door seal blocks for each potential connection
         List<DungeonDoor> doorTypeMap = initialRoom.getPotentialConnectedRoomTypes(settings, roomPlacementPosition);
+        LOGGER.info("[GEN]   placing {} initial seals", doorTypeMap.size());
         for (DungeonDoor dungeonDoor : doorTypeMap) {
             placeDoorSeal(world, spawningPosition, dungeonDoor);
         }
 
         BlockPos playerPos = initialRoom.getPlayerSpawnLocationForPlacement(settings, roomPlacementPosition);
         BlockPos portalLocation = initialRoom.getPortalOffsetLocationForPlacement(settings, roomPlacementPosition);
+        LOGGER.info("[GEN] generateInitialRoom DONE: room={}, playerSpawn={}, portal={}, totalSeals={}",
+                initialRoom.getKey(), playerPos, portalLocation, activeSealCount);
 
         return new BlockPos[] { playerPos, portalLocation };
     }
@@ -383,18 +391,27 @@ public class DungeonSynthesizer {
                                                     Direction doorFacing, String activatedDoorType) {
         List<Pair<Identifier, Integer>> poolEntries = DungeonRoomRegistry.getRoomPoolEntries(roomType);
         if (poolEntries == null || poolEntries.isEmpty()) {
-            LOGGER.debug("No room pool found for type: {}", roomType);
+            LOGGER.warn("[GEN]     pool {} is empty or unregistered", roomType);
             return null;
         }
+
+        LOGGER.info("[GEN]     pool {} has {} candidate rooms (existing descriptors={})",
+                roomType, poolEntries.size(), descriptorList.size());
 
         List<Pair<Identifier, Integer>> shuffled = new ArrayList<>(poolEntries);
         Collections.shuffle(shuffled, new Random(rand.nextLong()));
 
         Direction oppositeDoorFacing = doorFacing.getOpposite();
 
+        int candidatesTried = 0;
+        int rejections = 0;
         for (Pair<Identifier, Integer> entry : shuffled) {
             DungeonRoom testingRoom = DungeonRoomRegistry.getDungeonRoom(entry.getLeft());
-            if (testingRoom == null) continue;
+            if (testingRoom == null) {
+                LOGGER.debug("[GEN]       candidate {} not found in registry", entry.getLeft());
+                continue;
+            }
+            candidatesTried++;
 
             StructurePlaceSettings settings = new StructurePlaceSettings();
             settings.setMirror(Mirror.NONE);
@@ -411,6 +428,8 @@ public class DungeonSynthesizer {
                         oppositeDoorFacing, BlockPos.ZERO);
 
                 if (otherDoorList == null || otherDoorList.isEmpty()) {
+                    LOGGER.debug("[GEN]       {} rot={}: no matching doors (type={}, facing={})",
+                            testingRoom.getKey(), rotation, activatedDoorType, oppositeDoorFacing);
                     continue;
                 }
 
@@ -434,9 +453,9 @@ public class DungeonSynthesizer {
                             if (testDesc.intersects(currentDesc)) {
                                 valid = false;
                                 if (testDesc instanceof AreaDescriptor.Rectangle tr && currentDesc instanceof AreaDescriptor.Rectangle cr) {
-                                    rejectReason = "intersects existing descriptor [" +
-                                            cr.getMinimumOffset() + " to " + cr.getMaximumOffset() +
-                                            "] test=[" + tr.getMinimumOffset() + " to " + tr.getMaximumOffset() + "]";
+                                    rejectReason = "intersects existing [" +
+                                            cr.getMinimumOffset() + ".." + cr.getMaximumOffset() +
+                                            "] (test=[" + tr.getMinimumOffset() + ".." + tr.getMaximumOffset() + "])";
                                 } else {
                                     rejectReason = "intersects existing descriptor";
                                 }
@@ -447,22 +466,28 @@ public class DungeonSynthesizer {
                     }
 
                     if (!valid) {
-                        LOGGER.warn("Rejected {} rot={} at {}: {}",
+                        rejections++;
+                        LOGGER.debug("[GEN]       reject {} rot={} at {}: {}",
                                 testingRoom.getKey(), rotation, roomLocation, rejectReason);
+                        continue;
                     }
 
-                    if (valid) {
-                        settings.clearProcessors();
-                        settings.addProcessor(new StoneToOreProcessor(testingRoom.getOreDensity()));
-                        settings.addProcessor(new TrialSpawnerEntityProcessor());
+                    LOGGER.info("[GEN]     ACCEPT {} rot={} at {} (after {} rejections)",
+                            testingRoom.getKey(), rotation, roomLocation, rejections);
 
-                        Pair<Direction, BlockPos> addedDoor = Pair.of(oppositeDoorFacing, testDoor.offset(roomLocation));
-                        return new DungeonRoomPlacement(testingRoom, world, settings, roomLocation, addedDoor);
-                    }
+                    settings.clearProcessors();
+                    settings.addProcessor(new StoneToOreProcessor(testingRoom.getOreDensity()));
+                    settings.addProcessor(new TrialSpawnerEntityProcessor());
+
+                    Pair<Direction, BlockPos> addedDoor = Pair.of(oppositeDoorFacing, testDoor.offset(roomLocation));
+                    return new DungeonRoomPlacement(testingRoom, world, settings, roomLocation, addedDoor);
                 }
             }
         }
 
+        LOGGER.warn("[GEN]     pool {} EXHAUSTED: tried {} rooms x {} rotations, {} rejections, no fit at door {} (dir={}, type={})",
+                roomType, candidatesTried, Rotation.values().length, rejections,
+                activatedDoorPos, doorFacing, activatedDoorType);
         return null;
     }
 
@@ -507,6 +532,9 @@ public class DungeonSynthesizer {
     }
 
     public boolean canAnythingFit(ServerLevel level, BlockPos doorPos, Direction doorFacing, String doorType, Identifier[] pools) {
+        LOGGER.info("[GEN] canAnythingFit: doorPos={}, dir={}, doorType={}, pools={}",
+                doorPos, doorFacing, doorType, pools.length);
+
         StructurePlaceSettings settings = new StructurePlaceSettings();
         settings.setMirror(Mirror.NONE);
         settings.setIgnoreEntities(false);
@@ -517,7 +545,10 @@ public class DungeonSynthesizer {
         for (Identifier poolName : pools) {
             List<org.apache.commons.lang3.tuple.Pair<Identifier, Integer>> poolEntries =
                     DungeonRoomRegistry.getRoomPoolEntries(poolName);
-            if (poolEntries == null) continue;
+            if (poolEntries == null) {
+                LOGGER.debug("[GEN]   canAnythingFit: pool {} has no entries", poolName);
+                continue;
+            }
 
             for (var entry : poolEntries) {
                 DungeonRoom room = DungeonRoomRegistry.getDungeonRoom(entry.getLeft());
@@ -541,11 +572,16 @@ public class DungeonSynthesizer {
                             if (!valid) break;
                         }
 
-                        if (valid) return true;
+                        if (valid) {
+                            LOGGER.info("[GEN]   canAnythingFit: TRUE via {} rot={} at {}",
+                                    room.getKey(), rotation, roomLocation);
+                            return true;
+                        }
                     }
                 }
             }
         }
+        LOGGER.info("[GEN]   canAnythingFit: FALSE - no candidates fit");
         return false;
     }
 }

@@ -103,6 +103,9 @@ public class DungeonRoomPlacement {
      * Places the room in the world.
      */
     public void placeRoom(RandomSource rand, ServerLevel world) {
+        LOGGER.info("[GEN]     placing structure {} at {} (rot={}, mirror={}, descriptors={}, doors={})",
+                room.getKey(), roomLocation, settings.getRotation(), settings.getMirror(),
+                descriptorList.size(), containedDoorList.size());
         room.placeStructureAtPosition(rand, settings, world, roomLocation);
     }
 

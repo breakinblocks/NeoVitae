@@ -2,10 +2,11 @@ package com.breakinblocks.neovitae.client.render;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.data.AtlasIds;
 import net.minecraft.core.BlockPos;
@@ -21,7 +22,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.SubmitCustomGeometryEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
@@ -31,11 +32,6 @@ import com.breakinblocks.neovitae.ritual.RitualComponent;
 
 import java.util.List;
 
-/**
- * Renders holographic previews of ritual stone placements while the player holds a Ritual
- * Diviner and looks at a Master Ritual Stone. Uses the 26.1 {@link SubmitCustomGeometryEvent}
- * pipeline so the geometry is captured with the rest of the level's main pass.
- */
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
 public class RitualRenderer {
 
@@ -49,9 +45,10 @@ public class RitualRenderer {
 
     private static final int GHOST_COLOR = 0xDDFFFFFF;
     private static final int FULL_BRIGHT = 0x00F000F0;
+    private static final float GHOST_INSET = 0.05F;
 
     @SubscribeEvent
-    public static void onSubmitCustomGeometry(SubmitCustomGeometryEvent event) {
+    public static void onRenderLevel(RenderLevelStageEvent.AfterTranslucentParticles event) {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
         if (player == null) return;
@@ -79,6 +76,9 @@ public class RitualRenderer {
         Vec3 eyePos = event.getLevelRenderState().cameraRenderState.pos;
         PoseStack poseStack = event.getPoseStack();
 
+        MultiBufferSource.BufferSource buffers = mc.renderBuffers().bufferSource();
+        VertexConsumer buffer = buffers.getBuffer(Sheets.translucentBlockSheet());
+
         List<RitualComponent> components = Lists.newArrayList();
         ritual.gatherComponents(components::add);
 
@@ -86,7 +86,7 @@ public class RitualRenderer {
             BlockPos rotatedOffset = rotateOffset(component.offset(), direction);
             BlockPos runePos = mrsPos.offset(rotatedOffset);
 
-            if (level.getBlockState(runePos).isSolidRender()) continue;
+            if (!level.getBlockState(runePos).isAir()) continue;
 
             double minX = runePos.getX() - eyePos.x;
             double minY = runePos.getY() - eyePos.y;
@@ -97,13 +97,12 @@ public class RitualRenderer {
 
             poseStack.pushPose();
             poseStack.translate(minX, minY, minZ);
-            event.getSubmitNodeCollector().submitCustomGeometry(
-                    poseStack,
-                    RenderTypes.entityTranslucent(TextureAtlas.LOCATION_BLOCKS),
-                    (pose, buf) -> RenderResizableCuboid.INSTANCE.renderCube(
-                            model, pose.pose(), buf, GHOST_COLOR, FULL_BRIGHT, OverlayTexture.NO_OVERLAY));
+            RenderResizableCuboid.INSTANCE.renderCube(
+                    model, poseStack, buffer, GHOST_COLOR, FULL_BRIGHT, OverlayTexture.NO_OVERLAY);
             poseStack.popPose();
         }
+
+        buffers.endBatch(Sheets.translucentBlockSheet());
     }
 
     private static Identifier getRuneTexture(EnumRuneType runeType) {
@@ -117,10 +116,6 @@ public class RitualRenderer {
             case DUSK -> RITUAL_STONE_DUSK;
         };
     }
-
-    // Inset to keep the ghost cube faces off any neighbouring solid block face
-    // (e.g. the MRS column or stacked stones in the diagram), which otherwise z-fight.
-    private static final float GHOST_INSET = 0.005F;
 
     private static NeoVitaeRenderer.Model3D getBlockModel(Identifier textureRL) {
         NeoVitaeRenderer.Model3D model = new NeoVitaeRenderer.Model3D();

@@ -1,5 +1,35 @@
 {
   "parent": "minecraft:item/handheld",
+  "overrides": [
+    {
+      "model": "neovitae:item/variant/sentient_scythe_ruina",
+      "predicate": {
+        "neovitae:active": 1.0,
+        "neovitae:will_type": 1.0
+      }
+    },
+    {
+      "model": "neovitae:item/variant/sentient_scythe_nihilum",
+      "predicate": {
+        "neovitae:active": 1.0,
+        "neovitae:will_type": 2.0
+      }
+    },
+    {
+      "model": "neovitae:item/variant/sentient_scythe_invictus",
+      "predicate": {
+        "neovitae:active": 1.0,
+        "neovitae:will_type": 3.0
+      }
+    },
+    {
+      "model": "neovitae:item/variant/sentient_scythe_vindicta",
+      "predicate": {
+        "neovitae:active": 1.0,
+        "neovitae:will_type": 4.0
+      }
+    }
+  ],
   "textures": {
     "layer0": "neovitae:item/sentient_scythe"
   }

@@ -182,8 +182,4 @@ public class SentientSwordItem extends Item implements ISentientTool {
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
         return oldStack.getItem() != newStack.getItem();
     }
-
-    private boolean getActivated(ItemStack stack) {
-        return stack.getOrDefault(NVDataComponents.SIGIL_ACTIVATED, false);
-    }
 }

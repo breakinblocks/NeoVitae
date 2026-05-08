@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -63,6 +64,9 @@ public class ChestLoot implements LootTableSubProvider {
         generateStandardDungeonMinesKey(output);
         generateStandardDungeonPoorLoot(output);
         generateStandardDungeonStrongAlchemy(output);
+
+        // Foreman boss treasure (mine_entrance trial spawner)
+        generateForemanTreasure(output);
     }
 
     private ResourceKey<LootTable> chestKey(String path) {
@@ -577,6 +581,34 @@ public class ChestLoot implements LootTableSubProvider {
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0f))))
                 .add(LootItem.lootTableItem(NVBlocks.STRONG_TAU.item().get()).setWeight(10)
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0f, 9.0f))))
+            )
+        );
+    }
+
+    private void generateForemanTreasure(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+        output.accept(chestKey("foreman/treasure"), LootTable.lootTable()
+            // End-city-tier base loot via the vanilla end_city_treasure table.
+            .withPool(LootPool.lootPool()
+                .setRolls(UniformGenerator.between(2.0f, 4.0f))
+                .add(NVTableLootEntry.builder(vanillaChestKey("end_city_treasure")).setWeight(1))
+            )
+            // 10% nether star: weight 1 against weight-9 empty entry over a single roll.
+            .withPool(LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .add(EmptyLootItem.emptyItem().setWeight(9))
+                .add(LootItem.lootTableItem(Items.NETHER_STAR).setWeight(1).setQuality(10)
+                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
+            )
+            // Spiritus + neovitae trophies for the boss kill.
+            .withPool(LootPool.lootPool()
+                .setRolls(UniformGenerator.between(1.0f, 2.0f))
+                .add(LootItem.lootTableItem(NVItems.MONSTER_SOUL_INVICTUS.get()).setWeight(8)
+                    .apply(SetSpiritusRange.builder(UniformGenerator.between(120.0f, 240.0f))))
+                .add(LootItem.lootTableItem(NVItems.MONSTER_SOUL_RUINA.get()).setWeight(8)
+                    .apply(SetSpiritusRange.builder(UniformGenerator.between(120.0f, 240.0f))))
+                .add(LootItem.lootTableItem(NVItems.HELLFORGED_INGOT.get()).setWeight(6).setQuality(5)
+                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0f, 4.0f))))
+                .add(LootItem.lootTableItem(NVItems.UPGRADE_TOME.get()).setWeight(4).setQuality(6))
             )
         );
     }

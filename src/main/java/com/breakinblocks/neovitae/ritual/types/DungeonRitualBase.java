@@ -2,13 +2,19 @@ package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
@@ -22,6 +28,7 @@ import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -54,22 +61,48 @@ public abstract class DungeonRitualBase extends Ritual {
         }
     }
 
-    protected void performRitualCleanup(IMasterRitualStone masterRitualStone, Level world) {
+    protected static final BlockPos ALTERNATOR_LOCAL = new BlockPos(4, 0, 4);
+
+    protected abstract ResourceLocation getStructureId();
+
+    protected boolean applyRitualStructure(IMasterRitualStone masterRitualStone, ServerLevel level) {
         BlockPos masterPos = masterRitualStone.getMasterBlockPos();
-        Direction direction = masterRitualStone.getDirection();
+        Rotation rotation = directionToRotation(masterRitualStone.getDirection());
 
-        List<RitualComponent> components = new ArrayList<>();
-        gatherComponents(components::add);
-
-        for (RitualComponent component : components) {
-            BlockPos rotatedOffset = rotateOffset(component.offset(), direction);
-            BlockPos newPos = masterPos.offset(rotatedOffset);
-            world.setBlockAndUpdate(newPos, DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get().defaultBlockState());
+        Optional<StructureTemplate> templateOpt = level.getStructureManager().get(getStructureId());
+        if (templateOpt.isEmpty()) {
+            return false;
         }
 
-        spawnLightningEffect(world, masterPos);
+        StructurePlaceSettings settings = new StructurePlaceSettings()
+                .setRotation(rotation)
+                .setMirror(Mirror.NONE)
+                .setIgnoreEntities(true);
+
+        BlockPos placeOrigin = masterPos.subtract(ALTERNATOR_LOCAL);
+        templateOpt.get().placeInWorld(level, placeOrigin, ALTERNATOR_LOCAL, settings, level.random,
+                Block.UPDATE_CLIENTS);
+
+        spawnLightningEffect(level, masterPos);
         AnimaHelper.incrementDungeonCounter();
-        world.setBlockAndUpdate(masterPos, Blocks.AIR.defaultBlockState());
+        return true;
+    }
+
+    protected void wireFunctionalInversionPillar(ServerLevel spawnWorld, BlockPos masterPos,
+                                                  Level destinationWorld, BlockPos safePlayerPos) {
+        BlockEntity tile = spawnWorld.getBlockEntity(masterPos.above(2));
+        if (tile instanceof InversionPillarBlockEntity tileInversion) {
+            tileInversion.setDestination(destinationWorld, safePlayerPos);
+        }
+    }
+
+    private static Rotation directionToRotation(Direction direction) {
+        return switch (direction) {
+            case EAST -> Rotation.CLOCKWISE_90;
+            case SOUTH -> Rotation.CLOCKWISE_180;
+            case WEST -> Rotation.COUNTERCLOCKWISE_90;
+            default -> Rotation.NONE;
+        };
     }
 
     protected void spawnLightningEffect(Level world, BlockPos pos) {

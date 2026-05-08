@@ -87,12 +87,13 @@ public class ClientModEventHandler {
             ItemProperties.register(NVItems.SENTIENT_SHOVEL.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW).ordinal());
             ItemProperties.register(NVItems.SENTIENT_SCYTHE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW).ordinal());
 
-            ItemProperties.register(NVItems.SENTIENT_SWORD.get(), NeoVitae.rl("active"), (stack, level, entity, seed) -> {
-                if (!(entity instanceof net.minecraft.world.entity.player.Player player)) return 0;
-                double will = com.breakinblocks.neovitae.will.PlayerSpiritusHandler.getTotalSpiritus(
-                        stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW), player);
-                return will > 0 ? 1 : 0;
-            });
+            net.minecraft.client.renderer.item.ClampedItemPropertyFunction sentientActive = (stack, level, entity, seed) ->
+                    stack.getOrDefault(NVDataComponents.SIGIL_ACTIVATED, false) ? 1 : 0;
+            ItemProperties.register(NVItems.SENTIENT_SWORD.get(), NeoVitae.rl("active"), sentientActive);
+            ItemProperties.register(NVItems.SENTIENT_AXE.get(), NeoVitae.rl("active"), sentientActive);
+            ItemProperties.register(NVItems.SENTIENT_PICKAXE.get(), NeoVitae.rl("active"), sentientActive);
+            ItemProperties.register(NVItems.SENTIENT_SHOVEL.get(), NeoVitae.rl("active"), sentientActive);
+            ItemProperties.register(NVItems.SENTIENT_SCYTHE.get(), NeoVitae.rl("active"), sentientActive);
 
             ItemProperties.register(NVItems.LEX_VITAE.get(), NeoVitae.rl("active"),
                     (stack, level, entity, seed) -> stack.getOrDefault(NVDataComponents.LEX_ACTIVE, false) ? 1 : 0);
@@ -189,6 +190,7 @@ public class ClientModEventHandler {
             }
             return 0xFFFFFFFF;
         }, NVItems.SIGIL_BLOOD_LIGHT.get());
+
 
         event.register((stack, layer) -> {
             net.minecraft.world.item.DyeColor color = stack.get(com.breakinblocks.neovitae.common.datacomponent.NVDataComponents.ALCHEMY_ARRAY_COLOR.get());

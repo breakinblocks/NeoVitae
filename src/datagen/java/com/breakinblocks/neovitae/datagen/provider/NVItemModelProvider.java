@@ -173,22 +173,46 @@ public class NVItemModelProvider extends ItemModelProvider {
         builder.override().predicate(NeoVitae.INCENSE_PROPERTY, 0).model(normalDagger).end();
         builder.override().predicate(NeoVitae.INCENSE_PROPERTY, 1).model(chargedDagger).end();
 
-        ModelFile lexDormant = singleTexture("item/variant/lex_vitae_dormant",
-                mcLoc("item/handheld"), "layer0", modLoc("item/lex_vitae"));
-        ModelFile lexActive = singleTexture("item/variant/lex_vitae_active",
-                mcLoc("item/handheld"), "layer0", modLoc("item/lex_vitae_active"));
-        ItemModelBuilder lexBuilder = getBuilder(NVItems.LEX_VITAE.getId().getPath());
-        lexBuilder.parent(new ModelFile.UncheckedModelFile(mcLoc("item/handheld")));
-        lexBuilder.texture("layer0", modLoc("item/lex_vitae"));
-        lexBuilder.override().predicate(NeoVitae.rl("active"), 0).model(lexDormant).end();
-        lexBuilder.override().predicate(NeoVitae.rl("active"), 1).model(lexActive).end();
+        String[] typeNames = {"ruina", "nihilum", "invictus", "vindicta"};
 
-        // Sentient tools - use handheld parent for correct held rendering
-        singleTexture("sentient_sword", mcLoc("item/handheld"), "layer0", modLoc("item/sentient_sword"));
-        singleTexture("sentient_axe", mcLoc("item/handheld"), "layer0", modLoc("item/sentient_axe"));
-        singleTexture("sentient_pickaxe", mcLoc("item/handheld"), "layer0", modLoc("item/sentient_pickaxe"));
-        singleTexture("sentient_shovel", mcLoc("item/handheld"), "layer0", modLoc("item/sentient_shovel"));
-        singleTexture("sentient_scythe", mcLoc("item/handheld"), "layer0", modLoc("item/sentient_scythe"));
+        for (String stem : new String[] {"sentient_sword", "sentient_axe", "sentient_pickaxe", "sentient_shovel", "sentient_scythe"}) {
+            ModelFile[] typeVariants = new ModelFile[typeNames.length];
+            for (int i = 0; i < typeNames.length; i++) {
+                typeVariants[i] = singleTexture("item/variant/" + stem + "_" + typeNames[i],
+                        mcLoc("item/handheld"), "layer0", modLoc("item/" + stem + "_" + typeNames[i]));
+            }
+            ItemModelBuilder b = getBuilder(stem)
+                    .parent(new ModelFile.UncheckedModelFile(mcLoc("item/handheld")));
+            b.texture("layer0", modLoc("item/" + stem));
+            for (int i = 0; i < typeNames.length; i++) {
+                int typeOrdinal = i + 1;
+                b.override()
+                        .predicate(NeoVitae.rl("active"), 1)
+                        .predicate(NeoVitae.TYPE_PROPERTY, typeOrdinal)
+                        .model(typeVariants[i])
+                        .end();
+            }
+        }
+
+        ModelFile lexActiveRaw = singleTexture("item/variant/lex_vitae_active",
+                mcLoc("item/handheld"), "layer0", modLoc("item/lex_vitae_active"));
+        ModelFile[] lexActiveTyped = new ModelFile[typeNames.length];
+        for (int i = 0; i < typeNames.length; i++) {
+            lexActiveTyped[i] = singleTexture("item/variant/lex_vitae_active_" + typeNames[i],
+                    mcLoc("item/handheld"), "layer0", modLoc("item/lex_vitae_active_" + typeNames[i]));
+        }
+        ItemModelBuilder lexBuilder = getBuilder(NVItems.LEX_VITAE.getId().getPath())
+                .parent(new ModelFile.UncheckedModelFile(mcLoc("item/handheld")));
+        lexBuilder.texture("layer0", modLoc("item/lex_vitae"));
+        lexBuilder.override().predicate(NeoVitae.rl("active"), 1).model(lexActiveRaw).end();
+        for (int i = 0; i < typeNames.length; i++) {
+            int typeOrdinal = i + 1;
+            lexBuilder.override()
+                    .predicate(NeoVitae.rl("active"), 1)
+                    .predicate(NeoVitae.TYPE_PROPERTY, typeOrdinal)
+                    .model(lexActiveTyped[i])
+                    .end();
+        }
 
         // Array effect dummy items - use their alchemy array textures
         singleTexture("array_bounce", mcLoc("item/generated"), "layer0", modLoc("models/alchemyarrays/bouncearray"));

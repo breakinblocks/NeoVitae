@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "neovitae:item/lex_vitae"
+    "layer0": "neovitae:item/sentient_scythe_nihilum"
   }
 }

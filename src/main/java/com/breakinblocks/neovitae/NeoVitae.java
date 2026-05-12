@@ -34,6 +34,7 @@ import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.common.loot.NVLootFunctions;
 import com.breakinblocks.neovitae.common.structure.NVMultiblock;
 import com.breakinblocks.neovitae.common.structure.NVAltarBookSync;
+import com.breakinblocks.neovitae.common.structure.NVRitualBookSync;
 import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
 import com.breakinblocks.neovitae.ritual.harvest.NVHarvestHandlers;
@@ -103,6 +104,7 @@ public class NeoVitae {
         NVMultiblock.register(NeoForge.EVENT_BUS);
         if (ModList.get().isLoaded("modonomicon")) {
             NVAltarBookSync.register(NeoForge.EVENT_BUS);
+            NVRitualBookSync.register(NeoForge.EVENT_BUS);
         }
         NVMenus.register(modBus);
         NVTabs.register(modBus);

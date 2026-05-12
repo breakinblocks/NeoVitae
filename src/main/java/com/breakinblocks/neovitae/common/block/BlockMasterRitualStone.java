@@ -142,7 +142,7 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
 
             for (Ritual ritual : RitualRegistry.getAllRituals()) {
                 if (tile.checkStructure(ritual)) {
-                    int componentCount = countRitualComponents(ritual);
+                    int componentCount = countRitualComponents(ritual, level);
                     if (componentCount > bestMatchSize) {
                         bestMatchSize = componentCount;
                         bestMatch = ritual;
@@ -215,9 +215,7 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
             tooltip.accept(Component.translatable("tooltip.neovitae.masterRitualStone.inverted").withStyle(ChatFormatting.DARK_PURPLE));
         }}
 
-    private int countRitualComponents(Ritual ritual) {
-        List<com.breakinblocks.neovitae.ritual.RitualComponent> components = new ArrayList<>();
-        ritual.gatherComponents(components::add);
-        return components.size();
+    private int countRitualComponents(Ritual ritual, Level level) {
+        return com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual).size();
     }
 }

@@ -357,9 +357,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     }
 
     private List<RitualComponent> getRitualComponents(Ritual ritual) {
-        List<RitualComponent> components = new ArrayList<>();
-        ritual.gatherComponents(components::add);
-        return components;
+        return com.breakinblocks.neovitae.ritual.RitualLayouts.get(getLevel(), ritual);
     }
 
     @Override

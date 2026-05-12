@@ -79,8 +79,7 @@ public class RitualRenderer {
         MultiBufferSource.BufferSource buffers = mc.renderBuffers().bufferSource();
         VertexConsumer buffer = buffers.getBuffer(Sheets.translucentBlockSheet());
 
-        List<RitualComponent> components = Lists.newArrayList();
-        ritual.gatherComponents(components::add);
+        List<RitualComponent> components = com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual);
 
         for (RitualComponent component : components) {
             BlockPos rotatedOffset = rotateOffset(component.offset(), direction);

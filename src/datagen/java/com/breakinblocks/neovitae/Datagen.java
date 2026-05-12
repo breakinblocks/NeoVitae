@@ -11,6 +11,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.datagen.content.AltarTiers;
 import com.breakinblocks.neovitae.datagen.content.NVDamageSourcesContent;
+import com.breakinblocks.neovitae.datagen.content.RitualLayoutsContent;
 import com.breakinblocks.neovitae.datagen.content.SentientUpgrades;
 import com.breakinblocks.neovitae.datagen.content.SigilTypes;
 import com.breakinblocks.neovitae.datagen.provider.*;
@@ -36,6 +37,7 @@ public class Datagen {
         event.createDatapackRegistryObjects(new RegistrySetBuilder()
             .add(Registries.DAMAGE_TYPE, NVDamageSourcesContent::bootstrap)
             .add(NVRegistries.Keys.ALTAR_TIER_KEY, AltarTiers::bootstrap)
+            .add(NVRegistries.Keys.RITUAL_LAYOUT_KEY, RitualLayoutsContent::bootstrap)
             .add(NVRegistries.Keys.SENTIENT_UPGRADES, SentientUpgrades::bootstrap)
             .add(SigilTypeRegistry.SIGIL_TYPE_KEY, SigilTypes::bootstrap)
         );
@@ -65,9 +67,10 @@ public class Datagen {
         event.createProvider(NVRecipeProvider.Runner::new);
 
         // NVAdvancementProvider + NVModonomiconMultiblockProvider: the custom advancement chain
-        // and the 218 multiblock definitions live as static JSON under src/main/resources/data/
-        // neovitae/ since neither provider can regenerate faithfully in 26.1 (advancement datagen
-        // was rewritten; multiblock builder depended on removed ItemStack construction paths).
+        // lives as static JSON under src/main/resources/data/neovitae/ (26.1 rewrote the
+        // advancement datagen API). Altar/ritual multiblock previews are derived at runtime
+        // from the AltarTier / ritual_layout datapack registries by NVAltarBookSync and
+        // NVRitualBookSync, so there's no datagen provider for them either.
         generator.addProvider(true, new BookProvider(
                 output, provider, NeoVitae.MODID,
                 List.of(new NVBookProvider(langProvider))

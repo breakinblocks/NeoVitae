@@ -211,8 +211,7 @@ public class ItemRitualDiviner extends Item {
         if (ritual == null) return false;
 
         Direction direction = getDirection(stack);
-        List<RitualComponent> components = Lists.newArrayList();
-        ritual.gatherComponents(components::add);
+        List<RitualComponent> components = com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual);
 
         for (RitualComponent component : components) {
             if (!canPlaceRitualStone(component.runeType(), stack)) {
@@ -314,7 +313,7 @@ public class ItemRitualDiviner extends Item {
         String currentId = getCurrentRitualId(stack);
 
         List<Ritual> rituals = RitualRegistry.getAllRituals().stream()
-                .filter(r -> canDivinerBuildRitual(stack, r))
+                .filter(r -> canDivinerBuildRitual(stack, r, player.level()))
                 .sorted(Comparator.comparing(r -> {
                     Identifier id = RitualRegistry.getId(r);
                     return id != null ? id.toString() : "";
@@ -359,9 +358,8 @@ public class ItemRitualDiviner extends Item {
         }
     }
 
-    private boolean canDivinerBuildRitual(ItemStack stack, Ritual ritual) {
-        List<RitualComponent> components = Lists.newArrayList();
-        ritual.gatherComponents(components::add);
+    private boolean canDivinerBuildRitual(ItemStack stack, Ritual ritual, Level level) {
+        List<RitualComponent> components = com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual);
         for (RitualComponent component : components) {
             if (!canPlaceRitualStone(component.runeType(), stack)) {
                 return false;
@@ -437,8 +435,9 @@ public class ItemRitualDiviner extends Item {
 
     private Map<EnumRuneType, Integer> countRunes(Ritual ritual) {
         Map<EnumRuneType, Integer> counts = new EnumMap<>(EnumRuneType.class);
-        List<RitualComponent> components = Lists.newArrayList();
-        ritual.gatherComponents(components::add);
+        net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
+        net.minecraft.world.level.Level level = mc != null ? mc.level : null;
+        List<RitualComponent> components = com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual);
         for (RitualComponent component : components) {
             counts.merge(component.runeType(), 1, Integer::sum);
         }

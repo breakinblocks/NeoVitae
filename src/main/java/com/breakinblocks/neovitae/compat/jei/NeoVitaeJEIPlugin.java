@@ -456,8 +456,9 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 continue;
             }
 
-            List<RitualComponent> components = new ArrayList<>();
-            ritual.gatherComponents(components::add);
+            net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
+            net.minecraft.world.level.Level level = mc != null ? mc.level : null;
+            List<RitualComponent> components = com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual);
 
             recipes.add(RitualJEIRecipe.create(
                     ritualId,

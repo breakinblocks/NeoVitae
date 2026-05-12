@@ -14,10 +14,12 @@ import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
 import com.breakinblocks.neovitae.common.sentient.SentientValueEffect;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 import com.breakinblocks.neovitae.registry.SigilTypeRegistry;
+import com.breakinblocks.neovitae.ritual.RitualLayout;
 
 public class NVRegistries {
     public static class Keys {
         public static final ResourceKey<Registry<AltarTier>> ALTAR_TIER_KEY = ResourceKey.createRegistryKey(bm("altar_tier"));
+        public static final ResourceKey<Registry<RitualLayout>> RITUAL_LAYOUT_KEY = ResourceKey.createRegistryKey(bm("ritual_layout"));
 
         public static final ResourceKey<Registry<SentientUpgrade>> SENTIENT_UPGRADES = ResourceKey.createRegistryKey(bm("sentient_upgrades"));
         public static final ResourceKey<Registry<DataComponentType<?>>> SENTIENT_EFFECT_COMPONENTS = ResourceKey.createRegistryKey(bm("sentient_effect_component"));
@@ -27,6 +29,12 @@ public class NVRegistries {
 
     private static void registerPack(DataPackRegistryEvent.NewRegistry event) {
         event.dataPackRegistry(Keys.ALTAR_TIER_KEY, AltarTier.CODEC);
+        event.dataPackRegistry(
+                Keys.RITUAL_LAYOUT_KEY,
+                RitualLayout.CODEC,
+                RitualLayout.CODEC,
+                builder -> builder.sync(true)
+        );
         event.dataPackRegistry(
                 Keys.SENTIENT_UPGRADES,
                 SentientUpgrade.CODEC,

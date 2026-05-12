@@ -1,0 +1,100 @@
+{
+  "components": [
+    {
+      "pos": [
+        1,
+        0,
+        1
+      ],
+      "rune": "earth"
+    },
+    {
+      "pos": [
+        1,
+        0,
+        -1
+      ],
+      "rune": "earth"
+    },
+    {
+      "pos": [
+        -1,
+        0,
+        -1
+      ],
+      "rune": "earth"
+    },
+    {
+      "pos": [
+        -1,
+        0,
+        1
+      ],
+      "rune": "earth"
+    },
+    {
+      "pos": [
+        2,
+        0,
+        0
+      ],
+      "rune": "earth"
+    },
+    {
+      "pos": [
+        -2,
+        0,
+        0
+      ],
+      "rune": "earth"
+    },
+    {
+      "pos": [
+        0,
+        0,
+        -2
+      ],
+      "rune": "earth"
+    },
+    {
+      "pos": [
+        0,
+        0,
+        2
+      ],
+      "rune": "earth"
+    },
+    {
+      "pos": [
+        2,
+        0,
+        2
+      ],
+      "rune": "water"
+    },
+    {
+      "pos": [
+        2,
+        0,
+        -2
+      ],
+      "rune": "water"
+    },
+    {
+      "pos": [
+        -2,
+        0,
+        -2
+      ],
+      "rune": "water"
+    },
+    {
+      "pos": [
+        -2,
+        0,
+        2
+      ],
+      "rune": "water"
+    }
+  ]
+}

@@ -108,8 +108,7 @@ public class RitualRenderer {
         Vec3 eyePos = camera.getPosition();
         VertexConsumer buffer = buffers.getBuffer(Sheets.translucentCullBlockSheet());
 
-        List<RitualComponent> components = Lists.newArrayList();
-        ritual.gatherComponents(components::add);
+        List<RitualComponent> components = com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual);
 
         for (RitualComponent component : components) {
             poseStack.pushPose();

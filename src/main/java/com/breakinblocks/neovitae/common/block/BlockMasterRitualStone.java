@@ -214,8 +214,8 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
     }
 
     private int countRitualComponents(Ritual ritual) {
-        java.util.List<com.breakinblocks.neovitae.ritual.RitualComponent> components = new java.util.ArrayList<>();
-        ritual.gatherComponents(components::add);
-        return components.size();
+        net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
+        net.minecraft.world.level.Level level = mc != null ? mc.level : null;
+        return com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual).size();
     }
 }

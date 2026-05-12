@@ -13,6 +13,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.datagen.content.AltarTiers;
 import com.breakinblocks.neovitae.datagen.content.NVDamageSourcesContent;
+import com.breakinblocks.neovitae.datagen.content.RitualLayoutsContent;
 import com.breakinblocks.neovitae.datagen.content.SentientUpgrades;
 import com.breakinblocks.neovitae.datagen.content.SigilTypes;
 import com.breakinblocks.neovitae.datagen.provider.*;
@@ -39,6 +40,7 @@ public class Datagen {
         event.createDatapackRegistryObjects(new RegistrySetBuilder()
             .add(Registries.DAMAGE_TYPE, NVDamageSourcesContent::bootstrap)
             .add(NVRegistries.Keys.ALTAR_TIER_KEY, AltarTiers::bootstrap)
+            .add(NVRegistries.Keys.RITUAL_LAYOUT_KEY, RitualLayoutsContent::bootstrap)
             .add(NVRegistries.Keys.SENTIENT_UPGRADES, SentientUpgrades::bootstrap)
             .add(SigilTypeRegistry.SIGIL_TYPE_KEY, SigilTypes::bootstrap)
         );
@@ -65,7 +67,6 @@ public class Datagen {
         event.createProvider(NVRecipeProvider::new);
 
         generator.addProvider(true, new NVAdvancementProvider(output, provider, fileHelper));
-        generator.addProvider(true, new NVModonomiconMultiblockProvider(output));
         generator.addProvider(true, new BookProvider(
                 output, provider, NeoVitae.MODID,
                 List.of(new NVBookProvider(langProvider))

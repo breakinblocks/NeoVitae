@@ -1,9 +1,10 @@
 package com.breakinblocks.neovitae.ritual;
 
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
-import net.minecraft.core.Registry;
+import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
@@ -48,10 +49,11 @@ public final class RitualLayouts {
     }
 
     private static RitualLayout lookup(RegistryAccess registries, Ritual ritual) {
-        ResourceLocation id = RitualRegistry.getId(ritual);
+        Identifier id = RitualRegistry.getId(ritual);
         if (id == null) return null;
-        Registry<RitualLayout> registry = registries.registry(NVRegistries.Keys.RITUAL_LAYOUT_KEY).orElse(null);
-        if (registry == null) return null;
-        return registry.get(id);
+        return registries.lookup(NVRegistries.Keys.RITUAL_LAYOUT_KEY)
+                .flatMap(lookup -> lookup.get(ResourceKey.create(NVRegistries.Keys.RITUAL_LAYOUT_KEY, id)))
+                .map(Holder.Reference::value)
+                .orElse(null);
     }
 }

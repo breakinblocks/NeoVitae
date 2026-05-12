@@ -8,7 +8,8 @@ import com.breakinblocks.neovitae.ritual.RitualRegistry;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
 import com.klikli_dev.modonomicon.data.MultiblockDataManager;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.server.MinecraftServer;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
@@ -31,7 +32,7 @@ import java.util.Set;
  */
 public final class NVRitualBookSync {
 
-    private static final Set<ResourceLocation> INJECTED_IDS = new HashSet<>();
+    private static final Set<Identifier> INJECTED_IDS = new HashSet<>();
 
     private NVRitualBookSync() {
     }
@@ -54,9 +55,9 @@ public final class NVRitualBookSync {
         if (!ModList.get().isLoaded("modonomicon")) return;
 
         MultiblockDataManager manager = MultiblockDataManager.get();
-        Map<ResourceLocation, Multiblock> multiblocks = manager.getMultiblocks();
+        Map<Identifier, Multiblock> multiblocks = manager.getMultiblocks();
 
-        for (ResourceLocation id : INJECTED_IDS) {
+        for (Identifier id : INJECTED_IDS) {
             multiblocks.remove(id);
         }
         INJECTED_IDS.clear();
@@ -64,9 +65,9 @@ public final class NVRitualBookSync {
         RegistryAccess registries = server.registryAccess();
 
         for (Ritual ritual : RitualRegistry.getAllRituals()) {
-            ResourceLocation ritualId = RitualRegistry.getId(ritual);
+            Identifier ritualId = RitualRegistry.getId(ritual);
             if (ritualId == null) continue;
-            ResourceLocation multiblockId = NeoVitae.rl("ritual/" + ritualId.getPath());
+            Identifier multiblockId = NeoVitae.rl("ritual/" + ritualId.getPath());
 
             if (multiblocks.containsKey(multiblockId)) continue;
 

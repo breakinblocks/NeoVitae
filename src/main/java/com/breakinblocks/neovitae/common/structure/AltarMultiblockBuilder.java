@@ -12,7 +12,7 @@ import com.klikli_dev.modonomicon.data.LoaderRegistry;
 import com.klikli_dev.modonomicon.multiblock.DenseMultiblock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs.TagOrElementLocation;
 
 import java.util.HashMap;
@@ -149,9 +149,9 @@ public final class AltarMultiblockBuilder {
         if (material.tag()) {
             matcher.addProperty("type", "modonomicon:tag");
             matcher.addProperty("tag", "#" + material.id());
-            ResourceLocation runesTag = NVTags.Blocks.RUNES.location();
+            Identifier runesTag = NVTags.Blocks.RUNES.location();
             if (material.id().equals(runesTag) && !key.upgrade()) {
-                ResourceLocation blankRune = blockId(NVBlocks.RUNE_BLANK.block().getId());
+                Identifier blankRune = blockId(NVBlocks.RUNE_BLANK.block().getId());
                 matcher.addProperty("display", blankRune.toString());
             }
         } else {
@@ -161,7 +161,7 @@ public final class AltarMultiblockBuilder {
         return matcher;
     }
 
-    private static ResourceLocation blockId(ResourceLocation id) {
+    private static Identifier blockId(Identifier id) {
         return id != null ? id : NeoVitae.rl("ara_vitae");
     }
 

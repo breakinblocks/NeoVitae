@@ -8,7 +8,7 @@ import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
 import com.klikli_dev.modonomicon.data.MultiblockDataManager;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
@@ -34,7 +34,7 @@ public final class NVAltarBookSync {
 
     private static final String TIER_NAME_PREFIX = "altar_";
     private static final String[] TIER_NAMES = {"one", "two", "three", "four", "five", "six"};
-    private static final Set<ResourceLocation> INJECTED_IDS = new HashSet<>();
+    private static final Set<Identifier> INJECTED_IDS = new HashSet<>();
 
     private NVAltarBookSync() {
     }
@@ -57,22 +57,22 @@ public final class NVAltarBookSync {
         if (!ModList.get().isLoaded("modonomicon")) return;
 
         MultiblockDataManager manager = MultiblockDataManager.get();
-        Map<ResourceLocation, Multiblock> multiblocks = manager.getMultiblocks();
+        Map<Identifier, Multiblock> multiblocks = manager.getMultiblocks();
 
-        for (ResourceLocation id : INJECTED_IDS) {
+        for (Identifier id : INJECTED_IDS) {
             multiblocks.remove(id);
         }
         INJECTED_IDS.clear();
 
         RegistryAccess registries = server.registryAccess();
-        var tierRegistry = registries.registryOrThrow(NVRegistries.Keys.ALTAR_TIER_KEY);
-        var validTiers = tierRegistry.getOrCreateTag(NVTags.Tiers.VALID_TIERS);
+        var tierRegistry = registries.lookupOrThrow(NVRegistries.Keys.ALTAR_TIER_KEY);
+        var validTiers = tierRegistry.getTagOrEmpty(NVTags.Tiers.VALID_TIERS);
 
         for (Holder<AltarTier> holder : validTiers) {
             AltarTier tier = holder.value();
             int idx = tier.tier();
             if (idx < 0 || idx >= TIER_NAMES.length) continue;
-            ResourceLocation multiblockId = NeoVitae.rl(TIER_NAME_PREFIX + TIER_NAMES[idx]);
+            Identifier multiblockId = NeoVitae.rl(TIER_NAME_PREFIX + TIER_NAMES[idx]);
 
             if (multiblocks.containsKey(multiblockId)) continue;
 

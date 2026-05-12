@@ -6,8 +6,8 @@ import com.breakinblocks.neovitae.ritual.RitualComponent;
 import com.breakinblocks.neovitae.ritual.RitualLayout;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public final class RitualLayoutsContent {
 
     public static void bootstrap(BootstrapContext<RitualLayout> context) {
         for (Ritual ritual : RitualRegistry.getAllRituals()) {
-            ResourceLocation id = RitualRegistry.getId(ritual);
+            Identifier id = RitualRegistry.getId(ritual);
             if (id == null) continue;
             List<RitualComponent> components = new ArrayList<>();
             ritual.gatherComponents(components::add);

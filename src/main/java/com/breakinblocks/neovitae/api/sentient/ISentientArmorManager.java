@@ -15,7 +15,7 @@ import java.util.Map;
  * <p>Access via the Neo Vitae API:</p>
  * <pre>{@code
  * INeoVitaeAPI api = NeoVitaeAPI.get();
- * ISentientArmorManager manager = api.getLivingArmorManager();
+ * ISentientArmorManager manager = api.getSentientArmorManager();
  * if (manager.hasFullSet(player)) {
  *     List<UpgradeInfo> upgrades = manager.getUpgrades(player);
  * }

@@ -1,5 +1,5 @@
 {
-  "type": "neovitae:sentientdowngrade",
+  "type": "neovitae:sentient_downgrade",
   "input": "neovitae:venomgland_sac",
-  "livingarmour": "neovitae:poisoned_blood"
+  "sentient_upgrade": "neovitae:poisoned_blood"
 }

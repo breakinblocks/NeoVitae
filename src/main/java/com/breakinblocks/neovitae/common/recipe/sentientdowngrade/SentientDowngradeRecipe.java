@@ -18,32 +18,28 @@ import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import javax.annotation.Nonnull;
 
-/**
- * Recipe for applying living armor downgrades.
- * Takes an input item and applies a specific downgrade to living armor.
- */
 public class SentientDowngradeRecipe implements Recipe<SentientDowngradeInput> {
-    public static final String RECIPE_TYPE_NAME = "sentientdowngrade";
+    public static final String RECIPE_TYPE_NAME = "sentient_downgrade";
 
     public static final MapCodec<SentientDowngradeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC.fieldOf("input").forGetter(SentientDowngradeRecipe::getInput),
-            Identifier.CODEC.fieldOf("livingarmour").forGetter(SentientDowngradeRecipe::getLivingUpgradeId)
+            Identifier.CODEC.fieldOf("sentient_upgrade").forGetter(SentientDowngradeRecipe::getSentientUpgradeId)
     ).apply(instance, SentientDowngradeRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SentientDowngradeRecipe> STREAM_CODEC = StreamCodec.composite(
             Ingredient.CONTENTS_STREAM_CODEC, SentientDowngradeRecipe::getInput,
-            Identifier.STREAM_CODEC, SentientDowngradeRecipe::getLivingUpgradeId,
+            Identifier.STREAM_CODEC, SentientDowngradeRecipe::getSentientUpgradeId,
             SentientDowngradeRecipe::new
     );
 
     @Nonnull
     private final Ingredient input;
     @Nonnull
-    private final Identifier livingUpgradeId;
+    private final Identifier sentientUpgradeId;
 
-    public SentientDowngradeRecipe(@Nonnull Ingredient input, @Nonnull Identifier livingUpgradeId) {
+    public SentientDowngradeRecipe(@Nonnull Ingredient input, @Nonnull Identifier sentientUpgradeId) {
         this.input = input;
-        this.livingUpgradeId = livingUpgradeId;
+        this.sentientUpgradeId = sentientUpgradeId;
     }
 
     @Nonnull
@@ -52,8 +48,8 @@ public class SentientDowngradeRecipe implements Recipe<SentientDowngradeInput> {
     }
 
     @Nonnull
-    public Identifier getLivingUpgradeId() {
-        return livingUpgradeId;
+    public Identifier getSentientUpgradeId() {
+        return sentientUpgradeId;
     }
 
     @Override
@@ -63,7 +59,6 @@ public class SentientDowngradeRecipe implements Recipe<SentientDowngradeInput> {
 
     @Override
     public ItemStack assemble(SentientDowngradeInput container) {
-        // Living downgrade recipes don't produce an item output
         return ItemStack.EMPTY;
     }
 

@@ -135,8 +135,8 @@ public class CuriosCompat {
         }
 
         Map<String, ICurioStacksHandler> curios = curioInv.get().getCurios();
-        ICurioStacksHandler livingArmourSockets = curios.get(SENTIENT_ARMOUR_SOCKET_SLOT);
-        if (livingArmourSockets == null) {
+        ICurioStacksHandler sentientArmourSockets = curios.get(SENTIENT_ARMOUR_SOCKET_SLOT);
+        if (sentientArmourSockets == null) {
             return 0;
         }
 
@@ -145,17 +145,17 @@ public class CuriosCompat {
         if (SentientHelper.hasFullSet(player)) {
             int curiosLevel = getCuriosSocketLevel(player);
 
-            livingArmourSockets.removeModifier(modifierId);
+            sentientArmourSockets.removeModifier(modifierId);
 
             if (curiosLevel > 0) {
                 int bonusSlots = Math.min(curiosLevel, 5);
-                livingArmourSockets.addTransientModifier(
+                sentientArmourSockets.addTransientModifier(
                         new AttributeModifier(modifierId, bonusSlots, AttributeModifier.Operation.ADD_VALUE)
                 );
             }
             return curiosLevel;
         } else {
-            livingArmourSockets.removeModifier(modifierId);
+            sentientArmourSockets.removeModifier(modifierId);
             return 0;
         }
     }

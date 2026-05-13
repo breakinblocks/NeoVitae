@@ -102,7 +102,7 @@ public class NVRecipeProvider extends RecipeProvider {
         addDungeonRecipes(output);
         addMeteorRecipes(output);
         addFlaskRecipes(output);
-        addLivingDowngradeRecipes(output);
+        addSentientDowngradeRecipes(output);
     }
 
     public static class Runner extends RecipeProvider.Runner {
@@ -4588,7 +4588,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
     // ==================== Sentient Downgrade Recipes ====================
 
-    private void addLivingDowngradeRecipes(RecipeOutput output) {
+    private void addSentientDowngradeRecipes(RecipeOutput output) {
         String basePath = "downgrade/";
 
         // Battle Hungry - increases hunger drain

@@ -28,7 +28,7 @@ public class NVCommands {
         CommandNode<CommandSourceStack> ritualNode = dispatcher.getRoot().getChild("nv-ritual");
         CommandNode<CommandSourceStack> imperfectRitualNode = dispatcher.getRoot().getChild("nv-imperfectritual");
         CommandNode<CommandSourceStack> auraNode = dispatcher.getRoot().getChild("nv-aura");
-        CommandNode<CommandSourceStack> upgradeNode = dispatcher.getRoot().getChild("living-upgrade");
+        CommandNode<CommandSourceStack> upgradeNode = dispatcher.getRoot().getChild("sentient-upgrade");
         CommandNode<CommandSourceStack> generateNode = dispatcher.getRoot().getChild("nvgenerate");
         CommandNode<CommandSourceStack> setOrbFillNode = dispatcher.getRoot().getChild("nvsetorbfill");
         CommandNode<CommandSourceStack> routingRescanNode = dispatcher.getRoot().getChild("nvroutingrescan");

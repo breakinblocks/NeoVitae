@@ -51,7 +51,7 @@ public interface INeoVitaeAPI {
      *
      * @return The living armor manager
      */
-    ISentientArmorManager getLivingArmorManager();
+    ISentientArmorManager getSentientArmorManager();
 
     /**
      * Gets the Altar Rune registry for registering custom runes.

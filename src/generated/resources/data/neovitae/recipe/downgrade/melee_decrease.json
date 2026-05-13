@@ -1,5 +1,5 @@
 {
-  "type": "neovitae:sentientdowngrade",
+  "type": "neovitae:sentient_downgrade",
   "input": "minecraft:stone_sword",
-  "livingarmour": "neovitae:melee_decrease"
+  "sentient_upgrade": "neovitae:melee_decrease"
 }

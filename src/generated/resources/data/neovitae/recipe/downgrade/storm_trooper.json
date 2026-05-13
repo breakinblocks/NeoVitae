@@ -1,5 +1,5 @@
 {
-  "type": "neovitae:sentientdowngrade",
+  "type": "neovitae:sentient_downgrade",
   "input": "minecraft:arrow",
-  "livingarmour": "neovitae:storm_trooper"
+  "sentient_upgrade": "neovitae:storm_trooper"
 }

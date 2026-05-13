@@ -1,5 +1,5 @@
 {
-  "type": "neovitae:sentientdowngrade",
+  "type": "neovitae:sentient_downgrade",
   "input": "minecraft:ghast_tear",
-  "livingarmour": "neovitae:slow_heal"
+  "sentient_upgrade": "neovitae:slow_heal"
 }

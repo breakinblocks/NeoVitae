@@ -31,11 +31,11 @@ import javax.swing.text.html.CSS;
 import java.util.Optional;
 
 public class SentientUpgradesCommand {
-    private static final DynamicCommandExceptionType ERROR_NO_LIVING_HOLDER = new DynamicCommandExceptionType(playername -> Component.translatable("command.neovitae.upgrade.no_armour", playername));
+    private static final DynamicCommandExceptionType ERROR_NO_SENTIENT_HOLDER = new DynamicCommandExceptionType(playername -> Component.translatable("command.neovitae.upgrade.no_armour", playername));
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext buildContext) {
         dispatcher.register(
-                Commands.literal("living-upgrade")
+                Commands.literal("sentient-upgrade")
                         .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .then(
                                 Commands.argument("target", EntityArgument.player())
@@ -139,7 +139,7 @@ public class SentientUpgradesCommand {
 
     private static int setMode(CommandSourceStack source, ServerPlayer target, boolean mode) throws CommandSyntaxException {
         if (SentientHelper.isNeverValid(target)) {
-            throw ERROR_NO_LIVING_HOLDER.create(target.getName());
+            throw ERROR_NO_SENTIENT_HOLDER.create(target.getName());
         }
         ItemStack chest = SentientHelper.getChest(target);
         UpgradeLimits limits = chest.getOrDefault(NVDataComponents.LIMITS, UpgradeLimits.EMPTY);
@@ -150,7 +150,7 @@ public class SentientUpgradesCommand {
 
     private static int removeLimit(CommandSourceStack source, ServerPlayer target, Holder<SentientUpgrade> id) throws CommandSyntaxException {
         if (SentientHelper.isNeverValid(target)) {
-            throw ERROR_NO_LIVING_HOLDER.create(target.getName());
+            throw ERROR_NO_SENTIENT_HOLDER.create(target.getName());
         }
         ItemStack chest = SentientHelper.getChest(target);
         UpgradeLimits limits = chest.getOrDefault(NVDataComponents.LIMITS, UpgradeLimits.EMPTY);
@@ -163,7 +163,7 @@ public class SentientUpgradesCommand {
 
     private static int setCap(CommandSourceStack source, ServerPlayer target, int amount) throws CommandSyntaxException {
         if (SentientHelper.isNeverValid(target)) {
-            throw ERROR_NO_LIVING_HOLDER.create(target.getName());
+            throw ERROR_NO_SENTIENT_HOLDER.create(target.getName());
         }
         ItemStack chest = SentientHelper.getChest(target);
         chest.set(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS, amount);
@@ -174,7 +174,7 @@ public class SentientUpgradesCommand {
 
     private static int recalcPoints(CommandSourceStack source, ServerPlayer target) throws CommandSyntaxException {
         if (SentientHelper.isNeverValid(target)) {
-            throw ERROR_NO_LIVING_HOLDER.create(target.getName());
+            throw ERROR_NO_SENTIENT_HOLDER.create(target.getName());
         }
         int calculated = SentientHelper.recalcPoints(target);
         source.sendSuccess(() -> Component.translatable("commands.neovitae.recalc.success", calculated), true);
@@ -184,7 +184,7 @@ public class SentientUpgradesCommand {
 
     private static int setUpgrade(CommandSourceStack source, ServerPlayer target, Holder<SentientUpgrade> id, int exp) throws CommandSyntaxException {
         if (SentientHelper.isNeverValid(target)) {
-            throw ERROR_NO_LIVING_HOLDER.create(target.getName());
+            throw ERROR_NO_SENTIENT_HOLDER.create(target.getName());
         }
         ItemStack chest = SentientHelper.getChest(target);
         Object2FloatOpenHashMap<Holder<SentientUpgrade>> map = new Object2FloatOpenHashMap<>();
@@ -199,7 +199,7 @@ public class SentientUpgradesCommand {
 
     private static int getUpgrades(CommandSourceStack source, Player target, Optional<Holder<SentientUpgrade>> filter) throws CommandSyntaxException {
         if (SentientHelper.isNeverValid(target)) { // if this check fails the applied upgrades can never take effect
-            throw ERROR_NO_LIVING_HOLDER.create(target.getName());
+            throw ERROR_NO_SENTIENT_HOLDER.create(target.getName());
         }
 
         ItemStack chestStack = SentientHelper.getChest(target);
@@ -221,7 +221,7 @@ public class SentientUpgradesCommand {
 
     private static int setLimit(CommandSourceStack source, ServerPlayer target, Holder<SentientUpgrade> id, int exp) throws CommandSyntaxException {
         if (SentientHelper.isNeverValid(target)) {
-            throw ERROR_NO_LIVING_HOLDER.create(target.getName());
+            throw ERROR_NO_SENTIENT_HOLDER.create(target.getName());
         }
         ItemStack chest = SentientHelper.getChest(target);
         Object2FloatOpenHashMap<Holder<SentientUpgrade>> map = new Object2FloatOpenHashMap<>();
@@ -237,7 +237,7 @@ public class SentientUpgradesCommand {
 
     private static int getLimit(CommandSourceStack source, Player target, Optional<Holder<SentientUpgrade>> filter) throws CommandSyntaxException {
         if (SentientHelper.isNeverValid(target)) { // if this check fails the applied upgrades can never take effect
-            throw ERROR_NO_LIVING_HOLDER.create(target.getName());
+            throw ERROR_NO_SENTIENT_HOLDER.create(target.getName());
         }
 
         ItemStack chestStack = SentientHelper.getChest(target);

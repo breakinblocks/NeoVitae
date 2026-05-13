@@ -877,7 +877,7 @@
               "function": "minecraft:set_count"
             },
             {
-              "function": "neovitae:set_living_upgrade",
+              "function": "neovitae:set_sentient_upgrade",
               "upgrades": [
                 "neovitae:luck"
               ],

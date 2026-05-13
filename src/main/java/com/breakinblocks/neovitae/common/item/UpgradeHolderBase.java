@@ -96,7 +96,7 @@ public interface UpgradeHolderBase extends IItemExtension, IUpgradeHolder {
     }
 
     @Override
-    default boolean hasFullLivingArmorSet(Player player) {
+    default boolean hasFullSentientArmorSet(Player player) {
         return SentientHelper.hasFullSet(player);
     }
 

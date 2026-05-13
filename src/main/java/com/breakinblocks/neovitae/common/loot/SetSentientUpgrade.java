@@ -27,7 +27,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
- * Loot function that adds a living upgrade with random experience to items.
+ * Loot function that adds a sentient armor upgrade with random experience to items.
  */
 public class SetSentientUpgrade extends LootItemConditionalFunction {
     private static final Logger LOGGER = LoggerFactory.getLogger(SetSentientUpgrade.class);
@@ -50,12 +50,11 @@ public class SetSentientUpgrade extends LootItemConditionalFunction {
 
     @Override
     public MapCodec<? extends LootItemConditionalFunction> codec() {
-        return NVLootFunctions.SET_LIVING_UPGRADE.get();
+        return NVLootFunctions.SET_SENTIENT_UPGRADE.get();
     }
 
     @Override
     protected ItemStack run(ItemStack stack, LootContext context) {
-        // Check if item can have upgrades (living armor)
         if (stack.has(NVDataComponents.UPGRADES) || stack.has(NVDataComponents.REQUIRED_SET)) {
             if (upgrades.isEmpty()) {
                 LOGGER.warn("No upgrades specified for SetSentientUpgrade loot function");
@@ -68,13 +67,12 @@ public class SetSentientUpgrade extends LootItemConditionalFunction {
 
             float points = pointsRange.getFloat(context);
 
-            // Get or create living stats and add experience
             SentientStats stats = stack.getOrDefault(NVDataComponents.UPGRADES, SentientStats.EMPTY);
             Object2FloatOpenHashMap<Holder<SentientUpgrade>> newUpgrades = stats.upgrades().clone();
             newUpgrades.addTo(upgrade, points);
             stack.set(NVDataComponents.UPGRADES, new SentientStats(newUpgrades));
         } else {
-            LOGGER.warn("Couldn't set living upgrade on loot item {}", stack);
+            LOGGER.warn("Couldn't set sentient upgrade on loot item {}", stack);
         }
         return stack;
     }

@@ -30,7 +30,7 @@ public class NeoVitaeAPIImpl implements INeoVitaeAPI {
     }
 
     @Override
-    public ISentientArmorManager getLivingArmorManager() {
+    public ISentientArmorManager getSentientArmorManager() {
         return SentientArmorManagerImpl.INSTANCE;
     }
 

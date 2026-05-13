@@ -1,5 +1,5 @@
 {
-  "type": "neovitae:sentientdowngrade",
+  "type": "neovitae:sentient_downgrade",
   "input": "minecraft:glass_bottle",
-  "livingarmour": "neovitae:quenched"
+  "sentient_upgrade": "neovitae:quenched"
 }

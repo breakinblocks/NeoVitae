@@ -1030,7 +1030,7 @@
   "book.neovitae.guide.rituals.ritual_full_stomach.multiblock.text": "[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()",
   "book.neovitae.guide.rituals.ritual_full_stomach.name": "Ritual of the Satiated Stomach",
   "book.neovitae.guide.rituals.ritual_green_grove.description": "Suffuses the earth with life, hastening all growth.",
-  "book.neovitae.guide.rituals.ritual_green_grove.info.text": "Blood is the wellspring of all life, and this ritual proves it. The circle suffuses the surrounding soil with [#](4A0080)Essentia Vitae[#](), accelerating the growth of crops and plants within its reach as though seasons passed in moments.",
+  "book.neovitae.guide.rituals.ritual_green_grove.info.text": "Blood is the wellspring of all life, and this ritual proves it. The circle suffuses a 9-by-9-by-9 column of air above the master stone with [#](4A0080)Essentia Vitae[#](), accelerating the growth of crops, saplings, and plants within its reach as though seasons passed in moments. Even budding stone heeds the pulse: amethyst geodes and [#](8B0000)Spiritus Crystals[#]() ripen as readily as a seedling. Should the chosen garden lie off-center, a [#](2E8B57)Ritual Reader[#]() may relocate the working volume.",
   "book.neovitae.guide.rituals.ritual_green_grove.info.title": "Verdant Awakening",
   "book.neovitae.guide.rituals.ritual_green_grove.multiblock.text": "[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()",
   "book.neovitae.guide.rituals.ritual_green_grove.name": "Ritual of the Green Grove",

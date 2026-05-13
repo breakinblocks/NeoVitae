@@ -11,11 +11,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.FarmlandBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
+import com.breakinblocks.neovitae.common.block.BlockSpiritusCrystal;
+import com.breakinblocks.neovitae.common.blockentity.SpiritusCrystalBlockEntity;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.api.will.SpiritusState;
@@ -54,7 +58,7 @@ public class RitualGreenGrove extends Ritual {
 
     public RitualGreenGrove() {
         super("green_grove", 0, 1000, "ritual." + NeoVitae.MODID + ".green_grove");
-        addBlockRange(GROWTH_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-3, 1, -3), 7, 5, 7));
+        addBlockRange(GROWTH_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-4, 1, -4), 9, 9, 9));
         addBlockRange(LEECH_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-5, 0, -5), 11, 3, 11));
         addBlockRange(HYDRATE_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-3, 0, -3), 7, 1, 7));
 
@@ -119,6 +123,19 @@ public class RitualGreenGrove extends Ritual {
             if (!grew && (block == Blocks.CACTUS || block == Blocks.SUGAR_CANE || block == Blocks.BAMBOO)) {
                 state.randomTick(serverLevel, pos, ctx.level().getRandom());
                 grew = true;
+            }
+
+            if (!grew && state.is(NVTags.Blocks.GEODE_ACCELERATABLE)) {
+                state.randomTick(serverLevel, pos, ctx.level().getRandom());
+                grew = true;
+            }
+
+            if (!grew && block instanceof BlockSpiritusCrystal) {
+                BlockEntity be = ctx.level().getBlockEntity(pos);
+                if (be instanceof SpiritusCrystalBlockEntity crystal) {
+                    double applied = crystal.growCrystalWithWillAmount(0, 0.05);
+                    if (applied > 0) grew = true;
+                }
             }
 
             if (grew) {

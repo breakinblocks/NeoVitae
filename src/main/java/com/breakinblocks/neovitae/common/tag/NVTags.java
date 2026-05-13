@@ -126,6 +126,7 @@ public class NVTags {
         public static final TagKey<Block> MUSHROOM_STEM = tag(bm("mushroom_stem"));
 
         public static final TagKey<Block> GEODE_HARVESTABLE = tag(bm("geode_harvestable"));
+        public static final TagKey<Block> GEODE_ACCELERATABLE = tag(bm("geode_acceleratable"));
 
         public static final TagKey<Block> MUNDANE_BLOCK = tag(bm("mundane_block"));
 

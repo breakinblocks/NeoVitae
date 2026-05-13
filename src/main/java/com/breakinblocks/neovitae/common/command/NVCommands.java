@@ -18,6 +18,7 @@ public class NVCommands {
         ImperfectRitualCommand.register(dispatcher);
         AuraCommand.register(dispatcher);
         DungeonShowcaseCommand.register(dispatcher);
+        ShowcaseCommand.register(dispatcher);
         GenerateMaterialsCommand.register(dispatcher);
         StreamTestCommand.register(dispatcher);
         SetOrbFillCommand.register(dispatcher);
@@ -41,6 +42,9 @@ public class NVCommands {
                         .then(Commands.literal("aura").redirect(auraNode))
                         .then(Commands.literal("upgrade").redirect(upgradeNode))
                         .then(Commands.literal("dungeon-showcase").redirect(showcaseNode))
+                        .then(Commands.literal("showcase")
+                                .requires(s -> s.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                                .executes(ShowcaseCommand::placeShowcase))
                         .then(Commands.literal("generate")
                                 .requires(s -> s.hasPermission(Commands.LEVEL_GAMEMASTERS))
                                 .executes(GenerateMaterialsCommand::execute))

@@ -194,6 +194,7 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER = BASIC_ITEMS.registerItem("ritual_diviner", props -> new ItemRitualDiviner(props, 0));
     public static final DeferredHolder<Item, ItemRitualDiviner> RITUAL_DIVINER_DUSK = BASIC_ITEMS.registerItem("ritual_diviner_dusk", props -> new ItemRitualDiviner(props, 1));
     public static final DeferredHolder<Item, ItemRitualReader> RITUAL_READER = BASIC_ITEMS.registerItem("ritual_reader", ItemRitualReader::new);
+    public static final DeferredHolder<Item, ItemRitualDesigner> RITUAL_DESIGNER = BASIC_ITEMS.registerItem("ritual_designer", ItemRitualDesigner::new);
 
     public static final DeferredHolder<Item, SentientSwordItem> SENTIENT_SWORD = BASIC_ITEMS.registerItem("sentient_sword", SentientSwordItem::new);
     public static final DeferredHolder<Item, SentientAxeItem> SENTIENT_AXE = BASIC_ITEMS.registerItem("sentient_axe", SentientAxeItem::new);

@@ -638,6 +638,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Ritual Reader
         add(NVItems.RITUAL_READER.get(), "Ritual Reader");
+        add(NVItems.RITUAL_DESIGNER.get(), "Ritual Designer");
         addTooltip("reader.desc", "Used to configure ritual areas.");
         addTooltip("reader.currentState", "Mode: %s");
         addTooltip("reader.currentRange", "Range: %s");

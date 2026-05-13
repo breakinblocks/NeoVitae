@@ -44,7 +44,7 @@ public class NVTabs {
                         addAll(NVBlocks.BLOCK_ITEMS, output::accept);
 
                         ItemStack sentient_plate = new ItemStack(NVItems.SENTIENT_PLATE);
-                        SentientHelper.setDefaultLiving(sentient_plate, parameters.holders());
+                        SentientHelper.setDefaultSentient(sentient_plate, parameters.holders());
                         output.accept(sentient_plate);
 
                         addAll(NVItems.BASIC_ITEMS, output::accept);

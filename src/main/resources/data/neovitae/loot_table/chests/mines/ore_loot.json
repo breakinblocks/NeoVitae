@@ -483,7 +483,7 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "neovitae:set_living_upgrade",
+              "function": "neovitae:set_sentient_upgrade",
               "points": {
                 "type": "minecraft:uniform",
                 "max": 300.0,

@@ -46,7 +46,6 @@ public class RitualUpgradeRemove extends Ritual {
                     continue;
                 }
 
-                // Get living stats
                 SentientStats stats = armorPiece.get(NVDataComponents.UPGRADES.get());
                 if (stats == null || stats.upgrades().isEmpty()) {
                     continue;

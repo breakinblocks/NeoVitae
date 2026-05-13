@@ -1,7 +1,7 @@
 {
-  "type": "neovitae:livingdowngrade",
+  "type": "neovitae:sentient_downgrade",
   "input": {
     "item": "minecraft:rotten_flesh"
   },
-  "livingarmour": "neovitae:battle_hungry"
+  "sentient_upgrade": "neovitae:battle_hungry"
 }

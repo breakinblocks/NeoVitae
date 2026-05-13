@@ -20,7 +20,7 @@ public record ConditionalEffect<T>(T effect, Optional<LootItemCondition> require
                             ValidationContext validationcontext = new ValidationContext(problemReporter, params);
                             result.validate(validationcontext);
                             return problemReporter.getReport()
-                                    .map(report -> DataResult.<LootItemCondition>error(() -> "Validation error in living effect condition: " + report))
+                                    .map(report -> DataResult.<LootItemCondition>error(() -> "Validation error in sentient effect condition: " + report))
                                     .orElseGet(() -> DataResult.success(result));
                         }
                 );

@@ -1,7 +1,7 @@
 {
-  "type": "neovitae:livingdowngrade",
+  "type": "neovitae:sentient_downgrade",
   "input": {
     "item": "minecraft:water_bucket"
   },
-  "livingarmour": "neovitae:swim_decrease"
+  "sentient_upgrade": "neovitae:swim_decrease"
 }

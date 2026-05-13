@@ -397,7 +397,7 @@ public class SentientHelper {
 
         SentientStats stats = chest.get(NVDataComponents.UPGRADES);
         if (stats == null || stats.upgrades().isEmpty()) {
-            setDefaultLiving(chest, player.registryAccess());
+            setDefaultSentient(chest, player.registryAccess());
         }
 
         if (!chest.has(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS)) {
@@ -405,10 +405,10 @@ public class SentientHelper {
         }
     }
 
-    public static void setDefaultLiving(ItemStack livingPlate, HolderLookup.Provider holders) {
+    public static void setDefaultSentient(ItemStack sentientPlate, HolderLookup.Provider holders) {
         HolderSet<SentientUpgrade> set = holders.lookupOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES).get(NVTags.Sentient.SENTIENT_START).orElseThrow();
-        livingPlate.set(NVDataComponents.UPGRADES, new SentientStats(fromHolderSet(set)));
-        livingPlate.set(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS, NeoVitae.SERVER_CONFIG.DEFAULT_UPGRADE_POINTS.get());
+        sentientPlate.set(NVDataComponents.UPGRADES, new SentientStats(fromHolderSet(set)));
+        sentientPlate.set(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS, NeoVitae.SERVER_CONFIG.DEFAULT_UPGRADE_POINTS.get());
     }
 
     public static int recalcPoints(Player player) {

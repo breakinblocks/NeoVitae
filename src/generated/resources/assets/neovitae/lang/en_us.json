@@ -563,7 +563,7 @@
   "book.neovitae.guide.alchemy_arrays.upgrade_body_builder.intro.title": "Body Builder",
   "book.neovitae.guide.alchemy_arrays.upgrade_body_builder.name": "Body Builder",
   "book.neovitae.guide.alchemy_arrays.upgrade_brilliance.description": "Inscribe knowledge upon tomes, and the armour crystallizes into diamond-like hardness.",
-  "book.neovitae.guide.alchemy_arrays.upgrade_brilliance.intro.text": "The armour responds to the knowledge you inscribe upon living tomes, hardening its lattice with each lesson. Grants up to +5 [#](4A0080)Armour[#]() and +8 [#](4A0080)Toughness[#]().\\\n\\\n[#](B8860B)Trained by[#](): Crafting a living tome in the Tabula Vitae. Each tome grants 1 level.\\\n\\\n[#](B8860B)Maximum level[#](): 5",
+  "book.neovitae.guide.alchemy_arrays.upgrade_brilliance.intro.text": "The armour responds to the knowledge you inscribe upon [#](8B0000)Upgrade Tomes[#](), hardening its lattice with each lesson. Grants up to +5 [#](4A0080)Armour[#]() and +8 [#](4A0080)Toughness[#]().\\\n\\\n[#](B8860B)Trained by[#](): Crafting an [#](8B0000)Upgrade Tome[#]() in the Tabula Vitae. Each tome grants 1 level.\\\n\\\n[#](B8860B)Maximum level[#](): 5",
   "book.neovitae.guide.alchemy_arrays.upgrade_brilliance.intro.title": "Brilliance",
   "book.neovitae.guide.alchemy_arrays.upgrade_brilliance.name": "Brilliance",
   "book.neovitae.guide.alchemy_arrays.upgrade_charging_strike.description": "Your momentum becomes a weapon; the faster you charge, the harder you strike.",

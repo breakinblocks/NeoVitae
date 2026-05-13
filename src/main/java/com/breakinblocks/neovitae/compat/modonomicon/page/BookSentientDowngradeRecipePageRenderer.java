@@ -50,7 +50,7 @@ public class BookSentientDowngradeRecipePageRenderer extends BookRecipePageRende
 
         recipeY += 28;
 
-        Component upgradeInfo = Component.literal("Target: " + recipe.getLivingUpgradeId().getPath());
+        Component upgradeInfo = Component.literal("Target: " + recipe.getSentientUpgradeId().getPath());
         this.drawCenteredStringNoShadow(guiGraphics, upgradeInfo.getVisualOrderText(),
                 BookEntryScreen.PAGE_WIDTH / 2, recipeY, 0x555555, 1.0f);
     }

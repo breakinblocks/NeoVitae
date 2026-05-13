@@ -19,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
  * ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
  * if (chestplate.getItem() instanceof IUpgradeHolder holder) {
  *     int maxPoints = holder.getMaxUpgradePoints(chestplate, player);
- *     boolean hasFullSet = holder.hasFullLivingArmorSet(player);
+ *     boolean hasFullSet = holder.hasFullSentientArmorSet(player);
  * }
  * }</pre>
  *
@@ -48,7 +48,7 @@ public interface IUpgradeHolder {
      * @param player The player to check
      * @return true if the player has a full Sentient Armor set
      */
-    boolean hasFullLivingArmorSet(Player player);
+    boolean hasFullSentientArmorSet(Player player);
 
     /**
      * Checks if this armor piece is in a "dead" or invalid state.

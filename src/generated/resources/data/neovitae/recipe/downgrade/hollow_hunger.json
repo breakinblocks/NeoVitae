@@ -1,7 +1,7 @@
 {
-  "type": "neovitae:livingdowngrade",
+  "type": "neovitae:sentient_downgrade",
   "input": {
     "item": "neovitae:hollow_gut"
   },
-  "livingarmour": "neovitae:hollow_hunger"
+  "sentient_upgrade": "neovitae:hollow_hunger"
 }

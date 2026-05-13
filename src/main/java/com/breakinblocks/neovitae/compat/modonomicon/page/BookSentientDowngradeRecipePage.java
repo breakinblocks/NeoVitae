@@ -21,7 +21,7 @@ public class BookSentientDowngradeRecipePage extends BookRecipePage<SentientDown
     public BookSentientDowngradeRecipePage(BookTextHolder title1, ResourceLocation recipeId1,
                                          BookTextHolder title2, ResourceLocation recipeId2,
                                          BookTextHolder text, String anchor, BookCondition condition) {
-        super(NVRecipes.LIVING_DOWNGRADE_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
+        super(NVRecipes.SENTIENT_DOWNGRADE_TYPE.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
     }
 
     public static BookSentientDowngradeRecipePage fromJson(JsonObject json, HolderLookup.Provider provider) {

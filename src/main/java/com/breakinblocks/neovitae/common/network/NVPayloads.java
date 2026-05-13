@@ -95,6 +95,16 @@ public class NVPayloads {
                 StreamPayload.STREAM_CODEC,
                 NVPayloads::handleStreamFX
         );
+
+        registrar.playToClient(
+                RitualCodePayload.TYPE,
+                RitualCodePayload.STREAM_CODEC,
+                NVPayloads::handleRitualCode
+        );
+    }
+
+    private static void handleRitualCode(RitualCodePayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> com.breakinblocks.neovitae.client.ClipboardClientHelper.setClipboard(payload.code()));
     }
 
     private static void handleSetClientVelocity(SetClientVelocityPayload payload, IPayloadContext context) {

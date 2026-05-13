@@ -71,6 +71,9 @@ public class NVDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> READER_RANGE_KEY = DATA_COMPONENTS.registerComponentType("reader_range_key", builder -> builder.persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> READER_CORNER1 = DATA_COMPONENTS.registerComponentType("reader_corner1", builder -> builder.persistent(BlockPos.CODEC).networkSynchronized(BlockPos.STREAM_CODEC));
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> RITUAL_CORNER1 = DATA_COMPONENTS.registerComponentType("ritual_corner1", builder -> builder.persistent(BlockPos.CODEC).networkSynchronized(BlockPos.STREAM_CODEC));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> RITUAL_CORNER2 = DATA_COMPONENTS.registerComponentType("ritual_corner2", builder -> builder.persistent(BlockPos.CODEC).networkSynchronized(BlockPos.STREAM_CODEC));
+
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> SIGIL_ACTIVATED = DATA_COMPONENTS.registerComponentType("sigil_activated", builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> SIGIL_UNUSABLE = DATA_COMPONENTS.registerComponentType("sigil_unusable", builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<SigilType>>> SIGIL_TYPE = DATA_COMPONENTS.registerComponentType("sigil_type", builder -> builder.persistent(SigilType.HOLDER_CODEC).networkSynchronized(SigilType.HOLDER_STREAM_CODEC));

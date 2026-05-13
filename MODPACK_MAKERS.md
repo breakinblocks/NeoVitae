@@ -21,6 +21,7 @@ This guide covers all the data-driven systems in Neo Vitae that modpack makers c
 9. [KubeJS Event Hooks](#kubejs-event-hooks)
 10. [Custom Player Attributes](#custom-player-attributes)
 11. [Examples](#examples)
+12. [Developer Tools](#developer-tools)
 
 ---
 
@@ -1115,6 +1116,44 @@ Remove the entry from `materials.json` and restart. Existing items in the world 
 3. **Check the logs** - Neo Vitae logs warnings for invalid configurations
 4. **Use JEI/REI** to verify recipe changes are applied
 5. **Backup your world** before testing major balance changes
+
+---
+
+## Developer Tools
+
+### Ritual Designer
+
+`neovitae:ritual_designer` is an OP-gated developer item used to capture an in-world rune layout and emit the matching `gatherComponents` Java snippet for a new `Ritual` subclass. It has no crafting recipe; grant it with `/give @s neovitae:ritual_designer`. All actions require permission level 2 (operator) — survival players holding the item get a refusal message and nothing happens.
+
+**Workflow:**
+
+1. Build the desired ritual: place a `Master Ritual Stone` at the centre, then arrange any of the seven `*_ritual_stone` blocks around it.
+2. Hold the Ritual Designer. **Sneak + Right-click** any block to mark **Corner 1**, then **Sneak + Right-click** a second block to mark **Corner 2**. The two corners define the AABB to scan; pick opposite corners to enclose every rune you placed. Marking a third corner resets `Corner 1`.
+3. **Right-click the Master Ritual Stone**. The scanner walks every position in the AABB, recording only blocks whose class is one of the seven `BlockRitualStone` variants (mapped to `EnumRuneType.BLANK/WATER/FIRE/EARTH/AIR/DUSK/DAWN`). Air and any non-rune block — including the master stone itself — are ignored.
+4. The generated method body is delivered to the operator's client via the `neovitae:ritual_code` payload and copied to the system clipboard (`Minecraft.keyboardHandler.setClipboard`). The same lines are also echoed in chat between `=== RITUAL CODE START ===` / `=== RITUAL CODE END ===` markers so they survive if the clipboard fails.
+5. **Sneak + Right-click in air** clears both corners and plays an extinguish sound.
+
+**Output format:**
+
+The emitted snippet always uses `addRune(...)` (the helper on the base `Ritual` class) with positions relative to the master stone. When every Y layer in the scan contains the same `(x, z, rune)` set, the generator collapses them into a `for (int layer = lo; layer <= hi; layer++)` loop; otherwise the runes are emitted as individual `addRune` calls sorted by `y`, then `x`, then `z`.
+
+```java
+@Override
+public void gatherComponents(Consumer<RitualComponent> components) {
+    addRune(components, 1, 0, 0, EnumRuneType.WATER);
+    addRune(components, -1, 0, 0, EnumRuneType.WATER);
+    addRune(components, 0, 0, 1, EnumRuneType.FIRE);
+    addRune(components, 0, 0, -1, EnumRuneType.FIRE);
+}
+```
+
+**Conflict detection:**
+
+Before printing, the scanned `(offset, runeType)` set is compared against every registered ritual's layout (via `RitualLayouts.get(level, ritual)`, which honours datapack `neovitae:ritual_layout` overrides as well as hardcoded Java defaults). If an identical layout is already registered, the tool aborts and reports the colliding ritual's id so authors can perturb the pattern.
+
+**Tooltip + state:**
+
+The item's tooltip lists the control scheme, highlights that OP is required, and shows the currently-stored `Corner 1` / `Corner 2` coordinates so devs can confirm a selection without committing. Corner positions are stored on `neovitae:ritual_corner1` / `neovitae:ritual_corner2` `BlockPos` data components on the stack itself, so different operators can keep independent selections by holding their own copies of the item.
 
 ---
 

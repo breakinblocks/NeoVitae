@@ -1,5 +1,6 @@
 {
   "parent": "block/block",
+  "render_type": "cutout",
   "loader": "neoforge:obj",
   "flip_v": true,
   "model": "neovitae:models/block/crystal/crystal2.obj",

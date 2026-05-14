@@ -55,7 +55,10 @@ public class BloodTankBlockEntity extends BaseBlockEntity {
     }
 
     private void updateCapacity() {
-        this.tank.setCapacity(FluidType.BUCKET_VOLUME * CAPACITIES[tier -1]);
+        if (tier < 1 || tier > CAPACITIES.length) {
+            return;
+        }
+        this.tank.setCapacity(FluidType.BUCKET_VOLUME * CAPACITIES[tier - 1]);
         setChanged();
         if (level != null) {
             level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);

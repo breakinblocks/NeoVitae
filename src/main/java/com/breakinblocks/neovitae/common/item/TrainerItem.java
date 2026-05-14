@@ -34,55 +34,60 @@ public class TrainerItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
-
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-            ItemStack chest = SentientHelper.getChest(player);
-            if (SentientHelper.isNeverValid(chest)) {
+            if (!openTrainer(serverPlayer, serverPlayer.getInventory().selected)) {
                 return InteractionResultHolder.fail(stack);
             }
+        }
+        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
+    }
 
-            GhostItemHandler handler = new GhostItemHandler(16) {
-                @Override
-                public boolean isItemValid(int slot, ItemStack stack) {
-                    return stack.is(NVItems.UPGRADE_TOME) && stack.has(NVDataComponents.UPGRADE_TOME_DATA);
-                }
-            };
-
-            UpgradeLimits limits = chest.getOrDefault(NVDataComponents.LIMITS, UpgradeLimits.EMPTY);
-            SimpleContainerData data = new SimpleContainerData(19) {
-                @Override
-                public void set(int index, int value) {
-                    if (index == 2 && value == 1) {
-                        Object2FloatOpenHashMap<Holder<SentientUpgrade>> map = new Object2FloatOpenHashMap<>();
-                        for (int i = 0; i < handler.getSlots(); i++) {
-                            ItemStack ghostStack = handler.getStackInSlot(i);
-                            if (ghostStack.isEmpty()) {
-                                continue;
-                            }
-                            UpgradeTome tome = ghostStack.get(NVDataComponents.UPGRADE_TOME_DATA);
-                            if (tome == null) {
-                                continue;
-                            }
-                            map.put(tome.upgrade(), SentientHelper.getExpForLevel(tome.upgrade(), this.get(3 + i)));
-                        }
-                        chest.set(NVDataComponents.LIMITS, new UpgradeLimits(this.get(1) == TrainerMenu.ALLOW, map));
-                        return;
-                    }
-                    super.set(index, value);
-                }
-            };
-            List<Pair<Integer, Integer>> start = limits.fillData(handler);
-            start.forEach(pair -> data.set(pair.first(), pair.second()));
-
-            serverPlayer.openMenu(
-                    new SimpleMenuProvider(
-                            (id, inv, playerIn) -> new TrainerMenu(id, inv, handler, data, playerIn.getInventory().selected),
-                            Component.translatable(getDescriptionId())
-                    ),
-                    buf -> buf.writeInt(serverPlayer.getInventory().selected)
-            );
+    public static boolean openTrainer(ServerPlayer serverPlayer, int displaySlot) {
+        ItemStack chest = SentientHelper.getChest(serverPlayer);
+        if (SentientHelper.isNeverValid(chest)) {
+            return false;
         }
 
-        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
+        GhostItemHandler handler = new GhostItemHandler(16) {
+            @Override
+            public boolean isItemValid(int slot, ItemStack stack) {
+                return stack.is(NVItems.UPGRADE_TOME) && stack.has(NVDataComponents.UPGRADE_TOME_DATA);
+            }
+        };
+
+        UpgradeLimits limits = chest.getOrDefault(NVDataComponents.LIMITS, UpgradeLimits.EMPTY);
+        SimpleContainerData data = new SimpleContainerData(19) {
+            @Override
+            public void set(int index, int value) {
+                if (index == 2 && value == 1) {
+                    Object2FloatOpenHashMap<Holder<SentientUpgrade>> map = new Object2FloatOpenHashMap<>();
+                    for (int i = 0; i < handler.getSlots(); i++) {
+                        ItemStack ghostStack = handler.getStackInSlot(i);
+                        if (ghostStack.isEmpty()) {
+                            continue;
+                        }
+                        UpgradeTome tome = ghostStack.get(NVDataComponents.UPGRADE_TOME_DATA);
+                        if (tome == null) {
+                            continue;
+                        }
+                        map.put(tome.upgrade(), SentientHelper.getExpForLevel(tome.upgrade(), this.get(3 + i)));
+                    }
+                    chest.set(NVDataComponents.LIMITS, new UpgradeLimits(this.get(1) == TrainerMenu.ALLOW, map));
+                    return;
+                }
+                super.set(index, value);
+            }
+        };
+        List<Pair<Integer, Integer>> start = limits.fillData(handler);
+        start.forEach(pair -> data.set(pair.first(), pair.second()));
+
+        serverPlayer.openMenu(
+                new SimpleMenuProvider(
+                        (id, inv, playerIn) -> new TrainerMenu(id, inv, handler, data, displaySlot),
+                        Component.translatable(NVItems.TRAINING_BRACELET.get().getDescriptionId())
+                ),
+                buf -> buf.writeInt(displaySlot)
+        );
+        return true;
     }
 }

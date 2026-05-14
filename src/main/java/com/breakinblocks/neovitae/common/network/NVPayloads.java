@@ -13,7 +13,9 @@ import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBl
 import net.minecraft.network.chat.Component;
 import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.item.TrainerItem;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
+import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
 import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
@@ -101,6 +103,22 @@ public class NVPayloads {
                 RitualCodePayload.STREAM_CODEC,
                 NVPayloads::handleRitualCode
         );
+
+        registrar.playToServer(
+                OpenTrainerFromCurioPayload.TYPE,
+                OpenTrainerFromCurioPayload.STREAM_CODEC,
+                NVPayloads::handleOpenTrainerFromCurio
+        );
+    }
+
+    private static void handleOpenTrainerFromCurio(OpenTrainerFromCurioPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            if (!(context.player() instanceof ServerPlayer serverPlayer)) return;
+            if (!CuriosCompat.isCuriosLoaded()) return;
+            ItemStack bracelet = new ItemStack(NVItems.TRAINING_BRACELET.get());
+            if (!CuriosCompat.isEquippedCurio(serverPlayer, bracelet)) return;
+            TrainerItem.openTrainer(serverPlayer, serverPlayer.getInventory().selected);
+        });
     }
 
     private static void handleRitualCode(RitualCodePayload payload, IPayloadContext context) {

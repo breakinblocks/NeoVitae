@@ -1,0 +1,93 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "rituals",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "rituals/ritual_basics"
+  },
+  "description": "book.neovitae.guide.rituals.ritual_torment_nexus.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:spawner"
+  },
+  "name": "book.neovitae.guide.rituals.ritual_torment_nexus.name",
+  "pages": [
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "multiblock_id": "ritual/torment_nexus",
+      "multiblock_name": "The Torment Nexus",
+      "show_visualize_button": true,
+      "text": "book.neovitae.guide.rituals.ritual_torment_nexus.multiblock.text"
+    },
+    {
+      "type": "neovitae:ritual_info",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "text": "[#](8B0000)Activation Cost:[#]() 25,000 EV\\\n[#](8B0000)Crystal:[#]() Creative Activation Crystal\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  24x Dusk Ritual Stone\\\n  4x Earth Ritual Stone\\\n  4x Water Ritual Stone\\\n  4x Fire Ritual Stone\\\n  4x Air Ritual Stone\\\n  [#](8B0000)Total:[#]() 40 runes",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_torment_nexus.purpose.text",
+      "title": "book.neovitae.guide.rituals.ritual_torment_nexus.purpose.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_torment_nexus.operation.text",
+      "title": "book.neovitae.guide.rituals.ritual_torment_nexus.operation.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_torment_nexus.ethics.text",
+      "title": "book.neovitae.guide.rituals.ritual_torment_nexus.ethics.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_torment_nexus.tuning.text",
+      "title": "book.neovitae.guide.rituals.ritual_torment_nexus.tuning.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "rituals/ritual_basics",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 40,
+  "x": -1,
+  "y": 6
+}

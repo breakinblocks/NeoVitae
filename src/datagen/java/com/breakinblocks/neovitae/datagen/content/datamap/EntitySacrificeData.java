@@ -10,9 +10,9 @@ import com.breakinblocks.neovitae.common.datamap.EntitySacrificeValue;
 import java.util.function.Function;
 
 /**
- * Generates default entity sacrifice LP values for NeoVitae.
+ * Generates default entity sacrifice EV values for NeoVitae.
  *
- * <p>These values determine how much LP is generated when entities are
+ * <p>These values determine how much EV is generated when entities are
  * damaged by sacrifice rituals like the Well of Suffering.</p>
  *
  * <p>Values can be overridden via datapacks at:
@@ -24,7 +24,7 @@ import java.util.function.Function;
  * {
  *   "values": {
  *     "#minecraft:undead": { "ev_per_damage": 30 },
- *     "#c:bosses": { "ev_per_damage": 500, "max_lp_per_hit": 2500 }
+ *     "#c:bosses": { "ev_per_damage": 500, "max_ev_per_hit": 2500 }
  *   }
  * }
  * }</pre>
@@ -32,33 +32,33 @@ import java.util.function.Function;
 public class EntitySacrificeData {
 
     // Default value for unlisted entities
-    public static final int DEFAULT_LP = 25;
+    public static final int DEFAULT_EV = 25;
 
     // Passive mobs - lower value (easy to farm)
-    public static final int PASSIVE_LP = 25;
+    public static final int PASSIVE_EV = 25;
 
     // Hostile mobs - standard value
-    public static final int HOSTILE_LP = 50;
+    public static final int HOSTILE_EV = 50;
 
     // Strong hostile mobs
-    public static final int STRONG_HOSTILE_LP = 100;
+    public static final int STRONG_HOSTILE_EV = 100;
 
     // Mini-bosses and rare mobs
-    public static final int MINIBOSS_LP = 250;
+    public static final int MINIBOSS_EV = 250;
 
     // Bosses - high value but capped
-    public static final int BOSS_LP = 500;
+    public static final int BOSS_EV = 500;
     public static final int BOSS_CAP = 2500;
 
     public static void bootstrap(Function<DataMapType<EntityType<?>, EntitySacrificeValue>, DataMapProvider.Builder<EntitySacrificeValue, EntityType<?>>> setup) {
         var builder = setup.apply(NVDataMaps.ENTITY_SACRIFICE_VALUE);
 
-        // Easy to farm, low LP value
+        // Easy to farm, low EV value
         builder
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.CHICKEN), EntitySacrificeValue.of(15), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.COW), EntitySacrificeValue.of(PASSIVE_LP), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.PIG), EntitySacrificeValue.of(PASSIVE_LP), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SHEEP), EntitySacrificeValue.of(PASSIVE_LP), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.COW), EntitySacrificeValue.of(PASSIVE_EV), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.PIG), EntitySacrificeValue.of(PASSIVE_EV), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SHEEP), EntitySacrificeValue.of(PASSIVE_EV), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.RABBIT), EntitySacrificeValue.of(15), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.HORSE), EntitySacrificeValue.of(40), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.DONKEY), EntitySacrificeValue.of(40), false)
@@ -70,15 +70,15 @@ public class EntitySacrificeData {
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SNIFFER), EntitySacrificeValue.of(75), false);
 
         builder
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ZOMBIE), EntitySacrificeValue.of(HOSTILE_LP), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SKELETON), EntitySacrificeValue.of(HOSTILE_LP), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SPIDER), EntitySacrificeValue.of(HOSTILE_LP), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ZOMBIE), EntitySacrificeValue.of(HOSTILE_EV), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SKELETON), EntitySacrificeValue.of(HOSTILE_EV), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SPIDER), EntitySacrificeValue.of(HOSTILE_EV), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.CAVE_SPIDER), EntitySacrificeValue.of(40), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.CREEPER), EntitySacrificeValue.of(75), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SLIME), EntitySacrificeValue.of(20), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.DROWNED), EntitySacrificeValue.of(HOSTILE_LP), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.HUSK), EntitySacrificeValue.of(HOSTILE_LP), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.STRAY), EntitySacrificeValue.of(HOSTILE_LP), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.DROWNED), EntitySacrificeValue.of(HOSTILE_EV), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.HUSK), EntitySacrificeValue.of(HOSTILE_EV), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.STRAY), EntitySacrificeValue.of(HOSTILE_EV), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.PHANTOM), EntitySacrificeValue.of(75), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SILVERFISH), EntitySacrificeValue.of(15), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ENDERMITE), EntitySacrificeValue.of(25), false)
@@ -86,32 +86,32 @@ public class EntitySacrificeData {
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.BREEZE), EntitySacrificeValue.of(100), false);
 
         builder
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ENDERMAN), EntitySacrificeValue.of(STRONG_HOSTILE_LP), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.WITCH), EntitySacrificeValue.of(STRONG_HOSTILE_LP), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.BLAZE), EntitySacrificeValue.of(STRONG_HOSTILE_LP), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ENDERMAN), EntitySacrificeValue.of(STRONG_HOSTILE_EV), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.WITCH), EntitySacrificeValue.of(STRONG_HOSTILE_EV), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.BLAZE), EntitySacrificeValue.of(STRONG_HOSTILE_EV), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.GHAST), EntitySacrificeValue.of(150), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.MAGMA_CUBE), EntitySacrificeValue.of(40), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ZOMBIFIED_PIGLIN), EntitySacrificeValue.of(75), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.PIGLIN), EntitySacrificeValue.of(75), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.PIGLIN_BRUTE), EntitySacrificeValue.of(150), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.HOGLIN), EntitySacrificeValue.of(STRONG_HOSTILE_LP), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ZOGLIN), EntitySacrificeValue.of(STRONG_HOSTILE_LP), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.GUARDIAN), EntitySacrificeValue.of(STRONG_HOSTILE_LP), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.HOGLIN), EntitySacrificeValue.of(STRONG_HOSTILE_EV), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ZOGLIN), EntitySacrificeValue.of(STRONG_HOSTILE_EV), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.GUARDIAN), EntitySacrificeValue.of(STRONG_HOSTILE_EV), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SHULKER), EntitySacrificeValue.of(150), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.VEX), EntitySacrificeValue.of(40), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.VINDICATOR), EntitySacrificeValue.of(STRONG_HOSTILE_LP), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.VINDICATOR), EntitySacrificeValue.of(STRONG_HOSTILE_EV), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.PILLAGER), EntitySacrificeValue.of(75), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.WARDEN), EntitySacrificeValue.withCap(BOSS_LP, BOSS_CAP), false);
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.WARDEN), EntitySacrificeValue.withCap(BOSS_EV, BOSS_CAP), false);
 
         builder
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ELDER_GUARDIAN), EntitySacrificeValue.of(MINIBOSS_LP), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.EVOKER), EntitySacrificeValue.of(MINIBOSS_LP), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.RAVAGER), EntitySacrificeValue.of(MINIBOSS_LP), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ILLUSIONER), EntitySacrificeValue.of(MINIBOSS_LP), false);
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ELDER_GUARDIAN), EntitySacrificeValue.of(MINIBOSS_EV), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.EVOKER), EntitySacrificeValue.of(MINIBOSS_EV), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.RAVAGER), EntitySacrificeValue.of(MINIBOSS_EV), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ILLUSIONER), EntitySacrificeValue.of(MINIBOSS_EV), false);
 
-        // High LP but capped to prevent exploitation
+        // High EV but capped to prevent exploitation
         builder
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.WITHER), EntitySacrificeValue.withCap(BOSS_LP, BOSS_CAP), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.WITHER), EntitySacrificeValue.withCap(BOSS_EV, BOSS_CAP), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ENDER_DRAGON), EntitySacrificeValue.withCap(1000, 5000), false);
 
         builder
@@ -126,7 +126,7 @@ public class EntitySacrificeData {
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.AXOLOTL), EntitySacrificeValue.of(30), false);
 
         builder
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.VILLAGER), EntitySacrificeValue.of(STRONG_HOSTILE_LP), false)
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.VILLAGER), EntitySacrificeValue.of(STRONG_HOSTILE_EV), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.WANDERING_TRADER), EntitySacrificeValue.of(150), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.IRON_GOLEM), EntitySacrificeValue.of(200), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SNOW_GOLEM), EntitySacrificeValue.of(50), false);
@@ -150,7 +150,7 @@ public class EntitySacrificeData {
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ZOMBIE_VILLAGER), EntitySacrificeValue.of(75), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.ZOMBIE_HORSE), EntitySacrificeValue.of(50), false)
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.SKELETON_HORSE), EntitySacrificeValue.of(50), false)
-            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.GIANT), EntitySacrificeValue.of(MINIBOSS_LP), false);
+            .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.GIANT), EntitySacrificeValue.of(MINIBOSS_EV), false);
 
         builder
             .add(BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(EntityType.WITHER_SKELETON), EntitySacrificeValue.of(150), false);

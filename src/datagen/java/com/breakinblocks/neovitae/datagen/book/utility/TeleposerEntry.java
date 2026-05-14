@@ -76,6 +76,18 @@ public class TeleposerEntry extends EntryProvider {
                 + "its side, or a lever or button placed directly upon it.[#]()\\\n\\\n"
                 + "[#](4A0080)Essentia Vitae[#]() is not free, and the Teleposer is deliberately designed "
                 + "to minimize accidental misfires. Precision in all things.");
+
+        this.page("spawners", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Relocating Spawners");
+        this.pageText("[#](8B0000)Mob spawners and trial spawners[#]() count as ordinary blocks to the "
+                + "Teleposer; their settings, current state, and any chained behaviour ride along with them. "
+                + "Build your perfect chamber elsewhere, then transpose the spawner into it.\\\n\\\n"
+                + "Bedrock, end portals, command blocks, and similar [#](4A0080)protected blocks[#]() are "
+                + "rejected by the exchange. The full list is governed by the "
+                + "[#](2E8B57)#neovitae:telepose_blacklist[#]() block tag - pack authors can extend or "
+                + "shorten it to taste.");
     }
 
     @Override

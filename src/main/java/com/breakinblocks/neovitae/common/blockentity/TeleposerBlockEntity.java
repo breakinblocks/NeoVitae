@@ -34,6 +34,7 @@ import com.breakinblocks.neovitae.common.item.ITeleposerFocus;
 import com.breakinblocks.neovitae.common.menu.TeleposerMenu;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.List;
@@ -160,6 +161,14 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
             }
 
             uses++;
+        }
+
+        for (BlockPos offset : offsetList) {
+            BlockPos initialPos = worldPosition.offset(offset);
+            BlockPos focusPos = linkedPos.offset(offset);
+            if (Utils.swapLocations(level, initialPos, linkedWorld, focusPos, false)) {
+                uses++;
+            }
         }
 
         level.playSound(null, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), NVSounds.TELEPOSER_ACTIVATE.get(), SoundSource.BLOCKS, 0.7f, 1.0f);

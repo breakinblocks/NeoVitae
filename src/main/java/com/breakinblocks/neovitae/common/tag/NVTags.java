@@ -99,6 +99,8 @@ public class NVTags {
         public static final TagKey<Block> PULSE_ON_CRAFTING = tag(bm("altar/pulse_on_crafting"));
         public static final TagKey<Block> ANIMA_COMPARATOR = tag(bm("altar/anima_comparator"));
 
+        public static final TagKey<Block> TELEPOSE_BLACKLIST = tag(bm("telepose_blacklist"));
+
         public static final TagKey<Block> STORAGE_BLOCKS_HELLFORGED = tag(c("storage_blocks/hellforged"));
 
         public static final TagKey<Block> INCENSE_PATH_LEVEL_0 = tag(bm("incense_path/level_0"));

@@ -59,7 +59,7 @@
     },
     "minecraft:ender_dragon": {
       "ev_per_damage": 1000,
-      "max_lp_per_hit": 5000
+      "max_ev_per_hit": 5000
     },
     "minecraft:enderman": {
       "ev_per_damage": 100
@@ -213,14 +213,14 @@
     },
     "minecraft:warden": {
       "ev_per_damage": 500,
-      "max_lp_per_hit": 2500
+      "max_ev_per_hit": 2500
     },
     "minecraft:witch": {
       "ev_per_damage": 100
     },
     "minecraft:wither": {
       "ev_per_damage": 500,
-      "max_lp_per_hit": 2500
+      "max_ev_per_hit": 2500
     },
     "minecraft:wither_skeleton": {
       "ev_per_damage": 150

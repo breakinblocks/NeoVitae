@@ -40,6 +40,11 @@ public class ServerConfig {
     public final ModConfigSpec.IntValue SANGUINE_WARD_DRAIN_PER_SECOND;
     public final ModConfigSpec.IntValue SANGUINE_WARD_MIN_EV;
 
+    public final ModConfigSpec.IntValue TORMENT_NEXUS_EV_PER_KILL;
+    public final ModConfigSpec.IntValue TORMENT_NEXUS_EV_MODIFIER_PERCENT;
+    public final ModConfigSpec.IntValue TORMENT_NEXUS_HORIZONTAL_RANGE;
+    public final ModConfigSpec.IntValue TORMENT_NEXUS_VERTICAL_RANGE;
+
     protected ServerConfig(ModConfigSpec.Builder builder) {
         ALTERNATE_SACRIFICE_TOOL = builder
                 .comment("Replaces the Sacrificial Dagger with the Orb of Sacrifice (cosmetic rename and retexture)")
@@ -142,6 +147,29 @@ public class ServerConfig {
         SANGUINE_WARD_MIN_EV = builder
                 .comment("Minimum EV required to activate the Sanguine Ward")
                 .defineInRange("sanguine_ward_min_ev", 200, 0, 100000);
+
+        builder.pop();
+
+        builder.comment("Torment Nexus Configuration",
+                "Controls the EV upkeep and EV-yield modifier for the Torment Nexus ritual,",
+                "which simulates kills from caged spawners and trial spawners in its area.");
+        builder.push("torment_nexus");
+
+        TORMENT_NEXUS_EV_PER_KILL = builder
+                .comment("EV cost charged per simulated mob kill (paid out of the network each kill).")
+                .defineInRange("ev_per_kill", 75, 0, 1000000);
+        TORMENT_NEXUS_EV_MODIFIER_PERCENT = builder
+                .comment("Percent modifier on the EV produced per simulated kill.",
+                        "1 = 1% of the mob's natural sacrifice value, 100 = unchanged, 1000 = 10x.")
+                .defineInRange("ev_modifier_percent", 100, 1, 1000);
+        TORMENT_NEXUS_HORIZONTAL_RANGE = builder
+                .comment("Default horizontal radius (in blocks) of the spawner-scan area centered on the Master Ritual Stone.",
+                        "5 produces an 11x11 area on the XZ plane.")
+                .defineInRange("horizontal_range", 5, 1, 64);
+        TORMENT_NEXUS_VERTICAL_RANGE = builder
+                .comment("Default vertical radius (in blocks) of the spawner-scan area centered on the Master Ritual Stone.",
+                        "5 produces an 11-block-tall area.")
+                .defineInRange("vertical_range", 5, 1, 64);
 
         builder.pop();
     }

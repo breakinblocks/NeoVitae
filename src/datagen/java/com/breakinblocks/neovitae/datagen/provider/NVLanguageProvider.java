@@ -1138,6 +1138,12 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("upgrade_remove", "Sound of the Cleansing Soul");
         addRitual("crafting", "Rhythm of the Beating Anvil");
         addRitual("yawning_void", "Yawning of the Void");
+        add("ritual.neovitae.torment_nexus", "The Torment Nexus");
+        add("ritual.neovitae.torment_nexus.info",
+                "Binds every spawner and trial spawner in range, suppressing their natural spawns and harvesting"
+                + " an equivalent stream of EV from the simulated kills. Loot is funneled into a chest atop the"
+                + " Master Ritual Stone; an Experience Tome in the chest soaks up the kills' XP. Requires an"
+                + " Awakened Activation Crystal.");
 
         // Dungeon Rituals (snake_case to match ritual constructors)
         add("ritual.neovitae.simple_dungeon", "Edge of the Hidden Realm");

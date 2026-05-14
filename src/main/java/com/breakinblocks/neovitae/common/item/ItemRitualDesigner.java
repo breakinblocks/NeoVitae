@@ -77,6 +77,16 @@ public class ItemRitualDesigner extends Item {
     }
 
     @Override
+    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
+        Player player = context.getPlayer();
+        if (player == null || !player.hasPermissions(2)) return InteractionResult.PASS;
+        if (player.isShiftKeyDown()) return InteractionResult.PASS;
+        BlockEntity be = context.getLevel().getBlockEntity(context.getClickedPos());
+        if (!(be instanceof IMasterRitualStone)) return InteractionResult.PASS;
+        return useOn(context);
+    }
+
+    @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 

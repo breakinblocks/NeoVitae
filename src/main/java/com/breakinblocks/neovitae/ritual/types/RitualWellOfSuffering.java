@@ -63,13 +63,13 @@ public class RitualWellOfSuffering extends Ritual {
                 entity.hurt(ctx.level().damageSources().source(NVDamageSources.RITUAL), damage);
 
                 if (entity.getHealth() < health) {
-                    int lp = EntitySacrificeHelper.calculateLP(entity, damage);
+                    int ev = EntitySacrificeHelper.calculateEV(entity, damage);
 
                     if (entity.isBaby()) {
-                        lp = (int) (lp * 0.5);
+                        ev = (int) (ev * 0.5);
                     }
 
-                    totalEV += lp;
+                    totalEV += ev;
 
                     RitualHelper.chanceStream(ctx.level(), 4, () ->
                             StreamPresets.bloodTendril(entity, masterPos).build()

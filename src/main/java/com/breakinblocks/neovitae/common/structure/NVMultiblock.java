@@ -65,6 +65,10 @@ public class NVMultiblock {
             
             for (AltarComponent component : tiers[tier].components()) {
                 Predicate<BlockState> matcher = createMatcher(component, blockRegistry);
+                if (component.optional()) {
+                    Predicate<BlockState> required = matcher;
+                    matcher = state -> state.isAir() || required.test(state);
+                }
                 builder.add(component.pos(), matcher);
             }
             

@@ -268,7 +268,8 @@
         3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -277,7 +278,8 @@
         -3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -286,7 +288,8 @@
         3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -295,7 +298,8 @@
         -3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -304,7 +308,8 @@
         3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -313,7 +318,8 @@
         -3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -322,7 +328,8 @@
         3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -331,7 +338,8 @@
         -3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -368,6 +376,18 @@
       ],
       "upgrade": false,
       "valid": "#neovitae:altar/t3_capstones"
+    }
+  ],
+  "effects": [
+    {
+      "type": "cap_orbit_life_pulse",
+      "color": 12268288,
+      "origins": [
+        [3, 1, 3],
+        [3, 1, -3],
+        [-3, 1, 3],
+        [-3, 1, -3]
+      ]
     }
   ],
   "tier": 2

@@ -226,6 +226,7 @@
       "valid": "#neovitae:altar/runes"
     },
     {
+      "optional": true,
       "pos": [
         4,
         -1,
@@ -235,6 +236,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         4,
         0,
@@ -244,6 +246,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -4,
         -1,
@@ -253,6 +256,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -4,
         0,
@@ -262,6 +266,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -1,
@@ -271,6 +276,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         0,
@@ -280,6 +286,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -1,
@@ -289,6 +296,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         0,
@@ -332,6 +340,34 @@
       ],
       "upgrade": false,
       "valid": "#neovitae:altar/t3_capstones"
+    }
+  ],
+  "effects": [
+    {
+      "type": "cap_orbit_life_pulse",
+      "color": 12268288,
+      "origins": [
+        [
+          4,
+          1,
+          0
+        ],
+        [
+          -4,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          4
+        ],
+        [
+          0,
+          1,
+          -4
+        ]
+      ]
     }
   ],
   "tier": 2

@@ -36,8 +36,6 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRen
     private static final Identifier RITUAL_TEXTURE = NeoVitae.rl("textures/particle/ritual.png");
     private static final Identifier FLUID_FILL_TEXTURE = NeoVitae.rl("textures/models/alchemyarrays/basearray.png");
 
-    private static final int[][] HELLFORGED_CAPS = {{8, -4, 8}, {8, -4, -8}, {-8, -4, 8}, {-8, -4, -8}};
-
     private static final Identifier[] CAPSTONE_ARRAY_TEXTURES = {
             NeoVitae.rl("textures/models/alchemyarrays/basearray.png"),
             NeoVitae.rl("textures/models/alchemyarrays/bindingarray.png"),
@@ -88,7 +86,8 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRen
         public float fluidU1 = 1f;
         public float fluidV0 = 0f;
         public float fluidV1 = 1f;
-        public final Identifier[] capstoneTextures = new Identifier[HELLFORGED_CAPS.length];
+        public java.util.List<net.minecraft.core.BlockPos> hoverCaps = java.util.List.of();
+        public Identifier[] capstoneTextures = new Identifier[0];
     }
 
     @Override
@@ -113,6 +112,19 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRen
     @Override
     public int getViewDistance() {
         return 256;
+    }
+
+    private static java.util.List<net.minecraft.core.BlockPos> resolveHoverCaps(int tier) {
+        if (tier < 0 || tier >= com.breakinblocks.neovitae.common.structure.NVMultiblock.TIER_LIST.length) return java.util.List.of();
+        com.breakinblocks.neovitae.common.registry.AltarTier tierData =
+                com.breakinblocks.neovitae.common.structure.NVMultiblock.TIER_LIST[tier];
+        if (tierData == null) return java.util.List.of();
+        java.util.List<net.minecraft.core.BlockPos> out = new java.util.ArrayList<>();
+        for (com.breakinblocks.neovitae.common.registry.AltarEffect effect : tierData.effects()) {
+            if (effect.type() != com.breakinblocks.neovitae.common.registry.AltarEffectType.CAP_RENDER_HOVER_ARRAY) continue;
+            out.addAll(effect.origins());
+        }
+        return out;
     }
 
     @Override
@@ -149,13 +161,18 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRen
             s.fluidV1 = sprite.getV1();
         }
 
-        if (s.active && s.tier >= 4) {
-            for (int i = 0; i < HELLFORGED_CAPS.length; i++) {
+        s.hoverCaps = s.active ? resolveHoverCaps(s.tier) : java.util.List.of();
+        int capCount = s.hoverCaps.size();
+        if (s.capstoneTextures.length != capCount) {
+            s.capstoneTextures = new Identifier[capCount];
+        }
+        if (s.active && capCount > 0) {
+            for (int i = 0; i < capCount; i++) {
                 s.capstoneTextures[i] = CAPSTONE_ARRAY_TEXTURES[pickTextureIndex(altar, i, s.gameTime)];
             }
             if (level != null) {
-                for (int i = 0; i < HELLFORGED_CAPS.length; i++) {
-                    spawnCascadeParticles(altar, level, HELLFORGED_CAPS[i], i, s.gameTime);
+                for (int i = 0; i < capCount; i++) {
+                    spawnCascadeParticles(altar, level, s.hoverCaps.get(i), i, s.gameTime);
                 }
             }
         }
@@ -170,8 +187,8 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRen
             if (s.tier >= 1) {
                 submitRitualCircle(s, poseStack, collector);
             }
-            if (s.tier >= 4) {
-                submitHellforgedCapstoneArrays(s, poseStack, collector);
+            if (!s.hoverCaps.isEmpty()) {
+                submitHoverCapstoneArrays(s, poseStack, collector);
             }
         }
 
@@ -222,13 +239,13 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRen
         poseStack.popPose();
     }
 
-    private void submitHellforgedCapstoneArrays(State s, PoseStack poseStack, SubmitNodeCollector collector) {
-        for (int i = 0; i < HELLFORGED_CAPS.length; i++) {
-            submitCapstoneArray(s, HELLFORGED_CAPS[i], i, poseStack, collector);
+    private void submitHoverCapstoneArrays(State s, PoseStack poseStack, SubmitNodeCollector collector) {
+        for (int i = 0; i < s.hoverCaps.size(); i++) {
+            submitCapstoneArray(s, s.hoverCaps.get(i), i, poseStack, collector);
         }
     }
 
-    private void submitCapstoneArray(State s, int[] cap, int capIndex, PoseStack poseStack, SubmitNodeCollector collector) {
+    private void submitCapstoneArray(State s, net.minecraft.core.BlockPos cap, int capIndex, PoseStack poseStack, SubmitNodeCollector collector) {
         float cycleTime = ((s.gameTime + capIndex * CAP_PHASE_OFFSET) % CYCLE_TICKS) + (s.animationTicks - s.gameTime);
         if (cycleTime < RISE_START || cycleTime >= RISE_END) return;
 
@@ -254,7 +271,7 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRen
         if (texture == null) return;
 
         poseStack.pushPose();
-        poseStack.translate(cap[0] + 0.5, cap[1] + 1.0 + 0.01 + height, cap[2] + 0.5);
+        poseStack.translate(cap.getX() + 0.5, cap.getY() + 1.0 + 0.01 + height, cap.getZ() + 0.5);
         poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
         poseStack.scale(pulse, 1f, pulse);
         poseStack.translate(-0.5, 0, -0.5);
@@ -264,7 +281,7 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRen
         poseStack.popPose();
     }
 
-    private void spawnCascadeParticles(AraVitaeTile altar, Level level, int[] cap, int capIndex, long gameTime) {
+    private void spawnCascadeParticles(AraVitaeTile altar, Level level, net.minecraft.core.BlockPos cap, int capIndex, long gameTime) {
         long phased = (gameTime + capIndex * CAP_PHASE_OFFSET) % CYCLE_TICKS;
         if (phased < CASCADE_START || phased >= CASCADE_END) return;
 
@@ -278,9 +295,9 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRen
         }
 
         var altarPos = altar.getBlockPos();
-        double baseX = altarPos.getX() + cap[0] + 0.5;
-        double baseY = altarPos.getY() + cap[1] + 1.0 + sourceHeight;
-        double baseZ = altarPos.getZ() + cap[2] + 0.5;
+        double baseX = altarPos.getX() + cap.getX() + 0.5;
+        double baseY = altarPos.getY() + cap.getY() + 1.0 + sourceHeight;
+        double baseZ = altarPos.getZ() + cap.getZ() + 0.5;
 
         var rng = level.getRandom();
         for (int i = 0; i < 2; i++) {

@@ -268,7 +268,8 @@
         3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -277,7 +278,8 @@
         -3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -286,7 +288,8 @@
         3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -295,7 +298,8 @@
         -3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -304,7 +308,8 @@
         3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -313,7 +318,8 @@
         -3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -322,7 +328,8 @@
         3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -331,7 +338,8 @@
         -3
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -628,7 +636,8 @@
         5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -637,7 +646,8 @@
         -5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -646,7 +656,8 @@
         5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -655,7 +666,8 @@
         -5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -664,7 +676,8 @@
         5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -673,7 +686,8 @@
         -5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -682,7 +696,8 @@
         5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -691,7 +706,8 @@
         -5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -700,7 +716,8 @@
         5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -709,7 +726,8 @@
         -5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -718,7 +736,8 @@
         5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -727,7 +746,8 @@
         -5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -736,7 +756,8 @@
         5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -745,7 +766,8 @@
         -5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -754,7 +776,8 @@
         5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -763,7 +786,8 @@
         -5
       ],
       "upgrade": false,
-      "valid": "#neovitae:altar/pillars"
+      "valid": "#neovitae:altar/pillars",
+      "optional": true
     },
     {
       "pos": [
@@ -1304,6 +1328,48 @@
       ],
       "upgrade": false,
       "valid": "#neovitae:altar/t5_capstones"
+    }
+  ],
+  "effects": [
+    {
+      "type": "cap_orbit_life_pulse",
+      "color": 12268288,
+      "origins": [
+        [3, 1, 3],
+        [3, 1, -3],
+        [-3, 1, 3],
+        [-3, 1, -3]
+      ]
+    },
+    {
+      "type": "cap_orbit_spiral_staggered",
+      "color": 8913041,
+      "origins": [
+        [5, 2, 5],
+        [5, 2, -5],
+        [-5, 2, 5],
+        [-5, 2, -5]
+      ]
+    },
+    {
+      "type": "cap_burst",
+      "color": 8913100,
+      "origins": [
+        [8, -4, 8],
+        [8, -4, -8],
+        [-8, -4, 8],
+        [-8, -4, -8]
+      ]
+    },
+    {
+      "type": "cap_render_hover_array",
+      "color": 16777215,
+      "origins": [
+        [8, -4, 8],
+        [8, -4, -8],
+        [-8, -4, 8],
+        [-8, -4, -8]
+      ]
     }
   ],
   "tier": 4

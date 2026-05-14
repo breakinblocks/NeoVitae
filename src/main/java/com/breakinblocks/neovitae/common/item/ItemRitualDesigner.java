@@ -10,6 +10,7 @@ import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualComponent;
 import com.breakinblocks.neovitae.ritual.RitualLayouts;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
+import net.minecraft.server.permissions.Permissions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -78,10 +79,21 @@ public class ItemRitualDesigner extends Item {
     }
 
     @Override
+    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
+        Player player = context.getPlayer();
+        if (player == null) return InteractionResult.PASS;
+        if (!player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)) return InteractionResult.PASS;
+        if (player.isShiftKeyDown()) return InteractionResult.PASS;
+        BlockEntity be = context.getLevel().getBlockEntity(context.getClickedPos());
+        if (!(be instanceof IMasterRitualStone)) return InteractionResult.PASS;
+        return useOn(context);
+    }
+
+    @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        if (!player.permissions().hasPermission(net.minecraft.server.permissions.Permissions.COMMANDS_GAMEMASTER)) {
+        if (!player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)) {
             return InteractionResult.FAIL;
         }
 
@@ -104,7 +116,7 @@ public class ItemRitualDesigner extends Item {
         Player player = context.getPlayer();
         if (player == null) return InteractionResult.PASS;
 
-        if (!player.permissions().hasPermission(net.minecraft.server.permissions.Permissions.COMMANDS_GAMEMASTER)) {
+        if (!player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)) {
             player.sendOverlayMessage(
                     Component.literal("Ritual Designer requires operator permissions")
                             .withStyle(ChatFormatting.RED));

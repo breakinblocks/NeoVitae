@@ -133,6 +133,11 @@
       "refresh_cost": 2,
       "refresh_time": 1
     },
+    "neovitae:torment_nexus": {
+      "activation_cost": 25000,
+      "crystal_level": 2,
+      "refresh_cost": 0
+    },
     "neovitae:upgrade_remove": {
       "activation_cost": 20000,
       "crystal_level": 2,

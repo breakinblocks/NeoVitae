@@ -52,6 +52,20 @@ public class NVBlockTagProvider extends BlockTagsProvider {
         this.tag(NVTags.Blocks.PULSE_ON_CRAFTING)
                 .add(Blocks.REDSTONE_LAMP, Blocks.NOTE_BLOCK);
 
+        this.tag(NVTags.Blocks.TELEPOSE_BLACKLIST)
+                .add(Blocks.BEDROCK,
+                        Blocks.BARRIER,
+                        Blocks.COMMAND_BLOCK,
+                        Blocks.CHAIN_COMMAND_BLOCK,
+                        Blocks.REPEATING_COMMAND_BLOCK,
+                        Blocks.STRUCTURE_BLOCK,
+                        Blocks.STRUCTURE_VOID,
+                        Blocks.JIGSAW,
+                        Blocks.END_PORTAL,
+                        Blocks.END_PORTAL_FRAME,
+                        Blocks.END_GATEWAY,
+                        Blocks.NETHER_PORTAL);
+
         this.tag(NVTags.Blocks.STORAGE_BLOCKS_HELLFORGED)
                 .addAll(BlockGroups.HELLFORGED_BLOCK);
 

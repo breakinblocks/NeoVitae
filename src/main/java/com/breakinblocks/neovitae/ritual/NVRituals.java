@@ -116,6 +116,9 @@ public final class NVRituals {
     public static final DeferredHolder<Ritual, RitualPhantomBridge> PHANTOM_BRIDGE =
             registerRitual("phantom_bridge", RitualPhantomBridge::new);
 
+    public static final DeferredHolder<Ritual, RitualTormentNexus> TORMENT_NEXUS =
+            registerRitual(RitualTormentNexus.NAME, RitualTormentNexus::new);
+
     public static final DeferredHolder<ImperfectRitual, ImperfectRitualRain> IMPERFECT_RAIN =
             registerImperfectRitual("rain", ImperfectRitualRain::new);
 

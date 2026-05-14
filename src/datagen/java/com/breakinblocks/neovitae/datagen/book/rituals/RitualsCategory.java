@@ -31,7 +31,7 @@ public class RitualsCategory extends CategoryProvider {
                 "__w_x_z____________",
                 "___________________",
                 "__7________________",
-                "__8_9_A____________"
+                "__8_9_A_B__________"
         };
     }
 
@@ -199,6 +199,10 @@ public class RitualsCategory extends CategoryProvider {
         livingDowngrade.withParent(this.parent(basics));
         livingDowngrade.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
         livingDowngrade.hideWhileLocked(false);
+        var tormentNexus = this.add(new RitualTormentNexusEntry(this).generate('B'));
+        tormentNexus.withParent(this.parent(basics));
+        tormentNexus.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
+        tormentNexus.hideWhileLocked(false);
     }
 
     @Override

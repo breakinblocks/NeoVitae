@@ -16,6 +16,7 @@ import com.breakinblocks.neovitae.client.render.blockentity.AlchemyArrayRenderer
 import com.breakinblocks.neovitae.client.render.blockentity.AraVitaeRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.BloodTankRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.HellfireForgeRenderer;
+import com.breakinblocks.neovitae.client.render.blockentity.MasterRitualStoneRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.MimicRenderer;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonAlternatorBlockEntity;
@@ -215,6 +216,7 @@ public class NVTiles {
         event.registerBlockEntityRenderer(BLOOD_TANK_TYPE.get(), BloodTankRenderer::new);
         event.registerBlockEntityRenderer(ALCHEMY_ARRAY_TYPE.get(), AlchemyArrayRenderer::new);
         event.registerBlockEntityRenderer(MIMIC_TYPE.get(), MimicRenderer::new);
+        event.registerBlockEntityRenderer(MASTER_RITUAL_STONE_TYPE.get(), MasterRitualStoneRenderer::new);
     }
 
     public static void register(IEventBus modBus) {

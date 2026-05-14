@@ -66,9 +66,7 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
             if (tileAltar.getTier() >= 1) {
                 renderRitualCircle(tileAltar, partialTick, poseStack, bufferSource, packedLight, packedOverlay);
             }
-            if (tileAltar.getTier() >= 4) {
-                renderHellforgedCapstoneArrays(tileAltar, partialTick, poseStack, bufferSource);
-            }
+            renderHoverArrays(tileAltar, partialTick, poseStack, bufferSource);
         }
 
         float level = (float) tileAltar.getMainTank() / (float) tileAltar.getMainCapacity();
@@ -127,8 +125,6 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
         }
     }
 
-    private static final int[][] HELLFORGED_CAPS = {{8, -4, 8}, {8, -4, -8}, {-8, -4, 8}, {-8, -4, -8}};
-
     private static final ResourceLocation[] CAPSTONE_ARRAY_TEXTURES = {
             NeoVitae.rl("textures/models/alchemyarrays/basearray.png"),
             NeoVitae.rl("textures/models/alchemyarrays/bindingarray.png"),
@@ -159,19 +155,28 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
     private static final int CAP_PHASE_OFFSET = CYCLE_TICKS / 4;
     private static final int BLOOD_GLOW_COLOR = 0x000000;
 
-    private void renderHellforgedCapstoneArrays(AraVitaeTile altar, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource) {
+    private void renderHoverArrays(AraVitaeTile altar, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource) {
         Level level = altar.getLevel();
         if (level == null) return;
-        long gameTime = level.getGameTime();
+        int tier = altar.getTier();
+        if (tier < 0 || tier >= com.breakinblocks.neovitae.common.structure.NVMultiblock.TIER_LIST.length) return;
+        com.breakinblocks.neovitae.common.registry.AltarTier tierData =
+                com.breakinblocks.neovitae.common.structure.NVMultiblock.TIER_LIST[tier];
+        if (tierData == null) return;
 
-        for (int capIndex = 0; capIndex < HELLFORGED_CAPS.length; capIndex++) {
-            int[] cap = HELLFORGED_CAPS[capIndex];
-            renderCapstoneArray(altar, cap, capIndex, gameTime, partialTick, poseStack, bufferSource);
-            spawnCascadeParticles(altar, cap, capIndex, gameTime);
+        long gameTime = level.getGameTime();
+        int capIndex = 0;
+        for (com.breakinblocks.neovitae.common.registry.AltarEffect effect : tierData.effects()) {
+            if (effect.type() != com.breakinblocks.neovitae.common.registry.AltarEffectType.CAP_RENDER_HOVER_ARRAY) continue;
+            for (net.minecraft.core.BlockPos cap : effect.origins()) {
+                renderCapstoneArray(altar, cap, capIndex, gameTime, partialTick, poseStack, bufferSource);
+                spawnCascadeParticles(altar, cap, capIndex, gameTime);
+                capIndex++;
+            }
         }
     }
 
-    private void renderCapstoneArray(AraVitaeTile altar, int[] cap, int capIndex, long gameTime, float partialTick,
+    private void renderCapstoneArray(AraVitaeTile altar, net.minecraft.core.BlockPos cap, int capIndex, long gameTime, float partialTick,
                                      PoseStack poseStack, MultiBufferSource bufferSource) {
         float cycleTime = ((gameTime + capIndex * CAP_PHASE_OFFSET) % CYCLE_TICKS) + partialTick;
         if (cycleTime < RISE_START || cycleTime >= RISE_END) return;
@@ -197,7 +202,7 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
         ResourceLocation texture = CAPSTONE_ARRAY_TEXTURES[pickTextureIndex(altar, capIndex, gameTime)];
 
         poseStack.pushPose();
-        poseStack.translate(cap[0] + 0.5, cap[1] + 1.0 + 0.01 + height, cap[2] + 0.5);
+        poseStack.translate(cap.getX() + 0.5, cap.getY() + 1.0 + 0.01 + height, cap.getZ() + 0.5);
         poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
         poseStack.scale(pulse, 1f, pulse);
         poseStack.translate(-0.5, 0, -0.5);
@@ -207,7 +212,7 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
         poseStack.popPose();
     }
 
-    private void spawnCascadeParticles(AraVitaeTile altar, int[] cap, int capIndex, long gameTime) {
+    private void spawnCascadeParticles(AraVitaeTile altar, net.minecraft.core.BlockPos cap, int capIndex, long gameTime) {
         long phased = (gameTime + capIndex * CAP_PHASE_OFFSET) % CYCLE_TICKS;
         if (phased < CASCADE_START || phased >= CASCADE_END) return;
 
@@ -224,9 +229,9 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
         }
 
         var altarPos = altar.getBlockPos();
-        double baseX = altarPos.getX() + cap[0] + 0.5;
-        double baseY = altarPos.getY() + cap[1] + 1.0 + sourceHeight;
-        double baseZ = altarPos.getZ() + cap[2] + 0.5;
+        double baseX = altarPos.getX() + cap.getX() + 0.5;
+        double baseY = altarPos.getY() + cap.getY() + 1.0 + sourceHeight;
+        double baseZ = altarPos.getZ() + cap.getZ() + 0.5;
 
         var rng = level.random;
         for (int i = 0; i < 2; i++) {

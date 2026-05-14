@@ -226,6 +226,7 @@
       "valid": "#neovitae:altar/runes"
     },
     {
+      "optional": true,
       "pos": [
         4,
         -1,
@@ -235,6 +236,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         4,
         0,
@@ -244,6 +246,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -4,
         -1,
@@ -253,6 +256,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -4,
         0,
@@ -262,6 +266,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -1,
@@ -271,6 +276,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         0,
@@ -280,6 +286,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -1,
@@ -289,6 +296,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         0,
@@ -586,6 +594,7 @@
       "valid": "#neovitae:altar/runes"
     },
     {
+      "optional": true,
       "pos": [
         6,
         -2,
@@ -595,6 +604,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         6,
         -1,
@@ -604,6 +614,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         6,
         0,
@@ -613,6 +624,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         6,
         1,
@@ -622,6 +634,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -6,
         -2,
@@ -631,6 +644,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -6,
         -1,
@@ -640,6 +654,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -6,
         0,
@@ -649,6 +664,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -6,
         1,
@@ -658,6 +674,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -2,
@@ -667,6 +684,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -1,
@@ -676,6 +694,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         0,
@@ -685,6 +704,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         1,
@@ -694,6 +714,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -2,
@@ -703,6 +724,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -1,
@@ -712,6 +734,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         0,
@@ -721,6 +744,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         1,
@@ -1882,6 +1906,7 @@
       "valid": "#neovitae:altar/runes"
     },
     {
+      "optional": true,
       "pos": [
         12,
         -4,
@@ -1891,6 +1916,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         12,
         -3,
@@ -1900,6 +1926,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         12,
         -2,
@@ -1909,6 +1936,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         12,
         -1,
@@ -1918,6 +1946,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         12,
         0,
@@ -1927,6 +1956,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         12,
         1,
@@ -1936,6 +1966,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         12,
         2,
@@ -1945,6 +1976,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -12,
         -4,
@@ -1954,6 +1986,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -12,
         -3,
@@ -1963,6 +1996,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -12,
         -2,
@@ -1972,6 +2006,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -12,
         -1,
@@ -1981,6 +2016,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -12,
         0,
@@ -1990,6 +2026,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -12,
         1,
@@ -1999,6 +2036,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         -12,
         2,
@@ -2008,6 +2046,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -4,
@@ -2017,6 +2056,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -3,
@@ -2026,6 +2066,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -2,
@@ -2035,6 +2076,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -1,
@@ -2044,6 +2086,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         0,
@@ -2053,6 +2096,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         1,
@@ -2062,6 +2106,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         2,
@@ -2071,6 +2116,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -4,
@@ -2080,6 +2126,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -3,
@@ -2089,6 +2136,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -2,
@@ -2098,6 +2146,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         -1,
@@ -2107,6 +2156,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         0,
@@ -2116,6 +2166,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         1,
@@ -2125,6 +2176,7 @@
       "valid": "#neovitae:altar/pillars"
     },
     {
+      "optional": true,
       "pos": [
         0,
         2,
@@ -2168,6 +2220,137 @@
       ],
       "upgrade": false,
       "valid": "#neovitae:altar/t6_capstones"
+    }
+  ],
+  "effects": [
+    {
+      "type": "cap_orbit_life_pulse",
+      "color": 12268288,
+      "origins": [
+        [
+          4,
+          1,
+          0
+        ],
+        [
+          -4,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          4
+        ],
+        [
+          0,
+          1,
+          -4
+        ]
+      ]
+    },
+    {
+      "type": "cap_orbit_spiral_staggered",
+      "color": 8912913,
+      "origins": [
+        [
+          6,
+          2,
+          0
+        ],
+        [
+          -6,
+          2,
+          0
+        ],
+        [
+          0,
+          2,
+          6
+        ],
+        [
+          0,
+          2,
+          -6
+        ]
+      ]
+    },
+    {
+      "type": "cap_burst",
+      "color": 8913100,
+      "origins": [
+        [
+          9,
+          -4,
+          0
+        ],
+        [
+          -9,
+          -4,
+          0
+        ],
+        [
+          0,
+          -4,
+          9
+        ],
+        [
+          0,
+          -4,
+          -9
+        ]
+      ]
+    },
+    {
+      "type": "cap_render_hover_array",
+      "origins": [
+        [
+          9,
+          -4,
+          0
+        ],
+        [
+          -9,
+          -4,
+          0
+        ],
+        [
+          0,
+          -4,
+          9
+        ],
+        [
+          0,
+          -4,
+          -9
+        ]
+      ]
+    },
+    {
+      "type": "cap_crystal_cascade",
+      "color": 8913100,
+      "origins": [
+        [
+          12,
+          3,
+          0
+        ],
+        [
+          -12,
+          3,
+          0
+        ],
+        [
+          0,
+          3,
+          12
+        ],
+        [
+          0,
+          3,
+          -12
+        ]
+      ]
     }
   ],
   "tier": 5

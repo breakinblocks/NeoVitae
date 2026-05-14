@@ -3,6 +3,8 @@ package com.breakinblocks.neovitae.datagen.content;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.registry.AltarComponent;
+import com.breakinblocks.neovitae.common.registry.AltarEffect;
+import com.breakinblocks.neovitae.common.registry.AltarEffectType;
 import com.breakinblocks.neovitae.common.registry.AltarTier;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.common.tag.NVTags;
@@ -24,16 +26,21 @@ import java.util.function.Function;
  * registry, so pack authors can re-tune the geometry by dropping replacement
  * JSON. The classic square layout is preserved under
  * {@code examples/datapacks/neovitae_classic_altar/} as a reference template.
+ *
+ * Each tier also carries an optional list of {@link AltarEffect}s naming the
+ * visual style ({@link AltarEffectType}), the offsets it originates from, and
+ * a tint colour. Pack authors can override the effects field in the same JSON
+ * to relocate or restyle the per-tier capstone visuals without touching code.
  */
 public class AltarTiers {
 
     public static void bootstrap(BootstrapContext<AltarTier> builder) {
-        builder.register(Keys.WEAK, new AltarTier(0, WEAK));
-        builder.register(Keys.APPRENTICE, new AltarTier(1, APPRENTICE));
-        builder.register(Keys.MAGE, new AltarTier(2, MAGE));
-        builder.register(Keys.MASTER, new AltarTier(3, MASTER));
-        builder.register(Keys.ARCHMAGE, new AltarTier(4, ARCHMAGE));
-        builder.register(Keys.TRANSCENDENT, new AltarTier(5, TRANSCENDENT));
+        builder.register(Keys.WEAK, new AltarTier(0, WEAK, List.of()));
+        builder.register(Keys.APPRENTICE, new AltarTier(1, APPRENTICE, APPRENTICE_FX));
+        builder.register(Keys.MAGE, new AltarTier(2, MAGE, MAGE_FX));
+        builder.register(Keys.MASTER, new AltarTier(3, MASTER, MASTER_FX));
+        builder.register(Keys.ARCHMAGE, new AltarTier(4, ARCHMAGE, ARCHMAGE_FX));
+        builder.register(Keys.TRANSCENDENT, new AltarTier(5, TRANSCENDENT, TRANSCENDENT_FX));
     }
 
     public static void tags(Function<TagKey<AltarTier>, TagsProvider.TagAppender<AltarTier>> setter) {
@@ -83,6 +90,43 @@ public class AltarTiers {
     public static final List<AltarComponent> MASTER = buildMaster();
     public static final List<AltarComponent> ARCHMAGE = buildArchmage();
     public static final List<AltarComponent> TRANSCENDENT = buildTranscendent();
+
+    // Cardinal cap positions per tier; these match the addCardinalCap calls below
+    // and are reused as the origins for each tier's visual effect entries.
+    private static final List<BlockPos> MAGE_CAPS = cardinals(4, 1);
+    private static final List<BlockPos> MASTER_CAPS = cardinals(6, 2);
+    private static final List<BlockPos> ARCHMAGE_CAPS = cardinals(9, -4);
+    private static final List<BlockPos> TRANSCENDENT_CAPS = cardinals(12, 3);
+
+    public static final List<AltarEffect> APPRENTICE_FX = List.of();
+    public static final List<AltarEffect> MAGE_FX = List.of(
+            new AltarEffect(AltarEffectType.CAP_ORBIT_LIFE_PULSE, MAGE_CAPS, 0xBB3300)
+    );
+    public static final List<AltarEffect> MASTER_FX = appendFx(MAGE_FX,
+            new AltarEffect(AltarEffectType.CAP_ORBIT_SPIRAL_STAGGERED, MASTER_CAPS, 0x880011)
+    );
+    public static final List<AltarEffect> ARCHMAGE_FX = appendFx(MASTER_FX,
+            new AltarEffect(AltarEffectType.CAP_BURST, ARCHMAGE_CAPS, 0x8800CC),
+            new AltarEffect(AltarEffectType.CAP_RENDER_HOVER_ARRAY, ARCHMAGE_CAPS, 0xFFFFFF)
+    );
+    public static final List<AltarEffect> TRANSCENDENT_FX = appendFx(ARCHMAGE_FX,
+            new AltarEffect(AltarEffectType.CAP_CRYSTAL_CASCADE, TRANSCENDENT_CAPS, 0x8800CC)
+    );
+
+    private static List<BlockPos> cardinals(int distance, int y) {
+        return List.of(
+                new BlockPos(distance, y, 0),
+                new BlockPos(-distance, y, 0),
+                new BlockPos(0, y, distance),
+                new BlockPos(0, y, -distance)
+        );
+    }
+
+    private static List<AltarEffect> appendFx(List<AltarEffect> base, AltarEffect... extras) {
+        List<AltarEffect> out = new ArrayList<>(base);
+        for (AltarEffect e : extras) out.add(e);
+        return List.copyOf(out);
+    }
 
     private static List<AltarComponent> buildApprentice() {
         List<AltarComponent> out = new ArrayList<>(WEAK);
@@ -147,7 +191,7 @@ public class AltarTiers {
         int[][] dirs = {{distance, 0}, {-distance, 0}, {0, distance}, {0, -distance}};
         for (int[] dir : dirs) {
             for (int y = yLo; y <= yHi; y++) {
-                out.add(new AltarComponent(new BlockPos(dir[0], y, dir[1]), material, false));
+                out.add(new AltarComponent(new BlockPos(dir[0], y, dir[1]), material, false, true));
             }
         }
     }

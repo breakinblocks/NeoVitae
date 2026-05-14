@@ -13,15 +13,16 @@ This guide covers all the data-driven systems in Neo Vitae that modpack makers c
    - [Spiritus Gem Capacities](#spiritus-gem-capacities)
    - [Dungeon Ore Weights](#dungeon-ore-weights)
 3. [Sigil Types (Effect Definitions)](#sigil-types-effect-definitions)
-4. [Recipe Types](#recipe-types)
-5. [Tags](#tags)
-6. [Loot Tables & Modifiers](#loot-tables--modifiers)
-7. [Living Armor Upgrades](#living-armor-upgrades)
-8. [Curios Integration](#curios-integration)
-9. [KubeJS Event Hooks](#kubejs-event-hooks)
-10. [Custom Player Attributes](#custom-player-attributes)
-11. [Examples](#examples)
-12. [Developer Tools](#developer-tools)
+4. [Altar Tier Customization](#altar-tier-customization)
+5. [Recipe Types](#recipe-types)
+6. [Tags](#tags)
+7. [Loot Tables & Modifiers](#loot-tables--modifiers)
+8. [Living Armor Upgrades](#living-armor-upgrades)
+9. [Curios Integration](#curios-integration)
+10. [KubeJS Event Hooks](#kubejs-event-hooks)
+11. [Custom Player Attributes](#custom-player-attributes)
+12. [Examples](#examples)
+13. [Developer Tools](#developer-tools)
 
 ---
 
@@ -377,6 +378,119 @@ Sigil types define the behavior of sigils using a codec-based effect system. Eac
 - `neovitae:frost` - Freeze water
 - `neovitae:suppression` - Push away fluids
 - `neovitae:phantom_bridge` - Create phantom blocks
+
+---
+
+## Altar Tier Customization
+
+**Location:** `data/neovitae/neovitae/altar_tier/`
+
+Each altar tier (Weak through Transcendent) is a JSON entry in the
+`neovitae:altar_tier` datapack registry. Pack authors can re-shape the
+multiblock geometry **and** the visual effects each tier emits without
+touching code; the validator, the Modonomicon multiblock preview, and
+the in-world particle / render code all read from the same files.
+
+A bundled example datapack at `examples/datapacks/neovitae_classic_altar/`
+restores the original Blood Magic square layout and is the easiest starting
+point for authoring your own tiers.
+
+### File Structure
+
+```json
+{
+  "tier": 2,
+  "components": [
+    { "pos": [0, 0, 0], "valid": "neovitae:ara_vitae", "upgrade": false },
+    { "pos": [4, 1, 0], "valid": "#neovitae:altar/t3_capstones", "upgrade": false }
+  ],
+  "effects": [
+    {
+      "type": "cap_orbit_life_pulse",
+      "color": 12268288,
+      "origins": [[4, 1, 0], [-4, 1, 0], [0, 1, 4], [0, 1, -4]]
+    }
+  ]
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `tier` | Integer | 0-5. Resolved index into the runtime tier list. |
+| `components` | Array | Block requirements for the multiblock. |
+| `effects` | Array | Optional. Visual effects emitted while this tier is active. |
+
+### `components`
+
+Each entry is an offset-relative block requirement that drives both the
+structural validation and the in-book preview.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `pos` | `[x, y, z]` | Integer offset from the Ara Vitae core. |
+| `valid` | String | Block id (`neovitae:ara_vitae`) or tag reference (`#neovitae:altar/runes`). |
+| `upgrade` | Boolean | `true` if the slot accepts a player-installed rune (cycles through rune blocks in the preview); `false` for purely structural blocks. |
+| `optional` | Boolean | Optional. When `true`, the position validates as **either air or the configured matcher**. The bundled tiers use this to make the pillar columns underneath each cap optional, so caps can float on their own. Defaults to `false`. |
+
+Tag references resolve against live block tags, so a pack can keep the
+same skeleton and just retag which blocks count as runes, pillars, or
+capstones via the existing `altar/*` tags.
+
+### `effects`
+
+Optional. Each entry binds a visual style to a list of offsets. Effects
+are **cumulative**: a tier 5 altar plays its own effects plus every lower
+tier's, so each tier definition only needs to add new visuals (or replace
+inherited ones by overriding the lower tier's JSON entirely).
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `type` | Enum | Visual style (see below). |
+| `origins` | Array of `[x, y, z]` | Offsets from the Ara Vitae core where the effect anchors. |
+| `color` | Integer | Tint colour packed as decimal RGB (e.g. `0x8800CC` = `8913100`). Optional, defaults to `16777215` (white). |
+
+**Effect types:**
+
+| Type | What it does |
+|------|--------------|
+| `cap_orbit_life_pulse` | All origins synchronously orbit a particle ring, then fire a life-pulse stream into the altar core. Best for cap rings on the lowest active tier. |
+| `cap_orbit_spiral_staggered` | Each origin orbits independently with staggered phase offsets, ending in a spiralling stream. Reads as a slower, more chaotic ritual layer. |
+| `cap_burst` | Low-rate ambient particle bursts at each origin (1 particle per ~5 ticks). Good for "the cap is awake" ambiance. |
+| `cap_crystal_cascade` | Downward cascading particle column above each origin. Use sparingly; visually expensive on large rings. |
+| `cap_render_hover_array` | **Client-side only.** Hovers a rotating alchemy-array texture above each origin and emits matching cascade particles. Use to call out the highest-prestige caps. |
+
+### Default tiers
+
+The bundled circular layout fires these effects (cumulative):
+
+| Tier | Cap distance | Effect added |
+|------|--------------|--------------|
+| Mage (2) | 4 (cardinals) | `cap_orbit_life_pulse` |
+| Master (3) | 6 (cardinals) | `cap_orbit_spiral_staggered` |
+| Archmage (4) | 9 (cardinals) | `cap_burst` + `cap_render_hover_array` |
+| Transcendent (5) | 12 (cardinals) | `cap_crystal_cascade` |
+
+The example `neovitae_classic_altar` pack mirrors the same effect ladder
+but anchors every origin on the diagonal corner positions of the original
+square layout.
+
+### Authoring tips
+
+- **Origins do not have to coincide with `components` positions.** The
+  effect engine just reads offsets; you can anchor visuals on empty air
+  inside the multiblock if that reads better.
+- **Omit `effects` entirely** for a quiet tier (this is what Weak and
+  Apprentice do by default).
+- **Tag changes propagate automatically.** If you retag what counts as a
+  pillar or capstone via the existing `altar/*` tags, the validator and
+  preview update without altering the tier JSON.
+- **Multiblock preview stays in sync.** NeoVitae builds the in-book
+  Scriptura Vitae diagram from the loaded altar tier data at server
+  start, so reshaping `components` reshapes the diagram too. To override
+  the preview cosmetically without changing validation, drop a
+  Modonomicon multiblock JSON at
+  `data/neovitae/modonomicon/multiblocks/altar_<one|two|three|four|five|six>.json`
+  and the runtime will leave it untouched.
 
 ---
 

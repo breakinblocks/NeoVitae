@@ -43,6 +43,41 @@ the structural check and the rendered preview, so:
 - `upgrade`: `true` if a player-installed rune lives there (the slot
   cycles through rune blocks in the preview), `false` for structural
   blocks (rendered as the blank rune or the tag's first member).
+- `optional`: optional, defaults to `false`. When `true`, the position
+  validates as either air or the configured `valid` matcher; this is
+  how the bundled tiers leave the pillar columns under each cap as
+  decoration rather than required structural blocks.
 
 Tag references resolve against the live block tags, so a pack can keep
 the same skeleton and just retag which blocks count as runes or pillars.
+
+## Tier visual effects
+
+The optional `effects` array attaches per-tier capstone visuals. Each entry
+is rendered cumulatively (a tier 5 altar plays its own effects plus every
+lower tier's), and pack authors can re-aim or restyle them by editing the
+JSON; nothing else needs to change.
+
+```json
+{
+  "type": "cap_orbit_life_pulse",
+  "color": 12268288,
+  "origins": [[3, 1, 3], [3, 1, -3], [-3, 1, 3], [-3, 1, -3]]
+}
+```
+
+- `type`: one of
+  - `cap_orbit_life_pulse` - 4 caps orbit then fire a life-pulse stream into
+    the altar.
+  - `cap_orbit_spiral_staggered` - per-cap orbit with staggered phase, ends
+    in a spiralling stream.
+  - `cap_burst` - low-rate ambient particle bursts at each origin.
+  - `cap_crystal_cascade` - downward cascading column above each origin.
+  - `cap_render_hover_array` - client-side rotating alchemy-array texture
+    hovering above each origin.
+- `origins`: one or more XYZ offsets from the altar block; each becomes a
+  particle / render origin.
+- `color`: tint colour packed as 0xRRGGBB (decimal). Optional, defaults to
+  white.
+
+Omit the `effects` field entirely to ship a tier with no capstone visuals.

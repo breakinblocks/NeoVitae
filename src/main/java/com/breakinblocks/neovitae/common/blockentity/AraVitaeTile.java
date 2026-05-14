@@ -439,68 +439,73 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         }
     }
 
-    private static final int[][] T2_CAPS = {{3, 1, 3}, {3, 1, -3}, {-3, 1, 3}, {-3, 1, -3}};
-    private static final int[][] T3_CAPS = {{5, 2, 5}, {5, 2, -5}, {-5, 2, 5}, {-5, 2, -5}};
-    private static final int[][] T4_CAPS = {{8, -4, 8}, {8, -4, -8}, {-8, -4, 8}, {-8, -4, -8}};
-    private static final int[][] T5_CAPS_ORDERED = {{11, 3, -11}, {11, 3, 11}, {-11, 3, 11}, {-11, 3, -11}};
-    private static final int[][] T5_TO_T4_MAP = {
-            {11, 3, -11, 8, -4, -8},
-            {11, 3, 11, 8, -4, 8},
-            {-11, 3, 11, -8, -4, 8},
-            {-11, 3, -11, -8, -4, -8}
-    };
     private static final int ORBIT_TICKS = 30;
     private static final int CYCLE_TICKS = 60;
+    private static final int[] SPIRAL_STAGGER_OFFSETS = {0, 18, 37, 9};
 
     private void tickTierEffects() {
         if (!(level instanceof ServerLevel serverLevel)) return;
         int currentTier = getTier();
+        if (currentTier < 0 || currentTier >= com.breakinblocks.neovitae.common.structure.NVMultiblock.TIER_LIST.length) return;
+        com.breakinblocks.neovitae.common.registry.AltarTier tierData =
+                com.breakinblocks.neovitae.common.structure.NVMultiblock.TIER_LIST[currentTier];
+        if (tierData == null || tierData.effects().isEmpty()) return;
+
         int tick = getTicks();
         double ax = worldPosition.getX() + 0.5;
         double ay = worldPosition.getY() + 0.5;
         double az = worldPosition.getZ() + 0.5;
 
-        if (currentTier >= 2) {
-            tickCapOrbitAndFire(serverLevel, tick, T2_CAPS, 0xBB3300, 1.2, CYCLE_TICKS, ax, ay, az, true);
-        }
-
-        if (currentTier >= 3) {
-            int capIdx = (tick / (CYCLE_TICKS + 15)) % T3_CAPS.length;
-            int[] staggerOffsets = {0, 18, 37, 9};
-            for (int i = 0; i < T3_CAPS.length; i++) {
-                int staggeredTick = tick + staggerOffsets[i];
-                int darkColor = (i % 2 == 0) ? 0x880011 : 0x660022;
-                tickSingleCapOrbitAndFire(serverLevel, staggeredTick, T3_CAPS[i], darkColor,
-                        1.5, CYCLE_TICKS + 15, ax, ay, az);
-            }
-        }
-
-        if (currentTier >= 4 && tick % 5 == 0) {
-            for (int[] cap : T4_CAPS) {
-                double cx = worldPosition.getX() + cap[0] + 0.5;
-                double cy = worldPosition.getY() + cap[1] + 0.5;
-                double cz = worldPosition.getZ() + cap[2] + 0.5;
-                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x8800CC),
-                        cx, cy, cz, 1, 0.3, 0.3, 0.3, 0.01);
-            }
-        }
-
-        if (currentTier >= 5) {
-            tickCrystalCascade(serverLevel, tick);
+        for (com.breakinblocks.neovitae.common.registry.AltarEffect effect : tierData.effects()) {
+            runAltarEffect(serverLevel, effect, tick, ax, ay, az);
         }
     }
 
-    private void tickCapOrbitAndFire(ServerLevel serverLevel, int tick, int[][] caps, int color,
-                                      double orbitRadius, int cyclePeriod, double ax, double ay, double az,
-                                      boolean useLifePulse) {
+    private void runAltarEffect(ServerLevel serverLevel,
+                                com.breakinblocks.neovitae.common.registry.AltarEffect effect,
+                                int tick, double ax, double ay, double az) {
+        java.util.List<net.minecraft.core.BlockPos> origins = effect.origins();
+        if (origins.isEmpty()) return;
+        int color = effect.color();
+        switch (effect.type()) {
+            case CAP_ORBIT_LIFE_PULSE ->
+                    tickCapOrbitAndFire(serverLevel, tick, origins, color, 1.2, CYCLE_TICKS, ax, ay, az, true);
+            case CAP_ORBIT_SPIRAL_STAGGERED -> {
+                for (int i = 0; i < origins.size(); i++) {
+                    int staggeredTick = tick + SPIRAL_STAGGER_OFFSETS[i % SPIRAL_STAGGER_OFFSETS.length];
+                    tickSingleCapOrbitAndFire(serverLevel, staggeredTick, origins.get(i), color,
+                            1.5, CYCLE_TICKS + 15, ax, ay, az);
+                }
+            }
+            case CAP_BURST -> {
+                if (tick % 5 != 0) return;
+                for (net.minecraft.core.BlockPos origin : origins) {
+                    double cx = worldPosition.getX() + origin.getX() + 0.5;
+                    double cy = worldPosition.getY() + origin.getY() + 0.5;
+                    double cz = worldPosition.getZ() + origin.getZ() + 0.5;
+                    serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), color),
+                            cx, cy, cz, 1, 0.3, 0.3, 0.3, 0.01);
+                }
+            }
+            case CAP_CRYSTAL_CASCADE -> tickCrystalCascade(serverLevel, tick, origins, color);
+            case CAP_RENDER_HOVER_ARRAY -> {
+                // Client-side renderer reads this entry directly; server emits nothing.
+            }
+        }
+    }
+
+    private void tickCapOrbitAndFire(ServerLevel serverLevel, int tick,
+                                     java.util.List<net.minecraft.core.BlockPos> caps, int color,
+                                     double orbitRadius, int cyclePeriod, double ax, double ay, double az,
+                                     boolean useLifePulse) {
         int phase = tick % cyclePeriod;
 
         if (phase < ORBIT_TICKS && tick % 2 == 0) {
             double angle = (phase / (double) ORBIT_TICKS) * Math.PI * 2 * (1 + (tick / cyclePeriod) % 3);
-            for (int[] cap : caps) {
-                double cx = worldPosition.getX() + cap[0] + 0.5;
-                double cy = worldPosition.getY() + cap[1] + 0.5;
-                double cz = worldPosition.getZ() + cap[2] + 0.5;
+            for (net.minecraft.core.BlockPos cap : caps) {
+                double cx = worldPosition.getX() + cap.getX() + 0.5;
+                double cy = worldPosition.getY() + cap.getY() + 0.5;
+                double cz = worldPosition.getZ() + cap.getZ() + 0.5;
                 double px = cx + Math.cos(angle) * orbitRadius;
                 double pz = cz + Math.sin(angle) * orbitRadius;
                 serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), color),
@@ -511,14 +516,12 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         }
 
         if (phase == ORBIT_TICKS) {
-            for (int[] cap : caps) {
-                double cx = worldPosition.getX() + cap[0] + 0.5;
-                double cy = worldPosition.getY() + cap[1] + 0.5;
-                double cz = worldPosition.getZ() + cap[2] + 0.5;
+            for (net.minecraft.core.BlockPos cap : caps) {
+                double cx = worldPosition.getX() + cap.getX() + 0.5;
+                double cy = worldPosition.getY() + cap.getY() + 0.5;
+                double cz = worldPosition.getZ() + cap.getZ() + 0.5;
                 if (useLifePulse) {
-                    StreamPresets.lifePulse(
-                            new net.minecraft.core.BlockPos(worldPosition.getX() + cap[0], worldPosition.getY() + cap[1], worldPosition.getZ() + cap[2]),
-                            worldPosition)
+                    StreamPresets.lifePulse(worldPosition.offset(cap), worldPosition)
                             .scale(0.1f).build().sendToNearby(serverLevel, worldPosition, 128);
                 } else {
                     StreamEffect.builder(cx, cy, cz)
@@ -533,12 +536,12 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         }
     }
 
-    private void tickSingleCapOrbitAndFire(ServerLevel serverLevel, int tick, int[] cap, int color,
+    private void tickSingleCapOrbitAndFire(ServerLevel serverLevel, int tick, net.minecraft.core.BlockPos cap, int color,
                                               double orbitRadius, int cyclePeriod, double ax, double ay, double az) {
         int phase = tick % cyclePeriod;
-        double cx = worldPosition.getX() + cap[0] + 0.5;
-        double cy = worldPosition.getY() + cap[1] + 0.5;
-        double cz = worldPosition.getZ() + cap[2] + 0.5;
+        double cx = worldPosition.getX() + cap.getX() + 0.5;
+        double cy = worldPosition.getY() + cap.getY() + 0.5;
+        double cz = worldPosition.getZ() + cap.getZ() + 0.5;
 
         if (phase < ORBIT_TICKS && tick % 3 == 0) {
             double angle = (phase / (double) ORBIT_TICKS) * Math.PI * 2 * (1 + (tick / cyclePeriod) % 3);
@@ -562,38 +565,39 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         }
     }
 
-    private void tickCrystalCascade(ServerLevel serverLevel, int tick) {
-        for (int[] cap : T5_CAPS_ORDERED) {
-            double cx = worldPosition.getX() + cap[0] + 0.5;
-            double topY = worldPosition.getY() + cap[1] + 1.5;
-            double cz = worldPosition.getZ() + cap[2] + 0.5;
+    private void tickCrystalCascade(ServerLevel serverLevel, int tick,
+                                    java.util.List<net.minecraft.core.BlockPos> origins, int color) {
+        for (net.minecraft.core.BlockPos cap : origins) {
+            double cx = worldPosition.getX() + cap.getX() + 0.5;
+            double topY = worldPosition.getY() + cap.getY() + 1.5;
+            double cz = worldPosition.getZ() + cap.getZ() + 0.5;
             double circleRadius = 1.2;
 
             if (tick % 2 == 0) {
                 double angle = serverLevel.random.nextDouble() * Math.PI * 2;
                 double r = circleRadius + (serverLevel.random.nextDouble() - 0.5) * 0.3;
-                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x8800CC),
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), color),
                         cx + Math.cos(angle) * r, topY, cz + Math.sin(angle) * r, 0, 0, -0.12, 0, 1);
             }
 
             if (tick % 3 == 0) {
                 double angle = serverLevel.random.nextDouble() * Math.PI * 2;
                 double r = circleRadius * 0.8 + (serverLevel.random.nextDouble() - 0.5) * 0.2;
-                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA00FF),
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), color),
                         cx + Math.cos(angle) * r, topY, cz + Math.sin(angle) * r, 0, 0, -0.1, 0, 1);
             }
 
             if (tick % 4 == 0) {
                 double angle = serverLevel.random.nextDouble() * Math.PI * 2;
                 double r = circleRadius * 0.6;
-                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x6600AA),
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), color),
                         cx + Math.cos(angle) * r, topY - 0.5, cz + Math.sin(angle) * r, 1, 0.15, 0.3, 0.15, 0);
             }
 
             if (tick % 6 == 0) {
                 double angle = serverLevel.random.nextDouble() * Math.PI * 2;
                 double r = circleRadius;
-                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_DRIP.get(), 0x8800CC),
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_DRIP.get(), color),
                         cx + Math.cos(angle) * r, topY, cz + Math.sin(angle) * r, 0, 0, -0.08, 0, 1);
             }
         }

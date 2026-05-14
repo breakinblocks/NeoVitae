@@ -1,7 +1,9 @@
 package com.breakinblocks.neovitae.common.command;
 
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.block.BlockShapedExplosive;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.block.SpectralBlock;
 import com.breakinblocks.neovitae.common.datamap.ImperfectRitualStats;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.registry.AltarComponent;
@@ -144,8 +146,11 @@ public class ShowcaseCommand {
         List<Block> out = new ArrayList<>();
         BuiltInRegistries.BLOCK.listElements().forEach(ref -> {
             if (!ref.key().identifier().getNamespace().equals(NeoVitae.MODID)) return;
+            if (ref.key().identifier().getPath().equals("test_energy_block")) return;
             Block block = ref.value();
             if (block instanceof LiquidBlock) return;
+            if (block instanceof BlockShapedExplosive) return;
+            if (block instanceof SpectralBlock) return;
             if (block == NVBlocks.SPATIAL_RIFT.block().get()) return;
             out.add(block);
         });

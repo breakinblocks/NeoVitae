@@ -130,6 +130,18 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         if (level != null && isToggleable(stack, level)) {
             String stateKey = getActivated(stack) ? "tooltip.neovitae.activated" : "tooltip.neovitae.deactivated";
             tooltip.add(Component.translatable(stateKey).withStyle(ChatFormatting.GRAY));
+
+            if (getActivated(stack)) {
+                int upkeep = getLpCost(stack, level, SigilType.UseContext.ACTIVE);
+                if (upkeep > 0) {
+                    double seconds = getDrainInterval(stack, level) / 20.0;
+                    String secondsLabel = seconds == Math.floor(seconds)
+                            ? String.format("%d", (int) seconds)
+                            : String.format("%.1f", seconds);
+                    tooltip.add(Component.translatable("tooltip.neovitae.sigil.upkeep", upkeep, secondsLabel)
+                            .withStyle(ChatFormatting.GRAY));
+                }
+            }
         }
 
         Integer brightness = stack.get(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get());
@@ -168,7 +180,9 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
             return InteractionResultHolder.success(player.getItemInHand(hand));
         }
 
-        if (isToggleable(stack, level)) {
+        // Toggleable sigils are toggled by shift + right-click in open air only.
+        // useOn / interactLivingEntity handle block / entity right-clicks; use() is the air path.
+        if (isToggleable(stack, level) && player.isShiftKeyDown()) {
             if (!level.isClientSide && !isUnusable(stack)) {
                 boolean newState = !getActivated(stack);
                 setActivatedState(stack, newState);
@@ -178,8 +192,6 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
                     double angle = (2 * Math.PI / 8) * i;
                     double offX = Math.cos(angle) * 0.6;
                     double offZ = Math.sin(angle) * 0.6;
-                    double vx = newState ? offX * 0.1 : -offX * 0.1;
-                    double vz = newState ? offZ * 0.1 : -offZ * 0.1;
                     serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), player.getX() + offX, player.getY() + 1, player.getZ() + offZ, 1, 0, 0, 0, 0);
                 }
             }
@@ -333,5 +345,10 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
     @Override
     public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
         return true;
+    }
+
+    @Override
+    public boolean isFoil(ItemStack stack) {
+        return super.isFoil(stack) || getActivated(stack);
     }
 }

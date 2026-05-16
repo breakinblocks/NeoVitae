@@ -2623,6 +2623,7 @@
   "tooltip.neovitae.sigil.seer.otherNetwork": "Viewing network of: %s",
   "tooltip.neovitae.sigil.suppression.desc": "Pushes away nearby fluids",
   "tooltip.neovitae.sigil.teleposition.desc": "Teleports you to a bound location",
+  "tooltip.neovitae.sigil.upkeep": "Upkeep: %s EV / %ss",
   "tooltip.neovitae.sigil.void.desc": "Voids fluids in front of you",
   "tooltip.neovitae.sigil.water.desc": "Places water source blocks",
   "tooltip.neovitae.spiritus.aoe_radius": "%s block AoE radius",

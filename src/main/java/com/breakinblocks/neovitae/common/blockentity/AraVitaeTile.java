@@ -55,6 +55,16 @@ import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.api.stream.StreamEffect;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
+import com.breakinblocks.neovitae.common.registry.AltarEffect;
+import com.breakinblocks.neovitae.common.registry.AltarTier;
+import com.breakinblocks.neovitae.common.structure.NVMultiblock;
+import com.geckolib.animatable.GeoBlockEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.util.GeckoLibUtil;
 import net.minecraft.sounds.SoundSource;
 
 import java.util.HashMap;
@@ -62,21 +72,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, com.geckolib.animatable.GeoBlockEntity {
+public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlockEntity {
 
-    private final com.geckolib.animatable.instance.AnimatableInstanceCache geoCache =
-            com.geckolib.util.GeckoLibUtil.createInstanceCache(this);
-    private static final com.geckolib.animation.RawAnimation RITUAL_ANIM =
-            com.geckolib.animation.RawAnimation.begin().thenPlay("animation.ara_vitae.ritual");
+    private final AnimatableInstanceCache geoCache =
+            GeckoLibUtil.createInstanceCache(this);
+    private static final RawAnimation RITUAL_ANIM =
+            RawAnimation.begin().thenPlay("animation.ara_vitae.ritual");
 
     @Override
-    public void registerControllers(com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new com.geckolib.animation.AnimationController<AraVitaeTile>("main", 0, state -> com.geckolib.animation.object.PlayState.STOP)
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<AraVitaeTile>("main", 0, state -> PlayState.STOP)
                 .triggerableAnim("ritual", RITUAL_ANIM));
     }
 
     @Override
-    public com.geckolib.animatable.instance.AnimatableInstanceCache getAnimatableInstanceCache() {
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
         return geoCache;
     }
 
@@ -563,9 +573,9 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, com.geck
     private void tickTierEffects() {
         if (!(level instanceof ServerLevel serverLevel)) return;
         int currentTier = getTier();
-        if (currentTier < 0 || currentTier >= com.breakinblocks.neovitae.common.structure.NVMultiblock.TIER_LIST.length) return;
-        com.breakinblocks.neovitae.common.registry.AltarTier tierData =
-                com.breakinblocks.neovitae.common.structure.NVMultiblock.TIER_LIST[currentTier];
+        if (currentTier < 0 || currentTier >= NVMultiblock.TIER_LIST.length) return;
+        AltarTier tierData =
+                NVMultiblock.TIER_LIST[currentTier];
         if (tierData == null || tierData.effects().isEmpty()) return;
 
         int tick = getTicks();
@@ -573,15 +583,15 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, com.geck
         double ay = worldPosition.getY() + 0.5;
         double az = worldPosition.getZ() + 0.5;
 
-        for (com.breakinblocks.neovitae.common.registry.AltarEffect effect : tierData.effects()) {
+        for (AltarEffect effect : tierData.effects()) {
             runAltarEffect(serverLevel, effect, tick, ax, ay, az);
         }
     }
 
     private void runAltarEffect(ServerLevel serverLevel,
-                                com.breakinblocks.neovitae.common.registry.AltarEffect effect,
+                                AltarEffect effect,
                                 int tick, double ax, double ay, double az) {
-        java.util.List<net.minecraft.core.BlockPos> origins = effect.origins();
+        List<BlockPos> origins = effect.origins();
         if (origins.isEmpty()) return;
         int color = effect.color();
         switch (effect.type()) {
@@ -596,7 +606,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, com.geck
             }
             case CAP_BURST -> {
                 if (tick % 5 != 0) return;
-                for (net.minecraft.core.BlockPos origin : origins) {
+                for (BlockPos origin : origins) {
                     double cx = worldPosition.getX() + origin.getX() + 0.5;
                     double cy = worldPosition.getY() + origin.getY() + 0.5;
                     double cz = worldPosition.getZ() + origin.getZ() + 0.5;
@@ -612,14 +622,14 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, com.geck
     }
 
     private void tickCapOrbitAndFire(ServerLevel serverLevel, int tick,
-                                     java.util.List<net.minecraft.core.BlockPos> caps, int color,
+                                     List<BlockPos> caps, int color,
                                      double orbitRadius, int cyclePeriod, double ax, double ay, double az,
                                      boolean useLifePulse) {
         int phase = tick % cyclePeriod;
 
         if (phase < ORBIT_TICKS && tick % 2 == 0) {
             double angle = (phase / (double) ORBIT_TICKS) * Math.PI * 2 * (1 + (tick / cyclePeriod) % 3);
-            for (net.minecraft.core.BlockPos cap : caps) {
+            for (BlockPos cap : caps) {
                 double cx = worldPosition.getX() + cap.getX() + 0.5;
                 double cy = worldPosition.getY() + cap.getY() + 0.5;
                 double cz = worldPosition.getZ() + cap.getZ() + 0.5;
@@ -633,7 +643,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, com.geck
         }
 
         if (phase == ORBIT_TICKS) {
-            for (net.minecraft.core.BlockPos cap : caps) {
+            for (BlockPos cap : caps) {
                 double cx = worldPosition.getX() + cap.getX() + 0.5;
                 double cy = worldPosition.getY() + cap.getY() + 0.5;
                 double cz = worldPosition.getZ() + cap.getZ() + 0.5;
@@ -653,7 +663,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, com.geck
         }
     }
 
-    private void tickSingleCapOrbitAndFire(ServerLevel serverLevel, int tick, net.minecraft.core.BlockPos cap, int color,
+    private void tickSingleCapOrbitAndFire(ServerLevel serverLevel, int tick, BlockPos cap, int color,
                                               double orbitRadius, int cyclePeriod, double ax, double ay, double az) {
         int phase = tick % cyclePeriod;
         double cx = worldPosition.getX() + cap.getX() + 0.5;
@@ -683,8 +693,8 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, com.geck
     }
 
     private void tickCrystalCascade(ServerLevel serverLevel, int tick,
-                                    java.util.List<net.minecraft.core.BlockPos> origins, int color) {
-        for (net.minecraft.core.BlockPos cap : origins) {
+                                    List<BlockPos> origins, int color) {
+        for (BlockPos cap : origins) {
             double cx = worldPosition.getX() + cap.getX() + 0.5;
             double topY = worldPosition.getY() + cap.getY() + 1.5;
             double cz = worldPosition.getZ() + cap.getZ() + 0.5;

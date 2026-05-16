@@ -1858,7 +1858,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(NVItems.TABULA_SPIRITUS.get())
                 .minSpiritus(800)
                 .drain(80)
-                .requiredWillType(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.RUINA)
+                .requiredWillType(SpiritusType.RUINA)
                 .unlockedBy("has_blight_marrow", has(NVItems.BLIGHT_MARROW.get()))
                 .save(output, rKey(NeoVitae.rl("blight_whetstone")));
 

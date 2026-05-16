@@ -13,6 +13,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import com.breakinblocks.neovitae.client.util.ClientTextureResources;
 import com.breakinblocks.neovitae.common.material.MaterialDefinition;
 import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.mojang.blaze3d.platform.NativeImage;
@@ -38,7 +39,7 @@ public final class OreDiscoveryHelper {
     private static ResourceManager clientResourceManagerIfAvailable(ServerLevel level) {
         if (FMLEnvironment.getDist() == Dist.CLIENT) {
             try {
-                return com.breakinblocks.neovitae.client.util.ClientTextureResources.get();
+                return ClientTextureResources.get();
             } catch (Throwable ignored) {}
         }
         return level.getServer().getResourceManager();

@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.gametest;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -18,7 +19,7 @@ public class NVGameTestSetup {
 
     public static final DeferredHolder<Block, TestEnergyBlock> TEST_ENERGY_BLOCK =
             BLOCKS.registerBlock("test_energy_block", TestEnergyBlock::new,
-                    () -> net.minecraft.world.level.block.state.BlockBehaviour.Properties.of().strength(1.0F));
+                    () -> BlockBehaviour.Properties.of().strength(1.0F));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TestEnergyBlock.TestEnergyBlockEntity>> TEST_ENERGY_BE_TYPE =
             BLOCK_ENTITIES.register("test_energy_block",

@@ -33,6 +33,7 @@ import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.item.ItemActivationCrystal;
 import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.ritual.Ritual;
+import com.breakinblocks.neovitae.ritual.RitualLayouts;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
 
 import java.util.List;
@@ -216,6 +217,6 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
         }}
 
     private int countRitualComponents(Ritual ritual, Level level) {
-        return com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual).size();
+        return RitualLayouts.get(level, ritual).size();
     }
 }

@@ -11,6 +11,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
+import com.breakinblocks.neovitae.datagen.builder.recipe.BaseRecipeBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class TabulaVitaeRecipeBuilder {
     }
 
     public TabulaVitaeRecipeBuilder input(TagKey<Item> tag) {
-        return input(com.breakinblocks.neovitae.datagen.builder.recipe.BaseRecipeBuilder.ingredientOf(tag));
+        return input(BaseRecipeBuilder.ingredientOf(tag));
     }
 
     public TabulaVitaeRecipeBuilder input(Ingredient ingredient) {

@@ -228,8 +228,8 @@ public class NVBlockTagProvider extends BlockTagsProvider {
 
         this.tag(NVTags.Blocks.GEODE_ACCELERATABLE)
                 .add(Blocks.BUDDING_AMETHYST)
-                .addOptionalTag(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK,
-                        net.minecraft.resources.Identifier.fromNamespaceAndPath("c", "budding_blocks")));
+                .addOptionalTag(TagKey.create(Registries.BLOCK,
+                        Identifier.fromNamespaceAndPath("c", "budding_blocks")));
 
         // Mushroom blocks for fungal charges
         this.tag(NVTags.Blocks.MUSHROOM_STEM)

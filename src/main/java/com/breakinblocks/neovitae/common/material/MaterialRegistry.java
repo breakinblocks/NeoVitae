@@ -4,6 +4,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.MaterialItem;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.resources.Identifier;
@@ -102,7 +103,7 @@ public class MaterialRegistry {
                 JsonObject selectorModel = new JsonObject();
                 selectorModel.addProperty("type", "minecraft:model");
                 selectorModel.addProperty("model", "neovitae:item/" + itemId);
-                com.google.gson.JsonArray tints = new com.google.gson.JsonArray();
+                JsonArray tints = new JsonArray();
                 JsonObject materialTint = new JsonObject();
                 materialTint.addProperty("type", "neovitae:material");
                 tints.add(materialTint);
@@ -167,7 +168,7 @@ public class MaterialRegistry {
             String itemId = NeoVitae.MODID + ":" + mat.getItemId(stage);
 
             JsonObject tag = new JsonObject();
-            com.google.gson.JsonArray values = new com.google.gson.JsonArray();
+            JsonArray values = new JsonArray();
             values.add(itemId);
             tag.add("values", values);
 
@@ -200,7 +201,7 @@ public class MaterialRegistry {
         JsonObject recipe = new JsonObject();
         recipe.addProperty("type", "neovitae:alchemytable");
 
-        com.google.gson.JsonArray inputArray = new com.google.gson.JsonArray();
+        JsonArray inputArray = new JsonArray();
         for (String input : inputs) {
             if (input.startsWith("tag:")) {
                 inputArray.add("#" + input.substring(4));
@@ -285,19 +286,19 @@ public class MaterialRegistry {
                                           String chanceItem, double chance) {
         JsonObject recipe = new JsonObject();
         recipe.addProperty("type", "neovitae:athanor");
-        com.google.gson.JsonArray inputs = new com.google.gson.JsonArray();
+        JsonArray inputs = new JsonArray();
         inputs.add("#" + inputTag);
         recipe.add("inputs", inputs);
         recipe.addProperty("tool", "#" + toolTag);
 
-        com.google.gson.JsonArray guaranteed = new com.google.gson.JsonArray();
+        JsonArray guaranteed = new JsonArray();
         JsonObject mainOutput = new JsonObject();
         mainOutput.addProperty("count", outputCount);
         mainOutput.addProperty("id", outputItem);
         guaranteed.add(mainOutput);
         recipe.add("guaranteed_outputs", guaranteed);
 
-        com.google.gson.JsonArray chanced = new com.google.gson.JsonArray();
+        JsonArray chanced = new JsonArray();
         if (chanceItem != null && chance > 0) {
             JsonObject chanceEntry = new JsonObject();
             chanceEntry.addProperty("chance", chance);

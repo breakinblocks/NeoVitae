@@ -34,6 +34,7 @@ import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.AnointmentHolder;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.util.helper.KeyboardHelper;
 
 /**
  * Handles anointment effects during gameplay events.
@@ -355,7 +356,7 @@ public class AnointmentEventHandler {
             return;
         }
 
-        boolean showDetails = com.breakinblocks.neovitae.util.helper.KeyboardHelper.isShiftDown();
+        boolean showDetails = KeyboardHelper.isShiftDown();
 
         for (AnointmentHolder.AnointmentEntry entry : holder.anointments()) {
             Anointment anoint = AnointmentRegistrar.get(entry.key());

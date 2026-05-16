@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import com.breakinblocks.neovitae.common.material.MaterialDefinition;
 import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.breakinblocks.neovitae.util.helper.OreDiscoveryHelper;
+import com.breakinblocks.neovitae.util.helper.TagHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,7 @@ public class GenerateMaterialsCommand {
             addedNames.add(mat.getName());
         }
 
-        int totalOreCount = com.breakinblocks.neovitae.util.helper.TagHelper.getOreNames(
+        int totalOreCount = TagHelper.getOreNames(
                 level.registryAccess().lookupOrThrow(Registries.ITEM)).size();
 
         if (newMaterials.isEmpty()) {

@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.gametest;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
@@ -128,7 +129,7 @@ public final class MinorSystemTests {
             helper.setBlock(pos, NVBlocks.INCENSE_ALTAR.block().get().defaultBlockState());
 
             helper.runAfterDelay(5, () -> {
-                if (helper.getBlockEntity(pos, net.minecraft.world.level.block.entity.BlockEntity.class) == null) {
+                if (helper.getBlockEntity(pos, BlockEntity.class) == null) {
                     helper.fail("Expected IncenseAltarBlockEntity");
                     return;
                 }

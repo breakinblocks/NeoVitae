@@ -17,6 +17,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.block.BloodLightBlock;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
@@ -33,7 +34,7 @@ public class EntityBloodLight extends ThrowableProjectile {
 
     private int maxTicksInAir = 600;
     private UUID ownerUUID = null;
-    private int brightness = com.breakinblocks.neovitae.common.block.BloodLightBlock.DEFAULT_BRIGHTNESS;
+    private int brightness = BloodLightBlock.DEFAULT_BRIGHTNESS;
     private DyeColor color = DyeColor.RED;
 
     public EntityBloodLight(EntityType<? extends EntityBloodLight> type, Level level) {

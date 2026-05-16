@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.common.datamap;
 
+import com.breakinblocks.neovitae.api.event.AltarRuneEvent;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
@@ -16,7 +17,7 @@ import java.util.Optional;
  * whose bonuses change at runtime (like Animus's dynamic runes), addon mods should:</p>
  * <ol>
  *   <li>Optionally register base values here</li>
- *   <li>Listen to {@link com.breakinblocks.neovitae.api.event.AltarRuneEvent.CalculateStats}</li>
+ *   <li>Listen to {@link AltarRuneEvent.CalculateStats}</li>
  *   <li>Use {@code event.getRuneBlockEntities(MyRuneBlockEntity.class)} to find their runes</li>
  *   <li>Modify {@code event.getModifiers()} based on current rune state</li>
  * </ol>

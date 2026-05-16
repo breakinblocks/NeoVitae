@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Triple;
+import com.breakinblocks.neovitae.client.event.RoutingBeamHandler;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.block.BlockRoutingNode;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
@@ -91,14 +92,14 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
     public void onLoad() {
         super.onLoad();
         if (level != null && level.isClientSide()) {
-            com.breakinblocks.neovitae.client.event.RoutingBeamHandler.register(this);
+            RoutingBeamHandler.register(this);
         }
     }
 
     @Override
     public void setRemoved() {
         if (level != null && level.isClientSide()) {
-            com.breakinblocks.neovitae.client.event.RoutingBeamHandler.unregister(this);
+            RoutingBeamHandler.unregister(this);
         }
         super.setRemoved();
     }

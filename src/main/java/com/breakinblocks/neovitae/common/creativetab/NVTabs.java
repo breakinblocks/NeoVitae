@@ -21,6 +21,7 @@ import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
+import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.breakinblocks.neovitae.common.sentient.SentientHelper;
 import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
@@ -48,7 +49,7 @@ public class NVTabs {
                         output.accept(sentient_plate);
 
                         addAll(NVItems.BASIC_ITEMS, output::accept);
-                        com.breakinblocks.neovitae.common.material.MaterialRegistry.getAllItems()
+                        MaterialRegistry.getAllItems()
                                 .forEach(holder -> output.accept(new ItemStack(holder.get())));
                         addFlaskVariants(output::accept);
                         addAll(NVItems.ITEMS, output::accept);

@@ -17,8 +17,11 @@ import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyE
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.client.model.OrbFillProperty;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
+import com.breakinblocks.neovitae.client.particle.BloodBubbleParticle;
+import com.breakinblocks.neovitae.client.particle.BloodDripParticle;
 import com.breakinblocks.neovitae.client.particle.BloodFlameParticle;
 import com.breakinblocks.neovitae.client.particle.BloodGlowParticle;
+import com.breakinblocks.neovitae.client.particle.RuneGlowParticle;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -36,6 +39,8 @@ import com.breakinblocks.neovitae.client.render.entity.EntityMeteorRenderer;
 import com.breakinblocks.neovitae.client.render.entity.EntityShapedChargeRenderer;
 import com.breakinblocks.neovitae.client.render.entity.EntityThrowingDaggerRenderer;
 import com.breakinblocks.neovitae.client.render.entity.NoopRenderer;
+import com.breakinblocks.neovitae.client.render.entity.SlimeVitaeRenderer;
+import com.breakinblocks.neovitae.client.render.entity.shield.BloodShieldRenderer;
 import com.breakinblocks.neovitae.client.hud.SpiritusGaugeOverlay;
 import com.breakinblocks.neovitae.common.item.AnointmentColor;
 import com.breakinblocks.neovitae.common.item.MaterialItemColor;
@@ -50,12 +55,14 @@ import com.breakinblocks.neovitae.client.screen.TrainerScreen;
 import com.breakinblocks.neovitae.common.menu.NVMenus;
 import com.breakinblocks.neovitae.client.screen.AthanorScreen;
 import com.breakinblocks.neovitae.client.screen.DungeonSealScreen;
+import com.breakinblocks.neovitae.client.screen.SpiritCacheScreen;
 import com.breakinblocks.neovitae.client.screen.TeleposerScreen;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import net.minecraft.client.renderer.entity.HuskRenderer;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.entity.StrayRenderer;
 import net.minecraft.client.renderer.entity.ZombieRenderer;
+import com.breakinblocks.neovitae.compat.modonomicon.NVModonomiconClientCompat;
 import net.neoforged.fml.ModList;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
@@ -64,7 +71,7 @@ public class ClientModEventHandler {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         if (ModList.get().isLoaded("modonomicon")) {
-            event.enqueueWork(com.breakinblocks.neovitae.compat.modonomicon.NVModonomiconClientCompat::registerPageRenderers);
+            event.enqueueWork(NVModonomiconClientCompat::registerPageRenderers);
         }
     }
 
@@ -86,8 +93,8 @@ public class ClientModEventHandler {
         event.registerEntityRenderer(NVEntities.DAEMONIUM_VORAXIS.get(), DaemoniumVoraxisRenderer::new);
         event.registerEntityRenderer(NVEntities.DAEMONIUM_DOLORIS.get(), DaemoniumDolorisRenderer::new);
         event.registerEntityRenderer(NVEntities.DAEMONIUM_ANIMARIS.get(), DaemoniumAnimarisRenderer::new);
-        event.registerEntityRenderer(NVEntities.BLOOD_SHIELD.get(), com.breakinblocks.neovitae.client.render.entity.shield.BloodShieldRenderer::new);
-        event.registerEntityRenderer(NVEntities.SLIME_VITAE.get(), com.breakinblocks.neovitae.client.render.entity.SlimeVitaeRenderer::new);
+        event.registerEntityRenderer(NVEntities.BLOOD_SHIELD.get(), BloodShieldRenderer::new);
+        event.registerEntityRenderer(NVEntities.SLIME_VITAE.get(), SlimeVitaeRenderer::new);
         event.registerEntityRenderer(NVEntities.NECROMANCY_SUMMON.get(), ZombieRenderer::new);
         event.registerEntityRenderer(NVEntities.NECROMANCY_SUMMON_HUSK.get(), HuskRenderer::new);
         event.registerEntityRenderer(NVEntities.NECROMANCY_SUMMON_SKELETON.get(), SkeletonRenderer::new);
@@ -106,7 +113,7 @@ public class ClientModEventHandler {
         event.register(NVMenus.ROUTING_NODE.get(), RoutingNodeScreen::new);
         event.register(NVMenus.MASTER_ROUTING_NODE.get(), MasterRoutingNodeScreen::new);
         event.register(NVMenus.DUNGEON_SEAL.get(), DungeonSealScreen::new);
-        event.register(NVMenus.SPIRIT_CACHE.get(), com.breakinblocks.neovitae.client.screen.SpiritCacheScreen::new);
+        event.register(NVMenus.SPIRIT_CACHE.get(), SpiritCacheScreen::new);
     }
 
     @SubscribeEvent
@@ -126,9 +133,9 @@ public class ClientModEventHandler {
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(NVParticles.BLOOD_FLAME.get(), BloodFlameParticle.Provider::new);
         event.registerSpriteSet(NVParticles.BLOOD_GLOW.get(), BloodGlowParticle.Provider::new);
-        event.registerSpriteSet(NVParticles.BLOOD_DRIP.get(), com.breakinblocks.neovitae.client.particle.BloodDripParticle.Provider::new);
-        event.registerSpriteSet(NVParticles.RUNE_GLOW.get(), com.breakinblocks.neovitae.client.particle.RuneGlowParticle.Provider::new);
-        event.registerSpriteSet(NVParticles.BLOOD_BUBBLE.get(), com.breakinblocks.neovitae.client.particle.BloodBubbleParticle.Provider::new);
+        event.registerSpriteSet(NVParticles.BLOOD_DRIP.get(), BloodDripParticle.Provider::new);
+        event.registerSpriteSet(NVParticles.RUNE_GLOW.get(), RuneGlowParticle.Provider::new);
+        event.registerSpriteSet(NVParticles.BLOOD_BUBBLE.get(), BloodBubbleParticle.Provider::new);
     }
 
     @SubscribeEvent

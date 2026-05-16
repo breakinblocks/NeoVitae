@@ -39,6 +39,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nullable;
 import net.minecraft.core.UUIDUtil;
 
 public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMasterRitualStone {
@@ -239,7 +240,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
      * Force activates a ritual without cost, structure check, or owner requirement.
      * Used for admin commands and testing.
      */
-    public void forceActivateRitual(Ritual ritual, @javax.annotation.Nullable Player player) {
+    public void forceActivateRitual(Ritual ritual, @Nullable Player player) {
         if (level == null || level.isClientSide()) return;
 
         if (active && currentRitual != null) {
@@ -357,7 +358,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     }
 
     private List<RitualComponent> getRitualComponents(Ritual ritual) {
-        return com.breakinblocks.neovitae.ritual.RitualLayouts.get(getLevel(), ritual);
+        return RitualLayouts.get(getLevel(), ritual);
     }
 
     @Override

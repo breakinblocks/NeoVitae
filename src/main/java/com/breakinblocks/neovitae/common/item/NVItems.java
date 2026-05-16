@@ -7,8 +7,10 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
+import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.common.item.athanor.ItemAthanorToolBase;
 import com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey;
 import com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonTester;
@@ -368,7 +370,7 @@ public class NVItems {
                     .rarity(Rarity.RARE)
                     .jukeboxPlayable(ResourceKey.create(
                             Registries.JUKEBOX_SONG,
-                            com.breakinblocks.neovitae.NeoVitae.rl("blood_sweat_and_tears")))
+                            NeoVitae.rl("blood_sweat_and_tears")))
     ));
 
     public static final DeferredHolder<Item, Item> SIMPLE_CATALYST = plainItem("simple_catalyst");
@@ -387,50 +389,50 @@ public class NVItems {
 
     public static final DeferredHolder<Item, ItemBloodProvider> TABULA_AMPOULE = BASIC_ITEMS.registerItem("tabula_ampoule", props -> new ItemBloodProvider(props, "slate", 500));
 
-    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_IGNIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_ignis_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_IGNIS.get())));
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_IGNIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_ignis_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(NVEntities.DAEMONIUM_IGNIS.get())));
 
-    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_CRUORIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_cruoris_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_CRUORIS.get())));
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_CRUORIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_cruoris_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(NVEntities.DAEMONIUM_CRUORIS.get())));
 
-    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_CORRODIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_corrodis_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_CORRODIS.get())));
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_CORRODIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_corrodis_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(NVEntities.DAEMONIUM_CORRODIS.get())));
 
-    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_GLACIARIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_glaciaris_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_GLACIARIS.get())));
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_GLACIARIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_glaciaris_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(NVEntities.DAEMONIUM_GLACIARIS.get())));
 
-    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_PESTIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_pestis_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_PESTIS.get())));
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_PESTIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_pestis_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(NVEntities.DAEMONIUM_PESTIS.get())));
 
-    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_VORAXIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_voraxis_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_VORAXIS.get())));
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_VORAXIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_voraxis_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(NVEntities.DAEMONIUM_VORAXIS.get())));
 
-    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_DOLORIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_doloris_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_DOLORIS.get())));
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_DOLORIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_doloris_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(NVEntities.DAEMONIUM_DOLORIS.get())));
 
-    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_FERVIDIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_fervidis_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_FERVIDIS.get())));
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_FERVIDIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_fervidis_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(NVEntities.DAEMONIUM_FERVIDIS.get())));
 
-    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_ANIMARIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_animaris_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_ANIMARIS.get())));
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_ANIMARIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_animaris_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(NVEntities.DAEMONIUM_ANIMARIS.get())));
 
-    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_RANCORIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_rancoris_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_RANCORIS.get())));
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_RANCORIS_SPAWN_EGG = BASIC_ITEMS.registerItem("daemonium_rancoris_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(NVEntities.DAEMONIUM_RANCORIS.get())));
 
-    public static final DeferredHolder<Item, SpawnEggItem> SLIME_VITAE_SPAWN_EGG = BASIC_ITEMS.registerItem("slime_vitae_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(com.breakinblocks.neovitae.common.entity.NVEntities.SLIME_VITAE.get())));
+    public static final DeferredHolder<Item, SpawnEggItem> SLIME_VITAE_SPAWN_EGG = BASIC_ITEMS.registerItem("slime_vitae_spawn_egg", props -> new SpawnEggItem(props.spawnEgg(NVEntities.SLIME_VITAE.get())));
 
     // Array effect dummy items for JEI visibility
     public static final DeferredRegister.Items ARRAY_ITEMS = DeferredRegister.createItems(NeoVitae.MODID);
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_BOUNCE = ARRAY_ITEMS.registerItem("array_bounce", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.BOUNCE));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_SPIKE = ARRAY_ITEMS.registerItem("array_spike", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.SPIKE));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_UPDRAFT = ARRAY_ITEMS.registerItem("array_updraft", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.UPDRAFT));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_MOVEMENT = ARRAY_ITEMS.registerItem("array_movement", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.MOVEMENT));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_DAY = ARRAY_ITEMS.registerItem("array_day", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.DAY));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_NIGHT = ARRAY_ITEMS.registerItem("array_night", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.NIGHT));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_ELEVATOR = ARRAY_ITEMS.registerItem("array_elevator", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.ELEVATOR));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_REPULSION = ARRAY_ITEMS.registerItem("array_repulsion", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.REPULSION));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_COLLECTION = ARRAY_ITEMS.registerItem("array_collection", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.COLLECTION));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_LIGHT = ARRAY_ITEMS.registerItem("array_light", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.LIGHT));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_FURNACE = ARRAY_ITEMS.registerItem("array_furnace", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.FURNACE));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_RAIN = ARRAY_ITEMS.registerItem("array_rain", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.RAIN));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_GROWTH = ARRAY_ITEMS.registerItem("array_growth", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.GROWTH));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_FREEZE = ARRAY_ITEMS.registerItem("array_freeze", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.FREEZE));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_SIGNAL = ARRAY_ITEMS.registerItem("array_signal", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.SIGNAL));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_TRIGGER = ARRAY_ITEMS.registerItem("array_trigger", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.TRIGGER));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_SPIRIT_SIPHON = ARRAY_ITEMS.registerItem("array_spirit_siphon", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.SPIRIT_SIPHON));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_DEFLECTION = ARRAY_ITEMS.registerItem("array_deflection", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.DEFLECTION));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_ENDLESS_FOUNTAIN = ARRAY_ITEMS.registerItem("array_endless_fountain", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.ENDLESS_FOUNTAIN));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_UNDERTOW = ARRAY_ITEMS.registerItem("array_undertow", props -> new ArrayEffectItem(props, com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.UNDERTOW));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_BOUNCE = ARRAY_ITEMS.registerItem("array_bounce", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.BOUNCE));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_SPIKE = ARRAY_ITEMS.registerItem("array_spike", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.SPIKE));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_UPDRAFT = ARRAY_ITEMS.registerItem("array_updraft", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.UPDRAFT));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_MOVEMENT = ARRAY_ITEMS.registerItem("array_movement", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.MOVEMENT));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_DAY = ARRAY_ITEMS.registerItem("array_day", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.DAY));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_NIGHT = ARRAY_ITEMS.registerItem("array_night", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.NIGHT));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_ELEVATOR = ARRAY_ITEMS.registerItem("array_elevator", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.ELEVATOR));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_REPULSION = ARRAY_ITEMS.registerItem("array_repulsion", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.REPULSION));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_COLLECTION = ARRAY_ITEMS.registerItem("array_collection", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.COLLECTION));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_LIGHT = ARRAY_ITEMS.registerItem("array_light", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.LIGHT));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_FURNACE = ARRAY_ITEMS.registerItem("array_furnace", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.FURNACE));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_RAIN = ARRAY_ITEMS.registerItem("array_rain", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.RAIN));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_GROWTH = ARRAY_ITEMS.registerItem("array_growth", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.GROWTH));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_FREEZE = ARRAY_ITEMS.registerItem("array_freeze", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.FREEZE));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_SIGNAL = ARRAY_ITEMS.registerItem("array_signal", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.SIGNAL));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_TRIGGER = ARRAY_ITEMS.registerItem("array_trigger", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.TRIGGER));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_SPIRIT_SIPHON = ARRAY_ITEMS.registerItem("array_spirit_siphon", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.SPIRIT_SIPHON));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_DEFLECTION = ARRAY_ITEMS.registerItem("array_deflection", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.DEFLECTION));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_ENDLESS_FOUNTAIN = ARRAY_ITEMS.registerItem("array_endless_fountain", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.ENDLESS_FOUNTAIN));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_UNDERTOW = ARRAY_ITEMS.registerItem("array_undertow", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.UNDERTOW));
 
     public static void register(IEventBus modBus) {
         BASIC_ITEMS.register(modBus);

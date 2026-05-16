@@ -1,11 +1,13 @@
 package com.breakinblocks.neovitae.api.altar.rune;
 
+import com.breakinblocks.neovitae.api.event.AltarRuneEvent;
+
 /**
  * Container for Ara Vitae stat modifiers calculated from runes.
  *
  * <p>This class holds all the modifier values that runes provide to the altar.
  * It is populated during altar structure scanning and can be modified by
- * addon mods via the {@link com.breakinblocks.neovitae.api.event.AltarRuneEvent.CalculateStats} event.</p>
+ * addon mods via the {@link AltarRuneEvent.CalculateStats} event.</p>
  *
  * <p>All additive modifiers stack linearly. Multiplicative modifiers (like dislocation)
  * compound with each other.</p>

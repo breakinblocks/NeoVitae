@@ -7,7 +7,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import org.apache.commons.lang3.tuple.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.breakinblocks.neovitae.common.block.BlockDungeonSeal;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
+import com.breakinblocks.neovitae.common.blockentity.BloodLightBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.DungeonSealBlockEntity;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.structures.DungeonDoor;
@@ -143,7 +148,7 @@ public class DungeonRoomPlacement {
      * Checks for intersection with existing rooms before placing - if a door
      * would lead into an existing room, it becomes a solid wall instead of a seal.
      */
-    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(DungeonRoomPlacement.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DungeonRoomPlacement.class);
 
     public void placeNewDoorSeals(ServerLevel world, BlockPos controllerPos, DungeonSynthesizer synthesizer) {
         LOGGER.info("Placing seals for room {} at {}. Doors: {}, entrance: {}",
@@ -194,7 +199,7 @@ public class DungeonRoomPlacement {
             }
 
             world.setBlockAndUpdate(sealPos, NVBlocks.DUNGEON_SEAL.block().get().defaultBlockState()
-                    .setValue(com.breakinblocks.neovitae.common.block.BlockDungeonSeal.SPECIAL, hasUnlockedSpecial));
+                    .setValue(BlockDungeonSeal.SPECIAL, hasUnlockedSpecial));
             synthesizer.incrementSealCount();
 
             if (world.getBlockEntity(sealPos) instanceof DungeonSealBlockEntity seal) {
@@ -216,7 +221,7 @@ public class DungeonRoomPlacement {
                 BlockPos lightPos = sealPos.offset(rand.nextInt(7) - 3, rand.nextInt(5) - 2, rand.nextInt(7) - 3);
                 if (world.isEmptyBlock(lightPos)) {
                     world.setBlockAndUpdate(lightPos, lightState);
-                    if (world.getBlockEntity(lightPos) instanceof com.breakinblocks.neovitae.common.blockentity.BloodLightBlockEntity lightBE) {
+                    if (world.getBlockEntity(lightPos) instanceof BloodLightBlockEntity lightBE) {
                         lightBE.setColor(DyeColor.CYAN);
                     }
                     break;
@@ -237,7 +242,7 @@ public class DungeonRoomPlacement {
             List<BlockPos> fillerList = desc.getContainedPositions(sealPos);
             for (BlockPos fillerPos : fillerList) {
                 world.setBlockAndUpdate(fillerPos,
-                        com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get().defaultBlockState());
+                        DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get().defaultBlockState());
             }
         } else {
             Direction rightDir = door.doorDir().getClockWise();
@@ -245,7 +250,7 @@ public class DungeonRoomPlacement {
                 for (int j = -1; j <= 1; j++) {
                     BlockPos fillerPos = sealPos.relative(rightDir, i).relative(Direction.UP, j);
                     world.setBlockAndUpdate(fillerPos,
-                            com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get().defaultBlockState());
+                            DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get().defaultBlockState());
                 }
             }
         }

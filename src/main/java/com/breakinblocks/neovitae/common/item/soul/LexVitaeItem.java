@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.item.soul;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.TooltipFlag;
@@ -31,6 +33,7 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -76,7 +79,7 @@ public class LexVitaeItem extends Item implements ISentientTool {
     }
 
     @Override
-    public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, java.util.function.Consumer<Item> onBroken) {
+    public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<Item> onBroken) {
         if (entity instanceof Player player) {
             SpiritusType type = PlayerSpiritusHandler.getLargestSpiritusType(player);
             if (PlayerSpiritusHandler.getTotalSpiritus(type, player) >= 1.0
@@ -88,7 +91,7 @@ public class LexVitaeItem extends Item implements ISentientTool {
     }
 
     @Override
-    public boolean canPerformAction(net.minecraft.world.item.ItemInstance stack, ItemAbility ability) {
+    public boolean canPerformAction(ItemInstance stack, ItemAbility ability) {
         if (!(stack instanceof ItemStack itemStack) || !isActive(itemStack)) return false;
         return ability == ItemAbilities.SWORD_SWEEP
                 || ability == ItemAbilities.AXE_STRIP
@@ -99,7 +102,7 @@ public class LexVitaeItem extends Item implements ISentientTool {
     }
 
     private static Tool buildTool() {
-        HolderGetter<net.minecraft.world.level.block.Block> blocks =
+        HolderGetter<Block> blocks =
                 BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
         return new Tool(List.of(
                 Tool.Rule.deniesDrops(blocks.getOrThrow(BlockTags.INCORRECT_FOR_NETHERITE_TOOL)),
@@ -270,7 +273,7 @@ public class LexVitaeItem extends Item implements ISentientTool {
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
 
-        boolean topFace = context.getClickedFace() == net.minecraft.core.Direction.UP;
+        boolean topFace = context.getClickedFace() == Direction.UP;
         ItemAbility chosen = null;
         BlockState modified = null;
         for (ItemAbility ability : ABILITIES) {
@@ -297,8 +300,8 @@ public class LexVitaeItem extends Item implements ISentientTool {
         int half = radius == 1 ? 1 : 2;
         Level level = context.getLevel();
         BlockPos center = context.getClickedPos();
-        net.minecraft.core.Direction face = context.getClickedFace();
-        net.minecraft.core.Direction.Axis depth = face.getAxis();
+        Direction face = context.getClickedFace();
+        Direction.Axis depth = face.getAxis();
 
         for (int u = -half; u <= half; u++) {
             for (int v = -half; v <= half; v++) {

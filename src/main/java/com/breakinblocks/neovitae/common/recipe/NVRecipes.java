@@ -8,6 +8,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorPotionRecipe;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
@@ -31,8 +32,8 @@ public class NVRecipes {
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ForgeTransformRecipe>> HELLFIRE_FORGE_TRANSFORM_SERIALIZER = SERIALIZERS.register("hellfire_forge_transform", () -> new RecipeSerializer<>(ForgeTransformRecipe.CODEC, ForgeTransformRecipe.STREAM_CODEC));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ForgeSpiritusInfusionRecipe>> HELLFIRE_FORGE_SPIRITUS_INFUSION_SERIALIZER = SERIALIZERS.register("hellfire_forge_spiritus_infusion", () -> new RecipeSerializer<>(ForgeSpiritusInfusionRecipe.CODEC, ForgeSpiritusInfusionRecipe.STREAM_CODEC));
 
-    public static final DeferredHolder<RecipeType<?>, RecipeType<com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe>> ARA_VITAE_TYPE = TYPES.register(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe.RECIPE_TYPE_NAME)));
-    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe>> ARA_VITAE_SERIALIZER = SERIALIZERS.register(com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe.RECIPE_TYPE_NAME, () -> new RecipeSerializer<>(com.breakinblocks.neovitae.common.recipe.aravitae.AraVitaeRecipe.CODEC, com.breakinblocks.neovitae.common.recipe.aravitae.AraVitaeRecipe.STREAM_CODEC));
+    public static final DeferredHolder<RecipeType<?>, RecipeType<AraVitaeRecipe>> ARA_VITAE_TYPE = TYPES.register(AraVitaeRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(AraVitaeRecipe.RECIPE_TYPE_NAME)));
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<AraVitaeRecipe>> ARA_VITAE_SERIALIZER = SERIALIZERS.register(AraVitaeRecipe.RECIPE_TYPE_NAME, () -> new RecipeSerializer<>(com.breakinblocks.neovitae.common.recipe.aravitae.AraVitaeRecipe.CODEC, com.breakinblocks.neovitae.common.recipe.aravitae.AraVitaeRecipe.STREAM_CODEC));
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<AthanorRecipe>> ATHANOR_TYPE = TYPES.register(AthanorRecipe.RECIPE_TYPE_NAME, () -> RecipeType.simple(bm(AthanorRecipe.RECIPE_TYPE_NAME)));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<AthanorRecipe>> ATHANOR_SERIALIZER = SERIALIZERS.register(AthanorRecipe.RECIPE_TYPE_NAME, () -> new RecipeSerializer<>(AthanorRecipe.CODEC, AthanorRecipe.STREAM_CODEC));

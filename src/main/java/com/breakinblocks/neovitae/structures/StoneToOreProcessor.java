@@ -9,6 +9,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant;
 
 import javax.annotation.Nullable;
 
@@ -32,7 +33,7 @@ public class StoneToOreProcessor extends StructureProcessor {
                                                         StructureTemplate.StructureBlockInfo blockInfoAfter,
                                                         StructurePlaceSettings settings,
                                                         @Nullable StructureTemplate template) {
-        if (blockInfoAfter.state().is(DungeonBlocks.DUNGEON_STONE.get(com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant.RAW).block().get())) {
+        if (blockInfoAfter.state().is(DungeonBlocks.DUNGEON_STONE.get(DungeonVariant.RAW).block().get())) {
             RandomSource random = settings.getRandom(blockInfoAfter.pos());
             if (this.integrity > 0 && random.nextFloat() < this.integrity) {
                 if (random.nextFloat() < PRISMATIC_CHANCE) {

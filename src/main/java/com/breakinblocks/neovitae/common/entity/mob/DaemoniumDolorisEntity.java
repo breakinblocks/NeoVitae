@@ -40,6 +40,7 @@ import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.animation.AnimationController;
 import com.geckolib.animation.RawAnimation;
 import com.geckolib.util.GeckoLibUtil;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.DamageTypeTags;
@@ -426,7 +427,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
     public void die(DamageSource source) {
         playLayeredSound(SoundEvents.POLAR_BEAR_DEATH, 0.8F, 0.45F);
         if (isForeman && level() instanceof ServerLevel sl) {
-            spawnAtLocation(sl, new ItemStack(com.breakinblocks.neovitae.common.item.NVItems.MINE_ENTRANCE_KEY.get()));
+            spawnAtLocation(sl, new ItemStack(NVItems.MINE_ENTRANCE_KEY.get()));
             bossBar.removeAllPlayers();
         }
         super.die(source);

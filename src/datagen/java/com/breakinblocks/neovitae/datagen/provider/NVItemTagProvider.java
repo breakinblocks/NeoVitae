@@ -5,6 +5,7 @@ import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
@@ -24,7 +25,7 @@ public class NVItemTagProvider extends ItemTagsProvider {
         // 26.1 removed ItemTagsProvider.copy() — inline the block-tag contents into the item tag manually.
         // NVTags.Blocks.STORAGE_BLOCKS_HELLFORGED contains BlockGroups.HELLFORGED_BLOCK (currently a single entry).
         tag(NVTags.Items.STORAGE_BLOCKS_HELLFORGED)
-                .add(com.breakinblocks.neovitae.common.block.NVBlocks.HELLFORGED_BLOCK.item().get());
+                .add(NVBlocks.HELLFORGED_BLOCK.item().get());
 
         tag(NVTags.Items.SENTIENT_SET)
                 .add(NVItems.SENTIENT_HELMET.get(), NVItems.SENTIENT_PLATE.get(), NVItems.SENTIENT_LEGGINGS.get(), NVItems.SENTIENT_BOOTS.get());

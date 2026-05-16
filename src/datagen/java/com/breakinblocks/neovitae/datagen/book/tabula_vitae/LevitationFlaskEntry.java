@@ -58,7 +58,7 @@ public class LevitationFlaskEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(com.breakinblocks.neovitae.common.item.NVItems.ALCHEMY_FLASK.get());
+        return BookIconModel.create(NVItems.ALCHEMY_FLASK.get());
     }
 
     @Override

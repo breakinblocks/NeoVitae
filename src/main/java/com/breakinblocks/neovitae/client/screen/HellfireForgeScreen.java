@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.menu.HellfireForgeMenu;
+import com.breakinblocks.neovitae.compat.jei.NeoVitaeJEIPlugin;
 import com.breakinblocks.neovitae.compat.jei.forge.HellfireForgeRecipeCategory;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public class HellfireForgeScreen extends AbstractContainerScreen<HellfireForgeMe
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean dragging) {
         if (event.button() == 0 && isOverProgress(event.x(), event.y())) {
-            var runtime = com.breakinblocks.neovitae.compat.jei.NeoVitaeJEIPlugin.jeiRuntime;
+            var runtime = NeoVitaeJEIPlugin.jeiRuntime;
             if (runtime != null) {
                 runtime.getRecipesGui().showTypes(List.of(HellfireForgeRecipeCategory.RECIPE_TYPE));
                 return true;

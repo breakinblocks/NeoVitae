@@ -29,6 +29,7 @@ import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualComponent;
+import com.breakinblocks.neovitae.ritual.RitualLayouts;
 
 import java.util.List;
 
@@ -79,7 +80,7 @@ public class RitualRenderer {
         MultiBufferSource.BufferSource buffers = mc.renderBuffers().bufferSource();
         VertexConsumer buffer = buffers.getBuffer(Sheets.translucentBlockSheet());
 
-        List<RitualComponent> components = com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual);
+        List<RitualComponent> components = RitualLayouts.get(level, ritual);
 
         for (RitualComponent component : components) {
             BlockPos rotatedOffset = rotateOffset(component.offset(), direction);

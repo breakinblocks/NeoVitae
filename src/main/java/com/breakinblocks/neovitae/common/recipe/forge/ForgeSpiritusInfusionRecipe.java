@@ -13,6 +13,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.tag.NVTags;
@@ -106,7 +107,7 @@ public class ForgeSpiritusInfusionRecipe extends ForgeRecipe {
         ItemStack result = targetStack.copy();
         result.set(NVDataComponents.SPIRITUS_MAX, gemMax);
         result.set(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
-        result.set(NVDataComponents.SPIRITUS_TYPE, com.breakinblocks.neovitae.common.datacomponent.SpiritusType.RAW);
+        result.set(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW);
         return result;
     }
 

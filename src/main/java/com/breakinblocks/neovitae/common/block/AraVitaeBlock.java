@@ -25,10 +25,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
+import com.breakinblocks.neovitae.common.item.sigil.ISigil;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 public class AraVitaeBlock extends Block implements EntityBlock {
@@ -67,7 +69,7 @@ public class AraVitaeBlock extends Block implements EntityBlock {
 
     @Override
     protected VoxelShape getOcclusionShape(BlockState state) {
-        return net.minecraft.world.phys.shapes.Shapes.empty();
+        return Shapes.empty();
     }
 
     @Override
@@ -125,7 +127,7 @@ public class AraVitaeBlock extends Block implements EntityBlock {
         }
 
         // Let sigils handle their own interaction - don't place them into the altar
-        if (stack.getItem() instanceof com.breakinblocks.neovitae.common.item.sigil.ISigil) {
+        if (stack.getItem() instanceof ISigil) {
             return InteractionResult.PASS;
         }
 

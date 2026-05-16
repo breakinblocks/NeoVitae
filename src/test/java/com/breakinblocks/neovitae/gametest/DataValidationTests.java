@@ -11,6 +11,8 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.RoutingNodeStats;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.network.StreamPayload;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualComponent;
@@ -90,7 +92,7 @@ public class DataValidationTests {
     public void bloodAltarRecipesExist(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
             var recipes = helper.getLevel().getRecipeManager()
-                    .getAllRecipesFor(com.breakinblocks.neovitae.common.recipe.NVRecipes.ARA_VITAE_TYPE.get());
+                    .getAllRecipesFor(NVRecipes.ARA_VITAE_TYPE.get());
             if (recipes.isEmpty()) {
                 helper.fail("No blood altar recipes found");
                 return;
@@ -103,7 +105,7 @@ public class DataValidationTests {
     public void hellfireForgeRecipesExist(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
             var recipes = helper.getLevel().getRecipeManager()
-                    .getAllRecipesFor(com.breakinblocks.neovitae.common.recipe.NVRecipes.HELLFIRE_FORGE_TYPE.get());
+                    .getAllRecipesFor(NVRecipes.HELLFIRE_FORGE_TYPE.get());
             if (recipes.isEmpty()) {
                 helper.fail("No hellfire forge recipes found");
                 return;
@@ -171,7 +173,7 @@ public class DataValidationTests {
     @GameTest(template = "empty_5x5x7", timeoutTicks = 30)
     public void streamPayloadTypeRegistered(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
-            ResourceLocation id = com.breakinblocks.neovitae.common.network.StreamPayload.TYPE.id();
+            ResourceLocation id = StreamPayload.TYPE.id();
             if (id == null) {
                 helper.fail("StreamPayload TYPE should have a valid id");
                 return;

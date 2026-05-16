@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -116,7 +117,7 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        if (source.is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+        if (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             return false;
         }
         if (mistTicksRemaining > 0) {
@@ -329,7 +330,7 @@ public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
 
     @Override
     public void playHurtSound(DamageSource source) {
-        if (source.is(net.minecraft.tags.DamageTypeTags.BYPASSES_ARMOR)) return;
+        if (source.is(DamageTypeTags.BYPASSES_ARMOR)) return;
         playLayeredSound(SoundEvents.ALLAY_HURT, 1.0F, 2.0F);
     }
 

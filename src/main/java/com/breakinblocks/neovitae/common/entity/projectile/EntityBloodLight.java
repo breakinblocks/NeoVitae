@@ -5,6 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
@@ -15,6 +16,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.block.BloodLightBlock;
 import com.breakinblocks.neovitae.util.helper.ColorHelper;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
@@ -29,7 +31,7 @@ public class EntityBloodLight extends ThrowableProjectile {
 
     private int maxTicksInAir = 600;
     private UUID ownerUUID = null;
-    private int brightness = com.breakinblocks.neovitae.common.block.BloodLightBlock.DEFAULT_BRIGHTNESS;
+    private int brightness = BloodLightBlock.DEFAULT_BRIGHTNESS;
     private DyeColor color = DyeColor.RED;
 
     public EntityBloodLight(EntityType<? extends EntityBloodLight> type, Level level) {
@@ -62,7 +64,7 @@ public class EntityBloodLight extends ThrowableProjectile {
     private void placeLight(BlockPos placePos) {
         BlockState existing = level().getBlockState(placePos);
         if (level().isEmptyBlock(placePos) || existing.canBeReplaced()) {
-            boolean waterlogged = existing.getFluidState().is(net.minecraft.tags.FluidTags.WATER);
+            boolean waterlogged = existing.getFluidState().is(FluidTags.WATER);
             BlockState lightState = BloodLightHelper.createBlockState(brightness, waterlogged);
             if (BlockProtectionHelper.tryPlaceBlock(level(), placePos, lightState, ownerUUID)) {
                 BloodLightHelper.setBlockEntityColor(level(), placePos, color);

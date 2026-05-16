@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.menu.AthanorMenu;
+import com.breakinblocks.neovitae.compat.jei.NeoVitaeJEIPlugin;
 import com.breakinblocks.neovitae.compat.jei.athanor.AthanorRecipeCategory;
 import com.breakinblocks.neovitae.util.helper.RenderHelper;
 
@@ -201,7 +202,7 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button == 0 && isOverProgressArrow(mouseX, mouseY)) {
-            var runtime = com.breakinblocks.neovitae.compat.jei.NeoVitaeJEIPlugin.jeiRuntime;
+            var runtime = NeoVitaeJEIPlugin.jeiRuntime;
             if (runtime != null) {
                 runtime.getRecipesGui().showTypes(List.of(AthanorRecipeCategory.RECIPE_TYPE));
                 return true;

@@ -16,6 +16,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.block.ItemBlockTabulaVitae;
 import com.breakinblocks.neovitae.common.item.block.RuneBlockItem;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
@@ -124,11 +125,11 @@ public class NVBlocks {
     public static final BlockWithItemHolder<SpiraInfernalisBlock, BlockItem> SPIRA_INFERNALIS = BLOCK_REG.register("spira_infernalis", SpiraInfernalisBlock::new);
 
     private static final BlockBehaviour.Properties crystal_block_properties = BlockBehaviour.Properties.of().strength(3.0F, 3.0F).sound(SoundType.AMETHYST).requiresCorrectToolForDrops().lightLevel(state -> 7).noOcclusion();
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> RAW_SPIRITUS_CRYSTAL = BLOCK_REG.register("raw_spiritus_crystal", () -> new BlockSpiritusCrystal(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.RAW, crystal_block_properties));
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> SPIRITUS_RUINA_CRYSTAL = BLOCK_REG.register("spiritus_ruina_crystal", () -> new BlockSpiritusCrystal(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.RUINA, crystal_block_properties));
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> SPIRITUS_NIHILUM_CRYSTAL = BLOCK_REG.register("spiritus_nihilum_crystal", () -> new BlockSpiritusCrystal(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.NIHILUM, crystal_block_properties));
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> SPIRITUS_VINDICTA_CRYSTAL = BLOCK_REG.register("spiritus_vindicta_crystal", () -> new BlockSpiritusCrystal(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.VINDICTA, crystal_block_properties));
-    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> SPIRITUS_INVICTUS_CRYSTAL = BLOCK_REG.register("spiritus_invictus_crystal", () -> new BlockSpiritusCrystal(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.INVICTUS, crystal_block_properties));
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> RAW_SPIRITUS_CRYSTAL = BLOCK_REG.register("raw_spiritus_crystal", () -> new BlockSpiritusCrystal(SpiritusType.RAW, crystal_block_properties));
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> SPIRITUS_RUINA_CRYSTAL = BLOCK_REG.register("spiritus_ruina_crystal", () -> new BlockSpiritusCrystal(SpiritusType.RUINA, crystal_block_properties));
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> SPIRITUS_NIHILUM_CRYSTAL = BLOCK_REG.register("spiritus_nihilum_crystal", () -> new BlockSpiritusCrystal(SpiritusType.NIHILUM, crystal_block_properties));
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> SPIRITUS_VINDICTA_CRYSTAL = BLOCK_REG.register("spiritus_vindicta_crystal", () -> new BlockSpiritusCrystal(SpiritusType.VINDICTA, crystal_block_properties));
+    public static final BlockWithItemHolder<BlockSpiritusCrystal, BlockItem> SPIRITUS_INVICTUS_CRYSTAL = BLOCK_REG.register("spiritus_invictus_crystal", () -> new BlockSpiritusCrystal(SpiritusType.INVICTUS, crystal_block_properties));
 
     private static final BlockBehaviour.Properties routing_node_properties = BlockBehaviour.Properties.of().strength(2.0F, 5.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion();
     public static final BlockWithItemHolder<BlockRoutingConduit, BlockItem> ROUTING_CONDUIT = BLOCK_REG.register("routing_conduit", () -> new BlockRoutingConduit(routing_node_properties));

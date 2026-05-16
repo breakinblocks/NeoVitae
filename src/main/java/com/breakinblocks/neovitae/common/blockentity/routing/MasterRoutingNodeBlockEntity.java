@@ -23,10 +23,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.LevelChunk;
 import org.apache.commons.lang3.tuple.Triple;
+import com.breakinblocks.neovitae.client.event.RoutingBeamHandler;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.block.BlockRoutingNode;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.datamap.RoutingNodeHelper;
+import com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.api.routing.*;
 import com.breakinblocks.neovitae.common.routing.*;
@@ -86,14 +90,14 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
     public void onLoad() {
         super.onLoad();
         if (level != null && level.isClientSide) {
-            com.breakinblocks.neovitae.client.event.RoutingBeamHandler.register(this);
+            RoutingBeamHandler.register(this);
         }
     }
 
     @Override
     public void setRemoved() {
         if (level != null && level.isClientSide) {
-            com.breakinblocks.neovitae.client.event.RoutingBeamHandler.unregister(this);
+            RoutingBeamHandler.unregister(this);
         }
         super.setRemoved();
     }
@@ -148,7 +152,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
             if (!level.hasChunk(pos.getX() >> 4, pos.getZ() >> 4)) continue;
 
             BlockState state = level.getBlockState(pos);
-            if (!(state.getBlock() instanceof com.breakinblocks.neovitae.common.block.BlockRoutingNode)) {
+            if (!(state.getBlock() instanceof BlockRoutingNode)) {
                 toRemove.add(pos);
             }
         }
@@ -197,7 +201,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         for (int cx = minCx; cx <= maxCx; cx++) {
             for (int cz = minCz; cz <= maxCz; cz++) {
                 if (!lvl.hasChunk(cx, cz)) continue;
-                net.minecraft.world.level.chunk.LevelChunk chunk = lvl.getChunk(cx, cz);
+                LevelChunk chunk = lvl.getChunk(cx, cz);
                 for (Map.Entry<BlockPos, BlockEntity> entry : chunk.getBlockEntities().entrySet()) {
                     BlockEntity be = entry.getValue();
                     if (!(be instanceof IRoutingNode node)) continue;
@@ -409,7 +413,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         ContainerHelper.loadAllItems(tag, items, registries);
-        if (tag.contains("configuredEnergyRate", net.minecraft.nbt.Tag.TAG_INT)) {
+        if (tag.contains("configuredEnergyRate", Tag.TAG_INT)) {
             this.configuredEnergyRate = Math.max(ENERGY_RATE_MIN, Math.min(ENERGY_RATE_MAX, tag.getInt("configuredEnergyRate")));
         } else {
             this.configuredEnergyRate = ENERGY_RATE_DEFAULT;
@@ -417,12 +421,12 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         generalNodeList = loadPosList(tag, Constants.NBT.ROUTING_MASTER_GENERAL);
 
         connectionMap.clear();
-        if (tag.contains("connectionGraph", net.minecraft.nbt.Tag.TAG_LIST)) {
-            ListTag graphTag = tag.getList("connectionGraph", net.minecraft.nbt.Tag.TAG_COMPOUND);
+        if (tag.contains("connectionGraph", Tag.TAG_LIST)) {
+            ListTag graphTag = tag.getList("connectionGraph", Tag.TAG_COMPOUND);
             for (int i = 0; i < graphTag.size(); i++) {
                 CompoundTag entryTag = graphTag.getCompound(i);
                 BlockPos key = new BlockPos(entryTag.getInt("kx"), entryTag.getInt("ky"), entryTag.getInt("kz"));
-                ListTag neighbors = entryTag.getList("n", net.minecraft.nbt.Tag.TAG_COMPOUND);
+                ListTag neighbors = entryTag.getList("n", Tag.TAG_COMPOUND);
                 List<BlockPos> list = new ArrayList<>(neighbors.size());
                 for (int j = 0; j < neighbors.size(); j++) {
                     CompoundTag nbTag = neighbors.getCompound(j);
@@ -736,7 +740,7 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
 
     @Override
     public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu(containerId, playerInventory, this);
+        return new MasterRoutingNodeMenu(containerId, playerInventory, this);
     }
 
     @Override

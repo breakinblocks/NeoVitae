@@ -3,11 +3,14 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.BookTextHolder;
+import com.klikli_dev.modonomicon.book.RenderedBookTextHolder;
 import com.klikli_dev.modonomicon.book.conditions.BookCondition;
 import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
 import com.klikli_dev.modonomicon.book.page.BookPage;
+import com.klikli_dev.modonomicon.client.gui.book.markdown.BookTextRenderer;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 
@@ -24,7 +27,7 @@ public class BookSentientUpgradeTablePage extends BookPage {
 
     public static BookSentientUpgradeTablePage fromJson(JsonObject json, HolderLookup.Provider provider) {
         var title = json.has("title")
-                ? new BookTextHolder(net.minecraft.network.chat.Component.translatable(GsonHelper.getAsString(json, "title")))
+                ? new BookTextHolder(Component.translatable(GsonHelper.getAsString(json, "title")))
                 : BookTextHolder.EMPTY;
         var text = json.has("text")
                 ? new BookTextHolder(GsonHelper.getAsString(json, "text"))
@@ -65,13 +68,13 @@ public class BookSentientUpgradeTablePage extends BookPage {
     }
 
     @Override
-    public void prerenderMarkdown(com.klikli_dev.modonomicon.client.gui.book.markdown.BookTextRenderer textRenderer) {
+    public void prerenderMarkdown(BookTextRenderer textRenderer) {
         super.prerenderMarkdown(textRenderer);
         if (!text.hasComponent()) {
-            text = new com.klikli_dev.modonomicon.book.RenderedBookTextHolder(text, textRenderer.render(text.getString()));
+            text = new RenderedBookTextHolder(text, textRenderer.render(text.getString()));
         }
         if (!title.hasComponent()) {
-            title = new com.klikli_dev.modonomicon.book.RenderedBookTextHolder(title, textRenderer.render(title.getString()));
+            title = new RenderedBookTextHolder(title, textRenderer.render(title.getString()));
         }
     }
 

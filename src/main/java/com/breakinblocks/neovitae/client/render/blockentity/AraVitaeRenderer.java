@@ -9,6 +9,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.InventoryMenu;
@@ -23,9 +25,14 @@ import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.block.AraVitaeBlock;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
+import com.breakinblocks.neovitae.common.registry.AltarEffect;
+import com.breakinblocks.neovitae.common.registry.AltarEffectType;
+import com.breakinblocks.neovitae.common.registry.AltarTier;
+import com.breakinblocks.neovitae.common.structure.NVMultiblock;
 import com.breakinblocks.neovitae.util.helper.RenderHelper;
 
 public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
@@ -49,9 +56,9 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
     @Override
     public void render(AraVitaeTile tileAltar, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         // Rotate the geo model by the block's FACING; pop before custom passes so item/ritual/fluid stay in block-local space.
-        net.minecraft.core.Direction facing = tileAltar.getBlockState()
-                .getOptionalValue(com.breakinblocks.neovitae.common.block.AraVitaeBlock.FACING)
-                .orElse(net.minecraft.core.Direction.NORTH);
+        Direction facing = tileAltar.getBlockState()
+                .getOptionalValue(AraVitaeBlock.FACING)
+                .orElse(Direction.NORTH);
         poseStack.pushPose();
         poseStack.translate(0.5, 0, 0.5);
         poseStack.mulPose(Axis.YP.rotationDegrees(facing.toYRot()));
@@ -159,16 +166,15 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
         Level level = altar.getLevel();
         if (level == null) return;
         int tier = altar.getTier();
-        if (tier < 0 || tier >= com.breakinblocks.neovitae.common.structure.NVMultiblock.TIER_LIST.length) return;
-        com.breakinblocks.neovitae.common.registry.AltarTier tierData =
-                com.breakinblocks.neovitae.common.structure.NVMultiblock.TIER_LIST[tier];
+        if (tier < 0 || tier >= NVMultiblock.TIER_LIST.length) return;
+        AltarTier tierData = NVMultiblock.TIER_LIST[tier];
         if (tierData == null) return;
 
         long gameTime = level.getGameTime();
         int capIndex = 0;
-        for (com.breakinblocks.neovitae.common.registry.AltarEffect effect : tierData.effects()) {
-            if (effect.type() != com.breakinblocks.neovitae.common.registry.AltarEffectType.CAP_RENDER_HOVER_ARRAY) continue;
-            for (net.minecraft.core.BlockPos cap : effect.origins()) {
+        for (AltarEffect effect : tierData.effects()) {
+            if (effect.type() != AltarEffectType.CAP_RENDER_HOVER_ARRAY) continue;
+            for (BlockPos cap : effect.origins()) {
                 renderCapstoneArray(altar, cap, capIndex, gameTime, partialTick, poseStack, bufferSource);
                 spawnCascadeParticles(altar, cap, capIndex, gameTime);
                 capIndex++;
@@ -176,7 +182,7 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
         }
     }
 
-    private void renderCapstoneArray(AraVitaeTile altar, net.minecraft.core.BlockPos cap, int capIndex, long gameTime, float partialTick,
+    private void renderCapstoneArray(AraVitaeTile altar, BlockPos cap, int capIndex, long gameTime, float partialTick,
                                      PoseStack poseStack, MultiBufferSource bufferSource) {
         float cycleTime = ((gameTime + capIndex * CAP_PHASE_OFFSET) % CYCLE_TICKS) + partialTick;
         if (cycleTime < RISE_START || cycleTime >= RISE_END) return;
@@ -212,7 +218,7 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
         poseStack.popPose();
     }
 
-    private void spawnCascadeParticles(AraVitaeTile altar, net.minecraft.core.BlockPos cap, int capIndex, long gameTime) {
+    private void spawnCascadeParticles(AraVitaeTile altar, BlockPos cap, int capIndex, long gameTime) {
         long phased = (gameTime + capIndex * CAP_PHASE_OFFSET) % CYCLE_TICKS;
         if (phased < CASCADE_START || phased >= CASCADE_END) return;
 

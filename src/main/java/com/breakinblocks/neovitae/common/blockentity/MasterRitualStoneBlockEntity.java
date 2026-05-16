@@ -25,12 +25,16 @@ import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
+import com.breakinblocks.neovitae.ritual.RitualLayouts;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -58,7 +62,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     public static void tick(Level level, BlockPos pos, BlockState state, MasterRitualStoneBlockEntity tile) {
         if (level.isClientSide()) {
             if (tile.active && tile.currentRitual != null) {
-                com.breakinblocks.neovitae.client.sound.LoopSoundManager.tryStartLoop(
+                LoopSoundManager.tryStartLoop(
                         NVSounds.RITUAL_AMBIENT.get(), 0.2f, level, pos,
                         be -> be instanceof MasterRitualStoneBlockEntity mrs && mrs.active && mrs.currentRitual != null
                 );
@@ -232,7 +236,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
      * Force activates a ritual without cost, structure check, or owner requirement.
      * Used for admin commands and testing.
      */
-    public void forceActivateRitual(Ritual ritual, @javax.annotation.Nullable Player player) {
+    public void forceActivateRitual(Ritual ritual, @Nullable Player player) {
         if (level == null || level.isClientSide()) return;
 
         if (active && currentRitual != null) {
@@ -349,8 +353,8 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         };
     }
 
-    private java.util.List<RitualComponent> getRitualComponents(Ritual ritual) {
-        return com.breakinblocks.neovitae.ritual.RitualLayouts.get(getLevel(), ritual);
+    private List<RitualComponent> getRitualComponents(Ritual ritual) {
+        return RitualLayouts.get(getLevel(), ritual);
     }
 
     @Override

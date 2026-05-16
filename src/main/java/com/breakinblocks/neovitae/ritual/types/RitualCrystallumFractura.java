@@ -1,11 +1,16 @@
 package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
@@ -121,11 +126,11 @@ public class RitualCrystallumFractura extends Ritual {
                     && state.getValue(BlockSpiritusCrystal.AGE) == 6;
         }
         if (state.is(NVTags.Blocks.GEODE_HARVESTABLE)) {
-            if (state.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_3)) {
-                return state.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_3) == 3;
+            if (state.hasProperty(BlockStateProperties.AGE_3)) {
+                return state.getValue(BlockStateProperties.AGE_3) == 3;
             }
-            if (state.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_2)) {
-                return state.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AGE_2) == 2;
+            if (state.hasProperty(BlockStateProperties.AGE_2)) {
+                return state.getValue(BlockStateProperties.AGE_2) == 2;
             }
             return true;
         }
@@ -143,9 +148,9 @@ public class RitualCrystallumFractura extends Ritual {
 
     private void applyCustomFortune(ItemStack tool, ServerLevel level, int fortuneLevel) {
         if (fortuneLevel <= 0) return;
-        net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment> ench = level.registryAccess()
-                .lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT)
-                .getOrThrow(net.minecraft.world.item.enchantment.Enchantments.FORTUNE);
+        Holder<Enchantment> ench = level.registryAccess()
+                .lookupOrThrow(Registries.ENCHANTMENT)
+                .getOrThrow(Enchantments.FORTUNE);
         tool.enchant(ench, fortuneLevel);
     }
 

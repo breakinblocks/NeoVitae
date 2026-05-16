@@ -1,7 +1,9 @@
 package com.breakinblocks.neovitae.common.item;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -11,6 +13,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.NeoForge;
@@ -18,6 +21,7 @@ import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
@@ -51,9 +55,9 @@ public class SacrificialDaggerItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, java.util.List<net.minecraft.network.chat.Component> tooltip, net.minecraft.world.item.TooltipFlag flag) {
-        tooltip.add(net.minecraft.network.chat.Component.translatable("tooltip.neovitae.sacrificial_dagger.desc")
-                .withStyle(net.minecraft.ChatFormatting.ITALIC, net.minecraft.ChatFormatting.DARK_RED));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(Component.translatable("tooltip.neovitae.sacrificial_dagger.desc")
+                .withStyle(ChatFormatting.ITALIC, ChatFormatting.DARK_RED));
     }
 
     @Override
@@ -88,7 +92,7 @@ public class SacrificialDaggerItem extends Item {
             evAdded = event.evAdded;
 
             // Blood drip particles at player's hand after self-sacrifice
-            if (level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+            if (level instanceof ServerLevel serverLevel) {
                 double handY = player.getY() + player.getBbHeight() * 0.7;
                 serverLevel.sendParticles(
                         new ColoredParticleOptions(NVParticles.BLOOD_DRIP.get(), 0x990011),
@@ -121,7 +125,7 @@ public class SacrificialDaggerItem extends Item {
             level.playSound(player, player.blockPosition(), SoundEvents.BEEHIVE_DRIP, SoundSource.PLAYERS, 0.6F, 0.8F + level.random.nextFloat() * 0.4F);
 
             // Send stream visual from player to altar (cooldown based on travel time)
-            if (level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+            if (level instanceof ServerLevel serverLevel) {
                 long gameTime = level.getGameTime();
                 UUID playerId = player.getUUID();
                 long cooldownEnd = streamCooldowns.getOrDefault(playerId, 0L);

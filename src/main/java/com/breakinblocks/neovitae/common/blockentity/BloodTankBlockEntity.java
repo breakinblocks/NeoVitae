@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,6 +21,7 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 
@@ -34,10 +36,10 @@ public class BloodTankBlockEntity extends BaseBlockEntity {
             if (level != null && !level.isClientSide) {
                 int currentAmount = getFluidAmount();
                 if (currentAmount > previousFluidAmount) {
-                    level.playSound(null, getBlockPos(), com.breakinblocks.neovitae.common.NVSounds.BLOOD_TANK_FILL.get(), net.minecraft.sounds.SoundSource.BLOCKS, 0.4f, 1.0f);
+                    level.playSound(null, getBlockPos(), NVSounds.BLOOD_TANK_FILL.get(), SoundSource.BLOCKS, 0.4f, 1.0f);
                     ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, 3, 0.2, 0.2, 0.2, 0.01);
                 } else if (currentAmount < previousFluidAmount) {
-                    level.playSound(null, getBlockPos(), com.breakinblocks.neovitae.common.NVSounds.BLOOD_TANK_DRAIN.get(), net.minecraft.sounds.SoundSource.BLOCKS, 0.4f, 1.0f);
+                    level.playSound(null, getBlockPos(), NVSounds.BLOOD_TANK_DRAIN.get(), SoundSource.BLOCKS, 0.4f, 1.0f);
                     ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, 3, 0.2, 0.2, 0.2, 0.01);
                 }
                 // Blood drip when tank is nearly full (>90%)

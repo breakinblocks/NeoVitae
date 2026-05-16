@@ -39,6 +39,7 @@ import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipeInput;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.util.AthanorOutputHandler;
 import net.minecraft.sounds.SoundSource;
@@ -238,7 +239,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AthanorBlockEntity athanorTile) {
         if (level.isClientSide()) {
             if (athanorTile.progress > 0) {
-                com.breakinblocks.neovitae.client.sound.LoopSoundManager.tryStartLoop(
+                LoopSoundManager.tryStartLoop(
                         NVSounds.ATHANOR_BUBBLE.get(), 0.3f, level, blockPos,
                         be -> be instanceof AthanorBlockEntity athanor && athanor.progress > 0
                 );

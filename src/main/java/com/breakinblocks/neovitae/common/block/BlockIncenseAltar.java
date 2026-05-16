@@ -17,6 +17,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
+import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.blockentity.IncenseAltarBlockEntity;
 
@@ -66,8 +68,8 @@ public class BlockIncenseAltar extends BaseEntityBlock {
             return createTickerHelper(blockEntityType, NVTiles.INCENSE_ALTAR_TYPE.get(),
                     (lvl, pos, st, altar) -> {
                         if (altar.getIncenseAddition() > 0) {
-                            com.breakinblocks.neovitae.client.sound.LoopSoundManager.tryStartLoop(
-                                    com.breakinblocks.neovitae.common.NVSounds.INCENSE_AMBIENT.get(),
+                            LoopSoundManager.tryStartLoop(
+                                    NVSounds.INCENSE_AMBIENT.get(),
                                     0.15f, lvl, pos,
                                     be -> be instanceof IncenseAltarBlockEntity ia && ia.getIncenseAddition() > 0
                             );

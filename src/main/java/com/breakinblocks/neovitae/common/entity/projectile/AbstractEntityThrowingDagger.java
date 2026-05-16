@@ -33,6 +33,7 @@ import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -143,7 +144,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
     }
 
     public void setEffectsFromItem(ItemStack stack) {
-        PotionContents contents = stack.get(net.minecraft.core.component.DataComponents.POTION_CONTENTS);
+        PotionContents contents = stack.get(DataComponents.POTION_CONTENTS);
         if (contents != null) {
             for (MobEffectInstance effect : contents.getAllEffects()) {
                 this.addEffect(new MobEffectInstance(effect));

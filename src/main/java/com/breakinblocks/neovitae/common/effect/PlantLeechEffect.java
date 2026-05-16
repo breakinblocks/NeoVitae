@@ -3,6 +3,8 @@ package com.breakinblocks.neovitae.common.effect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 
 public class PlantLeechEffect extends MobEffect {
 
@@ -18,8 +20,8 @@ public class PlantLeechEffect extends MobEffect {
                 double y = entity.getY() + entity.getRandom().nextDouble() * entity.getBbHeight();
                 double z = entity.getZ() + (entity.getRandom().nextDouble() - 0.5) * 0.8;
                 entity.level().addParticle(
-                        new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
-                                com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_FLAME.get(), 0x22AA22),
+                        new ColoredParticleOptions(
+                                NVParticles.BLOOD_FLAME.get(), 0x22AA22),
                         x, y, z, 0, -0.03, 0);
             }
         }

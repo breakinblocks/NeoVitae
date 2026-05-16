@@ -13,6 +13,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper;
+import com.breakinblocks.neovitae.common.event.CommonEventHandler;
 
 import javax.annotation.Nullable;
 
@@ -75,8 +77,8 @@ public class InversionPillarBlockEntity extends BaseBlockEntity {
             return;
         }
 
-        if (com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper.isDungeonDimension(destLevel)) {
-            com.breakinblocks.neovitae.common.event.CommonEventHandler.setDungeonGracePeriod(player, 100);
+        if (DungeonDimensionHelper.isDungeonDimension(destLevel)) {
+            CommonEventHandler.setDungeonGracePeriod(player, 100);
         }
 
         serverPlayer.teleportTo(

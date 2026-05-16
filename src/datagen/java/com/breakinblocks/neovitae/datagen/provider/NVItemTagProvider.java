@@ -4,6 +4,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -146,8 +147,8 @@ public class NVItemTagProvider extends ItemTagsProvider {
                 .addTag(ItemTags.AXES);
 
         tag(NVTags.Items.ANOINTABLE_BOWS)
-                .add(net.minecraft.world.item.Items.BOW)
-                .add(net.minecraft.world.item.Items.CROSSBOW);
+                .add(Items.BOW)
+                .add(Items.CROSSBOW);
 
         tag(NVTags.Items.ANOINTABLE_WEAPONS)
                 .addTag(NVTags.Items.ANOINTABLE_MELEE)

@@ -1,11 +1,19 @@
 package com.breakinblocks.neovitae.client.event;
 
+import net.minecraft.client.renderer.entity.HuskRenderer;
+import net.minecraft.client.renderer.entity.SkeletonRenderer;
+import net.minecraft.client.renderer.entity.StrayRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.entity.ZombieRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.PlayerSkin;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.DyeColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -17,9 +25,12 @@ import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
+import com.breakinblocks.neovitae.client.particle.BloodBubbleParticle;
+import com.breakinblocks.neovitae.client.particle.BloodDripParticle;
 import com.breakinblocks.neovitae.client.particle.BloodFlameParticle;
 import com.breakinblocks.neovitae.client.particle.BloodGlowParticle;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.client.particle.RuneGlowParticle;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -38,6 +49,8 @@ import com.breakinblocks.neovitae.client.render.entity.EntityMeteorRenderer;
 import com.breakinblocks.neovitae.client.render.entity.EntityShapedChargeRenderer;
 import com.breakinblocks.neovitae.client.render.entity.EntityThrowingDaggerRenderer;
 import com.breakinblocks.neovitae.client.render.entity.NoopRenderer;
+import com.breakinblocks.neovitae.client.render.entity.SlimeVitaeRenderer;
+import com.breakinblocks.neovitae.client.render.entity.shield.BloodShieldRenderer;
 import com.breakinblocks.neovitae.client.hud.SpiritusGaugeOverlay;
 import com.breakinblocks.neovitae.common.item.AnointmentColor;
 import com.breakinblocks.neovitae.common.item.ItemAnointmentProvider;
@@ -52,6 +65,7 @@ import com.breakinblocks.neovitae.client.screen.MasterRoutingNodeScreen;
 import com.breakinblocks.neovitae.client.screen.RoutingNodeScreen;
 import com.breakinblocks.neovitae.client.screen.SigilHoldingScreen;
 import com.breakinblocks.neovitae.client.screen.HellfireForgeScreen;
+import com.breakinblocks.neovitae.client.screen.SpiritCacheScreen;
 import com.breakinblocks.neovitae.client.screen.TrainerScreen;
 import com.breakinblocks.neovitae.common.menu.NVMenus;
 import com.breakinblocks.neovitae.client.render.entity.layer.SentientElytraLayer;
@@ -63,15 +77,18 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.OrbFluidHandler;
 import com.breakinblocks.neovitae.util.helper.BloodLightHelper;
+import com.breakinblocks.neovitae.compat.modonomicon.NVModonomiconClientCompat;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
+
+import java.util.List;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
 public class ClientModEventHandler {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
-        if (net.neoforged.fml.ModList.get().isLoaded("modonomicon")) {
-            event.enqueueWork(com.breakinblocks.neovitae.compat.modonomicon.NVModonomiconClientCompat::registerPageRenderers);
+        if (ModList.get().isLoaded("modonomicon")) {
+            event.enqueueWork(NVModonomiconClientCompat::registerPageRenderers);
         }
 
         event.enqueueWork(() -> {
@@ -87,7 +104,7 @@ public class ClientModEventHandler {
             ItemProperties.register(NVItems.SENTIENT_SHOVEL.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW).ordinal());
             ItemProperties.register(NVItems.SENTIENT_SCYTHE.get(), NeoVitae.TYPE_PROPERTY, (stack, level, player, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW).ordinal());
 
-            net.minecraft.client.renderer.item.ClampedItemPropertyFunction sentientActive = (stack, level, entity, seed) ->
+            ClampedItemPropertyFunction sentientActive = (stack, level, entity, seed) ->
                     stack.getOrDefault(NVDataComponents.SIGIL_ACTIVATED, false) ? 1 : 0;
             ItemProperties.register(NVItems.SENTIENT_SWORD.get(), NeoVitae.rl("active"), sentientActive);
             ItemProperties.register(NVItems.SENTIENT_AXE.get(), NeoVitae.rl("active"), sentientActive);
@@ -100,7 +117,7 @@ public class ClientModEventHandler {
             ItemProperties.register(NVItems.LEX_VITAE.get(), NeoVitae.TYPE_PROPERTY,
                     (stack, level, entity, seed) -> stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW).ordinal());
 
-            for (var orb : java.util.List.of(NVItems.ORB_WEAK, NVItems.ORB_APPRENTICE, NVItems.ORB_MAGICIAN,
+            for (var orb : List.of(NVItems.ORB_WEAK, NVItems.ORB_APPRENTICE, NVItems.ORB_MAGICIAN,
                     NVItems.ORB_MASTER, NVItems.ORB_ARCHMAGE, NVItems.ORB_TRANSCENDENT)) {
                 ItemProperties.register(orb.get(), NeoVitae.rl("fill_level"), (stack, lvl, entity, seed) -> {
                     int capacity = OrbFluidHandler.getOrbFluidCapacity(stack);
@@ -130,15 +147,15 @@ public class ClientModEventHandler {
         event.registerEntityRenderer(NVEntities.DAEMONIUM_VORAXIS.get(), DaemoniumVoraxisRenderer::new);
         event.registerEntityRenderer(NVEntities.DAEMONIUM_DOLORIS.get(), DaemoniumDolorisRenderer::new);
         //noinspection unchecked,rawtypes - DaemoniumAnimarisEntity extends Vex; raw cast needed for VexRenderer generics
-        event.registerEntityRenderer((net.minecraft.world.entity.EntityType) NVEntities.DAEMONIUM_ANIMARIS.get(), DaemoniumAnimarisRenderer::new);
-        event.registerEntityRenderer(NVEntities.BLOOD_SHIELD.get(), com.breakinblocks.neovitae.client.render.entity.shield.BloodShieldRenderer::new);
+        event.registerEntityRenderer((EntityType) NVEntities.DAEMONIUM_ANIMARIS.get(), DaemoniumAnimarisRenderer::new);
+        event.registerEntityRenderer(NVEntities.BLOOD_SHIELD.get(), BloodShieldRenderer::new);
         //noinspection unchecked,rawtypes - SlimeVitaeEntity extends Slime; raw cast needed for SlimeRenderer generics
-        event.registerEntityRenderer((net.minecraft.world.entity.EntityType) NVEntities.SLIME_VITAE.get(), com.breakinblocks.neovitae.client.render.entity.SlimeVitaeRenderer::new);
+        event.registerEntityRenderer((EntityType) NVEntities.SLIME_VITAE.get(), SlimeVitaeRenderer::new);
         //noinspection unchecked,rawtypes - Summoned undead extend vanilla types; raw casts needed for renderer generics
-        event.registerEntityRenderer((net.minecraft.world.entity.EntityType) NVEntities.NECROMANCY_SUMMON.get(), net.minecraft.client.renderer.entity.ZombieRenderer::new);
-        event.registerEntityRenderer((net.minecraft.world.entity.EntityType) NVEntities.NECROMANCY_SUMMON_HUSK.get(), net.minecraft.client.renderer.entity.HuskRenderer::new);
-        event.registerEntityRenderer((net.minecraft.world.entity.EntityType) NVEntities.NECROMANCY_SUMMON_SKELETON.get(), net.minecraft.client.renderer.entity.SkeletonRenderer::new);
-        event.registerEntityRenderer((net.minecraft.world.entity.EntityType) NVEntities.NECROMANCY_SUMMON_STRAY.get(), net.minecraft.client.renderer.entity.StrayRenderer::new);
+        event.registerEntityRenderer((EntityType) NVEntities.NECROMANCY_SUMMON.get(), ZombieRenderer::new);
+        event.registerEntityRenderer((EntityType) NVEntities.NECROMANCY_SUMMON_HUSK.get(), HuskRenderer::new);
+        event.registerEntityRenderer((EntityType) NVEntities.NECROMANCY_SUMMON_SKELETON.get(), SkeletonRenderer::new);
+        event.registerEntityRenderer((EntityType) NVEntities.NECROMANCY_SUMMON_STRAY.get(), StrayRenderer::new);
     }
 
     @SubscribeEvent
@@ -162,7 +179,7 @@ public class ClientModEventHandler {
         event.register(NVMenus.ROUTING_NODE.get(), RoutingNodeScreen::new);
         event.register(NVMenus.MASTER_ROUTING_NODE.get(), MasterRoutingNodeScreen::new);
         event.register(NVMenus.DUNGEON_SEAL.get(), DungeonSealScreen::new);
-        event.register(NVMenus.SPIRIT_CACHE.get(), com.breakinblocks.neovitae.client.screen.SpiritCacheScreen::new);
+        event.register(NVMenus.SPIRIT_CACHE.get(), SpiritCacheScreen::new);
     }
 
     @SubscribeEvent
@@ -193,7 +210,7 @@ public class ClientModEventHandler {
 
 
         event.register((stack, layer) -> {
-            net.minecraft.world.item.DyeColor color = stack.get(com.breakinblocks.neovitae.common.datacomponent.NVDataComponents.ALCHEMY_ARRAY_COLOR.get());
+            DyeColor color = stack.get(NVDataComponents.ALCHEMY_ARRAY_COLOR.get());
             if (color != null) {
                 return 0xFF000000 | ColorHelper.fromDye(color);
             }
@@ -211,9 +228,9 @@ public class ClientModEventHandler {
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(NVParticles.BLOOD_FLAME.get(), BloodFlameParticle.Provider::new);
         event.registerSpriteSet(NVParticles.BLOOD_GLOW.get(), BloodGlowParticle.Provider::new);
-        event.registerSpriteSet(NVParticles.BLOOD_DRIP.get(), com.breakinblocks.neovitae.client.particle.BloodDripParticle.Provider::new);
-        event.registerSpriteSet(NVParticles.RUNE_GLOW.get(), com.breakinblocks.neovitae.client.particle.RuneGlowParticle.Provider::new);
-        event.registerSpriteSet(NVParticles.BLOOD_BUBBLE.get(), com.breakinblocks.neovitae.client.particle.BloodBubbleParticle.Provider::new);
+        event.registerSpriteSet(NVParticles.BLOOD_DRIP.get(), BloodDripParticle.Provider::new);
+        event.registerSpriteSet(NVParticles.RUNE_GLOW.get(), RuneGlowParticle.Provider::new);
+        event.registerSpriteSet(NVParticles.BLOOD_BUBBLE.get(), BloodBubbleParticle.Provider::new);
     }
 
     @SubscribeEvent

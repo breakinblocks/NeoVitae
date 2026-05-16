@@ -7,6 +7,8 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.event.EventHooks;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 
 public class FireFuseEffect extends MobEffect {
 
@@ -27,8 +29,8 @@ public class FireFuseEffect extends MobEffect {
                 entity.getZ() + random.nextDouble() * 0.3,
                 0, 0.06d, 0);
         entity.level().addParticle(
-                new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
-                        com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_FLAME.get(), 0xFF2200),
+                new ColoredParticleOptions(
+                        NVParticles.BLOOD_FLAME.get(), 0xFF2200),
                 entity.getX() + (random.nextDouble() - 0.5) * 0.5,
                 entity.getY() + random.nextDouble() * 0.5,
                 entity.getZ() + (random.nextDouble() - 0.5) * 0.5,

@@ -403,7 +403,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .pattern("nrn")
                 .define('n', Items.NETHERITE_SCRAP)
                 .define('r', NVBlocks.RUNE_EFFICIENCY.block().get())
-                .define('s', net.minecraft.tags.ItemTags.STONE_CRAFTING_MATERIALS)
+                .define('s', ItemTags.STONE_CRAFTING_MATERIALS)
                 .unlockedBy("has_efficiency_rune", has(NVBlocks.RUNE_EFFICIENCY.block().get()))
                 .save(output);
 
@@ -450,8 +450,8 @@ public class NVRecipeProvider extends RecipeProvider {
                 .pattern("shs")
                 .pattern("lol")
                 .define('s', Tags.Items.STONES)
-                .define('h', net.minecraft.tags.ItemTags.COALS)
-                .define('l', net.minecraft.tags.ItemTags.LOGS)
+                .define('h', ItemTags.COALS)
+                .define('l', ItemTags.LOGS)
                 .define('o', OrbTierIngredient.of(1))
                 .unlockedBy("has_weak_orb", has(NVItems.ORB_WEAK.get()))
                 .save(output);
@@ -840,7 +840,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("alchemy_flask"));
 
         AltarRecipeBuilder.build(NVItems.BLOOD_SWEAT_AND_TEARS.get())
-                .from(net.minecraft.tags.ItemTags.CREEPER_DROP_MUSIC_DISCS)
+                .from(ItemTags.CREEPER_DROP_MUSIC_DISCS)
                 .minTier(5)
                 .bloodNeeded(2000)
                 .consumption(5)
@@ -1817,7 +1817,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(NVItems.TABULA_SPIRITUS.get())
                 .minSpiritus(800)
                 .drain(80)
-                .requiredWillType(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.RUINA)
+                .requiredWillType(SpiritusType.RUINA)
                 .unlockedBy("has_blight_marrow", has(NVItems.BLIGHT_MARROW.get()))
                 .save(output, NeoVitae.rl("blight_whetstone"));
 
@@ -1854,7 +1854,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('n', Items.NETHERITE_SCRAP)
                 .define('h', NVItems.HELLFORGED_PARTS.get())
                 .define('r', tier1Rune)
-                .define('s', net.minecraft.tags.ItemTags.STONE_CRAFTING_MATERIALS)
+                .define('s', ItemTags.STONE_CRAFTING_MATERIALS)
                 .unlockedBy("has_tier1_rune", has(tier1Rune))
                 .save(output);
     }

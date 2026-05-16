@@ -12,6 +12,7 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
+import com.breakinblocks.neovitae.common.datamap.EntitySacrificeHelper;
 import com.breakinblocks.neovitae.util.AltarUtil;
 
 @GameTestHolder("neovitae")
@@ -135,7 +136,7 @@ public class SacrificeTests {
             cow.setPos(absPos.getX() + 0.5, absPos.getY(), absPos.getZ() + 0.5);
             helper.getLevel().addFreshEntity(cow);
 
-            int value = com.breakinblocks.neovitae.common.datamap.EntitySacrificeHelper.getEvPerDamage(cow);
+            int value = EntitySacrificeHelper.getEvPerDamage(cow);
             if (value <= 0) {
                 helper.fail("Cow should have a positive sacrifice value, got " + value);
                 return;
@@ -156,7 +157,7 @@ public class SacrificeTests {
             chicken.setPos(absPos.getX() + 0.5, absPos.getY(), absPos.getZ() + 0.5);
             helper.getLevel().addFreshEntity(chicken);
 
-            int value = com.breakinblocks.neovitae.common.datamap.EntitySacrificeHelper.getEvPerDamage(chicken);
+            int value = EntitySacrificeHelper.getEvPerDamage(chicken);
             if (value <= 0) {
                 helper.fail("Chicken should have a positive sacrifice value, got " + value);
                 return;

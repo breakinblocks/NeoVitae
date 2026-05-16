@@ -1,18 +1,24 @@
 package com.breakinblocks.neovitae.datagen.provider;
 
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 import com.breakinblocks.neovitae.common.item.MaterialItem;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.ItemAnointmentProvider;
+import com.breakinblocks.neovitae.common.item.SpiritusCrystalItem;
+import com.breakinblocks.neovitae.common.item.soul.ISentientTool;
 import com.breakinblocks.neovitae.common.material.MaterialDefinition;
 import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class NVItemModelProvider extends ItemModelProvider {
@@ -31,16 +37,16 @@ public class NVItemModelProvider extends ItemModelProvider {
                 .filter(holder -> !(holder.get() instanceof ItemAnointmentProvider))
                 .filter(holder -> !(holder.get() instanceof MaterialItem))
                 .filter(holder -> holder != NVItems.SIGIL_BLOOD_LIGHT)
-                .filter(holder -> !(holder.get() instanceof com.breakinblocks.neovitae.common.item.BloodOrbItem))
-                .filter(holder -> !(holder.get() instanceof com.breakinblocks.neovitae.common.item.soul.ISentientTool))
-                .filter(holder -> !(holder.get() instanceof com.breakinblocks.neovitae.common.item.SpiritusCrystalItem))
-                .filter(holder -> !(holder.get() instanceof net.minecraft.world.item.SpawnEggItem))
+                .filter(holder -> !(holder.get() instanceof BloodOrbItem))
+                .filter(holder -> !(holder.get() instanceof ISentientTool))
+                .filter(holder -> !(holder.get() instanceof SpiritusCrystalItem))
+                .filter(holder -> !(holder.get() instanceof SpawnEggItem))
                 .map(Supplier::get)
                 .forEach(this::basicItem);
 
         // Spawn eggs use the vanilla template_spawn_egg parent model (tinted by egg colors)
         NVItems.BASIC_ITEMS.getEntries().stream()
-                .filter(holder -> holder.get() instanceof net.minecraft.world.item.SpawnEggItem)
+                .filter(holder -> holder.get() instanceof SpawnEggItem)
                 .forEach(holder -> getBuilder(holder.getId().getPath())
                         .parent(new ModelFile.UncheckedModelFile("minecraft:item/template_spawn_egg")));
         NVItems.TAB_REQ.getEntries().stream().map(Supplier::get).forEach(this::basicItem);
@@ -140,7 +146,7 @@ public class NVItemModelProvider extends ItemModelProvider {
         singleTexture("blood_stained_glass_pane", mcLoc("item/generated"), "layer0", modLoc("block/blood_stained_glass")).renderType("translucent");
 
         // Blood orbs with fill level overlays
-        for (var orb : java.util.List.of(NVItems.ORB_WEAK, NVItems.ORB_APPRENTICE, NVItems.ORB_MAGICIAN,
+        for (var orb : List.of(NVItems.ORB_WEAK, NVItems.ORB_APPRENTICE, NVItems.ORB_MAGICIAN,
                 NVItems.ORB_MASTER, NVItems.ORB_ARCHMAGE, NVItems.ORB_TRANSCENDENT)) {
             String path = orb.getId().getPath();
             ModelFile emptyModel = singleTexture("item/variant/" + path + "_empty",
@@ -240,7 +246,7 @@ public class NVItemModelProvider extends ItemModelProvider {
     /** Apply a GUI-only translation (in display-pixel units) so an item icon can be nudged in inventory slots. */
     private ItemModelBuilder withGuiOffset(ModelFile model, float dx, float dy) {
         ItemModelBuilder b = (ItemModelBuilder) model;
-        b.transforms().transform(net.minecraft.world.item.ItemDisplayContext.GUI)
+        b.transforms().transform(ItemDisplayContext.GUI)
                 .translation(dx, dy, 0f).end();
         return b;
     }

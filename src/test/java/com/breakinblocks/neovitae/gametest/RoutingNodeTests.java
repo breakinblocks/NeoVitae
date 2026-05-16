@@ -4,8 +4,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
@@ -35,7 +39,7 @@ public class RoutingNodeTests {
     // ==================== Helpers ====================
 
     private static <T extends BlockEntity> T placeAndGet(GameTestHelper helper, BlockPos pos,
-                                                          net.minecraft.world.level.block.Block block, Class<T> type) {
+                                                          Block block, Class<T> type) {
         helper.setBlock(pos, block.defaultBlockState());
         BlockEntity be = helper.getBlockEntity(pos);
         if (!type.isInstance(be)) {
@@ -94,13 +98,13 @@ public class RoutingNodeTests {
      * Describes how a routing node side should be configured.
      * A null spec means "disable this side" (blocks all routing).
      */
-    record FilterSpec(FilterMode mode, net.minecraft.world.item.Item[] items) {}
+    record FilterSpec(FilterMode mode, Item[] items) {}
 
-    private static FilterSpec createWhitelistFilter(net.minecraft.world.item.Item... filterItems) {
+    private static FilterSpec createWhitelistFilter(Item... filterItems) {
         return new FilterSpec(FilterMode.WHITELIST, filterItems);
     }
 
-    private static FilterSpec createBlacklistFilter(net.minecraft.world.item.Item... filterItems) {
+    private static FilterSpec createBlacklistFilter(Item... filterItems) {
         return new FilterSpec(FilterMode.BLACKLIST, filterItems);
     }
 
@@ -125,7 +129,7 @@ public class RoutingNodeTests {
         node.setChanged();
     }
 
-    private static int countItem(net.minecraft.world.Container container, net.minecraft.world.item.Item item) {
+    private static int countItem(Container container, Item item) {
         int count = 0;
         for (int i = 0; i < container.getContainerSize(); i++) {
             ItemStack stack = container.getItem(i);
@@ -526,7 +530,7 @@ public class RoutingNodeTests {
      */
     private static BloodTankBlockEntity placeBloodTank(GameTestHelper helper, BlockPos pos, int tier) {
         BloodTankBlockEntity tank = placeAndGet(helper, pos, NVBlocks.BLOOD_TANK.block().get(), BloodTankBlockEntity.class);
-        net.minecraft.nbt.CompoundTag tag = tank.saveWithoutMetadata(helper.getLevel().registryAccess());
+        CompoundTag tag = tank.saveWithoutMetadata(helper.getLevel().registryAccess());
         tag.putInt("tier", tier);
         tank.loadWithComponents(tag, helper.getLevel().registryAccess());
         return tank;

@@ -1,7 +1,9 @@
 package com.breakinblocks.neovitae.common.menu;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -123,12 +125,12 @@ public class DungeonSealMenu extends AbstractContainerMenu {
                 playerInventory.getItem(keySlot).shrink(1);
             }
             player.displayClientMessage(
-                    net.minecraft.network.chat.Component.translatable("chat.neovitae.dungeon.seal.opened")
-                            .withStyle(net.minecraft.ChatFormatting.GREEN), true);
+                    Component.translatable("chat.neovitae.dungeon.seal.opened")
+                            .withStyle(ChatFormatting.GREEN), true);
         } else {
             player.displayClientMessage(
-                    net.minecraft.network.chat.Component.translatable("chat.neovitae.dungeon.seal.failed")
-                            .withStyle(net.minecraft.ChatFormatting.RED), true);
+                    Component.translatable("chat.neovitae.dungeon.seal.failed")
+                            .withStyle(ChatFormatting.RED), true);
         }
 
         if (player instanceof ServerPlayer sp) {

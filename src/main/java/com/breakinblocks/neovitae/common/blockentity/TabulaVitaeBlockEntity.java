@@ -32,6 +32,7 @@ import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -126,7 +127,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
     public void tick() {
         if (level != null && level.isClientSide()) {
             if (!isSlave && burnTime > 0) {
-                com.breakinblocks.neovitae.client.sound.LoopSoundManager.tryStartLoop(
+                LoopSoundManager.tryStartLoop(
                         NVSounds.TABULA_VITAE_CRAFT.get(), 0.3f, level, worldPosition,
                         be -> be instanceof TabulaVitaeBlockEntity tv && !tv.isSlave && tv.burnTime > 0
                 );

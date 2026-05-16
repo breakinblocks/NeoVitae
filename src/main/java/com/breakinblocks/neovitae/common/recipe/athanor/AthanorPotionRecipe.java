@@ -16,10 +16,12 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -61,7 +63,7 @@ public class AthanorPotionRecipe extends AthanorRecipe {
     public AthanorPotionRecipe(Ingredient tool, Ingredient input, List<ItemStack> guaranteedOutput,
                            List<Pair<ItemStack, Double>> chanceOutput,
                            Optional<SizedFluidIngredient> inputFluid, Optional<FluidStack> outputStack) {
-        super(tool, List.of(input), guaranteedOutput, chanceOutput, inputFluid, outputStack, java.util.Map.of());
+        super(tool, List.of(input), guaranteedOutput, chanceOutput, inputFluid, outputStack, Map.of());
     }
 
     @Override
@@ -87,7 +89,7 @@ public class AthanorPotionRecipe extends AthanorRecipe {
         }
 
         double bonusChance = toolStack.getOrDefault(
-                com.breakinblocks.neovitae.common.datacomponent.NVDataComponents.ARC_CHANCE, 1D);
+                NVDataComponents.ARC_CHANCE, 1D);
         for (Pair<ItemStack, Double> entry : getChanceOutput()) {
             if (Math.random() < entry.getSecond() * bonusChance) {
                 outputs.add(entry.getFirst().copy());

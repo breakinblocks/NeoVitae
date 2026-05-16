@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.Entity;
@@ -76,7 +77,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
         this.rotation = Direction.from2DDataValue(tag.getInt("direction"));
         inv.deserializeNBT(registries, tag.getCompound("inventory"));
         if (tag.contains("ownerBinding")) {
-            this.ownerBinding = Binding.BASIC_CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag.getCompound("ownerBinding")).result().orElse(Binding.EMPTY);
+            this.ownerBinding = Binding.BASIC_CODEC.parse(NbtOps.INSTANCE, tag.getCompound("ownerBinding")).result().orElse(Binding.EMPTY);
         }
         if (tag.contains("arrayColor")) {
             this.arrayColor = DyeColor.byId(tag.getInt("arrayColor"));
@@ -107,7 +108,7 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
         tag.putInt("direction", rotation.get2DDataValue());
         tag.put("inventory", inv.serializeNBT(registries));
         if (!ownerBinding.isEmpty()) {
-            Binding.BASIC_CODEC.encodeStart(net.minecraft.nbt.NbtOps.INSTANCE, ownerBinding).result().ifPresent(nbt -> tag.put("ownerBinding", nbt));
+            Binding.BASIC_CODEC.encodeStart(NbtOps.INSTANCE, ownerBinding).result().ifPresent(nbt -> tag.put("ownerBinding", nbt));
         }
         if (arrayColor != null) {
             tag.putInt("arrayColor", arrayColor.getId());

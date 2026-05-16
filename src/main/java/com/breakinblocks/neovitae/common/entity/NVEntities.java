@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.common.entity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.monster.Monster;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -204,7 +205,7 @@ public class NVEntities {
         event.put(NECROMANCY_SUMMON_HUSK.get(), NecromancySummonHuskEntity.createAttributes().build());
         event.put(NECROMANCY_SUMMON_SKELETON.get(), NecromancySummonSkeletonEntity.createAttributes().build());
         event.put(NECROMANCY_SUMMON_STRAY.get(), NecromancySummonStrayEntity.createAttributes().build());
-        event.put(SLIME_VITAE.get(), net.minecraft.world.entity.monster.Monster.createMonsterAttributes().build());
+        event.put(SLIME_VITAE.get(), Monster.createMonsterAttributes().build());
     }
 
     public static void register(IEventBus modBus) {

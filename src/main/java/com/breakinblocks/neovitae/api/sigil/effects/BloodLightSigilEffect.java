@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -49,7 +50,7 @@ public record BloodLightSigilEffect(int defaultBrightness) implements SigilEffec
         DyeColor color = BloodLightHelper.getColorAndCycleIfRainbow(stack);
 
         if (!level.isClientSide) {
-            boolean waterlogged = existing.getFluidState().is(net.minecraft.tags.FluidTags.WATER);
+            boolean waterlogged = existing.getFluidState().is(FluidTags.WATER);
             BlockState lightState = BloodLightHelper.createBlockState(brightness, waterlogged);
             if (BlockProtectionHelper.tryPlaceBlock(level, placePos, lightState, player)) {
                 BloodLightHelper.setBlockEntityColor(level, placePos, color);

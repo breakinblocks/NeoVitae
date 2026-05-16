@@ -4,8 +4,10 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.MaterialItem;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.PackResources;
@@ -67,7 +69,7 @@ public class MaterialRegistry {
     private static void populatePack() {
         var locationInfo = new PackLocationInfo(
                 "neovitae_materials",
-                net.minecraft.network.chat.Component.literal("NeoVitae Materials"),
+                Component.literal("NeoVitae Materials"),
                 PackSource.BUILT_IN,
                 Optional.empty()
         );
@@ -124,7 +126,7 @@ public class MaterialRegistry {
         JsonObject condition = new JsonObject();
         condition.addProperty("type", "neoforge:item_exists");
         condition.addProperty("item", result);
-        com.google.gson.JsonArray conditions = new com.google.gson.JsonArray();
+        JsonArray conditions = new JsonArray();
         conditions.add(condition);
         root.add("neoforge:conditions", conditions);
 
@@ -162,7 +164,7 @@ public class MaterialRegistry {
             String itemId = NeoVitae.MODID + ":" + mat.getItemId(stage);
 
             JsonObject tag = new JsonObject();
-            com.google.gson.JsonArray values = new com.google.gson.JsonArray();
+            JsonArray values = new JsonArray();
             values.add(itemId);
             tag.add("values", values);
 
@@ -195,7 +197,7 @@ public class MaterialRegistry {
         JsonObject recipe = new JsonObject();
         recipe.addProperty("type", "neovitae:alchemytable");
 
-        com.google.gson.JsonArray inputArray = new com.google.gson.JsonArray();
+        JsonArray inputArray = new JsonArray();
         for (String input : inputs) {
             JsonObject entry = new JsonObject();
             if (input.startsWith("tag:")) {
@@ -291,14 +293,14 @@ public class MaterialRegistry {
         tool.addProperty("tag", toolTag);
         recipe.add("tool", tool);
 
-        com.google.gson.JsonArray guaranteed = new com.google.gson.JsonArray();
+        JsonArray guaranteed = new JsonArray();
         JsonObject mainOutput = new JsonObject();
         mainOutput.addProperty("count", outputCount);
         mainOutput.addProperty("id", outputItem);
         guaranteed.add(mainOutput);
         recipe.add("guaranteed_outputs", guaranteed);
 
-        com.google.gson.JsonArray chanced = new com.google.gson.JsonArray();
+        JsonArray chanced = new JsonArray();
         if (chanceItem != null && chance > 0) {
             JsonObject chanceEntry = new JsonObject();
             chanceEntry.addProperty("chance", chance);
@@ -357,7 +359,7 @@ public class MaterialRegistry {
         event.addRepositorySource(consumer -> {
             var locationInfo = new PackLocationInfo(
                     "neovitae_materials",
-                    net.minecraft.network.chat.Component.literal("NeoVitae Materials"),
+                    Component.literal("NeoVitae Materials"),
                     PackSource.BUILT_IN,
                     Optional.empty()
             );

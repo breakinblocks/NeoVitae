@@ -46,6 +46,9 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
+import com.breakinblocks.neovitae.common.item.IBindable;
+import com.breakinblocks.neovitae.common.block.dungeon.BlockPrismaticDemonite;
+import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.breakinblocks.neovitae.util.ChatUtil;
 import com.breakinblocks.neovitae.will.SpiritusHelper;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
@@ -73,7 +76,7 @@ public class CommonEventHandler {
             return;
         }
 
-        if (!(held.getItem() instanceof com.breakinblocks.neovitae.common.item.IBindable)) {
+        if (!(held.getItem() instanceof IBindable)) {
             return;
         }
 
@@ -103,11 +106,11 @@ public class CommonEventHandler {
         }
 
         if (event.getEntity() instanceof ServerPlayer player
-                && com.breakinblocks.neovitae.common.material.MaterialRegistry.hasPendingRestartNotice()) {
-            player.sendSystemMessage(net.minecraft.network.chat.Component.translatable("message.neovitae.materials.generated")
-                    .withStyle(net.minecraft.ChatFormatting.GOLD));
-            player.sendSystemMessage(net.minecraft.network.chat.Component.translatable("message.neovitae.materials.restart_required")
-                    .withStyle(net.minecraft.ChatFormatting.YELLOW));
+                && MaterialRegistry.hasPendingRestartNotice()) {
+            player.sendSystemMessage(Component.translatable("message.neovitae.materials.generated")
+                    .withStyle(ChatFormatting.GOLD));
+            player.sendSystemMessage(Component.translatable("message.neovitae.materials.restart_required")
+                    .withStyle(ChatFormatting.YELLOW));
         }
     }
 
@@ -186,7 +189,7 @@ public class CommonEventHandler {
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
         if (event.getLevel() instanceof Level level && DungeonDimensionHelper.isDungeonDimension(level)) {
             Block block = event.getState().getBlock();
-            if (block instanceof com.breakinblocks.neovitae.common.block.dungeon.BlockPrismaticDemonite) {
+            if (block instanceof BlockPrismaticDemonite) {
                 return;
             }
             if (DungeonBlocks.isDungeonBlock(block)

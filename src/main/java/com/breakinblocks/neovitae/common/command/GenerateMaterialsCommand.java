@@ -2,13 +2,16 @@ package com.breakinblocks.neovitae.common.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import com.breakinblocks.neovitae.common.material.MaterialDefinition;
 import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.breakinblocks.neovitae.util.helper.OreDiscoveryHelper;
+import com.breakinblocks.neovitae.util.helper.TagHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +32,7 @@ public class GenerateMaterialsCommand {
 
         if (source.getServer().isDedicatedServer()) {
             source.sendFailure(Component.translatable("command.neovitae.generate.dedicated_unsupported")
-                    .withStyle(net.minecraft.ChatFormatting.RED));
+                    .withStyle(ChatFormatting.RED));
             return 0;
         }
 
@@ -41,8 +44,8 @@ public class GenerateMaterialsCommand {
             addedNames.add(mat.getName());
         }
 
-        int totalOreCount = com.breakinblocks.neovitae.util.helper.TagHelper.getOreNames(
-                level.registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.ITEM)).size();
+        int totalOreCount = TagHelper.getOreNames(
+                level.registryAccess().registryOrThrow(Registries.ITEM)).size();
 
         if (newMaterials.isEmpty()) {
             int existing = totalOreCount;
@@ -59,7 +62,7 @@ public class GenerateMaterialsCommand {
         if (skippedCount > 0) {
             source.sendSuccess(() -> Component.translatable("command.neovitae.generate.skipped", skippedCount), false);
         }
-        source.sendSuccess(() -> Component.translatable("command.neovitae.generate.restart").withStyle(net.minecraft.ChatFormatting.YELLOW), false);
+        source.sendSuccess(() -> Component.translatable("command.neovitae.generate.restart").withStyle(ChatFormatting.YELLOW), false);
 
         return added;
     }

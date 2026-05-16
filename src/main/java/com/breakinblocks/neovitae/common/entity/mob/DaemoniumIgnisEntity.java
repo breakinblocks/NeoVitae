@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -134,7 +135,7 @@ public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
 
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
-        if (source.is(net.minecraft.tags.DamageTypeTags.IS_EXPLOSION)) {
+        if (source.is(DamageTypeTags.IS_EXPLOSION)) {
             return true;
         }
         if (!hasSpawned) {

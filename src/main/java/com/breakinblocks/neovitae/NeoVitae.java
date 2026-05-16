@@ -45,10 +45,20 @@ import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 
 import com.breakinblocks.neovitae.structures.ModRoomPools;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
 
 import com.breakinblocks.neovitae.api.NeoVitaeAPI;
+import com.breakinblocks.neovitae.api.routing.RoutingChannelRegistry;
+import com.breakinblocks.neovitae.client.render.item.SpiritusBarDecorator;
+import com.breakinblocks.neovitae.common.event.NVMissingMappings;
+import com.breakinblocks.neovitae.common.material.MaterialRegistry;
+import com.breakinblocks.neovitae.common.routing.EnergyRoutingChannel;
+import com.breakinblocks.neovitae.common.routing.FluidRoutingChannel;
+import com.breakinblocks.neovitae.common.routing.ItemRoutingChannel;
+import com.breakinblocks.neovitae.compat.modonomicon.NVModonomiconCompat;
 import com.breakinblocks.neovitae.impl.AltarRuneBlockRegistry;
 import com.breakinblocks.neovitae.impl.NeoVitaeAPIImpl;
+import com.klikli_dev.modonomicon.data.LoaderRegistry;
 
 @Mod(NeoVitae.MODID)
 public class NeoVitae {
@@ -75,9 +85,9 @@ public class NeoVitae {
     }
 
     public NeoVitae(IEventBus modBus, ModContainer container) {
-        com.breakinblocks.neovitae.api.routing.RoutingChannelRegistry.register(new com.breakinblocks.neovitae.common.routing.ItemRoutingChannel());
-        com.breakinblocks.neovitae.api.routing.RoutingChannelRegistry.register(new com.breakinblocks.neovitae.common.routing.FluidRoutingChannel());
-        com.breakinblocks.neovitae.api.routing.RoutingChannelRegistry.register(new com.breakinblocks.neovitae.common.routing.EnergyRoutingChannel());
+        RoutingChannelRegistry.register(new ItemRoutingChannel());
+        RoutingChannelRegistry.register(new FluidRoutingChannel());
+        RoutingChannelRegistry.register(new EnergyRoutingChannel());
 
         try {
             Class<?> testSetup = Class.forName("com.breakinblocks.neovitae.gametest.NVGameTestSetup");
@@ -87,7 +97,7 @@ public class NeoVitae {
             LOGGER.error("Failed to register game test setup", e);
         }
 
-        com.breakinblocks.neovitae.common.material.MaterialRegistry.register(modBus);
+        MaterialRegistry.register(modBus);
         NVRegistries.register(modBus);
         NVDataComponents.register(modBus);
         NVFluids.register(modBus);
@@ -123,10 +133,10 @@ public class NeoVitae {
 
         modBus.addListener(this::commonSetup);
         modBus.addListener(NVPayloads::register);
-        if (net.neoforged.fml.loading.FMLEnvironment.dist == Dist.CLIENT) {
-            modBus.addListener(com.breakinblocks.neovitae.client.render.item.SpiritusBarDecorator::registerAll);
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            modBus.addListener(SpiritusBarDecorator::registerAll);
         }
-        com.breakinblocks.neovitae.common.event.NVMissingMappings.register(modBus);
+        NVMissingMappings.register(modBus);
         NeoForge.EVENT_BUS.addListener(NVCommands::register);
     }
 
@@ -139,12 +149,12 @@ public class NeoVitae {
 
         if (ModList.get().isLoaded("modonomicon")) {
             event.enqueueWork(() -> {
-                com.klikli_dev.modonomicon.data.LoaderRegistry.registerPredicate(
+                LoaderRegistry.registerPredicate(
                         rl("non_air_solid"),
                         (blockGetter, blockPos, blockState) ->
                                 !blockState.isAir() && blockState.getFluidState().isEmpty()
                 );
-                com.breakinblocks.neovitae.compat.modonomicon.NVModonomiconCompat.registerPageLoaders();
+                NVModonomiconCompat.registerPageLoaders();
             });
         }
     }

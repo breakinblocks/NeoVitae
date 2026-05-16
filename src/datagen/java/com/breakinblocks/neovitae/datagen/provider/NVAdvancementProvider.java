@@ -1,10 +1,12 @@
 package com.breakinblocks.neovitae.datagen.provider;
 
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger;
 import com.breakinblocks.neovitae.common.advancement.ImperfectRitualActivatedTrigger;
 import com.breakinblocks.neovitae.common.advancement.NVCriteriaTriggers;
 import com.breakinblocks.neovitae.common.advancement.RitualActivatedTrigger;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -253,7 +255,7 @@ public class NVAdvancementProvider extends AdvancementProvider {
                             Component.translatable("advancements.neovitae.transmute_ruina.title"),
                             Component.translatable("advancements.neovitae.transmute_ruina.description"),
                             null, AdvancementType.TASK, true, false, false)
-                    .addCriterion("transmute", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.RUINA)))
+                    .addCriterion("transmute", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(CatalystTransmuteTrigger.forAspect(SpiritusType.RUINA)))
                     .save(saver, NeoVitae.rl("neovitae/transmute_ruina").toString());
 
             Advancement.Builder.advancement()
@@ -262,7 +264,7 @@ public class NVAdvancementProvider extends AdvancementProvider {
                             Component.translatable("advancements.neovitae.transmute_nihilum.title"),
                             Component.translatable("advancements.neovitae.transmute_nihilum.description"),
                             null, AdvancementType.TASK, true, false, false)
-                    .addCriterion("transmute", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.NIHILUM)))
+                    .addCriterion("transmute", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(CatalystTransmuteTrigger.forAspect(SpiritusType.NIHILUM)))
                     .save(saver, NeoVitae.rl("neovitae/transmute_nihilum").toString());
 
             Advancement.Builder.advancement()
@@ -271,7 +273,7 @@ public class NVAdvancementProvider extends AdvancementProvider {
                             Component.translatable("advancements.neovitae.transmute_vindicta.title"),
                             Component.translatable("advancements.neovitae.transmute_vindicta.description"),
                             null, AdvancementType.TASK, true, false, false)
-                    .addCriterion("transmute", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.VINDICTA)))
+                    .addCriterion("transmute", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(CatalystTransmuteTrigger.forAspect(SpiritusType.VINDICTA)))
                     .save(saver, NeoVitae.rl("neovitae/transmute_vindicta").toString());
 
             Advancement.Builder.advancement()
@@ -280,7 +282,7 @@ public class NVAdvancementProvider extends AdvancementProvider {
                             Component.translatable("advancements.neovitae.transmute_invictus.title"),
                             Component.translatable("advancements.neovitae.transmute_invictus.description"),
                             null, AdvancementType.TASK, true, false, false)
-                    .addCriterion("transmute", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.INVICTUS)))
+                    .addCriterion("transmute", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(CatalystTransmuteTrigger.forAspect(SpiritusType.INVICTUS)))
                     .save(saver, NeoVitae.rl("neovitae/transmute_invictus").toString());
 
             Advancement.Builder.advancement()
@@ -289,10 +291,10 @@ public class NVAdvancementProvider extends AdvancementProvider {
                             Component.translatable("advancements.neovitae.aspectum_omnia.title"),
                             Component.translatable("advancements.neovitae.aspectum_omnia.description"),
                             null, AdvancementType.CHALLENGE, true, true, true)
-                    .addCriterion("ruina", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.RUINA)))
-                    .addCriterion("nihilum", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.NIHILUM)))
-                    .addCriterion("vindicta", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.VINDICTA)))
-                    .addCriterion("invictus", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger.forAspect(com.breakinblocks.neovitae.common.datacomponent.SpiritusType.INVICTUS)))
+                    .addCriterion("ruina", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(CatalystTransmuteTrigger.forAspect(SpiritusType.RUINA)))
+                    .addCriterion("nihilum", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(CatalystTransmuteTrigger.forAspect(SpiritusType.NIHILUM)))
+                    .addCriterion("vindicta", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(CatalystTransmuteTrigger.forAspect(SpiritusType.VINDICTA)))
+                    .addCriterion("invictus", NVCriteriaTriggers.CATALYST_TRANSMUTE.get().createCriterion(CatalystTransmuteTrigger.forAspect(SpiritusType.INVICTUS)))
                     .save(saver, NeoVitae.rl("neovitae/aspectum_omnia").toString());
 
             AdvancementHolder serenadeOfNether = Advancement.Builder.advancement()

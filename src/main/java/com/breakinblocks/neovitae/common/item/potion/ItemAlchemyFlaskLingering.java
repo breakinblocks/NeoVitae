@@ -9,6 +9,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.Level;
 
@@ -40,7 +41,7 @@ public class ItemAlchemyFlaskLingering extends ItemAlchemyFlaskThrowable {
 
         if (!level.isClientSide) {
             ThrownPotion thrownPotion = new ThrownPotion(level, player);
-            ItemStack potionStack = new ItemStack(net.minecraft.world.item.Items.LINGERING_POTION);
+            ItemStack potionStack = new ItemStack(Items.LINGERING_POTION);
             potionStack.set(DataComponents.POTION_CONTENTS, contents);
             thrownPotion.setItem(potionStack);
 

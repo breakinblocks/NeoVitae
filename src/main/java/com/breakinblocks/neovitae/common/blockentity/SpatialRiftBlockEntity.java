@@ -3,13 +3,17 @@ package com.breakinblocks.neovitae.common.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
+import com.breakinblocks.neovitae.common.block.BlockInversionPillar;
+import com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.block.type.PillarCapType;
 import com.breakinblocks.neovitae.common.dataattachment.DungeonExitData;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper;
@@ -84,35 +88,35 @@ public class SpatialRiftBlockEntity extends BaseBlockEntity {
     private void spawnReturnPillar(ServerLevel world, BlockPos nearPos, BlockPos returnTo) {
         BlockPos pillarPos = nearPos.east(3);
         world.setBlockAndUpdate(pillarPos, NVBlocks.INVERSION_PILLAR.block().get().defaultBlockState()
-                .setValue(com.breakinblocks.neovitae.common.block.BlockInversionPillar.RIFT_RETURN, true));
+                .setValue(BlockInversionPillar.RIFT_RETURN, true));
         if (world.getBlockEntity(pillarPos) instanceof InversionPillarBlockEntity pillar) {
             pillar.setDestination(returnTo, DungeonDimensionHelper.getDungeonDimensionId());
         }
         world.setBlockAndUpdate(pillarPos.below(),
                 NVBlocks.INVERSION_PILLAR_CAP.block().get().defaultBlockState()
-                        .setValue(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.TYPE,
-                                com.breakinblocks.neovitae.common.block.type.PillarCapType.BOTTOM)
-                        .setValue(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.RIFT_RETURN, true));
+                        .setValue(BlockInversionPillarEnd.TYPE,
+                                PillarCapType.BOTTOM)
+                        .setValue(BlockInversionPillarEnd.RIFT_RETURN, true));
         world.setBlockAndUpdate(pillarPos.above(),
                 NVBlocks.INVERSION_PILLAR_CAP.block().get().defaultBlockState()
-                        .setValue(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.TYPE,
-                                com.breakinblocks.neovitae.common.block.type.PillarCapType.TOP)
-                        .setValue(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.RIFT_RETURN, true));
+                        .setValue(BlockInversionPillarEnd.TYPE,
+                                PillarCapType.TOP)
+                        .setValue(BlockInversionPillarEnd.RIFT_RETURN, true));
     }
 
-    private void spawnHomePillar(ServerLevel world, BlockPos pillarPos, BlockPos exitPos, net.minecraft.resources.ResourceKey<Level> exitDim) {
+    private void spawnHomePillar(ServerLevel world, BlockPos pillarPos, BlockPos exitPos, ResourceKey<Level> exitDim) {
         world.setBlockAndUpdate(pillarPos, NVBlocks.INVERSION_PILLAR.block().get().defaultBlockState());
         if (world.getBlockEntity(pillarPos) instanceof InversionPillarBlockEntity pillar) {
             pillar.setDestination(exitPos, exitDim.location());
         }
         world.setBlockAndUpdate(pillarPos.below(),
                 NVBlocks.INVERSION_PILLAR_CAP.block().get().defaultBlockState()
-                        .setValue(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.TYPE,
-                                com.breakinblocks.neovitae.common.block.type.PillarCapType.BOTTOM));
+                        .setValue(BlockInversionPillarEnd.TYPE,
+                                PillarCapType.BOTTOM));
         world.setBlockAndUpdate(pillarPos.above(),
                 NVBlocks.INVERSION_PILLAR_CAP.block().get().defaultBlockState()
-                        .setValue(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.TYPE,
-                                com.breakinblocks.neovitae.common.block.type.PillarCapType.TOP));
+                        .setValue(BlockInversionPillarEnd.TYPE,
+                                PillarCapType.TOP));
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, SpatialRiftBlockEntity tile) {

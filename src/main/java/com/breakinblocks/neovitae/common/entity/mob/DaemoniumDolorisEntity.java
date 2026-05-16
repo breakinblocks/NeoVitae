@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.common.entity.mob;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -31,7 +32,10 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.tags.DamageTypeTags;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -137,7 +141,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
     public boolean isInvulnerableTo(DamageSource source) {
         if (!hasSpawned) return true;
         // Ghost howl: 40% chance to negate non-bypass damage
-        if (ghostTimer > 0 && !source.is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+        if (ghostTimer > 0 && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             if (random.nextFloat() < 0.4F) return true;
         }
         return super.isInvulnerableTo(source);
@@ -419,14 +423,14 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
     public void die(DamageSource source) {
         playLayeredSound(SoundEvents.POLAR_BEAR_DEATH, 0.8F, 0.45F);
         if (isForeman && !level().isClientSide) {
-            spawnAtLocation(new ItemStack(com.breakinblocks.neovitae.common.item.NVItems.MINE_ENTRANCE_KEY.get()));
+            spawnAtLocation(new ItemStack(NVItems.MINE_ENTRANCE_KEY.get()));
             bossBar.removeAllPlayers();
         }
         super.die(source);
     }
 
     @Override
-    protected void playStepSound(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+    protected void playStepSound(BlockPos pos, BlockState state) {
         playLayeredSound(SoundEvents.ZOGLIN_STEP, 1.0F, isRunning() ? 0.4F : 0.6F);
     }
 

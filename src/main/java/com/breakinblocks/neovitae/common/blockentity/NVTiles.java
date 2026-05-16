@@ -8,10 +8,19 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.capability.NVCapabilities;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonAlternatorBlockEntity;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
+import com.breakinblocks.neovitae.common.block.dungeon.SpikeTrapBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.routing.RoutingConduitBlockEntity;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.OrbFluidHandler;
 import com.breakinblocks.neovitae.client.render.blockentity.AlchemyArrayRenderer;
@@ -20,7 +29,6 @@ import com.breakinblocks.neovitae.client.render.blockentity.BloodTankRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.HellfireForgeRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.MasterRitualStoneRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.MimicRenderer;
-import com.breakinblocks.neovitae.common.block.NVBlocks;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
@@ -98,17 +106,17 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PhantomBridgeBlockEntity>> PHANTOM_BRIDGE_TYPE =
             registerTile("phantom_bridge", PhantomBridgeBlockEntity::new, NVBlocks.PHANTOM_BRIDGE_BLOCK);
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.RoutingConduitBlockEntity>> ROUTING_CONDUIT_TYPE =
-            registerTile("routing_conduit", com.breakinblocks.neovitae.common.blockentity.routing.RoutingConduitBlockEntity::new, NVBlocks.ROUTING_CONDUIT.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RoutingConduitBlockEntity>> ROUTING_CONDUIT_TYPE =
+            registerTile("routing_conduit", RoutingConduitBlockEntity::new, NVBlocks.ROUTING_CONDUIT.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlockEntity>> INPUT_ROUTING_NODE_TYPE =
-            registerTile("input_routing_node", com.breakinblocks.neovitae.common.blockentity.routing.InputRoutingNodeBlockEntity::new, NVBlocks.INPUT_ROUTING_NODE.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<InputRoutingNodeBlockEntity>> INPUT_ROUTING_NODE_TYPE =
+            registerTile("input_routing_node", InputRoutingNodeBlockEntity::new, NVBlocks.INPUT_ROUTING_NODE.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity>> OUTPUT_ROUTING_NODE_TYPE =
-            registerTile("output_routing_node", com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBlockEntity::new, NVBlocks.OUTPUT_ROUTING_NODE.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OutputRoutingNodeBlockEntity>> OUTPUT_ROUTING_NODE_TYPE =
+            registerTile("output_routing_node", OutputRoutingNodeBlockEntity::new, NVBlocks.OUTPUT_ROUTING_NODE.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity>> MASTER_ROUTING_NODE_TYPE =
-            registerTile("master_routing_node", com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity::new, NVBlocks.MASTER_ROUTING_NODE.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MasterRoutingNodeBlockEntity>> MASTER_ROUTING_NODE_TYPE =
+            registerTile("master_routing_node", MasterRoutingNodeBlockEntity::new, NVBlocks.MASTER_ROUTING_NODE.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ShapedExplosiveBlockEntity>> SHAPED_EXPLOSIVE_TYPE =
             registerTile("shaped_explosive", ShapedExplosiveBlockEntity::new,
@@ -135,13 +143,13 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<InversionPillarBlockEntity>> INVERSION_PILLAR_TYPE =
             registerTile("inversion_pillar", InversionPillarBlockEntity::new, NVBlocks.INVERSION_PILLAR.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.block.dungeon.SpikeTrapBlockEntity>> SPIKE_TRAP_TYPE =
-            registerTile("spike_trap", com.breakinblocks.neovitae.common.block.dungeon.SpikeTrapBlockEntity::new,
-                    com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks.SPIKE_TRAP.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SpikeTrapBlockEntity>> SPIKE_TRAP_TYPE =
+            registerTile("spike_trap", SpikeTrapBlockEntity::new,
+                    DungeonBlocks.SPIKE_TRAP.block());
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<com.breakinblocks.neovitae.common.block.dungeon.DungeonAlternatorBlockEntity>> DUNGEON_ALTERNATOR_TYPE =
-            registerTile("dungeon_alternator", com.breakinblocks.neovitae.common.block.dungeon.DungeonAlternatorBlockEntity::new,
-                    com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks.ALTERNATOR.block());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DungeonAlternatorBlockEntity>> DUNGEON_ALTERNATOR_TYPE =
+            registerTile("dungeon_alternator", DungeonAlternatorBlockEntity::new,
+                    DungeonBlocks.ALTERNATOR.block());
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DungeonControllerBlockEntity>> DUNGEON_CONTROLLER_TYPE =
             registerTile("dungeon_controller", DungeonControllerBlockEntity::new, NVBlocks.DUNGEON_CONTROLLER.block());
@@ -207,7 +215,7 @@ public class NVTiles {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 SPIRIT_CACHE_TYPE.get(),
-                (tile, side) -> new net.neoforged.neoforge.items.wrapper.InvWrapper(tile)
+                (tile, side) -> new InvWrapper(tile)
         );
 
         event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> new OrbFluidHandler(stack),

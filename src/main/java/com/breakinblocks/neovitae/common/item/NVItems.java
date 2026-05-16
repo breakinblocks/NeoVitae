@@ -1,15 +1,26 @@
 package com.breakinblocks.neovitae.common.item;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.anointment.AnointmentRegistrar;
+import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.entity.NVEntities;
 import com.breakinblocks.neovitae.common.item.athanor.ItemAthanorToolBase;
+import com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey;
+import com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonTester;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlaskLingering;
 import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlaskThrowable;
@@ -97,7 +108,7 @@ public class NVItems {
     public static final DeferredHolder<Item, SigilItem> SIGIL_BLOOD_LIGHT = BASIC_ITEMS.register("sigil_blood_light", () -> new SigilItem(SigilTypeRegistry.key("blood_light"),
             new Item.Properties()
                     .component(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get(), 15)
-                    .component(NVDataComponents.BLOOD_LIGHT_COLOR.get(), net.minecraft.world.item.DyeColor.RED)));
+                    .component(NVDataComponents.BLOOD_LIGHT_COLOR.get(), DyeColor.RED)));
     public static final DeferredHolder<Item, SigilItem> SIGIL_FAST_MINER = BASIC_ITEMS.register("sigil_fast_miner", () -> new SigilItem(SigilTypeRegistry.key("fast_miner")));
     public static final DeferredHolder<Item, SigilItem> SIGIL_MAGNETISM = BASIC_ITEMS.register("sigil_magnetism", () -> new SigilItem(SigilTypeRegistry.key("magnetism")));
     public static final DeferredHolder<Item, SigilItem> SIGIL_FROST = BASIC_ITEMS.register("sigil_frost", () -> new SigilItem(SigilTypeRegistry.key("frost")));
@@ -218,19 +229,19 @@ public class NVItems {
     public static final DeferredHolder<Item, ItemThrowingDaggerSyringe> THROWING_DAGGER_SYRINGE = BASIC_ITEMS.register("throwing_dagger_syringe", () -> new ItemThrowingDaggerSyringe());
     public static final DeferredHolder<Item, ItemTippedThrowingDagger> THROWING_DAGGER_TIPPED = BASIC_ITEMS.register("tipped_throwing_dagger", () -> new ItemTippedThrowingDagger());
 
-    public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey> SIMPLE_KEY = BASIC_ITEMS.register("simple_key",
-            () -> new com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey("Simple", "mini_dungeon", "connective_corridors"));
-    public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey> MINE_KEY = BASIC_ITEMS.register("mine_key",
-            () -> new com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey("Mine", "mine_rooms", "mine_corridors", "mine_deadend"));
-    public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey> MINE_ENTRANCE_KEY = BASIC_ITEMS.register("mine_entrance_key",
-            () -> new com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey("Mine Entrance", "mine_entrances", "mine_key"));
-    public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey> STANDARD_KEY = BASIC_ITEMS.register("standard_key",
-            () -> new com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey("Standard", "standard_rooms", "connective_corridors", "standard_deadend"));
-    public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey> BOSS_KEY = BASIC_ITEMS.register("boss_key",
-            () -> new com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonKey("Boss", "boss", "special", "treasure"));
+    public static final DeferredHolder<Item, ItemDungeonKey> SIMPLE_KEY = BASIC_ITEMS.register("simple_key",
+            () -> new ItemDungeonKey("Simple", "mini_dungeon", "connective_corridors"));
+    public static final DeferredHolder<Item, ItemDungeonKey> MINE_KEY = BASIC_ITEMS.register("mine_key",
+            () -> new ItemDungeonKey("Mine", "mine_rooms", "mine_corridors", "mine_deadend"));
+    public static final DeferredHolder<Item, ItemDungeonKey> MINE_ENTRANCE_KEY = BASIC_ITEMS.register("mine_entrance_key",
+            () -> new ItemDungeonKey("Mine Entrance", "mine_entrances", "mine_key"));
+    public static final DeferredHolder<Item, ItemDungeonKey> STANDARD_KEY = BASIC_ITEMS.register("standard_key",
+            () -> new ItemDungeonKey("Standard", "standard_rooms", "connective_corridors", "standard_deadend"));
+    public static final DeferredHolder<Item, ItemDungeonKey> BOSS_KEY = BASIC_ITEMS.register("boss_key",
+            () -> new ItemDungeonKey("Boss", "boss", "special", "treasure"));
 
-    public static final DeferredHolder<Item, com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonTester> DUNGEON_TESTER = BASIC_ITEMS.register("dungeon_tester",
-            com.breakinblocks.neovitae.common.item.dungeon.ItemDungeonTester::new);
+    public static final DeferredHolder<Item, ItemDungeonTester> DUNGEON_TESTER = BASIC_ITEMS.register("dungeon_tester",
+            ItemDungeonTester::new);
 
     public static final DeferredHolder<Item, Item> ANIMATED_SPIRITUS = plainItem("animated_spiritus");
 
@@ -252,16 +263,16 @@ public class NVItems {
     // Demon food items
     public static final DeferredHolder<Item, NVFoodItem> TAINTED_FLESH = BASIC_ITEMS.register("tainted_flesh",
             () -> NVFoodItem.builder(4, 0.1f)
-                    .effect(() -> net.minecraft.world.effect.MobEffects.WITHER, 100, 0, 0.3f)
+                    .effect(() -> MobEffects.WITHER, 100, 0, 0.3f)
                     .build());
     public static final DeferredHolder<Item, NVFoodItem> VITAE_MORSEL = BASIC_ITEMS.register("vitae_morsel",
             () -> NVFoodItem.builder(6, 0.8f).alwaysEdible()
-                    .effect(() -> net.minecraft.world.effect.MobEffects.REGENERATION, 200, 0)
+                    .effect(() -> MobEffects.REGENERATION, 200, 0)
                     .build());
     public static final DeferredHolder<Item, NVFoodItem> BOTTLED_SPITE = BASIC_ITEMS.register("bottled_spite",
             () -> NVFoodItem.builder(0, 0f).alwaysEdible().stacksTo(16).drinkable()
-                    .effect(() -> net.minecraft.world.effect.MobEffects.DAMAGE_BOOST, 600, 1)
-                    .effect(() -> net.minecraft.world.effect.MobEffects.DIG_SLOWDOWN, 300, 0)
+                    .effect(() -> MobEffects.DAMAGE_BOOST, 600, 1)
+                    .effect(() -> MobEffects.DIG_SLOWDOWN, 300, 0)
                     .build());
 
     // Sigil of the Damned
@@ -366,10 +377,10 @@ public class NVItems {
     public static final DeferredHolder<Item, Item> BLOOD_SWEAT_AND_TEARS = BASIC_ITEMS.register("blood_sweat_and_tears", () -> new Item(
             new Item.Properties()
                     .stacksTo(1)
-                    .rarity(net.minecraft.world.item.Rarity.RARE)
-                    .jukeboxPlayable(net.minecraft.resources.ResourceKey.create(
-                            net.minecraft.core.registries.Registries.JUKEBOX_SONG,
-                            com.breakinblocks.neovitae.NeoVitae.rl("blood_sweat_and_tears")
+                    .rarity(Rarity.RARE)
+                    .jukeboxPlayable(ResourceKey.create(
+                            Registries.JUKEBOX_SONG,
+                            NeoVitae.rl("blood_sweat_and_tears")
                     ))
     ));
 
@@ -389,83 +400,83 @@ public class NVItems {
 
     public static final DeferredHolder<Item, ItemBloodProvider> TABULA_AMPOULE = BASIC_ITEMS.register("tabula_ampoule", () -> new ItemBloodProvider("slate", 500));
 
-    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_IGNIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_ignis_spawn_egg",
-            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
-                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_IGNIS, 0x2D0A0A, 0xFF4500,
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_IGNIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_ignis_spawn_egg",
+            () -> new DeferredSpawnEggItem(
+                    NVEntities.DAEMONIUM_IGNIS, 0x2D0A0A, 0xFF4500,
                     new Item.Properties()));
 
-    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_CRUORIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_cruoris_spawn_egg",
-            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
-                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_CRUORIS, 0x3A1010, 0x8B0000,
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_CRUORIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_cruoris_spawn_egg",
+            () -> new DeferredSpawnEggItem(
+                    NVEntities.DAEMONIUM_CRUORIS, 0x3A1010, 0x8B0000,
                     new Item.Properties()));
 
-    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_CORRODIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_corrodis_spawn_egg",
-            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
-                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_CORRODIS, 0x2A1A2A, 0x6B3FA0,
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_CORRODIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_corrodis_spawn_egg",
+            () -> new DeferredSpawnEggItem(
+                    NVEntities.DAEMONIUM_CORRODIS, 0x2A1A2A, 0x6B3FA0,
                     new Item.Properties()));
 
-    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_GLACIARIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_glaciaris_spawn_egg",
-            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
-                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_GLACIARIS, 0xA0D4E8, 0x4FC3F7,
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_GLACIARIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_glaciaris_spawn_egg",
+            () -> new DeferredSpawnEggItem(
+                    NVEntities.DAEMONIUM_GLACIARIS, 0xA0D4E8, 0x4FC3F7,
                     new Item.Properties()));
 
-    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_PESTIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_pestis_spawn_egg",
-            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
-                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_PESTIS, 0x0D0F1E, 0x2A2656,
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_PESTIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_pestis_spawn_egg",
+            () -> new DeferredSpawnEggItem(
+                    NVEntities.DAEMONIUM_PESTIS, 0x0D0F1E, 0x2A2656,
                     new Item.Properties()));
 
-    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_VORAXIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_voraxis_spawn_egg",
-            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
-                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_VORAXIS, 0x0D0D14, 0x4A1A5C,
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_VORAXIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_voraxis_spawn_egg",
+            () -> new DeferredSpawnEggItem(
+                    NVEntities.DAEMONIUM_VORAXIS, 0x0D0D14, 0x4A1A5C,
                     new Item.Properties()));
 
-    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_DOLORIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_doloris_spawn_egg",
-            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
-                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_DOLORIS, 0x1A1A1A, 0x4A6B3A,
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_DOLORIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_doloris_spawn_egg",
+            () -> new DeferredSpawnEggItem(
+                    NVEntities.DAEMONIUM_DOLORIS, 0x1A1A1A, 0x4A6B3A,
                     new Item.Properties()));
 
-    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_FERVIDIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_fervidis_spawn_egg",
-            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
-                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_FERVIDIS, 0x3A2A1A, 0x6B4423,
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_FERVIDIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_fervidis_spawn_egg",
+            () -> new DeferredSpawnEggItem(
+                    NVEntities.DAEMONIUM_FERVIDIS, 0x3A2A1A, 0x6B4423,
                     new Item.Properties()));
 
-    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_ANIMARIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_animaris_spawn_egg",
-            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
-                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_ANIMARIS, 0x2A2A2A, 0x8B1A1A,
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_ANIMARIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_animaris_spawn_egg",
+            () -> new DeferredSpawnEggItem(
+                    NVEntities.DAEMONIUM_ANIMARIS, 0x2A2A2A, 0x8B1A1A,
                     new Item.Properties()));
 
-    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> DAEMONIUM_RANCORIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_rancoris_spawn_egg",
-            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
-                    com.breakinblocks.neovitae.common.entity.NVEntities.DAEMONIUM_RANCORIS, 0x1A1A2E, 0x7B9EBF,
+    public static final DeferredHolder<Item, SpawnEggItem> DAEMONIUM_RANCORIS_SPAWN_EGG = BASIC_ITEMS.register("daemonium_rancoris_spawn_egg",
+            () -> new DeferredSpawnEggItem(
+                    NVEntities.DAEMONIUM_RANCORIS, 0x1A1A2E, 0x7B9EBF,
                     new Item.Properties()));
 
-    public static final DeferredHolder<Item, net.minecraft.world.item.SpawnEggItem> SLIME_VITAE_SPAWN_EGG = BASIC_ITEMS.register("slime_vitae_spawn_egg",
-            () -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(
-                    com.breakinblocks.neovitae.common.entity.NVEntities.SLIME_VITAE, 0x8B0000, 0xFF2222,
+    public static final DeferredHolder<Item, SpawnEggItem> SLIME_VITAE_SPAWN_EGG = BASIC_ITEMS.register("slime_vitae_spawn_egg",
+            () -> new DeferredSpawnEggItem(
+                    NVEntities.SLIME_VITAE, 0x8B0000, 0xFF2222,
                     new Item.Properties()));
 
     // Array effect dummy items for JEI visibility
     public static final DeferredRegister<Item> ARRAY_ITEMS = DeferredRegister.createItems(NeoVitae.MODID);
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_BOUNCE = ARRAY_ITEMS.register("array_bounce", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.BOUNCE));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_SPIKE = ARRAY_ITEMS.register("array_spike", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.SPIKE));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_UPDRAFT = ARRAY_ITEMS.register("array_updraft", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.UPDRAFT));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_MOVEMENT = ARRAY_ITEMS.register("array_movement", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.MOVEMENT));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_DAY = ARRAY_ITEMS.register("array_day", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.DAY));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_NIGHT = ARRAY_ITEMS.register("array_night", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.NIGHT));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_ELEVATOR = ARRAY_ITEMS.register("array_elevator", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.ELEVATOR));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_REPULSION = ARRAY_ITEMS.register("array_repulsion", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.REPULSION));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_COLLECTION = ARRAY_ITEMS.register("array_collection", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.COLLECTION));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_LIGHT = ARRAY_ITEMS.register("array_light", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.LIGHT));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_FURNACE = ARRAY_ITEMS.register("array_furnace", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.FURNACE));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_RAIN = ARRAY_ITEMS.register("array_rain", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.RAIN));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_GROWTH = ARRAY_ITEMS.register("array_growth", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.GROWTH));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_FREEZE = ARRAY_ITEMS.register("array_freeze", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.FREEZE));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_SIGNAL = ARRAY_ITEMS.register("array_signal", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.SIGNAL));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_TRIGGER = ARRAY_ITEMS.register("array_trigger", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.TRIGGER));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_SPIRIT_SIPHON = ARRAY_ITEMS.register("array_spirit_siphon", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.SPIRIT_SIPHON));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_DEFLECTION = ARRAY_ITEMS.register("array_deflection", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.DEFLECTION));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_ENDLESS_FOUNTAIN = ARRAY_ITEMS.register("array_endless_fountain", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.ENDLESS_FOUNTAIN));
-    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_UNDERTOW = ARRAY_ITEMS.register("array_undertow", () -> new ArrayEffectItem(com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType.UNDERTOW));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_BOUNCE = ARRAY_ITEMS.register("array_bounce", () -> new ArrayEffectItem(AlchemyArrayEffectType.BOUNCE));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_SPIKE = ARRAY_ITEMS.register("array_spike", () -> new ArrayEffectItem(AlchemyArrayEffectType.SPIKE));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_UPDRAFT = ARRAY_ITEMS.register("array_updraft", () -> new ArrayEffectItem(AlchemyArrayEffectType.UPDRAFT));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_MOVEMENT = ARRAY_ITEMS.register("array_movement", () -> new ArrayEffectItem(AlchemyArrayEffectType.MOVEMENT));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_DAY = ARRAY_ITEMS.register("array_day", () -> new ArrayEffectItem(AlchemyArrayEffectType.DAY));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_NIGHT = ARRAY_ITEMS.register("array_night", () -> new ArrayEffectItem(AlchemyArrayEffectType.NIGHT));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_ELEVATOR = ARRAY_ITEMS.register("array_elevator", () -> new ArrayEffectItem(AlchemyArrayEffectType.ELEVATOR));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_REPULSION = ARRAY_ITEMS.register("array_repulsion", () -> new ArrayEffectItem(AlchemyArrayEffectType.REPULSION));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_COLLECTION = ARRAY_ITEMS.register("array_collection", () -> new ArrayEffectItem(AlchemyArrayEffectType.COLLECTION));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_LIGHT = ARRAY_ITEMS.register("array_light", () -> new ArrayEffectItem(AlchemyArrayEffectType.LIGHT));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_FURNACE = ARRAY_ITEMS.register("array_furnace", () -> new ArrayEffectItem(AlchemyArrayEffectType.FURNACE));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_RAIN = ARRAY_ITEMS.register("array_rain", () -> new ArrayEffectItem(AlchemyArrayEffectType.RAIN));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_GROWTH = ARRAY_ITEMS.register("array_growth", () -> new ArrayEffectItem(AlchemyArrayEffectType.GROWTH));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_FREEZE = ARRAY_ITEMS.register("array_freeze", () -> new ArrayEffectItem(AlchemyArrayEffectType.FREEZE));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_SIGNAL = ARRAY_ITEMS.register("array_signal", () -> new ArrayEffectItem(AlchemyArrayEffectType.SIGNAL));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_TRIGGER = ARRAY_ITEMS.register("array_trigger", () -> new ArrayEffectItem(AlchemyArrayEffectType.TRIGGER));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_SPIRIT_SIPHON = ARRAY_ITEMS.register("array_spirit_siphon", () -> new ArrayEffectItem(AlchemyArrayEffectType.SPIRIT_SIPHON));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_DEFLECTION = ARRAY_ITEMS.register("array_deflection", () -> new ArrayEffectItem(AlchemyArrayEffectType.DEFLECTION));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_ENDLESS_FOUNTAIN = ARRAY_ITEMS.register("array_endless_fountain", () -> new ArrayEffectItem(AlchemyArrayEffectType.ENDLESS_FOUNTAIN));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_UNDERTOW = ARRAY_ITEMS.register("array_undertow", () -> new ArrayEffectItem(AlchemyArrayEffectType.UNDERTOW));
 
     public static void register(IEventBus modBus) {
         BASIC_ITEMS.register(modBus);

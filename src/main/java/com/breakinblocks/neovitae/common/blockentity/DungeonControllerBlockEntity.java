@@ -15,9 +15,13 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
+import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.structures.DungeonSynthesizer;
 import com.breakinblocks.neovitae.structures.ModRoomPools;
 import com.breakinblocks.neovitae.structures.rooms.DungeonRoomPlacement;
@@ -162,10 +166,10 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
         setChanged();
 
         BlockPos roomCenter = placement.getRoomPosition().offset(
-                placement.room.getAreaDescriptors(new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings(), placement.getRoomPosition())
+                placement.room.getAreaDescriptors(new StructurePlaceSettings(), placement.getRoomPosition())
                         .stream().findFirst()
                         .map(d -> {
-                            if (d instanceof com.breakinblocks.neovitae.api.ritual.AreaDescriptor.Rectangle r) {
+                            if (d instanceof AreaDescriptor.Rectangle r) {
                                 BlockPos min = r.getMinimumOffset();
                                 BlockPos max = r.getMaximumOffset();
                                 return new BlockPos((min.getX() + max.getX()) / 2, (min.getY() + max.getY()) / 2, (min.getZ() + max.getZ()) / 2);
@@ -256,7 +260,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
                             serverLevel, sealData.doorPos(), sealData.doorDirection(), sealData.doorType(), pools);
                     if (!canFit) {
                         serverLevel.setBlockAndUpdate(sealPos,
-                                com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get().defaultBlockState());
+                                DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get().defaultBlockState());
                         tile.dungeonSynthesizer.decrementSealCount();
                         tile.setChanged();
                     }
@@ -281,7 +285,7 @@ public class DungeonControllerBlockEntity extends BaseBlockEntity {
 
         BlockPos riftPos = portalPos.above(3);
 
-        level.setBlockAndUpdate(riftPos, com.breakinblocks.neovitae.common.block.NVBlocks.SPATIAL_RIFT.block().get().defaultBlockState());
+        level.setBlockAndUpdate(riftPos, NVBlocks.SPATIAL_RIFT.block().get().defaultBlockState());
 
         Component msg = Component.translatable("chat.neovitae.dungeon.rift_opened").withStyle(ChatFormatting.DARK_PURPLE);
         for (ServerPlayer player : level.players()) {

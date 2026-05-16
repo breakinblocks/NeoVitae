@@ -3,17 +3,27 @@ package com.breakinblocks.neovitae.datagen.provider;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.client.model.generators.VariantBlockStateBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.AthanorBlock;
+import com.breakinblocks.neovitae.common.block.BlockDungeonSeal;
+import com.breakinblocks.neovitae.common.block.BlockInversionPillar;
+import com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd;
+import com.breakinblocks.neovitae.common.block.BlockShapedExplosive;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.block.SpiritCacheBlock;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant;
+import com.breakinblocks.neovitae.common.block.type.PillarCapType;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.util.helper.BlockWithItemHolder;
 
 public class NVBlockStateProvider extends BlockStateProvider {
     public NVBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -92,9 +102,9 @@ public class NVBlockStateProvider extends BlockStateProvider {
         ModelFile dungeonSealModel = models().cubeAll("dungeon_seal", bm("block/dungeon/dungeon_eye"));
         ModelFile dungeonSealSpecialModel = models().cubeAll("dungeon_seal_special", bm("block/dungeon/dungeon_eye_c"));
         getVariantBuilder(NVBlocks.DUNGEON_SEAL.block().get())
-                .partialState().with(com.breakinblocks.neovitae.common.block.BlockDungeonSeal.SPECIAL, false)
+                .partialState().with(BlockDungeonSeal.SPECIAL, false)
                 .modelForState().modelFile(dungeonSealModel).addModel()
-                .partialState().with(com.breakinblocks.neovitae.common.block.BlockDungeonSeal.SPECIAL, true)
+                .partialState().with(BlockDungeonSeal.SPECIAL, true)
                 .modelForState().modelFile(dungeonSealSpecialModel).addModel();
         simpleBlockItem(NVBlocks.DUNGEON_SEAL.block().get(), dungeonSealModel);
 
@@ -102,9 +112,9 @@ public class NVBlockStateProvider extends BlockStateProvider {
         ModelFile inversionPillarModel = models().withExistingParent("inversion_pillar", bm("block/pillar_mid"))
                 .texture("texture", bm("block/pillar_mid"));
         getVariantBuilder(NVBlocks.INVERSION_PILLAR.block().get())
-                .partialState().with(com.breakinblocks.neovitae.common.block.BlockInversionPillar.RIFT_RETURN, false)
+                .partialState().with(BlockInversionPillar.RIFT_RETURN, false)
                 .modelForState().modelFile(inversionPillarModel).addModel()
-                .partialState().with(com.breakinblocks.neovitae.common.block.BlockInversionPillar.RIFT_RETURN, true)
+                .partialState().with(BlockInversionPillar.RIFT_RETURN, true)
                 .modelForState().modelFile(inversionPillarModel).addModel();
         simpleBlockItem(NVBlocks.INVERSION_PILLAR.block().get(), inversionPillarModel);
 
@@ -125,17 +135,17 @@ public class NVBlockStateProvider extends BlockStateProvider {
         ModelFile inversionPillarCapTop = models().withExistingParent("inversion_pillar_top", bm("block/pillar_top"))
                 .texture("texture", bm("block/pillar_base"));
         getVariantBuilder(NVBlocks.INVERSION_PILLAR_CAP.block().get())
-                .partialState().with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.TYPE, com.breakinblocks.neovitae.common.block.type.PillarCapType.BOTTOM)
-                .with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.RIFT_RETURN, false)
+                .partialState().with(BlockInversionPillarEnd.TYPE, PillarCapType.BOTTOM)
+                .with(BlockInversionPillarEnd.RIFT_RETURN, false)
                 .modelForState().modelFile(inversionPillarCapBottom).addModel()
-                .partialState().with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.TYPE, com.breakinblocks.neovitae.common.block.type.PillarCapType.TOP)
-                .with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.RIFT_RETURN, false)
+                .partialState().with(BlockInversionPillarEnd.TYPE, PillarCapType.TOP)
+                .with(BlockInversionPillarEnd.RIFT_RETURN, false)
                 .modelForState().modelFile(inversionPillarCapTop).addModel()
-                .partialState().with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.TYPE, com.breakinblocks.neovitae.common.block.type.PillarCapType.BOTTOM)
-                .with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.RIFT_RETURN, true)
+                .partialState().with(BlockInversionPillarEnd.TYPE, PillarCapType.BOTTOM)
+                .with(BlockInversionPillarEnd.RIFT_RETURN, true)
                 .modelForState().modelFile(inversionPillarCapBottom).addModel()
-                .partialState().with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.TYPE, com.breakinblocks.neovitae.common.block.type.PillarCapType.TOP)
-                .with(com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd.RIFT_RETURN, true)
+                .partialState().with(BlockInversionPillarEnd.TYPE, PillarCapType.TOP)
+                .with(BlockInversionPillarEnd.RIFT_RETURN, true)
                 .modelForState().modelFile(inversionPillarCapTop).addModel();
         simpleBlockItem(NVBlocks.INVERSION_PILLAR_CAP.block().get(), inversionPillarCapBottom);
     }
@@ -190,7 +200,7 @@ public class NVBlockStateProvider extends BlockStateProvider {
                 "minecraft:block/crimson_stem", "neovitae:block/copper_trim");
     }
 
-    private void shapedChargeModel(net.minecraft.world.level.block.Block block, String name,
+    private void shapedChargeModel(Block block, String name,
             String tex1, String tex3, String tex4, String tex5, String tex6) {
         // Create model with parent sub/shaped_charge
         ModelFile model = models().withExistingParent(name, bm("block/sub/shaped_charge"))
@@ -206,7 +216,7 @@ public class NVBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block, model);
     }
 
-    private void augmentedChargeModel(net.minecraft.world.level.block.Block block, String name,
+    private void augmentedChargeModel(Block block, String name,
             String tex1, String tex2, String tex3, String tex4, String tex5, String tex7) {
         // Create model with parent sub/augment_shaped_charge
         ModelFile model = models().withExistingParent(name, bm("block/sub/augment_shaped_charge"))
@@ -223,37 +233,37 @@ public class NVBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block, model);
     }
 
-    private void directionalBlockState(net.minecraft.world.level.block.Block block, ModelFile model) {
+    private void directionalBlockState(Block block, ModelFile model) {
         VariantBlockStateBuilder builder = getVariantBuilder(block);
 
         // UP: default orientation (attached to floor)
         builder.partialState()
-            .with(com.breakinblocks.neovitae.common.block.BlockShapedExplosive.ATTACHED, Direction.UP)
+            .with(BlockShapedExplosive.ATTACHED, Direction.UP)
             .modelForState().modelFile(model).addModel();
 
         // DOWN: rotated 180 on X axis (attached to ceiling)
         builder.partialState()
-            .with(com.breakinblocks.neovitae.common.block.BlockShapedExplosive.ATTACHED, Direction.DOWN)
+            .with(BlockShapedExplosive.ATTACHED, Direction.DOWN)
             .modelForState().modelFile(model).rotationX(180).addModel();
 
         // NORTH: rotated 90 on X axis
         builder.partialState()
-            .with(com.breakinblocks.neovitae.common.block.BlockShapedExplosive.ATTACHED, Direction.NORTH)
+            .with(BlockShapedExplosive.ATTACHED, Direction.NORTH)
             .modelForState().modelFile(model).rotationX(90).addModel();
 
         // SOUTH: rotated 270 on X axis (per 1.20.1)
         builder.partialState()
-            .with(com.breakinblocks.neovitae.common.block.BlockShapedExplosive.ATTACHED, Direction.SOUTH)
+            .with(BlockShapedExplosive.ATTACHED, Direction.SOUTH)
             .modelForState().modelFile(model).rotationX(270).addModel();
 
         // EAST: rotated 90 on X, 90 on Y
         builder.partialState()
-            .with(com.breakinblocks.neovitae.common.block.BlockShapedExplosive.ATTACHED, Direction.EAST)
+            .with(BlockShapedExplosive.ATTACHED, Direction.EAST)
             .modelForState().modelFile(model).rotationX(90).rotationY(90).addModel();
 
         // WEST: rotated 90 on X, 270 on Y
         builder.partialState()
-            .with(com.breakinblocks.neovitae.common.block.BlockShapedExplosive.ATTACHED, Direction.WEST)
+            .with(BlockShapedExplosive.ATTACHED, Direction.WEST)
             .modelForState().modelFile(model).rotationX(90).rotationY(270).addModel();
     }
 
@@ -268,13 +278,13 @@ public class NVBlockStateProvider extends BlockStateProvider {
                 .renderType("cutout");
 
         VariantBlockStateBuilder builder = getVariantBuilder(NVBlocks.SPIRIT_CACHE.block().get());
-        builder.partialState().with(com.breakinblocks.neovitae.common.block.SpiritCacheBlock.FACING, Direction.NORTH)
+        builder.partialState().with(SpiritCacheBlock.FACING, Direction.NORTH)
                 .modelForState().modelFile(model).addModel();
-        builder.partialState().with(com.breakinblocks.neovitae.common.block.SpiritCacheBlock.FACING, Direction.SOUTH)
+        builder.partialState().with(SpiritCacheBlock.FACING, Direction.SOUTH)
                 .modelForState().modelFile(model).rotationY(180).addModel();
-        builder.partialState().with(com.breakinblocks.neovitae.common.block.SpiritCacheBlock.FACING, Direction.WEST)
+        builder.partialState().with(SpiritCacheBlock.FACING, Direction.WEST)
                 .modelForState().modelFile(model).rotationY(270).addModel();
-        builder.partialState().with(com.breakinblocks.neovitae.common.block.SpiritCacheBlock.FACING, Direction.EAST)
+        builder.partialState().with(SpiritCacheBlock.FACING, Direction.EAST)
                 .modelForState().modelFile(model).rotationY(90).addModel();
 
         simpleBlockItem(NVBlocks.SPIRIT_CACHE.block().get(), model);
@@ -423,7 +433,7 @@ public class NVBlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private com.breakinblocks.neovitae.util.helper.BlockWithItemHolder<net.minecraft.world.level.block.Block, net.minecraft.world.item.BlockItem> getDungeonBlock(String name) {
+    private BlockWithItemHolder<Block, BlockItem> getDungeonBlock(String name) {
         // Find the block by iterating through variant maps
         for (DungeonVariant v : DungeonVariant.values()) {
             String suffix = v.getSuffix();
@@ -441,7 +451,7 @@ public class NVBlockStateProvider extends BlockStateProvider {
         return null;
     }
 
-    private com.breakinblocks.neovitae.util.helper.BlockWithItemHolder<net.minecraft.world.level.block.RotatedPillarBlock, net.minecraft.world.item.BlockItem> getDungeonPillarBlock(String name) {
+    private BlockWithItemHolder<RotatedPillarBlock, BlockItem> getDungeonPillarBlock(String name) {
         for (DungeonVariant v : DungeonVariant.values()) {
             String suffix = v.getSuffix();
             if (name.equals("dungeon_pillar_center" + suffix)) return DungeonBlocks.DUNGEON_PILLAR_CENTER.get(v);

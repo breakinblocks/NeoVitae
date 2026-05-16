@@ -1,5 +1,8 @@
 package com.breakinblocks.neovitae.common.network;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -8,6 +11,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
+import com.breakinblocks.neovitae.client.ClientSpiritusCache;
+import com.breakinblocks.neovitae.client.ClipboardClientHelper;
+import com.breakinblocks.neovitae.client.render.stream.StreamManager;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import net.minecraft.network.chat.Component;
@@ -15,6 +21,9 @@ import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.TrainerItem;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
+import com.breakinblocks.neovitae.common.item.soul.LexVitaeItem;
+import com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu;
+import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
@@ -122,7 +131,7 @@ public class NVPayloads {
     }
 
     private static void handleRitualCode(RitualCodePayload payload, IPayloadContext context) {
-        context.enqueueWork(() -> com.breakinblocks.neovitae.client.ClipboardClientHelper.setClipboard(payload.code()));
+        context.enqueueWork(() -> ClipboardClientHelper.setClipboard(payload.code()));
     }
 
     private static void handleSetClientVelocity(SetClientVelocityPayload payload, IPayloadContext context) {
@@ -133,14 +142,14 @@ public class NVPayloads {
 
     private static void handleStreamFX(StreamPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
-            com.breakinblocks.neovitae.client.render.stream.StreamManager.getInstance()
+            StreamManager.getInstance()
                     .addStream(payload.effect());
         });
     }
 
     private static void handleSpiritusChunkSync(SpiritusSyncPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
-            com.breakinblocks.neovitae.client.ClientSpiritusCache.update(
+            ClientSpiritusCache.update(
                     payload.chunkX(),
                     payload.chunkZ(),
                     payload.toSpiritusChunk()
@@ -156,7 +165,7 @@ public class NVPayloads {
             }
             BlockEntity be = player.level().getBlockEntity(payload.pos());
             if (be instanceof FilteredRoutingNodeBlockEntity tile) {
-                if (player.containerMenu instanceof com.breakinblocks.neovitae.common.menu.RoutingNodeMenu menu && menu.tile == tile) {
+                if (player.containerMenu instanceof RoutingNodeMenu menu && menu.tile == tile) {
                     int currentSide = tile.getCurrentActiveSlot();
                     switch (payload.action()) {
                         case RoutingNodePayload.ACTION_SELECT_SLOT -> tile.swapFilters(payload.value());
@@ -185,7 +194,7 @@ public class NVPayloads {
             }
             BlockEntity be = player.level().getBlockEntity(payload.pos());
             if (be instanceof FilteredRoutingNodeBlockEntity tile) {
-                if (player.containerMenu instanceof com.breakinblocks.neovitae.common.menu.RoutingNodeMenu menu && menu.tile == tile) {
+                if (player.containerMenu instanceof RoutingNodeMenu menu && menu.tile == tile) {
                     int currentSide = tile.getCurrentActiveSlot();
                     tile.setItemGhost(currentSide, payload.ghostSlot(), payload.stack());
                 }
@@ -201,7 +210,7 @@ public class NVPayloads {
             }
             BlockEntity be = player.level().getBlockEntity(payload.pos());
             if (be instanceof FilteredRoutingNodeBlockEntity tile) {
-                if (player.containerMenu instanceof com.breakinblocks.neovitae.common.menu.RoutingNodeMenu menu && menu.tile == tile) {
+                if (player.containerMenu instanceof RoutingNodeMenu menu && menu.tile == tile) {
                     int currentSide = tile.getCurrentActiveSlot();
                     tile.setFluidGhost(currentSide, payload.ghostSlot(), payload.stack());
                 }
@@ -217,7 +226,7 @@ public class NVPayloads {
             }
             BlockEntity be = player.level().getBlockEntity(payload.pos());
             if (be instanceof MasterRoutingNodeBlockEntity tile) {
-                if (player.containerMenu instanceof com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu menu && menu.tile == tile) {
+                if (player.containerMenu instanceof MasterRoutingNodeMenu menu && menu.tile == tile) {
                     tile.setConfiguredEnergyRate(payload.rate());
                 }
             }
@@ -267,7 +276,7 @@ public class NVPayloads {
             Player player = context.player();
             for (InteractionHand hand : InteractionHand.values()) {
                 ItemStack held = player.getItemInHand(hand);
-                if (held.getItem() instanceof com.breakinblocks.neovitae.common.item.soul.LexVitaeItem) {
+                if (held.getItem() instanceof LexVitaeItem) {
                     int current = held.getOrDefault(NVDataComponents.LEX_RADIUS.get(), 0);
                     int next = ((current + Integer.signum(payload.direction())) % 3 + 3) % 3;
                     held.set(NVDataComponents.LEX_RADIUS.get(), next);
@@ -293,20 +302,20 @@ public class NVPayloads {
     }
 
     public static void sendToServer(Object payload) {
-        PacketDistributor.sendToServer((net.minecraft.network.protocol.common.custom.CustomPacketPayload) payload);
+        PacketDistributor.sendToServer((CustomPacketPayload) payload);
     }
 
     public static void sendToPlayer(ServerPlayer player, Object payload) {
-        PacketDistributor.sendToPlayer(player, (net.minecraft.network.protocol.common.custom.CustomPacketPayload) payload);
+        PacketDistributor.sendToPlayer(player, (CustomPacketPayload) payload);
     }
 
     /**
      * Send a payload to all players within a radius of a block position.
      */
-    public static void sendToNearby(net.minecraft.server.level.ServerLevel level, net.minecraft.core.BlockPos pos,
+    public static void sendToNearby(ServerLevel level, BlockPos pos,
                                     double radius, Object payload) {
-        net.minecraft.network.protocol.common.custom.CustomPacketPayload p =
-                (net.minecraft.network.protocol.common.custom.CustomPacketPayload) payload;
+        CustomPacketPayload p =
+                (CustomPacketPayload) payload;
         double radiusSq = radius * radius;
         double cx = pos.getX() + 0.5, cy = pos.getY() + 0.5, cz = pos.getZ() + 0.5;
         for (ServerPlayer player : level.players()) {

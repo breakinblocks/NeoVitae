@@ -15,9 +15,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.Level;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,12 +138,12 @@ public class ItemAlchemyFlask extends Item {
                     color = contents.getColor();
                 }
                 serverLevel.sendParticles(
-                        new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
-                                com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_FLAME.get(), color),
+                        new ColoredParticleOptions(
+                                NVParticles.BLOOD_FLAME.get(), color),
                         player.getX(), player.getY() + 1.0, player.getZ(), 6, 0.2, 0.3, 0.2, 0.02);
                 serverLevel.sendParticles(
-                        new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
-                                com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_GLOW.get(), color),
+                        new ColoredParticleOptions(
+                                NVParticles.BLOOD_GLOW.get(), color),
                         player.getX(), player.getY() + 1.2, player.getZ(), 3, 0.15, 0.2, 0.15, 0.01);
             }
         }

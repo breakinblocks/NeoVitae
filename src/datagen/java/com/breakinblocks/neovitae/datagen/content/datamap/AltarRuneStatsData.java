@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.datagen.content.datamap;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.neoforged.neoforge.registries.datamaps.DataMapType;
+import com.breakinblocks.neovitae.api.event.AltarRuneEvent;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.datamap.AltarRuneStats;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
@@ -16,7 +17,7 @@ import java.util.function.Function;
  * {@code data/<namespace>/data_maps/block/altar_rune_stats.json}</p>
  *
  * <p>For dynamic runes whose bonuses change at runtime, addon mods should
- * listen to {@link com.breakinblocks.neovitae.api.event.AltarRuneEvent.CalculateStats}
+ * listen to {@link AltarRuneEvent.CalculateStats}
  * and modify the stats based on their block entity state.</p>
  */
 public class AltarRuneStatsData {

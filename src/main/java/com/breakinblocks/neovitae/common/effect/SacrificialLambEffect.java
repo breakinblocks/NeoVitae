@@ -9,6 +9,8 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.entity.goal.SacrificialLambMeleeAttackGoal;
 
 /**
@@ -28,8 +30,8 @@ public class SacrificialLambEffect extends MobEffect {
             double y = entity.getY() + entity.getRandom().nextDouble() * entity.getBbHeight();
             double z = entity.getZ() + (entity.getRandom().nextDouble() - 0.5) * 0.5;
             entity.level().addParticle(
-                    new com.breakinblocks.neovitae.client.particle.ColoredParticleOptions(
-                            com.breakinblocks.neovitae.common.particle.NVParticles.BLOOD_GLOW.get(), 0xCC0000),
+                    new ColoredParticleOptions(
+                            NVParticles.BLOOD_GLOW.get(), 0xCC0000),
                     x, y, z, 0, 0.02, 0);
         }
 

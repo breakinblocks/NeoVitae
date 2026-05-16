@@ -2,12 +2,14 @@ package com.breakinblocks.neovitae.compat.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.registration.IIngredientAliasRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
+import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.constants.VanillaTypes;
 import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -25,6 +27,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
@@ -71,6 +74,7 @@ import com.breakinblocks.neovitae.compat.jei.ritual.RitualRecipeCategory;
 import com.breakinblocks.neovitae.ritual.ImperfectRitual;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualComponent;
+import com.breakinblocks.neovitae.ritual.RitualLayouts;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
 
 import net.minecraft.core.NonNullList;
@@ -84,15 +88,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @JeiPlugin
 public class NeoVitaeJEIPlugin implements IModPlugin {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NeoVitaeJEIPlugin.class);
     public static IJeiHelpers jeiHelper;
-    public static mezz.jei.api.runtime.IJeiRuntime jeiRuntime;
+    public static IJeiRuntime jeiRuntime;
     private static final ResourceLocation ID = NeoVitae.rl("jei_plugin");
 
     @Override
@@ -172,7 +178,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipes(HellfireForgeRecipeCategory.RECIPE_TYPE, forgeRecipes);
         registration.addRecipes(ForgeUpgradeRecipeCategory.RECIPE_TYPE, upgradeRecipes);
 
-        List<com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe> altarRecipes = world.getRecipeManager()
+        List<AraVitaeRecipe> altarRecipes = world.getRecipeManager()
                 .getAllRecipesFor(NVRecipes.ARA_VITAE_TYPE.get())
                 .stream()
                 .map(RecipeHolder::value)
@@ -243,7 +249,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addIngredientInfo(bloodTankStacks, VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.neovitae.blood_tank.upgrade_info"));
 
-        List<ItemStack> orbStacks = java.util.List.of(
+        List<ItemStack> orbStacks = List.of(
                 new ItemStack(NVItems.ORB_WEAK.get()), new ItemStack(NVItems.ORB_APPRENTICE.get()),
                 new ItemStack(NVItems.ORB_MAGICIAN.get()), new ItemStack(NVItems.ORB_MASTER.get()),
                 new ItemStack(NVItems.ORB_ARCHMAGE.get()), new ItemStack(NVItems.ORB_TRANSCENDENT.get()));
@@ -261,11 +267,11 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
             ShapelessRecipe recipe = new ShapelessRecipe("neovitae", CraftingBookCategory.MISC, result, ingredients);
             scribeDyeRecipes.add(new RecipeHolder<>(NeoVitae.rl("arcane_scribe_dye_" + color.getSerializedName()), recipe));
         }
-        registration.addRecipes(mezz.jei.api.constants.RecipeTypes.CRAFTING, scribeDyeRecipes);
+        registration.addRecipes(RecipeTypes.CRAFTING, scribeDyeRecipes);
     }
 
     @Override
-    public void onRuntimeAvailable(mezz.jei.api.runtime.IJeiRuntime runtime) {
+    public void onRuntimeAvailable(IJeiRuntime runtime) {
         jeiRuntime = runtime;
 
         runtime.getIngredientManager().removeIngredientsAtRuntime(
@@ -292,7 +298,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 .toList();
 
         // Collect all effects that can exist in a flask from all recipe types
-        java.util.Set<Holder<MobEffect>> allEffects = new java.util.LinkedHashSet<>();
+        Set<Holder<MobEffect>> allEffects = new LinkedHashSet<>();
         for (FlaskRecipe recipe : allFlaskRecipes) {
             if (recipe instanceof FlaskEffectRecipe er) {
                 allEffects.add(er.getOutputEffect());
@@ -456,9 +462,9 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 continue;
             }
 
-            net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
-            net.minecraft.world.level.Level level = mc != null ? mc.level : null;
-            List<RitualComponent> components = com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual);
+            Minecraft mc = Minecraft.getInstance();
+            Level level = mc != null ? mc.level : null;
+            List<RitualComponent> components = RitualLayouts.get(level, ritual);
 
             recipes.add(RitualJEIRecipe.create(
                     ritualId,

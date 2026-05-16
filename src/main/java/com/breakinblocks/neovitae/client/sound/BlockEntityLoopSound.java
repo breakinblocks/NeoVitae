@@ -4,6 +4,7 @@ import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.api.distmarker.Dist;
@@ -19,7 +20,7 @@ public class BlockEntityLoopSound extends AbstractTickableSoundInstance {
     private final Predicate<BlockEntity> activeCheck;
 
     public BlockEntityLoopSound(SoundEvent sound, SoundSource source, float volume, Level level, BlockPos pos, Predicate<BlockEntity> activeCheck) {
-        super(sound, source, net.minecraft.util.RandomSource.create());
+        super(sound, source, RandomSource.create());
         this.level = level;
         this.pos = pos;
         this.activeCheck = activeCheck;

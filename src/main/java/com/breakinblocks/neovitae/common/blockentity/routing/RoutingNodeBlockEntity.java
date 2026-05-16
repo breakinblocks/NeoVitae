@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Triple;
 import com.breakinblocks.neovitae.api.routing.*;
+import com.breakinblocks.neovitae.client.event.RoutingBeamHandler;
 import com.breakinblocks.neovitae.common.routing.RoutingLinkHelper;
 import com.breakinblocks.neovitae.util.Constants;
 
@@ -58,7 +59,7 @@ public abstract class RoutingNodeBlockEntity extends BlockEntity implements IRou
             if (!level.hasChunk(mcx, mcz)) return;
 
             BlockEntity masterTile = level.getBlockEntity(masterPos);
-            boolean valid = masterTile instanceof com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity master
+            boolean valid = masterTile instanceof MasterRoutingNodeBlockEntity master
                     && master.graphContains(worldPosition);
             if (!valid) {
                 masterPos = BlockPos.ZERO;
@@ -136,14 +137,14 @@ public abstract class RoutingNodeBlockEntity extends BlockEntity implements IRou
         super.onLoad();
         bindingNeedsValidation = true;
         if (level != null && level.isClientSide) {
-            com.breakinblocks.neovitae.client.event.RoutingBeamHandler.register(this);
+            RoutingBeamHandler.register(this);
         }
     }
 
     @Override
     public void setRemoved() {
         if (level != null && level.isClientSide) {
-            com.breakinblocks.neovitae.client.event.RoutingBeamHandler.unregister(this);
+            RoutingBeamHandler.unregister(this);
         }
         super.setRemoved();
     }

@@ -25,10 +25,11 @@ import com.breakinblocks.neovitae.common.sentient.SentientHelper;
 import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 import com.breakinblocks.neovitae.common.tag.NVTags;
-import net.minecraft.core.Holder;
+import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -48,7 +49,7 @@ public class NVTabs {
                         output.accept(sentient_plate);
 
                         addAll(NVItems.BASIC_ITEMS, output::accept);
-                        com.breakinblocks.neovitae.common.material.MaterialRegistry.getAllItems()
+                        MaterialRegistry.getAllItems()
                                 .forEach(holder -> output.accept(new ItemStack(holder.get())));
                         addFlaskVariants(output::accept);
                         addAll(NVItems.ITEMS, output::accept);
@@ -165,7 +166,7 @@ public class NVTabs {
     @SafeVarargs
     private static void addCombinationFlask(Consumer<ItemStack> tab, Holder<MobEffect>... effects) {
         ItemStack flask = new ItemStack(NVItems.ALCHEMY_FLASK.get());
-        List<EffectHolder> holders = new java.util.ArrayList<>();
+        List<EffectHolder> holders = new ArrayList<>();
         for (Holder<MobEffect> effect : effects) {
             holders.add(EffectHolder.create(effect, 3600, 0));
         }

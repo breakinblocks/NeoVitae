@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.common.item.dungeon;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -29,10 +30,10 @@ public class ItemDungeonTester extends Item {
             BlockPos[] result = dungeon.generateInitialRoom(initialType, serverLevel.random, serverLevel, targetPos);
 
             if (result != null && result.length > 0) {
-                player.displayClientMessage(net.minecraft.network.chat.Component.literal(
+                player.displayClientMessage(Component.literal(
                         "Generated dungeon room at " + targetPos.toShortString()), false);
             } else {
-                player.displayClientMessage(net.minecraft.network.chat.Component.literal(
+                player.displayClientMessage(Component.literal(
                         "Failed to generate dungeon room"), false);
             }
         }

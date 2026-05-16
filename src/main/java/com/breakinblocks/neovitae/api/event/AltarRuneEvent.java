@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.bus.api.Event;
+import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 import com.breakinblocks.neovitae.api.altar.IAraVitae;
 import com.breakinblocks.neovitae.api.altar.rune.AltarRuneModifiers;
 import com.breakinblocks.neovitae.api.altar.rune.IAltarRuneType;
@@ -272,7 +273,7 @@ public abstract class AltarRuneEvent extends Event {
          */
         public List<RuneInstance> getRuneInstancesByType(IAltarRuneType runeType) {
             List<RuneInstance> result = new ArrayList<>();
-            var registry = com.breakinblocks.neovitae.api.NeoVitaeAPI.getInstance().getRuneRegistry();
+            var registry = NeoVitaeAPI.getInstance().getRuneRegistry();
             for (RuneInstance instance : runeInstances) {
                 Map<IAltarRuneType, Integer> blockRunes = registry.getRunesForBlock(instance.block());
                 if (blockRunes.containsKey(runeType)) {

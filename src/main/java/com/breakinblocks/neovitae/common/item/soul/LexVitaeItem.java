@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.item.soul;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -273,7 +274,7 @@ public class LexVitaeItem extends Item implements ISentientTool {
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
 
-        boolean topFace = context.getClickedFace() == net.minecraft.core.Direction.UP;
+        boolean topFace = context.getClickedFace() == Direction.UP;
         ItemAbility chosen = null;
         BlockState modified = null;
         for (ItemAbility ability : ABILITIES) {
@@ -300,8 +301,8 @@ public class LexVitaeItem extends Item implements ISentientTool {
         int half = radius == 1 ? 1 : 2;
         Level level = context.getLevel();
         BlockPos center = context.getClickedPos();
-        net.minecraft.core.Direction face = context.getClickedFace();
-        net.minecraft.core.Direction.Axis depth = face.getAxis();
+        Direction face = context.getClickedFace();
+        Direction.Axis depth = face.getAxis();
 
         for (int u = -half; u <= half; u++) {
             for (int v = -half; v <= half; v++) {

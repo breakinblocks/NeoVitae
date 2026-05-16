@@ -39,6 +39,36 @@ public class DivinationSigilEntry extends EntryProvider {
                 + "- Aim it at an [#](8B0000)Ara Vitae[#]() to reveal the altar's current tier, the volume of "
                 + "[#](4A0080)Essentia Vitae[#]() within, and its maximum capacity.");
 
+        this.page("activation_intro", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Sigil Activation");
+        this.pageText("Sigils fall into two schools of invocation:\n\n"
+                + "- [#](8B0000)Use-on-cast[#]() sigils such as the [#](8B0000)Water[#](), [#](8B0000)Lava[#](), "
+                + "[#](8B0000)Void[#](), and [#](8B0000)Blood Lamp Sigils[#]() perform a single act each time you "
+                + "invoke them, drawing a fixed measure of [#](4A0080)Essentia Vitae[#]() per use.\n\n"
+                + "- [#](8B0000)Toggleable[#]() sigils maintain a continuous effect while held active. They draw "
+                + "[#](4A0080)EV[#]() at a steady upkeep so long as their power flows.");
+
+        this.page("activation_toggle", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("To toggle a sigil on or off, hold [#](8B0000)Shift[#]() and right-click into open air. "
+                + "Aiming at a block or creature will perform that sigil's normal action instead, so the shift "
+                + "requirement protects against accidental toggles in the heat of work.\n\n"
+                + "An active toggleable sigil bears a faint enchantment shimmer, and its tooltip lists the "
+                + "[#](4A0080)EV[#]() it drains per interval. When your [#](8B0000)Anima[#]() runs dry, the "
+                + "sigil quietly deactivates until you refill and reignite it.");
+
+        this.page("activation_list", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("The toggleable sigils are:\n\n"
+                + "- [#](8B0000)Sigil of the Green Grove[#]()\n\n"
+                + "- [#](8B0000)Sigil of the Fast Miner[#]()\n\n"
+                + "- [#](8B0000)Sigil of Magnetism[#]()\n\n"
+                + "- [#](8B0000)Sigil of the Frozen Lake[#]()\n\n"
+                + "- [#](8B0000)Sigil of Suppression[#]()\n\n"
+                + "- [#](8B0000)Sigil of the Phantom Bridge[#]()");
+
         this.page("gui_editing", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Hold sneak and press [Use] to open a configuration interface. Here you may "

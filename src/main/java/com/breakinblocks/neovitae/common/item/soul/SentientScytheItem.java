@@ -14,6 +14,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import com.breakinblocks.neovitae.client.helper.ClientSpiritusTooltipHelper;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
@@ -121,15 +122,7 @@ public class SentientScytheItem extends Item implements ISentientTool {
         SpiritusType type = getCurrentType(stack);
         SpiritusTooltipHelper.appendSpiritusInfo(stack, getTooltipKey(), tooltip, flag);
         if (flag.hasShiftDown()) {
-            var localPlayer = net.minecraft.client.Minecraft.getInstance().player;
-            if (localPlayer != null) {
-                int level = getLevel(PlayerSpiritusHandler.getTotalSpiritus(type, localPlayer));
-                if (level >= 0) {
-                    double radius = AREA_RANGE[level];
-                    tooltip.accept(Component.translatable("tooltip.neovitae.spiritus.aoe_radius",
-                            String.format(Locale.ROOT, "%.1f", radius)).withStyle(ChatFormatting.GRAY));
-                }
-            }
+            ClientSpiritusTooltipHelper.appendAreaRadius(type, AREA_RANGE, tooltip);
         }
     }
 

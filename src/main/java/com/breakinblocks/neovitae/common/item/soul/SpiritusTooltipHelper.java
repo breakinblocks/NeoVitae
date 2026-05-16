@@ -1,11 +1,9 @@
 package com.breakinblocks.neovitae.common.item.soul;
 
+import com.breakinblocks.neovitae.client.helper.ClientSpiritusTooltipHelper;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
-import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -42,15 +40,7 @@ public final class SpiritusTooltipHelper {
             return;
         }
 
-        LocalPlayer localPlayer = Minecraft.getInstance().player;
-        int level = -1;
-        if (localPlayer != null) {
-            double pool = PlayerSpiritusHandler.getTotalSpiritus(type, localPlayer);
-            level = SentientToolHelper.getLevel(pool);
-            int displayLevel = Math.max(0, level + 1);
-            tooltip.accept(Component.translatable("tooltip.neovitae.spiritus.level",
-                    displayLevel, (int) pool).withStyle(ChatFormatting.GRAY));
-        }
+        int level = ClientSpiritusTooltipHelper.appendLevelLine(type, tooltip);
 
         double damageBonus = SentientToolHelper.getDamageBonus(stack);
         if (damageBonus > 0) {

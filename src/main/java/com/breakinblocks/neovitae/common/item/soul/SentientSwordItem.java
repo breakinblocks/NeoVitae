@@ -181,7 +181,7 @@ public class SentientSwordItem extends SwordItem implements ISentientTool {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.translatable("tooltip.neovitae." + getTooltipKey() + ".desc").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
-        SpiritusTooltipHelper.appendSpiritusInfo(stack, getTooltipKey(), tooltip);
+        SpiritusTooltipHelper.appendSpiritusInfo(stack, getTooltipKey(), tooltip, flag);
         super.appendHoverText(stack, context, tooltip, flag);
     }
 

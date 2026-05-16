@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import com.breakinblocks.neovitae.ritual.RitualLayouts;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -138,7 +139,7 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
 
             for (Ritual ritual : RitualRegistry.getAllRituals()) {
                 if (tile.checkStructure(ritual)) {
-                    int componentCount = countRitualComponents(ritual);
+                    int componentCount = countRitualComponents(level, ritual);
                     if (componentCount > bestMatchSize) {
                         bestMatchSize = componentCount;
                         bestMatch = ritual;
@@ -213,9 +214,7 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
         super.appendHoverText(stack, context, tooltip, flag);
     }
 
-    private int countRitualComponents(Ritual ritual) {
-        net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
-        net.minecraft.world.level.Level level = mc != null ? mc.level : null;
-        return com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual).size();
+    private int countRitualComponents(Level level, Ritual ritual) {
+        return RitualLayouts.get(level, ritual).size();
     }
 }

@@ -386,7 +386,7 @@ public class LexVitaeItem extends Item implements ISentientTool {
         int r = stack.getOrDefault(NVDataComponents.LEX_RADIUS, 0);
         int side = r == 0 ? 1 : (r == 1 ? 3 : 5);
         tooltip.add(Component.translatable("tooltip.neovitae.lexVitae.radius", side, side).withStyle(ChatFormatting.GRAY));
-        SpiritusTooltipHelper.appendSpiritusInfo(stack, getTooltipKey(), tooltip);
+        SpiritusTooltipHelper.appendSpiritusInfo(stack, getTooltipKey(), tooltip, flag);
         super.appendHoverText(stack, context, tooltip, flag);
     }
 

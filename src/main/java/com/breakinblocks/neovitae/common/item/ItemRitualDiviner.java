@@ -2,7 +2,6 @@ package com.breakinblocks.neovitae.common.item;
 
 import com.google.common.collect.Lists;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -33,6 +32,8 @@ import net.neoforged.api.distmarker.OnlyIn;
 import org.apache.commons.lang3.StringUtils;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.ClientHandler;
+import com.breakinblocks.neovitae.client.helper.ClientLevelAccess;
+import com.breakinblocks.neovitae.ritual.RitualLayouts;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockRitualStone;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
@@ -212,7 +213,7 @@ public class ItemRitualDiviner extends Item {
         if (ritual == null) return false;
 
         Direction direction = getDirection(stack);
-        List<RitualComponent> components = com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual);
+        List<RitualComponent> components = RitualLayouts.get(level, ritual);
 
         for (RitualComponent component : components) {
             if (!canPlaceRitualStone(component.runeType(), stack)) {
@@ -357,7 +358,7 @@ public class ItemRitualDiviner extends Item {
     }
 
     private boolean canDivinerBuildRitual(ItemStack stack, Ritual ritual, Level level) {
-        List<RitualComponent> components = com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual);
+        List<RitualComponent> components = RitualLayouts.get(level, ritual);
         for (RitualComponent component : components) {
             if (!canPlaceRitualStone(component.runeType(), stack)) {
                 return false;
@@ -396,8 +397,8 @@ public class ItemRitualDiviner extends Item {
             tooltip.add(Component.translatable(TOOLTIP_BASE + "currentRitual",
                     Component.translatable(ritual.getTranslationKey())).withStyle(ChatFormatting.GRAY));
 
-            boolean sneaking = Screen.hasShiftDown();
-            boolean extraInfo = sneaking && Screen.hasAltDown();
+            boolean sneaking = flag.hasShiftDown();
+            boolean extraInfo = sneaking && flag.hasAltDown();
 
             if (extraInfo) {
                 tooltip.add(Component.empty());
@@ -437,9 +438,7 @@ public class ItemRitualDiviner extends Item {
 
     private Map<EnumRuneType, Integer> countRunes(Ritual ritual) {
         Map<EnumRuneType, Integer> counts = new EnumMap<>(EnumRuneType.class);
-        net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
-        net.minecraft.world.level.Level level = mc != null ? mc.level : null;
-        List<RitualComponent> components = com.breakinblocks.neovitae.ritual.RitualLayouts.get(level, ritual);
+        List<RitualComponent> components = RitualLayouts.get(ClientLevelAccess.currentLevel(), ritual);
         for (RitualComponent component : components) {
             counts.merge(component.runeType(), 1, Integer::sum);
         }

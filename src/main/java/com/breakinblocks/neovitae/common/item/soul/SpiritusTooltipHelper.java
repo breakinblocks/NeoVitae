@@ -1,16 +1,14 @@
 package com.breakinblocks.neovitae.common.item.soul;
 
+import com.breakinblocks.neovitae.client.helper.ClientSpiritusTooltipHelper;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
-import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +27,7 @@ public final class SpiritusTooltipHelper {
         };
     }
 
-    public static void appendSpiritusInfo(ItemStack stack, String tooltipKey, List<Component> tooltip) {
+    public static void appendSpiritusInfo(ItemStack stack, String tooltipKey, List<Component> tooltip, TooltipFlag flag) {
         SpiritusType type = stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW);
         Style typeStyle = Style.EMPTY.withColor(spiritusColor(type));
         String typeKey = type.name().toLowerCase(Locale.ROOT);
@@ -37,20 +35,12 @@ public final class SpiritusTooltipHelper {
         Component coloredName = Component.translatable("tooltip.neovitae.spiritus." + typeKey).withStyle(typeStyle);
         tooltip.add(Component.translatable("tooltip.neovitae.spiritus.type", coloredName).withStyle(ChatFormatting.GRAY));
 
-        if (!Screen.hasShiftDown()) {
+        if (!flag.hasShiftDown()) {
             tooltip.add(Component.translatable("tooltip.neovitae.spiritus.hold_shift").withStyle(ChatFormatting.DARK_GRAY));
             return;
         }
 
-        LocalPlayer localPlayer = Minecraft.getInstance().player;
-        int level = -1;
-        if (localPlayer != null) {
-            double pool = PlayerSpiritusHandler.getTotalSpiritus(type, localPlayer);
-            level = SentientToolHelper.getLevel(pool);
-            int displayLevel = Math.max(0, level + 1);
-            tooltip.add(Component.translatable("tooltip.neovitae.spiritus.level",
-                    displayLevel, (int) pool).withStyle(ChatFormatting.GRAY));
-        }
+        int level = ClientSpiritusTooltipHelper.appendLevelLine(type, tooltip);
 
         double damageBonus = SentientToolHelper.getDamageBonus(stack);
         if (damageBonus > 0) {

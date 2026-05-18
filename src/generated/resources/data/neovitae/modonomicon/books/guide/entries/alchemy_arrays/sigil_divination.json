@@ -49,6 +49,39 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_arrays.sigil_divination.activation_intro.text",
+      "title": "book.neovitae.guide.alchemy_arrays.sigil_divination.activation_intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_arrays.sigil_divination.activation_toggle.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_arrays.sigil_divination.activation_list.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
       "text": "book.neovitae.guide.alchemy_arrays.sigil_divination.gui_editing.text",
       "title": "",
       "use_markdown_in_title": false

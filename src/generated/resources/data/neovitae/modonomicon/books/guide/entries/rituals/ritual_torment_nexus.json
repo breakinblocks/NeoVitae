@@ -9,7 +9,7 @@
   "description": "book.neovitae.guide.rituals.ritual_torment_nexus.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:spawner"
+    "id": "minecraft:spawner"
   },
   "name": "book.neovitae.guide.rituals.ritual_torment_nexus.name",
   "pages": [

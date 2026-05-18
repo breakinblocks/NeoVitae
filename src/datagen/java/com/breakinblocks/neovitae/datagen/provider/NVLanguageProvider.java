@@ -951,6 +951,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Sigil activated/deactivated states
         addTooltip("activated", "Activated");
         addTooltip("deactivated", "Deactivated");
+        addTooltip("sigil.upkeep", "Upkeep: %s EV / %ss");
 
         // Sigil holding
         addTooltip("sigil.holding.sigilInSlot", "Slot %s: %s");

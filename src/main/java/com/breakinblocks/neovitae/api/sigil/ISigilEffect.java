@@ -4,12 +4,14 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.UUID;
 import java.util.function.Supplier;
 
 /**
@@ -118,5 +120,16 @@ public interface ISigilEffect {
      */
     default boolean isToggleable() {
         return false;
+    }
+
+    /**
+     * Called once per registered SigilType when a player logs out.
+     * Override to clear any per-player static state held by the effect
+     * (e.g. cached ongoing operations, pending fall lists, spectator tracking).
+     *
+     * @param playerId the UUID of the player that just logged out
+     * @param server   the server they logged out of
+     */
+    default void onPlayerLogout(UUID playerId, MinecraftServer server) {
     }
 }

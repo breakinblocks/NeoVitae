@@ -1,6 +1,6 @@
 package com.breakinblocks.neovitae.common.command;
 
-import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -18,15 +18,13 @@ import net.minecraft.core.registries.Registries;
 
 public class GenerateMaterialsCommand {
 
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(
-                Commands.literal("nvgenerate")
-                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
-                        .executes(GenerateMaterialsCommand::execute)
-        );
+    public static LiteralArgumentBuilder<CommandSourceStack> build() {
+        return Commands.literal("generate-materials")
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                .executes(GenerateMaterialsCommand::execute);
     }
 
-    private static int execute(CommandContext<CommandSourceStack> context) {
+    public static int execute(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
         ServerLevel level = source.getLevel();
 

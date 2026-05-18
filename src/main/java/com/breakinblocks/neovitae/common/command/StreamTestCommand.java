@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.common.command;
 
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.commands.CommandSourceStack;
@@ -35,14 +35,12 @@ public class StreamTestCommand {
     private static final SuggestionProvider<CommandSourceStack> SUGGEST_PRESETS =
             (context, builder) -> SharedSuggestionProvider.suggest(PRESET_NAMES, builder);
 
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(
-                Commands.literal("nvstream")
-                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
-                        .then(Commands.argument("preset", StringArgumentType.word())
-                                .suggests(SUGGEST_PRESETS)
-                                .executes(StreamTestCommand::execute))
-        );
+    public static LiteralArgumentBuilder<CommandSourceStack> build() {
+        return Commands.literal("stream")
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                .then(Commands.argument("preset", StringArgumentType.word())
+                        .suggests(SUGGEST_PRESETS)
+                        .executes(StreamTestCommand::execute));
     }
 
     private static int execute(CommandContext<CommandSourceStack> context) {

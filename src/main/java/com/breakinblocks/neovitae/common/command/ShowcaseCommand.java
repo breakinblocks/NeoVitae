@@ -16,7 +16,7 @@ import com.breakinblocks.neovitae.ritual.RitualComponent;
 import com.breakinblocks.neovitae.ritual.RitualLayouts;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
 import com.mojang.brigadier.Command;
-import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -56,15 +56,13 @@ public class ShowcaseCommand {
     private static final int IMPERFECT_CELL = 3;
     private static final int IMPERFECT_COLS = 12;
 
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(
-                Commands.literal("nv-showcase")
-                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
-                        .executes(ShowcaseCommand::placeShowcase)
-        );
+    public static LiteralArgumentBuilder<CommandSourceStack> build() {
+        return Commands.literal("showcase")
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                .executes(ShowcaseCommand::placeShowcase);
     }
 
-    static int placeShowcase(CommandContext<CommandSourceStack> context) {
+    public static int placeShowcase(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
         ServerLevel level = source.getLevel();
         BlockPos origin = BlockPos.containing(source.getPosition());

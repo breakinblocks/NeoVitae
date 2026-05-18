@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.common.command;
 
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -16,13 +16,11 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
 
 public class SetOrbFillCommand {
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(
-                Commands.literal("nvsetorbfill")
-                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
-                        .then(Commands.argument("amount", IntegerArgumentType.integer(0))
-                                .executes(SetOrbFillCommand::execute))
-        );
+    public static LiteralArgumentBuilder<CommandSourceStack> build() {
+        return Commands.literal("setorbfill")
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                .then(Commands.argument("amount", IntegerArgumentType.integer(0))
+                        .executes(SetOrbFillCommand::execute));
     }
 
     private static int execute(CommandContext<CommandSourceStack> context) {

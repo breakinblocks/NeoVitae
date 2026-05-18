@@ -14,6 +14,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.item.AraVitaeBlockItem;
 import com.breakinblocks.neovitae.common.item.block.BloodTankBlockItem;
 import com.breakinblocks.neovitae.common.item.block.ItemBlockTabulaVitae;
 import com.breakinblocks.neovitae.common.item.block.RuneBlockItem;
@@ -35,8 +36,9 @@ public class NVBlocks {
     private static BlockBehaviour.Properties defaultBlockProps() { return BlockBehaviour.Properties.of(); }
     private static Item.Properties defaultItemProps() { return new Item.Properties(); }
 
-    public static final BlockWithItemHolder<AraVitaeBlock, BlockItem> ARA_VITAE =
-            BLOCK_REG.register("ara_vitae", AraVitaeBlock::new, defaultBlockProps());
+    public static final BlockWithItemHolder<AraVitaeBlock, AraVitaeBlockItem> ARA_VITAE =
+            BLOCK_REG.register("ara_vitae", AraVitaeBlock::new, defaultBlockProps(),
+                    (block, itemProps) -> new AraVitaeBlockItem(block, itemProps));
     public static final BlockWithItemHolder<BloodTankBlock, BlockItem> BLOOD_TANK =
             BLOCK_REG.register("blood_tank", BloodTankBlock::new, defaultBlockProps(),
                     (block, itemProps) -> new BloodTankBlockItem(block, itemProps.component(NVDataComponents.CONTAINER_TIER, 1)));

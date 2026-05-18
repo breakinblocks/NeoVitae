@@ -45,7 +45,6 @@ import java.util.List;
 public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRenderer.State> {
 
     private static final Identifier RITUAL_TEXTURE = NeoVitae.rl("textures/particle/ritual.png");
-    private static final Identifier FLUID_FILL_TEXTURE = NeoVitae.rl("textures/models/alchemyarrays/basearray.png");
 
     private static final Identifier[] CAPSTONE_ARRAY_TEXTURES = {
             NeoVitae.rl("textures/models/alchemyarrays/basearray.png"),
@@ -82,6 +81,7 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile, AraVitaeRen
     public AraVitaeRenderer(BlockEntityRendererProvider.Context context) {
         super(context, new AraVitaeModel());
         this.itemModelResolver = context.itemModelResolver();
+        withRenderLayer(new AraVitaeRodGlowLayer(this));
     }
 
     public static class State extends BlockEntityRenderState {

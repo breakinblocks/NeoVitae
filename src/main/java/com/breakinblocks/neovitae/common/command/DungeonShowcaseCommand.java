@@ -2,7 +2,7 @@ package com.breakinblocks.neovitae.common.command;
 
 import com.breakinblocks.neovitae.NeoVitae;
 import com.mojang.brigadier.Command;
-import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -37,12 +37,10 @@ public class DungeonShowcaseCommand {
     private static final int PADDING = 5;
     private static final int COLUMNS = 6;
 
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(
-                Commands.literal("nv-dungeon-showcase")
-                        .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
-                        .executes(DungeonShowcaseCommand::placeShowcase)
-        );
+    public static LiteralArgumentBuilder<CommandSourceStack> build() {
+        return Commands.literal("dungeon-showcase")
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                .executes(DungeonShowcaseCommand::placeShowcase);
     }
 
     static int placeShowcase(CommandContext<CommandSourceStack> context) {

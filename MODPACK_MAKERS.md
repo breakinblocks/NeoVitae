@@ -23,6 +23,7 @@ This guide covers all the data-driven systems in Neo Vitae that modpack makers c
 11. [Custom Player Attributes](#custom-player-attributes)
 12. [Examples](#examples)
 13. [Developer Tools](#developer-tools)
+14. [Console Commands](#console-commands)
 
 ---
 
@@ -114,7 +115,7 @@ When a Blood Orb is placed in an Ara Vitae, the altar checks whether the orb's i
 
 This means players can pre-fill orbs with Essentia Vitae (for example, from fluid pipes or the Athanor) and then use those orbs to rapidly refill an altar or top off their network. The 10x transfer rate makes this significantly faster than normal altar filling.
 
-**Debug Command:** Use `/neovitae setorbfill <amount>` (or `/nvsetorbfill <amount>`) to manually set the fluid amount in a held Blood Orb for testing purposes. Requires operator permissions.
+**Debug Command:** Use `/neovitae setorbfill <amount>` to manually set the fluid amount in a held Blood Orb for testing purposes. Requires operator permissions.
 
 ---
 
@@ -1195,7 +1196,7 @@ All recipes use `neoforge:item_exists` conditions so they silently disable if th
 
 ### Auto-Discovery Command
 
-**`/nvgenerate`** (or `/neovitae generate`) - Requires op permissions.
+**`/neovitae generate-materials`** - Requires op permissions.
 
 Scans all `c:ores/*` tags from installed mods and:
 1. Discovers ore materials not already in the config
@@ -1268,6 +1269,47 @@ Before printing, the scanned `(offset, runeType)` set is compared against every 
 **Tooltip + state:**
 
 The item's tooltip lists the control scheme, highlights that OP is required, and shows the currently-stored `Corner 1` / `Corner 2` coordinates so devs can confirm a selection without committing. Corner positions are stored on `neovitae:ritual_corner1` / `neovitae:ritual_corner2` `BlockPos` data components on the stack itself, so different operators can keep independent selections by holding their own copies of the item.
+
+---
+
+## Console Commands
+
+All admin/debug functionality is exposed under the single `/neovitae` root. Every subcommand requires permission level 2 (operator / gamemaster). The legacy `/nv-*`, `/anima`, and `/sentient-upgrade` standalone entrypoints have been removed.
+
+| Command | What it does |
+|---------|--------------|
+| `/neovitae altar` | Places a max-tier Ara Vitae at the player's feet and fills the multiblock around it. Rune slots are filled in a fixed mix (10 efficiency, 19 acceleration, 9 speed, 15 augmented capacity, 22 dislocation, remainder sacrifice). |
+| `/neovitae anima-network <player> query` | Print the player's current Anima EV. |
+| `/neovitae anima-network <player> reset` | Set the player's Anima EV to 0. |
+| `/neovitae anima-network <player> set <amount>` | Set the player's Anima EV to an exact amount. |
+| `/neovitae anima-network <player> add <amount>` | Add EV to the player's Anima. |
+| `/neovitae aura get [type\|all]` | Show spiritus aura in the player's current chunk for one type or all. |
+| `/neovitae aura set <type\|all> <amount>` | Overwrite the aura amount for a type (clamped to per-chunk max). |
+| `/neovitae aura add <type\|all> <amount>` | Add/subtract from the aura amount (negative subtracts). |
+| `/neovitae aura clear` | Zero out every aspect in the current chunk. |
+| `/neovitae dungeon-showcase` | Place every registered dungeon structure NBT in a grid for visual review. |
+| `/neovitae generate-materials` | Scan all installed `c:ores/*` tags, auto-discover new ore materials, append them to `config/neovitae/materials.json`, and report what was added. Restart required to load new items. |
+| `/neovitae imperfect <pos> set <ritual_id>` | Place the required activation block above the imperfect ritual stone at `<pos>` and trigger the ritual. |
+| `/neovitae imperfect list` | List every registered imperfect ritual with its required catalyst block. |
+| `/neovitae ritual <pos> info` | Print the running ritual (if any), its tick, and current EV for the MRS at `<pos>`. |
+| `/neovitae ritual <pos> stop` | Force-stop the ritual at `<pos>` without consuming components. |
+| `/neovitae ritual <pos> set <ritual_id>` | Force a specific ritual onto the MRS at `<pos>` (skips activation cost). |
+| `/neovitae ritual <pos> cooldown <ticks>` | Override the current ritual's cooldown timer. |
+| `/neovitae ritual list` | Print every registered ritual id. |
+| `/neovitae routing rescan` | Rebuild the connection graph of the Master Routing Node you are looking at (or the nearest one within 16 blocks). Scans 32 blocks for nodes. |
+| `/neovitae setorbfill <amount>` | Set the internal fluid amount of the Blood Orb in your main hand (clamped to capacity). |
+| `/neovitae showcase` | Place a wall of every NeoVitae block, an item-frame wall of every NeoVitae item, every ritual layout, every imperfect ritual, and every altar tier in front of you. |
+| `/neovitae stream <preset>` | Fire one of the `StreamPresets` particle/visual presets from the player toward their look-target. Useful for debugging stream visuals. |
+| `/neovitae upgrade <player> upgrade set <id> <exp>` | Give a Sentient Armor upgrade to the player's chest piece with the given experience. |
+| `/neovitae upgrade <player> upgrade get [id]` | List upgrade XP on the player's chest piece (one upgrade or all). |
+| `/neovitae upgrade <player> limits set <id> <exp>` | Set a per-upgrade XP cap on the player. |
+| `/neovitae upgrade <player> limits get [id]` | Read the per-upgrade XP cap. |
+| `/neovitae upgrade <player> limits remove <id>` | Remove an upgrade's per-player cap. |
+| `/neovitae upgrade <player> limits mode {allow\|deny}` | Switch the per-player limits map between allow-list and deny-list semantics. |
+| `/neovitae upgrade <player> points recalc` | Recompute the player's available upgrade-point pool. |
+| `/neovitae upgrade <player> points set-cap <n>` | Override the player's upgrade-point cap. |
+| `/neovitae upgrade <player> points set-cap default` | Reset the cap to the server config's `DEFAULT_UPGRADE_POINTS`. |
+| `/neovitae upgrade <player> points set-cap evolved` | Set the cap to the server config's `EVOLUTION_UPGRADE_POINTS` (evolved-armor tier). |
 
 ---
 

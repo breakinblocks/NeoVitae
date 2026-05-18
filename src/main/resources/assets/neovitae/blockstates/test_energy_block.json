@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "neovitae:block/test_energy_block" }
+  }
+}

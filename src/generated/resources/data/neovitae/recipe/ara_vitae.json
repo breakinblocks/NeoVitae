@@ -9,7 +9,7 @@
       "tag": "c:ingots/gold"
     },
     "s": {
-      "tag": "c:stones"
+      "tag": "neovitae:vitae_stone"
     }
   },
   "pattern": [

@@ -2,7 +2,7 @@
   "type": "neovitae:meteor",
   "explosion": 30.0,
   "input": {
-    "tag": "c:stones"
+    "tag": "neovitae:vitae_stone"
   },
   "layers": [
     {

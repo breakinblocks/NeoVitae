@@ -12,7 +12,7 @@
       "tag": "c:storage_blocks/iron"
     },
     "s": {
-      "tag": "c:stones"
+      "tag": "neovitae:vitae_stone"
     }
   },
   "pattern": [

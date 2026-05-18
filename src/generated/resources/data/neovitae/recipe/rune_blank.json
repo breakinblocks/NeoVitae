@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "a": {
-      "tag": "c:stones"
+      "tag": "neovitae:vitae_stone"
     },
     "o": {
       "type": "neovitae:orb_tier",

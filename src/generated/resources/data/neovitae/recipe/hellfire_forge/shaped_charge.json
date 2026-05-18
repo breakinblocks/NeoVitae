@@ -12,7 +12,7 @@
       "tag": "c:sands"
     },
     {
-      "tag": "c:stones"
+      "tag": "neovitae:vitae_stone"
     }
   ],
   "minDrain": 10.0,

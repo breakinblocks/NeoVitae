@@ -22,6 +22,16 @@ public class NVItemTagProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         copy(NVTags.Blocks.STORAGE_BLOCKS_HELLFORGED, NVTags.Items.STORAGE_BLOCKS_HELLFORGED);
 
+        tag(NVTags.Items.VITAE_STONE)
+                .add(Items.DEEPSLATE);
+
+        tag(NVTags.Items.SPIRITUS_GEM)
+                .add(NVItems.SPIRITUS_GEM_PETTY.get())
+                .add(NVItems.SPIRITUS_GEM_LESSER.get())
+                .add(NVItems.SPIRITUS_GEM_COMMON.get())
+                .add(NVItems.SPIRITUS_GEM_GREATER.get())
+                .add(NVItems.SPIRITUS_GEM_GRAND.get());
+
         tag(NVTags.Items.SENTIENT_SET)
                 .add(NVItems.SENTIENT_HELMET.get(), NVItems.SENTIENT_PLATE.get(), NVItems.SENTIENT_LEGGINGS.get(), NVItems.SENTIENT_BOOTS.get());
 

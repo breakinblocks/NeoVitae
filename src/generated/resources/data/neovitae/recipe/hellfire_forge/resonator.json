@@ -3,7 +3,7 @@
   "drain": 100.0,
   "inputs": [
     {
-      "tag": "c:stones"
+      "tag": "neovitae:vitae_stone"
     },
     {
       "tag": "c:ingots/copper"

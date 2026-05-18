@@ -287,7 +287,9 @@ public class MaterialRegistry {
 
         JsonObject input = new JsonObject();
         input.addProperty("tag", inputTag);
-        recipe.add("input", input);
+        JsonArray inputs = new JsonArray();
+        inputs.add(input);
+        recipe.add("inputs", inputs);
 
         JsonObject tool = new JsonObject();
         tool.addProperty("tag", toolTag);

@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.common.command;
 
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -13,36 +13,34 @@ import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 
 public class AnimaCommand {
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(
-                Commands.literal("anima")
-                        .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
-                        .then(
-                                Commands.argument("target", EntityArgument.player())
-                                        .then(
-                                                Commands.literal("query")
-                                                        .executes(context -> showNetwork(context, EntityArgument.getPlayer(context, "target")))
-                                        )
-                                        .then(
-                                                Commands.literal("reset")
-                                                        .executes(context -> setNetwork(context, EntityArgument.getPlayer(context, "target"), 0))
-                                        )
-                                        .then(
-                                                Commands.literal("set")
-                                                        .then(
-                                                                Commands.argument("amount", IntegerArgumentType.integer(0, Integer.MAX_VALUE))
-                                                                        .executes(context -> setNetwork(context, EntityArgument.getPlayer(context, "target"), IntegerArgumentType.getInteger(context, "amount")))
-                                                        )
-                                        )
-                                        .then(
-                                                Commands.literal("add")
-                                                        .then(
-                                                                Commands.argument("amount", IntegerArgumentType.integer(0, Integer.MAX_VALUE))
-                                                                        .executes(context -> addNetwork(context, EntityArgument.getPlayer(context, "target"), IntegerArgumentType.getInteger(context, "amount")))
-                                                        )
-                                        )
-                        )
-        );
+    public static LiteralArgumentBuilder<CommandSourceStack> build() {
+        return Commands.literal("anima-network")
+                .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                .then(
+                        Commands.argument("target", EntityArgument.player())
+                                .then(
+                                        Commands.literal("query")
+                                                .executes(context -> showNetwork(context, EntityArgument.getPlayer(context, "target")))
+                                )
+                                .then(
+                                        Commands.literal("reset")
+                                                .executes(context -> setNetwork(context, EntityArgument.getPlayer(context, "target"), 0))
+                                )
+                                .then(
+                                        Commands.literal("set")
+                                                .then(
+                                                        Commands.argument("amount", IntegerArgumentType.integer(0, Integer.MAX_VALUE))
+                                                                .executes(context -> setNetwork(context, EntityArgument.getPlayer(context, "target"), IntegerArgumentType.getInteger(context, "amount")))
+                                                )
+                                )
+                                .then(
+                                        Commands.literal("add")
+                                                .then(
+                                                        Commands.argument("amount", IntegerArgumentType.integer(0, Integer.MAX_VALUE))
+                                                                .executes(context -> addNetwork(context, EntityArgument.getPlayer(context, "target"), IntegerArgumentType.getInteger(context, "amount")))
+                                                )
+                                )
+                );
     }
 
     private static int setNetwork(CommandContext<CommandSourceStack> context, ServerPlayer target, int amount) {

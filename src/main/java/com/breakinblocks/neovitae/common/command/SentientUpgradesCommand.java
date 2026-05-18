@@ -1,8 +1,8 @@
 package com.breakinblocks.neovitae.common.command;
 
 import com.mojang.brigadier.Command;
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
@@ -33,9 +33,8 @@ import java.util.Optional;
 public class SentientUpgradesCommand {
     private static final DynamicCommandExceptionType ERROR_NO_SENTIENT_HOLDER = new DynamicCommandExceptionType(playername -> Component.translatable("command.neovitae.upgrade.no_armour", playername));
 
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext buildContext) {
-        dispatcher.register(
-                Commands.literal("sentient-upgrade")
+    public static LiteralArgumentBuilder<CommandSourceStack> build(CommandBuildContext buildContext) {
+        return Commands.literal("upgrade")
                         .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
                         .then(
                                 Commands.argument("target", EntityArgument.player())
@@ -133,8 +132,7 @@ public class SentientUpgradesCommand {
                                                                         )
                                                         )
                                         )
-                        )
-        );
+                        );
     }
 
     private static int setMode(CommandSourceStack source, ServerPlayer target, boolean mode) throws CommandSyntaxException {

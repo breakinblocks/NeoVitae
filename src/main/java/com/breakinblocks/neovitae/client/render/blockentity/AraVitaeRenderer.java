@@ -41,6 +41,7 @@ public class AraVitaeRenderer extends GeoBlockRenderer<AraVitaeTile> {
 
     public AraVitaeRenderer(BlockEntityRendererProvider.Context context) {
         super(new AraVitaeModel());
+        addRenderLayer(new AraVitaeRodGlowLayer(this));
     }
 
     @Override

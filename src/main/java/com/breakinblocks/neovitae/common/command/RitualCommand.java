@@ -1,8 +1,8 @@
 package com.breakinblocks.neovitae.common.command;
 
 import com.mojang.brigadier.Command;
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
@@ -44,41 +44,39 @@ public class RitualCommand {
         return SharedSuggestionProvider.suggestResource(RitualRegistry.getRegisteredRituals(), builder);
     };
 
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(
-                Commands.literal("nv-ritual")
-                        .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
-                        .then(
-                                Commands.argument("pos", BlockPosArgument.blockPos())
-                                        .then(
-                                                Commands.literal("info")
-                                                        .executes(RitualCommand::showInfo)
-                                        )
-                                        .then(
-                                                Commands.literal("stop")
-                                                        .executes(RitualCommand::stopRitual)
-                                        )
-                                        .then(
-                                                Commands.literal("set")
-                                                        .then(
-                                                                Commands.argument("ritual", ResourceLocationArgument.id())
-                                                                        .suggests(RITUAL_SUGGESTIONS)
-                                                                        .executes(RitualCommand::setRitual)
-                                                        )
-                                        )
-                                        .then(
-                                                Commands.literal("cooldown")
-                                                        .then(
-                                                                Commands.argument("ticks", IntegerArgumentType.integer(0))
-                                                                        .executes(RitualCommand::setCooldown)
-                                                        )
-                                        )
-                        )
-                        .then(
-                                Commands.literal("list")
-                                        .executes(RitualCommand::listRituals)
-                        )
-        );
+    public static LiteralArgumentBuilder<CommandSourceStack> build() {
+        return Commands.literal("ritual")
+                .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                .then(
+                        Commands.argument("pos", BlockPosArgument.blockPos())
+                                .then(
+                                        Commands.literal("info")
+                                                .executes(RitualCommand::showInfo)
+                                )
+                                .then(
+                                        Commands.literal("stop")
+                                                .executes(RitualCommand::stopRitual)
+                                )
+                                .then(
+                                        Commands.literal("set")
+                                                .then(
+                                                        Commands.argument("ritual", ResourceLocationArgument.id())
+                                                                .suggests(RITUAL_SUGGESTIONS)
+                                                                .executes(RitualCommand::setRitual)
+                                                )
+                                )
+                                .then(
+                                        Commands.literal("cooldown")
+                                                .then(
+                                                        Commands.argument("ticks", IntegerArgumentType.integer(0))
+                                                                .executes(RitualCommand::setCooldown)
+                                                )
+                                )
+                )
+                .then(
+                        Commands.literal("list")
+                                .executes(RitualCommand::listRituals)
+                );
     }
 
     private static MasterRitualStoneBlockEntity getMRS(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {

@@ -1,8 +1,8 @@
 package com.breakinblocks.neovitae.common.command;
 
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.commands.CommandSourceStack;
@@ -47,50 +47,48 @@ public class AuraCommand {
         return SharedSuggestionProvider.suggest(Stream.of(types, Stream.of("raw", "all")).flatMap(s -> s), builder);
     };
 
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(
-                Commands.literal("nv-aura")
-                        .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
-                        .then(
-                                Commands.literal("get")
-                                        .executes(AuraCommand::getAllWill)
-                                        .then(
-                                                Commands.argument("type", StringArgumentType.word())
-                                                        .suggests(WILL_TYPE_ONLY_SUGGESTIONS)
-                                                        .executes(context -> getSpiritus(context, StringArgumentType.getString(context, "type")))
-                                        )
-                        )
-                        .then(
-                                Commands.literal("set")
-                                        .then(
-                                                Commands.argument("type", StringArgumentType.word())
-                                                        .suggests(SPIRITUS_TYPE_SUGGESTIONS)
-                                                        .then(
-                                                                Commands.argument("amount", DoubleArgumentType.doubleArg(0, COMMAND_MAX))
-                                                                        .executes(context -> setSpiritus(context,
-                                                                                StringArgumentType.getString(context, "type"),
-                                                                                DoubleArgumentType.getDouble(context, "amount")))
-                                                        )
-                                        )
-                        )
-                        .then(
-                                Commands.literal("add")
-                                        .then(
-                                                Commands.argument("type", StringArgumentType.word())
-                                                        .suggests(SPIRITUS_TYPE_SUGGESTIONS)
-                                                        .then(
-                                                                Commands.argument("amount", DoubleArgumentType.doubleArg(-COMMAND_MAX, COMMAND_MAX))
-                                                                        .executes(context -> addSpiritus(context,
-                                                                                StringArgumentType.getString(context, "type"),
-                                                                                DoubleArgumentType.getDouble(context, "amount")))
-                                                        )
-                                        )
-                        )
-                        .then(
-                                Commands.literal("clear")
-                                        .executes(AuraCommand::clearWill)
-                        )
-        );
+    public static LiteralArgumentBuilder<CommandSourceStack> build() {
+        return Commands.literal("aura")
+                .requires(source -> source.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                .then(
+                        Commands.literal("get")
+                                .executes(AuraCommand::getAllWill)
+                                .then(
+                                        Commands.argument("type", StringArgumentType.word())
+                                                .suggests(WILL_TYPE_ONLY_SUGGESTIONS)
+                                                .executes(context -> getSpiritus(context, StringArgumentType.getString(context, "type")))
+                                )
+                )
+                .then(
+                        Commands.literal("set")
+                                .then(
+                                        Commands.argument("type", StringArgumentType.word())
+                                                .suggests(SPIRITUS_TYPE_SUGGESTIONS)
+                                                .then(
+                                                        Commands.argument("amount", DoubleArgumentType.doubleArg(0, COMMAND_MAX))
+                                                                .executes(context -> setSpiritus(context,
+                                                                        StringArgumentType.getString(context, "type"),
+                                                                        DoubleArgumentType.getDouble(context, "amount")))
+                                                )
+                                )
+                )
+                .then(
+                        Commands.literal("add")
+                                .then(
+                                        Commands.argument("type", StringArgumentType.word())
+                                                .suggests(SPIRITUS_TYPE_SUGGESTIONS)
+                                                .then(
+                                                        Commands.argument("amount", DoubleArgumentType.doubleArg(-COMMAND_MAX, COMMAND_MAX))
+                                                                .executes(context -> addSpiritus(context,
+                                                                        StringArgumentType.getString(context, "type"),
+                                                                        DoubleArgumentType.getDouble(context, "amount")))
+                                                )
+                                )
+                )
+                .then(
+                        Commands.literal("clear")
+                                .executes(AuraCommand::clearWill)
+                );
     }
 
     private static int getAllWill(CommandContext<CommandSourceStack> context) {

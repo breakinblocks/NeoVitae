@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "a": "#c:stones",
+    "a": "#neovitae:vitae_stone",
     "o": {
       "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 1

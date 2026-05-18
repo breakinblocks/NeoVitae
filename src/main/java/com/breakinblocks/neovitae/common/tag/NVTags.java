@@ -22,6 +22,8 @@ public class NVTags {
         public static final TagKey<Item> SPIRITUS_CRYSTALS = tag(bm("crystals/demon"));
         public static final TagKey<Item> SENTIENT_ARMOR_REPAIR = tag(bm("sentient_armor_repair"));
 
+        public static final TagKey<Item> VITAE_STONE = tag(bm("vitae_stone"));
+
         public static final TagKey<Item> STORAGE_BLOCKS_HELLFORGED = fromBlock(Blocks.STORAGE_BLOCKS_HELLFORGED);
 
         public static final TagKey<Item> ATHANOR_TOOL = tag(bm("athanor_tool"));

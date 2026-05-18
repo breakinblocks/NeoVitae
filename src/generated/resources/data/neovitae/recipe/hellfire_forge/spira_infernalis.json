@@ -3,7 +3,7 @@
   "drain": 50.0,
   "inputs": [
     "#neovitae:crystals/demon",
-    "#c:stones",
+    "#neovitae:vitae_stone",
     "#c:gems/lapis",
     "#c:storage_blocks/iron"
   ],

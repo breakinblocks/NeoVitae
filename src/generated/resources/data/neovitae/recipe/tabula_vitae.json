@@ -5,7 +5,7 @@
     "b": "#c:ingots/iron",
     "g": "#c:ingots/gold",
     "o": "neovitae:tabula_rasa",
-    "s": "#c:stones",
+    "s": "#neovitae:vitae_stone",
     "w": "#minecraft:planks"
   },
   "pattern": [

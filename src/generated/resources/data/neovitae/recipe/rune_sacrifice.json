@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "a": "#c:stones",
+    "a": "#neovitae:vitae_stone",
     "b": "neovitae:tabula_robur",
     "c": "#c:ingots/gold",
     "d": "neovitae:rune_blank",

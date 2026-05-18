@@ -3,7 +3,7 @@
   "drain": 30.0,
   "inputs": [
     "minecraft:shears",
-    "#c:stones",
+    "#neovitae:vitae_stone",
     "neovitae:tabula_animata",
     "#c:ingots/iron"
   ],

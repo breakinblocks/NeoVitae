@@ -4,7 +4,7 @@
   "key": {
     "f": "minecraft:furnace",
     "g": "#c:ingots/gold",
-    "s": "#c:stones"
+    "s": "#neovitae:vitae_stone"
   },
   "pattern": [
     "s s",

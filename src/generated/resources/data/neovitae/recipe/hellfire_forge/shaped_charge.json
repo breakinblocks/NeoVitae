@@ -5,7 +5,7 @@
     "#c:cobblestones",
     "minecraft:charcoal",
     "#c:sands",
-    "#c:stones"
+    "#neovitae:vitae_stone"
   ],
   "minDrain": 10.0,
   "output": {

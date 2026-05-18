@@ -5,7 +5,7 @@
     "#c:storage_blocks/copper",
     "minecraft:charcoal",
     "#c:sands",
-    "#c:stones"
+    "#neovitae:vitae_stone"
   ],
   "minDrain": 80.0,
   "output": {

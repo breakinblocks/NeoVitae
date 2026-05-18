@@ -2,7 +2,7 @@
   "type": "neovitae:hellfire_forge",
   "drain": 100.0,
   "inputs": [
-    "#c:stones",
+    "#neovitae:vitae_stone",
     "#c:ingots/copper",
     "neovitae:raw_crystal_shard"
   ],

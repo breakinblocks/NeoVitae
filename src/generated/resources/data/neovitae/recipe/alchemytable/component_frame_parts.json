@@ -2,7 +2,7 @@
   "type": "neovitae:alchemytable",
   "input": [
     "#c:glass_blocks",
-    "#c:stones",
+    "#neovitae:vitae_stone",
     "neovitae:tabula_rasa"
   ],
   "output": {

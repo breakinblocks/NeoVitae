@@ -2,8 +2,8 @@
   "type": "neovitae:hellfire_forge",
   "drain": 5.0,
   "inputs": [
-    "#c:stones",
-    "#c:stones",
+    "#neovitae:vitae_stone",
+    "#neovitae:vitae_stone",
     "#c:ingots/iron",
     "#c:dusts/redstone"
   ],

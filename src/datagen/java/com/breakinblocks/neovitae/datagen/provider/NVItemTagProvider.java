@@ -33,6 +33,9 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(NVTags.Items.SENTIENT_ARMOR_REPAIR)
                 .add(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get());
 
+        tag(NVTags.Items.VITAE_STONE)
+                .add(Items.DEEPSLATE);
+
         tag(NVTags.Items.SENTIENT_UPGRADE_SET)
                 .addTag(NVTags.Items.SENTIENT_SET);
 

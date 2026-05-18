@@ -3,7 +3,7 @@
   "drain": 100.0,
   "inputs": [
     "neovitae:hellfire_forge",
-    "#c:stones",
+    "#neovitae:vitae_stone",
     "#c:gems/lapis",
     "#c:glass_blocks"
   ],

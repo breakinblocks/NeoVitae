@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "b": "neovitae:weak_blood_shard",
-    "s": "#c:stones"
+    "s": "#neovitae:vitae_stone"
   },
   "pattern": [
     "ss",

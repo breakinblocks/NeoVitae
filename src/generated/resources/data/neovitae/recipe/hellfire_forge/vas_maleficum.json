@@ -3,7 +3,7 @@
   "drain": 100.0,
   "inputs": [
     "minecraft:cauldron",
-    "#c:stones",
+    "#neovitae:vitae_stone",
     "#c:gems/lapis",
     "#c:gems/diamond"
   ],

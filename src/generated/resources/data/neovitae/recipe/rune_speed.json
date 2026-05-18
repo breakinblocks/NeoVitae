@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "a": "#c:stones",
+    "a": "#neovitae:vitae_stone",
     "b": "neovitae:tabula_rasa",
     "c": "minecraft:sugar",
     "d": "neovitae:rune_blank"

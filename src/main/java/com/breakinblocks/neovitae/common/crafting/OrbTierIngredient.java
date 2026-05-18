@@ -25,8 +25,19 @@ import net.minecraft.world.item.Item;
  * to add custom orbs to any tier.
  */
 public class OrbTierIngredient implements ICustomIngredient {
-    @Override public java.util.stream.Stream<Holder<Item>> items() { return java.util.stream.Stream.empty(); }
 
+    @Override
+    public Stream<Holder<Item>> items() {
+        List<Holder<Item>> matching = new ArrayList<>();
+        for (Item item : BuiltInRegistries.ITEM) {
+            Holder<Item> holder = BuiltInRegistries.ITEM.wrapAsHolder(item);
+            BloodOrb orb = holder.getData(NVDataMaps.BLOOD_ORB_STATS);
+            if (orb != null && orb.tier() >= minimumTier) {
+                matching.add(holder);
+            }
+        }
+        return matching.stream();
+    }
 
     private final int minimumTier;
 

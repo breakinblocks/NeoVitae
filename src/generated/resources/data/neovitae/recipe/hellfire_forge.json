@@ -5,7 +5,7 @@
     "S": "neovitae:tabula_rasa",
     "i": "#c:ingots/iron",
     "o": "#c:storage_blocks/iron",
-    "s": "#c:stones"
+    "s": "#neovitae:vitae_stone"
   },
   "pattern": [
     "i i",

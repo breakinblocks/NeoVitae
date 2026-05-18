@@ -9,7 +9,7 @@
       "neoforge:ingredient_type": "neovitae:orb_tier",
       "tier": 3
     },
-    "s": "#c:stones"
+    "s": "#neovitae:vitae_stone"
   },
   "pattern": [
     "sss",

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "a": "#c:stones",
+    "a": "#neovitae:vitae_stone",
     "b": "minecraft:water_bucket",
     "c": "neovitae:rune_blank",
     "d": "neovitae:tabula_animata"

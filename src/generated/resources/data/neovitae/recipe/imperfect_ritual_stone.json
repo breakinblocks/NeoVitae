@@ -4,7 +4,7 @@
   "key": {
     "c": "neovitae:blood_orb_weak",
     "o": "#c:obsidians",
-    "s": "#c:stones"
+    "s": "#neovitae:vitae_stone"
   },
   "pattern": [
     "oso",

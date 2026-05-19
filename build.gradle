@@ -181,6 +181,10 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
 sourceSets.main.resources.srcDir generateModMetadata
 neoForge.ideSyncTask generateModMetadata
 
+tasks.named('test', Test) {
+    failOnNoDiscoveredTests = false
+}
+
 publishing {
     publications {
         register('mavenJava', MavenPublication) {

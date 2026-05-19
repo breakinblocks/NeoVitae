@@ -113,28 +113,8 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(NVTags.Items.LINGERING_FLASK)
                 .add(NVItems.ALCHEMY_FLASK_LINGERING.get());
 
-        // Processing item tags
-        tag(NVTags.Items.FRAGMENTS_IRON).add(NVItems.IRON_FRAGMENT.get());
-        tag(NVTags.Items.FRAGMENTS_GOLD).add(NVItems.GOLD_FRAGMENT.get());
-        tag(NVTags.Items.FRAGMENTS_COPPER).add(NVItems.COPPER_FRAGMENT.get());
-        tag(NVTags.Items.FRAGMENTS_NETHERITE_SCRAP).add(NVItems.NETHERITE_SCRAP_FRAGMENT.get());
-        tag(NVTags.Items.FRAGMENTS_HELLFORGED).add(NVItems.DEMONITE_FRAGMENT.get());
-
-        tag(NVTags.Items.GRAVELS_IRON).add(NVItems.IRON_GRAVEL.get());
-        tag(NVTags.Items.GRAVELS_GOLD).add(NVItems.GOLD_GRAVEL.get());
-        tag(NVTags.Items.GRAVELS_COPPER).add(NVItems.COPPER_GRAVEL.get());
-        tag(NVTags.Items.GRAVELS_NETHERITE_SCRAP).add(NVItems.NETHERITE_SCRAP_GRAVEL.get());
-        tag(NVTags.Items.GRAVELS_HELLFORGED).add(NVItems.DEMONITE_GRAVEL.get());
-
-        // Dust tags (sands)
-        tag(NVTags.Items.DUSTS_IRON).add(NVItems.IRON_DUST.get());
-        tag(NVTags.Items.DUSTS_GOLD).add(NVItems.GOLD_DUST.get());
-        tag(NVTags.Items.DUSTS_COPPER).add(NVItems.COPPER_DUST.get());
-        tag(NVTags.Items.DUSTS_COAL).add(NVItems.COAL_DUST.get());
         tag(NVTags.Items.DUSTS_SULFUR).add(NVItems.SULFUR.get());
         tag(NVTags.Items.DUSTS_SALTPETER).add(NVItems.SALTPETER.get());
-        tag(NVTags.Items.DUSTS_NETHERITE_SCRAP).add(NVItems.NETHERITE_SCRAP_DUST.get());
-        tag(NVTags.Items.DUSTS_HELLFORGED).add(NVItems.HELLFORGED_DUST.get());
         tag(NVTags.Items.DUSTS_CORRUPTED).add(NVItems.CORRUPTED_DUST.get());
         tag(NVTags.Items.TINY_DUSTS_CORRUPTED).add(NVItems.CORRUPTED_DUST_TINY.get());
 

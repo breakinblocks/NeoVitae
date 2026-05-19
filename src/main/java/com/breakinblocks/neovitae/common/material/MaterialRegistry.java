@@ -40,6 +40,7 @@ public class MaterialRegistry {
     private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(NeoVitae.MODID);
     private static final List<MaterialDefinition> MATERIALS = new ArrayList<>();
     private static final Map<String, Map<String, DeferredHolder<Item, Item>>> ITEM_MAP = new LinkedHashMap<>();
+    private static final Map<Identifier, List<String>> PENDING_TAG_VALUES = new LinkedHashMap<>();
     private static InMemoryPack GENERATED_PACK;
     private static boolean firstRun = false;
     private static boolean pendingRestartNotice = false;
@@ -128,6 +129,8 @@ public class MaterialRegistry {
             addAlchemyTableRecipes(mat);
         }
 
+        flushTagValues();
+
         GENERATED_PACK.putJson(PackType.CLIENT_RESOURCES,
                 Identifier.fromNamespaceAndPath(NeoVitae.MODID, "lang/en_us.json"),
                 GSON.toJson(lang));
@@ -167,15 +170,30 @@ public class MaterialRegistry {
 
             String itemId = NeoVitae.MODID + ":" + mat.getItemId(stage);
 
+            queueTagValue(tagPrefix, mat.getName(), itemId);
+            for (String alias : mat.getAliasTags(stage)) {
+                queueTagValue(tagPrefix, alias, itemId);
+            }
+        }
+    }
+
+    private static void queueTagValue(String tagPrefix, String tagName, String itemId) {
+        Identifier path = Identifier.fromNamespaceAndPath(
+                "c", "tags/item/" + tagPrefix + "/" + tagName + ".json");
+        PENDING_TAG_VALUES.computeIfAbsent(path, k -> new ArrayList<>()).add(itemId);
+    }
+
+    private static void flushTagValues() {
+        for (Map.Entry<Identifier, List<String>> entry : PENDING_TAG_VALUES.entrySet()) {
             JsonObject tag = new JsonObject();
             JsonArray values = new JsonArray();
-            values.add(itemId);
+            for (String itemId : entry.getValue()) {
+                values.add(itemId);
+            }
             tag.add("values", values);
-
-            GENERATED_PACK.putJson(PackType.SERVER_DATA,
-                    Identifier.fromNamespaceAndPath("c", "tags/item/" + tagPrefix + "/" + mat.getName() + ".json"),
-                    GSON.toJson(tag));
+            GENERATED_PACK.putJson(PackType.SERVER_DATA, entry.getKey(), GSON.toJson(tag));
         }
+        PENDING_TAG_VALUES.clear();
     }
 
     private static void addAlchemyTableRecipes(MaterialDefinition mat) {
@@ -506,7 +524,10 @@ public class MaterialRegistry {
                 List.of("fragment", "gravel"),
                 null, 0f,
                 null, "c:raw_materials/hellforged", null,
-                null, null));
+                null, null)
+                .withAliasTags(Map.of(
+                        "fragment", List.of("hellforged"),
+                        "gravel", List.of("hellforged"))));
         defaults.add(new MaterialDefinition("hellforged", "#99D6CB",
                 List.of("dust"),
                 "neovitae:ingot_hellforged", 1.0f,

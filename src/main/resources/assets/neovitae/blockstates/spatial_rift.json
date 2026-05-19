@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": {"model": "minecraft:block/air"}
+    "": { "model": "neovitae:block/spatial_rift" }
   }
 }

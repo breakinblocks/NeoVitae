@@ -24,6 +24,8 @@ public class MaterialDefinition {
     private String displayName;
     @SerializedName("id_overrides")
     private Map<String, String> idOverrides;
+    @SerializedName("alias_tags")
+    private Map<String, List<String>> aliasTags;
 
     public MaterialDefinition() {}
 
@@ -66,6 +68,16 @@ public class MaterialDefinition {
             return idOverrides.get(stage);
         }
         return name + "_" + stage;
+    }
+
+    public List<String> getAliasTags(String stage) {
+        if (aliasTags == null) return List.of();
+        return aliasTags.getOrDefault(stage, List.of());
+    }
+
+    public MaterialDefinition withAliasTags(Map<String, List<String>> aliasTags) {
+        this.aliasTags = aliasTags;
+        return this;
     }
 
     private static String capitalize(String s) {

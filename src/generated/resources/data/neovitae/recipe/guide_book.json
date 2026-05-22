@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "item": "minecraft:book"
+    },
+    "r": {
+      "tag": "c:dusts/redstone"
+    }
+  },
+  "pattern": [
+    " r ",
+    "rbr",
+    " r "
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:guide_book"
+  }
+}

@@ -81,6 +81,15 @@ public class NVRecipeProvider extends RecipeProvider {
     }
 
     private void addVanillaCraftingRecipes(RecipeOutput output) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, NVItems.GUIDE_BOOK.get())
+                .pattern(" r ")
+                .pattern("rbr")
+                .pattern(" r ")
+                .define('r', Tags.Items.DUSTS_REDSTONE)
+                .define('b', Items.BOOK)
+                .unlockedBy("has_book", has(Items.BOOK))
+                .save(output);
+
         // Sacrificial Dagger - diagonal dagger shape
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, NVItems.SACRIFICIAL_DAGGER.get())
                 .pattern("ggg")

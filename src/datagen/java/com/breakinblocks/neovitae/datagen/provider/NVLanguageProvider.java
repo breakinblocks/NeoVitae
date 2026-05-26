@@ -150,6 +150,22 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVBlocks.BLOOD_LANTERN, "Blood Lantern");
         addTooltip("blood_lantern.desc", "Wards a 16-block radius against passive and ambient mob spawns.");
 
+        add("gui.neovitae.tabula_vitae.side_button", "%s side of %s");
+        add("gui.neovitae.tabula_vitae.side_allowed", "Allowed");
+        add("gui.neovitae.tabula_vitae.side_blocked", "Blocked");
+        add("gui.neovitae.tabula_vitae.side_hint", "Click to toggle hopper/pipe access");
+        add("gui.neovitae.tabula_vitae.active_slot", "Configuring: %s");
+        add("gui.neovitae.tabula_vitae.active_hint", "Click an empty slot again to deselect");
+        add("gui.neovitae.tabula_vitae.slot.input", "Input slot %s");
+        add("gui.neovitae.tabula_vitae.slot.orb", "Orb slot");
+        add("gui.neovitae.tabula_vitae.slot.output", "Output slot");
+        add("gui.neovitae.side.down", "Bottom");
+        add("gui.neovitae.side.up", "Top");
+        add("gui.neovitae.side.north", "North");
+        add("gui.neovitae.side.south", "South");
+        add("gui.neovitae.side.west", "West");
+        add("gui.neovitae.side.east", "East");
+
         add(NVBlocks.BLOOD_TANK, "Blood Tank");
         addTooltip("container_tier_missing", "No Tier found!");
         addTooltip("container_tier", "Current Tier: %s");

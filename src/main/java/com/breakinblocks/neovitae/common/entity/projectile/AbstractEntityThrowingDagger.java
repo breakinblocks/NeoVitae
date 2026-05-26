@@ -340,11 +340,15 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
             entity.igniteForSeconds(5);
         }
 
-        if (!this.level().isClientSide() && entity instanceof LivingEntity snareTarget && entity instanceof Enemy) {
+        if (!(this.level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        if (entity instanceof LivingEntity snareTarget && entity instanceof Enemy) {
             snareTarget.addEffect(new MobEffectInstance(NVMobEffects.SPIRITUS_SNARE, 1200, 0, false, true));
         }
 
-        if (entity.hurtServer((ServerLevel) entity.level(), damageSource, (float) dmg)) {
+        if (entity.hurtServer(serverLevel, damageSource, (float) dmg)) {
             if (!entity.isAlive() && owner instanceof Player playerOwner && entity instanceof LivingEntity living) {
                 double spiritusAmount = this.getWillDropForMobHealth(living.getMaxHealth());
                 double bonusSpiritus = playerOwner.getAttributeValue(NVAttributes.BONUS_SPIRITUS);
@@ -375,7 +379,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
             this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
             this.setYRot(this.getYRot() + 180.0F);
             this.yRotO += 180.0F;
-            if (this.level() instanceof ServerLevel serverLevel && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
+            if (this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
                 if (this.pickupStatus == AbstractArrow.Pickup.ALLOWED) {
                     this.spawnAtLocation(serverLevel, this.getArrowStack(), 0.1F);
                 }

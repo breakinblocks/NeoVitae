@@ -3562,18 +3562,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_DUST.get()))
                 .save(output, NeoVitae.rl("dustsfrom_ingot_netherite_scrap"));
 
-        // Hellforged/Demonite processing (only gravel->dust, others need hellforged ore/ingot)
-        AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
-                .input(Ingredient.of(NVTags.Items.FRAGMENTS_HELLFORGED))
-                .guaranteedOutput(new ItemStack(NVItems.DEMONITE_GRAVEL.get()))
-                .chancedOutput(new ItemStack(NVItems.CORRUPTED_DUST_TINY.get()), 0.5)
-                .save(output, NeoVitae.rl("gravelshellforged"));
-
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(NVTags.Items.GRAVELS_HELLFORGED))
-                .guaranteedOutput(new ItemStack(NVItems.HELLFORGED_DUST.get()))
-                .save(output, NeoVitae.rl("dustsfrom_gravel_hellforged"));
-
         // Hellforged ingot -> dust (uses explosives, not cutting fluid)
         AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
                 .input(Ingredient.of(NVTags.Items.INGOTS_HELLFORGED))

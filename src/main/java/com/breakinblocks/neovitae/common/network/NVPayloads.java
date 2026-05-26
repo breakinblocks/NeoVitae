@@ -22,8 +22,11 @@ import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.TrainerItem;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.common.item.soul.LexVitaeItem;
+import com.breakinblocks.neovitae.common.menu.AbstractBlockEntityMenu;
 import com.breakinblocks.neovitae.common.menu.MasterRoutingNodeMenu;
 import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
+import com.breakinblocks.neovitae.common.sideconfig.SideConfigurable;
+import net.minecraft.core.Direction;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.menu.SigilHoldingMenu;
@@ -118,6 +121,28 @@ public class NVPayloads {
                 OpenTrainerFromCurioPayload.STREAM_CODEC,
                 NVPayloads::handleOpenTrainerFromCurio
         );
+
+        registrar.playToServer(
+                SetSideConfigPayload.TYPE,
+                SetSideConfigPayload.STREAM_CODEC,
+                NVPayloads::handleSetSideConfig
+        );
+    }
+
+    private static void handleSetSideConfig(SetSideConfigPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player player = context.player();
+            if (player.distanceToSqr(payload.pos().getX() + 0.5, payload.pos().getY() + 0.5, payload.pos().getZ() + 0.5) > 64.0) {
+                return;
+            }
+            if (!(player.containerMenu instanceof AbstractBlockEntityMenu<?> menu)) return;
+            BlockEntity be = menu.getTile();
+            if (be == null || !be.getBlockPos().equals(payload.pos())) return;
+            if (!(be instanceof SideConfigurable configurable)) return;
+            if (payload.direction() < 0 || payload.direction() >= Direction.values().length) return;
+            configurable.getSideConfig().setAllowed(payload.slot(), Direction.from3DDataValue(payload.direction()), payload.enabled());
+            be.setChanged();
+        });
     }
 
     private static void handleOpenTrainerFromCurio(OpenTrainerFromCurioPayload payload, IPayloadContext context) {

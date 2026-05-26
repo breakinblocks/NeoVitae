@@ -23,6 +23,7 @@ import com.breakinblocks.neovitae.common.blockentity.routing.OutputRoutingNodeBl
 import com.breakinblocks.neovitae.common.blockentity.routing.RoutingConduitBlockEntity;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.OrbFluidHandler;
+import com.breakinblocks.neovitae.common.sideconfig.SideConfigItemHandler;
 import com.breakinblocks.neovitae.client.render.blockentity.AlchemyArrayRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.AraVitaeRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.BloodTankRenderer;
@@ -186,6 +187,11 @@ public class NVTiles {
                 NVCapabilities.ARA_VITAE,
                 ARA_VITAE_TYPE.get(),
                 (tile, side) -> tile
+        );
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                TABULA_VITAE_TYPE.get(),
+                (tile, side) -> new SideConfigItemHandler(tile.inv, tile.getSideConfig(), side)
         );
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,

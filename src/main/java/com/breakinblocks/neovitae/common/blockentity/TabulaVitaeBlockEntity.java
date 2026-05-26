@@ -34,6 +34,8 @@ import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
+import com.breakinblocks.neovitae.common.sideconfig.SideConfigurable;
+import com.breakinblocks.neovitae.common.sideconfig.SlotSideConfig;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 
@@ -41,19 +43,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvider {
+public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvider, SideConfigurable {
     public static final int ORB_SLOT = 6;
     public static final int OUTPUT_SLOT = 7;
+    public static final int SLOT_COUNT = 8;
+
+    private static final boolean[][] DEFAULT_SIDE_CONFIG = new boolean[][] {
+            { false, false, true, true, true, true },
+            { false, false, true, true, true, true },
+            { false, false, true, true, true, true },
+            { false, false, true, true, true, true },
+            { false, false, true, true, true, true },
+            { false, false, true, true, true, true },
+            { false, true, false, false, false, false },
+            { true, false, false, false, false, false }
+    };
 
     public Direction direction = Direction.NORTH;
     public boolean isSlave = false;
     public int burnTime = 0;
     public int ticksRequired = 1;
     public BlockPos connectedPos = BlockPos.ZERO;
+    public int activeSlot = -1;
+
+    private final SlotSideConfig sideConfig = new SlotSideConfig(SLOT_COUNT, DEFAULT_SIDE_CONFIG);
 
     private TabulaVitaeRecipe cachedRecipe = null;
     private FlaskRecipe cachedFlaskRecipe = null;
-    private int flaskSlot = -1; // Slot containing the flask for flask recipes
+    private int flaskSlot = -1;
 
     public final ItemStackHandler inv = new ItemStackHandler(8) {
         @Override
@@ -90,6 +107,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         ticksRequired = tag.getInt("ticksRequired");
         connectedPos = new BlockPos(tag.getInt("connectedX"), tag.getInt("connectedY"), tag.getInt("connectedZ"));
         inv.deserializeNBT(registries, tag.getCompound("inventory"));
+        sideConfig.load(tag.getCompound("sideConfig"));
     }
 
     @Override
@@ -103,6 +121,14 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         tag.putInt("connectedY", connectedPos.getY());
         tag.putInt("connectedZ", connectedPos.getZ());
         tag.put("inventory", inv.serializeNBT(registries));
+        CompoundTag sideTag = new CompoundTag();
+        sideConfig.save(sideTag);
+        tag.put("sideConfig", sideTag);
+    }
+
+    @Override
+    public SlotSideConfig getSideConfig() {
+        return sideConfig;
     }
 
     public void setInitialTableParameters(Direction direction, boolean isSlave, BlockPos connectedPos) {

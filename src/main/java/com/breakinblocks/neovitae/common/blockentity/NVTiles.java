@@ -29,6 +29,7 @@ import com.breakinblocks.neovitae.common.blockentity.routing.RoutingConduitBlock
 import com.breakinblocks.neovitae.api.capability.NVCapabilities;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.OrbFluidCapability;
+import com.breakinblocks.neovitae.common.sideconfig.SideConfigResourceHandler;
 
 import java.util.function.Supplier;
 
@@ -192,7 +193,7 @@ public class NVTiles {
         event.registerBlockEntity(Capabilities.Item.BLOCK, ALCHEMY_ARRAY_TYPE.get(),
                 (be, side) -> be.inv);
         event.registerBlockEntity(Capabilities.Item.BLOCK, TABULA_VITAE_TYPE.get(),
-                (be, side) -> be.inv);
+                (be, side) -> new SideConfigResourceHandler<>(be.inv, be.getSideConfig(), side));
         event.registerBlockEntity(Capabilities.Item.BLOCK, TELEPOSER_TYPE.get(),
                 (be, side) -> be.inv);
         event.registerBlockEntity(Capabilities.Item.BLOCK, MIMIC_TYPE.get(),

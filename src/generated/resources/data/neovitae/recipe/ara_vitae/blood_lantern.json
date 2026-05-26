@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "bloodNeeded": 1500,
+  "craftSpeed": 5,
+  "drainSpeed": 2,
+  "input": "minecraft:soul_lantern",
+  "minTier": 0,
+  "output": {
+    "id": "neovitae:blood_lantern"
+  }
+}

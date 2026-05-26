@@ -106,6 +106,8 @@ public class NVBlocks {
 
     public static final DeferredBlock<AlchemyArrayBlock> ALCHEMY_ARRAY = BLOCKS.registerBlock("alchemy_array", AlchemyArrayBlock::new, (Supplier<BlockBehaviour.Properties>) NVBlocks::defaultBlockProps);
     public static final DeferredBlock<BloodLightBlock> BLOOD_LIGHT = BLOCKS.registerBlock("blood_light", BloodLightBlock::new, (Supplier<BlockBehaviour.Properties>) NVBlocks::defaultBlockProps);
+    public static final BlockWithItemHolder<BloodLanternBlock, BlockItem> BLOOD_LANTERN =
+            BLOCK_REG.register("blood_lantern", BloodLanternBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SOUL_LANTERN));
     public static final DeferredBlock<SpectralBlock> SPECTRAL_BLOCK = BLOCKS.registerBlock("spectral_block", SpectralBlock::new, (Supplier<BlockBehaviour.Properties>) NVBlocks::defaultBlockProps);
     public static final DeferredBlock<PhantomBridgeBlock> PHANTOM_BRIDGE_BLOCK = BLOCKS.registerBlock("phantom_bridge", PhantomBridgeBlock::new, (Supplier<BlockBehaviour.Properties>) NVBlocks::defaultBlockProps);
 

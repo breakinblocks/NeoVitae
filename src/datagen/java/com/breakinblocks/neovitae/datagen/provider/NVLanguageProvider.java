@@ -147,6 +147,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("menu.neovitae.athanor", "Athanor");
         add("menu.neovitae.teleposer", "Teleposer");
 
+        add(NVBlocks.BLOOD_LANTERN, "Blood Lantern");
+        addTooltip("blood_lantern.desc", "Wards a 16-block radius against passive and ambient mob spawns.");
+
         add(NVBlocks.BLOOD_TANK, "Blood Tank");
         addTooltip("container_tier_missing", "No Tier found!");
         addTooltip("container_tier", "Current Tier: %s");

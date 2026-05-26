@@ -4,6 +4,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -70,5 +71,16 @@ public class TabulaVitaeMenu extends AbstractBlockEntityMenu<TabulaVitaeBlockEnt
     @Override
     public boolean stillValid(Player player) {
         return AbstractContainerMenu.stillValid(ContainerLevelAccess.create(tile.getLevel(), tile.getBlockPos()), player, NVBlocks.TABULA_VITAE.block().get());
+    }
+
+    @Override
+    public void clicked(int slotId, int dragType, ContainerInput clickType, Player player) {
+        if (slotId >= 0 && slotId <= TabulaVitaeBlockEntity.OUTPUT_SLOT) {
+            Slot slot = this.getSlot(slotId);
+            if (!slot.hasItem() && this.getCarried().isEmpty()) {
+                tile.activeSlot = (tile.activeSlot == slotId) ? -1 : slotId;
+            }
+        }
+        super.clicked(slotId, dragType, clickType, player);
     }
 }

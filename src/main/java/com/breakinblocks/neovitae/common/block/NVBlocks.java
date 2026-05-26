@@ -93,6 +93,9 @@ public class NVBlocks {
 
     public static final DeferredHolder<Block, BloodLightBlock> BLOOD_LIGHT = BLOCKS.register("blood_light", BloodLightBlock::new);
 
+    public static final BlockWithItemHolder<BloodLanternBlock, BlockItem> BLOOD_LANTERN =
+            BLOCK_REG.register("blood_lantern", () -> new BloodLanternBlock(BloodLanternBlock.defaultProperties()));
+
     public static final DeferredHolder<Block, SpectralBlock> SPECTRAL_BLOCK = BLOCKS.register("spectral_block", SpectralBlock::new);
 
     public static final DeferredHolder<Block, PhantomBridgeBlock> PHANTOM_BRIDGE_BLOCK = BLOCKS.register("phantom_bridge", PhantomBridgeBlock::new);

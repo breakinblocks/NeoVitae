@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "hanging=false": { "model": "neovitae:block/blood_lantern" },
+    "hanging=true": { "model": "neovitae:block/blood_lantern_hanging" }
+  }
+}

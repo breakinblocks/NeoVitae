@@ -20,7 +20,7 @@ public class UtilityCategory extends CategoryProvider {
                 "____g__________",
                 "__s___e________",
                 "____a__________",
-                "__h___o___i____",
+                "__h___o___i_n__",
                 "__b___l___r____",
                 "____t__________"
         };
@@ -39,6 +39,7 @@ public class UtilityCategory extends CategoryProvider {
         var lavaCrystal = this.add(new LavaCrystalEntry(this).generate('l'));
         var essentiaVitaeBucket = this.add(new EssentiaVitaeBucketEntry(this).generate('r'));
         var teleposer = this.add(new TeleposerEntry(this).generate('t'));
+        var bloodLantern = this.add(new BloodLanternEntry(this).generate('n'));
     }
 
     @Override

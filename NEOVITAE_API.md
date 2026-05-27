@@ -1,20 +1,26 @@
 # Neo Vitae API Documentation
 
-This document describes the Neo Vitae API for NeoForge 1.21.1. The API allows addon mods to interact with Neo Vitae's core systems including Soul Networks, Ara Vitaes, Rituals, and Living Armor.
+This document describes the Neo Vitae API for NeoForge 1.21.1. The API allows addon mods to interact with Neo Vitae's core systems: Animas, Ara Vitaes, Altar Runes, Rituals, Sigils, Sentient Armor, Spiritus, Tranquility, Routing, and Stream effects.
 
 ## Table of Contents
 
 1. [Getting Started](#getting-started)
 2. [Core API](#core-api)
-3. [Soul Network System](#soul-network-system)
-4. [Ara Vitae System](#blood-altar-system)
-5. [Altar Rune System](#altar-rune-system)
-6. [Ritual System](#ritual-system)
-7. [Sigil System](#sigil-system)
-8. [Living Armor System](#living-armor-system)
-9. [Custom Player Attributes](#custom-player-attributes)
-10. [Events](#events)
-11. [Registry Keys](#registry-keys)
+3. [Anima System](#anima-system)
+4. [Spiritus System](#spiritus-system)
+5. [Ara Vitae System](#ara-vitae-system)
+6. [Altar Rune System](#altar-rune-system)
+7. [Ritual System](#ritual-system)
+8. [Sigil System](#sigil-system)
+9. [Sentient Armor System](#sentient-armor-system)
+10. [Tranquility / Incense](#tranquility--incense)
+11. [Routing System](#routing-system)
+12. [Stream Effects](#stream-effects)
+13. [Custom Player Attributes](#custom-player-attributes)
+14. [Events](#events)
+15. [Capabilities](#capabilities)
+16. [Registry Keys](#registry-keys)
+17. [API Package Structure](#api-package-structure)
 
 ---
 
@@ -22,7 +28,7 @@ This document describes the Neo Vitae API for NeoForge 1.21.1. The API allows ad
 
 ### Adding the API Dependency
 
-Add Neo Vitae as a dependency in your `build.gradle`:
+Add Neo Vitae as a dependency in your `build.gradle`.
 
 ```groovy
 repositories {
@@ -51,156 +57,238 @@ dependencies {
 
 You can find the version of the latest released artifact [here](https://maven.breakinblocks.com/#/releases/com/breakinblocks/neovitae/neovitae).
 
-> **Note:** The API classes are in the main mod JAR under `com.breakinblocks.neovitae.api`. There is no separate api artifact.
+> **Note** The API classes are in the main mod JAR under `com.breakinblocks.neovitae.api`. There is no separate api artifact.
 
 ### Accessing the API
 
-The Neo Vitae API is accessed through the static `NeoVitaeAPI` class:
+The Neo Vitae API is accessed through the static `NeoVitaeAPI` class.
 
 ```java
 import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 import com.breakinblocks.neovitae.api.INeoVitaeAPI;
 
-// Get the API instance (safe to call from FMLCommonSetupEvent or later)
 INeoVitaeAPI api = NeoVitaeAPI.getInstance();
-// Use the API...
 ```
 
-> **Note:** Calling `getInstance()` before Neo Vitae has initialized will throw `IllegalStateException`.
+> **Note** Calling `getInstance()` before Neo Vitae has finished common setup throws `IllegalStateException`. It is safe from `FMLCommonSetupEvent` or later.
 
 ---
 
 ## Core API
 
-### INeoVitaeAPI
+### NeoVitaeAPI
 
-The main entry point interface for all Neo Vitae API operations.
+**Package** `com.breakinblocks.neovitae.api`
 
-**Package:** `com.breakinblocks.neovitae.api`
-
-#### Methods
+Static accessor for the active `INeoVitaeAPI` implementation.
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `getSoulNetwork(UUID uuid)` | `ISoulNetwork` | Gets the soul network for a player by UUID |
-| `getSoulNetwork(Player player)` | `ISoulNetwork` | Gets the soul network for a player |
-| `getSoulNetwork(String uuid)` | `ISoulNetwork` | Gets the soul network by UUID string |
-| `getLivingArmorManager()` | `ILivingArmorManager` | Gets the Living Armor manager |
+| `getInstance()` | `INeoVitaeAPI` | Returns the API instance; throws if not initialized |
+
+### INeoVitaeAPI
+
+**Package** `com.breakinblocks.neovitae.api`
+
+The main entry point interface for all Neo Vitae API operations.
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getAnima(UUID uuid)` | `@Nullable IAnima` | Gets the anima for a player by UUID |
+| `getSentientArmorManager()` | `ISentientArmorManager` | Gets the Sentient Armor manager |
 | `getRuneRegistry()` | `IAltarRuneRegistry` | Gets the Altar Rune registry |
-| `getApiVersion()` | `String` | Gets the API version string |
+| `getTranquilityHandler()` | `ITranquilityHandler` | Gets the tranquility lookup handler |
+| `getSpiritusHandler()` | `ISpiritusHandler` | Gets the chunk-based spiritus aura handler |
+| `getPlayerWillHandler()` | `IPlayerSpiritusHandler` | Gets the inventory-level spiritus item handler |
+| `getApiVersion()` | `String` | Returns the API version string |
 
 #### Example
 
 ```java
-INeoVitaeAPI api = NeoVitaeAPI.get();
+INeoVitaeAPI api = NeoVitaeAPI.getInstance();
 
-// Get a player's soul network
-ISoulNetwork network = api.getSoulNetwork(player);
-if (network != null) {
-    int currentLP = network.getCurrentEssence();
-    System.out.println("Player has " + currentLP + " LP");
+IAnima anima = api.getAnima(player.getUUID());
+if (anima != null) {
+    int currentEV = anima.getCurrentEV();
 }
 
-// Get Living Armor manager
-ILivingArmorManager armorManager = api.getLivingArmorManager();
-if (armorManager.hasFullSet(player)) {
-    List<UpgradeInfo> upgrades = armorManager.getUpgrades(player);
+ISentientArmorManager armor = api.getSentientArmorManager();
+if (armor.hasFullSet(player)) {
+    List<ISentientArmorManager.UpgradeInfo> upgrades = armor.getUpgrades(player);
 }
+
+ISpiritusHandler will = api.getSpiritusHandler();
+double rawSpiritus = will.getCurrentWill(level, pos, SpiritusType.RAW);
 ```
 
 ---
 
-## Soul Network System
+## Anima System
 
-The Soul Network stores Life Points (LP) that power Neo Vitae items and rituals. Each player has their own network.
+The Anima stores Essentia Vitae (EV) that powers Neo Vitae items, sigils, and rituals. Each player has their own Anima keyed by their `UUID`.
 
-### ISoulNetwork
+### IAnima
 
-**Package:** `com.breakinblocks.neovitae.api.soul`
+**Package** `com.breakinblocks.neovitae.api.soul`
 
-Represents a player's Soul Network.
-
-#### Methods
+Represents a player's Anima.
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `getPlayerId()` | `UUID` | Gets the owner's UUID |
-| `getCurrentEssence()` | `int` | Gets current LP amount |
-| `add(SoulTicket, int maximum)` | `int` | Adds LP up to maximum, returns amount added |
-| `set(SoulTicket, int maximum)` | `int` | Sets LP to ticket amount, returns new value |
-| `syphon(SoulTicket)` | `int` | Removes LP, returns amount removed |
-| `hurtPlayer(Player, float)` | `void` | Damages player based on LP debt |
-| `syphonAndDamage(Player, SoulTicket)` | `SyphonResult` | Syphons LP, damages player if insufficient |
-
-#### SyphonResult Record
-
-```java
-record SyphonResult(boolean success, int amount) {
-    public static SyphonResult failure();
-    public static SyphonResult of(boolean success, int amount);
-}
-```
-
-### SoulTicket
-
-**Package:** `com.breakinblocks.neovitae.api.soul`
-
-Represents an LP transaction with auditing information.
-
-#### Factory Methods
-
-| Method | Description |
-|--------|-------------|
-| `block(Level, BlockPos, int)` | For block-based operations (altars, ritual stones) |
-| `block(Level, BlockPos)` | Block operation with zero amount |
-| `item(ItemStack, int)` | For item-based operations (sigils, orbs) |
-| `item(ItemStack, Level, BlockPos, int)` | Item operation with location context |
-| `item(ItemStack, Level, Entity, int)` | Item operation with entity context |
-| `command(CommandSource, String, int)` | For command-based operations |
-| `create(int)` | Simple ticket with just an amount |
-
-#### Methods
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getDescription()` | `Component` | Gets the audit description |
-| `getAmount()` | `int` | Gets the LP amount |
-| `isSyphon()` | `boolean` | True if this is a removal operation |
+| `getPlayerId()` | `UUID` | Owner UUID |
+| `getCurrentEV()` | `int` | Current stored EV |
+| `add(AnimaTicket ticket, int maximum)` | `int` | Adds EV from ticket up to `maximum`; returns amount added |
+| `set(AnimaTicket ticket, int maximum)` | `int` | Sets EV to the ticket amount (clamped to `maximum`); returns the value set |
+| `syphon(AnimaTicket ticket)` | `int` | Drains EV from the anima; returns amount drained |
+| `hurtPlayer(Player user, float syphon)` | `void` | Damages the player to compensate for an EV shortfall |
+| `syphonAndDamage(Player user, AnimaTicket ticket)` | `SyphonResult` | Drains EV and damages the player if there isn't enough |
 
 #### Example
 
 ```java
-// Consume LP from a sigil item
-ISoulNetwork network = api.getSoulNetwork(player);
-SoulTicket ticket = SoulTicket.item(sigil, 100);
-ISoulNetwork.SyphonResult result = network.syphonAndDamage(player, ticket);
+INeoVitaeAPI api = NeoVitaeAPI.getInstance();
+IAnima anima = api.getAnima(player.getUUID());
+if (anima == null) return;
 
+AnimaTicket ticket = AnimaTicket.create(100);
+SyphonResult result = anima.syphonAndDamage(player, ticket);
 if (result.success()) {
-    // LP was consumed (or player took damage)
     performSigilEffect();
 }
 
-// Add LP from an altar
-SoulTicket addTicket = SoulTicket.block(level, altarPos, 500);
-int added = network.add(addTicket, 10000); // 10000 max capacity
+AnimaTicket gain = AnimaTicket.create(500);
+int added = anima.add(gain, 10000);
 ```
+
+### AnimaTicket
+
+**Package** `com.breakinblocks.neovitae.api.soul`
+
+An EV transaction descriptor. Currently it tracks only the amount; the type is retained for future logging or auditing hooks.
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `create(int amount)` (static) | `AnimaTicket` | Creates a ticket for the given EV amount |
+| `getAmount()` | `int` | Returns the EV amount stored on the ticket |
+
+### SyphonResult
+
+**Package** `com.breakinblocks.neovitae.api.soul`
+
+```java
+public record SyphonResult(boolean success, int amount) {
+    public static SyphonResult of(boolean success, int amount);
+    public static SyphonResult failure();
+}
+```
+
+`success` is `true` when the anima had enough EV to cover the entire request; `amount` is the actual EV syphoned.
+
+---
+
+## Spiritus System
+
+Spiritus is a per-chunk aura that comes in five aspects, stored on chunk data attachments and surfaced through two handlers; one for chunk-level operations and one for items in a player's inventory.
+
+The five aspects are exposed by `com.breakinblocks.neovitae.common.datacomponent.SpiritusType`.
+
+| `SpiritusType` | Display name |
+|----------------|--------------|
+| `RAW` | Raw |
+| `RUINA` | Spiritus Ruina |
+| `NIHILUM` | Spiritus Nihilum |
+| `VINDICTA` | Spiritus Vindicta |
+| `INVICTUS` | Spiritus Invictus |
+
+### ISpiritusHandler
+
+**Package** `com.breakinblocks.neovitae.api.will`
+
+Chunk-level aura handler. All mutating operations are server-side only and silently no-op on the client.
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getCurrentWill(Level, BlockPos, SpiritusType)` | `double` | Current aspect amount in the chunk at `pos` |
+| `getTotalSpiritus(Level, BlockPos)` | `double` | Sum of all aspects in the chunk |
+| `getMaxSpiritus(Level, BlockPos, SpiritusType)` | `double` | Effective maximum including chunk bonus |
+| `getBaseMaxSpiritus(SpiritusType)` | `double` | Base maximum from server config |
+| `getMaxBonus(Level, BlockPos, SpiritusType)` | `double` | Per-chunk bonus capacity |
+| `setMaxBonus(Level, BlockPos, SpiritusType, double)` | `void` | Sets the per-chunk bonus |
+| `addMaxBonus(Level, BlockPos, SpiritusType, double)` | `double` | Adjusts the per-chunk bonus; returns new value |
+| `addSpiritus(Level, BlockPos, SpiritusType, double)` | `double` | Adds aspect to the chunk; returns amount added |
+| `drainSpiritus(Level, BlockPos, SpiritusType, double)` | `double` | Drains aspect from the chunk; returns amount drained |
+| `fillWillToAmount(Level, BlockPos, SpiritusType, double)` | `double` | Fills aspect up to a target amount |
+| `getDominantWillType(Level, BlockPos)` | `SpiritusType` | Aspect with the highest amount in the chunk |
+| `hasSpiritus(Level, BlockPos)` | `boolean` | Whether the chunk has any aspect at all |
+| `getFillRatio(Level, BlockPos, SpiritusType)` | `double` | `current / max` in `[0,1]` |
+| `queryWill(Level, BlockPos, double threshold)` | `SpiritusState` | Snapshot of all aspects with batch usage tracking |
+| `transferWill(Level, ChunkPos from, ChunkPos to, SpiritusType, double maxTransfer)` | `double` | Moves aspect between chunks |
+
+### SpiritusHandler
+
+**Package** `com.breakinblocks.neovitae.api.will`
+
+The default `ISpiritusHandler` implementation. Exposed as `SpiritusHandler.INSTANCE`; addons normally go through `INeoVitaeAPI.getSpiritusHandler()` instead.
+
+### SpiritusState
+
+**Package** `com.breakinblocks.neovitae.api.will`
+
+Immutable per-aspect snapshot of a chunk, with batched draining. Produced by `ISpiritusHandler.queryWill`.
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `get(SpiritusType)` | `double` | Snapshot amount for the aspect |
+| `has(SpiritusType)` | `boolean` | Whether the amount is at or above the query threshold |
+| `getDefault()` / `getCorrosive()` / `getDestructive()` / `getSteadfast()` / `getVengeful()` | `double` | Convenience aliases mapping to `RAW` / `RUINA` / `NIHILUM` / `INVICTUS` / `VINDICTA` |
+| `hasDefault()` / `hasCorrosive()` / `hasDestructive()` / `hasSteadfast()` / `hasVengeful()` | `boolean` | Threshold checks for the matching aliases |
+| `use(SpiritusType, double amount)` | `void` | Records usage to be drained later |
+| `drain(ISpiritusHandler, Level, BlockPos)` | `void` | Applies all accumulated usage |
+| `drain(Level, BlockPos)` | `void` | Same as above using the default `SpiritusHandler.INSTANCE` |
+
+#### Example
+
+```java
+ISpiritusHandler will = NeoVitaeAPI.getInstance().getSpiritusHandler();
+SpiritusState state = will.queryWill(level, pos, 0.5);
+if (state.hasDefault()) {
+    double scaling = state.getDefault() / 100.0;
+    state.use(SpiritusType.RAW, 0.1);
+}
+state.drain(level, pos);
+```
+
+### IPlayerSpiritusHandler
+
+**Package** `com.breakinblocks.neovitae.api.will`
+
+Inventory-level handler for spiritus items and will gems on a player.
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getTotalSpiritus(SpiritusType, Player)` | `double` | Sum of an aspect across the player's inventory |
+| `getLargestSpiritusType(Player)` | `SpiritusType` | Aspect with the highest total |
+| `isSpiritusFull(SpiritusType, Player)` | `boolean` | Whether every gem of that aspect is full |
+| `consumeSpiritus(SpiritusType, Player, double)` | `double` | Drains aspect from inventory items; returns amount consumed |
+| `addSpiritus(Player, ItemStack)` | `ItemStack` | Pours a will item stack into the player's gems; returns leftover stack |
+| `addSpiritus(SpiritusType, Player, double)` | `double` | Adds an aspect amount to inventory gems; returns amount added |
+| `addSpiritus(SpiritusType, Player, double, ItemStack ignored)` | `double` | Same as above but skips a specific stack (e.g. the source item) |
 
 ---
 
 ## Ara Vitae System
 
-The Ara Vitae is the core crafting mechanic in Neo Vitae.
+The Ara Vitae is Neo Vitae's blood altar; the core crafting block, blood reservoir, and EV source for the soul network.
 
-### Accessing the Ara Vitae
+### Accessing the Altar
 
-Neo Vitae provides a capability for accessing altar functionality:
+Use the block capability provided by Neo Vitae.
 
 ```java
-import com.breakinblocks.neovitae.api.capability.BMCapabilities;
+import com.breakinblocks.neovitae.api.capability.NVCapabilities;
 import com.breakinblocks.neovitae.api.altar.IAraVitae;
 
-// Get altar capability from a block position
-IAraVitae altar = level.getCapability(BMCapabilities.ARA_VITAE, pos, null);
+IAraVitae altar = level.getCapability(NVCapabilities.ARA_VITAE, pos, null);
 if (altar != null) {
     int blood = altar.getCurrentBlood();
     int capacity = altar.getCapacity();
@@ -208,186 +296,139 @@ if (altar != null) {
 }
 ```
 
-### BMCapabilities
-
-**Package:** `com.breakinblocks.neovitae.api.capability`
-
-Block capabilities provided by Neo Vitae.
-
-| Capability | Type | Description |
-|------------|------|-------------|
-| `ARA_VITAE` | `BlockCapability<IAraVitae, Direction>` | Access altar state and stats |
+See [Capabilities](#capabilities) for details.
 
 ### IAraVitae
 
-**Package:** `com.breakinblocks.neovitae.api.altar`
+**Package** `com.breakinblocks.neovitae.api.altar`
 
-Interface for Ara Vitae block entities.
+Read-mostly view of an Ara Vitae block entity.
 
-#### State Methods
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getTier()` | `int` | Gets altar tier (0-5) |
-| `getCurrentBlood()` | `int` | Gets current LP stored |
-| `getCapacity()` | `int` | Gets maximum LP capacity |
-| `isActive()` | `boolean` | True if crafting or filling |
-| `canFill()` | `boolean` | True if can accept player sacrifice |
-
-#### Crafting Methods
+#### State
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `getProgressFloat()` | `float` | Progress as percentage (0.0-1.0) |
-| `getCurrentRecipe()` | `AraVitaeRecipe` | Current recipe or null |
-| `getLiquidRequired()` | `int` | LP required for current recipe |
-| `getTotalCraftingTime()` | `int` | Total craft time in ticks |
-| `getCraftingProgress()` | `int` | Current progress in ticks |
+| `getTier()` | `int` | Current altar tier (0 = no structure, 1-5 = built structures) |
+| `getCurrentBlood()` | `int` | Current EV in the main tank (mB) |
+| `getCapacity()` | `int` | Maximum EV capacity (mB), after capacity runes |
 
-#### Rate Methods
+#### Crafting
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `getConsumptionRate()` | `int` | LP consumed per tick when crafting |
-| `getDrainRate()` | `int` | LP drained from players per tick |
-| `getChargingRate()` | `int` | LP charged to orbs per tick |
-| `getChargingFrequency()` | `int` | Ticks between charge operations |
+| `getProgressFloat()` | `float` | Crafting progress 0.0 - 1.0 |
+| `getCraftingProgress()` | `int` | EV consumed so far for the active recipe |
+| `getLiquidRequired()` | `int` | Total EV required for the active recipe |
+| `getTotalCraftingTime()` | `int` | Total craft duration in ticks |
+| `getStackInSlot()` | `ItemStack` | Item in the altar's input slot |
 
-#### Bonus Methods
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getBonusCapacity()` | `float` | Bonus capacity percentage |
-| `getEfficiency()` | `float` | Efficiency multiplier |
-| `getSelfSacrificeBonus()` | `float` | Self-sacrifice LP bonus |
-| `getSacrificeBonus()` | `float` | Mob sacrifice LP bonus |
-
-#### Utility Methods
+#### Rates
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `getStackInSlot()` | `ItemStack` | Item in the altar |
-| `getFluidHandler()` | `IFluidHandler` | Fluid handler for LP |
-| `getBlockPos()` | `BlockPos` | Altar position |
-| `getLevel()` | `Level` | World the altar is in |
-| `checkTier()` | `void` | Forces tier recalculation |
+| `getConsumptionRate()` | `int` | EV consumed per tick while crafting |
+| `getDrainRate()` | `int` | EV lost per tick when crafting is paused |
+| `getChargingRate()` | `int` | EV charged per operation when idle |
+| `getChargingFrequency()` | `int` | Ticks between idle charge operations |
+| `getTickRate()` | `int` | Ticks between altar operations (lower is faster) |
 
-#### Altar Tiers
+#### Rune-derived bonuses
 
-| Tier | Description | Runes Required |
-|------|-------------|----------------|
-| 0 | Basic altar | None |
-| 1 | Tier 1 | 8 runes in ring |
-| 2 | Tier 2 | Expanded structure |
-| 3 | Tier 3 | Advanced structure |
-| 4 | Tier 4 | Complex structure |
-| 5 | Tier 5 | Master structure |
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getBonusCapacity()` | `float` | Capacity multiplier from runes (1.0 = base) |
+| `getEfficiency()` | `float` | Drain multiplier; lower means less blood lost |
+| `getSelfSacrificeBonus()` | `float` | Additive self-sacrifice bonus |
+| `getSacrificeBonus()` | `float` | Additive entity-sacrifice bonus |
+| `getSpeedBonus()` | `float` | Additive crafting-speed bonus |
+| `getDislocationBonus()` | `float` | Fluid I/O multiplier |
+| `getOrbCapacityBonus()` | `float` | Additive orb fill-rate bonus |
+
+#### Utility
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getFluidHandler()` | `IFluidHandler` | Fluid handler for pipe insertion / extraction |
+| `checkTier()` | `void` | Forces a structure rescan and tier recalculation |
 
 ### AraVitaeRecipe
 
-**Package:** `com.breakinblocks.neovitae.api.recipe`
+**Package** `com.breakinblocks.neovitae.api.recipe`
 
-Abstract base class for Ara Vitae recipes. Transform items using Life Essence (LP) at various altar tiers.
+Abstract `Recipe<AraVitaeInput>` base class for altar recipes. Concrete implementations live in the common package; addons subclass this when they need bespoke serialization or matching logic.
+
+#### Constants
+
+| Field | Value |
+|-------|-------|
+| `RECIPE_TYPE_NAME` | `"ara_vitae_recipe"` |
 
 #### Constructors
 
 ```java
-// Standard constructor (no component transfer)
-AraVitaeRecipe(Ingredient input, ItemStack result, int minTier,
-                 int totalBlood, int craftSpeed, int drainSpeed)
+AraVitaeRecipe(Ingredient input, ItemStack result,
+               int minTier, int totalBlood, int craftSpeed, int drainSpeed)
 
-// Constructor with component transfer option
-AraVitaeRecipe(Ingredient input, ItemStack result, int minTier,
-                 int totalBlood, int craftSpeed, int drainSpeed,
-                 boolean copyInputComponents)
+AraVitaeRecipe(Ingredient input, ItemStack result,
+               int minTier, int totalBlood, int craftSpeed, int drainSpeed,
+               boolean copyInputComponents)
 ```
 
 #### Methods
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `getInput()` | `Ingredient` | The input ingredient |
-| `getResult()` | `ItemStack` | The base output item (copy) |
-| `getMinTier()` | `int` | Minimum altar tier required (0-5) |
-| `getTotalBlood()` | `int` | Total LP cost |
-| `getCraftSpeed()` | `int` | LP consumed per tick while crafting |
-| `getDrainSpeed()` | `int` | Progress lost per tick when out of LP |
-| `shouldCopyInputComponents()` | `boolean` | Whether input components transfer to output |
-| `assemble(AraVitaeInput, Provider)` | `ItemStack` | Assembles output with component transfer |
+| `getInput()` | `Ingredient` | Recipe input ingredient |
+| `getResult()` | `ItemStack` | Copy of the base output stack |
+| `getMinTier()` | `int` | Minimum altar tier required |
+| `getTotalBlood()` | `int` | Total EV required to complete the craft |
+| `getCraftSpeed()` | `int` | EV consumed per tick while crafting |
+| `getDrainSpeed()` | `int` | Progress lost per tick when out of EV |
+| `shouldCopyInputComponents()` | `boolean` | Whether `assemble` copies data components from the input |
+| `matches(AraVitaeInput, Level)` | `boolean` | Matches both ingredient and tier |
+| `assemble(AraVitaeInput, HolderLookup.Provider)` | `ItemStack` | Returns the output, optionally with input components copied as a patch |
+| `getResultItem(HolderLookup.Provider)` | `ItemStack` | Copy of the base result |
+| `canCraftInDimensions(int, int)` | `boolean` | Always `true` |
+| `getSerializer()` | `RecipeSerializer<?>` | Abstract; provided by subclasses |
+| `getType()` | `RecipeType<?>` | Abstract; provided by subclasses |
 
-#### Component Transfer
-
-Recipes can optionally copy data components from the input item to the output. This is useful when:
-
-- **Bound items** - Preserve binding data through crafting
-- **Enchanted items** - Keep enchantments when upgrading
-- **Custom mod data** - Transfer any component-based data
-
-When `copyInputComponents` is true, the `assemble()` method applies the input's components as a patch to the output, preserving the output's base components while adding/overwriting with input components.
-
-#### JSON Format
+#### JSON
 
 ```json
 {
   "type": "neovitae:ara_vitae_recipe",
-  "input": {"item": "minecraft:diamond_sword"},
-  "output": {"id": "neovitae:bound_sword"},
-  "minTier": 2,
-  "bloodNeeded": 5000,
-  "craftSpeed": 10,
-  "drainSpeed": 2,
-  "copyInputComponents": true
+  "input": {"item": "minecraft:diamond"},
+  "output": {"id": "neovitae:weak_blood_orb"},
+  "minTier": 1,
+  "bloodNeeded": 2000,
+  "craftSpeed": 5,
+  "drainSpeed": 1,
+  "copyInputComponents": false
 }
 ```
 
 | Field | Type | Required | Default | Description |
 |-------|------|----------|---------|-------------|
-| `input` | Ingredient | Yes | - | Input item/tag |
-| `output` | ItemStack | Yes | - | Output item (can include components) |
+| `input` | Ingredient | Yes | - | Input item or tag |
+| `output` | ItemStack | Yes | - | Output item with optional components |
 | `minTier` | int | Yes | - | Minimum altar tier (0-5) |
-| `bloodNeeded` | int | Yes | - | Total LP required |
-| `craftSpeed` | int | Yes | - | LP per tick consumption |
-| `drainSpeed` | int | Yes | - | Progress loss per tick |
-| `copyInputComponents` | boolean | No | false | Copy input components to output |
-
-#### Example: Programmatic Recipe Creation
-
-```java
-// Recipe that preserves enchantments from input sword
-AraVitaeRecipe recipe = new AraVitaeRecipe(
-    Ingredient.of(Items.DIAMOND_SWORD),
-    new ItemStack(BMItems.BOUND_SWORD),
-    2,      // minTier
-    5000,   // totalBlood
-    10,     // craftSpeed
-    2,      // drainSpeed
-    true    // copyInputComponents - transfers enchantments, etc.
-);
-```
-
-#### Example: Datagen with AltarRecipeBuilder
-
-```java
-AltarRecipeBuilder.build(BMItems.BOUND_SWORD)
-    .from(Items.DIAMOND_SWORD)
-    .minTier(2)
-    .bloodNeeded(5000)
-    .consumption(10)
-    .drain(2)
-    .copyInputComponents()  // Enable component transfer
-    .save(output, "bound_sword");
-```
+| `bloodNeeded` | int | Yes | - | Total EV required |
+| `craftSpeed` | int | Yes | - | EV per tick consumption |
+| `drainSpeed` | int | Yes | - | Progress loss per tick when out of EV |
+| `copyInputComponents` | boolean | No | `false` | Copy input data components onto the output as a patch |
 
 ### AraVitaeInput
 
-**Package:** `com.breakinblocks.neovitae.api.recipe`
+**Package** `com.breakinblocks.neovitae.api.recipe`
 
-Recipe input for Ara Vitae matching.
+Recipe input pairing the item with the current altar tier.
 
 ```java
 public class AraVitaeInput implements RecipeInput {
     public AraVitaeInput(ItemStack inputStack, int altarTier);
+    public ItemStack getItem(int index);   // index 0 = inputStack, else EMPTY
     public int getAltarTier();
+    public int size();                     // always 1
 }
 ```
 
@@ -395,576 +436,242 @@ public class AraVitaeInput implements RecipeInput {
 
 ## Altar Rune System
 
-The Altar Rune System allows addon mods to create custom rune types that affect Ara Vitae behavior.
-
-### Overview
-
-Neo Vitae includes built-in rune types (Speed, Sacrifice, Capacity, etc.) that modify altar statistics. The API allows you to:
-
-1. **Create custom rune types** - Define new rune behaviors
-2. **Register rune blocks** - Associate blocks with rune types
-3. **Modify altar stats** - Hook into stat calculation via events
+Altar runes are blocks scanned during structure validation that grant the Ara Vitae stat bonuses. Built-in rune types live in `EnumAltarRuneType`; custom types implement `IAltarRuneType` and register via the unified registry.
 
 ### IAltarRuneType
 
-**Package:** `com.breakinblocks.neovitae.api.altar.rune`
+**Package** `com.breakinblocks.neovitae.api.altar.rune`
 
-Interface for custom rune types that addon mods implement.
+Marker interface (extends `StringRepresentable`) for rune types.
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `getId()` | `ResourceLocation` | Unique identifier (e.g., "mymod:mana_rune") |
-| `getSerializedName()` | `String` | Serialized name for data files |
-
-#### Example Implementation
-
-```java
-public class ManaRuneType implements IAltarRuneType {
-    public static final ResourceLocation ID =
-        ResourceLocation.fromNamespaceAndPath("mymod", "mana_rune");
-
-    @Override
-    public ResourceLocation getId() {
-        return ID;
-    }
-
-    @Override
-    public String getSerializedName() {
-        return "mana_rune";
-    }
-}
-```
+| `getId()` | `ResourceLocation` | Unique rune identifier |
+| `getSerializedName()` | `String` | Lowercase identifier for NBT and JSON |
 
 ### EnumAltarRuneType
 
-**Package:** `com.breakinblocks.neovitae.api.altar.rune`
+**Package** `com.breakinblocks.neovitae.api.altar.rune`
 
-Built-in Ara Vitae rune types.
+Built-in Ara Vitae rune types. Each constant is auto-registered with the rune registry.
 
-| Value | Description |
-|-------|-------------|
-| `SPEED` | Increases LP consumption rate during crafting |
-| `SACRIFICE` | Increases LP gained from mob sacrifice |
-| `SELF_SACRIFICE` | Increases LP gained from player self-sacrifice |
-| `DISPLACEMENT` | Increases fluid I/O rate for piping |
-| `CAPACITY` | Increases altar blood capacity (additive) |
-| `AUGMENTED_CAPACITY` | Increases altar blood capacity (multiplicative) |
-| `ORB` | Increases soul network capacity bonus when filling orbs |
-| `ACCELERATION` | Reduces ticks between altar operations |
-| `CHARGING` | Enables pre-charging LP for instant crafting |
-| `EFFICIENCY` | Reduces LP loss when altar runs out mid-craft |
+| Value | Behavior |
+|-------|----------|
+| `SPEED` | Increases crafting speed |
+| `EFFICIENCY` | Reduces EV drain when crafting is paused |
+| `SACRIFICE` | Increases entity-sacrifice EV |
+| `SELF_SACRIFICE` | Increases self-sacrifice EV |
+| `DISPLACEMENT` | Multiplies fluid I/O rate |
+| `CAPACITY` | Increases blood capacity |
+| `AUGMENTED_CAPACITY` | Multiplies capacity bonus (compounds) |
+| `ORB` | Increases soul network fill rate |
+| `ACCELERATION` | Reduces tick rate for altar operations |
+| `CHARGING` | Enables and increases stored charge for burst crafting |
+
+| Static method | Description |
+|---------------|-------------|
+| `fromSerializedName(String)` | Lookup by serialized name; returns `null` if unknown |
 
 ### IAltarRuneRegistry
 
-**Package:** `com.breakinblocks.neovitae.api.altar.rune`
+**Package** `com.breakinblocks.neovitae.api.altar.rune`
 
-Unified registry for all rune types (both built-in and custom) and block associations.
+Unified registry for rune types and block associations. Built-in types are pre-registered; addon mods register their own here.
 
-> **Note:** As of the unified rune system, both built-in (`EnumAltarRuneType`) and custom rune types are managed through this single registry. The built-in rune blocks are registered during mod common setup.
-
-#### Rune Type Methods
+#### Rune type registration
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
 | `registerRuneType(IAltarRuneType)` | `void` | Registers a custom rune type |
-| `getRuneType(ResourceLocation)` | `IAltarRuneType` | Gets rune type by ID |
-| `getRuneTypeByName(String)` | `IAltarRuneType` | Gets rune type by serialized name |
-| `getAllRuneTypes()` | `Collection<IAltarRuneType>` | All registered types (includes built-in) |
-| `isRegistered(ResourceLocation)` | `boolean` | Checks if a rune type is registered |
+| `getRuneType(ResourceLocation)` | `@Nullable IAltarRuneType` | Lookup by ID |
+| `getRuneTypeByName(String)` | `@Nullable IAltarRuneType` | Lookup by serialized name |
+| `getAllRuneTypes()` | `Collection<IAltarRuneType>` | All registered types (built-in plus custom) |
+| `isRegistered(ResourceLocation)` | `boolean` | Whether the ID is registered |
 
-#### Block Registration Methods
+#### Block registration
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `registerRuneBlock(Block, IAltarRuneType, int)` | `void` | Associates block with rune type and amount |
-| `getRunesForBlock(Block)` | `Map<IAltarRuneType, Integer>` | All runes provided by a block |
-| `hasRunes(Block)` | `boolean` | True if block provides any runes |
-| `getRuneAmount(Block, IAltarRuneType)` | `int` | Amount of specific rune from block |
-| `hasRuneType(Block, IAltarRuneType)` | `boolean` | True if block provides specific rune type |
+| `registerRuneBlock(Block, IAltarRuneType, int amount)` | `void` | Associates a block with a rune type and amount per block |
+| `getRunesForBlock(Block)` | `Map<IAltarRuneType, Integer>` | All rune contributions for a block (empty if none) |
+| `hasRunes(Block)` | `boolean` | Whether the block contributes any runes |
 
-#### Example Usage
+#### Example
 
 ```java
-// In your mod initialization
-public void onCommonSetup(FMLCommonSetupEvent event) {
+public class ManaRuneType implements IAltarRuneType {
+    public static final ManaRuneType INSTANCE = new ManaRuneType();
+    private static final ResourceLocation ID =
+        ResourceLocation.fromNamespaceAndPath("mymod", "mana_rune");
+
+    @Override public ResourceLocation getId() { return ID; }
+    @Override public String getSerializedName() { return "mana_rune"; }
+}
+
+@SubscribeEvent
+public static void onCommonSetup(FMLCommonSetupEvent event) {
     event.enqueueWork(() -> {
-        IAltarRuneRegistry registry = NeoVitaeAPI.get().getRuneRegistry();
-
-        // Register custom rune type
-        registry.registerRuneType(new ManaRuneType());
-
-        // Associate your block with the rune type
-        // When placed in altar structure, provides 1 rune
-        registry.registerRuneBlock(MY_MANA_RUNE_BLOCK.get(),
-            new ManaRuneType(), 1);
+        IAltarRuneRegistry registry = NeoVitaeAPI.getInstance().getRuneRegistry();
+        registry.registerRuneType(ManaRuneType.INSTANCE);
+        registry.registerRuneBlock(ModBlocks.MANA_RUNE.get(), ManaRuneType.INSTANCE, 1);
     });
 }
 ```
 
 ### AltarRuneModifiers
 
-**Package:** `com.breakinblocks.neovitae.api.altar.rune`
+**Package** `com.breakinblocks.neovitae.api.altar.rune`
 
-Mutable container for altar modifier values passed to events.
+Mutable container of altar modifier values passed through the rune events.
 
-#### Getter Methods
+#### Getters
 
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getCapacityMod()` | `float` | Bonus capacity percentage |
-| `getTickRate()` | `int` | Ticks between operations |
-| `getConsumptionMod()` | `float` | LP consumption multiplier |
-| `getSacrificeMod()` | `float` | Mob sacrifice bonus |
-| `getSelfSacrificeMod()` | `float` | Self-sacrifice bonus |
-| `getDislocationMod()` | `float` | Fluid I/O rate bonus |
-| `getOrbCapacityMod()` | `float` | Orb capacity bonus |
-| `getChargeAmountMod()` | `float` | Charge amount multiplier |
-| `getChargeCapacityMod()` | `float` | Charge capacity bonus |
-| `getEfficiencyMod()` | `float` | Efficiency multiplier |
+| Method | Return Type |
+|--------|-------------|
+| `getCapacityMod()` | `float` |
+| `getTickRate()` | `int` |
+| `getConsumptionMod()` | `float` |
+| `getSacrificeMod()` | `float` |
+| `getSelfSacrificeMod()` | `float` |
+| `getDislocationMod()` | `float` |
+| `getOrbCapacityMod()` | `float` |
+| `getChargeAmountMod()` | `float` |
+| `getChargeCapacityMod()` | `float` |
+| `getEfficiencyMod()` | `float` |
 
-#### Modifier Methods
-
-All modifier methods return `this` for chaining.
+#### Mutators
 
 | Method | Description |
 |--------|-------------|
-| `addCapacityMod(float)` | Add to capacity bonus |
-| `setTickRate(int)` | Set tick rate |
-| `addConsumptionMod(float)` | Add to consumption multiplier |
-| `addSacrificeMod(float)` | Add to sacrifice bonus |
-| `addSelfSacrificeMod(float)` | Add to self-sacrifice bonus |
-| `addDislocationMod(float)` | Add to I/O rate bonus |
-| `addOrbCapacityMod(float)` | Add to orb capacity bonus |
-| `addChargeAmountMod(float)` | Add to charge amount |
-| `addChargeCapacityMod(float)` | Add to charge capacity |
-| `addEfficiencyMod(float)` | Add to efficiency |
+| `addCapacityMod(float)` | Additive change to capacity |
+| `multiplyCapacityMod(float)` | Multiplicative change to capacity |
+| `adjustTickRate(int)` | Adjusts tick rate (negative = faster, minimum 1) |
+| `setTickRate(int)` | Sets tick rate directly (minimum 1) |
+| `addConsumptionMod(float)` | Additive change to crafting speed |
+| `addSacrificeMod(float)` | Additive change to sacrifice bonus |
+| `addSelfSacrificeMod(float)` | Additive change to self-sacrifice bonus |
+| `multiplyDislocationMod(float)` | Multiplies dislocation multiplier |
+| `addDislocationMod(float)` | Additive change to dislocation |
+| `addOrbCapacityMod(float)` | Additive change to orb capacity |
+| `addChargeAmountMod(float)` | Additive change to charge amount |
+| `addChargeCapacityMod(float)` | Additive change to charge capacity |
+| `multiplyEfficiencyMod(float)` | Multiplies efficiency multiplier |
+| `reset()` | Resets all modifiers to defaults |
+
+Mutators are `void`; they do not return `this` and are not chainable.
 
 ### RuneInstance
 
-**Package:** `com.breakinblocks.neovitae.api.altar.rune`
-
-Represents a single rune found during altar structure scanning. This record provides addon mods with direct access to scanned rune data, eliminating the need to re-scan the altar structure.
-
-**This is especially useful for dynamic runes** - runes whose bonuses depend on their internal state (e.g., a rune that provides different bonuses based on stored power or mana).
-
-#### Record Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `pos` | `BlockPos` | Position of the rune block in the world |
-| `block` | `Block` | The block at this position |
-| `blockEntity` | `@Nullable BlockEntity` | The block entity at this position, or null |
-
-#### Methods
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `hasBlockEntity()` | `boolean` | True if a block entity exists at this position |
-| `isBlockEntityType(Class)` | `boolean` | True if block entity is instance of given type |
-| `getBlockEntityAs(Class<T>)` | `T` | Cast block entity to type, or null if not that type |
-| `isBlockType(Class)` | `boolean` | True if the block is instance of given type |
-
-#### Example: Dynamic Rune State
+**Package** `com.breakinblocks.neovitae.api.altar.rune`
 
 ```java
-@SubscribeEvent
-public void onCalculateStats(AltarRuneEvent.CalculateStats event) {
-    // Iterate all rune instances to find our custom runes
-    for (RuneInstance instance : event.getRuneInstances()) {
-        // Check if this rune is our custom block entity
-        if (instance.blockEntity() instanceof MyManaRuneBlockEntity manaRune) {
-            // Apply bonus based on rune's internal state
-            if (manaRune.hasMana()) {
-                event.getModifiers().addConsumptionMod(0.15f);
-            } else {
-                // Unpowered penalty
-                event.getModifiers().addConsumptionMod(-0.10f);
-            }
-        }
-    }
+public record RuneInstance(BlockPos pos, Block block, @Nullable BlockEntity blockEntity) {
+    public boolean hasBlockEntity();
+    public boolean isBlockEntityType(Class<? extends BlockEntity> type);
+    public <T extends BlockEntity> @Nullable T getBlockEntityAs(Class<T> type);
+    public boolean isBlockType(Class<? extends Block> blockClass);
 }
 ```
 
-### AltarRuneEvent
-
-**Package:** `com.breakinblocks.neovitae.api.event`
-
-Events fired when the Ara Vitae calculates or applies rune effects. These events use a unified rune map that includes both built-in and custom rune types.
-
-**Event Order:**
-1. **GatherRunes** - Fired after scanning, allows adding virtual runes
-2. **CalculateStats** - Fired during stat calculation, allows modifying bonuses
-3. **PostCalculate** - Fired after stats are finalized, informational only
-
-#### Base Event Methods
-
-All three event types inherit these methods:
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getAltar()` | `IAraVitae` | The Ara Vitae instance |
-| `getLevel()` | `Level` | The world level |
-| `getPos()` | `BlockPos` | The altar's position |
-| `getTier()` | `int` | The altar's current tier |
-
-#### AltarRuneEvent.GatherRunes
-
-Fired when scanning for runes. Allows adding virtual runes not from blocks.
-
-```java
-@SubscribeEvent
-public static void onGatherRunes(AltarRuneEvent.GatherRunes event) {
-    // Add runes using the unified method (works for any type)
-    event.addRunes(EnumAltarRuneType.SPEED, 2);
-    event.addRunes(MyMod.MY_RUNE_TYPE, 1);
-
-    // Access scanned rune instances (read-only during GatherRunes)
-    for (RuneInstance instance : event.getRuneInstances()) {
-        // Inspect what runes were found
-    }
-}
-```
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `addRunes(IAltarRuneType, int)` | `void` | Add any rune type (preferred) |
-| `getRuneCounts()` | `Map<IAltarRuneType, Integer>` | Mutable map of all rune counts |
-| `getRuneInstances()` | `List<RuneInstance>` | Read-only list of scanned rune instances |
-
-#### AltarRuneEvent.CalculateStats
-
-Fired during stat calculation. Modify the `AltarRuneModifiers` here. **This is the primary event for dynamic rune logic.**
-
-```java
-@SubscribeEvent
-public static void onCalculateStats(AltarRuneEvent.CalculateStats event) {
-    // Get rune count by type
-    int speedCount = event.getRuneCount(EnumAltarRuneType.SPEED);
-    int myRuneCount = event.getRuneCount(MyMod.MY_RUNE_TYPE);
-
-    // Modify stats based on rune counts
-    if (myRuneCount > 0) {
-        event.getModifiers().addCapacityMod(0.1f * myRuneCount);
-    }
-
-    // Access dynamic rune block entities directly (no rescanning needed!)
-    List<MyRuneBlockEntity> myRunes = event.getRuneBlockEntities(MyRuneBlockEntity.class);
-    for (MyRuneBlockEntity rune : myRunes) {
-        if (rune.isPowered()) {
-            event.getModifiers().addConsumptionMod(0.15f);
-        }
-    }
-}
-```
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getModifiers()` | `AltarRuneModifiers` | Mutable modifiers to change |
-| `getRuneCount(IAltarRuneType)` | `int` | Count of a specific rune type |
-| `getRuneCounts()` | `Map<IAltarRuneType, Integer>` | Read-only map of all rune counts |
-| `getRuneInstances()` | `List<RuneInstance>` | All scanned rune instances |
-| `getRuneBlockEntities(Class<T>)` | `List<T>` | **Filter to block entities of type T** |
-| `getRuneInstancesByType(IAltarRuneType)` | `List<RuneInstance>` | Filter instances by rune type |
-
-#### AltarRuneEvent.PostCalculate
-
-Fired after all modifications applied. Informational only.
-
-```java
-@SubscribeEvent
-public static void onPostCalculate(AltarRuneEvent.PostCalculate event) {
-    // Log final stats for debugging
-    AltarRuneModifiers finals = event.getFinalModifiers();
-    LOGGER.debug("Altar at {} has {}% capacity bonus",
-        event.getPos(), finals.getCapacityMod() * 100);
-
-    // Access rune instances for post-calculation effects
-    for (RuneInstance instance : event.getRuneInstances()) {
-        // Trigger visual effects, particles, etc.
-    }
-}
-```
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getFinalModifiers()` | `AltarRuneModifiers` | The finalized modifiers |
-| `getRuneInstances()` | `List<RuneInstance>` | All scanned rune instances |
-
-### Complete Custom Rune Example
-
-This example shows a dynamic mana rune that provides different bonuses based on whether it has stored mana.
-
-```java
-// 1. Define your rune type
-public class ManaRuneType implements IAltarRuneType {
-    public static final ManaRuneType INSTANCE = new ManaRuneType();
-    public static final ResourceLocation ID =
-        ResourceLocation.fromNamespaceAndPath("mymod", "mana_rune");
-
-    @Override
-    public ResourceLocation getId() { return ID; }
-
-    @Override
-    public String getSerializedName() { return "mana_rune"; }
-}
-
-// 2. Create your rune block entity (for dynamic behavior)
-public class ManaRuneBlockEntity extends BlockEntity {
-    private int storedMana = 0;
-
-    public boolean hasMana() { return storedMana > 0; }
-    public int getStoredMana() { return storedMana; }
-    // ... mana storage logic
-}
-
-// 3. Create your rune block
-public class ManaRuneBlock extends Block implements EntityBlock {
-    public ManaRuneBlock(Properties props) {
-        super(props);
-    }
-
-    @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new ManaRuneBlockEntity(ModBlockEntities.MANA_RUNE.get(), pos, state);
-    }
-}
-
-// 4. Register in common setup
-@Mod.EventBusSubscriber(modid = "mymod", bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModSetup {
-    @SubscribeEvent
-    public static void onCommonSetup(FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            IAltarRuneRegistry registry = NeoVitaeAPI.get().getRuneRegistry();
-            registry.registerRuneType(ManaRuneType.INSTANCE);
-            registry.registerRuneBlock(ModBlocks.MANA_RUNE.get(),
-                ManaRuneType.INSTANCE, 1);
-        });
-    }
-}
-
-// 5. Handle dynamic stat calculation - NO RESCANNING NEEDED!
-@Mod.EventBusSubscriber(modid = "mymod", bus = Mod.EventBusSubscriber.Bus.GAME)
-public class RuneEvents {
-    @SubscribeEvent
-    public static void onCalculateStats(AltarRuneEvent.CalculateStats event) {
-        // Use getRuneBlockEntities() to find all our rune block entities
-        // Neo Vitae already scanned the altar - we just filter the results!
-        List<ManaRuneBlockEntity> manaRunes =
-            event.getRuneBlockEntities(ManaRuneBlockEntity.class);
-
-        int poweredCount = 0;
-        int unpoweredCount = 0;
-
-        for (ManaRuneBlockEntity rune : manaRunes) {
-            if (rune.hasMana()) {
-                poweredCount++;
-            } else {
-                unpoweredCount++;
-            }
-        }
-
-        // Powered runes: +20% capacity, +15% efficiency
-        if (poweredCount > 0) {
-            event.getModifiers()
-                .addCapacityMod(0.20f * poweredCount)
-                .addEfficiencyMod(0.15f * poweredCount);
-        }
-
-        // Unpowered runes: still +5% capacity (weaker bonus)
-        if (unpoweredCount > 0) {
-            event.getModifiers()
-                .addCapacityMod(0.05f * unpoweredCount);
-        }
-    }
-}
-```
-
-### Before vs After: Why RuneInstance Matters
-
-**Before (required rescanning 15,000+ blocks):**
-```java
-// Old approach - INEFFICIENT, had to scan the entire altar area!
-@SubscribeEvent
-public void onCalculateStats(AltarRuneEvent.CalculateStats event) {
-    BlockPos altarPos = event.getPos();
-    Level level = event.getLevel();
-
-    // Manually scan a 27x21x27 area to find our runes
-    for (int x = -13; x <= 13; x++) {
-        for (int y = -5; y <= 15; y++) {
-            for (int z = -13; z <= 13; z++) {
-                BlockPos checkPos = altarPos.offset(x, y, z);
-                BlockEntity be = level.getBlockEntity(checkPos);
-                if (be instanceof MyRuneBlockEntity myRune) {
-                    // Finally found it after checking thousands of blocks!
-                    applyBonus(myRune, event.getModifiers());
-                }
-            }
-        }
-    }
-}
-```
-
-**After (direct access, no rescanning):**
-```java
-// New approach - Neo Vitae provides the rune instances directly!
-@SubscribeEvent
-public void onCalculateStats(AltarRuneEvent.CalculateStats event) {
-    // One line to get all matching block entities
-    List<MyRuneBlockEntity> myRunes = event.getRuneBlockEntities(MyRuneBlockEntity.class);
-
-    for (MyRuneBlockEntity rune : myRunes) {
-        applyBonus(rune, event.getModifiers());
-    }
-}
-```
+Surfaced on the rune events so addons can react to dynamic rune state without rescanning the altar structure.
 
 ---
 
 ## Ritual System
 
-Neo Vitae has two types of rituals:
+Neo Vitae has two flavors of rituals.
 
-- **Rituals**: Complex multiblock structures with ongoing effects
-- **Imperfect Rituals**: Simple one-time effects
+- **Rituals** Multi-rune structures driven by a Master Ritual Stone that perform ongoing effects.
+- **Imperfect Rituals** Single-use effects triggered by placing a block above an Imperfect Ritual Stone.
 
 ### IRitual
 
-**Package:** `com.breakinblocks.neovitae.api.ritual`
+**Package** `com.breakinblocks.neovitae.api.ritual`
 
-Interface for multiblock rituals.
+Interface for multiblock rituals. Custom rituals extend the abstract `Ritual` class in the main package rather than implementing this directly.
 
-#### Core Methods
+#### Core
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `performRitual(IMasterRitualStone)` | `void` | Called each refresh to perform effect |
-| `getRefreshCost()` | `int` | LP cost per refresh |
+| `performRitual(IMasterRitualStone)` | `void` | Run each refresh while active |
+| `getRefreshCost()` | `int` | EV drained per refresh |
 | `getRefreshTime()` | `int` | Ticks between refreshes |
-| `gatherComponents(Consumer<RitualComponent>)` | `void` | Defines rune structure |
-| `getNewCopy()` | `IRitual` | Creates fresh instance |
+| `gatherComponents(Consumer<RitualComponent>)` | `void` | Defines the rune structure |
+| `getNewCopy()` | `IRitual` | Creates a fresh instance for a new MRS |
 
-#### Lifecycle Methods
+#### Lifecycle
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `activateRitual(IMasterRitualStone, Player, UUID)` | `boolean` | Called on activation |
-| `stopRitual(IMasterRitualStone, BreakType)` | `void` | Called when stopped |
+| `activateRitual(IMasterRitualStone, Player, UUID owner)` | `boolean` | Called when activation is attempted |
+| `stopRitual(IMasterRitualStone, BreakType)` | `void` | Called when the ritual ends |
 
-#### Info Methods
+#### Info
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
 | `getName()` | `String` | Unique ritual name |
-| `getCrystalLevel()` | `int` | Required crystal tier (1=weak, 2=awakened) |
-| `getActivationCost()` | `int` | LP to activate |
-| `getTranslationKey()` | `String` | Translation key |
+| `getCrystalLevel()` | `int` | Required activation crystal tier |
+| `getActivationCost()` | `int` | EV to activate |
+| `getTranslationKey()` | `String` | Lang key |
+| `provideInformationOfRitualToPlayer(Player)` | `Component[]` | Lines shown to a player querying the ritual |
 
-#### Range Methods
+#### Ranges
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `getBlockRange(String)` | `AreaDescriptor` | Gets named area |
+| `getBlockRange(String key)` | `AreaDescriptor` | Lookup a named range |
 | `getListOfRanges()` | `List<String>` | All modifiable range keys |
-| `getModifiableRanges()` | `Map<String, AreaDescriptor>` | All ranges |
+| `getModifiableRanges()` | `Map<String, AreaDescriptor>` | All ranges by key |
 
-#### BreakType Enum
+#### NBT
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `readFromNBT(CompoundTag)` | `void` | Loads ritual state |
+| `writeToNBT(CompoundTag)` | `void` | Saves ritual state |
+
+#### BreakType
 
 | Value | Description |
 |-------|-------------|
 | `DEACTIVATE` | Player deactivated |
-| `BREAK_MRS` | Master stone broken |
-| `BREAK_STONE` | Ritual stone broken |
+| `BREAK_MRS` | Master ritual stone broken |
+| `BREAK_STONE` | A ritual rune stone was broken |
 | `ACTIVATE` | Another ritual activated |
-| `REDSTONE` | Redstone signal stopped it |
+| `REDSTONE` | Redstone signal cut the ritual |
 | `EXPLOSION` | Destroyed by explosion |
-
-### IMasterRitualStone
-
-**Package:** `com.breakinblocks.neovitae.api.ritual`
-
-Interface for Master Ritual Stone block entities.
-
-#### State Methods
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getLevel()` | `Level` | World the stone is in |
-| `getBlockPos()` | `BlockPos` | Position of the stone |
-| `getOwner()` | `UUID` | Owner's UUID |
-| `setOwner(UUID)` | `void` | Sets owner |
-| `getCurrentRitual()` | `IRitual` | Active ritual or null |
-| `isActive()` | `boolean` | True if ritual running |
-| `getDirection()` | `Direction` | Facing direction |
-| `isInverted()` | `boolean` | True if inverted |
-
-#### Timing Methods
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getCooldown()` | `int` | Current cooldown ticks |
-| `setCooldown(int)` | `void` | Sets cooldown |
-| `getRunningTime()` | `long` | Total running time |
-
-#### Control Methods
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `activateRitual(IRitual, Player, int)` | `boolean` | Activates a ritual |
-| `performRitual()` | `void` | Performs current ritual |
-| `stopRitual(BreakType)` | `void` | Stops current ritual |
-| `checkStructure(IRitual)` | `boolean` | Validates rune structure |
-
-#### Range Methods
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getBlockRange(String)` | `AreaDescriptor` | Gets named range |
-| `getBlockRanges()` | `Map<String, AreaDescriptor>` | All ranges |
-| `setBlockRange(String, AreaDescriptor)` | `void` | Sets a range |
-| `setBlockRanges(Map)` | `void` | Sets all ranges |
-
-#### Network Methods
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `ticket()` | `SoulTicket` | Creates soul ticket for this stone |
-| `ticket(int)` | `SoulTicket` | Creates ticket with amount |
-| `getOwnerNetwork()` | `ISoulNetwork` | Gets owner's network |
-| `notifyOwner(Component)` | `void` | Sends message to owner |
 
 ### IImperfectRitual
 
-**Package:** `com.breakinblocks.neovitae.api.ritual`
-
-Interface for simple one-time rituals.
+**Package** `com.breakinblocks.neovitae.api.ritual`
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
 | `onActivate(IImperfectRitualStone, Player)` | `boolean` | Performs the ritual |
 | `getName()` | `String` | Unique name |
-| `getBlockRequirement()` | `Predicate<BlockState>` | Required block above stone |
-| `getActivationCost()` | `int` | LP cost |
-| `isLightShow()` | `boolean` | Show lightning effect |
-| `getTranslationKey()` | `String` | Translation key |
+| `getBlockRequirement()` | `Predicate<BlockState>` | Required block above the stone |
+| `getActivationCost()` | `int` | EV cost (may be overridden by data maps) |
+| `isLightShow()` | `boolean` | Whether to play lightning effects |
+| `getTranslationKey()` | `String` | Lang key |
 
 ### IImperfectRitualStone
 
-**Package:** `com.breakinblocks.neovitae.api.ritual`
-
-Interface for Imperfect Ritual Stone block entities.
+**Package** `com.breakinblocks.neovitae.api.ritual`
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `getRitualWorld()` | `Level` | World the stone is in |
+| `getRitualWorld()` | `Level` | World the stone lives in |
 | `getRitualPos()` | `BlockPos` | Position of the stone |
+
+### Master Ritual Stone
+
+`IMasterRitualStone` lives outside the API package, at `com.breakinblocks.neovitae.ritual.IMasterRitualStone`, because its interface returns concrete `Ritual` references rather than the `IRitual` API view. Addons working with rituals will receive `IMasterRitualStone` instances via the API methods on `IRitual`, but should not redeclare or re-implement this interface.
 
 ### RitualComponent
 
-**Package:** `com.breakinblocks.neovitae.api.ritual`
-
-Represents a single rune in a ritual structure.
+**Package** `com.breakinblocks.neovitae.api.ritual`
 
 ```java
 public record RitualComponent(BlockPos offset, EnumRuneType runeType) {
@@ -978,137 +685,167 @@ public record RitualComponent(BlockPos offset, EnumRuneType runeType) {
 
 ### EnumRuneType
 
-**Package:** `com.breakinblocks.neovitae.api.ritual`
-
-Types of ritual runes.
+**Package** `com.breakinblocks.neovitae.api.ritual`
 
 | Value | Color | Description |
 |-------|-------|-------------|
-| `BLANK` | Gray | Basic rune |
+| `BLANK` | Gray | Basic rune, no elemental affinity |
 | `WATER` | Aqua | Water elemental |
 | `FIRE` | Red | Fire elemental |
 | `EARTH` | Green | Earth elemental |
 | `AIR` | White | Air elemental |
-| `DUSK` | Dark Gray | Advanced rune |
-| `DAWN` | Gold | Most powerful rune |
+| `DUSK` | Dark Gray | Dusk rune, advanced rituals |
+| `DAWN` | Gold | Dawn rune, the most powerful rituals |
+
+Public fields `colorCode` (`ChatFormatting`), `translationKey`, and `bookColor` are exposed on each constant. The static helper `byMetadata(int)` looks up a rune by ordinal (returns `BLANK` if out of range).
 
 ### AreaDescriptor
 
-**Package:** `com.breakinblocks.neovitae.api.ritual`
+**Package** `com.breakinblocks.neovitae.api.ritual`
 
-Abstract class for defining ritual areas of effect.
+Abstract base class for ritual areas of effect; ships with three concrete implementations.
 
-#### Abstract Methods
+#### Abstract methods
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
 | `resetCache()` | `void` | Clears cached positions |
-| `isWithinArea(BlockPos)` | `boolean` | Checks if position is in area |
-| `getContainedPositions(BlockPos)` | `List<BlockPos>` | All positions in area |
-| `getAABB(BlockPos)` | `AABB` | Bounding box |
-| `modifyAreaByBlockPositions(BlockPos, BlockPos)` | `void` | Modifies bounds |
-| `isWithinRange(BlockPos, BlockPos, int, int)` | `boolean` | Checks limits |
-| `saveToNBT(CompoundTag)` | `void` | Saves to NBT |
-| `loadFromNBT(CompoundTag)` | `void` | Loads from NBT |
-| `copy()` | `AreaDescriptor` | Creates copy |
-| `intersects(AreaDescriptor)` | `boolean` | Checks intersection |
-| `offset(BlockPos)` | `AreaDescriptor` | Returns offset copy |
+| `isWithinArea(BlockPos)` | `boolean` | Tests a position |
+| `getContainedPositions(BlockPos masterPos)` | `List<BlockPos>` | All positions inside the area |
+| `getAABB(BlockPos masterPos)` | `AABB` | Bounding box |
+| `modifyAreaByBlockPositions(BlockPos, BlockPos)` | `void` | Resizes the area |
+| `isWithinRange(BlockPos, BlockPos, int verticalLimit, int horizontalLimit)` | `boolean` | Range guard |
+| `saveToNBT(CompoundTag)` | `void` | Save |
+| `loadFromNBT(CompoundTag)` | `void` | Load |
+| `copy()` | `AreaDescriptor` | Deep copy |
+| `intersects(AreaDescriptor)` | `boolean` | Intersection test |
+| `offset(BlockPos)` | `AreaDescriptor` | Returns an offset copy |
 
-#### Implementations
+Legacy aliases `writeToNBT(CompoundTag)` and `readFromNBT(CompoundTag)` delegate to `saveToNBT` / `loadFromNBT`.
 
-##### Rectangle
-
-Rectangular box-shaped area.
+#### Rectangle
 
 ```java
-// Create with corners
-new Rectangle(minOffset, maxOffset);
-
-// Create with position and size
-new Rectangle(offset, sizeX, sizeY, sizeZ);
-
-// Create centered rectangle
-Rectangle.createCenteredAt(center, radius, height);
+new AreaDescriptor.Rectangle(BlockPos min, BlockPos max);
+new AreaDescriptor.Rectangle(BlockPos offset, int sizeX, int sizeY, int sizeZ);
+AreaDescriptor.Rectangle.createCenteredAt(BlockPos center, int radius, int height);
 ```
 
-##### HemiSphere
+Codec available as `AreaDescriptor.Rectangle.CODEC`. Accessors `getMinimumOffset()` and `getMaximumOffset()`.
 
-Hemispherical area (half sphere above a point).
+#### HemiSphere
 
 ```java
-new HemiSphere(centerOffset, radius);
+new AreaDescriptor.HemiSphere(BlockPos centerOffset, int radius);
 ```
 
-##### Cross
+Accessors `getCenterOffset()` and `getRadius()`.
 
-Plus-shaped area extending in cardinal directions.
+#### Cross
 
 ```java
-new Cross(centerOffset, armLength, height);
+new AreaDescriptor.Cross(BlockPos centerOffset, int length, int height);
 ```
+
+Accessors `getCenterOffset()`, `getLength()`, `getHeight()`.
 
 ---
 
 ## Sigil System
 
-Sigils are Neo Vitae items that provide various effects powered by Life Points (LP). The sigil system is fully datapack-driven, allowing addon mods to create custom sigil effects.
+Sigils are items powered by EV. The sigil system is split into two layers.
 
-### Overview
-
-Neo Vitae's sigil system consists of:
-
-1. **Sigil Effects** - The actual behavior/logic (implemented via `ISigilEffect`)
-2. **Sigil Types** - Datapack-defined configurations that combine effects with LP costs
-3. **Sigil Items** - Items that reference a sigil type
+- **Sigil Effects** (`ISigilEffect`) implement the behavior. Each concrete effect has a `MapCodec` for serialization.
+- **Sigil Types** (`SigilType`) are datapack-defined; they pair an effect with EV costs and drain intervals.
 
 ### ISigilEffect
 
-**Package:** `com.breakinblocks.neovitae.api.sigil`
-
-Interface for implementing custom sigil effects.
-
-#### Methods
+**Package** `com.breakinblocks.neovitae.api.sigil`
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `codec()` | `MapCodec<? extends ISigilEffect>` | Returns the codec for serialization |
-| `useOnAir(Level, Player, ItemStack)` | `boolean` | Called when right-clicking air |
-| `useOnBlock(Level, Player, ItemStack, BlockPos, Direction, Vec3)` | `boolean` | Called when right-clicking a block |
-| `useOnEntity(Level, Player, ItemStack, Entity)` | `boolean` | Called when right-clicking an entity |
-| `activeTick(Level, Player, ItemStack, int, boolean)` | `void` | Called every tick while active (toggleable sigils) |
-| `isToggleable()` | `boolean` | Whether this effect can be toggled on/off |
+| `codec()` | `MapCodec<? extends ISigilEffect>` | Codec for serialization dispatch |
+| `useOnAir(Level, Player, ItemStack)` | `boolean` (default `false`) | Right-click in air; return `true` to charge EV |
+| `useOnBlock(Level, Player, ItemStack, BlockPos, Direction, Vec3)` | `boolean` (default `false`) | Right-click on a block |
+| `useOnEntity(Level, Player, ItemStack, Entity)` | `boolean` (default `false`) | Right-click on an entity |
+| `activeTick(Level, Player, ItemStack, int slot, boolean isSelected)` | `void` (default no-op) | Every tick while a toggleable sigil is on |
+| `isToggleable()` | `boolean` (default `false`) | Whether this effect supports toggling |
+| `onPlayerLogout(UUID, MinecraftServer)` | `void` (default no-op) | Per-effect logout cleanup hook |
 
-All methods except `codec()` have default implementations that return `false` or do nothing.
+The static field `ISigilEffect.DISPATCH_CODEC` is the dispatch-codec holder; addons read it indirectly via `SigilType.CODEC` and do not need to touch it directly.
 
-#### Effect Types
+### SigilEffect
 
-Sigils can be:
+**Package** `com.breakinblocks.neovitae.api.sigil`
 
-- **Static** - Single-use effects triggered by right-click (e.g., Water Sigil places water)
-- **Toggleable** - Ongoing effects that drain LP while active (e.g., Air Sigil provides flight)
-- **Hybrid** - Both toggled effects and right-click actions (e.g., Green Grove with bone meal)
+A more specific interface used by NeoVitae's built-in effects. Addons can implement either `SigilEffect` or `ISigilEffect`; the only difference is that `SigilEffect.codec()` is typed as `MapCodec<? extends SigilEffect>`. The static field `SigilEffect.CODEC` is deprecated; prefer `ISigilEffect.DISPATCH_CODEC` via `SigilType`.
 
-### Creating Custom Sigil Effects
+### SigilType
 
-#### Step 1: Implement ISigilEffect
+**Package** `com.breakinblocks.neovitae.api.sigil`
 
 ```java
-package mymod.sigil;
+public record SigilType(
+    int lpCostAir,
+    int lpCostBlock,
+    int lpCostEntity,
+    int lpCostActive,
+    int drainInterval,
+    Optional<ISigilEffect> effect
+)
+```
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.breakinblocks.neovitae.api.sigil.ISigilEffect;
+| Static | Description |
+|--------|-------------|
+| `DEFAULT_DRAIN_INTERVAL` | `100` ticks (5 s) |
+| `CODEC` | Datapack codec |
+| `CLIENT_CODEC` | Full client-sync codec |
+| `HOLDER_CODEC` | Registry-fixed holder codec |
+| `HOLDER_STREAM_CODEC` | Network stream codec |
+| `descriptionId(ResourceKey<SigilType>)` | Returns the `sigil.<namespace>.<path>` translation key |
+| `simple(int lpCost, ISigilEffect)` | Factory for a one-shot air-use sigil |
+| `toggleable(int lpCostActive, int drainInterval, ISigilEffect)` | Factory for a toggleable sigil |
+| `toggleableWithUse(int lpCostBlock, int lpCostActive, int drainInterval, ISigilEffect)` | Factory for a toggleable sigil with a separate block-use action |
 
+| Instance method | Return Type | Description |
+|-----------------|-------------|-------------|
+| `isToggleable()` | `boolean` | Delegates to the contained effect |
+| `getCostForContext(UseContext)` | `int` | Cost for `AIR`, `BLOCK`, `ENTITY`, or `ACTIVE` |
+
+### SigilEffects
+
+**Package** `com.breakinblocks.neovitae.api.sigil.effects`
+
+Constants pointing to the built-in effect codecs. Addons do not need to interact with this class.
+
+| Effect type | Toggleable | Behavior |
+|-------------|------------|----------|
+| `neovitae:air` | Yes | Provides creative flight |
+| `neovitae:place_fluid` | No | Places water or lava |
+| `neovitae:void` | No | Voids fluids in an area |
+| `neovitae:fast_miner` | Yes | Grants haste |
+| `neovitae:green_grove` | Yes | Accelerates crop growth, bone-meals on use |
+| `neovitae:magnetism` | Yes | Pulls items and XP orbs |
+| `neovitae:frost` | Yes | Freezes water below the player |
+| `neovitae:suppression` | Yes | Suppresses fluids in an area |
+| `neovitae:phantom_bridge` | Yes | Creates phantom blocks below the player |
+| `neovitae:divination` | No | Shows anima info |
+| `neovitae:blood_light` | No | Places light blocks |
+| `neovitae:teleposition` | No | Teleports to a bound teleposer |
+| `neovitae:necromancy` | No | Necromancy effect |
+| `neovitae:bound_treasures` | No | Bound-treasures effect |
+
+### Creating a custom sigil effect
+
+#### 1. Implement `ISigilEffect`
+
+```java
 public record MyCustomEffect(int power) implements ISigilEffect {
 
-    public static final int DEFAULT_POWER = 5;
-
-    // Codec for serialization - required for datapack loading
     public static final MapCodec<MyCustomEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
-            instance.group(
-                    Codec.INT.optionalFieldOf("power", DEFAULT_POWER).forGetter(MyCustomEffect::power)
-            ).apply(instance, MyCustomEffect::new)
+        instance.group(
+            Codec.INT.optionalFieldOf("power", 5).forGetter(MyCustomEffect::power)
+        ).apply(instance, MyCustomEffect::new)
     );
 
     @Override
@@ -1118,60 +855,30 @@ public record MyCustomEffect(int power) implements ISigilEffect {
 
     @Override
     public boolean useOnAir(Level level, Player player, ItemStack stack) {
-        if (level.isClientSide) {
-            return false;
-        }
-
-        // Your custom effect logic here
+        if (level.isClientSide) return false;
         player.heal(power);
-        return true; // Return true to consume LP
-    }
-
-    @Override
-    public boolean isToggleable() {
-        return false; // Set to true for toggle-based sigils
+        return true;
     }
 }
 ```
 
-#### Step 2: Register the Effect Codec
+#### 2. Register the effect codec
 
 ```java
-package mymod;
+public static final DeferredRegister<MapCodec<? extends ISigilEffect>> SIGIL_EFFECTS =
+    DeferredRegister.create(NeoVitaeRegistries.SIGIL_EFFECT_TYPE_KEY, "mymod");
 
-import com.mojang.serialization.MapCodec;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import com.breakinblocks.neovitae.api.registry.NeoVitaeRegistries;
-import com.breakinblocks.neovitae.api.sigil.ISigilEffect;
-import mymod.sigil.MyCustomEffect;
-
-import java.util.function.Supplier;
-
-public class MyModSigilEffects {
-
-    public static final DeferredRegister<MapCodec<? extends ISigilEffect>> SIGIL_EFFECTS =
-            DeferredRegister.create(NeoVitaeRegistries.SIGIL_EFFECT_TYPE_KEY, "mymod");
-
-    public static final Supplier<MapCodec<MyCustomEffect>> MY_CUSTOM_EFFECT =
-            SIGIL_EFFECTS.register("my_custom_effect", () -> MyCustomEffect.CODEC);
-
-    public static void register(IEventBus modBus) {
-        SIGIL_EFFECTS.register(modBus);
-    }
-}
+public static final Supplier<MapCodec<MyCustomEffect>> MY_CUSTOM_EFFECT =
+    SIGIL_EFFECTS.register("my_custom_effect", () -> MyCustomEffect.CODEC);
 ```
 
-#### Step 3: Create a Sigil Type JSON
+#### 3. Define a sigil type via datapack
 
-Create a datapack file at `data/mymod/neovitae/sigil_type/my_custom_sigil.json`:
+`data/mymod/neovitae/sigil_type/my_custom_sigil.json`
 
 ```json
 {
   "lp_cost_air": 200,
-  "lp_cost_block": 0,
-  "lp_cost_entity": 0,
-  "lp_cost_active": 0,
   "drain_interval": 100,
   "effect": {
     "type": "mymod:my_custom_effect",
@@ -1180,224 +887,301 @@ Create a datapack file at `data/mymod/neovitae/sigil_type/my_custom_sigil.json`:
 }
 ```
 
-#### JSON Sigil Type Fields
-
 | Field | Type | Required | Default | Description |
 |-------|------|----------|---------|-------------|
-| `lp_cost_air` | int | No | 0 | LP cost when used on air |
-| `lp_cost_block` | int | No | 0 | LP cost when used on a block |
-| `lp_cost_entity` | int | No | 0 | LP cost when used on an entity |
-| `lp_cost_active` | int | No | 0 | LP cost per drain interval (toggleable) |
-| `drain_interval` | int | No | 100 | Ticks between LP drain (5 seconds default) |
-| `effect` | object | No | - | The effect implementation with type and parameters |
+| `lp_cost_air` | int | No | 0 | EV cost when used on air |
+| `lp_cost_block` | int | No | 0 | EV cost when used on a block |
+| `lp_cost_entity` | int | No | 0 | EV cost when used on an entity |
+| `lp_cost_active` | int | No | 0 | EV cost per drain interval (toggleable) |
+| `drain_interval` | int | No | 100 | Ticks between EV drains for toggleable effects |
+| `effect` | object | No | - | The effect implementation with `type` and effect-specific fields |
 
-#### Step 4: Create the Sigil Item
-
-```java
-// In your item registration
-public static final DeferredHolder<Item, SigilItem> MY_CUSTOM_SIGIL =
-    ITEMS.register("my_custom_sigil", () ->
-        new SigilItem(ResourceKey.create(
-            NeoVitaeRegistries.SIGIL_TYPE_KEY,
-            ResourceLocation.fromNamespaceAndPath("mymod", "my_custom_sigil")
-        ))
-    );
-```
-
-### Toggleable Sigil Example
-
-For sigils with ongoing effects:
-
-```java
-public record MyToggleEffect(int range) implements ISigilEffect {
-
-    public static final MapCodec<MyToggleEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
-            instance.group(
-                    Codec.INT.optionalFieldOf("range", 5).forGetter(MyToggleEffect::range)
-            ).apply(instance, MyToggleEffect::new)
-    );
-
-    @Override
-    public MapCodec<? extends ISigilEffect> codec() {
-        return CODEC;
-    }
-
-    @Override
-    public boolean isToggleable() {
-        return true; // Enable toggle functionality
-    }
-
-    @Override
-    public void activeTick(Level level, Player player, ItemStack stack, int itemSlot, boolean isSelected) {
-        if (level.isClientSide) {
-            return;
-        }
-
-        // Effect runs every tick while sigil is active
-        // For example, pull nearby items
-        BlockPos playerPos = player.blockPosition();
-        AABB area = new AABB(playerPos).inflate(range);
-
-        for (ItemEntity item : level.getEntitiesOfClass(ItemEntity.class, area)) {
-            Vec3 motion = player.position().subtract(item.position()).normalize().scale(0.1);
-            item.setDeltaMovement(item.getDeltaMovement().add(motion));
-        }
-    }
-}
-```
-
-With corresponding JSON:
-
-```json
-{
-  "lp_cost_active": 50,
-  "drain_interval": 20,
-  "effect": {
-    "type": "mymod:my_toggle_effect",
-    "range": 8
-  }
-}
-```
-
-### Built-in Sigil Effects
-
-Neo Vitae includes these effect types:
-
-| Effect Type | Description | Toggleable |
-|------------|-------------|------------|
-| `neovitae:air` | Provides creative flight | Yes |
-| `neovitae:place_fluid` | Places water or lava | No |
-| `neovitae:void` | Voids fluids in an area | No |
-| `neovitae:green_grove` | Accelerates crop growth, bone meal on use | Yes |
-| `neovitae:fast_miner` | Grants haste effect | Yes |
-| `neovitae:magnetism` | Pulls items and XP orbs | Yes |
-| `neovitae:frost` | Freezes water below player | Yes |
-| `neovitae:suppression` | Suppresses fluids in area | Yes |
-| `neovitae:phantom_bridge` | Creates phantom blocks below player | Yes |
-| `neovitae:divination` | Shows soul network info | No |
-| `neovitae:blood_light` | Places light blocks | No |
-| `neovitae:teleposition` | Teleports to bound teleposer | No |
+> Sigil item registration uses the registry key from `SigilTypeRegistry.SIGIL_TYPE_KEY` (package `com.breakinblocks.neovitae.registry`), not from `NeoVitaeRegistries`. Addons currently only need this to point a `SigilItem` constructor at their sigil type.
 
 ---
 
-## Living Armor System
+## Sentient Armor System
 
-Living Armor gains experience and levels up upgrades as the player performs actions.
+Sentient Armor (formerly Living Armor) gains experience and levels up upgrades as the wearer performs actions.
 
-### IUpgradeHolder
+### ISentientArmorManager
 
-**Package:** `com.breakinblocks.neovitae.api.item`
+**Package** `com.breakinblocks.neovitae.api.sentient`
 
-Interface for items that can hold Living Armor upgrades. Neo Vitae's Living Armor pieces implement this interface.
-
-Use this interface to:
-- Detect Living Armor items via `instanceof IUpgradeHolder`
-- Query upgrade-related information from armor pieces
-- Check if a player has a complete Living Armor set
-
-#### Methods
+Top-level manager for queries and grants. Obtain via `INeoVitaeAPI.getSentientArmorManager()`.
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
-| `getMaxUpgradePoints(ItemStack, Player)` | `int` | Gets maximum upgrade points available |
-| `hasFullLivingArmorSet(Player)` | `boolean` | True if player has complete set |
-| `isInvalidArmor(ItemStack)` | `boolean` | True if armor is dead/invalid |
+| `hasFullSet(Player)` | `boolean` | Whether the player is wearing a full Sentient Armor set |
+| `getChestPiece(Player)` | `ItemStack` | The chest piece, or `ItemStack.EMPTY` |
+| `getUpgrades(Player)` | `List<UpgradeInfo>` | All upgrades on the chest piece |
+| `getUpgradeLevel(Player, ResourceLocation)` | `int` | Level of a specific upgrade, or `0` |
+| `grantUpgradeExperience(Player, ResourceLocation, float)` | `boolean` | Grants XP to an upgrade |
+| `getUpgradeExperience(Player, ResourceLocation)` | `float` | Current XP on an upgrade |
+| `getUsedUpgradePoints(Player)` | `int` | Points currently in use |
+| `getMaxUpgradePoints()` | `int` | Default maximum (typically 100) |
+| `getMaxUpgradePoints(Player)` | `int` | Effective max for the player's current armor |
+| `getAvailableUpgradePoints(Player)` | `int` | Remaining points |
 
-#### Example Usage
+#### UpgradeInfo
 
 ```java
-import com.breakinblocks.neovitae.api.item.IUpgradeHolder;
-
-// Check if an item is Living Armor
-ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
-if (chestplate.getItem() instanceof IUpgradeHolder holder) {
-    // Get upgrade point information
-    int maxPoints = holder.getMaxUpgradePoints(chestplate, player);
-    boolean hasFullSet = holder.hasFullLivingArmorSet(player);
-    boolean isDead = holder.isInvalidArmor(chestplate);
-
-    if (hasFullSet && !isDead) {
-        // Player is wearing a valid full Living Armor set
-        System.out.println("Max upgrade points: " + maxPoints);
-    }
-}
+public record UpgradeInfo(ResourceLocation upgradeId, int level, float experience, int pointCost) {}
 ```
 
-### ILivingArmorManager
+### ISentientArmorUpgrade
 
-**Package:** `com.breakinblocks.neovitae.api.living`
+**Package** `com.breakinblocks.neovitae.api.sentient`
 
-Manager for Living Armor operations.
-
-#### Query Methods
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `hasFullSet(Player)` | `boolean` | True if wearing full set |
-| `getChestPiece(Player)` | `ItemStack` | Gets chest piece or EMPTY |
-| `getUpgrades(Player)` | `List<UpgradeInfo>` | All upgrades on armor |
-| `getUpgradeLevel(Player, ResourceLocation)` | `int` | Level of specific upgrade |
-| `getUpgradeExperience(Player, ResourceLocation)` | `float` | Experience of upgrade |
-
-#### Modification Methods
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `grantUpgradeExperience(Player, ResourceLocation, float)` | `boolean` | Grants XP to upgrade |
-
-#### Points Methods
-
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getUsedUpgradePoints(Player)` | `int` | Points used |
-| `getMaxUpgradePoints()` | `int` | Maximum available (100) |
-| `getAvailableUpgradePoints(Player)` | `int` | Unused points |
-
-#### UpgradeInfo Record
-
-```java
-record UpgradeInfo(
-    ResourceLocation upgradeId,
-    int level,
-    float experience,
-    int pointCost
-) {}
-```
-
-### ILivingArmorUpgrade
-
-**Package:** `com.breakinblocks.neovitae.api.living`
-
-Interface for Living Armor upgrades.
+Interface implemented by individual Sentient Armor upgrades.
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
 | `getMaxLevel()` | `int` | Maximum upgrade level |
-| `getLevelFromExp(float)` | `int` | Level at experience amount |
-| `getExpForNextLevel(int)` | `float` | XP needed for next level |
-| `getTotalExpForLevel(int)` | `float` | Total XP for level |
-| `getPointCost(int)` | `int` | Point cost at level |
-| `getEffects()` | `DataComponentMap` | Upgrade effects |
+| `getLevelFromExp(float)` | `int` | Level for a given XP amount |
+| `getExpForNextLevel(int currentLevel)` | `float` | XP needed for the next level (`0` if at max) |
+| `getTotalExpForLevel(int level)` | `float` | Total XP required to reach `level` |
+| `getPointCost(int level)` | `int` | Upgrade point cost at the given level |
+| `getEffects()` | `DataComponentMap` | The data components applied while the upgrade is active |
 
-#### Example
+### IUpgradeHolder
 
-```java
-ILivingArmorManager manager = api.getLivingArmorManager();
+**Package** `com.breakinblocks.neovitae.api.item`
 
-if (manager.hasFullSet(player)) {
-    // Check upgrade level
-    ResourceLocation upgradeId = ResourceLocation.fromNamespaceAndPath("neovitae", "strong_legs");
-    int level = manager.getUpgradeLevel(player, upgradeId);
+Interface implemented by Sentient Armor item classes; useful for `instanceof` checks from addons.
 
-    // Grant experience
-    manager.grantUpgradeExperience(player, upgradeId, 10.0f);
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getMaxUpgradePoints(ItemStack, Player)` | `int` | Effective max points for this stack/player |
+| `hasFullSentientArmorSet(Player)` | `boolean` | Whether the player is wearing a full set |
+| `isInvalidArmor(ItemStack)` | `boolean` | Whether the armor is "dead" or otherwise invalid |
 
-    // Get all upgrades
-    for (UpgradeInfo info : manager.getUpgrades(player)) {
-        System.out.println(info.upgradeId() + " level " + info.level());
-    }
+---
+
+## Tranquility / Incense
+
+Tranquility powers the Incense Altar's bonus multiplier during self-sacrifice. Each block can map to a `EnumTranquilityType` and a value via the `tranquility` data map.
+
+### ITranquilityHandler
+
+**Package** `com.breakinblocks.neovitae.api.incense`
+
+Obtain via `INeoVitaeAPI.getTranquilityHandler()`.
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getTranquilityType(Block)` | `@Nullable EnumTranquilityType` | Aspect type for a block |
+| `getTranquilityType(BlockState)` | `@Nullable EnumTranquilityType` | Same, by block state |
+| `getTranquilityValue(Block)` | `double` | Numeric tranquility value, or `0` if none |
+| `getTranquilityValue(BlockState)` | `double` | Same, by block state |
+| `hasTranquility(Block)` | `boolean` | Whether the block has any entry |
+| `hasTranquility(BlockState)` | `boolean` | Same, by block state |
+
+`EnumTranquilityType` constants `PLANT`, `CROP`, `TREE`, `EARTHEN`, `WATER`, `FIRE`, `LAVA` live at `com.breakinblocks.neovitae.incense.EnumTranquilityType`.
+
+### TranquilityHandler
+
+**Package** `com.breakinblocks.neovitae.api.incense`
+
+Default singleton implementation exposed as `TranquilityHandler.INSTANCE`; addons normally use the API accessor instead.
+
+### Datapack format
+
+```json
+{
+  "values": {
+    "#minecraft:logs": { "type": "tree", "value": 1.0 },
+    "mymod:magic_flower": { "type": "plant", "value": 2.0 }
+  }
 }
 ```
+
+When a block matches multiple entries (via tags) the highest value wins.
+
+---
+
+## Routing System
+
+The routing system is the public surface for Neo Vitae's item, fluid, and energy routing network. The network is built from conduit nodes which discover one master node; the master iterates `RoutingChannel` implementations each tick to transfer between input and output sides.
+
+### IRoutingNode
+
+**Package** `com.breakinblocks.neovitae.api.routing`
+
+Base interface for every routing node.
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `connectMasterToRemainingNode(Level, List<BlockPos> alreadyChecked, IMasterRoutingNode)` | `void` | Propagates the master through the network |
+| `getCurrentBlockPos()` | `BlockPos` | This node's position |
+| `getConnected()` | `List<BlockPos>` | Adjacent node positions |
+| `getMasterPos()` | `BlockPos` | Position of the node's master |
+| `isConnectionEnabled(BlockPos)` | `boolean` | Whether a specific connection is enabled |
+| `isMaster(IMasterRoutingNode)` | `boolean` | Whether this node points at the given master |
+| `addConnection(BlockPos)` | `void` | Adds a connection |
+| `removeConnection(BlockPos)` | `void` | Removes a connection |
+| `removeAllConnections()` | `void` | Removes every connection |
+| `checkAndPurgeConnectionToMaster(BlockPos ignorePos)` | `List<BlockPos>` | Purges stale master connections |
+| `recheckConnectionToMaster(List<BlockPos>, List<IRoutingNode>)` | `Triple<Boolean, List<BlockPos>, List<IRoutingNode>>` | Re-discovers the master |
+
+### IMasterRoutingNode
+
+**Package** `com.breakinblocks.neovitae.api.routing`
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `isConnected(List<BlockPos>, BlockPos)` | `boolean` | Whether a path exists to a node |
+| `addNodeToList(IRoutingNode)` | `void` | Tracks a node |
+| `addConnections(BlockPos, List<BlockPos>)` | `void` | Bulk add connections |
+| `addConnection(BlockPos, BlockPos)` | `void` | Adds a bidirectional connection |
+| `removeConnection(BlockPos, BlockPos)` | `void` | Removes a bidirectional connection |
+| `removeNodeFromGraph(BlockPos)` | `void` | Scrubs a node entirely from the graph |
+
+### Item routing
+
+| Interface | Adds |
+|-----------|------|
+| `IItemRoutingNode` | `isInventoryConnectedToSide(Direction)`, `getPriority(Direction)` |
+| `IInputItemRoutingNode` (extends `IItemRoutingNode`) | `isInput(Direction)`, `getInputFilterForSide(Direction)` |
+| `IOutputItemRoutingNode` (extends `IItemRoutingNode`) | `isOutput(Direction)`, `getOutputFilterForSide(Direction)` |
+
+### Fluid routing
+
+| Interface | Adds |
+|-----------|------|
+| `IFluidRoutingNode` | `isTankConnectedToSide(Direction)`, `getFluidPriority(Direction)` |
+| `IInputFluidRoutingNode` | `isFluidInput(Direction)`, `getInputFluidFilterForSide(Direction)` |
+| `IOutputFluidRoutingNode` | `isFluidOutput(Direction)`, `getOutputFluidFilterForSide(Direction)` |
+
+### Filters
+
+`IRoutingFilter` is the base marker (also exposes an optional `getNodePos()` for visual hooks).
+
+#### IItemFilter
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `initializeFilter(List<IFilterKey>, BlockEntity, IItemHandler, boolean isFilterOutput)` | `void` | Binds a filter to an inventory |
+| `initializeFilter(List<IFilterKey>)` | `void` | Binds with no inventory context |
+| `transferStackThroughOutputFilter(ItemStack)` | `ItemStack` | Pushes through the output filter |
+| `transferThroughInputFilter(IItemFilter, int maxTransfer)` | `int` | Pulls into a paired output filter |
+| `doesStackPassFilter(ItemStack)` | `boolean` | Passes-through test |
+| `doStacksMatch(IFilterKey, ItemStack)` | `boolean` | Single-key match |
+| `getFilterList()` | `List<IFilterKey>` | Underlying filter list (read-only contract) |
+
+#### IFluidFilter
+
+Mirrors `IItemFilter` for fluids; uses `FluidStack` and `IFluidHandler` parameters.
+
+#### IEnergyFilter
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `transferEnergyThroughOutputFilter(int)` | `int` | Energy push step |
+| `transferThroughInputFilter(IEnergyFilter, int maxTransfer)` | `int` | Energy pull step |
+
+#### IFilterKey
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `doesStackMatch(ItemStack)` | `boolean` | Per-key match logic |
+| `getCount()` / `setCount(int)` / `grow(int)` / `shrink(int)` | various | Count manipulation |
+| `isEmpty()` | `boolean` | Whether the key has any count |
+
+### RoutingChannel
+
+**Package** `com.breakinblocks.neovitae.api.routing`
+
+Each channel handles one resource type. Register new channels during mod construction via `RoutingChannelRegistry.register`.
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `id()` | `String` | Persistence/NBT key |
+| `isInputNode(BlockEntity)` / `isOutputNode(BlockEntity)` | `boolean` | Node-eligibility checks |
+| `isConnectedOnSide(BlockEntity, Direction)` | `boolean` | Capability availability test |
+| `isInputSide(...)` / `isOutputSide(...)` | `boolean` | Direction-specific I/O test |
+| `getPriority(BlockEntity, Direction)` | `int` | Side priority |
+| `getInputFilter(BlockEntity, Direction)` | `@Nullable F` | Resolves the input filter |
+| `getOutputFilter(BlockEntity, Direction)` | `@Nullable F` | Resolves the output filter |
+| `getMaxTransfer(BlockEntity masterNode)` | `int` | Per-tick transfer cap |
+| `transfer(F input, F output, int maxTransfer)` | `int` | Actually performs the transfer |
+
+### RoutingChannelRegistry
+
+**Package** `com.breakinblocks.neovitae.api.routing`
+
+| Method | Description |
+|--------|-------------|
+| `register(RoutingChannel<?>)` | Registers a new channel |
+| `getChannels()` | Returns an unmodifiable list of registered channels |
+
+---
+
+## Stream Effects
+
+`StreamEffect` is a server-driven, client-rendered visual energy stream or stationary blob. Build one with the fluent `Builder`, then call `sendToNearby` to broadcast.
+
+### StreamEffect
+
+**Package** `com.breakinblocks.neovitae.api.stream`
+
+Immutable holder; see source for the full set of public final fields (`color`, `scale`, `speed`, `gravity`, `wobbleAmplitude`, `spiralRadius`, etc.).
+
+#### Static factories
+
+| Method | Description |
+|--------|-------------|
+| `builder(double x, double y, double z)` | Builder from exact coordinates |
+| `builder(Entity)` | Builder sourced from an entity (75% bbHeight) |
+| `builder(BlockPos)` | Builder sourced from a block center |
+| `decode(FriendlyByteBuf)` | Network deserialization helper |
+
+#### Methods
+
+| Method | Description |
+|--------|-------------|
+| `sendToNearby(ServerLevel, BlockPos center, double radius)` | Broadcast to players within radius |
+| `sendToNearby(ServerLevel, double radius)` | Same, centered on the source |
+| `encode(FriendlyByteBuf)` | Network serialization |
+
+#### Builder
+
+`Builder` exposes a fluent setter for every renderable parameter, including `to(double,double,double)` / `to(BlockPos)` / `to(Entity)` / `toTracked(Entity)`, `color`, `scale`, `alphaStart`, `alphaEnd`, `alpha`, `glow`, `tubeSegments`, `speed`, `gravity`, `wobble`, `wobbleFrequency`, `spiralInto`, `spiralRadius`, `spiralSpeed`, `approachHeight`, `lifetime`, `drainSpeed`, `stationary`, `blockyMode`, `trailDensity`, `rawTrailColor`. Call `build()` to finalize.
+
+```java
+StreamEffect.builder(player)
+    .to(altarPos)
+    .color(0xBB0000)
+    .speed(1.5f)
+    .build()
+    .sendToNearby(serverLevel, altarPos, 128);
+```
+
+### BlockyMode
+
+**Package** `com.breakinblocks.neovitae.api.stream`
+
+Enum: `NONE`, `BLOCKY`, `BLOCKY_STEPS`, `BLOCKY_UNIFORM`, `BLOCKY_BOX`, `BLOCKY_BEAM`. Controls the stream's optional "blocky" voxel look.
+
+### StreamPresets
+
+**Package** `com.breakinblocks.neovitae.api.stream`
+
+Pre-configured `Builder` recipes. Each preset returns a fully tuned `StreamEffect.Builder` that callers may further customize before `build()`.
+
+| Preset | Description |
+|--------|-------------|
+| `bloodTendril(Entity/BlockPos, BlockPos)` | Viscous crimson tendril |
+| `soulSiphon(Entity/BlockPos, BlockPos)` | Thin ghostly blue-white wisp |
+| `voidTendril(Entity/BlockPos, BlockPos)` | Thick near-black mass |
+| `lifePulse(Entity/BlockPos, BlockPos)` | Warm golden surge |
+| `demonTether(Entity/BlockPos, BlockPos)` | Fiery orange chain |
+| `corruptionSeep(Entity/BlockPos, BlockPos)` | Sickly green ooze |
+| `arcaneBolt(Entity/BlockPos, BlockPos)` | Saturated purple thread |
+| `blockBolt` / `blockBolt2` … `blockBolt6` | Voxel-styled bolts with different `BlockyMode` settings |
+| `emberMote(BlockPos)` | Stationary floating ember |
+| `soulWisp(BlockPos)` | Stationary pale wisp |
+| `voidMark(BlockPos)` | Stationary heavy void stain |
 
 ---
 
@@ -1405,19 +1189,19 @@ if (manager.hasFullSet(player)) {
 
 Neo Vitae registers custom player attributes that addon mods can apply modifiers to via equipment, effects, or data packs.
 
-**Package:** `com.breakinblocks.neovitae.common.attribute.NVAttributes`
+**Package** `com.breakinblocks.neovitae.common.attribute.NVAttributes`
 
 ### Attribute Reference
 
 | Holder Field | Registry ID | Default | Max | Description |
 |-------------|------------|---------|-----|-------------|
-| `SELF_SACRIFICE_MULTIPLIER` | `neovitae:player.self_sacrifice_multiplier` | 1.0 | 100.0 | Multiplier for LP from self-sacrifice (PercentageAttribute) |
-| `BONUS_SACRIFICE` | `neovitae:bonus_sacrifice` | 0.0 | 1000.0 | % bonus LP from Lamina Exhauriens mob kills |
-| `BONUS_SELF_SACRIFICE` | `neovitae:bonus_self_sacrifice` | 0.0 | 1000.0 | % bonus LP from Lamina Maleficus self-sacrifice |
-| `BONUS_DEMON_WILL` | `neovitae:bonus_demon_will` | 0.0 | 1000.0 | % bonus Spiritus drops |
-| `SIGIL_COST_REDUCTION` | `neovitae:sigil_cost_reduction` | 0.0 | 100.0 | % reduction to sigil LP costs |
-| `BLOOD_SIPHON` | `neovitae:blood_siphon` | 0.0 | 1024.0 | Converts damage dealt into LP |
-| `BLOOD_SHIELD` | `neovitae:blood_shield` | 0.0 | 10.0 | Reduces incoming damage, drains LP |
+| `SELF_SACRIFICE_MULTIPLIER` | `neovitae:player.self_sacrifice_multiplier` | 1.0 | 100.0 | Multiplier for EV from self-sacrifice (PercentageAttribute) |
+| `BONUS_SACRIFICE` | `neovitae:bonus_sacrifice` | 0.0 | 1000.0 | % bonus EV from Lamina Exhauriens mob kills |
+| `BONUS_SELF_SACRIFICE` | `neovitae:bonus_self_sacrifice` | 0.0 | 1000.0 | % bonus EV from Lamina Maleficus self-sacrifice |
+| `BONUS_SPIRITUS` | `neovitae:bonus_spiritus` | 0.0 | 1000.0 | % bonus Spiritus drops |
+| `SIGIL_COST_REDUCTION` | `neovitae:sigil_cost_reduction` | 0.0 | 100.0 | % reduction to sigil EV costs |
+| `BLOOD_SIPHON` | `neovitae:blood_siphon` | 0.0 | 1024.0 | Converts damage dealt into EV |
+| `BLOOD_SHIELD` | `neovitae:blood_shield` | 0.0 | 10.0 | Reduces incoming damage, drains EV |
 
 All attributes are registered to the Player entity type and are syncable to clients.
 
@@ -1427,14 +1211,12 @@ All attributes are registered to the Player entity type and are syncable to clie
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
-// Read a player's attribute value
 double siphon = player.getAttributeValue(NVAttributes.BLOOD_SIPHON);
 
-// Add a modifier (e.g., on equipment)
 player.getAttribute(NVAttributes.BONUS_SACRIFICE).addTransientModifier(
     new AttributeModifier(
         ResourceLocation.fromNamespaceAndPath("mymod", "sacrifice_bonus"),
-        25.0, // +25% sacrifice bonus
+        25.0,
         AttributeModifier.Operation.ADD_VALUE
     )
 );
@@ -1442,182 +1224,208 @@ player.getAttribute(NVAttributes.BONUS_SACRIFICE).addTransientModifier(
 
 ### Blood Siphon Details
 
-LP gained = min(attribute_value, damage_dealt) × multiplier
-- vs Players: multiplier = configurable (default 100), drains from target's soul network
-- vs Mobs: multiplier = configurable (default 10), LP generated from nothing
+EV gained = min(attribute_value, damage_dealt) × multiplier.
+- vs Players, multiplier defaults to 100 and drains from the target's anima.
+- vs Mobs, multiplier defaults to 10 and EV is generated from nothing.
 
 ### Blood Shield Details
 
-Damage reduction = 10% per attribute point (hard cap 99%)
-LP cost = damage_prevented × configurable multiplier (default 100)
-If insufficient LP: partial shield, remaining damage passes through
+Damage reduction = 10% per attribute point (hard cap 99%). EV cost = damage_prevented × configurable multiplier (default 100). If there isn't enough EV the shield partially absorbs and the remainder passes through.
 
 ### Server Configuration
 
-Multipliers are configurable in `config/neovitae-server.toml` under `[blood_attributes]`:
-- `siphon_player_multiplier` (default: 100)
-- `siphon_mob_multiplier` (default: 10)
-- `shield_lp_cost_multiplier` (default: 100)
+Multipliers are configurable in `config/neovitae-server.toml` under `[blood_attributes]`.
+- `siphon_player_multiplier` (default 100)
+- `siphon_mob_multiplier` (default 10)
+- `shield_lp_cost_multiplier` (default 100)
 
 ---
 
 ## Events
 
-Neo Vitae fires NeoForge events that addon mods can listen to.
+Neo Vitae fires NeoForge events on the game event bus.
 
-### SoulNetworkEvent
+### AnimaEvent
 
-**Package:** `com.breakinblocks.neovitae.api.event`
+**Package** `com.breakinblocks.neovitae.api.event`
 
-Events for LP transactions.
+Base event for EV transactions. Subtypes share these getters.
 
-#### SoulNetworkEvent.PreSyphon (Cancellable)
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getNetwork()` | `IAnima` | The anima involved |
+| `getOwnerId()` | `UUID` | Owner UUID |
+| `getTicket()` | `AnimaTicket` | Ticket describing the transaction |
+| `getAmount()` | `int` | Ticket amount |
 
-Fired before LP is removed from a network.
+#### AnimaEvent.PreSyphon (cancellable)
+
+Fires before EV is drained.
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getModifiedAmount()` | `int` | Current modified amount |
+| `setModifiedAmount(int)` | `void` | Clamps the syphon amount (cannot exceed original) |
+
+#### AnimaEvent.PostSyphon
+
+Fires after EV is drained.
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getActualAmount()` | `int` | Amount actually removed |
+
+#### AnimaEvent.PreAdd (cancellable)
+
+Fires before EV is added.
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getMaximum()` | `int` | Anima cap |
+| `getModifiedAmount()` | `int` | Current modified amount |
+| `setModifiedAmount(int)` | `void` | Sets the amount to add |
+
+#### AnimaEvent.PostAdd
+
+Fires after EV is added.
+
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getMaximum()` | `int` | Anima cap |
+| `getActualAmount()` | `int` | Amount actually added |
 
 ```java
 @SubscribeEvent
-public void onPreSyphon(SoulNetworkEvent.PreSyphon event) {
-    // Reduce syphon amount by 10%
-    event.setModifiedAmount((int)(event.getAmount() * 0.9));
-
-    // Or cancel entirely
-    event.setCanceled(true);
+public void onPreSyphon(AnimaEvent.PreSyphon event) {
+    event.setModifiedAmount((int) (event.getAmount() * 0.9));
 }
 ```
 
-#### SoulNetworkEvent.PostSyphon
+### AltarRuneEvent
 
-Fired after LP is removed (not cancellable).
+**Package** `com.breakinblocks.neovitae.api.event`
 
-```java
-@SubscribeEvent
-public void onPostSyphon(SoulNetworkEvent.PostSyphon event) {
-    int removed = event.getActualAmount();
-    // Log or track LP usage
-}
-```
+Fired during Ara Vitae structure scanning and stat calculation.
 
-#### SoulNetworkEvent.PreAdd (Cancellable)
+#### Base getters
 
-Fired before LP is added to a network.
+| Method | Return Type |
+|--------|-------------|
+| `getAltar()` | `IAraVitae` |
+| `getLevel()` | `Level` |
+| `getPos()` | `BlockPos` |
+| `getTier()` | `int` |
 
-```java
-@SubscribeEvent
-public void onPreAdd(SoulNetworkEvent.PreAdd event) {
-    // Bonus 20% LP
-    event.setModifiedAmount((int)(event.getAmount() * 1.2));
-}
-```
+#### AltarRuneEvent.GatherRunes
 
-#### SoulNetworkEvent.PostAdd
+Fired after the structure has been scanned for rune blocks. Addons add virtual rune counts here.
 
-Fired after LP is added (not cancellable).
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getRuneCounts()` | `Map<IAltarRuneType, Integer>` | Mutable map (rune count) |
+| `addRunes(IAltarRuneType, int)` | `void` | Convenience accumulator |
+| `getRuneInstances()` | `List<RuneInstance>` | Unmodifiable scanned instances |
 
-### AraVitaeCraftEvent
+#### AltarRuneEvent.CalculateStats
 
-**Package:** `com.breakinblocks.neovitae.api.event`
+Fired during stat calculation. Addons mutate `AltarRuneModifiers` here.
 
-Events for Ara Vitae crafting.
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getModifiers()` | `AltarRuneModifiers` | Mutable modifiers |
+| `getRuneCounts()` | `Map<IAltarRuneType, Integer>` | Unmodifiable final counts |
+| `getRuneCount(IAltarRuneType)` | `int` | Count for a single type |
+| `getRuneInstances()` | `List<RuneInstance>` | All scanned instances |
+| `getRuneBlockEntities(Class<T>)` | `List<T>` | Filtered to a specific block entity type |
+| `getRuneInstancesByType(IAltarRuneType)` | `List<RuneInstance>` | Filtered by rune type |
 
-#### AraVitaeCraftEvent.Crafting (Cancellable)
+#### AltarRuneEvent.PostCalculate
 
-Fired when craft is about to complete.
+Informational; modifiers are finalized.
 
-```java
-@SubscribeEvent
-public void onCrafting(AraVitaeCraftEvent.Crafting event) {
-    // Modify output
-    ItemStack output = event.getOutput();
-    output.setCount(output.getCount() * 2);
-    event.setOutput(output);
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getFinalModifiers()` | `AltarRuneModifiers` | Final modifier values |
+| `getRuneInstances()` | `List<RuneInstance>` | All scanned instances |
 
-    // Or cancel (LP still consumed)
-    event.setCanceled(true);
-}
-```
+### SentientArmorEvent
 
-#### AraVitaeCraftEvent.Crafted
+**Package** `com.breakinblocks.neovitae.api.event`
 
-Fired after craft completes (not cancellable).
+Base getters expose `getWearer()` and `getArmorPiece()`.
 
-```java
-@SubscribeEvent
-public void onCrafted(AraVitaeCraftEvent.Crafted event) {
-    // Achievement tracking, statistics, etc.
-    IAraVitae altar = event.getAltar();
-    AraVitaeRecipe recipe = event.getRecipe();
-}
-```
+#### SentientArmorEvent.ExperienceGain (cancellable)
 
-### LivingArmorEvent
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getUpgradeId()` | `ResourceLocation` | Upgrade about to gain XP |
+| `getExperience()` | `float` | Pending XP amount |
+| `setExperience(float)` | `void` | Adjust the XP amount |
 
-**Package:** `com.breakinblocks.neovitae.api.event`
+#### SentientArmorEvent.LevelUp
 
-Events for Living Armor upgrades.
-
-#### LivingArmorEvent.ExperienceGain (Cancellable)
-
-Fired when an upgrade gains experience.
+| Method | Return Type | Description |
+|--------|-------------|-------------|
+| `getUpgradeId()` | `ResourceLocation` | Upgrade that leveled up |
+| `getPreviousLevel()` | `int` | Level before the level-up |
+| `getNewLevel()` | `int` | Level after the level-up |
 
 ```java
 @SubscribeEvent
-public void onExpGain(LivingArmorEvent.ExperienceGain event) {
-    // Double XP for specific upgrade
-    if (event.getUpgradeId().getPath().equals("strong_legs")) {
-        event.setExperience(event.getExperience() * 2);
-    }
-}
-```
-
-#### LivingArmorEvent.LevelUp
-
-Fired when an upgrade levels up (not cancellable).
-
-```java
-@SubscribeEvent
-public void onLevelUp(LivingArmorEvent.LevelUp event) {
+public void onLevelUp(SentientArmorEvent.LevelUp event) {
     Player player = event.getWearer();
     player.sendSystemMessage(Component.literal(
-        "Upgrade " + event.getUpgradeId() +
-        " leveled to " + event.getNewLevel()
-    ));
+        event.getUpgradeId() + " leveled to " + event.getNewLevel()));
 }
+```
+
+---
+
+## Capabilities
+
+### NVCapabilities
+
+**Package** `com.breakinblocks.neovitae.api.capability`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `ARA_VITAE` | `BlockCapability<IAraVitae, @Nullable Direction>` | Read-mostly access to an Ara Vitae block entity |
+
+Capabilities are registered automatically by Neo Vitae at `RegisterCapabilitiesEvent` time; addons just query them.
+
+```java
+IAraVitae altar = level.getCapability(NVCapabilities.ARA_VITAE, pos, null);
 ```
 
 ---
 
 ## Registry Keys
 
-**Package:** `com.breakinblocks.neovitae.api.registry`
-
-Neo Vitae provides registry keys for addon mods to register custom content.
-
 ### NeoVitaeRegistries
+
+**Package** `com.breakinblocks.neovitae.api.registry`
 
 | Key | Type | Description |
 |-----|------|-------------|
-| `RITUAL_KEY` | `ResourceKey<Registry<IRitual>>` | For multiblock rituals |
-| `IMPERFECT_RITUAL_KEY` | `ResourceKey<Registry<IImperfectRitual>>` | For imperfect rituals |
-| `SIGIL_EFFECT_TYPE_KEY` | `ResourceKey<Registry<MapCodec<? extends ISigilEffect>>>` | For custom sigil effects |
+| `RITUAL_KEY` | `ResourceKey<Registry<IRitual>>` | Regular (multi-rune) rituals |
+| `IMPERFECT_RITUAL_KEY` | `ResourceKey<Registry<IImperfectRitual>>` | Imperfect rituals |
+| `SIGIL_EFFECT_TYPE_KEY` | `ResourceKey<Registry<MapCodec<? extends ISigilEffect>>>` | Sigil effect type registry |
 
-### Registering Custom Rituals
+> The sigil **type** datapack registry key (`SigilType` entries themselves) is `SigilTypeRegistry.SIGIL_TYPE_KEY` in `com.breakinblocks.neovitae.registry`, not in this API class.
+
+### Registering custom content
 
 ```java
-// In your mod's registration class
 public static final DeferredRegister<Ritual> RITUALS =
     DeferredRegister.create(NeoVitaeRegistries.RITUAL_KEY, "yourmodid");
 
 public static final DeferredHolder<Ritual, MyCustomRitual> MY_RITUAL =
     RITUALS.register("my_ritual", MyCustomRitual::new);
 
-// Don't forget to register the DeferredRegister to the mod bus
 public YourMod(IEventBus modBus) {
     RITUALS.register(modBus);
 }
 ```
-
-### Registering Custom Imperfect Rituals
 
 ```java
 public static final DeferredRegister<ImperfectRitual> IMPERFECT_RITUALS =
@@ -1631,71 +1439,86 @@ public static final DeferredHolder<ImperfectRitual, MyImperfectRitual> MY_RITUAL
 
 ## API Package Structure
 
-All API classes are in the main source set at `src/main/java/com/breakinblocks/neovitae/api/`. There is no separate API artifact or source set.
+All API classes live in the main source set at `src/main/java/com/breakinblocks/neovitae/api/`. There is no separate API artifact or source set.
 
 ```
 com.breakinblocks.neovitae.api/
-├── NeoVitaeAPI.java          # Static accessor (getInstance())
-├── INeoVitaeAPI.java         # Main API interface
+├── NeoVitaeAPI.java
+├── INeoVitaeAPI.java
 ├── altar/
-│   ├── IAraVitae.java        # Ara Vitae interface
+│   ├── IAraVitae.java
 │   └── rune/
-│       ├── AltarRuneModifiers.java   # Mutable modifier container
-│       ├── EnumAltarRuneType.java    # Built-in rune types
-│       ├── IAltarRuneRegistry.java   # Custom rune registry
-│       ├── IAltarRuneType.java       # Custom rune type interface
-│       └── RuneInstance.java         # Rune position/block entity data
+│       ├── AltarRuneModifiers.java
+│       ├── EnumAltarRuneType.java
+│       ├── IAltarRuneRegistry.java
+│       ├── IAltarRuneType.java
+│       └── RuneInstance.java
 ├── capability/
-│   └── NVCapabilities.java    # Block capabilities (ARA_VITAE)
+│   └── NVCapabilities.java
 ├── event/
-│   ├── AltarRuneEvent.java     # Rune calculation events (with RuneInstance access)
-│   ├── LivingArmorEvent.java
-│   └── SoulNetworkEvent.java
+│   ├── AltarRuneEvent.java
+│   ├── AnimaEvent.java
+│   └── SentientArmorEvent.java
 ├── incense/
 │   ├── ITranquilityHandler.java
 │   └── TranquilityHandler.java
 ├── item/
-│   └── IUpgradeHolder.java     # Living Armor item interface
-├── living/
-│   ├── ILivingArmorManager.java  # (includes UpgradeInfo record)
-│   └── ILivingArmorUpgrade.java
+│   └── IUpgradeHolder.java
 ├── recipe/
 │   ├── AraVitaeInput.java
 │   └── AraVitaeRecipe.java
 ├── registry/
 │   └── NeoVitaeRegistries.java
 ├── ritual/
-│   ├── AreaDescriptor.java     # + Rectangle, HemiSphere, Cross
+│   ├── AreaDescriptor.java        # + Rectangle, HemiSphere, Cross
 │   ├── EnumRuneType.java
 │   ├── IImperfectRitual.java
 │   ├── IImperfectRitualStone.java
 │   ├── IRitual.java
 │   └── RitualComponent.java
-├── routing/                    # Item/Fluid routing node interfaces
+├── routing/
 │   ├── IRoutingNode.java
-│   ├── IFluidRoutingNode.java
-│   ├── IItemRoutingNode.java
 │   ├── IMasterRoutingNode.java
-│   └── ...                     # Filter interfaces, channel registry
+│   ├── IItemRoutingNode.java
+│   ├── IInputItemRoutingNode.java
+│   ├── IOutputItemRoutingNode.java
+│   ├── IFluidRoutingNode.java
+│   ├── IInputFluidRoutingNode.java
+│   ├── IOutputFluidRoutingNode.java
+│   ├── IItemFilter.java
+│   ├── IFluidFilter.java
+│   ├── IEnergyFilter.java
+│   ├── IRoutingFilter.java
+│   ├── IFilterKey.java
+│   ├── RoutingChannel.java
+│   └── RoutingChannelRegistry.java
+├── sentient/
+│   ├── ISentientArmorManager.java
+│   └── ISentientArmorUpgrade.java
 ├── sigil/
-│   ├── ISigilEffect.java       # Custom sigil effect interface
+│   ├── ISigilEffect.java
 │   ├── SigilEffect.java
 │   ├── SigilType.java
-│   └── effects/                # Built-in sigil effect implementations
+│   └── effects/
+│       └── SigilEffects.java       # + built-in effect classes
 ├── soul/
-│   ├── ISoulNetwork.java
-│   ├── SoulTicket.java
+│   ├── IAnima.java
+│   ├── AnimaTicket.java
 │   └── SyphonResult.java
+├── stream/
+│   ├── StreamEffect.java
+│   ├── StreamPresets.java
+│   └── BlockyMode.java
 └── will/
-    ├── DemonWillHandler.java
-    ├── IDemonWillHandler.java
-    ├── IPlayerDemonWillHandler.java
-    └── WillState.java
+    ├── ISpiritusHandler.java
+    ├── IPlayerSpiritusHandler.java
+    ├── SpiritusHandler.java
+    └── SpiritusState.java
 ```
 
 ### Key Non-API Classes for Addon Use
 
-These are in `com.breakinblocks.neovitae.common` (not the API package) but commonly used by addons:
+These are in `com.breakinblocks.neovitae.common` (not the API package) but commonly used by addons.
 
 | Class | Package | Purpose |
 |-------|---------|---------|
@@ -1707,20 +1530,14 @@ These are in `com.breakinblocks.neovitae.common` (not the API package) but commo
 | `NVDataComponents` | `common.datacomponent` | Data component registry |
 | `ForgeRecipe` | `common.recipe.forge` | Hellfire Forge recipe class |
 | `FlaskRecipe` | `common.recipe.flask` | Flask recipe base class |
+| `SigilTypeRegistry` | `registry` | Holds `SIGIL_TYPE_KEY` for sigil-type registry references |
 
 ---
 
 ## Important Notes
 
-- **Hellfire Forge** — Recipe type is `neovitae:hellfire_forge`, recipe directory is `hellfire_forge/`
-- **API classes in main JAR** — there is no separate API artifact or source set
-- **Modonomicon transitive dependency** — addons that compile against NeoVitae may need Modonomicon on the classpath (for `NVGuideBookItem`)
+- **Hellfire Forge** Recipe type is `neovitae:hellfire_forge`, recipe directory is `hellfire_forge/`.
+- **API classes in main JAR** there is no separate API artifact or source set.
+- **Modonomicon transitive dependency** addons that compile against NeoVitae may need Modonomicon on the classpath (for `NVGuideBookItem`).
 
----
-
-When reporting issues, please include:
-
-- Neo Vitae version
-- NeoForge version
-- Relevant code snippets
-- Full error logs
+When reporting issues, please include the Neo Vitae version, NeoForge version, relevant code snippets, and full error logs.

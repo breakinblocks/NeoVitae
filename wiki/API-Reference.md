@@ -1,6 +1,6 @@
 # API Reference
 
-Full per-system reference for the Neo Vitae addon API on NeoForge 1.21.1. For setup, packaging notes, and quick examples see [API Overview](API-Overview). For the player-facing side of these systems see [Rituals](Rituals), [Sigils](Sigils), and [Living Armor](Living-Armor).
+Full per-system reference for the Neo Vitae addon API on NeoForge 1.21.1. For setup, packaging notes, and quick examples see [API Overview](API-Overview). For the player-facing side of these systems see [Rituals](Rituals), [Sigils](Sigils), and [Sentient Armor](Sentient-Armor).
 
 The main entry point is `NeoVitaeAPI.getInstance()`, which returns an `INeoVitaeAPI` once Neo Vitae has finished common setup. Its top-level surface is:
 
@@ -648,7 +648,7 @@ public static final Supplier<MapCodec<MyCustomEffect>> MY_CUSTOM_EFFECT =
 
 ## Sentient Armor System
 
-For player-facing mechanics see [Living Armor](Living-Armor). Sentient Armor (formerly Living Armor) gains experience and levels up upgrades as the wearer performs actions.
+For player-facing mechanics see [Sentient Armor](Sentient-Armor). Sentient Armor (formerly Sentient Armor) gains experience and levels up upgrades as the wearer performs actions.
 
 ### ISentientArmorManager
 
@@ -1034,5 +1034,5 @@ public static final DeferredHolder<ImperfectRitual, MyImperfectRitual> MY_RITUAL
 ## See Also
 
 - [API Overview](API-Overview) - Setup, packaging, and quick examples.
-- [Rituals](Rituals), [Sigils](Sigils), [Living Armor](Living-Armor) - Player-facing gameplay docs.
+- [Rituals](Rituals), [Sigils](Sigils), [Sentient Armor](Sentient-Armor) - Player-facing gameplay docs.
 - [Home](Home) - Wiki index.

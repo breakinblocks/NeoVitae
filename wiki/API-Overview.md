@@ -1,8 +1,8 @@
 # API Overview
 
-The Neo Vitae API lets addon mods interact with Neo Vitae's core systems including Animas, Ara Vitaes, Altar Runes, Rituals, Sigils, and Living Armor. It is intended for **mod developers** who want to extend, modify, or integrate with Neo Vitae from their own mod.
+The Neo Vitae API lets addon mods interact with Neo Vitae's core systems including Animas, Ara Vitaes, Altar Runes, Rituals, Sigils, and Sentient Armor. It is intended for **mod developers** who want to extend, modify, or integrate with Neo Vitae from their own mod.
 
-If you're a player looking for in-game mechanics rather than code, start at the [Home](Home) page and the per-system player guides such as [Rituals](Rituals), [Sigils](Sigils), and [Living Armor](Living-Armor).
+If you're a player looking for in-game mechanics rather than code, start at the [Home](Home) page and the per-system player guides such as [Rituals](Rituals), [Sigils](Sigils), and [Sentient Armor](Sentient-Armor).
 
 For complete signatures, types, and method-by-method details, see [API Reference](API-Reference).
 
@@ -209,7 +209,7 @@ public static void register(IEventBus modBus) {
 
 ### Querying Sentient Armor
 
-See the [Sentient Armor System](API-Reference#sentient-armor-system) reference for `ISentientArmorManager`, `UpgradeInfo`, and `IUpgradeHolder`. Player-facing info lives in [Living Armor](Living-Armor).
+See the [Sentient Armor System](API-Reference#sentient-armor-system) reference for `ISentientArmorManager`, `UpgradeInfo`, and `IUpgradeHolder`. Player-facing info lives in [Sentient Armor](Sentient-Armor).
 
 ```java
 ISentientArmorManager manager = api.getSentientArmorManager();
@@ -236,5 +236,5 @@ if (manager.hasFullSet(player)) {
 ## See Also
 
 - [API Reference](API-Reference) - Full per-system signatures, codecs, JSON formats, and worked examples.
-- [Rituals](Rituals), [Sigils](Sigils), [Living Armor](Living-Armor) - Player-facing gameplay docs for the systems you'll be hooking into.
+- [Rituals](Rituals), [Sigils](Sigils), [Sentient Armor](Sentient-Armor) - Player-facing gameplay docs for the systems you'll be hooking into.
 - [Home](Home) - Wiki index.

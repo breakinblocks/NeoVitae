@@ -53,4 +53,4 @@ While active, the ward blocks all damage originating from your **front arc**, dr
 
 A comparator placed against an Ara Vitae with a **Blood Stained Glass** block beneath it reads the Anima of whichever player's orb sits in the basin. Signal strength scales to the orb's tier, not the network's absolute size; the same 500,000 EV will overflow a Novicius reading but barely tickle a Magus. When the orb is bound to a team via NeoVitae Teams, the comparator reads the team's pooled Anima automatically. See the [Ara Vitae](Ara-Vitae-and-Runes) page for full redstone integration.
 
-See also: **[Sigils](Sigils)** (which draw on the Anima), **[Living Armor](Living-Armor)** (the Repair upgrade pays in EV), **[Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)** (a parallel network for a different kind of will).
+See also: **[Sigils](Sigils)** (which draw on the Anima), **[Sentient Armor](Sentient-Armor)** (the Repair upgrade pays in EV), **[Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)** (a parallel network for a different kind of will).

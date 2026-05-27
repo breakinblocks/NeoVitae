@@ -20,7 +20,7 @@ If you're new to the mod, read these first:
 | **[Sigils](Sigils)** | One-handed tools that draw on your essentia pool |
 | **[Tabula Vitae, Flasks and Anointments](Tabula-Vitae-Flasks-and-Anointments)** | Alchemical brewing and tool coatings |
 | **[Hellfire Forge and Sentient Equipment](Hellfire-Forge-and-Sentient-Equipment)** | Demon-forged weapons that grow stronger from kills |
-| **[Living Armor](Living-Armor)** | Upgrade/downgrade trees with a configurable point budget |
+| **[Sentient Armor](Sentient-Armor)** | Upgrade/downgrade trees with a configurable point budget |
 | **[Rituals](Rituals)** | 30+ ritual catalog driven by Master Ritual Stones |
 | **[Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)** | The five-aspect ambient energy system |
 | **[Alchemy Arrays](Alchemy-Arrays)** | Hand-drawn magical circles with placeable effects |
@@ -51,7 +51,7 @@ NeoVitae is **datapack-driven from the ground up**. Tune costs, ranges, recipes,
 
 ## For Addon Developers
 
-Public API for hooking into the anima, altars, rituals, sigils, and living armor.
+Public API for hooking into the anima, altars, rituals, sigils, and sentient armor.
 
 - **[API Overview](API-Overview)**. Getting started, package structure
 - **[API Reference](API-Reference)**. Every public class and event

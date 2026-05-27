@@ -17,7 +17,7 @@ This guide covers all the data-driven systems in Neo Vitae that modpack makers c
 5. [Recipe Types](#recipe-types)
 6. [Tags](#tags)
 7. [Loot Tables & Modifiers](#loot-tables--modifiers)
-8. [Living Armor Upgrades](#living-armor-upgrades)
+8. [Sentient Armor Upgrades](#sentient-armor-upgrades)
 9. [Curios Integration](#curios-integration)
 10. [KubeJS Event Hooks](#kubejs-event-hooks)
 11. [Custom Player Attributes](#custom-player-attributes)
@@ -747,9 +747,9 @@ Customize dungeon chest contents:
 
 ---
 
-## Living Armor Upgrades
+## Sentient Armor Upgrades
 
-Living armor upgrades are defined via datapack registries. Each upgrade has levels with XP requirements and effects.
+Sentient armor upgrades are defined via datapack registries. Each upgrade has levels with XP requirements and effects.
 
 **Location:** `data/neovitae/living_upgrade/`
 
@@ -769,11 +769,11 @@ Control upgrade behavior with tags:
 | `living/is_downgrade` | Negative upgrades |
 | `living/is_scrappable` | Can be removed with scrapper |
 | `living/tooltip_hide` | Hidden from tooltips |
-| `living/living_blacklist` | Upgrades that cannot be applied to Living Armor |
+| `living/living_blacklist` | Upgrades that cannot be applied to Sentient Armor |
 
-**Example - Blacklist an upgrade from Living Armor:**
+**Example - Blacklist an upgrade from Sentient Armor:**
 
-This is useful for modpack makers who want to prevent certain upgrades from being applied to Living Armor, such as overpowered custom upgrades or upgrades that conflict with other mods
+This is useful for modpack makers who want to prevent certain upgrades from being applied to Sentient Armor, such as overpowered custom upgrades or upgrades that conflict with other mods
 
 Create `data/neovitae/tags/neovitae/living_upgrade/living_blacklist.json`:
 
@@ -796,9 +796,9 @@ Create `data/neovitae/tags/neovitae/living_upgrade/living_blacklist.json`:
 
 `entities/bmplayerslots.json` - Define curios slots for players
 
-### Living Armor Socket
+### Sentient Armor Socket
 
-`slots/living_armour_socket.json` - Socket slots for living armor upgrades
+`slots/living_armour_socket.json` - Socket slots for sentient armor upgrades
 
 ---
 
@@ -1060,7 +1060,7 @@ NeoForgeEvents.onEvent('com.breakinblocks.neovitae.common.event.AraVitaeCraftEve
 | `AraVitaeCraftEvent$Crafted` | No | After altar craft completes |
 | `ItemBindEvent` | Yes | When binding item to player |
 | `LaminaMaleficusEvent` | Yes | When dagger drains health |
-| `LivingArmourEvent` | Varies | Living armor upgrade events |
+| `SentientArmourEvent` | Varies | Sentient armor upgrade events |
 | `AlchemyArrayCraftEvent` | Yes | Alchemy array crafting |
 
 ### Why Events Instead of Custom Ritual Types?

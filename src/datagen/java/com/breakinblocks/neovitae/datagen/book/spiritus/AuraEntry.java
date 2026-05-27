@@ -34,7 +34,10 @@ public class AuraEntry extends EntryProvider {
         this.pageTitle("Vas Maleficum");
         this.pageText("Feed it a charged [#](8B0000)Spiritus Gem[#](), loose [#](8B0000)Spiritus[#](), or [#](8B0000)Spiritus Crystals[#]() "
                 + "of any Aspect. Crystals are consumed once the chunk's Spiritus dips below 50; Spiritus in item "
-                + "form or from a gem is consumed gradually as needed.");
+                + "form or from a gem is consumed gradually as needed.\\\n\\\n"
+                + "[#](2E8B57)Apply a redstone signal[#]() and the Vas reverses: a Spiritus Gem placed inside is now "
+                + "[#](2E8B57)filled[#]() from the chunk's Aura instead of drained. The same vessel serves as both "
+                + "deposit and withdrawal point.");
 
         this.page("crucible_image", () -> BookImagePageModel.create()
                 .withImages(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/vas_maleficum.png"))
@@ -56,15 +59,19 @@ public class AuraEntry extends EntryProvider {
         this.pageText("[#](2E8B57)The Aura is chunk-based.[#]() Spiritus burned in one chunk fills only that chunk, "
                 + "up to a cap of [#](B8860B)100[#]() for each Aspect. Measure the local concentration with a "
                 + "[#](8B0000)Spiritus Aura Gauge[#]().\\\n\\\n"
-                + "To move Spiritus across distances, place a [#](8B0000)Spira Infernalis[#]() in an adjacent chunk. "
-                + "It draws Spiritus toward itself, and multiple pylons can be chained for long-distance transfer.");
+                + "To move Spiritus across distances, place a [#](8B0000)Spira Infernalis[#](). It draws Spiritus "
+                + "toward itself from 16 blocks away in each cardinal direction, and multiple pylons can be "
+                + "chained for long-distance transfer.");
 
         this.page("pylon", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spira Infernalis");
-        this.pageText("The pylon pulls all varieties of Spiritus from each adjacent chunk (not including "
-                + "diagonals). Chain several together to create conduits spanning great distances.");
+        this.pageText("The pylon probes a position [#](B8860B)16 blocks away[#]() in each of the four cardinal "
+                + "directions (no diagonals, no vertical). If a probed position holds more Spiritus than the "
+                + "pylon's own chunk does, the pylon pulls a small fraction of the difference per tick. The flow "
+                + "equilibrates rather than draining the source dry, so place pylons in a [#](2E8B57)chain[#]() "
+                + "from a saturated chunk toward your worksite to ferry Aura over long distances.");
 
         this.page("forge_absorption", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

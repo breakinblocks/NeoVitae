@@ -33,10 +33,10 @@ public class RitualMagneticEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Deep Earth Communion");
-        this.pageText("This ritual reaches deep beneath the earth, calling ores upward from the stone to the surface. By default it searches a 3-block radius down to bedrock. Place a precious block beneath the [#](8B0000)Master Ritual Stone[#]() to widen its grasp:"
-                + "\n\n- [#](8B0000)Block of Iron[#](): 7 blocks."
-                + "\n\n- [#](8B0000)Block of Gold[#](): 15 blocks."
-                + "\n\n- [#](8B0000)Block of Diamond[#](): 31 blocks.");
+        this.pageText("A persistent pulling field. Every loose [#](8B0000)item entity[#]() within a [#](B8860B)21x7x21[#]() "
+                + "box centered on the [#](8B0000)Master Ritual Stone[#]() is dragged toward the stone, letting "
+                + "you funnel mob drops, ore-processing outputs, or any item rain into a single collection point.\\\n\\\n"
+                + "The area can be widened with the [#](8B0000)Ritual Reader[#]() (Define Area mode), at proportional EV cost.");
     }
 
     @Override
@@ -46,7 +46,7 @@ public class RitualMagneticEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Summons ores from the deep earth to the surface.";
+        return "Pulls loose items toward the ritual stone.";
     }
 
     @Override
@@ -56,7 +56,7 @@ public class RitualMagneticEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(Items.IRON_ORE);
+        return BookIconModel.create(Items.IRON_INGOT);
     }
 
     @Override

@@ -33,7 +33,12 @@ public class RitualUpgradeRemoveEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Purification of Form");
-        this.pageText("This ritual carefully excises upgrades from your [#](8B0000)Sentient Armor[#](), crystallizing the extracted knowledge into [#](8B0000)Upgrade Tomes[#]() that can be reapplied later. Nothing is truly lost, only rearranged. Use this when you wish to reshape your armor's capabilities for a new purpose.");
+        this.pageText("Stand on the [#](8B0000)Master Ritual Stone[#]() while wearing [#](8B0000)Sentient Armor[#](). "
+                + "The ritual wipes [#](2E8B57)every upgrade[#]() from every Sentient piece you have equipped and "
+                + "resets your used [#](B8860B)Upgrade Points[#]() to zero, giving you a clean slate.\\\n\\\n"
+                + "Nothing is preserved. If you wish to keep your upgrades as reusable [#](8B0000)Tomes[#](), use "
+                + "[#](8B0000)Penance of the Leaden Soul[#]() instead, which extracts upgrades from a thrown "
+                + "piece of armor without destroying their accumulated knowledge.");
     }
 
     @Override
@@ -43,7 +48,7 @@ public class RitualUpgradeRemoveEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Excises upgrades from Sentient Armor as reusable tomes.";
+        return "Wipes all upgrades from worn Sentient Armor, returning a clean slate.";
     }
 
     @Override

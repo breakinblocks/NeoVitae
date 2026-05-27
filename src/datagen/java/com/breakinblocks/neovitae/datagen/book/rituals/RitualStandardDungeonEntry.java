@@ -33,7 +33,12 @@ public class RitualStandardDungeonEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Beyond the Threshold");
-        this.pageText("This ritual rends the veil wide, opening a full passage into the depths of the [#](4A0080)Demon Realm[#](). What awaits is not a trial; it is a war. The creatures within are far more dangerous than those encountered through the lesser gateway. Arm yourself well, apprentice. Many who step through do not return.");
+        this.pageText("A [#](2E8B57)one-shot[#]() rite that consumes a much larger pool of [#](8B0000)EV[#]() than "
+                + "its lesser cousin. It assembles a full [#](8B0000)Standard Dungeon[#]() structure at the "
+                + "Master Ritual Stone, the main procedural dungeon complete with [#](8B0000)The Mines[#](), "
+                + "the Foreman fight, and aspected loot.\\\n\\\n"
+                + "Arm yourself well, apprentice. The dungeon is placed in your world, not a separate dimension, "
+                + "but what waits within is no less deadly for it.");
     }
 
     @Override
@@ -43,7 +48,7 @@ public class RitualStandardDungeonEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Rends the veil wide into the Demon Realm's depths.";
+        return "Generates a Standard Dungeon structure at the ritual stone.";
     }
 
     @Override

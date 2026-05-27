@@ -8,6 +8,22 @@ For complete signatures, types, and method-by-method details, see [API Reference
 
 ---
 
+## Minecraft / NeoForge Version Notes
+
+Neo Vitae targets multiple Minecraft + NeoForge versions in parallel. The API surface is the same on all of them, but a handful of upstream classes have been renamed by Minecraft itself between versions. The wiki uses **1.21.1 names** as its canonical reference. The table below maps each renamed type so 26.1 readers can substitute without confusion.
+
+| 1.21.1 / NeoForge 21.x | 26.1 / NeoForge 26.x | Notes |
+|---|---|---|
+| `net.minecraft.resources.ResourceLocation` | `net.minecraft.resources.Identifier` | Same identity, renamed by Mojang in 1.21.2. Static factories renamed accordingly (`ResourceLocation.fromNamespaceAndPath` → `Identifier.fromNamespaceAndPath`). |
+| `net.minecraft.world.item.ItemStack` (as recipe output) | `net.minecraft.world.item.ItemStackTemplate` | 26.1 introduced a template wrapper for recipe outputs to allow late binding. Convert to a runtime `ItemStack` via `template.create()`. |
+| `net.neoforged.neoforge.fluids.FluidStack` (as recipe output) | `net.neoforged.neoforge.fluids.FluidStackTemplate` | Same wrapper concept as `ItemStackTemplate`. |
+| `IFluidHandler.fill / drain` with `FluidAction` | `Transaction`-scoped `ResourceHandler<FluidResource>.insert / extract` | NeoForge 26.x switched to the transactional resource-handler model for capabilities. |
+| `@OnlyIn(Dist.CLIENT)` (member-stripping) | *Removed* | 26.1 no longer strips members at runtime. See the `26.1_primer.md` for the replacement patterns (call-site gating, helper class isolation, `FMLEnvironment.getDist()`). |
+
+Anything not in this table behaves identically between versions. If you're writing addon code and seeing a `NoSuchMethodError` or `ClassNotFoundException` referencing one of the renamed types, swap the name from the column matching your target.
+
+---
+
 ## Getting Started
 
 ### Adding the API Dependency

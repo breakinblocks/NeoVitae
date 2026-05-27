@@ -3962,26 +3962,21 @@ public class NVRecipeProvider extends RecipeProvider {
                 .chancedOutput(Items.NETHERITE_SCRAP, 6, 1.0)
                 .save(output, rKey(NeoVitae.rl("reversion/efficiency")));
 
-        // === BLOOD ORB REVERSION ===
-        // Weak Blood Orb -> Diamond
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVItems.ORB_WEAK.get())
                 .guaranteedOutput(Items.DIAMOND)
                 .save(output, rKey(NeoVitae.rl("reversion/weak_blood_orb")));
 
-        // Apprentice Blood Orb -> Redstone Block
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVItems.ORB_APPRENTICE.get())
                 .guaranteedOutput(Items.REDSTONE_BLOCK)
                 .save(output, rKey(NeoVitae.rl("reversion/apprentice_blood_orb")));
 
-        // Magician Blood Orb -> Gold Block
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVItems.ORB_MAGICIAN.get())
                 .guaranteedOutput(Items.GOLD_BLOCK)
                 .save(output, rKey(NeoVitae.rl("reversion/magician_blood_orb")));
 
-        // Master Blood Orb -> Weak Blood Shard
         AthanorRecipeBuilder.build(NVTags.Items.REVERTER)
                 .input(NVItems.ORB_MASTER.get())
                 .guaranteedOutput(NVItems.WEAK_BLOOD_SHARD.get())

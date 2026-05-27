@@ -92,7 +92,7 @@ Some rituals can be expanded far beyond their default range, but EV cost scales 
 |--------|--------|
 | Reverence of the Condor (*Wings of the Condor*) | Bestows true flight upon all within the circle. |
 | Ritual of the High Jump (*Ascendant Leap*) | Grants practitioners the power to leap skyward. |
-| Ritual of Speed (*Quickened Blood*) | Infuses practitioners with unnatural swiftness. |
+| Ritual of Speed (*Quickened Blood*) | Hurls every non-sneaking entity in the area in the master stone's facing direction. **Sneak** within the area instead and the ritual applies Speed II for 30 minutes; useful for transit or as a launcher cannon, depending on stance. Spectators are ignored. **Tip:** mount on an **Inverted Master Ritual Stone** and trigger with a pressure plate or button so the launcher only fires while the signal is active. |
 | Ritual of Regeneration (*The Mending Circle*) | Mends the wounds of all within its reach. |
 | Ritual of the Phantom Bridge (*Spectral Pathways*) | Weaves spectral platforms beneath your feet. |
 | Call of the Zephyr (*The Gathering Wind*) | A persistent wind that gathers all loose items. |

@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
@@ -41,6 +42,10 @@ public class RitualSpeed extends Ritual {
 
     private static final double MIN_SPIRITUS = 0.5;
     private static final double SPIRITUS_PER_ENTITY = 0.1;
+
+    private static final int SPEED_BUFF_DURATION = 36000;
+    private static final int SPEED_BUFF_AMPLIFIER = 1;
+    private static final int SPEED_BUFF_REFRESH_THRESHOLD = 200;
 
     public RitualSpeed() {
         super("speed", 0, 500, "ritual." + NeoVitae.MODID + ".speed");
@@ -80,12 +85,26 @@ public class RitualSpeed extends Ritual {
         }
 
         List<LivingEntity> entities = RitualHelper.getEntitiesInRange(ctx, this, SPEED_RANGE, LivingEntity.class,
-                entity -> entity.isAlive() && !entity.isShiftKeyDown());
+                entity -> entity.isAlive()
+                        && !(entity instanceof net.minecraft.world.entity.player.Player player && player.isSpectator()));
 
         int cost = 0;
 
         for (LivingEntity entity : entities) {
             if (cost + getRefreshCost() > ctx.currentEV()) break;
+
+            if (entity.isShiftKeyDown()) {
+                MobEffectInstance existing = entity.getEffect(MobEffects.MOVEMENT_SPEED);
+                if (existing == null
+                        || existing.getAmplifier() < SPEED_BUFF_AMPLIFIER
+                        || existing.getDuration() < SPEED_BUFF_REFRESH_THRESHOLD) {
+                    entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,
+                            SPEED_BUFF_DURATION, SPEED_BUFF_AMPLIFIER, true, false));
+                    cost += getRefreshCost();
+                    if (hasRawWill) will.use(SpiritusType.RAW, SPIRITUS_PER_ENTITY);
+                }
+                continue;
+            }
 
             // Entity filtering based on destructive/vengeful will
             boolean isBaby = entity.isBaby();

@@ -941,6 +941,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("sigil.green_grove.desc", "Accelerates plant growth nearby");
         addTooltip("sigil.water.desc", "Places water source blocks");
         addTooltip("sigil.lava.desc", "Places lava source blocks");
+        addTooltip("sigil.bound_treasures.desc", "Stores up to five items inside the sigil. Right-click in air to store the item in your offhand, sneak + right-click to retrieve.");
+        addTooltip("sigil.necromancy.desc", "Reanimates the bones of fallen mobs into temporary skeletal allies under your command.");
 
         // Sigil tooltips - Divination/Seer info messages
         addTooltip("sigil.divination.currentAltarTier", "Current Ara Vitae Tier: %s");
@@ -1124,53 +1126,51 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("array_effect.undertow", "Drives a bubble column through the water above. Right-click to flip between upward (push) and downward (drag).");
 
         // Rituals
-        addRitual("water", "Ritual of the Full Spring");
-        addRitual("lava", "Serenade of the Nether");
-        addRitual("green_grove", "Ritual of the Green Grove");
-        addRitual("well_of_suffering", "Well of Suffering");
-        addRitual("feathered_knife", "Ritual of the Feathered Knife");
-        addRitual("harvest", "Reap of the Harvest Moon");
-        addRitual("regeneration", "Ritual of Regeneration");
-        addRitual("speed", "Ritual of Speed");
-        addRitual("jumping", "Ritual of the High Jump");
-        addRitual("magnetism", "Ritual of Magnetism");
-        addRitual("animal_growth", "Ritual of the Shepherd");
-        addRitual("crushing", "Crushing Ritual");
-        addRitual("felling", "Ritual of the Felling Tree");
-        addRitual("suppression", "Dome of Suppression");
-        addRitual("containment", "Ritual of Binding");
-        addRitual("expulsion", "Aura of Expulsion");
-        addRitual("zephyr", "Call of the Zephyr");
-        addRitual("pump", "Hymn of Siphoning");
-        addRitual("phantom_bridge", "Ritual of the Phantom Bridge");
-        addRitual("crystallum_fractura", "Crystallum Fractura");
-        addRitual("downgrade", "Ritual of Sentient Evolution");
-        addRitual("meteor", "Mark of the Falling Tower");
-        addRitual("forsaken_soul", "Cry of the Forsaken Soul");
-        addRitual("full_stomach", "Ritual of the Satiated Stomach");
+        addRitual("water", "Ritual of the Full Spring", "Places water source blocks in the area; with Raw Spiritus, also fills any fluid tank above the master stone (1 Raw per 1,000 mB).");
+        addRitual("lava", "Serenade of the Nether", "Places lava source blocks within the area.");
+        addRitual("green_grove", "Ritual of the Green Grove", "Suffuses the earth with life; bonemeals nearby crops and saplings. Spiritus aspects extend it to farmland hydration, Plant Leech, or scaled chance.");
+        addRitual("well_of_suffering", "Well of Suffering", "Damages every hostile creature in range and channels their pain into Essentia Vitae at the master stone.");
+        addRitual("feathered_knife", "Ritual of the Feathered Knife", "Wounds the practitioner standing on the master stone, converting their health into EV for the altar.");
+        addRitual("harvest", "Reap of the Harvest Moon", "Reaps every mature crop in range and replants the seeds.");
+        addRitual("regeneration", "Ritual of Regeneration", "Applies Regeneration to practitioners in range; with Corrosive Spiritus, also drains nearby mobs to heal you.");
+        addRitual("speed", "Ritual of Speed", "Propels non-sneaking entities in the master stone's facing direction. Sneak inside the area to receive Speed II for 30 minutes instead. Aspects modulate velocity, target filtering, and add Soft Fall.");
+        addRitual("jumping", "Ritual of the High Jump", "Grants Jump Boost II to practitioners standing on the master stone.");
+        addRitual("magnetism", "Ritual of Magnetism", "Persistent pulling field; loose item entities in a 21x7x21 box around the master stone are dragged toward it.");
+        addRitual("animal_growth", "Ritual of the Shepherd", "Accelerates the growth of young creatures in range.");
+        addRitual("crushing", "Crushing Ritual", "Grinds blocks to their dust forms. Steadfast preserves blocks with Silk Touch; Destructive applies Fortune III.");
+        addRitual("felling", "Ritual of the Felling Tree", "Fells every tree in range and drops the logs into an adjacent chest.");
+        addRitual("suppression", "Dome of Suppression", "Replaces fluid source blocks in range with air, restoring them when the ritual stops.");
+        addRitual("containment", "Ritual of Binding", "Pushes any creature trying to leave the area back toward the center; an invisible cage.");
+        addRitual("expulsion", "Aura of Expulsion", "Drives every creature outward from the ritual center.");
+        addRitual("zephyr", "Call of the Zephyr", "Persistent wind that gathers loose items and XP, depositing them with the master stone or a nearby player.");
+        addRitual("pump", "Hymn of Siphoning", "Draws fluid source blocks into a fluid tank placed above the master stone.");
+        addRitual("phantom_bridge", "Ritual of the Phantom Bridge", "Weaves spectral platforms beneath the feet of practitioners in range.");
+        addRitual("crystallum_fractura", "Crystallum Fractura", "Auto-harvests Spiritus Crystal clusters in range, doubles their growth speed, and biases the chunk's aspect via the Ritual Reader.");
+        addRitual("downgrade", "Penance of the Leaden Soul", "Throw a piece of Sentient Armor onto the small zone above the master stone; the ritual extracts every upgrade as a separate Upgrade Tome.");
+        addRitual("meteor", "Mark of the Falling Tower", "Consumes a catalyst item dropped within the area and crashes a corresponding meteor from above. Catalysts are defined by meteor recipes.");
+        addRitual("forsaken_soul", "Cry of the Forsaken Soul", "Watches the 21x21x21 area for non-player mob deaths and drops a charged Raw Spiritus item at each death position.");
+        addRitual("full_stomach", "Ritual of the Satiated Stomach", "Feeds every practitioner in range from food stored in an adjacent chest.");
 
         // Dusk Tier Rituals
-        addRitual("condor", "Reverence of the Condor");
-        addRitual("grounding", "The Sinner's Burden");
-        addRitual("placer", "Ritual of the Mason");
-        addRitual("ellipse", "Ellipsoid Manifestation");
-        addRitual("sphere", "Spherical Manifestation");
-        addRitual("armour_evolve", "Ritual of Sentient Evolution");
-        addRitual("upgrade_remove", "Sound of the Cleansing Soul");
-        addRitual("crafting", "Rhythm of the Beating Anvil");
-        addRitual("yawning_void", "Yawning of the Void");
-        add("ritual.neovitae.torment_nexus", "The Torment Nexus");
-        add("ritual.neovitae.torment_nexus.info",
+        addRitual("condor", "Reverence of the Condor", "Bestows true flight upon every practitioner within the circle. Dusk-tier.");
+        addRitual("grounding", "The Sinner's Burden", "Imposes heavy gravity within the area; entities that try to fly are dragged back to the earth. Spiritus aspects shift between Heavy Heart, Suspended, and Levitation effects.");
+        addRitual("placer", "Ritual of the Mason", "Places blocks drawn from an adjacent chest across the configured area.");
+        addRitual("ellipse", "Ellipsoid Manifestation", "Constructs a hollow ellipsoidal shell from supplied materials. Dusk-tier.");
+        addRitual("sphere", "Spherical Manifestation", "Constructs a hollow sphere of spectral matter from supplied materials. Dusk-tier.");
+        addRitual("armour_evolve", "Ritual of Sentient Evolution", "Stand on the master stone in Sentient Armor; the ritual expands its upgrade capacity beyond the former limit.");
+        addRitual("upgrade_remove", "Sound of the Cleansing Soul", "Wipes every upgrade from worn Sentient Armor and resets used points to zero; no tomes are produced.");
+        addRitual("crafting", "Rhythm of the Beating Anvil", "Automates crafting through an adjacent inventory. Steadfast routes through a Hellfire Forge, Corrosive through a Tabula Vitae. Dusk-tier.");
+        addRitual("yawning_void", "Yawning of the Void", "Quarries the earth layer by layer. Steadfast leaves cobblestone in its wake; Corrosive filters by tag.");
+        addRitual("torment_nexus", "The Torment Nexus",
                 "Binds every spawner and trial spawner in range, suppressing their natural spawns and harvesting"
-                + " an equivalent stream of EV from the simulated kills. Loot is funneled into a chest atop the"
-                + " Master Ritual Stone; an Experience Tome in the chest soaks up the kills' XP. Requires an"
-                + " Awakened Activation Crystal.");
+                + " an equivalent stream of EV from the simulated kills. Loot funnels into a chest atop the master"
+                + " stone; an Experience Tome in the chest soaks up the kills' XP. Requires an Awakened Activation Crystal.");
 
         // Dungeon Rituals (snake_case to match ritual constructors)
-        add("ritual.neovitae.simple_dungeon", "Edge of the Hidden Realm");
-        add("ritual.neovitae.simple_dungeon.info", "Opens a portal to a small dungeon pocket dimension.");
-        add("ritual.neovitae.standard_dungeon", "Pathway to the Endless Realm");
-        add("ritual.neovitae.standard_dungeon.info", "Opens a portal to a full procedural dungeon dimension.");
+        addRitual("simple_dungeon", "Edge of the Hidden Realm",
+                "One-shot rite: consumes a large EV pool and assembles a complete Simple Dungeon structure at the master ritual stone.");
+        addRitual("standard_dungeon", "Pathway to the Endless Realm",
+                "One-shot rite: consumes a very large EV pool and assembles a full Standard Dungeon (Mines, Foreman fight, aspected loot) at the master ritual stone.");
 
         // Dimension
         add("dimension.neovitae.dungeon", "The Demon Realm");
@@ -1236,11 +1236,11 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("master_blood_orb", "Magus Orb of Vitae", "Upgrade to a Tier 3 Orb of Vitae");
         addAdvancement("archmage_blood_orb", "Dominus Orb of Vitae", "Upgrade to a Tier 4 Orb of Vitae");
         addAdvancement("transcendent_blood_orb", "Divinus Orb of Vitae", "Achieve the ultimate Orb of Vitae");
-        addAdvancement("tabula_rasa", "Tabula Rasa", "Inscribe your first slate");
-        addAdvancement("tabula_robur", "Tabula Robur", "Craft a Tabula Robur");
-        addAdvancement("tabula_animata", "Tabula Animata", "Craft a Tabula Animata");
-        addAdvancement("tabula_spiritus", "Tabula Spiritus", "Craft a Tabula Spiritus");
-        addAdvancement("tabula_aetherea", "Tabula Aetherea", "Craft a Tabula Aetherea");
+        addAdvancement("blank_slate", "Tabula Rasa", "Inscribe your first slate");
+        addAdvancement("reinforced_slate", "Tabula Robur", "Craft a Tabula Robur");
+        addAdvancement("imbued_slate", "Tabula Animata", "Craft a Tabula Animata");
+        addAdvancement("demonic_slate", "Tabula Spiritus", "Craft a Tabula Spiritus");
+        addAdvancement("ethereal_slate", "Tabula Aetherea", "Craft a Tabula Aetherea");
         addAdvancement("tabula_vitae", "The Tabula Vitae", "Craft a Tabula Vitae");
         addAdvancement("athanor", "Industrial Alchemy", "Craft an Athanor");
         addAdvancement("incense_altar", "Sacred Incense", "Craft an Incense Altar");
@@ -1407,6 +1407,12 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
     public void addRitual(String key, String name) {
         add("ritual.neovitae." + key, name);
         add("ritual.neovitae." + key + ".info", "A NeoVitae ritual.");
+    }
+
+    public void addRitual(String key, String name, String desc) {
+        add("ritual.neovitae." + key, name);
+        add("ritual.neovitae." + key + ".info", desc);
+        add("ritual.neovitae." + key + ".desc", desc);
     }
 
     public void addCommand(String key, String value) {

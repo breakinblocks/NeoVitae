@@ -8,12 +8,8 @@
     }
   ],
   "inputs": [
-    {
-      "item": "minecraft:ancient_debris"
-    }
+    "minecraft:ancient_debris"
   ],
   "spiritus_boost": true,
-  "tool": {
-    "tag": "neovitae:athanor_tool/cutting_fluids"
-  }
+  "tool": "#neovitae:athanor_tool/cutting_fluids"
 }

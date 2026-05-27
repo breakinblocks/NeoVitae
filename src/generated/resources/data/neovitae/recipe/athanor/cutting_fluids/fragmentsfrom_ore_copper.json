@@ -8,12 +8,8 @@
     }
   ],
   "inputs": [
-    {
-      "tag": "c:ores/copper"
-    }
+    "#c:ores/copper"
   ],
   "spiritus_boost": true,
-  "tool": {
-    "tag": "neovitae:athanor_tool/cutting_fluids"
-  }
+  "tool": "#neovitae:athanor_tool/cutting_fluids"
 }

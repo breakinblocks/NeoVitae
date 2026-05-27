@@ -9,7 +9,7 @@
   "description": "book.neovitae.guide.rituals.ritual_sentient_downgrade.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "neovitae:upgrade_tome"
+    "id": "neovitae:upgrade_tome"
   },
   "name": "book.neovitae.guide.rituals.ritual_sentient_downgrade.name",
   "pages": [

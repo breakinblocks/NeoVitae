@@ -1,0 +1,1 @@
+[Discord](https://discord.gg/TRxaXaYy42) · [GitHub](https://github.com/breakinblocks/NeoVitae) · [Issues](https://github.com/breakinblocks/NeoVitae/issues) · [Modrinth](https://modrinth.com/mod/rvaW4C93) · MIT License

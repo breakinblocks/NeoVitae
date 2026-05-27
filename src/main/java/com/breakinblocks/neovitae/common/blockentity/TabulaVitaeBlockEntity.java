@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.common.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
@@ -237,7 +239,8 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.1, worldPosition.getZ() + 0.5, 2, 0.2, 0.0, 0.2, 0.01);
         }
 
-        if (burnTime >= ticksRequired) {
+        double speedMultiplier = getInputCuttingFluidSpeed();
+        if (burnTime * speedMultiplier >= ticksRequired) {
             craftItem(recipe);
             burnTime = 0;
         }
@@ -263,6 +266,17 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
     }
 
     private void craftItem(TabulaVitaeRecipe recipe) {
+        int cuttingFluidSlot = -1;
+        double bonusOutputChance = 0;
+        for (int i = 0; i < ORB_SLOT; i++) {
+            ItemStack stack = inv.getStackInSlot(i);
+            if (!stack.isEmpty() && stack.is(NVTags.Items.CUTTING_FLUIDS)) {
+                cuttingFluidSlot = i;
+                bonusOutputChance = Math.max(0, stack.getOrDefault(NVDataComponents.ARC_CHANCE.get(), 1.0) - 1.0);
+                break;
+            }
+        }
+
         List<Ingredient> ingredients = new ArrayList<>(recipe.getInput());
         for (int i = 0; i < 6; i++) {
             ItemStack stack = inv.getStackInSlot(i);
@@ -270,10 +284,14 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
 
             for (int j = 0; j < ingredients.size(); j++) {
                 if (ingredients.get(j).test(stack)) {
-                    ItemStack container = stack.getCraftingRemainingItem();
-                    stack.shrink(1);
-                    if (stack.isEmpty() && !container.isEmpty()) {
-                        inv.setStackInSlot(i, container);
+                    if (i == cuttingFluidSlot) {
+                        damageCuttingFluid(i, stack);
+                    } else {
+                        ItemStack container = stack.getCraftingRemainingItem();
+                        stack.shrink(1);
+                        if (stack.isEmpty() && !container.isEmpty()) {
+                            inv.setStackInSlot(i, container);
+                        }
                     }
                     ingredients.remove(j);
                     break;
@@ -282,6 +300,9 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
         }
 
         ItemStack output = recipe.getOutput().copy();
+        if (bonusOutputChance > 0 && Math.random() < bonusOutputChance) {
+            output.grow(1);
+        }
         ItemStack currentOutput = inv.getStackInSlot(OUTPUT_SLOT);
         if (currentOutput.isEmpty()) {
             inv.setStackInSlot(OUTPUT_SLOT, output);
@@ -464,6 +485,34 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
 
     public double getProgressForGui() {
         if (ticksRequired <= 0) return 0;
-        return (double) burnTime / (double) ticksRequired;
+        return (burnTime * getInputCuttingFluidSpeed()) / (double) ticksRequired;
+    }
+
+    private double getInputCuttingFluidSpeed() {
+        for (int i = 0; i < ORB_SLOT; i++) {
+            ItemStack stack = inv.getStackInSlot(i);
+            if (!stack.isEmpty() && stack.is(NVTags.Items.CUTTING_FLUIDS)) {
+                return stack.getOrDefault(NVDataComponents.ARC_SPEED.get(), 1.0);
+            }
+        }
+        return 1.0;
+    }
+
+    private void damageCuttingFluid(int slot, ItemStack stack) {
+        if (stack.has(DataComponents.MAX_DAMAGE)) {
+            int newDamage = stack.getOrDefault(DataComponents.DAMAGE, 0) + 1;
+            if (newDamage >= stack.getMaxDamage()) {
+                inv.setStackInSlot(slot, ItemStack.EMPTY);
+            } else {
+                stack.set(DataComponents.DAMAGE, newDamage);
+                inv.setStackInSlot(slot, stack);
+            }
+        } else {
+            ItemStack container = stack.getCraftingRemainingItem();
+            stack.shrink(1);
+            if (stack.isEmpty() && !container.isEmpty()) {
+                inv.setStackInSlot(slot, container);
+            }
+        }
     }
 }

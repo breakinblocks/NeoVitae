@@ -261,6 +261,21 @@ public class MaterialRegistry {
             }
         }
 
+        if (fragmentId != null) {
+            for (String item : mat.getExtraOreItems()) {
+                String itemPath = item.contains(":") ? item.substring(item.indexOf(':') + 1) : item;
+                addAthanorRecipeItem("cutting_fluids/fragments_from_" + itemPath + "_" + name,
+                        item, "neovitae:athanor_tool/cutting_fluids",
+                        fragmentId, 5, null, 0, true);
+            }
+            for (String item : mat.getExtraRawItems()) {
+                String itemPath = item.contains(":") ? item.substring(item.indexOf(':') + 1) : item;
+                addAthanorRecipeItem("cutting_fluids/fragments_from_" + itemPath + "_" + name,
+                        item, "neovitae:athanor_tool/cutting_fluids",
+                        fragmentId, 3, null, 0, true);
+            }
+        }
+
         // Fragment + resonator = 1 gravel + 50% corrupted dust
         if (fragmentId != null && gravelId != null) {
             addAthanorRecipe("resonator/gravels_" + name,
@@ -288,12 +303,18 @@ public class MaterialRegistry {
             if (mat.getOreTag() != null) {
                 addAthanorRecipe("cutting_fluids/dusts_from_ore_" + name,
                         mat.getOreTag(), "neovitae:athanor_tool/cutting_fluids",
-                        dustId, 3, null, 0, false);
+                        dustId, mat.getDustYieldFromOre(), null, 0, false);
             }
             if (mat.getRawTag() != null) {
                 addAthanorRecipe("cutting_fluids/dusts_from_raw_" + name,
                         mat.getRawTag(), "neovitae:athanor_tool/cutting_fluids",
                         dustId, 1, dustId, 0.33, false);
+            }
+            for (String inputItem : mat.getExtraInputItems()) {
+                String itemPath = inputItem.contains(":") ? inputItem.substring(inputItem.indexOf(':') + 1) : inputItem;
+                addAthanorRecipeItem("cutting_fluids/dusts_from_" + itemPath + "_" + name,
+                        inputItem, "neovitae:athanor_tool/cutting_fluids",
+                        dustId, 1, null, 0, false);
             }
         }
     }
@@ -302,11 +323,27 @@ public class MaterialRegistry {
                                           String outputItem, int outputCount,
                                           String chanceItem, double chance,
                                           boolean spiritusBoost) {
+        JsonObject input = new JsonObject();
+        input.addProperty("tag", inputTag);
+        writeAthanorRecipe(recipePath, input, toolTag, outputItem, outputCount, chanceItem, chance, spiritusBoost);
+    }
+
+    private static void addAthanorRecipeItem(String recipePath, String inputItem, String toolTag,
+                                              String outputItem, int outputCount,
+                                              String chanceItem, double chance,
+                                              boolean spiritusBoost) {
+        JsonObject input = new JsonObject();
+        input.addProperty("item", inputItem);
+        writeAthanorRecipe(recipePath, input, toolTag, outputItem, outputCount, chanceItem, chance, spiritusBoost);
+    }
+
+    private static void writeAthanorRecipe(String recipePath, JsonObject input, String toolTag,
+                                            String outputItem, int outputCount,
+                                            String chanceItem, double chance,
+                                            boolean spiritusBoost) {
         JsonObject recipe = new JsonObject();
         recipe.addProperty("type", "neovitae:athanor");
 
-        JsonObject input = new JsonObject();
-        input.addProperty("tag", inputTag);
         JsonArray inputs = new JsonArray();
         inputs.add(input);
         recipe.add("inputs", inputs);
@@ -522,13 +559,17 @@ public class MaterialRegistry {
                 List.of("dust"),
                 "minecraft:coal", 0.1f,
                 "c:ores/coal", null, null,
-                null, null));
+                null, null)
+                .withDustYieldFromOre(6)
+                .withExtraInputItems(List.of("minecraft:coal")));
         defaults.add(new MaterialDefinition("netherite_scrap", "#755045",
                 List.of("fragment", "gravel", "dust"),
                 "minecraft:netherite_scrap", 2.0f,
                 null, null, null,
                 "Ancient Debris",
-                Map.of("fragment", "fragment_netherite_scrap", "gravel", "gravel_netherite_scrap")));
+                Map.of("fragment", "fragment_netherite_scrap", "gravel", "gravel_netherite_scrap"))
+                .withExtraOreItems(List.of("minecraft:ancient_debris"))
+                .withExtraRawItems(List.of("minecraft:netherite_scrap")));
         defaults.add(new MaterialDefinition("demonite", "#8CBFB5",
                 List.of("fragment", "gravel"),
                 null, 0f,

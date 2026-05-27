@@ -15,6 +15,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -152,14 +153,18 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
         guiGraphics.drawString(mc.font, "Tool", TOOL_COL, ROW0 + 28, 0x808080, false);
 
         // Spiritus costs
+        int infoY = 58;
         if (recipe.hasSpiritusCosts()) {
-            drawSpiritusCosts(guiGraphics, mc, recipe);
+            infoY = drawSpiritusCosts(guiGraphics, mc, recipe, infoY);
+        }
+        if (recipe.isSpiritusBoosted()) {
+            drawSpiritusBoost(guiGraphics, mc, infoY);
         }
     }
 
-    private void drawSpiritusCosts(GuiGraphics guiGraphics, Minecraft mc, AthanorRecipe recipe) {
+    private int drawSpiritusCosts(GuiGraphics guiGraphics, Minecraft mc, AthanorRecipe recipe, int startY) {
         Map<SpiritusType, Double> costs = recipe.getSpiritusCosts();
-        int y = 58;
+        int y = startY;
 
         guiGraphics.drawString(mc.font, Component.translatable("jei.neovitae.recipe.athanor.spiritus_cost"),
                 1, y, 0xAAAAAA, true);
@@ -181,6 +186,20 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
                 y += 10;
             }
         }
+        return col == 0 ? y : y + 10;
+    }
+
+    private void drawSpiritusBoost(GuiGraphics guiGraphics, Minecraft mc, int startY) {
+        guiGraphics.drawString(mc.font, Component.literal("Raw Spiritus Bonus"), 1, startY, 0xAAAAAA, true);
+        guiGraphics.fill(1, startY + 11, 5, startY + 15, TYPE_COLORS[0]);
+        int textX = 7;
+        int textMaxWidth = WIDTH - textX - 1;
+        int lineY = startY + 10;
+        for (FormattedCharSequence line :
+                mc.font.split(Component.literal("+1 output, scales 33%-100% (chunk 5-100 Raw)"), textMaxWidth)) {
+            guiGraphics.drawString(mc.font, line, textX, lineY, 0xFFFFFF, true);
+            lineY += mc.font.lineHeight;
+        }
     }
 
     @Override
@@ -199,17 +218,34 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
             }
         }
 
+        int infoY = 58;
         if (recipe.hasSpiritusCosts() && mouseY >= 58) {
             Map<SpiritusType, Double> costs = recipe.getSpiritusCosts();
             int y = 68;
+            int col = 0;
             for (int i = 0; i < TYPES.length; i++) {
                 Double amount = costs.get(TYPES[i]);
                 if (amount == null || amount <= 0) continue;
                 if (mouseY >= y - 1 && mouseY < y + 9 && mouseX >= 0 && mouseX <= WIDTH) {
                     tooltip.add(Component.literal(String.format("Requires %.1f %s spiritus from the chunk", amount, TYPE_NAMES[i])));
                 }
-                y += 10;
+                col++;
+                if (col >= 2) {
+                    col = 0;
+                    y += 10;
+                }
             }
+            infoY = col == 0 ? y : y + 10;
+        }
+
+        if (recipe.isSpiritusBoosted() && mouseX >= 0 && mouseX <= WIDTH
+                && mouseY >= infoY && mouseY < infoY + 20) {
+            tooltip.add(Component.literal("Spiritus Boost"));
+            tooltip.add(Component.literal("+1 of the first output when Raw Spiritus saturates the chunk."));
+            tooltip.add(Component.literal("Chance: 33% at 5 Raw, scaling linearly to 100% at 100 Raw."));
+            tooltip.add(Component.literal("Multiplied by the tool's bonus-chance modifier. Any whole multiples"));
+            tooltip.add(Component.literal("guarantee one extra output each, with the remainder rolled separately."));
+            tooltip.add(Component.literal("Each bonus has a 2.5% chance to consume 1 Raw Spiritus."));
         }
     }
 }

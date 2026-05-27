@@ -172,8 +172,8 @@ public class NVItems {
     public static final DeferredHolder<Item, Item> CORRUPTED_DUST_TINY = plainItem("corrupted_tiny_dust");
 
     public static final DeferredHolder<Item, ItemAthanorToolBase> BASIC_CUTTING_FLUID = BASIC_ITEMS.register("basic_cutting_fluid", () -> new ItemAthanorToolBase(64, 1, SpiritusType.RUINA));
-    public static final DeferredHolder<Item, ItemAthanorToolBase> INTERMEDIATE_CUTTING_FLUID = BASIC_ITEMS.register("intermediate_cutting_fluid", () -> new ItemAthanorToolBase(256, 1.5, SpiritusType.RUINA));
-    public static final DeferredHolder<Item, ItemAthanorToolBase> ADVANCED_CUTTING_FLUID = BASIC_ITEMS.register("advanced_cutting_fluid", () -> new ItemAthanorToolBase(1024, 2, 2, SpiritusType.RUINA));
+    public static final DeferredHolder<Item, ItemAthanorToolBase> INTERMEDIATE_CUTTING_FLUID = BASIC_ITEMS.register("intermediate_cutting_fluid", () -> new ItemAthanorToolBase(512, 1.5, SpiritusType.RUINA));
+    public static final DeferredHolder<Item, ItemAthanorToolBase> ADVANCED_CUTTING_FLUID = BASIC_ITEMS.register("advanced_cutting_fluid", () -> new ItemAthanorToolBase(4096, 2, 2, SpiritusType.RUINA));
     public static final DeferredHolder<Item, ItemAthanorToolBase> EXPLOSIVE_POWDER = BASIC_ITEMS.register("explosive_powder", () -> new ItemAthanorToolBase(64, 1, SpiritusType.NIHILUM));
     public static final DeferredHolder<Item, ItemAthanorToolBase> RESONATOR = BASIC_ITEMS.register("resonator", () -> new ItemAthanorToolBase(64, 1, SpiritusType.VINDICTA));
     public static final DeferredHolder<Item, NVGuideBookItem> GUIDE_BOOK = BASIC_ITEMS.register("guide_book", NVGuideBookItem::new);

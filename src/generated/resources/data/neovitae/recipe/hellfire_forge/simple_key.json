@@ -9,7 +9,7 @@
       "tag": "c:ingots/iron"
     },
     {
-      "tag": "c:nuggets/gold"
+      "item": "neovitae:corrupted_tiny_dust"
     }
   ],
   "minDrain": 100.0,

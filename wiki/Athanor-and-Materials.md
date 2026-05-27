@@ -36,7 +36,7 @@ Cutting Fluid is the universal reagent for every Athanor ore-processing step, pr
 |-------|--------|
 | Basic Cutting Fluid | The baseline. A Bottle of Water may substitute for the Water Sigil in the recipe. |
 | Intermediate Cutting Fluid | Endures 8x as long, hastens the Athanor's work by 50%. Requires **Tau Oil** from the Demon Realm. |
-| Advanced Cutting Fluid | Persists 16x longer, doubles crafting speed, and doubles bonus-yield probability. Requires **Hellforged Dust** from the deepest Demon Realm. |
+| Advanced Cutting Fluid | Persists 64x longer, doubles crafting speed, and doubles bonus-yield probability. Requires **Hellforged Dust** from the deepest Demon Realm. |
 
 ### The Refinement Chain
 

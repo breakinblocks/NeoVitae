@@ -49,7 +49,7 @@ public class OreProcessingEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Advanced Cutting Fluid");
-        this.pageText("The apex of dissolution. This fluid persists sixteen times longer, doubles crafting speed, "
+        this.pageText("The apex of dissolution. This fluid persists sixty-four times longer, doubles crafting speed, "
                 + "and doubles the probability of bonus yields. The [#](8B0000)Hellforged Dust[#]() "
                 + "it requires lies buried in the deepest reaches of the [#](4A0080)Demon Realm[#]().");
 

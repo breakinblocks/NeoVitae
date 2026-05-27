@@ -26,6 +26,14 @@ public class MaterialDefinition {
     private Map<String, String> idOverrides;
     @SerializedName("alias_tags")
     private Map<String, List<String>> aliasTags;
+    @SerializedName("dust_yield_from_ore")
+    private int dustYieldFromOre = 3;
+    @SerializedName("extra_input_items")
+    private List<String> extraInputItems;
+    @SerializedName("extra_ore_items")
+    private List<String> extraOreItems;
+    @SerializedName("extra_raw_items")
+    private List<String> extraRawItems;
 
     public MaterialDefinition() {}
 
@@ -77,6 +85,40 @@ public class MaterialDefinition {
 
     public MaterialDefinition withAliasTags(Map<String, List<String>> aliasTags) {
         this.aliasTags = aliasTags;
+        return this;
+    }
+
+    public int getDustYieldFromOre() { return dustYieldFromOre; }
+
+    public List<String> getExtraInputItems() {
+        return extraInputItems != null ? extraInputItems : List.of();
+    }
+
+    public MaterialDefinition withDustYieldFromOre(int dustYieldFromOre) {
+        this.dustYieldFromOre = dustYieldFromOre;
+        return this;
+    }
+
+    public MaterialDefinition withExtraInputItems(List<String> extraInputItems) {
+        this.extraInputItems = extraInputItems;
+        return this;
+    }
+
+    public List<String> getExtraOreItems() {
+        return extraOreItems != null ? extraOreItems : List.of();
+    }
+
+    public List<String> getExtraRawItems() {
+        return extraRawItems != null ? extraRawItems : List.of();
+    }
+
+    public MaterialDefinition withExtraOreItems(List<String> extraOreItems) {
+        this.extraOreItems = extraOreItems;
+        return this;
+    }
+
+    public MaterialDefinition withExtraRawItems(List<String> extraRawItems) {
+        this.extraRawItems = extraRawItems;
         return this;
     }
 

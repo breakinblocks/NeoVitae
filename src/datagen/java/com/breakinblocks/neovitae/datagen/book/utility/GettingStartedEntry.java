@@ -128,11 +128,14 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Mastering Upgrades");
-        this.pageText("The [#](4A0080)Sound of the Cleansing Soul[#]() strips upgrades from your armour, "
-                + "producing [#](8B0000)Upgrade Tomes[#]() that may be copied into a "
-                + "[#](8B0000)Training Bracelet[#](), or re-applied to ensure you train only the upgrades you desire.\\\n\\\n"
-                + "Surplus tomes serve as fuel for the [#](4A0080)Penance of the Leaden Soul[#](), "
-                + "a rite that inscribes [#](4A0080)Downgrades[#]() onto your armour.");
+        this.pageText("The [#](4A0080)Sound of the Cleansing Soul[#]() wipes every upgrade from your worn "
+                + "Sentient Armor and resets your used points to zero, giving you a fresh slate at the price "
+                + "of all accumulated training.\\\n\\\n"
+                + "If you would rather [#](2E8B57)keep[#]() what you have built, the "
+                + "[#](4A0080)Penance of the Leaden Soul[#]() extracts the upgrades from a thrown armor piece "
+                + "as [#](8B0000)Upgrade Tomes[#](), preserving every drop of accumulated experience. The tomes "
+                + "can then be copied into a [#](8B0000)Training Bracelet[#]() or re-inscribed onto a fresh "
+                + "chestplate.");
 
         this.page("tier4_armour3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

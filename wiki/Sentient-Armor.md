@@ -10,9 +10,13 @@ The armour grows in many directions at once, but its capacity is finite. Trying 
 
 ## Upgrade Tomes
 
-Upon completing the **Sound of the Cleansing Soul** ritual, a collection of **Tomes** manifests around you, each one a crystallised record of a particular skill. Press [Use] while holding a tome to inscribe one level of that skill onto your chestplate, assuming sufficient Upgrade Points remain. Hold sneak and [Use] to inscribe as much as possible at once.
+**Upgrade Tomes** are crystallised records of a particular skill, each carrying the experience needed to inscribe one or more levels of its upgrade onto a chestplate. They come from three places:
 
-The tome is consumed in the process, transferring all stored experience to the chestplate. If insufficient points remain, the tome applies what it can and retains the rest; unless less than one level's worth remains, in which case the tome crumbles to nothing.
+- **Dungeon loot.** Tomes are scattered through the loot tables of **The Mines** (ore chambers, the Smithy) and the Foreman's hoard.
+- **Penance of the Leaden Soul.** Throw an already-trained piece of Sentient Armor onto the small zone above this ritual's Master Ritual Stone and it will extract every upgrade currently inscribed on the armor as a separate Tome, preserving the accumulated experience. The armor itself is left stripped but intact. See **[Rituals](Rituals)**.
+- **Combining duplicates.** Two tomes of the same upgrade can be merged at a vanilla crafting table to consolidate their experience.
+
+Press [Use] while holding a tome to inscribe one level of that skill onto your worn chestplate, assuming sufficient Upgrade Points remain. Hold sneak and [Use] to inscribe as much as possible at once. The tome is consumed in the process, transferring its stored experience to the chestplate. If insufficient points remain, the tome applies what it can and retains the rest; unless less than one level's worth remains, in which case the tome crumbles to nothing.
 
 Tomes are the key to deliberate specialisation; focus your training on the abilities that serve you best and discard the rest. Maintain separate chestplates for different purposes, each with its own set of tomes.
 

@@ -9,7 +9,7 @@
   "description": "book.neovitae.guide.rituals.ritual_magnetic.description",
   "hide_while_locked": false,
   "icon": {
-    "id": "minecraft:iron_ore"
+    "item": "minecraft:iron_ingot"
   },
   "name": "book.neovitae.guide.rituals.ritual_magnetic.name",
   "pages": [

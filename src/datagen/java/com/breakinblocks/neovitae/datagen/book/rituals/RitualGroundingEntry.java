@@ -43,7 +43,7 @@ public class RitualGroundingEntry extends EntryProvider {
                 + "\n\n- [#](8B0000)Spiritus Ruina[#](): Applies the [#](8B0000)Suspended[#]() effect, halting vertical movement entirely."
                 + "\n\n- [#](8B0000)Spiritus Vindicta[#](): Inflicts [#](8B0000)Levitation[#](), a cruel irony, dragging entities skyward against their will."
                 + "\n\n- [#](8B0000)Spiritus Nihilum[#](): Applies the [#](8B0000)Heavy Heart[#]() affliction."
-                + "\n\n- [#](8B0000)Spiritus Invictus[#](): Expands the area of influence.");
+                + "\n\n- [#](8B0000)Spiritus Invictus[#](): Pairs with Nihilum to extend the Heavy Heart affliction onto boss-tier creatures that would otherwise resist it.");
     }
 
     @Override

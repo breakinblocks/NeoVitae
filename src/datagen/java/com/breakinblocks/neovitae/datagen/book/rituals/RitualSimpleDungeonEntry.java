@@ -33,7 +33,11 @@ public class RitualSimpleDungeonEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("A Crack in the Veil");
-        this.pageText("This ritual tears a narrow fissure in the fabric of reality, opening a gateway to the [#](4A0080)Demon Realm[#](), a treacherous dimension teeming with hostile entities and coveted resources. This lesser portal provides an introductory trial for those who dare to test their strength against what lurks beyond.");
+        this.pageText("A [#](2E8B57)one-shot[#]() rite. It consumes a large pool of [#](8B0000)EV[#]() and "
+                + "assembles a complete [#](8B0000)Simple Dungeon[#]() structure at the Master Ritual Stone, "
+                + "the entry tier of the Endless Dungeon experience.\\\n\\\n"
+                + "Choose your spot carefully; the dungeon is placed in the world, not opened as a portal. "
+                + "Once assembled, the ritual ends and the Master Ritual Stone deactivates.");
     }
 
     @Override
@@ -43,7 +47,7 @@ public class RitualSimpleDungeonEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Tears a narrow fissure into the Demon Realm.";
+        return "Generates a Simple Dungeon structure at the ritual stone.";
     }
 
     @Override

@@ -3,12 +3,17 @@
   "chance_outputs": [],
   "guaranteed_outputs": [
     {
-      "count": 4,
+      "count": 5,
       "id": "neovitae:copper_fragment"
     }
   ],
   "inputs": [
-    "#c:ores/copper"
+    {
+      "tag": "c:ores/copper"
+    }
   ],
-  "tool": "#neovitae:athanor_tool/explosives"
+  "spiritus_boost": true,
+  "tool": {
+    "tag": "neovitae:athanor_tool/cutting_fluids"
+  }
 }

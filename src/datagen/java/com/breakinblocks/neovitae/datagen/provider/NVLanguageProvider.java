@@ -1237,11 +1237,11 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("archmage_blood_orb", "Dominus Orb of Vitae", "Upgrade to a Tier 4 Orb of Vitae");
         addAdvancement("transcendent_blood_orb", "Divinus Orb of Vitae", "Achieve the ultimate Orb of Vitae");
         addAdvancement("tabula_rasa", "Tabula Rasa", "Inscribe your first slate");
-        addAdvancement("tabula_robur", "Tabula Robur", "Craft a Reinforced Slate");
-        addAdvancement("tabula_animata", "Tabula Animata", "Craft an Imbued Slate");
-        addAdvancement("tabula_spiritus", "Tabula Spiritus", "Craft a Demonic Slate");
-        addAdvancement("tabula_aetherea", "Tabula Aetherea", "Craft an Ethereal Slate");
-        addAdvancement("tabula_vitae", "The Alchemy Table", "Craft a Tabula Vitae");
+        addAdvancement("tabula_robur", "Tabula Robur", "Craft a Tabula Robur");
+        addAdvancement("tabula_animata", "Tabula Animata", "Craft a Tabula Animata");
+        addAdvancement("tabula_spiritus", "Tabula Spiritus", "Craft a Tabula Spiritus");
+        addAdvancement("tabula_aetherea", "Tabula Aetherea", "Craft a Tabula Aetherea");
+        addAdvancement("tabula_vitae", "The Tabula Vitae", "Craft a Tabula Vitae");
         addAdvancement("athanor", "Industrial Alchemy", "Craft an Athanor");
         addAdvancement("incense_altar", "Sacred Incense", "Craft an Incense Altar");
         addAdvancement("first_sigil", "First Sigil", "Craft your first sigil");

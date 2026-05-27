@@ -422,7 +422,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     }
 
     private void craft(AthanorRecipe value, AthanorRecipeInput input, AthanorOutputHandler outputHandler) {
-        AthanorRecipe.AthanorResult result = value.assembleOutputs(input);
+        AthanorRecipe.AthanorResult result = value.assembleOutputs(input, level, worldPosition);
         value.getInputFluid().ifPresent(required -> {
             try (Transaction tx = Transaction.openRoot()) {
                 FluidResource res = FluidResource.of(inputTank.getFluid());

@@ -34,7 +34,7 @@ public class DemonCraftingEntry extends EntryProvider {
                 + "and [#](8B0000)+10 Blood Siphon[#]() (healing a portion of the target's health on kill, "
                 + "capped at 4 hearts).\\\n\\\n"
                 + "Forged from a [#](8B0000)Cinder Heart Fragment[#](), [#](8B0000)Permafrost Core[#](), "
-                + "[#](4A0080)Greater Spiritus Gem[#](), and [#](8B0000)Demonic Slate[#]().");
+                + "[#](4A0080)Greater Spiritus Gem[#](), and [#](8B0000)Tabula Spiritus[#]().");
 
         this.page("blight_whetstone", () -> BookSpotlightPageModel.create()
                 .withItem(NVItems.BLIGHT_WHETSTONE.get())
@@ -44,7 +44,7 @@ public class DemonCraftingEntry extends EntryProvider {
                 + "inflicting [#](8B0000)Wither[#]() on struck targets for 60 seconds.\\\n\\\n"
                 + "Requires [#](4A0080)Spiritus Ruina[#]() in the forge. Crafted from "
                 + "[#](8B0000)Blight Marrow[#](), a [#](4A0080)Ruina Crystal Catalyst[#](), "
-                + "and a [#](8B0000)Demonic Slate[#]().");
+                + "and a [#](8B0000)Tabula Spiritus[#]().");
 
         this.page("trim_ingot", () -> BookSpotlightPageModel.create()
                 .withItem(NVItems.DEMONITE_TRIM_INGOT.get())
@@ -62,7 +62,7 @@ public class DemonCraftingEntry extends EntryProvider {
         this.pageTitle("Grand Spiritus Gem");
         this.pageText("The [#](4A0080)Grand Spiritus Gem[#]() can now be forged using materials from "
                 + "the Demon Realm. It requires a [#](4A0080)Greater Spiritus Gem[#](), an "
-                + "[#](8B0000)Animus Mote[#](), an [#](8B0000)Ethereal Slate[#](), and a "
+                + "[#](8B0000)Animus Mote[#](), an [#](8B0000)Tabula Aetherea[#](), and a "
                 + "[#](8B0000)Permafrost Core[#]().\\\n\\\n"
                 + "With 4000 minimum will and 400 drain, this is among the most demanding recipes "
                 + "in the forge.");

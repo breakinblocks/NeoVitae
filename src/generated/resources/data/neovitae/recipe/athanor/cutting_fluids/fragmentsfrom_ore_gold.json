@@ -3,12 +3,17 @@
   "chance_outputs": [],
   "guaranteed_outputs": [
     {
-      "count": 4,
+      "count": 5,
       "id": "neovitae:gold_fragment"
     }
   ],
   "inputs": [
-    "#c:ores/gold"
+    {
+      "tag": "c:ores/gold"
+    }
   ],
-  "tool": "#neovitae:athanor_tool/explosives"
+  "spiritus_boost": true,
+  "tool": {
+    "tag": "neovitae:athanor_tool/cutting_fluids"
+  }
 }

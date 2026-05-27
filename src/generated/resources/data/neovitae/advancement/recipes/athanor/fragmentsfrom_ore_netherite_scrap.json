@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "neovitae:dustsfrom_raw_copper"
+        "recipe": "neovitae:fragmentsfrom_ore_netherite_scrap"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "neovitae:dustsfrom_raw_copper"
+      "neovitae:fragmentsfrom_ore_netherite_scrap"
     ]
   }
 }

@@ -28,10 +28,25 @@ public class CrystallizedSpiritusEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Crystallarium Maleficum");
-        this.pageText("This device slowly draws [#](8B0000)Spiritus[#]() from the [#](8B0000)Aura[#]() and condenses it into physical "
-                + "[#](8B0000)Spiritus Crystals[#](). The first spire demands 100 Spiritus to form; each subsequent growth costs "
-                + "45, yet yields 50 when burned in a [#](8B0000)Vas Maleficum[#](), a net gain of 5 per spire. "
-                + "A cluster may grow up to 7 spires tall.");
+        this.pageText("Place it with open air above, and the Crystallarium [#](2E8B57)seeds the first spire[#]() of a "
+                + "[#](8B0000)Spiritus Crystal[#]() cluster once the chunk's Aura holds at least [#](B8860B)99 Spiritus[#]() "
+                + "of any single Aspect. The spire formed will be the chunk's [#](2E8B57)dominant Aspect[#](). After "
+                + "the first spire stands, the [#](8B0000)Spiritus Crystal[#]() grows under its own power; the "
+                + "Crystallarium has done its work.\\\n\\\n"
+                + "A cluster may grow up to [#](B8860B)7 spires[#]() tall.");
+
+        this.page("crystal_growth", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Spire Growth");
+        this.pageText("Spires grow whenever the chunk holds at least a trace of the cluster's Aspect; growth "
+                + "scales with saturation, accelerating as the Aura fills. A chunk's natural cap is "
+                + "[#](B8860B)100[#]() per Aspect, though certain Rituals can raise it.\\\n\\\n"
+                + "Each new spire costs [#](B8860B)45 Spiritus[#]() when the chunk's dominant Aspect matches the "
+                + "cluster, and yields 50 when burned in a Vas Maleficum, a net gain of 5 per spire. If the "
+                + "chunk's dominant Aspect [#](2E8B57)does not match[#]() the cluster (for instance, a Raw chunk "
+                + "feeding a Ruina cluster), the cost rises to [#](B8860B)90 Spiritus[#]() per spire and growth "
+                + "runs at [#](B8860B)60%% speed[#](). Keep the chunk biased toward the Aspect you want to farm.");
 
         this.page("harvesting", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

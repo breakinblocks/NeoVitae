@@ -57,6 +57,13 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        name = "Saps.dev"
+        url = "https://maven.saps.dev/releases"
+        content {
+            includeGroup "dev.latvian.mods"
+        }
+    }
 }
 
 base {
@@ -156,6 +163,9 @@ dependencies {
 
     localRuntime("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
     localRuntime("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}")
+
+    // KubeJS - compile-only soft dependency for the optional plugin under compat/kubejs/
+    compileOnly("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

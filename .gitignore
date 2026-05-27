@@ -27,10 +27,7 @@ docs/
 /*.md
 !/[Rr][Ee][Aa][Dd][Mm][Ee].[Mm][Dd]
 !/[Cc][Oo][Nn][Tt][Rr][Ii][Bb][Uu][Tt][Ii][Nn][Gg].[Mm][Dd]
-!WHY_FORK_BLOODMAGIC.md
-!MODPACK_MAKERS.md
 !README.md
-!NEOVITAE_API.md
 
 # Ignore Python files as they are generally untility scripts unrelated to the project
 *.py

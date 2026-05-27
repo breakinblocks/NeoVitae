@@ -60,5 +60,3 @@ Public API for hooking into the anima, altars, rituals, sigils, and sentient arm
 
 - **[Discord](https://discord.gg/TRxaXaYy42)**. Chat, support, suggestions
 - **[GitHub Issues](https://github.com/breakinblocks/NeoVitae/issues)**. Bug reports and feature requests
-- **[Modpack Maker's Guide (source)](https://github.com/breakinblocks/NeoVitae/blob/1.21.1/MODPACK_MAKERS.md)**. The canonical single-file pack docs
-- **[API Documentation (source)](https://github.com/breakinblocks/NeoVitae/blob/1.21.1/NEOVITAE_API.md)**. The canonical single-file API docs

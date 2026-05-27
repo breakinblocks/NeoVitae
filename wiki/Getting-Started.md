@@ -76,7 +76,7 @@ Tier III unlocks the **Ritual Diviner [Dusk]** and a vast repertoire of advanced
 
 Your Sentient Armour may start to feel cramped by its modest point cap. With the Dusk Diviner, perform the **Ritual of Sentient Evolution** to raise your armour's capacity from **100** to **300** points. The **Sound of the Cleansing Soul** strips upgrades into **Upgrade Tomes** you can copy into a **Training Bracelet** or re-apply selectively. Surplus tomes fuel the **Penance of the Leaden Soul**, which inscribes **Downgrades**, negative-cost effects that free room for greater upgrades.
 
-See **[Living Armor](Living-Armor)** for the full upgrade/downgrade tree.
+See **[Sentient Armor](Sentient-Armor)** for the full upgrade/downgrade tree.
 
 ## Tier III, Aspected Spiritus
 

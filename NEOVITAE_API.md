@@ -902,7 +902,7 @@ public static final Supplier<MapCodec<MyCustomEffect>> MY_CUSTOM_EFFECT =
 
 ## Sentient Armor System
 
-Sentient Armor (formerly Living Armor) gains experience and levels up upgrades as the wearer performs actions.
+Sentient Armor (formerly Sentient Armor) gains experience and levels up upgrades as the wearer performs actions.
 
 ### ISentientArmorManager
 

@@ -10,7 +10,7 @@
 - [Sigils](Sigils)
 - [Tabula Vitae, Flasks and Anointments](Tabula-Vitae-Flasks-and-Anointments)
 - [Hellfire Forge and Sentient Equipment](Hellfire-Forge-and-Sentient-Equipment)
-- [Living Armor](Living-Armor)
+- [Sentient Armor](Sentient-Armor)
 - [Rituals](Rituals)
 - [Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)
 - [Alchemy Arrays](Alchemy-Arrays)

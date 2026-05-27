@@ -46,7 +46,7 @@ For each material, the system automatically generates:
 - **Items**. Fragment, gravel, and/or dust items with color-tinted base textures.
 - **Tags**. `c:fragments/{name}`, `c:gravels/{name}`, `c:dusts/{name}`.
 - **Smelting / blasting recipes**. Dust to output item (if `smelt_to` is defined).
-- **Athanor recipes**. Full ore processing chain (ore/raw → fragments → gravel → dust).
+- **Athanor recipes**. Full ore processing chain (ore/raw -> fragments -> gravel -> dust).
 - **Tabula Vitae recipes**. Ore to dust, fragments to gravel with corrupted dust.
 - **Item models and translations**. Generated in-memory, no files needed.
 

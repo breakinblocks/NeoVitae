@@ -4,7 +4,9 @@
   "package": "com.breakinblocks.neovitae.mixin",
   "compatibilityLevel": "JAVA_25",
   "refmap": "neovitae.refmap.json",
-  "mixins": [],
+  "mixins": [
+    "EnchantmentHelperMixin"
+  ],
   "client": [
     "client.LocalPlayerMixin"
   ],

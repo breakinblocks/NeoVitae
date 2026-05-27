@@ -30,7 +30,7 @@ public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRec
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
 
     private static final int WIDTH = 118;
-    private static final int HEIGHT = 40;
+    private static final int HEIGHT = 50;
 
     @Nonnull
     private final IDrawable background;
@@ -43,7 +43,7 @@ public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRec
 
     @Override
     public void getTooltip(ITooltipBuilder tooltip, TabulaVitaeRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-        if (mouseX >= 58 && mouseX <= 78 && mouseY >= 21 && mouseY <= 34) {
+        if (mouseX >= 53 && mouseX <= 93 && mouseY >= 43 && mouseY <= 49) {
             tooltip.add(Component.translatable("jei.neovitae.recipe.requiredtier", DECIMAL_FORMAT.format(recipe.getMinimumTier())));
             tooltip.add(Component.translatable("jei.neovitae.recipe.lpDrained", DECIMAL_FORMAT.format(recipe.getSyphon())));
             tooltip.add(Component.translatable("jei.neovitae.recipe.ticksRequired", DECIMAL_FORMAT.format(recipe.getTicks())));
@@ -56,11 +56,16 @@ public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRec
         background.draw(guiGraphics);
 
         var poseStack = guiGraphics.pose();
+
         poseStack.pushPose();
-        poseStack.translate(57, 35, 0);
+        poseStack.translate(67, 37, 0);
         poseStack.scale(0.5f, 0.5f, 1f);
         guiGraphics.drawString(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.lp"), 0, 0, 0x8b8b8b, false);
-        poseStack.translate(-8, 12, 0);
+        poseStack.popPose();
+
+        poseStack.pushPose();
+        poseStack.translate(53, 43, 0);
+        poseStack.scale(0.5f, 0.5f, 1f);
         guiGraphics.drawString(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.info"), 0, 0, 0x8b8b8b, false);
         poseStack.popPose();
     }

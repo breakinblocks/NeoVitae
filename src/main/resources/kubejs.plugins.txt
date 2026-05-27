@@ -1,0 +1,1 @@
+com.breakinblocks.neovitae.compat.kubejs.NVKubeJSPlugin

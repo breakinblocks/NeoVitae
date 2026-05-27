@@ -7,6 +7,7 @@ gradle
 
 # general
 build
+bin
 run
 run-data
 run-server
@@ -36,6 +37,12 @@ docs/
 
 *.csv
 
+# Ignore everything in tools/ except wiki sync scripts
+tools/*
+!tools/sync-wiki.sh
+!tools/git-hooks/
+!tools/git-hooks/*
+
 gradlew
 
 gradlew.bat
@@ -51,3 +58,7 @@ porting/
 gt.log
 
 *.log
+
+run-client.log
+
+metadata/cf.md

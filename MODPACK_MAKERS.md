@@ -74,10 +74,10 @@ Customize the tier, capacity, and fill rate of blood orbs.
 | Field | Type | Description |
 |-------|------|-------------|
 | `tier` | Integer | Orb tier (0-5). Determines recipe requirements. |
-| `capacity` | Integer | Maximum LP the orb can store in the soul network |
-| `fillRate` | Integer | LP gained per tick when draining health |
+| `capacity` | Integer | Maximum EV the orb can store in the anima |
+| `fillRate` | Integer | EV gained per tick when draining health |
 
-**Example - Make Weak Orb hold more LP:**
+**Example - Make Weak Orb hold more EV:**
 
 ```json
 {
@@ -103,7 +103,7 @@ Customize the tier, capacity, and fill rate of blood orbs.
 
 ### Blood Orb Internal Fluid Tank
 
-Each Blood Orb has an internal fluid reservoir that stores Essentia Vitae. The capacity of this reservoir is calculated as `4000 + (tier * 2000)` mB. When the altar fills the player's Anima (soul network), it also fills the orb's internal tank with the same amount.
+Each Blood Orb has an internal fluid reservoir that stores Essentia Vitae. The capacity of this reservoir is calculated as `4000 + (tier * 2000)` mB. When the altar fills the player's Anima (anima), it also fills the orb's internal tank with the same amount.
 
 **Dual-Mode Altar Behavior:**
 
@@ -111,7 +111,7 @@ When a Blood Orb is placed in an Ara Vitae, the altar checks whether the orb's i
 
 1. **Orb has fluid (draining mode):** The altar drains the orb's internal tank at 10x the orb's normal fill rate. If the altar basin has at least 1,000 mB of room, the drained fluid goes into the altar. If the altar is nearly full (less than 1,000 mB of room), the drained fluid is channeled into the player's Anima instead.
 
-2. **Orb is empty (normal mode):** The altar operates normally, draining its own LP into the player's Anima at the orb's standard fill rate.
+2. **Orb is empty (normal mode):** The altar operates normally, draining its own EV into the player's Anima at the orb's standard fill rate.
 
 This means players can pre-fill orbs with Essentia Vitae (for example, from fluid pipes or the Athanor) and then use those orbs to rapidly refill an altar or top off their network. The 10x transfer rate makes this significantly faster than normal altar filling.
 
@@ -123,12 +123,12 @@ This means players can pre-fill orbs with Essentia Vitae (for example, from flui
 
 **Location:** `data/neovitae/data_maps/item/sigil_stats.json`
 
-Customize LP costs and effect parameters for all sigils.
+Customize EV costs and effect parameters for all sigils.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `lp_cost` | Integer | LP cost per activation |
-| `drain_interval` | Integer | Ticks between LP drains for toggleable sigils (default: 100 = 5 sec) |
+| `lp_cost` | Integer | EV cost per activation |
+| `drain_interval` | Integer | Ticks between EV drains for toggleable sigils (default: 100 = 5 sec) |
 | `range` | Integer | Horizontal radius for area effects (optional) |
 | `vertical_range` | Integer | Vertical range for area effects (optional) |
 | `effect_duration` | Integer | Duration in ticks for potion effects (optional) |
@@ -155,7 +155,7 @@ Customize LP costs and effect parameters for all sigils.
 
 **Default Sigil Costs:**
 
-| Sigil | LP Cost | Notes |
+| Sigil | EV Cost | Notes |
 |-------|---------|-------|
 | Air | 50 | Per use |
 | Water | 100 | Per use |
@@ -182,8 +182,8 @@ Customize activation costs, refresh costs, and range limits for rituals.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `activation_cost` | Integer | LP cost to activate the ritual |
-| `refresh_cost` | Integer | LP cost per refresh tick |
+| `activation_cost` | Integer | EV cost to activate the ritual |
+| `refresh_cost` | Integer | EV cost per refresh tick |
 | `refresh_time` | Integer | Ticks between refreshes (default: 20 = 1 sec) |
 | `crystal_level` | Integer | Required activation crystal (0=weak, 1=awakened, 2=creative) |
 | `range_limits` | Object | Map of range names to limit objects |
@@ -246,7 +246,7 @@ Customize imperfect rituals - simple one-time effects triggered by placing a blo
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `activation_cost` | Integer | LP cost for activation |
+| `activation_cost` | Integer | EV cost for activation |
 | `block` | String | Block registry name (e.g., "minecraft:water") |
 | `block_tag` | String | Alternative: use a block tag instead |
 | `consume_block` | Boolean | Whether the catalyst block is consumed (default: false) |
@@ -282,7 +282,7 @@ Customize imperfect rituals - simple one-time effects triggered by placing a blo
 
 **Location:** `data/neovitae/data_maps/item/spiritus_gem_max.json`
 
-Customize how much Demon Will each soul gem tier can hold.
+Customize how much Spiritus each soul gem tier can hold.
 
 **Example:**
 
@@ -524,9 +524,9 @@ Neo Vitae adds several recipe types that can be customized via datapacks.
 | `ingredient` | Input item (standard ingredient format) |
 | `result` | Output item stack |
 | `minTier` | Minimum altar tier required (0-5) |
-| `totalBlood` | Total LP required for crafting |
-| `craftSpeed` | LP consumed per craft tick |
-| `drainSpeed` | Max LP drained from altar per tick |
+| `totalBlood` | Total EV required for crafting |
+| `craftSpeed` | EV consumed per craft tick |
+| `drainSpeed` | Max EV drained from altar per tick |
 
 ### Hellfire Forge Recipes
 
@@ -645,7 +645,7 @@ Tags control various gameplay mechanics. Override or extend these in your datapa
 
 | Tag | Purpose |
 |-----|---------|
-| `soul_gems` | Items that hold Demon Will |
+| `soul_gems` | Items that hold Spiritus |
 | `athanor_tool` | Tools usable in the Athanor |
 | `athanor_tool/explosives` | Explosive tools (ore doubling) |
 | `athanor_tool/cutting_fluids` | Cutting tools |
@@ -1085,31 +1085,31 @@ Neo Vitae registers several custom player attributes that can be modified via eq
 
 | Attribute | Registry ID | Default | Max | Description |
 |-----------|------------|---------|-----|-------------|
-| Self Sacrifice Multiplier | `neovitae:player.self_sacrifice_multiplier` | 1.0 | 100.0 | Multiplier for LP gained from self-sacrifice (PercentageAttribute) |
-| Bonus Sacrifice | `neovitae:bonus_sacrifice` | 0.0 | 1000.0 | % bonus to LP gained from Lamina Exhauriens mob kills |
-| Bonus Self Sacrifice | `neovitae:bonus_self_sacrifice` | 0.0 | 1000.0 | % bonus to LP gained from Lamina Maleficus self-sacrifice |
-| Bonus Demon Will | `neovitae:bonus_demon_will` | 0.0 | 1000.0 | % bonus to Demon Will drops from sentient weapons and soul snares |
-| Sigil Cost Reduction | `neovitae:sigil_cost_reduction` | 0.0 | 100.0 | % reduction to all sigil LP costs (capped at near-zero, minimum 1 LP) |
-| Blood Siphon | `neovitae:blood_siphon` | 0.0 | 1024.0 | Converts damage dealt into LP. Base LP = min(attribute, damage), then multiplied |
-| Blood Shield | `neovitae:blood_shield` | 0.0 | 10.0 | Reduces incoming damage by 10% per point (capped at 99%), drains LP for prevented damage |
+| Self Sacrifice Multiplier | `neovitae:player.self_sacrifice_multiplier` | 1.0 | 100.0 | Multiplier for EV gained from self-sacrifice (PercentageAttribute) |
+| Bonus Sacrifice | `neovitae:bonus_sacrifice` | 0.0 | 1000.0 | % bonus to EV gained from Lamina Exhauriens mob kills |
+| Bonus Self Sacrifice | `neovitae:bonus_self_sacrifice` | 0.0 | 1000.0 | % bonus to EV gained from Lamina Maleficus self-sacrifice |
+| Bonus Spiritus | `neovitae:bonus_spiritus` | 0.0 | 1000.0 | % bonus to Spiritus drops from sentient weapons and soul snares |
+| Sigil Cost Reduction | `neovitae:sigil_cost_reduction` | 0.0 | 100.0 | % reduction to all sigil EV costs (capped at near-zero, minimum 1 EV) |
+| Blood Siphon | `neovitae:blood_siphon` | 0.0 | 1024.0 | Converts damage dealt into EV. Base EV = min(attribute, damage), then multiplied |
+| Blood Shield | `neovitae:blood_shield` | 0.0 | 10.0 | Reduces incoming damage by 10% per point (capped at 99%), drains EV for prevented damage |
 
 ### Blood Siphon Details
 
 When a player with Blood Siphon deals damage:
-- **LP gained** = min(blood_siphon_value, damage_dealt) x multiplier
-- **vs Players (PvP)**: LP is drained directly from the target player's soul network and added to the attacker's. This is a true LP transfer — the victim loses the same amount the attacker gains. Multiplier = configurable (default: 100)
-- **vs Mobs (PvE)**: LP is generated from nothing and added to the attacker's network. Multiplier = configurable (default: 10)
-- Example (PvE): Blood Siphon 5, deal 10 damage to a mob = 5 x 10 = 50 LP gained
-- Example (PvP): Blood Siphon 5, deal 10 damage to a player = 5 x 100 = 500 LP stolen from their network
+- **EV gained** = min(blood_siphon_value, damage_dealt) x multiplier
+- **vs Players (PvP)**: EV is drained directly from the target player's anima and added to the attacker's. This is a true EV transfer — the victim loses the same amount the attacker gains. Multiplier = configurable (default: 100)
+- **vs Mobs (PvE)**: EV is generated from nothing and added to the attacker's network. Multiplier = configurable (default: 10)
+- Example (PvE): Blood Siphon 5, deal 10 damage to a mob = 5 x 10 = 50 EV gained
+- Example (PvP): Blood Siphon 5, deal 10 damage to a player = 5 x 100 = 500 EV stolen from their network
 
 ### Blood Shield Details
 
 When a player with Blood Shield takes damage:
 - **Damage reduction** = 10% per attribute point (e.g., Blood Shield 5 = 50% reduction)
 - **Hard cap**: 99% maximum reduction (at Blood Shield 10)
-- **LP cost** = damage_prevented x configurable multiplier (default: 100)
-- If insufficient LP: partial shield uses available LP, remaining damage passes through
-- Example: Blood Shield 3, take 20 damage = 6 damage prevented, costs 600 LP, take 14 damage
+- **EV cost** = damage_prevented x configurable multiplier (default: 100)
+- If insufficient EV: partial shield uses available EV, remaining damage passes through
+- Example: Blood Shield 3, take 20 damage = 6 damage prevented, costs 600 EV, take 14 damage
 
 ### Server Configuration
 
@@ -1119,9 +1119,9 @@ Blood attribute multipliers under `[blood_attributes]`:
 
 | Config Key | Default | Description |
 |-----------|---------|-------------|
-| `siphon_player_multiplier` | 100 | LP multiplier for Blood Siphon vs players |
-| `siphon_mob_multiplier` | 10 | LP multiplier for Blood Siphon vs mobs |
-| `shield_lp_cost_multiplier` | 100 | LP cost per damage point prevented by Blood Shield |
+| `siphon_player_multiplier` | 100 | EV multiplier for Blood Siphon vs players |
+| `siphon_mob_multiplier` | 10 | EV multiplier for Blood Siphon vs mobs |
+| `shield_lp_cost_multiplier` | 100 | EV cost per damage point prevented by Blood Shield |
 
 ### Applying Attributes via Data Packs
 

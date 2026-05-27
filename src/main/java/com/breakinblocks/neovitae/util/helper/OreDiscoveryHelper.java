@@ -59,6 +59,9 @@ public final class OreDiscoveryHelper {
             if (firstOre.isEmpty()) continue;
 
             String smeltTo = findSmeltOutput(level, itemRegistry, firstOre.get(), oreName);
+            if (smeltTo != null && smeltOutputIsDust(itemRegistry, smeltTo, oreName)) {
+                continue;
+            }
             String rawTag = TagHelper.tagHasItems(itemRegistry, "c", "raw_materials/" + oreName) ? "c:raw_materials/" + oreName : null;
 
             String ingotTag = null;
@@ -79,6 +82,15 @@ public final class OreDiscoveryHelper {
         }
 
         return newMaterials;
+    }
+
+    private static boolean smeltOutputIsDust(Registry<Item> itemRegistry, String smeltToId, String oreName) {
+        ResourceLocation id = ResourceLocation.tryParse(smeltToId);
+        if (id == null) return false;
+        Item item = itemRegistry.get(id);
+        if (item == null) return false;
+        TagKey<Item> dustTag = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "dusts/" + oreName));
+        return item.builtInRegistryHolder().is(dustTag);
     }
 
     @Nullable

@@ -170,8 +170,8 @@ public class NVItems {
     public static final DeferredHolder<Item, Item> CORRUPTED_DUST_TINY = plainItem("corrupted_tiny_dust");
 
     public static final DeferredHolder<Item, ItemAthanorToolBase> BASIC_CUTTING_FLUID = BASIC_ITEMS.registerItem("basic_cutting_fluid", props -> new ItemAthanorToolBase(props, 64, 1, SpiritusType.RUINA));
-    public static final DeferredHolder<Item, ItemAthanorToolBase> INTERMEDIATE_CUTTING_FLUID = BASIC_ITEMS.registerItem("intermediate_cutting_fluid", props -> new ItemAthanorToolBase(props, 256, 1.5, SpiritusType.RUINA));
-    public static final DeferredHolder<Item, ItemAthanorToolBase> ADVANCED_CUTTING_FLUID = BASIC_ITEMS.registerItem("advanced_cutting_fluid", props -> new ItemAthanorToolBase(props, 1024, 2, 2, SpiritusType.RUINA));
+    public static final DeferredHolder<Item, ItemAthanorToolBase> INTERMEDIATE_CUTTING_FLUID = BASIC_ITEMS.registerItem("intermediate_cutting_fluid", props -> new ItemAthanorToolBase(props, 512, 1.5, SpiritusType.RUINA));
+    public static final DeferredHolder<Item, ItemAthanorToolBase> ADVANCED_CUTTING_FLUID = BASIC_ITEMS.registerItem("advanced_cutting_fluid", props -> new ItemAthanorToolBase(props, 4096, 2, 2, SpiritusType.RUINA));
     public static final DeferredHolder<Item, ItemAthanorToolBase> EXPLOSIVE_POWDER = BASIC_ITEMS.registerItem("explosive_powder", props -> new ItemAthanorToolBase(props, 64, 1, SpiritusType.NIHILUM));
     public static final DeferredHolder<Item, ItemAthanorToolBase> RESONATOR = BASIC_ITEMS.registerItem("resonator", props -> new ItemAthanorToolBase(props, 64, 1, SpiritusType.VINDICTA));
     public static final DeferredHolder<Item, NVGuideBookItem> GUIDE_BOOK = BASIC_ITEMS.registerItem("guide_book", NVGuideBookItem::new);

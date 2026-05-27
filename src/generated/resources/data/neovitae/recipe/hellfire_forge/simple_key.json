@@ -4,7 +4,7 @@
   "inputs": [
     "#c:ingots/iron",
     "#c:ingots/iron",
-    "#c:nuggets/gold"
+    "neovitae:corrupted_tiny_dust"
   ],
   "minDrain": 100.0,
   "output": {

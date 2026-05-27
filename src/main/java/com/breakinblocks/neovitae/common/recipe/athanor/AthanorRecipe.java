@@ -130,7 +130,8 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         guaranteedOutput.forEach(stack -> outputs.add(Pair.of(stack, 1D)));
         outputs.addAll(chanceOutput);
         if (spiritusBoost && !guaranteedOutput.isEmpty()) {
-            outputs.add(Pair.of(guaranteedOutput.get(0), SPIRITUS_BOOST_MAX_CHANCE));
+            ItemStack singleBonus = guaranteedOutput.get(0).copyWithCount(1);
+            outputs.add(Pair.of(singleBonus, SPIRITUS_BOOST_MAX_CHANCE));
         }
         allListed = List.copyOf(outputs);
     }
@@ -233,21 +234,32 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         ItemStack toolStack = input.getItem(0);
         double toolBonusChance = toolStack.getOrDefault(NVDataComponents.ARC_CHANCE, 1D);
         for (Pair<ItemStackTemplate, Double> entry : chanceOutput) {
-            if (Math.random() < entry.getSecond() * toolBonusChance) {
+            int produced = rollBonusCount(entry.getSecond() * toolBonusChance);
+            for (int i = 0; i < produced; i++) {
                 outputs.add(entry.getFirst().create());
             }
         }
         if (spiritusBoost && level != null && pos != null && !guaranteedOutput.isEmpty()) {
             double raw = WorldSpiritusHandler.getCurrentWill(level, pos, SpiritusType.RAW);
-            double chance = spiritusBoostChance(raw);
-            if (chance > 0 && Math.random() < chance) {
-                outputs.add(guaranteedOutput.get(0).create());
+            int produced = rollBonusCount(spiritusBoostChance(raw) * toolBonusChance);
+            for (int i = 0; i < produced; i++) {
+                outputs.add(guaranteedOutput.get(0).copyWithCount(1));
                 if (Math.random() < SPIRITUS_BOOST_CONSUME_CHANCE) {
                     WorldSpiritusHandler.drainWillFromChunk(level, pos, SpiritusType.RAW, 1.0);
                 }
             }
         }
         return new AthanorResult(outputs, outputFluid.map(FluidStackTemplate::create).orElse(FluidStack.EMPTY));
+    }
+
+    private static int rollBonusCount(double effectiveChance) {
+        if (effectiveChance <= 0) return 0;
+        int guaranteed = (int) effectiveChance;
+        double remainder = effectiveChance - guaranteed;
+        if (remainder > 0 && Math.random() < remainder) {
+            guaranteed++;
+        }
+        return guaranteed;
     }
 
     public List<Pair<ItemStackTemplate, Double>> getAllListedOutputs() {

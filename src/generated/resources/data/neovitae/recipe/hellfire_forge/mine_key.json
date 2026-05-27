@@ -4,7 +4,8 @@
   "inputs": [
     "#c:ingots/gold",
     "#c:ingots/gold",
-    "#c:gems/diamond"
+    "#c:gems/diamond",
+    "neovitae:corrupted_dust"
   ],
   "minDrain": 200.0,
   "output": {

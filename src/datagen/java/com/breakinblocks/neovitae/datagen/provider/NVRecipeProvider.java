@@ -214,6 +214,21 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_raw_demonite_block", has(NVBlocks.RAW_DEMONITE_BLOCK.block().get()))
                 .save(output, rKey(NeoVitae.rl("raw_demonite_from_block")));
 
+        // Corrupted Dust from 4 Tiny Corrupted Dust
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, NVItems.CORRUPTED_DUST.get())
+                .requires(NVItems.CORRUPTED_DUST_TINY.get())
+                .requires(NVItems.CORRUPTED_DUST_TINY.get())
+                .requires(NVItems.CORRUPTED_DUST_TINY.get())
+                .requires(NVItems.CORRUPTED_DUST_TINY.get())
+                .unlockedBy("has_corrupted_tiny_dust", has(NVItems.CORRUPTED_DUST_TINY.get()))
+                .save(output, NeoVitae.rl("corrupted_dust_from_tiny"));
+
+        // Tiny Corrupted Dust from 1 Corrupted Dust
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, NVItems.CORRUPTED_DUST_TINY.get(), 4)
+                .requires(NVItems.CORRUPTED_DUST.get())
+                .unlockedBy("has_corrupted_dust", has(NVItems.CORRUPTED_DUST.get()))
+                .save(output, NeoVitae.rl("corrupted_tiny_dust_from_corrupted"));
+
         // Raw Demonite smelting -> Hellforged Ingot
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.DEMONITE_RAW.get()), RecipeCategory.MISC, CookingBookCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0, 200)
                 .unlockedBy("has_raw_demonite", has(NVItems.DEMONITE_RAW.get()))
@@ -1300,7 +1315,7 @@ public class NVRecipeProvider extends RecipeProvider {
         // Keys
         HellfireForgeRecipeBuilder.build(NVItems.SIMPLE_KEY.get())
                 .requires(Ingredient.of(items.getOrThrow(Tags.Items.INGOTS_IRON)), 2)
-                .requires(Tags.Items.NUGGETS_GOLD)
+                .requires(NVItems.CORRUPTED_DUST_TINY.get())
                 .minSpiritus(100)
                 .drain(10)
                 .unlockedBy("has_lesser_gem", has(NVItems.SPIRITUS_GEM_LESSER.get()))
@@ -1309,6 +1324,7 @@ public class NVRecipeProvider extends RecipeProvider {
         HellfireForgeRecipeBuilder.build(NVItems.MINE_KEY.get())
                 .requires(Ingredient.of(items.getOrThrow(Tags.Items.INGOTS_GOLD)), 2)
                 .requires(Tags.Items.GEMS_DIAMOND)
+                .requires(NVItems.CORRUPTED_DUST.get())
                 .minSpiritus(200)
                 .drain(25)
                 .unlockedBy("has_common_gem", has(NVItems.SPIRITUS_GEM_COMMON.get()))
@@ -3451,144 +3467,6 @@ public class NVRecipeProvider extends RecipeProvider {
     }
 
     private void addAthanorRecipes(RecipeOutput output) {
-        // Iron processing chain
-        // Ore block -> 5 Fragments with cutting fluid (spiritus-boosted)
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_IRON)))
-                .guaranteedOutput(NVItems.IRON_FRAGMENT.get(), 5)
-                .spiritusBoost()
-                .save(output, rKey(NeoVitae.rl("fragmentsfrom_ore_iron")));
-
-        // Raw ore -> 3 Fragments with cutting fluid (spiritus-boosted)
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(items.getOrThrow(Tags.Items.RAW_MATERIALS_IRON)))
-                .guaranteedOutput(NVItems.IRON_FRAGMENT.get(), 3)
-                .spiritusBoost()
-                .save(output, rKey(NeoVitae.rl("fragmentsiron")));
-
-        // Fragment -> Gravel (1x + 50% corrupted tinydust) with resonator
-        AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_IRON)))
-                .guaranteedOutput(NVItems.IRON_GRAVEL.get())
-                .chancedOutput(NVItems.CORRUPTED_DUST_TINY.get(), 0.5)
-                .save(output, rKey(NeoVitae.rl("gravelsiron")));
-
-        // Gravel -> Sand (1x) with cutting fluid
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.GRAVELS_IRON)))
-                .guaranteedOutput(NVItems.IRON_DUST.get())
-                .save(output, rKey(NeoVitae.rl("dustsfrom_gravel_iron")));
-
-        // Ingot -> Sand (1x) with cutting fluid
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(items.getOrThrow(Tags.Items.INGOTS_IRON)))
-                .guaranteedOutput(NVItems.IRON_DUST.get())
-                .save(output, rKey(NeoVitae.rl("dustsfrom_ingot_iron")));
-
-        // Gold processing chain
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_GOLD)))
-                .guaranteedOutput(NVItems.GOLD_FRAGMENT.get(), 5)
-                .spiritusBoost()
-                .save(output, rKey(NeoVitae.rl("fragmentsfrom_ore_gold")));
-
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(items.getOrThrow(Tags.Items.RAW_MATERIALS_GOLD)))
-                .guaranteedOutput(NVItems.GOLD_FRAGMENT.get(), 3)
-                .spiritusBoost()
-                .save(output, rKey(NeoVitae.rl("fragmentsgold")));
-
-        AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_GOLD)))
-                .guaranteedOutput(NVItems.GOLD_GRAVEL.get())
-                .chancedOutput(NVItems.CORRUPTED_DUST_TINY.get(), 0.5)
-                .save(output, rKey(NeoVitae.rl("gravelsgold")));
-
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.GRAVELS_GOLD)))
-                .guaranteedOutput(NVItems.GOLD_DUST.get())
-                .save(output, rKey(NeoVitae.rl("dustsfrom_gravel_gold")));
-
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(items.getOrThrow(Tags.Items.INGOTS_GOLD)))
-                .guaranteedOutput(NVItems.GOLD_DUST.get())
-                .save(output, rKey(NeoVitae.rl("dustsfrom_ingot_gold")));
-
-        // Copper processing chain
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_COPPER)))
-                .guaranteedOutput(NVItems.COPPER_FRAGMENT.get(), 5)
-                .spiritusBoost()
-                .save(output, rKey(NeoVitae.rl("fragmentsfrom_ore_copper")));
-
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(items.getOrThrow(Tags.Items.RAW_MATERIALS_COPPER)))
-                .guaranteedOutput(NVItems.COPPER_FRAGMENT.get(), 3)
-                .spiritusBoost()
-                .save(output, rKey(NeoVitae.rl("fragmentscopper")));
-
-        AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_COPPER)))
-                .guaranteedOutput(NVItems.COPPER_GRAVEL.get())
-                .chancedOutput(NVItems.CORRUPTED_DUST_TINY.get(), 0.5)
-                .save(output, rKey(NeoVitae.rl("gravelscopper")));
-
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.GRAVELS_COPPER)))
-                .guaranteedOutput(NVItems.COPPER_DUST.get())
-                .save(output, rKey(NeoVitae.rl("dustsfrom_gravel_copper")));
-
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(items.getOrThrow(Tags.Items.INGOTS_COPPER)))
-                .guaranteedOutput(NVItems.COPPER_DUST.get())
-                .save(output, rKey(NeoVitae.rl("dustsfrom_ingot_copper")));
-
-        // Netherite scrap processing chain
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(Items.ANCIENT_DEBRIS))
-                .guaranteedOutput(NVItems.NETHERITE_SCRAP_FRAGMENT.get(), 5)
-                .spiritusBoost()
-                .save(output, rKey(NeoVitae.rl("fragmentsfrom_ore_netherite_scrap")));
-
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(Items.NETHERITE_SCRAP))
-                .guaranteedOutput(NVItems.NETHERITE_SCRAP_FRAGMENT.get(), 3)
-                .spiritusBoost()
-                .save(output, rKey(NeoVitae.rl("fragmentsnetherite_scrap")));
-
-        AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_NETHERITE_SCRAP)))
-                .guaranteedOutput(NVItems.NETHERITE_SCRAP_GRAVEL.get())
-                .chancedOutput(NVItems.CORRUPTED_DUST_TINY.get(), 0.5)
-                .save(output, rKey(NeoVitae.rl("gravelsnetherite_scrap")));
-
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.GRAVELS_NETHERITE_SCRAP)))
-                .guaranteedOutput(NVItems.NETHERITE_SCRAP_DUST.get())
-                .save(output, rKey(NeoVitae.rl("dustsfrom_gravel_netherite_scrap")));
-
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(Items.NETHERITE_SCRAP))
-                .guaranteedOutput(NVItems.NETHERITE_SCRAP_DUST.get())
-                .save(output, rKey(NeoVitae.rl("dustsfrom_ingot_netherite_scrap")));
-
-        // Hellforged ingot -> dust (uses explosives, not cutting fluid)
-        AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.INGOTS_HELLFORGED)))
-                .guaranteedOutput(NVItems.HELLFORGED_DUST.get())
-                .save(output, rKey(NeoVitae.rl("dustsfrom_ingot_hellforged")));
-
-        // Coal processing - coal -> coal dust with cutting fluid
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_COAL)))
-                .guaranteedOutput(NVItems.COAL_DUST.get(), 6)
-                .save(output, rKey(NeoVitae.rl("coaldust_from_ore")));
-
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(Items.COAL))
-                .guaranteedOutput(NVItems.COAL_DUST.get())
-                .save(output, rKey(NeoVitae.rl("coaldust_from_coal")));
-
         // Utility recipes - hydration (all require 200mB water)
         AthanorRecipeBuilder.build(NVTags.Items.HYDRATION)
                 .input(Ingredient.of(items.getOrThrow(Tags.Items.SANDS)))

@@ -94,7 +94,9 @@ public class NVItemTagProvider extends ItemTagsProvider {
                 .add(NVItems.HELLFORGED_RESONATOR.get());
 
         tag(NVTags.Items.CUTTING_FLUIDS)
-                .add(NVItems.BASIC_CUTTING_FLUID.get());
+                .add(NVItems.BASIC_CUTTING_FLUID.get())
+                .add(NVItems.INTERMEDIATE_CUTTING_FLUID.get())
+                .add(NVItems.ADVANCED_CUTTING_FLUID.get());
 
         tag(NVTags.Items.HYDRATION)
                 .add(NVItems.PRIMITIVE_HYDRATION_CELL.get());

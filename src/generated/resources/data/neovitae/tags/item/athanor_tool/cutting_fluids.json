@@ -1,5 +1,7 @@
 {
   "values": [
-    "neovitae:basic_cutting_fluid"
+    "neovitae:basic_cutting_fluid",
+    "neovitae:intermediate_cutting_fluid",
+    "neovitae:advanced_cutting_fluid"
   ]
 }

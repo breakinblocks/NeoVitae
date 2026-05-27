@@ -27,7 +27,7 @@ public class GreenGroveSigilEntry extends EntryProvider {
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Forge the [#](8B0000)Growth Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
-                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a [#](8B0000)Reinforced Slate[#]() "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a [#](8B0000)Tabula Robur[#]() "
                 + "as catalyst.");
 
         this.page("usage", () -> BookTextPageModel.create()

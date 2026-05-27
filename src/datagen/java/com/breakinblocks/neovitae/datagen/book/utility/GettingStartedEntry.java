@@ -33,7 +33,7 @@ public class GettingStartedEntry extends EntryProvider {
         this.pageText("Your first act as a Vitaemancer is to construct an [#](8B0000)Ara Vitae[#]() and a "
                 + "[#](8B0000)Sacrificial Knife[#](). With blade in hand, you offer your own blood to the altar, "
                 + "and it drinks deeply, refining it into [#](4A0080)Essentia Vitae[#]().\\\n\\\n"
-                + "Use this to forge a [#](8B0000)Novicius Orb of Vitae[#](), several [#](8B0000)Blank Slates[#](), "
+                + "Use this to forge a [#](8B0000)Novicius Orb of Vitae[#](), several [#](8B0000)Tabula Rasa[#](), "
                 + "and a stack of [#](8B0000)Throwing Daggers[#]() at the Tabula Vitae.");
 
         this.page("tier1_alchemy", () -> BookTextPageModel.create()

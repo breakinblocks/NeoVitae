@@ -247,17 +247,17 @@ public class MaterialRegistry {
         String gravelId = mat.hasStage("gravel") ? NeoVitae.MODID + ":" + mat.getItemId("gravel") : null;
         String dustId = mat.hasStage("dust") ? NeoVitae.MODID + ":" + mat.getItemId("dust") : null;
 
-        // Raw material + explosive = 2 fragments + 25% bonus
+        // Raw material + cutting fluid = 3 fragments (with chunk raw-spiritus bonus)
         if (fragmentId != null && mat.getRawTag() != null) {
-            addAthanorRecipe("explosives/fragments_" + name,
-                    mat.getRawTag(), "neovitae:athanor_tool/explosives",
-                    fragmentId, 2, fragmentId, 0.25);
+            addAthanorRecipe("cutting_fluids/fragments_from_raw_" + name,
+                    mat.getRawTag(), "neovitae:athanor_tool/cutting_fluids",
+                    fragmentId, 3, null, 0, true);
 
-            // Ore + explosive = 4 fragments
+            // Ore block + cutting fluid = 5 fragments (with chunk raw-spiritus bonus)
             if (mat.getOreTag() != null) {
-                addAthanorRecipe("explosives/fragments_from_ore_" + name,
-                        mat.getOreTag(), "neovitae:athanor_tool/explosives",
-                        fragmentId, 4, null, 0);
+                addAthanorRecipe("cutting_fluids/fragments_from_ore_" + name,
+                        mat.getOreTag(), "neovitae:athanor_tool/cutting_fluids",
+                        fragmentId, 5, null, 0, true);
             }
         }
 
@@ -265,41 +265,43 @@ public class MaterialRegistry {
         if (fragmentId != null && gravelId != null) {
             addAthanorRecipe("resonator/gravels_" + name,
                     "c:fragments/" + name, "neovitae:athanor_tool/resonator",
-                    gravelId, 1, "neovitae:corrupted_tiny_dust", 0.5);
+                    gravelId, 1, "neovitae:corrupted_tiny_dust", 0.5, false);
         }
 
         // Gravel + cutting fluid = 1 dust
         if (gravelId != null && dustId != null) {
             addAthanorRecipe("cutting_fluids/dusts_from_gravel_" + name,
                     "c:gravels/" + name, "neovitae:athanor_tool/cutting_fluids",
-                    dustId, 1, null, 0);
+                    dustId, 1, null, 0, false);
         }
 
-        // Ore + cutting fluid = 3 dust
-        if (dustId != null && mat.getOreTag() != null) {
-            addAthanorRecipe("cutting_fluids/dusts_from_ore_" + name,
-                    mat.getOreTag(), "neovitae:athanor_tool/cutting_fluids",
-                    dustId, 3, null, 0);
-        }
-
-        // Ingot + cutting fluid = 1 dust
+        // Ingot + cutting fluid = 1 dust (recycle ingots back to dust)
         if (dustId != null && mat.getIngotTag() != null) {
             addAthanorRecipe("cutting_fluids/dusts_from_ingot_" + name,
                     mat.getIngotTag(), "neovitae:athanor_tool/cutting_fluids",
-                    dustId, 1, null, 0);
+                    dustId, 1, null, 0, false);
         }
 
-        // Raw material + cutting fluid = 1 dust + 33% bonus
-        if (dustId != null && mat.getRawTag() != null) {
-            addAthanorRecipe("cutting_fluids/dusts_from_raw_" + name,
-                    mat.getRawTag(), "neovitae:athanor_tool/cutting_fluids",
-                    dustId, 1, dustId, 0.33);
+        // Direct ore -> dust and raw -> dust paths only when the material has no fragment chain
+        // (e.g. coal, hellforged). Materials with fragments must use the unified fragment path.
+        if (fragmentId == null && dustId != null) {
+            if (mat.getOreTag() != null) {
+                addAthanorRecipe("cutting_fluids/dusts_from_ore_" + name,
+                        mat.getOreTag(), "neovitae:athanor_tool/cutting_fluids",
+                        dustId, 3, null, 0, false);
+            }
+            if (mat.getRawTag() != null) {
+                addAthanorRecipe("cutting_fluids/dusts_from_raw_" + name,
+                        mat.getRawTag(), "neovitae:athanor_tool/cutting_fluids",
+                        dustId, 1, dustId, 0.33, false);
+            }
         }
     }
 
     private static void addAthanorRecipe(String recipePath, String inputTag, String toolTag,
                                           String outputItem, int outputCount,
-                                          String chanceItem, double chance) {
+                                          String chanceItem, double chance,
+                                          boolean spiritusBoost) {
         JsonObject recipe = new JsonObject();
         recipe.addProperty("type", "neovitae:athanor");
 
@@ -331,6 +333,10 @@ public class MaterialRegistry {
             chanced.add(chanceEntry);
         }
         recipe.add("chance_outputs", chanced);
+
+        if (spiritusBoost) {
+            recipe.addProperty("spiritus_boost", true);
+        }
 
         GENERATED_PACK.putJson(PackType.SERVER_DATA,
                 ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "recipe/athanor/" + recipePath + ".json"),

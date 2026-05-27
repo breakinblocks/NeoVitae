@@ -31,6 +31,7 @@ public class AthanorRecipeBuilder extends BaseRecipeBuilder {
     private SizedFluidIngredient inputFluid = null;
     private FluidStack outputFluid = null;
     private final EnumMap<SpiritusType, Double> spiritusCosts = new EnumMap<>(SpiritusType.class);
+    private boolean spiritusBoost = false;
 
     protected AthanorRecipeBuilder(TagKey<Item> tag) {
         super(ItemStack.EMPTY);
@@ -103,6 +104,11 @@ public class AthanorRecipeBuilder extends BaseRecipeBuilder {
         return this;
     }
 
+    public AthanorRecipeBuilder spiritusBoost() {
+        this.spiritusBoost = true;
+        return this;
+    }
+
     @Override
     public void save(RecipeOutput output, ResourceLocation id) {
         if (inputs.isEmpty()) {
@@ -112,7 +118,7 @@ public class AthanorRecipeBuilder extends BaseRecipeBuilder {
             throw new IllegalStateException("AthanorRecipe must have at least one output (guaranteed, chanced, or fluid)");
         }
         Advancement.Builder advBuilder = getBuilder(output, id);
-        AthanorRecipe recipe = new AthanorRecipe(Ingredient.of(toolTag), inputs, guaranteed, chanced, Optional.ofNullable(inputFluid), Optional.ofNullable(outputFluid), Map.copyOf(spiritusCosts));
+        AthanorRecipe recipe = new AthanorRecipe(Ingredient.of(toolTag), inputs, guaranteed, chanced, Optional.ofNullable(inputFluid), Optional.ofNullable(outputFluid), Map.copyOf(spiritusCosts), spiritusBoost);
         output.accept(makeId(id, toolTag.location()), recipe, advBuilder.build(advancementId(id, "athanor")));
     }
 

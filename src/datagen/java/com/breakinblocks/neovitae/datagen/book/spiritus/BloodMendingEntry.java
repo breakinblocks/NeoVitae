@@ -36,7 +36,7 @@ public class BloodMendingEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Applying Blood Mending");
         this.pageText("Place the item to enchant in the [#](8B0000)Hellfire Forge[#]() alongside a "
-                + "[#](4A0080)Reinforced Slate[#](), [#](4A0080)Lapis Lazuli[#](), and [#](4A0080)Nether Wart[#](). "
+                + "[#](4A0080)Tabula Robur[#](), [#](4A0080)Lapis Lazuli[#](), and [#](4A0080)Nether Wart[#](). "
                 + "The forge requires a minimum of [#](8B0000)200 Spiritus[#]() and will consume "
                 + "[#](8B0000)400 Spiritus[#]() in the process.\\\n\\\n"
                 + "The item will retain all of its existing enchantments and properties.");

@@ -3411,24 +3411,19 @@ public class NVRecipeProvider extends RecipeProvider {
 
     private void addAthanorRecipes(RecipeOutput output) {
         // Iron processing chain
-        // Ore -> Sand (3x) with cutting fluid
+        // Ore block -> 5 Fragments with cutting fluid (spiritus-boosted)
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Tags.Items.ORES_IRON))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_DUST.get(), 3))
-                .save(output, NeoVitae.rl("dustsfrom_ore_iron"));
-
-        // Raw material -> Fragment (2x + 25% extra) with explosive
-        AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
-                .input(Ingredient.of(Tags.Items.RAW_MATERIALS_IRON))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_FRAGMENT.get(), 2))
-                .chancedOutput(new ItemStack(NVItems.IRON_FRAGMENT.get()), 0.25)
-                .save(output, NeoVitae.rl("fragmentsiron"));
-
-        // Ore -> Fragment (4x) with explosive
-        AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
-                .input(Ingredient.of(Tags.Items.ORES_IRON))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_FRAGMENT.get(), 4))
+                .guaranteedOutput(new ItemStack(NVItems.IRON_FRAGMENT.get(), 5))
+                .spiritusBoost()
                 .save(output, NeoVitae.rl("fragmentsfrom_ore_iron"));
+
+        // Raw ore -> 3 Fragments with cutting fluid (spiritus-boosted)
+        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
+                .input(Ingredient.of(Tags.Items.RAW_MATERIALS_IRON))
+                .guaranteedOutput(new ItemStack(NVItems.IRON_FRAGMENT.get(), 3))
+                .spiritusBoost()
+                .save(output, NeoVitae.rl("fragmentsiron"));
 
         // Fragment -> Gravel (1x + 50% corrupted tinydust) with resonator
         AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
@@ -3450,28 +3445,18 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("dustsfrom_ingot_iron"));
 
         // Raw material -> Sand (1x + 17% extra, 33% for 2nd extra) with cutting fluid
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(Tags.Items.RAW_MATERIALS_IRON))
-                .guaranteedOutput(new ItemStack(NVItems.IRON_DUST.get()))
-                .chancedOutput(new ItemStack(NVItems.IRON_DUST.get()), 0.33)
-                .save(output, NeoVitae.rl("dustsfrom_raw_iron"));
-
         // Gold processing chain
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Tags.Items.ORES_GOLD))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_DUST.get(), 3))
-                .save(output, NeoVitae.rl("dustsfrom_ore_gold"));
-
-        AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
-                .input(Ingredient.of(Tags.Items.RAW_MATERIALS_GOLD))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_FRAGMENT.get(), 2))
-                .chancedOutput(new ItemStack(NVItems.GOLD_FRAGMENT.get()), 0.25)
-                .save(output, NeoVitae.rl("fragmentsgold"));
-
-        AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
-                .input(Ingredient.of(Tags.Items.ORES_GOLD))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_FRAGMENT.get(), 4))
+                .guaranteedOutput(new ItemStack(NVItems.GOLD_FRAGMENT.get(), 5))
+                .spiritusBoost()
                 .save(output, NeoVitae.rl("fragmentsfrom_ore_gold"));
+
+        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
+                .input(Ingredient.of(Tags.Items.RAW_MATERIALS_GOLD))
+                .guaranteedOutput(new ItemStack(NVItems.GOLD_FRAGMENT.get(), 3))
+                .spiritusBoost()
+                .save(output, NeoVitae.rl("fragmentsgold"));
 
         AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                 .input(Ingredient.of(NVTags.Items.FRAGMENTS_GOLD))
@@ -3489,28 +3474,18 @@ public class NVRecipeProvider extends RecipeProvider {
                 .guaranteedOutput(new ItemStack(NVItems.GOLD_DUST.get()))
                 .save(output, NeoVitae.rl("dustsfrom_ingot_gold"));
 
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(Tags.Items.RAW_MATERIALS_GOLD))
-                .guaranteedOutput(new ItemStack(NVItems.GOLD_DUST.get()))
-                .chancedOutput(new ItemStack(NVItems.GOLD_DUST.get()), 0.33)
-                .save(output, NeoVitae.rl("dustsfrom_raw_gold"));
-
         // Copper processing chain
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Tags.Items.ORES_COPPER))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_DUST.get(), 3))
-                .save(output, NeoVitae.rl("dustsfrom_ore_copper"));
-
-        AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
-                .input(Ingredient.of(Tags.Items.RAW_MATERIALS_COPPER))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_FRAGMENT.get(), 2))
-                .chancedOutput(new ItemStack(NVItems.COPPER_FRAGMENT.get()), 0.25)
-                .save(output, NeoVitae.rl("fragmentscopper"));
-
-        AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
-                .input(Ingredient.of(Tags.Items.ORES_COPPER))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_FRAGMENT.get(), 4))
+                .guaranteedOutput(new ItemStack(NVItems.COPPER_FRAGMENT.get(), 5))
+                .spiritusBoost()
                 .save(output, NeoVitae.rl("fragmentsfrom_ore_copper"));
+
+        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
+                .input(Ingredient.of(Tags.Items.RAW_MATERIALS_COPPER))
+                .guaranteedOutput(new ItemStack(NVItems.COPPER_FRAGMENT.get(), 3))
+                .spiritusBoost()
+                .save(output, NeoVitae.rl("fragmentscopper"));
 
         AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                 .input(Ingredient.of(NVTags.Items.FRAGMENTS_COPPER))
@@ -3528,22 +3503,17 @@ public class NVRecipeProvider extends RecipeProvider {
                 .guaranteedOutput(new ItemStack(NVItems.COPPER_DUST.get()))
                 .save(output, NeoVitae.rl("dustsfrom_ingot_copper"));
 
-        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
-                .input(Ingredient.of(Tags.Items.RAW_MATERIALS_COPPER))
-                .guaranteedOutput(new ItemStack(NVItems.COPPER_DUST.get()))
-                .chancedOutput(new ItemStack(NVItems.COPPER_DUST.get()), 0.33)
-                .save(output, NeoVitae.rl("dustsfrom_raw_copper"));
-
         // Netherite scrap processing chain
         AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Items.ANCIENT_DEBRIS))
-                .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_DUST.get(), 2))
-                .save(output, NeoVitae.rl("dustsfrom_ore_netherite_scrap"));
+                .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_FRAGMENT.get(), 5))
+                .spiritusBoost()
+                .save(output, NeoVitae.rl("fragmentsfrom_ore_netherite_scrap"));
 
-        AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
+        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(Items.NETHERITE_SCRAP))
                 .guaranteedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_FRAGMENT.get(), 3))
-                .chancedOutput(new ItemStack(NVItems.NETHERITE_SCRAP_FRAGMENT.get()), 0.25)
+                .spiritusBoost()
                 .save(output, NeoVitae.rl("fragmentsnetherite_scrap"));
 
         AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
@@ -3978,11 +3948,11 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, NeoVitae.rl("reversion/master_blood_orb"));
 
         // === HELLFORGED PROCESSING ===
-        // Hellforged Fragments from raw hellforged (explosive)
-        AthanorRecipeBuilder.build(NVTags.Items.EXPLOSIVES)
+        // Demonite Fragments from raw hellforged (cutting fluid, spiritus-boosted)
+        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
                 .input(Ingredient.of(NVTags.Items.RAW_MATERIALS_HELLFORGED))
-                .guaranteedOutput(new ItemStack(NVItems.DEMONITE_FRAGMENT.get(), 2))
-                .chancedOutput(new ItemStack(NVItems.DEMONITE_FRAGMENT.get()), 0.25)
+                .guaranteedOutput(new ItemStack(NVItems.DEMONITE_FRAGMENT.get(), 3))
+                .spiritusBoost()
                 .save(output, NeoVitae.rl("fragmentshellforged"));
 
         // Raw hellforged processing removed - no raw hellforged item exists

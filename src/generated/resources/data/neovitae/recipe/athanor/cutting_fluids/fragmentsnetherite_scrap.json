@@ -1,14 +1,6 @@
 {
   "type": "neovitae:athanor",
-  "chance_outputs": [
-    {
-      "chance": 0.25,
-      "item": {
-        "count": 1,
-        "id": "neovitae:fragment_netherite_scrap"
-      }
-    }
-  ],
+  "chance_outputs": [],
   "guaranteed_outputs": [
     {
       "count": 3,
@@ -20,7 +12,8 @@
       "item": "minecraft:netherite_scrap"
     }
   ],
+  "spiritus_boost": true,
   "tool": {
-    "tag": "neovitae:athanor_tool/explosives"
+    "tag": "neovitae:athanor_tool/cutting_fluids"
   }
 }

@@ -4,10 +4,12 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -19,6 +21,7 @@ import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
+import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -30,6 +33,12 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
 
     public static final String RECIPE_TYPE_NAME = "athanor";
     public static final int MAX_INPUTS = 6;
+
+    public static final int SPIRITUS_BOOST_MIN = 5;
+    public static final int SPIRITUS_BOOST_MAX = 100;
+    public static final double SPIRITUS_BOOST_MIN_CHANCE = 0.33;
+    public static final double SPIRITUS_BOOST_MAX_CHANCE = 1.0;
+    public static final double SPIRITUS_BOOST_CONSUME_CHANCE = 0.025;
 
     private static final StreamCodec<RegistryFriendlyByteBuf, Pair<ItemStack, Double>> CHANCE_PAIR_STREAM_CODEC = StreamCodec.composite(
             ItemStack.STREAM_CODEC, Pair::getFirst,
@@ -47,7 +56,8 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
             Codec.pair(ItemStack.CODEC.fieldOf("item").codec(), Codec.DOUBLE.fieldOf("chance").codec()).listOf().fieldOf("chance_outputs").forGetter(AthanorRecipe::getChanceOutput),
             SizedFluidIngredient.NESTED_CODEC.optionalFieldOf("input_fluid").forGetter(AthanorRecipe::getInputFluid),
             FluidStack.CODEC.optionalFieldOf("output_fluid").forGetter(AthanorRecipe::getOutputFluid),
-            SPIRITUS_COST_CODEC.optionalFieldOf("spiritus_costs", Map.of()).forGetter(AthanorRecipe::getSpiritusCosts)
+            SPIRITUS_COST_CODEC.optionalFieldOf("spiritus_costs", Map.of()).forGetter(AthanorRecipe::getSpiritusCosts),
+            Codec.BOOL.optionalFieldOf("spiritus_boost", false).forGetter(AthanorRecipe::isSpiritusBoosted)
     ).apply(inst, AthanorRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, AthanorRecipe> STREAM_CODEC = new StreamCodec<>() {
@@ -68,7 +78,8 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
             for (int i = 0; i < costSize; i++) {
                 costs.put(SpiritusType.STREAM_CODEC.decode(buf), buf.readDouble());
             }
-            return new AthanorRecipe(tool, inputs, guaranteed, chanced, inFluid, outFluid, costs);
+            boolean boost = buf.readBoolean();
+            return new AthanorRecipe(tool, inputs, guaranteed, chanced, inFluid, outFluid, costs, boost);
         }
 
         @Override
@@ -87,6 +98,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
                 SpiritusType.STREAM_CODEC.encode(buf, type);
                 buf.writeDouble(amount);
             });
+            buf.writeBoolean(recipe.spiritusBoost);
         }
     };
 
@@ -97,9 +109,10 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
     private final Optional<SizedFluidIngredient> inputFluid;
     private final Optional<FluidStack> outputFluid;
     private final Map<SpiritusType, Double> spiritusCosts;
+    private final boolean spiritusBoost;
     private final List<Pair<ItemStack, Double>> allListed;
 
-    public AthanorRecipe(Ingredient tool, List<Ingredient> inputs, List<ItemStack> guaranteedOutput, List<Pair<ItemStack, Double>> chanceOutput, Optional<SizedFluidIngredient> inputFluid, Optional<FluidStack> outputStack, Map<SpiritusType, Double> spiritusCosts) {
+    public AthanorRecipe(Ingredient tool, List<Ingredient> inputs, List<ItemStack> guaranteedOutput, List<Pair<ItemStack, Double>> chanceOutput, Optional<SizedFluidIngredient> inputFluid, Optional<FluidStack> outputStack, Map<SpiritusType, Double> spiritusCosts, boolean spiritusBoost) {
         this.tool = tool;
         this.inputs = List.copyOf(inputs);
         this.guaranteedOutput = guaranteedOutput;
@@ -107,11 +120,19 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         this.inputFluid = inputFluid;
         this.outputFluid = outputStack;
         this.spiritusCosts = Map.copyOf(spiritusCosts);
+        this.spiritusBoost = spiritusBoost;
 
         List<Pair<ItemStack, Double>> outputs = new ArrayList<>();
         guaranteedOutput.forEach(stack -> outputs.add(Pair.of(stack, 1D)));
         outputs.addAll(chanceOutput);
+        if (spiritusBoost && !guaranteedOutput.isEmpty()) {
+            outputs.add(Pair.of(guaranteedOutput.get(0), SPIRITUS_BOOST_MAX_CHANCE));
+        }
         allListed = List.copyOf(outputs);
+    }
+
+    public AthanorRecipe(Ingredient tool, List<Ingredient> inputs, List<ItemStack> guaranteedOutput, List<Pair<ItemStack, Double>> chanceOutput, Optional<SizedFluidIngredient> inputFluid, Optional<FluidStack> outputStack, Map<SpiritusType, Double> spiritusCosts) {
+        this(tool, inputs, guaranteedOutput, chanceOutput, inputFluid, outputStack, spiritusCosts, false);
     }
 
     public Ingredient getTool() {
@@ -144,6 +165,21 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
 
     public boolean hasSpiritusCosts() {
         return !spiritusCosts.isEmpty();
+    }
+
+    public boolean isSpiritusBoosted() {
+        return spiritusBoost;
+    }
+
+    /**
+     * Computes the spiritus boost chance for the given chunk raw spiritus value.
+     * Returns 0 when the boost is inactive or below threshold.
+     */
+    public static double spiritusBoostChance(double chunkRawSpiritus) {
+        if (chunkRawSpiritus < SPIRITUS_BOOST_MIN) return 0;
+        double clamped = Math.min(chunkRawSpiritus, SPIRITUS_BOOST_MAX);
+        double t = (clamped - SPIRITUS_BOOST_MIN) / (double) (SPIRITUS_BOOST_MAX - SPIRITUS_BOOST_MIN);
+        return Mth.lerp(t, SPIRITUS_BOOST_MIN_CHANCE, SPIRITUS_BOOST_MAX_CHANCE);
     }
 
     @Override
@@ -187,15 +223,35 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
      * since no state is stored on the recipe.
      */
     public AthanorResult assembleOutputs(AthanorRecipeInput input) {
-        List<ItemStack> outputs = new ArrayList<>(guaranteedOutput.size() + chanceOutput.size());
+        return assembleOutputs(input, null, null);
+    }
+
+    /**
+     * Rolls chance outputs (and any spiritus-boost bonus) and returns a fresh result.
+     * When level + pos are provided and the recipe declares a spiritus boost, the chunk's
+     * raw spiritus modulates a bonus +1 of the first guaranteed output, and a small probability
+     * drains 1 raw spiritus from the chunk on the way out.
+     */
+    public AthanorResult assembleOutputs(AthanorRecipeInput input, Level level, BlockPos pos) {
+        List<ItemStack> outputs = new ArrayList<>(guaranteedOutput.size() + chanceOutput.size() + 1);
         for (ItemStack guaranteed : guaranteedOutput) {
             outputs.add(guaranteed.copy());
         }
         ItemStack toolStack = input.getItem(0);
-        double bonusChance = toolStack.getOrDefault(NVDataComponents.ARC_CHANCE, 1D);
+        double toolBonusChance = toolStack.getOrDefault(NVDataComponents.ARC_CHANCE, 1D);
         for (Pair<ItemStack, Double> entry : chanceOutput) {
-            if (Math.random() < entry.getSecond() * bonusChance) {
+            if (Math.random() < entry.getSecond() * toolBonusChance) {
                 outputs.add(entry.getFirst().copy());
+            }
+        }
+        if (spiritusBoost && level != null && pos != null && !guaranteedOutput.isEmpty()) {
+            double raw = WorldSpiritusHandler.getCurrentWill(level, pos, SpiritusType.RAW);
+            double chance = spiritusBoostChance(raw);
+            if (chance > 0 && Math.random() < chance) {
+                outputs.add(guaranteedOutput.get(0).copy());
+                if (Math.random() < SPIRITUS_BOOST_CONSUME_CHANCE) {
+                    WorldSpiritusHandler.drainWillFromChunk(level, pos, SpiritusType.RAW, 1.0);
+                }
             }
         }
         return new AthanorResult(outputs, outputFluid.orElse(FluidStack.EMPTY).copy());

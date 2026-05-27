@@ -3,15 +3,16 @@
   "chance_outputs": [],
   "guaranteed_outputs": [
     {
-      "count": 3,
-      "id": "neovitae:iron_dust"
+      "count": 5,
+      "id": "neovitae:fragment_netherite_scrap"
     }
   ],
   "inputs": [
     {
-      "tag": "c:ores/iron"
+      "item": "minecraft:ancient_debris"
     }
   ],
+  "spiritus_boost": true,
   "tool": {
     "tag": "neovitae:athanor_tool/cutting_fluids"
   }

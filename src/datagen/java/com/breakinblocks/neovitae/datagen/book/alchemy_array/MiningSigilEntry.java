@@ -29,7 +29,7 @@ public class MiningSigilEntry extends EntryProvider {
         this.page("recipe", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("Forge the [#](8B0000)Mining Reagent[#]() in the [#](8B0000)Tabula Vitae[#](), then inscribe "
-                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a [#](8B0000)Reinforced Slate[#]() "
+                + "an [#](8B0000)Alchemy Array[#]() with the reagent as base and a [#](8B0000)Tabula Robur[#]() "
                 + "as catalyst.\\\n\\\n"
                 + "[#](4A0080)The earth parts before the blood-quickened hand.[#]()");
     }

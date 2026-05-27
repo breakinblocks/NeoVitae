@@ -1,18 +1,10 @@
 {
   "type": "neovitae:athanor",
-  "chance_outputs": [
-    {
-      "chance": 0.33,
-      "item": {
-        "count": 1,
-        "id": "neovitae:copper_dust"
-      }
-    }
-  ],
+  "chance_outputs": [],
   "guaranteed_outputs": [
     {
-      "count": 1,
-      "id": "neovitae:copper_dust"
+      "count": 3,
+      "id": "neovitae:copper_fragment"
     }
   ],
   "inputs": [
@@ -20,6 +12,7 @@
       "tag": "c:raw_materials/copper"
     }
   ],
+  "spiritus_boost": true,
   "tool": {
     "tag": "neovitae:athanor_tool/cutting_fluids"
   }

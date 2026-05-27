@@ -4,14 +4,15 @@
   "guaranteed_outputs": [
     {
       "count": 3,
-      "id": "neovitae:gold_dust"
+      "id": "neovitae:demonite_fragment"
     }
   ],
   "inputs": [
     {
-      "tag": "c:ores/gold"
+      "tag": "c:raw_materials/hellforged"
     }
   ],
+  "spiritus_boost": true,
   "tool": {
     "tag": "neovitae:athanor_tool/cutting_fluids"
   }

@@ -4,14 +4,15 @@
   "guaranteed_outputs": [
     {
       "count": 3,
-      "id": "neovitae:copper_dust"
+      "id": "neovitae:gold_fragment"
     }
   ],
   "inputs": [
     {
-      "tag": "c:ores/copper"
+      "tag": "c:raw_materials/gold"
     }
   ],
+  "spiritus_boost": true,
   "tool": {
     "tag": "neovitae:athanor_tool/cutting_fluids"
   }

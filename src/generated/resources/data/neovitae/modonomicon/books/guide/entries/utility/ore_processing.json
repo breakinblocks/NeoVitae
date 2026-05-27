@@ -60,8 +60,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.dust_recipes.text",
-      "title": "book.neovitae.guide.utility.ore_processing.dust_recipes.title",
+      "text": "book.neovitae.guide.utility.ore_processing.tabula_dust.text",
+      "title": "book.neovitae.guide.utility.ore_processing.tabula_dust.title",
       "use_markdown_in_title": false
     },
     {
@@ -82,41 +82,19 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
+      "text": "book.neovitae.guide.utility.ore_processing.spiritus_boost.text",
+      "title": "book.neovitae.guide.utility.ore_processing.spiritus_boost.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
       "text": "book.neovitae.guide.utility.ore_processing.smelting.text",
       "title": "book.neovitae.guide.utility.ore_processing.smelting.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.explosive_powder.text",
-      "title": "book.neovitae.guide.utility.ore_processing.explosive_powder.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.explosive_cells.text",
-      "title": "book.neovitae.guide.utility.ore_processing.explosive_cells.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.fragments.text",
-      "title": "book.neovitae.guide.utility.ore_processing.fragments.title",
       "use_markdown_in_title": false
     },
     {

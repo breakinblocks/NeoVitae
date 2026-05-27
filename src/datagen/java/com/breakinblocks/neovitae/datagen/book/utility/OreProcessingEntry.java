@@ -24,18 +24,18 @@ public class OreProcessingEntry extends EntryProvider {
         this.pageTitle("The Alchemy of Ore");
         this.pageText("Blood has many uses, and among the most practical is the multiplication of mineral wealth. "
                 + "The [#](8B0000)Tabula Vitae[#]() doubles your ore, while the [#](8B0000)Athanor[#]() "
-                + "can yield 2.5 ingots per raw ore, or 4.5 ingots per ore block.\\\n\\\n"
-                + "Every vein you mine becomes a bounty when viewed through the lens of [#](4A0080)Vitaemancy[#]().");
+                + "yields 3 ingots per raw ore, or 5 ingots per ore block.\\\n\\\n"
+                + "Both Athanor yields rise still further when [#](4A0080)Raw Spiritus[#]() saturates the chunk; "
+                + "see the [#](8B0000)Spiritus Boost[#]() page that follows. Every vein you mine becomes a bounty "
+                + "when viewed through the lens of [#](4A0080)Vitaemancy[#]().");
 
         this.page("basic_cutting", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Basic Cutting Fluid");
-        this.pageText("[#](8B0000)Cutting Fluid[#]() is prepared in the Tabula Vitae and serves as the penultimate "
-                + "reagent in all ore processing chains.\\\n\\\n"
-                + "Within the Athanor, it dissolves an ore block into 3 portions of Metal Dust, "
-                + "or a raw ore into 1.5 on average. [#](2E8B57)A simple Bottle of Water may substitute "
-                + "for the Water Sigil in the recipe.[#]()");
+        this.pageText("[#](8B0000)Cutting Fluid[#]() is prepared in the Tabula Vitae and serves as the universal "
+                + "reagent in every Athanor ore-processing step.\\\n\\\n"
+                + "[#](2E8B57)A simple Bottle of Water may substitute for the Water Sigil in the recipe.[#]()");
 
         this.page("intermediate_cutting", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -53,22 +53,42 @@ public class OreProcessingEntry extends EntryProvider {
                 + "and doubles the probability of bonus yields. The [#](8B0000)Hellforged Dust[#]() "
                 + "it requires lies buried in the deepest reaches of the [#](4A0080)Demon Realm[#]().");
 
-        this.page("dust_recipes", () -> BookTextPageModel.create()
+        this.page("tabula_dust", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Metal Dust");
-        this.pageText("The Tabula Vitae can grind raw ore into metallic dust, effectively doubling your yield:\n\n"
-                + "- Iron Dust from Raw Iron\n"
-                + "- Gold Dust from Raw Gold");
+        this.pageTitle("Metal Dust at the Tabula Vitae");
+        this.pageText("The Tabula Vitae can grind ore directly into metallic dust, doubling your yield in a single "
+                + "step. This is the fastest path; it lacks the rich multiplier of the Athanor but rewards no "
+                + "fuel or chain refinement.\n\n"
+                + "- Iron Dust from Iron Ore (2 dust per block)\n"
+                + "- Gold Dust from Gold Ore (2 dust per block)\n"
+                + "- Copper Dust from Copper Ore (2 dust per block)");
 
         this.page("athanor_ore", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("The Athanor's Yield");
-        this.pageText("With access to the Athanor and a Cutting Fluid, every mined ore block yields three "
-                + "portions of dust. This dust is then smelted into ingots as normal.\\\n\\\n"
-                + "The discipline rewards patience, apprentice. Refine in stages, and the earth gives up "
-                + "far more than it would to a common furnace.");
+        this.pageTitle("The Athanor Path");
+        this.pageText("Every Athanor ore-processing step uses [#](8B0000)Cutting Fluid[#](). The full chain is:\n\n"
+                + "1. Ore block becomes 5 [#](8B0000)Ore Fragments[#](), or raw ore becomes 3.\n"
+                + "2. Each fragment becomes 1 [#](8B0000)Ore Gravel[#]() via the Resonator (with a 50%% chance "
+                + "of Tiny Corrupted Dust on the side).\n"
+                + "3. Each gravel becomes 1 [#](8B0000)Metal Dust[#]().\n"
+                + "4. Each dust smelts to 1 ingot in any furnace.\n\n"
+                + "Patient refinement rewards the practitioner. Five ingots per silk-touched block, three per raw, "
+                + "before any bonus from the chunk's [#](4A0080)Raw Spiritus[#]().");
+
+        this.page("spiritus_boost", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("The Spiritus Boost");
+        this.pageText("When [#](4A0080)Raw Spiritus[#]() saturates the chunk in which the Athanor sits, each "
+                + "ore-to-fragment craft has a chance to yield one extra fragment.\\\n\\\n"
+                + "- Below 5 Raw Spiritus, no bonus.\n"
+                + "- At 5 Raw Spiritus, the bonus chance is 33%%.\n"
+                + "- The chance rises linearly with chunk saturation, reaching 100%% at 100 Raw Spiritus.\n\n"
+                + "Each successful bonus has a small 2.5%% probability of consuming 1 Raw Spiritus from the chunk. "
+                + "Place your Athanor in a chunk steeped in slain blood and the yields climb to "
+                + "6 per ore block and 4 per raw ore at saturation.");
 
         this.page("smelting", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -78,33 +98,6 @@ public class OreProcessingEntry extends EntryProvider {
                 + "- Iron Dust smelts into Iron Ingots\n"
                 + "- Gold Dust smelts into Gold Ingots\n"
                 + "- Copper Dust smelts into Copper Ingots");
-
-        this.page("explosive_powder", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Explosive Powder");
-        this.pageText("[#](8B0000)Explosive Powder[#](), prepared in the Tabula Vitae, shatters ore into fragments "
-                + "within the Athanor: 4.5 fragments per ore block, 2.25 per raw ore on average. "
-                + "It can also reduce ingots to their dust form.\\\n\\\n"
-                + "Netherrack, too, crumbles before it, yielding Sulfur and 50mb of Lava. "
-                + "Two improved variants exist.");
-
-        this.page("explosive_cells", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Explosive Cells");
-        this.pageText("The [#](8B0000)Reinforced[#]() and [#](8B0000)Hellforged Explosive Cells[#]() are "
-                + "superior variants prepared in the Tabula Vitae. Each outlasts and outpaces the "
-                + "humble Explosive Powder, making them essential for sustained processing operations.");
-
-        this.page("fragments", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Fragments and Yields");
-        this.pageText("Athanor recipes using Explosive Powder:\n\n"
-                + "- Raw Ore to Ore Fragments (2.25 average)\n"
-                + "- Ore Block to Ore Fragments (4.5 average)\n"
-                + "- Netherrack to Sulfur + 50mb Lava");
 
         this.page("resonator", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

@@ -30,8 +30,8 @@ public class AnointmentsEntry extends EntryProvider {
         this.page("slate_vial", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Slate-infused Vial");
-        this.pageText("The [#](8B0000)Slate-infused Vial[#]() is prepared at the Tabula Vitae (recipe: neovitae:alchemytable/slate_vial). "
+        this.pageTitle("Tabula Vial");
+        this.pageText("The [#](8B0000)Tabula Vial[#]() is prepared at the Tabula Vitae (recipe: neovitae:alchemytable/slate_vial). "
                 + "Ordinary glass cannot withstand the reactive compounds within an anointment. This vial, "
                 + "reinforced with powdered slate, contains what lesser vessels cannot.");
 

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Auto-sync wiki/*.md to the GitHub wiki repo on every push.
+#
+# Activated by:  git config core.hooksPath tools/git-hooks
+# Disable by:    git config --unset core.hooksPath
+#
+# Fails silently if the wiki remote doesn't exist yet (first-time setup).
+# Never blocks the main push — wiki sync failures only print a warning.
+
+set -uo pipefail
+
+# Only the user who pushes runs this hook; only sync if wiki/ exists.
+if [ ! -d "wiki" ]; then
+    exit 0
+fi
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+SYNC_SCRIPT="$REPO_ROOT/tools/sync-wiki.sh"
+
+if [ ! -x "$SYNC_SCRIPT" ]; then
+    echo "  [pre-push] tools/sync-wiki.sh not found or not executable — skipping wiki sync" >&2
+    exit 0
+fi
+
+# Cheap pre-check: skip when the local branch hasn't changed wiki/ since the
+# remote tracking branch. Read pre-push input from stdin: <local_ref>
+# <local_sha> <remote_ref> <remote_sha>. We only check the first ref.
+read -r LOCAL_REF LOCAL_SHA REMOTE_REF REMOTE_SHA || true
+if [ -n "${REMOTE_SHA:-}" ] && [ "$REMOTE_SHA" != "0000000000000000000000000000000000000000" ]; then
+    if ! git diff --quiet "$REMOTE_SHA" "$LOCAL_SHA" -- wiki/ 2>/dev/null; then
+        :  # wiki changed; sync
+    else
+        exit 0  # no wiki changes in this push
+    fi
+fi
+
+echo "  [pre-push] syncing wiki/ to GitHub wiki…"
+if "$SYNC_SCRIPT" 2>&1 | sed 's/^/  [pre-push] /'; then
+    :
+else
+    echo "  [pre-push] wiki sync failed — push will still proceed. Run tools/sync-wiki.sh manually to retry." >&2
+fi
+
+exit 0

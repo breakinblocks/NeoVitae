@@ -33,17 +33,27 @@ public class RitualSpeedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Quickened Blood");
-        this.pageText("The circle hums with kinetic potential, infusing all practitioners within its reach with unnatural swiftness. Your blood runs hot and your limbs move as though unburdened by mortal weight.");
+        this.pageText("Every non-sneaking creature in the area is hurled in the [#](8B0000)Master Ritual Stone's facing direction[#](). "
+                + "Approach the circle while [#](2E8B57)sneaking[#]() and the ritual instead grants you [#](8B0000)Speed II for 30 minutes[#](). "
+                + "Spectators are ignored. Use the [#](8B0000)Ritual Tinkerer[#]() to rotate the master stone's facing if the launch direction is wrong.");
+
+        this.page("activation_tip", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Pulse Activation");
+        this.pageText("Because the launcher fires every tick, standing on a permanently-active circle will pin you in place. "
+                + "Mount the rite on an [#](8B0000)Inverted Master Ritual Stone[#]() and wire a [#](2E8B57)pressure plate, button, or redstone pulse[#]() to it. "
+                + "The ritual then runs only while the signal is active, letting you trigger a single launch as you walk over the plate without being held in the field afterwards.");
 
         this.page("will_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
-        this.pageText("- [#](8B0000)Raw Spiritus[#](): Heightens the swiftness granted."
-                + "\n\n- [#](8B0000)Spiritus Ruina[#](): Afflicts hostile creatures with Slowness."
-                + "\n\n- [#](8B0000)Spiritus Vindicta[#](): Bestows Haste upon practitioners."
-                + "\n\n- [#](8B0000)Spiritus Nihilum[#](): Amplifies the effect at higher spiritus concentrations."
-                + "\n\n- [#](8B0000)Spiritus Invictus[#](): Grants resistance to knockback.");
+        this.pageText("- [#](8B0000)Raw Spiritus[#](): Scales launch velocity with chunk saturation."
+                + "\n\n- [#](8B0000)Spiritus Ruina[#]() (Corrosive): Adds further horizontal speed."
+                + "\n\n- [#](8B0000)Spiritus Nihilum[#]() (Destructive): Only baby creatures (and players) are launched."
+                + "\n\n- [#](8B0000)Spiritus Vindicta[#]() (Vengeful): Only adult creatures are launched."
+                + "\n\n- [#](8B0000)Spiritus Invictus[#]() (Steadfast): Launched targets receive Soft Fall.");
     }
 
     @Override
@@ -53,7 +63,7 @@ public class RitualSpeedEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Infuses practitioners with unnatural swiftness.";
+        return "Launches entities in a direction; sneak inside for a Speed II buff instead.";
     }
 
     @Override

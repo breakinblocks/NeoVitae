@@ -23,7 +23,7 @@ To ascend to greater tiers, you must inscribe **Blood Runes** and arrange them a
 | 0    | 0           | A lone Ara Vitae, unadorned. |
 | 1    | 8           | A ring around the basin. Cardinal slots accept specialized runes; corners stay inert until Tier 2. |
 | 2    | 28          | 5 runes per edge, one level down and two blocks out. Stone pillars at each corner capped with **Blood Stained Glass**. |
-| 3    | 56          | 7 runes per edge, again one level down and two further out. Four-block pillars crowned with **Bloodstone Bricks** (requires Tau Fruit from the *Edge of the Hidden Realm* ritual). |
+| 3    | 56          | 7 runes per edge, again one level down and two further out. Four-block pillars crowned with **Bloodstone Bricks** (requires Tau Fruit from the *Breaching the Edge of Demon Realm* ritual). |
 | 4    | 108         | 13 runes per edge, three blocks out, with a one-block gap at each end. **Hellforged Block** corners. |
 | 5    | 184         | 19 runes per edge, three blocks beyond the last ring. No corner blocks at rune level; pillars ascend one tier higher and are crowned with **Crystal Clusters** (or Crystal Cluster Bricks). |
 

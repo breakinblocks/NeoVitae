@@ -22,7 +22,7 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/forsaken_soul"))
-                .withMultiblockName("Gathering of the Forsaken Souls")
+                .withMultiblockName("The Ritual of Lost Souls")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
@@ -38,7 +38,7 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Gathering of the Forsaken Souls";
+        return "The Ritual of Lost Souls";
     }
 
     @Override

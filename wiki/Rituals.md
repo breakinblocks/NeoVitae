@@ -51,26 +51,25 @@ Some rituals can be expanded far beyond their default range, but EV cost scales 
 | Ritual | Effect |
 |--------|--------|
 | Well of Suffering (*The Crimson Tithe*) | Harvests Essentia Vitae from the suffering of nearby creatures. |
-| Ritual of the Feathered Knife (*The Willing Sacrifice*) | Converts the practitioner's own vitality into EV. |
+| Ritual of the Willing Sacrifice (*Blood Freely Given*) | Converts the practitioner's own vitality into EV. |
 | The Torment Nexus (*Why It Exists*) | Server-friendly endgame EV. Reads the configurations of nearby vanilla **and** Trial Spawners, simulates the kills they would produce, and feeds the resulting EV directly to your altar; no entities are spawned, no chunks load up with corpses. |
-| Gathering of the Forsaken Souls | Watches a 21×21×21 area around the Master Ritual Stone for the moment of any non-player creature's death and drops a charged **Raw Spiritus** item at the death position. The richer the kill (Wither, Ender Dragon, Warden), the more Spiritus per drop. EV cost scales with the number of deaths processed each tick. |
-| Ritual of Binding (*The Invisible Cage*) | Imprisons creatures within an invisible barrier. |
-| Aura of Expulsion (*The Warding Gale*) | Drives all creatures from your sanctum. |
+| The Ritual of Lost Souls | Watches a 21×21×21 area around the Master Ritual Stone for the moment of any non-player creature's death and drops a charged **Raw Spiritus** item at the death position. The richer the kill (Wither, Ender Dragon, Warden), the more Spiritus per drop. EV cost scales with the number of deaths processed each tick. |
+| Ritual of Containment (*The Invisible Cage*) | Imprisons creatures within an invisible barrier. |
+| Ritual of Expulsion (*The Warding Gale*) | Drives all creatures from your sanctum. |
 
 ### Automation and Resources
 
 | Ritual | Effect |
 |--------|--------|
-| Crash of the Timberman (*The Silent Axe*) | An unseen force fells every tree in its domain. |
-| Reap of the Harvest Moon (*The Reaper's Bounty*) | Reaps and replants mature crops. |
-| Ritual of the Shepherd (*Nurturing Pulse*) | Hastens the maturation of young creatures. |
-| Ritual of the Green Grove (*Verdant Awakening*) | Suffuses the earth with life, hastening all growth. |
-| Ritual of Magnetism (*Deep Earth Communion*) | Persistent pulling field. Every loose item entity within a 21×7×21 box around the Master Ritual Stone is dragged toward the stone, letting you funnel mob drops, ore-processing outputs, or any item rain into a single collection point. |
+| Ritual of Fallen Trees (*The Silent Axe*) | An unseen force fells every tree in its domain. |
+| Ritual of Harvest (*The Reaper's Bounty*) | Reaps and replants mature crops. |
+| Ritual of Accelerated Aging (*Nurturing Pulse*) | Hastens the maturation of young creatures. |
+| Ritual of Overgrowth (*Verdant Awakening*) | Suffuses the earth with life, hastening all growth. |
+| The Endless Quarry (*Deep Earth Communion*) | A patient, incremental ore drain. The ritual scans the column **beneath** the Master Ritual Stone (square footprint, **bedrock-deep**) and reaps each ore it finds. **Collection priority:** if a container (chest, barrel, ender chest, modded storage, etc.) sits **directly on top** of the master stone, the ore is inserted into it as an **item** — one ore block becomes one ore item. If there is no container, or the container is full, the ritual falls back to placing the ore **as a block** in the first empty slot of a **3×3×3 placement volume** directly above the master stone. **Cost:** 50 EV per ore moved. **Pacing:** up to **3 ores** and **100 block checks per refresh** (refresh every 40 ticks / 2 s) with a saved cursor so a full sweep resumes across many refreshes. **Scan radius** scales with the block placed directly beneath the master stone: default = 3 (7×7 footprint), iron block = 7 (15×15), gold block = 15 (31×31), diamond block = 31 (63×63), **netherite block = 63 (127×127)**. Unloaded chunks are pulled into memory as the scan reaches them, so a quarry tucked into a corner of base will still mine columns far from any player. Ores in claim-protected territory are left alone. |
 | Hymn of Siphoning (*The Thirsting Stone*) | Draws surrounding fluids into a waiting vessel. |
 | Domain of the Filler (*The Mason's Spiritus*) | Fills the void with blocks drawn from a chest. |
-| Ritual of the Crusher (*The Grinding Pressure*) | Grinds blocks to dust and collects the spoils. |
 | Rhythm of the Beating Anvil (*The Tireless Smith*) | Automates crafting through vitaemantic labor. |
-| Ritual of the Full Spring (*The Spring Eternal*) | Places water source blocks in the world; with **Raw Spiritus** available in the chunk, also fills any fluid tank directly above the Master Ritual Stone (1 Raw Spiritus per 1,000 mB of water). |
+| Ritual of the Full Spring (*The Spring Eternal*) | Places water source blocks in the world; while any **Raw Spiritus** aura is present in the chunk, also fills any fluid tank directly above the Master Ritual Stone with water (1,000 mB per refresh). |
 | Serenade of the Nether (*Infernal Invocation*) | Tears open a seam to the molten depths. |
 | Ritual of the Satiated Stomach (*The Inexhaustible Feast*) | Feeds all practitioners from a nearby larder. |
 | Crystallum Fractura | Harvests mature crystal clusters and weaves a 2x growth aura + 1.25x spiritus injection across the chunks in range. See **[Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)** for aspect bias details. |
@@ -79,23 +78,21 @@ Some rituals can be expanded far beyond their default range, but EV cost scales 
 
 | Ritual | Effect |
 |--------|--------|
-| Focus of the Ellipsoid (*The Architect's Eye*) | Constructs perfect geometric forms from raw materials. |
-| Dawn of the New Moon (*The Phantom Moon*) | Conjures a hollow sphere of spectral matter. |
-| Mark of the Falling Tower (*Heaven's Wrath*) | Watches for a specific catalyst item dropped within the ritual area, consumes it, and crashes a corresponding meteor from above. Catalysts are defined by **meteor recipes** (consult JEI); each names the meteor that answers. |
-| Yawning of the Void (*The Devouring Maw*) | Devours the earth, layer by insatiable layer. |
-| Edge of the Hidden Realm (*A Crack in the Veil*) | Tier 0 dungeon generation rite. One-shot. Consumes a large EV pool and assembles a complete **Simple Dungeon** structure at the Master Ritual Stone, the entry tier of the Endless Dungeon experience. |
-| Pathway to the Endless Realm (*Beyond the Threshold*) | Tier 0 dungeon generation rite. One-shot. Consumes a much larger EV pool than its lesser cousin and assembles a full **Standard Dungeon** structure, the main procedural dungeon with Mines, Foreman fight, and aspected loot. |
+| Dawn of the New Moon (*The Lifted Earth*) | Scoops a solid ellipsoidal volume of terrain from **below** the Master Ritual Stone and teleports it **upward** to float above the ritual, leaving a matching ellipsoidal void beneath. Each lifted block drains **10 EV**; up to 100 blocks checked per refresh, with the cursor saved between refreshes so a full lift completes incrementally. The **size of the lifted moon is set by the block directly beneath the master stone**: default = 33 across, iron block = 41, gold block = 49, diamond block = 57, **netherite block = 65**. The source volume sits two blocks below the master and extends straight down for the full diameter; the destination floats two blocks above and rises the same height. Claim-protected source blocks are skipped, and the destination is only populated where claim rules permit placement. The ritual auto-stops once the full volume has been swept. |
+| Ritual of Meteo (*Heaven's Wrath*) | Watches for a specific catalyst item dropped within the ritual area, consumes it, and crashes a corresponding meteor from above. The meteor's sphere comes to rest with its **lowest block one block above the Master Ritual Stone**, so the ritual circle is preserved. The exact landing altitude is calculated per-catalyst from the recipe's outermost sphere radius. Catalysts are defined by **meteor recipes** (consult JEI); each names the meteor that answers. |
+| All Consuming Void (*The Devouring Maw*) | Erases blocks one at a time from a small 3x3x3 box directly beneath the Master Ritual Stone. **No drops, no items left behind, no echo of what was there.** Volume can be expanded with the Ritual Tinkerer to a reach of 64 blocks down and 32 wide. 10 EV per block consumed; default refresh is 10 ticks, accelerated by **Raw Spiritus** in the chunk (down to one tick at high saturation). **Spiritus modes:** **Spiritus Invictus** moves the block to a 3x3x3 placement volume above the master stone instead of consuming it. **Spiritus Ruina** reads items in a chest above the master stone as a whitelist, consuming only matching blocks. Claim-protected blocks are skipped. |
+| Breaching the Edge of Demon Realm (*A Crack in the Veil*) | One-shot rite that assembles a **Starter tier dungeon** structure at the Master Ritual Stone, the entry tier of the Demon Realm experience. Consumes a large EV pool. |
+| Highway to Hell (*Beyond the Threshold*) | Opens a permanent gateway to the **Endless tier dungeon**: a vast procedural dungeon (Mines, Foreman fight, aspected loot) that goes on forever and can be returned to as often as you like. Consumes a very large EV pool to forge the gateway. |
 
 ### Buffs and Practitioner Effects
 
 | Ritual | Effect |
 |--------|--------|
-| Reverence of the Condor (*Wings of the Condor*) | Bestows true flight upon all within the circle. |
-| Ritual of the High Jump (*Ascendant Leap*) | Grants practitioners the power to leap skyward. |
+| Soaring Skies (*Wings of the Condor*) | Bestows true flight upon all within the circle. |
 | Ritual of Speed (*Quickened Blood*) | Hurls every non-sneaking entity in the area in the master stone's facing direction. **Sneak** within the area instead and the ritual applies Speed II for 30 minutes; useful for transit or as a launcher cannon, depending on stance. Spectators are ignored. **Tip:** mount on an **Inverted Master Ritual Stone** and trigger with a pressure plate or button so the launcher only fires while the signal is active. |
 | Ritual of Regeneration (*The Mending Circle*) | Mends the wounds of all within its reach. |
 | Ritual of the Phantom Bridge (*Spectral Pathways*) | Weaves spectral platforms beneath your feet. |
-| Call of the Zephyr (*The Gathering Wind*) | A persistent wind that gathers all loose items. |
+| The Gathering (*The Hoarder's Breeze*) | A persistent wind that gathers all loose items. |
 
 ### Suppression and Denial
 
@@ -109,7 +106,7 @@ Some rituals can be expanded far beyond their default range, but EV cost scales 
 | Ritual | Effect |
 |--------|--------|
 | Ritual of Sentient Evolution (*The Sound of Becoming*) | Expands a worn Sentient Armor's upgrade capacity beyond its former limits. See **[Sentient Armor](Sentient-Armor)**. |
-| Penance of the Leaden Soul (*The Price of Power*) | Throw a piece of Sentient Armor onto the small 5×2×5 area above the Master Ritual Stone. The ritual extracts every upgrade currently inscribed on it as separate **Upgrade Tomes** (one per upgrade, preserving accumulated experience), then strips the armor clean. The tomes can later be inscribed back onto a fresh chestplate. |
-| Sound of the Cleansing Soul (*Purification of Form*) | Stand on the Master Ritual Stone wearing Sentient Armor. The ritual wipes **every upgrade** from every Sentient piece you have equipped and resets used points to zero, giving you back a clean slate at the cost of all accumulated training. **No tomes are produced**; if you want to preserve the upgrades for later, use **Penance of the Leaden Soul** instead. |
+| Sentient Extraction (*The Price of Power*) | Throw a piece of Sentient Armor onto the small 5×2×5 area above the Master Ritual Stone. The ritual extracts every upgrade currently inscribed on it as separate **Upgrade Tomes** (one per upgrade, preserving accumulated experience), then strips the armor clean. The tomes can later be inscribed back onto a fresh chestplate. |
+| Tabula Rasa (*Purification of Form*) | Stand on the Master Ritual Stone wearing Sentient Armor. The ritual wipes **every upgrade** from every Sentient piece you have equipped and resets used points to zero, giving you back a clean slate at the cost of all accumulated training. **No tomes are produced**; if you want to preserve the upgrades for later, use **Sentient Extraction** instead. |
 
 See also: **[Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)** (for the aura many rituals draw on), **[Sentient Armor](Sentient-Armor)** (armour-evolution rituals), **[Blood Orbs and Anima](Blood-Orbs-and-Anima)** (the EV source), **[Ara Vitae and Runes](Ara-Vitae-and-Runes)** (comparator + redstone shutdowns).

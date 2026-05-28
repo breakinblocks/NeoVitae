@@ -1,28 +1,37 @@
 package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
+import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
-import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 
-/**
- * Ritual that pulls items toward the Master Ritual Stone.
- */
 public class RitualMagnetism extends Ritual {
 
-    public static final String MAGNET_RANGE = "magnetRange";
+    public static final String PLACEMENT_RANGE = "placementRange";
+    private static final int MAX_CHECKS_PER_REFRESH = 100;
+    private static final int MAX_ORES_PER_REFRESH = 3;
+
+    private BlockPos lastPos;
 
     public RitualMagnetism() {
-        super("magnetism", 0, 500, "ritual." + NeoVitae.MODID + ".magnetism");
-        addBlockRange(MAGNET_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-10, -3, -10), 21, 7, 21));
-        setMaximumVolumeAndDistanceOfRange(MAGNET_RANGE, 5000, 20, 20);
+        super("magnetism", 0, 5000, "ritual." + NeoVitae.MODID + ".magnetism");
+        addBlockRange(PLACEMENT_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-1, 1, -1), 3, 3, 3));
+        setMaximumVolumeAndDistanceOfRange(PLACEMENT_RANGE, 50, 4, 4);
     }
 
     @Override
@@ -30,47 +39,143 @@ public class RitualMagnetism extends Ritual {
         RitualContext ctx = RitualHelper.createContext(masterRitualStone, getRefreshCost());
         if (ctx == null) return;
 
-        List<ItemEntity> items = RitualHelper.getEntitiesInRange(ctx, this, MAGNET_RANGE, ItemEntity.class,
-                item -> !item.isRemoved());
+        Level world = ctx.level();
+        BlockPos masterPos = ctx.masterPos();
+        UUID owner = ctx.master().getOwner();
 
-        if (items.isEmpty()) return;
+        IItemHandler container = world.getCapability(Capabilities.ItemHandler.BLOCK, masterPos.above(), null);
+        int radius = getRadius(world.getBlockState(masterPos.below()).getBlock());
+        int minRelY = world.getMinBuildHeight() - masterPos.getY();
 
-        Vec3 center = Vec3.atCenterOf(ctx.masterPos()).add(0, 1, 0);
-        int itemsMoved = 0;
+        int i = -radius, j = -1, k = -radius;
+        if (lastPos != null) {
+            i = clamp(lastPos.getX(), -radius, radius);
+            j = lastPos.getY();
+            k = clamp(lastPos.getZ(), -radius, radius);
+        }
 
-        for (ItemEntity item : items) {
-            Vec3 itemPos = item.position();
-            double distance = itemPos.distanceTo(center);
+        int checks = 0;
+        int oresMoved = 0;
 
-            if (distance > 1.0) {
-                Vec3 direction = center.subtract(itemPos).normalize().scale(0.3);
-                item.setDeltaMovement(item.getDeltaMovement().add(direction));
-                itemsMoved++;
-                RitualHelper.chanceStream(ctx.level(), 15, () ->
-                        StreamPresets.arcaneBolt(item, ctx.masterPos()).build()
-                                .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 32));
+        while (j >= minRelY) {
+            while (i <= radius) {
+                while (k <= radius) {
+                    if (checks >= MAX_CHECKS_PER_REFRESH || oresMoved >= MAX_ORES_PER_REFRESH) {
+                        lastPos = new BlockPos(i, j, k);
+                        return;
+                    }
+                    checks++;
+
+                    BlockPos srcPos = masterPos.offset(i, j, k);
+                    BlockState state = world.getBlockState(srcPos);
+                    if (state.is(Tags.Blocks.ORES)
+                            && BlockProtectionHelper.canBreakBlock(world, srcPos, owner)
+                            && moveOre(ctx, world, srcPos, state, container, masterPos)) {
+                        oresMoved++;
+                        if (oresMoved >= MAX_ORES_PER_REFRESH) {
+                            k++;
+                            lastPos = new BlockPos(i, j, k);
+                            return;
+                        }
+                    }
+                    k++;
+                }
+                k = -radius;
+                i++;
+            }
+            i = -radius;
+            j--;
+        }
+
+        lastPos = new BlockPos(-radius, -1, -radius);
+    }
+
+    private boolean moveOre(RitualContext ctx, Level world, BlockPos srcPos, BlockState state,
+                            IItemHandler container, BlockPos masterPos) {
+        if (container != null) {
+            ItemStack oreStack = new ItemStack(state.getBlock().asItem());
+            if (!oreStack.isEmpty() && oreStack.getItem() != Items.AIR) {
+                ItemStack remainder = insertAll(container, oreStack);
+                if (remainder.isEmpty()) {
+                    world.setBlock(srcPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                    ctx.syphon(getRefreshCost());
+                    return true;
+                }
             }
         }
 
-        ctx.syphon(getRefreshCost() * itemsMoved);
+        BlockPos destination = findFreePlacementSlot(ctx, masterPos);
+        if (destination == null) return false;
+        if (!world.isEmptyBlock(destination)) return false;
+        if (!world.setBlock(destination, state, Block.UPDATE_ALL)) return false;
+        world.setBlock(srcPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        ctx.syphon(getRefreshCost());
+        return true;
+    }
+
+    private static ItemStack insertAll(IItemHandler handler, ItemStack stack) {
+        ItemStack remainder = stack;
+        for (int slot = 0; slot < handler.getSlots() && !remainder.isEmpty(); slot++) {
+            remainder = handler.insertItem(slot, remainder, false);
+        }
+        return remainder;
+    }
+
+    private BlockPos findFreePlacementSlot(RitualContext ctx, BlockPos masterPos) {
+        for (BlockPos offset : RitualHelper.getRangePositions(ctx.master(), this, PLACEMENT_RANGE, masterPos)) {
+            if (ctx.level().isEmptyBlock(offset)) {
+                return offset.immutable();
+            }
+        }
+        return null;
+    }
+
+    private static int clamp(int value, int lo, int hi) {
+        return Math.min(hi, Math.max(lo, value));
+    }
+
+    private static int getRadius(Block foundation) {
+        if (foundation == Blocks.IRON_BLOCK) return 7;
+        if (foundation == Blocks.GOLD_BLOCK) return 15;
+        if (foundation == Blocks.DIAMOND_BLOCK) return 31;
+        if (foundation == Blocks.NETHERITE_BLOCK) return 63;
+        return 3;
     }
 
     @Override
     public int getRefreshTime() {
-        return 5;
+        return 40;
     }
 
     @Override
     public int getRefreshCost() {
-        return 2;
+        return 50;
+    }
+
+    @Override
+    public void readFromNBT(CompoundTag tag) {
+        super.readFromNBT(tag);
+        if (tag.contains("lastPosX")) {
+            lastPos = new BlockPos(tag.getInt("lastPosX"), tag.getInt("lastPosY"), tag.getInt("lastPosZ"));
+        }
+    }
+
+    @Override
+    public void writeToNBT(CompoundTag tag) {
+        super.writeToNBT(tag);
+        if (lastPos != null) {
+            tag.putInt("lastPosX", lastPos.getX());
+            tag.putInt("lastPosY", lastPos.getY());
+            tag.putInt("lastPosZ", lastPos.getZ());
+        }
     }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {
         addCornerRunes(components, 1, 0, EnumRuneType.EARTH);
-        addParallelRunes(components, 2, 0, EnumRuneType.AIR);
-        addCornerRunes(components, 2, 0, EnumRuneType.AIR);
-        addParallelRunes(components, 3, 0, EnumRuneType.FIRE);
+        addParallelRunes(components, 2, 1, EnumRuneType.EARTH);
+        addCornerRunes(components, 2, 1, EnumRuneType.AIR);
+        addParallelRunes(components, 2, 2, EnumRuneType.FIRE);
     }
 
     @Override

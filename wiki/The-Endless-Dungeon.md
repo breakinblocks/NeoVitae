@@ -12,8 +12,8 @@ Two [rituals](Rituals) puncture the veil, and they correspond to two distinct de
 
 | Ritual | Tier | Destination |
 | --- | --- | --- |
-| **Edge of the Hidden Realm** | II | The Antechamber (lobby) |
-| **Pathway to the Endless Realm** | III | The Endless Realm proper |
+| **Breaching the Edge of Demon Realm** | II | The Antechamber (lobby, Starter tier) |
+| **Highway to Hell** | III | The Endless Realm (Endless tier, persistent) |
 
 A successful ritual leaves an **Inversion Pillar** standing where the diagram once sat. Touch it and the pillar drags you across the threshold, depositing you in front of a mirror pillar on the other side; that mirror is your way home. Memorise its location before you wander.
 

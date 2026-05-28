@@ -118,7 +118,7 @@ public class AraVitaeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("[#](B8860B)Tier 3[#]() demands 7 runes per edge, another level down and two blocks further out. "
                 + "Four-block pillars rise at each corner, crowned with [#](8B0000)Bloodstone Bricks[#](), for which you "
-                + "will need [#](8B0000)Tau Fruit[#](), harvested from beyond the [#](4A0080)Edge of the Hidden Realm[#]() ritual.");
+                + "will need [#](8B0000)Tau Fruit[#](), harvested from beyond the [#](4A0080)Breaching the Edge of Demon Realm[#]() ritual.");
 
         this.page("tier4", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "altar_four"))

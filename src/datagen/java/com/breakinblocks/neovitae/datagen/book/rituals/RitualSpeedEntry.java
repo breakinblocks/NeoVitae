@@ -50,10 +50,10 @@ public class RitualSpeedEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
         this.pageText("- [#](8B0000)Raw Spiritus[#](): Scales launch velocity with chunk saturation."
-                + "\n\n- [#](8B0000)Spiritus Ruina[#]() (Corrosive): Adds further horizontal speed."
-                + "\n\n- [#](8B0000)Spiritus Nihilum[#]() (Destructive): Only baby creatures (and players) are launched."
-                + "\n\n- [#](8B0000)Spiritus Vindicta[#]() (Vengeful): Only adult creatures are launched."
-                + "\n\n- [#](8B0000)Spiritus Invictus[#]() (Steadfast): Launched targets receive Soft Fall.");
+                + "\n\n- [#](8B0000)Spiritus Ruina[#](): Adds further horizontal speed."
+                + "\n\n- [#](8B0000)Spiritus Nihilum[#](): Only baby creatures (and players) are launched."
+                + "\n\n- [#](8B0000)Spiritus Vindicta[#](): Only adult creatures are launched."
+                + "\n\n- [#](8B0000)Spiritus Invictus[#](): Launched targets receive Soft Fall.");
     }
 
     @Override

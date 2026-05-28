@@ -22,7 +22,7 @@ public class RitualFellingEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/felling"))
-                .withMultiblockName("Crash of the Timberman")
+                .withMultiblockName("Ritual of Fallen Trees")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
@@ -38,7 +38,7 @@ public class RitualFellingEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Crash of the Timberman";
+        return "Ritual of Fallen Trees";
     }
 
     @Override

@@ -8,7 +8,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
@@ -56,7 +55,6 @@ public class RitualWater extends Ritual {
             }
         }
 
-        // Spiritus: Fill fluid tanks with water
         SpiritusState will = RitualHelper.querySpiritus(ctx.level(), ctx.masterPos(), 1.0);
         if (will.hasDefault()) {
             List<BlockPos> tankPositions = RitualHelper.getRangePositions(ctx.master(), this, TANK_RANGE, ctx.masterPos());
@@ -67,13 +65,10 @@ public class RitualWater extends Ritual {
                     FluidStack waterStack = new FluidStack(Fluids.WATER, 1000);
                     int filled = fluidHandler.fill(waterStack, IFluidHandler.FluidAction.EXECUTE);
                     if (filled > 0) {
-                        will.use(SpiritusType.RAW, (double) filled / 1000.0);
                         totalEffects++;
                     }
                 }
             }
-
-            will.drain(ctx.level(), ctx.masterPos());
         }
 
         ctx.syphon(getRefreshCost() * totalEffects);

@@ -15,11 +15,6 @@ import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import java.util.List;
 import java.util.function.Consumer;
 
-/**
- * Sound of the Cleansing Soul - Removes all upgrades from sentient armor.
- * Player must stand on the Master Ritual Stone wearing sentient armor.
- * This is a Dusk tier ritual.
- */
 public class RitualUpgradeRemove extends Ritual {
 
     public RitualUpgradeRemove() {

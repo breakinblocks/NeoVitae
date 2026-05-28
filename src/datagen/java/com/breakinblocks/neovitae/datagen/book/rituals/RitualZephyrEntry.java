@@ -22,7 +22,7 @@ public class RitualZephyrEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/zephyr"))
-                .withMultiblockName("Call of the Zephyr")
+                .withMultiblockName("The Gathering")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
@@ -32,13 +32,13 @@ public class RitualZephyrEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("The Gathering Wind");
+        this.pageTitle("The Hoarder's Breeze");
         this.pageText("A gentle but persistent wind sweeps through the ritual's domain, gathering every loose item it finds and carrying them into a nearby chest. No dropped treasure escapes its notice, an invaluable companion to mob farms, tree felling rituals, or any operation that scatters its bounty across the ground.");
     }
 
     @Override
     protected String entryName() {
-        return "Call of the Zephyr";
+        return "The Gathering";
     }
 
     @Override

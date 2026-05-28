@@ -145,4 +145,4 @@ All admin/debug functionality is exposed under the single `/neovitae` root. Ever
 
 - GitHub Issues: <https://github.com/breakinblocks/NeoVitae/issues>
 - Reference datapacks: check `src/generated/resources/` in the NeoVitae repo for every JSON the mod ships.
-- Example pack: `examples/datapacks/neovitae_classic_altar/` in the repo restores the original Blood Magic square altar layout and is the easiest starting point for authoring altar tiers.
+- Example pack: `examples/datapacks/neovitae_classic_altar/` in the repo ships a complete square-layout altar tier definition and is the easiest starting point for authoring altar tiers.

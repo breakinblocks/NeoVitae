@@ -22,7 +22,7 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/feathered_knife"))
-                .withMultiblockName("Ritual of the Feathered Knife")
+                .withMultiblockName("Ritual of the Willing Sacrifice")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
@@ -32,7 +32,7 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("The Willing Sacrifice");
+        this.pageTitle("Blood Freely Given");
         this.pageText("Where the Well of Suffering takes from unwilling victims, this ritual draws from the practitioner's own vitality, a more honorable, if painful, path. It drains health from nearby blood mages and converts it into [#](8B0000)Essentia Vitae[#](), depositing the [#](4A0080)Essentia Vitae[#]() into a nearby [#](8B0000)Ara Vitae[#](). Efficiency improves with [#](8B0000)Runes of Self Sacrifice[#]() and the [#](8B0000)Tough Palms[#]() upgrade.");
 
         this.page("spiritus_effects", () -> BookTextPageModel.create()
@@ -48,7 +48,7 @@ public class RitualFeatheredKnifeEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Ritual of the Feathered Knife";
+        return "Ritual of the Willing Sacrifice";
     }
 
     @Override

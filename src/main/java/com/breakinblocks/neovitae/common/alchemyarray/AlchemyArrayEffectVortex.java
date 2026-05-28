@@ -2,19 +2,16 @@ package com.breakinblocks.neovitae.common.alchemyarray;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
-import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
-import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.List;
@@ -65,11 +62,6 @@ public class AlchemyArrayEffectVortex extends AlchemyArrayEffect {
             if (entity instanceof Player player) {
                 player.hurtMarked = true;
             }
-        }
-
-        if (ticksActive % 10 == 0 && level instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x8B0000),
-                    center.x, center.y + 0.5, center.z, 12, RADIUS * 0.4, 0.3, RADIUS * 0.4, 0.02);
         }
 
         return false;

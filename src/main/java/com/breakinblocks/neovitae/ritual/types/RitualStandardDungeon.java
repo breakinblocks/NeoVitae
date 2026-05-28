@@ -18,11 +18,6 @@ import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.function.Consumer;
 
-/**
- * "Pathway to the Endless Realm" ritual - creates a full procedural dungeon instance.
- * This is a higher-tier ritual that generates a larger, more complex dungeon
- * with multiple rooms and challenges.
- */
 public class RitualStandardDungeon extends DungeonRitualBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RitualStandardDungeon.class);

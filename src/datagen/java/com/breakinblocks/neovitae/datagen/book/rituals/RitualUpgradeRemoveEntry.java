@@ -22,7 +22,7 @@ public class RitualUpgradeRemoveEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/upgrade_remove"))
-                .withMultiblockName("Sound of the Cleansing Soul")
+                .withMultiblockName("Tabula Rasa")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
@@ -37,13 +37,13 @@ public class RitualUpgradeRemoveEntry extends EntryProvider {
                 + "The ritual wipes [#](2E8B57)every upgrade[#]() from every Sentient piece you have equipped and "
                 + "resets your used [#](B8860B)Upgrade Points[#]() to zero, giving you a clean slate.\\\n\\\n"
                 + "Nothing is preserved. If you wish to keep your upgrades as reusable [#](8B0000)Tomes[#](), use "
-                + "[#](8B0000)Penance of the Leaden Soul[#]() instead, which extracts upgrades from a thrown "
+                + "[#](8B0000)Sentient Extraction[#]() instead, which extracts upgrades from a thrown "
                 + "piece of armor without destroying their accumulated knowledge.");
     }
 
     @Override
     protected String entryName() {
-        return "Sound of the Cleansing Soul";
+        return "Tabula Rasa";
     }
 
     @Override

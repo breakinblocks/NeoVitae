@@ -100,7 +100,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Dungeoneering (Tier II)");
-        this.pageText("By performing the [#](4A0080)Edge of the Hidden Realm[#](), you tear a wound in the veil "
+        this.pageText("By performing the [#](4A0080)Breaching the Edge of Demon Realm[#](), you tear a wound in the veil "
                 + "and gain limited passage into the [#](4A0080)Demon Realm[#](). There, among the horrors, "
                 + "you may find [#](8B0000)Tau Fruit[#]().\\\n\\\n"
                 + "Cultivate it into [#](8B0000)Saturated Tau[#](), then refine it within the Athanor to produce "
@@ -128,11 +128,11 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Mastering Upgrades");
-        this.pageText("The [#](4A0080)Sound of the Cleansing Soul[#]() wipes every upgrade from your worn "
+        this.pageText("The [#](4A0080)Tabula Rasa[#]() ritual wipes every upgrade from your worn "
                 + "Sentient Armor and resets your used points to zero, giving you a fresh slate at the price "
                 + "of all accumulated training.\\\n\\\n"
                 + "If you would rather [#](2E8B57)keep[#]() what you have built, the "
-                + "[#](4A0080)Penance of the Leaden Soul[#]() extracts the upgrades from a thrown armor piece "
+                + "[#](4A0080)Sentient Extraction[#]() ritual extracts the upgrades from a thrown armor piece "
                 + "as [#](8B0000)Upgrade Tomes[#](), preserving every drop of accumulated experience. The tomes "
                 + "can then be copied into a [#](8B0000)Training Bracelet[#]() or re-inscribed onto a fresh "
                 + "chestplate.");
@@ -170,8 +170,8 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Demon Realm (Tier III)");
-        this.pageText("The [#](4A0080)Pathway to the Endless Realm[#]() tears open a permanent gate into "
-                + "the demon dimension. Come armed and armoured - the realm does not suffer the unprepared.\\\n\\\n"
+        this.pageText("The [#](4A0080)Highway to Hell[#]() tears open a permanent gate into "
+                + "the Endless tier dungeon. Come armed and armoured - the realm does not suffer the unprepared.\\\n\\\n"
                 + "Delve deep enough, and you may unearth [#](8B0000)Demonite Ore[#](), "
                 + "which in block form serves as capstone for the ultimate altar tiers, alongside the "
                 + "[#](8B0000)Dominus Orb of Vitae[#]().");

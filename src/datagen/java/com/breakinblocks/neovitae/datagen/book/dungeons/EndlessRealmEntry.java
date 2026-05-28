@@ -26,7 +26,7 @@ public class EndlessRealmEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("The Endless Realm");
         this.pageText("Where the Antechamber merely grazes the surface of the [#](4A0080)Demon Realm[#](), the "
-                + "[#](8B0000)Pathway to the Endless Realm[#]() ritual tears the veil wide open. You emerge before "
+                + "[#](8B0000)Highway to Hell[#]() ritual tears the veil wide open. You emerge before "
                 + "another [#](8B0000)Inversion Pillar[#](), but the air here is thicker, the shadows deeper. A lone "
                 + "chest awaits, left by some prior explorer who did not leave by choice, and doorways branch "
                 + "outward into the labyrinth beyond.");

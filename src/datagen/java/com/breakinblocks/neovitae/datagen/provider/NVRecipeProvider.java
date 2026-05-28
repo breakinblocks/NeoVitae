@@ -1319,7 +1319,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_tau_oil", has(NVItems.TAU_OIL.get()))
                 .save(output, NeoVitae.rl("raw_catalyst"));
 
-        // Corrosive catalyst uses wheat_seeds
         HellfireForgeRecipeBuilder.build(NVItems.SPIRITUS_RUINA_CATALYST.get())
                 .requires(Tags.Items.CROPS_NETHER_WART)
                 .requires(NVItems.TAU_OIL.get())
@@ -1330,7 +1329,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_tau_oil", has(NVItems.TAU_OIL.get()))
                 .save(output, NeoVitae.rl("corrosive_catalyst"));
 
-        // Destructive catalyst uses beetroot
         HellfireForgeRecipeBuilder.build(NVItems.SPIRITUS_NIHILUM_CATALYST.get())
                 .requires(Tags.Items.CROPS_NETHER_WART)
                 .requires(NVItems.TAU_OIL.get())
@@ -1341,7 +1339,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_tau_oil", has(NVItems.TAU_OIL.get()))
                 .save(output, NeoVitae.rl("destructive_catalyst"));
 
-        // Vengeful catalyst uses melon_seeds
         HellfireForgeRecipeBuilder.build(NVItems.SPIRITUS_VINDICTA_CATALYST.get())
                 .requires(Tags.Items.CROPS_NETHER_WART)
                 .requires(NVItems.TAU_OIL.get())
@@ -1352,7 +1349,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_tau_oil", has(NVItems.TAU_OIL.get()))
                 .save(output, NeoVitae.rl("vengeful_catalyst"));
 
-        // Steadfast catalyst uses pumpkin_seeds
         HellfireForgeRecipeBuilder.build(NVItems.SPIRITUS_INVICTUS_CATALYST.get())
                 .requires(Tags.Items.CROPS_NETHER_WART)
                 .requires(NVItems.TAU_OIL.get())
@@ -1861,7 +1857,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_animus_mote", has(NVItems.ANIMUS_MOTE.get()))
                 .save(output, NeoVitae.rl("demonite_trim_ingot"));
 
-        // Blight Whetstone - Blight Marrow + Corrosive Crystal Catalyst
         HellfireForgeRecipeBuilder.build(NVItems.BLIGHT_WHETSTONE.get())
                 .requires(NVItems.BLIGHT_MARROW.get())
                 .requires(NVItems.BLIGHT_MARROW.get())
@@ -4040,13 +4035,13 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // Iron Block Meteor - basic ores with cobblestone shell
         MeteorRecipeBuilder.meteor(Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON), 1000000, 14)
-                .addLayer(new MeteorLayer(4, 0, Blocks.IRON_ORE)
+                .addLayer(new MeteorLayer(8, 0, Blocks.IRON_ORE)
                         .addShellBlock(Blocks.COBBLESTONE)
                         .addWeightedBlock(Blocks.GOLD_ORE, 30)
                         .addWeightedBlock(Blocks.COPPER_ORE, 200)
                         .addWeightedBlock(Blocks.LAPIS_ORE, 60)
                         .addWeightedBlock(Blocks.REDSTONE_ORE, 100))
-                .addLayer(new MeteorLayer(7, 100, Blocks.STONE)
+                .addLayer(new MeteorLayer(14, 100, Blocks.STONE)
                         .setMinWeight(1000)
                         .addWeightedBlock(Blocks.IRON_ORE, 400)
                         .addWeightedBlock(Blocks.GOLD_ORE, 30)
@@ -4057,7 +4052,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // Stone Meteor - large but mostly stone/coal
         MeteorRecipeBuilder.meteor(Ingredient.of(NVTags.Items.VITAE_STONE), 1000000, 30)
-                .addLayer(new MeteorLayer(16, 0, Blocks.STONE)
+                .addLayer(new MeteorLayer(32, 0, Blocks.STONE)
                         .setMinWeight(400)
                         .addShellBlock(Blocks.COBBLESTONE)
                         .addWeightedBlock(Blocks.COAL_ORE, 150)
@@ -4066,8 +4061,8 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // Diamond Meteor - small but diamond-rich
         MeteorRecipeBuilder.meteor(Ingredient.of(Tags.Items.GEMS_DIAMOND), 1000000, 8)
-                .addLayer(new MeteorLayer(2, 0, Blocks.DIAMOND_ORE))
-                .addLayer(new MeteorLayer(5, 0, Blocks.COBBLESTONE)
+                .addLayer(new MeteorLayer(4, 0, Blocks.DIAMOND_ORE))
+                .addLayer(new MeteorLayer(10, 0, Blocks.COBBLESTONE)
                         .setMinWeight(1000)
                         .addWeightedBlock(Blocks.DIAMOND_ORE, 100)
                         .addWeightedBlock(Blocks.EMERALD_ORE, 75))
@@ -4075,12 +4070,12 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // Nether Meteor - nether materials including ancient debris
         MeteorRecipeBuilder.meteor(Ingredient.of(Tags.Items.DUSTS_GLOWSTONE), 1000000, 12)
-                .addLayer(new MeteorLayer(8, 0, Blocks.NETHERRACK)
+                .addLayer(new MeteorLayer(16, 0, Blocks.NETHERRACK)
                         .setMinWeight(500)
                         .addWeightedBlock(Blocks.GLOWSTONE, 100)
                         .addWeightedBlock(Blocks.NETHER_QUARTZ_ORE, 150)
                         .addWeightedBlock(Blocks.NETHER_GOLD_ORE, 60))
-                .addLayer(new MeteorLayer(5, 0, Blocks.BLACKSTONE)
+                .addLayer(new MeteorLayer(10, 0, Blocks.BLACKSTONE)
                         .addShellBlock(Blocks.GLOWSTONE)
                         .addWeightedBlock(Blocks.ANCIENT_DEBRIS, 60)
                         .setMinWeight(1000)

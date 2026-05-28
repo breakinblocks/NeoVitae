@@ -57,10 +57,8 @@ public class RitualStatsProvider implements DataProvider {
 
         add(NVRituals.REGENERATION, RitualStats.timed(25000, 100, 20, 0));
         add(NVRituals.SPEED, RitualStats.timed(500, 25, 60, 0));
-        add(NVRituals.JUMPING, RitualStats.timed(500, 25, 60, 0));
         add(NVRituals.MAGNETISM, RitualStats.timed(5000, 50, 20, 0));
         add(NVRituals.ANIMAL_GROWTH, RitualStats.timed(10000, 25, 20, 0));
-        add(NVRituals.CRUSHING, RitualStats.timed(2500, 100, 40, 0));
         add(NVRituals.FELLING, RitualStats.timed(20000, 20, 20, 0));
         add(NVRituals.SUPPRESSION, RitualStats.timed(10000, 2, 1, 0));
         add(NVRituals.CONTAINMENT, RitualStats.timed(2000, 1, 20, 0));
@@ -83,12 +81,11 @@ public class RitualStatsProvider implements DataProvider {
         // ==================== Dusk Tier Rituals ====================
 
         add(NVRituals.CONDOR, RitualStats.timed(1000000, 200, 20, 2));
-        add(NVRituals.ELLIPSE, RitualStats.timed(10000, 200, 1, 2));
-        add(NVRituals.SPHERE, RitualStats.timed(10000, 200, 1, 2));
+        add(NVRituals.SPHERE, RitualStats.timed(20000, 10, 1, 0));
         add(NVRituals.ARMOUR_EVOLVE, RitualStats.timed(50000, 10, 1, 2));
         add(NVRituals.UPGRADE_REMOVE, RitualStats.timed(20000, 100, 20, 2));
         add(NVRituals.CRAFTING, RitualStats.timed(25000, 100, 40, 2));
-        add(NVRituals.YAWNING_VOID, RitualStats.timed(500000, 50, 1, 2));
+        add(NVRituals.YAWNING_VOID, RitualStats.timed(5000, 10, 10, 0));
 
         // ==================== Utility Rituals ====================
 

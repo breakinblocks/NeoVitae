@@ -1133,49 +1133,46 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Rituals
         addRitual("water", "Ritual of the Full Spring", "Places water source blocks in the area; with Raw Spiritus, also fills any fluid tank above the master stone (1 Raw per 1,000 mB).");
         addRitual("lava", "Serenade of the Nether", "Places lava source blocks within the area.");
-        addRitual("green_grove", "Ritual of the Green Grove", "Suffuses the earth with life; bonemeals nearby crops and saplings. Spiritus aspects extend it to farmland hydration, Plant Leech, or scaled chance.");
+        addRitual("green_grove", "Ritual of Overgrowth", "Suffuses the earth with life; bonemeals nearby crops and saplings. Spiritus aspects extend it to farmland hydration, Plant Leech, or scaled chance.");
         addRitual("well_of_suffering", "Well of Suffering", "Damages every hostile creature in range and channels their pain into Essentia Vitae at the master stone.");
-        addRitual("feathered_knife", "Ritual of the Feathered Knife", "Wounds the practitioner standing on the master stone, converting their health into EV for the altar.");
-        addRitual("harvest", "Reap of the Harvest Moon", "Reaps every mature crop in range and replants the seeds.");
-        addRitual("regeneration", "Ritual of Regeneration", "Applies Regeneration to practitioners in range; with Corrosive Spiritus, also drains nearby mobs to heal you.");
+        addRitual("feathered_knife", "Ritual of the Willing Sacrifice", "Wounds the practitioner standing on the master stone, converting their health into EV for the altar.");
+        addRitual("harvest", "Ritual of Harvest", "Reaps every mature crop in range and replants the seeds.");
+        addRitual("regeneration", "Ritual of Regeneration", "Applies Regeneration to practitioners in range; with Spiritus Ruina present, also drains nearby mobs to heal you.");
         addRitual("speed", "Ritual of Speed", "Propels non-sneaking entities in the master stone's facing direction. Sneak inside the area to receive Speed II for 30 minutes instead. Aspects modulate velocity, target filtering, and add Soft Fall.");
-        addRitual("jumping", "Ritual of the High Jump", "Grants Jump Boost II to practitioners standing on the master stone.");
-        addRitual("magnetism", "Ritual of Magnetism", "Persistent pulling field; loose item entities in a 21x7x21 box around the master stone are dragged toward it.");
-        addRitual("animal_growth", "Ritual of the Shepherd", "Accelerates the growth of young creatures in range.");
-        addRitual("crushing", "Crushing Ritual", "Grinds blocks to their dust forms. Steadfast preserves blocks with Silk Touch; Destructive applies Fortune III.");
-        addRitual("felling", "Ritual of the Felling Tree", "Fells every tree in range and drops the logs into an adjacent chest.");
+        addRitual("magnetism", "The Endless Quarry", "Reaps ore blocks from the volume below the master stone (loading unloaded chunks as needed). Inserts as items into a container directly above the master stone if one exists; otherwise places the ore as a block in a 3x3x3 volume above. Scan radius scales with the foundation block: iron 7, gold 15, diamond 31, netherite 63, anything else 3. 50 EV per ore moved; up to 3 ores and 100 checks per refresh, scan reaches bedrock.");
+        addRitual("animal_growth", "Ritual of Accelerated Aging", "Accelerates the growth of young creatures in range.");
+        addRitual("felling", "Ritual of Fallen Trees", "Fells every tree in range and drops the logs into an adjacent chest.");
         addRitual("suppression", "Dome of Suppression", "Replaces fluid source blocks in range with air, restoring them when the ritual stops.");
-        addRitual("containment", "Ritual of Binding", "Pushes any creature trying to leave the area back toward the center; an invisible cage.");
-        addRitual("expulsion", "Aura of Expulsion", "Drives every creature outward from the ritual center.");
-        addRitual("zephyr", "Call of the Zephyr", "Persistent wind that gathers loose items and XP, depositing them with the master stone or a nearby player.");
+        addRitual("containment", "Ritual of Containment", "Pushes any creature trying to leave the area back toward the center; an invisible cage.");
+        addRitual("expulsion", "Ritual of Expulsion", "Drives every creature outward from the ritual center.");
+        addRitual("zephyr", "The Gathering", "Persistent wind that gathers loose items and XP, depositing them with the master stone or a nearby player.");
         addRitual("pump", "Hymn of Siphoning", "Draws fluid source blocks into a fluid tank placed above the master stone.");
         addRitual("phantom_bridge", "Ritual of the Phantom Bridge", "Weaves spectral platforms beneath the feet of practitioners in range.");
         addRitual("crystallum_fractura", "Crystallum Fractura", "Auto-harvests Spiritus Crystal clusters in range, doubles their growth speed, and biases the chunk's aspect via the Ritual Reader.");
-        addRitual("downgrade", "Penance of the Leaden Soul", "Throw a piece of Sentient Armor onto the small zone above the master stone; the ritual extracts every upgrade as a separate Upgrade Tome.");
-        addRitual("meteor", "Mark of the Falling Tower", "Consumes a catalyst item dropped within the area and crashes a corresponding meteor from above. Catalysts are defined by meteor recipes.");
+        addRitual("downgrade", "Sentient Extraction", "Throw a piece of Sentient Armor onto the small zone above the master stone; the ritual extracts every upgrade as a separate Upgrade Tome.");
+        addRitual("meteor", "Ritual of Meteo", "Consumes a catalyst item dropped within the area and crashes a corresponding meteor from above. Catalysts are defined by meteor recipes.");
         addRitual("forsaken_soul", "Cry of the Forsaken Soul", "Watches the 21x21x21 area for non-player mob deaths and drops a charged Raw Spiritus item at each death position.");
         addRitual("full_stomach", "Ritual of the Satiated Stomach", "Feeds every practitioner in range from food stored in an adjacent chest.");
 
         // Dusk Tier Rituals
-        addRitual("condor", "Reverence of the Condor", "Bestows true flight upon every practitioner within the circle. Dusk-tier.");
+        addRitual("condor", "Soaring Skies", "Bestows true flight upon every practitioner within the circle. Dusk-tier.");
         addRitual("grounding", "The Sinner's Burden", "Imposes heavy gravity within the area; entities that try to fly are dragged back to the earth. Spiritus aspects shift between Heavy Heart, Suspended, and Levitation effects.");
         addRitual("placer", "Ritual of the Mason", "Places blocks drawn from an adjacent chest across the configured area.");
-        addRitual("ellipse", "Ellipsoid Manifestation", "Constructs a hollow ellipsoidal shell from supplied materials. Dusk-tier.");
-        addRitual("sphere", "Spherical Manifestation", "Constructs a hollow sphere of spectral matter from supplied materials. Dusk-tier.");
+        addRitual("sphere", "Dawn of the New Moon", "Scoops the ellipsoidal volume of terrain below the master stone and lifts it upward into a floating moon. Foundation block beneath the master sets the size: iron 41, gold 49, diamond 57, netherite 65 across, anything else 33. 10 EV per block moved; ~100 checks per refresh.");
         addRitual("armour_evolve", "Ritual of Sentient Evolution", "Stand on the master stone in Sentient Armor; the ritual expands its upgrade capacity beyond the former limit.");
-        addRitual("upgrade_remove", "Sound of the Cleansing Soul", "Wipes every upgrade from worn Sentient Armor and resets used points to zero; no tomes are produced.");
-        addRitual("crafting", "Rhythm of the Beating Anvil", "Automates crafting through an adjacent inventory. Steadfast routes through a Hellfire Forge, Corrosive through a Tabula Vitae. Dusk-tier.");
-        addRitual("yawning_void", "Yawning of the Void", "Quarries the earth layer by layer. Steadfast leaves cobblestone in its wake; Corrosive filters by tag.");
+        addRitual("upgrade_remove", "Tabula Rasa", "Wipes every upgrade from worn Sentient Armor and resets used points to zero; no tomes are produced.");
+        addRitual("crafting", "Rhythm of the Beating Anvil", "Automates crafting through an adjacent inventory. Spiritus Invictus routes through a Hellfire Forge, Spiritus Ruina through a Tabula Vitae. Dusk-tier.");
+        addRitual("yawning_void", "All Consuming Void", "Erases blocks in a small box directly beneath the master ritual stone, one block per refresh. No drops. Spiritus Invictus moves the block to a placement volume above instead of consuming it; Spiritus Ruina limits consumption to blocks matching items in the chest above; Raw Spiritus accelerates the refresh rate.");
         addRitual("torment_nexus", "The Torment Nexus",
                 "Binds every spawner and trial spawner in range, suppressing their natural spawns and harvesting"
                 + " an equivalent stream of EV from the simulated kills. Loot funnels into a chest atop the master"
                 + " stone; an Experience Tome in the chest soaks up the kills' XP. Requires an Awakened Activation Crystal.");
 
         // Dungeon Rituals (snake_case to match ritual constructors)
-        addRitual("simple_dungeon", "Edge of the Hidden Realm",
-                "One-shot rite: consumes a large EV pool and assembles a complete Simple Dungeon structure at the master ritual stone.");
-        addRitual("standard_dungeon", "Pathway to the Endless Realm",
-                "One-shot rite: consumes a very large EV pool and assembles a full Standard Dungeon (Mines, Foreman fight, aspected loot) at the master ritual stone.");
+        addRitual("simple_dungeon", "Breaching the Edge of Demon Realm",
+                "One-shot rite: consumes a large EV pool and assembles a complete Starter tier dungeon structure at the master ritual stone.");
+        addRitual("standard_dungeon", "Highway to Hell",
+                "Opens a permanent gateway to the Endless tier dungeon: a vast procedural dungeon (Mines, Foreman fight, aspected loot) that goes on forever and can be returned to as often as you like. Consumes a very large EV pool.");
 
         // Dimension
         add("dimension.neovitae.dungeon", "The Demon Realm");
@@ -1233,7 +1230,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("imperfect_ritual", "Imperfect Beginnings", "Activate an Imperfect Ritual");
         addAdvancement("first_ritual", "Ritual Awakening", "Activate your first ritual");
         addAdvancement("well_of_suffering", "Well of Suffering", "Activate the Well of Suffering");
-        addAdvancement("edge_of_hidden_realm", "Edge of the Hidden Realm", "Venture into the Endless Realm");
+        addAdvancement("edge_of_hidden_realm", "Breaching the Edge of Demon Realm", "Venture into the Demon Realm");
         addAdvancement("crystallum_fractura", "Crystallum Fractura", "Activate the unified harvest ritual; let the aura split crystals from Spiritus itself");
         addAdvancement("transmute_ruina", "First Fracture", "Transmute a fully-grown Raw cluster into Spiritus Ruina with a catalyst and an Animus Mote");
         addAdvancement("transmute_nihilum", "Aspect of Ruin", "Transmute a Raw cluster into Spiritus Nihilum");
@@ -1242,7 +1239,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("aspectum_omnia", "Aspectum Omnia", "Transmute a Raw cluster into each of the four aspects");
         addAdvancement("serenade_of_nether", "Serenade of the Nether", "Activate the Serenade of the Nether");
         addAdvancement("master_of_ceremonies", "Master of Ceremonies", "Complete all ritual achievements");
-        addAdvancement("meteor", "METEO!", "Summon the Mark of the Falling Tower");
+        addAdvancement("meteor", "METEO!", "Summon the Ritual of Meteo");
         addAdvancement("teleposer", "Displacement", "Craft a Teleposer");
         addAdvancement("throwing_dagger", "First Strike", "Craft a Throwing Dagger");
         addAdvancement("spiritus", "First Spiritus", "Obtain raw Spiritus");

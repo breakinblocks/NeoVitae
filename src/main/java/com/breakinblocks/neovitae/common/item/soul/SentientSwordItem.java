@@ -20,7 +20,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
-import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
 
 import java.util.List;
 import java.util.Locale;

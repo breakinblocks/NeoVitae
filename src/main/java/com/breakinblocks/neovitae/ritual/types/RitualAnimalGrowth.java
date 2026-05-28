@@ -15,7 +15,7 @@ import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.SpiritusState;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 import com.breakinblocks.neovitae.util.Utils;
 
 import java.util.List;
@@ -64,17 +64,17 @@ public class RitualAnimalGrowth extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
+        SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, MIN_DEFAULT);
 
         boolean doBreed = will.hasSteadfast();
         boolean doSacrifice = will.hasDestructive();
         boolean doVengeful = will.hasVengeful();
 
-        refreshTime = scaleByRawWill(will, 20, 5, 10);
+        refreshTime = scaleByRawSpiritus(will, 20, 5, 10);
 
-        double steadfastWillUsed = 0;
-        double destructiveWillUsed = 0;
-        double vengefulWillUsed = 0;
+        double steadfastSpiritusUsed = 0;
+        double destructiveSpiritusUsed = 0;
+        double vengefulSpiritusUsed = 0;
 
         int maxAnimals = ctx.maxOperations(getRefreshCost());
         int animalsProcessed = 0;
@@ -107,7 +107,7 @@ public class RitualAnimalGrowth extends Ritual {
         if (doBreed && foodHandler != null) {
             for (Animal animal : animals) {
                 if (animalsProcessed >= maxAnimals) break;
-                if ((will.getSteadfast() - steadfastWillUsed) < SPIRITUS_PER_BREED) break;
+                if ((will.getSteadfast() - steadfastSpiritusUsed) < SPIRITUS_PER_BREED) break;
                 if (animal.isBaby() || !animal.canFallInLove() || animal.getAge() != 0) continue;
 
                 boolean fed = false;
@@ -116,7 +116,7 @@ public class RitualAnimalGrowth extends Ritual {
                     if (!foodStack.isEmpty() && animal.isFood(foodStack)) {
                         foodHandler.extractItem(slot, 1, false);
                         animal.setInLove(null);
-                        steadfastWillUsed += SPIRITUS_PER_BREED;
+                        steadfastSpiritusUsed += SPIRITUS_PER_BREED;
                         animalsProcessed++;
                         fed = true;
                         RitualHelper.chanceStream(ctx.level(), 10, () ->
@@ -132,12 +132,12 @@ public class RitualAnimalGrowth extends Ritual {
         // --- DESTRUCTIVE: Apply Sacrificial Lamb to adults ---
         if (doSacrifice) {
             for (Animal animal : animals) {
-                if ((will.getDestructive() - destructiveWillUsed) < WILL_PER_SACRIFICE) break;
+                if ((will.getDestructive() - destructiveSpiritusUsed) < WILL_PER_SACRIFICE) break;
                 if (animal.isBaby()) continue;
 
                 if (!animal.hasEffect(NVMobEffects.SACRIFICIAL_LAMB)) {
                     animal.addEffect(new MobEffectInstance(NVMobEffects.SACRIFICIAL_LAMB, 1200, 0));
-                    destructiveWillUsed += WILL_PER_SACRIFICE;
+                    destructiveSpiritusUsed += WILL_PER_SACRIFICE;
                     RitualHelper.chanceStream(ctx.level(), 10, () ->
                             StreamPresets.bloodTendril(masterPos, animal.blockPosition()).build()
                                     .sendToNearby(ctx.serverLevel(), masterPos, 64));
@@ -149,16 +149,16 @@ public class RitualAnimalGrowth extends Ritual {
         if (doVengeful) {
             int reduction = 10 + (int) (will.getVengeful() / 5);
             for (Animal animal : animals) {
-                if ((will.getVengeful() - vengefulWillUsed) < WILL_PER_COOLDOWN) break;
+                if ((will.getVengeful() - vengefulSpiritusUsed) < WILL_PER_COOLDOWN) break;
                 if (animal.isBaby() || animal.getAge() <= 0) continue;
 
                 animal.setAge(Math.max(0, animal.getAge() - reduction));
-                vengefulWillUsed += WILL_PER_COOLDOWN;
+                vengefulSpiritusUsed += WILL_PER_COOLDOWN;
             }
         }
 
         RitualHelper.drainSpiritus(will, ctx.level(), masterPos,
-                0, 0, destructiveWillUsed, vengefulWillUsed, steadfastWillUsed);
+                0, 0, destructiveSpiritusUsed, vengefulSpiritusUsed, steadfastSpiritusUsed);
 
         ctx.syphon(getRefreshCost() * animalsProcessed);
     }

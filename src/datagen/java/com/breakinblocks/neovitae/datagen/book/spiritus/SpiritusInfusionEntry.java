@@ -32,7 +32,7 @@ public class SpiritusInfusionEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Using Infused Equipment");
         this.pageText("Infused equipment stores [#](4A0080)Spiritus[#]() directly, eliminating the need to carry "
-                + "separate gems. The stored will is drawn upon by [#](8B0000)Sentient Tools[#]() and other spiritus-consuming "
+                + "separate gems. The stored spiritus is drawn upon by [#](8B0000)Sentient Tools[#]() and other spiritus-consuming "
                 + "effects just as it would be from a gem in your inventory.\\\n\\\n"
                 + "A colored bar at the top of the item icon indicates the current charge level. "
                 + "The bar color reflects the spiritus type stored. Equipment can be recharged via a "

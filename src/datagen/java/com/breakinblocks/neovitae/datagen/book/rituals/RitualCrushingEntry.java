@@ -35,7 +35,7 @@ public class RitualCrushingEntry extends EntryProvider {
         this.pageTitle("The Grinding Pressure");
         this.pageText("This ritual exerts an invisible, crushing force upon the blocks within its domain, reducing them to their component drops and depositing the results into a nearby chest. A methodical, relentless destroyer.");
 
-        this.page("will_effects", () -> BookTextPageModel.create()
+        this.page("spiritus_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");

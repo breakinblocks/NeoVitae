@@ -4,7 +4,7 @@ The **Hellfire Forge** stands as a second pillar of the art, twin to the **[Ara 
 
 ## Harvesting Spiritus
 
-Before you can put the forge to use, you must collect Spiritus, the residual will scoured from slain creatures. Two paths open the door.
+Before you can put the forge to use, you must collect Spiritus, the residual spiritus scoured from slain creatures. Two paths open the door.
 
 ### Throwing Daggers
 

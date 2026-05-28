@@ -11,28 +11,28 @@ import java.util.List;
 
 public class SpiritusCrystalItem extends Item {
     private final SpiritusType spiritusType;
-    private final double willPerCrystal;
+    private final double spiritusPerCrystal;
 
     public SpiritusCrystalItem(SpiritusType spiritusType) {
         this(spiritusType, 50.0);
     }
 
-    public SpiritusCrystalItem(SpiritusType spiritusType, double willPerCrystal) {
+    public SpiritusCrystalItem(SpiritusType spiritusType, double spiritusPerCrystal) {
         super(new Properties());
         this.spiritusType = spiritusType;
-        this.willPerCrystal = willPerCrystal;
+        this.spiritusPerCrystal = spiritusPerCrystal;
     }
 
-    public SpiritusType getWillType() {
+    public SpiritusType getSpiritusType() {
         return spiritusType;
     }
 
     public double getSpiritus(ItemStack stack) {
-        return willPerCrystal * stack.getCount();
+        return spiritusPerCrystal * stack.getCount();
     }
 
-    public double getWillPerCrystal() {
-        return willPerCrystal;
+    public double getSpiritusPerCrystal() {
+        return spiritusPerCrystal;
     }
 
     @Override

@@ -64,7 +64,7 @@ public class DemonCraftingEntry extends EntryProvider {
                 + "the Demon Realm. It requires a [#](4A0080)Greater Spiritus Gem[#](), an "
                 + "[#](8B0000)Animus Mote[#](), an [#](8B0000)Tabula Aetherea[#](), and a "
                 + "[#](8B0000)Permafrost Core[#]().\\\n\\\n"
-                + "With 4000 minimum will and 400 drain, this is among the most demanding recipes "
+                + "With 4000 minimum spiritus and 400 drain, this is among the most demanding recipes "
                 + "in the forge.");
     }
 

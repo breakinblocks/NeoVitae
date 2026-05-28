@@ -27,7 +27,7 @@ public enum DungeonVariant {
         return name;
     }
 
-    public SpiritusType getWillType() {
+    public SpiritusType getSpiritusType() {
         return spiritusType;
     }
 

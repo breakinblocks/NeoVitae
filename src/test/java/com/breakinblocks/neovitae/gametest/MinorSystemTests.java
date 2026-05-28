@@ -20,8 +20,8 @@ import com.breakinblocks.neovitae.common.blockentity.TeleposerBlockEntity;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
-import com.breakinblocks.neovitae.will.SpiritusChunk;
-import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.SpiritusChunk;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 @GameTestHolder("neovitae")
 @PrefixGameTestTemplate(false)

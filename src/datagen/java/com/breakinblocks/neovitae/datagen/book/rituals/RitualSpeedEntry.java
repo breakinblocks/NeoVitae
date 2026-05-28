@@ -45,7 +45,7 @@ public class RitualSpeedEntry extends EntryProvider {
                 + "Mount the rite on an [#](8B0000)Inverted Master Ritual Stone[#]() and wire a [#](2E8B57)pressure plate, button, or redstone pulse[#]() to it. "
                 + "The ritual then runs only while the signal is active, letting you trigger a single launch as you walk over the plate without being held in the field afterwards.");
 
-        this.page("will_effects", () -> BookTextPageModel.create()
+        this.page("spiritus_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");

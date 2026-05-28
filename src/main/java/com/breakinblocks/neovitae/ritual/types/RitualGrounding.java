@@ -13,7 +13,7 @@ import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.SpiritusState;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -60,7 +60,7 @@ public class RitualGrounding extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_SPIRITUS);
+        SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, MIN_SPIRITUS);
 
         double rawUsed = 0;
         double corrosiveUsed = 0;
@@ -94,7 +94,7 @@ public class RitualGrounding extends Ritual {
                                 .sendToNearby(ctx.serverLevel(), masterPos, 128));
             }
         } else if (will.hasDefault()) {
-            // RAW WILL: Player-only targeting with will-based effects
+            // RAW SPIRITUS: Player-only targeting with spiritus-based effects
             List<Player> players = RitualHelper.getEntitiesInRange(ctx, this, GROUNDING_RANGE, Player.class,
                     player -> player.isAlive() && !player.isCreative() && !player.isSpectator());
 
@@ -120,7 +120,7 @@ public class RitualGrounding extends Ritual {
                 totalCost += refreshCost;
             }
         } else {
-            // NO WILL: Basic Heavy Heart on non-owner players (original behavior)
+            // NO SPIRITUS: Basic Heavy Heart on non-owner players (original behavior)
             List<Player> players = RitualHelper.getEntitiesInRange(ctx, this, GROUNDING_RANGE, Player.class);
 
             for (Player player : players) {

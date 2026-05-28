@@ -14,7 +14,7 @@ import com.breakinblocks.neovitae.common.sentient.SentientHelper;
 import com.breakinblocks.neovitae.incense.IncenseHelper;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.SpiritusState;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 import com.breakinblocks.neovitae.util.AltarUtil;
 
 import java.util.List;
@@ -62,7 +62,7 @@ public class RitualFeatheredKnife extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_SPIRITUS);
+        SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, MIN_SPIRITUS);
 
         refreshTime = will.hasDefault() ? 10 : 20;
 

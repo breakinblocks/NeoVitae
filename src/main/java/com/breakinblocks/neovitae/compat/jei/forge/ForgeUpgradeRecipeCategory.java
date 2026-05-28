@@ -76,8 +76,8 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> 
     @Override
     public void getTooltip(ITooltipBuilder tooltip, ForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if (mouseX >= 40 && mouseX <= 60 && mouseY >= 21 && mouseY <= 34) {
-            tooltip.add(Component.translatable("jei.neovitae.recipe.minimumsouls", DECIMAL_FORMAT.format(recipe.getMinWill())));
-            tooltip.add(Component.translatable("jei.neovitae.recipe.soulsdrained", DECIMAL_FORMAT.format(recipe.getDrain())));
+            tooltip.add(Component.translatable("jei.neovitae.recipe.minimum_spiritus", DECIMAL_FORMAT.format(recipe.getMinSpiritus())));
+            tooltip.add(Component.translatable("jei.neovitae.recipe.spiritus_drained", DECIMAL_FORMAT.format(recipe.getDrain())));
         }
     }
 
@@ -91,7 +91,7 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> 
         poseStack.pushPose();
         poseStack.translate(40, 33, 0);
         poseStack.scale(0.5f, 0.5f, 1f);
-        guiGraphics.drawString(font, Component.translatable("jei.neovitae.recipe.will"), 0, 0, 0x8b8b8b, false);
+        guiGraphics.drawString(font, Component.translatable("jei.neovitae.recipe.spiritus"), 0, 0, 0x8b8b8b, false);
         poseStack.popPose();
 
         if (recipe instanceof ForgeUpgradeRecipe) {
@@ -105,8 +105,8 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, ForgeRecipe recipe, IFocusGroup focuses) {
         List<ItemStack> validGems = Lists.newArrayList();
-        for (HellfireForgeRecipeCategory.DefaultWill will : HellfireForgeRecipeCategory.DefaultWill.values()) {
-            if (will.minSouls >= recipe.getMinWill()) {
+        for (HellfireForgeRecipeCategory.DefaultSpiritus will : HellfireForgeRecipeCategory.DefaultSpiritus.values()) {
+            if (will.minSpiritus >= recipe.getMinSpiritus()) {
                 validGems.add(will.spiritusStack);
             }
         }

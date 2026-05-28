@@ -23,7 +23,7 @@ public class ForgeTransformRecipe extends ForgeRecipe {
 
     public static final MapCodec<ForgeTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.DOUBLE.fieldOf("minDrain").forGetter(r -> r.minSpiritus),
-            Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedWill),
+            Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedSpiritus),
             Codec.list(Ingredient.CODEC_NONEMPTY).fieldOf("catalysts").forGetter(ForgeTransformRecipe::getCatalysts),
             Ingredient.CODEC_NONEMPTY.fieldOf("transformInput").forGetter(r -> r.transformInput),
             ItemStack.CODEC.fieldOf("output").forGetter(r -> r.resultItem)
@@ -31,7 +31,7 @@ public class ForgeTransformRecipe extends ForgeRecipe {
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ForgeTransformRecipe> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.DOUBLE, r -> r.minSpiritus,
-            ByteBufCodecs.DOUBLE, r -> r.usedWill,
+            ByteBufCodecs.DOUBLE, r -> r.usedSpiritus,
             Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), ForgeTransformRecipe::getCatalysts,
             Ingredient.CONTENTS_STREAM_CODEC, r -> r.transformInput,
             ItemStack.STREAM_CODEC, r -> r.resultItem,
@@ -41,9 +41,9 @@ public class ForgeTransformRecipe extends ForgeRecipe {
     private final Ingredient transformInput;
     private final List<Ingredient> catalysts;
 
-    public ForgeTransformRecipe(double minSpiritus, double usedWill, List<Ingredient> catalysts,
+    public ForgeTransformRecipe(double minSpiritus, double usedSpiritus, List<Ingredient> catalysts,
                                  Ingredient transformInput, ItemStack resultItem) {
-        super(minSpiritus, usedWill, combinedIngredients(catalysts, transformInput), resultItem, Optional.empty());
+        super(minSpiritus, usedSpiritus, combinedIngredients(catalysts, transformInput), resultItem, Optional.empty());
         this.transformInput = transformInput;
         this.catalysts = catalysts;
     }

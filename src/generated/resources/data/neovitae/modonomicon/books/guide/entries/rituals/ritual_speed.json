@@ -62,8 +62,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_speed.will_effects.text",
-      "title": "book.neovitae.guide.rituals.ritual_speed.will_effects.title",
+      "text": "book.neovitae.guide.rituals.ritual_speed.spiritus_effects.text",
+      "title": "book.neovitae.guide.rituals.ritual_speed.spiritus_effects.title",
       "use_markdown_in_title": false
     }
   ],

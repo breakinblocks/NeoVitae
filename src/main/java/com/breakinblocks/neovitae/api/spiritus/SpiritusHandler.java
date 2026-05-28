@@ -1,4 +1,4 @@
-package com.breakinblocks.neovitae.api.will;
+package com.breakinblocks.neovitae.api.spiritus;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ChunkPos;
@@ -7,8 +7,8 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
-import com.breakinblocks.neovitae.will.SpiritusChunk;
-import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.SpiritusChunk;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 /**
  * Default implementation of {@link ISpiritusHandler} that delegates to
@@ -30,8 +30,8 @@ public class SpiritusHandler implements ISpiritusHandler {
 
 
     @Override
-    public double getCurrentWill(Level level, BlockPos pos, SpiritusType type) {
-        return WorldSpiritusHandler.getCurrentWill(level, pos, type);
+    public double getCurrentSpiritus(Level level, BlockPos pos, SpiritusType type) {
+        return WorldSpiritusHandler.getCurrentSpiritus(level, pos, type);
     }
 
     @Override
@@ -41,8 +41,8 @@ public class SpiritusHandler implements ISpiritusHandler {
 
     @Override
     public double getMaxSpiritus(Level level, BlockPos pos, SpiritusType type) {
-        SpiritusChunk willChunk = WorldSpiritusHandler.getSpiritusChunk(level, pos);
-        return willChunk.getMaxSpiritus(type);
+        SpiritusChunk spiritusChunkVar = WorldSpiritusHandler.getSpiritusChunk(level, pos);
+        return spiritusChunkVar.getMaxSpiritus(type);
     }
 
     @Override
@@ -52,8 +52,8 @@ public class SpiritusHandler implements ISpiritusHandler {
 
     @Override
     public double getMaxBonus(Level level, BlockPos pos, SpiritusType type) {
-        SpiritusChunk willChunk = WorldSpiritusHandler.getSpiritusChunk(level, pos);
-        return willChunk.getMaxBonus(type);
+        SpiritusChunk spiritusChunkVar = WorldSpiritusHandler.getSpiritusChunk(level, pos);
+        return spiritusChunkVar.getMaxBonus(type);
     }
 
     @Override
@@ -63,10 +63,10 @@ public class SpiritusHandler implements ISpiritusHandler {
         }
 
         LevelChunk chunk = level.getChunkAt(pos);
-        SpiritusChunk willChunk = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
-        willChunk.setMaxBonus(type, bonus);
+        SpiritusChunk spiritusChunkVar = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
+        spiritusChunkVar.setMaxBonus(type, bonus);
 
-        SpiritusChunk newSpiritusChunk = willChunk.copy();
+        SpiritusChunk newSpiritusChunk = spiritusChunkVar.copy();
         chunk.setData(NVDataAttachments.SPIRITUS_CHUNK, newSpiritusChunk);
         chunk.setUnsaved(true);
     }
@@ -78,10 +78,10 @@ public class SpiritusHandler implements ISpiritusHandler {
         }
 
         LevelChunk chunk = level.getChunkAt(pos);
-        SpiritusChunk willChunk = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
-        double newBonus = willChunk.addMaxBonus(type, amount);
+        SpiritusChunk spiritusChunkVar = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
+        double newBonus = spiritusChunkVar.addMaxBonus(type, amount);
 
-        SpiritusChunk newSpiritusChunk = willChunk.copy();
+        SpiritusChunk newSpiritusChunk = spiritusChunkVar.copy();
         chunk.setData(NVDataAttachments.SPIRITUS_CHUNK, newSpiritusChunk);
         chunk.setUnsaved(true);
 
@@ -90,22 +90,22 @@ public class SpiritusHandler implements ISpiritusHandler {
 
     @Override
     public double addSpiritus(Level level, BlockPos pos, SpiritusType type, double amount) {
-        return WorldSpiritusHandler.addWillToChunk(level, pos, type, amount);
+        return WorldSpiritusHandler.addSpiritusToChunk(level, pos, type, amount);
     }
 
     @Override
     public double drainSpiritus(Level level, BlockPos pos, SpiritusType type, double amount) {
-        return WorldSpiritusHandler.drainWillFromChunk(level, pos, type, amount);
+        return WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, type, amount);
     }
 
     @Override
-    public double fillWillToAmount(Level level, BlockPos pos, SpiritusType type, double targetAmount) {
-        return WorldSpiritusHandler.fillWillToAmount(level, pos, type, targetAmount);
+    public double fillSpiritusToAmount(Level level, BlockPos pos, SpiritusType type, double targetAmount) {
+        return WorldSpiritusHandler.fillSpiritusToAmount(level, pos, type, targetAmount);
     }
 
     @Override
-    public SpiritusType getDominantWillType(Level level, BlockPos pos) {
-        return WorldSpiritusHandler.getDominantWillType(level, pos);
+    public SpiritusType getDominantSpiritusType(Level level, BlockPos pos) {
+        return WorldSpiritusHandler.getDominantSpiritusType(level, pos);
     }
 
     @Override
@@ -115,12 +115,12 @@ public class SpiritusHandler implements ISpiritusHandler {
 
     @Override
     public double getFillRatio(Level level, BlockPos pos, SpiritusType type) {
-        SpiritusChunk willChunk = WorldSpiritusHandler.getSpiritusChunk(level, pos);
-        return willChunk.getFillRatio(type);
+        SpiritusChunk spiritusChunkVar = WorldSpiritusHandler.getSpiritusChunk(level, pos);
+        return spiritusChunkVar.getFillRatio(type);
     }
 
     @Override
-    public double transferWill(Level level, ChunkPos fromChunk, ChunkPos toChunk, SpiritusType type, double maxTransfer) {
-        return WorldSpiritusHandler.transferWill(level, fromChunk, toChunk, type, maxTransfer);
+    public double transferSpiritus(Level level, ChunkPos fromChunk, ChunkPos toChunk, SpiritusType type, double maxTransfer) {
+        return WorldSpiritusHandler.transferSpiritus(level, fromChunk, toChunk, type, maxTransfer);
     }
 }

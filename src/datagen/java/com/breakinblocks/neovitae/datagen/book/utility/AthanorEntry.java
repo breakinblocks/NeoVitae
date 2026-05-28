@@ -80,7 +80,7 @@ public class AthanorEntry extends EntryProvider {
         this.pageTitle("Spiritus-Infused Recipes");
         this.pageText("Certain advanced recipes also require a specific amount of spiritus in the chunk to craft. "
                 + "The Athanor's interface shows a gauge with the current spiritus levels; a red overlay marks "
-                + "how much is needed. If the chunk lacks sufficient spiritus, the Athanor stalls and emits dark "
+                + "how much is needed. If the chunk lacks sufficient will, the Athanor stalls and emits dark "
                 + "particles until the deficit is replenished.\\\n\\\n"
                 + "[#](2E8B57)Spiritus costs are consumed on craft completion, not during progress.[#]()");
 

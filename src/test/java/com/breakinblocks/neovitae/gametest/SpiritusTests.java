@@ -17,37 +17,37 @@ import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.VasMaleficumBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.SpiritusCrystalBlockEntity;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
-import com.breakinblocks.neovitae.will.SpiritusChunk;
+import com.breakinblocks.neovitae.spiritus.SpiritusChunk;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.NVItems;
-import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 @GameTestHolder("neovitae")
 @PrefixGameTestTemplate(false)
 public class SpiritusTests {
 
-    private static void setChunkWill(GameTestHelper helper, BlockPos relativePos, double amount) {
+    private static void setChunkSpiritus(GameTestHelper helper, BlockPos relativePos, double amount) {
         BlockPos absPos = helper.absolutePos(relativePos);
         LevelChunk chunk = helper.getLevel().getChunkAt(absPos);
         chunk.setData(NVDataAttachments.SPIRITUS_CHUNK.get(), new SpiritusChunk(amount, 0, 0, 0, 0));
         chunk.setUnsaved(true);
     }
 
-    private static double getChunkWill(GameTestHelper helper, BlockPos relativePos) {
+    private static double getChunkSpiritus(GameTestHelper helper, BlockPos relativePos) {
         BlockPos absPos = helper.absolutePos(relativePos);
-        return WorldSpiritusHandler.getCurrentWill(helper.getLevel(), absPos, SpiritusType.RAW);
+        return WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), absPos, SpiritusType.RAW);
     }
 
     // ==================== Crystal Growth ====================
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 300)
-    public void crystalGrowsWithChunkWill(GameTestHelper helper) {
+    public void crystalGrowsWithChunkSpiritus(GameTestHelper helper) {
         BlockPos crystalPos = new BlockPos(3, 1, 2);
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
         helper.setBlock(crystalPos, NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get().defaultBlockState());
 
-        setChunkWill(helper, crystalPos, 100.0);
+        setChunkSpiritus(helper, crystalPos, 100.0);
 
         helper.runAfterDelay(250, () -> {
             BlockEntity be = helper.getBlockEntity(crystalPos);
@@ -65,12 +65,12 @@ public class SpiritusTests {
     }
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
-    public void crystalDoesNotGrowWithoutWill(GameTestHelper helper) {
+    public void crystalDoesNotGrowWithoutSpiritus(GameTestHelper helper) {
         BlockPos crystalPos = new BlockPos(3, 1, 2);
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
         helper.setBlock(crystalPos, NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get().defaultBlockState());
 
-        setChunkWill(helper, crystalPos, 0.0);
+        setChunkSpiritus(helper, crystalPos, 0.0);
 
         helper.runAfterDelay(40, () -> {
             BlockEntity be = helper.getBlockEntity(crystalPos);
@@ -92,10 +92,10 @@ public class SpiritusTests {
         helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
         helper.setBlock(crystalPos, NVBlocks.RAW_SPIRITUS_CRYSTAL.block().get().defaultBlockState());
 
-        setChunkWill(helper, crystalPos, 50.0);
+        setChunkSpiritus(helper, crystalPos, 50.0);
 
         helper.runAfterDelay(40, () -> {
-            double remaining = getChunkWill(helper, crystalPos);
+            double remaining = getChunkSpiritus(helper, crystalPos);
             if (remaining >= 50.0) {
                 helper.fail("Crystal should drain chunk will, but it's still " + remaining);
             }
@@ -133,10 +133,10 @@ public class SpiritusTests {
             gem.set(NVDataComponents.SPIRITUS_AMOUNT, 50.0);
             crucible.handleInteraction(gem);
 
-            double willBefore = getChunkWill(helper, cruciblePos);
+            double willBefore = getChunkSpiritus(helper, cruciblePos);
 
             helper.runAfterDelay(60, () -> {
-                double willAfter = getChunkWill(helper, cruciblePos);
+                double willAfter = getChunkSpiritus(helper, cruciblePos);
                 if (willAfter <= willBefore) {
                     helper.fail("Crucible should drain gem will into chunk, but will didn't increase (before=" + willBefore + " after=" + willAfter + ")");
                 }
@@ -296,7 +296,7 @@ public class SpiritusTests {
         helper.succeed();
     }
 
-    // ==================== Through addWillToChunk ====================
+    // ==================== Through addSpiritusToChunk ====================
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 10)
     public void multiplierAppliesViaWorldHandler(GameTestHelper helper) {
@@ -311,9 +311,9 @@ public class SpiritusTests {
         chunk.setData(NVDataAttachments.SPIRITUS_CHUNK.get(), fresh);
 
         // First injection: 40 raw -> +40 RAW (base) + 10 RUINA (bias)
-        WorldSpiritusHandler.addWillToChunk(helper.getLevel(), absPos, SpiritusType.RAW, 40);
-        double raw = WorldSpiritusHandler.getCurrentWill(helper.getLevel(), absPos, SpiritusType.RAW);
-        double ruina = WorldSpiritusHandler.getCurrentWill(helper.getLevel(), absPos, SpiritusType.RUINA);
+        WorldSpiritusHandler.addSpiritusToChunk(helper.getLevel(), absPos, SpiritusType.RAW, 40);
+        double raw = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), absPos, SpiritusType.RAW);
+        double ruina = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), absPos, SpiritusType.RUINA);
         if (Math.abs(raw - 40.0) > 1e-6) {
             helper.fail("Expected RAW=40 after first injection, got " + raw);
             return;
@@ -324,9 +324,9 @@ public class SpiritusTests {
         }
 
         // Second injection: regression for copy() losing transient state. +30 RAW + 7.5 RUINA expected.
-        WorldSpiritusHandler.addWillToChunk(helper.getLevel(), absPos, SpiritusType.RAW, 30);
-        double raw2 = WorldSpiritusHandler.getCurrentWill(helper.getLevel(), absPos, SpiritusType.RAW);
-        double ruina2 = WorldSpiritusHandler.getCurrentWill(helper.getLevel(), absPos, SpiritusType.RUINA);
+        WorldSpiritusHandler.addSpiritusToChunk(helper.getLevel(), absPos, SpiritusType.RAW, 30);
+        double raw2 = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), absPos, SpiritusType.RAW);
+        double ruina2 = WorldSpiritusHandler.getCurrentSpiritus(helper.getLevel(), absPos, SpiritusType.RUINA);
         if (Math.abs(raw2 - 70.0) > 1e-6) {
             helper.fail("Expected RAW=70 after second injection, got " + raw2);
             return;

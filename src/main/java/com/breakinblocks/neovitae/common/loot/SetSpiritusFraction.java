@@ -13,7 +13,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
-import com.breakinblocks.neovitae.will.SpiritusHelper;
+import com.breakinblocks.neovitae.spiritus.SpiritusHelper;
 
 import java.util.List;
 

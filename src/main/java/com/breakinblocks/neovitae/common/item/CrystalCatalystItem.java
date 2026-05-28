@@ -32,18 +32,18 @@ import java.util.List;
 public class CrystalCatalystItem extends Item {
 
     private final SpiritusType type;
-    private final double injectedWill;
+    private final double injectedSpiritus;
     private final double speedModifier;
     private final double conversionRate;
-    private final double maxInjectedWill;
+    private final double maxInjectedSpiritus;
 
-    public CrystalCatalystItem(SpiritusType type, double injectedWill, double speedModifier, double conversionRate, double maxInjectedWill) {
+    public CrystalCatalystItem(SpiritusType type, double injectedSpiritus, double speedModifier, double conversionRate, double maxInjectedSpiritus) {
         super(new Properties());
         this.type = type;
-        this.injectedWill = injectedWill;
+        this.injectedSpiritus = injectedSpiritus;
         this.speedModifier = speedModifier;
         this.conversionRate = conversionRate;
-        this.maxInjectedWill = maxInjectedWill;
+        this.maxInjectedSpiritus = maxInjectedSpiritus;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class CrystalCatalystItem extends Item {
             return InteractionResult.PASS;
         }
 
-        SpiritusType clusterType = crystalTile.getWillType();
+        SpiritusType clusterType = crystalTile.getSpiritusType();
         BlockState state = level.getBlockState(pos);
 
         if (type != SpiritusType.RAW && clusterType == SpiritusType.RAW) {
@@ -152,8 +152,8 @@ public class CrystalCatalystItem extends Item {
     }
 
     private boolean applyCatalyst(SpiritusCrystalBlockEntity crystalTile) {
-        if (type.equals(crystalTile.getWillType()) && (crystalTile.injectedWill + injectedWill) <= maxInjectedWill) {
-            crystalTile.applyCatalyst(injectedWill, speedModifier, conversionRate);
+        if (type.equals(crystalTile.getSpiritusType()) && (crystalTile.injectedSpiritus + injectedSpiritus) <= maxInjectedSpiritus) {
+            crystalTile.applyCatalyst(injectedSpiritus, speedModifier, conversionRate);
             return true;
         }
         return false;

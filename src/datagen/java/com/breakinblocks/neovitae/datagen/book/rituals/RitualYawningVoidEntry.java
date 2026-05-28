@@ -35,7 +35,7 @@ public class RitualYawningVoidEntry extends EntryProvider {
         this.pageTitle("The Devouring Maw");
         this.pageText("This ritual opens an insatiable hunger in the earth, consuming blocks layer by layer and collecting their drops, a quarry driven not by pistons and gears, but by [#](4A0080)vitaemantic will[#]().");
 
-        this.page("will_effects", () -> BookTextPageModel.create()
+        this.page("spiritus_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");

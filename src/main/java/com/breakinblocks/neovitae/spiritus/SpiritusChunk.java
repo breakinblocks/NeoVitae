@@ -1,4 +1,4 @@
-package com.breakinblocks.neovitae.will;
+package com.breakinblocks.neovitae.spiritus;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

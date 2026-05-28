@@ -72,8 +72,8 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
     @Override
     public void getTooltip(ITooltipBuilder tooltip, ForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if (mouseX >= 40 && mouseX <= 60 && mouseY >= 21 && mouseY <= 34) {
-            tooltip.add(Component.translatable("jei.neovitae.recipe.minimumsouls", DECIMAL_FORMAT.format(recipe.getMinWill())));
-            tooltip.add(Component.translatable("jei.neovitae.recipe.soulsdrained", DECIMAL_FORMAT.format(recipe.getDrain())));
+            tooltip.add(Component.translatable("jei.neovitae.recipe.minimum_spiritus", DECIMAL_FORMAT.format(recipe.getMinSpiritus())));
+            tooltip.add(Component.translatable("jei.neovitae.recipe.spiritus_drained", DECIMAL_FORMAT.format(recipe.getDrain())));
         }
     }
 
@@ -85,15 +85,15 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
         poseStack.pushPose();
         poseStack.translate(40, 37, 0);
         poseStack.scale(0.5f, 0.5f, 1f);
-        guiGraphics.drawString(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.will"), 0, 0, 0x8b8b8b, false);
+        guiGraphics.drawString(Minecraft.getInstance().font, Component.translatable("jei.neovitae.recipe.spiritus"), 0, 0, 0x8b8b8b, false);
         poseStack.popPose();
     }
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, ForgeRecipe recipe, IFocusGroup focuses) {
         List<ItemStack> validGems = Lists.newArrayList();
-        for (DefaultWill will : DefaultWill.values()) {
-            if (will.minSouls >= recipe.getMinWill()) {
+        for (DefaultSpiritus will : DefaultSpiritus.values()) {
+            if (will.minSpiritus >= recipe.getMinSpiritus()) {
                 validGems.add(will.spiritusStack);
             }
         }
@@ -112,7 +112,7 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
         }
     }
 
-    public enum DefaultWill {
+    public enum DefaultSpiritus {
         RAW(new ItemStack(NVItems.RAW_SPIRITUS.get()), 16),
         PETTY(new ItemStack(NVItems.SPIRITUS_GEM_PETTY.get()), 64),
         LESSER(new ItemStack(NVItems.SPIRITUS_GEM_LESSER.get()), 256),
@@ -121,11 +121,11 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
         GRAND(new ItemStack(NVItems.SPIRITUS_GEM_GRAND.get()), 16384);
 
         public final ItemStack spiritusStack;
-        public final double minSouls;
+        public final double minSpiritus;
 
-        DefaultWill(ItemStack spiritusStack, double minSouls) {
+        DefaultSpiritus(ItemStack spiritusStack, double minSpiritus) {
             this.spiritusStack = spiritusStack;
-            this.minSouls = minSouls;
+            this.minSpiritus = minSpiritus;
         }
     }
 }

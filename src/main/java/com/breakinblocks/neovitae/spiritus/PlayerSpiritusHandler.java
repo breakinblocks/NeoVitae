@@ -1,4 +1,4 @@
-package com.breakinblocks.neovitae.will;
+package com.breakinblocks.neovitae.spiritus;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.player.Player;

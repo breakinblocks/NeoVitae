@@ -46,10 +46,10 @@ public class DaemoniumOverviewEntry extends EntryProvider {
                 + "More importantly, each species carries a [#](8B0000)unique trophy material[#]() that serves "
                 + "as a crafting component for powerful items unavailable through any other means.");
 
-        this.page("will_types", () -> BookTextPageModel.create()
+        this.page("spiritus_types", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Will Affinities");
+        this.pageTitle("Spiritus Affinities");
         this.pageText("Each demon species has a natural [#](4A0080)Spiritus[#]() affinity that determines "
                 + "which type of essence it drops:\\\n\\\n"
                 + "Cruoris: Raw/Nihilum\\\n"

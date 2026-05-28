@@ -1,4 +1,4 @@
-package com.breakinblocks.neovitae.will;
+package com.breakinblocks.neovitae.spiritus;
 
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;

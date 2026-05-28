@@ -44,7 +44,7 @@ import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.util.AthanorOutputHandler;
 import net.minecraft.sounds.SoundSource;
 
-import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -67,10 +67,10 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     private double progress = 0;
     public static final double DEFAULT_SPEED = 0.005;
 
-    private Map<SpiritusType, Double> currentRecipeWillCost = Map.of();
-    private final double[] chunkWill = new double[SpiritusType.values().length];
-    private final double[] chunkWillMax = new double[SpiritusType.values().length];
-    private boolean willBlocked = false;
+    private Map<SpiritusType, Double> currentRecipeSpiritusCost = Map.of();
+    private final double[] chunkSpiritus = new double[SpiritusType.values().length];
+    private final double[] chunkSpiritusMax = new double[SpiritusType.values().length];
+    private boolean spiritusBlocked = false;
 
     private final List<ItemStack> tempBucketList = new ArrayList<>(1);
 
@@ -118,20 +118,20 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         return (int) (progress * 38);
     }
 
-    public Map<SpiritusType, Double> getCurrentRecipeWillCost() {
-        return currentRecipeWillCost;
+    public Map<SpiritusType, Double> getCurrentRecipeSpiritusCost() {
+        return currentRecipeSpiritusCost;
     }
 
-    public double getChunkWill(SpiritusType type) {
-        return chunkWill[type.ordinal()];
+    public double getChunkSpiritus(SpiritusType type) {
+        return chunkSpiritus[type.ordinal()];
     }
 
-    public double getChunkWillMax(SpiritusType type) {
-        return chunkWillMax[type.ordinal()];
+    public double getChunkSpiritusMax(SpiritusType type) {
+        return chunkSpiritusMax[type.ordinal()];
     }
 
-    public boolean isWillBlocked() {
-        return willBlocked;
+    public boolean isSpiritusBlocked() {
+        return spiritusBlocked;
     }
 
     public static IItemHandler getItemHandler(AthanorBlockEntity tile, @Nullable Direction side) {
@@ -175,25 +175,25 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         inputTank.readFromNBT(registries, tag.getCompound("inputtank"));
         outputTank.readFromNBT(registries, tag.getCompound("outputtank"));
         progress = tag.getDouble("arcprogress");
-        willBlocked = tag.getBoolean("willBlocked");
-        if (tag.contains("chunkWill")) {
-            CompoundTag willTag = tag.getCompound("chunkWill");
+        spiritusBlocked = tag.getBoolean("spiritusBlocked");
+        if (tag.contains("chunkSpiritus")) {
+            CompoundTag spiritusTag = tag.getCompound("chunkSpiritus");
             for (SpiritusType type : SpiritusType.values()) {
-                chunkWill[type.ordinal()] = willTag.getDouble(type.getSerializedName());
-                chunkWillMax[type.ordinal()] = willTag.getDouble(type.getSerializedName() + "_max");
+                chunkSpiritus[type.ordinal()] = spiritusTag.getDouble(type.getSerializedName());
+                chunkSpiritusMax[type.ordinal()] = spiritusTag.getDouble(type.getSerializedName() + "_max");
             }
         }
-        if (tag.contains("recipeWillCost")) {
-            CompoundTag costTag = tag.getCompound("recipeWillCost");
+        if (tag.contains("recipeSpiritusCost")) {
+            CompoundTag costTag = tag.getCompound("recipeSpiritusCost");
             EnumMap<SpiritusType, Double> costs = new EnumMap<>(SpiritusType.class);
             for (SpiritusType type : SpiritusType.values()) {
                 if (costTag.contains(type.getSerializedName())) {
                     costs.put(type, costTag.getDouble(type.getSerializedName()));
                 }
             }
-            currentRecipeWillCost = Map.copyOf(costs);
+            currentRecipeSpiritusCost = Map.copyOf(costs);
         } else {
-            currentRecipeWillCost = Map.of();
+            currentRecipeSpiritusCost = Map.of();
         }
     }
 
@@ -209,17 +209,17 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         tag.put("inputtank", input);
         tag.put("outputtank", output);
         tag.putDouble("arcprogress", progress);
-        tag.putBoolean("willBlocked", willBlocked);
-        CompoundTag willTag = new CompoundTag();
+        tag.putBoolean("spiritusBlocked", spiritusBlocked);
+        CompoundTag spiritusTag = new CompoundTag();
         for (SpiritusType type : SpiritusType.values()) {
-            willTag.putDouble(type.getSerializedName(), chunkWill[type.ordinal()]);
-            willTag.putDouble(type.getSerializedName() + "_max", chunkWillMax[type.ordinal()]);
+            spiritusTag.putDouble(type.getSerializedName(), chunkSpiritus[type.ordinal()]);
+            spiritusTag.putDouble(type.getSerializedName() + "_max", chunkSpiritusMax[type.ordinal()]);
         }
-        tag.put("chunkWill", willTag);
-        if (!currentRecipeWillCost.isEmpty()) {
+        tag.put("chunkSpiritus", spiritusTag);
+        if (!currentRecipeSpiritusCost.isEmpty()) {
             CompoundTag costTag = new CompoundTag();
-            currentRecipeWillCost.forEach((type, amount) -> costTag.putDouble(type.getSerializedName(), amount));
-            tag.put("recipeWillCost", costTag);
+            currentRecipeSpiritusCost.forEach((type, amount) -> costTag.putDouble(type.getSerializedName(), amount));
+            tag.put("recipeSpiritusCost", costTag);
         }
     }
 
@@ -259,15 +259,15 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         athanorTile.updateType();
 
         if (level.getGameTime() % 10 == 0) {
-            athanorTile.snapshotChunkWill(level, blockPos);
+            athanorTile.snapshotChunkSpiritus(level, blockPos);
         }
         ItemStack toolStack = athanorTile.athanorInv.getStackInSlot(TOOL_SLOT);
         ItemStack[] inputStacks = new ItemStack[NUM_INPUTS];
         for (int s = 0; s < NUM_INPUTS; s++) {
             inputStacks[s] = athanorTile.athanorInv.getStackInSlot(INPUT_START + s);
         }
-        double rawWill = WorldSpiritusHandler.getCurrentWill(level, blockPos, SpiritusType.RAW);
-        double willSpeedMod = 0.5 + 1.5 * Math.min(1.0, rawWill / 100.0);
+        double rawSpiritus = WorldSpiritusHandler.getCurrentSpiritus(level, blockPos, SpiritusType.RAW);
+        double spiritusSpeedMod = 0.5 + 1.5 * Math.min(1.0, rawSpiritus / 100.0);
         boolean didProgress = false;
         if (toolStack.is(NVTags.Items.ATHANOR_TOOL)) {
             if (toolStack.is(NVTags.Items.ATHANOR_FURNACE)) {
@@ -281,7 +281,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
                     recipe = athanorTile.quickSmoking.getRecipeFor(input, level);
                 }
                 if (athanorTile.canCraftFurnace(recipe, itemOutputHandler)) {
-                    athanorTile.progress += DEFAULT_SPEED * ((double) recipe.get().value().getCookingTime() / 200D) * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * willSpeedMod;
+                    athanorTile.progress += DEFAULT_SPEED * ((double) recipe.get().value().getCookingTime() / 200D) * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * spiritusSpeedMod;
                     didProgress = true;
                     if (athanorTile.progress >= 1) {
                         athanorTile.craftFurnace(recipe.get().value(), input, itemOutputHandler);
@@ -293,38 +293,38 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
                 Optional<RecipeHolder<AthanorRecipe>> recipe = athanorTile.quickAthanor.getRecipeFor(input, level);
                 if (athanorTile.canCraft(recipe, itemOutputHandler)) {
                     AthanorRecipe athanorRecipe = recipe.get().value();
-                    athanorTile.currentRecipeWillCost = athanorRecipe.getSpiritusCosts();
+                    athanorTile.currentRecipeSpiritusCost = athanorRecipe.getSpiritusCosts();
 
                     if (athanorRecipe.hasSpiritusCosts()) {
                         if (!athanorTile.hasEnoughWill(level, blockPos, athanorRecipe)) {
-                            athanorTile.willBlocked = true;
+                            athanorTile.spiritusBlocked = true;
                         } else {
-                            athanorTile.willBlocked = false;
-                            athanorTile.progress += DEFAULT_SPEED * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * willSpeedMod;
+                            athanorTile.spiritusBlocked = false;
+                            athanorTile.progress += DEFAULT_SPEED * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * spiritusSpeedMod;
                             didProgress = true;
                         }
                     } else {
-                        athanorTile.willBlocked = false;
-                        athanorTile.progress += DEFAULT_SPEED * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * willSpeedMod;
+                        athanorTile.spiritusBlocked = false;
+                        athanorTile.progress += DEFAULT_SPEED * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * spiritusSpeedMod;
                         didProgress = true;
                     }
 
                     if (athanorTile.progress >= 1) {
                         if (athanorRecipe.hasSpiritusCosts()) {
-                            athanorTile.drainWillCosts(level, blockPos, athanorRecipe);
-                            athanorTile.snapshotChunkWill(level, blockPos);
+                            athanorTile.drainSpiritusCosts(level, blockPos, athanorRecipe);
+                            athanorTile.snapshotChunkSpiritus(level, blockPos);
                         }
                         athanorTile.craft(athanorRecipe, input, itemOutputHandler);
                         outputChanged = true;
                     }
                 } else {
-                    athanorTile.currentRecipeWillCost = Map.of();
-                    athanorTile.willBlocked = false;
+                    athanorTile.currentRecipeSpiritusCost = Map.of();
+                    athanorTile.spiritusBlocked = false;
                 }
             }
         } else {
-            athanorTile.currentRecipeWillCost = Map.of();
-            athanorTile.willBlocked = false;
+            athanorTile.currentRecipeSpiritusCost = Map.of();
+            athanorTile.spiritusBlocked = false;
         }
 
         if (didProgress && level.getGameTime() % 6 == 0) {
@@ -333,17 +333,17 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         }
 
         if (didProgress && level.getGameTime() % 20 == 0 && level.random.nextFloat() < 0.05f) {
-            WorldSpiritusHandler.drainWillFromChunk(level, blockPos, SpiritusType.RAW, 1.0);
+            WorldSpiritusHandler.drainSpiritusFromChunk(level, blockPos, SpiritusType.RAW, 1.0);
         }
 
-        if (athanorTile.willBlocked && level.getGameTime() % 10 == 0) {
+        if (athanorTile.spiritusBlocked && level.getGameTime() % 10 == 0) {
             ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_FLAME.get(), 0x880022),
                     blockPos.getX() + 0.5, blockPos.getY() + 1.1, blockPos.getZ() + 0.5,
                     3, 0.15, 0.0, 0.15, 0.01);
         }
 
         athanorTile.setLit(didProgress);
-        if (!didProgress && !athanorTile.willBlocked) {
+        if (!didProgress && !athanorTile.spiritusBlocked) {
             athanorTile.progress = 0;
         }
 
@@ -525,26 +525,26 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         return outputChanged;
     }
 
-    private void snapshotChunkWill(Level level, BlockPos pos) {
+    private void snapshotChunkSpiritus(Level level, BlockPos pos) {
         for (SpiritusType type : SpiritusType.values()) {
-            chunkWill[type.ordinal()] = WorldSpiritusHandler.getCurrentWill(level, pos, type);
-            chunkWillMax[type.ordinal()] = WorldSpiritusHandler.getMaxSpiritus(level, pos, type);
+            chunkSpiritus[type.ordinal()] = WorldSpiritusHandler.getCurrentSpiritus(level, pos, type);
+            chunkSpiritusMax[type.ordinal()] = WorldSpiritusHandler.getMaxSpiritus(level, pos, type);
         }
         setChanged();
     }
 
     private boolean hasEnoughWill(Level level, BlockPos pos, AthanorRecipe recipe) {
         for (Map.Entry<SpiritusType, Double> entry : recipe.getSpiritusCosts().entrySet()) {
-            if (WorldSpiritusHandler.getCurrentWill(level, pos, entry.getKey()) < entry.getValue()) {
+            if (WorldSpiritusHandler.getCurrentSpiritus(level, pos, entry.getKey()) < entry.getValue()) {
                 return false;
             }
         }
         return true;
     }
 
-    private void drainWillCosts(Level level, BlockPos pos, AthanorRecipe recipe) {
+    private void drainSpiritusCosts(Level level, BlockPos pos, AthanorRecipe recipe) {
         for (Map.Entry<SpiritusType, Double> entry : recipe.getSpiritusCosts().entrySet()) {
-            WorldSpiritusHandler.drainWillFromChunk(level, pos, entry.getKey(), entry.getValue());
+            WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, entry.getKey(), entry.getValue());
         }
     }
 }

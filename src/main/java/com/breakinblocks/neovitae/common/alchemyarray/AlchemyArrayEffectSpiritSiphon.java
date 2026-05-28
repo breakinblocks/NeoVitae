@@ -12,7 +12,7 @@ import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
-import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 public class AlchemyArrayEffectSpiritSiphon extends AlchemyArrayEffect {
 
@@ -38,7 +38,7 @@ public class AlchemyArrayEffectSpiritSiphon extends AlchemyArrayEffect {
         living.hurt(living.damageSources().cactus(), DAMAGE);
         cooldown = COOLDOWN_TICKS;
 
-        WorldSpiritusHandler.addWillToChunk(level, pos, SpiritusType.RAW, SPIRITUS_PER_HIT);
+        WorldSpiritusHandler.addSpiritusToChunk(level, pos, SpiritusType.RAW, SPIRITUS_PER_HIT);
 
         if (level instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_DRIP.get(), 0xAA0000),

@@ -25,29 +25,29 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
     public static final String RECIPE_TYPE_NAME = "hellfire_forge";
 
     public static final MapCodec<ForgeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.DOUBLE.fieldOf("minDrain").forGetter(ForgeRecipe::getMinWill),
+            Codec.DOUBLE.fieldOf("minDrain").forGetter(ForgeRecipe::getMinSpiritus),
             Codec.DOUBLE.fieldOf("drain").forGetter(ForgeRecipe::getDrain),
             Codec.list(Ingredient.CODEC_NONEMPTY).fieldOf("inputs").forGetter(ForgeRecipe::getCraftingIngredients),
             ItemStack.CODEC.fieldOf("output").forGetter(ForgeRecipe::getOutput),
-            SpiritusType.CODEC.optionalFieldOf("spiritusType").forGetter(ForgeRecipe::getWillType)
+            SpiritusType.CODEC.optionalFieldOf("spiritusType").forGetter(ForgeRecipe::getSpiritusType)
     ).apply(instance, ForgeRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ForgeRecipe> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.DOUBLE, ForgeRecipe::getMinWill,
+            ByteBufCodecs.DOUBLE, ForgeRecipe::getMinSpiritus,
             ByteBufCodecs.DOUBLE, ForgeRecipe::getDrain,
             Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), ForgeRecipe::getCraftingIngredients,
             ItemStack.STREAM_CODEC, ForgeRecipe::getOutput,
-            SpiritusType.STREAM_CODEC.apply(ByteBufCodecs::optional), ForgeRecipe::getWillType,
+            SpiritusType.STREAM_CODEC.apply(ByteBufCodecs::optional), ForgeRecipe::getSpiritusType,
             ForgeRecipe::new
     );
     public final double minSpiritus;
-    public final double usedWill;
+    public final double usedSpiritus;
     public final List<Ingredient> ingredients;
     public final ItemStack resultItem;
     public final Optional<SpiritusType> spiritusType;
-    public ForgeRecipe(double minSpiritus, double usedWill, List<Ingredient> ingredients, ItemStack resultItem, Optional<SpiritusType> spiritusType) {
+    public ForgeRecipe(double minSpiritus, double usedSpiritus, List<Ingredient> ingredients, ItemStack resultItem, Optional<SpiritusType> spiritusType) {
         this.minSpiritus = minSpiritus;
-        this.usedWill = usedWill;
+        this.usedSpiritus = usedSpiritus;
         this.ingredients = ingredients;
         this.resultItem = resultItem;
         this.spiritusType = spiritusType;
@@ -94,7 +94,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
         }
         ItemStack outStack = resultItem.copy();
         if (outStack.is(NVTags.Items.SPIRITUS_GEM) && input.getGemIndex() != HellfireForgeBlockEntity.GEM_SLOT) {
-            outStack.set(NVDataComponents.SPIRITUS_AMOUNT, will - usedWill);
+            outStack.set(NVDataComponents.SPIRITUS_AMOUNT, will - usedSpiritus);
             outStack.set(NVDataComponents.SPIRITUS_TYPE, gemStack.get(NVDataComponents.SPIRITUS_TYPE));
         }
 
@@ -121,12 +121,12 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
         return NVRecipes.HELLFIRE_FORGE_TYPE.get();
     }
 
-    public Double getMinWill() {
+    public Double getMinSpiritus() {
         return minSpiritus;
     }
 
     public Double getDrain() {
-        return usedWill;
+        return usedSpiritus;
     }
 
     public List<Ingredient> getCraftingIngredients() {
@@ -137,7 +137,7 @@ public class ForgeRecipe implements Recipe<ForgeInput> {
         return resultItem;
     }
 
-    public Optional<SpiritusType> getWillType() {
+    public Optional<SpiritusType> getSpiritusType() {
         return spiritusType;
     }
 }

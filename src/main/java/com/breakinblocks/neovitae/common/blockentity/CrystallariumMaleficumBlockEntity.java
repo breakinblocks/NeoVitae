@@ -12,7 +12,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockSpiritusCrystal;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
-import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 /**
  * Crystallarium Maleficum - forms the initial demon crystal from will aura.
@@ -20,11 +20,11 @@ import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
  * <p>The crystallizer's only job is to form the FIRST crystal when there's air above it.
  * All further crystal growth is handled by the SpiritusCrystalBlockEntity itself.</p>
  *
- * <p>Configurable via server config (default: 99 will to form, 1000 ticks formation time).</p>
+ * <p>Configurable via server config (default: 99 spiritus to form, 1000 ticks formation time).</p>
  */
 public class CrystallariumMaleficumBlockEntity extends BaseBlockEntity {
 
-    private static double getWillToFormCrystal() {
+    private static double getSpiritusToFormCrystal() {
         return NeoVitae.SERVER_CONFIG.CRYSTAL_SPIRITUS_TO_FORM.get();
     }
 
@@ -51,17 +51,17 @@ public class CrystallariumMaleficumBlockEntity extends BaseBlockEntity {
 
         // Only form a crystal when there's air above - crystal growth is handled by the crystal itself
         if (level.isEmptyBlock(offsetPos)) {
-            SpiritusType highestType = WorldSpiritusHandler.getDominantWillType(level, worldPosition);
-            double amount = WorldSpiritusHandler.getCurrentWill(level, worldPosition, highestType);
+            SpiritusType highestType = WorldSpiritusHandler.getDominantSpiritusType(level, worldPosition);
+            double amount = WorldSpiritusHandler.getCurrentSpiritus(level, worldPosition, highestType);
 
-            double willToForm = getWillToFormCrystal();
-            if (amount >= willToForm) {
+            double spiritusToForm = getSpiritusToFormCrystal();
+            if (amount >= spiritusToForm) {
                 double formationRate = getCrystalFormationRate(amount);
                 internalCounter += formationRate;
 
                 if (internalCounter >= getTotalFormationTime()) {
-                    double drained = WorldSpiritusHandler.drainWillFromChunk(level, worldPosition, highestType, willToForm);
-                    if (drained >= willToForm) {
+                    double drained = WorldSpiritusHandler.drainSpiritusFromChunk(level, worldPosition, highestType, spiritusToForm);
+                    if (drained >= spiritusToForm) {
                         if (formCrystal(highestType, offsetPos)) {
                             internalCounter = 0;
                             setChanged();

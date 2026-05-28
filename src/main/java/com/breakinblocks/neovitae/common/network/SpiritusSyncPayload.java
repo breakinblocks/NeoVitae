@@ -5,7 +5,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
-import com.breakinblocks.neovitae.will.SpiritusChunk;
+import com.breakinblocks.neovitae.spiritus.SpiritusChunk;
 
 /**
  * Payload for syncing spiritus aura data from server to client.
@@ -15,10 +15,10 @@ public record SpiritusSyncPayload(
         int chunkX,
         int chunkZ,
         double rawSpiritus,
-        double corrosiveWill,
-        double destructiveWill,
-        double vengefulWill,
-        double steadfastWill,
+        double corrosiveSpiritus,
+        double destructiveSpiritus,
+        double vengefulSpiritus,
+        double steadfastSpiritus,
         double bonusRaw,
         double bonusCorrosive,
         double bonusDestructive,
@@ -52,10 +52,10 @@ public record SpiritusSyncPayload(
             buf.writeInt(payload.chunkX);
             buf.writeInt(payload.chunkZ);
             buf.writeDouble(payload.rawSpiritus);
-            buf.writeDouble(payload.corrosiveWill);
-            buf.writeDouble(payload.destructiveWill);
-            buf.writeDouble(payload.vengefulWill);
-            buf.writeDouble(payload.steadfastWill);
+            buf.writeDouble(payload.corrosiveSpiritus);
+            buf.writeDouble(payload.destructiveSpiritus);
+            buf.writeDouble(payload.vengefulSpiritus);
+            buf.writeDouble(payload.steadfastSpiritus);
             buf.writeDouble(payload.bonusRaw);
             buf.writeDouble(payload.bonusCorrosive);
             buf.writeDouble(payload.bonusDestructive);
@@ -64,26 +64,26 @@ public record SpiritusSyncPayload(
         }
     };
 
-    public static SpiritusSyncPayload fromSpiritusChunk(int chunkX, int chunkZ, SpiritusChunk willChunk) {
+    public static SpiritusSyncPayload fromSpiritusChunk(int chunkX, int chunkZ, SpiritusChunk spiritusChunkVar) {
         return new SpiritusSyncPayload(
                 chunkX,
                 chunkZ,
-                willChunk.getSpiritus(SpiritusType.RAW),
-                willChunk.getSpiritus(SpiritusType.RUINA),
-                willChunk.getSpiritus(SpiritusType.NIHILUM),
-                willChunk.getSpiritus(SpiritusType.VINDICTA),
-                willChunk.getSpiritus(SpiritusType.INVICTUS),
-                willChunk.getMaxBonus(SpiritusType.RAW),
-                willChunk.getMaxBonus(SpiritusType.RUINA),
-                willChunk.getMaxBonus(SpiritusType.NIHILUM),
-                willChunk.getMaxBonus(SpiritusType.VINDICTA),
-                willChunk.getMaxBonus(SpiritusType.INVICTUS)
+                spiritusChunkVar.getSpiritus(SpiritusType.RAW),
+                spiritusChunkVar.getSpiritus(SpiritusType.RUINA),
+                spiritusChunkVar.getSpiritus(SpiritusType.NIHILUM),
+                spiritusChunkVar.getSpiritus(SpiritusType.VINDICTA),
+                spiritusChunkVar.getSpiritus(SpiritusType.INVICTUS),
+                spiritusChunkVar.getMaxBonus(SpiritusType.RAW),
+                spiritusChunkVar.getMaxBonus(SpiritusType.RUINA),
+                spiritusChunkVar.getMaxBonus(SpiritusType.NIHILUM),
+                spiritusChunkVar.getMaxBonus(SpiritusType.VINDICTA),
+                spiritusChunkVar.getMaxBonus(SpiritusType.INVICTUS)
         );
     }
 
     public SpiritusChunk toSpiritusChunk() {
         return new SpiritusChunk(
-                rawSpiritus, corrosiveWill, destructiveWill, vengefulWill, steadfastWill,
+                rawSpiritus, corrosiveSpiritus, destructiveSpiritus, vengefulSpiritus, steadfastSpiritus,
                 bonusRaw, bonusCorrosive, bonusDestructive, bonusVengeful, bonusSteadfast
         );
     }

@@ -5,28 +5,28 @@
       "model": "neovitae:item/variant/sentient_axe_ruina",
       "predicate": {
         "neovitae:active": 1.0,
-        "neovitae:will_type": 1.0
+        "neovitae:spiritus_type": 1.0
       }
     },
     {
       "model": "neovitae:item/variant/sentient_axe_nihilum",
       "predicate": {
         "neovitae:active": 1.0,
-        "neovitae:will_type": 2.0
+        "neovitae:spiritus_type": 2.0
       }
     },
     {
       "model": "neovitae:item/variant/sentient_axe_invictus",
       "predicate": {
         "neovitae:active": 1.0,
-        "neovitae:will_type": 3.0
+        "neovitae:spiritus_type": 3.0
       }
     },
     {
       "model": "neovitae:item/variant/sentient_axe_vindicta",
       "predicate": {
         "neovitae:active": 1.0,
-        "neovitae:will_type": 4.0
+        "neovitae:spiritus_type": 4.0
       }
     }
   ],

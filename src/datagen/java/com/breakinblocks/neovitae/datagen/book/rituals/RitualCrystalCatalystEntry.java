@@ -43,7 +43,7 @@ public class RitualCrystalCatalystEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Distills forsaken essence into will catalysts.";
+        return "Distills forsaken essence into spiritus catalysts.";
     }
 
     @Override

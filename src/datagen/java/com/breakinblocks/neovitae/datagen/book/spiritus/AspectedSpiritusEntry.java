@@ -30,7 +30,7 @@ public class AspectedSpiritusEntry extends EntryProvider {
                 + "hidden facets into purer forms.");
 
         this.page("image", () -> BookImagePageModel.create()
-                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/will_splitting.png"))
+                .withImages(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/spiritus/spiritus_splitting.png"))
                 .withTitle("Aspects of Spiritus")
                 .withBorder(true)
                 .withText(this.context().pageText()));

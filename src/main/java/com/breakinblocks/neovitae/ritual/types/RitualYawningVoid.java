@@ -20,7 +20,7 @@ import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.SpiritusState;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
@@ -83,13 +83,13 @@ public class RitualYawningVoid extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, Math.min(MIN_DEFAULT, Math.min(MIN_STEADFAST, MIN_CORROSIVE)));
+        SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, Math.min(MIN_DEFAULT, Math.min(MIN_STEADFAST, MIN_CORROSIVE)));
 
         boolean hasRaw = will.hasDefault();
         boolean doReplace = will.hasSteadfast();
         boolean doFilter = will.hasCorrosive();
 
-        double steadfastWillUsed = 0;
+        double steadfastSpiritusUsed = 0;
 
         RitualHelper.ChestOutput chest = RitualHelper.resolveChestOutput(ctx, this, CHEST_RANGE);
         BlockEntity chestTile = chest.tile();
@@ -161,7 +161,7 @@ public class RitualYawningVoid extends Ritual {
             }
 
             // STEADFAST: Replace mode - place block in placement area instead of dropping
-            if (doReplace && (will.getSteadfast() - steadfastWillUsed) >= WILL_PER_REPLACE) {
+            if (doReplace && (will.getSteadfast() - steadfastSpiritusUsed) >= WILL_PER_REPLACE) {
                 ItemStack blockAsItem = new ItemStack(state.getBlock().asItem());
                 if (!blockAsItem.isEmpty()) {
                     // Try to place in the placement area
@@ -169,7 +169,7 @@ public class RitualYawningVoid extends Ritual {
                     if (placed) {
                         ctx.level().destroyBlock(targetPos, false);
                         will.use(SpiritusType.INVICTUS, WILL_PER_REPLACE);
-                        steadfastWillUsed += WILL_PER_REPLACE;
+                        steadfastSpiritusUsed += WILL_PER_REPLACE;
                         processed = true;
                         continue;
                     }

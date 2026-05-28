@@ -32,7 +32,7 @@
         "type": "modonomicon:none"
       },
       "images": [
-        "neovitae:images/entries/spiritus/will_splitting.png"
+        "neovitae:images/entries/spiritus/spiritus_splitting.png"
       ],
       "text": "book.neovitae.guide.spiritus.aspected_spiritus.image.text",
       "title": "Aspects of Spiritus",

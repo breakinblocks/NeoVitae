@@ -41,27 +41,27 @@ public class RitualForsakenSoul extends Ritual {
 
         if (entities.isEmpty()) return;
 
-        int willGenerated = 0;
+        int spiritusGenerated = 0;
 
         for (LivingEntity entity : entities) {
-            double spiritusAmount = getWillForEntity(entity);
+            double spiritusAmount = getSpiritusForEntity(entity);
             if (spiritusAmount > 0) {
                 ItemStack spiritusStack = new ItemStack(NVItems.RAW_SPIRITUS.get());
                 spiritusStack.set(NVDataComponents.SPIRITUS_AMOUNT, spiritusAmount);
-                ItemEntity willEntity = new ItemEntity(ctx.level(),
+                ItemEntity spiritusEntity = new ItemEntity(ctx.level(),
                         entity.getX(), entity.getY() + 0.5, entity.getZ(), spiritusStack);
-                ctx.level().addFreshEntity(willEntity);
-                willGenerated++;
+                ctx.level().addFreshEntity(spiritusEntity);
+                spiritusGenerated++;
                 RitualHelper.chanceStream(ctx.level(), 10, () ->
                         StreamPresets.soulSiphon(entity, ctx.masterPos()).build()
                                 .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128));
             }
         }
 
-        ctx.syphon(getRefreshCost() * willGenerated);
+        ctx.syphon(getRefreshCost() * spiritusGenerated);
     }
 
-    private double getWillForEntity(LivingEntity entity) {
+    private double getSpiritusForEntity(LivingEntity entity) {
         EntityType<?> type = entity.getType();
         if (type == EntityType.WITHER) return 100.0;
         if (type == EntityType.ENDER_DRAGON) return 500.0;

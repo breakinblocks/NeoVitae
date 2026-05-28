@@ -24,7 +24,7 @@ public class SpiritusGemsEntry extends EntryProvider {
         this.pageText("The fragments of [#](8B0000)Spiritus[#]() you have gathered thus far are potent, yet unwieldy. "
                 + "What you require is a vessel, a crystalline prison to contain and compress that malice into "
                 + "something manageable. The [#](8B0000)Spiritus Gem[#]() is precisely such an artifact.\\\n\\\n"
-                + "Better still, the gem hungers. Drop loose Will upon the ground nearby, and the gem will "
+                + "Better still, the gem hungers. Drop loose Spiritus upon the ground nearby, and the gem will "
                 + "devour it of its own accord.");
 
         this.page("gem_stats", () -> BookSpiritusGemStatsPageModel.create()
@@ -37,7 +37,7 @@ public class SpiritusGemsEntry extends EntryProvider {
         this.pageTitle("Petty Spiritus Gem");
         this.pageText("Your first vessel holds a modest amount of [#](8B0000)Spiritus[#](), crude, but far more practical than "
                 + "loose fragments rattling about your pack.\\\n\\\n"
-                + "[#](2E8B57)To transfer Will between gems, right-click while holding the gem you wish to empty. "
+                + "[#](2E8B57)To transfer Spiritus between gems, right-click while holding the gem you wish to empty. "
                 + "Its contents flow into the first valid gem in your inventory.[#]()");
 
         this.page("lesser_intro", () -> BookTextPageModel.create()

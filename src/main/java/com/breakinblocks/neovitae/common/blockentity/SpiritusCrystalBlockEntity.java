@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.BlockSpiritusCrystal;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
-import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 /**
  * Tile entity for demon crystals.
@@ -22,15 +22,15 @@ import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
  */
 public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
 
-    private static double getSameWillConversionRate() {
+    private static double getSameSpiritusConversionRate() {
         return NeoVitae.SERVER_CONFIG.CRYSTAL_SAME_SPIRITUS_RATE.get();
     }
 
-    private static double getDifferentWillConversionRate() {
+    private static double getDifferentSpiritusConversionRate() {
         return NeoVitae.SERVER_CONFIG.CRYSTAL_DIFFERENT_SPIRITUS_RATE.get();
     }
 
-    private static double getWrongWillDelay() {
+    private static double getWrongSpiritusDelay() {
         return NeoVitae.SERVER_CONFIG.CRYSTAL_WRONG_SPIRITUS_DELAY.get();
     }
 
@@ -50,7 +50,7 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
     public int internalCounter = 0;
     public Direction placement = Direction.UP;
 
-    public double injectedWill = 0;
+    public double injectedSpiritus = 0;
     public double speedModifier = 1;
     public double appliedConversionRate = 0; // 0 means use default from config
 
@@ -76,10 +76,10 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
             int crystalCount = tile.getCrystalCount();
             int maxCrystals = getMaxCrystalCount();
             if (crystalCount < maxCrystals) {
-                SpiritusType type = tile.getWillType();
+                SpiritusType type = tile.getSpiritusType();
 
-                double value = WorldSpiritusHandler.getCurrentWill(level, pos, type);
-                double sameRate = getSameWillConversionRate();
+                double value = WorldSpiritusHandler.getCurrentSpiritus(level, pos, type);
+                double sameRate = getSameSpiritusConversionRate();
                 double appliedRate = tile.appliedConversionRate > 0 ? tile.appliedConversionRate : sameRate;
 
                 if (value >= 0.5) {
@@ -88,29 +88,29 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
                     double bufferDrainRate = (sameRate - appliedRate);
                     double conversionRate = Math.min(appliedRate, sameRate);
 
-                    if (tile.injectedWill > 0 && bufferDrainRate > 0) {
-                        nextProgress = Math.min(tile.injectedWill / bufferDrainRate, nextProgress);
+                    if (tile.injectedSpiritus > 0 && bufferDrainRate > 0) {
+                        nextProgress = Math.min(tile.injectedSpiritus / bufferDrainRate, nextProgress);
                     }
 
-                    double willToDrain = nextProgress * conversionRate;
-                    double drained = WorldSpiritusHandler.drainWillFromChunk(level, pos, type, willToDrain);
+                    double spiritusToDrain = nextProgress * conversionRate;
+                    double drained = WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, type, spiritusToDrain);
                     nextProgress = Math.min(drained / conversionRate, nextProgress);
                     tile.progressToNextCrystal += nextProgress;
 
-                    if (tile.injectedWill > 0 && bufferDrainRate > 0) {
-                        tile.injectedWill = Math.max(0, tile.injectedWill - nextProgress * bufferDrainRate);
-                        if (tile.injectedWill <= 0) {
+                    if (tile.injectedSpiritus > 0 && bufferDrainRate > 0) {
+                        tile.injectedSpiritus = Math.max(0, tile.injectedSpiritus - nextProgress * bufferDrainRate);
+                        if (tile.injectedSpiritus <= 0) {
                             tile.appliedConversionRate = 0; // Reset to use config default
                             tile.speedModifier = 1;
                         }
                     }
                 } else if (type != SpiritusType.RAW) {
                     // Try using DEFAULT will if own type is not available
-                    value = WorldSpiritusHandler.getCurrentWill(level, pos, SpiritusType.RAW);
+                    value = WorldSpiritusHandler.getCurrentSpiritus(level, pos, SpiritusType.RAW);
                     if (value > 0.5) {
-                        double differentRate = getDifferentWillConversionRate();
-                        double nextProgress = tile.getCrystalGrowthPerSecond(value) * getWrongWillDelay();
-                        tile.progressToNextCrystal += WorldSpiritusHandler.drainWillFromChunk(level, pos,
+                        double differentRate = getDifferentSpiritusConversionRate();
+                        double nextProgress = tile.getCrystalGrowthPerSecond(value) * getWrongSpiritusDelay();
+                        tile.progressToNextCrystal += WorldSpiritusHandler.drainSpiritusFromChunk(level, pos,
                                 SpiritusType.RAW, nextProgress * differentRate)
                                 / differentRate;
                     }
@@ -132,23 +132,23 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
         if (this.appliedConversionRate > conversionRate) {
             this.appliedConversionRate = conversionRate;
         }
-        injectedWill += addedInjectedWill;
+        injectedSpiritus += addedInjectedWill;
     }
 
-    public double growCrystalWithWillAmount(double willDrain, double progressPercentage) {
+    public double growCrystalWithSpiritusAmount(double willDrain, double progressPercentage) {
         int crystalCount = getCrystalCount();
         if (crystalCount >= getMaxCrystalCount()) {
             return 0;
         }
 
-        SpiritusType type = this.getWillType();
-        double value = WorldSpiritusHandler.getCurrentWill(getLevel(), worldPosition, type);
+        SpiritusType type = this.getSpiritusType();
+        double value = WorldSpiritusHandler.getCurrentSpiritus(getLevel(), worldPosition, type);
         double percentDrain = willDrain <= 0 ? 1 : Math.min(1, value / willDrain);
         if (percentDrain <= 0) {
             return 0;
         }
 
-        WorldSpiritusHandler.drainWillFromChunk(getLevel(), worldPosition, type, percentDrain * willDrain);
+        WorldSpiritusHandler.drainSpiritusFromChunk(getLevel(), worldPosition, type, percentDrain * willDrain);
         progressToNextCrystal += percentDrain * progressPercentage;
 
         checkAndGrowCrystal();
@@ -156,7 +156,7 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
         return percentDrain * progressPercentage;
     }
 
-    public SpiritusType getWillType() {
+    public SpiritusType getSpiritusType() {
         return spiritusType;
     }
 
@@ -190,7 +190,7 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
     public boolean dropSingleCrystal() {
         int crystalCount = getCrystalCount();
         if (!getLevel().isClientSide && crystalCount > 1) {
-            SpiritusType type = getWillType();
+            SpiritusType type = getSpiritusType();
             ItemStack stack = BlockSpiritusCrystal.getItemStackDropped(type, 1);
             if (!stack.isEmpty()) {
                 setCrystalCount(crystalCount - 1);
@@ -225,7 +225,7 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
         tag.putInt("placement", placement.get3DDataValue());
         tag.putDouble("progress", progressToNextCrystal);
         tag.putString("spiritusType", spiritusType.getSerializedName());
-        tag.putDouble("injectedWill", injectedWill);
+        tag.putDouble("injectedSpiritus", injectedSpiritus);
         tag.putDouble("speedModifier", speedModifier);
         tag.putDouble("appliedRate", appliedConversionRate);
     }
@@ -247,7 +247,7 @@ public class SpiritusCrystalBlockEntity extends BaseBlockEntity {
             spiritusType = SpiritusType.RAW;
         }
 
-        injectedWill = tag.getDouble("injectedWill");
+        injectedSpiritus = tag.getDouble("injectedSpiritus");
         speedModifier = tag.getDouble("speedModifier");
         appliedConversionRate = tag.getDouble("appliedRate");
 

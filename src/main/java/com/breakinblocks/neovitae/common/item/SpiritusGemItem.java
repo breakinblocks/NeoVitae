@@ -14,10 +14,10 @@ import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.util.ChatUtil;
-import com.breakinblocks.neovitae.will.ISpiritus;
-import com.breakinblocks.neovitae.will.ISpiritusGem;
-import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
-import com.breakinblocks.neovitae.will.SpiritusHelper;
+import com.breakinblocks.neovitae.spiritus.ISpiritus;
+import com.breakinblocks.neovitae.spiritus.ISpiritusGem;
+import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.SpiritusHelper;
 
 import java.util.List;
 
@@ -69,8 +69,8 @@ public class SpiritusGemItem extends Item implements ISpiritusGem {
             double maxSpiritus = SpiritusHelper.resolveMaxSpiritus(soulGemStack, thisType);
 
             if (soulsLeft < maxSpiritus) {
-                double soulWill = soul.getSpiritus(soulType, soulStack);
-                double newSoulsLeft = Math.min(soulsLeft + soulWill, maxSpiritus);
+                double soulSpiritus = soul.getSpiritus(soulType, soulStack);
+                double newSoulsLeft = Math.min(soulsLeft + soulSpiritus, maxSpiritus);
                 double drained = newSoulsLeft - soulsLeft;
 
                 soul.drainSpiritus(soulType, soulStack, drained);

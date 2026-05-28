@@ -133,7 +133,7 @@ com.breakinblocks.neovitae.api/
 │   ├── StreamEffect.java
 │   ├── StreamPresets.java
 │   └── BlockyMode.java
-└── will/
+└── spiritus/
     ├── ISpiritusHandler.java
     ├── IPlayerSpiritusHandler.java
     ├── SpiritusHandler.java

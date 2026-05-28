@@ -25,7 +25,7 @@ public class SpiritSiphonArrayEntry extends EntryProvider {
                 + "and extracts a fragment of raw [#](8B0000)Spiritus[#]() from the act of suffering, "
                 + "releasing it into the surrounding chunk.\\\n\\\n"
                 + "The array has a brief cooldown between activations to prevent overwhelming the local "
-                + "aura with too much will at once.");
+                + "aura with too much spiritus at once.");
 
         this.page("details", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

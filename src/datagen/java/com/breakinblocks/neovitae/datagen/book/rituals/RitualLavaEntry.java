@@ -42,7 +42,7 @@ public class RitualLavaEntry extends EntryProvider {
         this.pageText("Place any fluid container (a [#](8B0000)Blood Tank[#]() or compatible tank from another tradition) directly above the [#](8B0000)Master Ritual Stone[#]() and the ritual will pipe one bucket of lava into it each cycle instead of spilling a source block into the world."
                 + "\n\nWhen the vessel has no room for another bucket, the ritual grows patient: it probes the container less and less frequently, doubling the wait between attempts, so a sealed tank never burdens the server. The moment space reappears it ramps straight back up to its normal cadence of one bucket every ten ticks.");
 
-        this.page("will_effects", () -> BookTextPageModel.create()
+        this.page("spiritus_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");

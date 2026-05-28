@@ -12,8 +12,8 @@ import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.util.ChatUtil;
-import com.breakinblocks.neovitae.will.ISpiritus;
-import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.ISpiritus;
+import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
 
 import java.util.List;
 

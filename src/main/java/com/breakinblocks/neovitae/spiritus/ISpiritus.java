@@ -1,10 +1,10 @@
-package com.breakinblocks.neovitae.will;
+package com.breakinblocks.neovitae.spiritus;
 
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 /**
- * Interface for Items that contain Will (like Monster Souls).
+ * Interface for Items that contain Spiritus (like Spiritus (e.g. Monster Souls)).
  */
 public interface ISpiritus {
     double getSpiritus(SpiritusType type, ItemStack spiritusStack);

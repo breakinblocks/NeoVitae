@@ -1,4 +1,4 @@
-package com.breakinblocks.neovitae.will;
+package com.breakinblocks.neovitae.spiritus;
 
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.LivingEntity;
@@ -92,8 +92,8 @@ public class SpiritusEventHandler {
             return;
         }
 
-        double willModifier = killed instanceof Slime ? 0.67 : 1;
-        double soulAmount = willModifier * (SNARE_BASE_DROP + killed.level().random.nextDouble() * SNARE_RANDOM_DROP)
+        double spiritusModifier = killed instanceof Slime ? 0.67 : 1;
+        double soulAmount = spiritusModifier * (SNARE_BASE_DROP + killed.level().random.nextDouble() * SNARE_RANDOM_DROP)
                 * killed.getMaxHealth() / 20d;
 
         if (killer != null) {
@@ -142,10 +142,10 @@ public class SpiritusEventHandler {
         if (remaining.isEmpty()) {
             event.getItemEntity().discard();
         } else {
-            double originalWill = will.getSpiritus(will.getType(pickedUp), pickedUp);
-            double remainingWillAmount = remaining.getItem() instanceof ISpiritus remainingSpiritus
-                    ? remainingSpiritus.getSpiritus(will.getType(remaining), remaining) : originalWill;
-            if (remainingWillAmount < originalWill) {
+            double originalSpiritus = will.getSpiritus(will.getType(pickedUp), pickedUp);
+            double remainingSpiritusAmount = remaining.getItem() instanceof ISpiritus remainingSpiritus
+                    ? remainingSpiritus.getSpiritus(will.getType(remaining), remaining) : originalSpiritus;
+            if (remainingSpiritusAmount < originalSpiritus) {
                 event.getItemEntity().setItem(remaining);
             }
         }

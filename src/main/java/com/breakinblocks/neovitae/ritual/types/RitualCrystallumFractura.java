@@ -21,8 +21,8 @@ import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
-import com.breakinblocks.neovitae.will.SpiritusChunk;
-import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.SpiritusChunk;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 import java.util.HashSet;
 import java.util.List;
@@ -156,7 +156,7 @@ public class RitualCrystallumFractura extends Ritual {
 
     private void consumeRawForFortune(ServerLevel level, BlockPos pos) {
         if (level.random.nextInt(FORTUNE_CONSUMPTION_AVG_TICKS) < getRefreshTime()) {
-            WorldSpiritusHandler.drainWillFromChunk(level, pos, SpiritusType.RAW, 1.0);
+            WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, SpiritusType.RAW, 1.0);
         }
     }
 

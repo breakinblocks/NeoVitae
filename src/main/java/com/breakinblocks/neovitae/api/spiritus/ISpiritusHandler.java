@@ -1,4 +1,4 @@
-package com.breakinblocks.neovitae.api.will;
+package com.breakinblocks.neovitae.api.spiritus;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ChunkPos;
@@ -30,7 +30,7 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
  * ISpiritusHandler handler = NeoVitaeAPI.getInstance().getSpiritusHandler();
  *
  * // For rituals: query all will types at once with a threshold
- * SpiritusState will = handler.queryWill(level, pos, 0.5);
+ * SpiritusState will = handler.querySpiritus(level, pos, 0.5);
  * if (will.hasDefault()) {
  *     double scaling = will.getDefault() / 100.0;
  *     will.use(SpiritusType.RAW, 0.1);
@@ -38,21 +38,21 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
  * will.drain(handler, level, pos);
  *
  * // For simple operations: individual will access
- * double raw = handler.getCurrentWill(level, pos, SpiritusType.RAW);
+ * double raw = handler.getCurrentSpiritus(level, pos, SpiritusType.RAW);
  * double added = handler.addSpiritus(level, pos, SpiritusType.RUINA, 50.0);
  * }</pre>
  */
 public interface ISpiritusHandler {
 
     /**
-     * Gets the current amount of will of a specific type in the chunk at the given position.
+     * Gets the current amount of spiritus of a specific type in the chunk at the given position.
      *
      * @param level The level
      * @param pos   The position (chunk is determined from this)
      * @param type  The will type
      * @return The current will amount
      */
-    double getCurrentWill(Level level, BlockPos pos, SpiritusType type);
+    double getCurrentSpiritus(Level level, BlockPos pos, SpiritusType type);
 
     /**
      * Gets the total will of all types in the chunk at the given position.
@@ -157,7 +157,7 @@ public interface ISpiritusHandler {
      * @param targetAmount The target amount to fill to
      * @return The amount actually added
      */
-    double fillWillToAmount(Level level, BlockPos pos, SpiritusType type, double targetAmount);
+    double fillSpiritusToAmount(Level level, BlockPos pos, SpiritusType type, double targetAmount);
 
     /**
      * Gets the dominant will type in the chunk (highest amount).
@@ -166,7 +166,7 @@ public interface ISpiritusHandler {
      * @param pos   The position (chunk is determined from this)
      * @return The dominant will type
      */
-    SpiritusType getDominantWillType(Level level, BlockPos pos);
+    SpiritusType getDominantSpiritusType(Level level, BlockPos pos);
 
     /**
      * Checks if the chunk has any will.
@@ -199,7 +199,7 @@ public interface ISpiritusHandler {
      * @param threshold Minimum will required for each type to be considered "active"
      * @return A snapshot of current will amounts with usage tracking
      */
-    default SpiritusState queryWill(Level level, BlockPos pos, double threshold) {
+    default SpiritusState querySpiritus(Level level, BlockPos pos, double threshold) {
         return new SpiritusState(this, level, pos, threshold);
     }
 
@@ -216,5 +216,5 @@ public interface ISpiritusHandler {
      * @param maxTransfer The maximum amount to transfer
      * @return The amount actually transferred
      */
-    double transferWill(Level level, ChunkPos fromChunk, ChunkPos toChunk, SpiritusType type, double maxTransfer);
+    double transferSpiritus(Level level, ChunkPos fromChunk, ChunkPos toChunk, SpiritusType type, double maxTransfer);
 }

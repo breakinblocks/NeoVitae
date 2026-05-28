@@ -76,7 +76,7 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
     }
 
     private void renderSpiritusGauge(GuiGraphics guiGraphics) {
-        Map<SpiritusType, Double> costs = menu.tile.getCurrentRecipeWillCost();
+        Map<SpiritusType, Double> costs = menu.tile.getCurrentRecipeSpiritusCost();
         int gx = leftPos + GAUGE_X;
         int gy = topPos + GAUGE_Y;
 
@@ -84,8 +84,8 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
             SpiritusType type = ORDERED_TYPES[idx];
             int i = idx + 1;
 
-            double current = menu.tile.getChunkWill(type);
-            double max = menu.tile.getChunkWillMax(type);
+            double current = menu.tile.getChunkSpiritus(type);
+            double max = menu.tile.getChunkSpiritusMax(type);
             if (max <= 0) max = 100.0;
             double ratio = Math.max(0, Math.min(1, current / max));
 
@@ -164,7 +164,7 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
         }
 
         // Spiritus gauge tooltip
-        Map<SpiritusType, Double> costs = menu.tile.getCurrentRecipeWillCost();
+        Map<SpiritusType, Double> costs = menu.tile.getCurrentRecipeSpiritusCost();
         int gx = leftPos + GAUGE_X;
         int gy = topPos + GAUGE_Y;
         for (int idx = 0; idx < ORDERED_TYPES.length; idx++) {
@@ -175,8 +175,8 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
             int barY = gy + 4 * i;
 
             if (x >= barX && x <= barX + fullBarWidth && y >= barY - 1 && y <= barY + 3) {
-                double current = menu.tile.getChunkWill(type);
-                double max = menu.tile.getChunkWillMax(type);
+                double current = menu.tile.getChunkSpiritus(type);
+                double max = menu.tile.getChunkSpiritusMax(type);
                 List<Component> tooltip = new ArrayList<>();
                 tooltip.add(Component.literal(type.toCapitalized() + " Spiritus"));
                 tooltip.add(Component.literal(String.format("%.1f / %.1f", current, max)));

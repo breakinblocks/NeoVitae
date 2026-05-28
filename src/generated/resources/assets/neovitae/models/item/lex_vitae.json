@@ -11,28 +11,28 @@
       "model": "neovitae:item/variant/lex_vitae_active_ruina",
       "predicate": {
         "neovitae:active": 1.0,
-        "neovitae:will_type": 1.0
+        "neovitae:spiritus_type": 1.0
       }
     },
     {
       "model": "neovitae:item/variant/lex_vitae_active_nihilum",
       "predicate": {
         "neovitae:active": 1.0,
-        "neovitae:will_type": 2.0
+        "neovitae:spiritus_type": 2.0
       }
     },
     {
       "model": "neovitae:item/variant/lex_vitae_active_invictus",
       "predicate": {
         "neovitae:active": 1.0,
-        "neovitae:will_type": 3.0
+        "neovitae:spiritus_type": 3.0
       }
     },
     {
       "model": "neovitae:item/variant/lex_vitae_active_vindicta",
       "predicate": {
         "neovitae:active": 1.0,
-        "neovitae:will_type": 4.0
+        "neovitae:spiritus_type": 4.0
       }
     }
   ],

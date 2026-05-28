@@ -58,7 +58,7 @@ public class ItemAthanorToolBase extends Item implements IAthanorTool {
     }
 
     @Override
-    public SpiritusType getDominantWillType(ItemStack stack) {
+    public SpiritusType getDominantSpiritusType(ItemStack stack) {
         return stack.getOrDefault(NVDataComponents.SPIRITUS_TYPE.get(), SpiritusType.RAW);
     }
 }

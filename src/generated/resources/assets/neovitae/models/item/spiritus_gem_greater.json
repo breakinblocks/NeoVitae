@@ -4,31 +4,31 @@
     {
       "model": "neovitae:item/variant/spiritus_gem_greater_raw",
       "predicate": {
-        "neovitae:will_type": 0.0
+        "neovitae:spiritus_type": 0.0
       }
     },
     {
       "model": "neovitae:item/variant/spiritus_gem_greater_ruina",
       "predicate": {
-        "neovitae:will_type": 1.0
+        "neovitae:spiritus_type": 1.0
       }
     },
     {
       "model": "neovitae:item/variant/spiritus_gem_greater_nihilum",
       "predicate": {
-        "neovitae:will_type": 2.0
+        "neovitae:spiritus_type": 2.0
       }
     },
     {
       "model": "neovitae:item/variant/spiritus_gem_greater_invictus",
       "predicate": {
-        "neovitae:will_type": 3.0
+        "neovitae:spiritus_type": 3.0
       }
     },
     {
       "model": "neovitae:item/variant/spiritus_gem_greater_vindicta",
       "predicate": {
-        "neovitae:will_type": 4.0
+        "neovitae:spiritus_type": 4.0
       }
     }
   ],

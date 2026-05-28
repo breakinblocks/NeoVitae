@@ -8,7 +8,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.will.SpiritusChunk;
+import com.breakinblocks.neovitae.spiritus.SpiritusChunk;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ public class NVDataAttachments {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Map<ResourceLocation, Double>>> SENTIENT_ADDITIONAL = ATTACHMENT_TYPES.register("sentient_cooldown", () -> AttachmentType.<Map<ResourceLocation, Double>>builder(() -> new HashMap<>()).serialize(Codec.unboundedMap(ResourceLocation.CODEC, Codec.DOUBLE).xmap(HashMap::new, Function.identity())).build());
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<SpiritusChunk>> SPIRITUS_CHUNK = ATTACHMENT_TYPES.register(
-            "will_chunk", () -> AttachmentType.builder(SpiritusChunk::new).serialize(SpiritusChunk.CODEC).build()
+            "spiritus_chunk", () -> AttachmentType.builder(SpiritusChunk::new).serialize(SpiritusChunk.CODEC).build()
     );
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<DeadPetStorage>> DEAD_PET_STORAGE = ATTACHMENT_TYPES.register(

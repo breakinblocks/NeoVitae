@@ -25,21 +25,21 @@ public class ForgeSpiritusInfusionRecipe extends ForgeRecipe {
 
     public static final MapCodec<ForgeSpiritusInfusionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.DOUBLE.fieldOf("minDrain").forGetter(r -> r.minSpiritus),
-            Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedWill),
+            Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedSpiritus),
             Ingredient.CODEC_NONEMPTY.fieldOf("gemInput").forGetter(r -> r.gemInput)
     ).apply(instance, ForgeSpiritusInfusionRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ForgeSpiritusInfusionRecipe> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.DOUBLE, r -> r.minSpiritus,
-            ByteBufCodecs.DOUBLE, r -> r.usedWill,
+            ByteBufCodecs.DOUBLE, r -> r.usedSpiritus,
             Ingredient.CONTENTS_STREAM_CODEC, r -> r.gemInput,
             ForgeSpiritusInfusionRecipe::new
     );
 
     private final Ingredient gemInput;
 
-    public ForgeSpiritusInfusionRecipe(double minSpiritus, double usedWill, Ingredient gemInput) {
-        super(minSpiritus, usedWill, List.of(gemInput), ItemStack.EMPTY, Optional.empty());
+    public ForgeSpiritusInfusionRecipe(double minSpiritus, double usedSpiritus, Ingredient gemInput) {
+        super(minSpiritus, usedSpiritus, List.of(gemInput), ItemStack.EMPTY, Optional.empty());
         this.gemInput = gemInput;
     }
 

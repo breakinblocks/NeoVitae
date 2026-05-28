@@ -12,7 +12,7 @@ public interface IAthanorTool {
         return 1;
     }
 
-    default SpiritusType getDominantWillType(ItemStack stack) {
+    default SpiritusType getDominantSpiritusType(ItemStack stack) {
         return SpiritusType.RAW;
     }
 }

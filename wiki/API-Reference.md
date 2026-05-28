@@ -98,7 +98,7 @@ Spiritus is a per-chunk aura with five aspects. The aspect enum `SpiritusType` i
 
 ### ISpiritusHandler
 
-**Package** `com.breakinblocks.neovitae.api.will`
+**Package** `com.breakinblocks.neovitae.api.spiritus`
 
 All mutating methods are server-side only and no-op on the client.
 
@@ -122,13 +122,13 @@ All mutating methods are server-side only and no-op on the client.
 
 ### SpiritusHandler
 
-**Package** `com.breakinblocks.neovitae.api.will`
+**Package** `com.breakinblocks.neovitae.api.spiritus`
 
 Default implementation; available as `SpiritusHandler.INSTANCE`. Addons should use the API accessor.
 
 ### SpiritusState
 
-**Package** `com.breakinblocks.neovitae.api.will`
+**Package** `com.breakinblocks.neovitae.api.spiritus`
 
 Per-aspect snapshot with batch draining; produced by `ISpiritusHandler.queryWill`.
 
@@ -143,8 +143,8 @@ Per-aspect snapshot with batch draining; produced by `ISpiritusHandler.queryWill
 | `drain(Level, BlockPos)` | `void` | Same as above using `SpiritusHandler.INSTANCE` |
 
 ```java
-ISpiritusHandler will = NeoVitaeAPI.getInstance().getSpiritusHandler();
-SpiritusState state = will.queryWill(level, pos, 0.5);
+ISpiritusHandler spiritus = NeoVitaeAPI.getInstance().getSpiritusHandler();
+SpiritusState state = spiritus.querySpiritus(level, pos, 0.5);
 if (state.hasDefault()) {
     state.use(SpiritusType.RAW, 0.1);
 }
@@ -153,9 +153,9 @@ state.drain(level, pos);
 
 ### IPlayerSpiritusHandler
 
-**Package** `com.breakinblocks.neovitae.api.will`
+**Package** `com.breakinblocks.neovitae.api.spiritus`
 
-Inventory-level handler for spiritus items and will gems.
+Inventory-level handler for spiritus items and spiritus gems.
 
 | Method | Return Type | Description |
 |--------|-------------|-------------|
@@ -163,7 +163,7 @@ Inventory-level handler for spiritus items and will gems.
 | `getLargestSpiritusType(Player)` | `SpiritusType` | Aspect with the highest total |
 | `isSpiritusFull(SpiritusType, Player)` | `boolean` | Every gem of that aspect is full |
 | `consumeSpiritus(SpiritusType, Player, double)` | `double` | Drains aspect from gems |
-| `addSpiritus(Player, ItemStack)` | `ItemStack` | Pours a will-item stack into gems; returns leftover |
+| `addSpiritus(Player, ItemStack)` | `ItemStack` | Pours a spiritus-item stack into gems; returns leftover |
 | `addSpiritus(SpiritusType, Player, double)` | `double` | Adds aspect to gems |
 | `addSpiritus(SpiritusType, Player, double, ItemStack ignored)` | `double` | Same but skips a stack |
 

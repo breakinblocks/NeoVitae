@@ -595,7 +595,7 @@ Each anointment is restricted to a specific item tag. If a tool's id is not in t
 | Iron Tip (Bow Power) | `neovitae:anointable/bows` |
 | Archer's Polish (Bow Velocity) | `neovitae:anointable/bows` |
 | Dexterity Alkahest (Quick Draw) | `neovitae:anointable/bows` |
-| Will Power | `neovitae:anointable/weapons` |
+| Vampiric Edge (Spiritus Drain) | `neovitae:anointable/weapons` |
 | Repairing Salve (Weapon Repair) | `neovitae:anointable/weapons` |
 
 **Default tag members** (vanilla + NeoVitae):

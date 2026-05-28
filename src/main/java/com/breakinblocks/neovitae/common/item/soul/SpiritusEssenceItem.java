@@ -37,7 +37,7 @@ public class SpiritusEssenceItem extends Item implements ISpiritus {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         double will = getSpiritus(spiritusType, stack);
         if (will > 0) {
-            tooltip.add(Component.translatable("tooltip.neovitae.will", ChatUtil.DECIMAL_FORMAT.format(will))
+            tooltip.add(Component.translatable("tooltip.neovitae.spiritus", ChatUtil.DECIMAL_FORMAT.format(will))
                     .withStyle(ChatFormatting.GRAY));
         }
         super.appendHoverText(stack, context, tooltip, flag);

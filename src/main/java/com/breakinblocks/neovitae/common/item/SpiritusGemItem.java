@@ -49,7 +49,7 @@ public class SpiritusGemItem extends Item implements ISpiritusGem {
         ResourceLocation loc = stack.getItemHolder().getKey().location();
 
         tooltip.add(Component.translatable("tooltip.neovitae.spiritus_gem." + loc.getPath()).withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.neovitae.will", ChatUtil.DECIMAL_FORMAT.format(amount)).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.neovitae.spiritus", ChatUtil.DECIMAL_FORMAT.format(amount)).withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.neovitae.current_type." + type.getSerializedName()).withStyle(ChatFormatting.GRAY));
 
         super.appendHoverText(stack, context, tooltip, tooltipFlag);

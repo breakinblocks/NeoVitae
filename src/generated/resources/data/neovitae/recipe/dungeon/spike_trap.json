@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "S": {
+      "item": "neovitae:dungeon_stone"
+    },
+    "d": {
+      "item": "minecraft:dispenser"
+    },
+    "k": {
+      "item": "neovitae:spikes"
+    }
+  },
+  "pattern": [
+    "SkS",
+    "SdS",
+    "SSS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:spike_trap"
+  }
+}

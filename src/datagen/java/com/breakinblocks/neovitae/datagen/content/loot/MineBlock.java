@@ -19,6 +19,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockTau;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.util.helper.BlockWithItemHolder;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class MineBlock extends BlockLootSubProvider {
         addDropSelf(NVBlocks.ARA_VITAE);
         addDropSelf(NVBlocks.HELLFIRE_FORGE);
         addDropSelf(NVBlocks.SANDS_OF_VITAE);
+        addDropSelf(DungeonBlocks.SPIKE_TRAP);
     }
 
     private void addDropSelf(BlockWithItemHolder<? extends Block, ? extends BlockItem> toAdd) {

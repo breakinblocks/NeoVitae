@@ -1,7 +1,7 @@
 {
   "type": "neovitae:array",
   "addedinput": {
-    "tag": "c:dusts/redstone"
+    "tag": "c:dusts/corrupted"
   },
   "baseinput": {
     "item": "neovitae:tabula_animata"

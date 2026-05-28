@@ -4,11 +4,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -58,9 +61,27 @@ public class BlockSpikes extends Block {
 
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if (entity.getType() != EntityType.ITEM) {
-            entity.makeStuckInBlock(state, new Vec3(0.55D, 0.20D, 0.55D));
-            entity.hurt(NVDamageSources.spikes(level), 2.0F);
+        if (entity.getType() == EntityType.ITEM) return;
+
+        entity.makeStuckInBlock(state, new Vec3(0.55D, 0.20D, 0.55D));
+
+        float damage = 2.0F;
+        float healthBefore = entity instanceof LivingEntity le ? le.getHealth() : 0F;
+        entity.hurt(NVDamageSources.spikes(level), damage);
+
+        if (level.isClientSide) return;
+        if (entity instanceof Player) return;
+        if (!(entity instanceof LivingEntity living)) return;
+        if (living.getHealth() >= healthBefore) return;
+
+        BlockPos anchorPos = pos.relative(state.getValue(FACING).getOpposite());
+        BlockState anchorState = level.getBlockState(anchorPos);
+        if (!(anchorState.getBlock() instanceof BlockSpikeTrap)) return;
+        if (!anchorState.getValue(BlockSpikeTrap.ACTIVE)) return;
+
+        BlockEntity be = level.getBlockEntity(anchorPos);
+        if (be instanceof SpikeTrapBlockEntity trap) {
+            trap.onSpikeKill(living, damage);
         }
     }
 

@@ -3,7 +3,7 @@
   "chance_outputs": [],
   "guaranteed_outputs": [
     {
-      "count": 1,
+      "count": 16,
       "id": "neovitae:dungeon_stone_st"
     }
   ],
@@ -12,7 +12,7 @@
       "item": "minecraft:smooth_stone"
     },
     {
-      "item": "neovitae:base_spiritus_soul_invictus"
+      "item": "neovitae:spiritus_invictus_shard"
     }
   ],
   "tool": {

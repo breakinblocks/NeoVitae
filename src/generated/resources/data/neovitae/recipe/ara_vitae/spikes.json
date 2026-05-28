@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "bloodNeeded": 500,
+  "craftSpeed": 5,
+  "drainSpeed": 20,
+  "input": {
+    "item": "minecraft:iron_bars"
+  },
+  "minTier": 1,
+  "output": {
+    "count": 1,
+    "id": "neovitae:spikes"
+  }
+}

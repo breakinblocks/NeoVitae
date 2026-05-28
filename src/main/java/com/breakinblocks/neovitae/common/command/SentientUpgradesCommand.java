@@ -31,7 +31,7 @@ import javax.swing.text.html.CSS;
 import java.util.Optional;
 
 public class SentientUpgradesCommand {
-    private static final DynamicCommandExceptionType ERROR_NO_SENTIENT_HOLDER = new DynamicCommandExceptionType(playername -> Component.translatable("command.neovitae.upgrade.no_armour", playername));
+    private static final DynamicCommandExceptionType ERROR_NO_SENTIENT_HOLDER = new DynamicCommandExceptionType(playername -> Component.translatable("commands.neovitae.upgrade.no_armour", playername));
 
     public static LiteralArgumentBuilder<CommandSourceStack> build(CommandBuildContext buildContext) {
         return Commands.literal("upgrade")

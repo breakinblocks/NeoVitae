@@ -170,6 +170,7 @@ public class NVItems {
     public static final DeferredHolder<Item, Item> HELLFORGED_DUST = MaterialRegistry.getDust("hellforged");
     public static final DeferredHolder<Item, Item> CORRUPTED_DUST = plainItem("corrupted_dust");
     public static final DeferredHolder<Item, Item> CORRUPTED_DUST_TINY = plainItem("corrupted_tiny_dust");
+    public static final DeferredHolder<Item, Item> BLOOD_PEARL = plainItem("blood_pearl");
 
     public static final DeferredHolder<Item, ItemAthanorToolBase> BASIC_CUTTING_FLUID = BASIC_ITEMS.register("basic_cutting_fluid", () -> new ItemAthanorToolBase(64, 1, SpiritusType.RUINA));
     public static final DeferredHolder<Item, ItemAthanorToolBase> INTERMEDIATE_CUTTING_FLUID = BASIC_ITEMS.register("intermediate_cutting_fluid", () -> new ItemAthanorToolBase(512, 1.5, SpiritusType.RUINA));

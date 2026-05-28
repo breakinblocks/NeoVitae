@@ -456,7 +456,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .pattern("ete")
                 .pattern("ggg")
                 .define('g', Tags.Items.INGOTS_GOLD)
-                .define('e', Tags.Items.ENDER_PEARLS)
+                .define('e', NVItems.BLOOD_PEARL.get())
                 .define('t', NVItems.TELEPOSER_FOCUS.get())
                 .unlockedBy("has_teleposer_focus", has(NVItems.TELEPOSER_FOCUS.get()))
                 .save(output);
@@ -900,6 +900,24 @@ public class NVRecipeProvider extends RecipeProvider {
                 .drain(30)
                 .unlockedBy("has_gore_fang", has(NVItems.GORE_CLOTTED_FANG.get()))
                 .save(output, NeoVitae.rl("revenant_plate_infusion"));
+
+        AltarRecipeBuilder.build(DungeonBlocks.SPIKES.asItem())
+                .from(Items.IRON_BARS)
+                .minTier(1)
+                .bloodNeeded(500)
+                .consumption(5)
+                .drain(20)
+                .unlockedBy("has_iron_bars", has(Items.IRON_BARS))
+                .save(output, NeoVitae.rl("spikes"));
+
+        AltarRecipeBuilder.build(NVItems.BLOOD_PEARL.get())
+                .from(Items.ENDER_PEARL)
+                .minTier(1)
+                .bloodNeeded(500)
+                .consumption(5)
+                .drain(20)
+                .unlockedBy("has_ender_pearl", has(Items.ENDER_PEARL))
+                .save(output, NeoVitae.rl("blood_pearl"));
     }
 
     private void addHellfireForgeRecipes(RecipeOutput output) {
@@ -2177,12 +2195,19 @@ public class NVRecipeProvider extends RecipeProvider {
                 .texture("textures/models/alchemyarrays/triggerarray.png")
                 .save(output, "trigger");
 
-        // Spirit Siphon Array - imbued slate + redstone
+        // Spirit Siphon Array - imbued slate + corrupted dust
         AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.SPIRIT_SIPHON)
                 .base(NVItems.TABULA_ANIMATA.get())
-                .added(Ingredient.of(Tags.Items.DUSTS_REDSTONE))
+                .added(Ingredient.of(NVTags.Items.DUSTS_CORRUPTED))
                 .texture("textures/models/alchemyarrays/spiritsiphonarray.png")
                 .save(output, "spirit_siphon");
+
+        // Vortex Sigil Array - reinforced slate + blood pearl
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.VORTEX)
+                .base(NVItems.TABULA_ROBUR.get())
+                .added(Ingredient.of(NVItems.BLOOD_PEARL.get()))
+                .texture("textures/models/alchemyarrays/vortexsigil.png")
+                .save(output, "vortex");
 
         // Deflection Array - imbued slate + diamond
         AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.DEFLECTION)
@@ -2345,7 +2370,7 @@ public class NVRecipeProvider extends RecipeProvider {
         TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_TELEPOSITION.get())
                 .input(NVBlocks.TELEPOSER.item().get())
                 .input(Ingredient.of(Tags.Items.INGOTS_GOLD))
-                .input(Items.ENDER_PEARL)
+                .input(NVItems.BLOOD_PEARL.get())
                 .input(Items.CHORUS_FRUIT)
                 .syphon(10000)
                 .ticks(200)
@@ -3858,12 +3883,19 @@ public class NVRecipeProvider extends RecipeProvider {
     private void addDungeonRecipes(RecipeOutput output) {
         for (DungeonVariant variant : DungeonVariant.values()) {
             String suffix = variant.getSuffix();
-            ItemLike spiritus = switch (variant) {
-                case RAW -> NVItems.MONSTER_SOUL_RAW.get();
-                case RUINA -> NVItems.MONSTER_SOUL_RUINA.get();
-                case NIHILUM -> NVItems.MONSTER_SOUL_NIHILUM.get();
-                case INVICTUS -> NVItems.MONSTER_SOUL_INVICTUS.get();
-                case VINDICTA -> NVItems.MONSTER_SOUL_VINDICTA.get();
+            ItemLike crystal = switch (variant) {
+                case RAW -> NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get();
+                case RUINA -> NVItems.SPIRITUS_RUINA_CRYSTAL_ITEM.get();
+                case NIHILUM -> NVItems.SPIRITUS_NIHILUM_CRYSTAL_ITEM.get();
+                case INVICTUS -> NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get();
+                case VINDICTA -> NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get();
+            };
+            SpiritusType aspectType = switch (variant) {
+                case RAW -> SpiritusType.RAW;
+                case RUINA -> SpiritusType.RUINA;
+                case NIHILUM -> SpiritusType.NIHILUM;
+                case INVICTUS -> SpiritusType.INVICTUS;
+                case VINDICTA -> SpiritusType.VINDICTA;
             };
 
             ItemLike stone = DungeonBlocks.DUNGEON_STONE.get(variant);
@@ -3889,12 +3921,22 @@ public class NVRecipeProvider extends RecipeProvider {
             ItemLike polishedWall = DungeonBlocks.DUNGEON_POLISHED_WALL.get(variant);
             ItemLike tileWall = DungeonBlocks.DUNGEON_TILE_WALL.get(variant);
 
-            // === ATHANOR: smooth stone + spiritus → dungeon stone ===
+            // === ATHANOR: smooth stone + matching Spiritus Crystal → 16 dungeon stone (bulk) ===
             AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                     .input(Items.SMOOTH_STONE)
-                    .input(spiritus)
-                    .guaranteedOutput(new ItemStack(stone.asItem()))
+                    .input(crystal)
+                    .guaranteedOutput(new ItemStack(stone.asItem(), 16))
                     .save(output, NeoVitae.rl("dungeon/dungeon_stone" + suffix));
+
+            // === HELLFIRE FORGE: 3 smooth + 1 diamond → 4 dungeon stone, 128 min / 16 drain ===
+            HellfireForgeRecipeBuilder.build(stone.asItem(), 4)
+                    .requires(Items.SMOOTH_STONE, 3)
+                    .requires(Items.DIAMOND)
+                    .minSpiritus(128)
+                    .drain(16)
+                    .requiredSpiritusType(aspectType)
+                    .unlockedBy("has_smooth_stone", has(Items.SMOOTH_STONE))
+                    .save(output, NeoVitae.rl("dungeon/forge_dungeon_stone" + suffix));
 
             // === CRAFTING: stone → brick (2x2 = 4, vanilla stone → stone bricks) ===
             ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, brick1, 4)
@@ -3965,6 +4007,18 @@ public class NVRecipeProvider extends RecipeProvider {
             dungeonStonecutting(output, tile, tileSlab, 2, "sc_tile_slab_from_tile" + suffix);
             dungeonStonecutting(output, tile, tileWall, "sc_tile_wall_from_tile" + suffix);
         }
+
+        // === SPIKE TRAP: dispenser in middle, spikes above, dungeon stone everywhere else ===
+        ItemLike rawDungeonStone = DungeonBlocks.DUNGEON_STONE.get(DungeonVariant.RAW);
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, DungeonBlocks.SPIKE_TRAP.asItem())
+                .pattern("SkS")
+                .pattern("SdS")
+                .pattern("SSS")
+                .define('S', rawDungeonStone)
+                .define('k', DungeonBlocks.SPIKES.asItem())
+                .define('d', Items.DISPENSER)
+                .unlockedBy("has_spikes", has(DungeonBlocks.SPIKES.asItem()))
+                .save(output, NeoVitae.rl("dungeon/spike_trap"));
     }
 
     private void dungeonStonecutting(RecipeOutput output, ItemLike input, ItemLike result, String id) {

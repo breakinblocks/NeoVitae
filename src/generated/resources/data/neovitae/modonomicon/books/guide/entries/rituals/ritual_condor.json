@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/condor",
-      "multiblock_name": "Reverence of the Condor",
+      "multiblock_name": "Soaring Skies",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_condor.multiblock.text"
     },
@@ -54,7 +54,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 20,
+  "sort_number": 19,
   "x": 1,
   "y": -1
 }

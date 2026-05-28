@@ -14,7 +14,7 @@ Neo Vitae targets multiple Minecraft + NeoForge versions in parallel. The API su
 
 | 1.21.1 / NeoForge 21.x | 26.1 / NeoForge 26.x | Notes |
 |---|---|---|
-| `net.minecraft.resources.ResourceLocation` | `net.minecraft.resources.Identifier` | Same identity, renamed by Mojang in 1.21.2. Static factories renamed accordingly (`ResourceLocation.fromNamespaceAndPath` → `Identifier.fromNamespaceAndPath`). |
+| `net.minecraft.resources.ResourceLocation` | `net.minecraft.resources.Identifier` | Same identity, renamed by Mojang in 1.21.2. Static factories renamed accordingly (`ResourceLocation.fromNamespaceAndPath` -> `Identifier.fromNamespaceAndPath`). |
 | `net.minecraft.world.item.ItemStack` (as recipe output) | `net.minecraft.world.item.ItemStackTemplate` | 26.1 introduced a template wrapper for recipe outputs to allow late binding. Convert to a runtime `ItemStack` via `template.create()`. |
 | `net.neoforged.neoforge.fluids.FluidStack` (as recipe output) | `net.neoforged.neoforge.fluids.FluidStackTemplate` | Same wrapper concept as `ItemStackTemplate`. |
 | `IFluidHandler.fill / drain` with `FluidAction` | `Transaction`-scoped `ResourceHandler<FluidResource>.insert / extract` | NeoForge 26.x switched to the transactional resource-handler model for capabilities. |

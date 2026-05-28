@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/animal_growth",
-      "multiblock_name": "Ritual of the Shepherd",
+      "multiblock_name": "Ritual of Accelerated Aging",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_animal_growth.multiblock.text"
     },

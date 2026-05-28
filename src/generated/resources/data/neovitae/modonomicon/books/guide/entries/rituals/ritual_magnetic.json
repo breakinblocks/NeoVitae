@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/magnetism",
-      "multiblock_name": "Ritual of Magnetism",
+      "multiblock_name": "The Endless Quarry",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_magnetic.multiblock.text"
     },
@@ -30,7 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "text": "[#](8B0000)Activation Cost:[#]() 500 EV\\\n[#](8B0000)Crystal:[#]() Weak Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 2 EV every 5 ticks\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  4x Earth Ritual Stone\\\n  8x Air Ritual Stone\\\n  4x Fire Ritual Stone\\\n  [#](8B0000)Total:[#]() 16 runes",
+      "text": "[#](8B0000)Activation Cost:[#]() 5,000 EV\\\n[#](8B0000)Crystal:[#]() Weak Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 50 EV every 40 ticks\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  8x Earth Ritual Stone\\\n  4x Air Ritual Stone\\\n  4x Fire Ritual Stone\\\n  [#](8B0000)Total:[#]() 16 runes",
       "title": ""
     },
     {
@@ -43,6 +43,28 @@
       "text": "book.neovitae.guide.rituals.ritual_magnetic.info.text",
       "title": "book.neovitae.guide.rituals.ritual_magnetic.info.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_magnetic.collection.text",
+      "title": "book.neovitae.guide.rituals.ritual_magnetic.collection.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_magnetic.foundation.text",
+      "title": "book.neovitae.guide.rituals.ritual_magnetic.foundation.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [
@@ -54,7 +76,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 21,
+  "sort_number": 20,
   "x": 3,
   "y": -1
 }

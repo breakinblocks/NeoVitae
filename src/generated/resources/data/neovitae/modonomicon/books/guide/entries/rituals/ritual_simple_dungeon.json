@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/simple_dungeon",
-      "multiblock_name": "Edge of the Hidden Realm",
+      "multiblock_name": "Breaching the Edge of Demon Realm",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_simple_dungeon.multiblock.text"
     },
@@ -54,7 +54,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 27,
+  "sort_number": 25,
   "x": -7,
   "y": 3
 }

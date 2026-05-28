@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/forsaken_soul",
-      "multiblock_name": "Gathering of the Forsaken Souls",
+      "multiblock_name": "The Ritual of Lost Souls",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_crystal_catalyst.multiblock.text"
     },
@@ -54,7 +54,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 36,
+  "sort_number": 33,
   "x": -7,
   "y": 5
 }

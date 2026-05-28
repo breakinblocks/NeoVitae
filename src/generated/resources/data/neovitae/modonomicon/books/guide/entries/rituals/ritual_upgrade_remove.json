@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/upgrade_remove",
-      "multiblock_name": "Sound of the Cleansing Soul",
+      "multiblock_name": "Tabula Rasa",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_upgrade_remove.multiblock.text"
     },
@@ -54,7 +54,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 38,
+  "sort_number": 35,
   "x": -5,
   "y": 6
 }

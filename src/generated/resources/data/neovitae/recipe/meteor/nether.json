@@ -8,7 +8,7 @@
     {
       "fill": "minecraft:netherrack",
       "minWeight": 500,
-      "radius": 8,
+      "radius": 16,
       "weighted": [
         {
           "entry": "minecraft:glowstone",
@@ -27,7 +27,7 @@
     {
       "fill": "minecraft:blackstone",
       "minWeight": 1000,
-      "radius": 5,
+      "radius": 10,
       "shell": "minecraft:glowstone",
       "weighted": [
         {

@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/standard_dungeon",
-      "multiblock_name": "Pathway to the Endless Realm",
+      "multiblock_name": "Highway to Hell",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_standard_dungeon.multiblock.text"
     },
@@ -54,7 +54,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 28,
+  "sort_number": 26,
   "x": -5,
   "y": 3
 }

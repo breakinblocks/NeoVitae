@@ -7,7 +7,7 @@
   "layers": [
     {
       "fill": "minecraft:iron_ore",
-      "radius": 4,
+      "radius": 8,
       "shell": "minecraft:cobblestone",
       "weighted": [
         {
@@ -32,7 +32,7 @@
       "additionalWeight": 100,
       "fill": "minecraft:stone",
       "minWeight": 1000,
-      "radius": 7,
+      "radius": 14,
       "weighted": [
         {
           "entry": "minecraft:iron_ore",

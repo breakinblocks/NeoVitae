@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/meteor",
-      "multiblock_name": "Mark of the Falling Tower",
+      "multiblock_name": "Ritual of Meteo",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_meteor.multiblock.text"
     },
@@ -65,7 +65,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 29,
+  "sort_number": 27,
   "x": 1,
   "y": 2
 }

@@ -13,28 +13,28 @@ import net.minecraft.world.item.component.TooltipDisplay;
 
 public class SpiritusCrystalItem extends Item {
     private final SpiritusType spiritusType;
-    private final double willPerCrystal;
+    private final double spiritusPerCrystal;
 
     public SpiritusCrystalItem(Item.Properties props, SpiritusType spiritusType) {
         this(props, spiritusType, 50.0);
     }
 
-    public SpiritusCrystalItem(Item.Properties props, SpiritusType spiritusType, double willPerCrystal) {
+    public SpiritusCrystalItem(Item.Properties props, SpiritusType spiritusType, double spiritusPerCrystal) {
         super(props);
         this.spiritusType = spiritusType;
-        this.willPerCrystal = willPerCrystal;
+        this.spiritusPerCrystal = spiritusPerCrystal;
     }
 
-    public SpiritusType getWillType() {
+    public SpiritusType getSpiritusType() {
         return spiritusType;
     }
 
     public double getSpiritus(ItemStack stack) {
-        return willPerCrystal * stack.getCount();
+        return spiritusPerCrystal * stack.getCount();
     }
 
-    public double getWillPerCrystal() {
-        return willPerCrystal;
+    public double getSpiritusPerCrystal() {
+        return spiritusPerCrystal;
     }
     @Override
     @SuppressWarnings("deprecation")

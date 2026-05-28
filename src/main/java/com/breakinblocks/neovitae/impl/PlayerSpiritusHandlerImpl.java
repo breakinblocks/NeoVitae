@@ -2,9 +2,9 @@ package com.breakinblocks.neovitae.impl;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import com.breakinblocks.neovitae.api.will.IPlayerSpiritusHandler;
+import com.breakinblocks.neovitae.api.spiritus.IPlayerSpiritusHandler;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
-import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
 
 public class PlayerSpiritusHandlerImpl implements IPlayerSpiritusHandler {
 

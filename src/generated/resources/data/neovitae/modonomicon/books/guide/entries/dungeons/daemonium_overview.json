@@ -49,8 +49,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.daemonium_overview.will_types.text",
-      "title": "book.neovitae.guide.dungeons.daemonium_overview.will_types.title",
+      "text": "book.neovitae.guide.dungeons.daemonium_overview.spiritus_types.text",
+      "title": "book.neovitae.guide.dungeons.daemonium_overview.spiritus_types.title",
       "use_markdown_in_title": false
     }
   ],

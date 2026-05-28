@@ -23,8 +23,8 @@ import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
-import com.breakinblocks.neovitae.api.will.SpiritusHandler;
-import com.breakinblocks.neovitae.api.will.SpiritusState;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusHandler;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.util.Utils;
@@ -193,10 +193,10 @@ public final class RitualHelper {
 
     /**
      * Queries all spiritus types for a chunk and returns a snapshot with threshold checks.
-     * Convenience method delegating to {@link SpiritusHandler#queryWill(Level, BlockPos, double)}.
+     * Convenience method delegating to {@link SpiritusHandler#querySpiritus(Level, BlockPos, double)}.
      */
-    public static SpiritusState queryWill(Level level, BlockPos pos, double threshold) {
-        return SpiritusHandler.INSTANCE.queryWill(level, pos, threshold);
+    public static SpiritusState querySpiritus(Level level, BlockPos pos, double threshold) {
+        return SpiritusHandler.INSTANCE.querySpiritus(level, pos, threshold);
     }
 
     /**

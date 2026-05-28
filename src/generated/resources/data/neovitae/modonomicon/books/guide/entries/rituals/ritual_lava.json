@@ -62,8 +62,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_lava.will_effects.text",
-      "title": "book.neovitae.guide.rituals.ritual_lava.will_effects.title",
+      "text": "book.neovitae.guide.rituals.ritual_lava.spiritus_effects.text",
+      "title": "book.neovitae.guide.rituals.ritual_lava.spiritus_effects.title",
       "use_markdown_in_title": false
     }
   ],

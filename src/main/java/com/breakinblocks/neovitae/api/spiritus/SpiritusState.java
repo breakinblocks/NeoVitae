@@ -1,4 +1,4 @@
-package com.breakinblocks.neovitae.api.will;
+package com.breakinblocks.neovitae.api.spiritus;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -10,14 +10,14 @@ import java.util.EnumMap;
  * Snapshot of spiritus amounts in a chunk, with threshold-based active flags
  * and accumulated usage tracking for batch draining.
  *
- * <p>Created via {@link ISpiritusHandler#queryWill(Level, BlockPos, double)}.
+ * <p>Created via {@link ISpiritusHandler#querySpiritus(Level, BlockPos, double)}.
  * This is the recommended way for rituals and other systems to interact with
- * spiritus, replacing individual {@code getCurrentWill}/{@code drainSpiritus} calls.</p>
+ * spiritus, replacing individual {@code getCurrentSpiritus}/{@code drainSpiritus} calls.</p>
  *
  * <h2>Usage Example</h2>
  * <pre>{@code
  * ISpiritusHandler handler = NeoVitaeAPI.getInstance().getSpiritusHandler();
- * SpiritusState will = handler.queryWill(level, pos, 0.5);
+ * SpiritusState will = handler.querySpiritus(level, pos, 0.5);
  *
  * if (will.hasDefault()) {
  *     double scaling = will.getDefault() / 100.0;
@@ -40,12 +40,12 @@ public final class SpiritusState {
 
     /**
      * Creates a new SpiritusState by querying all will types from the handler.
-     * Typically called via {@link ISpiritusHandler#queryWill(Level, BlockPos, double)}.
+     * Typically called via {@link ISpiritusHandler#querySpiritus(Level, BlockPos, double)}.
      */
     public SpiritusState(ISpiritusHandler handler, Level level, BlockPos pos, double threshold) {
         this.threshold = threshold;
         for (SpiritusType type : SpiritusType.values()) {
-            amounts.put(type, handler.getCurrentWill(level, pos, type));
+            amounts.put(type, handler.getCurrentSpiritus(level, pos, type));
             used.put(type, 0.0);
         }
     }

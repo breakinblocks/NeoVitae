@@ -12,7 +12,7 @@ import net.neoforged.neoforge.client.gui.GuiLayer;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
-import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 import java.util.List;
 
@@ -75,7 +75,7 @@ public class SpiritusGaugeOverlay implements GuiLayer {
             }
 
             if (player.isShiftKeyDown()) {
-                double amount = WorldSpiritusHandler.getCurrentWill(mc.level, player.blockPosition(), type);
+                double amount = WorldSpiritusHandler.getCurrentSpiritus(mc.level, player.blockPosition(), type);
                 var poseStack = guiGraphics.pose();
                 poseStack.pushMatrix();
                 poseStack.translate(x - 2 * textureXOffset + 70, y - 2);

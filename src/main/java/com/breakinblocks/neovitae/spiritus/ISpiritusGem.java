@@ -1,23 +1,23 @@
-package com.breakinblocks.neovitae.will;
+package com.breakinblocks.neovitae.spiritus;
 
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 /**
- * Interface for Items that store Will (like Spiritus Gems).
+ * Interface for Items that store Spiritus (like Spiritus Gems).
  */
 public interface ISpiritusGem {
     /**
      * Absorbs will from a will item stack into this gem.
      * @return The remainder spiritusStack (empty if fully absorbed)
      */
-    ItemStack fillSpiritusGem(ItemStack willGemStack, ItemStack spiritusStack);
+    ItemStack fillSpiritusGem(ItemStack spiritusGemStack, ItemStack spiritusStack);
 
-    double getSpiritus(SpiritusType type, ItemStack willGemStack);
+    double getSpiritus(SpiritusType type, ItemStack spiritusGemStack);
 
-    void setSpiritus(SpiritusType type, ItemStack willGemStack, double amount);
+    void setSpiritus(SpiritusType type, ItemStack spiritusGemStack, double amount);
 
-    int getMaxSpiritus(SpiritusType type, ItemStack willGemStack);
+    int getMaxSpiritus(SpiritusType type, ItemStack spiritusGemStack);
 
     double drainSpiritus(SpiritusType type, ItemStack stack, double drainAmount, boolean doDrain);
 

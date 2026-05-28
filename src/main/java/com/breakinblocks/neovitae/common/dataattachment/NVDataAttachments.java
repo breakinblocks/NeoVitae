@@ -8,7 +8,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.will.SpiritusChunk;
+import com.breakinblocks.neovitae.spiritus.SpiritusChunk;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +30,7 @@ public class NVDataAttachments {
                     .build());
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<SpiritusChunk>> SPIRITUS_CHUNK = ATTACHMENT_TYPES.register(
-            "will_chunk", () -> AttachmentType.builder(SpiritusChunk::new).serialize(SpiritusChunk.CODEC.fieldOf("value")).build()
+            "spiritus_chunk", () -> AttachmentType.builder(SpiritusChunk::new).serialize(SpiritusChunk.CODEC.fieldOf("value")).build()
     );
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<DeadPetStorage>> DEAD_PET_STORAGE = ATTACHMENT_TYPES.register(

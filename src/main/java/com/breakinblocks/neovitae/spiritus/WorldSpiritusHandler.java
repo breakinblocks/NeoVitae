@@ -1,4 +1,4 @@
-package com.breakinblocks.neovitae.will;
+package com.breakinblocks.neovitae.spiritus;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -45,7 +45,7 @@ public class WorldSpiritusHandler {
         return chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
     }
 
-    public static double getCurrentWill(Level level, BlockPos pos, SpiritusType type) {
+    public static double getCurrentSpiritus(Level level, BlockPos pos, SpiritusType type) {
         return getSpiritusChunk(level, pos).getSpiritus(type);
     }
 
@@ -54,17 +54,17 @@ public class WorldSpiritusHandler {
      * Note: This does NOT sync to clients immediately. Client sync happens via SpiritusGaugeItem.
      * @return The amount actually added
      */
-    public static double addWillToChunk(Level level, BlockPos pos, SpiritusType type, double amount) {
+    public static double addSpiritusToChunk(Level level, BlockPos pos, SpiritusType type, double amount) {
         if (level == null || level.isClientSide() || amount <= 0) {
             return 0;
         }
 
         LevelChunk chunk = level.getChunkAt(pos);
-        SpiritusChunk willChunk = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
-        double added = willChunk.addSpiritus(type, amount);
+        SpiritusChunk spiritusChunkVar = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
+        double added = spiritusChunkVar.addSpiritus(type, amount);
 
         if (added > 0) {
-            SpiritusChunk newSpiritusChunk = willChunk.copy();
+            SpiritusChunk newSpiritusChunk = spiritusChunkVar.copy();
             chunk.setData(NVDataAttachments.SPIRITUS_CHUNK, newSpiritusChunk);
             chunk.markUnsaved();
         }
@@ -72,17 +72,17 @@ public class WorldSpiritusHandler {
         return added;
     }
 
-    public static double drainWillFromChunk(Level level, BlockPos pos, SpiritusType type, double amount) {
+    public static double drainSpiritusFromChunk(Level level, BlockPos pos, SpiritusType type, double amount) {
         if (level == null || level.isClientSide() || amount <= 0) {
             return 0;
         }
 
         LevelChunk chunk = level.getChunkAt(pos);
-        SpiritusChunk willChunk = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
-        double drained = willChunk.drainSpiritus(type, amount);
+        SpiritusChunk spiritusChunkVar = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
+        double drained = spiritusChunkVar.drainSpiritus(type, amount);
 
         if (drained > 0) {
-            SpiritusChunk newSpiritusChunk = willChunk.copy();
+            SpiritusChunk newSpiritusChunk = spiritusChunkVar.copy();
             chunk.setData(NVDataAttachments.SPIRITUS_CHUNK, newSpiritusChunk);
             chunk.markUnsaved();
         }
@@ -90,8 +90,8 @@ public class WorldSpiritusHandler {
         return drained;
     }
 
-    public static int syncChunkToTrackingPlayers(ServerLevel level, ChunkPos chunkPos, SpiritusChunk willChunk) {
-        SpiritusSyncPayload payload = SpiritusSyncPayload.fromSpiritusChunk(chunkPos.x(), chunkPos.z(), willChunk);
+    public static int syncChunkToTrackingPlayers(ServerLevel level, ChunkPos chunkPos, SpiritusChunk spiritusChunkVar) {
+        SpiritusSyncPayload payload = SpiritusSyncPayload.fromSpiritusChunk(chunkPos.x(), chunkPos.z(), spiritusChunkVar);
         List<ServerPlayer> trackingPlayers = level.getChunkSource().chunkMap.getPlayers(chunkPos, false);
         int playerCount = trackingPlayers.size();
 
@@ -100,8 +100,8 @@ public class WorldSpiritusHandler {
         return playerCount;
     }
 
-    public static void syncChunkToPlayer(ServerPlayer player, ChunkPos chunkPos, SpiritusChunk willChunk) {
-        SpiritusSyncPayload payload = SpiritusSyncPayload.fromSpiritusChunk(chunkPos.x(), chunkPos.z(), willChunk);
+    public static void syncChunkToPlayer(ServerPlayer player, ChunkPos chunkPos, SpiritusChunk spiritusChunkVar) {
+        SpiritusSyncPayload payload = SpiritusSyncPayload.fromSpiritusChunk(chunkPos.x(), chunkPos.z(), spiritusChunkVar);
         PacketDistributor.sendToPlayer(player, payload);
     }
 
@@ -117,24 +117,24 @@ public class WorldSpiritusHandler {
 
         BlockPos pos = player.blockPosition();
         ChunkPos chunkPos = new ChunkPos(pos.getX() >> 4, pos.getZ() >> 4);
-        SpiritusChunk willChunk = getSpiritusChunk(player.level(), pos);
+        SpiritusChunk spiritusChunkVar = getSpiritusChunk(player.level(), pos);
 
-        syncChunkToPlayer(player, chunkPos, willChunk);
+        syncChunkToPlayer(player, chunkPos, spiritusChunkVar);
     }
 
-    public static double fillWillToAmount(Level level, BlockPos pos, SpiritusType type, double targetAmount) {
-        double current = getCurrentWill(level, pos, type);
+    public static double fillSpiritusToAmount(Level level, BlockPos pos, SpiritusType type, double targetAmount) {
+        double current = getCurrentSpiritus(level, pos, type);
         if (current >= targetAmount) {
             return 0;
         }
-        return addWillToChunk(level, pos, type, targetAmount - current);
+        return addSpiritusToChunk(level, pos, type, targetAmount - current);
     }
 
     public static double getTotalSpiritus(Level level, BlockPos pos) {
         return getSpiritusChunk(level, pos).getTotalSpiritus();
     }
 
-    public static SpiritusType getDominantWillType(Level level, BlockPos pos) {
+    public static SpiritusType getDominantSpiritusType(Level level, BlockPos pos) {
         return getSpiritusChunk(level, pos).getDominantType();
     }
 
@@ -142,7 +142,7 @@ public class WorldSpiritusHandler {
         return getSpiritusChunk(level, pos).hasSpiritus();
     }
 
-    public static double transferWill(Level level, ChunkPos fromChunk, ChunkPos toChunk, SpiritusType type, double maxTransfer) {
+    public static double transferSpiritus(Level level, ChunkPos fromChunk, ChunkPos toChunk, SpiritusType type, double maxTransfer) {
         if (level == null || level.isClientSide()) {
             return 0;
         }
@@ -199,9 +199,9 @@ public class WorldSpiritusHandler {
         }
 
         LevelChunk chunk = level.getChunkAt(pos);
-        SpiritusChunk willChunk = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
-        willChunk.setMaxBonus(type, bonus);
-        SpiritusChunk newSpiritusChunk = willChunk.copy();
+        SpiritusChunk spiritusChunkVar = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
+        spiritusChunkVar.setMaxBonus(type, bonus);
+        SpiritusChunk newSpiritusChunk = spiritusChunkVar.copy();
         chunk.setData(NVDataAttachments.SPIRITUS_CHUNK, newSpiritusChunk);
         chunk.markUnsaved();
     }
@@ -212,9 +212,9 @@ public class WorldSpiritusHandler {
         }
 
         LevelChunk chunk = level.getChunkAt(pos);
-        SpiritusChunk willChunk = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
-        double newBonus = willChunk.addMaxBonus(type, amount);
-        SpiritusChunk newSpiritusChunk = willChunk.copy();
+        SpiritusChunk spiritusChunkVar = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
+        double newBonus = spiritusChunkVar.addMaxBonus(type, amount);
+        SpiritusChunk newSpiritusChunk = spiritusChunkVar.copy();
         chunk.setData(NVDataAttachments.SPIRITUS_CHUNK, newSpiritusChunk);
         chunk.markUnsaved();
 

@@ -24,9 +24,9 @@ public final class HellfireForgeTests {
         return forge;
     }
 
-    private static ItemStack createGemWithWill(double will) {
+    private static ItemStack createGemWithSpiritus(double spiritus) {
         ItemStack gem = new ItemStack(NVItems.SPIRITUS_GEM_PETTY.get());
-        gem.set(NVDataComponents.SPIRITUS_AMOUNT, will);
+        gem.set(NVDataComponents.SPIRITUS_AMOUNT, spiritus);
         return gem;
     }
 
@@ -55,7 +55,7 @@ public final class HellfireForgeTests {
                 forge.inv.setStackInSlot(1, new ItemStack(Items.GOLD_INGOT));
                 forge.inv.setStackInSlot(2, new ItemStack(Items.GLASS));
                 forge.inv.setStackInSlot(3, new ItemStack(Items.LAPIS_LAZULI));
-                forge.inv.setStackInSlot(HellfireForgeBlockEntity.GEM_SLOT, createGemWithWill(10.0));
+                forge.inv.setStackInSlot(HellfireForgeBlockEntity.GEM_SLOT, createGemWithSpiritus(10.0));
 
                 helper.runAfterDelay(150, () -> {
                     ItemStack output = forge.inv.getStackInSlot(HellfireForgeBlockEntity.OUTPUT_SLOT);
@@ -70,7 +70,7 @@ public final class HellfireForgeTests {
             });
         });
 
-        r.add("hellfire_forge/does_not_craft_without_will", 200, helper -> {
+        r.add("hellfire_forge/does_not_craft_without_spiritus", 200, helper -> {
             helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
             HellfireForgeBlockEntity forge = placeForge(helper, new BlockPos(3, 1, 2));
 
@@ -103,7 +103,7 @@ public final class HellfireForgeTests {
                 forge.inv.setStackInSlot(1, new ItemStack(Items.GOLD_INGOT));
                 forge.inv.setStackInSlot(2, new ItemStack(Items.GLASS));
                 forge.inv.setStackInSlot(3, new ItemStack(Items.LAPIS_LAZULI));
-                forge.inv.setStackInSlot(HellfireForgeBlockEntity.GEM_SLOT, createGemWithWill(10.0));
+                forge.inv.setStackInSlot(HellfireForgeBlockEntity.GEM_SLOT, createGemWithSpiritus(10.0));
 
                 helper.runAfterDelay(150, () -> {
                     for (int i = 0; i < 4; i++) {
@@ -115,9 +115,9 @@ public final class HellfireForgeTests {
 
                     ItemStack gem = forge.inv.getStackInSlot(HellfireForgeBlockEntity.GEM_SLOT);
                     if (!gem.isEmpty()) {
-                        double remainingWill = gem.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
-                        if (remainingWill >= 10.0) {
-                            helper.fail("Gem should have less will after crafting, has " + remainingWill);
+                        double remainingSpiritus = gem.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
+                        if (remainingSpiritus >= 10.0) {
+                            helper.fail("Gem should have less spiritus after crafting, has " + remainingSpiritus);
                         }
                     }
                     helper.succeed();
@@ -134,7 +134,7 @@ public final class HellfireForgeTests {
 
                 forge.inv.setStackInSlot(0, new ItemStack(Items.DIRT));
                 forge.inv.setStackInSlot(1, new ItemStack(Items.DIRT));
-                forge.inv.setStackInSlot(HellfireForgeBlockEntity.GEM_SLOT, createGemWithWill(10.0));
+                forge.inv.setStackInSlot(HellfireForgeBlockEntity.GEM_SLOT, createGemWithSpiritus(10.0));
 
                 helper.runAfterDelay(110, () -> {
                     if (forge.getProgress() > 0) {

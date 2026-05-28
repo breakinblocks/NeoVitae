@@ -13,7 +13,7 @@ import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.SpiritusState;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.List;
@@ -59,7 +59,7 @@ public class RitualWater extends Ritual {
         }
 
         // Spiritus: Fill fluid tanks with water
-        SpiritusState will = RitualHelper.queryWill(ctx.level(), ctx.masterPos(), 1.0);
+        SpiritusState will = RitualHelper.querySpiritus(ctx.level(), ctx.masterPos(), 1.0);
         if (will.hasDefault()) {
             List<BlockPos> tankPositions = RitualHelper.getRangePositions(ctx.master(), this, TANK_RANGE, ctx.masterPos());
 

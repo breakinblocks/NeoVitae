@@ -1,4 +1,4 @@
-package com.breakinblocks.neovitae.api.will;
+package com.breakinblocks.neovitae.api.spiritus;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -10,11 +10,11 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
  * <p>Provides methods to query, consume, and add spiritus across all
  * will-holding items (raw Spiritus items and will gems) in a player's inventory.</p>
  *
- * <p>Access via {@code NeoVitaeAPI.getInstance().getPlayerWillHandler()}.</p>
+ * <p>Access via {@code NeoVitaeAPI.getInstance().getPlayerSpiritusHandler()}.</p>
  *
  * <h2>Usage Example</h2>
  * <pre>{@code
- * IPlayerSpiritusHandler handler = NeoVitaeAPI.getInstance().getPlayerWillHandler();
+ * IPlayerSpiritusHandler handler = NeoVitaeAPI.getInstance().getPlayerSpiritusHandler();
  *
  * double total = handler.getTotalSpiritus(SpiritusType.RAW, player);
  * double consumed = handler.consumeSpiritus(SpiritusType.RAW, player, 10.0);

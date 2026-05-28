@@ -24,7 +24,7 @@ public class ForgeTransformRecipe extends ForgeRecipe {
 
     public static final MapCodec<ForgeTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.DOUBLE.fieldOf("minDrain").forGetter(r -> r.minSpiritus),
-            Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedWill),
+            Codec.DOUBLE.fieldOf("drain").forGetter(r -> r.usedSpiritus),
             Codec.list(Ingredient.CODEC).fieldOf("catalysts").forGetter(ForgeTransformRecipe::getCatalysts),
             Ingredient.CODEC.fieldOf("transformInput").forGetter(r -> r.transformInput),
             ItemStackTemplate.CODEC.fieldOf("output").forGetter(r -> r.resultTemplate)
@@ -32,7 +32,7 @@ public class ForgeTransformRecipe extends ForgeRecipe {
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ForgeTransformRecipe> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.DOUBLE, r -> r.minSpiritus,
-            ByteBufCodecs.DOUBLE, r -> r.usedWill,
+            ByteBufCodecs.DOUBLE, r -> r.usedSpiritus,
             Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), ForgeTransformRecipe::getCatalysts,
             Ingredient.CONTENTS_STREAM_CODEC, r -> r.transformInput,
             ItemStackTemplate.STREAM_CODEC, r -> r.resultTemplate,
@@ -42,9 +42,9 @@ public class ForgeTransformRecipe extends ForgeRecipe {
     private final Ingredient transformInput;
     private final List<Ingredient> catalysts;
 
-    public ForgeTransformRecipe(double minSpiritus, double usedWill, List<Ingredient> catalysts,
+    public ForgeTransformRecipe(double minSpiritus, double usedSpiritus, List<Ingredient> catalysts,
                                  Ingredient transformInput, ItemStackTemplate resultTemplate) {
-        super(minSpiritus, usedWill, combinedIngredients(catalysts, transformInput), resultTemplate, Optional.empty());
+        super(minSpiritus, usedSpiritus, combinedIngredients(catalysts, transformInput), resultTemplate, Optional.empty());
         this.transformInput = transformInput;
         this.catalysts = catalysts;
     }
@@ -66,8 +66,8 @@ public class ForgeTransformRecipe extends ForgeRecipe {
     @Override
     public ItemStack assemble(ForgeInput input) {
         ItemStack gemStack = input.getGem();
-        double will = gemStack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
-        if (will < minSpiritus) return ItemStack.EMPTY;
+        double spiritus = gemStack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
+        if (spiritus < minSpiritus) return ItemStack.EMPTY;
 
         for (int i = 0; i < 4; i++) {
             ItemStack stack = input.getItem(i);

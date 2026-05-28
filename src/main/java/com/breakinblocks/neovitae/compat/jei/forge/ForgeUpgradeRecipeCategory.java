@@ -76,8 +76,8 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> 
     @Override
     public void getTooltip(ITooltipBuilder tooltip, ForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         if (mouseX >= 40 && mouseX <= 60 && mouseY >= 21 && mouseY <= 34) {
-            tooltip.add(Component.translatable("jei.neovitae.recipe.minimumsouls", DECIMAL_FORMAT.format(recipe.getMinWill())));
-            tooltip.add(Component.translatable("jei.neovitae.recipe.soulsdrained", DECIMAL_FORMAT.format(recipe.getDrain())));
+            tooltip.add(Component.translatable("jei.neovitae.recipe.minimum_spiritus", DECIMAL_FORMAT.format(recipe.getMinSpiritus())));
+            tooltip.add(Component.translatable("jei.neovitae.recipe.spiritus_drained", DECIMAL_FORMAT.format(recipe.getDrain())));
         }
     }
 
@@ -91,7 +91,7 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> 
         poseStack.pushMatrix();
         poseStack.translate(40, 33);
         poseStack.scale(0.5f, 0.5f);
-        guiGraphics.text(font, Component.translatable("jei.neovitae.recipe.will"), 0, 0, 0xFF8B8B8B);
+        guiGraphics.text(font, Component.translatable("jei.neovitae.recipe.spiritus"), 0, 0, 0xFF8B8B8B);
         poseStack.popMatrix();
 
         if (recipe instanceof ForgeUpgradeRecipe) {
@@ -105,9 +105,9 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, ForgeRecipe recipe, IFocusGroup focuses) {
         List<ItemStack> validGems = Lists.newArrayList();
-        for (HellfireForgeRecipeCategory.DefaultWill will : HellfireForgeRecipeCategory.DefaultWill.values()) {
-            if (will.minSouls >= recipe.getMinWill()) {
-                validGems.add(will.spiritusStack);
+        for (HellfireForgeRecipeCategory.DefaultSpiritus spiritus : HellfireForgeRecipeCategory.DefaultSpiritus.values()) {
+            if (spiritus.minSpiritus >= recipe.getMinSpiritus()) {
+                validGems.add(spiritus.spiritusStack);
             }
         }
         IRecipeSlotBuilder gems = builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 43, 1);

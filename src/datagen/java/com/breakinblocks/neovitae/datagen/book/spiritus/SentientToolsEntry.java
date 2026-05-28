@@ -21,7 +21,7 @@ public class SentientToolsEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Sentient Tools");
         this.pageText("The success of the [#](8B0000)Sentient Sword[#]() has inspired further experimentation. If a blade "
-                + "can be imbued with [#](4A0080)demonic will[#](), why not a pickaxe? An axe? A shovel?\\\n\\\n"
+                + "can be imbued with [#](4A0080)demonic spiritus[#](), why not a pickaxe? An axe? A shovel?\\\n\\\n"
                 + "[#](2E8B57)All Sentient equipment can be repaired with Crystallized Spiritus in an Anvil, and all are "
                 + "highly receptive to enchantment.[#]()");
 
@@ -81,7 +81,7 @@ public class SentientToolsEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Will-hungry implements that grow stronger as your reserves deepen.";
+        return "Spiritus-hungry implements that grow stronger as your reserves deepen.";
     }
 
     @Override

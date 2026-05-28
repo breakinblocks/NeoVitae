@@ -1294,7 +1294,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "throwing_dagger");
 
-        // Amethyst throwing dagger: 2 copper + 1 amethyst, 32 will min, 2 drain, makes 16
+        // Amethyst throwing dagger: 2 copper + 1 amethyst, 32 spiritus min, 2 drain, makes 16
         HellfireForgeRecipeBuilder.build(NVItems.THROWING_DAGGER_AMETHYST.get(), 16)
                 .requires(Ingredient.of(items.getOrThrow(Tags.Items.INGOTS_COPPER)), 2)
                 .requires(Tags.Items.GEMS_AMETHYST)
@@ -1303,7 +1303,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_lesser_gem", has(NVItems.SPIRITUS_GEM_LESSER.get()))
                 .save(output, rKey(NeoVitae.rl("throwing_dagger_amethyst")));
 
-        // Syringe throwing dagger: 1 amethyst dagger + 1 bottle, 200 will min, 10 drain, makes 1
+        // Syringe throwing dagger: 1 amethyst dagger + 1 bottle, 200 spiritus min, 10 drain, makes 1
         HellfireForgeRecipeBuilder.build(NVItems.THROWING_DAGGER_SYRINGE.get())
                 .requires(NVItems.THROWING_DAGGER_AMETHYST.get())
                 .requires(Items.GLASS_BOTTLE)
@@ -1892,7 +1892,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(NVItems.TABULA_SPIRITUS.get())
                 .minSpiritus(800)
                 .drain(80)
-                .requiredWillType(SpiritusType.RUINA)
+                .requiredSpiritusType(SpiritusType.RUINA)
                 .unlockedBy("has_blight_marrow", has(NVItems.BLIGHT_MARROW.get()))
                 .save(output, rKey(NeoVitae.rl("blight_whetstone")));
 

@@ -12,7 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
-import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -52,7 +52,7 @@ public class AuraCommand {
                 .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
                 .then(
                         Commands.literal("get")
-                                .executes(AuraCommand::getAllWill)
+                                .executes(AuraCommand::getAllSpiritus)
                                 .then(
                                         Commands.argument("type", StringArgumentType.word())
                                                 .suggests(WILL_TYPE_ONLY_SUGGESTIONS)
@@ -87,11 +87,11 @@ public class AuraCommand {
                 )
                 .then(
                         Commands.literal("clear")
-                                .executes(AuraCommand::clearWill)
+                                .executes(AuraCommand::clearSpiritus)
                 );
     }
 
-    private static int getAllWill(CommandContext<CommandSourceStack> context) {
+    private static int getAllSpiritus(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
         ServerLevel level = source.getLevel();
         BlockPos pos = BlockPos.containing(source.getPosition());
@@ -100,7 +100,7 @@ public class AuraCommand {
         sb.append(pos.toShortString()).append(":\n");
 
         for (SpiritusType type : SpiritusType.values()) {
-            double amount = WorldSpiritusHandler.getCurrentWill(level, pos, type);
+            double amount = WorldSpiritusHandler.getCurrentSpiritus(level, pos, type);
             double max = WorldSpiritusHandler.getMaxSpiritus(level, pos, type);
             double bonus = WorldSpiritusHandler.getMaxBonus(level, pos, type);
             sb.append("  ").append(type.getSerializedName()).append(": ")
@@ -121,16 +121,16 @@ public class AuraCommand {
         BlockPos pos = BlockPos.containing(source.getPosition());
 
         if (typeStr.equalsIgnoreCase("all")) {
-            return getAllWill(context);
+            return getAllSpiritus(context);
         }
 
-        SpiritusType type = parseWillType(typeStr);
+        SpiritusType type = parseSpiritusType(typeStr);
         if (type == null) {
             source.sendFailure(Component.translatable("command.neovitae.aura.invalid_will_type", typeStr));
             return 0;
         }
 
-        double amount = WorldSpiritusHandler.getCurrentWill(level, pos, type);
+        double amount = WorldSpiritusHandler.getCurrentSpiritus(level, pos, type);
         double max = WorldSpiritusHandler.getMaxSpiritus(level, pos, type);
         double bonus = WorldSpiritusHandler.getMaxBonus(level, pos, type);
         StringBuilder msg = new StringBuilder(type.getSerializedName() + " will in chunk: " +
@@ -151,18 +151,18 @@ public class AuraCommand {
             for (SpiritusType type : SpiritusType.values()) {
                 double max = WorldSpiritusHandler.getMaxSpiritus(level, pos, type);
                 double clampedAmount = Math.max(0, Math.min(max, amount));
-                setWillForType(level, pos, type, clampedAmount);
+                setSpiritusForType(level, pos, type, clampedAmount);
             }
             source.sendSuccess(() -> Component.translatable("command.neovitae.aura.set_all", String.format("%.2f", amount)), true);
         } else {
-            SpiritusType type = parseWillType(typeStr);
+            SpiritusType type = parseSpiritusType(typeStr);
             if (type == null) {
                 source.sendFailure(Component.translatable("command.neovitae.aura.invalid_will_type", typeStr));
                 return 0;
             }
             double max = WorldSpiritusHandler.getMaxSpiritus(level, pos, type);
             double clampedAmount = Math.max(0, Math.min(max, amount));
-            setWillForType(level, pos, type, clampedAmount);
+            setSpiritusForType(level, pos, type, clampedAmount);
             source.sendSuccess(() -> Component.translatable("command.neovitae.aura.set_type", type.getSerializedName(), String.format("%.2f", clampedAmount)), true);
         }
         return 1;
@@ -176,59 +176,59 @@ public class AuraCommand {
         if (typeStr.equalsIgnoreCase("all")) {
             StringBuilder results = new StringBuilder("Added will to all types:\n");
             for (SpiritusType type : SpiritusType.values()) {
-                double before = WorldSpiritusHandler.getCurrentWill(level, pos, type);
+                double before = WorldSpiritusHandler.getCurrentSpiritus(level, pos, type);
                 if (amount >= 0) {
-                    WorldSpiritusHandler.addWillToChunk(level, pos, type, amount);
+                    WorldSpiritusHandler.addSpiritusToChunk(level, pos, type, amount);
                 } else {
-                    WorldSpiritusHandler.drainWillFromChunk(level, pos, type, -amount);
+                    WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, type, -amount);
                 }
-                double after = WorldSpiritusHandler.getCurrentWill(level, pos, type);
+                double after = WorldSpiritusHandler.getCurrentSpiritus(level, pos, type);
                 results.append("  ").append(type.getSerializedName()).append(": ")
                         .append(String.format("%.2f", before)).append(" -> ").append(String.format("%.2f", after)).append("\n");
             }
             source.sendSuccess(() -> Component.literal(results.toString()), true);
         } else {
-            SpiritusType type = parseWillType(typeStr);
+            SpiritusType type = parseSpiritusType(typeStr);
             if (type == null) {
                 source.sendFailure(Component.translatable("command.neovitae.aura.invalid_will_type", typeStr));
                 return 0;
             }
-            double before = WorldSpiritusHandler.getCurrentWill(level, pos, type);
+            double before = WorldSpiritusHandler.getCurrentSpiritus(level, pos, type);
             if (amount >= 0) {
-                WorldSpiritusHandler.addWillToChunk(level, pos, type, amount);
+                WorldSpiritusHandler.addSpiritusToChunk(level, pos, type, amount);
             } else {
-                WorldSpiritusHandler.drainWillFromChunk(level, pos, type, -amount);
+                WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, type, -amount);
             }
-            double after = WorldSpiritusHandler.getCurrentWill(level, pos, type);
+            double after = WorldSpiritusHandler.getCurrentSpiritus(level, pos, type);
             source.sendSuccess(() -> Component.literal(type.getSerializedName() + " will: " +
                     String.format("%.2f", before) + " -> " + String.format("%.2f", after)), true);
         }
         return 1;
     }
 
-    private static int clearWill(CommandContext<CommandSourceStack> context) {
+    private static int clearSpiritus(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
         ServerLevel level = source.getLevel();
         BlockPos pos = BlockPos.containing(source.getPosition());
 
         for (SpiritusType type : SpiritusType.values()) {
-            setWillForType(level, pos, type, 0);
+            setSpiritusForType(level, pos, type, 0);
         }
 
         source.sendSuccess(() -> Component.translatable("command.neovitae.aura.cleared_chunk"), true);
         return 1;
     }
 
-    private static void setWillForType(ServerLevel level, BlockPos pos, SpiritusType type, double amount) {
-        double current = WorldSpiritusHandler.getCurrentWill(level, pos, type);
+    private static void setSpiritusForType(ServerLevel level, BlockPos pos, SpiritusType type, double amount) {
+        double current = WorldSpiritusHandler.getCurrentSpiritus(level, pos, type);
         if (amount > current) {
-            WorldSpiritusHandler.addWillToChunk(level, pos, type, amount - current);
+            WorldSpiritusHandler.addSpiritusToChunk(level, pos, type, amount - current);
         } else if (amount < current) {
-            WorldSpiritusHandler.drainWillFromChunk(level, pos, type, current - amount);
+            WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, type, current - amount);
         }
     }
 
-    private static SpiritusType parseWillType(String str) {
+    private static SpiritusType parseSpiritusType(String str) {
         if (str.equalsIgnoreCase("raw")) return SpiritusType.RAW;
         for (SpiritusType type : SpiritusType.values()) {
             if (type.getSerializedName().equalsIgnoreCase(str)) {

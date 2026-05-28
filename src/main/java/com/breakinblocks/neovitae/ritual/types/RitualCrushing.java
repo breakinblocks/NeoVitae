@@ -18,7 +18,7 @@ import com.breakinblocks.neovitae.common.block.BlockRitualStone;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.SpiritusState;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
@@ -73,7 +73,7 @@ public class RitualCrushing extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
+        SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, MIN_DEFAULT);
 
         boolean doSilk = will.hasSteadfast();
         boolean doFortune = will.hasDestructive();
@@ -83,7 +83,7 @@ public class RitualCrushing extends Ritual {
             doFortune = false;
         }
 
-        refreshTime = scaleByRawWill(will, 40, 1, 5);
+        refreshTime = scaleByRawSpiritus(will, 40, 1, 5);
 
         ItemStack toolStack = RitualHelper.createMiningTool(serverLevel, doFortune, doSilk);
 
@@ -93,8 +93,8 @@ public class RitualCrushing extends Ritual {
 
         FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(serverLevel, owner, "NeoVitae");
 
-        double silkWillUsed = 0;
-        double fortuneWillUsed = 0;
+        double silkSpiritusUsed = 0;
+        double fortuneSpiritusUsed = 0;
 
         // --- CRUSH: Process 1 block per tick ---
         List<BlockPos> positions = RitualHelper.getRangePositions(ctx.master(), this, CRUSH_RANGE, masterPos);
@@ -113,11 +113,11 @@ public class RitualCrushing extends Ritual {
             if (state.getBlock() instanceof BlockRitualStone) continue;
             if (state.getBlock() instanceof BlockMasterRitualStone) continue;
 
-            if (doSilk && (will.getSteadfast() - silkWillUsed) < WILL_PER_SILK) {
+            if (doSilk && (will.getSteadfast() - silkSpiritusUsed) < WILL_PER_SILK) {
                 doSilk = false;
                 toolStack = RitualHelper.createMiningTool(serverLevel, false, false);
             }
-            if (doFortune && (will.getDestructive() - fortuneWillUsed) < WILL_PER_FORTUNE) {
+            if (doFortune && (will.getDestructive() - fortuneSpiritusUsed) < WILL_PER_FORTUNE) {
                 doFortune = false;
                 toolStack = RitualHelper.createMiningTool(serverLevel, false, false);
             }
@@ -133,15 +133,15 @@ public class RitualCrushing extends Ritual {
                     StreamPresets.arcaneBolt(masterPos, pos).build()
                             .sendToNearby(ctx.serverLevel(), masterPos, 64));
 
-            if (doSilk) silkWillUsed += WILL_PER_SILK;
-            if (doFortune) fortuneWillUsed += WILL_PER_FORTUNE;
+            if (doSilk) silkSpiritusUsed += WILL_PER_SILK;
+            if (doFortune) fortuneSpiritusUsed += WILL_PER_FORTUNE;
 
             RitualHelper.distributeDrops(blockDrops, hasInv ? inv : null,
                     stack -> Utils.spawnStackAtBlock(ctx.level(), masterPos, Direction.UP, stack));
         }
 
         RitualHelper.drainSpiritus(will, ctx.level(), masterPos,
-                0, 0, fortuneWillUsed, 0, silkWillUsed);
+                0, 0, fortuneSpiritusUsed, 0, silkSpiritusUsed);
 
         if (crushed) {
             ctx.syphon(getRefreshCost());

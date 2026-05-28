@@ -27,9 +27,9 @@ public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
     public static final int MAX_INGREDIENTS = 4;
 
     protected double minSpiritus;
-    protected double drainedWill;
+    protected double drainedSpiritus;
     protected List<Ingredient> ingredients = new ArrayList<>();
-    protected boolean requireWillType = false;
+    protected boolean requireSpiritusType = false;
     protected Optional<SpiritusType> spiritusType = Optional.empty();
     private final DataComponentPatch.Builder patchBuilder = DataComponentPatch.builder();
 
@@ -87,11 +87,11 @@ public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
         if (drain < 0) {
             throw new IllegalArgumentException("drain cannot be negative");
         }
-        this.drainedWill = drain;
+        this.drainedSpiritus = drain;
         return this;
     }
 
-    public HellfireForgeRecipeBuilder requiredWillType(SpiritusType type) {
+    public HellfireForgeRecipeBuilder requiredSpiritusType(SpiritusType type) {
         this.spiritusType = Optional.of(type);
         return this;
     }
@@ -117,7 +117,7 @@ public class HellfireForgeRecipeBuilder extends BaseRecipeBuilder {
                 ? resultTemplate()
                 : new ItemStackTemplate(resultItem.asItem(), patch)
                         .withCount(Math.max(resultCount, 1));
-        ForgeRecipe recipe = new ForgeRecipe(minSpiritus, drainedWill, ingredients, resultTpl, spiritusType);
+        ForgeRecipe recipe = new ForgeRecipe(minSpiritus, drainedSpiritus, ingredients, resultTpl, spiritusType);
         output.accept(ResourceKey.create(Registries.RECIPE, id.identifier().withPrefix("hellfire_forge/")), recipe, advBuilder.build(advancementId(id, "hellfire_forge")));
     }
 }

@@ -67,7 +67,7 @@ public class NeoVitae {
     public static final String MODID = "neovitae";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final Identifier TYPE_PROPERTY = rl("will_type");
+    public static final Identifier TYPE_PROPERTY = rl("spiritus_type");
     public static final Identifier INCENSE_PROPERTY = rl("incense_type");
 
     public static final ServerConfig SERVER_CONFIG;

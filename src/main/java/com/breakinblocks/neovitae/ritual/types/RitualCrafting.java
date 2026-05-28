@@ -21,7 +21,7 @@ import com.breakinblocks.neovitae.common.recipe.forge.ForgeInput;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.SpiritusState;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +80,7 @@ public class RitualCrafting extends Ritual {
         ResourceHandler<ItemResource> outputHandler = ctx.level().getCapability(Capabilities.Item.BLOCK, outputPos, null);
         if (inputHandler == null || outputHandler == null) return;
 
-        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, Math.min(MIN_STEADFAST, MIN_CORROSIVE));
+        SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, Math.min(MIN_STEADFAST, MIN_CORROSIVE));
 
         boolean tryHellfireForge = will.hasSteadfast();
         boolean tryAlchemy = will.hasCorrosive();

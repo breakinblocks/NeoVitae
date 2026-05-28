@@ -15,7 +15,7 @@ import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.common.network.SetClientVelocityPayload;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.SpiritusState;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -27,7 +27,7 @@ import net.minecraft.world.entity.player.Player;
  * <p>Spiritus effects:
  * <ul>
  *   <li><b>Raw (Default)</b> - Increased speed scaling: horizontal=3+rawSpiritus/40, vertical=1.2+rawSpiritus/200</li>
- *   <li><b>Corrosive</b> - Additional horizontal speed bonus: corrosiveWill/40</li>
+ *   <li><b>Corrosive</b> - Additional horizontal speed bonus: corrosiveSpiritus/40</li>
  *   <li><b>Destructive</b> - Only transport baby entities (skip adults)</li>
  *   <li><b>Vengeful</b> - Only transport adult entities (skip babies)</li>
  *   <li><b>Steadfast</b> - Apply Soft Fall to launched entities</li>
@@ -61,9 +61,9 @@ public class RitualSpeed extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         Direction facing = masterRitualStone.getDirection();
 
-        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_SPIRITUS);
+        SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, MIN_SPIRITUS);
 
-        boolean hasRawWill = will.hasDefault();
+        boolean hasRawSpiritus = will.hasDefault();
         boolean hasCorrosive = will.hasCorrosive();
         boolean hasDestructive = will.hasDestructive();
         boolean hasVengeful = will.hasVengeful();
@@ -71,7 +71,7 @@ public class RitualSpeed extends Ritual {
 
         double horizontalSpeed;
         double verticalSpeed;
-        if (hasRawWill) {
+        if (hasRawSpiritus) {
             horizontalSpeed = 3.0 + will.getDefault() / 40.0;
             verticalSpeed = 1.2 + will.getDefault() / 200.0;
         } else {
@@ -101,12 +101,12 @@ public class RitualSpeed extends Ritual {
                     entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,
                             SPEED_BUFF_DURATION, SPEED_BUFF_AMPLIFIER, true, false));
                     cost += getRefreshCost();
-                    if (hasRawWill) will.use(SpiritusType.RAW, SPIRITUS_PER_ENTITY);
+                    if (hasRawSpiritus) will.use(SpiritusType.RAW, SPIRITUS_PER_ENTITY);
                 }
                 continue;
             }
 
-            // Entity filtering based on destructive/vengeful will
+            // Entity filtering based on destructive/vengeful spiritus
             boolean isBaby = entity.isBaby();
             boolean isPlayer = entity instanceof Player;
 
@@ -160,7 +160,7 @@ public class RitualSpeed extends Ritual {
 
             cost += getRefreshCost();
 
-            if (hasRawWill) will.use(SpiritusType.RAW, SPIRITUS_PER_ENTITY);
+            if (hasRawSpiritus) will.use(SpiritusType.RAW, SPIRITUS_PER_ENTITY);
             if (hasCorrosive) will.use(SpiritusType.RUINA, SPIRITUS_PER_ENTITY);
             if (hasDestructive) will.use(SpiritusType.NIHILUM, SPIRITUS_PER_ENTITY);
             if (hasVengeful) will.use(SpiritusType.VINDICTA, SPIRITUS_PER_ENTITY);

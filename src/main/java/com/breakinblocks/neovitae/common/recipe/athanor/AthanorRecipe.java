@@ -25,7 +25,7 @@ import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
-import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -240,12 +240,12 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
             }
         }
         if (spiritusBoost && level != null && pos != null && !guaranteedOutput.isEmpty()) {
-            double raw = WorldSpiritusHandler.getCurrentWill(level, pos, SpiritusType.RAW);
+            double raw = WorldSpiritusHandler.getCurrentSpiritus(level, pos, SpiritusType.RAW);
             int produced = rollBonusCount(spiritusBoostChance(raw) * toolBonusChance);
             for (int i = 0; i < produced; i++) {
                 outputs.add(guaranteedOutput.get(0).copyWithCount(1));
                 if (Math.random() < SPIRITUS_BOOST_CONSUME_CHANCE) {
-                    WorldSpiritusHandler.drainWillFromChunk(level, pos, SpiritusType.RAW, 1.0);
+                    WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, SpiritusType.RAW, 1.0);
                 }
             }
         }

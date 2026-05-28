@@ -1,4 +1,4 @@
-package com.breakinblocks.neovitae.will;
+package com.breakinblocks.neovitae.spiritus;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,10 +20,10 @@ public class SpiritusChunkEvents {
         ChunkPos chunkPos = event.getPos();
 
         LevelChunk chunk = level.getChunk(chunkPos.x(), chunkPos.z());
-        SpiritusChunk willChunk = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
+        SpiritusChunk spiritusChunkVar = chunk.getData(NVDataAttachments.SPIRITUS_CHUNK);
 
-        if (willChunk.hasSpiritus()) {
-            WorldSpiritusHandler.syncChunkToPlayer(player, chunkPos, willChunk);
+        if (spiritusChunkVar.hasSpiritus()) {
+            WorldSpiritusHandler.syncChunkToPlayer(player, chunkPos, spiritusChunkVar);
         }
     }
 }

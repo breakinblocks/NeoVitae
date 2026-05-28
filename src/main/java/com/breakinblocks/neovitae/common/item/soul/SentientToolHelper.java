@@ -12,7 +12,7 @@ import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
-import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public final class SentientToolHelper {
     /** Soul thresholds that determine power level (0-6). Each threshold unlocks stronger effects. */
     public static final int[] SOUL_BRACKET = {16, 60, 200, 400, 1000, 2000, 4000};
 
-    /** Will drain per swing at each power level. */
+    /** Spiritus drain per swing at each power level. */
     public static final double[] SOUL_DRAIN_PER_SWING = {0.05, 0.1, 0.2, 0.4, 0.75, 1, 1.25};
 
     /** Variable soul drop amount multiplier at each power level. */
@@ -150,25 +150,25 @@ public final class SentientToolHelper {
             return soulList;
         }
 
-        double willModifier = killedEntity instanceof Slime ? 0.67 : 1;
+        double spiritusModifier = killedEntity instanceof Slime ? 0.67 : 1;
         SpiritusType type = getCurrentType(stack);
         SpiritusEssenceItem soulItem = getSoulItemForType(type);
 
         double soulDropAmount = getSoulDrop(stack);
         double staticDropAmount = getStaticDrop(stack);
 
-        double willBonus = 1;
+        double spiritusBonus = 1;
         if (attackingEntity instanceof Player player) {
             double bonusSpiritus = player.getAttributeValue(NVAttributes.BONUS_SPIRITUS);
             if (bonusSpiritus > 0) {
-                willBonus = 1 + bonusSpiritus / 100;
+                spiritusBonus = 1 + bonusSpiritus / 100;
             }
         }
 
         for (int i = 0; i <= looting; i++) {
             if (i == 0 || attackingEntity.level().getRandom().nextDouble() < 0.4) {
-                double soulAmount = willModifier * (soulDropAmount * attackingEntity.level().getRandom().nextDouble()
-                    + staticDropAmount) * killedEntity.getMaxHealth() / 20d * willBonus;
+                double soulAmount = spiritusModifier * (soulDropAmount * attackingEntity.level().getRandom().nextDouble()
+                    + staticDropAmount) * killedEntity.getMaxHealth() / 20d * spiritusBonus;
                 soulList.add(soulItem.createSpiritus(soulAmount));
             }
         }

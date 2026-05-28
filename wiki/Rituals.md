@@ -67,7 +67,7 @@ Some rituals can be expanded far beyond their default range, but EV cost scales 
 | Ritual of the Green Grove (*Verdant Awakening*) | Suffuses the earth with life, hastening all growth. |
 | Ritual of Magnetism (*Deep Earth Communion*) | Persistent pulling field. Every loose item entity within a 21×7×21 box around the Master Ritual Stone is dragged toward the stone, letting you funnel mob drops, ore-processing outputs, or any item rain into a single collection point. |
 | Hymn of Siphoning (*The Thirsting Stone*) | Draws surrounding fluids into a waiting vessel. |
-| Domain of the Filler (*The Mason's Will*) | Fills the void with blocks drawn from a chest. |
+| Domain of the Filler (*The Mason's Spiritus*) | Fills the void with blocks drawn from a chest. |
 | Ritual of the Crusher (*The Grinding Pressure*) | Grinds blocks to dust and collects the spoils. |
 | Rhythm of the Beating Anvil (*The Tireless Smith*) | Automates crafting through vitaemantic labor. |
 | Ritual of the Full Spring (*The Spring Eternal*) | Places water source blocks in the world; with **Raw Spiritus** available in the chunk, also fills any fluid tank directly above the Master Ritual Stone (1 Raw Spiritus per 1,000 mB of water). |

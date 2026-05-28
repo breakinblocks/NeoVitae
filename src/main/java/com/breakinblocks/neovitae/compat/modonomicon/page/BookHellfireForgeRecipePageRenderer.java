@@ -76,9 +76,9 @@ public class BookHellfireForgeRecipePageRenderer extends BookNVRecipePageRendere
         this.parentScreen.renderItemStack(guiGraphics, outputX + 3, outputY + 3, mouseX, mouseY, recipe.getOutput());
 
         int textY = recipeY + (rows * slotSize) + 4;
-        String willFormatted = String.format("%,.0f", recipe.getMinWill());
+        String spiritusFormatted = String.format("%,.0f", recipe.getMinSpiritus());
         String drainFormatted = String.format("%,.0f", recipe.getDrain());
-        Component info = Component.literal("Will: " + willFormatted + " | Drain: " + drainFormatted);
+        Component info = Component.literal("Spiritus: " + spiritusFormatted + " | Drain: " + drainFormatted);
         this.drawCenteredStringNoShadow(guiGraphics, info.getVisualOrderText(),
                 BookEntryScreen.PAGE_WIDTH / 2, textY, 0xFF555555, 1.0f);
     }

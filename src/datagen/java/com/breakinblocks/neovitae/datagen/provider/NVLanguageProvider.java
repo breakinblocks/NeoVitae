@@ -676,7 +676,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.reader.corner1Set", "Corner 1 set at %d, %d, %d");
         add("chat.neovitae.reader.areaSet", "Area '%s' updated successfully.");
         add("chat.neovitae.reader.invalidRange", "Invalid range key.");
-        add("chat.neovitae.reader.spiritusType", "Will type set to: %s");
+        add("chat.neovitae.reader.spiritusType", "Spiritus type set to: %s");
         add("ritual.neovitae.blockRange.noRange", "No range with that key.");
         add("ritual.neovitae.blockRange.tooBig", "Area volume exceeds limit of %d blocks.");
         add("ritual.neovitae.blockRange.tooFar", "Area extends beyond limits (vertical: %d, horizontal: %d).");
@@ -835,7 +835,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.CORRUPTED_DUST.get(), "Corrupted Dust");
         add(NVItems.CORRUPTED_DUST_TINY.get(), "Tiny Corrupted Dust");
 
-        addTooltip("will", "Spiritus: %s");
+        addTooltip("spiritus", "Spiritus: %s");
         for (SpiritusType type : SpiritusType.values()) {
             addTooltip("current_type." + type.getSerializedName(), String.format("Contains: %s Spiritus", type.toCapitalized()));
         }

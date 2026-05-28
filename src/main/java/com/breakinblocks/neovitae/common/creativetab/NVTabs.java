@@ -58,13 +58,13 @@ public class NVTabs {
                             String path = holder.getId().getPath();
                             // Monster souls are already typed (basemonstersoul_*), don't create variants
                             if (path.startsWith("base_spiritus_soul")) {
-                                // Just add the item with 5 will amount
+                                // Just add the item with 5 spiritus amount
                                 ItemStack stack = new ItemStack(holder.get());
                                 stack.set(NVDataComponents.SPIRITUS_AMOUNT, 5.0);
                                 output.accept(stack);
                             } else {
                                 // Soul gems and raw Spiritus get variants for each will type, filled with max will
-                                double maxSpiritus = getMaxWillForItem(path);
+                                double maxSpiritus = getMaxSpiritusForItem(path);
                                 for (SpiritusType type : SpiritusType.values()) {
                                     ItemStack stack = new ItemStack(holder.get());
                                     stack.set(NVDataComponents.SPIRITUS_TYPE, type);
@@ -195,7 +195,7 @@ public class NVTabs {
         tab.accept(stack);
     }
 
-    private static double getMaxWillForItem(String path) {
+    private static double getMaxSpiritusForItem(String path) {
         // Max will amounts for each gem tier (from data maps)
         return switch (path) {
             case "spiritus_gem_petty" -> 64.0;

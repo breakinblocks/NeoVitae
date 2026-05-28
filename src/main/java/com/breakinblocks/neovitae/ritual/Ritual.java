@@ -8,7 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.api.will.SpiritusState;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 import java.util.*;
@@ -216,11 +216,11 @@ public abstract class Ritual {
      * @param spiritusAmount  The amount of spiritus influencing the refresh time
      * @param baseTime    The base refresh time in ticks (used when no will is present)
      * @param minTime     The minimum refresh time in ticks (floor value)
-     * @param willDivisor The divisor applied to the will amount to determine tick reduction
+     * @param spiritusDivisor The divisor applied to the will amount to determine tick reduction
      * @return The scaled refresh time, no lower than {@code minTime}
      */
-    protected static int scaleRefreshTime(double spiritusAmount, int baseTime, int minTime, double willDivisor) {
-        return Math.max(minTime, baseTime - (int) (spiritusAmount / willDivisor));
+    protected static int scaleRefreshTime(double spiritusAmount, int baseTime, int minTime, double spiritusDivisor) {
+        return Math.max(minTime, baseTime - (int) (spiritusAmount / spiritusDivisor));
     }
 
     /**
@@ -229,9 +229,9 @@ public abstract class Ritual {
      * {@code hasRaw ? scaleRefreshTime(...) : baseTime} ternary used by the
      * raw-spiritus-accelerated rituals (animal growth, crushing, green grove).
      */
-    protected static int scaleByRawWill(SpiritusState will,
-                                        int baseTime, int minTime, double willDivisor) {
-        return will.hasDefault() ? scaleRefreshTime(will.getDefault(), baseTime, minTime, willDivisor) : baseTime;
+    protected static int scaleByRawSpiritus(SpiritusState spiritus,
+                                        int baseTime, int minTime, double spiritusDivisor) {
+        return spiritus.hasDefault() ? scaleRefreshTime(spiritus.getDefault(), baseTime, minTime, spiritusDivisor) : baseTime;
     }
 
     protected final void addParallelRunes(Consumer<RitualComponent> components, int offset, int y, EnumRuneType rune) {

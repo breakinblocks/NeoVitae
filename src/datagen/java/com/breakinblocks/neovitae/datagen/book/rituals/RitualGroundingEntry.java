@@ -35,7 +35,7 @@ public class RitualGroundingEntry extends EntryProvider {
         this.pageTitle("The Weight of Guilt");
         this.pageText("This circle enforces a cruel gravity upon all within its domain. Wings fail. Enchantments falter. Any entity that dares take flight is dragged back to the earth, as though the world itself refuses to release them.");
 
-        this.page("will_effects", () -> BookTextPageModel.create()
+        this.page("spiritus_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");

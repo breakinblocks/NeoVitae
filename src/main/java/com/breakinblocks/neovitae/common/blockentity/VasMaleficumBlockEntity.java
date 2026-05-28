@@ -12,13 +12,13 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.SpiritusCrystalItem;
-import com.breakinblocks.neovitae.will.SpiritusHelper;
-import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.SpiritusHelper;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 public class VasMaleficumBlockEntity extends BaseBlockEntity {
     public static final double GEM_DRAIN_RATE = 10.0;
     public static final double CRYSTAL_CONSUME_THRESHOLD = 50.0;
-    public static final double WILL_PER_CRYSTAL = 50.0;
+    public static final double SPIRITUS_PER_CRYSTAL = 50.0;
 
     public final Inv inventory = new Inv();
 
@@ -109,18 +109,18 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
 
     private void handleDrain(ItemStack stack) {
         for (SpiritusType type : SpiritusType.values()) {
-            double currentChunkWill = WorldSpiritusHandler.getCurrentWill(level, worldPosition, type);
-            double maxWillInChunk = WorldSpiritusHandler.getMaxSpiritus(level, worldPosition, type);
-            if (currentChunkWill >= maxWillInChunk) continue;
+            double currentChunkSpiritus = WorldSpiritusHandler.getCurrentSpiritus(level, worldPosition, type);
+            double maxSpiritusInChunk = WorldSpiritusHandler.getMaxSpiritus(level, worldPosition, type);
+            if (currentChunkSpiritus >= maxSpiritusInChunk) continue;
 
-            double spaceInChunk = maxWillInChunk - currentChunkWill;
+            double spaceInChunk = maxSpiritusInChunk - currentChunkSpiritus;
             double drainAmount = Math.min(GEM_DRAIN_RATE, spaceInChunk);
 
             double canDrain = SpiritusHelper.drainSpiritus(stack, type, drainAmount, false);
             if (canDrain > 0) {
                 double drained = SpiritusHelper.drainSpiritus(stack, type, canDrain, true);
                 if (drained > 0) {
-                    WorldSpiritusHandler.addWillToChunk(level, worldPosition, type, drained);
+                    WorldSpiritusHandler.addSpiritusToChunk(level, worldPosition, type, drained);
                     setChanged();
                 }
             }
@@ -129,13 +129,13 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
 
     private void handleFill(ItemStack stack) {
         for (SpiritusType type : SpiritusType.values()) {
-            double currentChunkWill = WorldSpiritusHandler.getCurrentWill(level, worldPosition, type);
-            if (currentChunkWill <= 0) continue;
+            double currentChunkSpiritus = WorldSpiritusHandler.getCurrentSpiritus(level, worldPosition, type);
+            if (currentChunkSpiritus <= 0) continue;
 
-            double fillAmount = Math.min(GEM_DRAIN_RATE, currentChunkWill);
+            double fillAmount = Math.min(GEM_DRAIN_RATE, currentChunkSpiritus);
             double canFill = SpiritusHelper.fillSpiritus(stack, type, fillAmount, false);
             if (canFill > 0) {
-                double drained = WorldSpiritusHandler.drainWillFromChunk(level, worldPosition, type, canFill);
+                double drained = WorldSpiritusHandler.drainSpiritusFromChunk(level, worldPosition, type, canFill);
                 if (drained > 0) {
                     SpiritusHelper.fillSpiritus(stack, type, drained, true);
                     setChanged();
@@ -146,18 +146,18 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
 
     private void handleConsume(ItemStack stack) {
         SpiritusType type = SpiritusHelper.getCurrentType(stack);
-        double currentChunkWill = WorldSpiritusHandler.getCurrentWill(level, worldPosition, type);
-        double maxWillInChunk = WorldSpiritusHandler.getMaxSpiritus(level, worldPosition, type);
-        if (currentChunkWill >= maxWillInChunk) return;
+        double currentChunkSpiritus = WorldSpiritusHandler.getCurrentSpiritus(level, worldPosition, type);
+        double maxSpiritusInChunk = WorldSpiritusHandler.getMaxSpiritus(level, worldPosition, type);
+        if (currentChunkSpiritus >= maxSpiritusInChunk) return;
 
         double spiritusAmount = SpiritusHelper.getSpiritus(stack, type);
-        double spaceInChunk = maxWillInChunk - currentChunkWill;
+        double spaceInChunk = maxSpiritusInChunk - currentChunkSpiritus;
 
         if (spaceInChunk > 0 && spiritusAmount > 0) {
             double toAdd = Math.min(spiritusAmount, spaceInChunk);
             double drained = SpiritusHelper.drainSpiritus(stack, type, toAdd, true);
             if (drained > 0) {
-                WorldSpiritusHandler.addWillToChunk(level, worldPosition, type, drained);
+                WorldSpiritusHandler.addSpiritusToChunk(level, worldPosition, type, drained);
                 if (SpiritusHelper.getSpiritus(stack, type) <= 0) {
                     inventory.setStackInSlot(0, ItemStack.EMPTY);
                 }
@@ -167,11 +167,11 @@ public class VasMaleficumBlockEntity extends BaseBlockEntity {
     }
 
     private void handleCrystal(SpiritusCrystalItem crystal, ItemStack stack) {
-        SpiritusType type = crystal.getWillType();
-        double currentChunkWill = WorldSpiritusHandler.getCurrentWill(level, worldPosition, type);
+        SpiritusType type = crystal.getSpiritusType();
+        double currentChunkSpiritus = WorldSpiritusHandler.getCurrentSpiritus(level, worldPosition, type);
 
-        if (currentChunkWill < CRYSTAL_CONSUME_THRESHOLD) {
-            double added = WorldSpiritusHandler.addWillToChunk(level, worldPosition, type, WILL_PER_CRYSTAL);
+        if (currentChunkSpiritus < CRYSTAL_CONSUME_THRESHOLD) {
+            double added = WorldSpiritusHandler.addSpiritusToChunk(level, worldPosition, type, SPIRITUS_PER_CRYSTAL);
             if (added > 0) {
                 stack.shrink(1);
                 setChanged();

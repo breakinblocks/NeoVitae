@@ -81,7 +81,7 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
     }
 
     private void renderSpiritusGauge(GuiGraphicsExtractor guiGraphics) {
-        Map<SpiritusType, Double> costs = menu.tile.getCurrentRecipeWillCost();
+        Map<SpiritusType, Double> costs = menu.tile.getCurrentRecipeSpiritusCost();
         int gx = leftPos + GAUGE_X;
         int gy = topPos + GAUGE_Y;
 
@@ -89,8 +89,8 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
             SpiritusType type = ORDERED_TYPES[idx];
             int i = idx + 1;
 
-            double current = menu.tile.getChunkWill(type);
-            double max = menu.tile.getChunkWillMax(type);
+            double current = menu.tile.getChunkSpiritus(type);
+            double max = menu.tile.getChunkSpiritusMax(type);
             if (max <= 0) max = 100.0;
             double ratio = Math.max(0, Math.min(1, current / max));
 
@@ -165,7 +165,7 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
             guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.show_recipes").withStyle(ChatFormatting.YELLOW), x, y);
         }
 
-        Map<SpiritusType, Double> costs = menu.tile.getCurrentRecipeWillCost();
+        Map<SpiritusType, Double> costs = menu.tile.getCurrentRecipeSpiritusCost();
         int gx = leftPos + GAUGE_X;
         int gy = topPos + GAUGE_Y;
         for (int idx = 0; idx < ORDERED_TYPES.length; idx++) {
@@ -176,8 +176,8 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
             int barY = gy + 4 * i;
 
             if (x >= barX && x <= barX + fullBarWidth && y >= barY - 1 && y <= barY + 3) {
-                double current = menu.tile.getChunkWill(type);
-                double max = menu.tile.getChunkWillMax(type);
+                double current = menu.tile.getChunkSpiritus(type);
+                double max = menu.tile.getChunkSpiritusMax(type);
                 List<Component> tooltip = new ArrayList<>();
                 tooltip.add(Component.translatable("gui.neovitae.athanor.type_spiritus", Component.translatable(TYPE_KEYS[idx])));
                 tooltip.add(Component.translatable("gui.neovitae.athanor.spiritus_progress", String.format("%.1f", current), String.format("%.1f", max)));

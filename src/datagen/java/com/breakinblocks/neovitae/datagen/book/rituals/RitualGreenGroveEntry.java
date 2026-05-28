@@ -35,7 +35,7 @@ public class RitualGreenGroveEntry extends EntryProvider {
         this.pageTitle("Verdant Awakening");
         this.pageText("Blood is the wellspring of all life, and this ritual proves it. The circle suffuses a 9-by-9-by-9 column of air above the master stone with [#](4A0080)Essentia Vitae[#](), accelerating the growth of crops, saplings, and plants within its reach as though seasons passed in moments. Even budding stone heeds the pulse: amethyst geodes and [#](8B0000)Spiritus Crystals[#]() ripen as readily as a seedling. Should the chosen garden lie off-center, a [#](2E8B57)Ritual Reader[#]() may relocate the working volume.");
 
-        this.page("will_effects", () -> BookTextPageModel.create()
+        this.page("spiritus_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");

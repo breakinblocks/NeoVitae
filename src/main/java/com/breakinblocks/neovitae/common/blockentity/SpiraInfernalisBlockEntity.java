@@ -5,11 +5,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
-import com.breakinblocks.neovitae.will.WorldSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 /**
  * Spira Infernalis - pulls will from 16 blocks away in each cardinal direction.
- * Will flows from areas with higher will to the pylon's position.
+ * Spiritus flows from areas with higher spiritus to the pylon's position.
  * Multiple pylons can be used to transfer will over larger distances.
  *
  * - Checks positions 16 blocks away in N/S/E/W directions
@@ -32,20 +32,20 @@ public class SpiraInfernalisBlockEntity extends BaseBlockEntity {
         }
 
         for (SpiritusType type : SpiritusType.values()) {
-            double currentAmount = WorldSpiritusHandler.getCurrentWill(level, pos, type);
+            double currentAmount = WorldSpiritusHandler.getCurrentSpiritus(level, pos, type);
 
             for (int i = 0; i < 4; i++) {
                 Direction side = Direction.from2DDataValue(i);
                 BlockPos offsetPos = pos.relative(side, PULL_DISTANCE);
 
-                double sideAmount = WorldSpiritusHandler.getCurrentWill(level, offsetPos, type);
+                double sideAmount = WorldSpiritusHandler.getCurrentSpiritus(level, offsetPos, type);
 
                 if (sideAmount > currentAmount) {
                     double drainAmount = Math.min((sideAmount - currentAmount) / 2, DRAIN_RATE);
 
-                    double drained = WorldSpiritusHandler.drainWillFromChunk(level, offsetPos, type, drainAmount);
+                    double drained = WorldSpiritusHandler.drainSpiritusFromChunk(level, offsetPos, type, drainAmount);
                     if (drained > 0) {
-                        WorldSpiritusHandler.addWillToChunk(level, pos, type, drained);
+                        WorldSpiritusHandler.addSpiritusToChunk(level, pos, type, drained);
                     }
                 }
             }

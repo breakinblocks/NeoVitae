@@ -166,7 +166,7 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
         ItemStack gemStack = tile.inv.getStackInSlot(GEM_SLOT);
         if (!gemStack.isEmpty()) {
             double will = gemStack.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0D);
-            will -= recipe.usedWill;
+            will -= recipe.usedSpiritus;
             if (will <= 0 && gemStack.is(NVItems.RAW_SPIRITUS)) {
                 tile.inv.setStackInSlot(GEM_SLOT, ItemStack.EMPTY);
             } else {

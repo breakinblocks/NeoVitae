@@ -12,7 +12,7 @@ import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.SpiritusState;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -64,8 +64,8 @@ public class RitualRegeneration extends Ritual {
             ctx.syphon(Math.min(cost, ctx.currentEV()));
         }
 
-        // Corrosive Will: Vampire syphon - drain HP from mobs to heal players
-        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, CORROSIVE_MIN_WILL);
+        // Corrosive Spiritus: Vampire syphon - drain HP from mobs to heal players
+        SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, CORROSIVE_MIN_WILL);
         if (will.hasCorrosive()) {
             List<LivingEntity> mobs = RitualHelper.getAliveMobsInRange(ctx, this, HEAL_RANGE);
             List<Player> hurtPlayers = players.stream()
@@ -73,11 +73,11 @@ public class RitualRegeneration extends Ritual {
                     .toList();
 
             if (!hurtPlayers.isEmpty()) {
-                double willUsed = 0;
+                double spiritusUsed = 0;
                 int playerIndex = 0;
 
                 for (LivingEntity mob : mobs) {
-                    if ((will.getCorrosive() - willUsed) < CORROSIVE_WILL_PER_MOB) break;
+                    if ((will.getCorrosive() - spiritusUsed) < CORROSIVE_WILL_PER_MOB) break;
 
                     float healthBefore = mob.getHealth();
                     mob.hurtServer((ServerLevel) mob.level(), ctx.level().damageSources().source(NVDamageSources.RITUAL), 2.0F);
@@ -86,15 +86,15 @@ public class RitualRegeneration extends Ritual {
                         Player target = hurtPlayers.get(playerIndex % hurtPlayers.size());
                         target.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 40, 0, true, false));
                         playerIndex++;
-                        willUsed += CORROSIVE_WILL_PER_MOB;
+                        spiritusUsed += CORROSIVE_WILL_PER_MOB;
                         RitualHelper.chanceStream(ctx.level(), 8, () ->
                                 StreamPresets.bloodTendril(mob, target.blockPosition()).build()
                                         .sendToNearby(ctx.serverLevel(), masterPos, 32));
                     }
                 }
 
-                if (willUsed > 0) {
-                    will.use(SpiritusType.RUINA, willUsed);
+                if (spiritusUsed > 0) {
+                    will.use(SpiritusType.RUINA, spiritusUsed);
                     will.drain(ctx.level(), masterPos);
                 }
             }

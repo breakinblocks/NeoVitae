@@ -22,7 +22,7 @@ import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
-import com.breakinblocks.neovitae.api.will.SpiritusState;
+import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -76,17 +76,17 @@ public class RitualGreenGrove extends Ritual {
 
         BlockPos masterPos = ctx.masterPos();
 
-        SpiritusState will = RitualHelper.queryWill(ctx.level(), masterPos, MIN_DEFAULT);
+        SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, MIN_DEFAULT);
 
         boolean doHydrate = will.hasSteadfast();
         boolean doLeech = will.hasCorrosive();
         boolean doVengeful = will.hasVengeful();
 
-        refreshTime = scaleByRawWill(will, 20, 10, 10);
+        refreshTime = scaleByRawSpiritus(will, 20, 10, 10);
 
-        double steadfastWillUsed = 0;
-        double corrosiveWillUsed = 0;
-        double vengefulWillUsed = 0;
+        double steadfastSpiritusUsed = 0;
+        double corrosiveSpiritusUsed = 0;
+        double vengefulSpiritusUsed = 0;
 
         int maxGrowths = ctx.maxOperations(getRefreshCost());
         int totalGrowths = 0;
@@ -100,7 +100,7 @@ public class RitualGreenGrove extends Ritual {
             Block block = state.getBlock();
 
             // Vengeful: scale growth chance
-            if (doVengeful && (will.getVengeful() - vengefulWillUsed) >= WILL_PER_VENGEFUL_GROWTH) {
+            if (doVengeful && (will.getVengeful() - vengefulSpiritusUsed) >= WILL_PER_VENGEFUL_GROWTH) {
                 double growthChance = 0.3 + will.getVengeful() / 200.0;
                 if (ctx.level().getRandom().nextDouble() > growthChance) {
                     continue; // Skip this position based on chance
@@ -133,15 +133,15 @@ public class RitualGreenGrove extends Ritual {
             if (!grew && block instanceof BlockSpiritusCrystal) {
                 BlockEntity be = ctx.level().getBlockEntity(pos);
                 if (be instanceof SpiritusCrystalBlockEntity crystal) {
-                    double applied = crystal.growCrystalWithWillAmount(0, 0.05);
+                    double applied = crystal.growCrystalWithSpiritusAmount(0, 0.05);
                     if (applied > 0) grew = true;
                 }
             }
 
             if (grew) {
                 totalGrowths++;
-                if (doVengeful && (will.getVengeful() - vengefulWillUsed) >= WILL_PER_VENGEFUL_GROWTH) {
-                    vengefulWillUsed += WILL_PER_VENGEFUL_GROWTH;
+                if (doVengeful && (will.getVengeful() - vengefulSpiritusUsed) >= WILL_PER_VENGEFUL_GROWTH) {
+                    vengefulSpiritusUsed += WILL_PER_VENGEFUL_GROWTH;
                 }
                 RitualHelper.chanceStream(ctx.level(), 12, () ->
                         StreamPresets.lifePulse(masterPos, pos).color(0x44CC33).build()
@@ -153,14 +153,14 @@ public class RitualGreenGrove extends Ritual {
         if (doHydrate) {
             List<BlockPos> hydratePositions = RitualHelper.getRangePositions(ctx.master(), this, HYDRATE_RANGE, masterPos);
             for (BlockPos pos : hydratePositions) {
-                if ((will.getSteadfast() - steadfastWillUsed) < WILL_PER_HYDRATE) break;
+                if ((will.getSteadfast() - steadfastSpiritusUsed) < WILL_PER_HYDRATE) break;
 
                 BlockState state = ctx.level().getBlockState(pos);
                 if (state.is(Blocks.FARMLAND)) {
                     int moisture = state.getValue(FarmlandBlock.MOISTURE);
                     if (moisture < 7) {
                         ctx.level().setBlock(pos, state.setValue(FarmlandBlock.MOISTURE, 7), Block.UPDATE_ALL);
-                        steadfastWillUsed += WILL_PER_HYDRATE;
+                        steadfastSpiritusUsed += WILL_PER_HYDRATE;
                     }
                 }
             }
@@ -171,17 +171,17 @@ public class RitualGreenGrove extends Ritual {
             List<LivingEntity> mobs = RitualHelper.getAliveMobsInRange(ctx, this, LEECH_RANGE);
 
             for (LivingEntity mob : mobs) {
-                if ((will.getCorrosive() - corrosiveWillUsed) < WILL_PER_LEECH) break;
+                if ((will.getCorrosive() - corrosiveSpiritusUsed) < WILL_PER_LEECH) break;
 
                 if (!mob.hasEffect(NVMobEffects.PLANT_LEECH)) {
                     mob.addEffect(new MobEffectInstance(NVMobEffects.PLANT_LEECH, 200, 0));
-                    corrosiveWillUsed += WILL_PER_LEECH;
+                    corrosiveSpiritusUsed += WILL_PER_LEECH;
                 }
             }
         }
 
         RitualHelper.drainSpiritus(will, ctx.level(), masterPos,
-                0, corrosiveWillUsed, 0, vengefulWillUsed, steadfastWillUsed);
+                0, corrosiveSpiritusUsed, 0, vengefulSpiritusUsed, steadfastSpiritusUsed);
 
         ctx.syphon(getRefreshCost() * totalGrowths);
     }

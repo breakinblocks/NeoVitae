@@ -35,7 +35,7 @@ public class RitualAnimalGrowthEntry extends EntryProvider {
         this.pageTitle("Nurturing Pulse");
         this.pageText("The circle radiates a warm vitality that seeps into the bones of young creatures, hastening their maturation. Baby animals within its influence grow to adulthood at an accelerated rate, as though seasons passed in mere moments.");
 
-        this.page("will_effects", () -> BookTextPageModel.create()
+        this.page("spiritus_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");

@@ -19,7 +19,7 @@ import net.minecraft.core.registries.Registries;
 public class ForgeTransformRecipeBuilder extends BaseRecipeBuilder {
 
     private double minSpiritus;
-    private double drainedWill;
+    private double drainedSpiritus;
     private final List<Ingredient> catalysts = new ArrayList<>();
     private Ingredient transformInput;
 
@@ -52,14 +52,14 @@ public class ForgeTransformRecipeBuilder extends BaseRecipeBuilder {
     }
 
     public ForgeTransformRecipeBuilder drain(double drain) {
-        this.drainedWill = drain;
+        this.drainedSpiritus = drain;
         return this;
     }
 
     @Override
     public void save(RecipeOutput output, ResourceKey<Recipe<?>> id) {
         Advancement.Builder advBuilder = getBuilder(output, id);
-        ForgeTransformRecipe recipe = new ForgeTransformRecipe(minSpiritus, drainedWill, catalysts, transformInput, resultTemplate());
+        ForgeTransformRecipe recipe = new ForgeTransformRecipe(minSpiritus, drainedSpiritus, catalysts, transformInput, resultTemplate());
         output.accept(ResourceKey.create(Registries.RECIPE, id.identifier().withPrefix("hellfire_forge/")), recipe, advBuilder.build(advancementId(id, "hellfire_forge")));
     }
 }

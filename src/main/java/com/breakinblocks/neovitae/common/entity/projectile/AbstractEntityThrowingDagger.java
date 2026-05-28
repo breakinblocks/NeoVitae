@@ -41,7 +41,7 @@ import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.item.NVItems;
-import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
 import net.minecraft.world.entity.monster.Enemy;
 
 import javax.annotation.Nullable;
@@ -72,7 +72,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
     private IntOpenHashSet piercedEntities;
     private List<Entity> hitEntities;
 
-    private double willDrop = 0;
+    private double spiritusDrop = 0;
     private SpiritusType spiritusType = SpiritusType.RAW;
 
     private final Set<MobEffectInstance> effects = Sets.newHashSet();
@@ -113,15 +113,15 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         return this.damage;
     }
 
-    public void setWillDrop(double willDrop) {
-        this.willDrop = willDrop;
+    public void setSpiritusDrop(double spiritusDrop) {
+        this.spiritusDrop = spiritusDrop;
     }
 
-    public double getWillDropForMobHealth(double hp) {
-        return this.willDrop * hp / 20D;
+    public double getSpiritusDropForMobHealth(double hp) {
+        return this.spiritusDrop * hp / 20D;
     }
 
-    public void setWillType(SpiritusType type) {
+    public void setSpiritusType(SpiritusType type) {
         this.spiritusType = type;
     }
 
@@ -350,7 +350,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
 
         if (entity.hurtServer(serverLevel, damageSource, (float) dmg)) {
             if (!entity.isAlive() && owner instanceof Player playerOwner && entity instanceof LivingEntity living) {
-                double spiritusAmount = this.getWillDropForMobHealth(living.getMaxHealth());
+                double spiritusAmount = this.getSpiritusDropForMobHealth(living.getMaxHealth());
                 double bonusSpiritus = playerOwner.getAttributeValue(NVAttributes.BONUS_SPIRITUS);
                 if (bonusSpiritus > 0) {
                     spiritusAmount *= (1 + bonusSpiritus / 100);
@@ -489,7 +489,7 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         out.putBoolean("inGround", this.inGround);
         out.putByte("pickup", (byte) this.pickupStatus.ordinal());
         out.putDouble("damage", this.damage);
-        out.putDouble("willDrop", willDrop);
+        out.putDouble("spiritusDrop", spiritusDrop);
         out.putString("spiritusType", this.spiritusType.getSerializedName());
 
         if (!this.effects.isEmpty()) {
@@ -506,9 +506,9 @@ public abstract class AbstractEntityThrowingDagger extends ThrowableItemProjecti
         this.inGround = in.getBooleanOr("inGround", false);
         this.damage = in.getDoubleOr("damage", this.damage);
         this.pickupStatus = AbstractArrow.Pickup.byOrdinal(in.getByteOr("pickup", (byte) 0));
-        this.willDrop = in.getDoubleOr("willDrop", 0d);
-        String willTypeName = in.getStringOr("spiritusType", "");
-        this.spiritusType = willTypeName.isEmpty() ? SpiritusType.RAW : SpiritusType.valueOf(willTypeName.toUpperCase());
+        this.spiritusDrop = in.getDoubleOr("spiritusDrop", 0d);
+        String spiritusTypeName = in.getStringOr("spiritusType", "");
+        this.spiritusType = spiritusTypeName.isEmpty() ? SpiritusType.RAW : SpiritusType.valueOf(spiritusTypeName.toUpperCase());
 
         in.read("CustomPotionEffects", MobEffectInstance.CODEC.listOf()).ifPresent(list -> {
             for (MobEffectInstance effect : list) {

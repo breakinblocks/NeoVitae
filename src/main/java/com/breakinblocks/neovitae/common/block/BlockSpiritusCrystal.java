@@ -30,7 +30,7 @@ import com.breakinblocks.neovitae.common.blockentity.SpiritusCrystalBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.SpiritusCrystalItem;
-import com.breakinblocks.neovitae.will.PlayerSpiritusHandler;
+import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
 
 /**
  * Demon Crystal block - grows from will aura.
@@ -188,7 +188,7 @@ public class BlockSpiritusCrystal extends BaseEntityBlock {
         return stack;
     }
 
-    public SpiritusType getWillType() {
+    public SpiritusType getSpiritusType() {
         return spiritusType;
     }
 }

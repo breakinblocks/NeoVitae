@@ -5,8 +5,8 @@ import com.breakinblocks.neovitae.api.altar.rune.IAltarRuneRegistry;
 import com.breakinblocks.neovitae.api.incense.ITranquilityHandler;
 import com.breakinblocks.neovitae.api.sentient.ISentientArmorManager;
 import com.breakinblocks.neovitae.api.soul.IAnima;
-import com.breakinblocks.neovitae.api.will.ISpiritusHandler;
-import com.breakinblocks.neovitae.api.will.IPlayerSpiritusHandler;
+import com.breakinblocks.neovitae.api.spiritus.ISpiritusHandler;
+import com.breakinblocks.neovitae.api.spiritus.IPlayerSpiritusHandler;
 
 import java.util.UUID;
 
@@ -31,8 +31,8 @@ import java.util.UUID;
  * api.getRuneRegistry().registerRuneBlock(myRuneBlock, myCustomRuneType, 1);
  *
  * // Interact with spiritus in a chunk
- * ISpiritusHandler willHandler = api.getSpiritusHandler();
- * double rawSpiritus = willHandler.getCurrentWill(level, pos, SpiritusType.RAW);
+ * ISpiritusHandler spiritusHandlerVar = api.getSpiritusHandler();
+ * double rawSpiritus = spiritusHandlerVar.getCurrentSpiritus(level, pos, SpiritusType.RAW);
  * }</pre>
  */
 public interface INeoVitaeAPI {
@@ -105,7 +105,7 @@ public interface INeoVitaeAPI {
      *
      * @return The player spiritus handler
      */
-    IPlayerSpiritusHandler getPlayerWillHandler();
+    IPlayerSpiritusHandler getPlayerSpiritusHandler();
 
     /**
      * Gets the current API version string.

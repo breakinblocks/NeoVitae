@@ -52,7 +52,7 @@ import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import com.breakinblocks.neovitae.util.ChatUtil;
-import com.breakinblocks.neovitae.will.SpiritusHelper;
+import com.breakinblocks.neovitae.spiritus.SpiritusHelper;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.HashMap;

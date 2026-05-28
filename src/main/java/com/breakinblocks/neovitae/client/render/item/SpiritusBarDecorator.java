@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.IItemDecorator;
 import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
-import com.breakinblocks.neovitae.will.SpiritusHelper;
+import com.breakinblocks.neovitae.spiritus.SpiritusHelper;
 
 public class SpiritusBarDecorator implements IItemDecorator {
 

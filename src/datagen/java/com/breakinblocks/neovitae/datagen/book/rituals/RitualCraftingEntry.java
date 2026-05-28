@@ -55,7 +55,7 @@ public class RitualCraftingEntry extends EntryProvider {
                 + "and deposits the result into the output container.\\\n\\\n"
                 + "[#](2E8B57)If two of the same item are needed, place a copy in each appropriate slot.[#]()");
 
-        this.page("will_effects", () -> BookTextPageModel.create()
+        this.page("spiritus_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");

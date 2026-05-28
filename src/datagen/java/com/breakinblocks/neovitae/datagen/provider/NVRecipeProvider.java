@@ -239,46 +239,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_raw_demonite", has(NVItems.DEMONITE_RAW.get()))
                 .save(output, rKey(NeoVitae.rl("blasting/hellforged_ingot_from_raw")));
 
-        // Dust smelting recipes
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.IRON_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.IRON_INGOT, 0.7f, 200)
-                .unlockedBy("has_iron_dust", has(NVItems.IRON_DUST.get()))
-                .save(output, rKey(NeoVitae.rl("smelting/iron_ingot_from_dust")));
-        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.IRON_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.IRON_INGOT, 0.7f, 100)
-                .unlockedBy("has_iron_dust", has(NVItems.IRON_DUST.get()))
-                .save(output, rKey(NeoVitae.rl("blasting/iron_ingot_from_dust")));
-
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.GOLD_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.GOLD_INGOT, 1.0f, 200)
-                .unlockedBy("has_gold_dust", has(NVItems.GOLD_DUST.get()))
-                .save(output, rKey(NeoVitae.rl("smelting/gold_ingot_from_dust")));
-        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.GOLD_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.GOLD_INGOT, 1.0f, 100)
-                .unlockedBy("has_gold_dust", has(NVItems.GOLD_DUST.get()))
-                .save(output, rKey(NeoVitae.rl("blasting/gold_ingot_from_dust")));
-
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.COPPER_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.COPPER_INGOT, 0.7f, 200)
-                .unlockedBy("has_copper_dust", has(NVItems.COPPER_DUST.get()))
-                .save(output, rKey(NeoVitae.rl("smelting/copper_ingot_from_dust")));
-        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.COPPER_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.COPPER_INGOT, 0.7f, 100)
-                .unlockedBy("has_copper_dust", has(NVItems.COPPER_DUST.get()))
-                .save(output, rKey(NeoVitae.rl("blasting/copper_ingot_from_dust")));
-
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.COAL_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.COAL, 0.1f, 200)
-                .unlockedBy("has_coal_dust", has(NVItems.COAL_DUST.get()))
-                .save(output, rKey(NeoVitae.rl("smelting/coal_from_dust")));
-
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.NETHERITE_SCRAP_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.NETHERITE_SCRAP, 2.0f, 200)
-                .unlockedBy("has_netherite_scrap_dust", has(NVItems.NETHERITE_SCRAP_DUST.get()))
-                .save(output, rKey(NeoVitae.rl("smelting/netherite_scrap_from_dust")));
-        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.NETHERITE_SCRAP_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.NETHERITE_SCRAP, 2.0f, 100)
-                .unlockedBy("has_netherite_scrap_dust", has(NVItems.NETHERITE_SCRAP_DUST.get()))
-                .save(output, rKey(NeoVitae.rl("blasting/netherite_scrap_from_dust")));
-
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.HELLFORGED_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 1.0f, 200)
-                .unlockedBy("has_hellforged_dust", has(NVItems.HELLFORGED_DUST.get()))
-                .save(output, rKey(NeoVitae.rl("smelting/hellforged_ingot_from_dust")));
-        SimpleCookingRecipeBuilder.blasting(Ingredient.of(NVItems.HELLFORGED_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 1.0f, 100)
-                .unlockedBy("has_hellforged_dust", has(NVItems.HELLFORGED_DUST.get()))
-                .save(output, rKey(NeoVitae.rl("blasting/hellforged_ingot_from_dust")));
-
         // Blood Stained Glass from Sands of Vitae
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVBlocks.SANDS_OF_VITAE.block().get()), RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.MISC, NVBlocks.BLOOD_STAINED_GLASS.block().get(), 0.1f, 200)
                 .unlockedBy("has_sands", has(NVBlocks.SANDS_OF_VITAE.block().get()))
@@ -3302,83 +3262,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .ticks(200)
                 .minimumTier(4)
                 .save(output, "advance_cutting_fluid_sigil");
-
-        // === CORRUPTED DUST RECIPES ===
-        // Corrupted Coal -> Coal Sand x3
-        TabulaVitaeRecipeBuilder.build(NVItems.COAL_DUST.get(), 3)
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.DUSTS_COAL)))
-                .input(NVItems.CORRUPTED_DUST.get())
-                .syphon(50)
-                .ticks(50)
-                .minimumTier(3)
-                .save(output, "corrupted_coal");
-
-        // Corrupted Copper -> Copper Gravel x2
-        TabulaVitaeRecipeBuilder.build(NVItems.COPPER_GRAVEL.get(), 2)
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_COPPER)))
-                .input(NVItems.CORRUPTED_DUST.get())
-                .syphon(50)
-                .ticks(50)
-                .minimumTier(3)
-                .save(output, "corrupted_copper");
-
-        // Corrupted Gold -> Gold Gravel x2
-        TabulaVitaeRecipeBuilder.build(NVItems.GOLD_GRAVEL.get(), 2)
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_GOLD)))
-                .input(NVItems.CORRUPTED_DUST.get())
-                .syphon(300)
-                .ticks(50)
-                .minimumTier(3)
-                .save(output, "corrupted_gold");
-
-        // Corrupted Iron -> Iron Gravel x2
-        TabulaVitaeRecipeBuilder.build(NVItems.IRON_GRAVEL.get(), 2)
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_IRON)))
-                .input(NVItems.CORRUPTED_DUST.get())
-                .syphon(100)
-                .ticks(50)
-                .minimumTier(3)
-                .save(output, "corrupted_iron");
-
-        // Corrupted Netherite -> Netherite Gravel x2
-        TabulaVitaeRecipeBuilder.build(NVItems.NETHERITE_SCRAP_GRAVEL.get(), 2)
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.FRAGMENTS_NETHERITE_SCRAP)))
-                .input(NVItems.CORRUPTED_DUST.get())
-                .input(NVItems.CORRUPTED_DUST.get())
-                .input(NVItems.CORRUPTED_DUST.get())
-                .syphon(1000)
-                .ticks(50)
-                .minimumTier(3)
-                .save(output, "corrupted_netherite");
-
-        // === SAND RECIPES ===
-        // Coal Dust from Coal
-        TabulaVitaeRecipeBuilder.build(NVItems.COAL_DUST.get(), 4)
-                .input(Items.COAL)
-                .input(Items.COAL)
-                .input(Items.FLINT)
-                .syphon(400)
-                .ticks(200)
-                .minimumTier(1)
-                .save(output, "dust_coal");
-
-        // Gold Dust from Gold Ore
-        TabulaVitaeRecipeBuilder.build(NVItems.GOLD_DUST.get(), 2)
-                .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_GOLD)))
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.CUTTING_FLUIDS)))
-                .syphon(400)
-                .ticks(200)
-                .minimumTier(1)
-                .save(output, "dust_gold");
-
-        // Iron Dust from Iron Ore
-        TabulaVitaeRecipeBuilder.build(NVItems.IRON_DUST.get(), 2)
-                .input(Ingredient.of(items.getOrThrow(Tags.Items.ORES_IRON)))
-                .input(Ingredient.of(items.getOrThrow(NVTags.Items.CUTTING_FLUIDS)))
-                .syphon(400)
-                .ticks(200)
-                .minimumTier(1)
-                .save(output, "dust_iron");
 
         // === OTHER UTILITY RECIPES ===
         // Cobweb from String

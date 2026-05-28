@@ -2,14 +2,14 @@ package com.breakinblocks.neovitae.common.block.dungeon;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
@@ -71,7 +71,7 @@ public class SpikeTrapBlockEntity extends BaseBlockEntity {
     }
 
     public void onSpikeKill(LivingEntity entity, float damage) {
-        if (level == null || level.isClientSide) return;
+        if (level == null || level.isClientSide()) return;
 
         int ev = EntitySacrificeHelper.calculateEV(entity, damage);
         if (entity.isBaby()) {
@@ -128,23 +128,24 @@ public class SpikeTrapBlockEntity extends BaseBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(ValueOutput out) {
+        super.saveAdditional(out);
         if (altarOffset != null) {
-            tag.putInt("altarOffsetX", altarOffset.getX());
-            tag.putInt("altarOffsetY", altarOffset.getY());
-            tag.putInt("altarOffsetZ", altarOffset.getZ());
+            out.putInt("altarOffsetX", altarOffset.getX());
+            out.putInt("altarOffsetY", altarOffset.getY());
+            out.putInt("altarOffsetZ", altarOffset.getZ());
         }
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        if (tag.contains("altarOffsetX")) {
+    protected void loadAdditional(ValueInput in) {
+        super.loadAdditional(in);
+        Integer x = in.getInt("altarOffsetX").orElse(null);
+        if (x != null) {
             altarOffset = new BlockPos(
-                    tag.getInt("altarOffsetX"),
-                    tag.getInt("altarOffsetY"),
-                    tag.getInt("altarOffsetZ")
+                    x,
+                    in.getIntOr("altarOffsetY", 0),
+                    in.getIntOr("altarOffsetZ", 0)
             );
         } else {
             altarOffset = null;

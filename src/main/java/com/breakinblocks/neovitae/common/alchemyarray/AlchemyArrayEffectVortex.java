@@ -27,12 +27,12 @@ public class AlchemyArrayEffectVortex extends AlchemyArrayEffect {
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
         Level level = tile.getLevel();
-        if (level == null || level.isClientSide) return false;
+        if (level == null || level.isClientSide()) return false;
 
         BlockPos pos = tile.getBlockPos();
         if (level.hasNeighborSignal(pos)) return false;
 
-        if (level.random.nextDouble() < UPKEEP_CHANCE) {
+        if (level.getRandom().nextDouble() < UPKEEP_CHANCE) {
             Binding binding = tile.getOwnerBinding();
             if (binding.isEmpty()) return false;
             Anima network = AnimaHelper.getAnima(binding);

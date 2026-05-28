@@ -130,7 +130,8 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         guaranteedOutput.forEach(stack -> outputs.add(Pair.of(stack, 1D)));
         outputs.addAll(chanceOutput);
         if (spiritusBoost && !guaranteedOutput.isEmpty()) {
-            ItemStack singleBonus = guaranteedOutput.get(0).copyWithCount(1);
+            ItemStack singleStack = guaranteedOutput.get(0).create().copyWithCount(1);
+            ItemStackTemplate singleBonus = ItemStackTemplate.fromNonEmptyStack(singleStack);
             outputs.add(Pair.of(singleBonus, SPIRITUS_BOOST_MAX_CHANCE));
         }
         allListed = List.copyOf(outputs);
@@ -243,7 +244,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
             double raw = WorldSpiritusHandler.getCurrentSpiritus(level, pos, SpiritusType.RAW);
             int produced = rollBonusCount(spiritusBoostChance(raw) * toolBonusChance);
             for (int i = 0; i < produced; i++) {
-                outputs.add(guaranteedOutput.get(0).copyWithCount(1));
+                outputs.add(guaranteedOutput.get(0).create().copyWithCount(1));
                 if (Math.random() < SPIRITUS_BOOST_CONSUME_CHANCE) {
                     WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, SpiritusType.RAW, 1.0);
                 }

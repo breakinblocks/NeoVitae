@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.util.helper;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -85,12 +86,12 @@ public final class OreDiscoveryHelper {
     }
 
     private static boolean smeltOutputIsDust(Registry<Item> itemRegistry, String smeltToId, String oreName) {
-        ResourceLocation id = ResourceLocation.tryParse(smeltToId);
+        Identifier id = Identifier.tryParse(smeltToId);
         if (id == null) return false;
-        Item item = itemRegistry.get(id);
-        if (item == null) return false;
-        TagKey<Item> dustTag = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "dusts/" + oreName));
-        return item.builtInRegistryHolder().is(dustTag);
+        Optional<Holder.Reference<Item>> holderOpt = itemRegistry.get(id);
+        if (holderOpt.isEmpty()) return false;
+        TagKey<Item> dustTag = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "dusts/" + oreName));
+        return holderOpt.get().is(dustTag);
     }
 
     @Nullable

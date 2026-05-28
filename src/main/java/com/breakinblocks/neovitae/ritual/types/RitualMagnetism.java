@@ -10,11 +10,13 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
+import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 
 import java.util.UUID;
@@ -43,9 +45,9 @@ public class RitualMagnetism extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        IItemHandler container = world.getCapability(Capabilities.ItemHandler.BLOCK, masterPos.above(), null);
+        ResourceHandler<ItemResource> container = world.getCapability(Capabilities.Item.BLOCK, masterPos.above(), null);
         int radius = getRadius(world.getBlockState(masterPos.below()).getBlock());
-        int minRelY = world.getMinBuildHeight() - masterPos.getY();
+        int minRelY = world.getMinY() - masterPos.getY();
 
         int i = -radius, j = -1, k = -radius;
         if (lastPos != null) {
@@ -91,11 +93,11 @@ public class RitualMagnetism extends Ritual {
     }
 
     private boolean moveOre(RitualContext ctx, Level world, BlockPos srcPos, BlockState state,
-                            IItemHandler container, BlockPos masterPos) {
+                            ResourceHandler<ItemResource> container, BlockPos masterPos) {
         if (container != null) {
             ItemStack oreStack = new ItemStack(state.getBlock().asItem());
             if (!oreStack.isEmpty() && oreStack.getItem() != Items.AIR) {
-                ItemStack remainder = insertAll(container, oreStack);
+                ItemStack remainder = Utils.insertItemStacked(container, oreStack, false);
                 if (remainder.isEmpty()) {
                     world.setBlock(srcPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
                     ctx.syphon(getRefreshCost());
@@ -111,14 +113,6 @@ public class RitualMagnetism extends Ritual {
         world.setBlock(srcPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
         ctx.syphon(getRefreshCost());
         return true;
-    }
-
-    private static ItemStack insertAll(IItemHandler handler, ItemStack stack) {
-        ItemStack remainder = stack;
-        for (int slot = 0; slot < handler.getSlots() && !remainder.isEmpty(); slot++) {
-            remainder = handler.insertItem(slot, remainder, false);
-        }
-        return remainder;
     }
 
     private BlockPos findFreePlacementSlot(RitualContext ctx, BlockPos masterPos) {
@@ -155,9 +149,11 @@ public class RitualMagnetism extends Ritual {
     @Override
     public void readFromNBT(CompoundTag tag) {
         super.readFromNBT(tag);
-        if (tag.contains("lastPosX")) {
-            lastPos = new BlockPos(tag.getInt("lastPosX"), tag.getInt("lastPosY"), tag.getInt("lastPosZ"));
-        }
+        tag.getInt("lastPosX").ifPresent(x -> {
+            int y = tag.getIntOr("lastPosY", 0);
+            int z = tag.getIntOr("lastPosZ", 0);
+            lastPos = new BlockPos(x, y, z);
+        });
     }
 
     @Override

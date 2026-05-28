@@ -1,6 +1,5 @@
 package com.breakinblocks.neovitae.client;
 
-import net.minecraft.world.level.ChunkPos;
 import com.breakinblocks.neovitae.spiritus.SpiritusChunk;
 
 import java.util.Map;
@@ -15,11 +14,11 @@ public class ClientSpiritusCache {
     private static final Map<Long, SpiritusChunk> cache = new ConcurrentHashMap<>();
 
     public static void update(int chunkX, int chunkZ, SpiritusChunk spiritusChunkVar) {
-        cache.put(ChunkPos.asLong(chunkX, chunkZ), spiritusChunkVar);
+        cache.put((((long) chunkZ) << 32 | (chunkX & 0xFFFFFFFFL)), spiritusChunkVar);
     }
 
     public static SpiritusChunk get(int chunkX, int chunkZ) {
-        return cache.getOrDefault(ChunkPos.asLong(chunkX, chunkZ), new SpiritusChunk());
+        return cache.getOrDefault((((long) chunkZ) << 32 | (chunkX & 0xFFFFFFFFL)), new SpiritusChunk());
     }
 
     public static void clear() {

@@ -94,11 +94,11 @@ public class RitualSpeed extends Ritual {
             if (cost + getRefreshCost() > ctx.currentEV()) break;
 
             if (entity.isShiftKeyDown()) {
-                MobEffectInstance existing = entity.getEffect(MobEffects.MOVEMENT_SPEED);
+                MobEffectInstance existing = entity.getEffect(MobEffects.SPEED);
                 if (existing == null
                         || existing.getAmplifier() < SPEED_BUFF_AMPLIFIER
                         || existing.getDuration() < SPEED_BUFF_REFRESH_THRESHOLD) {
-                    entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,
+                    entity.addEffect(new MobEffectInstance(MobEffects.SPEED,
                             SPEED_BUFF_DURATION, SPEED_BUFF_AMPLIFIER, true, false));
                     cost += getRefreshCost();
                     if (hasRawSpiritus) will.use(SpiritusType.RAW, SPIRITUS_PER_ENTITY);

@@ -3,7 +3,7 @@
   "input": [
     "neovitae:teleposer",
     "#c:ingots/gold",
-    "minecraft:ender_pearl",
+    "neovitae:blood_pearl",
     "minecraft:chorus_fruit"
   ],
   "output": {

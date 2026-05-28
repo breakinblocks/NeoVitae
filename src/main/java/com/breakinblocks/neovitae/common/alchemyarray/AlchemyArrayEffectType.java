@@ -36,7 +36,8 @@ public enum AlchemyArrayEffectType implements StringRepresentable {
     DEFLECTION("deflection", AlchemyArrayEffectDeflection::new),
     ENDLESS_FOUNTAIN("endless_fountain", AlchemyArrayEffectEndlessFountain::new),
     UNDERTOW("undertow", AlchemyArrayEffectUndertow::new),
-    LOYAL_FRIENDS("loyal_friends", AlchemyArrayEffectLoyalFriends::new);
+    LOYAL_FRIENDS("loyal_friends", AlchemyArrayEffectLoyalFriends::new),
+    VORTEX("vortex", AlchemyArrayEffectVortex::new);
 
     public static final Codec<AlchemyArrayEffectType> CODEC = StringRepresentable.fromEnum(AlchemyArrayEffectType::values);
     public static final StreamCodec<ByteBuf, AlchemyArrayEffectType> STREAM_CODEC = ByteBufCodecs.idMapper(

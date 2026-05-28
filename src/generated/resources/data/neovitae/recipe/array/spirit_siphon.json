@@ -1,6 +1,6 @@
 {
   "type": "neovitae:array",
-  "addedinput": "#c:dusts/redstone",
+  "addedinput": "#c:dusts/corrupted",
   "baseinput": "neovitae:tabula_animata",
   "effect_type": "spirit_siphon",
   "output": {

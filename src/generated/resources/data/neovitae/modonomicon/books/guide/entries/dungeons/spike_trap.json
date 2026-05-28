@@ -19,6 +19,17 @@
       "text": "book.neovitae.guide.dungeons.spike_trap.recipe.text",
       "title": "",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.dungeons.spike_trap.harvester.text",
+      "title": "book.neovitae.guide.dungeons.spike_trap.harvester.title",
+      "use_markdown_in_title": false
     }
   ],
   "show_when_any_parent_unlocked": false,

@@ -168,6 +168,7 @@ public class NVItems {
     public static final DeferredHolder<Item, Item> HELLFORGED_DUST = MaterialRegistry.getDust("hellforged");
     public static final DeferredHolder<Item, Item> CORRUPTED_DUST = plainItem("corrupted_dust");
     public static final DeferredHolder<Item, Item> CORRUPTED_DUST_TINY = plainItem("corrupted_tiny_dust");
+    public static final DeferredHolder<Item, Item> BLOOD_PEARL = plainItem("blood_pearl");
 
     public static final DeferredHolder<Item, ItemAthanorToolBase> BASIC_CUTTING_FLUID = BASIC_ITEMS.registerItem("basic_cutting_fluid", props -> new ItemAthanorToolBase(props, 64, 1, SpiritusType.RUINA));
     public static final DeferredHolder<Item, ItemAthanorToolBase> INTERMEDIATE_CUTTING_FLUID = BASIC_ITEMS.registerItem("intermediate_cutting_fluid", props -> new ItemAthanorToolBase(props, 512, 1.5, SpiritusType.RUINA));

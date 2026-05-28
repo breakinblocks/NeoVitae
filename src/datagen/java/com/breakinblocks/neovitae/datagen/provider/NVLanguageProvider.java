@@ -834,6 +834,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.HELLFORGED_DUST.get(), "Hellforged Dust");
         add(NVItems.CORRUPTED_DUST.get(), "Corrupted Dust");
         add(NVItems.CORRUPTED_DUST_TINY.get(), "Tiny Corrupted Dust");
+        add(NVItems.BLOOD_PEARL.get(), "Blood Pearl");
 
         addTooltip("spiritus", "Spiritus: %s");
         for (SpiritusType type : SpiritusType.values()) {
@@ -944,6 +945,11 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("sigil.bound_treasures.desc", "Stores up to five items inside the sigil. Right-click in air to store the item in your offhand, sneak + right-click to retrieve.");
         addTooltip("sigil.necromancy.desc", "Reanimates the bones of fallen mobs into temporary skeletal allies under your command.");
 
+        addTooltip("sigil.teleposition.unbound", "This sigil is not bound to a Teleposer. Right-click a Teleposer to bind.");
+        addTooltip("sigil.teleposition.invalid_dimension", "The bound Teleposer's dimension is not loaded.");
+        addTooltip("sigil.teleposition.no_teleposer", "The bound location no longer has a Teleposer.");
+        addTooltip("sigil.teleposition.bound", "Bound to Teleposer at %s, %s, %s.");
+
         // Sigil tooltips - Divination/Seer info messages
         addTooltip("sigil.divination.currentAltarTier", "Current Ara Vitae Tier: %s");
         addTooltip("sigil.divination.currentEV", "Current Essentia Vitae: %s");
@@ -995,9 +1001,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("recipe.consumptionrate", "Consumption Rate: %s EV/t");
         addJei("recipe.drainrate", "Drain Rate: %s EV/t");
         addJei("recipe.componentTransfer", "Preserves Components");
-        addJei("recipe.minimumsouls", "Minimum Spiritus: %s");
-        addJei("recipe.soulsdrained", "Spiritus Drained: %s");
-        addJei("recipe.will", "Spiritus");
+        addJei("recipe.minimum_spiritus", "Minimum Spiritus: %s");
+        addJei("recipe.spiritus_drained", "Spiritus Drained: %s");
+        addJei("recipe.spiritus", "Spiritus");
         addJei("recipe.info", "Hover for info");
         addJei("recipe.lp", "EV");
         addJei("recipe.lpDrained", "EV Drained: %s");

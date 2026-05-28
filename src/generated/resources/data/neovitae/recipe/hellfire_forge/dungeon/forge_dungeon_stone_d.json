@@ -1,0 +1,24 @@
+{
+  "type": "neovitae:hellfire_forge",
+  "drain": 16.0,
+  "inputs": [
+    {
+      "item": "minecraft:smooth_stone"
+    },
+    {
+      "item": "minecraft:smooth_stone"
+    },
+    {
+      "item": "minecraft:smooth_stone"
+    },
+    {
+      "item": "minecraft:diamond"
+    }
+  ],
+  "minDrain": 128.0,
+  "output": {
+    "count": 4,
+    "id": "neovitae:dungeon_stone_d"
+  },
+  "spiritusType": "nihilum"
+}

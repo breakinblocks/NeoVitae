@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "e": "#c:ender_pearls",
+    "e": "neovitae:blood_pearl",
     "g": "#c:ingots/gold",
     "t": "neovitae:teleposer_focus"
   },

@@ -367,11 +367,15 @@ public class NVBlockTagProvider extends BlockTagsProvider {
             stoneToolTag.add(DungeonBlocks.DUNGEON_POLISHED_GATE.get(variant).block().get());
         }
 
-        // Iron tool for dungeon metal blocks
+        // Spike trap - pickaxe mineable, requires iron tier, drops self (loot table in MineBlock)
+        pickaxeTag.add(DungeonBlocks.SPIKE_TRAP.block().getKey());
+
+        // Iron tool for dungeon metal blocks + spike trap
         var ironToolTag = this.tag(BlockTags.NEEDS_IRON_TOOL);
         for (DungeonVariant variant : DungeonVariant.values()) {
             ironToolTag.add(DungeonBlocks.DUNGEON_METAL.get(variant).block().get());
         }
+        ironToolTag.add(DungeonBlocks.SPIKE_TRAP.block().getKey());
 
         // Add path blocks to incense altar path tags
         this.tag(NVTags.Blocks.INCENSE_PATH_LEVEL_2)

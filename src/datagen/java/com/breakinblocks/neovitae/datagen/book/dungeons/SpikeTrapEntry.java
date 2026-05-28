@@ -24,6 +24,19 @@ public class SpikeTrapEntry extends EntryProvider {
                 + "uninvited guests.\\\n\\\n"
                 + "[#](2E8B57)Clever practitioners have repurposed these for their own defenses. "
                 + "Consult JEI for the crafting recipe.[#]()");
+
+        this.page("harvester", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("The Lesser Tithe");
+        this.pageText("When a powered spike trap [#](8B0000)slays a creature[#](), the spilled vitality is not lost. "
+                + "Place an [#](8B0000)Ara Vitae[#]() within sixteen blocks and the kill will feed it directly, mimicking "
+                + "the [#](4A0080)Well of Suffering[#]() at roughly [#](8B0000)one third[#]() of its yield. The trap remembers the "
+                + "nearest altar after the first kill and re-scans only when that altar is broken or relocated.\\\n\\\n"
+                + "[#](2E8B57)Players are immune to this harvest[#]() - the spikes will wound you, but they will not feed "
+                + "your altar from your blood, nor will their kills be credited to any practitioner. No experience, no "
+                + "player-only drops. A reliable [#](8B0000)pre-ritual mob farm[#]() for vitaemancers who have not yet "
+                + "mastered the true ritual circles.");
     }
 
     @Override

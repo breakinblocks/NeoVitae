@@ -39,9 +39,10 @@ public class SpiritusEssenceItem extends Item implements ISpiritus {
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         double will = getSpiritus(spiritusType, stack);
         if (will > 0) {
-            tooltip.accept(Component.translatable("tooltip.neovitae.will", ChatUtil.DECIMAL_FORMAT.format(will))
+            tooltip.accept(Component.translatable("tooltip.neovitae.spiritus", ChatUtil.DECIMAL_FORMAT.format(will))
                     .withStyle(ChatFormatting.GRAY));
-        }}
+        }
+    }
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {

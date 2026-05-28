@@ -50,8 +50,9 @@ public class SpiritusGemItem extends Item implements ISpiritusGem {
         Identifier loc = stack.typeHolder().getKey().identifier();
 
         tooltip.accept(Component.translatable("tooltip.neovitae.spiritus_gem." + loc.getPath()).withStyle(ChatFormatting.GRAY));
-        tooltip.accept(Component.translatable("tooltip.neovitae.will", ChatUtil.DECIMAL_FORMAT.format(amount)).withStyle(ChatFormatting.GRAY));
-        tooltip.accept(Component.translatable("tooltip.neovitae.current_type." + type.getSerializedName()).withStyle(ChatFormatting.GRAY));}
+        tooltip.accept(Component.translatable("tooltip.neovitae.spiritus", ChatUtil.DECIMAL_FORMAT.format(amount)).withStyle(ChatFormatting.GRAY));
+        tooltip.accept(Component.translatable("tooltip.neovitae.current_type." + type.getSerializedName()).withStyle(ChatFormatting.GRAY));
+    }
 
     @Override
     public ItemStack fillSpiritusGem(ItemStack soulGemStack, ItemStack soulStack) {

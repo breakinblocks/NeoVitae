@@ -3,12 +3,13 @@
   "chance_outputs": [],
   "guaranteed_outputs": [
     {
+      "count": 16,
       "id": "neovitae:dungeon_stone_st"
     }
   ],
   "inputs": [
     "minecraft:smooth_stone",
-    "neovitae:base_spiritus_soul_invictus"
+    "neovitae:spiritus_invictus_shard"
   ],
   "tool": "#neovitae:athanor_tool/resonator"
 }

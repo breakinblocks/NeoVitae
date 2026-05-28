@@ -18,7 +18,15 @@ The total wave **scales with the number of players nearby**; solo runs see manag
 
 **Spike Traps** sit dormant and look innocuous until a redstone signal reaches them, whereupon serrated blades erupt from the housing with lethal intent. Whatever intelligence designed these clearly meant to discourage uninvited guests.
 
-The traps are wired into [Dungeon Alternators](#dungeon-alternators) and various pressure-plate triggers throughout the realm. They can be harvested intact, and they make excellent **defensive additions to a player base**: a single redstone pulse arms them, no further mechanism required. Consult JEI for crafting.
+The traps are wired into [Dungeon Alternators](#dungeon-alternators) and various pressure-plate triggers throughout the realm. They can be harvested intact with an iron-or-better pickaxe, and they make excellent **defensive additions to a player base**: a single redstone pulse arms them, no further mechanism required. Consult JEI for crafting.
+
+### Spike Traps as a Pre-Ritual Mob Farm
+
+When a powered Spike Trap slays a creature, the vitality spilled by its blades does not have to go to waste. If an **[Ara Vitae](Ara-Vitae-and-Runes)** stands within **16 blocks** of the trap, the kill feeds the altar directly, behaving like a miniature **Well of Suffering** at roughly **one third** of the ritual's yield per kill. The trap remembers the nearest altar after its first successful kill and only re-scans when that altar is broken or relocated, so the search cost is negligible.
+
+- **Players are excluded** from the harvest. Spikes still wound you, but a player death never feeds the altar, and spike kills are never attributed to a player - no experience, no player-conditional drops.
+- This gives early-tier vitaemancers a viable EV source long before the Well of Suffering ritual becomes available. Pair a spike trap with a mob spawner, a dispenser pulse circuit, or a redstone-clocked Dungeon Alternator and you have a passive blood farm.
+- The crafting recipe (3x3): top row `stone, spikes, stone`, middle row `stone, dispenser, stone`, bottom row `stone, stone, stone`, where `stone` is **Dungeon Stone** and `spikes` are made from `iron bars + 500 EV` in a Tier 1 Ara Vitae.
 
 ## Ethereal Mimics
 

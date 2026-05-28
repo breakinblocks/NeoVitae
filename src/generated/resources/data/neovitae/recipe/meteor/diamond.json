@@ -5,12 +5,12 @@
   "layers": [
     {
       "fill": "minecraft:diamond_ore",
-      "radius": 2
+      "radius": 4
     },
     {
       "fill": "minecraft:cobblestone",
       "minWeight": 1000,
-      "radius": 5,
+      "radius": 10,
       "weighted": [
         {
           "entry": "minecraft:diamond_ore",

@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/harvest",
-      "multiblock_name": "Reap of the Harvest Moon",
+      "multiblock_name": "Ritual of Harvest",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_harvest.multiblock.text"
     },

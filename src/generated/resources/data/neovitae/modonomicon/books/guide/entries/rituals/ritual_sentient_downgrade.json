@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/downgrade",
-      "multiblock_name": "Penance of the Leaden Soul",
+      "multiblock_name": "Sentient Extraction",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_sentient_downgrade.multiblock.text"
     },
@@ -65,7 +65,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 39,
+  "sort_number": 36,
   "x": -3,
   "y": 6
 }

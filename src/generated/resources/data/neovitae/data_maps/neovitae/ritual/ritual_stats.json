@@ -25,11 +25,6 @@
       "refresh_cost": 100,
       "refresh_time": 40
     },
-    "neovitae:crushing": {
-      "activation_cost": 2500,
-      "refresh_cost": 100,
-      "refresh_time": 40
-    },
     "neovitae:crystallum_fractura": {
       "activation_cost": 100000,
       "crystal_level": 1,
@@ -40,12 +35,6 @@
       "activation_cost": 20000,
       "crystal_level": 1,
       "refresh_cost": 100
-    },
-    "neovitae:ellipse": {
-      "activation_cost": 10000,
-      "crystal_level": 2,
-      "refresh_cost": 200,
-      "refresh_time": 1
     },
     "neovitae:expulsion": {
       "activation_cost": 1000,
@@ -80,11 +69,6 @@
     "neovitae:harvest": {
       "activation_cost": 20000,
       "refresh_cost": 20
-    },
-    "neovitae:jumping": {
-      "activation_cost": 500,
-      "refresh_cost": 25,
-      "refresh_time": 60
     },
     "neovitae:lava": {
       "activation_cost": 10000,
@@ -123,9 +107,8 @@
       "refresh_time": 60
     },
     "neovitae:sphere": {
-      "activation_cost": 10000,
-      "crystal_level": 2,
-      "refresh_cost": 200,
+      "activation_cost": 20000,
+      "refresh_cost": 10,
       "refresh_time": 1
     },
     "neovitae:suppression": {
@@ -153,10 +136,9 @@
       "refresh_cost": 2
     },
     "neovitae:yawning_void": {
-      "activation_cost": 500000,
-      "crystal_level": 2,
-      "refresh_cost": 50,
-      "refresh_time": 1
+      "activation_cost": 5000,
+      "refresh_cost": 10,
+      "refresh_time": 10
     },
     "neovitae:zephyr": {
       "activation_cost": 1000,

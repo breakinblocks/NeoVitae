@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/containment",
-      "multiblock_name": "Ritual of Binding",
+      "multiblock_name": "Ritual of Containment",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_containment.multiblock.text"
     },

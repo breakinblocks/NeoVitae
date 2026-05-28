@@ -30,7 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "text": "[#](8B0000)Activation Cost:[#]() 25,000 EV\\\n[#](8B0000)Crystal:[#]() Awakened Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 25 EV every 1 ticks\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  12x Earth Ritual Stone\\\n  4x Air Ritual Stone\\\n  8x Dusk Ritual Stone\\\n  4x Fire Ritual Stone\\\n  [#](8B0000)Total:[#]() 28 runes",
+      "text": "[#](8B0000)Activation Cost:[#]() 20,000 EV\\\n[#](8B0000)Crystal:[#]() Weak Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 10 EV every 1 ticks\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  8x Earth Ritual Stone\\\n  4x Air Ritual Stone\\\n  3x Fire Ritual Stone\\\n  1x Dusk Ritual Stone\\\n  [#](8B0000)Total:[#]() 16 runes",
       "title": ""
     },
     {
@@ -43,6 +43,17 @@
       "text": "book.neovitae.guide.rituals.ritual_sphere_create.info.text",
       "title": "book.neovitae.guide.rituals.ritual_sphere_create.info.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_sphere_create.foundation.text",
+      "title": "book.neovitae.guide.rituals.ritual_sphere_create.foundation.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [
@@ -54,7 +65,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 32,
+  "sort_number": 29,
   "x": -5,
   "y": 2
 }

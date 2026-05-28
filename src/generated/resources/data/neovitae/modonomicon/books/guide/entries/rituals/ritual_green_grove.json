@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/green_grove",
-      "multiblock_name": "Ritual of the Green Grove",
+      "multiblock_name": "Ritual of Overgrowth",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_green_grove.multiblock.text"
     },

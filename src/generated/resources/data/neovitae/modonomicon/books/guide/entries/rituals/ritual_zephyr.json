@@ -20,7 +20,7 @@
         "type": "modonomicon:none"
       },
       "multiblock_id": "ritual/zephyr",
-      "multiblock_name": "Call of the Zephyr",
+      "multiblock_name": "The Gathering",
       "show_visualize_button": true,
       "text": "book.neovitae.guide.rituals.ritual_zephyr.multiblock.text"
     },
@@ -54,7 +54,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 25,
+  "sort_number": 23,
   "x": -1,
   "y": 0
 }

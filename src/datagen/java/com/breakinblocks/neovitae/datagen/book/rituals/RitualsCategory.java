@@ -22,12 +22,12 @@ public class RitualsCategory extends CategoryProvider {
                 "____S___D___C___T__",
                 "___________________",
                 "__a_b_v_c_d_e_f____",
-                "__g_h_i_j_r_4______",
+                "__g_h_i_j___4______",
                 "___________________",
-                "__l_m_n_o_p_q______",
+                "__l_m_n___p_q______",
                 "__k_s_t_u__________",
                 "___________________",
-                "__0_1_2_3_y________",
+                "____1_2_3_y________",
                 "__w_x_z____________",
                 "___________________",
                 "__7________________",
@@ -113,10 +113,6 @@ public class RitualsCategory extends CategoryProvider {
         speed.withParent(this.parent(basics));
         speed.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
         speed.hideWhileLocked(false);
-        var jump = this.add(new RitualJumpEntry(this).generate('o'));
-        jump.withParent(this.parent(basics));
-        jump.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
-        jump.hideWhileLocked(false);
         var condor = this.add(new RitualCondorEntry(this).generate('p'));
         condor.withParent(this.parent(basics));
         condor.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
@@ -125,10 +121,6 @@ public class RitualsCategory extends CategoryProvider {
         magnetism.withParent(this.parent(basics));
         magnetism.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
         magnetism.hideWhileLocked(false);
-        var crushing = this.add(new RitualCrushingEntry(this).generate('r'));
-        crushing.withParent(this.parent(basics));
-        crushing.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
-        crushing.hideWhileLocked(false);
         var phantomBridge = this.add(new RitualPhantomBridgeEntry(this).generate('s'));
         phantomBridge.withParent(this.parent(basics));
         phantomBridge.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
@@ -162,10 +154,6 @@ public class RitualsCategory extends CategoryProvider {
         crafting.withParent(this.parent(basics));
         crafting.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
         crafting.hideWhileLocked(false);
-        var ellipse = this.add(new RitualEllipseEntry(this).generate('0'));
-        ellipse.withParent(this.parent(basics));
-        ellipse.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));
-        ellipse.hideWhileLocked(false);
         var sphereCreate = this.add(new RitualSphereCreateEntry(this).generate('1'));
         sphereCreate.withParent(this.parent(basics));
         sphereCreate.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/ritual_basics"));

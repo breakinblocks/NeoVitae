@@ -35,17 +35,11 @@ public final class NVRituals {
     public static final DeferredHolder<Ritual, RitualSpeed> SPEED =
             registerRitual("speed", RitualSpeed::new);
 
-    public static final DeferredHolder<Ritual, RitualJumping> JUMPING =
-            registerRitual("jumping", RitualJumping::new);
-
     public static final DeferredHolder<Ritual, RitualMagnetism> MAGNETISM =
             registerRitual("magnetism", RitualMagnetism::new);
 
     public static final DeferredHolder<Ritual, RitualAnimalGrowth> ANIMAL_GROWTH =
             registerRitual("animal_growth", RitualAnimalGrowth::new);
-
-    public static final DeferredHolder<Ritual, RitualCrushing> CRUSHING =
-            registerRitual("crushing", RitualCrushing::new);
 
     public static final DeferredHolder<Ritual, RitualFelling> FELLING =
             registerRitual("felling", RitualFelling::new);
@@ -82,9 +76,6 @@ public final class NVRituals {
 
     public static final DeferredHolder<Ritual, RitualCondor> CONDOR =
             registerRitual("condor", RitualCondor::new);
-
-    public static final DeferredHolder<Ritual, RitualEllipse> ELLIPSE =
-            registerRitual("ellipse", RitualEllipse::new);
 
     public static final DeferredHolder<Ritual, RitualSphere> SPHERE =
             registerRitual("sphere", RitualSphere::new);

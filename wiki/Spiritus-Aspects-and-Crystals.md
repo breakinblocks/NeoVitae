@@ -109,4 +109,4 @@ Bind the restorative power of Essentia Vitae directly into equipment. An item im
 
 Place the item to enchant in the Hellfire Forge alongside a Tabula Robur, Lapis Lazuli, and Nether Wart. The forge requires a minimum of **200 Spiritus** and consumes **400 Spiritus** in the process. The item retains all of its existing enchantments and properties.
 
-See also: **[Hellfire Forge and Sentient Equipment](Hellfire-Forge-and-Sentient-Equipment)**, **[Rituals](Rituals)** (Crystallum Fractura, Forsaken Souls), **[Blood Orbs and Anima](Blood-Orbs-and-Anima)** (the parallel EV network).
+See also: **[Hellfire Forge and Sentient Equipment](Hellfire-Forge-and-Sentient-Equipment)**, **[Rituals](Rituals)** (Crystallum Fractura, Lost Souls), **[Blood Orbs and Anima](Blood-Orbs-and-Anima)** (the parallel EV network).

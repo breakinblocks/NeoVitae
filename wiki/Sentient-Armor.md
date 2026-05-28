@@ -13,7 +13,7 @@ The armour grows in many directions at once, but its capacity is finite. Trying 
 **Upgrade Tomes** are crystallised records of a particular skill, each carrying the experience needed to inscribe one or more levels of its upgrade onto a chestplate. They come from three places:
 
 - **Dungeon loot.** Tomes are scattered through the loot tables of **The Mines** (ore chambers, the Smithy) and the Foreman's hoard.
-- **Penance of the Leaden Soul.** Throw an already-trained piece of Sentient Armor onto the small zone above this ritual's Master Ritual Stone and it will extract every upgrade currently inscribed on the armor as a separate Tome, preserving the accumulated experience. The armor itself is left stripped but intact. See **[Rituals](Rituals)**.
+- **Sentient Extraction.** Throw an already-trained piece of Sentient Armor onto the small zone above this ritual's Master Ritual Stone and it will extract every upgrade currently inscribed on the armor as a separate Tome, preserving the accumulated experience. The armor itself is left stripped but intact. See **[Rituals](Rituals)**.
 - **Combining duplicates.** Two tomes of the same upgrade can be merged at a vanilla crafting table to consolidate their experience.
 
 Press [Use] while holding a tome to inscribe one level of that skill onto your worn chestplate, assuming sufficient Upgrade Points remain. Hold sneak and [Use] to inscribe as much as possible at once. The tome is consumed in the process, transferring its stored experience to the chestplate. If insufficient points remain, the tome applies what it can and retains the rest; unless less than one level's worth remains, in which case the tome crumbles to nothing.
@@ -68,6 +68,6 @@ Every upgrade has a shadow. Downgrades are imposed by the **Ritual of Sentient D
 
 ## Caretaking
 
-Sentient Equipment rivals Diamond in resilience and is repaired in an anvil with additional **Binding Reagent** (brewed in the **[Tabula Vitae](Tabula-Vitae-Flasks-and-Anointments)**). The armour is also highly receptive to enchantment. To strip an unwanted upgrade and recover its points, use the **Ritual of Upgrade Removal**.
+Sentient Equipment rivals Diamond in resilience and is repaired in an anvil with additional **Binding Reagent** (brewed in the **[Tabula Vitae](Tabula-Vitae-Flasks-and-Anointments)**). The armour is also highly receptive to enchantment. To strip all upgrades and recover their points, use the **Tabula Rasa** ritual.
 
-See also: **[Hellfire Forge and Sentient Equipment](Hellfire-Forge-and-Sentient-Equipment)** (how the binding is performed), **[Sigils](Sigils)** (the Training Bracelet that directs growth), **[Rituals](Rituals)** (Sentient Evolution, Sentient Downgrade, Upgrade Removal, Sound of the Cleansing Soul), **[Alchemy Arrays](Alchemy-Arrays)** (where binding and bracelet are inscribed).
+See also: **[Hellfire Forge and Sentient Equipment](Hellfire-Forge-and-Sentient-Equipment)** (how the binding is performed), **[Sigils](Sigils)** (the Training Bracelet that directs growth), **[Rituals](Rituals)** (Sentient Evolution, Sentient Extraction, Tabula Rasa), **[Alchemy Arrays](Alchemy-Arrays)** (where binding and bracelet are inscribed).

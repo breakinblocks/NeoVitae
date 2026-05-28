@@ -34,6 +34,15 @@ public class RitualWaterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("The Spring Eternal");
         this.pageText("Among the first rituals a young Vitaemancer learns, this circle conjures water from nothing, placing source blocks above the [#](8B0000)Master Ritual Stone[#](). Though humble in its purpose, a spring that never runs dry is a gift not to be underestimated.");
+
+        this.page("tank_fill", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Tank Filling");
+        this.pageText("While any [#](8B0000)Raw Spiritus[#]() aura is present in the chunk, the ritual also fills "
+                + "any [#](8B0000)fluid tank[#]() placed directly above the Master Ritual Stone with water, [#](8B0000)1,000 mB per refresh[#](). "
+                + "A small expansion that turns the spring from a decoration into a quiet supply line for "
+                + "alchemy, brewing, or anything else that drinks water.");
     }
 
     @Override

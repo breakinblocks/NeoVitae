@@ -22,7 +22,7 @@ public class RitualYawningVoidEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/yawning_void"))
-                .withMultiblockName("Yawning of the Void")
+                .withMultiblockName("All Consuming Void")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
@@ -33,28 +33,39 @@ public class RitualYawningVoidEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Devouring Maw");
-        this.pageText("This ritual opens an insatiable hunger in the earth, consuming blocks layer by layer and collecting their drops, a quarry driven not by pistons and gears, but by [#](4A0080)vitaemantic will[#]().");
+        this.pageText("The circle opens a hunger in the earth that simply [#](8B0000)consumes[#](). One block per "
+                + "refresh is unmade beneath the [#](8B0000)Master Ritual Stone[#]() and returned to nothing; "
+                + "no drops, no items, no echo of what it was. The scan begins at the top of the volume and works "
+                + "its way downward, with the cursor saved between refreshes so a paused or interrupted dig "
+                + "resumes where it left off.\\\n\\\n"
+                + "The default scan volume is a small 3x3x3 box directly beneath the master stone. Use the "
+                + "[#](8B0000)Ritual Tinkerer[#]() to expand the volume; it can reach 64 blocks straight down "
+                + "and 32 wide, opening genuine chasms in the world.");
 
         this.page("spiritus_effects", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Spiritus Resonance");
-        this.pageText("- [#](8B0000)Raw Spiritus[#](): Accelerates the excavation rate.\\\n\\\n"
-                + "- [#](8B0000)Spiritus Ruina[#](): Enables a [#](8B0000)whitelist[#](). Drop sample "
-                + "items into the linked chest; the ritual will only break blocks whose drops match one "
-                + "of those items. An empty chest disables the filter and mines everything.\\\n\\\n"
-                + "- [#](8B0000)Spiritus Invictus[#](): Rather than destroying blocks, relocates them "
-                + "above the ritual, creating a surface copy of the excavated terrain.");
+        this.pageText("- [#](8B0000)Raw Spiritus[#](): Accelerates the refresh rate. With enough raw aura in the "
+                + "chunk, the ritual approaches one block per game tick.\\\n\\\n"
+                + "- [#](8B0000)Spiritus Invictus[#](): Rather than erasing the block, [#](8B0000)moves "
+                + "it[#]() to the first empty slot of a 3x3x3 placement volume directly above the master stone. "
+                + "Useful for sorting blocks out of a layer without destroying them. If the placement volume is "
+                + "full the ritual idles until you clear it.\\\n\\\n"
+                + "- [#](8B0000)Spiritus Ruina[#](): Reads items in a chest directly above the master "
+                + "stone as a [#](8B0000)whitelist[#](). Only blocks whose own item form matches one of those "
+                + "items are consumed; everything else is left intact. An empty chest disables the ritual "
+                + "entirely in this mode.");
     }
 
     @Override
     protected String entryName() {
-        return "Yawning of the Void";
+        return "All Consuming Void";
     }
 
     @Override
     protected String entryDescription() {
-        return "Devours the earth, layer by insatiable layer.";
+        return "Erases the earth beneath the ritual, one block at a time.";
     }
 
     @Override

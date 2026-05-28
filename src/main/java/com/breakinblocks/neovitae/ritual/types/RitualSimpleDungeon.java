@@ -18,11 +18,6 @@ import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.function.Consumer;
 
-/**
- * "Edge of the Hidden Realm" ritual - creates a simple dungeon instance.
- * This ritual activates once and creates a portal pillar to a mini-dungeon
- * in the NeoVitae dungeon dimension.
- */
 public class RitualSimpleDungeon extends DungeonRitualBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RitualSimpleDungeon.class);

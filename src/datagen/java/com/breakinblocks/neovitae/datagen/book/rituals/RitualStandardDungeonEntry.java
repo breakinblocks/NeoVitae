@@ -22,7 +22,7 @@ public class RitualStandardDungeonEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/standard_dungeon"))
-                .withMultiblockName("Pathway to the Endless Realm")
+                .withMultiblockName("Highway to Hell")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
@@ -33,22 +33,24 @@ public class RitualStandardDungeonEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Beyond the Threshold");
-        this.pageText("A [#](2E8B57)one-shot[#]() rite that consumes a much larger pool of [#](8B0000)EV[#]() than "
-                + "its lesser cousin. It assembles a full [#](8B0000)Standard Dungeon[#]() structure at the "
-                + "Master Ritual Stone, the main procedural dungeon complete with [#](8B0000)The Mines[#](), "
-                + "the Foreman fight, and aspected loot.\\\n\\\n"
-                + "Arm yourself well, apprentice. The dungeon is placed in your world, not a separate dimension, "
-                + "but what waits within is no less deadly for it.");
+        this.pageText("This rite forges a [#](8B0000)permanent gateway[#]() to the [#](8B0000)Endless tier "
+                + "dungeon[#](), a vast procedural realm complete with [#](8B0000)The Mines[#](), the Foreman "
+                + "fight, and aspected loot. Unlike the lesser breach, the Endless dungeon [#](8B0000)goes on "
+                + "forever[#](); you may return to it as often as you wish, and the deeper you delve, the more "
+                + "the realm reveals.\\\n\\\n"
+                + "The ritual consumes a tremendous pool of [#](8B0000)EV[#]() to tear and stabilise the "
+                + "gateway. Arm yourself well, apprentice; what waits within rewards the prepared and ruins "
+                + "the rest.");
     }
 
     @Override
     protected String entryName() {
-        return "Pathway to the Endless Realm";
+        return "Highway to Hell";
     }
 
     @Override
     protected String entryDescription() {
-        return "Generates a Standard Dungeon structure at the ritual stone.";
+        return "Opens a permanent gateway to the Endless tier dungeon.";
     }
 
     @Override

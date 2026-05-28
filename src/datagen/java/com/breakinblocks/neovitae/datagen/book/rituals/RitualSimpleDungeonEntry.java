@@ -22,7 +22,7 @@ public class RitualSimpleDungeonEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/simple_dungeon"))
-                .withMultiblockName("Edge of the Hidden Realm")
+                .withMultiblockName("Breaching the Edge of Demon Realm")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
@@ -34,20 +34,20 @@ public class RitualSimpleDungeonEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("A Crack in the Veil");
         this.pageText("A [#](2E8B57)one-shot[#]() rite. It consumes a large pool of [#](8B0000)EV[#]() and "
-                + "assembles a complete [#](8B0000)Simple Dungeon[#]() structure at the Master Ritual Stone, "
-                + "the entry tier of the Endless Dungeon experience.\\\n\\\n"
+                + "assembles a complete [#](8B0000)Starter tier dungeon[#]() structure at the Master Ritual Stone, "
+                + "the entry tier of the Demon Realm experience.\\\n\\\n"
                 + "Choose your spot carefully; the dungeon is placed in the world, not opened as a portal. "
                 + "Once assembled, the ritual ends and the Master Ritual Stone deactivates.");
     }
 
     @Override
     protected String entryName() {
-        return "Edge of the Hidden Realm";
+        return "Breaching the Edge of Demon Realm";
     }
 
     @Override
     protected String entryDescription() {
-        return "Generates a Simple Dungeon structure at the ritual stone.";
+        return "Generates a Starter tier dungeon at the ritual stone.";
     }
 
     @Override

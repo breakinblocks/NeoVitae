@@ -24,7 +24,7 @@ public class UpgradeTomesEntry extends EntryProvider {
                 + "the experience needed to inscribe one or more levels of its upgrade onto a chestplate. They "
                 + "come from three places:\\\n\\\n"
                 + "- The loot tables of [#](8B0000)The Mines[#]() (ore chambers, the Smithy, Foreman's hoard).\n\n"
-                + "- The [#](8B0000)Penance of the Leaden Soul[#]() ritual, which extracts the upgrades from a "
+                + "- The [#](8B0000)Sentient Extraction[#]() ritual, which extracts the upgrades from a "
                 + "thrown sentient armor piece as tomes.\n\n"
                 + "- Combining two tomes of the same upgrade at a vanilla crafting table.\\\n\\\n"
                 + "Press [Use] while holding a tome to inscribe one level of that skill onto your worn chestplate, "

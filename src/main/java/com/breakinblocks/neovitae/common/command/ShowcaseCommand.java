@@ -20,6 +20,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -356,7 +357,7 @@ public class ShowcaseCommand {
             }
 
             var id = RitualRegistry.getId(ritual);
-            String name = id == null ? "ritual" : id.getPath();
+            String name = resolveDisplayName(ritual.getTranslationKey(), id);
             BlockPos signPos = new BlockPos(cellOriginX, baseY + 1, startZ + row * RITUAL_CELL);
             placeLabel(level, signPos, name);
 
@@ -410,7 +411,7 @@ public class ShowcaseCommand {
             }
 
             var id = RitualRegistry.getId(ritual);
-            String name = id == null ? "imperfect" : id.getPath();
+            String name = resolveDisplayName(ritual.getTranslationKey(), id);
             BlockPos signPos = new BlockPos(cellX + 1, baseY + 1, cellZ);
             placeLabel(level, signPos, name);
 
@@ -450,15 +451,9 @@ public class ShowcaseCommand {
             BlockEntity be = level.getBlockEntity(pos);
             if (be instanceof SignBlockEntity sign) {
                 SignText text = sign.getFrontText();
-                String[] parts = name.split("/");
-                if (parts.length >= 2) {
-                    text = text.setMessage(0, Component.literal(parts[0]));
-                    text = text.setMessage(1, Component.literal(parts[1]));
-                } else if (name.length() > 15) {
-                    text = text.setMessage(0, Component.literal(name.substring(0, 15)));
-                    text = text.setMessage(1, Component.literal(name.substring(15, Math.min(name.length(), 30))));
-                } else {
-                    text = text.setMessage(0, Component.literal(name));
+                String[] lines = wrapLabel(name);
+                for (int i = 0; i < lines.length && i < 4; i++) {
+                    text = text.setMessage(i, Component.literal(lines[i]));
                 }
                 sign.setText(text, true);
                 sign.setChanged();
@@ -466,5 +461,65 @@ public class ShowcaseCommand {
         } catch (Exception e) {
             NeoVitae.LOGGER.warn("Failed to place showcase sign at {}: {}", pos, e.getMessage());
         }
+    }
+
+    private static String resolveDisplayName(String translationKey, ResourceLocation fallbackId) {
+        String resolved = Component.translatable(translationKey).getString();
+        if (!resolved.equals(translationKey) && !resolved.isBlank()) {
+            return resolved;
+        }
+        if (fallbackId == null) return "ritual";
+        String path = fallbackId.getPath();
+        StringBuilder humanized = new StringBuilder();
+        boolean capitalizeNext = true;
+        for (char c : path.toCharArray()) {
+            if (c == '_' || c == '/') {
+                humanized.append(' ');
+                capitalizeNext = true;
+            } else if (capitalizeNext) {
+                humanized.append(Character.toUpperCase(c));
+                capitalizeNext = false;
+            } else {
+                humanized.append(c);
+            }
+        }
+        return humanized.toString();
+    }
+
+    private static String[] wrapLabel(String name) {
+        if (name == null || name.isBlank()) return new String[]{""};
+        String[] parts = name.split("/");
+        if (parts.length >= 2) {
+            return new String[]{parts[0], parts[1]};
+        }
+
+        final int maxPerLine = 15;
+        final int maxLines = 4;
+        List<String> lines = new ArrayList<>();
+        StringBuilder current = new StringBuilder();
+        for (String word : name.split("\\s+")) {
+            if (word.isEmpty()) continue;
+            int newLen = current.length() == 0 ? word.length() : current.length() + 1 + word.length();
+            if (newLen <= maxPerLine) {
+                if (current.length() > 0) current.append(' ');
+                current.append(word);
+            } else {
+                if (current.length() > 0) {
+                    lines.add(current.toString());
+                    current.setLength(0);
+                }
+                while (word.length() > maxPerLine) {
+                    lines.add(word.substring(0, maxPerLine));
+                    word = word.substring(maxPerLine);
+                    if (lines.size() >= maxLines) break;
+                }
+                current.append(word);
+            }
+            if (lines.size() >= maxLines) break;
+        }
+        if (current.length() > 0 && lines.size() < maxLines) {
+            lines.add(current.toString());
+        }
+        return lines.toArray(new String[0]);
     }
 }

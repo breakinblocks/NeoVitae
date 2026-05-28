@@ -22,7 +22,7 @@ public class RitualExpulsionEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/expulsion"))
-                .withMultiblockName("Aura of Expulsion")
+                .withMultiblockName("Ritual of Expulsion")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
@@ -33,12 +33,12 @@ public class RitualExpulsionEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Warding Gale");
-        this.pageText("Where the Ritual of Binding imprisons, this circle repels. A wave of [#](4A0080)vitaemantic force[#]() radiates outward from the [#](8B0000)Master Ritual Stone[#](), driving all creatures beyond its boundaries. Practitioners remain unaffected, allowing you to ward your sanctum against uninvited guests.");
+        this.pageText("Where the Ritual of Containment imprisons, this circle repels. A wave of [#](4A0080)vitaemantic force[#]() radiates outward from the [#](8B0000)Master Ritual Stone[#](), driving all creatures beyond its boundaries. Practitioners remain unaffected, allowing you to ward your sanctum against uninvited guests.");
     }
 
     @Override
     protected String entryName() {
-        return "Aura of Expulsion";
+        return "Ritual of Expulsion";
     }
 
     @Override

@@ -136,8 +136,8 @@ Per-aspect snapshot with batch draining; produced by `ISpiritusHandler.queryWill
 |--------|-------------|-------------|
 | `get(SpiritusType)` | `double` | Snapshot amount |
 | `has(SpiritusType)` | `boolean` | At or above threshold |
-| `getDefault()` / `getCorrosive()` / `getDestructive()` / `getSteadfast()` / `getVengeful()` | `double` | Convenience aliases for `RAW` / `RUINA` / `NIHILUM` / `INVICTUS` / `VINDICTA` |
-| `hasDefault()` / `hasCorrosive()` / `hasDestructive()` / `hasSteadfast()` / `hasVengeful()` | `boolean` | Threshold checks for the matching aliases |
+| `getRaw()` / `getRuina()` / `getNihilum()` / `getInvictus()` / `getVindicta()` | `double` | Per-aspect amount accessors; convenience over `get(SpiritusType.X)`. |
+| `hasRaw()` / `hasRuina()` / `hasNihilum()` / `hasInvictus()` / `hasVindicta()` | `boolean` | Per-aspect threshold checks; convenience over `has(SpiritusType.X)`. |
 | `use(SpiritusType, double)` | `void` | Records pending usage |
 | `drain(ISpiritusHandler, Level, BlockPos)` | `void` | Applies all pending usage |
 | `drain(Level, BlockPos)` | `void` | Same as above using `SpiritusHandler.INSTANCE` |

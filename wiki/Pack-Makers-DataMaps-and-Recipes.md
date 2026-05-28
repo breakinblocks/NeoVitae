@@ -321,7 +321,7 @@ Sigil types define the behavior of sigils using a codec-based effect system. Eac
 
 Each altar tier (Weak through Transcendent) is a JSON entry in the `neovitae:altar_tier` datapack registry. Pack authors can re-shape the multiblock geometry **and** the visual effects each tier emits without touching code; the validator, the Modonomicon multiblock preview, and the in-world particle / render code all read from the same files. See [Ara Vitae and Runes](Ara-Vitae-and-Runes) for the player-facing tier ladder.
 
-A bundled example datapack at `examples/datapacks/neovitae_classic_altar/` restores the original Blood Magic square layout and is the easiest starting point.
+A bundled example datapack at `examples/datapacks/neovitae_classic_altar/` ships a complete square-layout altar definition and is the easiest starting point.
 
 ### File Structure
 

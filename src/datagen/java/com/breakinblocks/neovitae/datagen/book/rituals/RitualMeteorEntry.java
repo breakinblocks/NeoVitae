@@ -22,7 +22,7 @@ public class RitualMeteorEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/meteor"))
-                .withMultiblockName("Mark of the Falling Tower")
+                .withMultiblockName("Ritual of Meteo")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
@@ -33,7 +33,8 @@ public class RitualMeteorEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Heaven's Wrath");
-        this.pageText("With enough [#](8B0000)Essentia Vitae[#]() and ambition, you can tear a celestial body from the void above and hurl it earthward. Drop a suitable offering atop the [#](8B0000)Master Ritual Stone[#](); the ritual consumes it along with an enormous expenditure of [#](8B0000)Essentia Vitae[#](), then calls down a meteor from the sky. When it strikes, it detonates, leaving a crater rich with resources to mine and process.");
+        this.pageText("With enough [#](8B0000)Essentia Vitae[#]() and ambition, you can tear a celestial body from the void above and hurl it earthward. Drop a suitable offering atop the [#](8B0000)Master Ritual Stone[#](); the ritual consumes it along with an enormous expenditure of [#](8B0000)Essentia Vitae[#](), then calls down a meteor from the sky.\\\n\\\n"
+                + "The meteor settles in the air directly above the ritual, the [#](8B0000)lowest block of its sphere resting one block above the Master Ritual Stone[#](). The exact altitude is set by the meteor's outermost sphere radius - heavier offerings call larger meteors that hang higher overhead. When it materialises it detonates with a thunderous shock, leaving a crater of layered resources to mine and process.");
 
         this.page("offerings", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -45,7 +46,7 @@ public class RitualMeteorEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Mark of the Falling Tower";
+        return "Ritual of Meteo";
     }
 
     @Override

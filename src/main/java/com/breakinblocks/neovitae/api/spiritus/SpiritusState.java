@@ -56,17 +56,29 @@ public final class SpiritusState {
     /** Returns true if the specified will type meets or exceeds the threshold. */
     public boolean has(SpiritusType type) { return get(type) >= threshold; }
 
-    public double getDefault() { return get(SpiritusType.RAW); }
-    public double getCorrosive() { return get(SpiritusType.RUINA); }
-    public double getDestructive() { return get(SpiritusType.NIHILUM); }
-    public double getSteadfast() { return get(SpiritusType.INVICTUS); }
-    public double getVengeful() { return get(SpiritusType.VINDICTA); }
+    public double getRaw() { return get(SpiritusType.RAW); }
+    public double getRuina() { return get(SpiritusType.RUINA); }
+    public double getNihilum() { return get(SpiritusType.NIHILUM); }
+    public double getInvictus() { return get(SpiritusType.INVICTUS); }
+    public double getVindicta() { return get(SpiritusType.VINDICTA); }
 
-    public boolean hasDefault() { return has(SpiritusType.RAW); }
-    public boolean hasCorrosive() { return has(SpiritusType.RUINA); }
-    public boolean hasDestructive() { return has(SpiritusType.NIHILUM); }
-    public boolean hasSteadfast() { return has(SpiritusType.INVICTUS); }
-    public boolean hasVengeful() { return has(SpiritusType.VINDICTA); }
+    public boolean hasRaw() { return has(SpiritusType.RAW); }
+    public boolean hasRuina() { return has(SpiritusType.RUINA); }
+    public boolean hasNihilum() { return has(SpiritusType.NIHILUM); }
+    public boolean hasInvictus() { return has(SpiritusType.INVICTUS); }
+    public boolean hasVindicta() { return has(SpiritusType.VINDICTA); }
+
+    @Deprecated public double getDefault() { return getRaw(); }
+    @Deprecated public double getCorrosive() { return getRuina(); }
+    @Deprecated public double getDestructive() { return getNihilum(); }
+    @Deprecated public double getSteadfast() { return getInvictus(); }
+    @Deprecated public double getVengeful() { return getVindicta(); }
+
+    @Deprecated public boolean hasDefault() { return hasRaw(); }
+    @Deprecated public boolean hasCorrosive() { return hasRuina(); }
+    @Deprecated public boolean hasDestructive() { return hasNihilum(); }
+    @Deprecated public boolean hasSteadfast() { return hasInvictus(); }
+    @Deprecated public boolean hasVengeful() { return hasVindicta(); }
 
     /**
      * Records will usage of the specified type. Does not drain immediately —

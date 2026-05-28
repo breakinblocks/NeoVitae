@@ -22,7 +22,7 @@ public class RitualAnimalGrowthEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/animal_growth"))
-                .withMultiblockName("Ritual of the Shepherd")
+                .withMultiblockName("Ritual of Accelerated Aging")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
@@ -47,7 +47,7 @@ public class RitualAnimalGrowthEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Ritual of the Shepherd";
+        return "Ritual of Accelerated Aging";
     }
 
     @Override

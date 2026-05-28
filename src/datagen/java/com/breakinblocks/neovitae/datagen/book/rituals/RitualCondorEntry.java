@@ -22,7 +22,7 @@ public class RitualCondorEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/condor"))
-                .withMultiblockName("Reverence of the Condor")
+                .withMultiblockName("Soaring Skies")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
@@ -39,7 +39,7 @@ public class RitualCondorEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Reverence of the Condor";
+        return "Soaring Skies";
     }
 
     @Override

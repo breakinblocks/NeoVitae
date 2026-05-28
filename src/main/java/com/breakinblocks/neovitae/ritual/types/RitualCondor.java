@@ -15,13 +15,10 @@ import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import java.util.List;
 import java.util.function.Consumer;
 
-/**
- * Reverence of the Condor - Grants creative-style flight to players in the area.
- * This is a Dusk tier ritual (requires awakened activation crystal).
- */
 public class RitualCondor extends Ritual {
 
     public static final String FLIGHT_RANGE = "flightRange";
+    private static final int FLIGHT_DURATION_TICKS = 12000;
 
     public RitualCondor() {
         super("condor", 1, 10000, "ritual." + NeoVitae.MODID + ".condor");
@@ -41,7 +38,7 @@ public class RitualCondor extends Ritual {
 
         int totalCost = 0;
         for (Player player : players) {
-            player.addEffect(new MobEffectInstance(NVMobEffects.FLIGHT, 40, 0, true, false));
+            player.addEffect(new MobEffectInstance(NVMobEffects.FLIGHT, FLIGHT_DURATION_TICKS, 0, true, false));
             totalCost += getRefreshCost();
             RitualHelper.chanceStream(ctx.level(), 80, () ->
                     StreamPresets.emberMote(player.blockPosition().above()).build()

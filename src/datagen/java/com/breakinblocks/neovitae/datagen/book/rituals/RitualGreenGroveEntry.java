@@ -22,7 +22,7 @@ public class RitualGreenGroveEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/green_grove"))
-                .withMultiblockName("Ritual of the Green Grove")
+                .withMultiblockName("Ritual of Overgrowth")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
@@ -48,7 +48,7 @@ public class RitualGreenGroveEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Ritual of the Green Grove";
+        return "Ritual of Overgrowth";
     }
 
     @Override

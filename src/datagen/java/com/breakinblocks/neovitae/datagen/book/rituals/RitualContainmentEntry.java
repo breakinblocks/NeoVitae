@@ -22,7 +22,7 @@ public class RitualContainmentEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/containment"))
-                .withMultiblockName("Ritual of Binding")
+                .withMultiblockName("Ritual of Containment")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner for easier construction.[#]()");
 
@@ -38,7 +38,7 @@ public class RitualContainmentEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Ritual of Binding";
+        return "Ritual of Containment";
     }
 
     @Override

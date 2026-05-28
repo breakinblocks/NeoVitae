@@ -6,6 +6,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityMeteor;
+import com.breakinblocks.neovitae.common.meteor.MeteorLayer;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipeHelper;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
@@ -59,12 +60,19 @@ public class RitualMeteor extends Ritual {
                     ctx.syphon(syphonAmount);
                 }
 
+                int maxRadius = 0;
+                for (MeteorLayer layer : recipe.getLayerList()) {
+                    if (layer.getLayerRadius() > maxRadius) maxRadius = layer.getLayerRadius();
+                }
+                int targetY = ctx.masterPos().getY() + 1 + maxRadius;
+
                 EntityMeteor meteor = new EntityMeteor(ctx.level(),
                         ctx.masterPos().getX() + 0.5,
                         ctx.level().getMaxY() + 10,
                         ctx.masterPos().getZ() + 0.5);
                 meteor.setDeltaMovement(0, -0.1, 0);
                 meteor.setContainedStack(stack.split(1));
+                meteor.setTargetY(targetY);
                 ctx.level().addFreshEntity(meteor);
 
                 StreamPresets

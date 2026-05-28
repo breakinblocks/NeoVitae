@@ -11,12 +11,12 @@
   "explosion": 24.0,
   "layers": [
     {
-      "radius": 2,
+      "radius": 4,
       "fill": "ae2:fluix_block",
       "shell": "ae2:sky_stone_block"
     },
     {
-      "radius": 7,
+      "radius": 14,
       "additionalWeight": 200,
       "minWeight": 0,
       "fill": "ae2:sky_stone_block",

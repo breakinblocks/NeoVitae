@@ -32,8 +32,32 @@ public class RitualSphereCreateEntry extends EntryProvider {
         this.page("info", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("The Phantom Moon");
-        this.pageText("This ritual conjures a hollow sphere of [#](4A0080)phantom matter[#]() centered above the [#](8B0000)Master Ritual Stone[#](), a translucent shell that hangs in the air like a captured moon. The sphere's radius can be adjusted with the [#](8B0000)Ritual Tinkerer[#](), though the [#](8B0000)Essentia Vitae[#]() cost scales accordingly.");
+        this.pageTitle("The Lifted Earth");
+        this.pageText("Few rituals are as theatrical as this. The circle scoops a [#](8B0000)solid ellipsoidal "
+                + "volume[#]() of earth from directly beneath the [#](8B0000)Master Ritual Stone[#]() and teleports "
+                + "it skyward, blocks rising one by one until a [#](4A0080)floating moon of earth and stone[#]() "
+                + "hangs above the ritual where the ground used to be. The void left behind exactly mirrors the "
+                + "moon's shape, a bowl of empty air carved into the world.\\\n\\\n"
+                + "Each lifted block drains [#](8B0000)10 EV[#](). The ritual processes up to one hundred block "
+                + "checks per refresh and remembers where it left off, so even the largest moons assemble "
+                + "incrementally across many seconds of operation. The ritual auto-deactivates once the full "
+                + "volume has been swept. Claim-protected ground is left untouched, and the moon's destination "
+                + "skips blocks that fall within someone else's claim.");
+
+        this.page("foundation", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Foundation Stone");
+        this.pageText("The size of the lifted moon is set by the [#](8B0000)block placed directly beneath the "
+                + "Master Ritual Stone[#](). The richer the foundation, the larger the moon:\\\n\\\n"
+                + "- [#](8B0000)Any other block[#](): 33 blocks across\\\n"
+                + "- [#](8B0000)Iron Block[#](): 41 blocks across\\\n"
+                + "- [#](8B0000)Gold Block[#](): 49 blocks across\\\n"
+                + "- [#](8B0000)Diamond Block[#](): 57 blocks across\\\n"
+                + "- [#](8B0000)Netherite Block[#](): [#](2E8B57)65 blocks across[#]()\\\n\\\n"
+                + "The moon's source volume begins two blocks below the master and descends straight down for "
+                + "the full diameter; the destination begins two blocks above and rises the same distance. Mind "
+                + "what is in either space before activation.");
     }
 
     @Override
@@ -43,7 +67,7 @@ public class RitualSphereCreateEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Conjures a hollow sphere of spectral matter.";
+        return "Lifts a moon-sized volume of terrain out of the ground beneath the ritual.";
     }
 
     @Override

@@ -31,7 +31,7 @@ A glossary of every term, resource, and abbreviation you'll encounter.
 | :---: | --- |
 | **0** | Basic altar, Sacrificial Knife, Tabula Vitae, Hellfire Forge, Throwing Daggers |
 | **I** | Upgrade Runes, sigil expansion, potioncrafting, off-hand orb harvesting |
-| **II** | Rituals, Sentient Armour, Demon Realm peek (Edge of the Hidden Realm) |
+| **II** | Rituals, Sentient Armour, Demon Realm peek (Breaching the Edge of Demon Realm) |
 | **III** | Dusk Diviner, Sentient Evolution, Aspected Spiritus, permanent Endless Realm gate |
 | **IV** | Most devastating rituals, Hellforged Parts double rune power |
 | **V** | The pinnacle. Crystal Cluster capstones, nineteen runes per side, unlimited capacity |
@@ -113,9 +113,9 @@ See [Routing Network](Routing-Network).
 
 **Dungeon dimension** (`neovitae:dungeon`). The Endless Realm. Procedurally assembled from hand-authored rooms.
 
-**Edge of the Hidden Realm**. Tier II ritual; limited passage to the Demon Realm.
+**Breaching the Edge of Demon Realm**. Tier II ritual; one-shot Starter tier dungeon, limited passage to the Demon Realm.
 
-**Pathway to the Endless Realm**. Tier III ritual; permanent gate.
+**Highway to Hell**. Tier III ritual; permanent gate to the Endless tier dungeon.
 
 ## Defenses
 

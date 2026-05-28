@@ -20,7 +20,7 @@ public class LobbyEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Antechamber");
-        this.pageText("When the [#](8B0000)Edge of the Hidden Realm[#]() ritual completes, you will find yourself "
+        this.pageText("When the [#](8B0000)Breaching the Edge of Demon Realm[#]() ritual completes, you will find yourself "
                 + "standing before an [#](8B0000)Inversion Pillar[#](). Touch it, and you are drawn across the threshold "
                 + "into the [#](4A0080)Antechamber[#](), the outermost vestibule of the [#](4A0080)Demon Realm[#]().\\\n\\\n"
                 + "Take stock of your surroundings:\n\n"

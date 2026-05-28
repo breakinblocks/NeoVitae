@@ -17,11 +17,6 @@ import java.util.List;
 import java.util.function.Consumer;
 import net.minecraft.world.entity.EquipmentSlot;
 
-/**
- * Sound of the Cleansing Soul - Removes all upgrades from living armor.
- * Player must stand on the Master Ritual Stone wearing living armor.
- * This is a Dusk tier ritual.
- */
 public class RitualUpgradeRemove extends Ritual {
 
     public RitualUpgradeRemove() {

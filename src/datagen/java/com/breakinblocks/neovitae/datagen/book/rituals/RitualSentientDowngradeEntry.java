@@ -22,7 +22,7 @@ public class RitualSentientDowngradeEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/downgrade"))
-                .withMultiblockName("Penance of the Leaden Soul")
+                .withMultiblockName("Sentient Extraction")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
@@ -51,7 +51,7 @@ public class RitualSentientDowngradeEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Penance of the Leaden Soul";
+        return "Sentient Extraction";
     }
 
     @Override

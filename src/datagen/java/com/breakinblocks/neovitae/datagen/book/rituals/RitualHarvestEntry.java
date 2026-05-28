@@ -22,7 +22,7 @@ public class RitualHarvestEntry extends EntryProvider {
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/harvest"))
-                .withMultiblockName("Reap of the Harvest Moon")
+                .withMultiblockName("Ritual of Harvest")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Use a Ritual Diviner [Dusk] for easier construction.[#]()");
 
@@ -33,12 +33,12 @@ public class RitualHarvestEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Reaper's Bounty");
-        this.pageText("This ritual commands an unseen sickle across your fields, harvesting mature crops and replanting them in a single sweep. The bounty falls to the ground near where it grew, awaiting collection. Combined with the [#](8B0000)Ritual of the Green Grove[#](), you have the makings of a self-sustaining farm.");
+        this.pageText("This ritual commands an unseen sickle across your fields, harvesting mature crops and replanting them in a single sweep. The bounty falls to the ground near where it grew, awaiting collection. Combined with the [#](8B0000)Ritual of Overgrowth[#](), you have the makings of a self-sustaining farm.");
     }
 
     @Override
     protected String entryName() {
-        return "Reap of the Harvest Moon";
+        return "Ritual of Harvest";
     }
 
     @Override

@@ -64,7 +64,7 @@ See **[Rituals](Rituals)** and **[Hellfire Forge and Sentient Equipment](Hellfir
 
 ## Tier II, Dungeoneering
 
-Perform the **Edge of the Hidden Realm** ritual and you tear a wound in the veil for limited passage into the **Demon Realm**. There you may find **Tau Fruit**. Cultivate it into **Saturated Tau**, refine it in the Athanor to produce **Weak Blood Shards**, the key to the next tier, stronger anointments, and potion catalysts.
+Perform the **Breaching the Edge of Demon Realm** ritual and you tear a wound in the veil for limited passage into the **Demon Realm**. There you may find **Tau Fruit**. Cultivate it into **Saturated Tau**, refine it in the Athanor to produce **Weak Blood Shards**, the key to the next tier, stronger anointments, and potion catalysts.
 
 See **[The Endless Dungeon](The-Endless-Dungeon)** and **[Athanor and Materials](Athanor-and-Materials)**.
 
@@ -74,7 +74,7 @@ Tier III unlocks the **Ritual Diviner [Dusk]** and a vast repertoire of advanced
 
 ## Tier III, Sentient Evolution
 
-Your Sentient Armour may start to feel cramped by its modest point cap. With the Dusk Diviner, perform the **Ritual of Sentient Evolution** to raise your armour's capacity from **100** to **300** points. The **Sound of the Cleansing Soul** strips upgrades into **Upgrade Tomes** you can copy into a **Training Bracelet** or re-apply selectively. Surplus tomes fuel the **Penance of the Leaden Soul**, which inscribes **Downgrades**, negative-cost effects that free room for greater upgrades.
+Your Sentient Armour may start to feel cramped by its modest point cap. With the Dusk Diviner, perform the **Ritual of Sentient Evolution** to raise your armour's capacity from **100** to **300** points. The **Sentient Extraction** ritual strips a thrown piece of armour's upgrades into **Upgrade Tomes** you can store in a **Training Bracelet** or re-apply selectively. If you would rather wipe a worn set without producing tomes, use **Tabula Rasa** to reset every Sentient piece you have equipped back to a clean slate.
 
 See **[Sentient Armor](Sentient-Armor)** for the full upgrade/downgrade tree.
 
@@ -86,7 +86,7 @@ See **[Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)**.
 
 ## Tier III, The Endless Realm
 
-The **Pathway to the Endless Realm** tears open a permanent gate. Come armed and armoured; the realm does not suffer the unprepared. Delve deep enough and you may unearth **Demonite Ore**, the capstone material for the ultimate altar tiers, alongside the **Dominus Orb of Vitae**.
+The **Highway to Hell** ritual tears open a permanent gate to the Endless tier dungeon. Come armed and armoured; the realm does not suffer the unprepared. Delve deep enough and you may unearth **Demonite Ore**, the capstone material for the ultimate altar tiers, alongside the **Dominus Orb of Vitae**.
 
 ## Tier IV, Devastating Rites
 

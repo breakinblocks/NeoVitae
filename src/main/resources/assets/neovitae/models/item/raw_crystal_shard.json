@@ -1,3 +1,6 @@
 {
-  "parent": "neovitae:block/crystal/rawcrystal1"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "neovitae:item/raw_crystal_shard"
+  }
 }

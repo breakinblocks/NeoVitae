@@ -1,3 +1,6 @@
 {
-  "parent": "neovitae:block/crystal/vindictacrystal1"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "neovitae:item/spiritus_vindicta_shard"
+  }
 }

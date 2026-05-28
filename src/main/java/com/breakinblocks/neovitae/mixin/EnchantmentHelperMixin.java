@@ -16,8 +16,7 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 @Mixin(EnchantmentHelper.class)
 public class EnchantmentHelperMixin {
 
-    @Inject(method = "getItemEnchantmentLevel(Lnet/minecraft/core/Holder;Lnet/minecraft/world/item/ItemStack;)I",
-            at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getItemEnchantmentLevel", at = @At("RETURN"), cancellable = true)
     private static void neovitae$applyAnointmentEnchantments(
             Holder<Enchantment> enchantment, ItemStack stack,
             CallbackInfoReturnable<Integer> cir) {

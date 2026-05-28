@@ -215,19 +215,19 @@ public class NVRecipeProvider extends RecipeProvider {
                 .save(output, rKey(NeoVitae.rl("raw_demonite_from_block")));
 
         // Corrupted Dust from 4 Tiny Corrupted Dust
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, NVItems.CORRUPTED_DUST.get())
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, NVItems.CORRUPTED_DUST.get())
                 .requires(NVItems.CORRUPTED_DUST_TINY.get())
                 .requires(NVItems.CORRUPTED_DUST_TINY.get())
                 .requires(NVItems.CORRUPTED_DUST_TINY.get())
                 .requires(NVItems.CORRUPTED_DUST_TINY.get())
                 .unlockedBy("has_corrupted_tiny_dust", has(NVItems.CORRUPTED_DUST_TINY.get()))
-                .save(output, NeoVitae.rl("corrupted_dust_from_tiny"));
+                .save(output, rKey(NeoVitae.rl("corrupted_dust_from_tiny")));
 
         // Tiny Corrupted Dust from 1 Corrupted Dust
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, NVItems.CORRUPTED_DUST_TINY.get(), 4)
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, NVItems.CORRUPTED_DUST_TINY.get(), 4)
                 .requires(NVItems.CORRUPTED_DUST.get())
                 .unlockedBy("has_corrupted_dust", has(NVItems.CORRUPTED_DUST.get()))
-                .save(output, NeoVitae.rl("corrupted_tiny_dust_from_corrupted"));
+                .save(output, rKey(NeoVitae.rl("corrupted_tiny_dust_from_corrupted")));
 
         // Raw Demonite smelting -> Hellforged Ingot
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(NVItems.DEMONITE_RAW.get()), RecipeCategory.MISC, CookingBookCategory.MISC, NVItems.HELLFORGED_INGOT.get(), 0, 200)
@@ -3844,7 +3844,7 @@ public class NVRecipeProvider extends RecipeProvider {
             AthanorRecipeBuilder.build(NVTags.Items.RESONATOR)
                     .input(Items.SMOOTH_STONE)
                     .input(crystal)
-                    .guaranteedOutput(new ItemStack(stone.asItem(), 16))
+                    .guaranteedOutput(stone.asItem(), 16)
                     .save(output, rKey(NeoVitae.rl("dungeon/dungeon_stone" + suffix)));
 
             // === HELLFIRE FORGE: 3 smooth + 1 diamond → 4 dungeon stone, 128 min / 16 drain ===
@@ -3929,7 +3929,7 @@ public class NVRecipeProvider extends RecipeProvider {
 
         // === SPIKE TRAP: dispenser in middle, spikes above, dungeon stone everywhere else ===
         ItemLike rawDungeonStone = DungeonBlocks.DUNGEON_STONE.get(DungeonVariant.RAW);
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, DungeonBlocks.SPIKE_TRAP.asItem())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.REDSTONE, DungeonBlocks.SPIKE_TRAP.asItem())
                 .pattern("SkS")
                 .pattern("SdS")
                 .pattern("SSS")
@@ -3937,7 +3937,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('k', DungeonBlocks.SPIKES.asItem())
                 .define('d', Items.DISPENSER)
                 .unlockedBy("has_spikes", has(DungeonBlocks.SPIKES.asItem()))
-                .save(output, NeoVitae.rl("dungeon/spike_trap"));
+                .save(output, rKey(NeoVitae.rl("dungeon/spike_trap")));
     }
 
     private void dungeonStonecutting(RecipeOutput output, ItemLike input, ItemLike result, String id) {

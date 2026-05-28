@@ -114,7 +114,7 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
     private final Optional<FluidStackTemplate> outputFluid;
     private final Map<SpiritusType, Double> spiritusCosts;
     private final boolean spiritusBoost;
-    private final List<Pair<ItemStackTemplate, Double>> allListed;
+    private volatile List<Pair<ItemStackTemplate, Double>> allListed;
 
     public AthanorRecipe(Ingredient tool, List<Ingredient> inputs, List<ItemStackTemplate> guaranteedOutput, List<Pair<ItemStackTemplate, Double>> chanceOutput, Optional<SizedFluidIngredient> inputFluid, Optional<FluidStackTemplate> outputStack, Map<SpiritusType, Double> spiritusCosts, boolean spiritusBoost) {
         this.tool = tool;
@@ -125,16 +125,6 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         this.outputFluid = outputStack;
         this.spiritusCosts = Map.copyOf(spiritusCosts);
         this.spiritusBoost = spiritusBoost;
-
-        List<Pair<ItemStackTemplate, Double>> outputs = new ArrayList<>();
-        guaranteedOutput.forEach(stack -> outputs.add(Pair.of(stack, 1D)));
-        outputs.addAll(chanceOutput);
-        if (spiritusBoost && !guaranteedOutput.isEmpty()) {
-            ItemStack singleStack = guaranteedOutput.get(0).create().copyWithCount(1);
-            ItemStackTemplate singleBonus = ItemStackTemplate.fromNonEmptyStack(singleStack);
-            outputs.add(Pair.of(singleBonus, SPIRITUS_BOOST_MAX_CHANCE));
-        }
-        allListed = List.copyOf(outputs);
     }
 
     public AthanorRecipe(Ingredient tool, List<Ingredient> inputs, List<ItemStackTemplate> guaranteedOutput, List<Pair<ItemStackTemplate, Double>> chanceOutput, Optional<SizedFluidIngredient> inputFluid, Optional<FluidStackTemplate> outputStack, Map<SpiritusType, Double> spiritusCosts) {
@@ -264,7 +254,19 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
     }
 
     public List<Pair<ItemStackTemplate, Double>> getAllListedOutputs() {
-        return allListed;
+        List<Pair<ItemStackTemplate, Double>> cached = allListed;
+        if (cached != null) return cached;
+        List<Pair<ItemStackTemplate, Double>> outputs = new ArrayList<>();
+        guaranteedOutput.forEach(stack -> outputs.add(Pair.of(stack, 1D)));
+        outputs.addAll(chanceOutput);
+        if (spiritusBoost && !guaranteedOutput.isEmpty()) {
+            ItemStack singleStack = guaranteedOutput.get(0).create().copyWithCount(1);
+            ItemStackTemplate singleBonus = ItemStackTemplate.fromNonEmptyStack(singleStack);
+            outputs.add(Pair.of(singleBonus, SPIRITUS_BOOST_MAX_CHANCE));
+        }
+        cached = List.copyOf(outputs);
+        allListed = cached;
+        return cached;
     }
 
     @Override

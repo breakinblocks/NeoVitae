@@ -1367,12 +1367,6 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("jei.neovitae.athanor.spiritus_requirement", "Requires %s %s spiritus");
         add("jei.neovitae.ritual.rune_count", "%s× %s");
 
-        // Sigil messages
-        add("tooltip.neovitae.sigil.teleposition.unbound", "Bind to a Teleposer first by sneak-right-clicking it");
-        add("tooltip.neovitae.sigil.teleposition.invalid_dimension", "Bound Teleposer is in another dimension");
-        add("tooltip.neovitae.sigil.teleposition.no_teleposer", "Bound Teleposer is missing");
-        add("tooltip.neovitae.sigil.teleposition.bound", "Bound to Teleposer at [%s, %s, %s]");
-
         // System messages
         add("message.neovitae.divination.altar_stats_header", "===== Altar Diagnostics =====");
         add("message.neovitae.divination.altar_stats_footer", "==============================");

@@ -2,18 +2,10 @@
   "type": "neovitae:hellfire_forge",
   "drain": 16.0,
   "inputs": [
-    {
-      "item": "minecraft:smooth_stone"
-    },
-    {
-      "item": "minecraft:smooth_stone"
-    },
-    {
-      "item": "minecraft:smooth_stone"
-    },
-    {
-      "item": "minecraft:diamond"
-    }
+    "minecraft:smooth_stone",
+    "minecraft:smooth_stone",
+    "minecraft:smooth_stone",
+    "minecraft:diamond"
   ],
   "minDrain": 128.0,
   "output": {

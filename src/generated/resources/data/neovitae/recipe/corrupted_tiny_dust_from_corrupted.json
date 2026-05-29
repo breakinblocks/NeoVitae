@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "neovitae:corrupted_dust"
-    }
+    "neovitae:corrupted_dust"
   ],
   "result": {
     "count": 4,

@@ -9,7 +9,7 @@
   "description": "book.neovitae.guide.alchemy_arrays.vortex_sigil.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "neovitae:blood_pearl"
+    "id": "neovitae:blood_pearl"
   },
   "name": "book.neovitae.guide.alchemy_arrays.vortex_sigil.name",
   "pages": [

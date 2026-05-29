@@ -1,11 +1,10 @@
 {
   "type": "neovitae:array",
-  "addedinput": {
-    "item": "neovitae:blood_pearl"
-  },
-  "baseinput": {
-    "item": "neovitae:tabula_robur"
-  },
+  "addedinput": "neovitae:blood_pearl",
+  "baseinput": "neovitae:tabula_robur",
   "effect_type": "vortex",
+  "output": {
+    "id": "minecraft:stone"
+  },
   "texture": "neovitae:textures/models/alchemyarrays/vortexsigil.png"
 }

@@ -2,21 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "neovitae:corrupted_tiny_dust"
-    },
-    {
-      "item": "neovitae:corrupted_tiny_dust"
-    },
-    {
-      "item": "neovitae:corrupted_tiny_dust"
-    },
-    {
-      "item": "neovitae:corrupted_tiny_dust"
-    }
+    "neovitae:corrupted_tiny_dust",
+    "neovitae:corrupted_tiny_dust",
+    "neovitae:corrupted_tiny_dust",
+    "neovitae:corrupted_tiny_dust"
   ],
   "result": {
-    "count": 1,
     "id": "neovitae:corrupted_dust"
   }
 }

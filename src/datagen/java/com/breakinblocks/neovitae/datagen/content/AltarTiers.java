@@ -94,7 +94,7 @@ public class AltarTiers {
     // Cardinal cap positions per tier; these match the addCardinalCap calls below
     // and are reused as the origins for each tier's visual effect entries.
     private static final List<BlockPos> MAGE_CAPS = cardinals(4, 1);
-    private static final List<BlockPos> MASTER_CAPS = cardinals(6, 2);
+    private static final List<BlockPos> MASTER_CAPS = corners(6, 2);
     private static final List<BlockPos> ARCHMAGE_CAPS = cardinals(9, -4);
     private static final List<BlockPos> TRANSCENDENT_CAPS = cardinals(12, 3);
 
@@ -119,6 +119,15 @@ public class AltarTiers {
                 new BlockPos(-distance, y, 0),
                 new BlockPos(0, y, distance),
                 new BlockPos(0, y, -distance)
+        );
+    }
+
+    private static List<BlockPos> corners(int distance, int y) {
+        return List.of(
+                new BlockPos(distance, y, distance),
+                new BlockPos(-distance, y, distance),
+                new BlockPos(distance, y, -distance),
+                new BlockPos(-distance, y, -distance)
         );
     }
 
@@ -153,8 +162,7 @@ public class AltarTiers {
     private static List<AltarComponent> buildMaster() {
         List<AltarComponent> out = new ArrayList<>(MAGE);
         addRing(out, 5, -3, RUNE, true);
-        addCardinalPillars(out, 6, -2, 1, PILLAR);
-        addCardinalCap(out, 6, 2, T4_CAP);
+        addCornerCap(out, 6, 2, T4_CAP);
         return out;
     }
 
@@ -201,5 +209,12 @@ public class AltarTiers {
         out.add(new AltarComponent(new BlockPos(-distance, y, 0), material, false));
         out.add(new AltarComponent(new BlockPos(0, y, distance), material, false));
         out.add(new AltarComponent(new BlockPos(0, y, -distance), material, false));
+    }
+
+    private static void addCornerCap(List<AltarComponent> out, int distance, int y, TagOrElementLocation material) {
+        out.add(new AltarComponent(new BlockPos(distance, y, distance), material, false));
+        out.add(new AltarComponent(new BlockPos(-distance, y, distance), material, false));
+        out.add(new AltarComponent(new BlockPos(distance, y, -distance), material, false));
+        out.add(new AltarComponent(new BlockPos(-distance, y, -distance), material, false));
     }
 }

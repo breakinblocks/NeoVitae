@@ -9,5 +9,6 @@ public class DaemoniumCruorisRenderer extends GeoEntityRenderer<DaemoniumCruoris
 
     public DaemoniumCruorisRenderer(EntityRendererProvider.Context context) {
         super(context, new DaemoniumCruorisModel());
+        addRenderLayer(new NVEmissiveGeoLayer<>(this));
     }
 }

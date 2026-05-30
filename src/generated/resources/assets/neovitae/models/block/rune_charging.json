@@ -1,6 +1,85 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "cullface": "down",
+          "texture": "#base"
+        },
+        "east": {
+          "cullface": "east",
+          "texture": "#base"
+        },
+        "north": {
+          "cullface": "north",
+          "texture": "#base"
+        },
+        "south": {
+          "cullface": "south",
+          "texture": "#base"
+        },
+        "up": {
+          "cullface": "up",
+          "texture": "#base"
+        },
+        "west": {
+          "cullface": "west",
+          "texture": "#base"
+        }
+      },
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "faces": {
+        "down": {
+          "texture": "#glow"
+        },
+        "east": {
+          "texture": "#glow"
+        },
+        "north": {
+          "texture": "#glow"
+        },
+        "south": {
+          "texture": "#glow"
+        },
+        "up": {
+          "texture": "#glow"
+        },
+        "west": {
+          "texture": "#glow"
+        }
+      },
+      "from": [
+        -0.005,
+        -0.005,
+        -0.005
+      ],
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15
+      },
+      "to": [
+        16.005,
+        16.005,
+        16.005
+      ]
+    }
+  ],
+  "render_type": "minecraft:cutout",
   "textures": {
-    "all": "neovitae:block/rune_charging"
+    "base": "neovitae:block/rune_charging",
+    "glow": "neovitae:block/rune_charging_e",
+    "particle": "neovitae:block/rune_charging"
   }
 }

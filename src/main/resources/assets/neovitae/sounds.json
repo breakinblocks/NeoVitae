@@ -35,6 +35,10 @@
     "category": "block",
     "sounds": [{"name": "neovitae:ritual_complete"}]
   },
+  "overgrowth": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:overgrowth", "stream": true}]
+  },
   "alchemy_array_activate": {
     "category": "block",
     "sounds": [{"name": "neovitae:alchemy_array_activate"}]

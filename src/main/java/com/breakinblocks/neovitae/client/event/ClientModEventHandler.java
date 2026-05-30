@@ -27,6 +27,7 @@ import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.client.particle.BloodBubbleParticle;
 import com.breakinblocks.neovitae.client.particle.BloodDripParticle;
+import com.breakinblocks.neovitae.client.particle.OvergrowthDripParticle;
 import com.breakinblocks.neovitae.client.particle.BloodFlameParticle;
 import com.breakinblocks.neovitae.client.particle.BloodGlowParticle;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
@@ -231,6 +232,7 @@ public class ClientModEventHandler {
         event.registerSpriteSet(NVParticles.BLOOD_DRIP.get(), BloodDripParticle.Provider::new);
         event.registerSpriteSet(NVParticles.RUNE_GLOW.get(), RuneGlowParticle.Provider::new);
         event.registerSpriteSet(NVParticles.BLOOD_BUBBLE.get(), BloodBubbleParticle.Provider::new);
+        event.registerSpriteSet(NVParticles.OVERGROWTH_DRIP.get(), OvergrowthDripParticle.Provider::new);
     }
 
     @SubscribeEvent

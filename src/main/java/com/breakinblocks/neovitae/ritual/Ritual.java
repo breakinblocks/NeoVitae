@@ -7,7 +7,9 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.sounds.SoundEvent;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 
 import java.util.*;
@@ -64,6 +66,10 @@ public abstract class Ritual {
 
     public int getRefreshTime() {
         return 20;
+    }
+
+    public SoundEvent getAmbientSound() {
+        return NVSounds.RITUAL_AMBIENT.get();
     }
 
     protected void addBlockRange(String key, AreaDescriptor defaultRange) {

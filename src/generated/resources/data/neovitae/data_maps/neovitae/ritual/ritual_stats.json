@@ -60,6 +60,7 @@
     },
     "neovitae:green_grove": {
       "activation_cost": 1000,
+      "ambient_sound": "neovitae:overgrowth",
       "refresh_cost": 20
     },
     "neovitae:grounding": {

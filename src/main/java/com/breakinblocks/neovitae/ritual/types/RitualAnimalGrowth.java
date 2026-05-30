@@ -177,10 +177,10 @@ public class RitualAnimalGrowth extends Ritual {
     public Component[] provideInformationOfRitualToPlayer(Player player) {
         return new Component[]{
                 Component.translatable(getTranslationKey() + ".info"),
-                Component.translatable(getTranslationKey() + ".will.default"),
-                Component.translatable(getTranslationKey() + ".will.steadfast"),
-                Component.translatable(getTranslationKey() + ".will.destructive"),
-                Component.translatable(getTranslationKey() + ".will.vengeful")
+                Component.translatable(getTranslationKey() + ".spiritus.raw"),
+                Component.translatable(getTranslationKey() + ".spiritus.invictus"),
+                Component.translatable(getTranslationKey() + ".spiritus.nihilum"),
+                Component.translatable(getTranslationKey() + ".spiritus.vindicta")
         };
     }
 

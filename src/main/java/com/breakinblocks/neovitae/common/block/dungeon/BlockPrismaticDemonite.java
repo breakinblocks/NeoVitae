@@ -25,7 +25,7 @@ import java.util.List;
 
 public class BlockPrismaticDemonite extends Block {
 
-    private static final int DEPLETE_THRESHOLD = 20;
+    public static final int DEPLETE_THRESHOLD = 20;
 
     public BlockPrismaticDemonite() {
         super(BlockBehaviour.Properties.of()
@@ -40,25 +40,7 @@ public class BlockPrismaticDemonite extends Block {
         return Collections.emptyList();
     }
 
-    @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide && !player.isCreative()) {
-            ItemStack drop = getRandomRawOre(level);
-            if (!drop.isEmpty()) {
-                popResource(level, pos, drop);
-            }
-
-            int roll = level.random.nextInt(100) + 1;
-            if (roll <= DEPLETE_THRESHOLD) {
-                level.setBlock(pos, DungeonBlocks.DUNGEON_STONE.get(DungeonVariant.RAW).block().get().defaultBlockState(), UPDATE_ALL);
-            } else {
-                level.setBlock(pos, this.defaultBlockState(), UPDATE_ALL);
-            }
-        }
-        return super.playerWillDestroy(level, pos, state, player);
-    }
-
-    private ItemStack getRandomRawOre(Level level) {
+    public static ItemStack getRandomRawOre(Level level) {
         List<ItemStack> candidates = new ArrayList<>();
         for (MaterialDefinition mat : MaterialRegistry.getAllMaterials()) {
             String rawTag = mat.getRawTag();

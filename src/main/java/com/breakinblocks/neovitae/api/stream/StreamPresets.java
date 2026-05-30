@@ -168,6 +168,43 @@ public final class StreamPresets {
     }
 
     /**
+     * Faint green vine of vitality for the Green Grove ritual. Thinner, faster, more
+     * transparent and more diffuse than {@link #lifePulse}, and starts one block toward
+     * the plant from the master ritual stone.
+     */
+    public static StreamEffect.Builder overgrowthPulse(BlockPos masterPos, BlockPos plantPos) {
+        double dx = plantPos.getX() - masterPos.getX();
+        double dy = plantPos.getY() - masterPos.getY();
+        double dz = plantPos.getZ() - masterPos.getZ();
+        double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        double sx = masterPos.getX() + 0.5;
+        double sy = masterPos.getY() + 0.5;
+        double sz = masterPos.getZ() + 0.5;
+        if (dist > 1.0) {
+            double t = 1.0 / dist;
+            sx += dx * t;
+            sy += dy * t;
+            sz += dz * t;
+        }
+        return StreamEffect.builder(sx, sy, sz).to(plantPos)
+                .color(0xCC2222)
+                .endColor(0x44CC33)
+                .scale(0.04f)
+                .speed(4.5f)
+                .gravity(0.0f)
+                .wobble(0.06f)
+                .wobbleFrequency(1.6f)
+                .spiralInto(true)
+                .spiralRadius(0.4f)
+                .spiralSpeed(0.75f)
+                .approachHeight(0.9f)
+                .alphaStart(0.05f)
+                .alphaEnd(0.55f)
+                .glow(true)
+                .drainSpeed(3.0f);
+    }
+
+    /**
      * Fiery orange chain of spiritus. Aggressive wobble, rises slightly
      * against gravity like heated air. Emits a harsh glow.
      */

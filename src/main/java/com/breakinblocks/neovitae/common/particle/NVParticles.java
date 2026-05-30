@@ -4,6 +4,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -29,6 +30,9 @@ public class NVParticles {
 
     public static final DeferredHolder<ParticleType<?>, ParticleType<ColoredParticleOptions>> BLOOD_BUBBLE =
             PARTICLES.register("blood_bubble", NVParticles::coloredType);
+
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> OVERGROWTH_DRIP =
+            PARTICLES.register("overgrowth_drip", () -> new SimpleParticleType(false));
 
     private static ParticleType<ColoredParticleOptions> coloredType() {
         return new ParticleType<>(false) {

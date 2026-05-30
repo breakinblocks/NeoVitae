@@ -1134,6 +1134,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("water", "Ritual of the Full Spring", "Places water source blocks in the area; with Raw Spiritus, also fills any fluid tank above the master stone (1 Raw per 1,000 mB).");
         addRitual("lava", "Serenade of the Nether", "Places lava source blocks within the area.");
         addRitual("green_grove", "Ritual of Overgrowth", "Suffuses the earth with life; bonemeals nearby crops and saplings. Spiritus aspects extend it to farmland hydration, Plant Leech, or scaled chance.");
+        add("ritual.neovitae.green_grove.spiritus.raw", "Raw Spiritus: Hastens the refresh rate (20 ticks down to 10 as raw rises).");
+        add("ritual.neovitae.green_grove.spiritus.invictus", "Spiritus Invictus: Hydrates nearby farmland to full moisture.");
+        add("ritual.neovitae.green_grove.spiritus.ruina", "Spiritus Ruina: Applies Plant Leech to nearby mobs.");
+        add("ritual.neovitae.green_grove.spiritus.vindicta", "Spiritus Vindicta: Scales growth success chance up to 100%%.");
         addRitual("well_of_suffering", "Well of Suffering", "Damages every hostile creature in range and channels their pain into Essentia Vitae at the master stone.");
         addRitual("feathered_knife", "Ritual of the Willing Sacrifice", "Wounds the practitioner standing on the master stone, converting their health into EV for the altar.");
         addRitual("harvest", "Ritual of Harvest", "Reaps every mature crop in range and replants the seeds.");
@@ -1141,6 +1145,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("speed", "Ritual of Speed", "Propels non-sneaking entities in the master stone's facing direction. Sneak inside the area to receive Speed II for 30 minutes instead. Aspects modulate velocity, target filtering, and add Soft Fall.");
         addRitual("magnetism", "The Endless Quarry", "Reaps ore blocks from the volume below the master stone (loading unloaded chunks as needed). Inserts as items into a container directly above the master stone if one exists; otherwise places the ore as a block in a 3x3x3 volume above. Scan radius scales with the foundation block: iron 7, gold 15, diamond 31, netherite 63, anything else 3. 50 EV per ore moved; up to 3 ores and 100 checks per refresh, scan reaches bedrock.");
         addRitual("animal_growth", "Ritual of Accelerated Aging", "Accelerates the growth of young creatures in range.");
+        add("ritual.neovitae.animal_growth.spiritus.raw", "Raw Spiritus: Base behavior, accelerates the growth of young creatures.");
+        add("ritual.neovitae.animal_growth.spiritus.invictus", "Spiritus Invictus: Breeds adult animals in range.");
+        add("ritual.neovitae.animal_growth.spiritus.nihilum", "Spiritus Nihilum: Sacrifices animals in range for additional EV.");
+        add("ritual.neovitae.animal_growth.spiritus.vindicta", "Spiritus Vindicta: Shaves cooldown between pulses (10 ticks + 1 per 5 vindicta).");
         addRitual("felling", "Ritual of Fallen Trees", "Fells every tree in range and drops the logs into an adjacent chest.");
         addRitual("suppression", "Dome of Suppression", "Replaces fluid source blocks in range with air, restoring them when the ritual stops.");
         addRitual("containment", "Ritual of Containment", "Pushes any creature trying to leave the area back toward the center; an invisible cage.");
@@ -1162,7 +1170,12 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("armour_evolve", "Ritual of Sentient Evolution", "Stand on the master stone in Sentient Armor; the ritual expands its upgrade capacity beyond the former limit.");
         addRitual("upgrade_remove", "Tabula Rasa", "Wipes every upgrade from worn Sentient Armor and resets used points to zero; no tomes are produced.");
         addRitual("crafting", "Rhythm of the Beating Anvil", "Automates crafting through an adjacent inventory. Spiritus Invictus routes through a Hellfire Forge, Spiritus Ruina through a Tabula Vitae. Dusk-tier.");
+        add("ritual.neovitae.crafting.spiritus.invictus", "Spiritus Invictus: Attempts a Hellfire Forge recipe first, falling back to vanilla crafting if none match.");
+        add("ritual.neovitae.crafting.spiritus.ruina", "Spiritus Ruina: Attempts a Tabula Vitae recipe first, falling back to vanilla crafting if none match.");
         addRitual("yawning_void", "All Consuming Void", "Erases blocks in a small box directly beneath the master ritual stone, one block per refresh. No drops. Spiritus Invictus moves the block to a placement volume above instead of consuming it; Spiritus Ruina limits consumption to blocks matching items in the chest above; Raw Spiritus accelerates the refresh rate.");
+        add("ritual.neovitae.yawning_void.spiritus.raw", "Raw Spiritus: Accelerates the refresh rate; with enough raw aura, approaches one block per tick.");
+        add("ritual.neovitae.yawning_void.spiritus.invictus", "Spiritus Invictus: Moves the cleared block into a 3x3x3 placement volume above the master stone instead of erasing it.");
+        add("ritual.neovitae.yawning_void.spiritus.ruina", "Spiritus Ruina: Only consumes blocks whose item form matches the whitelist chest directly above the master stone.");
         addRitual("torment_nexus", "The Torment Nexus",
                 "Binds every spawner and trial spawner in range, suppressing their natural spawns and harvesting"
                 + " an equivalent stream of EV from the simulated kills. Loot funnels into a chest atop the master"

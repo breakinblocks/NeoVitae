@@ -242,9 +242,9 @@ public class RitualYawningVoid extends Ritual {
     public Component[] provideInformationOfRitualToPlayer(Player player) {
         return new Component[]{
                 Component.translatable(getTranslationKey() + ".info"),
-                Component.translatable(getTranslationKey() + ".will.default"),
-                Component.translatable(getTranslationKey() + ".will.steadfast"),
-                Component.translatable(getTranslationKey() + ".will.corrosive")
+                Component.translatable(getTranslationKey() + ".spiritus.raw"),
+                Component.translatable(getTranslationKey() + ".spiritus.invictus"),
+                Component.translatable(getTranslationKey() + ".spiritus.ruina")
         };
     }
 

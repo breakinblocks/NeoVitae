@@ -9,5 +9,6 @@ public class DaemoniumVoraxisRenderer extends GeoEntityRenderer<DaemoniumVoraxis
 
     public DaemoniumVoraxisRenderer(EntityRendererProvider.Context context) {
         super(context, new DaemoniumVoraxisModel());
+        addRenderLayer(new NVEmissiveGeoLayer<>(this));
     }
 }

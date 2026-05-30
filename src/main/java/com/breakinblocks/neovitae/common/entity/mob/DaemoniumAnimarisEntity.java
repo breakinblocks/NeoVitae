@@ -18,7 +18,7 @@ import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-public class DaemoniumAnimarisEntity extends Vex {
+public class DaemoniumAnimarisEntity extends Vex implements IDaemonium {
 
     private boolean hasSpawned = false;
     private int spawnTimer = 0;

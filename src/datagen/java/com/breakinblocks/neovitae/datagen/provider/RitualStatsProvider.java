@@ -42,7 +42,8 @@ public class RitualStatsProvider implements DataProvider {
         add(NVRituals.LAVA, RitualStats.timed(10000, 500, 1, 0));
 
         // Green Grove Ritual - plant growth
-        add(NVRituals.GREEN_GROVE, RitualStats.timed(1000, 20, 20, 0));
+        add(NVRituals.GREEN_GROVE, RitualStats.timed(1000, 20, 20, 0)
+                .withAmbientSound(NeoVitae.rl("overgrowth")));
 
         // Well of Suffering - mob damage for LP
         add(NVRituals.WELL_OF_SUFFERING, RitualStats.timed(50000, 2, 20, 0));
@@ -166,6 +167,9 @@ public class RitualStatsProvider implements DataProvider {
                 statsJson.add("range_limits", rangeLimitsJson);
             }
         }
+
+        stats.ambientSound().ifPresent(sound ->
+                statsJson.addProperty("ambient_sound", sound.toString()));
 
         return statsJson;
     }

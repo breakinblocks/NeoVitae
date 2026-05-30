@@ -7,8 +7,10 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.ModelProvider;
 import net.neoforged.neoforge.client.model.generators.VariantBlockStateBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -43,6 +45,10 @@ public class NVBlockStateProvider extends BlockStateProvider {
                 ModelFile model = models().cubeAll(path, bm("block/" + path))
                     .renderType("cutout");
                 simpleBlockWithItem(block.get(), model);
+                return;
+            }
+            if (path.startsWith("rune_")) {
+                simpleBlockWithItem(block.get(), glowingRune(path));
                 return;
             }
             simpleBlockWithItem(block.get(), cubeAll(block.get()));
@@ -462,5 +468,40 @@ public class NVBlockStateProvider extends BlockStateProvider {
 
     private static ResourceLocation bm(String path) {
         return ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, path);
+    }
+
+    private BlockModelBuilder glowingRune(String name) {
+        ResourceLocation base = bm("block/" + name);
+        ResourceLocation glow = bm("block/" + name + "_e");
+        models().existingFileHelper.trackGenerated(glow, ModelProvider.TEXTURE);
+        BlockModelBuilder b = models().getBuilder(name)
+                .parent(models().getExistingFile(ResourceLocation.parse("block/block")))
+                .renderType("cutout")
+                .texture("particle", base)
+                .texture("base", base)
+                .texture("glow", glow);
+
+        b.element()
+                .from(0, 0, 0).to(16, 16, 16)
+                .face(Direction.DOWN ).texture("#base").cullface(Direction.DOWN ).end()
+                .face(Direction.UP   ).texture("#base").cullface(Direction.UP   ).end()
+                .face(Direction.NORTH).texture("#base").cullface(Direction.NORTH).end()
+                .face(Direction.SOUTH).texture("#base").cullface(Direction.SOUTH).end()
+                .face(Direction.WEST ).texture("#base").cullface(Direction.WEST ).end()
+                .face(Direction.EAST ).texture("#base").cullface(Direction.EAST ).end()
+                .end();
+
+        b.element()
+                .from(-0.005f, -0.005f, -0.005f).to(16.005f, 16.005f, 16.005f)
+                .emissivity(15, 15)
+                .face(Direction.DOWN ).texture("#glow").end()
+                .face(Direction.UP   ).texture("#glow").end()
+                .face(Direction.NORTH).texture("#glow").end()
+                .face(Direction.SOUTH).texture("#glow").end()
+                .face(Direction.WEST ).texture("#glow").end()
+                .face(Direction.EAST ).texture("#glow").end()
+                .end();
+
+        return b;
     }
 }

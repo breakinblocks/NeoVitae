@@ -9,5 +9,6 @@ public class DaemoniumGlaciarisRenderer extends GeoEntityRenderer<DaemoniumGlaci
 
     public DaemoniumGlaciarisRenderer(EntityRendererProvider.Context context) {
         super(context, new DaemoniumGlaciarisModel());
+        addRenderLayer(new NVEmissiveGeoLayer<>(this));
     }
 }

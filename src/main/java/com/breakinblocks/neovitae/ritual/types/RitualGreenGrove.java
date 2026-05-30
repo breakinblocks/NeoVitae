@@ -19,6 +19,7 @@ import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.block.BlockSpiritusCrystal;
 import com.breakinblocks.neovitae.common.blockentity.SpiritusCrystalBlockEntity;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -115,6 +116,9 @@ public class RitualGreenGrove extends Ritual {
                     if (growable.isBonemealSuccess(ctx.level(), ctx.level().random, pos, state)) {
                         growable.performBonemeal(serverLevel, ctx.level().random, pos, state);
                         grew = true;
+                    } else {
+                        state.randomTick(serverLevel, pos, ctx.level().getRandom());
+                        grew = true;
                     }
                 }
             }
@@ -143,9 +147,20 @@ public class RitualGreenGrove extends Ritual {
                 if (doVengeful && (will.getVengeful() - vengefulSpiritusUsed) >= WILL_PER_VENGEFUL_GROWTH) {
                     vengefulSpiritusUsed += WILL_PER_VENGEFUL_GROWTH;
                 }
-                RitualHelper.chanceStream(ctx.level(), 12, () ->
-                        StreamPresets.lifePulse(masterPos, pos).color(0x44CC33).build()
-                                .sendToNearby(ctx.serverLevel(), masterPos, 32));
+                var rand = ctx.level().getRandom();
+                if (rand.nextInt(100) == 0) {
+                    StreamPresets.overgrowthPulse(masterPos, pos).build()
+                            .sendToNearby(ctx.serverLevel(), masterPos, 32);
+                }
+                if (rand.nextInt(6) == 0) {
+                    double px = pos.getX() + 0.2 + rand.nextDouble() * 0.6;
+                    double py = pos.getY() + 0.6 + rand.nextDouble() * 0.4;
+                    double pz = pos.getZ() + 0.2 + rand.nextDouble() * 0.6;
+                    serverLevel.sendParticles(
+                            NVParticles.OVERGROWTH_DRIP.get(),
+                            px, py, pz,
+                            1, 0.15, 0.05, 0.15, 0);
+                }
             }
         }
 
@@ -200,10 +215,10 @@ public class RitualGreenGrove extends Ritual {
     public Component[] provideInformationOfRitualToPlayer(Player player) {
         return new Component[]{
                 Component.translatable(getTranslationKey() + ".info"),
-                Component.translatable(getTranslationKey() + ".will.default"),
-                Component.translatable(getTranslationKey() + ".will.steadfast"),
-                Component.translatable(getTranslationKey() + ".will.corrosive"),
-                Component.translatable(getTranslationKey() + ".will.vengeful")
+                Component.translatable(getTranslationKey() + ".spiritus.raw"),
+                Component.translatable(getTranslationKey() + ".spiritus.invictus"),
+                Component.translatable(getTranslationKey() + ".spiritus.ruina"),
+                Component.translatable(getTranslationKey() + ".spiritus.vindicta")
         };
     }
 

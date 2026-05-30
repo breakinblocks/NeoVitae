@@ -9,5 +9,6 @@ public class DaemoniumCorrodisRenderer extends GeoEntityRenderer<DaemoniumCorrod
 
     public DaemoniumCorrodisRenderer(EntityRendererProvider.Context context) {
         super(context, new DaemoniumCorrodisModel());
+        addRenderLayer(new NVEmissiveGeoLayer<>(this));
     }
 }

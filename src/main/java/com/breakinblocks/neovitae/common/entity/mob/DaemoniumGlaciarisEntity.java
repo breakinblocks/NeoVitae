@@ -38,7 +38,7 @@ import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity {
+public class DaemoniumGlaciarisEntity extends Monster implements GeoEntity, IDaemonium {
 
     private static final EntityDataAccessor<Integer> ATTACK_STATE =
             SynchedEntityData.defineId(DaemoniumGlaciarisEntity.class, EntityDataSerializers.INT);

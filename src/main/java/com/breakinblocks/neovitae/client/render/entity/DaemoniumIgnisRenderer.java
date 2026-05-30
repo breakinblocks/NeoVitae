@@ -9,5 +9,6 @@ public class DaemoniumIgnisRenderer extends GeoEntityRenderer<DaemoniumIgnisEnti
 
     public DaemoniumIgnisRenderer(EntityRendererProvider.Context context) {
         super(context, new DaemoniumIgnisModel());
+        addRenderLayer(new NVEmissiveGeoLayer<>(this));
     }
 }

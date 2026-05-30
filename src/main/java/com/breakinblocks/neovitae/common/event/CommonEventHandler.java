@@ -1,6 +1,11 @@
 package com.breakinblocks.neovitae.common.event;
 
 import com.mojang.authlib.GameProfile;
+import java.util.List;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -24,7 +29,11 @@ import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Mob;
+import com.breakinblocks.neovitae.common.entity.mob.IDaemonium;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -35,6 +44,8 @@ import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant;
+import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.blockentity.DungeonControllerBlockEntity;
 import com.breakinblocks.neovitae.common.dataattachment.DeadPetStorage;
 import com.breakinblocks.neovitae.common.dataattachment.DungeonExitData;
@@ -186,18 +197,77 @@ public class CommonEventHandler {
     }
 
     @SubscribeEvent
+    public static void onDaemoniumTick(EntityTickEvent.Pre event) {
+        if (event.getEntity() instanceof IDaemonium && event.getEntity() instanceof Mob mob && mob.hasRestriction()) {
+            mob.restrictTo(BlockPos.ZERO, -1);
+        }
+    }
+
+    @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
-        if (event.getLevel() instanceof Level level && DungeonDimensionHelper.isDungeonDimension(level)) {
-            Block block = event.getState().getBlock();
-            if (block instanceof BlockPrismaticDemonite) {
-                return;
+        if (!(event.getLevel() instanceof Level level)) return;
+        Block block = event.getState().getBlock();
+
+        if (block instanceof BlockPrismaticDemonite) {
+            if (level.isClientSide() || event.getPlayer().isCreative()) return;
+            ItemStack drop = BlockPrismaticDemonite.getRandomRawOre(level);
+            if (!drop.isEmpty()) {
+                Block.popResource(level, event.getPos(), drop);
             }
-            if (DungeonBlocks.isDungeonBlock(block)
+            if (level.random.nextInt(100) + 1 <= BlockPrismaticDemonite.DEPLETE_THRESHOLD) {
+                level.setBlock(event.getPos(),
+                        DungeonBlocks.DUNGEON_STONE.get(DungeonVariant.RAW).block().get().defaultBlockState(),
+                        Block.UPDATE_ALL);
+            }
+            event.setCanceled(true);
+            return;
+        }
+
+        if (block == DungeonBlocks.DUNGEON_ORE.block().get()) {
+            if (level.isClientSide() || event.getPlayer().isCreative()) return;
+            if (!(level instanceof ServerLevel serverLevel)) return;
+            Block picked = pickWeightedDungeonOre(level);
+            if (picked != null) {
+                Player player = event.getPlayer();
+                ItemStack tool = player.getMainHandItem();
+                List<ItemStack> drops = Block.getDrops(picked.defaultBlockState(), serverLevel,
+                        event.getPos(), null, player, tool);
+                for (ItemStack stack : drops) {
+                    Block.popResource(level, event.getPos(), stack);
+                }
+            }
+            return;
+        }
+
+        if (DungeonDimensionHelper.isDungeonDimension(level)
+                && (DungeonBlocks.isDungeonBlock(block)
                     || block == NVBlocks.MASTER_RITUAL_STONE.block().get()
-                    || block == NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().get()) {
-                event.setCanceled(true);
+                    || block == NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    private static Block pickWeightedDungeonOre(Level level) {
+        Registry<Block> blockRegistry = level.registryAccess().registryOrThrow(Registries.BLOCK);
+        int total = 0;
+        java.util.List<Holder.Reference<Block>> options = new java.util.ArrayList<>();
+        java.util.List<Integer> weights = new java.util.ArrayList<>();
+        for (Holder.Reference<Block> holder : blockRegistry.holders().toList()) {
+            Integer weight = holder.getData(NVDataMaps.DUNGEON_ORE_WEIGHTS);
+            if (weight != null && weight > 0) {
+                options.add(holder);
+                weights.add(weight);
+                total += weight;
             }
         }
+        if (options.isEmpty()) return null;
+        int roll = level.random.nextInt(total);
+        int cumulative = 0;
+        for (int i = 0; i < options.size(); i++) {
+            cumulative += weights.get(i);
+            if (roll < cumulative) return options.get(i).value();
+        }
+        return options.get(options.size() - 1).value();
     }
 
     @SubscribeEvent

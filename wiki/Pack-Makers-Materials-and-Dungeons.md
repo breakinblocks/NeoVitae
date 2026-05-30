@@ -22,7 +22,10 @@ Each entry defines a processable material:
   "ore_tag": "c:ores/tin",
   "raw_tag": "c:raw_materials/tin",
   "ingot_tag": "c:ingots/tin",
-  "display_name": "Tin"
+  "display_name": "Tin",
+  "generative": true,
+  "gen_ore": "",
+  "gen_raw": ""
 }
 ```
 

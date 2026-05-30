@@ -35,11 +35,11 @@ public class MaterialDefinition {
     @SerializedName("extra_raw_items")
     private List<String> extraRawItems;
     @SerializedName("generative")
-    private Boolean generative;
+    private Boolean generative = Boolean.TRUE;
     @SerializedName("gen_ore")
-    private String genOre;
+    private String genOre = "";
     @SerializedName("gen_raw")
-    private String genRaw;
+    private String genRaw = "";
 
     public MaterialDefinition() {}
 

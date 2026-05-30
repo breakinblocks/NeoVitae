@@ -51,11 +51,18 @@ public class MaterialRegistry {
 
     private static void loadAndRegister() {
         List<MaterialDefinition> definitions = loadConfig();
-        MATERIALS.addAll(definitions);
+
+        Set<String> seenNames = new HashSet<>();
+        for (MaterialDefinition mat : definitions) {
+            if (isValidMaterial(mat, seenNames)) {
+                MATERIALS.add(mat);
+            }
+        }
 
         for (MaterialDefinition mat : MATERIALS) {
             Map<String, DeferredHolder<Item, Item>> stageMap = new LinkedHashMap<>();
             for (String stage : mat.getStages()) {
+                if (stage == null || stage.isBlank()) continue;
                 String itemId = mat.getItemId(stage);
                 int color = mat.getColorInt();
                 DeferredHolder<Item, Item> holder = ITEMS.register(itemId, () -> new MaterialItem(color));
@@ -65,6 +72,29 @@ public class MaterialRegistry {
         }
 
         populatePack();
+    }
+
+    private static boolean isValidMaterial(MaterialDefinition mat, Set<String> seenNames) {
+        String name = mat.getName();
+        if (name == null || name.isBlank()) {
+            NeoVitae.LOGGER.warn("[MaterialRegistry] Skipping material entry with missing or blank 'name'");
+            return false;
+        }
+        if (mat.getStages() == null || mat.getStages().isEmpty()) {
+            NeoVitae.LOGGER.warn("[MaterialRegistry] Skipping material '{}': missing or empty 'stages'", name);
+            return false;
+        }
+        try {
+            mat.getColorInt();
+        } catch (Exception e) {
+            NeoVitae.LOGGER.warn("[MaterialRegistry] Skipping material '{}': missing or invalid 'color' (expected hex like #C8C8D0)", name);
+            return false;
+        }
+        if (!seenNames.add(name)) {
+            NeoVitae.LOGGER.warn("[MaterialRegistry] Skipping duplicate material '{}'", name);
+            return false;
+        }
+        return true;
     }
 
     private static void populatePack() {

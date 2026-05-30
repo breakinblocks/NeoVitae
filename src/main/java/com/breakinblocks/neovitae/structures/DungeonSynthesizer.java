@@ -453,6 +453,7 @@ public class DungeonSynthesizer {
                         settings.clearProcessors();
                         settings.addProcessor(new StoneToOreProcessor(testingRoom.getOreDensity()));
                         settings.addProcessor(new TrialSpawnerEntityProcessor());
+                        settings.addProcessor(new IronOreToGenerativeProcessor());
 
                         Pair<Direction, BlockPos> addedDoor = Pair.of(oppositeDoorFacing, testDoor.offset(roomLocation));
                         return new DungeonRoomPlacement(testingRoom, world, settings, roomLocation, addedDoor);

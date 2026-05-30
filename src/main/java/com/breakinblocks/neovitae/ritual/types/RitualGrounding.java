@@ -142,15 +142,7 @@ public class RitualGrounding extends Ritual {
                 rawUsed, corrosiveUsed, destructiveUsed, vengefulUsed, steadfastUsed);
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 1;
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 10;
-    }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {

@@ -53,6 +53,10 @@
         {
           "entry": "minecraft:redstone_ore",
           "weight": 100
+        },
+        {
+          "entry": "#neovitae:generative_ores",
+          "weight": 100
         }
       ]
     }

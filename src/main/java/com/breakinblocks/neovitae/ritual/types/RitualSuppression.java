@@ -89,15 +89,7 @@ public class RitualSuppression extends Ritual {
         suppressedBlocks.clear();
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 10;
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 5;
-    }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {

@@ -12,6 +12,7 @@ import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
+import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
@@ -70,7 +71,9 @@ public class RitualAnimalGrowth extends Ritual {
         boolean doSacrifice = will.hasDestructive();
         boolean doVengeful = will.hasVengeful();
 
-        refreshTime = scaleByRawSpiritus(will, 20, 5, 10);
+        RitualStats stats = getStats();
+        int baseRefresh = stats != null ? stats.refreshTime() : 20;
+        refreshTime = scaleByRawSpiritus(will, baseRefresh, Math.max(1, baseRefresh / 4), 10);
 
         double steadfastSpiritusUsed = 0;
         double destructiveSpiritusUsed = 0;
@@ -168,10 +171,6 @@ public class RitualAnimalGrowth extends Ritual {
         return refreshTime;
     }
 
-    @Override
-    public int getRefreshCost() {
-        return 30;
-    }
 
     @Override
     public Component[] provideInformationOfRitualToPlayer(Player player) {

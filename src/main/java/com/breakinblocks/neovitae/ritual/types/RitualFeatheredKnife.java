@@ -9,6 +9,7 @@ import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
+import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.sentient.SentientHelper;
 import com.breakinblocks.neovitae.incense.IncenseHelper;
@@ -64,7 +65,9 @@ public class RitualFeatheredKnife extends Ritual {
 
         SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, MIN_SPIRITUS);
 
-        refreshTime = will.hasDefault() ? 10 : 20;
+        RitualStats stats = getStats();
+        int baseRefresh = stats != null ? stats.refreshTime() : 20;
+        refreshTime = will.hasDefault() ? Math.max(1, baseRefresh / 2) : baseRefresh;
 
         // Find the altar (use cached position first, fallback to search)
         AraVitaeTile altar = findAltar(ctx);
@@ -176,10 +179,6 @@ public class RitualFeatheredKnife extends Ritual {
         return refreshTime;
     }
 
-    @Override
-    public int getRefreshCost() {
-        return 20;
-    }
 
     @Override
     public void readFromNBT(CompoundTag tag) {

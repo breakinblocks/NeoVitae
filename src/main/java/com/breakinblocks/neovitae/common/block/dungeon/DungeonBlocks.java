@@ -176,6 +176,7 @@ public class DungeonBlocks {
     }
 
     private static Set<Block> dungeonBlockSet;
+    private static Set<Block> dungeonStoneSet;
 
     public static boolean isDungeonBlock(Block block) {
         if (dungeonBlockSet == null) {
@@ -185,6 +186,16 @@ public class DungeonBlocks {
             }
         }
         return dungeonBlockSet.contains(block);
+    }
+
+    public static boolean isDungeonStone(Block block) {
+        if (dungeonStoneSet == null) {
+            dungeonStoneSet = new HashSet<>();
+            for (var holder : DUNGEON_STONE.values()) {
+                dungeonStoneSet.add(holder.block().get());
+            }
+        }
+        return dungeonStoneSet.contains(block);
     }
 
     public static void register(IEventBus modBus) {

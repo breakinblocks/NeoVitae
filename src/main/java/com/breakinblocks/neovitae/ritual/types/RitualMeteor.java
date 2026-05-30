@@ -87,15 +87,7 @@ public class RitualMeteor extends Ritual {
         }
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 20;
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 0;
-    }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {

@@ -18,6 +18,10 @@
         {
           "entry": "minecraft:iron_ore",
           "weight": 50
+        },
+        {
+          "entry": "#neovitae:generative_ores",
+          "weight": 150
         }
       ]
     }

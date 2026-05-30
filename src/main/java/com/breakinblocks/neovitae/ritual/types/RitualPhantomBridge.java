@@ -155,15 +155,7 @@ public class RitualPhantomBridge extends Ritual {
         phantomBlocks.clear();
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 1; // Run every tick for smooth bridge creation
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 1;
-    }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {

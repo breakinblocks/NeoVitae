@@ -19,6 +19,7 @@ import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 import com.breakinblocks.neovitae.common.block.BlockMasterRitualStone;
 import com.breakinblocks.neovitae.common.block.BlockRitualStone;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.util.Utils;
@@ -71,9 +72,11 @@ public class RitualYawningVoid extends Ritual {
         boolean swapMode = will.hasSteadfast() && will.getSteadfast() >= STEADFAST_DRAIN;
         boolean filterMode = will.hasCorrosive() && will.getCorrosive() >= CORROSIVE_DRAIN;
 
+        RitualStats stats = getStats();
+        int baseRefresh = stats != null ? stats.refreshTime() : DEFAULT_REFRESH_TIME;
         refreshTime = rawWill >= RAW_DRAIN
-                ? Math.max(1, (int) (DEFAULT_REFRESH_TIME - rawWill / 10))
-                : DEFAULT_REFRESH_TIME;
+                ? Math.max(1, (int) (baseRefresh - rawWill / 10))
+                : baseRefresh;
 
         AreaDescriptor.Rectangle quarryRange = (AreaDescriptor.Rectangle)
                 RitualHelper.getEffectiveRange(ctx.master(), this, QUARRY_RANGE);
@@ -215,10 +218,6 @@ public class RitualYawningVoid extends Ritual {
         return refreshTime;
     }
 
-    @Override
-    public int getRefreshCost() {
-        return 10;
-    }
 
     @Override
     public void readFromNBT(CompoundTag tag) {

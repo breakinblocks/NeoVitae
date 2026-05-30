@@ -133,6 +133,8 @@ public class NVTags {
 
         public static final TagKey<Block> MUNDANE_BLOCK = tag(bm("mundane_block"));
 
+        public static final TagKey<Block> GENERATIVE_ORES = tag(bm("generative_ores"));
+
         private static TagKey<Block> tag(ResourceLocation id) {
             return TagKey.create(Registries.BLOCK, id);
         }

@@ -18,6 +18,7 @@ import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.block.BlockSpiritusCrystal;
 import com.breakinblocks.neovitae.common.blockentity.SpiritusCrystalBlockEntity;
+import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.common.tag.NVTags;
@@ -83,7 +84,9 @@ public class RitualGreenGrove extends Ritual {
         boolean doLeech = will.hasCorrosive();
         boolean doVengeful = will.hasVengeful();
 
-        refreshTime = scaleByRawSpiritus(will, 20, 10, 10);
+        RitualStats stats = RitualRegistry.getStats(this);
+        int baseRefresh = stats != null ? stats.refreshTime() : 20;
+        refreshTime = scaleByRawSpiritus(will, baseRefresh, Math.max(1, baseRefresh / 2), 10);
 
         double steadfastSpiritusUsed = 0;
         double corrosiveSpiritusUsed = 0;
@@ -206,10 +209,6 @@ public class RitualGreenGrove extends Ritual {
         return refreshTime;
     }
 
-    @Override
-    public int getRefreshCost() {
-        return 20;
-    }
 
     @Override
     public Component[] provideInformationOfRitualToPlayer(Player player) {

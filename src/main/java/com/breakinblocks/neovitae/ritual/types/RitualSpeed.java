@@ -173,15 +173,7 @@ public class RitualSpeed extends Ritual {
         will.drain(ctx.level(), masterPos);
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 1;
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 5;
-    }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {

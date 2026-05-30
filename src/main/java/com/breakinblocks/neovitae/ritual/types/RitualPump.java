@@ -81,15 +81,7 @@ public class RitualPump extends Ritual {
         ctx.syphon(getRefreshCost() * fluidsPumped);
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 20;
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 50;
-    }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {

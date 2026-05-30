@@ -71,15 +71,7 @@ public class RitualHarvest extends Ritual {
         ctx.syphon(getRefreshCost() * totalHarvests);
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 20;
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 20;
-    }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {

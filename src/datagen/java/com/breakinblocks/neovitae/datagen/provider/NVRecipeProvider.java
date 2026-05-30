@@ -3930,7 +3930,8 @@ public class NVRecipeProvider extends RecipeProvider {
                         .addWeightedBlock(Blocks.GOLD_ORE, 30)
                         .addWeightedBlock(Blocks.COPPER_ORE, 200)
                         .addWeightedBlock(Blocks.LAPIS_ORE, 60)
-                        .addWeightedBlock(Blocks.REDSTONE_ORE, 100))
+                        .addWeightedBlock(Blocks.REDSTONE_ORE, 100)
+                        .addWeightedTag(NVTags.Blocks.GENERATIVE_ORES, 100))
                 .save(output, NeoVitae.rl(basePath + "iron"));
 
         // Stone Meteor - large but mostly stone/coal
@@ -3939,7 +3940,8 @@ public class NVRecipeProvider extends RecipeProvider {
                         .setMinWeight(400)
                         .addShellBlock(Blocks.COBBLESTONE)
                         .addWeightedBlock(Blocks.COAL_ORE, 150)
-                        .addWeightedBlock(Blocks.IRON_ORE, 50))
+                        .addWeightedBlock(Blocks.IRON_ORE, 50)
+                        .addWeightedTag(NVTags.Blocks.GENERATIVE_ORES, 150))
                 .save(output, NeoVitae.rl(basePath + "stone"));
 
         // Diamond Meteor - small but diamond-rich

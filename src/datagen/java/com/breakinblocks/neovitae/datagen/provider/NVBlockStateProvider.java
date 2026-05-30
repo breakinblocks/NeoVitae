@@ -47,7 +47,7 @@ public class NVBlockStateProvider extends BlockStateProvider {
                 simpleBlockWithItem(block.get(), model);
                 return;
             }
-            if (path.startsWith("rune_")) {
+            if (path.startsWith("rune_") && !path.equals("rune_blank")) {
                 simpleBlockWithItem(block.get(), glowingRune(path));
                 return;
             }
@@ -301,7 +301,9 @@ public class NVBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(DungeonBlocks.DUNGEON_ORE.block().get(),
             models().cubeAll("dungeon_ore", bm("block/dungeon/dungeon_ore")));
         simpleBlockWithItem(DungeonBlocks.PRISMATIC_DEMONITE.block().get(),
-            models().cubeAll("prismatic_demonite", bm("block/dungeon/prismatic_demonite")));
+            emissiveCube("prismatic_demonite",
+                bm("block/dungeon/prismatic_demonite"),
+                bm("block/dungeon/prismatic_demonite_e")));
         simpleBlockWithItem(DungeonBlocks.DUNGEON_BRICK_ASSORTED.block().get(),
             models().cubeAll("dungeon_brick_assorted", bm("block/dungeon/dungeon_cracked_brick1")));
 
@@ -471,8 +473,10 @@ public class NVBlockStateProvider extends BlockStateProvider {
     }
 
     private BlockModelBuilder glowingRune(String name) {
-        ResourceLocation base = bm("block/" + name);
-        ResourceLocation glow = bm("block/" + name + "_e");
+        return emissiveCube(name, bm("block/" + name), bm("block/" + name + "_e"));
+    }
+
+    private BlockModelBuilder emissiveCube(String name, ResourceLocation base, ResourceLocation glow) {
         models().existingFileHelper.trackGenerated(glow, ModelProvider.TEXTURE);
         BlockModelBuilder b = models().getBuilder(name)
                 .parent(models().getExistingFile(ResourceLocation.parse("block/block")))

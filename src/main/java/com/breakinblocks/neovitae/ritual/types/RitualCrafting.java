@@ -236,15 +236,7 @@ public class RitualCrafting extends Ritual {
         return ItemStack.EMPTY;
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 40; // Every 2 seconds
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 100;
-    }
 
     @Override
     public Component[] provideInformationOfRitualToPlayer(Player player) {

@@ -74,15 +74,7 @@ public class RitualWater extends Ritual {
         ctx.syphon(getRefreshCost() * totalEffects);
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 1;
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 25;
-    }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {

@@ -42,7 +42,16 @@ public class BlockPrismaticDemonite extends Block {
 
     public static ItemStack getRandomRawOre(Level level) {
         List<ItemStack> candidates = new ArrayList<>();
-        for (MaterialDefinition mat : MaterialRegistry.getAllMaterials()) {
+        for (MaterialDefinition mat : MaterialRegistry.getGenerativeMaterials()) {
+            String preferredRaw = mat.getGenRaw();
+            if (preferredRaw != null && !preferredRaw.isEmpty()) {
+                ResourceLocation rawId = ResourceLocation.tryParse(preferredRaw);
+                if (rawId != null && BuiltInRegistries.ITEM.containsKey(rawId)) {
+                    candidates.add(new ItemStack(BuiltInRegistries.ITEM.get(rawId)));
+                }
+                continue;
+            }
+
             String rawTag = mat.getRawTag();
             if (rawTag == null) continue;
 

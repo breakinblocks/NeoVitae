@@ -100,15 +100,7 @@ public class RitualRegeneration extends Ritual {
         }
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 40;
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 50;
-    }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {

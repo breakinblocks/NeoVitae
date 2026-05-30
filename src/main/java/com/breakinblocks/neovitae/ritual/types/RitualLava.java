@@ -195,15 +195,7 @@ public class RitualLava extends Ritual {
                 rawUsed, corrosiveUsed, 0, vengefulUsed, steadfastUsed);
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 10;
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 500;
-    }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {

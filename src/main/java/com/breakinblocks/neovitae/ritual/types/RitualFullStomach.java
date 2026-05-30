@@ -101,15 +101,7 @@ public class RitualFullStomach extends Ritual {
         return false;
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 40;
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 100;
-    }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {

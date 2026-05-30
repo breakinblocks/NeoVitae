@@ -73,15 +73,7 @@ public class RitualForsakenSoul extends Ritual {
         return 3.0;
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 20;
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 100;
-    }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {

@@ -65,15 +65,7 @@ public class RitualSentientArmourEvolve extends Ritual {
         }
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 20;
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 25000;
-    }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {

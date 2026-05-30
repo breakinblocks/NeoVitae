@@ -111,15 +111,7 @@ public class RitualFelling extends Ritual {
         return 1;
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 20;
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 10;
-    }
 
     @Override
     public void gatherComponents(Consumer<RitualComponent> components) {

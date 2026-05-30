@@ -142,15 +142,7 @@ public class RitualMagnetism extends Ritual {
         return 3;
     }
 
-    @Override
-    public int getRefreshTime() {
-        return 40;
-    }
 
-    @Override
-    public int getRefreshCost() {
-        return 50;
-    }
 
     @Override
     public void readFromNBT(CompoundTag tag) {

@@ -113,6 +113,11 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 new ItemStack(NVItems.GUIDE_BOOK.get()),
                 List.of("guide", "guidebook", "manual", "wiki", "scriptura", "scriptura vitae", "neovitae")
         );
+        registration.addAliases(
+                VanillaTypes.ITEM_STACK,
+                new ItemStack(NVBlocks.ARA_VITAE.block().get()),
+                List.of("altar", "blood altar", "vitae altar")
+        );
     }
 
     @Override

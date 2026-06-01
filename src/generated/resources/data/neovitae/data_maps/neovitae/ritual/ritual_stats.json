@@ -71,7 +71,7 @@
     },
     "neovitae:harvest": {
       "activation_cost": 20000,
-      "refresh_cost": 20
+      "refresh_cost": 5
     },
     "neovitae:lava": {
       "activation_cost": 10000,

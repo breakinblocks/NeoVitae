@@ -17,7 +17,6 @@ import com.breakinblocks.neovitae.client.render.stream.StreamManager;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import net.minecraft.network.chat.Component;
-import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.TrainerItem;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
@@ -66,12 +65,6 @@ public class NVPayloads {
                 MasterRoutingNodeEnergyRatePayload.TYPE,
                 MasterRoutingNodeEnergyRatePayload.STREAM_CODEC,
                 NVPayloads::handleMasterRoutingNodeEnergyRate
-        );
-
-        registrar.playToServer(
-                RitualDivinerCyclePayload.TYPE,
-                RitualDivinerCyclePayload.STREAM_CODEC,
-                NVPayloads::handleRitualDivinerCycle
         );
 
         registrar.playToServer(
@@ -307,19 +300,6 @@ public class NVPayloads {
                     held.set(NVDataComponents.LEX_RADIUS.get(), next);
                     int side = next == 0 ? 1 : (next == 1 ? 3 : 5);
                     player.displayClientMessage(Component.translatable("message.neovitae.lex_vitae.radius", side, side), true);
-                    return;
-                }
-            }
-        });
-    }
-
-    private static void handleRitualDivinerCycle(RitualDivinerCyclePayload payload, IPayloadContext context) {
-        context.enqueueWork(() -> {
-            Player player = context.player();
-            for (InteractionHand hand : InteractionHand.values()) {
-                ItemStack held = player.getItemInHand(hand);
-                if (held.getItem() instanceof ItemRitualDiviner diviner) {
-                    diviner.cycleRitual(held, player, payload.reverse());
                     return;
                 }
             }

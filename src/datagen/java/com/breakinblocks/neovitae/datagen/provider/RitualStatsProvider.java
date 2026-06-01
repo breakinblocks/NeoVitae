@@ -42,7 +42,7 @@ public class RitualStatsProvider implements DataProvider {
                 .withAmbientSound(NeoVitae.rl("overgrowth")));
         add(NVRituals.WELL_OF_SUFFERING, RitualStats.timed(50000, 2, 20, 0));
         add(NVRituals.FEATHERED_KNIFE, RitualStats.timed(25000, 20, 20, 0));
-        add(NVRituals.HARVEST, RitualStats.timed(20000, 20, 20, 0));
+        add(NVRituals.HARVEST, RitualStats.timed(20000, 5, 20, 0));
 
         // ==================== Common Rituals ====================
         add(NVRituals.REGENERATION, RitualStats.timed(500, 50, 40, 0));

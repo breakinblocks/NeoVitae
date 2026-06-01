@@ -478,6 +478,8 @@ public class NVItems {
     public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_DEFLECTION = ARRAY_ITEMS.register("array_deflection", () -> new ArrayEffectItem(AlchemyArrayEffectType.DEFLECTION));
     public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_ENDLESS_FOUNTAIN = ARRAY_ITEMS.register("array_endless_fountain", () -> new ArrayEffectItem(AlchemyArrayEffectType.ENDLESS_FOUNTAIN));
     public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_UNDERTOW = ARRAY_ITEMS.register("array_undertow", () -> new ArrayEffectItem(AlchemyArrayEffectType.UNDERTOW));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_LOYAL_FRIENDS = ARRAY_ITEMS.register("array_loyal_friends", () -> new ArrayEffectItem(AlchemyArrayEffectType.LOYAL_FRIENDS));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_VORTEX = ARRAY_ITEMS.register("array_vortex", () -> new ArrayEffectItem(AlchemyArrayEffectType.VORTEX));
 
     public static void register(IEventBus modBus) {
         BASIC_ITEMS.register(modBus);

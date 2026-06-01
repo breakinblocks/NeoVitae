@@ -638,7 +638,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("diviner.currentRitual", "Current Ritual: %s");
         addTooltip("diviner.currentDirection", "Current Direction: %s");
         addTooltip("diviner.noRitual", "No ritual selected");
-        addTooltip("diviner.cycleHint", "Sneak + right-click air to select ritual");
+        addTooltip("diviner.cycleHint", "Right-click in air to select a ritual");
         addTooltip("diviner.blankRune", "Blank Runes: %d");
         addTooltip("diviner.airRune", "Air Runes: %d");
         addTooltip("diviner.waterRune", "Water Runes: %d");
@@ -651,7 +651,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("diviner.extraExtraInfo", "-Hold shift + alt for augmentation info-");
         add("chat.neovitae.diviner.blockedBuild", "Unable to replace block at %d, %d, %d.");
         add("chat.neovitae.diviner.noRituals", "No rituals available for this diviner.");
-        add("chat.neovitae.diviner.noRitualSelected", "No ritual selected. Sneak + right-click in air to select.");
+        add("chat.neovitae.diviner.noRitualSelected", "No ritual selected. Right-click in air to select.");
         add("chat.neovitae.diviner.ritualComplete", "Ritual structure complete!");
 
         // Ritual Reader
@@ -709,6 +709,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Dungeon Seal messages
         add("container.neovitae.dungeon_seal", "Choose Your Path");
+        add("container.neovitae.ritual_diviner", "Select a Ritual");
         add("chat.neovitae.dungeon.seal.opened", "The seal has been broken. A new path opens...");
         add("chat.neovitae.dungeon.seal.failed", "The seal remains firmly shut.");
         add("chat.neovitae.dungeon.seal.wrongKey", "This key doesn't fit this seal.");
@@ -1087,6 +1088,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("effect.undertow.desc", "Creates a bubble column in water; right-click to reverse");
         addJei("effect.loyal_friends.name", "Array of Loyal Friends");
         addJei("effect.loyal_friends.desc", "Summons and revives your tamed companions");
+        addJei("effect.vortex.name", "Vortex Array");
+        addJei("effect.vortex.desc", "Pulls nearby entities toward the array and stops endermen from teleporting away");
 
         // Array effect dummy items (JEI searchable)
         add(NVItems.ARRAY_BOUNCE.get(), "Bounce Array");
@@ -1109,6 +1112,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.ARRAY_DEFLECTION.get(), "Deflection Array");
         add(NVItems.ARRAY_ENDLESS_FOUNTAIN.get(), "Endless Fountain Array");
         add(NVItems.ARRAY_UNDERTOW.get(), "Undertow Array");
+        add(NVItems.ARRAY_LOYAL_FRIENDS.get(), "Array of Loyal Friends");
+        add(NVItems.ARRAY_VORTEX.get(), "Vortex Array");
         addTooltip("array_effect.bounce", "Bounces entities high into the air. Crouch to disable.");
         addTooltip("array_effect.spike", "Damages any entity that steps on the array.");
         addTooltip("array_effect.updraft", "Launches entities upward with a gust of wind.");
@@ -1129,6 +1134,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("array_effect.deflection", "Reflects projectiles passing through a column above the array.");
         addTooltip("array_effect.endless_fountain", "Fills adjacent fluid tanks with up to 6 buckets of water every 5 ticks.");
         addTooltip("array_effect.undertow", "Drives a bubble column through the water above. Right-click to flip between upward (push) and downward (drag).");
+        addTooltip("array_effect.loyal_friends", "Summons and revives your tamed companions near the array.");
+        addTooltip("array_effect.vortex", "Pulls nearby entities toward the array and stops endermen from teleporting away.");
 
         // Rituals
         addRitual("water", "Ritual of the Full Spring", "Places water source blocks in the area; with Raw Spiritus, also fills any fluid tank above the master stone (1 Raw per 1,000 mB).");
@@ -1140,7 +1147,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("ritual.neovitae.green_grove.spiritus.vindicta", "Spiritus Vindicta: Scales growth success chance up to 100%%.");
         addRitual("well_of_suffering", "Well of Suffering", "Damages every hostile creature in range and channels their pain into Essentia Vitae at the master stone.");
         addRitual("feathered_knife", "Ritual of the Willing Sacrifice", "Wounds the practitioner standing on the master stone, converting their health into EV for the altar.");
-        addRitual("harvest", "Ritual of Harvest", "Reaps every mature crop in range and replants the seeds.");
+        addRitual("harvest", "Ritual of Harvest", "Reaps every mature crop in range and replants the seeds. Place a chest atop the Master Ritual Stone to collect the yield; otherwise it drops where it grew.");
         addRitual("regeneration", "Ritual of Regeneration", "Applies Regeneration to practitioners in range; with Spiritus Ruina present, also drains nearby mobs to heal you.");
         addRitual("speed", "Ritual of Speed", "Propels non-sneaking entities in the master stone's facing direction. Sneak inside the area to receive Speed II for 30 minutes instead. Aspects modulate velocity, target filtering, and add Soft Fall.");
         addRitual("magnetism", "The Endless Quarry", "Reaps ore blocks from the volume below the master stone (loading unloaded chunks as needed). Inserts as items into a container directly above the master stone if one exists; otherwise places the ore as a block in a 3x3x3 volume above. Scan radius scales with the foundation block: iron 7, gold 15, diamond 31, netherite 63, anything else 3. 50 EV per ore moved; up to 3 ores and 100 checks per refresh, scan reaches bedrock.");

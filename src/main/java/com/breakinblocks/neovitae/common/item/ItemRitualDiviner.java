@@ -7,7 +7,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -38,6 +40,7 @@ import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockRitualStone;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.menu.RitualDivinerMenu;
 import com.breakinblocks.neovitae.ritual.*;
 
 import java.util.*;
@@ -46,9 +49,8 @@ import java.util.*;
  * The Ritual Diviner is used to build rituals by automatically placing ritual stones.
  * - Right-click on a Master Ritual Stone to begin building
  * - Sneak + right-click on MRS to show ritual hologram
- * - Sneak + right-click in air to cycle through rituals (backwards)
- * - Right-click in air to cycle facing direction
- * - Hold right-click in air to continuously cycle
+ * - Right-click in air to open the ritual selection screen
+ * - Sneak + right-click in air to cycle facing direction
  */
 public class ItemRitualDiviner extends Item {
 
@@ -149,7 +151,7 @@ public class ItemRitualDiviner extends Item {
 
         if (player.isShiftKeyDown()) {
             if (!level.isClientSide()) {
-                cycleRitual(stack, player, false);
+                cycleDirection(stack, player);
             }
             return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
         }
@@ -159,10 +161,35 @@ public class ItemRitualDiviner extends Item {
             return new InteractionResultHolder<>(InteractionResult.PASS, stack);
         }
 
-        if (!level.isClientSide()) {
-            cycleDirection(stack, player);
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
+            openRitualSelector(serverPlayer, stack, level, hand);
         }
         return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+    }
+
+    private void openRitualSelector(ServerPlayer player, ItemStack stack, Level level, InteractionHand hand) {
+        List<ResourceLocation> buildable = getBuildableRitualIds(stack, level);
+        if (buildable.isEmpty()) {
+            player.displayClientMessage(
+                    Component.translatable("chat.neovitae.diviner.noRituals").withStyle(ChatFormatting.RED), true);
+            return;
+        }
+        player.openMenu(new SimpleMenuProvider(
+                (id, inv, p) -> new RitualDivinerMenu(id, inv, hand, buildable),
+                Component.translatable("container.neovitae.ritual_diviner")
+        ), buf -> {
+            buf.writeEnum(hand);
+            buf.writeCollection(buildable, (b, rid) -> b.writeUtf(rid.toString()));
+        });
+    }
+
+    public List<ResourceLocation> getBuildableRitualIds(ItemStack stack, Level level) {
+        return RitualRegistry.getAllRituals().stream()
+                .filter(r -> canDivinerBuildRitual(stack, r, level))
+                .map(RitualRegistry::getId)
+                .filter(Objects::nonNull)
+                .sorted(Comparator.comparing(ResourceLocation::toString))
+                .toList();
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -308,55 +335,6 @@ public class ItemRitualDiviner extends Item {
         }
     }
 
-    public void cycleRitual(ItemStack stack, Player player, boolean reverse) {
-        String currentId = getCurrentRitualId(stack);
-
-        List<Ritual> rituals = RitualRegistry.getAllRituals().stream()
-                .filter(r -> canDivinerBuildRitual(stack, r, player.level()))
-                .sorted(Comparator.comparing(r -> {
-                    ResourceLocation id = RitualRegistry.getId(r);
-                    return id != null ? id.toString() : "";
-                }))
-                .toList();
-
-        if (rituals.isEmpty()) {
-            player.displayClientMessage(
-                    Component.translatable("chat.neovitae.diviner.noRituals").withStyle(ChatFormatting.RED), true);
-            return;
-        }
-
-        int currentIndex = -1;
-        for (int i = 0; i < rituals.size(); i++) {
-            ResourceLocation id = RitualRegistry.getId(rituals.get(i));
-            if (id != null && id.toString().equals(currentId)) {
-                currentIndex = i;
-                break;
-            }
-        }
-
-        int nextIndex;
-        if (currentIndex == -1) {
-            nextIndex = 0;
-        } else if (reverse) {
-            nextIndex = (currentIndex - 1 + rituals.size()) % rituals.size();
-        } else {
-            nextIndex = (currentIndex + 1) % rituals.size();
-        }
-
-        Ritual nextRitual = rituals.get(nextIndex);
-        ResourceLocation nextId = RitualRegistry.getId(nextRitual);
-
-        if (nextId != null) {
-            setCurrentRitual(stack, nextId.toString());
-            notifyRitualChange(nextRitual, player);
-
-            // Force sync inventory to client so tooltip updates
-            if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
-                serverPlayer.inventoryMenu.broadcastChanges();
-            }
-        }
-    }
-
     private boolean canDivinerBuildRitual(ItemStack stack, Ritual ritual, Level level) {
         List<RitualComponent> components = RitualLayouts.get(level, ritual);
         for (RitualComponent component : components) {
@@ -365,10 +343,6 @@ public class ItemRitualDiviner extends Item {
             }
         }
         return true;
-    }
-
-    private void notifyRitualChange(Ritual ritual, Player player) {
-        player.displayClientMessage(Component.translatable(ritual.getTranslationKey()), true);
     }
 
     private void notifyBlockedBuild(Player player, BlockPos pos) {

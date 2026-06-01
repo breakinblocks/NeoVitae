@@ -21,6 +21,10 @@
         {
           "entry": "minecraft:nether_gold_ore",
           "weight": 60
+        },
+        {
+          "entry": "#neovitae:generative_ores",
+          "weight": 80
         }
       ]
     },

@@ -21,6 +21,10 @@
         {
           "entry": "minecraft:emerald_ore",
           "weight": 75
+        },
+        {
+          "entry": "#neovitae:generative_ores",
+          "weight": 75
         }
       ]
     }

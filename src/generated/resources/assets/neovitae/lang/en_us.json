@@ -1620,7 +1620,7 @@
   "book.neovitae.guide.utility.book_experience.intro.text": "The [#](8B0000)Tome of Peritia[#]() is a vessel for captured wisdom. Within its pages, your accumulated experience crystallizes into a form that cannot be lost to death.\\\n\\\n[#](2E8B57)Sneak and Use to store one level. Use alone to retrieve. Hold either action to transfer multiple levels rapidly.[#]()",
   "book.neovitae.guide.utility.book_experience.intro.title": "Tome of Peritia",
   "book.neovitae.guide.utility.book_experience.name": "Tome of Peritia",
-  "book.neovitae.guide.utility.book_experience.recipe.text": "Consult JEI for the recipe of the [#](8B0000)Tome of Peritia[#]().",
+  "book.neovitae.guide.utility.book_experience.recipe.text": "Bind an [#](8B0000)Enchanted Book[#]() in gold, lapis, and [#](8B0000)Infused Slate[#]() around a [#](8B0000)Magician's Blood Orb[#]() to forge the [#](8B0000)Tome of Peritia[#]().",
   "book.neovitae.guide.utility.essentia_vitae_bucket.description": "Drawing the refined essence from the altar in liquid form.",
   "book.neovitae.guide.utility.essentia_vitae_bucket.intro.text": "[#](4A0080)Essentia Vitae[#]() is potent within the Ara Vitae, where it fuels crafting and flows through your Orb into the [#](4A0080)Anima[#](). But what if you wish to place it in the world - to fill a moat around your Incense Altar, perhaps?\\\n\\\nSimply place an empty Bucket in the Ara Vitae while it holds at least 1,000 [#](4A0080)Essentia Vitae[#](). The altar fills the vessel in moments. One unit of EV equals one millibucket.",
   "book.neovitae.guide.utility.essentia_vitae_bucket.intro.title": "Collecting the Essence",

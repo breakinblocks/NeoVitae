@@ -34,7 +34,7 @@ public class ItemThrowingDagger extends Item {
         if (!player.isCreative()) {
             stack.shrink(1);
         }
-        player.getCooldowns().addCooldown(this, 50);
+        player.getCooldowns().addCooldown(this, 20);
 
         level.playSound(null, player.getX(), player.getY(), player.getZ(),
                 SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL,

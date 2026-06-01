@@ -33,7 +33,7 @@ public class RitualHarvestEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Reaper's Bounty");
-        this.pageText("This ritual commands an unseen sickle across your fields, harvesting mature crops and replanting them in a single sweep. The bounty falls to the ground near where it grew, awaiting collection. Combined with the [#](8B0000)Ritual of Overgrowth[#](), you have the makings of a self-sustaining farm.");
+        this.pageText("This ritual commands an unseen sickle across your fields, harvesting mature crops and replanting them in a single sweep. Its reach spans eight blocks above and below the Master Ritual Stone, so stacked or sunken farms are gathered all at once. Place a [#](8B0000)chest[#]() atop the Master Ritual Stone and the bounty is funneled straight into it; without one it falls to the ground where it grew. Combined with the [#](8B0000)Ritual of Overgrowth[#](), you have the makings of a self-sustaining farm.");
     }
 
     @Override

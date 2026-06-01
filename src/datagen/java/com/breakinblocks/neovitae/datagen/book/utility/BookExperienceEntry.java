@@ -4,9 +4,12 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.resources.ResourceLocation;
 
 public class BookExperienceEntry extends EntryProvider {
 
@@ -25,9 +28,10 @@ public class BookExperienceEntry extends EntryProvider {
                 + "[#](2E8B57)Sneak and Use to store one level. Use alone to retrieve. "
                 + "Hold either action to transfer multiple levels rapidly.[#]()");
 
-        this.page("recipe", () -> BookTextPageModel.create()
+        this.page("recipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "experience_tome"))
                 .withText(this.context().pageText()));
-        this.pageText("Consult JEI for the recipe of the [#](8B0000)Tome of Peritia[#]().");
+        this.pageText("Bind an [#](8B0000)Enchanted Book[#]() in gold, lapis, and [#](8B0000)Infused Slate[#]() around a [#](8B0000)Magician's Blood Orb[#]() to forge the [#](8B0000)Tome of Peritia[#]().");
 
         this.page("curios", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

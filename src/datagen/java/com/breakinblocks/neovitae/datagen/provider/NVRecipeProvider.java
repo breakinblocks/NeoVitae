@@ -90,6 +90,20 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_book", has(Items.BOOK))
                 .save(output);
 
+        // Tome of Peritia - enchanted book bound in gold, lapis and infused slate around a Magician's Blood Orb
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, NVItems.EXPERIENCE_TOME.get())
+                .pattern("ses")
+                .pattern("lbl")
+                .pattern("gog")
+                .define('s', Tags.Items.STRINGS)
+                .define('e', Tags.Items.STORAGE_BLOCKS_LAPIS)
+                .define('l', NVItems.TABULA_ANIMATA.get())
+                .define('b', Items.ENCHANTED_BOOK)
+                .define('g', Tags.Items.INGOTS_GOLD)
+                .define('o', OrbTierIngredient.of(3))
+                .unlockedBy("has_tabula_animata", has(NVItems.TABULA_ANIMATA.get()))
+                .save(output);
+
         // Sacrificial Dagger - diagonal dagger shape
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, NVItems.SACRIFICIAL_DAGGER.get())
                 .pattern("ggg")
@@ -3950,7 +3964,8 @@ public class NVRecipeProvider extends RecipeProvider {
                 .addLayer(new MeteorLayer(10, 0, Blocks.COBBLESTONE)
                         .setMinWeight(1000)
                         .addWeightedBlock(Blocks.DIAMOND_ORE, 100)
-                        .addWeightedBlock(Blocks.EMERALD_ORE, 75))
+                        .addWeightedBlock(Blocks.EMERALD_ORE, 75)
+                        .addWeightedTag(NVTags.Blocks.GENERATIVE_ORES, 75))
                 .save(output, NeoVitae.rl(basePath + "diamond"));
 
         // Nether Meteor - nether materials including ancient debris
@@ -3959,7 +3974,8 @@ public class NVRecipeProvider extends RecipeProvider {
                         .setMinWeight(500)
                         .addWeightedBlock(Blocks.GLOWSTONE, 100)
                         .addWeightedBlock(Blocks.NETHER_QUARTZ_ORE, 150)
-                        .addWeightedBlock(Blocks.NETHER_GOLD_ORE, 60))
+                        .addWeightedBlock(Blocks.NETHER_GOLD_ORE, 60)
+                        .addWeightedTag(NVTags.Blocks.GENERATIVE_ORES, 80))
                 .addLayer(new MeteorLayer(10, 0, Blocks.BLACKSTONE)
                         .addShellBlock(Blocks.GLOWSTONE)
                         .addWeightedBlock(Blocks.ANCIENT_DEBRIS, 60)
@@ -3968,6 +3984,20 @@ public class NVRecipeProvider extends RecipeProvider {
                         .addWeightedBlock(Blocks.GILDED_BLACKSTONE, 200)
                         .addWeightedBlock(Blocks.POLISHED_BLACKSTONE, 400))
                 .save(output, NeoVitae.rl(basePath + "nether"));
+
+        // Nether Star Meteor - 30% larger than the iron meteor, near-solid dense ore
+        MeteorRecipeBuilder.meteor(Ingredient.of(Items.NETHER_STAR), 1000000, 18)
+                .addLayer(new MeteorLayer(18, 40, Blocks.NETHERRACK)
+                        .addShellBlock(Blocks.CRYING_OBSIDIAN)
+                        .addWeightedBlock(Blocks.DIAMOND_ORE, 200)
+                        .addWeightedBlock(Blocks.EMERALD_ORE, 150)
+                        .addWeightedBlock(Blocks.ANCIENT_DEBRIS, 120)
+                        .addWeightedBlock(Blocks.GOLD_ORE, 150)
+                        .addWeightedBlock(Blocks.IRON_ORE, 150)
+                        .addWeightedBlock(Blocks.REDSTONE_ORE, 120)
+                        .addWeightedBlock(Blocks.LAPIS_ORE, 120)
+                        .addWeightedTag(NVTags.Blocks.GENERATIVE_ORES, 500))
+                .save(output, NeoVitae.rl(basePath + "nether_star"));
     }
 
     // ==================== Flask Recipes ====================

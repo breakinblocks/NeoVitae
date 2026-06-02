@@ -87,8 +87,8 @@ public class NVBlocks {
     public static final BlockWithItemHolder<Block, BlockItem> HELLFORGED_BLOCK = BASIC_REG.register("hellforged_block", metal_block_properties, new Item.Properties());
     public static final BlockWithItemHolder<Block, BlockItem> RAW_DEMONITE_BLOCK = BASIC_REG.register("raw_demonite_block", metal_block_properties, new Item.Properties());
 
-    public static final BlockWithItemHolder<Block, BlockItem> CRYSTAL_CLUSTER = BASIC_REG.register("crystal_cluster", rune_properties, rune_item_properties);
-    public static final BlockWithItemHolder<Block, BlockItem> CRYSTAL_CLUSTER_BRICK = BASIC_REG.register("crystal_cluster_brick", rune_properties, rune_item_properties);
+    public static final BlockWithItemHolder<EnchantingPowerBlock, BlockItem> CRYSTAL_CLUSTER = BASIC_REG.register("crystal_cluster", () -> new EnchantingPowerBlock(rune_properties, 2.5F), rune_item_properties);
+    public static final BlockWithItemHolder<EnchantingPowerBlock, BlockItem> CRYSTAL_CLUSTER_BRICK = BASIC_REG.register("crystal_cluster_brick", () -> new EnchantingPowerBlock(rune_properties, 2.5F), rune_item_properties);
 
     public static final DeferredHolder<Block, AlchemyArrayBlock> ALCHEMY_ARRAY = BLOCKS.register("alchemy_array", (Supplier<AlchemyArrayBlock>) AlchemyArrayBlock::new);
 

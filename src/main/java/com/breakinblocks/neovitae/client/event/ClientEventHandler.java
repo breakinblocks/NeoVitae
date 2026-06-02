@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -17,6 +18,7 @@ import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.block.IEnchantmentAmplifier;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.client.ClientHandler;
@@ -108,6 +110,10 @@ public class ClientEventHandler {
 
         // add after name. idgaf
         tooltip.addAll(1, toAdd);
+
+        if (stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof IEnchantmentAmplifier) {
+            tooltip.add(Component.translatable("tooltip.neovitae.enchantment_amplifier").withStyle(ChatFormatting.LIGHT_PURPLE));
+        }
     }
 
 

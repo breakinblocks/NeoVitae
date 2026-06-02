@@ -30,6 +30,24 @@ public class SentientUpgradesEntry extends EntryProvider {
                 + "a warrior's set, an explorer's set; specialization is the path to true power.\\\n\\\n"
                 + "You have devised [#](8B0000)Rituals[#]() to assist with focused training, and another "
                 + "to imbue your armour with a greater capacity for growth.");
+
+        this.page("training", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("How It Learns");
+        this.pageText("The armour banks experience toward a skill each time you perform the deed that "
+                + "teaches it, and advances a level once enough has gathered.\\\n\\\n"
+                + "[#](B8860B)By magnitude[#](): skills tied to harm, healing, knowledge, or travel learn in "
+                + "proportion to the event, the damage taken or dealt, the health mended, the experience "
+                + "gathered, the distance crossed. Greater deeds teach it faster.");
+
+        this.page("training2", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("[#](B8860B)By repetition[#](): skills like mining, or enduring fire and venom, learn a "
+                + "fixed measure each time, one mark per block broken, or one for every moment wreathed in "
+                + "flame or coursing with poison.\\\n\\\n"
+                + "Each skill rises at its own thresholds. A [#](8B0000)few[#]() are never taught through "
+                + "deeds at all, but inscribed directly from a Tome.");
     }
 
     @Override

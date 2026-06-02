@@ -423,7 +423,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity, IDaemo
     public void die(DamageSource source) {
         playLayeredSound(SoundEvents.POLAR_BEAR_DEATH, 0.8F, 0.45F);
         if (isForeman && !level().isClientSide) {
-            spawnAtLocation(new ItemStack(NVItems.MINE_ENTRANCE_KEY.get()));
+            spawnAtLocation(new ItemStack(NVItems.MINE_KEY.get(), 2 + random.nextInt(3)));
             bossBar.removeAllPlayers();
         }
         super.die(source);

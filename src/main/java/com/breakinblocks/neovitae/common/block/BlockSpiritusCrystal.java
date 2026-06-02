@@ -37,7 +37,7 @@ import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
  * AGE property (0-6) represents the number of crystals shown (1-7).
  * ATTACHED property indicates which direction the crystal attaches to.
  */
-public class BlockSpiritusCrystal extends BaseEntityBlock {
+public class BlockSpiritusCrystal extends BaseEntityBlock implements IEnchantmentAmplifier {
     public static final MapCodec<BlockSpiritusCrystal> CODEC = simpleCodec(p -> new BlockSpiritusCrystal(SpiritusType.RAW, p));
 
     public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 6);
@@ -63,6 +63,11 @@ public class BlockSpiritusCrystal extends BaseEntityBlock {
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
+    }
+
+    @Override
+    public float getEnchantPowerBonus(BlockState state, LevelReader level, BlockPos pos) {
+        return 2.0F;
     }
 
     @Override

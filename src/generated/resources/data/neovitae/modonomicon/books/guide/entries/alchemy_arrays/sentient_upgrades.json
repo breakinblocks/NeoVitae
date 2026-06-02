@@ -34,6 +34,28 @@
       "text": "book.neovitae.guide.alchemy_arrays.sentient_upgrades.specialization.text",
       "title": "",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_arrays.sentient_upgrades.training.text",
+      "title": "book.neovitae.guide.alchemy_arrays.sentient_upgrades.training.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.alchemy_arrays.sentient_upgrades.training2.text",
+      "title": "",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [

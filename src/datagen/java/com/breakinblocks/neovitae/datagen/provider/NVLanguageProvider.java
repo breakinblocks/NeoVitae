@@ -223,6 +223,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.SIGIL_PHANTOM_BRIDGE.get(), "Sigil of the Phantom Bridge");
         add(NVItems.SIGIL_NECROMANCY.get(), "Sigil of Necromancy");
         add(NVItems.SIGIL_BOUND_TREASURES.get(), "Sigil of Bound Treasures");
+        add("tooltip.neovitae.enchantment_amplifier", "Can act as an Enchanting Table amplifier");
         add("tooltip.neovitae.bound_treasures.linked", "Container linked");
         add("tooltip.neovitae.bound_treasures.not_linked", "No container linked. Shift right-click a container to bind.");
         add("tooltip.neovitae.bound_treasures.unloaded", "Linked container is in an unloaded area");

@@ -1283,14 +1283,15 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_lesser_gem", has(NVItems.SPIRITUS_GEM_LESSER.get()))
                 .save(output, NeoVitae.rl("simple_key"));
 
-        HellfireForgeRecipeBuilder.build(NVItems.MINE_KEY.get())
-                .requires(Ingredient.of(Tags.Items.INGOTS_GOLD), 2)
+        HellfireForgeRecipeBuilder.build(NVItems.MINE_ENTRANCE_KEY.get())
+                .requires(NVItems.TABULA_ANIMATA.get())
+                .requires(Items.ECHO_SHARD)
                 .requires(Tags.Items.GEMS_DIAMOND)
-                .requires(NVItems.CORRUPTED_DUST.get())
-                .minSpiritus(200)
-                .drain(25)
-                .unlockedBy("has_common_gem", has(NVItems.SPIRITUS_GEM_COMMON.get()))
-                .save(output, NeoVitae.rl("mine_key"));
+                .requires(NVItems.SIMPLE_KEY.get())
+                .minSpiritus(512)
+                .drain(128)
+                .unlockedBy("has_simple_key", has(NVItems.SIMPLE_KEY.get()))
+                .save(output, NeoVitae.rl("mine_entrance_key"));
 
         // Crystal Catalysts - nether_wart + tau_oil + sulfur + unique_seed
         // Raw catalyst uses potato

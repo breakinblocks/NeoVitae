@@ -27,7 +27,7 @@ public record UpgradeLimits(boolean allowOthers, Object2FloatOpenHashMap<Holder<
             NVDataComponents.UPGRADE_HOLDER_CODEC.fieldOf("limits").forGetter(UpgradeLimits::limits)
     ).apply(builder, UpgradeLimits::new));
 
-    public static final UpgradeLimits EMPTY = new UpgradeLimits(false, SentientHelper.EMPTY_UPGRADE_MAP);
+    public static final UpgradeLimits EMPTY = new UpgradeLimits(true, SentientHelper.EMPTY_UPGRADE_MAP);
 
     public float getLimit(Holder<SentientUpgrade> upgrade) {
         float def = allowOthers ? -1 : 0;

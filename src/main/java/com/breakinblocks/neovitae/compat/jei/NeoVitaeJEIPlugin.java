@@ -13,6 +13,9 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.constants.VanillaTypes;
 import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
@@ -21,6 +24,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
@@ -64,6 +68,7 @@ import com.breakinblocks.neovitae.compat.jei.flask.FlaskCombinationJEIRecipe;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.bloodtank.BloodTankSubtypeInterpreter;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskSubtypeInterpreter;
+import com.breakinblocks.neovitae.compat.jei.tome.UpgradeTomeSubtypeInterpreter;
 import com.breakinblocks.neovitae.compat.jei.forge.ForgeUpgradeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.forge.HellfireForgeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.imperfectritual.ImperfectRitualJEIRecipe;
@@ -126,6 +131,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.registerSubtypeInterpreter(NVItems.ALCHEMY_FLASK_THROWABLE.get(), FlaskSubtypeInterpreter.INSTANCE);
         registration.registerSubtypeInterpreter(NVItems.ALCHEMY_FLASK_LINGERING.get(), FlaskSubtypeInterpreter.INSTANCE);
         registration.registerSubtypeInterpreter(NVBlocks.BLOOD_TANK.item().get(), BloodTankSubtypeInterpreter.INSTANCE);
+        registration.registerSubtypeInterpreter(NVItems.UPGRADE_TOME.get(), UpgradeTomeSubtypeInterpreter.INSTANCE);
     }
 
     @Override
@@ -261,6 +267,10 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addIngredientInfo(orbStacks, VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.neovitae.orb.info"));
 
+        HolderLookup.RegistryLookup<SentientUpgrade> upgradeRegistry = world.registryAccess().lookupOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES);
+        addTomeInfo(registration, upgradeRegistry, NVTags.Sentient.IS_SCRAPPABLE);
+        addTomeInfo(registration, upgradeRegistry, NVTags.Sentient.IS_DOWNGRADE);
+
         // Arcane Scribe Tool dye recipes
         List<RecipeHolder<CraftingRecipe>> scribeDyeRecipes = new ArrayList<>();
         for (DyeColor color : DyeColor.values()) {
@@ -273,6 +283,15 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
             scribeDyeRecipes.add(new RecipeHolder<>(NeoVitae.rl("arcane_scribe_dye_" + color.getSerializedName()), recipe));
         }
         registration.addRecipes(RecipeTypes.CRAFTING, scribeDyeRecipes);
+    }
+
+    private void addTomeInfo(IRecipeRegistration registration, HolderLookup.RegistryLookup<SentientUpgrade> registry, TagKey<SentientUpgrade> tag) {
+        registry.get(tag).ifPresent(set -> set.forEach(holder -> holder.unwrapKey().ifPresent(key -> {
+            ItemStack tome = new ItemStack(NVItems.UPGRADE_TOME.get());
+            tome.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(holder, 0f));
+            registration.addIngredientInfo(tome, VanillaTypes.ITEM_STACK,
+                    Component.translatable("jei.neovitae.upgrade_tome." + key.location().getPath() + ".info"));
+        })));
     }
 
     @Override

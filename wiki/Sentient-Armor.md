@@ -35,7 +35,7 @@ A few upgrades (Brilliance, Curios Sockets, Elytra, Gilded) are not trained thro
 
 | Upgrade | Effect | Trained by |
 |---------|--------|------------|
-| Body Builder | Anchored stance that resists being thrown; greatly bolsters vitality. | Spending hunger: experience equal to each drop in your food level. |
+| Body Builder | Anchored stance that resists being thrown; greatly bolsters vitality. | Eating food: experience equal to the food points restored when you eat. |
 | Brilliance | Inscribe knowledge upon tomes and the armour crystallises into diamond-like hardness. | Applied from a tome (diamonds / inscribing); not a field activity. |
 | Charging Strike | Your momentum becomes a weapon; the faster you charge, the harder you strike. | Dealing damage *while sprinting*: experience equal to the damage dealt. |
 | Curios Sockets (*Socketed*) | The armour grows sockets to hold your vitaemantic trinkets. | Applied from a tome; not trained. |

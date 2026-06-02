@@ -122,7 +122,7 @@
   },
   "blood_tank_fill": {
     "category": "block",
-    "sounds": [{"name": "neovitae:blood_tank_fill"}]
+    "sounds": [{"name": "neovitae:tank_drain"}]
   },
   "blood_tank_drain": {
     "category": "block",

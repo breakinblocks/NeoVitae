@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "hanging=false": { "model": "neovitae:block/demon_lantern" },
+    "hanging=true": { "model": "neovitae:block/demon_lantern_hanging" }
+  }
+}

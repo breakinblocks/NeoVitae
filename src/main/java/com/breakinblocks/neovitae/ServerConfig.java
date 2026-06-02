@@ -33,6 +33,8 @@ public class ServerConfig {
     // Blood Mending config
     public final ModConfigSpec.IntValue BLOOD_MENDING_REPAIR_COST;
 
+    public final ModConfigSpec.IntValue DEMON_LANTERN_UPKEEP;
+
     // Blood Siphon / Blood Shield config
     public final ModConfigSpec.IntValue BLOOD_SIPHON_PLAYER_MULTIPLIER;
     public final ModConfigSpec.IntValue BLOOD_SIPHON_MOB_MULTIPLIER;
@@ -125,6 +127,15 @@ public class ServerConfig {
         BLOOD_MENDING_REPAIR_COST = builder
                 .comment("EV cost per point of durability restored")
                 .defineInRange("repair_cost_per_durability", 100, 1, 100000);
+
+        builder.pop();
+
+        builder.comment("Demon Lantern Configuration");
+        builder.push("demon_lantern");
+
+        DEMON_LANTERN_UPKEEP = builder
+                .comment("EV drained from the bound player's network each second while the Demon Lantern is running")
+                .defineInRange("upkeep_per_second", 20, 0, 1000000);
 
         builder.pop();
 

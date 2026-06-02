@@ -17,6 +17,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.item.DemonLanternItem;
 import com.breakinblocks.neovitae.common.item.block.ItemBlockTabulaVitae;
 import com.breakinblocks.neovitae.common.item.block.RuneBlockItem;
 import com.breakinblocks.neovitae.ritual.EnumRuneType;
@@ -95,6 +96,10 @@ public class NVBlocks {
 
     public static final BlockWithItemHolder<BloodLanternBlock, BlockItem> BLOOD_LANTERN =
             BLOCK_REG.register("blood_lantern", () -> new BloodLanternBlock(BloodLanternBlock.defaultProperties()));
+
+    public static final BlockWithItemHolder<DemonLanternBlock, DemonLanternItem> DEMON_LANTERN =
+            BLOCK_REG.register("demon_lantern", () -> new DemonLanternBlock(DemonLanternBlock.defaultProperties()),
+                    block -> new DemonLanternItem(block, new Item.Properties()));
 
     public static final DeferredHolder<Block, SpectralBlock> SPECTRAL_BLOCK = BLOCKS.register("spectral_block", SpectralBlock::new);
 

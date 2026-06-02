@@ -148,6 +148,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("menu.neovitae.teleposer", "Teleposer");
 
         add(NVBlocks.BLOOD_LANTERN, "Blood Lantern");
+        add(NVBlocks.DEMON_LANTERN, "Demon Lantern");
         addTooltip("blood_lantern.desc", "Wards a 16-block radius against passive and ambient mob spawns.");
 
         add("gui.neovitae.tabula_vitae.side_button", "%s side of %s");
@@ -650,6 +651,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("diviner.extraInfo", "Press shift for extra info.");
         addTooltip("diviner.extraExtraInfo", "-Hold shift + alt for augmentation info-");
         add("chat.neovitae.diviner.blockedBuild", "Unable to replace block at %d, %d, %d.");
+        add("chat.neovitae.binding.bound", "Bound to %s");
         add("chat.neovitae.diviner.noRituals", "No rituals available for this diviner.");
         add("chat.neovitae.diviner.noRitualSelected", "No ritual selected. Right-click in air to select.");
         add("chat.neovitae.diviner.ritualComplete", "Ritual structure complete!");

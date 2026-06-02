@@ -35,6 +35,8 @@ public class MineBlock extends BlockLootSubProvider {
         NVBlocks.BASIC_BLOCKS.getEntries().forEach(holder -> dropSelfList.add(holder.get()));
         addDropSelf(NVBlocks.ARA_VITAE);
         addDropSelf(NVBlocks.HELLFIRE_FORGE);
+        addDropSelf(NVBlocks.BLOOD_LANTERN);
+        addDropSelf(NVBlocks.DEMON_LANTERN);
         addDropSelf(NVBlocks.SANDS_OF_VITAE);
         addDropSelf(DungeonBlocks.SPIKE_TRAP);
     }

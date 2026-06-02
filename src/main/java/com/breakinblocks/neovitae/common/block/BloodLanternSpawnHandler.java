@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
@@ -25,10 +26,15 @@ public class BloodLanternSpawnHandler {
         ServerLevelAccessor levelAcc = event.getLevel();
         if (levelAcc.getLevel().dimension().equals(DungeonDimensionHelper.DUNGEON_DIMENSION)) return;
 
-        Block target = NVBlocks.BLOOD_LANTERN.block().get();
+        Block bloodLantern = NVBlocks.BLOOD_LANTERN.block().get();
+        Block demonLantern = NVBlocks.DEMON_LANTERN.block().get();
         BlockPos center = BlockPos.containing(event.getX(), event.getY(), event.getZ());
         Optional<BlockPos> match = BlockPos.findClosestMatch(center, RADIUS, RADIUS,
-                pos -> levelAcc.getBlockState(pos).is(target));
+                pos -> {
+                    BlockState state = levelAcc.getBlockState(pos);
+                    if (state.is(bloodLantern)) return true;
+                    return state.is(demonLantern) && !levelAcc.getLevel().hasNeighborSignal(pos);
+                });
 
         if (match.isPresent()) {
             event.setSpawnCancelled(true);

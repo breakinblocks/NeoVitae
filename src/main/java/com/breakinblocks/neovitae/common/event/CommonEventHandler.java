@@ -31,7 +31,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Mob;
 import com.breakinblocks.neovitae.common.entity.mob.IDaemonium;
 import net.minecraft.ChatFormatting;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -97,9 +101,23 @@ public class CommonEventHandler {
                 return;
             }
             held.set(NVDataComponents.BINDING, newBinding);
+            notifyBound(event, profile.getName());
         } else if (binding.uuid().equals(profile.getId()) && !Objects.equals(binding.name(), profile.getName())) {
             binding = new Binding(profile.getId(), profile.getName());
             held.set(NVDataComponents.BINDING, binding);
+        }
+    }
+
+    private static void notifyBound(PlayerInteractEvent.RightClickItem event, String name) {
+        if (event.getLevel().isClientSide()) return;
+        Player player = event.getEntity();
+        player.displayClientMessage(
+                Component.translatable("chat.neovitae.binding.bound", name).withStyle(ChatFormatting.DARK_RED), true);
+        event.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(),
+                SoundEvents.SOUL_ESCAPE, SoundSource.PLAYERS, 0.7f, 0.6f);
+        if (event.getLevel() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(ParticleTypes.SOUL, player.getX(), player.getY() + 1.0, player.getZ(),
+                    14, 0.25, 0.4, 0.25, 0.02);
         }
     }
 

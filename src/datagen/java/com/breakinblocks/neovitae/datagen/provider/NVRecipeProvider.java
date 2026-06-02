@@ -416,6 +416,17 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_ethereal_slate", has(NVItems.TABULA_AETHEREA.get()))
                 .save(output, NeoVitae.rl("crystal_cluster"));
 
+        // Demon Lantern - upgrades a Blood Lantern in the Hellfire Forge
+        HellfireForgeRecipeBuilder.build(NVBlocks.DEMON_LANTERN.block().get())
+                .requires(NVItems.SIMPLE_CATALYST.get())
+                .requires(Items.SOUL_SAND)
+                .requires(Items.EMERALD)
+                .requires(NVBlocks.BLOOD_LANTERN.item().get())
+                .minSpiritus(128)
+                .drain(32)
+                .unlockedBy("has_blood_lantern", has(NVBlocks.BLOOD_LANTERN.item().get()))
+                .save(output, NeoVitae.rl("demon_lantern"));
+
         // Crystal Cluster Brick (from crystal cluster)
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, NVBlocks.CRYSTAL_CLUSTER_BRICK.block().get(), 4)
                 .pattern("cc")

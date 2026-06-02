@@ -7,14 +7,14 @@
     },
     "b": {
       "type": "neovitae:orb_tier",
-      "tier": 1
+      "tier": 0
     },
     "c": {
       "item": "neovitae:rune_blank"
     },
     "d": {
       "type": "neovitae:orb_tier",
-      "tier": 4
+      "tier": 3
     }
   },
   "pattern": [

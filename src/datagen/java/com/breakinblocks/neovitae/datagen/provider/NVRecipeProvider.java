@@ -100,7 +100,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('l', NVItems.TABULA_ANIMATA.get())
                 .define('b', Items.ENCHANTED_BOOK)
                 .define('g', Tags.Items.INGOTS_GOLD)
-                .define('o', OrbTierIngredient.of(3))
+                .define('o', OrbTierIngredient.of(2))
                 .unlockedBy("has_tabula_animata", has(NVItems.TABULA_ANIMATA.get()))
                 .save(output);
 
@@ -244,7 +244,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .pattern("aaa")
                 .define('a', NVTags.Items.VITAE_STONE)
                 .define('s', NVItems.TABULA_RASA.get())
-                .define('o', OrbTierIngredient.of(1))
+                .define('o', OrbTierIngredient.of(0))
                 .unlockedBy("has_blank_slate", has(NVItems.TABULA_RASA.get()))
                 .save(output);
 
@@ -271,7 +271,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('b', NVItems.TABULA_ROBUR.get())
                 .define('c', Tags.Items.INGOTS_GOLD)
                 .define('d', NVBlocks.RUNE_BLANK.block().get())
-                .define('e', OrbTierIngredient.of(2))
+                .define('e', OrbTierIngredient.of(1))
                 .unlockedBy("has_reinforced_slate", has(NVItems.TABULA_ROBUR.get()))
                 .save(output);
 
@@ -285,7 +285,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('b', NVItems.TABULA_ROBUR.get())
                 .define('c', Items.GLOWSTONE_DUST)
                 .define('d', NVBlocks.RUNE_BLANK.block().get())
-                .define('e', OrbTierIngredient.of(2))
+                .define('e', OrbTierIngredient.of(1))
                 .unlockedBy("has_reinforced_slate", has(NVItems.TABULA_ROBUR.get()))
                 .save(output);
 
@@ -325,7 +325,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('s', NVItems.TABULA_SPIRITUS.get())
                 .define('G', Tags.Items.DUSTS_GLOWSTONE)
                 .define('r', NVBlocks.RUNE_BLANK.block().get())
-                .define('e', OrbTierIngredient.of(4))
+                .define('e', OrbTierIngredient.of(3))
                 .unlockedBy("has_demonic_slate", has(NVItems.TABULA_SPIRITUS.get()))
                 .save(output);
 
@@ -339,7 +339,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('b', NVItems.TABULA_SPIRITUS.get())
                 .define('c', Tags.Items.INGOTS_GOLD)
                 .define('d', NVBlocks.RUNE_SPEED.block().get())
-                .define('e', OrbTierIngredient.of(4))
+                .define('e', OrbTierIngredient.of(3))
                 .unlockedBy("has_speed_rune", has(NVBlocks.RUNE_SPEED.block().get()))
                 .save(output);
 
@@ -353,7 +353,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('b', NVItems.TABULA_SPIRITUS.get())
                 .define('c', Items.BUCKET)
                 .define('d', NVBlocks.RUNE_CAPACITY.block().get())
-                .define('e', OrbTierIngredient.of(4))
+                .define('e', OrbTierIngredient.of(3))
                 .unlockedBy("has_capacity_rune", has(NVBlocks.RUNE_CAPACITY.block().get()))
                 .save(output);
 
@@ -364,9 +364,9 @@ public class NVRecipeProvider extends RecipeProvider {
                 .pattern("cdc")
                 .pattern("aba")
                 .define('a', NVTags.Items.VITAE_STONE)
-                .define('b', OrbTierIngredient.of(1))
+                .define('b', OrbTierIngredient.of(0))
                 .define('c', NVBlocks.RUNE_BLANK.block().get())
-                .define('d', OrbTierIngredient.of(4))
+                .define('d', OrbTierIngredient.of(3))
                 .unlockedBy("has_blank_rune", has(NVBlocks.RUNE_BLANK.block().get()))
                 .save(output);
 
@@ -380,7 +380,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('s', NVItems.TABULA_AETHEREA.get())
                 .define('h', NVItems.HELLFORGED_PARTS.get())
                 .define('r', NVBlocks.RUNE_BLANK.block().get())
-                .define('e', OrbTierIngredient.of(5))
+                .define('e', OrbTierIngredient.of(4))
                 .unlockedBy("has_hellforged_parts", has(NVItems.HELLFORGED_PARTS.get()))
                 .save(output);
 
@@ -461,7 +461,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('s', NVTags.Items.VITAE_STONE)
                 .define('h', ItemTags.COALS)
                 .define('l', ItemTags.LOGS)
-                .define('o', OrbTierIngredient.of(1))
+                .define('o', OrbTierIngredient.of(0))
                 .unlockedBy("has_weak_orb", has(NVItems.ORB_WEAK.get()))
                 .save(output);
 
@@ -472,7 +472,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .pattern("ded")
                 .define('a', Tags.Items.GLASS_BLOCKS)
                 .define('b', Items.LAVA_BUCKET)
-                .define('c', OrbTierIngredient.of(1))
+                .define('c', OrbTierIngredient.of(0))
                 .define('d', Tags.Items.OBSIDIANS)
                 .define('e', Tags.Items.GEMS_DIAMOND)
                 .unlockedBy("has_weak_orb", has(NVItems.ORB_WEAK.get()))
@@ -485,7 +485,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .pattern("oso")
                 .define('o', Tags.Items.OBSIDIANS)
                 .define('s', NVItems.TABULA_ROBUR.get())
-                .define('c', OrbTierIngredient.of(2))
+                .define('c', OrbTierIngredient.of(1))
                 .unlockedBy("has_reinforced_slate", has(NVItems.TABULA_ROBUR.get()))
                 .save(output, NeoVitae.rl("ritual_stone_blank"));
 
@@ -496,7 +496,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .pattern("oso")
                 .define('o', Tags.Items.OBSIDIANS)
                 .define('s', NVBlocks.BLANK_RITUAL_STONE.block().get())
-                .define('c', OrbTierIngredient.of(3))
+                .define('c', OrbTierIngredient.of(2))
                 .unlockedBy("has_ritual_stone", has(NVBlocks.BLANK_RITUAL_STONE.block().get()))
                 .save(output, NeoVitae.rl("ritual_stone_master"));
 
@@ -520,7 +520,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('s', NVItems.TABULA_SPIRITUS.get())
                 .define('g', Tags.Items.GLASS_BLOCKS)
                 .define('i', Tags.Items.INGOTS_GOLD)
-                .define('o', OrbTierIngredient.of(4))
+                .define('o', OrbTierIngredient.of(3))
                 .unlockedBy("has_demonic_slate", has(NVItems.TABULA_SPIRITUS.get()))
                 .save(output);
 
@@ -556,7 +556,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(Ingredient.of(ItemTags.PLANKS))
                 .requires(Ingredient.of(ItemTags.PLANKS))
                 .requires(Ingredient.of(ItemTags.PLANKS))
-                .requires(OrbTierIngredient.of(2))
+                .requires(OrbTierIngredient.of(1))
                 .unlockedBy("has_apprentice_orb", has(NVItems.ORB_APPRENTICE.get()))
                 .save(output, NeoVitae.rl("path/path_wood_brick"));
 
@@ -575,7 +575,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(Ingredient.of(NVTags.Items.VITAE_STONE))
                 .requires(Ingredient.of(NVTags.Items.VITAE_STONE))
                 .requires(Ingredient.of(NVTags.Items.VITAE_STONE))
-                .requires(OrbTierIngredient.of(3))
+                .requires(OrbTierIngredient.of(2))
                 .unlockedBy("has_magician_orb", has(NVItems.ORB_MAGICIAN.get()))
                 .save(output, NeoVitae.rl("path/path_stone_brick"));
 
@@ -594,7 +594,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(DungeonBlocks.STONE_BRICK_PATH.block().get())
                 .requires(DungeonBlocks.STONE_BRICK_PATH.block().get())
                 .requires(DungeonBlocks.STONE_BRICK_PATH.block().get())
-                .requires(OrbTierIngredient.of(4))
+                .requires(OrbTierIngredient.of(3))
                 .unlockedBy("has_master_orb", has(NVItems.ORB_MASTER.get()))
                 .save(output, NeoVitae.rl("path/path_worn_stone_brick"));
 
@@ -613,7 +613,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(Blocks.OBSIDIAN)
                 .requires(Blocks.OBSIDIAN)
                 .requires(Blocks.OBSIDIAN)
-                .requires(OrbTierIngredient.of(5))
+                .requires(OrbTierIngredient.of(4))
                 .unlockedBy("has_archmage_orb", has(NVItems.ORB_ARCHMAGE.get()))
                 .save(output, NeoVitae.rl("path/path_obsidian_brick"));
 
@@ -959,7 +959,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .pattern("IfI")
                 .define('s', NVTags.Items.VITAE_STONE)
                 .define('S', NVItems.TABULA_ANIMATA.get())
-                .define('o', OrbTierIngredient.of(3))
+                .define('o', OrbTierIngredient.of(2))
                 .define('I', Items.IRON_BLOCK)
                 .define('f', Items.FURNACE)
                 .unlockedBy("has_magician_orb", has(NVItems.ORB_MAGICIAN.get()))
@@ -972,7 +972,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('c', Tags.Items.COBBLESTONES)
                 .define('s', NVItems.TABULA_RASA.get())
                 .define('B', Items.WATER_BUCKET)
-                .define('o', OrbTierIngredient.of(3))
+                .define('o', OrbTierIngredient.of(2))
                 .unlockedBy("has_magician_orb", has(NVItems.ORB_MAGICIAN.get()))
                 .save(output);
 
@@ -983,7 +983,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .define('c', Tags.Items.COBBLESTONES)
                 .define('s', NVItems.TABULA_RASA.get())
                 .define('f', Tags.Items.STORAGE_BLOCKS_COAL)
-                .define('o', OrbTierIngredient.of(3))
+                .define('o', OrbTierIngredient.of(2))
                 .unlockedBy("has_magician_orb", has(NVItems.ORB_MAGICIAN.get()))
                 .save(output);
 

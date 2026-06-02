@@ -10,7 +10,7 @@
     },
     "o": {
       "type": "neovitae:orb_tier",
-      "tier": 1
+      "tier": 0
     },
     "s": {
       "tag": "neovitae:vitae_stone"

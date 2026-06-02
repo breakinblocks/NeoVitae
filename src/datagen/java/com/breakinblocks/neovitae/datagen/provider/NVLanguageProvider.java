@@ -640,6 +640,10 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("diviner.currentDirection", "Current Direction: %s");
         addTooltip("diviner.noRitual", "No ritual selected");
         addTooltip("diviner.cycleHint", "Right-click in air to select a ritual");
+        addTooltip("diviner.stat.activation", "Awakening: %s EV");
+        addTooltip("diviner.stat.upkeep", "Upkeep: %s EV per cycle");
+        addTooltip("diviner.stat.cycle", "Cycle: every %s ticks");
+        addTooltip("diviner.stat.crystal", "Demands the %s");
         addTooltip("diviner.blankRune", "Blank Runes: %d");
         addTooltip("diviner.airRune", "Air Runes: %d");
         addTooltip("diviner.waterRune", "Water Runes: %d");

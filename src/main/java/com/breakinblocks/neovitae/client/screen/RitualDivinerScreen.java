@@ -1,16 +1,20 @@
 package com.breakinblocks.neovitae.client.screen;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.menu.RitualDivinerMenu;
 import com.breakinblocks.neovitae.ritual.Ritual;
 import com.breakinblocks.neovitae.ritual.RitualRegistry;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,6 +148,83 @@ public class RitualDivinerScreen extends AbstractContainerScreen<RitualDivinerMe
             }
         }
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
+        super.render(g, mouseX, mouseY, partialTick);
+        int idx = hoveredIndex(mouseX, mouseY);
+        if (idx >= 0) {
+            g.renderComponentTooltip(font, buildTooltip(entries.get(idx)), mouseX, mouseY);
+        }
+    }
+
+    private int hoveredIndex(double mouseX, double mouseY) {
+        int listTop = topPos + TITLE_HEIGHT;
+        if (mouseX < leftPos + LIST_X || mouseX > leftPos + imageWidth - LIST_X) return -1;
+        if (mouseY < listTop || mouseY >= listTop + VISIBLE_ROWS * ROW_HEIGHT) return -1;
+        int idx = scrollOffset + (int) ((mouseY - listTop) / ROW_HEIGHT);
+        return (idx >= 0 && idx < entries.size()) ? idx : -1;
+    }
+
+    private List<Component> buildTooltip(Entry e) {
+        List<Component> lines = new ArrayList<>();
+        lines.add(e.name.copy().withStyle(ChatFormatting.GOLD));
+
+        Ritual ritual = RitualRegistry.getRitual(e.id);
+        if (ritual == null) return lines;
+
+        addWrapped(lines, Component.translatable(ritual.getTranslationKey() + ".info").getString(),
+                170, ChatFormatting.GRAY, ChatFormatting.ITALIC);
+
+        RitualStats stats = RitualRegistry.getStats(ritual);
+        int activation = stats != null ? stats.activationCost() : ritual.getActivationCost();
+        int upkeep = stats != null ? stats.refreshCost() : ritual.getRefreshCost();
+        int cycle = stats != null ? stats.refreshTime() : ritual.getRefreshTime();
+        int crystal = stats != null ? stats.crystalLevel() : ritual.getCrystalLevel();
+
+        lines.add(Component.empty());
+        lines.add(Component.translatable("tooltip.neovitae.diviner.stat.activation", fmt(activation))
+                .withStyle(ChatFormatting.DARK_RED));
+        lines.add(Component.translatable("tooltip.neovitae.diviner.stat.upkeep", fmt(upkeep))
+                .withStyle(ChatFormatting.DARK_RED));
+        lines.add(Component.translatable("tooltip.neovitae.diviner.stat.cycle", cycle)
+                .withStyle(ChatFormatting.GRAY));
+        Component crystalName = crystalName(crystal);
+        if (crystalName != null) {
+            lines.add(Component.translatable("tooltip.neovitae.diviner.stat.crystal", crystalName)
+                    .withStyle(ChatFormatting.LIGHT_PURPLE));
+        }
+        return lines;
+    }
+
+    private void addWrapped(List<Component> lines, String text, int maxWidth, ChatFormatting... styles) {
+        StringBuilder line = new StringBuilder();
+        for (String word : text.split(" ")) {
+            String test = line.length() == 0 ? word : line + " " + word;
+            if (font.width(test) > maxWidth && line.length() > 0) {
+                lines.add(Component.literal(line.toString()).withStyle(styles));
+                line = new StringBuilder(word);
+            } else {
+                line = new StringBuilder(test);
+            }
+        }
+        if (line.length() > 0) {
+            lines.add(Component.literal(line.toString()).withStyle(styles));
+        }
+    }
+
+    @Nullable
+    private Component crystalName(int level) {
+        return switch (level) {
+            case 1 -> NVItems.ACTIVATION_CRYSTAL_AWAKENED.get().getDescription();
+            case 2 -> NVItems.ACTIVATION_CRYSTAL_CREATIVE.get().getDescription();
+            default -> null;
+        };
+    }
+
+    private static String fmt(int value) {
+        return String.format("%,d", value);
     }
 
     @Override

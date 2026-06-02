@@ -60,7 +60,7 @@ public class RitualStatsProvider implements DataProvider {
         add(NVRituals.PHANTOM_BRIDGE, RitualStats.timed(2000, 1, 1, 0));
         add(NVRituals.CRYSTALLUM_FRACTURA, RitualStats.timed(100000, 200, 100, 1));
         add(NVRituals.DOWNGRADE, RitualStats.timed(20000, 10000, 20, 1));
-        add(NVRituals.METEOR, RitualStats.timed(250000, 0, 20, 2));
+        add(NVRituals.METEOR, RitualStats.timed(250000, 0, 20, 1));
         add(NVRituals.FORSAKEN_SOUL, RitualStats.timed(40000, 100, 20, 1));
         add(NVRituals.FULL_STOMACH, RitualStats.timed(1000, 100, 40, 0));
 
@@ -75,7 +75,7 @@ public class RitualStatsProvider implements DataProvider {
         // ==================== Utility Rituals ====================
         add(NVRituals.PLACER, RitualStats.timed(5000, 10, 5, 0));
         add(NVRituals.GROUNDING, RitualStats.timed(2000, 10, 1, 0));
-        add(NVRituals.TORMENT_NEXUS, RitualStats.timed(25000, 0, 20, 2));
+        add(NVRituals.TORMENT_NEXUS, RitualStats.timed(25000, 0, 20, 1));
     }
 
     protected void add(DeferredHolder<Ritual, ? extends Ritual> ritual, RitualStats stats) {

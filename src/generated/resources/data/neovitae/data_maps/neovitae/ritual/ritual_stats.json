@@ -85,7 +85,7 @@
     },
     "neovitae:meteor": {
       "activation_cost": 250000,
-      "crystal_level": 2,
+      "crystal_level": 1,
       "refresh_cost": 0
     },
     "neovitae:phantom_bridge": {
@@ -124,7 +124,7 @@
     },
     "neovitae:torment_nexus": {
       "activation_cost": 25000,
-      "crystal_level": 2,
+      "crystal_level": 1,
       "refresh_cost": 0
     },
     "neovitae:upgrade_remove": {

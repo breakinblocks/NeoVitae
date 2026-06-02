@@ -81,7 +81,7 @@ public class RitualTormentNexus extends Ritual {
     private int refreshesSinceScan = 0;
 
     public RitualTormentNexus() {
-        super(NAME, 2, 25000, "ritual." + NeoVitae.MODID + "." + NAME);
+        super(NAME, 1, 25000, "ritual." + NeoVitae.MODID + "." + NAME);
         addBlockRange(EFFECT_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-5, -5, -5), 11, 11, 11));
         addBlockRange(ALTAR_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-5, -10, -5), 11, 21, 11));
         setMaximumVolumeAndDistanceOfRange(EFFECT_RANGE, 0, 32, 32);

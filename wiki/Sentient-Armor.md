@@ -26,29 +26,34 @@ To impose order on the armour's undirected growth, the Vitaemancer wears the **[
 
 ## Upgrades
 
-Every upgrade is trained by performing the matching activity while wearing the chestplate. Caps and trained-by hints from the in-game tomes are listed where the entry mentions them.
+Most upgrades are trained by performing the matching activity while wearing the chestplate; every time you do, the armour banks experience toward the next level. How much it banks depends on the upgrade:
 
-| Upgrade | Effect |
-|---------|--------|
-| Body Builder | Anchored stance that resists being thrown; greatly bolsters vitality. Trained by eating food (max level 5). |
-| Brilliance | Inscribe knowledge upon tomes and the armour crystallises into diamond-like hardness. |
-| Charging Strike | Your momentum becomes a weapon; the faster you charge, the harder you strike. |
-| Curios Sockets (*Socketed*) | The armour grows sockets to hold your vitaemantic trinkets. |
-| Dwarven Might | The deeper you dig, the faster the armour drives your arms. |
-| Elytra | Wings of living tissue unfurl from the chestplate; take to the sky. |
-| Experienced | The armour draws deeper knowledge from each fallen foe. |
-| Fierce Strike | Each blow teaches the armour to sharpen the next. |
-| Gift of Ignis | The armour remembers the flame and learns to refuse it. |
-| Gilded | A golden sheen earns the Piglins' grudging respect. |
-| Healthy | Greatly increases the punishment your body can endure. Trained by restoring health, natural regeneration, potions, or vitaemantic healing (max level 10). |
-| Pin Cushion | Every arrow absorbed teaches the armour to turn the next aside. |
-| Poison Resistance | The armour learns to purge venom from your blood. |
-| Quick Feet | The armour quickens your step with every mile traveled. |
-| Repair | The armour knits its own wounds shut, slowly restoring worn equipment. |
-| Soft Fall | The armour absorbs impact; the ground softens beneath you. |
-| Strong Legs | The armour coils like a spring; launch yourself skyward. |
-| Tough | Hardens against melee, explosions, and all close-range violence. Trained by taking non-projectile damage (max level 10). |
-| Tough Palms | Calloused hands yield more Essentia Vitae with each sacrifice. |
+- **Proportional** upgrades bank experience equal to the *magnitude* of the event: the damage taken or dealt, the health restored, the experience collected, or the distance moved. Bigger events teach the armour faster.
+- **Per-event** upgrades bank a flat point each time: one per block mined, or one per tick spent on fire or poisoned.
+
+A few upgrades (Brilliance, Curios Sockets, Elytra, Gilded) are not trained through activity at all and are simply applied from a tome. Each upgrade levels up at its own experience thresholds. The **Trained by** column gives the exact trigger.
+
+| Upgrade | Effect | Trained by |
+|---------|--------|------------|
+| Body Builder | Anchored stance that resists being thrown; greatly bolsters vitality. | Eating food: experience equal to the food points restored when you eat. |
+| Brilliance | Inscribe knowledge upon tomes and the armour crystallises into diamond-like hardness. | Applied from a tome (diamonds / inscribing); not a field activity. |
+| Charging Strike | Your momentum becomes a weapon; the faster you charge, the harder you strike. | Dealing damage *while sprinting*: experience equal to the damage dealt. |
+| Curios Sockets (*Socketed*) | The armour grows sockets to hold your vitaemantic trinkets. | Applied from a tome; not trained. |
+| Dwarven Might | The deeper you dig, the faster the armour drives your arms. | Breaking blocks: one point per block. |
+| Elytra | Wings of living tissue unfurl from the chestplate; take to the sky. | Applied from a tome; not trained. |
+| Experienced | The armour draws deeper knowledge from each fallen foe. | Collecting experience: points equal to the orb value picked up. |
+| Fierce Strike | Each blow teaches the armour to sharpen the next. | Dealing damage: experience equal to the damage dealt. |
+| Gift of Ignis | The armour remembers the flame and learns to refuse it. | One point per tick spent on fire. |
+| Gilded | A golden sheen earns the Piglins' grudging respect. | Applied from a tome; not trained. |
+| Healthy | Greatly increases the punishment your body can endure. | Restoring health (regeneration, potions, vitaemantic healing): experience equal to the health restored. |
+| Pin Cushion | Every arrow absorbed teaches the armour to turn the next aside. | Taking *projectile* damage: experience equal to the damage taken. |
+| Poison Resistance | The armour learns to purge venom from your blood. | One point per tick you are poisoned. |
+| Quick Feet | The armour quickens your step with every mile traveled. | Distance moved on the ground: experience equal to the blocks travelled. |
+| Repair | The armour knits its own wounds shut, slowly restoring worn equipment. | Durability restored to the chestplate: points equal to the durability mended. |
+| Soft Fall | The armour absorbs impact; the ground softens beneath you. | Taking *fall* damage: experience equal to the damage taken. |
+| Strong Legs | The armour coils like a spring; launch yourself skyward. | Rising through the air (jumping/launching): experience equal to the height gained. |
+| Tough | Hardens against melee, explosions, and all close-range violence. | Taking non-projectile damage: experience equal to the damage taken. |
+| Tough Palms | Calloused hands yield more Essentia Vitae with each sacrifice. | Taking self-sacrifice damage (dagger or altar): experience equal to the damage taken. |
 
 ## Downgrades
 

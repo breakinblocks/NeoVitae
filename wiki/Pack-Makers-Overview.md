@@ -6,7 +6,7 @@ This page is the entrypoint. Use the sub-pages for schemas and examples.
 
 ## Index
 
-- **[Pack Makers DataMaps and Recipes](Pack-Makers-DataMaps-and-Recipes)**. Every DataMap (orb / sigil / ritual / imperfect-ritual / spiritus-gem / dungeon-ore-weights), sigil effect definitions, altar-tier geometry, every recipe type (Ara Vitae, Tabula Vitae, Hellfire Forge, Athanor, Alchemy Array, Meteor), tags, loot modifiers, Sentient Armor upgrades, Curios integration, custom player attributes.
+- **[Pack Makers DataMaps and Recipes](Pack-Makers-DataMaps-and-Recipes)**. Every DataMap (orb / sigil / ritual / imperfect-ritual / spiritus-gem / routing-node-stats), sigil effect definitions, altar-tier geometry, every recipe type (Ara Vitae, Tabula Vitae, Hellfire Forge, Athanor, Alchemy Array, Meteor), tags, loot modifiers, Sentient Armor upgrades, Curios integration, custom player attributes.
 - **[Pack Makers Materials and Dungeons](Pack-Makers-Materials-and-Dungeons)**. The data-driven material system (`config/neovitae/materials.json`), KubeJS event hooks, custom dungeon rooms and room pools, the telepose blacklist tags.
 - **[API Overview](API-Overview)** and **[API Reference](API-Reference)**. Java-side interfaces for true addon mods.
 
@@ -32,7 +32,7 @@ your_datapack/
     └── neovitae/
         ├── data_maps/
         │   ├── block/
-        │   │   └── dungeon_ore_weights.json
+        │   │   └── altar_rune_stats.json
         │   ├── item/
         │   │   ├── blood_orb_stats.json
         │   │   ├── sigil_stats.json

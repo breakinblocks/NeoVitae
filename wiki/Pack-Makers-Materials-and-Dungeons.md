@@ -22,7 +22,10 @@ Each entry defines a processable material:
   "ore_tag": "c:ores/tin",
   "raw_tag": "c:raw_materials/tin",
   "ingot_tag": "c:ingots/tin",
-  "display_name": "Tin"
+  "display_name": "Tin",
+  "generative": true,
+  "gen_ore": "",
+  "gen_raw": ""
 }
 ```
 
@@ -38,6 +41,9 @@ Each entry defines a processable material:
 | `ingot_tag` | No | Tag for ingots/gems (e.g. `c:ingots/tin`). Enables ingot-to-dust recipe. |
 | `display_name` | No | Override display name. Defaults to capitalized material name. |
 | `id_overrides` | No | Map to override generated item IDs per stage. |
+| `generative` | No | Whether this ore feeds NeoVitae's generation systems (Prismatic Demonite drops, dungeon iron-ore deposits, meteors). Defaults to `true`. Set `false` to exclude the ore. |
+| `gen_ore` | No | Preferred ore block id for generation (e.g. `"thermal:nickel_ore"`). Use when a material resolves to multiple ore blocks (stone/deepslate variants, cross-mod duplicates) and you want generation to use one specific block. Defaults to the material's whole `c:ores/<name>` tag. |
+| `gen_raw` | No | Preferred raw item id for Prismatic Demonite drops (e.g. `"thermal:raw_nickel"`). Use when a material's `raw_tag` resolves to multiple items and you want drops to use one specific item. Defaults to every item in the material's `raw_tag`. |
 
 ### Auto-Generated Content
 
@@ -51,6 +57,18 @@ For each material, the system automatically generates:
 - **Item models and translations**. Generated in-memory, no files needed.
 
 All recipes use `neoforge:item_exists` conditions so they silently disable if the output item's mod is not installed.
+
+### Ore Generation Injection
+
+Any material flagged `generative` (the default) is automatically woven into NeoVitae's world-generation and reward systems. No recipe or tag authoring is required; a pack that adds platinum, mithril, or any ore the material system detects gets it everywhere for free.
+
+- **Prismatic Demonite drops**. Mining Prismatic Demonite in the dungeon drops a random raw material drawn from the `raw_tag` of every generative material.
+- **Dungeon iron-ore deposits**. The hand-placed ore in dungeon rooms (armoury, ore cavern, crane) is swapped at placement time for a random spread of generative ores.
+- **Meteor ritual**. The default meteors include a weighted entry pointing at the generative ore set, so summoned meteors carry the pack's ores.
+
+These three systems all read the auto-populated `neovitae:generative_ores` block tag, which lists the ore blocks of every generative material. Ores that don't exist in the pack contribute nothing.
+
+To pull a single ore out of all of this, set `"generative": false` on its material entry. When a material maps to more than one candidate (a stone and deepslate variant, or duplicate ores/raw items from several mods), pin the exact output: `gen_ore` chooses the block used by the block-placing systems (dungeon deposits, meteors) and `gen_raw` chooses the raw item used by Prismatic Demonite drops. Without them, generation uses the material's whole `c:ores/<name>` tag and `raw_tag` respectively.
 
 ### Auto-Discovery Command
 
@@ -267,7 +285,7 @@ A room definition is a single JSON object with these fields (output of `DungeonR
 | `requiredDoorMap` | `{ "<wantedDoorType>": [{x,y,z}, ...] }` | When a door at a position needs the connected room to expose a specific door type (used by waterway/asymmetric connectors). |
 | `doorCoverMap` | `{ "<index>": {minimumOffset, maximumOffset} }` | Per-index AABB of blocks filled in when a door is sealed (no room connects). Default is a 3×3×1 frame in front of the door. |
 | `dungeonWeight` | Integer | Spawn weight in the parent pool. Default 1. |
-| `oreDensity` | Float | 0.0 - 1.0. Fraction of stone blocks in the room replaced with weighted ores from `dungeon_ore_weights`. |
+| `oreDensity` | Float | 0.0 - 1.0. Fraction of raw dungeon stone in the room converted to Dungeon Ore (drops raw demonite) or, more rarely, Prismatic Demonite. |
 | `spawnLocation` | `{x,y,z}` | Player spawn offset (entrance rooms only). |
 | `controllerOffset` | `{x,y,z}` | Dungeon-controller block offset (entrance rooms only). |
 | `portalOffset` | `{x,y,z}` | Portal/exit offset (entrance rooms only). |
@@ -365,7 +383,7 @@ The shipped pools cover:
 
 - **Reference NeoVitae's generated JSONs** in the repo at `src/generated/resources/assets/neovitae/schematics/`. They cover every door arrangement (single door, multi-level, asymmetric waterway connectors, multi-NBT rooms) and are the authoritative examples.
 - **Indices group doors** that should accept the same neighbour pool. A four-way corridor with one index attaches anything to any door; a station with `index: 1` north/south for mine corridors and `index: 2` east for a side passage attaches different pools per direction.
-- **Ore density is per-room**, weighted by [`dungeon_ore_weights`](Pack-Makers-DataMaps-and-Recipes#dungeon-ore-weights). Mines use 0.2-0.4, ore-cavern rooms 0.6, mine-key/deadend rooms 0.8.
+- **Ore density is per-room**: the fraction of raw dungeon stone converted to Dungeon Ore (and occasionally Prismatic Demonite). Mines use 0.2-0.4, ore-cavern rooms 0.6, mine-key/deadend rooms 0.8.
 - **`/neovitae dungeon-showcase`** places every registered structure NBT in a grid for visual review. Use this to verify your NBT loads correctly before wiring up the JSON definition.
 
 ---

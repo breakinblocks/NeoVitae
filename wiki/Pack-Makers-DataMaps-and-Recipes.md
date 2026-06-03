@@ -244,41 +244,6 @@ Customize how much [Spiritus](Spiritus-Aspects-and-Crystals) each soul gem tier 
 
 ---
 
-### Dungeon Ore Weights
-
-**Location:** `data/neovitae/data_maps/block/dungeon_ore_weights.json`
-
-Controls which ores spawn in dungeon rooms when stone blocks are replaced. Each entry maps a block to an integer weight; higher weight means more frequent. See [The Endless Dungeon](The-Endless-Dungeon) for context.
-
-**Example, add modded ores:**
-
-```json
-{
-  "values": {
-    "mekanism:tin_ore": 20,
-    "mekanism:osmium_ore": 15,
-    "mekanism:uranium_ore": 3
-  }
-}
-```
-
-**Default distribution:**
-
-| Block | Weight | ~Chance |
-|-------|--------|---------|
-| `minecraft:coal_ore` | 40 | 28% |
-| `minecraft:iron_ore` | 30 | 21% |
-| `minecraft:copper_ore` | 25 | 17% |
-| `minecraft:gold_ore` | 15 | 10% |
-| `minecraft:redstone_ore` | 15 | 10% |
-| `minecraft:lapis_ore` | 10 | 7% |
-| `minecraft:diamond_ore` | 5 | 3.5% |
-| `minecraft:emerald_ore` | 3 | 2% |
-
-Ore density per room is set by the room definition (corridors ~20%, standard rooms ~40%, mine key/deadend rooms ~80%). The weights only control which ore is chosen when a stone block is replaced.
-
----
-
 ## Sigil Types (Effect Definitions)
 
 **Location:** `data/neovitae/neovitae/sigil_type/`

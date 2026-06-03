@@ -132,12 +132,12 @@ Targeted hooks for major modpack staples:
 
 ## Tentative Priority
 
-1. **Routing QoL** (redstone channels, nested filters): quick wins, no system churn.
+1. **Routing QoL** (redstone channels, nested filters).
 2. **EV flytext + Inspector device**: player visibility upgrade, prerequisites for scrying.
 3. **Dynamic meteors**: pack-dev quality of life.
 4. **Ritual Diviner GUI**: single screen, isolated rewrite.
 5. **Sanguine Sorcery** + anointment/charge migration: the biggest cohesive rework; do as one major version.
 6. **Sentient Manifestation**: depends on whether you want it before or after Sanguine Sorcery; can be parallel.
-7. **Living Spiritus Fluid**: natural follow-up once Sanguine Sorcery exposes spiritus consumers.
+7. **Living Spiritus Fluid**: once Sanguine Sorcery exposes spiritus consumers.
 8. **Dungeon expansion**: Mortifex, alchemical devices, vessels.
 9. **Long-tail content & cross-mod compat**: sigils, reagents, conduits, perks.

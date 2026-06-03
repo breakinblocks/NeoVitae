@@ -39,6 +39,33 @@ public class MineBlock extends BlockLootSubProvider {
         addDropSelf(NVBlocks.DEMON_LANTERN);
         addDropSelf(NVBlocks.SANDS_OF_VITAE);
         addDropSelf(DungeonBlocks.SPIKE_TRAP);
+        addDropSelf(NVBlocks.BLANK_RITUAL_STONE);
+        addDropSelf(NVBlocks.AIR_RITUAL_STONE);
+        addDropSelf(NVBlocks.WATER_RITUAL_STONE);
+        addDropSelf(NVBlocks.FIRE_RITUAL_STONE);
+        addDropSelf(NVBlocks.EARTH_RITUAL_STONE);
+        addDropSelf(NVBlocks.DUSK_RITUAL_STONE);
+        addDropSelf(NVBlocks.DAWN_RITUAL_STONE);
+        addDropSelf(NVBlocks.MASTER_RITUAL_STONE);
+        addDropSelf(NVBlocks.INVERTED_MASTER_RITUAL_STONE);
+        addDropSelf(NVBlocks.IMPERFECT_RITUAL_STONE);
+        addDropSelf(NVBlocks.BLOOD_BATTERY);
+        addDropSelf(NVBlocks.TELEPOSER);
+        addDropSelf(NVBlocks.TABULA_VITAE);
+        addDropSelf(NVBlocks.CRYSTALLARIUM_MALEFICUM);
+        addDropSelf(NVBlocks.VAS_MALEFICUM);
+        addDropSelf(NVBlocks.SPIRA_INFERNALIS);
+        addDropSelf(NVBlocks.INPUT_ROUTING_NODE);
+        addDropSelf(NVBlocks.OUTPUT_ROUTING_NODE);
+        addDropSelf(NVBlocks.MASTER_ROUTING_NODE);
+        addDropSelf(NVBlocks.ROUTING_CONDUIT);
+        addDropSelf(NVBlocks.INVERSION_PILLAR);
+        addDropSelf(NVBlocks.INVERSION_PILLAR_CAP);
+        addDropSelf(NVBlocks.RAW_SPIRITUS_CRYSTAL);
+        addDropSelf(NVBlocks.SPIRITUS_RUINA_CRYSTAL);
+        addDropSelf(NVBlocks.SPIRITUS_NIHILUM_CRYSTAL);
+        addDropSelf(NVBlocks.SPIRITUS_VINDICTA_CRYSTAL);
+        addDropSelf(NVBlocks.SPIRITUS_INVICTUS_CRYSTAL);
     }
 
     private void addDropSelf(BlockWithItemHolder<? extends Block, ? extends BlockItem> toAdd) {

@@ -12,6 +12,7 @@ import net.neoforged.neoforge.common.crafting.ICustomIngredient;
 import net.neoforged.neoforge.common.crafting.IngredientType;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.BloodOrb;
+import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +55,18 @@ public class OrbTierIngredient implements ICustomIngredient {
 
     @Override
     public Stream<ItemStack> getItems() {
-        // Return all items from the registry that have blood orb data with tier >= minimumTier
         List<ItemStack> matchingOrbs = new ArrayList<>();
         for (var item : BuiltInRegistries.ITEM) {
             BloodOrb orb = BuiltInRegistries.ITEM.wrapAsHolder(item).getData(NVDataMaps.BLOOD_ORB_STATS);
             if (orb != null && orb.tier() >= minimumTier) {
                 matchingOrbs.add(new ItemStack(item));
+            }
+        }
+        if (matchingOrbs.isEmpty()) {
+            for (var item : BuiltInRegistries.ITEM) {
+                if (item instanceof BloodOrbItem) {
+                    matchingOrbs.add(new ItemStack(item));
+                }
             }
         }
         return matchingOrbs.stream();

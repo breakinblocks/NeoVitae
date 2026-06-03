@@ -35,6 +35,10 @@
     "category": "block",
     "sounds": [{"name": "neovitae:ritual_complete"}]
   },
+  "overgrowth": {
+    "category": "block",
+    "sounds": [{"name": "neovitae:overgrowth", "stream": true}]
+  },
   "alchemy_array_activate": {
     "category": "block",
     "sounds": [{"name": "neovitae:alchemy_array_activate"}]
@@ -85,7 +89,12 @@
   },
   "blood_siphon": {
     "category": "player",
-    "sounds": [{"name": "neovitae:blood_siphon"}]
+    "sounds": [
+      {"name": "neovitae:blood_siphon"},
+      {"name": "neovitae:blood_siphon2"},
+      {"name": "neovitae:blood_siphon3"},
+      {"name": "neovitae:blood_siphon4"}
+    ]
   },
   "blood_shield_absorb": {
     "category": "player",
@@ -113,7 +122,7 @@
   },
   "blood_tank_fill": {
     "category": "block",
-    "sounds": [{"name": "neovitae:blood_tank_fill"}]
+    "sounds": [{"name": "neovitae:tank_drain"}]
   },
   "blood_tank_drain": {
     "category": "block",

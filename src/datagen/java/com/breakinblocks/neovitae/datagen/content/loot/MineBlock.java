@@ -36,7 +36,6 @@ public class MineBlock extends BlockLootSubProvider {
         addDropSelf(NVBlocks.ARA_VITAE);
         addDropSelf(NVBlocks.HELLFIRE_FORGE);
         addDropSelf(NVBlocks.BLOOD_LANTERN);
-        addDropSelf(NVBlocks.DEMON_LANTERN);
         addDropSelf(NVBlocks.SANDS_OF_VITAE);
         addDropSelf(DungeonBlocks.SPIKE_TRAP);
         addDropSelf(NVBlocks.BLANK_RITUAL_STONE);
@@ -75,6 +74,7 @@ public class MineBlock extends BlockLootSubProvider {
     private final List<Block> specialDropList = List.of(
             NVBlocks.BLOOD_TANK.block().get(),
             NVBlocks.ATHANOR_BLOCK.block().get(),
+            NVBlocks.DEMON_LANTERN.block().get(),
             NVBlocks.WEAK_TAU.block().get(),
             NVBlocks.STRONG_TAU.block().get(),
             NVBlocks.INCENSE_ALTAR.block().get(),
@@ -99,6 +99,7 @@ public class MineBlock extends BlockLootSubProvider {
         // Blocks that preserve their contents when broken
         copyComponents(NVBlocks.BLOOD_TANK);
         copyComponents(NVBlocks.ATHANOR_BLOCK);
+        copyComponents(NVBlocks.DEMON_LANTERN);
 
         // Tau crops - drop 1 seed always, plus bonus seeds at max age with fortune
         generateTauLoot(NVBlocks.WEAK_TAU);

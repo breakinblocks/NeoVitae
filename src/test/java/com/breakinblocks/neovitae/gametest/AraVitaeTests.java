@@ -70,7 +70,7 @@ public class AraVitaeTests {
         helper.runAfterDelay(5, () -> {
             if (altar == null) return;
             altar.addSacrificeEV(2000, false);
-            altar.inv.setStackInSlot(0, new ItemStack(Items.STONE));
+            altar.inv.setStackInSlot(0, new ItemStack(Items.DEEPSLATE));
 
             helper.runAfterDelay(250, () -> {
                 ItemStack result = altar.inv.getStackInSlot(0);

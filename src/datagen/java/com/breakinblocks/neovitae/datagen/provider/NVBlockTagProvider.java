@@ -76,6 +76,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .add(NVBlocks.ARA_VITAE.block().getKey(), NVBlocks.BLOOD_TANK.block().getKey())
                 .add(NVBlocks.HELLFIRE_FORGE.block().getKey())
                 .add(NVBlocks.ATHANOR_BLOCK.block().getKey())
+                .add(NVBlocks.BLOOD_LANTERN.block().getKey(), NVBlocks.DEMON_LANTERN.block().getKey())
                 .add(NVBlocks.TABULA_VITAE.block().getKey())
                 .add(NVBlocks.TELEPOSER.block().getKey())
                 .add(NVBlocks.BLANK_RITUAL_STONE.block().getKey())

@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.common.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.util.RandomSource;
@@ -25,6 +26,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.spiritus.SpiritusChunk;
 import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
@@ -224,6 +226,20 @@ public class DemonLanternBlockEntity extends BlockEntity {
                     .result().orElse(Binding.EMPTY);
         } else {
             binding = Binding.EMPTY;
+        }
+    }
+
+    @Override
+    protected void applyImplicitComponents(DataComponentInput componentInput) {
+        super.applyImplicitComponents(componentInput);
+        this.binding = componentInput.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
+    }
+
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.Builder components) {
+        super.collectImplicitComponents(components);
+        if (binding != null && !binding.isEmpty()) {
+            components.set(NVDataComponents.BINDING, binding);
         }
     }
 }

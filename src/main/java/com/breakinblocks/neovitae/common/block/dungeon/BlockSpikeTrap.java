@@ -53,8 +53,18 @@ public class BlockSpikeTrap extends BaseEntityBlock {
     }
 
     @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+        super.onPlace(state, level, pos, oldState, isMoving);
+        updatePoweredState(state, level, pos);
+    }
+
+    @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
         super.neighborChanged(state, level, pos, block, fromPos, isMoving);
+        updatePoweredState(state, level, pos);
+    }
+
+    private void updatePoweredState(BlockState state, Level level, BlockPos pos) {
         if (!level.isClientSide) {
             boolean powered = level.hasNeighborSignal(pos);
             if (powered != state.getValue(ACTIVE)) {

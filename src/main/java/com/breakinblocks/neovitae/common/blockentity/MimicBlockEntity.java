@@ -28,6 +28,7 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.LoggerFactory;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockMimic;
 import com.breakinblocks.neovitae.util.ChatUtil;
@@ -201,7 +202,7 @@ public class MimicBlockEntity extends BaseBlockEntity {
                     copyTag.putInt("y", pos.getY());
                     copyTag.putInt("z", pos.getZ());
                     try (ProblemReporter.ScopedCollector reporter =
-                             new ProblemReporter.ScopedCollector(tile.problemPath(), org.slf4j.LoggerFactory.getLogger(MimicBlockEntity.class))) {
+                             new ProblemReporter.ScopedCollector(tile.problemPath(), LoggerFactory.getLogger(MimicBlockEntity.class))) {
                         tile.loadWithComponents(TagValueInput.create(
                                 reporter, world.registryAccess(), copyTag));
                     }

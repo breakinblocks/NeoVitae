@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.datamap;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.resources.Identifier;
 
 import java.util.Map;
 import java.util.Optional;
@@ -22,7 +23,8 @@ public record RitualStats(
         int refreshTime,
         int crystalLevel,
         Map<String, RangeLimit> rangeLimits,
-        boolean enabled
+        boolean enabled,
+        Optional<Identifier> ambientSound
 ) {
     public static final Codec<RitualStats> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.fieldOf("activation_cost").forGetter(RitualStats::activationCost),
@@ -32,21 +34,29 @@ public record RitualStats(
             Codec.unboundedMap(Codec.STRING, RangeLimit.CODEC)
                     .optionalFieldOf("range_limits", Map.of())
                     .forGetter(RitualStats::rangeLimits),
-            Codec.BOOL.optionalFieldOf("enabled", true).forGetter(RitualStats::enabled)
+            Codec.BOOL.optionalFieldOf("enabled", true).forGetter(RitualStats::enabled),
+            Identifier.CODEC.optionalFieldOf("ambient_sound").forGetter(RitualStats::ambientSound)
     ).apply(instance, RitualStats::new));
 
     /**
      * Creates a simple RitualStats with basic parameters.
      */
     public static RitualStats simple(int activationCost, int refreshCost) {
-        return new RitualStats(activationCost, refreshCost, 20, 0, Map.of(), true);
+        return new RitualStats(activationCost, refreshCost, 20, 0, Map.of(), true, Optional.empty());
     }
 
     /**
      * Creates a RitualStats with all timing parameters.
      */
     public static RitualStats timed(int activationCost, int refreshCost, int refreshTime, int crystalLevel) {
-        return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, Map.of(), true);
+        return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, Map.of(), true, Optional.empty());
+    }
+
+    /**
+     * Returns a copy of this RitualStats with the given ambient sound.
+     */
+    public RitualStats withAmbientSound(Identifier sound) {
+        return new RitualStats(activationCost, refreshCost, refreshTime, crystalLevel, rangeLimits, enabled, Optional.of(sound));
     }
 
     /**

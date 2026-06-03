@@ -30,6 +30,7 @@ public class NVSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> RITUAL_ACTIVATE = sound("ritual_activate");
     public static final DeferredHolder<SoundEvent, SoundEvent> RITUAL_AMBIENT = sound("ritual_ambient");
     public static final DeferredHolder<SoundEvent, SoundEvent> RITUAL_COMPLETE = sound("ritual_complete");
+    public static final DeferredHolder<SoundEvent, SoundEvent> OVERGROWTH = sound("overgrowth");
 
     // Alchemy Array
     public static final DeferredHolder<SoundEvent, SoundEvent> ALCHEMY_ARRAY_ACTIVATE = sound("alchemy_array_activate");

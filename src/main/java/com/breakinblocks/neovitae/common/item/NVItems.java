@@ -434,6 +434,8 @@ public class NVItems {
     public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_DEFLECTION = ARRAY_ITEMS.registerItem("array_deflection", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.DEFLECTION));
     public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_ENDLESS_FOUNTAIN = ARRAY_ITEMS.registerItem("array_endless_fountain", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.ENDLESS_FOUNTAIN));
     public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_UNDERTOW = ARRAY_ITEMS.registerItem("array_undertow", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.UNDERTOW));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_LOYAL_FRIENDS = ARRAY_ITEMS.registerItem("array_loyal_friends", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.LOYAL_FRIENDS));
+    public static final DeferredHolder<Item, ArrayEffectItem> ARRAY_VORTEX = ARRAY_ITEMS.registerItem("array_vortex", props -> new ArrayEffectItem(props, AlchemyArrayEffectType.VORTEX));
 
     public static void register(IEventBus modBus) {
         BASIC_ITEMS.register(modBus);

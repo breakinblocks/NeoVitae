@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.sentient;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
@@ -41,7 +42,7 @@ public record SentientUpgrade(Levels levels, DataComponentMap effects) {
 
     public static final Codec<SentientUpgrade> CLIENT_CODEC = RecordCodecBuilder.create(builder -> builder.group(
             Levels.CODEC.fieldOf("levels").forGetter(SentientUpgrade::levels),
-            com.mojang.serialization.MapCodec.unitCodec(DataComponentMap.EMPTY).fieldOf("effects").forGetter(SentientUpgrade::effects)
+            MapCodec.unitCodec(DataComponentMap.EMPTY).fieldOf("effects").forGetter(SentientUpgrade::effects)
     ).apply(builder, SentientUpgrade::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<SentientUpgrade>> HOLDER_STREAM_CODEC = ByteBufCodecs.holderRegistry(NVRegistries.Keys.SENTIENT_UPGRADES);

@@ -19,6 +19,7 @@ import com.breakinblocks.neovitae.client.model.OrbFillProperty;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.client.particle.BloodBubbleParticle;
 import com.breakinblocks.neovitae.client.particle.BloodDripParticle;
+import com.breakinblocks.neovitae.client.particle.OvergrowthDripParticle;
 import com.breakinblocks.neovitae.client.particle.BloodFlameParticle;
 import com.breakinblocks.neovitae.client.particle.BloodGlowParticle;
 import com.breakinblocks.neovitae.client.particle.RuneGlowParticle;
@@ -55,6 +56,7 @@ import com.breakinblocks.neovitae.client.screen.TrainerScreen;
 import com.breakinblocks.neovitae.common.menu.NVMenus;
 import com.breakinblocks.neovitae.client.screen.AthanorScreen;
 import com.breakinblocks.neovitae.client.screen.DungeonSealScreen;
+import com.breakinblocks.neovitae.client.screen.RitualDivinerScreen;
 import com.breakinblocks.neovitae.client.screen.SpiritCacheScreen;
 import com.breakinblocks.neovitae.client.screen.TeleposerScreen;
 import com.breakinblocks.neovitae.common.item.NVItems;
@@ -113,6 +115,7 @@ public class ClientModEventHandler {
         event.register(NVMenus.ROUTING_NODE.get(), RoutingNodeScreen::new);
         event.register(NVMenus.MASTER_ROUTING_NODE.get(), MasterRoutingNodeScreen::new);
         event.register(NVMenus.DUNGEON_SEAL.get(), DungeonSealScreen::new);
+        event.register(NVMenus.RITUAL_DIVINER.get(), RitualDivinerScreen::new);
         event.register(NVMenus.SPIRIT_CACHE.get(), SpiritCacheScreen::new);
     }
 
@@ -136,6 +139,7 @@ public class ClientModEventHandler {
         event.registerSpriteSet(NVParticles.BLOOD_DRIP.get(), BloodDripParticle.Provider::new);
         event.registerSpriteSet(NVParticles.RUNE_GLOW.get(), RuneGlowParticle.Provider::new);
         event.registerSpriteSet(NVParticles.BLOOD_BUBBLE.get(), BloodBubbleParticle.Provider::new);
+        event.registerSpriteSet(NVParticles.OVERGROWTH_DRIP.get(), OvergrowthDripParticle.Provider::new);
     }
 
     @SubscribeEvent

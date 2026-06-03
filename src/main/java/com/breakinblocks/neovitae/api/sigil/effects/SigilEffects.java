@@ -1,6 +1,9 @@
 package com.breakinblocks.neovitae.api.sigil.effects;
 
 import com.mojang.serialization.MapCodec;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import com.breakinblocks.neovitae.api.registry.NeoVitaeRegistries;
+import com.breakinblocks.neovitae.api.sigil.ISigilEffect;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 
 import java.util.function.Supplier;
@@ -13,12 +16,12 @@ import java.util.function.Supplier;
  * type registry during mod initialization.</p>
  *
  * <p>Addon developers do not need to interact with this class. To register custom
- * sigil effects, create your own {@link net.neoforged.neoforge.registries.DeferredRegister}
- * against {@link com.breakinblocks.neovitae.api.registry.NeoVitaeRegistries#SIGIL_EFFECT_TYPE_KEY}
+ * sigil effects, create your own {@link DeferredRegister}
+ * against {@link NeoVitaeRegistries#SIGIL_EFFECT_TYPE_KEY}
  * and register your effect's {@link MapCodec} there.</p>
  *
  * @see SigilEffect
- * @see com.breakinblocks.neovitae.api.sigil.ISigilEffect
+ * @see ISigilEffect
  */
 public class SigilEffects {
 

@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.api.item;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import com.breakinblocks.neovitae.api.sentient.ISentientArmorUpgrade;
 
 /**
  * Interface for items that can hold Sentient Armor upgrades.
@@ -23,7 +24,7 @@ import net.minecraft.world.item.ItemStack;
  * }
  * }</pre>
  *
- * @see com.breakinblocks.neovitae.api.sentient.ISentientArmorUpgrade
+ * @see ISentientArmorUpgrade
  */
 public interface IUpgradeHolder {
 

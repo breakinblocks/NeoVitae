@@ -8,10 +8,11 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.event.CommonEventHandler;
 
 /**
  * Cleanup on removal (milk, /clear, expiry) is handled by
- * {@link com.breakinblocks.neovitae.common.event.CommonEventHandler}.
+ * {@link CommonEventHandler}.
  */
 public class FlightEffect extends MobEffect {
 

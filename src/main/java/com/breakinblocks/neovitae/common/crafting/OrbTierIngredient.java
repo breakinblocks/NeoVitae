@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.common.crafting;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -12,6 +13,7 @@ import net.neoforged.neoforge.common.crafting.ICustomIngredient;
 import net.neoforged.neoforge.common.crafting.IngredientType;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.BloodOrb;
+import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +38,20 @@ public class OrbTierIngredient implements ICustomIngredient {
                 matching.add(holder);
             }
         }
+        if (matching.isEmpty()) {
+            for (Item item : BuiltInRegistries.ITEM) {
+                if (item instanceof BloodOrbItem) {
+                    matching.add(BuiltInRegistries.ITEM.wrapAsHolder(item));
+                }
+            }
+        }
         return matching.stream();
     }
 
     private final int minimumTier;
 
     public static final MapCodec<OrbTierIngredient> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            com.mojang.serialization.Codec.INT.fieldOf("tier").forGetter(OrbTierIngredient::getMinimumTier)
+            Codec.INT.fieldOf("tier").forGetter(OrbTierIngredient::getMinimumTier)
     ).apply(instance, OrbTierIngredient::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, OrbTierIngredient> STREAM_CODEC = StreamCodec.composite(
@@ -67,22 +76,8 @@ public class OrbTierIngredient implements ICustomIngredient {
         return orb != null && orb.tier() >= minimumTier;
     }
 
-    // @Override (removed: not an override in 26.1)
-    public Stream<ItemStack> getItems() {
-        // Return all items from the registry that have blood orb data with tier >= minimumTier
-        List<ItemStack> matchingOrbs = new ArrayList<>();
-        for (var item : BuiltInRegistries.ITEM) {
-            BloodOrb orb = BuiltInRegistries.ITEM.wrapAsHolder(item).getData(NVDataMaps.BLOOD_ORB_STATS);
-            if (orb != null && orb.tier() >= minimumTier) {
-                matchingOrbs.add(new ItemStack(item));
-            }
-        }
-        return matchingOrbs.stream();
-    }
-
     @Override
     public boolean isSimple() {
-        // Not simple since we check data map values
         return false;
     }
 

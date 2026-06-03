@@ -79,6 +79,8 @@ public final class StreamEffect {
 
     /** Packed RGB color (e.g. {@code 0xBB0000} for blood red). */
     public final int color;
+    /** Packed RGB color for the head/target end. Defaults to {@link #color} when the gradient is unused. */
+    public final int endColor;
     /** Base tube radius in blocks. Default {@code 0.1f}. */
     public final float scale;
     /** Alpha at the tail/source end of the stream. Default {@code 0.1f}. */
@@ -136,6 +138,7 @@ public final class StreamEffect {
         this.targetZ = b.targetZ;
         this.stationary = b.stationary;
         this.color = b.color;
+        this.endColor = b.endColor == -1 ? b.color : b.endColor;
         this.scale = b.scale;
         this.alphaStart = b.alphaStart;
         this.alphaEnd = b.alphaEnd;
@@ -209,6 +212,7 @@ public final class StreamEffect {
         buf.writeDouble(targetZ);
         buf.writeBoolean(stationary);
         buf.writeInt(color);
+        buf.writeInt(endColor);
         buf.writeFloat(scale);
         buf.writeFloat(alphaStart);
         buf.writeFloat(alphaEnd);
@@ -240,6 +244,7 @@ public final class StreamEffect {
         b.targetZ = buf.readDouble();
         b.stationary = buf.readBoolean();
         b.color = buf.readInt();
+        b.endColor = buf.readInt();
         b.scale = buf.readFloat();
         b.alphaStart = buf.readFloat();
         b.alphaEnd = buf.readFloat();
@@ -271,6 +276,7 @@ public final class StreamEffect {
         private double targetX, targetY, targetZ;
         private boolean stationary = false;
         private int color = 0xFFFFFF;
+        private int endColor = -1;
         private float scale = 0.1f;
         private float alphaStart = 0.1f;
         private float alphaEnd = 1.0f;
@@ -328,6 +334,16 @@ public final class StreamEffect {
         /** Set the RGB color (e.g. {@code 0xBB0000}). Default white. */
         public Builder color(int color) {
             this.color = color;
+            return this;
+        }
+
+        /**
+         * Set a separate RGB color for the head/target end. The stream interpolates
+         * per-segment between {@link #color} (tail) and this value (head).
+         * Leave unset to render a single uniform colour.
+         */
+        public Builder endColor(int color) {
+            this.endColor = color;
             return this;
         }
 

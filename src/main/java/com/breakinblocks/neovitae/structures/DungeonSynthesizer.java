@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
+import com.breakinblocks.neovitae.common.blockentity.DungeonControllerBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.DungeonSealBlockEntity;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.structures.rooms.DungeonRoomPlacement;
@@ -245,7 +246,7 @@ public class DungeonSynthesizer {
         initialRoom.placeStructureAtPosition(rand, settings, world, roomPlacementPosition);
 
         world.setBlockAndUpdate(spawningPosition, NVBlocks.DUNGEON_CONTROLLER.block().get().defaultBlockState());
-        if (world.getBlockEntity(spawningPosition) instanceof com.breakinblocks.neovitae.common.blockentity.DungeonControllerBlockEntity controller) {
+        if (world.getBlockEntity(spawningPosition) instanceof DungeonControllerBlockEntity controller) {
             controller.setDungeonSynthesizer(this);
         }
 
@@ -478,6 +479,7 @@ public class DungeonSynthesizer {
                     settings.clearProcessors();
                     settings.addProcessor(new StoneToOreProcessor(testingRoom.getOreDensity()));
                     settings.addProcessor(new TrialSpawnerEntityProcessor());
+                    settings.addProcessor(new IronOreToGenerativeProcessor());
 
                     Pair<Direction, BlockPos> addedDoor = Pair.of(oppositeDoorFacing, testDoor.offset(roomLocation));
                     return new DungeonRoomPlacement(testingRoom, world, settings, roomLocation, addedDoor);
@@ -543,7 +545,7 @@ public class DungeonSynthesizer {
         Direction opposite = doorFacing.getOpposite();
 
         for (Identifier poolName : pools) {
-            List<org.apache.commons.lang3.tuple.Pair<Identifier, Integer>> poolEntries =
+            List<Pair<Identifier, Integer>> poolEntries =
                     DungeonRoomRegistry.getRoomPoolEntries(poolName);
             if (poolEntries == null) {
                 LOGGER.debug("[GEN]   canAnythingFit: pool {} has no entries", poolName);

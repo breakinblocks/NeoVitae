@@ -10,12 +10,13 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 
 import javax.annotation.Nullable;
 
 /**
  * Caches recipes pushed from the server via
- * {@link net.neoforged.neoforge.event.OnDatapackSyncEvent#sendRecipes}. Client-side code
+ * {@link OnDatapackSyncEvent#sendRecipes}. Client-side code
  * (JEI plugin, Modonomicon pages, particle effects) that needs to enumerate or look up
  * recipes reads from {@link #get()} or {@link #byKey(ResourceKey)}.
  */

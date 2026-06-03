@@ -71,16 +71,6 @@ public class RitualCondor extends Ritual {
     }
 
     @Override
-    public int getRefreshTime() {
-        return 20; // Every second
-    }
-
-    @Override
-    public int getRefreshCost() {
-        return 100; // Cost per player per second
-    }
-
-    @Override
     public void gatherComponents(Consumer<RitualComponent> components) {
         addCornerRunes(components, 1, 0, EnumRuneType.AIR);
         addParallelRunes(components, 2, 0, EnumRuneType.AIR);

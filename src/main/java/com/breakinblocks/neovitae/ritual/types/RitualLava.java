@@ -203,16 +203,6 @@ public class RitualLava extends Ritual {
     }
 
     @Override
-    public int getRefreshTime() {
-        return 10;
-    }
-
-    @Override
-    public int getRefreshCost() {
-        return 500;
-    }
-
-    @Override
     public void gatherComponents(Consumer<RitualComponent> components) {
         addCornerRunes(components, 1, 0, EnumRuneType.FIRE);
     }

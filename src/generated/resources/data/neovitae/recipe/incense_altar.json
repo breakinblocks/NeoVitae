@@ -6,7 +6,7 @@
     "l": "#minecraft:logs",
     "o": {
       "neoforge:ingredient_type": "neovitae:orb_tier",
-      "tier": 1
+      "tier": 0
     },
     "s": "#neovitae:vitae_stone"
   },

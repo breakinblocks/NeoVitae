@@ -34,65 +34,46 @@ public class RitualStatsProvider implements DataProvider {
 
     protected void addRituals() {
         // ==================== Essential Rituals ====================
-
-        // Water Ritual - fast refresh, low cost
         add(NVRituals.WATER, RitualStats.timed(500, 25, 1, 0));
-
-        // Lava Ritual - higher cost than water
-        add(NVRituals.LAVA, RitualStats.timed(10000, 500, 1, 0));
-
-        // Green Grove Ritual - plant growth
-        add(NVRituals.GREEN_GROVE, RitualStats.timed(1000, 20, 20, 0));
-
-        // Well of Suffering - mob damage for LP
+        add(NVRituals.LAVA, RitualStats.timed(10000, 500, 10, 0));
+        add(NVRituals.GREEN_GROVE, RitualStats.timed(1000, 20, 20, 0)
+                .withAmbientSound(NeoVitae.rl("overgrowth")));
         add(NVRituals.WELL_OF_SUFFERING, RitualStats.timed(50000, 2, 20, 0));
-
-        // Feathered Knife - player HP for LP
         add(NVRituals.FEATHERED_KNIFE, RitualStats.timed(25000, 20, 20, 0));
-
-        // Harvest Ritual
-        add(NVRituals.HARVEST, RitualStats.timed(20000, 20, 20, 0));
+        add(NVRituals.HARVEST, RitualStats.timed(20000, 5, 20, 0));
 
         // ==================== Common Rituals ====================
-
-        add(NVRituals.REGENERATION, RitualStats.timed(25000, 100, 20, 0));
-        add(NVRituals.SPEED, RitualStats.timed(500, 25, 60, 0));
-        add(NVRituals.MAGNETISM, RitualStats.timed(5000, 50, 20, 0));
-        add(NVRituals.ANIMAL_GROWTH, RitualStats.timed(10000, 25, 20, 0));
-        add(NVRituals.FELLING, RitualStats.timed(20000, 20, 20, 0));
-        add(NVRituals.SUPPRESSION, RitualStats.timed(10000, 2, 1, 0));
-        add(NVRituals.CONTAINMENT, RitualStats.timed(2000, 1, 20, 0));
-        add(NVRituals.EXPULSION, RitualStats.timed(1000, 1, 20, 0));
-        add(NVRituals.ZEPHYR, RitualStats.timed(1000, 1, 20, 0));
-        add(NVRituals.PUMP, RitualStats.timed(10000, 25, 20, 0));
+        add(NVRituals.REGENERATION, RitualStats.timed(500, 50, 40, 0));
+        add(NVRituals.SPEED, RitualStats.timed(500, 5, 1, 0));
+        add(NVRituals.MAGNETISM, RitualStats.timed(5000, 50, 40, 0));
+        add(NVRituals.ANIMAL_GROWTH, RitualStats.timed(500, 30, 20, 0));
+        add(NVRituals.FELLING, RitualStats.timed(2000, 10, 20, 0));
+        add(NVRituals.SUPPRESSION, RitualStats.timed(3000, 5, 10, 0));
+        add(NVRituals.CONTAINMENT, RitualStats.timed(2000, 5, 5, 0));
+        add(NVRituals.EXPULSION, RitualStats.timed(2000, 5, 5, 0));
+        add(NVRituals.ZEPHYR, RitualStats.timed(1000, 2, 5, 0));
+        add(NVRituals.PUMP, RitualStats.timed(2500, 50, 20, 0));
 
         // ==================== Advanced Rituals ====================
-
-        add(NVRituals.PHANTOM_BRIDGE, RitualStats.timed(5000, 10, 1, 0));
+        add(NVRituals.PHANTOM_BRIDGE, RitualStats.timed(2000, 1, 1, 0));
         add(NVRituals.CRYSTALLUM_FRACTURA, RitualStats.timed(100000, 200, 100, 1));
-        add(NVRituals.DOWNGRADE, RitualStats.timed(20000, 100, 20, 1));
-
-        // Meteor Ritual - very expensive, one-time cost
-        add(NVRituals.METEOR, RitualStats.timed(1000000, 1000000, 20, 2));
-
-        add(NVRituals.FORSAKEN_SOUL, RitualStats.timed(50000, 1, 20, 1));
-        add(NVRituals.FULL_STOMACH, RitualStats.timed(100000, 100, 20, 1));
+        add(NVRituals.DOWNGRADE, RitualStats.timed(20000, 10000, 20, 1));
+        add(NVRituals.METEOR, RitualStats.timed(250000, 0, 20, 1));
+        add(NVRituals.FORSAKEN_SOUL, RitualStats.timed(40000, 100, 20, 1));
+        add(NVRituals.FULL_STOMACH, RitualStats.timed(1000, 100, 40, 0));
 
         // ==================== Dusk Tier Rituals ====================
-
-        add(NVRituals.CONDOR, RitualStats.timed(1000000, 200, 20, 2));
+        add(NVRituals.CONDOR, RitualStats.timed(10000, 100, 20, 1));
         add(NVRituals.SPHERE, RitualStats.timed(20000, 10, 1, 0));
-        add(NVRituals.ARMOUR_EVOLVE, RitualStats.timed(50000, 10, 1, 2));
-        add(NVRituals.UPGRADE_REMOVE, RitualStats.timed(20000, 100, 20, 2));
-        add(NVRituals.CRAFTING, RitualStats.timed(25000, 100, 40, 2));
+        add(NVRituals.ARMOUR_EVOLVE, RitualStats.timed(50000, 25000, 20, 1));
+        add(NVRituals.UPGRADE_REMOVE, RitualStats.timed(20000, 10000, 20, 1));
+        add(NVRituals.CRAFTING, RitualStats.timed(25000, 100, 40, 1));
         add(NVRituals.YAWNING_VOID, RitualStats.timed(5000, 10, 10, 0));
 
         // ==================== Utility Rituals ====================
-
-        add(NVRituals.PLACER, RitualStats.timed(5000, 10, 20, 0));
-        add(NVRituals.GROUNDING, RitualStats.timed(1000, 10, 20, 0));
-
-        add(NVRituals.TORMENT_NEXUS, RitualStats.timed(25000, 0, 20, 2));
+        add(NVRituals.PLACER, RitualStats.timed(5000, 10, 5, 0));
+        add(NVRituals.GROUNDING, RitualStats.timed(2000, 10, 1, 0));
+        add(NVRituals.TORMENT_NEXUS, RitualStats.timed(25000, 0, 20, 1));
     }
 
     protected void add(DeferredHolder<Ritual, ? extends Ritual> ritual, RitualStats stats) {
@@ -166,6 +147,9 @@ public class RitualStatsProvider implements DataProvider {
                 statsJson.add("range_limits", rangeLimitsJson);
             }
         }
+
+        stats.ambientSound().ifPresent(sound ->
+                statsJson.addProperty("ambient_sound", sound.toString()));
 
         return statsJson;
     }

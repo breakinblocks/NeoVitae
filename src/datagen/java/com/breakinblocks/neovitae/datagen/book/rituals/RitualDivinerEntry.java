@@ -24,11 +24,11 @@ public class RitualDivinerEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("The Ritual Diviner");
         this.pageText("Ritual circles demand precision; you cannot simply scatter inscriptions at random and expect the currents of [#](4A0080)Essentia Vitae[#]() to flow correctly. The [#](8B0000)Ritual Diviner[#]() is the master architect's tool, a wand that knows every pattern by heart."
-                + "\\\n\\\n[#](2E8B57)Hold Sneak and press Use or Attack while looking at empty air to cycle through available rituals in either direction.[#]()");
+                + "\\\n\\\n[#](2E8B57)Right-click while looking at empty air to open the ritual selector, then choose a pattern from the list. Only rituals the Diviner is capable of inscribing are shown.[#]()");
 
         this.page("direction", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("You can also change the facing of the completed ritual by pressing Use in the air. This only matters for asymmetrical rituals such as the [#](8B0000)Ritual of Speed[#](); most patterns are perfectly symmetrical.");
+        this.pageText("You can also change the facing of the completed ritual by [#](2E8B57)sneaking and right-clicking in the air[#](). This only matters for asymmetrical rituals such as the [#](8B0000)Ritual of Speed[#](); most patterns are perfectly symmetrical.");
 
         this.page("crafting", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual_diviner"))

@@ -27,7 +27,7 @@ public class RitualMeteor extends Ritual {
     public static final String CHECK_RANGE = "itemRange";
 
     public RitualMeteor() {
-        super("meteor", 2, 250000, "ritual." + NeoVitae.MODID + ".meteor");
+        super("meteor", 1, 250000, "ritual." + NeoVitae.MODID + ".meteor");
         addBlockRange(CHECK_RANGE, new AreaDescriptor.Rectangle(new BlockPos(0, 1, 0), 1, 1, 1));
         setMaximumVolumeAndDistanceOfRange(CHECK_RANGE, 27, 10, 10);
     }
@@ -86,16 +86,6 @@ public class RitualMeteor extends Ritual {
                 return;
             }
         }
-    }
-
-    @Override
-    public int getRefreshTime() {
-        return 20;
-    }
-
-    @Override
-    public int getRefreshCost() {
-        return 0;
     }
 
     @Override

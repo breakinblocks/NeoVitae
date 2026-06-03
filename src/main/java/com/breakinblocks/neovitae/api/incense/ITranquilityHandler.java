@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.api.incense;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 import com.breakinblocks.neovitae.incense.EnumTranquilityType;
 
 import javax.annotation.Nullable;
@@ -41,7 +42,7 @@ import javax.annotation.Nullable;
  * <p>When a block matches multiple tags with different tranquility values,
  * the entry with the <b>highest value</b> is used.</p>
  *
- * @see com.breakinblocks.neovitae.api.NeoVitaeAPI#getTranquilityHandler()
+ * @see NeoVitaeAPI#getTranquilityHandler()
  */
 public interface ITranquilityHandler {
 

@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.blockentity;
 
 
 import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -229,7 +230,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
             ValueInput costTag = costTagOpt.get();
             EnumMap<SpiritusType, Double> costs = new EnumMap<>(SpiritusType.class);
             for (SpiritusType type : SpiritusType.values()) {
-                costTag.read(type.getSerializedName(), com.mojang.serialization.Codec.DOUBLE).ifPresent(v -> costs.put(type, v));
+                costTag.read(type.getSerializedName(), Codec.DOUBLE).ifPresent(v -> costs.put(type, v));
             }
             currentRecipeSpiritusCost = Map.copyOf(costs);
         } else {

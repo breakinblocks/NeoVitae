@@ -10,5 +10,6 @@ public class DaemoniumPestisRenderer extends GeoEntityRenderer<DaemoniumPestisEn
 
     public DaemoniumPestisRenderer(EntityRendererProvider.Context context) {
         super(context, new DaemoniumPestisModel());
+        withRenderLayer(new NVEmissiveGeoLayer<>(this));
     }
 }

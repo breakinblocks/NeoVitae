@@ -36,7 +36,7 @@ import com.geckolib.animation.AnimationController;
 import com.geckolib.animation.RawAnimation;
 import com.geckolib.util.GeckoLibUtil;
 
-public class DaemoniumRancorisEntity extends Monster implements GeoEntity {
+public class DaemoniumRancorisEntity extends Monster implements GeoEntity, IDaemonium {
 
     private static final EntityDataAccessor<Integer> ATTACK_STATE =
             SynchedEntityData.defineId(DaemoniumRancorisEntity.class, EntityDataSerializers.INT);

@@ -86,7 +86,7 @@ public class RitualSpeed extends Ritual {
 
         List<LivingEntity> entities = RitualHelper.getEntitiesInRange(ctx, this, SPEED_RANGE, LivingEntity.class,
                 entity -> entity.isAlive()
-                        && !(entity instanceof net.minecraft.world.entity.player.Player player && player.isSpectator()));
+                        && !(entity instanceof Player player && player.isSpectator()));
 
         int cost = 0;
 
@@ -171,16 +171,6 @@ public class RitualSpeed extends Ritual {
         }
 
         will.drain(ctx.level(), masterPos);
-    }
-
-    @Override
-    public int getRefreshTime() {
-        return 1;
-    }
-
-    @Override
-    public int getRefreshCost() {
-        return 5;
     }
 
     @Override

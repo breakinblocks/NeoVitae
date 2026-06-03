@@ -21,15 +21,15 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:crafting_recipe",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
+      "recipe_id_1": "neovitae:experience_tome",
       "text": "book.neovitae.guide.utility.book_experience.recipe.text",
-      "title": "",
-      "use_markdown_in_title": false
+      "title1": "",
+      "title2": ""
     },
     {
       "type": "modonomicon:text",

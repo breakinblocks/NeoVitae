@@ -5,6 +5,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
@@ -15,7 +16,7 @@ import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.datagen.content.SentientUpgrades;
 import com.breakinblocks.neovitae.util.helper.BlockWithItemHolder;
 
-public class NVLanguageProvider extends LanguageProvider implements com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider {
+public class NVLanguageProvider extends LanguageProvider implements ModonomiconLanguageProvider {
 
     public NVLanguageProvider(PackOutput output) {
         super(output, NeoVitae.MODID, "en_us");
@@ -148,6 +149,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("menu.neovitae.teleposer", "Teleposer");
 
         add(NVBlocks.BLOOD_LANTERN, "Blood Lantern");
+        add(NVBlocks.DEMON_LANTERN, "Demon Lantern");
         addTooltip("blood_lantern.desc", "Wards a 16-block radius against passive and ambient mob spawns.");
 
         add("gui.neovitae.tabula_vitae.side_button", "%s side of %s");
@@ -222,6 +224,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.SIGIL_PHANTOM_BRIDGE.get(), "Sigil of the Phantom Bridge");
         add(NVItems.SIGIL_NECROMANCY.get(), "Sigil of Necromancy");
         add(NVItems.SIGIL_BOUND_TREASURES.get(), "Sigil of Bound Treasures");
+        add("tooltip.neovitae.enchantment_amplifier", "Can act as an Enchanting Table amplifier");
         add("tooltip.neovitae.bound_treasures.linked", "Container linked");
         add("tooltip.neovitae.bound_treasures.not_linked", "No container linked. Shift right-click a container to bind.");
         add("tooltip.neovitae.bound_treasures.unloaded", "Linked container is in an unloaded area");
@@ -639,7 +642,11 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("diviner.currentRitual", "Current Ritual: %s");
         addTooltip("diviner.currentDirection", "Current Direction: %s");
         addTooltip("diviner.noRitual", "No ritual selected");
-        addTooltip("diviner.cycleHint", "Sneak + right-click air to select ritual");
+        addTooltip("diviner.cycleHint", "Right-click in air to select a ritual");
+        addTooltip("diviner.stat.activation", "Awakening: %s EV");
+        addTooltip("diviner.stat.upkeep", "Upkeep: %s EV per cycle");
+        addTooltip("diviner.stat.cycle", "Cycle: every %s ticks");
+        addTooltip("diviner.stat.crystal", "Demands the %s");
         addTooltip("diviner.blankRune", "Blank Runes: %d");
         addTooltip("diviner.airRune", "Air Runes: %d");
         addTooltip("diviner.waterRune", "Water Runes: %d");
@@ -651,8 +658,9 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("diviner.extraInfo", "Press shift for extra info.");
         addTooltip("diviner.extraExtraInfo", "-Hold shift + alt for augmentation info-");
         add("chat.neovitae.diviner.blockedBuild", "Unable to replace block at %d, %d, %d.");
+        add("chat.neovitae.binding.bound", "Bound to %s");
         add("chat.neovitae.diviner.noRituals", "No rituals available for this diviner.");
-        add("chat.neovitae.diviner.noRitualSelected", "No ritual selected. Sneak + right-click in air to select.");
+        add("chat.neovitae.diviner.noRitualSelected", "No ritual selected. Right-click in air to select.");
         add("chat.neovitae.diviner.ritualComplete", "Ritual structure complete!");
 
         // Ritual Reader
@@ -710,6 +718,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Dungeon Seal messages
         add("container.neovitae.dungeon_seal", "Choose Your Path");
+        add("container.neovitae.ritual_diviner", "Select a Ritual");
         add("chat.neovitae.dungeon.seal.opened", "The seal has been broken. A new path opens...");
         add("chat.neovitae.dungeon.seal.failed", "The seal remains firmly shut.");
         add("chat.neovitae.dungeon.seal.wrongKey", "This key doesn't fit this seal.");
@@ -1041,6 +1050,38 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Blood Tank
         add("jei.neovitae.blood_tank.upgrade_info", "Blood Tanks can be upgraded by placing them in a crafting grid surrounded by Glass and Bloodstone. Each upgrade doubles the tank's capacity. Tanks retain their stored fluid when upgraded. The initial tier holds 16,000 mB and tier 16 holds 524,288,000 mB.");
 
+        String tomeObtain = "\n\nObtain the tome from dungeon loot (The Mines and the Foreman's hoard), the Sentient Extraction ritual, or by combining two duplicate tomes at a crafting table.";
+        String downgradeApply = "\n\nImposed by the Sentient Downgrade ritual, which trades unwanted upgrade levels for this curse and frees Upgrade Points to spend elsewhere.";
+
+        add("jei.neovitae.upgrade_tome.physical_protect.info", "Reduces incoming non-projectile damage, such as melee and explosions, as it levels.\n\nTrained: take non-projectile damage while wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.arrow_protect.info", "Reduces incoming projectile damage as it levels.\n\nTrained: take projectile damage while wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.fall_protect.info", "Reduces fall damage as it levels.\n\nTrained: take fall damage while wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.self_sacrifice.info", "Increases the Essentia Vitae gained from self-sacrifice.\n\nTrained: take self-sacrifice damage from a sacrificial dagger or altar while wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.health.info", "Increases maximum health.\n\nTrained: restore health through regeneration, potions, or vitaemantic healing while wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.experienced.info", "Increases the experience gained from orbs.\n\nTrained: pick up experience while wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.melee_damage.info", "Increases melee attack damage.\n\nTrained: deal melee damage while wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.sprint_attack.info", "Adds bonus damage and knockback to sprint attacks.\n\nTrained: deal damage while sprinting and wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.digging.info", "Increases mining speed.\n\nTrained: break blocks while wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.fire_resist.info", "Periodically grants Fire Resistance.\n\nTrained: spend time on fire while wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.poison_resist.info", "Periodically cleanses Poison.\n\nTrained: spend time poisoned while wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.speed.info", "Increases movement speed.\n\nTrained: travel across the ground while wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.jump.info", "Increases jump height and reduces fall damage.\n\nTrained: rise through the air by jumping while wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.knockback_resist.info", "Increases knockback resistance, and at higher levels maximum health.\n\nTrained: eat food while wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.repair.info", "Slowly mends the chestplate's durability over time.\n\nTrained: as the chestplate's durability is restored while you wear the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.netherite_protect.info", "Adds armour and armour toughness.\n\nNot trained through activity; apply the tome directly to a worn Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.elytra.info", "Grants elytra-style gliding from the chestplate.\n\nNot trained through activity; apply the tome directly to a worn Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.gilded.info", "Piglins treat you as neutral, as though you wore gold.\n\nNot trained through activity; apply the tome directly to a worn Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.luck.info", "Increases the Luck attribute, improving loot rolls.\n\nNot trained through activity; apply the tome directly to a worn Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.battle_hungry.info", "If you go too long without combat, the armour saps your hunger." + downgradeApply);
+        add("jei.neovitae.upgrade_tome.swim_decrease.info", "Reduces your swimming speed." + downgradeApply);
+        add("jei.neovitae.upgrade_tome.crippled_arm.info", "Locks your off-hand, leaving only one arm usable." + downgradeApply);
+        add("jei.neovitae.upgrade_tome.melee_decrease.info", "Reduces your melee attack damage." + downgradeApply);
+        add("jei.neovitae.upgrade_tome.dig_slowdown.info", "Reduces your mining speed." + downgradeApply);
+        add("jei.neovitae.upgrade_tome.speed_decrease.info", "Reduces your movement speed." + downgradeApply);
+        add("jei.neovitae.upgrade_tome.quenched.info", "Prevents you from drinking potions." + downgradeApply);
+        add("jei.neovitae.upgrade_tome.slow_heal.info", "Reduces the healing you receive." + downgradeApply);
+        add("jei.neovitae.upgrade_tome.storm_trooper.info", "Spoils your aim, scattering the projectiles you fire." + downgradeApply);
+
         // Alchemy Array Effect Types (for JEI tooltips)
         addJei("effect.crafting.name", "Crafting Array");
         addJei("effect.crafting.desc", "Transforms items into new forms");
@@ -1088,6 +1129,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("effect.undertow.desc", "Creates a bubble column in water; right-click to reverse");
         addJei("effect.loyal_friends.name", "Array of Loyal Friends");
         addJei("effect.loyal_friends.desc", "Summons and revives your tamed companions");
+        addJei("effect.vortex.name", "Vortex Array");
+        addJei("effect.vortex.desc", "Pulls nearby entities toward the array and stops endermen from teleporting away");
 
         // Array effect dummy items (JEI searchable)
         add(NVItems.ARRAY_BOUNCE.get(), "Bounce Array");
@@ -1110,6 +1153,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.ARRAY_DEFLECTION.get(), "Deflection Array");
         add(NVItems.ARRAY_ENDLESS_FOUNTAIN.get(), "Endless Fountain Array");
         add(NVItems.ARRAY_UNDERTOW.get(), "Undertow Array");
+        add(NVItems.ARRAY_LOYAL_FRIENDS.get(), "Array of Loyal Friends");
+        add(NVItems.ARRAY_VORTEX.get(), "Vortex Array");
         addTooltip("array_effect.bounce", "Bounces entities high into the air. Crouch to disable.");
         addTooltip("array_effect.spike", "Damages any entity that steps on the array.");
         addTooltip("array_effect.updraft", "Launches entities upward with a gust of wind.");
@@ -1130,18 +1175,28 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("array_effect.deflection", "Reflects projectiles passing through a column above the array.");
         addTooltip("array_effect.endless_fountain", "Fills adjacent fluid tanks with up to 6 buckets of water every 5 ticks.");
         addTooltip("array_effect.undertow", "Drives a bubble column through the water above. Right-click to flip between upward (push) and downward (drag).");
+        addTooltip("array_effect.loyal_friends", "Summons and revives your tamed companions near the array.");
+        addTooltip("array_effect.vortex", "Pulls nearby entities toward the array and stops endermen from teleporting away.");
 
         // Rituals
         addRitual("water", "Ritual of the Full Spring", "Places water source blocks in the area; with Raw Spiritus, also fills any fluid tank above the master stone (1 Raw per 1,000 mB).");
         addRitual("lava", "Serenade of the Nether", "Places lava source blocks within the area.");
         addRitual("green_grove", "Ritual of Overgrowth", "Suffuses the earth with life; bonemeals nearby crops and saplings. Spiritus aspects extend it to farmland hydration, Plant Leech, or scaled chance.");
+        add("ritual.neovitae.green_grove.spiritus.raw", "Raw Spiritus: Hastens the refresh rate (20 ticks down to 10 as raw rises).");
+        add("ritual.neovitae.green_grove.spiritus.invictus", "Spiritus Invictus: Hydrates nearby farmland to full moisture.");
+        add("ritual.neovitae.green_grove.spiritus.ruina", "Spiritus Ruina: Applies Plant Leech to nearby mobs.");
+        add("ritual.neovitae.green_grove.spiritus.vindicta", "Spiritus Vindicta: Scales growth success chance up to 100%%.");
         addRitual("well_of_suffering", "Well of Suffering", "Damages every hostile creature in range and channels their pain into Essentia Vitae at the master stone.");
         addRitual("feathered_knife", "Ritual of the Willing Sacrifice", "Wounds the practitioner standing on the master stone, converting their health into EV for the altar.");
-        addRitual("harvest", "Ritual of Harvest", "Reaps every mature crop in range and replants the seeds.");
+        addRitual("harvest", "Ritual of Harvest", "Reaps every mature crop in range and replants the seeds. Place a chest atop the Master Ritual Stone to collect the yield; otherwise it drops where it grew.");
         addRitual("regeneration", "Ritual of Regeneration", "Applies Regeneration to practitioners in range; with Spiritus Ruina present, also drains nearby mobs to heal you.");
         addRitual("speed", "Ritual of Speed", "Propels non-sneaking entities in the master stone's facing direction. Sneak inside the area to receive Speed II for 30 minutes instead. Aspects modulate velocity, target filtering, and add Soft Fall.");
         addRitual("magnetism", "The Endless Quarry", "Reaps ore blocks from the volume below the master stone (loading unloaded chunks as needed). Inserts as items into a container directly above the master stone if one exists; otherwise places the ore as a block in a 3x3x3 volume above. Scan radius scales with the foundation block: iron 7, gold 15, diamond 31, netherite 63, anything else 3. 50 EV per ore moved; up to 3 ores and 100 checks per refresh, scan reaches bedrock.");
         addRitual("animal_growth", "Ritual of Accelerated Aging", "Accelerates the growth of young creatures in range.");
+        add("ritual.neovitae.animal_growth.spiritus.raw", "Raw Spiritus: Base behavior, accelerates the growth of young creatures.");
+        add("ritual.neovitae.animal_growth.spiritus.invictus", "Spiritus Invictus: Breeds adult animals in range.");
+        add("ritual.neovitae.animal_growth.spiritus.nihilum", "Spiritus Nihilum: Sacrifices animals in range for additional EV.");
+        add("ritual.neovitae.animal_growth.spiritus.vindicta", "Spiritus Vindicta: Shaves cooldown between pulses (10 ticks + 1 per 5 vindicta).");
         addRitual("felling", "Ritual of Fallen Trees", "Fells every tree in range and drops the logs into an adjacent chest.");
         addRitual("suppression", "Dome of Suppression", "Replaces fluid source blocks in range with air, restoring them when the ritual stops.");
         addRitual("containment", "Ritual of Containment", "Pushes any creature trying to leave the area back toward the center; an invisible cage.");
@@ -1163,7 +1218,12 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("armour_evolve", "Ritual of Sentient Evolution", "Stand on the master stone in Sentient Armor; the ritual expands its upgrade capacity beyond the former limit.");
         addRitual("upgrade_remove", "Tabula Rasa", "Wipes every upgrade from worn Sentient Armor and resets used points to zero; no tomes are produced.");
         addRitual("crafting", "Rhythm of the Beating Anvil", "Automates crafting through an adjacent inventory. Spiritus Invictus routes through a Hellfire Forge, Spiritus Ruina through a Tabula Vitae. Dusk-tier.");
+        add("ritual.neovitae.crafting.spiritus.invictus", "Spiritus Invictus: Attempts a Hellfire Forge recipe first, falling back to vanilla crafting if none match.");
+        add("ritual.neovitae.crafting.spiritus.ruina", "Spiritus Ruina: Attempts a Tabula Vitae recipe first, falling back to vanilla crafting if none match.");
         addRitual("yawning_void", "All Consuming Void", "Erases blocks in a small box directly beneath the master ritual stone, one block per refresh. No drops. Spiritus Invictus moves the block to a placement volume above instead of consuming it; Spiritus Ruina limits consumption to blocks matching items in the chest above; Raw Spiritus accelerates the refresh rate.");
+        add("ritual.neovitae.yawning_void.spiritus.raw", "Raw Spiritus: Accelerates the refresh rate; with enough raw aura, approaches one block per tick.");
+        add("ritual.neovitae.yawning_void.spiritus.invictus", "Spiritus Invictus: Moves the cleared block into a 3x3x3 placement volume above the master stone instead of erasing it.");
+        add("ritual.neovitae.yawning_void.spiritus.ruina", "Spiritus Ruina: Only consumes blocks whose item form matches the whitelist chest directly above the master stone.");
         addRitual("torment_nexus", "The Torment Nexus",
                 "Binds every spawner and trial spawner in range, suppressing their natural spawns and harvesting"
                 + " an equivalent stream of EV from the simulated kills. Loot funnels into a chest atop the master"
@@ -1398,7 +1458,6 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Missing alchemy array tooltips (matches the JEI effect descriptions)
         addTooltip("array_effect.binding", "Binds items to the owner's soul network.");
         addTooltip("array_effect.crafting", "Transforms items into new forms.");
-        addTooltip("array_effect.loyal_friends", "Calls allied wolves to your aid.");
     }
 
     public void addRitual(String key, String name) {

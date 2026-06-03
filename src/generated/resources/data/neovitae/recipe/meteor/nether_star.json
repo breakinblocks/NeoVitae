@@ -1,0 +1,48 @@
+{
+  "type": "neovitae:meteor",
+  "explosion": 18.0,
+  "input": "minecraft:nether_star",
+  "layers": [
+    {
+      "additionalWeight": 40,
+      "fill": "minecraft:netherrack",
+      "radius": 18,
+      "shell": "minecraft:crying_obsidian",
+      "weighted": [
+        {
+          "entry": "minecraft:diamond_ore",
+          "weight": 200
+        },
+        {
+          "entry": "minecraft:emerald_ore",
+          "weight": 150
+        },
+        {
+          "entry": "minecraft:ancient_debris",
+          "weight": 120
+        },
+        {
+          "entry": "minecraft:gold_ore",
+          "weight": 150
+        },
+        {
+          "entry": "minecraft:iron_ore",
+          "weight": 150
+        },
+        {
+          "entry": "minecraft:redstone_ore",
+          "weight": 120
+        },
+        {
+          "entry": "minecraft:lapis_ore",
+          "weight": 120
+        },
+        {
+          "entry": "#neovitae:generative_ores",
+          "weight": 500
+        }
+      ]
+    }
+  ],
+  "syphon": 1000000
+}

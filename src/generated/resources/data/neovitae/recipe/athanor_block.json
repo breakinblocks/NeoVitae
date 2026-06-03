@@ -7,7 +7,7 @@
     "f": "minecraft:furnace",
     "o": {
       "neoforge:ingredient_type": "neovitae:orb_tier",
-      "tier": 3
+      "tier": 2
     },
     "s": "#neovitae:vitae_stone"
   },

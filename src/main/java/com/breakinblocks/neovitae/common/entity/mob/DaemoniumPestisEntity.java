@@ -38,7 +38,7 @@ import com.geckolib.util.GeckoLibUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class DaemoniumPestisEntity extends Monster implements GeoEntity {
+public class DaemoniumPestisEntity extends Monster implements GeoEntity, IDaemonium {
 
     private static final EntityDataAccessor<Integer> ATTACK_STATE =
             SynchedEntityData.defineId(DaemoniumPestisEntity.class, EntityDataSerializers.INT);

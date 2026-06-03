@@ -137,16 +137,6 @@ public class RitualMagnetism extends Ritual {
     }
 
     @Override
-    public int getRefreshTime() {
-        return 40;
-    }
-
-    @Override
-    public int getRefreshCost() {
-        return 50;
-    }
-
-    @Override
     public void readFromNBT(CompoundTag tag) {
         super.readFromNBT(tag);
         tag.getInt("lastPosX").ifPresent(x -> {

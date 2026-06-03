@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:hellfire_forge",
+  "drain": 128.0,
+  "inputs": [
+    "neovitae:tabula_animata",
+    "minecraft:echo_shard",
+    "#c:gems/diamond",
+    "neovitae:simple_key"
+  ],
+  "minDrain": 512.0,
+  "output": {
+    "id": "neovitae:mine_entrance_key"
+  }
+}

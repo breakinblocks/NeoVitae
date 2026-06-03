@@ -1,7 +1,7 @@
 package com.breakinblocks.neovitae.mixin;
 
 import net.minecraft.core.Holder;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -18,7 +18,7 @@ public class EnchantmentHelperMixin {
 
     @Inject(method = "getItemEnchantmentLevel", at = @At("RETURN"), cancellable = true)
     private static void neovitae$applyAnointmentEnchantments(
-            Holder<Enchantment> enchantment, ItemStack stack,
+            Holder<Enchantment> enchantment, ItemInstance stack,
             CallbackInfoReturnable<Integer> cir) {
         AnointmentHolder holder = stack.get(NVDataComponents.ANOINTMENT_HOLDER.get());
         if (holder == null) return;

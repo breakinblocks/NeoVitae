@@ -15,6 +15,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.AraVitaeBlockItem;
+import com.breakinblocks.neovitae.common.item.DemonLanternItem;
 import com.breakinblocks.neovitae.common.item.block.BloodTankBlockItem;
 import com.breakinblocks.neovitae.common.item.block.ItemBlockTabulaVitae;
 import com.breakinblocks.neovitae.common.item.block.RuneBlockItem;
@@ -54,7 +55,7 @@ public class NVBlocks {
             BLOCK_REG.register("spirit_cache", SpiritCacheBlock::new, defaultBlockProps());
 
     private static final BlockBehaviour.Properties rune_properties_src() {
-        return BlockBehaviour.Properties.of().strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops();
+        return BlockBehaviour.Properties.of().strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().lightLevel(state -> 10);
     }
     private static final Item.Properties rune_item_properties_src() {
         return new Item.Properties();
@@ -101,13 +102,16 @@ public class NVBlocks {
     public static final BlockWithItemHolder<Block, BlockItem> HELLFORGED_BLOCK = BASIC_REG.register("hellforged_block", metal_block_properties_src(), new Item.Properties());
     public static final BlockWithItemHolder<Block, BlockItem> RAW_DEMONITE_BLOCK = BASIC_REG.register("raw_demonite_block", metal_block_properties_src(), new Item.Properties());
 
-    public static final BlockWithItemHolder<Block, BlockItem> CRYSTAL_CLUSTER = BASIC_REG.register("crystal_cluster", rune_properties_src(), rune_item_properties_src());
-    public static final BlockWithItemHolder<Block, BlockItem> CRYSTAL_CLUSTER_BRICK = BASIC_REG.register("crystal_cluster_brick", rune_properties_src(), rune_item_properties_src());
+    public static final BlockWithItemHolder<EnchantingPowerBlock, BlockItem> CRYSTAL_CLUSTER = BASIC_REG.register("crystal_cluster", props -> new EnchantingPowerBlock(props, 2.5F), rune_properties_src(), rune_item_properties_src());
+    public static final BlockWithItemHolder<EnchantingPowerBlock, BlockItem> CRYSTAL_CLUSTER_BRICK = BASIC_REG.register("crystal_cluster_brick", props -> new EnchantingPowerBlock(props, 2.5F), rune_properties_src(), rune_item_properties_src());
 
     public static final DeferredBlock<AlchemyArrayBlock> ALCHEMY_ARRAY = BLOCKS.registerBlock("alchemy_array", AlchemyArrayBlock::new, (Supplier<BlockBehaviour.Properties>) NVBlocks::defaultBlockProps);
     public static final DeferredBlock<BloodLightBlock> BLOOD_LIGHT = BLOCKS.registerBlock("blood_light", BloodLightBlock::new, (Supplier<BlockBehaviour.Properties>) NVBlocks::defaultBlockProps);
     public static final BlockWithItemHolder<BloodLanternBlock, BlockItem> BLOOD_LANTERN =
             BLOCK_REG.register("blood_lantern", BloodLanternBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SOUL_LANTERN));
+    public static final BlockWithItemHolder<DemonLanternBlock, DemonLanternItem> DEMON_LANTERN =
+            BLOCK_REG.register("demon_lantern", DemonLanternBlock::new, DemonLanternBlock.defaultProperties(),
+                    (block, itemProps) -> new DemonLanternItem(block, itemProps));
     public static final DeferredBlock<SpectralBlock> SPECTRAL_BLOCK = BLOCKS.registerBlock("spectral_block", SpectralBlock::new, (Supplier<BlockBehaviour.Properties>) NVBlocks::defaultBlockProps);
     public static final DeferredBlock<PhantomBridgeBlock> PHANTOM_BRIDGE_BLOCK = BLOCKS.registerBlock("phantom_bridge", PhantomBridgeBlock::new, (Supplier<BlockBehaviour.Properties>) NVBlocks::defaultBlockProps);
 

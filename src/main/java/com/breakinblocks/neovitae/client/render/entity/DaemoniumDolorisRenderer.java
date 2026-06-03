@@ -10,5 +10,6 @@ public class DaemoniumDolorisRenderer extends GeoEntityRenderer<DaemoniumDoloris
 
     public DaemoniumDolorisRenderer(EntityRendererProvider.Context context) {
         super(context, new DaemoniumDolorisModel());
+        withRenderLayer(new NVEmissiveGeoLayer<>(this));
     }
 }

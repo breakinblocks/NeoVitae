@@ -15,12 +15,16 @@ import com.mojang.datafixers.util.Pair;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
 import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
 import com.breakinblocks.neovitae.ritual.RitualLayouts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -69,6 +73,7 @@ import com.breakinblocks.neovitae.compat.jei.flask.FlaskCombinationJEIRecipe;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.bloodtank.BloodTankSubtypeInterpreter;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskSubtypeInterpreter;
+import com.breakinblocks.neovitae.compat.jei.tome.UpgradeTomeSubtypeInterpreter;
 import com.breakinblocks.neovitae.compat.jei.forge.ForgeUpgradeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.forge.HellfireForgeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.imperfectritual.ImperfectRitualJEIRecipe;
@@ -122,6 +127,11 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 new ItemStack(NVItems.GUIDE_BOOK.get()),
                 List.of("guide", "guidebook", "manual", "wiki", "scriptura", "scriptura vitae", "neovitae")
         );
+        registration.addAliases(
+                VanillaTypes.ITEM_STACK,
+                new ItemStack(NVBlocks.ARA_VITAE.block().get()),
+                List.of("altar", "blood altar", "vitae altar")
+        );
     }
 
     @Override
@@ -130,6 +140,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.registerSubtypeInterpreter(NVItems.ALCHEMY_FLASK_THROWABLE.get(), FlaskSubtypeInterpreter.INSTANCE);
         registration.registerSubtypeInterpreter(NVItems.ALCHEMY_FLASK_LINGERING.get(), FlaskSubtypeInterpreter.INSTANCE);
         registration.registerSubtypeInterpreter(NVBlocks.BLOOD_TANK.item().get(), BloodTankSubtypeInterpreter.INSTANCE);
+        registration.registerSubtypeInterpreter(NVItems.UPGRADE_TOME.get(), UpgradeTomeSubtypeInterpreter.INSTANCE);
     }
 
     @Override
@@ -240,6 +251,13 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addIngredientInfo(orbStacks, VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.neovitae.orb.info"));
 
+        ClientLevel world = Minecraft.getInstance().level;
+        if (world != null) {
+            HolderLookup.RegistryLookup<SentientUpgrade> upgradeRegistry = world.registryAccess().lookupOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES);
+            addTomeInfo(registration, upgradeRegistry, NVTags.Sentient.IS_SCRAPPABLE);
+            addTomeInfo(registration, upgradeRegistry, NVTags.Sentient.IS_DOWNGRADE);
+        }
+
         List<RecipeHolder<CraftingRecipe>> scribeDyeRecipes = new ArrayList<>();
         for (DyeColor color : DyeColor.values()) {
             Item dyeItem = BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(color.getSerializedName() + "_dye"));
@@ -258,6 +276,15 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
             scribeDyeRecipes.add(new RecipeHolder<>(key, recipe));
         }
         registration.addRecipes(RecipeTypes.CRAFTING, scribeDyeRecipes);
+    }
+
+    private void addTomeInfo(IRecipeRegistration registration, HolderLookup.RegistryLookup<SentientUpgrade> registry, TagKey<SentientUpgrade> tag) {
+        registry.get(tag).ifPresent(set -> set.forEach(holder -> holder.unwrapKey().ifPresent(key -> {
+            ItemStack tome = new ItemStack(NVItems.UPGRADE_TOME.get());
+            tome.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(holder, 0f));
+            registration.addIngredientInfo(tome, VanillaTypes.ITEM_STACK,
+                    Component.translatable("jei.neovitae.upgrade_tome." + key.identifier().getPath() + ".info"));
+        })));
     }
 
     @Override

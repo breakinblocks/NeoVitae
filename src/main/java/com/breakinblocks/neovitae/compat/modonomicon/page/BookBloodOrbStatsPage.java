@@ -3,9 +3,11 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.BookTextHolder;
+import com.klikli_dev.modonomicon.book.RenderedBookTextHolder;
 import com.klikli_dev.modonomicon.book.conditions.BookCondition;
 import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
 import com.klikli_dev.modonomicon.book.page.BookPage;
+import com.klikli_dev.modonomicon.client.gui.book.markdown.BookTextRenderer;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.Identifier;
@@ -56,10 +58,10 @@ public class BookBloodOrbStatsPage extends BookPage {
     }
 
     @Override
-    public void prerenderMarkdown(com.klikli_dev.modonomicon.client.gui.book.markdown.BookTextRenderer textRenderer) {
+    public void prerenderMarkdown(BookTextRenderer textRenderer) {
         super.prerenderMarkdown(textRenderer);
         if (!title.hasComponent()) {
-            title = new com.klikli_dev.modonomicon.book.RenderedBookTextHolder(title, textRenderer.render(title.getString()));
+            title = new RenderedBookTextHolder(title, textRenderer.render(title.getString()));
         }
     }
 

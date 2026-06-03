@@ -6,7 +6,7 @@
     "R": "#c:dusts/redstone",
     "e": {
       "neoforge:ingredient_type": "neovitae:orb_tier",
-      "tier": 4
+      "tier": 3
     },
     "r": "neovitae:rune_blank",
     "s": "neovitae:tabula_spiritus"

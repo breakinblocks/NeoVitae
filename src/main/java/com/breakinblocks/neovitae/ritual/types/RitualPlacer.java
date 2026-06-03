@@ -101,16 +101,6 @@ public class RitualPlacer extends Ritual {
     }
 
     @Override
-    public int getRefreshTime() {
-        return 5;
-    }
-
-    @Override
-    public int getRefreshCost() {
-        return 10;
-    }
-
-    @Override
     public void gatherComponents(Consumer<RitualComponent> components) {
         addCornerRunes(components, 1, 0, EnumRuneType.EARTH);
         addParallelRunes(components, 2, 0, EnumRuneType.EARTH);

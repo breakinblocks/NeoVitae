@@ -4,7 +4,7 @@
   "key": {
     "c": {
       "neoforge:ingredient_type": "neovitae:orb_tier",
-      "tier": 3
+      "tier": 2
     },
     "o": "#c:obsidians",
     "s": "neovitae:ritual_stone"

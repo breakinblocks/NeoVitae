@@ -32,6 +32,7 @@ import com.breakinblocks.neovitae.util.Utils;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.Optional;
@@ -103,7 +104,7 @@ public final class RitualHelper {
      * {@link Optional#empty()} if the range is missing or empty. Callers that
      * only care about a single anchor position (chest slot, altar lookup, etc.)
      * should prefer this over {@code getRangePositions(...).getFirst()} so a
-     * user-configured empty range does not throw {@link java.util.NoSuchElementException}.
+     * user-configured empty range does not throw {@link NoSuchElementException}.
      */
     public static Optional<BlockPos> firstPositionInRange(IMasterRitualStone masterRitualStone, Ritual ritual,
             String rangeKey, BlockPos masterPos) {

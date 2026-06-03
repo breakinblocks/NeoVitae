@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": "minecraft:enchanted_book",
+    "e": "#c:storage_blocks/lapis",
+    "g": "#c:ingots/gold",
+    "l": "neovitae:tabula_animata",
+    "o": {
+      "neoforge:ingredient_type": "neovitae:orb_tier",
+      "tier": 2
+    },
+    "s": "#c:strings"
+  },
+  "pattern": [
+    "ses",
+    "lbl",
+    "gog"
+  ],
+  "result": {
+    "id": "neovitae:experience_tome"
+  }
+}

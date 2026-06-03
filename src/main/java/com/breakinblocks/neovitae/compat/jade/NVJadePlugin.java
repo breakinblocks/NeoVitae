@@ -14,6 +14,8 @@ import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.IncenseAltarBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
+import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
+import snownee.jade.api.EntityAccessor;
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaCommonRegistration;
 import snownee.jade.api.IWailaPlugin;
@@ -43,8 +45,8 @@ public class NVJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, HellfireForgeBlock.class);
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, BlockIncenseAltar.class);
         registration.addRayTraceCallback((hitResult, accessor, original) -> {
-            if (accessor instanceof snownee.jade.api.EntityAccessor entityAccessor
-                    && entityAccessor.getEntity() instanceof com.breakinblocks.neovitae.common.entity.BloodShieldEntity) {
+            if (accessor instanceof EntityAccessor entityAccessor
+                    && entityAccessor.getEntity() instanceof BloodShieldEntity) {
                 return null;
             }
             return accessor;

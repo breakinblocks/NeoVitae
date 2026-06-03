@@ -10,5 +10,6 @@ public class DaemoniumFervidisRenderer extends GeoEntityRenderer<DaemoniumFervid
 
     public DaemoniumFervidisRenderer(EntityRendererProvider.Context context) {
         super(context, new DaemoniumFervidisModel());
+        withRenderLayer(new NVEmissiveGeoLayer<>(this));
     }
 }

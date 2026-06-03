@@ -80,16 +80,6 @@ public class RitualWater extends Ritual {
     }
 
     @Override
-    public int getRefreshTime() {
-        return 1;
-    }
-
-    @Override
-    public int getRefreshCost() {
-        return 25;
-    }
-
-    @Override
     public void gatherComponents(Consumer<RitualComponent> components) {
         addCornerRunes(components, 1, 0, EnumRuneType.WATER);
     }

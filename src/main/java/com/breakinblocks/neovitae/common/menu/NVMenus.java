@@ -32,6 +32,8 @@ public class NVMenus {
 
     public static final DeferredHolder<MenuType<?>, MenuType<SpiritCacheMenu>> SPIRIT_CACHE = MENUS.register("spirit_cache", () -> IMenuTypeExtension.create(SpiritCacheMenu::new));
 
+    public static final DeferredHolder<MenuType<?>, MenuType<RitualDivinerMenu>> RITUAL_DIVINER = MENUS.register("ritual_diviner", () -> IMenuTypeExtension.create(RitualDivinerMenu::new));
+
     public static void register(IEventBus modbus) {
         MENUS.register(modbus);
     }

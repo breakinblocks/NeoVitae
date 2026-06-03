@@ -14,7 +14,6 @@ import com.breakinblocks.neovitae.client.render.stream.StreamManager;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.routing.MasterRoutingNodeBlockEntity;
 import net.minecraft.network.chat.Component;
-import com.breakinblocks.neovitae.common.item.ItemRitualDiviner;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.TrainerItem;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
@@ -66,12 +65,6 @@ public class NVPayloads {
                 MasterRoutingNodeEnergyRatePayload.TYPE,
                 MasterRoutingNodeEnergyRatePayload.STREAM_CODEC,
                 NVPayloads::handleMasterRoutingNodeEnergyRate
-        );
-
-        registrar.playToServer(
-                RitualDivinerCyclePayload.TYPE,
-                RitualDivinerCyclePayload.STREAM_CODEC,
-                NVPayloads::handleRitualDivinerCycle
         );
 
         registrar.playToServer(
@@ -290,19 +283,6 @@ public class NVPayloads {
                     int newBrightness = BloodLightHelper.cycleBrightness(current, payload.reverse());
                     held.set(NVDataComponents.BLOOD_LIGHT_BRIGHTNESS.get(), newBrightness);
                     player.sendOverlayMessage(Component.translatable("message.neovitae.sigil.blood_light.brightness", newBrightness));
-                    return;
-                }
-            }
-        });
-    }
-
-    private static void handleRitualDivinerCycle(RitualDivinerCyclePayload payload, IPayloadContext context) {
-        context.enqueueWork(() -> {
-            Player player = context.player();
-            for (InteractionHand hand : InteractionHand.values()) {
-                ItemStack held = player.getItemInHand(hand);
-                if (held.getItem() instanceof ItemRitualDiviner diviner) {
-                    diviner.cycleRitual(held, player, payload.reverse());
                     return;
                 }
             }

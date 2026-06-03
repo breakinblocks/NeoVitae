@@ -34,6 +34,7 @@ import com.breakinblocks.neovitae.structures.DungeonSynthesizer;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class BlockDungeonSeal extends Block implements EntityBlock {
 
@@ -269,7 +270,7 @@ public class BlockDungeonSeal extends Block implements EntityBlock {
                 List<Identifier> pools = other.getPotentialRoomTypes();
                 String poolNames = pools.stream()
                         .map(rl -> rl.getPath().substring(rl.getPath().lastIndexOf('/') + 1))
-                        .collect(java.util.stream.Collectors.joining(", "));
+                        .collect(Collectors.joining(", "));
                 player.sendSystemMessage(Component.literal("  - " + sp.getX() + ", " + sp.getY() + ", " + sp.getZ()
                         + " (" + String.format("%.0f", dist) + "m) [" + poolNames + "]")
                         .withStyle(ChatFormatting.DARK_AQUA));

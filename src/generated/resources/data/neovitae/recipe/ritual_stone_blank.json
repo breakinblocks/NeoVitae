@@ -4,7 +4,7 @@
   "key": {
     "c": {
       "neoforge:ingredient_type": "neovitae:orb_tier",
-      "tier": 2
+      "tier": 1
     },
     "o": "#c:obsidians",
     "s": "neovitae:tabula_robur"

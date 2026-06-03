@@ -104,16 +104,6 @@ public class RitualFullStomach extends Ritual {
     }
 
     @Override
-    public int getRefreshTime() {
-        return 40;
-    }
-
-    @Override
-    public int getRefreshCost() {
-        return 100;
-    }
-
-    @Override
     public void gatherComponents(Consumer<RitualComponent> components) {
         addCornerRunes(components, 1, 0, EnumRuneType.WATER);
         addParallelRunes(components, 2, 0, EnumRuneType.EARTH);

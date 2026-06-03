@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_common_gem": {
+    "has_simple_key": {
       "conditions": {
         "items": [
           {
-            "items": "neovitae:spiritus_gem_common"
+            "items": "neovitae:simple_key"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "neovitae:mine_key"
+        "recipe": "neovitae:mine_entrance_key"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_common_gem"
+      "has_simple_key"
     ]
   ],
   "rewards": {
     "recipes": [
-      "neovitae:mine_key"
+      "neovitae:mine_entrance_key"
     ]
   }
 }

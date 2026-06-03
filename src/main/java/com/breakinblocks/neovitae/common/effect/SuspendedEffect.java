@@ -3,12 +3,13 @@ package com.breakinblocks.neovitae.common.effect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
+import com.breakinblocks.neovitae.common.event.CommonEventHandler;
 
 /**
  * Suspended effect - makes entity float in place by disabling gravity.
  *
  * <p>Cleanup on removal (milk, /clear, expiry) is handled by
- * {@link com.breakinblocks.neovitae.common.event.CommonEventHandler}.</p>
+ * {@link CommonEventHandler}.</p>
  */
 public class SuspendedEffect extends MobEffect {
 

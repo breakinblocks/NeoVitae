@@ -7,6 +7,7 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -122,7 +123,7 @@ public class CrystalCatalystItem extends Item {
         stack.shrink(1);
         level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 1, 1.2f);
 
-        if (player instanceof net.minecraft.server.level.ServerPlayer sp) {
+        if (player instanceof ServerPlayer sp) {
             NVCriteriaTriggers.CATALYST_TRANSMUTE.get().trigger(sp, type);
         }
         return InteractionResult.SUCCESS;

@@ -46,7 +46,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
+public class DaemoniumDolorisEntity extends Monster implements GeoEntity, IDaemonium {
 
     private static final EntityDataAccessor<Integer> ATTACK_STATE =
             SynchedEntityData.defineId(DaemoniumDolorisEntity.class, EntityDataSerializers.INT);
@@ -427,7 +427,7 @@ public class DaemoniumDolorisEntity extends Monster implements GeoEntity {
     public void die(DamageSource source) {
         playLayeredSound(SoundEvents.POLAR_BEAR_DEATH, 0.8F, 0.45F);
         if (isForeman && level() instanceof ServerLevel sl) {
-            spawnAtLocation(sl, new ItemStack(NVItems.MINE_ENTRANCE_KEY.get()));
+            spawnAtLocation(sl, new ItemStack(NVItems.MINE_KEY.get(), 2 + random.nextInt(3)));
             bossBar.removeAllPlayers();
         }
         super.die(source);

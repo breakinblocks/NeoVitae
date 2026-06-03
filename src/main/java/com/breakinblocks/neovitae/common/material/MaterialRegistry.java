@@ -51,11 +51,18 @@ public class MaterialRegistry {
 
     private static void loadAndRegister() {
         List<MaterialDefinition> definitions = loadConfig();
-        MATERIALS.addAll(definitions);
+
+        Set<String> seenNames = new HashSet<>();
+        for (MaterialDefinition mat : definitions) {
+            if (isValidMaterial(mat, seenNames)) {
+                MATERIALS.add(mat);
+            }
+        }
 
         for (MaterialDefinition mat : MATERIALS) {
             Map<String, DeferredHolder<Item, Item>> stageMap = new LinkedHashMap<>();
             for (String stage : mat.getStages()) {
+                if (stage == null || stage.isBlank()) continue;
                 String itemId = mat.getItemId(stage);
                 int color = mat.getColorInt();
                 DeferredHolder<Item, Item> holder = ITEMS.registerItem(itemId, props -> new MaterialItem(props, color));
@@ -65,6 +72,29 @@ public class MaterialRegistry {
         }
 
         populatePack();
+    }
+
+    private static boolean isValidMaterial(MaterialDefinition mat, Set<String> seenNames) {
+        String name = mat.getName();
+        if (name == null || name.isBlank()) {
+            NeoVitae.LOGGER.warn("[MaterialRegistry] Skipping material entry with missing or blank 'name'");
+            return false;
+        }
+        if (mat.getStages() == null || mat.getStages().isEmpty()) {
+            NeoVitae.LOGGER.warn("[MaterialRegistry] Skipping material '{}': missing or empty 'stages'", name);
+            return false;
+        }
+        try {
+            mat.getColorInt();
+        } catch (Exception e) {
+            NeoVitae.LOGGER.warn("[MaterialRegistry] Skipping material '{}': missing or invalid 'color' (expected hex like #C8C8D0)", name);
+            return false;
+        }
+        if (!seenNames.add(name)) {
+            NeoVitae.LOGGER.warn("[MaterialRegistry] Skipping duplicate material '{}'", name);
+            return false;
+        }
+        return true;
     }
 
     private static void populatePack() {
@@ -130,6 +160,7 @@ public class MaterialRegistry {
         }
 
         flushTagValues();
+        writeGenerativeOreTag();
 
         GENERATED_PACK.putJson(PackType.CLIENT_RESOURCES,
                 Identifier.fromNamespaceAndPath(NeoVitae.MODID, "lang/en_us.json"),
@@ -181,6 +212,30 @@ public class MaterialRegistry {
         Identifier path = Identifier.fromNamespaceAndPath(
                 "c", "tags/item/" + tagPrefix + "/" + tagName + ".json");
         PENDING_TAG_VALUES.computeIfAbsent(path, k -> new ArrayList<>()).add(itemId);
+    }
+
+    private static void writeGenerativeOreTag() {
+        JsonArray values = new JsonArray();
+        for (MaterialDefinition mat : MATERIALS) {
+            if (!mat.isGenerative()) continue;
+            String preferred = mat.getGenOre();
+            JsonObject entry = new JsonObject();
+            if (preferred != null && !preferred.isEmpty()) {
+                entry.addProperty("id", preferred);
+            } else if (mat.getOreTag() != null) {
+                entry.addProperty("id", "#" + mat.getOreTag());
+            } else {
+                continue;
+            }
+            entry.addProperty("required", false);
+            values.add(entry);
+        }
+
+        JsonObject tag = new JsonObject();
+        tag.add("values", values);
+        GENERATED_PACK.putJson(PackType.SERVER_DATA,
+                Identifier.fromNamespaceAndPath(NeoVitae.MODID, "tags/block/generative_ores.json"),
+                GSON.toJson(tag));
     }
 
     private static void flushTagValues() {
@@ -488,6 +543,10 @@ public class MaterialRegistry {
 
     public static List<MaterialDefinition> getAllMaterials() {
         return Collections.unmodifiableList(MATERIALS);
+    }
+
+    public static List<MaterialDefinition> getGenerativeMaterials() {
+        return MATERIALS.stream().filter(MaterialDefinition::isGenerative).toList();
     }
 
     @Nullable

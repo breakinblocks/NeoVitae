@@ -38,9 +38,11 @@ public class KeysEntry extends EntryProvider {
                 .withItem(NVItems.MINE_ENTRANCE_KEY.get())
                 .withTitle("The Mines")
                 .withText(this.context().pageText()));
-        this.pageText("The passage to [#](8B0000)The Mines[#]() can only be breached with the "
-                + "[#](8B0000)Foreman's Key[#](), a relic that cannot be crafted and must be found. Beyond "
-                + "that threshold, [#](8B0000)Miner's Keys[#]() open the remaining sealed doors. The mines "
+        this.pageText("The passage to [#](8B0000)The Mines[#]() opens only to the "
+                + "[#](8B0000)Mine Entrance Key[#](), which may be forged in the [#](8B0000)Hellfire "
+                + "Forge[#]() or unearthed from a [#](8B0000)Spirit Cache[#]() by the fortunate. Beyond "
+                + "that threshold broods the [#](8B0000)Foreman[#](); fell him and he surrenders a clutch "
+                + "of [#](8B0000)Mine Keys[#](), the only keys that breach the deeper workings. The mines "
                 + "offer [#](8B0000)Demonite Ore[#]() and rare plunder, though the dangers there are "
                 + "commensurate with the rewards.");
 
@@ -54,9 +56,10 @@ public class KeysEntry extends EntryProvider {
         this.page("miners_key", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Miner's Key");
-        this.pageText("Miner's Keys can be forged in the [#](8B0000)Hellfire Forge[#](). The mines await, "
-                + "practitioner. Steel your nerves.");
+        this.pageTitle("Mine Key");
+        this.pageText("Mine Keys cannot be forged; they are wrenched only from the [#](8B0000)Foreman[#]() "
+                + "who guards the mine's mouth. Best him and the deeper doors are yours. Steel your nerves, "
+                + "practitioner.");
     }
 
     @Override

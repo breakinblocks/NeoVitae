@@ -109,16 +109,6 @@ public class RitualSphere extends Ritual {
     }
 
     @Override
-    public int getRefreshTime() {
-        return 1;
-    }
-
-    @Override
-    public int getRefreshCost() {
-        return 10;
-    }
-
-    @Override
     public void readFromNBT(CompoundTag tag) {
         super.readFromNBT(tag);
         if (tag.contains("lastPosX")) {

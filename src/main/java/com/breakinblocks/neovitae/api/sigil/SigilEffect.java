@@ -2,6 +2,8 @@ package com.breakinblocks.neovitae.api.sigil;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.breakinblocks.neovitae.api.registry.NeoVitaeRegistries;
 import com.breakinblocks.neovitae.api.sigil.ISigilEffect;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
 
@@ -13,7 +15,7 @@ import java.util.function.Supplier;
  * <p>Addon developers creating custom sigil effects should implement this interface
  * (or {@link ISigilEffect} directly) and provide a {@link MapCodec} for serialization.
  * The codec is registered via NeoForge's {@code DeferredRegister} against
- * {@link com.breakinblocks.neovitae.api.registry.NeoVitaeRegistries#SIGIL_EFFECT_TYPE_KEY}.</p>
+ * {@link NeoVitaeRegistries#SIGIL_EFFECT_TYPE_KEY}.</p>
  *
  * <h3>Lifecycle</h3>
  * <p>Sigil effects are invoked by the sigil item at specific points:</p>
@@ -30,7 +32,7 @@ import java.util.function.Supplier;
  * <p>Every concrete effect must expose a {@link MapCodec} via {@link #codec()}. The codec is
  * used by the dispatch codec system to serialize/deserialize effect instances from datapack JSON.
  * For singleton (stateless) effects, use {@link MapCodec#unit}. For effects with configurable
- * fields, build a {@link com.mojang.serialization.codecs.RecordCodecBuilder}.</p>
+ * fields, build a {@link RecordCodecBuilder}.</p>
  *
  * <h3>Example</h3>
  * <pre>{@code

@@ -74,6 +74,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(NVBlocks.ARA_VITAE.block().get(), NVBlocks.BLOOD_TANK.block().get())
+                .add(NVBlocks.BLOOD_LANTERN.block().get(), NVBlocks.DEMON_LANTERN.block().get())
                 .add(NVBlocks.HELLFIRE_FORGE.block().get())
                 .add(NVBlocks.ATHANOR_BLOCK.block().get())
                 .add(NVBlocks.TABULA_VITAE.block().get())

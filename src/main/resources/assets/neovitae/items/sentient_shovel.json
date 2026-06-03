@@ -9,7 +9,7 @@
         "model": {
           "type": "minecraft:select",
           "property": "minecraft:component",
-          "component": "neovitae:will_type",
+          "component": "neovitae:spiritus_type",
           "cases": [
             {
               "when": "ruina",

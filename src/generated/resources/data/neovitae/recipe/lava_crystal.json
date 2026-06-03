@@ -6,7 +6,7 @@
     "b": "minecraft:lava_bucket",
     "c": {
       "neoforge:ingredient_type": "neovitae:orb_tier",
-      "tier": 1
+      "tier": 0
     },
     "d": "#c:obsidians",
     "e": "#c:gems/diamond"

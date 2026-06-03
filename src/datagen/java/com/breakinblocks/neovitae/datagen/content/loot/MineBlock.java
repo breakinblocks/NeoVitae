@@ -58,6 +58,7 @@ public class MineBlock extends BlockLootSubProvider {
     private final List<Block> specialDropList = List.of(
             NVBlocks.BLOOD_TANK.block().get(),
             NVBlocks.ATHANOR_BLOCK.block().get(),
+            NVBlocks.DEMON_LANTERN.block().get(),
             NVBlocks.WEAK_TAU.block().get(),
             NVBlocks.STRONG_TAU.block().get(),
             NVBlocks.INCENSE_ALTAR.block().get(),
@@ -81,6 +82,7 @@ public class MineBlock extends BlockLootSubProvider {
 
         copyComponents(NVBlocks.BLOOD_TANK);
         copyComponents(NVBlocks.ATHANOR_BLOCK);
+        copyComponents(NVBlocks.DEMON_LANTERN);
 
         generateTauLoot(NVBlocks.WEAK_TAU);
         generateTauLoot(NVBlocks.STRONG_TAU);

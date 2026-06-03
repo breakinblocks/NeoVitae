@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
+import com.breakinblocks.neovitae.client.event.ClientRecipeCache;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.crafting.Recipe;
@@ -11,7 +12,7 @@ import net.minecraft.world.item.crafting.Recipe;
  * don't implement {@code Recipe#display()} (added in 1.21.4), so the server-side
  * book bake leaves the page's display entries null and the parent renderer would draw
  * the red "Recipe not found" message. Our subclasses fetch the recipe themselves via
- * {@link com.breakinblocks.neovitae.client.event.ClientRecipeCache} in {@code drawRecipe},
+ * {@link ClientRecipeCache} in {@code drawRecipe},
  * so we can safely call drawRecipe with a null entry instead.
  */
 public abstract class BookNVRecipePageRenderer<R extends Recipe<?>, T extends BookRecipePage<R>>

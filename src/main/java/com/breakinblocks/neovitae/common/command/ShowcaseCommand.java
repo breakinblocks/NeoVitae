@@ -24,6 +24,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -420,7 +421,7 @@ public class ShowcaseCommand {
         return placed;
     }
 
-    private static Block pickImperfectCatalyst(net.minecraft.core.Registry<ImperfectRitual> registry, ImperfectRitual ritual) {
+    private static Block pickImperfectCatalyst(Registry<ImperfectRitual> registry, ImperfectRitual ritual) {
         if (registry == null) return null;
         Holder<ImperfectRitual> holder = registry.wrapAsHolder(ritual);
         ImperfectRitualStats stats = holder.getData(NVDataMaps.IMPERFECT_RITUAL_STATS);

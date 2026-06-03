@@ -1,6 +1,8 @@
 package com.breakinblocks.neovitae.api.soul;
 
 import net.minecraft.world.entity.player.Player;
+import com.breakinblocks.neovitae.api.INeoVitaeAPI;
+import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 
 import java.util.UUID;
 
@@ -11,8 +13,8 @@ import java.util.UUID;
  * through self-sacrifice or the sacrifice of other entities. EV is consumed
  * by sigils, rituals, and other NeoVitae items.</p>
  *
- * <p>Access a player's anima via {@link com.breakinblocks.neovitae.api.NeoVitaeAPI#getInstance()}
- * and then {@link com.breakinblocks.neovitae.api.INeoVitaeAPI#getAnima(UUID)}.</p>
+ * <p>Access a player's anima via {@link NeoVitaeAPI#getInstance()}
+ * and then {@link INeoVitaeAPI#getAnima(UUID)}.</p>
  */
 public interface IAnima {
 

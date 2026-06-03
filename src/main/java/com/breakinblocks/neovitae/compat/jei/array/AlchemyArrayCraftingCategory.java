@@ -12,6 +12,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
 
@@ -20,8 +21,8 @@ import javax.annotation.Nullable;
 
 /**
  * JEI category for alchemy array recipes that produce an item output
- * ({@link com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType#CRAFTING CRAFTING}
- * and {@link com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType#BINDING BINDING}
+ * ({@link AlchemyArrayEffectType#CRAFTING CRAFTING}
+ * and {@link AlchemyArrayEffectType#BINDING BINDING}
  * effect types). Persistent environmental effects live in the sibling
  * {@link AlchemyArrayEffectCategory}.
  */

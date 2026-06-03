@@ -34,6 +34,12 @@ public class MaterialDefinition {
     private List<String> extraOreItems;
     @SerializedName("extra_raw_items")
     private List<String> extraRawItems;
+    @SerializedName("generative")
+    private Boolean generative = Boolean.TRUE;
+    @SerializedName("gen_ore")
+    private String genOre = "";
+    @SerializedName("gen_raw")
+    private String genRaw = "";
 
     public MaterialDefinition() {}
 
@@ -119,6 +125,33 @@ public class MaterialDefinition {
 
     public MaterialDefinition withExtraRawItems(List<String> extraRawItems) {
         this.extraRawItems = extraRawItems;
+        return this;
+    }
+
+    public boolean isGenerative() {
+        return generative == null || generative;
+    }
+
+    public String getGenOre() {
+        return genOre;
+    }
+
+    public String getGenRaw() {
+        return genRaw;
+    }
+
+    public MaterialDefinition withGenerative(boolean generative) {
+        this.generative = generative;
+        return this;
+    }
+
+    public MaterialDefinition withGenOre(String genOre) {
+        this.genOre = genOre;
+        return this;
+    }
+
+    public MaterialDefinition withGenRaw(String genRaw) {
+        this.genRaw = genRaw;
         return this;
     }
 

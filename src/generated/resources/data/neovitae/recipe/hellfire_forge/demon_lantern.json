@@ -1,0 +1,14 @@
+{
+  "type": "neovitae:hellfire_forge",
+  "drain": 32.0,
+  "inputs": [
+    "neovitae:simple_catalyst",
+    "minecraft:soul_sand",
+    "minecraft:emerald",
+    "neovitae:blood_lantern"
+  ],
+  "minDrain": 128.0,
+  "output": {
+    "id": "neovitae:demon_lantern"
+  }
+}

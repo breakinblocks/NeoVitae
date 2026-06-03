@@ -1,33 +1,28 @@
 package com.breakinblocks.neovitae.common.block.dungeon;
 
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import com.breakinblocks.neovitae.common.material.MaterialDefinition;
 import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import net.minecraft.core.HolderSet;
 
 public class BlockPrismaticDemonite extends Block {
 
-    private static final int DEPLETE_THRESHOLD = 20;
+    public static final int DEPLETE_THRESHOLD = 20;
 
     public BlockPrismaticDemonite(BlockBehaviour.Properties props) {
         super(props
@@ -41,35 +36,27 @@ public class BlockPrismaticDemonite extends Block {
         return Collections.emptyList();
     }
 
-    @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide() && !player.isCreative()) {
-            ItemStack drop = getRandomRawOre(level);
-            if (!drop.isEmpty()) {
-                popResource(level, pos, drop);
-            }
-
-            int roll = level.getRandom().nextInt(100) + 1;
-            if (roll <= DEPLETE_THRESHOLD) {
-                level.setBlock(pos, DungeonBlocks.DUNGEON_STONE.get(DungeonVariant.RAW).block().get().defaultBlockState(), UPDATE_ALL);
-            } else {
-                level.setBlock(pos, this.defaultBlockState(), UPDATE_ALL);
-            }
-        }
-        return super.playerWillDestroy(level, pos, state, player);
-    }
-
-    private ItemStack getRandomRawOre(Level level) {
+    public static ItemStack getRandomRawOre(Level level) {
         List<ItemStack> candidates = new ArrayList<>();
-        for (MaterialDefinition mat : MaterialRegistry.getAllMaterials()) {
+        for (MaterialDefinition mat : MaterialRegistry.getGenerativeMaterials()) {
+            String preferredRaw = mat.getGenRaw();
+            if (preferredRaw != null && !preferredRaw.isEmpty()) {
+                Identifier rawId = Identifier.tryParse(preferredRaw);
+                if (rawId != null) {
+                    BuiltInRegistries.ITEM.get(rawId)
+                            .map(Holder.Reference::value)
+                            .ifPresent(item -> candidates.add(new ItemStack(item)));
+                }
+                continue;
+            }
+
             String rawTag = mat.getRawTag();
             if (rawTag == null) continue;
 
             Identifier tagId = Identifier.parse(rawTag);
             TagKey<Item> tag = TagKey.create(Registries.ITEM, tagId);
-            var holders = Optional.<HolderSet.Named<Item>>empty();
-            if (holders.isPresent()) {
-                holders.get().forEach(holder -> candidates.add(new ItemStack(holder.value())));
+            for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(tag)) {
+                candidates.add(new ItemStack(holder.value()));
             }
         }
 

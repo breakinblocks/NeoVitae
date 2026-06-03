@@ -10,5 +10,6 @@ public class DaemoniumRancorisRenderer extends GeoEntityRenderer<DaemoniumRancor
 
     public DaemoniumRancorisRenderer(EntityRendererProvider.Context context) {
         super(context, new DaemoniumRancorisModel());
+        withRenderLayer(new NVEmissiveGeoLayer<>(this));
     }
 }

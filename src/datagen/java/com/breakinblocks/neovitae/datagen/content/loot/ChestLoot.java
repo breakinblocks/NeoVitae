@@ -12,6 +12,7 @@ import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -414,6 +415,12 @@ public class ChestLoot implements LootTableSubProvider {
                 .add(LootItem.lootTableItem(NVItems.ANIMUS_MOTE.get()).setWeight(3).setQuality(3)
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 1.0f))))
             )
+            .withPool(LootPool.lootPool()
+                .name("mine_entrance_key")
+                .setRolls(ConstantValue.exactly(1))
+                .when(LootItemRandomChanceCondition.randomChance(0.07f))
+                .add(LootItem.lootTableItem(NVItems.MINE_ENTRANCE_KEY.get()))
+            )
         );
     }
 
@@ -500,6 +507,12 @@ public class ChestLoot implements LootTableSubProvider {
                 .add(LootItem.lootTableItem(NVItems.ANIMUS_MOTE.get()).setWeight(5).setQuality(4)
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0f))))
             )
+            .withPool(LootPool.lootPool()
+                .name("mine_entrance_key")
+                .setRolls(ConstantValue.exactly(1))
+                .when(LootItemRandomChanceCondition.randomChance(0.07f))
+                .add(LootItem.lootTableItem(NVItems.MINE_ENTRANCE_KEY.get()))
+            )
         );
     }
 
@@ -553,6 +566,12 @@ public class ChestLoot implements LootTableSubProvider {
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0f, 6.0f))))
                 .add(LootItem.lootTableItem(NVBlocks.WEAK_TAU.item().get()).setWeight(5).setQuality(3)
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0f, 6.0f))))
+            )
+            .withPool(LootPool.lootPool()
+                .name("mine_entrance_key")
+                .setRolls(ConstantValue.exactly(1))
+                .when(LootItemRandomChanceCondition.randomChance(0.07f))
+                .add(LootItem.lootTableItem(NVItems.MINE_ENTRANCE_KEY.get()))
             )
         );
     }

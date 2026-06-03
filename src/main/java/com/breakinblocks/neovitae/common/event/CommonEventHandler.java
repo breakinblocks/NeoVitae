@@ -8,6 +8,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.EventPriority;
@@ -24,17 +25,26 @@ import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.minecraft.world.entity.Mob;
+import com.breakinblocks.neovitae.common.entity.mob.IDaemonium;
 import net.minecraft.ChatFormatting;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import com.breakinblocks.neovitae.NeoVitae;
 import net.minecraft.core.BlockPos;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.common.tag.NVTags;
+import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectVortex;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
+import com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant;
 import com.breakinblocks.neovitae.common.blockentity.DungeonControllerBlockEntity;
 import com.breakinblocks.neovitae.common.dataattachment.DeadPetStorage;
 import com.breakinblocks.neovitae.common.dataattachment.DungeonExitData;
@@ -48,6 +58,7 @@ import com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 import com.breakinblocks.neovitae.common.item.IBindable;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.material.MaterialRegistry;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
@@ -109,9 +120,23 @@ public class CommonEventHandler {
                 return;
             }
             held.set(NVDataComponents.BINDING, newBinding);
+            notifyBound(event, profile.name());
         } else if (binding.uuid().equals(profile.id()) && !Objects.equals(binding.name(), profile.name())) {
             binding = new Binding(profile.id(), profile.name());
             held.set(NVDataComponents.BINDING, binding);
+        }
+    }
+
+    private static void notifyBound(PlayerInteractEvent.RightClickItem event, String name) {
+        if (event.getLevel().isClientSide()) return;
+        Player player = event.getEntity();
+        player.sendOverlayMessage(
+                Component.translatable("chat.neovitae.binding.bound", name).withStyle(ChatFormatting.DARK_RED));
+        event.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(),
+                SoundEvents.SOUL_ESCAPE, SoundSource.PLAYERS, 0.7f, 0.6f);
+        if (event.getLevel() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(ParticleTypes.SOUL, player.getX(), player.getY() + 1.0, player.getZ(),
+                    14, 0.25, 0.4, 0.25, 0.02);
         }
     }
 
@@ -208,22 +233,58 @@ public class CommonEventHandler {
     }
 
     @SubscribeEvent
+    public static void onEnderTeleport(EntityTeleportEvent.EnderEntity event) {
+        if (AlchemyArrayEffectVortex.isTeleportSuppressed(event.getEntityLiving())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onDaemoniumTick(EntityTickEvent.Pre event) {
+        if (event.getEntity() instanceof IDaemonium && event.getEntity() instanceof Mob mob && mob.hasHome()) {
+            mob.clearHome();
+        }
+    }
+
+    @SubscribeEvent
     public static void onBlockBreak(BreakBlockEvent event) {
-        if (event.getLevel() instanceof Level level && DungeonDimensionHelper.isDungeonDimension(level)) {
-            Block block = event.getState().getBlock();
-            if (block instanceof BlockPrismaticDemonite) {
-                return;
+        if (!(event.getLevel() instanceof Level level)) return;
+        Player player = event.getPlayer();
+        Block block = event.getState().getBlock();
+
+        if (block instanceof BlockPrismaticDemonite) {
+            if (level.isClientSide() || (player != null && player.isCreative())) return;
+            ItemStack drop = BlockPrismaticDemonite.getRandomRawOre(level);
+            if (!drop.isEmpty()) {
+                Block.popResource(level, event.getPos(), drop);
             }
-            if (DungeonBlocks.isDungeonBlock(block)
+            if (level.getRandom().nextInt(100) + 1 <= BlockPrismaticDemonite.DEPLETE_THRESHOLD) {
+                level.setBlock(event.getPos(),
+                        DungeonBlocks.DUNGEON_STONE.get(DungeonVariant.RAW).block().get().defaultBlockState(),
+                        Block.UPDATE_ALL);
+            }
+            event.setCanceled(true);
+            return;
+        }
+
+        if (block == DungeonBlocks.DUNGEON_ORE.block().get()) {
+            if (level.isClientSide() || (player != null && player.isCreative())) return;
+            Block.popResource(level, event.getPos(), new ItemStack(NVItems.DEMONITE_RAW.get()));
+            return;
+        }
+
+        if (DungeonDimensionHelper.isDungeonDimension(level)
+                && (player == null || !player.isCreative())
+                && ((DungeonBlocks.isDungeonBlock(block) && !DungeonBlocks.isDungeonStone(block))
                     || block == NVBlocks.MASTER_RITUAL_STONE.block().get()
-                    || block == NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().get()) {
-                event.setCanceled(true);
-            }
+                    || block == NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().get())) {
+            event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
+        if (event.getEntity() instanceof Player player && player.isCreative()) return;
         if (event.getLevel() instanceof Level level && DungeonDimensionHelper.isDungeonDimension(level)) {
             if (DungeonBlocks.isDungeonBlock(event.getPlacedBlock().getBlock())) {
                 event.setCanceled(true);

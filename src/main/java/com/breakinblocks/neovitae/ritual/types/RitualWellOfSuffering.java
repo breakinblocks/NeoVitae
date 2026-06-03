@@ -96,16 +96,6 @@ public class RitualWellOfSuffering extends Ritual {
     }
 
     @Override
-    public int getRefreshTime() {
-        return 20;
-    }
-
-    @Override
-    public int getRefreshCost() {
-        return 2;
-    }
-
-    @Override
     public void readFromNBT(CompoundTag tag) {
         super.readFromNBT(tag);
         altarOffsetPos = RitualHelper.readAltarOffset(tag);

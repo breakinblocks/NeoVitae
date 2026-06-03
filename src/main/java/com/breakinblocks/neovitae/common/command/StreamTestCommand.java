@@ -17,6 +17,7 @@ import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.api.stream.StreamEffect;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
+import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 
 import java.util.List;
@@ -73,7 +74,7 @@ public class StreamTestCommand {
 
         if (preset.equals("ritual")) {
             BlockEntity be = level.getBlockEntity(targetPos);
-            if (be instanceof com.breakinblocks.neovitae.common.blockentity.AraVitaeTile altar) {
+            if (be instanceof AraVitaeTile altar) {
                 altar.setActive(true);
                 altar.setCooldownAfterCrafting(200);
                 altar.setChanged();

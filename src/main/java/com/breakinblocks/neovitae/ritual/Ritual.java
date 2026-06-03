@@ -7,9 +7,12 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.sounds.SoundEvent;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
+import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.datamap.RitualStats;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -51,7 +54,14 @@ public abstract class Ritual {
      */
     public abstract void performRitual(IMasterRitualStone masterRitualStone);
 
-    public abstract int getRefreshCost();
+    protected RitualStats getStats() {
+        return RitualRegistry.getStats(this);
+    }
+
+    public int getRefreshCost() {
+        RitualStats stats = getStats();
+        return stats != null ? stats.refreshCost() : 1;
+    }
 
     public abstract void gatherComponents(Consumer<RitualComponent> components);
 
@@ -64,7 +74,12 @@ public abstract class Ritual {
     }
 
     public int getRefreshTime() {
-        return 20;
+        RitualStats stats = getStats();
+        return stats != null ? stats.refreshTime() : 20;
+    }
+
+    public SoundEvent getAmbientSound() {
+        return NVSounds.RITUAL_AMBIENT.get();
     }
 
     protected void addBlockRange(String key, AreaDescriptor defaultRange) {
@@ -122,15 +137,26 @@ public abstract class Ritual {
         return dx * dy * dz <= maxVolume;
     }
 
+    private RitualStats.RangeLimit getRangeLimit(String key) {
+        RitualStats stats = getStats();
+        return stats != null ? stats.rangeLimits().get(key) : null;
+    }
+
     public int getMaxVolumeForRange(String key) {
+        RitualStats.RangeLimit limit = getRangeLimit(key);
+        if (limit != null) return limit.maxVolume();
         return volumeLimits.getOrDefault(key, Integer.MAX_VALUE);
     }
 
     public int getMaxVerticalRadiusForRange(String key) {
+        RitualStats.RangeLimit limit = getRangeLimit(key);
+        if (limit != null) return limit.maxVerticalRadius();
         return verticalLimits.getOrDefault(key, 256);
     }
 
     public int getMaxHorizontalRadiusForRange(String key) {
+        RitualStats.RangeLimit limit = getRangeLimit(key);
+        if (limit != null) return limit.maxHorizontalRadius();
         return horizontalLimits.getOrDefault(key, 256);
     }
 
@@ -246,11 +272,13 @@ public abstract class Ritual {
     }
 
     public int getCrystalLevel() {
-        return crystalLevel;
+        RitualStats stats = getStats();
+        return stats != null ? stats.crystalLevel() : crystalLevel;
     }
 
     public int getActivationCost() {
-        return activationCost;
+        RitualStats stats = getStats();
+        return stats != null ? stats.activationCost() : activationCost;
     }
 
     public String getTranslationKey() {

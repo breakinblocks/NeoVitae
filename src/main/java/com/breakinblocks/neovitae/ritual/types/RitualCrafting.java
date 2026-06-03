@@ -227,21 +227,11 @@ public class RitualCrafting extends Ritual {
     }
 
     @Override
-    public int getRefreshTime() {
-        return 40; // Every 2 seconds
-    }
-
-    @Override
-    public int getRefreshCost() {
-        return 100;
-    }
-
-    @Override
     public Component[] provideInformationOfRitualToPlayer(Player player) {
         return new Component[]{
                 Component.translatable(getTranslationKey() + ".info"),
-                Component.translatable(getTranslationKey() + ".will.steadfast"),
-                Component.translatable(getTranslationKey() + ".will.corrosive")
+                Component.translatable(getTranslationKey() + ".spiritus.invictus"),
+                Component.translatable(getTranslationKey() + ".spiritus.ruina")
         };
     }
 

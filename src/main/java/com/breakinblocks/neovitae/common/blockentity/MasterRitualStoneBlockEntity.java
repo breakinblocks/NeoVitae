@@ -8,8 +8,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -67,7 +69,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         if (level.isClientSide()) {
             if (tile.active && tile.currentRitual != null) {
                 LoopSoundManager.tryStartLoop(
-                        NVSounds.RITUAL_AMBIENT.get(), 0.2f, level, pos,
+                        resolveAmbientSound(tile.currentRitual, tile.currentRitualId), 0.2f, level, pos,
                         be -> be instanceof MasterRitualStoneBlockEntity mrs && mrs.active && mrs.currentRitual != null
                 );
             }
@@ -156,6 +158,21 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     @Override
     public long getRunningTime() {
         return runningTime;
+    }
+
+    private static SoundEvent resolveAmbientSound(Ritual ritual, Identifier ritualId) {
+        if (ritualId != null) {
+            Ritual registered = RitualRegistry.getRitual(ritualId);
+            if (registered != null) {
+                var holder = RitualRegistry.getRitualRegistry().wrapAsHolder(registered);
+                RitualStats stats = holder.getData(NVDataMaps.RITUAL_STATS);
+                if (stats != null && stats.ambientSound().isPresent()) {
+                    SoundEvent fromData = BuiltInRegistries.SOUND_EVENT.getValue(stats.ambientSound().get());
+                    if (fromData != null) return fromData;
+                }
+            }
+        }
+        return ritual.getAmbientSound();
     }
 
     @Override

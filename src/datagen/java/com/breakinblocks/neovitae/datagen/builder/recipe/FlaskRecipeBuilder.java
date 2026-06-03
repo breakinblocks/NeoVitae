@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.recipe.flask.*;
 
 import java.util.ArrayList;
@@ -248,6 +249,6 @@ public class FlaskRecipeBuilder implements RecipeBuilder {
     @Override
     public ResourceKey<Recipe<?>> defaultId() {
         return ResourceKey.create(Registries.RECIPE,
-                Identifier.fromNamespaceAndPath(com.breakinblocks.neovitae.NeoVitae.MODID, "auto"));
+                Identifier.fromNamespaceAndPath(NeoVitae.MODID, "auto"));
     }
 }

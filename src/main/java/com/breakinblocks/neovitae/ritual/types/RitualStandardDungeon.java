@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import org.slf4j.Logger;
@@ -93,7 +94,7 @@ public class RitualStandardDungeon extends DungeonRitualBase {
     }
 
     @Override
-    protected net.minecraft.resources.Identifier getStructureId() {
+    protected Identifier getStructureId() {
         return NeoVitae.rl("ritual/pathway_to_the_endless_realm");
     }
 

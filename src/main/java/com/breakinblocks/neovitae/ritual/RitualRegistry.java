@@ -14,6 +14,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.ImperfectRitualStats;
+import com.breakinblocks.neovitae.common.datamap.RitualStats;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -82,6 +83,15 @@ public final class RitualRegistry {
     public static Identifier getId(Ritual ritual) {
         Registry<Ritual> registry = RITUALS.getRegistry().get();
         return registry != null ? registry.getKey(ritual) : null;
+    }
+
+    @Nullable
+    public static RitualStats getStats(Ritual ritual) {
+        if (ritual == null) return null;
+        Ritual registered = getRitual(ritual.getName());
+        if (registered == null) return null;
+        Holder<Ritual> holder = getRitualRegistry().wrapAsHolder(registered);
+        return holder.getData(NVDataMaps.RITUAL_STATS);
     }
 
     public static Collection<Ritual> getAllRituals() {

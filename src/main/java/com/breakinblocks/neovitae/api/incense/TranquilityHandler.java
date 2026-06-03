@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.api.incense;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 import com.breakinblocks.neovitae.common.datamap.TranquilityHelper;
 import com.breakinblocks.neovitae.common.datamap.TranquilityValue;
 import com.breakinblocks.neovitae.incense.EnumTranquilityType;
@@ -14,7 +15,7 @@ import javax.annotation.Nullable;
  *
  * <p>This is an internal singleton used by the API. Addon mods should not
  * instantiate this class directly; instead, use
- * {@link com.breakinblocks.neovitae.api.NeoVitaeAPI#getInstance()}{@code .getTranquilityHandler()}
+ * {@link NeoVitaeAPI#getInstance()}{@code .getTranquilityHandler()}
  * to obtain the handler.</p>
  *
  * <p>Tranquility values are loaded from datapacks at

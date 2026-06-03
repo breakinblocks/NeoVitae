@@ -42,6 +42,7 @@ public class ActiveStream {
 
     // Color
     private final float red, green, blue;
+    private final float redEnd, greenEnd, blueEnd;
 
     // Physics state
     private double headX, headY, headZ;
@@ -95,6 +96,9 @@ public class ActiveStream {
         this.red = ColorHelper.red(effect.color);
         this.green = ColorHelper.green(effect.color);
         this.blue = ColorHelper.blue(effect.color);
+        this.redEnd = ColorHelper.red(effect.endColor);
+        this.greenEnd = ColorHelper.green(effect.endColor);
+        this.blueEnd = ColorHelper.blue(effect.endColor);
 
         if (effect.lifetime > 0) {
             this.maxAge = effect.lifetime + 200; // safety cap
@@ -410,10 +414,10 @@ public class ActiveStream {
                 positions[i][1] = pt[1];
                 positions[i][2] = pt[2];
                 radii[i] = pt[3];
-                colors[i][0] = red;
-                colors[i][1] = green;
-                colors[i][2] = blue;
-                float progress = (float) i / (size - 1);
+                float progress = (float) i / Math.max(1, size - 1);
+                colors[i][0] = red + (redEnd - red) * progress;
+                colors[i][1] = green + (greenEnd - green) * progress;
+                colors[i][2] = blue + (blueEnd - blue) * progress;
                 colors[i][3] = effect.alphaStart + (effect.alphaEnd - effect.alphaStart) * progress * progress;
                 continue;
             }
@@ -450,10 +454,14 @@ public class ActiveStream {
 
             radii[i] = Math.max(0, radii[i]);
 
+            float gradT = (float) i / Math.max(1, size - 1);
+            float pr = red + (redEnd - red) * gradT;
+            float pg = green + (greenEnd - green) * gradT;
+            float pb = blue + (blueEnd - blue) * gradT;
             float colorVar = 1.0f - Mth.sin((i + age) / 2.0f) * 0.1f;
-            float cr = red * colorVar;
-            float cg = green * colorVar;
-            float cb = blue * colorVar;
+            float cr = pr * colorVar;
+            float cg = pg * colorVar;
+            float cb = pb * colorVar;
             // If the brightness bump pushes any channel above 1, scale all three down
             // uniformly so the hue is preserved instead of the bright channel clipping.
             float maxChan = Math.max(cr, Math.max(cg, cb));

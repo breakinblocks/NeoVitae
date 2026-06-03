@@ -39,7 +39,7 @@ import com.geckolib.animation.RawAnimation;
 import com.geckolib.util.GeckoLibUtil;
 import net.minecraft.world.entity.Entity;
 
-public class DaemoniumCorrodisEntity extends Monster implements GeoEntity {
+public class DaemoniumCorrodisEntity extends Monster implements GeoEntity, IDaemonium {
 
     private static final EntityDataAccessor<Integer> ATTACK_STATE =
             SynchedEntityData.defineId(DaemoniumCorrodisEntity.class, EntityDataSerializers.INT);

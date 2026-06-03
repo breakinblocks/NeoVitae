@@ -40,7 +40,7 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
-public class DaemoniumIgnisEntity extends Monster implements GeoEntity {
+public class DaemoniumIgnisEntity extends Monster implements GeoEntity, IDaemonium {
 
     private static final EntityDataAccessor<Integer> ATTACK_STATE =
             SynchedEntityData.defineId(DaemoniumIgnisEntity.class, EntityDataSerializers.INT);

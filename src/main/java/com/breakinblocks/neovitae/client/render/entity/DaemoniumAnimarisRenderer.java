@@ -12,6 +12,7 @@ public class DaemoniumAnimarisRenderer extends VexRenderer {
 
     public DaemoniumAnimarisRenderer(EntityRendererProvider.Context ctx) {
         super(ctx);
+        addLayer(new DaemoniumAnimarisEyesLayer(this));
     }
 
     @Override

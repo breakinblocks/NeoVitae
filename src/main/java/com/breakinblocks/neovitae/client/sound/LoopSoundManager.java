@@ -16,6 +16,7 @@ public class LoopSoundManager {
     private static final Set<BlockPos> ACTIVE_LOOPS = new HashSet<>();
 
     public static void tryStartLoop(SoundEvent sound, float volume, Level level, BlockPos pos, Predicate<BlockEntity> activeCheck) {
+        if (sound == null) return;
         if (ACTIVE_LOOPS.contains(pos)) return;
 
         BlockEntityLoopSound loopSound = new BlockEntityLoopSound(sound, SoundSource.BLOCKS, volume, level, pos, activeCheck) {

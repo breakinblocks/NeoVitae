@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import org.jetbrains.annotations.Nullable;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.recipe.sentientdowngrade.SentientDowngradeRecipe;
 
 public class SentientDowngradeRecipeBuilder implements RecipeBuilder {
@@ -42,6 +43,6 @@ public class SentientDowngradeRecipeBuilder implements RecipeBuilder {
     @Override
     public ResourceKey<Recipe<?>> defaultId() {
         return ResourceKey.create(Registries.RECIPE,
-                Identifier.fromNamespaceAndPath(com.breakinblocks.neovitae.NeoVitae.MODID, "auto"));
+                Identifier.fromNamespaceAndPath(NeoVitae.MODID, "auto"));
     }
 }

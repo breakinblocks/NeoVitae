@@ -38,6 +38,7 @@ import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 
 import java.util.List;
+import java.util.Optional;
 
 @EventBusSubscriber(modid = NeoVitae.MODID)
 public class SentientEventHandler {
@@ -232,7 +233,7 @@ public class SentientEventHandler {
         chest.set(DataComponents.EQUIPPABLE, new Equippable(
                 current.slot(),
                 current.equipSound(),
-                java.util.Optional.of(desired),
+                Optional.of(desired),
                 current.cameraOverlay(),
                 current.allowedEntities(),
                 current.dispensable(),
@@ -267,8 +268,9 @@ public class SentientEventHandler {
             return;
         }
 
+        ItemAttributeModifiers base = chestStack.getItem().components().getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
         ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
-        chestStack.getAttributeModifiers().forEach(EquipmentSlot.CHEST, (holder, modifier) -> builder.add(holder, modifier, EquipmentSlotGroup.CHEST));
+        base.forEach(EquipmentSlot.CHEST, (holder, modifier) -> builder.add(holder, modifier, EquipmentSlotGroup.CHEST));
         if (SentientHelper.hasFullSet(player)) {
             SentientHelper.getAttributes(chestStack, builder);
         }

@@ -2,6 +2,7 @@ package com.breakinblocks.neovitae.common.material;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackLocationInfo;
 import net.minecraft.server.packs.PackResources;
@@ -55,7 +56,7 @@ public class InMemoryPack implements PackResources {
         String key = type.name();
         if (root.has(key)) {
             return type.codec()
-                    .parse(com.mojang.serialization.JsonOps.INSTANCE, root.getAsJsonObject(key))
+                    .parse(JsonOps.INSTANCE, root.getAsJsonObject(key))
                     .result()
                     .orElse(null);
         }

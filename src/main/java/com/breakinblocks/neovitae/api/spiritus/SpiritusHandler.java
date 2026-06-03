@@ -5,6 +5,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.LevelChunk;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.spiritus.SpiritusChunk;
@@ -16,7 +17,7 @@ import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
  *
  * <p>This is an internal singleton used by the API. Addon mods should not
  * instantiate this class directly; instead, use
- * {@link com.breakinblocks.neovitae.api.NeoVitaeAPI#getInstance()}{@code .getSpiritusHandler()}
+ * {@link NeoVitaeAPI#getInstance()}{@code .getSpiritusHandler()}
  * to obtain the handler.</p>
  *
  * <p>All mutating operations (add, drain, transfer, setMaxBonus) are server-side only

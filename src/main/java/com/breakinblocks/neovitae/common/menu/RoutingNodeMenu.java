@@ -23,7 +23,7 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
     private final ContainerData data;
     private final SimpleContainer ghostContainer;
 
-    public static final int GHOST_SLOT_COUNT = SideFilterConfig.GHOST_SLOTS;
+    public static final int GHOST_SLOT_COUNT = SideFilterConfig.PAGE_SIZE;
 
     public static final int DATA_CURRENT_SLOT = 0;
     public static final int DATA_PRIORITY_DOWN = 1;
@@ -37,10 +37,17 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
     public static final int DATA_SIDE_FLUID_MODE_START = 19;   // +6 for each direction
     public static final int DATA_SIZE = 25;
 
-    private static final int GHOST_COLS = 3;
-    private static final int GHOST_ROWS = 3;
-    public static final int GHOST_ORIGIN_X = 61;
-    public static final int GHOST_ORIGIN_Y = 18;
+    private static final int GHOST_COLS = SideFilterConfig.PAGE_COLUMNS;
+    private static final int GHOST_ROWS = SideFilterConfig.PAGE_ROWS;
+    public static final int GHOST_ORIGIN_X = 8;
+    public static final int GHOST_ORIGIN_Y = 76;
+    public static final int INVENTORY_Y = 142;
+    public static final int HOTBAR_Y = 200;
+    public static final int IMAGE_WIDTH = 176;
+    public static final int IMAGE_HEIGHT = 224;
+
+    private int currentPage = 0;
+    private boolean showItemGhosts = true;
 
     public RoutingNodeMenu(int containerId, Inventory playerInventory, FilteredRoutingNodeBlockEntity tile) {
         super(NVMenus.ROUTING_NODE.get(), containerId);
@@ -105,7 +112,7 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
             }
         }
 
-        MenuSlotHelper.addPlayerInventory(this::addSlot, playerInventory, MenuSlotHelper.INV_Y_187, MenuSlotHelper.HOTBAR_Y_187);
+        MenuSlotHelper.addPlayerInventory(this::addSlot, playerInventory, INVENTORY_Y, HOTBAR_Y);
     }
 
     public RoutingNodeMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {
@@ -120,9 +127,37 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
         return null;
     }
 
-    /** Mirror item ghosts for the selected side into the client container. */
+    /** Absolute storage index for a visible grid slot on the current page. */
+    public int absoluteSlot(int ghostSlot) {
+        return currentPage * SideFilterConfig.PAGE_SIZE + ghostSlot;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public int getPageCount() {
+        if (tile == null) return 1;
+        int sideIdx = tile.getCurrentActiveSlot();
+        if (sideIdx < 0 || sideIdx >= 6) return 1;
+        return tile.getSideFilter(sideIdx).getPageCount();
+    }
+
+    public void setPage(int page) {
+        int pages = getPageCount();
+        this.currentPage = Math.max(0, Math.min(pages - 1, page));
+        refreshGhostContainer();
+    }
+
+    /** Toggle whether the item-ghost slots render; the Fluids tab hides them. */
+    public void setShowItemGhosts(boolean show) {
+        this.showItemGhosts = show;
+        refreshGhostContainer();
+    }
+
+    /** Mirror item ghosts for the selected side and page into the client container. */
     public void refreshGhostContainer() {
-        if (tile == null) {
+        if (tile == null || !showItemGhosts) {
             for (int i = 0; i < GHOST_SLOT_COUNT; i++) {
                 ghostContainer.setItem(i, ItemStack.EMPTY);
             }
@@ -130,7 +165,7 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
         }
         SideFilterConfig cfg = tile.getSideFilter(Direction.from3DDataValue(tile.getCurrentActiveSlot()));
         for (int i = 0; i < GHOST_SLOT_COUNT; i++) {
-            ghostContainer.setItem(i, cfg.getItemGhost(i).copy());
+            ghostContainer.setItem(i, cfg.getItemGhost(absoluteSlot(i)).copy());
         }
     }
 
@@ -138,35 +173,55 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
         if (tile == null) return FluidStack.EMPTY;
         int sideIdx = tile.getCurrentActiveSlot();
         if (sideIdx < 0 || sideIdx >= 6) return FluidStack.EMPTY;
-        return tile.getSideFilter(sideIdx).getFluidGhost(ghostSlot);
+        return tile.getSideFilter(sideIdx).getFluidGhost(absoluteSlot(ghostSlot));
     }
 
     public int getCurrentItemAmount(int ghostSlot) {
         if (tile == null) return 0;
         int sideIdx = tile.getCurrentActiveSlot();
         if (sideIdx < 0 || sideIdx >= 6) return 0;
-        return tile.getSideFilter(sideIdx).getItemAmount(ghostSlot);
+        return tile.getSideFilter(sideIdx).getItemAmount(absoluteSlot(ghostSlot));
     }
 
     public int getCurrentFluidAmount(int ghostSlot) {
         if (tile == null) return 0;
         int sideIdx = tile.getCurrentActiveSlot();
         if (sideIdx < 0 || sideIdx >= 6) return 0;
-        return tile.getSideFilter(sideIdx).getFluidAmount(ghostSlot);
+        return tile.getSideFilter(sideIdx).getFluidAmount(absoluteSlot(ghostSlot));
     }
 
     public void setCurrentItemAmountLocal(int ghostSlot, int amount) {
         if (tile == null) return;
         int sideIdx = tile.getCurrentActiveSlot();
         if (sideIdx < 0 || sideIdx >= 6) return;
-        tile.getSideFilter(sideIdx).setItemAmount(ghostSlot, amount);
+        tile.getSideFilter(sideIdx).setItemAmount(absoluteSlot(ghostSlot), amount);
     }
 
     public void setCurrentFluidAmountLocal(int ghostSlot, int amount) {
         if (tile == null) return;
         int sideIdx = tile.getCurrentActiveSlot();
         if (sideIdx < 0 || sideIdx >= 6) return;
-        tile.getSideFilter(sideIdx).setFluidAmount(ghostSlot, amount);
+        tile.getSideFilter(sideIdx).setFluidAmount(absoluteSlot(ghostSlot), amount);
+    }
+
+    public void setVisibleItemGhostLocal(int ghostSlot, ItemStack stack) {
+        ItemStack ghost = stack.isEmpty() ? ItemStack.EMPTY : stack.copyWithCount(1);
+        ghostContainer.setItem(ghostSlot, ghost);
+        if (tile != null) {
+            int sideIdx = tile.getCurrentActiveSlot();
+            if (sideIdx >= 0 && sideIdx < 6) {
+                tile.getSideFilter(sideIdx).setItemGhost(absoluteSlot(ghostSlot), ghost);
+            }
+        }
+    }
+
+    public void setVisibleFluidGhostLocal(int ghostSlot, FluidStack stack) {
+        if (tile == null) return;
+        int sideIdx = tile.getCurrentActiveSlot();
+        if (sideIdx < 0 || sideIdx >= 6) return;
+        FluidStack ghost = stack.isEmpty() ? FluidStack.EMPTY : stack.copy();
+        if (!ghost.isEmpty()) ghost.setAmount(1);
+        tile.getSideFilter(sideIdx).setFluidGhost(absoluteSlot(ghostSlot), ghost);
     }
 
     public int getCurrentSlot() {
@@ -210,6 +265,7 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
             if (tile != null) {
                 tile.swapFilters(slot);
             }
+            currentPage = 0;
             refreshGhostContainer();
             broadcastChanges();
         }

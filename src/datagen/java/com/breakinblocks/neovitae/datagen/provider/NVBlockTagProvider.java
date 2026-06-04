@@ -369,7 +369,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
             stoneToolTag.add(DungeonBlocks.DUNGEON_POLISHED_GATE.get(variant).block().getKey());
         }
 
-        // Spike trap - pickaxe mineable, requires iron tier, drops self (loot table in MineBlock)
+        // Spike tyearap - pickaxe mineable, requires iron tier, drops self (loot table in MineBlock)
         pickaxeTag.add(DungeonBlocks.SPIKE_TRAP.block().getKey());
 
         // Iron tool for dungeon metal blocks + spike trap

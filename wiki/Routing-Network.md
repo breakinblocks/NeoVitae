@@ -45,14 +45,14 @@ Open the node's UI. The right column hosts directional buttons **D**own, **U**p,
 On the left column there are three controls:
 
 - **Enable / Disable**. Wakes the selected side. A disabled face blocks *everything* regardless of filter configuration.
-- **Items / Fluids tab**. Switches the central 3×3 ghost grid between item and fluid filtering.
+- **Items / Fluids tab**. Switches the ghost grid between item and fluid filtering.
 - **Mode**. Toggles the filter behaviour. See below.
 
-The center of the UI is the **3×3 ghost grid**. The currently-selected side uses these nine slots to record what it permits or denies. Below the grid, **Priority** buttons let you raise and lower the side's weight; **higher priority is served first** within the network.
+The center of the UI is the **ghost grid**, a nine-wide field the currently-selected side uses to record what it permits or denies. When you fill the visible slots, a fresh **page** opens automatically; the **<** and **>** arrows above the grid page through them, so a single face can hold as many filters as you need. **Priority** buttons raise and lower the side's weight; **higher priority is served first** within the network.
 
 ### Items
 
-With the **Items** tab selected, left-click a slot while holding an item to copy it into the ghost; right-click to clear.
+With the **Items** tab selected, left-click a slot while holding an item to copy it into the ghost; right-click to clear. If JEI is installed, you can also drag an item straight from it onto a slot.
 
 | Mode | Empty grid | Grid with ghosts |
 | --- | --- | --- |
@@ -61,7 +61,7 @@ With the **Items** tab selected, left-click a slot while holding an item to copy
 
 ### Fluids
 
-The **Fluids** tab works the same way; left-click with a bucket or fluid vessel to copy its contents into the ghost. Fluids support a third mode unavailable to items, **Auto-Match**, which mirrors whatever fluid is currently in the neighbour tank. This is the default for fresh sides, so an enabled face pointing at a [Blood Tank](Ara-Vitae-and-Runes) begins moving Essentia Vitae immediately.
+The **Fluids** tab works the same way; left-click with a bucket or fluid vessel to copy its contents into the ghost, or drag a fluid from JEI onto a slot. Fluids support a third mode unavailable to items, **Auto-Match**, which mirrors whatever fluid is currently in the neighbour tank. This is the default for fresh sides, so an enabled face pointing at a [Blood Tank](Ara-Vitae-and-Runes) begins moving Essentia Vitae immediately.
 
 ### Keep Amounts
 

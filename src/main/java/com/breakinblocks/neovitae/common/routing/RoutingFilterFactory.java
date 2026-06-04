@@ -32,7 +32,7 @@ public final class RoutingFilterFactory {
     private static List<IFilterKey> buildFilterKeys(SideFilterConfig cfg) {
         boolean whitelist = cfg.getItemMode() == FilterMode.WHITELIST;
         List<IFilterKey> keys = new ArrayList<>();
-        for (int i = 0; i < SideFilterConfig.GHOST_SLOTS; i++) {
+        for (int i = 0; i < cfg.getItemSlotCount(); i++) {
             ItemStack ghost = cfg.getItemGhost(i);
             if (ghost.isEmpty()) continue;
             ItemStack keyStack = ghost.copy();
@@ -54,7 +54,7 @@ public final class RoutingFilterFactory {
 
         boolean whitelist = mode == FilterMode.WHITELIST;
         List<FluidStack> fluidKeys = new ArrayList<>();
-        for (int i = 0; i < SideFilterConfig.GHOST_SLOTS; i++) {
+        for (int i = 0; i < cfg.getFluidSlotCount(); i++) {
             FluidStack ghost = cfg.getFluidGhost(i);
             if (ghost.isEmpty()) continue;
             FluidStack copy = ghost.copy();

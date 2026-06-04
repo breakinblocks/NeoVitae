@@ -125,9 +125,10 @@ public class RoutingNodesEntry extends EntryProvider {
         this.pageText("The left column carries three buttons: [#](8B0000)Enable[#](), [#](8B0000)Items/Fluids[#](), and "
                 + "[#](8B0000)Mode[#](). Use [#](8B0000)Enable[#]() to wake the selected side: a disabled face blocks "
                 + "everything regardless of its filter configuration.\\\n\\\n"
-                + "At the center sits a [#](8B0000)3x3 ghost grid[#](). The currently-selected side uses these "
-                + "nine slots to record what it permits or denies. Below the grid, [#](B8860B)Priority[#]() "
-                + "buttons let you raise and lower the side's weight; higher values are served first.");
+                + "At the center sits a nine-wide [#](8B0000)ghost grid[#](). The currently-selected side uses it "
+                + "to record what it permits or denies; fill the visible slots and a fresh [#](8B0000)page[#]() opens, "
+                + "paged with the arrows above. [#](B8860B)Priority[#]() buttons raise and lower the side's weight; "
+                + "higher values are served first.");
 
         this.page("gui_items", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

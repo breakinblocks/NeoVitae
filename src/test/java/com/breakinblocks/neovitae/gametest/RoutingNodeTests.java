@@ -122,7 +122,7 @@ public class RoutingNodeTests {
         cfg.setEnabled(true);
         cfg.setItemMode(spec.mode());
         cfg.clearItemGhosts();
-        int limit = Math.min(spec.items().length, SideFilterConfig.GHOST_SLOTS);
+        int limit = Math.min(spec.items().length, SideFilterConfig.PAGE_SIZE);
         for (int i = 0; i < limit; i++) {
             cfg.setItemGhost(i, new ItemStack(spec.items()[i]));
         }
@@ -270,6 +270,36 @@ public class RoutingNodeTests {
             }
             if (dst != 54) {
                 helper.fail("Input keep-amount should pull 54 to destination, got dst=" + dst);
+            }
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 200)
+    public void filterEntriesBeyondFirstPage(GameTestHelper helper) {
+        RoutingTestContext ctx = setupLinearNetwork(helper);
+
+        Item[] blocked = {
+                Items.DIAMOND, Items.EMERALD, Items.GOLD_INGOT, Items.IRON_INGOT,
+                Items.COAL, Items.REDSTONE, Items.LAPIS_LAZULI, Items.QUARTZ,
+                Items.COPPER_INGOT, Items.AMETHYST_SHARD, Items.NETHERITE_SCRAP, Items.NETHERITE_INGOT
+        };
+        OutputRoutingNodeBlockEntity output = (OutputRoutingNodeBlockEntity) helper.getBlockEntity(ctx.output);
+        setNodeFilter(output, Direction.EAST, createBlacklistFilter(blocked));
+
+        ChestBlockEntity srcChest = (ChestBlockEntity) helper.getBlockEntity(ctx.srcChest);
+        srcChest.setItem(0, new ItemStack(Items.NETHERITE_INGOT, 4));
+        srcChest.setItem(1, new ItemStack(Items.DIRT, 4));
+
+        helper.runAfterDelay(TICK_RATE * 8, () -> {
+            ChestBlockEntity dstChest = (ChestBlockEntity) helper.getBlockEntity(ctx.dstChest);
+            int dirtDst = countItem(dstChest, Items.DIRT);
+            int netheriteDst = countItem(dstChest, Items.NETHERITE_INGOT);
+            if (dirtDst != 4) {
+                helper.fail("Unblocked item should pass, dirt in dst=" + dirtDst);
+            }
+            if (netheriteDst != 0) {
+                helper.fail("Blacklist entry at index 11 should block, netherite in dst=" + netheriteDst);
             }
             helper.succeed();
         });

@@ -47,26 +47,28 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
     private Button enableButton;
     private Button modeButton;
     private Button tabButton;
+    private Button pagePrevButton;
+    private Button pageNextButton;
 
     public RoutingNodeScreen(RoutingNodeMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        this.imageWidth = 176;
-        this.imageHeight = 187;
+        this.imageWidth = RoutingNodeMenu.IMAGE_WIDTH;
+        this.imageHeight = RoutingNodeMenu.IMAGE_HEIGHT;
         this.titleLabelX = 8;
         this.titleLabelY = 6;
-        this.inventoryLabelY = this.imageHeight - 94;
+        this.inventoryLabelY = RoutingNodeMenu.INVENTORY_Y - 11;
     }
 
     @Override
     protected void init() {
         super.init();
 
-        directionButtons[Direction.UP.get3DDataValue()]    = createDirectionButton(135, 11, Direction.UP.get3DDataValue(),    "U");
-        directionButtons[Direction.DOWN.get3DDataValue()]  = createDirectionButton(155, 51, Direction.DOWN.get3DDataValue(),  "D");
-        directionButtons[Direction.NORTH.get3DDataValue()] = createDirectionButton(135, 31, Direction.NORTH.get3DDataValue(), "N");
-        directionButtons[Direction.SOUTH.get3DDataValue()] = createDirectionButton(135, 51, Direction.SOUTH.get3DDataValue(), "S");
-        directionButtons[Direction.EAST.get3DDataValue()]  = createDirectionButton(155, 31, Direction.EAST.get3DDataValue(),  "E");
-        directionButtons[Direction.WEST.get3DDataValue()]  = createDirectionButton(115, 31, Direction.WEST.get3DDataValue(),  "W");
+        directionButtons[Direction.UP.get3DDataValue()]    = createDirectionButton(135, 18, Direction.UP.get3DDataValue(),    "U");
+        directionButtons[Direction.NORTH.get3DDataValue()] = createDirectionButton(135, 38, Direction.NORTH.get3DDataValue(), "N");
+        directionButtons[Direction.WEST.get3DDataValue()]  = createDirectionButton(115, 38, Direction.WEST.get3DDataValue(),  "W");
+        directionButtons[Direction.EAST.get3DDataValue()]  = createDirectionButton(155, 38, Direction.EAST.get3DDataValue(),  "E");
+        directionButtons[Direction.SOUTH.get3DDataValue()] = createDirectionButton(135, 58, Direction.SOUTH.get3DDataValue(), "S");
+        directionButtons[Direction.DOWN.get3DDataValue()]  = createDirectionButton(155, 58, Direction.DOWN.get3DDataValue(),  "D");
 
         for (Button btn : directionButtons) {
             this.addRenderableWidget(btn);
@@ -82,6 +84,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
 
         tabButton = Button.builder(Component.literal("Items"), btn -> {
             activeTab = activeTab == Tab.ITEMS ? Tab.FLUIDS : Tab.ITEMS;
+            menu.setShowItemGhosts(activeTab == Tab.ITEMS);
         }).bounds(leftPos + 8, topPos + 36, 50, 16).build();
         this.addRenderableWidget(tabButton);
 
@@ -96,17 +99,49 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         }).bounds(leftPos + 8, topPos + 54, 50, 16).build();
         this.addRenderableWidget(modeButton);
 
+        pagePrevButton = Button.builder(Component.literal("<"), btn -> menu.setPage(menu.getCurrentPage() - 1))
+                .bounds(leftPos + 62, topPos + 18, 14, 16).build();
+        this.addRenderableWidget(pagePrevButton);
+
+        pageNextButton = Button.builder(Component.literal(">"), btn -> menu.setPage(menu.getCurrentPage() + 1))
+                .bounds(leftPos + 98, topPos + 18, 14, 16).build();
+        this.addRenderableWidget(pageNextButton);
+
         priorityDownButton = Button.builder(Component.literal("-"), btn -> {
             menu.decrementPriority();
             PacketDistributor.sendToServer(new RoutingNodePayload(menu.tile.getBlockPos(), RoutingNodePayload.ACTION_DECREMENT_PRIORITY, 0));
-        }).bounds(leftPos + 61, topPos + 76, 16, 16).build();
+        }).bounds(leftPos + 62, topPos + 40, 14, 16).build();
         this.addRenderableWidget(priorityDownButton);
 
         priorityUpButton = Button.builder(Component.literal("+"), btn -> {
             menu.incrementPriority();
             PacketDistributor.sendToServer(new RoutingNodePayload(menu.tile.getBlockPos(), RoutingNodePayload.ACTION_INCREMENT_PRIORITY, 0));
-        }).bounds(leftPos + 99, topPos + 76, 16, 16).build();
+        }).bounds(leftPos + 98, topPos + 40, 14, 16).build();
         this.addRenderableWidget(priorityUpButton);
+    }
+
+    public boolean isItemsTab() {
+        return activeTab == Tab.ITEMS;
+    }
+
+    public boolean isFluidsTab() {
+        return activeTab == Tab.FLUIDS;
+    }
+
+    public void setItemGhostFromJei(int ghostSlot, ItemStack stack) {
+        if (stack.isEmpty() || menu.tile == null) return;
+        PacketDistributor.sendToServer(new RoutingNodeSetGhostPayload(
+                menu.tile.getBlockPos(), menu.absoluteSlot(ghostSlot), stack.copyWithCount(1)));
+        menu.setVisibleItemGhostLocal(ghostSlot, stack);
+    }
+
+    public void setFluidGhostFromJei(int ghostSlot, FluidStack stack) {
+        if (stack.isEmpty() || menu.tile == null) return;
+        FluidStack ghost = stack.copy();
+        ghost.setAmount(1);
+        PacketDistributor.sendToServer(new RoutingNodeSetFluidGhostPayload(
+                menu.tile.getBlockPos(), menu.absoluteSlot(ghostSlot), ghost));
+        menu.setVisibleFluidGhostLocal(ghostSlot, ghost);
     }
 
     private Button createDirectionButton(int x, int y, int dirIndex, String label) {
@@ -152,6 +187,13 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             modeButton.setMessage(Component.literal(label).withStyle(color));
         }
 
+        int pageCount = menu.getPageCount();
+        if (menu.getCurrentPage() > pageCount - 1) {
+            menu.setPage(pageCount - 1);
+        }
+        pagePrevButton.active = menu.getCurrentPage() > 0;
+        pageNextButton.active = menu.getCurrentPage() < pageCount - 1;
+
         if (activeTab == Tab.FLUIDS) {
             renderFluidGhosts(guiGraphics);
         }
@@ -179,7 +221,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             int x = leftPos + slot.x + 17 - font.width(str);
             int y = topPos + slot.y + 9;
             guiGraphics.pose().pushPose();
-            guiGraphics.pose().translate(0.0F, 0.0F, 200.0F);
+            guiGraphics.pose().translate(0.0F, 0.0F, 300.0F);
             guiGraphics.drawString(font, str, x, y, 0xFFFFFF, true);
             guiGraphics.pose().popPose();
         }
@@ -197,17 +239,18 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         return items ? 1 : 1000;
     }
 
-    /** Overwrites the item-ghost cells (already drawn by super.render) with fluid sprites. */
+    /** Draws fluid sprites into the (item-free) ghost cells on the Fluids tab. */
     private void renderFluidGhosts(GuiGraphics guiGraphics) {
+        guiGraphics.pose().pushPose();
+        guiGraphics.pose().translate(0.0F, 0.0F, 250.0F);
         for (int i = 0; i < RoutingNodeMenu.GHOST_SLOT_COUNT; i++) {
-            Slot slot = menu.slots.get(i);
-            guiGraphics.fill(leftPos + slot.x, topPos + slot.y, leftPos + slot.x + 16, topPos + slot.y + 16, 0xFF8B8B8B);
-
             FluidStack fluid = menu.getCurrentFluidGhost(i);
             if (fluid.isEmpty()) continue;
 
+            Slot slot = menu.slots.get(i);
             drawFluidSprite(guiGraphics, leftPos + slot.x, topPos + slot.y, fluid);
         }
+        guiGraphics.pose().popPose();
     }
 
     private void drawFluidSprite(GuiGraphics guiGraphics, int x, int y, FluidStack fluid) {
@@ -231,13 +274,15 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 0x404040, false);
         guiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 0x404040, false);
 
+        String pageStr = (menu.getCurrentPage() + 1) + "/" + menu.getPageCount();
+        guiGraphics.drawString(font, pageStr, 87 - font.width(pageStr) / 2, 22, 0x404040, false);
+
         int currentSlot = menu.getCurrentSlot();
         if (currentSlot < 0 || currentSlot >= 6) return;
 
         int priority = menu.getCurrentPriority();
-        String priorityStr = "P: " + priority;
-        int textWidth = font.width(priorityStr);
-        guiGraphics.drawString(font, priorityStr, 88 - textWidth / 2, 80, 0x404040, false);
+        String priorityStr = "P:" + priority;
+        guiGraphics.drawString(font, priorityStr, 87 - font.width(priorityStr) / 2, 44, 0x404040, false);
     }
 
     @Override
@@ -261,8 +306,6 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             return;
         }
 
-        super.renderTooltip(guiGraphics, mouseX, mouseY);
-
         if (activeTab == Tab.FLUIDS && this.hoveredSlot != null
                 && this.hoveredSlot.index < RoutingNodeMenu.GHOST_SLOT_COUNT) {
             FluidStack fluid = menu.getCurrentFluidGhost(this.hoveredSlot.index);
@@ -282,6 +325,8 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
             return;
         }
+
+        super.renderTooltip(guiGraphics, mouseX, mouseY);
 
         for (int i = 0; i < 6; i++) {
             if (directionButtons[i].isHovered()) {
@@ -352,6 +397,12 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         if (priorityDownButton.isHovered()) {
             guiGraphics.renderTooltip(font, Component.literal("Decrease Priority"), mouseX, mouseY);
         }
+        if (pagePrevButton.isHovered() || pageNextButton.isHovered()) {
+            List<Component> tooltip = new ArrayList<>();
+            tooltip.add(Component.literal("Filter Page " + (menu.getCurrentPage() + 1) + " of " + menu.getPageCount()));
+            tooltip.add(Component.literal("A new page opens as you fill the last").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+            guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
+        }
     }
 
     @Override
@@ -382,7 +433,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                     if (!carried.isEmpty()) {
                         PacketDistributor.sendToServer(new RoutingNodeSetGhostPayload(
                                 menu.tile.getBlockPos(),
-                                slotIdx,
+                                menu.absoluteSlot(slotIdx),
                                 carried.copyWithCount(1)
                         ));
                         menu.clicked(slotIdx, 0, ClickType.PICKUP, this.minecraft.player);
@@ -391,7 +442,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                 } else if (button == 1) {
                     PacketDistributor.sendToServer(new RoutingNodeSetGhostPayload(
                             menu.tile.getBlockPos(),
-                            slotIdx,
+                            menu.absoluteSlot(slotIdx),
                             ItemStack.EMPTY
                     ));
                     menu.clicked(slotIdx, 1, ClickType.PICKUP, this.minecraft.player);
@@ -406,7 +457,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                             ghost.setAmount(1);
                             PacketDistributor.sendToServer(new RoutingNodeSetFluidGhostPayload(
                                     menu.tile.getBlockPos(),
-                                    slotIdx,
+                                    menu.absoluteSlot(slotIdx),
                                     ghost
                             ));
                         }
@@ -415,7 +466,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                 } else if (button == 1) {
                     PacketDistributor.sendToServer(new RoutingNodeSetFluidGhostPayload(
                             menu.tile.getBlockPos(),
-                            slotIdx,
+                            menu.absoluteSlot(slotIdx),
                             FluidStack.EMPTY
                     ));
                     return true;
@@ -448,7 +499,7 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                         menu.setCurrentFluidAmountLocal(slotIdx, next);
                     }
                     PacketDistributor.sendToServer(new RoutingNodeSetAmountPayload(
-                            menu.tile.getBlockPos(), !items, slotIdx, next));
+                            menu.tile.getBlockPos(), !items, menu.absoluteSlot(slotIdx), next));
                 }
                 return true;
             }

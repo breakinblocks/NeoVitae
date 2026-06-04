@@ -85,4 +85,19 @@ public class BloodOrbTests {
         if (grandTier != 5) { helper.fail("Transcendent orb should be tier 5, got " + grandTier); return; }
         helper.succeed();
     }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 20)
+    public void orbSurvivesCrafting(GameTestHelper helper) {
+        ItemStack orb = new ItemStack(NVItems.ORB_WEAK.get());
+        if (!orb.hasCraftingRemainingItem()) {
+            helper.fail("A blood orb used as a crafting ingredient must not be consumed");
+            return;
+        }
+        ItemStack remainder = orb.getCraftingRemainingItem();
+        if (remainder.isEmpty() || !remainder.is(NVItems.ORB_WEAK.get())) {
+            helper.fail("A blood orb's crafting remainder must be the orb itself, got " + remainder);
+            return;
+        }
+        helper.succeed();
+    }
 }

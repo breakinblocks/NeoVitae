@@ -125,6 +125,16 @@ public class BloodOrbItem extends Item implements IBindable {
     }
 
     @Override
+    public boolean hasCraftingRemainingItem(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public ItemStack getCraftingRemainingItem(ItemStack stack) {
+        return stack.copy();
+    }
+
+    @Override
     public boolean isFoil(ItemStack stack) {
         int capacity = OrbFluidHandler.getOrbFluidCapacity(stack);
         if (capacity <= 0) return false;

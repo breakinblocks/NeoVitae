@@ -1,14 +1,18 @@
 package com.breakinblocks.neovitae.gametest;
 
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
+import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.OrbFluidHandler;
 import com.breakinblocks.neovitae.gametest.base.NVTestRegistrar;
+
+import java.util.UUID;
 
 public final class BloodOrbTests {
 
@@ -99,6 +103,29 @@ public final class BloodOrbTests {
             }
             if (grandTier != 5) {
                 helper.fail("Transcendent orb should be tier 5, got " + grandTier);
+                return;
+            }
+            helper.succeed();
+        });
+
+        r.add("blood_orb/survives_crafting", 20, helper -> {
+            ItemStack orb = new ItemStack(NVItems.ORB_WEAK.get());
+            orb.set(NVDataComponents.BINDING.get(),
+                    new Binding(UUID.fromString("0fded6b6-1111-2222-3333-444455556666"), "TestVitaemancer"));
+
+            ItemStackTemplate remainder = orb.getCraftingRemainder();
+            if (remainder == null) {
+                helper.fail("A blood orb used as a crafting ingredient must not be consumed");
+                return;
+            }
+            ItemStack remStack = remainder.create();
+            if (!remStack.is(NVItems.ORB_WEAK.get())) {
+                helper.fail("A blood orb's crafting remainder must be the orb itself, got " + remStack);
+                return;
+            }
+            Binding carried = remStack.get(NVDataComponents.BINDING.get());
+            if (carried == null || carried.isEmpty()) {
+                helper.fail("The orb's crafting remainder must keep its binding, got " + carried);
                 return;
             }
             helper.succeed();

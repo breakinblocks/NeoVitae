@@ -10,7 +10,10 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.level.Level;
@@ -124,6 +127,12 @@ public class BloodOrbItem extends Item implements IBindable {
 
     public int getOrbTier(ItemStack stack) {
         return stack.typeHolder().getData(NVDataMaps.BLOOD_ORB_STATS).tier();
+    }
+
+    @Override
+    public ItemStackTemplate getCraftingRemainder(ItemInstance instance) {
+        DataComponentPatch patch = instance instanceof ItemStack stack ? stack.getComponentsPatch() : DataComponentPatch.EMPTY;
+        return new ItemStackTemplate(this, 1, patch);
     }
 
     @Override

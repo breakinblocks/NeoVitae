@@ -1,6 +1,7 @@
 {
   "type": "neovitae:ara_vitae_recipe",
   "bloodNeeded": 40000,
+  "copyInputComponents": true,
   "craftSpeed": 30,
   "drainSpeed": 50,
   "input": "neovitae:activation_crystal_weak",

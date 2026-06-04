@@ -3,6 +3,7 @@
   "addedinput": "neovitae:tabula_robur",
   "baseinput": "minecraft:lead",
   "effect_type": "loyal_friends",
+  "ev_cost": 2500,
   "output": {
     "id": "minecraft:stone"
   },

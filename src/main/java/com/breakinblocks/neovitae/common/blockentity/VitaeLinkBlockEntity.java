@@ -396,9 +396,8 @@ public class VitaeLinkBlockEntity extends BaseBlockEntity {
     public void setRemoved() {
         if (level != null && level.isClientSide()) {
             VitaeLinkBeamHandler.unregister(this);
-        } else {
-            AraVitaeTile altar = getAltar();
-            if (altar != null) altar.unregisterLink(worldPosition);
+        } else if (cachedAltar != null && !cachedAltar.isRemoved()) {
+            cachedAltar.unregisterLink(worldPosition);
         }
         super.setRemoved();
     }

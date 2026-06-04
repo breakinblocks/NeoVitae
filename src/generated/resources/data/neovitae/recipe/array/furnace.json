@@ -3,6 +3,7 @@
   "addedinput": "#c:storage_blocks/iron",
   "baseinput": "minecraft:coal",
   "effect_type": "furnace",
+  "ev_cost": 10,
   "output": {
     "id": "minecraft:stone"
   },

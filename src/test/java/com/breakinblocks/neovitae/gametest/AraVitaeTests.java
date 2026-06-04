@@ -9,11 +9,17 @@ import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
+import com.breakinblocks.neovitae.api.recipe.AraVitaeInput;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
+import com.breakinblocks.neovitae.common.datacomponent.Binding;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.gametest.base.NVTestRegistrar;
+
+import java.util.UUID;
 
 public final class AraVitaeTests {
 
@@ -135,6 +141,31 @@ public final class AraVitaeTests {
                 }
                 helper.succeed();
             });
+        });
+
+        r.add("ara_vitae/awakened_crystal_keeps_binding", 40, helper -> {
+            ItemStack bound = new ItemStack(NVItems.ACTIVATION_CRYSTAL_WEAK.get());
+            bound.set(NVDataComponents.BINDING.get(),
+                    new Binding(UUID.fromString("0fded6b6-1111-2222-3333-444455556666"), "TestVitaemancer"));
+            AraVitaeInput input = new AraVitaeInput(bound, 4);
+
+            var match = helper.getLevel().recipeAccess()
+                    .getRecipeFor(NVRecipes.ARA_VITAE_TYPE.get(), input, helper.getLevel());
+            if (match.isEmpty()) {
+                helper.fail("A bound Weak Activation Crystal must still match the awakened recipe");
+                return;
+            }
+            ItemStack result = match.get().value().assemble(input);
+            if (!result.is(NVItems.ACTIVATION_CRYSTAL_AWAKENED.get())) {
+                helper.fail("Expected an Awakened Activation Crystal, got " + result);
+                return;
+            }
+            Binding carried = result.get(NVDataComponents.BINDING.get());
+            if (carried == null || carried.isEmpty()) {
+                helper.fail("The awakened crystal must carry the input binding, got " + carried);
+                return;
+            }
+            helper.succeed();
         });
     }
 }

@@ -3,6 +3,7 @@
   "addedinput": "#c:gems/lapis",
   "baseinput": "minecraft:water_bucket",
   "effect_type": "rain",
+  "ev_cost": 500,
   "output": {
     "id": "minecraft:stone"
   },

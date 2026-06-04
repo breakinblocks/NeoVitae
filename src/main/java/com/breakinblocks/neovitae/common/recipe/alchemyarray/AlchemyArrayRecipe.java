@@ -1,8 +1,10 @@
 package com.breakinblocks.neovitae.common.recipe.alchemyarray;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -32,8 +34,9 @@ public class AlchemyArrayRecipe implements Recipe<AlchemyArrayInput> {
             Ingredient.CODEC.fieldOf("baseinput").forGetter(AlchemyArrayRecipe::getBaseInput),
             Ingredient.CODEC.fieldOf("addedinput").forGetter(AlchemyArrayRecipe::getAddedInput),
             ItemStackTemplate.CODEC.optionalFieldOf("output").forGetter(r -> r.getOutputTemplate().item().value() == Items.AIR ? Optional.empty() : Optional.of(r.getOutputTemplate())),
-            AlchemyArrayEffectType.CODEC.optionalFieldOf("effect_type", AlchemyArrayEffectType.CRAFTING).forGetter(AlchemyArrayRecipe::getEffectType)
-    ).apply(instance, (tex, base, added, out, effect) -> new AlchemyArrayRecipe(tex, base, added, out.orElseGet(() -> new ItemStackTemplate(Items.STONE, 1)), effect)));
+            AlchemyArrayEffectType.CODEC.optionalFieldOf("effect_type", AlchemyArrayEffectType.CRAFTING).forGetter(AlchemyArrayRecipe::getEffectType),
+            Codec.INT.optionalFieldOf("ev_cost", 0).forGetter(AlchemyArrayRecipe::getEvCost)
+    ).apply(instance, (tex, base, added, out, effect, evCost) -> new AlchemyArrayRecipe(tex, base, added, out.orElseGet(() -> new ItemStackTemplate(Items.STONE, 1)), effect, evCost)));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, AlchemyArrayRecipe> STREAM_CODEC = StreamCodec.composite(
             Identifier.STREAM_CODEC, AlchemyArrayRecipe::getTexture,
@@ -41,6 +44,7 @@ public class AlchemyArrayRecipe implements Recipe<AlchemyArrayInput> {
             Ingredient.CONTENTS_STREAM_CODEC, AlchemyArrayRecipe::getAddedInput,
             ItemStackTemplate.STREAM_CODEC, AlchemyArrayRecipe::getOutputTemplate,
             AlchemyArrayEffectType.STREAM_CODEC, AlchemyArrayRecipe::getEffectType,
+            ByteBufCodecs.VAR_INT, AlchemyArrayRecipe::getEvCost,
             AlchemyArrayRecipe::new
     );
 
@@ -53,17 +57,23 @@ public class AlchemyArrayRecipe implements Recipe<AlchemyArrayInput> {
     private final ItemStackTemplate outputTemplate;
     @Nonnull
     private final AlchemyArrayEffectType effectType;
+    private final int evCost;
 
     public AlchemyArrayRecipe(Identifier texture, @Nonnull Ingredient baseIngredient, @Nonnull Ingredient addedIngredient, @Nonnull ItemStackTemplate result) {
-        this(texture, baseIngredient, addedIngredient, result, AlchemyArrayEffectType.CRAFTING);
+        this(texture, baseIngredient, addedIngredient, result, AlchemyArrayEffectType.CRAFTING, 0);
     }
 
     public AlchemyArrayRecipe(Identifier texture, @Nonnull Ingredient baseIngredient, @Nonnull Ingredient addedIngredient, @Nonnull ItemStackTemplate result, @Nonnull AlchemyArrayEffectType effectType) {
+        this(texture, baseIngredient, addedIngredient, result, effectType, 0);
+    }
+
+    public AlchemyArrayRecipe(Identifier texture, @Nonnull Ingredient baseIngredient, @Nonnull Ingredient addedIngredient, @Nonnull ItemStackTemplate result, @Nonnull AlchemyArrayEffectType effectType, int evCost) {
         this.texture = texture;
         this.baseInput = baseIngredient;
         this.addedInput = addedIngredient;
         this.outputTemplate = result;
         this.effectType = effectType;
+        this.evCost = evCost;
     }
 
     @Nonnull
@@ -94,6 +104,10 @@ public class AlchemyArrayRecipe implements Recipe<AlchemyArrayInput> {
     @Nonnull
     public AlchemyArrayEffectType getEffectType() {
         return effectType;
+    }
+
+    public int getEvCost() {
+        return evCost;
     }
 
     @Override

@@ -26,7 +26,6 @@ public class AlchemyArrayEffectVortex extends AlchemyArrayEffect {
     private static final double PULL_SPEED = 1.05;
     private static final double INNER_DEADZONE = 0.6;
     private static final double UPKEEP_CHANCE = 0.01;
-    private static final int UPKEEP_COST = 1;
     private static final int TELEPORT_SUPPRESS_TICKS = 40;
 
     private static final Map<UUID, Long> teleportSuppression = new ConcurrentHashMap<>();
@@ -53,7 +52,8 @@ public class AlchemyArrayEffectVortex extends AlchemyArrayEffect {
             Binding binding = tile.getOwnerBinding();
             if (binding.isEmpty()) return false;
             Anima network = AnimaHelper.getAnima(binding);
-            if (network == null || network.syphon(AnimaTicket.create(UPKEEP_COST)) < UPKEEP_COST) {
+            int cost = getEvCost();
+            if (network == null || (cost > 0 && network.syphon(AnimaTicket.create(cost)) < cost)) {
                 return false;
             }
         }

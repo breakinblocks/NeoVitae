@@ -167,5 +167,26 @@ public final class AraVitaeTests {
             }
             helper.succeed();
         });
+
+        r.add("ara_vitae/bound_crystal_not_treated_as_orb", 60, helper -> {
+            helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+            AraVitaeTile altar = placeAltar(helper, new BlockPos(3, 1, 2));
+
+            helper.runAfterDelay(5, () -> {
+                if (altar == null) return;
+                ItemStack bound = new ItemStack(NVItems.ACTIVATION_CRYSTAL_WEAK.get());
+                bound.set(NVDataComponents.BINDING.get(),
+                        new Binding(UUID.fromString("0fded6b6-1111-2222-3333-444455556666"), "TestVitaemancer"));
+                altar.inv.setStackInSlot(0, bound);
+
+                helper.runAfterDelay(20, () -> {
+                    if (altar.canFill()) {
+                        helper.fail("A bound non-orb (Weak Activation Crystal) must not be treated as a fillable orb");
+                        return;
+                    }
+                    helper.succeed();
+                });
+            });
+        });
     }
 }

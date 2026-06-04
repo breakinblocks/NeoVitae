@@ -747,10 +747,11 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
 
         ItemStack inputStack = inv.getStackInSlot(0);
         Binding inputBinding = inputStack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
+        BloodOrb inputOrb = inputStack.typeHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
         Optional<RecipeHolder<AraVitaeRecipe>> optionalHolder = level instanceof ServerLevel serverLevel
                 ? serverLevel.recipeAccess().getRecipeFor(NVRecipes.ARA_VITAE_TYPE.get(), new AraVitaeInput(inputStack, getTier()), serverLevel)
                 : Optional.empty();
-        if (!inputBinding.isEmpty()) {
+        if (!inputBinding.isEmpty() && inputOrb != null) {
             setCanFill(true);
             setActive(true);
             setCurrentRecipe(null);

@@ -17,7 +17,6 @@ public class AlchemyArrayEffectRain extends AlchemyArrayEffect {
 
     private static final int START_TICK = 100;
     private static final int END_TICK = 200;
-    private static final int LP_COST = 500;
 
     @Override
     public boolean update(AlchemyArrayBlockEntity tile, int ticksActive) {
@@ -31,7 +30,8 @@ public class AlchemyArrayEffectRain extends AlchemyArrayEffect {
             if (binding.isEmpty()) return true;
 
             Anima network = AnimaHelper.getAnima(binding);
-            if (network == null || network.syphon(AnimaTicket.create(LP_COST)) < LP_COST) {
+            int cost = getEvCost();
+            if (network == null || (cost > 0 && network.syphon(AnimaTicket.create(cost)) < cost)) {
                 return true;
             }
 

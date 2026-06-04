@@ -9,6 +9,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 
 public abstract class AlchemyArrayEffect {
+    private int evCost;
+
+    public int getEvCost() {
+        return evCost;
+    }
+
+    public void setEvCost(int evCost) {
+        this.evCost = evCost;
+    }
+
     public abstract AlchemyArrayEffect getNewCopy();
 
     public abstract void readFromNBT(CompoundTag compound);

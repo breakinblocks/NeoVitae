@@ -24,7 +24,6 @@ import java.util.*;
 public class AlchemyArrayEffectFurnace extends AlchemyArrayEffect {
 
     private static final double RADIUS = 2.0;
-    private static final int LP_COST_PER_STACK = 10;
     private static final int COOK_TIME = 200;
 
     private final Map<UUID, Integer> cookTimers = new HashMap<>();
@@ -63,8 +62,8 @@ public class AlchemyArrayEffectFurnace extends AlchemyArrayEffect {
                     if (!binding.isEmpty()) {
                         Anima network = AnimaHelper.getAnima(binding);
                         if (network != null) {
-                            int cost = LP_COST_PER_STACK * stack.getCount();
-                            if (network.syphon(AnimaTicket.create(cost)) < cost) {
+                            int cost = getEvCost() * stack.getCount();
+                            if (cost > 0 && network.syphon(AnimaTicket.create(cost)) < cost) {
                                 hasLP = false;
                             }
                         }

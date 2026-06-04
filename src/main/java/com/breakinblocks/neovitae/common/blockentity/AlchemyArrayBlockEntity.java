@@ -206,16 +206,19 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
                     AlchemyArrayRecipe recipe = holder.value();
                     AlchemyArrayEffectType effectType = recipe.getEffectType();
 
-                    // For crafting/binding effects, we need the output item
+                    AlchemyArrayEffect effect;
                     if (effectType == AlchemyArrayEffectType.CRAFTING || effectType == AlchemyArrayEffectType.BINDING) {
                         if (recipe.getOutput().isEmpty()) {
                             return null;
                         }
-                        return effectType.createCraftingEffect(recipe.getOutput());
+                        effect = effectType.createCraftingEffect(recipe.getOutput());
+                    } else {
+                        effect = effectType.createEffect();
                     }
-
-                    // For other effects (bounce, spike, etc.), create the effect directly
-                    return effectType.createEffect();
+                    if (effect != null) {
+                        effect.setEvCost(recipe.getEvCost());
+                    }
+                    return effect;
                 })
                 .orElse(null);
     }

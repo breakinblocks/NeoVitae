@@ -1,10 +1,12 @@
 package com.breakinblocks.neovitae.common.recipe.alchemyarray;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +29,8 @@ public class AlchemyArrayRecipe implements Recipe<AlchemyArrayInput> {
             Ingredient.CODEC_NONEMPTY.fieldOf("baseinput").forGetter(AlchemyArrayRecipe::getBaseInput),
             Ingredient.CODEC_NONEMPTY.fieldOf("addedinput").forGetter(AlchemyArrayRecipe::getAddedInput),
             ItemStack.CODEC.optionalFieldOf("output", ItemStack.EMPTY).forGetter(AlchemyArrayRecipe::getOutput),
-            AlchemyArrayEffectType.CODEC.optionalFieldOf("effect_type", AlchemyArrayEffectType.CRAFTING).forGetter(AlchemyArrayRecipe::getEffectType)
+            AlchemyArrayEffectType.CODEC.optionalFieldOf("effect_type", AlchemyArrayEffectType.CRAFTING).forGetter(AlchemyArrayRecipe::getEffectType),
+            Codec.INT.optionalFieldOf("ev_cost", 0).forGetter(AlchemyArrayRecipe::getEvCost)
     ).apply(instance, AlchemyArrayRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, AlchemyArrayRecipe> STREAM_CODEC = StreamCodec.composite(
@@ -36,6 +39,7 @@ public class AlchemyArrayRecipe implements Recipe<AlchemyArrayInput> {
             Ingredient.CONTENTS_STREAM_CODEC, AlchemyArrayRecipe::getAddedInput,
             ItemStack.OPTIONAL_STREAM_CODEC, AlchemyArrayRecipe::getOutput,
             AlchemyArrayEffectType.STREAM_CODEC, AlchemyArrayRecipe::getEffectType,
+            ByteBufCodecs.VAR_INT, AlchemyArrayRecipe::getEvCost,
             AlchemyArrayRecipe::new
     );
 
@@ -48,17 +52,23 @@ public class AlchemyArrayRecipe implements Recipe<AlchemyArrayInput> {
     private final ItemStack output;
     @Nonnull
     private final AlchemyArrayEffectType effectType;
+    private final int evCost;
 
     public AlchemyArrayRecipe(ResourceLocation texture, @Nonnull Ingredient baseIngredient, @Nonnull Ingredient addedIngredient, @Nonnull ItemStack result) {
-        this(texture, baseIngredient, addedIngredient, result, AlchemyArrayEffectType.CRAFTING);
+        this(texture, baseIngredient, addedIngredient, result, AlchemyArrayEffectType.CRAFTING, 0);
     }
 
     public AlchemyArrayRecipe(ResourceLocation texture, @Nonnull Ingredient baseIngredient, @Nonnull Ingredient addedIngredient, @Nonnull ItemStack result, @Nonnull AlchemyArrayEffectType effectType) {
+        this(texture, baseIngredient, addedIngredient, result, effectType, 0);
+    }
+
+    public AlchemyArrayRecipe(ResourceLocation texture, @Nonnull Ingredient baseIngredient, @Nonnull Ingredient addedIngredient, @Nonnull ItemStack result, @Nonnull AlchemyArrayEffectType effectType, int evCost) {
         this.texture = texture;
         this.baseInput = baseIngredient;
         this.addedInput = addedIngredient;
         this.output = result;
         this.effectType = effectType;
+        this.evCost = evCost;
     }
 
     @Nonnull
@@ -92,6 +102,10 @@ public class AlchemyArrayRecipe implements Recipe<AlchemyArrayInput> {
     @Nonnull
     public AlchemyArrayEffectType getEffectType() {
         return effectType;
+    }
+
+    public int getEvCost() {
+        return evCost;
     }
 
     @Override

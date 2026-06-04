@@ -7,5 +7,6 @@
     "item": "minecraft:water_bucket"
   },
   "effect_type": "rain",
+  "ev_cost": 500,
   "texture": "neovitae:textures/models/alchemyarrays/rainarray.png"
 }

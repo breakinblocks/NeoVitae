@@ -89,7 +89,7 @@ public class AraVitaeRecipeCategory implements IRecipeCategory<AraVitaeRecipe> {
 
         if (recipe.shouldCopyInputComponents()) {
             String transferText = Component.translatable("jei.neovitae.recipe.componentTransfer").getString();
-            guiGraphics.drawString(mc.font, transferText, 90 - mc.font.width(transferText) / 2, 55, new Color(100, 180, 100).getRGB(), false);
+            guiGraphics.drawString(mc.font, transferText, 90 - mc.font.width(transferText) / 2, 63, new Color(100, 180, 100).getRGB(), false);
         }
     }
 

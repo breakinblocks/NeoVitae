@@ -623,8 +623,9 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
 
         ItemStack inputStack = inv.getStackInSlot(0);
         Binding inputBinding = inputStack.getOrDefault(NVDataComponents.BINDING, Binding.EMPTY);
+        BloodOrb inputOrb = inputStack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS);
         Optional<RecipeHolder<AraVitaeRecipe>> optionalHolder = level.getRecipeManager().getRecipeFor(NVRecipes.ARA_VITAE_TYPE.get(), new AraVitaeInput(inputStack, getTier()), level);
-        if (!inputBinding.isEmpty()) {
+        if (!inputBinding.isEmpty() && inputOrb != null) {
             setCanFill(true);
             setActive(true);
             setCurrentRecipe(null);

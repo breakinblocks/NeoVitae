@@ -732,6 +732,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .bloodNeeded(40000)
                 .consumption(30)
                 .drain(50)
+                .copyInputComponents()
                 .unlockedBy("has_weak_crystal", has(NVItems.ACTIVATION_CRYSTAL_WEAK.get()))
                 .save(output, NeoVitae.rl("awakened_activation_crystal"));
 
@@ -2148,6 +2149,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .base(Items.COAL)
                 .added(Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON))
                 .texture("textures/models/alchemyarrays/furnacearray.png")
+                .evCost(10)
                 .save(output, "furnace");
 
         // Rain Array - water bucket + lapis
@@ -2155,6 +2157,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .base(Items.WATER_BUCKET)
                 .added(Ingredient.of(Tags.Items.GEMS_LAPIS))
                 .texture("textures/models/alchemyarrays/rainarray.png")
+                .evCost(500)
                 .save(output, "rain");
 
         // Growth Array - bone meal + torchflower
@@ -2197,6 +2200,7 @@ public class NVRecipeProvider extends RecipeProvider {
                 .base(NVItems.TABULA_ROBUR.get())
                 .added(Ingredient.of(NVItems.BLOOD_PEARL.get()))
                 .texture("textures/models/alchemyarrays/vortexsigil.png")
+                .evCost(1)
                 .save(output, "vortex");
 
         // Deflection Array - imbued slate + diamond
@@ -2223,6 +2227,7 @@ public class NVRecipeProvider extends RecipeProvider {
         AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.LOYAL_FRIENDS)
                 .base(Items.LEAD)
                 .added(NVItems.TABULA_ROBUR.get())
+                .evCost(2500)
                 .save(output, "loyal_friends");
     }
 

@@ -18,6 +18,7 @@ public class AlchemyArrayEffectRecipeBuilder {
     private Ingredient baseInput;
     private Ingredient addedInput;
     private ResourceLocation texture;
+    private int evCost = 0;
 
     private AlchemyArrayEffectRecipeBuilder(AlchemyArrayEffectType effectType) {
         this.effectType = effectType;
@@ -58,6 +59,11 @@ public class AlchemyArrayEffectRecipeBuilder {
         return this;
     }
 
+    public AlchemyArrayEffectRecipeBuilder evCost(int evCost) {
+        this.evCost = evCost;
+        return this;
+    }
+
     public void save(RecipeOutput output, String name) {
         save(output, NeoVitae.rl("array/" + name));
     }
@@ -70,7 +76,7 @@ public class AlchemyArrayEffectRecipeBuilder {
             throw new IllegalStateException("AlchemyArrayRecipe requires an added input");
         }
         // Effect recipes have empty output
-        AlchemyArrayRecipe recipe = new AlchemyArrayRecipe(texture, baseInput, addedInput, ItemStack.EMPTY, effectType);
+        AlchemyArrayRecipe recipe = new AlchemyArrayRecipe(texture, baseInput, addedInput, ItemStack.EMPTY, effectType, evCost);
         recipeOutput.accept(id, recipe, null);
     }
 }

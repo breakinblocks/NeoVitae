@@ -11,10 +11,16 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
+import com.breakinblocks.neovitae.api.recipe.AraVitaeInput;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
+import com.breakinblocks.neovitae.common.datacomponent.Binding;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.recipe.NVRecipes;
+
+import java.util.UUID;
 
 @GameTestHolder("neovitae")
 @PrefixGameTestTemplate(false)
@@ -135,6 +141,54 @@ public class AraVitaeTests {
                 helper.fail("Altar should reject the surplus, returned " + remainder.getCount() + " (expected 63)");
             }
             helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 40)
+    public void awakenedCrystalKeepsBinding(GameTestHelper helper) {
+        ItemStack bound = new ItemStack(NVItems.ACTIVATION_CRYSTAL_WEAK.get());
+        bound.set(NVDataComponents.BINDING.get(),
+                new Binding(UUID.fromString("0fded6b6-1111-2222-3333-444455556666"), "TestVitaemancer"));
+        AraVitaeInput input = new AraVitaeInput(bound, 4);
+
+        var match = helper.getLevel().getRecipeManager()
+                .getRecipeFor(NVRecipes.ARA_VITAE_TYPE.get(), input, helper.getLevel());
+        if (match.isEmpty()) {
+            helper.fail("A bound Weak Activation Crystal must still match the awakened recipe");
+            return;
+        }
+        ItemStack result = match.get().value().assemble(input, helper.getLevel().registryAccess());
+        if (!result.is(NVItems.ACTIVATION_CRYSTAL_AWAKENED.get())) {
+            helper.fail("Expected an Awakened Activation Crystal, got " + result);
+            return;
+        }
+        Binding carried = result.get(NVDataComponents.BINDING.get());
+        if (carried == null || carried.isEmpty()) {
+            helper.fail("The awakened crystal must carry the input binding, got " + carried);
+            return;
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
+    public void boundCrystalNotTreatedAsOrb(GameTestHelper helper) {
+        helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+        AraVitaeTile altar = placeAltar(helper, new BlockPos(3, 1, 2));
+
+        helper.runAfterDelay(5, () -> {
+            if (altar == null) return;
+            ItemStack bound = new ItemStack(NVItems.ACTIVATION_CRYSTAL_WEAK.get());
+            bound.set(NVDataComponents.BINDING.get(),
+                    new Binding(UUID.fromString("0fded6b6-1111-2222-3333-444455556666"), "TestVitaemancer"));
+            altar.inv.setStackInSlot(0, bound);
+
+            helper.runAfterDelay(20, () -> {
+                if (altar.canFill()) {
+                    helper.fail("A bound non-orb (Weak Activation Crystal) must not be treated as a fillable orb");
+                    return;
+                }
+                helper.succeed();
+            });
         });
     }
 }

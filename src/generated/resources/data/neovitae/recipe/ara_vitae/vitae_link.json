@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "bloodNeeded": 1500,
+  "craftSpeed": 5,
+  "drainSpeed": 2,
+  "input": "neovitae:ara_vitae",
+  "minTier": 1,
+  "output": {
+    "id": "neovitae:vitae_link"
+  }
+}

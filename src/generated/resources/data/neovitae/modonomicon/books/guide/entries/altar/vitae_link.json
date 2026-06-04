@@ -1,0 +1,95 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "altar",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "altar/redstone_automation"
+  },
+  "description": "book.neovitae.guide.altar.vitae_link.description",
+  "hide_while_locked": false,
+  "icon": {
+    "id": "neovitae:vitae_link"
+  },
+  "name": "book.neovitae.guide.altar.vitae_link.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.vitae_link.intro.text",
+      "title": "book.neovitae.guide.altar.vitae_link.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "neovitae:ara_vitae_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:ara_vitae/vitae_link",
+      "text": "book.neovitae.guide.altar.vitae_link.recipe.text",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.vitae_link.binding.text",
+      "title": "book.neovitae.guide.altar.vitae_link.binding.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.vitae_link.tier.text",
+      "title": "book.neovitae.guide.altar.vitae_link.tier.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.vitae_link.usage.text",
+      "title": "book.neovitae.guide.altar.vitae_link.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.vitae_link.automation.text",
+      "title": "book.neovitae.guide.altar.vitae_link.automation.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "altar/redstone_automation",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 4,
+  "x": 5,
+  "y": -2
+}

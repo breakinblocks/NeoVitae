@@ -80,6 +80,18 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider {
                 tooltip.add(Component.translatable("jade.neovitae.incense_bonus", String.format("%.1f", bonus * 100)).withStyle(ChatFormatting.GOLD));
             }
         }
+
+        if (data.contains("link_linked")) {
+            if (data.getBooleanOr("link_linked", false)) {
+                tooltip.add(Component.translatable("jade.neovitae.vitae_link.tier",
+                        data.getIntOr("link_tier", 0), data.getIntOr("link_max", 0)).withStyle(ChatFormatting.GOLD));
+                if (data.getBooleanOr("link_crafting", false)) {
+                    tooltip.add(Component.translatable("jade.neovitae.vitae_link.crafting").withStyle(ChatFormatting.GREEN));
+                }
+            } else {
+                tooltip.add(Component.translatable("jade.neovitae.vitae_link.unlinked").withStyle(ChatFormatting.RED));
+            }
+        }
     }
 
     @Override

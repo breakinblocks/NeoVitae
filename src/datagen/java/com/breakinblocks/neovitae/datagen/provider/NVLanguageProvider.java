@@ -864,6 +864,12 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("message.neovitae.sigil.blood_light.brightness", "Sigil Brightness: %s");
         add("message.neovitae.too_far_from_altar", "You are too far from an Ara Vitae");
 
+        add("message.neovitae.vitae_link.tier", "Craft Tier: %s / %s");
+        add("message.neovitae.vitae_link.locked", "Cannot change tier while crafting");
+        add("jade.neovitae.vitae_link.tier", "Craft Tier: %s / %s");
+        add("jade.neovitae.vitae_link.crafting", "Crafting...");
+        add("jade.neovitae.vitae_link.unlinked", "Unlinked");
+
         // Material generation messages
         add("message.neovitae.materials.generated", "[Neo Vitae] New ore materials have been detected and added to the config.");
         add("message.neovitae.materials.restart_required", "[Neo Vitae] A game restart is required for the new material items to appear.");

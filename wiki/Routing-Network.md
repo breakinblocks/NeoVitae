@@ -122,6 +122,28 @@ That is the entire loop: blood in, one reagent in, product out.
 
 > The basin transmutes a single item per working, so an Output Node can never overfill it and a runaway craft can never drain your network dry. One reagent in, one product out, every time.
 
+### With a Vitae Link
+
+Routing the bare altar works, but it has two rough edges: the altar always climbs to its highest tier, and its single slot is both input and output, so pulling the product means a Blacklist trick. The [Vitae Link](Ara-Vitae-and-Runes#vitae-link) removes both.
+
+A Link binds to a nearby altar and crafts on its behalf, **capped at a tier you choose** (one below the altar), with **separate input and output slots**. Drop a Link beside your altar instead of piping the altar directly:
+
+1. **Feed the blood** to the altar exactly as above; the Link draws EV from the altar's basin, so the altar still needs to stay charged.
+2. **Feed the reagent** with an item **Output Node** pointed at any side of the Link except the bottom. No filter trick is needed: the reagent only ever enters the input slot.
+3. **Pull the product** with an item **Input Node** pointed at the **bottom** of the Link. Only finished product leaves the output slot, so a plain pull with no filter is enough.
+
+Sneak + use the Link to set the tier you want (for example, cap at Tabula Robur instead of letting the altar run all the way to Aetherea). Drop several Links around one altar to craft different tiers in parallel from a single basin; the network feeds each one independently and the altar arbitrates so only one crafts at a time.
+
+### AE2 / Refined Storage autocrafting
+
+Because the Link presents a real input slot and a real output slot through standard item capabilities, it works as a **crafting target** for AE2 or Refined Storage, no Routing Network required.
+
+- **Export** the reagent into the Link's input with an AE2 Export Bus / RS Exporter on any side except the bottom (or a Pattern Provider / Crafter pointed at it).
+- **Import** the product from the bottom with an Import Bus / Importer (or let a Pattern Provider's returning items flow back).
+- Build a **processing pattern** whose input is the reagent and whose output is the capped product. The Link caps the tier, so the pattern's output is deterministic; the altar supplies the EV. One Link per tier you want to autocraft, each set with sneak + use.
+
+This lets a storage system request, say, "8 Tabula Animata" and have them assembled on demand from Deepslate, with the Link guaranteeing the craft stops at Animata instead of overshooting.
+
 ## Topology and Reach
 
 ### Chained Conduits

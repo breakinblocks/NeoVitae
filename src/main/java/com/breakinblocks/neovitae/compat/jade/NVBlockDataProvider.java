@@ -17,6 +17,7 @@ import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.IncenseAltarBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.VitaeLinkBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
@@ -88,6 +89,13 @@ public enum NVBlockDataProvider implements IServerDataProvider<BlockAccessor> {
         if (be instanceof IncenseAltarBlockEntity incense) {
             data.putDouble("tranquility", incense.getTranquility());
             data.putDouble("incense_bonus", incense.getIncenseAddition());
+        }
+
+        if (be instanceof VitaeLinkBlockEntity link) {
+            data.putBoolean("link_linked", link.isLinked());
+            data.putInt("link_tier", link.getCraftTier());
+            data.putInt("link_max", Math.max(0, link.getMaxLinkTier()));
+            data.putBoolean("link_crafting", link.isClientCrafting());
         }
     }
 

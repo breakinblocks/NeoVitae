@@ -18,6 +18,7 @@ import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.IncenseAltarBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.VitaeLinkBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -101,6 +102,18 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
                 tooltip.add(Component.literal("Incense Bonus: " + String.format("%.1f%%", bonus * 100)).withStyle(ChatFormatting.GOLD));
             }
         }
+
+        if (data.contains("link_linked")) {
+            if (data.getBoolean("link_linked")) {
+                tooltip.add(Component.translatable("jade.neovitae.vitae_link.tier",
+                        data.getInt("link_tier"), data.getInt("link_max")).withStyle(ChatFormatting.GOLD));
+                if (data.getBoolean("link_crafting")) {
+                    tooltip.add(Component.translatable("jade.neovitae.vitae_link.crafting").withStyle(ChatFormatting.GREEN));
+                }
+            } else {
+                tooltip.add(Component.translatable("jade.neovitae.vitae_link.unlinked").withStyle(ChatFormatting.RED));
+            }
+        }
     }
 
     @Override
@@ -162,6 +175,13 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
         if (be instanceof IncenseAltarBlockEntity incense) {
             data.putDouble("tranquility", incense.getTranquility());
             data.putDouble("incense_bonus", incense.getIncenseAddition());
+        }
+
+        if (be instanceof VitaeLinkBlockEntity link) {
+            data.putBoolean("link_linked", link.isLinked());
+            data.putInt("link_tier", link.getCraftTier());
+            data.putInt("link_max", Math.max(0, link.getMaxLinkTier()));
+            data.putBoolean("link_crafting", link.isClientCrafting());
         }
     }
 

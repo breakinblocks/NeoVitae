@@ -51,6 +51,7 @@ public class MineBlock extends BlockLootSubProvider {
         addDropSelf(NVBlocks.BLOOD_BATTERY);
         addDropSelf(NVBlocks.TELEPOSER);
         addDropSelf(NVBlocks.TABULA_VITAE);
+        addDropSelf(NVBlocks.VITAE_LINK);
         addDropSelf(NVBlocks.CRYSTALLARIUM_MALEFICUM);
         addDropSelf(NVBlocks.VAS_MALEFICUM);
         addDropSelf(NVBlocks.SPIRA_INFERNALIS);

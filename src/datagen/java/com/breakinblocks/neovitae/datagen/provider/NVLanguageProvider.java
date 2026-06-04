@@ -609,6 +609,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
 
         // Spirit Cache
         add(NVBlocks.SPIRIT_CACHE, "Spirit Cache");
+        add(NVBlocks.VITAE_LINK, "Vitae Link");
 
         // Teleposer Focus Items
         add(NVItems.TELEPOSER_FOCUS.get(), "Teleposer Focus");
@@ -860,6 +861,12 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("message.neovitae.blood_light.redstone_off", "Redstone Control: Disabled");
         add("message.neovitae.sigil.blood_light.brightness", "Sigil Brightness: %s");
         add("message.neovitae.too_far_from_altar", "You are too far from an Ara Vitae");
+
+        add("message.neovitae.vitae_link.tier", "Craft Tier: %s / %s");
+        add("message.neovitae.vitae_link.locked", "Cannot change tier while crafting");
+        add("jade.neovitae.vitae_link.tier", "Craft Tier: %s / %s");
+        add("jade.neovitae.vitae_link.crafting", "Crafting...");
+        add("jade.neovitae.vitae_link.unlinked", "Unlinked");
 
         // Material generation messages
         add("message.neovitae.materials.generated", "[Neo Vitae] New ore materials have been detected and added to the config.");

@@ -828,6 +828,18 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     public int getPreviousIOCapacity() { return previousIOCapacity; }
     public int getPreviousChargingCapacity() { return previousChargingCapacity; }
 
+    public void drainMainTank(int amount) {
+        if (amount <= 0) return;
+        setMainTank(Math.max(0, getMainTank() - amount));
+        setChanged();
+    }
+
+    public void drainChargingTank(int amount) {
+        if (amount <= 0) return;
+        setChargingTank(Math.max(0, getChargingTank() - amount));
+        setChanged();
+    }
+
     private void setSignaling(boolean signaling) { this.isSignaling = signaling; }
     private void incrementTicks() { this.ticks++; }
     private void decrementCapacityGraceTicks() { this.capacityGraceTicks--; }
@@ -1000,5 +1012,35 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return animatableCache;
+    }
+
+    private static final int LINK_STALE_TICKS = 12;
+    private final Map<BlockPos, LinkEntry> linkRegistry = new HashMap<>();
+
+    private record LinkEntry(int craftTier, boolean wants, long lastSeenTick) {}
+
+    public void reportLink(BlockPos pos, int craftTier, boolean wants) {
+        linkRegistry.put(pos.immutable(), new LinkEntry(craftTier, wants, ticks));
+    }
+
+    public void unregisterLink(BlockPos pos) {
+        linkRegistry.remove(pos);
+    }
+
+    public boolean grantsCraftTo(BlockPos requester) {
+        if (isActive()) return false;
+        linkRegistry.entrySet().removeIf(e -> ticks - e.getValue().lastSeenTick() > LINK_STALE_TICKS);
+        BlockPos winner = null;
+        int bestTier = Integer.MIN_VALUE;
+        for (Map.Entry<BlockPos, LinkEntry> e : linkRegistry.entrySet()) {
+            LinkEntry v = e.getValue();
+            if (!v.wants()) continue;
+            if (v.craftTier() > bestTier
+                    || (v.craftTier() == bestTier && (winner == null || e.getKey().asLong() < winner.asLong()))) {
+                bestTier = v.craftTier();
+                winner = e.getKey();
+            }
+        }
+        return requester.equals(winner);
     }
 }

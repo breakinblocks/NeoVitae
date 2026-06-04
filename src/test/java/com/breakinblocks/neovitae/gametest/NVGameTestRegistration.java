@@ -11,6 +11,7 @@ public class NVGameTestRegistration {
     public static void registerTests(RegisterGameTestsEvent event) {
         event.register(RoutingNodeTests.class);
         event.register(AraVitaeTests.class);
+        event.register(VitaeLinkTests.class);
         event.register(HellfireForgeTests.class);
         event.register(AthanorTests.class);
         event.register(TabulaVitaeTests.class);

@@ -19,7 +19,7 @@ public class AltarCategory extends CategoryProvider {
         // Ara Vitae centered, Soul Network & Slates branching, Runes grouped, Reinforced below
         return new String[]{
                 "______a____________",
-                "__b___c___d________",
+                "__b___c___d___w____",
                 "______e___f________",
                 "______g____________",
                 "__h_i_j_k_l_m______",
@@ -45,6 +45,11 @@ public class AltarCategory extends CategoryProvider {
         redstone.withParent(this.parent(bloodAltar));
         redstone.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/ara_vitae"));
         redstone.hideWhileLocked(false);
+
+        var vitaeLink = this.add(new VitaeLinkEntry(this).generate('w'));
+        vitaeLink.withParent(this.parent(redstone));
+        vitaeLink.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/redstone_automation"));
+        vitaeLink.hideWhileLocked(false);
 
         var selfSacrifice = this.add(new SelfSacrificeRuneEntry(this).generate('e'));
         selfSacrifice.withParent(this.parent(bloodAltar));

@@ -12,36 +12,35 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.api.routing.IRoutingNode;
 import com.breakinblocks.neovitae.client.render.stream.BeamRenderer;
+import com.breakinblocks.neovitae.common.blockentity.VitaeLinkBlockEntity;
 
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
-public final class RoutingBeamHandler {
+public final class VitaeLinkBeamHandler {
 
-    private static final Set<BlockEntity> NODES = ConcurrentHashMap.newKeySet();
+    private static final Set<VitaeLinkBlockEntity> LINKS = ConcurrentHashMap.newKeySet();
 
-    private static final int BEAM_COLOR = 0xB8DDE0;
+    private static final int BEAM_COLOR = 0xCC0011;
 
-    private RoutingBeamHandler() {}
+    private VitaeLinkBeamHandler() {}
 
     public static void register(BlockEntity be) {
-        if (be instanceof IRoutingNode) {
-            NODES.add(be);
+        if (be instanceof VitaeLinkBlockEntity link) {
+            LINKS.add(link);
         }
     }
 
     public static void unregister(BlockEntity be) {
-        NODES.remove(be);
+        LINKS.remove(be);
     }
 
     @SubscribeEvent
     public static void onRenderLevel(RenderLevelStageEvent event) {
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS) return;
-        if (NODES.isEmpty()) return;
+        if (LINKS.isEmpty()) return;
 
         Minecraft mc = Minecraft.getInstance();
         if (mc.level == null) return;
@@ -60,22 +59,12 @@ public final class RoutingBeamHandler {
         poseStack.pushPose();
         poseStack.translate(-cameraPos.x, -cameraPos.y, -cameraPos.z);
 
-        for (BlockEntity be : NODES) {
-            if (be.isRemoved()) continue;
-            IRoutingNode node = (IRoutingNode) be;
-            List<BlockPos> connections = node.getConnected();
-            if (connections.isEmpty()) continue;
-
-            BlockPos nodePos = be.getBlockPos();
-            for (BlockPos targetPos : connections) {
-                if (targetPos.compareTo(nodePos) <= 0) continue;
-                // Defensive: if the target slot no longer holds a routing node, skip it.
-                // Stale connectionList entries can persist if a remove/sync didn't propagate cleanly.
-                if (mc.level.isLoaded(targetPos)
-                        && !(mc.level.getBlockEntity(targetPos) instanceof IRoutingNode)) continue;
-                BeamRenderer.renderBeam(poseStack, bufferSource, nodePos, targetPos,
-                        r, g, b, gameTime, partialTick);
-            }
+        for (VitaeLinkBlockEntity link : LINKS) {
+            if (link.isRemoved() || !link.isClientCrafting()) continue;
+            BlockPos altarPos = link.getAltarPos();
+            if (altarPos == null) continue;
+            BeamRenderer.renderBeam(poseStack, bufferSource, link.getBlockPos(), altarPos,
+                    r, g, b, gameTime, partialTick);
         }
 
         poseStack.popPose();
@@ -85,6 +74,6 @@ public final class RoutingBeamHandler {
 
     @SubscribeEvent
     public static void onLogout(ClientPlayerNetworkEvent.LoggingOut event) {
-        NODES.clear();
+        LINKS.clear();
     }
 }

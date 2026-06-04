@@ -44,6 +44,7 @@ public class NVBlocks {
     public static final BlockWithItemHolder<AthanorBlock, BlockItem> ATHANOR_BLOCK = BLOCK_REG.register("athanor", AthanorBlock::new);
     public static final BlockWithItemHolder<TeleposerBlock, BlockItem> TELEPOSER = BLOCK_REG.register("teleposer", TeleposerBlock::new);
     public static final BlockWithItemHolder<SpiritCacheBlock, BlockItem> SPIRIT_CACHE = BLOCK_REG.register("spirit_cache", SpiritCacheBlock::new);
+    public static final BlockWithItemHolder<VitaeLinkBlock, BlockItem> VITAE_LINK = BLOCK_REG.register("vitae_link", VitaeLinkBlock::new);
 
     private static final BlockBehaviour.Properties rune_properties = BlockBehaviour.Properties.of().strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().lightLevel(state -> 10);
     private static final Item.Properties rune_item_properties = new Item.Properties();

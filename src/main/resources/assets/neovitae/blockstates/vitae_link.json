@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "neovitae:block/vitae_link",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "neovitae:block/vitae_link"
+    },
+    "facing=south": {
+      "model": "neovitae:block/vitae_link",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "neovitae:block/vitae_link",
+      "y": 270
+    }
+  }
+}

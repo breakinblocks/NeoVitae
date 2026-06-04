@@ -652,6 +652,15 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
                 .save(output, NeoVitae.rl("blood_lantern"));
 
+        AltarRecipeBuilder.build(NVBlocks.VITAE_LINK.block().get())
+                .from(NVBlocks.ARA_VITAE.block().get())
+                .minTier(1)
+                .bloodNeeded(1500)
+                .consumption(5)
+                .drain(2)
+                .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
+                .save(output, NeoVitae.rl("vitae_link"));
+
         // Blood Orb progression - each orb is made from different materials, NOT from previous orb
         AltarRecipeBuilder.build(NVItems.ORB_WEAK.get())
                 .from(Tags.Items.GEMS_DIAMOND)

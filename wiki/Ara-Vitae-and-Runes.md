@@ -114,4 +114,19 @@ A comparator placed beside the Ara Vitae reads the basin level, much like a ches
 
 When the orb is bound to a team via NeoVitae Teams, the comparator reads the team's pooled Anima automatically. Placing a **Redstone Lamp** beneath the altar makes it emit a redstone pulse the instant a transmutation completes; useful for chained automation.
 
+## Vitae Link
+
+A bare altar has no way to cap its craft tier: feed it Deepslate and it climbs the whole Tabula chain to the highest tier its runes allow. The **Vitae Link** fixes that. It binds to a nearby altar and crafts on the altar's behalf, but only up to a tier you choose, with dedicated input and output slots for clean automation.
+
+Craft one by transmuting an **Ara Vitae** inside another, larger altar (min tier 1, 1,500 EV).
+
+- **Binding.** Place the Link within **8 blocks** of an altar and it auto-binds, firing a crimson thread to the altar (the same effect a Routing Node uses when it links). It holds no tank of its own: it drains EV straight from the bound altar's basin and borrows that altar's rune bonuses for craft speed and efficiency. An unbound Link gives off smoke, and Jade shows its bind status.
+- **Tier cap.** Sneak + use to cycle the craft tier. A Link always caps **one tier below** the altar it serves (a tier-5 altar allows a Link up to tier 4), wrapping back to 0 past the maximum. If the altar drops a tier, the Link follows it down; if the altar gains a tier, the Link keeps your setting. The tier cannot be changed while it is crafting.
+- **Crafting.** Use with an item to insert (one at a time, like the altar); use empty-handed to take the result. The Link crafts in place, climbing the chain only as far as your chosen tier, then moves the finished piece to its output slot. Use it while it works to cancel the craft and reclaim the item.
+- **EV and stalls.** EV is drained from the bound altar exactly as the altar would drain it; if the altar runs dry mid-craft, progress decays and the working fails the same way a starved altar's would.
+- **Piping.** Insert into any side except the bottom (input); extract from the bottom (output). Input and output stay separate, so an automated line never pulls back its own reagent.
+- **Multiple Links.** Place as many as you like around one altar. Only one crafts at a time, and never while the altar itself is crafting; when several have work, the **highest tier** takes priority, then the rest in turn.
+
+See [Automating the Ara Vitae](Routing-Network#automating-the-ara-vitae) for a full automated loop using Links.
+
 See also: **[Blood Orbs and Anima](Blood-Orbs-and-Anima)**, **[Sigils](Sigils)**, **[Rituals](Rituals)**, **[Hellfire Forge and Sentient Equipment](Hellfire-Forge-and-Sentient-Equipment)**.

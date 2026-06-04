@@ -1,8 +1,8 @@
 {
   "type": "neovitae:ara_vitae_recipe",
   "bloodNeeded": 2000,
-  "craftSpeed": 5,
-  "drainSpeed": 1,
+  "craftSpeed": 10,
+  "drainSpeed": 0,
   "input": {
     "tag": "c:gems/diamond"
   },

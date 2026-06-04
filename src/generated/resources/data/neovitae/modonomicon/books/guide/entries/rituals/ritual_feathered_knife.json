@@ -9,7 +9,7 @@
   "description": "book.neovitae.guide.rituals.ritual_feathered_knife.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "neovitae:sacrificial_dagger"
+    "item": "neovitae:blood_orb_weak"
   },
   "name": "book.neovitae.guide.rituals.ritual_feathered_knife.name",
   "pages": [

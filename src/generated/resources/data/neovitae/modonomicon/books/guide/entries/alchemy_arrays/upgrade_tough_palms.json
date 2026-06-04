@@ -9,7 +9,7 @@
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_tough_palms.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "neovitae:sacrificial_dagger"
+    "item": "neovitae:blood_orb_weak"
   },
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_tough_palms.name",
   "pages": [

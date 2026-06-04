@@ -37,9 +37,10 @@ public class IncenseAltarEntry extends EntryProvider {
         this.pageTitle("Constructing the Focus");
         this.pageText("[#](2E8B57)Place the altar upon a 3x3 platform of solid blocks (this foundation is important "
                 + "for later expansion). Remain within five blocks of the altar to receive its blessing.[#]()\\\n\\\n"
-                + "When the altar awakens, flame particles dance from its crown and your "
-                + "[#](8B0000)Sacrificial Knife[#]() begins to shimmer. Holding and releasing the blade near an "
-                + "Ara Vitae will then sacrifice 90%% of your health in a single, potent offering.");
+                + "When the altar awakens, flame particles dance from its crown and a "
+                + "[#](8B0000)Blessed Sacrifice[#]() settles upon you, lasting thirty seconds. While it holds, the next "
+                + "time you right-click your [#](8B0000)Blood Orb[#]() you spill a single, potent offering of nearly all "
+                + "your blood into the orb, then fall into [#](8B0000)Soul Fray[#]() until you may be blessed again.");
 
         this.page("setup_image", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

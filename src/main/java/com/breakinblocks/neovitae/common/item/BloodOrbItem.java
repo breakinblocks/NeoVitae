@@ -14,22 +14,34 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.neoforged.neoforge.common.util.FakePlayer;
+import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.NeoVitaeAPI;
 import com.breakinblocks.neovitae.api.soul.IAnima;
+import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
-import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import com.breakinblocks.neovitae.common.effect.SoulFrayEffect;
 import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
+import com.breakinblocks.neovitae.common.fluid.NVFluids;
+import com.breakinblocks.neovitae.common.particle.NVParticles;
+import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.api.soul.AnimaTicket;
-import com.breakinblocks.neovitae.util.helper.AnimaHelper;
+import com.breakinblocks.neovitae.incense.IncenseHelper;
+import com.breakinblocks.neovitae.util.AltarUtil;
 
 import java.util.List;
 
 public class BloodOrbItem extends Item implements IBindable {
+
+    private static final int ORB_ALTAR_RANGE = 5;
 
     public BloodOrbItem() {
         super(new Item.Properties().stacksTo(1).component(NVDataComponents.BINDING, Binding.EMPTY));
@@ -65,19 +77,60 @@ public class BloodOrbItem extends Item implements IBindable {
             return InteractionResultHolder.fail(stack);
         }
 
+        BlockPos altarPos = AltarUtil.findAltar(level, player.blockPosition(), ORB_ALTAR_RANGE);
+        AraVitaeTile altar = altarPos != null && level.getBlockEntity(altarPos) instanceof AraVitaeTile a ? a : null;
+
+        int orbCapacity = OrbFluidHandler.getOrbFluidCapacity(stack);
+        SimpleFluidContent currentFluid = stack.getOrDefault(NVDataComponents.ORB_FLUID.get(), SimpleFluidContent.EMPTY);
+        int orbRoom = orbCapacity - (currentFluid.isEmpty() ? 0 : currentFluid.getAmount());
+        int altarRoom = altar != null ? altar.getMainCapacity() - altar.getMainTank() : 0;
+        boolean toAltar = altarRoom > 0;
+
+        if (!toAltar && orbRoom <= 0) {
+            return InteractionResultHolder.fail(stack);
+        }
+
+        boolean ceremonial = player.hasEffect(NVMobEffects.BLESSED_SACRIFICE)
+                && SoulFrayEffect.canPerformCeremonialSacrifice(player);
+        int healthSacrificed;
+        int evAdded;
+        if (player.getAbilities().instabuild) {
+            healthSacrificed = 0;
+            evAdded = toAltar ? altarRoom : orbRoom;
+        } else if (ceremonial) {
+            healthSacrificed = Math.max(1, (int) (player.getHealth() - player.getMaxHealth() / 10F));
+            double incenseBonus = IncenseHelper.getCurrentIncense(player);
+            evAdded = AltarUtil.calculateSelfSacrificeLP(player, healthSacrificed, incenseBonus);
+        } else {
+            healthSacrificed = 2;
+            evAdded = AltarUtil.calculateSelfSacrificeLP(player, healthSacrificed);
+        }
+
         if (!level.isClientSide) {
+            if (healthSacrificed > 0) {
+                player.invulnerableTime = 0;
+                player.hurt(AltarUtil.sacrificeDamage(player), healthSacrificed);
+            }
+            if (toAltar) {
+                altar.addSacrificeEV(Math.max(0, evAdded), false);
+            } else {
+                OrbFluidHandler.fillInternal(stack,
+                        new FluidStack(NVFluids.ESSENTIA_VITAE_SOURCE.get(), Math.max(0, evAdded)), FluidAction.EXECUTE);
+            }
+
+            if (ceremonial) {
+                IncenseHelper.clearIncense(player);
+                player.removeEffect(NVMobEffects.BLESSED_SACRIFICE);
+                player.addEffect(new MobEffectInstance(NVMobEffects.SOUL_FRAY, SoulFrayEffect.DEFAULT_DURATION, 0));
+            }
+
             level.playSound(null, player.getX(), player.getY(), player.getZ(),
-                    SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS,
-                    0.5F, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F
-            );
-
-            int animaCapacity = getAnimaCapacity(stack);
-            if (animaCapacity == 0)
-                return InteractionResultHolder.fail(stack);
-
-            Anima ownerNetwork = AnimaHelper.getAnima(binding);
-            ownerNetwork.add(AnimaTicket.create(200), animaCapacity);
-            ownerNetwork.hurtPlayer(player, 200);
+                    SoundEvents.BEEHIVE_DRIP, SoundSource.PLAYERS, 0.6F, 0.8F + level.random.nextFloat() * 0.4F);
+            if (level instanceof ServerLevel serverLevel) {
+                double handY = player.getY() + player.getBbHeight() * 0.7;
+                serverLevel.sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_DRIP.get(), 0x990011),
+                        player.getX(), handY, player.getZ(), 3, 0.1, 0.05, 0.1, 0);
+            }
         }
 
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);

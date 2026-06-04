@@ -30,11 +30,12 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("The Ara Vitae (Tier 0)");
-        this.pageText("Your first act as a Vitaemancer is to construct an [#](8B0000)Ara Vitae[#]() and a "
-                + "[#](8B0000)Sacrificial Knife[#](). With blade in hand, you offer your own blood to the altar, "
-                + "and it drinks deeply, refining it into [#](4A0080)Essentia Vitae[#]().\\\n\\\n"
-                + "Use this to forge a [#](8B0000)Novicius Orb of Vitae[#](), several [#](8B0000)Tabula Rasa[#](), "
-                + "and a stack of [#](8B0000)Throwing Daggers[#]() at the Tabula Vitae.");
+        this.pageText("Your first act as a Vitaemancer is to construct an [#](8B0000)Ara Vitae[#](). Lay a "
+                + "[#](8B0000)diamond[#]() upon the bare altar; with no blood of its own, it draws life from any who "
+                + "stand near and refines it into [#](4A0080)Essentia Vitae[#](), forging your first "
+                + "[#](8B0000)Novicius Orb of Vitae[#]().\\\n\\\n"
+                + "From then on, right-click the orb to bleed into it directly, then use that blood to craft several "
+                + "[#](8B0000)Tabula Rasa[#]() and a stack of [#](8B0000)Throwing Daggers[#]() at the Tabula Vitae.");
 
         this.page("tier1_alchemy", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -214,7 +215,7 @@ public class GettingStartedEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(NVItems.SACRIFICIAL_DAGGER.get());
+        return BookIconModel.create(NVItems.ORB_WEAK.get());
     }
 
     @Override

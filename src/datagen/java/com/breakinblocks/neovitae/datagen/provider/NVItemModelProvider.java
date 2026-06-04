@@ -167,18 +167,6 @@ public class NVItemModelProvider extends ItemModelProvider {
             orbBuilder.override().predicate(NeoVitae.rl("fill_level"), 0.8f).model(fillModels[4]).end();
         }
 
-        ModelFile normalDagger = withGuiOffset(
-                singleTexture("item/variant/sacrificial_dagger_normal", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger")),
-                2f, 2f);
-        ModelFile chargedDagger = withGuiOffset(
-                singleTexture("item/variant/sacrificial_dagger_charged", mcLoc("item/handheld"), "layer0", modLoc("item/sacrificial_dagger_charged")),
-                2f, 2f);
-        ModelFile alternateOrb = singleTexture("item/variant/sacrificial_dagger_alternate", mcLoc("item/generated"), "layer0", modLoc("item/glass_orb"));
-        ItemModelBuilder builder = getBuilder(NVItems.SACRIFICIAL_DAGGER.getId().getPath());
-        builder.override().predicate(NeoVitae.rl("alternate"), 1).model(alternateOrb).end();
-        builder.override().predicate(NeoVitae.INCENSE_PROPERTY, 0).model(normalDagger).end();
-        builder.override().predicate(NeoVitae.INCENSE_PROPERTY, 1).model(chargedDagger).end();
-
         String[] typeNames = {"ruina", "nihilum", "invictus", "vindicta"};
 
         for (String stem : new String[] {"sentient_sword", "sentient_axe", "sentient_pickaxe", "sentient_shovel", "sentient_scythe"}) {

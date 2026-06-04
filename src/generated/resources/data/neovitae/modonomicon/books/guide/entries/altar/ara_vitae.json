@@ -60,20 +60,31 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.ara_vitae.knife.text",
+      "text": "book.neovitae.guide.altar.ara_vitae.feeding.text",
       "title": "",
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:crafting_recipe",
+      "type": "modonomicon:text",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "neovitae:sacrificial_dagger",
-      "text": "book.neovitae.guide.altar.ara_vitae.knife_recipe.text",
-      "title1": "",
-      "title2": ""
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.ara_vitae.orb_bleed.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.altar.ara_vitae.reservoir.text",
+      "title": "",
+      "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:text",

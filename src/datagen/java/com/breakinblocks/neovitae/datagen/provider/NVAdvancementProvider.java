@@ -471,11 +471,11 @@ public class NVAdvancementProvider extends AdvancementProvider {
             // Self-sacrifice progression (off root)
             AdvancementHolder selfSacrifice = Advancement.Builder.advancement()
                     .parent(root)
-                    .display(NVItems.SACRIFICIAL_DAGGER.get(),
+                    .display(NVItems.ORB_WEAK.get(),
                             Component.translatable("advancements.neovitae.self_sacrifice.title"),
                             Component.translatable("advancements.neovitae.self_sacrifice.description"),
                             null, AdvancementType.TASK, true, false, false)
-                    .addCriterion("get_dagger", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SACRIFICIAL_DAGGER.get()))
+                    .addCriterion("get_orb", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.ORB_WEAK.get()))
                     .save(saver, NeoVitae.rl("neovitae/self_sacrifice").toString());
 
 

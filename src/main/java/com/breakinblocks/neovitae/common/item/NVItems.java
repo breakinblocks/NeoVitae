@@ -76,8 +76,6 @@ public class NVItems {
         return BASIC_ITEMS.register(name, () -> new Item(new Item.Properties()));
     }
 
-    public static final DeferredHolder<Item, SacrificialDaggerItem> SACRIFICIAL_DAGGER = ITEMS.register("sacrificial_dagger", SacrificialDaggerItem::new);
-
     public static final DeferredHolder<Item, RawSpiritusItem> RAW_SPIRITUS = SPIRITUS_ITEMS.register("raw_spiritus", RawSpiritusItem::new);
 
     public static final DeferredHolder<Item, SpiritusGemItem> SPIRITUS_GEM_PETTY = SPIRITUS_ITEMS.register("spiritus_gem_petty", SpiritusGemItem::new);

@@ -6,12 +6,15 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.common.NVSounds;
+import com.breakinblocks.neovitae.common.effect.NVMobEffects;
+import com.breakinblocks.neovitae.common.effect.SoulFrayEffect;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.incense.EnumTranquilityType;
@@ -61,6 +64,9 @@ public class IncenseAltarBlockEntity extends BlockEntity {
         for (Player player : players) {
             if (IncenseHelper.incrementIncense(player, 0, tile.incenseAddition, tile.incenseAddition / 100.0)) {
                 hasPerformed = true;
+            }
+            if (IncenseHelper.getCurrentIncense(player) > 0 && !SoulFrayEffect.hasSoulFray(player)) {
+                player.addEffect(new MobEffectInstance(NVMobEffects.BLESSED_SACRIFICE, 600, 0, true, false));
             }
         }
 

@@ -4,6 +4,7 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.datagen.book.page.BookAraVitaeRecipePageModel;
@@ -72,6 +73,24 @@ public class VitaeLinkEntry extends EntryProvider {
                 + "claws back its own ingredients.\\\n\\\nLay down as many Links as you like around one altar. Only "
                 + "[#](8B0000)one crafts at a time[#](), and never while the altar itself is busy. When several wait, "
                 + "the [#](8B0000)highest tier[#]() takes priority, then the rest in turn.");
+
+        this.page("orb_link", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Orb Vitae Link");
+        this.pageText("A cousin of the Link, the [#](8B0000)Orb Vitae Link[#]() does not craft; it [#](8B0000)charges[#](). "
+                + "Seat a single [#](8B0000)Blood Orb[#]() within it (use with an orb in hand, use empty-handed to take it "
+                + "back), and it pulls [#](4A0080)Essentia Vitae[#]() from its bound altar straight into the orb owner's "
+                + "[#](8B0000)Anima[#](), at the altar's [#](8B0000)full tier[#]() and runes, until the network is full.\\\n\\\n"
+                + "[#](2E8B57)It sits lowest in the chain: it draws only while the altar is idle and no Vitae Link is "
+                + "crafting, sipping the leftover essence so it never starves a working.[#]()");
+
+        this.page("orb_link_recipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "orb_filling_link"))
+                .withText(this.context().pageText()));
+        this.pageText("Combine a [#](8B0000)Vitae Link[#]() with [#](8B0000)two iron ingots[#]() and a [#](8B0000)piece of "
+                + "glass[#]() at a crafting table. Its [#](8B0000)comparator[#]() output rises with how full the owner's "
+                + "Anima has become, ideal for switching off your blood engines once you are topped off.");
     }
 
     @Override

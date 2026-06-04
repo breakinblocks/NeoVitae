@@ -152,7 +152,6 @@ public class DataValidationTests {
     public void neovitaeItemsRegistered(GameTestHelper helper) {
         helper.runAfterDelay(1, () -> {
             String[] expectedItems = {
-                "sacrificial_dagger",
                 "blood_orb_weak", "blood_orb_apprentice",
                 "tabula_rasa", "tabula_robur",
                 "sigil_divination", "alchemy_flask",

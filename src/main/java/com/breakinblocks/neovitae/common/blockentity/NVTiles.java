@@ -174,6 +174,9 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<VitaeLinkBlockEntity>> VITAE_LINK_TYPE =
             registerTile("vitae_link", VitaeLinkBlockEntity::new, NVBlocks.VITAE_LINK.block());
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OrbFillingLinkBlockEntity>> ORB_FILLING_LINK_TYPE =
+            registerTile("orb_filling_link", OrbFillingLinkBlockEntity::new, NVBlocks.ORB_FILLING_LINK.block());
+
     private static void registerTileCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
@@ -234,6 +237,11 @@ public class NVTiles {
                 Capabilities.ItemHandler.BLOCK,
                 VITAE_LINK_TYPE.get(),
                 VitaeLinkBlockEntity::getItemHandler
+        );
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ORB_FILLING_LINK_TYPE.get(),
+                OrbFillingLinkBlockEntity::getItemHandler
         );
 
         event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> new OrbFluidHandler(stack),

@@ -18,6 +18,7 @@ import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.IncenseAltarBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.OrbFillingLinkBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.VitaeLinkBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -114,6 +115,16 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
                 tooltip.add(Component.translatable("jade.neovitae.vitae_link.unlinked").withStyle(ChatFormatting.RED));
             }
         }
+
+        if (data.contains("orb_link_linked")) {
+            if (data.getBoolean("orb_link_linked")) {
+                tooltip.add(Component.translatable("jade.neovitae.orb_link.linked").withStyle(ChatFormatting.GOLD));
+                tooltip.add(Component.translatable("jade.neovitae.orb_link.network",
+                        data.getInt("orb_link_network")).withStyle(ChatFormatting.DARK_RED));
+            } else {
+                tooltip.add(Component.translatable("jade.neovitae.orb_link.unlinked").withStyle(ChatFormatting.RED));
+            }
+        }
     }
 
     @Override
@@ -182,6 +193,11 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider, IServer
             data.putInt("link_tier", link.getCraftTier());
             data.putInt("link_max", Math.max(0, link.getMaxLinkTier()));
             data.putBoolean("link_crafting", link.isClientCrafting());
+        }
+
+        if (be instanceof OrbFillingLinkBlockEntity orbLink) {
+            data.putBoolean("orb_link_linked", orbLink.isLinked());
+            data.putInt("orb_link_network", orbLink.getNetworkPercent());
         }
     }
 

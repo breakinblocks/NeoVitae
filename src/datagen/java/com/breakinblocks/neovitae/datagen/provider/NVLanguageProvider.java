@@ -65,7 +65,6 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("attribute.neovitae.blood_shield", "Blood Shield");
 
         add(NVBlocks.ARA_VITAE, "Ara Vitae");
-        add(NVItems.SACRIFICIAL_DAGGER.get(), "Sacrificial Dagger");
 
         add(NVBlocks.RUNE_BLANK, "Blank Rune");
 
@@ -610,6 +609,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         // Spirit Cache
         add(NVBlocks.SPIRIT_CACHE, "Spirit Cache");
         add(NVBlocks.VITAE_LINK, "Vitae Link");
+        add(NVBlocks.ORB_FILLING_LINK, "Orb Vitae Link");
 
         // Teleposer Focus Items
         add(NVItems.TELEPOSER_FOCUS.get(), "Teleposer Focus");
@@ -796,9 +796,6 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.SANGUINE_REVERTER.get(), "Sanguine Reverter");
         add(NVItems.GUIDE_BOOK.get(), "Scriptura Vitae");
 
-        // Dagger tooltips
-        addTooltip("sacrificial_dagger.desc", "The Gift of Vitae");
-        add("item.neovitae.sacrificial_dagger.alternate", "Orb of Sacrifice");
 
         // Rune tooltips
         addTooltip("rune.blank", "A basic rune with no special effect");
@@ -861,12 +858,16 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("message.neovitae.blood_light.redstone_off", "Redstone Control: Disabled");
         add("message.neovitae.sigil.blood_light.brightness", "Sigil Brightness: %s");
         add("message.neovitae.too_far_from_altar", "You are too far from an Ara Vitae");
+        add("message.neovitae.altar_draws_blood", "The altar draws the blood it needs...");
 
         add("message.neovitae.vitae_link.tier", "Craft Tier: %s / %s");
         add("message.neovitae.vitae_link.locked", "Cannot change tier while crafting");
         add("jade.neovitae.vitae_link.tier", "Craft Tier: %s / %s");
         add("jade.neovitae.vitae_link.crafting", "Crafting...");
         add("jade.neovitae.vitae_link.unlinked", "Unlinked");
+        add("jade.neovitae.orb_link.linked", "Linked");
+        add("jade.neovitae.orb_link.unlinked", "Unlinked");
+        add("jade.neovitae.orb_link.network", "Network: %s%%");
 
         // Material generation messages
         add("message.neovitae.materials.generated", "[Neo Vitae] New ore materials have been detected and added to the config.");
@@ -1061,7 +1062,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("jei.neovitae.upgrade_tome.physical_protect.info", "Reduces incoming non-projectile damage, such as melee and explosions, as it levels.\n\nTrained: take non-projectile damage while wearing the full Sentient set." + tomeObtain);
         add("jei.neovitae.upgrade_tome.arrow_protect.info", "Reduces incoming projectile damage as it levels.\n\nTrained: take projectile damage while wearing the full Sentient set." + tomeObtain);
         add("jei.neovitae.upgrade_tome.fall_protect.info", "Reduces fall damage as it levels.\n\nTrained: take fall damage while wearing the full Sentient set." + tomeObtain);
-        add("jei.neovitae.upgrade_tome.self_sacrifice.info", "Increases the Essentia Vitae gained from self-sacrifice.\n\nTrained: take self-sacrifice damage from a sacrificial dagger or altar while wearing the full Sentient set." + tomeObtain);
+        add("jei.neovitae.upgrade_tome.self_sacrifice.info", "Increases the Essentia Vitae gained from self-sacrifice.\n\nTrained: take self-sacrifice damage by bleeding into your blood orb or from an altar while wearing the full Sentient set." + tomeObtain);
         add("jei.neovitae.upgrade_tome.health.info", "Increases maximum health.\n\nTrained: restore health through regeneration, potions, or vitaemantic healing while wearing the full Sentient set." + tomeObtain);
         add("jei.neovitae.upgrade_tome.experienced.info", "Increases the experience gained from orbs.\n\nTrained: pick up experience while wearing the full Sentient set." + tomeObtain);
         add("jei.neovitae.upgrade_tome.melee_damage.info", "Increases melee attack damage.\n\nTrained: deal melee damage while wearing the full Sentient set." + tomeObtain);
@@ -1247,6 +1248,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("effect.neovitae.soulsnare", "Soul Snare");
         add("effect.neovitae.firefuse", "Fire Fuse");
         add("effect.neovitae.soulfray", "Soul Fray");
+        add("effect.neovitae.blessed_sacrifice", "Blessed Sacrifice");
         add("effect.neovitae.plantleech", "Plant Leech");
         add("effect.neovitae.sacrificiallamb", "Sacrificial Lamb");
         add("effect.neovitae.passivity", "Passivity");
@@ -1318,7 +1320,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addAdvancement("hellfire_forge", "Hellfire Forge", "Craft a Hellfire Forge");
         addAdvancement("vas_maleficum", "Vas Maleficum", "Craft a Vas Maleficum");
         addAdvancement("sentient_armor", "Sentient Armor", "Craft Sentient Armor");
-        addAdvancement("self_sacrifice", "Blood Pact", "Craft a Sacrificial Dagger");
+        addAdvancement("self_sacrifice", "Blood Pact", "Forge your first Blood Orb");
 
         addAdvancement("arcane_scribe", "Circle of Intent", "Craft an Arcane Scribe Tool to inscribe and activate Alchemy Arrays");
         addAdvancement("demonite", "Forged in the Pit", "Unearth a sliver of raw Demonite from the Endless Realm");

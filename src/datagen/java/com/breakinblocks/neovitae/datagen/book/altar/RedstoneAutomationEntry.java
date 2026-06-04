@@ -22,15 +22,13 @@ public class RedstoneAutomationEntry extends EntryProvider {
         this.pageTitle("Redstone and Automation");
         this.pageText("The [#](8B0000)Ara Vitae[#]() is a marvel, but even a devoted Vitaemancer tires of standing "
                 + "vigil over every slate. Fortunately, the altar accepts mechanical servants; items and "
-                + "[#](4A0080)Essentia Vitae[#]() can be piped in and out, though the altar's hunger has its own "
-                + "peculiarities.\\\n\\\nA simple [#](8B0000)Hopper[#]() feeds items into the basin, but it knows no restraint. "
-                + "It will happily deposit an entire stack, and the altar will");
+                + "[#](4A0080)Essentia Vitae[#]() can be piped in and out.\\\n\\\nThe basin holds a [#](8B0000)single "
+                + "item[#]() at a time. A simple [#](8B0000)Hopper[#]() feeds them in one by one, and the altar");
 
         this.page("stacking", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("attempt to transmute all of them at once, consuming [#](8B0000)Essentia Vitae[#]() for every item in "
-                + "the stack. If you cannot supply that much [#](4A0080)Essentia Vitae[#]() quickly enough, the working "
-                + "will stall and progress will bleed away.\\\n\\\nThe altar also makes no distinction between input "
+        this.pageText("transmutes each in turn, drawing [#](4A0080)Essentia Vitae[#]() as it works. Keep the basin "
+                + "supplied with essence and it labors without pause.\\\n\\\nThe altar makes no distinction between input "
                 + "and output. Without a filter, items will cycle in and out as fast as your transfer system allows. "
                 + "The [#](8B0000)Routing Nodes[#]() may serve you well here.");
 

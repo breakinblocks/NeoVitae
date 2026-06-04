@@ -215,6 +215,66 @@ public class RoutingNodeTests {
         });
     }
 
+    // ==================== Keep-Amount Filter Tests ====================
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 200)
+    public void outputKeepAmountFillsToTarget(GameTestHelper helper) {
+        RoutingTestContext ctx = setupLinearNetwork(helper);
+
+        OutputRoutingNodeBlockEntity output = (OutputRoutingNodeBlockEntity) helper.getBlockEntity(ctx.output);
+        SideFilterConfig cfg = output.getSideFilter(Direction.EAST);
+        cfg.setEnabled(true);
+        cfg.setItemMode(FilterMode.WHITELIST);
+        cfg.clearItemGhosts();
+        cfg.setItemGhost(0, new ItemStack(Items.COBBLESTONE));
+        cfg.setItemAmount(0, 10);
+        output.setChanged();
+
+        ChestBlockEntity srcChest = (ChestBlockEntity) helper.getBlockEntity(ctx.srcChest);
+        srcChest.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
+
+        helper.runAfterDelay(TICK_RATE * 8, () -> {
+            int dst = countItem((ChestBlockEntity) helper.getBlockEntity(ctx.dstChest), Items.COBBLESTONE);
+            int src = countItem((ChestBlockEntity) helper.getBlockEntity(ctx.srcChest), Items.COBBLESTONE);
+            if (dst != 10) {
+                helper.fail("Output keep-amount should fill destination to 10, got dst=" + dst + " src=" + src);
+            }
+            if (src != 54) {
+                helper.fail("Output keep-amount should leave 54 in source, got src=" + src);
+            }
+            helper.succeed();
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 200)
+    public void inputKeepAmountLeavesRemainder(GameTestHelper helper) {
+        RoutingTestContext ctx = setupLinearNetwork(helper);
+
+        InputRoutingNodeBlockEntity input = (InputRoutingNodeBlockEntity) helper.getBlockEntity(ctx.input);
+        SideFilterConfig cfg = input.getSideFilter(Direction.WEST);
+        cfg.setEnabled(true);
+        cfg.setItemMode(FilterMode.WHITELIST);
+        cfg.clearItemGhosts();
+        cfg.setItemGhost(0, new ItemStack(Items.COBBLESTONE));
+        cfg.setItemAmount(0, 10);
+        input.setChanged();
+
+        ChestBlockEntity srcChest = (ChestBlockEntity) helper.getBlockEntity(ctx.srcChest);
+        srcChest.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
+
+        helper.runAfterDelay(TICK_RATE * 8, () -> {
+            int dst = countItem((ChestBlockEntity) helper.getBlockEntity(ctx.dstChest), Items.COBBLESTONE);
+            int src = countItem((ChestBlockEntity) helper.getBlockEntity(ctx.srcChest), Items.COBBLESTONE);
+            if (src != 10) {
+                helper.fail("Input keep-amount should leave 10 in source, got src=" + src + " dst=" + dst);
+            }
+            if (dst != 54) {
+                helper.fail("Input keep-amount should pull 54 to destination, got dst=" + dst);
+            }
+            helper.succeed();
+        });
+    }
+
     // ==================== Network Topology Tests ====================
 
     @GameTest(template = "empty_5x5x7", timeoutTicks = 80)

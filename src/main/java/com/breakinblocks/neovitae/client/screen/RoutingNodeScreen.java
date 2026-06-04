@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
@@ -21,6 +22,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
 import com.breakinblocks.neovitae.common.network.RoutingNodePayload;
+import com.breakinblocks.neovitae.common.network.RoutingNodeSetAmountPayload;
 import com.breakinblocks.neovitae.common.network.RoutingNodeSetFluidGhostPayload;
 import com.breakinblocks.neovitae.common.network.RoutingNodeSetGhostPayload;
 import com.breakinblocks.neovitae.common.routing.FilterMode;
@@ -154,7 +156,45 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             renderFluidGhosts(guiGraphics);
         }
 
+        renderGhostAmounts(guiGraphics);
+
         this.renderTooltip(guiGraphics, mouseX, mouseY);
+    }
+
+    /** Draws the per-slot keep amount in the corner of each whitelisted ghost cell. */
+    private void renderGhostAmounts(GuiGraphics guiGraphics) {
+        boolean items = activeTab == Tab.ITEMS;
+        FilterMode mode = items ? menu.getSideItemMode(menu.getCurrentSlot()) : menu.getSideFluidMode(menu.getCurrentSlot());
+        if (mode != FilterMode.WHITELIST) return;
+
+        for (int i = 0; i < RoutingNodeMenu.GHOST_SLOT_COUNT; i++) {
+            boolean present = items
+                    ? !menu.slots.get(i).getItem().isEmpty()
+                    : !menu.getCurrentFluidGhost(i).isEmpty();
+            int amount = items ? menu.getCurrentItemAmount(i) : menu.getCurrentFluidAmount(i);
+            if (!present || amount <= 0) continue;
+
+            Slot slot = menu.slots.get(i);
+            String str = formatAmount(amount);
+            int x = leftPos + slot.x + 17 - font.width(str);
+            int y = topPos + slot.y + 9;
+            guiGraphics.pose().pushPose();
+            guiGraphics.pose().translate(0.0F, 0.0F, 200.0F);
+            guiGraphics.drawString(font, str, x, y, 0xFFFFFF, true);
+            guiGraphics.pose().popPose();
+        }
+    }
+
+    private static String formatAmount(int amount) {
+        if (amount >= 1_000_000) return (amount / 1_000_000) + "M";
+        if (amount >= 1000) return (amount / 1000) + "k";
+        return Integer.toString(amount);
+    }
+
+    private int amountStep(boolean items) {
+        if (Screen.hasControlDown()) return items ? 64 : 250;
+        if (Screen.hasShiftDown()) return items ? 10 : 10_000;
+        return items ? 1 : 1000;
     }
 
     /** Overwrites the item-ghost cells (already drawn by super.render) with fluid sprites. */
@@ -207,6 +247,20 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
 
     @Override
     protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        if (activeTab == Tab.ITEMS && this.hoveredSlot != null
+                && this.hoveredSlot.index < RoutingNodeMenu.GHOST_SLOT_COUNT
+                && !this.hoveredSlot.getItem().isEmpty()) {
+            ItemStack ghost = this.hoveredSlot.getItem();
+            List<Component> tooltip = new ArrayList<>(Screen.getTooltipFromItem(this.minecraft, ghost));
+            if (menu.getSideItemMode(menu.getCurrentSlot()) == FilterMode.WHITELIST) {
+                int amount = menu.getCurrentItemAmount(this.hoveredSlot.index);
+                tooltip.add(Component.literal(amount > 0 ? "Keep: " + amount : "Keep: Unlimited").withStyle(ChatFormatting.AQUA));
+                tooltip.add(Component.literal("Scroll to set (Shift x10, Ctrl x64)").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
+            }
+            guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
+            return;
+        }
+
         super.renderTooltip(guiGraphics, mouseX, mouseY);
 
         if (activeTab == Tab.FLUIDS && this.hoveredSlot != null
@@ -218,6 +272,11 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                 tooltip.add(Component.literal("Left-click with a bucket to set").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             } else {
                 tooltip.add(fluid.getHoverName());
+                if (menu.getSideFluidMode(menu.getCurrentSlot()) == FilterMode.WHITELIST) {
+                    int amount = menu.getCurrentFluidAmount(this.hoveredSlot.index);
+                    tooltip.add(Component.literal(amount > 0 ? "Keep: " + amount + " mB" : "Keep: Unlimited").withStyle(ChatFormatting.AQUA));
+                    tooltip.add(Component.literal("Scroll to set (Shift x10k, Ctrl x250)").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
+                }
                 tooltip.add(Component.literal("Right-click to clear").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
             }
             guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
@@ -365,5 +424,35 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         }
 
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        if (scrollY != 0 && this.hoveredSlot != null && this.hoveredSlot.index < RoutingNodeMenu.GHOST_SLOT_COUNT) {
+            int slotIdx = this.hoveredSlot.index;
+            boolean items = activeTab == Tab.ITEMS;
+            FilterMode mode = items ? menu.getSideItemMode(menu.getCurrentSlot()) : menu.getSideFluidMode(menu.getCurrentSlot());
+            boolean present = items
+                    ? !this.hoveredSlot.getItem().isEmpty()
+                    : !menu.getCurrentFluidGhost(slotIdx).isEmpty();
+
+            if (mode == FilterMode.WHITELIST && present) {
+                int current = items ? menu.getCurrentItemAmount(slotIdx) : menu.getCurrentFluidAmount(slotIdx);
+                int max = items ? 999_999 : 1_000_000_000;
+                int step = amountStep(items);
+                int next = (int) Math.max(0, Math.min(max, current + (scrollY > 0 ? step : -step)));
+                if (next != current) {
+                    if (items) {
+                        menu.setCurrentItemAmountLocal(slotIdx, next);
+                    } else {
+                        menu.setCurrentFluidAmountLocal(slotIdx, next);
+                    }
+                    PacketDistributor.sendToServer(new RoutingNodeSetAmountPayload(
+                            menu.tile.getBlockPos(), !items, slotIdx, next));
+                }
+                return true;
+            }
+        }
+        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
     }
 }

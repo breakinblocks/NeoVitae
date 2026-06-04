@@ -98,6 +98,11 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
             super.onContentsChanged(slot);
             setChanged();
         }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
     };
 
     private AltarRuneModifiers modifiers = new AltarRuneModifiers(1, 20, 1, 1, 1, 1, 1, 1, 1, 1);

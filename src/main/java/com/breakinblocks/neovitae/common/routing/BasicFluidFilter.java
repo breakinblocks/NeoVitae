@@ -57,9 +57,10 @@ public class BasicFluidFilter implements IFluidFilter {
                 }
             }
         } else {
-            // Input filter: set amounts to what's available to extract, capped by filter max
+            // Input filter: pull everything past the keep-amount, leaving that much behind.
             for (FluidStack filterFluid : requestList) {
-                int maxPull = filterFluid.getAmount();
+                int configured = filterFluid.getAmount();
+                int keep = (configured == Integer.MAX_VALUE) ? 0 : configured;
                 int available = 0;
 
                 for (int tank = 0; tank < fluidHandler.getTanks(); tank++) {
@@ -69,7 +70,7 @@ public class BasicFluidFilter implements IFluidFilter {
                     }
                 }
 
-                filterFluid.setAmount(Math.min(maxPull, available));
+                filterFluid.setAmount(Math.max(0, available - keep));
             }
         }
 

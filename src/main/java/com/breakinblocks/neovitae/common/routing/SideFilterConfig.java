@@ -27,15 +27,19 @@ public final class SideFilterConfig {
     private boolean enabled;
     private FilterMode itemMode;
     private final NonNullList<ItemStack> itemGhosts;
+    private final int[] itemAmounts;
     private FilterMode fluidMode;
     private final List<FluidStack> fluidGhosts;
+    private final int[] fluidAmounts;
 
     public SideFilterConfig() {
         this.enabled = false;
         this.itemMode = FilterMode.WHITELIST;
         this.itemGhosts = NonNullList.withSize(GHOST_SLOTS, ItemStack.EMPTY);
+        this.itemAmounts = new int[GHOST_SLOTS];
         this.fluidMode = FilterMode.AUTO_MATCH;
         this.fluidGhosts = new ArrayList<>(GHOST_SLOTS);
+        this.fluidAmounts = new int[GHOST_SLOTS];
         for (int i = 0; i < GHOST_SLOTS; i++) {
             this.fluidGhosts.add(FluidStack.EMPTY);
         }
@@ -68,12 +72,24 @@ public final class SideFilterConfig {
     public void setItemGhost(int slot, ItemStack stack) {
         if (slot >= 0 && slot < GHOST_SLOTS) {
             itemGhosts.set(slot, stack);
+            itemAmounts[slot] = 0;
         }
     }
 
     public void clearItemGhosts() {
         for (int i = 0; i < GHOST_SLOTS; i++) {
             itemGhosts.set(i, ItemStack.EMPTY);
+            itemAmounts[i] = 0;
+        }
+    }
+
+    public int getItemAmount(int slot) {
+        return (slot >= 0 && slot < GHOST_SLOTS) ? itemAmounts[slot] : 0;
+    }
+
+    public void setItemAmount(int slot, int amount) {
+        if (slot >= 0 && slot < GHOST_SLOTS) {
+            itemAmounts[slot] = Math.max(0, amount);
         }
     }
 
@@ -96,12 +112,24 @@ public final class SideFilterConfig {
     public void setFluidGhost(int slot, FluidStack stack) {
         if (slot >= 0 && slot < GHOST_SLOTS) {
             fluidGhosts.set(slot, stack == null ? FluidStack.EMPTY : stack.copy());
+            fluidAmounts[slot] = 0;
         }
     }
 
     public void clearFluidGhosts() {
         for (int i = 0; i < GHOST_SLOTS; i++) {
             fluidGhosts.set(i, FluidStack.EMPTY);
+            fluidAmounts[i] = 0;
+        }
+    }
+
+    public int getFluidAmount(int slot) {
+        return (slot >= 0 && slot < GHOST_SLOTS) ? fluidAmounts[slot] : 0;
+    }
+
+    public void setFluidAmount(int slot, int amount) {
+        if (slot >= 0 && slot < GHOST_SLOTS) {
+            fluidAmounts[slot] = Math.max(0, amount);
         }
     }
 
@@ -120,6 +148,8 @@ public final class SideFilterConfig {
             fluidList.add(encoded.result().orElseGet(CompoundTag::new));
         }
         tag.put("FluidGhosts", fluidList);
+        tag.putIntArray("ItemAmounts", itemAmounts.clone());
+        tag.putIntArray("FluidAmounts", fluidAmounts.clone());
         return tag;
     }
 
@@ -158,6 +188,15 @@ public final class SideFilterConfig {
                 DataResult<FluidStack> parsed = FluidStack.OPTIONAL_CODEC.parse(ops, fluidList.getCompound(i));
                 fluidGhosts.set(i, parsed.result().orElse(FluidStack.EMPTY));
             }
+        }
+
+        loadAmounts(tag.getIntArray("ItemAmounts"), itemAmounts);
+        loadAmounts(tag.getIntArray("FluidAmounts"), fluidAmounts);
+    }
+
+    private static void loadAmounts(int[] source, int[] target) {
+        for (int i = 0; i < GHOST_SLOTS; i++) {
+            target[i] = (i < source.length) ? Math.max(0, source[i]) : 0;
         }
     }
 }

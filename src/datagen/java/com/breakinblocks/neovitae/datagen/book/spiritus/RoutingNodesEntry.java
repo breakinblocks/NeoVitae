@@ -150,6 +150,20 @@ public class RoutingNodesEntry extends EntryProvider {
                 + "so an enabled face pointed at a Blood Tank begins moving [#](4A0080)Essentia Vitae[#]() "
                 + "immediately without any further configuration.");
 
+        this.page("keep_amounts", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Keeping a Reserve");
+        this.pageText("Every [#](2E8B57)Whitelist[#]() ghost may carry a [#](8B0000)keep amount[#](). "
+                + "[#](8B0000)Scroll[#]() over a ghost slot to raise or lower it; hold [#](8B0000)Shift[#]() for "
+                + "larger steps and [#](8B0000)Ctrl[#]() for larger still. The figure rests in the corner of the "
+                + "slot, and [#](8B0000)zero[#]() means [#](2E8B57)unlimited[#]().\\\n\\\n"
+                + "On an [#](8B0000)Output[#]() face the amount is a [#](8B0000)target[#](): the node fills the "
+                + "destination until it holds that many, counting what is already there, then rests. On an "
+                + "[#](8B0000)Input[#]() face the amount is a [#](8B0000)reserve[#](): the node leaves that many "
+                + "behind and draws only the surplus.\\\n\\\n"
+                + "[#](2E8B57)Fluids honour the same rule, measured in millibuckets.[#]()");
+
         this.page("auto_bind", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));

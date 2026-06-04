@@ -141,6 +141,34 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
         return tile.getSideFilter(sideIdx).getFluidGhost(ghostSlot);
     }
 
+    public int getCurrentItemAmount(int ghostSlot) {
+        if (tile == null) return 0;
+        int sideIdx = tile.getCurrentActiveSlot();
+        if (sideIdx < 0 || sideIdx >= 6) return 0;
+        return tile.getSideFilter(sideIdx).getItemAmount(ghostSlot);
+    }
+
+    public int getCurrentFluidAmount(int ghostSlot) {
+        if (tile == null) return 0;
+        int sideIdx = tile.getCurrentActiveSlot();
+        if (sideIdx < 0 || sideIdx >= 6) return 0;
+        return tile.getSideFilter(sideIdx).getFluidAmount(ghostSlot);
+    }
+
+    public void setCurrentItemAmountLocal(int ghostSlot, int amount) {
+        if (tile == null) return;
+        int sideIdx = tile.getCurrentActiveSlot();
+        if (sideIdx < 0 || sideIdx >= 6) return;
+        tile.getSideFilter(sideIdx).setItemAmount(ghostSlot, amount);
+    }
+
+    public void setCurrentFluidAmountLocal(int ghostSlot, int amount) {
+        if (tile == null) return;
+        int sideIdx = tile.getCurrentActiveSlot();
+        if (sideIdx < 0 || sideIdx >= 6) return;
+        tile.getSideFilter(sideIdx).setFluidAmount(ghostSlot, amount);
+    }
+
     public int getCurrentSlot() {
         return data.get(DATA_CURRENT_SLOT);
     }

@@ -63,6 +63,15 @@ With the **Items** tab selected, left-click a slot while holding an item to copy
 
 The **Fluids** tab works the same way; left-click with a bucket or fluid vessel to copy its contents into the ghost. Fluids support a third mode unavailable to items, **Auto-Match**, which mirrors whatever fluid is currently in the neighbour tank. This is the default for fresh sides, so an enabled face pointing at a [Blood Tank](Ara-Vitae-and-Runes) begins moving Essentia Vitae immediately.
 
+### Keep Amounts
+
+Each **Whitelist** ghost can carry an optional **keep amount**, shown in the corner of the slot. **Scroll** over the slot to raise or lower it; hold **Shift** for larger steps and **Ctrl** for larger still. **Zero means unlimited.** What the number does depends on the node's role:
+
+- On an **Output** face it is a **target**. The node fills the destination until it holds that many of the item (or that many millibuckets of the fluid), counting what is already there, then stops. Use it to keep a machine topped up: keep 64 fuel in a furnace, keep 8000 mB of lava in a tank.
+- On an **Input** face it is a **reserve**. The node leaves that many behind in the source and pulls only the surplus, so a buffer is never drained dry.
+
+Keep amounts apply only to **Whitelist** ghosts; Blacklist and Auto-Match ignore them. A fresh ghost starts at zero (unlimited), and replacing a ghost resets its amount.
+
 ### Energy
 
 Energy has **no whitelist or blacklist**. Any enabled face carries Forge Energy to compatible neighbours alongside items and fluids. The only gates are the face's **Enable** flag and the Master's **Energy Throttle**.
@@ -96,6 +105,22 @@ Pull cobblestone from a generator, smelt it, drop smooth stone into storage.
 5. **Output Node** against storage. Enable, **Blacklist** with empty grid (everything through; the input filter already enforced "only smooth stone").
 
 If all four are within 16 blocks of the Master or a previously-linked node, they auto-bind. Look for four violet threads. If any miss, hit them with the Node Router.
+
+## Automating the Ara Vitae
+
+The [Ara Vitae](Ara-Vitae-and-Runes) exposes its crafting slot and its Essentia Vitae tank to adjacent blocks, so a Routing Network can run an altar unattended. The basin holds **a single item at a time**, which is both the reagent you insert and the product it crafts in place. That makes it tidy to automate: feed one reagent, pull one product, repeat.
+
+A full altar loop uses three faces.
+
+**1. Feed the blood.** Point a fluid **Output Node** at the altar from a full [Blood Tank](Ara-Vitae-and-Runes) and leave the fluid mode on **Auto-Match**. Essentia Vitae flows into the altar's tank and keeps it charged so crafting never stalls for want of blood. A Well of Suffering or manual sacrifice works too; the tank simply needs to stay full.
+
+**2. Feed the reagent.** Point an item **Output Node** at the altar from your reagent store. Set it to **Whitelist** and ghost the reagent (for a Tabula Rasa, that is Deepslate). The basin accepts only one item, so the node feeds a single reagent and waits for the slot to clear before sending the next; no keep amount or other fiddling is required.
+
+**3. Pull the product.** Point an item **Input Node** at the altar into your output store. The tidiest filter is **Blacklist** with the reagent ghosted: everything that is *not* the raw reagent is pulled, which is precisely the finished product. While a craft is in progress the slot still holds the reagent, so the Blacklist leaves it untouched; the instant it becomes the product, the Input Node carries it away and the Output Node drips in the next reagent.
+
+That is the entire loop: blood in, one reagent in, product out.
+
+> The basin transmutes a single item per working, so an Output Node can never overfill it and a runaway craft can never drain your network dry. One reagent in, one product out, every time.
 
 ## Topology and Reach
 

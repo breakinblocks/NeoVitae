@@ -118,4 +118,23 @@ public class AraVitaeTests {
             });
         });
     }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 60)
+    public void altarSlotCapsAtOne(GameTestHelper helper) {
+        helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+        AraVitaeTile altar = placeAltar(helper, new BlockPos(3, 1, 2));
+
+        helper.runAfterDelay(5, () -> {
+            if (altar == null) return;
+            ItemStack remainder = altar.inv.insertItem(0, new ItemStack(Items.DEEPSLATE, 64), false);
+            int held = altar.inv.getStackInSlot(0).getCount();
+            if (held != 1) {
+                helper.fail("Altar slot should cap at 1 item, holds " + held);
+            }
+            if (remainder.getCount() != 63) {
+                helper.fail("Altar should reject the surplus, returned " + remainder.getCount() + " (expected 63)");
+            }
+            helper.succeed();
+        });
+    }
 }

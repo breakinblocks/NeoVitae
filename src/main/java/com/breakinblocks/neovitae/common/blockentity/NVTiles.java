@@ -30,6 +30,7 @@ import com.breakinblocks.neovitae.client.render.blockentity.BloodTankRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.HellfireForgeRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.MasterRitualStoneRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.MimicRenderer;
+import com.breakinblocks.neovitae.client.render.blockentity.OrbFillingLinkRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.VitaeLinkRenderer;
 
 import java.util.Arrays;
@@ -261,6 +262,7 @@ public class NVTiles {
         event.registerBlockEntityRenderer(MIMIC_TYPE.get(), MimicRenderer::new);
         event.registerBlockEntityRenderer(MASTER_RITUAL_STONE_TYPE.get(), MasterRitualStoneRenderer::new);
         event.registerBlockEntityRenderer(VITAE_LINK_TYPE.get(), VitaeLinkRenderer::new);
+        event.registerBlockEntityRenderer(ORB_FILLING_LINK_TYPE.get(), OrbFillingLinkRenderer::new);
     }
 
     public static void register(IEventBus modBus) {

@@ -26,20 +26,22 @@ public final class RoutingFilterFactory {
                 ? new BlacklistItemFilter()
                 : new BasicItemFilter();
 
-        List<IFilterKey> keys = buildFilterKeys(cfg, isOutput);
+        List<IFilterKey> keys = buildFilterKeys(cfg);
         filter.initializeFilter(keys, tile, handler, isOutput);
         return filter;
     }
 
-    private static List<IFilterKey> buildFilterKeys(SideFilterConfig cfg, boolean isOutput) {
+    private static List<IFilterKey> buildFilterKeys(SideFilterConfig cfg) {
+        boolean whitelist = cfg.getItemMode() == FilterMode.WHITELIST;
         List<IFilterKey> keys = new ArrayList<>();
-        int initialCount = isOutput ? Integer.MAX_VALUE : 0;
-        for (int i = 0; i < SideFilterConfig.GHOST_SLOTS; i++) {
+        for (int i = 0; i < cfg.getItemSlotCount(); i++) {
             ItemStack ghost = cfg.getItemGhost(i);
             if (ghost.isEmpty()) continue;
             ItemStack keyStack = ghost.copy();
             keyStack.setCount(1);
-            keys.add(new BasicFilterKey(keyStack, initialCount));
+            int amount = cfg.getItemAmount(i);
+            int count = (whitelist && amount > 0) ? amount : Integer.MAX_VALUE;
+            keys.add(new BasicFilterKey(keyStack, count));
         }
         return keys;
     }
@@ -51,12 +53,14 @@ public final class RoutingFilterFactory {
             return buildAutoMatchFilter(tile, handler, isOutput);
         }
 
+        boolean whitelist = mode == FilterMode.WHITELIST;
         List<FluidStack> fluidKeys = new ArrayList<>();
-        for (int i = 0; i < SideFilterConfig.GHOST_SLOTS; i++) {
+        for (int i = 0; i < cfg.getFluidSlotCount(); i++) {
             FluidStack ghost = cfg.getFluidGhost(i);
             if (ghost.isEmpty()) continue;
             FluidStack copy = ghost.copy();
-            copy.setAmount(Integer.MAX_VALUE);
+            int amount = cfg.getFluidAmount(i);
+            copy.setAmount((whitelist && amount > 0) ? amount : Integer.MAX_VALUE);
             fluidKeys.add(copy);
         }
 
@@ -78,7 +82,7 @@ public final class RoutingFilterFactory {
             FluidResource r = handler.getResource(tank);
             if (!r.isEmpty()) {
                 FluidStack copy = r.toStack(1);
-                copy.setAmount(handler.getCapacityAsInt(tank, r));
+                copy.setAmount(Integer.MAX_VALUE);
                 passAll.add(copy);
             }
         }

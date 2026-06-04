@@ -53,6 +53,8 @@ public class NVBlocks {
             BLOCK_REG.register("teleposer", TeleposerBlock::new, defaultBlockProps());
     public static final BlockWithItemHolder<SpiritCacheBlock, BlockItem> SPIRIT_CACHE =
             BLOCK_REG.register("spirit_cache", SpiritCacheBlock::new, defaultBlockProps());
+    public static final BlockWithItemHolder<VitaeLinkBlock, BlockItem> VITAE_LINK =
+            BLOCK_REG.register("vitae_link", VitaeLinkBlock::new, defaultBlockProps());
 
     private static final BlockBehaviour.Properties rune_properties_src() {
         return BlockBehaviour.Properties.of().strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().lightLevel(state -> 10);

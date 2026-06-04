@@ -62,6 +62,12 @@ public class NVPayloads {
         );
 
         registrar.playToServer(
+                RoutingNodeSetAmountPayload.TYPE,
+                RoutingNodeSetAmountPayload.STREAM_CODEC,
+                NVPayloads::handleRoutingNodeSetAmount
+        );
+
+        registrar.playToServer(
                 MasterRoutingNodeEnergyRatePayload.TYPE,
                 MasterRoutingNodeEnergyRatePayload.STREAM_CODEC,
                 NVPayloads::handleMasterRoutingNodeEnergyRate
@@ -231,6 +237,26 @@ public class NVPayloads {
                 if (player.containerMenu instanceof RoutingNodeMenu menu && menu.tile == tile) {
                     int currentSide = tile.getCurrentActiveSlot();
                     tile.setFluidGhost(currentSide, payload.ghostSlot(), payload.stack());
+                }
+            }
+        });
+    }
+
+    private static void handleRoutingNodeSetAmount(RoutingNodeSetAmountPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player player = context.player();
+            if (player.distanceToSqr(payload.pos().getX() + 0.5, payload.pos().getY() + 0.5, payload.pos().getZ() + 0.5) > 64.0) {
+                return;
+            }
+            BlockEntity be = player.level().getBlockEntity(payload.pos());
+            if (be instanceof FilteredRoutingNodeBlockEntity tile) {
+                if (player.containerMenu instanceof RoutingNodeMenu menu && menu.tile == tile) {
+                    int currentSide = tile.getCurrentActiveSlot();
+                    if (payload.fluid()) {
+                        tile.setFluidAmount(currentSide, payload.ghostSlot(), payload.amount());
+                    } else {
+                        tile.setItemAmount(currentSide, payload.ghostSlot(), payload.amount());
+                    }
                 }
             }
         });

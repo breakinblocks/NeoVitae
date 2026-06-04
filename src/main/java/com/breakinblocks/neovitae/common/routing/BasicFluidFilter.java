@@ -58,7 +58,8 @@ public class BasicFluidFilter implements IFluidFilter {
             }
         } else {
             for (FluidStack filterFluid : requestList) {
-                int maxPull = filterFluid.getAmount();
+                int configured = filterFluid.getAmount();
+                int keep = (configured == Integer.MAX_VALUE) ? 0 : configured;
                 int available = 0;
 
                 for (int tank = 0; tank < fluidHandler.size(); tank++) {
@@ -68,7 +69,7 @@ public class BasicFluidFilter implements IFluidFilter {
                     }
                 }
 
-                filterFluid.setAmount(Math.min(maxPull, available));
+                filterFluid.setAmount(Math.max(0, available - keep));
             }
         }
 

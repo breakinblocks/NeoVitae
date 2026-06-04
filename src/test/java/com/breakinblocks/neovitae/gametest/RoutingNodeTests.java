@@ -79,7 +79,7 @@ public final class RoutingNodeTests {
         cfg.setEnabled(true);
         cfg.setItemMode(spec.mode());
         cfg.clearItemGhosts();
-        int limit = Math.min(spec.items().length, SideFilterConfig.GHOST_SLOTS);
+        int limit = Math.min(spec.items().length, SideFilterConfig.PAGE_SIZE);
         for (int i = 0; i < limit; i++) {
             cfg.setItemGhost(i, new ItemStack(spec.items()[i]));
         }
@@ -186,6 +186,76 @@ public final class RoutingNodeTests {
         r.add("routing/empty_source_no_crash", 60, helper -> {
             setupLinearNetwork(helper);
             helper.runAfterDelay(TICK_RATE * 2, helper::succeed);
+        });
+
+        r.add("routing/output_keep_amount", 200, helper -> {
+            RoutingTestContext ctx = setupLinearNetwork(helper);
+            OutputRoutingNodeBlockEntity output = helper.getBlockEntity(ctx.output, OutputRoutingNodeBlockEntity.class);
+            SideFilterConfig cfg = output.getSideFilter(Direction.EAST);
+            cfg.setEnabled(true);
+            cfg.setItemMode(FilterMode.WHITELIST);
+            cfg.clearItemGhosts();
+            cfg.setItemGhost(0, new ItemStack(Items.COBBLESTONE));
+            cfg.setItemAmount(0, 10);
+            output.setChanged();
+
+            ChestBlockEntity srcChest = helper.getBlockEntity(ctx.srcChest, ChestBlockEntity.class);
+            srcChest.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
+
+            helper.runAfterDelay(TICK_RATE * 8, () -> {
+                int dst = countItem(helper.getBlockEntity(ctx.dstChest, ChestBlockEntity.class), Items.COBBLESTONE);
+                int src = countItem(helper.getBlockEntity(ctx.srcChest, ChestBlockEntity.class), Items.COBBLESTONE);
+                if (dst != 10) helper.fail("Output keep-amount should fill destination to 10, got dst=" + dst + " src=" + src);
+                if (src != 54) helper.fail("Output keep-amount should leave 54 in source, got src=" + src);
+                helper.succeed();
+            });
+        });
+
+        r.add("routing/input_keep_amount", 200, helper -> {
+            RoutingTestContext ctx = setupLinearNetwork(helper);
+            InputRoutingNodeBlockEntity input = helper.getBlockEntity(ctx.input, InputRoutingNodeBlockEntity.class);
+            SideFilterConfig cfg = input.getSideFilter(Direction.WEST);
+            cfg.setEnabled(true);
+            cfg.setItemMode(FilterMode.WHITELIST);
+            cfg.clearItemGhosts();
+            cfg.setItemGhost(0, new ItemStack(Items.COBBLESTONE));
+            cfg.setItemAmount(0, 10);
+            input.setChanged();
+
+            ChestBlockEntity srcChest = helper.getBlockEntity(ctx.srcChest, ChestBlockEntity.class);
+            srcChest.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
+
+            helper.runAfterDelay(TICK_RATE * 8, () -> {
+                int dst = countItem(helper.getBlockEntity(ctx.dstChest, ChestBlockEntity.class), Items.COBBLESTONE);
+                int src = countItem(helper.getBlockEntity(ctx.srcChest, ChestBlockEntity.class), Items.COBBLESTONE);
+                if (src != 10) helper.fail("Input keep-amount should leave 10 in source, got src=" + src + " dst=" + dst);
+                if (dst != 54) helper.fail("Input keep-amount should pull 54 to destination, got dst=" + dst);
+                helper.succeed();
+            });
+        });
+
+        r.add("routing/filter_entries_beyond_old_cap", 200, helper -> {
+            RoutingTestContext ctx = setupLinearNetwork(helper);
+            Item[] blocked = {
+                    Items.DIAMOND, Items.EMERALD, Items.GOLD_INGOT, Items.IRON_INGOT,
+                    Items.COAL, Items.REDSTONE, Items.LAPIS_LAZULI, Items.QUARTZ,
+                    Items.COPPER_INGOT, Items.AMETHYST_SHARD, Items.NETHERITE_SCRAP, Items.NETHERITE_INGOT
+            };
+            OutputRoutingNodeBlockEntity output = helper.getBlockEntity(ctx.output, OutputRoutingNodeBlockEntity.class);
+            setNodeFilter(output, Direction.EAST, blacklist(blocked));
+
+            ChestBlockEntity srcChest = helper.getBlockEntity(ctx.srcChest, ChestBlockEntity.class);
+            srcChest.setItem(0, new ItemStack(Items.NETHERITE_INGOT, 4));
+            srcChest.setItem(1, new ItemStack(Items.DIRT, 4));
+
+            helper.runAfterDelay(TICK_RATE * 8, () -> {
+                ChestBlockEntity dstChest = helper.getBlockEntity(ctx.dstChest, ChestBlockEntity.class);
+                int dirtDst = countItem(dstChest, Items.DIRT);
+                int netheriteDst = countItem(dstChest, Items.NETHERITE_INGOT);
+                if (dirtDst != 4) helper.fail("Unblocked item should pass, dirt in dst=" + dirtDst);
+                if (netheriteDst != 0) helper.fail("Blacklist entry at index 11 should block, netherite in dst=" + netheriteDst);
+                helper.succeed();
+            });
         });
 
         r.add("routing/multiple_item_types", 200, helper -> {

@@ -67,8 +67,8 @@ public class AraVitaeEntry extends EntryProvider {
         this.pageText("The moment an item is laid upon the Ara Vitae, the [#](4A0080)transmutation[#]() begins. "
                 + "[#](4A0080)Essentia Vitae[#]() drains steadily from the basin; crimson motes rising from the surface "
                 + "confirm the process is underway.\\\n\\\nShould the Ara Vitae run dry, gray smoke rises as the working "
-                + "unravels and progress is lost. Once sufficient EV has been consumed (cost multiplied by the "
-                + "stack size), the full stack is transfigured into something new.");
+                + "unravels and progress is lost. The basin transmutes a [#](8B0000)single item[#]() at a time; once "
+                + "sufficient EV has been consumed, that item is transfigured into something new.");
 
         this.page("first_craft", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

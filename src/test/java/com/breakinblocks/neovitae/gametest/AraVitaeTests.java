@@ -7,6 +7,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
@@ -111,6 +112,28 @@ public final class AraVitaeTests {
                     }
                     helper.succeed();
                 });
+            });
+        });
+
+        r.add("ara_vitae/slot_caps_at_one", 60, helper -> {
+            helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+            AraVitaeTile altar = placeAltar(helper, new BlockPos(3, 1, 2));
+
+            helper.runAfterDelay(5, () -> {
+                if (altar == null) return;
+                int inserted;
+                try (Transaction tx = Transaction.openRoot()) {
+                    inserted = altar.inv.insert(0, ItemResource.of(new ItemStack(Items.DEEPSLATE)), 64, tx);
+                    tx.commit();
+                }
+                int held = altar.inv.getStackInSlot(0).getCount();
+                if (held != 1) {
+                    helper.fail("Altar slot should cap at 1 item, holds " + held);
+                }
+                if (inserted != 1) {
+                    helper.fail("Altar should accept only 1 of an inserted stack, inserted " + inserted);
+                }
+                helper.succeed();
             });
         });
     }

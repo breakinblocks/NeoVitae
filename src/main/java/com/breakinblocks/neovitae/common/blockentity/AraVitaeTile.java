@@ -116,6 +116,11 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
         Inv() { super(1); }
 
         @Override
+        protected int getCapacity(int index, ItemResource resource) {
+            return 1;
+        }
+
+        @Override
         protected void onContentsChanged(int index, ItemStack previousContents) {
             setChanged();
         }

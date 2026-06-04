@@ -8,7 +8,7 @@ Once placed, the Ara Vitae awakens. It drinks the blood offered to it and distil
 
 To feed the altar, you must first forge a **Sacrificial Knife**. Right-clicking while aiming at air spills one heart's worth of blood into a nearby Ara Vitae, yielding **200 EV**. The basin holds **10,000 EV** at first; watch the crimson pool within for a rough fill indicator, or use a **[Divination Sigil](Sigils)** to read exact figures.
 
-The moment an item is placed upon the basin, the transmutation begins. EV drains steadily; crimson motes rising from the surface confirm the working is underway. Should the altar run dry mid-craft, gray smoke rises as the working unravels and progress is lost. EV cost is multiplied by stack size, so the basin must hold enough essence to finish the entire stack.
+The moment an item is placed upon the basin, the transmutation begins. EV drains steadily; crimson motes rising from the surface confirm the working is underway. Should the altar run dry mid-craft, gray smoke rises as the working unravels and progress is lost. The basin holds and transmutes a single item at a time, so it need only carry enough essence to finish one working.
 
 Your first creation should be the **Novicius Orb of Vitae**, a diamond offered to a Tier 0 altar with 2,000 EV. This orb is the key to your **[Anima](Blood-Orbs-and-Anima)**, the invisible network that binds your soul to all your vitaemantic instruments. Consult JEI for the full list of altar recipes.
 
@@ -103,8 +103,8 @@ The Rune of the Orb resonates with the Blood Orb resting in the basin, stretchin
 
 The Ara Vitae accepts mechanical servants. Items and EV alike can be piped in and out, with a few quirks.
 
-- A simple **Hopper** feeds items into the basin, but knows no restraint; it will dump an entire stack and the altar will try to transmute all of it at once, multiplying the EV cost. If the basin can't keep up, the working stalls and progress bleeds away.
-- The altar makes no distinction between input and output. Without a filter, items will cycle in and out as fast as your transfer system allows. **Routing Nodes** solve this neatly.
+- The basin holds a single item at a time. A simple **Hopper** can feed items in one by one, each transmuted in turn; keep the basin supplied with essence and the working never stalls for want of blood.
+- The altar makes no distinction between input and output. Without a filter, items will cycle in and out as fast as your transfer system allows. **Routing Nodes** solve this neatly: an output face feeds the reagent while an input face pulls the finished product. See [Automating the Ara Vitae](Routing-Network#automating-the-ara-vitae) for the full loop.
 - The altar accepts EV transfers to and from external fluid tanks, but the flow is sluggish by default. **Acceleration Runes** quicken the altar's pulse; **Displacement Runes** widen the channel.
 - The hidden 10% internal reservoir is the intermediary for piped fluid; essence may seem to vanish from the basin without explanation when that reservoir is filling or draining.
 

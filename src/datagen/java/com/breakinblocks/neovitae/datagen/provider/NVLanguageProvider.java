@@ -611,6 +611,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
 
         // Spirit Cache
         add(NVBlocks.SPIRIT_CACHE, "Spirit Cache");
+        add(NVBlocks.VITAE_LINK, "Vitae Link");
 
         // Teleposer Focus Items
         add(NVItems.TELEPOSER_FOCUS.get(), "Teleposer Focus");
@@ -1395,8 +1396,18 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
 
         // GUI - Routing
         add("gui.neovitae.routing.disabled", "Disabled");
+        add("gui.neovitae.routing.enabled", "Enabled");
         add("gui.neovitae.routing.items", "Items");
+        add("gui.neovitae.routing.fluids", "Fluids");
         add("gui.neovitae.routing.whitelist", "Whitelist");
+        add("gui.neovitae.routing.blacklist", "Blacklist");
+        add("gui.neovitae.routing.auto_match", "Auto-Match");
+        add("gui.neovitae.routing.direction.down", "Down");
+        add("gui.neovitae.routing.direction.up", "Up");
+        add("gui.neovitae.routing.direction.north", "North");
+        add("gui.neovitae.routing.direction.south", "South");
+        add("gui.neovitae.routing.direction.west", "West");
+        add("gui.neovitae.routing.direction.east", "East");
         add("gui.neovitae.routing.priority_short", "P:%s");
         add("gui.neovitae.routing.priority_value", "Priority: %s");
         add("gui.neovitae.routing.priority.increase", "Increase priority");
@@ -1421,6 +1432,13 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.routing.filter.fluid_automatch", "Auto-match: any fluid present in the network");
         add("gui.neovitae.routing.master.upgrade_ceiling", "Upgrade ceiling: %s");
         add("gui.neovitae.routing.master.throttle_exceeds", "Throttled below ceiling of %s");
+        add("gui.neovitae.routing.keep", "Keep: %s");
+        add("gui.neovitae.routing.keep_mb", "Keep: %s mB");
+        add("gui.neovitae.routing.keep_unlimited", "Keep: Unlimited");
+        add("gui.neovitae.routing.keep_scroll", "Scroll to set (Shift x10, Ctrl x64)");
+        add("gui.neovitae.routing.keep_scroll_fluid", "Scroll to set (Shift x10k, Ctrl x250)");
+        add("gui.neovitae.routing.page", "Filter Page %s of %s");
+        add("gui.neovitae.routing.page_hint", "A new page opens as you fill the last");
 
         // JEI
         add("jei.neovitae.athanor.mb", "%s mB");

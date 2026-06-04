@@ -184,6 +184,18 @@ public class FilteredRoutingNodeBlockEntity extends RoutingNodeBlockEntity {
         markUpdated();
     }
 
+    public void setItemAmount(int sideIndex, int ghostSlot, int amount) {
+        if (sideIndex < 0 || sideIndex >= 6) return;
+        sideFilters[sideIndex].setItemAmount(ghostSlot, amount);
+        markUpdated();
+    }
+
+    public void setFluidAmount(int sideIndex, int ghostSlot, int amount) {
+        if (sideIndex < 0 || sideIndex >= 6) return;
+        sideFilters[sideIndex].setFluidAmount(ghostSlot, amount);
+        markUpdated();
+    }
+
     private void markUpdated() {
         if (level != null) {
             BlockState state = level.getBlockState(worldPosition);

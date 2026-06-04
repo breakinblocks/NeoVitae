@@ -205,6 +205,17 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.routing_nodes.keep_amounts.text",
+      "title": "book.neovitae.guide.spiritus.routing_nodes.keep_amounts.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
       "text": "book.neovitae.guide.spiritus.routing_nodes.auto_bind.text",
       "title": "book.neovitae.guide.spiritus.routing_nodes.auto_bind.title",
       "use_markdown_in_title": false

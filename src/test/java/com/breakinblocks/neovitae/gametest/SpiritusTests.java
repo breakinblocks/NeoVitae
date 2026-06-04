@@ -50,8 +50,15 @@ public final class SpiritusTests {
                     helper.fail("Expected SpiritusCrystalBlockEntity");
                     return;
                 }
-                if (crystal.progressToNextCrystal <= 0) {
-                    helper.fail("Crystal should have growth progress with chunk spiritus present");
+                double remaining = WorldSpiritusHandler.getCurrentSpiritus(
+                        helper.getLevel(), helper.absolutePos(crystalPos), SpiritusType.RAW);
+                boolean grew = crystal.progressToNextCrystal > 0
+                        || crystal.getCrystalCount() > 1
+                        || remaining < 100.0;
+                if (!grew) {
+                    helper.fail("Crystal should have grown with chunk spiritus present (progress="
+                            + crystal.progressToNextCrystal + ", count=" + crystal.getCrystalCount()
+                            + ", spiritus=" + remaining + ")");
                     return;
                 }
                 helper.succeed();

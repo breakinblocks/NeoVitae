@@ -1,0 +1,9 @@
+{
+  "type": "neovitae:blood_orb_stats",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "orb_tiers",
+  "sort_number": 3,
+  "title": "book.neovitae.guide.altar.anima.orb_tiers.title"
+}

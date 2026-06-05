@@ -1,61 +1,26 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "altar",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:altar",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "altar/rune_orb"
+    "entry_id": "neovitae:altar/rune_orb"
   },
   "description": "book.neovitae.guide.altar.rune_2_orb.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "neovitae:rune_2_orb"
   },
+  "id": "neovitae:altar/rune_2_orb",
   "name": "book.neovitae.guide.altar.rune_2_orb.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.rune_2_orb.intro.text",
-      "title": "book.neovitae.guide.altar.rune_2_orb.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "neovitae:rune_2_orb",
-      "text": "",
-      "title1": "",
-      "title2": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.rune_2_orb.reversion.text",
-      "title": "",
-      "use_markdown_in_title": false
-    }
-  ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "altar/rune_orb",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "neovitae:altar/rune_orb"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 14,
   "x": -7,
   "y": 3

@@ -1,70 +1,26 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "rituals",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "rituals/ritual_basics"
+    "entry_id": "neovitae:rituals/ritual_basics"
   },
   "description": "book.neovitae.guide.rituals.ritual_yawning_void.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:black_stained_glass"
   },
+  "id": "neovitae:rituals/ritual_yawning_void",
   "name": "book.neovitae.guide.rituals.ritual_yawning_void.name",
-  "pages": [
-    {
-      "type": "modonomicon:multiblock",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "multiblock_id": "ritual/yawning_void",
-      "multiblock_name": "All Consuming Void",
-      "show_visualize_button": true,
-      "text": "book.neovitae.guide.rituals.ritual_yawning_void.multiblock.text"
-    },
-    {
-      "type": "neovitae:ritual_info",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "text": "[#](8B0000)Activation Cost:[#]() 5,000 EV\\\n[#](8B0000)Crystal:[#]() Weak Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 1 EV every 10 ticks\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  4x Blank Ritual Stone\\\n  12x Earth Ritual Stone\\\n  16x Water Ritual Stone\\\n  4x Dusk Ritual Stone\\\n  8x Air Ritual Stone\\\n  20x Fire Ritual Stone\\\n  [#](8B0000)Total:[#]() 64 runes",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_yawning_void.info.text",
-      "title": "book.neovitae.guide.rituals.ritual_yawning_void.info.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_yawning_void.spiritus_effects.text",
-      "title": "book.neovitae.guide.rituals.ritual_yawning_void.spiritus_effects.title",
-      "use_markdown_in_title": false
-    }
-  ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "rituals/ritual_basics",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "neovitae:rituals/ritual_basics"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 31,
   "x": -1,
   "y": 2

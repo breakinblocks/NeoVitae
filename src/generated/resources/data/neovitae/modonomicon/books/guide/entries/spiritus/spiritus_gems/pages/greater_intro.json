@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "greater_intro",
+  "show_title_separator": true,
+  "sort_number": 7,
+  "text": "book.neovitae.guide.spiritus.spiritus_gems.greater_intro.text",
+  "title": ""
+}

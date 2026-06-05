@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe",
+  "show_title_separator": true,
+  "sort_number": 0,
+  "text": "book.neovitae.guide.dungeons.spike_trap.recipe.text",
+  "title": ""
+}

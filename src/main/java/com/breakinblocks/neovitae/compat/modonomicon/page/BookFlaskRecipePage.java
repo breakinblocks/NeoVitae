@@ -2,13 +2,20 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskRecipe;
-import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
-import net.minecraft.core.HolderLookup;
+import com.klikli_dev.modonomicon.data.BookPageType;
+import com.klikli_dev.modonomicon.registry.BookPageTypeRegistry;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 
 public class BookFlaskRecipePage extends BookRecipePage<FlaskRecipe> {
+
+    public static final Identifier ID = NVPageTypes.FLASK;
+    public static final MapCodec<BookFlaskRecipePage> CODEC = codec(BookFlaskRecipePage::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, BookFlaskRecipePage> STREAM_CODEC = streamCodec(BookFlaskRecipePage::new);
+    public static final BookPageType<BookFlaskRecipePage> TYPE = BookPageTypeRegistry.register(ID, CODEC, STREAM_CODEC);
 
     public BookFlaskRecipePage(JsonDataHolder data) {
         super(data);
@@ -18,16 +25,8 @@ public class BookFlaskRecipePage extends BookRecipePage<FlaskRecipe> {
         super(data);
     }
 
-    public static BookFlaskRecipePage fromJson(Identifier id, JsonObject json, HolderLookup.Provider provider) {
-        return new BookFlaskRecipePage(BookRecipePage.commonFromJson(id, json, provider));
-    }
-
-    public static BookFlaskRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        return new BookFlaskRecipePage(BookRecipePage.commonFromNetwork(buffer));
-    }
-
     @Override
-    public Identifier getType() {
-        return NVPageTypes.FLASK;
+    public BookPageType<?> type() {
+        return TYPE;
     }
 }

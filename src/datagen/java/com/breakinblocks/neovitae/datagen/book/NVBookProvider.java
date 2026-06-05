@@ -52,12 +52,12 @@ public class NVBookProvider extends SingleBookSubProvider {
                 .withCustomBookItem(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "guide_book"))
                 .withCreativeTab(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "main"))
                 .withFont(Identifier.parse("minecraft:default"))
-                .withBookTextOffsetX(5)
-                .withBookTextOffsetWidth(-10)
-                .withBookContentTexture(NeoVitae.rl("textures/gui/book_content.png"))
-                .withFrameTexture(NeoVitae.rl("textures/gui/book_frame.png"))
-                .withBookOverviewTexture(NeoVitae.rl("textures/gui/book_overview.png"))
-                .withCraftingTexture(NeoVitae.rl("textures/gui/crafting_textures.png"));
+                .withTheme(theme -> theme
+                        .withId(NeoVitae.rl("guide"))
+                        .withType(Identifier.parse("modonomicon:default"))
+                        .withLayout(layout -> layout
+                                .withBookTextOffsetX(5)
+                                .withBookTextOffsetWidth(-10)));
     }
 
     @Override

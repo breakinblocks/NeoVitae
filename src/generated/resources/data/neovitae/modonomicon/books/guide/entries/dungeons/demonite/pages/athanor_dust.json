@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "athanor_dust",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.dungeons.demonite.athanor_dust.text",
+  "title": "book.neovitae.guide.dungeons.demonite.athanor_dust.title"
+}

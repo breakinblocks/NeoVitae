@@ -1,52 +1,46 @@
 package com.breakinblocks.neovitae.compat.modonomicon.page;
 
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
-import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.BookTextHolder;
 import com.klikli_dev.modonomicon.book.RenderedBookTextHolder;
 import com.klikli_dev.modonomicon.book.conditions.BookCondition;
 import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
 import com.klikli_dev.modonomicon.book.page.BookPage;
 import com.klikli_dev.modonomicon.client.gui.book.markdown.BookTextRenderer;
-import net.minecraft.core.HolderLookup;
+import com.klikli_dev.modonomicon.data.BookPageType;
+import com.klikli_dev.modonomicon.registry.BookPageTypeRegistry;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 
 public class BookBloodOrbStatsPage extends BookPage {
 
+    public static final Identifier ID = NVPageTypes.BLOOD_ORB_STATS;
+    public static final MapCodec<BookBloodOrbStatsPage> CODEC = RecordCodecBuilder.mapCodec(
+            instance -> instance.group(
+                    BookTextHolder.CODEC.optionalFieldOf("title", BookTextHolder.EMPTY).forGetter(BookBloodOrbStatsPage::getTitle),
+                    Codec.STRING.optionalFieldOf("id", "").forGetter(BookPage::getId),
+                    BookCondition.CODEC.optionalFieldOf("condition", new BookNoneCondition()).forGetter(BookPage::getCondition)
+            ).apply(instance, BookBloodOrbStatsPage::new)
+    );
+    public static final StreamCodec<RegistryFriendlyByteBuf, BookBloodOrbStatsPage> STREAM_CODEC = StreamCodec.composite(
+            BookTextHolder.STREAM_CODEC, BookBloodOrbStatsPage::getTitle,
+            ByteBufCodecs.STRING_UTF8, BookPage::getId,
+            BookCondition.STREAM_CODEC, BookPage::getCondition,
+            BookBloodOrbStatsPage::new
+    );
+    public static final BookPageType<BookBloodOrbStatsPage> TYPE = BookPageTypeRegistry.register(ID, CODEC, STREAM_CODEC);
+
     private BookTextHolder title;
 
-    public BookBloodOrbStatsPage(BookTextHolder title, String anchor, BookCondition condition) {
-        super(anchor, condition);
+    public BookBloodOrbStatsPage(BookTextHolder title, String id, BookCondition condition) {
+        super(id, condition);
         this.title = title;
-    }
-
-    public static BookBloodOrbStatsPage fromJson(Identifier id, JsonObject json, HolderLookup.Provider provider) {
-        var title = json.has("title")
-                ? new BookTextHolder(Component.translatable(GsonHelper.getAsString(json, "title")))
-                : BookTextHolder.EMPTY;
-        var anchor = GsonHelper.getAsString(json, "anchor", "");
-        var condition = json.has("condition")
-                ? BookCondition.fromJson(id, json.getAsJsonObject("condition"), provider)
-                : new BookNoneCondition();
-        return new BookBloodOrbStatsPage(title, anchor, condition);
-    }
-
-    public static BookBloodOrbStatsPage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        var title = BookTextHolder.fromNetwork(buffer);
-        var anchor = buffer.readUtf();
-        var condition = BookCondition.fromNetwork(buffer);
-        return new BookBloodOrbStatsPage(title, anchor, condition);
-    }
-
-    @Override
-    public void toNetwork(RegistryFriendlyByteBuf buffer) {
-        title.toNetwork(buffer);
-        buffer.writeUtf(getAnchor());
-        BookCondition.toNetwork(getCondition(), buffer);
     }
 
     public BookTextHolder getTitle() {
@@ -66,8 +60,8 @@ public class BookBloodOrbStatsPage extends BookPage {
     }
 
     @Override
-    public Identifier getType() {
-        return NVPageTypes.BLOOD_ORB_STATS;
+    public BookPageType<?> type() {
+        return TYPE;
     }
 
     @Override

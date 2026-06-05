@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "slate_vial",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.tabula_vitae.anointments.slate_vial.text",
+  "title": "book.neovitae.guide.tabula_vitae.anointments.slate_vial.title"
+}

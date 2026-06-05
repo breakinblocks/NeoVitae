@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "gui_right",
+  "images": [
+    "neovitae:images/entries/routing/node_gui_right.png"
+  ],
+  "sort_number": 10,
+  "text": "book.neovitae.guide.spiritus.routing_nodes.gui_right.text",
+  "title": ""
+}

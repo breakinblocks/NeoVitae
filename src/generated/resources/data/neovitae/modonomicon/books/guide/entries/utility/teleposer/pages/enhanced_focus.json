@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "enhanced_focus",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.utility.teleposer.enhanced_focus.text",
+  "title": "book.neovitae.guide.utility.teleposer.enhanced_focus.title"
+}

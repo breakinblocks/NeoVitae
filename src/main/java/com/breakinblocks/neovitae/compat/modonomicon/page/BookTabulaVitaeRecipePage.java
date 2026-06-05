@@ -2,13 +2,20 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
 import com.breakinblocks.neovitae.common.recipe.tabulavitae.TabulaVitaeRecipe;
-import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
-import net.minecraft.core.HolderLookup;
+import com.klikli_dev.modonomicon.data.BookPageType;
+import com.klikli_dev.modonomicon.registry.BookPageTypeRegistry;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 
 public class BookTabulaVitaeRecipePage extends BookRecipePage<TabulaVitaeRecipe> {
+
+    public static final Identifier ID = NVPageTypes.TABULA_VITAE;
+    public static final MapCodec<BookTabulaVitaeRecipePage> CODEC = codec(BookTabulaVitaeRecipePage::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, BookTabulaVitaeRecipePage> STREAM_CODEC = streamCodec(BookTabulaVitaeRecipePage::new);
+    public static final BookPageType<BookTabulaVitaeRecipePage> TYPE = BookPageTypeRegistry.register(ID, CODEC, STREAM_CODEC);
 
     public BookTabulaVitaeRecipePage(JsonDataHolder data) {
         super(data);
@@ -18,16 +25,8 @@ public class BookTabulaVitaeRecipePage extends BookRecipePage<TabulaVitaeRecipe>
         super(data);
     }
 
-    public static BookTabulaVitaeRecipePage fromJson(Identifier id, JsonObject json, HolderLookup.Provider provider) {
-        return new BookTabulaVitaeRecipePage(BookRecipePage.commonFromJson(id, json, provider));
-    }
-
-    public static BookTabulaVitaeRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        return new BookTabulaVitaeRecipePage(BookRecipePage.commonFromNetwork(buffer));
-    }
-
     @Override
-    public Identifier getType() {
-        return NVPageTypes.TABULA_VITAE;
+    public BookPageType<?> type() {
+        return TYPE;
     }
 }

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "flask",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.tabula_vitae.potion_crafting.flask.text",
+  "title": "book.neovitae.guide.tabula_vitae.potion_crafting.flask.title"
+}

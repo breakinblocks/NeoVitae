@@ -1,37 +1,26 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "alchemy_arrays",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:alchemy_arrays",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "alchemy_arrays/sentient_upgrades"
+    "entry_id": "neovitae:alchemy_arrays/sentient_upgrades"
   },
   "description": "book.neovitae.guide.alchemy_arrays.upgrade_gift_of_ignis.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:blaze_powder"
   },
+  "id": "neovitae:alchemy_arrays/upgrade_gift_of_ignis",
   "name": "book.neovitae.guide.alchemy_arrays.upgrade_gift_of_ignis.name",
-  "pages": [
-    {
-      "type": "neovitae:sentient_upgrade_table",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "text": "book.neovitae.guide.alchemy_arrays.upgrade_gift_of_ignis.intro.text",
-      "title": "book.neovitae.guide.alchemy_arrays.upgrade_gift_of_ignis.intro.title"
-    }
-  ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "alchemy_arrays/sentient_upgrades",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "neovitae:alchemy_arrays/sentient_upgrades"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 33,
   "x": 7,
   "y": 2

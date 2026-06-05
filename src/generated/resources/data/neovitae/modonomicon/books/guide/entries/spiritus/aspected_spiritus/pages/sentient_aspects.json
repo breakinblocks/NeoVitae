@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "sentient_aspects",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.spiritus.aspected_spiritus.sentient_aspects.text",
+  "title": "book.neovitae.guide.spiritus.aspected_spiritus.sentient_aspects.title"
+}

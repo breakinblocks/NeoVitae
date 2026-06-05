@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:sentient_upgrade_table",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro",
+  "sort_number": 0,
+  "text": "book.neovitae.guide.alchemy_arrays.upgrade_healthy.intro.text",
+  "title": "book.neovitae.guide.alchemy_arrays.upgrade_healthy.intro.title"
+}

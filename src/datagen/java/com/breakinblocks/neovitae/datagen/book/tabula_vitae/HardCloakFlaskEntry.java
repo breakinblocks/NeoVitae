@@ -12,7 +12,7 @@ import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
 import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import net.minecraft.world.item.ItemStack;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
 public class HardCloakFlaskEntry extends EntryProvider {
 
@@ -51,7 +51,7 @@ public class HardCloakFlaskEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

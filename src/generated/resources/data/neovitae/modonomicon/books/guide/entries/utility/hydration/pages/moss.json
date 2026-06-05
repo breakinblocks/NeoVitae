@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "moss",
+  "show_title_separator": true,
+  "sort_number": 6,
+  "text": "book.neovitae.guide.utility.hydration.moss.text",
+  "title": "book.neovitae.guide.utility.hydration.moss.title"
+}

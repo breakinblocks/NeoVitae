@@ -1,63 +1,20 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "dungeons",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:dungeons",
+  "condition": {
+    "type": "modonomicon:none"
+  },
   "description": "book.neovitae.guide.dungeons.demon_food.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "neovitae:vitae_morsel"
   },
+  "id": "neovitae:dungeons/demon_food",
   "name": "book.neovitae.guide.dungeons.demon_food.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.demon_food.intro.text",
-      "title": "book.neovitae.guide.dungeons.demon_food.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": {
-        "id": "neovitae:tainted_flesh"
-      },
-      "text": "book.neovitae.guide.dungeons.demon_food.tainted_flesh.text",
-      "title": "Tainted Flesh"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": {
-        "id": "neovitae:vitae_morsel"
-      },
-      "text": "book.neovitae.guide.dungeons.demon_food.vitae_morsel.text",
-      "title": "Vitae Morsel"
-    },
-    {
-      "type": "modonomicon:spotlight",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "item": {
-        "id": "neovitae:bottled_spite"
-      },
-      "text": "book.neovitae.guide.dungeons.demon_food.bottled_spite.text",
-      "title": "Bottled Spite"
-    }
-  ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 14,
   "x": -3,
   "y": 4

@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "multiblock",
+  "multiblock_id": "neovitae:ritual/feathered_knife",
+  "multiblock_name": "Ritual of the Willing Sacrifice",
+  "show_visualize_button": true,
+  "sort_number": 0,
+  "text": "book.neovitae.guide.rituals.ritual_feathered_knife.multiblock.text"
+}

@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "neovitae:daemonium_doloris",
+  "entity_name": "Daemonium Doloris",
+  "id": "doloris_entity",
+  "scale": 0.3,
+  "sort_number": 10,
+  "text": "book.neovitae.guide.dungeons.demon_bestiary.doloris_entity.text"
+}

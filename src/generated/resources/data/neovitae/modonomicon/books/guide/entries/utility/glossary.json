@@ -1,82 +1,20 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "utility",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:utility",
+  "condition": {
+    "type": "modonomicon:none"
+  },
   "description": "book.neovitae.guide.utility.glossary.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:book"
   },
+  "id": "neovitae:utility/glossary",
   "name": "book.neovitae.guide.utility.glossary.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.glossary.key_terms.text",
-      "title": "book.neovitae.guide.utility.glossary.key_terms.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.glossary.blood.text",
-      "title": "book.neovitae.guide.utility.glossary.blood.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.glossary.essentia_vitae.text",
-      "title": "book.neovitae.guide.utility.glossary.essentia_vitae.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.glossary.lp.text",
-      "title": "book.neovitae.guide.utility.glossary.lp.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.glossary.anima.text",
-      "title": "book.neovitae.guide.utility.glossary.anima.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.glossary.refinement.text",
-      "title": "book.neovitae.guide.utility.glossary.refinement.title",
-      "use_markdown_in_title": false
-    }
-  ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 1,
   "x": -5,
   "y": -2

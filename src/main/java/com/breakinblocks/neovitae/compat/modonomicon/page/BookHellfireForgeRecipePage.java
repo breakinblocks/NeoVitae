@@ -2,13 +2,20 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
-import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
-import net.minecraft.core.HolderLookup;
+import com.klikli_dev.modonomicon.data.BookPageType;
+import com.klikli_dev.modonomicon.registry.BookPageTypeRegistry;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 
 public class BookHellfireForgeRecipePage extends BookRecipePage<ForgeRecipe> {
+
+    public static final Identifier ID = NVPageTypes.HELLFIRE_FORGE;
+    public static final MapCodec<BookHellfireForgeRecipePage> CODEC = codec(BookHellfireForgeRecipePage::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, BookHellfireForgeRecipePage> STREAM_CODEC = streamCodec(BookHellfireForgeRecipePage::new);
+    public static final BookPageType<BookHellfireForgeRecipePage> TYPE = BookPageTypeRegistry.register(ID, CODEC, STREAM_CODEC);
 
     public BookHellfireForgeRecipePage(JsonDataHolder data) {
         super(data);
@@ -18,16 +25,8 @@ public class BookHellfireForgeRecipePage extends BookRecipePage<ForgeRecipe> {
         super(data);
     }
 
-    public static BookHellfireForgeRecipePage fromJson(Identifier id, JsonObject json, HolderLookup.Provider provider) {
-        return new BookHellfireForgeRecipePage(BookRecipePage.commonFromJson(id, json, provider));
-    }
-
-    public static BookHellfireForgeRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        return new BookHellfireForgeRecipePage(BookRecipePage.commonFromNetwork(buffer));
-    }
-
     @Override
-    public Identifier getType() {
-        return NVPageTypes.HELLFIRE_FORGE;
+    public BookPageType<?> type() {
+        return TYPE;
     }
 }

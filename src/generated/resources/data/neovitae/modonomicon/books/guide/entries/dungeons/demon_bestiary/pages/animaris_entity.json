@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "neovitae:daemonium_animaris",
+  "entity_name": "Daemonium Animaris",
+  "id": "animaris_entity",
+  "scale": 0.6,
+  "sort_number": 5,
+  "text": "book.neovitae.guide.dungeons.demon_bestiary.animaris_entity.text"
+}

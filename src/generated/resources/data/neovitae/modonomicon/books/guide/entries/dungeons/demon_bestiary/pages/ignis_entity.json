@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "neovitae:daemonium_ignis",
+  "entity_name": "Daemonium Ignis",
+  "id": "ignis_entity",
+  "scale": 0.3,
+  "sort_number": 8,
+  "text": "book.neovitae.guide.dungeons.demon_bestiary.ignis_entity.text"
+}

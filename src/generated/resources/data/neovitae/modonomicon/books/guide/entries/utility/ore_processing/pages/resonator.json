@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "resonator",
+  "show_title_separator": true,
+  "sort_number": 8,
+  "text": "book.neovitae.guide.utility.ore_processing.resonator.text",
+  "title": "book.neovitae.guide.utility.ore_processing.resonator.title"
+}

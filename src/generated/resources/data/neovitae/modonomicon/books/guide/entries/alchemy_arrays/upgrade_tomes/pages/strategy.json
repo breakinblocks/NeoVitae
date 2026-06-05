@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "strategy",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.alchemy_arrays.upgrade_tomes.strategy.text",
+  "title": ""
+}

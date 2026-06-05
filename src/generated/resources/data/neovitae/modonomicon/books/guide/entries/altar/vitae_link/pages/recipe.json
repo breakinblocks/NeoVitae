@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe",
+  "recipe_id_1": "neovitae:ara_vitae/vitae_link",
+  "sort_number": 1,
+  "text": "book.neovitae.guide.altar.vitae_link.recipe.text"
+}

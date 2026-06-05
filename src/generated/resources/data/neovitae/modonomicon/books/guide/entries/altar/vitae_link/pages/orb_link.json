@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "orb_link",
+  "show_title_separator": true,
+  "sort_number": 6,
+  "text": "book.neovitae.guide.altar.vitae_link.orb_link.text",
+  "title": "book.neovitae.guide.altar.vitae_link.orb_link.title"
+}

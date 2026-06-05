@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "variants_info",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.dungeons.demon_stone.variants_info.text",
+  "title": "book.neovitae.guide.dungeons.demon_stone.variants_info.title"
+}

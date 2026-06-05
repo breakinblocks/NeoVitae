@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipes",
+  "recipe_id_1": "neovitae:ritual_stone_blank",
+  "recipe_id_2": "neovitae:ritual_stone_master",
+  "sort_number": 1
+}

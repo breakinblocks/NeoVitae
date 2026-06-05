@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "related",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.neovitae.guide.spiritus.crystallized_spiritus.related.text",
+  "title": ""
+}

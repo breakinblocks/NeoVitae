@@ -1,60 +1,20 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "dungeons",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:dungeons",
+  "condition": {
+    "type": "modonomicon:none"
+  },
   "description": "book.neovitae.guide.dungeons.lobby.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "neovitae:dungeon_seal"
   },
+  "id": "neovitae:dungeons/lobby",
   "name": "book.neovitae.guide.dungeons.lobby.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.lobby.intro.text",
-      "title": "book.neovitae.guide.dungeons.lobby.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.lobby.intro2.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.lobby.rooms.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.lobby.rooms2.text",
-      "title": "",
-      "use_markdown_in_title": false
-    }
-  ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 0,
   "x": -3,
   "y": -5

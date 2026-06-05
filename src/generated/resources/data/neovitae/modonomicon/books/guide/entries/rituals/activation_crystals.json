@@ -1,61 +1,26 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "rituals",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "rituals/ritual_basics"
+    "entry_id": "neovitae:rituals/ritual_basics"
   },
   "description": "book.neovitae.guide.rituals.activation_crystals.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "neovitae:activation_crystal_weak"
   },
+  "id": "neovitae:rituals/activation_crystals",
   "name": "book.neovitae.guide.rituals.activation_crystals.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.activation_crystals.intro.text",
-      "title": "book.neovitae.guide.rituals.activation_crystals.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "neovitae:ara_vitae_recipe",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "neovitae:ara_vitae/weak_activation_crystal",
-      "text": "book.neovitae.guide.rituals.activation_crystals.weak_recipe.text",
-      "title1": "",
-      "title2": ""
-    },
-    {
-      "type": "neovitae:ara_vitae_recipe",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "neovitae:ara_vitae/awakened_activation_crystal",
-      "text": "book.neovitae.guide.rituals.activation_crystals.awakened_recipe.text",
-      "title1": "",
-      "title2": ""
-    }
-  ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "rituals/ritual_basics",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "neovitae:rituals/ritual_basics"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 3,
   "x": 3,
   "y": -6

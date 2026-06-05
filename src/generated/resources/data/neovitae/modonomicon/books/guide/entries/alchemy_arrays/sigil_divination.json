@@ -1,104 +1,20 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "alchemy_arrays",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:alchemy_arrays",
+  "condition": {
+    "type": "modonomicon:none"
+  },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_divination.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "neovitae:sigil_divination"
   },
+  "id": "neovitae:alchemy_arrays/sigil_divination",
   "name": "book.neovitae.guide.alchemy_arrays.sigil_divination.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_arrays.sigil_divination.intro.text",
-      "title": "book.neovitae.guide.alchemy_arrays.sigil_divination.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_arrays.sigil_divination.recipe.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_arrays.sigil_divination.usage.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_arrays.sigil_divination.activation_intro.text",
-      "title": "book.neovitae.guide.alchemy_arrays.sigil_divination.activation_intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_arrays.sigil_divination.activation_toggle.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_arrays.sigil_divination.activation_list.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_arrays.sigil_divination.gui_editing.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_arrays.sigil_divination.hud_elements.text",
-      "title": "",
-      "use_markdown_in_title": false
-    }
-  ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 6,
   "x": -7,
   "y": -3

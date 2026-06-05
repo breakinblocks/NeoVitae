@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "trim_ingot",
+  "item": {
+    "id": "neovitae:demonite_trim_ingot"
+  },
+  "sort_number": 3,
+  "text": "book.neovitae.guide.dungeons.demon_crafting.trim_ingot.text",
+  "title": "Demonite Trim Ingot"
+}

@@ -1,0 +1,9 @@
+{
+  "type": "neovitae:ritual_info",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "stats",
+  "sort_number": 1,
+  "text": "[#](8B0000)Activation Cost:[#]() 5,000 EV\\\n[#](8B0000)Crystal:[#]() Weak Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 1 EV/sec\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  8x Earth Ritual Stone\\\n  4x Fire Ritual Stone\\\n  [#](8B0000)Total:[#]() 12 runes"
+}

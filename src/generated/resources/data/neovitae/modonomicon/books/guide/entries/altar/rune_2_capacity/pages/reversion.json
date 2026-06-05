@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "reversion",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.altar.rune_2_capacity.reversion.text",
+  "title": ""
+}

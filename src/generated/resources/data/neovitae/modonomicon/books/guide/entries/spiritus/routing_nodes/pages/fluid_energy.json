@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "fluid_energy",
+  "show_title_separator": true,
+  "sort_number": 24,
+  "text": "book.neovitae.guide.spiritus.routing_nodes.fluid_energy.text",
+  "title": "book.neovitae.guide.spiritus.routing_nodes.fluid_energy.title"
+}

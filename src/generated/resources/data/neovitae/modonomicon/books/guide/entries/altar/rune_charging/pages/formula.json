@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "formula",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.altar.rune_charging.formula.text",
+  "title": ""
+}

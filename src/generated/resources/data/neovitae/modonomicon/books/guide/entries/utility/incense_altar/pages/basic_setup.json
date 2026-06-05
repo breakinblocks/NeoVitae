@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "basic_setup",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.utility.incense_altar.basic_setup.text",
+  "title": "book.neovitae.guide.utility.incense_altar.basic_setup.title"
+}

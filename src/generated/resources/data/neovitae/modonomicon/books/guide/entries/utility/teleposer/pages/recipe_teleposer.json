@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe_teleposer",
+  "recipe_id_1": "neovitae:teleposer",
+  "sort_number": 1,
+  "text": "book.neovitae.guide.utility.teleposer.recipe_teleposer.text"
+}

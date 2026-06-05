@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "harvester",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.dungeons.spike_trap.harvester.text",
+  "title": "book.neovitae.guide.dungeons.spike_trap.harvester.title"
+}

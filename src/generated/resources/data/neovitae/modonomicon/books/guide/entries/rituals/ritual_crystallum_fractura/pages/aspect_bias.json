@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "aspect_bias",
+  "show_title_separator": true,
+  "sort_number": 5,
+  "text": "book.neovitae.guide.rituals.ritual_crystallum_fractura.aspect_bias.text",
+  "title": "book.neovitae.guide.rituals.ritual_crystallum_fractura.aspect_bias.title"
+}

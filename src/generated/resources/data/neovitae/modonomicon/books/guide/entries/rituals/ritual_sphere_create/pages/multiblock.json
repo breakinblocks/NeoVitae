@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "multiblock",
+  "multiblock_id": "neovitae:ritual/sphere",
+  "multiblock_name": "Dawn of the New Moon",
+  "show_visualize_button": true,
+  "sort_number": 0,
+  "text": "book.neovitae.guide.rituals.ritual_sphere_create.multiblock.text"
+}

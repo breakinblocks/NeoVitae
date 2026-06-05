@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "sanguine_reverter",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.utility.athanor.sanguine_reverter.text",
+  "title": "book.neovitae.guide.utility.athanor.sanguine_reverter.title"
+}

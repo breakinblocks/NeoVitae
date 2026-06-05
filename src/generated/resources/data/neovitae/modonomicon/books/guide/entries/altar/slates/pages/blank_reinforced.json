@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "blank_reinforced",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.altar.slates.blank_reinforced.text",
+  "title": ""
+}

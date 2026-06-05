@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "intro",
+  "show_title_separator": true,
+  "sort_number": 0,
+  "text": "book.neovitae.guide.altar.rune_2_aug_capacity.intro.text",
+  "title": "book.neovitae.guide.altar.rune_2_aug_capacity.intro.title"
+}

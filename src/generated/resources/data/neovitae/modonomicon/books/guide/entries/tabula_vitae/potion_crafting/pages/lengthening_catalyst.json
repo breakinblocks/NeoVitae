@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "lengthening_catalyst",
+  "show_title_separator": true,
+  "sort_number": 10,
+  "text": "book.neovitae.guide.tabula_vitae.potion_crafting.lengthening_catalyst.text",
+  "title": "book.neovitae.guide.tabula_vitae.potion_crafting.lengthening_catalyst.title"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "tier4_armour3",
+  "show_title_separator": true,
+  "sort_number": 12,
+  "text": "book.neovitae.guide.utility.getting_started.tier4_armour3.text",
+  "title": "book.neovitae.guide.utility.getting_started.tier4_armour3.title"
+}

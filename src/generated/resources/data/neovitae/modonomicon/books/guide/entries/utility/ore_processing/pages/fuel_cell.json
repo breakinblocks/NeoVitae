@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "fuel_cell",
+  "recipe_id_1": "neovitae:furnacecell_primitive",
+  "sort_number": 12,
+  "text": "book.neovitae.guide.utility.ore_processing.fuel_cell.text"
+}

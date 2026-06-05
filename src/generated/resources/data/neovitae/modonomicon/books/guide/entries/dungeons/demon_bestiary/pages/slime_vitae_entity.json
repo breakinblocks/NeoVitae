@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "neovitae:slime_vitae",
+  "entity_name": "Slime of Vitae",
+  "id": "slime_vitae_entity",
+  "scale": 0.4,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.dungeons.demon_bestiary.slime_vitae_entity.text"
+}

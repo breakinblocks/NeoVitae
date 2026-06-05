@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "orb_link_recipe",
+  "recipe_id_1": "neovitae:orb_filling_link",
+  "sort_number": 7,
+  "text": "book.neovitae.guide.altar.vitae_link.orb_link_recipe.text"
+}

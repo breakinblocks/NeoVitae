@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "crystal_growth",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.spiritus.crystallized_spiritus.crystal_growth.text",
+  "title": "book.neovitae.guide.spiritus.crystallized_spiritus.crystal_growth.title"
+}

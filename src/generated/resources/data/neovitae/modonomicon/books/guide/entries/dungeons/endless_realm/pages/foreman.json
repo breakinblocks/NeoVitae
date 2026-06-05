@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "foreman",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.neovitae.guide.dungeons.endless_realm.foreman.text",
+  "title": "book.neovitae.guide.dungeons.endless_realm.foreman.title"
+}

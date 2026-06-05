@@ -1,11 +1,11 @@
 package com.breakinblocks.neovitae.datagen.book.page;
 
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
+import com.breakinblocks.neovitae.compat.modonomicon.page.BookSpiritusGemStatsPage;
 import com.klikli_dev.modonomicon.api.datagen.book.BookTextHolderModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookPageModel;
-import com.google.gson.JsonObject;
+import com.klikli_dev.modonomicon.book.page.BookPage;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.Identifier;
 
 public class BookSpiritusGemStatsPageModel extends BookPageModel<BookSpiritusGemStatsPageModel> {
 
@@ -25,9 +25,7 @@ public class BookSpiritusGemStatsPageModel extends BookPageModel<BookSpiritusGem
     }
 
     @Override
-    public JsonObject toJson(Identifier entryId, HolderLookup.Provider provider) {
-        var json = super.toJson(entryId, provider);
-        json.add("title", this.title.toJson(provider));
-        return json;
+    public BookPage toBookPage(HolderLookup.Provider provider) {
+        return new BookSpiritusGemStatsPage(this.title.toBookTextHolder(), this.id, this.condition(provider));
     }
 }

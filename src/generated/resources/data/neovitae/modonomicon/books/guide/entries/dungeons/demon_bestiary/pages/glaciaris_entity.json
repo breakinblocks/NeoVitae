@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "neovitae:daemonium_glaciaris",
+  "entity_name": "Daemonium Glaciaris",
+  "id": "glaciaris_entity",
+  "scale": 0.25,
+  "sort_number": 11,
+  "text": "book.neovitae.guide.dungeons.demon_bestiary.glaciaris_entity.text"
+}

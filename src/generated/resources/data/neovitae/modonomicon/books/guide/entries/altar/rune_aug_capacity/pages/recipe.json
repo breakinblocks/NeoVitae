@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe",
+  "recipe_id_1": "neovitae:rune_capacity_augmented",
+  "sort_number": 1,
+  "title1": "Rune of Aug. Capacity"
+}

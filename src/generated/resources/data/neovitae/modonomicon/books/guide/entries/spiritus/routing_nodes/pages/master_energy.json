@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "master_energy",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.spiritus.routing_nodes.master_energy.text",
+  "title": "book.neovitae.guide.spiritus.routing_nodes.master_energy.title"
+}

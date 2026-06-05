@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "tier2",
+  "show_title_separator": true,
+  "sort_number": 5,
+  "text": "book.neovitae.guide.utility.getting_started.tier2.text",
+  "title": "book.neovitae.guide.utility.getting_started.tier2.title"
+}

@@ -3,12 +3,8 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 import com.breakinblocks.neovitae.client.event.ClientRecipeCache;
 import com.breakinblocks.neovitae.common.recipe.flask.FlaskRecipe;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
-import com.breakinblocks.neovitae.compat.modonomicon.page.BookNVRecipePageRenderer;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
@@ -16,9 +12,6 @@ import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 import java.util.List;
 
 public class BookFlaskRecipePageRenderer extends BookNVRecipePageRenderer<FlaskRecipe, BookFlaskRecipePage> {
-
-    private static final Identifier CRAFTING_TEXTURES = Identifier.fromNamespaceAndPath("modonomicon", "textures/gui/crafting_textures.png");
-    private static final RenderPipeline GUI = RenderPipelines.GUI_TEXTURED;
 
     public BookFlaskRecipePageRenderer(BookFlaskRecipePage page) {
         super(page);
@@ -54,15 +47,15 @@ public class BookFlaskRecipePageRenderer extends BookNVRecipePageRenderer<FlaskR
 
         for (int i = 0; i < count; i++) {
             int slotX = startX + (i * 22);
-            guiGraphics.blit(GUI, CRAFTING_TEXTURES, slotX, recipeY, 84, 198, 22, 22, 128, 256);
+            this.drawSlot(guiGraphics, slotX, recipeY);
             this.parentScreen.renderIngredient(guiGraphics, slotX + 3, recipeY + 3, mouseX, mouseY, ingredients.get(i));
         }
 
         int arrowX = startX + (count * 22) + 4;
-        guiGraphics.blit(GUI, CRAFTING_TEXTURES, arrowX, recipeY + 2, 35, 198, 18, 18, 128, 256);
+        this.drawArrow(guiGraphics, arrowX, recipeY + 2);
 
         int outputX = arrowX + 20;
-        guiGraphics.blit(GUI, CRAFTING_TEXTURES, outputX, recipeY, 84, 198, 22, 22, 128, 256);
+        this.drawSlot(guiGraphics, outputX, recipeY);
         var output = recipe.getOutput(recipe.getExampleFlask(), recipe.getExampleEffects());
         this.parentScreen.renderItemStack(guiGraphics, outputX + 3, recipeY + 3, mouseX, mouseY, output);
 

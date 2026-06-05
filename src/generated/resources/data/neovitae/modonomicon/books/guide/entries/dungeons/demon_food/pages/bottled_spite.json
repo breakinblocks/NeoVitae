@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "bottled_spite",
+  "item": {
+    "id": "neovitae:bottled_spite"
+  },
+  "sort_number": 3,
+  "text": "book.neovitae.guide.dungeons.demon_food.bottled_spite.text",
+  "title": "Bottled Spite"
+}

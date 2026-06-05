@@ -1,83 +1,26 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "spiritus",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:spiritus",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "spiritus/spiritus_gems"
+    "entry_id": "neovitae:spiritus/spiritus_gems"
   },
   "description": "book.neovitae.guide.spiritus.crystallized_spiritus.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "neovitae:raw_crystal_shard"
   },
+  "id": "neovitae:spiritus/crystallized_spiritus",
   "name": "book.neovitae.guide.spiritus.crystallized_spiritus.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.crystallized_spiritus.intro.text",
-      "title": "book.neovitae.guide.spiritus.crystallized_spiritus.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.crystallized_spiritus.crystallizer.text",
-      "title": "book.neovitae.guide.spiritus.crystallized_spiritus.crystallizer.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.crystallized_spiritus.crystal_growth.text",
-      "title": "book.neovitae.guide.spiritus.crystallized_spiritus.crystal_growth.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.crystallized_spiritus.harvesting.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.crystallized_spiritus.related.text",
-      "title": "",
-      "use_markdown_in_title": false
-    }
-  ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "spiritus/spiritus_gems",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "neovitae:spiritus/spiritus_gems"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 4,
   "x": -10,
   "y": -1

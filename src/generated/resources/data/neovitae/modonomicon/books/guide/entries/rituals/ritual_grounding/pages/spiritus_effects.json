@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spiritus_effects",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.rituals.ritual_grounding.spiritus_effects.text",
+  "title": "book.neovitae.guide.rituals.ritual_grounding.spiritus_effects.title"
+}

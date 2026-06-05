@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:flask_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe1",
+  "recipe_id_1": "neovitae:flask/night_to_spectral",
+  "recipe_id_2": "neovitae:flask/length_spectral_sight",
+  "sort_number": 1
+}

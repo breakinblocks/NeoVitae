@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "multiblock",
+  "multiblock_id": "neovitae:ritual/magnetism",
+  "multiblock_name": "The Endless Quarry",
+  "show_visualize_button": true,
+  "sort_number": 0,
+  "text": "book.neovitae.guide.rituals.ritual_magnetic.multiblock.text"
+}

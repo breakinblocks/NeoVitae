@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "foundation",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.rituals.ritual_sphere_create.foundation.text",
+  "title": "book.neovitae.guide.rituals.ritual_sphere_create.foundation.title"
+}

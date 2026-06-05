@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "blank_rune",
+  "show_title_separator": true,
+  "sort_number": 9,
+  "text": "book.neovitae.guide.altar.ara_vitae.blank_rune.text",
+  "title": ""
+}

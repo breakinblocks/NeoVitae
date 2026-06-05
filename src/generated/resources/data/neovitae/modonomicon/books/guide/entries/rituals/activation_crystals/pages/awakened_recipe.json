@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "awakened_recipe",
+  "recipe_id_1": "neovitae:ara_vitae/awakened_activation_crystal",
+  "sort_number": 2,
+  "text": "book.neovitae.guide.rituals.activation_crystals.awakened_recipe.text"
+}

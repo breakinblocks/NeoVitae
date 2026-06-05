@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipes1",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.tabula_vitae.tabula_vitae.recipes1.text",
+  "title": "book.neovitae.guide.tabula_vitae.tabula_vitae.recipes1.title"
+}

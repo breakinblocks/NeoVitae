@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "path_obsidian",
+  "recipe_id_1": "neovitae:path/path_obsidian_brick",
+  "recipe_id_2": "neovitae:path/path_obsidian_tile",
+  "sort_number": 10
+}

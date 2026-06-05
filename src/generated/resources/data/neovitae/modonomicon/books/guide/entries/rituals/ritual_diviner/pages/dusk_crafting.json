@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "dusk_crafting",
+  "recipe_id_1": "neovitae:ritual_diviner_dusk",
+  "sort_number": 4,
+  "text": "book.neovitae.guide.rituals.ritual_diviner.dusk_crafting.text"
+}

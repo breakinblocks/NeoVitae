@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "mine_entrance_img",
+  "images": [
+    "neovitae:images/entries/dungeon/mine_entrance.png"
+  ],
+  "sort_number": 5,
+  "text": "book.neovitae.guide.dungeons.endless_realm.mine_entrance_img.text",
+  "title": "The Mine Entrance"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "aug_shaped_charge",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.spiritus.explosive_charges.aug_shaped_charge.text",
+  "title": "book.neovitae.guide.spiritus.explosive_charges.aug_shaped_charge.title"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "iron_key",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.dungeons.keys.iron_key.text",
+  "title": "book.neovitae.guide.dungeons.keys.iron_key.title"
+}

@@ -1,52 +1,46 @@
 package com.breakinblocks.neovitae.compat.modonomicon.page;
 
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
-import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.BookTextHolder;
 import com.klikli_dev.modonomicon.book.RenderedBookTextHolder;
 import com.klikli_dev.modonomicon.book.conditions.BookCondition;
 import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
 import com.klikli_dev.modonomicon.book.page.BookPage;
 import com.klikli_dev.modonomicon.client.gui.book.markdown.BookTextRenderer;
-import net.minecraft.core.HolderLookup;
+import com.klikli_dev.modonomicon.data.BookPageType;
+import com.klikli_dev.modonomicon.registry.BookPageTypeRegistry;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 
 public class BookSpiritusGemStatsPage extends BookPage {
 
+    public static final Identifier ID = NVPageTypes.SPIRITUS_GEM_STATS;
+    public static final MapCodec<BookSpiritusGemStatsPage> CODEC = RecordCodecBuilder.mapCodec(
+            instance -> instance.group(
+                    BookTextHolder.CODEC.optionalFieldOf("title", BookTextHolder.EMPTY).forGetter(BookSpiritusGemStatsPage::getTitle),
+                    Codec.STRING.optionalFieldOf("id", "").forGetter(BookPage::getId),
+                    BookCondition.CODEC.optionalFieldOf("condition", new BookNoneCondition()).forGetter(BookPage::getCondition)
+            ).apply(instance, BookSpiritusGemStatsPage::new)
+    );
+    public static final StreamCodec<RegistryFriendlyByteBuf, BookSpiritusGemStatsPage> STREAM_CODEC = StreamCodec.composite(
+            BookTextHolder.STREAM_CODEC, BookSpiritusGemStatsPage::getTitle,
+            ByteBufCodecs.STRING_UTF8, BookPage::getId,
+            BookCondition.STREAM_CODEC, BookPage::getCondition,
+            BookSpiritusGemStatsPage::new
+    );
+    public static final BookPageType<BookSpiritusGemStatsPage> TYPE = BookPageTypeRegistry.register(ID, CODEC, STREAM_CODEC);
+
     private BookTextHolder title;
 
-    public BookSpiritusGemStatsPage(BookTextHolder title, String anchor, BookCondition condition) {
-        super(anchor, condition);
+    public BookSpiritusGemStatsPage(BookTextHolder title, String id, BookCondition condition) {
+        super(id, condition);
         this.title = title;
-    }
-
-    public static BookSpiritusGemStatsPage fromJson(Identifier id, JsonObject json, HolderLookup.Provider provider) {
-        var title = json.has("title")
-                ? new BookTextHolder(Component.translatable(GsonHelper.getAsString(json, "title")))
-                : BookTextHolder.EMPTY;
-        var anchor = GsonHelper.getAsString(json, "anchor", "");
-        var condition = json.has("condition")
-                ? BookCondition.fromJson(id, json.getAsJsonObject("condition"), provider)
-                : new BookNoneCondition();
-        return new BookSpiritusGemStatsPage(title, anchor, condition);
-    }
-
-    public static BookSpiritusGemStatsPage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        var title = BookTextHolder.fromNetwork(buffer);
-        var anchor = buffer.readUtf();
-        var condition = BookCondition.fromNetwork(buffer);
-        return new BookSpiritusGemStatsPage(title, anchor, condition);
-    }
-
-    @Override
-    public void toNetwork(RegistryFriendlyByteBuf buffer) {
-        title.toNetwork(buffer);
-        buffer.writeUtf(getAnchor());
-        BookCondition.toNetwork(getCondition(), buffer);
     }
 
     public BookTextHolder getTitle() {
@@ -66,8 +60,8 @@ public class BookSpiritusGemStatsPage extends BookPage {
     }
 
     @Override
-    public Identifier getType() {
-        return NVPageTypes.SPIRITUS_GEM_STATS;
+    public BookPageType<?> type() {
+        return TYPE;
     }
 
     @Override

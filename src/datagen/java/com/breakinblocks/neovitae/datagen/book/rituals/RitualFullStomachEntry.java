@@ -10,7 +10,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.datagen.book.page.BookRitualInfoPageModel;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
 public class RitualFullStomachEntry extends EntryProvider {
 
@@ -47,7 +47,7 @@ public class RitualFullStomachEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

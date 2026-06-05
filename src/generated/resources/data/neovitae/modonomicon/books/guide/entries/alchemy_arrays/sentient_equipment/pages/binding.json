@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "binding",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.alchemy_arrays.sentient_equipment.binding.text",
+  "title": ""
+}

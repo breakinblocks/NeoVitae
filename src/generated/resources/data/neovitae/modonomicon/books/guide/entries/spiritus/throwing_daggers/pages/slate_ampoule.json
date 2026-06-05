@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "slate_ampoule",
+  "item": {
+    "id": "neovitae:tabula_ampoule"
+  },
+  "sort_number": 3,
+  "text": "book.neovitae.guide.spiritus.throwing_daggers.slate_ampoule.text",
+  "title": "Tabula Ampoule"
+}

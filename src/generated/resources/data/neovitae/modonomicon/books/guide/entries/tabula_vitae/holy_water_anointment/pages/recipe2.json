@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:tabula_vitae_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe2",
+  "recipe_id_1": "neovitae:alchemytable/holy_water_anointment_2",
+  "recipe_id_2": "neovitae:alchemytable/holy_water_anointment_xl",
+  "sort_number": 2
+}

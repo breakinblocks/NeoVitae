@@ -1,49 +1,20 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "utility",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:utility",
+  "condition": {
+    "type": "modonomicon:none"
+  },
   "description": "book.neovitae.guide.utility.book_experience.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "neovitae:experience_tome"
   },
+  "id": "neovitae:utility/book_experience",
   "name": "book.neovitae.guide.utility.book_experience.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.book_experience.intro.text",
-      "title": "book.neovitae.guide.utility.book_experience.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "neovitae:experience_tome",
-      "text": "book.neovitae.guide.utility.book_experience.recipe.text",
-      "title1": "",
-      "title2": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.book_experience.curios.text",
-      "title": "book.neovitae.guide.utility.book_experience.curios.title",
-      "use_markdown_in_title": false
-    }
-  ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 2,
   "x": -1,
   "y": -2

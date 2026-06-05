@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "linking",
+  "show_title_separator": true,
+  "sort_number": 5,
+  "text": "book.neovitae.guide.utility.teleposer.linking.text",
+  "title": "book.neovitae.guide.utility.teleposer.linking.title"
+}

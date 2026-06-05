@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe_incense",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.utility.incense_altar.recipe_incense.text",
+  "title": ""
+}

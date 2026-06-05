@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "animus_cost",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.spiritus.spiritus_catalysts.animus_cost.text",
+  "title": ""
+}

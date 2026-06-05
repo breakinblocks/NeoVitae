@@ -56,7 +56,7 @@ import com.breakinblocks.neovitae.common.routing.ItemRoutingChannel;
 import com.breakinblocks.neovitae.compat.modonomicon.NVModonomiconCompat;
 import com.breakinblocks.neovitae.impl.AltarRuneBlockRegistry;
 import com.breakinblocks.neovitae.impl.NeoVitaeAPIImpl;
-import com.klikli_dev.modonomicon.data.LoaderRegistry;
+import com.klikli_dev.modonomicon.registry.PredicateRegistry;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.event.RegisterGameTestsEvent;
 
@@ -166,7 +166,7 @@ public class NeoVitae {
 
         if (ModList.get().isLoaded("modonomicon")) {
             event.enqueueWork(() -> {
-                LoaderRegistry.registerPredicate(
+                PredicateRegistry.register(
                         rl("non_air_solid"),
                         (blockGetter, blockPos, blockState) ->
                                 !blockState.isAir() && blockState.getFluidState().isEmpty()

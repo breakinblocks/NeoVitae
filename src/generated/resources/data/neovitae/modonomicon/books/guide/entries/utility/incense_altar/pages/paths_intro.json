@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "paths_intro",
+  "show_title_separator": true,
+  "sort_number": 6,
+  "text": "book.neovitae.guide.utility.incense_altar.paths_intro.text",
+  "title": "book.neovitae.guide.utility.incense_altar.paths_intro.title"
+}

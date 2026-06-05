@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "hellforged_block",
+  "recipe_id_1": "neovitae:hellforged_block_from_ingots",
+  "sort_number": 4,
+  "text": "book.neovitae.guide.dungeons.demonite.hellforged_block.text",
+  "title1": "Hellforged Block"
+}

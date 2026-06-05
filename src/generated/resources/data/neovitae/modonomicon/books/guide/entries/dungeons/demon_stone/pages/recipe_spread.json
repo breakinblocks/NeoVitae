@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe_spread",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.dungeons.demon_stone.recipe_spread.text",
+  "title": ""
+}

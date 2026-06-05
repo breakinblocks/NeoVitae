@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "tier2",
+  "multiblock_id": "neovitae:altar_two",
+  "multiblock_name": "book.neovitae.guide.altar.ara_vitae.tier2.title",
+  "show_visualize_button": true,
+  "sort_number": 12,
+  "text": "book.neovitae.guide.altar.ara_vitae.tier2.text"
+}

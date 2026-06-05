@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "multiblock",
+  "multiblock_id": "neovitae:ritual/torment_nexus",
+  "multiblock_name": "The Torment Nexus",
+  "show_visualize_button": true,
+  "sort_number": 0,
+  "text": "book.neovitae.guide.rituals.ritual_torment_nexus.multiblock.text"
+}

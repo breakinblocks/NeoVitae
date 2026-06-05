@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "athanor_recipes",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.utility.athanor.athanor_recipes.text",
+  "title": "book.neovitae.guide.utility.athanor.athanor_recipes.title"
+}

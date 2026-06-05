@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "activation_intro",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.alchemy_arrays.sigil_divination.activation_intro.text",
+  "title": "book.neovitae.guide.alchemy_arrays.sigil_divination.activation_intro.title"
+}

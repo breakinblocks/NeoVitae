@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "neovitae:daemonium_fervidis",
+  "entity_name": "Daemonium Fervidis",
+  "id": "fervidis_entity",
+  "scale": 0.3,
+  "sort_number": 9,
+  "text": "book.neovitae.guide.dungeons.demon_bestiary.fervidis_entity.text"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "crucible",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.spiritus.aura.crucible.text",
+  "title": "book.neovitae.guide.spiritus.aura.crucible.title"
+}

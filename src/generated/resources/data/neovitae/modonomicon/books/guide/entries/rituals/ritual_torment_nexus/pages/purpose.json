@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "purpose",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.rituals.ritual_torment_nexus.purpose.text",
+  "title": "book.neovitae.guide.rituals.ritual_torment_nexus.purpose.title"
+}

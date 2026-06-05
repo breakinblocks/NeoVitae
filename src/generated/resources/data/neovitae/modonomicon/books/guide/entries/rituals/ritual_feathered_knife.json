@@ -1,70 +1,26 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "rituals",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "rituals/ritual_basics"
+    "entry_id": "neovitae:rituals/ritual_basics"
   },
   "description": "book.neovitae.guide.rituals.ritual_feathered_knife.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "neovitae:blood_orb_weak"
   },
+  "id": "neovitae:rituals/ritual_feathered_knife",
   "name": "book.neovitae.guide.rituals.ritual_feathered_knife.name",
-  "pages": [
-    {
-      "type": "modonomicon:multiblock",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "multiblock_id": "ritual/feathered_knife",
-      "multiblock_name": "Ritual of the Willing Sacrifice",
-      "show_visualize_button": true,
-      "text": "book.neovitae.guide.rituals.ritual_feathered_knife.multiblock.text"
-    },
-    {
-      "type": "neovitae:ritual_info",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "text": "[#](8B0000)Activation Cost:[#]() 25,000 EV\\\n[#](8B0000)Crystal:[#]() Weak Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 1 EV/sec\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  4x Dusk Ritual Stone\\\n  8x Air Ritual Stone\\\n  [#](8B0000)Total:[#]() 12 runes",
-      "title": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_feathered_knife.info.text",
-      "title": "book.neovitae.guide.rituals.ritual_feathered_knife.info.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_feathered_knife.spiritus_effects.text",
-      "title": "book.neovitae.guide.rituals.ritual_feathered_knife.spiritus_effects.title",
-      "use_markdown_in_title": false
-    }
-  ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "rituals/ritual_basics",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "neovitae:rituals/ritual_basics"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 12,
   "x": -5,
   "y": -3

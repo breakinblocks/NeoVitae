@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "spiritus_types",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.dungeons.daemonium_overview.spiritus_types.text",
+  "title": "book.neovitae.guide.dungeons.daemonium_overview.spiritus_types.title"
+}

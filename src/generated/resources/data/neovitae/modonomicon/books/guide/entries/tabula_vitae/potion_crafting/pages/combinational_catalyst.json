@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "combinational_catalyst",
+  "show_title_separator": true,
+  "sort_number": 11,
+  "text": "book.neovitae.guide.tabula_vitae.potion_crafting.combinational_catalyst.text",
+  "title": "book.neovitae.guide.tabula_vitae.potion_crafting.combinational_catalyst.title"
+}

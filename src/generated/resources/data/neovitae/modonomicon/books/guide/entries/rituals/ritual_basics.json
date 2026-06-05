@@ -1,82 +1,20 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "rituals",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:rituals",
+  "condition": {
+    "type": "modonomicon:none"
+  },
   "description": "book.neovitae.guide.rituals.ritual_basics.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "neovitae:activation_crystal_creative"
   },
+  "id": "neovitae:rituals/ritual_basics",
   "name": "book.neovitae.guide.rituals.ritual_basics.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_basics.intro.text",
-      "title": "book.neovitae.guide.rituals.ritual_basics.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_basics.requirements.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_basics.building.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_basics.troubleshooting.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_basics.binding.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_basics.redstone.text",
-      "title": "",
-      "use_markdown_in_title": false
-    }
-  ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 0,
   "x": -1,
   "y": -7

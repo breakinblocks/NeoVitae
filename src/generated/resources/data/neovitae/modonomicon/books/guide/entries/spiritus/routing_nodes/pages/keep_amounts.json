@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "keep_amounts",
+  "show_title_separator": true,
+  "sort_number": 16,
+  "text": "book.neovitae.guide.spiritus.routing_nodes.keep_amounts.text",
+  "title": "book.neovitae.guide.spiritus.routing_nodes.keep_amounts.title"
+}

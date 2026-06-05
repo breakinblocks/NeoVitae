@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "fungal2",
+  "show_title_separator": true,
+  "sort_number": 10,
+  "text": "book.neovitae.guide.spiritus.explosive_charges.fungal2.text",
+  "title": "book.neovitae.guide.spiritus.explosive_charges.fungal2.title"
+}

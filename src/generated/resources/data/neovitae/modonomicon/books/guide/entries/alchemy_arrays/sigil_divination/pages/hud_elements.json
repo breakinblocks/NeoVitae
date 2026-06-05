@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "hud_elements",
+  "show_title_separator": true,
+  "sort_number": 7,
+  "text": "book.neovitae.guide.alchemy_arrays.sigil_divination.hud_elements.text",
+  "title": ""
+}

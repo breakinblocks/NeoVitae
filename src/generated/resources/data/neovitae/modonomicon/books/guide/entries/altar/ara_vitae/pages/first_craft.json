@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "first_craft",
+  "show_title_separator": true,
+  "sort_number": 8,
+  "text": "book.neovitae.guide.altar.ara_vitae.first_craft.text",
+  "title": ""
+}

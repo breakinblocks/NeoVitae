@@ -1,0 +1,9 @@
+{
+  "type": "neovitae:tabula_vitae_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe2",
+  "recipe_id_1": "neovitae:alchemytable/silk_touch_anointment_xl",
+  "sort_number": 2
+}

@@ -1,38 +1,20 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "dungeons",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:dungeons",
+  "condition": {
+    "type": "modonomicon:none"
+  },
   "description": "book.neovitae.guide.dungeons.mimics.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "neovitae:ethereal_mimic"
   },
+  "id": "neovitae:dungeons/mimics",
   "name": "book.neovitae.guide.dungeons.mimics.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.mimics.intro.text",
-      "title": "book.neovitae.guide.dungeons.mimics.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.mimics.recipe.text",
-      "title": "",
-      "use_markdown_in_title": false
-    }
-  ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 8,
   "x": -3,
   "y": 0

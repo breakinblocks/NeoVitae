@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "tier",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.altar.vitae_link.tier.text",
+  "title": "book.neovitae.guide.altar.vitae_link.tier.title"
+}

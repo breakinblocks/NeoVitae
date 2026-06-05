@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "auto_bind",
+  "show_title_separator": true,
+  "sort_number": 17,
+  "text": "book.neovitae.guide.spiritus.routing_nodes.auto_bind.text",
+  "title": "book.neovitae.guide.spiritus.routing_nodes.auto_bind.title"
+}

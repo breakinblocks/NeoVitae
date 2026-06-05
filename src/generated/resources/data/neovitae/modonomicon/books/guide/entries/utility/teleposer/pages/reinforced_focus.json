@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "reinforced_focus",
+  "recipe_id_1": "neovitae:ara_vitae/enhanced_teleposer_focus",
+  "sort_number": 4,
+  "text": "book.neovitae.guide.utility.teleposer.reinforced_focus.text"
+}

@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:multiblock",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "tier6",
+  "multiblock_id": "neovitae:altar_six",
+  "multiblock_name": "book.neovitae.guide.altar.ara_vitae.tier6.title",
+  "show_visualize_button": true,
+  "sort_number": 21,
+  "text": "book.neovitae.guide.altar.ara_vitae.tier6.text"
+}

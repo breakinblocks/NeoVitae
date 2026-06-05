@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "upkeep",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.alchemy_arrays.vortex_sigil.upkeep.text",
+  "title": "book.neovitae.guide.alchemy_arrays.vortex_sigil.upkeep.title"
+}

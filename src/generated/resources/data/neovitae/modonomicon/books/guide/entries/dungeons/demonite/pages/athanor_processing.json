@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "athanor_processing",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.dungeons.demonite.athanor_processing.text",
+  "title": "book.neovitae.guide.dungeons.demonite.athanor_processing.title"
+}

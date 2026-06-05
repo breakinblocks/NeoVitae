@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "operation",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.rituals.ritual_torment_nexus.operation.text",
+  "title": "book.neovitae.guide.rituals.ritual_torment_nexus.operation.title"
+}

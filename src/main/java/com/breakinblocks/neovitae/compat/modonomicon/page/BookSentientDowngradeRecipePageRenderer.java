@@ -3,19 +3,12 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 import com.breakinblocks.neovitae.client.event.ClientRecipeCache;
 import com.breakinblocks.neovitae.common.recipe.sentientdowngrade.SentientDowngradeRecipe;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
-import com.breakinblocks.neovitae.compat.modonomicon.page.BookNVRecipePageRenderer;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 
 public class BookSentientDowngradeRecipePageRenderer extends BookNVRecipePageRenderer<SentientDowngradeRecipe, BookSentientDowngradeRecipePage> {
-
-    private static final Identifier CRAFTING_TEXTURES = Identifier.fromNamespaceAndPath("modonomicon", "textures/gui/crafting_textures.png");
-    private static final RenderPipeline GUI = RenderPipelines.GUI_TEXTURED;
 
     public BookSentientDowngradeRecipePageRenderer(BookSentientDowngradeRecipePage page) {
         super(page);
@@ -53,7 +46,7 @@ public class BookSentientDowngradeRecipePageRenderer extends BookNVRecipePageRen
         recipeY += 14;
 
         int slotX = centerX - 11;
-        guiGraphics.blit(GUI, CRAFTING_TEXTURES, slotX, recipeY, 84, 198, 22, 22, 128, 256);
+        this.drawSlot(guiGraphics, slotX, recipeY);
         this.parentScreen.renderIngredient(guiGraphics, slotX + 3, recipeY + 3, mouseX, mouseY, recipe.getInput());
 
         recipeY += 28;

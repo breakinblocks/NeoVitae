@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "mines_key",
+  "item": {
+    "id": "neovitae:mine_entrance_key"
+  },
+  "sort_number": 2,
+  "text": "book.neovitae.guide.dungeons.keys.mines_key.text",
+  "title": "The Mines"
+}

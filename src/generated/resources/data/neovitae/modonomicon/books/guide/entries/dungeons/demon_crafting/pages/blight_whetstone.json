@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "blight_whetstone",
+  "item": {
+    "id": "neovitae:blight_whetstone"
+  },
+  "sort_number": 2,
+  "text": "book.neovitae.guide.dungeons.demon_crafting.blight_whetstone.text",
+  "title": "Blight Whetstone"
+}

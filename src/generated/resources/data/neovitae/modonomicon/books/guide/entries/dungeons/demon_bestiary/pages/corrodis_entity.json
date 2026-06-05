@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "neovitae:daemonium_corrodis",
+  "entity_name": "Daemonium Corrodis",
+  "id": "corrodis_entity",
+  "scale": 0.35,
+  "sort_number": 7,
+  "text": "book.neovitae.guide.dungeons.demon_bestiary.corrodis_entity.text"
+}

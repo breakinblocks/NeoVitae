@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "automation_loop",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.neovitae.guide.spiritus.spiritus_catalysts.automation_loop.text",
+  "title": ""
+}

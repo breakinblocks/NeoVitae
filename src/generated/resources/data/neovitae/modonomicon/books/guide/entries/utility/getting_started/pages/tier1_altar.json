@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "tier1_altar",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.utility.getting_started.tier1_altar.text",
+  "title": "book.neovitae.guide.utility.getting_started.tier1_altar.title"
+}

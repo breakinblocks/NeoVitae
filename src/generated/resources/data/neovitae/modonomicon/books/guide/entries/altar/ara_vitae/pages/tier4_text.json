@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "tier4_text",
+  "show_title_separator": true,
+  "sort_number": 15,
+  "text": "book.neovitae.guide.altar.ara_vitae.tier4_text.text",
+  "title": ""
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "immunities",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.alchemy_arrays.vortex_sigil.immunities.text",
+  "title": "book.neovitae.guide.alchemy_arrays.vortex_sigil.immunities.title"
+}

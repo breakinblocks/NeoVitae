@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "self_healing",
+  "show_title_separator": true,
+  "sort_number": 22,
+  "text": "book.neovitae.guide.spiritus.routing_nodes.self_healing.text",
+  "title": "book.neovitae.guide.spiritus.routing_nodes.self_healing.title"
+}

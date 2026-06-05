@@ -1,0 +1,9 @@
+{
+  "type": "neovitae:ritual_info",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "stats",
+  "sort_number": 1,
+  "text": "[#](8B0000)Activation Cost:[#]() 25,000 EV\\\n[#](8B0000)Crystal:[#]() Awakened Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 1 EV/sec\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  24x Dusk Ritual Stone\\\n  4x Earth Ritual Stone\\\n  4x Water Ritual Stone\\\n  4x Fire Ritual Stone\\\n  4x Air Ritual Stone\\\n  [#](8B0000)Total:[#]() 40 runes"
+}

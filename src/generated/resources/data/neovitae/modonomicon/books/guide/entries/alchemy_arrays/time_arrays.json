@@ -1,50 +1,26 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "alchemy_arrays",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:alchemy_arrays",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "alchemy_arrays/arcane_ash"
+    "entry_id": "neovitae:alchemy_arrays/arcane_ash"
   },
   "description": "book.neovitae.guide.alchemy_arrays.time_arrays.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:clock"
   },
+  "id": "neovitae:alchemy_arrays/time_arrays",
   "name": "book.neovitae.guide.alchemy_arrays.time_arrays.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_arrays.time_arrays.intro.text",
-      "title": "book.neovitae.guide.alchemy_arrays.time_arrays.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_arrays.time_arrays.recipes.text",
-      "title": "",
-      "use_markdown_in_title": false
-    }
-  ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "alchemy_arrays/arcane_ash",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "neovitae:alchemy_arrays/arcane_ash"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 5,
   "x": 1,
   "y": -5

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "dye_removal",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.utility.hydration.dye_removal.text",
+  "title": "book.neovitae.guide.utility.hydration.dye_removal.title"
+}

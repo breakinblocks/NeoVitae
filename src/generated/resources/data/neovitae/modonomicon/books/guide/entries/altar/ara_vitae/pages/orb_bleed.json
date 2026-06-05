@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "orb_bleed",
+  "show_title_separator": true,
+  "sort_number": 5,
+  "text": "book.neovitae.guide.altar.ara_vitae.orb_bleed.text",
+  "title": ""
+}

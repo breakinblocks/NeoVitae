@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "sigil_damned",
+  "item": {
+    "id": "neovitae:sigil_damned"
+  },
+  "sort_number": 1,
+  "text": "book.neovitae.guide.dungeons.demon_crafting.sigil_damned.text",
+  "title": "Sigil of the Damned"
+}

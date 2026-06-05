@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "tranquility",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.neovitae.guide.utility.incense_altar.tranquility.text",
+  "title": "book.neovitae.guide.utility.incense_altar.tranquility.title"
+}

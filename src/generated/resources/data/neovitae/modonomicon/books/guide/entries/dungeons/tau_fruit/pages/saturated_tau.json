@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "saturated_tau",
+  "item": {
+    "id": "neovitae:strong_tau"
+  },
+  "sort_number": 3,
+  "text": "book.neovitae.guide.dungeons.tau_fruit.saturated_tau.text",
+  "title": "Saturated Tau"
+}

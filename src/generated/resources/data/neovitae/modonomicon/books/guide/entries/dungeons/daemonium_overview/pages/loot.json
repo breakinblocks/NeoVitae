@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "loot",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.dungeons.daemonium_overview.loot.text",
+  "title": "book.neovitae.guide.dungeons.daemonium_overview.loot.title"
+}

@@ -6,7 +6,6 @@ import com.breakinblocks.neovitae.ritual.RitualComponent;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
-import com.klikli_dev.modonomicon.data.LoaderRegistry;
 import com.klikli_dev.modonomicon.multiblock.SparseMultiblock;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -46,7 +45,7 @@ public final class RitualMultiblockBuilder {
         }
 
         JsonObject root = new JsonObject();
-        root.addProperty("type", SparseMultiblock.TYPE.toString());
+        root.addProperty("type", SparseMultiblock.ID.toString());
         root.addProperty("symmetrical", true);
 
         JsonObject patternJson = new JsonObject();
@@ -68,7 +67,7 @@ public final class RitualMultiblockBuilder {
         mappingJson.add("_", airMatcher);
         root.add("mapping", mappingJson);
 
-        return LoaderRegistry.getMultiblockJsonLoader(SparseMultiblock.TYPE).fromJson(root, provider);
+        return Multiblock.fromJson(root, provider);
     }
 
     public static char runeChar(EnumRuneType rune) {

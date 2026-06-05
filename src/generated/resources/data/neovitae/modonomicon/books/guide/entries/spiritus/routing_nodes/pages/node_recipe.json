@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "node_recipe",
+  "show_title_separator": true,
+  "sort_number": 6,
+  "text": "book.neovitae.guide.spiritus.routing_nodes.node_recipe.text",
+  "title": "book.neovitae.guide.spiritus.routing_nodes.node_recipe.title"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "tier2_potions",
+  "show_title_separator": true,
+  "sort_number": 6,
+  "text": "book.neovitae.guide.utility.getting_started.tier2_potions.text",
+  "title": "book.neovitae.guide.utility.getting_started.tier2_potions.title"
+}

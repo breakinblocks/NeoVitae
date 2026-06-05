@@ -2,13 +2,20 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
 import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
-import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
-import net.minecraft.core.HolderLookup;
+import com.klikli_dev.modonomicon.data.BookPageType;
+import com.klikli_dev.modonomicon.registry.BookPageTypeRegistry;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 
 public class BookAlchemyArrayRecipePage extends BookRecipePage<AlchemyArrayRecipe> {
+
+    public static final Identifier ID = NVPageTypes.ALCHEMY_ARRAY;
+    public static final MapCodec<BookAlchemyArrayRecipePage> CODEC = codec(BookAlchemyArrayRecipePage::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, BookAlchemyArrayRecipePage> STREAM_CODEC = streamCodec(BookAlchemyArrayRecipePage::new);
+    public static final BookPageType<BookAlchemyArrayRecipePage> TYPE = BookPageTypeRegistry.register(ID, CODEC, STREAM_CODEC);
 
     public BookAlchemyArrayRecipePage(JsonDataHolder data) {
         super(data);
@@ -18,16 +25,8 @@ public class BookAlchemyArrayRecipePage extends BookRecipePage<AlchemyArrayRecip
         super(data);
     }
 
-    public static BookAlchemyArrayRecipePage fromJson(Identifier id, JsonObject json, HolderLookup.Provider provider) {
-        return new BookAlchemyArrayRecipePage(BookRecipePage.commonFromJson(id, json, provider));
-    }
-
-    public static BookAlchemyArrayRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        return new BookAlchemyArrayRecipePage(BookRecipePage.commonFromNetwork(buffer));
-    }
-
     @Override
-    public Identifier getType() {
-        return NVPageTypes.ALCHEMY_ARRAY;
+    public BookPageType<?> type() {
+        return TYPE;
     }
 }

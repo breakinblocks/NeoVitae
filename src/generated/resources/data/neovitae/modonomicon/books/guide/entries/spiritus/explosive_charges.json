@@ -1,149 +1,26 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "spiritus",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:spiritus",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "spiritus/spiritus"
+    "entry_id": "neovitae:spiritus/spiritus"
   },
   "description": "book.neovitae.guide.spiritus.explosive_charges.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "neovitae:shaped_charge"
   },
+  "id": "neovitae:spiritus/explosive_charges",
   "name": "book.neovitae.guide.spiritus.explosive_charges.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.intro.text",
-      "title": "book.neovitae.guide.spiritus.explosive_charges.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.anointments.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.shaped_charge.text",
-      "title": "book.neovitae.guide.spiritus.explosive_charges.shaped_charge.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.aug_shaped_charge.text",
-      "title": "book.neovitae.guide.spiritus.explosive_charges.aug_shaped_charge.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.tunnelling.text",
-      "title": "book.neovitae.guide.spiritus.explosive_charges.tunnelling.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.deforester.text",
-      "title": "book.neovitae.guide.spiritus.explosive_charges.deforester.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.deforester2.text",
-      "title": "book.neovitae.guide.spiritus.explosive_charges.deforester2.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.controlled.text",
-      "title": "book.neovitae.guide.spiritus.explosive_charges.controlled.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.controlled2.text",
-      "title": "book.neovitae.guide.spiritus.explosive_charges.controlled2.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.fungal.text",
-      "title": "book.neovitae.guide.spiritus.explosive_charges.fungal.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.explosive_charges.fungal2.text",
-      "title": "book.neovitae.guide.spiritus.explosive_charges.fungal2.title",
-      "use_markdown_in_title": false
-    }
-  ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "spiritus/spiritus",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "neovitae:spiritus/spiritus"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 12,
   "x": 4,
   "y": -3

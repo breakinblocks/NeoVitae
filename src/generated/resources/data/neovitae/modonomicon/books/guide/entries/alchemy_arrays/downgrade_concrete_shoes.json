@@ -1,50 +1,26 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "alchemy_arrays",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:alchemy_arrays",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "alchemy_arrays/sentient_upgrades"
+    "entry_id": "neovitae:alchemy_arrays/sentient_upgrades"
   },
   "description": "book.neovitae.guide.alchemy_arrays.downgrade_concrete_shoes.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "minecraft:water_bucket"
   },
+  "id": "neovitae:alchemy_arrays/downgrade_concrete_shoes",
   "name": "book.neovitae.guide.alchemy_arrays.downgrade_concrete_shoes.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.alchemy_arrays.downgrade_concrete_shoes.intro.text",
-      "title": "book.neovitae.guide.alchemy_arrays.downgrade_concrete_shoes.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "neovitae:sentient_downgrade_recipe",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "neovitae:downgrade/swim_decrease",
-      "text": "",
-      "title1": "",
-      "title2": ""
-    }
-  ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "alchemy_arrays/sentient_upgrades",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "neovitae:alchemy_arrays/sentient_upgrades"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 52,
   "x": 9,
   "y": 4

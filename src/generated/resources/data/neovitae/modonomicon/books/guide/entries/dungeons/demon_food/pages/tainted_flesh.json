@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "tainted_flesh",
+  "item": {
+    "id": "neovitae:tainted_flesh"
+  },
+  "sort_number": 1,
+  "text": "book.neovitae.guide.dungeons.demon_food.tainted_flesh.text",
+  "title": "Tainted Flesh"
+}

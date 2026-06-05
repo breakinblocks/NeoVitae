@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "mines",
+  "show_title_separator": true,
+  "sort_number": 7,
+  "text": "book.neovitae.guide.dungeons.endless_realm.mines.text",
+  "title": "book.neovitae.guide.dungeons.endless_realm.mines.title"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "archmage",
+  "show_title_separator": true,
+  "sort_number": 6,
+  "text": "book.neovitae.guide.altar.anima.archmage.text",
+  "title": ""
+}

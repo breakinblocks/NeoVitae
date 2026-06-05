@@ -8,7 +8,6 @@ import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.api.multiblock.Multiblock;
-import com.klikli_dev.modonomicon.data.LoaderRegistry;
 import com.klikli_dev.modonomicon.multiblock.DenseMultiblock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -123,7 +122,7 @@ public final class AltarMultiblockBuilder {
         }
 
         JsonObject root = new JsonObject();
-        root.addProperty("type", DenseMultiblock.TYPE.toString());
+        root.addProperty("type", DenseMultiblock.ID.toString());
         root.addProperty("symmetrical", true);
 
         JsonArray patternJson = new JsonArray();
@@ -140,7 +139,7 @@ public final class AltarMultiblockBuilder {
         }
         root.add("mapping", mapping);
 
-        return LoaderRegistry.getMultiblockJsonLoader(DenseMultiblock.TYPE).fromJson(root, provider);
+        return Multiblock.fromJson(root, provider);
     }
 
     private static JsonObject matcherFor(MaterialKey key) {

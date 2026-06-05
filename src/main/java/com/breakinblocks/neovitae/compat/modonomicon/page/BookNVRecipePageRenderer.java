@@ -22,6 +22,14 @@ public abstract class BookNVRecipePageRenderer<R extends Recipe<?>, T extends Bo
         super(page);
     }
 
+    protected void drawSlot(GuiGraphicsExtractor guiGraphics, int x, int y) {
+        this.page.getBook().theme().content().craftingSlot().extractRenderState(guiGraphics, x, y, 22, 22);
+    }
+
+    protected void drawArrow(GuiGraphicsExtractor guiGraphics, int x, int y) {
+        this.page.getBook().theme().content().craftingArrow().extractRenderState(guiGraphics, x, y, 18, 18);
+    }
+
     @Override
     public void render(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         int recipeX = X;

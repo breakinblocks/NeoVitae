@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "weak_recipe",
+  "recipe_id_1": "neovitae:ara_vitae/weak_activation_crystal",
+  "sort_number": 1,
+  "text": "book.neovitae.guide.rituals.activation_crystals.weak_recipe.text"
+}

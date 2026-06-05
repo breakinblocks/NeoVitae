@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "tunnelling",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.neovitae.guide.spiritus.explosive_charges.tunnelling.text",
+  "title": "book.neovitae.guide.spiritus.explosive_charges.tunnelling.title"
+}

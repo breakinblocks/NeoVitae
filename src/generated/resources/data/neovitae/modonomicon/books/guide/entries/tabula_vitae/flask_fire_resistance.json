@@ -1,62 +1,26 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "tabula_vitae",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:tabula_vitae",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "tabula_vitae/potion_crafting"
+    "entry_id": "neovitae:tabula_vitae/potion_crafting"
   },
   "description": "book.neovitae.guide.tabula_vitae.flask_fire_resistance.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "neovitae:alchemy_flask"
   },
+  "id": "neovitae:tabula_vitae/flask_fire_resistance",
   "name": "book.neovitae.guide.tabula_vitae.flask_fire_resistance.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.tabula_vitae.flask_fire_resistance.intro.text",
-      "title": "book.neovitae.guide.tabula_vitae.flask_fire_resistance.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "neovitae:flask_recipe",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "neovitae:flask/fire_resist",
-      "recipe_id_2": "neovitae:flask/length_fire_resist",
-      "text": "",
-      "title1": "",
-      "title2": ""
-    },
-    {
-      "type": "neovitae:flask_recipe",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "neovitae:flask/length_average_fire_resist",
-      "text": "",
-      "title1": "",
-      "title2": ""
-    }
-  ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "tabula_vitae/potion_crafting",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "neovitae:tabula_vitae/potion_crafting"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 25,
   "x": 2,
   "y": -2

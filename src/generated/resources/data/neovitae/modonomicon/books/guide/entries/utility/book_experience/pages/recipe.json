@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe",
+  "recipe_id_1": "neovitae:experience_tome",
+  "sort_number": 1,
+  "text": "book.neovitae.guide.utility.book_experience.recipe.text"
+}

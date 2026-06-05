@@ -1,0 +1,9 @@
+{
+  "type": "neovitae:flask_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe2",
+  "recipe_id_1": "neovitae:flask/potency_average_health",
+  "sort_number": 2
+}

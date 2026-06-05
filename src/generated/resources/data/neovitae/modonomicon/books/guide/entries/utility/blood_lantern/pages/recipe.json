@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:ara_vitae_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe",
+  "recipe_id_1": "neovitae:ara_vitae/blood_lantern",
+  "sort_number": 1,
+  "text": "book.neovitae.guide.utility.blood_lantern.recipe.text"
+}

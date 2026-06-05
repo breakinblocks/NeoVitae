@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "boss_drops",
+  "item": {
+    "id": "neovitae:permafrost_core"
+  },
+  "sort_number": 3,
+  "text": "book.neovitae.guide.dungeons.demon_drops.boss_drops.text",
+  "title": "Apex Trophies"
+}

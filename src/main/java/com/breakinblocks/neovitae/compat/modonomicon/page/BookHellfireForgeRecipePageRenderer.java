@@ -3,12 +3,8 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 import com.breakinblocks.neovitae.client.event.ClientRecipeCache;
 import com.breakinblocks.neovitae.common.recipe.forge.ForgeRecipe;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
-import com.breakinblocks.neovitae.compat.modonomicon.page.BookNVRecipePageRenderer;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
@@ -16,9 +12,6 @@ import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 import java.util.List;
 
 public class BookHellfireForgeRecipePageRenderer extends BookNVRecipePageRenderer<ForgeRecipe, BookHellfireForgeRecipePage> {
-
-    private static final Identifier CRAFTING_TEXTURES = Identifier.fromNamespaceAndPath("modonomicon", "textures/gui/crafting_textures.png");
-    private static final RenderPipeline GUI = RenderPipelines.GUI_TEXTURED;
 
     public BookHellfireForgeRecipePageRenderer(BookHellfireForgeRecipePage page) {
         super(page);
@@ -62,17 +55,17 @@ public class BookHellfireForgeRecipePageRenderer extends BookNVRecipePageRendere
             int row = i / 3;
             int slotX = startX + (col * slotSize);
             int slotY = recipeY + (row * slotSize);
-            guiGraphics.blit(GUI, CRAFTING_TEXTURES, slotX, slotY, 84, 198, 22, 22, 128, 256);
+            this.drawSlot(guiGraphics, slotX, slotY);
             this.parentScreen.renderIngredient(guiGraphics, slotX + 3, slotY + 3, mouseX, mouseY, ingredients.get(i));
         }
 
         int arrowX = startX + gridWidth + 2;
         int arrowY = recipeY + ((rows * slotSize - 16) / 2);
-        guiGraphics.blit(GUI, CRAFTING_TEXTURES, arrowX, arrowY, 35, 198, 18, 18, 128, 256);
+        this.drawArrow(guiGraphics, arrowX, arrowY);
 
         int outputX = arrowX + 20;
         int outputY = recipeY + ((rows * slotSize - 22) / 2);
-        guiGraphics.blit(GUI, CRAFTING_TEXTURES, outputX, outputY, 84, 198, 22, 22, 128, 256);
+        this.drawSlot(guiGraphics, outputX, outputY);
         this.parentScreen.renderItemStack(guiGraphics, outputX + 3, outputY + 3, mouseX, mouseY, recipe.getOutput());
 
         int textY = recipeY + (rows * slotSize) + 4;

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "crafting_process",
+  "show_title_separator": true,
+  "sort_number": 7,
+  "text": "book.neovitae.guide.altar.ara_vitae.crafting_process.text",
+  "title": ""
+}

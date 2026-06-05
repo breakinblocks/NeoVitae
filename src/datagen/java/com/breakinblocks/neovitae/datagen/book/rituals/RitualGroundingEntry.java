@@ -10,6 +10,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.datagen.book.page.BookRitualInfoPageModel;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import com.mojang.datafixers.util.Pair;
 
 public class RitualGroundingEntry extends EntryProvider {
@@ -57,7 +58,7 @@ public class RitualGroundingEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

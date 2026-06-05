@@ -1,0 +1,14 @@
+{
+  "type": "modonomicon:image",
+  "border": true,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "gui_left",
+  "images": [
+    "neovitae:images/entries/routing/node_gui_left.png"
+  ],
+  "sort_number": 12,
+  "text": "",
+  "title": ""
+}

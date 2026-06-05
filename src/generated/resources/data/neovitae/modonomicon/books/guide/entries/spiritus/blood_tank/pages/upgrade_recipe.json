@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "upgrade_recipe",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.spiritus.blood_tank.upgrade_recipe.text",
+  "title": "book.neovitae.guide.spiritus.blood_tank.upgrade_recipe.title"
+}

@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe_hydration",
+  "recipe_id_1": "neovitae:primitive_hydration_cell",
+  "sort_number": 1,
+  "text": "book.neovitae.guide.utility.hydration.recipe_hydration.text"
+}

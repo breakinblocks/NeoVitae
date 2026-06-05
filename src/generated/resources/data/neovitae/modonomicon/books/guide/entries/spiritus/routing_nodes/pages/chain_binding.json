@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "chain_binding",
+  "show_title_separator": true,
+  "sort_number": 18,
+  "text": "book.neovitae.guide.spiritus.routing_nodes.chain_binding.text",
+  "title": "book.neovitae.guide.spiritus.routing_nodes.chain_binding.title"
+}

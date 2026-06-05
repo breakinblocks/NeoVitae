@@ -1,135 +1,26 @@
 {
-  "background_u_index": 0,
-  "background_v_index": 0,
-  "category": "altar",
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:altar",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "altar/ara_vitae"
+    "entry_id": "neovitae:altar/ara_vitae"
   },
   "description": "book.neovitae.guide.altar.anima.description",
-  "hide_while_locked": false,
   "icon": {
     "id": "neovitae:blood_orb_weak"
   },
+  "id": "neovitae:altar/anima",
   "name": "book.neovitae.guide.altar.anima.name",
-  "pages": [
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.anima.intro.text",
-      "title": "book.neovitae.guide.altar.anima.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.anima.binding.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.anima.filling.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "neovitae:blood_orb_stats",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "title": "book.neovitae.guide.altar.anima.orb_tiers.title"
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.anima.weak_apprentice.text",
-      "title": "book.neovitae.guide.altar.anima.weak_apprentice.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.anima.magician_master.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.anima.archmage.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.anima.orb_fluid_tank.text",
-      "title": "book.neovitae.guide.altar.anima.orb_fluid_tank.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.anima.orb_harvest.text",
-      "title": "book.neovitae.guide.altar.anima.orb_harvest.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.anima.blood_shield.text",
-      "title": "book.neovitae.guide.altar.anima.blood_shield.title",
-      "use_markdown_in_title": false
-    }
-  ],
   "parents": [
     {
-      "draw_arrow": true,
-      "entry": "altar/ara_vitae",
-      "line_enabled": true,
-      "line_reversed": false
+      "entry": "neovitae:altar/ara_vitae"
     }
   ],
-  "show_when_any_parent_unlocked": false,
   "sort_number": 1,
   "x": -7,
   "y": -2

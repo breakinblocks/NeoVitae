@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "neovitae:daemonium_voraxis",
+  "entity_name": "Daemonium Voraxis",
+  "id": "voraxis_entity",
+  "scale": 0.4,
+  "sort_number": 6,
+  "text": "book.neovitae.guide.dungeons.demon_bestiary.voraxis_entity.text"
+}

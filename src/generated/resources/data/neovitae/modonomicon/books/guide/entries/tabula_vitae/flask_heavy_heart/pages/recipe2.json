@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:flask_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe2",
+  "recipe_id_1": "neovitae:flask/potency_heavy_heart",
+  "recipe_id_2": "neovitae:flask/potency_average_heavy_heart",
+  "sort_number": 2
+}

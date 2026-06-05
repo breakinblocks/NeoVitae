@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "controlled2",
+  "show_title_separator": true,
+  "sort_number": 8,
+  "text": "book.neovitae.guide.spiritus.explosive_charges.controlled2.text",
+  "title": "book.neovitae.guide.spiritus.explosive_charges.controlled2.title"
+}

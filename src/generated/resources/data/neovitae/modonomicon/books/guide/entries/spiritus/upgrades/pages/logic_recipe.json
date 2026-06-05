@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "logic_recipe",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.spiritus.upgrades.logic_recipe.text",
+  "title": "book.neovitae.guide.spiritus.upgrades.logic_recipe.title"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "scythe",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.spiritus.sentient_tools.scythe.text",
+  "title": "book.neovitae.guide.spiritus.sentient_tools.scythe.title"
+}

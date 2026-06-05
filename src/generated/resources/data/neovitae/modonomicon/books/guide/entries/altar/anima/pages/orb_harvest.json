@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "orb_harvest",
+  "show_title_separator": true,
+  "sort_number": 8,
+  "text": "book.neovitae.guide.altar.anima.orb_harvest.text",
+  "title": "book.neovitae.guide.altar.anima.orb_harvest.title"
+}

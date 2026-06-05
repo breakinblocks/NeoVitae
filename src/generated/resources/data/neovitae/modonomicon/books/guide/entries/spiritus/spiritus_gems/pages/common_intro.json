@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "common_intro",
+  "show_title_separator": true,
+  "sort_number": 5,
+  "text": "book.neovitae.guide.spiritus.spiritus_gems.common_intro.text",
+  "title": ""
+}

@@ -1,0 +1,10 @@
+{
+  "type": "neovitae:flask_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe1",
+  "recipe_id_1": "neovitae:flask/jump_to_grounded",
+  "recipe_id_2": "neovitae:flask/length_grounded",
+  "sort_number": 1
+}

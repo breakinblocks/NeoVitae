@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "fortune",
+  "show_title_separator": true,
+  "sort_number": 4,
+  "text": "book.neovitae.guide.rituals.ritual_crystallum_fractura.fortune.text",
+  "title": "book.neovitae.guide.rituals.ritual_crystallum_fractura.fortune.title"
+}

@@ -1,0 +1,12 @@
+{
+  "type": "modonomicon:entity",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "entity_id": "neovitae:daemonium_cruoris",
+  "entity_name": "Daemonium Cruoris",
+  "id": "cruoris_entity",
+  "scale": 0.5,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.dungeons.demon_bestiary.cruoris_entity.text"
+}

@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe",
+  "recipe_id_1": "neovitae:lava_crystal",
+  "sort_number": 1,
+  "text": "book.neovitae.guide.utility.lava_crystal.recipe.text"
+}

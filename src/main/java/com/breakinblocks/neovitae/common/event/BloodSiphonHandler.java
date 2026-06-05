@@ -47,7 +47,7 @@ public class BloodSiphonHandler {
         double siphonValue = attacker.getAttributeValue(NVAttributes.BLOOD_SIPHON);
         if (siphonValue <= 0) return;
 
-        float damageDealt = event.getNewDamage();
+        float damageDealt = event.getHealthDamage();
         if (damageDealt <= 0) return;
 
         double lpBase = Math.min(siphonValue, damageDealt);

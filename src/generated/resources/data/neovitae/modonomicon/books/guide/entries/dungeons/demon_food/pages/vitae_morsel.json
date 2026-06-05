@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "vitae_morsel",
+  "item": {
+    "id": "neovitae:vitae_morsel"
+  },
+  "sort_number": 2,
+  "text": "book.neovitae.guide.dungeons.demon_food.vitae_morsel.text",
+  "title": "Vitae Morsel"
+}

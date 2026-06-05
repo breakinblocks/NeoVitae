@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "hellforged_parts",
+  "item": {
+    "id": "neovitae:hellforged_parts"
+  },
+  "sort_number": 8,
+  "text": "book.neovitae.guide.dungeons.endless_realm.hellforged_parts.text",
+  "title": "Intricate Hellforged Parts"
+}

@@ -2,13 +2,20 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
-import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
-import net.minecraft.core.HolderLookup;
+import com.klikli_dev.modonomicon.data.BookPageType;
+import com.klikli_dev.modonomicon.registry.BookPageTypeRegistry;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 
 public class BookAthanorRecipePage extends BookRecipePage<AthanorRecipe> {
+
+    public static final Identifier ID = NVPageTypes.ATHANOR;
+    public static final MapCodec<BookAthanorRecipePage> CODEC = codec(BookAthanorRecipePage::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, BookAthanorRecipePage> STREAM_CODEC = streamCodec(BookAthanorRecipePage::new);
+    public static final BookPageType<BookAthanorRecipePage> TYPE = BookPageTypeRegistry.register(ID, CODEC, STREAM_CODEC);
 
     public BookAthanorRecipePage(JsonDataHolder data) {
         super(data);
@@ -18,16 +25,8 @@ public class BookAthanorRecipePage extends BookRecipePage<AthanorRecipe> {
         super(data);
     }
 
-    public static BookAthanorRecipePage fromJson(Identifier id, JsonObject json, HolderLookup.Provider provider) {
-        return new BookAthanorRecipePage(BookRecipePage.commonFromJson(id, json, provider));
-    }
-
-    public static BookAthanorRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        return new BookAthanorRecipePage(BookRecipePage.commonFromNetwork(buffer));
-    }
-
     @Override
-    public Identifier getType() {
-        return NVPageTypes.ATHANOR;
+    public BookPageType<?> type() {
+        return TYPE;
     }
 }

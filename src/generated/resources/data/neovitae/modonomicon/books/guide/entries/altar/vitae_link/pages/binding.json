@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "binding",
+  "show_title_separator": true,
+  "sort_number": 2,
+  "text": "book.neovitae.guide.altar.vitae_link.binding.text",
+  "title": "book.neovitae.guide.altar.vitae_link.binding.title"
+}

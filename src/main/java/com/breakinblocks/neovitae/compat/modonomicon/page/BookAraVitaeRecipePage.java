@@ -2,13 +2,20 @@ package com.breakinblocks.neovitae.compat.modonomicon.page;
 
 import com.breakinblocks.neovitae.compat.modonomicon.NVPageTypes;
 import com.breakinblocks.neovitae.api.recipe.AraVitaeRecipe;
-import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
-import net.minecraft.core.HolderLookup;
+import com.klikli_dev.modonomicon.data.BookPageType;
+import com.klikli_dev.modonomicon.registry.BookPageTypeRegistry;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 
 public class BookAraVitaeRecipePage extends BookRecipePage<AraVitaeRecipe> {
+
+    public static final Identifier ID = NVPageTypes.ARA_VITAE;
+    public static final MapCodec<BookAraVitaeRecipePage> CODEC = codec(BookAraVitaeRecipePage::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, BookAraVitaeRecipePage> STREAM_CODEC = streamCodec(BookAraVitaeRecipePage::new);
+    public static final BookPageType<BookAraVitaeRecipePage> TYPE = BookPageTypeRegistry.register(ID, CODEC, STREAM_CODEC);
 
     public BookAraVitaeRecipePage(JsonDataHolder data) {
         super(data);
@@ -18,16 +25,8 @@ public class BookAraVitaeRecipePage extends BookRecipePage<AraVitaeRecipe> {
         super(data);
     }
 
-    public static BookAraVitaeRecipePage fromJson(Identifier id, JsonObject json, HolderLookup.Provider provider) {
-        return new BookAraVitaeRecipePage(BookRecipePage.commonFromJson(id, json, provider));
-    }
-
-    public static BookAraVitaeRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
-        return new BookAraVitaeRecipePage(BookRecipePage.commonFromNetwork(buffer));
-    }
-
     @Override
-    public Identifier getType() {
-        return NVPageTypes.ARA_VITAE;
+    public BookPageType<?> type() {
+        return TYPE;
     }
 }

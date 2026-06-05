@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "athanor_ore",
+  "show_title_separator": true,
+  "sort_number": 5,
+  "text": "book.neovitae.guide.utility.ore_processing.athanor_ore.text",
+  "title": "book.neovitae.guide.utility.ore_processing.athanor_ore.title"
+}

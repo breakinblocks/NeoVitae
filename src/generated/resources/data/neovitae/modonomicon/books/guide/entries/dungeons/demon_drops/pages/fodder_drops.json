@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "fodder_drops",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.dungeons.demon_drops.fodder_drops.text",
+  "title": "book.neovitae.guide.dungeons.demon_drops.fodder_drops.title"
+}

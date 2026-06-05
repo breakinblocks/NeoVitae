@@ -1,0 +1,9 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "blank_rune_recipe",
+  "recipe_id_1": "neovitae:rune_blank",
+  "sort_number": 10
+}

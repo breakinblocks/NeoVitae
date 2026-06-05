@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "deforester2",
+  "show_title_separator": true,
+  "sort_number": 6,
+  "text": "book.neovitae.guide.spiritus.explosive_charges.deforester2.text",
+  "title": "book.neovitae.guide.spiritus.explosive_charges.deforester2.title"
+}

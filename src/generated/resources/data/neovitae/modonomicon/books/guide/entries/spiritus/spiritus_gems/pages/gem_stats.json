@@ -1,0 +1,9 @@
+{
+  "type": "neovitae:spiritus_gem_stats",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "gem_stats",
+  "sort_number": 1,
+  "title": "book.neovitae.guide.spiritus.spiritus_gems.gem_stats.title"
+}

@@ -140,7 +140,7 @@ Organize imports in this order:
 2. Third-party libraries (com.google, org.apache, etc.)
 3. `net.minecraft.*`
 4. `net.neoforged.*`
-5. `wayoftime.bloodmagic.*`
+5. `com.breakinblocks.neovitae.*`
 
 Remove unused imports and avoid wildcard imports.
 
@@ -169,7 +169,7 @@ Use the established registration patterns:
 
 ```java
 // DeferredRegister for blocks
-public static final DeferredRegister<Block> BLOCKS = DeferredRegister.createBlocks(BloodMagic.MODID);
+public static final DeferredRegister<Block> BLOCKS = DeferredRegister.createBlocks(NeoVitae.MODID);
 
 // DeferredHolder for individual registrations
 public static final DeferredHolder<Block, MyBlock> MY_BLOCK = BLOCKS.register("my_block", MyBlock::new);
@@ -180,22 +180,24 @@ public static final BlockWithItemHolder<MyBlock, BlockItem> MY_BLOCK = BLOCK_REG
 
 ### Prefix Conventions
 
-| Prefix | Usage |
+| Convention | Usage |
 |--------|-------|
-| `BM` | Registry/helper classes (BMBlocks, BMItems, BMTiles) |
-| `Item` | Item classes (ItemSigil, ItemRitualDiviner) |
-| `Block` | Block classes when disambiguation needed |
-| `Tile` / `TileEntity` | Block entity classes (BloodAltarTile) |
+| `NV` prefix | Registry and helper classes (NVBlocks, NVItems, NVTiles) |
+| `*Item` suffix | Item classes (BloodOrbItem, CrystalCatalystItem) |
+| `*Block` suffix | Block classes (AthanorBlock) |
+| `*BlockEntity` / `*Tile` suffix | Block entity classes (AthanorBlockEntity, AraVitaeTile) |
+
+Some older classes use a leading `Item`/`Block` prefix instead; prefer the suffix style for new classes.
 
 ### Resource Locations
 
 Use the helper method for resource locations:
 ```java
 // Correct
-BloodMagic.rl("textures/gui/altar.png")
+NeoVitae.rl("textures/gui/altar.png")
 
 // Instead of
-ResourceLocation.fromNamespaceAndPath(BloodMagic.MODID, "textures/gui/altar.png")
+ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "textures/gui/altar.png")
 ```
 
 ### Data Components (NeoForge 1.21.1)
@@ -259,7 +261,7 @@ docs: update contribution guidelines
 
 3. **Test your changes** in-game
 
-4. **Update documentation** if needed (CLAUDE.md, README.md, etc.)
+4. **Update documentation** if needed (README.md, etc.)
 
 5. **Create a clear PR description** explaining:
    - What changes you made
@@ -275,29 +277,41 @@ docs: update contribution guidelines
 ## Project Structure Overview
 
 ```
-BloodMagic-Continued/
+NeoVitae/
 ├── src/
 │   ├── main/
-│   │   ├── java/wayoftime/bloodmagic/
-│   │   │   ├── BloodMagic.java          # Main mod class
-│   │   │   ├── client/                   # Client-side code
-│   │   │   ├── common/                   # Shared code
-│   │   │   │   ├── block/                # Block classes
-│   │   │   │   ├── blockentity/          # Block entities
-│   │   │   │   ├── datacomponent/        # Data components
-│   │   │   │   ├── item/                 # Item classes
-│   │   │   │   ├── menu/                 # Container menus
-│   │   │   │   └── recipe/               # Recipe types
-│   │   │   ├── compat/                   # Mod integrations
-│   │   │   ├── ritual/                   # Ritual system
-│   │   │   └── util/                     # Utilities
+│   │   ├── java/com/breakinblocks/neovitae/
+│   │   │   ├── NeoVitae.java               # Main mod class
+│   │   │   ├── ServerConfig.java           # Server config
+│   │   │   ├── ClientConfig.java           # Client config
+│   │   │   ├── api/                        # Public API interfaces
+│   │   │   ├── client/                     # Client rendering, GUIs, events
+│   │   │   ├── common/                     # Shared gameplay code
+│   │   │   │   ├── block/                  # Blocks
+│   │   │   │   ├── blockentity/            # Block entities
+│   │   │   │   ├── item/                   # Items
+│   │   │   │   ├── menu/                   # Container menus
+│   │   │   │   ├── recipe/                 # Recipe types
+│   │   │   │   ├── material/               # Data-driven materials
+│   │   │   │   ├── routing/                # Item/fluid routing
+│   │   │   │   └── ...                     # attribute, effect, entity, network, world, etc.
+│   │   │   ├── compat/                     # Integrations: jei, jade, curios, modonomicon, kubejs
+│   │   │   ├── impl/                       # API implementations
+│   │   │   ├── incense/                    # Incense system
+│   │   │   ├── mixin/                      # Mixins
+│   │   │   ├── ritual/                     # Ritual system
+│   │   │   ├── spiritus/                   # Spiritus (will) system
+│   │   │   ├── structures/                 # Dungeon and structure generation
+│   │   │   └── util/                       # Utilities
 │   │   └── resources/
-│   │       └── assets/bloodmagic/        # Textures, models, lang
-│   ├── datagen/                          # Data generators
-│   └── generated/resources/              # Generated data
-├── CLAUDE.md                             # Development guide
-├── PORTING_STATUS.md                     # Porting progress
-└── build.gradle                          # Build configuration
+│   │       └── assets/neovitae/            # Textures, models, lang, guide book
+│   ├── datagen/                            # Data generators
+│   ├── generated/resources/               # Generated data (recipes, lang, book)
+│   └── test/                              # Game tests
+├── examples/                              # Example datapacks
+├── wiki/                                  # GitHub wiki content
+├── gradle.properties                      # Versions
+└── build.gradle                           # Build configuration
 ```
 
 ---

@@ -1,0 +1,78 @@
+name: Bug Report
+description: Report a crash or something not working as intended
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug report. Please fill out the fields below so we can reproduce and fix it quickly.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before reporting
+      options:
+        - label: I searched the existing issues and this has not already been reported.
+          required: true
+        - label: I am running the latest version of Neo Vitae available for my Minecraft version.
+          required: true
+  - type: dropdown
+    id: mc_version
+    attributes:
+      label: Minecraft version
+      options:
+        - "26.1.2"
+        - "1.21.1"
+        - "Other (specify in the description)"
+    validations:
+      required: true
+  - type: input
+    id: neoforge_version
+    attributes:
+      label: NeoForge version
+      description: Found in your launcher or the mods list. For example 26.1.2.73 or 21.1.216.
+      placeholder: "26.1.2.73"
+    validations:
+      required: true
+  - type: input
+    id: mod_version
+    attributes:
+      label: Neo Vitae version
+      description: The Neo Vitae version from the in-game mods list. For example 26.1.2-1.0.11.
+      placeholder: "26.1.2-1.0.11"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened, and what did you expect to happen instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: How can we trigger this ourselves?
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs and crash report
+      description: |
+        Paste your latest.log and any crash report here. For anything longer than a few lines, please upload it to https://mclo.gs/ or a GitHub gist and link it instead of pasting the whole thing.
+      render: text
+    validations:
+      required: false
+  - type: input
+    id: modpack
+    attributes:
+      label: Modpack or other mods
+      description: Is this in a modpack, or running alongside other mods? Name it here if so.
+    validations:
+      required: false

@@ -144,17 +144,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_tabula_animata", has(NVItems.TABULA_ANIMATA.get()))
                 .save(output);
 
-        // Sacrificial Dagger - diagonal dagger shape
-        ShapedRecipeBuilder.shaped(items, RecipeCategory.TOOLS, NVItems.SACRIFICIAL_DAGGER.get())
-                .pattern("ggg")
-                .pattern(" Gg")
-                .pattern("i g")
-                .define('g', Tags.Items.GLASS_BLOCKS)
-                .define('G', Tags.Items.INGOTS_GOLD)
-                .define('i', Tags.Items.INGOTS_IRON)
-                .unlockedBy("has_gold", has(Tags.Items.INGOTS_GOLD))
-                .save(output);
-
         // Ara Vitae - stone frame with furnace, gold ingots on bottom
         ShapedRecipeBuilder.shaped(items, RecipeCategory.DECORATIONS, NVBlocks.ARA_VITAE.block().get())
                 .pattern("s s")
@@ -235,6 +224,14 @@ public class NVRecipeProvider extends RecipeProvider {
                 .requires(NVItems.CORRUPTED_DUST_TINY.get())
                 .unlockedBy("has_corrupted_tiny_dust", has(NVItems.CORRUPTED_DUST_TINY.get()))
                 .save(output, rKey(NeoVitae.rl("corrupted_dust_from_tiny")));
+
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, NVBlocks.ORB_FILLING_LINK.block().get())
+                .requires(NVBlocks.VITAE_LINK.block().get())
+                .requires(Items.IRON_INGOT)
+                .requires(Items.IRON_INGOT)
+                .requires(Items.GLASS)
+                .unlockedBy("has_vitae_link", has(NVBlocks.VITAE_LINK.block().get()))
+                .save(output, rKey(NeoVitae.rl("orb_filling_link")));
 
         // Tiny Corrupted Dust from 1 Corrupted Dust
         ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, NVItems.CORRUPTED_DUST_TINY.get(), 4)
@@ -705,8 +702,8 @@ public class NVRecipeProvider extends RecipeProvider {
                 .from(Tags.Items.GEMS_DIAMOND)
                 .minTier(0)
                 .bloodNeeded(2000)
-                .consumption(5)
-                .drain(1)
+                .consumption(10)
+                .drain(0)
                 .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
                 .save(output, rKey(NeoVitae.rl("weak_blood_orb")));
 

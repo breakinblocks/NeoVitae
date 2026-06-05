@@ -144,6 +144,14 @@ Because the Link presents a real input slot and a real output slot through stand
 
 This lets a storage system request, say, "8 Tabula Animata" and have them assembled on demand from Deepslate, with the Link guaranteeing the craft stops at Animata instead of overshooting.
 
+### With an Orb Vitae Link
+
+Where the Vitae Link crafts, the **Orb Vitae Link** charges. Craft one from a Vitae Link, two iron ingots, and a piece of glass. It holds a single **Blood Orb** and binds to a nearby altar at the altar's **full tier and runes** (no tier cap). It pulls EV from the altar's basin into the bound owner's **Anima**, stopping once the network is full. It sits at the **bottom of the priority chain**: it only draws while the altar is idle and no Vitae Link is crafting, so it sips only the leftover essence and never starves an active craft.
+
+1. **Seat your orb** by right-clicking the Link with a Blood Orb in hand; right-click empty-handed to take it back.
+2. **Keep the altar charged** (orb deposits, an altar leech, or a Well of Suffering); the Link drains the basin to fill your Anima.
+3. **Read the fill** off the Link's **comparator output**, which scales 0-15 with how full the owner's Anima is. Gate your blood generation with redstone, e.g. switch off a Well of Suffering once your network tops out.
+
 ## Topology and Reach
 
 ### Chained Conduits

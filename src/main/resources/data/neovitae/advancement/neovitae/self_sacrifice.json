@@ -1,11 +1,11 @@
 {
   "parent": "neovitae:neovitae/root",
   "criteria": {
-    "get_dagger": {
+    "get_orb": {
       "conditions": {
         "items": [
           {
-            "items": "neovitae:sacrificial_dagger"
+            "items": "neovitae:blood_orb_weak"
           }
         ]
       },
@@ -19,7 +19,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "neovitae:sacrificial_dagger"
+      "id": "neovitae:blood_orb_weak"
     },
     "title": {
       "translate": "advancements.neovitae.self_sacrifice.title"
@@ -27,7 +27,7 @@
   },
   "requirements": [
     [
-      "get_dagger"
+      "get_orb"
     ]
   ],
   "sends_telemetry_event": true

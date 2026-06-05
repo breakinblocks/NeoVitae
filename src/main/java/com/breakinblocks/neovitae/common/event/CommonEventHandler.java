@@ -121,6 +121,9 @@ public class CommonEventHandler {
             }
             held.set(NVDataComponents.BINDING, newBinding);
             notifyBound(event, profile.name());
+            if (held.getItem() instanceof BloodOrbItem) {
+                event.setCanceled(true);
+            }
         } else if (binding.uuid().equals(profile.id()) && !Objects.equals(binding.name(), profile.name())) {
             binding = new Binding(profile.id(), profile.name());
             held.set(NVDataComponents.BINDING, binding);

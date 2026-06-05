@@ -79,6 +79,7 @@ public class NVBlockTagProvider extends BlockTagsProvider {
                 .add(NVBlocks.ATHANOR_BLOCK.block().get())
                 .add(NVBlocks.TABULA_VITAE.block().get())
                 .add(NVBlocks.VITAE_LINK.block().get())
+                .add(NVBlocks.ORB_FILLING_LINK.block().get())
                 .add(NVBlocks.TELEPOSER.block().get())
                 .add(NVBlocks.BLANK_RITUAL_STONE.block().get())
                 .add(NVBlocks.AIR_RITUAL_STONE.block().get())

@@ -139,7 +139,6 @@ public final class DataValidationTests {
         r.add("data/items_registered", 30, helper -> {
             helper.runAfterDelay(1, () -> {
                 String[] expected = {
-                        "sacrificial_dagger",
                         "blood_orb_weak", "blood_orb_apprentice",
                         "tabula_rasa", "tabula_robur",
                         "sigil_divination", "alchemy_flask",

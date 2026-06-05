@@ -92,6 +92,16 @@ public enum NVBlockComponentProvider implements IBlockComponentProvider {
                 tooltip.add(Component.translatable("jade.neovitae.vitae_link.unlinked").withStyle(ChatFormatting.RED));
             }
         }
+
+        if (data.contains("orb_link_linked")) {
+            if (data.getBooleanOr("orb_link_linked", false)) {
+                tooltip.add(Component.translatable("jade.neovitae.orb_link.linked").withStyle(ChatFormatting.GOLD));
+                tooltip.add(Component.translatable("jade.neovitae.orb_link.network",
+                        data.getIntOr("orb_link_network", 0)).withStyle(ChatFormatting.DARK_RED));
+            } else {
+                tooltip.add(Component.translatable("jade.neovitae.orb_link.unlinked").withStyle(ChatFormatting.RED));
+            }
+        }
     }
 
     @Override

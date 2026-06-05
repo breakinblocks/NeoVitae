@@ -6,7 +6,7 @@ Every practitioner of Vitaemancy must begin here, at the **Ara Vitae**, the Alta
 
 Once placed, the Ara Vitae awakens. It drinks the blood offered to it and distills it into Essentia Vitae, which it then uses to **transfigure** items laid within its basin. Right-click the altar to place an item upon it; right-click with an empty hand to retrieve it.
 
-To feed the altar, you must first forge a **Sacrificial Knife**. Right-clicking while aiming at air spills one heart's worth of blood into a nearby Ara Vitae, yielding **200 EV**. The basin holds **10,000 EV** at first; watch the crimson pool within for a rough fill indicator, or use a **[Divination Sigil](Sigils)** to read exact figures.
+To feed a bare altar, lay a Tier 0 recipe such as a **diamond** upon it. Lacking any stored essence, the altar draws blood from any nearby who carry no Blood Orb of their own until the working completes, never killing, taking only what it needs. Once you carry a **[Blood Orb](Blood-Orbs-and-Anima)**, right-click it near an altar to bleed straight into the basin; away from an altar the blood is stored in the orb to carry and deposit later. The basin holds **10,000 EV** at first; watch the crimson pool within for a rough fill indicator, or use a **[Divination Sigil](Sigils)** to read exact figures.
 
 The moment an item is placed upon the basin, the transmutation begins. EV drains steadily; crimson motes rising from the surface confirm the working is underway. Should the altar run dry mid-craft, gray smoke rises as the working unravels and progress is lost. The basin holds and transmutes a single item at a time, so it need only carry enough essence to finish one working.
 
@@ -80,7 +80,7 @@ The Charging Rune siphons EV into a hidden internal reserve while the altar is i
 |-----------------|-------------------------------------------------------------------------------|
 | Rune of Sacrifice | +10% EV harvested from creatures slain near the altar (additive).            |
 | Reinforced Sacrifice | +20% EV harvested (additive).                                              |
-| Rune of Self-Sacrifice | +10% EV from your own wounds (Sacrificial Knife etc., additive).         |
+| Rune of Self-Sacrifice | +10% EV from your own wounds (orb bleeding and altar draw, additive).    |
 | Reinforced Self-Sacrifice | +20% EV from your own wounds (additive).                              |
 
 ### Dislocation (Fluid Transfer)

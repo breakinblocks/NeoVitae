@@ -40,7 +40,7 @@ See [Ara Vitae and Runes](Ara-Vitae-and-Runes) for construction details.
 
 ## Tools and Items
 
-**Sacrificial Knife**. Right-click yourself near an altar to bleed EV into it.
+**Self-sacrifice**. Right-click your bound Blood Orb to bleed into it, then drop the orb in an altar to transfer the EV. An empty altar mid-craft also draws blood from nearby players to finish Tier 0 recipes.
 
 **Sigil**. A one-handed tool bound to your Anima. Each costs a specific amount of EV per activation. See [Sigils](Sigils).
 

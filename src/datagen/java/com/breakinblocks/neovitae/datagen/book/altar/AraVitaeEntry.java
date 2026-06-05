@@ -48,16 +48,23 @@ public class AraVitaeEntry extends EntryProvider {
         this.pageTitle("Tier 0 Ara Vitae");
         this.pageText("The simplest form. A lone Ara Vitae, unadorned by runes.");
 
-        this.page("knife", () -> BookTextPageModel.create()
+        this.page("feeding", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("To feed the Ara Vitae, you must first forge a [#](8B0000)Sacrificial Knife[#](). By drawing the blade "
-                + "across your own flesh (right-click while aiming at air), you spill one heart's worth of blood "
-                + "into a nearby [#](8B0000)Ara Vitae[#](), yielding [#](8B0000)200 Essentia Vitae[#]().\\\n\\\n"
-                + "The basin holds [#](8B0000)10,000 EV[#]() at first. Watch the crimson pool within; its level "
-                + "reveals how full the vessel is. A [#](8B0000)Divination Sigil[#]() reveals the exact figures.");
+        this.pageText("An empty [#](8B0000)Ara Vitae[#]() hungers. Lay a [#](8B0000)diamond[#]() upon a bare altar and, "
+                + "having no stored [#](4A0080)Essentia Vitae[#]() of its own, it reaches out and draws blood from any "
+                + "nearby who carry no [#](8B0000)Blood Orb[#](), spilling their life into the basin until the working is "
+                + "done. None are slain by this; the altar takes only what it needs.\\\n\\\nThe basin holds "
+                + "[#](8B0000)10,000 EV[#]() at first. Watch the "
+                + "crimson pool within; its level reveals how full the vessel is. A [#](8B0000)Divination Sigil[#]() reveals "
+                + "the exact figures.");
 
-        this.page("knife_recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "sacrificial_dagger"))
+        this.page("orb_bleed", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("Once you hold a [#](8B0000)Blood Orb[#](), right-click it to open your veins. Standing near an "
+                + "[#](8B0000)Ara Vitae[#](), the blood flows straight into the basin; away from one, that life is stored "
+                + "within the orb itself to carry and pour into an altar later.");
+
+        this.page("reservoir", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Be aware:[#]() 10%% of the Ara Vitae's total capacity seeps into a hidden internal reservoir, "
                 + "used for fluid transfer operations. If your numbers seem off, this unseen vessel is likely the cause.");

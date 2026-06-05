@@ -7,6 +7,7 @@ import com.breakinblocks.neovitae.common.block.BlockMasterRitualStone;
 import com.breakinblocks.neovitae.common.block.BloodLightBlock;
 import com.breakinblocks.neovitae.common.block.BloodTankBlock;
 import com.breakinblocks.neovitae.common.block.HellfireForgeBlock;
+import com.breakinblocks.neovitae.common.block.OrbFillingLinkBlock;
 import com.breakinblocks.neovitae.common.block.VitaeLinkBlock;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
@@ -15,6 +16,7 @@ import com.breakinblocks.neovitae.common.blockentity.BloodTankBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.IncenseAltarBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
+import com.breakinblocks.neovitae.common.blockentity.OrbFillingLinkBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.VitaeLinkBlockEntity;
 import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
 import snownee.jade.api.EntityAccessor;
@@ -36,6 +38,7 @@ public class NVJadePlugin implements IWailaPlugin {
         registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, HellfireForgeBlockEntity.class);
         registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, IncenseAltarBlockEntity.class);
         registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, VitaeLinkBlockEntity.class);
+        registration.registerBlockDataProvider(NVBlockDataProvider.INSTANCE, OrbFillingLinkBlockEntity.class);
     }
 
     @Override
@@ -48,6 +51,7 @@ public class NVJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, HellfireForgeBlock.class);
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, BlockIncenseAltar.class);
         registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, VitaeLinkBlock.class);
+        registration.registerBlockComponent(NVBlockComponentProvider.INSTANCE, OrbFillingLinkBlock.class);
         registration.addRayTraceCallback((hitResult, accessor, original) -> {
             if (accessor instanceof EntityAccessor entityAccessor
                     && entityAccessor.getEntity() instanceof BloodShieldEntity) {

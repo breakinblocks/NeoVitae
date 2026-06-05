@@ -7,7 +7,6 @@ import java.util.EnumMap;
 
 public class ServerConfig {
 
-    public final ModConfigSpec.BooleanValue ALTERNATE_SACRIFICE_TOOL;
     public final ModConfigSpec.ConfigValue<Integer> SELF_SACRIFICE_CONVERSION;
     public final ModConfigSpec.ConfigValue<Integer> DEFAULT_UPGRADE_POINTS;
     public final ModConfigSpec.ConfigValue<Integer> EVOLUTION_UPGRADE_POINTS;
@@ -45,9 +44,6 @@ public class ServerConfig {
     public final ModConfigSpec.IntValue TORMENT_NEXUS_VERTICAL_RANGE;
 
     protected ServerConfig(ModConfigSpec.Builder builder) {
-        ALTERNATE_SACRIFICE_TOOL = builder
-                .comment("Replaces the Sacrificial Dagger with the Orb of Sacrifice (cosmetic rename and retexture)")
-                .define("alternate_sacrifice_tool", false);
         SELF_SACRIFICE_CONVERSION = builder.define("self_sacrifice_conversion", 100);
         DEFAULT_UPGRADE_POINTS = builder.define("default_upgrade_points", 100);
         EVOLUTION_UPGRADE_POINTS = builder.define("evolution_upgrade_points", 300);

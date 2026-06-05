@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "neovitae:vitae_link",
+    "minecraft:iron_ingot",
+    "minecraft:iron_ingot",
+    "minecraft:glass"
+  ],
+  "result": {
+    "id": "neovitae:orb_filling_link"
+  }
+}

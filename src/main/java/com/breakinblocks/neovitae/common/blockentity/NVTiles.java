@@ -18,6 +18,7 @@ import com.breakinblocks.neovitae.client.render.blockentity.BloodTankRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.HellfireForgeRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.MasterRitualStoneRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.MimicRenderer;
+import com.breakinblocks.neovitae.client.render.blockentity.OrbFillingLinkRenderer;
 import com.breakinblocks.neovitae.client.render.blockentity.VitaeLinkRenderer;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonAlternatorBlockEntity;
@@ -172,6 +173,9 @@ public class NVTiles {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<VitaeLinkBlockEntity>> VITAE_LINK_TYPE =
             registerTile("vitae_link", VitaeLinkBlockEntity::new, NVBlocks.VITAE_LINK.block());
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OrbFillingLinkBlockEntity>> ORB_FILLING_LINK_TYPE =
+            registerTile("orb_filling_link", OrbFillingLinkBlockEntity::new, NVBlocks.ORB_FILLING_LINK.block());
+
     private static void registerTileCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.Item.BLOCK, HELLFIRE_FORGE_TYPE.get(),
                 (be, side) -> be.getInventory(side));
@@ -209,6 +213,8 @@ public class NVTiles {
                 (be, side) -> VanillaContainerWrapper.of(be));
         event.registerBlockEntity(Capabilities.Item.BLOCK, VITAE_LINK_TYPE.get(),
                 VitaeLinkBlockEntity::getItemHandler);
+        event.registerBlockEntity(Capabilities.Item.BLOCK, ORB_FILLING_LINK_TYPE.get(),
+                OrbFillingLinkBlockEntity::getItemHandler);
 
         event.registerItem(Capabilities.Fluid.ITEM,
                 (stack, access) -> new OrbFluidCapability(access),
@@ -228,6 +234,7 @@ public class NVTiles {
         event.registerBlockEntityRenderer(MIMIC_TYPE.get(), MimicRenderer::new);
         event.registerBlockEntityRenderer(MASTER_RITUAL_STONE_TYPE.get(), MasterRitualStoneRenderer::new);
         event.registerBlockEntityRenderer(VITAE_LINK_TYPE.get(), VitaeLinkRenderer::new);
+        event.registerBlockEntityRenderer(ORB_FILLING_LINK_TYPE.get(), OrbFillingLinkRenderer::new);
     }
 
     public static void register(IEventBus modBus) {

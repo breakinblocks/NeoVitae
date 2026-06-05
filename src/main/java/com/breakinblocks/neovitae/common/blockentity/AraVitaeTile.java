@@ -5,8 +5,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
@@ -35,6 +39,7 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.BloodOrb;
+import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 import com.breakinblocks.neovitae.common.item.OrbFluidHandler;
 import com.breakinblocks.neovitae.common.event.AraVitaeCraftEvent;
 import com.breakinblocks.neovitae.common.event.NeoVitaeCraftedEvent;
@@ -427,6 +432,11 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
         int inputSize = inputStack.getCount();
         int totalRequired = getCurrentRecipe().getTotalBlood() * inputSize;
 
+        if (getCurrentRecipe().getMinTier() == 0 && getTicks() % BOOTSTRAP_LEECH_INTERVAL == 0
+                && getMainTank() + getChargingTank() < totalRequired - getProgress()) {
+            leechNearbyPlayers();
+        }
+
         if (getChargingTank() > 0) {
             int chargeDrained = Math.min(totalRequired - getProgress(), getChargingTank());
             setChargingTank(getChargingTank() - chargeDrained);
@@ -460,6 +470,43 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
         if (hasOperated && getProgress() >= totalRequired) {
             completeCrafting(inputStack);
         }
+    }
+
+    private static final int BOOTSTRAP_LEECH_INTERVAL = 5;
+    private static final double BOOTSTRAP_LEECH_RADIUS = 4.0;
+    private static final float BOOTSTRAP_LEECH_FLOOR = 3.0F;
+    private static final float BOOTSTRAP_LEECH_HP = 1.0F;
+    private static final double BOOTSTRAP_LEECH_EFFICIENCY = 2.0;
+
+    private void leechNearbyPlayers() {
+        if (!(level instanceof ServerLevel serverLevel)) return;
+        AABB area = new AABB(worldPosition).inflate(BOOTSTRAP_LEECH_RADIUS);
+        List<Player> players = level.getEntitiesOfClass(Player.class, area,
+                p -> p.isAlive() && !p.isInvulnerable() && !p.getAbilities().instabuild
+                        && p.getHealth() > BOOTSTRAP_LEECH_FLOOR && !hasBloodOrb(p));
+        for (Player player : players) {
+            float before = player.getHealth();
+            player.invulnerableTime = 0;
+            player.hurtServer(serverLevel, AltarUtil.sacrificeDamage(player), BOOTSTRAP_LEECH_HP);
+            float lost = before - player.getHealth();
+            if (lost > 0) {
+                int ev = (int) (AltarUtil.calculateSelfSacrificeLP(player, Math.max(1, (int) Math.ceil(lost)))
+                        * BOOTSTRAP_LEECH_EFFICIENCY);
+                addSacrificeEV(ev, false);
+                if (player instanceof ServerPlayer sp) {
+                    sp.connection.send(new ClientboundSetActionBarTextPacket(
+                            Component.translatable("message.neovitae.altar_draws_blood")));
+                }
+                StreamPresets.bloodTendril(player, worldPosition).build().sendToNearby(serverLevel, worldPosition, 32);
+            }
+        }
+    }
+
+    private static boolean hasBloodOrb(Player player) {
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            if (player.getInventory().getItem(i).getItem() instanceof BloodOrbItem) return true;
+        }
+        return false;
     }
 
     private void completeCrafting(ItemStack inputStack) {
@@ -1089,5 +1136,13 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
             }
         }
         return requester.equals(winner);
+    }
+
+    public boolean anyLinkWantsCraft() {
+        linkRegistry.entrySet().removeIf(e -> ticks - e.getValue().lastSeenTick() > LINK_STALE_TICKS);
+        for (LinkEntry v : linkRegistry.values()) {
+            if (v.wants()) return true;
+        }
+        return false;
     }
 }

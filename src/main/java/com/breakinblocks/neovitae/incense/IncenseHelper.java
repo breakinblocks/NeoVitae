@@ -6,7 +6,7 @@ import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
 /**
  * Helper class for managing player incense levels.
  * Incense accumulates when a player is near an active Incense Altar
- * and is consumed when using a Sacrificial Knife for self-sacrifice.
+ * and is consumed when bleeding into a Blood Orb for self-sacrifice.
  *
  * Uses NeoForge data attachments for persistence.
  */

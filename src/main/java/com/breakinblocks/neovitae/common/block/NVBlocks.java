@@ -55,6 +55,8 @@ public class NVBlocks {
             BLOCK_REG.register("spirit_cache", SpiritCacheBlock::new, defaultBlockProps());
     public static final BlockWithItemHolder<VitaeLinkBlock, BlockItem> VITAE_LINK =
             BLOCK_REG.register("vitae_link", VitaeLinkBlock::new, defaultBlockProps());
+    public static final BlockWithItemHolder<OrbFillingLinkBlock, BlockItem> ORB_FILLING_LINK =
+            BLOCK_REG.register("orb_filling_link", OrbFillingLinkBlock::new, defaultBlockProps());
 
     private static final BlockBehaviour.Properties rune_properties_src() {
         return BlockBehaviour.Properties.of().strength(2.0F, 5.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().lightLevel(state -> 10);

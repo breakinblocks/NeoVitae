@@ -26,6 +26,9 @@ public class NVMobEffects {
     public static final DeferredHolder<MobEffect, SoulFrayEffect> SOUL_FRAY =
             MOB_EFFECTS.register("soulfray", () -> new SoulFrayEffect(MobEffectCategory.HARMFUL, 0xC0C0C0));
 
+    public static final DeferredHolder<MobEffect, NeoVitaeEffect> BLESSED_SACRIFICE =
+            MOB_EFFECTS.register("blessed_sacrifice", () -> new NeoVitaeEffect(MobEffectCategory.BENEFICIAL, 0xC0102E));
+
     public static final DeferredHolder<MobEffect, PlantLeechEffect> PLANT_LEECH =
             MOB_EFFECTS.register("plantleech", () -> new PlantLeechEffect(MobEffectCategory.HARMFUL, 0x00FF00));
 

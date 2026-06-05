@@ -1,32 +1,32 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_gold": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neovitae:orb_filling_link"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_vitae_link": {
       "conditions": {
         "items": [
           {
-            "items": "#c:ingots/gold"
+            "items": "neovitae:vitae_link"
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
-    },
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "neovitae:sacrificial_dagger"
-      },
-      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe",
-      "has_gold"
+      "has_vitae_link"
     ]
   ],
   "rewards": {
     "recipes": [
-      "neovitae:sacrificial_dagger"
+      "neovitae:orb_filling_link"
     ]
   }
 }

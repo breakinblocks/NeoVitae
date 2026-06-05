@@ -332,4 +332,4 @@ Special thanks to:
 
 ---
 
-*Neo Vitae is an open source project released under the Creative Commons Attribution 4.0 International License. See the LICENSE file for details.*
+*Neo Vitae is released under the MIT License (see LICENSE.md). It is a derivative work of Blood Magic by WayofTime, which is licensed under CC BY 4.0.*

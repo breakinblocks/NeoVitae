@@ -32,7 +32,10 @@ public final class TagHelper {
 
     public static List<String> getOreNames(Registry<Item> registry) {
         return registry.getTags()
-                .map(named -> named.key().location().toString())
+                .map(named -> named.key().location())
+                .filter(loc -> loc.getNamespace().equals("c") && loc.getPath().startsWith("ores/"))
+                .map(loc -> loc.getPath().substring("ores/".length()))
+                .filter(name -> !name.isEmpty() && name.indexOf('/') < 0)
                 .collect(Collectors.toList());
     }
 }

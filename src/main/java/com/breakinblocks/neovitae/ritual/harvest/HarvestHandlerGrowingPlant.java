@@ -1,3 +1,8 @@
+// Derived from Blood Magic (https://github.com/WayofTime/BloodMagic), licensed under CC BY 4.0
+// SPDX-FileCopyrightText: 2025 StellaNera <https://github.com/stellanera98>
+// SPDX-FileCopyrightText: 2024-2026 Saereth <https://github.com/breakinblocks/NeoVitae>
+// SPDX-License-Identifier: CC-BY-4.0 AND MIT
+
 package com.breakinblocks.neovitae.ritual.harvest;
 
 import net.minecraft.core.BlockPos;

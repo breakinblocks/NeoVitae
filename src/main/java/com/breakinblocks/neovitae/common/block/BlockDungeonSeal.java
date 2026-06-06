@@ -1,3 +1,9 @@
+// Derived from Blood Magic (https://github.com/WayofTime/BloodMagic), licensed under CC BY 4.0
+// SPDX-FileCopyrightText: 2021-2025 WayofTime <https://github.com/WayofTime>
+// SPDX-FileCopyrightText: 2021-2025 StellaNera <https://github.com/stellanera98>
+// SPDX-FileCopyrightText: 2024-2026 Saereth <https://github.com/breakinblocks/NeoVitae>
+// SPDX-License-Identifier: CC-BY-4.0 AND MIT
+
 package com.breakinblocks.neovitae.common.block;
 
 import net.minecraft.ChatFormatting;

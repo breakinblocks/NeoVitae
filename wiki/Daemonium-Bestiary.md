@@ -125,7 +125,7 @@ Treat it as a boss fight, not an elite encounter. Bring [sigils](Sigils) and [se
 
 Stay off-arc when close. Stay behind cover when far. Anywhere in between is the kill zone.
 
-**Drops:** Cinder Heart Fragment, Raw Demonite, Nihilum / Ruina Spiritus, Blaze Rod (rare).
+**Drops:** Cinder Heart Fragment, Nihilum / Ruina Spiritus, Blaze Rod (rare).
 
 ### Daemonium Glaciaris, The Ice Colossus
 

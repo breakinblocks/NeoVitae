@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.datagen.provider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.tag.NVTags;
@@ -23,5 +24,8 @@ public class NVEntityTagProvider extends EntityTypeTagsProvider {
                 .add(EntityType.ENDER_DRAGON)
                 .add(EntityType.WITHER)
                 .add(EntityType.WARDEN);
+
+        getOrCreateRawBuilder(NVTags.Entities.NO_SENTIENT_TRAINING)
+                .addOptionalElement(Identifier.fromNamespaceAndPath("dummmmmmy", "target_dummy"));
     }
 }

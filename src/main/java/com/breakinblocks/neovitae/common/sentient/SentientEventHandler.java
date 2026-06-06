@@ -158,7 +158,9 @@ public class SentientEventHandler {
                 float newDamage = SentientHelper.modifyDamageDealt(playerCauser, victim, event.getSource(), event.getNewDamage());
                 // Debug: NeoVitae.LOGGER.info("{} -> {}", event.getNewDamage(), newDamage);
                 event.setNewDamage(newDamage);
-                SentientHelper.reactToDamageDealt(playerCauser, victim, event.getSource(), event.getNewDamage()); // here we want the damage included
+                if (victim.getType().getTags().noneMatch(t -> t.equals(NVTags.Entities.NO_SENTIENT_TRAINING))) {
+                    SentientHelper.reactToDamageDealt(playerCauser, victim, event.getSource(), event.getNewDamage()); // here we want the damage included
+                }
             }
         }
 

@@ -214,6 +214,23 @@
         "max": 4.0,
         "min": 2.0
       }
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.07,
+          "condition": "minecraft:random_chance"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "neovitae:mine_entrance_key"
+        }
+      ],
+      "name": "mine_entrance_key",
+      "rolls": 1.0
     }
   ],
   "random_sequence": "neovitae:chests/standard_dungeon/poor_loot"

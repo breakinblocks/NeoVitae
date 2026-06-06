@@ -44,7 +44,8 @@ public class RitualCrystallumFracturaEntry extends EntryProvider {
                 + "\n\n1. Burn Spiritus in a [#](8B0000)Vas Maleficum[#]() within range to seed the chunk."
                 + "\n2. Place a [#](8B0000)Crystallarium Maleficum[#]() so it forms [#](8B0000)Spiritus Crystal[#]() clusters from the saturated Aura."
                 + "\n3. The ritual's [#](B8860B)2x growth aura[#]() drives clusters to maturity at double speed."
-                + "\n4. Once fully grown, the ritual auto-harvests them and pops the shards as items, ready for the next cycle."
+                + "\n4. Once fully grown, the ritual reaps the crystals and the cluster regrows from its central spire, ready for the next cycle."
+                + "\n5. Place a chest atop the Master Ritual Stone to gather the harvest; without one the crystals fall to the ground. A [#](2E8B57)full chest pauses the ritual[#]() until room is made."
                 + "\n\n[#](2E8B57)Each Vas Maleficum-burned crystal yielded only 5 net Spiritus by hand; with the +25%% injection bonus and 2x growth, the same crystals net you considerably more per cycle.[#]()");
 
         this.page("fortune", () -> BookTextPageModel.create()

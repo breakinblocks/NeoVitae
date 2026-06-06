@@ -523,6 +523,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
                 ItemStack stack = inv.getStackInSlot(i);
                 if (!stack.isEmpty()) {
                     Containers.dropItemStack(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), stack);
+                    inv.setStackInSlot(i, ItemStack.EMPTY);
                 }
             }
         }

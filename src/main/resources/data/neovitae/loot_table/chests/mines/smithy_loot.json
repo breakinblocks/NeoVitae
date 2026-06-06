@@ -930,6 +930,21 @@
         "max": 5.0,
         "min": 3.0
       }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "neovitae:standard_key"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.04
+        }
+      ]
     }
   ],
   "random_sequence": "neovitae:chests/mines/smithy_loot"

@@ -78,6 +78,13 @@ public class ChestLoot implements LootTableSubProvider {
         return ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.withDefaultNamespace("chests/" + path));
     }
 
+    private LootPool.Builder standardKeyPool() {
+        return LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .add(LootItem.lootTableItem(NVItems.STANDARD_KEY.get()))
+                .when(LootItemRandomChanceCondition.randomChance(0.04f));
+    }
+
     // ==================== SIMPLE DUNGEON LOOT TABLES ====================
 
     private void generateSimpleDungeonBastion(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
@@ -356,6 +363,7 @@ public class ChestLoot implements LootTableSubProvider {
 
     private void generateStandardDungeonDecentAlchemy(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
         output.accept(chestKey("standard_dungeon/decent_alchemy"), LootTable.lootTable()
+            .withPool(standardKeyPool())
             .withPool(LootPool.lootPool()
                 .setRolls(UniformGenerator.between(2.0f, 4.0f))
                 .add(LootItem.lootTableItem(Items.BLAZE_POWDER).setWeight(10)
@@ -386,6 +394,7 @@ public class ChestLoot implements LootTableSubProvider {
 
     private void generateStandardDungeonDecentLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
         output.accept(chestKey("standard_dungeon/decent_loot"), LootTable.lootTable()
+            .withPool(standardKeyPool())
             .withPool(LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1))
                 .add(NVTableLootEntry.builder(vanillaChestKey("stronghold_corridor")))
@@ -426,6 +435,7 @@ public class ChestLoot implements LootTableSubProvider {
 
     private void generateStandardDungeonDecentSmithy(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
         output.accept(chestKey("standard_dungeon/decent_smithy"), LootTable.lootTable()
+            .withPool(standardKeyPool())
             .withPool(LootPool.lootPool()
                 .setRolls(UniformGenerator.between(2.0f, 4.0f))
                 .add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(15)
@@ -452,6 +462,7 @@ public class ChestLoot implements LootTableSubProvider {
 
     private void generateStandardDungeonEnchantingLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
         output.accept(chestKey("standard_dungeon/enchanting_loot"), LootTable.lootTable()
+            .withPool(standardKeyPool())
             .withPool(LootPool.lootPool()
                 .setRolls(UniformGenerator.between(2.0f, 4.0f))
                 .add(LootItem.lootTableItem(Items.BOOK).setWeight(10)
@@ -474,6 +485,7 @@ public class ChestLoot implements LootTableSubProvider {
 
     private void generateStandardDungeonGreatLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
         output.accept(chestKey("standard_dungeon/great_loot"), LootTable.lootTable()
+            .withPool(standardKeyPool())
             .withPool(LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1))
                 .add(NVTableLootEntry.builder(vanillaChestKey("end_city_treasure")).setWeight(1))
@@ -540,6 +552,7 @@ public class ChestLoot implements LootTableSubProvider {
 
     private void generateStandardDungeonPoorLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
         output.accept(chestKey("standard_dungeon/poor_loot"), LootTable.lootTable()
+            .withPool(standardKeyPool())
             .withPool(LootPool.lootPool()
                 .setRolls(UniformGenerator.between(2.0f, 4.0f))
                 .add(LootItem.lootTableItem(Items.RAW_COPPER).setWeight(22).setQuality(-4)
@@ -578,6 +591,7 @@ public class ChestLoot implements LootTableSubProvider {
 
     private void generateStandardDungeonStrongAlchemy(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
         output.accept(chestKey("standard_dungeon/strong_alchemy"), LootTable.lootTable()
+            .withPool(standardKeyPool())
             .withPool(LootPool.lootPool()
                 .setRolls(UniformGenerator.between(3.0f, 5.0f))
                 .add(LootItem.lootTableItem(Items.BLAZE_POWDER).setWeight(12)
@@ -606,6 +620,7 @@ public class ChestLoot implements LootTableSubProvider {
 
     private void generateForemanTreasure(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
         output.accept(chestKey("foreman/treasure"), LootTable.lootTable()
+            .withPool(standardKeyPool())
             // End-city-tier base loot via the vanilla end_city_treasure table.
             .withPool(LootPool.lootPool()
                 .setRolls(UniformGenerator.between(2.0f, 4.0f))

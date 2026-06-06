@@ -47,24 +47,24 @@ public class SpiritusCategory extends CategoryProvider {
         spiritusGems.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/throwing_daggers"));
         spiritusGems.hideWhileLocked(false);
 
-        var crystallizedSpiritus = this.add(new CrystallizedSpiritusEntry(this).generate('e'));
-        crystallizedSpiritus.withParent(this.parent(spiritusGems));
-        crystallizedSpiritus.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/spiritus_gems"));
+        var aura = this.add(new AuraEntry(this).generate('e'));
+        aura.withParent(this.parent(spiritusGems));
+        aura.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/spiritus_gems"));
+        aura.hideWhileLocked(false);
+
+        var crystallizedSpiritus = this.add(new CrystallizedSpiritusEntry(this).generate('f'));
+        crystallizedSpiritus.withParent(this.parent(aura));
+        crystallizedSpiritus.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/aura"));
         crystallizedSpiritus.hideWhileLocked(false);
 
-        var aspectedSpiritus = this.add(new AspectedSpiritusEntry(this).generate('f'));
+        var aspectedSpiritus = this.add(new AspectedSpiritusEntry(this).generate('g'));
         aspectedSpiritus.withParent(this.parent(crystallizedSpiritus));
         aspectedSpiritus.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/crystallized_spiritus"));
         aspectedSpiritus.hideWhileLocked(false);
 
-        var aura = this.add(new AuraEntry(this).generate('g'));
-        aura.withParent(this.parent(aspectedSpiritus));
-        aura.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/aspected_spiritus"));
-        aura.hideWhileLocked(false);
-
         var auraGauge = this.add(new AuraGaugeEntry(this).generate('h'));
-        auraGauge.withParent(this.parent(aura));
-        auraGauge.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/aura"));
+        auraGauge.withParent(this.parent(aspectedSpiritus));
+        auraGauge.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/aspected_spiritus"));
         auraGauge.hideWhileLocked(false);
 
         var willCatalysts = this.add(new SpiritusCatalystsEntry(this).generate('i'));

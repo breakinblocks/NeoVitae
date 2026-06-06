@@ -1110,6 +1110,21 @@
         }
       ],
       "rolls": 1.0
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "neovitae:standard_key"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.04
+        }
+      ]
     }
   ],
   "random_sequence": "neovitae:chests/mines/mine_key_loot"

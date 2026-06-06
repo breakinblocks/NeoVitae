@@ -6,42 +6,102 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [{ "add": false, "count": { "type": "minecraft:uniform", "max": 18.0, "min": 10.0 }, "function": "minecraft:set_count" }],
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 18.0,
+                "min": 10.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
           "name": "minecraft:raw_copper",
           "quality": -4,
           "weight": 22
         },
         {
           "type": "minecraft:item",
-          "functions": [{ "add": false, "count": { "type": "minecraft:uniform", "max": 12.0, "min": 6.0 }, "function": "minecraft:set_count" }],
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 12.0,
+                "min": 6.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
           "name": "minecraft:raw_iron",
           "quality": 1,
           "weight": 20
         },
         {
           "type": "minecraft:item",
-          "functions": [{ "add": false, "count": { "type": "minecraft:uniform", "max": 10.0, "min": 5.0 }, "function": "minecraft:set_count" }],
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 10.0,
+                "min": 5.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
           "name": "minecraft:raw_gold",
           "quality": 2,
           "weight": 15
         },
         {
           "type": "minecraft:item",
-          "functions": [{ "add": false, "count": { "type": "minecraft:uniform", "max": 8.0, "min": 3.0 }, "function": "minecraft:set_count" }],
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 8.0,
+                "min": 3.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
           "name": "neovitae:raw_demonite",
           "quality": 3,
           "weight": 10
         },
         {
           "type": "minecraft:item",
-          "functions": [{ "add": false, "count": { "type": "minecraft:uniform", "max": 4.0, "min": 1.0 }, "function": "minecraft:set_count" }],
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
           "name": "neovitae:ingot_hellforged",
           "quality": 4,
           "weight": 5
         },
         {
           "type": "minecraft:item",
-          "functions": [{ "add": false, "count": { "type": "minecraft:uniform", "max": 3.0, "min": 1.0 }, "function": "minecraft:set_count" }],
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
           "name": "minecraft:netherite_scrap",
           "quality": 5,
           "weight": 3
@@ -634,6 +694,21 @@
         "max": 5.0,
         "min": 3.0
       }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "neovitae:standard_key"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.04
+        }
+      ]
     }
   ],
   "random_sequence": "neovitae:chests/mines/ore_loot"

@@ -40,7 +40,7 @@ Want to help? See our [Contributing Guidelines](https://github.com/breakinblocks
 
 ## License
 
-Neo Vitae is licensed under the [MIT License](LICENSE.md).
+Neo Vitae's original code is licensed under the [MIT License](LICENSE.md). Files that adapt Blood Magic code carry a per-file `SPDX-License-Identifier: CC-BY-4.0 AND MIT` header, combining Blood Magic's [CC BY 4.0](LICENSE-CC-BY-4.0.md) material with Neo Vitae's MIT modifications; see [Attribution](#attribution).
 
 ## Disclaimer
 
@@ -67,3 +67,5 @@ Neo Vitae is licensed under the [MIT License](LICENSE.md).
 ## Attribution
 
 Neo Vitae is a derivative work based on [BloodMagic](https://github.com/WayofTime/BloodMagic) by WayofTime, licensed under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/). Neo Vitae has been substantially modified from the original source, including a full NeoForge 1.21.1 port, data-driven systems, custom visual effects, new gameplay mechanics, and modern registration patterns.
+
+Source files that adapt Blood Magic code carry per-file SPDX headers (`SPDX-License-Identifier: CC-BY-4.0 AND MIT`) that credit WayofTime and the Blood Magic contributors who authored each file (from Blood Magic's git history) alongside the Neo Vitae modifications; all other files are original Neo Vitae work under the MIT License.

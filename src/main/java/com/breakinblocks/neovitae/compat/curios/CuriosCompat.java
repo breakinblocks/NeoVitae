@@ -1,3 +1,9 @@
+// Derived from Blood Magic (https://github.com/WayofTime/BloodMagic), licensed under CC BY 4.0
+// SPDX-FileCopyrightText: 2021-2025 WayofTime <https://github.com/WayofTime>
+// SPDX-FileCopyrightText: 2021-2025 VT-14 <https://github.com/VT-14>
+// SPDX-FileCopyrightText: 2024-2026 Saereth <https://github.com/breakinblocks/NeoVitae>
+// SPDX-License-Identifier: CC-BY-4.0 AND MIT
+
 package com.breakinblocks.neovitae.compat.curios;
 
 import net.minecraft.core.NonNullList;

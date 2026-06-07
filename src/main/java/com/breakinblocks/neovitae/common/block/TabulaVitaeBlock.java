@@ -11,7 +11,6 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -121,27 +120,17 @@ public class TabulaVitaeBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void onNeighborChange(BlockState state, LevelReader world, BlockPos pos, BlockPos neighbor) {
-        TabulaVitaeBlockEntity tile = (TabulaVitaeBlockEntity) world.getBlockEntity(pos);
-        if (tile != null) {
-            BlockPos connectedPos = tile.getConnectedPos();
-            if (connectedPos.equals(BlockPos.ZERO)) {
-                return;
-            }
-            BlockEntity connectedTile = world.getBlockEntity(connectedPos);
-            if (!(connectedTile instanceof TabulaVitaeBlockEntity && ((TabulaVitaeBlockEntity) connectedTile).getConnectedPos().equals(pos))) {
-                tile.getLevel().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-            }
-        }
-    }
-
-    @Override
     public void destroy(LevelAccessor world, BlockPos blockPos, BlockState blockState) {
         TabulaVitaeBlockEntity tile = (TabulaVitaeBlockEntity) world.getBlockEntity(blockPos);
         if (tile != null && !tile.isSlave()) {
             tile.dropItems();
         }
         super.destroy(world, blockPos, blockState);
+    }
+
+    private static BlockPos partnerPos(BlockState state, BlockPos pos) {
+        Direction dir = state.getValue(DIRECTION);
+        return state.getValue(INVISIBLE) ? pos.relative(dir.getOpposite()) : pos.relative(dir);
     }
 
     @Override
@@ -151,6 +140,11 @@ public class TabulaVitaeBlock extends BaseEntityBlock {
             if (tileentity instanceof TabulaVitaeBlockEntity alchemyTable && !alchemyTable.isSlave()) {
                 alchemyTable.dropItems();
                 worldIn.updateNeighbourForOutputSignal(pos, this);
+            }
+
+            BlockPos partner = partnerPos(state, pos);
+            if (worldIn.getBlockState(partner).is(this)) {
+                worldIn.setBlock(partner, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
             }
 
             super.onRemove(state, worldIn, pos, newState, isMoving);

@@ -1,18 +1,24 @@
 package com.breakinblocks.neovitae.common.item.soul;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.helper.ClientSpiritusTooltipHelper;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
@@ -20,7 +26,6 @@ import com.breakinblocks.neovitae.common.item.NVMaterialsAndTiers;
 import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
 
 import java.util.List;
-import java.util.Locale;
 
 import static com.breakinblocks.neovitae.common.item.soul.SentientToolHelper.*;
 
@@ -29,6 +34,9 @@ import static com.breakinblocks.neovitae.common.item.soul.SentientToolHelper.*;
  * Unlike other sentient tools, the scythe can damage multiple entities in a sweep.
  */
 public class SentientScytheItem extends SwordItem implements ISentientTool {
+
+    private static final double BASE_DAMAGE = 5;
+    private static final double ATTACK_SPEED = -2.6;
 
     private static final double[] DEFAULT_DAMAGE = {1, 1.5, 2, 2.5, 3, 3.5, 4};
     private static final double[] DESTRUCTIVE_DAMAGE = {1.5, 2.25, 3, 3.75, 4.5, 5.25, 6};
@@ -40,7 +48,7 @@ public class SentientScytheItem extends SwordItem implements ISentientTool {
 
     public SentientScytheItem() {
         super(NVMaterialsAndTiers.SENTIENT, new Properties()
-                .attributes(SwordItem.createAttributes(NVMaterialsAndTiers.SENTIENT, 5, -2.6f))
+                .attributes(SwordItem.createAttributes(NVMaterialsAndTiers.SENTIENT, (int) BASE_DAMAGE, (float) ATTACK_SPEED))
                 .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW));
     }
 
@@ -57,6 +65,16 @@ public class SentientScytheItem extends SwordItem implements ISentientTool {
     @Override
     public String getTooltipKey() {
         return "sentientScythe";
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+        if (!level.isClientSide && entity instanceof Player player && isSelected) {
+            if (level.getGameTime() % 20 == 0) {
+                recalculatePowers(stack, level, player);
+            }
+        }
+        super.inventoryTick(stack, level, entity, slotId, isSelected);
     }
 
     @Override
@@ -87,7 +105,8 @@ public class SentientScytheItem extends SwordItem implements ISentientTool {
     }
 
     /**
-     * Performs the scythe's unique area attack, damaging nearby enemies.
+     * Performs the scythe's unique area attack, damaging nearby enemies for the
+     * weapon's full attack damage (which already includes the spiritus bonus).
      */
     private void performAreaAttack(Player player, LivingEntity target, SpiritusType type, int spiritusBracket) {
         double range = AREA_RANGE[spiritusBracket];
@@ -98,7 +117,7 @@ public class SentientScytheItem extends SwordItem implements ISentientTool {
         List<LivingEntity> nearbyEntities = player.level().getEntitiesOfClass(LivingEntity.class, area,
                 entity -> entity != player && entity != target && entity.isAlive() && entity instanceof Enemy);
 
-        float sweepDamage = 1.0f + (float) getExtraDamage(type, spiritusBracket) * 0.5f;
+        float sweepDamage = (float) player.getAttributeValue(Attributes.ATTACK_DAMAGE);
         for (LivingEntity entity : nearbyEntities) {
             entity.hurt(player.damageSources().playerAttack(player), sweepDamage);
             applyEffectToEntity(type, spiritusBracket, entity, player);
@@ -121,12 +140,35 @@ public class SentientScytheItem extends SwordItem implements ISentientTool {
 
         setCurrentType(stack, soulsRemaining > 0 ? type : SpiritusType.RAW);
         int level = getLevel(soulsRemaining);
+        double extraDamage = getExtraDamage(type, level);
 
         setActivatedState(stack, soulsRemaining > ACTIVATION_THRESHOLD);
         setDrainAmount(stack, level >= 0 ? SOUL_DRAIN_PER_SWING[level] : 0);
-        setDamageBonus(stack, getExtraDamage(type, level));
+        setDamageBonus(stack, BASE_DAMAGE + extraDamage);
         setStaticDrop(stack, level >= 0 ? STATIC_DROP[level] : 1);
         setSoulDrop(stack, level >= 0 ? SOUL_DROP[level] : 0);
+
+        updateAttributeModifiers(stack, BASE_DAMAGE + extraDamage);
+    }
+
+    private void updateAttributeModifiers(ItemStack stack, double damage) {
+        ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+
+        builder.add(Attributes.ATTACK_DAMAGE,
+                new AttributeModifier(
+                        NeoVitae.rl("sentient_scythe_damage"),
+                        damage,
+                        AttributeModifier.Operation.ADD_VALUE),
+                EquipmentSlotGroup.MAINHAND);
+
+        builder.add(Attributes.ATTACK_SPEED,
+                new AttributeModifier(
+                        NeoVitae.rl("sentient_scythe_speed"),
+                        ATTACK_SPEED,
+                        AttributeModifier.Operation.ADD_VALUE),
+                EquipmentSlotGroup.MAINHAND);
+
+        stack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
@@ -8,18 +9,23 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.common.util.FakePlayer;
+import net.neoforged.neoforge.items.IItemHandler;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.common.block.BlockSpiritusCrystal;
+import com.breakinblocks.neovitae.common.blockentity.SpiritusCrystalBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
+import com.breakinblocks.neovitae.util.Utils;
 import com.breakinblocks.neovitae.util.helper.BlockProtectionHelper;
 import com.breakinblocks.neovitae.spiritus.SpiritusChunk;
 import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
@@ -47,6 +53,7 @@ public class RitualCrystallumFractura extends Ritual {
     public static final String NAME = "crystallum_fractura";
     public static final String HARVEST_RANGE = "harvest";
     public static final String AURA_RANGE = "aura";
+    public static final String CHEST_RANGE = "chest";
 
     private static final int FORTUNE_FLOOR_RAW = 30;
     private static final int FORTUNE_PEAK_RAW = 100;
@@ -60,8 +67,10 @@ public class RitualCrystallumFractura extends Ritual {
         super(NAME, 1, 100000, "ritual." + NeoVitae.MODID + "." + NAME);
         addBlockRange(HARVEST_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-7, -5, -7), 15, 11, 15));
         addBlockRange(AURA_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-7, -5, -7), 15, 11, 15));
+        addBlockRange(CHEST_RANGE, new AreaDescriptor.Rectangle(new BlockPos(0, 1, 0), 1, 1, 1));
         setMaximumVolumeAndDistanceOfRange(HARVEST_RANGE, 4000, 16, 16);
         setMaximumVolumeAndDistanceOfRange(AURA_RANGE, 4000, 16, 16);
+        setMaximumVolumeAndDistanceOfRange(CHEST_RANGE, 1, 5, 5);
     }
 
     @Override
@@ -78,14 +87,23 @@ public class RitualCrystallumFractura extends Ritual {
         long gameTime = serverLevel.getGameTime();
         SpiritusType bias = masterRitualStone.getActiveSpiritusAspect();
 
+        RitualHelper.ChestOutput chest = RitualHelper.resolveChestOutput(ctx, this, CHEST_RANGE);
+        BlockEntity chestTile = chest.tile();
+        IItemHandler outputHandler = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
+        if (outputHandler != null && !chest.hasFreeSlot()) {
+            return;
+        }
+
         applyAuraBuffs(serverLevel, masterRitualStone, masterPos, bias, gameTime);
 
         FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(serverLevel, owner, "NeoVitae Crystallum Fractura");
 
         List<BlockPos> harvestPositions = RitualHelper.getRangePositions(ctx.master(), this, HARVEST_RANGE, masterPos);
         int totalCost = 0;
+        boolean chestFull = false;
 
         for (BlockPos harvestPos : harvestPositions) {
+            if (chestFull) break;
             if (totalCost + getRefreshCost() > ctx.currentEV()) break;
 
             BlockState state = ctx.level().getBlockState(harvestPos);
@@ -98,7 +116,16 @@ public class RitualCrystallumFractura extends Ritual {
 
             List<ItemStack> drops = RitualHelper.getBlockDrops(serverLevel, state, harvestPos, tool, fakePlayer);
 
-            ctx.level().destroyBlock(harvestPos, false);
+            if (state.getBlock() instanceof BlockSpiritusCrystal) {
+                int harvested = state.getValue(BlockSpiritusCrystal.AGE);
+                if (harvested <= 0) continue;
+                for (ItemStack drop : drops) {
+                    drop.setCount(drop.getCount() * harvested);
+                }
+                resetCrystalAge(ctx.level(), harvestPos, state);
+            } else {
+                ctx.level().destroyBlock(harvestPos, false);
+            }
             totalCost += getRefreshCost();
 
             if (fortuneLevel > 0) {
@@ -111,7 +138,14 @@ public class RitualCrystallumFractura extends Ritual {
                             .sendToNearby(serverLevel, masterPos, 64));
 
             for (ItemStack drop : drops) {
-                if (!drop.isEmpty()) {
+                if (drop.isEmpty()) continue;
+                if (outputHandler != null) {
+                    ItemStack remainder = Utils.insertStackIntoTile(drop, outputHandler);
+                    if (!remainder.isEmpty()) {
+                        Block.popResource(ctx.level(), harvestPos, remainder);
+                        chestFull = true;
+                    }
+                } else {
                     Block.popResource(ctx.level(), harvestPos, drop);
                 }
             }
@@ -135,6 +169,15 @@ public class RitualCrystallumFractura extends Ritual {
             return true;
         }
         return false;
+    }
+
+    private void resetCrystalAge(Level level, BlockPos pos, BlockState state) {
+        level.setBlock(pos, state.setValue(BlockSpiritusCrystal.AGE, 0), Block.UPDATE_ALL);
+        if (level.getBlockEntity(pos) instanceof SpiritusCrystalBlockEntity crystal) {
+            crystal.progressToNextCrystal = 0;
+            crystal.internalCounter = 0;
+            crystal.setChanged();
+        }
     }
 
     private int computeFortuneLevel(ServerLevel level, BlockPos pos) {

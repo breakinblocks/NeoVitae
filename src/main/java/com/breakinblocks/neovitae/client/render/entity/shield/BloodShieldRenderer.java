@@ -5,13 +5,11 @@ import com.breakinblocks.neovitae.client.render.entity.model.BloodShieldModel;
 import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
 import com.geckolib.renderer.GeoEntityRenderer;
 import com.geckolib.renderer.base.RenderPassInfo;
-import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Mth;
 
 public class BloodShieldRenderer extends GeoEntityRenderer<BloodShieldEntity, BloodShieldRenderer.State> {
 
@@ -24,18 +22,11 @@ public class BloodShieldRenderer extends GeoEntityRenderer<BloodShieldEntity, Bl
     }
 
     public static class State extends EntityRenderState {
-        public float yaw;
     }
 
     @Override
     public State createRenderState(BloodShieldEntity entity, Void v) {
         return new State();
-    }
-
-    @Override
-    public void extractRenderState(BloodShieldEntity entity, State state, float partialTick) {
-        super.extractRenderState(entity, state, partialTick);
-        state.yaw = Mth.lerp(partialTick, entity.yRotO, entity.getYRot());
     }
 
     @Override
@@ -48,6 +39,5 @@ public class BloodShieldRenderer extends GeoEntityRenderer<BloodShieldEntity, Bl
     public void adjustRenderPose(RenderPassInfo<State> info) {
         super.adjustRenderPose(info);
         info.poseStack().translate(0.0, 0.35, 0.0);
-        info.poseStack().mulPose(Axis.YP.rotationDegrees(-info.renderState().yaw));
     }
 }

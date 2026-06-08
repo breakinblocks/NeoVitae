@@ -8,7 +8,7 @@ import net.minecraft.resources.Identifier;
 
 public class BloodShieldModel extends GeoModel<BloodShieldEntity> {
 
-    private static final Identifier MODEL = NeoVitae.rl("geo/entity/blood_shield.geo.json");
+    private static final Identifier MODEL = NeoVitae.rl("geckolib/models/entity/blood_shield.geo.json");
     private static final Identifier TEXTURE = NeoVitae.rl("textures/entity/blood_shield_overlay.png");
 
     @Override

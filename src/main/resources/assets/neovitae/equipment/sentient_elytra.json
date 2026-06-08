@@ -2,17 +2,17 @@
   "layers": {
     "humanoid": [
       {
-        "texture": "neovitae:living"
+        "texture": "neovitae:sentient"
       }
     ],
     "humanoid_baby": [
       {
-        "texture": "neovitae:living"
+        "texture": "neovitae:sentient"
       }
     ],
     "humanoid_leggings": [
       {
-        "texture": "neovitae:living"
+        "texture": "neovitae:sentient"
       }
     ],
     "wings": [

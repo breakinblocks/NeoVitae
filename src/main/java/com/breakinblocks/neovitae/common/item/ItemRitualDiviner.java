@@ -15,7 +15,9 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -214,16 +216,16 @@ public class ItemRitualDiviner extends Item {
         ClientHandler.setRitualHoloToNull();
     }
 
-    // @Override (removed: not an override in 26.1)
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
+    @Override
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
         if (!(entity instanceof Player player)) return;
         if (!isActivated(stack)) return;
 
         if (entity.tickCount % 4 == 0) {
             BlockPos pos = getStoredPos(stack);
-            if (level.isClientSide()) {
-                spawnParticles(level, pos, 30);
-            } else if (!addRuneToRitual(stack, level, pos, player)) {
+            if (addRuneToRitual(stack, level, pos, player)) {
+                spawnBuildParticles(level, pos, 30);
+            } else {
                 setActivated(stack, false);
             }
         }
@@ -424,6 +426,12 @@ public class ItemRitualDiviner extends Item {
 
     private static String capitalize(String str) {
         return StringUtils.capitalize(str.toLowerCase(Locale.ROOT));
+    }
+
+    private static void spawnBuildParticles(ServerLevel level, BlockPos pos, int amount) {
+        level.sendParticles(ParticleTypes.HAPPY_VILLAGER,
+                pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                amount, 0.5, 0.5, 0.5, 0.02);
     }
 
     public static void spawnParticles(Level level, BlockPos pos, int amount) {

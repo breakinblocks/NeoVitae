@@ -31,6 +31,7 @@ import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.sounds.SoundSource;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -285,9 +286,9 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         return InteractionResult.CONSUME;
     }
 
-    // @Override (removed: not an override in 26.1)
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int itemSlot, boolean isSelected) {
-        if (level.isClientSide() || !(entity instanceof Player player)) {
+    @Override
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
+        if (!(entity instanceof Player player)) {
             return;
         }
 
@@ -316,7 +317,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
         ISigilEffect effect = getSigilEffect(stack, level);
         if (effect != null) {
-            effect.activeTick(level, player, stack, itemSlot, isSelected);
+            effect.activeTick(level, player, stack, -1, slot == EquipmentSlot.MAINHAND);
         }
     }
 

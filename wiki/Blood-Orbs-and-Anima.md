@@ -28,18 +28,18 @@ The **Bonus Sacrifice** attribute further multiplies this harvest. Combine the o
 
 ## Orb Tiers
 
-Each tier of orb is forged in a higher-tier altar, and each expands the Anima further than the last. Names in *italics* are the casual/community names; the in-universe Latinate is canonical.
+Each orb is forged at an Ara Vitae of its tier, and each raises your Anima's maximum capacity further than the last.
 
-| Tier | Orb Name                | Altar Tier | EV Cost   |
-|------|-------------------------|-----------|-----------|
-| 1    | Novicius Orb (*Weak*)   | Tier 0    | 2,000 EV  |
-| 2    | Discipulus Orb (*Apprentice*) | Tier 1 | 5,000 EV |
-| 3    | Veneficus Orb (*Magician*) | Tier 2 | 25,000 EV |
-| 4    | Magus Orb (*Master*)    | Tier 3    | 50,000 EV |
-| 5    | Dominus Orb (*Archmage*) | Tier 4   | 80,000 EV |
-| 6    | *Transcendent tier*     | -         | -         |
+| Tier | Orb            | Anima Capacity |
+|------|----------------|----------------|
+| 0    | Novicius Orb   | 5,000 EV       |
+| 1    | Discipulus Orb | 25,000 EV      |
+| 2    | Veneficus Orb  | 150,000 EV     |
+| 3    | Magus Orb      | 1,000,000 EV   |
+| 4    | Dominus Orb    | 5,000,000 EV   |
+| 5    | Divinus Orb    | 10,000,000 EV  |
 
-Should even the Dominus Orb not sate your ambitions, **Runes of the Orb** carved around the altar stretch the Anima further still. See **[Ara Vitae and Runes](Ara-Vitae-and-Runes)** for the rune families.
+Should even the Divinus Orb not sate your ambitions, **Runes of the Orb** carved around the altar stretch the Anima further still. See **[Ara Vitae and Runes](Ara-Vitae-and-Runes)** for the rune families.
 
 ## Sanguine Ward
 

@@ -33,6 +33,7 @@
 **Developers**
 - [API Overview](API-Overview)
 - [API Reference](API-Reference)
+- [Commands](Commands)
 
 **Project**
 - [Roadmap](Roadmap)

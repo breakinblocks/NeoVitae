@@ -1,4 +1,4 @@
-package com.breakinblocks.neovitae.datagen.book.utility;
+package com.breakinblocks.neovitae.datagen.book.spiritus;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
@@ -60,6 +60,18 @@ public class AthanorEntry extends EntryProvider {
         this.pageText("Every Reinforced Rune placed in the Athanor alongside the Sanguine Reverter surrenders "
                 + "its form and returns to base materials. This is invaluable when restructuring your altar, "
                 + "apprentice - no investment need be permanent.");
+
+        this.page("disenchanting", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Stripping Enchantments");
+        this.pageText("With the [#](8B0000)Sanguine Reverter[#]() in the tool slot, the Athanor also "
+                + "[#](4A0080)disenchants[#](). Load a stack of [#](8B0000)Books[#]() alongside a single enchanted "
+                + "item - armour, a tool, or even an [#](8B0000)Enchanted Book[#]() - and the crucible lifts one "
+                + "enchantment at a time onto a fresh book, removing it from the item.\\\n\\\n"
+                + "Each enchantment moved costs [#](8B0000)5 Raw Spiritus[#]() and [#](8B0000)100 mB of Essentia Vitae[#](). "
+                + "Once the item is stripped bare it drops to the output. The work continues only while you have books "
+                + "to fill and room in the output to hold them.");
 
         this.page("spiritus_costs", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

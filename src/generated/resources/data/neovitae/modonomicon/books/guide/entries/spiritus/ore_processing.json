@@ -1,13 +1,17 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "utility",
-  "description": "book.neovitae.guide.utility.ore_processing.description",
+  "category": "spiritus",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "spiritus/athanor"
+  },
+  "description": "book.neovitae.guide.spiritus.ore_processing.description",
   "hide_while_locked": false,
   "icon": {
     "item": "neovitae:basic_cutting_fluid"
   },
-  "name": "book.neovitae.guide.utility.ore_processing.name",
+  "name": "book.neovitae.guide.spiritus.ore_processing.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -16,8 +20,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.intro.text",
-      "title": "book.neovitae.guide.utility.ore_processing.intro.title",
+      "text": "book.neovitae.guide.spiritus.ore_processing.intro.text",
+      "title": "book.neovitae.guide.spiritus.ore_processing.intro.title",
       "use_markdown_in_title": false
     },
     {
@@ -27,8 +31,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.basic_cutting.text",
-      "title": "book.neovitae.guide.utility.ore_processing.basic_cutting.title",
+      "text": "book.neovitae.guide.spiritus.ore_processing.basic_cutting.text",
+      "title": "book.neovitae.guide.spiritus.ore_processing.basic_cutting.title",
       "use_markdown_in_title": false
     },
     {
@@ -38,8 +42,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.intermediate_cutting.text",
-      "title": "book.neovitae.guide.utility.ore_processing.intermediate_cutting.title",
+      "text": "book.neovitae.guide.spiritus.ore_processing.intermediate_cutting.text",
+      "title": "book.neovitae.guide.spiritus.ore_processing.intermediate_cutting.title",
       "use_markdown_in_title": false
     },
     {
@@ -49,8 +53,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.advanced_cutting.text",
-      "title": "book.neovitae.guide.utility.ore_processing.advanced_cutting.title",
+      "text": "book.neovitae.guide.spiritus.ore_processing.advanced_cutting.text",
+      "title": "book.neovitae.guide.spiritus.ore_processing.advanced_cutting.title",
       "use_markdown_in_title": false
     },
     {
@@ -60,8 +64,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.tabula_dust.text",
-      "title": "book.neovitae.guide.utility.ore_processing.tabula_dust.title",
+      "text": "book.neovitae.guide.spiritus.ore_processing.tabula_dust.text",
+      "title": "book.neovitae.guide.spiritus.ore_processing.tabula_dust.title",
       "use_markdown_in_title": false
     },
     {
@@ -71,8 +75,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.athanor_ore.text",
-      "title": "book.neovitae.guide.utility.ore_processing.athanor_ore.title",
+      "text": "book.neovitae.guide.spiritus.ore_processing.athanor_ore.text",
+      "title": "book.neovitae.guide.spiritus.ore_processing.athanor_ore.title",
       "use_markdown_in_title": false
     },
     {
@@ -82,8 +86,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.spiritus_boost.text",
-      "title": "book.neovitae.guide.utility.ore_processing.spiritus_boost.title",
+      "text": "book.neovitae.guide.spiritus.ore_processing.spiritus_boost.text",
+      "title": "book.neovitae.guide.spiritus.ore_processing.spiritus_boost.title",
       "use_markdown_in_title": false
     },
     {
@@ -93,8 +97,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.smelting.text",
-      "title": "book.neovitae.guide.utility.ore_processing.smelting.title",
+      "text": "book.neovitae.guide.spiritus.ore_processing.smelting.text",
+      "title": "book.neovitae.guide.spiritus.ore_processing.smelting.title",
       "use_markdown_in_title": false
     },
     {
@@ -104,8 +108,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.resonator.text",
-      "title": "book.neovitae.guide.utility.ore_processing.resonator.title",
+      "text": "book.neovitae.guide.spiritus.ore_processing.resonator.text",
+      "title": "book.neovitae.guide.spiritus.ore_processing.resonator.title",
       "use_markdown_in_title": false
     },
     {
@@ -115,8 +119,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.gravel_sand.text",
-      "title": "book.neovitae.guide.utility.ore_processing.gravel_sand.title",
+      "text": "book.neovitae.guide.spiritus.ore_processing.gravel_sand.text",
+      "title": "book.neovitae.guide.spiritus.ore_processing.gravel_sand.title",
       "use_markdown_in_title": false
     },
     {
@@ -126,7 +130,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.corrupted_dust.text",
+      "text": "book.neovitae.guide.spiritus.ore_processing.corrupted_dust.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -137,8 +141,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.corrupted_recipes.text",
-      "title": "book.neovitae.guide.utility.ore_processing.corrupted_recipes.title",
+      "text": "book.neovitae.guide.spiritus.ore_processing.corrupted_recipes.text",
+      "title": "book.neovitae.guide.spiritus.ore_processing.corrupted_recipes.title",
       "use_markdown_in_title": false
     },
     {
@@ -148,7 +152,7 @@
         "type": "modonomicon:none"
       },
       "recipe_id_1": "neovitae:furnacecell_primitive",
-      "text": "book.neovitae.guide.utility.ore_processing.fuel_cell.text",
+      "text": "book.neovitae.guide.spiritus.ore_processing.fuel_cell.text",
       "title1": "",
       "title2": ""
     },
@@ -159,8 +163,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.fuel_info.text",
-      "title": "book.neovitae.guide.utility.ore_processing.fuel_info.title",
+      "text": "book.neovitae.guide.spiritus.ore_processing.fuel_info.text",
+      "title": "book.neovitae.guide.spiritus.ore_processing.fuel_info.title",
       "use_markdown_in_title": false
     },
     {
@@ -170,13 +174,21 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.ore_processing.custom_materials.text",
-      "title": "book.neovitae.guide.utility.ore_processing.custom_materials.title",
+      "text": "book.neovitae.guide.spiritus.ore_processing.custom_materials.text",
+      "title": "book.neovitae.guide.spiritus.ore_processing.custom_materials.title",
       "use_markdown_in_title": false
     }
   ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "spiritus/athanor",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 6,
-  "x": -1,
-  "y": 0
+  "sort_number": 19,
+  "x": 6,
+  "y": -2
 }

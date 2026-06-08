@@ -26,11 +26,15 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -63,6 +67,8 @@ import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
 import com.breakinblocks.neovitae.compat.jei.tabulavitae.TabulaVitaeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.altar.AraVitaeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.athanor.AthanorRecipeCategory;
+import com.breakinblocks.neovitae.compat.jei.athanor.DisenchantCategory;
+import com.breakinblocks.neovitae.compat.jei.athanor.DisenchantJEIRecipe;
 import com.breakinblocks.neovitae.compat.jei.array.AlchemyArrayCraftingCategory;
 import com.breakinblocks.neovitae.compat.jei.array.AlchemyArrayEffectCategory;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskCombinationCategory;
@@ -159,6 +165,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipeCategories(new ImperfectRitualRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new RitualRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new BloodTankUpgradeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new DisenchantCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -177,6 +184,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()), ImperfectRitualRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.MASTER_RITUAL_STONE.block().get()), RitualRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(Items.CRAFTING_TABLE), BloodTankUpgradeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(NVItems.SANGUINE_REVERTER.get()), DisenchantCategory.RECIPE_TYPE);
     }
 
     private static ItemStack bloodTankStack(int tier) {
@@ -280,6 +288,22 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                 new ItemStack(NVItems.ORB_ARCHMAGE.get()), new ItemStack(NVItems.ORB_TRANSCENDENT.get()));
         registration.addIngredientInfo(orbStacks, VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.neovitae.orb.info"));
+
+        registration.addIngredientInfo(List.of(new ItemStack(NVItems.SANGUINE_REVERTER.get())), VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.neovitae.disenchant.info"));
+
+        List<ItemStack> allEnchantedBooks = new ArrayList<>();
+        world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).listElements().forEach(holder -> {
+            Enchantment ench = holder.value();
+            for (int lvl = ench.getMinLevel(); lvl <= ench.getMaxLevel(); lvl++) {
+                ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
+                ItemEnchantments.Mutable mut = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
+                mut.set(holder, lvl);
+                book.set(DataComponents.STORED_ENCHANTMENTS, mut.toImmutable());
+                allEnchantedBooks.add(book);
+            }
+        });
+        registration.addRecipes(DisenchantCategory.RECIPE_TYPE, List.of(new DisenchantJEIRecipe(allEnchantedBooks)));
 
         HolderLookup.RegistryLookup<SentientUpgrade> upgradeRegistry = world.registryAccess().lookupOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES);
         addTomeInfo(registration, upgradeRegistry, NVTags.Sentient.IS_SCRAPPABLE);

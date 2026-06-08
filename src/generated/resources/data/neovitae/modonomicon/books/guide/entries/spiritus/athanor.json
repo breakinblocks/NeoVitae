@@ -1,13 +1,17 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "utility",
-  "description": "book.neovitae.guide.utility.athanor.description",
+  "category": "spiritus",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "spiritus/spiritus"
+  },
+  "description": "book.neovitae.guide.spiritus.athanor.description",
   "hide_while_locked": false,
   "icon": {
     "item": "neovitae:athanor"
   },
-  "name": "book.neovitae.guide.utility.athanor.name",
+  "name": "book.neovitae.guide.spiritus.athanor.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -16,8 +20,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.athanor.intro.text",
-      "title": "book.neovitae.guide.utility.athanor.intro.title",
+      "text": "book.neovitae.guide.spiritus.athanor.intro.text",
+      "title": "book.neovitae.guide.spiritus.athanor.intro.title",
       "use_markdown_in_title": false
     },
     {
@@ -38,8 +42,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.athanor.sanguine_reverter.text",
-      "title": "book.neovitae.guide.utility.athanor.sanguine_reverter.title",
+      "text": "book.neovitae.guide.spiritus.athanor.sanguine_reverter.text",
+      "title": "book.neovitae.guide.spiritus.athanor.sanguine_reverter.title",
       "use_markdown_in_title": false
     },
     {
@@ -49,8 +53,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.athanor.athanor_recipes.text",
-      "title": "book.neovitae.guide.utility.athanor.athanor_recipes.title",
+      "text": "book.neovitae.guide.spiritus.athanor.athanor_recipes.text",
+      "title": "book.neovitae.guide.spiritus.athanor.athanor_recipes.title",
       "use_markdown_in_title": false
     },
     {
@@ -60,8 +64,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.athanor.reversion.text",
-      "title": "book.neovitae.guide.utility.athanor.reversion.title",
+      "text": "book.neovitae.guide.spiritus.athanor.reversion.text",
+      "title": "book.neovitae.guide.spiritus.athanor.reversion.title",
       "use_markdown_in_title": false
     },
     {
@@ -71,8 +75,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.athanor.spiritus_costs.text",
-      "title": "book.neovitae.guide.utility.athanor.spiritus_costs.title",
+      "text": "book.neovitae.guide.spiritus.athanor.disenchanting.text",
+      "title": "book.neovitae.guide.spiritus.athanor.disenchanting.title",
       "use_markdown_in_title": false
     },
     {
@@ -82,8 +86,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.athanor.spiritus_recipes.text",
-      "title": "book.neovitae.guide.utility.athanor.spiritus_recipes.title",
+      "text": "book.neovitae.guide.spiritus.athanor.spiritus_costs.text",
+      "title": "book.neovitae.guide.spiritus.athanor.spiritus_costs.title",
       "use_markdown_in_title": false
     },
     {
@@ -93,13 +97,32 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.utility.athanor.automation.text",
-      "title": "book.neovitae.guide.utility.athanor.automation.title",
+      "text": "book.neovitae.guide.spiritus.athanor.spiritus_recipes.text",
+      "title": "book.neovitae.guide.spiritus.athanor.spiritus_recipes.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.athanor.automation.text",
+      "title": "book.neovitae.guide.spiritus.athanor.automation.title",
       "use_markdown_in_title": false
     }
   ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "spiritus/spiritus",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 5,
-  "x": -3,
-  "y": -1
+  "sort_number": 18,
+  "x": 6,
+  "y": -3
 }

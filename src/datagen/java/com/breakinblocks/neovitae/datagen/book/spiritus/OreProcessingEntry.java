@@ -1,4 +1,4 @@
-package com.breakinblocks.neovitae.datagen.book.utility;
+package com.breakinblocks.neovitae.datagen.book.spiritus;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;

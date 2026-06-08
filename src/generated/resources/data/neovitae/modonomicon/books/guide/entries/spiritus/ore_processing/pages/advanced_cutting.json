@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "advanced_cutting",
+  "show_title_separator": true,
+  "sort_number": 3,
+  "text": "book.neovitae.guide.spiritus.ore_processing.advanced_cutting.text",
+  "title": "book.neovitae.guide.spiritus.ore_processing.advanced_cutting.title"
+}

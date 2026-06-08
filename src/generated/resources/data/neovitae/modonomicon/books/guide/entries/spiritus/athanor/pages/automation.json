@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "automation",
+  "show_title_separator": true,
+  "sort_number": 8,
+  "text": "book.neovitae.guide.spiritus.athanor.automation.text",
+  "title": "book.neovitae.guide.spiritus.athanor.automation.title"
+}

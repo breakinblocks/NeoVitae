@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -15,12 +16,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -47,6 +51,7 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.menu.AthanorMenu;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
+import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipe;
 import com.breakinblocks.neovitae.common.recipe.athanor.AthanorRecipeInput;
@@ -345,6 +350,10 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
                         athanorTile.craft(athanorRecipe, input, itemOutputHandler);
                         outputChanged = true;
                     }
+                } else if (toolStack.is(NVTags.Items.REVERTER)) {
+                    var dr = athanorTile.tryDisenchant(level, blockPos, inputStacks, itemOutputHandler, toolStack, spiritusSpeedMod);
+                    if (dr.progressed()) didProgress = true;
+                    if (dr.crafted()) outputChanged = true;
                 } else {
                     athanorTile.currentRecipeSpiritusCost = Map.of();
                     athanorTile.spiritusBlocked = false;
@@ -458,6 +467,10 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         }
         progress = 0;
 
+        damageTool();
+    }
+
+    private void damageTool() {
         ItemStack toolStack = athanorInv.getStackInSlot(TOOL_SLOT);
         if (!toolStack.has(DataComponents.UNBREAKABLE)) {
             var template = toolStack.getCraftingRemainder();
@@ -478,6 +491,124 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
                 athanorInv.setStackInSlot(TOOL_SLOT, toolStack);
             }
         }
+    }
+
+    private DisenchantResult tryDisenchant(Level level, BlockPos pos, ItemStack[] inputStacks, AthanorOutputHandler outputHandler, ItemStack toolStack, double spiritusSpeedMod) {
+        int bookSlot = -1;
+        int itemSlot = -1;
+        int disenchantableCount = 0;
+        for (int s = 0; s < NUM_INPUTS; s++) {
+            ItemStack st = inputStacks[s];
+            if (st.isEmpty()) continue;
+            if (bookSlot < 0 && st.is(Items.BOOK)) {
+                bookSlot = s;
+            } else if (isDisenchantable(st)) {
+                disenchantableCount++;
+                itemSlot = s;
+            }
+        }
+
+        if (bookSlot < 0 || disenchantableCount != 1 || inputStacks[itemSlot].getCount() != 1) {
+            currentRecipeSpiritusCost = Map.of();
+            spiritusBlocked = false;
+            return DisenchantResult.NONE;
+        }
+
+        ItemStack source = inputStacks[itemSlot];
+        boolean storedBook = source.is(Items.ENCHANTED_BOOK);
+        ItemEnchantments ench = storedBook
+                ? source.getOrDefault(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY)
+                : source.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+        if (ench.isEmpty()) {
+            currentRecipeSpiritusCost = Map.of();
+            spiritusBlocked = false;
+            return DisenchantResult.NONE;
+        }
+
+        currentRecipeSpiritusCost = Map.of(SpiritusType.RAW, 5.0);
+
+        Holder<Enchantment> chosen = ench.keySet().iterator().next();
+        int enchLevel = ench.getLevel(chosen);
+
+        ItemEnchantments.Mutable bookMut = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
+        bookMut.set(chosen, enchLevel);
+        ItemStack movedBook = new ItemStack(Items.ENCHANTED_BOOK);
+        movedBook.set(DataComponents.STORED_ENCHANTMENTS, bookMut.toImmutable());
+
+        ItemEnchantments.Mutable srcMut = new ItemEnchantments.Mutable(ench);
+        srcMut.set(chosen, 0);
+        ItemEnchantments reduced = srcMut.toImmutable();
+        boolean lastEnchant = reduced.isEmpty();
+
+        ItemStack strippedSource;
+        if (storedBook) {
+            strippedSource = lastEnchant ? new ItemStack(Items.BOOK) : source.copy();
+            if (!lastEnchant) strippedSource.set(DataComponents.STORED_ENCHANTMENTS, reduced);
+        } else {
+            strippedSource = source.copy();
+            strippedSource.set(DataComponents.ENCHANTMENTS, reduced);
+        }
+
+        List<ItemStack> roomNeeded = lastEnchant ? List.of(movedBook, strippedSource) : List.of(movedBook);
+        if (!outputHandler.canTransferAllItemsToSlots(roomNeeded, true)) {
+            spiritusBlocked = false;
+            return DisenchantResult.NONE;
+        }
+
+        FluidStack tankFluid = inputTank.getFluid();
+        if (tankFluid.isEmpty() || tankFluid.getFluid() != NVFluids.ESSENTIA_VITAE_SOURCE.get() || tankFluid.getAmount() < 100) {
+            spiritusBlocked = true;
+            return DisenchantResult.NONE;
+        }
+        if (WorldSpiritusHandler.getCurrentSpiritus(level, pos, SpiritusType.RAW) < 5.0) {
+            spiritusBlocked = true;
+            return DisenchantResult.NONE;
+        }
+
+        spiritusBlocked = false;
+        progress += DEFAULT_SPEED * toolStack.getOrDefault(NVDataComponents.ARC_SPEED, 1D) * spiritusSpeedMod;
+        if (progress < 1) {
+            return new DisenchantResult(true, false);
+        }
+
+        progress = 0;
+        try (Transaction tx = Transaction.openRoot()) {
+            inputTank.extract(FluidResource.of(tankFluid), 100, tx);
+            tx.commit();
+        }
+        WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, SpiritusType.RAW, 5.0);
+        snapshotChunkSpiritus(level, pos);
+
+        outputHandler.canTransferAllItemsToSlots(List.of(movedBook), false);
+
+        ItemStack bookStack = athanorInv.getStackInSlot(INPUT_START + bookSlot).copy();
+        bookStack.shrink(1);
+        athanorInv.setStackInSlot(INPUT_START + bookSlot, bookStack);
+
+        if (lastEnchant) {
+            outputHandler.canTransferAllItemsToSlots(List.of(strippedSource), false);
+            athanorInv.setStackInSlot(INPUT_START + itemSlot, ItemStack.EMPTY);
+        } else {
+            athanorInv.setStackInSlot(INPUT_START + itemSlot, strippedSource);
+        }
+
+        damageTool();
+
+        level.playSound(null, pos, NVSounds.ATHANOR_COMPLETE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
+        ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x6622AA), pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 6, 0.2, 0.2, 0.2, 0);
+
+        return new DisenchantResult(true, true);
+    }
+
+    private static boolean isDisenchantable(ItemStack st) {
+        if (st.is(Items.ENCHANTED_BOOK)) {
+            return !st.getOrDefault(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty();
+        }
+        return !st.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY).isEmpty();
+    }
+
+    private record DisenchantResult(boolean progressed, boolean crafted) {
+        private static final DisenchantResult NONE = new DisenchantResult(false, false);
     }
 
     public void setLit(boolean lit) {

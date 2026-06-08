@@ -1,0 +1,27 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:spiritus",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "neovitae:spiritus/ore_processing"
+  },
+  "description": "book.neovitae.guide.spiritus.bloodstone_bricks.description",
+  "icon": {
+    "id": "neovitae:bloodstone_brick"
+  },
+  "id": "neovitae:spiritus/bloodstone_bricks",
+  "name": "book.neovitae.guide.spiritus.bloodstone_bricks.name",
+  "parents": [
+    {
+      "entry": "neovitae:spiritus/ore_processing"
+    }
+  ],
+  "sort_number": 20,
+  "x": 6,
+  "y": -1
+}

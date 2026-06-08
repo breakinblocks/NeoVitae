@@ -18,9 +18,9 @@ public class SpiritusCategory extends CategoryProvider {
     protected String[] generateEntryMap() {
         return new String[]{
                 "_____________a_____________",
-                "___b___c_y_j___m_n_________",
-                "___d_z_o___k_______________",
-                "___e___p___________________",
+                "___b___c_y_j___m_n_A_______",
+                "___d_z_o___k_______O_______",
+                "___e___p___________B_______",
                 "___f___q___x_______________",
                 "___g_i_t_u_v_w_____________",
                 "___h_______________________",
@@ -116,6 +116,21 @@ public class SpiritusCategory extends CategoryProvider {
         spiritusInfusion.withParent(this.parent(spiritusGems));
         spiritusInfusion.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/spiritus_gems"));
         spiritusInfusion.hideWhileLocked(false);
+
+        var athanor = this.add(new AthanorEntry(this).generate('A'));
+        athanor.withParent(this.parent(spiritus));
+        athanor.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/spiritus"));
+        athanor.hideWhileLocked(false);
+
+        var oreProcessing = this.add(new OreProcessingEntry(this).generate('O'));
+        oreProcessing.withParent(this.parent(athanor));
+        oreProcessing.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/athanor"));
+        oreProcessing.hideWhileLocked(false);
+
+        var bloodstoneBricks = this.add(new BloodstoneBricksEntry(this).generate('B'));
+        bloodstoneBricks.withParent(this.parent(oreProcessing));
+        bloodstoneBricks.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/ore_processing"));
+        bloodstoneBricks.hideWhileLocked(false);
     }
 
     @Override

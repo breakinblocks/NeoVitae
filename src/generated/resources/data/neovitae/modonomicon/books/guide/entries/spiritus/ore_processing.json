@@ -1,0 +1,27 @@
+{
+  "type": "modonomicon:content",
+  "background": {
+    "height": 26,
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26
+  },
+  "category": "neovitae:spiritus",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "neovitae:spiritus/athanor"
+  },
+  "description": "book.neovitae.guide.spiritus.ore_processing.description",
+  "icon": {
+    "id": "neovitae:basic_cutting_fluid"
+  },
+  "id": "neovitae:spiritus/ore_processing",
+  "name": "book.neovitae.guide.spiritus.ore_processing.name",
+  "parents": [
+    {
+      "entry": "neovitae:spiritus/athanor"
+    }
+  ],
+  "sort_number": 19,
+  "x": 6,
+  "y": -2
+}

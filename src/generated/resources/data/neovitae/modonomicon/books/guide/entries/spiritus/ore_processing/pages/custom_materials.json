@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "custom_materials",
+  "show_title_separator": true,
+  "sort_number": 14,
+  "text": "book.neovitae.guide.spiritus.ore_processing.custom_materials.text",
+  "title": "book.neovitae.guide.spiritus.ore_processing.custom_materials.title"
+}

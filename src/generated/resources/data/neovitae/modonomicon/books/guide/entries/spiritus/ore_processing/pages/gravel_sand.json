@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "gravel_sand",
+  "show_title_separator": true,
+  "sort_number": 9,
+  "text": "book.neovitae.guide.spiritus.ore_processing.gravel_sand.text",
+  "title": "book.neovitae.guide.spiritus.ore_processing.gravel_sand.title"
+}

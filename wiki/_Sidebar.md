@@ -23,6 +23,7 @@
 
 **Automation**
 - [Routing Network](Routing-Network)
+- [Automating the Ara Vitae](Automating-the-Ara-Vitae)
 - [Teleposer](Teleposer)
 
 **Pack Makers**

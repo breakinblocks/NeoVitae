@@ -39,6 +39,7 @@ If you're new to the mod, read these first:
 | Page | What's inside |
 | --- | --- |
 | **[Routing Network](Routing-Network)** | Item, fluid, and energy transport |
+| **[Automating the Ara Vitae](Automating-the-Ara-Vitae)** | Run an altar unattended: feeding, the Vitae Link, the Orb Vitae Link |
 | **[Teleposer](Teleposer)** | Spatial exchange between linked stations |
 
 ## For Modpack Makers

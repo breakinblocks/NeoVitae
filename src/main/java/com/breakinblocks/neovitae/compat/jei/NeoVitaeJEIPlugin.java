@@ -69,6 +69,8 @@ import com.breakinblocks.neovitae.compat.jei.flask.FlaskCombinationCategory;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskCombinationJEIRecipe;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.bloodtank.BloodTankSubtypeInterpreter;
+import com.breakinblocks.neovitae.compat.jei.bloodtank.BloodTankUpgradeCategory;
+import com.breakinblocks.neovitae.compat.jei.bloodtank.BloodTankUpgradeJEIRecipe;
 import com.breakinblocks.neovitae.compat.jei.flask.FlaskSubtypeInterpreter;
 import com.breakinblocks.neovitae.compat.jei.tome.UpgradeTomeSubtypeInterpreter;
 import com.breakinblocks.neovitae.compat.jei.forge.ForgeUpgradeRecipeCategory;
@@ -156,6 +158,7 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipeCategories(new FlaskCombinationCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ImperfectRitualRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new RitualRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new BloodTankUpgradeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -173,6 +176,13 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.TABULA_VITAE.block().get()), FlaskCombinationCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()), ImperfectRitualRecipeCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(NVBlocks.MASTER_RITUAL_STONE.block().get()), RitualRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(Items.CRAFTING_TABLE), BloodTankUpgradeCategory.RECIPE_TYPE);
+    }
+
+    private static ItemStack bloodTankStack(int tier) {
+        ItemStack stack = new ItemStack(NVBlocks.BLOOD_TANK.block().get());
+        stack.set(NVDataComponents.CONTAINER_TIER, tier);
+        return stack;
     }
 
     @Override
@@ -257,15 +267,12 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         List<RitualJEIRecipe> ritualRecipes = createRitualRecipes();
         registration.addRecipes(RitualRecipeCategory.RECIPE_TYPE, ritualRecipes);
 
-        // Blood tank upgrade info
-        List<ItemStack> bloodTankStacks = new ArrayList<>();
-        for (int tier = 1; tier <= 16; tier++) {
-            ItemStack stack = new ItemStack(NVBlocks.BLOOD_TANK.block().get());
-            stack.set(NVDataComponents.CONTAINER_TIER, tier);
-            bloodTankStacks.add(stack);
+        // Blood tank upgrade recipes, one per tier transition
+        List<BloodTankUpgradeJEIRecipe> tankUpgrades = new ArrayList<>();
+        for (int tier = 2; tier <= 16; tier++) {
+            tankUpgrades.add(new BloodTankUpgradeJEIRecipe(tier, bloodTankStack(tier - 1), bloodTankStack(tier)));
         }
-        registration.addIngredientInfo(bloodTankStacks, VanillaTypes.ITEM_STACK,
-                Component.translatable("jei.neovitae.blood_tank.upgrade_info"));
+        registration.addRecipes(BloodTankUpgradeCategory.RECIPE_TYPE, tankUpgrades);
 
         List<ItemStack> orbStacks = List.of(
                 new ItemStack(NVItems.ORB_WEAK.get()), new ItemStack(NVItems.ORB_APPRENTICE.get()),

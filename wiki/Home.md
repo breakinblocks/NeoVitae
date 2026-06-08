@@ -40,6 +40,8 @@ If you're new to the mod, read these first:
 | --- | --- |
 | **[Routing Network](Routing-Network)** | Item, fluid, and energy transport |
 | **[Automating the Ara Vitae](Automating-the-Ara-Vitae)** | Run an altar unattended: feeding, the Vitae Link, the Orb Vitae Link |
+| **[Automating the Athanor and Tabula Vitae](Automating-the-Athanor-and-Tabula-Vitae)** | Sided crafting-station automation and the ore-refining line |
+| **[Automating Spiritus](Automating-Spiritus)** | The full will life cycle: grow, harvest, burn, route to keep the Aura full |
 | **[Teleposer](Teleposer)** | Spatial exchange between linked stations |
 
 ## For Modpack Makers

@@ -24,6 +24,10 @@ Forged in the Hellfire Forge, the **Sanguine Reverter** is a tool of unmaking. I
 - Netherite Ingot
 - Any Reinforced Rune (back to base materials, invaluable when restructuring your altar)
 
+### Disenchanting
+
+The Reverter also strips **enchantments**. Place a stack of plain **Books** and a single enchanted item (gear, a tool, or an enchanted book) in the Athanor's inputs. Each operation lifts one enchantment onto a fresh enchanted book and removes it from the item, costing **5 raw spiritus and 100 mB of Essentia Vitae** per enchantment. Once the item has no enchantments left, it drops to the output. It runs only while you have books to receive enchantments and output space to hold them.
+
 ## Ore Processing: From Vein to Ingot
 
 You have two paths and you choose by tempo. The **[Tabula Vitae](Tabula-Vitae-Flasks-and-Anointments)** doubles your ore in a single quick step. The **Athanor** is slower but far more rewarding: a unified refinement chain yields **5 ingots per silk-touched ore block, 3 per raw ore** at the floor, and rises further when **[Raw Spiritus](Spiritus-Aspects-and-Crystals)** soaks the chunk.

@@ -1034,6 +1034,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addJei("recipe.athanor.spiritus_cost", "Spiritus Cost:");
         addJei("recipe.flask", "Flask Brewing");
         addJei("recipe.flask_combination", "Flask Combinations");
+        addJei("recipe.blood_tank_upgrade", "Blood Tank Upgrade");
         addJei("recipe.imperfect_ritual", "Imperfect Ritual");
         addJei("recipe.ritual", "Ritual");
 
@@ -1055,8 +1056,6 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addJei("recipe.hellfire_forge_upgrade", "Hellfire Forge Upgrade");
         addJei("recipe.upgrade_hint", "Any damageable item will be converted to have Blood Mending");
 
-        // Blood Tank
-        add("jei.neovitae.blood_tank.upgrade_info", "Blood Tanks can be upgraded by placing them in a crafting grid surrounded by Glass and Bloodstone. Each upgrade doubles the tank's capacity. Tanks retain their stored fluid when upgraded. The initial tier holds 16,000 mB and tier 16 holds 524,288,000 mB.");
 
         String tomeObtain = "\n\nObtain the tome from dungeon loot (The Mines and the Foreman's hoard), the Sentient Extraction ritual, or by combining two duplicate tomes at a crafting table.";
         String downgradeApply = "\n\nImposed by the Sentient Downgrade ritual, which trades unwanted upgrade levels for this curse and frees Upgrade Points to spend elsewhere.";

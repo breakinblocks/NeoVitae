@@ -206,6 +206,23 @@ public class AthanorRecipe implements Recipe<AthanorRecipeInput> {
         return true;
     }
 
+    public int[] getUsedInputSlots(AthanorRecipeInput recipeInput) {
+        boolean[] used = new boolean[MAX_INPUTS];
+        int[] result = new int[inputs.size()];
+        int n = 0;
+        for (Ingredient ingredient : inputs) {
+            for (int slot = 0; slot < MAX_INPUTS; slot++) {
+                if (used[slot]) continue;
+                if (ingredient.test(recipeInput.getItem(1 + slot))) {
+                    used[slot] = true;
+                    result[n++] = slot;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
     public record AthanorResult(List<ItemStack> items, FluidStack fluid) {}
 
     @Override

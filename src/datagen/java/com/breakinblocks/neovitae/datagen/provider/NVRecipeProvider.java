@@ -3806,6 +3806,11 @@ public class NVRecipeProvider extends RecipeProvider {
                 .spiritusBoost()
                 .save(output, rKey(NeoVitae.rl("fragmentshellforged")));
 
+        AthanorRecipeBuilder.build(NVTags.Items.CUTTING_FLUIDS)
+                .input(Ingredient.of(NVItems.DEMONITE_GRAVEL.get()))
+                .guaranteedOutput(NVItems.HELLFORGED_DUST.get())
+                .save(output, rKey(NeoVitae.rl("dustshellforged")));
+
         // Raw hellforged processing removed - no raw hellforged item exists
 
         // === OTHER UTILITY ===

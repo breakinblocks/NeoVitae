@@ -50,7 +50,14 @@ A single path from rock to ingot, every step driven by Cutting Fluid except the 
 
 The **Resonator** is forged in the **[Hellfire Forge](Hellfire-Forge-and-Sentient-Equipment)**. **Reinforced** and **Hellforged** Resonator variants are far more durable; the Hellforged variant also doubles the Corrupted Dust byproduct rate.
 
-Tiny Corrupted Dust combines into full **Corrupted Dust**, a potent catalyst. Corrupted Dust merges with various materials in the Tabula Vitae to produce **Corrupted Coal**, **Corrupted Iron**, and **Corrupted Debris**.
+### Corrupted Dust
+
+The Resonator step throws off **Tiny Corrupted Dust** as a side product, a 50% chance per fragment (doubled by the Hellforged Resonator), so it builds up naturally as you refine ore. It has two uses today, with more planned:
+
+- **Simple Keys.** Two iron ingots and a single **Tiny Corrupted Dust** worked in the [Hellfire Forge](Hellfire-Forge-and-Sentient-Equipment) make a **Simple Key**, which is in turn an ingredient of the **Mine Entrance Key**. See [The Endless Dungeon](The-Endless-Dungeon) for what those keys open.
+- **Richer ore yields.** Combine four Tiny Corrupted Dust into one full **Corrupted Dust** at a crafting table, then refine an ore fragment with it in the [Tabula Vitae](Tabula-Vitae-Flasks-and-Anointments): the fragment yields **2 Ore Gravel** instead of the Resonator's 1. Corrupted Dust is the catalyst that pushes refinement past the standard chain.
+
+Further corrupted-material crafts (Corrupted Coal, Iron, and Debris among them) are planned for a future update, so it is worth banking any spare dust against them.
 
 ### The Spiritus Boost
 

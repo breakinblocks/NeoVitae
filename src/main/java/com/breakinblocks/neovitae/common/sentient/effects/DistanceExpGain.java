@@ -35,7 +35,7 @@ public record DistanceExpGain(Holder<SentientUpgrade> upgrade, Movement movement
         double y = wearer.getY();
         double z = wearer.getZ();
 
-        Map<Identifier, Double> data = wearer.getData(NVDataAttachments.SENTIENT_ADDITIONAL);
+        Map<Identifier, Double> data = new HashMap<>(wearer.getData(NVDataAttachments.SENTIENT_ADDITIONAL));
         double oldX = data.getOrDefault(X, x);
         double oldY = data.getOrDefault(Y, y);
         double oldZ = data.getOrDefault(Z, z);

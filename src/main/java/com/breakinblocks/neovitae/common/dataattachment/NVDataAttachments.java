@@ -25,7 +25,7 @@ public class NVDataAttachments {
             "sentient_cooldown",
             () -> AttachmentType.<Map<Identifier, Double>>builder(() -> new HashMap<>())
                     .serialize(Codec.unboundedMap(Identifier.CODEC, Codec.DOUBLE)
-                            .<Map<Identifier, Double>>xmap(m -> m, m -> m)
+                            .<Map<Identifier, Double>>xmap(m -> new HashMap<>(m), m -> m)
                             .fieldOf("value"))
                     .build());
 

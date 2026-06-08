@@ -86,7 +86,7 @@ public class AraVitaeEntry extends EntryProvider {
 
         this.page("blank_rune", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("To ascend to greater tiers, you must inscribe [#](8B0000)Blood Runes[#]() and arrange them "
+        this.pageText("To ascend to greater tiers, you must place [#](8B0000)Blank Runes[#]() and arrange them "
                 + "around the Ara Vitae in precise patterns. Specialized runes confer different blessings upon the "
                 + "altar's workings. The most basic, the [#](8B0000)Blank Rune[#](), carries no enchantment of its own, "
                 + "serving only as structural scaffolding for the Ara Vitae's ascension.");
@@ -96,7 +96,7 @@ public class AraVitaeEntry extends EntryProvider {
 
         this.page("tier2_text", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Tier 1[#]() demands 8 [#](8B0000)Blood Runes[#]() arranged in a ring around the Ara Vitae. "
+        this.pageText("[#](B8860B)Tier 1[#]() demands 8 [#](8B0000)Blank Runes[#]() arranged in a ring around the Ara Vitae. "
                 + "The four cardinal runes may be replaced with specialized variants; the corner runes remain "
                 + "inert until Tier 2 unlocks their potential.");
 

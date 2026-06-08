@@ -16,7 +16,7 @@ Your first creation should be the **Novicius Orb of Vitae**, a diamond offered t
 
 ## Tier Construction Summary
 
-To ascend to greater tiers, you must inscribe **Blood Runes** and lay them in concentric **circular rings** around the basin, each new ring sitting one level deeper and further out than the last. Higher tiers also add pillars or capstone blocks at the ring's cardinal points or corners. Specialized runes confer different blessings; the most basic, the **Blank Rune**, carries no enchantment of its own and serves only as structural scaffolding. The in-game guide (Scriptura Vitae) renders the full multiblock for each tier if you want a block-by-block view.
+To ascend to greater tiers, you must lay **Blank Runes** in concentric **circular rings** around the basin, each new ring sitting one level deeper and further out than the last. Higher tiers also add pillars or capstone blocks at the ring's cardinal points or corners. Specialized runes confer different blessings; the most basic, the **Blank Rune**, carries no enchantment of its own and serves only as structural scaffolding. The in-game guide (Scriptura Vitae) renders the full multiblock for each tier if you want a block-by-block view.
 
 | Tier | Total Runes | Notes |
 |------|-------------|-------|

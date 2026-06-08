@@ -87,7 +87,7 @@ public class OrbFillingLinkBlockEntity extends BaseBlockEntity {
         if (ticks % REVALIDATE_INTERVAL == 0) refreshAltar();
 
         AraVitaeTile altar = getAltar();
-        if (altar != null) pump(altar);
+        if (altar != null && !isPowered()) pump(altar);
 
         int signal = getComparatorSignal();
         if (signal != lastSignal) {
@@ -148,6 +148,10 @@ public class OrbFillingLinkBlockEntity extends BaseBlockEntity {
 
     public boolean hasOrb() {
         return inv.getStackInSlot(ORB_SLOT).getItem() instanceof BloodOrbItem;
+    }
+
+    private boolean isPowered() {
+        return level != null && level.hasNeighborSignal(worldPosition);
     }
 
     @Nullable

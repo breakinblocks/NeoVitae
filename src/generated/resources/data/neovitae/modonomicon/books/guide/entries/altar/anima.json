@@ -61,39 +61,6 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.anima.weak_apprentice.text",
-      "title": "book.neovitae.guide.altar.anima.weak_apprentice.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.anima.magician_master.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.altar.anima.archmage.text",
-      "title": "",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
       "text": "book.neovitae.guide.altar.anima.orb_fluid_tank.text",
       "title": "book.neovitae.guide.altar.anima.orb_fluid_tank.title",
       "use_markdown_in_title": false

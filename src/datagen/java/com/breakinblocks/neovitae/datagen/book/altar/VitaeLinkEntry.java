@@ -83,7 +83,9 @@ public class VitaeLinkEntry extends EntryProvider {
                 + "back), and it pulls [#](4A0080)Essentia Vitae[#]() from its bound altar straight into the orb owner's "
                 + "[#](8B0000)Anima[#](), at the altar's [#](8B0000)full tier[#]() and runes, until the network is full.\\\n\\\n"
                 + "[#](2E8B57)It sits lowest in the chain: it draws only while the altar is idle and no Vitae Link is "
-                + "crafting, sipping the leftover essence so it never starves a working.[#]()");
+                + "crafting, sipping the leftover essence so it never starves a working.[#]()\\\n\\\n"
+                + "Feed it a [#](8B0000)redstone signal[#]() to pause it: while powered, the Link stops charging until "
+                + "the signal drops, letting you gate it off your altar's own comparator.");
 
         this.page("orb_link_recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath("neovitae", "orb_filling_link"))

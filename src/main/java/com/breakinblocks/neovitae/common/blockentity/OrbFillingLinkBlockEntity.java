@@ -72,7 +72,7 @@ public class OrbFillingLinkBlockEntity extends BaseBlockEntity {
         if (ticks % REVALIDATE_INTERVAL == 0) refreshAltar();
 
         AraVitaeTile altar = getAltar();
-        if (altar != null) pump(altar);
+        if (altar != null && !isPowered()) pump(altar);
 
         int signal = getComparatorSignal();
         if (signal != lastSignal) {
@@ -118,6 +118,10 @@ public class OrbFillingLinkBlockEntity extends BaseBlockEntity {
         if (orb == null || orb.animaCapacity() <= 0) return 0;
         Anima network = AnimaHelper.getAnima(binding.uuid());
         return Mth.clamp((int) Math.ceil(15.0 * network.getCurrentEV() / orb.animaCapacity()), 0, 15);
+    }
+
+    private boolean isPowered() {
+        return level != null && level.hasNeighborSignal(worldPosition);
     }
 
     @Nullable

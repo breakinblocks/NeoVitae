@@ -16,16 +16,16 @@ Your first creation should be the **Novicius Orb of Vitae**, a diamond offered t
 
 ## Tier Construction Summary
 
-To ascend to greater tiers, you must inscribe **Blood Runes** and arrange them around the basin in precise patterns. Specialized runes confer different blessings; the most basic, the **Blank Rune**, carries no enchantment of its own and serves only as structural scaffolding.
+To ascend to greater tiers, you must inscribe **Blood Runes** and lay them in concentric **circular rings** around the basin, each new ring sitting one level deeper and further out than the last. Higher tiers also add pillars or capstone blocks at the ring's cardinal points or corners. Specialized runes confer different blessings; the most basic, the **Blank Rune**, carries no enchantment of its own and serves only as structural scaffolding. The in-game guide (Scriptura Vitae) renders the full multiblock for each tier if you want a block-by-block view.
 
 | Tier | Total Runes | Notes |
 |------|-------------|-------|
 | 0    | 0           | A lone Ara Vitae, unadorned. |
-| 1    | 8           | A ring around the basin. Cardinal slots accept specialized runes; corners stay inert until Tier 2. |
-| 2    | 28          | 5 runes per edge, one level down and two blocks out. Stone pillars at each corner capped with **Blood Stained Glass**. |
-| 3    | 56          | 7 runes per edge, again one level down and two further out. Four-block pillars crowned with **Bloodstone Bricks** (requires Tau Fruit from the *Breaching the Edge of Demon Realm* ritual). |
-| 4    | 108         | 13 runes per edge, three blocks out, with a one-block gap at each end. **Hellforged Block** corners. |
-| 5    | 184         | 19 runes per edge, three blocks beyond the last ring. No corner blocks at rune level; pillars ascend one tier higher and are crowned with **Crystal Clusters** (or Crystal Cluster Bricks). |
+| 1    | 8           | A ring of 8 runes one level below the basin (the 3x3 ring with the centre left open). The four cardinal slots take specialized runes; the four diagonal slots stay inert (blank) until higher tiers. |
+| 2    | 24          | Adds a circular ring of 16 runes, one level lower and out at radius 3. Pillars rise at the four cardinal sides, capped with **Blood Stained Glass**. |
+| 3    | 52          | Adds a ring of 28 runes, another level down at radius 5. **Bloodstone** (or Bloodstone Brick) blocks sit at the four corners (requires Tau Fruit from the *Breaching the Edge of Demon Realm* ritual). |
+| 4    | 100         | Adds a ring of 48 runes, lower again at radius 8. **Hellforged Block** caps mark the four cardinal points. |
+| 5    | 172         | Adds the widest ring of 72 runes at radius 11. Tall pillars rise at the four cardinal sides, crowned with **Crystal Clusters** (or Crystal Cluster Bricks). |
 
 Crystal Clusters are forged in the **[Hellfire Forge](Hellfire-Forge-and-Sentient-Equipment)** from Sculk, an Tabula Aetherea, a Weak Blood Shard, and a Nether Star.
 

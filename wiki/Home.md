@@ -55,6 +55,7 @@ Public API for hooking into the anima, altars, rituals, sigils, and sentient arm
 
 - **[API Overview](API-Overview)**. Getting started, package structure
 - **[API Reference](API-Reference)**. Every public class and event
+- **[Commands](Commands)**. The op-gated `/neovitae` admin and debug commands
 
 ## Community
 

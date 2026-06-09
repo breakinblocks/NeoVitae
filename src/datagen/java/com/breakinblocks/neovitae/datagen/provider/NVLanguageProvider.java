@@ -1236,7 +1236,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addRitual("crystallum_fractura", "Crystallum Fractura", "Auto-harvests Spiritus Crystal clusters in range, doubles their growth speed, and biases the chunk's aspect via the Ritual Reader.");
         addRitual("downgrade", "Sentient Extraction", "Throw a piece of Sentient Armor onto the small zone above the master stone; the ritual extracts every upgrade as a separate Upgrade Tome.");
         addRitual("meteor", "Ritual of Meteo", "Consumes a catalyst item dropped within the area and crashes a corresponding meteor from above. Catalysts are defined by meteor recipes.");
-        addRitual("forsaken_soul", "Cry of the Forsaken Soul", "Watches the 21x21x21 area for non-player mob deaths and drops a charged Raw Spiritus item at each death position.");
+        addRitual("forsaken_soul", "The Ritual of Lost Souls", "Watches the 21x21x21 area for non-player mob deaths and drops a charged Raw Spiritus item at each death position.");
         addRitual("full_stomach", "Ritual of the Satiated Stomach", "Feeds every practitioner in range from food stored in an adjacent chest.");
 
         // Dusk Tier Rituals

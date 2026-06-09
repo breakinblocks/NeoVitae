@@ -26,6 +26,14 @@ public class NVTags {
 
         public static final TagKey<Item> STORAGE_BLOCKS_HELLFORGED = fromBlock(Blocks.STORAGE_BLOCKS_HELLFORGED);
 
+        public static final TagKey<Item> RUNES = fromBlock(Blocks.RUNES);
+        public static final TagKey<Item> BLOODSTONES = fromBlock(Blocks.BLOODSTONES);
+        public static final TagKey<Item> T3_CAPSTONES = fromBlock(Blocks.T3_CAPSTONES);
+        public static final TagKey<Item> T4_CAPSTONES = fromBlock(Blocks.T4_CAPSTONES);
+        public static final TagKey<Item> T5_CAPSTONES = fromBlock(Blocks.T5_CAPSTONES);
+        public static final TagKey<Item> T6_CAPSTONES = fromBlock(Blocks.T6_CAPSTONES);
+        public static final TagKey<Item> ANIMA_COMPARATOR = fromBlock(Blocks.ANIMA_COMPARATOR);
+
         public static final TagKey<Item> ATHANOR_TOOL = tag(bm("athanor_tool"));
 
         public static final TagKey<Item> REVERTER = withParent(ATHANOR_TOOL, bm("reverter"));

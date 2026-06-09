@@ -9,10 +9,14 @@ import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import com.breakinblocks.neovitae.datagen.BlockGroups;
 
 public class NVItemTagProvider extends ItemTagsProvider {
     public NVItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
@@ -26,6 +30,15 @@ public class NVItemTagProvider extends ItemTagsProvider {
         // NVTags.Blocks.STORAGE_BLOCKS_HELLFORGED contains BlockGroups.HELLFORGED_BLOCK (currently a single entry).
         tag(NVTags.Items.STORAGE_BLOCKS_HELLFORGED)
                 .add(NVBlocks.HELLFORGED_BLOCK.item().get());
+
+        addBlockItems(NVTags.Items.RUNES, BlockGroups.RUNE_T1);
+        addBlockItems(NVTags.Items.RUNES, BlockGroups.RUNE_T2);
+        addBlockItems(NVTags.Items.BLOODSTONES, BlockGroups.BLOODSTONE);
+        tag(NVTags.Items.T3_CAPSTONES).add(NVBlocks.BLOOD_STAINED_GLASS.item().get());
+        addBlockItems(NVTags.Items.T4_CAPSTONES, BlockGroups.BLOODSTONE);
+        tag(NVTags.Items.T5_CAPSTONES).add(NVBlocks.HELLFORGED_BLOCK.item().get());
+        addBlockItems(NVTags.Items.T6_CAPSTONES, BlockGroups.CRYSTAL_CLUSTER);
+        tag(NVTags.Items.ANIMA_COMPARATOR).add(NVBlocks.BLOOD_STAINED_GLASS.item().get());
 
         tag(NVTags.Items.SENTIENT_SET)
                 .add(NVItems.SENTIENT_HELMET.get(), NVItems.SENTIENT_PLATE.get(), NVItems.SENTIENT_LEGGINGS.get(), NVItems.SENTIENT_BOOTS.get());
@@ -154,5 +167,12 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(NVTags.Items.ANOINTABLE_WEAPONS)
                 .addTag(NVTags.Items.ANOINTABLE_MELEE)
                 .addTag(NVTags.Items.ANOINTABLE_BOWS);
+    }
+
+    private void addBlockItems(TagKey<Item> itemTag, List<Block> blocks) {
+        var appender = tag(itemTag);
+        for (Block block : blocks) {
+            appender.add(block.asItem());
+        }
     }
 }

@@ -35,6 +35,8 @@ public class OreProcessingEntry extends EntryProvider {
         this.pageTitle("Basic Cutting Fluid");
         this.pageText("[#](8B0000)Cutting Fluid[#]() is prepared in the Tabula Vitae and serves as the universal "
                 + "reagent in every Athanor ore-processing step.\\\n\\\n"
+                + "Its recipe calls for [#](8B0000)Coal Dust[#](), which you can craft directly from a piece of "
+                + "[#](8B0000)Coal[#]() and [#](8B0000)Plant Oil[#]() to start the chain.\\\n\\\n"
                 + "[#](2E8B57)A simple Bottle of Water may substitute for the Water Sigil in the recipe.[#]()");
 
         this.page("intermediate_cutting", () -> BookTextPageModel.create()

@@ -6,6 +6,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 
@@ -25,6 +26,19 @@ public final class SummonedUndeadHelper {
         entity.goalSelector.addGoal(8, new RandomLookAroundGoal(entity));
     }
 
+    public static void registerRangedGoals(AbstractSkeleton entity) {
+        entity.goalSelector.addGoal(0, new FloatGoal(entity));
+        entity.goalSelector.addGoal(2, new RangedBowAttackGoal<>(entity, 1.0, 20, 15.0F));
+        entity.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(entity, 1.0));
+        entity.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(entity, 1.0));
+        entity.goalSelector.addGoal(8, new LookAtPlayerGoal(entity, Player.class, 8.0F));
+        entity.goalSelector.addGoal(8, new RandomLookAroundGoal(entity));
+    }
+
+    private static boolean isValidEnemy(@Nullable LivingEntity target, Mob entity, Player owner) {
+        return target != null && target.isAlive() && target != entity && target != owner;
+    }
+
     @Nullable
     public static Player getOwner(Mob entity, @Nullable UUID ownerUUID) {
         if (ownerUUID == null || !(entity.level() instanceof ServerLevel serverLevel)) return null;
@@ -40,9 +54,14 @@ public final class SummonedUndeadHelper {
         if (owner == null) { entity.discard(); return true; }
         if (entity.distanceToSqr(owner) > 1024) { entity.discard(); return true; }
 
+        LivingEntity attacker = owner.getLastHurtByMob();
         LivingEntity ownerTarget = owner.getLastHurtMob();
-        if (ownerTarget != null && ownerTarget.isAlive() && ownerTarget != entity) {
-            entity.setTarget(ownerTarget);
+        LivingEntity desired = isValidEnemy(attacker, entity, owner) ? attacker
+                : (isValidEnemy(ownerTarget, entity, owner) ? ownerTarget : null);
+        if (desired != null) {
+            entity.setTarget(desired);
+        } else if (entity.getTarget() == owner) {
+            entity.setTarget(null);
         }
 
         if (entity.getTarget() == null && entity.distanceToSqr(owner) > 100) {

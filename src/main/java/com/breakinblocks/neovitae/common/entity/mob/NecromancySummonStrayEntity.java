@@ -33,6 +33,8 @@ public class NecromancySummonStrayEntity extends Stray {
     public void setOwner(Player owner) { this.ownerUUID = owner.getUUID(); }
     @Nullable public UUID getOwnerUUID() { return ownerUUID; }
 
+    @Override protected void registerGoals() { SummonedUndeadHelper.registerRangedGoals(this); }
+
     @Override
     public void aiStep() {
         super.aiStep();

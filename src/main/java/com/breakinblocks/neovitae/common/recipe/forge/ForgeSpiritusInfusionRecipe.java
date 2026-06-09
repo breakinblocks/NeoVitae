@@ -7,6 +7,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -66,7 +67,7 @@ public class ForgeSpiritusInfusionRecipe extends ForgeRecipe {
                 }
             }
 
-            if (!foundTarget && stack.is(NVTags.Items.SPIRITUS_CAPABLE) && !stack.has(NVDataComponents.SPIRITUS_MAX)) {
+            if (!foundTarget && isInfusionTarget(stack)) {
                 foundTarget = true;
                 continue;
             }
@@ -95,7 +96,7 @@ public class ForgeSpiritusInfusionRecipe extends ForgeRecipe {
                 continue;
             }
 
-            if (targetStack == null && stack.is(NVTags.Items.SPIRITUS_CAPABLE)) {
+            if (targetStack == null && isInfusionTarget(stack)) {
                 targetStack = stack;
             }
         }
@@ -107,6 +108,16 @@ public class ForgeSpiritusInfusionRecipe extends ForgeRecipe {
         result.set(NVDataComponents.SPIRITUS_AMOUNT, 0.0);
         result.set(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW);
         return result;
+    }
+
+    private static boolean isInfusionTarget(ItemStack stack) {
+        return stack.is(NVTags.Items.SPIRITUS_CAPABLE)
+                && !stack.has(NVDataComponents.SPIRITUS_MAX)
+                && !stack.is(ItemTags.SWORDS)
+                && !stack.is(ItemTags.AXES)
+                && !stack.is(ItemTags.PICKAXES)
+                && !stack.is(ItemTags.SHOVELS)
+                && !stack.is(ItemTags.HOES);
     }
 
     @Override

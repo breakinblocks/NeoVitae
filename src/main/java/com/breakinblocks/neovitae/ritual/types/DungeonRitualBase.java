@@ -7,6 +7,8 @@ package com.breakinblocks.neovitae.ritual.types;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
@@ -18,8 +20,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockInversionPillarEnd;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
@@ -36,6 +41,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.annotation.Nullable;
+
 /**
  * Abstract base class for dungeon rituals containing shared functionality.
  * Provides common methods for portal pillar spawning, rotation, and exit location storage.
@@ -48,7 +55,46 @@ public abstract class DungeonRitualBase extends Ritual {
 
     @Override
     public boolean activateRitual(IMasterRitualStone masterRitualStone, Player player, UUID owner) {
+        if (masterRitualStone.getWorldObj() instanceof ServerLevel level) {
+            BoundingBox box = getStructureBounds(masterRitualStone, level);
+            if (box != null && !hasEnoughSpace(level, box)) {
+                player.displayClientMessage(Component.translatable(
+                        "ritual.neovitae.dungeon.no_space",
+                        box.getXSpan(), box.getYSpan(), box.getZSpan()), true);
+                return false;
+            }
+        }
         storePlayerExitLocation(player);
+        return true;
+    }
+
+    @Nullable
+    protected BoundingBox getStructureBounds(IMasterRitualStone masterRitualStone, ServerLevel level) {
+        Optional<StructureTemplate> templateOpt = level.getStructureManager().get(getStructureId());
+        if (templateOpt.isEmpty()) {
+            return null;
+        }
+        StructurePlaceSettings settings = new StructurePlaceSettings()
+                .setRotation(directionToRotation(masterRitualStone.getDirection()))
+                .setMirror(Mirror.NONE)
+                .setIgnoreEntities(true)
+                .setRotationPivot(ALTERNATOR_LOCAL);
+        BlockPos placeOrigin = masterRitualStone.getMasterBlockPos().subtract(ALTERNATOR_LOCAL);
+        return templateOpt.get().getBoundingBox(settings, placeOrigin);
+    }
+
+    protected boolean hasEnoughSpace(ServerLevel level, BoundingBox box) {
+        for (BlockPos pos : BlockPos.betweenClosed(box.minX(), box.minY(), box.minZ(), box.maxX(), box.maxY(), box.maxZ())) {
+            BlockState state = level.getBlockState(pos);
+            if (state.isAir() || state.canBeReplaced()) {
+                continue;
+            }
+            ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
+            if (id.getNamespace().equals(NeoVitae.MODID)) {
+                continue;
+            }
+            return false;
+        }
         return true;
     }
 

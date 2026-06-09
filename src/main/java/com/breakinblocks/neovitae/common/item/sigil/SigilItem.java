@@ -295,7 +295,10 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         if (level.isClientSide || !(entity instanceof Player player)) {
             return;
         }
+        serverTickActive(stack, level, player, itemSlot, isSelected);
+    }
 
+    public void serverTickActive(ItemStack stack, Level level, Player player, int itemSlot, boolean isSelected) {
         if (!isToggleable(stack, level) || !getActivated(stack)) {
             return;
         }
@@ -306,7 +309,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         }
 
         int drainInterval = getDrainInterval(stack, level);
-        if (entity.tickCount % drainInterval == 0) {
+        if (player.tickCount % drainInterval == 0) {
             int cost = getReducedCost(getLpCost(stack, level, SigilType.UseContext.ACTIVE), player);
             if (cost > 0) {
                 Anima network = AnimaHelper.getAnima(binding);

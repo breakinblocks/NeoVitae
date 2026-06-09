@@ -743,6 +743,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("ritual.neovitae.crystalLevel.insufficient", "Crystal tier is too low to activate this ritual.");
         add("ritual.neovitae.structure.invalid", "Ritual structure is incomplete or invalid.");
         add("ritual.neovitae.activation.insufficient", "Not enough Essentia Vitae to activate this ritual.");
+        add("ritual.neovitae.dungeon.no_space", "Not enough space: clear a %sx%sx%s area around the Master Ritual Stone.");
         add("ritual.neovitae.offset.info", "Offset: X=%d, Y=%d, Z=%d");
 
         // Tau Oil

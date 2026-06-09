@@ -2449,6 +2449,7 @@
   "ritual.neovitae.downgrade": "Sentient Extraction",
   "ritual.neovitae.downgrade.desc": "Throw a piece of Sentient Armor onto the small zone above the master stone; the ritual extracts every upgrade as a separate Upgrade Tome.",
   "ritual.neovitae.downgrade.info": "Throw a piece of Sentient Armor onto the small zone above the master stone; the ritual extracts every upgrade as a separate Upgrade Tome.",
+  "ritual.neovitae.dungeon.no_space": "Not enough space: clear a %sx%sx%s area around the Master Ritual Stone.",
   "ritual.neovitae.expulsion": "Ritual of Expulsion",
   "ritual.neovitae.expulsion.desc": "Drives every creature outward from the ritual center.",
   "ritual.neovitae.expulsion.info": "Drives every creature outward from the ritual center.",

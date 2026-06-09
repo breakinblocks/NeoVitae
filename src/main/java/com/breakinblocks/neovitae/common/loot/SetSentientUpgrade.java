@@ -19,6 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SentientStats;
+import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
+import com.breakinblocks.neovitae.common.item.UpgradeTomeItem;
 import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
 import com.breakinblocks.neovitae.common.registry.NVRegistries;
 
@@ -56,18 +58,19 @@ public class SetSentientUpgrade extends LootItemConditionalFunction {
 
     @Override
     protected ItemStack run(ItemStack stack, LootContext context) {
-        if (stack.has(NVDataComponents.UPGRADES) || stack.has(NVDataComponents.REQUIRED_SET)) {
-            if (upgrades.isEmpty()) {
-                LOGGER.warn("No upgrades specified for SetSentientUpgrade loot function");
-                return stack;
-            }
+        if (upgrades.isEmpty()) {
+            LOGGER.warn("No upgrades specified for SetSentientUpgrade loot function");
+            return stack;
+        }
 
-            // Pick a random upgrade using the context's random
-            Random random = new Random(context.getRandom().nextLong());
-            Holder<SentientUpgrade> upgrade = upgrades.get(random.nextInt(upgrades.size()));
+        Random random = new Random(context.getRandom().nextLong());
+        Holder<SentientUpgrade> upgrade = upgrades.get(random.nextInt(upgrades.size()));
 
-            float points = pointsRange.getFloat(context);
+        float points = pointsRange.getFloat(context);
 
+        if (stack.getItem() instanceof UpgradeTomeItem) {
+            stack.set(NVDataComponents.UPGRADE_TOME_DATA, new UpgradeTome(upgrade, points));
+        } else if (stack.has(NVDataComponents.UPGRADES) || stack.has(NVDataComponents.REQUIRED_SET)) {
             SentientStats stats = stack.getOrDefault(NVDataComponents.UPGRADES, SentientStats.EMPTY);
             Object2FloatOpenHashMap<Holder<SentientUpgrade>> newUpgrades = stats.upgrades().clone();
             newUpgrades.addTo(upgrade, points);

@@ -14,6 +14,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -22,6 +23,7 @@ import com.breakinblocks.neovitae.common.block.IEnchantmentAmplifier;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.client.ClientHandler;
+import com.breakinblocks.neovitae.client.hud.GuiEditHUD;
 import com.breakinblocks.neovitae.client.ClientSpiritusCache;
 import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
 import com.breakinblocks.neovitae.common.item.NVItems;
@@ -37,6 +39,16 @@ import java.util.function.Consumer;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = NeoVitae.MODID)
 public class ClientEventHandler {
+
+    @SubscribeEvent
+    public static void onClientTick(ClientTickEvent.Post event) {
+        while (ClientModEventHandler.OPEN_HUD_EDIT.consumeClick()) {
+            Minecraft mc = Minecraft.getInstance();
+            if (mc.screen == null && mc.player != null) {
+                mc.setScreen(new GuiEditHUD(null));
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void onClientDisconnect(ClientPlayerNetworkEvent.LoggingOut event) {

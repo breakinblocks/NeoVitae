@@ -81,6 +81,8 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     private AraVitaeRecipe currentRecipe = null;
     private int cooldownAfterCrafting = 0;
     private int progress = 0;
+    private int syncedRequired = 0;
+    private int syncedConsumption = 0;
     private int tier = 0;
     private int ticks;
     private int inputTank = 0;
@@ -305,6 +307,8 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         boolean hasOperated = false;
         int inputSize = inputStack.getCount();
         int totalRequired = getCurrentRecipe().getTotalBlood() * inputSize;
+        this.syncedRequired = totalRequired;
+        this.syncedConsumption = (int) (getCurrentRecipe().getCraftSpeed() * (1 + modifiers.getConsumptionMod()));
 
         if (getCurrentRecipe().getMinTier() == 0 && getTicks() % BOOTSTRAP_LEECH_INTERVAL == 0
                 && getMainTank() + getChargingTank() < totalRequired - getProgress()) {
@@ -739,6 +743,8 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         mainTank = tanks.getInt("main");
         chargingTank = tanks.getInt("charging");
         progress = tanks.getInt("progress");
+        syncedRequired = tanks.getInt("craftRequired");
+        syncedConsumption = tanks.getInt("craftConsumption");
 
         inv.deserializeNBT(registries, tag.getCompound("inventory"));
 
@@ -772,6 +778,8 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         tanks.putInt("main", mainTank);
         tanks.putInt("charging", chargingTank);
         tanks.putInt("progress", progress);
+        tanks.putInt("craftRequired", syncedRequired);
+        tanks.putInt("craftConsumption", syncedConsumption);
 
         CompoundTag inventory = inv.serializeNBT(registries);
 
@@ -922,7 +930,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     @Override
     public int getConsumptionRate() {
         if (currentRecipe == null) {
-            return 0;
+            return syncedConsumption;
         }
         return (int) (currentRecipe.getCraftSpeed() * (1 + modifiers.getConsumptionMod()));
     }
@@ -972,7 +980,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     @Override
     public int getLiquidRequired() {
         if (currentRecipe == null) {
-            return 0;
+            return syncedRequired;
         }
         return currentRecipe.getTotalBlood() * inv.getStackInSlot(0).getCount();
     }

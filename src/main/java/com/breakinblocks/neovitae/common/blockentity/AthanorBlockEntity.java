@@ -374,7 +374,7 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
 
     private void craftFurnace(AbstractCookingRecipe value, SingleRecipeInput input, AthanorOutputHandler outputHandler) {
         ItemStack output = value.assemble(input, level.registryAccess());
-        handleInventory(List.of(output), outputHandler);
+        handleInventory(List.of(output), outputHandler, new int[]{0});
     }
 
     private boolean canCraft(Optional<RecipeHolder<AthanorRecipe>> recipe, AthanorOutputHandler outputHandler) {
@@ -401,10 +401,10 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         value.getInputFluid().ifPresent(required ->
                 inputTank.drain(required.amount(), FluidAction.EXECUTE));
         outputTank.fill(result.fluid(), FluidAction.EXECUTE);
-        handleInventory(result.items(), outputHandler);
+        handleInventory(result.items(), outputHandler, value.getUsedInputSlots(input));
     }
 
-    private void handleInventory(List<ItemStack> toOutput, AthanorOutputHandler outputHandler) {
+    private void handleInventory(List<ItemStack> toOutput, AthanorOutputHandler outputHandler, int[] consumedInputSlots) {
         if (!outputHandler.canTransferAllItemsToSlots(toOutput, false)) {
             // Debug: NeoVitae.LOGGER.info("couldnt stash all {}", toOutput);
         }
@@ -412,7 +412,8 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
             level.playSound(null, worldPosition, NVSounds.ATHANOR_COMPLETE.get(), SoundSource.BLOCKS, 0.5f, 1.0f);
             ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0x22AA22), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 6, 0.2, 0.2, 0.2, 0);
         }
-        for (int s = INPUT_START; s < INPUT_START + NUM_INPUTS; s++) {
+        for (int idx : consumedInputSlots) {
+            int s = INPUT_START + idx;
             ItemStack inSlot = athanorInv.getStackInSlot(s);
             if (!inSlot.isEmpty()) {
                 inSlot.shrink(1);

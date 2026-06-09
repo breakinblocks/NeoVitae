@@ -1,0 +1,18 @@
+{
+  "type": "neovitae:athanor",
+  "chance_outputs": [],
+  "guaranteed_outputs": [
+    {
+      "count": 1,
+      "id": "neovitae:hellforged_dust"
+    }
+  ],
+  "inputs": [
+    {
+      "item": "neovitae:demonite_gravel"
+    }
+  ],
+  "tool": {
+    "tag": "neovitae:athanor_tool/cutting_fluids"
+  }
+}

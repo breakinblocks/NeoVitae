@@ -22,6 +22,14 @@ public class NVItemTagProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         copy(NVTags.Blocks.STORAGE_BLOCKS_HELLFORGED, NVTags.Items.STORAGE_BLOCKS_HELLFORGED);
 
+        copy(NVTags.Blocks.RUNES, NVTags.Items.RUNES);
+        copy(NVTags.Blocks.BLOODSTONES, NVTags.Items.BLOODSTONES);
+        copy(NVTags.Blocks.T3_CAPSTONES, NVTags.Items.T3_CAPSTONES);
+        copy(NVTags.Blocks.T4_CAPSTONES, NVTags.Items.T4_CAPSTONES);
+        copy(NVTags.Blocks.T5_CAPSTONES, NVTags.Items.T5_CAPSTONES);
+        copy(NVTags.Blocks.T6_CAPSTONES, NVTags.Items.T6_CAPSTONES);
+        copy(NVTags.Blocks.ANIMA_COMPARATOR, NVTags.Items.ANIMA_COMPARATOR);
+
         tag(NVTags.Items.VITAE_STONE)
                 .add(Items.DEEPSLATE);
 

@@ -288,10 +288,12 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
-        if (!(entity instanceof Player player)) {
-            return;
+        if (entity instanceof Player player) {
+            serverTickActive(stack, level, player, -1, slot == EquipmentSlot.MAINHAND);
         }
+    }
 
+    public void serverTickActive(ItemStack stack, ServerLevel level, Player player, int itemSlot, boolean isSelected) {
         if (!isToggleable(stack, level) || !getActivated(stack)) {
             return;
         }
@@ -302,7 +304,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         }
 
         int drainInterval = getDrainInterval(stack, level);
-        if (entity.tickCount % drainInterval == 0) {
+        if (player.tickCount % drainInterval == 0) {
             int cost = getReducedCost(getLpCost(stack, level, SigilType.UseContext.ACTIVE), player);
             if (cost > 0) {
                 Anima network = AnimaHelper.getAnima(binding);
@@ -317,7 +319,7 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
 
         ISigilEffect effect = getSigilEffect(stack, level);
         if (effect != null) {
-            effect.activeTick(level, player, stack, -1, slot == EquipmentSlot.MAINHAND);
+            effect.activeTick(level, player, stack, itemSlot, isSelected);
         }
     }
 

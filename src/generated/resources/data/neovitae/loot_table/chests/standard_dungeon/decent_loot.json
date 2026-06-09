@@ -146,7 +146,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "neovitae:simple_key",
+          "name": "neovitae:standard_key",
           "quality": 2,
           "weight": 4
         },

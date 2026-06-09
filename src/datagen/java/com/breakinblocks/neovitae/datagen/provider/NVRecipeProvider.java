@@ -2571,6 +2571,12 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "plantoil_from_beets");
 
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, NVItems.COAL_DUST.get(), 2)
+                .requires(Items.COAL)
+                .requires(NVItems.PLANT_OIL.get())
+                .unlockedBy("has_plant_oil", has(NVItems.PLANT_OIL.get()))
+                .save(output, rKey(NeoVitae.rl("coal_dust_from_coal")));
+
         // Basic Cutting Fluid - plant oil + redstone + gunpowder + sugar + coal dust + water bottle
         TabulaVitaeRecipeBuilder.build(NVItems.BASIC_CUTTING_FLUID.get())
                 .input(NVItems.PLANT_OIL.get())

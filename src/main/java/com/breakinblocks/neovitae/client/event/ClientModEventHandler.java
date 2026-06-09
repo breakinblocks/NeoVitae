@@ -11,6 +11,10 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterFluidModelsEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraft.client.KeyMapping;
+import com.mojang.blaze3d.platform.InputConstants;
+import org.lwjgl.glfw.GLFW;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent;
@@ -42,7 +46,8 @@ import com.breakinblocks.neovitae.client.render.entity.EntityThrowingDaggerRende
 import com.breakinblocks.neovitae.client.render.entity.NoopRenderer;
 import com.breakinblocks.neovitae.client.render.entity.SlimeVitaeRenderer;
 import com.breakinblocks.neovitae.client.render.entity.shield.BloodShieldRenderer;
-import com.breakinblocks.neovitae.client.hud.SpiritusGaugeOverlay;
+import com.breakinblocks.neovitae.client.hud.ElementRegistry;
+import com.breakinblocks.neovitae.client.hud.NVHudElements;
 import com.breakinblocks.neovitae.common.item.AnointmentColor;
 import com.breakinblocks.neovitae.common.item.MaterialItemColor;
 import com.breakinblocks.neovitae.common.item.potion.FlaskColor;
@@ -75,6 +80,10 @@ public class ClientModEventHandler {
         if (ModList.get().isLoaded("modonomicon")) {
             event.enqueueWork(NVModonomiconClientCompat::registerPageRenderers);
         }
+        event.enqueueWork(() -> {
+            NVHudElements.register();
+            ElementRegistry.readConfig();
+        });
     }
 
     @SubscribeEvent
@@ -142,9 +151,19 @@ public class ClientModEventHandler {
         event.registerSpriteSet(NVParticles.OVERGROWTH_DRIP.get(), OvergrowthDripParticle.Provider::new);
     }
 
+    public static final KeyMapping.Category HUD_CATEGORY = KeyMapping.Category.register(NeoVitae.rl("neovitae"));
+    public static final KeyMapping OPEN_HUD_EDIT = new KeyMapping(
+            "key.neovitae.edit_hud", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_H, HUD_CATEGORY);
+
+    @SubscribeEvent
+    public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
+        event.register(OPEN_HUD_EDIT);
+    }
+
     @SubscribeEvent
     public static void registerGuiLayers(RegisterGuiLayersEvent event) {
-        event.registerAbove(VanillaGuiLayers.HOTBAR, NeoVitae.rl("spiritus_gauge"), new SpiritusGaugeOverlay());
+        event.registerAbove(VanillaGuiLayers.HOTBAR, NeoVitae.rl("hud_elements"),
+                (guiGraphics, deltaTracker) -> ElementRegistry.render(guiGraphics, deltaTracker.getGameTimeDeltaPartialTick(false)));
     }
 
     @SubscribeEvent

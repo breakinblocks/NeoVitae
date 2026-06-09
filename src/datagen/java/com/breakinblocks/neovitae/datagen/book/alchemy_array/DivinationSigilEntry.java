@@ -83,7 +83,8 @@ public class DivinationSigilEntry extends EntryProvider {
                 + "- The Seer's Sigil (purple)\n\n"
                 + "- The Divination Sigil (lavender)\n\n"
                 + "- The Spiritus Aura Gauge (orange)\n\n"
-                + "- The Sigil of Holding (green)");
+                + "- The Sigil of Holding (green)\n\n"
+                + "Press [#](4A0080)H[#]() (rebindable under Controls) to drag each display where you like.");
     }
 
     @Override

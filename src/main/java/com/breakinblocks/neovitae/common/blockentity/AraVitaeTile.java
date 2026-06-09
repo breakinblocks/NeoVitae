@@ -101,6 +101,8 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
     private AraVitaeRecipe currentRecipe = null;
     private int cooldownAfterCrafting = 0;
     private int progress = 0;
+    private int syncedRequired = 0;
+    private int syncedConsumption = 0;
     private int tier = 0;
     private int ticks;
     private int inputTank = 0;
@@ -431,6 +433,8 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
         boolean hasOperated = false;
         int inputSize = inputStack.getCount();
         int totalRequired = getCurrentRecipe().getTotalBlood() * inputSize;
+        this.syncedRequired = totalRequired;
+        this.syncedConsumption = (int) (getCurrentRecipe().getCraftSpeed() * (1 + modifiers.getConsumptionMod()));
 
         if (getCurrentRecipe().getMinTier() == 0 && getTicks() % BOOTSTRAP_LEECH_INTERVAL == 0
                 && getMainTank() + getChargingTank() < totalRequired - getProgress()) {
@@ -870,6 +874,8 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
         mainTank = tanks.getIntOr("main", 0);
         chargingTank = tanks.getIntOr("charging", 0);
         progress = tanks.getIntOr("progress", 0);
+        syncedRequired = tanks.getIntOr("craftRequired", 0);
+        syncedConsumption = tanks.getIntOr("craftConsumption", 0);
 
         tag.child("inventory").ifPresent(inv::deserialize);
 
@@ -903,6 +909,8 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
         tanks.putInt("main", mainTank);
         tanks.putInt("charging", chargingTank);
         tanks.putInt("progress", progress);
+        tanks.putInt("craftRequired", syncedRequired);
+        tanks.putInt("craftConsumption", syncedConsumption);
 
         inv.serialize(tag.child("inventory"));
 
@@ -984,7 +992,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
     @Override
     public int getConsumptionRate() {
         if (currentRecipe == null) {
-            return 0;
+            return syncedConsumption;
         }
         return (int) (currentRecipe.getCraftSpeed() * (1 + modifiers.getConsumptionMod()));
     }
@@ -1034,7 +1042,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
     @Override
     public int getLiquidRequired() {
         if (currentRecipe == null) {
-            return 0;
+            return syncedRequired;
         }
         return currentRecipe.getTotalBlood() * inv.getStackInSlot(0).getCount();
     }

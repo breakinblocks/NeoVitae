@@ -745,6 +745,22 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("ritual.neovitae.crystalLevel.insufficient", "Crystal tier is too low to activate this ritual.");
         add("ritual.neovitae.structure.invalid", "Ritual structure is incomplete or invalid.");
         add("ritual.neovitae.activation.insufficient", "Not enough Essentia Vitae to activate this ritual.");
+        add("ritual.neovitae.dungeon.no_space", "Not enough space: clear a %sx%sx%s area around the Master Ritual Stone.");
+
+        add("hud.neovitae.altar.tier", "Tier: %s");
+        add("hud.neovitae.altar.ev", "EV: %s / %s");
+        add("hud.neovitae.altar.progress", "Crafting: %s / %s");
+        add("hud.neovitae.altar.inactive", "Idle");
+        add("hud.neovitae.altar.consumption", "EV/tick: %s");
+        add("hud.neovitae.altar.charge", "Charge: %s");
+        add("hud.neovitae.incense.tranquility", "Tranquility: %s");
+        add("hud.neovitae.incense.bonus", "Bonus: %s%%");
+        add("gui.neovitae.hud.title", "Edit HUD Layout");
+        add("gui.neovitae.hud.default", "Default");
+        add("gui.neovitae.hud.save", "Save");
+        add("gui.neovitae.hud.cancel", "Cancel");
+        add("key.neovitae.edit_hud", "Edit HUD Layout");
+        add("key.categories.neovitae", "Neo Vitae");
         add("ritual.neovitae.offset.info", "Offset: X=%d, Y=%d, Z=%d");
 
         // Tau Oil

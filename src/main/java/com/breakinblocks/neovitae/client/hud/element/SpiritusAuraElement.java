@@ -1,22 +1,20 @@
-package com.breakinblocks.neovitae.client.hud;
+package com.breakinblocks.neovitae.client.hud.element;
 
 import com.google.common.collect.Lists;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.client.gui.GuiLayer;
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.client.hud.HUDElement;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.spiritus.WorldSpiritusHandler;
 
 import java.util.List;
 
-public class SpiritusGaugeOverlay implements GuiLayer {
+public class SpiritusAuraElement extends HUDElement {
 
     private static final Identifier BAR_LOCATION = NeoVitae.rl("textures/hud/bars.png");
 
@@ -31,25 +29,31 @@ public class SpiritusGaugeOverlay implements GuiLayer {
     private static final int WIDTH = 80;
     private static final int HEIGHT = 46;
 
+    public SpiritusAuraElement() {
+        super(WIDTH, HEIGHT);
+    }
+
     @Override
-    public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
+    public boolean shouldRender(Minecraft mc) {
+        LocalPlayer player = mc.player;
+        if (player == null || mc.level == null) {
+            return false;
+        }
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            if (player.getInventory().getItem(i).is(NVItems.SPIRITUS_GAUGE.get())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void draw(GuiGraphicsExtractor guiGraphics, float partialTicks, int drawX, int drawY) {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
-
         if (player == null || mc.level == null) {
             return;
         }
-
-        if (!hasGaugeInInventory(player)) {
-            return;
-        }
-
-        if (mc.getDebugOverlay().showDebugScreen()) {
-            return;
-        }
-
-        int drawX = 2;
-        int drawY = 2;
 
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BAR_LOCATION, drawX, drawY, 0, 210, WIDTH, HEIGHT, 256, 256);
 
@@ -84,15 +88,5 @@ public class SpiritusGaugeOverlay implements GuiLayer {
                 poseStack.popMatrix();
             }
         }
-    }
-
-    private boolean hasGaugeInInventory(LocalPlayer player) {
-        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-            ItemStack stack = player.getInventory().getItem(i);
-            if (stack.is(NVItems.SPIRITUS_GAUGE.get())) {
-                return true;
-            }
-        }
-        return false;
     }
 }

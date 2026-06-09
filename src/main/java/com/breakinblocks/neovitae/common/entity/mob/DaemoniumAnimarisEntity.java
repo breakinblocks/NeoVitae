@@ -1,5 +1,6 @@
 package com.breakinblocks.neovitae.common.entity.mob;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -25,6 +26,8 @@ public class DaemoniumAnimarisEntity extends Vex implements IDaemonium {
 
     private int deathTimer = 0;
     private boolean deathParticlesPlayed = false;
+
+    private static final double LEASH_RADIUS = 20.0;
 
     public DaemoniumAnimarisEntity(EntityType<? extends Vex> type, Level level) {
         super(type, level);
@@ -56,6 +59,17 @@ public class DaemoniumAnimarisEntity extends Vex implements IDaemonium {
     @Override
     public void tick() {
         super.tick();
+
+        if (!level().isClientSide) {
+            BlockPos origin = getBoundOrigin();
+            if (origin == null) {
+                setBoundOrigin(blockPosition());
+            } else if (distanceToSqr(origin.getX() + 0.5, origin.getY() + 0.5, origin.getZ() + 0.5) > LEASH_RADIUS * LEASH_RADIUS) {
+                setTarget(null);
+                setDeltaMovement(Vec3.ZERO);
+                teleportTo(origin.getX() + 0.5, origin.getY() + 0.5, origin.getZ() + 0.5);
+            }
+        }
 
         if (!hasSpawned) {
             spawnTimer++;

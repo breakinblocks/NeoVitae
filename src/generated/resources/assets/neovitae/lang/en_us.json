@@ -1958,6 +1958,7 @@
   "gui.neovitae.hud.default": "Default",
   "gui.neovitae.hud.save": "Save",
   "gui.neovitae.hud.title": "Edit HUD Layout",
+  "gui.neovitae.routing.match_components": "Match Components:",
   "gui.neovitae.side.down": "Bottom",
   "gui.neovitae.side.east": "East",
   "gui.neovitae.side.north": "North",

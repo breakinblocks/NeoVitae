@@ -12,7 +12,10 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.Set;
 import net.neoforged.neoforge.fluids.FluidStack;
 import com.breakinblocks.neovitae.common.blockentity.routing.FilteredRoutingNodeBlockEntity;
 import com.breakinblocks.neovitae.common.routing.FilterMode;
@@ -195,6 +198,20 @@ public class RoutingNodeMenu extends AbstractContainerMenu {
         int sideIdx = tile.getCurrentActiveSlot();
         if (sideIdx < 0 || sideIdx >= 6) return;
         tile.getSideFilter(sideIdx).setItemAmount(absoluteSlot(ghostSlot), amount);
+    }
+
+    public Set<ResourceLocation> getCurrentItemComponents(int ghostSlot) {
+        if (tile == null) return Set.of();
+        int sideIdx = tile.getCurrentActiveSlot();
+        if (sideIdx < 0 || sideIdx >= 6) return Set.of();
+        return tile.getSideFilter(sideIdx).getItemComponents(absoluteSlot(ghostSlot));
+    }
+
+    public void setCurrentItemComponentsLocal(int ghostSlot, Set<ResourceLocation> components) {
+        if (tile == null) return;
+        int sideIdx = tile.getCurrentActiveSlot();
+        if (sideIdx < 0 || sideIdx >= 6) return;
+        tile.getSideFilter(sideIdx).setItemComponents(absoluteSlot(ghostSlot), components);
     }
 
     public void setCurrentFluidAmountLocal(int ghostSlot, int amount) {

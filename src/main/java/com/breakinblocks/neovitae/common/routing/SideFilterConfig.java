@@ -10,14 +10,18 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.RegistryOps;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Per-direction filter configuration stored on a routing node. Item and fluid
@@ -34,6 +38,7 @@ public final class SideFilterConfig {
     private FilterMode itemMode;
     private final List<ItemStack> itemGhosts = new ArrayList<>();
     private final List<Integer> itemAmounts = new ArrayList<>();
+    private final List<Set<ResourceLocation>> itemComponents = new ArrayList<>();
     private FilterMode fluidMode;
     private final List<FluidStack> fluidGhosts = new ArrayList<>();
     private final List<Integer> fluidAmounts = new ArrayList<>();
@@ -73,12 +78,25 @@ public final class SideFilterConfig {
         ensureItemSize(slot + 1);
         itemGhosts.set(slot, stack == null ? ItemStack.EMPTY : stack);
         itemAmounts.set(slot, 0);
-        trimTrailingEmpty(itemGhosts, itemAmounts);
+        itemComponents.set(slot, Set.of());
+        trimTrailingItems();
+    }
+
+    public Set<ResourceLocation> getItemComponents(int slot) {
+        return (slot >= 0 && slot < itemComponents.size()) ? itemComponents.get(slot) : Set.of();
+    }
+
+    public void setItemComponents(int slot, Set<ResourceLocation> components) {
+        if (slot >= 0 && slot < itemComponents.size()) {
+            itemComponents.set(slot, (components == null || components.isEmpty())
+                    ? Set.of() : new LinkedHashSet<>(components));
+        }
     }
 
     public void clearItemGhosts() {
         itemGhosts.clear();
         itemAmounts.clear();
+        itemComponents.clear();
     }
 
     public int getItemAmount(int slot) {
@@ -144,6 +162,7 @@ public final class SideFilterConfig {
         while (itemGhosts.size() < size) {
             itemGhosts.add(ItemStack.EMPTY);
             itemAmounts.add(0);
+            itemComponents.add(Set.of());
         }
     }
 
@@ -154,11 +173,12 @@ public final class SideFilterConfig {
         }
     }
 
-    private static void trimTrailingEmpty(List<ItemStack> ghosts, List<Integer> amounts) {
-        for (int i = ghosts.size() - 1; i >= 0; i--) {
-            if (ghosts.get(i).isEmpty()) {
-                ghosts.remove(i);
-                amounts.remove(i);
+    private void trimTrailingItems() {
+        for (int i = itemGhosts.size() - 1; i >= 0; i--) {
+            if (itemGhosts.get(i).isEmpty()) {
+                itemGhosts.remove(i);
+                itemAmounts.remove(i);
+                itemComponents.remove(i);
             } else {
                 break;
             }
@@ -193,6 +213,12 @@ public final class SideFilterConfig {
             ItemStack.OPTIONAL_CODEC.encodeStart(ops, ghost).result().ifPresent(t -> entry.put("item", t));
             int amt = itemAmounts.get(i);
             if (amt > 0) entry.putInt("amt", amt);
+            Set<ResourceLocation> comps = itemComponents.get(i);
+            if (!comps.isEmpty()) {
+                ListTag compList = new ListTag();
+                for (ResourceLocation id : comps) compList.add(StringTag.valueOf(id.toString()));
+                entry.put("comps", compList);
+            }
             items.add(entry);
         }
         tag.put("ItemEntries", items);
@@ -241,7 +267,7 @@ public final class SideFilterConfig {
             loadLegacy(tag, registries, ops);
         }
 
-        trimTrailingEmpty(itemGhosts, itemAmounts);
+        trimTrailingItems();
         trimTrailingFluid();
     }
 
@@ -256,6 +282,15 @@ public final class SideFilterConfig {
             ensureItemSize(i + 1);
             itemGhosts.set(i, ghost);
             itemAmounts.set(i, Math.max(0, entry.getInt("amt")));
+            if (entry.contains("comps", Tag.TAG_LIST)) {
+                ListTag compList = entry.getList("comps", Tag.TAG_STRING);
+                Set<ResourceLocation> comps = new LinkedHashSet<>();
+                for (int c = 0; c < compList.size(); c++) {
+                    ResourceLocation id = ResourceLocation.tryParse(compList.getString(c));
+                    if (id != null) comps.add(id);
+                }
+                itemComponents.set(i, comps);
+            }
         }
 
         ListTag fluids = tag.getList("FluidEntries", Tag.TAG_COMPOUND);

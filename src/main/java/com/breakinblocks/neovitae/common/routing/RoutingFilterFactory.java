@@ -7,13 +7,19 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import com.breakinblocks.neovitae.api.routing.IFilterKey;
 import com.breakinblocks.neovitae.api.routing.IFluidFilter;
 import com.breakinblocks.neovitae.api.routing.IItemFilter;
 import com.breakinblocks.neovitae.common.item.routing.BasicFilterKey;
+import com.breakinblocks.neovitae.common.item.routing.ComponentFilterKey;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public final class RoutingFilterFactory {
 
@@ -39,7 +45,18 @@ public final class RoutingFilterFactory {
             keyStack.setCount(1);
             int amount = cfg.getItemAmount(i);
             int count = (whitelist && amount > 0) ? amount : Integer.MAX_VALUE;
-            keys.add(new BasicFilterKey(keyStack, count));
+
+            Set<ResourceLocation> compIds = cfg.getItemComponents(i);
+            if (!compIds.isEmpty()) {
+                Set<DataComponentType<?>> types = new LinkedHashSet<>();
+                for (ResourceLocation id : compIds) {
+                    DataComponentType<?> type = BuiltInRegistries.DATA_COMPONENT_TYPE.get(id);
+                    if (type != null) types.add(type);
+                }
+                keys.add(new ComponentFilterKey(keyStack, types, count));
+            } else {
+                keys.add(new BasicFilterKey(keyStack, count));
+            }
         }
         return keys;
     }

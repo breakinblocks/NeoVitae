@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -24,12 +25,15 @@ import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
 import com.breakinblocks.neovitae.common.network.RoutingNodePayload;
 import com.breakinblocks.neovitae.common.network.RoutingNodeSetAmountPayload;
 import com.breakinblocks.neovitae.common.network.RoutingNodeSetFluidGhostPayload;
+import com.breakinblocks.neovitae.common.network.RoutingNodeSetComponentsPayload;
 import com.breakinblocks.neovitae.common.network.RoutingNodeSetGhostPayload;
 import com.breakinblocks.neovitae.common.routing.FilterMode;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> {
     private static final ResourceLocation BACKGROUND = NeoVitae.rl("textures/gui/routingnode.png");
@@ -49,6 +53,10 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
     private Button tabButton;
     private Button pagePrevButton;
     private Button pageNextButton;
+
+    private static final int PICKER_WIDTH = 174;
+    private int componentPickerSlot = -1;
+    private final List<ResourceLocation> pickerTypes = new ArrayList<>();
 
     public RoutingNodeScreen(RoutingNodeMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -201,6 +209,59 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         renderGhostAmounts(guiGraphics);
 
         this.renderTooltip(guiGraphics, mouseX, mouseY);
+
+        if (componentPickerSlot >= 0) {
+            renderComponentPicker(guiGraphics, mouseX, mouseY);
+        }
+    }
+
+    private int pickerHeight() {
+        return 16 + pickerTypes.size() * 12 + 4;
+    }
+
+    private int pickerLeft() {
+        return this.width / 2 - PICKER_WIDTH / 2;
+    }
+
+    private int pickerTop() {
+        return this.height / 2 - pickerHeight() / 2;
+    }
+
+    private void openComponentPicker(int ghostSlot, ItemStack ghost) {
+        pickerTypes.clear();
+        for (var entry : ghost.getComponentsPatch().entrySet()) {
+            ResourceLocation id = BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(entry.getKey());
+            if (id != null) {
+                pickerTypes.add(id);
+            }
+        }
+        componentPickerSlot = pickerTypes.isEmpty() ? -1 : ghostSlot;
+    }
+
+    private void renderComponentPicker(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        int x = pickerLeft();
+        int y = pickerTop();
+        int w = PICKER_WIDTH;
+        int h = pickerHeight();
+        guiGraphics.fill(x - 1, y - 1, x + w + 1, y + h + 1, 0xFF000000);
+        guiGraphics.fill(x, y, x + w, y + h, 0xFF202024);
+        guiGraphics.drawString(this.font,
+                Component.translatable("gui.neovitae.routing.match_components"), x + 4, y + 4, 0xFFFFFF, false);
+
+        Set<ResourceLocation> selected = menu.getCurrentItemComponents(componentPickerSlot);
+        for (int i = 0; i < pickerTypes.size(); i++) {
+            ResourceLocation id = pickerTypes.get(i);
+            int rowY = y + 16 + i * 12;
+            boolean on = selected.contains(id);
+            boolean hovered = mouseX >= x && mouseX < x + w && mouseY >= rowY && mouseY < rowY + 12;
+            if (hovered) {
+                guiGraphics.fill(x + 1, rowY, x + w - 1, rowY + 12, 0x40FFFFFF);
+            }
+            guiGraphics.fill(x + 4, rowY + 2, x + 12, rowY + 10, 0xFF000000);
+            guiGraphics.fill(x + 5, rowY + 3, x + 11, rowY + 9, on ? 0xFF55FF55 : 0xFF555555);
+            String label = this.font.plainSubstrByWidth(id.toString(), w - 20);
+            guiGraphics.drawString(this.font, label, x + 16, rowY + 2, on ? 0xFFFFFFFF : 0xFFAAAAAA, false);
+        }
     }
 
     /** Draws the per-slot keep amount in the corner of each whitelisted ghost cell. */
@@ -302,6 +363,14 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                 tooltip.add(Component.literal(amount > 0 ? "Keep: " + amount : "Keep: Unlimited").withStyle(ChatFormatting.AQUA));
                 tooltip.add(Component.literal("Scroll to set (Shift x10, Ctrl x64)").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
             }
+            Set<ResourceLocation> matched = menu.getCurrentItemComponents(this.hoveredSlot.index);
+            if (!matched.isEmpty()) {
+                tooltip.add(Component.literal("Matching components:").withStyle(ChatFormatting.GREEN));
+                for (ResourceLocation id : matched) {
+                    tooltip.add(Component.literal(" - " + id).withStyle(ChatFormatting.DARK_GREEN));
+                }
+            }
+            tooltip.add(Component.literal("Shift-Right-Click: match components").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
             guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
             return;
         }
@@ -407,6 +476,10 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (componentPickerSlot >= 0) {
+            return handleComponentPickerClick(mouseX, mouseY);
+        }
+
         // Right-click on a direction button swaps priorities with the current slot.
         if (button == 1) {
             for (int i = 0; i < 6; i++) {
@@ -440,6 +513,11 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                     }
                     return true;
                 } else if (button == 1) {
+                    ItemStack ghost = this.hoveredSlot.getItem();
+                    if (hasShiftDown() && !ghost.isEmpty()) {
+                        openComponentPicker(slotIdx, ghost);
+                        return true;
+                    }
                     PacketDistributor.sendToServer(new RoutingNodeSetGhostPayload(
                             menu.tile.getBlockPos(),
                             menu.absoluteSlot(slotIdx),
@@ -475,6 +553,40 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
         }
 
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    private boolean handleComponentPickerClick(double mouseX, double mouseY) {
+        int x = pickerLeft();
+        int y = pickerTop();
+        boolean inside = mouseX >= x && mouseX < x + PICKER_WIDTH && mouseY >= y && mouseY < y + pickerHeight();
+        if (!inside) {
+            componentPickerSlot = -1;
+            return true;
+        }
+        int rowsTop = y + 16;
+        if (mouseY >= rowsTop) {
+            int row = (int) ((mouseY - rowsTop) / 12);
+            if (row >= 0 && row < pickerTypes.size()) {
+                ResourceLocation id = pickerTypes.get(row);
+                Set<ResourceLocation> current = new LinkedHashSet<>(menu.getCurrentItemComponents(componentPickerSlot));
+                if (!current.add(id)) {
+                    current.remove(id);
+                }
+                menu.setCurrentItemComponentsLocal(componentPickerSlot, current);
+                PacketDistributor.sendToServer(new RoutingNodeSetComponentsPayload(
+                        menu.tile.getBlockPos(), menu.absoluteSlot(componentPickerSlot), new ArrayList<>(current)));
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (componentPickerSlot >= 0 && keyCode == 256) {
+            componentPickerSlot = -1;
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override

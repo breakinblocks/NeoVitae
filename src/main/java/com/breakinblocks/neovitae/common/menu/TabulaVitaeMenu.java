@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
@@ -17,8 +18,27 @@ public class TabulaVitaeMenu extends AbstractBlockEntityMenu<TabulaVitaeBlockEnt
 
     private static final int TILE_SLOTS = 8; // 6 input + 1 orb + 1 output
 
+    private final DataSlot progressData = new DataSlot() {
+        private int clientValue;
+
+        @Override
+        public int get() {
+            if (tile.getLevel() != null && !tile.getLevel().isClientSide) {
+                return (int) (tile.getProgressForGui() * 1000.0);
+            }
+            return clientValue;
+        }
+
+        @Override
+        public void set(int value) {
+            this.clientValue = value;
+        }
+    };
+
     public TabulaVitaeMenu(int containerId, Inventory playerInventory, TabulaVitaeBlockEntity tile) {
         super(NVMenus.TABULA_VITAE.get(), containerId, tile, TILE_SLOTS);
+
+        this.addDataSlot(progressData);
 
         this.addSlot(new SlotItemHandler(tile.inv, 0, 62, 15));
         this.addSlot(new SlotItemHandler(tile.inv, 1, 80, 51));
@@ -45,6 +65,10 @@ public class TabulaVitaeMenu extends AbstractBlockEntityMenu<TabulaVitaeBlockEnt
 
     public TabulaVitaeMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buf) {
         this(containerId, playerInventory, (TabulaVitaeBlockEntity) playerInventory.player.level().getBlockEntity(buf.readBlockPos()));
+    }
+
+    public double getProgress() {
+        return progressData.get() / 1000.0;
     }
 
     @Override

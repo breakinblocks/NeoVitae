@@ -20,7 +20,15 @@ public abstract class BaseBlockEntity extends BlockEntity {
     @Override
     public void setChanged() {
         super.setChanged();
-        if (level != null) {
+        syncToClients();
+    }
+
+    public void setChangedNoSync() {
+        super.setChanged();
+    }
+
+    public void syncToClients() {
+        if (level != null && !level.isClientSide) {
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
     }

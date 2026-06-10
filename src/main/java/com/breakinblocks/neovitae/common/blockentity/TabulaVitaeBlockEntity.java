@@ -201,7 +201,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
                 burnTime = 0;
             }
 
-            setChanged();
+            setChangedNoSync();
             return;
         }
 
@@ -245,7 +245,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             burnTime = 0;
         }
 
-        setChanged();
+        setChangedNoSync();
     }
 
     private boolean syphonEV(ItemStack orbStack, int totalSyphon, int totalTicks) {

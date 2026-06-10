@@ -209,7 +209,7 @@ public class TabulaVitaeScreen extends AbstractContainerScreen<TabulaVitaeMenu> 
     }
 
     private int getCookProgressScaled(int scale) {
-        double progress = menu.tile.getProgressForGui();
+        double progress = menu.getProgress();
         return (int) (progress * scale);
     }
 }

@@ -87,6 +87,10 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
     private final double[] chunkSpiritusMax = new double[SpiritusType.values().length];
     private boolean spiritusBlocked = false;
 
+    private boolean lastActive = false;
+    private final double[] lastSyncedSpiritus = new double[SpiritusType.values().length];
+    private final double[] lastSyncedSpiritusMax = new double[SpiritusType.values().length];
+
     private final List<ItemStack> tempBucketList = new ArrayList<>(1);
 
     private final RecipeManager.CachedCheck<SingleRecipeInput, ? extends AbstractCookingRecipe> quickSmelting;
@@ -389,6 +393,15 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
                 athanorTile.athanorInv.setStackInSlot(OUTPUT_SLOT + i, itemOutputHandler.getStackInSlot(i));
             }
         }
+
+        boolean active = didProgress || athanorTile.spiritusBlocked;
+        boolean spiritusChanged = athanorTile.spiritusSnapshotChanged();
+        if (active != athanorTile.lastActive || spiritusChanged || (active && level.getGameTime() % 10 == 0)) {
+            athanorTile.setChanged();
+        } else if (active) {
+            athanorTile.setChangedNoSync();
+        }
+        athanorTile.lastActive = active;
     }
 
 
@@ -682,7 +695,21 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
             chunkSpiritus[type.ordinal()] = WorldSpiritusHandler.getCurrentSpiritus(level, pos, type);
             chunkSpiritusMax[type.ordinal()] = WorldSpiritusHandler.getMaxSpiritus(level, pos, type);
         }
-        setChanged();
+    }
+
+    private boolean spiritusSnapshotChanged() {
+        boolean changed = false;
+        for (int i = 0; i < chunkSpiritus.length; i++) {
+            if (chunkSpiritus[i] != lastSyncedSpiritus[i] || chunkSpiritusMax[i] != lastSyncedSpiritusMax[i]) {
+                changed = true;
+                break;
+            }
+        }
+        if (changed) {
+            System.arraycopy(chunkSpiritus, 0, lastSyncedSpiritus, 0, chunkSpiritus.length);
+            System.arraycopy(chunkSpiritusMax, 0, lastSyncedSpiritusMax, 0, chunkSpiritusMax.length);
+        }
+        return changed;
     }
 
     private boolean hasEnoughSpiritus(Level level, BlockPos pos, AthanorRecipe recipe) {

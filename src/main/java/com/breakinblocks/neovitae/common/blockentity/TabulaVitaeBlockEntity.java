@@ -337,12 +337,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
                     if (i == cuttingFluidSlot) {
                         damageCuttingFluid(i, stack);
                     } else {
-                        ItemStackTemplate remainder = stack.getCraftingRemainder();
-                        ItemStack container = remainder != null ? remainder.create() : ItemStack.EMPTY;
-                        stack.shrink(1);
-                        if (stack.isEmpty() && !container.isEmpty()) {
-                            inv.setStackInSlot(i, container);
-                        }
+                        consumeOne(i, stack);
                     }
                     ingredients.remove(j);
                     break;
@@ -388,12 +383,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
 
             for (int j = 0; j < ingredients.size(); j++) {
                 if (ingredients.get(j).test(stack)) {
-                    ItemStackTemplate remainder = stack.getCraftingRemainder();
-                    ItemStack container = remainder != null ? remainder.create() : ItemStack.EMPTY;
-                    stack.shrink(1);
-                    if (stack.isEmpty() && !container.isEmpty()) {
-                        inv.setStackInSlot(i, container);
-                    }
+                    consumeOne(i, stack);
                     ingredients.remove(j);
                     break;
                 }
@@ -564,12 +554,18 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
                 inv.setStackInSlot(slot, stack);
             }
         } else {
-            ItemStackTemplate remainder = stack.getCraftingRemainder();
-            ItemStack container = remainder != null ? remainder.create() : ItemStack.EMPTY;
-            stack.shrink(1);
-            if (stack.isEmpty() && !container.isEmpty()) {
-                inv.setStackInSlot(slot, container);
-            }
+            consumeOne(slot, stack);
+        }
+    }
+
+    private void consumeOne(int slot, ItemStack stack) {
+        ItemStackTemplate remainder = stack.getCraftingRemainder();
+        ItemStack container = remainder != null ? remainder.create() : ItemStack.EMPTY;
+        stack.shrink(1);
+        if (!stack.isEmpty()) {
+            inv.setStackInSlot(slot, stack);
+        } else {
+            inv.setStackInSlot(slot, container);
         }
     }
 }

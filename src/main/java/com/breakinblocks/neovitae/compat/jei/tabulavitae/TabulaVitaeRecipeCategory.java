@@ -110,12 +110,12 @@ public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRec
 
     private List<ItemStack> getOrbsForTier(int tier) {
         List<ItemStack> orbs = new ArrayList<>();
-        if (tier <= 1) orbs.add(new ItemStack(NVItems.ORB_WEAK.get()));
-        if (tier <= 2) orbs.add(new ItemStack(NVItems.ORB_APPRENTICE.get()));
-        if (tier <= 3) orbs.add(new ItemStack(NVItems.ORB_MAGICIAN.get()));
-        if (tier <= 4) orbs.add(new ItemStack(NVItems.ORB_MASTER.get()));
-        if (tier <= 5) orbs.add(new ItemStack(NVItems.ORB_ARCHMAGE.get()));
-        if (tier <= 6) orbs.add(new ItemStack(NVItems.ORB_TRANSCENDENT.get()));
+        if (tier <= 0) orbs.add(new ItemStack(NVItems.ORB_WEAK.get()));
+        if (tier <= 1) orbs.add(new ItemStack(NVItems.ORB_APPRENTICE.get()));
+        if (tier <= 2) orbs.add(new ItemStack(NVItems.ORB_MAGICIAN.get()));
+        if (tier <= 3) orbs.add(new ItemStack(NVItems.ORB_MASTER.get()));
+        if (tier <= 4) orbs.add(new ItemStack(NVItems.ORB_ARCHMAGE.get()));
+        if (tier <= 5) orbs.add(new ItemStack(NVItems.ORB_TRANSCENDENT.get()));
         return orbs;
     }
 

@@ -272,6 +272,7 @@ public class CommonEventHandler {
 
         if (DungeonDimensionHelper.isDungeonDimension(level)
                 && (player == null || !player.isCreative())
+                && block != DungeonBlocks.DUNGEON_ORE.block().get()
                 && ((DungeonBlocks.isDungeonBlock(block) && !DungeonBlocks.isDungeonStone(block))
                     || block == NVBlocks.MASTER_RITUAL_STONE.block().get()
                     || block == NVBlocks.INVERTED_MASTER_RITUAL_STONE.block().get())) {

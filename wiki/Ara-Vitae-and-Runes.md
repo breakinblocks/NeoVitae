@@ -35,7 +35,7 @@ The Ara Vitae also forges **Tabula**, the inscribed stone tablets that serve as 
 
 | Tabula            | Altar Tier | Cost       | Notes |
 |------------------|------------|------------|-------|
-| Tabula Rasa      | Tier 0     | 1,000 EV   | Smooth stone, first sigils etched. |
+| Tabula Rasa      | Tier 0     | 1,000 EV   | Deepslate, first sigils etched. |
 | Tabula Robur     | Tier 1     | 2,000 EV   | Sigils deepen; the stone hardens with purpose. |
 | Tabula Animata   | Tier 2     | 5,000 EV   | The stone pulses with a faint, living warmth. |
 | Tabula Spiritus  | Tier 3     | 15,000 EV  | Dark veins thread the tablet like frozen lightning. |

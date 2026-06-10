@@ -1839,15 +1839,14 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_ectoplasmic_residue", has(NVItems.ECTOPLASMIC_RESIDUE.get()))
                 .save(output, NeoVitae.rl("bottled_spite"));
 
-        // Demonite Trim Ingot - Demonite Fragment + Animus Mote
+        // Hellforged Trim Ingot - Hellforged Ingot + Animus Mote
         HellfireForgeRecipeBuilder.build(NVItems.DEMONITE_TRIM_INGOT.get())
-                .requires(NVItems.DEMONITE_FRAGMENT.get())
-                .requires(NVItems.DEMONITE_FRAGMENT.get())
+                .requires(NVItems.HELLFORGED_INGOT.get())
                 .requires(NVItems.ANIMUS_MOTE.get())
                 .requires(NVItems.WEAK_BLOOD_SHARD.get())
                 .minSpiritus(500)
                 .drain(50)
-                .unlockedBy("has_animus_mote", has(NVItems.ANIMUS_MOTE.get()))
+                .unlockedBy("has_hellforged_ingot", has(NVItems.HELLFORGED_INGOT.get()))
                 .save(output, NeoVitae.rl("demonite_trim_ingot"));
 
         HellfireForgeRecipeBuilder.build(NVItems.BLIGHT_WHETSTONE.get())

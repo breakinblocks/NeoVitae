@@ -4,6 +4,19 @@
       "type": "minecraft:directory",
       "prefix": "models/",
       "source": "models"
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "palette_key": "minecraft:trims/color_palettes/trim_palette",
+      "permutations": {
+        "neovitae_demonite": "neovitae:trims/color_palettes/neovitae_demonite"
+      },
+      "textures": [
+        "minecraft:trims/items/leggings_trim",
+        "minecraft:trims/items/chestplate_trim",
+        "minecraft:trims/items/helmet_trim",
+        "minecraft:trims/items/boots_trim"
+      ]
     }
   ]
 }

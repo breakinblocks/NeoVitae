@@ -3,10 +3,7 @@
   "drain": 50.0,
   "inputs": [
     {
-      "item": "neovitae:demonite_fragment"
-    },
-    {
-      "item": "neovitae:demonite_fragment"
+      "item": "neovitae:ingot_hellforged"
     },
     {
       "item": "neovitae:animus_mote"

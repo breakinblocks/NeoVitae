@@ -41,31 +41,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "neovitae:base_spiritus_soul_vindicta",
-          "weight": 70
-        },
-        {
-          "type": "minecraft:item",
-          "name": "neovitae:base_spiritus_soul_nihilum",
-          "weight": 30
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:killed_by_player"
-        },
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.6
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "bonus_rolls": 0,
-      "entries": [
-        {
-          "type": "minecraft:item",
           "name": "neovitae:tainted_flesh",
           "functions": [
             {

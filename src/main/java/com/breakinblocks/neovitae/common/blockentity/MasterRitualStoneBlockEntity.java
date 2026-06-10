@@ -67,7 +67,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
 
     public static void tick(Level level, BlockPos pos, BlockState state, MasterRitualStoneBlockEntity tile) {
         if (level.isClientSide()) {
-            if (tile.active && tile.currentRitual != null) {
+            if (tile.active && tile.currentRitual != null && !isRedstoneSuspended(level, pos, tile)) {
                 LoopSoundManager.tryStartLoop(
                         resolveAmbientSound(tile.currentRitual, tile.currentRitualId), 0.2f, level, pos,
                         be -> be instanceof MasterRitualStoneBlockEntity mrs && mrs.active && mrs.currentRitual != null
@@ -81,7 +81,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
             return;
         }
 
-        if (tile.active && tile.currentRitual != null) {
+        if (tile.active && tile.currentRitual != null && !isRedstoneSuspended(level, pos, tile)) {
             tile.runningTime++;
 
             // Rune glow at the master stone while ritual is active
@@ -96,6 +96,11 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
                 tile.performRitual();
             }
         }
+    }
+
+    private static boolean isRedstoneSuspended(Level level, BlockPos pos, MasterRitualStoneBlockEntity tile) {
+        boolean powered = level.hasNeighborSignal(pos);
+        return tile.inverted ? !powered : powered;
     }
 
     @Override

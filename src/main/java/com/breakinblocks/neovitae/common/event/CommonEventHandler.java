@@ -270,12 +270,6 @@ public class CommonEventHandler {
             return;
         }
 
-        if (block == DungeonBlocks.DUNGEON_ORE.block().get()) {
-            if (level.isClientSide() || (player != null && player.isCreative())) return;
-            Block.popResource(level, event.getPos(), new ItemStack(NVItems.DEMONITE_RAW.get()));
-            return;
-        }
-
         if (DungeonDimensionHelper.isDungeonDimension(level)
                 && (player == null || !player.isCreative())
                 && ((DungeonBlocks.isDungeonBlock(block) && !DungeonBlocks.isDungeonStone(block))

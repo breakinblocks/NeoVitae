@@ -1553,7 +1553,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
 
     private void addDungeonBlocks() {
         // Non-variant dungeon blocks
-        add(DungeonBlocks.DUNGEON_ORE, "Dungeon Ore");
+        add(DungeonBlocks.DUNGEON_ORE, "Demonite Ore");
         add(DungeonBlocks.PRISMATIC_DEMONITE, "Prismatic Demonite Ore");
         add(DungeonBlocks.DUNGEON_BRICK_ASSORTED, "Assorted Dungeon Brick");
 

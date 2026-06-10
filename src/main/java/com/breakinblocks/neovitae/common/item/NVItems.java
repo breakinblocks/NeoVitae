@@ -35,7 +35,9 @@ import com.breakinblocks.neovitae.ritual.EnumRuneType;
 
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.equipment.trim.TrimMaterial;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Rarity;
@@ -247,7 +249,10 @@ public class NVItems {
     public static final DeferredHolder<Item, Item> FROZEN_MARROW_SHARD = plainItem("frozen_marrow_shard");
     public static final DeferredHolder<Item, Item> CINDER_HEART_FRAGMENT = plainItem("cinder_heart_fragment");
     public static final DeferredHolder<Item, Item> PERMAFROST_CORE = plainItem("permafrost_core");
-    public static final DeferredHolder<Item, Item> DEMONITE_TRIM_INGOT = plainItem("demonite_trim_ingot");
+    private static final ResourceKey<TrimMaterial> DEMONITE_TRIM_MATERIAL =
+            ResourceKey.create(Registries.TRIM_MATERIAL, Identifier.withDefaultNamespace("demonite"));
+    public static final DeferredHolder<Item, Item> DEMONITE_TRIM_INGOT = BASIC_ITEMS.registerItem("demonite_trim_ingot",
+            props -> new Item(props.trimMaterial(DEMONITE_TRIM_MATERIAL)));
     public static final DeferredHolder<Item, Item> BLIGHT_WHETSTONE = BASIC_ITEMS.registerItem("blight_whetstone", props -> new Item(props.stacksTo(1)));
 
     // Demon food items

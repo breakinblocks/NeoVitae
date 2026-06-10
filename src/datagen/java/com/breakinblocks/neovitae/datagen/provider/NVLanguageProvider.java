@@ -1329,11 +1329,11 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addAdvancement("master_blood_orb", "Magus Orb of Vitae", "Upgrade to a Tier 3 Orb of Vitae");
         addAdvancement("archmage_blood_orb", "Dominus Orb of Vitae", "Upgrade to a Tier 4 Orb of Vitae");
         addAdvancement("transcendent_blood_orb", "Divinus Orb of Vitae", "Achieve the ultimate Orb of Vitae");
-        addAdvancement("blank_slate", "Tabula Rasa", "Inscribe your first slate");
-        addAdvancement("reinforced_slate", "Tabula Robur", "Craft a Tabula Robur");
-        addAdvancement("imbued_slate", "Tabula Animata", "Craft a Tabula Animata");
-        addAdvancement("demonic_slate", "Tabula Spiritus", "Craft a Tabula Spiritus");
-        addAdvancement("ethereal_slate", "Tabula Aetherea", "Craft a Tabula Aetherea");
+        addAdvancement("tabula_rasa", "Tabula Rasa", "Inscribe your first slate");
+        addAdvancement("tabula_robur", "Tabula Robur", "Craft a Tabula Robur");
+        addAdvancement("tabula_animata", "Tabula Animata", "Craft a Tabula Animata");
+        addAdvancement("tabula_spiritus", "Tabula Spiritus", "Craft a Tabula Spiritus");
+        addAdvancement("tabula_aetherea", "Tabula Aetherea", "Craft a Tabula Aetherea");
         addAdvancement("tabula_vitae", "The Tabula Vitae", "Craft a Tabula Vitae");
         addAdvancement("athanor", "Industrial Alchemy", "Craft an Athanor");
         addAdvancement("incense_altar", "Sacred Incense", "Craft an Incense Altar");

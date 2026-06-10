@@ -285,7 +285,7 @@ A room definition is a single JSON object with these fields (output of `DungeonR
 | `requiredDoorMap` | `{ "<wantedDoorType>": [{x,y,z}, ...] }` | When a door at a position needs the connected room to expose a specific door type (used by waterway/asymmetric connectors). |
 | `doorCoverMap` | `{ "<index>": {minimumOffset, maximumOffset} }` | Per-index AABB of blocks filled in when a door is sealed (no room connects). Default is a 3×3×1 frame in front of the door. |
 | `dungeonWeight` | Integer | Spawn weight in the parent pool. Default 1. |
-| `oreDensity` | Float | 0.0 - 1.0. Fraction of raw dungeon stone in the room converted to Dungeon Ore (drops raw demonite) or, more rarely, Prismatic Demonite. |
+| `oreDensity` | Float | 0.0 - 1.0. Fraction of raw dungeon stone in the room converted to Demonite Ore (drops raw demonite) or, more rarely, Prismatic Demonite. |
 | `spawnLocation` | `{x,y,z}` | Player spawn offset (entrance rooms only). |
 | `controllerOffset` | `{x,y,z}` | Dungeon-controller block offset (entrance rooms only). |
 | `portalOffset` | `{x,y,z}` | Portal/exit offset (entrance rooms only). |
@@ -383,7 +383,7 @@ The shipped pools cover:
 
 - **Reference NeoVitae's generated JSONs** in the repo at `src/generated/resources/assets/neovitae/schematics/`. They cover every door arrangement (single door, multi-level, asymmetric waterway connectors, multi-NBT rooms) and are the authoritative examples.
 - **Indices group doors** that should accept the same neighbour pool. A four-way corridor with one index attaches anything to any door; a station with `index: 1` north/south for mine corridors and `index: 2` east for a side passage attaches different pools per direction.
-- **Ore density is per-room**: the fraction of raw dungeon stone converted to Dungeon Ore (and occasionally Prismatic Demonite). Mines use 0.2-0.4, ore-cavern rooms 0.6, mine-key/deadend rooms 0.8.
+- **Ore density is per-room**: the fraction of raw dungeon stone converted to Demonite Ore (and occasionally Prismatic Demonite). Mines use 0.2-0.4, ore-cavern rooms 0.6, mine-key/deadend rooms 0.8.
 - **`/neovitae dungeon-showcase`** places every registered structure NBT in a grid for visual review. Use this to verify your NBT loads correctly before wiring up the JSON definition.
 
 ---

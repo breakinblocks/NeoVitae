@@ -20,6 +20,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.BlockTau;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
+import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.util.helper.BlockWithItemHolder;
 
 import java.util.ArrayList;
@@ -82,7 +83,8 @@ public class MineBlock extends BlockLootSubProvider {
             NVBlocks.INCENSE_ALTAR.block().get(),
             NVBlocks.SPIRIT_CACHE.block().get(),
             NVBlocks.BLOOD_STAINED_GLASS.block().get(),
-            NVBlocks.BLOOD_STAINED_GLASS_PANE.block().get()
+            NVBlocks.BLOOD_STAINED_GLASS_PANE.block().get(),
+            DungeonBlocks.DUNGEON_ORE.block().get()
     );
     private List<Block> dropSelfList = new ArrayList<>();
 
@@ -116,6 +118,9 @@ public class MineBlock extends BlockLootSubProvider {
         // Glass blocks - silk touch only
         dropWhenSilkTouch(NVBlocks.BLOOD_STAINED_GLASS.block().get());
         dropWhenSilkTouch(NVBlocks.BLOOD_STAINED_GLASS_PANE.block().get());
+
+        add(DungeonBlocks.DUNGEON_ORE.block().get(),
+                createOreDrop(DungeonBlocks.DUNGEON_ORE.block().get(), NVItems.DEMONITE_RAW.get()));
     }
 
     private void generateTauLoot(BlockWithItemHolder<BlockTau, BlockItem> holder) {

@@ -1,7 +1,7 @@
 {
   "asset_name": "neovitae_demonite",
   "description": {
-    "color": "#8B1A3A",
+    "color": "#3FC4CC",
     "translate": "trim_material.neovitae.demonite"
   },
   "ingredient": "neovitae:demonite_trim_ingot",

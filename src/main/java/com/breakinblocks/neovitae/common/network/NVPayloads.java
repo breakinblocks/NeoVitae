@@ -32,6 +32,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 
+import java.util.LinkedHashSet;
+
 public class NVPayloads {
 
     public static void register(RegisterPayloadHandlersEvent event) {
@@ -65,6 +67,12 @@ public class NVPayloads {
                 RoutingNodeSetAmountPayload.TYPE,
                 RoutingNodeSetAmountPayload.STREAM_CODEC,
                 NVPayloads::handleRoutingNodeSetAmount
+        );
+
+        registrar.playToServer(
+                RoutingNodeSetComponentsPayload.TYPE,
+                RoutingNodeSetComponentsPayload.STREAM_CODEC,
+                NVPayloads::handleRoutingNodeSetComponents
         );
 
         registrar.playToServer(
@@ -205,6 +213,22 @@ public class NVPayloads {
                         case RoutingNodePayload.ACTION_TOGGLE_SIDE_FLUID_MODE -> tile.toggleSideFluidMode(currentSide);
                         case RoutingNodePayload.ACTION_CLEAR_FLUID_GHOST -> tile.clearFluidGhost(currentSide, payload.value());
                     }
+                }
+            }
+        });
+    }
+
+    private static void handleRoutingNodeSetComponents(RoutingNodeSetComponentsPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            Player player = context.player();
+            if (player.distanceToSqr(payload.pos().getX() + 0.5, payload.pos().getY() + 0.5, payload.pos().getZ() + 0.5) > 64.0) {
+                return;
+            }
+            BlockEntity be = player.level().getBlockEntity(payload.pos());
+            if (be instanceof FilteredRoutingNodeBlockEntity tile) {
+                if (player.containerMenu instanceof RoutingNodeMenu menu && menu.tile == tile) {
+                    int currentSide = tile.getCurrentActiveSlot();
+                    tile.setItemComponents(currentSide, payload.ghostSlot(), new LinkedHashSet<>(payload.components()));
                 }
             }
         });

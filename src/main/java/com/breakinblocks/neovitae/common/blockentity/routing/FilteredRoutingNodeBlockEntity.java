@@ -5,6 +5,9 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.Identifier;
+
+import java.util.Set;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -187,6 +190,12 @@ public class FilteredRoutingNodeBlockEntity extends RoutingNodeBlockEntity {
     public void setItemAmount(int sideIndex, int ghostSlot, int amount) {
         if (sideIndex < 0 || sideIndex >= 6) return;
         sideFilters[sideIndex].setItemAmount(ghostSlot, amount);
+        markUpdated();
+    }
+
+    public void setItemComponents(int sideIndex, int ghostSlot, Set<Identifier> components) {
+        if (sideIndex < 0 || sideIndex >= 6) return;
+        sideFilters[sideIndex].setItemComponents(ghostSlot, components);
         markUpdated();
     }
 

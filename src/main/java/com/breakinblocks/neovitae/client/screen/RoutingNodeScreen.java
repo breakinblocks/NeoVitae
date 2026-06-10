@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,13 +22,16 @@ import com.breakinblocks.neovitae.common.menu.RoutingNodeMenu;
 import com.breakinblocks.neovitae.common.network.RoutingNodePayload;
 import com.breakinblocks.neovitae.common.network.RoutingNodeSetAmountPayload;
 import com.breakinblocks.neovitae.common.network.RoutingNodeSetFluidGhostPayload;
+import com.breakinblocks.neovitae.common.network.RoutingNodeSetComponentsPayload;
 import com.breakinblocks.neovitae.common.network.RoutingNodeSetGhostPayload;
 import com.breakinblocks.neovitae.common.routing.FilterMode;
 import com.breakinblocks.neovitae.util.helper.KeyboardHelper;
 import com.breakinblocks.neovitae.util.helper.RenderHelper;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 
 public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> {
@@ -55,6 +59,10 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
     private Button tabButton;
     private Button pagePrevButton;
     private Button pageNextButton;
+
+    private static final int PICKER_WIDTH = 174;
+    private int componentPickerSlot = -1;
+    private final List<Identifier> pickerTypes = new ArrayList<>();
 
     public RoutingNodeScreen(RoutingNodeMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, RoutingNodeMenu.IMAGE_WIDTH, RoutingNodeMenu.IMAGE_HEIGHT);
@@ -201,6 +209,83 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
             renderFluidGhosts(guiGraphics);
         }
         renderGhostAmounts(guiGraphics);
+
+        if (componentPickerSlot >= 0) {
+            renderComponentPicker(guiGraphics, mouseX, mouseY);
+        }
+    }
+
+    private int pickerHeight() {
+        return 16 + pickerTypes.size() * 12 + 4;
+    }
+
+    private int pickerLeft() {
+        return this.width / 2 - PICKER_WIDTH / 2;
+    }
+
+    private int pickerTop() {
+        return this.height / 2 - pickerHeight() / 2;
+    }
+
+    private void openComponentPicker(int ghostSlot, ItemStack ghost) {
+        pickerTypes.clear();
+        for (var entry : ghost.getComponentsPatch().entrySet()) {
+            Identifier id = BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(entry.getKey());
+            if (id != null) {
+                pickerTypes.add(id);
+            }
+        }
+        componentPickerSlot = pickerTypes.isEmpty() ? -1 : ghostSlot;
+    }
+
+    private void renderComponentPicker(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        int x = pickerLeft();
+        int y = pickerTop();
+        int w = PICKER_WIDTH;
+        int h = pickerHeight();
+        guiGraphics.fill(x - 1, y - 1, x + w + 1, y + h + 1, 0xFF000000);
+        guiGraphics.fill(x, y, x + w, y + h, 0xFF202024);
+        guiGraphics.text(font, Component.translatable("gui.neovitae.routing.match_components"), x + 4, y + 4, 0xFFFFFFFF);
+
+        Set<Identifier> selected = menu.getCurrentItemComponents(componentPickerSlot);
+        for (int i = 0; i < pickerTypes.size(); i++) {
+            Identifier id = pickerTypes.get(i);
+            int rowY = y + 16 + i * 12;
+            boolean on = selected.contains(id);
+            boolean hovered = mouseX >= x && mouseX < x + w && mouseY >= rowY && mouseY < rowY + 12;
+            if (hovered) {
+                guiGraphics.fill(x + 1, rowY, x + w - 1, rowY + 12, 0x40FFFFFF);
+            }
+            guiGraphics.fill(x + 4, rowY + 2, x + 12, rowY + 10, 0xFF000000);
+            guiGraphics.fill(x + 5, rowY + 3, x + 11, rowY + 9, on ? 0xFF55FF55 : 0xFF555555);
+            String label = this.font.plainSubstrByWidth(id.toString(), w - 20);
+            guiGraphics.text(font, label, x + 16, rowY + 2, on ? 0xFFFFFFFF : 0xFFAAAAAA);
+        }
+    }
+
+    private boolean handleComponentPickerClick(double mouseX, double mouseY) {
+        int x = pickerLeft();
+        int y = pickerTop();
+        boolean inside = mouseX >= x && mouseX < x + PICKER_WIDTH && mouseY >= y && mouseY < y + pickerHeight();
+        if (!inside) {
+            componentPickerSlot = -1;
+            return true;
+        }
+        int rowsTop = y + 16;
+        if (mouseY >= rowsTop) {
+            int row = (int) ((mouseY - rowsTop) / 12);
+            if (row >= 0 && row < pickerTypes.size()) {
+                Identifier id = pickerTypes.get(row);
+                Set<Identifier> current = new LinkedHashSet<>(menu.getCurrentItemComponents(componentPickerSlot));
+                if (!current.add(id)) {
+                    current.remove(id);
+                }
+                menu.setCurrentItemComponentsLocal(componentPickerSlot, current);
+                ClientPacketDistributor.sendToServer(new RoutingNodeSetComponentsPayload(
+                        menu.tile.getBlockPos(), menu.absoluteSlot(componentPickerSlot), new ArrayList<>(current)));
+            }
+        }
+        return true;
     }
 
     /** Draws fluid sprites into the (item-free) ghost cells on the Fluids tab. */
@@ -282,6 +367,14 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                         : Component.translatable("gui.neovitae.routing.keep_unlimited")).withStyle(ChatFormatting.AQUA));
                 tooltip.add(Component.translatable("gui.neovitae.routing.keep_scroll").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
             }
+            Set<Identifier> matched = menu.getCurrentItemComponents(this.hoveredSlot.index);
+            if (!matched.isEmpty()) {
+                tooltip.add(Component.translatable("gui.neovitae.routing.matching_components").withStyle(ChatFormatting.GREEN));
+                for (Identifier id : matched) {
+                    tooltip.add(Component.literal(" - " + id).withStyle(ChatFormatting.DARK_GREEN));
+                }
+            }
+            tooltip.add(Component.translatable("gui.neovitae.routing.shift_match").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
             guiGraphics.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
             return;
         }
@@ -391,6 +484,9 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean dragging) {
         int button = event.button();
+        if (componentPickerSlot >= 0) {
+            return handleComponentPickerClick(event.x(), event.y());
+        }
         if (button == 1) {
             for (int i = 0; i < 6; i++) {
                 if (directionButtons[i].isHovered() && i != menu.getCurrentSlot()) {
@@ -423,6 +519,11 @@ public class RoutingNodeScreen extends AbstractContainerScreen<RoutingNodeMenu> 
                     }
                     return true;
                 } else if (button == 1) {
+                    ItemStack ghost = this.hoveredSlot.getItem();
+                    if (KeyboardHelper.isShiftDown() && !ghost.isEmpty()) {
+                        openComponentPicker(slotIdx, ghost);
+                        return true;
+                    }
                     ClientPacketDistributor.sendToServer(new RoutingNodeSetGhostPayload(
                             menu.tile.getBlockPos(),
                             menu.absoluteSlot(slotIdx),

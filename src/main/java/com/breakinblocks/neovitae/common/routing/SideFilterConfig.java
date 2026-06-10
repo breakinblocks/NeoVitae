@@ -7,6 +7,7 @@ package com.breakinblocks.neovitae.common.routing;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.NonNullList;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.ValueInput;
@@ -14,7 +15,9 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Per-direction filter configuration stored on a routing node. Item and fluid
@@ -32,6 +35,7 @@ public final class SideFilterConfig {
     private FilterMode itemMode;
     private final List<ItemStack> itemGhosts = new ArrayList<>();
     private final List<Integer> itemAmounts = new ArrayList<>();
+    private final List<Set<Identifier>> itemComponents = new ArrayList<>();
     private FilterMode fluidMode;
     private final List<FluidStack> fluidGhosts = new ArrayList<>();
     private final List<Integer> fluidAmounts = new ArrayList<>();
@@ -71,12 +75,25 @@ public final class SideFilterConfig {
         ensureItemSize(slot + 1);
         itemGhosts.set(slot, stack == null ? ItemStack.EMPTY : stack);
         itemAmounts.set(slot, 0);
-        trimTrailingEmpty(itemGhosts, itemAmounts);
+        itemComponents.set(slot, Set.of());
+        trimTrailingItems();
+    }
+
+    public Set<Identifier> getItemComponents(int slot) {
+        return (slot >= 0 && slot < itemComponents.size()) ? itemComponents.get(slot) : Set.of();
+    }
+
+    public void setItemComponents(int slot, Set<Identifier> components) {
+        if (slot >= 0 && slot < itemComponents.size()) {
+            itemComponents.set(slot, (components == null || components.isEmpty())
+                    ? Set.of() : new LinkedHashSet<>(components));
+        }
     }
 
     public void clearItemGhosts() {
         itemGhosts.clear();
         itemAmounts.clear();
+        itemComponents.clear();
     }
 
     public int getItemAmount(int slot) {
@@ -142,6 +159,7 @@ public final class SideFilterConfig {
         while (itemGhosts.size() < size) {
             itemGhosts.add(ItemStack.EMPTY);
             itemAmounts.add(0);
+            itemComponents.add(Set.of());
         }
     }
 
@@ -152,11 +170,12 @@ public final class SideFilterConfig {
         }
     }
 
-    private static void trimTrailingEmpty(List<ItemStack> ghosts, List<Integer> amounts) {
-        for (int i = ghosts.size() - 1; i >= 0; i--) {
-            if (ghosts.get(i).isEmpty()) {
-                ghosts.remove(i);
-                amounts.remove(i);
+    private void trimTrailingItems() {
+        for (int i = itemGhosts.size() - 1; i >= 0; i--) {
+            if (itemGhosts.get(i).isEmpty()) {
+                itemGhosts.remove(i);
+                itemAmounts.remove(i);
+                if (i < itemComponents.size()) itemComponents.remove(i);
             } else {
                 break;
             }
@@ -180,6 +199,7 @@ public final class SideFilterConfig {
         out.putString("fluidMode", fluidMode.name());
         out.store("items", ItemStack.OPTIONAL_CODEC.listOf(), itemGhosts);
         out.store("itemAmounts", Codec.INT.listOf(), itemAmounts);
+        out.store("itemComponents", Codec.STRING.listOf().listOf(), componentsToStrings());
         out.store("fluids", FluidStack.OPTIONAL_CODEC.listOf(), fluidGhosts);
         out.store("fluidAmounts", Codec.INT.listOf(), fluidAmounts);
     }
@@ -204,6 +224,7 @@ public final class SideFilterConfig {
 
         itemGhosts.clear();
         itemAmounts.clear();
+        itemComponents.clear();
         fluidGhosts.clear();
         fluidAmounts.clear();
 
@@ -212,6 +233,7 @@ public final class SideFilterConfig {
             return true;
         }).orElse(false)) {
             in.read("itemAmounts", Codec.INT.listOf()).ifPresent(itemAmounts::addAll);
+            in.read("itemComponents", Codec.STRING.listOf().listOf()).ifPresent(this::stringsToComponents);
             in.read("fluids", FluidStack.OPTIONAL_CODEC.listOf()).ifPresent(fluidGhosts::addAll);
             in.read("fluidAmounts", Codec.INT.listOf()).ifPresent(fluidAmounts::addAll);
         } else {
@@ -222,8 +244,31 @@ public final class SideFilterConfig {
         }
 
         while (itemAmounts.size() < itemGhosts.size()) itemAmounts.add(0);
+        while (itemComponents.size() < itemGhosts.size()) itemComponents.add(Set.of());
         while (fluidAmounts.size() < fluidGhosts.size()) fluidAmounts.add(0);
-        trimTrailingEmpty(itemGhosts, itemAmounts);
+        trimTrailingItems();
         trimTrailingFluid();
+    }
+
+    private List<List<String>> componentsToStrings() {
+        List<List<String>> result = new ArrayList<>();
+        for (Set<Identifier> set : itemComponents) {
+            List<String> ids = new ArrayList<>();
+            for (Identifier id : set) ids.add(id.toString());
+            result.add(ids);
+        }
+        return result;
+    }
+
+    private void stringsToComponents(List<List<String>> data) {
+        itemComponents.clear();
+        for (List<String> ids : data) {
+            Set<Identifier> set = new LinkedHashSet<>();
+            for (String s : ids) {
+                Identifier id = Identifier.tryParse(s);
+                if (id != null) set.add(id);
+            }
+            itemComponents.add(set);
+        }
     }
 }

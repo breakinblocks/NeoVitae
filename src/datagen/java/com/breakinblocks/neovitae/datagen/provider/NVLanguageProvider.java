@@ -451,7 +451,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add(NVItems.FROZEN_MARROW_SHARD.get(), "Frozen Marrow Shard");
         add(NVItems.CINDER_HEART_FRAGMENT.get(), "Cinder Heart Fragment");
         add(NVItems.PERMAFROST_CORE.get(), "Permafrost Core");
-        add(NVItems.DEMONITE_TRIM_INGOT.get(), "Demonite Trim Ingot");
+        add(NVItems.DEMONITE_TRIM_INGOT.get(), "Hellforged Trim Ingot");
         add(NVItems.BLIGHT_WHETSTONE.get(), "Blight Whetstone");
         add(NVItems.TAINTED_FLESH.get(), "Tainted Flesh");
         add(NVItems.VITAE_MORSEL.get(), "Vitae Morsel");
@@ -465,7 +465,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("tooltip.neovitae.sigil.damned.siphon", "+10 Blood Siphon (heal on kill)");
 
         // Trim material
-        add("trim_material.neovitae.demonite", "Demonite");
+        add("trim_material.neovitae.demonite", "Hellforged");
 
         // Simple Recipe Ingredients
         add(NVItems.SULFUR.get(), "Sulfur");
@@ -1466,6 +1466,9 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.routing.keep_unlimited", "Keep: Unlimited");
         add("gui.neovitae.routing.keep_scroll", "Scroll to set (Shift x10, Ctrl x64)");
         add("gui.neovitae.routing.keep_scroll_fluid", "Scroll to set (Shift x10k, Ctrl x250)");
+        add("gui.neovitae.routing.match_components", "Match Components:");
+        add("gui.neovitae.routing.matching_components", "Matching components:");
+        add("gui.neovitae.routing.shift_match", "Shift-Right-Click: match components");
         add("gui.neovitae.routing.page", "Filter Page %s of %s");
         add("gui.neovitae.routing.page_hint", "A new page opens as you fill the last");
 

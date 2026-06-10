@@ -2,8 +2,7 @@
   "type": "neovitae:hellfire_forge",
   "drain": 50.0,
   "inputs": [
-    "neovitae:demonite_fragment",
-    "neovitae:demonite_fragment",
+    "neovitae:ingot_hellforged",
     "neovitae:animus_mote",
     "neovitae:weak_blood_shard"
   ],

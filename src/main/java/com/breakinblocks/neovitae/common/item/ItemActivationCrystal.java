@@ -47,7 +47,7 @@ public class ItemActivationCrystal extends Item implements IBindable {
         tooltip.accept(Component.translatable("tooltip.neovitae.activationcrystal." + type.name().toLowerCase(Locale.ROOT)).withStyle(ChatFormatting.GRAY));}
 
     public int getCrystalLevel(ItemStack stack) {
-        return this.type.equals(CrystalType.CREATIVE) ? Integer.MAX_VALUE : type.ordinal() + 1;
+        return this.type.equals(CrystalType.CREATIVE) ? Integer.MAX_VALUE : type.ordinal();
     }
 
     public CrystalType getCrystalType() {

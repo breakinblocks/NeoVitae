@@ -439,6 +439,16 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         });
         legacyMigrationAttempted = false;
 
+        clientRenderNeighbors.clear();
+        tag.childrenList("renderNeighbors").ifPresent(list -> {
+            for (ValueInput posTag : list) {
+                clientRenderNeighbors.add(new BlockPos(
+                        posTag.getIntOr("x", 0),
+                        posTag.getIntOr("y", 0),
+                        posTag.getIntOr("z", 0)));
+            }
+        });
+
         for (RoutingChannel<?> channel : RoutingChannelRegistry.getChannels()) {
             String inputKey = "channel_input_" + channel.id();
             String outputKey = "channel_output_" + channel.id();
@@ -628,20 +638,6 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
         }
         tag.put("renderNeighbors", list);
         return tag;
-    }
-
-    @Override
-    public void handleUpdateTag(ValueInput input) {
-        super.handleUpdateTag(input);
-        clientRenderNeighbors.clear();
-        input.childrenList("renderNeighbors").ifPresent(list -> {
-            for (ValueInput posTag : list) {
-                clientRenderNeighbors.add(new BlockPos(
-                        posTag.getIntOr("x", 0),
-                        posTag.getIntOr("y", 0),
-                        posTag.getIntOr("z", 0)));
-            }
-        });
     }
 
     @Override

@@ -48,12 +48,12 @@ public class DemonCraftingEntry extends EntryProvider {
 
         this.page("trim_ingot", () -> BookSpotlightPageModel.create()
                 .withItem(NVItems.DEMONITE_TRIM_INGOT.get())
-                .withTitle("Demonite Trim Ingot")
+                .withTitle("Hellforged Trim Ingot")
                 .withText(this.context().pageText()));
         this.pageText("A deep blood-red trim material for armour decoration. Apply it at a smithing "
                 + "table like any other trim material to give your gear a [#](8B0000)demonic[#]() accent "
                 + "unique to the Demon Realm.\\\n\\\n"
-                + "Forged from [#](8B0000)Demonite Fragments[#](), an [#](4A0080)Animus Mote[#](), "
+                + "Forged from a [#](8B0000)Hellforged Ingot[#](), an [#](4A0080)Animus Mote[#](), "
                 + "and a [#](8B0000)Weak Blood Shard[#]().");
 
         this.page("grand_gem", () -> BookTextPageModel.create()

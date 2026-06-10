@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_animus_mote": {
+    "has_hellforged_ingot": {
       "conditions": {
         "items": [
           {
-            "items": "neovitae:animus_mote"
+            "items": "neovitae:ingot_hellforged"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_animus_mote"
+      "has_hellforged_ingot"
     ]
   ],
   "rewards": {

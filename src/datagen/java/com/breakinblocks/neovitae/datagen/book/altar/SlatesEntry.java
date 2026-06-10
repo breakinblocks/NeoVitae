@@ -27,7 +27,7 @@ public class SlatesEntry extends EntryProvider {
 
         this.page("blank_reinforced", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("[#](B8860B)Tabula Rasa[#](): Lay smooth stone upon a [#](B8860B)Tier 0[#]() altar. The basin drinks "
+        this.pageText("[#](B8860B)Tabula Rasa[#](): Lay deepslate upon a [#](B8860B)Tier 0[#]() altar. The basin drinks "
                 + "[#](8B0000)1,000 EV[#]() and etches the first sigils into the stone."
                 + "\\\n\\\n[#](B8860B)Tabula Robur[#](): Feed a Tabula Rasa to a [#](B8860B)Tier 1[#]() altar. "
                 + "Cost: [#](8B0000)2,000 EV[#](). The sigils deepen, the stone hardens with purpose.");

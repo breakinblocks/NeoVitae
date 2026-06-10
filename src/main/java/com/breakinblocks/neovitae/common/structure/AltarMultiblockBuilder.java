@@ -48,6 +48,7 @@ public final class AltarMultiblockBuilder {
         int minX = Integer.MAX_VALUE, minY = Integer.MAX_VALUE, minZ = Integer.MAX_VALUE;
         int maxX = Integer.MIN_VALUE, maxY = Integer.MIN_VALUE, maxZ = Integer.MIN_VALUE;
         for (AltarComponent c : components) {
+            if (c.optional()) continue;
             BlockPos p = c.pos();
             if (p.getX() < minX) minX = p.getX();
             if (p.getY() < minY) minY = p.getY();
@@ -82,6 +83,7 @@ public final class AltarMultiblockBuilder {
 
         boolean altarPlaced = false;
         for (AltarComponent c : components) {
+            if (c.optional()) continue;
             BlockPos p = c.pos();
             int gx = p.getX() - minX;
             int gy = maxY - p.getY();
@@ -140,7 +142,8 @@ public final class AltarMultiblockBuilder {
         }
         root.add("mapping", mapping);
 
-        return LoaderRegistry.getMultiblockJsonLoader(DenseMultiblock.TYPE).fromJson(root, provider);
+        Multiblock multiblock = LoaderRegistry.getMultiblockJsonLoader(DenseMultiblock.TYPE).fromJson(root, provider);
+        return multiblock.offset(0, 1, 0);
     }
 
     private static JsonObject matcherFor(MaterialKey key) {

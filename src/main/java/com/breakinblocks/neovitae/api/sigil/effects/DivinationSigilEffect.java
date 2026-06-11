@@ -27,7 +27,6 @@ import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.incense.IncenseHelper;
 import com.breakinblocks.neovitae.registry.SigilEffectRegistry;
-import com.breakinblocks.neovitae.util.helper.NumeralHelper;
 import com.breakinblocks.neovitae.util.helper.AnimaHelper;
 
 import java.util.function.Supplier;
@@ -94,7 +93,7 @@ public record DivinationSigilEffect(boolean isSeer) implements SigilEffect {
         int currentEV = altar.getMainTank();
         int capacity = altar.getTankCapacity(0);
 
-        player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "currentAltarTier", NumeralHelper.toRoman(tier + 1)));
+        player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "currentAltarTier", tier));
         player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "currentEV", currentEV));
         player.sendSystemMessage(Component.translatable(TOOLTIP_BASE + "currentAltarCapacity", capacity));
 

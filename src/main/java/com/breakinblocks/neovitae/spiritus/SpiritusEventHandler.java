@@ -8,7 +8,10 @@ import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -23,10 +26,12 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.item.soul.ISentientTool;
 import com.breakinblocks.neovitae.common.item.soul.SpiritusEssenceItem;
 import com.breakinblocks.neovitae.common.item.soul.SentientToolHelper;
+import com.breakinblocks.neovitae.common.entity.mob.IDaemonium;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @EventBusSubscriber(modid = NeoVitae.MODID)
 public class SpiritusEventHandler {
@@ -86,6 +91,70 @@ public class SpiritusEventHandler {
             dropSouls(killed, overflow);
         }
     }
+
+    @SubscribeEvent
+    public static void onDaemoniumDeath(LivingDeathEvent event) {
+        LivingEntity killed = event.getEntity();
+        if (killed.level().isClientSide() || !(killed instanceof IDaemonium)) {
+            return;
+        }
+        if (!(event.getSource().getEntity() instanceof Player)) {
+            return;
+        }
+        ResourceLocation id = BuiltInRegistries.ENTITY_TYPE.getKey(killed.getType());
+        DaemoniumDrop drop = DAEMONIUM_DROPS.get(id.getPath());
+        if (drop == null) {
+            return;
+        }
+        RandomSource rng = killed.level().getRandom();
+        if (drop.chance() < 1.0f && rng.nextFloat() >= drop.chance()) {
+            return;
+        }
+        SpiritusType type = pickWeighted(drop.entries(), rng);
+        dropSouls(killed, List.of(new ItemStack(soulItem(type))));
+    }
+
+    private static SpiritusType pickWeighted(List<SpiritusEntry> entries, RandomSource rng) {
+        int total = 0;
+        for (SpiritusEntry entry : entries) total += entry.weight();
+        int r = rng.nextInt(total);
+        for (SpiritusEntry entry : entries) {
+            r -= entry.weight();
+            if (r < 0) return entry.type();
+        }
+        return entries.get(0).type();
+    }
+
+    private static SpiritusEssenceItem soulItem(SpiritusType type) {
+        return switch (type) {
+            case RUINA -> NVItems.MONSTER_SOUL_RUINA.get();
+            case NIHILUM -> NVItems.MONSTER_SOUL_NIHILUM.get();
+            case VINDICTA -> NVItems.MONSTER_SOUL_VINDICTA.get();
+            case INVICTUS -> NVItems.MONSTER_SOUL_INVICTUS.get();
+            default -> NVItems.MONSTER_SOUL_RAW.get();
+        };
+    }
+
+    private record SpiritusEntry(SpiritusType type, int weight) {}
+
+    private record DaemoniumDrop(float chance, List<SpiritusEntry> entries) {}
+
+    private static SpiritusEntry e(SpiritusType type, int weight) {
+        return new SpiritusEntry(type, weight);
+    }
+
+    private static final Map<String, DaemoniumDrop> DAEMONIUM_DROPS = Map.ofEntries(
+            Map.entry("daemonium_animaris", new DaemoniumDrop(0.4f, List.of(e(SpiritusType.INVICTUS, 70), e(SpiritusType.VINDICTA, 30)))),
+            Map.entry("daemonium_corrodis", new DaemoniumDrop(0.6f, List.of(e(SpiritusType.RUINA, 80), e(SpiritusType.VINDICTA, 20)))),
+            Map.entry("daemonium_cruoris", new DaemoniumDrop(0.4f, List.of(e(SpiritusType.RAW, 70), e(SpiritusType.NIHILUM, 30)))),
+            Map.entry("daemonium_doloris", new DaemoniumDrop(0.6f, List.of(e(SpiritusType.VINDICTA, 70), e(SpiritusType.NIHILUM, 30)))),
+            Map.entry("daemonium_fervidis", new DaemoniumDrop(0.6f, List.of(e(SpiritusType.NIHILUM, 80), e(SpiritusType.INVICTUS, 20)))),
+            Map.entry("daemonium_glaciaris", new DaemoniumDrop(1.0f, List.of(e(SpiritusType.INVICTUS, 40), e(SpiritusType.RAW, 15), e(SpiritusType.RUINA, 15), e(SpiritusType.NIHILUM, 15), e(SpiritusType.VINDICTA, 15)))),
+            Map.entry("daemonium_ignis", new DaemoniumDrop(0.6f, List.of(e(SpiritusType.NIHILUM, 50), e(SpiritusType.RUINA, 50)))),
+            Map.entry("daemonium_pestis", new DaemoniumDrop(0.4f, List.of(e(SpiritusType.RUINA, 60), e(SpiritusType.RAW, 40)))),
+            Map.entry("daemonium_rancoris", new DaemoniumDrop(0.4f, List.of(e(SpiritusType.VINDICTA, 60), e(SpiritusType.INVICTUS, 40)))),
+            Map.entry("daemonium_voraxis", new DaemoniumDrop(0.5f, List.of(e(SpiritusType.NIHILUM, 70), e(SpiritusType.RUINA, 30))))
+    );
 
     private static void handleSnareDrop(LivingEntity killed, @Nullable Player killer) {
         if (killed.level().getDifficulty() == Difficulty.PEACEFUL || !(killed instanceof Enemy)) {

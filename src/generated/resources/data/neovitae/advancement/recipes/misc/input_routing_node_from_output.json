@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "neovitae:routing_conduit"
+            "items": "neovitae:output_routing_node"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "neovitae:output_routing_node"
+        "recipe": "neovitae:input_routing_node_from_output"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "neovitae:output_routing_node"
+      "neovitae:input_routing_node_from_output"
     ]
   }
 }

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "neovitae:output_routing_node"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "neovitae:input_routing_node"
+  }
+}

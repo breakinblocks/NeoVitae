@@ -1,27 +1,27 @@
 {
   "values": {
     "neovitae:animal_growth": {
-      "activation_cost": 10000,
-      "refresh_cost": 25
+      "activation_cost": 500,
+      "refresh_cost": 30
     },
     "neovitae:armour_evolve": {
       "activation_cost": 50000,
-      "crystal_level": 2,
-      "refresh_cost": 10,
-      "refresh_time": 1
+      "crystal_level": 1,
+      "refresh_cost": 25000
     },
     "neovitae:condor": {
-      "activation_cost": 1000000,
-      "crystal_level": 2,
-      "refresh_cost": 200
+      "activation_cost": 10000,
+      "crystal_level": 1,
+      "refresh_cost": 100
     },
     "neovitae:containment": {
       "activation_cost": 2000,
-      "refresh_cost": 1
+      "refresh_cost": 5,
+      "refresh_time": 5
     },
     "neovitae:crafting": {
       "activation_cost": 25000,
-      "crystal_level": 2,
+      "crystal_level": 1,
       "refresh_cost": 100,
       "refresh_time": 40
     },
@@ -34,77 +34,83 @@
     "neovitae:downgrade": {
       "activation_cost": 20000,
       "crystal_level": 1,
-      "refresh_cost": 100
+      "refresh_cost": 10000
     },
     "neovitae:expulsion": {
-      "activation_cost": 1000,
-      "refresh_cost": 1
+      "activation_cost": 2000,
+      "refresh_cost": 5,
+      "refresh_time": 5
     },
     "neovitae:feathered_knife": {
       "activation_cost": 25000,
       "refresh_cost": 20
     },
     "neovitae:felling": {
-      "activation_cost": 20000,
-      "refresh_cost": 20
+      "activation_cost": 2000,
+      "refresh_cost": 10
     },
     "neovitae:forsaken_soul": {
-      "activation_cost": 50000,
-      "crystal_level": 1,
-      "refresh_cost": 1
-    },
-    "neovitae:full_stomach": {
-      "activation_cost": 100000,
+      "activation_cost": 40000,
       "crystal_level": 1,
       "refresh_cost": 100
     },
+    "neovitae:full_stomach": {
+      "activation_cost": 1000,
+      "refresh_cost": 100,
+      "refresh_time": 40
+    },
     "neovitae:green_grove": {
       "activation_cost": 1000,
+      "ambient_sound": "neovitae:overgrowth",
       "refresh_cost": 20
     },
     "neovitae:grounding": {
-      "activation_cost": 1000,
-      "refresh_cost": 10
+      "activation_cost": 2000,
+      "refresh_cost": 10,
+      "refresh_time": 1
     },
     "neovitae:harvest": {
       "activation_cost": 20000,
-      "refresh_cost": 20
+      "refresh_cost": 5
     },
     "neovitae:lava": {
       "activation_cost": 10000,
       "refresh_cost": 500,
-      "refresh_time": 1
+      "refresh_time": 10
     },
     "neovitae:magnetism": {
       "activation_cost": 5000,
-      "refresh_cost": 50
+      "refresh_cost": 50,
+      "refresh_time": 40
     },
     "neovitae:meteor": {
-      "activation_cost": 1000000,
-      "crystal_level": 2,
-      "refresh_cost": 1000000
+      "activation_cost": 250000,
+      "crystal_level": 1,
+      "refresh_cost": 0
     },
     "neovitae:phantom_bridge": {
-      "activation_cost": 5000,
-      "refresh_cost": 10,
+      "activation_cost": 2000,
+      "refresh_cost": 1,
       "refresh_time": 1
     },
     "neovitae:placer": {
       "activation_cost": 5000,
-      "refresh_cost": 10
+      "refresh_cost": 10,
+      "refresh_time": 5
     },
     "neovitae:pump": {
-      "activation_cost": 10000,
-      "refresh_cost": 25
+      "activation_cost": 2500,
+      "refresh_cost": 50
     },
     "neovitae:regeneration": {
-      "activation_cost": 25000,
-      "refresh_cost": 100
+      "activation_cost": 500,
+      "refresh_cost": 50,
+      "refresh_time": 40
     },
     "neovitae:speed": {
       "activation_cost": 500,
-      "refresh_cost": 25,
-      "refresh_time": 60
+      "refresh_cost": 5,
+      "refresh_time": 1
     },
     "neovitae:sphere": {
       "activation_cost": 20000,
@@ -112,19 +118,19 @@
       "refresh_time": 1
     },
     "neovitae:suppression": {
-      "activation_cost": 10000,
-      "refresh_cost": 2,
-      "refresh_time": 1
+      "activation_cost": 3000,
+      "refresh_cost": 5,
+      "refresh_time": 10
     },
     "neovitae:torment_nexus": {
       "activation_cost": 25000,
-      "crystal_level": 2,
+      "crystal_level": 1,
       "refresh_cost": 0
     },
     "neovitae:upgrade_remove": {
       "activation_cost": 20000,
-      "crystal_level": 2,
-      "refresh_cost": 100
+      "crystal_level": 1,
+      "refresh_cost": 10000
     },
     "neovitae:water": {
       "activation_cost": 500,
@@ -142,7 +148,8 @@
     },
     "neovitae:zephyr": {
       "activation_cost": 1000,
-      "refresh_cost": 1
+      "refresh_cost": 2,
+      "refresh_time": 5
     }
   }
 }

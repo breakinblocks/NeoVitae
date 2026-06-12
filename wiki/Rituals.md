@@ -40,7 +40,9 @@ The **Ritual Configurator** is essential for mastery over your circles. Cycle be
 
 - **Information** - reveals the purpose of the selected ritual.
 - **Set Spiritus Consumed** - attunes the ritual to consume specific aspects of **[Spiritus](Spiritus-Aspects-and-Crystals)** from the Aura. Carry the desired Spiritus Crystals in your hotbar, one per aspect.
-- **Define Area** - specifies the zone in which the ritual operates and displays the current boundaries. If multiple zones exist, Sneak + Use on the Master Ritual Stone cycles between them.
+- **Define Area** - specifies the zone in which the ritual operates and displays the current boundaries. Sneak + Use in the air to cycle through a ritual's zones, then click two opposite corners to reshape the selected one.
+
+Rituals that draw from or deposit into a container expose their chest, tank, or input/output zone here as well, so you can relocate that container instead of being forced to place it directly above the Master Ritual Stone. It defaults to the block above the stone and can be moved a few blocks away.
 
 Some rituals can be expanded far beyond their default range, but EV cost scales to match. Tread carefully with your reserves.
 

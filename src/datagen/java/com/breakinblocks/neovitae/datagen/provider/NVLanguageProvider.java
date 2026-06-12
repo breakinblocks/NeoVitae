@@ -1221,7 +1221,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("harvest", "Ritual of Harvest", "Reaps every mature crop in range and replants the seeds. Place a chest atop the Master Ritual Stone to collect the yield; otherwise it drops where it grew.");
         addRitual("regeneration", "Ritual of Regeneration", "Applies Regeneration to practitioners in range; with Spiritus Ruina present, also drains nearby mobs to heal you.");
         addRitual("speed", "Ritual of Speed", "Propels non-sneaking entities in the master stone's facing direction. Sneak inside the area to receive Speed II for 30 minutes instead. Aspects modulate velocity, target filtering, and add Soft Fall.");
-        addRitual("magnetism", "The Endless Quarry", "Reaps ore blocks from the volume below the master stone (loading unloaded chunks as needed). Inserts as items into a container directly above the master stone if one exists; otherwise places the ore as a block in a 3x3x3 volume above. Scan radius scales with the foundation block: iron 7, gold 15, diamond 31, netherite 63, anything else 3. 50 EV per ore moved; up to 3 ores and 100 checks per refresh, scan reaches bedrock.");
+        addRitual("magnetism", "The Endless Quarry", "Reaps ore blocks from the volume below the master stone (loading unloaded chunks as needed). Inserts as items into a chest at the configured chest position (directly above the master stone by default) if one is present; otherwise places the ore as a block in a 3x3x3 volume above. Scan radius scales with the foundation block: iron 7, gold 15, diamond 31, netherite 63, anything else 3. 50 EV per ore moved; up to 3 ores and 100 checks per refresh, scan reaches bedrock.");
         addRitual("animal_growth", "Ritual of Accelerated Aging", "Accelerates the growth of young creatures in range.");
         add("ritual.neovitae.animal_growth.spiritus.raw", "Raw Spiritus: Base behavior, accelerates the growth of young creatures.");
         add("ritual.neovitae.animal_growth.spiritus.invictus", "Spiritus Invictus: Breeds adult animals in range.");
@@ -1232,7 +1232,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("containment", "Ritual of Containment", "Pushes any creature trying to leave the area back toward the center; an invisible cage.");
         addRitual("expulsion", "Ritual of Expulsion", "Drives every creature outward from the ritual center.");
         addRitual("zephyr", "The Gathering", "Persistent wind that gathers loose items and XP, depositing them with the master stone or a nearby player.");
-        addRitual("pump", "Hymn of Siphoning", "Draws fluid source blocks into a fluid tank placed above the master stone.");
+        addRitual("pump", "Hymn of Siphoning", "Draws fluid source blocks into a fluid tank at the configured tank position (directly above the master stone by default).");
         addRitual("phantom_bridge", "Ritual of the Phantom Bridge", "Weaves spectral platforms beneath the feet of practitioners in range.");
         addRitual("crystallum_fractura", "Crystallum Fractura", "Auto-harvests Spiritus Crystal clusters in range, doubles their growth speed, and biases the chunk's aspect via the Ritual Configurator.");
         addRitual("downgrade", "Sentient Extraction", "Throw a piece of Sentient Armor onto the small zone above the master stone; the ritual extracts every upgrade as a separate Upgrade Tome.");

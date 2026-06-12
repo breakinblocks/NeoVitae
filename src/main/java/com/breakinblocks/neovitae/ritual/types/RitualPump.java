@@ -30,11 +30,14 @@ import java.util.function.Consumer;
 public class RitualPump extends Ritual {
 
     public static final String PUMP_RANGE = "pumpRange";
+    public static final String TANK_RANGE = "tankRange";
 
     public RitualPump() {
         super("pump", 0, 2500, "ritual." + NeoVitae.MODID + ".pump");
         addBlockRange(PUMP_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-10, -5, -10), 21, 6, 21));
         setMaximumVolumeAndDistanceOfRange(PUMP_RANGE, 5000, 20, 20);
+        addBlockRange(TANK_RANGE, new AreaDescriptor.Rectangle(new BlockPos(0, 1, 0), 1, 1, 1));
+        setMaximumVolumeAndDistanceOfRange(TANK_RANGE, 1, 5, 5);
     }
 
     @Override
@@ -42,11 +45,11 @@ public class RitualPump extends Ritual {
         RitualContext ctx = RitualHelper.createContext(masterRitualStone, getRefreshCost());
         if (ctx == null) return;
 
-        // Find a fluid handler above the MRS
-        BlockEntity tankBe = ctx.level().getBlockEntity(ctx.masterPos().above());
+        BlockPos tankPos = RitualHelper.firstPositionInRange(ctx.master(), this, TANK_RANGE, ctx.masterPos()).orElse(ctx.masterPos().above());
+        BlockEntity tankBe = ctx.level().getBlockEntity(tankPos);
         if (tankBe == null) return;
 
-        IFluidHandler tank = ctx.level().getCapability(Capabilities.FluidHandler.BLOCK, ctx.masterPos().above(), null);
+        IFluidHandler tank = ctx.level().getCapability(Capabilities.FluidHandler.BLOCK, tankPos, null);
         if (tank == null) return;
 
         List<BlockPos> positions = RitualHelper.getRangePositions(ctx.master(), this, PUMP_RANGE, ctx.masterPos());

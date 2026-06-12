@@ -35,7 +35,8 @@ public class RitualTinkererEntry extends EntryProvider {
 
         this.page("define_area", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("- [#](8B0000)Define Area[#](): Specifies the zone in which the ritual operates, and displays the current boundaries. If multiple zones exist, pressing Sneak and Use on the [#](8B0000)Master Ritual Stone[#]() cycles between them."
+        this.pageText("- [#](8B0000)Define Area[#](): Specifies the zone in which the ritual operates, and displays the current boundaries. Press Sneak and Use in the air to cycle through a ritual's zones, then click two opposite corners to reshape the selected one."
+                + "\\\n\\\nRituals that draw from or deposit into a container expose their [#](8B0000)chest[#](), [#](8B0000)tank[#](), or input/output zone here too, so you can place that container wherever you like instead of directly atop the [#](8B0000)Master Ritual Stone[#]()."
                 + "\\\n\\\n[#](2E8B57)Some rituals can be expanded far beyond their default range, but the EV cost scales to match. Tread carefully with your reserves.[#]()");
     }
 

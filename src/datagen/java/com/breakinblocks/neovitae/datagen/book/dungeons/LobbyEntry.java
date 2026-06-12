@@ -24,7 +24,7 @@ public class LobbyEntry extends EntryProvider {
                 + "standing before an [#](8B0000)Inversion Pillar[#](). Touch it, and you are drawn across the threshold "
                 + "into the [#](4A0080)Antechamber[#](), the outermost vestibule of the [#](4A0080)Demon Realm[#]().\\\n\\\n"
                 + "Take stock of your surroundings:\n\n"
-                + "- A solitary chest, sometimes containing [#](8B0000)Iron Keys[#]().");
+                + "- A solitary chest, sometimes containing [#](8B0000)Simple Dungeon Keys[#]().");
 
         this.page("intro2", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));

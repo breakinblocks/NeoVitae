@@ -103,11 +103,11 @@ Also the species of the dungeon boss; see "The Foreman" below.
 
 #### The Foreman
 
-The Foreman is a unique Daemonium Doloris variant that spawns once per dungeon, inside the sealed Foreman's Key chamber. Vital statistics:
+The Foreman is a unique Daemonium Doloris variant that spawns once per dungeon, inside the sealed Foreman's chamber. Vital statistics:
 
 - **600 HP**, **25 damage**, **16 armour**, 8 armour toughness.
 - Hosts a vanilla **boss bar** while alive.
-- On death, drops the **Foreman's Key**, which opens the sealed mine passage.
+- On death, drops a clutch of **Mine Dungeon Keys**, which open the deeper sealed doors inside the Mines.
 
 Treat it as a boss fight, not an elite encounter. Bring [sigils](Sigils) and [sentient weaponry](Hellfire-Forge-and-Sentient-Equipment); attempt it under-equipped at your peril.
 

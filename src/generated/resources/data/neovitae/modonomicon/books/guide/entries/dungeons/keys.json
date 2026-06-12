@@ -51,8 +51,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.keys.iron_key.text",
-      "title": "book.neovitae.guide.dungeons.keys.iron_key.title",
+      "text": "book.neovitae.guide.dungeons.keys.simple_key.text",
+      "title": "book.neovitae.guide.dungeons.keys.simple_key.title",
       "use_markdown_in_title": false
     },
     {
@@ -62,8 +62,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.dungeons.keys.miners_key.text",
-      "title": "book.neovitae.guide.dungeons.keys.miners_key.title",
+      "text": "book.neovitae.guide.dungeons.keys.mine_key.text",
+      "title": "book.neovitae.guide.dungeons.keys.mine_key.title",
       "use_markdown_in_title": false
     }
   ],

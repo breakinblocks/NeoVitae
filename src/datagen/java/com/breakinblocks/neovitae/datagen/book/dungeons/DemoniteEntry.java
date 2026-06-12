@@ -24,7 +24,7 @@ public class DemoniteEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Demonite");
         this.pageText("[#](8B0000)Demonite Ore[#]() exists only within [#](8B0000)The Mines[#]() of the Endless Realm, "
-                + "accessible after locating a [#](8B0000)Foreman's Key[#]() and unsealing the [#](4A0080)Spatial Distortion[#]() "
+                + "accessible after obtaining a [#](8B0000)Mine Entrance Key[#]() and unsealing the [#](4A0080)Spatial Distortion[#]() "
                 + "that guards the passage. This ore yields [#](8B0000)Hellforged Ingots[#]() or "
                 + "[#](8B0000)Hellforged Sand[#]() through various processing methods.\\\n\\\n"
                 + "[#](2E8B57)A Silk Touch enchantment harvests the ore block itself. Without it, you receive "

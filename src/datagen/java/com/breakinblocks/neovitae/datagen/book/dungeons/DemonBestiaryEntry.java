@@ -96,7 +96,7 @@ public class DemonBestiaryEntry extends EntryProvider {
                         + "combos, leap slams, and a ghost howl that phases it out of reality. Enters a dangerous "
                         + "second phase at low health.\\\n\\\n"
                         + "A vastly empowered variant known as [#](8B0000)The Foreman[#]() (600 HP, 25 damage, "
-                        + "16 armour) guards the mine entrance. Defeating it drops the [#](8B0000)Foreman's Key[#]().\\\n\\\n"
+                        + "16 armour) guards the mine entrance. Defeating it drops a clutch of [#](8B0000)Mine Dungeon Keys[#]().\\\n\\\n"
                         + "[#](2E8B57)Drops[#](): Frozen Marrow Shard, Ectoplasmic Residue (rare), Raw Demonite, "
                         + "Vindicta/Spiritus Nihilum");
 

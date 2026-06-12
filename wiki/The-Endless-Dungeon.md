@@ -21,7 +21,7 @@ A successful ritual leaves an **Inversion Pillar** standing where the diagram on
 
 The Tier II ritual lands you in the **Antechamber**, the outermost vestibule of the Demon Realm. It is small, deliberately so, and serves as a tutorial pocket before the real dungeon opens up. Expect:
 
-- A solitary chest, sometimes containing **Iron Keys**.
+- A solitary chest, sometimes containing **Simple Dungeon Keys**.
 - Several **Doorways**, each barred by a **Dungeon Seal**. Present a key to a seal to break it; the chamber beyond unlocks for you.
 - A second **Inversion Pillar** that returns you to the overworld.
 
@@ -43,17 +43,17 @@ After enough rooms have been cleared, you receive the first warning:
 
 > *Strange noises and creatures begin to stir in the depths...*
 
-This signals that a **Spatial Distortion** has manifested somewhere in the dungeon. Spatial Distortions are fractures in the architecture, marked by erupting tendrils of void energy and an ominous sound when their chamber is first unsealed. They never appear in the Antechamber; they are exclusive to the Endless Realm proper. Each distortion conceals one of two things, either an entrance to **The Mines** or the sealed chamber of the **Foreman's Key**.
+This signals that a **Spatial Distortion** has manifested somewhere in the dungeon. Spatial Distortions are fractures in the architecture, marked by erupting tendrils of void energy and an ominous sound when their chamber is first unsealed. They never appear in the Antechamber; they are exclusive to the Endless Realm proper. Each distortion conceals one of two things, either an entrance to **The Mines** or the sealed chamber of the **Foreman**.
 
 Press deeper and a second warning echoes:
 
 > *A monstrous roar echoes through the corridors...*
 
-The Foreman's Key chamber has manifested. Its door requires an **Iron Key** to open, and what lies inside is **The Foreman**, a vastly empowered [Daemonium Doloris](Daemonium-Bestiary) (600 HP, 25 damage, 16 armour, full boss bar). Slay it, claim the **Foreman's Key**, and the sealed mine passage unlocks for you.
+The Foreman's chamber has manifested. Like the mine entrance itself, its door yields only to a **Mine Entrance Key**, and what lies inside is **The Foreman**, a vastly empowered [Daemonium Doloris](Daemonium-Bestiary) (600 HP, 25 damage, 16 armour, full boss bar). Slay it, claim the clutch of **Mine Dungeon Keys** it drops, and the deeper workings of the Mines open to you.
 
 ### The Mines
 
-The Mines are a significant escalation. Veins of **Demonite Ore** thread the walls here, the only naturally occurring source of the Hellforged metal used in [Tier V Ara Vitae](Ara-Vitae-and-Runes) construction and the most advanced potion-craft. Within the Mines, **Miner's Keys** open the remaining sealed doors. Alongside Demonite, you may pull enchanted armaments, anointments, potions, and rarer spoils from chests.
+The Mines are a significant escalation. Veins of **Demonite Ore** thread the walls here, the only naturally occurring source of the Hellforged metal used in [Tier V Ara Vitae](Ara-Vitae-and-Runes) construction and the most advanced potion-craft. Within the Mines, the **Mine Dungeon Keys** wrenched from the Foreman open the remaining sealed doors. Alongside Demonite, you may pull enchanted armaments, anointments, potions, and rarer spoils from chests.
 
 ### The Spatial Rift
 
@@ -67,11 +67,13 @@ All keys, whether crafted or found, are listed below. See [Hellfire Forge and Se
 
 | Key | Source | Opens |
 | --- | --- | --- |
-| **Iron Key** | Antechamber chests, Endless Realm chests, or Hellfire Forge | Ordinary sealed doors, including the Foreman's Key chamber |
-| **Foreman's Key** | Dropped by The Foreman boss | The sealed mine entrance |
-| **Miner's Key** | Hellfire Forge | Sealed doors *inside* the Mines |
+| **Simple Dungeon Key** | Antechamber and dungeon chests, or forged in the Hellfire Forge (2 Iron Ingots + Corrupted Dust) | Ordinary sealed doors |
+| **Standard Dungeon Key** | Found in dungeon chests | Sturdier standard rooms |
+| **Mine Entrance Key** | Forged in the Hellfire Forge (Tabula Animata + Echo Shard + Diamond + a Simple Dungeon Key), or found in standard-dungeon chests | The Mines entrance *and* the Foreman's chamber |
+| **Mine Dungeon Key** | Dropped in a clutch by The Foreman boss | The deeper sealed doors *inside* the Mines |
+| **Boss Key** | A unique, uncraftable key concealed by Spatial Distortions | Boss, special, and treasure rooms |
 
-The Foreman's Key cannot be crafted, and no other source exists. One wonders why the demons never thought to pick the locks themselves.
+The Mine Dungeon Key and the Boss Key cannot be crafted; they are only wrested from their guardians or pried from a distortion. One wonders why the demons never thought to pick the locks themselves.
 
 ## Dungeon Eyes
 
@@ -87,7 +89,7 @@ Delve deep enough and fortune may yield **Intricate Hellforged Parts**. These ra
 
 - Do not enter without a full Tier III anima and a tested [sigil](Sigils) loadout.
 - Bring more food than you think you need. The realm offers Tau Fruit and demon meat, but both come with strings attached (see [Dungeon Mechanics](Dungeon-Mechanics)).
-- Carry an extra **Iron Key** at all times; the Foreman's chamber will not wait.
+- Carry a spare **Mine Entrance Key**; both the Mines entrance and the Foreman's chamber demand one.
 - The **Blood Lantern** does *not* ward spawns inside the dungeon dimension. It is a surface tool only.
 - When the realm starts speaking to you, listen. Both warnings are mechanical signals, not flavour text.
 

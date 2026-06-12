@@ -50,7 +50,7 @@ Prismatic Demonite does not drop a block form for replication and cannot be silk
 
 ## Demonite Ore
 
-**Demonite Ore** is found only in **The Mines**, the deepest tier of the dungeon, accessible after defeating The Foreman and using the [Foreman's Key](The-Endless-Dungeon) on the sealed passage. The ore is the only naturally occurring source of Hellforged metal, the foundation of [Tier V Ara Vitae](Ara-Vitae-and-Runes) construction and the most demanding [flask](Tabula-Vitae-Flasks-and-Anointments) recipes.
+**Demonite Ore** is found only in **The Mines**, the deepest tier of the dungeon, reached by unsealing the mine entrance with a [Mine Entrance Key](The-Endless-Dungeon); its deeper veins lie behind doors that only the **Mine Dungeon Keys** dropped by The Foreman will open. The ore is the only naturally occurring source of Hellforged metal, the foundation of [Tier V Ara Vitae](Ara-Vitae-and-Runes) construction and the most demanding [flask](Tabula-Vitae-Flasks-and-Anointments) recipes.
 
 | Tool used | Yield |
 | --- | --- |

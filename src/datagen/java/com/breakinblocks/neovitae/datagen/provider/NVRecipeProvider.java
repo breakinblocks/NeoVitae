@@ -1191,13 +1191,15 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_routing_node", has(NVBlocks.ROUTING_CONDUIT.block().get()))
                 .save(output, rKey(NeoVitae.rl("input_routing_node")));
 
-        HellfireForgeRecipeBuilder.build(NVBlocks.OUTPUT_ROUTING_NODE.block().get())
-                .requires(NVBlocks.ROUTING_CONDUIT.block().get())
-                .requires(Items.DISPENSER)
-                .minSpiritus(200)
-                .drain(10)
-                .unlockedBy("has_routing_node", has(NVBlocks.ROUTING_CONDUIT.block().get()))
-                .save(output, rKey(NeoVitae.rl("output_routing_node")));
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, NVBlocks.OUTPUT_ROUTING_NODE.block().get())
+                .requires(NVBlocks.INPUT_ROUTING_NODE.block().get())
+                .unlockedBy("has_routing_node", has(NVBlocks.INPUT_ROUTING_NODE.block().get()))
+                .save(output, rKey(NeoVitae.rl("output_routing_node_from_input")));
+
+        ShapelessRecipeBuilder.shapeless(items, RecipeCategory.MISC, NVBlocks.INPUT_ROUTING_NODE.block().get())
+                .requires(NVBlocks.OUTPUT_ROUTING_NODE.block().get())
+                .unlockedBy("has_routing_node", has(NVBlocks.OUTPUT_ROUTING_NODE.block().get()))
+                .save(output, rKey(NeoVitae.rl("input_routing_node_from_output")));
 
         HellfireForgeRecipeBuilder.build(NVBlocks.MASTER_ROUTING_NODE.block().get())
                 .requires(NVBlocks.ROUTING_CONDUIT.block().get())

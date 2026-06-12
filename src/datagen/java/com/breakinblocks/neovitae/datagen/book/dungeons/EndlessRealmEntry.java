@@ -48,7 +48,7 @@ public class EndlessRealmEntry extends EntryProvider {
                 + "This signals that a [#](8B0000)Spatial Distortion[#]() has appeared somewhere in the dungeon, "
                 + "marked by dark tendrils of void energy and an ominous sound.\\\n\\\n"
                 + "Press deeper still and a second warning echoes: [#](4A0080)\"A monstrous roar echoes through "
-                + "the corridors...\"[#]() The [#](8B0000)Foreman's Key[#]() chamber has manifested.");
+                + "the corridors...\"[#]() The [#](8B0000)Foreman's[#]() chamber has manifested.");
 
         this.page("distortions", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -58,7 +58,7 @@ public class EndlessRealmEntry extends EntryProvider {
                 + "When a room harboring one is unsealed, dark void tendrils erupt from its center "
                 + "and a message appears on your screen. These distortions conceal two things: "
                 + "the entrance to [#](8B0000)The Mines[#]() and the sealed chamber of the "
-                + "[#](8B0000)Foreman's Key[#]().");
+                + "[#](8B0000)Foreman[#]().");
 
         this.page("foreman", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -68,15 +68,16 @@ public class EndlessRealmEntry extends EntryProvider {
                 + "a greatly empowered [#](8B0000)Daemonium Doloris[#]() that serves as guardian of the mines. "
                 + "This boss-tier creature is far stronger than its lesser kin, boasting immense health, "
                 + "devastating attacks, and a visible boss bar.\\\n\\\n"
-                + "Defeat The Foreman and it will drop the [#](8B0000)Foreman's Key[#](), which unseals the "
-                + "passage into the mine tunnels. The key chamber requires an [#](8B0000)Iron Key[#]() to open.");
+                + "Defeat The Foreman and he surrenders a clutch of [#](8B0000)Mine Dungeon Keys[#](), the only "
+                + "keys that open the deeper mine tunnels. His chamber, like the mine entrance itself, is "
+                + "sealed behind a [#](8B0000)Mine Entrance Key[#]().");
 
         this.page("mine_entrance_img", () -> BookImagePageModel.create()
                 .withTitle("The Mine Entrance")
                 .withImages(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "images/entries/dungeon/mine_entrance.png"))
                 .withBorder(true)
                 .withText(this.context().pageText()));
-        this.pageText("Only the Foreman's Key will open the sealed passage beyond. If you have not yet defeated The Foreman, you must venture back.");
+        this.pageText("Only a Mine Dungeon Key will open the sealed passage into the deeper workings. If you have not yet defeated The Foreman, you must venture back.");
 
         this.page("rift", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

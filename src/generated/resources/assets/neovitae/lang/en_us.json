@@ -2805,6 +2805,7 @@
   "tooltip.neovitae.spiritus.hold_shift": "Hold Shift for details",
   "tooltip.neovitae.spiritus.invictus": "Spiritus Invictus",
   "tooltip.neovitae.spiritus.level": "Level %s (%s will)",
+  "tooltip.neovitae.spiritus.mining_speed": "+%s mining speed",
   "tooltip.neovitae.spiritus.nihilum": "Spiritus Nihilum",
   "tooltip.neovitae.spiritus.raw": "Raw",
   "tooltip.neovitae.spiritus.rider.invictus": "Absorption hearts for %ss on kill",

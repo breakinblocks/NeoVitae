@@ -148,7 +148,19 @@ public class LexVitaeItem extends Item implements ISentientTool {
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        return isActive(stack) ? super.getDestroySpeed(stack, state) : 1.0F;
+        if (!isActive(stack)) return 1.0F;
+        float value = super.getDestroySpeed(stack, state);
+        if (value > 1) {
+            return (float) (value + getDigSpeedBonus(stack));
+        }
+        return value;
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int itemSlot, boolean isSelected) {
+        if (isSelected && !level.isClientSide && isActive(stack) && entity instanceof Player player) {
+            recalculatePowers(stack, level, player);
+        }
     }
 
     @Override

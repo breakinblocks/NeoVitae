@@ -35,7 +35,7 @@ public class RitualSpeedEntry extends EntryProvider {
         this.pageTitle("Quickened Blood");
         this.pageText("Every non-sneaking creature in the area is hurled in the [#](8B0000)Master Ritual Stone's facing direction[#](). "
                 + "Approach the circle while [#](2E8B57)sneaking[#]() and the ritual instead grants you [#](8B0000)Speed II for 30 minutes[#](). "
-                + "Spectators are ignored. Use the [#](8B0000)Ritual Tinkerer[#]() to rotate the master stone's facing if the launch direction is wrong.");
+                + "Spectators are ignored. Use the [#](8B0000)Ritual Configurator[#]() to rotate the master stone's facing if the launch direction is wrong.");
 
         this.page("activation_tip", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

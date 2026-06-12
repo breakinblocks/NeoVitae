@@ -39,7 +39,7 @@ public class RitualYawningVoidEntry extends EntryProvider {
                 + "its way downward, with the cursor saved between refreshes so a paused or interrupted dig "
                 + "resumes where it left off.\\\n\\\n"
                 + "The default scan volume is a small 3x3x3 box directly beneath the master stone. Use the "
-                + "[#](8B0000)Ritual Tinkerer[#]() to expand the volume; it can reach 64 blocks straight down "
+                + "[#](8B0000)Ritual Configurator[#]() to expand the volume; it can reach 64 blocks straight down "
                 + "and 32 wide, opening genuine chasms in the world.");
 
         this.page("spiritus_effects", () -> BookTextPageModel.create()

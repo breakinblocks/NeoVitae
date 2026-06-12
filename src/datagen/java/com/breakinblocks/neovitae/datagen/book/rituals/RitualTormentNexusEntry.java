@@ -76,7 +76,7 @@ public class RitualTormentNexusEntry extends EntryProvider {
                 + "[#](8B0000)ev_modifier_percent[#](): scales the EV deposited per kill from 1 (1%) to 1000"
                 + " (10x). Pack authors can crank this down to make the ritual a quality-of-life replacement"
                 + " for old farms, or up to make it a true endgame multiplier.\\\n\\\n"
-                + "Range can be tuned with the [#](2E8B57)Ritual Tinkerer[#]() per ritual stone.");
+                + "Range can be tuned with the [#](2E8B57)Ritual Configurator[#]() per ritual stone.");
     }
 
     @Override

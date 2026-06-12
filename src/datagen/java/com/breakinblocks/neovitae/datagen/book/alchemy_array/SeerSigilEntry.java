@@ -40,6 +40,14 @@ public class SeerSigilEntry extends EntryProvider {
                 + "- Active crafting progress, if any\n\n"
                 + "- [#](4A0080)Essentia Vitae[#]() consumed per tick during crafting\n\n"
                 + "- Current [#](4A0080)Essentia Vitae[#]() reserve held by Charging Runes");
+
+        this.page("ritual_area", () -> BookTextPageModel.create()
+                .withText(this.context().pageText()));
+        this.pageText("The Seer also lays bare the reach of your [#](4A0080)rituals[#](). Look upon an active "
+                + "[#](8B0000)Master Ritual Stone[#]() and the ritual's working area is traced in the world, a "
+                + "coloured boundary drawn around each of its ranges, exactly the zones the "
+                + "[#](8B0000)Ritual Configurator[#]() defines.\\\n\\\n"
+                + "[#](2E8B57)The sigil need only be on your person: in your pack, tucked within a Sigil of Holding, or worn as a charm.[#]()");
     }
 
     @Override

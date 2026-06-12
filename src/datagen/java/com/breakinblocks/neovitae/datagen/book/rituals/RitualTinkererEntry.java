@@ -22,8 +22,8 @@ public class RitualTinkererEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Tinkerer");
-        this.pageText("The [#](8B0000)Ritual Tinkerer[#]() is an essential instrument for the practitioner who demands mastery over their [#](4A0080)ritual circles[#](). It offers three modes of interaction, each granting deeper control. Cycle between them by pressing Sneak and Use.");
+        this.pageTitle("Ritual Configurator");
+        this.pageText("The [#](8B0000)Ritual Configurator[#]() is an essential instrument for the practitioner who demands mastery over their [#](4A0080)ritual circles[#](). It offers three modes of interaction, each granting deeper control. Cycle between them by pressing Sneak and Use.");
 
         this.page("crafting", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual_reader")));
@@ -41,7 +41,7 @@ public class RitualTinkererEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Ritual Tinkerer";
+        return "Ritual Configurator";
     }
 
     @Override

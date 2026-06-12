@@ -665,7 +665,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("chat.neovitae.diviner.ritualComplete", "Ritual structure complete!");
 
         // Ritual Reader
-        add(NVItems.RITUAL_READER.get(), "Ritual Reader");
+        add(NVItems.RITUAL_READER.get(), "Ritual Configurator");
         add(NVItems.RITUAL_DESIGNER.get(), "Ritual Designer");
         addTooltip("reader.desc", "Used to configure ritual areas.");
         addTooltip("reader.currentState", "Mode: %s");
@@ -1234,7 +1234,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addRitual("zephyr", "The Gathering", "Persistent wind that gathers loose items and XP, depositing them with the master stone or a nearby player.");
         addRitual("pump", "Hymn of Siphoning", "Draws fluid source blocks into a fluid tank placed above the master stone.");
         addRitual("phantom_bridge", "Ritual of the Phantom Bridge", "Weaves spectral platforms beneath the feet of practitioners in range.");
-        addRitual("crystallum_fractura", "Crystallum Fractura", "Auto-harvests Spiritus Crystal clusters in range, doubles their growth speed, and biases the chunk's aspect via the Ritual Reader.");
+        addRitual("crystallum_fractura", "Crystallum Fractura", "Auto-harvests Spiritus Crystal clusters in range, doubles their growth speed, and biases the chunk's aspect via the Ritual Configurator.");
         addRitual("downgrade", "Sentient Extraction", "Throw a piece of Sentient Armor onto the small zone above the master stone; the ritual extracts every upgrade as a separate Upgrade Tome.");
         addRitual("meteor", "Ritual of Meteo", "Consumes a catalyst item dropped within the area and crashes a corresponding meteor from above. Catalysts are defined by meteor recipes.");
         addRitual("forsaken_soul", "The Ritual of Lost Souls", "Watches the 21x21x21 area for non-player mob deaths and drops a charged Raw Spiritus item at each death position.");

@@ -48,7 +48,20 @@ public final class SpiritusTooltipHelper {
                     String.format(Locale.ROOT, "%.1f", damageBonus)).withStyle(ChatFormatting.GRAY));
         }
 
+        if (isMiningTool(tooltipKey) && level >= 0) {
+            double digSpeed = SentientToolHelper.DEFAULT_DIG_SPEED_ADDED[level];
+            tooltip.accept(Component.translatable("tooltip.neovitae.spiritus.mining_speed",
+                    String.format(Locale.ROOT, "%.1f", digSpeed)).withStyle(ChatFormatting.GRAY));
+        }
+
         tooltip.accept(buildRider(tooltipKey, type, level).withStyle(ChatFormatting.GRAY));
+    }
+
+    private static boolean isMiningTool(String tooltipKey) {
+        return switch (tooltipKey) {
+            case "sentientPickaxe", "sentientAxe", "sentientShovel", "lexVitae" -> true;
+            default -> false;
+        };
     }
 
     private static MutableComponent buildRider(String tooltipKey, SpiritusType type, int level) {

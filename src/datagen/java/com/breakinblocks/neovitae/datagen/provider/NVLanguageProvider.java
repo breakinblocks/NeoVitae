@@ -328,6 +328,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         // Spiritus headline numerics + Shift expand
         addTooltip("spiritus.level", "Level %s (%s will)");
         addTooltip("spiritus.damage_bonus", "+%s bonus damage");
+        addTooltip("spiritus.mining_speed", "+%s mining speed");
         addTooltip("spiritus.aoe_radius", "%s block AoE radius");
         addTooltip("spiritus.hold_shift", "Hold Shift for details");
 

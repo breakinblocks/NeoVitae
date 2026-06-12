@@ -13,6 +13,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -145,7 +146,19 @@ public class LexVitaeItem extends Item implements ISentientTool {
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        return isActive(stack) ? super.getDestroySpeed(stack, state) : 1.0F;
+        if (!isActive(stack)) return 1.0F;
+        float value = super.getDestroySpeed(stack, state);
+        if (value > 1) {
+            return (float) (value + getDigSpeedBonus(stack));
+        }
+        return value;
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
+        if (slot == EquipmentSlot.MAINHAND && isActive(stack) && entity instanceof Player player) {
+            recalculatePowers(stack, level, player);
+        }
     }
 
     @Override

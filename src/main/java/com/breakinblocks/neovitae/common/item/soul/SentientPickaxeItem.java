@@ -90,6 +90,9 @@ public class SentientPickaxeItem extends Item implements ISentientTool {
 
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
+        if (slot == EquipmentSlot.MAINHAND && entity instanceof Player player) {
+            recalculatePowers(stack, level, player);
+        }
     }
 
     @Override

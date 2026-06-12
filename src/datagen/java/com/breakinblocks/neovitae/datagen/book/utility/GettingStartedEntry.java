@@ -161,7 +161,7 @@ public class GettingStartedEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Aspected Spiritus (Tier III)");
-        this.pageText("Investigate the [#](8B0000)Ritual Tinkerer[#]() and the various "
+        this.pageText("Investigate the [#](8B0000)Ritual Configurator[#]() and the various "
                 + "[#](4A0080)Aspects of Spiritus[#]() now available. These aspects can refine your rituals "
                 + "and reshape how your Sentient Tools behave.\\\n\\\n"
                 + "To progress beyond this threshold, however, a deeper plunge into the "

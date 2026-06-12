@@ -225,7 +225,19 @@ public class ItemRitualReader extends Item {
         ItemStack stack = player.getItemInHand(hand);
 
         if (!level.isClientSide() && player.isShiftKeyDown()) {
-            cycleRangeKey(stack, player);
+            EnumRitualReaderState state = getState(stack);
+            if (state == EnumRitualReaderState.SET_AREA_CORNER_1 || state == EnumRitualReaderState.SET_AREA_CORNER_2) {
+                MasterRitualStoneBlockEntity mrs = findNearbyMasterRitualStone(level, player.blockPosition(), player.blockPosition(), player);
+                Ritual ritual = mrs != null ? mrs.getCurrentRitual() : null;
+                if (ritual != null) {
+                    cycleRangeKey(stack, player, ritual);
+                } else {
+                    player.sendOverlayMessage(
+                            Component.translatable("chat.neovitae.reader.noMRS").withStyle(ChatFormatting.RED));
+                }
+            } else {
+                cycleRangeKey(stack, player);
+            }
             return InteractionResult.SUCCESS;
         }
 

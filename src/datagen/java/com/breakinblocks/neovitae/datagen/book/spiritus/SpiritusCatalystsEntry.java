@@ -63,7 +63,7 @@ public class SpiritusCatalystsEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Pair the catalyst with the [#](8B0000)Crystallum Fractura[#]() ritual for a hands-off farm: "
                 + "the ritual auto-harvests fully-grown clusters, doubles ambient growth, and (with the "
-                + "Master Ritual Stone attuned via the Ritual Reader) can bias the +25%% injection bonus toward "
+                + "Master Ritual Stone attuned via the Ritual Configurator) can bias the +25%% injection bonus toward "
                 + "any Aspect you choose.\\\n\\\n"
                 + "A modest [#](8B0000)Routing Node[#]() arrangement can then ship harvested shards back into a "
                 + "[#](8B0000)Vas Maleficum[#]() to maintain saturation, closing the loop. The exact layout is left as "

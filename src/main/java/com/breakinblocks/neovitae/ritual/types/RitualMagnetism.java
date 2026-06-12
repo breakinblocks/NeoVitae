@@ -30,6 +30,7 @@ import java.util.function.Consumer;
 public class RitualMagnetism extends Ritual {
 
     public static final String PLACEMENT_RANGE = "placementRange";
+    public static final String CHEST_RANGE = "chestRange";
     private static final int MAX_CHECKS_PER_REFRESH = 100;
     private static final int MAX_ORES_PER_REFRESH = 3;
 
@@ -39,6 +40,8 @@ public class RitualMagnetism extends Ritual {
         super("magnetism", 0, 5000, "ritual." + NeoVitae.MODID + ".magnetism");
         addBlockRange(PLACEMENT_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-1, 1, -1), 3, 3, 3));
         setMaximumVolumeAndDistanceOfRange(PLACEMENT_RANGE, 50, 4, 4);
+        addBlockRange(CHEST_RANGE, new AreaDescriptor.Rectangle(new BlockPos(0, 1, 0), 1, 1, 1));
+        setMaximumVolumeAndDistanceOfRange(CHEST_RANGE, 1, 5, 5);
     }
 
     @Override
@@ -50,7 +53,8 @@ public class RitualMagnetism extends Ritual {
         BlockPos masterPos = ctx.masterPos();
         UUID owner = ctx.master().getOwner();
 
-        ResourceHandler<ItemResource> container = world.getCapability(Capabilities.Item.BLOCK, masterPos.above(), null);
+        BlockPos chestPos = RitualHelper.firstPositionInRange(ctx.master(), this, CHEST_RANGE, masterPos).orElse(masterPos.above());
+        ResourceHandler<ItemResource> container = world.getCapability(Capabilities.Item.BLOCK, chestPos, null);
         int radius = getRadius(world.getBlockState(masterPos.below()).getBlock());
         int minRelY = world.getMinY() - masterPos.getY();
 

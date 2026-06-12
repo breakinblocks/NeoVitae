@@ -62,7 +62,7 @@ public class RitualCrystallumFracturaEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Aspect Bias");
-        this.pageText("Attune the Master Ritual Stone to a single Spiritus aspect with the [#](8B0000)Ritual Reader[#]() in [#](2E8B57)Set Spiritus Consumed[#]() mode while holding exactly one matching crystal in your hotbar. The +25%% portion of any [#](8B0000)Raw Spiritus[#]() injection within the aura is then redirected to that aspect's pool, letting you farm a chosen aspect while the ritual is running.");
+        this.pageText("Attune the Master Ritual Stone to a single Spiritus aspect with the [#](8B0000)Ritual Configurator[#]() in [#](2E8B57)Set Spiritus Consumed[#]() mode while holding exactly one matching crystal in your hotbar. The +25%% portion of any [#](8B0000)Raw Spiritus[#]() injection within the aura is then redirected to that aspect's pool, letting you farm a chosen aspect while the ritual is running.");
     }
 
     @Override

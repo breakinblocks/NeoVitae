@@ -22,8 +22,8 @@ public class RitualTinkererEntry extends EntryProvider {
         this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Ritual Tinkerer");
-        this.pageText("The [#](8B0000)Ritual Tinkerer[#]() is an essential instrument for the practitioner who demands mastery over their [#](4A0080)ritual circles[#](). It offers three modes of interaction, each granting deeper control. Cycle between them by pressing Sneak and Use.");
+        this.pageTitle("Ritual Configurator");
+        this.pageText("The [#](8B0000)Ritual Configurator[#]() is an essential instrument for the practitioner who demands mastery over their [#](4A0080)ritual circles[#](). It offers three modes of interaction, each granting deeper control. Cycle between them by pressing Sneak and Use.");
 
         this.page("crafting", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual_reader")));
@@ -35,13 +35,14 @@ public class RitualTinkererEntry extends EntryProvider {
 
         this.page("define_area", () -> BookTextPageModel.create()
                 .withText(this.context().pageText()));
-        this.pageText("- [#](8B0000)Define Area[#](): Specifies the zone in which the ritual operates, and displays the current boundaries. If multiple zones exist, pressing Sneak and Use on the [#](8B0000)Master Ritual Stone[#]() cycles between them."
+        this.pageText("- [#](8B0000)Define Area[#](): Specifies the zone in which the ritual operates, and displays the current boundaries. Press Sneak and Use in the air to cycle through a ritual's zones, then click two opposite corners to reshape the selected one."
+                + "\\\n\\\nRituals that draw from or deposit into a container expose their [#](8B0000)chest[#](), [#](8B0000)tank[#](), or input/output zone here too, so you can place that container wherever you like instead of directly atop the [#](8B0000)Master Ritual Stone[#]()."
                 + "\\\n\\\n[#](2E8B57)Some rituals can be expanded far beyond their default range, but the EV cost scales to match. Tread carefully with your reserves.[#]()");
     }
 
     @Override
     protected String entryName() {
-        return "Ritual Tinkerer";
+        return "Ritual Configurator";
     }
 
     @Override

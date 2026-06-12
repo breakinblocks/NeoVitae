@@ -23,6 +23,8 @@ Hold sneak and press [Use] to open a configuration interface for arranging the o
 ### Seer's Sigil
 Where the Divination Sigil offers a glimpse, the Seer opens your perception wide. When aimed at an Ara Vitae, the display reveals the altar's tier, its current EV and maximum capacity, active crafting progress, EV consumed per tick during crafting, and the EV currently held in reserve by Charging Runes. Forged from the **Sight Reagent**.
 
+While you carry a Seer's Sigil, looking at an active **Master Ritual Stone** outlines the ritual's working area in the world, drawing a coloured box around each of its configured ranges. The sigil need only be on your person; it works from your inventory, from inside a Sigil of Holding, or worn in a Curios slot.
+
 ## Utility
 
 ### Sigil of the Blood Lamp

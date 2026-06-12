@@ -69,6 +69,7 @@ public class RitualTormentNexus extends Ritual {
     public static final String NAME = "torment_nexus";
     public static final String EFFECT_RANGE = "effect";
     public static final String ALTAR_RANGE = "altar";
+    public static final String CHEST_RANGE = "chestRange";
 
     private static final Set<GlobalPos> SUPPRESSED_SPAWNERS = ConcurrentHashMap.newKeySet();
     private static volatile boolean LISTENER_REGISTERED = false;
@@ -86,6 +87,8 @@ public class RitualTormentNexus extends Ritual {
         addBlockRange(ALTAR_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-5, -10, -5), 11, 21, 11));
         setMaximumVolumeAndDistanceOfRange(EFFECT_RANGE, 0, 32, 32);
         setMaximumVolumeAndDistanceOfRange(ALTAR_RANGE, 0, 15, 15);
+        addBlockRange(CHEST_RANGE, new AreaDescriptor.Rectangle(new BlockPos(0, 1, 0), 1, 1, 1));
+        setMaximumVolumeAndDistanceOfRange(CHEST_RANGE, 1, 5, 5);
         ensureSpawnSuppressionListener();
     }
 
@@ -212,7 +215,7 @@ public class RitualTormentNexus extends Ritual {
 
         UUID owner = ctx.master().getOwner() != null ? ctx.master().getOwner() : UUID.randomUUID();
         FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(level, owner, "TormentNexus");
-        BlockPos chestPos = masterPos.above();
+        BlockPos chestPos = RitualHelper.firstPositionInRange(ctx.master(), this, CHEST_RANGE, masterPos).orElse(masterPos.above());
         BlockEntity chestBE = level.getBlockEntity(chestPos);
         ResourceHandler<ItemResource> chestInv = chestBE != null ? level.getCapability(Capabilities.Item.BLOCK, chestPos, null) : null;
 

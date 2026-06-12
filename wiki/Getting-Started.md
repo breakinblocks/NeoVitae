@@ -82,7 +82,7 @@ See **[Sentient Armor](Sentient-Armor)** for the full upgrade/downgrade tree.
 
 ## Tier III, Aspected Spiritus
 
-The **Ritual Tinkerer** and the five **Aspects of Spiritus** (Raw, Ruina, Nihilum, Vindicta, Invictus) refine your rituals and reshape how your Sentient Tools behave.
+The **Ritual Configurator** and the five **Aspects of Spiritus** (Raw, Ruina, Nihilum, Vindicta, Invictus) refine your rituals and reshape how your Sentient Tools behave.
 
 See **[Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)**.
 

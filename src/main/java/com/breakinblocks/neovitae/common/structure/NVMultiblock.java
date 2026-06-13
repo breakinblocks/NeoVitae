@@ -65,7 +65,7 @@ public class NVMultiblock {
                 Predicate<BlockState> matcher = createMatcher(component, blockRegistry);
                 if (component.optional()) {
                     Predicate<BlockState> required = matcher;
-                    matcher = state -> state.isAir() || required.test(state);
+                    matcher = state -> state.isAir() || !state.getFluidState().isEmpty() || required.test(state);
                 }
                 builder.add(component.pos(), matcher);
             }

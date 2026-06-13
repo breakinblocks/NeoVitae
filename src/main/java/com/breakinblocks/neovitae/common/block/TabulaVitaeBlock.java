@@ -131,17 +131,8 @@ public class TabulaVitaeBlock extends BaseEntityBlock {
 
     @Override
     protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel worldIn, BlockPos pos, boolean isMoving) {
-        BlockEntity tileentity = worldIn.getBlockEntity(pos);
-        if (tileentity instanceof TabulaVitaeBlockEntity alchemyTable && !alchemyTable.isSlave()) {
-            alchemyTable.dropItems();
-            worldIn.updateNeighbourForOutputSignal(pos, this);
-        }
         BlockPos partner = partnerPos(state, pos);
         if (worldIn.getBlockState(partner).is(this)) {
-            BlockEntity partnerEntity = worldIn.getBlockEntity(partner);
-            if (partnerEntity instanceof TabulaVitaeBlockEntity partnerTable && !partnerTable.isSlave()) {
-                partnerTable.dropItems();
-            }
             worldIn.setBlock(partner, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
         }
         super.affectNeighborsAfterRemoval(state, worldIn, pos, isMoving);

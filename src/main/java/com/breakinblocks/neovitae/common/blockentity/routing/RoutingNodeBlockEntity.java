@@ -318,4 +318,11 @@ public abstract class RoutingNodeBlockEntity extends BlockEntity implements IRou
         return 0;
     }
 
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        removeAllConnections();
+        super.preRemoveSideEffects(pos, state);
+    }
+
 }

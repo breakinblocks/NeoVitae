@@ -568,4 +568,13 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             inv.setStackInSlot(slot, container);
         }
     }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (!isSlave()) {
+            dropItems();
+        }
+        super.preRemoveSideEffects(pos, state);
+    }
+
 }

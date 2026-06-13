@@ -744,4 +744,11 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
     public Component getDisplayName() {
         return Component.translatable("block.neovitae.master_routing_node");
     }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        removeAllConnections();
+        super.preRemoveSideEffects(pos, state);
+    }
+
 }

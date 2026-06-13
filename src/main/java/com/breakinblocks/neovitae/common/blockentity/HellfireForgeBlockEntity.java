@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.NeoForge;
@@ -256,4 +257,13 @@ public class HellfireForgeBlockEntity extends BaseBlockEntity implements MenuPro
     public double getProgressForGui() {
         return (double) progress / (double) MAX_PROGRESS;
     }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (this.level != null) {
+            BlockEntityHelper.dropContents(this.level, pos, inv);
+        }
+        super.preRemoveSideEffects(pos, state);
+    }
+
 }

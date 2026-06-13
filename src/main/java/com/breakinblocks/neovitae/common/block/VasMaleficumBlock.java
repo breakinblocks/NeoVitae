@@ -22,7 +22,6 @@ import com.breakinblocks.neovitae.common.blockentity.VasMaleficumBlockEntity;
 import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 
 import javax.annotation.Nullable;
-import net.minecraft.server.level.ServerLevel;
 
 public class VasMaleficumBlock extends BaseEntityBlock {
 
@@ -89,17 +88,5 @@ public class VasMaleficumBlock extends BaseEntityBlock {
         }
 
         return InteractionResult.PASS;
-    }
-
-    @Override
-    public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean isMoving) {
-        BlockEntity be = level.getBlockEntity(pos);
-        if (be instanceof VasMaleficumBlockEntity crucible) {
-            ItemStack stack = crucible.getInventory().getStackInSlot(0);
-            if (!stack.isEmpty()) {
-                Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), stack);
-            }
-        }
-        super.affectNeighborsAfterRemoval(state, level, pos, isMoving);
     }
 }

@@ -6,7 +6,6 @@
 package com.breakinblocks.neovitae.common.block;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -200,19 +199,6 @@ public class BlockMasterRitualStone extends Block implements EntityBlock {
         }
 
         return InteractionResult.SUCCESS;
-    }
-
-    @Override
-    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-        if (true) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof MasterRitualStoneBlockEntity tile) {
-                if (tile.isActive()) {
-                    tile.stopRitual(Ritual.BreakType.BREAK_MRS);
-    }
-            }
-        }
-        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 
     // @Override (removed: not an override in 26.1)

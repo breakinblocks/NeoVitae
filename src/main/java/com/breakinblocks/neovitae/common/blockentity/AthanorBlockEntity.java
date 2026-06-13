@@ -45,6 +45,7 @@ import net.neoforged.neoforge.transfer.resource.ResourceStack;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.client.sound.LoopSoundManager;
+import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.block.AthanorBlock;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -725,5 +726,13 @@ public class AthanorBlockEntity extends BaseBlockEntity implements MenuProvider 
         for (Map.Entry<SpiritusType, Double> entry : recipe.getSpiritusCosts().entrySet()) {
             WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, entry.getKey(), entry.getValue());
         }
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (this.level != null) {
+            BlockEntityHelper.dropContents(this.level, pos, athanorInv);
+        }
+        super.preRemoveSideEffects(pos, state);
     }
 }

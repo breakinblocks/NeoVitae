@@ -32,7 +32,6 @@ import com.breakinblocks.neovitae.common.routing.RoutingLinkHelper;
 import com.breakinblocks.neovitae.api.routing.*;
 
 import javax.annotation.Nullable;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -137,15 +136,6 @@ public abstract class BlockRoutingNode extends BaseEntityBlock {
         if (tile instanceof IRoutingNode node && !(tile instanceof IMasterRoutingNode)) {
             RoutingLinkHelper.tryAutoBind(level, pos, node);
         }
-    }
-
-    @Override
-    public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean isMoving) {
-        BlockEntity tile = level.getBlockEntity(pos);
-        if (tile instanceof IRoutingNode node) {
-            node.removeAllConnections();
-        }
-        super.affectNeighborsAfterRemoval(state, level, pos, isMoving);
     }
 
     @Nullable

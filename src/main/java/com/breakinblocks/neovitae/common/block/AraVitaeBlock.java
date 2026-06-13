@@ -1,9 +1,7 @@
 package com.breakinblocks.neovitae.common.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.Direction;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -70,16 +68,6 @@ public class AraVitaeBlock extends Block implements EntityBlock {
     @Override
     protected VoxelShape getOcclusionShape(BlockState state) {
         return Shapes.empty();
-    }
-
-    @Override
-    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-        if (true) {
-            if (level.getBlockEntity(pos) instanceof AraVitaeTile tile) {
-                Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), tile.inv.getStackInSlot(0));
-    }
-        }
-        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 
     @Override

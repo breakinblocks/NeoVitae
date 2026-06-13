@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
 import com.breakinblocks.neovitae.common.blockentity.TeleposerBlockEntity;
-import net.minecraft.server.level.ServerLevel;
 
 public class TeleposerBlock extends Block implements EntityBlock {
     public TeleposerBlock(BlockBehaviour.Properties props) {
@@ -45,16 +44,6 @@ public class TeleposerBlock extends Block implements EntityBlock {
             teleposer.dropItems();
         }
         super.destroy(world, blockPos, blockState);
-    }
-
-    @Override
-    public void affectNeighborsAfterRemoval(BlockState state, ServerLevel worldIn, BlockPos pos, boolean isMoving) {
-        BlockEntity tileentity = worldIn.getBlockEntity(pos);
-        if (tileentity instanceof TeleposerBlockEntity teleposer) {
-            teleposer.dropItems();
-            worldIn.updateNeighbourForOutputSignal(pos, this);
-        }
-        super.affectNeighborsAfterRemoval(state, worldIn, pos, isMoving);
     }
 
     @Override

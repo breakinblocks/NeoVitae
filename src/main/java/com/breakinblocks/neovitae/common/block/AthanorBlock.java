@@ -2,7 +2,6 @@ package com.breakinblocks.neovitae.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -69,14 +68,6 @@ public class AthanorBlock extends Block implements EntityBlock {
     @Override
     protected VoxelShape getOcclusionShape(BlockState state) {
         return OCCLUSION_SHAPE;
-    }
-
-    @Override
-    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-        if (level.getBlockEntity(pos) instanceof AthanorBlockEntity arc) {
-            BlockEntityHelper.dropContents(level, pos, arc.athanorInv);
-        }
-        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 
     @Nullable

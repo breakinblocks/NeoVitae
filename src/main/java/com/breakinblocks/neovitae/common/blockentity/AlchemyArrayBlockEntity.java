@@ -326,4 +326,11 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
             arrayEffect.onNeighborChanged(this, neighborPos);
         }
     }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        dropItems();
+        super.preRemoveSideEffects(pos, state);
+    }
+
 }

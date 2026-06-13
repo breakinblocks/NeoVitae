@@ -9,6 +9,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import com.breakinblocks.neovitae.util.helper.BlockEntityHelper;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.transfer.ResourceHandler;
@@ -238,4 +239,13 @@ public class OrbFillingLinkBlockEntity extends BaseBlockEntity {
         cachedAltar = null;
         bindingNeedsValidation = true;
     }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (this.level != null) {
+            BlockEntityHelper.dropContents(this.level, pos, inv);
+        }
+        super.preRemoveSideEffects(pos, state);
+    }
+
 }

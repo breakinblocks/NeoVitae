@@ -31,7 +31,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.NVTiles;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.level.LevelReader;
@@ -187,15 +186,5 @@ public class AlchemyArrayBlock extends BaseEntityBlock implements SimpleWaterlog
         }
 
         super.destroy(world, blockPos, blockState);
-    }
-
-    @Override
-    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel worldIn, BlockPos pos, boolean isMoving) {
-        BlockEntity tileentity = worldIn.getBlockEntity(pos);
-        if (tileentity instanceof AlchemyArrayBlockEntity alchemyArray) {
-            alchemyArray.dropItems();
-            worldIn.updateNeighbourForOutputSignal(pos, this);
-        }
-        super.affectNeighborsAfterRemoval(state, worldIn, pos, isMoving);
     }
 }

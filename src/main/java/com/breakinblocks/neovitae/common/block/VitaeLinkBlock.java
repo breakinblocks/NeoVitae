@@ -5,10 +5,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -145,17 +143,6 @@ public class VitaeLinkBlock extends Block implements EntityBlock {
         }
 
         return InteractionResult.CONSUME;
-    }
-
-    @Override
-    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-        if (level.getBlockEntity(pos) instanceof VitaeLinkBlockEntity be) {
-            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(),
-                    be.inv.getStackInSlot(VitaeLinkBlockEntity.INPUT_SLOT));
-            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(),
-                    be.inv.getStackInSlot(VitaeLinkBlockEntity.OUTPUT_SLOT));
-        }
-        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 
     @Override

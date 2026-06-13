@@ -309,4 +309,11 @@ public class TeleposerBlockEntity extends BaseBlockEntity implements MenuProvide
     public boolean shouldInformAdmins() {
         return false;
     }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        dropItems();
+        super.preRemoveSideEffects(pos, state);
+    }
+
 }

@@ -3,9 +3,7 @@ package com.breakinblocks.neovitae.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -118,15 +116,6 @@ public class OrbFillingLinkBlock extends Block implements EntityBlock {
     @Override
     protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction fromDirection) {
         return level.getBlockEntity(pos) instanceof OrbFillingLinkBlockEntity be ? be.getComparatorSignal() : 0;
-    }
-
-    @Override
-    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-        if (level.getBlockEntity(pos) instanceof OrbFillingLinkBlockEntity be) {
-            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(),
-                    be.inv.getStackInSlot(OrbFillingLinkBlockEntity.ORB_SLOT));
-        }
-        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 
     @Override

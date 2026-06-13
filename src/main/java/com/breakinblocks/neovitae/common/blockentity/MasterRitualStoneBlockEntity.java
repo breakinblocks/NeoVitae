@@ -568,4 +568,13 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
             }
         };
     }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (isActive()) {
+            stopRitual(Ritual.BreakType.BREAK_MRS);
+        }
+        super.preRemoveSideEffects(pos, state);
+    }
+
 }

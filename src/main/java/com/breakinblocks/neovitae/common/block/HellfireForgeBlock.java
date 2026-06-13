@@ -1,7 +1,6 @@
 package com.breakinblocks.neovitae.common.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -29,16 +28,6 @@ public class HellfireForgeBlock extends Block implements EntityBlock {
         super(props
                 .strength(2.0F, 5.0F)
                 .requiresCorrectToolForDrops());
-    }
-
-    @Override
-    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-        if (true) {
-            if (level.getBlockEntity(pos) instanceof HellfireForgeBlockEntity tile) {
-                BlockEntityHelper.dropContents(level, pos, tile.inv);
-    }
-        }
-        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 
     @Override

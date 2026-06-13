@@ -1,13 +1,11 @@
 package com.breakinblocks.neovitae.common.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -86,18 +84,6 @@ public class SpiritCacheBlock extends Block implements EntityBlock {
             serverPlayer.openMenu(cache, pos);
         }
         return InteractionResult.CONSUME;
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-        if (true) {
-            if (level.getBlockEntity(pos) instanceof SpiritCacheBlockEntity cache) {
-                Containers.dropContents(level, pos, cache);
-                level.updateNeighbourForOutputSignal(pos, this);
-    }
-        }
-        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 
     @Override

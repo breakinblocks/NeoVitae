@@ -1,0 +1,30 @@
+{
+  "parent": "neovitae:neovitae/sentient_armor",
+  "criteria": {
+    "activate": {
+      "conditions": {
+        "ritual_id": "neovitae:armour_evolve"
+      },
+      "trigger": "neovitae:ritual_activated"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neovitae.sentient_evolution.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "neovitae:sentient_plate"
+    },
+    "title": {
+      "translate": "advancements.neovitae.sentient_evolution.title"
+    }
+  },
+  "requirements": [
+    [
+      "activate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

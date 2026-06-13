@@ -432,7 +432,7 @@ public class NVAdvancementProvider extends AdvancementProvider {
                     .addCriterion("get_crucible", InventoryChangeTrigger.TriggerInstance.hasItems(NVBlocks.VAS_MALEFICUM))
                     .save(saver, NeoVitae.rl("neovitae/vas_maleficum").toString());
 
-            Advancement.Builder.advancement()
+            AdvancementHolder sentientArmor = Advancement.Builder.advancement()
                     .parent(hellfireForge)
                     .display(NVItems.SENTIENT_PLATE.get(),
                             Component.translatable("advancements.neovitae.sentient_armor.title"),
@@ -440,6 +440,15 @@ public class NVAdvancementProvider extends AdvancementProvider {
                             null, AdvancementType.GOAL, true, true, false)
                     .addCriterion("get_armor", InventoryChangeTrigger.TriggerInstance.hasItems(NVItems.SENTIENT_PLATE.get()))
                     .save(saver, NeoVitae.rl("neovitae/sentient_armor").toString());
+
+            Advancement.Builder.advancement()
+                    .parent(sentientArmor)
+                    .display(NVItems.SENTIENT_PLATE.get(),
+                            Component.translatable("advancements.neovitae.sentient_evolution.title"),
+                            Component.translatable("advancements.neovitae.sentient_evolution.description"),
+                            null, AdvancementType.CHALLENGE, true, true, false)
+                    .addCriterion("activate", NVCriteriaTriggers.RITUAL_ACTIVATED.get().createCriterion(RitualActivatedTrigger.forRitual("neovitae:armour_evolve")))
+                    .save(saver, NeoVitae.rl("neovitae/sentient_evolution").toString());
 
             Advancement.Builder.advancement()
                     .parent(weakBloodOrb)

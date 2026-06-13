@@ -187,27 +187,26 @@ public class CommonEventHandler {
                 bootPlayerFromDungeon(serverPlayer);
             } else if (player.tickCount % 20 == 0) {
                 DungeonExitData exitData = serverPlayer.getData(NVDataAttachments.DUNGEON_EXIT);
-                if (exitData.controllerPos().isPresent()) {
-                    BlockPos ctrlPos = exitData.controllerPos().get();
-                    if (player.level().getBlockEntity(ctrlPos) instanceof DungeonControllerBlockEntity controller) {
-                        BlockPos playerPos = player.blockPosition();
-                        boolean inBounds = controller.getDungeonSynthesizer().isBlockNearDescriptor(playerPos, 5)
-                                || controller.getDungeonSynthesizer().isBlockNearDescriptor(playerPos.above(), 5)
-                                || controller.getDungeonSynthesizer().isBlockNearDescriptor(playerPos.above(2), 5);
-                        if (!inBounds) {
-                            NeoVitae.LOGGER.warn("Ejecting player {} at {} from dungeon. Controller at {}. Descriptors: {}",
-                                    player.getName().getString(), playerPos, ctrlPos,
-                                    controller.getDungeonSynthesizer().getDescriptorList().size());
-                            bootPlayerFromDungeon(serverPlayer);
+                BlockPos playerPos = player.blockPosition();
+                BlockPos ctrlPos = exitData.controllerPos()
+                        .orElseGet(() -> DungeonDimensionHelper.controllerPosForLocation(playerPos));
+                if (player.level().getBlockEntity(ctrlPos) instanceof DungeonControllerBlockEntity controller) {
+                    boolean inBounds = controller.getDungeonSynthesizer().isBlockNearDescriptor(playerPos, 5)
+                            || controller.getDungeonSynthesizer().isBlockNearDescriptor(playerPos.above(), 5)
+                            || controller.getDungeonSynthesizer().isBlockNearDescriptor(playerPos.above(2), 5);
+                    if (inBounds) {
+                        if (exitData.controllerPos().isEmpty()) {
+                            serverPlayer.setData(NVDataAttachments.DUNGEON_EXIT.get(), exitData.withControllerPos(ctrlPos));
                         }
                     } else {
-                        NeoVitae.LOGGER.warn("No controller BE found at {} for player {}. Ejecting.",
-                                ctrlPos, player.getName().getString());
+                        NeoVitae.LOGGER.warn("Ejecting player {} at {} from dungeon. Controller at {}. Descriptors: {}",
+                                player.getName().getString(), playerPos, ctrlPos,
+                                controller.getDungeonSynthesizer().getDescriptorList().size());
                         bootPlayerFromDungeon(serverPlayer);
                     }
                 } else {
-                    NeoVitae.LOGGER.warn("Player {} in dungeon with no controllerPos set. Ejecting.",
-                            player.getName().getString());
+                    NeoVitae.LOGGER.warn("No controller BE found at {} for player {}. Ejecting.",
+                            ctrlPos, player.getName().getString());
                     bootPlayerFromDungeon(serverPlayer);
                 }
             }

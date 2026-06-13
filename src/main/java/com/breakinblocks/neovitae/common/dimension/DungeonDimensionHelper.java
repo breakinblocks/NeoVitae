@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.event.CommonEventHandler;
+import com.breakinblocks.neovitae.common.world.DungeonSavedData;
 
 import javax.annotation.Nullable;
 
@@ -25,6 +26,14 @@ public class DungeonDimensionHelper {
 
     public static final ResourceKey<Level> DUNGEON_DIMENSION = ResourceKey.create(
             Registries.DIMENSION, NeoVitae.rl("dungeon"));
+
+    public static BlockPos controllerPosForLocation(BlockPos pos) {
+        int disp = DungeonSavedData.DUNGEON_DISPLACEMENT;
+        return new BlockPos(
+                Math.round((float) pos.getX() / disp) * disp,
+                64,
+                Math.round((float) pos.getZ() / disp) * disp);
+    }
 
     /**
      * Gets the dungeon dimension ServerLevel.

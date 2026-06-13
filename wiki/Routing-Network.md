@@ -82,17 +82,22 @@ The Master is where you tune the network's behaviour as a whole.
 
 ### Stack and Speed Upgrades
 
-Stack upgrades raise the ceiling on **transfer rate** for all three resource types simultaneously, governing items per pulse, mB of fluid per pulse, and FE/t. Speed upgrades shorten the pulse interval. Combine them according to taste and resource budget.
+The Master has two upgrade slots, each accepting one upgrade type:
+
+- **Routing Stack Upgrade** (stack slot, up to **64**) raises the **transfer ceiling** for all three resource types at once. A base operation moves **16 items**, **1,000 mB of fluid**, and **10,000 FE**; each upgrade adds another **16 items / 1,000 mB / 10,000 FE** on top.
+- **Routing Speed Upgrade** (speed slot, up to **19**) shortens the **pulse interval**. The base rate is one operation every **20 ticks** (one second); each upgrade shaves off one tick, so 19 upgrades bring it down to one operation every tick.
+
+Combine them according to taste and resource budget.
 
 ### Energy Throttle
 
 Below the upgrade slots sits an **Energy (FE/t)** field. The value you type is the rate the network **requests** from the energy channel each pulse, defaulting to **500 FE/t**.
 
-The true ceiling is set by the Stack Upgrades installed above. Each upgrade raises the maximum FE/t the network can physically move; the field's label shows this ceiling. Type a figure higher than the ceiling and the ceiling prevails; the network moves the smaller of the two.
+The true ceiling is set by the Routing Stack Upgrades installed above. Each upgrade raises the maximum FE/t the network can physically move; the field's label shows this ceiling. Type a figure higher than the ceiling and the ceiling prevails; the network moves the smaller of the two.
 
 Why throttle at all? A modest setting spares your generators and prevents one network from collapsing a fragile power grid. Start low; raise once your sources can sustain it.
 
-> The throttle only affects Forge Energy. Item and fluid transfer rates scale automatically with Stack Upgrades.
+> The throttle only affects Forge Energy. Item and fluid transfer rates scale automatically with Routing Stack Upgrades.
 
 ## A Worked Example: Auto-Smelting Farm
 

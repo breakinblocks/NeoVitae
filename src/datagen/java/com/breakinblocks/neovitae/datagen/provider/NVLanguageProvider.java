@@ -365,8 +365,8 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
 
         // Routing Items
         add(NVItems.NODE_ROUTER.get(), "Node Router");
-        add(NVItems.MASTER_NODE_UPGRADE.get(), "Master Routing Node Core");
-        add(NVItems.MASTER_NODE_UPGRADE_SPEED.get(), "Speed Core");
+        add(NVItems.MASTER_NODE_UPGRADE.get(), "Routing Stack Upgrade");
+        add(NVItems.MASTER_NODE_UPGRADE_SPEED.get(), "Routing Speed Upgrade");
         addTooltip("noderouter.coords", "Stored Position: %d, %d, %d");
         add("chat.neovitae.routing.remove", "Stored position cleared.");
         add("chat.neovitae.routing.set", "Position stored.");

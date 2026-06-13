@@ -152,13 +152,19 @@ public class MasterRoutingNodeMenu extends AbstractContainerMenu {
     }
 
     private static class UpgradeSlot extends Slot {
+        private final int upgradeSlot;
+
         public UpgradeSlot(MasterRoutingNodeBlockEntity container, int slot, int x, int y) {
             super(container, slot, x, y);
+            this.upgradeSlot = slot;
         }
 
         @Override
         public boolean mayPlace(ItemStack stack) {
-            return stack.is(NVItems.NODE_ROUTER.get());
+            if (upgradeSlot == MasterRoutingNodeBlockEntity.SLOT_SPEED_UPGRADE) {
+                return stack.is(NVItems.MASTER_NODE_UPGRADE_SPEED.get());
+            }
+            return stack.is(NVItems.MASTER_NODE_UPGRADE.get());
         }
     }
 }

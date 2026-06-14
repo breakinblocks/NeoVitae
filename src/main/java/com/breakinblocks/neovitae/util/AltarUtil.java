@@ -47,7 +47,7 @@ public class AltarUtil {
 
     public static DamageSource sacrificeDamage(Player causer) {
         DamageSources sources = causer.level().damageSources();
-        return sources.source(NVDamageSources.SELF_SACRIFICE, causer);
+        return sources.source(NVDamageSources.SELF_SACRIFICE);
     }
 
     public static int getTier(Level level, BlockPos altarPos) {

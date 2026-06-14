@@ -119,7 +119,7 @@ public class RitualFeatheredKnife extends Ritual {
                 if (incense > 0) {
                     float damage = health - threshold;
                     if (damage > 0) {
-                        player.hurt(ctx.level().damageSources().source(NVDamageSources.SELF_SACRIFICE, player), damage);
+                        player.hurt(ctx.level().damageSources().source(NVDamageSources.SELF_SACRIFICE), damage);
                         if (player.getHealth() < health) {
                             int healthLost = (int) (health - player.getHealth());
                             int lp = AltarUtil.calculateSelfSacrificeLP(player, healthLost, incense);
@@ -140,7 +140,7 @@ public class RitualFeatheredKnife extends Ritual {
             float damage = Math.min(1.0F, health - threshold);
             if (damage <= 0) continue;
 
-            player.hurt(ctx.level().damageSources().source(NVDamageSources.SELF_SACRIFICE, player), damage);
+            player.hurt(ctx.level().damageSources().source(NVDamageSources.SELF_SACRIFICE), damage);
 
             if (player.getHealth() < health) {
                 int healthLost = (int) Math.ceil(health - player.getHealth());

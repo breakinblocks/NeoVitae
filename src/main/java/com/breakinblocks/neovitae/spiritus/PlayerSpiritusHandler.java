@@ -4,6 +4,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 
 public class PlayerSpiritusHandler {
 
@@ -12,6 +13,7 @@ public class PlayerSpiritusHandler {
         inventory.addAll(player.getInventory().items);
         inventory.addAll(player.getInventory().armor);
         inventory.addAll(player.getInventory().offhand);
+        inventory.addAll(CuriosCompat.getCuriosInventory(player));
         return inventory;
     }
 
@@ -65,6 +67,7 @@ public class PlayerSpiritusHandler {
         double consumed = 0;
         consumed += consumeFromList(type, player.getInventory().items, amount - consumed);
         consumed += consumeFromList(type, player.getInventory().offhand, amount - consumed);
+        consumed += consumeFromList(type, CuriosCompat.getCuriosInventory(player), amount - consumed);
         return consumed;
     }
 

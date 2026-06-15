@@ -1,11 +1,22 @@
 package com.breakinblocks.neovitae.gametest;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.datamap.RoutingNodeStats;
+import com.breakinblocks.neovitae.common.item.soul.SpiritusEssenceItem;
 import com.breakinblocks.neovitae.common.network.StreamPayload;
 import com.breakinblocks.neovitae.common.recipe.NVRecipes;
 import com.breakinblocks.neovitae.gametest.base.NVTestRegistrar;
@@ -150,6 +161,43 @@ public final class DataValidationTests {
                         helper.fail("Expected item " + rl + " not registered");
                         return;
                     }
+                }
+                helper.succeed();
+            });
+        });
+
+        r.add("data/dungeon_spiritus_loot_has_value", 30, helper -> {
+            helper.runAfterDelay(1, () -> {
+                ServerLevel level = helper.getLevel();
+                ResourceKey<LootTable> key = ResourceKey.create(Registries.LOOT_TABLE,
+                        NeoVitae.rl("chests/standard_dungeon/great_loot"));
+                LootTable table = level.getServer().reloadableRegistries().getLootTable(key);
+                if (table == LootTable.EMPTY) {
+                    helper.fail("great_loot loot table did not load");
+                    return;
+                }
+                LootParams params = new LootParams.Builder(level)
+                        .withParameter(LootContextParams.ORIGIN, Vec3.ZERO)
+                        .create(LootContextParamSets.CHEST);
+                int seen = 0;
+                int valued = 0;
+                for (int i = 0; i < 800; i++) {
+                    for (ItemStack drop : table.getRandomItems(params)) {
+                        if (drop.getItem() instanceof SpiritusEssenceItem) {
+                            seen++;
+                            if (drop.getOrDefault(NVDataComponents.SPIRITUS_AMOUNT, 0.0) > 0) {
+                                valued++;
+                            }
+                        }
+                    }
+                }
+                if (seen == 0) {
+                    helper.fail("Never rolled a spiritus soul from great_loot in 800 rolls");
+                    return;
+                }
+                if (valued < seen) {
+                    helper.fail("Spiritus souls dropped with no value: " + (seen - valued) + "/" + seen);
+                    return;
                 }
                 helper.succeed();
             });

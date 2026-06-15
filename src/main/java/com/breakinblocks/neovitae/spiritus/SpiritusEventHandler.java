@@ -98,7 +98,7 @@ public class SpiritusEventHandler {
         if (killed.level().isClientSide() || !(killed instanceof IDaemonium)) {
             return;
         }
-        if (!(event.getSource().getEntity() instanceof Player)) {
+        if (!(event.getSource().getEntity() instanceof Player killer)) {
             return;
         }
         Identifier id = BuiltInRegistries.ENTITY_TYPE.getKey(killed.getType());
@@ -111,7 +111,17 @@ public class SpiritusEventHandler {
             return;
         }
         SpiritusType type = pickWeighted(drop.entries(), rng);
-        dropSouls(killed, List.of(new ItemStack(soulItem(type))));
+        double soulAmount = daemoniumSoulAmount(killed, killer, rng);
+        dropSouls(killed, List.of(soulItem(type).createSpiritus(soulAmount)));
+    }
+
+    private static double daemoniumSoulAmount(LivingEntity killed, Player killer, RandomSource rng) {
+        double amount = (SNARE_BASE_DROP + rng.nextDouble() * SNARE_RANDOM_DROP) * killed.getMaxHealth() / 20d;
+        double bonusSpiritus = killer.getAttributeValue(NVAttributes.BONUS_SPIRITUS);
+        if (bonusSpiritus > 0) {
+            amount *= (1 + bonusSpiritus / 100);
+        }
+        return amount;
     }
 
     private static SpiritusType pickWeighted(List<SpiritusEntry> entries, RandomSource rng) {

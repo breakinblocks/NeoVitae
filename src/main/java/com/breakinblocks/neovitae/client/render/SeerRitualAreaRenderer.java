@@ -38,6 +38,8 @@ public class SeerRitualAreaRenderer {
             0x4FC3F7, 0xFFD54F, 0xE57373, 0x81C784, 0xBA68C8, 0xFF8A65, 0x4DB6AC
     };
 
+    private static final float LINE_WIDTH = 2.0f;
+
     @SubscribeEvent
     public static void onRenderLevel(RenderLevelStageEvent.AfterTranslucentParticles event) {
         Minecraft mc = Minecraft.getInstance();
@@ -115,8 +117,8 @@ public class SeerRitualAreaRenderer {
         float nx = bx - ax, ny = by - ay, nz = bz - az;
         float len = (float) Math.sqrt(nx * nx + ny * ny + nz * nz);
         if (len != 0) { nx /= len; ny /= len; nz /= len; }
-        c.addVertex(matrix, ax, ay, az).setColor(r, g, b, a).setNormal(nx, ny, nz);
-        c.addVertex(matrix, bx, by, bz).setColor(r, g, b, a).setNormal(nx, ny, nz);
+        c.addVertex(matrix, ax, ay, az).setColor(r, g, b, a).setNormal(nx, ny, nz).setLineWidth(LINE_WIDTH);
+        c.addVertex(matrix, bx, by, bz).setColor(r, g, b, a).setNormal(nx, ny, nz).setLineWidth(LINE_WIDTH);
     }
 
     private static boolean playerHasSeerSigil(Player player) {

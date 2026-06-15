@@ -4,6 +4,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 
 public class PlayerSpiritusHandler {
 
@@ -14,6 +15,7 @@ public class PlayerSpiritusHandler {
         for (int i = 0; i < size; i++) {
             inventory.add(inv.getItem(i));
         }
+        inventory.addAll(CuriosCompat.getCuriosInventory(player));
         return inventory;
     }
 

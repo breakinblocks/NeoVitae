@@ -11,6 +11,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,24 +25,31 @@ public final class RitualMultiblockBuilder {
     private RitualMultiblockBuilder() {
     }
 
-    public static Multiblock build(List<RitualComponent> components, HolderLookup.Provider provider) {
-        Map<Character, JsonArray> positions = new LinkedHashMap<>();
-        Map<Character, Block> mapping = new LinkedHashMap<>();
+    private record Cell(char ch, int x, int y, int z) {}
 
-        positions.computeIfAbsent('0', k -> new JsonArray()).add(coord(0, 0, 0));
+    public static Multiblock build(List<RitualComponent> components, HolderLookup.Provider provider) {
+        Map<Character, Block> mapping = new LinkedHashMap<>();
         mapping.put('0', NVBlocks.MASTER_RITUAL_STONE.block().get());
 
-        JsonArray air = new JsonArray();
-        air.add(coord(0, 3, 0));
-        air.add(coord(0, -1, 0));
-        positions.put('_', air);
+        List<Cell> cells = new ArrayList<>();
+        cells.add(new Cell('0', 0, 0, 0));
+        cells.add(new Cell('_', 0, 3, 0));
+        cells.add(new Cell('_', 0, -1, 0));
 
         for (RitualComponent comp : components) {
             char ch = runeChar(comp.runeType());
-            positions.computeIfAbsent(ch, k -> new JsonArray()).add(coord(
-                    comp.offset().getX(), comp.offset().getY(), comp.offset().getZ()
-            ));
+            cells.add(new Cell(ch, comp.offset().getX(), comp.offset().getY(), comp.offset().getZ()));
             mapping.putIfAbsent(ch, runeBlock(comp.runeType()));
+        }
+
+        int minX = cells.stream().mapToInt(Cell::x).min().orElse(0);
+        int minY = cells.stream().mapToInt(Cell::y).min().orElse(0);
+        int minZ = cells.stream().mapToInt(Cell::z).min().orElse(0);
+
+        Map<Character, JsonArray> positions = new LinkedHashMap<>();
+        for (Cell c : cells) {
+            positions.computeIfAbsent(c.ch(), k -> new JsonArray())
+                    .add(coord(c.x() - minX, c.y() - minY, c.z() - minZ));
         }
 
         JsonObject root = new JsonObject();

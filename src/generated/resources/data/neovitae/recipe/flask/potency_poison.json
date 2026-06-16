@@ -3,6 +3,7 @@
   "ampDurationMod": 0.5,
   "amplifier": 1,
   "effect": "minecraft:poison",
+  "exampleBaseDuration": 900,
   "input": [
     "neovitae:mundane_power_catalyst"
   ],

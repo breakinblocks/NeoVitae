@@ -34,7 +34,8 @@ public class FlaskLengthRecipe extends FlaskRecipe {
             Codec.DOUBLE.fieldOf("lengthDurationMod").forGetter(FlaskLengthRecipe::getLengthDurationMod),
             Codec.INT.fieldOf("syphon").forGetter(FlaskLengthRecipe::getSyphon),
             Codec.INT.fieldOf("ticks").forGetter(FlaskLengthRecipe::getTicks),
-            Codec.INT.optionalFieldOf("upgradeLevel", 0).forGetter(FlaskLengthRecipe::getMinimumTier)
+            Codec.INT.optionalFieldOf("upgradeLevel", 0).forGetter(FlaskLengthRecipe::getMinimumTier),
+            Codec.INT.optionalFieldOf("exampleBaseDuration", 3600).forGetter(FlaskLengthRecipe::getExampleBaseDuration)
     ).apply(instance, FlaskLengthRecipe::new));
 
     private static final StreamCodec<RegistryFriendlyByteBuf, Holder<MobEffect>> MOB_EFFECT_CODEC =
@@ -47,16 +48,23 @@ public class FlaskLengthRecipe extends FlaskRecipe {
             ByteBufCodecs.INT, FlaskLengthRecipe::getSyphon,
             ByteBufCodecs.INT, FlaskLengthRecipe::getTicks,
             ByteBufCodecs.INT, FlaskLengthRecipe::getMinimumTier,
+            ByteBufCodecs.INT, FlaskLengthRecipe::getExampleBaseDuration,
             FlaskLengthRecipe::new
     );
 
     private final Holder<MobEffect> targetEffect;
     private final double lengthDurationMod;
+    private final int exampleBaseDuration;
 
-    public FlaskLengthRecipe(List<Ingredient> input, Holder<MobEffect> targetEffect, double lengthDurationMod, int syphon, int ticks, int minimumTier) {
+    public FlaskLengthRecipe(List<Ingredient> input, Holder<MobEffect> targetEffect, double lengthDurationMod, int syphon, int ticks, int minimumTier, int exampleBaseDuration) {
         super(input, syphon, ticks, minimumTier);
         this.targetEffect = targetEffect;
         this.lengthDurationMod = lengthDurationMod;
+        this.exampleBaseDuration = exampleBaseDuration;
+    }
+
+    public int getExampleBaseDuration() {
+        return exampleBaseDuration;
     }
 
     public Holder<MobEffect> getTargetEffect() {
@@ -109,7 +117,7 @@ public class FlaskLengthRecipe extends FlaskRecipe {
     @Override
     public List<EffectHolder> getExampleEffects() {
         List<EffectHolder> effects = new ArrayList<>();
-        effects.add(EffectHolder.create(targetEffect, 3600, 0));
+        effects.add(EffectHolder.create(targetEffect, exampleBaseDuration, 0));
         return effects;
     }
 

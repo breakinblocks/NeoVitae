@@ -4281,8 +4281,8 @@ public class NVRecipeProvider extends RecipeProvider {
         addPotencyRecipes(output, MobEffects.JUMP_BOOST, "jump_boost");
         addPotencyRecipes(output, MobEffects.STRENGTH, "strength");
         addPotencyRecipes(output, MobEffects.WEAKNESS, "weakness");
-        addPotencyRecipes(output, MobEffects.POISON, "poison");
-        addPotencyRecipes(output, MobEffects.REGENERATION, "regen");
+        addPotencyRecipes(output, MobEffects.POISON, "poison", 900);
+        addPotencyRecipes(output, MobEffects.REGENERATION, "regen", 900);
         addPotencyRecipes(output, MobEffects.LEVITATION, "levitation");
         addPotencyRecipes(output, MobEffects.SLOWNESS, "slowness");
         addPotencyRecipes(output, NVMobEffects.HARD_CLOAK, "hard_cloak");
@@ -4320,8 +4320,8 @@ public class NVRecipeProvider extends RecipeProvider {
         addLengthRecipes(output, MobEffects.JUMP_BOOST, "jump_boost");
         addLengthRecipes(output, MobEffects.STRENGTH, "strength");
         addLengthRecipes(output, MobEffects.WEAKNESS, "weakness");
-        addLengthRecipes(output, MobEffects.POISON, "poison");
-        addLengthRecipes(output, MobEffects.REGENERATION, "regen");
+        addLengthRecipes(output, MobEffects.POISON, "poison", 900);
+        addLengthRecipes(output, MobEffects.REGENERATION, "regen", 900);
         addLengthRecipes(output, MobEffects.LEVITATION, "levitation");
         addLengthRecipes(output, MobEffects.SLOWNESS, "slowness");
         addLengthRecipes(output, NVMobEffects.HARD_CLOAK, "hard_cloak");
@@ -4383,16 +4383,20 @@ public class NVRecipeProvider extends RecipeProvider {
      * Helper method to add potency recipes for effects that can be amplified
      */
     private void addPotencyRecipes(RecipeOutput output, Holder<MobEffect> effect, String name) {
+        addPotencyRecipes(output, effect, name, 3600);
+    }
+
+    private void addPotencyRecipes(RecipeOutput output, Holder<MobEffect> effect, String name, int baseDuration) {
         // Mundane potency (amplifier +1, duration modifier 0.5)
         FlaskRecipeBuilder.potency(effect, 1, 0.5)
                 .addIngredient(NVItems.MUNDANE_POWER_CATALYST.get())
-                .syphon(200).ticks(100).minimumTier(1)
+                .syphon(200).ticks(100).minimumTier(1).exampleBaseDuration(baseDuration)
                 .save(output, rKey(NeoVitae.rl("potency_" + name)));
 
         // Average potency (amplifier +2, duration modifier 0.25)
         FlaskRecipeBuilder.potency(effect, 2, 0.25)
                 .addIngredient(NVItems.AVERAGE_POWER_CATALYST.get())
-                .syphon(500).ticks(100).minimumTier(4)
+                .syphon(500).ticks(100).minimumTier(4).exampleBaseDuration(baseDuration)
                 .save(output, rKey(NeoVitae.rl("potency_average_" + name)));
     }
 
@@ -4400,16 +4404,20 @@ public class NVRecipeProvider extends RecipeProvider {
      * Helper method to add length recipes for effects that can have their duration extended
      */
     private void addLengthRecipes(RecipeOutput output, Holder<MobEffect> effect, String name) {
+        addLengthRecipes(output, effect, name, 3600);
+    }
+
+    private void addLengthRecipes(RecipeOutput output, Holder<MobEffect> effect, String name, int baseDuration) {
         // Mundane length (duration modifier 2.6667x)
         FlaskRecipeBuilder.length(effect, 2.6667)
                 .addIngredient(NVItems.MUNDANE_LENGTHENING_CATALYST.get())
-                .syphon(200).ticks(100).minimumTier(1)
+                .syphon(200).ticks(100).minimumTier(1).exampleBaseDuration(baseDuration)
                 .save(output, rKey(NeoVitae.rl("length_" + name)));
 
         // Average length (duration modifier 7.1112x)
         FlaskRecipeBuilder.length(effect, 7.1112)
                 .addIngredient(NVItems.AVERAGE_LENGTHENING_CATALYST.get())
-                .syphon(500).ticks(100).minimumTier(4)
+                .syphon(500).ticks(100).minimumTier(4).exampleBaseDuration(baseDuration)
                 .save(output, rKey(NeoVitae.rl("length_average_" + name)));
     }
 

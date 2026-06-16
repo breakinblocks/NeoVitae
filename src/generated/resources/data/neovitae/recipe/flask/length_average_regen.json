@@ -1,6 +1,7 @@
 {
   "type": "neovitae:flask_length",
   "effect": "minecraft:regeneration",
+  "exampleBaseDuration": 900,
   "input": [
     "neovitae:average_lengthening_catalyst"
   ],

@@ -33,29 +33,52 @@ public class FlaskLengthRecipe extends FlaskRecipe {
             Codec.DOUBLE.fieldOf("lengthDurationMod").forGetter(FlaskLengthRecipe::getLengthDurationMod),
             Codec.INT.fieldOf("syphon").forGetter(FlaskLengthRecipe::getSyphon),
             Codec.INT.fieldOf("ticks").forGetter(FlaskLengthRecipe::getTicks),
-            Codec.INT.optionalFieldOf("upgradeLevel", 0).forGetter(FlaskLengthRecipe::getMinimumTier)
+            Codec.INT.optionalFieldOf("upgradeLevel", 0).forGetter(FlaskLengthRecipe::getMinimumTier),
+            Codec.INT.optionalFieldOf("exampleBaseDuration", 3600).forGetter(FlaskLengthRecipe::getExampleBaseDuration)
     ).apply(instance, FlaskLengthRecipe::new));
 
     private static final StreamCodec<RegistryFriendlyByteBuf, Holder<MobEffect>> MOB_EFFECT_CODEC =
             ByteBufCodecs.holderRegistry(BuiltInRegistries.MOB_EFFECT.key());
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, FlaskLengthRecipe> STREAM_CODEC = StreamCodec.composite(
-            RecipeSerializerUtils.INGREDIENT_LIST_CODEC, FlaskLengthRecipe::getInput,
-            MOB_EFFECT_CODEC, FlaskLengthRecipe::getTargetEffect,
-            ByteBufCodecs.DOUBLE, FlaskLengthRecipe::getLengthDurationMod,
-            ByteBufCodecs.INT, FlaskLengthRecipe::getSyphon,
-            ByteBufCodecs.INT, FlaskLengthRecipe::getTicks,
-            ByteBufCodecs.INT, FlaskLengthRecipe::getMinimumTier,
-            FlaskLengthRecipe::new
+    public static final StreamCodec<RegistryFriendlyByteBuf, FlaskLengthRecipe> STREAM_CODEC = StreamCodec.of(
+            FlaskLengthRecipe::toNetwork,
+            FlaskLengthRecipe::fromNetwork
     );
+
+    private static FlaskLengthRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
+        List<Ingredient> inputs = RecipeSerializerUtils.INGREDIENT_LIST_CODEC.decode(buffer);
+        Holder<MobEffect> effect = MOB_EFFECT_CODEC.decode(buffer);
+        double lengthDurationMod = buffer.readDouble();
+        int syphon = buffer.readInt();
+        int ticks = buffer.readInt();
+        int minimumTier = buffer.readInt();
+        int exampleBaseDuration = buffer.readInt();
+        return new FlaskLengthRecipe(inputs, effect, lengthDurationMod, syphon, ticks, minimumTier, exampleBaseDuration);
+    }
+
+    private static void toNetwork(RegistryFriendlyByteBuf buffer, FlaskLengthRecipe recipe) {
+        RecipeSerializerUtils.INGREDIENT_LIST_CODEC.encode(buffer, recipe.getInput());
+        MOB_EFFECT_CODEC.encode(buffer, recipe.getTargetEffect());
+        buffer.writeDouble(recipe.getLengthDurationMod());
+        buffer.writeInt(recipe.getSyphon());
+        buffer.writeInt(recipe.getTicks());
+        buffer.writeInt(recipe.getMinimumTier());
+        buffer.writeInt(recipe.getExampleBaseDuration());
+    }
 
     private final Holder<MobEffect> targetEffect;
     private final double lengthDurationMod;
+    private final int exampleBaseDuration;
 
-    public FlaskLengthRecipe(List<Ingredient> input, Holder<MobEffect> targetEffect, double lengthDurationMod, int syphon, int ticks, int minimumTier) {
+    public FlaskLengthRecipe(List<Ingredient> input, Holder<MobEffect> targetEffect, double lengthDurationMod, int syphon, int ticks, int minimumTier, int exampleBaseDuration) {
         super(input, syphon, ticks, minimumTier);
         this.targetEffect = targetEffect;
         this.lengthDurationMod = lengthDurationMod;
+        this.exampleBaseDuration = exampleBaseDuration;
+    }
+
+    public int getExampleBaseDuration() {
+        return exampleBaseDuration;
     }
 
     public Holder<MobEffect> getTargetEffect() {
@@ -108,7 +131,7 @@ public class FlaskLengthRecipe extends FlaskRecipe {
     @Override
     public List<EffectHolder> getExampleEffects() {
         List<EffectHolder> effects = new ArrayList<>();
-        effects.add(EffectHolder.create(targetEffect, 3600, 0));
+        effects.add(EffectHolder.create(targetEffect, exampleBaseDuration, 0));
         return effects;
     }
 

@@ -35,7 +35,8 @@ public class FlaskPotencyRecipe extends FlaskRecipe {
             Codec.DOUBLE.fieldOf("ampDurationMod").forGetter(FlaskPotencyRecipe::getAmpDurationMod),
             Codec.INT.fieldOf("syphon").forGetter(FlaskPotencyRecipe::getSyphon),
             Codec.INT.fieldOf("ticks").forGetter(FlaskPotencyRecipe::getTicks),
-            Codec.INT.optionalFieldOf("upgradeLevel", 0).forGetter(FlaskPotencyRecipe::getMinimumTier)
+            Codec.INT.optionalFieldOf("upgradeLevel", 0).forGetter(FlaskPotencyRecipe::getMinimumTier),
+            Codec.INT.optionalFieldOf("exampleBaseDuration", 3600).forGetter(FlaskPotencyRecipe::getExampleBaseDuration)
     ).apply(instance, FlaskPotencyRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, FlaskPotencyRecipe> STREAM_CODEC = StreamCodec.of(
@@ -51,7 +52,8 @@ public class FlaskPotencyRecipe extends FlaskRecipe {
         int syphon = buffer.readInt();
         int ticks = buffer.readInt();
         int minimumTier = buffer.readInt();
-        return new FlaskPotencyRecipe(inputs, effect, amplifier, ampDurationMod, syphon, ticks, minimumTier);
+        int exampleBaseDuration = buffer.readInt();
+        return new FlaskPotencyRecipe(inputs, effect, amplifier, ampDurationMod, syphon, ticks, minimumTier, exampleBaseDuration);
     }
 
     private static void toNetwork(RegistryFriendlyByteBuf buffer, FlaskPotencyRecipe recipe) {
@@ -62,17 +64,24 @@ public class FlaskPotencyRecipe extends FlaskRecipe {
         buffer.writeInt(recipe.getSyphon());
         buffer.writeInt(recipe.getTicks());
         buffer.writeInt(recipe.getMinimumTier());
+        buffer.writeInt(recipe.getExampleBaseDuration());
     }
 
     private final Holder<MobEffect> targetEffect;
     private final int amplifier;
     private final double ampDurationMod;
+    private final int exampleBaseDuration;
 
-    public FlaskPotencyRecipe(List<Ingredient> input, Holder<MobEffect> targetEffect, int amplifier, double ampDurationMod, int syphon, int ticks, int minimumTier) {
+    public FlaskPotencyRecipe(List<Ingredient> input, Holder<MobEffect> targetEffect, int amplifier, double ampDurationMod, int syphon, int ticks, int minimumTier, int exampleBaseDuration) {
         super(input, syphon, ticks, minimumTier);
         this.targetEffect = targetEffect;
         this.amplifier = amplifier;
         this.ampDurationMod = ampDurationMod;
+        this.exampleBaseDuration = exampleBaseDuration;
+    }
+
+    public int getExampleBaseDuration() {
+        return exampleBaseDuration;
     }
 
     public Holder<MobEffect> getTargetEffect() {
@@ -131,7 +140,7 @@ public class FlaskPotencyRecipe extends FlaskRecipe {
     @Override
     public List<EffectHolder> getExampleEffects() {
         List<EffectHolder> effects = new ArrayList<>();
-        effects.add(EffectHolder.create(targetEffect, 3600, 0));
+        effects.add(EffectHolder.create(targetEffect, exampleBaseDuration, 0));
         return effects;
     }
 

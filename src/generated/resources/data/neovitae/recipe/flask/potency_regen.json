@@ -3,6 +3,7 @@
   "ampDurationMod": 0.5,
   "amplifier": 1,
   "effect": "minecraft:regeneration",
+  "exampleBaseDuration": 900,
   "input": [
     {
       "item": "neovitae:mundane_power_catalyst"

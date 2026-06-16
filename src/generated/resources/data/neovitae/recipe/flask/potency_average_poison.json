@@ -3,6 +3,7 @@
   "ampDurationMod": 0.25,
   "amplifier": 2,
   "effect": "minecraft:poison",
+  "exampleBaseDuration": 900,
   "input": [
     {
       "item": "neovitae:average_power_catalyst"

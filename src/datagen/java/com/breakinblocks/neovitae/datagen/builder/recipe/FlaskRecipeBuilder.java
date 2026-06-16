@@ -57,6 +57,8 @@ public class FlaskRecipeBuilder implements RecipeBuilder {
     private int amplifier;
     private double ampDurationMod;
 
+    private int exampleBaseDuration = 3600;
+
     // For effect transform recipe
     private List<Pair<Holder<MobEffect>, Integer>> transformOutputEffects;
     private List<Holder<MobEffect>> transformInputEffects;
@@ -182,6 +184,11 @@ public class FlaskRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
+    public FlaskRecipeBuilder exampleBaseDuration(int duration) {
+        this.exampleBaseDuration = duration;
+        return this;
+    }
+
     /**
      * For effect transform recipe: add an input effect to be consumed.
      */
@@ -239,8 +246,8 @@ public class FlaskRecipeBuilder implements RecipeBuilder {
             case FILL -> new FlaskFillRecipe(ingredients, maxEffects, syphon, ticks, minimumTier);
             case CYCLE -> new FlaskCycleRecipe(ingredients, numCycles, syphon, ticks, minimumTier);
             case ITEM_TRANSFORM -> new FlaskItemTransformRecipe(ingredients, transformOutput, syphon, ticks, minimumTier);
-            case LENGTH -> new FlaskLengthRecipe(ingredients, lengthEffect, lengthMod, syphon, ticks, minimumTier);
-            case POTENCY -> new FlaskPotencyRecipe(ingredients, potencyEffect, amplifier, ampDurationMod, syphon, ticks, minimumTier);
+            case LENGTH -> new FlaskLengthRecipe(ingredients, lengthEffect, lengthMod, syphon, ticks, minimumTier, exampleBaseDuration);
+            case POTENCY -> new FlaskPotencyRecipe(ingredients, potencyEffect, amplifier, ampDurationMod, syphon, ticks, minimumTier, exampleBaseDuration);
             case EFFECT_TRANSFORM -> new FlaskEffectTransformRecipe(ingredients, transformOutputEffects, transformInputEffects, syphon, ticks, minimumTier);
         };
     }

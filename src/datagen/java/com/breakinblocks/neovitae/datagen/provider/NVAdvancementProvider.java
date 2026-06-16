@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.datagen.provider;
 
 import com.breakinblocks.neovitae.NeoVitae;
+import com.breakinblocks.neovitae.common.advancement.BloodMendingCraftedTrigger;
 import com.breakinblocks.neovitae.common.advancement.CatalystTransmuteTrigger;
 import com.breakinblocks.neovitae.common.advancement.ImperfectRitualActivatedTrigger;
 import com.breakinblocks.neovitae.common.advancement.NVCriteriaTriggers;
@@ -421,6 +422,16 @@ public class NVAdvancementProvider extends AdvancementProvider {
                             null, AdvancementType.TASK, true, false, false)
                     .addCriterion("get_forge", InventoryChangeTrigger.TriggerInstance.hasItems(NVBlocks.HELLFIRE_FORGE))
                     .save(saver, NeoVitae.rl("neovitae/hellfire_forge").toString());
+
+            // Blood Mending (off hellfire_forge)
+            Advancement.Builder.advancement()
+                    .parent(hellfireForge)
+                    .display(NVItems.TABULA_ROBUR.get(),
+                            Component.translatable("advancements.neovitae.blood_mending.title"),
+                            Component.translatable("advancements.neovitae.blood_mending.description"),
+                            null, AdvancementType.GOAL, true, true, false)
+                    .addCriterion("craft", NVCriteriaTriggers.BLOOD_MENDING_CRAFTED.get().createCriterion(BloodMendingCraftedTrigger.any()))
+                    .save(saver, NeoVitae.rl("neovitae/blood_mending").toString());
 
             // Demon Branch (off hellfire_forge)
             Advancement.Builder.advancement()

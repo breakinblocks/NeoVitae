@@ -657,9 +657,13 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         }
     }
 
-    public void addSacrificeEV(int evAdded, boolean isSacrifice) {
-        setMainTank(getMainTank() + Math.min((getMainCapacity() - getMainTank()), (int) ((isSacrifice ? 1 + modifiers.getSacrificeMod() : 1 + modifiers.getSelfSacrificeMod()) * evAdded)));
+    public int addSacrificeEV(int evAdded, boolean isSacrifice) {
+        double mult = isSacrifice ? 1 + modifiers.getSacrificeMod() : 1 + modifiers.getSelfSacrificeMod();
+        int boosted = (int) (mult * evAdded);
+        int deposited = Math.min(getMainCapacity() - getMainTank(), boosted);
+        setMainTank(getMainTank() + deposited);
         setChanged();
+        return boosted - deposited;
     }
 
     public void checkAction() {

@@ -209,6 +209,7 @@ public class RitualTormentNexus extends Ritual {
 
         int evPerKill = NeoVitae.SERVER_CONFIG.TORMENT_NEXUS_EV_PER_KILL.get();
         int evModPercent = NeoVitae.SERVER_CONFIG.TORMENT_NEXUS_EV_MODIFIER_PERCENT.get();
+        int maxEvPerOperation = NeoVitae.SERVER_CONFIG.TORMENT_NEXUS_MAX_EV_PER_OPERATION.get();
         int refreshTicks = getRefreshTime();
 
         AraVitaeTile altar = findAltar(ctx);
@@ -221,6 +222,7 @@ public class RitualTormentNexus extends Ritual {
 
         long totalKills = 0;
         long pendingXp = 0;
+        long evCharged = 0;
         boolean ranOutOfEv = false;
 
         for (BlockPos pos : new ArrayList<>(vanillaSpawnerAccumulators.keySet())) {
@@ -237,11 +239,17 @@ public class RitualTormentNexus extends Ritual {
             if (wholeCycles <= 0) continue;
             for (int c = 0; c < wholeCycles; c++) {
                 for (int n = 0; n < snap.spawnCount(); n++) {
-                    if (ctx.currentEV() < evPerKill) { ranOutOfEv = true; break; }
+                    int charge = maxEvPerOperation > 0 ? (int) Math.max(0, Math.min(evPerKill, maxEvPerOperation - evCharged)) : evPerKill;
+                    if (charge > 0 && ctx.network().getCurrentEV() < charge) { ranOutOfEv = true; break; }
                     if (snap.entityType() == null) continue;
                     KillResult kr = simulateKill(level, snap.entityType(), pos, fakePlayer, evModPercent, chestInv);
-                    ctx.syphon(evPerKill);
-                    if (altar != null && kr.ev > 0) altar.addSacrificeEV(kr.ev, true);
+                    if (charge > 0) {
+                        ctx.syphon(charge);
+                        evCharged += charge;
+                    }
+                    if (altar != null && kr.ev > 0) {
+                        altar.addSacrificeEV(kr.ev, true);
+                    }
                     pendingXp += kr.xp;
                     totalKills++;
                 }
@@ -265,11 +273,17 @@ public class RitualTormentNexus extends Ritual {
                 int wholeKills = (int) cycles;
                 trialSpawnerAccumulators.put(pos, cycles - wholeKills);
                 for (int n = 0; n < wholeKills; n++) {
-                    if (ctx.currentEV() < evPerKill) { ranOutOfEv = true; break; }
+                    int charge = maxEvPerOperation > 0 ? (int) Math.max(0, Math.min(evPerKill, maxEvPerOperation - evCharged)) : evPerKill;
+                    if (charge > 0 && ctx.network().getCurrentEV() < charge) { ranOutOfEv = true; break; }
                     EntityType<?> et = snap.entityType();
                     KillResult kr = simulateKill(level, et, pos, fakePlayer, evModPercent, chestInv);
-                    ctx.syphon(evPerKill);
-                    if (altar != null && kr.ev > 0) altar.addSacrificeEV(kr.ev, true);
+                    if (charge > 0) {
+                        ctx.syphon(charge);
+                        evCharged += charge;
+                    }
+                    if (altar != null && kr.ev > 0) {
+                        altar.addSacrificeEV(kr.ev, true);
+                    }
                     pendingXp += kr.xp;
                     totalKills++;
                 }

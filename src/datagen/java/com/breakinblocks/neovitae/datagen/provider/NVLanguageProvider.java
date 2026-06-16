@@ -1364,6 +1364,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addAdvancement("spiritus_gem_grand", "Grand Spiritus Gem", "Upgrade to a Grand Gem");
         addAdvancement("sentient_sword", "Sentient Blade", "Craft a Sentient Sword");
         addAdvancement("hellfire_forge", "Hellfire Forge", "Craft a Hellfire Forge");
+        addAdvancement("blood_mending", "Self-Repairing", "Imbue an item with Blood Mending at the Hellfire Forge");
         addAdvancement("vas_maleficum", "Vas Maleficum", "Craft a Vas Maleficum");
         addAdvancement("sentient_armor", "Sentient Armor", "Craft Sentient Armor");
         addAdvancement("sentient_evolution", "Sentient Evolution", "Activate the Ritual of Sentient Evolution to push your Sentient Armor's upgrade capacity beyond its limit");

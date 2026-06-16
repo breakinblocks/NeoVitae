@@ -39,6 +39,7 @@ public class ServerConfig {
     public final ModConfigSpec.IntValue SANGUINE_WARD_MIN_EV;
 
     public final ModConfigSpec.IntValue TORMENT_NEXUS_EV_PER_KILL;
+    public final ModConfigSpec.IntValue TORMENT_NEXUS_MAX_EV_PER_OPERATION;
     public final ModConfigSpec.IntValue TORMENT_NEXUS_EV_MODIFIER_PERCENT;
     public final ModConfigSpec.IntValue TORMENT_NEXUS_HORIZONTAL_RANGE;
     public final ModConfigSpec.IntValue TORMENT_NEXUS_VERTICAL_RANGE;
@@ -153,6 +154,11 @@ public class ServerConfig {
         TORMENT_NEXUS_EV_PER_KILL = builder
                 .comment("EV cost charged per simulated mob kill (paid out of the network each kill).")
                 .defineInRange("ev_per_kill", 75, 0, 1000000);
+        TORMENT_NEXUS_MAX_EV_PER_OPERATION = builder
+                .comment("Maximum total EV cost charged from the network to run the ritual in a single operation.",
+                        "Kills are never capped: once this cost ceiling is reached the remaining kills run free,",
+                        "still producing loot, experience, and EV yield. 0 disables the cap.")
+                .defineInRange("max_ev_per_operation", 8000, 0, 100000000);
         TORMENT_NEXUS_EV_MODIFIER_PERCENT = builder
                 .comment("Percent modifier on the EV produced per simulated kill.",
                         "1 = 1% of the mob's natural sacrifice value, 100 = unchanged, 1000 = 10x.")

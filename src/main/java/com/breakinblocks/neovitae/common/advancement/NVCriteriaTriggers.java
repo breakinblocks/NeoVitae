@@ -20,6 +20,9 @@ public class NVCriteriaTriggers {
     public static final DeferredHolder<CriterionTrigger<?>, CatalystTransmuteTrigger> CATALYST_TRANSMUTE =
             TRIGGERS.register("catalyst_transmute", CatalystTransmuteTrigger::new);
 
+    public static final DeferredHolder<CriterionTrigger<?>, BloodMendingCraftedTrigger> BLOOD_MENDING_CRAFTED =
+            TRIGGERS.register("blood_mending_crafted", BloodMendingCraftedTrigger::new);
+
     public static void register(IEventBus modBus) {
         TRIGGERS.register(modBus);
     }

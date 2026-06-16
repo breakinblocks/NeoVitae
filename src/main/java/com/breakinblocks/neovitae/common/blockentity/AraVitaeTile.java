@@ -374,6 +374,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
             tile.tickRecipeCrafting(inputStack);
         } else {
             tile.tickOrbFilling(inputStack);
+            tile.inv.setStackInSlot(0, inputStack);
         }
 
         tile.setChanged();
@@ -954,7 +955,13 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
         setChanged();
     }
 
-    private void setSignaling(boolean signaling) { this.isSignaling = signaling; }
+    private void setSignaling(boolean signaling) {
+        if (this.isSignaling == signaling) return;
+        this.isSignaling = signaling;
+        if (level != null && !level.isClientSide()) {
+            level.updateNeighborsAt(worldPosition, getBlockState().getBlock());
+        }
+    }
     private void incrementTicks() { this.ticks++; }
     private void decrementCapacityGraceTicks() { this.capacityGraceTicks--; }
     private void setMainTank(int mainTank) { this.mainTank = mainTank; }

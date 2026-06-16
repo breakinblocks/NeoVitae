@@ -7,7 +7,9 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
+import com.breakinblocks.neovitae.common.advancement.NVCriteriaTriggers;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.HellfireForgeBlockEntity;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -16,8 +18,12 @@ public class HellfireForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBloc
 
     private static final int TILE_SLOTS = 6; // 4 input + 1 gem + 1 output
 
+    private final Player owner;
+
     public HellfireForgeMenu(int containerId, Inventory playerInventory, HellfireForgeBlockEntity tile) {
         super(NVMenus.HELLFIRE_FORGE.get(), containerId, tile, TILE_SLOTS);
+
+        this.owner = playerInventory.player;
 
         this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, 0, 8, 15));
         this.addSlot(new ResourceHandlerSlot(tile.inv, tile.inv::set, 1, 80, 15));
@@ -35,6 +41,12 @@ public class HellfireForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBloc
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;
+            }
+
+            @Override
+            public void onTake(Player player, ItemStack stack) {
+                awardBloodMending(player, stack);
+                super.onTake(player, stack);
             }
         });
 
@@ -55,6 +67,7 @@ public class HellfireForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBloc
                 return false;
             }
             slot.onQuickCraft(slotStack, originalCopy);
+            awardBloodMending(owner, originalCopy);
         } else if (isPlayerSlot(index)) {
             if (slotStack.has(NVDataComponents.SPIRITUS_AMOUNT)) {
                 if (!moveToTileSlots(slotStack, 4, 5)) {
@@ -67,6 +80,12 @@ public class HellfireForgeMenu extends AbstractBlockEntityMenu<HellfireForgeBloc
             return false;
         }
         return true;
+    }
+
+    private void awardBloodMending(Player player, ItemStack stack) {
+        if (player instanceof ServerPlayer sp && stack.has(NVDataComponents.BLOOD_MENDING.get())) {
+            NVCriteriaTriggers.BLOOD_MENDING_CRAFTED.get().trigger(sp);
+        }
     }
 
     @Override

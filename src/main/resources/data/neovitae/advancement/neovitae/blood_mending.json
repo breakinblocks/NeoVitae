@@ -1,0 +1,27 @@
+{
+  "parent": "neovitae:neovitae/hellfire_forge",
+  "criteria": {
+    "craft": {
+      "trigger": "neovitae:blood_mending_crafted"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neovitae.blood_mending.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "neovitae:tabula_robur"
+    },
+    "title": {
+      "translate": "advancements.neovitae.blood_mending.title"
+    }
+  },
+  "requirements": [
+    [
+      "craft"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

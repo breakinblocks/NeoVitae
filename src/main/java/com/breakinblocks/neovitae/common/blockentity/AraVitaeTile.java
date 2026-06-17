@@ -111,6 +111,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
     private int mainTank = 0;
     private int chargingTank = 0;
     private volatile boolean isSignaling = false;
+    private boolean orbDepleted = false;
 
     private static final int CAPACITY_GRACE_PERIOD = 100; // 5 seconds
     private int capacityGraceTicks = 0;
@@ -130,6 +131,9 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
 
         @Override
         protected void onContentsChanged(int index, ItemStack previousContents) {
+            if (previousContents.isEmpty() != getStackInSlot(index).isEmpty()) {
+                orbDepleted = false;
+            }
             setChanged();
         }
 
@@ -558,6 +562,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
         int orbAmount = orbFluid.isEmpty() ? 0 : orbFluid.getAmount();
 
         if (orbAmount > 0) {
+            orbDepleted = true;
             int altarRoom = getMainCapacity() - getMainTank();
 
             if (altarRoom >= 1000) {
@@ -593,7 +598,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
                             (int) (orb.animaCapacity() * (1 + modifiers.getOrbCapacityMod())));
                 }
             }
-        } else if (getMainTank() > 0) {
+        } else if (!orbDepleted && getMainTank() > 0) {
             int available = Math.min(getMainTank(), (int) (orb.fillRate() * (1 + modifiers.getConsumptionMod())));
             int drained = AnimaHelper.getAnima(binding.uuid()).add(AnimaTicket.create(available), (int) (orb.animaCapacity() * (1 + modifiers.getOrbCapacityMod())));
             setMainTank(getMainTank() - drained);
@@ -882,6 +887,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
         tag.child("inventory").ifPresent(inv::deserialize);
 
         this.isSignaling = tag.getBooleanOr("signal", false);
+        this.orbDepleted = tag.getBooleanOr("orbDepleted", false);
         this.isActive = tag.getBooleanOr("active", false);
         this.cooldownAfterCrafting = tag.getIntOr("craftCooldown", 0);
 
@@ -920,6 +926,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IAraVitae, GeoBlock
         tag.store("stats", CompoundTag.CODEC, stats);
         tag.putInt("tier", this.tier);
         tag.putBoolean("signal", isSignaling);
+        tag.putBoolean("orbDepleted", orbDepleted);
         tag.putBoolean("active", isActive);
         tag.putInt("craftCooldown", cooldownAfterCrafting);
         tag.putInt("capacityGrace", capacityGraceTicks);

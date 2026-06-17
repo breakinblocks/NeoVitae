@@ -321,16 +321,17 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
     }
 
     private void craftFlaskItem(FlaskRecipe recipe) {
-        if (flaskSlot < 0) return;
+        int slot = flaskSlot;
+        if (slot < 0) return;
 
-        ItemStack flaskStack = inv.getStackInSlot(flaskSlot);
+        ItemStack flaskStack = inv.getStackInSlot(slot);
         List<EffectHolder> flaskEffects = ItemAlchemyFlask.getEffectHolders(flaskStack);
 
         ItemStack output = recipe.getOutput(flaskStack, flaskEffects);
 
         List<Ingredient> ingredients = new ArrayList<>(recipe.getInput());
         for (int i = 0; i < 6; i++) {
-            if (i == flaskSlot) continue; // Skip the flask
+            if (i == slot) continue; // Skip the flask
 
             ItemStack stack = inv.getStackInSlot(i);
             if (stack.isEmpty()) continue;
@@ -348,7 +349,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             }
         }
 
-        inv.setStackInSlot(flaskSlot, ItemStack.EMPTY);
+        inv.setStackInSlot(slot, ItemStack.EMPTY);
         inv.setStackInSlot(OUTPUT_SLOT, output);
 
         if (level != null && !level.isClientSide) {

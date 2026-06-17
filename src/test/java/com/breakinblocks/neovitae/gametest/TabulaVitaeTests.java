@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
@@ -12,6 +13,12 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.blockentity.TabulaVitaeBlockEntity;
+import com.breakinblocks.neovitae.common.datacomponent.EffectHolder;
+import com.breakinblocks.neovitae.common.datacomponent.FlaskEffects;
+import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.item.potion.ItemAlchemyFlask;
+
+import java.util.List;
 
 @GameTestHolder("neovitae")
 @PrefixGameTestTemplate(false)
@@ -88,6 +95,26 @@ public class TabulaVitaeTests {
                 }
                 helper.succeed();
             });
+        });
+    }
+
+    @GameTest(template = "empty_5x5x7", timeoutTicks = 200)
+    public void tableFlaskLengtheningNoCrash(GameTestHelper helper) {
+        helper.setBlock(new BlockPos(3, 0, 2), Blocks.STONE.defaultBlockState());
+        TabulaVitaeBlockEntity table = placeTable(helper, new BlockPos(3, 1, 2));
+
+        helper.runAfterDelay(1, () -> {
+            if (table == null) return;
+
+            ItemStack flask = new ItemStack(NVItems.ALCHEMY_FLASK.get());
+            EffectHolder regen = EffectHolder.create(MobEffects.REGENERATION, 900, 0);
+            ItemAlchemyFlask.setFlaskEffects(flask, new FlaskEffects(List.of(regen)));
+
+            table.inv.setStackInSlot(0, flask);
+            table.inv.setStackInSlot(1, new ItemStack(NVItems.MUNDANE_LENGTHENING_CATALYST.get()));
+            table.inv.setStackInSlot(TabulaVitaeBlockEntity.ORB_SLOT, new ItemStack(NVItems.ORB_APPRENTICE.get()));
+
+            helper.runAfterDelay(160, helper::succeed);
         });
     }
 

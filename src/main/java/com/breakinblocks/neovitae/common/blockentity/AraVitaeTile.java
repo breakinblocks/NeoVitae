@@ -90,6 +90,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
     private int mainTank = 0;
     private int chargingTank = 0;
     private volatile boolean isSignaling = false;
+    private boolean orbDepleted = false;
 
     private static final int CAPACITY_GRACE_PERIOD = 100; // 5 seconds
     private int capacityGraceTicks = 0;
@@ -101,6 +102,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         @Override
         protected void onContentsChanged(int slot) {
             super.onContentsChanged(slot);
+            orbDepleted = false;
             setChanged();
         }
 
@@ -428,6 +430,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         int orbAmount = orbFluid.isEmpty() ? 0 : orbFluid.getAmount();
 
         if (orbAmount > 0) {
+            orbDepleted = true;
             int altarRoom = getMainCapacity() - getMainTank();
 
             if (altarRoom >= 1000) {
@@ -463,7 +466,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
                             (int) (orb.animaCapacity() * (1 + modifiers.getOrbCapacityMod())));
                 }
             }
-        } else if (getMainTank() > 0) {
+        } else if (!orbDepleted && getMainTank() > 0) {
             int available = Math.min(getMainTank(), (int) (orb.fillRate() * (1 + modifiers.getConsumptionMod())));
             int drained = AnimaHelper.getAnima(binding.uuid()).add(AnimaTicket.create(available), (int) (orb.animaCapacity() * (1 + modifiers.getOrbCapacityMod())));
             setMainTank(getMainTank() - drained);
@@ -753,6 +756,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         inv.deserializeNBT(registries, tag.getCompound("inventory"));
 
         this.isSignaling = tag.getBoolean("signal");
+        this.orbDepleted = tag.getBoolean("orbDepleted");
         this.isActive = tag.getBoolean("active");
         this.cooldownAfterCrafting = tag.getInt("craftCooldown");
 
@@ -794,6 +798,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
         tag.put("stats", stats);
         tag.putInt("tier", this.tier);
         tag.putBoolean("signal", isSignaling);
+        tag.putBoolean("orbDepleted", orbDepleted);
         tag.putBoolean("active", isActive);
         tag.putInt("craftCooldown", cooldownAfterCrafting);
         tag.putInt("capacityGrace", capacityGraceTicks);

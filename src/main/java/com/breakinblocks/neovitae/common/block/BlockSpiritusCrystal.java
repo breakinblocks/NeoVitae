@@ -155,14 +155,30 @@ public class BlockSpiritusCrystal extends BaseEntityBlock implements IEnchantmen
             return InteractionResult.PASS;
         }
 
-        double playerSpiritus = PlayerSpiritusHandler.getTotalSpiritus(
-                PlayerSpiritusHandler.getLargestSpiritusType(player), player);
-        if (playerSpiritus > 512) {
-            if (crystal.dropSingleCrystal()) {
-                return InteractionResult.SUCCESS;
-            }
+        return tryHarvest(crystal, player);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos,
+                                               Player player, BlockHitResult hitResult) {
+        if (level.isClientSide()) {
+            return InteractionResult.SUCCESS;
         }
 
+        BlockEntity be = level.getBlockEntity(pos);
+        if (!(be instanceof SpiritusCrystalBlockEntity crystal)) {
+            return InteractionResult.PASS;
+        }
+
+        return tryHarvest(crystal, player);
+    }
+
+    private static InteractionResult tryHarvest(SpiritusCrystalBlockEntity crystal, Player player) {
+        double playerSpiritus = PlayerSpiritusHandler.getTotalSpiritus(
+                PlayerSpiritusHandler.getLargestSpiritusType(player), player);
+        if (playerSpiritus > 512 && crystal.dropSingleCrystal()) {
+            return InteractionResult.SUCCESS;
+        }
         return InteractionResult.PASS;
     }
 

@@ -398,10 +398,36 @@ public class SentientHelper {
         SentientStats stats = chest.get(NVDataComponents.UPGRADES);
         if (stats == null || stats.upgrades().isEmpty()) {
             setDefaultSentient(chest, player.registryAccess());
+        } else {
+            ensureTrainers(player, chest, stats);
         }
 
         if (!chest.has(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS)) {
             chest.set(NVDataComponents.CURRENT_MAX_UPGRADE_POINTS, NeoVitae.SERVER_CONFIG.DEFAULT_UPGRADE_POINTS.get());
+        }
+    }
+
+    private static void ensureTrainers(Player player, ItemStack chest, SentientStats stats) {
+        HolderSet<SentientUpgrade> trainers = player.registryAccess()
+                .lookupOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES)
+                .get(NVTags.Sentient.SENTIENT_START)
+                .orElse(null);
+        if (trainers == null) {
+            return;
+        }
+
+        Object2FloatOpenHashMap<Holder<SentientUpgrade>> upgrades = new Object2FloatOpenHashMap<>(stats.upgrades());
+        boolean added = false;
+        for (Holder<SentientUpgrade> trainer : trainers) {
+            if (!upgrades.containsKey(trainer)) {
+                upgrades.put(trainer, 1f);
+                added = true;
+            }
+        }
+
+        if (added) {
+            chest.set(NVDataComponents.UPGRADES, new SentientStats(upgrades));
+            recalcPoints(player);
         }
     }
 

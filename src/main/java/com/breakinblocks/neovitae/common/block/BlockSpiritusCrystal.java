@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -155,15 +156,30 @@ public class BlockSpiritusCrystal extends BaseEntityBlock implements IEnchantmen
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
-        double playerSpiritus = PlayerSpiritusHandler.getTotalSpiritus(
-                PlayerSpiritusHandler.getLargestSpiritusType(player), player);
-        if (playerSpiritus > 512) {
-            if (crystal.dropSingleCrystal()) {
-                return ItemInteractionResult.SUCCESS;
-            }
+        return tryHarvest(crystal, player)
+                ? ItemInteractionResult.SUCCESS
+                : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos,
+                                               Player player, BlockHitResult hitResult) {
+        if (level.isClientSide) {
+            return InteractionResult.SUCCESS;
         }
 
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        BlockEntity be = level.getBlockEntity(pos);
+        if (!(be instanceof SpiritusCrystalBlockEntity crystal)) {
+            return InteractionResult.PASS;
+        }
+
+        return tryHarvest(crystal, player) ? InteractionResult.SUCCESS : InteractionResult.PASS;
+    }
+
+    private static boolean tryHarvest(SpiritusCrystalBlockEntity crystal, Player player) {
+        double playerSpiritus = PlayerSpiritusHandler.getTotalSpiritus(
+                PlayerSpiritusHandler.getLargestSpiritusType(player), player);
+        return playerSpiritus > 512 && crystal.dropSingleCrystal();
     }
 
     @Nullable

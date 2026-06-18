@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.breakinblocks.neovitae.datagen.book.page.BookSentientUpgradeTablePageModel;
+import com.breakinblocks.neovitae.datagen.book.page.BookTabulaVitaeRecipePageModel;
 import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 import net.minecraft.world.item.Items;
 
@@ -23,9 +24,11 @@ public class BrillianceUpgradeEntry extends EntryProvider {
         this.pageText("The armour responds to the knowledge you inscribe upon [#](8B0000)Upgrade Tomes[#](), hardening "
                 + "its lattice with each lesson. Grants up to +5 [#](4A0080)Armour[#]() and +8 "
                 + "[#](4A0080)Toughness[#]().\\\n\\\n"
-                + "[#](B8860B)Trained by[#](): Crafting an [#](8B0000)Upgrade Tome[#]() in the Tabula Vitae. Each tome grants "
-                + "1 level.\\\n\\\n"
-                + "[#](B8860B)Maximum level[#](): 5");
+                + "[#](B8860B)Trained by[#](): Inscribe a [#](8B0000)Brilliance Tome[#]() in the Tabula Vitae, then apply it "
+                + "to Living Armour. Each tome grants 1 level, up to a maximum of 4.");
+
+        this.page("recipe", () -> BookTabulaVitaeRecipePageModel.create()
+                .withRecipeId1("neovitae:alchemytable/brilliance_tome"));
     }
 
     @Override

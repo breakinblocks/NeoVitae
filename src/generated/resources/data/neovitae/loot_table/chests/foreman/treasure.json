@@ -89,6 +89,21 @@
         },
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "neovitae:set_sentient_upgrade",
+              "points": {
+                "type": "minecraft:uniform",
+                "max": 3.0,
+                "min": 1.0
+              },
+              "upgrades": [
+                "neovitae:curios_socket",
+                "neovitae:elytra",
+                "neovitae:gilded"
+              ]
+            }
+          ],
           "name": "neovitae:upgrade_tome",
           "quality": 6,
           "weight": 4

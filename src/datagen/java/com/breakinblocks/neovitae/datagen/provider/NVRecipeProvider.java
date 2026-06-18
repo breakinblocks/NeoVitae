@@ -24,8 +24,13 @@ import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
+import com.breakinblocks.neovitae.datagen.content.SentientUpgrades;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
 import com.breakinblocks.neovitae.datagen.builder.AlchemyArrayEffectRecipeBuilder;
@@ -64,11 +69,13 @@ public class NVRecipeProvider extends RecipeProvider {
 
     private final HolderGetter<Item> items;
     private final HolderGetter<Fluid> fluids;
+    private final HolderGetter<SentientUpgrade> sentientUpgrades;
 
     protected NVRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
         super(registries, output);
         this.items = registries.lookupOrThrow(Registries.ITEM);
         this.fluids = registries.lookupOrThrow(Registries.FLUID);
+        this.sentientUpgrades = registries.lookupOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES);
     }
 
     /** Wrap an Identifier as a recipe ResourceKey (the 26.1 save() contract). */
@@ -1944,8 +1951,8 @@ public class NVRecipeProvider extends RecipeProvider {
                 .catalyst(NVItems.TABULA_ROBUR.get())
                 .catalyst(Items.LAPIS_LAZULI)
                 .catalyst(Items.NETHER_WART)
-                .minSpiritus(200)
-                .drain(400)
+                .minSpiritus(400)
+                .drain(200)
                 .unlockedBy("has_reinforced_slate", has(NVItems.TABULA_ROBUR.get()))
                 .save(output, rKey(NeoVitae.rl("blood_mending")));
 
@@ -2269,6 +2276,19 @@ public class NVRecipeProvider extends RecipeProvider {
     }
 
     private void addTabulaVitaeRecipes(RecipeOutput output) {
+        Holder<SentientUpgrade> brilliance = sentientUpgrades.getOrThrow(SentientUpgrades.NETHERITE_PROTECT);
+        DataComponentPatch brilliancePatch = DataComponentPatch.builder()
+                .set(NVDataComponents.UPGRADE_TOME_DATA.get(), new UpgradeTome(brilliance, 1.0f))
+                .build();
+        TabulaVitaeRecipeBuilder.build(new ItemStackTemplate(NVItems.UPGRADE_TOME.get(), brilliancePatch))
+                .input(Items.DIAMOND)
+                .input(Items.WRITTEN_BOOK)
+                .input(Items.NETHERITE_INGOT)
+                .input(Items.SHULKER_SHELL)
+                .syphon(10000)
+                .minimumTier(3)
+                .save(output, "brilliance_tome");
+
         // Reagent Water - sugar, water bucket x2
         TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_WATER.get())
                 .input(Items.SUGAR)

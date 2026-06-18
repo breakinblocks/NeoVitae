@@ -1,0 +1,21 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    "minecraft:diamond",
+    "minecraft:written_book",
+    "minecraft:netherite_ingot",
+    "minecraft:shulker_shell"
+  ],
+  "output": {
+    "components": {
+      "neovitae:upgrade_tome_data": {
+        "exp": 1.0,
+        "upgrade": "neovitae:netherite_protect"
+      }
+    },
+    "id": "neovitae:upgrade_tome"
+  },
+  "syphon": 10000,
+  "ticks": 200,
+  "upgradeLevel": 3
+}

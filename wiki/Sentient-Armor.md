@@ -31,20 +31,20 @@ Most upgrades are trained by performing the matching activity while wearing the 
 - **Proportional** upgrades bank experience equal to the *magnitude* of the event: the damage taken or dealt, the health restored, the experience collected, or the distance moved. Bigger events teach the armour faster.
 - **Per-event** upgrades bank a flat point each time: one per block mined, or one per tick spent on fire or poisoned.
 
-A few upgrades (Brilliance, Curios Sockets, Elytra, Gilded) are not trained through activity at all and are simply applied from a tome. Each upgrade levels up at its own experience thresholds. The **Trained by** column gives the exact trigger.
+A few upgrades (Brilliance, Curios Sockets, Elytra, Gilded) are not trained through activity at all; they are inscribed onto an Upgrade Tome and then applied to the armour. Brilliance is crafted in the Tabula Vitae; the other three are found as tomes in the Foreman's hoard. Each upgrade levels up at its own experience thresholds. The **Trained by** column gives the exact trigger.
 
 | Upgrade | Effect | Trained by |
 |---------|--------|------------|
 | Body Builder | Anchored stance that resists being thrown; greatly bolsters vitality. | Eating food: experience equal to the food points restored when you eat. |
-| Brilliance | Inscribe knowledge upon tomes and the armour crystallises into diamond-like hardness. | Applied from a tome (diamonds / inscribing); not a field activity. |
+| Brilliance | Inscribe knowledge upon tomes and the armour crystallises into diamond-like hardness. | Inscribe a Brilliance Tome in the Tabula Vitae (diamond, written book, netherite ingot, shulker shell; Master orb, 10,000 EV), then apply it. Each tome grants one level, to a maximum of four. |
 | Charging Strike | Your momentum becomes a weapon; the faster you charge, the harder you strike. | Dealing damage *while sprinting*: experience equal to the damage dealt. |
-| Curios Sockets (*Socketed*) | The armour grows sockets to hold your vitaemantic trinkets. | Applied from a tome; not trained. |
+| Curios Sockets (*Socketed*) | The armour grows sockets to hold your vitaemantic trinkets. | Applied from a tome found in the Foreman's hoard; not trained. |
 | Dwarven Might | The deeper you dig, the faster the armour drives your arms. | Breaking blocks: one point per block. |
-| Elytra | Wings of living tissue unfurl from the chestplate; take to the sky. | Applied from a tome; not trained. |
+| Elytra | Wings of living tissue unfurl from the chestplate; take to the sky. | Applied from a tome found in the Foreman's hoard; not trained. |
 | Experienced | The armour draws deeper knowledge from each fallen foe. | Collecting experience: points equal to the orb value picked up. |
 | Fierce Strike | Each blow teaches the armour to sharpen the next. | Dealing damage: experience equal to the damage dealt. |
 | Gift of Ignis | The armour remembers the flame and learns to refuse it. | One point per tick spent on fire. |
-| Gilded | A golden sheen earns the Piglins' grudging respect. | Applied from a tome; not trained. |
+| Gilded | A golden sheen earns the Piglins' grudging respect. | Applied from a tome found in the Foreman's hoard; not trained. |
 | Healthy | Greatly increases the punishment your body can endure. | Restoring health (regeneration, potions, vitaemantic healing): experience equal to the health restored. |
 | Pin Cushion | Every arrow absorbed teaches the armour to turn the next aside. | Taking *projectile* damage: experience equal to the damage taken. |
 | Poison Resistance | The armour learns to purge venom from your blood. | One point per tick you are poisoned. |

@@ -40,6 +40,10 @@ public class TabulaVitaeRecipeBuilder {
         return new TabulaVitaeRecipeBuilder(new ItemStackTemplate(output.asItem(), count));
     }
 
+    public static TabulaVitaeRecipeBuilder build(ItemStackTemplate output) {
+        return new TabulaVitaeRecipeBuilder(output);
+    }
+
     public TabulaVitaeRecipeBuilder input(ItemLike item) {
         return input(Ingredient.of(item));
     }

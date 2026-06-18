@@ -1905,8 +1905,8 @@ public class NVRecipeProvider extends RecipeProvider {
                 .catalyst(NVItems.TABULA_ROBUR.get())
                 .catalyst(Items.LAPIS_LAZULI)
                 .catalyst(Items.NETHER_WART)
-                .minSpiritus(200)
-                .drain(400)
+                .minSpiritus(400)
+                .drain(200)
                 .unlockedBy("has_reinforced_slate", has(NVItems.TABULA_ROBUR.get()))
                 .save(output, NeoVitae.rl("blood_mending"));
 

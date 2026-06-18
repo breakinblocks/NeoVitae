@@ -11,6 +11,6 @@
       "item": "minecraft:nether_wart"
     }
   ],
-  "drain": 400.0,
-  "minDrain": 200.0
+  "drain": 200.0,
+  "minDrain": 400.0
 }

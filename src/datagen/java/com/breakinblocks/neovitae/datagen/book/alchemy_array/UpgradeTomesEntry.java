@@ -22,11 +22,12 @@ public class UpgradeTomesEntry extends EntryProvider {
         this.pageTitle("Upgrade Tomes");
         this.pageText("[#](4A0080)Upgrade Tomes[#]() are crystallized records of a particular skill, each carrying "
                 + "the experience needed to inscribe one or more levels of its upgrade onto a chestplate. They "
-                + "come from three places:\\\n\\\n"
+                + "come from several places:\\\n\\\n"
                 + "- The loot tables of [#](8B0000)The Mines[#]() (ore chambers, the Smithy, Foreman's hoard).\n\n"
                 + "- The [#](8B0000)Sentient Extraction[#]() ritual, which extracts the upgrades from a "
                 + "thrown sentient armor piece as tomes.\n\n"
-                + "- Combining two tomes of the same upgrade at a vanilla crafting table.\\\n\\\n"
+                + "- Combining two tomes of the same upgrade at a vanilla crafting table.\n\n"
+                + "- Inscribing select tomes, such as [#](8B0000)Brilliance[#](), in the Tabula Vitae.\\\n\\\n"
                 + "Press [Use] while holding a tome to inscribe one level of that skill onto your worn chestplate, "
                 + "assuming sufficient [#](B8860B)Upgrade Points[#]() remain. Hold sneak and press [Use] to "
                 + "inscribe as much as possible at once.");

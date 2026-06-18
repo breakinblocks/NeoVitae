@@ -610,7 +610,7 @@ public class SentientUpgrades {
             ELYTRA,            // Elytra
             EXPERIENCED,       // Experienced
             MELEE_DAMAGE,      // Fierce Strike
-            NETHERITE_PROTECT, // Forgotten
+            NETHERITE_PROTECT, // Brilliance
             FIRE_RESIST,       // Gift of Ignis
             GILDED,            // Gilded
             HEALTH,            // Healthy
@@ -669,7 +669,7 @@ public class SentientUpgrades {
         addUpgrade(KNOCKBACK_RESIST.location(), "Body Builder", translator);
         addUpgrade(LUCK.location(), "Skilled", translator);
         addUpgrade(MELEE_DAMAGE.location(), "Fierce Strike", translator);
-        addUpgrade(NETHERITE_PROTECT.location(), "Forgotten", translator);
+        addUpgrade(NETHERITE_PROTECT.location(), "Brilliance", translator);
         addUpgrade(PHYSICAL_PROTECT.location(), "Tough", translator);
         addUpgrade(POISON_RESIST.location(), "Poison Resistance", translator);
         addUpgrade(REPAIR.location(), "Repair", translator);

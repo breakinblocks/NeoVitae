@@ -22,8 +22,13 @@ import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonBlocks;
 import com.breakinblocks.neovitae.common.block.dungeon.DungeonVariant;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
+import com.breakinblocks.neovitae.common.datacomponent.UpgradeTome;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.item.NVItems;
+import com.breakinblocks.neovitae.common.registry.NVRegistries;
+import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
+import com.breakinblocks.neovitae.datagen.content.SentientUpgrades;
 import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
 import com.breakinblocks.neovitae.datagen.builder.AlchemyArrayEffectRecipeBuilder;
@@ -51,8 +56,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class NVRecipeProvider extends RecipeProvider {
 
+    private final CompletableFuture<HolderLookup.Provider> registriesFuture;
+
     public NVRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries);
+        this.registriesFuture = registries;
     }
 
     /**
@@ -2230,6 +2238,20 @@ public class NVRecipeProvider extends RecipeProvider {
     }
 
     private void addTabulaVitaeRecipes(RecipeOutput output) {
+        Holder<SentientUpgrade> brilliance = registriesFuture.join()
+                .lookupOrThrow(NVRegistries.Keys.SENTIENT_UPGRADES)
+                .getOrThrow(SentientUpgrades.NETHERITE_PROTECT);
+        ItemStack brillianceTome = new ItemStack(NVItems.UPGRADE_TOME.get());
+        brillianceTome.set(NVDataComponents.UPGRADE_TOME_DATA.get(), new UpgradeTome(brilliance, 1.0f));
+        TabulaVitaeRecipeBuilder.build(brillianceTome)
+                .input(Items.DIAMOND)
+                .input(Items.WRITTEN_BOOK)
+                .input(Items.NETHERITE_INGOT)
+                .input(Items.SHULKER_SHELL)
+                .syphon(10000)
+                .minimumTier(3)
+                .save(output, "brilliance_tome");
+
         // Reagent Water - sugar, water bucket x2
         TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_WATER.get())
                 .input(Items.SUGAR)

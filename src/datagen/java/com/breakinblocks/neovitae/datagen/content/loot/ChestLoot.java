@@ -19,17 +19,17 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.loot.NVTableLootEntry;
+import com.breakinblocks.neovitae.common.loot.SetSentientUpgrade;
 import com.breakinblocks.neovitae.common.loot.SetSpiritusRange;
+import com.breakinblocks.neovitae.datagen.content.SentientUpgrades;
 
 import java.util.function.BiConsumer;
 
 /**
  * Generates simple_dungeon and standard_dungeon chest loot tables.
  *
- * Note: mines/ loot tables are kept as manual JSON files because they use
- * SetSentientUpgrade which requires registry access not available at datagen time,
- * and reference items not fully accessible from the datagen sourceset.
- * Those files are in: src/main/resources/data/neovitae/loot_table/chests/mines/
+ * Note: mines/ loot tables are kept as manual JSON files in
+ * src/main/resources/data/neovitae/loot_table/chests/mines/
  */
 public class ChestLoot implements LootTableSubProvider {
 
@@ -642,7 +642,9 @@ public class ChestLoot implements LootTableSubProvider {
                     .apply(SetSpiritusRange.builder(UniformGenerator.between(120.0f, 240.0f))))
                 .add(LootItem.lootTableItem(NVItems.HELLFORGED_INGOT.get()).setWeight(6).setQuality(5)
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0f, 4.0f))))
-                .add(LootItem.lootTableItem(NVItems.UPGRADE_TOME.get()).setWeight(4).setQuality(6))
+                .add(LootItem.lootTableItem(NVItems.UPGRADE_TOME.get()).setWeight(4).setQuality(6)
+                    .apply(SetSentientUpgrade.withKeysRange(registries, 1f, 3f,
+                        SentientUpgrades.CURIOS_SOCKET, SentientUpgrades.ELYTRA, SentientUpgrades.GILDED)))
             )
         );
     }

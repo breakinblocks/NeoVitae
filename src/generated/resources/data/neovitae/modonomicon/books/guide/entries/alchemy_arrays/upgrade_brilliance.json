@@ -21,6 +21,17 @@
       },
       "text": "book.neovitae.guide.alchemy_arrays.upgrade_brilliance.intro.text",
       "title": "book.neovitae.guide.alchemy_arrays.upgrade_brilliance.intro.title"
+    },
+    {
+      "type": "neovitae:tabula_vitae_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "neovitae:alchemytable/brilliance_tome",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

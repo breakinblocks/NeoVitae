@@ -64,22 +64,20 @@ public class RitualWellOfSuffering extends Ritual {
             float damage = 1.0F;
             float health = entity.getHealth();
 
-            if (health > damage) {
-                entity.hurt(ctx.level().damageSources().source(NVDamageSources.RITUAL), damage);
+            entity.hurt(ctx.level().damageSources().source(NVDamageSources.RITUAL), damage);
 
-                if (entity.getHealth() < health) {
-                    int ev = EntitySacrificeHelper.calculateEV(entity, damage);
+            if (entity.getHealth() < health) {
+                int ev = EntitySacrificeHelper.calculateEV(entity, damage);
 
-                    if (entity.isBaby()) {
-                        ev = (int) (ev * 0.5);
-                    }
-
-                    totalEV += ev;
-
-                    RitualHelper.chanceStream(ctx.level(), 4, () ->
-                            StreamPresets.bloodTendril(entity, masterPos).build()
-                                    .sendToNearby(ctx.serverLevel(), masterPos, 64));
+                if (entity.isBaby()) {
+                    ev = (int) (ev * 0.5);
                 }
+
+                totalEV += ev;
+
+                RitualHelper.chanceStream(ctx.level(), 4, () ->
+                        StreamPresets.bloodTendril(entity, masterPos).build()
+                                .sendToNearby(ctx.serverLevel(), masterPos, 64));
             }
         }
 

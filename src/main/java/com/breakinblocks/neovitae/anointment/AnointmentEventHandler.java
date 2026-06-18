@@ -206,22 +206,21 @@ public class AnointmentEventHandler {
         }
 
         // Handle Silk Touch anointment
-        if (event.isTargetting(Enchantments.SILK_TOUCH)) {
-            int currentLevel = event.getEnchantments().getLevel(event.getTargetEnchant());
-            // Only apply if tool doesn't already have silk touch
-            if (currentLevel <= 0 && holder.getAnointmentLevel(AnointmentRegistrar.SILK_TOUCH) > 0) {
-                event.getEnchantments().set(event.getTargetEnchant(), 1);
-            }
-            return;
+        if (event.isTargetting(Enchantments.SILK_TOUCH) && holder.getAnointmentLevel(AnointmentRegistrar.SILK_TOUCH) > 0) {
+            event.getHolder(Enchantments.SILK_TOUCH).ifPresent(ench -> {
+                // Only apply if tool doesn't already have silk touch
+                if (event.getEnchantments().getLevel(ench) <= 0) {
+                    event.getEnchantments().set(ench, 1);
+                }
+            });
         }
 
         // Handle Fortune anointment
         if (event.isTargetting(Enchantments.FORTUNE)) {
             int fortuneLevel = holder.getAnointmentLevel(AnointmentRegistrar.FORTUNE);
             if (fortuneLevel > 0) {
-                int currentLevel = event.getEnchantments().getLevel(event.getTargetEnchant());
-                // Add anointment fortune to existing enchantment level
-                event.getEnchantments().set(event.getTargetEnchant(), currentLevel + fortuneLevel);
+                event.getHolder(Enchantments.FORTUNE).ifPresent(ench ->
+                        event.getEnchantments().set(ench, event.getEnchantments().getLevel(ench) + fortuneLevel));
             }
         }
 
@@ -229,8 +228,8 @@ public class AnointmentEventHandler {
         if (event.isTargetting(Enchantments.LOOTING)) {
             int lootingLevel = holder.getAnointmentLevel(AnointmentRegistrar.LOOTING);
             if (lootingLevel > 0) {
-                int currentLevel = event.getEnchantments().getLevel(event.getTargetEnchant());
-                event.getEnchantments().set(event.getTargetEnchant(), currentLevel + lootingLevel);
+                event.getHolder(Enchantments.LOOTING).ifPresent(ench ->
+                        event.getEnchantments().set(ench, event.getEnchantments().getLevel(ench) + lootingLevel));
             }
         }
     }

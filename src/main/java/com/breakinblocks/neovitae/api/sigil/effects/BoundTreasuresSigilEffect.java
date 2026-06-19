@@ -13,7 +13,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.api.sigil.SigilEffect;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -38,12 +38,11 @@ public record BoundTreasuresSigilEffect() implements SigilEffect {
         if (level.isClientSide) return false;
         if (!player.isShiftKeyDown()) return false;
 
-        BlockEntity be = level.getBlockEntity(blockPos);
-        if (be instanceof MenuProvider) {
+        BlockState state = level.getBlockState(blockPos);
+        if (state.getMenuProvider(level, blockPos) != null || level.getBlockEntity(blockPos) instanceof MenuProvider) {
             stack.set(NVDataComponents.TELEPOSER_POS.get(), blockPos);
             stack.set(NVDataComponents.TELEPOSER_DIMENSION.get(), level.dimension().location().toString());
             player.displayClientMessage(Component.translatable("tooltip.neovitae.bound_treasures.linked"), true);
-            return false;
         }
         return false;
     }
@@ -68,9 +67,14 @@ public record BoundTreasuresSigilEffect() implements SigilEffect {
             return false;
         }
 
-        BlockEntity be = targetLevel.getBlockEntity(chestPos);
-        if (be instanceof MenuProvider menuProvider) {
-            serverPlayer.openMenu(menuProvider);
+        BlockState state = targetLevel.getBlockState(chestPos);
+        MenuProvider menuProvider = state.getMenuProvider(targetLevel, chestPos);
+        if (menuProvider == null && targetLevel.getBlockEntity(chestPos) instanceof MenuProvider be) {
+            menuProvider = be;
+        }
+
+        if (menuProvider != null) {
+            serverPlayer.openMenu(menuProvider, chestPos);
             return true;
         }
 

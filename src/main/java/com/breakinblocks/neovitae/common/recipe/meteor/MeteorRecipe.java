@@ -57,7 +57,7 @@ public class MeteorRecipe implements Recipe<MeteorInput> {
     public void spawnMeteorInWorld(Level level, BlockPos centerPos) {
         if (explosionRadius > 0) {
             level.explode(null, centerPos.getX(), centerPos.getY(), centerPos.getZ(),
-                    explosionRadius, Level.ExplosionInteraction.TNT);
+                    explosionRadius, Level.ExplosionInteraction.NONE);
         }
 
         Map<Integer, MeteorLayer> layerMap = new HashMap<>();

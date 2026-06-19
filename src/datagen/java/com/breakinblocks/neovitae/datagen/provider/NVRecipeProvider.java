@@ -834,9 +834,9 @@ public class NVRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_altar", has(NVBlocks.ARA_VITAE.block().get()))
                 .save(output, rKey(NeoVitae.rl("bucket_life")));
 
-        // Teleposer Focus - ender pearl on tier 3 altar
+        // Teleposer Focus - eye of ender on tier 3 altar
         AltarRecipeBuilder.build(NVItems.TELEPOSER_FOCUS.get())
-                .from(Tags.Items.ENDER_PEARLS)
+                .from(Items.ENDER_EYE)
                 .minTier(3)
                 .bloodNeeded(2000)
                 .consumption(10)

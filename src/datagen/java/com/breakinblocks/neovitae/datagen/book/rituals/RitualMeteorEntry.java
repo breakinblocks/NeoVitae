@@ -34,7 +34,7 @@ public class RitualMeteorEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Heaven's Wrath");
         this.pageText("With enough [#](8B0000)Essentia Vitae[#]() and ambition, you can tear a celestial body from the void above and hurl it earthward. Drop a suitable offering atop the [#](8B0000)Master Ritual Stone[#](); the ritual consumes it along with an enormous expenditure of [#](8B0000)Essentia Vitae[#](), then calls down a meteor from the sky.\\\n\\\n"
-                + "The meteor settles in the air directly above the ritual, the [#](8B0000)lowest block of its sphere resting one block above the Master Ritual Stone[#](). The exact altitude is set by the meteor's outermost sphere radius - heavier offerings call larger meteors that hang higher overhead. When it materialises it detonates with a thunderous shock, leaving a crater of layered resources to mine and process.");
+                + "The meteor settles in the air directly above the ritual, the [#](8B0000)lowest block of its sphere resting one block above the Master Ritual Stone[#](). The exact altitude is set by the meteor's outermost sphere radius - heavier offerings call larger meteors that hang higher overhead. When it materialises it detonates with a thunderous shock, leaving a sphere of layered resources to mine and process. The meteor fills only open space; any solid blocks it overlaps, including your own builds, are left untouched.");
 
         this.page("offerings", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

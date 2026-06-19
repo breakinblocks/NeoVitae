@@ -8,7 +8,7 @@
   "category": "neovitae:rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:rituals/ritual_basics"
+    "entry_id": "neovitae:rituals/activation_crystals"
   },
   "description": "book.neovitae.guide.rituals.ritual_armour_evolve.description",
   "icon": {
@@ -18,10 +18,10 @@
   "name": "book.neovitae.guide.rituals.ritual_armour_evolve.name",
   "parents": [
     {
-      "entry": "neovitae:rituals/ritual_basics"
+      "entry": "neovitae:rituals/activation_crystals"
     }
   ],
   "sort_number": 34,
   "x": -7,
-  "y": 6
+  "y": 5
 }

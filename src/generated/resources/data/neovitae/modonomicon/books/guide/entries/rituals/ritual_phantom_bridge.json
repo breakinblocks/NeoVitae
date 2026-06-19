@@ -8,7 +8,7 @@
   "category": "neovitae:rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:rituals/ritual_basics"
+    "entry_id": "neovitae:rituals/activation_crystals"
   },
   "description": "book.neovitae.guide.rituals.ritual_phantom_bridge.description",
   "icon": {
@@ -18,10 +18,10 @@
   "name": "book.neovitae.guide.rituals.ritual_phantom_bridge.name",
   "parents": [
     {
-      "entry": "neovitae:rituals/ritual_basics"
+      "entry": "neovitae:rituals/activation_crystals"
     }
   ],
-  "sort_number": 21,
-  "x": -5,
-  "y": 0
+  "sort_number": 18,
+  "x": 5,
+  "y": -1
 }

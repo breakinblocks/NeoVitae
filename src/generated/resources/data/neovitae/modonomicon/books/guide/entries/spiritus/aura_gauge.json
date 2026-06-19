@@ -8,7 +8,7 @@
   "category": "neovitae:spiritus",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:spiritus/aura"
+    "entry_id": "neovitae:spiritus/aspected_spiritus"
   },
   "description": "book.neovitae.guide.spiritus.aura_gauge.description",
   "icon": {
@@ -18,7 +18,7 @@
   "name": "book.neovitae.guide.spiritus.aura_gauge.name",
   "parents": [
     {
-      "entry": "neovitae:spiritus/aura"
+      "entry": "neovitae:spiritus/aspected_spiritus"
     }
   ],
   "sort_number": 7,

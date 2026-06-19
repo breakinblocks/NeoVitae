@@ -8,7 +8,7 @@
   "category": "neovitae:rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:rituals/ritual_basics"
+    "entry_id": "neovitae:rituals/ritual_stones"
   },
   "description": "book.neovitae.guide.rituals.ritual_well_of_suffering.description",
   "icon": {
@@ -18,10 +18,10 @@
   "name": "book.neovitae.guide.rituals.ritual_well_of_suffering.name",
   "parents": [
     {
-      "entry": "neovitae:rituals/ritual_basics"
+      "entry": "neovitae:rituals/ritual_stones"
     }
   ],
-  "sort_number": 11,
-  "x": -7,
-  "y": -3
+  "sort_number": 27,
+  "x": -1,
+  "y": 2
 }

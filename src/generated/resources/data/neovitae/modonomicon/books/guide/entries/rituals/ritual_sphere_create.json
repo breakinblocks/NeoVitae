@@ -8,7 +8,7 @@
   "category": "neovitae:rituals",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:rituals/ritual_basics"
+    "entry_id": "neovitae:rituals/ritual_stones"
   },
   "description": "book.neovitae.guide.rituals.ritual_sphere_create.description",
   "icon": {
@@ -18,10 +18,10 @@
   "name": "book.neovitae.guide.rituals.ritual_sphere_create.name",
   "parents": [
     {
-      "entry": "neovitae:rituals/ritual_basics"
+      "entry": "neovitae:rituals/ritual_stones"
     }
   ],
-  "sort_number": 29,
+  "sort_number": 25,
   "x": -5,
   "y": 2
 }

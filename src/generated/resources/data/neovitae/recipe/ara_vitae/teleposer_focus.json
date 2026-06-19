@@ -4,7 +4,7 @@
   "craftSpeed": 10,
   "drainSpeed": 10,
   "input": {
-    "tag": "c:ender_pearls"
+    "item": "minecraft:ender_eye"
   },
   "minTier": 3,
   "output": {

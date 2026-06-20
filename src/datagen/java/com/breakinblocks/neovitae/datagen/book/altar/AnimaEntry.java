@@ -84,9 +84,9 @@ public class AnimaEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Sanguine Ward");
         this.pageText("Any [#](8B0000)Orb of Vitae[#]() held in the off-hand may be raised as a ward. "
-                + "Hold the use key to conjure a translucent barrier of crystallised [#](4A0080)Essentia Vitae[#]() "
-                + "before you. The ward persists for as long as you hold the key and vanishes the instant "
-                + "you release it."
+                + "Hold the [#](8B0000)Blood Shield[#]() key (right-click by default, rebindable in Controls) to conjure a "
+                + "translucent barrier of crystallised [#](4A0080)Essentia Vitae[#]() before you. The ward persists for "
+                + "as long as you hold the key and vanishes the instant you release it."
                 + "\\\n\\\nWhile active, the ward blocks all damage originating from your front arc, "
                 + "draining [#](8B0000)50 EV per second[#]() from your [#](4A0080)Anima[#]() to maintain it. "
                 + "If your [#](4A0080)Anima[#]() falls below [#](8B0000)200 EV[#](), "

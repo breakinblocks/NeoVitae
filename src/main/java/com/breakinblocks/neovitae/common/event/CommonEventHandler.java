@@ -30,6 +30,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Mob;
 import com.breakinblocks.neovitae.common.entity.mob.IDaemonium;
+import com.breakinblocks.neovitae.common.item.soul.LexVitaeItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.particles.ParticleTypes;
@@ -388,5 +389,22 @@ public class CommonEventHandler {
             }
         }
         return null;
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTickLexBeam(PlayerTickEvent.Post event) {
+        Player player = event.getEntity();
+        if (player.level().isClientSide()) return;
+        if (!LexVitaeItem.isBeaming(player)) return;
+        ItemStack held = player.getMainHandItem();
+        if (held.getItem() instanceof LexVitaeItem && LexVitaeItem.isActive(held)) {
+            LexVitaeItem.fireBeam(player.level(), player, held);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLogoutLexBeam(PlayerEvent.PlayerLoggedOutEvent event) {
+        LexVitaeItem.clearBeaming(event.getEntity().getUUID());
+        BloodOrbItem.clearShieldActive(event.getEntity().getUUID());
     }
 }

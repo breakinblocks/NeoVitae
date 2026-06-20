@@ -760,6 +760,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add("gui.neovitae.hud.save", "Save");
         add("gui.neovitae.hud.cancel", "Cancel");
         add("key.neovitae.edit_hud", "Edit HUD Layout");
+        add("key.neovitae.lex_beam", "Lex Vitae: Fire Beam");
+        add("key.neovitae.blood_shield", "Blood Shield (Orb of Vitae)");
         add("key.categories.neovitae", "Neo Vitae");
         add("ritual.neovitae.offset.info", "Offset: X=%d, Y=%d, Z=%d");
 

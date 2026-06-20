@@ -13,6 +13,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.MovementInputUpdateEvent;
+import com.breakinblocks.neovitae.common.network.LexBeamPayload;
 import com.breakinblocks.neovitae.common.network.LexCycleRadiusPayload;
 import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -29,6 +30,8 @@ public final class LexVitaeBeamHandler {
     private static final double WOBBLE_AMPLITUDE = 0.12;
     private static final double WOBBLE_FREQUENCY = 1.4;
     private static final double AOE_BRANCH_STEP = 1.6;
+
+    private static boolean lastFiring = false;
 
     public static int beamColor(SpiritusType type) {
         return switch (type) {
@@ -58,9 +61,9 @@ public final class LexVitaeBeamHandler {
 
     @SubscribeEvent
     public static void onMovementInput(MovementInputUpdateEvent event) {
+        if (!ClientModEventHandler.LEX_BEAM.isDown()) return;
         Player player = event.getEntity();
-        if (!player.isUsingItem()) return;
-        ItemStack used = player.getUseItem();
+        ItemStack used = player.getMainHandItem();
         if (!(used.getItem() instanceof LexVitaeItem)) return;
         if (!LexVitaeItem.isActive(used)) return;
         var input = event.getInput();
@@ -75,9 +78,13 @@ public final class LexVitaeBeamHandler {
 
         Player player = mc.player;
         ItemStack held = player.getMainHandItem();
-        if (!(held.getItem() instanceof LexVitaeItem)) return;
-        if (!LexVitaeItem.isActive(held)) return;
-        if (!player.isUsingItem() || player.getUseItem() != held) return;
+        boolean holdingActiveLex = held.getItem() instanceof LexVitaeItem && LexVitaeItem.isActive(held);
+        boolean firing = holdingActiveLex && ClientModEventHandler.LEX_BEAM.isDown();
+        if (firing != lastFiring) {
+            NVPayloads.sendToServer(new LexBeamPayload(firing));
+            lastFiring = firing;
+        }
+        if (!firing) return;
 
         Vec3 origin = player.getEyePosition();
         Vec3 dir = player.getLookAngle();

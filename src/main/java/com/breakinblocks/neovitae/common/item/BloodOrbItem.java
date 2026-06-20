@@ -21,23 +21,22 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import com.breakinblocks.neovitae.NeoVitae;
-import com.breakinblocks.neovitae.api.NeoVitaeAPI;
-import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.common.datamap.NVDataMaps;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.effect.SoulFrayEffect;
-import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
-import com.breakinblocks.neovitae.api.soul.AnimaTicket;
 import com.breakinblocks.neovitae.incense.IncenseHelper;
 import com.breakinblocks.neovitae.util.AltarUtil;
 
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class BloodOrbItem extends Item implements IBindable {
 
@@ -47,8 +46,26 @@ public class BloodOrbItem extends Item implements IBindable {
         super(new Item.Properties().stacksTo(1).component(NVDataComponents.BINDING, Binding.EMPTY));
     }
 
-    private static int getShieldMinEV() { return NeoVitae.SERVER_CONFIG.SANGUINE_WARD_MIN_EV.get(); }
-    private static int getShieldDrain() { return NeoVitae.SERVER_CONFIG.SANGUINE_WARD_DRAIN_PER_SECOND.get(); }
+    public static int getShieldMinEV() { return NeoVitae.SERVER_CONFIG.SANGUINE_WARD_MIN_EV.get(); }
+    public static int getShieldDrain() { return NeoVitae.SERVER_CONFIG.SANGUINE_WARD_DRAIN_PER_SECOND.get(); }
+
+    private static final Set<UUID> SHIELD_ACTIVE = ConcurrentHashMap.newKeySet();
+
+    public static boolean isShieldActive(Player player) {
+        return SHIELD_ACTIVE.contains(player.getUUID());
+    }
+
+    public static void setShieldActive(Player player, boolean on) {
+        if (on) {
+            SHIELD_ACTIVE.add(player.getUUID());
+        } else {
+            SHIELD_ACTIVE.remove(player.getUUID());
+        }
+    }
+
+    public static void clearShieldActive(UUID id) {
+        SHIELD_ACTIVE.remove(id);
+    }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
@@ -65,16 +82,7 @@ public class BloodOrbItem extends Item implements IBindable {
             return InteractionResultHolder.consume(stack);
 
         if (hand == InteractionHand.OFF_HAND) {
-            IAnima network = NeoVitaeAPI.getInstance().getAnima(player.getUUID());
-            if (network != null && network.getCurrentEV() >= getShieldMinEV()) {
-                player.startUsingItem(hand);
-                if (!level.isClientSide) {
-                    BloodShieldEntity shield = new BloodShieldEntity(level, player);
-                    level.addFreshEntity(shield);
-                }
-                return InteractionResultHolder.consume(stack);
-            }
-            return InteractionResultHolder.fail(stack);
+            return InteractionResultHolder.pass(stack);
         }
 
         BlockPos altarPos = AltarUtil.findAltar(level, player.blockPosition(), ORB_ALTAR_RANGE);
@@ -146,20 +154,6 @@ public class BloodOrbItem extends Item implements IBindable {
         return 72000;
     }
 
-    @Override
-    public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int remainingUseDuration) {
-        if (!(entity instanceof Player player)) return;
-        if (level.isClientSide) return;
-
-        if (player.tickCount % 20 == 0) {
-            IAnima network = NeoVitaeAPI.getInstance().getAnima(player.getUUID());
-            if (network == null || network.getCurrentEV() < getShieldDrain()) {
-                player.stopUsingItem();
-                return;
-            }
-            network.syphon(AnimaTicket.create(getShieldDrain()));
-        }
-    }
 
     public int getFluidCapacity(ItemStack stack) {
         return stack.getItemHolder().getData(NVDataMaps.BLOOD_ORB_STATS).fluidCapacity();

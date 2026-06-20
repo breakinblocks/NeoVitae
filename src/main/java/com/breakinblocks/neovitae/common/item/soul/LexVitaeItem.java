@@ -41,7 +41,9 @@ import com.breakinblocks.neovitae.NeoVitae;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
@@ -131,6 +133,7 @@ public class LexVitaeItem extends Item implements ISentientTool {
             .build();
 
     private static final Map<UUID, Long> BEAM_COOLDOWN = new HashMap<>();
+    private static final Set<UUID> BEAMING = ConcurrentHashMap.newKeySet();
 
     public static boolean isActive(ItemStack stack) {
         return stack.getOrDefault(NVDataComponents.LEX_ACTIVE, false);
@@ -194,27 +197,28 @@ public class LexVitaeItem extends Item implements ISentientTool {
             }
             return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
         }
-        if (isActive(stack)) {
-            player.startUsingItem(hand);
-            return InteractionResultHolder.consume(stack);
-        }
         return super.use(world, player, hand);
     }
 
-    @Override
-    public int getUseDuration(ItemStack stack, LivingEntity entity) {
-        return 72000;
+    public static void setBeaming(Player player, boolean on) {
+        if (on) {
+            BEAMING.add(player.getUUID());
+        } else {
+            BEAMING.remove(player.getUUID());
+            BEAM_COOLDOWN.remove(player.getUUID());
+        }
     }
 
-    @Override
-    public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int remainingUseDuration) {
-        if (level.isClientSide()) return;
-        if (!(entity instanceof Player player)) return;
-        if (!isActive(stack)) {
-            player.stopUsingItem();
-            return;
-        }
+    public static boolean isBeaming(Player player) {
+        return BEAMING.contains(player.getUUID());
+    }
 
+    public static void clearBeaming(UUID id) {
+        BEAMING.remove(id);
+        BEAM_COOLDOWN.remove(id);
+    }
+
+    public static void fireBeam(Level level, Player player, ItemStack stack) {
         Vec3 origin = player.getEyePosition();
         Vec3 dir = player.getLookAngle();
         Vec3 reach = origin.add(dir.scale(BEAM_RANGE));
@@ -250,14 +254,7 @@ public class LexVitaeItem extends Item implements ISentientTool {
 
         if (player instanceof ServerPlayer sp) {
             sp.gameMode.destroyBlock(pos);
-            stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(player.getUsedItemHand()));
-        }
-    }
-
-    @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
-        if (entity instanceof Player p) {
-            BEAM_COOLDOWN.remove(p.getUUID());
+            stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(InteractionHand.MAIN_HAND));
         }
     }
 

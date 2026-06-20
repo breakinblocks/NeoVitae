@@ -169,6 +169,9 @@ public final class SentientToolHelper {
             if (i == 0 || attackingEntity.level().getRandom().nextDouble() < 0.4) {
                 double soulAmount = spiritusModifier * (soulDropAmount * attackingEntity.level().getRandom().nextDouble()
                     + staticDropAmount) * killedEntity.getMaxHealth() / 20d * spiritusBonus;
+                if (soulAmount < 1.0) {
+                    continue;
+                }
                 soulList.add(soulItem.createSpiritus(soulAmount));
             }
         }

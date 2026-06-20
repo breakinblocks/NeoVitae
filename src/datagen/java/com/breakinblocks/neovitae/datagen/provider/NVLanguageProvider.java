@@ -763,7 +763,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("key.neovitae.edit_hud", "Edit HUD Layout");
         add("key.neovitae.lex_beam", "Lex Vitae: Fire Beam");
         add("key.neovitae.blood_shield", "Blood Shield (Orb of Vitae)");
-        add("key.categories.neovitae", "Neo Vitae");
+        add("key.category.neovitae.neovitae", "Neo Vitae");
         add("ritual.neovitae.offset.info", "Offset: X=%d, Y=%d, Z=%d");
 
         // Tau Oil

@@ -2536,7 +2536,7 @@
   "jei.neovitae.upgrade_tome.storm_trooper.info": "Spoils your aim, scattering the projectiles you fire.\n\nImposed by the Sentient Downgrade ritual, which trades unwanted upgrade levels for this curse and frees Upgrade Points to spend elsewhere.",
   "jei.neovitae.upgrade_tome.swim_decrease.info": "Reduces your swimming speed.\n\nImposed by the Sentient Downgrade ritual, which trades unwanted upgrade levels for this curse and frees Upgrade Points to spend elsewhere.",
   "jukebox_song.neovitae.blood_sweat_and_tears": "Saereth - Blood, Sweat & Tears",
-  "key.categories.neovitae": "Neo Vitae",
+  "key.category.neovitae.neovitae": "Neo Vitae",
   "key.neovitae.blood_shield": "Blood Shield (Orb of Vitae)",
   "key.neovitae.edit_hud": "Edit HUD Layout",
   "key.neovitae.lex_beam": "Lex Vitae: Fire Beam",

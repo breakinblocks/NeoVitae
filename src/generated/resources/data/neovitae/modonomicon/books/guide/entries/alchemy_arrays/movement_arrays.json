@@ -7,8 +7,16 @@
   },
   "category": "neovitae:alchemy_arrays",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:alchemy_arrays/arcane_ash"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/alchemy_arrays_arcane_ash",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.neovitae.guide.alchemy_arrays.arcane_ash.name"
+        }
+      ]
+    }
   },
   "description": "book.neovitae.guide.alchemy_arrays.movement_arrays.description",
   "icon": {

@@ -7,8 +7,16 @@
   },
   "category": "neovitae:spiritus",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:spiritus/sentient_sword"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_sentient_sword",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.neovitae.guide.spiritus.sentient_sword.name"
+        }
+      ]
+    }
   },
   "description": "book.neovitae.guide.spiritus.sentient_tools.description",
   "icon": {

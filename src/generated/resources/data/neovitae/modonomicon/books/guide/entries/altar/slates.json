@@ -7,8 +7,16 @@
   },
   "category": "neovitae:altar",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:altar/ara_vitae"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/altar_ara_vitae",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.neovitae.guide.altar.ara_vitae.name"
+        }
+      ]
+    }
   },
   "description": "book.neovitae.guide.altar.slates.description",
   "icon": {

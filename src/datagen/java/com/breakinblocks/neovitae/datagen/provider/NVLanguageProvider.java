@@ -5,6 +5,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
@@ -18,8 +19,11 @@ import com.breakinblocks.neovitae.util.helper.BlockWithItemHolder;
 
 public class NVLanguageProvider extends LanguageProvider implements ModonomiconLanguageProvider {
 
-    public NVLanguageProvider(PackOutput output) {
+    private final LanguageProviderCache langCache;
+
+    public NVLanguageProvider(PackOutput output, LanguageProviderCache langCache) {
         super(output, NeoVitae.MODID, "en_us");
+        this.langCache = langCache;
     }
 
     @Override
@@ -1519,6 +1523,9 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         // Missing alchemy array tooltips (matches the JEI effect descriptions)
         addTooltip("array_effect.binding", "Binds items to the owner's soul network.");
         addTooltip("array_effect.crafting", "Transforms items into new forms.");
+
+        // Merge book-generated translations from modonomicon cache
+        this.langCache.data().forEach(this::add);
     }
 
     public void addRitual(String key, String name) {

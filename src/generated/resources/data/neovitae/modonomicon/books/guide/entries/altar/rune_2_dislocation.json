@@ -7,8 +7,16 @@
   },
   "category": "neovitae:altar",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:altar/rune_dislocation"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/altar_rune_dislocation",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.neovitae.guide.altar.rune_dislocation.name"
+        }
+      ]
+    }
   },
   "description": "book.neovitae.guide.altar.rune_2_dislocation.description",
   "icon": {

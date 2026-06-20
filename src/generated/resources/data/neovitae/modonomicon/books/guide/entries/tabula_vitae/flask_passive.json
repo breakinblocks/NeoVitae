@@ -7,8 +7,16 @@
   },
   "category": "neovitae:tabula_vitae",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:tabula_vitae/potion_crafting"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/tabula_vitae_potion_crafting",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.neovitae.guide.tabula_vitae.potion_crafting.name"
+        }
+      ]
+    }
   },
   "description": "book.neovitae.guide.tabula_vitae.flask_passive.description",
   "icon": {

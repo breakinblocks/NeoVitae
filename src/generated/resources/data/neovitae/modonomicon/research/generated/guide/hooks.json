@@ -1,0 +1,272 @@
+[
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/alchemy_arrays_arcane_ash",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/alchemy_arrays_arcane_ash_hook",
+    "trigger_target": "neovitae:alchemy_arrays/arcane_ash",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/alchemy_arrays_sigil_divination",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/alchemy_arrays_sigil_divination_hook",
+    "trigger_target": "neovitae:alchemy_arrays/sigil_divination",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/alchemy_arrays_sentient_equipment",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/alchemy_arrays_sentient_equipment_hook",
+    "trigger_target": "neovitae:alchemy_arrays/sentient_equipment",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/alchemy_arrays_sentient_upgrades",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/alchemy_arrays_sentient_upgrades_hook",
+    "trigger_target": "neovitae:alchemy_arrays/sentient_upgrades",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_tabula_vitae",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_tabula_vitae_hook",
+    "trigger_target": "neovitae:tabula_vitae/tabula_vitae",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_anointments",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_anointments_hook",
+    "trigger_target": "neovitae:tabula_vitae/anointments",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_potion_crafting",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_potion_crafting_hook",
+    "trigger_target": "neovitae:tabula_vitae/potion_crafting",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_speed",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_speed_hook",
+    "trigger_target": "neovitae:tabula_vitae/flask_speed",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_instant_health",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_instant_health_hook",
+    "trigger_target": "neovitae:tabula_vitae/flask_instant_health",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_night_vision",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_night_vision_hook",
+    "trigger_target": "neovitae:tabula_vitae/flask_night_vision",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_slow_falling",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_slow_falling_hook",
+    "trigger_target": "neovitae:tabula_vitae/flask_slow_falling",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_jump_boost",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_jump_boost_hook",
+    "trigger_target": "neovitae:tabula_vitae/flask_jump_boost",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_grounded",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_grounded_hook",
+    "trigger_target": "neovitae:tabula_vitae/flask_grounded",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_hard_cloak",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_hard_cloak_hook",
+    "trigger_target": "neovitae:tabula_vitae/flask_hard_cloak",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_gravity",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_gravity_hook",
+    "trigger_target": "neovitae:tabula_vitae/flask_gravity",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_suspended",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_suspended_hook",
+    "trigger_target": "neovitae:tabula_vitae/flask_suspended",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/altar_ara_vitae",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/altar_ara_vitae_hook",
+    "trigger_target": "neovitae:altar/ara_vitae",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/altar_redstone_automation",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/altar_redstone_automation_hook",
+    "trigger_target": "neovitae:altar/redstone_automation",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/altar_anima",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/altar_anima_hook",
+    "trigger_target": "neovitae:altar/anima",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_capacity",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_capacity_hook",
+    "trigger_target": "neovitae:altar/rune_capacity",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_orb",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_orb_hook",
+    "trigger_target": "neovitae:altar/rune_orb",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_speed",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_speed_hook",
+    "trigger_target": "neovitae:altar/rune_speed",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_acceleration",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_acceleration_hook",
+    "trigger_target": "neovitae:altar/rune_acceleration",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_charging",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_charging_hook",
+    "trigger_target": "neovitae:altar/rune_charging",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_dislocation",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_dislocation_hook",
+    "trigger_target": "neovitae:altar/rune_dislocation",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_aug_capacity",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_aug_capacity_hook",
+    "trigger_target": "neovitae:altar/rune_aug_capacity",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_self_sacrifice",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_self_sacrifice_hook",
+    "trigger_target": "neovitae:altar/rune_self_sacrifice",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_sacrifice",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_sacrifice_hook",
+    "trigger_target": "neovitae:altar/rune_sacrifice",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_spiritus",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_spiritus_hook",
+    "trigger_target": "neovitae:spiritus/spiritus",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_throwing_daggers",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_throwing_daggers_hook",
+    "trigger_target": "neovitae:spiritus/throwing_daggers",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_spiritus_gems",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_spiritus_gems_hook",
+    "trigger_target": "neovitae:spiritus/spiritus_gems",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_aura",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_aura_hook",
+    "trigger_target": "neovitae:spiritus/aura",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_crystallized_spiritus",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_crystallized_spiritus_hook",
+    "trigger_target": "neovitae:spiritus/crystallized_spiritus",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_aspected_spiritus",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_aspected_spiritus_hook",
+    "trigger_target": "neovitae:spiritus/aspected_spiritus",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_sentient_sword",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_sentient_sword_hook",
+    "trigger_target": "neovitae:spiritus/sentient_sword",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_sentient_tools",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_sentient_tools_hook",
+    "trigger_target": "neovitae:spiritus/sentient_tools",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_hellfire_forge",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_hellfire_forge_hook",
+    "trigger_target": "neovitae:spiritus/hellfire_forge",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_node_router",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_node_router_hook",
+    "trigger_target": "neovitae:spiritus/node_router",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_routing_nodes",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_routing_nodes_hook",
+    "trigger_target": "neovitae:spiritus/routing_nodes",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_athanor",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_athanor_hook",
+    "trigger_target": "neovitae:spiritus/athanor",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_ore_processing",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/spiritus_ore_processing_hook",
+    "trigger_target": "neovitae:spiritus/ore_processing",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/rituals_ritual_basics",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/rituals_ritual_basics_hook",
+    "trigger_target": "neovitae:rituals/ritual_basics",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/rituals_ritual_stones",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/rituals_ritual_stones_hook",
+    "trigger_target": "neovitae:rituals/ritual_stones",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/rituals_ritual_diviner",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/rituals_ritual_diviner_hook",
+    "trigger_target": "neovitae:rituals/ritual_diviner",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  },
+  {
+    "fact_id": "neovitae:generated/guide/facts/entry_viewed_once/rituals_activation_crystals",
+    "id": "neovitae:generated/guide/facts/entry_viewed_once/rituals_activation_crystals_hook",
+    "trigger_target": "neovitae:rituals/activation_crystals",
+    "trigger_type": "modonomicon:entry_viewed_once"
+  }
+]

@@ -7,8 +7,16 @@
   },
   "category": "neovitae:rituals",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:rituals/activation_crystals"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/rituals_activation_crystals",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.neovitae.guide.rituals.activation_crystals.name"
+        }
+      ]
+    }
   },
   "description": "book.neovitae.guide.rituals.ritual_phantom_bridge.description",
   "icon": {

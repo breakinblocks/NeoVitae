@@ -1,0 +1,272 @@
+[
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/alchemy_arrays_arcane_ash",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/alchemy_arrays_arcane_ash"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/alchemy_arrays_sigil_divination",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/alchemy_arrays_sigil_divination"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/alchemy_arrays_sentient_equipment",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/alchemy_arrays_sentient_equipment"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/alchemy_arrays_sentient_upgrades",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/alchemy_arrays_sentient_upgrades"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/tabula_vitae_tabula_vitae",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_tabula_vitae"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/tabula_vitae_anointments",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_anointments"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/tabula_vitae_potion_crafting",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_potion_crafting"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/tabula_vitae_flask_speed",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_speed"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/tabula_vitae_flask_instant_health",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_instant_health"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/tabula_vitae_flask_night_vision",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_night_vision"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/tabula_vitae_flask_slow_falling",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_slow_falling"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/tabula_vitae_flask_jump_boost",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_jump_boost"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/tabula_vitae_flask_grounded",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_grounded"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/tabula_vitae_flask_hard_cloak",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_hard_cloak"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/tabula_vitae_flask_gravity",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_gravity"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/tabula_vitae_flask_suspended",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/tabula_vitae_flask_suspended"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/altar_ara_vitae",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/altar_ara_vitae"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/altar_redstone_automation",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/altar_redstone_automation"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/altar_anima",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/altar_anima"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/altar_rune_capacity",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_capacity"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/altar_rune_orb",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_orb"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/altar_rune_speed",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_speed"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/altar_rune_acceleration",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_acceleration"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/altar_rune_charging",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_charging"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/altar_rune_dislocation",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_dislocation"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/altar_rune_aug_capacity",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_aug_capacity"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/altar_rune_self_sacrifice",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_self_sacrifice"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/altar_rune_sacrifice",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/altar_rune_sacrifice"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_spiritus",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/spiritus_spiritus"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_throwing_daggers",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/spiritus_throwing_daggers"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_spiritus_gems",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/spiritus_spiritus_gems"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_aura",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/spiritus_aura"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_crystallized_spiritus",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/spiritus_crystallized_spiritus"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_aspected_spiritus",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/spiritus_aspected_spiritus"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_sentient_sword",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/spiritus_sentient_sword"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_sentient_tools",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/spiritus_sentient_tools"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_hellfire_forge",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/spiritus_hellfire_forge"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_node_router",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/spiritus_node_router"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_routing_nodes",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/spiritus_routing_nodes"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_athanor",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/spiritus_athanor"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_ore_processing",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/spiritus_ore_processing"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/rituals_ritual_basics",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/rituals_ritual_basics"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/rituals_ritual_stones",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/rituals_ritual_stones"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/rituals_ritual_diviner",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/rituals_ritual_diviner"
+    ]
+  },
+  {
+    "id": "neovitae:generated/guide/nodes/entry_viewed_once/required/rituals_activation_crystals",
+    "required_facts": [
+      "neovitae:generated/guide/facts/entry_viewed_once/rituals_activation_crystals"
+    ]
+  }
+]

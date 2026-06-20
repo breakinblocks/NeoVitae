@@ -57,6 +57,7 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.dimension.DungeonDimensionHelper;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.item.BloodOrbItem;
+import com.breakinblocks.neovitae.common.item.soul.LexVitaeItem;
 import com.breakinblocks.neovitae.common.item.IBindable;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.material.MaterialRegistry;
@@ -426,5 +427,22 @@ public class CommonEventHandler {
             }
         }
         return null;
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTickLexBeam(PlayerTickEvent.Post event) {
+        Player player = event.getEntity();
+        if (player.level().isClientSide()) return;
+        if (!LexVitaeItem.isBeaming(player)) return;
+        ItemStack held = player.getMainHandItem();
+        if (held.getItem() instanceof LexVitaeItem && LexVitaeItem.isActive(held)) {
+            LexVitaeItem.fireBeam(player.level(), player, held);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLogoutLexBeam(PlayerEvent.PlayerLoggedOutEvent event) {
+        LexVitaeItem.clearBeaming(event.getEntity().getUUID());
+        BloodOrbItem.clearShieldActive(event.getEntity().getUUID());
     }
 }

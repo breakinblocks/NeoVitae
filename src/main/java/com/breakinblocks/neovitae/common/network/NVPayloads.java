@@ -18,6 +18,10 @@ import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.TrainerItem;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
 import com.breakinblocks.neovitae.common.item.soul.LexVitaeItem;
+import com.breakinblocks.neovitae.common.item.BloodOrbItem;
+import com.breakinblocks.neovitae.common.entity.BloodShieldEntity;
+import com.breakinblocks.neovitae.api.NeoVitaeAPI;
+import com.breakinblocks.neovitae.api.soul.IAnima;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.menu.AbstractBlockEntityMenu;
@@ -134,6 +138,41 @@ public class NVPayloads {
                 SetSideConfigPayload.STREAM_CODEC,
                 NVPayloads::handleSetSideConfig
         );
+
+        registrar.playToServer(
+                LexBeamPayload.TYPE,
+                LexBeamPayload.STREAM_CODEC,
+                NVPayloads::handleLexBeam
+        );
+
+        registrar.playToServer(
+                ShieldKeyPayload.TYPE,
+                ShieldKeyPayload.STREAM_CODEC,
+                NVPayloads::handleShieldKey
+        );
+    }
+
+    private static void handleLexBeam(LexBeamPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            if (context.player() != null) {
+                LexVitaeItem.setBeaming(context.player(), payload.firing());
+            }
+        });
+    }
+
+    private static void handleShieldKey(ShieldKeyPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            if (!(context.player() instanceof ServerPlayer player)) return;
+            if (payload.active() && player.getOffhandItem().getItem() instanceof BloodOrbItem) {
+                IAnima network = NeoVitaeAPI.getInstance().getAnima(player.getUUID());
+                if (network != null && network.getCurrentEV() >= BloodOrbItem.getShieldMinEV()) {
+                    BloodOrbItem.setShieldActive(player, true);
+                    BloodShieldEntity.raise(player);
+                    return;
+                }
+            }
+            BloodOrbItem.setShieldActive(player, false);
+        });
     }
 
     private static void handleSetSideConfig(SetSideConfigPayload payload, IPayloadContext context) {

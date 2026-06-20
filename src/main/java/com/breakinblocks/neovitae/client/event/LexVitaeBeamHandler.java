@@ -13,6 +13,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import com.breakinblocks.neovitae.common.network.LexBeamPayload;
 import com.breakinblocks.neovitae.common.network.LexCycleRadiusPayload;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
@@ -40,6 +41,8 @@ public final class LexVitaeBeamHandler {
 
     private LexVitaeBeamHandler() {}
 
+    private static boolean lastFiring = false;
+
     @SubscribeEvent
     public static void onMouseScroll(InputEvent.MouseScrollingEvent event) {
         Minecraft mc = Minecraft.getInstance();
@@ -65,9 +68,13 @@ public final class LexVitaeBeamHandler {
 
         Player player = mc.player;
         ItemStack held = player.getMainHandItem();
-        if (!(held.getItem() instanceof LexVitaeItem)) return;
-        if (!LexVitaeItem.isActive(held)) return;
-        if (!player.isUsingItem() || player.getUseItem() != held) return;
+        boolean holdingActiveLex = held.getItem() instanceof LexVitaeItem && LexVitaeItem.isActive(held);
+        boolean firing = holdingActiveLex && ClientModEventHandler.LEX_BEAM.isDown();
+        if (firing != lastFiring) {
+            ClientPacketDistributor.sendToServer(new LexBeamPayload(firing));
+            lastFiring = firing;
+        }
+        if (!firing) return;
 
         Vec3 origin = player.getEyePosition();
         Vec3 dir = player.getLookAngle();

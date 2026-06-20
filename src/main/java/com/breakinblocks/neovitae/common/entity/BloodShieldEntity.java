@@ -15,6 +15,10 @@ import com.geckolib.animatable.GeoEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.util.GeckoLibUtil;
+import com.breakinblocks.neovitae.api.NeoVitaeAPI;
+import com.breakinblocks.neovitae.api.soul.AnimaTicket;
+import com.breakinblocks.neovitae.api.soul.IAnima;
+import com.breakinblocks.neovitae.common.item.BloodOrbItem;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -88,13 +92,33 @@ public class BloodShieldEntity extends Entity implements GeoEntity {
         this.setXRot(0);
     }
 
+    public static void raise(Player player) {
+        Level level = player.level();
+        if (level.isClientSide()) return;
+        boolean exists = !level.getEntitiesOfClass(BloodShieldEntity.class, player.getBoundingBox().inflate(8.0),
+                e -> player.getUUID().equals(e.ownerUUID)).isEmpty();
+        if (exists) return;
+        level.addFreshEntity(new BloodShieldEntity(level, player));
+    }
+
     @Override
     public void tick() {
         super.tick();
         Player owner = getOwner();
-        if (owner == null || !owner.isAlive() || !owner.isUsingItem()) {
+        if (owner == null || !owner.isAlive()
+                || !BloodOrbItem.isShieldActive(owner)
+                || !(owner.getOffhandItem().getItem() instanceof BloodOrbItem)) {
             discard();
             return;
+        }
+        if (!level().isClientSide() && owner.tickCount % 20 == 0) {
+            IAnima network = NeoVitaeAPI.getInstance().getAnima(owner.getUUID());
+            if (network == null || network.getCurrentEV() < BloodOrbItem.getShieldDrain()) {
+                BloodOrbItem.setShieldActive(owner, false);
+                discard();
+                return;
+            }
+            network.syphon(AnimaTicket.create(BloodOrbItem.getShieldDrain()));
         }
         updatePosition(owner);
     }

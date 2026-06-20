@@ -155,9 +155,17 @@ public class ClientModEventHandler {
     public static final KeyMapping OPEN_HUD_EDIT = new KeyMapping(
             "key.neovitae.edit_hud", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_H, HUD_CATEGORY);
 
+    public static final KeyMapping LEX_BEAM = new KeyMapping(
+            "key.neovitae.lex_beam", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, HUD_CATEGORY);
+
+    public static final KeyMapping BLOOD_SHIELD = new KeyMapping(
+            "key.neovitae.blood_shield", InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_RIGHT, HUD_CATEGORY);
+
     @SubscribeEvent
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(OPEN_HUD_EDIT);
+        event.register(LEX_BEAM);
+        event.register(BLOOD_SHIELD);
     }
 
     @SubscribeEvent

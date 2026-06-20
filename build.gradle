@@ -229,14 +229,16 @@ publishMods {
         minecraftVersions.add(minecraft_version)
         clientRequired = true
         serverRequired = true
-        optional("jei", "jade", "curios", "modonomicon")
+        requires("geckolib", "modonomicon")
+        optional("jei", "jade", "curios")
     }
 
     modrinth {
         projectId = "rvaW4C93"
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         minecraftVersions.add(minecraft_version)
-        optional("jei", "jade", "curios", "modonomicon")
+        requires("geckolib", "modonomicon")
+        optional("jei", "jade", "curios")
     }
 }
 

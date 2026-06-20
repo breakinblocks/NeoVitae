@@ -8,20 +8,20 @@
   "category": "neovitae:spiritus",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:spiritus/routing_nodes"
+    "entry_id": "neovitae:spiritus/sentient_tools"
   },
-  "description": "book.neovitae.guide.spiritus.upgrades.description",
+  "description": "book.neovitae.guide.spiritus.lex_vitae.description",
   "icon": {
-    "id": "neovitae:master_core"
+    "id": "neovitae:lex_vitae"
   },
-  "id": "neovitae:spiritus/upgrades",
-  "name": "book.neovitae.guide.spiritus.upgrades.name",
+  "id": "neovitae:spiritus/lex_vitae",
+  "name": "book.neovitae.guide.spiritus.lex_vitae.name",
   "parents": [
     {
-      "entry": "neovitae:spiritus/routing_nodes"
+      "entry": "neovitae:spiritus/sentient_tools"
     }
   ],
-  "sort_number": 16,
+  "sort_number": 11,
   "x": -2,
-  "y": 0
+  "y": -1
 }

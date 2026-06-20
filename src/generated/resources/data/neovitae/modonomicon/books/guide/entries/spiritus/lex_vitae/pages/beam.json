@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "beam",
+  "show_title_separator": true,
+  "sort_number": 1,
+  "text": "book.neovitae.guide.spiritus.lex_vitae.beam.text",
+  "title": "book.neovitae.guide.spiritus.lex_vitae.beam.title"
+}

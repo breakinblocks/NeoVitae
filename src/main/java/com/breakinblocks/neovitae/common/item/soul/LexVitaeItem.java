@@ -78,7 +78,30 @@ public class LexVitaeItem extends Item implements ISentientTool {
                 .component(DataComponents.TOOL, buildTool())
                 .component(NVDataComponents.SPIRITUS_TYPE, SpiritusType.RAW)
                 .component(NVDataComponents.LEX_ACTIVE, false)
-                .component(NVDataComponents.LEX_RADIUS, 0));
+                .component(NVDataComponents.LEX_RADIUS, 0)
+                .component(NVDataComponents.LEX_MODE, MODE_BOTH));
+    }
+
+    public static final int MODE_BOTH = 0;
+    public static final int MODE_MINING = 1;
+    public static final int MODE_DAMAGING = 2;
+
+    public static int getMode(ItemStack stack) {
+        return stack.getOrDefault(NVDataComponents.LEX_MODE, MODE_BOTH);
+    }
+
+    public static void cycleMode(ItemStack stack) {
+        stack.set(NVDataComponents.LEX_MODE, (getMode(stack) + 1) % 3);
+    }
+
+    public static boolean canMine(ItemStack stack) {
+        int m = getMode(stack);
+        return m == MODE_BOTH || m == MODE_MINING;
+    }
+
+    public static boolean canAttack(ItemStack stack) {
+        int m = getMode(stack);
+        return m == MODE_BOTH || m == MODE_DAMAGING;
     }
 
     @Override
@@ -223,18 +246,22 @@ public class LexVitaeItem extends Item implements ISentientTool {
         long now = level.getGameTime();
         long cooldownEnd = BEAM_COOLDOWN.getOrDefault(player.getUUID(), 0L);
 
-        EntityHitResult ehr = ProjectileUtil.getEntityHitResult(player, origin, reach,
-                new AABB(origin, reach).inflate(2.0),
-                e -> !e.isSpectator() && e.isPickable() && e != player && e.isAlive(),
-                0.0);
-        if (ehr != null && ehr.getEntity() instanceof LivingEntity living && now >= cooldownEnd) {
-            int attackCd = Math.max(2,
-                    (int) Math.ceil(20.0 / Math.max(0.1, player.getAttributeValue(Attributes.ATTACK_SPEED))));
-            BEAM_COOLDOWN.put(player.getUUID(), now + attackCd);
-            player.attack(living);
-            player.resetAttackStrengthTicker();
-            return;
+        if (canAttack(stack)) {
+            EntityHitResult ehr = ProjectileUtil.getEntityHitResult(player, origin, reach,
+                    new AABB(origin, reach).inflate(2.0),
+                    e -> !e.isSpectator() && e.isPickable() && e != player && e.isAlive(),
+                    0.0);
+            if (ehr != null && ehr.getEntity() instanceof LivingEntity living && now >= cooldownEnd) {
+                int attackCd = Math.max(2,
+                        (int) Math.ceil(20.0 / Math.max(0.1, player.getAttributeValue(Attributes.ATTACK_SPEED))));
+                BEAM_COOLDOWN.put(player.getUUID(), now + attackCd);
+                player.attack(living);
+                player.resetAttackStrengthTicker();
+                return;
+            }
         }
+
+        if (!canMine(stack)) return;
 
         BlockHitResult bhr = level.clip(new ClipContext(origin, reach,
                 ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player));
@@ -396,6 +423,12 @@ public class LexVitaeItem extends Item implements ISentientTool {
         int r = stack.getOrDefault(NVDataComponents.LEX_RADIUS, 0);
         int side = r == 0 ? 1 : (r == 1 ? 3 : 5);
         tooltip.accept(Component.translatable("tooltip.neovitae.lexVitae.radius", side, side).withStyle(ChatFormatting.GRAY));
+        String modeKey = switch (getMode(stack)) {
+            case MODE_MINING -> "tooltip.neovitae.lexVitae.mode.mining";
+            case MODE_DAMAGING -> "tooltip.neovitae.lexVitae.mode.damaging";
+            default -> "tooltip.neovitae.lexVitae.mode.both";
+        };
+        tooltip.accept(Component.translatable("tooltip.neovitae.lexVitae.mode", Component.translatable(modeKey)).withStyle(ChatFormatting.GRAY));
         SpiritusTooltipHelper.appendSpiritusInfo(stack, getTooltipKey(), tooltip, flag);
     }
 

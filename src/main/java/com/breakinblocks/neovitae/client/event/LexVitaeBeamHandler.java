@@ -15,6 +15,7 @@ import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import com.breakinblocks.neovitae.common.network.LexBeamPayload;
 import com.breakinblocks.neovitae.common.network.LexCycleRadiusPayload;
+import com.breakinblocks.neovitae.common.network.LexModeCyclePayload;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
@@ -69,6 +70,15 @@ public final class LexVitaeBeamHandler {
         Player player = mc.player;
         ItemStack held = player.getMainHandItem();
         boolean holdingActiveLex = held.getItem() instanceof LexVitaeItem && LexVitaeItem.isActive(held);
+
+        boolean cycledMode = false;
+        while (ClientModEventHandler.LEX_MODE.consumeClick()) {
+            cycledMode = true;
+        }
+        if (cycledMode && holdingActiveLex) {
+            ClientPacketDistributor.sendToServer(LexModeCyclePayload.INSTANCE);
+        }
+
         boolean firing = holdingActiveLex && ClientModEventHandler.LEX_BEAM.isDown();
         if (firing != lastFiring) {
             ClientPacketDistributor.sendToServer(new LexBeamPayload(firing));

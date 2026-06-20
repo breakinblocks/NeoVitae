@@ -44,7 +44,7 @@ public final class LexVitaeVacuumHandler {
         ItemStack mainHand = player.getMainHandItem();
         if (!(mainHand.getItem() instanceof LexVitaeItem)) return;
         if (!LexVitaeItem.isActive(mainHand)) return;
-        if (!player.isUsingItem() || player.getUseItem() != mainHand) return;
+        if (!LexVitaeItem.isBeaming(player)) return;
 
         ServerLevel level = event.getLevel();
         BlockPos pos = event.getPos();

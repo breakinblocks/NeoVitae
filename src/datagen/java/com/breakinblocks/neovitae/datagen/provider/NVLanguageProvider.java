@@ -311,10 +311,14 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addTooltip("sentientScythe.desc", "Area damage empowered by spiritus");
 
         add(NVItems.LEX_VITAE.get(), "Lex Vitae");
-        addTooltip("lexVitae.desc", "Sentient multitool: chops, mines, digs, tills. Sneak-right-click to toggle. Sneak+scroll to set mining radius.");
+        addTooltip("lexVitae.desc", "Sentient multitool: chops, mines, digs, tills. Sneak-right-click to toggle. Sneak+scroll to set mining radius. The Cycle Mode key switches the beam between mining, damage, and both. Mined blocks are sent straight to your inventory.");
         addTooltip("lexVitae.dormant", "Dormant");
         addTooltip("lexVitae.active", "Active");
         addTooltip("lexVitae.radius", "Radius: %sx%s");
+        addTooltip("lexVitae.mode", "Mode: %s");
+        addTooltip("lexVitae.mode.both", "Mining & Damage");
+        addTooltip("lexVitae.mode.mining", "Mining");
+        addTooltip("lexVitae.mode.damaging", "Damage");
         add("message.neovitae.lex_vitae.radius", "Lex Vitae mining radius: %sx%s");
 
         // Spiritus type tooltip header + per-type display names (color-coded at runtime)
@@ -762,6 +766,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.hud.cancel", "Cancel");
         add("key.neovitae.edit_hud", "Edit HUD Layout");
         add("key.neovitae.lex_beam", "Lex Vitae: Fire Beam");
+        add("key.neovitae.lex_mode", "Lex Vitae: Cycle Mode");
         add("key.neovitae.blood_shield", "Blood Shield (Orb of Vitae)");
         add("key.category.neovitae.neovitae", "Neo Vitae");
         add("ritual.neovitae.offset.info", "Offset: X=%d, Y=%d, Z=%d");

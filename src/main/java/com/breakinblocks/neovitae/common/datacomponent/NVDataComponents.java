@@ -32,6 +32,7 @@ public class NVDataComponents {
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> LEX_ACTIVE = DATA_COMPONENTS.registerComponentType("lex_active", builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LEX_RADIUS = DATA_COMPONENTS.registerComponentType("lex_radius", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LEX_MODE = DATA_COMPONENTS.registerComponentType("lex_mode", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Double>> SPIRITUS_AMOUNT = DATA_COMPONENTS.registerComponentType("spiritus_amount", builder -> builder.persistent(Codec.DOUBLE).networkSynchronized(ByteBufCodecs.DOUBLE));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SpiritusType>> SPIRITUS_TYPE = DATA_COMPONENTS.registerComponentType("spiritus_type", builder -> builder.persistent(SpiritusType.CODEC).networkSynchronized(SpiritusType.STREAM_CODEC));

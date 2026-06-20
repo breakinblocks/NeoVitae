@@ -41,6 +41,13 @@ public class MaterialRegistry {
     private static final List<MaterialDefinition> MATERIALS = new ArrayList<>();
     private static final Map<String, Map<String, DeferredHolder<Item, Item>>> ITEM_MAP = new LinkedHashMap<>();
     private static final Map<Identifier, List<String>> PENDING_TAG_VALUES = new LinkedHashMap<>();
+    private static final Set<String> STATIC_TEXTURE_ITEMS = Set.of(
+            "iron_fragment", "iron_gravel", "iron_dust",
+            "gold_fragment", "gold_gravel", "gold_dust",
+            "copper_fragment", "copper_gravel", "copper_dust",
+            "fragment_netherite_scrap", "gravel_netherite_scrap", "netherite_scrap_dust",
+            "demonite_fragment", "demonite_gravel"
+    );
     private static InMemoryPack GENERATED_PACK;
     private static boolean firstRun = false;
     private static boolean pendingRestartNotice = false;
@@ -114,7 +121,8 @@ public class MaterialRegistry {
                 String itemId = mat.getItemId(stage);
                 String stageName = stage.substring(0, 1).toUpperCase() + stage.substring(1);
 
-                String baseTexture = switch (stage) {
+                boolean staticTexture = STATIC_TEXTURE_ITEMS.contains(itemId);
+                String baseTexture = staticTexture ? "neovitae:item/" + itemId : switch (stage) {
                     case "fragment" -> "neovitae:item/base_fragment";
                     case "gravel" -> "neovitae:item/base_gravel";
                     default -> "neovitae:item/base_dust";
@@ -134,11 +142,13 @@ public class MaterialRegistry {
                 JsonObject selectorModel = new JsonObject();
                 selectorModel.addProperty("type", "minecraft:model");
                 selectorModel.addProperty("model", "neovitae:item/" + itemId);
-                JsonArray tints = new JsonArray();
-                JsonObject materialTint = new JsonObject();
-                materialTint.addProperty("type", "neovitae:material");
-                tints.add(materialTint);
-                selectorModel.add("tints", tints);
+                if (!staticTexture) {
+                    JsonArray tints = new JsonArray();
+                    JsonObject materialTint = new JsonObject();
+                    materialTint.addProperty("type", "neovitae:material");
+                    tints.add(materialTint);
+                    selectorModel.add("tints", tints);
+                }
                 selector.add("model", selectorModel);
 
                 GENERATED_PACK.putJson(PackType.CLIENT_RESOURCES,

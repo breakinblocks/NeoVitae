@@ -7,9 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.item.sigil.ItemSigilHolding;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.breakinblocks.neovitae.spiritus.PlayerSpiritusHandler;
 
 public abstract class ElementDivinedInformation<T extends BlockEntity> extends ElementTileInformation<T> {
 
@@ -61,12 +59,7 @@ public abstract class ElementDivinedInformation<T extends BlockEntity> extends E
         };
     }
 
-    private static List<ItemStack> activeInventory(Player player) {
-        List<ItemStack> list = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
-            list.add(player.getInventory().getItem(i));
-        }
-        list.add(player.getOffhandItem());
-        return list;
+    private static NonNullList<ItemStack> activeInventory(Player player) {
+        return PlayerSpiritusHandler.getAllInventories(player);
     }
 }

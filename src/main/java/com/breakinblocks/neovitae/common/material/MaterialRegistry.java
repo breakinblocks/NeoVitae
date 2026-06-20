@@ -41,6 +41,13 @@ public class MaterialRegistry {
     private static final List<MaterialDefinition> MATERIALS = new ArrayList<>();
     private static final Map<String, Map<String, DeferredHolder<Item, Item>>> ITEM_MAP = new LinkedHashMap<>();
     private static final Map<ResourceLocation, List<String>> PENDING_TAG_VALUES = new LinkedHashMap<>();
+    private static final Set<String> STATIC_TEXTURE_ITEMS = Set.of(
+            "iron_fragment", "iron_gravel", "iron_dust",
+            "gold_fragment", "gold_gravel", "gold_dust",
+            "copper_fragment", "copper_gravel", "copper_dust",
+            "fragment_netherite_scrap", "gravel_netherite_scrap", "netherite_scrap_dust",
+            "demonite_fragment", "demonite_gravel"
+    );
     private static InMemoryPack GENERATED_PACK;
     private static boolean firstRun = false;
     private static boolean pendingRestartNotice = false;
@@ -65,7 +72,8 @@ public class MaterialRegistry {
                 if (stage == null || stage.isBlank()) continue;
                 String itemId = mat.getItemId(stage);
                 int color = mat.getColorInt();
-                DeferredHolder<Item, Item> holder = ITEMS.register(itemId, () -> new MaterialItem(color));
+                boolean staticTexture = STATIC_TEXTURE_ITEMS.contains(itemId);
+                DeferredHolder<Item, Item> holder = ITEMS.register(itemId, () -> new MaterialItem(color, staticTexture));
                 stageMap.put(stage, holder);
             }
             ITEM_MAP.put(mat.getName(), stageMap);
@@ -114,7 +122,7 @@ public class MaterialRegistry {
                 String itemId = mat.getItemId(stage);
                 String stageName = stage.substring(0, 1).toUpperCase() + stage.substring(1);
 
-                String baseTexture = switch (stage) {
+                String baseTexture = STATIC_TEXTURE_ITEMS.contains(itemId) ? "neovitae:item/" + itemId : switch (stage) {
                     case "fragment" -> "neovitae:item/base_fragment";
                     case "gravel" -> "neovitae:item/base_gravel";
                     default -> "neovitae:item/base_dust";

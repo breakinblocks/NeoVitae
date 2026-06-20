@@ -80,8 +80,8 @@ public class SpiritusEventHandler {
                 if (soulStack.getItem() instanceof ISpiritus spirit) {
                     double amount = spirit.getSpiritus(weaponType, soulStack);
                     double added = PlayerSpiritusHandler.addSpiritus(weaponType, player, amount);
-                    if (added < amount) {
-                        double leftover = amount - added;
+                    double leftover = amount - added;
+                    if (leftover >= 0.005) {
                         overflow.add(spirit.createSpiritus(leftover));
                     }
                 } else {
@@ -112,6 +112,9 @@ public class SpiritusEventHandler {
         }
         SpiritusType type = pickWeighted(drop.entries(), rng);
         double soulAmount = daemoniumSoulAmount(killed, killer, rng);
+        if (soulAmount < 1.0) {
+            return;
+        }
         dropSouls(killed, List.of(soulItem(type).createSpiritus(soulAmount)));
     }
 

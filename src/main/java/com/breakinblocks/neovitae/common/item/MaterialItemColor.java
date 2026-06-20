@@ -10,7 +10,7 @@ public class MaterialItemColor implements ItemColor {
 
     @Override
     public int getColor(ItemStack stack, int layer) {
-        if (layer == 0 && stack.getItem() instanceof MaterialItem materialItem) {
+        if (layer == 0 && stack.getItem() instanceof MaterialItem materialItem && !materialItem.isStaticTexture()) {
             return 0xFF000000 | materialItem.getMaterialColor();
         }
         return 0xFFFFFFFF;

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "neovitae:item/raw_spiritus_invictus"
+    "layer0": "neovitae:item/base_spiritus_soul_invictus"
   }
 }

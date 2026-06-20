@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "neovitae:item/raw_spiritus_ruina"
+    "layer0": "neovitae:item/base_spiritus_soul_ruina"
   }
 }

@@ -133,11 +133,11 @@ public class NVItemModelProvider extends ItemModelProvider {
                 basicItem(item.get());
                 return;
             }
-            // Other will items get variants for each will type
+            // Other will items get variants for each will type, reusing the matching Spiritus soul artwork
             ItemModelBuilder builder = getBuilder(path).parent(new ModelFile.UncheckedModelFile("minecraft:item/handheld"))
-                    .texture("layer0", modLoc("item/" + path + "_raw"));
+                    .texture("layer0", modLoc("item/base_spiritus_soul_raw"));
             for (SpiritusType type : SpiritusType.values()) {
-                ModelFile modelFile = singleTexture(String.format("item/variant/%s_%s", path, type.getSerializedName()), mcLoc("item/handheld"), "layer0", modLoc(String.format("item/%s_%s", path, type.getSerializedName())));
+                ModelFile modelFile = singleTexture(String.format("item/variant/%s_%s", path, type.getSerializedName()), mcLoc("item/handheld"), "layer0", modLoc("item/base_spiritus_soul_" + type.getSerializedName()));
                 builder.override().predicate(NeoVitae.TYPE_PROPERTY, type.ordinal()).model(modelFile).end();
             }
         });

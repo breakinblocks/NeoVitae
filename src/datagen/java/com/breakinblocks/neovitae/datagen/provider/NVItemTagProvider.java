@@ -46,6 +46,9 @@ public class NVItemTagProvider extends ItemTagsProvider {
         tag(NVTags.Items.SENTIENT_UPGRADE_SET)
                 .addTag(NVTags.Items.SENTIENT_SET);
 
+        tag(ItemTags.LECTERN_BOOKS).add(NVItems.GUIDE_BOOK.get());
+        tag(ItemTags.BOOKSHELF_BOOKS).add(NVItems.GUIDE_BOOK.get());
+
         // Add sentient armor to vanilla armor tags for mod compatibility
         tag(ItemTags.HEAD_ARMOR).add(NVItems.SENTIENT_HELMET.get());
         tag(ItemTags.CHEST_ARMOR).add(NVItems.SENTIENT_PLATE.get());

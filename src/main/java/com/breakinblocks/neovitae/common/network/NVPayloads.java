@@ -150,6 +150,22 @@ public class NVPayloads {
                 ShieldKeyPayload.STREAM_CODEC,
                 NVPayloads::handleShieldKey
         );
+
+        registrar.playToServer(
+                LexModeCyclePayload.TYPE,
+                LexModeCyclePayload.STREAM_CODEC,
+                NVPayloads::handleLexModeCycle
+        );
+    }
+
+    private static void handleLexModeCycle(LexModeCyclePayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            if (context.player() == null) return;
+            ItemStack held = context.player().getMainHandItem();
+            if (held.getItem() instanceof LexVitaeItem && LexVitaeItem.isActive(held)) {
+                LexVitaeItem.cycleMode(held);
+            }
+        });
     }
 
     private static void handleLexBeam(LexBeamPayload payload, IPayloadContext context) {

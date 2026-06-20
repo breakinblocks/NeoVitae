@@ -4,14 +4,14 @@
   "category": "spiritus",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "spiritus/spiritus"
+    "entry_id": "spiritus/sentient_tools"
   },
-  "description": "book.neovitae.guide.spiritus.blood_tank.description",
+  "description": "book.neovitae.guide.spiritus.lex_vitae.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "neovitae:blood_tank"
+    "item": "neovitae:lex_vitae"
   },
-  "name": "book.neovitae.guide.spiritus.blood_tank.name",
+  "name": "book.neovitae.guide.spiritus.lex_vitae.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -20,30 +20,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.blood_tank.intro.text",
-      "title": "book.neovitae.guide.spiritus.blood_tank.intro.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "neovitae:hellfire_forge_recipe",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "neovitae:hellfire_forge/blood_tank",
-      "text": "",
-      "title1": "",
-      "title2": ""
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.blood_tank.upgrading.text",
-      "title": "book.neovitae.guide.spiritus.blood_tank.upgrading.title",
+      "text": "book.neovitae.guide.spiritus.lex_vitae.intro.text",
+      "title": "book.neovitae.guide.spiritus.lex_vitae.intro.title",
       "use_markdown_in_title": false
     },
     {
@@ -53,21 +31,32 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.spiritus.blood_tank.upgrade_recipe.text",
-      "title": "book.neovitae.guide.spiritus.blood_tank.upgrade_recipe.title",
+      "text": "book.neovitae.guide.spiritus.lex_vitae.beam.text",
+      "title": "book.neovitae.guide.spiritus.lex_vitae.beam.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.lex_vitae.modes.text",
+      "title": "book.neovitae.guide.spiritus.lex_vitae.modes.title",
       "use_markdown_in_title": false
     }
   ],
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "spiritus/spiritus",
+      "entry": "spiritus/sentient_tools",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 12,
-  "x": 2,
-  "y": -3
+  "sort_number": 11,
+  "x": -2,
+  "y": -1
 }

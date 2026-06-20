@@ -20,7 +20,7 @@ public class SpiritusCategory extends CategoryProvider {
                 "_____________a_____________",
                 "___b___c_y_j___m_n_A_______",
                 "___d_z_o___k_______O_______",
-                "___e___p___________B_______",
+                "___e___p___l_______B_______",
                 "___f___q___x_______________",
                 "___g_i_t_u_v_w_____________",
                 "___h_______________________",
@@ -81,6 +81,10 @@ public class SpiritusCategory extends CategoryProvider {
         sentientTools.withParent(this.parent(sentientSword));
         sentientTools.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/sentient_sword"));
         sentientTools.hideWhileLocked(false);
+
+        var lexVitae = this.add(new LexVitaeEntry(this).generate('l'));
+        lexVitae.withParent(this.parent(sentientTools));
+        lexVitae.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:spiritus/sentient_tools"));
 
         var bloodTank = this.add(new BloodTankEntry(this).generate('m'));
         bloodTank.withParent(this.parent(spiritus));

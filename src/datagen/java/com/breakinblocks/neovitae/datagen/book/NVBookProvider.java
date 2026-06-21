@@ -1,6 +1,5 @@
 package com.breakinblocks.neovitae.datagen.book;
 
-import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.SingleBookSubProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
 import com.breakinblocks.neovitae.NeoVitae;
@@ -15,8 +14,8 @@ import net.minecraft.resources.Identifier;
 
 public class NVBookProvider extends SingleBookSubProvider {
 
-    public NVBookProvider(ModonomiconLanguageProvider lang) {
-        super("guide", NeoVitae.MODID, lang);
+    public NVBookProvider() {
+        super("guide", NeoVitae.MODID);
     }
 
     @Override

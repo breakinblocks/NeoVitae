@@ -4,7 +4,6 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.condition.BookEntryReadConditionModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
 
@@ -33,112 +32,112 @@ public class AltarCategory extends CategoryProvider {
         var bloodAltar = this.add(new AraVitaeEntry(this).generate('a'));
         var anima = this.add(new AnimaEntry(this).generate('b'));
         anima.withParent(this.parent(bloodAltar));
-        anima.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/ara_vitae"));
+        anima.withCondition(this.condition().entryViewedOnce(bloodAltar));
         anima.hideWhileLocked(false);
 
         var slates = this.add(new SlatesEntry(this).generate('c'));
         slates.withParent(this.parent(bloodAltar));
-        slates.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/ara_vitae"));
+        slates.withCondition(this.condition().entryViewedOnce(bloodAltar));
         slates.hideWhileLocked(false);
 
         var redstone = this.add(new RedstoneAutomationEntry(this).generate('d'));
         redstone.withParent(this.parent(bloodAltar));
-        redstone.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/ara_vitae"));
+        redstone.withCondition(this.condition().entryViewedOnce(bloodAltar));
         redstone.hideWhileLocked(false);
 
         var vitaeLink = this.add(new VitaeLinkEntry(this).generate('w'));
         vitaeLink.withParent(this.parent(redstone));
-        vitaeLink.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/redstone_automation"));
+        vitaeLink.withCondition(this.condition().entryViewedOnce(redstone));
         vitaeLink.hideWhileLocked(false);
 
         var selfSacrifice = this.add(new SelfSacrificeRuneEntry(this).generate('e'));
         selfSacrifice.withParent(this.parent(bloodAltar));
-        selfSacrifice.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/ara_vitae"));
+        selfSacrifice.withCondition(this.condition().entryViewedOnce(bloodAltar));
         selfSacrifice.hideWhileLocked(false);
 
         var sacrifice = this.add(new SacrificeRuneEntry(this).generate('f'));
         sacrifice.withParent(this.parent(bloodAltar));
-        sacrifice.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/ara_vitae"));
+        sacrifice.withCondition(this.condition().entryViewedOnce(bloodAltar));
         sacrifice.hideWhileLocked(false);
 
         var orbRune = this.add(new OrbRuneEntry(this).generate('g'));
         orbRune.withParent(this.parent(anima));
-        orbRune.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/anima"));
+        orbRune.withCondition(this.condition().entryViewedOnce(anima));
         orbRune.hideWhileLocked(false);
 
         var speed = this.add(new SpeedRuneEntry(this).generate('h'));
         speed.withParent(this.parent(bloodAltar));
-        speed.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/ara_vitae"));
+        speed.withCondition(this.condition().entryViewedOnce(bloodAltar));
         speed.hideWhileLocked(false);
 
         var acceleration = this.add(new AccelerationRuneEntry(this).generate('i'));
         acceleration.withParent(this.parent(bloodAltar));
-        acceleration.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/ara_vitae"));
+        acceleration.withCondition(this.condition().entryViewedOnce(bloodAltar));
         acceleration.hideWhileLocked(false);
 
         var charging = this.add(new ChargingRuneEntry(this).generate('j'));
         charging.withParent(this.parent(bloodAltar));
-        charging.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/ara_vitae"));
+        charging.withCondition(this.condition().entryViewedOnce(bloodAltar));
         charging.hideWhileLocked(false);
 
         var dislocation = this.add(new DislocationRuneEntry(this).generate('k'));
         dislocation.withParent(this.parent(bloodAltar));
-        dislocation.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/ara_vitae"));
+        dislocation.withCondition(this.condition().entryViewedOnce(bloodAltar));
         dislocation.hideWhileLocked(false);
 
         var capacity = this.add(new CapacityRuneEntry(this).generate('l'));
         capacity.withParent(this.parent(bloodAltar));
-        capacity.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/ara_vitae"));
+        capacity.withCondition(this.condition().entryViewedOnce(bloodAltar));
         capacity.hideWhileLocked(false);
 
         var augCapacity = this.add(new AugCapacityRuneEntry(this).generate('m'));
         augCapacity.withParent(this.parent(capacity));
-        augCapacity.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/rune_capacity"));
+        augCapacity.withCondition(this.condition().entryViewedOnce(capacity));
         augCapacity.hideWhileLocked(false);
 
         var reinforcedOrb = this.add(new ReinforcedOrbRuneEntry(this).generate('n'));
         reinforcedOrb.withParent(this.parent(orbRune));
-        reinforcedOrb.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/rune_orb"));
+        reinforcedOrb.withCondition(this.condition().entryViewedOnce(orbRune));
         reinforcedOrb.hideWhileLocked(false);
 
         var reinforcedSpeed = this.add(new ReinforcedSpeedRuneEntry(this).generate('o'));
         reinforcedSpeed.withParent(this.parent(speed));
-        reinforcedSpeed.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/rune_speed"));
+        reinforcedSpeed.withCondition(this.condition().entryViewedOnce(speed));
         reinforcedSpeed.hideWhileLocked(false);
 
         var reinforcedAcceleration = this.add(new ReinforcedAccelerationRuneEntry(this).generate('p'));
         reinforcedAcceleration.withParent(this.parent(acceleration));
-        reinforcedAcceleration.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/rune_acceleration"));
+        reinforcedAcceleration.withCondition(this.condition().entryViewedOnce(acceleration));
         reinforcedAcceleration.hideWhileLocked(false);
 
         var reinforcedCharging = this.add(new ReinforcedChargingRuneEntry(this).generate('q'));
         reinforcedCharging.withParent(this.parent(charging));
-        reinforcedCharging.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/rune_charging"));
+        reinforcedCharging.withCondition(this.condition().entryViewedOnce(charging));
         reinforcedCharging.hideWhileLocked(false);
 
         var reinforcedDislocation = this.add(new ReinforcedDislocationRuneEntry(this).generate('r'));
         reinforcedDislocation.withParent(this.parent(dislocation));
-        reinforcedDislocation.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/rune_dislocation"));
+        reinforcedDislocation.withCondition(this.condition().entryViewedOnce(dislocation));
         reinforcedDislocation.hideWhileLocked(false);
 
         var reinforcedCapacity = this.add(new ReinforcedCapacityRuneEntry(this).generate('s'));
         reinforcedCapacity.withParent(this.parent(capacity));
-        reinforcedCapacity.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/rune_capacity"));
+        reinforcedCapacity.withCondition(this.condition().entryViewedOnce(capacity));
         reinforcedCapacity.hideWhileLocked(false);
 
         var reinforcedAugCapacity = this.add(new ReinforcedAugCapacityRuneEntry(this).generate('t'));
         reinforcedAugCapacity.withParent(this.parent(augCapacity));
-        reinforcedAugCapacity.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/rune_aug_capacity"));
+        reinforcedAugCapacity.withCondition(this.condition().entryViewedOnce(augCapacity));
         reinforcedAugCapacity.hideWhileLocked(false);
 
         var reinforcedSelfSacrifice = this.add(new ReinforcedSelfSacrificeRuneEntry(this).generate('u'));
         reinforcedSelfSacrifice.withParent(this.parent(selfSacrifice));
-        reinforcedSelfSacrifice.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/rune_self_sacrifice"));
+        reinforcedSelfSacrifice.withCondition(this.condition().entryViewedOnce(selfSacrifice));
         reinforcedSelfSacrifice.hideWhileLocked(false);
 
         var reinforcedSacrifice = this.add(new ReinforcedSacrificeRuneEntry(this).generate('v'));
         reinforcedSacrifice.withParent(this.parent(sacrifice));
-        reinforcedSacrifice.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:altar/rune_sacrifice"));
+        reinforcedSacrifice.withCondition(this.condition().entryViewedOnce(sacrifice));
         reinforcedSacrifice.hideWhileLocked(false);
     }
 

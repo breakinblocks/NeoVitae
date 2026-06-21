@@ -7,8 +7,16 @@
   },
   "category": "neovitae:alchemy_arrays",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:alchemy_arrays/sigil_divination"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/alchemy_arrays_sigil_divination",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.neovitae.guide.alchemy_arrays.sigil_divination.name"
+        }
+      ]
+    }
   },
   "description": "book.neovitae.guide.alchemy_arrays.sigil_air.description",
   "icon": {

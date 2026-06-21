@@ -7,8 +7,16 @@
   },
   "category": "neovitae:tabula_vitae",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:tabula_vitae/tabula_vitae"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/tabula_vitae_tabula_vitae",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.neovitae.guide.tabula_vitae.tabula_vitae.name"
+        }
+      ]
+    }
   },
   "description": "book.neovitae.guide.tabula_vitae.anointments.description",
   "icon": {

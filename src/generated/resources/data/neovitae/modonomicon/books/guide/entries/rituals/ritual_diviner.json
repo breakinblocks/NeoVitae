@@ -7,8 +7,16 @@
   },
   "category": "neovitae:rituals",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:rituals/ritual_stones"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/rituals_ritual_stones",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.neovitae.guide.rituals.ritual_stones.name"
+        }
+      ]
+    }
   },
   "description": "book.neovitae.guide.rituals.ritual_diviner.description",
   "icon": {

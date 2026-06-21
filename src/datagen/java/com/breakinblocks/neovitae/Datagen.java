@@ -17,11 +17,11 @@ import com.breakinblocks.neovitae.datagen.content.SigilTypes;
 import com.breakinblocks.neovitae.datagen.provider.*;
 import com.breakinblocks.neovitae.registry.SigilTypeRegistry;
 
-import com.klikli_dev.modonomicon.api.datagen.BookProvider;
+import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache;
+import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider;
+import com.klikli_dev.modonomicon.api.datagen.NeoResearchProvider;
+import com.klikli_dev.modonomicon.api.datagen.research.ResearchCache;
 import com.breakinblocks.neovitae.datagen.book.NVBookProvider;
-
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @EventBusSubscriber(modid = NeoVitae.MODID)
 public class Datagen {
@@ -30,9 +30,6 @@ public class Datagen {
     public static void gatherData(GatherDataEvent.Client event) {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
-        CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
-
-        var langProvider = new NVLanguageProvider(output);
 
         event.createDatapackRegistryObjects(new RegistrySetBuilder()
             .add(Registries.DAMAGE_TYPE, NVDamageSourcesContent::bootstrap)
@@ -71,10 +68,17 @@ public class Datagen {
         // advancement datagen API). Altar/ritual multiblock previews are derived at runtime
         // from the AltarTier / ritual_layout datapack registries by NVAltarBookSync and
         // NVRitualBookSync, so there's no datagen provider for them either.
-        generator.addProvider(true, new BookProvider(
-                output, provider, NeoVitae.MODID,
-                List.of(new NVBookProvider(langProvider))
+        var langCache = new LanguageProviderCache("en_us");
+        var researchCache = new ResearchCache();
+
+        // Important: Lang provider (in this case en_us) needs to be added after the book provider
+        // to process the texts added by the book provider
+        generator.addProvider(true, NeoBookProvider.of(event, langCache, researchCache,
+                new NVBookProvider()
         ));
-        generator.addProvider(true, langProvider);
+        // Required for entryViewedOnce(): the book provider queues generated research into
+        // researchCache, and the research provider writes those generated nodes/hooks/facts.
+        generator.addProvider(true, NeoResearchProvider.of(event, langCache, researchCache));
+        generator.addProvider(true, new NVLanguageProvider(output, langCache));
     }
 }

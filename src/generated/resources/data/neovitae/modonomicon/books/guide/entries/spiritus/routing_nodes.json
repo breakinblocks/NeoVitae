@@ -7,8 +7,16 @@
   },
   "category": "neovitae:spiritus",
   "condition": {
-    "type": "modonomicon:entry_read",
-    "entry_id": "neovitae:spiritus/node_router"
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "neovitae:generated/guide/nodes/entry_viewed_once/required/spiritus_node_router",
+    "tooltip": {
+      "translate": "tooltip.modonomicon.condition.entry_unlocked",
+      "with": [
+        {
+          "translate": "book.neovitae.guide.spiritus.node_router.name"
+        }
+      ]
+    }
   },
   "description": "book.neovitae.guide.spiritus.routing_nodes.description",
   "icon": {

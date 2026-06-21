@@ -48,6 +48,12 @@ repositories {
             includeGroup "dev.latvian.mods"
         }
     }
+    maven {
+        url "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
+        content {
+            includeGroup "com.klikli_dev"
+        }
+    }
 }
 
 base {
@@ -142,8 +148,8 @@ dependencies {
     compileOnly("curse.maven:jade-324717:7938398")
     localRuntime("curse.maven:jade-324717:7938398")
 
-    compileOnly("curse.maven:modonomicon-538392:8187728")
-    localRuntime("curse.maven:modonomicon-538392:8187728")
+    compileOnly ("com.klikli_dev:modonomicon-${mc_version}-neoforge:${modonomicon_version}") {transitive=false}
+    localRuntime ("com.klikli_dev:modonomicon-${mc_version}-neoforge:${modonomicon_version}") {transitive=false}
 
     compileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
     compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api")

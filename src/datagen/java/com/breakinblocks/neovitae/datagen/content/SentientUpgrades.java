@@ -228,17 +228,15 @@ public class SentientUpgrades {
         );
         context.register(
                 NETHERITE_PROTECT,
-                new SentientUpgrade.Builder() // TODO 6 dias = 1 xp, 1 1xp tome netherite upgraded = 1000xp
+                new SentientUpgrade.Builder()
                         .level(1, 6)
                         .level(2, 10)
                         .level(3, 18)
                         .level(4, 25)
-                        .level(1000, 40)
-                        .level(2000, 55)
-                        .level(3000, 70)
-                        .level(4000, 85)
-                        .withEffect(SentientEffectComponents.ATTRIBUTES.get(), new AttributeEffect(NETHERITE_PROTECT.location(), Attributes.ARMOR, Operation.ADD_VALUE, LevelBasedValue.lookup(List.of(1f, 3f, 4f, 5f, 5f, 5f, 5f, 5f), LevelBasedValue.constant(0f))))
-                        .withEffect(SentientEffectComponents.ATTRIBUTES.get(), new AttributeEffect(NETHERITE_PROTECT.location(), Attributes.ARMOR_TOUGHNESS, Operation.ADD_VALUE, LevelBasedValue.lookup(List.of(2f, 4f, 6f, 8f, 9f, 10f, 11f, 12f), LevelBasedValue.constant(0f))))
+                        .level(5, 40)
+                        .level(6, 55)
+                        .withEffect(SentientEffectComponents.ATTRIBUTES.get(), new AttributeEffect(NETHERITE_PROTECT.location(), Attributes.ARMOR, Operation.ADD_VALUE, LevelBasedValue.lookup(List.of(1f, 3f, 4f, 5f, 5f, 5f), LevelBasedValue.constant(0f))))
+                        .withEffect(SentientEffectComponents.ATTRIBUTES.get(), new AttributeEffect(NETHERITE_PROTECT.location(), Attributes.ARMOR_TOUGHNESS, Operation.ADD_VALUE, LevelBasedValue.lookup(List.of(2f, 4f, 6f, 8f, 9f, 10f), LevelBasedValue.constant(0f))))
                         .build()
         );
         context.register(

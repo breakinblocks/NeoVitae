@@ -1,6 +1,7 @@
 package com.breakinblocks.neovitae.common.sentient;
 
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.util.Unit;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionHand;
@@ -226,7 +227,15 @@ public class SentientEventHandler {
         Equippable current = chest.get(DataComponents.EQUIPPABLE);
         if (current == null) return;
 
-        ResourceKey<EquipmentAsset> desired = SentientHelper.has(chest, SentientEffectComponents.ELYTRA.get())
+        boolean hasElytra = SentientHelper.has(chest, SentientEffectComponents.ELYTRA.get());
+
+        if (hasElytra && !chest.has(DataComponents.GLIDER)) {
+            chest.set(DataComponents.GLIDER, Unit.INSTANCE);
+        } else if (!hasElytra && chest.has(DataComponents.GLIDER)) {
+            chest.remove(DataComponents.GLIDER);
+        }
+
+        ResourceKey<EquipmentAsset> desired = hasElytra
                 ? NVMaterialsAndTiers.SENTIENT_ELYTRA_EQUIPMENT_ASSET
                 : NVMaterialsAndTiers.SENTIENT_EQUIPMENT_ASSET;
 

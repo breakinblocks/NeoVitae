@@ -1,0 +1,21 @@
+{
+  "type": "neovitae:alchemytable",
+  "input": [
+    "minecraft:written_book",
+    "minecraft:shulker_shell",
+    "minecraft:ender_pearl",
+    "minecraft:gold_ingot"
+  ],
+  "output": {
+    "components": {
+      "neovitae:upgrade_tome_data": {
+        "exp": 1.0,
+        "upgrade": "neovitae:curios_socket"
+      }
+    },
+    "id": "neovitae:upgrade_tome"
+  },
+  "syphon": 5000,
+  "ticks": 200,
+  "upgradeLevel": 3
+}

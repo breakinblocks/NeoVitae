@@ -2289,6 +2289,19 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(3)
                 .save(output, "brilliance_tome");
 
+        Holder<SentientUpgrade> curiosSocket = sentientUpgrades.getOrThrow(SentientUpgrades.CURIOS_SOCKET);
+        DataComponentPatch curiosSocketPatch = DataComponentPatch.builder()
+                .set(NVDataComponents.UPGRADE_TOME_DATA.get(), new UpgradeTome(curiosSocket, 1.0f))
+                .build();
+        TabulaVitaeRecipeBuilder.build(new ItemStackTemplate(NVItems.UPGRADE_TOME.get(), curiosSocketPatch))
+                .input(Items.WRITTEN_BOOK)
+                .input(Items.SHULKER_SHELL)
+                .input(Items.ENDER_PEARL)
+                .input(Items.GOLD_INGOT)
+                .syphon(5000)
+                .minimumTier(3)
+                .save(output, "curios_socket_tome");
+
         // Reagent Water - sugar, water bucket x2
         TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_WATER.get())
                 .input(Items.SUGAR)

@@ -27,7 +27,7 @@ public class UpgradeTomesEntry extends EntryProvider {
                 + "- The [#](8B0000)Sentient Extraction[#]() ritual, which extracts the upgrades from a "
                 + "thrown sentient armor piece as tomes.\n\n"
                 + "- Combining two tomes of the same upgrade at a vanilla crafting table.\n\n"
-                + "- Inscribing select tomes, such as [#](8B0000)Brilliance[#](), in the Tabula Vitae.\\\n\\\n"
+                + "- Inscribing select tomes, such as [#](8B0000)Brilliance[#]() and [#](8B0000)Curios Sockets[#](), in the Tabula Vitae.\\\n\\\n"
                 + "Press [Use] while holding a tome to inscribe one level of that skill onto your worn chestplate, "
                 + "assuming sufficient [#](B8860B)Upgrade Points[#]() remain. Hold sneak and press [Use] to "
                 + "inscribe as much as possible at once.");

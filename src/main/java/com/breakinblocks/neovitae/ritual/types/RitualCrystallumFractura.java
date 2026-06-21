@@ -114,16 +114,19 @@ public class RitualCrystallumFractura extends Ritual {
             ItemStack tool = RitualHelper.createMiningTool(serverLevel, fortuneLevel >= 3, false);
             applyCustomFortune(tool, serverLevel, fortuneLevel);
 
-            List<ItemStack> drops = RitualHelper.getBlockDrops(serverLevel, state, harvestPos, tool, fakePlayer);
+            List<ItemStack> drops;
 
-            if (state.getBlock() instanceof BlockSpiritusCrystal) {
+            if (state.getBlock() instanceof BlockSpiritusCrystal crystalBlock) {
                 int harvested = state.getValue(BlockSpiritusCrystal.AGE);
                 if (harvested <= 0) continue;
-                for (ItemStack drop : drops) {
-                    drop.setCount(drop.getCount() * harvested);
+                int mult = 1;
+                if (fortuneLevel > 0) {
+                    mult += serverLevel.random.nextInt(fortuneLevel + 1);
                 }
+                drops = List.of(BlockSpiritusCrystal.getItemStackDropped(crystalBlock.getSpiritusType(), harvested * mult));
                 resetCrystalAge(ctx.level(), harvestPos, state);
             } else {
+                drops = RitualHelper.getBlockDrops(serverLevel, state, harvestPos, tool, fakePlayer);
                 ctx.level().destroyBlock(harvestPos, false);
             }
             totalCost += getRefreshCost();

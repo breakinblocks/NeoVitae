@@ -143,8 +143,8 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
         }
 
         // Slot area tooltips when hovering empty slots
-        if (this.hoveredSlot != null && !this.hoveredSlot.hasItem()) {
-            int slotIdx = this.hoveredSlot.getSlotIndex();
+        if (this.hoveredSlot != null && !this.hoveredSlot.hasItem() && this.hoveredSlot.index <= 13) {
+            int slotIdx = this.hoveredSlot.index;
             if (slotIdx == 0) {
                 guiGraphics.renderTooltip(this.font, Component.literal("Tool").withStyle(ChatFormatting.GRAY), x, y);
             } else if (slotIdx >= 1 && slotIdx <= 6) {

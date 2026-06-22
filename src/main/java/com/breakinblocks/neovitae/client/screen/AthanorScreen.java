@@ -146,8 +146,8 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
             guiGraphics.setComponentTooltipForNextFrame(this.font, tip, x, y);
         }
 
-        if (this.hoveredSlot != null && !this.hoveredSlot.hasItem()) {
-            int slotIdx = this.hoveredSlot.getSlotIndex();
+        if (this.hoveredSlot != null && !this.hoveredSlot.hasItem() && this.hoveredSlot.index <= 13) {
+            int slotIdx = this.hoveredSlot.index;
             if (slotIdx == 0) {
                 guiGraphics.setTooltipForNextFrame(this.font, Component.translatable("gui.neovitae.athanor.slot.tool").withStyle(ChatFormatting.GRAY), x, y);
             } else if (slotIdx >= 1 && slotIdx <= 6) {

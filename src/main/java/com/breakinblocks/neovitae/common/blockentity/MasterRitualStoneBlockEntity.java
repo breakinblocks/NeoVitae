@@ -50,6 +50,8 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     private boolean inverted = false;
     private int cooldown = 0;
     private long runningTime = 0;
+    private long lastStructureCheckMillis = 0L;
+    private static final long STRUCTURE_CHECK_INTERVAL_MILLIS = 5000L;
     private SpiritusType activeSpiritusAspect = SpiritusType.RAW;
 
     private Map<String, AreaDescriptor> blockRanges = new HashMap<>();
@@ -78,6 +80,15 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         }
 
         if (tile.active && tile.currentRitual != null && !isRedstoneSuspended(level, pos, tile)) {
+            long now = System.currentTimeMillis();
+            if (now - tile.lastStructureCheckMillis >= STRUCTURE_CHECK_INTERVAL_MILLIS) {
+                tile.lastStructureCheckMillis = now;
+                if (!tile.checkStructureWithDirection(tile.currentRitual, tile.direction)) {
+                    tile.stopRitual(Ritual.BreakType.BREAK_STONE);
+                    return;
+                }
+            }
+
             tile.runningTime++;
 
             // Rune glow at the master stone while ritual is active

@@ -9,6 +9,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.util.Mth;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -64,6 +65,7 @@ import com.breakinblocks.neovitae.common.registry.AltarTier;
 import com.breakinblocks.neovitae.common.structure.NVMultiblock;
 import com.breakinblocks.neovitae.api.stream.StreamEffect;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
+import com.breakinblocks.neovitae.compat.sable.SableCompat;
 import net.minecraft.sounds.SoundSource;
 
 import java.util.HashMap;
@@ -360,7 +362,9 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
 
     private void leechNearbyPlayers() {
         if (!(level instanceof ServerLevel serverLevel)) return;
-        AABB area = new AABB(worldPosition).inflate(BOOTSTRAP_LEECH_RADIUS);
+        Vec3 displayCenter = SableCompat.toDisplayPos(level, Vec3.atCenterOf(worldPosition));
+        BlockPos searchAnchor = BlockPos.containing(displayCenter);
+        AABB area = new AABB(searchAnchor).inflate(BOOTSTRAP_LEECH_RADIUS);
         List<Player> players = level.getEntitiesOfClass(Player.class, area,
                 p -> p.isAlive() && !p.isInvulnerable() && !p.getAbilities().instabuild
                         && p.getHealth() > BOOTSTRAP_LEECH_FLOOR && !hasBloodOrb(p));
@@ -374,7 +378,7 @@ public class AraVitaeTile extends BaseBlockEntity implements IFluidHandler, IAra
                         * BOOTSTRAP_LEECH_EFFICIENCY);
                 addSacrificeEV(ev, false);
                 player.displayClientMessage(Component.translatable("message.neovitae.altar_draws_blood"), true);
-                StreamPresets.bloodTendril(player, worldPosition).build().sendToNearby(serverLevel, worldPosition, 32);
+                StreamPresets.bloodTendril(player, searchAnchor).build().sendToNearby(serverLevel, searchAnchor, 32);
             }
         }
     }

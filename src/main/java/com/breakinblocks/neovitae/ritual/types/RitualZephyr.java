@@ -91,7 +91,7 @@ public class RitualZephyr extends Ritual {
             }
 
             // Pull toward master stone when chest exists so items converge on it
-            Vec3 pullTarget = hasChest ? masterCenter : target;
+            Vec3 pullTarget = hasChest || !aabb.contains(target) ? masterCenter : target;
             double distance = itemPos.distanceTo(pullTarget);
 
             if (distance > 2.0) {

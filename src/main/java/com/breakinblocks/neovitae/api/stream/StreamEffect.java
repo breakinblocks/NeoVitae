@@ -4,8 +4,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.common.network.StreamPayload;
+import com.breakinblocks.neovitae.compat.sable.SableCompat;
 
 /**
  * Immutable configuration for a visual energy stream or stationary blob effect.
@@ -160,6 +162,38 @@ public final class StreamEffect {
         this.rawTrailColor = b.rawTrailColor;
     }
 
+    private StreamEffect(StreamEffect base, double sourceX, double sourceY, double sourceZ,
+                         double targetX, double targetY, double targetZ) {
+        this.sourceX = sourceX;
+        this.sourceY = sourceY;
+        this.sourceZ = sourceZ;
+        this.targetX = targetX;
+        this.targetY = targetY;
+        this.targetZ = targetZ;
+        this.stationary = base.stationary;
+        this.color = base.color;
+        this.endColor = base.endColor;
+        this.scale = base.scale;
+        this.alphaStart = base.alphaStart;
+        this.alphaEnd = base.alphaEnd;
+        this.glow = base.glow;
+        this.tubeSegments = base.tubeSegments;
+        this.speed = base.speed;
+        this.gravity = base.gravity;
+        this.wobbleAmplitude = base.wobbleAmplitude;
+        this.wobbleFrequency = base.wobbleFrequency;
+        this.spiralInto = base.spiralInto;
+        this.spiralRadius = base.spiralRadius;
+        this.spiralSpeed = base.spiralSpeed;
+        this.approachHeight = base.approachHeight;
+        this.lifetime = base.lifetime;
+        this.drainSpeed = base.drainSpeed;
+        this.blockyMode = base.blockyMode;
+        this.targetEntityId = base.targetEntityId;
+        this.trailDensity = base.trailDensity;
+        this.rawTrailColor = base.rawTrailColor;
+    }
+
     /**
      * Create a builder with an exact source position.
      */
@@ -189,7 +223,21 @@ public final class StreamEffect {
      * @param radius broadcast radius in blocks
      */
     public void sendToNearby(ServerLevel level, BlockPos center, double radius) {
-        NVPayloads.sendToNearby(level, center, radius, new StreamPayload(this));
+        StreamEffect effect = this;
+        BlockPos sendCenter = center;
+        if (SableCompat.isLoaded()) {
+            Vec3 displaySource = SableCompat.toDisplayPos(level, new Vec3(sourceX, sourceY, sourceZ));
+            Vec3 displayTarget = SableCompat.toDisplayPos(level, new Vec3(targetX, targetY, targetZ));
+            boolean moved = displaySource.x != sourceX || displaySource.y != sourceY || displaySource.z != sourceZ
+                    || displayTarget.x != targetX || displayTarget.y != targetY || displayTarget.z != targetZ;
+            if (moved) {
+                effect = new StreamEffect(this,
+                        displaySource.x, displaySource.y, displaySource.z,
+                        displayTarget.x, displayTarget.y, displayTarget.z);
+                sendCenter = BlockPos.containing(SableCompat.toDisplayPos(level, Vec3.atCenterOf(center)));
+            }
+        }
+        NVPayloads.sendToNearby(level, sendCenter, radius, new StreamPayload(effect));
     }
 
     /**

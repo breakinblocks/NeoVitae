@@ -20,7 +20,9 @@ import com.breakinblocks.neovitae.api.altar.rune.IAltarRuneType;
 import com.breakinblocks.neovitae.api.altar.rune.RuneInstance;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
 import com.breakinblocks.neovitae.common.block.NVBlocks;
+import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
+import com.breakinblocks.neovitae.compat.sable.SableCompat;
 import com.breakinblocks.neovitae.common.registry.AltarComponent;
 import com.breakinblocks.neovitae.common.structure.NVMultiblock;
 import com.breakinblocks.neovitae.common.structure.MultiblockValidator;
@@ -40,6 +42,22 @@ public class AltarUtil {
                         return testPos;
                     }
                 }
+            }
+        }
+        return null;
+    }
+
+    public static AraVitaeTile getAltarTile(Player player, int radius) {
+        Level level = player.level();
+        BlockPos found = findAltar(level, player.blockPosition(), radius);
+        if (found != null && level.getBlockEntity(found) instanceof AraVitaeTile tile) {
+            return tile;
+        }
+        SableCompat.ContraptionView view = SableCompat.viewForEntity(player);
+        if (view != null) {
+            BlockPos subFound = findAltar(view.subLevel(), view.localCenter(), radius);
+            if (subFound != null && view.subLevel().getBlockEntity(subFound) instanceof AraVitaeTile tile) {
+                return tile;
             }
         }
         return null;

@@ -14,7 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -85,8 +84,7 @@ public class BloodOrbItem extends Item implements IBindable {
             return InteractionResultHolder.pass(stack);
         }
 
-        BlockPos altarPos = AltarUtil.findAltar(level, player.blockPosition(), ORB_ALTAR_RANGE);
-        AraVitaeTile altar = altarPos != null && level.getBlockEntity(altarPos) instanceof AraVitaeTile a ? a : null;
+        AraVitaeTile altar = AltarUtil.getAltarTile(player, ORB_ALTAR_RANGE);
 
         int orbCapacity = OrbFluidHandler.getOrbFluidCapacity(stack);
         SimpleFluidContent currentFluid = stack.getOrDefault(NVDataComponents.ORB_FLUID.get(), SimpleFluidContent.EMPTY);

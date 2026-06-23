@@ -11,9 +11,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.api.stream.StreamPresets;
+import com.breakinblocks.neovitae.compat.sable.SableCompat;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.network.NVPayloads;
@@ -90,7 +93,7 @@ public class RitualSpeed extends Ritual {
 
         List<LivingEntity> entities = RitualHelper.getEntitiesInRange(ctx, this, SPEED_RANGE, LivingEntity.class,
                 entity -> entity.isAlive()
-                        && !(entity instanceof net.minecraft.world.entity.player.Player player && player.isSpectator()));
+                        && !(entity instanceof Player player && player.isSpectator()));
 
         int cost = 0;
 
@@ -112,7 +115,7 @@ public class RitualSpeed extends Ritual {
 
             // Entity filtering based on destructive/vengeful spiritus
             boolean isBaby = entity.isBaby();
-            boolean isPlayer = entity instanceof net.minecraft.world.entity.player.Player;
+            boolean isPlayer = entity instanceof Player;
 
             if (hasDestructive && hasVengeful) {
                 // Both present: only players pass through (neither baby nor adult in mob terms)
@@ -143,6 +146,11 @@ public class RitualSpeed extends Ritual {
             if (facing.getAxis().isHorizontal()) {
                 motionY = verticalSpeed * 0.5;
             }
+
+            Vec3 motion = SableCompat.rotateByContraption(ctx.level(), masterPos, new Vec3(motionX, motionY, motionZ));
+            motionX = motion.x;
+            motionY = motion.y;
+            motionZ = motion.z;
 
             entity.setDeltaMovement(motionX, motionY, motionZ);
             entity.hurtMarked = true;

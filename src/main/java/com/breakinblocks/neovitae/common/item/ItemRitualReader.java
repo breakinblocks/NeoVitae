@@ -19,6 +19,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
+import com.breakinblocks.neovitae.compat.sable.SableCompat;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
@@ -312,6 +313,20 @@ public class ItemRitualReader extends Item {
         int searchRadius = 32;
         BlockPos center = player.blockPosition();
 
+        MasterRitualStoneBlockEntity found = searchActiveMasterRitualStone(level, center, searchRadius);
+        if (found != null) {
+            return found;
+        }
+
+        SableCompat.ContraptionView view = SableCompat.viewForEntity(player);
+        if (view != null) {
+            return searchActiveMasterRitualStone(view.subLevel(), view.localCenter(), searchRadius);
+        }
+
+        return null;
+    }
+
+    private static MasterRitualStoneBlockEntity searchActiveMasterRitualStone(Level level, BlockPos center, int searchRadius) {
         for (BlockPos pos : BlockPos.betweenClosed(
                 center.offset(-searchRadius, -searchRadius, -searchRadius),
                 center.offset(searchRadius, searchRadius, searchRadius))) {
@@ -322,7 +337,6 @@ public class ItemRitualReader extends Item {
                 }
             }
         }
-
         return null;
     }
 

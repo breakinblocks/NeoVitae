@@ -9,12 +9,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.entity.projectile.EntityMeteor;
 import com.breakinblocks.neovitae.common.meteor.MeteorLayer;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
+import com.breakinblocks.neovitae.compat.sable.SableCompat;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipeHelper;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
+import com.breakinblocks.neovitae.api.stream.StreamPresets;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 
@@ -29,6 +32,7 @@ import java.util.function.Consumer;
 public class RitualMeteor extends Ritual {
 
     public static final String CHECK_RANGE = "itemRange";
+    private static final int CONTRAPTION_FALL_HEIGHT = 24;
 
     public RitualMeteor() {
         super("meteor", 1, 250000, "ritual." + NeoVitae.MODID + ".meteor");
@@ -70,16 +74,21 @@ public class RitualMeteor extends Ritual {
                 }
                 int targetY = ctx.masterPos().getY() + 1 + maxRadius;
 
+                double spawnY = ctx.level().getMaxBuildHeight() + 10;
+                if (SableCompat.isOnContraption(ctx.level(), Vec3.atCenterOf(ctx.masterPos()))) {
+                    spawnY = targetY + CONTRAPTION_FALL_HEIGHT;
+                }
+
                 EntityMeteor meteor = new EntityMeteor(ctx.level(),
                         ctx.masterPos().getX() + 0.5,
-                        ctx.level().getMaxBuildHeight() + 10,
+                        spawnY,
                         ctx.masterPos().getZ() + 0.5);
                 meteor.setDeltaMovement(0, -0.1, 0);
                 meteor.setContainedStack(stack.split(1));
                 meteor.setTargetY(targetY);
                 ctx.level().addFreshEntity(meteor);
 
-                com.breakinblocks.neovitae.api.stream.StreamPresets
+                StreamPresets
                         .demonTether(entityItem, ctx.masterPos()).build()
                         .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128);
 

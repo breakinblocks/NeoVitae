@@ -64,6 +64,13 @@ repositories {
             includeGroup "dev.latvian.mods"
         }
     }
+    maven {
+        name = "ryanhcode"
+        url = "https://maven.ryanhcode.dev/releases"
+        content {
+            includeGroup "dev.ryanhcode.sable-companion"
+        }
+    }
 }
 
 base {
@@ -166,6 +173,9 @@ dependencies {
 
     // KubeJS - compile-only soft dependency for the optional plugin under compat/kubejs/
     compileOnly("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
+
+    compileOnly("curse.maven:sable-1312371:8242682")
+    compileOnly("dev.ryanhcode.sable-companion:sable-companion-common-${minecraft_version}:${sable_companion_version}")
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

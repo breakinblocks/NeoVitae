@@ -6,7 +6,6 @@
 package com.breakinblocks.neovitae.common.item;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -18,7 +17,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import com.breakinblocks.neovitae.common.blockentity.AraVitaeTile;
 import com.breakinblocks.neovitae.util.AltarUtil;
@@ -47,10 +45,9 @@ public class ItemBloodProvider extends Item {
             return super.use(level, player, hand);
         }
 
-        BlockPos altarPos = AltarUtil.findAltar(level, player.blockPosition(), 2);
-        if (altarPos != null) {
-            BlockEntity be = level.getBlockEntity(altarPos);
-            if (be instanceof AraVitaeTile altar) {
+        AraVitaeTile altar = AltarUtil.getAltarTile(player, 2);
+        if (altar != null) {
+            {
                 double posX = player.getX();
                 double posY = player.getY();
                 double posZ = player.getZ();

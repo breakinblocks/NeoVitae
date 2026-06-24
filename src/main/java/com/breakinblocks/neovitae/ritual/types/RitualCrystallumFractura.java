@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.ritual.types;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -10,7 +11,9 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AmethystClusterBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BuddingAmethystBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -63,6 +66,8 @@ public class RitualCrystallumFractura extends Ritual {
     private static final double INJECTION_MULTIPLIER = 1.25;
     private static final long BUFF_DURATION_TICKS = 200L;
 
+    private static final int BUDDING_ACCEL_TICKS = 4;
+
     public RitualCrystallumFractura() {
         super(NAME, 1, 100000, "ritual." + NeoVitae.MODID + "." + NAME);
         addBlockRange(HARVEST_RANGE, new AreaDescriptor.Rectangle(new BlockPos(-7, -5, -7), 15, 11, 15));
@@ -99,6 +104,8 @@ public class RitualCrystallumFractura extends Ritual {
         FakePlayer fakePlayer = RitualHelper.createRitualFakePlayer(serverLevel, owner, "NeoVitae Crystallum Fractura");
 
         List<BlockPos> harvestPositions = RitualHelper.getRangePositions(ctx.master(), this, HARVEST_RANGE, masterPos);
+        accelerateBuddingBlocks(serverLevel, harvestPositions, owner);
+
         int totalCost = 0;
         boolean chestFull = false;
 
@@ -162,7 +169,7 @@ public class RitualCrystallumFractura extends Ritual {
             return state.hasProperty(BlockSpiritusCrystal.AGE)
                     && state.getValue(BlockSpiritusCrystal.AGE) == 6;
         }
-        if (state.is(NVTags.Blocks.GEODE_HARVESTABLE)) {
+        if (state.is(NVTags.Blocks.GEODE_HARVESTABLE) || isMatureCluster(state.getBlock())) {
             if (state.hasProperty(BlockStateProperties.AGE_3)) {
                 return state.getValue(BlockStateProperties.AGE_3) == 3;
             }
@@ -172,6 +179,19 @@ public class RitualCrystallumFractura extends Ritual {
             return true;
         }
         return false;
+    }
+
+    private boolean isMatureCluster(Block block) {
+        String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
+        if (path.contains("bud")) return false;
+        if (path.endsWith("_small") || path.endsWith("_medium") || path.endsWith("_large")) return false;
+        return block instanceof AmethystClusterBlock || path.contains("cluster");
+    }
+
+    private boolean isBuddingBlock(BlockState state) {
+        if (state.is(NVTags.Blocks.GEODE_ACCELERATABLE)) return true;
+        if (state.getBlock() instanceof BuddingAmethystBlock) return true;
+        return BuiltInRegistries.BLOCK.getKey(state.getBlock()).getPath().contains("budding");
     }
 
     private void resetCrystalAge(Level level, BlockPos pos, BlockState state) {
@@ -203,6 +223,17 @@ public class RitualCrystallumFractura extends Ritual {
     private void consumeRawForFortune(ServerLevel level, BlockPos pos) {
         if (level.random.nextInt(FORTUNE_CONSUMPTION_AVG_TICKS) < getRefreshTime()) {
             WorldSpiritusHandler.drainSpiritusFromChunk(level, pos, SpiritusType.RAW, 1.0);
+        }
+    }
+
+    private void accelerateBuddingBlocks(ServerLevel level, List<BlockPos> positions, UUID owner) {
+        for (BlockPos pos : positions) {
+            BlockState state = level.getBlockState(pos);
+            if (!isBuddingBlock(state)) continue;
+            if (!BlockProtectionHelper.canBreakBlock(level, pos, owner)) continue;
+            for (int i = 0; i < BUDDING_ACCEL_TICKS; i++) {
+                state.randomTick(level, pos, level.getRandom());
+            }
         }
     }
 

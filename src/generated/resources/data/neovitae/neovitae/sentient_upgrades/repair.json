@@ -18,11 +18,8 @@
           }
         },
         "requirements": {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "nbt": "{\"neoforge:attachments\":{\"neovitae:sentient_cooldown\":{\"neovitae:repair\":0.0d}}}"
-          }
+          "condition": "neovitae:sentient_cooldown_ready",
+          "id": "neovitae:repair"
         }
       }
     ]

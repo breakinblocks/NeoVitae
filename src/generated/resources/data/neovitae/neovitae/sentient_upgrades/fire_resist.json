@@ -43,11 +43,8 @@
           "condition": "minecraft:all_of",
           "terms": [
             {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "nbt": "{\"neoforge:attachments\":{\"neovitae:sentient_cooldown\":{\"neovitae:fire_resist\":0.0d}}}"
-              }
+              "condition": "neovitae:sentient_cooldown_ready",
+              "id": "neovitae:fire_resist"
             },
             {
               "condition": "minecraft:entity_properties",

@@ -1,14 +1,9 @@
 package com.breakinblocks.neovitae.datagen.content;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
@@ -19,12 +14,11 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.*;
-import net.neoforged.neoforge.attachment.AttachmentHolder;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.attribute.NVAttributes;
-import com.breakinblocks.neovitae.common.dataattachment.NVDataAttachments;
+import com.breakinblocks.neovitae.common.loot.SentientCooldownCondition;
 import com.breakinblocks.neovitae.common.sentient.effects.CauseExhaustionEffect;
 import com.breakinblocks.neovitae.common.sentient.SentientEffectComponents;
 import com.breakinblocks.neovitae.common.sentient.SentientUpgrade;
@@ -34,7 +28,6 @@ import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -683,19 +676,7 @@ public class SentientUpgrades {
     }
 
     private static LootItemCondition.Builder cooldownCondition(ResourceKey<SentientUpgrade> key) {
-        return LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, new EntityPredicate.Builder().nbt(new NbtPredicate(
-                getCooldownTag(key.location())
-        )));
-    }
-
-    private static CompoundTag getCooldownTag(ResourceLocation id) {
-        DataResult<Tag> res = Codec.unboundedMap(ResourceLocation.CODEC, Codec.DOUBLE).encodeStart(NbtOps.INSTANCE, Map.of(id, 0d));
-        Tag resTag = res.getOrThrow();
-        CompoundTag attachmentTag = new CompoundTag();
-        attachmentTag.put(NVDataAttachments.SENTIENT_ADDITIONAL.getId().toString(), resTag);
-        CompoundTag playerTag = new CompoundTag();
-        playerTag.put(AttachmentHolder.ATTACHMENTS_NBT_KEY, attachmentTag);
-        return playerTag;
+        return SentientCooldownCondition.ready(key.location());
     }
 
     private static ResourceKey<SentientUpgrade> key(String path) {

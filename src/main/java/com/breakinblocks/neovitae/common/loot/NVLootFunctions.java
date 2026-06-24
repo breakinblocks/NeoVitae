@@ -27,5 +27,6 @@ public class NVLootFunctions {
         LOOT_FUNCTIONS.register(modEventBus);
         NVLootEntries.ENTRY_TYPES.register(modEventBus);
         GlobalLootModifiers.register(modEventBus);
+        NVLootConditions.register(modEventBus);
     }
 }

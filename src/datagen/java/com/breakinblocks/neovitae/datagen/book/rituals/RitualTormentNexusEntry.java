@@ -55,6 +55,17 @@ public class RitualTormentNexusEntry extends EntryProvider {
                 + "Loot tables are rolled and inserted into a chest atop the Master Ritual Stone.\\\n"
                 + "XP from each kill is fed into an [#](8B0000)Experience Tome[#]() in that same chest, if one is present.");
 
+        this.page("roster", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Choosing the Quarry");
+        this.pageText("The Nexus harvests whatever the bound spawners are set to spawn, so the roster is yours to"
+                + " decide. To retune a spawner, inscribe an [#](8B0000)Array of Imprisonment[#]() atop it and slay the"
+                + " creature you want within an [#](8B0000)11x11x11[#]() region of the array; the spawner takes on that"
+                + " creature and the array is spent.\\\n\\\n"
+                + "Stock a ring of spawners around the Nexus this way to farm exactly the drops you need without a"
+                + " single mob ever drawing breath.");
+
         this.page("ethics", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));

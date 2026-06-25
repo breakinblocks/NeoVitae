@@ -62,6 +62,17 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
+      "text": "book.neovitae.guide.rituals.ritual_torment_nexus.roster.text",
+      "title": "book.neovitae.guide.rituals.ritual_torment_nexus.roster.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
       "text": "book.neovitae.guide.rituals.ritual_torment_nexus.ethics.text",
       "title": "book.neovitae.guide.rituals.ritual_torment_nexus.ethics.title",
       "use_markdown_in_title": false

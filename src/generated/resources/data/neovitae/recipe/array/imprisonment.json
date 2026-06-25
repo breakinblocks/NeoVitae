@@ -1,0 +1,11 @@
+{
+  "type": "neovitae:array",
+  "addedinput": {
+    "item": "minecraft:lead"
+  },
+  "baseinput": {
+    "item": "neovitae:blood_pearl"
+  },
+  "effect_type": "imprisonment",
+  "texture": "neovitae:textures/models/alchemyarrays/imprisonmentarray.png"
+}

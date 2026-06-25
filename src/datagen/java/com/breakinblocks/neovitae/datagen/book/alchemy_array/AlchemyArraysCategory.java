@@ -27,7 +27,7 @@ public class AlchemyArraysCategory extends CategoryProvider {
                 "x_y_z_A_B_C_D_E_F__",
                 "_G_H_I_J_K_L_M_N_O_",
                 "P_Q_R_S_T_U_V_X_Y_Z",
-                "6_7_8_9_________________"
+                "6_7_8_9_0_______________"
         };
     }
 
@@ -333,6 +333,11 @@ public class AlchemyArraysCategory extends CategoryProvider {
         vortexSigil.withParent(this.parent(arcaneAsh));
         vortexSigil.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/arcane_ash"));
         vortexSigil.hideWhileLocked(false);
+
+        var imprisonment = this.add(new ImprisonmentArrayEntry(this).generate('0'));
+        imprisonment.withParent(this.parent(arcaneAsh));
+        imprisonment.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:alchemy_arrays/arcane_ash"));
+        imprisonment.hideWhileLocked(false);
     }
 
     @Override

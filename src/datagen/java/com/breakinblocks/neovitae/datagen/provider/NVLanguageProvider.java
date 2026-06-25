@@ -1184,6 +1184,8 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addJei("effect.loyal_friends.desc", "Summons and revives your tamed companions");
         addJei("effect.vortex.name", "Vortex Array");
         addJei("effect.vortex.desc", "Pulls nearby entities toward the array and stops endermen from teleporting away");
+        addJei("effect.imprisonment.name", "Array of Imprisonment");
+        addJei("effect.imprisonment.desc", "Placed atop a mob spawner; the next mob kill within 11x11x11 reassigns the spawner to that mob, consuming the array");
 
         // Array effect dummy items (JEI searchable)
         add(NVItems.ARRAY_BOUNCE.get(), "Bounce Array");
@@ -1208,6 +1210,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         add(NVItems.ARRAY_UNDERTOW.get(), "Undertow Array");
         add(NVItems.ARRAY_LOYAL_FRIENDS.get(), "Array of Loyal Friends");
         add(NVItems.ARRAY_VORTEX.get(), "Vortex Array");
+        add(NVItems.ARRAY_IMPRISONMENT.get(), "Array of Imprisonment");
         addTooltip("array_effect.bounce", "Bounces entities high into the air. Crouch to disable.");
         addTooltip("array_effect.spike", "Damages any entity that steps on the array.");
         addTooltip("array_effect.updraft", "Launches entities upward with a gust of wind.");
@@ -1230,6 +1233,7 @@ public class NVLanguageProvider extends LanguageProvider implements com.klikli_d
         addTooltip("array_effect.undertow", "Drives a bubble column through the water above. Right-click to flip between upward (push) and downward (drag).");
         addTooltip("array_effect.loyal_friends", "Summons and revives your tamed companions near the array.");
         addTooltip("array_effect.vortex", "Pulls nearby entities toward the array and stops endermen from teleporting away.");
+        addTooltip("array_effect.imprisonment", "Place atop a mob spawner. The next mob killed within 11x11x11 becomes the spawner's new mob, and the array is consumed.");
 
         // Rituals
         addRitual("water", "Ritual of the Full Spring", "Places water source blocks in the area; with Raw Spiritus, also fills any fluid tank above the master stone (1 Raw per 1,000 mB).");

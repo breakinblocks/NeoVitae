@@ -44,36 +44,6 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "neovitae:set_spiritus_range",
-              "spiritus": {
-                "type": "minecraft:uniform",
-                "max": 240.0,
-                "min": 120.0
-              }
-            }
-          ],
-          "name": "neovitae:base_spiritus_soul_invictus",
-          "weight": 8
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "neovitae:set_spiritus_range",
-              "spiritus": {
-                "type": "minecraft:uniform",
-                "max": 240.0,
-                "min": 120.0
-              }
-            }
-          ],
-          "name": "neovitae:base_spiritus_soul_ruina",
-          "weight": 8
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
               "add": false,
               "count": {
                 "type": "minecraft:uniform",

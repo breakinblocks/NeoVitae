@@ -2273,6 +2273,12 @@ public class NVRecipeProvider extends RecipeProvider {
                 .added(NVItems.TABULA_ROBUR.get())
                 .evCost(2500)
                 .save(output, "loyal_friends");
+
+        AlchemyArrayEffectRecipeBuilder.effect(AlchemyArrayEffectType.IMPRISONMENT)
+                .base(NVItems.BLOOD_PEARL.get())
+                .added(Items.LEAD)
+                .texture("textures/models/alchemyarrays/imprisonmentarray.png")
+                .save(output, "imprisonment");
     }
 
     private void addTabulaVitaeRecipes(RecipeOutput output) {

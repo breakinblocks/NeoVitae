@@ -8,31 +8,35 @@ package com.breakinblocks.neovitae.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.AABB;
 import com.breakinblocks.neovitae.common.blockentity.MasterRitualStoneBlockEntity;
+import com.breakinblocks.neovitae.common.menu.RitualConfiguratorMenu;
+import com.breakinblocks.neovitae.common.menu.RitualConfiguratorMenu.RangeInfo;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
-import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.ritual.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import net.minecraft.world.item.component.TooltipDisplay;
 
 /**
- * The Ritual Reader is used to configure ritual effect areas and settings.
- * - Right-click on Master Ritual Stone to get ritual information
- * - Sneak + right-click on MRS to cycle through reader modes
- * - Right-click on blocks while in SET_AREA mode to define corners
- * - Sneak + right-click in air to cycle through range keys
+ * The Ritual Configurator opens a panel on the Master Ritual Stone to pick a
+ * range and Spiritus aspect, then drops into a two-corner world pick (with a
+ * live bounding-box preview) to resize the selected range.
  */
 public class ItemRitualReader extends Item {
 
@@ -45,7 +49,6 @@ public class ItemRitualReader extends Item {
                 .component(NVDataComponents.READER_RANGE_KEY.get(), "")
                 .component(NVDataComponents.READER_CORNER1.get(), BlockPos.ZERO));
     }
-
 
     public EnumRitualReaderState getState(ItemStack stack) {
         Integer stateOrdinal = stack.get(NVDataComponents.READER_STATE.get());
@@ -77,81 +80,88 @@ public class ItemRitualReader extends Item {
         stack.set(NVDataComponents.READER_CORNER1.get(), pos);
     }
 
-
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        ItemStack stack = context.getPlayer().getItemInHand(context.getHand());
-        Level level = context.getLevel();
-        BlockPos clickedPos = context.getClickedPos();
         Player player = context.getPlayer();
-
         if (player == null) return InteractionResult.PASS;
 
-        BlockEntity blockEntity = level.getBlockEntity(clickedPos);
+        ItemStack stack = player.getItemInHand(context.getHand());
+        Level level = context.getLevel();
+        BlockPos clickedPos = context.getClickedPos();
+        EnumRitualReaderState state = getState(stack);
 
-        if (blockEntity instanceof MasterRitualStoneBlockEntity mrsT) {
-            return handleMasterRitualStoneClick(stack, level, mrsT, player);
+        if (state == EnumRitualReaderState.SET_AREA_CORNER_1 || state == EnumRitualReaderState.SET_AREA_CORNER_2) {
+            return handleAreaCornerClick(stack, level, clickedPos, player, state);
         }
 
-        EnumRitualReaderState state = getState(stack);
-        if (state == EnumRitualReaderState.SET_AREA_CORNER_1 ||
-            state == EnumRitualReaderState.SET_AREA_CORNER_2) {
-            return handleAreaCornerClick(stack, level, clickedPos, player, state);
+        BlockEntity blockEntity = level.getBlockEntity(clickedPos);
+        if (blockEntity instanceof MasterRitualStoneBlockEntity mrs) {
+            return openConfigurator(level, mrs, player, context.getHand());
         }
 
         return InteractionResult.PASS;
     }
 
-    private InteractionResult handleMasterRitualStoneClick(ItemStack stack, Level level,
-                                                            MasterRitualStoneBlockEntity mrs, Player player) {
+    @Override
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (player.isShiftKeyDown()) {
+            EnumRitualReaderState state = getState(stack);
+            if (state == EnumRitualReaderState.SET_AREA_CORNER_1 || state == EnumRitualReaderState.SET_AREA_CORNER_2) {
+                if (!level.isClientSide()) {
+                    setState(stack, EnumRitualReaderState.INFORMATION);
+                    player.sendOverlayMessage(
+                            Component.translatable("chat.neovitae.reader.cancelled").withStyle(ChatFormatting.YELLOW));
+                }
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return InteractionResult.PASS;
+    }
+
+    private InteractionResult openConfigurator(Level level, MasterRitualStoneBlockEntity mrs,
+                                               Player player, InteractionHand hand) {
         if (level.isClientSide()) return InteractionResult.SUCCESS;
 
-        if (player.isShiftKeyDown()) {
-            cycleReaderState(stack, player);
-            return InteractionResult.SUCCESS;
-        }
-
-        Ritual ritual = mrs.getCurrentRitual();
+        Ritual ritual = resolveRitual(mrs);
         if (ritual == null) {
             player.sendOverlayMessage(
                     Component.translatable("chat.neovitae.reader.noRitual").withStyle(ChatFormatting.RED));
             return InteractionResult.SUCCESS;
         }
+        if (!(player instanceof ServerPlayer serverPlayer)) return InteractionResult.SUCCESS;
 
-        EnumRitualReaderState state = getState(stack);
-        switch (state) {
-            case INFORMATION -> {
-                mrs.provideInformationOfRitualToPlayer(player);
-            }
-            case SET_AREA_CORNER_1, SET_AREA_CORNER_2 -> {
-                String rangeKey = getRangeKey(stack);
-                if (rangeKey.isEmpty()) {
-                    List<String> ranges = ritual.getListOfRanges();
-                    if (!ranges.isEmpty()) {
-                        rangeKey = ranges.get(0);
-                        setRangeKey(stack, rangeKey);
-                    }
-                }
-                mrs.provideInformationOfRangeToPlayer(player, rangeKey);
-            }
-            case SET_WILL_CONFIG -> {
-                SpiritusType nextType = resolveAspectFromHotbar(player);
-                if (nextType == null) {
-                    SpiritusType currentType = mrs.getActiveSpiritusAspect();
-                    nextType = switch (currentType) {
-                        case RAW -> SpiritusType.RUINA;
-                        case RUINA -> SpiritusType.NIHILUM;
-                        case NIHILUM -> SpiritusType.VINDICTA;
-                        case VINDICTA -> SpiritusType.INVICTUS;
-                        case INVICTUS -> SpiritusType.RAW;
-                    };
-                }
-                mrs.setActiveSpiritusAspect(nextType);
-                player.sendOverlayMessage(
-                        Component.translatable("chat.neovitae.reader.spiritusType",
-                                Component.translatable("will.neovitae." + nextType.getSerializedName())));
-            }
+        List<RangeInfo> ranges = new ArrayList<>();
+        for (String key : ritual.getListOfRanges()) {
+            AreaDescriptor descriptor = mrs.getBlockRange(key);
+            if (descriptor == null) descriptor = ritual.getBlockRange(key);
+            if (descriptor == null) continue;
+            AABB box = descriptor.getAABB(BlockPos.ZERO);
+            ranges.add(new RangeInfo(key,
+                    (int) Math.round(box.getXsize()),
+                    (int) Math.round(box.getYsize()),
+                    (int) Math.round(box.getZsize()),
+                    ritual.getMaxVolumeForRange(key),
+                    ritual.getMaxHorizontalRadiusForRange(key),
+                    ritual.getMaxVerticalRadiusForRange(key)));
         }
+
+        ItemStack stack = serverPlayer.getItemInHand(hand);
+        String currentKey = getRangeKey(stack);
+        boolean valid = ranges.stream().anyMatch(r -> r.key().equals(currentKey));
+        if (!valid && !ranges.isEmpty()) {
+            setRangeKey(stack, ranges.get(0).key());
+        }
+
+        BlockPos masterPos = mrs.getBlockPos();
+        String ritualKey = ritual.getTranslationKey();
+        int aspect = mrs.getActiveSpiritusAspect().ordinal();
+        boolean active = mrs.isActive();
+
+        serverPlayer.openMenu(new SimpleMenuProvider(
+                (id, inv, p) -> new RitualConfiguratorMenu(id, inv, hand, masterPos, ritualKey, ranges, aspect, active),
+                Component.translatable("container.neovitae.ritual_configurator")
+        ), buf -> RitualConfiguratorMenu.write(buf, hand, masterPos, ritualKey, ranges, aspect, active));
 
         return InteractionResult.SUCCESS;
     }
@@ -161,6 +171,12 @@ public class ItemRitualReader extends Item {
         if (level.isClientSide()) return InteractionResult.SUCCESS;
 
         if (state == EnumRitualReaderState.SET_AREA_CORNER_1) {
+            MasterRitualStoneBlockEntity mrs = findNearbyMasterRitualStone(level, player);
+            Ritual ritual = mrs != null ? resolveRitual(mrs) : null;
+            if (mrs != null && ritual != null && ritual.getMaxVolumeForRange(getRangeKey(stack)) == 1) {
+                applyArea(stack, mrs, ritual, clickedPos, clickedPos, player);
+                return InteractionResult.SUCCESS;
+            }
             setCorner1(stack, clickedPos);
             setState(stack, EnumRitualReaderState.SET_AREA_CORNER_2);
             player.sendOverlayMessage(
@@ -169,173 +185,126 @@ public class ItemRitualReader extends Item {
             return InteractionResult.SUCCESS;
         }
 
-        if (state == EnumRitualReaderState.SET_AREA_CORNER_2) {
-            BlockPos corner1 = getCorner1(stack);
-            BlockPos corner2 = clickedPos;
-            String rangeKey = getRangeKey(stack);
-
-            MasterRitualStoneBlockEntity mrs = findNearbyMasterRitualStone(level, corner1, corner2, player);
-            if (mrs == null) {
-                player.sendOverlayMessage(
-                        Component.translatable("chat.neovitae.reader.noMRS").withStyle(ChatFormatting.RED));
-                setState(stack, EnumRitualReaderState.SET_AREA_CORNER_1);
-                return InteractionResult.SUCCESS;
-            }
-
-            Ritual ritual = mrs.getCurrentRitual();
-            if (ritual == null) {
-                player.sendOverlayMessage(
-                        Component.translatable("chat.neovitae.reader.noRitual").withStyle(ChatFormatting.RED));
-                setState(stack, EnumRitualReaderState.SET_AREA_CORNER_1);
-                return InteractionResult.SUCCESS;
-            }
-
-            BlockPos mrsPos = mrs.getBlockPos();
-            BlockPos offset1 = corner1.subtract(mrsPos);
-            BlockPos offset2 = corner2.subtract(mrsPos);
-
-            AreaDescriptor descriptor = ritual.getBlockRange(rangeKey);
-            if (descriptor == null) {
-                player.sendOverlayMessage(
-                        Component.translatable("chat.neovitae.reader.invalidRange").withStyle(ChatFormatting.RED));
-                setState(stack, EnumRitualReaderState.SET_AREA_CORNER_1);
-                return InteractionResult.SUCCESS;
-            }
-
-            EnumReaderBoundaries result = ritual.canBlockRangeBeModified(rangeKey, descriptor, mrs, offset1, offset2);
-            if (result == EnumReaderBoundaries.SUCCESS) {
-                descriptor.modifyAreaByBlockPositions(offset1, offset2);
-                mrs.setBlockRange(rangeKey, descriptor);
-                player.sendOverlayMessage(
-                        Component.translatable("chat.neovitae.reader.areaSet", rangeKey));
-            } else {
-                Component errorMsg = ritual.getErrorForBlockRangeOnFail(player, rangeKey, mrs, offset1, offset2);
-                player.sendOverlayMessage(errorMsg.copy().withStyle(ChatFormatting.RED));
-            }
-
-            setState(stack, EnumRitualReaderState.SET_AREA_CORNER_1);
-            return InteractionResult.SUCCESS;
-        }
-
-        return InteractionResult.PASS;
-    }
-
-    @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-
-        if (!level.isClientSide() && player.isShiftKeyDown()) {
-            EnumRitualReaderState state = getState(stack);
-            if (state == EnumRitualReaderState.SET_AREA_CORNER_1 || state == EnumRitualReaderState.SET_AREA_CORNER_2) {
-                MasterRitualStoneBlockEntity mrs = findNearbyMasterRitualStone(level, player.blockPosition(), player.blockPosition(), player);
-                Ritual ritual = mrs != null ? mrs.getCurrentRitual() : null;
-                if (ritual != null) {
-                    cycleRangeKey(stack, player, ritual);
-                } else {
-                    player.sendOverlayMessage(
-                            Component.translatable("chat.neovitae.reader.noMRS").withStyle(ChatFormatting.RED));
-                }
-            } else {
-                cycleRangeKey(stack, player);
-            }
-            return InteractionResult.SUCCESS;
-        }
-
-        return InteractionResult.PASS;
-    }
-
-
-    private void cycleReaderState(ItemStack stack, Player player) {
-        EnumRitualReaderState current = getState(stack);
-        EnumRitualReaderState next = current.next();
-        setState(stack, next);
-        player.sendOverlayMessage(
-                Component.translatable(TOOLTIP_BASE + "state." + next.getSerializedName()));
-    }
-
-    private void cycleRangeKey(ItemStack stack, Player player) {
-        String currentKey = getRangeKey(stack);
-        if (currentKey.isEmpty()) {
+        MasterRitualStoneBlockEntity mrs = findNearbyMasterRitualStone(level, player);
+        if (mrs == null) {
             player.sendOverlayMessage(
-                    Component.translatable("chat.neovitae.reader.noRangeSelected").withStyle(ChatFormatting.YELLOW));
+                    Component.translatable("chat.neovitae.reader.noMRS").withStyle(ChatFormatting.RED));
+            setState(stack, EnumRitualReaderState.INFORMATION);
+            return InteractionResult.SUCCESS;
+        }
+
+        Ritual ritual = resolveRitual(mrs);
+        if (ritual == null) {
+            player.sendOverlayMessage(
+                    Component.translatable("chat.neovitae.reader.noRitual").withStyle(ChatFormatting.RED));
+            setState(stack, EnumRitualReaderState.INFORMATION);
+            return InteractionResult.SUCCESS;
+        }
+
+        applyArea(stack, mrs, ritual, getCorner1(stack), clickedPos, player);
+        return InteractionResult.SUCCESS;
+    }
+
+    private void applyArea(ItemStack stack, MasterRitualStoneBlockEntity mrs, Ritual ritual,
+                           BlockPos corner1, BlockPos corner2, Player player) {
+        String rangeKey = getRangeKey(stack);
+        BlockPos mrsPos = mrs.getBlockPos();
+        BlockPos offset1 = corner1.subtract(mrsPos);
+        BlockPos offset2 = corner2.subtract(mrsPos);
+
+        AreaDescriptor current = mrs.getBlockRange(rangeKey);
+        if (current == null) current = ritual.getBlockRange(rangeKey);
+        if (current == null) {
+            player.sendOverlayMessage(
+                    Component.translatable("chat.neovitae.reader.invalidRange").withStyle(ChatFormatting.RED));
+            setState(stack, EnumRitualReaderState.INFORMATION);
+            return;
+        }
+
+        AreaDescriptor descriptor = current.copy();
+        EnumReaderBoundaries result = ritual.canBlockRangeBeModified(rangeKey, descriptor, mrs, offset1, offset2);
+        if (result == EnumReaderBoundaries.SUCCESS) {
+            descriptor.modifyAreaByBlockPositions(offset1, offset2);
+            mrs.setBlockRange(rangeKey, descriptor);
+            Identifier configuredFor = mrs.isActive() ? mrs.getCurrentRitualId() : RitualRegistry.getId(ritual);
+            if (configuredFor != null) {
+                mrs.markRangesConfiguredFor(configuredFor);
+            }
+            player.sendOverlayMessage(
+                    Component.translatable("chat.neovitae.reader.areaSet", rangeKey));
         } else {
-            player.sendOverlayMessage(
-                    Component.translatable("chat.neovitae.reader.currentRange", currentKey));
+            Component errorMsg = ritual.getErrorForBlockRangeOnFail(player, rangeKey, mrs, offset1, offset2);
+            player.sendOverlayMessage(errorMsg.copy().withStyle(ChatFormatting.RED));
         }
+
+        setState(stack, EnumRitualReaderState.INFORMATION);
     }
 
-    public void cycleRangeKey(ItemStack stack, Player player, Ritual ritual) {
-        if (ritual == null) return;
-
-        String currentKey = getRangeKey(stack);
-        String nextKey = ritual.getNextBlockRange(currentKey);
-        setRangeKey(stack, nextKey);
-
-        if (!nextKey.isEmpty()) {
-            player.sendOverlayMessage(
-                    Component.translatable("chat.neovitae.reader.rangeSelected", nextKey));
-        }
+    private MasterRitualStoneBlockEntity findNearbyMasterRitualStone(Level level, Player player) {
+        return searchMasterRitualStone(level, player.blockPosition(), 32);
     }
 
-
-    private SpiritusType resolveAspectFromHotbar(Player player) {
-        SpiritusType found = null;
-        for (int i = 0; i < 9; i++) {
-            ItemStack hotbar = player.getInventory().getItem(i);
-            if (hotbar.isEmpty()) continue;
-            SpiritusType type = aspectOfCrystal(hotbar);
-            if (type == null) continue;
-            if (found == null) {
-                found = type;
-            } else if (found != type) {
-                return SpiritusType.RAW;
-            }
-        }
-        return found;
-    }
-
-    private SpiritusType aspectOfCrystal(ItemStack stack) {
-        if (stack.is(NVItems.RAW_SPIRITUS_CRYSTAL_ITEM.get())) return SpiritusType.RAW;
-        if (stack.is(NVItems.SPIRITUS_RUINA_CRYSTAL_ITEM.get())) return SpiritusType.RUINA;
-        if (stack.is(NVItems.SPIRITUS_NIHILUM_CRYSTAL_ITEM.get())) return SpiritusType.NIHILUM;
-        if (stack.is(NVItems.SPIRITUS_VINDICTA_CRYSTAL_ITEM.get())) return SpiritusType.VINDICTA;
-        if (stack.is(NVItems.SPIRITUS_INVICTUS_CRYSTAL_ITEM.get())) return SpiritusType.INVICTUS;
-        return null;
-    }
-
-    private MasterRitualStoneBlockEntity findNearbyMasterRitualStone(Level level, BlockPos corner1, BlockPos corner2, Player player) {
-        int searchRadius = 32;
-        BlockPos center = player.blockPosition();
-
+    private static MasterRitualStoneBlockEntity searchMasterRitualStone(Level level, BlockPos center, int searchRadius) {
         for (BlockPos pos : BlockPos.betweenClosed(
                 center.offset(-searchRadius, -searchRadius, -searchRadius),
                 center.offset(searchRadius, searchRadius, searchRadius))) {
             BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof MasterRitualStoneBlockEntity mrs) {
-                if (mrs.isActive()) {
-                    return mrs;
+            if (be instanceof MasterRitualStoneBlockEntity mrs && resolveRitual(mrs) != null) {
+                return mrs;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the active ritual if one is running, otherwise the best-matching
+     * ritual for the stone's current rune layout, so the configurator can be
+     * used before activation. Mirrors the activation-time best-match scan.
+     */
+    private static Ritual resolveRitual(MasterRitualStoneBlockEntity mrs) {
+        Ritual active = mrs.getCurrentRitual();
+        if (active != null) return active;
+
+        Ritual best = null;
+        int bestSize = -1;
+        for (Ritual ritual : RitualRegistry.getAllRituals()) {
+            if (mrs.checkStructure(ritual)) {
+                int size = countComponents(ritual);
+                if (size > bestSize) {
+                    bestSize = size;
+                    best = ritual;
                 }
             }
         }
-
-        return null;
+        return best;
     }
+
+    private static int countComponents(Ritual ritual) {
+        int[] count = {0};
+        ritual.gatherComponents(component -> count[0]++);
+        return count[0];
+    }
+
     @Override
     @SuppressWarnings("deprecation")
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display,
+                                Consumer<Component> tooltip, TooltipFlag flag) {
         EnumRitualReaderState state = getState(stack);
-        tooltip.accept(Component.translatable(TOOLTIP_BASE + "currentState",
-                Component.translatable(TOOLTIP_BASE + "state." + state.getSerializedName()))
-                .withStyle(ChatFormatting.GRAY));
-
-        String rangeKey = getRangeKey(stack);
-        if (!rangeKey.isEmpty()) {
-            tooltip.accept(Component.translatable(TOOLTIP_BASE + "currentRange", rangeKey)
+        if (state == EnumRitualReaderState.SET_AREA_CORNER_1 || state == EnumRitualReaderState.SET_AREA_CORNER_2) {
+            tooltip.accept(Component.translatable(TOOLTIP_BASE + "currentState",
+                    Component.translatable(TOOLTIP_BASE + "state." + state.getSerializedName()))
                     .withStyle(ChatFormatting.GRAY));
+            String rangeKey = getRangeKey(stack);
+            if (!rangeKey.isEmpty()) {
+                tooltip.accept(Component.translatable(TOOLTIP_BASE + "currentRange", rangeKey)
+                        .withStyle(ChatFormatting.GRAY));
+            }
         }
 
         tooltip.accept(Component.empty());
         tooltip.accept(Component.translatable(TOOLTIP_BASE + "help.1").withStyle(ChatFormatting.BLUE));
         tooltip.accept(Component.translatable(TOOLTIP_BASE + "help.2").withStyle(ChatFormatting.BLUE));
-        tooltip.accept(Component.translatable(TOOLTIP_BASE + "help.3").withStyle(ChatFormatting.BLUE));}
+        tooltip.accept(Component.translatable(TOOLTIP_BASE + "help.3").withStyle(ChatFormatting.BLUE));
+        tooltip.accept(Component.translatable(TOOLTIP_BASE + "help.4").withStyle(ChatFormatting.BLUE));
+    }
 }

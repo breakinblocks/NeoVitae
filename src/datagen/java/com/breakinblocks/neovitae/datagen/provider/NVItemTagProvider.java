@@ -15,6 +15,7 @@ import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.neoforged.neoforge.common.Tags;
 import net.minecraft.world.level.block.Block;
 import com.breakinblocks.neovitae.datagen.BlockGroups;
 
@@ -30,6 +31,8 @@ public class NVItemTagProvider extends ItemTagsProvider {
         // NVTags.Blocks.STORAGE_BLOCKS_HELLFORGED contains BlockGroups.HELLFORGED_BLOCK (currently a single entry).
         tag(NVTags.Items.STORAGE_BLOCKS_HELLFORGED)
                 .add(NVBlocks.HELLFORGED_BLOCK.item().get());
+
+        tag(Tags.Items.STRINGS).add(Items.STRING);
 
         addBlockItems(NVTags.Items.RUNES, BlockGroups.RUNE_T1);
         addBlockItems(NVTags.Items.RUNES, BlockGroups.RUNE_T2);

@@ -92,6 +92,7 @@ public class AlchemyArrayEffectCategory implements IRecipeCategory<AlchemyArrayR
             case UNDERTOW -> new ItemStack(NVItems.ARRAY_UNDERTOW.get());
             case LOYAL_FRIENDS -> new ItemStack(NVItems.ARRAY_LOYAL_FRIENDS.get());
             case VORTEX -> new ItemStack(NVItems.ARRAY_VORTEX.get());
+            case IMPRISONMENT -> new ItemStack(NVItems.ARRAY_IMPRISONMENT.get());
             default -> ItemStack.EMPTY;
         };
     }

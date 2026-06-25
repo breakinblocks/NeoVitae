@@ -49,6 +49,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     private UUID owner;
     private Ritual currentRitual;
     private Identifier currentRitualId;  // Store the ritual ID separately since currentRitual is a copy
+    private Identifier rangesConfiguredFor;
     private boolean active = false;
     private Direction direction = Direction.NORTH;
     private boolean inverted = false;
@@ -249,10 +250,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         this.active = true;
         this.runningTime = 0;
 
-        blockRanges.clear();
-        for (Map.Entry<String, AreaDescriptor> entry : ritual.getModifiableRanges().entrySet()) {
-            blockRanges.put(entry.getKey(), entry.getValue().copy());
-        }
+        initializeBlockRanges(ritual);
 
         network.syphon(ticket(ritual.getActivationCost()));
 
@@ -286,10 +284,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         this.active = true;
         this.runningTime = 0;
 
-        blockRanges.clear();
-        for (Map.Entry<String, AreaDescriptor> entry : ritual.getModifiableRanges().entrySet()) {
-            blockRanges.put(entry.getKey(), entry.getValue().copy());
-        }
+        initializeBlockRanges(ritual);
 
         level.playSound(null, worldPosition, NVSounds.RITUAL_ACTIVATE.get(), SoundSource.BLOCKS, 0.8f, 1.0f);
         ((ServerLevel) level).sendParticles(new ColoredParticleOptions(NVParticles.BLOOD_GLOW.get(), 0xAA0000), worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, 10, 0.4, 0.2, 0.4, 0);
@@ -410,6 +405,26 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         setChanged();
     }
 
+    public Identifier getCurrentRitualId() {
+        return currentRitualId;
+    }
+
+    public void markRangesConfiguredFor(Identifier ritualId) {
+        this.rangesConfiguredFor = ritualId;
+        setChanged();
+    }
+
+    private void initializeBlockRanges(Ritual ritual) {
+        boolean keepPresets = rangesConfiguredFor != null && rangesConfiguredFor.equals(currentRitualId);
+        Map<String, AreaDescriptor> preconfigured = keepPresets ? new HashMap<>(blockRanges) : Map.of();
+        blockRanges.clear();
+        for (Map.Entry<String, AreaDescriptor> entry : ritual.getModifiableRanges().entrySet()) {
+            AreaDescriptor preset = preconfigured.get(entry.getKey());
+            blockRanges.put(entry.getKey(), preset != null ? preset : entry.getValue().copy());
+        }
+        rangesConfiguredFor = currentRitualId;
+    }
+
     @Override
     public void setBlockRanges(Map<String, AreaDescriptor> ranges) {
         this.blockRanges = new HashMap<>(ranges);
@@ -487,22 +502,27 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
             CompoundTag ritualData = new CompoundTag();
             currentRitual.writeToNBT(ritualData);
             tag.store("ritualData", CompoundTag.CODEC, ritualData);
+        }
 
-            CompoundTag rangesTag = new CompoundTag();
-            for (Map.Entry<String, AreaDescriptor> entry : blockRanges.entrySet()) {
-                CompoundTag rangeTag = new CompoundTag();
-                AreaDescriptor desc = entry.getValue();
-                if (desc instanceof AreaDescriptor.Rectangle) {
-                    rangeTag.putString("type", "rectangle");
-                } else if (desc instanceof AreaDescriptor.HemiSphere) {
-                    rangeTag.putString("type", "hemisphere");
-                } else if (desc instanceof AreaDescriptor.Cross) {
-                    rangeTag.putString("type", "cross");
-                }
-                desc.saveToNBT(rangeTag);
-                rangesTag.put(entry.getKey(), rangeTag);
+        CompoundTag rangesTag = new CompoundTag();
+        for (Map.Entry<String, AreaDescriptor> entry : blockRanges.entrySet()) {
+            CompoundTag rangeTag = new CompoundTag();
+            AreaDescriptor desc = entry.getValue();
+            if (desc instanceof AreaDescriptor.Rectangle) {
+                rangeTag.putString("type", "rectangle");
+            } else if (desc instanceof AreaDescriptor.HemiSphere) {
+                rangeTag.putString("type", "hemisphere");
+            } else if (desc instanceof AreaDescriptor.Cross) {
+                rangeTag.putString("type", "cross");
             }
+            desc.saveToNBT(rangeTag);
+            rangesTag.put(entry.getKey(), rangeTag);
+        }
+        if (!rangesTag.isEmpty()) {
             tag.store("blockRanges", CompoundTag.CODEC, rangesTag);
+        }
+        if (rangesConfiguredFor != null) {
+            tag.putString("rangesConfiguredFor", rangesConfiguredFor.toString());
         }
     }
 
@@ -540,31 +560,33 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
                 currentRitual = ritual.getNewCopy();
 
                 tag.read("ritualData", CompoundTag.CODEC).ifPresent(currentRitual::readFromNBT);
-
-                blockRanges.clear();
-                var rangesOpt = tag.read("blockRanges", CompoundTag.CODEC);
-                if (rangesOpt.isPresent()) {
-                    CompoundTag rangesTag = rangesOpt.get();
-                    for (String key : rangesTag.keySet()) {
-                        CompoundTag rangeTag = rangesTag.getCompoundOrEmpty(key);
-                        String type = rangeTag.getStringOr("type", "");
-                        AreaDescriptor desc = createAreaDescriptor(type);
-                        if (desc != null) {
-                            desc.loadFromNBT(rangeTag);
-                            blockRanges.put(key, desc);
-                        }
-                    }
-                } else {
-                    for (Map.Entry<String, AreaDescriptor> entry : currentRitual.getModifiableRanges().entrySet()) {
-                        blockRanges.put(entry.getKey(), entry.getValue().copy());
-                    }
-                }
             } else {
                 active = false;
                 currentRitualId = null;
             }
         } else if (active) {
             active = false;
+        }
+
+        rangesConfiguredFor = tag.getString("rangesConfiguredFor").map(Identifier::parse).orElse(null);
+
+        blockRanges.clear();
+        var rangesOpt = tag.read("blockRanges", CompoundTag.CODEC);
+        if (rangesOpt.isPresent()) {
+            CompoundTag rangesTag = rangesOpt.get();
+            for (String key : rangesTag.keySet()) {
+                CompoundTag rangeTag = rangesTag.getCompoundOrEmpty(key);
+                String type = rangeTag.getStringOr("type", "");
+                AreaDescriptor desc = createAreaDescriptor(type);
+                if (desc != null) {
+                    desc.loadFromNBT(rangeTag);
+                    blockRanges.put(key, desc);
+                }
+            }
+        } else if (currentRitual != null) {
+            for (Map.Entry<String, AreaDescriptor> entry : currentRitual.getModifiableRanges().entrySet()) {
+                blockRanges.put(entry.getKey(), entry.getValue().copy());
+            }
         }
     }
 

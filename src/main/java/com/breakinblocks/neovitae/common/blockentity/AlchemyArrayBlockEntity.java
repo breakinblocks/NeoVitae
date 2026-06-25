@@ -20,8 +20,10 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffect;
+import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectImprisonment;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectLight;
 import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectType;
+import com.breakinblocks.neovitae.common.event.ImprisonmentArrayHandler;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.datacomponent.Binding;
 import com.breakinblocks.neovitae.client.particle.ColoredParticleOptions;
@@ -325,6 +327,14 @@ public class AlchemyArrayBlockEntity extends BaseBlockEntity {
         if (arrayEffect != null) {
             arrayEffect.onNeighborChanged(this, neighborPos);
         }
+    }
+
+    @Override
+    public void setRemoved() {
+        if (level != null && !level.isClientSide() && arrayEffect instanceof AlchemyArrayEffectImprisonment) {
+            ImprisonmentArrayHandler.unregister(level, worldPosition);
+        }
+        super.setRemoved();
     }
 
     @Override

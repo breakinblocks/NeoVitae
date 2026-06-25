@@ -682,10 +682,25 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addTooltip("reader.state.information", "Information");
         addTooltip("reader.state.set_area_corner_1", "Set Area Corner 1");
         addTooltip("reader.state.set_area_corner_2", "Set Area Corner 2");
-        addTooltip("reader.state.set_will_config", "Set Spiritus Configuration");
-        addTooltip("reader.help.1", "Click MRS for ritual info");
-        addTooltip("reader.help.2", "Sneak + click MRS to cycle modes");
-        addTooltip("reader.help.3", "Sneak + click air to cycle ranges");
+        addTooltip("reader.help.1", "Right-click a Master Ritual Stone to open the configurator");
+        addTooltip("reader.help.2", "Pick a working area or chest slot, then choose Edit area in world");
+        addTooltip("reader.help.3", "Click two corners to set an area, or one block for a single-block slot");
+        addTooltip("reader.help.4", "Sneak + right-click to cancel an area edit");
+        add("chat.neovitae.reader.cancelled", "Area edit cancelled.");
+        add("container.neovitae.ritual_configurator", "Ritual Configurator");
+        add("gui.neovitae.configurator.aspect", "Aspect");
+        add("gui.neovitae.configurator.not_active", "Not yet activated");
+        add("gui.neovitae.configurator.aspect.raw", "Raw");
+        add("gui.neovitae.configurator.aspect.ruina", "Ruina");
+        add("gui.neovitae.configurator.aspect.nihilum", "Nihl");
+        add("gui.neovitae.configurator.aspect.vindicta", "Vind");
+        add("gui.neovitae.configurator.aspect.invictus", "Invc");
+        add("gui.neovitae.configurator.edit_area", "Edit area in world");
+        add("gui.neovitae.configurator.tooltip.size", "Size: %s x %s x %s");
+        add("gui.neovitae.configurator.tooltip.volume", "Volume: %s / %s");
+        add("gui.neovitae.configurator.tooltip.reach", "Max reach: %s wide, %s tall");
+        add("gui.neovitae.configurator.tooltip.single", "Single block slot, placed with one click");
+        add("gui.neovitae.configurator.tooltip.area", "Resized by clicking two corners");
         add("chat.neovitae.reader.noRitual", "No ritual active on this Master Ritual Stone.");
         add("chat.neovitae.reader.noMRS", "No active Master Ritual Stone found nearby.");
         add("chat.neovitae.reader.noRangeSelected", "No range selected. Click on an active MRS first.");
@@ -1173,6 +1188,8 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addJei("effect.loyal_friends.desc", "Summons and revives your tamed companions");
         addJei("effect.vortex.name", "Vortex Array");
         addJei("effect.vortex.desc", "Pulls nearby entities toward the array and stops endermen from teleporting away");
+        addJei("effect.imprisonment.name", "Array of Imprisonment");
+        addJei("effect.imprisonment.desc", "Placed atop a mob spawner; the next mob kill within 11x11x11 reassigns the spawner to that mob, consuming the array");
 
         // Array effect dummy items (JEI searchable)
         add(NVItems.ARRAY_BOUNCE.get(), "Bounce Array");
@@ -1197,6 +1214,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add(NVItems.ARRAY_UNDERTOW.get(), "Undertow Array");
         add(NVItems.ARRAY_LOYAL_FRIENDS.get(), "Array of Loyal Friends");
         add(NVItems.ARRAY_VORTEX.get(), "Vortex Array");
+        add(NVItems.ARRAY_IMPRISONMENT.get(), "Array of Imprisonment");
         addTooltip("array_effect.bounce", "Bounces entities high into the air. Crouch to disable.");
         addTooltip("array_effect.spike", "Damages any entity that steps on the array.");
         addTooltip("array_effect.updraft", "Launches entities upward with a gust of wind.");
@@ -1219,6 +1237,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addTooltip("array_effect.undertow", "Drives a bubble column through the water above. Right-click to flip between upward (push) and downward (drag).");
         addTooltip("array_effect.loyal_friends", "Summons and revives your tamed companions near the array.");
         addTooltip("array_effect.vortex", "Pulls nearby entities toward the array and stops endermen from teleporting away.");
+        addTooltip("array_effect.imprisonment", "Place atop a mob spawner. The next mob killed within 11x11x11 becomes the spawner's new mob, and the array is consumed.");
 
         // Rituals
         addRitual("water", "Ritual of the Full Spring", "Places water source blocks in the area; with Raw Spiritus, also fills any fluid tank above the master stone (1 Raw per 1,000 mB).");

@@ -1,0 +1,9 @@
+{
+  "type": "neovitae:alchemy_array_recipe",
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "id": "recipe",
+  "recipe_id_1": "neovitae:array/imprisonment",
+  "sort_number": 2
+}

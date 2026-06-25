@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -15,6 +16,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BuddingAmethystBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -27,6 +30,7 @@ import com.breakinblocks.neovitae.api.spiritus.SpiritusHandler;
 import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
 import com.breakinblocks.neovitae.common.datacomponent.Anima;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.util.Utils;
 
 import javax.annotation.Nullable;
@@ -45,6 +49,22 @@ import java.util.function.Predicate;
 public final class RitualHelper {
 
     private RitualHelper() {}
+
+    public static boolean isBuddingBlock(BlockState state) {
+        if (state.is(NVTags.Blocks.GEODE_ACCELERATABLE)) return true;
+        if (state.getBlock() instanceof BuddingAmethystBlock) return true;
+        return BuiltInRegistries.BLOCK.getKey(state.getBlock()).getPath().contains("budding");
+    }
+
+    public static void accelerateBudding(ServerLevel level, BlockPos pos, int ticks) {
+        BlockState original = level.getBlockState(pos);
+        for (int i = 0; i < ticks; i++) {
+            level.getBlockState(pos).randomTick(level, pos, level.getRandom());
+        }
+        if (!level.getBlockState(pos).is(original.getBlock())) {
+            level.setBlock(pos, original, Block.UPDATE_ALL);
+        }
+    }
 
     /**
      * Creates a ritual context. Returns null if the ritual cannot execute

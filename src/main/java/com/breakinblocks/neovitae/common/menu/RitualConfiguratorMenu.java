@@ -21,6 +21,8 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
 
     public static final int ASPECT_BUTTON_BASE = 100;
     public static final int EDIT_IN_WORLD_BUTTON = 200;
+    public static final int KEEP_MINUS_BUTTON = 300;
+    public static final int KEEP_PLUS_BUTTON = 301;
     private static final double MAX_REACH_SQR = 64.0;
 
     public record RangeInfo(String key, int sizeX, int sizeY, int sizeZ,
@@ -32,6 +34,8 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
     private final List<RangeInfo> ranges;
     private final int initialAspect;
     private final boolean ritualActive;
+    private final boolean usesKeepCount;
+    private final int initialKeepCount;
 
     public RitualConfiguratorMenu(int containerId, Inventory playerInv, FriendlyByteBuf buf) {
         super(NVMenus.RITUAL_CONFIGURATOR.get(), containerId);
@@ -43,11 +47,13 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
                 b.readVarInt(), b.readVarInt(), b.readVarInt()));
         this.initialAspect = buf.readVarInt();
         this.ritualActive = buf.readBoolean();
+        this.usesKeepCount = buf.readBoolean();
+        this.initialKeepCount = buf.readVarInt();
     }
 
     public RitualConfiguratorMenu(int containerId, Inventory playerInv, InteractionHand hand,
                                   BlockPos masterPos, String ritualKey, List<RangeInfo> ranges,
-                                  int initialAspect, boolean ritualActive) {
+                                  int initialAspect, boolean ritualActive, boolean usesKeepCount, int initialKeepCount) {
         super(NVMenus.RITUAL_CONFIGURATOR.get(), containerId);
         this.hand = hand;
         this.masterPos = masterPos;
@@ -55,10 +61,13 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
         this.ranges = new ArrayList<>(ranges);
         this.initialAspect = initialAspect;
         this.ritualActive = ritualActive;
+        this.usesKeepCount = usesKeepCount;
+        this.initialKeepCount = initialKeepCount;
     }
 
     public static void write(FriendlyByteBuf buf, InteractionHand hand, BlockPos masterPos,
-                             String ritualKey, List<RangeInfo> ranges, int initialAspect, boolean ritualActive) {
+                             String ritualKey, List<RangeInfo> ranges, int initialAspect, boolean ritualActive,
+                             boolean usesKeepCount, int initialKeepCount) {
         buf.writeEnum(hand);
         buf.writeBlockPos(masterPos);
         buf.writeUtf(ritualKey);
@@ -73,6 +82,8 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
         });
         buf.writeVarInt(initialAspect);
         buf.writeBoolean(ritualActive);
+        buf.writeBoolean(usesKeepCount);
+        buf.writeVarInt(initialKeepCount);
     }
 
     public boolean isRitualActive() {
@@ -95,6 +106,14 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
         return initialAspect;
     }
 
+    public boolean usesKeepCount() {
+        return usesKeepCount;
+    }
+
+    public int getInitialKeepCount() {
+        return initialKeepCount;
+    }
+
     @Override
     public boolean clickMenuButton(Player player, int id) {
         ItemStack stack = player.getItemInHand(hand);
@@ -114,6 +133,15 @@ public class RitualConfiguratorMenu extends AbstractContainerMenu {
             BlockEntity be = player.level().getBlockEntity(masterPos);
             if (be instanceof MasterRitualStoneBlockEntity mrs) {
                 mrs.setActiveSpiritusAspect(type);
+            }
+            return true;
+        }
+
+        if (id == KEEP_MINUS_BUTTON || id == KEEP_PLUS_BUTTON) {
+            BlockEntity be = player.level().getBlockEntity(masterPos);
+            if (be instanceof MasterRitualStoneBlockEntity mrs) {
+                int delta = id == KEEP_PLUS_BUTTON ? 1 : -1;
+                mrs.setKeepCount(mrs.getKeepCount() + delta);
             }
             return true;
         }

@@ -71,7 +71,7 @@ public class RitualRegeneration extends Ritual {
 
         // Corrosive Spiritus: Vampire syphon - drain HP from mobs to heal players
         SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, CORROSIVE_MIN_WILL);
-        if (will.hasCorrosive()) {
+        if (will.hasRuina()) {
             List<LivingEntity> mobs = RitualHelper.getAliveMobsInRange(ctx, this, HEAL_RANGE);
             List<Player> hurtPlayers = players.stream()
                     .filter(p -> p.getHealth() < p.getMaxHealth())
@@ -82,7 +82,7 @@ public class RitualRegeneration extends Ritual {
                 int playerIndex = 0;
 
                 for (LivingEntity mob : mobs) {
-                    if ((will.getCorrosive() - spiritusUsed) < CORROSIVE_WILL_PER_MOB) break;
+                    if ((will.getRuina() - spiritusUsed) < CORROSIVE_WILL_PER_MOB) break;
 
                     float healthBefore = mob.getHealth();
                     mob.hurtServer((ServerLevel) mob.level(), ctx.level().damageSources().source(NVDamageSources.RITUAL), 2.0F);

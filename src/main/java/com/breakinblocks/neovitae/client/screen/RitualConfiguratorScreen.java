@@ -36,15 +36,22 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
             0xFFCFCFCF, 0xFFB23A3A, 0xFF6A4A8A, 0xFF3A8B5A, 0xFFB8860B
     };
 
+    private static final int KEEP_ROW_H = 18;
+
     private final List<RangeInfo> ranges;
+    private final boolean usesKeepCount;
     private int selectedAspect;
+    private int keepCount;
 
     public RitualConfiguratorScreen(RitualConfiguratorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, PANEL_WIDTH,
                 TITLE_HEIGHT + menu.getRanges().size() * ROW_HEIGHT
-                        + ASPECT_LABEL_H + ASPECT_ROW_H + GAP + BUTTON_H + PAD_BOTTOM);
+                        + ASPECT_LABEL_H + ASPECT_ROW_H + (menu.usesKeepCount() ? GAP + KEEP_ROW_H : 0)
+                        + GAP + BUTTON_H + PAD_BOTTOM);
         this.ranges = menu.getRanges();
         this.selectedAspect = menu.getInitialAspect();
+        this.usesKeepCount = menu.usesKeepCount();
+        this.keepCount = menu.getInitialKeepCount();
     }
 
     private int listTop() {
@@ -59,8 +66,17 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
         return aspectLabelY() + ASPECT_LABEL_H;
     }
 
-    private int editButtonY() {
+    private int keepRowY() {
         return aspectRowY() + ASPECT_ROW_H + GAP;
+    }
+
+    private int keepStepperX() {
+        return leftPos + imageWidth - LIST_X - 48;
+    }
+
+    private int editButtonY() {
+        int afterAspect = aspectRowY() + ASPECT_ROW_H;
+        return (usesKeepCount ? keepRowY() + KEEP_ROW_H : afterAspect) + GAP;
     }
 
     private String selectedRangeKey() {
@@ -119,6 +135,21 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
             g.text(font, label, bx + (btnW - lw) / 2, by + (ASPECT_ROW_H - 8) / 2, color, false);
         }
 
+        if (usesKeepCount) {
+            int ky = keepRowY();
+            g.text(font, Component.translatable("gui.neovitae.configurator.keep"),
+                    leftPos + LIST_X + 2, ky + (KEEP_ROW_H - 8) / 2, 0xFFA05050, false);
+            int sx = keepStepperX();
+            boolean minusHover = mouseX >= sx && mouseX < sx + 14 && mouseY >= ky && mouseY < ky + KEEP_ROW_H;
+            boolean plusHover = mouseX >= sx + 34 && mouseX < sx + 48 && mouseY >= ky && mouseY < ky + KEEP_ROW_H;
+            g.fill(sx, ky, sx + 14, ky + KEEP_ROW_H, minusHover ? 0x55FFFFFF : 0x33000000);
+            g.fill(sx + 34, ky, sx + 48, ky + KEEP_ROW_H, plusHover ? 0x55FFFFFF : 0x33000000);
+            g.text(font, "-", sx + 5, ky + (KEEP_ROW_H - 8) / 2, 0xFFE0C0C8, false);
+            g.text(font, "+", sx + 39, ky + (KEEP_ROW_H - 8) / 2, 0xFFE0C0C8, false);
+            String val = String.valueOf(keepCount);
+            g.text(font, val, sx + 14 + (20 - font.width(val)) / 2, ky + (KEEP_ROW_H - 8) / 2, 0xFFFFFFFF, false);
+        }
+
         int eby = editButtonY();
         boolean editHovered = mouseX >= leftPos + LIST_X && mouseX < leftPos + imageWidth - LIST_X
                 && mouseY >= eby && mouseY < eby + BUTTON_H;
@@ -175,6 +206,23 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
                     minecraft.gameMode.handleInventoryButtonClick(menu.containerId,
                             RitualConfiguratorMenu.ASPECT_BUTTON_BASE + i);
                     return true;
+                }
+            }
+
+            if (usesKeepCount) {
+                int ky = keepRowY();
+                int sx = keepStepperX();
+                if (mouseY >= ky && mouseY < ky + KEEP_ROW_H) {
+                    if (mouseX >= sx && mouseX < sx + 14 && keepCount > 0) {
+                        keepCount--;
+                        minecraft.gameMode.handleInventoryButtonClick(menu.containerId, RitualConfiguratorMenu.KEEP_MINUS_BUTTON);
+                        return true;
+                    }
+                    if (mouseX >= sx + 34 && mouseX < sx + 48 && keepCount < 64) {
+                        keepCount++;
+                        minecraft.gameMode.handleInventoryButtonClick(menu.containerId, RitualConfiguratorMenu.KEEP_PLUS_BUTTON);
+                        return true;
+                    }
                 }
             }
 

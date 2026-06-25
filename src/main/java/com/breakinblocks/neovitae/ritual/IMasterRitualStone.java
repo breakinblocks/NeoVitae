@@ -71,6 +71,10 @@ public interface IMasterRitualStone {
 
     void setActiveSpiritusAspect(SpiritusType type);
 
+    default int getKeepCount() {
+        return 2;
+    }
+
     void provideInformationOfRitualToPlayer(Player player);
 
     void provideInformationOfRangeToPlayer(Player player, String key);

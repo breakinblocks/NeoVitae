@@ -68,25 +68,25 @@ public class RitualSpeed extends Ritual {
 
         SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, MIN_SPIRITUS);
 
-        boolean hasRawSpiritus = will.hasDefault();
-        boolean hasCorrosive = will.hasCorrosive();
-        boolean hasDestructive = will.hasDestructive();
-        boolean hasVengeful = will.hasVengeful();
-        boolean hasSteadfast = will.hasSteadfast();
+        boolean hasRawSpiritus = will.hasRaw();
+        boolean hasRuina = will.hasRuina();
+        boolean hasNihilum = will.hasNihilum();
+        boolean hasVindicta = will.hasVindicta();
+        boolean hasInvictus = will.hasInvictus();
 
         double horizontalSpeed;
         double verticalSpeed;
         if (hasRawSpiritus) {
-            horizontalSpeed = 3.0 + will.getDefault() / 40.0;
-            verticalSpeed = 1.2 + will.getDefault() / 200.0;
+            horizontalSpeed = 3.0 + will.getRaw() / 40.0;
+            verticalSpeed = 1.2 + will.getRaw() / 200.0;
         } else {
             horizontalSpeed = 1.5;
             verticalSpeed = 1.0;
         }
 
         // Corrosive: additional horizontal speed
-        if (hasCorrosive) {
-            horizontalSpeed += will.getCorrosive() / 40.0;
+        if (hasRuina) {
+            horizontalSpeed += will.getRuina() / 40.0;
         }
 
         List<LivingEntity> entities = RitualHelper.getEntitiesInRange(ctx, this, SPEED_RANGE, LivingEntity.class,
@@ -115,13 +115,13 @@ public class RitualSpeed extends Ritual {
             boolean isBaby = entity.isBaby();
             boolean isPlayer = entity instanceof Player;
 
-            if (hasDestructive && hasVengeful) {
+            if (hasNihilum && hasVindicta) {
                 // Both present: only players pass through (neither baby nor adult in mob terms)
                 if (!isPlayer) continue;
-            } else if (hasDestructive) {
+            } else if (hasNihilum) {
                 // Only transport baby entities
                 if (!isBaby && !isPlayer) continue;
-            } else if (hasVengeful) {
+            } else if (hasVindicta) {
                 // Only transport adult entities
                 if (isBaby) continue;
             }
@@ -158,7 +158,7 @@ public class RitualSpeed extends Ritual {
             }
 
             // Steadfast: apply Soft Fall
-            if (hasSteadfast) {
+            if (hasInvictus) {
                 entity.addEffect(new MobEffectInstance(NVMobEffects.SOFT_FALL, 100, 0, true, false));
                 will.use(SpiritusType.INVICTUS, SPIRITUS_PER_ENTITY);
             }
@@ -166,9 +166,9 @@ public class RitualSpeed extends Ritual {
             cost += getRefreshCost();
 
             if (hasRawSpiritus) will.use(SpiritusType.RAW, SPIRITUS_PER_ENTITY);
-            if (hasCorrosive) will.use(SpiritusType.RUINA, SPIRITUS_PER_ENTITY);
-            if (hasDestructive) will.use(SpiritusType.NIHILUM, SPIRITUS_PER_ENTITY);
-            if (hasVengeful) will.use(SpiritusType.VINDICTA, SPIRITUS_PER_ENTITY);
+            if (hasRuina) will.use(SpiritusType.RUINA, SPIRITUS_PER_ENTITY);
+            if (hasNihilum) will.use(SpiritusType.NIHILUM, SPIRITUS_PER_ENTITY);
+            if (hasVindicta) will.use(SpiritusType.VINDICTA, SPIRITUS_PER_ENTITY);
         }
 
         if (cost > 0) {

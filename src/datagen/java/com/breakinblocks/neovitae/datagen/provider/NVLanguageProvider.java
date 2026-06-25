@@ -689,6 +689,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("chat.neovitae.reader.cancelled", "Area edit cancelled.");
         add("container.neovitae.ritual_configurator", "Ritual Configurator");
         add("gui.neovitae.configurator.aspect", "Aspect");
+        add("gui.neovitae.configurator.keep", "Keep per species:");
         add("gui.neovitae.configurator.not_active", "Not yet activated");
         add("gui.neovitae.configurator.aspect.raw", "Raw");
         add("gui.neovitae.configurator.aspect.ruina", "Ruina");
@@ -1257,11 +1258,8 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addRitual("regeneration", "Ritual of Regeneration", "Applies Regeneration to practitioners in range; with Spiritus Ruina present, also drains nearby mobs to heal you.");
         addRitual("speed", "Ritual of Speed", "Propels non-sneaking entities in the master stone's facing direction. Sneak inside the area to receive Speed II for 30 minutes instead. Aspects modulate velocity, target filtering, and add Soft Fall.");
         addRitual("magnetism", "The Endless Quarry", "Reaps ore blocks from the volume below the master stone (loading unloaded chunks as needed). Inserts as items into a chest at the configured chest position (directly above the master stone by default) if one is present; otherwise places the ore as a block in a 3x3x3 volume above. Scan radius scales with the foundation block: iron 7, gold 15, diamond 31, netherite 63, anything else 3. 50 EV per ore moved; up to 3 ores and 100 checks per refresh, scan reaches bedrock.");
-        addRitual("animal_growth", "Ritual of Accelerated Aging", "Accelerates the growth of young creatures in range.");
-        add("ritual.neovitae.animal_growth.spiritus.raw", "Raw Spiritus: Base behavior, accelerates the growth of young creatures.");
-        add("ritual.neovitae.animal_growth.spiritus.invictus", "Spiritus Invictus: Breeds adult animals in range.");
-        add("ritual.neovitae.animal_growth.spiritus.nihilum", "Spiritus Nihilum: Sacrifices animals in range for additional EV.");
-        add("ritual.neovitae.animal_growth.spiritus.vindicta", "Spiritus Vindicta: Shaves cooldown between pulses (10 ticks + 1 per 5 vindicta).");
+        addRitual("shepherd", "Ritual of the Shepherd", "Tends the animals in range: it hastens the growth of the young and coaxes ready adults into breeding, spending a little Essentia Vitae to feed them so no food or chest is required. Raw Spiritus quickens its pulse.");
+        addRitual("butchering", "Ritual of Butchering", "Slaughters adult animals in range and gathers their drops into an adjacent chest, always leaving enough of each species alive to keep breeding. Set how many of each to spare with the Ritual Configurator.");
         addRitual("felling", "Ritual of Fallen Trees", "Fells every tree in range and drops the logs into an adjacent chest.");
         addRitual("suppression", "Dome of Suppression", "Replaces fluid source blocks in range with air, restoring them when the ritual stops.");
         addRitual("containment", "Ritual of Containment", "Pushes any creature trying to leave the area back toward the center; an invisible cage.");

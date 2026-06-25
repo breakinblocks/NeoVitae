@@ -87,8 +87,8 @@ public class RitualCrafting extends Ritual {
 
         SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, Math.min(MIN_STEADFAST, MIN_CORROSIVE));
 
-        boolean tryHellfireForge = will.hasSteadfast();
-        boolean tryAlchemy = will.hasCorrosive();
+        boolean tryHellfireForge = will.hasInvictus();
+        boolean tryAlchemy = will.hasRuina();
 
         List<ItemStack> inputItems = new ArrayList<>();
         for (int i = 0; i < Math.min(9, inputHandler.size()); i++) {

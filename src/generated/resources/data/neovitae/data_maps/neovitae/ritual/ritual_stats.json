@@ -1,9 +1,5 @@
 {
   "values": {
-    "neovitae:animal_growth": {
-      "activation_cost": 500,
-      "refresh_cost": 30
-    },
     "neovitae:armour_evolve": {
       "activation_cost": 50000,
       "crystal_level": 1,
@@ -150,6 +146,15 @@
       "activation_cost": 1000,
       "refresh_cost": 2,
       "refresh_time": 5
+    },
+    "neovitae:shepherd": {
+      "activation_cost": 500,
+      "refresh_cost": 30
+    },
+    "neovitae:butchering": {
+      "activation_cost": 25000,
+      "refresh_cost": 25,
+      "refresh_time": 40
     }
   }
 }

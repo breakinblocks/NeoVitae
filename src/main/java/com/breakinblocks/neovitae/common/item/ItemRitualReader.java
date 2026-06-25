@@ -157,11 +157,13 @@ public class ItemRitualReader extends Item {
         String ritualKey = ritual.getTranslationKey();
         int aspect = mrs.getActiveSpiritusAspect().ordinal();
         boolean active = mrs.isActive();
+        boolean usesKeepCount = ritual.usesKeepCount();
+        int keepCount = mrs.getKeepCount();
 
         serverPlayer.openMenu(new SimpleMenuProvider(
-                (id, inv, p) -> new RitualConfiguratorMenu(id, inv, hand, masterPos, ritualKey, ranges, aspect, active),
+                (id, inv, p) -> new RitualConfiguratorMenu(id, inv, hand, masterPos, ritualKey, ranges, aspect, active, usesKeepCount, keepCount),
                 Component.translatable("container.neovitae.ritual_configurator")
-        ), buf -> RitualConfiguratorMenu.write(buf, hand, masterPos, ritualKey, ranges, aspect, active));
+        ), buf -> RitualConfiguratorMenu.write(buf, hand, masterPos, ritualKey, ranges, aspect, active, usesKeepCount, keepCount));
 
         return InteractionResult.SUCCESS;
     }

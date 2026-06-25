@@ -63,7 +63,7 @@ public class RitualWater extends Ritual {
         }
 
         SpiritusState will = RitualHelper.querySpiritus(ctx.level(), ctx.masterPos(), 1.0);
-        if (will.hasDefault()) {
+        if (will.hasRaw()) {
             List<BlockPos> tankPositions = RitualHelper.getRangePositions(ctx.master(), this, TANK_RANGE, ctx.masterPos());
 
             for (BlockPos tankPos : tankPositions) {

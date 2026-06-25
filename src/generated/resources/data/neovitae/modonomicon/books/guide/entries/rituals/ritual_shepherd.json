@@ -18,12 +18,12 @@
       ]
     }
   },
-  "description": "book.neovitae.guide.rituals.ritual_animal_growth.description",
+  "description": "book.neovitae.guide.rituals.ritual_shepherd.description",
   "icon": {
     "id": "minecraft:white_wool"
   },
-  "id": "neovitae:rituals/ritual_animal_growth",
-  "name": "book.neovitae.guide.rituals.ritual_animal_growth.name",
+  "id": "neovitae:rituals/ritual_shepherd",
+  "name": "book.neovitae.guide.rituals.ritual_shepherd.name",
   "parents": [
     {
       "entry": "neovitae:rituals/activation_crystals"

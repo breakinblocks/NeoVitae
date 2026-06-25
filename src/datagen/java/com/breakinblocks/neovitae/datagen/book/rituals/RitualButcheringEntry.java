@@ -8,9 +8,9 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.datagen.book.page.BookRitualInfoPageModel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.modonomicon.client.gui.book.theme.GuiSprite;
 
 public class RitualButcheringEntry extends EntryProvider {
 
@@ -21,7 +21,7 @@ public class RitualButcheringEntry extends EntryProvider {
     @Override
     protected void generatePages() {
         this.page("multiblock", () -> BookMultiblockPageModel.create()
-                .withMultiblockId(ResourceLocation.fromNamespaceAndPath(NeoVitae.MODID, "ritual/butchering"))
+                .withMultiblockId(Identifier.fromNamespaceAndPath(NeoVitae.MODID, "ritual/butchering"))
                 .withMultiblockName("Ritual of Butchering")
                 .withText(this.context().pageText()));
         this.pageText("[#](2E8B57)Built from standard runes; any Ritual Diviner will serve.[#]()");
@@ -54,7 +54,7 @@ public class RitualButcheringEntry extends EntryProvider {
     }
 
     @Override
-    protected Pair<Integer, Integer> entryBackground() {
+    protected GuiSprite entryBackground() {
         return EntryBackground.DEFAULT;
     }
 

@@ -59,6 +59,10 @@ public abstract class Ritual {
      */
     public abstract void performRitual(IMasterRitualStone masterRitualStone);
 
+    public boolean usesKeepCount() {
+        return false;
+    }
+
     protected RitualStats getStats() {
         return RitualRegistry.getStats(this);
     }
@@ -262,7 +266,7 @@ public abstract class Ritual {
      */
     protected static int scaleByRawSpiritus(SpiritusState spiritus,
                                         int baseTime, int minTime, double spiritusDivisor) {
-        return spiritus.hasDefault() ? scaleRefreshTime(spiritus.getDefault(), baseTime, minTime, spiritusDivisor) : baseTime;
+        return spiritus.hasRaw() ? scaleRefreshTime(spiritus.getRaw(), baseTime, minTime, spiritusDivisor) : baseTime;
     }
 
     protected final void addParallelRunes(Consumer<RitualComponent> components, int offset, int y, EnumRuneType rune) {

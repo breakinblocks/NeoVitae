@@ -31,8 +31,8 @@ import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
  *
  * // For rituals: query all will types at once with a threshold
  * SpiritusState will = handler.querySpiritus(level, pos, 0.5);
- * if (will.hasDefault()) {
- *     double scaling = will.getDefault() / 100.0;
+ * if (will.hasRaw()) {
+ *     double scaling = will.getRaw() / 100.0;
  *     will.use(SpiritusType.RAW, 0.1);
  * }
  * will.drain(handler, level, pos);

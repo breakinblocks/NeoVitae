@@ -10,8 +10,8 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.ritual.AreaDescriptor;
 import com.breakinblocks.neovitae.common.damagesource.NVDamageSources;
@@ -82,12 +82,12 @@ public class RitualButchering extends Ritual {
 
         RitualHelper.ChestOutput chest = RitualHelper.resolveChestOutput(ctx, this, CHEST_RANGE);
         BlockEntity chestTile = chest.tile();
-        IItemHandler outputHandler = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
+        ResourceHandler<ItemResource> outputHandler = chestTile != null ? Utils.getInventory(chestTile, Direction.DOWN) : null;
         if (outputHandler != null) {
             List<ItemEntity> drops = RitualHelper.getEntitiesInRange(ctx, this, BUTCHER_RANGE,
                     ItemEntity.class, ItemEntity::isAlive);
             for (ItemEntity itemEntity : drops) {
-                ItemStack remainder = ItemHandlerHelper.insertItemStacked(outputHandler, itemEntity.getItem(), false);
+                ItemStack remainder = Utils.insertItemStacked(outputHandler, itemEntity.getItem(), false);
                 if (remainder.isEmpty()) {
                     itemEntity.discard();
                 } else {

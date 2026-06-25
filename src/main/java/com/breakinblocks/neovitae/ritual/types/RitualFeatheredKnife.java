@@ -73,7 +73,7 @@ public class RitualFeatheredKnife extends Ritual {
 
         RitualStats stats = getStats();
         int baseRefresh = stats != null ? stats.refreshTime() : 20;
-        refreshTime = will.hasDefault() ? Math.max(1, baseRefresh / 2) : baseRefresh;
+        refreshTime = will.hasRaw() ? Math.max(1, baseRefresh / 2) : baseRefresh;
 
         // Find the altar (use cached position first, fallback to search)
         AraVitaeTile altar = findAltar(ctx);
@@ -83,11 +83,11 @@ public class RitualFeatheredKnife extends Ritual {
         // Steadfast = safer (keep 70% health), Vengeful = aggressive (keep only 10%)
         // Default without will: keep 30%
         float healthThreshold;
-        if (will.hasSteadfast()) {
+        if (will.hasInvictus()) {
             healthThreshold = 0.7F;
-        } else if (will.hasVengeful()) {
+        } else if (will.hasVindicta()) {
             healthThreshold = 0.1F;
-        } else if (will.hasDefault()) {
+        } else if (will.hasRaw()) {
             healthThreshold = 0.3F;
         } else {
             healthThreshold = 0.3F;
@@ -95,9 +95,9 @@ public class RitualFeatheredKnife extends Ritual {
 
         // Loop invariants: resolve once so each player iteration avoids
         // re-querying the spiritus state map for the same booleans/values.
-        boolean hasCorrosive = will.hasCorrosive();
-        boolean hasDestructive = will.hasDestructive();
-        double lpMultiplier = hasDestructive ? 1.0 + will.getDestructive() * 0.2 / 100.0 : 1.0;
+        boolean hasRuina = will.hasRuina();
+        boolean hasNihilum = will.hasNihilum();
+        double lpMultiplier = hasNihilum ? 1.0 + will.getNihilum() * 0.2 / 100.0 : 1.0;
 
         List<Player> players = RitualHelper.getEntitiesInRange(ctx, this, SACRIFICE_RANGE, Player.class,
                 player -> player.isAlive() && !player.isCreative() && !player.isSpectator());
@@ -115,7 +115,7 @@ public class RitualFeatheredKnife extends Ritual {
 
             BlockPos altarPos = altar.getBlockPos();
 
-            if (hasCorrosive && (will.getCorrosive() - corrosiveUsed) >= CORROSIVE_WILL_PER_USE) {
+            if (hasRuina && (will.getRuina() - corrosiveUsed) >= CORROSIVE_WILL_PER_USE) {
                 double incense = IncenseHelper.getCurrentIncense(player);
                 if (incense > 0) {
                     float damage = health - threshold;
@@ -151,7 +151,7 @@ public class RitualFeatheredKnife extends Ritual {
                     lp = (int) (lp * 1.1);
                 }
 
-                if (hasDestructive && (will.getDestructive() - destructiveUsed) >= DESTRUCTIVE_WILL_PER_USE) {
+                if (hasNihilum && (will.getNihilum() - destructiveUsed) >= DESTRUCTIVE_WILL_PER_USE) {
                     lp = (int) (lp * lpMultiplier);
                     destructiveUsed += DESTRUCTIVE_WILL_PER_USE;
                 }

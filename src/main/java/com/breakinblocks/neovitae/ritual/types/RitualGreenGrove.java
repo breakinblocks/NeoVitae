@@ -26,7 +26,6 @@ import com.breakinblocks.neovitae.common.blockentity.SpiritusCrystalBlockEntity;
 import com.breakinblocks.neovitae.common.datamap.RitualStats;
 import com.breakinblocks.neovitae.common.effect.NVMobEffects;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
-import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.ritual.*;
 import com.breakinblocks.neovitae.ritual.RitualHelper.RitualContext;
 import com.breakinblocks.neovitae.api.spiritus.SpiritusState;
@@ -137,8 +136,8 @@ public class RitualGreenGrove extends Ritual {
                 grew = true;
             }
 
-            if (!grew && state.is(NVTags.Blocks.GEODE_ACCELERATABLE)) {
-                state.randomTick(serverLevel, pos, ctx.level().getRandom());
+            if (!grew && RitualHelper.isBuddingBlock(state)) {
+                RitualHelper.accelerateBudding(serverLevel, pos, 1);
                 grew = true;
             }
 

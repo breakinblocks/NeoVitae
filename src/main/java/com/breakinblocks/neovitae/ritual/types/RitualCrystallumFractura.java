@@ -182,16 +182,11 @@ public class RitualCrystallumFractura extends Ritual {
     }
 
     private boolean isMatureCluster(Block block) {
+        if (block instanceof BuddingAmethystBlock) return false;
         String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
         if (path.contains("bud")) return false;
         if (path.endsWith("_small") || path.endsWith("_medium") || path.endsWith("_large")) return false;
         return block instanceof AmethystClusterBlock || path.contains("cluster");
-    }
-
-    private boolean isBuddingBlock(BlockState state) {
-        if (state.is(NVTags.Blocks.GEODE_ACCELERATABLE)) return true;
-        if (state.getBlock() instanceof BuddingAmethystBlock) return true;
-        return BuiltInRegistries.BLOCK.getKey(state.getBlock()).getPath().contains("budding");
     }
 
     private void resetCrystalAge(Level level, BlockPos pos, BlockState state) {
@@ -229,11 +224,9 @@ public class RitualCrystallumFractura extends Ritual {
     private void accelerateBuddingBlocks(ServerLevel level, List<BlockPos> positions, UUID owner) {
         for (BlockPos pos : positions) {
             BlockState state = level.getBlockState(pos);
-            if (!isBuddingBlock(state)) continue;
+            if (!RitualHelper.isBuddingBlock(state)) continue;
             if (!BlockProtectionHelper.canBreakBlock(level, pos, owner)) continue;
-            for (int i = 0; i < BUDDING_ACCEL_TICKS; i++) {
-                state.randomTick(level, pos, level.getRandom());
-            }
+            RitualHelper.accelerateBudding(level, pos, BUDDING_ACCEL_TICKS);
         }
     }
 

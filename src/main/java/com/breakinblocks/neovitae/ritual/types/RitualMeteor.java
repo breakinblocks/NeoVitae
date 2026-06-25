@@ -84,7 +84,7 @@ public class RitualMeteor extends Ritual {
                         spawnY,
                         ctx.masterPos().getZ() + 0.5);
                 meteor.setDeltaMovement(0, -0.1, 0);
-                meteor.setContainedStack(stack.split(1));
+                meteor.setContainedStack(stack.copyWithCount(1));
                 meteor.setTargetY(targetY);
                 ctx.level().addFreshEntity(meteor);
 
@@ -92,8 +92,12 @@ public class RitualMeteor extends Ritual {
                         .demonTether(entityItem, ctx.masterPos()).build()
                         .sendToNearby(ctx.serverLevel(), ctx.masterPos(), 128);
 
-                if (stack.isEmpty()) {
+                ItemStack reduced = stack.copy();
+                reduced.shrink(1);
+                if (reduced.isEmpty()) {
                     entityItem.remove(RemovalReason.KILLED);
+                } else {
+                    entityItem.setItem(reduced);
                 }
 
                 return;

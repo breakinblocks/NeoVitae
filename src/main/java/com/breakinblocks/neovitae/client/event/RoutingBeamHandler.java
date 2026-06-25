@@ -15,6 +15,7 @@ import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.api.routing.IRoutingNode;
 import com.breakinblocks.neovitae.client.render.stream.BeamRenderer;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -60,6 +61,7 @@ public final class RoutingBeamHandler {
         poseStack.pushPose();
         poseStack.translate(-cameraPos.x, -cameraPos.y, -cameraPos.z);
 
+        Set<Edge> edges = new HashSet<>();
         for (BlockEntity be : NODES) {
             if (be.isRemoved()) continue;
             IRoutingNode node = (IRoutingNode) be;
@@ -68,14 +70,18 @@ public final class RoutingBeamHandler {
 
             BlockPos nodePos = be.getBlockPos();
             for (BlockPos targetPos : connections) {
-                if (targetPos.compareTo(nodePos) <= 0) continue;
+                if (nodePos.equals(targetPos)) continue;
                 // Defensive: if the target slot no longer holds a routing node, skip it.
                 // Stale connectionList entries can persist if a remove/sync didn't propagate cleanly.
                 if (mc.level.isLoaded(targetPos)
                         && !(mc.level.getBlockEntity(targetPos) instanceof IRoutingNode)) continue;
-                BeamRenderer.renderBeam(poseStack, bufferSource, nodePos, targetPos,
-                        r, g, b, gameTime, partialTick);
+                edges.add(Edge.of(nodePos, targetPos));
             }
+        }
+
+        for (Edge edge : edges) {
+            BeamRenderer.renderBeam(poseStack, bufferSource, edge.a(), edge.b(),
+                    r, g, b, gameTime, partialTick);
         }
 
         poseStack.popPose();
@@ -86,5 +92,11 @@ public final class RoutingBeamHandler {
     @SubscribeEvent
     public static void onLogout(ClientPlayerNetworkEvent.LoggingOut event) {
         NODES.clear();
+    }
+
+    private record Edge(BlockPos a, BlockPos b) {
+        static Edge of(BlockPos p1, BlockPos p2) {
+            return p1.compareTo(p2) <= 0 ? new Edge(p1, p2) : new Edge(p2, p1);
+        }
     }
 }

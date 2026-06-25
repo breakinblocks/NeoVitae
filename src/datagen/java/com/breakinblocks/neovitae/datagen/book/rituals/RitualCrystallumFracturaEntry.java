@@ -34,7 +34,7 @@ public class RitualCrystallumFracturaEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Crystallum Fractura");
-        this.pageText("A unified harvest engine that gathers fully-grown [#](8B0000)Spiritus Crystals[#]() and any cluster tagged [#](2E8B57)neovitae:geode_harvestable[#](). Within its aura, crystal growth doubles, and any spiritus injected into a chunk is amplified by [#](B8860B)+25%%[#]().");
+        this.pageText("A unified harvest engine that gathers fully-grown [#](8B0000)Spiritus Crystals[#]() along with amethyst and other geode crystal clusters once they mature. Within its aura, Spiritus Crystal growth doubles, nearby [#](2E8B57)budding blocks[#]() are coaxed to grow far faster so their geodes keep yielding, and any spiritus injected into a chunk is amplified by [#](B8860B)+25%%[#]().");
 
         this.page("fortune", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())

@@ -302,10 +302,10 @@ public abstract class RoutingNodeBlockEntity extends BlockEntity implements IRou
     @Override
     public void addConnection(BlockPos pos) {
         if (!connectionList.contains(pos)) {
-            getLevel().sendBlockUpdated(getBlockPos(), getLevel().getBlockState(getBlockPos()),
-                    getLevel().getBlockState(getBlockPos()), 3);
             connectionList.add(pos);
             setChanged();
+            getLevel().sendBlockUpdated(getBlockPos(), getLevel().getBlockState(getBlockPos()),
+                    getLevel().getBlockState(getBlockPos()), 3);
         }
     }
 

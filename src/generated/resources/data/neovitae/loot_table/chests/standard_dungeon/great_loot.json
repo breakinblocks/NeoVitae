@@ -213,21 +213,6 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "neovitae:set_spiritus_range",
-              "spiritus": {
-                "type": "minecraft:uniform",
-                "max": 60.0,
-                "min": 30.0
-              }
-            }
-          ],
-          "name": "neovitae:base_spiritus_soul_raw",
-          "weight": 8
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
               "add": false,
               "count": {
                 "type": "minecraft:uniform",

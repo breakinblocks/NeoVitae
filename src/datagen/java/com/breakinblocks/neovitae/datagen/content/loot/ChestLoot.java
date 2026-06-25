@@ -20,7 +20,6 @@ import com.breakinblocks.neovitae.common.block.NVBlocks;
 import com.breakinblocks.neovitae.common.item.NVItems;
 import com.breakinblocks.neovitae.common.loot.NVTableLootEntry;
 import com.breakinblocks.neovitae.common.loot.SetSentientUpgrade;
-import com.breakinblocks.neovitae.common.loot.SetSpiritusRange;
 import com.breakinblocks.neovitae.datagen.content.SentientUpgrades;
 
 import java.util.function.BiConsumer;
@@ -514,8 +513,6 @@ public class ChestLoot implements LootTableSubProvider {
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0f))))
                 .add(LootItem.lootTableItem(NVBlocks.STRONG_TAU.item().get()).setWeight(12)
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0f, 9.0f))))
-                .add(LootItem.lootTableItem(NVItems.MONSTER_SOUL_RAW.get()).setWeight(8)
-                    .apply(SetSpiritusRange.builder(UniformGenerator.between(30.0f, 60.0f))))
                 .add(LootItem.lootTableItem(NVItems.ANIMUS_MOTE.get()).setWeight(5).setQuality(4)
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0f))))
             )
@@ -636,10 +633,6 @@ public class ChestLoot implements LootTableSubProvider {
             // Spiritus + neovitae trophies for the boss kill.
             .withPool(LootPool.lootPool()
                 .setRolls(UniformGenerator.between(1.0f, 2.0f))
-                .add(LootItem.lootTableItem(NVItems.MONSTER_SOUL_INVICTUS.get()).setWeight(8)
-                    .apply(SetSpiritusRange.builder(UniformGenerator.between(120.0f, 240.0f))))
-                .add(LootItem.lootTableItem(NVItems.MONSTER_SOUL_RUINA.get()).setWeight(8)
-                    .apply(SetSpiritusRange.builder(UniformGenerator.between(120.0f, 240.0f))))
                 .add(LootItem.lootTableItem(NVItems.HELLFORGED_INGOT.get()).setWeight(6).setQuality(5)
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0f, 4.0f))))
                 .add(LootItem.lootTableItem(NVItems.UPGRADE_TOME.get()).setWeight(4).setQuality(6)

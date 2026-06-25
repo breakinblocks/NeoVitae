@@ -133,11 +133,12 @@ public class NVItemModelProvider extends ItemModelProvider {
                 basicItem(item.get());
                 return;
             }
-            // Other will items get variants for each will type, reusing the matching Spiritus soul artwork
+            // Gems carry their own per-tier artwork; other spiritus items reuse the soul artwork.
+            String textureStem = path.startsWith("spiritus_gem") ? "item/" + path : "item/base_spiritus_soul";
             ItemModelBuilder builder = getBuilder(path).parent(new ModelFile.UncheckedModelFile("minecraft:item/handheld"))
-                    .texture("layer0", modLoc("item/base_spiritus_soul_raw"));
+                    .texture("layer0", modLoc(textureStem + "_" + SpiritusType.RAW.getSerializedName()));
             for (SpiritusType type : SpiritusType.values()) {
-                ModelFile modelFile = singleTexture(String.format("item/variant/%s_%s", path, type.getSerializedName()), mcLoc("item/handheld"), "layer0", modLoc("item/base_spiritus_soul_" + type.getSerializedName()));
+                ModelFile modelFile = singleTexture(String.format("item/variant/%s_%s", path, type.getSerializedName()), mcLoc("item/handheld"), "layer0", modLoc(textureStem + "_" + type.getSerializedName()));
                 builder.override().predicate(NeoVitae.TYPE_PROPERTY, type.ordinal()).model(modelFile).end();
             }
         });

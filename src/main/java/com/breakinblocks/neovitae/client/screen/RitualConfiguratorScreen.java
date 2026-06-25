@@ -3,6 +3,7 @@ package com.breakinblocks.neovitae.client.screen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -202,9 +203,40 @@ public class RitualConfiguratorScreen extends AbstractContainerScreen<RitualConf
             int bx = leftPos + LIST_X + i * btnW;
             int by = aspectRowY();
             if (mouseX >= bx && mouseX < bx + btnW - 1 && mouseY >= by && mouseY < by + ASPECT_ROW_H - 1) {
-                g.renderTooltip(font, Component.translatable("will.neovitae." + SpiritusType.values()[i].getSerializedName()), mouseX, mouseY);
+                g.renderComponentTooltip(font, aspectTooltip(SpiritusType.values()[i]), mouseX, mouseY);
                 return;
             }
+        }
+    }
+
+    private List<Component> aspectTooltip(SpiritusType type) {
+        List<Component> lines = new ArrayList<>();
+        lines.add(Component.translatable("will.neovitae." + type.getSerializedName()).withStyle(ChatFormatting.LIGHT_PURPLE));
+
+        String ritualKey = menu.getRitualKey();
+        String perAspect = ritualKey + ".aspect." + type.getSerializedName();
+        String perRitual = ritualKey + ".aspect_effect";
+        String effectKey = I18n.exists(perAspect) ? perAspect
+                : I18n.exists(perRitual) ? perRitual
+                : "gui.neovitae.configurator.aspect.none";
+
+        addWrapped(lines, Component.translatable(effectKey).getString(), 160, ChatFormatting.GRAY);
+        return lines;
+    }
+
+    private void addWrapped(List<Component> lines, String text, int maxWidth, ChatFormatting style) {
+        StringBuilder line = new StringBuilder();
+        for (String word : text.split(" ")) {
+            String test = line.length() == 0 ? word : line + " " + word;
+            if (font.width(test) > maxWidth && line.length() > 0) {
+                lines.add(Component.literal(line.toString()).withStyle(style));
+                line = new StringBuilder(word);
+            } else {
+                line = new StringBuilder(test);
+            }
+        }
+        if (line.length() > 0) {
+            lines.add(Component.literal(line.toString()).withStyle(style));
         }
     }
 

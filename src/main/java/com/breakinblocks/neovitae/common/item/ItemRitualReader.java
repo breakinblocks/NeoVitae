@@ -174,7 +174,9 @@ public class ItemRitualReader extends Item {
             MasterRitualStoneBlockEntity mrs = findNearbyMasterRitualStone(level, player);
             Ritual ritual = mrs != null ? resolveRitual(mrs) : null;
             if (mrs != null && ritual != null && ritual.getMaxVolumeForRange(getRangeKey(stack)) == 1) {
-                applyArea(stack, mrs, ritual, clickedPos, clickedPos, player);
+                if (applyArea(stack, mrs, ritual, clickedPos, clickedPos, player)) {
+                    setState(stack, EnumRitualReaderState.INFORMATION);
+                }
                 return InteractionResult.SUCCESS;
             }
             setCorner1(stack, clickedPos);
@@ -201,12 +203,14 @@ public class ItemRitualReader extends Item {
             return InteractionResult.SUCCESS;
         }
 
-        applyArea(stack, mrs, ritual, getCorner1(stack), clickedPos, player);
+        if (applyArea(stack, mrs, ritual, getCorner1(stack), clickedPos, player)) {
+            setState(stack, EnumRitualReaderState.INFORMATION);
+        }
         return InteractionResult.SUCCESS;
     }
 
-    private void applyArea(ItemStack stack, MasterRitualStoneBlockEntity mrs, Ritual ritual,
-                           BlockPos corner1, BlockPos corner2, Player player) {
+    private boolean applyArea(ItemStack stack, MasterRitualStoneBlockEntity mrs, Ritual ritual,
+                              BlockPos corner1, BlockPos corner2, Player player) {
         String rangeKey = getRangeKey(stack);
         BlockPos mrsPos = mrs.getBlockPos();
         BlockPos offset1 = corner1.subtract(mrsPos);
@@ -217,8 +221,7 @@ public class ItemRitualReader extends Item {
         if (current == null) {
             player.displayClientMessage(
                     Component.translatable("chat.neovitae.reader.invalidRange").withStyle(ChatFormatting.RED), true);
-            setState(stack, EnumRitualReaderState.INFORMATION);
-            return;
+            return false;
         }
 
         AreaDescriptor descriptor = current.copy();
@@ -232,12 +235,14 @@ public class ItemRitualReader extends Item {
             }
             player.displayClientMessage(
                     Component.translatable("chat.neovitae.reader.areaSet", rangeKey), true);
-        } else {
-            Component errorMsg = ritual.getErrorForBlockRangeOnFail(player, rangeKey, mrs, offset1, offset2);
-            player.displayClientMessage(errorMsg.copy().withStyle(ChatFormatting.RED), true);
+            return true;
         }
 
-        setState(stack, EnumRitualReaderState.INFORMATION);
+        Component errorMsg = ritual.getErrorForBlockRangeOnFail(player, rangeKey, mrs, offset1, offset2);
+        player.displayClientMessage(
+                errorMsg.copy().append(Component.translatable("chat.neovitae.reader.areaRetry"))
+                        .withStyle(ChatFormatting.RED), true);
+        return false;
     }
 
     private MasterRitualStoneBlockEntity findNearbyMasterRitualStone(Level level, Player player) {

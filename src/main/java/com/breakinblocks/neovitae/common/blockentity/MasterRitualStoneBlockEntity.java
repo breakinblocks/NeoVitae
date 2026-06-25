@@ -53,6 +53,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     private long lastStructureCheckMillis = 0L;
     private static final long STRUCTURE_CHECK_INTERVAL_MILLIS = 5000L;
     private SpiritusType activeSpiritusAspect = SpiritusType.RAW;
+    private int keepCount = 2;
 
     private Map<String, AreaDescriptor> blockRanges = new HashMap<>();
     private ResourceLocation rangesConfiguredFor;
@@ -439,6 +440,16 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
     }
 
     @Override
+    public int getKeepCount() {
+        return keepCount;
+    }
+
+    public void setKeepCount(int count) {
+        this.keepCount = Math.max(0, Math.min(count, 64));
+        setChanged();
+    }
+
+    @Override
     public void provideInformationOfRitualToPlayer(Player player) {
         if (currentRitual != null) {
             Component[] info = currentRitual.provideInformationOfRitualToPlayer(player);
@@ -491,6 +502,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         tag.putLong("runningTime", runningTime);
         tag.putString("direction", direction.getName());
         tag.putString("activeAspect", activeSpiritusAspect.getSerializedName());
+        tag.putInt("keepCount", keepCount);
 
         if (currentRitual != null && currentRitualId != null) {
             tag.putString("ritual", currentRitualId.toString());
@@ -533,6 +545,7 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
         inverted = tag.getBoolean("inverted");
         cooldown = tag.getInt("cooldown");
         runningTime = tag.getLong("runningTime");
+        keepCount = tag.contains("keepCount") ? tag.getInt("keepCount") : 2;
 
         if (tag.contains("direction")) {
             direction = Direction.byName(tag.getString("direction"));

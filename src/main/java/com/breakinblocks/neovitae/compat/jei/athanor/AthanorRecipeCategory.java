@@ -39,7 +39,7 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
     private static final int[] TYPE_COLORS = {
             0xFFAA3333, 0xFF33AA33, 0xFFDD8822, 0xFF3355BB, 0xFFAA33CC
     };
-    private static final String[] TYPE_NAMES = {"Raw", "Corrosive", "Destructive", "Steadfast", "Vengeful"};
+    private static final String[] TYPE_NAMES = {"Raw", "Ruina", "Nihilum", "Vindicta", "Invictus"};
 
     // Grid layout
     // Row 0 (y=2):  inputs col 0-2, tool, outputs col 0-1

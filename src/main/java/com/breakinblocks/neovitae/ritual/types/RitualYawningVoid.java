@@ -73,9 +73,9 @@ public class RitualYawningVoid extends Ritual {
 
         SpiritusState will = RitualHelper.querySpiritus(world, masterPos, RAW_DRAIN);
 
-        double rawWill = will.hasDefault() ? will.getDefault() : 0;
-        boolean swapMode = will.hasSteadfast() && will.getSteadfast() >= STEADFAST_DRAIN;
-        boolean filterMode = will.hasCorrosive() && will.getCorrosive() >= CORROSIVE_DRAIN;
+        double rawWill = will.hasRaw() ? will.getRaw() : 0;
+        boolean swapMode = will.hasInvictus() && will.getInvictus() >= STEADFAST_DRAIN;
+        boolean filterMode = will.hasRuina() && will.getRuina() >= CORROSIVE_DRAIN;
 
         RitualStats stats = getStats();
         int baseRefresh = stats != null ? stats.refreshTime() : DEFAULT_REFRESH_TIME;

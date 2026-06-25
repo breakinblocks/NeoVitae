@@ -48,7 +48,8 @@ public class RitualStatsProvider implements DataProvider {
         add(NVRituals.REGENERATION, RitualStats.timed(500, 50, 40, 0));
         add(NVRituals.SPEED, RitualStats.timed(500, 5, 1, 0));
         add(NVRituals.MAGNETISM, RitualStats.timed(5000, 50, 40, 0));
-        add(NVRituals.ANIMAL_GROWTH, RitualStats.timed(500, 30, 20, 0));
+        add(NVRituals.SHEPHERD, RitualStats.timed(500, 30, 20, 0));
+        add(NVRituals.BUTCHERING, RitualStats.timed(25000, 25, 40, 0));
         add(NVRituals.FELLING, RitualStats.timed(2000, 10, 20, 0));
         add(NVRituals.SUPPRESSION, RitualStats.timed(3000, 5, 10, 0));
         add(NVRituals.CONTAINMENT, RitualStats.timed(2000, 5, 5, 0));

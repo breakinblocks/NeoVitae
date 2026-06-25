@@ -19,13 +19,13 @@ import java.util.EnumMap;
  * ISpiritusHandler handler = NeoVitaeAPI.getInstance().getSpiritusHandler();
  * SpiritusState will = handler.querySpiritus(level, pos, 0.5);
  *
- * if (will.hasDefault()) {
- *     double scaling = will.getDefault() / 100.0;
+ * if (will.hasRaw()) {
+ *     double scaling = will.getRaw() / 100.0;
  *     // ... use scaling ...
  *     will.use(SpiritusType.RAW, 0.1);
  * }
  *
- * if (will.hasSteadfast()) {
+ * if (will.hasInvictus()) {
  *     // ... steadfast behavior ...
  *     will.use(SpiritusType.INVICTUS, 0.2);
  * }
@@ -67,18 +67,6 @@ public final class SpiritusState {
     public boolean hasNihilum() { return has(SpiritusType.NIHILUM); }
     public boolean hasInvictus() { return has(SpiritusType.INVICTUS); }
     public boolean hasVindicta() { return has(SpiritusType.VINDICTA); }
-
-    @Deprecated public double getDefault() { return getRaw(); }
-    @Deprecated public double getCorrosive() { return getRuina(); }
-    @Deprecated public double getDestructive() { return getNihilum(); }
-    @Deprecated public double getSteadfast() { return getInvictus(); }
-    @Deprecated public double getVengeful() { return getVindicta(); }
-
-    @Deprecated public boolean hasDefault() { return hasRaw(); }
-    @Deprecated public boolean hasCorrosive() { return hasRuina(); }
-    @Deprecated public boolean hasDestructive() { return hasNihilum(); }
-    @Deprecated public boolean hasSteadfast() { return hasInvictus(); }
-    @Deprecated public boolean hasVengeful() { return hasVindicta(); }
 
     /**
      * Records will usage of the specified type. Does not drain immediately —

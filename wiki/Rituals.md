@@ -65,7 +65,8 @@ Some rituals can be expanded far beyond their default range, but EV cost scales 
 |--------|--------|
 | Ritual of Fallen Trees (*The Silent Axe*) | An unseen force fells every tree in its domain. |
 | Ritual of Harvest (*The Reaper's Bounty*) | Reaps and replants mature crops. |
-| Ritual of Accelerated Aging (*Nurturing Pulse*) | Hastens the maturation of young creatures. |
+| Ritual of the Shepherd (*The Tending Circle*) | Hastens the growth of young animals and coaxes ready adults into breeding, spending a little EV to feed them (no food or chest required). Raw Spiritus quickens its pulse. |
+| Ritual of Butchering (*The Culling*) | Reaps grown animals in range and gathers their drops into a chest above the stone, while sparing a breeding stock. Set how many of each species to keep with the Ritual Configurator. |
 | Ritual of Overgrowth (*Verdant Awakening*) | Suffuses the earth with life, hastening all growth. |
 | The Endless Quarry (*Deep Earth Communion*) | A patient, incremental ore drain. The ritual scans the column **beneath** the Master Ritual Stone (square footprint, **bedrock-deep**) and reaps each ore it finds. **Collection priority:** if a container (chest, barrel, ender chest, modded storage, etc.) sits **directly on top** of the master stone, the ore is inserted into it as an **item**; one ore block becomes one ore item. If there is no container, or the container is full, the ritual falls back to placing the ore **as a block** in the first empty slot of a **3×3×3 placement volume** directly above the master stone. **Cost:** 50 EV per ore moved. **Pacing:** up to **3 ores** and **100 block checks per refresh** (refresh every 40 ticks / 2 s) with a saved cursor so a full sweep resumes across many refreshes. **Scan radius** scales with the block placed directly beneath the master stone: default = 3 (7×7 footprint), iron block = 7 (15×15), gold block = 15 (31×31), diamond block = 31 (63×63), **netherite block = 63 (127×127)**. Unloaded chunks are pulled into memory as the scan reaches them, so a quarry tucked into a corner of base will still mine columns far from any player. Ores in claim-protected territory are left alone. |
 | Hymn of Siphoning (*The Thirsting Stone*) | Draws surrounding fluids into a waiting vessel. |
@@ -110,5 +111,21 @@ Some rituals can be expanded far beyond their default range, but EV cost scales 
 | Ritual of Sentient Evolution (*The Sound of Becoming*) | Expands a worn Sentient Armor's upgrade capacity beyond its former limits. See **[Sentient Armor](Sentient-Armor)**. |
 | Sentient Extraction (*The Price of Power*) | Throw a piece of Sentient Armor onto the small 5×2×5 area above the Master Ritual Stone. The ritual extracts every upgrade currently inscribed on it as separate **Upgrade Tomes** (one per upgrade, preserving accumulated experience), then strips the armor clean. The tomes can later be inscribed back onto a fresh chestplate. |
 | Tabula Rasa (*Purification of Form*) | Stand on the Master Ritual Stone wearing Sentient Armor. The ritual wipes **every upgrade** from every Sentient piece you have equipped and resets used points to zero, giving you back a clean slate at the cost of all accumulated training. **No tomes are produced**; if you want to preserve the upgrades for later, use **Sentient Extraction** instead. |
+
+## Animal Husbandry: A Self-Sustaining Farm
+
+Two rituals work hand in hand to run an animal farm that needs no tending of your own: the **Ritual of the Shepherd** and the **Ritual of Butchering**. Both default to the same 11x3x11 footprint, so building them over the same pen lets them act on the one flock.
+
+**The Shepherd** keeps the herd growing. Each pulse it advances any young animals toward adulthood and sets ready adults to breeding, paying a small amount of EV per animal in place of feed, so it needs no food and no chest. A chunk rich in Raw Spiritus quickens its pulse.
+
+**The Butchering** keeps the herd in check. Each pulse it slays grown animals and gathers their drops into a chest set above its Master Ritual Stone. It counts the pen by species and only culls a kind while more than your chosen number of that kind remain, so a breeding stock always survives. Set that number with the **Ritual Configurator**: right-click the stone and adjust the **Keep per species** dial.
+
+Run together over one pen, the Shepherd replaces what the Butchering takes. The young grow, the adults breed, the surplus is reaped into your chest, and the breeding stock you set is never touched. Walk away and return to a steady supply of meat, leather, wool, and whatever else your animals drop, with the flock none the smaller for it.
+
+Practical notes:
+
+- Both rituals build from standard runes and activate with a standard Activation Crystal, so neither needs an advanced diviner.
+- The Butchering wants a chest directly above its stone to collect drops; without one, the drops simply fall in the pen.
+- Fence the pen so bred animals stay within range of both circles.
 
 See also: **[Spiritus, Aspects and Crystals](Spiritus-Aspects-and-Crystals)** (for the aura many rituals draw on), **[Sentient Armor](Sentient-Armor)** (armour-evolution rituals), **[Blood Orbs and Anima](Blood-Orbs-and-Anima)** (the EV source), **[Ara Vitae and Runes](Ara-Vitae-and-Runes)** (comparator + redstone shutdowns).

@@ -58,6 +58,10 @@ public abstract class Ritual {
      */
     public abstract void performRitual(IMasterRitualStone masterRitualStone);
 
+    public boolean usesKeepCount() {
+        return false;
+    }
+
     protected RitualStats getStats() {
         return RitualRegistry.getStats(this);
     }
@@ -261,7 +265,7 @@ public abstract class Ritual {
      */
     protected static int scaleByRawSpiritus(com.breakinblocks.neovitae.api.spiritus.SpiritusState will,
                                         int baseTime, int minTime, double spiritusDivisor) {
-        return will.hasDefault() ? scaleRefreshTime(will.getDefault(), baseTime, minTime, spiritusDivisor) : baseTime;
+        return will.hasRaw() ? scaleRefreshTime(will.getRaw(), baseTime, minTime, spiritusDivisor) : baseTime;
     }
 
     protected final void addParallelRunes(Consumer<RitualComponent> components, int offset, int y, EnumRuneType rune) {

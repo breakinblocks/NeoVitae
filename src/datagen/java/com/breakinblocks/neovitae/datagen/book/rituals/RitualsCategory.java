@@ -24,7 +24,7 @@ public class RitualsCategory extends CategoryProvider {
                 "___________________",
                 "__a_b_c_d_e_f_g____",
                 "__h_i_j_k_l_m_n____",
-                "__o_p_q_r_s________",
+                "__o_p_q_r_s_8______",
                 "___________________",
                 "__t_u_v_w_x________",
                 "___________________",
@@ -84,10 +84,15 @@ public class RitualsCategory extends CategoryProvider {
         felling.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/activation_crystals"));
         felling.hideWhileLocked(false);
 
-        var animalGrowth = this.add(new RitualAnimalGrowthEntry(this).generate('f'));
-        animalGrowth.withParent(this.parent(crystals));
-        animalGrowth.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/activation_crystals"));
-        animalGrowth.hideWhileLocked(false);
+        var shepherd = this.add(new RitualShepherdEntry(this).generate('f'));
+        shepherd.withParent(this.parent(crystals));
+        shepherd.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/activation_crystals"));
+        shepherd.hideWhileLocked(false);
+
+        var butchering = this.add(new RitualButcheringEntry(this).generate('8'));
+        butchering.withParent(this.parent(shepherd));
+        butchering.withCondition(BookEntryReadConditionModel.create().withEntry("neovitae:rituals/activation_crystals"));
+        butchering.hideWhileLocked(false);
 
         var regeneration = this.add(new RitualRegenerationEntry(this).generate('g'));
         regeneration.withParent(this.parent(crystals));

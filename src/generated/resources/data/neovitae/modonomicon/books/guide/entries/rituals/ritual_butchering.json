@@ -6,12 +6,12 @@
     "type": "modonomicon:entry_read",
     "entry_id": "rituals/activation_crystals"
   },
-  "description": "book.neovitae.guide.rituals.ritual_animal_growth.description",
+  "description": "book.neovitae.guide.rituals.ritual_butchering.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:white_wool"
+    "item": "minecraft:iron_axe"
   },
-  "name": "book.neovitae.guide.rituals.ritual_animal_growth.name",
+  "name": "book.neovitae.guide.rituals.ritual_butchering.name",
   "pages": [
     {
       "type": "modonomicon:multiblock",
@@ -19,10 +19,10 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "multiblock_id": "ritual/animal_growth",
-      "multiblock_name": "Ritual of Accelerated Aging",
+      "multiblock_id": "ritual/butchering",
+      "multiblock_name": "Ritual of Butchering",
       "show_visualize_button": true,
-      "text": "book.neovitae.guide.rituals.ritual_animal_growth.multiblock.text"
+      "text": "book.neovitae.guide.rituals.ritual_butchering.multiblock.text"
     },
     {
       "type": "neovitae:ritual_info",
@@ -30,7 +30,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "text": "[#](8B0000)Activation Cost:[#]() 500 EV\\\n[#](8B0000)Crystal:[#]() Weak Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 1 EV/sec\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  8x Earth Ritual Stone\\\n  8x Water Ritual Stone\\\n  [#](8B0000)Total:[#]() 16 runes",
+      "text": "[#](8B0000)Activation Cost:[#]() 25,000 EV\\\n[#](8B0000)Crystal:[#]() Weak Activation Crystal\\\n[#](8B0000)Upkeep:[#]() 1 EV/sec\\\n\\\n[#](8B0000)Rune Requirements:[#]()\\\n  8x Fire Ritual Stone\\\n  4x Earth Ritual Stone\\\n  4x Air Ritual Stone\\\n  [#](8B0000)Total:[#]() 16 runes",
       "title": ""
     },
     {
@@ -40,8 +40,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_animal_growth.info.text",
-      "title": "book.neovitae.guide.rituals.ritual_animal_growth.info.title",
+      "text": "book.neovitae.guide.rituals.ritual_butchering.info.text",
+      "title": "book.neovitae.guide.rituals.ritual_butchering.info.title",
       "use_markdown_in_title": false
     },
     {
@@ -51,21 +51,21 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.neovitae.guide.rituals.ritual_animal_growth.spiritus_effects.text",
-      "title": "book.neovitae.guide.rituals.ritual_animal_growth.spiritus_effects.title",
+      "text": "book.neovitae.guide.rituals.ritual_butchering.synergy.text",
+      "title": "book.neovitae.guide.rituals.ritual_butchering.synergy.title",
       "use_markdown_in_title": false
     }
   ],
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "rituals/activation_crystals",
+      "entry": "rituals/ritual_shepherd",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 10,
+  "sort_number": 11,
   "x": 3,
-  "y": -2
+  "y": 0
 }

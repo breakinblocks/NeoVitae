@@ -35,8 +35,11 @@ public final class NVRituals {
     public static final DeferredHolder<Ritual, RitualMagnetism> MAGNETISM =
             registerRitual("magnetism", RitualMagnetism::new);
 
-    public static final DeferredHolder<Ritual, RitualAnimalGrowth> ANIMAL_GROWTH =
-            registerRitual("animal_growth", RitualAnimalGrowth::new);
+    public static final DeferredHolder<Ritual, RitualShepherd> SHEPHERD =
+            registerRitual("shepherd", RitualShepherd::new);
+
+    public static final DeferredHolder<Ritual, RitualButchering> BUTCHERING =
+            registerRitual("butchering", RitualButchering::new);
 
     public static final DeferredHolder<Ritual, RitualFelling> FELLING =
             registerRitual("felling", RitualFelling::new);

@@ -84,9 +84,9 @@ public class RitualGreenGrove extends Ritual {
 
         SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, MIN_DEFAULT);
 
-        boolean doHydrate = will.hasSteadfast();
-        boolean doLeech = will.hasCorrosive();
-        boolean doVengeful = will.hasVengeful();
+        boolean doHydrate = will.hasInvictus();
+        boolean doLeech = will.hasRuina();
+        boolean doVengeful = will.hasVindicta();
 
         RitualStats stats = RitualRegistry.getStats(this);
         int baseRefresh = stats != null ? stats.refreshTime() : 20;
@@ -108,8 +108,8 @@ public class RitualGreenGrove extends Ritual {
             Block block = state.getBlock();
 
             // Vengeful: scale growth chance
-            if (doVengeful && (will.getVengeful() - vengefulSpiritusUsed) >= WILL_PER_VENGEFUL_GROWTH) {
-                double growthChance = 0.3 + will.getVengeful() / 200.0;
+            if (doVengeful && (will.getVindicta() - vengefulSpiritusUsed) >= WILL_PER_VENGEFUL_GROWTH) {
+                double growthChance = 0.3 + will.getVindicta() / 200.0;
                 if (ctx.level().random.nextDouble() > growthChance) {
                     continue; // Skip this position based on chance
                 }
@@ -151,7 +151,7 @@ public class RitualGreenGrove extends Ritual {
 
             if (grew) {
                 totalGrowths++;
-                if (doVengeful && (will.getVengeful() - vengefulSpiritusUsed) >= WILL_PER_VENGEFUL_GROWTH) {
+                if (doVengeful && (will.getVindicta() - vengefulSpiritusUsed) >= WILL_PER_VENGEFUL_GROWTH) {
                     vengefulSpiritusUsed += WILL_PER_VENGEFUL_GROWTH;
                 }
                 var rand = ctx.level().getRandom();
@@ -175,7 +175,7 @@ public class RitualGreenGrove extends Ritual {
         if (doHydrate) {
             List<BlockPos> hydratePositions = RitualHelper.getRangePositions(ctx.master(), this, HYDRATE_RANGE, masterPos);
             for (BlockPos pos : hydratePositions) {
-                if ((will.getSteadfast() - steadfastSpiritusUsed) < WILL_PER_HYDRATE) break;
+                if ((will.getInvictus() - steadfastSpiritusUsed) < WILL_PER_HYDRATE) break;
 
                 BlockState state = ctx.level().getBlockState(pos);
                 if (state.is(Blocks.FARMLAND)) {
@@ -193,7 +193,7 @@ public class RitualGreenGrove extends Ritual {
             List<LivingEntity> mobs = RitualHelper.getAliveMobsInRange(ctx, this, LEECH_RANGE);
 
             for (LivingEntity mob : mobs) {
-                if ((will.getCorrosive() - corrosiveSpiritusUsed) < WILL_PER_LEECH) break;
+                if ((will.getRuina() - corrosiveSpiritusUsed) < WILL_PER_LEECH) break;
 
                 if (!mob.hasEffect(NVMobEffects.PLANT_LEECH)) {
                     mob.addEffect(new MobEffectInstance(NVMobEffects.PLANT_LEECH, 200, 0));

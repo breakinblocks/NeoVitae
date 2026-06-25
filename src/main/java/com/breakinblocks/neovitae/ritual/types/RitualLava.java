@@ -91,7 +91,7 @@ public class RitualLava extends Ritual {
         SpiritusState will = RitualHelper.querySpiritus(ctx.level(), masterPos, MIN_SPIRITUS);
 
         // EV cost per operation: cheaper with more raw Spiritus.
-        int lavaCost = will.hasDefault() ? Math.max(1, BASE_LAVA_COST - (int) will.getDefault()) : BASE_LAVA_COST;
+        int lavaCost = will.hasRaw() ? Math.max(1, BASE_LAVA_COST - (int) will.getRaw()) : BASE_LAVA_COST;
 
         int maxEffects = ctx.maxOperations(lavaCost);
         int totalEffects = 0;
@@ -161,31 +161,31 @@ public class RitualLava extends Ritual {
         // --- FIRE EFFECTS: Apply effects to entities in fire range ---
 
         // Vengeful: Fire Fuse on non-player mobs
-        if (will.hasVengeful()) {
+        if (will.hasVindicta()) {
             List<LivingEntity> mobs = RitualHelper.getAliveMobsInRange(ctx, this, FIRE_RANGE);
             for (LivingEntity mob : mobs) {
-                if ((will.getVengeful() - vengefulUsed) < VENGEFUL_WILL_PER_MOB) break;
+                if ((will.getVindicta() - vengefulUsed) < VENGEFUL_WILL_PER_MOB) break;
                 mob.addEffect(new MobEffectInstance(NVMobEffects.FIRE_FUSE, 100, 0, true, true));
                 vengefulUsed += VENGEFUL_WILL_PER_MOB;
             }
         }
 
         // Steadfast: Fire Resistance on players
-        if (will.hasSteadfast()) {
+        if (will.hasInvictus()) {
             List<Player> players = RitualHelper.getAlivePlayersInRange(ctx, this, FIRE_RANGE);
             for (Player player : players) {
-                if ((will.getSteadfast() - steadfastUsed) < STEADFAST_WILL_PER_PLAYER) break;
+                if ((will.getInvictus() - steadfastUsed) < STEADFAST_WILL_PER_PLAYER) break;
                 player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 100, 0, true, false));
                 steadfastUsed += STEADFAST_WILL_PER_PLAYER;
             }
         }
 
         // Corrosive: Fire damage to entities (skip fire-immune)
-        if (will.hasCorrosive()) {
+        if (will.hasRuina()) {
             List<LivingEntity> entities = RitualHelper.getEntitiesInRange(ctx, this, FIRE_RANGE, LivingEntity.class,
                     entity -> entity.isAlive() && !entity.fireImmune());
             for (LivingEntity entity : entities) {
-                if ((will.getCorrosive() - corrosiveUsed) < CORROSIVE_WILL_PER_HIT) break;
+                if ((will.getRuina() - corrosiveUsed) < CORROSIVE_WILL_PER_HIT) break;
                 entity.hurt(ctx.level().damageSources().onFire(), CORROSIVE_FIRE_DAMAGE);
                 entity.setRemainingFireTicks(60);
                 corrosiveUsed += CORROSIVE_WILL_PER_HIT;

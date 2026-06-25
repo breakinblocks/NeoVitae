@@ -75,18 +75,18 @@ public class RitualGrounding extends Ritual {
 
         int totalCost = 0;
 
-        if (will.hasDestructive()) {
+        if (will.hasNihilum()) {
             // DESTRUCTIVE: Heavy Heart on ALL living entities
             List<LivingEntity> entities = RitualHelper.getAliveLivingEntities(ctx, this, GROUNDING_RANGE);
-            boolean hasSteadfast = will.hasSteadfast();
+            boolean hasInvictus = will.hasInvictus();
 
             for (LivingEntity entity : entities) {
                 if (entity instanceof Player player && player.isCreative()) continue;
 
                 boolean isBoss = entity.getType().is(NVTags.Entities.RITUAL_BOSS_BLACKLIST);
-                if (isBoss && !hasSteadfast) continue;
+                if (isBoss && !hasInvictus) continue;
 
-                if ((will.getDestructive() - destructiveUsed) < SPIRITUS_PER_ENTITY) break;
+                if ((will.getNihilum() - destructiveUsed) < SPIRITUS_PER_ENTITY) break;
 
                 entity.addEffect(new MobEffectInstance(NVMobEffects.HEAVY_HEART, 100, 1, true, true));
                 destructiveUsed += SPIRITUS_PER_ENTITY;
@@ -98,20 +98,20 @@ public class RitualGrounding extends Ritual {
                         StreamPresets.voidTendril(masterPos, entity.blockPosition()).build()
                                 .sendToNearby(ctx.serverLevel(), masterPos, 128));
             }
-        } else if (will.hasDefault()) {
+        } else if (will.hasRaw()) {
             // RAW SPIRITUS: Player-only targeting with spiritus-based effects
             List<Player> players = RitualHelper.getEntitiesInRange(ctx, this, GROUNDING_RANGE, Player.class,
                     player -> player.isAlive() && !player.isCreative() && !player.isSpectator());
 
             for (Player player : players) {
-                if ((will.getDefault() - rawUsed) < SPIRITUS_PER_ENTITY) break;
+                if ((will.getRaw() - rawUsed) < SPIRITUS_PER_ENTITY) break;
 
                 // Effect priority: Corrosive > Vengeful > Default
-                if (will.hasCorrosive() && (will.getCorrosive() - corrosiveUsed) >= SPIRITUS_PER_ENTITY) {
+                if (will.hasRuina() && (will.getRuina() - corrosiveUsed) >= SPIRITUS_PER_ENTITY) {
                     // Corrosive: Suspended (floating)
                     player.addEffect(new MobEffectInstance(NVMobEffects.SUSPENDED, 20, 0, true, false));
                     corrosiveUsed += SPIRITUS_PER_ENTITY;
-                } else if (will.hasVengeful() && (will.getVengeful() - vengefulUsed) >= SPIRITUS_PER_ENTITY) {
+                } else if (will.hasVindicta() && (will.getVindicta() - vengefulUsed) >= SPIRITUS_PER_ENTITY) {
                     // Vengeful: Levitation (amplifier 10 for strong upward force)
                     player.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 20, 10, true, false));
                     vengefulUsed += SPIRITUS_PER_ENTITY;

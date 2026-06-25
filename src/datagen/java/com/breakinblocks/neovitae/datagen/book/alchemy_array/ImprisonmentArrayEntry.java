@@ -32,6 +32,7 @@ public class ImprisonmentArrayEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("Pair it with a [#](4A0080)Torment Nexus[#]() to grow a captive harvest of whatever quarry you "
                 + "choose. Reconfiguring a spawner is a one-time rite: to change it again, inscribe a fresh array.\\\n\\\n"
+                + "A few mighty creatures are too willful to be bound and the array ignores their passing.\\\n\\\n"
                 + "[#](4A0080)What dies near the cage becomes the cage.[#]()");
 
         this.page("recipe", () -> BookAlchemyArrayRecipePageModel.create()

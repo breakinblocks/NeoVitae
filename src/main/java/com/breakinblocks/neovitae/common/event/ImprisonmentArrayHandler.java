@@ -19,6 +19,7 @@ import com.breakinblocks.neovitae.common.alchemyarray.AlchemyArrayEffectImprison
 import com.breakinblocks.neovitae.common.blockentity.AlchemyArrayBlockEntity;
 import com.breakinblocks.neovitae.common.NVSounds;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
+import com.breakinblocks.neovitae.common.tag.NVTags;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -44,6 +45,7 @@ public final class ImprisonmentArrayHandler {
     public static void onLivingDeath(LivingDeathEvent event) {
         if (ARRAYS.isEmpty()) return;
         if (!(event.getEntity() instanceof Mob mob)) return;
+        if (mob.getType().is(NVTags.Entities.DENY_IMPRISONMENT)) return;
 
         Level level = mob.level();
         if (level.isClientSide()) return;

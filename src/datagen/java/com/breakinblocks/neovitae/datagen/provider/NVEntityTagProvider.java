@@ -28,5 +28,10 @@ public class NVEntityTagProvider extends EntityTypeTagsProvider {
 
         tag(NVTags.Entities.NO_SENTIENT_TRAINING)
                 .addOptional(ResourceLocation.fromNamespaceAndPath("dummmmmmy", "target_dummy"));
+
+        tag(NVTags.Entities.DENY_IMPRISONMENT)
+                .add(EntityType.ENDER_DRAGON)
+                .add(EntityType.WITHER)
+                .add(EntityType.WARDEN);
     }
 }

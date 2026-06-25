@@ -172,6 +172,7 @@ public class NVTags {
         public static final TagKey<EntityType<?>> RITUAL_BOSS_BLACKLIST = tag(bm("ritual_boss_blacklist"));
         public static final TagKey<EntityType<?>> NO_SACRIFICE = tag(bm("no_sacrifice"));
         public static final TagKey<EntityType<?>> NO_SENTIENT_TRAINING = tag(bm("no_sentient_training"));
+        public static final TagKey<EntityType<?>> DENY_IMPRISONMENT = tag(bm("deny_imprisonment"));
 
         private static TagKey<EntityType<?>> tag(ResourceLocation id) {
             return TagKey.create(Registries.ENTITY_TYPE, id);

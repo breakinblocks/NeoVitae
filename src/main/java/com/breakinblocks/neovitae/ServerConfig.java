@@ -16,6 +16,7 @@ public class ServerConfig {
     public final ModConfigSpec.DoubleValue SPIRITUS_MAX_NIHILUM;
     public final ModConfigSpec.DoubleValue SPIRITUS_MAX_VINDICTA;
     public final ModConfigSpec.DoubleValue SPIRITUS_MAX_INVICTUS;
+    public final ModConfigSpec.DoubleValue SPAWNER_CAPTURE_COST;
 
     public final ModConfigSpec.DoubleValue CRYSTAL_SPIRITUS_TO_FORM;
     public final ModConfigSpec.DoubleValue CRYSTAL_FORMATION_TIME;
@@ -70,6 +71,10 @@ public class ServerConfig {
         SPIRITUS_MAX_INVICTUS = builder
                 .comment("Base maximum Spiritus Invictus per chunk")
                 .defineInRange("max_invictus", 100.0, 1.0, 10000.0);
+
+        SPAWNER_CAPTURE_COST = builder
+                .comment("Spiritus a Spiritus Gem spends to capture a spawner or trial spawner via sneak + right-click")
+                .defineInRange("spawner_capture_cost", 200.0, 0.0, 100000.0);
 
         builder.pop();
 

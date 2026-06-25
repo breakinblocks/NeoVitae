@@ -1,15 +1,27 @@
 package com.breakinblocks.neovitae.common.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueOutput;
+import com.breakinblocks.neovitae.NeoVitae;
 import com.breakinblocks.neovitae.common.datacomponent.NVDataComponents;
 import com.breakinblocks.neovitae.common.datacomponent.SpiritusType;
 import com.breakinblocks.neovitae.util.ChatUtil;
@@ -41,6 +53,52 @@ public class SpiritusGemItem extends Item implements ISpiritusGem {
         SpiritusHelper.drainSpiritus(stack, type, filled, true);
 
         return InteractionResult.PASS;
+    }
+
+    @Override
+    public InteractionResult useOn(UseOnContext context) {
+        Player player = context.getPlayer();
+        if (player == null || !player.isShiftKeyDown()) {
+            return InteractionResult.PASS;
+        }
+
+        Level level = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        BlockState state = level.getBlockState(pos);
+        if (!state.is(Blocks.SPAWNER) && !state.is(Blocks.TRIAL_SPAWNER)) {
+            return InteractionResult.PASS;
+        }
+
+        ItemStack gem = context.getItemInHand();
+        SpiritusType type = SpiritusHelper.getCurrentType(gem);
+        double cost = NeoVitae.SERVER_CONFIG.SPAWNER_CAPTURE_COST.get();
+        if (SpiritusHelper.getSpiritus(gem, type) < cost) {
+            if (!level.isClientSide()) {
+                player.sendOverlayMessage(Component.translatable("chat.neovitae.gem.spawner_no_spiritus",
+                        (int) cost).withStyle(ChatFormatting.RED));
+            }
+            return InteractionResult.CONSUME;
+        }
+
+        if (level.isClientSide()) {
+            return InteractionResult.SUCCESS;
+        }
+
+        ItemStack drop = new ItemStack(state.getBlock());
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity != null) {
+            TagValueOutput output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, level.registryAccess());
+            blockEntity.saveCustomOnly(output);
+            BlockItem.setBlockEntityData(drop, blockEntity.getType(), output);
+        }
+
+        SpiritusHelper.drainSpiritus(gem, type, cost, true);
+        level.removeBlock(pos, false);
+        Block.popResource(level, pos, drop);
+        level.playSound(null, pos, SoundEvents.BEACON_DEACTIVATE, SoundSource.BLOCKS, 0.6f, 1.4f);
+        player.sendOverlayMessage(Component.translatable("chat.neovitae.gem.spawner_captured")
+                .withStyle(ChatFormatting.GREEN));
+        return InteractionResult.SUCCESS;
     }
     @Override
     @SuppressWarnings("deprecation")

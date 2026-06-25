@@ -1865,6 +1865,13 @@
   "chat.neovitae.reader.noRitual": "No ritual active on this Master Ritual Stone.",
   "chat.neovitae.reader.rangeSelected": "Range selected: %s",
   "chat.neovitae.reader.spiritusType": "Spiritus type set to: %s",
+  "book.neovitae.guide.spiritus.spiritus_gems.spawner_capture.text": "A charged gem can do more than hoard malice. Crouch and right-click a [#](8B0000)Monster Spawner[#]() or [#](8B0000)Trial Spawner[#]() with a gem holding at least [#](8B0000)200 Spiritus[#](), and that reserve is spent to wrench the block free of the world. It drops as an item, its bound creature and settings carried with it, ready to be set down again wherever you please.",
+  "book.neovitae.guide.spiritus.spiritus_gems.spawner_capture.title": "Caging the Cage",
+  "chat.neovitae.gem.spawner_captured": "Spawner captured.",
+  "chat.neovitae.gem.spawner_no_spiritus": "Not enough Spiritus. Capturing a spawner needs %s.",
+  "chat.neovitae.reader.areaRetry": " Corner kept; click another block to try again.",
+  "gui.neovitae.configurator.aspect.none": "Not influenced by Spiritus aspect.",
+  "ritual.neovitae.crystallum_fractura.aspect_effect": "Biases the growth aura's Spiritus injection toward the chosen aspect's crystals. Raw leaves the aura unbiased.",
   "chat.neovitae.ritual.activated": "%s has been activated!",
   "chat.neovitae.ritual.activationFailed": "Ritual activation failed.",
   "chat.neovitae.ritual.clientSide": "Cannot activate on client.",
@@ -3015,9 +3022,9 @@
   "trainer.neovitae.deny_others": "Deny Others",
   "trainer.neovitae.save": "Save",
   "trim_material.neovitae.demonite": "Hellforged",
-  "will.neovitae.invictus": "Spiritus Invictus",
-  "will.neovitae.nihilum": "Spiritus Nihilum",
-  "will.neovitae.raw": "Raw Spiritus",
-  "will.neovitae.ruina": "Spiritus Ruina",
-  "will.neovitae.vindicta": "Spiritus Vindicta"
+  "spiritus.neovitae.invictus": "Spiritus Invictus",
+  "spiritus.neovitae.nihilum": "Spiritus Nihilum",
+  "spiritus.neovitae.raw": "Raw Spiritus",
+  "spiritus.neovitae.ruina": "Spiritus Ruina",
+  "spiritus.neovitae.vindicta": "Spiritus Vindicta"
 }

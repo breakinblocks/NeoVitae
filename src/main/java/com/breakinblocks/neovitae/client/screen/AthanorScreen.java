@@ -30,11 +30,11 @@ public class AthanorScreen extends AbstractContainerScreen<AthanorMenu> {
             SpiritusType.INVICTUS, SpiritusType.NIHILUM, SpiritusType.VINDICTA
     };
     private static final String[] TYPE_KEYS = {
-            "will.neovitae.raw",
-            "will.neovitae.ruina",
-            "will.neovitae.invictus",
-            "will.neovitae.nihilum",
-            "will.neovitae.vindicta"
+            "spiritus.neovitae.raw",
+            "spiritus.neovitae.ruina",
+            "spiritus.neovitae.invictus",
+            "spiritus.neovitae.nihilum",
+            "spiritus.neovitae.vindicta"
     };
 
     private static final int GAUGE_X = 35;

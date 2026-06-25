@@ -296,11 +296,11 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("tooltip.neovitae.spiritus_stored", "Spiritus: %s / %s");
 
         // Spiritus Aspect Names
-        add("will.neovitae.raw", "Raw Spiritus");
-        add("will.neovitae.ruina", "Spiritus Ruina");
-        add("will.neovitae.nihilum", "Spiritus Nihilum");
-        add("will.neovitae.vindicta", "Spiritus Vindicta");
-        add("will.neovitae.invictus", "Spiritus Invictus");
+        add("spiritus.neovitae.raw", "Raw Spiritus");
+        add("spiritus.neovitae.ruina", "Spiritus Ruina");
+        add("spiritus.neovitae.nihilum", "Spiritus Nihilum");
+        add("spiritus.neovitae.vindicta", "Spiritus Vindicta");
+        add("spiritus.neovitae.invictus", "Spiritus Invictus");
 
         // Sentient Tools
         add(NVItems.SENTIENT_SWORD.get(), "Sentient Sword");
@@ -695,6 +695,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("gui.neovitae.configurator.aspect.nihilum", "Nihl");
         add("gui.neovitae.configurator.aspect.vindicta", "Vind");
         add("gui.neovitae.configurator.aspect.invictus", "Invc");
+        add("gui.neovitae.configurator.aspect.none", "Not influenced by Spiritus aspect.");
         add("gui.neovitae.configurator.edit_area", "Edit area in world");
         add("gui.neovitae.configurator.tooltip.size", "Size: %s x %s x %s");
         add("gui.neovitae.configurator.tooltip.volume", "Volume: %s / %s");
@@ -708,8 +709,11 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("chat.neovitae.reader.rangeSelected", "Range selected: %s");
         add("chat.neovitae.reader.corner1Set", "Corner 1 set at %d, %d, %d");
         add("chat.neovitae.reader.areaSet", "Area '%s' updated successfully.");
+        add("chat.neovitae.reader.areaRetry", " Corner kept; click another block to try again.");
         add("chat.neovitae.reader.invalidRange", "Invalid range key.");
         add("chat.neovitae.reader.spiritusType", "Spiritus type set to: %s");
+        add("chat.neovitae.gem.spawner_no_spiritus", "Not enough Spiritus. Capturing a spawner needs %s.");
+        add("chat.neovitae.gem.spawner_captured", "Spawner captured.");
         add("ritual.neovitae.blockRange.noRange", "No range with that key.");
         add("ritual.neovitae.blockRange.tooBig", "Area volume exceeds limit of %d blocks.");
         add("ritual.neovitae.blockRange.tooFar", "Area extends beyond limits (vertical: %d, horizontal: %d).");
@@ -1266,6 +1270,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         addRitual("pump", "Hymn of Siphoning", "Draws fluid source blocks into a fluid tank at the configured tank position (directly above the master stone by default).");
         addRitual("phantom_bridge", "Ritual of the Phantom Bridge", "Weaves spectral platforms beneath the feet of practitioners in range.");
         addRitual("crystallum_fractura", "Crystallum Fractura", "Auto-harvests Spiritus Crystal clusters in range, doubles their growth speed, and biases the chunk's aspect via the Ritual Configurator.");
+        add("ritual.neovitae.crystallum_fractura.aspect_effect", "Biases the growth aura's Spiritus injection toward the chosen aspect's crystals. Raw leaves the aura unbiased.");
         addRitual("downgrade", "Sentient Extraction", "Throw a piece of Sentient Armor onto the small zone above the master stone; the ritual extracts every upgrade as a separate Upgrade Tome.");
         addRitual("meteor", "Ritual of Meteo", "Consumes a catalyst item dropped within the area and crashes a corresponding meteor from above. Catalysts are defined by meteor recipes.");
         addRitual("forsaken_soul", "The Ritual of Lost Souls", "Watches the 21x21x21 area for non-player mob deaths and drops a charged Raw Spiritus item at each death position.");

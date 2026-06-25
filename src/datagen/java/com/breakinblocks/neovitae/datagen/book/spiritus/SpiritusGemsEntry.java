@@ -27,6 +27,16 @@ public class SpiritusGemsEntry extends EntryProvider {
                 + "Better still, the gem hungers. Drop loose Spiritus upon the ground nearby, and the gem will "
                 + "devour it of its own accord.");
 
+        this.page("spawner_capture", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Caging the Cage");
+        this.pageText("A charged gem can do more than hoard malice. Crouch and right-click a "
+                + "[#](8B0000)Monster Spawner[#]() or [#](8B0000)Trial Spawner[#]() with a gem holding at least "
+                + "[#](8B0000)200 Spiritus[#](), and that reserve is spent to wrench the block free of the world. It "
+                + "drops as an item, its bound creature and settings carried with it, ready to be set down again "
+                + "wherever you please.");
+
         this.page("gem_stats", () -> BookSpiritusGemStatsPageModel.create()
                 .withTitle(this.context().pageTitle()));
         this.pageTitle("Gem Capacities");

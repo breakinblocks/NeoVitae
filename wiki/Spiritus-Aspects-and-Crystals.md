@@ -25,6 +25,8 @@ The gem is a crystalline prison that contains and compresses Spiritus into somet
 
 When upgrading, the Forge draws Spiritus from the gem being crafted before tapping the gem in its Gem Slot. The newly forged gem retains any leftover Spiritus.
 
+A charged gem can also pocket a spawner. Sneak + right-click a Monster Spawner or Trial Spawner with a gem holding at least 200 Spiritus (configurable via `spawner_capture_cost` in the server config); that Spiritus is spent and the spawner drops as an item carrying its bound creature and settings, ready to be placed elsewhere.
+
 ## The Spiritus Aura
 
 Demonic Spiritus can also exist in a diffused state throughout the very air. By burning Spiritus in a **Vas Maleficum**, you release it into the **Aura**, an invisible miasma that permeates each chunk of the world.

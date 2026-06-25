@@ -8,6 +8,7 @@ import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IIngredientAliasRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
+import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
@@ -69,6 +70,10 @@ import com.breakinblocks.neovitae.common.tag.NVTags;
 import com.breakinblocks.neovitae.common.recipe.meteor.MeteorRecipe;
 import com.breakinblocks.neovitae.compat.jei.tabulavitae.TabulaVitaeRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.altar.AraVitaeRecipeCategory;
+import com.breakinblocks.neovitae.common.blockentity.AthanorBlockEntity;
+import com.breakinblocks.neovitae.common.menu.AthanorMenu;
+import com.breakinblocks.neovitae.common.menu.HellfireForgeMenu;
+import com.breakinblocks.neovitae.common.menu.NVMenus;
 import com.breakinblocks.neovitae.compat.jei.athanor.AthanorRecipeCategory;
 import com.breakinblocks.neovitae.compat.jei.athanor.DisenchantCategory;
 import com.breakinblocks.neovitae.compat.jei.athanor.DisenchantJEIRecipe;
@@ -183,6 +188,17 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipeCategories(new RitualRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new BloodTankUpgradeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new DisenchantCategory(registration.getJeiHelpers().getGuiHelper()));
+    }
+
+    @Override
+    public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
+        registration.addRecipeTransferHandler(HellfireForgeMenu.class, NVMenus.HELLFIRE_FORGE.get(),
+                HellfireForgeRecipeCategory.RECIPE_TYPE, 0, 4, 6, 36);
+
+        int athanorInventoryStart = 1 + AthanorBlockEntity.NUM_INPUTS + 2 + AthanorBlockEntity.NUM_OUTPUTS;
+        registration.addRecipeTransferHandler(AthanorMenu.class, NVMenus.ARC.get(),
+                AthanorRecipeCategory.RECIPE_TYPE, AthanorBlockEntity.INPUT_START, AthanorBlockEntity.NUM_INPUTS,
+                athanorInventoryStart, 36);
     }
 
     @Override

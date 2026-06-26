@@ -20,6 +20,8 @@ import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent;
 import com.breakinblocks.neovitae.common.fluid.NVFluids;
 import com.breakinblocks.neovitae.client.model.OrbFillProperty;
+import com.breakinblocks.neovitae.client.model.OrbFillDecorator;
+import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.client.particle.BloodBubbleParticle;
 import com.breakinblocks.neovitae.client.particle.BloodDripParticle;
@@ -136,6 +138,16 @@ public class ClientModEventHandler {
         event.register(MaterialItemColor.ID, MaterialItemColor.MAP_CODEC);
         event.register(FlaskColor.ID, FlaskColor.MAP_CODEC);
         event.register(TippedDaggerColor.ID, TippedDaggerColor.MAP_CODEC);
+    }
+
+    @SubscribeEvent
+    public static void registerItemDecorations(RegisterItemDecorationsEvent event) {
+        event.register(NVItems.ORB_WEAK.get(), OrbFillDecorator.INSTANCE);
+        event.register(NVItems.ORB_APPRENTICE.get(), OrbFillDecorator.INSTANCE);
+        event.register(NVItems.ORB_MAGICIAN.get(), OrbFillDecorator.INSTANCE);
+        event.register(NVItems.ORB_MASTER.get(), OrbFillDecorator.INSTANCE);
+        event.register(NVItems.ORB_ARCHMAGE.get(), OrbFillDecorator.INSTANCE);
+        event.register(NVItems.ORB_TRANSCENDENT.get(), OrbFillDecorator.INSTANCE);
     }
 
     @SubscribeEvent

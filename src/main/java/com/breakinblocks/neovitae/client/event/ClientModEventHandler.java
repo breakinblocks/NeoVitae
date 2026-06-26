@@ -253,7 +253,7 @@ public class ClientModEventHandler {
             "key.neovitae.blood_shield", InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_RIGHT, "key.categories.neovitae");
 
     public static final KeyMapping LEX_MODE = new KeyMapping(
-            "key.neovitae.lex_mode", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_L, "key.categories.neovitae");
+            "key.neovitae.lex_mode", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_PERIOD, "key.categories.neovitae");
 
     @SubscribeEvent
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {

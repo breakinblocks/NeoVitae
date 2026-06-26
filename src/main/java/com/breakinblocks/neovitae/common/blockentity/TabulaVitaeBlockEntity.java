@@ -308,6 +308,7 @@ public class TabulaVitaeBlockEntity extends BaseBlockEntity implements MenuProvi
             inv.setStackInSlot(OUTPUT_SLOT, output);
         } else {
             currentOutput.grow(output.getCount());
+            inv.setStackInSlot(OUTPUT_SLOT, currentOutput);
         }
 
         if (level != null && !level.isClientSide) {

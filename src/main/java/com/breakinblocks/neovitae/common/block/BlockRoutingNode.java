@@ -17,6 +17,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -139,6 +141,9 @@ public abstract class BlockRoutingNode extends BaseEntityBlock {
             BlockEntity tile = level.getBlockEntity(pos);
             if (tile instanceof IRoutingNode node) {
                 node.removeAllConnections();
+            }
+            if (tile instanceof Container container) {
+                Containers.dropContents(level, pos, container);
             }
         }
         super.onRemove(state, level, pos, newState, isMoving);

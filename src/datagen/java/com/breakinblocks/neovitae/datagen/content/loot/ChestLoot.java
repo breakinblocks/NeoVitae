@@ -624,6 +624,13 @@ public class ChestLoot implements LootTableSubProvider {
                     .apply(SetSentientUpgrade.withKeysRange(registries, 1f, 3f,
                         SentientUpgrades.CURIOS_SOCKET, SentientUpgrades.ELYTRA, SentientUpgrades.GILDED)))
             )
+            // 15% chance of Hellforged Parts.
+            .withPool(LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .when(LootItemRandomChanceCondition.randomChance(0.15f))
+                .add(LootItem.lootTableItem(NVItems.HELLFORGED_PARTS.get()).setQuality(5)
+                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0f))))
+            )
         );
     }
 }

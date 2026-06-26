@@ -219,6 +219,10 @@ public class MasterRitualStoneBlockEntity extends BaseBlockEntity implements IMa
             return false;
         }
 
+        if (player != null && !ritual.canActivate(this, player)) {
+            return false;
+        }
+
         Anima network = AnimaHelper.getAnima(player.getUUID());
         if (network == null || network.getCurrentEV() < ritual.getActivationCost()) {
             if (player != null) {

@@ -74,6 +74,10 @@ public abstract class Ritual {
     public abstract void gatherComponents(Consumer<RitualComponent> components);
 
     public abstract Ritual getNewCopy();
+    public boolean canActivate(IMasterRitualStone masterRitualStone, Player player) {
+        return true;
+    }
+
     public boolean activateRitual(IMasterRitualStone masterRitualStone, Player player, UUID owner) {
         return true;
     }

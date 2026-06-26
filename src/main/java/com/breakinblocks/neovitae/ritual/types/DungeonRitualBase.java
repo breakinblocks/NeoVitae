@@ -54,7 +54,7 @@ public abstract class DungeonRitualBase extends Ritual {
     }
 
     @Override
-    public boolean activateRitual(IMasterRitualStone masterRitualStone, Player player, UUID owner) {
+    public boolean canActivate(IMasterRitualStone masterRitualStone, Player player) {
         if (masterRitualStone.getWorldObj() instanceof ServerLevel level) {
             BoundingBox box = getStructureBounds(masterRitualStone, level);
             if (box != null && !hasEnoughSpace(level, box)) {
@@ -64,6 +64,11 @@ public abstract class DungeonRitualBase extends Ritual {
                 return false;
             }
         }
+        return true;
+    }
+
+    @Override
+    public boolean activateRitual(IMasterRitualStone masterRitualStone, Player player, UUID owner) {
         storePlayerExitLocation(player);
         return true;
     }

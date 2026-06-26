@@ -11,6 +11,7 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.UseAnim;
@@ -227,7 +228,9 @@ public class SentientEventHandler {
             return;
         }
 
-        ItemAttributeModifiers base = chestStack.getItem().components().getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+        ItemAttributeModifiers base = chestStack.getItem() instanceof ArmorItem armorItem
+                ? armorItem.getDefaultAttributeModifiers()
+                : chestStack.getItem().components().getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
         ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
         base.forEach(EquipmentSlot.CHEST, (holder, modifier) -> builder.add(holder, modifier, EquipmentSlotGroup.CHEST));
         if (SentientHelper.hasFullSet(player)) {

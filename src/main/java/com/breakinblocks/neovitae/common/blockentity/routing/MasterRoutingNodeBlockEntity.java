@@ -15,6 +15,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -748,6 +749,9 @@ public class MasterRoutingNodeBlockEntity extends BlockEntity implements IMaster
     @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         removeAllConnections();
+        if (level != null && !level.isClientSide()) {
+            Containers.dropContents(level, pos, this);
+        }
         super.preRemoveSideEffects(pos, state);
     }
 

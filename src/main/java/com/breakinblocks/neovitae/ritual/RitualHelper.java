@@ -244,8 +244,10 @@ public final class RitualHelper {
      * protection mod allowlists.
      */
     public static FakePlayer createRitualFakePlayer(ServerLevel level, UUID owner, String tag) {
-        return new FakePlayer(level, new GameProfile(owner, "[" + tag + "]"));
+        UUID fakeId = UUID.nameUUIDFromBytes(("neovitae_ritual:" + owner).getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        return new FakePlayer(level, new GameProfile(fakeId, "[" + tag + "]"));
     }
+
 
     /**
      * Resolves the chest output at the first position in the given range. The

@@ -76,7 +76,8 @@ public final class RitualMultiblockBuilder {
         mappingJson.add("_", airMatcher);
         root.add("mapping", mappingJson);
 
-        return LoaderRegistry.getMultiblockJsonLoader(SparseMultiblock.TYPE).fromJson(root, provider);
+        Multiblock mb = LoaderRegistry.getMultiblockJsonLoader(SparseMultiblock.TYPE).fromJson(root, provider);
+        return mb.offset(-minX, -minY, -minZ);
     }
 
     public static char runeChar(EnumRuneType rune) {

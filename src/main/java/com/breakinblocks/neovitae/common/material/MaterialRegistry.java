@@ -315,13 +315,13 @@ public class MaterialRegistry {
             addAthanorRecipe("cutting_fluids/fragments_from_raw_" + name,
                     mat.getRawTag(), "neovitae:athanor_tool/cutting_fluids",
                     fragmentId, 3, null, 0, true);
+        }
 
-            // Ore block + cutting fluid = 5 fragments (with chunk raw-spiritus bonus)
-            if (mat.getOreTag() != null) {
-                addAthanorRecipe("cutting_fluids/fragments_from_ore_" + name,
-                        mat.getOreTag(), "neovitae:athanor_tool/cutting_fluids",
-                        fragmentId, 5, null, 0, true);
-            }
+        // Ore block + cutting fluid = 5 fragments (with chunk raw-spiritus bonus)
+        if (fragmentId != null && mat.getOreTag() != null) {
+            addAthanorRecipe("cutting_fluids/fragments_from_ore_" + name,
+                    mat.getOreTag(), "neovitae:athanor_tool/cutting_fluids",
+                    fragmentId, 5, null, 0, true);
         }
 
         if (fragmentId != null) {
@@ -650,6 +650,32 @@ public class MaterialRegistry {
                 "neovitae:ingot_hellforged", 1.0f,
                 null, null, "c:ingots/hellforged",
                 null, null));
+        defaults.add(new MaterialDefinition("diamond", "#4AEDD9",
+                List.of("fragment", "gravel", "dust"),
+                "minecraft:diamond", 1.0f,
+                "c:ores/diamond", null, "c:gems/diamond",
+                null, null));
+        defaults.add(new MaterialDefinition("emerald", "#41F384",
+                List.of("fragment", "gravel", "dust"),
+                "minecraft:emerald", 1.0f,
+                "c:ores/emerald", null, "c:gems/emerald",
+                null, null));
+        defaults.add(new MaterialDefinition("lapis", "#345EC3",
+                List.of("fragment", "gravel", "dust"),
+                "minecraft:lapis_lazuli", 0.2f,
+                "c:ores/lapis", null, "c:gems/lapis",
+                "Lapis Lazuli", null));
+        defaults.add(new MaterialDefinition("quartz", "#EDE6DC",
+                List.of("fragment", "gravel", "dust"),
+                "minecraft:quartz", 0.2f,
+                "c:ores/quartz", null, "c:gems/quartz",
+                "Nether Quartz", null));
+        defaults.add(new MaterialDefinition("amethyst", "#9A6FD0",
+                List.of("fragment", "gravel", "dust"),
+                "minecraft:amethyst_shard", 0.2f,
+                null, null, "c:gems/amethyst",
+                null, null)
+                .withExtraOreItems(List.of("minecraft:amethyst_cluster")));
         return defaults;
     }
 }

@@ -16,6 +16,7 @@ import com.breakinblocks.neovitae.ritual.RitualRegistry;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class RitualDivinerScreen extends AbstractContainerScreen<RitualDivinerMenu> {
@@ -47,6 +48,7 @@ public class RitualDivinerScreen extends AbstractContainerScreen<RitualDivinerMe
                     : Component.literal(id.toString());
             entries.add(new Entry(id, name));
         }
+        entries.sort(Comparator.comparing(e -> e.name().getString(), String.CASE_INSENSITIVE_ORDER));
         scrollToCurrent();
         clampScroll();
     }

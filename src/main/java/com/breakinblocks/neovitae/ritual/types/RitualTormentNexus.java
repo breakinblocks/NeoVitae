@@ -300,10 +300,6 @@ public class RitualTormentNexus extends Ritual {
             emitRitualVisuals(level, masterPos, totalKills);
         }
         emitAmbientHaunt(level, masterPos);
-
-        if (ranOutOfEv) {
-            master.stopRitual(BreakType.DEACTIVATE);
-        }
     }
 
     private void prunePresence(ServerLevel level) {

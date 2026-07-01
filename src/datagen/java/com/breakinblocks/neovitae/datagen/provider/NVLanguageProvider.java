@@ -777,7 +777,7 @@ public class NVLanguageProvider extends LanguageProvider implements ModonomiconL
         add("ritual.neovitae.dungeon.no_space", "Not enough space: clear a %sx%sx%s area around the Master Ritual Stone.");
 
         add("hud.neovitae.altar.tier", "Tier: %s");
-        add("hud.neovitae.altar.ev", "EV: %s / %s");
+        add("hud.neovitae.altar.ev", "Altar EV: %s / %s");
         add("hud.neovitae.altar.progress", "Crafting: %s / %s");
         add("hud.neovitae.altar.inactive", "Idle");
         add("hud.neovitae.altar.consumption", "EV/tick: %s");

@@ -3369,16 +3369,6 @@ public class NVRecipeProvider extends RecipeProvider {
                 .minimumTier(1)
                 .save(output, "nether_wart_from_block");
 
-        // Plant Oil from Potatoes
-        TabulaVitaeRecipeBuilder.build(NVItems.PLANT_OIL.get())
-                .input(Items.POTATO)
-                .input(Items.POTATO)
-                .input(Items.BONE_MEAL)
-                .syphon(100)
-                .ticks(100)
-                .minimumTier(1)
-                .save(output, "plantoil_from_taters");
-
         // Reagent Fast Miner (alt recipe with tools)
         TabulaVitaeRecipeBuilder.build(NVItems.REAGENT_FAST_MINER.get())
                 .input(Items.IRON_PICKAXE)

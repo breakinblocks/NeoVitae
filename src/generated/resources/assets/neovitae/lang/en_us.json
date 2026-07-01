@@ -2023,7 +2023,7 @@
   "gui.neovitae.tabula_vitae.slot.output": "Output slot",
   "hud.neovitae.altar.charge": "Charge: %s",
   "hud.neovitae.altar.consumption": "EV/tick: %s",
-  "hud.neovitae.altar.ev": "EV: %s / %s",
+  "hud.neovitae.altar.ev": "Altar EV: %s / %s",
   "hud.neovitae.altar.inactive": "Idle",
   "hud.neovitae.altar.progress": "Crafting: %s / %s",
   "hud.neovitae.altar.tier": "Tier: %s",

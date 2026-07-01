@@ -39,6 +39,12 @@ import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
  */
 public class BlockProtectionHelper {
 
+    private static int ritualActionDepth = 0;
+
+    public static boolean isRitualActionInProgress() {
+        return ritualActionDepth > 0;
+    }
+
     public static boolean tryBreakBlock(Level level, BlockPos pos, @Nullable Player player) {
         if (level.isClientSide()) {
             return false;
@@ -146,7 +152,12 @@ public class BlockProtectionHelper {
 
         BreakBlockEvent event =
                 new BreakBlockEvent(serverLevel, pos, state, player);
-        NeoForge.EVENT_BUS.post(event);
+        ritualActionDepth++;
+        try {
+            NeoForge.EVENT_BUS.post(event);
+        } finally {
+            ritualActionDepth--;
+        }
         return !event.isCanceled();
     }
 

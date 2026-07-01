@@ -145,8 +145,11 @@ public class RitualDivinerScreen extends AbstractContainerScreen<RitualDivinerMe
                 int idx = scrollOffset + row;
                 if (idx >= 0 && idx < entries.size()
                         && minecraft != null && minecraft.gameMode != null) {
-                    minecraft.gameMode.handleInventoryButtonClick(menu.containerId, idx);
-                    return true;
+                    int serverIdx = menu.getRitualIds().indexOf(entries.get(idx).id());
+                    if (serverIdx >= 0) {
+                        minecraft.gameMode.handleInventoryButtonClick(menu.containerId, serverIdx);
+                        return true;
+                    }
                 }
             }
         }

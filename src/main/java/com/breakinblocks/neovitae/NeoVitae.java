@@ -42,6 +42,7 @@ import com.breakinblocks.neovitae.common.advancement.NVCriteriaTriggers;
 import com.breakinblocks.neovitae.common.network.NVPayloads;
 import com.breakinblocks.neovitae.common.particle.NVParticles;
 import com.breakinblocks.neovitae.compat.curios.CuriosCompat;
+import com.breakinblocks.neovitae.compat.ftbultimine.FTBUltimineCompat;
 
 import com.breakinblocks.neovitae.structures.ModRoomPools;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -163,6 +164,7 @@ public class NeoVitae {
         event.enqueueWork(AnointmentRegistrar::init);
         event.enqueueWork(ModRoomPools::init);
         event.enqueueWork(AltarRuneBlockRegistry::init);
+        event.enqueueWork(FTBUltimineCompat::init);
 
         if (ModList.get().isLoaded("modonomicon")) {
             event.enqueueWork(() -> {

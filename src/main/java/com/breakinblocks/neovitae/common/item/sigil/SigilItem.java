@@ -69,6 +69,16 @@ public class SigilItem extends Item implements IBindable, IActivatable, ISigil {
         this.tooltipBase = "tooltip.neovitae.sigil." + sigilTypeKey.location().getPath() + ".";
     }
 
+    @Override
+    public boolean hasCraftingRemainingItem(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public ItemStack getCraftingRemainingItem(ItemStack stack) {
+        return stack.copyWithCount(1);
+    }
+
     @Nullable
     public SigilType getSigilType(ItemStack stack, Level level) {
         Holder<SigilType> holder = stack.get(NVDataComponents.SIGIL_TYPE.get());

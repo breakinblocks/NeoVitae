@@ -49,13 +49,12 @@ public class RitualWellOfSuffering extends Ritual {
         RitualContext ctx = RitualHelper.createContext(masterRitualStone, getRefreshCost());
         if (ctx == null) return;
 
-        int maxEVGenerated = 1000000; // Max LP capacity check would go here
+        AraVitaeTile altar = findAltar(ctx);
+        if (altar == null) return;
 
         List<LivingEntity> entities = RitualHelper.getEntitiesInRange(ctx, this, DAMAGE_RANGE,
                 LivingEntity.class, e -> !(e instanceof Player) && e.isAlive() && !e.isInvulnerable()
                         && !e.getType().getTags().anyMatch(t -> t.equals(NVTags.Entities.WELL_OF_SUFFERING_BLACKLIST)));
-
-        AraVitaeTile altar = findAltar(ctx);
 
         int totalEV = 0;
         BlockPos masterPos = ctx.masterPos();
@@ -83,12 +82,7 @@ public class RitualWellOfSuffering extends Ritual {
 
         if (totalEV > 0) {
             ctx.syphon(getRefreshCost());
-            ctx.network().add(ctx.master().ticket(totalEV), maxEVGenerated);
-
-            // Also feed LP directly to altar if found
-            if (altar != null) {
-                altar.addSacrificeEV(totalEV, true);
-            }
+            altar.addSacrificeEV(totalEV, true);
         }
     }
 

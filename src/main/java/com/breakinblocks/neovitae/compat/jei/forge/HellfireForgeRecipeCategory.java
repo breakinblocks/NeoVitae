@@ -25,6 +25,8 @@ import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.util.List;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.resources.Identifier;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
 
@@ -128,5 +130,10 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
             this.spiritusStack = spiritusStack;
             this.minSpiritus = minSpiritus;
         }
+    }
+
+    @Override
+    public Identifier getIdentifier(ForgeRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

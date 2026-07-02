@@ -24,6 +24,8 @@ import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.resources.Identifier;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRecipe> {
     public static final IRecipeType<TabulaVitaeRecipe> RECIPE_TYPE = IRecipeType.create(NeoVitae.MODID, "alchemytable", TabulaVitaeRecipe.class);
@@ -122,5 +124,10 @@ public class TabulaVitaeRecipeCategory implements IRecipeCategory<TabulaVitaeRec
     @Override
     public IRecipeType<TabulaVitaeRecipe> getRecipeType() {
         return RECIPE_TYPE;
+    }
+
+    @Override
+    public Identifier getIdentifier(TabulaVitaeRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

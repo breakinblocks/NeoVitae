@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 /**
  * JEI recipe category for meteor ritual recipes.
@@ -256,5 +257,10 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
             }
         }
         return null;
+    }
+
+    @Override
+    public Identifier getIdentifier(MeteorRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

@@ -18,6 +18,8 @@ import com.breakinblocks.neovitae.ritual.EnumRuneType;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
+import net.minecraft.resources.Identifier;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 /**
  * JEI category for displaying ritual information.
@@ -123,5 +125,10 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualJEIRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RitualJEIRecipe recipe, IFocusGroup focuses) {
+    }
+
+    @Override
+    public Identifier getIdentifier(RitualJEIRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

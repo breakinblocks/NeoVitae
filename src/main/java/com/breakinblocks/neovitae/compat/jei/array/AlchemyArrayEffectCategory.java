@@ -22,6 +22,7 @@ import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 /**
  * JEI category for alchemy array recipes that place a persistent environmental
@@ -132,5 +133,10 @@ public class AlchemyArrayEffectCategory implements IRecipeCategory<AlchemyArrayR
     @Override
     public IRecipeType<AlchemyArrayRecipe> getRecipeType() {
         return RECIPE_TYPE;
+    }
+
+    @Override
+    public Identifier getIdentifier(AlchemyArrayRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

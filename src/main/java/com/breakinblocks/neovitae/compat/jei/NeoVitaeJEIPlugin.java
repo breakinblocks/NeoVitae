@@ -228,10 +228,10 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
+        NVJeiRecipeIds.clear();
         RecipeMap syncedRecipes = ClientRecipeCache.get();
 
-        List<ForgeRecipe> allForgeRecipes = syncedRecipes.byType(NVRecipes.HELLFIRE_FORGE_TYPE.get())
-                .stream().map(RecipeHolder::value).toList();
+        List<ForgeRecipe> allForgeRecipes = NVJeiRecipeIds.track(syncedRecipes.byType(NVRecipes.HELLFIRE_FORGE_TYPE.get()));
         List<ForgeRecipe> upgradeRecipes = allForgeRecipes.stream()
                 .filter(r -> r instanceof ForgeUpgradeRecipe || r instanceof ForgeTransformRecipe || r instanceof ForgeSpiritusInfusionRecipe)
                 .toList();
@@ -241,12 +241,10 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipes(HellfireForgeRecipeCategory.RECIPE_TYPE, forgeRecipes);
         registration.addRecipes(ForgeUpgradeRecipeCategory.RECIPE_TYPE, upgradeRecipes);
 
-        List<AraVitaeRecipe> altarRecipes = syncedRecipes.byType(NVRecipes.ARA_VITAE_TYPE.get())
-                .stream().map(RecipeHolder::value).toList();
+        List<AraVitaeRecipe> altarRecipes = NVJeiRecipeIds.track(syncedRecipes.byType(NVRecipes.ARA_VITAE_TYPE.get()));
         registration.addRecipes(AraVitaeRecipeCategory.RECIPE_TYPE, altarRecipes);
 
-        List<AlchemyArrayRecipe> allArrayRecipes = syncedRecipes.byType(NVRecipes.ALCHEMY_ARRAY_TYPE.get())
-                .stream().map(RecipeHolder::value).toList();
+        List<AlchemyArrayRecipe> allArrayRecipes = NVJeiRecipeIds.track(syncedRecipes.byType(NVRecipes.ALCHEMY_ARRAY_TYPE.get()));
         List<AlchemyArrayRecipe> arrayCraftingRecipes = allArrayRecipes.stream()
                 .filter(r -> r.getEffectType() == AlchemyArrayEffectType.CRAFTING
                         || r.getEffectType() == AlchemyArrayEffectType.BINDING)
@@ -258,35 +256,42 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
         registration.addRecipes(AlchemyArrayCraftingCategory.RECIPE_TYPE, arrayCraftingRecipes);
         registration.addRecipes(AlchemyArrayEffectCategory.RECIPE_TYPE, arrayEffectRecipes);
 
-        List<TabulaVitaeRecipe> tableRecipes = syncedRecipes.byType(NVRecipes.TABULA_VITAE_TYPE.get())
-                .stream().map(RecipeHolder::value).toList();
+        List<TabulaVitaeRecipe> tableRecipes = NVJeiRecipeIds.track(syncedRecipes.byType(NVRecipes.TABULA_VITAE_TYPE.get()));
         registration.addRecipes(TabulaVitaeRecipeCategory.RECIPE_TYPE, tableRecipes);
 
-        List<MeteorRecipe> meteorRecipes = syncedRecipes.byType(NVRecipes.METEOR_TYPE.get())
-                .stream().map(RecipeHolder::value).toList();
+        List<MeteorRecipe> meteorRecipes = NVJeiRecipeIds.track(syncedRecipes.byType(NVRecipes.METEOR_TYPE.get()));
         registration.addRecipes(MeteorRecipeCategory.RECIPE_TYPE, meteorRecipes);
 
-        List<AthanorRecipe> arcRecipes = syncedRecipes.byType(NVRecipes.ATHANOR_TYPE.get())
-                .stream().map(RecipeHolder::value).toList();
+        List<AthanorRecipe> arcRecipes = NVJeiRecipeIds.track(syncedRecipes.byType(NVRecipes.ATHANOR_TYPE.get()));
         registration.addRecipes(AthanorRecipeCategory.RECIPE_TYPE, arcRecipes);
 
-        List<FlaskRecipe> flaskRecipes = syncedRecipes.byType(NVRecipes.FLASK_TYPE.get())
-                .stream().map(RecipeHolder::value).toList();
+        List<FlaskRecipe> flaskRecipes = NVJeiRecipeIds.track(syncedRecipes.byType(NVRecipes.FLASK_TYPE.get()));
         registration.addRecipes(FlaskRecipeCategory.RECIPE_TYPE, flaskRecipes);
 
         List<FlaskCombinationJEIRecipe> combinationRecipes = createFlaskCombinationRecipes(flaskRecipes);
+        for (int i = 0; i < combinationRecipes.size(); i++) {
+            NVJeiRecipeIds.put(combinationRecipes.get(i), NeoVitae.rl("flask_combination/" + i));
+        }
         registration.addRecipes(FlaskCombinationCategory.RECIPE_TYPE, combinationRecipes);
 
         List<ImperfectRitualJEIRecipe> imperfectRitualRecipes = createImperfectRitualRecipes();
+        for (ImperfectRitualJEIRecipe recipe : imperfectRitualRecipes) {
+            NVJeiRecipeIds.put(recipe, recipe.ritualId());
+        }
         registration.addRecipes(ImperfectRitualRecipeCategory.RECIPE_TYPE, imperfectRitualRecipes);
 
         List<RitualJEIRecipe> ritualRecipes = createRitualRecipes();
+        for (RitualJEIRecipe recipe : ritualRecipes) {
+            NVJeiRecipeIds.put(recipe, recipe.ritualId());
+        }
         registration.addRecipes(RitualRecipeCategory.RECIPE_TYPE, ritualRecipes);
 
         // Blood tank upgrade recipes, one per tier transition
         List<BloodTankUpgradeJEIRecipe> tankUpgrades = new ArrayList<>();
         for (int tier = 2; tier <= 16; tier++) {
-            tankUpgrades.add(new BloodTankUpgradeJEIRecipe(tier, bloodTankStack(tier - 1), bloodTankStack(tier)));
+            BloodTankUpgradeJEIRecipe recipe = new BloodTankUpgradeJEIRecipe(tier, bloodTankStack(tier - 1), bloodTankStack(tier));
+            NVJeiRecipeIds.put(recipe, NeoVitae.rl("blood_tank_upgrade/" + tier));
+            tankUpgrades.add(recipe);
         }
         registration.addRecipes(BloodTankUpgradeCategory.RECIPE_TYPE, tankUpgrades);
 
@@ -316,7 +321,9 @@ public class NeoVitaeJEIPlugin implements IModPlugin {
                     allEnchantedBooks.add(book);
                 }
             });
-            registration.addRecipes(DisenchantCategory.RECIPE_TYPE, List.of(new DisenchantJEIRecipe(allEnchantedBooks)));
+            DisenchantJEIRecipe disenchantRecipe = new DisenchantJEIRecipe(allEnchantedBooks);
+            NVJeiRecipeIds.put(disenchantRecipe, NeoVitae.rl("disenchant"));
+            registration.addRecipes(DisenchantCategory.RECIPE_TYPE, List.of(disenchantRecipe));
         }
 
         List<RecipeHolder<CraftingRecipe>> scribeDyeRecipes = new ArrayList<>();

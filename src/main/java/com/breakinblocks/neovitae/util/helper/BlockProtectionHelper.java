@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import com.breakinblocks.neovitae.compat.ftbultimine.FTBUltimineCompat;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.BlockSnapshot;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -38,12 +39,6 @@ import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
  * - Modify blocks (changing block state, replacing fluids)
  */
 public class BlockProtectionHelper {
-
-    private static int ritualActionDepth = 0;
-
-    public static boolean isRitualActionInProgress() {
-        return ritualActionDepth > 0;
-    }
 
     public static boolean tryBreakBlock(Level level, BlockPos pos, @Nullable Player player) {
         if (level.isClientSide()) {
@@ -152,11 +147,11 @@ public class BlockProtectionHelper {
 
         BreakBlockEvent event =
                 new BreakBlockEvent(serverLevel, pos, state, player);
-        ritualActionDepth++;
+        FTBUltimineCompat.beginSuppress();
         try {
             NeoForge.EVENT_BUS.post(event);
         } finally {
-            ritualActionDepth--;
+            FTBUltimineCompat.endSuppress();
         }
         return !event.isCanceled();
     }

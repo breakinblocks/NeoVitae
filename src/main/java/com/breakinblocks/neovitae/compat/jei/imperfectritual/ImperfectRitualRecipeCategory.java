@@ -19,6 +19,8 @@ import com.breakinblocks.neovitae.common.block.NVBlocks;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
+import net.minecraft.resources.ResourceLocation;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 /**
  * JEI category for displaying imperfect ritual recipes.
@@ -107,5 +109,10 @@ public class ImperfectRitualRecipeCategory implements IRecipeCategory<ImperfectR
 
         IRecipeSlotBuilder ritualStoneSlot = builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 72, 34);
         ritualStoneSlot.addItemStack(new ItemStack(NVBlocks.IMPERFECT_RITUAL_STONE.block().get()));
+    }
+
+    @Override
+    public ResourceLocation getRegistryName(ImperfectRitualJEIRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

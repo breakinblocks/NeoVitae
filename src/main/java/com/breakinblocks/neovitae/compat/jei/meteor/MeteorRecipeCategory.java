@@ -33,6 +33,7 @@ import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.List;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 /**
  * JEI recipe category for meteor ritual recipes.
@@ -256,5 +257,10 @@ public class MeteorRecipeCategory implements IRecipeCategory<MeteorRecipe> {
             }
         }
         return null;
+    }
+
+    @Override
+    public ResourceLocation getRegistryName(MeteorRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

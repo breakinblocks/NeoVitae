@@ -22,6 +22,8 @@ import com.breakinblocks.neovitae.common.recipe.alchemyarray.AlchemyArrayRecipe;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import net.minecraft.resources.ResourceLocation;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 /**
  * JEI category for alchemy array recipes that produce an item output
@@ -91,5 +93,10 @@ public class AlchemyArrayCraftingCategory implements IRecipeCategory<AlchemyArra
     @Override
     public RecipeType<AlchemyArrayRecipe> getRecipeType() {
         return RECIPE_TYPE;
+    }
+
+    @Override
+    public ResourceLocation getRegistryName(AlchemyArrayRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

@@ -28,6 +28,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
+import net.minecraft.resources.ResourceLocation;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
     public static final RecipeType<AthanorRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "athanor", AthanorRecipe.class);
@@ -247,5 +249,10 @@ public class AthanorRecipeCategory implements IRecipeCategory<AthanorRecipe> {
             tooltip.add(Component.literal("guarantee one extra output each, with the remainder rolled separately."));
             tooltip.add(Component.literal("Each bonus has a 2.5% chance to consume 1 Raw Spiritus."));
         }
+    }
+
+    @Override
+    public ResourceLocation getRegistryName(AthanorRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

@@ -24,6 +24,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.util.List;
+import net.minecraft.resources.ResourceLocation;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
 
@@ -127,5 +129,10 @@ public class HellfireForgeRecipeCategory implements IRecipeCategory<ForgeRecipe>
             this.spiritusStack = spiritusStack;
             this.minSpiritus = minSpiritus;
         }
+    }
+
+    @Override
+    public ResourceLocation getRegistryName(ForgeRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

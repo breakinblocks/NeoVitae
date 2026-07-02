@@ -22,6 +22,8 @@ import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.resources.ResourceLocation;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
     public static final RecipeType<FlaskRecipe> RECIPE_TYPE = RecipeType.create(NeoVitae.MODID, "flask", FlaskRecipe.class);
@@ -115,5 +117,10 @@ public class FlaskRecipeCategory implements IRecipeCategory<FlaskRecipe> {
     @Override
     public RecipeType<FlaskRecipe> getRecipeType() {
         return RECIPE_TYPE;
+    }
+
+    @Override
+    public ResourceLocation getRegistryName(FlaskRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

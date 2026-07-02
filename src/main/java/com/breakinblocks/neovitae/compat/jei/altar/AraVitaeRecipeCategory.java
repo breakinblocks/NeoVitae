@@ -28,6 +28,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.text.DecimalFormat;
+import net.minecraft.resources.ResourceLocation;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 public class AraVitaeRecipeCategory implements IRecipeCategory<AraVitaeRecipe> {
 
@@ -113,5 +115,10 @@ public class AraVitaeRecipeCategory implements IRecipeCategory<AraVitaeRecipe> {
             return ROMAN_NUMERALS[number - 1];
         }
         return String.valueOf(number);
+    }
+
+    @Override
+    public ResourceLocation getRegistryName(AraVitaeRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

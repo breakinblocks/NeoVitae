@@ -28,6 +28,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.util.List;
+import net.minecraft.resources.ResourceLocation;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> {
 
@@ -129,5 +131,10 @@ public class ForgeUpgradeRecipeCategory implements IRecipeCategory<ForgeRecipe> 
             IRecipeSlotBuilder input = builder.addSlot(RecipeIngredientRole.INPUT, x * 18 + 1, y * 18 + 1);
             input.addIngredients(inputs.get(index));
         }
+    }
+
+    @Override
+    public ResourceLocation getRegistryName(ForgeRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

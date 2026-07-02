@@ -17,6 +17,8 @@ import com.breakinblocks.neovitae.common.block.NVBlocks;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import net.minecraft.resources.ResourceLocation;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 public class BloodTankUpgradeCategory implements IRecipeCategory<BloodTankUpgradeJEIRecipe> {
     public static final RecipeType<BloodTankUpgradeJEIRecipe> RECIPE_TYPE =
@@ -81,5 +83,10 @@ public class BloodTankUpgradeCategory implements IRecipeCategory<BloodTankUpgrad
         guiGraphics.fill(ARROW_X + 12, ay - 3, ARROW_X + 16, ay + 5, 0xFF606060);
         guiGraphics.fill(ARROW_X + 13, ay - 2, ARROW_X + 16, ay + 4, 0xFF606060);
         guiGraphics.fill(ARROW_X + 14, ay - 1, ARROW_X + 16, ay + 3, 0xFF606060);
+    }
+
+    @Override
+    public ResourceLocation getRegistryName(BloodTankUpgradeJEIRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

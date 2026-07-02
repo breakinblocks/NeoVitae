@@ -20,6 +20,8 @@ import com.breakinblocks.neovitae.common.item.NVItems;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import net.minecraft.resources.ResourceLocation;
+import com.breakinblocks.neovitae.compat.jei.NVJeiRecipeIds;
 
 public class DisenchantCategory implements IRecipeCategory<DisenchantJEIRecipe> {
     public static final RecipeType<DisenchantJEIRecipe> RECIPE_TYPE =
@@ -82,5 +84,10 @@ public class DisenchantCategory implements IRecipeCategory<DisenchantJEIRecipe> 
         guiGraphics.fill(2, cy + 11, 6, cy + 15, RAW_COLOR);
         guiGraphics.drawString(mc.font, Component.translatable("jei.neovitae.disenchant.spiritus"), 8, cy + 10, 0xFFFFFF, true);
         guiGraphics.drawString(mc.font, Component.translatable("jei.neovitae.disenchant.ev"), 2, cy + 20, 0xFFFFFF, true);
+    }
+
+    @Override
+    public ResourceLocation getRegistryName(DisenchantJEIRecipe recipe) {
+        return NVJeiRecipeIds.get(recipe);
     }
 }

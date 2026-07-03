@@ -243,6 +243,10 @@ tasks.register('publishMod') {
     dependsOn 'publishMods', 'publishMaven'
 }
 
+tasks.named('publishMods') {
+    finalizedBy 'publishMaven'
+}
+
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
     options.compilerArgs << '-Xlint:deprecation'

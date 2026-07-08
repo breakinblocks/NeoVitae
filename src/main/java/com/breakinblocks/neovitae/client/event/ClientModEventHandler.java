@@ -58,8 +58,6 @@ import com.breakinblocks.neovitae.client.render.entity.SlimeVitaeRenderer;
 import com.breakinblocks.neovitae.client.render.entity.shield.BloodShieldRenderer;
 import com.breakinblocks.neovitae.client.hud.ElementRegistry;
 import com.breakinblocks.neovitae.client.hud.NVHudElements;
-import com.breakinblocks.neovitae.common.item.AnointmentColor;
-import com.breakinblocks.neovitae.common.item.ItemAnointmentProvider;
 import com.breakinblocks.neovitae.common.item.MaterialItem;
 import com.breakinblocks.neovitae.common.item.MaterialItemColor;
 import com.breakinblocks.neovitae.common.material.MaterialRegistry;
@@ -201,11 +199,6 @@ public class ClientModEventHandler {
 
         TippedDaggerColor tippedDaggerColor = new TippedDaggerColor();
         event.register(tippedDaggerColor, NVItems.THROWING_DAGGER_TIPPED.get());
-
-        AnointmentColor anointmentColor = new AnointmentColor();
-        NVItems.BASIC_ITEMS.getEntries().stream()
-                .filter(holder -> holder.get() instanceof ItemAnointmentProvider)
-                .forEach(holder -> event.register(anointmentColor, holder.get()));
 
         MaterialItemColor materialColor = new MaterialItemColor();
         MaterialRegistry.getAllItems().forEach(holder -> event.register(materialColor, holder.get()));

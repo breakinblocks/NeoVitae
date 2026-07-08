@@ -37,6 +37,7 @@ public class NVItemModelProvider extends ItemModelProvider {
                 .filter(holder -> !(holder.get() instanceof ItemAnointmentProvider))
                 .filter(holder -> !(holder.get() instanceof MaterialItem))
                 .filter(holder -> holder != NVItems.SIGIL_BLOOD_LIGHT)
+                .filter(holder -> holder != NVItems.TABULA_AMPOULE)
                 .filter(holder -> !(holder.get() instanceof BloodOrbItem))
                 .filter(holder -> !(holder.get() instanceof ISentientTool))
                 .filter(holder -> !(holder.get() instanceof SpiritusCrystalItem))
@@ -59,6 +60,10 @@ public class NVItemModelProvider extends ItemModelProvider {
                 .texture("layer0", modLoc("item/amethyst_throwing_dagger_partial"))
                 .texture("layer1", modLoc("item/dagger_potion"));
 
+        getBuilder("tabula_ampoule")
+                .parent(new ModelFile.UncheckedModelFile("minecraft:item/generated"))
+                .texture("layer0", modLoc("item/ampoulefull"));
+
         getBuilder("alchemy_flask")
                 .parent(new ModelFile.UncheckedModelFile("minecraft:item/generated"))
                 .texture("layer0", modLoc("item/potionflask_underlay"))
@@ -80,28 +85,23 @@ public class NVItemModelProvider extends ItemModelProvider {
                 .texture("layer2", modLoc("item/potionflask_outline_lingering"))
                 .texture("layer3", modLoc("item/potionflask_overlay_lingering"));
 
-        // Anointment items - 3 layers for colored liquid effect
-        // Layer 0: alchemic_liquid (tinted by AnointmentColor based on anointment type)
-        // Layer 1: alchemic_vial (untinted - varies by tier: base, labeled for _l, greenlabeled for _xl)
-        // Layer 2: alchemic_ribbon (untinted - decoration)
         NVItems.BASIC_ITEMS.getEntries().stream()
                 .filter(holder -> holder.get() instanceof ItemAnointmentProvider)
                 .forEach(holder -> {
                     String path = holder.getId().getPath();
-                    // Determine vial texture based on tier suffix
-                    String vialTexture;
-                    if (path.endsWith("_xl")) {
-                        vialTexture = "item/greenlabeledalchemic_vial";
-                    } else if (path.endsWith("_l")) {
-                        vialTexture = "item/labeledalchemic_vial";
+                    var texture = modLoc("item/" + path);
+                    ItemModelBuilder builder = getBuilder(path)
+                            .parent(new ModelFile.UncheckedModelFile("minecraft:item/generated"));
+                    if (existingFileHelper.exists(texture, TEXTURE)) {
+                        builder.texture("layer0", texture);
                     } else {
-                        vialTexture = "item/alchemic_vial";
+                        String vialTexture = path.endsWith("_xl") ? "item/greenlabeledalchemic_vial"
+                                : path.endsWith("_l") ? "item/labeledalchemic_vial"
+                                : "item/alchemic_vial";
+                        builder.texture("layer0", modLoc("item/alchemic_liquid"))
+                                .texture("layer1", modLoc(vialTexture))
+                                .texture("layer2", modLoc("item/alchemic_ribbon"));
                     }
-                    getBuilder(path)
-                            .parent(new ModelFile.UncheckedModelFile("minecraft:item/generated"))
-                            .texture("layer0", modLoc("item/alchemic_liquid"))
-                            .texture("layer1", modLoc(vialTexture))
-                            .texture("layer2", modLoc("item/alchemic_ribbon"));
                 });
 
         // Blood lamp sigil - layer0 is base sigil (untinted), layer1 is symbol (tinted by dye color)

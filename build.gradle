@@ -54,6 +54,13 @@ repositories {
             includeGroup "com.klikli_dev"
         }
     }
+    maven {
+        name = "FTB"
+        url = "https://maven.ftb.dev/releases"
+        content {
+            includeGroup "dev.ftb.mods"
+        }
+    }
 }
 
 base {
@@ -159,6 +166,9 @@ dependencies {
 
     // KubeJS - compile-only soft dependency for the optional plugin under compat/kubejs/
     compileOnly("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
+
+    compileOnly("dev.ftb.mods:ftb-ultimine-neoforge:${ftb_ultimine_version}") {transitive=false}
+    compileOnly("dev.ftb.mods:ftb-library-neoforge:${ftb_library_version}") {transitive=false}
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

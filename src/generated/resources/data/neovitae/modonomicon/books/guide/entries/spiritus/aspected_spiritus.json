@@ -25,20 +25,6 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:image",
-      "anchor": "",
-      "border": true,
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "images": [
-        "neovitae:images/entries/spiritus/spiritus_splitting.png"
-      ],
-      "text": "book.neovitae.guide.spiritus.aspected_spiritus.image.text",
-      "title": "Aspects of Spiritus",
-      "use_legacy_rendering": false
-    },
-    {
       "type": "modonomicon:text",
       "anchor": "",
       "condition": {
@@ -79,6 +65,17 @@
       },
       "show_title_separator": true,
       "text": "book.neovitae.guide.spiritus.aspected_spiritus.filling_gems.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.neovitae.guide.spiritus.aspected_spiritus.filling_gems_purity.text",
       "title": "",
       "use_markdown_in_title": false
     },
